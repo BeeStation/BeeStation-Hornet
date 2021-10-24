@@ -160,16 +160,19 @@
 	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
-	var/list/L = list(  )
+	var/list/L = list()
 	for(var/obj/machinery/computer/teleporter/com in GLOB.machines)
-		if(com.target)
-			var/area/A = get_area(com.target)
-			if(!A || A.teleport_restriction)
-				continue
-			if(com.power_station && com.power_station.teleporter_hub && com.power_station.engaged)
-				L["[get_area(com.target)] (Active)"] = com.target
-			else
-				L["[get_area(com.target)] (Inactive)"] = com.target
+		var/atom/target = com.target_ref?.resolve()
+		if(!target)
+			com.target_ref = null
+			continue
+		var/area/A = get_area(target)
+		if(!A || A.teleport_restriction)
+			continue
+		if(com.power_station && com.power_station.teleporter_hub && com.power_station.engaged)
+			L["[get_area(target)] (Active)"] = target
+		else
+			L["[get_area(target)] (Inactive)"] = target
 	var/list/turfs = list()
 	for(var/turf/T as() in (RANGE_TURFS(10, user) - get_turf(user)))
 		if(T.x>world.maxx-8 || T.x<8)
@@ -229,7 +232,7 @@
 		var/obj/item/bodypart/head/head = itemUser.get_bodypart(BODY_ZONE_HEAD)
 		if(head)
 			head.drop_limb()
-			var/list/safeLevels = SSmapping.levels_by_any_trait(list(ZTRAIT_SPACE_RUINS, ZTRAIT_LAVA_RUINS, ZTRAIT_STATION, ZTRAIT_MINING))
+			var/list/safeLevels = SSmapping.levels_by_any_trait(list(ZTRAIT_DYNAMIC_LEVEL, ZTRAIT_LAVA_RUINS, ZTRAIT_STATION, ZTRAIT_MINING))
 			head.forceMove(locate(rand(1, world.maxx), rand(1, world.maxy), pick(safeLevels)))
 			itemUser.visible_message("<span class='suicide'>The portal snaps closed taking [user]'s head with it!</span>")
 		else

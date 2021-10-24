@@ -30,6 +30,7 @@
 	if(!ui)
 		ui = new(user, src, "GulagTeleporterConsole")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/prisoner/gulag_teleporter_computer/ui_data(mob/user)
 	var/list/data = list()
@@ -74,10 +75,10 @@
 	return data
 
 /obj/machinery/computer/prisoner/gulag_teleporter_computer/ui_act(action, list/params)
-	if(isliving(usr))
-		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 	if(..())
 		return
+	if(isliving(usr))
+		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 	if(!allowed(usr))
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
 		return

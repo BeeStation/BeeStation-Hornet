@@ -22,6 +22,7 @@
 	var/obj/structure/blob/factory/factory = null
 	var/independent = FALSE
 	mobchatspan = "blob"
+	discovery_points = 1000
 
 /mob/living/simple_animal/hostile/blob/update_icons()
 	if(overmind)
@@ -241,6 +242,7 @@
 	mob_size = MOB_SIZE_LARGE
 	hud_type = /datum/hud/blobbernaut
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
+	move_resist = MOVE_FORCE_STRONG
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life()
 	if(..())

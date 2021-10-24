@@ -1,3 +1,6 @@
+#define SIGNAL_ADDTRAIT(trait_ref) "addtrait [trait_ref]"
+#define SIGNAL_REMOVETRAIT(trait_ref) "removetrait [trait_ref]"
+
 // trait accessor defines
 #define ADD_TRAIT(target, trait, source) \
 	do { \
@@ -6,12 +9,14 @@
 			target.status_traits = list(); \
 			_L = target.status_traits; \
 			_L[trait] = list(source); \
+			SEND_SIGNAL(target, SIGNAL_ADDTRAIT(trait), trait); \
 		} else { \
 			_L = target.status_traits; \
 			if (_L[trait]) { \
 				_L[trait] |= list(source); \
 			} else { \
 				_L[trait] = list(source); \
+				SEND_SIGNAL(target, SIGNAL_ADDTRAIT(trait), trait); \
 			} \
 		} \
 	} while (0)
@@ -31,9 +36,34 @@
 				} \
 			};\
 			if (!length(_L[trait])) { \
-				_L -= trait \
+				_L -= trait; \
+				SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(trait), trait); \
 			}; \
 			if (!length(_L)) { \
+				target.status_traits = null \
+			}; \
+		} \
+	} while (0)
+#define REMOVE_TRAIT_NOT_FROM(target, trait, sources) \
+	do { \
+		var/list/_traits_list = target.status_traits; \
+		var/list/_sources_list; \
+		if (sources && !islist(sources)) { \
+			_sources_list = list(sources); \
+		} else { \
+			_sources_list = sources\
+		}; \
+		if (_traits_list && _traits_list[trait]) { \
+			for (var/_trait_source in _traits_list[trait]) { \
+				if (!(_trait_source in _sources_list)) { \
+					_traits_list[trait] -= _trait_source \
+				} \
+			};\
+			if (!length(_traits_list[trait])) { \
+				_traits_list -= trait; \
+				SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(trait), trait); \
+			}; \
+			if (!length(_traits_list)) { \
 				target.status_traits = null \
 			}; \
 		} \
@@ -46,13 +76,38 @@
 			for (var/_T in _L) { \
 				_L[_T] &= _S;\
 				if (!length(_L[_T])) { \
-					_L -= _T } \
+					_L -= _T; \
+					SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(_T), _T); \
+					}; \
 				};\
-				if (!length(_L)) { \
-					target.status_traits = null\
-				};\
+			if (!length(_L)) { \
+				target.status_traits = null\
+			};\
 		}\
 	} while (0)
+#define REMOVE_TRAITS_IN(target, sources) \
+	do { \
+		var/list/_L = target.status_traits; \
+		var/list/_S = sources; \
+		if (sources && !islist(sources)) { \
+			_S = list(sources); \
+		} else { \
+			_S = sources\
+		}; \
+		if (_L) { \
+			for (var/_T in _L) { \
+				_L[_T] -= _S;\
+				if (!length(_L[_T])) { \
+					_L -= _T; \
+					SEND_SIGNAL(target, SIGNAL_REMOVETRAIT(_T)); \
+					}; \
+				};\
+			if (!length(_L)) { \
+				target.status_traits = null\
+			};\
+		}\
+	} while (0)
+
 #define HAS_TRAIT(target, trait) (target.status_traits ? (target.status_traits[trait] ? TRUE : FALSE) : FALSE)
 #define HAS_TRAIT_FROM(target, trait, source) (target.status_traits ? (target.status_traits[trait] ? (source in target.status_traits[trait]) : FALSE) : FALSE)
 #define HAS_TRAIT_FROM_ONLY(target, trait, source) (\
@@ -112,6 +167,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOGUNS			"no_guns"
 #define TRAIT_NOHUNGER			"no_hunger"
 #define TRAIT_NOMETABOLISM		"no_metabolism"
+#define TRAIT_POWERHUNGRY		"power_hungry" //uses electricity instead of food
 #define TRAIT_NOCLONELOSS		"no_cloneloss"
 #define TRAIT_TOXIMMUNE			"toxin_immune"
 #define TRAIT_EASYDISMEMBER		"easy_dismember"
@@ -176,9 +232,12 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_DIGICAMO     		"digital_camo"
 #define TRAIT_DIGINVIS     		"digital_invis"	//note: diginvis grants digitalcamo, but carbons can tell if you have the digicamo trait on examine
 #define TRAIT_NICE_SHOT			"nice_shot" //hnnnnnnnggggg..... you're pretty good....
+#define TRAIT_ALWAYS_STUBS      "always_stubs_toe" //you will always stub your toe on tables, even if you're wearing shoes
 
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
+
+#define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
 
 // item traits
 #define TRAIT_NODROP            "nodrop"
@@ -188,6 +247,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_TELEPORT		"no-teleport" //you just can't
 #define TRAIT_STARGAZED			"stargazed"	//Affected by a stargazer
 #define TRAIT_DOOR_PRYER		"door-pryer"	//Item can be used on airlocks to pry them open (even when powered)
+#define TRAIT_FISH_SAFE_STORAGE "fish_case" //Fish in this won't die
+#define TRAIT_FISH_CASE_COMPATIBILE "fish_case_compatibile" //Stuff that can go inside fish cases
+#define TRAIT_NEEDS_TWO_HANDS "needstwohands" // The items needs two hands to be carried
+
+#define TRAIT_AI_BAGATTACK "bagattack" // This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
@@ -212,6 +276,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_EMPATH			"empath"
 #define TRAIT_FRIENDLY			"friendly"
 #define TRAIT_GRABWEAKNESS		"grab_weakness"
+
+///Trait applied to turfs when an atmos holosign is placed on them. It will stop firedoors from closing.
+#define TRAIT_FIREDOOR_STOP "firedoor_stop"
 
 // common trait sources
 #define TRAIT_GENERIC "generic"
@@ -245,7 +312,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATUE_MUTE "statue"
 #define CHANGELING_DRAIN "drain"
 #define CHANGELING_HIVEMIND_MUTE "ling_mute"
-#define ABYSSAL_GAZE_BLIND "abyssal_gaze"
+#define MAGIC_BLIND "magic_blind"
 #define HIGHLANDER "highlander"
 #define TRAIT_HULK "hulk"
 #define STASIS_MUTE "stasis"

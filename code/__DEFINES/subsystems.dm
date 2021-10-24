@@ -20,7 +20,7 @@
   *
   * make sure you add an update to the schema_version stable in the db changelog
   */
-#define DB_MINOR_VERSION 7
+#define DB_MINOR_VERSION 8
 
 
 //! ## Timing subsystem
@@ -109,10 +109,14 @@
 #define INIT_ORDER_BLACKBOX			94
 #define INIT_ORDER_SERVER_MAINT		93
 #define INIT_ORDER_INPUT			85
+#define INIT_ORDER_TOPIC			83
+#define INIT_ORDER_SOUNDS			82
+#define INIT_ORDER_INSTRUMENTS		81
 #define INIT_ORDER_VIS				80
 #define INIT_ORDER_MATERIALS		76
 #define INIT_ORDER_RESEARCH			75
-#define INIT_ORDER_STATION			74 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
+#define INIT_ORDER_ORBITS			74 //Other things use the orbital map, so it needs to be made early on.
+#define INIT_ORDER_STATION			73 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
 #define INIT_ORDER_EVENTS			70
 #define INIT_ORDER_JOBS				65
 #define INIT_ORDER_QUIRKS			60
@@ -120,6 +124,7 @@
 #define INIT_ORDER_AI_CONTROLLERS 	55 //So the controller can get the ref
 #define INIT_ORDER_TICKER			55
 #define INIT_ORDER_MAPPING			50
+#define INIT_ORDER_TIMETRACK		47
 #define INIT_ORDER_NETWORKS			45
 #define INIT_ORDER_ECONOMY			40
 #define INIT_ORDER_OUTPUTS			35
@@ -158,6 +163,7 @@
 #define FIRE_PRIORITY_AIR			20
 #define FIRE_PRIORITY_NPC			20
 #define FIRE_PRIORITY_NPC_MOVEMENT  21
+#define FIRE_PRIORITY_NPC_ACTIONS	22
 #define FIRE_PRIORITY_PROCESS		25
 #define FIRE_PRIORITY_THROWING		25
 #define FIRE_PRIORITY_SPACEDRIFT	30
@@ -165,10 +171,12 @@
 #define FIRE_PRIOTITY_SMOOTHING		35
 #define FIRE_PRIORITY_NETWORKS		40
 #define FIRE_PRIORITY_OBJ			40
+#define FIRE_PRIORITY_ORBITS		40
 #define FIRE_PRIORITY_ACID			40
 #define FIRE_PRIOTITY_BURNING		40
 #define FIRE_PRIORITY_DEFAULT		50
 #define FIRE_PRIORITY_PARALLAX		65
+#define FIRE_PRIORITY_INSTRUMENTS	80
 #define FIRE_PRIORITY_MOBS			100
 #define FIRE_PRIORITY_TGUI			110
 #define FIRE_PRIORITY_TICKER		200
@@ -176,6 +184,7 @@
 #define FIRE_PRIORITY_CHAT			400
 #define FIRE_PRIORITY_RUNECHAT		410
 #define FIRE_PRIORITY_OVERLAYS		500
+#define FIRE_PRIORITY_CALLBACKS		600
 #define FIRE_PRIORITY_EXPLOSIONS	666
 #define FIRE_PRIORITY_SOUND_LOOPS	800
 #define FIRE_PRIORITY_INPUT			1000 // This must always always be the max highest priority. Player input must never be lost.
@@ -189,6 +198,21 @@
 #define RUNLEVEL_POSTGAME 8
 
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME)
+
+// SSair run section
+#define SSAIR_PIPENETS 1
+#define SSAIR_ATMOSMACHINERY 2
+#define SSAIR_EXCITEDGROUPS 3
+#define SSAIR_HIGHPRESSURE 4
+#define SSAIR_HOTSPOTS 5
+#define SSAIR_TURF_CONDUCTION 6
+#define SSAIR_REBUILD_PIPENETS 7
+#define SSAIR_EQUALIZE 8
+#define SSAIR_ACTIVETURFS 9
+#define SSAIR_TURF_POST_PROCESS 10
+#define SSAIR_FINALIZE_TURFS 11
+#define SSAIR_ATMOSMACHINERY_AIR 12
+#define SSAIR_DEFERRED_AIRS 13
 
 // Explosion Subsystem subtasks
 #define SSEXPLOSIONS_MOVABLES 1

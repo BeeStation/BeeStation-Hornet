@@ -72,6 +72,10 @@ GLOBAL_VAR(command_name)
 	else
 		world.name = GLOB.station_name
 
+	//Rename the station on the orbital charter.
+	if(SSorbits.station_instance)
+		SSorbits.station_instance.name = newname
+
 
 /proc/new_station_name()
 	var/random = rand(1,5)

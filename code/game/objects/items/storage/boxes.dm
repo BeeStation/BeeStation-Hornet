@@ -220,7 +220,7 @@
 /obj/item/storage/box/syringes/variety/PopulateContents()
 	new /obj/item/reagent_containers/syringe(src)
 	new /obj/item/reagent_containers/syringe/lethal(src)
-	new /obj/item/reagent_containers/syringe/noreact(src)
+	new /obj/item/reagent_containers/syringe/cryo(src)
 	new /obj/item/reagent_containers/syringe/piercing(src)
 	new /obj/item/reagent_containers/syringe/bluespace(src)
 
@@ -770,18 +770,6 @@
 	for(var/i in 1 to 7)
 		new /obj/item/light/bulb(src)
 
-
-/obj/item/storage/box/deputy
-	name = "box of deputy armbands"
-	desc = "To be issued to those authorized to act as deputy of security."
-	icon_state = "secbox"
-	illustration = "depband"
-
-/obj/item/storage/box/deputy/PopulateContents()
-	for(var/i in 1 to 4)	//not too many
-		new /obj/item/clothing/accessory/armband/deputy(src)
-		new /obj/item/card/deputy_access_card(src)
-
 /obj/item/storage/box/metalfoam
 	name = "box of metal foam grenades"
 	desc = "To be used to rapidly seal hull breaches."
@@ -1262,3 +1250,15 @@
 		/obj/item/storage/box/beakers/variety=1
 		)
 	generate_items_inside(items_inside,src)
+
+/obj/item/storage/box/deputy
+	name = "box of deputy armbands"
+	desc = "To be issued to those authorized to act as deputy of security."
+	icon_state = "secbox"
+	illustration = "depband"
+
+/obj/item/storage/box/deputy/PopulateContents()
+	for(var/i in 1 to 4)
+		new /obj/item/clothing/accessory/armband/deputy(src)
+		new /obj/item/card/id/pass/deputy(src)
+

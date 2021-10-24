@@ -32,6 +32,7 @@
 	if(!ui)
 		ui = new(user, src, "NaniteChamberControl")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/nanite_chamber_control/ui_data()
 	var/list/data = list()
@@ -105,6 +106,7 @@
 	if(chamber)
 		UnregisterSignal(chamber, COMSIG_PARENT_QDELETING)
 	chamber = new_chamber
+	ui_update()
 	if(chamber)
 		RegisterSignal(chamber, COMSIG_PARENT_QDELETING, .proc/react_to_chamber_del)
 

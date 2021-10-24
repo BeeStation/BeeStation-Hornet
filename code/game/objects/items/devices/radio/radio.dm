@@ -8,7 +8,7 @@
 	desc = "A basic handheld radio that communicates with local telecommunication networks."
 	dog_fashion = /datum/dog_fashion/back
 
-	flags_1 = CONDUCT_1 | HEAR_1
+	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	throw_speed = 3
 	throw_range = 7
@@ -32,6 +32,9 @@
 	var/freqlock = FALSE  // Frequency lock to stop the user from untuning specialist radios.
 	var/use_command = FALSE  // If true, broadcasts will be large and BOLD.
 	var/command = FALSE  // If true, use_command can be toggled at will.
+
+	///makes anyone who is talking through this anonymous.
+	var/anonymize = FALSE
 
 	// Encryption key handling
 	var/obj/item/encryptionkey/keyslot
@@ -77,6 +80,7 @@
 	keyslot = new /obj/item/encryptionkey/syndicate
 	syndie = 1
 	recalculateChannels()
+	ui_update()
 
 /obj/item/radio/Destroy()
 	remove_radio_all(src) //Just to be sure
@@ -96,6 +100,8 @@
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
 
+	become_hearing_sensitive(ROUNDSTART_TRAIT)
+
 /obj/item/radio/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
@@ -103,16 +109,18 @@
 /obj/item/radio/AltClick(mob/user)
 	if(headset)
 		. = ..()
-	else
+	else if(user.canUseTopic(src, !issilicon(user), TRUE, FALSE))
 		broadcasting = !broadcasting
 		to_chat(user, "<span class='notice'>You toggle broadcasting [broadcasting ? "on" : "off"].</span>")
+		ui_update()
 
 /obj/item/radio/CtrlShiftClick(mob/user)
 	if(headset)
 		. = ..()
-	else
+	else if(user.canUseTopic(src, !issilicon(user), TRUE, FALSE))
 		listening = !listening
 		to_chat(user, "<span class='notice'>You toggle speaker [listening ? "on" : "off"].</span>")
+		ui_update()
 
 /obj/item/radio/interact(mob/user)
 	if(unscrewed && !isAI(user))
@@ -416,6 +424,7 @@
 					keyslot = null
 
 			recalculateChannels()
+			ui_update()
 			to_chat(user, "<span class='notice'>You pop out the encryption key in the radio.</span>")
 
 		else
@@ -432,6 +441,7 @@
 			keyslot = W
 
 		recalculateChannels()
+		ui_update()
 
 
 /obj/item/radio/off	// Station bounced radios, their only difference is spawning with the speakers off, this was made to help the lag.

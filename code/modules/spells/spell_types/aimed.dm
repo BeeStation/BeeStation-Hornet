@@ -77,7 +77,7 @@
 	if(!projectile_type)
 		return
 	for(var/i in 1 to projectiles_per_fire)
-		var/obj/item/projectile/P = new projectile_type(user.loc)
+		var/obj/item/projectile/P = new projectile_type(user.loc, spell_level)
 		P.firer = user
 		P.preparePixelProjectile(target, user)
 		for(var/V in projectile_var_overrides)

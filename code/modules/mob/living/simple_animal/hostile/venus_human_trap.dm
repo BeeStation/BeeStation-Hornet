@@ -68,6 +68,7 @@
 	var/grasp_pull_chance = 85
 	var/grasp_range = 4
 	del_on_death = TRUE
+	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/venus_human_trap/Destroy()
 	for(var/L in grasping)

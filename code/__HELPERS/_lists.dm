@@ -35,6 +35,7 @@
 	LAZYINITLIST(lazy_list[key]); \
 	lazy_list[key] |= value;
 
+
 /// Passed into BINARY_INSERT to compare keys
 #define COMPARE_KEY __BIN_LIST[__BIN_MID]
 /// Passed into BINARY_INSERT to compare values

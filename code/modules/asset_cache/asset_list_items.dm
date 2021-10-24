@@ -3,21 +3,21 @@
 /datum/asset/simple/tgui_common
 	keep_local_name = TRUE
 	assets = list(
-		"tgui-common.bundle.js" = 'tgui/public/tgui-common.bundle.js',
+		"tgui-common.bundle.js" = file("tgui/public/tgui-common.bundle.js"),
 	)
 
 /datum/asset/simple/tgui
 	keep_local_name = TRUE
 	assets = list(
-		"tgui.bundle.js" = 'tgui/public/tgui.bundle.js',
-		"tgui.bundle.css" = 'tgui/public/tgui.bundle.css',
+		"tgui.bundle.js" = file("tgui/public/tgui.bundle.js"),
+		"tgui.bundle.css" = file("tgui/public/tgui.bundle.css"),
 	)
 
 /datum/asset/simple/tgui_panel
 	keep_local_name = TRUE
 	assets = list(
-		"tgui-panel.bundle.js" = 'tgui/public/tgui-panel.bundle.js',
-		"tgui-panel.bundle.css" = 'tgui/public/tgui-panel.bundle.css',
+		"tgui-panel.bundle.js" = file("tgui/public/tgui-panel.bundle.js"),
+		"tgui-panel.bundle.css" = file("tgui/public/tgui-panel.bundle.css"),
 	)
 
 /datum/asset/simple/headers
@@ -172,16 +172,19 @@
 
 /datum/asset/simple/namespaced/tgfont
 	assets = list(
-		"tgfont.eot" = 'tgui/packages/tgfont/dist/tgfont.eot',
-		"tgfont.woff2" = 'tgui/packages/tgfont/dist/tgfont.woff2',
+		"tgfont.eot" = file("tgui/packages/tgfont/dist/tgfont.eot"),
+		"tgfont.woff2" = file("tgui/packages/tgfont/dist/tgfont.woff2"),
 	)
-	parents = list("tgfont.css" = 'tgui/packages/tgfont/dist/tgfont.css')
+	parents = list(
+		"tgfont.css" = file("tgui/packages/tgfont/dist/tgfont.css"),
+	)
 
 /datum/asset/spritesheet/chat
 	name = "chat"
 
 /datum/asset/spritesheet/chat/register()
 	InsertAll("emoji", 'icons/emoji.dmi')
+	InsertAll("badge", 'icons/badges.dmi')
 	// pre-loading all lanugage icons also helps to avoid meta
 	InsertAll("language", 'icons/misc/language.dmi')
 	// catch languages which are pulling icons from another file
@@ -469,6 +472,25 @@
 	assets = list(
 		"paigrid.png" = 'html/paigrid.png'
 	)
+
+/datum/asset/spritesheet/fish
+	name = "fish"
+
+/datum/asset/spritesheet/fish/register()
+	for (var/path in subtypesof(/datum/aquarium_behaviour/fish))
+		var/datum/aquarium_behaviour/fish/fish_type = path
+		var/fish_icon = initial(fish_type.icon)
+		var/fish_icon_state = initial(fish_type.icon_state)
+		var/id = sanitize_css_class_name("[fish_icon][fish_icon_state]")
+		if(sprites[id]) //no dupes
+			continue
+		Insert(id, fish_icon, fish_icon_state)
+	..()
+
+/// Removes all non-alphanumerics from the text, keep in mind this can lead to id conflicts
+/proc/sanitize_css_class_name(name)
+	var/static/regex/regex = new(@"[^a-zA-Z0-9]","g")
+	return replacetext(name, regex, "")
 
 /datum/asset/simple/inventory
 	assets = list(

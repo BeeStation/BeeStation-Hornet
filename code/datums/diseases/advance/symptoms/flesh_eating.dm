@@ -28,6 +28,8 @@ Bonus
 	base_message_chance = 50
 	symptom_delay_min = 15
 	symptom_delay_max = 60
+	prefixes = list("Bloody ", "Hemo")
+	bodies = list("Hemophilia")
 	var/bleed = FALSE
 	var/pain = FALSE
 	threshold_desc = "<b>Resistance 7:</b> Host will bleed profusely during necrosis.<br>\
@@ -94,10 +96,17 @@ Bonus
 	base_message_chance = 50
 	symptom_delay_min = 3
 	symptom_delay_max = 6
+	prefixes = list("Necrotic ", "Necro")
+	suffixes = list(" Rot")
 	var/chems = FALSE
 	var/zombie = FALSE
 	threshold_desc = "<b>Stage Speed 7:</b> Synthesizes Heparin and Lipolicide inside the host, causing increased bleeding and hunger.<br>\
 					  <b>Stealth 5:</b> The symptom remains hidden until active."
+
+/datum/symptom/flesh_death/severityset(datum/disease/advance/A)
+	. = ..()
+	if((A.stealth >= 2) && (A.stage_rate >= 12))
+		bodies = list("Zombie")
 
 /datum/symptom/flesh_death/Start(datum/disease/advance/A)
 	if(!..())

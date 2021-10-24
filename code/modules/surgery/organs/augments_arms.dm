@@ -311,3 +311,19 @@
 
 /obj/item/organ/cyberimp/arm/hydraulic_blade/l
 	zone = BODY_ZONE_L_ARM
+
+/obj/item/organ/cyberimp/arm/botany
+	name = "botanical arm implant"
+	desc = "A rather simple arm implant containing tools used in gardening and botanical research."
+	items_to_create = list(/obj/item/cultivator, /obj/item/shovel/spade, /obj/item/hatchet, /obj/item/plant_analyzer, /obj/item/storage/bag/plants/portaseeder/compact)
+
+/obj/item/organ/cyberimp/arm/janitor
+	name = "janitorial tools implant"
+	desc = "A set of janitorial tools on the user's arm."
+	items_to_create = list(/obj/item/lightreplacer/cyborg, /obj/item/holosign_creator/janibarrier, /obj/item/soap/nanotrasen, /obj/item/reagent_containers/spray/cyborg/drying_agent, /obj/item/mop/advanced/cyborg, /obj/item/paint/paint_remover, /obj/item/reagent_containers/spray/cleaner)
+
+/obj/item/organ/cyberimp/arm/janitor/emag_act(mob/user)
+	to_chat(usr, "<span class='notice'>You unlock [src]'s integrated deluxe cleaning supplies!</span>")
+	items_list += WEAKREF(new /obj/item/soap/syndie(src)) //We add not replace.
+	items_list += WEAKREF(new /obj/item/reagent_containers/spray/cyborg/lube(src))
+	return TRUE

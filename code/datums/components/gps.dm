@@ -70,6 +70,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	SIGNAL_HANDLER
 
 	toggletracking(user)
+	ui_update()
 
 ///Toggles the tracking for the gps
 /datum/component/gps/item/proc/toggletracking(mob/user)
@@ -117,7 +118,6 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	data["currentCoords"] = "[curr.x], [curr.y], [curr.get_virtual_z_level()]"
 
 	var/list/signals = list()
-	data["signals"] = list()
 
 	for(var/gps in GLOB.GPS_list)
 		var/datum/component/gps/G = gps

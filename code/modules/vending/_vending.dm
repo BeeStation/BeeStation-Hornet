@@ -501,7 +501,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 						crit_rebate = 50
 						for(var/i = 0, i < num_shards, i++)
 							var/obj/item/shard/shard = new /obj/item/shard(get_turf(C))
-							shard.embedding = list(embed_chance = 100, ignore_throwspeed_threshold = TRUE, impact_pain_mult=1, pain_chance=5)
+							shard.embedding = list(embed_chance = 10000, ignore_throwspeed_threshold = TRUE, impact_pain_mult=1, pain_chance=5)
 							shard.updateEmbedding()
 							C.hitby(shard, skipcatch = TRUE, hitpush = FALSE)
 							shard.embedding = list()
@@ -696,6 +696,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	. = list()
 	var/mob/living/carbon/human/H
 	var/obj/item/card/id/C
+	.["user"] = null
 	if(ishuman(user))
 		H = user
 		C = H.get_idcard(TRUE)
@@ -720,7 +721,6 @@ GLOBAL_LIST_EMPTY(vending_products)
 		return
 	switch(action)
 		if("vend")
-			. = TRUE
 			if(!vend_ready)
 				return
 			if(panel_open)
@@ -788,6 +788,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 			playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
 			new R.product_path(get_turf(src))
 			R.amount--
+			. = TRUE
 			SSblackbox.record_feedback("nested tally", "vending_machine_usage", 1, list("[type]", "[R.product_path]"))
 			vend_ready = TRUE
 
@@ -799,6 +800,8 @@ GLOBAL_LIST_EMPTY(vending_products)
 
 	if(seconds_electrified > MACHINE_NOT_ELECTRIFIED)
 		seconds_electrified--
+		if(seconds_electrified <= MACHINE_NOT_ELECTRIFIED)
+			wires.ui_update()
 
 	//Pitch to the people!  Really sell it!
 	if(last_slogan + slogan_delay <= world.time && slogan_list.len > 0 && !shut_up && DT_PROB(2.5, delta_time))
@@ -868,6 +871,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 
 	throw_item.throw_at(target, 16, 3)
 	visible_message("<span class='danger'>[src] launches [throw_item] at [target]!</span>")
+	ui_update()
 	return 1
 /**
   * A callback called before an item is tossed out
@@ -982,7 +986,6 @@ GLOBAL_LIST_EMPTY(vending_products)
 		return
 	switch(action)
 		if("dispense")
-			. = TRUE
 			if(!vend_ready)
 				return
 			var/N = params["item"]
@@ -1014,8 +1017,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 						loaded_items--
 						use_power(5)
 						vend_ready = TRUE
-						updateUsrDialog()
-						return
+						return TRUE
 					if(account.has_money(S.custom_price))
 						account.adjust_money(-S.custom_price)
 						var/datum/bank_account/owner = private_a
@@ -1031,8 +1033,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 							purchase_message_cooldown = world.time + 5 SECONDS
 							last_shopper = REF(usr)
 						vend_ready = TRUE
-						updateUsrDialog()
-						return
+						return TRUE
 					else
 						say("You do not possess the funds to purchase this.")
 			vend_ready = TRUE

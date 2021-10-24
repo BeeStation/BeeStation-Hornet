@@ -1,14 +1,9 @@
-//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE 
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/hunter{
-	dir = 8;
-	view_range = 7;
-	x_offset = 6
-	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "ab" = (
-/obj/machinery/computer/shuttle/hunter{
+/obj/machinery/computer/shuttle_flight/hunter{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,

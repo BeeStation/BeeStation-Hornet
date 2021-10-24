@@ -88,7 +88,7 @@
 	id = "noreactsyringe"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/glass = 2000, /datum/material/gold = 1000)
-	build_path = /obj/item/reagent_containers/syringe/noreact
+	build_path = /obj/item/reagent_containers/syringe/cryo
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
@@ -287,6 +287,28 @@
 	materials = list (/datum/material/iron = 2500, /datum/material/glass = 1500, /datum/material/silver = 1500, /datum/material/copper = 200)
 	construction_time = 200
 	build_path = /obj/item/organ/cyberimp/arm/toolset
+	category = list("Implants", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/cyberimp_botany
+	name = "Botanical toolset implant"
+	desc = "Everything a botanist needs in an arm implant, designed to be installed on a subject's arm."
+	id = "ci-botany"
+	build_type = MECHFAB | PROTOLATHE
+	materials = list (/datum/material/iron = 3500, /datum/material/glass = 1500, /datum/material/silver = 1500, /datum/material/plastic = 2000)
+	construction_time = 200
+	build_path = /obj/item/organ/cyberimp/arm/botany
+	category = list("Implants", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/cyberimp_janitor
+	name = "Janitorial Arm Implant"
+	desc = "A set of janitor tools fitted into an arm implant, designed to be installed on subject's arm."
+	id = "ci-janitor"
+	build_type = PROTOLATHE | MECHFAB
+	materials = list (/datum/material/iron = 3500, /datum/material/glass = 1500, /datum/material/silver = 1500)
+	construction_time = 200
+	build_path = /obj/item/organ/cyberimp/arm/janitor
 	category = list("Implants", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 

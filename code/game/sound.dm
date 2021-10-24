@@ -50,20 +50,27 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	if (!turf_source)
 		return
 
+	var/maxdistance = (SOUND_RANGE + extrarange)
+	var/max_z_range = maxdistance / (MULTI_Z_DISTANCE + 1)
+
+	var/list/z_list = get_zs_in_range(turf_source.z, max_z_range)
+
 	//allocate a channel if necessary now so its the same for everyone
-	channel = channel || open_sound_channel()
+	channel = channel || SSsounds.random_available_channel()
 
  	// Looping through the player list has the added bonus of working for mobs inside containers
 	var/sound/S = sound(get_sfx(soundin))
-	var/maxdistance = (SOUND_RANGE + extrarange)
-	var/z = turf_source.z
-	var/list/listeners = SSmobs.clients_by_zlevel[z]
+	var/list/listeners = list()
+	var/list/dead_listeners = list()
+	for(var/z in z_list)
+		listeners += SSmobs.clients_by_zlevel[z]
+		dead_listeners += SSmobs.dead_players_by_zlevel[z]
 	if(!ignore_walls) //these sounds don't carry through walls
 		listeners = listeners & hearers(maxdistance,turf_source)
 	for(var/mob/M as() in listeners)
 		if(get_dist(M, turf_source) <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
-	for(var/mob/M as() in SSmobs.dead_players_by_zlevel[z])
+	for(var/mob/M as() in dead_listeners)
 		if(get_dist(M, turf_source) <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 
@@ -94,7 +101,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 		S = sound(get_sfx(soundin))
 
 	S.wait = 0 //No queue
-	S.channel = channel || open_sound_channel()
+	S.channel = channel || SSsounds.random_available_channel()
 	S.volume = vol
 
 	if(vary)
@@ -109,7 +116,16 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 		//sound volume falloff with distance
 		var/distance = get_dist(T, turf_source)
 
+		var/z_change = turf_source.z - T.z
+		var/z_dist = abs(z_change) * MULTI_Z_DISTANCE
+
 		distance *= distance_multiplier
+		z_dist *= distance_multiplier
+
+		distance += z_dist
+
+		if(max_distance && distance > max_distance)
+			return
 
 		if(max_distance) //If theres no max_distance we're not a 3D sound, so no falloff.
 			S.volume -= (max(distance - falloff_distance, 0) ** (1 / falloff_exponent)) / ((max(max_distance, distance) - falloff_distance) ** (1 / falloff_exponent)) * S.volume
@@ -142,7 +158,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 		var/dz = turf_source.y - T.y // Hearing from infront/behind
 		S.z = dz * distance_multiplier
 		// The y value is for above your head, but there is no ceiling in 2d spessmens.
-		S.y = 1
+		S.y = z_change + 1
 		S.falloff = max_distance || 1 //use max_distance, else just use 1 as we are a direct sound so falloff isnt relevant.
 
 		// Sounds can't have their own environment. A sound's environment will be:
@@ -168,14 +184,44 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 			var/mob/M = m
 			M.playsound_local(M, null, volume, vary, frequency, null, channel, pressure_affected, S)
 
-/proc/open_sound_channel()
-	var/static/next_channel = 1	//loop through the available 1024 - (the ones we reserve) channels and pray that its not still being used
-	. = ++next_channel
-	if(next_channel > CHANNEL_HIGHEST_AVAILABLE)
-		next_channel = 1
+/proc/play_soundtrack_music(var/datum/soundtrack_song/song, list/hearers = null, volume = 80, ignore_prefs = FALSE, play_to_lobby = FALSE, allow_deaf = TRUE, only_station = FALSE)
+	var/sound/S = sound(initial(song.file), volume=volume, wait=0, channel=CHANNEL_AMBIENT_MUSIC)
+	. = S
+
+	if(!hearers)
+		hearers = GLOB.player_list
+
+	for(var/mob/M as() in hearers)
+		if (!ismob(M))
+			continue
+
+		if (!ignore_prefs && !(M.client?.prefs?.toggles & SOUND_AMBIENCE))
+			continue
+
+		if (!play_to_lobby && isnewplayer(M))
+			continue
+
+		if (!allow_deaf && !M.can_hear())
+			continue
+
+		if (only_station && !is_station_level(M.z))
+			continue
+
+		SEND_SOUND(M, S)
+
+	GLOB.soundtrack_this_round |= song
+
+/proc/stop_soundtrack_music()
+	for(var/mob/M as() in GLOB.player_list)
+		M?.stop_sound_channel(CHANNEL_AMBIENT_MUSIC)
 
 /mob/proc/stop_sound_channel(chan)
 	SEND_SOUND(src, sound(null, repeat = 0, wait = 0, channel = chan))
+
+/mob/proc/set_sound_channel_volume(channel, volume)
+	var/sound/S = sound(null, FALSE, FALSE, channel, volume)
+	S.status = SOUND_UPDATE
+	SEND_SOUND(src, S)
 
 /client/proc/playtitlemusic(vol = 85)
 	set waitfor = FALSE

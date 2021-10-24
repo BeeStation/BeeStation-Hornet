@@ -5,18 +5,20 @@
 	intact = 0
 
 	FASTDMM_PROP(\
-		pipe_astar_cost = 4\
+		pipe_astar_cost = 100\
 	)
 
-	temperature = TCMB
-	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
+	allow_z_travel = TRUE
+
+	initial_temperature = TCMB
+	thermal_conductivity = 0
 	heat_capacity = 700000
 
 	var/destination_z
 	var/destination_x
 	var/destination_y
 
-	var/static/datum/gas_mixture/immutable/space/space_gas = new
+	var/static/datum/gas_mixture/immutable/space/space_gas
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
@@ -31,8 +33,10 @@
 
 /turf/open/space/Initialize()
 	icon_state = SPACE_ICON_STATE
+	if(!space_gas)
+		space_gas = new
 	air = space_gas
-	update_air_ref()
+	update_air_ref(0)
 	vis_contents.Cut() //removes inherited overlays
 	visibilityChanged()
 
@@ -43,9 +47,6 @@
 	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
 		add_overlay(/obj/effect/fullbright)
-
-	if(requires_activation)
-		SSair.add_to_active(src)
 
 	if (light_power && light_range)
 		update_light()
@@ -77,6 +78,13 @@
 
 /turf/open/space/Assimilate_Air()
 	return
+
+//IT SHOULD RETURN NULL YOU MONKEY, WHY IN TARNATION WHAT THE FUCKING FUCK
+/turf/open/space/remove_air(amount)
+	return null
+
+/turf/open/space/remove_air_ratio(amount)
+	return null
 
 /turf/open/space/proc/update_starlight()
 	if(CONFIG_GET(flag/starlight))
@@ -231,3 +239,10 @@
 	destination_x = dest_x
 	destination_y = dest_y
 	destination_z = dest_z
+
+//If someone is floating above space in 0 gravity, don't fall.
+/turf/open/space/zPassIn(atom/movable/A, direction, turf/source)
+	return A.has_gravity(src)
+
+/turf/open/space/check_gravity()
+	return FALSE

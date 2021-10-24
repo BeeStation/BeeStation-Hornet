@@ -39,6 +39,10 @@
 	next_move = 1
 
 	..()
+
+	//We do this here to prevent hanging refs from ghostize or whatever, since if we were in another mob before this'll take care of it
+	clear_client_in_contents()
+
 	if (client && key != client.key)
 		key = client.key
 	reset_perspective(loc)
@@ -67,8 +71,14 @@
 	update_client_colour()
 	update_mouse_pointer()
 	if(client)
-		client.view_size?.setDefault(getScreenSize(src))	// Sets the defaul view_size because it can be different to what it was on the lobby.
-		client.change_view(getScreenSize(src)) // Resets the client.view in case it was changed.
+		if(client.view_size)
+			client.view_size.resetToDefault(getScreenSize(src))	// Sets the defaul view_size because it can be different to what it was on the lobby.
+		else
+			client.change_view(getScreenSize(src)) // Resets the client.view in case it was changed.
+
+		//Reset verb information, give verbs accessible to the mob.
+		if(client.tgui_panel)
+			client.tgui_panel.set_verb_infomation(client)
 
 		if(client.player_details.player_actions.len)
 			for(var/datum/action/A in client.player_details.player_actions)

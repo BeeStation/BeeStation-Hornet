@@ -1,0 +1,311 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"c" = (
+/obj/effect/decal/remains/human,
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered)
+"d" = (
+/obj/item/reagent_containers/food/snacks/pizzaslice/margherita,
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered)
+"e" = (
+/turf/closed/mineral/random/high_chance,
+/area/ruin/unpowered)
+"f" = (
+/turf/open/indestructible/hierophant,
+/area/ruin/unpowered)
+"i" = (
+/obj/effect/abstract/open_area_marker,
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered)
+"o" = (
+/obj/structure/fans/tiny/invisible,
+/turf/open/indestructible/hierophant,
+/area/ruin/unpowered)
+"p" = (
+/obj/item/reagent_containers/food/snacks/pizza/pineapple,
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered)
+"q" = (
+/obj/item/reagent_containers/food/snacks/pizza/meat,
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered)
+"t" = (
+/mob/living/simple_animal/hostile/asteroid/elite/pandora,
+/turf/open/indestructible/hierophant,
+/area/ruin/unpowered)
+"v" = (
+/obj/effect/spawner/lootdrop/ruinloot/important,
+/turf/open/indestructible/hierophant,
+/area/ruin/unpowered)
+"A" = (
+/obj/item/pizzabox/infinite,
+/turf/open/indestructible/hierophant,
+/area/ruin/unpowered)
+"C" = (
+/turf/template_noop,
+/area/template_noop)
+"F" = (
+/obj/item/reagent_containers/food/snacks/pizza/margherita/robo,
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered)
+"G" = (
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered)
+"I" = (
+/turf/closed/indestructible/riveted/hierophant,
+/area/ruin/unpowered)
+"U" = (
+/obj/item/reagent_containers/food/snacks/pizzaslice/meat,
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+"}
+(2,1,1) = {"
+b
+C
+C
+e
+e
+e
+e
+e
+e
+C
+C
+C
+C
+C
+e
+e
+b
+"}
+(3,1,1) = {"
+b
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+C
+C
+e
+e
+e
+b
+"}
+(4,1,1) = {"
+b
+e
+I
+I
+I
+I
+I
+I
+I
+e
+e
+e
+e
+e
+e
+c
+b
+"}
+(5,1,1) = {"
+b
+e
+I
+f
+f
+v
+f
+f
+I
+c
+e
+e
+e
+e
+d
+F
+b
+"}
+(6,1,1) = {"
+b
+e
+I
+f
+f
+f
+f
+f
+I
+F
+G
+e
+e
+G
+c
+G
+G
+"}
+(7,1,1) = {"
+b
+e
+I
+A
+t
+f
+f
+f
+o
+G
+c
+G
+e
+p
+G
+G
+i
+"}
+(8,1,1) = {"
+b
+e
+I
+f
+f
+f
+f
+v
+I
+G
+G
+G
+e
+G
+c
+q
+G
+"}
+(9,1,1) = {"
+b
+e
+I
+f
+f
+f
+f
+f
+I
+c
+c
+e
+e
+e
+e
+U
+b
+"}
+(10,1,1) = {"
+b
+e
+I
+I
+I
+I
+I
+I
+I
+G
+G
+e
+e
+e
+e
+e
+b
+"}
+(11,1,1) = {"
+b
+e
+e
+e
+e
+e
+G
+c
+G
+G
+e
+e
+e
+e
+e
+e
+b
+"}
+(12,1,1) = {"
+b
+C
+C
+e
+e
+e
+e
+e
+e
+e
+e
+C
+C
+C
+e
+e
+b
+"}
+(13,1,1) = {"
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+"}

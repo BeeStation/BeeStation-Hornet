@@ -135,24 +135,12 @@
 /area/shuttle/snowdin/elevator2
 	name = "Mining Elevator"
 
-//shuttle console for elevators//
-
-/obj/machinery/computer/shuttle/snowdin/mining
-	name = "shuttle console"
-	desc = "A shuttle control computer."
-	icon_screen = "shuttle"
-	icon_keyboard = "tech_key"
-	light_color = LIGHT_COLOR_CYAN
-	shuttleId = "snowdin_mining"
-	possible_destinations = "snowdin_mining_top;snowdin_mining_down"
-
-
 //liquid plasma!!!!!!//
 
 /turf/open/floor/plasteel/dark/snowdin
 	initial_gas_mix = FROZEN_ATMOS
 	planetary_atmos = 1
-	temperature = 180
+	initial_temperature = 180
 
 /turf/open/lava/plasma
 	name = "liquid plasma"

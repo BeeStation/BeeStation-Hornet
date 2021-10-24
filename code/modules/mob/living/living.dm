@@ -659,7 +659,7 @@
 		makeTrail(newloc, T, old_direction)
 
 /mob/living/proc/makeTrail(turf/target_turf, turf/start, direction)
-	if(!has_gravity())
+	if(!has_gravity() || (movement_type & THROWN))
 		return
 	var/blood_exists = FALSE
 
@@ -909,7 +909,7 @@
 			loc_temp = obj_temp
 	else if(isspaceturf(get_turf(src)))
 		var/turf/heat_turf = get_turf(src)
-		loc_temp = heat_turf.temperature
+		loc_temp = heat_turf.return_temperature()
 	return loc_temp
 
 /mob/living/proc/get_standard_pixel_x_offset(lying = 0)

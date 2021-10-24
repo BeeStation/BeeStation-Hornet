@@ -11,7 +11,10 @@
 	var/id
 	var/obj/machinery/teleport/station/power_station
 	var/calibrating
-	var/turf/target
+	///Weakref to the target atom we're pointed at currently
+	var/datum/weakref/target_ref
+
+	var/target_area_name
 
 /obj/machinery/computer/teleporter/Initialize()
 	. = ..()
@@ -31,8 +34,19 @@
 		power_station = locate(/obj/machinery/teleport/station, get_step(src, direction))
 		if(power_station)
 			break
+	ui_update()
 	return power_station
 
+
+/obj/machinery/computer/teleporter/ui_requires_update(mob/user, datum/tgui/ui)
+	// Using ui_update here so the changes apply to all viewers, since ui_data updates those vars
+	if(target_ref)
+		var/atom/target = target_ref.resolve()
+		if(!target)
+			ui_update() // Update once if target is gone. There is probably a better way to do this.
+		else if(target_area_name != "[get_area(target)]")
+			ui_update() // Update if the area name changed. This should be fine, because autoupdate stringifies area every process anyways.
+	. = ..() // Call parent proc last so ui_update takes effect immediately
 
 /obj/machinery/computer/teleporter/ui_state(mob/user)
 	return GLOB.default_state
@@ -44,14 +58,21 @@
 		ui.open()
 
 /obj/machinery/computer/teleporter/ui_data(mob/user)
+	var/atom/target
+	if(target_ref)
+		target = target_ref.resolve()
+	if(!target)
+		target_ref = null
 	var/list/data = list()
 	data["power_station"] = power_station ? TRUE : FALSE
 	data["teleporter_hub"] = power_station?.teleporter_hub ? TRUE : FALSE
 	data["regime_set"] = regime_set
-	data["target"] = !target ? "None" : "[get_area(target)] [(regime_set != "Gate") ? "" : "Teleporter"]"
+	if(target)
+		target_area_name = "[get_area(target)]"
+	data["target"] = !target ? "None" : "[target_area_name] [(regime_set != "Gate") ? "" : "Teleporter"]"
 	data["calibrating"] = calibrating
 
-	if(power_station?.teleporter_hub?.calibrated || power_station?.teleporter_hub?.accuracy >= 3)
+	if(power_station?.teleporter_hub?.calibrated || power_station?.teleporter_hub?.accuracy >= 4)
 		data["calibrated"] = TRUE
 	else
 		data["calibrated"] = FALSE
@@ -83,25 +104,28 @@
 			set_target(usr)
 			. = TRUE
 		if("calibrate")
-			if(!target)
+			if(!target_ref)
 				say("Error: No target set to calibrate to.")
 				return
-			if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accuracy >= 3)
+			if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accuracy >= 4)
 				say("Hub is already calibrated!")
 				return
 
 			say("Processing hub calibration to target...")
 			calibrating = TRUE
 			power_station.update_icon()
-			spawn(50 * (3 - power_station.teleporter_hub.accuracy)) //Better parts mean faster calibration
-				calibrating = FALSE
-				if(check_hub_connection())
-					power_station.teleporter_hub.calibrated = TRUE
-					say("Calibration complete.")
-				else
-					say("Error: Unable to detect hub.")
-				power_station.update_icon()
+			var/calibrationtime = 50 * (3 - power_station.teleporter_hub.accuracy)
+			addtimer(CALLBACK(src, .proc/calibrate), calibrationtime)
 			. = TRUE
+
+/obj/machinery/computer/teleporter/proc/calibrate()
+	calibrating = FALSE
+	if(check_hub_connection())
+		power_station.teleporter_hub.calibrated = TRUE
+		say("Calibration complete.")
+	else
+		say("Error: Unable to detect hub.")
+	power_station.update_icon()
 
 /obj/machinery/computer/teleporter/proc/check_hub_connection()
 	if(!power_station)
@@ -111,7 +135,7 @@
 	return TRUE
 
 /obj/machinery/computer/teleporter/proc/reset_regime()
-	target = null
+	target_ref = null
 	if(regime_set == "Teleporter")
 		regime_set = "Gate"
 	else
@@ -141,9 +165,9 @@
 					L[avoid_assoc_duplicate_keys("[M.real_name] ([get_area(M)])", areaindex)] = I
 
 		var/desc = input("Please select a location to lock in.", "Locking Computer") as null|anything in sortList(L)
-		target = L[desc]
-		var/turf/T = get_turf(target)
-		log_game("[key_name(user)] has set the teleporter target to [target] at [AREACOORD(T)]")
+		target_ref = WEAKREF(L[desc])
+		var/turf/T = get_turf(L[desc])
+		log_game("[key_name(user)] has set the teleporter target to [L[desc]] at [AREACOORD(T)]")
 
 	else
 		var/list/S = power_station.linked_stations
@@ -160,7 +184,7 @@
 			return
 		var/turf/T = get_turf(target_station)
 		log_game("[key_name(user)] has set the teleporter target to [target_station] at [AREACOORD(T)]")
-		target = target_station.teleporter_hub
+		target_ref = WEAKREF(target_station.teleporter_hub)
 		target_station.linked_stations |= power_station
 		target_station.stat &= ~NOPOWER
 		if(target_station.teleporter_hub)

@@ -11,7 +11,7 @@
 	block_upgrade_walk = 1
 	throwforce = 20
 	throw_speed = 4
-	embedding = list("impact_pain_mult" = 3)
+	embedding = list("armour_block" = 60)
 	armour_penetration = 10
 	materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -38,13 +38,14 @@
 
 /obj/item/spear/CheckParts(list/parts_list)
 	var/obj/item/shard/tip = locate() in parts_list
-	if (istype(tip, /obj/item/shard/plasma))
-		throwforce = 21
-		icon_prefix = "spearplasma"
-		AddComponent(/datum/component/two_handed, force_unwielded=11, force_wielded=19, icon_wielded="[icon_prefix]1")
-	update_icon()
-	parts_list -= tip
-	qdel(tip)
+	if(tip)
+		if (istype(tip, /obj/item/shard/plasma))
+			throwforce = 21
+			icon_prefix = "spearplasma"
+			AddComponent(/datum/component/two_handed, force_unwielded=11, force_wielded=19, icon_wielded="[icon_prefix]1")
+		update_icon()
+		parts_list -= tip
+		qdel(tip)
 	var/obj/item/grenade/G = locate() in parts_list
 	if(G)
 		var/obj/item/spear/explosive/lance = new /obj/item/spear/explosive(src.loc, G)
@@ -53,7 +54,7 @@
 		lance.icon_prefix = icon_prefix
 		parts_list -= G
 		qdel(src)
-	..()
+	return ..()
 
 /obj/item/spear/explosive
 	name = "explosive lance"
@@ -185,7 +186,7 @@
 	block_upgrade_walk = 1
 	throwforce = 22
 	throw_speed = 4
-	embedding = list("embedded_impact_pain_multiplier" = 2)
+	embedding = list("armour_block" = 30)
 	armour_penetration = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
