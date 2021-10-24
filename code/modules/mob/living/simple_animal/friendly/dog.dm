@@ -333,7 +333,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 			item_to_add.forceMove(drop_location())
 		if(prob(25))
 			step_rand(item_to_add)
-		src.emote("spin")
+		INVOKE_ASYNC(src, /mob.proc/emote, "spin")
 
 	return valid
 
