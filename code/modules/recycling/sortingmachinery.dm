@@ -11,6 +11,9 @@
 
 /obj/structure/bigDelivery/interact(mob/user)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
+	if(note)
+		user.put_in_hands(note)
+		note = null //So we don't forcemove it later
 	qdel(src)
 
 /obj/structure/bigDelivery/examine(mob/user)
@@ -126,6 +129,14 @@
 			. += "There's a [note.name] attached to it..."
 			. += note.examine(user)
 
+/obj/item/smallDelivery/Destroy()
+	var/turf/T = get_turf(src)
+	if(note)
+		note.forceMove(T)
+	for(var/atom/movable/AM in contents)
+		AM.forceMove(T)
+	return ..()
+
 /obj/item/smallDelivery/contents_explosion(severity, target)
 	for(var/thing in contents)
 		switch(severity)
@@ -138,6 +149,9 @@
 
 /obj/item/smallDelivery/attack_self(mob/user)
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
+	if(note)
+		user.put_in_hands(note)
+		note = null //So we don't forcemove it later
 	for(var/X in contents)
 		var/atom/movable/AM = X
 		user.put_in_hands(AM)
@@ -148,13 +162,12 @@
 	if(ismob(loc))
 		var/mob/M = loc
 		M.temporarilyRemoveItemFromInventory(src, TRUE)
+		if(note)
+			user.put_in_hands(note)
+			note = null //So we don't forcemove it later
 		for(var/X in contents)
 			var/atom/movable/AM = X
 			M.put_in_hands(AM)
-	else
-		for(var/X in contents)
-			var/atom/movable/AM = X
-			AM.forceMove(src.loc)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	qdel(src)
 
