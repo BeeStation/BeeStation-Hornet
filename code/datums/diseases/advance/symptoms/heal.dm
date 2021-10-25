@@ -939,3 +939,19 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		M.Stun((grub.growthstage * 10))
 		grub.forceMove(M.loc)
 		grub.togglehibernation()
+		playsound(M.loc, 'sound/effects/splat.ogg', 50, 1)
+
+/datum/symptom/parasite/OnDeath(datum/disease/advance/A)
+	. = ..()
+	var/mob/living/carbon/M = A.affected_mob
+	for(var/mob/living/simple_animal/hostile/redgrub/grub in grubs)
+		grub.forceMove(M.loc)
+		grub.togglehibernation()
+		playsound(M.loc, 'sound/effects/splat.ogg', 50, 1)
+	if(isslimetarget(M))
+		for(var/I in 1 to (rand(1, 4)))
+			var/mob/living/simple_animal/hostile/redgrub/grub = new(M.loc)
+			grub.grubdisease = list(A)
+		M.gib()
+		M.visible_message("<span class='warning'>[M] is eaten alive by a swarm of red grubs!</span>")
+	

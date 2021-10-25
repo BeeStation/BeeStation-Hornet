@@ -413,30 +413,32 @@ Thresholds
 
 
 /datum/symptom/pustule
-	name = "Lymph Node Inflammation"
+	name = "Bubonic Infection"
 	desc = "The virus causes festering infections in the host's lymph nodes, leading to festering buboes that deal toxin damage."
 	stealth = -1
 	resistance = -2
 	stage_speed = 2
 	transmission = 1
-	level = 8
-	severity = 0
-	symptom_delay_min = 5
+	level = 6
+	severity = 3
+	symptom_delay_min = 20
 	symptom_delay_max = 60
 	var/pustules = 0
 	var/shoot = FALSE
-	threshold_desc = "<b>Transmission 2:</b>Buboes will occasionally burst when disturbed or left too long, shooting out toxic pus.<br>\
-					<b>Transmission 6:</b> More larvae are born, and they leave the host faster."
+	threshold_desc = "<b>Transmission 4:</b>Buboes will occasionally burst when disturbed or left too long, shooting out toxic pus.<br>\
+					<b>Transmission 6:</b> Pustules appear on the host more frequently, dealing more damage."
 
 /datum/symptom/pustule/severityset(datum/disease/advance/A)
 	. = ..()
+	if(A.transmission >= 6)
+		severity += 1
 
 /datum/symptom/pustule/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.stealth >= 2)
+	if(A.transmission >= 4)
 		shoot = TRUE
-	if(A.stage_rate >= 6)
+	if(A.transmission >= 6)
 		power += 1
 	if(iscarbon(A.affected_mob))
 		RegisterSignal(A.affected_mob, COMSIG_HUMAN_ATTACKED, .proc/pop_pustules)
@@ -446,21 +448,50 @@ Thresholds
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
+	
+	switch(A.stage)
+		if(2, 3)
+			var/buboes = (rand(1, 3) * power)
+			M.adjustBruteLoss(buboes / 2)
+			M.adjustToxLoss(buboes)
+			pustules = min(pustules + buboes, 10)
+			to_chat(M, "<span class='warning'>painful sores open on your skin!</span>")
+		if(4, 5)
+			var/buboes = (rand(3, 6) * power)
+			M.adjustBruteLoss(buboes / 2)
+			M.adjustToxLoss(buboes)
+			pustules = min(pustules + buboes, 20)
+			to_chat(M, "<span class='warning'>painful sores open on your skin!</span>")
+			if((prob(pustules * 5) || pustules >= 20) && shoot)
+				var/popped = rand(1, pustules)
+				var/pusdir = pick(GLOB.alldirs)
+				var/T = get_step(get_turf(M), pusdir)
+				var/obj/item/ammo_casing/caseless/pimple/pustule = new(get_turf(M))
+				for(var/datum/disease/advance/D in M.diseases) //spreads all diseases in the host, but only if they have fluid spread or higher
+					if(A.spread_flags && DISEASE_SPREAD_CONTACT_FLUIDS)
+						pustule.diseases += D
+				pustule.pellets = popped
+				pustule.variance = 360
+				pustule.fire_casing(T, M, (get_turf(M)))
+				pustules -= popped
+				M.visible_message("<span class='warning'>[popped] pustules on [M]'s body burst open!</span>")
 
 
-/datum/symptom/pustule/proc/pop_pustules(datum/source, AM, damage, attack_text)
+/datum/symptom/pustule/proc/pop_pustules(datum/source, AM, attack_text, damage)
 	SIGNAL_HANDLER
 	var/popped = min(rand(-10, pustules), damage)
 	var/turf/T = get_turf(source)
+	if(!shoot)
+		return
 	if(iscarbon(source) && popped)
 		var/mob/living/carbon/C = source
 		var/obj/item/ammo_casing/caseless/pimple/pustule = new(T)
-		for(var/datum/disease/advance/A in C.diseases)
+		for(var/datum/disease/advance/A in C.diseases) //spreads all diseases in the host, but only if they have fluid spread or higher
 			if(A.spread_flags && DISEASE_SPREAD_CONTACT_FLUIDS)
 				pustule.diseases += A
 		pustule.pellets = popped
-		pustule.fire_casing(AM, fired_from = T)
-		pustule.visible_message("<span class='warning'>[attack_text] bursts [popped] pustules on [source]'s body!</span>")
+		pustule.fire_casing(AM, C, fired_from = T)
+		C.visible_message("<span class='warning'>[attack_text] bursts [popped] pustules on [source]'s body!</span>")
 		pustules -= popped
 
 		
@@ -488,7 +519,17 @@ Thresholds
 	name = "high-velocity pustule"
 	damage = 4 //and very easily blocked with some bio armor
 	range = 5
+	speed = 5
 	damage_type = TOX
 	icon_state = "energy2"
 	flag = "bio" 
 	var/list/diseases
+
+/obj/item/projectile/pimple/on_hit(atom/target, blocked)
+	. = ..()
+	var/turf/T = get_turf(target)
+	playsound(T, 'sound/effects/splat.ogg', 50, 1)
+	if(iscarbon(target))
+		var/mob/living/carbon/C = target
+		for(var/datum/disease/advance/A in diseases)
+			C.ContactContractDisease(A)
