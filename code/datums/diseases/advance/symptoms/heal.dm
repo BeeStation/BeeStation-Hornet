@@ -621,13 +621,13 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/vampirism
 	name = "Hemetophagy"
-	desc = "The host absorbs blood from external sources, and seemlessly reintegrates it into their own bloodstream, regardless of its bloodtype or how it was ingested."
-	stealth = 0
-	resistance = 0
+	desc = "The host absorbs blood from external sources, and seemlessly reintegrates it into their own bloodstream, regardless of its bloodtype or how it was ingested. However, the virus also slowly consumes the host's blood"
+	stealth = 1
+	resistance = -2
 	stage_speed = 0
-	transmission = 0
+	transmission = 2
 	level = 9
-	severity = -1
+	severity = 0
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	var/bloodpoints = 0
@@ -673,6 +673,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/mob/living/carbon/M = A.affected_mob
 	var/mob/living/carbon/human/H = A.affected_mob
 	switch(A.stage)
+		if(1-4)
+			to_chat(M, "<span class='userdanger'>[pick(".", "It dawns upon you that every single human on this station has warm blood pulsing through their veins.")]</span>")
 		if(5)
 			ADD_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
 			var/grabbedblood = succ(M) //before adding sucked blood to bloodpoints, immediately try to heal bloodloss
@@ -681,6 +683,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				var/inflated = grabbedblood * 4
 				M.blood_volume = min(M.blood_volume + inflated, BLOOD_VOLUME_NORMAL)
 				bloodpoints += round(max(0, (inflated - missing)/4))
+			else if((M.blood_volume >= BLOOD_VOLUME_NORMAL + 4) && (bloodpoints < maxbloodpoints))//so drinking blood accumulates bloodpoints
+				M.blood_volume = (M.blood_volume - 4)
+				bloodpoints += 1
 			else
 				bloodpoints += grabbedblood
 			for(var/I in 1 to power)//power doesnt increase efficiency, just usage. 
@@ -694,9 +699,13 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					else if(bruteheal && M.getBruteLoss())
 						bloodpoints -= 1
 						M.heal_overall_damage(2, required_status = BODYPART_ORGANIC)
-					else
-						if(prob(20) && !M.stat) 
-							bloodpoints -- //you cant just accumulate blood and keep it as a battery of healing. the quicker the symptom is, the faster your bloodpoints decay
+					if(prob(20) && !M.stat) 
+						bloodpoints -- //you cant just accumulate blood and keep it as a battery of healing. the quicker the symptom is, the faster your bloodpoints decay
+				else if(prob(60) && M.blood_volume >= BLOOD_VOLUME_BAD)//the virus continues to extract blood if you dont have any stored up. higher probability due to BP value
+					M.blood_volume = (M.blood_volume -= 1)
+
+			if(!bloodpoints && prob(3))
+				to_chat(M, "<span class='warning'>[pick("You feel a pang of thirst.", "No food can sate your hunger", "Blood...")]</span>")
 
 /datum/symptom/vampirism/End(datum/disease/advance/A)
 	. = ..()
@@ -782,12 +791,12 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		return 0
 	if(ishuman(M) && aggression) //first, try to suck those the host is actively grabbing
 		var/mob/living/carbon/human/H = M
-		if(H.pulling && ishuman(H.pulling) && H.pulling.can_inject) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
+		if(H.pulling && ishuman(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
 			var/mob/living/carbon/human/C = H.pulling
-			if(!C.bleed_rate && vampire && H.grab_state && C.get_blood_id() == H.get_blood_id() && !(NOBLOOD in C.dna.species.species_traits))//aggressive grab as a "vampire" starts the target bleeding
+			if(!C.bleed_rate && vampire && C.can_inject() && H.grab_state && C.get_blood_id() == H.get_blood_id() && !(NOBLOOD in C.dna.species.species_traits))//aggressive grab as a "vampire" starts the target bleeding
 				C.bleed_rate += 1
 				C.visible_message("<span class='warning'>Wounds open on [C.name]'s skin as [H.name] grips them tightly!</span>", "<span class='userdanger'>You begin bleeding at [H.name]'s touch!</span>")
-			if(C.blood_volume && (C.bleed_rate && (!C.bleedsuppress || vampire )) && C.get_blood_id() == H.get_blood_id() && !(NOBLOOD in C.dna.species.species_traits))
+			if(C.blood_volume && C.can_inject() &&(C.bleed_rate && (!C.bleedsuppress || vampire )) && C.get_blood_id() == H.get_blood_id() && !(NOBLOOD in C.dna.species.species_traits))
 				var/amt = (H.grab_state + C.stat + 2) * power
 				if(C.blood_volume)
 					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4), 0)
@@ -810,22 +819,23 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				suckamt --
 				stains += initialstain
 		for(var/obj/effect/decal/cleanable/blood/stain in stains)
-			if(istype(stain, /obj/effect/decal/cleanable/blood/gibs/old))
-				playsound(stain.loc, 'sound/magic/exit_blood.ogg', 50, 1)
-				gainedpoints += 3
-				qdel(stain)
-			else if(istype(stain, /obj/effect/decal/cleanable/blood/old))
-				gainedpoints += 1
-				qdel(stain)
-			else if(istype(stain, /obj/effect/decal/cleanable/blood/gibs))
-				playsound(stain.loc, 'sound/magic/exit_blood.ogg', 50, 1)
-				gainedpoints += 5
-				qdel(stain)
-			else if(istype(stain, /obj/effect/decal/cleanable/blood/footprints) || istype(stain, /obj/effect/decal/cleanable/blood/tracks) || istype(stain, /obj/effect/decal/cleanable/blood/drip))
-				qdel(stain)
-			else
-				gainedpoints += 2
-				qdel(stain)
+			switch(stain.type)
+				if(/obj/effect/decal/cleanable/blood/gibs/old)
+					playsound(stain.loc, 'sound/magic/exit_blood.ogg', 50, 1)
+					gainedpoints += 3
+					qdel(stain)
+				if(/obj/effect/decal/cleanable/blood/old)
+					gainedpoints += 1
+					qdel(stain)
+				if(/obj/effect/decal/cleanable/blood/gibs)
+					playsound(stain.loc, 'sound/magic/exit_blood.ogg', 50, 1)
+					gainedpoints += 5
+					qdel(stain)
+				if(/obj/effect/decal/cleanable/blood/footprints,  /obj/effect/decal/cleanable/blood/tracks, /obj/effect/decal/cleanable/blood/drip)
+					qdel(stain)
+				if(/obj/effect/decal/cleanable/blood)
+					gainedpoints += 2
+					qdel(stain)
 		if(gainedpoints)
 			playsound(M.loc, 'sound/magic/exit_blood.ogg', 50, 1)
 			M.visible_message("<span class='warning'>Blood flows from the floor into [M.name]!</span>", "<span class='warning'>You consume the errant blood</span>")
@@ -845,3 +855,87 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					C.visible_message("<span class='warning'>Blood flows from [C.name]'s wounds into [H.name]!</span>", "<span class='userdanger'>Blood flows from your wounds into [H.name]!</span>")
 		return CLAMP(gainedpoints, 0, maxbloodpoints - bloodpoints)
 
+
+/datum/symptom/parasite
+	name = "Xenobiological Symbiosis"
+	desc = "The virus contains latent DNA blueprints to create a toxin-devouring grub egg, which parasitizes slimes and slime people. Its normally toxic, infectious flesh becomes safe and delicious when cooked."
+	stealth = 1
+	resistance = 2
+	stage_speed = 2
+	transmission = 1
+	level = 8
+	severity = 1
+	symptom_delay_min = 1
+	symptom_delay_max = 1
+	var/list/grubs = list()
+	var/toxheal = FALSE
+	threshold_desc = "<b>Stealth 2:</b>The gestating larvae can consume toxins in the host's bloodstream.<br>\
+					<b>Stage Speed 6:</b> More larvae are born, and they leave the host faster."
+
+/datum/symptom/parasite/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.stealth >= 2)
+		severity -= 2
+	if(A.stage_rate >= 6)
+		severity = (severity * 2)
+
+/datum/symptom/parasite/Start(datum/disease/advance/A)
+	if(!..())
+		return
+	if(A.stealth >= 2)
+		toxheal = TRUE
+	if(A.stage_rate >= 6)
+		power += 1
+
+/datum/symptom/parasite/proc/isslimetarget(var/mob/living/carbon/M)
+	if(isslimeperson(M) || isluminescent(M) || isjellyperson(M) || isoozeling(M) || isstargazer(M))
+		return TRUE
+	else 
+		return FALSE
+
+/datum/symptom/parasite/Activate(datum/disease/advance/A)
+	if(!..())
+		return
+	var/mob/living/carbon/M = A.affected_mob
+	switch(A.stage)
+		if(3 to 5)
+			var/slowdown = 0
+			for(var/mob/living/simple_animal/hostile/redgrub/grub in grubs)//check if grubs need to be born, then feed existing grubs, or get them closer to hatching
+				var/efficacy = grub.growthstage / 2
+				if(grub.growthstage >= 3 || grub.patience <= 0 || grub.stat)
+					M.visible_message("<span class='warning'>[M] vomits up a disgusting grub!</span>", \
+							"<span class='userdanger'>You vomit a large, slithering grub!</span>")
+					M.Stun((grub.growthstage * 10))
+					playsound(M.loc, 'sound/effects/splat.ogg', 50, 1)
+					grub.forceMove(M.loc)
+					grub.togglehibernation()
+					grubs -= grub
+					continue
+				slowdown = (min(3, slowdown + efficacy))
+				if((M.getToxLoss() && toxheal) || isslimetarget(M))
+					M.adjustToxLoss(-efficacy)
+					if(grub.growthstage < (A.stage - 2))
+						grub.food += 1 * power
+					grub.patience = (rand(60, 120) / power)
+				else
+					grub.patience --
+			if(((M.getToxLoss() > (LAZYLEN(grubs) * (30/power))) || isslimetarget(M)) && prob(10 * power) && (LAZYLEN(grubs) < power * 2))
+				var/mob/living/simple_animal/hostile/redgrub/grub = new(src)// add new grubs if there's enough toxin for them
+				grub.food = 10
+				grubs += grub 
+				grub.togglehibernation()
+				grub.grubdisease = list(A)
+			if(prob(LAZYLEN(grubs) * (6/power)))// so you know its working. power lowers this so it doesnt spam you at high grub counts
+				to_chat(M, "<span class='warning'>You feel something squirming inside of you!</span>")
+			M.add_movespeed_modifier(MOVESPEED_ID_GRUB_VIRUS_SLOWDOWN, override = TRUE, multiplicative_slowdown = max(slowdown - 0.5, 0)) 
+
+/datum/symptom/parasite/End(datum/disease/advance/A)
+	. = ..()
+	var/mob/living/carbon/M = A.affected_mob
+	M.remove_movespeed_modifier(MOVESPEED_ID_GRUB_VIRUS_SLOWDOWN, TRUE)
+	for(var/mob/living/simple_animal/hostile/redgrub/grub in grubs)
+		M.visible_message("<span class='warning'>[M] vomits up a disgusting grub!</span>", \
+				"<span class='userdanger'>You vomit a large, slithering grub!</span>")
+		M.Stun((grub.growthstage * 10))
+		grub.forceMove(M.loc)
+		grub.togglehibernation()

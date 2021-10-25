@@ -344,6 +344,7 @@
 #define COMSIG_HUMAN_MELEE_UNARMED_ATTACK "human_melee_unarmed_attack"			//! from mob/living/carbon/human/UnarmedAttack(): (atom/target)
 #define COMSIG_HUMAN_MELEE_UNARMED_ATTACKBY "human_melee_unarmed_attackby"		//! from mob/living/carbon/human/UnarmedAttack(): (mob/living/carbon/human/attacker)
 #define COMSIG_HUMAN_DISARM_HIT	"human_disarm_hit"	//! Hit by successful disarm attack (mob/living/carbon/human/attacker,zone_targeted)
+#define COMSIG_HUMAN_ATTACKED "carbon_attacked"					//hit by something that checks shields.
 
 // /datum/species signals
 #define COMSIG_SPECIES_GAIN "species_gain"						//! from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
