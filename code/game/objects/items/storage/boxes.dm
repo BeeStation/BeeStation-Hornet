@@ -1272,6 +1272,7 @@
 		/obj/item/disk/data/debug=1,\
 		/obj/item/uplink/debug=1,\
 		/obj/item/uplink/nuclear/debug=1,\
+		/obj/item/spellbook=1,\
 		/obj/item/storage/box/beakers/bluespace=1,\
 		/obj/item/storage/box/beakers/variety=1,\
 		/obj/item/storage/box/material=1
