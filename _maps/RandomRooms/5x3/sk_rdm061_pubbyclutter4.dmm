@@ -42,7 +42,7 @@
 /area/template_noop)
 "j" = (
 /obj/structure/grille/broken,
-/obj/structure/piano,
+/obj/structure/musician/piano,
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (

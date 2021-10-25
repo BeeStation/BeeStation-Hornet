@@ -2815,7 +2815,7 @@
 					/obj/item/instrument/trombone,
 					/obj/item/instrument/recorder,
 					/obj/item/instrument/harmonica,
-					/obj/structure/piano/unanchored)
+					/obj/structure/musician/piano/unanchored)
 	crate_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/misc/book_crate
@@ -2910,3 +2910,15 @@
 					/obj/item/toner,
 					/obj/item/toner)
 	crate_name = "toner crate"
+
+/datum/supply_pack/misc/toner_large
+	name = "Toner Crate (Large)"
+	desc = "Tired of changing toner cartridges? These six extra heavy duty refills contain roughly five times as much toner as the base model!"
+	cost = 3000
+	contains = list(/obj/item/toner/large,
+					/obj/item/toner/large,
+					/obj/item/toner/large,
+					/obj/item/toner/large,
+					/obj/item/toner/large,
+					/obj/item/toner/large)
+	crate_name = "large toner crate"

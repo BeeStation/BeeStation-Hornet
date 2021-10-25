@@ -22,6 +22,10 @@
 	display_order = JOB_DISPLAY_ORDER_MEDICAL_DOCTOR
 	departments = DEPARTMENT_MEDICAL
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/medical
+	)
+
 /datum/outfit/job/doctor
 	name = "Medical Doctor"
 	jobtype = /datum/job/doctor

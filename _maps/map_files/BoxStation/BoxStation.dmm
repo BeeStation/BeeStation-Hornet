@@ -14131,7 +14131,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
 "aMq" = (
-/obj/structure/piano{
+/obj/structure/musician/piano{
 	icon_state = "piano"
 	},
 /turf/open/floor/wood,
@@ -31795,9 +31795,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 10
-	},
-/obj/machinery/light_switch{
-	pixel_x = -20
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
