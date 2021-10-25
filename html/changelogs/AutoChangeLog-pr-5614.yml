@@ -1,0 +1,6 @@
+author: Phil Smith
+delete-after: true
+changes:
+  - bugfix: When offering a renaming potion to someone it now no longer says that
+      you are giving the potion to yourself but it now properly gives the name of
+      the person you are handing it to.
