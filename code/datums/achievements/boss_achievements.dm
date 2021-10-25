@@ -9,7 +9,7 @@
 /datum/award/achievement/boss/boss_killer
 	name = "Boss Killer"
 	desc = "You've come a long ways from asking how to switch hands."
-	database_id = "Boss Killer"
+	database_id = BOSS_MEDAL_ANY
 
 /datum/award/achievement/boss/blood_miner_kill
 	name = "Blood-drunk Miner Killer"
