@@ -289,3 +289,30 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	thermal_overload()
+
+/obj/item/clothing/glasses/hud/debug
+	name = "Omni HUD"
+	desc = "Glasses with every function."
+	icon_state = "doublegodeye"
+	item_state = "doublegodeye"
+	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
+	darkness_view = 8
+	flash_protect = 2
+	vision_correction = 1
+	clothing_flags = SCAN_REAGENTS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	hud_type = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED)
+	resistance_flags = INDESTRUCTIBLE
+	actions_types = list(/datum/action/item_action/toggle,/datum/action/item_action/toggle_research_scanner)
+	var/xray = TRUE
+
+/obj/item/clothing/glasses/hud/debug/attack_self(mob/user)
+	if(!ishuman(user))
+		return
+	if(xray)
+		vision_flags -= SEE_MOBS|SEE_OBJS
+	else
+		vision_flags += SEE_MOBS|SEE_OBJS
+	xray = !xray
+	var/mob/living/carbon/human/wearer = user
+	wearer.update_sight()
