@@ -470,7 +470,20 @@
 		temp = "Cloning cycle already in progress."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 	else
-		pod.growclone(mob_occupant.real_name, dna.uni_identity, dna.mutation_index, null, null, clone_species, dna.blood_type, mob_occupant.faction)
+		pod.growclone( \
+			mob_occupant.real_name, \
+			dna.uni_identity, \
+			dna.mutation_index, \
+			mob_occupant.mind, \
+			null, \
+			clone_species, \
+			dna.features, \
+			mob_occupant.faction, \
+			null, \
+			null, \
+			null, \
+			FALSE, \
+			TRUE)
 		temp = "[mob_occupant.real_name] => Cloning data sent to pod."
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 		log_cloning("[user ? key_name(user) : "Unknown"] cloned [key_name(mob_occupant)] with [src] at [AREACOORD(src)].")

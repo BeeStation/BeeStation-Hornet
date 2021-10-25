@@ -170,7 +170,7 @@
 	return examine(user)
 
 //Start growing a human clone in the pod!
-/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance, list/traumas, empty)
+/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance, list/traumas, empty, experimental = FALSE)
 	if(!reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 		connected_message("Cannot start cloning: Not enough synthflesh.")
 		return NONE
@@ -183,7 +183,7 @@
 		clonemind = locate(mindref) in SSticker.minds
 		if(!istype(clonemind))	//not a mind
 			return NONE
-		if(clonemind.last_death != last_death) //The soul has advanced, the record has not.
+		if(clonemind.last_death != last_death && !experimental) //The soul has advanced, the record has not.
 			return NONE
 		if(!QDELETED(clonemind.current))
 			if(clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
@@ -197,13 +197,13 @@
 				return NONE
 			if(G.suiciding) // The ghost came from a body that is suiciding.
 				return NONE
-		if(clonemind.damnation_type) //Can't clone the damned.
+		if(clonemind.damnation_type && !experimental) //Can't clone the damned.
 			INVOKE_ASYNC(src, .proc/horrifyingsound)
 			mess = TRUE
 			icon_state = "pod_g"
 			update_icon()
 			return NONE
-		if(clonemind.no_cloning_at_all) // nope.
+		if(clonemind.no_cloning_at_all && !experimental) // nope.
 			return NONE
 		current_insurance = insurance
 	attempting = TRUE //One at a time!!
