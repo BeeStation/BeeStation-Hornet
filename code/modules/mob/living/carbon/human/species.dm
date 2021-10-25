@@ -708,11 +708,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			bodyparts_to_add -= "waggingspines"
 
 	if("snout" in mutant_bodyparts) //Take a closer look at that snout!
-		if((H.wear_mask && (H.wear_mask.flags_inv & HIDEFACE)) || (H.head && (H.head.flags_inv & HIDEFACE)) || !HD || HD.status == BODYPART_ROBOTIC)
+		if((H.wear_mask?.flags_inv & HIDEFACE) || (H.head?.flags_inv & HIDEFACE) || !HD || HD.status == BODYPART_ROBOTIC)
 			bodyparts_to_add -= "snout"
 
 	if("frills" in mutant_bodyparts)
-		if(!H.dna.features["frills"] || H.dna.features["frills"] == "None" || H.head && (H.head.flags_inv & HIDEEARS) || !HD || HD.status == BODYPART_ROBOTIC)
+		if(!H.dna.features["frills"] || H.dna.features["frills"] == "None" || (H.head?.flags_inv & HIDEEARS) || !HD || HD.status == BODYPART_ROBOTIC)
 			bodyparts_to_add -= "frills"
 
 	if("horns" in mutant_bodyparts)
@@ -743,19 +743,25 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
+	///Digi handling
 	if(BODYTYPE_DIGITIGRADE in H.dna?.species.bodytype)
+		var/uniform_compatible = FALSE
+		var/suit_compatible = FALSE
 		if(!(H.w_uniform) || (H.w_uniform?.supports_variations & DIGITIGRADE_VARIATION) || (H.w_uniform?.supports_variations & DIGITIGRADE_VARIATION_NO_NEW_ICON)) //Checks uniform compatibility
-			if((!H.wear_suit) || (H.wear_suit?.supports_variations & DIGITIGRADE_VARIATION) || !(H.wear_suit?.body_parts_covered & LEGS) || (H.wear_suit?.supports_variations & DIGITIGRADE_VARIATION_NO_NEW_ICON)) //Checks suit compatability
-				for(var/obj/item/bodypart/BP in H.bodyparts)
-					if(BODYTYPE_DIGITIGRADE in BP.bodytype)
-						BP.limb_id = "digitigrade"
+			uniform_compatible = TRUE
+		if((!H.wear_suit) || (H.wear_suit?.supports_variations & DIGITIGRADE_VARIATION) || !(H.wear_suit?.body_parts_covered & LEGS) || (H.wear_suit?.supports_variations & DIGITIGRADE_VARIATION_NO_NEW_ICON)) //Checks suit compatability
+			suit_compatible = TRUE
 
+		if((uniform_compatible && suit_compatible) || (suit_compatible && H.wear_suit?.flags_inv & HIDEJUMPSUIT)) //If the uniform is hidden, it doesnt matter if its compatible
+			for(var/obj/item/bodypart/BP in H.bodyparts)
+				if(BODYTYPE_DIGITIGRADE in BP.bodytype)
+					BP.limb_id = "digitigrade"
 
 		else
 			for(var/obj/item/bodypart/BP in H.bodyparts)
 				if(BODYTYPE_DIGITIGRADE in BP.bodytype)
 					BP.limb_id = "lizard"
-
+	///End digi handling
 
 
 	////END REAL-LIMB HANDLING
