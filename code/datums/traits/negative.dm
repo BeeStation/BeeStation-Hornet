@@ -105,6 +105,7 @@
 	desc = "You are the current owner of an heirloom, passed down for generations. You have to keep it safe!"
 	value = -1
 	mood_quirk = TRUE
+	mob_trait = TRAIT_HEIRLOOOM
 	var/obj/item/heirloom
 	var/where
 
@@ -661,5 +662,5 @@
 	H.gain_trauma(T, TRAUMA_RESILIENCE_ABSOLUTE)
 
 /datum/quirk/phobia/remove()
-	var/mob/living/carbon/human/H = quirk_holder	
+	var/mob/living/carbon/human/H = quirk_holder
 	H.cure_trauma_type(/datum/brain_trauma/mild/phobia, TRAUMA_RESILIENCE_ABSOLUTE)
