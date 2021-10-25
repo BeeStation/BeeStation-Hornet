@@ -431,13 +431,14 @@
 			. += aux
 		return
 
-
+	var/draw_color = mutation_color
 	if(should_draw_greyscale) //Should the limb be colored?
-		var/draw_color = mutation_color || species_color || (skin_tone && skintone2hex(skin_tone))
-		if(draw_color)
-			limb.color = "#[draw_color]"
-			if(aux_zone)
-				aux.color = "#[draw_color]"
+		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
+
+	if(draw_color)
+		limb.color = "#[draw_color]"
+		if(aux_zone)
+			aux.color = "#[draw_color]"
 
 /obj/item/bodypart/deconstruct(disassembled = TRUE)
 	drop_organs()
