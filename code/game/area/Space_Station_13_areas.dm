@@ -81,7 +81,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/docking
 	ambience_index = AMBIENCE_MAINT
-	//valid_territory = FALSE
 	mood_bonus = -1
 	mood_message = "<span class='warning'>You feel that you shouldn't stay here with such shuttle traffic...\n</span>"
 	lighting_colour_tube = "#1c748a"
@@ -1085,22 +1084,18 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "customs_point_aux"
 
 /area/security/prison/asteroid
-	//valid_territory = FALSE
 	name = "Outer Asteroid Prison Wing"
 	icon_state = "sec_prison"
 
 /area/security/prison/asteroid/service
-	//valid_territory = FALSE
 	name = "Outer Asteroid Prison Wing Services"
 	icon_state = "sec_prison"
 
 /area/security/prison/asteroid/arrival
-	//valid_territory = FALSE
 	name = "Outer Asteroid Prison Wing Arrival"
 	icon_state = "sec_prison"
 
 /area/security/prison/asteroid/abbandoned
-	//valid_territory = FALSE
 	name = "Outer Asteroid Prison Wing Abbandoned maintenance"
 	icon_state = "sec_prison"
 	mood_bonus = -2

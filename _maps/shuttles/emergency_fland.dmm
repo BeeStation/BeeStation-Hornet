@@ -217,7 +217,6 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/gun/energy/e_gun/mini,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1

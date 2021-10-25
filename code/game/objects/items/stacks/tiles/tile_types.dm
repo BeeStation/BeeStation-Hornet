@@ -263,7 +263,6 @@
 	item_state = "tile-carpet-grimy"
 	merge_type = /obj/item/stack/tile/carpet/grimy
 	turf_type = /turf/open/floor/carpet/grimy
-	//tableVariant = /obj/structure/table/wood/fancy/grimy
 
 /obj/item/stack/tile/eighties
 	name = "retro tile"
