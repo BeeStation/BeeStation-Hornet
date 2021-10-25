@@ -23,12 +23,13 @@
 
 
 /obj/item/circuit_component/indexer/populate_options()
-	options = list(
+	var/static/list/index_options = list(
 		COMP_INDEXER_NONE,
 		COMP_INDEXER_INCREMENT,
 		COMP_INDEXER_LOOP,
 		COMP_INDEXER_BOTH
 	)
+	options = index_options
 
 /obj/item/circuit_component/indexer/set_option(option)
 	. = ..()
