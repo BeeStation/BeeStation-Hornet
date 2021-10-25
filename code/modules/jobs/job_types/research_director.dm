@@ -35,6 +35,9 @@
 	display_order = JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR
 	departments = DEPARTMENT_SCIENCE | DEPARTMENT_COMMAND
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/rd
+	)
 /datum/outfit/job/rd
 	name = "Research Director"
 	jobtype = /datum/job/rd

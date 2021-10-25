@@ -74,6 +74,9 @@
 	/// Should this job be allowed to be picked for the bureaucratic error event?
 	var/allow_bureaucratic_error = TRUE
 
+	///A dictionary of species IDs and a path to the outfit.
+	var/list/species_outfits = null
+
 /datum/job/New()
 	. = ..()
 	say_span = replacetext(lowertext(title), " ", "")
@@ -191,6 +194,11 @@
 
 	//Equip the rest of the gear
 	H.dna.species.before_equip_job(src, H, visualsOnly)
+	
+	if(src.species_outfits)
+		if(H.dna.species.id in src.species_outfits)
+			var/datum/outfit/O = species_outfits[H.dna.species.id]
+			H.equipOutfit(O, visualsOnly)
 
 	if(outfit_override || outfit)
 		H.equipOutfit(outfit_override ? outfit_override : outfit, visualsOnly)
@@ -282,7 +290,7 @@
 			back = duffelbag //Department duffel bag
 		else
 			back = backpack //Department backpack
-			
+
 	//converts the uniform string into the path we'll wear, whether it's the skirt or regular variant
 	var/holder
 	if(H.jumpsuit_style == PREF_SKIRT)
