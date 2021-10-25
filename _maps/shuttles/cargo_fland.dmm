@@ -1,0 +1,56 @@
+"a" = (/turf/closed/wall/mineral/titanium,/area/shuttle/supply)
+"b" = (/obj/machinery/conveyor{id = "QMLoading"; name = "Loading Ramp"},/turf/open/floor/mineral/plastitanium,/area/shuttle/supply)
+"d" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/line{dir = 1},/obj/effect/turf_decal/stripes/corner,/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"e" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/corner{dir = 4},/obj/effect/turf_decal/stripes/line,/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"f" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/corner{dir = 1},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"g" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"h" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/machinery/button/door{id = "QMUnloadDoor"; layer = 4; name = "Unloading Door Toggle"; pixel_x = 25; pixel_y = 6; req_access_txt = "31"},/obj/machinery/button/door{id = "QMLoadingDoor"; layer = 4; name = "Loading Door Toggle"; pixel_x = 25; pixel_y = -6; req_access_txt = "31"},/obj/effect/turf_decal/stripes/line{dir = 4},/obj/machinery/light{dir = 4},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"i" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/end{dir = 4},/obj/machinery/light{dir = 4},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"j" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/line{dir = 8},/obj/structure/sign/departments/cargo{pixel_x = -32},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"k" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/line{dir = 1},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"l" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/corner,/obj/effect/turf_decal/stripes/line{dir = 1},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"m" = (/turf/template_noop,/area/template_noop)
+"o" = (/obj/machinery/conveyor{dir = 4; id = "QMUnload"; name = "Unloading ramp"},/obj/machinery/door/poddoor{id = "QMUnloadDoor"; name = "Supply Dock Loading Door"},/turf/open/floor/mineral/plastitanium,/area/shuttle/supply)
+"q" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/corner{dir = 4},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"r" = (/obj/effect/decal/cleanable/dirt,/obj/structure/fans/tiny,/obj/machinery/door/airlock/shuttle{name = "Supply Shuttle Airlock"; req_access_txt = "31"},/turf/open/floor/mineral/plastitanium,/area/shuttle/supply)
+"t" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/line{dir = 9},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"v" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/line,/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"w" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/corner{dir = 4},/obj/effect/turf_decal/stripes/corner,/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"x" = (/obj/machinery/conveyor{dir = 8; id = "QMLoading"; name = "Loading Ramp"},/turf/open/floor/mineral/plastitanium,/area/shuttle/supply)
+"y" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/line{dir = 8},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"z" = (/obj/effect/turf_decal/loading_area{dir = 8},/turf/open/floor/mineral/plastitanium,/area/shuttle/supply)
+"A" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/line{dir = 9},/obj/machinery/light{dir = 8},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"B" = (/obj/effect/turf_decal/loading_area{dir = 4},/turf/open/floor/mineral/plastitanium,/area/shuttle/supply)
+"C" = (/obj/machinery/conveyor{dir = 4; id = "QMUnload"; name = "Unloading ramp"},/turf/open/floor/mineral/plastitanium,/area/shuttle/supply)
+"D" = (/obj/effect/decal/cleanable/dirt,/obj/structure/fans/tiny,/obj/machinery/door/airlock/shuttle{name = "Supply Shuttle Airlock"; req_access_txt = "31"},/obj/docking_port/mobile/supply,/turf/open/floor/mineral/plastitanium,/area/shuttle/supply)
+"E" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/line{dir = 4},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"F" = (/obj/machinery/conveyor{id = "QMLoading"; name = "Loading Ramp"},/obj/machinery/light{dir = 4},/turf/open/floor/mineral/plastitanium,/area/shuttle/supply)
+"G" = (/obj/effect/spawner/structure/window/shuttle,/turf/open/floor/plating,/area/shuttle/supply)
+"I" = (/obj/machinery/conveyor/inverted{dir = 5; id = "QMLoading"; name = "Loading Ramp"},/turf/open/floor/mineral/plastitanium,/area/shuttle/supply)
+"J" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/line{dir = 10},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"M" = (/obj/structure/shuttle/engine/propulsion/burst/right,/turf/open/floor/plating/airless,/area/shuttle/supply)
+"O" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/corner,/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"P" = (/obj/machinery/conveyor{dir = 8; id = "QMLoading"; name = "Loading Ramp"},/obj/machinery/door/poddoor{id = "QMLoadingDoor"; name = "Supply Dock Loading Door"},/turf/open/floor/mineral/plastitanium,/area/shuttle/supply)
+"Q" = (/obj/structure/shuttle/engine/propulsion/burst/left,/turf/open/floor/plating/airless,/area/shuttle/supply)
+"S" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/line{dir = 6},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"T" = (/obj/structure/shuttle/engine/propulsion,/turf/open/floor/plating/airless,/area/shuttle/supply)
+"V" = (/obj/effect/turf_decal/tile/brown,/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/stripes/line{dir = 8},/obj/machinery/light{dir = 8},/turf/open/floor/mineral/titanium/yellow,/area/shuttle/supply)
+"W" = (/obj/structure/shuttle/engine/heater,/obj/effect/spawner/structure/window/shuttle,/turf/open/floor/plating,/area/shuttle/supply)
+"X" = (/obj/machinery/conveyor{dir = 10; id = "QMLoading"; name = "Loading Ramp"},/turf/open/floor/mineral/plastitanium,/area/shuttle/supply)
+"Y" = (/obj/structure/sign/warning/fire,/turf/closed/wall/mineral/titanium,/area/shuttle/supply)
+"Z" = (/turf/template_noop,/area/shuttle/supply)
+
+(1,1,1) = {"
+maGGGam
+aaAdiaa
+atfwBCo
+ajgqklr
+aVgggha
+GyggOeD
+GyggEIP
+aVggEFa
+ajOvSba
+aJezxXa
+aYWWWYa
+ZQTTTMZ
+"}

@@ -264,6 +264,7 @@ Any-Mode: (hotkey doesn't need to be on)
 		if("Kilo Station")          map_in_url = "kilo"
 		if("PubbyStation")          map_in_url = "pubby"
 		if("CorgStation")			map_in_url = "corg"
+		if("FlandStation")			map_in_url = "fland"
 	if(map_in_url)
 		if(alert("This will open the current map in your browser. Are you sure?",,"Yes","No")!="Yes")
 			return

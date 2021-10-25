@@ -183,3 +183,86 @@
 
 /obj/effect/turf_decal/raven/nine
 	icon_state = "RAVEN9"
+
+//haha atmos markings go brr!
+
+/obj/effect/turf_decal/AtmosCompact/atmocomp_tox
+	icon_state = "atmocomp_tox"
+
+/obj/effect/turf_decal/AtmosCompact/atmocomp_n2o
+	icon_state = "atmocomp_n2o"
+
+/obj/effect/turf_decal/AtmosCompact/atmocomp_mix
+	icon_state = "atmocomp_mix"
+
+/obj/effect/turf_decal/AtmosCompact/atmocomp_n2
+	icon_state = "atmocomp_n2"
+
+/obj/effect/turf_decal/AtmosCompact/atmocomp_o2
+	icon_state = "atmocomp_o2"
+
+/obj/effect/turf_decal/AtmosCompact/atmocomp_co2
+	icon_state = "atmocomp_co2"
+
+/obj/effect/turf_decal/AtmosExtended/mix/atmoext_mix_1
+	icon_state = "atmoext_mix_1"
+
+/obj/effect/turf_decal/AtmosExtended/mix/atmoext_mix_2
+	icon_state = "atmoext_mix_2"
+
+/obj/effect/turf_decal/AtmosExtended/mix/atmoext_mix_3
+	icon_state = "atmoext_mix_3"
+
+/obj/effect/turf_decal/AtmosExtended/n2o/atmoext_n2o_1
+	icon_state = "atmoext_n2o_1"
+
+/obj/effect/turf_decal/AtmosExtended/n2o/atmoext_n2o_2
+	icon_state = "atmoext_n2o_2"
+
+/obj/effect/turf_decal/AtmosExtended/n2o/atmoext_n2o_3
+	icon_state = "atmoext_n2o_3"
+
+/obj/effect/turf_decal/AtmosExtended/tox/atmoext_tox_1
+	icon_state = "atmoext_tox_1"
+
+/obj/effect/turf_decal/AtmosExtended/tox/atmoext_tox_2
+	icon_state = "atmoext_tox_2"
+
+/obj/effect/turf_decal/AtmosExtended/tox/atmoext_tox_3
+	icon_state = "atmoext_tox_3"
+
+/obj/effect/turf_decal/AtmosExtended/co2/atmoext_co2_1
+	icon_state = "atmoext_co2_1"
+
+/obj/effect/turf_decal/AtmosExtended/co2/atmoext_co2_2
+	icon_state = "atmoext_co2_2"
+
+/obj/effect/turf_decal/AtmosExtended/co2/atmoext_co2_3
+	icon_state = "atmoext_co2_3"
+
+/obj/effect/turf_decal/AtmosExtended/air/atmoext_air_1
+	icon_state = "atmoext_air_1"
+
+/obj/effect/turf_decal/AtmosExtended/air/atmoext_air_2
+	icon_state = "atmoext_air_2"
+
+/obj/effect/turf_decal/AtmosExtended/air/atmoext_air_3
+	icon_state = "atmoext_air_3"
+
+/obj/effect/turf_decal/AtmosExtended/o2/atmoext_o2_1
+	icon_state = "atmoext_o2_1"
+
+/obj/effect/turf_decal/AtmosExtended/o2/atmoext_o2_2
+	icon_state = "atmoext_o2_2"
+
+/obj/effect/turf_decal/AtmosExtended/o2/atmoext_o2_3
+	icon_state = "atmoext_o2_3"
+
+/obj/effect/turf_decal/AtmosExtended/n2/atmoext_n2_1
+	icon_state = "atmoext_n2_1"
+
+/obj/effect/turf_decal/AtmosExtended/n2/atmoext_n2_2
+	icon_state = "atmoext_n2_2"
+
+/obj/effect/turf_decal/AtmosExtended/n2/atmoext_n2_3
+	icon_state = "atmoext_n2_3"

@@ -255,6 +255,16 @@
 	turf_type = /turf/open/floor/carpet/royalblue
 	tableVariant = /obj/structure/table/wood/fancy/royalblue
 
+/obj/item/stack/tile/carpet/grimy
+	name = "grimy carpet"
+	singular_name = "grimy carpet floor tile"
+	desc = "A piece of carpet that feels more like floor tiles, sure it feels hard to the touch for being carpet..."
+	icon_state = "tile-carpet-grimy"
+	item_state = "tile-carpet-grimy"
+	merge_type = /obj/item/stack/tile/carpet/grimy
+	turf_type = /turf/open/floor/carpet/grimy
+	//tableVariant = /obj/structure/table/wood/fancy/grimy
+
 /obj/item/stack/tile/eighties
 	name = "retro tile"
 	singular_name = "retro floor tile"
@@ -291,6 +301,9 @@
 	amount = 50
 
 /obj/item/stack/tile/carpet/royalblue/fifty
+	amount = 50
+
+/obj/item/stack/tile/carpet/grimy/fifty
 	amount = 50
 
 /obj/item/stack/tile/eighties/fifty
@@ -461,10 +474,13 @@
 	materials = list() // All other Borg versions of items have no Iron or Glass - RR
 	is_cyborg = 1
 	cost = 125
+
 //Monotiles
+
 /obj/item/stack/tile/mono
 	name = "steel mono tile"
 	singular_name = "steel mono tile"
+	desc = "A really big steel tile compared to the standard station tiles."
 	icon_state = "tile"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile
@@ -472,6 +488,7 @@
 /obj/item/stack/tile/mono/dark
 	name = "dark mono tile"
 	singular_name = "dark mono tile"
+	desc = "A really big (dark) steel tile compared to the standard station tiles."
 	icon_state = "tile"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile/dark
@@ -479,6 +496,7 @@
 /obj/item/stack/tile/mono/light
 	name = "light mono tile"
 	singular_name = "light mono tile"
+	desc = "A really big (shiny) steel tile compared to the standard station tiles."
 	icon_state = "tile"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/monotile/light
@@ -487,6 +505,7 @@
 /obj/item/stack/tile/grid
 	name = "grey grid tile"
 	singular_name = "grey grid tile"
+	desc = "A gridded version of the standard station tiles."
 	icon_state = "tile_grid"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/grid
@@ -494,6 +513,7 @@
 /obj/item/stack/tile/ridge
 	name = "grey ridge tile"
 	singular_name = "grey ridge tile"
+	desc = "A ridged version of the standard station tiles."
 	icon_state = "tile_ridged"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/ridged
@@ -502,6 +522,7 @@
 /obj/item/stack/tile/techgrey
 	name = "grey techfloor tile"
 	singular_name = "grey techfloor tile"
+	desc = "A fancy tile usually found in secure areas and engineering bays."
 	icon_state = "tile_tech_grey"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/tech
@@ -509,6 +530,7 @@
 /obj/item/stack/tile/techgrid
 	name = "grid techfloor tile"
 	singular_name = "grid techfloor tile"
+	desc = "A fancy tile usually found in secure areas and engineering bays, this one has a grid pattern."
 	icon_state = "tile_tech_grid"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/tech/grid
@@ -516,6 +538,7 @@
 /obj/item/stack/tile/techmaint
 	name = "dark techfloor tile"
 	singular_name = "dark techfloor tile"
+	desc = "A fancy tile usually found in secure areas and engineering bays, this one is dark."
 	icon_state = "tile_tech_maint"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/techmaint

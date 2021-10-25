@@ -1,0 +1,12 @@
+"a" = (/obj/structure/shuttle/engine/propulsion/burst,/turf/closed/indestructible/riveted,/area/shuttle/escape)
+"b" = (/turf/closed/indestructible/riveted,/area/shuttle/escape)
+"p" = (/obj/structure/shuttle/engine/heater,/turf/closed/indestructible/riveted,/area/shuttle/escape)
+"q" = (/obj/structure/fans/tiny,/obj/effect/turf_decal/stripes/line,/obj/machinery/door/airlock/external/glass{name = "Emergency Recovery Airlock"},/turf/open/indestructible/airblock,/area/shuttle/escape)
+"I" = (/obj/machinery/computer/emergency_shuttle,/turf/open/indestructible/airblock,/area/shuttle/escape)
+"M" = (/turf/closed/indestructible/opsglass,/area/shuttle/escape)
+
+(1,1,1) = {"
+bMb
+pIp
+aqa
+"}
