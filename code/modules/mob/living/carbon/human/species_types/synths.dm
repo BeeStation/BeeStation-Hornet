@@ -41,13 +41,12 @@
 	. = ..()
 	UnregisterSignal(H, COMSIG_MOB_SAY)
 
-/datum/species/synth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+/datum/species/synth/handle_chemicals(datum/reagent/R, mob/living/carbon/human/H)
 	if(istype(R, /datum/reagent/medicine/synthflesh))
-		R.reaction_mob(H, TOUCH, 2, 0) //heal a little
-		H.reagents.remove_reagent(R.type, REAGENTS_METABOLISM)
-	else
-		H.reagents.del_reagent(R.type) //Not synth flesh? eat shit and die
-	return FALSE
+		R.reaction_mob(H, PATCH, 2, 0) //heal a little
+		H.reagents.remove_reagent(R.type, R.metabolization_rate)
+		return TRUE
+	return ..()
 
 /datum/species/synth/spec_life(mob/living/carbon/human/H)
 	. = ..()

@@ -173,23 +173,32 @@
 	else if(l_limbs_missing >= 2 && r_limbs_missing >= 2)
 		msg += "[t_He] [p_do()]n't seem all there.\n"
 
+	var/list/harm_descriptors = dna?.species.get_harm_descriptors()
+	var/brute_msg = harm_descriptors?["brute"]
+	var/burn_msg = harm_descriptors?["burn"]
+	var/bleed_msg = harm_descriptors?["bleed"]
+
+	brute_msg = brute_msg ? brute_msg : "bruising"
+	burn_msg = burn_msg ? burn_msg : "burns"
+	bleed_msg = bleed_msg ? bleed_msg : "bleeding"
+
 	if(!(user == src && src.hal_screwyhud == SCREWYHUD_HEALTHY)) //fake healthy
 		if(temp)
 			if(temp < 25)
-				msg += "[t_He] [t_has] minor bruising.\n"
+				msg += "[t_He] [t_has] minor [brute_msg].\n"
 			else if(temp < 50)
-				msg += "[t_He] [t_has] <b>moderate</b> bruising!\n"
+				msg += "[t_He] [t_has] <b>moderate</b> [brute_msg]!\n"
 			else
-				msg += "<B>[t_He] [t_has] severe bruising!</B>\n"
+				msg += "<B>[t_He] [t_has] severe [brute_msg]!</B>\n"
 
 		temp = getFireLoss()
 		if(temp)
 			if(temp < 25)
-				msg += "[t_He] [t_has] minor burns.\n"
+				msg += "[t_He] [t_has] minor [burn_msg].\n"
 			else if (temp < 50)
-				msg += "[t_He] [t_has] <b>moderate</b> burns!\n"
+				msg += "[t_He] [t_has] <b>moderate</b> [burn_msg]!\n"
 			else
-				msg += "<B>[t_He] [t_has] severe burns!</B>\n"
+				msg += "<B>[t_He] [t_has] severe [burn_msg]!</B>\n"
 
 		temp = getCloneLoss()
 		if(temp)
@@ -232,9 +241,9 @@
 		msg += "[t_He] [t_is] bandaged with something.\n"
 	else if(bleed_rate)
 		if(reagents.has_reagent(/datum/reagent/toxin/heparin, needs_metabolizing = TRUE))
-			msg += "<b>[t_He] [t_is] bleeding uncontrollably!</b>\n"
+			msg += "<b>[t_He] [t_is] [bleed_msg] uncontrollably!</b>\n"
 		else
-			msg += "<B>[t_He] [t_is] bleeding!</B>\n"
+			msg += "<B>[t_He] [t_is] [bleed_msg]!</B>\n"
 
 	if(reagents.has_reagent(/datum/reagent/teslium, needs_metabolizing = TRUE))
 		msg += "[t_He] [t_is] emitting a gentle blue glow!\n"

@@ -20,8 +20,7 @@
 
 /obj/machinery/atmospherics/components/unary/passive_vent/process_atmos()
 	..()
-
-	if(!isopenturf(loc))
+	if(isclosedturf(loc))
 		return
 
 	var/active = FALSE

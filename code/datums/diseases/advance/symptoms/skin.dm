@@ -26,6 +26,8 @@ BONUS
 	severity = 0
 	symptom_delay_min = 25
 	symptom_delay_max = 75
+	prefixes = list("White ", "Light ")
+	bodies = list("Albinism")
 	var/cachedcolor = null
 
 /datum/symptom/vitiligo/Start(datum/disease/advance/A)
@@ -96,6 +98,8 @@ BONUS
 	severity = 0
 	symptom_delay_min = 7
 	symptom_delay_max = 14
+	prefixes = list("Black ", "Dark ")
+	bodies = list("Melanism")
 	var/cachedcolor = null
 
 /datum/symptom/revitiligo/Start(datum/disease/advance/A)
@@ -167,6 +171,8 @@ BONUS
 	base_message_chance = 50
 	symptom_delay_min = 45
 	symptom_delay_max = 90
+	prefixes = list("Rainbow ", "Chromatic ")
+	bodies = list("Pigment")
 
 /datum/symptom/polyvitiligo/Activate(datum/disease/advance/A)
 	if(!..())
@@ -207,6 +213,9 @@ BONUS
 	base_message_chance = 50
 	symptom_delay_min = 60
 	symptom_delay_max = 105
+	prefixes = list("Ovi ")
+	bodies = list("Oviposition", "Nodule")
+	suffixes = list(" Mitosis")
 	var/big_heal
 	var/all_disease
 	var/eggsplosion

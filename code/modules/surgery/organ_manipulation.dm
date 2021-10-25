@@ -96,27 +96,19 @@
 		if(target_zone != I.zone || target.getorganslot(I.slot))
 			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
 			return -1
-	if(istype(tool, /obj/item/organ/brain/positron))
-		var/obj/item/bodypart/affected = target.get_bodypart(check_zone(target_zone))
-		if(!affected)
-			return -1
-		if(affected.status != ORGAN_ROBOTIC)
-			to_chat(user, "<span class='notice'>You can't put [tool] into a meat enclosure!</span>")
-			return -1
-		if(!isipc(target))
-			to_chat(user, "<span class='notice'>[target] does not have the proper connectors to interface with [tool].</span>")
-			return -1
-		if(target_zone != "chest")
-			to_chat(user, "<span class='notice'>You have to install [tool] in [target]'s chest!</span>")
-		if(target.internal_organs_slot["brain"])
-			to_chat(user, "<span class='notice'>[target] already has a brain! You'd rather not find out what would happen with two in there.</span>")
-			return -1
-		user.visible_message("<span class='notice'>[user] begins to insert [tool] into [target]'s [parse_zone(target_zone)].</span>",
-			"<span class='notice'>You begin to insert [tool] into [target]'s [parse_zone(target_zone)]...</span>")
-
-		display_results(user, target, "<span class='notice'>You begin to insert [tool] into [target]'s [parse_zone(target_zone)]...</span>",
-			"[user] begins to insert [tool] into [target]'s [parse_zone(target_zone)].",
-			"[user] begins to insert something into [target]'s [parse_zone(target_zone)].")
+		if(istype(I, /obj/item/organ/brain/positron))
+			var/obj/item/bodypart/affected = target.get_bodypart(check_zone(I.zone))
+			if(!affected)
+				return -1
+			if(affected.status != BODYPART_ROBOTIC)
+				to_chat(user, "<span class='notice'>You can't put [I] into a meat enclosure!</span>")
+				return -1
+			if(!isipc(target))
+				to_chat(user, "<span class='notice'>[target] does not have the proper connectors to interface with [I].</span>")
+				return -1
+			display_results(user, target, "<span class='notice'>You begin to insert [I] into [target]'s [parse_zone(target_zone)]...</span>",
+				"[user] begins to insert [I] into [target]'s [parse_zone(target_zone)].",
+				"[user] begins to insert something into [target]'s [parse_zone(target_zone)].")
 
 	else if(implement_type in implements_extract)
 		current_type = "extract"
