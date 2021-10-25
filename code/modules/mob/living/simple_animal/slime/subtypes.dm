@@ -63,8 +63,8 @@
 		if("gold")
 			slime_mutation[1] = "gold"
 			slime_mutation[2] = "gold"
-			slime_mutation[3] = "adamantine"
-			slime_mutation[4] = "adamantine"
+			slime_mutation[3] = "gold"
+			slime_mutation[4] = "gold"
 		if("green")
 			slime_mutation[1] = "green"
 			slime_mutation[2] = "green"

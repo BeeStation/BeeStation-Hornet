@@ -165,7 +165,6 @@ GLOBAL_LIST_EMPTY(bounties_list)
 	/********************************Low Priority Gens********************************/
 	var/list/low_priority_strict_type_list = list( /datum/bounty/item/alien_organs,
 													/datum/bounty/item/syndicate_documents,
-													/datum/bounty/item/adamantine,
 													/datum/bounty/item/trash,
 													/datum/bounty/more_bounties)
 

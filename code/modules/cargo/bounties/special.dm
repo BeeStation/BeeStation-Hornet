@@ -19,13 +19,6 @@
 		return (Copy.copy_type && ispath(Copy.copy_type, /obj/item/documents/syndicate))
 	return TRUE
 
-/datum/bounty/item/adamantine
-	name = "Adamantine"
-	description = "Nanotrasen's anomalous materials division is in desparate need for Adamantine. Send them a large shipment and we'll make it worth your while."
-	reward = 35000
-	required_count = 10
-	wanted_types = list(/obj/item/stack/sheet/mineral/adamantine)
-
 /datum/bounty/item/trash
 	name = "Trash"
 	description = "Recently a group of janitors have run out of trash to clean up, without any trash CentCom wants to fire them to cut costs. Send a shipment of trash to keep them employed, and they'll give you a small compensation."
