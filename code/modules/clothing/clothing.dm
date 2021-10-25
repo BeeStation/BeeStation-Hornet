@@ -33,8 +33,6 @@
 
 	var/clothing_flags = NONE
 
-	var/supports_variations = null //This is a bitfield that defines what variations exist for bodyparts like Digi legs.
-
 	//Var modification - PLEASE be careful with this I know who you are and where you live
 	var/list/user_vars_to_edit //VARNAME = VARVALUE eg: "name" = "butts"
 	var/list/user_vars_remembered //Auto built by the above + dropped() + equipped()

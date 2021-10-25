@@ -163,8 +163,4 @@
 				tail.Insert(H, drop_if_replaced = FALSE)
 			else
 				mutanttail = null
-		/*if(SPECIES_LIZARD)
-			if(DIGITIGRADE in species_traits)
-				var/mob/living/carbon/C = H
-				default_features["legs"] = "Digitigrade Legs"
-				C.Digitigrade_Leg_Swap(FALSE)*/
+

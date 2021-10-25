@@ -48,7 +48,6 @@
 
 	//Coloring and proper item icon update
 	var/skin_tone = ""
-	var/species_id = ""
 	var/should_draw_gender = FALSE
 	var/should_draw_greyscale = TRUE //Is the sprite going to be greyscale, or a static color defined by the DMI?
 	var/species_color = ""

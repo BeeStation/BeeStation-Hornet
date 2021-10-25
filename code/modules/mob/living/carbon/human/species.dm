@@ -16,6 +16,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/hair_color	// this allows races to have specific hair colors... if null, it uses the H's hair/facial hair colors. if "mutcolor", it uses the H's mutant_color
 	var/hair_alpha = 255	// the alpha used by the hair. 255 is completely solid, 0 is transparent.
 
+	//KAPU LIMBS OVERRIDES - TEMPORARY UNTIL GOLEMS ARE REMOVED
+	var/limb_icon_file //DO. NOT. USE.
+	var/uses_klimbs = TRUE //Does this species have its own bodypart type and need to rebuild its body?
+
 	var/digitigrade_customization = DIGITIGRADE_NEVER
 	var/use_skintones = 0	// does it use skintones or not? (spoiler alert this is only used by humans)
 	var/exotic_blood = ""	// If your race wants to bleed something other than bog standard blood, change this to reagent id.
@@ -322,6 +326,16 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				new_part.update_limb(,,TRUE)
 				qdel(old_part)
 
+	if(!uses_klimbs)
+		for(var/obj/item/bodypart/BP in C.bodyparts)
+			BP.limb_id = limbs_id
+			BP.icon = limb_icon_file
+			BP.render_like_organic = TRUE
+			BP.is_dimorphic = FALSE
+			BP.update_limb()
+
+/datum/species/proc/handle_golem_limb(obj/item/bodypart/BP)
+
 /datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	// Drop the items the new species can't wear
 	if((AGENDER in species_traits))
@@ -337,10 +351,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 
 	// this needs to be FIRST because qdel calls update_body which checks if we have DIGITIGRADE legs or not and if not then removes DIGITIGRADE from species_traits
-	if(("legs" in C.dna.species.mutant_bodyparts) && C.dna.features["legs"] == "Digitigrade Legs")
+	if(((digitigrade_customization >= DIGITIGRADE_OPTIONAL) && C.dna.features["legs"] == "Digitigrade Legs") || digitigrade_customization == DIGITIGRADE_FORCED)
 		species_traits += DIGITIGRADE
-	/*if(DIGITIGRADE in species_traits)
-		C.Digitigrade_Leg_Swap(FALSE)*/
 
 	C.mob_biotypes = inherent_biotypes
 
@@ -409,15 +421,16 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	if(C.dna.species.exotic_bloodtype)
 		C.dna.blood_type = random_blood_type()
-	/*if(DIGITIGRADE in species_traits)
-		C.Digitigrade_Leg_Swap(TRUE)*/
+
 	if(ROBOTIC_LIMBS in species_traits)
 		for(var/obj/item/bodypart/B in C.bodyparts)
 			B.change_bodypart_status(BODYPART_ORGANIC, FALSE, TRUE)
 			B.render_like_organic = FALSE
+
 	if(NOMOUTH in species_traits)
 		for(var/obj/item/bodypart/head/head in C.bodyparts)
 			head.mouth = TRUE
+
 	for(var/X in inherent_traits)
 		REMOVE_TRAIT(C, X, SPECIES_TRAIT)
 
@@ -728,8 +741,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
 	if(BODYTYPE_DIGITIGRADE in H.dna?.species.bodytype)
-		if(!(H.w_uniform) || (H.w_uniform?.supports_variations & DIGITIGRADE_VARIATION)) //Checks uniform compatibility
-			if((!H.wear_suit) || (H.wear_suit?.supports_variations & DIGITIGRADE_VARIATION) || !(H.wear_suit?.body_parts_covered & LEGS)) //Checks suit compatability
+		if(!(H.w_uniform) || (H.w_uniform?.supports_variations & DIGITIGRADE_VARIATION) || (H.w_uniform?.supports_variations & DIGITIGRADE_VARIATION_NO_NEW_ICON)) //Checks uniform compatibility
+			if((!H.wear_suit) || (H.wear_suit?.supports_variations & DIGITIGRADE_VARIATION) || !(H.wear_suit?.body_parts_covered & LEGS) || (H.wear_suit?.supports_variations & DIGITIGRADE_VARIATION_NO_NEW_ICON)) //Checks suit compatability
 				for(var/obj/item/bodypart/BP in H.bodyparts)
 					if(BODYTYPE_DIGITIGRADE in BP.bodytype)
 						if(!(BP.limb_id == "digitigrade"))
@@ -747,29 +760,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	////END REAL-LIMB HANDLING
 	H.update_body_parts()
 
-	//Digitigrade legs are stuck in the phantom zone between true limbs and mutant bodyparts. Mainly it just needs more agressive updating than most limbs.
-	/*var/update_needed = FALSE
-	var/not_digitigrade = TRUE
-	for(var/X in H.bodyparts)
-		var/obj/item/bodypart/O = X
-		if(!O.use_digitigrade)
-			continue
-		not_digitigrade = FALSE
-		if(!(DIGITIGRADE in species_traits)) //Someone cut off a digitigrade leg and tacked it on
-			species_traits += DIGITIGRADE
-		var/should_be_squished = FALSE
-		if(H.wear_suit && ((H.wear_suit.flags_inv & HIDEJUMPSUIT) || (H.wear_suit.body_parts_covered & LEGS)) || (H.w_uniform && (H.w_uniform.body_parts_covered & LEGS)))
-			should_be_squished = TRUE
-		if(O.use_digitigrade == FULL_DIGITIGRADE && should_be_squished)
-			O.use_digitigrade = SQUISHED_DIGITIGRADE
-			update_needed = TRUE
-		else if(O.use_digitigrade == SQUISHED_DIGITIGRADE && !should_be_squished)
-			O.use_digitigrade = FULL_DIGITIGRADE
-			update_needed = TRUE
-	if(update_needed)
-		H.update_body_parts()
-	if(not_digitigrade && (DIGITIGRADE in species_traits)) //Curse is lifted
-		species_traits -= DIGITIGRADE*/
+
 
 	if(!bodyparts_to_add)
 		return
@@ -968,7 +959,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				return FALSE
 			if(num_legs < 2)
 				return FALSE
-			if(DIGITIGRADE in species_traits)
+			if((BODYTYPE_DIGITIGRADE in bodytype) && !(I.supports_variations & DIGITIGRADE_VARIATION))
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>The footwear around here isn't compatible with your feet!</span>")
 				return FALSE

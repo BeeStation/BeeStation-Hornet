@@ -215,72 +215,23 @@
 	update_body_parts()
 
 /mob/living/carbon/proc/update_body_parts(var/force_update)
-	//CHECK FOR UPDATE
-	/*var/oldkey = icon_render_key
-	icon_render_key = generate_icon_render_key()
-	if(oldkey == icon_render_key)
-		return*/
 
 	remove_overlay(BODYPARTS_LAYER)
 
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
-		BP.update_limb(,,force_update)
+		BP.update_limb(is_creating = force_update)
 
-	//LOAD ICONS
-	/*if(limb_icon_cache[icon_render_key])
-		load_limb_from_cache()
-		return*/
 
 	//GENERATE NEW LIMBS
 	var/list/new_limbs = list()
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
 		new_limbs += BP.get_limb_icon()
+
 	if(new_limbs.len)
 		overlays_standing[BODYPARTS_LAYER] = new_limbs
-		limb_icon_cache[icon_render_key] = new_limbs
 
 	apply_overlay(BODYPARTS_LAYER)
 	update_damage_overlays()
 
-
-
-/////////////////////
-// Limb Icon Cache //
-/////////////////////
-/*
-	Called from update_body_parts() these procs handle the limb icon cache.
-	the limb icon cache adds an icon_render_key to a human mob, it represents:
-	- skin_tone (if applicable)
-	- gender
-	- limbs (stores as the limb name and whether it is removed/fine, organic/robotic)
-	These procs only store limbs as to increase the number of matching icon_render_keys
-	This cache exists because drawing 6/7 icons for humans constantly is quite a waste
-	See RemieRichards on irc.rizon.net #coderbus (RIP remie :sob:)
-*/
-
-//produces a key based on the mob's limbs
-
-/mob/living/carbon/proc/generate_icon_render_key()
-	for(var/X in bodyparts)
-		var/obj/item/bodypart/BP = X
-		. += "-[BP.body_zone]"
-		if(BP.animal_origin)
-			. += "-[BP.animal_origin]"
-		if(BP.status == BODYPART_ORGANIC)
-			. += "-organic"
-		else
-			. += "-robotic"
-
-	if(HAS_TRAIT(src, TRAIT_HUSK))
-		. += "-husk"
-
-
-//change the mob's icon to the one matching its key
-/mob/living/carbon/proc/load_limb_from_cache()
-	if(limb_icon_cache[icon_render_key])
-		remove_overlay(BODYPARTS_LAYER)
-		overlays_standing[BODYPARTS_LAYER] = limb_icon_cache[icon_render_key]
-		apply_overlay(BODYPARTS_LAYER)
-	update_damage_overlays()

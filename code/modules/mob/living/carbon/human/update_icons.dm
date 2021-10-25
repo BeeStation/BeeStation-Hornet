@@ -71,7 +71,6 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/regenerate_icons()
 
 	if(!..())
-		icon_render_key = null //invalidate bodyparts cache
 		update_body()
 		update_hair()
 		update_inv_w_uniform()
@@ -327,9 +326,9 @@ There are several things that need to be remembered:
 			if(S.sprite_sheets & (dna?.species.bodyflag))
 				icon_file = dna.species.get_custom_icons("shoes")
 
-			/*if(BODYTYPE_DIGITIGRADE in dna?.species.bodytype)
+			if(BODYTYPE_DIGITIGRADE in dna?.species.bodytype)
 				if(S.supports_variations & DIGITIGRADE_VARIATION)
-					icon_file = 'icons/mob/species/misc/digitigrade_shoes.dmi'*/
+					icon_file = 'icons/mob/species/misc/digitigrade_shoes.dmi'
 
 		shoes.screen_loc = ui_shoes					//move the item to the appropriate screen loc
 		if(client && hud_used && hud_used.hud_shown)
@@ -740,41 +739,6 @@ generate/load female uniform sprites matching all previously decided variables
 			return list("x" = 0, "y" = 16)
 		else //No offsets or Unwritten number of hands
 			return list("x" = 0, "y" = 0)//Handle held offsets
-
-//produces a key based on the human's limbs
-/mob/living/carbon/human/generate_icon_render_key()
-	. = "[dna.species.id]"
-
-	if(dna.check_mutation(HULK))
-		. += "-coloured-hulk"
-	else if(dna.species.use_skintones)
-		. += "-coloured-[skin_tone]"
-	else if(dna.species.fixed_mut_color)
-		. += "-coloured-[dna.species.fixed_mut_color]"
-	else if(dna.features["mcolor"])
-		. += "-coloured-[dna.features["mcolor"]]"
-	else
-		. += "-not_coloured"
-
-	. += "-[gender]"
-
-	for(var/X in bodyparts)
-		var/obj/item/bodypart/BP = X
-		. += "-[BP.body_zone]"
-		if(BP.status == BODYPART_ORGANIC)
-			. += "-organic"
-		else
-			. += "-robotic"
-		if(BP.dmg_overlay_type)
-			. += "-[BP.dmg_overlay_type]"
-
-	if(HAS_TRAIT(src, TRAIT_HUSK))
-		. += "-husk"
-
-/mob/living/carbon/human/load_limb_from_cache()
-	..()
-	update_hair()
-
 
 
 /mob/living/carbon/human/proc/update_observer_view(obj/item/I, inventory)

@@ -45,7 +45,7 @@
 					to_chat(user, "<span class='warning'>[BP] doesn't match the patient's morphology.</span>")
 					return -1
 				var/mob/living/carbon/human/H = target
-				if(H.dna.species.id != BP.species_id)
+				if(H.dna.species.id != BP.limb_id)
 					organ_rejection_dam = 30
 
 		if(target_zone == BP.body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
