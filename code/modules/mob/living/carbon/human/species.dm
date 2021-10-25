@@ -706,6 +706,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(!H.dna.features["grod_crown"] || (H.head && (H.head.flags_inv & HIDEHAIR))) //Add shit here later, me
 			bodyparts_to_add -= "grod_crown"
 
+
 	//Digitigrade legs are stuck in the phantom zone between true limbs and mutant bodyparts. Mainly it just needs more agressive updating than most limbs.
 	var/update_needed = FALSE
 	var/not_digitigrade = TRUE
@@ -783,6 +784,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.insect_type_list[H.dna.features["insect_type"]]
 				if("grod_crown")
 					S = GLOB.grod_crowns_list[H.dna.features["grod_crown"]]
+				if("grod_marks")
+					S = GLOB.grod_marks_list[H.dna.features["grod_marks"]]
 			if(!S || S.icon_state == "none")
 				continue
 

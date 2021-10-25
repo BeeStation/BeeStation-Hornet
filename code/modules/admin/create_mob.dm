@@ -35,6 +35,7 @@
 	H.dna.features["body_markings"] = pick(GLOB.body_markings_list)
 	H.dna.features["moth_wings"] = pick(GLOB.moth_wings_list)
 	H.dna.features["grod_crown"] = pick(GLOB.grod_crowns_list)
+	H.dna.features["grod_marks"] = pick(GLOB.grod_marks_list)
 
 	H.update_body()
 	H.update_hair()

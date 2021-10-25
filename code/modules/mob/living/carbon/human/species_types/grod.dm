@@ -20,6 +20,7 @@
 	species_traits = list(NO_DNA_COPY, AGENDER, NOHUSK, NO_UNDERWEAR, NOEYESPRITES, MUTCOLORS)
 	inherent_traits = list(TRAIT_NO_DEFIB, TRAIT_RESISTLOWPRESSURE, TRAIT_NOSLIPWATER, TRAIT_NEVER_STUBS)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	default_features = list("mcolor" = "#00FF00", "grod_crown" = "Crown", "grod_marks" = "None")
 	mutant_bodyparts = list("grod_crown")
 	mutant_brain = /obj/item/organ/brain/grod
 	limbs_id = "grod"
@@ -35,7 +36,6 @@
 	toxic_food = TOXIC | MEAT | RAW
 	say_mod = "decrees"
 	species_language_holder = /datum/language_holder/grod
-	default_features = list("mcolor" = "#00FF00", "grod_crown" = "Crown")
 	offset_features = list(OFFSET_LEFT_HAND = list(-1,-4), OFFSET_RIGHT_HAND = list(2,-4))
 	changesource_flags = MIRROR_BADMIN | MIRROR_MAGIC | RACE_SWAP
 	allow_numbers_in_name = TRUE

@@ -84,7 +84,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/skin_tone = "caucasian1"		//Skin color
 	var/eye_color = "000"				//Eye color
 	var/datum/species/pref_species = new /datum/species/human()	//Mutant race
-	var/list/features = list("mcolor" = "FFF", "ethcolor" = "9c3030", "tail_lizard" = "Smooth", "tail_human" = "None", "snout" = "Round", "horns" = "None", "ears" = "None", "wings" = "None", "frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Normal Legs", "moth_wings" = "Plain", "ipc_screen" = "Blue", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)", "insect_type" = "Common Fly", "grod_crown" = "None")
+	var/list/features = list("mcolor" = "FFF", "ethcolor" = "9c3030", "tail_lizard" = "Smooth", "tail_human" = "None", "snout" = "Round", "horns" = "None", "ears" = "None", "wings" = "None", "frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Normal Legs", "moth_wings" = "Plain", "ipc_screen" = "Blue", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)", "insect_type" = "Common Fly", "grod_crown" = "Crown", "grod_marks" = "None")
 
 	var/list/custom_names = list()
 	var/preferred_ai_core_display = "Blue"
@@ -512,6 +512,18 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<h3>Grod Crown</h3>"
 
 				dat += "<a href='?_src_=prefs;preference=grod_crown;task=input'>[features["grod_crown"]]</a><BR>"
+
+				mutant_category++
+				if(mutant_category >= MAX_MUTANT_ROWS)
+					dat += "</td>"
+					mutant_category = 0
+
+			if("grod_marks" in pref_species.default_features)
+				if(!mutant_category)
+					dat += APPEARANCE_CATEGORY_COLUMN
+				dat += "<h3>Grod Marks</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=grod_marks;task=input'>[features["grod_marks"]]</a><BR>"
 
 				mutant_category++
 				if(mutant_category >= MAX_MUTANT_ROWS)
@@ -1600,6 +1612,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					new_grod_crown = input(user, "Choose your character's Crown:", "Character Preference") as null|anything in GLOB.grod_crowns_list
 					if(new_grod_crown)
 						features["grod_crown"] = new_grod_crown
+
+				if("grod_marks")
+					var/new_grod_marks
+					new_grod_marks = input(user, "Choose your character's markings:", "Character Preference") as null|anything in GLOB.grod_marks_list
+					if(new_grod_marks)
+						features["grod_marks"] = new_grod_marks
+
 				if("s_tone")
 					var/new_s_tone = input(user, "Choose your character's skin-tone:", "Character Preference")  as null|anything in GLOB.skin_tones
 					if(new_s_tone)

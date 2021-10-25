@@ -2300,3 +2300,54 @@
 	name = "Youngling"
 	icon_state = "youngling"
 
+
+/datum/sprite_accessory/grod_marks
+	icon = 'icons/mob/species/grod/markings.dmi'
+
+/datum/sprite_accessory/grod_marks/none
+	name = "None"
+	icon_state = ""
+
+/datum/sprite_accessory/grod_marks/atalanta
+	name = "Atalanta"
+	icon_state = "atalanta"
+
+/datum/sprite_accessory/grod_marks/cardui
+	name = "Cardui"
+	icon_state = "cardui"
+
+/datum/sprite_accessory/grod_marks/cerura
+	name = "Cerura"
+	icon_state = "cerura"
+
+/datum/sprite_accessory/grod_marks/claudia
+	name = "Claudia"
+	icon_state = "claudia"
+
+/datum/sprite_accessory/grod_marks/eacles
+	name = "Eacles"
+	icon_state = "eacles"
+
+/datum/sprite_accessory/grod_marks/harrisii
+	name = "Harrisii"
+	icon_state = "harrisii"
+
+/datum/sprite_accessory/grod_marks/oblinita
+	name = "Oblinita"
+	icon_state = "oblinita"
+
+/datum/sprite_accessory/grod_marks/promethea
+	name = "Promethea"
+	icon_state = "promethea"
+
+/datum/sprite_accessory/grod_marks/tussock
+	name = "Tussock"
+	icon_state = "tussock"
+
+/datum/sprite_accessory/grod_marks/vanillae
+	name = "Vanillae"
+	icon_state = "vanillae"
+
+/datum/sprite_accessory/grod_marks/xestia
+	name = "Xestia"
+	icon_state = "xestia"
