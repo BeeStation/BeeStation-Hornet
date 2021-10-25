@@ -37,6 +37,9 @@
 	content_overlays = TRUE
 	custom_price = 50
 
+	sprite_sheets = FLAG_GROD
+	species_restricted = null
+
 /obj/item/storage/belt/utility/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
@@ -178,6 +181,9 @@
 	icon_state = "medicalbelt"
 	item_state = "medical"
 
+	sprite_sheets = FLAG_GROD
+	species_restricted = null
+
 /obj/item/storage/belt/medical/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
@@ -243,6 +249,8 @@
 	icon_state = "securitybelt"
 	item_state = "security"//Could likely use a better one.
 	content_overlays = TRUE
+	sprite_sheets = FLAG_GROD
+	species_restricted = null
 
 /obj/item/storage/belt/security/ComponentInitialize()
 	. = ..()
@@ -594,6 +602,9 @@
 	desc = "A belt used to hold most janitorial supplies."
 	icon_state = "janibelt"
 	item_state = "janibelt"
+
+	sprite_sheets = FLAG_GROD
+	species_restricted = null
 
 /obj/item/storage/belt/janitor/ComponentInitialize()
 	. = ..()

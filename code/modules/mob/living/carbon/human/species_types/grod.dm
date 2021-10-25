@@ -197,6 +197,8 @@
 			return 'icons/mob/species/grod/onmob_grod_neck.dmi'
 		if("generic")
 			return 'icons/mob/species/grod/onmob_grod_generic.dmi'
+		if("belt")
+			return 'icons/mob/species/grod/onmob_grod_belt.dmi'
 		/*if("bloodmask") NOT READY
 			return 'icons/mob/species/grod/bloodmask_grod.dmi'*/
 		else
