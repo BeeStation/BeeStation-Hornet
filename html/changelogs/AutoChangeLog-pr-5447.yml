@@ -1,0 +1,5 @@
+author: The-Moon-Itself
+delete-after: true
+changes:
+  - bugfix: The chameleon projector now projects objects with overlays, such as computers
+      and holosigns, correctly.
