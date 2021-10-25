@@ -146,8 +146,7 @@
 
 /obj/item/disk/data/debug/Initialize()
 	. = ..()
-	for(var/i in GLOB.all_mutations)
-		var/datum/mutation/human/HM = i
+	for(var/datum/mutation/human/HM as() in GLOB.all_mutations)
 		mutations += new HM
 
 //Clonepod
