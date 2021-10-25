@@ -260,14 +260,14 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 /obj/machinery/cryopod/proc/handle_objectives()
 	var/mob/living/mob_occupant = occupant
 	//Update any existing objectives involving this mob.
-	for(var/datum/objective/O in GLOB.objectives)
+	for(var/datum/objective/O as() in GLOB.objectives)
 		if(O.target != mob_occupant.mind)
 			continue
 		// We don't want revs to get objectives that aren't for heads of staff. Letting
 		// them win or lose based on cryo is silly so we remove the objective.
 		if(istype(O,/datum/objective/mutiny))
 			O.team.objectives -= O
-			for(var/datum/mind/M in O.team.members)
+			for(var/datum/mind/M as() in O.team.members)
 				to_chat(M.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
 				M.announce_objectives()
 			qdel(O)
@@ -283,9 +283,9 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			O.target = null
 			O.find_target()
 			if(!O.target || O.target == mob_occupant.mind)
-				for(var/datum/mind/own in O.get_owners())
+				for(var/datum/mind/own as() in O.get_owners())
 					to_chat(own.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
-					for(var/datum/antagonist/A in own.antag_datums)
+					for(var/datum/antagonist/A as() in own.antag_datums)
 						A.objectives -= O
 					own.announce_objectives()
 				if(O.team)
@@ -293,7 +293,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 				qdel(O)
 			else
 				O.update_explanation_text()
-				for(var/datum/mind/own in O.get_owners())
+				for(var/datum/mind/own as() in O.get_owners())
 					to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 					own.announce_objectives()
 
