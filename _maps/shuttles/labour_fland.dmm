@@ -1,39 +1,384 @@
-"b" = (/obj/effect/turf_decal/stripes/line,/obj/effect/turf_decal/tile/neutral,/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 1},/turf/open/floor/pod/dark,/area/shuttle/labor)
-"e" = (/obj/structure/shuttle/engine/propulsion,/obj/effect/turf_decal/stripes/line,/turf/open/floor/plating/airless,/area/shuttle/labor)
-"h" = (/obj/machinery/mineral/stacking_machine/laborstacker{input_dir = 2; output_dir = 1},/obj/effect/turf_decal/stripes/line,/obj/effect/turf_decal/stripes/line{dir = 1},/turf/open/floor/pod/light,/area/shuttle/labor)
-"i" = (/obj/item/stack/marker_beacon{anchored = 1; icon_state = "markerburgundy-on"; light_color = "#FA644B"; light_power = 3; light_range = 2; name = "landing marker"; picked_color = "Burgundy"},/turf/closed/wall/mineral/titanium/survival/nodiagonal,/area/shuttle/labor)
-"k" = (/obj/structure/chair/comfy/shuttle{dir = 1},/obj/effect/turf_decal/bot,/obj/structure/reagent_dispensers/peppertank{pixel_y = -32},/turf/open/floor/mineral/plastitanium,/area/shuttle/labor)
-"p" = (/obj/effect/decal/cleanable/dirt,/obj/effect/turf_decal/bot,/obj/structure/chair/comfy/shuttle,/turf/open/floor/mineral/plastitanium,/area/shuttle/labor)
-"r" = (/obj/machinery/mineral/stacking_unit_console{machinedir = 4; pixel_x = -30; pixel_y = -4},/turf/open/floor/mineral/plastitanium,/area/shuttle/labor)
-"u" = (/obj/effect/turf_decal/stripes/line,/obj/effect/turf_decal/tile/neutral,/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 1},/obj/machinery/light,/turf/open/floor/pod/dark,/area/shuttle/labor)
-"x" = (/obj/effect/turf_decal/stripes/line,/obj/machinery/door/airlock/survival_pod/glass,/turf/open/floor/pod/light,/area/shuttle/labor)
-"y" = (/obj/machinery/button/flasher{id = "gulagshuttleflasher"; name = "Flash Control"; pixel_x = -26; pixel_y = 26; req_access_txt = "1"},/obj/effect/turf_decal/stripes/line{dir = 1},/turf/open/floor/mineral/plastitanium,/area/shuttle/labor)
-"z" = (/obj/effect/turf_decal/tile/neutral,/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 1},/turf/open/floor/pod/dark,/area/shuttle/labor)
-"A" = (/obj/effect/spawner/structure/window/hollow/survival_pod/directional{dir = 8},/turf/open/floor/plating,/area/shuttle/labor)
-"B" = (/obj/structure/shuttle/engine/heater,/obj/effect/spawner/structure/window/hollow/survival_pod/directional,/turf/open/floor/plating/airless,/area/shuttle/labor)
-"C" = (/obj/effect/turf_decal/caution/stand_clear{dir = 8},/turf/open/floor/mineral/plastitanium,/area/shuttle/labor)
-"D" = (/obj/effect/turf_decal/stripes/line{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 4},/obj/machinery/door/airlock/external{name = "Mining Shuttle External Airlock"},/obj/structure/fans/tiny,/turf/open/floor/pod/dark,/area/shuttle/labor)
-"E" = (/obj/effect/turf_decal/tile/neutral,/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 1},/obj/effect/turf_decal/caution/stand_clear{dir = 8},/turf/open/floor/pod/dark,/area/shuttle/labor)
-"F" = (/obj/effect/turf_decal/delivery,/obj/machinery/computer/shuttle_flight/labor,/obj/effect/turf_decal/stripes/line{dir = 1},/obj/machinery/light{dir = 1},/turf/open/floor/mineral/plastitanium,/area/shuttle/labor)
-"G" = (/obj/effect/turf_decal/stripes/line{dir = 8},/obj/effect/turf_decal/stripes/line{dir = 4},/obj/machinery/door/airlock/external{name = "Mining Shuttle External Airlock"},/obj/structure/fans/tiny,/obj/docking_port/mobile{dir = 8; dwidth = 2; height = 5; id = "laborcamp"; name = "labor camp shuttle"; port_direction = 4; width = 10},/turf/open/floor/pod/dark,/area/shuttle/labor)
-"I" = (/obj/item/clothing/suit/hazardvest{desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks."; name = "emergency lifejacket"},/obj/item/clothing/suit/hazardvest{desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks."; name = "emergency lifejacket"},/obj/item/clothing/suit/hazardvest{desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks."; name = "emergency lifejacket"},/obj/item/clothing/suit/hazardvest{desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks."; name = "emergency lifejacket"},/obj/item/clothing/suit/hazardvest{desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks."; name = "emergency lifejacket"},/obj/item/tank/internals/emergency_oxygen{pixel_x = 3},/obj/item/tank/internals/emergency_oxygen{pixel_x = 3},/obj/item/tank/internals/emergency_oxygen{pixel_x = 3},/obj/item/tank/internals/emergency_oxygen{pixel_x = 3},/obj/item/tank/internals/emergency_oxygen{pixel_x = 3},/obj/item/clothing/mask/breath{pixel_x = -3; pixel_y = -3},/obj/item/clothing/mask/breath{pixel_x = -3; pixel_y = -3},/obj/item/clothing/mask/breath{pixel_x = -3; pixel_y = -3},/obj/item/clothing/mask/breath{pixel_x = -3; pixel_y = -3},/obj/item/clothing/mask/breath{pixel_x = -3; pixel_y = -3},/obj/item/clothing/head/hardhat/orange{name = "protective hat"; pixel_y = 9},/obj/item/clothing/head/hardhat/orange{name = "protective hat"; pixel_y = 9},/obj/item/clothing/head/hardhat/orange{name = "protective hat"; pixel_y = 9},/obj/item/clothing/head/hardhat/orange{name = "protective hat"; pixel_y = 9},/obj/item/clothing/head/hardhat/orange{name = "protective hat"; pixel_y = 9},/obj/structure/closet/crate/internals,/obj/effect/decal/cleanable/dirt,/obj/effect/turf_decal/delivery,/turf/open/floor/mineral/plastitanium,/area/shuttle/labor)
-"K" = (/obj/effect/decal/cleanable/dirt,/obj/effect/turf_decal/bot,/obj/structure/chair/comfy/shuttle,/obj/machinery/mineral/labor_claim_console{machinedir = 1; pixel_x = 30; pixel_y = -4},/turf/open/floor/mineral/plastitanium,/area/shuttle/labor)
-"T" = (/obj/effect/spawner/structure/window/hollow/survival_pod/directional{dir = 4},/turf/open/floor/plating,/area/shuttle/labor)
-"U" = (/turf/closed/wall/mineral/titanium/survival/nodiagonal,/area/shuttle/labor)
-"V" = (/obj/effect/spawner/structure/window/hollow/survival_pod/directional{dir = 1},/turf/open/floor/plating,/area/shuttle/labor)
-"X" = (/obj/effect/turf_decal/stripes/line{dir = 1},/turf/open/floor/mineral/plastitanium,/area/shuttle/labor)
-"Y" = (/obj/effect/turf_decal/stripes/line,/obj/effect/turf_decal/tile/neutral,/obj/effect/turf_decal/tile/neutral{dir = 8},/obj/effect/turf_decal/tile/neutral{dir = 4},/obj/effect/turf_decal/tile/neutral{dir = 1},/obj/structure/ore_box,/turf/open/floor/pod/dark,/area/shuttle/labor)
-"Z" = (/turf/closed/wall/mineral/titanium/survival,/area/shuttle/labor)
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/labor)
+"e" = (
+/obj/structure/shuttle/engine/propulsion,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plating/airless,
+/area/shuttle/labor)
+"h" = (
+/obj/machinery/mineral/stacking_machine/laborstacker{
+	input_dir = 2;
+	output_dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/labor)
+"i" = (
+/obj/item/stack/marker_beacon{
+	anchored = 1;
+	icon_state = "markerburgundy-on";
+	light_color = "#FA644B";
+	light_power = 3;
+	light_range = 2;
+	name = "landing marker";
+	picked_color = "Burgundy"
+	},
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/area/shuttle/labor)
+"k" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_y = -32
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"p" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/structure/chair/comfy/shuttle,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"r" = (
+/obj/machinery/mineral/stacking_unit_console{
+	machinedir = 4;
+	pixel_x = -30;
+	pixel_y = -4
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"u" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/open/floor/pod/dark,
+/area/shuttle/labor)
+"x" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/airlock/survival_pod/glass,
+/turf/open/floor/pod/light,
+/area/shuttle/labor)
+"y" = (
+/obj/machinery/button/flasher{
+	id = "gulagshuttleflasher";
+	name = "Flash Control";
+	pixel_x = -26;
+	pixel_y = 26;
+	req_access_txt = "1"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"z" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/labor)
+"A" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/shuttle/labor)
+"B" = (
+/obj/structure/shuttle/engine/heater,
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional,
+/turf/open/floor/plating/airless,
+/area/shuttle/labor)
+"C" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"D" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/airlock/external{
+	name = "Mining Shuttle External Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/pod/dark,
+/area/shuttle/labor)
+"E" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/labor)
+"F" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/computer/shuttle_flight/labor,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"G" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/airlock/external{
+	name = "Mining Shuttle External Airlock"
+	},
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 5;
+	id = "laborcamp";
+	name = "labor camp shuttle";
+	port_direction = 4;
+	width = 10
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/labor)
+"I" = (
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket"
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = 9
+	},
+/obj/structure/closet/crate/internals,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"K" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/structure/chair/comfy/shuttle,
+/obj/machinery/mineral/labor_claim_console{
+	machinedir = 1;
+	pixel_x = 30;
+	pixel_y = -4
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"T" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/shuttle/labor)
+"U" = (
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/area/shuttle/labor)
+"V" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/labor)
+"X" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"Y" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/ore_box,
+/turf/open/floor/pod/dark,
+/area/shuttle/labor)
+"Z" = (
+/turf/closed/wall/mineral/titanium/survival,
+/area/shuttle/labor)
 
 (1,1,1) = {"
-iVVVi
-ZIpKZ
-AzzED
-ZzzzZ
-AuYbT
-UxZhU
-AXFyT
-ZrkCG
-UBUBU
-ieeei
+i
+Z
+A
+Z
+A
+U
+A
+Z
+U
+i
+"}
+(2,1,1) = {"
+V
+I
+z
+z
+u
+x
+X
+r
+B
+e
+"}
+(3,1,1) = {"
+V
+p
+z
+z
+Y
+Z
+F
+k
+U
+e
+"}
+(4,1,1) = {"
+V
+K
+E
+z
+b
+h
+y
+C
+B
+e
+"}
+(5,1,1) = {"
+i
+Z
+D
+Z
+T
+U
+T
+G
+U
+i
 "}
