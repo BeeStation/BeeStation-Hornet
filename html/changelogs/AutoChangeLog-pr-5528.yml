@@ -1,0 +1,10 @@
+author: Pirill
+delete-after: true
+changes:
+  - rscadd: Makes regular prescription glasses printable at a Medical Protolathe
+  - rscadd: Adds craftable prescription versions of medical, security and diagnostic
+      HUDglasses, science goggles and meson scanners
+  - tweak: Makes the Blood Cult Zealot's Blindfold correct nearsightedness when in
+      use
+  - imageadd: Resprites the original prescription medical HUDglasses and adds equivalent
+      sprites for the rest
