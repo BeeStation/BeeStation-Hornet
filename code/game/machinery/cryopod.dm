@@ -282,7 +282,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		else
 			O.target = null
 			O.find_target()
-			if(!O.target)
+			if(!O.target || O.target == mob_occupant.mind)
 				for(var/datum/mind/own in O.get_owners())
 					to_chat(own.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
 					for(var/datum/antagonist/A in own.antag_datums)
