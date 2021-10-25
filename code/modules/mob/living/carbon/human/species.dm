@@ -16,11 +16,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/hair_color	// this allows races to have specific hair colors... if null, it uses the H's hair/facial hair colors. if "mutcolor", it uses the H's mutant_color
 	var/hair_alpha = 255	// the alpha used by the hair. 255 is completely solid, 0 is transparent.
 
-	//KAPU LIMBS OVERRIDES - TEMPORARY UNTIL GOLEMS ARE REMOVED
+	//KAPU LIMBS OVERRIDES - Used for barely used species that dont deserve their own limb datums.
 	var/limb_icon_file //DO. NOT. USE.
-	var/uses_klimbs = TRUE //Does this species have its own bodypart type and need to rebuild its body?
+	var/use_generic_limbs = FALSE //Does this species have its own bodypart type, or does it use a reskinned human limb?
 
-	var/digitigrade_customization = DIGITIGRADE_NEVER
+	var/digitigrade_customization = DIGITIGRADE_NEVER //Never, Optional, or Forced digi legs?
 	var/use_skintones = 0	// does it use skintones or not? (spoiler alert this is only used by humans)
 	var/exotic_blood = ""	// If your race wants to bleed something other than bog standard blood, change this to reagent id.
 	var/exotic_bloodtype = "" //If your race uses a non standard bloodtype (A+, O-, AB-, etc)
@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	//The component to add when swimming
 	var/swimming_component = /datum/component/swimming
 
-
+	//K-Limbs. If a species doesn't have their own limb types. Do not override this, use the K-Limbs overrides at the top of the species datum.
 	var/obj/item/bodypart/species_chest = /obj/item/bodypart/chest
 	var/obj/item/bodypart/species_head = /obj/item/bodypart/head
 	var/obj/item/bodypart/species_l_arm = /obj/item/bodypart/l_arm
@@ -287,7 +287,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/write_species_limbs()
 	return
 /datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
-	new_species ||= C.dna?.species
+	new_species ||= C.dna?.species //If no new species is provided, assume its the species calling the proc.
 
 	if(((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL) && C.dna?.features["legs"] == "Digitigrade Legs") || new_species.digitigrade_customization == DIGITIGRADE_FORCED)
 		new_species.species_r_leg = /obj/item/bodypart/r_leg/digitigrade
@@ -326,10 +326,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				new_part.update_limb(,,TRUE)
 				qdel(old_part)
 
-	if(!uses_klimbs)
+	if(use_generic_limbs)
 		for(var/obj/item/bodypart/BP in C.bodyparts)
 			BP.limb_id = limbs_id
 			BP.icon = limb_icon_file
+			if(fixed_mut_color)
+				BP.should_draw_greyscale = TRUE
+				BP.species_color = fixed_mut_color
 			BP.render_like_organic = TRUE
 			BP.is_dimorphic = FALSE
 			BP.update_limb()
@@ -648,7 +651,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				else
 					standing += mutable_appearance(undershirt.icon, undershirt.icon_state, -BODY_LAYER)
 
-		if(H.socks && H.get_num_legs(FALSE) >= 2 && !(DIGITIGRADE in species_traits) && !(NOSOCKS in species_traits))
+		if(H.socks && H.get_num_legs(FALSE) >= 2 && !(H.dna?.features["legs"] = "Digitigrade Legs") && !(NOSOCKS in species_traits))
 			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[H.socks]
 			if(socks)
 				standing += mutable_appearance(socks.icon, socks.icon_state, -BODY_LAYER)
@@ -745,15 +748,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if((!H.wear_suit) || (H.wear_suit?.supports_variations & DIGITIGRADE_VARIATION) || !(H.wear_suit?.body_parts_covered & LEGS) || (H.wear_suit?.supports_variations & DIGITIGRADE_VARIATION_NO_NEW_ICON)) //Checks suit compatability
 				for(var/obj/item/bodypart/BP in H.bodyparts)
 					if(BODYTYPE_DIGITIGRADE in BP.bodytype)
-						if(!(BP.limb_id == "digitigrade"))
-							BP.limb_id = "digitigrade"
+						BP.limb_id = "digitigrade"
 
 
 		else
 			for(var/obj/item/bodypart/BP in H.bodyparts)
 				if(BODYTYPE_DIGITIGRADE in BP.bodytype)
-					if(!(BP.limb_id == "lizard"))
-						BP.limb_id = "lizard"
+					BP.limb_id = "lizard"
 
 
 

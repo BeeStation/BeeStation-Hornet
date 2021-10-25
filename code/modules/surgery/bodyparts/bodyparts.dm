@@ -371,12 +371,13 @@
 		I.pixel_y = px_y
 	add_overlay(standing)
 
-//Gives you a proper icon appearance for the dismembered limb
+
 /obj/item/bodypart/proc/get_limb_icon(dropped)
 	icon_state = "" //to erase the default sprite, we're building the visual aspects of the bodypart through overlays alone.
 
 	. = list()
 
+	//Handles dropped icons
 	var/image_dir = 0
 	if(dropped)
 		image_dir = SOUTH

@@ -4,7 +4,7 @@
 	bodyflag = FLAG_IPC
 	say_mod = "states"
 	sexes = FALSE
-	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH)
+	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH, MUTCOLORS)
 	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_NOCRITDAMAGE,TRAIT_EASYDISMEMBER,TRAIT_POWERHUNGRY,TRAIT_XENO_IMMUNE, TRAIT_TOXIMMUNE)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutant_brain = /obj/item/organ/brain/positron
@@ -38,6 +38,13 @@
 	species_language_holder = /datum/language_holder/synthetic
 	special_step_sounds = list('sound/effects/servostep.ogg')
 
+	species_chest = /obj/item/bodypart/chest/ipc
+	species_head = /obj/item/bodypart/head/ipc
+	species_l_arm = /obj/item/bodypart/l_arm/ipc
+	species_r_arm = /obj/item/bodypart/r_arm/ipc
+	species_l_leg = /obj/item/bodypart/l_leg/ipc
+	species_r_leg = /obj/item/bodypart/r_leg/ipc
+
 	var/saved_screen //for saving the screen when they die
 	var/datum/action/innate/change_screen/change_screen
 
@@ -58,22 +65,6 @@
 	if(ishuman(C) && !change_screen)
 		change_screen = new
 		change_screen.Grant(C)
-	for(var/obj/item/bodypart/O in C.bodyparts)
-		O.render_like_organic = TRUE // Makes limbs render like organic limbs instead of augmented limbs, check bodyparts.dm
-		var/chassis = C.dna.features["ipc_chassis"]
-		var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[chassis]
-		C.dna.species.limbs_id = chassis_of_choice.limbs_id
-		if(chassis_of_choice.color_src == MUTCOLORS && !(MUTCOLORS in C.dna.species.species_traits)) // If it's a colorable(Greyscale) chassis, we use MUTCOLORS.
-			C.dna.species.species_traits += MUTCOLORS
-		else if(MUTCOLORS in C.dna.species.species_traits)
-			C.dna.species.species_traits -= MUTCOLORS
-		O.light_brute_msg = "scratched"
-		O.medium_brute_msg = "dented"
-		O.heavy_brute_msg = "sheared"
-
-		O.light_burn_msg = "burned"
-		O.medium_burn_msg = "scorched"
-		O.heavy_burn_msg = "seared"
 
 /datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	. = ..()
@@ -202,3 +193,17 @@
 
 /datum/species/ipc/get_harm_descriptors()
 	return list("bleed" = "leaking", "brute" = "denting", "burn" = "burns")
+
+/datum/species/ipc/replace_body(mob/living/carbon/C, datum/species/new_species)
+	..()
+
+	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[C.dna?.features["ipc_chassis"]]
+
+	for(var/obj/item/bodypart/BP in C.bodyparts) //Override bodypart data as necessary
+		BP.uses_mutcolor = chassis_of_choice.color_src ? TRUE : FALSE
+		if(BP.uses_mutcolor)
+			BP.should_draw_greyscale = TRUE
+			BP.species_color = C.dna?.features["mcolor"]
+
+		BP.limb_id = chassis_of_choice.limbs_id
+		BP.update_limb()

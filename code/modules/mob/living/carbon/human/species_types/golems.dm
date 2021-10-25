@@ -21,7 +21,7 @@
 	// To prevent golem subtypes from overwhelming the odds when random species
 	// changes, only the Random Golem type can be chosen
 	limbs_id = "golem"
-	uses_klimbs = FALSE
+	use_generic_limbs = TRUE
 	limb_icon_file = 'icons/mob/human_parts.dmi'
 	fixed_mut_color = "aaa"
 	swimming_component = /datum/component/swimming/golem
