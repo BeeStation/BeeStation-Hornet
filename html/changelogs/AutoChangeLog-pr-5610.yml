@@ -1,4 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - bugfix: Resetting the thunderdome no longer breaks it.

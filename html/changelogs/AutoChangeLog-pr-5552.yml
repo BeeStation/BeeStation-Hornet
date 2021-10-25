@@ -1,5 +1,0 @@
-author: DeltaFire15
-delete-after: true
-changes:
-  - bugfix: Cyborg B.o.r.i.s. installation now checks for if the chest has a cell,
-      just like how it does with MMIs.
