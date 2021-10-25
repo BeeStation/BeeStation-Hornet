@@ -30,7 +30,7 @@ export const NtosPortraitPrinter = (props, context) => {
     },
   ];
   const tab2list = TABS[tabIndex].list;
-  const is_category_empty = tab2list[listIndex] === 0;
+  const is_category_empty = tab2list[listIndex] !== 0;
   return (
     <NtosWindow
       title="Art Galaxy"
@@ -55,7 +55,7 @@ export const NtosPortraitPrinter = (props, context) => {
               </Tabs>
             </Section>
           </Stack.Item>
-          {is_category_empty && (
+          {!!is_category_empty && (
             <Stack.Item grow={2}>
               <Section fill>
                 <Stack
