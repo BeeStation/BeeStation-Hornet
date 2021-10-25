@@ -289,6 +289,18 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
 	new_species ||= C.dna?.species //If no new species is provided, assume its the species calling the proc.
 
+	if(use_generic_limbs)
+		for(var/obj/item/bodypart/BP in C.bodyparts)
+			BP.limb_id = limbs_id
+			BP.icon = limb_icon_file
+			if(fixed_mut_color)
+				BP.should_draw_greyscale = TRUE
+				BP.species_color = fixed_mut_color
+			BP.render_like_organic = TRUE
+			BP.is_dimorphic = FALSE
+			BP.update_limb()
+		return
+
 	if(((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL) && C.dna?.features["legs"] == "Digitigrade Legs") || new_species.digitigrade_customization == DIGITIGRADE_FORCED)
 		new_species.species_r_leg = /obj/item/bodypart/r_leg/digitigrade
 		new_species.species_l_leg = /obj/item/bodypart/l_leg/digitigrade
@@ -326,18 +338,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				new_part.update_limb(,,TRUE)
 				qdel(old_part)
 
-	if(use_generic_limbs)
-		for(var/obj/item/bodypart/BP in C.bodyparts)
-			BP.limb_id = limbs_id
-			BP.icon = limb_icon_file
-			if(fixed_mut_color)
-				BP.should_draw_greyscale = TRUE
-				BP.species_color = fixed_mut_color
-			BP.render_like_organic = TRUE
-			BP.is_dimorphic = FALSE
-			BP.update_limb()
-
-/datum/species/proc/handle_golem_limb(obj/item/bodypart/BP)
 
 /datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	// Drop the items the new species can't wear
