@@ -46,7 +46,6 @@ endmap
 map kilostation
 	maxplayers 60
 	votable
-	disabled
 endmap
 
 #Event Maps, not intended for normal gameplay
