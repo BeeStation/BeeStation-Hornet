@@ -23,6 +23,10 @@
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
 	departments = DEPARTMENT_MEDICAL
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/viro
+	)
+
 /datum/outfit/job/virologist
 	name = "Virologist"
 	jobtype = /datum/job/virologist

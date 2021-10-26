@@ -1047,3 +1047,11 @@
 	build_path = /obj/item/stack/ducts
 	category = list("initial", "Construction")
 	maxstack = 50
+
+/datum/design/airlock_painter/decal
+	name = "Decal Painter"
+	id = "decal_painter"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 50, /datum/material/glass = 50)
+	build_path = /obj/item/airlock_painter/decal
+	category = list("initial","Tools","Tool Designs")
