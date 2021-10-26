@@ -360,6 +360,8 @@ Thresholds
 	symptom_delay_max = 1
 	severity = 1
 	base_message_chance = 5
+	prefixes = list("Thorny ", "Horned ")
+	bodies = list("Horn", "Spiked")
 	var/Power = 1
 	var/armor = 0
 	var/done = FALSE
@@ -423,6 +425,7 @@ Thresholds
 	severity = 3
 	symptom_delay_min = 20
 	symptom_delay_max = 60
+	prefixes = list("Pestilent ", "Bubonic ")
 	var/pustules = 0
 	var/shoot = FALSE
 	threshold_desc = "<b>Transmission 4:</b>Buboes will occasionally burst when disturbed or left too long, shooting out toxic pus.<br>\
@@ -432,6 +435,9 @@ Thresholds
 	. = ..()
 	if(A.transmission >= 6)
 		severity += 1
+	if(A.transmission >= 4)
+		severity += 1
+		prefixes = list("Ballistic ", "Pestilent ", "Bubonic ")
 
 /datum/symptom/pustule/Start(datum/disease/advance/A)
 	if(!..())

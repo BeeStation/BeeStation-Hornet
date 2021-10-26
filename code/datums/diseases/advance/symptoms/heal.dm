@@ -630,6 +630,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	severity = 0
 	symptom_delay_min = 1
 	symptom_delay_max = 1
+	prefixes = list("Porphyric ", "Hemo")
+	bodies = list("Blood")
 	var/bloodpoints = 0
 	var/maxbloodpoints = 50
 	var/bloodtypearchive
@@ -647,6 +649,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		severity -= 1
 	if((A.stealth >= 2) && (A.transmission >= 8) && A.process_dead)
 		severity -= 1
+		bodies = list("Vampir", "Blood")
 
 /datum/symptom/vampirism/Start(datum/disease/advance/A)
 	if(!..())
@@ -867,6 +870,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	severity = 1
 	symptom_delay_min = 1
 	symptom_delay_max = 1
+	prefixes = list("Parasitic ")
+	bodies = list("Cytoplasm", "Slime")
 	var/list/grubs = list()
 	var/toxheal = FALSE
 	threshold_desc = "<b>Stealth 2:</b>The gestating larvae can consume toxins in the host's bloodstream.<br>\
@@ -876,6 +881,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	. = ..()
 	if(A.stealth >= 2)
 		severity -= 2
+		prefixes = list("Symbiotic ")
 	if(A.stage_rate >= 6)
 		severity = (severity * 2)
 
