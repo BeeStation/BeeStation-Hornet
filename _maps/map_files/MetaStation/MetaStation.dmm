@@ -475,8 +475,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/easel,
-/obj/item/canvas/twentythreeXtwentythree,
-/obj/item/canvas/twentythreeXtwentythree,
+/obj/item/canvas/twentythree_twentythree,
+/obj/item/canvas/twentythree_twentythree,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -34665,8 +34665,8 @@
 	dir = 4
 	},
 /obj/structure/easel,
-/obj/item/canvas/twentythreeXtwentythree,
-/obj/item/canvas/twentythreeXtwentythree,
+/obj/item/canvas/twentythree_twentythree,
+/obj/item/canvas/twentythree_twentythree,
 /turf/open/floor/plasteel,
 /area/storage/art)
 "boP" = (
@@ -45699,11 +45699,8 @@
 /turf/open/floor/wood,
 /area/library)
 "bLl" = (
-/obj/structure/table/wood,
-/obj/item/pen/red,
-/obj/item/pen/blue{
-	pixel_x = 5;
-	pixel_y = 5
+/obj/machinery/modular_computer/console/preset/curator{
+	dir = 4
 	},
 /turf/open/floor/wood,
 /area/library)
@@ -47859,11 +47856,17 @@
 	},
 /obj/item/pen,
 /obj/effect/decal/cleanable/cobweb,
+/obj/structure/sign/painting/library{
+	pixel_x = -32
+	},
 /turf/open/floor/wood,
 /area/library)
 "bPP" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6
+	},
+/obj/structure/sign/painting/library{
+	pixel_y = 32
 	},
 /turf/open/floor/wood,
 /area/library)
@@ -47888,6 +47891,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
+	},
+/obj/structure/sign/painting/library{
+	pixel_y = 32
 	},
 /turf/open/floor/wood,
 /area/library)
@@ -48447,6 +48453,9 @@
 	pixel_y = 7
 	},
 /obj/item/pen/invisible,
+/obj/structure/sign/painting/library_private{
+	pixel_y = -32
+	},
 /turf/open/floor/engine/cult,
 /area/library)
 "bRn" = (
@@ -82947,6 +82956,15 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"opt" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/structure/sign/painting/library{
+	pixel_y = -32
+	},
+/turf/open/floor/wood,
+/area/library)
 "osb" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 10
@@ -85192,6 +85210,13 @@
 /obj/structure/chair/comfy/brown,
 /obj/effect/landmark/blobstart,
 /turf/open/floor/engine/cult,
+/area/library)
+"yft" = (
+/obj/structure/easel,
+/obj/item/canvas/nineteen_nineteen,
+/obj/item/canvas/twentythree_nineteen,
+/obj/item/canvas/twentythree_twentythree,
+/turf/open/floor/wood,
 /area/library)
 "yfM" = (
 /obj/machinery/vending/engivend,
@@ -105425,7 +105450,7 @@ bue
 bPS
 bPR
 bBs
-bBs
+opt
 bue
 bWd
 bXH
@@ -105679,7 +105704,7 @@ bzE
 bLk
 bML
 bue
-bzE
+yft
 bRj
 bSB
 qVR

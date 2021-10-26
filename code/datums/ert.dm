@@ -99,3 +99,13 @@
 	mission = "HONK them into submission"
 	polldesc = "an elite Nanotrasen tactical pranking squad"
 	code = "HOOOOOOOOOONK"
+
+/datum/ert/kudzu
+	roles = list(/datum/antagonist/ert/kudzu)
+	leader_role = /datum/antagonist/ert/kudzu
+	teamsize = 5
+	opendoors = FALSE
+	rename_team = "Weed Whackers"
+	mission = "Eliminate the kudzu with extreme prejudice"
+	polldesc = "an elite gardening team"
+	code = "Vine Green"
