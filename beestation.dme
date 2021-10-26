@@ -416,7 +416,6 @@
 #include "code\datums\announcers\medbot_announcer.dm"
 #include "code\datums\atmosphere\_atmosphere.dm"
 #include "code\datums\brain_damage\brain_trauma.dm"
-#include "code\datums\brain_damage\creepy_trauma.dm"
 #include "code\datums\brain_damage\hypnosis.dm"
 #include "code\datums\brain_damage\imaginary_friend.dm"
 #include "code\datums\brain_damage\magic.dm"

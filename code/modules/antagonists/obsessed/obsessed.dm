@@ -1,6 +1,5 @@
 #define OBJECTIVE_STALK "spendtime"
 #define OBJECTIVE_PHOTOGRAPH "polaroid"
-#define OBJECTIVE_HUG "hug"		//TO DO: replace it with something that isn't stupid
 #define OBJECTIVE_STEAL "heirloom"
 #define OBJECTIVE_JEALOUS "jealous"
 
@@ -12,6 +11,10 @@
 	show_name_in_check_antagonists = TRUE
 	roundend_category = "obsessed"
 	var/datum/mind/target
+	var/mob/living/carbon/human/human_target
+	var/total_time_stalking
+	var/time_spent_away
+	var/seen_alive = TRUE
 
 /datum/antagonist/obsessed/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/creepalert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
@@ -29,13 +32,65 @@
 	if(!target)
 		qdel(src)
 	forge_objectives()
-	return ..()
+	. = ..()
+	RegisterSignal(owner.current, COMSIG_GLOB_MOB_DEATH, .proc/OnDeath)
+	RegisterSignal(owner.current, COMSIG_LIVING_REVIVE, .proc/OnRevival)
+	RegisterSignal(human_target, COMSIG_PARENT_QDELETING, .proc/TargetDeleted)
+	START_PROCESSING(SSprocessing, src)
 
 /datum/antagonist/obsessed/on_removal()
-	. = ..()
+	STOP_PROCESSING(SSprocessing, src)
+	UnregisterSignal(owner.current, COMSIG_GLOB_MOB_DEATH)
+	UnregisterSignal(owner.current, COMSIG_LIVING_REVIVE)
+	if(human_target)
+		UnregisterSignal(human_target, COMSIG_PARENT_QDELETING)
+		if(!seen_alive && human_target.stat != DEAD)
+			UnregisterSignal(human_target, COMSIG_LIVING_REVIVE)
 	to_chat(owner, "<span class='notice'>Your mind clears out!")
 	to_chat(owner, "<span class='userdanger'>You are no longer Obsessed!")
 	owner.current.client?.tgui_panel?.clear_antagonist_popup()
+	return ..()
+
+/datum/antagonist/obsessed/process(delta_time)
+	. = ..()
+
+	if(!human_target || get_dist(get_turf(owner), get_turf(human_target)) > 7)	//we're simply out of range
+		if(seen_alive)	//we know our target lives
+			time_spent_away += 20 * delta_time
+			if(time_spent_away > 3 MINUTES) //3 minutes
+				SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/notcreepingsevere)
+			else
+				SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/notcreeping)
+		return
+	if(owner in oviewers(7, human_target))	//we're in range and we can see our target
+		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/creeping)
+		if(human_target.stat == DEAD)	//we saw them dead
+			seen_alive = FALSE
+			RegisterSignal(human_target, COMSIG_LIVING_REVIVE, .proc/OnTargetRevive)
+			STOP_PROCESSING(SSprocessing, src)
+		else
+			seen_alive = TRUE	//we saw them alive again
+		total_time_stalking += 20 * delta_time
+		time_spent_away = 0
+
+/datum/antagonist/obsessed/proc/OnDeath()
+	SIGNAL_HANDLER
+	STOP_PROCESSING(SSprocessing, src)
+
+/datum/antagonist/obsessed/proc/OnRevival()
+	SIGNAL_HANDLER
+	START_PROCESSING(SSprocessing, src)
+
+/datum/antagonist/obsessed/proc/OnTargetRevive()
+	SIGNAL_HANDLER
+	START_PROCESSING(SSprocessing, src)
+	UnregisterSignal(human_target, COMSIG_LIVING_REVIVE)
+
+/datum/antagonist/obsessed/proc/TargetDeleted()
+	SIGNAL_HANDLER
+	if(!seen_alive && human_target.stat != DEAD)
+		UnregisterSignal(human_target, COMSIG_LIVING_REVIVE)
+	human_target = null
 
 /datum/antagonist/obsessed/proc/add_objective(datum/objective/O)
 	O.owner = owner
@@ -56,7 +111,7 @@
 	update_obsession_icons_removed(M)
 
 /datum/antagonist/obsessed/proc/forge_objectives()
-	var/list/objectives_left = list(OBJECTIVE_STALK, OBJECTIVE_PHOTOGRAPH, OBJECTIVE_HUG, OBJECTIVE_JEALOUS)
+	var/list/objectives_left = list(OBJECTIVE_STALK, OBJECTIVE_PHOTOGRAPH, OBJECTIVE_JEALOUS)
 	var/datum/objective/assassinate/obsessed/kill = new
 
 	if(HAS_TRAIT(target, TRAIT_HEIRLOOOM))
@@ -66,16 +121,13 @@
 		var/chosen_objective = pick_n_take(objectives_left)
 		switch(chosen_objective)
 			if(OBJECTIVE_STALK)
-				var/datum/objective/spendtime/spendtime = new
+				var/datum/objective/spendtime/spendtime = new(human_target.name)
 				add_objective(spendtime)
 			if(OBJECTIVE_PHOTOGRAPH)
 				var/datum/objective/polaroid/polaroid = new
 				add_objective(polaroid)
-			if(OBJECTIVE_HUG)
-				var/datum/objective/hug/hug = new
-				add_objective(owner, hug)
 			if(OBJECTIVE_STEAL)
-				var/datum/quirk/family_heirloom/F = locate(/datum/quirk/family_heirloom) in target.roundstart_quirks
+				var/datum/quirk/family_heirloom/F = locate(/datum/quirk/family_heirloom) in human_target.roundstart_quirks
 				var/datum/objective/heirloom_thief/heirloom_thief = new(F.heirloom)
 				add_objective(heirloom_thief)
 			if(OBJECTIVE_JEALOUS)
@@ -88,7 +140,6 @@
 		O.update_explanation_text()
 
 /datum/antagonist/obsessed/proc/find_target()
-	var/chosen_victim
 	var/list/possible_targets = list()
 
 	//I'm going to assume every mob in player list has a mind attached to it
@@ -99,8 +150,8 @@
 
 	if(!possible_targets.len)
 		return
-	var/mob/M = pick(possible_targets)
-	target = M.mind
+	human_target = pick(possible_targets)
+	target = human_target.mind
 
 /datum/antagonist/obsessed/roundend_report_header()
 	return 	"<span class='header'>Someone became obsessed!</span><br>"
@@ -120,13 +171,10 @@
 			if(!objective.check_completion())
 				objectives_complete = FALSE
 				break
-	if(trauma)
-		if(trauma.total_time_creeping > 0)
-			report += "<span class='greentext'>The [name] spent a total of [DisplayTimeText(trauma.total_time_creeping)] being near [trauma.obsession]!</span>"
-		else
-			report += "<span class='redtext'>The [name] did not go near their obsession the entire round! That's extremely impressive, but you are a shit [name]!</span>"
+	if(total_time_stalking > 0)
+		report += "<span class='greentext'>The [name] spent a total of [DisplayTimeText(total_time_stalking)] being near [target]!</span>"
 	else
-		report += "<span class='redtext'>The [name] had no trauma attached to their antagonist ways! Either it bugged out or an admin incorrectly gave this good samaritan antag and it broke! You might as well show yourself!!</span>"
+		report += "<span class='redtext'>The [name] did not go near their obsession the entire round! That's extremely impressive, but you are a shit [name]!</span>"
 
 	if(objectives.len == 0 || objectives_complete)
 		report += "<span class='greentext big'>The [name] was successful!</span>"
@@ -199,42 +247,25 @@
 
 /datum/objective/spendtime //spend some time around someone, handled by the obsessed trauma since that ticks
 	name = OBJECTIVE_STALK
-	var/timer = 1800 //5 minutes
+	var/timer = 5 MINUTES
+	var/target_name
+
+/datum/objective/spendtime/New(name)
+	. = ..()
+	target_name = name
 
 /datum/objective/spendtime/update_explanation_text()
 	if(timer == initial(timer))//just so admins can mess with it
 		timer += pick(-600, 0)
-	var/datum/antagonist/obsessed/creeper = owner.has_antag_datum(/datum/antagonist/obsessed)
-	if(target && target.current && creeper)
-		creeper.trauma.attachedobsessedobj = src
-		explanation_text = "Spend [DisplayTimeText(timer)] around [target.name] while they're alive."
-	else
-		explanation_text = "Free Objective"
+	if(!owner.has_antag_datum(/datum/antagonist/obsessed))
+		qdel(src)
+		return
+	explanation_text = "Spend [DisplayTimeText(timer)] around [target_name] while they're alive."
+
 
 /datum/objective/spendtime/check_completion()
-	return timer <= 0 || explanation_text == "Free Objective"
-
-
-/datum/objective/hug//this objective isn't perfect. hugging the correct amount of times, then switching bodies, might fail the objective anyway. maybe i'll come back and fix this sometime.
-	//Yeah no shit it isn't perfect, it's barely working at maximum
-	name = OBJECTIVE_HUG
-	var/hugs_needed
-
-/datum/objective/hug/update_explanation_text()
-	..()
-	if(!hugs_needed)//just so admins can mess with it
-		hugs_needed = rand(4,6)
-	var/datum/antagonist/obsessed/creeper = owner.has_antag_datum(/datum/antagonist/obsessed)
-	if(target && target.current && creeper)
-		explanation_text = "Hug [target.name] [hugs_needed] times while they're alive."
-	else
-		explanation_text = "Free Objective"
-
-/datum/objective/hug/check_completion()
-	var/datum/antagonist/obsessed/creeper = owner.has_antag_datum(/datum/antagonist/obsessed)
-	if(!creeper || !creeper.trauma || !hugs_needed)
-		return TRUE//free objective
-	return creeper.trauma.obsession_hug_count >= hugs_needed
+	var/datum/antagonist/obsessed/O = owner.has_antag_datum(/datum/antagonist/obsessed)
+	return completed || (O?.total_time_stalking >= timer)
 
 /datum/objective/polaroid //take a picture of the target with you in it.
 	name = OBJECTIVE_PHOTOGRAPH
@@ -289,6 +320,5 @@
 
 #undef OBJECTIVE_STALK
 #undef OBJECTIVE_PHOTOGRAPH
-#undef OBJECTIVE_HUG
 #undef OBJECTIVE_STEAL
 #undef OBJECTIVE_JEALOUS
