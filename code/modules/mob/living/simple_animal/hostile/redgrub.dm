@@ -22,6 +22,7 @@
 	attack_sound = 'sound/effects/blobattack.ogg'
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
+	stat_attack = SOFT_CRIT
 	gold_core_spawnable = NO_SPAWN //making these spawn from gold cores is kinda bad for xenobio. these grubs can be further implemented for it at a later date if someone wants to
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -37,8 +38,7 @@
 /mob/living/simple_animal/hostile/redgrub/proc/isslimetarget(var/mob/living/M)
 	if(isslimeperson(M) || isluminescent(M) || isjellyperson(M) || isoozeling(M) || isstargazer(M)) // i hate this
 		return TRUE
-	else 
-		return FALSE
+	return FALSE
 	
 /mob/living/simple_animal/hostile/redgrub/spawn_gibs() //redgrubs dont have much in the way of gibs or mess. just meat.
 	new /obj/effect/decal/cleanable/insectguts(drop_location())
@@ -52,7 +52,8 @@
 
 /mob/living/simple_animal/hostile/redgrub/PickTarget()
 	var/newtarget = ..()
-	return CanAttack(newtarget)
+	if(CanAttack(newtarget))
+		return newtarget
 		
 /mob/living/simple_animal/hostile/redgrub/Life()
 	. = ..()
@@ -169,8 +170,8 @@
 			icon_dead = "grub_2_dead"
 			
 /mob/living/simple_animal/hostile/redgrub/CanAttack(atom/the_target)
-	if(isliving(target))
-		if(isslime(target) || isslimetarget(target))
+	if(isliving(the_target))
+		if(isslime(the_target) || isslimetarget(the_target))
 			return ..()	
 	return FALSE
 
