@@ -695,7 +695,7 @@
 /mob/living/carbon/human/makeTrail(turf/T, turf/start, direction, spec_color)
 	if((NOBLOOD in dna.species.species_traits) || !bleed_rate || bleedsuppress)
 		return
-	spec_color = dna?.species.blood_color
+	spec_color = dna.species.blood_color
 	..()
 
 /mob/living/proc/getTrail()
