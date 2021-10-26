@@ -3,7 +3,7 @@
 	desc = "The virus causes fermentation in the stomach, leading to chronic drunkenness."
 	stealth = -1
 	resistance = -2
-	stage_speed = 2
+	stage_speed = 3
 	transmission = -1
 	level = 6
 	severity = 1

@@ -865,7 +865,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	stealth = 1
 	resistance = 2
 	stage_speed = 2
-	transmission = 1
+	transmission = -1
 	level = 8
 	severity = 1
 	symptom_delay_min = 1
@@ -955,7 +955,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		grub.togglehibernation()
 		playsound(M.loc, 'sound/effects/splat.ogg', 50, 1)
 	if(isslimetarget(M))
-		for(var/I in 1 to (rand(1, 4)))
+		for(var/I in 1 to (rand(1, A.stage)))
 			var/mob/living/simple_animal/hostile/redgrub/grub = new(M.loc)
 			grub.grubdisease = list(A)
 		M.gib()

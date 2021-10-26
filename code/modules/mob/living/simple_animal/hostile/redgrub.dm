@@ -50,6 +50,10 @@
 	grubdisease += A
 	food = rand(15, 50)
 
+/mob/living/simple_animal/hostile/redgrub/PickTarget()
+	var/newtarget = ..()
+	return CanAttack(newtarget)
+		
 /mob/living/simple_animal/hostile/redgrub/Life()
 	. = ..()
 	if(stat)
