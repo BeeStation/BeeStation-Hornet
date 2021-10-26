@@ -84,7 +84,7 @@
 /datum/species/lizard/ashwalker
 	name = "Ash Walker"
 	id = "ashlizard"
-	species_traits = list(MUTCOLORS,EYECOLOR,LIPS)
+	species_traits = list(MUTCOLORS,EYECOLOR,LIPS, NO_UNDERWEAR)
 	inherent_traits = list(TRAIT_NOGUNS,TRAIT_NOBREATH)
 	species_language_holder = /datum/language_holder/lizard/ash
 	digitigrade_customization = DIGITIGRADE_FORCED

@@ -267,7 +267,7 @@
 		return TRUE
 	return FALSE
 
-//Change organ status
+//Change limb status
 /obj/item/bodypart/proc/change_bodypart_status(new_limb_status, heal_limb, change_icon_to_default)
 	status = new_limb_status
 	if(heal_limb)
@@ -292,6 +292,7 @@
 	return (status == BODYPART_ORGANIC)
 
 //we inform the bodypart of the changes that happened to the owner, or give it the informations from a source mob.
+//set is_creating to true if you want to change the appearance of the limb outside of mutation changes or forced changes.
 /obj/item/bodypart/proc/update_limb(dropping_limb, mob/living/carbon/source, is_creating = FALSE)
 	var/mob/living/carbon/C
 	if(source)

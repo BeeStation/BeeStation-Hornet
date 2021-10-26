@@ -284,12 +284,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	for(var/path in mutant_organs)
 		var/obj/item/organ/I = new path()
 		I.Insert(C)
-/datum/species/proc/write_species_limbs()
-	return
-/datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
-	new_species ||= C.dna?.species //If no new species is provided, assume its the species calling the proc.
 
-	if(use_generic_limbs)
+/datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
+	new_species ||= C.dna?.species //If no new species is provided, assume its src.
+
+	if(use_generic_limbs) //Generic limbs dont need to be rebuild because theyre just human limbs reskinned.
 		for(var/obj/item/bodypart/BP in C.bodyparts)
 			BP.limb_id = limbs_id
 			BP.icon = limb_icon_file
@@ -353,9 +352,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	replace_body(C)
 
 
-	// this needs to be FIRST because qdel calls update_body which checks if we have DIGITIGRADE legs or not and if not then removes DIGITIGRADE from species_traits
-	if(((digitigrade_customization >= DIGITIGRADE_OPTIONAL) && C.dna.features["legs"] == "Digitigrade Legs") || digitigrade_customization == DIGITIGRADE_FORCED)
-		species_traits += DIGITIGRADE
 
 	C.mob_biotypes = inherent_biotypes
 
@@ -378,11 +374,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				C.dropItemToGround(I)
 			else	//Entries in the list should only ever be items or null, so if it's not an item, we can assume it's an empty hand
 				C.put_in_hands(new mutanthands())
-
-	if(ROBOTIC_LIMBS in species_traits)
-		for(var/obj/item/bodypart/B in C.bodyparts)
-			B.change_bodypart_status(BODYPART_ROBOTIC) // Makes all Bodyparts robotic.
-			B.render_like_organic = TRUE
 
 	if(NOMOUTH in species_traits)
 		for(var/obj/item/bodypart/head/head in C.bodyparts)
@@ -424,11 +415,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	if(C.dna.species.exotic_bloodtype)
 		C.dna.blood_type = random_blood_type()
-
-	if(ROBOTIC_LIMBS in species_traits)
-		for(var/obj/item/bodypart/B in C.bodyparts)
-			B.change_bodypart_status(BODYPART_ORGANIC, FALSE, TRUE)
-			B.render_like_organic = FALSE
 
 	if(NOMOUTH in species_traits)
 		for(var/obj/item/bodypart/head/head in C.bodyparts)
@@ -651,7 +637,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				else
 					standing += mutable_appearance(undershirt.icon, undershirt.icon_state, -BODY_LAYER)
 
-		if(H.socks && H.get_num_legs(FALSE) >= 2 && !(H.dna?.features["legs"] = "Digitigrade Legs") && !(NOSOCKS in species_traits))
+		if(H.socks && H.get_num_legs(FALSE) >= 2 && !(BODYTYPE_DIGITIGRADE in H.dna?.species.bodytype) && !(NOSOCKS in species_traits))
 			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[H.socks]
 			if(socks)
 				standing += mutable_appearance(socks.icon, socks.icon_state, -BODY_LAYER)
