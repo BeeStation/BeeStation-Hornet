@@ -1,7 +1,0 @@
-author: tralezab, AnturK
-delete-after: true
-changes:
-  - rscadd: curators can now print paintings
-  - rscadd: persistent paintings
-  - rscadd: AIs can now pick paintings as their screens
-  - rscadd: tgui canvases
