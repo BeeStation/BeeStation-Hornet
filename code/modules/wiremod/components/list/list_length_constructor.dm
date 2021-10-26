@@ -36,10 +36,9 @@
 		return
 
 	var/length = input_length.input_value
-	if(length < 0)
-		return null
+	var/list/new_list = null
 	if(length > COMPONENT_MAXIMUM_LIST_SIZE)
 		length = COMPONENT_MAXIMUM_LIST_SIZE
-
-	var/list/new_list = new /list(length)
+	if(length >= 0)
+		new_list = new /list(length)
 	output_port.set_output(new_list)
