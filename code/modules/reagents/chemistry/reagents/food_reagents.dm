@@ -771,14 +771,18 @@
 	color = "#e59b1f"
 	taste_description = "powerful"
 	random_unrestricted = FALSE
+	overdose_threshold = 8
+
+/datum/reagent/consumable/frittonium/overdose_process(mob/living/carbon/M)
+	M.adjustStaminaLoss(4*REM,0)
 
 /datum/reagent/consumable/frittonium/on_mob_metabolize(mob/living/M)
 	to_chat(M, "<span class='notice'>You feel like a tank but the feeling is fading as every second goes by!</span>")
-	M.maxHealth += 100
-	M.health += 100
+	M.maxHealth += 40
+	M.health += 40
 
 /datum/reagent/consumable/frittonium/on_mob_end_metabolize(mob/living/M)
 	to_chat(M, "<span class='notice'>You no longer feel like a tank and your muscles ache like all hell! What did you eat?!</span>")
-	M.maxHealth -= 100
-	M.health = min(M.health - 100, M.maxHealth) // this can indeed kill someone if they took a lot of damage during the fritter metabolization
+	M.maxHealth -= 40
+	M.health = min(M.health - 40, M.maxHealth) // this can indeed kill someone if they took a lot of damage during the fritter metabolization
 	M.adjustStaminaLoss(120) // a small price to pay for apple fritters (does near stam damage and heals over a few seconds)
