@@ -316,12 +316,12 @@
 #endif
 
 // Checks whether NTNet operates. If parameter is passed checks whether specific function is enabled.
-/datum/ntnet/station_root/proc/check_function(specific_action = 0)
+/datum/ntnet/station_root/proc/check_function(specific_action = 0, zlevel = 0)
 	if(!SSnetworks.relays || !SSnetworks.relays.len) // No relays found. NTNet is down
 		return FALSE
 
 	// Check all relays. If we have at least one working relay, network is up.
-	if(!SSnetworks.check_relay_operation())
+	if(!SSnetworks.check_relay_operation(zlevel))
 		return FALSE
 
 	if(setting_disabled)

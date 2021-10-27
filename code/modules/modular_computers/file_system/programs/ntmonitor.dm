@@ -51,8 +51,8 @@
 	if(!SSnetworks.station_network)
 		return
 	var/list/data = get_header_data()
-
-	data["ntnetstatus"] = SSnetworks.station_network.check_function()
+	var/turf/T = get_turf(ui_host())
+	data["ntnetstatus"] = SSnetworks.station_network.check_function(0, T.get_virtual_z_level())
 	data["ntnetrelays"] = SSnetworks.relays.len
 	data["idsstatus"] = SSnetworks.station_network.intrusion_detection_enabled
 	data["idsalarm"] = SSnetworks.station_network.intrusion_detection_alarm

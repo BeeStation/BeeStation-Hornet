@@ -38,23 +38,20 @@
 	if(ethernet) // Computer is connected via wired connection.
 		return 3
 
-	if(!SSnetworks.station_network || !SSnetworks.station_network.check_function(specific_action)) // NTNet is down and we are not connected via wired connection. No signal.
-		return 0
+	if(!SSnetworks.station_network || !SSnetworks.station_network.check_function(specific_action, src.get_virtual_z_level()))
+		if(long_range) // Computer isn't on zlevel with relay, but it has upgraded network card. Low signal.
+			return 1
+		return 0 // NTNet is down in this zlevel and we are not connected via wired connection.
 
 	if(holder)
+		// Computer is on zlevel with relay. Low/High signal depending on what type of network card you have
+		if(long_range)
+			return 2
+		else
+			return 1
 
-		var/turf/T = get_turf(holder)
-		if((T && istype(T)) && (is_station_level(T.z) || is_mining_level(T.z)))
-			// Computer is on station. Low/High signal depending on what type of network card you have
-			if(long_range)
-				return 2
-			else
-				return 1
 
-	if(long_range) // Computer is not on station, but it has upgraded network card. Low signal.
-		return 1
-
-	return 0 // Computer is not on station and does not have upgraded network card. No signal.
+	return 0 // Computer isn't on zlevel with relay and does not have upgraded network card. No signal.
 
 
 /obj/item/computer_hardware/network_card/advanced

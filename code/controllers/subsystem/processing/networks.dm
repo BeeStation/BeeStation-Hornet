@@ -188,10 +188,11 @@ SUBSYSTEM_DEF(networks)
 	return NETWORK_ERROR_OK
 
 
-/datum/controller/subsystem/networks/proc/check_relay_operation(zlevel=0)	//can be expanded later but right now it's true/false.
+/datum/controller/subsystem/networks/proc/check_relay_operation(zlevel)	//can be expanded later but right now it's true/false.
 	for(var/i in relays)
 		var/obj/machinery/ntnet_relay/n = i
-		if(zlevel && n.z != zlevel)
+		var/z = n.get_virtual_z_level()
+		if(z != zlevel)
 			continue
 		if(n.is_operational())
 			return TRUE
