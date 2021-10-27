@@ -1,0 +1,5 @@
+author: TheChaser212
+delete-after: true
+changes:
+  - rscadd: Syndicate implants are now hidden from health scans
+  - imageadd: Added inhand icons for the energy saw
