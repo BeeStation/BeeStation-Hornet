@@ -29,7 +29,7 @@
 /datum/religion_rites/darkconversion
 	name = "Shadowperson Conversion"
 	desc = "Converts a humanoid into a shadowperson, a race blessed by darkness."
-	ritual_length = 1 MINUTES
+	ritual_length = 30 SECONDS
 	ritual_invocations = list("Let the darkness seep into you...",
 						"... And cover you, envelope you ...",
 						"... And make you one with it ...")
