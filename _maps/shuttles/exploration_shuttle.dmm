@@ -97,6 +97,7 @@
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
 	},
+/obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "o" = (
@@ -208,6 +209,9 @@
 /obj/structure/closet/crate/science,
 /obj/item/circuitboard/computer/exploration_shuttle,
 /obj/item/stack/sheet/mineral/plasma/five,
+/obj/item/gps/mining,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/multitool,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "D" = (
@@ -221,9 +225,9 @@
 /area/shuttle/exploration)
 "F" = (
 /obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/multitool,
-/obj/item/gps/mining,
+/obj/machinery/microwave,
+/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "G" = (

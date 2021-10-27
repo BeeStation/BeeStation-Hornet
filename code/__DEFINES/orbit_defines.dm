@@ -11,7 +11,8 @@
 #define PRIMARY_ORBITAL_MAP "primary"
 
 //Orbital map collision detection
-#define ORBITAL_MAP_ZONE_SIZE 500		//The size of a collision detection zone on an orbital map.
+//Objects cannot have a radius greater than this value /3 without refactoring.
+#define ORBITAL_MAP_ZONE_SIZE 600		//The size of a collision detection zone on an orbital map.
 
 //Vector position updates
 #define MOVE_ORBITAL_BODY(body_to_move, new_x, new_y) \

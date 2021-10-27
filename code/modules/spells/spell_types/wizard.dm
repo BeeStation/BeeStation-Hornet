@@ -28,6 +28,10 @@
 	trail_lifespan = 5
 	trail_icon_state = "magicmd"
 
+/obj/item/projectile/magic/spell/magic_missile/New(loc, spell_level)
+	. = ..()
+	paralyze += spell_level * 10
+
 /obj/effect/proc_holder/spell/targeted/genetic/mutate
 	name = "Mutate"
 	desc = "This spell causes you to turn into a hulk and gain laser vision for a short while."
@@ -65,7 +69,6 @@
 	smoke_amt = 4
 
 	action_icon_state = "smoke"
-
 
 /obj/effect/proc_holder/spell/targeted/smoke/lesser //Chaplain smoke book
 	name = "Smoke"
@@ -249,6 +252,9 @@
 	for(var/turf/T in targets) //Done this way so things don't get thrown all around hilariously.
 		for(var/atom/movable/AM in T)
 			thrownatoms += AM
+
+	stun_amt += 10 * spell_level
+	maxthrow = 5 + spell_level
 
 	for(var/am in thrownatoms)
 		var/atom/movable/AM = am

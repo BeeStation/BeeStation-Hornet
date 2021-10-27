@@ -159,41 +159,44 @@
 	LAZYCLEARLIST(colliding_with)
 
 	//Calculate our current position
-	var/position_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE)],[round(position.y / ORBITAL_MAP_ZONE_SIZE)]"
+	var/section_x = round(position.x / ORBITAL_MAP_ZONE_SIZE)
+	var/section_y = round(position.y / ORBITAL_MAP_ZONE_SIZE)
+
+	var/position_key = "[section_x],[section_y]"
 	var/valid_side_key = "none"
 	var/valid_front_key = "none"
 	var/valid_corner_key = "none"
 
 	var/dir_flags = NONE
 
-	var/segment_x = position.x % ORBITAL_MAP_ZONE_SIZE
-	var/segment_y = position.y % ORBITAL_MAP_ZONE_SIZE
+	var/segment_x = (position.x + abs(section_x) * ORBITAL_MAP_ZONE_SIZE) % ORBITAL_MAP_ZONE_SIZE
+	var/segment_y = (position.y + abs(section_y) * ORBITAL_MAP_ZONE_SIZE) % ORBITAL_MAP_ZONE_SIZE
 
 	if(segment_x < ORBITAL_MAP_ZONE_SIZE / 3)
-		valid_side_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) - 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE)]"
-		dir_flags |= EAST
-	else if(segment_x > 2 * (ORBITAL_MAP_ZONE_SIZE / 3))
-		valid_side_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) + 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE)]"
+		valid_side_key = "[section_x - 1],[section_y]"
 		dir_flags |= WEST
+	else if(segment_x > 2 * (ORBITAL_MAP_ZONE_SIZE / 3))
+		valid_side_key = "[section_x + 1],[section_y]"
+		dir_flags |= EAST
 
 	if(segment_y < ORBITAL_MAP_ZONE_SIZE / 3)
-		valid_front_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE)],[round(position.y / ORBITAL_MAP_ZONE_SIZE) - 1]"
+		valid_front_key = "[section_x],[section_y - 1]"
 		dir_flags |= SOUTH
 	else if(segment_y > 2 * (ORBITAL_MAP_ZONE_SIZE / 3))
-		valid_front_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE)],[round(position.y / ORBITAL_MAP_ZONE_SIZE) + 1]"
+		valid_front_key = "[section_x],[section_y + 1]"
 		dir_flags |= NORTH
 
 	//Check multiple zones
 	if(dir_flags & EAST)
 		if(dir_flags & NORTH)
-			valid_corner_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) + 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE) + 1]"
+			valid_corner_key = "[section_x + 1],[section_y + 1]"
 		else if(dir_flags & SOUTH)
-			valid_corner_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) + 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE) - 1]"
+			valid_corner_key = "[section_x + 1],[section_y - 1]"
 	else if(dir_flags & WEST)
 		if(dir_flags & NORTH)
-			valid_corner_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) - 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE) + 1]"
+			valid_corner_key = "[section_x - 1],[section_y + 1]"
 		else if(dir_flags & SOUTH)
-			valid_corner_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) - 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE) - 1]"
+			valid_corner_key = "[section_x - 1],[section_y - 1]"
 
 	var/list/valid_objects = list()
 

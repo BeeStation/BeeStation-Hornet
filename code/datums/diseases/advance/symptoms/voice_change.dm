@@ -28,6 +28,7 @@ Bonus
 	base_message_chance = 100
 	symptom_delay_min = 60
 	symptom_delay_max = 120
+	prefixes = list("Vocal ")
 	var/scramble_language = FALSE
 	var/datum/language/current_language
 	threshold_desc = "<b>Transmission 14:</b> The host's language center of the brain is damaged, leading to complete inability to speak or understand any language.<br>\
@@ -37,6 +38,7 @@ Bonus
 /datum/symptom/voice_change/severityset(datum/disease/advance/A)
 	. = ..()
 	if(A.transmission >= 14) //random language
+		bodies += list("Polyglot")
 		severity += 1
 
 /datum/symptom/voice_change/Start(datum/disease/advance/A)

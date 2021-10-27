@@ -212,6 +212,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/item/gps/mining,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "K" = (
@@ -255,6 +256,10 @@
 "R" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/exploration)
+"S" = (
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "T" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -271,8 +276,9 @@
 "V" = (
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/item/gps/mining,
-/obj/item/multitool,
+/obj/machinery/microwave,
+/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "W" = (
@@ -402,7 +408,7 @@ h
 L
 L
 O
-B
+S
 d
 B
 m

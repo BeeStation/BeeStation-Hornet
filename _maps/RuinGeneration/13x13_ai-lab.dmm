@@ -8,10 +8,6 @@
 /obj/item/pen,
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
-"cf" = (
-/obj/structure/falsewall/reinforced,
-/turf/open/space/basic,
-/area/ruin/unpowered)
 "cw" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
@@ -97,9 +93,8 @@
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "py" = (
-/obj/structure/falsewall/reinforced,
 /obj/structure/sign/warning/electricshock,
-/turf/open/space/basic,
+/turf/closed/wall/r_wall,
 /area/space)
 "qg" = (
 /obj/effect/decal/cleanable/oil/slippery,
@@ -140,6 +135,9 @@
 /area/ruin/unpowered)
 "tD" = (
 /obj/effect/abstract/doorway_marker,
+/obj/machinery/door/airlock/grunge{
+	name = "Artificial Intelligence research"
+	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "tJ" = (
@@ -249,26 +247,16 @@
 	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
-"GW" = (
-/obj/structure/falsewall/reinforced,
-/turf/open/floor/circuit/red,
-/area/ruin/unpowered)
 "GZ" = (
-/obj/structure/falsewall/reinforced,
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/structure/sign/warning/nosmoking,
-/turf/open/floor/plasteel/tech/grid,
+/turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "Ib" = (
 /obj/machinery/porta_turret/syndicate/energy{
 	name = "AI Chamber Turret"
 	},
 /turf/open/floor/pod/dark,
-/area/ruin/unpowered)
-"Jd" = (
-/obj/structure/falsewall/reinforced,
-/obj/structure/sign/warning/securearea,
-/turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "JD" = (
 /obj/structure/table/reinforced,
@@ -290,8 +278,7 @@
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "JS" = (
-/obj/structure/falsewall/reinforced,
-/turf/open/floor/plasteel/tech/grid,
+/turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "Kp" = (
 /obj/structure/table/glass,
@@ -303,9 +290,8 @@
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "KU" = (
-/obj/structure/falsewall/reinforced,
 /obj/structure/sign/warning/securearea,
-/turf/open/space/basic,
+/turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "Lx" = (
 /obj/effect/decal/cleanable/robot_debris/old,
@@ -452,22 +438,22 @@
 /area/ruin/unpowered)
 
 (1,1,1) = {"
-cf
-cf
-cf
+JS
+JS
+JS
 py
-cf
-cf
-cf
-cf
-cf
-cf
-cf
-cf
-cf
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
 "}
 (2,1,1) = {"
-cf
+JS
 eH
 tj
 er
@@ -482,7 +468,7 @@ hB
 JS
 "}
 (3,1,1) = {"
-cf
+JS
 YE
 SV
 SV
@@ -497,7 +483,7 @@ SV
 tD
 "}
 (4,1,1) = {"
-cf
+JS
 tJ
 SV
 Pw
@@ -512,13 +498,13 @@ SV
 JS
 "}
 (5,1,1) = {"
-cf
+JS
 vX
 vX
 vX
 vX
 vX
-cf
+JS
 to
 SV
 vj
@@ -527,13 +513,13 @@ vA
 JS
 "}
 (6,1,1) = {"
-cf
+JS
 Qa
 tO
 tO
 tO
 tO
-Jd
+KU
 lX
 SV
 SV
@@ -542,13 +528,13 @@ SV
 JS
 "}
 (7,1,1) = {"
-cf
+JS
 ZY
 Fw
 Gh
 Fw
 gf
-GW
+JS
 tL
 ef
 al
@@ -557,7 +543,7 @@ CO
 JS
 "}
 (8,1,1) = {"
-cf
+JS
 sG
 NP
 Ib
@@ -572,22 +558,22 @@ fm
 JS
 "}
 (9,1,1) = {"
-cf
+JS
 AP
 Fw
 cw
 Fw
 gf
-cf
+JS
 tL
 SV
 Qo
 Zy
 Dy
-cf
+JS
 "}
 (10,1,1) = {"
-cf
+JS
 vv
 sx
 tA
@@ -599,22 +585,22 @@ SV
 WV
 Lx
 nN
-cf
+JS
 "}
 (11,1,1) = {"
-cf
-cf
-cf
-cf
-cf
-cf
-cf
-cf
-cf
-cf
-cf
-cf
-cf
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
 "}
 (12,1,1) = {"
 uw

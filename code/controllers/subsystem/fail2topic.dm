@@ -11,13 +11,11 @@ SUBSYSTEM_DEF(fail2topic)
 
 	var/rate_limit
 	var/max_fails
-	var/rule_name
 	var/enabled = FALSE
 
 /datum/controller/subsystem/fail2topic/Initialize(timeofday)
 	rate_limit = ((CONFIG_GET(number/topic_rate_limit)) SECONDS)
 	max_fails = CONFIG_GET(number/topic_max_fails)
-	rule_name = CONFIG_GET(string/topic_rule_name)
 	enabled = CONFIG_GET(flag/topic_enabled)
 
 	DropFirewallRule() // Clear the old bans if any still remain
@@ -30,7 +28,7 @@ SUBSYSTEM_DEF(fail2topic)
 	if (!enabled)
 		can_fire = FALSE
 
-	. = ..()
+	return ..()
 
 /datum/controller/subsystem/fail2topic/fire(resumed = 0)
 	if(!resumed)
@@ -90,12 +88,16 @@ SUBSYSTEM_DEF(fail2topic)
 /datum/controller/subsystem/fail2topic/proc/BanFromFirewall(ip)
 	if (!enabled)
 		return
+	var/static/regex/R = regex(@"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$") // Anything that interacts with a shell should be parsed. Prevents direct call input tampering
+	ip = findtext(ip, R)
+	if(length(ip) > 15 || length(ip) < 8 )
+		return FALSE
 
 	active_bans[ip] = world.time
 	fail_counts -= ip
 	rate_limiting -= ip
 
-	. = shell("netsh advfirewall firewall add rule name=\"[rule_name]\" dir=in interface=any action=block remoteip=[ip]")
+	. = shell("netsh advfirewall firewall add rule name=\"[CONFIG_GET(string/topic_rule_name)]\" dir=in interface=any action=block remoteip=[ip]")
 
 	if (.)
 		WARNING("Fail2topic failed to ban [ip]. Exit code: [.].")
@@ -110,7 +112,7 @@ SUBSYSTEM_DEF(fail2topic)
 
 	active_bans = list()
 
-	. = shell("netsh advfirewall firewall delete rule name=\"[rule_name]\"")
+	. = shell("netsh advfirewall firewall delete rule name=\"[CONFIG_GET(string/topic_rule_name)]\"")
 
 	if (.)
 		WARNING("Fail2topic failed to drop firewall rule. Exit code: [.].")
