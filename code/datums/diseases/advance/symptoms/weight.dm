@@ -29,7 +29,7 @@ Bonus
 	base_message_chance = 100
 	symptom_delay_min = 15
 	symptom_delay_max = 45
-	starving = TRUE
+	var/starving = TRUE
 	prefixes = list("Starving ")
 	bodies = list("Diet")
 	threshold_desc = "<b>Stealth 2:</b> The symptom is less noticeable, and does not cause starvation."
