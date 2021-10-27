@@ -475,3 +475,8 @@
 	file_name = "21x17_shuttledock"
 	weight = 4
 	max_occurances = 1
+
+/datum/map_template/ruin_part/syndicate_listening
+	file_name = "13x13_listening_base"
+	weight = 2
+	loot_room = TRUE
