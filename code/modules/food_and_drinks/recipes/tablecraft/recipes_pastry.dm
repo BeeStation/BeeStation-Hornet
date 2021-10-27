@@ -584,3 +584,14 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/ravtart
 	subcategory = CAT_PASTRY
+
+/datum/crafting_recipe/food/apple_fritters
+	name = "Apple Fritters"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
+		/obj/item/reagent_containers/food/snacks/grown/apple = 2,
+		/datum/reagent/consumable/cooking_oil = 30,
+		/datum/reagent/consumable/sugar = 4
+	)
+	result = /obj/item/reagent_containers/food/snacks/applefritter
+	subcategory = CAT_PASTRY

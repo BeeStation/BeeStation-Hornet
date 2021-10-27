@@ -763,3 +763,21 @@
 	if(prob(10))
 		M.say(pick("I hate my wife.", "I just want to grill for God's sake.", "I wish I could just go on my lawnmower and cut the grass.", "Yep, Quake. That was a good game...", "Yeah, my PDA has wi-fi. A wife I hate."), forced = /datum/reagent/consumable/char)
 	..()
+
+/datum/reagent/consumable/frittonium // literally stronger brave bull (with a side effect) and with zero tactical use unless you manage to eat it during a fight in which you will collapse seconds later
+	name = "Frittonium"
+	description = "The secret to the power of apple fritters"
+	reagent_state = LIQUID
+	color = "#e59b1f"
+	taste_description = "powerful"
+
+/datum/reagent/consumable/frittonium/on_mob_metabolize(mob/living/M)
+	to_chat(M, "<span class='notice'>You feel like a tank but the feeling is fading as every second goes by!</span>")
+	M.maxHealth += 100
+	M.health += 100
+
+/datum/reagent/consumable/frittonium/on_mob_end_metabolize(mob/living/M)
+	to_chat(M, "<span class='notice'>You no longer feel like a tank and your muscles ache like all hell! What did you eat?!</span>")
+	M.maxHealth -= 100
+	M.health = min(M.health - 100, M.maxHealth) // this can indeed kill someone if they took a lot of damage during the fritter metabolization
+	M.adjustStaminaLoss(120) // a small price to pay for apple fritters (does near stam damage and heals over a few seconds)

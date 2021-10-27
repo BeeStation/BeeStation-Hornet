@@ -821,4 +821,14 @@
 	tastes = list("pastry" = 1, "sweetness" = 1)
 	foodtype = GRAIN | FRUIT
 
+/obj/item/reagent_containers/food/snacks/applefritter // entirely a meme food
+	name = "apple fritters"
+	desc = "Raw power emanates from this treat but will you take a bite?"
+	icon_state = "apple_fritters"
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 1, /datum/reagent/consumable/sugar = 4, /datum/reagent/consumable/frittonium = 5)
+	filling_color = "#e59b1f"
+	tastes = list("apples" = 1, "sweetness" = 1, "raw power" = 1)
+	foodtype = GRAIN | FRUIT | SUGAR | FRIED
+	prevent_grinding = TRUE // this is here so certain powergamers dont grind it to make a lot of frittonium
+
 #undef PANCAKE_MAX_STACK
