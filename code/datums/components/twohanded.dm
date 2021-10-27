@@ -59,6 +59,9 @@
 	src.auto_wield = auto_wield
 	src.ignore_attack_self = ignore_attack_self
 
+	if(require_twohands)
+		ADD_TRAIT(parent, TRAIT_NEEDS_TWO_HANDS, ABSTRACT_ITEM_TRAIT)
+
 // Inherit the new values passed to the component
 #define ISWIELDED(O) (SEND_SIGNAL(O, COMSIG_ITEM_CHECK_WIELDED) & COMPONENT_IS_WIELDED)
 
