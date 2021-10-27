@@ -507,7 +507,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 		var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway
 		gateway.open_gateway()
 	else
-		new /obj/singularity/narsie/large/cult(T) //Causes Nar'Sie to spawn even if the rune has been removed
+		if(prob(99))
+			new /obj/singularity/narsie/large/cult(T) //Causes Nar'Sie to spawn even if the rune has been removed
+		else
+			new /obj/singularity/narsie/large/cult/toddsie(T)
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
