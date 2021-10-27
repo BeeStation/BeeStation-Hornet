@@ -1,0 +1,6 @@
+author: The-Moon-Itself
+delete-after: true
+changes:
+  - rscadd: More list related WireMod components.
+  - tweak: The index component now has more features.
+  - tweak: The component printer now has a list component category
