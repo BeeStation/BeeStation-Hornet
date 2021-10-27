@@ -3,6 +3,7 @@
 	config_entry_value = 1000
 	min_val = 0
 
+//Brig timer limits and presets, in minutes
 /datum/config_entry/number/brig_timer_max
 	config_entry_value = 15
 	min_val = 1
