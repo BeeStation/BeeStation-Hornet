@@ -17,7 +17,7 @@
 	damage = 0
 
 /obj/item/projectile/bullet/sleepy/on_hit(atom/target, blocked = FALSE)
-	if((blocked != 100) && isliving(target))
+	if((blocked != 100) && ishuman(target))
 		var/mob/living/L = target
 		if(L.confused)
 			L.Sleeping(50)

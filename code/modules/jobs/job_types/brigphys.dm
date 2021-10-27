@@ -12,7 +12,6 @@
 	minimal_player_age = 7
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
-	exp_type_department = EXP_TYPE_SECURITY
 
 	outfit = /datum/outfit/job/brig_phys
 
@@ -24,6 +23,9 @@
 	display_order = JOB_DISPLAY_ORDER_BRIG_PHYS
 	departments = DEPARTMENT_MEDICAL | DEPARTMENT_SECURITY
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/secmed
+	)
 /datum/outfit/job/brig_phys
 	name = "Brig Physician"
 	jobtype = /datum/job/brig_phys

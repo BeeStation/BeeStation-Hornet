@@ -916,7 +916,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/piano{
+/obj/structure/musician/piano{
 	desc = "Very theatrical.";
 	icon_state = "piano";
 	name = "theatre piano"

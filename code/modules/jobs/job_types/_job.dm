@@ -16,7 +16,7 @@
 	var/list/head_announce = null
 
 	//Bitflags for the job
-	var/flag = NONE //Deprecated
+	var/flag = NONE //Deprecated //Except not really, still used throughout the codebase
 	var/department_flag = NONE //Deprecated
 	var/auto_deadmin_role_flags = NONE
 
@@ -73,6 +73,9 @@
 	var/random_spawns_possible = TRUE
 	/// Should this job be allowed to be picked for the bureaucratic error event?
 	var/allow_bureaucratic_error = TRUE
+
+	///A dictionary of species IDs and a path to the outfit.
+	var/list/species_outfits = null
 
 /datum/job/New()
 	. = ..()
@@ -191,6 +194,11 @@
 
 	//Equip the rest of the gear
 	H.dna.species.before_equip_job(src, H, visualsOnly)
+	
+	if(src.species_outfits)
+		if(H.dna.species.id in src.species_outfits)
+			var/datum/outfit/O = species_outfits[H.dna.species.id]
+			H.equipOutfit(O, visualsOnly)
 
 	if(outfit_override || outfit)
 		H.equipOutfit(outfit_override ? outfit_override : outfit, visualsOnly)
@@ -250,7 +258,7 @@
 /datum/outfit/job
 	name = "Standard Gear"
 
-	var/jobtype = null
+	var/jobtype
 
 	uniform = /obj/item/clothing/under/color/grey
 	id = /obj/item/card/id
@@ -282,7 +290,7 @@
 			back = duffelbag //Department duffel bag
 		else
 			back = backpack //Department backpack
-			
+
 	//converts the uniform string into the path we'll wear, whether it's the skirt or regular variant
 	var/holder
 	if(H.jumpsuit_style == PREF_SKIRT)

@@ -9,6 +9,9 @@
 	severity = 3
 	symptom_delay_min = 15
 	symptom_delay_max = 60
+	prefixes = list("Idiot's ")
+	bodies = list("Idiot")
+	suffixes = list(" Memory Loss")
 	var/lethal = FALSE
 	var/moretrauma = FALSE
 	threshold_desc = "<b>transmission 12:</b> The disease's damage reaches lethal levels.<br>\

@@ -89,6 +89,13 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 
+/obj/item/clothing/glasses/meson/prescription
+	name = "prescription meson scanner"
+	desc = "A crude combination between a pair of prescription glasses and the electronics of a meson scanner."
+	icon_state = "prescmeson"
+	item_state = "glasses"
+	vision_correction = 1
+
 /obj/item/clothing/glasses/science
 	name = "science goggles"
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
@@ -103,6 +110,14 @@
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_EYES)
 		return 1
+
+/obj/item/clothing/glasses/science/prescription
+	name = "prescription science goggles"
+	desc = "A crude combination between a pair of prescription glasses and the electronics of science goggles."
+	icon_state = "prescscihud"
+	resistance_flags = NONE
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 40, "stamina" = 0)
+	vision_correction = 1
 
 /obj/item/clothing/glasses/science/sciencesun
 	name = "science sunglasses"
@@ -289,12 +304,17 @@
 	icon_state = "bustin-g"
 	item_state = "bustin-g"
 	flash_protect = 1
-	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_INVISVIEW
+	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	glass_colour_type = /datum/client_colour/glass_colour/green
 
 /obj/item/clothing/glasses/welding/ghostbuster/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/team_monitor, "ghost", 1)
+
+/obj/item/clothing/glasses/welding/ghostbuster/visor_toggling()
+	..()
+	var/datum/component/team_monitor/ghost_vision = GetComponent(/datum/component/team_monitor)
+	ghost_vision.toggle_hud(!ghost_vision.hud_visible, usr)
 
 /obj/item/clothing/glasses/blindfold
 	name = "blindfold"
@@ -305,15 +325,6 @@
 	tint = 3
 	darkness_view = 1
 	dog_fashion = /datum/dog_fashion/head
-
-/obj/item/clothing/glasses/blindfold/equipped(mob/living/carbon/human/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_EYES)
-		user.become_blind("blindfold_[REF(src)]")
-
-/obj/item/clothing/glasses/blindfold/dropped(mob/living/carbon/human/user)
-	..()
-	user.cure_blind("blindfold_[REF(src)]")
 
 /obj/item/clothing/glasses/blindfold/white
 	name = "blind personnel blindfold"
@@ -343,7 +354,6 @@
 		. += M
 
 /obj/item/clothing/glasses/sunglasses/advanced/big
-	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
 	icon_state = "bigsunglasses"
 	item_state = "bigsunglasses"
 
@@ -354,7 +364,6 @@
 	item_state = "glasses"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	flash_protect = 0
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
 /obj/item/clothing/glasses/thermal/emp_act(severity)
@@ -367,7 +376,7 @@
 	name = "syndicate xray goggles"
 	desc = "A pair of xray goggles manufactured by the Syndicate."
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
-	flash_protect = -1
+	tint = -INFINITY
 
 /obj/item/clothing/glasses/thermal/syndi	//These are now a traitor item, concealed as mesons.	-Pete
 	name = "chameleon thermals"

@@ -145,6 +145,12 @@
 	eye_color = "000"
 	see_in_dark = 8
 	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
+	flash_protect = -INFINITY
+	tint = -INFINITY
+
+/obj/item/organ/eyes/robotic/xray/syndicate
+	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile. On closer look, they have been modified to protect from sudden bright flashes."
+	flash_protect = 0
 
 /obj/item/organ/eyes/robotic/thermals
 	name = "thermal eyes"
@@ -350,7 +356,7 @@
 	clear_visuals(TRUE)
 	on_mob = new(src)
 	for(var/i in 1 to light_beam_distance)
-		LAZYADD(eye_lighting,new /obj/effect/abstract/eye_lighting(src))
+		LAZYADD(eye_lighting, new /obj/effect/abstract/eye_lighting(src))
 	sync_light_effects()
 
 /obj/item/organ/eyes/robotic/glow/proc/sync_light_effects()
@@ -366,6 +372,7 @@
 /obj/effect/abstract/eye_lighting/Initialize()
 	. = ..()
 	parent = loc
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	if(!istype(parent))
 		return INITIALIZE_HINT_QDEL
 

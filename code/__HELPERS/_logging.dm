@@ -212,6 +212,10 @@
 /proc/log_mapping(text)
 	WRITE_LOG(GLOB.world_map_error_log, text)
 
+/proc/log_perf(list/perf_info)
+	. = "[perf_info.Join(",")]\n"
+	WRITE_LOG_NO_FORMAT(GLOB.perf_log, .)
+
 /* ui logging */
 /proc/log_tgui(user_or_client, text)
 	var/entry = ""

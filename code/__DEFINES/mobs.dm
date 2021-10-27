@@ -73,6 +73,37 @@
 #define LARVA_BODYPART "larva"
 #define DEVIL_BODYPART "devil"
 
+//Species gib types
+
+#define GIB_TYPE_HUMAN "human"
+#define GIB_TYPE_ROBOTIC "robotic"
+//Species ID defines
+#define SPECIES_HUMAN			"human"
+#define SPECIES_IPC 			"ipc"
+#define SPECIES_ETHEREAL 		"ethereal"
+#define SPECIES_PLASMAMAN 		"plasmaman"
+#define SPECIES_APID 			"apid"
+#define SPECIES_MOTH			"moth"
+#define SPECIES_LIZARD			"lizard"
+#define SPECIES_FELINID			"felinid"
+#define SPECIES_OOZELING		"oozeling"
+#define SPECIES_FLY 			"fly"
+#define SPECIES_SQUID			"squid" //I forgot squids existed lmao
+
+//Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
+#define FLAG_HUMAN			(1<<0)
+#define FLAG_IPC			(1<<1)
+#define FLAG_ETHEREAL		(1<<2)
+#define FLAG_PLASMAMAN		(1<<3)
+#define	FLAG_APID			(1<<4)
+#define FLAG_MOTH			(1<<5)
+#define FLAG_LIZARD			(1<<6)
+#define FLAG_FELINID		(1<<7)
+#define FLAG_OOZELING		(1<<8)
+#define FLAG_FLY			(1<<9)
+#define FLAG_SQUID			(1<<10)
+#define FLAG_DEBUG_SPECIES	(1<<11)
+
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
 #define PROCESS_SYNTHETIC 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
@@ -196,13 +227,6 @@
 //Used as an upper limit for species that continuously gain nutriment
 #define NUTRITION_LEVEL_ALMOST_FULL 535
 
-//Charge levels for Ethereals
-#define ETHEREAL_CHARGE_NONE 0
-#define ETHEREAL_CHARGE_LOWPOWER 20
-#define ETHEREAL_CHARGE_NORMAL 50
-#define ETHEREAL_CHARGE_ALMOSTFULL 75
-#define ETHEREAL_CHARGE_FULL 100
-
 //Base nutrition value used for newly initialized slimes
 #define SLIME_DEFAULT_NUTRITION 700
 
@@ -315,6 +339,8 @@
 #define OFFSET_BACK "back"
 #define OFFSET_SUIT "suit"
 #define OFFSET_NECK "neck"
+#define OFFSET_LEFT_HAND "l_hand"
+#define OFFSET_RIGHT_HAND "r_hand"
 
 //MINOR TWEAKS/MISC
 #define AGE_MIN				18	//! youngest a character can be
@@ -326,7 +352,6 @@
 #define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
 
 #define	HUNGER_FACTOR		0.1	//! factor at which mob nutrition decreases
-#define	ETHEREAL_CHARGE_FACTOR	0.1 //! factor at which ethereal's charge decreases
 #define	HYGIENE_FACTOR  0.1	//! factor at which mob hygiene decreases
 #define	REAGENTS_METABOLISM 0.4	//! How many units of reagent are consumed per tick, by default.
 #define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)	//! By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
@@ -389,3 +414,6 @@
 
 //Saves a proc call, life is suffering. If who has no targets_from var, we assume it's just who
 #define GET_TARGETS_FROM(who) (who.targets_from ? who.get_targets_from() : who)
+
+///Define for spawning megafauna instead of a mob for cave gen
+#define SPAWN_MEGAFAUNA "bluh bluh huge boss"

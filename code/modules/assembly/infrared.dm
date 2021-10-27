@@ -213,8 +213,9 @@
 			visible = !visible
 			. = TRUE
 
-	update_icon()
-	refreshBeam()
+	if(.)
+		update_icon()
+		refreshBeam()
 
 /***************************IBeam*********************************/
 

@@ -44,12 +44,14 @@
 		if (stat & (BROKEN|NOPOWER))
 			say("Insufficient power. Halting siphon.")
 			end_syphon()
+			ui_update()
 			return
 		var/siphon_am = 100 * delta_time
 		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 		if(!D.has_money(siphon_am))
 			say("Cargo budget depleted. Halting siphon.")
 			end_syphon()
+			ui_update()
 			return
 
 		playsound(src, 'sound/items/poster_being_created.ogg', 100, TRUE)
@@ -57,7 +59,7 @@
 		D.adjust_money(-siphon_am)
 		if(next_warning < world.time && prob(15))
 			var/area/A = get_area(loc)
-			var/message = "Unauthorized credit withdrawal underway in [A.map_name]!!"
+			var/message = "Unauthorized credit withdrawal underway in [initial(A.name)]!!"
 			radio.talk_into(src, message, radio_channel)
 			next_warning = world.time + minimum_time_between_warnings
 

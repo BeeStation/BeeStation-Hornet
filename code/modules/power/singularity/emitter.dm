@@ -126,7 +126,7 @@
 /obj/machinery/power/emitter/interact(mob/user)
 	add_fingerprint(user)
 	if(state == EMITTER_WELDED)
-		if(!powernet)
+		if(!powernet && active_power_usage)
 			to_chat(user, "<span class='warning'>\The [src] isn't connected to a wire!</span>")
 			return TRUE
 		if(!locked && allow_switch_interact)
@@ -383,7 +383,7 @@
 	auto.Remove(buckled_mob)
 	. = ..()
 
-/obj/machinery/power/emitter/prototype/user_buckle_mob(mob/living/M, mob/living/carbon/user)
+/obj/machinery/power/emitter/prototype/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
 	if(user.incapacitated() || !istype(user))
 		return
 	for(var/atom/movable/A in get_turf(src))

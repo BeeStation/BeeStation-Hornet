@@ -17,11 +17,11 @@ jobs:
       - name: Python setup
         uses: actions/setup-python@v1
         with:
-          python-version: '3.x'
+          python-version: "3.8"
       - name: Install depends
         run: |
           python -m pip install --upgrade pip
-          pip install ruamel.yaml PyGithub
+          pip install -r tools/changelog/requirements.txt
       - name: Make CL
         env:
           #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} Use this instead if you have unprotected branches

@@ -178,6 +178,7 @@
 						return
 					if("No")
 						event.announceChance = 0
+				event.on_admin_trigger()
 				event.processing = TRUE
 			message_admins("[key_name_admin(usr)] has triggered an event. ([E.name])")
 			log_admin("[key_name(usr)] has triggered an event. ([E.name])")
@@ -749,7 +750,13 @@
 			alert("The round has already started.")
 			HandleCMode()
 			return
+		if(SSticker.gamemode_hotswap_disabled)
+			alert("A gamemode has already loaded maps and cannot be changed!")
+			HandleCMode()
+			return
 		GLOB.master_mode = href_list["c_mode2"]
+		//Disable presetup so their gamemode gets loaded.
+		SSticker.pre_setup_completed = FALSE
 		log_admin("[key_name(usr)] set the mode as [GLOB.master_mode].")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] set the mode as [GLOB.master_mode].</span>")
 		to_chat(world, "<span class='adminnotice'><b>The mode is now: [GLOB.master_mode]</b></span>")

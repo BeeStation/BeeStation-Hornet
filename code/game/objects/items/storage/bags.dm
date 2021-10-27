@@ -167,6 +167,7 @@
 				continue
 			if (box)
 				user.transferItemToLoc(A, box)
+				box.ui_update()
 				show_message = TRUE
 			else if(SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, A, user, TRUE))
 				show_message = TRUE
@@ -234,6 +235,19 @@
 		return
 	for(var/obj/item/O in contents)
 		seedify(O, 1)
+
+/obj/item/storage/bag/plants/portaseeder/compact
+	name = "compact portable seed extractor"
+	desc = "Create seeds for your plants in your arm."
+	icon_state = "compactseeder"
+
+/obj/item/storage/bag/plants/portaseeder/compact/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_combined_w_class = 10
+	STR.max_items = 3
+	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/food/snacks/grown, /obj/item/seeds, /obj/item/grown))
 
 // -----------------------------
 //        Sheet Snatcher

@@ -29,6 +29,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	desc = "A console intended to send requests to different departments on the station."
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "req_comp0"
+	layer = ABOVE_WINDOW_LAYER
 	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
 	var/list/messages = list() //List of all messages
 	var/departmentType = 0 //bitflag
@@ -103,7 +104,8 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 /obj/machinery/requests_console/Initialize()
 	. = ..()
 	if(department == "Unknown")
-		department = get_area(src).name
+		var/area/AR = get_area(src)
+		department = AR.name
 	name = "\improper [department] requests console"
 	GLOB.allConsoles += src
 
@@ -272,7 +274,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		if(isliving(usr))
 			var/mob/living/L = usr
 			message = L.treat_message(message)
-		minor_announce(message, "[department] Announcement:", from = auth_id)
+		minor_announce(message, "[department] Announcement:", from = auth_id, html_encode = FALSE)
 		GLOB.news_network.SubmitArticle(message, department, "Station Announcements", null)
 		usr.log_talk(message, LOG_SAY, tag="station announcement from [src]")
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has made a station announcement from [src] at [AREACOORD(usr)].")

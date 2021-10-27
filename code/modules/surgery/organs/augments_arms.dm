@@ -195,6 +195,7 @@
 	name = "arm-mounted laser implant"
 	desc = "A variant of the arm cannon implant that fires lethal laser beams. The cannon emerges from the subject's arm and remains inside when not in use."
 	icon_state = "arm_laser"
+	syndicate_implant = TRUE
 	items_to_create = list(/obj/item/gun/energy/laser/mounted)
 
 /obj/item/organ/cyberimp/arm/gun/laser/l
@@ -237,6 +238,7 @@
 /obj/item/organ/cyberimp/arm/esword
 	name = "arm-mounted energy blade"
 	desc = "An illegal and highly dangerous cybernetic implant that can project a deadly blade of concentrated energy."
+	syndicate_implant = TRUE
 	items_to_create = list(/obj/item/melee/transforming/energy/blade/hardlight)
 
 /obj/item/organ/cyberimp/arm/medibeam
@@ -270,11 +272,13 @@
 /obj/item/organ/cyberimp/arm/baton
 	name = "arm electrification implant"
 	desc = "An illegal combat implant that allows the user to administer disabling shocks from their arm."
+	syndicate_implant = TRUE
 	items_to_create = list(/obj/item/borg/stun)
 
 /obj/item/organ/cyberimp/arm/combat
 	name = "combat cybernetics implant"
 	desc = "A powerful cybernetic implant that contains combat modules built into the user's arm."
+	syndicate_implant = TRUE
 	items_to_create = list(/obj/item/melee/transforming/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/assembly/flash/armimplant)
 
 /obj/item/organ/cyberimp/arm/combat/Initialize()
@@ -301,6 +305,7 @@
 	name = "arm-mounted energy saw"
 	desc = "An illegal and highly dangerous implanted carbon-fiber blade with a toggleable hard-light edge."
 	icon_state = "esaw_0"
+	syndicate_implant = TRUE
 	items_to_create = list(/obj/item/melee/transforming/energy/sword/esaw)
 
 /obj/item/organ/cyberimp/arm/hydraulic_blade
@@ -311,3 +316,19 @@
 
 /obj/item/organ/cyberimp/arm/hydraulic_blade/l
 	zone = BODY_ZONE_L_ARM
+
+/obj/item/organ/cyberimp/arm/botany
+	name = "botanical arm implant"
+	desc = "A rather simple arm implant containing tools used in gardening and botanical research."
+	items_to_create = list(/obj/item/cultivator, /obj/item/shovel/spade, /obj/item/hatchet, /obj/item/plant_analyzer, /obj/item/storage/bag/plants/portaseeder/compact)
+
+/obj/item/organ/cyberimp/arm/janitor
+	name = "janitorial tools implant"
+	desc = "A set of janitorial tools on the user's arm."
+	items_to_create = list(/obj/item/lightreplacer/cyborg, /obj/item/holosign_creator/janibarrier, /obj/item/soap/nanotrasen, /obj/item/reagent_containers/spray/cyborg/drying_agent, /obj/item/mop/advanced/cyborg, /obj/item/paint/paint_remover, /obj/item/reagent_containers/spray/cleaner)
+
+/obj/item/organ/cyberimp/arm/janitor/emag_act(mob/user)
+	to_chat(usr, "<span class='notice'>You unlock [src]'s integrated deluxe cleaning supplies!</span>")
+	items_list += WEAKREF(new /obj/item/soap/syndie(src)) //We add not replace.
+	items_list += WEAKREF(new /obj/item/reagent_containers/spray/cyborg/lube(src))
+	return TRUE

@@ -317,15 +317,39 @@
 /datum/plant_gene/trait/glow/shadow/glow_power(obj/item/seeds/S)
 	return -max(S.potency*(rate*0.2), 0.2)
 
+/datum/plant_gene/trait/glow/white
+	name = "White Bioluminescence"
+	glow_color = "#FFFFFF"
+
 /datum/plant_gene/trait/glow/red
-	name = "Red Electrical Glow"
-	glow_color = LIGHT_COLOR_RED
+	//Colored versions of bioluminescence.
+	name = "Red Bioluminescence"
+	glow_color = "#FF3333"
 
-/datum/plant_gene/trait/glow/berry
-	name = "Strong Bioluminescence"
-	rate = 0.05
-	glow_color = null
+/datum/plant_gene/trait/glow/yellow
+	//not the disgusting glowshroom yellow hopefully
+	name = "Yellow Bioluminescence"
+	glow_color = "#FFFF66"
 
+/datum/plant_gene/trait/glow/green
+	//oh no, now I'm radioactive
+	name = "Green Bioluminescence"
+	glow_color = "#99FF99"
+
+/datum/plant_gene/trait/glow/blue
+	//the best one
+	name = "Blue Bioluminescence"
+	glow_color = "#6699FF"
+
+/datum/plant_gene/trait/glow/purple
+	//did you know that Notepad++ doesnt think bioluminescence is a word
+	name = "Purple Bioluminescence"
+	glow_color = "#D966FF"
+
+/datum/plant_gene/trait/glow/pink
+	//gay tide station pride
+	name = "Pink Bioluminescence"
+	glow_color = "#FFB3DA"
 
 /datum/plant_gene/trait/teleport
 	// Makes plant teleport people when squashed or slipped on.
@@ -358,19 +382,6 @@
 	else
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 		qdel(G)
-
-
-/datum/plant_gene/trait/noreact
-	// Makes plant reagents not react until squashed.
-	name = "Separated Chemicals"
-
-/datum/plant_gene/trait/noreact/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
-	..()
-	ENABLE_BITFIELD(G.reagents.flags, NO_REACT)
-
-/datum/plant_gene/trait/noreact/on_squashreact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	DISABLE_BITFIELD(G.reagents.flags, NO_REACT)
-	G.reagents.handle_reactions()
 
 /datum/plant_gene/trait/maxchem
 	// 2x to max reagents volume.

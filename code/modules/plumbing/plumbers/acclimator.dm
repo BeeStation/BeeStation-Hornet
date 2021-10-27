@@ -74,6 +74,7 @@
 	if(!ui)
 		ui = new(user, src, "ChemAcclimator")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/plumbing/acclimator/ui_data(mob/user)
 	var/list/data = list()
@@ -91,19 +92,22 @@
 /obj/machinery/plumbing/acclimator/ui_act(action, params)
 	if(..())
 		return
-	. = TRUE
 	switch(action)
 		if("set_target_temperature")
 			var/target = text2num(params["temperature"])
 			target_temperature = clamp(target, 0, 1000)
+			. = TRUE
 		if("set_allowed_temperature_difference")
 			var/target = text2num(params["temperature"])
 			allowed_temperature_difference = clamp(target, 0, 1000)
+			. = TRUE
 		if("toggle_power")
 			enabled = !enabled
+			. = TRUE
 		if("change_volume")
 			var/target = text2num(params["volume"])
 			reagents.maximum_volume = clamp(round(target), 1, buffer)
+			. = TRUE
 
 #undef COOLING
 #undef HEATING

@@ -95,6 +95,9 @@
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
 
+	/// Lazylist of all messages currently on this atom
+	var/list/chat_messages
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -359,6 +362,7 @@
 				L.transferItemToLoc(M, src)
 			else
 				M.forceMove(src)
+	parts_list.Cut()
 
 ///Hook for multiz???
 /atom/proc/update_multiz(prune_on_fail = FALSE)
@@ -366,11 +370,25 @@
 
 ///Take air from the passed in gas mixture datum
 /atom/proc/assume_air(datum/gas_mixture/giver)
-	qdel(giver)
+	return null
+
+/atom/proc/assume_air_moles(datum/gas_mixture/giver, moles)
+	return null
+
+/atom/proc/assume_air_ratio(datum/gas_mixture/giver, ratio)
 	return null
 
 ///Remove air from this atom
 /atom/proc/remove_air(amount)
+	return null
+
+/atom/proc/remove_air_ratio(ratio)
+	return null
+
+/atom/proc/transfer_air(datum/gas_mixture/taker, amount)
+	return null
+
+/atom/proc/transfer_air_ratio(datum/gas_mixture/taker, ratio)
 	return null
 
 ///Return the current air environment in this atom
@@ -720,6 +738,12 @@
   */
 /atom/proc/ratvar_act()
 	SEND_SIGNAL(src, COMSIG_ATOM_RATVAR_ACT)
+
+/**
+  * Called when lighteater is called on this.
+  */
+/atom/proc/lighteater_act(obj/item/light_eater/light_eater)
+	return
 
 /**
   * Respond to the eminence clicking on our atom

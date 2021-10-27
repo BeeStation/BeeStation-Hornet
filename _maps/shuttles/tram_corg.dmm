@@ -80,7 +80,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/computer/shuttle{
+/obj/machinery/computer/shuttle_flight{
 	possible_destinations = "corg_north;corg_south";
 	shuttleId = "tram_corg"
 	},

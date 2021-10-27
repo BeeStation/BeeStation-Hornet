@@ -157,6 +157,7 @@
 			is_capped = !is_capped
 			to_chat(user, "<span class='notice'>The cap on [src] is now [is_capped ? "on" : "off"].</span>")
 			update_icon()
+			ui_update()
 
 /obj/item/toy/crayon/proc/staticDrawables()
 
@@ -250,7 +251,9 @@
 			. = TRUE
 			paint_mode = PAINT_NORMAL
 			drawtype = "a"
-	update_icon()
+
+	if(.)
+		update_icon()
 
 /obj/item/toy/crayon/proc/crayon_text_strip(text)
 	var/static/regex/crayon_r = new /regex(@"[^\w!?,.=%#&+\/\-]")
@@ -668,7 +671,7 @@
 
 		return
 
-	if(isobj(target))
+	if(isobj(target) && !(target.flags_1 & UNPAINTABLE_1))
 		if(actually_paints)
 			if(color_hex2num(paint_color) < 350 && !istype(target, /obj/structure/window)) //Colors too dark are rejected
 				if(isclothing(target))
@@ -813,7 +816,7 @@
 	// Check area validity.
 	// Reject space, player-created areas, and non-station z-levels.
 	var/area/A = get_area(target)
-	if(!A || (!is_station_level(A.z)) || !A.valid_territory)
+	if(!A || (!is_station_level(A.z)) || !(A.area_flags & VALID_TERRITORY))
 		to_chat(user, "<span class='warning'>[A] is unsuitable for tagging.</span>")
 		return FALSE
 

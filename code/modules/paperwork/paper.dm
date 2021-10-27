@@ -120,7 +120,7 @@
 			H.update_damage_hud()
 			return
 	var/n_name = stripped_input(usr, "What would you like to label the paper?", "Paper Labelling", null, MAX_NAME_LEN)
-	if((loc == usr && usr.stat == CONSCIOUS))
+	if(((loc == usr || istype(loc, /obj/item/clipboard)) && usr.stat == CONSCIOUS))
 		name = "paper[(n_name ? text("- '[n_name]'") : null)]"
 	add_fingerprint(usr)
 
@@ -157,7 +157,7 @@
 	// .. or if you cannot read
 	if(!user.can_read(src))
 		return UI_CLOSE
-	if(in_contents_of(/obj/machinery/door/airlock))
+	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/item/clipboard))
 		return UI_INTERACTIVE
 	return ..()
 
@@ -230,6 +230,7 @@
 	if(!ui)
 		ui = new(user, src, "PaperSheet", name)
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 
 /obj/item/paper/ui_static_data(mob/user)
@@ -246,27 +247,32 @@
 	var/list/data = list()
 	data["edit_usr"] = "[user]"
 
-	var/obj/O = user.get_active_held_item()
-	if(istype(O, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/PEN = O
+	var/obj/holding = user.get_active_held_item()
+	// Use a clipboard's pen, if applicable
+	if(istype(loc, /obj/item/clipboard))
+		var/obj/item/clipboard/clipboard = loc
+		if(clipboard.pen)
+			holding = clipboard.pen
+	if(istype(holding, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/PEN = holding
 		data["pen_font"] = CRAYON_FONT
 		data["pen_color"] = PEN.paint_color
 		data["edit_mode"] = MODE_WRITING
 		data["is_crayon"] = TRUE
 		data["stamp_class"] = "FAKE"
 		data["stamp_icon_state"] = "FAKE"
-	else if(istype(O, /obj/item/pen))
-		var/obj/item/pen/PEN = O
+	else if(istype(holding, /obj/item/pen))
+		var/obj/item/pen/PEN = holding
 		data["pen_font"] = PEN.font
 		data["pen_color"] = PEN.colour
 		data["edit_mode"] = MODE_WRITING
 		data["is_crayon"] = FALSE
 		data["stamp_class"] = "FAKE"
 		data["stamp_icon_state"] = "FAKE"
-	else if(istype(O, /obj/item/stamp))
+	else if(istype(holding, /obj/item/stamp))
 		var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
-		data["stamp_icon_state"] = O.icon_state
-		data["stamp_class"] = sheet.icon_class_name(O.icon_state)
+		data["stamp_icon_state"] = holding.icon_state
+		data["stamp_class"] = sheet.icon_class_name(holding.icon_state)
 		data["edit_mode"] = MODE_STAMPING
 		data["pen_font"] = "FAKE"
 		data["pen_color"] = "FAKE"
@@ -278,6 +284,10 @@
 		data["is_crayon"] = FALSE
 		data["stamp_icon_state"] = "FAKE"
 		data["stamp_class"] = "FAKE"
+	if(istype(loc, /obj/structure/noticeboard))
+		var/obj/structure/noticeboard/noticeboard = loc
+		if(!noticeboard.allowed(user))
+			data["edit_mode"] = MODE_READING
 	data["field_counter"] = field_counter
 	data["form_fields"] = form_fields
 
@@ -339,6 +349,11 @@
 			update_icon()
 			. = TRUE
 
+/obj/item/paper/ui_host(mob/user)
+	if(istype(loc, /obj/structure/noticeboard))
+		return loc
+	return ..()
+
 /**
  * Construction paper
  */
@@ -369,7 +384,7 @@
 
 /obj/item/paper/crumpled/beernuke
 	name = "beer-stained note"
-	
+
 /obj/item/paper/crumpled/beernuke/Initialize()
 	. = ..()
 	var/code
@@ -377,7 +392,7 @@
 		if(beernuke.r_code == "ADMIN")
 			beernuke.r_code = random_nukecode()
 		code = beernuke.r_code
-	info = "important party info, DONT FORGET: <b>[code]</b>" 
+	info = "important party info, DONT FORGET: <b>[code]</b>"
 
 /obj/item/paper/troll
 	name = "very special note"

@@ -658,8 +658,8 @@
 	if(!(mobility_flags & MOBILITY_STAND) && !buckled && prob(getBruteLoss()*200/maxHealth))
 		makeTrail(newloc, T, old_direction)
 
-/mob/living/proc/makeTrail(turf/target_turf, turf/start, direction)
-	if(!has_gravity())
+/mob/living/proc/makeTrail(turf/target_turf, turf/start, direction, spec_color)
+	if(!has_gravity() || (movement_type & THROWN))
 		return
 	var/blood_exists = FALSE
 
@@ -689,9 +689,13 @@
 						TH.add_overlay(image('icons/effects/blood.dmi', trail_type, dir = newdir))
 						TH.transfer_mob_blood_dna(src)
 
-/mob/living/carbon/human/makeTrail(turf/T)
+						if(spec_color)
+							TH.color = spec_color
+
+/mob/living/carbon/human/makeTrail(turf/T, turf/start, direction, spec_color)
 	if((NOBLOOD in dna.species.species_traits) || !bleed_rate || bleedsuppress)
 		return
+	spec_color = dna.species.blood_color
 	..()
 
 /mob/living/proc/getTrail()
@@ -921,7 +925,7 @@
 			loc_temp = obj_temp
 	else if(isspaceturf(get_turf(src)))
 		var/turf/heat_turf = get_turf(src)
-		loc_temp = heat_turf.temperature
+		loc_temp = heat_turf.return_temperature()
 	return loc_temp
 
 /mob/living/proc/get_standard_pixel_x_offset(lying = 0)

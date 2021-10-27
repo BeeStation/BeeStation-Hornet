@@ -41856,7 +41856,7 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/qm)
 "bis" = (
-/obj/machinery/computer/shuttle/mining{
+/obj/machinery/computer/shuttle_flight/mining{
 	dir = 8;
 	icon_state = "computer";
 	req_access = null;
@@ -43864,7 +43864,7 @@
 /turf/open/floor/plating,
 /area/security/checkpoint/supply)
 "blh" = (
-/obj/machinery/mineral/equipment_vendor,
+/obj/machinery/vendor/mining,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -47183,6 +47183,9 @@
 	pixel_x = 28
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/painting/library_private{
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/dark,
 /area/library)
 "bpI" = (
@@ -48432,7 +48435,7 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
 "bru" = (
-/obj/machinery/computer/shuttle/mining,
+/obj/machinery/computer/shuttle_flight/mining,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -50929,17 +50932,10 @@
 /turf/open/floor/plasteel/dark,
 /area/library)
 "buX" = (
-/obj/structure/table/wood,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/clipboard,
-/obj/item/camera_film{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/camera_film,
 /obj/machinery/newscaster{
 	pixel_x = 30
 	},
@@ -50948,6 +50944,7 @@
 	dir = 8;
 	name = "bar camera"
 	},
+/obj/machinery/modular_computer/console/preset/curator,
 /turf/open/floor/plasteel/dark,
 /area/library)
 "buY" = (
@@ -51486,7 +51483,7 @@
 /turf/closed/wall/rust,
 /area/library)
 "bvL" = (
-/obj/machinery/computer/shuttle/labor,
+/obj/machinery/computer/shuttle_flight/labor,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
@@ -92195,7 +92192,7 @@
 /area/maintenance/fore)
 "cEi" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/shuttle/mining{
+/obj/machinery/computer/shuttle_flight/mining{
 	dir = 4;
 	req_access = null;
 	req_one_access = null
@@ -96636,7 +96633,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/processing)
 "cLk" = (
-/obj/machinery/computer/shuttle/labor{
+/obj/machinery/computer/shuttle_flight/labor{
 	dir = 1;
 	icon_state = "computer"
 	},

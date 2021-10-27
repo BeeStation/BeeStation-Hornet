@@ -154,3 +154,12 @@
 	build_path = /obj/item/aiModule/core/full/custom
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/dadbot_module
+	name = "Core Module Design (DadBot)"
+	desc = "Allows for the construction of a Dadbot AI Core Module."
+	id = "dadbot_module"
+	materials = list(/datum/material/glass = 1000, /datum/material/diamond = 2000, /datum/material/copper = 300)
+	build_path = /obj/item/aiModule/core/full/dadbot
+	category = list("AI Modules")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE

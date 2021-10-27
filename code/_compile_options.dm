@@ -11,14 +11,7 @@
 #ifdef TESTING
 #define DATUMVAR_DEBUGGING_MODE
 
-/*
-* Enables extools-powered reference tracking system, letting you see what is referencing objects that refuse to hard delete.
-*
-* * Requires TESTING to be defined to work.
-*/
-//#define REFERENCE_TRACKING
-
-///Method of tracking references without using extools. Slower, kept to avoid over-reliance on extools.
+///Method of tracking references.
 //#define LEGACY_REFERENCE_TRACKING
 #ifdef LEGACY_REFERENCE_TRACKING
 
@@ -50,18 +43,23 @@
 
 //Update this whenever you need to take advantage of more recent byond features
 #define MIN_COMPILER_VERSION 514
-#define MIN_COMPILER_BUILD 1554
-#if DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD
+#define MIN_COMPILER_BUILD 1568
+//TODO Remove the SDMM check when it supports 1568
+#if !defined(SPACEMAN_DMM) && (DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD)
 //Don't forget to update this part
 #error Your version of BYOND is too out-of-date to compile this project. Go to https://secure.byond.com/download and update.
-#error You need version 514.1554 or higher.
+#error You need version 514.1568 or higher.
 #endif
 
 //Update this whenever the byond version is stable so people stop updating to hilariously broken versions
 #define MAX_COMPILER_VERSION 514
-#define MAX_COMPILER_BUILD 1556
+#define MAX_COMPILER_BUILD 1568
 #if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
-#warn WARNING: Your BYOND version is over the recommended version (514.1554)! Stability is not guaranteed.
+#warn WARNING: Your BYOND version is over the recommended version (514.1568)! Stability is not guaranteed.
+#endif
+//Log the full sendmaps profile on 514.1556+, any earlier and we get bugs or it not existing
+#if DM_VERSION >= 514 && DM_BUILD >= 1556
+#define SENDMAPS_PROFILE
 #endif
 
 
@@ -78,4 +76,25 @@
 #define TESTING
 #endif
 
-#define EXTOOLS (world.system_type == MS_WINDOWS ? "byond-extools.dll" : "./libbyond-extools.so")
+#ifdef TGS
+// TGS performs its own build of dm.exe, but includes a prepended TGS define.
+#define CBT
+#endif
+
+#if !defined(CBT) && !defined(SPACEMAN_DMM)
+#warn Building with Dream Maker is no longer supported and will result in errors.
+#warn In order to build, run BUILD.bat in the root directory.
+#warn Consider switching to VSCode editor instead, where you can press Ctrl+Shift+B to build.
+#endif
+
+#define AUXMOS (world.system_type == MS_WINDOWS ? "auxtools/auxmos.dll" : __detect_auxmos())
+
+/proc/__detect_auxmos()
+	if (fexists("./libauxmos.so"))
+		return "./libauxmos.so"
+	else if (fexists("./auxtools/libauxmos.so"))
+		return "./auxtools/libauxmos.so"
+	else if (fexists("[world.GetConfig("env", "HOME")]/.byond/bin/libauxmos.so"))
+		return "[world.GetConfig("env", "HOME")]/.byond/bin/libauxmos.so"
+	else
+		CRASH("Could not find libauxmos.so")

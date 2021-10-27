@@ -22,8 +22,6 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define DF_ISPROCESSING (1<<2)
 
 //! ## FLAGS BITMASK
-
-#define HEAR_1						(1<<3)		//!  This flag is what recursive_hear_check() uses to determine wether to add an item to the hearer list or not.
 #define CONDUCT_1					(1<<5)		//!  conducts electricity (iron etc.)
 #define NODECONSTRUCT_1				(1<<7)		//!  For machines and structures that should not break into parts, eg, holodeck stuff
 #define OVERLAY_QUEUED_1			(1<<8)		//!  atom queued to SSoverlay
@@ -32,8 +30,9 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define HOLOGRAM_1					(1<<12)
 #define TESLA_IGNORE_1				(1<<13) 	//! TESLA_IGNORE grants immunity from being targeted by tesla-style electricity
 #define INITIALIZED_1				(1<<14)  	//! Whether /atom/Initialize() has already run for the object
-#define ADMIN_SPAWNED_1			(1<<15) 		//! was this spawned by an admin? used for stat tracking stuff.
+#define ADMIN_SPAWNED_1				(1<<15) 		//! was this spawned by an admin? used for stat tracking stuff.
 #define PREVENT_CONTENTS_EXPLOSION_1 (1<<16)
+#define UNPAINTABLE_1 				(1<<17)
 
 /// If the thing can reflect light (lasers/energy)
 #define RICOCHET_SHINY			(1<<0)
@@ -46,6 +45,28 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define CAN_BE_DIRTY_1				(1<<2) 	//! If a turf can be made dirty at roundstart. This is also used in areas.
 #define NO_LAVA_GEN_1				(1<<6) 	//! Blocks lava rivers being generated on the turf
 #define NO_RUINS_1					(1<<10) //! Blocks ruins spawning on the turf
+
+////////////////Area flags\\\\\\\\\\\\\\
+/// If it's a valid territory for cult summoning or the CRAB-17 phone to spawn
+#define VALID_TERRITORY				(1<<0)
+/// If blobs can spawn there and if it counts towards their score.
+#define BLOBS_ALLOWED				(1<<1)
+/// If mining tunnel generation is allowed in this area
+#define CAVES_ALLOWED				(1<<2)
+/// If flora are allowed to spawn in this area randomly through tunnel generation
+#define FLORA_ALLOWED				(1<<3)
+/// If mobs can be spawned by natural random generation
+#define MOB_SPAWN_ALLOWED			(1<<4)
+/// If megafauna can be spawned by natural random generation
+#define MEGAFAUNA_SPAWN_ALLOWED		(1<<5)
+/// Hides area from player Teleport function.
+#define HIDDEN_AREA					(1<<6)
+/// If false, loading multiple maps with this area type will create multiple instances.
+#define UNIQUE_AREA					(1<<7)
+/// If people are allowed to suicide in it. Mostly for OOC stuff like minigames
+#define BLOCK_SUICIDE				(1<<8)
+/// Can the Xenobio management console transverse this area by default?
+#define XENOBIOLOGY_COMPATIBLE		(1<<9)
 
 /*
 	These defines are used specifically with the atom/pass_flags bitmask
@@ -66,6 +87,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define VENTCRAWLING	(1<<2)
 #define FLOATING		(1<<3)
 #define UNSTOPPABLE		(1<<4)			//! When moving, will Bump()/Cross()/Uncross() everything, but won't be stopped.
+#define THROWN			(1<<5) //! while an atom is being thrown
 
 //! ## Fire and Acid stuff, for resistance_flags
 #define LAVA_PROOF		(1<<0)
@@ -85,6 +107,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define TESLA_MOB_STUN				(1<<4)
 
 #define TESLA_DEFAULT_FLAGS ALL
+#define TESLA_ENERGY_PRIMARY_BALL_FLAGS TESLA_MACHINE_EXPLOSIVE | TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN
+#define TESLA_ENERGY_MINI_BALL_FLAGS TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN
 #define TESLA_FUSION_FLAGS TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN
 
 //EMP protection

@@ -633,6 +633,11 @@
 	var/chain
 	var/mob/living/caster
 
+/obj/item/projectile/magic/aoe/lightning/New(loc, spell_level)
+	. = ..()
+	tesla_power += 5000 * spell_level
+	tesla_range += 2 * spell_level
+
 /obj/item/projectile/magic/aoe/lightning/fire(setAngle)
 	if(caster)
 		chain = caster.Beam(src, icon_state = "lightning[rand(1, 12)]", time = INFINITY, maxdistance = INFINITY)
@@ -665,6 +670,13 @@
 	var/exp_light = 2
 	var/exp_flash = 3
 	var/exp_fire = 2
+
+/obj/item/projectile/magic/aoe/fireball/New(loc, spell_level)
+	. = ..()
+	exp_fire += spell_level
+	exp_flash += spell_level
+	exp_light += spell_level
+	exp_heavy = max(spell_level - 2, 0)
 
 /obj/item/projectile/magic/aoe/fireball/on_hit(target)
 	. = ..()

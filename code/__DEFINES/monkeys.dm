@@ -27,6 +27,9 @@
 #define MONKEY_RECRUIT_PROB 				25
 
 
+/// probability for the monkey to aggro when attacked
+#define MONKEY_RETALIATE_PROB 85
+
 /// probability for the monkey to aggro when attacked with harm intent
 #define MONKEY_RETALIATE_HARM_PROB 			95
 /// probability for the monkey to aggro when attacked with disarm intent

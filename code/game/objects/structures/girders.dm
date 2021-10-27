@@ -37,6 +37,7 @@
 			var/obj/item/stack/sheet/iron/M = new (loc, 2)
 			M.add_fingerprint(user)
 			qdel(src)
+			return
 
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, "<span class='notice'>You smash through the girder!</span>")
@@ -71,6 +72,7 @@
 					var/obj/structure/falsewall/iron/FW = new (loc)
 					transfer_fingerprints_to(FW)
 					qdel(src)
+					return
 			else
 				if(S.get_amount() < 5)
 					to_chat(user, "<span class='warning'>You need at least five rods to add plating!</span>")
@@ -105,6 +107,7 @@
 					var/obj/structure/falsewall/F = new (loc)
 					transfer_fingerprints_to(F)
 					qdel(src)
+					return
 			else
 				if(S.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need two sheets of iron to finish a wall!</span>")
@@ -126,7 +129,7 @@
 				if(S.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need at least two sheets to create a false wall!</span>")
 					return
-				balloon_alert(user, "You start building reinfored false wall")
+				balloon_alert(user, "You start building reinforced false wall")
 				if(do_after(user, 20, target = src))
 					if(S.get_amount() < 2)
 						return
@@ -135,6 +138,7 @@
 					var/obj/structure/falsewall/reinforced/FW = new (loc)
 					transfer_fingerprints_to(FW)
 					qdel(src)
+					return
 			else
 				if(state == GIRDER_REINF)
 					if(S.get_amount() < 1)
@@ -179,6 +183,7 @@
 					var/obj/structure/FW = new F (loc)
 					transfer_fingerprints_to(FW)
 					qdel(src)
+					return
 			else
 				if(S.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need at least two sheets to add plating!</span>")
@@ -288,11 +293,10 @@
 		else
 			return 0
 
-/obj/structure/girder/CanAStarPass(ID, dir, caller)
+/obj/structure/girder/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
 	. = !density
-	if(ismovableatom(caller))
-		var/atom/movable/mover = caller
-		. = . || (mover.pass_flags & PASSGRILLE)
+	if(istype(caller))
+		. = . || (caller.pass_flags & PASSGRILLE)
 
 /obj/structure/girder/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
