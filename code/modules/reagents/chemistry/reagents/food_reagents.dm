@@ -770,6 +770,7 @@
 	reagent_state = LIQUID
 	color = "#e59b1f"
 	taste_description = "powerful"
+	random_unrestricted = FALSE
 
 /datum/reagent/consumable/frittonium/on_mob_metabolize(mob/living/M)
 	to_chat(M, "<span class='notice'>You feel like a tank but the feeling is fading as every second goes by!</span>")
