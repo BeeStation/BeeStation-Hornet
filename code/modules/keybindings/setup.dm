@@ -22,6 +22,8 @@
 	var/erase_output = ""
 	for(var/i in 1 to macro_sets.len)
 		var/setname = macro_sets[i]
+		if(copytext(setname, 1, 9) == "persist_") // Don't remove macro sets not handled by input. Used in input_box.dm by create_input_window
+			continue
 		var/list/macro_set = params2list(winget(src, "[setname].*", "command")) // The third arg doesnt matter here as we're just removing them all
 		for(var/k in 1 to macro_set.len)
 			var/list/split_name = splittext(macro_set[k], ".")

@@ -11,6 +11,8 @@
 	symptom_delay_max = 20
 	var/honey = FALSE
 	var/toxic_bees= FALSE
+	prefixes = list("Hive ")
+	bodies = list("Bees", "Hive")
 	threshold_desc = "<b>Resistance 12:</b> The bees become symbiotic with the host, synthesizing honey and no longer stinging the stomach lining, and no longer attacking the host. Bees will also contain honey, unless transmission exceeds 10.<br>\
 					  <b>Transmission 10:</b> Bees now contain a completely random toxin."
 
