@@ -20,7 +20,7 @@
 	species_traits = list(NO_DNA_COPY, AGENDER, NOHUSK, NO_UNDERWEAR, NOEYESPRITES, MUTCOLORS)
 	inherent_traits = list(TRAIT_NO_DEFIB, TRAIT_RESISTLOWPRESSURE, TRAIT_NOSLIPWATER, TRAIT_NEVER_STUBS)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
-	default_features = list("mcolor" = "#00FF00", "grod_crown" = "Crown", "grod_marks" = "None")
+	default_features = list("mcolor" = "#00FF00", "grod_crown" = "Crown")
 	mutant_bodyparts = list("grod_crown")
 	mutant_brain = /obj/item/organ/brain/grod
 	limbs_id = "grod"

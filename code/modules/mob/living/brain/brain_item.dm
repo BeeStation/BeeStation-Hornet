@@ -236,12 +236,17 @@
 			to_chat(owner, "<span class='warning'>Alert: Posibrain damaged.</span>")
 ////////////////////////////////////GROD BRAIN////////////////////////////////////
 /obj/item/organ/brain/grod
-	name = "DEBUG - GROD BRAIN NAME"
-	desc = "DEBUG - GROD BRAIN DESC"
+	name = "Grod Crown"
+	desc = "What the...?"
 	icon = 'icons/mob/species/grod/crown_spider.dmi'
 	icon_state = "crown_spider"
 	var/crown
 	var/obj/item/seeds/replicapod/grodpod/seed = new()
+
+/obj/item/organ/brain/grod/Destroy()
+	. = ..()
+	if(seed)
+		QDEL_NULL(seed)
 
 /obj/item/organ/brain/grod/Insert(mob/living/carbon/C, special = 0,no_id_transfer = FALSE)
 	if(isgrod(C) && crown)

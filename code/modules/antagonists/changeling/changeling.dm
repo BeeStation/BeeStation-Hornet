@@ -333,7 +333,7 @@
 
 /datum/antagonist/changeling/proc/create_initial_profile()
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
-	if(isipc(C))
+	if(isipc(C) || isgrod(C))
 		C.set_species(/datum/species/human)
 		var/replacementName = random_unique_name(C.gender)
 		if(C.client.prefs.custom_names["human"])

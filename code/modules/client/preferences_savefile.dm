@@ -388,7 +388,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["feature_ipc_chassis"], features["ipc_chassis"])
 	READ_FILE(S["feature_insect_type"], features["insect_type"])
 	READ_FILE(S["feature_grod_crown"], features["grod_crown"])
-	READ_FILE(S["feature_grod_marks"], features["grod_marks"])
+	//READ_FILE(S["feature_grod_marks"], features["grod_marks"])
+
 	if(!CONFIG_GET(flag/join_with_mutant_humans) && !species_id != "felinid") // felinids arent mutant humans anymore i guess
 		features["tail_human"] = "none"
 		features["ears"] = "none"
@@ -543,7 +544,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["feature_ipc_chassis"]			, features["ipc_chassis"])
 	WRITE_FILE(S["feature_insect_type"]			, features["insect_type"])
 	WRITE_FILE(S["feature_grod_crown"]			, features["grod_crown"])
-	WRITE_FILE(S["feature_grod_marks"]			, features["grod_marks"])
+	//WRITE_FILE(S["feature_grod_marks"]			, features["grod_marks"])
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)
 		var/savefile_slot_name = custom_name_id + "_name" //TODO remove this
