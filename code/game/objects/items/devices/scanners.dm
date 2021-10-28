@@ -946,6 +946,8 @@ GENE SCANNER
 
 /obj/item/extrapolator/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
+	if(!proximity_flag)
+		return
 	if(scanner)
 		if(!target.extrapolator_act(user, src, scan))
 			if(locate(/datum/component/infective) in target.datum_components)

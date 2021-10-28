@@ -2762,12 +2762,12 @@
 	cost = 500
 	contains = list(/obj/structure/easel,
 					/obj/structure/easel,
-					/obj/item/canvas/nineteenXnineteen,
-					/obj/item/canvas/nineteenXnineteen,
-					/obj/item/canvas/twentythreeXnineteen,
-					/obj/item/canvas/twentythreeXnineteen,
-					/obj/item/canvas/twentythreeXtwentythree,
-					/obj/item/canvas/twentythreeXtwentythree,
+					/obj/item/canvas/nineteen_nineteen,
+					/obj/item/canvas/nineteen_nineteen,
+					/obj/item/canvas/twentythree_nineteen,
+					/obj/item/canvas/twentythree_nineteen,
+					/obj/item/canvas/twentythree_twentythree,
+					/obj/item/canvas/twentythree_twentythree,
 					/obj/item/toy/crayon/rainbow,
 					/obj/item/toy/crayon/rainbow)
 	crate_name = "art supply crate"
@@ -2910,3 +2910,15 @@
 					/obj/item/toner,
 					/obj/item/toner)
 	crate_name = "toner crate"
+
+/datum/supply_pack/misc/toner_large
+	name = "Toner Crate (Large)"
+	desc = "Tired of changing toner cartridges? These six extra heavy duty refills contain roughly five times as much toner as the base model!"
+	cost = 3000
+	contains = list(/obj/item/toner/large,
+					/obj/item/toner/large,
+					/obj/item/toner/large,
+					/obj/item/toner/large,
+					/obj/item/toner/large,
+					/obj/item/toner/large)
+	crate_name = "large toner crate"

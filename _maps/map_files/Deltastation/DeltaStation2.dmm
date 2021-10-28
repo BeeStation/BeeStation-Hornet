@@ -18856,8 +18856,8 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/canvas/twentythreeXtwentythree,
-/obj/item/canvas/twentythreeXtwentythree,
+/obj/item/canvas/twentythree_twentythree,
+/obj/item/canvas/twentythree_twentythree,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -19352,8 +19352,8 @@
 	pixel_y = 32
 	},
 /obj/structure/easel,
-/obj/item/canvas/twentythreeXtwentythree,
-/obj/item/canvas/twentythreeXtwentythree,
+/obj/item/canvas/twentythree_twentythree,
+/obj/item/canvas/twentythree_twentythree,
 /turf/open/floor/plasteel/grimy,
 /area/crew_quarters/bar/atrium)
 "aNf" = (
@@ -69819,7 +69819,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/library)
 "cnU" = (
-/obj/structure/table/wood,
+/obj/machinery/modular_computer/console/preset/curator,
 /turf/open/floor/plasteel/grimy,
 /area/library)
 "cnV" = (
@@ -74220,9 +74220,9 @@
 /area/library)
 "cwr" = (
 /obj/structure/easel,
-/obj/item/canvas/twentythreeXnineteen,
-/obj/item/canvas/twentythreeXtwentythree,
-/obj/item/canvas/twentythreeXtwentythree,
+/obj/item/canvas/twentythree_nineteen,
+/obj/item/canvas/twentythree_twentythree,
+/obj/item/canvas/twentythree_twentythree,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -74237,9 +74237,9 @@
 /area/library)
 "cws" = (
 /obj/structure/easel,
-/obj/item/canvas/nineteenXnineteen,
-/obj/item/canvas/twentythreeXtwentythree,
-/obj/item/canvas/twentythreeXtwentythree,
+/obj/item/canvas/nineteen_nineteen,
+/obj/item/canvas/twentythree_twentythree,
+/obj/item/canvas/twentythree_twentythree,
 /obj/machinery/light_switch{
 	pixel_y = 26
 	},
@@ -75093,7 +75093,7 @@
 /obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/folder,
-/obj/machinery/status_display/ai{
+/obj/structure/sign/painting/library{
 	pixel_x = -32
 	},
 /turf/open/floor/plasteel/dark,
@@ -76129,9 +76129,6 @@
 /obj/structure/table/wood,
 /obj/item/taperecorder,
 /obj/item/camera,
-/obj/machinery/status_display/ai{
-	pixel_y = -32
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -76141,6 +76138,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/structure/sign/painting/library_private{
+	pixel_y = -32
 	},
 /turf/open/floor/plasteel/dark,
 /area/library)
@@ -77884,11 +77884,6 @@
 /area/maintenance/port)
 "cCH" = (
 /obj/structure/table/wood,
-/obj/item/newspaper{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/newspaper,
 /obj/machinery/status_display/evac{
 	pixel_x = -32
 	},
@@ -78850,12 +78845,13 @@
 /area/maintenance/port)
 "cEp" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp,
+/obj/structure/sign/painting/library{
+	pixel_y = -32
+	},
 /turf/open/floor/plasteel/dark,
 /area/library)
 "cEq" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22
@@ -78870,10 +78866,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/flashlight/lamp,
 /turf/open/floor/plasteel/dark,
 /area/library)
 "cEr" = (
-/obj/item/kirbyplants/random,
 /obj/item/radio/intercom{
 	pixel_y = -26
 	},
@@ -78894,7 +78890,6 @@
 /area/library)
 "cEs" = (
 /obj/machinery/light,
-/obj/structure/dresser,
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
@@ -91454,9 +91449,9 @@
 /area/crew_quarters/fitness/recreation)
 "dbL" = (
 /obj/structure/easel,
-/obj/item/canvas/twentythreeXtwentythree,
-/obj/item/canvas/twentythreeXtwentythree,
-/obj/item/canvas/twentythreeXtwentythree,
+/obj/item/canvas/twentythree_twentythree,
+/obj/item/canvas/twentythree_twentythree,
+/obj/item/canvas/twentythree_twentythree,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -119424,6 +119419,12 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/research)
+"iaS" = (
+/obj/structure/sign/painting/library{
+	pixel_x = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/library)
 "igE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/airalarm{
@@ -156558,7 +156559,7 @@ cwu
 cyb
 czJ
 cBh
-ccr
+iaS
 cEv
 qwX
 cHB

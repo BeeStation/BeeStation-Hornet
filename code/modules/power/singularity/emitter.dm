@@ -126,7 +126,7 @@
 /obj/machinery/power/emitter/interact(mob/user)
 	add_fingerprint(user)
 	if(state == EMITTER_WELDED)
-		if(!powernet)
+		if(!powernet && active_power_usage)
 			to_chat(user, "<span class='warning'>\The [src] isn't connected to a wire!</span>")
 			return TRUE
 		if(!locked && allow_switch_interact)
