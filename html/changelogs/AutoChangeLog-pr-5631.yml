@@ -1,0 +1,5 @@
+author: francinum
+delete-after: true
+changes:
+  - config: Brig timer presets and max durations can be modified in the config
+  - config: The economy flag hasn't done anything for over a year, and has been removed.
