@@ -34,7 +34,9 @@
 					/obj/item/clothing/under/rank/security/officer/blueshirt = 3,
 					/obj/item/clothing/under/rank/security/officer/mallcop = 3,
 					/obj/item/clothing/neck/tie/red = 6,
-					/obj/item/clothing/neck/tie/black = 6,)
+					/obj/item/clothing/neck/tie/black = 6,
+					/obj/item/clothing/head/grodhat/sec = 4
+					)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/security/old = 3)
 	premium = list(/obj/item/clothing/under/rank/security/officer/formal = 3,
 					/obj/item/clothing/suit/security/officer = 3,
@@ -74,7 +76,9 @@
 					/obj/item/clothing/shoes/sneakers/white = 4,
 					/obj/item/clothing/head/soft/emt = 4,
 					/obj/item/clothing/suit/apron/surgical = 4,
-					/obj/item/clothing/mask/surgical = 4)
+					/obj/item/clothing/mask/surgical = 4,
+					/obj/item/clothing/head/grodhat/doctor = 2
+					)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/medical/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/medi_wardrobe
 	payment_department = ACCOUNT_MED
@@ -101,7 +105,9 @@
 					/obj/item/clothing/shoes/workboots = 3,
 					/obj/item/clothing/head/hardhat = 3,
 					/obj/item/clothing/head/hardhat/weldhat = 3,
-					/obj/item/clothing/head/beret/eng = 3)
+					/obj/item/clothing/head/beret/eng = 3,
+					/obj/item/clothing/head/grodhat/engineer = 3
+					)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/engineering/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/engi_wardrobe
 	payment_department = ACCOUNT_ENG
@@ -123,7 +129,9 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/engineering/atmospherics = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
 					/obj/item/clothing/under/rank/engineering/atmospheric_technician = 3,
-					/obj/item/clothing/shoes/sneakers/black = 3)
+					/obj/item/clothing/shoes/sneakers/black = 3,
+					/obj/item/clothing/head/grodhat/atmos = 2
+					)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/atmos_wardrobe
 	payment_department = ACCOUNT_ENG
@@ -145,7 +153,9 @@
 					/obj/item/clothing/shoes/sneakers/black = 3,
 					/obj/item/clothing/gloves/fingerless = 3,
 					/obj/item/clothing/head/soft = 3,
-					/obj/item/radio/headset/headset_cargo = 3)
+					/obj/item/radio/headset/headset_cargo = 3,
+					/obj/item/clothing/head/grodhat/cargo = 3
+					)
 	premium = list(/obj/item/clothing/under/rank/cargo/miner = 3)
 	contraband = list(/obj/item/radio/headset/headset_quartermaster = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/cargo_wardrobe
@@ -171,7 +181,9 @@
 					/obj/item/clothing/gloves/fingerless = 2,
 					/obj/item/clothing/head/soft/black = 2,
 					/obj/item/clothing/mask/bandana/skull = 2,
-					/obj/item/clothing/head/beret/sci = 2)
+					/obj/item/clothing/head/beret/sci = 2,
+					/obj/item/clothing/head/grodhat/roboticist = 2
+					)
 
 	contraband = list(/obj/item/clothing/suit/hooded/techpriest = 2,
 					/obj/item/organ/tongue/robot = 2)
@@ -200,7 +212,9 @@
 					/obj/item/clothing/shoes/sneakers/white = 3,
 					/obj/item/radio/headset/headset_sci = 3,
 					/obj/item/clothing/mask/gas = 3,
-					/obj/item/clothing/head/beret/sci = 3)
+					/obj/item/clothing/head/beret/sci = 3,
+					/obj/item/clothing/head/grodhat/scientist = 3
+					)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/science/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/science_wardrobe
 	payment_department = ACCOUNT_SCI
@@ -224,7 +238,9 @@
 					/obj/item/clothing/under/plasmaman/botany = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/botany = 3,
 					/obj/item/clothing/mask/bandana = 3,
-					/obj/item/clothing/accessory/armband/hydro = 3)
+					/obj/item/clothing/accessory/armband/hydro = 3,
+					/obj/item/clothing/head/grodhat/botanist = 3
+					)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/hydro/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/hydro_wardrobe
 	payment_department = ACCOUNT_SRV
@@ -250,7 +266,9 @@
 					/obj/item/clothing/glasses/regular/jamjar = 1,
 					/obj/item/storage/bag/books = 1,
 					/obj/item/clothing/under/plasmaman/curator = 1,
-					/obj/item/clothing/head/helmet/space/plasmaman/replacement/curator = 1)
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/curator = 1,
+					/obj/item/clothing/head/grodhat/curator = 1
+					)
 	refill_canister = /obj/item/vending_refill/wardrobe/curator_wardrobe
 	payment_department = ACCOUNT_CIV
 /obj/item/vending_refill/wardrobe/curator_wardrobe
@@ -283,7 +301,9 @@
 					/obj/item/clothing/neck/petcollar = 1,
 					/obj/item/storage/belt/bandolier = 1,
 					/obj/item/clothing/neck/tie/black = 2,
-					/obj/item/clothing/neck/tie/blue = 2)
+					/obj/item/clothing/neck/tie/blue = 2,
+					/obj/item/clothing/head/grodhat/bartender = 2
+					)
 	premium = list(/obj/item/storage/box/dishdrive = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/bar_wardrobe
 	payment_department = ACCOUNT_SRV
@@ -311,7 +331,9 @@
 					/obj/item/clothing/under/rank/civilian/altchef = 1,
 					/obj/item/clothing/head/chefhat = 3,
 					/obj/item/reagent_containers/glass/rag = 1,
-					/obj/item/clothing/suit/hooded/wintercoat = 2)
+					/obj/item/clothing/suit/hooded/wintercoat = 2,
+					/obj/item/clothing/head/grodhat/chef = 2
+					)
 	refill_canister = /obj/item/vending_refill/wardrobe/chef_wardrobe
 	payment_department = ACCOUNT_SRV
 /obj/item/vending_refill/wardrobe/chef_wardrobe
@@ -341,7 +363,9 @@
 					/obj/item/storage/bag/trash = 2,
 					/obj/item/clothing/shoes/galoshes = 2,
 					/obj/item/watertank/janitor = 1,
-					/obj/item/storage/belt/janitor = 2)
+					/obj/item/storage/belt/janitor = 2,
+					/obj/item/clothing/head/grodhat/janitor = 2
+					)
 	refill_canister = /obj/item/vending_refill/wardrobe/jani_wardrobe
 	payment_department = ACCOUNT_SRV
 /obj/item/vending_refill/wardrobe/jani_wardrobe
@@ -379,7 +403,9 @@
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/neck/tie/red = 6,
 					/obj/item/clothing/neck/tie/black = 6,
-					/obj/item/clothing/accessory/lawyers_badge = 2)
+					/obj/item/clothing/accessory/lawyers_badge = 2,
+					/obj/item/clothing/head/grodhat/black = 2
+					)
 	refill_canister = /obj/item/vending_refill/wardrobe/law_wardrobe
 	payment_department = ACCOUNT_CIV
 /obj/item/vending_refill/wardrobe/law_wardrobe
@@ -409,7 +435,8 @@
 					/obj/item/clothing/suit/chaplainsuit/whiterobe = 1,
 					/obj/item/clothing/head/taqiyahwhite = 1,
 					/obj/item/clothing/head/taqiyahred = 3,
-					/obj/item/clothing/head/beanie/rasta = 1)
+					/obj/item/clothing/head/beanie/rasta = 1,
+					/obj/item/clothing/head/grodhat/chaplain = 1)
 	contraband = list(/obj/item/toy/plush/plushvar = 1,
 					/obj/item/toy/plush/narplush = 1,
 					/obj/item/clothing/head/medievaljewhat = 3,
@@ -439,7 +466,8 @@
 					/obj/item/storage/backpack/chemistry = 2,
 					/obj/item/storage/backpack/satchel/chem = 2,
 					/obj/item/storage/bag/chemistry = 2,
-					/obj/item/clothing/head/beret/med = 2)
+					/obj/item/clothing/head/beret/med = 2,
+					/obj/item/clothing/head/grodhat/chemist = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/chem_wardrobe
 	payment_department = ACCOUNT_MED
 /obj/item/vending_refill/wardrobe/chem_wardrobe
@@ -458,7 +486,9 @@
 					/obj/item/clothing/shoes/sneakers/white = 2,
 					/obj/item/clothing/suit/toggle/labcoat/genetics = 2,
 					/obj/item/storage/backpack/genetics = 2,
-					/obj/item/storage/backpack/satchel/gen = 2)
+					/obj/item/storage/backpack/satchel/gen = 2,
+					/obj/item/clothing/head/grodhat/genetics = 2
+					)
 	refill_canister = /obj/item/vending_refill/wardrobe/gene_wardrobe
 	payment_department = ACCOUNT_MED
 /obj/item/vending_refill/wardrobe/gene_wardrobe
@@ -478,7 +508,9 @@
 					/obj/item/clothing/suit/toggle/labcoat/virologist = 2,
 					/obj/item/clothing/mask/surgical = 2,
 					/obj/item/storage/backpack/virology = 2,
-					/obj/item/storage/backpack/satchel/vir = 2)
+					/obj/item/storage/backpack/satchel/vir = 2,
+					/obj/item/clothing/head/grodhat/virologist = 2
+					)
 	contraband = list(/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 1,
 					/obj/item/clothing/head/plaguedoctorhat = 1,
 					/obj/item/clothing/mask/gas/plaguedoctor = 1)
@@ -508,7 +540,9 @@
 					/obj/item/clothing/gloves/color/black = 2,
 					/obj/item/clothing/gloves/color/latex = 2,
 					/obj/item/reagent_containers/food/drinks/flask/det = 2,
-					/obj/item/storage/fancy/cigarettes = 5)
+					/obj/item/storage/fancy/cigarettes = 5,
+					/obj/item/clothing/head/grodhat/detective = 1
+					)
 	premium = list(/obj/item/clothing/head/flatcap = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/det_wardrobe
 	extra_price = 350
