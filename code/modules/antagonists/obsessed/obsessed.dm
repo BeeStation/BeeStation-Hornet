@@ -23,7 +23,6 @@
 	to_chat(owner, "<B>You don't know their connection, but The Voices compel you to stalk [target], forcing them into a state of constant paranoia.</B>")
 	to_chat(owner, "<B>The Voices will retaliate if you fail to complete your tasks or spend too long away from your target.</B>")
 	to_chat(owner, "<span class='boldannounce'>This role does NOT enable you to otherwise surpass what's deemed creepy behavior per the rules.</span>")//ironic if you know the history of the antag
-	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Obsession",
 		"Stalk [target] and force them into a constant state of paranoia.")
 
@@ -31,8 +30,10 @@
 	find_target()
 	if(!target)
 		qdel(src)
-	forge_objectives()
+		return
+	//We need to find target first before calling parent here
 	. = ..()
+	forge_objectives()
 	RegisterSignal(owner.current, COMSIG_GLOB_MOB_DEATH, .proc/OnDeath)
 	RegisterSignal(owner.current, COMSIG_LIVING_REVIVE, .proc/OnRevival)
 	RegisterSignal(human_target, COMSIG_PARENT_QDELETING, .proc/TargetDeleted)
@@ -52,26 +53,26 @@
 	return ..()
 
 /datum/antagonist/obsessed/process(delta_time)
-	. = ..()
-
-	if(!human_target || get_dist(get_turf(owner), get_turf(human_target)) > 7)	//we're simply out of range
+	if(!human_target || get_dist(get_turf(owner.current), get_turf(human_target)) > 7)//we're simply out of range
 		if(seen_alive)	//we know our target lives
-			time_spent_away += 20 * delta_time
-			if(time_spent_away > 3 MINUTES) //3 minutes
-				SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/notcreepingsevere)
+			time_spent_away += SSprocessing.wait * delta_time
+			if(time_spent_away > 3 MINUTES)
+				SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/notcreepingsevere)
 			else
-				SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/notcreeping)
+				SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/notcreeping)
 		return
-	if(owner in oviewers(7, human_target))	//we're in range and we can see our target
-		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/creeping)
+	if(human_target in oviewers(7, owner.current))	//we're in range and we can see our target
+		SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/creeping)
 		if(human_target.stat == DEAD)	//we saw them dead
 			seen_alive = FALSE
 			RegisterSignal(human_target, COMSIG_LIVING_REVIVE, .proc/OnTargetRevive)
 			STOP_PROCESSING(SSprocessing, src)
 		else
 			seen_alive = TRUE	//we saw them alive again
-		total_time_stalking += 20 * delta_time
+		total_time_stalking += SSprocessing.wait * delta_time
 		time_spent_away = 0
+	else if(seen_alive)		//we're near so we acumulate the time slower
+		time_spent_away += SSprocessing.wait * delta_time / 2
 
 /datum/antagonist/obsessed/proc/OnDeath()
 	SIGNAL_HANDLER
@@ -139,12 +140,14 @@
 	for(var/datum/objective/O in objectives)
 		O.update_explanation_text()
 
+	owner.announce_objectives()
+
 /datum/antagonist/obsessed/proc/find_target()
 	var/list/possible_targets = list()
 
 	//I'm going to assume every mob in player list has a mind attached to it
 	for(var/mob/M as() in GLOB.player_list)
-		if(M.stat == DEAD || !ishuman(M) || M.mind.antag_datums.len || M.mind == owner)	//It's better for antags to not become targets of obsession
+		if(M.stat == DEAD || !ishuman(M) || M.mind.antag_datums?.len || M.mind == owner)	//It's better for antags to not become targets of obsession
 			continue
 		possible_targets |= M
 
@@ -227,7 +230,7 @@
 		prefered_roles = GLOB.civilian_positions
 
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		if(!SSjob.GetJob(H.mind.assigned_role) || H == oldmind.current || H.mind.antag_datums.len)
+		if(!SSjob.GetJob(H.mind.assigned_role) || H.mind == oldmind|| H.mind.antag_datums.len)
 			continue //the jealousy target has to have a job, and not be the obsession or obsessed.
 		if(H.mind.assigned_role in prefered_roles)
 			prefered_coworkers += H
