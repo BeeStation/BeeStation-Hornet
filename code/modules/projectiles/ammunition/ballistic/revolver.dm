@@ -28,6 +28,11 @@
 	caliber = "38"
 	projectile_type = /obj/item/projectile/bullet/c38
 
+/obj/item/ammo_casing/c38/rubber
+	name = ".38 Rubber bullet casing"
+	desc = "A .38 rubber bullet casing, manufactured to exceedingly high standards."
+	projectile_type = /obj/item/projectile/bullet/c38/rubber
+
 /obj/item/ammo_casing/c38/trac
 	name = ".38 TRAC bullet casing"
 	desc = "A .38 \"TRAC\" bullet casing."
@@ -51,8 +56,8 @@
 	projectile_type = /obj/item/projectile/bullet/c38/match
 
 /obj/item/ammo_casing/c38/match/bouncy
-	name = ".38 Rubber bullet casing"
-	desc = "A .38 rubber bullet casing, manufactured to exceedingly high standards."
+	name = ".38 Bouncy Rubber bullet casing"
+	desc = "A .38 bouncy rubber bullet casing, manufactured to exceedingly high standards."
 	projectile_type = /obj/item/projectile/bullet/c38/match/bouncy
 
 /obj/item/ammo_casing/c38/dumdum

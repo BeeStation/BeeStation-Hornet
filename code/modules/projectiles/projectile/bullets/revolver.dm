@@ -20,6 +20,12 @@
 	ricochet_auto_aim_angle = 10
 	ricochet_auto_aim_range = 3
 
+/obj/item/projectile/bullet/c38/rubber
+	name = ".38 Rubber bullet"
+	damage = 10
+	stamina = 30
+	armour_penetration = -30
+
 /obj/item/projectile/bullet/c38/match
 	name = ".38 Match bullet"
 	ricochets_max = 4
@@ -31,7 +37,7 @@
 	ricochet_decay_damage = 1
 
 /obj/item/projectile/bullet/c38/match/bouncy
-	name = ".38 Rubber bullet"
+	name = ".38 Bouncy Rubber bullet"
 	damage = 10
 	stamina = 30
 	armour_penetration = -30
