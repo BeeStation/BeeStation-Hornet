@@ -972,7 +972,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/prison
 	name = "Prison Wing"
 	icon_state = "sec_prison"
-	mood_bonus = -2 // less than normal brig moodlet due to the perma brig being more spacious
+	mood_bonus = -4
 	mood_message = "<span class='warning'>Im trapped here with little hope of escape!\n</span>"
 
 /area/security/processing
