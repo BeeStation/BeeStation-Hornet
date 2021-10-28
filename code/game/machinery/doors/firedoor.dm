@@ -177,7 +177,7 @@
 		if(FIRE_ALARM)
 			safestate = "OVER_ALRM:"
 	LAZYADD(access_log, "[safestate]|N:[I.registered_name]|A:[I.assignment]|T_OFFSET:[DisplayTimeText(world.time - SSticker.round_start_time)]")
-	if(Length(access_log) > 20) //Unless this is getting spammed this shouldn't happen.
+	if(length(access_log) > 20) //Unless this is getting spammed this shouldn't happen.
 		access_log.Remove(access_log[1])
 	if(!check_safety(user))
 		log_game("[key_name(user)] has opened a firelock with a pressure difference or a fire alarm at [AREACOORD(loc)], using [I]")
@@ -201,7 +201,7 @@
 	if(density)
 		if(!(stat & NOPOWER))
 			LAZYADD(access_log, "MOTOR_ERR:|MOTOR CONTROLLER REPORTED BACKDRIVE|T_OFFSET:[DisplayTimeText(world.time - SSticker.round_start_time)]")
-			if(Length(access_log) > 20) //Unless this is getting spammed this shouldn't happen.
+			if(length(access_log) > 20) //Unless this is getting spammed this shouldn't happen.
 				access_log.Remove(access_log[1])
 			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors whine...</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
