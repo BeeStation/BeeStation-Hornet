@@ -18,18 +18,6 @@
 /obj/effect/spawner/structure/window/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
-"cz" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/exploration)
 "ds" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate/science,
@@ -180,18 +168,6 @@
 "nG" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
-"og" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
-/turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/exploration)
 "pl" = (
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 6
@@ -277,7 +253,7 @@
 	dir = 1
 	},
 /obj/machinery/light/small{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/exploration)
@@ -304,6 +280,15 @@
 /obj/machinery/atmospherics/pipe/manifold/purple/visible,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"Cf" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/exploration)
 "Cj" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/bot,
@@ -316,9 +301,8 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
 "DG" = (
-/obj/structure/chair/comfy/shuttle,
-/obj/machinery/light/small{
-	dir = 8
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/exploration)
@@ -366,6 +350,12 @@
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
+"OJ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/exploration)
 "Qg" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration)
@@ -385,7 +375,7 @@
 /turf/open/floor/pod/light,
 /area/shuttle/exploration)
 "Vz" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/table,
 /turf/open/floor/pod/light,
 /area/shuttle/exploration)
 "VZ" = (
@@ -403,9 +393,9 @@
 
 (1,1,1) = {"
 Lx
-Lx
 Qg
-og
+Qg
+nG
 mc
 su
 Om
@@ -414,13 +404,13 @@ nG
 nG
 Om
 nG
-cz
+iF
 pJ
 "}
 (2,1,1) = {"
 Lx
-Lx
 nG
+Cf
 DG
 VZ
 VZ
@@ -435,8 +425,8 @@ id
 "}
 (3,1,1) = {"
 Lx
-Lx
 Om
+Vz
 Vz
 VZ
 jn
@@ -451,9 +441,9 @@ id
 "}
 (4,1,1) = {"
 Lx
-Lx
 nG
-Vz
+OJ
+OJ
 VZ
 jn
 pP
@@ -467,8 +457,8 @@ pJ
 "}
 (5,1,1) = {"
 Om
-Om
 nG
+Qg
 nG
 eA
 aA
@@ -478,7 +468,7 @@ du
 qX
 Rt
 zk
-cz
+iF
 Lx
 "}
 (6,1,1) = {"
@@ -500,7 +490,7 @@ pJ
 (7,1,1) = {"
 Om
 Om
-nG
+Qg
 nG
 VZ
 rj
@@ -533,7 +523,7 @@ id
 Lx
 Lx
 Lx
-og
+Qg
 mc
 py
 CA
@@ -542,6 +532,6 @@ gz
 nG
 Om
 nG
-cz
+iF
 pJ
 "}

@@ -3,15 +3,6 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/arrival)
 "bm" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/arrival)
 "cn" = (
@@ -107,18 +98,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/arrival)
 "jl" = (
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/arrival)
-"jv" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/arrival)
 "jI" = (
@@ -575,13 +554,13 @@ PO
 "}
 (3,1,1) = {"
 PO
-jv
+jl
 jl
 IY
 Ub
 BF
 jl
-jv
+jl
 PO
 "}
 (4,1,1) = {"

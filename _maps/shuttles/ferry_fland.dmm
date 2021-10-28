@@ -3,27 +3,9 @@
 /turf/template_noop,
 /area/template_noop)
 "e" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/transport)
 "g" = (
-/obj/item/stack/marker_beacon{
-	anchored = 1;
-	icon_state = "markerburgundy-on";
-	light_color = "#FA644B";
-	light_power = 3;
-	light_range = 2;
-	name = "landing marker";
-	picked_color = "Burgundy"
-	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/transport)
 "h" = (
