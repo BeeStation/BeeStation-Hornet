@@ -764,17 +764,6 @@
 		M.say(pick("I hate my wife.", "I just want to grill for God's sake.", "I wish I could just go on my lawnmower and cut the grass.", "Yep, Quake. That was a good game...", "Yeah, my PDA has wi-fi. A wife I hate."), forced = /datum/reagent/consumable/char)
 	..()
 
-/datum/reagent/consumable/frittonium
-	description = "The secret to the power of apple fritters"
-	reagent_state = LIQUID
-	color = "#e59b1f"
-	taste_description = "powerful"
-	random_unrestricted = FALSE
-
-
-/datum/reagent/consumable/frittonium/on_mob_metabolize(mob/living/M)
-	to_chat(M, "<span class='notice'>Oh man I love apple fritters!</span>")
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "fav_food", /datum/mood_event/favorite_food)
 
 
 

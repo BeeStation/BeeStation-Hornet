@@ -825,10 +825,13 @@
 	name = "apple fritters"
 	desc = "You feel strong just looking at these"
 	icon_state = "apple_fritters"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 1, /datum/reagent/consumable/sugar = 4, /datum/reagent/consumable/frittonium = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 1, /datum/reagent/consumable/sugar = 4)
 	filling_color = "#e59b1f"
 	tastes = list("apples" = 1, "sweetness" = 1, "raw power" = 1)
 	foodtype = GRAIN | FRUIT | SUGAR | FRIED
 
+/obj/item/reagent_containers/food/snacks/applefritter/On_Consume(mob/living/M)
+	to_chat(M, "<span class='notice'>Oh man I love apple fritters!</span>")
+	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "fav_food", /datum/mood_event/favorite_food)
 
 #undef PANCAKE_MAX_STACK
