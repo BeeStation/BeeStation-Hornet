@@ -1,4 +1,0 @@
-author: Ivniinvi
-delete-after: true
-changes:
-  - bugfix: Toxins will no longer bomb the MetaStation Exploration Shuttle at roundstart.
