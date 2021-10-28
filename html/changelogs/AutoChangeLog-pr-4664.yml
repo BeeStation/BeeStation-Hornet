@@ -1,5 +1,0 @@
-author: jupyterkat
-delete-after: true
-changes:
-  - tweak: body only records are now clearer
-  - bugfix: body only records persist after cloning
