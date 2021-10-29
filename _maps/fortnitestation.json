@@ -1,0 +1,11 @@
+{
+    "map_name": "Fortnite Station",
+    "map_path": "map_files/FortniteStation",
+    "map_file": "hellv2.dmm",
+    "shuttles": {
+	    "emergency": "emergency_fortnite",
+	    "ferry": "ferry_kilo",
+	    "cargo": "cargo_fortnite",
+	    "whiteship": "whiteship_prototype"
+    }
+}
