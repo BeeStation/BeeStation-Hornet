@@ -32,7 +32,7 @@
 	. = ..()
 	if(.)
 		user.SpinAnimation(7,1)
-		if(isliving(user))
+		if(isliving(user) && !intentional)
 			var/mob/living/L = user
 			L.confused += 2
 
@@ -47,7 +47,7 @@
 	. = ..()
 	if(.)
 		user.spin(20, 1)
-		if(isliving(user))
+		if(isliving(user) && !intentional)
 			var/mob/living/L = user
 			L.confused += 2
 		if(iscyborg(user) && user.has_buckled_mobs())
