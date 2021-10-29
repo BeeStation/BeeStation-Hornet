@@ -404,6 +404,14 @@
 	name = "Omegastation Emergency Shuttle"
 	description = "On the smaller size with a modern design, this shuttle is for the crew who like the cosier things, while still being able to stretch their legs."
 	credit_cost = 1000
+	
+	
+/datum/map_template/shuttle/emergency/fortnite
+	suffix = "fortnite"
+	name = "Fortnite Emergency 'Shuttle'"
+	description = "This 'Shuttle' is one tile large, buy this to instantly begin a battle royale for a spot on the shuttle so you can prove you are the most robust around. (or just have people WARNING, SHUTTLE MIGHT NOT HAVE A TILE"
+	credit_cost = 42069
+	
 
 /datum/map_template/shuttle/ferry/base
 	suffix = "base"
@@ -476,6 +484,10 @@
 /datum/map_template/shuttle/cargo/birdboat
 	suffix = "birdboat"
 	name = "supply shuttle (Birdboat)"
+	
+/datum/map_template/shuttle/cargo/fortnite
+	suffix = "fortnite"
+	name = "supply elevator (Fortnite)"
 
 /datum/map_template/shuttle/emergency/delta
 	suffix = "delta"
