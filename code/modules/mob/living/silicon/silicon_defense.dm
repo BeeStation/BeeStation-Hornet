@@ -75,16 +75,17 @@
 							"<span class='notice'>You pet [src].</span>")
 		if("grab")
 			grabbedby(M)
-		if(HAS_TRAIT(M, TRAIT_PACIFISM))
-			to_chat(M, "<span class='notice'>You don't want to hurt [src]!</span>")
-			return
-		else if(M.dna.species.punchdamage >= 10)
-			adjustBruteLoss(M.dna.species.punchdamage)
-			playsound(loc, "punch", 25, 1, -1)
-			visible_message("<span class='danger'>[M] punches [src]!</span>", \
-				"<span class='userdanger'>[M] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
-			log_combat(M, src, "attacked")
 		else
+			if(HAS_TRAIT(M, TRAIT_PACIFISM))
+				to_chat(M, "<span class='notice'>You don't want to hurt [src]!</span>")
+				return
+			if(M.dna.species.punchdamage >= 10)
+				adjustBruteLoss(M.dna.species.punchdamage)
+				playsound(loc, "punch", 25, 1, -1)
+				visible_message("<span class='danger'>[M] punches [src]!</span>", \
+					"<span class='userdanger'>[M] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
+				log_combat(M, src, "attacked")
+				return
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			playsound(src.loc, 'sound/effects/bang.ogg', 10, 1)
 			visible_message("<span class='danger'>[M] punches [src], but doesn't leave a dent!</span>", \
