@@ -7,8 +7,8 @@
 	transmission = -1
 	level = 6
 	severity = 1
-	symptom_delay_min = 15
-	symptom_delay_max = 30
+	symptom_delay_min = 5
+	symptom_delay_max = 10
 	prefixes = list("Drunken ", "Alcoholic ")
 	var/target = 30 //how drunk should the target get? by default, its *just* below enough to cause vomiting
 	threshold_desc = "<b>Stealth 3:</b> The host only reaches a slight buzz.<br>\
@@ -43,10 +43,10 @@
 			warningstrings = list("ahyguabngaghabyugbauwf", "You feel sick", "It feels like you drank too much", "You feel like doing something unwise")
 	switch(A.stage)
 		if(2 to 3)
-			M.drunkenness = min(M.drunkenness + rand(1, 5), target)
+			M.drunkenness = min(M.drunkenness + target * 0.2, target)
 		if(4)
-			M.drunkenness = min(M.drunkenness + rand(1, 10), target)
+			M.drunkenness = min(M.drunkenness + target * 0.3, target)
 		if(5)
-			M.drunkenness = min(M.drunkenness + rand(1, 15), target)
+			M.drunkenness = min(M.drunkenness + target * 0.4, target)
 	if(prob(10 * A.stage))
 		to_chat(M, "<span class='warning'>[pick(warningstrings)]</span>")
