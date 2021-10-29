@@ -644,7 +644,6 @@
 /mob/living/silicon/robot/update_icons()
 	cut_overlays()
 	icon_state = module.cyborg_base_icon
-	icon = (module.cyborg_icon_override ? module.cyborg_icon_override : initial(icon)) //Allows borg sprites to use different icon files.
 	if(stat != DEAD && !(IsUnconscious() || IsStun() || IsParalyzed() || low_power_mode)) //Not dead, not stunned.
 		if(!eye_lights)
 			eye_lights = new()
