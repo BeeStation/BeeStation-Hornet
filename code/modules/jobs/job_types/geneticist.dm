@@ -22,6 +22,9 @@
 	display_order = JOB_DISPLAY_ORDER_GENETICIST
 	departments = DEPARTMENT_MEDICAL
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/genetics
+	)
 /datum/outfit/job/geneticist
 	name = "Geneticist"
 	jobtype = /datum/job/geneticist

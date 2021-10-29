@@ -19,6 +19,9 @@
 	display_order = JOB_DISPLAY_ORDER_BOTANIST
 	departments = DEPARTMENT_SERVICE
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/botany
+	)
 /datum/outfit/job/botanist
 	name = "Botanist"
 	jobtype = /datum/job/hydro
@@ -28,7 +31,7 @@
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
 	suit = /obj/item/clothing/suit/apron
-	gloves  =/obj/item/clothing/gloves/botanic_leather
+	gloves = /obj/item/clothing/gloves/botanic_leather
 	suit_store = /obj/item/plant_analyzer
 
 	backpack = /obj/item/storage/backpack/botany

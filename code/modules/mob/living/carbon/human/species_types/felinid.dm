@@ -99,7 +99,6 @@
 			tail.Remove(H)
 
 /datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
-	.=..()
 	if(istype(chem, /datum/reagent/consumable/cocoa))
 		if(prob(40))
 			M.adjust_disgust(20)
@@ -112,6 +111,7 @@
 			var/obj/item/organ/guts = pick(M.internal_organs)
 			guts.applyOrganDamage(15)
 		return FALSE
+	return ..()
 
 
 /proc/mass_purrbation()

@@ -10,6 +10,8 @@
 	severity = 0 //rip funy
 	symptom_delay_min = 10
 	symptom_delay_max = 30
+	prefixes = list("Blatto")
+	bodies = list("Roach")
 	var/death_roaches = FALSE
 	threshold_desc = "<b>Stage Speed 8:</b>Increases roach speed<br>\
 	<b>Transmission 8:</b>When the host dies, more roaches spawn<br>"

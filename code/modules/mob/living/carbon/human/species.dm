@@ -52,6 +52,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/deathsound //used to set the mobs deathsound on species change
 	var/list/special_step_sounds //Sounds to override barefeet walkng
 	var/grab_sound //Special sound for grabbing
+	var/blood_color //Blood color for decals
 	var/reagent_tag = PROCESS_ORGANIC //Used for metabolizing reagents. We're going to assume you're a meatbag unless you say otherwise.
 	var/species_gibs = GIB_TYPE_HUMAN //by default human gibs are used
 	var/allow_numbers_in_name // Can this species use numbers in its name?
@@ -1041,23 +1042,26 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	H.update_mutant_bodyparts()
 
+// Do species-specific reagent handling here
+// Return 1 if it should do normal processing too
+// Return 0 if it shouldn't deplete and do its normal effect
+// Other return values will cause weird badness
+
 /datum/species/proc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == exotic_blood)
 		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 		H.reagents.del_reagent(chem.type)
 		return TRUE
+	//This handles dumping unprocessable reagents.
+	var/dump_reagent = TRUE
+	if((chem.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYNTHETIC))		//SYNTHETIC-oriented reagents require PROCESS_SYNTHETIC
+		dump_reagent = FALSE
+	if((chem.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORGANIC))		//ORGANIC-oriented reagents require PROCESS_ORGANIC
+		dump_reagent = FALSE
+	if(dump_reagent)
+		chem.holder.remove_reagent(chem.type, chem.metabolization_rate)
+		return TRUE
 	return FALSE
-
-// Do species-specific reagent handling here
-// Return 1 if it should do normal processing too
-// Return 0 if it shouldn't deplete and do its normal effect
-// Other return values will cause weird badness
-/datum/species/proc/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.type == exotic_blood)
-		H.blood_volume = min(H.blood_volume + round(R.volume, 0.1), BLOOD_VOLUME_NORMAL)
-		H.reagents.del_reagent(R.type)
-		return FALSE
-	return TRUE
 
 /datum/species/proc/check_species_weakness(obj/item, mob/living/attacker)
 	return 0 //This is not a boolean, it's the multiplier for the damage that the user takes from the item.It is added onto the check_weakness value of the mob, and then the force of the item is multiplied by this value
@@ -2046,4 +2050,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 */
 
 /datum/species/proc/get_item_offsets_for_index(i)
+	return
+
+/datum/species/proc/get_harm_descriptors()
 	return

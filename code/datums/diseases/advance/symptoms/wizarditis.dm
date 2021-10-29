@@ -9,10 +9,12 @@
 	severity = 0
 	symptom_delay_min = 15
 	symptom_delay_max = 45
+	prefixes = list("Wizard's ", "Magic ", "Accursed ")
+	bodies = list("Wizard")
 	var/teleport = FALSE
 	var/robes = FALSE
-	threshold_desc = "<b>Transmission 14:</b> The host teleports occasionally.<br>\
-					  <b>Speed 7:</b> The host grows a set of wizard robes."
+	threshold_desc = "<b>Transmission 8:</b> The host teleports occasionally.<br>\
+					  <b>Stage Speed 7:</b> The host grows a set of wizard robes."
 
 /datum/symptom/wizarditis/severityset(datum/disease/advance/A)
 	. = ..()
@@ -47,7 +49,7 @@
 			if(prob(30) && prob(50))
 				to_chat(M, "<span class='danger'>You feel [pick("the magic bubbling in your veins","that this location gives you a +1 to INT","an urge to summon familiar")].</span>")
 
-		if(4)
+		if(4,5)
 
 			if(prob(50))
 				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"))
