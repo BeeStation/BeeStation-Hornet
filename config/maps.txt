@@ -54,6 +54,30 @@ endmap
 map payday
 endmap
 
+#Bad Maps, from the bad maps contest. Run these maps, if you dare...
+
+map boxsepstation
+endmap
+
+map fortnitestation
+endmap
+
+map splitstation
+endmap
+
+map engineering
+endmap
+
+map maintmaze
+endmap
+
+map hell
+endmap
+
+map skeld
+endmap
+
+
 #Debug Maps, you probably don't want these enabled.
 
 map runtimestation

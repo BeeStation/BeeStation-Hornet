@@ -1,0 +1,8 @@
+{
+    "map_name": "Splitstation",
+    "map_path": "map_files/splitstation",
+    "map_file": "splitstation.dmm",
+	"shuttles": {
+	    "cargo": "cargo_delta"
+    }
+}

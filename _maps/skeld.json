@@ -1,0 +1,8 @@
+{
+    "map_name": "The Skeld",
+    "map_path": "map_files/skeld",
+    "map_file": "skeld-1.dmm",
+	"shuttles": {
+	    "cargo": "cargo_delta"
+    }
+}
