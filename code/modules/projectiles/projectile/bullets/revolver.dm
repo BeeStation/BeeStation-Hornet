@@ -20,12 +20,6 @@
 	ricochet_auto_aim_angle = 10
 	ricochet_auto_aim_range = 3
 
-/obj/item/projectile/bullet/c38/rubber
-	name = ".38 Rubber bullet"
-	damage = 10
-	stamina = 30
-	armour_penetration = -30
-
 /obj/item/projectile/bullet/c38/match
 	name = ".38 Match bullet"
 	ricochets_max = 4
@@ -46,6 +40,14 @@
 	ricochet_chance = 130
 	ricochet_decay_damage = 0.8
 	shrapnel_type = NONE
+
+/obj/item/projectile/bullet/c38/bouncy/rubber
+	name = ".38 Rubber bullet"
+	ricochets_max = 2
+	ricochet_chance = 50
+	ricochet_auto_aim_angle = 10
+	ricochet_auto_aim_range = 3
+
 
 /obj/item/projectile/bullet/c38/dumdum
 	name = ".38 DumDum bullet"
