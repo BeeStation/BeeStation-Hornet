@@ -9,6 +9,9 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/supply)
+"c" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/supply)
 "d" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -377,12 +380,12 @@ G
 a
 a
 a
-a
+c
 Z
 "}
 (2,1,1) = {"
 a
-a
+c
 t
 j
 V
@@ -438,7 +441,7 @@ T
 "}
 (6,1,1) = {"
 a
-a
+c
 C
 l
 h
@@ -461,6 +464,6 @@ P
 a
 a
 a
-a
+c
 Z
 "}
