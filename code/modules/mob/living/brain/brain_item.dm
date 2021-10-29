@@ -268,7 +268,7 @@
 			seed.blood_type = blood_data?["blood_type"]
 			seed.features = blood_data?["features"]
 			seed.factions = blood_data?["factions"]
-			seed.quirks = blood_dat?a["quirks"]
+			seed.quirks = blood_data?["quirks"]
 			seed.sampleDNA = blood_data?["blood_DNA"]
 			seed.features["grod_crown"] = blood_data["features"]["grod_crown"]
 
