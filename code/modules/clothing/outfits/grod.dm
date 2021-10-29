@@ -25,6 +25,7 @@
 /datum/outfit/grod/paramed
 	name = "Grod Paramed"
 	head = /obj/item/clothing/head/grodhat/paramed
+	r_hand = /obj/item/sensor_device
 
 ///Service
 /datum/outfit/grod/hop
