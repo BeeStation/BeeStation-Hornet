@@ -260,16 +260,16 @@
 		var/mob/living/carbon/human/H = C
 		var/list/blood_data = H.get_blood_data(H.get_blood_id())
 
-		if(blood_data["mind"] && blood_data["cloneable"])
-			seed.mind = blood_data["mind"]
-			seed.ckey = blood_data["ckey"]
-			seed.realName = blood_data["real_name"]
-			seed.blood_gender = blood_data["gender"]
-			seed.blood_type = blood_data["blood_type"]
-			seed.features = blood_data["features"]
-			seed.factions = blood_data["factions"]
-			seed.quirks = blood_data["quirks"]
-			seed.sampleDNA = blood_data["blood_DNA"]
+		if(blood_data?["mind"] && blood_data?["cloneable"])
+			seed.mind = blood_data?["mind"]
+			seed.ckey = blood_data?["ckey"]
+			seed.realName = blood_data?["real_name"]
+			seed.blood_gender = blood_data?["gender"]
+			seed.blood_type = blood_data?["blood_type"]
+			seed.features = blood_data?["features"]
+			seed.factions = blood_data?["factions"]
+			seed.quirks = blood_dat?a["quirks"]
+			seed.sampleDNA = blood_data?["blood_DNA"]
 			seed.features["grod_crown"] = blood_data["features"]["grod_crown"]
 
 		if(seed)
