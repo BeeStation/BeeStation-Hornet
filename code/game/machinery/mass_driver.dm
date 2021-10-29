@@ -55,12 +55,12 @@
 	return ..()
 
 /obj/machinery/mass_driver/RefreshParts()
-	drive_range = 0
-	power_per_obj = 1250
+	drive_range = initial(drive_range)
+	power_per_obj = initial(power_per_obj)
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		drive_range += M.rating * 5
+		drive_range += (M.rating - 1) * 5 //Subtract by 1, so initial values represent T1 parts
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		power_per_obj -= C.rating * 250
+		power_per_obj -= (C.rating - 1) * 250
 
 
 /obj/machinery/mass_driver/emp_act(severity)

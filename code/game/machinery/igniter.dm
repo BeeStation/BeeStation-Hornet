@@ -53,7 +53,7 @@
 	if(is_wire_tool(I) && panel_open)
 		wires.interact(user)
 		return
-	if(default_deconstruction_screwdriver(user, "igniter_o", "igniter[on]", I)) //There's no off icon_state and I don't know how to sprite. I guess that's a problem...
+	if(default_deconstruction_screwdriver(user, "igniter_o", "igniter[on]", I))
 		return
 	if(default_deconstruction_crowbar(I))
 		return
