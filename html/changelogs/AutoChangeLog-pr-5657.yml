@@ -1,0 +1,5 @@
+author: francinum
+delete-after: true
+changes:
+  - server: Revision information is once again burned into dd.log, SSFeedback's revision
+      information has been hard disabled as a temporary fix.
