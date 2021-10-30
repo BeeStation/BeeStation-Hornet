@@ -242,11 +242,10 @@
 	icon_state = "crown_spider"
 	var/crown
 	var/obj/item/seeds/replicapod/grodpod/seed = new()
+	//Note 2 self: Dont Qdel shit you're referencing elsewhere
 
 /obj/item/organ/brain/grod/Destroy()
 	. = ..()
-	if(seed)
-		QDEL_NULL(seed)
 
 /obj/item/organ/brain/grod/Insert(mob/living/carbon/C, special = 0,no_id_transfer = FALSE)
 	if(isgrod(C) && crown)
