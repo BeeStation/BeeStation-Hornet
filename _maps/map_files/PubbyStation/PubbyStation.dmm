@@ -55280,7 +55280,7 @@
 "hrU" = (
 /obj/machinery/igniter/on,
 /turf/open/floor/engine,
-/area/engine/engineering)
+/area/engine/supermatter)
 "hsK" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -61242,7 +61242,7 @@
 	dir = 1
 	},
 /turf/open/floor/engine,
-/area/engine/engineering)
+/area/engine/supermatter)
 "rSD" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
