@@ -32,6 +32,9 @@
 	. = ..()
 	if(.)
 		user.SpinAnimation(7,1)
+		if(isliving(user) && !intentional)
+			var/mob/living/L = user
+			L.confused += 2
 
 /datum/emote/spin
 	key = "spin"
@@ -44,7 +47,9 @@
 	. = ..()
 	if(.)
 		user.spin(20, 1)
-
+		if(isliving(user) && !intentional)
+			var/mob/living/L = user
+			L.confused += 2
 		if(iscyborg(user) && user.has_buckled_mobs())
 			var/mob/living/silicon/robot/R = user
 			var/datum/component/riding/riding_datum = R.GetComponent(/datum/component/riding)

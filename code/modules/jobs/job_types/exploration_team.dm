@@ -20,6 +20,10 @@
 	display_order = JOB_DISPLAY_ORDER_EXPLORATION
 	departments = DEPARTMENT_SCIENCE
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/exploration
+	)
+
 /datum/job/exploration/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source)
 	if(outfit_override)
 		return ..()

@@ -23,6 +23,8 @@ Bonus
 	symptom_delay_min = 10
 	symptom_delay_max = 30
 	severity = 2
+	prefixes = list("Lazy ", "Yawning ")
+	bodies = list("Sleep")
 	var/sleep_level = 0
 	var/sleepy_ticks = 0
 	var/stamina = FALSE

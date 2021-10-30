@@ -56,7 +56,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	var/list/z_list = get_zs_in_range(turf_source.z, max_z_range)
 
 	//allocate a channel if necessary now so its the same for everyone
-	channel = channel || open_sound_channel()
+	channel = channel || SSsounds.random_available_channel()
 
  	// Looping through the player list has the added bonus of working for mobs inside containers
 	var/sound/S = sound(get_sfx(soundin))
@@ -101,7 +101,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 		S = sound(get_sfx(soundin))
 
 	S.wait = 0 //No queue
-	S.channel = channel || open_sound_channel()
+	S.channel = channel || SSsounds.random_available_channel()
 	S.volume = vol
 
 	if(vary)
@@ -215,14 +215,13 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 	for(var/mob/M as() in GLOB.player_list)
 		M?.stop_sound_channel(CHANNEL_AMBIENT_MUSIC)
 
-/proc/open_sound_channel()
-	var/static/next_channel = 1	//loop through the available 1024 - (the ones we reserve) channels and pray that its not still being used
-	. = ++next_channel
-	if(next_channel > CHANNEL_HIGHEST_AVAILABLE)
-		next_channel = 1
-
 /mob/proc/stop_sound_channel(chan)
 	SEND_SOUND(src, sound(null, repeat = 0, wait = 0, channel = chan))
+
+/mob/proc/set_sound_channel_volume(channel, volume)
+	var/sound/S = sound(null, FALSE, FALSE, channel, volume)
+	S.status = SOUND_UPDATE
+	SEND_SOUND(src, S)
 
 /client/proc/playtitlemusic(vol = 85)
 	set waitfor = FALSE

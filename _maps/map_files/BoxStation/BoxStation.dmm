@@ -12147,6 +12147,9 @@
 	pixel_y = 9
 	},
 /obj/item/stack/packageWrap,
+/obj/structure/sign/painting/library{
+	pixel_y = 32
+	},
 /turf/open/floor/wood,
 /area/library)
 "aHc" = (
@@ -12674,6 +12677,9 @@
 "aIx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
+	},
+/obj/structure/sign/painting/library{
+	pixel_x = 32
 	},
 /turf/open/floor/wood,
 /area/library)
@@ -14131,7 +14137,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
 "aMq" = (
-/obj/structure/piano{
+/obj/structure/musician/piano{
 	icon_state = "piano"
 	},
 /turf/open/floor/wood,
@@ -15051,6 +15057,9 @@
 	pixel_y = 7
 	},
 /obj/item/pen/invisible,
+/obj/structure/sign/painting/library_private{
+	pixel_y = 32
+	},
 /turf/open/floor/engine/cult,
 /area/library)
 "aPi" = (
@@ -15857,6 +15866,9 @@
 "aRP" = (
 /obj/machinery/camera/autoname{
 	dir = 8
+	},
+/obj/structure/sign/painting/library{
+	pixel_x = 32
 	},
 /turf/open/floor/wood,
 /area/library)
@@ -18722,6 +18734,9 @@
 "bax" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
+	},
+/obj/structure/sign/painting/library{
+	pixel_y = -32
 	},
 /turf/open/floor/wood,
 /area/library)
@@ -31176,7 +31191,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/layer3,
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "bMy" = (
@@ -31463,6 +31478,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 5
+	},
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_toxmix{
+	dir = 1
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
@@ -31796,9 +31814,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 10
 	},
-/obj/machinery/light_switch{
-	pixel_x = -20
-	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "bOz" = (
@@ -31839,9 +31854,7 @@
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/layer1{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "bOG" = (
@@ -39305,11 +39318,11 @@
 /area/construction)
 "cmY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 5
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 9
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
@@ -39691,6 +39704,10 @@
 "cop" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "coq" = (
@@ -40114,6 +40131,12 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 5
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 10
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "cpO" = (
@@ -40351,6 +40374,8 @@
 	pixel_x = 38;
 	pixel_y = 6
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "cqu" = (
@@ -46536,6 +46561,10 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/general/visible,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "ezu" = (
@@ -47779,6 +47808,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 4
 	},
+/obj/structure/sign/painting/library{
+	pixel_x = -32
+	},
 /turf/open/floor/wood,
 /area/library)
 "gfL" = (
@@ -48039,6 +48071,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/nanite)
+"gwp" = (
+/obj/structure/sign/painting/library{
+	pixel_x = -32
+	},
+/turf/open/floor/wood,
+/area/library)
 "gxa" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 10
@@ -48652,6 +48690,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
+"hhQ" = (
+/obj/machinery/modular_computer/console/preset/curator{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/library)
 "hiA" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/line{
@@ -49465,6 +49509,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 5
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "ixu" = (
@@ -49869,6 +49919,9 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "jkG" = (
@@ -49932,6 +49985,9 @@
 /obj/machinery/airlock_sensor/incinerator_atmos{
 	pixel_x = 8;
 	pixel_y = 24
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
@@ -50430,6 +50486,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/courtroom)
+"ken" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/obj/structure/sign/painting/library{
+	pixel_y = -32
+	},
+/turf/open/floor/wood,
+/area/library)
 "keG" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
 /turf/open/floor/plasteel/grimy,
@@ -52275,6 +52340,15 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_atmos{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 9
+	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "mgt" = (
@@ -53452,6 +53526,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"nHY" = (
+/obj/structure/easel,
+/obj/item/canvas/nineteen_nineteen,
+/obj/item/canvas/twentythree_nineteen,
+/obj/item/canvas/twentythree_twentythree,
+/turf/open/floor/wood,
+/area/library)
 "nIK" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -54670,6 +54751,10 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "pBJ" = (
@@ -59554,6 +59639,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"wbJ" = (
+/obj/structure/table/wood,
+/obj/structure/disposalpipe/segment,
+/obj/item/storage/crayons,
+/turf/open/floor/wood,
+/area/library)
 "wci" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -104281,7 +104372,7 @@ anf
 tMn
 aFu
 aIr
-aIt
+gwp
 aLf
 gey
 aNS
@@ -105053,7 +105144,7 @@ aFu
 aHc
 aIw
 aJS
-aJS
+wbJ
 aMJ
 aNP
 aOS
@@ -105568,7 +105659,7 @@ aHd
 aIx
 aJF
 aLh
-aIt
+nHY
 aNV
 aPd
 aIt
@@ -105578,7 +105669,7 @@ aIt
 aVQ
 aXu
 aXV
-aVQ
+ken
 aFu
 aYV
 aXq
@@ -106603,10 +106694,10 @@ aQt
 aRQ
 aIt
 aUF
-aLg
+hhQ
 aYW
 aYW
-aVQ
+ken
 aFu
 aYV
 aXq

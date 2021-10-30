@@ -613,12 +613,6 @@ RANDOMIZE_SHIFT_TIME
 ## Sets shift time to server time at roundstart. Overridden by RANDOMIZE_SHIFT_TIME ##
 #SHIFT_TIME_REALTIME
 
-## Maximum fine for a citation
-MAXFINE 2000
-
-## Enable the capitalist agenda on your server.
-ECONOMY
-
 ## Crew objectives
 ALLOW_CREW_OBJECTIVES
 

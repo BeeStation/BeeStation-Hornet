@@ -376,3 +376,8 @@
 	name = "living lube delivery beacon"
 	default_name = "Offensive"
 	mob_choice = /mob/living/simple_animal/hostile/retaliate/clown/lube
+
+/obj/item/choice_beacon/pet/goat
+	name = "goat delivery beacon"
+	default_name = "Billy"
+	mob_choice = /mob/living/simple_animal/hostile/retaliate/goat
