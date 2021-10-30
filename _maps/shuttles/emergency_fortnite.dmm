@@ -1,5 +1,0 @@
-"a" = (/obj/structure/chair/comfy,/obj/docking_port/mobile/emergency{area_type = /area/shuttle/escape; bound_height = 1; bound_width = 1; dheight = 1; dir = 8; dwidth = 1; height = 1; width = 1},/obj/structure/fans/tiny/invisible,/obj/machinery/light/floor,/obj/item/clothing/head/crown/fancy,/turf/open/floor/mineral/titanium,/area/shuttle/escape)
-
-(1,1,1) = {"
-a
-"}
