@@ -1,4 +1,0 @@
-author: Kapu1178
-delete-after: true
-changes:
-  - code_imp: adds a dna check to human/move() to prevent 531168 runtimes
