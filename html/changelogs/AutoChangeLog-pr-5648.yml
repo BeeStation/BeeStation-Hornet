@@ -1,0 +1,8 @@
+author: zeskorion
+delete-after: true
+changes:
+  - tweak: humans always deal normal punch damage to mobs, instead of having weird
+      damage calcs depending on the mob subtype
+  - tweak: attacking borgs with a punch that deals over 10 damage damages them
+  - balance: bees now have 6 hp
+  - bugfix: pacifists can no longer attack aliens
