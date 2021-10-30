@@ -1,5 +1,0 @@
-author: TheChaser212
-delete-after: true
-changes:
-  - bugfix: Backup objectives shouldn't disappear anymore
-  - code_imp: Cleaned up cryopod objective handling
