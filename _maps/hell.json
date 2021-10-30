@@ -1,8 +1,0 @@
-{
-    "map_name": "Hell",
-    "map_path": "map_files/hell",
-    "map_file": "Hell.dmm",
-	"shuttles": {
-	    "cargo": "cargo_delta"
-    }
-}
