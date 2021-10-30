@@ -1,8 +1,0 @@
-{
-    "map_name": "Maintmaze",
-    "map_path": "map_files/Maintmaze",
-    "map_file": "maintmaze.dmm",
-	"shuttles": {
-	    "cargo": "cargo_delta"
-    }
-}
