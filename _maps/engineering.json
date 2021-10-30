@@ -1,8 +1,0 @@
-{
-    "map_name": "Engineering.dmm",
-    "map_path": "map_files/engineering",
-    "map_file": "engineering.dmm",
-	"shuttles": {
-	    "cargo": "cargo_delta"
-    }
-}
