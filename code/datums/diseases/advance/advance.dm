@@ -57,12 +57,13 @@
 /datum/disease/advance/Destroy()
 	if(affected_mob)
 		SEND_SIGNAL(affected_mob, COMSIG_DISEASE_END, GetDiseaseID())
+		UnregisterSignal(affected_mob, COMSIG_MOB_DEATH)
 	if(processing)
 		for(var/datum/symptom/S in symptoms)
 			S.End(src)
 	return ..()
 
-/datum/disease/advance/try_infect(var/mob/living/infectee, make_copy = TRUE)
+/datum/disease/advance/try_infect(mob/living/infectee, make_copy = TRUE)
 	//see if we are more transmittable than enough diseases to replace them
 	//diseases replaced in this way do not confer immunity
 	var/list/advance_diseases = list()
@@ -86,6 +87,16 @@
 				return FALSE //we are not strong enough to bully our way in
 	infect(infectee, make_copy)
 	return TRUE
+
+/datum/disease/advance/after_add()
+	if(affected_mob)
+		RegisterSignal(affected_mob, COMSIG_MOB_DEATH, .proc/on_mob_death)
+
+/datum/disease/advance/proc/on_mob_death()
+	SIGNAL_HANDLER
+
+	for(var/datum/symptom/S as() in symptoms)
+		S.OnDeath(src)
 
 // Randomly pick a symptom to activate.
 /datum/disease/advance/stage_act()
@@ -208,26 +219,19 @@
 	stage_rate = 0
 	transmission = 0
 	severity = 0
-	for(var/datum/symptom/S in symptoms) //I can't change the order of the symptom list by severity, so i have to loop through symptoms three times, one for each tier of severity, to keep it consistent
+	//Why do we need 2 loops here?
+	//First loop just sets stats and second is purely just to set (and get) symptom severity
+	for(var/datum/symptom/S as() in symptoms)
 		resistance += S.resistance
 		stealth += S.stealth
 		stage_rate += S.stage_speed
 		transmission += S.transmission
+
+	for(var/datum/symptom/S as() in symptoms)
 		S.severityset(src)
-		if(!S.neutered && S.severity >= 5) //big severity goes first. This means it can be reduced by beneficials, but won't increase from minor symptoms
-			severity += S.severity
-	for(var/datum/symptom/S in symptoms)
-		S.severityset(src)
-		if(!S.neutered)
-			switch(S.severity)//these go in the middle. They won't augment large severity diseases, but they can push low ones up to channel 2
-				if(1 to 2)
-					severity= max(severity, min(3, (S.severity + severity)))
-				if(3 to 4)
-					severity = max(severity, min(4, (S.severity + severity)))
-	for(var/datum/symptom/S in symptoms) //benign and beneficial symptoms go last
-		S.severityset(src)
-		if(!S.neutered && S.severity <= 0)
-			severity += S.severity
+		if(S.neutered)
+			continue
+		severity += S.severity
 
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/AssignProperties()
@@ -415,7 +419,7 @@
 */
 
 // Mix a list of advance diseases and return the mixed result.
-/proc/Advance_Mix(var/list/D_list)
+/proc/Advance_Mix(list/D_list)
 	var/list/diseases = list()
 
 	for(var/datum/disease/advance/A in D_list)
@@ -504,3 +508,99 @@
 			name_symptoms += S.name
 		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.admin_details()]")
 		log_virus("[key_name(user)] has triggered a custom virus outbreak of [D.admin_details()]!")
+
+
+
+
+/datum/disease/advance/proc/random_disease_name(var/atom/diseasesource)//generates a name for a disease depending on its symptoms and where it comes from
+	var/list/prefixes = list("Spacer's ", "Space ", "Infectious ","Viral ", "The ", "[pick(GLOB.first_names)]'s ", "[pick(GLOB.last_names)]'s ", "Acute ")//prefixes that arent tacked to the body need spaces after the word
+	var/list/bodies = list(pick("[pick(GLOB.first_names)]", "[pick(GLOB.last_names)]"), "Space", "Disease", "Noun", "Cold", "Germ", "Virus")
+	var/list/suffixes = list("ism", "itis", "osis", "itosis", " #[rand(1,10000)]", "-[rand(1,100)]", "s", "y", " ovirus", " Bug", " Infection", " Disease", " Complex", " Syndrome", " Sickness") //suffixes that arent tacked directly on need spaces before the word
+	if(stealth >=2)
+		prefixes += "Crypto "
+	switch(max(resistance - (symptoms.len / 2), 1))
+		if(1)
+			suffixes += "-alpha"
+		if(2)
+			suffixes += "-beta"
+		if(3)
+			suffixes += "-gamma"
+		if(4)
+			suffixes += "-delta"
+		if(5)
+			suffixes += "-epsilon"
+		if(6)
+			suffixes += pick("-zeta", "-eta", "-theta", "-iota")
+		if(7)
+			suffixes += pick("-kappa", "-lambda")
+		if(8)
+			suffixes += pick("-mu", "-nu", "-xi", "-omicron")
+		if(9)
+			suffixes += pick("-pi", "-rho", "-sigma", "-tau")
+		if(10)
+			suffixes += pick("-upsilon", "-phi", "-chi", "-psi")
+		if(11 to INFINITY)
+			suffixes += "-omega"
+			prefixes += "Robust "
+	switch(transmission - symptoms.len)
+		if(-INFINITY to 2)
+			prefixes += "Bloodborne "
+		if(3)
+			prefixes += list("Mucous ", "Kissing ")
+		if(4)
+			prefixes += "Contact "
+			suffixes += " Flu"
+		if(5 to INFINITY)
+			prefixes += "Airborne "
+			suffixes += " Plague"
+	switch(severity)
+		if(-INFINITY to 0)
+			prefixes += "Altruistic "
+		if(1 to 2)
+			prefixes += "Benign "
+		if(3 to 4)
+			prefixes += "Malignant "
+		if(5)
+			prefixes += "Terminal "
+			bodies += "Death"
+		if(6 to INFINITY)
+			prefixes += "Deadly "
+			bodies += "Death"
+	if(diseasesource)
+		if(ishuman(diseasesource))
+			var/mob/living/carbon/human/H = diseasesource
+			prefixes += pick("[H.first_name()]'s", "[H.name]'s", "[H.job]'s", "[H.dna.species]'s")
+			bodies += pick("[H.first_name()]", "[H.job]", "[H.dna.species]")
+			if(islizard(H) || iscatperson(H))//add rat-origin prefixes to races that eat rats
+				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
+				bodies += list("Rat", "Maint")
+		else switch(diseasesource.type)
+			if(/mob/living/simple_animal/pet/hamster/vector)
+				prefixes += list("Vector's ", "Hamster ")
+				bodies += list("Freebie")
+			if(/obj/effect/decal/cleanable)
+				prefixes += list("Bloody ", "Maintenance ") 
+				bodies += list("Maint")
+			if(/mob/living/simple_animal/mouse)
+				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
+				bodies += list("Rat", "Maint")
+			if(/obj/item/reagent_containers/syringe)
+				prefixes += list("Junkie ", "Maintenance ") 
+				bodies += list("Needle", "Maint")
+			if(/obj/item/fugu_gland)
+				prefixes += "Wumbo"
+			if(/obj/item/organ/lungs)
+				prefixes += "Miasmic "
+				bodies += list("Stench", "Lung")
+	for(var/datum/symptom/Symptom as() in symptoms)
+		if(!Symptom.neutered)
+			prefixes += Symptom.prefixes
+			bodies += Symptom.bodies
+			suffixes += Symptom.suffixes
+	switch(rand(1, 3))
+		if(1)
+			return "[pick(prefixes)][pick(bodies)]"
+		if(2)
+			return "[pick(prefixes)][pick(bodies)][pick(suffixes)]"
+		if(3)
+			return "[pick(bodies)][pick(suffixes)]"

@@ -96,6 +96,56 @@
 	if(..())
 		return
 
+/turf/open/floor/grass/fairy //like grass but fae-er
+	name = "fairygrass patch"
+	desc = "Something about this grass makes you want to frolic. Or get high."
+	icon_state = "fairygrass"
+	floor_tile = /obj/item/stack/tile/fairygrass
+	light_range = 2
+	light_power = 0.80
+	light_color = "#33CCFF"
+	color = "#33CCFF"
+
+/turf/open/floor/grass/fairy/white
+	name = "white fairygrass patch"
+	floor_tile = /obj/item/stack/tile/fairygrass/white
+	light_color = "#FFFFFF"
+	color = "#FFFFFF"
+
+/turf/open/floor/grass/fairy/red
+	name = "red fairygrass patch"
+	floor_tile = /obj/item/stack/tile/fairygrass/red
+	light_color = "#FF3333"
+	color = "#FF3333"
+
+/turf/open/floor/grass/fairy/yellow
+	name = "yellow fairygrass patch"
+	floor_tile = /obj/item/stack/tile/fairygrass/yellow
+	light_color = "#FFFF66"
+	color = "#FFFF66"
+
+/turf/open/floor/grass/fairy/green
+	name = "green fairygrass patch"
+	floor_tile = /obj/item/stack/tile/fairygrass/green
+	light_color = "#99FF99"
+	color = "#99FF99"
+
+/turf/open/floor/grass/fairy/blue
+	floor_tile = /obj/item/stack/tile/fairygrass/blue
+	name = "blue fairygrass patch"
+
+/turf/open/floor/grass/fairy/purple
+	name = "purple fairygrass patch"
+	floor_tile = /obj/item/stack/tile/fairygrass/purple
+	light_color = "#D966FF"
+	color = "#D966FF"
+
+/turf/open/floor/grass/fairy/pink
+	name = "pink fairygrass patch"
+	floor_tile = /obj/item/stack/tile/fairygrass/pink
+	light_color = "#FFB3DA"
+	color = "#FFB3DA"
+
 /turf/open/floor/grass/snow
 	gender = PLURAL
 	name = "snow"

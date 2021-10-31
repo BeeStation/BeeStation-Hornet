@@ -1116,27 +1116,30 @@ eg2: `center_image(I, 96,96)`
 /proc/get_random_station_turf()
 	return safepick(get_area_turfs(pick(GLOB.the_station_areas)))
 
-/proc/get_safe_random_station_turf(list/areas_to_pick_from = GLOB.the_station_areas) //excludes dense turfs (like walls) and areas that have valid_territory set to FALSE
-	var/turf/target
-	for (var/i in 1 to 5)
-		var/list/L = get_area_turfs(pick(areas_to_pick_from))
-		while (L.len && !target)
-			var/I = rand(1, L.len)
-			var/turf/T = L[I]
-			var/area/X = get_area(T)
-			if(!T.density && (X.area_flags & VALID_TERRITORY))
-				var/clear = TRUE
-				for(var/obj/O in T)
-					if(O.density)
-						clear = FALSE
-						break
-				if(clear)
-					target = T
-			if (!target)
-				L.Cut(I,I+1)
-		if (target)
-			return target
-
+///Gets random safe - which mean clear of dense objects and valid, turf from provided areas that are on station
+///Amount 1 makes it return turf, anything else a list of turfs
+/proc/get_safe_random_station_turfs(list/areas_to_pick_from = GLOB.the_station_areas, amount = 1)
+	var/list/picked_turfs = list()
+	var/list/L
+	for(var/area/A as() in areas_to_pick_from)
+		L += get_area_turfs(A)
+	while(L.len && length(picked_turfs) <= amount)
+		var/I = rand(1, length(L))
+		var/turf/T = L[I]
+		var/area/X = get_area(T)
+		if(!T.density && (X.area_flags & VALID_TERRITORY))
+			var/clear = TRUE
+			for(var/obj/O in T)
+				if(O.density)
+					clear = FALSE
+					break
+			if(clear)
+				picked_turfs |= T
+			L.Cut(I,I+1)
+		CHECK_TICK
+	if(amount == 1)
+		return picked_turfs[1]
+	return picked_turfs
 
 /proc/get_closest_atom(type, list, source)
 	var/closest_atom

@@ -1,8 +1,9 @@
 /datum/species/squid
 	name = "Squidperson"
-	id = "squid"
+	id = SPECIES_SQUID
+	bodyflag = FLAG_SQUID
 	default_color = "b8dfda"
-	species_traits = list(MUTCOLORS,EYECOLOR)
+	species_traits = list(MUTCOLORS,EYECOLOR,NOSOCKS)
 	inherent_traits = list(TRAIT_NOSLIPALL,TRAIT_EASYDISMEMBER)
 	default_features = list("mcolor" = "FFF") // bald
 	speedmod = 0.5

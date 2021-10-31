@@ -52,6 +52,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	//Secondary variables
 	var/scanmode = PDA_SCANNER_NONE
+	var/shorted = FALSE //Is the flashlight shorted out?
 	var/silent = FALSE //To beep or not to beep, that is the question
 	var/toff = FALSE //If TRUE, messenger disabled
 	var/tnote = null //Current Texts
@@ -839,6 +840,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/proc/toggle_light(mob/user)
 	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
+		return
+	if(shorted)
+		to_chat(user, "<span class='notice'>[src]'s light is not turning on!</span>")
 		return
 	if(light_on)
 		set_light_on(FALSE)

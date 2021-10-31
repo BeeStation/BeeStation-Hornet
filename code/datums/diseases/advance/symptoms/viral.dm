@@ -21,6 +21,7 @@ BONUS
 	stage_speed = -3
 	transmission = 0
 	level = 3
+	prefixes = list("Chronic ")
 
 /*
 //////////////////////////////////////
@@ -46,6 +47,7 @@ BONUS
 	stage_speed = 5
 	transmission = 3
 	level = 3
+	prefixes = list("Unstable ")
 
 /*
 //////////////////////////////////////
@@ -77,6 +79,7 @@ Bonus
 	level = 3
 	symptom_delay_min = 1
 	symptom_delay_max = 1
+	prefixes = list("Spontaneous ")
 	var/time_to_cure
 	threshold_desc = "<b>Resistance/Stage Speed:</b> Highest between these determines the amount of time before self-curing.<br>\
 					  <b>Stealth 4</b> Doubles the time before the virus self-cures"

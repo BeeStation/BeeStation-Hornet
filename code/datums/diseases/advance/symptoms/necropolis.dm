@@ -13,6 +13,8 @@
 	var/tendrils = FALSE
 	var/chest = FALSE
 	var/fireproof = FALSE
+	prefixes = list("Lava ", "Lavaland ", "Eldritch ")
+	bodies = list("Goliath", "Tentacle", "Carapace")
 	threshold_desc = "<b>Stealth 8:</b> Upon death, the host's soul will solidify into an unholy artifact, rendering them utterly unrevivable in the process.<br>\
 					  <b>Resistance 15:</b> The area near the host roils with paralyzing tendrils.<br>\
 					  <b>Resistance 20:</b>	Host becomes immune to heat, ash, and lava"
@@ -108,19 +110,15 @@
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
-	if(chest && A.stage == 5 && M.mind)
+	if(chest && A.stage >= 5 && M.mind)
 		to_chat(M, "<span class='danger'>Your soul is ripped from your body!</span>")
 		M.visible_message("<span class='danger'>An unearthly roar shakes the ground as [M] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
 		playsound(M.loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
 		M.hellbound = TRUE
-		if(!ishuman(M)) //We don't NEED them to be human. However, I want to avoid people making teratoma-farms for necrochests
-			M.gib()
-			return
-		if(HAS_TRAIT(M, TRAIT_NONECRODISEASE))
-			M.gib()
+		addtimer(CALLBACK(M, /mob/proc/gib), 0.5 SECONDS)	//we can't gib mob while it's already dying
+		if(!ishuman(M) || HAS_TRAIT(M, TRAIT_NONECRODISEASE)) //We don't NEED them to be human. However, I want to avoid people making teratoma-farms for necrochests
 			return
 		new /obj/structure/closet/crate/necropolis/tendril(M.loc)
-		M.gib()
 
 /obj/effect/temp_visual/goliath_tentacle/necro
 	name = "fledgling necropolis tendril"

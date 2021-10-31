@@ -28,6 +28,9 @@
 	display_order = JOB_DISPLAY_ORDER_CAPTAIN
 	departments = DEPARTMENT_COMMAND
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/command
+	)
 /datum/job/captain/get_access()
 	return get_all_accesses()
 
