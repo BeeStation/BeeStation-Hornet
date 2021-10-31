@@ -301,13 +301,13 @@
 	var/mob/living/silicon/robot/R = loc
 	var/list/standard_icons = list(
 		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "robot"),
-		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone-standard"),
-		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavyStandard"),
-		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "Noble-STD"),
-		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek-standard"),
-		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2-standard"),
-		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina-SD"),
-		"Insekt" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "insekt-Default")
+		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone_standard"),
+		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavy_standard"),
+		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "noble_standard"),
+		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek_standard"),
+		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2_standard"),
+		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina_standard"),
+		"Insekt" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "insekt_standard")
 	)
 	var/standard_robot_icon = show_radial_menu(R, R, standard_icons, custom_check = CALLBACK(src, .proc/check_menu, R, old_module), radius = 42, require_near = TRUE)
 	switch(standard_robot_icon)
@@ -315,25 +315,25 @@
 			cyborg_base_icon = "robot"
 			animated_transform = TRUE
 		if("Drone")
-			cyborg_base_icon = "drone-standard"
+			cyborg_base_icon = "drone_standard"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Heavy")
-			cyborg_base_icon = "heavyStandard"
+			cyborg_base_icon = "heavy_standard"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Noble")
-			cyborg_base_icon = "Noble-STD"
+			cyborg_base_icon = "noble_standard"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Sleek")
-			cyborg_base_icon = "sleek-standard"
+			cyborg_base_icon = "sleek_standard"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Tall")
-			cyborg_base_icon = "tall2-standard"
+			cyborg_base_icon = "tall2_standard"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Marina")
-			cyborg_base_icon = "marina-SD"
+			cyborg_base_icon = "marina_standard"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Insekt")
-			cyborg_base_icon = "insekt-Default"
+			cyborg_base_icon = "insekt_standard"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		else
 			return FALSE
@@ -378,14 +378,14 @@
 	var/mob/living/silicon/robot/R = loc
 	var/list/medical_icons = list(
 		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "medical"),
-		"Basic" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "robotMedi"),
-		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone-medical"),
-		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavyMed"),
-		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "Noble-MED"),
-		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek-medic"),
-		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2-medical"),
-		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina-MD"),
-		"Insekt" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "insekt-Med"),
+		"Basic" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "robot_medical"),
+		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone_medical"),
+		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavy_medical"),
+		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "noble_medical"),
+		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek_medical"),
+		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2_medical"),
+		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina_medical"),
+		"Insekt" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "insekt_medical"),
 		"Arachne" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "arachne")
 	)
 	var/medical_robot_icon = show_radial_menu(R, R, medical_icons, custom_check = CALLBACK(src, .proc/check_menu, R, old_module), radius = 42, require_near = TRUE)
@@ -394,31 +394,31 @@
 			cyborg_base_icon = "medical"
 			animated_transform = TRUE
 		if("Basic")
-			cyborg_base_icon = "robotMedi"
+			cyborg_base_icon = "robot_medical"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 			special_light_key = "robot"
 		if("Drone")
-			cyborg_base_icon = "drone-medical"
+			cyborg_base_icon = "drone_medical"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Heavy")
-			cyborg_base_icon = "heavyMed"
+			cyborg_base_icon = "heavy_medical"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Noble")
-			cyborg_base_icon = "Noble-MED"
+			cyborg_base_icon = "noble_medical"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
-			special_light_key = "Noble-STD"
+			special_light_key = "noble_standard"
 		if("Sleek")
-			cyborg_base_icon = "sleek-medic"
+			cyborg_base_icon = "sleek_medical"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
-			special_light_key = "sleek-standard"
+			special_light_key = "sleek_standard"
 		if("Tall")
-			cyborg_base_icon = "tall2-medical"
+			cyborg_base_icon = "tall2_medical"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Marina")
-			cyborg_base_icon = "marina-MD"
+			cyborg_base_icon = "marina_medical"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Insekt")
-			cyborg_base_icon = "insekt-Med"
+			cyborg_base_icon = "insekt_medical"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Arachne")
 			cyborg_base_icon = "arachne"
@@ -473,12 +473,12 @@
 	var/mob/living/silicon/robot/R = loc
 	var/list/engineering_icons = list(
 		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "engineer"),
-		"Basic" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "robotEngi"),
-		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone-engineer"),
-		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavyEng"),
-		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "Noble-ENG"),
-		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2-engineer"),
-		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina-ENG")
+		"Basic" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "robot_engineer"),
+		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone_engineer"),
+		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavy_engineer"),
+		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "noble_engineer"),
+		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2_engineer"),
+		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina_engineer")
 	)
 	var/engineering_robot_icon = show_radial_menu(R, R, engineering_icons, custom_check = CALLBACK(src, .proc/check_menu, R, old_module), radius = 42, require_near = TRUE)
 	switch(engineering_robot_icon)
@@ -486,24 +486,24 @@
 			cyborg_base_icon = "engineer"
 			animated_transform = TRUE
 		if("Basic")
-			cyborg_base_icon = "robotEngi"
+			cyborg_base_icon = "robot_engineer"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 			special_light_key = "robot"
 		if("Drone")
-			cyborg_base_icon = "drone-engineer"
+			cyborg_base_icon = "drone_engineer"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Heavy")
-			cyborg_base_icon = "heavyEng"
+			cyborg_base_icon = "heavy_engineer"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Noble")
-			cyborg_base_icon = "Noble-ENG"
+			cyborg_base_icon = "noble_engineer"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
-			special_light_key = "Noble-STD"
+			special_light_key = "noble_standard"
 		if("Tall")
-			cyborg_base_icon = "tall2-engineer"
+			cyborg_base_icon = "tall2_engineer"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Marina")
-			cyborg_base_icon = "marina-ENG"
+			cyborg_base_icon = "marina_engineer"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		else
 			return FALSE
@@ -570,14 +570,14 @@
 	var/mob/living/silicon/robot/R = loc
 	var/list/security_icons = list(
 		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "sec"),
-		"Basic" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "robotSecy"),
-		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone-security"),
-		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavySec"),
-		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "Noble-SEC"),
-		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek-security"),
-		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2-security"),
-		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina-SC"),
-		"Insekt" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "insekt-Sec")
+		"Basic" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "robot_security"),
+		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone_security"),
+		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavy_security"),
+		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "noble_security"),
+		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek_security"),
+		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2_security"),
+		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina_security"),
+		"Insekt" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "insekt_security")
 	)
 	var/security_robot_icon = show_radial_menu(R, R, security_icons, custom_check = CALLBACK(src, .proc/check_menu, R, old_module), radius = 42, require_near = TRUE)
 	switch(security_robot_icon)
@@ -585,31 +585,31 @@
 			cyborg_base_icon = "sec"
 			animated_transform = TRUE
 		if("Basic")
-			cyborg_base_icon = "robotSecy"
+			cyborg_base_icon = "robot_security"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 			special_light_key = "robot"
 		if("Drone")
-			cyborg_base_icon = "drone-security"
+			cyborg_base_icon = "drone_security"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Heavy")
-			cyborg_base_icon = "heavySec"
+			cyborg_base_icon = "heavy_security"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Noble")
-			cyborg_base_icon = "Noble-SEC"
+			cyborg_base_icon = "noble_security"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
-			special_light_key = "Noble-STD"
+			special_light_key = "noble_standard"
 		if("Sleek")
-			cyborg_base_icon = "sleek-security"
+			cyborg_base_icon = "sleek_security"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
-			special_light_key = "sleek-standard"
+			special_light_key = "sleek_standard"
 		if("Tall")
-			cyborg_base_icon = "tall2-security"
+			cyborg_base_icon = "tall2_security"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Marina")
-			cyborg_base_icon = "marina-SC"
+			cyborg_base_icon = "marina_security"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Insekt")
-			cyborg_base_icon = "insekt-Sec"
+			cyborg_base_icon = "insekt_security"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		else
 			return FALSE
@@ -709,11 +709,11 @@
 	var/mob/living/silicon/robot/R = loc
 	var/list/janitor_icons = list(
 		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "janitor"),
-		"Basic" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "robotJani"),
-		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone-janitor"),
-		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "Noble-CLN"),
-		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek-janitor"),
-		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina-JN")
+		"Basic" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "robot_janitor"),
+		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone_janitor"),
+		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "noble_janitor"),
+		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek_janitor"),
+		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina_janitor")
 	)
 	var/janitor_robot_icon = show_radial_menu(R, R, janitor_icons, custom_check = CALLBACK(src, .proc/check_menu, R, old_module), radius = 42, require_near = TRUE)
 	switch(janitor_robot_icon)
@@ -721,22 +721,22 @@
 			cyborg_base_icon = "janitor"
 			animated_transform = TRUE
 		if("Basic")
-			cyborg_base_icon = "robotJani"
+			cyborg_base_icon = "robot_janitor"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 			special_light_key = "robot"
 		if("Drone")
-			cyborg_base_icon = "drone-janitor"
+			cyborg_base_icon = "drone_janitor"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Noble")
-			cyborg_base_icon = "Noble-CLN"
+			cyborg_base_icon = "noble_janitor"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
-			special_light_key = "Noble-STD"
+			special_light_key = "noble_standard"
 		if("Sleek")
-			cyborg_base_icon = "sleek-janitor"
+			cyborg_base_icon = "sleek_janitor"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
-			special_light_key = "sleek-standard"
+			special_light_key = "sleek_standard"
 		if("Marina")
-			cyborg_base_icon = "marina-JN"
+			cyborg_base_icon = "marina_janitor"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		else
 			return FALSE
@@ -778,7 +778,7 @@
 	var/mob/living/silicon/robot/R = loc
 	var/list/clown_icons = list(
 		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "clown"),
-		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2-clown")
+		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2_clown")
 	)
 	var/clown_robot_icon = show_radial_menu(R, R, clown_icons, custom_check = CALLBACK(src, .proc/check_menu, R, old_module), radius = 42, require_near = TRUE)
 	switch(clown_robot_icon)
@@ -786,7 +786,7 @@
 			cyborg_base_icon = "clown"
 			animated_transform = TRUE
 		if("Tall")
-			cyborg_base_icon = "tall2-clown"
+			cyborg_base_icon = "tall2_clown"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		else
 			return FALSE
@@ -837,13 +837,13 @@
 		"Bro" = image(icon = 'icons/mob/robots.dmi', icon_state = "brobot"),
 		"Kent" = image(icon = 'icons/mob/robots.dmi', icon_state = "kent"),
 		"Tophat" = image(icon = 'icons/mob/robots.dmi', icon_state = "tophat"),
-		"Basic" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "robotServ"),
-		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone-service"),
-		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavyServ"),
-		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "Noble-SRV"),
-		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek-service"),
-		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2-service"),
-		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina-SV")
+		"Basic" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "robot_service"),
+		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone_service"),
+		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavy__service"),
+		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "noble_service"),
+		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek_service"),
+		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2_service"),
+		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina_service")
 	)
 	var/service_robot_icon = show_radial_menu(R, R, service_icons, custom_check = CALLBACK(src, .proc/check_menu, R, old_module), radius = 42, require_near = TRUE)
 	switch(service_robot_icon)
@@ -862,29 +862,29 @@
 			special_light_key = null
 			hat_offset = INFINITY //He's already wearing a hat
 		if("Basic")
-			cyborg_base_icon = "robotServ"
+			cyborg_base_icon = "robot_service"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 			special_light_key = "robot"
 		if("Drone")
-			cyborg_base_icon = "drone-service"
+			cyborg_base_icon = "drone_service"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Heavy")
-			cyborg_base_icon = "heavyServ"
+			cyborg_base_icon = "heavy__service"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Noble")
-			cyborg_base_icon = "Noble-SRV"
+			cyborg_base_icon = "noble_service"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
-			special_light_key = "Noble-STD"
+			special_light_key = "noble_standard"
 		if("Sleek")
-			cyborg_base_icon = "sleek-service"
+			cyborg_base_icon = "sleek_service"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
-			special_light_key = "sleek-standard"
+			special_light_key = "sleek_standard"
 		if("Tall")
-			cyborg_base_icon = "tall2-service"
+			cyborg_base_icon = "tall2_service"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
-			special_light_key = "tall2-standard"
+			special_light_key = "tall2_standard"
 		if("Marina")
-			cyborg_base_icon = "marina-SV"
+			cyborg_base_icon = "marina_service"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		else
 			return FALSE
@@ -932,13 +932,13 @@
 		"Lavaland Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "miner"),
 		"Asteroid Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "minerOLD"),
 		"Spider Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "spidermin"),
-		"Basic" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "robotMine"),
-		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone-miner"),
-		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavyMiner"),
-		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "Noble-DIG"),
-		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek-miner"),
-		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2-miner"),
-		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina-MN")
+		"Basic" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "robot-miner"),
+		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone_miner"),
+		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavy_miner"),
+		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "noble_miner"),
+		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek_miner"),
+		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2_miner"),
+		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina_miner")
 	)
 	var/miner_robot_icon = show_radial_menu(cyborg, cyborg, miner_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_module), radius = 42, require_near = TRUE)
 	switch(miner_robot_icon)
@@ -952,28 +952,28 @@
 		if("Spider Miner")
 			cyborg_base_icon = "spidermin"
 		if("Basic")
-			cyborg_base_icon = "robotMine"
+			cyborg_base_icon = "robot-miner"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 			special_light_key = "robot"
 		if("Drone")
-			cyborg_base_icon = "drone-miner"
+			cyborg_base_icon = "drone_miner"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Heavy")
-			cyborg_base_icon = "heavyMiner"
+			cyborg_base_icon = "heavy_miner"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Noble")
-			cyborg_base_icon = "Noble-DIG"
+			cyborg_base_icon = "noble_miner"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
-			special_light_key = "Noble-STD"
+			special_light_key = "noble_standard"
 		if("Sleek")
-			cyborg_base_icon = "sleek-miner"
+			cyborg_base_icon = "sleek_miner"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
-			special_light_key = "sleek-standard"
+			special_light_key = "sleek_standard"
 		if("Tall")
-			cyborg_base_icon = "tall2-miner"
+			cyborg_base_icon = "tall2_miner"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Marina")
-			cyborg_base_icon = "marina-MN"
+			cyborg_base_icon = "marina_miner"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		else
 			return FALSE
@@ -1019,14 +1019,14 @@
 	var/mob/living/silicon/robot/R = loc
 	var/list/syndicate_icons = list(
 		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "synd_sec"),
-		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavySyndie")
+		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavy_syndicate")
 	)
 	var/syndicate_robot_icon = show_radial_menu(R, R, syndicate_icons, custom_check = CALLBACK(src, .proc/check_menu, R, old_module), radius = 42, require_near = TRUE)
 	switch(syndicate_robot_icon)
 		if("Default")
 			cyborg_base_icon = "synd_sec"
 		if("Heavy")
-			cyborg_base_icon = "heavySyndie"
+			cyborg_base_icon = "heavy_syndicate"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		else
 			return FALSE
