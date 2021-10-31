@@ -306,8 +306,7 @@
 		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "noble_standard"),
 		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek_standard"),
 		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2_standard"),
-		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina_standard"),
-		"Insekt" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "insekt_standard")
+		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina_standard")
 	)
 	var/standard_robot_icon = show_radial_menu(R, R, standard_icons, custom_check = CALLBACK(src, .proc/check_menu, R, old_module), radius = 42, require_near = TRUE)
 	switch(standard_robot_icon)
@@ -331,9 +330,6 @@
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Marina")
 			cyborg_base_icon = "marina_standard"
-			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
-		if("Insekt")
-			cyborg_base_icon = "insekt_standard"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		else
 			return FALSE
@@ -385,7 +381,6 @@
 		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek_medical"),
 		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2_medical"),
 		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina_medical"),
-		"Insekt" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "insekt_medical"),
 		"Arachne" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "arachne")
 	)
 	var/medical_robot_icon = show_radial_menu(R, R, medical_icons, custom_check = CALLBACK(src, .proc/check_menu, R, old_module), radius = 42, require_near = TRUE)
@@ -416,9 +411,6 @@
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Marina")
 			cyborg_base_icon = "marina_medical"
-			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
-		if("Insekt")
-			cyborg_base_icon = "insekt_medical"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Arachne")
 			cyborg_base_icon = "arachne"
@@ -576,8 +568,7 @@
 		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "noble_security"),
 		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek_security"),
 		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2_security"),
-		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina_security"),
-		"Insekt" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "insekt_security")
+		"Marina" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "marina_security")
 	)
 	var/security_robot_icon = show_radial_menu(R, R, security_icons, custom_check = CALLBACK(src, .proc/check_menu, R, old_module), radius = 42, require_near = TRUE)
 	switch(security_robot_icon)
@@ -607,9 +598,6 @@
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Marina")
 			cyborg_base_icon = "marina_security"
-			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
-		if("Insekt")
-			cyborg_base_icon = "insekt_security"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		else
 			return FALSE
