@@ -160,56 +160,56 @@
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_RED
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1+get_dist(src, L)
+			L.light_range  = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if(t.x == cen.x && t.y < cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_PURPLE
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1+get_dist(src, L)
+			L.light_range  = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if(t.x > cen.x && t.y == cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_YELLOW
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1+get_dist(src, L)
+			L.light_range = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if(t.x < cen.x && t.y == cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_GREEN
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1+get_dist(src, L)
+			L.light_range = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x+1 == cen.x && t.y+1 == cen.y) || (t.x+2==cen.x && t.y+2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_ORANGE
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1.4+get_dist(src, L)
+			L.light_range = 1.4+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x-1 == cen.x && t.y-1 == cen.y) || (t.x-2==cen.x && t.y-2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_CYAN
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1.4+get_dist(src, L)
+			L.light_range = 1.4+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x-1 == cen.x && t.y+1 == cen.y) || (t.x-2==cen.x && t.y+2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_BLUEGREEN
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1.4+get_dist(src, L)
+			L.light_range = 1.4+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x+1 == cen.x && t.y-1 == cen.y) || (t.x+2==cen.x && t.y-2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_BLUE
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1.4+get_dist(src, L)
+			L.light_range = 1.4+get_dist(src, L)
 			spotlights+=L
 			continue
 		continue
@@ -256,7 +256,7 @@
 				continue
 			if(glow.light_color == LIGHT_COLOR_BLUE)
 				glow.light_color = LIGHT_COLOR_GREEN
-				glow.light_range = glow.range * DISCO_INFENO_RANGE
+				glow.light_range = glow.light_range * DISCO_INFENO_RANGE
 				glow.light_power = glow.light_power * 2 // Any changes to power must come in pairs to neutralize it for other colors
 				glow.update_light()
 				continue
@@ -269,7 +269,7 @@
 			if(glow.light_color == LIGHT_COLOR_ORANGE)
 				glow.light_color = LIGHT_COLOR_PURPLE
 				glow.light_power = glow.light_power * 2.27
-				glow.light_range = glow.range * DISCO_INFENO_RANGE
+				glow.light_range = glow.light_range * DISCO_INFENO_RANGE
 				glow.update_light()
 				continue
 			if(glow.light_color == LIGHT_COLOR_PURPLE)
@@ -280,7 +280,7 @@
 				continue
 			if(glow.light_color == LIGHT_COLOR_BLUEGREEN)
 				glow.light_color = LIGHT_COLOR_YELLOW
-				glow.light_range = glow.range * DISCO_INFENO_RANGE
+				glow.light_range = glow.light_range * DISCO_INFENO_RANGE
 				glow.update_light()
 				continue
 			if(glow.light_color == LIGHT_COLOR_YELLOW)
@@ -291,7 +291,7 @@
 			if(glow.light_color == LIGHT_COLOR_CYAN)
 				glow.light_color = LIGHT_COLOR_RED
 				glow.light_power = glow.light_power * 0.68
-				glow.light_range = glow.range * DISCO_INFENO_RANGE
+				glow.light_range = glow.light_range * DISCO_INFENO_RANGE
 				glow.update_light()
 				continue
 		if(prob(2))  // Unique effects for the dance floor that show up randomly to mix things up
