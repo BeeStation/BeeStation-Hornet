@@ -180,7 +180,8 @@ export const TechwebContent = (props, context) => {
             </Box>
             <Box>
               <Button
-                onClick={() => { act("compactify"); }}>
+                onClick={() => { act("compactify"); }}
+                color={compact ? "blue" : "yellow"}>
                 Compactify
               </Button>
               <Button
