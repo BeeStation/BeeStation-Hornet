@@ -1,0 +1,4 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - rscadd: Banning panel suppression check is now silent
