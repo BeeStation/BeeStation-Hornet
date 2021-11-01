@@ -827,7 +827,7 @@
 		"Tophat" = image(icon = 'icons/mob/robots.dmi', icon_state = "tophat"),
 		"Basic" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "robot_service"),
 		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone_service"),
-		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavy__service"),
+		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavy_service"),
 		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "noble_service"),
 		"Sleek" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "sleek_service"),
 		"Tall" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "tall2_service"),
@@ -857,7 +857,7 @@
 			cyborg_base_icon = "drone_service"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Heavy")
-			cyborg_base_icon = "heavy__service"
+			cyborg_base_icon = "heavy_service"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 		if("Noble")
 			cyborg_base_icon = "noble_service"
@@ -920,7 +920,7 @@
 		"Lavaland Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "miner"),
 		"Asteroid Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "minerOLD"),
 		"Spider Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "spidermin"),
-		"Basic" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "robot-miner"),
+		"Basic" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "robot_miner"),
 		"Drone" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "drone_miner"),
 		"Heavy" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "heavy_miner"),
 		"Noble" = image(icon = 'icons/mob/robots_extra.dmi', icon_state = "noble_miner"),
@@ -940,7 +940,7 @@
 		if("Spider Miner")
 			cyborg_base_icon = "spidermin"
 		if("Basic")
-			cyborg_base_icon = "robot-miner"
+			cyborg_base_icon = "robot_miner"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
 			special_light_key = "robot"
 		if("Drone")
