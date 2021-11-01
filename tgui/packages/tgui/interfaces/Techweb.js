@@ -143,6 +143,7 @@ export const TechwebContent = (props, context) => {
     d_disk,
     locked,
     linkedanalyzer,
+    compact,
   } = data;
   const [
     techwebRoute,
@@ -179,11 +180,12 @@ export const TechwebContent = (props, context) => {
               </span>
             </Box>
             <Box>
-              <Button
+              <Button.Checkbox
+                color="default"
                 onClick={() => { act("compactify"); }}
-                color={compact ? "blue" : "yellow"}>
+                checked={!compact}>
                 Compactify
-              </Button>
+              </Button.Checkbox>
               <Button
                 icon="link"
                 onClick={() => { act("linkmachines"); }} >
