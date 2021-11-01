@@ -1188,6 +1188,26 @@
 	..()
 	. = 1
 
+/datum/reagent/medicine/meclizine
+	name = "Meclizine"
+	description = "A medicine which prevents vomiting."
+	reagent_state = LIQUID
+	color = "#cecece"
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+	overdose_threshold = 25
+
+/datum/reagent/medicine/meclizine/on_mob_life(mob/living/carbon/M)
+	if(prob(25))
+		M.adjustToxLoss(-1) //Vomiting prevention handled in vomit()
+	..()
+	. = 1
+
+/datum/reagent/medicine/meclizine/overdose_process(mob/living/M)
+	M.adjustToxLoss(2)
+	M.adjustOrganLoss(ORGAN_SLOT_STOMACH, 2)
+	..()
+	. = 1
+
 /datum/reagent/medicine/hepanephrodaxon
 	name = "Hepanephrodaxon"
 	description = "Used to repair the common tissues involved in filtration."

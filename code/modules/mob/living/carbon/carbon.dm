@@ -462,6 +462,9 @@
 	if(!has_mouth())
 		return 1
 
+	if(reagents.has_reagent(/datum/reagent/medicine/meclizine, 1, TRUE))
+		return 1
+
 	if(nutrition < 100 && !blood)
 		if(message)
 			visible_message("<span class='warning'>[src] dry heaves!</span>", \
