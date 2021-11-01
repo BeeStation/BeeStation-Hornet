@@ -183,7 +183,7 @@ export const TechwebContent = (props, context) => {
               <Button.Checkbox
                 color="default"
                 onClick={() => { act("compactify"); }}
-                checked={compact}>
+                checked={!compact}>
                 Compactify
               </Button.Checkbox>
               <Button
