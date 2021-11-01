@@ -24518,10 +24518,10 @@
 /area/ai_monitored/security/armory)
 "fHT" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/rnd/production/circuit_imprinter,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 6
 	},
+/obj/machinery/rnd/production/circuit_imprinter/department/engineering,
 /turf/open/floor/plasteel/dark,
 /area/engine/storage_shared)
 "fHZ" = (

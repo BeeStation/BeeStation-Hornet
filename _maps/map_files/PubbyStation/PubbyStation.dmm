@@ -52713,7 +52713,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "cCU" = (
-/obj/machinery/rnd/production/circuit_imprinter,
+/obj/machinery/rnd/production/circuit_imprinter/department/engineering,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "cCV" = (
