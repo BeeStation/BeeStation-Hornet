@@ -11,7 +11,7 @@
 	department_tag = "Science"
 
 /obj/machinery/rnd/production/circuit_imprinter/department/engineering
-	name = "department circuit imprinter (Science)"
+	name = "department circuit imprinter (Engineering)"
 	circuit = /obj/item/circuitboard/machine/circuit_imprinter/department/science
-	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_SCIENCE
+	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_ENGINEERING
 	department_tag = "Engineering"
