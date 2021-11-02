@@ -1200,13 +1200,13 @@
 	if(prob(25))
 		M.adjustToxLoss(-1) //Vomiting prevention handled in vomit()
 	..()
-	. = 1
+	. = TRUE //Some other poor sod can do the rest, I just make chems
 
 /datum/reagent/medicine/meclizine/overdose_process(mob/living/M)
 	M.adjustToxLoss(2)
 	M.adjustOrganLoss(ORGAN_SLOT_STOMACH, 2)
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/medicine/hepanephrodaxon
 	name = "Hepanephrodaxon"
