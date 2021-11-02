@@ -15621,8 +15621,8 @@
 /obj/machinery/door/firedoor,
 /obj/structure/table,
 /obj/machinery/door/poddoor/shutters{
-	id = "sidestallshutters";
-	name = "Side Stall Shutters"
+	id = "foodstallshutters";
+	name = "Food Stall Shutters"
 	},
 /turf/open/floor/plasteel/dark,
 /area/vacant_room/commissary/commissaryFood)
@@ -41374,6 +41374,13 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 6
+	},
+/obj/machinery/button/door{
+	id = "stallfood";
+	name = "Food Stall Shutters Control";
+	pixel_x = 5;
+	pixel_y = 26;
+	req_access_txt = null
 	},
 /turf/open/floor/plasteel/dark,
 /area/vacant_room/commissary/commissaryFood)
@@ -67597,8 +67604,8 @@
 	dir = 8
 	},
 /obj/machinery/button/door{
-	id = "sidestallshutters";
-	name = "Side Stall Shutters Control";
+	id = "foodstallshutters";
+	name = "Food Stall Shutters Control";
 	pixel_x = -26;
 	pixel_y = -5;
 	req_access_txt = null
@@ -93512,7 +93519,7 @@
 /area/vacant_room/commissary/commissaryFood)
 "vme" = (
 /obj/machinery/door/airlock{
-	id_tag = commisaryFood;
+	id_tag = "stallfood";
 	name = "Food Commissary"
 	},
 /obj/structure/cable/yellow{
