@@ -233,6 +233,9 @@
 	if(!istype(M))
 		return
 	if(isoozeling(M))
+		if(M.blood_volume <= 0)
+			M.blood_volume = 0
+			return
 		M.blood_volume -= 30
 		to_chat(M, "<span class='warning'>The water causes you to melt away!</span>")
 		return
