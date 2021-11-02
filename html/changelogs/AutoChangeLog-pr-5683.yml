@@ -1,5 +1,0 @@
-author: MNarath1
-delete-after: true
-changes:
-  - rscadd: RD now has exploration coms
-  - tweak: RD now can now edit exploration dock access
