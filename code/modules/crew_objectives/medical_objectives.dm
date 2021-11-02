@@ -10,7 +10,7 @@
 		/area/medical/sleeper, /area/medical/storage))
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
 		var/area/A = get_area(H)
-		if(H.stat == DEAD && is_station_level(H.z) && is_type_in_typecache(A, medical_areas)) // If person is dead and corpse is in one of these areas
+		if(H.stat == DEAD && is_station_level(H.z) && medical_areas[A.type]) // If person is dead and corpse is in one of these areas
 			return FALSE
 	return TRUE
 
@@ -24,7 +24,7 @@
 		/area/medical/sleeper, /area/medical/storage, /area/medical/morgue))
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
 		var/area/A = get_area(H)
-		if(H.stat == DEAD && is_station_level(H.z) && !is_type_in_typecache(A, medical_areas_morgue)) // If person is dead and corpse is NOT in one of these areas
+		if(H.stat == DEAD && is_station_level(H.z) && !medical_areas_morgue[A.type]) // If person is dead and corpse is NOT in one of these areas
 			return FALSE
 	return TRUE
 

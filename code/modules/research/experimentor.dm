@@ -56,7 +56,7 @@
 		else
 			item_reactions["[I]"] = pick(SCANTYPE_POKE,SCANTYPE_IRRADIATE,SCANTYPE_GAS,SCANTYPE_HEAT,SCANTYPE_COLD,SCANTYPE_OBLITERATE)
 
-		if(is_type_in_typecache(I, banned_typecache))
+		if(banned_typecache[I.type])
 			continue
 
 		if(ispath(I, /obj/item/stock_parts) || ispath(I, /obj/item/grenade/chem_grenade) || ispath(I, /obj/item/kitchen))
@@ -245,7 +245,7 @@
 	recentlyExperimented = 1
 	icon_state = "h_lathe_wloop"
 	var/chosenchem
-	var/criticalReaction = is_type_in_typecache(exp_on,  critical_items_typecache)
+	var/criticalReaction = [exp_on.type]critical_items_typecache)
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	if(exp == SCANTYPE_POKE)
 		visible_message("[src] prods at [exp_on] with mechanical arms.")

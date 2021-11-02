@@ -579,7 +579,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	if(!istype(target))
 		to_chat(ranged_ability_user, "<span class='warning'>You can only overload machines!</span>")
 		return
-	if(is_type_in_typecache(target, GLOB.blacklisted_malf_machines))
+	if(GLOB.blacklisted_malf_machines[target.type])
 		to_chat(ranged_ability_user, "<span class='warning'>You cannot overload that device!</span>")
 		return
 	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, 0)
@@ -626,7 +626,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	if(!istype(target))
 		to_chat(ranged_ability_user, "<span class='warning'>You can only animate machines!</span>")
 		return
-	if(!target.can_be_overridden() || is_type_in_typecache(target, GLOB.blacklisted_malf_machines))
+	if(!target.can_be_overridden() || GLOB.blacklisted_malf_machines[target.type])
 		to_chat(ranged_ability_user, "<span class='warning'>That machine can't be overridden!</span>")
 		return
 	ranged_ability_user.playsound_local(ranged_ability_user, 'sound/misc/interference.ogg', 50, 0)

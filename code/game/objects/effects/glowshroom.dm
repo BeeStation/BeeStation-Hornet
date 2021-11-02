@@ -94,7 +94,7 @@
 				spreadsIntoAdjacent = TRUE
 
 			for(var/turf/open/floor/earth in view(3,src))
-				if(is_type_in_typecache(earth, blacklisted_glowshroom_turfs))
+				if(blacklisted_glowshroom_turfs[earth.type])
 					continue
 				if(!ownturf.CanAtmosPass(earth))
 					continue

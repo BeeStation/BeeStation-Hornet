@@ -200,7 +200,7 @@
 				/turf/open/space,
 				/turf/open/lava,
 				/turf/open/chasm))
-			if(is_type_in_typecache(T, blacklisted_pylon_turfs))
+			if(blacklisted_pylon_turfs[T.type])
 				continue
 			else
 				validturfs |= T

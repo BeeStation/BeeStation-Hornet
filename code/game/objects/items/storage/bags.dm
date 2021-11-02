@@ -163,7 +163,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	if(STR)
 		for(var/A in tile)
-			if (!is_type_in_typecache(A, STR.can_hold))
+			if (!STR.can_hold[A.type])
 				continue
 			if (box)
 				user.transferItemToLoc(A, box)

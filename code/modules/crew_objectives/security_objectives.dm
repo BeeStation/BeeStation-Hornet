@@ -39,6 +39,6 @@
 	var/list/security_areas = typecacheof(list(/area/security, /area/security/brig, /area/security/main, /area/security/prison, /area/security/processing))
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
 		var/area/A = get_area(H)
-		if(H.stat == DEAD && is_station_level(H.z) && is_type_in_typecache(A, security_areas)) // If person is dead and corpse is in one of these areas
+		if(H.stat == DEAD && is_station_level(H.z) && security_areas[A.type]) // If person is dead and corpse is in one of these areas
 			return FALSE
 	return TRUE

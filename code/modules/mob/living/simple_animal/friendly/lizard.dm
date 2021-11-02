@@ -27,12 +27,12 @@
 /mob/living/simple_animal/hostile/lizard/CanAttack(atom/the_target)//Can we actually attack a possible target?
 	if(see_invisible < the_target.invisibility)//Target's invisible to us, forget it
 		return FALSE
-	if(is_type_in_typecache(the_target,edibles))
+	if(edibles[the_target.type])
 		return TRUE
 	return FALSE
 
 /mob/living/simple_animal/hostile/lizard/AttackingTarget()
-	if(is_type_in_typecache(target,edibles)) //Makes sure player lizards only consume edibles.
+	if(edibles[target.type]) //Makes sure player lizards only consume edibles.
 		visible_message("[name] consumes [target] in a single gulp.", "<span class='notice'>You consume [target] in a single gulp.</span>")
 		QDEL_NULL(target) //Nom
 		adjustBruteLoss(-2)

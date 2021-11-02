@@ -71,7 +71,7 @@
 /// Returns TRUE if the item can be sacrificed. Can be modified to fit item being tested as well as person offering. Returning TRUE will stop the attackby sequence and proceed to on_sacrifice.
 /datum/religion_sect/proc/can_sacrifice(obj/item/I, mob/living/L)
 	. = TRUE
-	if(!is_type_in_typecache(I,desired_items_typecache))
+	if(!desired_items_typecache[I.type])
 		return FALSE
 
 /// Activates when the sect sacrifices an item. This proc has NO bearing on the attackby sequence of other objects when used in conjunction with the religious_tool component.

@@ -702,7 +702,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		var/turf/T = get_step(src, dir)
 		new /obj/effect/temp_visual/emp/pulse(T)
 		for(var/i in T)
-			if(isitem(i) && !is_type_in_typecache(i, banned_items_typecache))
+			if(isitem(i) && !banned_items_typecache[i.type])
 				var/obj/item/W = i
 				if(!(W.flags_1 & ADMIN_SPAWNED_1) && !(W.flags_1 & HOLOGRAM_1) && !(W.item_flags & ABSTRACT))
 					L += W

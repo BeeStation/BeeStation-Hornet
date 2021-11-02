@@ -18,7 +18,7 @@
 ///Special throw_impact for hats to frisbee hats at people to place them on their heads/attempt to de-hat them.
 /obj/item/clothing/head/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
 	. = ..()
-	///if the thrown object's target zone isn't the head	
+	///if the thrown object's target zone isn't the head
 	if(thrownthing.target_zone != BODY_ZONE_HEAD)
 		return
 	///ignore any hats with special effects that prevent removal ie tinfoil hats
@@ -35,7 +35,7 @@
 			if(HAS_TRAIT(WH, TRAIT_NODROP))
 				H.visible_message("<span class='warning'>[src] bounces off [H]'s [WH.name]!</span>", "<span class='warning'>[src] bounces off your [WH.name], falling to the floor.</span>")
 				return
-			///check if the item is an actual clothing head item, since some non-clothing items can be worn	
+			///check if the item is an actual clothing head item, since some non-clothing items can be worn
 			if(istype(WH, /obj/item/clothing/head))
 				var/obj/item/clothing/head/WHH = WH
 				///SNUG_FIT hats are immune to being knocked off
@@ -44,14 +44,14 @@
 					return
 			///if the hat manages to knock something off
 			if(H.dropItemToGround(WH))
-				H.visible_message("<span class='warning'>[src] knocks [WH] off [H]'s head!</span>", "<span class='warning'>[WH] is suddenly knocked off your head by [src]!</span>")		
+				H.visible_message("<span class='warning'>[src] knocks [WH] off [H]'s head!</span>", "<span class='warning'>[WH] is suddenly knocked off your head by [src]!</span>")
 		if(H.equip_to_slot_if_possible(src, ITEM_SLOT_HEAD, 0, 1, 1))
 			H.visible_message("<span class='notice'>[src] lands neatly on [H]'s head!</span>", "<span class='notice'>[src] lands perfectly onto your head!</span>")
 		return
 	if(iscyborg(hit_atom))
 		var/mob/living/silicon/robot/R = hit_atom
 		///hats in the borg's blacklist bounce off
-		if(is_type_in_typecache(src, R.blacklisted_hats))
+		if(R.blacklisted_hats[src.type])
 			R.visible_message("<span class='warning'>[src] bounces off [R]!</span>", "<span class='warning'>[src] bounces off you, falling to the floor.</span>")
 			return
 		else
