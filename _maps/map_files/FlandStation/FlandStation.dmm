@@ -12923,8 +12923,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock{
-	id_tag = commissarydoor2;
-	name = "Commissary  #2"
+	id_tag = "commissarydoor2";
+	name = "Commissary #2"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -77388,8 +77388,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock{
-	id_tag = commissarydoor1;
-	name = "Commissary  #1"
+	id_tag = "commissarydoor1";
+	name = "Commissary #1"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
