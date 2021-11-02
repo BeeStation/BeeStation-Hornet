@@ -19,6 +19,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_JANITOR
 	departments = DEPARTMENT_SERVICE
+	rpg_title = "Groundskeeper"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/janitor

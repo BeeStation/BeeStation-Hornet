@@ -34,6 +34,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR
 	departments = DEPARTMENT_SCIENCE | DEPARTMENT_COMMAND
+	rpg_title = "Archmagister"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/rd

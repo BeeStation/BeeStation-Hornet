@@ -339,6 +339,8 @@
 			give_magic(humanc)
 		if(GLOB.curse_of_madness_triggered)
 			give_madness(humanc, GLOB.curse_of_madness_triggered)
+			
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREWMEMBER_JOINED, humanc, rank)
 
 	GLOB.joined_player_list += character.ckey
 

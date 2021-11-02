@@ -33,6 +33,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_SECURITY
 	departments = DEPARTMENT_SECURITY | DEPARTMENT_COMMAND
+	rpg_title = "Guard Leader"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hos
