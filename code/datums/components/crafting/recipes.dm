@@ -980,7 +980,7 @@
 	name = "Iron Pickaxe"
 	result = /obj/item/pickaxe
 	time = 40
-	reqs = list(obj/item/stack/sheet/iron = 3,
+	reqs = list(/obj/item/stack/sheet/iron = 3,
 			/obj/item/stack/sheet/mineral/wood = 2
 			)
 	category = CAT_PRIMAL
@@ -990,7 +990,7 @@
 	name = "Silver Pickaxe"
 	result = /obj/item/pickaxe/silver
 	time = 50
-	reqs = list(obj/item/stack/sheet/mineral/silver = 3,
+	reqs = list(/obj/item/stack/sheet/mineral/silver = 3,
 			/obj/item/stack/sheet/mineral/wood = 2
 			)
 	category = CAT_PRIMAL
@@ -1000,7 +1000,7 @@
 	name = "Diamond Pickaxe"
 	result = /obj/item/pickaxe/diamond
 	time = 60
-	reqs = list(obj/item/stack/sheet/mineral/diamond = 3,
+	reqs = list(/obj/item/stack/sheet/mineral/diamond = 3,
 			/obj/item/stack/sheet/mineral/wood = 2
 			)
 	category = CAT_PRIMAL
