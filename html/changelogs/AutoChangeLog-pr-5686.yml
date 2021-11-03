@@ -1,5 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - bugfix: The R&D Console no longer crashes when trying to analyze an item with
-      no reclaimable materials.
