@@ -498,7 +498,7 @@ const TechwebItemmaterials = (props, context) => {
   const { act, data } = useRemappedBackend(context);
   const { itemmats, itempoints } = data;
 
-  return (
+  return (itempoints || itemmats) && (
     <Section mt={1} className="Techweb__NodeContainer">
       {!!itempoints && (
         <>
