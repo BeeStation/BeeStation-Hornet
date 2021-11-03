@@ -2,7 +2,7 @@ import { range } from "common/collections";
 import { BooleanLike, classes } from "common/react";
 import { resolveAsset } from "../assets";
 import { useBackend } from "../backend";
-import { Box, Button, Icon, Stack, Table } from "../components";
+import { Box, Button, Stack, Table } from "../components";
 import { Window } from "../layouts";
 
 
@@ -198,7 +198,6 @@ type StripMenuData = {
 type StripMenuRowData = {
   slotName: string;
   itemName?: string;
-  icon?: Element;
   obscured?: ObscuringLevel;
   alternates?: AlternateAction[];
   hidden: BooleanLike;
@@ -210,13 +209,7 @@ type StripMenuRowData = {
 // Sizes here are in em
 
 const rowHeightRaw = 1.8
-const imageSizeRaw = 1.6
-const imageSizeItemRaw = imageSizeRaw*2
-const imageColumnWidthRaw = rowHeightRaw*0.7
 
-const imageSize = `${imageSizeRaw}em`
-const imageSizeItem = `${imageSizeItemRaw}em`
-const imageColumnWidth = `${imageColumnWidthRaw}em`
 const rowHeight = `${rowHeightRaw}em`
 
 export const StripMenu = (props, context) => {
@@ -247,49 +240,6 @@ export const StripMenu = (props, context) => {
         hidden: slot.indented && !hadLastTopLevelSlot
       };
 
-      if(item && "alternate" in item && ALTERNATE_ACTIONS[item.alternate])
-        row.alternates = [ALTERNATE_ACTIONS[item.alternate]]
-
-      if(!row.obscured)
-      {
-        row.icon = <Box
-          as="img"
-          src={item ? `data:image/png;base64,${item.icon}` : resolveAsset(slot.image)}
-          width={item ? imageSizeItem : imageSize}
-          //style={{
-          //  "vertical-align": "middle",
-          //}}
-        />
-      }
-      //*
-      else if(row.obscured)
-      {
-        row.icon = 
-            <Icon
-              name={
-                item.obscured === ObscuringLevel.Completely
-                  ? "ban"
-                  : "eye-slash"
-              }
-              fontSize={imageSize}/>
-      }
-      //*/
-
-      /*
-      if(row.icon)
-      {
-        row.icon = <Box className="strip-menu-icon"
-          //position="absolute"
-          //height={imageSize}
-          //width={imageSize}
-          //top={imageOffset}
-          //left={imageOffset}
-          >
-          {row.icon}
-        </Box>
-      }
-      //*/
-
       rows.push(row);
 
       if(!slot.indented)
@@ -319,15 +269,6 @@ export const StripMenu = (props, context) => {
             >
           {row.slotName}:
         </Table.Cell>
-        {/*}
-        <Table.Cell height={rowHeight} width={imageColumnWidth}>
-          <Box as="div" height={rowHeight} width="100%" position="relative" className="strip-menu-icon-container">
-            <Box as="div">
-              {row.icon}
-            </Box>
-          </Box>
-        </Table.Cell>
-        {*/}
         <Table.Cell pl={2} pr={1.5}>
           {
             !row.hidden && (
