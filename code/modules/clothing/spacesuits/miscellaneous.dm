@@ -14,6 +14,7 @@ Contains:
  - Carp hardsuit
  - Bounty hunter hardsuit
  - Emergency skinsuit
+ - IDPD Hardsuit: Grunt, Observer, Shielder, Captain
 */
 
 	//Death squad armored space suits, not hardsuits!
@@ -552,3 +553,67 @@ Contains:
 
 /obj/item/clothing/suit/space/hardsuit/skinsuit/attackby(obj/item/I, mob/user, params)
 	return
+
+
+////IDPD HARDSUITS////
+////Grunt
+/obj/item/clothing/suit/space/hardsuit/ert/idpd
+	name = "grunt suit"
+	desc = "The integrated helmet of an ERT hardsuit, this one has blue highlights."
+	icon = 'icons/mob/IDPD.dmi'
+	icon_state = "idpd_grunt_suit"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/idpd
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
+	armor = list("melee" = 65, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80, "stamina" = 70)
+	slowdown = 0
+	strip_delay = 130
+	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/idpd
+	name = "emergency response team commander helmet"
+	desc = "The integrated helmet of an ERT hardsuit, this one has blue highlights."
+	icon = 'icons/mob/IDPD.dmi'
+	icon_state = "idpd_grunt_helmet"
+	armor = list("melee" = 65, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80, "stamina" = 70)
+	strip_delay = 130
+	brightness_on = 7
+	resistance_flags = FIRE_PROOF
+
+////Captain
+/obj/item/clothing/suit/space/hardsuit/ert/idpd/captain
+	name = "captain suit"
+	desc = ""
+	icon_state = "idpd_captain_suit"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/idpd/captain
+	armor = list("melee" = 80, "bullet" = 70, "laser" = 70, "energy" = 70, "bomb" = 70, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 90, "stamina" = 90)
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/idpd/captain
+	name = "captain helmet"
+	desc = ""
+	icon_state = "idpd_captain_helmet"
+	armor = list("melee" = 80, "bullet" = 70, "laser" = 70, "energy" = 70, "bomb" = 70, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 90, "stamina" = 90)
+
+///Observer
+/obj/item/clothing/suit/space/hardsuit/ert/idpd/observer
+	name = "observer suit"
+	desc = ""
+	icon_state = "idpd_observer_suit"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/idpd/observer
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/idpd/observer
+	name = "observer helmet"
+	desc = ""
+	icon_state = "idpd_observer_helmet"
+
+
+///Shielder
+/obj/item/clothing/suit/space/hardsuit/ert/idpd/shielder
+	name = "shielder suit"
+	desc = ""
+	icon_state = "idpd_shielder_suit"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/idpd/shielder
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/idpd/shielder
+	name = "shielder helmet"
+	desc = ""
+	icon_state = "idpd_shielder_helmet"
