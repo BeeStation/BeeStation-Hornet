@@ -364,7 +364,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	switch(A.stage)
 		if(4, 5)
 			M.adjust_fire_stacks(-5)
-			if(prob(30))
+			if(prob(30) && !ammonia)
 				var/turf/open/OT = get_turf(M)
 				if(istype(OT))
 					to_chat(M, "<span class='danger'>The sweat pools into a puddle!</span>")
@@ -512,7 +512,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(prob(5) && bruteheal)
 				to_chat(M, "<span class='userdanger'>You retch, and a splatter of gore escapes your gullet!</span>")
 				M.Immobilize(5)
-				new /obj/effect/decal/cleanable/blood/(M.loc)
+				M.add_splatter_floor()
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
 				if(prob(60) && M.mind && ishuman(M))
 					if(tetsuo && prob(15))
@@ -523,28 +523,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 							new /obj/effect/spawner/lootdrop/teratoma/robot(M.loc)
 					new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
 				if(tetsuo)
-					var/list/organcantidates = list()
 					var/list/missing = M.get_missing_limbs()
 					if(prob(35))
 						new /obj/effect/decal/cleanable/blood/gibs(M.loc) //yes. this is very messy. very, very messy.
 						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
-						for(var/obj/item/organ/O in M.loc)
-							if(O.organ_flags & ORGAN_FAILING || O.organ_flags & ORGAN_VITAL) //dont use shitty organs or brains
-								continue
-							if(O.organ_flags & (ORGAN_SYNTHETIC)) //if we can infect robots, we can implant cyber organs
-								if(MOB_ROBOTIC in A.infectable_biotypes) //why do i have to do this this way? no idea, but it wont fucking work otherwise
-									organcantidates += O
-								continue
-							organcantidates += O
-							if(ishuman(M))
-								var/mob/living/carbon/human/H = M //To view species
-								if(!is_species(H, /datum/species/plasmaman))
-									O -= /obj/item/organ/lungs/plasmaman //So this disease doesn't eventually kill everyone with lungs
-						if(organcantidates.len)
-							for(var/I in 1 to min(rand(1, 3), organcantidates.len))
-								var/obj/item/organ/chosen = pick_n_take(organcantidates)
-								chosen.Insert(M, TRUE, FALSE)
-								to_chat(M, "<span class='userdanger'>As the [chosen] touches your skin, it is promptly absorbed.</span>")
 					if(missing.len) //we regrow one missing limb
 						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling.
 							if(M.regenerate_limb(Z, TRUE))
@@ -572,7 +554,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 								break
 			if(bruteheal)
 				M.heal_overall_damage(2 * power, required_status = BODYPART_ORGANIC)
-				if(prob(11 * power))
+				if(prob(33) && tetsuo)
 					M.adjustCloneLoss(1)
 		else
 			if(prob(5))
