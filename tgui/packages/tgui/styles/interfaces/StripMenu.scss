@@ -1,0 +1,46 @@
+@use '../base.scss';
+@use '../colors.scss';
+@use '../atomic/color.scss';
+
+.strip-menu-table > tbody {
+	> tr {
+		&.hidden {
+			> td:nth-child(1) {
+				@extend .color-grey;
+			}
+		}
+
+		&.indented > td:nth-child(1)::before {
+			content: "↳";
+		}
+
+		&.spaced > td {
+			padding-bottom: 1em;
+		}
+
+		> td {
+			vertical-align: middle;
+			&:nth-child(2) {
+				> div {
+					@extend .color-bg-grey;
+				}
+			}
+		}
+	}
+}
+
+.strip-menu-icon {
+	position: absolute;
+	overflow: visible;
+	height: 100%;
+	width: 100%;
+	> * {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		-ms-transform: translate(-50%, -50%);
+		font-size: 1.5em;
+        z-index: 1;
+	}
+}
