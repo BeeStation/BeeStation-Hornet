@@ -216,7 +216,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			if(!casting_clothes[H.wear_suit.type])
 				to_chat(H, "<span class='notice'>I don't feel strong enough without my robe.</span>")
 				return FALSE
-			if(!casting_clothes[H.head.type, casting_clothes])
+			if(!casting_clothes[H.head.type])
 				to_chat(H, "<span class='notice'>I don't feel strong enough without my hat.</span>")
 				return FALSE
 		if(cult_req) //CULT_REQ CLOTHES CHECK
