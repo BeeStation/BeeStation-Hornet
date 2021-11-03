@@ -798,8 +798,8 @@ GLOBAL_LIST_INIT(WALLITEMS_INVERSE, typecacheof(list(
 			if(get_turf_pixel(O) == locdir)
 				return 1
 
-		if(GLOB.WALLITEMS_EXTERNAL[O.type]) && check_external)
-			if(GLOB.WALLITEMS_INVERSE[O.type]))
+		if(GLOB.WALLITEMS_EXTERNAL[O.type] && check_external)
+			if(GLOB.WALLITEMS_INVERSE[O.type])
 				if(O.dir == turn(dir, 180))
 					return 1
 			else if(O.dir == dir)
@@ -807,7 +807,7 @@ GLOBAL_LIST_INIT(WALLITEMS_INVERSE, typecacheof(list(
 
 	//Some stuff is placed directly on the wallturf (signs)
 	for(var/obj/O in locdir)
-		if(GLOB.WALLITEMS[O.type]) && check_external != 2)
+		if(GLOB.WALLITEMS[O.type] && check_external != 2)
 			if(O.pixel_x == 0 && O.pixel_y == 0)
 				return 1
 	return 0
