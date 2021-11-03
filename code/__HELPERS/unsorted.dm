@@ -787,7 +787,7 @@ GLOBAL_LIST_INIT(WALLITEMS_INVERSE, typecacheof(list(
 	for(var/obj/O in loc)
 		if(GLOB.WALLITEMS[O.type] && check_external != 2)
 			//Direction works sometimes
-			if(GLOB.WALLITEMS_INVERSE[O.type]))
+			if(GLOB.WALLITEMS_INVERSE[O.type])
 				if(O.dir == turn(dir, 180))
 					return 1
 			else if(O.dir == dir)
