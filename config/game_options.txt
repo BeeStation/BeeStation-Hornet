@@ -500,7 +500,6 @@ ROUNDSTART_RACES plasmaman
 #ROUNDSTART_RACES plasma_golem
 #ROUNDSTART_RACES shadow
 #ROUNDSTART_RACES silver_golem
-#ROUNDSTART_RACES synth
 #ROUNDSTART_RACES uranium_golem
 
 ## Races that are straight upgrades. If these are on expect powergamers to always pick them
