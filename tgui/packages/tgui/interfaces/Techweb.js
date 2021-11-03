@@ -514,16 +514,18 @@ const TechwebItemmaterials = (props, context) => {
           <Divider />
         </>
       )}
-      <Flex direction="column">
-        Reclaimable materials:
-        {itemmats.map(mats => {
-          return (
-            <Flex.Item key={mats}>
-              {mats}
-            </Flex.Item>
-          );
-        })}
-      </Flex>
+      {!!itemmats && (
+        <Flex direction="column">
+          Reclaimable materials:
+          {itemmats.map(mats => {
+            return (
+              <Flex.Item key={mats}>
+                {mats}
+              </Flex.Item>
+            );
+          })}
+        </Flex>
+      )}
     </Section>
   );
 };
