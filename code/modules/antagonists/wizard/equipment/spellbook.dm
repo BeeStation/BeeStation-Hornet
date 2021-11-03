@@ -22,7 +22,7 @@
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user,obj/item/spellbook/book) // Specific circumstances
 	if(book.uses<cost || limit == 0)
 		return FALSE
-	for(var/spell in user.mind.spell_list)
+	for(var/datum/spell as() in user.mind.spell_list)
 		if(no_coexistance_typecache[spell.type])
 			return FALSE
 	return TRUE

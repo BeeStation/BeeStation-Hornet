@@ -162,7 +162,7 @@
 		box = user.pulling
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	if(STR)
-		for(var/A in tile)
+		for(var/atom/A as() in tile)
 			if (!STR.can_hold[A.type])
 				continue
 			if (box)

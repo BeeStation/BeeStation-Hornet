@@ -273,7 +273,7 @@
 
 	if(length(whitelist_turfs))
 		var/turf_type = hidden_turf_info ? hidden_turf_info[2] : T.type
-		if(!whitelist_turfs[turf_type.type])
+		if(!whitelist_turfs[turf_type])
 			return SHUTTLE_DOCKER_BLOCKED
 
 	// Checking for overlapping dock boundaries

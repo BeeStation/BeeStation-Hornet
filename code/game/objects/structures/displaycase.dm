@@ -318,8 +318,8 @@
 		to_chat(user, "<span class='warning'>The case rejects the [W]!</span>")
 		return
 
-	for(var/a in W.GetAllContents())
-		if(GLOB.blacklisted_cargo_types[a.type])
+	for(var/atom/A as() in W.GetAllContents())
+		if(GLOB.blacklisted_cargo_types[A.type])
 			to_chat(user, "<span class='warning'>The case rejects the [W]!</span>")
 			return
 

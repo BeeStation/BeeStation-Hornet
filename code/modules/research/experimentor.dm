@@ -31,7 +31,7 @@
 	var/badThingCoeff = 0
 	var/resetTime = 15
 	var/cloneMode = FALSE
-	var/list/item_reactions = list()
+	var/static/list/item_reactions = list()
 	var/list/valid_items = list() //valid items for special reactions like transforming
 	var/list/critical_items_typecache //items that can cause critical reactions
 	var/banned_typecache // items that won't be produced
@@ -50,7 +50,7 @@
 		/obj/item/grenade/chem_grenade/tuberculosis
 	))
 
-	for(var/I in typesof(/obj/item))
+	for(var/obj/item/I as() in typesof(/obj/item))
 		if(ispath(I, /obj/item/relic))
 			item_reactions["[I]"] = SCANTYPE_DISCOVER
 		else

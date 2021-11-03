@@ -1157,7 +1157,7 @@
 
 /mob/living/carbon/human/proc/clear_shove_slowdown()
 	remove_movespeed_modifier(MOVESPEED_ID_SHOVE)
-	var/active_item = get_active_held_item()
+	var/atom/active_item = get_active_held_item()
 	if(GLOB.shove_disarming_types[active_item.type])
 		visible_message("<span class='warning'>[src.name] regains their grip on \the [active_item]!</span>", "<span class='warning'>You regain your grip on \the [active_item].</span>", null, COMBAT_MESSAGE_RANGE)
 

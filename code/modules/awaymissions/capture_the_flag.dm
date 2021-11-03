@@ -355,9 +355,7 @@
 				/obj/effect/ctf,
 				/obj/item/ctf
 			))
-	for(var/atm in A)
-		if (isturf(A) || ismob(A) || isarea(A))
-			continue
+	for(var/atom/atm as() in A)
 		if(isstructure(atm))
 			var/obj/structure/S = atm
 			S.obj_integrity = S.max_integrity
