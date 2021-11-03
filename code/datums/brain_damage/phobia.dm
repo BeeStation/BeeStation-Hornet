@@ -63,31 +63,31 @@
 
 		if(LAZYLEN(trigger_objs))
 			for(var/obj/O in seen_atoms)
-				if(is_type_in_typecache(O, trigger_objs))
+				if(trigger_objs[O.type])
 					freak_out(O)
 
 			for(var/mob/living/carbon/human/HU in seen_atoms) //check equipment for trigger items
 				var/spook = 0
 				for(var/obj/I as() in HU.get_all_slots() | HU.held_items)
-					if(!QDELETED(I) && is_type_in_typecache(I, trigger_objs))
+					if(!QDELETED(I) && trigger_objs[I.type])
 						spook ++
 				if(spook)
 					freak_out(HU, spooklevel = spook)
 
 		if(LAZYLEN(trigger_turfs))
 			for(var/turf/T in seen_atoms)
-				if(is_type_in_typecache(T, trigger_turfs))
+				if(trigger_turfs[T.type])
 					freak_out(T)
 
 		if(LAZYLEN(trigger_mobs) || LAZYLEN(trigger_species))
 			for(var/mob/M in seen_atoms)
-				if(is_type_in_typecache(M, trigger_mobs))
+				if(trigger_mobs[M.type])
 					freak_out(M)
 
 				else if(ishuman(M)) //check their species
 					var/mob/living/carbon/human/H = M
 
-					if(LAZYLEN(trigger_species) && H.dna && H.dna.species && is_type_in_typecache(H.dna.species, trigger_species))
+					if(LAZYLEN(trigger_species) && H.dna && H.dna.species && trigger_species[H.dna.species.type])
 						freak_out(H)
 
 	if(fearscore && world.time > last_scare)//when we aren't being actively terrified, calm down
