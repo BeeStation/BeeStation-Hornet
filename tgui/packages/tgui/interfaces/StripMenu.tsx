@@ -209,12 +209,13 @@ type StripMenuRowData = {
 
 // Sizes here are in em
 
-const rowHeightRaw = 2
-const imageSizeRaw = 3
-const imageColumnWidthRaw = rowHeightRaw+0.5
+const rowHeightRaw = 1.8
+const imageSizeRaw = 1.6
+const imageSizeItemRaw = imageSizeRaw*2
+const imageColumnWidthRaw = rowHeightRaw*0.7
 
 const imageSize = `${imageSizeRaw}em`
-const imageOffset = `${-(imageSizeRaw-rowHeightRaw)/2}em`
+const imageSizeItem = `${imageSizeItemRaw}em`
 const imageColumnWidth = `${imageColumnWidthRaw}em`
 const rowHeight = `${rowHeightRaw}em`
 
@@ -254,10 +255,10 @@ export const StripMenu = (props, context) => {
         row.icon = <Box
           as="img"
           src={item ? `data:image/png;base64,${item.icon}` : resolveAsset(slot.image)}
-          width={!item && "60%"}
-          style={{
-            "vertical-align": "middle",
-          }}
+          width={item ? imageSizeItem : imageSize}
+          //style={{
+          //  "vertical-align": "middle",
+          //}}
         />
       }
       //*
@@ -269,10 +270,12 @@ export const StripMenu = (props, context) => {
                 item.obscured === ObscuringLevel.Completely
                   ? "ban"
                   : "eye-slash"
-              }/>
+              }
+              fontSize={imageSize}/>
       }
       //*/
 
+      /*
       if(row.icon)
       {
         row.icon = <Box className="strip-menu-icon"
@@ -285,6 +288,7 @@ export const StripMenu = (props, context) => {
           {row.icon}
         </Box>
       }
+      //*/
 
       rows.push(row);
 
@@ -299,39 +303,32 @@ export const StripMenu = (props, context) => {
   const contents = rows.map((row, index) => {
 
     return (
+      <>
       <Table.Row
         height={rowHeight}
         className={classes([
-          "candystripe",
+          //"candystripe",
           row.indented && "indented",
           row.obscured===ObscuringLevel.Completely && "obscured-complete",
           row.obscured===ObscuringLevel.Hidden && "obscured-hidden",
           row.hidden && "hidden",
           row.spaced && "spaced",
         ])}>
-        <Table.Cell pl={1.5+(row.indented?0.5:0)} pr={0.5}
+        <Table.Cell pl={1.5} pr={1}
             collapsing
             >
           {row.slotName}:
         </Table.Cell>
         {/*}
         <Table.Cell height={rowHeight} width={imageColumnWidth}>
-          <Box height="100%" width={rowHeight} overflow="visible" position="relative">
-            {(index%2 === 1) && row.icon}
-          </Box>
-        </Table.Cell>
-        <Table.Cell height={rowHeight} width={imageColumnWidth}>
-          <Box height="100%" width={rowHeight} overflow="visible" position="relative">
-            {(index%2 === 0) && row.icon}
+          <Box as="div" height={rowHeight} width="100%" position="relative" className="strip-menu-icon-container">
+            <Box as="div">
+              {row.icon}
+            </Box>
           </Box>
         </Table.Cell>
         {*/}
-        <Table.Cell height={rowHeight} width={imageColumnWidth}>
-          <Box height="100%" width={imageColumnWidth*0.5} overflow="visible" position="relative">
-            {row.icon}
-          </Box>
-        </Table.Cell>
-        <Table.Cell pl={1} pr={1.5}>
+        <Table.Cell pl={2} pr={1.5}>
           {
             !row.hidden && (
               <Button compact
@@ -351,6 +348,8 @@ export const StripMenu = (props, context) => {
           }
         </Table.Cell>
       </Table.Row>
+      {(!!row.spaced) && <Table.Row height={0.5} className="candystripe"/>}
+      </>
     );
   })
 
@@ -360,7 +359,7 @@ export const StripMenu = (props, context) => {
       height={500}>
       <Window.Content scrollable fitted
       style={{"background-image": "none"}}>
-        <Table my={1} className="strip-menu-table" fontSize="1.1em">
+        <Table mt={1} className="strip-menu-table" fontSize="1.1em">
           {contents}
         </Table>
       </Window.Content>
