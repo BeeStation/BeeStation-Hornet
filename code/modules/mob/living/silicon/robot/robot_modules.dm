@@ -395,6 +395,7 @@
 		if("Drone")
 			cyborg_base_icon = "drone_medical"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
+			special_light_key = "drone_medical"
 		if("Heavy")
 			cyborg_base_icon = "heavy_medical"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
@@ -715,6 +716,7 @@
 		if("Drone")
 			cyborg_base_icon = "drone_janitor"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
+			special_light_key = "drone_standard"
 		if("Noble")
 			cyborg_base_icon = "noble_janitor"
 			cyborg_icon_override = 'icons/mob/robots_extra.dmi'
