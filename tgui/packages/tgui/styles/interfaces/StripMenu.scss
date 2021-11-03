@@ -15,14 +15,6 @@
 			padding-left: 0.2em;
 		}
 
-		&.spaced:not(:last-child) > td {
-			//padding-bottom: 1em;
-		}
-
-		//&.spaced:last-child > td {
-		//	padding-bottom: 0;
-		//}
-
 		> td {
 			padding: inherit;
 			vertical-align: middle;

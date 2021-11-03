@@ -257,7 +257,6 @@ export const StripMenu = (props, context) => {
       <Table.Row
         height={rowHeight}
         className={classes([
-          //"candystripe",
           row.indented && "indented",
           row.obscured===ObscuringLevel.Completely && "obscured-complete",
           row.obscured===ObscuringLevel.Hidden && "obscured-hidden",
