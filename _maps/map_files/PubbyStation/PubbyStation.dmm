@@ -1454,7 +1454,7 @@
 /area/security/prison)
 "aes" = (
 /obj/structure/easel,
-/obj/item/canvas/nineteenXnineteen,
+/obj/item/canvas/nineteen_nineteen,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -16171,7 +16171,7 @@
 	dir = 4
 	},
 /obj/structure/easel,
-/obj/item/canvas/twentythreeXnineteen,
+/obj/item/canvas/twentythree_nineteen,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -17425,8 +17425,8 @@
 	amount = 20;
 	layer = 3.3
 	},
-/obj/item/canvas/twentythreeXtwentythree,
-/obj/item/canvas/nineteenXnineteen,
+/obj/item/canvas/twentythree_twentythree,
+/obj/item/canvas/nineteen_nineteen,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -47861,7 +47861,7 @@
 	dir = 4
 	},
 /obj/structure/easel,
-/obj/item/canvas/twentythreeXnineteen,
+/obj/item/canvas/twentythree_nineteen,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/main/monastery)
 "ciq" = (
@@ -51917,6 +51917,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/structure/sign/painting/library{
+	pixel_x = -32
+	},
 /turf/open/floor/plasteel/dark,
 /area/library/lounge)
 "cxD" = (
@@ -51936,6 +51939,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/structure/sign/painting/library{
+	pixel_x = 32
 	},
 /turf/open/floor/plasteel/dark,
 /area/library/lounge)
@@ -52095,6 +52101,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/structure/sign/painting/library{
+	pixel_x = -32
+	},
 /turf/open/floor/plasteel/dark,
 /area/library/lounge)
 "cyA" = (
@@ -52116,6 +52125,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/structure/sign/painting/library{
+	pixel_x = 32
 	},
 /turf/open/floor/plasteel/dark,
 /area/library/lounge)
@@ -53790,6 +53802,20 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
+"eFC" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/modular_computer/console/preset/curator,
+/turf/open/floor/plasteel/dark,
+/area/library)
 "eGh" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/structure/lattice/catwalk,
@@ -55254,7 +55280,7 @@
 "hrU" = (
 /obj/machinery/igniter/on,
 /turf/open/floor/engine,
-/area/engine/engineering)
+/area/engine/supermatter)
 "hsK" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -58042,6 +58068,18 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
+"mlx" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/structure/sign/painting/library_private{
+	pixel_x = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/library)
 "mmv" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Supplies";
@@ -61204,7 +61242,7 @@
 	dir = 1
 	},
 /turf/open/floor/engine,
-/area/engine/engineering)
+/area/engine/supermatter)
 "rSD" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -82631,7 +82669,7 @@ ckH
 ckH
 cAa
 cAg
-cAt
+eFC
 ckH
 cAa
 cAV
@@ -83146,7 +83184,7 @@ czO
 cli
 ckH
 cAy
-cAB
+mlx
 cyU
 cjp
 aht
