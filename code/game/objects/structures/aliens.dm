@@ -340,6 +340,7 @@
 	qdel(child)
 	new /obj/item/paper/troll(get_turf(src))
 
+#undef BURSTING
 #undef BURST
 #undef GROWING
 #undef GROWN
