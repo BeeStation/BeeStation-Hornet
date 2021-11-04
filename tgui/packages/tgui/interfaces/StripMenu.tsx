@@ -50,101 +50,101 @@ const SLOTS: Array<
   [
     {
       id: "left_hand",
-      displayName: "left hand",
+      displayName: "Left hand",
       image: "inventory-hand_l.png",
     },
     {
       id: "right_hand",
-      displayName: "right hand",
+      displayName: "Right hand",
       image: "inventory-hand_r.png",
     },
   ],
   [
     {
       id: "back",
-      displayName: "backpack",
+      displayName: "Backpack",
       image: "inventory-back.png",
     },
   ],
   [
     {
       id: "head",
-      displayName: "headwear",
+      displayName: "Headwear",
       image: "inventory-head.png",
     },
     {
       id: "mask",
-      displayName: "mask",
+      displayName: "Mask",
       image: "inventory-mask.png",
     },
     {
       id: "neck",
-      displayName: "neckwear",
+      displayName: "Neckwear",
       image: "inventory-neck.png",
     },
     {
       id: "corgi_collar",
-      displayName: "collar",
+      displayName: "Collar",
       image: "inventory-collar.png",
     },
     {
       id: "parrot_headset",
-      displayName: "headset",
+      displayName: "Headset",
       image: "inventory-ears.png",
     },
     {
       id: "eyes",
-      displayName: "eyewear",
+      displayName: "Eyewear",
       image: "inventory-glasses.png",
     },
     {
       id: "ears",
-      displayName: "earwear",
+      displayName: "Earwear",
       image: "inventory-ears.png",
     },
   ],
   [
     {
       id: "suit",
-      displayName: "suit",
+      displayName: "Suit",
       image: "inventory-suit.png",
     },
     {
       id: "suit_storage",
-      displayName: "suit storage",
+      displayName: "Suit storage",
       image: "inventory-suit_storage.png",
       indented: true,
     },
     {
       id: "shoes",
-      displayName: "shoes",
+      displayName: "Shoes",
       image: "inventory-shoes.png",
     },
     {
       id: "gloves",
-      displayName: "gloves",
+      displayName: "Gloves",
       image: "inventory-gloves.png",
     },
     {
       id: "jumpsuit",
-      displayName: "uniform",
+      displayName: "Uniform",
       image: "inventory-uniform.png",
     },
     {
       id: "belt",
-      displayName: "belt",
+      displayName: "Belt",
       image: "inventory-belt.png",
       indented: true,
     },
     {
       id: "left_pocket",
-      displayName: "left pocket",
+      displayName: "Left pocket",
       image: "inventory-pocket.png",
       indented: true,
     },
     {
       id: "right_pocket",
-      displayName: "right pocket",
+      displayName: "Right pocket",
       image: "inventory-pocket.png",
       indented: true,
     },
@@ -156,11 +156,11 @@ const SLOTS: Array<
     },
     {
       id: "handcuffs",
-      displayName: "handcuffs",
+      displayName: "Handcuffs",
     },
     {
       id: "legcuffs",
-      displayName: "legcuffs",
+      displayName: "Legcuffs",
     },
   ],
 ];
