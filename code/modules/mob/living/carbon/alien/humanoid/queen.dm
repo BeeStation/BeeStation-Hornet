@@ -69,6 +69,7 @@
 	..()
 
 /mob/living/carbon/alien/humanoid/royal/queen/proc/check_hostile()
+	SIGNAL_HANDLER
 	if(is_station_level(src.z)) //we don't want the hostile environment if the xenos aren't actually on station
 		SSshuttle.registerHostileEnvironment(src) //aliens delay shuttle
 		addtimer(CALLBACK(src, .proc/game_end), 30 MINUTES) //time until shuttle is freed/called
