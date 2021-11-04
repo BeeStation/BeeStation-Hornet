@@ -337,7 +337,9 @@
 
 		LAZYINITLIST(result)
 
+		/* We don't use item icons in our strip menu, keeping this here in case we want it in the future
 		result["icon"] = icon2base64(icon(item.icon, item.icon_state, frame=1))
+		*/
 		result["name"] = item.name
 		result["alternate"] = item_data.get_alternate_action(owner, user)
 
