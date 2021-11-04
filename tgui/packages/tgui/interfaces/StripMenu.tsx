@@ -37,13 +37,29 @@ type Interactable = {
   interacting: BooleanLike;
 };
 
+/**
+ * SLOTS is structured into an array of sections.
+ * 
+ * Each section is an arbitrarily chosen array of slots
+ * that are grouped together. This is based on the behavior
+ * of the old strip interface.
+ * 
+ * Sections that contain at least one valid slot end with a
+ * spacer, similar to the space present in the old
+ * interface.
+ * 
+ * - image is unused, and is commented out on the DM side.
+ * - indented is used for slots that are enabled by other
+ *   slots, for example suit storage is dependent on suit.
+ */
+
 const SLOTS: Array<
   Array<
     {
       id: string;
       displayName: string;
       image?: string;
-      indented?: Boolean;
+      indented?: boolean;
     }
   >
 > = [
@@ -195,26 +211,10 @@ type StripMenuData = {
   name: string;
 };
 
-type StripMenuRowData = {
-  slotName: string;
-  itemName?: string;
-  obscured?: ObscuringLevel;
-  alternates?: AlternateAction[];
-  hidden: BooleanLike;
-  indented: BooleanLike;
-  spaced: BooleanLike;
-  slotID: string;
-}
-
-// Sizes here are in em
-
-const rowHeightRaw = 1.8
-
-const rowHeight = `${rowHeightRaw}em`
-
+// Internal data structure used for props
 interface StripMenuRowProps {
   slotName: string;
-  itemName: string;
+  itemName?: string;
   slotID: string;
 
   alternates?: AlternateAction[];
@@ -222,23 +222,20 @@ interface StripMenuRowProps {
   indented: BooleanLike;
   obscured: ObscuringLevel;
   hidden: BooleanLike;
-  spaced: BooleanLike;
+  empty: BooleanLike;
 }
 
 const StripMenuRow = (props: StripMenuRowProps, context) => {
   const { act, data } = useBackend<StripMenuData>(context);
 
   return (
-    <Table.Row width="100%"
-      //height={rowHeight}
+    <Table.Row
       className={classes([
-        //"candystripe",
         props.indented && "indented",
         props.obscured===ObscuringLevel.Completely && "obscured-complete",
         props.obscured===ObscuringLevel.Hidden && "obscured-hidden",
         props.hidden && "hidden",
-        (!props.itemName) && "empty",
-        //props.spaced && "spaced",
+        props.empty && "empty",
       ])}>
       <Table.Cell pl={1.5}>
         {props.slotName}:
@@ -247,81 +244,90 @@ const StripMenuRow = (props: StripMenuRowProps, context) => {
         <Flex direction="column">
           {
             !props.hidden && (
-              <Flex.Item><Button compact
-                content={props.obscured ? "Obscured" : (props.itemName || "Empty")}
-                disabled={props.obscured === ObscuringLevel.Completely}
-                color={(props.itemName || props.obscured) ? null : "transparent"}
-                //className="outline-solid outline-color-grey"
-                ellipsis
-                maxWidth="100%"
-                onClick={() => act("use", { key: props.slotID })}
-              /></Flex.Item>
+              <Flex.Item>
+                <Button compact
+                  content={props.obscured ? "Obscured" : (props.itemName ?? "Empty")}
+                  disabled={props.obscured === ObscuringLevel.Completely}
+                  color={props.empty ? "transparent" : null}
+                  ellipsis
+                  maxWidth="100%"
+                  onClick={() => act("use", { key: props.slotID })}
+                />
+              </Flex.Item>
             )
           }
           {
             props.alternates?.map((alternate) => (
-              <Flex.Item><Button compact
-                content={alternate.text}
-                onClick={() => act("alt", { key: props.slotID })}
-              /></Flex.Item>
+              <Flex.Item key={alternate.text}>
+                <Button compact
+                  content={alternate.text}
+                  onClick={() => act("alt", { key: props.slotID })}
+                />
+              </Flex.Item>
             ))
           }
         </Flex>
       </Table.Cell>
     </Table.Row>
   );
-}
+};
 
 export const StripMenu = (props, context) => {
   const { act, data } = useBackend<StripMenuData>(context);
 
   const items = data.items;
 
-  const contents = SLOTS.map(category => {
+  const contents = SLOTS.map(section => {
     let hadLastTopLevelSlot = false;
 
-    const rows = category
+    const rows = section
       .filter(slot => items[slot.id] !== undefined)
       .map(slot => {
-      const item = items[slot.id];
+        const item = items[slot.id];
 
-      if(!slot.indented)
-        hadLastTopLevelSlot = !!item
+        if (!slot.indented)
+        { hadLastTopLevelSlot = !!item; }
 
-      const alternate = item && ALTERNATE_ACTIONS[item.alternate]
+        const alternate = item && ALTERNATE_ACTIONS[item.alternate];
 
-      return (
-        <StripMenuRow
-          slotName={slot.displayName}
-          itemName={item && item.name}
-          obscured={item && ("obscured" in item) ? item.obscured : 0}
-          indented={slot.indented}
-          slotID={slot.id}
-          hidden={slot.indented && !hadLastTopLevelSlot}
-          alternates={alternate && [alternate]}
+        return (
+          <StripMenuRow
+            slotName={slot.displayName}
+            itemName={item && item.name}
+            obscured={item && ("obscured" in item) ? item.obscured : 0}
+            indented={slot.indented}
+            slotID={slot.id}
+            hidden={slot.indented && !hadLastTopLevelSlot}
+            alternates={alternate && [alternate]}
+            empty={!item}
+            key={slot.id}
           />
-      );
-    });
+        );
+      });
 
-    if(rows.length)
+    //If any valid slots were found in this section, add a spacer
+    if (rows.length)
     {
       rows.push(
         <Table.Row className="spacer">
-          <Table.Cell/><Table.Cell/>
+          <Table.Cell /><Table.Cell />
         </Table.Row>
-      )
+      );
     }
 
-    return rows
-  })
+    return rows;
+  });
 
   return (
     <Window title={`Stripping ${data.name}`}
+      // Enough width to fit "atmospheric technician's jumpsuit"
       width={400}
-      //Enough height to fit human with handcuffs and legcuffs
-      height={520}>
+      // Enough height to fit human with internals,
+      // jumpsuit, handcuffs and legcuffs
+      height={580}>
       <Window.Content scrollable fitted
-      style={{"background-image": "none"}}>
+        //Remove the nanotrasen logo from the window
+        style={{ "background-image": "none" }}>
         <Table mt={1} className="strip-menu-table" fontSize="1.1em">
           {contents}
         </Table>
