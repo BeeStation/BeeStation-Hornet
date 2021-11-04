@@ -29,6 +29,8 @@ GLOBAL_VAR(string_filename_current_key)
 	return pick_list(GLOB.string_filename_current_key, group1)
 
 /proc/load_strings_file(filename, directory = "strings")
+	if(isAdminAdvancedProcCall())
+		CRASH("Attempted to load strings file via admin call")
 	GLOB.string_filename_current_key = filename
 	if(filename in GLOB.string_cache)
 		return //no work to do

@@ -50,7 +50,7 @@
 				dat += "<table>"
 				dat += "<tr><td>AUTHOR</td><td>TITLE</td><td>CATEGORY</td><td>SS<sup>13</sup>BN</td></tr>"
 
-				var/datum/DBQuery/query_library_list_books = SSdbcore.NewQuery(SQLquery)
+				var/datum/DBQuery/query_library_list_books = SSdbcore.NewQuery(SQLquery, list("author" = author, "title" = title, "category" = category))
 				if(!query_library_list_books.Execute())
 					dat += "<font color=red><b>ERROR</b>: Unable to retrieve book listings. Please contact your system administrator for assistance.</font><BR>"
 				else
@@ -100,9 +100,9 @@
 	if(href_list["search"])
 		SQLquery = "SELECT author, title, category, id FROM [format_table_name("library")] WHERE isnull(deleted) AND "
 		if(category == "Any")
-			SQLquery += "author LIKE '%[author]%' AND title LIKE '%[title]%'"
+			SQLquery += "author LIKE '%:author%' AND title LIKE '%:title%'"
 		else
-			SQLquery += "author LIKE '%[author]%' AND title LIKE '%[title]%' AND category='[category]'"
+			SQLquery += "author LIKE '%:author%' AND title LIKE '%:title%' AND category=':category'"
 		screenstate = 1
 
 	if(href_list["back"])
@@ -111,6 +111,10 @@
 	src.add_fingerprint(usr)
 	src.updateUsrDialog()
 	return
+
+/obj/machinery/computer/libraryconsole/vv_edit_var(var_name, var_value)
+	var/list/restricted_vars = list(NAMEOF(src, category), NAMEOF(src, SQLquery), NAMEOF(src, title), NAMEOF(src, author))
+	return !(var_name in restricted_vars) && ..()
 
 /*
  * Borrowbook datum
@@ -329,7 +333,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a strange metal tablet sitting on the desk. You don't even remember where it came from...</span>")
 		if(3)
 			new /obj/item/forbidden_book(get_turf(src))
-			to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is an ominous book, bound by a chain, sitting on the desk. You don't even remember where it came from...</span>")	
+			to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is an ominous book, bound by a chain, sitting on the desk. You don't even remember where it came from...</span>")
 	user.visible_message("[user] stares at the blank screen for a few moments, [user.p_their()] expression frozen in fear. When [user.p_they()] finally awaken[user.p_s()] from it, [user.p_they()] look[user.p_s()] a lot older.", 2)
 
 /obj/machinery/computer/libraryconsole/bookmanagement/attackby(obj/item/W, mob/user, params)

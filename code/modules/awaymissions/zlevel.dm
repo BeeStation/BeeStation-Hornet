@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "[global.con
 	GLOB.awaydestinations -= src
 	return ..()
 
-/proc/generateMapList(filename)
+/proc/generateMapList("[global.config.directory]/filename")
 	. = list()
 	var/list/Lines = world.file2list(filename)
 

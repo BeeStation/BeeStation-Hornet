@@ -33,6 +33,8 @@
 		"emergency" = "emergency_box")
 
 /proc/load_map_config(filename = "data/next_map.json", default_to_box, delete_after, error_if_missing = TRUE)
+	if(isAdminAdvancedProcCall()) // no deleting random files :)
+		CRASH("Attempted to load map config via admin call")
 	var/datum/map_config/config = new
 	if (default_to_box)
 		return config
