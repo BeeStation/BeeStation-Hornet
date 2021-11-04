@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "[global.con
 	return ..()
 
 /proc/generateMapList(filename)
-	filename = "[global.config.directory]/[filename]"
+	filename = "[global.config.directory]/[SANITIZE_FILENAME(filename)]"
 	. = list()
 	var/list/Lines = world.file2list(filename)
 

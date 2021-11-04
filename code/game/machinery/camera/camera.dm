@@ -279,7 +279,6 @@
 			P = I
 			itemname = P.name
 			info = P.notehtml
-		info = sanitize(info)
 		itemname = sanitize(itemname)
 		to_chat(U, "<span class='notice'>You hold \the [itemname] up to the camera...</span>")
 		U.changeNext_move(CLICK_CD_MELEE)
