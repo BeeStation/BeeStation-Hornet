@@ -109,3 +109,14 @@
 	mission = "Eliminate the kudzu with extreme prejudice"
 	polldesc = "an elite gardening team"
 	code = "Vine Green"
+
+/datum/ert/idpd
+	roles = list(/datum/antagonist/ert/idpd, /datum/antagonist/ert/idpd/shielder, /datum/antagonist/ert/idpd/observer)
+	leader_role = /datum/antagonist/ert/idpd/captain
+	teamsize = 4
+	opendoors = TRUE
+	rename_team = "Inter-Dimensional Police Department"
+	polldesc = "the keepers of reality"
+	mission = "Eliminate anyone tampering with the timeline."
+	code = "Epsilon"
+

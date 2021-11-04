@@ -27,7 +27,8 @@
 		update_name()
 	forge_objectives()
 	equipERT()
-	owner.store_memory("Your team's shared tracking beacon frequency is [ert_team.ert_frequency].")
+	if(ert_team)
+		owner.store_memory("Your team's shared tracking beacon frequency is [ert_team.ert_frequency].")
 	. = ..()
 
 /datum/antagonist/ert/get_team()

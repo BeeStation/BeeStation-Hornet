@@ -371,6 +371,8 @@
 			ert_team.objectives += missionobj
 			ert_team.mission = missionobj
 
+			if(istype(ertemplate, /datum/ert/idpd))
+				return attemptMakeIDPD(candidates, ertemplate.teamsize, ertemplate, ert_team, missionobj)
 			var/list/spawnpoints = GLOB.emergencyresponseteamspawn
 			while(numagents && candidates.len)
 				if (numagents > spawnpoints.len)
@@ -430,3 +432,60 @@
 /datum/admins/proc/makeRevenant()
 	new /datum/round_event/ghost_role/revenant(TRUE, TRUE)
 	return 1
+
+/datum/admins/proc/attemptMakeIDPD(var/list/mob/dead/observer/candidates, var/num_agents, var/datum/ert/ertemplate, var/datum/team/ert/ert_team, var/datum/objective/missionobj) //They don't start at centcomm
+	if(num_agents > candidates.len || candidates.len == 0)
+		return FALSE
+
+	var/list/mob/dead/observer/chosen = list()
+	for(var/X = 1, X <= num_agents, ++X)
+		var/mob/dead/observer/chosen_one = pick(candidates)
+		candidates -= chosen_one
+		chosen += chosen_one
+
+	var/turf/spawnpoint = get_turf(pick(GLOB.blobstart))
+	var/obj/effect/portal/idpd_portal = new(spawnpoint.loc)
+
+	message_admins("I.D.P.D portal spawned at [idpd_portal.loc]")
+
+	for(var/mob/dead/observer/chosen_one in chosen)
+		chosen_one.orbit(idpd_portal)
+
+	priority_announce("FLÄSHYN, ÖHU!", "Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES)
+	playsound(spawnpoint, 'sound/misc/idpd_portal.ogg', 100, 1)
+	addtimer(CALLBACK(src, .proc/spawnIDPD, chosen, ertemplate, idpd_portal, ert_team, missionobj), 20 SECONDS)
+	return TRUE
+
+/datum/admins/proc/spawnIDPD(var/list/mob/dead/observer/chosen, var/datum/ert/ertemplate, var/obj/effect/portal/idpd_portal, var/datum/team/ert/ert_team, var/datum/objective/missionobj)
+	var/spawnloc = idpd_portal.loc
+	while(chosen.len)
+		var/mob/dead/observer/newguy = pick(chosen)
+		chosen -= newguy
+		if(!newguy.key)
+			continue
+
+		//Spawn the body
+		var/mob/living/carbon/human/ERTOperative = new ertemplate.mobtype(spawnloc)
+		newguy.client.prefs.copy_to(ERTOperative)
+		ERTOperative.key = newguy.key
+		log_objective(ERTOperative, missionobj.explanation_text)
+
+		ERTOperative.set_species(/datum/species/human) //Only the pure
+		//Give antag datum
+		var/datum/antagonist/ert/ert_antag
+
+		if(chosen.len == 0)
+			ert_antag = new ertemplate.leader_role
+		else
+			ert_antag = ertemplate.roles[WRAP(chosen.len,1,length(ertemplate.roles) + 1)]
+			ert_antag = new ert_antag
+
+		ERTOperative.mind.add_antag_datum(ert_antag,ert_team)
+		ERTOperative.mind.assigned_role = ert_antag.name
+
+		//Logging and cleanup
+		log_game("[key_name(ERTOperative)] has been spawned as an [ert_antag.name]")
+
+	message_admins("[ertemplate.polldesc] has spawned with the mission: [ertemplate.mission]")
+
+	qdel(idpd_portal)
