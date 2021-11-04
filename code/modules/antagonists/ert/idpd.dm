@@ -7,7 +7,7 @@
 	suit_store = /obj/item/gun/energy/e_gun
 	shoes = /obj/item/clothing/shoes/magboots/commando
 	gloves = /obj/item/clothing/gloves/combat
-	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	mask = /obj/item/clothing/mask/breath
 	glasses = /obj/item/clothing/glasses/hud/toggle/thermal
 	back = /obj/item/tank/jetpack/oxygen
 	belt = /obj/item/storage/belt/security/full
@@ -17,10 +17,6 @@
 	l_pocket = /obj/item/rcd_ammo/large
 
 /datum/outfit/idpd/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	var/obj/item/storage/backpack/B = H.back
-	B.icon_state = "brokenpack"
-	B.item_state = "brokenpack"
-
 	if(visualsOnly)
 		return
 
@@ -31,7 +27,7 @@
 	var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)
 	L.implant(H, null, 1)
 
-	var/obj/item/implant/explosive/E = new/obj/item/implant/mindshield(H)
+	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(H)
 	E.implant(H, null, 1)
 
 	if(istype(H.s_store, /obj/item/gun/energy/e_gun))
@@ -47,37 +43,37 @@
 	W.update_label(W.registered_name, W.assignment)
 
 
-/datum/outfit/ert/idpd/captain
-	name = "I.D.P.D Captain"
+/datum/outfit/ert/idpd/chief
+	name = "I.D.P.D Chief"
 
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/idpd/captain
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/idpd/chief
 	suit_store = /obj/item/gun/energy/pulse/carbine/loyalpin
 	l_pocket = /obj/item/gun/energy/pulse/pistol/loyalpin
 	r_hand = null
 	l_hand = null
 
-/datum/outfit/ert/idpd/observer
-	name = "I.D.P.D Observer"
+/datum/outfit/ert/idpd/gazer
+	name = "I.D.P.D Gazer"
 
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/idpd/observer
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/idpd/gazer
 	suit_store = /obj/item/gun/energy/laser/scatter
 	l_pocket = /obj/item/reagent_containers/hypospray/combat
 	l_hand = /obj/item/storage/firstaid/tactical
 	r_hand = null
 
-/datum/outfit/ert/idpd/observer/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/ert/idpd/gazer/post_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 	if(!visualsOnly)
 		H.dna.add_mutation(TK)
-/datum/outfit/ert/idpd/shielder
-	name = "I.D.P.D Shielder"
+/datum/outfit/ert/idpd/titan
+	name = "I.D.P.D Titan"
 
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/idpd/shielder
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/idpd/titan
 	l_pocket = null
 	l_hand = /obj/item/pickaxe/drill/jackhammer //BREACHING
 	r_hand = null
 
-/datum/outfit/ert/idpd/shielder/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/ert/idpd/titan/post_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 	if(visualsOnly)
 		return
@@ -88,26 +84,25 @@
 ////Antag Datums////
 /datum/antagonist/ert/idpd
 	name = "I.D.P.D Grunt"
-	role = "Grunt"
+	role = "I.D.P.D Grunt"
 	outfit = /datum/outfit/ert/idpd
-	show_in_antagpanel = TRUE
 
-/datum/antagonist/ert/idpd/observer
-	name = "I.D.P.D Observer"
-	role = "Observer"
-	outfit = /datum/outfit/ert/idpd/observer
+/datum/antagonist/ert/idpd/gazer
+	name = "I.D.P.D Gazer"
+	role = "I.D.P.D Gazer"
+	outfit = /datum/outfit/ert/idpd/gazer
 
-/datum/antagonist/ert/idpd/shielder
-	name = "I.D.P.D Shielder"
-	role = "Shielder"
-	outfit = /datum/outfit/ert/idpd/shielder
+/datum/antagonist/ert/idpd/titan
+	name = "I.D.P.D Titan"
+	role = "I.D.P.D Titan"
+	outfit = /datum/outfit/ert/idpd/titan
 
-/datum/antagonist/ert/idpd/captain
-	name = "I.D.P.D Captain"
-	role = "Captain"
-	outfit = /datum/outfit/ert/idpd/captain
+/datum/antagonist/ert/idpd/chief
+	name = "I.D.P.D Chief"
+	role = "I.D.P.D Chief"
+	outfit = /datum/outfit/ert/idpd/chief
 
-////Shielder Spell
+////Titan Spell
 /obj/effect/proc_holder/spell/targeted/forcewall/idpd
 	name = "Barrier Projector"
 	desc = "Create an energy barrier to protect your team."
@@ -120,3 +115,61 @@
 
 /obj/effect/forcefield/idpd/CanPass(atom/movable/mover, turf/target)
 	return FALSE //None shall pass
+
+////IDPD Creation, handled by one_click_antag.dm
+/datum/admins/proc/attemptMakeIDPD(var/list/mob/dead/observer/candidates, var/num_agents, var/datum/ert/ertemplate, var/datum/team/ert/ert_team, var/datum/objective/missionobj) //They don't start at centcom (fuck you linter)
+	if(num_agents > candidates.len || candidates.len == 0)
+		return FALSE
+
+	var/list/mob/dead/observer/chosen = list()
+	for(var/X = 1, X <= num_agents, ++X)
+		var/mob/dead/observer/chosen_one = pick(candidates)
+		candidates -= chosen_one
+		chosen += chosen_one
+
+	var/turf/spawnpoint = get_turf(pick(GLOB.blobstart)) //Ensures the portal spawns on station... for the most part.
+	var/obj/effect/portal/idpd_portal = new(spawnpoint.loc) //"Fake" portal spawns 20 seconds before the IDPD spawns in
+
+	message_admins("I.D.P.D portal spawned at [ADMIN_VERBOSEJMP(idpd_portal)]")
+
+	for(var/mob/dead/observer/chosen_one in chosen)
+		chosen_one.orbit(idpd_portal)
+
+	priority_announce("FLÄSHYN, ÖHU!", "Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES)
+	playsound(spawnpoint, 'sound/misc/idpd_portal.ogg', 100, 1)
+	addtimer(CALLBACK(src, .proc/spawnIDPD, chosen, ertemplate, idpd_portal, ert_team, missionobj), 20 SECONDS)
+	return TRUE
+
+/datum/admins/proc/spawnIDPD(var/list/mob/dead/observer/chosen, var/datum/ert/ertemplate, var/obj/effect/portal/idpd_portal, var/datum/team/ert/ert_team, var/datum/objective/missionobj)
+	var/spawnloc = idpd_portal.loc
+	while(chosen.len)
+		var/mob/dead/observer/newguy = pick(chosen)
+		chosen -= newguy
+		if(!newguy.key)
+			continue
+
+		//Spawn the body
+		var/mob/living/carbon/human/ERTOperative = new ertemplate.mobtype(spawnloc)
+		newguy.client.prefs.copy_to(ERTOperative)
+		ERTOperative.key = newguy.key
+		log_objective(ERTOperative, missionobj.explanation_text)
+
+		ERTOperative.set_species(/datum/species/human) //Only the pure
+		//Give antag datum
+		var/datum/antagonist/ert/ert_antag
+
+		if(chosen.len == 0)
+			ert_antag = new ertemplate.leader_role
+		else
+			ert_antag = ertemplate.roles[WRAP(chosen.len,1,length(ertemplate.roles) + 1)]
+			ert_antag = new ert_antag
+
+		ERTOperative.mind.add_antag_datum(ert_antag,ert_team)
+		ERTOperative.mind.assigned_role = ert_antag.name
+
+		//Logging and cleanup
+		log_game("[key_name(ERTOperative)] has been spawned as an [ert_antag.name]")
+
+	message_admins("[ertemplate.polldesc] has spawned with the mission: [ertemplate.mission]")
+
+	qdel(idpd_portal)

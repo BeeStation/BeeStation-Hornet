@@ -111,8 +111,8 @@
 	code = "Vine Green"
 
 /datum/ert/idpd
-	roles = list(/datum/antagonist/ert/idpd, /datum/antagonist/ert/idpd/shielder, /datum/antagonist/ert/idpd/observer)
-	leader_role = /datum/antagonist/ert/idpd/captain
+	roles = list(/datum/antagonist/ert/idpd, /datum/antagonist/ert/idpd/titan, /datum/antagonist/ert/idpd/gazer)
+	leader_role = /datum/antagonist/ert/idpd/chief
 	teamsize = 4
 	opendoors = TRUE
 	rename_team = "Inter-Dimensional Police Department"
