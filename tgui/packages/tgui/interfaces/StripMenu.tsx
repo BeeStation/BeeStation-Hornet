@@ -2,7 +2,7 @@ import { range } from "common/collections";
 import { BooleanLike, classes } from "common/react";
 import { resolveAsset } from "../assets";
 import { useBackend } from "../backend";
-import { Box, Button, Stack, Table } from "../components";
+import { Box, Button, Flex, Stack, Table } from "../components";
 import { Window } from "../layouts";
 
 
@@ -212,91 +212,114 @@ const rowHeightRaw = 1.8
 
 const rowHeight = `${rowHeightRaw}em`
 
+interface StripMenuRowProps {
+  slotName: string;
+  itemName: string;
+  slotID: string;
+
+  alternates?: AlternateAction[];
+
+  indented: BooleanLike;
+  obscured: ObscuringLevel;
+  hidden: BooleanLike;
+  spaced: BooleanLike;
+}
+
+const StripMenuRow = (props: StripMenuRowProps, context) => {
+  const { act, data } = useBackend<StripMenuData>(context);
+
+  return (
+    <Table.Row width="100%"
+      //height={rowHeight}
+      className={classes([
+        //"candystripe",
+        props.indented && "indented",
+        props.obscured===ObscuringLevel.Completely && "obscured-complete",
+        props.obscured===ObscuringLevel.Hidden && "obscured-hidden",
+        props.hidden && "hidden",
+        (!props.itemName) && "empty",
+        //props.spaced && "spaced",
+      ])}>
+      <Table.Cell pl={1.5}>
+        {props.slotName}:
+      </Table.Cell>
+      <Table.Cell pr={1.5} position="relative">
+        <Flex direction="column">
+          {
+            !props.hidden && (
+              <Flex.Item><Button compact
+                content={props.obscured ? "Obscured" : (props.itemName || "Empty")}
+                disabled={props.obscured === ObscuringLevel.Completely}
+                color={(props.itemName || props.obscured) ? null : "transparent"}
+                //className="outline-solid outline-color-grey"
+                ellipsis
+                maxWidth="100%"
+                onClick={() => act("use", { key: props.slotID })}
+              /></Flex.Item>
+            )
+          }
+          {
+            props.alternates?.map((alternate) => (
+              <Flex.Item><Button compact
+                content={alternate.text}
+                onClick={() => act("alt", { key: props.slotID })}
+              /></Flex.Item>
+            ))
+          }
+        </Flex>
+      </Table.Cell>
+    </Table.Row>
+  );
+}
+
 export const StripMenu = (props, context) => {
   const { act, data } = useBackend<StripMenuData>(context);
 
   const items = data.items;
 
-  const rows: StripMenuRowData[] = [];
-
-  for (const category of SLOTS)
-  {
-    let slotFound = false;
+  const contents = SLOTS.map(category => {
     let hadLastTopLevelSlot = false;
-    for (const slot of category)
-    {
+
+    const rows = category
+      .filter(slot => items[slot.id] !== undefined)
+      .map(slot => {
       const item = items[slot.id];
-
-      if (item === undefined) continue;
-
-      slotFound = true;
-
-      const row: StripMenuRowData = {
-        slotName: slot.displayName,
-        itemName: item && item.name,
-        obscured: item && ("obscured" in item) ? item.obscured : 0,
-        indented: slot.indented,
-        slotID: slot.id,
-        hidden: slot.indented && !hadLastTopLevelSlot
-      };
-
-      rows.push(row);
 
       if(!slot.indented)
         hadLastTopLevelSlot = !!item
+
+      const alternate = item && ALTERNATE_ACTIONS[item.alternate]
+
+      return (
+        <StripMenuRow
+          slotName={slot.displayName}
+          itemName={item && item.name}
+          obscured={item && ("obscured" in item) ? item.obscured : 0}
+          indented={slot.indented}
+          slotID={slot.id}
+          hidden={slot.indented && !hadLastTopLevelSlot}
+          alternates={alternate && [alternate]}
+          />
+      );
+    });
+
+    if(rows.length)
+    {
+      rows.push(
+        <Table.Row className="spacer">
+          <Table.Cell/><Table.Cell/>
+        </Table.Row>
+      )
     }
 
-    if(slotFound)
-      rows[rows.length-1].spaced = true;
-  }
-
-  const contents = rows.map((row, index) => {
-
-    return (
-      <>
-      <Table.Row
-        height={rowHeight}
-        className={classes([
-          row.indented && "indented",
-          row.obscured===ObscuringLevel.Completely && "obscured-complete",
-          row.obscured===ObscuringLevel.Hidden && "obscured-hidden",
-          row.hidden && "hidden",
-          row.spaced && "spaced",
-        ])}>
-        <Table.Cell pl={1.5} pr={1}
-            collapsing
-            >
-          {row.slotName}:
-        </Table.Cell>
-        <Table.Cell pl={2} pr={1.5}>
-          {
-            !row.hidden && (
-              <Button compact
-                content={row.obscured ? "Obscured" : (row.itemName || "Empty")}
-                disabled={row.obscured === ObscuringLevel.Completely}
-                onClick={() => act("use", { key: row.slotID })}
-              />
-            )
-          }
-          {
-            row.alternates?.map((alternate) => (
-              <Button compact
-                content={alternate.text}
-                onClick={() => act("alt", { key: row.slotID })}
-              />
-            ))
-          }
-        </Table.Cell>
-      </Table.Row>
-      {(!!row.spaced) && <Table.Row height={0.5} className="candystripe"/>}
-      </>
-    );
+    return rows
   })
 
   return (
     <Window title={`Stripping ${data.name}`}
       width={400}
-      height={500}>
+      //Enough height to fit human with handcuffs and legcuffs
+      height={520}>
       <Window.Content scrollable fitted
       style={{"background-image": "none"}}>
         <Table mt={1} className="strip-menu-table" fontSize="1.1em">
