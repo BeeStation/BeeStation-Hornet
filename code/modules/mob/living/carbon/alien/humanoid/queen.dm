@@ -41,8 +41,8 @@
 	var/datum/action/small_sprite/smallsprite = new/datum/action/small_sprite/queen()
 
 /mob/living/carbon/alien/humanoid/royal/queen/Initialize()
-	RegisterSignal(src, list(COMSIG_MOVABLE_Z_CHANGED), .proc/register_hostile)
-	register_hostile() //still need to call this
+	RegisterSignal(src, list(COMSIG_MOVABLE_Z_CHANGED), .proc/check_hostile)
+	check_hostile() //still need to call this
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/royal/queen/Q in GLOB.carbon_list)
 		if(Q == src)
@@ -68,10 +68,13 @@
 	internal_organs += new /obj/item/organ/alien/eggsac
 	..()
 
-/mob/living/carbon/alien/humanoid/royal/queen/proc/register_hostile()
+/mob/living/carbon/alien/humanoid/royal/queen/proc/check_hostile()
 	if(is_station_level(src.z)) //we don't want the hostile environment if the xenos aren't actually on station
 		SSshuttle.registerHostileEnvironment(src) //aliens delay shuttle
 		addtimer(CALLBACK(src, .proc/game_end), 30 MINUTES) //time until shuttle is freed/called
+		return
+	if(src in SSshuttle.hostileEnvironments)
+		SSshuttle.clearHostileEnvironment(src) //left the z level, no longer matters
 
 /mob/living/carbon/alien/humanoid/royal/queen/proc/game_end()
 	var/turf/T = get_turf(src)
