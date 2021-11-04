@@ -76,7 +76,7 @@
 						bookcount -= booksperpage
 						pagecount++
 					dat += pagelist.Join(" | ")
-				search_page = text2num(search_page
+				search_page = text2num(search_page)
 				var/datum/DBQuery/query_library_list_books = SSdbcore.NewQuery({"
 					SELECT author, title, category, id
 					FROM [format_table_name("library")]
