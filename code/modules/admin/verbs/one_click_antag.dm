@@ -433,7 +433,7 @@
 	new /datum/round_event/ghost_role/revenant(TRUE, TRUE)
 	return 1
 
-/datum/admins/proc/attemptMakeIDPD(var/list/mob/dead/observer/candidates, var/num_agents, var/datum/ert/ertemplate, var/datum/team/ert/ert_team, var/datum/objective/missionobj) //They don't start at centcom (fuck you linter)
+/datum/admins/proc/attemptMakeIDPD(var/list/mob/dead/observer/candidates, var/num_agents, var/datum/ert/ertemplate, var/datum/team/ert/ert_team, var/datum/objective/missionobj) //They don't start at centcom (thank you linter)
 	if(num_agents > candidates.len || candidates.len == 0)
 		return FALSE
 
