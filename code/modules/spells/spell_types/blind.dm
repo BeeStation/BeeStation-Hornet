@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/pointed/trigger/blind
+/obj/effect/proc_holder/spell/targeted/blind
 	name = "Blind"
 	desc = "This spell temporarily blinds a single target."
 	school = "transmutation"
@@ -6,29 +6,44 @@
 	clothes_req = FALSE
 	invocation = "STI KALY"
 	invocation_type = "whisper"
-	message = "<span class='notice'>Your eyes cry out in pain!</span>"
 	cooldown_min = 50 //12 deciseconds reduction per rank
-	starting_spells = list("/obj/effect/proc_holder/spell/targeted/inflict_handler/blind", "/obj/effect/proc_holder/spell/targeted/genetic/blind")
 	ranged_mousepointer = 'icons/effects/blind_target.dmi'
 	action_icon_state = "blind"
-	base_icon_state = "blind"
-	active_msg = "You prepare to blind a target..."
+	range = 7
+	selection_type = "range"
+	var/duration = 300 //30 seconds
+	var/static/list/compatible_mobs_typecache = typecacheof(list(/mob/living/carbon/human))
 
-/obj/effect/proc_holder/spell/targeted/inflict_handler/blind
-	amt_eye_blind = 10
-	amt_eye_blurry = 20
-	sound = 'sound/magic/blind.ogg'
 
-/obj/effect/proc_holder/spell/targeted/genetic/blind
-	mutations = list(BLINDMUT)
-	duration = 300
-	charge_max = 400 // needs to be higher than the duration or it'll be permanent
-	sound = 'sound/magic/blind.ogg'
+/obj/effect/proc_holder/spell/targeted/blind/cast(list/targets, mob/user = usr)
+	if(!length(targets))
+		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		revert_cast()
+		return
+	
+	var/mob/living/carbon/target = targets[1]
 
-/obj/effect/proc_holder/spell/pointed/trigger/blind/intercept_check(mob/user, atom/target)
-	if(!..())
-		return FALSE
-	if(!isliving(target))
-		to_chat(user, "<span class='warning'>You can only blind living beings!</span>")
-		return FALSE
-	return TRUE
+	if(!compatible_mobs_typecache[target.type])
+		to_chat(user, "<span class='notice'>You are unable to curse [target] with blindness!</span>")
+		revert_cast()
+		return
+	
+	if(!(target in oview(range)))
+		to_chat(user, "<span class='notice'>[target.p_theyre(TRUE)] too far away!</span>")
+		revert_cast()
+		return
+	
+	if(target.anti_magic_check() || HAS_TRAIT(target, TRAIT_WARDED))
+		to_chat(user, "<span class='warning'>The spell had no effect!</span>")
+		target.visible_message("<span class='danger'>[target]'s eyes darken, but instantly turn back to their regular color, leaving [target] unharmed!</span>", \
+						   "<span class='danger'>Your eyes hurt for a moment, but the blindness is repulsed by your anti-magic protection!</span>")
+		return
+	
+	target.visible_message("<span class='danger'>[target]'s eyes darken as black smoke starts coming out of them!</span>", \
+						   "<span class='danger'>Your eyes hurt as they start smoking, you panic as you realise you're blind!</span>")
+	target.emote("scream")
+	target.become_blind(MAGIC_BLIND)
+	addtimer(CALLBACK(src, .proc/cure_blindness, target), duration)
+
+/obj/effect/proc_holder/spell/targeted/blind/proc/cure_blindness(mob/living/L)
+	L.cure_blind(MAGIC_BLIND)

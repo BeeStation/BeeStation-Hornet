@@ -33,6 +33,7 @@
 			to_chat(user, "<span class='notice'>You unlock [src].</span>")
 			locked = FALSE
 			update_icon()
+			ui_update()
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
@@ -44,6 +45,7 @@
 	if(locked)
 		locked = FALSE
 		update_icon()
+		ui_update()
 
 /obj/item/nanite_remote/update_icon()
 	. = ..()
@@ -66,7 +68,7 @@
 				signal_mob(target, code, key_name(user))
 		if(REMOTE_MODE_AOE)
 			to_chat(user, "<span class='notice'>You activate [src], signaling the nanites inside every host around you.</span>")
-			for(var/mob/living/L in view(user, 7))
+			for(var/mob/living/L in hearers(7, user))
 				signal_mob(L, code, key_name(user))
 		if(REMOTE_MODE_RELAY)
 			to_chat(user, "<span class='notice'>You activate [src], signaling all connected relay nanites.</span>")
@@ -102,7 +104,8 @@
 	return data
 
 /obj/item/nanite_remote/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	switch(action)
 		if("set_code")
@@ -169,7 +172,6 @@
 				update_icon()
 			. = TRUE
 
-
 /obj/item/nanite_remote/comm
 	name = "nanite communication remote"
 	desc = "A device that can send text messages to specific programs."
@@ -189,7 +191,7 @@
 				signal_mob(target, code, comm_message, key_name(user))
 		if(REMOTE_MODE_AOE)
 			to_chat(user, "<span class='notice'>You activate [src], signaling the nanites inside every host around you.</span>")
-			for(var/mob/living/L in view(user, 7))
+			for(var/mob/living/L in hearers(7, user))
 				signal_mob(L, code, comm_message, key_name(user))
 		if(REMOTE_MODE_RELAY)
 			to_chat(user, "<span class='notice'>You activate [src], signaling all connected relay nanites.</span>")

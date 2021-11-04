@@ -21,17 +21,19 @@ Bonus
 	stealth = -2
 	resistance = 3
 	stage_speed = 0
-	transmittable = 4
+	transmission = 4
 	level = 1
 	severity = 0
 	symptom_delay_min = 5
 	symptom_delay_max = 35
+	prefixes = list("Nasal ")
+	bodies = list("Cold")
 	threshold_desc = "<b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/sneeze/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 4)
+	if(A.stealth >= 4)
 		suppress_warning = TRUE
 
 /datum/symptom/sneeze/Activate(datum/disease/advance/A)

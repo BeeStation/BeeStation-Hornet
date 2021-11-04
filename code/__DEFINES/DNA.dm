@@ -51,6 +51,7 @@
 #define GELADIKINESIS		/datum/mutation/human/geladikinesis
 #define CRYOKINESIS /datum/mutation/human/cryokinesis
 #define CLUWNEMUT   /datum/mutation/human/cluwne
+#define WAXSALIVA   /datum/mutation/human/wax_saliva
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"
@@ -95,7 +96,7 @@
 #define TR_KEEPSE		(1<<5)	// changelings shouldn't edit the DNA's SE when turning into a monkey
 #define TR_DEFAULTMSG	(1<<6)
 #define TR_KEEPORGANS	(1<<8)
-
+#define TR_KEEPAI 		(1<<9)
 
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
@@ -125,6 +126,7 @@
 #define NOHUSK			22 // Can't be husked.
 #define ROBOTIC_LIMBS	23 //limbs start out as robotic; but also use organic icons. If you want to use the default ones, you'll have to use on_species_gain
 #define NOMOUTH			24
+#define NOSOCKS       25 // You cannot wear socks.
 
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"

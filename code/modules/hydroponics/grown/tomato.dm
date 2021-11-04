@@ -44,11 +44,16 @@
 	name = "blood-tomato"
 	desc = "So bloody...so...very...bloody....AHHHH!!!!"
 	icon_state = "bloodtomato"
-	splat_type = /obj/effect/gibspawner/generic
+	splat_type = /obj/effect/gibspawner/generic/bloodtomato
 	filling_color = "#FF0000"
 	foodtype = FRUIT | GROSS
 	grind_results = list(/datum/reagent/consumable/ketchup = 0, /datum/reagent/blood = 0)
 	distill_reagent = /datum/reagent/consumable/ethanol/bloody_mary
+
+/obj/item/reagent_containers/food/snacks/grown/tomato/blood/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
+	if(istype(thrower) && thrower.ckey)
+		thrower.investigate_log("has thrown bloodtomatoes at [AREACOORD(thrower)].", INVESTIGATE_BOTANY)
+	. = ..()
 
 // Blue Tomato
 /obj/item/seeds/tomato/blue
@@ -118,7 +123,7 @@
 	name = "killer-tomato"
 	desc = "I say to-mah-to, you say tom-mae-to... OH GOD IT'S EATING MY LEGS!!"
 	icon_state = "killertomato"
-	var/awakening = 0
+	var/awakening = FALSE
 	filling_color = "#FF0000"
 	distill_reagent = /datum/reagent/consumable/ethanol/demonsblood
 
@@ -131,17 +136,19 @@
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer/attack_self(mob/user)
 	if(awakening || isspaceturf(user.loc))
 		return
-	to_chat(user, "<span class='notice'>You begin to awaken the Killer Tomato...</span>")
+	user.visible_message("<span class='notice'>[user] beings to awaken the [src].</span>", \
+	"<span class='notice'>You begin to awaken the [src]...</span>")
 	awakening = TRUE
 	log_game("[key_name(user)] awakened a killer tomato at [AREACOORD(user)].")
-
-	spawn(30)
-		if(!QDELETED(src))
-			var/mob/living/simple_animal/hostile/killertomato/K = new /mob/living/simple_animal/hostile/killertomato(get_turf(src.loc))
-			K.maxHealth += round(seed.endurance / 3)
-			K.melee_damage += round(seed.potency / 10)
-			K.move_to_delay -= round(seed.production / 50)
-			K.frenzythreshold -= round(seed.potency / 25)// max potency tomatoes will enter a frenzy more easily
-			K.health = K.maxHealth
-			K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
-			qdel(src)
+	addtimer(CALLBACK(src, .proc/make_killer_tomato), 30)
+	
+/obj/item/reagent_containers/food/snacks/grown/tomato/killer/proc/make_killer_tomato()
+	if(!QDELETED(src))
+		var/mob/living/simple_animal/hostile/killertomato/K = new /mob/living/simple_animal/hostile/killertomato(get_turf(src.loc))
+		K.maxHealth += round(seed.endurance / 3)
+		K.melee_damage += round(seed.potency / 10)
+		K.move_to_delay -= round(seed.production / 50)
+		K.frenzythreshold -= round(seed.potency / 25)// max potency tomatoes will enter a frenzy more easily
+		K.health = K.maxHealth
+		K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
+		qdel(src)

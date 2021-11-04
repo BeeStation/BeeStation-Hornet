@@ -75,6 +75,8 @@
 	return ..()
 
 /datum/status_effect/slimerecall/proc/resistField()
+	SIGNAL_HANDLER
+
 	interrupted = TRUE
 	owner.remove_status_effect(src)
 /datum/status_effect/slimerecall/on_remove()
@@ -110,6 +112,8 @@
 		owner.remove_status_effect(src)
 
 /datum/status_effect/frozenstasis/proc/breakCube()
+	SIGNAL_HANDLER
+
 	owner.remove_status_effect(src)
 
 /datum/status_effect/frozenstasis/on_remove()
@@ -229,7 +233,7 @@
 	duration = -1
 	alert_type = null
 
-datum/status_effect/rebreathing/tick()
+/datum/status_effect/rebreathing/tick()
 	owner.adjustOxyLoss(-6, 0) //Just a bit more than normal breathing.
 
 ///////////////////////////////////////////////////////
@@ -261,7 +265,7 @@ datum/status_effect/rebreathing/tick()
 	return ..()
 
 /datum/status_effect/watercookie/tick()
-	for(var/turf/open/T in range(get_turf(owner),1))
+	for(var/turf/open/T in RANGE_TURFS(1, owner))
 		T.MakeSlippery(TURF_WET_WATER, min_wet_time = 10, wet_time_to_add = 5)
 
 /datum/status_effect/watercookie/on_remove()
@@ -323,15 +327,12 @@ datum/status_effect/rebreathing/tick()
 	duration = 600
 
 /datum/status_effect/timecookie/on_apply()
-	if(ishuman(owner))
-		var/mob/living/carbon/human/H
-		H.physiology.do_after_speed *= 0.95
+	owner.add_actionspeed_modifier(/datum/actionspeed_modifier/timecookie)
 	return ..()
 
 /datum/status_effect/timecookie/on_remove()
-	if(ishuman(owner))
-		var/mob/living/carbon/human/H
-		H.physiology.do_after_speed /= 0.95
+	owner.remove_actionspeed_modifier(/datum/actionspeed_modifier/timecookie)
+	return ..()
 
 /datum/status_effect/lovecookie
 	id = "lovecookie"
@@ -347,9 +348,8 @@ datum/status_effect/rebreathing/tick()
 		if(C.handcuffed)
 			return
 	var/list/huggables = list()
-	for(var/mob/living/carbon/L in range(get_turf(owner),1))
-		if(L != owner)
-			huggables += L
+	for(var/mob/living/carbon/L in oviewers(1, owner))
+		huggables += L
 	if(length(huggables))
 		var/mob/living/carbon/hugged = pick(huggables)
 		owner.visible_message("<span class='notice'>[owner] hugs [hugged]!</span>", "<span class='notice'>You hug [hugged]!</span>")
@@ -361,9 +361,8 @@ datum/status_effect/rebreathing/tick()
 	duration = 100
 
 /datum/status_effect/tarcookie/tick()
-	for(var/mob/living/carbon/human/L in range(get_turf(owner),1))
-		if(L != owner)
-			L.apply_status_effect(/datum/status_effect/tarfoot)
+	for(var/mob/living/carbon/human/L in oviewers(1, owner))
+		L.apply_status_effect(/datum/status_effect/tarfoot)
 
 /datum/status_effect/tarfoot
 	id = "tarfoot"
@@ -400,7 +399,7 @@ datum/status_effect/rebreathing/tick()
 	duration = 100
 
 /datum/status_effect/peacecookie/tick()
-	for(var/mob/living/L in range(get_turf(owner),1))
+	for(var/mob/living/L in viewers(1, owner))
 		L.apply_status_effect(/datum/status_effect/plur)
 
 /datum/status_effect/plur
@@ -466,10 +465,10 @@ datum/status_effect/rebreathing/tick()
 	colour = "grey"
 
 /datum/status_effect/stabilized/grey/tick()
-	for(var/mob/living/simple_animal/slime/S in range(1, get_turf(owner)))
+	for(var/mob/living/simple_animal/slime/S in viewers(1, owner))
 		if(!(owner in S.Friends))
 			to_chat(owner, "<span class='notice'>[linked_extract] pulses gently as it communicates with [S].</span>")
-			S.Friends[owner] = 1
+			S.set_friendship(owner, 1)
 	return ..()
 
 /datum/status_effect/stabilized/orange
@@ -511,7 +510,7 @@ datum/status_effect/rebreathing/tick()
 	ADD_TRAIT(owner, TRAIT_NOSLIPWATER, "slimestatus")
 	return ..()
 
-datum/status_effect/stabilized/blue/on_remove()
+/datum/status_effect/stabilized/blue/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_NOSLIPWATER, "slimestatus")
 
 /datum/status_effect/stabilized/metal
@@ -579,8 +578,10 @@ datum/status_effect/stabilized/blue/on_remove()
 
 /datum/status_effect/stabilized/darkpurple/tick()
 	var/obj/item/I = owner.get_active_held_item()
-	var/obj/item/reagent_containers/food/snacks/F = I
-	if(istype(F))
+	if(!I)
+		return
+	if(istype(I, /obj/item/reagent_containers/food/snacks))
+		var/obj/item/reagent_containers/food/snacks/F = I
 		if(F.cooked_type)
 			to_chat(owner, "<span class='warning'>[linked_extract] flares up brightly, and your hands alone are enough cook [F]!</span>")
 			var/obj/item/result = F.microwave_act()
@@ -828,7 +829,7 @@ datum/status_effect/stabilized/blue/on_remove()
 			M.apply_status_effect(/datum/status_effect/pinkdamagetracker)
 			M.faction |= faction_name
 	for(var/mob/living/simple_animal/M in mobs)
-		if(!(M in view(7,get_turf(owner))))
+		if(!(M in hearers(7,get_turf(owner))))
 			M.faction -= faction_name
 			M.remove_status_effect(/datum/status_effect/pinkdamagetracker)
 			mobs -= M
@@ -906,18 +907,20 @@ datum/status_effect/stabilized/blue/on_remove()
 	colour = "light pink"
 
 /datum/status_effect/stabilized/lightpink/on_apply()
-	owner.add_movespeed_modifier(MOVESPEED_ID_SLIME_STATUS, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
+	owner.add_movespeed_modifier(MOVESPEED_ID_SLIME_STATUS, update=TRUE, priority=100, multiplicative_slowdown=-0.5, blacklisted_movetypes=(FLYING|FLOATING))
+	ADD_TRAIT(owner, TRAIT_PACIFISM, LIGHTPINK_TRAIT)
 	return ..()
 
 /datum/status_effect/stabilized/lightpink/tick()
-	for(var/mob/living/carbon/human/H in range(1, get_turf(owner)))
-		if(H != owner && H.stat != DEAD && H.health <= 0 && !H.reagents.has_reagent(/datum/reagent/medicine/epinephrine))
+	for(var/mob/living/carbon/human/H in ohearers(1, owner))
+		if(H.stat != DEAD && H.health <= 0 && !H.reagents.has_reagent(/datum/reagent/medicine/epinephrine))
 			to_chat(owner, "[linked_extract] pulses in sync with [H]'s heartbeat, trying to keep [H.p_them()] alive.")
 			H.reagents.add_reagent(/datum/reagent/medicine/epinephrine,5)
 	return ..()
 
 /datum/status_effect/stabilized/lightpink/on_remove()
 	owner.remove_movespeed_modifier(MOVESPEED_ID_SLIME_STATUS)
+	REMOVE_TRAIT(owner, TRAIT_PACIFISM, LIGHTPINK_TRAIT)
 
 /datum/status_effect/stabilized/adamantine
 	id = "stabilizedadamantine"

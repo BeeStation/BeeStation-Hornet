@@ -25,8 +25,12 @@
 	spread_text = "Unknown"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey, /mob/living/carbon/monkey/tumor)
 
-	// NEW VARS
-	var/list/properties = list()
+	var/resistance
+	var/stealth
+	var/stage_rate
+	var/transmission
+	var/severity
+	var/speed
 	var/list/symptoms = list() // The symptoms of the disease.
 	var/id = ""
 	var/processing = FALSE
@@ -35,8 +39,8 @@
 	var/sentient = FALSE //used to classify if a disease is sentient
 	var/faltered = FALSE //used if a disease has been made non-contagious
 	// The order goes from easy to cure to hard to cure.
-	var/static/list/advance_cures = 	list(
-																/datum/reagent/water, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sodiumchloride,
+	var/static/list/advance_cures = list(
+									/datum/reagent/water, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sodiumchloride,
 									/datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/mine_salve,
 									/datum/reagent/medicine/leporazine, /datum/reagent/concentrated_barbers_aid, /datum/reagent/toxin/lipolicide,
 									/datum/reagent/medicine/haloperidol, /datum/reagent/drug/krokodil
@@ -51,13 +55,15 @@
 	Refresh()
 
 /datum/disease/advance/Destroy()
-	SEND_SIGNAL(affected_mob, COMSIG_DISEASE_END, GetDiseaseID())
+	if(affected_mob)
+		SEND_SIGNAL(affected_mob, COMSIG_DISEASE_END, GetDiseaseID())
+		UnregisterSignal(affected_mob, COMSIG_MOB_DEATH)
 	if(processing)
 		for(var/datum/symptom/S in symptoms)
 			S.End(src)
 	return ..()
 
-/datum/disease/advance/try_infect(var/mob/living/infectee, make_copy = TRUE)
+/datum/disease/advance/try_infect(mob/living/infectee, make_copy = TRUE)
 	//see if we are more transmittable than enough diseases to replace them
 	//diseases replaced in this way do not confer immunity
 	var/list/advance_diseases = list()
@@ -75,12 +81,22 @@
 		sortTim(advance_diseases, /proc/cmp_advdisease_resistance_asc)
 		for(var/i in 1 to replace_num)
 			var/datum/disease/advance/competition = advance_diseases[i]
-			if(totalTransmittable() > competition.totalResistance())
+			if(transmission > competition.resistance)
 				competition.cure(FALSE)
 			else
 				return FALSE //we are not strong enough to bully our way in
 	infect(infectee, make_copy)
 	return TRUE
+
+/datum/disease/advance/after_add()
+	if(affected_mob)
+		RegisterSignal(affected_mob, COMSIG_MOB_DEATH, .proc/on_mob_death)
+
+/datum/disease/advance/proc/on_mob_death()
+	SIGNAL_HANDLER
+
+	for(var/datum/symptom/S as() in symptoms)
+		S.OnDeath(src)
 
 // Randomly pick a symptom to activate.
 /datum/disease/advance/stage_act()
@@ -106,13 +122,12 @@
 
 // Compares type then ID.
 /datum/disease/advance/IsSame(datum/disease/advance/D)
-
-	if(!(istype(D, /datum/disease/advance)))
-		return 0
+	if(!istype(D, /datum/disease/advance))
+		return FALSE
 
 	if(GetDiseaseID() != D.GetDiseaseID())
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 // Returns the advance disease with a different reference memory.
 /datum/disease/advance/Copy()
@@ -120,7 +135,12 @@
 	QDEL_LIST(A.symptoms)
 	for(var/datum/symptom/S in symptoms)
 		A.symptoms += S.Copy()
-	A.properties = properties.Copy()
+	A.resistance = resistance
+	A.stealth = stealth
+	A.stage_rate = stage_rate
+	A.transmission = transmission
+	A.severity = severity
+	A.speed = speed
 	A.id = id
 	A.mutable = mutable
 	A.faltered = faltered
@@ -132,7 +152,7 @@
 	var/list/name_symptoms = list()
 	for(var/datum/symptom/S in symptoms)
 		name_symptoms += S.name
-	return "[name] sym:[english_list(name_symptoms)] r:[totalResistance()] s:[totalStealth()] ss:[totalStageSpeed()] t:[totalTransmittable()]"
+	return "[name] sym:[english_list(name_symptoms)] r:[resistance] s:[stealth] ss:[stage_rate] t:[transmission]"
 
 /*
 
@@ -194,45 +214,40 @@
 
 //Generate disease properties based on the effects. Returns an associated list.
 /datum/disease/advance/proc/GenerateProperties()
-	properties = list("resistance" = 0, "stealth" = 0, "stage_rate" = 0, "transmittable" = 0, "severity" = 0)
-	for(var/datum/symptom/S in symptoms) //I can't change the order of the symptom list by severity, so i have to loop through symptoms three times, one for each tier of severity, to keep it consistent
-		properties["resistance"] += S.resistance
-		properties["stealth"] += S.stealth
-		properties["stage_rate"] += S.stage_speed
-		properties["transmittable"] += S.transmittable
+	resistance = 0
+	stealth = 0
+	stage_rate = 0
+	transmission = 0
+	severity = 0
+	//Why do we need 2 loops here?
+	//First loop just sets stats and second is purely just to set (and get) symptom severity
+	for(var/datum/symptom/S as() in symptoms)
+		resistance += S.resistance
+		stealth += S.stealth
+		stage_rate += S.stage_speed
+		transmission += S.transmission
+
+	for(var/datum/symptom/S as() in symptoms)
 		S.severityset(src)
-		if(!S.neutered && S.severity >= 5) //big severity goes first. This means it can be reduced by beneficials, but won't increase from minor symptoms
-			properties["severity"] += S.severity
-	for(var/datum/symptom/S in symptoms)
-		S.severityset(src)
-		if(!S.neutered)
-			switch(S.severity)//these go in the middle. They won't augment large severity diseases, but they can push low ones up to channel 2
-				if(1 to 2)
-					properties["severity"] = max(properties["severity"], min(3, (S.severity + properties["severity"])))
-				if(3 to 4)
-					properties["severity"] = max(properties["severity"], min(4, (S.severity + properties["severity"])))
-	for(var/datum/symptom/S in symptoms) //benign and beneficial symptoms go last
-		S.severityset(src)
-		if(!S.neutered && S.severity <= 0)
-			properties["severity"] += S.severity
+		if(S.neutered)
+			continue
+		severity += S.severity
 
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/AssignProperties()
-	if(properties && properties.len)
-		if(properties["stealth"] >= 2)
-			visibility_flags |= HIDDEN_SCANNER
-		else
-			visibility_flags &= ~HIDDEN_SCANNER
-
-		SetSpread(CLAMP(2 ** (properties["transmittable"] - symptoms.len), DISEASE_SPREAD_BLOOD, DISEASE_SPREAD_AIRBORNE))
-
-		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
-		cure_chance = 15 - CLAMP(properties["resistance"], -5, 5) // can be between 10 and 20
-		stage_prob = max(properties["stage_rate"], 2)
-		SetSeverity(properties["severity"])
-		GenerateCure(properties)
+	if(stealth >= 2)
+		visibility_flags |= HIDDEN_SCANNER
 	else
-		CRASH("Our properties were empty or null!")
+		visibility_flags &= ~HIDDEN_SCANNER
+
+	SetSpread(CLAMP(2 ** (transmission - symptoms.len), DISEASE_SPREAD_BLOOD, DISEASE_SPREAD_AIRBORNE))
+
+	permeability_mod = max(CEILING(0.4 * transmission, 1), 1)
+	cure_chance = 15 - CLAMP(resistance, -5, 5) // can be between 10 and 20
+	stage_prob = max(stage_rate, 2)
+	SetDanger(severity)
+	GenerateCure()
+
 
 
 // Assign the spread type and give it the correct description.
@@ -261,31 +276,31 @@
 				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_AIRBORNE
 				spread_text = "Airborne"
 
-/datum/disease/advance/proc/SetSeverity(level_sev)
+/datum/disease/advance/proc/SetDanger(level_sev)
 	switch(level_sev)
 		if(-INFINITY to -2)
-			severity = DISEASE_SEVERITY_BENEFICIAL
+			danger = DISEASE_BENEFICIAL
 		if(-1)
-			severity = DISEASE_SEVERITY_POSITIVE
+			danger = DISEASE_POSITIVE
 		if(0)
-			severity = DISEASE_SEVERITY_NONTHREAT
+			danger = DISEASE_NONTHREAT
 		if(1)
-			severity = DISEASE_SEVERITY_MINOR
+			danger = DISEASE_MINOR
 		if(2)
-			severity = DISEASE_SEVERITY_MEDIUM
+			danger = DISEASE_MEDIUM
 		if(3)
-			severity = DISEASE_SEVERITY_HARMFUL
+			danger = DISEASE_HARMFUL
 		if(4)
-			severity = DISEASE_SEVERITY_DANGEROUS
+			danger = DISEASE_DANGEROUS
 		if(5)
-			severity = DISEASE_SEVERITY_BIOHAZARD
+			danger = DISEASE_BIOHAZARD
 		if(6 to INFINITY)
-			severity = DISEASE_SEVERITY_PANDEMIC
+			danger = DISEASE_PANDEMIC
 		else
-			severity = "Unknown"
+			danger = "Unknown"
 
 /datum/disease/advance/proc/CheckChannel() //i hate that i have to  use this to make this work
-	switch(properties["severity"])
+	switch(severity)
 		if(-INFINITY to -2)
 			return 1
 		if(-1)
@@ -309,13 +324,12 @@
 
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure()
-	if(properties && properties.len)
-		var/res = CLAMP(properties["resistance"] - (symptoms.len / 2), 1, advance_cures.len)
-		cures = list(advance_cures[res])
+	var/res = CLAMP(resistance - (symptoms.len / 2), 1, advance_cures.len)
+	cures = list(advance_cures[res])
 
-		// Get the cure name from the cure_id
-		var/datum/reagent/D = GLOB.chemical_reagents_list[cures[1]]
-		cure_text = D.name
+	// Get the cure name from the cure_id
+	var/datum/reagent/D = GLOB.chemical_reagents_list[cures[1]]
+	cure_text = D.name
 
 // Randomly generate a symptom, has a chance to lose or gain a symptom.
 /datum/disease/advance/proc/Evolve(min_level, max_level, ignore_mutable = FALSE)
@@ -405,7 +419,7 @@
 */
 
 // Mix a list of advance diseases and return the mixed result.
-/proc/Advance_Mix(var/list/D_list)
+/proc/Advance_Mix(list/D_list)
 	var/list/diseases = list()
 
 	for(var/datum/disease/advance/A in D_list)
@@ -496,17 +510,97 @@
 		log_virus("[key_name(user)] has triggered a custom virus outbreak of [D.admin_details()]!")
 
 
-/datum/disease/advance/proc/totalStageSpeed()
-	return properties["stage_rate"]
 
-/datum/disease/advance/proc/totalStealth()
-	return properties["stealth"]
 
-/datum/disease/advance/proc/totalResistance()
-	return properties["resistance"]
-
-/datum/disease/advance/proc/totalTransmittable()
-	return properties["transmittable"]
-
-/datum/disease/advance/proc/totalSeverity()
-	return properties["severity"]
+/datum/disease/advance/proc/random_disease_name(var/atom/diseasesource)//generates a name for a disease depending on its symptoms and where it comes from
+	var/list/prefixes = list("Spacer's ", "Space ", "Infectious ","Viral ", "The ", "[pick(GLOB.first_names)]'s ", "[pick(GLOB.last_names)]'s ", "Acute ")//prefixes that arent tacked to the body need spaces after the word
+	var/list/bodies = list(pick("[pick(GLOB.first_names)]", "[pick(GLOB.last_names)]"), "Space", "Disease", "Noun", "Cold", "Germ", "Virus")
+	var/list/suffixes = list("ism", "itis", "osis", "itosis", " #[rand(1,10000)]", "-[rand(1,100)]", "s", "y", " ovirus", " Bug", " Infection", " Disease", " Complex", " Syndrome", " Sickness") //suffixes that arent tacked directly on need spaces before the word
+	if(stealth >=2)
+		prefixes += "Crypto "
+	switch(max(resistance - (symptoms.len / 2), 1))
+		if(1)
+			suffixes += "-alpha"
+		if(2)
+			suffixes += "-beta"
+		if(3)
+			suffixes += "-gamma"
+		if(4)
+			suffixes += "-delta"
+		if(5)
+			suffixes += "-epsilon"
+		if(6)
+			suffixes += pick("-zeta", "-eta", "-theta", "-iota")
+		if(7)
+			suffixes += pick("-kappa", "-lambda")
+		if(8)
+			suffixes += pick("-mu", "-nu", "-xi", "-omicron")
+		if(9)
+			suffixes += pick("-pi", "-rho", "-sigma", "-tau")
+		if(10)
+			suffixes += pick("-upsilon", "-phi", "-chi", "-psi")
+		if(11 to INFINITY)
+			suffixes += "-omega"
+			prefixes += "Robust "
+	switch(transmission - symptoms.len)
+		if(-INFINITY to 2)
+			prefixes += "Bloodborne "
+		if(3)
+			prefixes += list("Mucous ", "Kissing ")
+		if(4)
+			prefixes += "Contact "
+			suffixes += " Flu"
+		if(5 to INFINITY)
+			prefixes += "Airborne "
+			suffixes += " Plague"
+	switch(severity)
+		if(-INFINITY to 0)
+			prefixes += "Altruistic "
+		if(1 to 2)
+			prefixes += "Benign "
+		if(3 to 4)
+			prefixes += "Malignant "
+		if(5)
+			prefixes += "Terminal "
+			bodies += "Death"
+		if(6 to INFINITY)
+			prefixes += "Deadly "
+			bodies += "Death"
+	if(diseasesource)
+		if(ishuman(diseasesource))
+			var/mob/living/carbon/human/H = diseasesource
+			prefixes += pick("[H.first_name()]'s", "[H.name]'s", "[H.job]'s", "[H.dna.species]'s")
+			bodies += pick("[H.first_name()]", "[H.job]", "[H.dna.species]")
+			if(islizard(H) || iscatperson(H))//add rat-origin prefixes to races that eat rats
+				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
+				bodies += list("Rat", "Maint")
+		else switch(diseasesource.type)
+			if(/mob/living/simple_animal/pet/hamster/vector)
+				prefixes += list("Vector's ", "Hamster ")
+				bodies += list("Freebie")
+			if(/obj/effect/decal/cleanable)
+				prefixes += list("Bloody ", "Maintenance ") 
+				bodies += list("Maint")
+			if(/mob/living/simple_animal/mouse)
+				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
+				bodies += list("Rat", "Maint")
+			if(/obj/item/reagent_containers/syringe)
+				prefixes += list("Junkie ", "Maintenance ") 
+				bodies += list("Needle", "Maint")
+			if(/obj/item/fugu_gland)
+				prefixes += "Wumbo"
+			if(/obj/item/organ/lungs)
+				prefixes += "Miasmic "
+				bodies += list("Stench", "Lung")
+	for(var/datum/symptom/Symptom as() in symptoms)
+		if(!Symptom.neutered)
+			prefixes += Symptom.prefixes
+			bodies += Symptom.bodies
+			suffixes += Symptom.suffixes
+	switch(rand(1, 3))
+		if(1)
+			return "[pick(prefixes)][pick(bodies)]"
+		if(2)
+			return "[pick(prefixes)][pick(bodies)][pick(suffixes)]"
+		if(3)
+			return "[pick(bodies)][pick(suffixes)]"

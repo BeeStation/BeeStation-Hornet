@@ -49,7 +49,7 @@
 		playsound(usr, "revolver_spin", 30, FALSE)
 		usr.visible_message("[usr] spins [src]'s chamber.", "<span class='notice'>You spin [src]'s chamber.</span>")
 	else
-		verbs -= /obj/item/gun/ballistic/revolver/verb/spin
+		remove_verb(/obj/item/gun/ballistic/revolver/verb/spin)
 
 /obj/item/gun/ballistic/revolver/proc/do_spin()
 	var/obj/item/ammo_box/magazine/internal/cylinder/C = magazine
@@ -286,3 +286,7 @@
 
 /obj/item/gun/ballistic/revolver/mime/attack_self(mob/user)
 	qdel(src)
+
+//The Lethal Version from Advanced Mimery
+/obj/item/gun/ballistic/revolver/mime/magic
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/mime/lethal

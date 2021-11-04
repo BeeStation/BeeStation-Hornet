@@ -84,9 +84,9 @@
 		. += "<span class='notice'>\The [src] is empty.</span>"
 
 	if(!(stat & (NOPOWER|BROKEN)))
-		. += {"<span class='notice'>The status display reads:</span>\n
-		<span class='notice'>- Capacity: <b>[max_n_of_items]</b> items.<span>\n
-		<span class='notice'>- Cook time reduced by <b>[(efficiency - 1) * 25]%</b>.<span>"}
+		. += "<span class='notice'>The status display reads:</span>\n"+\
+		"<span class='notice'>- Capacity: <b>[max_n_of_items]</b> items.<span>\n"+\
+		"<span class='notice'>- Cook time reduced by <b>[(efficiency - 1) * 25]%</b>.</span>"
 
 /obj/machinery/microwave/update_icon()
 	if(broken)
@@ -256,8 +256,8 @@
 		break
 	start()
 
-/obj/machinery/microwave/proc/turn_on()
-	visible_message("\The [src] turns on.", "<span class='italics'>You hear a microwave humming.</span>")
+/obj/machinery/microwave/proc/wzhzhzh()
+	visible_message("<span class='notice'>\The [src] turns on.</span>", null, "<span class='hear'>You hear a microwave humming.</span>")
 	operating = TRUE
 
 	set_light(1.5)
@@ -275,15 +275,15 @@
 #define MICROWAVE_PRE 2
 
 /obj/machinery/microwave/proc/start()
-	turn_on()
+	wzhzhzh()
 	loop(MICROWAVE_NORMAL, 10)
 
 /obj/machinery/microwave/proc/start_can_fail()
-	turn_on()
+	wzhzhzh()
 	loop(MICROWAVE_PRE, 4)
 
 /obj/machinery/microwave/proc/muck()
-	turn_on()
+	wzhzhzh()
 	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	dirty_anim_playing = TRUE
 	update_icon()

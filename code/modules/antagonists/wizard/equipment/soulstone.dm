@@ -60,6 +60,17 @@
 		A.death()
 	return ..()
 
+/obj/item/soulstone/Exited(mob/living/simple_animal/shade/S, atom/newLoc)
+	..()
+	if(istype(S))
+		// Things that *really should always* happen to the shade when it comes out should go here.
+		S.status_flags &= ~GODMODE
+		S.mobility_flags = MOBILITY_FLAGS_DEFAULT
+		S.cancel_camera()
+		if(purified)
+			S.icon_state = "ghost1"
+			S.name = "Purified [initial(S.name)]"
+
 /obj/item/soulstone/proc/hot_potato(mob/living/user)
 	to_chat(user, "<span class='userdanger'>Holy magics residing in \the [src] burn your hand!</span>")
 	var/obj/item/bodypart/affecting = user.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
@@ -80,6 +91,9 @@
 		return
 	if(!ishuman(M))//If target is not a human.
 		return ..()
+	if(M.mind && !M.mind.hasSoul)
+		to_chat(user, "<span class='warning'>That person has no soul!</span>")
+		return
 	if(iscultist(M))
 		if(iscultist(user))
 			to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your bretheren's soul.\"</span>")
@@ -106,14 +120,9 @@
 
 /obj/item/soulstone/proc/release_shades(mob/user)
 	for(var/mob/living/simple_animal/shade/A in src)
-		A.status_flags &= ~GODMODE
-		A.mobility_flags = MOBILITY_FLAGS_DEFAULT
 		A.forceMove(get_turf(user))
-		A.cancel_camera()
 		if(purified)
 			icon_state = "purified_soulstone"
-			A.icon_state = "ghost1"
-			A.name = "Purified [initial(A.name)]"
 		else
 			icon_state = "soulstone"
 		name = initial(name)
@@ -133,11 +142,11 @@
 /obj/structure/constructshell/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || iswizard(user) || user.stat == DEAD)
-		. += {"<span class='cult'>A construct shell, used to house bound souls from a soulstone.\n
-		Placing a soulstone with a soul into this shell allows you to produce your choice of the following:\n
-		An <b>Artificer</b>, which can produce <b>more shells and soulstones</b>, as well as fortifications.\n
-		A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.\n
-		A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>"}
+		. += "<span class='cult'>A construct shell, used to house bound souls from a soulstone.\n"+\
+		"Placing a soulstone with a soul into this shell allows you to produce your choice of the following:\n"+\
+		"An <b>Artificer</b>, which can produce <b>more shells and soulstones</b>, as well as fortifications.\n"+\
+		"A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.\n"+\
+		"A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>"
 
 /obj/structure/constructshell/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/soulstone))
@@ -191,6 +200,9 @@
 						to_chat(user, "<span class='userdanger'>Capture failed!</span>: The soul has already fled its mortal frame. You attempt to bring it back...")
 						getCultGhost(T,user)
 					else
+						if(old_shard) //no insta cremating on the spot
+							to_chat(user, "<span class='userdanger'>Capture failed!</span>: The old shard is not powerful enough to absorb the soul of this being.")
+							return FALSE
 						for(var/obj/item/W in T)
 							T.dropItemToGround(W)
 						init_shade(T, user, vic = 1)

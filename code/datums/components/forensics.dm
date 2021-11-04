@@ -50,6 +50,8 @@
 	return TRUE
 
 /datum/component/forensics/proc/clean_act(datum/source, strength)
+	SIGNAL_HANDLER
+
 	if(strength >= CLEAN_STRENGTH_FINGERPRINTS)
 		wipe_fingerprints()
 	if(strength >= CLEAN_STRENGTH_BLOOD)
@@ -70,7 +72,7 @@
 		if(!iscameramob(M))
 			return
 		if(isaicamera(M))
-			var/mob/camera/aiEye/ai_camera = M
+			var/mob/camera/ai_eye/ai_camera = M
 			if(!ai_camera.ai)
 				return
 			M = ai_camera.ai
@@ -142,7 +144,7 @@
 		if(!iscameramob(M))
 			return
 		if(isaicamera(M))
-			var/mob/camera/aiEye/ai_camera = M
+			var/mob/camera/ai_eye/ai_camera = M
 			if(!ai_camera.ai)
 				return
 			M = ai_camera.ai

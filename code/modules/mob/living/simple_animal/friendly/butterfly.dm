@@ -27,7 +27,7 @@
 /mob/living/simple_animal/butterfly/Initialize()
 	. = ..()
 	var/newcolor = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
-	mobsay_color = newcolor
+	chat_color = newcolor
 	add_atom_colour(newcolor, FIXED_COLOUR_PRIORITY)
 
 /mob/living/simple_animal/butterfly/bee_friendly()

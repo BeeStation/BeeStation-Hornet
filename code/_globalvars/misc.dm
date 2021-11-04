@@ -1,7 +1,5 @@
 GLOBAL_VAR_INIT(admin_notice, "") //! Admin notice that all clients see when joining the server
 
-GLOBAL_VAR_INIT(timezoneOffset, 0) //! The difference betwen midnight (of the host computer) and 0 world.ticks.
-
 GLOBAL_VAR_INIT(fileaccess_timer, 0) //! For FTP requests. (i.e. downloading runtime logs.) However it'd be ok to use for accessing attack logs and such too, which are even laggier.
 
 GLOBAL_VAR_INIT(TAB, "&nbsp;&nbsp;&nbsp;&nbsp;")
@@ -17,7 +15,6 @@ GLOBAL_VAR_INIT(bsa_unlock, FALSE)	//! BSA unlocked by head ID swipes
 
 GLOBAL_LIST_EMPTY(player_details)	//! ckey -> /datum/player_details
 
-GLOBAL_VAR_INIT(remote_control, TRUE) //! circuit shit
 ///All currently running polls held as datums
 GLOBAL_LIST_EMPTY(polls)
 GLOBAL_PROTECT(polls)
@@ -26,18 +23,18 @@ GLOBAL_PROTECT(polls)
 GLOBAL_LIST_EMPTY(poll_options)
 GLOBAL_PROTECT(poll_options)
 
-// All religion stuff
-GLOBAL_VAR(religion)
-GLOBAL_VAR(deity)
-GLOBAL_VAR(bible_name)
-GLOBAL_VAR(bible_icon_state)
-GLOBAL_VAR(bible_item_state)
-GLOBAL_VAR(holy_weapon_type)
-GLOBAL_VAR(holy_armor_type)
-
 // Monkeycube/chicken/slime spam prevention
 GLOBAL_VAR_INIT(total_cube_monkeys, 0)
 GLOBAL_VAR_INIT(total_chickens, 0)
 GLOBAL_VAR_INIT(total_slimes, 0)
 
-GLOBAL_VAR_INIT(internal_tick_usage, 0.2 * world.tick_lag) //This var is updated every tick by a DLL if present, used to reduce lag
+///Global var for insecure comms key rate limiting
+GLOBAL_VAR_INIT(topic_cooldown, 0)
+
+// Topic stuff
+GLOBAL_LIST_EMPTY(topic_commands)
+GLOBAL_PROTECT(topic_commands)
+GLOBAL_LIST_EMPTY(topic_tokens)
+GLOBAL_PROTECT(topic_tokens)
+GLOBAL_LIST_EMPTY(topic_servers)
+GLOBAL_PROTECT(topic_servers)

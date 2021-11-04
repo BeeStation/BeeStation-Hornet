@@ -45,7 +45,7 @@
 	wanted_objects = typecacheof(/obj/mecha/combat, TRUE)
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/nanotrasen //nanotrasen are syndies! no it's just a weird path.
-	name = "Nanotrasen Mecha Pilot"
+	name = "\improper Nanotrasen Mecha Pilot"
 	desc = "Death to the Syndicate. This variant comes in MECHA DEATH flavour."
 	icon_living = "nanotrasen"
 	icon_state = "nanotrasen"
@@ -53,7 +53,7 @@
 	spawn_mecha_type = /obj/mecha/combat/marauder/loaded
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/no_mech/nanotrasen
-	name = "Nanotrasen Mecha Pilot"
+	name = "\improper Nanotrasen Mecha Pilot"
 	desc = "Death to the Syndicate. This variant comes in MECHA DEATH flavour."
 	icon_living = "nanotrasen"
 	icon_state = "nanotrasen"
@@ -71,9 +71,9 @@
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/proc/enter_mecha(obj/mecha/M)
 	if(!M)
 		return 0
-	target = null //Target was our mecha, so null it out
+	LoseTarget() //Target was our mecha, so null it out
 	M.aimob_enter_mech(src)
-	targets_from = M
+	targets_from = WEAKREF(M)
 	allow_movement_on_non_turfs = TRUE //duh
 	var/do_ranged = 0
 	for(var/equip in mecha.equipment)
@@ -99,14 +99,14 @@
 
 	mecha.aimob_exit_mech(src)
 	allow_movement_on_non_turfs = FALSE
-	targets_from = src
+	targets_from = null
 
 	//Find a new mecha
 	wanted_objects = typecacheof(/obj/mecha/combat, TRUE)
 	var/search_aggressiveness = 2
-	for(var/obj/mecha/combat/C in range(vision_range,src))
+	for(var/obj/mecha/combat/C in view(vision_range,src))
 		if(is_valid_mecha(C))
-			target = C
+			GiveTarget(C)
 			search_aggressiveness = 3 //We can see a mech? RUN FOR IT, IGNORE MOBS!
 			break
 	search_objects = search_aggressiveness
@@ -192,7 +192,7 @@
 				return
 			else
 				if(!CanAttack(M))
-					target = null
+					LoseTarget()
 					return
 
 		return target.attack_animal(src)
@@ -201,9 +201,9 @@
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/handle_automated_action()
 	if(..())
 		if(!mecha)
-			for(var/obj/mecha/combat/C in range(src,vision_range))
+			for(var/obj/mecha/combat/C in view(vision_range, src))
 				if(is_valid_mecha(C))
-					target = C //Let's nab it!
+					GiveTarget(C) //Let's nab it!
 					minimum_distance = 1
 					ranged = 0
 					break
@@ -241,8 +241,7 @@
 						addtimer(CALLBACK(mecha.overload_action, /datum/action/innate/mecha/mech_defense_mode.proc/Activate, FALSE), 100) //10 seconds of speeeeed, then toggle off
 
 					retreat_distance = 50
-					spawn(100)
-						retreat_distance = 0
+					addtimer(VARSET_CALLBACK(src, retreat_distance, 0), 100)
 
 
 

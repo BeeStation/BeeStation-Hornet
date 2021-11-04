@@ -23,11 +23,13 @@ BONUS
 	stealth = 3
 	resistance = 4
 	stage_speed = 4
-	transmittable = -4
+	transmission = -4
 	level = 5
 	base_message_chance = 100
 	symptom_delay_min = 25
 	symptom_delay_max = 50
+	prefixes = list("Eternal ")
+	bodies = list("Immortal", "Elixir")
 
 /datum/symptom/youth/Activate(datum/disease/advance/A)
 	if(!..())

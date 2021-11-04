@@ -1,23 +1,24 @@
-/datum/species/ipc // im fucking lazy mk2 and cant get sprites to normally work
-	name = "IPC" //inherited from the real species, for health scanners and things
-	id = "ipc"
-	say_mod = "states" //inherited from a user's real species
-	sexes = 0
-	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,TRAIT_EASYDISMEMBER,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH) //all of these + whatever we inherit from the real species
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_NOCRITDAMAGE)
+/datum/species/ipc
+	name = "IPC"
+	id = SPECIES_IPC
+	bodyflag = FLAG_IPC
+	say_mod = "states"
+	sexes = FALSE
+	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH)
+	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_NOCRITDAMAGE,TRAIT_EASYDISMEMBER,TRAIT_POWERHUNGRY,TRAIT_XENO_IMMUNE, TRAIT_TOXIMMUNE)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutant_brain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
 	mutanttongue = /obj/item/organ/tongue/robot
 	mutantliver = /obj/item/organ/liver/cybernetic/upgraded/ipc
-	mutantstomach = /obj/item/organ/stomach/cell
+	mutantstomach = /obj/item/organ/stomach/battery/ipc
 	mutantears = /obj/item/organ/ears/robot
 	mutant_organs = list(/obj/item/organ/cyberimp/arm/power_cord)
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
 	default_features = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)")
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
-	exotic_blood = "oil"
+	exotic_blood = /datum/reagent/oil
 	damage_overlay_type = "synth"
 	limbs_id = "synth"
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
@@ -25,33 +26,36 @@
 	burnmod = 2
 	heatmod = 1.5
 	brutemod = 1
-	toxmod = 0
 	clonemod = 0
 	staminamod = 0.8
 	siemens_coeff = 1.5
+	blood_color = "#000000"
 	reagent_tag = PROCESS_SYNTHETIC
-	species_gibs = "robotic"
+	species_gibs = GIB_TYPE_ROBOTIC
 	attack_sound = 'sound/items/trayhit1.ogg'
 	allow_numbers_in_name = TRUE
 	deathsound = "sound/voice/borg_deathsound.ogg"
-	var/saved_screen //for saving the screen when they die
-	var/list/initial_species_traits //for getting these values back for assume_disguise()
-	var/list/initial_inherent_traits
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 	species_language_holder = /datum/language_holder/synthetic
+	special_step_sounds = list('sound/effects/servostep.ogg')
 
+	var/saved_screen //for saving the screen when they die
 	var/datum/action/innate/change_screen/change_screen
 
 /datum/species/ipc/random_name(unique)
 	var/ipc_name = "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"
 	return ipc_name
 
-/datum/species/ipc/on_species_gain(mob/living/carbon/C) // Let's make that IPC actually robotic.
+/datum/species/ipc/on_species_gain(mob/living/carbon/C)
 	. = ..()
-	var/obj/item/organ/appendix/appendix = C.getorganslot("appendix") // Easiest way to remove it.
-	appendix.Remove(C)
-	QDEL_NULL(appendix)
-	ADD_TRAIT(C, TRAIT_XENO_IMMUNE, "xeno immune") //makes the IPC immune to huggers
+	var/obj/item/organ/appendix/A = C.getorganslot("appendix") //See below.
+	if(A)
+		A.Remove(C)
+		QDEL_NULL(A)
+	var/obj/item/organ/lungs/L = C.getorganslot("lungs") //Hacky and bad. Will be rewritten entirely in KapuCarbons anyway.
+	if(L)
+		L.Remove(C)
+		QDEL_NULL(L)
 	if(ishuman(C) && !change_screen)
 		change_screen = new
 		change_screen.Grant(C)
@@ -64,10 +68,16 @@
 			C.dna.species.species_traits += MUTCOLORS
 		else if(MUTCOLORS in C.dna.species.species_traits)
 			C.dna.species.species_traits -= MUTCOLORS
+		O.light_brute_msg = "scratched"
+		O.medium_brute_msg = "dented"
+		O.heavy_brute_msg = "sheared"
 
-datum/species/ipc/on_species_loss(mob/living/carbon/C)
+		O.light_burn_msg = "burned"
+		O.medium_burn_msg = "scorched"
+		O.heavy_burn_msg = "seared"
+
+/datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	REMOVE_TRAIT(C, TRAIT_XENO_IMMUNE, "xeno immune")
 	if(change_screen)
 		change_screen.Remove(C)
 
@@ -78,8 +88,12 @@ datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	saved_screen = C.dna.features["ipc_screen"]
 	C.dna.features["ipc_screen"] = "BSOD"
 	C.update_body()
-	sleep(3 SECONDS)
-	C.dna.features["ipc_screen"] = null // Turns off their monitor on death.
+	addtimer(CALLBACK(src, .proc/post_death, C), 5 SECONDS)
+
+/datum/species/ipc/proc/post_death(mob/living/carbon/C)
+	if(C.stat < DEAD)
+		return
+	C.dna.features["ipc_screen"] = null //Turns off screen on death
 	C.update_body()
 
 /datum/action/innate/change_screen
@@ -114,41 +128,45 @@ datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/obj/machinery/power/apc/A = target
 	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/stomach/cell/cell = locate(/obj/item/organ/stomach/cell) in H.internal_organs
-	if(!cell)
+	var/obj/item/organ/stomach/battery/battery = locate(/obj/item/organ/stomach/battery) in H.internal_organs
+	if(!battery)
 		to_chat(H, "<span class='warning'>You try to siphon energy from the [A], but your power cell is gone!</span>")
 		return
 
-	if(A.cell && A.cell.charge > 0)
-		if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
+	if(A.cell && A.cell.charge > A.cell.maxcharge/4)
+		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
 			to_chat(user, "<span class='warning'>You are already fully charged!</span>")
 			return
 		else
 			powerdraw_loop(A, H)
 			return
 
-	to_chat(user, "<span class='warning'>There is no charge to draw from that APC.</span>")
+	to_chat(user, "<span class='warning'>There is not enough charge to draw from that APC.</span>")
 
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
 	H.visible_message("<span class='notice'>[H] inserts a power connector into the [A].</span>", "<span class='notice'>You begin to draw power from the [A].</span>")
+	var/obj/item/organ/stomach/battery/battery = locate(/obj/item/organ/stomach/battery) in H.internal_organs
 	while(do_after(H, 10, target = A))
+		if(!battery)
+			to_chat(H, "<span class='warning'>You need a battery to recharge!</span>")
+			break
 		if(loc != H)
 			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
 			break
-		if(A.cell.charge == 0)
+		if(A.cell.charge <= A.cell.maxcharge/4)
 			to_chat(H, "<span class='warning'>The [A] doesn't have enough charge to spare.</span>")
 			break
 		A.charging = 1
-		if(A.cell.charge >= 500)
-			H.nutrition += 50
+		if(A.cell.charge > A.cell.maxcharge/4 + 250)
+			battery.adjust_charge(250)
 			A.cell.charge -= 250
 			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
 		else
-			H.nutrition += A.cell.charge/10
-			A.cell.charge = 0
+			battery.adjust_charge(A.cell.charge - A.cell.maxcharge/4)
+			A.cell.charge = A.cell.maxcharge/4
 			to_chat(H, "<span class='notice'>You siphon off as much as the [A] can spare.</span>")
 			break
-		if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
+		if(battery.charge >= battery.max_charge)
 			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
 			break
 	H.visible_message("<span class='notice'>[H] unplugs from the [A].</span>", "<span class='notice'>You unplug from the [A].</span>")
@@ -162,15 +180,26 @@ datum/species/ipc/on_species_loss(mob/living/carbon/C)
 			H.visible_message("[H]'s cooling system fans stutter and stall. There is a faint, yet rapid beeping coming from inside their chassis.")
 
 /datum/species/ipc/spec_revival(mob/living/carbon/human/H)
+	H.notify_ghost_cloning("You have been repaired!")
+	H.grab_ghost()
 	H.dna.features["ipc_screen"] = "BSOD"
 	H.update_body()
 	H.say("Reactivating [pick("core systems", "central subroutines", "key functions")]...")
 	sleep(3 SECONDS)
+	if(H.stat == DEAD)
+		return
 	H.say("Reinitializing [pick("personality matrix", "behavior logic", "morality subsystems")]...")
 	sleep(3 SECONDS)
+	if(H.stat == DEAD)
+		return
 	H.say("Finalizing setup...")
 	sleep(3 SECONDS)
+	if(H.stat == DEAD)
+		return
 	H.say("Unit [H.real_name] is fully functional. Have a nice day.")
 	H.dna.features["ipc_screen"] = saved_screen
 	H.update_body()
 	return
+
+/datum/species/ipc/get_harm_descriptors()
+	return list("bleed" = "leaking", "brute" = "denting", "burn" = "burns")

@@ -17,3 +17,14 @@
 /obj/item/clothing/gloves/boxing/yellow
 	icon_state = "boxingyellow"
 	item_state = "boxingyellow"
+
+/obj/item/clothing/gloves/boxing/yellow/insulated
+	name = "budget boxing gloves"
+	desc = "Standard boxing gloves coated in a makeshift insulating coat. This can't possibly go wrong at all."
+	icon_state = "boxingyellow"
+	item_state = "boxingyellow"
+	siemens_coefficient = 1	//Set to a default of 1, gets overridden in Initialize()
+
+/obj/item/clothing/gloves/boxing/yellow/insulated/Initialize()
+	. = ..()
+	siemens_coefficient = pick(0,0,0,0,0.25,2)

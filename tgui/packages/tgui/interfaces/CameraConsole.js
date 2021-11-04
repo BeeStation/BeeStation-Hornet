@@ -51,7 +51,6 @@ export const CameraConsole = (props, context) => {
   ] = prevNextCamera(cameras, activeCamera);
   return (
     <Window
-      resizable
       width={870}
       height={708}>
       <div className="CameraConsole__left">

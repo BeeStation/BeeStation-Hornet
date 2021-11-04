@@ -22,10 +22,13 @@
 	for(var/obj/structure/destructible/clockwork/sigil/transmission/ST in transmission_sigils)
 		ST.linked_structures -= src
 
-/obj/structure/destructible/clockwork/gear_base/wrench_act(mob/living/user, obj/item/I)
-	if(do_after(user, 40, target=src))
-		anchored = !anchored
-		update_icon_state()
+/obj/structure/destructible/clockwork/gear_base/attackby(obj/item/I, mob/user, params)
+	if(is_servant_of_ratvar(user) && I.tool_behaviour == TOOL_WRENCH)
+		to_chat(user, "<span class='notice'>You begin to [anchored ? "unwrench" : "wrench"] [src].</span>")
+		if(I.use_tool(src, user, 20, volume=50))
+			to_chat(user, "<span class='notice'>You successfully [anchored ? "unwrench" : "wrench"] [src].</span>")
+			setAnchored(!anchored)
+			update_icon_state()
 		return TRUE
 	else
 		return ..()

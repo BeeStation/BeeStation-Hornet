@@ -20,7 +20,7 @@
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>",\
 				"<span class='userdanger'>[M] [response_harm] you!</span>", null, COMBAT_MESSAGE_RANGE)
 			playsound(loc, attacked_sound, 25, 1, -1)
-			attack_threshold_check(harm_intent_damage)
+			attack_threshold_check(M.dna.species.punchdamage)
 			log_combat(M, src, "attacked")
 			updatehealth()
 			return TRUE
@@ -85,6 +85,8 @@
 		var/damage = 20
 		if(M.is_adult)
 			damage = 30
+		if(M.transformeffects & SLIME_EFFECT_RED)
+			damage *= 1.1
 		return attack_threshold_check(damage)
 
 /mob/living/simple_animal/attack_drone(mob/living/simple_animal/drone/M)

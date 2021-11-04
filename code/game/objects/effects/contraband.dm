@@ -49,6 +49,7 @@
 	var/original_name
 	desc = "A large piece of space-resistant printed paper."
 	icon = 'icons/obj/contraband.dmi'
+	layer = ABOVE_WINDOW_LAYER
 	anchored = TRUE
 	var/ruined = FALSE
 	var/random_basetype
@@ -437,7 +438,7 @@
 	icon_state = "poster1_legit"
 
 /obj/structure/sign/poster/official/nanotrasen_logo
-	name = "Nanotrasen Logo"
+	name = "\improper Nanotrasen logo"
 	desc = "A poster depicting the Nanotrasen logo."
 	icon_state = "poster2_legit"
 
@@ -628,7 +629,7 @@
 
 /obj/structure/sign/poster/official/moth5
 	name = "Safety Moth - Piping"
-	desc = "This informational poster uses Safety Moth(TM) to tell atmospheric technicians correct types of piping to be used. Proper pipe placement prevents poor preformance! It's signed by 'AspEv'."
+	desc = "This informational poster uses Safety Moth(TM) to tell atmospheric technicians correct types of piping to be used. Proper pipe placement prevents poor performance! It's signed by 'AspEv'."
 	icon_state = "poster40_legit"
 
 /obj/structure/sign/poster/official/moth6

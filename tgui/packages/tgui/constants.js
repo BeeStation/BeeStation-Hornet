@@ -86,6 +86,11 @@ export const RADIO_CHANNELS = [
     color: '#6ca729',
   },
   {
+    name: 'Exploration',
+    freq: 1361,
+    color: '#7ed4c2',
+  },
+  {
     name: 'Science',
     freq: 1351,
     color: '#c68cfa',

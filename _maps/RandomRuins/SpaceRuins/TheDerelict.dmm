@@ -1666,7 +1666,7 @@
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/derelict/bridge/access)
 "fw" = (
-/obj/item/drone_shell/dusty,
+/obj/effect/mob_spawn/drone/dusty,
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/derelict/bridge/access)
 "fx" = (
@@ -2252,9 +2252,9 @@
 "hF" = (
 /obj/structure/table,
 /obj/machinery/computer/pod/old{
+	id = "derelict_gun";
 	name = "ProComp IIe";
-	pixel_y = 7;
-	id = "derelict_gun"
+	pixel_y = 7
 	},
 /turf/open/floor/plasteel/chapel,
 /area/ruin/space/derelict/medical/chapel)
@@ -2440,7 +2440,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/singularity_engine)
 "in" = (
-/obj/item/drone_shell/dusty,
+/obj/effect/mob_spawn/drone/dusty,
 /turf/open/floor/plating/airless,
 /area/ruin/space/derelict/singularity_engine)
 "io" = (
@@ -4122,10 +4122,10 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/item/drone_shell/dusty,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/effect/mob_spawn/drone/dusty,
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/derelict/se_solar)
 "nV" = (

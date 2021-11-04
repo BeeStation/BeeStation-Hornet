@@ -5,6 +5,8 @@
 	weight = 8
 	earliest_start = 50 MINUTES
 	min_players = 20
+	dynamic_should_hijack = TRUE
+	cannot_spawn_after_shuttlecall = TRUE
 
 /datum/round_event/ghost_role/space_dragon
 	minimum_required = 1
@@ -12,7 +14,7 @@
 	announceWhen = 10
 
 /datum/round_event/ghost_role/space_dragon/announce(fake)
-	priority_announce("It appears a lifeform with magical traces is approaching [station_name()], please stand-by.", "Lifesign Alert")
+	priority_announce("It appears a lifeform with magical traces is approaching [station_name()], please stand-by.", "Lifesign Alert", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/ghost_role/space_dragon/spawn_role()
 	var/list/candidates = get_candidates(ROLE_ALIEN, null, ROLE_ALIEN)

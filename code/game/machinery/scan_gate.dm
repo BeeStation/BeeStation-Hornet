@@ -33,7 +33,7 @@
 	var/next_beep = 0 //avoids spam
 	var/locked = FALSE
 	var/scangate_mode = SCANGATE_NONE
-	var/disease_threshold = DISEASE_SEVERITY_MINOR
+	var/disease_threshold = DISEASE_MINOR
 	var/nanite_cloud = 1
 	var/detect_species = SCANGATE_HUMAN
 	var/reverse = FALSE //If true, signals if the scan returns false
@@ -73,11 +73,15 @@
 				locked = FALSE
 				req_access = list()
 				to_chat(user, "<span class='notice'>You unlock [src].</span>")
+				//Update to viewers
+				ui_update()
 		else if(!(obj_flags & EMAGGED))
 			to_chat(user, "<span class='notice'>You lock [src] with [W].</span>")
 			var/list/access = W.GetAccess()
 			req_access = access
 			locked = TRUE
+			//Update to viewers
+			ui_update()
 		else
 			to_chat(user, "<span class='warning'>You try to lock [src] with [W], but nothing happens.</span>")
 	else
@@ -90,6 +94,8 @@
 	req_access = list()
 	obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You fry the ID checking system.</span>")
+	//Update to viewers
+	ui_update()
 
 /obj/machinery/scanner_gate/proc/perform_scan(mob/living/M)
 	var/beep = FALSE
@@ -117,7 +123,7 @@
 		if(SCANGATE_DISEASE)
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
-				if(get_disease_severity_value(C.check_virus()) >= get_disease_severity_value(disease_threshold))
+				if(get_disease_danger_value(C.check_virus()) >= get_disease_danger_value(disease_threshold))
 					beep = TRUE
 		if(SCANGATE_SPECIES)
 			if(ishuman(M))

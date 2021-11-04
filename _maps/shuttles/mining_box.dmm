@@ -13,7 +13,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "d" = (
-/obj/machinery/computer/shuttle/mining,
+/obj/machinery/computer/shuttle_flight/mining,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "e" = (
@@ -42,6 +42,7 @@
 	width = 7
 	},
 /obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "i" = (

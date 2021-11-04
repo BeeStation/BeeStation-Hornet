@@ -76,6 +76,76 @@
 	turf_type = /turf/open/floor/grass
 	resistance_flags = FLAMMABLE
 
+/obj/item/stack/tile/grass/attackby(obj/item/W, mob/user, params)
+	if((W.tool_behaviour == TOOL_SHOVEL) && params)
+		to_chat(user, "<span class='notice'>You start digging up [src].</span>")
+		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
+		if(do_after(user, 2 * get_amount(), target = src))
+			new /obj/item/stack/ore/glass(get_turf(src), 2 * get_amount())
+			user.visible_message("<span class='notice'>[user] digs up [src].</span>", "<span class='notice'>You uproot [src].</span>")
+			playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
+			qdel(src)
+	else
+		return ..()
+
+//Fairygrass
+/obj/item/stack/tile/fairygrass
+	name = "fairygrass tile"
+	singular_name = "fairygrass floor tile"
+	desc = "A patch of odd, glowing blue grass."
+	icon_state = "tile_fairygrass"
+	item_state = "tile-fairygrass"
+	turf_type = /turf/open/floor/grass/fairy
+	resistance_flags = FLAMMABLE
+	color = "#33CCFF"
+
+/obj/item/stack/tile/fairygrass/white
+	name = "white fairygrass tile"
+	singular_name = "white fairygrass floor tile"
+	desc = "A patch of odd, glowing white grass."
+	turf_type = /turf/open/floor/grass/fairy/white
+	color = "#FFFFFF"
+
+/obj/item/stack/tile/fairygrass/red
+	name = "red fairygrass tile"
+	singular_name = "red fairygrass floor tile"
+	desc = "A patch of odd, glowing red grass."
+	turf_type = /turf/open/floor/grass/fairy/red
+	color = "#FF3333"
+
+/obj/item/stack/tile/fairygrass/yellow
+	name = "yellow fairygrass tile"
+	singular_name = "yellow fairygrass floor tile"
+	desc = "A patch of odd, glowing yellow grass."
+	turf_type = /turf/open/floor/grass/fairy/yellow
+	color = "#FFFF66"
+
+/obj/item/stack/tile/fairygrass/green
+	name = "green fairygrass tile"
+	singular_name = "green fairygrass floor tile"
+	desc = "A patch of odd, glowing green grass."
+	turf_type = /turf/open/floor/grass/fairy/green
+	color = "#99FF99"
+
+/obj/item/stack/tile/fairygrass/blue
+	name = "blue fairygrass tile"
+	singular_name = "blue fairygrass floor tile"
+	desc = "A patch of odd, glowing blue grass."
+	turf_type = /turf/open/floor/grass/fairy/blue
+
+/obj/item/stack/tile/fairygrass/purple
+	name = "purple fairygrass tile"
+	singular_name = "purple fairygrass floor tile"
+	desc = "A patch of odd, glowing purple grass."
+	turf_type = /turf/open/floor/grass/fairy/purple
+	color = "#D966FF"
+
+/obj/item/stack/tile/fairygrass/pink
+	name = "pink fairygrass tile"
+	singular_name = "pink fairygrass floor tile"
+	desc = "A patch of odd, glowing pink grass."
+	turf_type = /turf/open/floor/grass/fairy/pink
+	color = "#FFB3DA"
 
 //Wood
 /obj/item/stack/tile/wood
@@ -111,28 +181,37 @@
 	name = "black carpet"
 	icon_state = "tile-carpet-black"
 	item_state = "tile-carpet-black"
+	merge_type = /obj/item/stack/tile/carpet/black
 	turf_type = /turf/open/floor/carpet/black
-
 	tableVariant = /obj/structure/table/wood/fancy/black
 
 /obj/item/stack/tile/carpet/blue
 	name = "blue carpet"
 	icon_state = "tile-carpet-blue"
 	item_state = "tile-carpet-blue"
+	merge_type = /obj/item/stack/tile/carpet/blue
 	turf_type = /turf/open/floor/carpet/blue
 	tableVariant = /obj/structure/table/wood/fancy/blue
+
+/obj/item/stack/tile/carpet/blue/thirtytwo
+	amount = 32
 
 /obj/item/stack/tile/carpet/cyan
 	name = "cyan carpet"
 	icon_state = "tile-carpet-cyan"
 	item_state = "tile-carpet-cyan"
+	merge_type = /obj/item/stack/tile/carpet/cyan
 	turf_type = /turf/open/floor/carpet/cyan
 	tableVariant = /obj/structure/table/wood/fancy/cyan
+
+/obj/item/stack/tile/carpet/cyan/thirtytwo
+	amount = 32
 
 /obj/item/stack/tile/carpet/green
 	name = "green carpet"
 	icon_state = "tile-carpet-green"
 	item_state = "tile-carpet-green"
+	merge_type = /obj/item/stack/tile/carpet/green
 	turf_type = /turf/open/floor/carpet/green
 	tableVariant = /obj/structure/table/wood/fancy/green
 
@@ -140,6 +219,7 @@
 	name = "orange carpet"
 	icon_state = "tile-carpet-orange"
 	item_state = "tile-carpet-orange"
+	merge_type = /obj/item/stack/tile/carpet/orange
 	turf_type = /turf/open/floor/carpet/orange
 	tableVariant = /obj/structure/table/wood/fancy/orange
 
@@ -147,6 +227,7 @@
 	name = "purple carpet"
 	icon_state = "tile-carpet-purple"
 	item_state = "tile-carpet-purple"
+	merge_type = /obj/item/stack/tile/carpet/purple
 	turf_type = /turf/open/floor/carpet/purple
 	tableVariant = /obj/structure/table/wood/fancy/purple
 
@@ -154,6 +235,7 @@
 	name = "red carpet"
 	icon_state = "tile-carpet-red"
 	item_state = "tile-carpet-red"
+	merge_type = /obj/item/stack/tile/carpet/red
 	turf_type = /turf/open/floor/carpet/red
 	tableVariant = /obj/structure/table/wood/fancy/red
 
@@ -161,6 +243,7 @@
 	name = "royal black carpet"
 	icon_state = "tile-carpet-royalblack"
 	item_state = "tile-carpet-royalblack"
+	merge_type = /obj/item/stack/tile/carpet/royalblack
 	turf_type = /turf/open/floor/carpet/royalblack
 	tableVariant = /obj/structure/table/wood/fancy/royalblack
 
@@ -168,6 +251,7 @@
 	name = "royal blue carpet"
 	icon_state = "tile-carpet-royalblue"
 	item_state = "tile-carpet-royalblue"
+	merge_type = /obj/item/stack/tile/carpet/royalblue
 	turf_type = /turf/open/floor/carpet/royalblue
 	tableVariant = /obj/structure/table/wood/fancy/royalblue
 
@@ -176,6 +260,7 @@
 	singular_name = "retro floor tile"
 	desc = "A stack of floor tiles that remind you of simpler times.."
 	icon_state = "tile_eighties"
+	merge_type = /obj/item/stack/tile/eighties
 	turf_type = /turf/open/floor/eighties
 
 /obj/item/stack/tile/carpet/fifty
@@ -210,6 +295,9 @@
 
 /obj/item/stack/tile/eighties/fifty
 	amount = 50
+
+/obj/item/stack/tile/eighties/loaded
+	amount = 30
 
 /obj/item/stack/tile/fakespace
 	name = "astral carpet"
@@ -253,7 +341,7 @@
 	desc = "A high-traction floor tile. It feels rubbery in your hand."
 	icon_state = "tile_noslip_standard"
 	turf_type = /turf/open/floor/noslip/standard
-	merge_type = /obj/item/stack/tile/noslip
+	merge_type = /obj/item/stack/tile/noslip/standard
 
 /obj/item/stack/tile/noslip/white
 	name = "high-traction floor tile"
@@ -261,7 +349,7 @@
 	desc = "A high-traction floor tile. It feels rubbery in your hand."
 	icon_state = "tile_noslip_white"
 	turf_type = /turf/open/floor/noslip/white
-	merge_type = /obj/item/stack/tile/noslip
+	merge_type = /obj/item/stack/tile/noslip/white
 
 /obj/item/stack/tile/noslip/blue
 	name = "high-traction floor tile"
@@ -269,7 +357,7 @@
 	desc = "A high-traction floor tile. It feels rubbery in your hand."
 	icon_state = "tile_noslip_blue"
 	turf_type = /turf/open/floor/noslip/blue
-	merge_type = /obj/item/stack/tile/noslip
+	merge_type = /obj/item/stack/tile/noslip/blue
 
 /obj/item/stack/tile/noslip/darkblue
 	name = "high-traction floor tile"
@@ -277,7 +365,7 @@
 	desc = "A high-traction floor tile. It feels rubbery in your hand."
 	icon_state = "tile_noslip_darkblue"
 	turf_type = /turf/open/floor/noslip/darkblue
-	merge_type = /obj/item/stack/tile/noslip
+	merge_type = /obj/item/stack/tile/noslip/darkblue
 
 /obj/item/stack/tile/noslip/dark
 	name = "high-traction floor tile"
@@ -285,7 +373,7 @@
 	desc = "A high-traction floor tile. It feels rubbery in your hand."
 	icon_state = "tile_noslip_dark"
 	turf_type = /turf/open/floor/noslip/dark
-	merge_type = /obj/item/stack/tile/noslip
+	merge_type = /obj/item/stack/tile/noslip/dark
 
 /obj/item/stack/tile/noslip/vaporwave
 	name = "high-traction floor tile"
@@ -293,7 +381,7 @@
 	desc = "A high-traction floor tile. It feels rubbery in your hand."
 	icon_state = "tile_noslip_pinkblack"
 	turf_type = /turf/open/floor/noslip/vaporwave
-	merge_type = /obj/item/stack/tile/noslip
+	merge_type = /obj/item/stack/tile/noslip/vaporwave
 
 /obj/item/stack/tile/noslip/thirty
 	amount = 30
@@ -365,7 +453,7 @@
 	flags_1 = CONDUCT_1
 	turf_type = /turf/open/floor/plasteel
 	mineralType = "iron"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/stack/tile/plasteel/cyborg

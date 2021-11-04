@@ -17,12 +17,12 @@
 	weapon_weight = WEAPON_MEDIUM
 	block_upgrade_walk = 1
 
-obj/item/gun/ballistic/rifle/update_icon()
+/obj/item/gun/ballistic/rifle/update_icon()
 	..()
 	add_overlay("[icon_state]_bolt[bolt_locked ? "_locked" : ""]")
 
-obj/item/gun/ballistic/rifle/rack(mob/user = null)
-	if (bolt_locked == FALSE)
+/obj/item/gun/ballistic/rifle/rack(mob/user = null)
+	if(bolt_locked == FALSE)
 		to_chat(user, "<span class='notice'>You open the bolt of \the [src].</span>")
 		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
 		process_chamber(FALSE, FALSE, FALSE)
@@ -31,12 +31,12 @@ obj/item/gun/ballistic/rifle/rack(mob/user = null)
 		return
 	drop_bolt(user)
 
-obj/item/gun/ballistic/rifle/can_shoot()
+/obj/item/gun/ballistic/rifle/can_shoot()
 	if (bolt_locked)
 		return FALSE
 	return ..()
 
-obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)
 	if (!bolt_locked)
 		to_chat(user, "<span class='notice'>The bolt is closed!</span>")
 		return
@@ -60,6 +60,8 @@ obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)
 	can_bayonet = TRUE
 	knife_x_offset = 27
 	knife_y_offset = 13
+	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
 
 /obj/item/gun/ballistic/rifle/boltaction/enchanted
 	name = "enchanted bolt action rifle"

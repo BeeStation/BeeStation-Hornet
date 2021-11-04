@@ -30,7 +30,12 @@
 	item_state = "bishoprobe"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
-	
+
+/obj/item/clothing/suit/chaplainsuit/bishoprobe/black
+	name = "black bishop's robes"
+	icon_state = "blackbishoprobe"
+	item_state = "blackbishoprobe"
+
 /obj/item/clothing/suit/chaplainsuit/studentuni
 	name = "student robe"
 	desc = "The uniform of a bygone institute of learning."

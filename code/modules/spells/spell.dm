@@ -20,6 +20,12 @@
 	if(has_action)
 		action = new base_action(src)
 
+/obj/effect/proc_holder/Destroy()
+	if(!QDELETED(action))
+		qdel(action)
+	action = null
+	return ..()
+
 /obj/effect/proc_holder/proc/on_gain(mob/living/user)
 	return
 
@@ -35,8 +41,7 @@
 GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for the badmin verb for now
 
 /obj/effect/proc_holder/Destroy()
-	if (action)
-		qdel(action)
+	QDEL_NULL(action)
 	if(ranged_ability_user)
 		remove_ranged_ability()
 	return ..()
@@ -103,8 +108,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 	var/charge_type = "recharge" //can be recharge or charges, see charge_max and charge_counter descriptions; can also be based on the holder's vars now, use "holder_var" for that
 
-	var/charge_max = 100 //recharge time in deciseconds if charge_type = "recharge" or starting charges if charge_type = "charges"
-	var/charge_counter = 0 //can only cast spells if it equals recharge, ++ each decisecond if charge_type = "recharge" or -- each cast if charge_type = "charges"
+	var/charge_max = 10 SECONDS //recharge time in deciseconds if charge_type = "recharge" or starting charges if charge_type = "charges"
+	var/charge_counter = 0 //can only cast spells if it equals recharge, ++ each deciseconds if charge_type = "recharge" or -- each cast if charge_type = "charges"
 	var/still_recharging_msg = "<span class='notice'>The spell is still recharging.</span>"
 	var/recharging = TRUE
 
@@ -136,6 +141,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/overlay_lifespan = 0
 
 	var/mutable_appearance/timer_overlay
+	var/mutable_appearance/text_overlay
 	var/timer_overlay_active = FALSE
 	var/timer_icon = 'icons/effects/cooldown.dmi'
 	var/timer_icon_state_active = "second"
@@ -227,19 +233,19 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		if(nonabstract_req && (isbrain(user) || ispAI(user)))
 			to_chat(user, "<span class='notice'>This spell can only be cast by physical beings!</span>")
 			return FALSE
-
-
-	if(!skipcharge)
-		switch(charge_type)
-			if("recharge")
-				charge_counter = 0 //doesn't start recharging until the targets selecting ends
-			if("charges")
-				charge_counter-- //returns the charge if the targets selecting fails
-			if("holdervar")
-				adjust_var(user, holder_var_type, holder_var_amount)
 	if(action)
 		action.UpdateButtonIcon()
 	return TRUE
+
+/obj/effect/proc_holder/spell/proc/use_charge(mob/user)
+	switch(charge_type)
+		if("recharge")
+			charge_counter = 0 //doesn't start recharging until the targets selecting ends
+		if("charges")
+			charge_counter-- //returns the charge if the targets selecting fails
+		if("holdervar")
+			adjust_var(user, holder_var_type, holder_var_amount)
+	start_recharge()
 
 /obj/effect/proc_holder/spell/proc/charge_check(mob/user, silent = FALSE)
 	switch(charge_type)
@@ -275,13 +281,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 /obj/effect/proc_holder/spell/Initialize()
 	. = ..()
-	START_PROCESSING(SSfastprocess, src)
 
 	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
 	charge_counter = charge_max
 
 /obj/effect/proc_holder/spell/Destroy()
-	STOP_PROCESSING(SSfastprocess, src)
+	end_timer_animation()
 	qdel(action)
 	return ..()
 
@@ -298,28 +303,36 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 /obj/effect/proc_holder/spell/proc/start_recharge()
 	recharging = TRUE
+	begin_timer_animation()
 
-/obj/effect/proc_holder/spell/process()
+/obj/effect/proc_holder/spell/process(delta_time)
 	if(recharging && charge_type == "recharge" && (charge_counter < charge_max))
-		charge_counter += 2	//processes 5 times per second instead of 10.
+		charge_counter += delta_time * 10
 		update_timer_animation()
 		if(charge_counter >= charge_max)
 			end_timer_animation()
 			action.UpdateButtonIcon()
 			charge_counter = charge_max
 			recharging = FALSE
+	else
+		end_timer_animation()
+		action.UpdateButtonIcon()
+		charge_counter = charge_max
+		recharging = FALSE
 
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
+	if(!cast_check())
+		return
+	use_charge(user)
 	before_cast(targets)
 	invocation(user)
 	if(user?.ckey)
 		user.log_message("<span class='danger'>cast the spell [name].</span>", LOG_ATTACK)
 	if(recharge)
-		recharging = TRUE
+		start_recharge()
 	if(sound)
 		playMagSound()
 	cast(targets,user=user)
-	begin_timer_animation()
 	after_cast(targets)
 	if(action)
 		action.UpdateButtonIcon()
@@ -406,15 +419,22 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			target.vars[type] += amount //I bear no responsibility for the runtimes that'll happen if you try to adjust non-numeric or even non-existent vars
 
 /obj/effect/proc_holder/spell/targeted //can mean aoe for mobs (limited/unlimited number) or one target mob
+	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	var/max_targets = 1 //leave 0 for unlimited targets in range, 1 for one selectable target in range, more for limited number of casts (can all target one guy, depends on target_ignore_prev) in range
 	var/target_ignore_prev = 1 //only important if max_targets > 1, affects if the spell can be cast multiple times at one person from one cast
 	var/include_user = 0 //if it includes usr in the target list
 	var/random_target = 0 // chooses random viable target instead of asking the caster
 	var/random_target_priority = TARGET_CLOSEST // if random_target is enabled how it will pick the target
-
+	var/ranged_selection_active = FALSE
 
 /obj/effect/proc_holder/spell/aoe_turf //affects all turfs in view or range (depends)
 	var/inner_radius = -1 //for all your ring spell needs
+
+/obj/effect/proc_holder/spell/targeted/Click()
+	if(ranged_selection_active)
+		remove_ranged_ability("<span class='warning'>You are no longer casting [src].</span>")
+		return
+	. = ..()
 
 /obj/effect/proc_holder/spell/targeted/choose_targets(mob/user = usr)
 	var/list/targets = list()
@@ -442,7 +462,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 				//Adds a safety check post-input to make sure those targets are actually in range.
 				var/mob/M
 				if(!random_target)
-					M = input("Choose the target for the spell.", "Targeting") as null|mob in sortNames(possible_targets)
+					add_ranged_ability(user, "<span class='notice'>Click on a target for which to cast [src] upon.</span>", TRUE)
+					return
 				else
 					switch(random_target_priority)
 						if(TARGET_RANDOM)
@@ -483,6 +504,34 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		return
 
 	perform(targets,user=user)
+
+/obj/effect/proc_holder/spell/targeted/remove_ranged_ability(msg)
+	. = ..()
+	ranged_selection_active = FALSE
+
+/obj/effect/proc_holder/spell/targeted/add_ranged_ability(mob/living/user, msg, forced)
+	. = ..()
+	ranged_selection_active = TRUE
+
+/obj/effect/proc_holder/spell/targeted/InterceptClickOn(mob/living/caller, params, atom/A)
+	if(..())
+		return TRUE
+	if(ismob(A))
+		if(A == caller && !include_user)
+			to_chat(caller, "<span class='warning'>You cannot target yourself!</span>")
+			return TRUE
+
+		var/list/targets = list(A)
+
+		remove_ranged_ability()
+
+		if(!targets.len) //doesn't waste the spell
+			revert_cast(caller)
+			return TRUE
+
+		perform(targets, user=caller)
+		return FALSE
+	return TRUE
 
 /obj/effect/proc_holder/spell/aoe_turf/choose_targets(mob/user = usr)
 	var/list/targets = list()
@@ -551,30 +600,47 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/proc/begin_timer_animation()
 	if(!(action?.button) || timer_overlay_active)
 		return
+
 	timer_overlay_active = TRUE
 	timer_overlay = mutable_appearance(timer_icon, timer_icon_state_active)
 	timer_overlay.alpha = 180
-	action.button.add_overlay(timer_overlay)
-	action.button.maptext_x = 8
-	action.button.maptext_y = -6
+
+	if(!text_overlay)
+		text_overlay = image(loc = action.button, layer=ABOVE_HUD_LAYER)
+		text_overlay.maptext_width = 64
+		text_overlay.maptext_height = 64
+		text_overlay.maptext_x = -8
+		text_overlay.maptext_y = -6
+		text_overlay.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+
+	if(action.owner?.client)
+		action.owner.client.images += text_overlay
+
+	action.button.add_overlay(timer_overlay, TRUE)
 	action.has_cooldown_timer = TRUE
 	update_timer_animation()
+
+	START_PROCESSING(SSfastprocess, src)
 
 /obj/effect/proc_holder/spell/proc/update_timer_animation()
 	//Update map text (todo)
 	if(!(action?.button))
 		return
-	action.button.maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[FLOOR((charge_max-charge_counter)/10, 1)]</span></center>"
-	if(charge_counter >= charge_max)
-		end_timer_animation()
+	text_overlay.maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[FLOOR((charge_max-charge_counter)/10, 1)]</span></center>"
 
 /obj/effect/proc_holder/spell/proc/end_timer_animation()
 	if(!(action?.button) || !timer_overlay_active)
 		return
 	timer_overlay_active = FALSE
-	action.button.cut_overlay(timer_overlay)
-	action.button.maptext = null
+	if(action.owner?.client)
+		action.owner.client.images -= text_overlay
+	action.button.cut_overlay(timer_overlay, TRUE)
+	timer_overlay = null
+	qdel(text_overlay)
+	text_overlay = null
 	action.has_cooldown_timer = FALSE
+
+	STOP_PROCESSING(SSfastprocess, src)
 
 //=====================
 

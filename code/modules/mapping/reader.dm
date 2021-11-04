@@ -23,6 +23,9 @@
 	var/list/bounds
 	var/did_expand = FALSE
 
+	///any turf in this list is skipped inside of build_coordinate
+	var/list/turf_blacklist = list()
+
 	// raw strings used to represent regexes more accurately
 	// '' used to avoid confusing syntax highlighting
 	var/static/regex/dmmRegex = new(@'"([a-zA-Z]+)" = \(((?:.|\n)*?)\)\n(?!\t)|\((\d+),(\d+),(\d+)\) = \{"([a-zA-Z\n]*)"\}', "g")
@@ -52,7 +55,11 @@
 /datum/parsed_map/New(tfile, x_lower = -INFINITY, x_upper = INFINITY, y_lower = -INFINITY, y_upper=INFINITY, measureOnly=FALSE)
 	if(isfile(tfile))
 		original_path = "[tfile]"
+		var/temp_hack_garbage = tfile
 		tfile = rustg_file_read(tfile)
+		//This is hacky garbage
+		if(tfile == "") //Might be an upload, try raw loading it.
+			tfile = file2text(temp_hack_garbage)
 	else if(isnull(tfile))
 		// create a new datum without loading a map
 		return
@@ -310,6 +317,13 @@
 	//Instanciation
 	////////////////
 
+	for (var/turf_in_blacklist in turf_blacklist)
+		if (crds == turf_in_blacklist) //if the given turf is blacklisted, dont do anything with it
+			return
+
+	//Keep a reference to the original area in case we need to tell it to generate this turf later
+	var/area/orig_area = crds.loc
+
 	//The next part of the code assumes there's ALWAYS an /area AND a /turf on a given tile
 	//first instance the /area and remove it from the members list
 	index = members.len
@@ -327,6 +341,8 @@
 
 		if(GLOB.use_preloader && instance)
 			world.preloader_load(instance)
+	else
+		orig_area = null // We won't be messing with the old area, null it
 
 	//then instance the /turf and, if multiple tiles are presents, simulates the DMM underlays piling effect
 
@@ -338,8 +354,23 @@
 	SSatoms.map_loader_begin()
 	//instanciate the first /turf
 	var/turf/T
-	if(members[first_turf_index] != /turf/template_noop)
-		T = instance_atom(members[first_turf_index],members_attributes[first_turf_index],crds,no_changeturf,placeOnTop)
+	if(ispath(members[first_turf_index], /turf/template_noop))
+		if(istype(crds, /turf/open/genturf))
+			var/turf/open/genturf/genturf = crds
+			//If the new area is different from the original area, ensure the new turfs are generated as part of the original area
+			if(orig_area && orig_area.type != members[index])
+				LAZYADD(orig_area.additional_genturfs, crds)
+			//Cave generation checks current area flags for generation; ignore them
+			genturf.force_generation = TRUE
+			//Pass on any hints for whether the turf should be open or closed
+			if(ispath(members[first_turf_index], /turf/template_noop/closed))
+				genturf.genturf_hint = GENTURF_HINT_CLOSED
+			else if(ispath(members[first_turf_index], /turf/template_noop/open))
+				genturf.genturf_hint = GENTURF_HINT_OPEN
+	else
+		///Disable placeOnTop for genturfs, instead making sure to replace them
+		var/shouldPlaceOnTop = placeOnTop && !istype(crds, /turf/open/genturf)
+		T = instance_atom(members[first_turf_index],members_attributes[first_turf_index],crds,no_changeturf,shouldPlaceOnTop)
 
 	if(T)
 		//if others /turf are presents, simulates the underlays piling effect
@@ -480,4 +511,9 @@
 
 /datum/parsed_map/Destroy()
 	..()
+	turf_blacklist.Cut()
+	parsed_bounds.Cut()
+	bounds.Cut()
+	grid_models.Cut()
+	gridSets.Cut()
 	return QDEL_HINT_HARDDEL_NOW

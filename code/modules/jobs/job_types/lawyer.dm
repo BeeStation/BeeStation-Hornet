@@ -20,6 +20,11 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_LAWYER
+	departments = DEPARTMENT_SERVICE
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman //they dont have one.
+	)
 
 /datum/outfit/job/lawyer
 	name = "Lawyer"

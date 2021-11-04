@@ -27,14 +27,14 @@
 /turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "f" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/wood{
 	icon_state = "wood-broken7"
 	},
 /area/template_noop)
 "g" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/wood{
 	icon_state = "wood-broken"
 	},
@@ -95,7 +95,7 @@
 /area/template_noop)
 "o" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "p" = (
@@ -289,8 +289,8 @@
 "W" = (
 /obj/structure/easel,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/canvas/twentythreeXtwentythree,
-/obj/item/canvas/twentythreeXtwentythree,
+/obj/item/canvas/twentythree_twentythree,
+/obj/item/canvas/twentythree_twentythree,
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/template_noop)

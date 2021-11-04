@@ -20,7 +20,7 @@ Slimecrossing Weapons
 	if(prob(20))
 		owner.emote("scream")
 	return ..()
-	
+
 
 //Rainbow knife - Burning Rainbow
 /obj/item/kitchen/knife/rainbowknife
@@ -54,15 +54,15 @@ Slimecrossing Weapons
 			attack_verb = list("irradiated","mutated","maligned")
 	return ..()
 
-//Adamantine shield - Chilling Adamantine
-/obj/item/twohanded/required/adamantineshield
+//Adamantine shield - Burning Adamantine
+/obj/item/shield/adamantineshield
 	name = "adamantine shield"
 	desc = "A gigantic shield made of solid adamantium."
 	icon = 'icons/obj/slimecrossing.dmi'
 	icon_state = "adamshield"
 	item_state = "adamshield"
 	w_class = WEIGHT_CLASS_HUGE
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70, "stamina" = 70)
 	slot_flags = ITEM_SLOT_BACK
 	attack_weight = 2
 	block_power = 75
@@ -71,9 +71,12 @@ Slimecrossing Weapons
 	block_flags = BLOCKING_PROJECTILE
 	throw_range = 1 //How far do you think you're gonna throw a solid crystalline shield...?
 	throw_speed = 2
-	force = 15 //Heavy, but hard to wield.
 	attack_verb = list("bashed","pounded","slammed")
 	item_flags = SLOWS_WHILE_IN_HAND
+
+/obj/item/shield/adamantineshield/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_wielded=15)
 
 //Bloodchiller - Chilling Green
 /obj/item/gun/magic/bloodchill
@@ -97,11 +100,11 @@ Slimecrossing Weapons
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
 
-/obj/item/gun/magic/bloodchill/process()
-	charge_tick++
-	if(charge_tick < recharge_rate || charges >= max_charges)
-		return 0
-	charge_tick = 0
+/obj/item/gun/magic/bloodchill/process(delta_time)
+	charge_timer += delta_time
+	if(charge_timer < recharge_rate || charges >= max_charges)
+		return FALSE
+	charge_timer = 0
 	var/mob/living/M = loc
 	if(istype(M) && M.blood_volume >= 20)
 		charges++

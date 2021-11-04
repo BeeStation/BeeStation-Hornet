@@ -8,6 +8,7 @@
 	spawn_positions = 0
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
+	chat_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
@@ -21,6 +22,7 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_DEPUTY  //see code/__DEFINES/jobs.dm
+	departments = DEPARTMENT_SECURITY
 
 /datum/outfit/job/deputy
 	name = "Deputy"
@@ -39,22 +41,9 @@
 	satchel = /obj/item/storage/backpack/satchel/sec
 	duffelbag = /obj/item/storage/backpack/duffelbag/sec
 	box = /obj/item/storage/box/survival
-	
-/obj/item/card/deputy_access_card
-	name = "deputy assignment card"
-	desc = "A small card, that when used on any ID, will grant basic security access and the role of Deputy."
-	icon_state = "data_1"
 
-/obj/item/card/deputy_access_card/afterattack(atom/movable/AM, mob/user, proximity)
-	. = ..()
-	if(istype(AM, /obj/item/card/id) && proximity)
-		var/obj/item/card/id/I = AM
-		I.assignment = "Deputy"
-		I.access |=	ACCESS_SEC_DOORS
-		I.access |= ACCESS_MAINT_TUNNELS
-		I.access |= ACCESS_COURT
-		I.access |= ACCESS_BRIG
-		I.access |= ACCESS_WEAPONS
-		to_chat(user, "You have been assigned as deputy.")
-		log_id("[key_name(user)] added basic security access to '[I]' using [src] at [AREACOORD(user)].")
-		qdel(src)
+/obj/item/card/id/pass/deputy
+	name = "deputy promotion card"
+	desc = "A small card, that when used on an ID, will grant basic security access, and the job title of 'Deputy.'"
+	assignment = "Deputy"
+	access = list(ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS)

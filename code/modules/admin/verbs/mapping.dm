@@ -84,9 +84,8 @@ GLOBAL_PROTECT(admin_verbs_debug_mapping)
 			for(var/turf/T in C.can_see())
 				seen[T]++
 		for(var/turf/T in seen)
-			T.maptext = "[seen[T]]"
+			T.maptext = MAPTEXT("[seen[T]]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Camera Range") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Camera Range")
 
 #ifdef TESTING
 GLOBAL_LIST_EMPTY(dirty_vars)
@@ -157,7 +156,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 
 	if(intercom_range_display_status)
 		for(var/obj/item/radio/intercom/I in world)
-			for(var/turf/T in orange(7,I))
+			for(var/turf/T as() in RANGE_TURFS(7,I))
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
 				if (!(F in view(7,I.loc)))
 					qdel(F)
@@ -205,15 +204,15 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 	set name = "Debug verbs - Enable"
 	if(!check_rights(R_DEBUG))
 		return
-	verbs -= /client/proc/enable_debug_verbs
-	verbs.Add(/client/proc/disable_debug_verbs, GLOB.admin_verbs_debug_mapping)
+	remove_verb(/client/proc/enable_debug_verbs)
+	add_verb(list(/client/proc/disable_debug_verbs) + GLOB.admin_verbs_debug_mapping)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Enable Debug Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/disable_debug_verbs()
 	set category = "Debug"
 	set name = "Debug verbs - Disable"
-	verbs.Remove(/client/proc/disable_debug_verbs, GLOB.admin_verbs_debug_mapping)
-	verbs += /client/proc/enable_debug_verbs
+	remove_verb(list(/client/proc/disable_debug_verbs) + GLOB.admin_verbs_debug_mapping)
+	add_verb(/client/proc/enable_debug_verbs)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Disable Debug Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/count_objects_on_z_level()
@@ -239,18 +238,19 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 
 	var/list/atom/atom_list = list()
 
-	for(var/atom/A in world)
-		if(istype(A,type_path))
-			var/atom/B = A
-			while(!(isturf(B.loc)))
+	for(var/area/T as() in get_areas(/area, num_level))
+		for(var/atom/A in T)
+			if(istype(A, type_path))
+				var/atom/B = A
+				while(!(isturf(B.loc)))
 				if(B?.loc)
 					B = B.loc
 				else
 					break
-			if(B)
-				if(B.z == num_level)
+				if(B)
 					count++
 					atom_list += A
+			CHECK_TICK
 
 	to_chat(world, "There are [count] objects of type [type_path] on z-level [num_level]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Count Objects Zlevel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

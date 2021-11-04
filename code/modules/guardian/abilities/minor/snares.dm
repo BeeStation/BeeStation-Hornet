@@ -5,17 +5,20 @@
 	cost = 1
 
 /datum/guardian_ability/minor/snare/Apply()
-	guardian.verbs += /mob/living/simple_animal/hostile/guardian/proc/Snare
-	guardian.verbs += /mob/living/simple_animal/hostile/guardian/proc/DisarmSnare
+	guardian.add_verb(/mob/living/simple_animal/hostile/guardian/proc/Snare)
+	guardian.add_verb(/mob/living/simple_animal/hostile/guardian/proc/DisarmSnare)
 
 /datum/guardian_ability/minor/snare/Remove()
-	guardian.verbs -= /mob/living/simple_animal/hostile/guardian/proc/Snare
-	guardian.verbs -= /mob/living/simple_animal/hostile/guardian/proc/DisarmSnare
+	guardian.remove_verb(/mob/living/simple_animal/hostile/guardian/proc/Snare)
+	guardian.remove_verb(/mob/living/simple_animal/hostile/guardian/proc/DisarmSnare)
 
 /mob/living/simple_animal/hostile/guardian/proc/Snare()
 	set name = "Set Surveillance Snare"
 	set category = "Guardian"
 	set desc = "Set an invisible snare that will alert you when living creatures walk over it. Max of 5"
+	if(!can_use_abilities)
+		to_chat(src, "<span class='danger'><B>You can't do that right now!</span></B>")
+		return
 	if(snares.len <6)
 		var/turf/snare_loc = get_turf(src.loc)
 		var/obj/effect/snare/S = new /obj/effect/snare(snare_loc)

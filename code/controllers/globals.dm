@@ -25,10 +25,17 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 	return QDEL_HINT_IWILLGC
 
 /datum/controller/global_vars/stat_entry()
-	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
-	
-	stat("Globals:", statclick.update("Edit"))
+	var/list/tab_data = list()
+	tab_data["Globals"] = list(
+		text="Edit",
+		action = "statClickDebug",
+		params=list(
+			"targetRef" = REF(src),
+			"class"="controller",
+		),
+		type=STAT_BUTTON,
+	)
+	return tab_data
 
 /datum/controller/global_vars/vv_edit_var(var_name, var_value)
 	if(gvars_datum_protected_varlist[var_name])

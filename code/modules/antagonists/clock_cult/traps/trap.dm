@@ -66,7 +66,7 @@
 	. = ..()
 	outputs = list()
 
-	RegisterSignal(parent, COMSIG_CLOCKWORK_SIGNAL_RECIEVED, .proc/trigger)
+	RegisterSignal(parent, COMSIG_CLOCKWORK_SIGNAL_RECEIVED, .proc/trigger)
 	RegisterSignal(parent, COMSIG_ATOM_EMINENCE_ACT, .proc/trigger)	//The eminence can trigger traps too
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, .proc/clicked)
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/OnAttackBy)
@@ -78,12 +78,18 @@
 	output.outputs |= parent
 
 /datum/component/clockwork_trap/proc/trigger()
+	SIGNAL_HANDLER
+
 	return TRUE
 
 /datum/component/clockwork_trap/proc/clicked(mob/user)
+	SIGNAL_HANDLER
+
 	return
 
 /datum/component/clockwork_trap/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
+	SIGNAL_HANDLER
+
 	if(is_servant_of_ratvar(user))
 		if(istype(I, /obj/item/clockwork/clockwork_slab))
 			var/obj/item/clockwork/clockwork_slab/slab = I
@@ -103,4 +109,4 @@
 
 /datum/component/clockwork_trap/proc/trigger_connected()
 	for(var/obj/O in outputs)
-		SEND_SIGNAL(O, COMSIG_CLOCKWORK_SIGNAL_RECIEVED)
+		SEND_SIGNAL(O, COMSIG_CLOCKWORK_SIGNAL_RECEIVED)

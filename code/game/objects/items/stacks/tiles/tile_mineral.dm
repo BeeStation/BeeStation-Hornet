@@ -105,3 +105,12 @@
 	item_state = "tile-silver"
 	turf_type = /turf/open/floor/grass/snow/safe
 	mineralType = "snow"
+
+/obj/item/stack/tile/mineral/wax
+	name = "wax tile"
+	singular_name = "wax tile"
+	desc = "A large, flat sheet of wax."
+	icon_state = "tile_wax"
+	item_state = "tile-wax"
+	turf_type = /turf/open/floor/wax
+	mineralType = "wax"

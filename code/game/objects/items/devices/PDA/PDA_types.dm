@@ -18,6 +18,7 @@
 		var/obj/item/cartridge/virus/clown/cart = cartridge
 		if(istype(cart) && cart.charges < 5)
 			cart.charges++
+			playsound(src,'sound/machines/ping.ogg', 30, TRUE)
 
 //Mime PDA sends "silent" messages.
 /obj/item/pda/mime
@@ -152,6 +153,10 @@
 /obj/item/pda/shaftminer
 	name = "shaft miner PDA"
 	icon_state = "pda-miner"
+
+/obj/item/pda/exploration
+	name = "exploration PDA"
+	icon_state = "pda-exploration"
 
 /obj/item/pda/syndicate
 	default_cartridge = /obj/item/cartridge/virus/syndicate

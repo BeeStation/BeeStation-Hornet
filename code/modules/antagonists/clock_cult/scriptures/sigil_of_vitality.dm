@@ -6,7 +6,7 @@
 	desc = "Summons a vitality matrix, which drains the life force of non servants, and can be used to heal or revive servants. Requires 2 invokers."
 	tip = "Heal and revive dead servants, while draining the health from non servants."
 	button_icon_state = "Sigil of Vitality"
-	power_cost = 400
+	power_cost = 300
 	invokation_time = 50
 	invokation_text = list("My life in your hands.")
 	summoned_structure = /obj/structure/destructible/clockwork/sigil/vitality
@@ -37,6 +37,8 @@
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_NODEATH))
 		return FALSE
+	if(issilicon(M))
+		return FALSE
 	return TRUE
 
 /obj/structure/destructible/clockwork/sigil/vitality/apply_effects(mob/living/M)
@@ -66,24 +68,39 @@
 			M.adjustBruteLoss(-5, FALSE)
 			M.adjustFireLoss(-5, FALSE)
 			M.adjustOxyLoss(-5, FALSE)
-			M.adjustToxLoss(-5, FALSE)
+			M.adjustToxLoss(-5, FALSE, TRUE)
 			M.adjustCloneLoss(-5)
 		else
 			visible_message("<span class='neovgre'>\The [src] fails to heal [M]!</span>", "<span class='neovgre'>There is insufficient vitality to heal your wounds!</span>")
 	else
 		if(M.anti_magic_check())
 			return
+		if(is_convertable_to_clockcult(M) && !GLOB.gateway_opening)
+			visible_message("<span class='neovgre'>\The [src] refuses to siphon [M]'s vitality, their mind has great potential!</span>")
+			return
 		M.Paralyze(10)
-		M.adjustCloneLoss(20)
+		var/before_cloneloss = M.getCloneLoss()
+		M.adjustCloneLoss(20, TRUE, TRUE)
+		var/after_cloneloss = M.getCloneLoss()
+		if(before_cloneloss == after_cloneloss)
+			visible_message("<span class='neovgre'>\The [src] fails to siphon [M]'s spirit!</span>")
+			return
 		playsound(loc, 'sound/magic/clockwork/ratvar_attack.ogg', 40)
-		if(M.stat == DEAD)
+		if(M.stat == DEAD && length(GLOB.servant_spawns))
 			M.become_husk()
 			M.death()
 			playsound(loc, 'sound/magic/exit_blood.ogg', 60)
 			to_chat(M, "<span class='neovgre'>The last of your life is drained away...</span>")
 			hierophant_message("[M] has had their vitality drained by the [src]!", null, "<span class='inathneq'>")
+			var/mob/cogger = new /mob/living/simple_animal/drone/cogscarab(get_turf(M))
+			cogger.key = M.key
+			if(!cogger.grab_ghost(TRUE))
+				//Replace the mob with a shell
+				qdel(cogger)
+				new /obj/effect/mob_spawn/drone/cogscarab(get_turf(M))
+			add_servant_of_ratvar(cogger, silent=TRUE)
 			return
 		if(M.client)
-			M.visible_message("<span class='neovgre'>[src] looks weak as the color fades from their body.</span>", "<span class='neovgre'>You feel your soul faltering...</span>")
+			M.visible_message("<span class='neovgre'>[M] looks weak as the color fades from their body.</span>", "<span class='neovgre'>You feel your soul faltering...</span>")
 			GLOB.clockcult_vitality += 30
 		GLOB.clockcult_vitality += 10

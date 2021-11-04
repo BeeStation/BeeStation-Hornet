@@ -2,28 +2,13 @@
 
 /area/ruin/space
 	has_gravity = FALSE
-	blob_allowed = FALSE //Nope, no winning in space as a blob. Gotta eat the station.
+	area_flags = UNIQUE_AREA
 
 /area/ruin/space/has_grav
 	has_gravity = STANDARD_GRAVITY
 
 /area/ruin/space/has_grav/powered
 	requires_power = FALSE
-
-
-/area/ruin/fakespace
-	icon_state = "space"
-	requires_power = TRUE
-	always_unpowered = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	has_gravity = FALSE
-	power_light = FALSE
-	power_equip = FALSE
-	power_environ = FALSE
-	valid_territory = FALSE
-	outdoors = TRUE
-	ambient_effects = SPACE
-	blob_allowed = FALSE
 
 /////////////
 
@@ -63,7 +48,7 @@
 
 /area/ruin/space/has_grav/powered/aesthetic
 	name = "Aesthetic"
-	ambient_effects = list('sound/ambience/ambivapor1.ogg')
+	ambientsounds = list('sound/ambience/ambivapor1.ogg')
 
 
 //Ruin of Hotel
@@ -125,6 +110,10 @@
 /area/ruin/space/has_grav/hotel/workroom
 	name = "Hotel Staff Room"
 	icon_state = "crew_quarters"
+
+/area/ruin/space/has_grav/hotel/secondary_solars
+	name = "Hotel Secondary Solar Control"
+	icon_state = "engine_smes"
 
 
 
@@ -244,6 +233,7 @@
 	name = "Beta Station Atmospherics"
 	icon_state = "red"
 	has_gravity = FALSE
+	ambience_index = AMBIENCE_ENGI
 
 /area/ruin/space/has_grav/ancientstation/betanorth
 	name = "Beta Station North Corridor"
@@ -256,6 +246,7 @@
 /area/ruin/space/has_grav/ancientstation/engi
 	name = "Charlie Station Engineering"
 	icon_state = "engine"
+	ambience_index = AMBIENCE_ENGI
 
 /area/ruin/space/has_grav/ancientstation/comm
 	name = "Charlie Station Command"
@@ -368,7 +359,6 @@
 	name = "Ruskie DJ Station"
 	icon_state = "DJ"
 	has_gravity = STANDARD_GRAVITY
-	blob_allowed = FALSE //Nope, no winning on the DJ station as a blob. Gotta eat the main station.
 
 /area/ruin/space/djstation/solars
 	name = "DJ Station Solars"
@@ -381,7 +371,7 @@
 /area/ruin/space/abandoned_tele
 	name = "Abandoned Teleporter"
 	icon_state = "teleporter"
-	ambient_effects = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
+	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
 
 //OLD AI SAT
 

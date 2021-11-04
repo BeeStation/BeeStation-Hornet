@@ -31,6 +31,10 @@
 	message = "of wirecutters"
 	export_types = list(/obj/item/wirecutters)
 
+/datum/export/powertool
+	cost = 15
+	unit_name = "powertool"
+	export_types = list(/obj/item/powertool)
 
 /datum/export/weldingtool
 	cost = 5

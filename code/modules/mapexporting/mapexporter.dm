@@ -62,18 +62,19 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 			var/turf/place = sortedmap[x][y]
 			var/area/location
 			var/list/objects
+			var/area/AR = get_area(place)
 			//If there is nothing there, save as a noop (For odd shapes)
 			if(!place)
 				place = /turf/template_noop
 				location = /area/template_noop
 				objects = list()
 			//Ignore things in space, must be a space turf and the area has to be empty space
-			else if(istype(place, /turf/open/space) && get_area(place).type == /area/space && !(save_flag & SAVE_SPACE))
+			else if(istype(place, /turf/open/space) && istype(AR, /area/space) && !(save_flag & SAVE_SPACE))
 				place = /turf/template_noop
 				location = /area/template_noop
 			//Stuff to add
 			else
-				location = get_area(place).type
+				location = AR.type
 				objects = place
 				place = place.type
 			//====Saving shuttles only / non shuttles only====

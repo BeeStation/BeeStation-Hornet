@@ -17,6 +17,7 @@
 	var/obj/item/radio/headset/radio
 	/// var that tracks message cooldown
 	var/message_cooldown
+	COOLDOWN_DECLARE(order_cooldown)
 
 	light_color = "#E2853D"//orange
 
@@ -39,7 +40,7 @@
 
 /obj/machinery/computer/cargo/Destroy()
 	QDEL_NULL(radio)
-	..()
+	return ..()
 
 /obj/machinery/computer/cargo/proc/get_export_categories()
 	. = EXPORT_CARGO
@@ -72,6 +73,7 @@
 	if(!ui)
 		ui = new(user, src, "Cargo")
 		ui.open()
+		ui.set_autoupdate(TRUE) // Account balance, shuttle status
 
 /obj/machinery/computer/cargo/ui_data()
 	var/list/data = list()
@@ -94,7 +96,7 @@
 	for(var/datum/supply_order/SO in SSshuttle.shoppinglist)
 		data["cart"] += list(list(
 			"object" = SO.pack.name,
-			"cost" = SO.pack.cost,
+			"cost" = SO.pack.get_cost(),
 			"id" = SO.id,
 			"orderer" = SO.orderer,
 			"paid" = !isnull(SO.paying_account) //paid by requester
@@ -104,7 +106,7 @@
 	for(var/datum/supply_order/SO in SSshuttle.requestlist)
 		data["requests"] += list(list(
 			"object" = SO.pack.name,
-			"cost" = SO.pack.cost,
+			"cost" = SO.pack.get_cost(),
 			"orderer" = SO.orderer,
 			"reason" = SO.reason,
 			"id" = SO.id
@@ -127,7 +129,7 @@
 			continue
 		data["supplies"][P.group]["packs"] += list(list(
 			"name" = P.name,
-			"cost" = P.cost,
+			"cost" = P.get_cost(),
 			"id" = pack,
 			"desc" = P.desc || P.name, // If there is a description, use it. Otherwise use the pack's name.
 			"small_item" = P.small_item,
@@ -136,7 +138,8 @@
 	return data
 
 /obj/machinery/computer/cargo/ui_act(action, params, datum/tgui/ui)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	switch(action)
 		if("send")
@@ -171,6 +174,8 @@
 				say("The supply shuttle has been loaned to CentCom.")
 				. = TRUE
 		if("add")
+			if(!COOLDOWN_FINISHED(src, order_cooldown))
+				return
 			var/id = text2path(params["id"])
 			var/datum/supply_pack/pack = SSshuttle.supply_packs[id]
 			if(!istype(pack))
@@ -204,7 +209,10 @@
 			var/reason = ""
 			if(requestonly && !self_paid)
 				reason = stripped_input(usr, "Reason:", name, "")
-				if(isnull(reason) || ..())
+				if(!reason)
+					return
+				if(CHAT_FILTER_CHECK(reason))
+					to_chat(usr, "<span class='warning'>You cannot send a message that contains a word prohibited in IC chat!</span>")
 					return
 
 			var/turf/T = get_turf(src)

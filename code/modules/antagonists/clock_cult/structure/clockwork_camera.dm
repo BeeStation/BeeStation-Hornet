@@ -1,4 +1,4 @@
-/mob/camera/aiEye/remote/ratvar
+/mob/camera/ai_eye/remote/ratvar
 	visible_icon = TRUE
 	icon = 'icons/mob/cameramob.dmi'
 	icon_state = "generic_camera"
@@ -18,7 +18,7 @@
 	if(!isliving(owner))
 		return
 	if(GLOB.gateway_opening)
-		to_chat(owner, "<span class='brass'>You cannot warp while the gateway is opening!</span>")
+		to_chat(owner, "<span class='sevtug_small'>You cannot warp while the gateway is opening!</span>")
 		return
 	if(warping)
 		button_icon_state = "warp_down"
@@ -26,24 +26,26 @@
 		warping = FALSE
 		return
 	var/mob/living/M = owner
-	var/mob/camera/aiEye/remote/ratvar/cam = M.remote_control
+	var/mob/camera/ai_eye/remote/ratvar/cam = M.remote_control
 	var/target_loc = get_turf(cam)
+	var/area/AR = get_area(target_loc)
 	if(isclosedturf(target_loc))
-		to_chat(owner, "<span class='brass'>You cannot warp into dense objects.</span>")
+		to_chat(owner, "<span class='sevtug_small'>You cannot warp into dense objects.</span>")
 		return
-	if(!get_area(target_loc).clockwork_warp_allowed)
-		to_chat(owner, "<span class='brass'>[get_area(target_loc).clockwork_warp_fail]</span>")
+	if(!AR.clockwork_warp_allowed)
+		to_chat(owner, "<span class='sevtug_small'>[AR.clockwork_warp_fail]</span>")
 		return
 	do_sparks(5, TRUE, get_turf(cam))
 	warping = TRUE
 	button_icon_state = "warp_cancel"
 	owner.update_action_buttons_icon()
+	var/mob/previous_mob = owner
 	if(do_after(M, 50, target=target_loc, extra_checks=CALLBACK(src, .proc/special_check)))
 		try_warp_servant(M, target_loc, 50, FALSE)
 		var/obj/machinery/computer/camera_advanced/console = cam.origin
 		console.remove_eye_control(M)
 	button_icon_state = "warp_down"
-	owner.update_action_buttons_icon()
+	previous_mob.update_action_buttons_icon()
 	warping = FALSE
 
 /datum/action/innate/clockcult/warp/proc/special_check()
@@ -57,6 +59,7 @@
 	icon_state = "ratvarcomputer"
 	clockwork = TRUE
 	lock_override = CAMERA_LOCK_STATION
+	broken_overlay_emissive = TRUE
 	var/datum/action/innate/clockcult/warp/warp_action
 
 /obj/machinery/computer/camera_advanced/ratvar/Initialize()
@@ -68,10 +71,10 @@
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-/obj/machinery/computer/camera_advanced/ratvar/process()
-	if(prob(3))
+/obj/machinery/computer/camera_advanced/ratvar/process(delta_time)
+	if(DT_PROB(3, delta_time))
 		new /obj/effect/temp_visual/steam_release(get_turf(src))
-	if(prob(7))
+	if(DT_PROB(7, delta_time))
 		playsound(get_turf(src), 'sound/machines/beep.ogg', 20, TRUE)
 
 /obj/machinery/computer/camera_advanced/ratvar/can_use(mob/living/user)
@@ -87,7 +90,7 @@
 		actions += warp_action
 
 /obj/machinery/computer/camera_advanced/ratvar/CreateEye()
-	eyeobj = new /mob/camera/aiEye/remote/ratvar(get_turf(SSmapping.get_station_center()))
+	eyeobj = new /mob/camera/ai_eye/remote/ratvar(get_turf(SSmapping.get_station_center()))
 	eyeobj.origin = src
 	eyeobj.visible_icon = TRUE
 	eyeobj.icon = 'icons/mob/cameramob.dmi'

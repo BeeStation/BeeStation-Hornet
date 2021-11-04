@@ -54,12 +54,14 @@
 /datum/outfit/plasmaman/security
 	name = "Security Plasmaman"
 
+	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security
 	uniform = /obj/item/clothing/under/plasmaman/security
 
 /datum/outfit/plasmaman/detective
 	name = "Detective Plasmaman"
 
+	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/space/plasmaman/white
 	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
 	ears = /obj/item/radio/headset/headset_sec
@@ -67,12 +69,14 @@
 /datum/outfit/plasmaman/warden
 	name = "Warden Plasmaman"
 
+	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security/warden
 	uniform = /obj/item/clothing/under/plasmaman/security/warden
 
 /datum/outfit/plasmaman/secmed
 	name = "Brig Physician Plasmaman"
 
+	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security/secmed
 	uniform = /obj/item/clothing/under/plasmaman/security/secmed
 
@@ -139,53 +143,93 @@
 /datum/outfit/plasmaman/atmospherics
 	name = "Atmospherics Plasmaman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/atmospherics
-	uniform = /obj/item/clothing/under/plasmaman/atmospherics
+	head = /obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics
+	uniform = /obj/item/clothing/under/plasmaman/engineering/atmospherics
+
+/datum/outfit/plasmaman/exploration
+	name = "Exploration crew plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/exploration
+	uniform = /obj/item/clothing/under/plasmaman/exploration
 
 /datum/outfit/plasmaman/command
-	name = "Command Plasmamand"
-	
+	name = "Command Plasmaman"
+
+	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/space/plasmaman/command
 	uniform = /obj/item/clothing/under/plasmaman/command
 
 /datum/outfit/plasmaman/ce
 	name = "CE plasmaman"
-	
+
 	head = /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce
 	uniform = /obj/item/clothing/under/plasmaman/engineering/ce
-	
+
 /datum/outfit/plasmaman/cmo
 	name = "CMO plasmaman"
-	
+
 	head = /obj/item/clothing/head/helmet/space/plasmaman/cmo
 	uniform = /obj/item/clothing/under/plasmaman/cmo
-	
+
 /datum/outfit/plasmaman/hos
 	name = "HoS plasmaman"
 
+	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security/hos
-	uniform =/obj/item/clothing/under/plasmaman/security/hos
+	uniform = /obj/item/clothing/under/plasmaman/security/hos
 
 /datum/outfit/plasmaman/rd
 	name = "RD plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/rd
 	uniform = /obj/item/clothing/under/plasmaman/rd
-	
+
 /datum/outfit/plasmaman/hop
 	name = "Hop plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/hop
 	uniform = /obj/item/clothing/under/plasmaman/hop
-	
+
 /datum/outfit/plasmaman/mime
 	name = "Mime plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/mime
 	uniform = /obj/item/clothing/under/plasmaman/mime
-	
+
 /datum/outfit/plasmaman/honk
 	name = "Clown plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/honk
+	uniform = /obj/item/clothing/under/plasmaman/honk
+
+/datum/outfit/plasmaman/official
+	name = "CentCom Official Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/official
+	uniform = /obj/item/clothing/under/plasmaman/official
+
+/datum/outfit/plasmaman/intern
+	name = "CentCom Intern Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/intern
+	uniform = /obj/item/clothing/under/plasmaman/intern
+
+/datum/outfit/plasmaman/ert
+	name = "ERT Common Plasmaman"
+
+	head = null
+	uniform = /obj/item/clothing/under/plasmaman/official
+	mask = null
+
+/datum/outfit/plasmaman/death_commando
+	name = "Death Commando Plasmaman"
+
+	head = null
+	uniform = /obj/item/clothing/under/plasmaman/commander
+	mask = null
+
+/datum/outfit/plasmaman/honk_squad
+	name = "HONK Squad Plasmaman"
+
+	head = null
 	uniform = /obj/item/clothing/under/plasmaman/honk

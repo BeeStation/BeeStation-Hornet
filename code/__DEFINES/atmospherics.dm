@@ -1,15 +1,3 @@
-//LISTMOS
-//indices of values in gas lists.
-#define MOLES			1
-#define ARCHIVE			2
-#define GAS_META		3
-#define META_GAS_SPECIFIC_HEAT	1
-#define META_GAS_NAME			2
-#define META_GAS_MOLES_VISIBLE	3
-#define META_GAS_OVERLAY		4
-#define META_GAS_DANGER			5
-#define META_GAS_ID				6
-#define META_GAS_FUSION_POWER   7
 //ATMOS
 //stuff you should probably leave well alone!
 #define R_IDEAL_GAS_EQUATION	8.31	//! kPa*L/(K*mol)
@@ -127,9 +115,13 @@
 
 //PIPES
 //Atmos pipe limits
-#define MAX_OUTPUT_PRESSURE					4500 //! (kPa) What pressure pumps and powered equipment max out at.
-#define MAX_TRANSFER_RATE					200 //! (L/s) Maximum speed powered equipment can work at.
-#define VOLUME_PUMP_LEAK_AMOUNT				0.1 //! 10% of an overclocked volume pump leaks into the air
+/// (kPa) What pressure pumps and powered equipment max out at.
+#define MAX_OUTPUT_PRESSURE					4500
+/// (L/s) Maximum speed powered equipment can work at.
+#define MAX_TRANSFER_RATE 200
+/// How many percent of the contents that an overclocked volume pumps leak into the air
+#define VOLUME_PUMP_LEAK_AMOUNT 0.1
+
 //used for device_type vars
 #define UNARY		1
 #define BINARY 		2
@@ -161,7 +153,6 @@
 #define TCOMMS_ATMOS				"n2=100;TEMP=80" //-193,15°C telecommunications. also used for xenobiology slime killrooms
 #define AIRLESS_ATMOS				"TEMP=2.7" //space
 #define FROZEN_ATMOS				"o2=22;n2=82;TEMP=180" //-93.15°C snow and ice turfs
-#define KITCHEN_COLDROOM_ATMOS		"o2=25;n2=96;TEMP=253.15" //-20°C kitchen coldroom; higher amount of mol to reach about 101.3 kpA
 #define BURNMIX_ATMOS				"o2=100;plasma=200;TEMP=370" //used in the holodeck burn test program
 
 //ATMOSPHERICS DEPARTMENT GAS TANK TURFS
@@ -174,9 +165,10 @@
 
 //LAVALAND
 #define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 90 //! what pressure you have to be under to increase the effect of equipment meant for lavaland
+#define LAVALAND_DEFAULT_ATMOS		"o2=14;n2=5;co2=13;TEMP=300"
 
 //ATMOS MIX IDS
-#define LAVALAND_DEFAULT_ATMOS		"LAVALAND_ATMOS"
+//Lavaland used to live here. That was a mistake.
 
 //ATMOSIA GAS MONITOR TAGS
 #define ATMOS_GAS_MONITOR_INPUT_O2 "o2_in"
@@ -270,6 +262,24 @@
 #define PIPING_DEFAULT_LAYER_ONLY		(1<<2)	//! can only exist at PIPING_LAYER_DEFAULT
 #define PIPING_CARDINAL_AUTONORMALIZE	(1<<3)	//! north/south east/west doesn't matter, auto normalize on build.
 
+// Gas defines because i hate typepaths
+#define GAS_O2					"o2"
+#define GAS_N2					"n2"
+#define GAS_CO2					"co2"
+#define GAS_PLASMA				"plasma"
+#define GAS_H2O					"water_vapor"
+#define GAS_HYPERNOB			"nob"
+#define GAS_NITROUS				"n2o"
+#define GAS_NITRYL				"no2"
+#define GAS_TRITIUM				"tritium"
+#define GAS_BZ					"bz"
+#define GAS_STIMULUM			"stim"
+#define GAS_PLUOXIUM			"pluox"
+#define GAS_MIASMA				"miasma"
+
+#define GAS_FLAG_DANGEROUS		(1<<0)
+#define GAS_FLAG_BREATH_PROC	(1<<1)
+
 //HELPERS
 #define PIPING_LAYER_SHIFT(T, PipingLayer) \
 	if(T.dir & (NORTH|SOUTH)) {									\
@@ -290,17 +300,6 @@ GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
 #define CALCULATE_ADJACENT_TURFS(T) SSadjacent_air.queue[T] = 1
 #endif
 
-GLOBAL_VAR(atmos_extools_initialized) // this must be an uninitialized (null) one or init_monstermos will be called twice because reasons
-#define ATMOS_EXTOOLS_CHECK if(!GLOB.atmos_extools_initialized){\
-	GLOB.atmos_extools_initialized=TRUE;\
-	if(fexists(EXTOOLS)){\
-		var/result = call(EXTOOLS,"init_monstermos")();\
-		if(result != "ok") {CRASH(result);}\
-	} else {\
-		CRASH("byond-extools.dll or libbyond-extools.so does not exist!");\
-	}\
-}
-
 GLOBAL_LIST_INIT(pipe_paint_colors, sortList(list(
 		"amethyst" = rgb(130,43,255), //supplymain
 		"blue" = rgb(0,0,255),
@@ -316,6 +315,11 @@ GLOBAL_LIST_INIT(pipe_paint_colors, sortList(list(
 		"yellow" = rgb(255,198,0)
 )))
 
+//ROT MIASMA
 #define MIASMA_CORPSE_MOLES 0.02
 #define MIASMA_GIBS_MOLES 0.005
-#define MIASMA_HYGIENE_MOLES 0.002
+
+//PIPENET UPDATE STATUS
+#define PIPENET_UPDATE_STATUS_DORMANT 0
+#define PIPENET_UPDATE_STATUS_REACT_NEEDED 1
+#define PIPENET_UPDATE_STATUS_RECONCILE_NEEDED 2

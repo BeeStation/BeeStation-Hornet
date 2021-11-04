@@ -19,11 +19,11 @@
 /datum/status_effect/proc/on_creation(mob/living/new_owner, ...)
 	if(new_owner)
 		owner = new_owner
-	if(owner)
-		LAZYADD(owner.status_effects, src)
-	if(!owner || !on_apply())
+	if(QDELETED(owner) || !on_apply())
 		qdel(src)
 		return
+	if(owner)
+		LAZYADD(owner.status_effects, src)
 	if(duration != -1)
 		duration = world.time + duration
 	tick_interval = world.time + tick_interval
@@ -38,6 +38,7 @@
 /datum/status_effect/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
 	if(owner)
+		linked_alert = null
 		owner.clear_alert(id)
 		LAZYREMOVE(owner.status_effects, src)
 		on_remove()
@@ -85,6 +86,10 @@
 	name = "Curse of Mundanity"
 	desc = "You don't feel any different..."
 	var/datum/status_effect/attached_effect
+
+/atom/movable/screen/alert/status_effect/Destroy()
+	attached_effect = null //Don't keep a ref now
+	return ..()
 
 //////////////////
 // HELPER PROCS //

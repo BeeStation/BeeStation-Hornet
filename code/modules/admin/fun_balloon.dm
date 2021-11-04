@@ -49,7 +49,7 @@
 
 /obj/effect/fun_balloon/sentience/effect()
 	var/list/bodies = list()
-	for(var/mob/living/M in range(effect_range, get_turf(src)))
+	for(var/mob/living/M in viewers(effect_range, get_turf(src)))
 		bodies += M
 
 	var/question = "Would you like to be [group_name]?"
@@ -79,7 +79,7 @@
 	var/effect_range = 5
 
 /obj/effect/fun_balloon/scatter/effect()
-	for(var/mob/living/M in range(effect_range, get_turf(src)))
+	for(var/mob/living/M in hearers(effect_range, get_turf(src)))
 		var/turf/T = find_safe_turf()
 		new /obj/effect/temp_visual/gravpush(get_turf(M))
 		M.forceMove(T)
@@ -108,7 +108,7 @@
 /obj/effect/forcefield/arena_shuttle
 	name = "portal"
 	timeleft = 0
-	var/list/warp_points
+	var/list/warp_points = list()
 
 /obj/effect/forcefield/arena_shuttle/Initialize()
 	. = ..()
@@ -127,7 +127,7 @@
 		L.forceMove(LA)
 		L.hallucination = 0
 		to_chat(L, "<span class='reallybig redtext'>The battle is won. Your bloodlust subsides.</span>")
-		for(var/obj/item/twohanded/required/chainsaw/doomslayer/chainsaw in L)
+		for(var/obj/item/chainsaw/doomslayer/chainsaw in L)
 			qdel(chainsaw)
 	else
 		to_chat(L, "You are not yet worthy of passing. Drag a severed head to the barrier to be allowed entry to the hall of champions.")

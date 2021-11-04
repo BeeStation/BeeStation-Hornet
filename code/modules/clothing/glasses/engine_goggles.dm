@@ -90,7 +90,7 @@
 		var/strength = round(rad_places[i] / 1000, 0.1)
 		var/image/pic = image(loc = place)
 		var/mutable_appearance/MA = new()
-		MA.maptext = "<span class='maptext'>[strength]k</span>"
+		MA.maptext = MAPTEXT("[strength]k")
 		MA.color = "#04e66d"
 		MA.layer = RAD_TEXT_LAYER
 		MA.plane = GAME_PLANE
@@ -123,7 +123,7 @@
 	item_state = icon_state
 	if(isliving(loc))
 		var/mob/living/user = loc
-		if(user.get_item_by_slot(SLOT_GLASSES) == src)
+		if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
 			user.update_inv_glasses()
 		else
 			user.update_inv_hands()

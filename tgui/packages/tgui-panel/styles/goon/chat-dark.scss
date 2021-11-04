@@ -282,6 +282,7 @@ em						{font-style: normal;	font-weight: bold;}
 .binarysay a:active, .binarysay a:visited {color: #88ff88;}
 .radio					{color: #1ecc43;}
 .sciradio				{color: #c68cfa;}
+.explradio				{color: #7ed4c2;}
 .comradio				{color: #5177ff;}
 .secradio				{color: #dd3535;}
 .medradio				{color: #33ccff;}
@@ -337,6 +338,7 @@ em						{font-style: normal;	font-weight: bold;}
 .cultlarge				{color: #aa1c1c; font-weight: bold; font-size: 24px;}
 .narsie					{color: #aa1c1c; font-weight: bold; font-size: 120px;}
 .narsiesmall			{color: #aa1c1c; font-weight: bold; font-size: 48px;}
+.narsiesmaller			{color: #aa1c1c; font-weight: bold; font-size: 24px;}
 .colossus				{color: #7F282A; font-size: 40px;}
 .hierophant				{color: #b441ee; font-weight: bold; font-style: italic;}
 .hierophant_warning		{color: #c56bf1; font-style: italic;}
@@ -361,6 +363,7 @@ em						{font-style: normal;	font-weight: bold;}
 .leader_brass			{color: #BE8700; font-size: 16px;}
 .big_brass				{color: #BE8700; font-size: 24px; font-weight: bold; font-style: italic;}
 .ratvar					{color: #BE8700; font-size: 48px; font-weight: bold; font-style: italic; animation: ratvarcolor 5000ms infinite;}
+.ratvarsmall			{color: #BE8700; font-size: 24px; font-weight: bold; font-style: italic; animation: ratvarcolor 5000ms infinite;}
 .alloy					{color: #42474D;}
 .heavy_alloy			{color: #42474D; font-weight: bold; font-style: italic;}
 .nezbere_large			{color: #42474D; font-size: 24px; font-weight: bold; font-style: italic;}
@@ -413,13 +416,14 @@ em						{font-style: normal;	font-weight: bold;}
 .robot					{font-family: "Courier New", cursive, sans-serif;}
 
 .command_headset		{font-weight: bold; font-size: 24px;}
+.megaphone				{font-weight: bold; font-size: 24px;}
 .small					{font-size: 8px;}
 .big					{font-size: 24px;}
 .reallybig				{font-size: 32px;}
 .extremelybig			{font-size: 40px;}
 .greentext				{color: #059223;	font-size: 24px;}
 .redtext				{color: #c51e1e;	font-size: 24px;}
-.clown					{color: #ff70c1;	font-size: 24px; font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
+.clowntext					{color: #ff70c1;	font-size: 24px; font-family: "Comic Sans MS", cursive, sans-serif; font-weight: bold;}
 .singing				{font-family: "Trebuchet MS", cursive, sans-serif; font-style: italic;}
 .his_grace				{color: #15D512;	font-family: "Courier New", cursive, sans-serif; font-style: italic;}
 .hypnophrase			{color: #202020;	font-weight: bold; animation: hypnocolor 1500ms infinite;}
@@ -460,3 +464,81 @@ em						{font-style: normal;	font-weight: bold;}
 /* HELPER CLASSES */
 .text-normal {font-weight: normal; font-style: normal;}
 .hidden {display: none; visibility: hidden;}
+
+//Job Colours
+//Make sure you add to replacementNodes in renderer.js
+.unknown {color: #cec9c1}
+.assistant {color: #cccccc}
+.atmospherictechnician {color: #d4a07d}
+.bartender {color: #b2ceb3}
+.botanist {color: #95de85}
+.brigphysician {color: #b16789}
+.captain {color: #ecc478}
+.cargotechnician {color: #d3a372}
+.chaplain {color: #8ab48c}
+.chemist {color: #82bdce}
+.chiefengineer {color: #cfbb72}
+.chiefmedicalofficer {color: #41defa}
+.clown {color: #ff83d7}
+.cook {color: #a2fbb9}
+.curator {color: #88c999}
+.deputy {color: #eed4d4}
+.detective {color: #c78b8b}
+.paramedic {color: #8fbeb4}
+.geneticist {color: #83bbbf}
+.headofpersonnel {color: #526bf8}
+.headofsecurity {color: #ec3550}
+.janitor {color: #81dacb}
+.lawyer {color: #c07d7d}
+.medicaldoctor {color: #6cb1c5}
+.mime {color: #bad3bb}
+.quartermaster {color: #c79c52}
+.researchdirector {color: #974ea9}
+.roboticist {color: #ac71ba}
+.scientist {color: #c772c7}
+.securityofficer {color: #e6a3a3}
+.shaftminer {color: #ce957e}
+.explorationcrew {color: #85d8b8}
+.stationengineer {color: #ebc27d}
+.virologist {color: #5ac5b0}
+.warden {color: #dd3944}
+.centcom {color: #59d62f}
+.prisoner {color: #d38a5c}
+.blob {color: #ebb55a}
+.corgi {color: #ECDA88}
+.fox {color: #FFAE64}
+.rainbow {animation: rainbowtext 1500ms infinite;}
+.hierosay {animation: heriotext 1500ms infinite;}
+.brassmobsay {color: #BE8700;}
+.syndmob {color: #8f4a4b;}
+.alienmobsay {color: #855d85;}
+.cultmobsay {color: #aa1c1c;}
+.slimemobsay {color: #00CED1;}
+.gimmick {color: #a1a1a1;}
+.barber {color: #a58264;}
+.stagemagician {color: #b659a6;}
+.debtor {color: #6d6056;}
+.psychiatrist {color: #88bac9;}
+.vip {color: #e4ce6c;}
+
+@keyframes rainbowtext {
+	0% { color: #ff0000 }
+	20% { color: #ffee00 }
+	40% { color: #00ff15 }
+	60% { color: #00ccff }
+  80% { color: #3700ff }
+  100% { color: #ff00f2 }
+}
+
+@keyframes heriotext {
+	0% { color: #b441ee }
+	50% { color: #c56bf1 }
+  100% { color: #b441ee }
+}
+
+.stat_antagonist				{color: #dd3535;}
+.stat_antagonist_underline			{color: #dd3535;	text-decoration: underline;}
+
+.stat_infomation				{color: #e6a648;}
+
+.stat_br				        {color: #2ace53;}

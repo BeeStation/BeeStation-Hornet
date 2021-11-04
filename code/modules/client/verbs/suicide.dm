@@ -3,9 +3,9 @@
 /mob/proc/set_suicide(suicide_state)
 	suiciding = suicide_state
 	if(suicide_state)
-		GLOB.suicided_mob_list += src
+		add_to_mob_suicide_list()
 	else
-		GLOB.suicided_mob_list -= src
+		remove_from_mob_suicide_list()
 
 /mob/living/carbon/set_suicide(suicide_state) //you thought that box trick was pretty clever, didn't you? well now hardmode is on, boyo.
 	. = ..()
@@ -82,7 +82,7 @@
 					adjustOxyLoss(max(200 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 
 				death(FALSE)
-				ghostize(FALSE)	// Disallows reentering body and disassociates mind
+				ghostize(FALSE,SENTIENCE_ERASE)	// Disallows reentering body and disassociates mind
 
 				return
 
@@ -130,7 +130,7 @@
 		suicide_log()
 
 		death(FALSE)
-		ghostize(FALSE)	// Disallows reentering body and disassociates mind
+		ghostize(FALSE,SENTIENCE_ERASE)	// Disallows reentering body and disassociates mind
 
 /mob/living/carbon/monkey/verb/suicide()
 	set hidden = 1
@@ -148,7 +148,7 @@
 
 		adjustOxyLoss(max(200- getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 		death(FALSE)
-		ghostize(FALSE)	// Disallows reentering body and disassociates mind
+		ghostize(FALSE,SENTIENCE_ERASE)	// Disallows reentering body and disassociates mind
 
 /mob/living/silicon/ai/verb/suicide()
 	set hidden = 1
@@ -167,7 +167,7 @@
 		//put em at -175
 		adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 		death(FALSE)
-		ghostize(FALSE)	// Disallows reentering body and disassociates mind
+		ghostize(FALSE,SENTIENCE_ERASE)	// Disallows reentering body and disassociates mind
 
 /mob/living/silicon/robot/verb/suicide()
 	set hidden = 1
@@ -186,7 +186,7 @@
 		//put em at -175
 		adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 		death(FALSE)
-		ghostize(FALSE)	// Disallows reentering body and disassociates mind
+		ghostize(FALSE,SENTIENCE_ERASE)	// Disallows reentering body and disassociates mind
 
 /mob/living/silicon/pai/verb/suicide()
 	set hidden = 1
@@ -199,7 +199,7 @@
 		suicide_log()
 
 		death(FALSE)
-		ghostize(FALSE)	// Disallows reentering body and disassociates mind
+		ghostize(FALSE,SENTIENCE_ERASE)	// Disallows reentering body and disassociates mind
 	else
 		to_chat(src, "Aborting suicide attempt.")
 
@@ -221,7 +221,7 @@
 		//put em at -175
 		adjustOxyLoss(max(200 - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 		death(FALSE)
-		ghostize(FALSE)	// Disallows reentering body and disassociates mind
+		ghostize(FALSE,SENTIENCE_ERASE)	// Disallows reentering body and disassociates mind
 
 /mob/living/simple_animal/verb/suicide()
 	set hidden = 1
@@ -238,7 +238,7 @@
 		suicide_log()
 
 		death(FALSE)
-		ghostize(FALSE)	// Disallows reentering body and disassociates mind
+		ghostize(FALSE,SENTIENCE_ERASE)	// Disallows reentering body and disassociates mind
 
 /mob/living/proc/suicide_log()
 	log_game("[key_name(src)] committed suicide at [AREACOORD(src)] as [src.type].")

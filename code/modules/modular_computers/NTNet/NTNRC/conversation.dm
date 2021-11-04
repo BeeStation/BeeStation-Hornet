@@ -16,6 +16,8 @@
 /datum/ntnet_conversation/Destroy()
 	if(SSnetworks.station_network)
 		SSnetworks.station_network.chat_channels.Remove(src)
+	for(var/datum/computer_file/program/chatclient/chatterbox in clients)
+		purge_client(chatterbox)
 	return ..()
 
 /datum/ntnet_conversation/proc/add_message(message, username)
@@ -35,11 +37,17 @@
 /datum/ntnet_conversation/proc/add_client(datum/computer_file/program/chatclient/C)
 	if(!istype(C))
 		return
+	C.conversations |= src
 	clients.Add(C)
 	add_status_message("[C.username] has joined the channel.")
 	// No operator, so we assume the channel was empty. Assign this user as operator.
 	if(!operator)
 		changeop(C)
+
+//Clear all of our references to a client, used for client deletion
+/datum/ntnet_conversation/proc/purge_client(datum/computer_file/program/chatclient/forget)
+	remove_client(forget)
+	forget.conversations -= src
 
 /datum/ntnet_conversation/proc/remove_client(datum/computer_file/program/chatclient/C)
 	if(!istype(C) || !(C in clients))

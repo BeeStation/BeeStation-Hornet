@@ -36,10 +36,7 @@
 	A.say("TORNADO SWEEP!", forced="plasma fist")
 	TornadoAnimate(A)
 	var/obj/effect/proc_holder/spell/aoe_turf/repulse/R = new(null)
-	var/list/turfs = list()
-	for(var/turf/T in range(1,A))
-		turfs.Add(T)
-	R.cast(turfs)
+	R.cast(RANGE_TURFS(1,A))
 	log_combat(A, D, "tornado sweeped(Plasma Fist)")
 	return
 

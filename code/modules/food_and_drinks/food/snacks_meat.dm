@@ -33,6 +33,12 @@
 	name = "imitation carp fillet"
 	desc = "Almost just like the real thing, kinda."
 
+/obj/item/reagent_containers/food/snacks/carpmeat/icantbeliveitsnotcarp
+	name = "fish fillet"
+	desc = "A fillet of unspecified fish meat."
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 2) //No carpotoxin
+
+
 /obj/item/reagent_containers/food/snacks/fishfingers
 	name = "fish fingers"
 	desc = "A finger of fish."
@@ -123,7 +129,7 @@
 
 /obj/item/reagent_containers/food/snacks/sausage/Initialize()
 	. = ..()
-	eatverb = pick("bite","chew","nibble","deep throat","gobble","chomp")
+	eatverb = pick("bite","chew","nibble","gobble","chomp")
 
 /obj/item/reagent_containers/food/snacks/rawkhinkali
 	name = "raw khinkali"
@@ -160,7 +166,7 @@
 	if(GLOB.total_cube_monkeys >= CONFIG_GET(number/max_cube_monkeys))
 		visible_message("<span class='warning'>[src] refuses to expand!</span>")
 		return
-	var/mob/spammer = get_mob_by_key(fingerprintslast)
+	var/mob/spammer = get_mob_by_ckey(fingerprintslast)
 	var/mob/living/bananas = new spawned_mob(drop_location(), TRUE, spammer)
 	if(faction)
 		bananas.faction = faction

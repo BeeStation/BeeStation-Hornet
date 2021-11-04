@@ -35,7 +35,7 @@
 	languages_possible = languages_possible_base
 
 /obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args)
-
+	SIGNAL_HANDLER
 /obj/item/organ/tongue/Insert(mob/living/carbon/M, special = 0)
 	..()
 	if(say_mod && M.dna && M.dna.species)
@@ -108,7 +108,7 @@
 	if(T.mothership == mothership)
 		to_chat(H, "<span class='notice'>[src] is already attuned to the same channel as your own.</span>")
 
-	H.visible_message("<span class='notice'>[H] holds [src] in their hands, and concentrates for a moment.</span>", "<span class='notice'>You attempt to modify the attunation of [src].</span>")
+	H.visible_message("<span class='notice'>[H] holds [src] in their hands, and concentrates for a moment.</span>", "<span class='notice'>You attempt to modify the attenuation of [src].</span>")
 	if(do_after(H, delay=15, target=src))
 		to_chat(H, "<span class='notice'>You attune [src] to your own channel.</span>")
 		mothership = T.mothership
@@ -238,9 +238,9 @@
 	languages_possible = languages_possible_base += typecacheof(/datum/language/machine) + typecacheof(/datum/language/voltaic)
 
 /obj/item/organ/tongue/robot/emp_act(severity)
-	owner.apply_effect(EFFECT_STUTTER, 120)
 	owner.emote("scream")
-	to_chat(owner, "<span class='warning'>Alert: Vocal cords are malfunctioning.</span>")
+	owner.apply_status_effect(STATUS_EFFECT_SPANISH)
+	owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
 
 /obj/item/organ/tongue/robot/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT

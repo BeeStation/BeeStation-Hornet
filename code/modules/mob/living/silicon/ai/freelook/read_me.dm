@@ -45,7 +45,7 @@
 
  cameranet.dm	=	Everything about the cameranet datum.
  chunk.dm		=	Everything about the chunk datum.
- eye.dm			=	Everything about the AI and the AIEye.
+ eye.dm			=	Everything about the AI and the ai_eye.
  updating.dm	=	Everything about triggers that will update chunks.
 
 */

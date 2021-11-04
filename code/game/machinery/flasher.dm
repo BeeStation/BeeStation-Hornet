@@ -9,6 +9,7 @@
 	integrity_failure = 100
 	light_color = LIGHT_COLOR_WHITE
 	light_power = FLASH_LIGHT_POWER
+	layer = ABOVE_WINDOW_LAYER
 	var/obj/item/assembly/flash/handheld/bulb
 	var/id = null
 	var/range = 2 //this is roughly the size of brig cell
@@ -87,6 +88,13 @@
 	if (anchored)
 		return flash()
 
+/obj/machinery/flasher/eminence_act(mob/living/simple_animal/eminence/eminence)
+	. = ..()
+	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
+	if(do_after(eminence, 20, target=get_turf(eminence)))
+		if(anchored)
+			flash()
+
 /obj/machinery/flasher/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == "melee" && damage_amount < 10) //any melee attack below 10 dmg does nothing
 		return 0
@@ -109,10 +117,7 @@
 	last_flash = world.time
 	use_power(1000)
 
-	for (var/mob/living/L in viewers(src, null))
-		if (get_dist(src, L) > range)
-			continue
-
+	for (var/mob/living/L in hearers(range, src))
 		if(L.flash_act(affect_silicon = 1))
 			L.Paralyze(strength)
 

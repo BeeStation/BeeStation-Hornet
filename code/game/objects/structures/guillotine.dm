@@ -132,11 +132,9 @@
 			// The crowd is pleased
 			// The delay is to making large crowds have a longer laster applause
 			var/delay_offset = 0
-			for(var/mob/M in viewers(src, 7))
-				var/mob/living/carbon/human/C = M
-				if (ishuman(M))
-					addtimer(CALLBACK(C, /mob/.proc/emote, "clap"), delay_offset * 0.3)
-					delay_offset++
+			for(var/mob/living/carbon/human/C in viewers(7, src))
+				addtimer(CALLBACK(C, /mob/.proc/emote, "clap"), delay_offset * 0.3)
+				delay_offset++
 		else
 			H.apply_damage(15 * blade_sharpness, BRUTE, head)
 			log_combat(user, H, "dropped the blade on", src, " non-fatally")
@@ -176,7 +174,7 @@
 	else
 		return ..()
 
-/obj/structure/guillotine/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+/obj/structure/guillotine/buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
 	if (!anchored)
 		to_chat(usr, "<span class='warning'>The [src] needs to be wrenched to the floor!</span>")
 		return FALSE
@@ -189,7 +187,7 @@
 		to_chat(usr, "<span class='warning'>You need to raise the blade before buckling someone in!</span>")
 		return FALSE
 
-	return ..(M, force, FALSE)
+	return ..(M, user, FALSE)
 
 /obj/structure/guillotine/post_buckle_mob(mob/living/M)
 	if (!istype(M, /mob/living/carbon/human))

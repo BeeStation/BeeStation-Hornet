@@ -135,7 +135,7 @@
 	for(var/datum/mind/B in team.members)
 		if(B.current)
 			for(var/datum/action/innate/cult/mastervote/vote in B.current.actions)
-				vote.Remove(B.current)
+				qdel(vote)
 			if(!B.current.incapacitated())
 				to_chat(B.current,"<span class='cultlarge'>[Nominee] has won the cult's support and is now their master. Follow [Nominee.p_their()] orders to the best of your ability!</span>")
 	return TRUE
@@ -158,7 +158,7 @@
 	for(var/i in 1 to 4)
 		chant(i)
 		var/list/destinations = list()
-		for(var/turf/T in orange(1, owner))
+		for(var/turf/T as() in (RANGE_TURFS(1, owner) - get_turf(owner)))
 			if(!is_blocked_turf(T, TRUE))
 				destinations += T
 		if(!LAZYLEN(destinations))
@@ -266,7 +266,7 @@
 
 	var/datum/antagonist/cult/C = caller.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 
-	if(target in view(7, get_turf(ranged_ability_user)))
+	if(ranged_ability_user in viewers(7, get_turf(target)))
 		if(C.cult_team.blood_target)
 			to_chat(ranged_ability_user, "<span class='cult'>The cult has already designated a target!</span>")
 			return FALSE
@@ -438,7 +438,7 @@
 	var/turf/T = get_turf(ranged_ability_user)
 	if(!isturf(T))
 		return FALSE
-	if(target in view(7, get_turf(ranged_ability_user)))
+	if(ranged_ability_user in viewers(7, get_turf(target)))
 		if((!(iscultist(target) || istype(target, /obj/structure/destructible/cult)) || target == caller) && !(attached_action.throwing))
 			return
 		if(!attached_action.throwing)

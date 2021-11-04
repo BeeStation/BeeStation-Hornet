@@ -16,10 +16,13 @@
 
 /obj/structure/disposalconstruct/Initialize(loc, _pipe_type, _dir = SOUTH, flip = FALSE, obj/make_from)
 	. = ..()
+
 	if(make_from)
 		pipe_type = make_from.type
 		setDir(make_from.dir)
 		anchored = TRUE
+		density = initial(pipe_type.density)
+		make_from.transfer_fingerprints_to(src)
 
 	else
 		if(_pipe_type)
@@ -159,12 +162,13 @@
 		if(!I.tool_start_check(user, amount=0))
 			return TRUE
 
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You start welding the [pipename] in place...</span>")
 		if(I.use_tool(src, user, 8, volume=50))
 			to_chat(user, "<span class='notice'>The [pipename] has been welded in place.</span>")
 			var/obj/O = new pipe_type(loc, src)
 			transfer_fingerprints_to(O)
-
+			qdel(src)
 	else
 		to_chat(user, "<span class='warning'>You need to attach it to the plating first!</span>")
 	return TRUE

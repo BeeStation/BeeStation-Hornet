@@ -71,6 +71,9 @@ Note: Must be placed within 3 tiles of the R&D Console
 /obj/machinery/rnd/destructive_analyzer/proc/destroy_item(obj/item/thing, innermode = FALSE)
 	if(QDELETED(thing) || QDELETED(src) || QDELETED(linked_console))
 		return FALSE
+	if(thing.resistance_flags & INDESTRUCTIBLE)
+		playsound(src, 'sound/machines/nuke/angry_beep.ogg', 50, FALSE)
+		return FALSE
 	if(!innermode)
 		flick("d_analyzer_process", src)
 		busy = TRUE

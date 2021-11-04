@@ -30,8 +30,9 @@
 			"[user] successfully extracts a core from [target]!",
 			"[user] successfully extracts a core from [target]!")
 
-		new slime.coretype(slime.loc)
-
+		var/obj/item/slime_extract/item = new slime.coretype(slime.loc)
+		if(slime.transformeffects & SLIME_EFFECT_GOLD)
+			item.sparkly = TRUE
 		if(slime.cores <= 0)
 			slime.icon_state = "[slime.colour] baby slime dead-nocore"
 			return 1

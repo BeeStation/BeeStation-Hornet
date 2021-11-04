@@ -9,8 +9,15 @@ SUBSYSTEM_DEF(lighting)
 	flags = SS_TICKER
 
 /datum/controller/subsystem/lighting/stat_entry()
-	..("L:[GLOB.lighting_update_lights.len]|C:[GLOB.lighting_update_corners.len]|O:[GLOB.lighting_update_objects.len]")
+	. = ..("L:[GLOB.lighting_update_lights.len]|C:[GLOB.lighting_update_corners.len]|O:[GLOB.lighting_update_objects.len]")
 
+/datum/controller/subsystem/lighting/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["sources_queue"] = length(GLOB.lighting_update_lights)
+	cust["corners_queue"] = length(GLOB.lighting_update_corners)
+	cust["objects_queue"] = length(GLOB.lighting_update_objects)
+	.["custom"] = cust
 
 /datum/controller/subsystem/lighting/Initialize(timeofday)
 	if(!initialized)

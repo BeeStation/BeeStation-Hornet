@@ -313,6 +313,14 @@ All foods are distributed among various categories. Use common sense.
 
 	return result
 
+/obj/item/reagent_containers/food/snacks/burn()
+	if(prob(25))
+		microwave_act()
+	else
+		var/turf/T = get_turf(src)
+		new /obj/item/reagent_containers/food/snacks/badrecipe(T)
+		qdel(src)
+
 /obj/item/reagent_containers/food/snacks/Destroy()
 	if(contents)
 		for(var/atom/movable/something in contents)
@@ -324,13 +332,13 @@ All foods are distributed among various categories. Use common sense.
 		if(iscorgi(M))
 			var/mob/living/L = M
 			if(bitecount == 0 || prob(50))
-				M.emote("me", 1, "nibbles away at \the [src]")
+				M.emote("me", 1, "nibbles away at \the [src].")
 			bitecount++
 			L.taste(reagents) // why should carbons get all the fun?
 			if(bitecount >= 5)
-				var/sattisfaction_text = pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where \the [src] was")
-				if(sattisfaction_text)
-					M.emote("me", 1, "[sattisfaction_text]")
+				var/satisfaction_text = pick("burps from enjoyment.", "yaps for more.", "woofs twice.", "looks at the area where \the [src] was.")
+				if(satisfaction_text)
+					M.emote("me", 1, "[satisfaction_text]")
 				qdel(src)
 
 /obj/item/reagent_containers/food/snacks/afterattack(obj/item/reagent_containers/M, mob/user, proximity)

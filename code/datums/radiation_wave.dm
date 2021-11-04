@@ -59,7 +59,7 @@
 	STOP_PROCESSING(SSradiation, src)
 	..()
 
-/datum/radiation_wave/process()
+/datum/radiation_wave/process(delta_time)
 	// If master_turf is no more, then we can't know where to irradiate. This is a very bad situation.
 	if(!master_turf)
 		qdel(src)
@@ -206,7 +206,7 @@
 
 	// Now is time to move forward
 	intensity = intensity_new
-	steps++
+	steps += delta_time
 
 /datum/radiation_wave/proc/check_obstructions(list/atoms, index)
 	for(var/k in 1 to atoms.len)
@@ -284,5 +284,5 @@
 #undef PRC_BEHAVIOR_D
 #undef PRC_BEHAVIOR_HL
 #undef PRC_BEHAVIOR_HLSTAR
-#undef PRC_BEHAVIOR_HR	
+#undef PRC_BEHAVIOR_HR
 #undef PRC_BEHAVIOR_HRSTAR

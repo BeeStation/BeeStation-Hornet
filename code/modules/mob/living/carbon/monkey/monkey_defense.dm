@@ -121,6 +121,8 @@
 		var/damage = 20
 		if(M.is_adult)
 			damage = 30
+		if(M.transformeffects & SLIME_EFFECT_RED)
+			damage *= 1.1
 		var/dam_zone = dismembering_strike(M, pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 		if(!dam_zone) //Dismemberment successful
 			return 1

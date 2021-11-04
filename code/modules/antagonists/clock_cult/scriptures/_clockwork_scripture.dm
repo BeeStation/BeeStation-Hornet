@@ -56,7 +56,7 @@
 		return
 	var/invokers_left = invokers_required
 	if(invokers_left > 1)
-		for(var/mob/living/M in view(invoker))
+		for(var/mob/living/M in viewers(invoker))
 			if(M.stat)
 				continue
 			if(!invokers_left)
@@ -71,7 +71,7 @@
 	if(text_point < stop_at)
 		invokation_chant_timer = addtimer(CALLBACK(src, .proc/recite, text_point+1, wait_time, stop_at), wait_time, TIMER_STOPPABLE)
 
-/datum/clockcult/scripture/proc/check_special_requirements()
+/datum/clockcult/scripture/proc/check_special_requirements(mob/user)
 	if(!invoker || !invoking_slab)
 		message_admins("No invoker for [name]")
 		return FALSE
@@ -79,7 +79,7 @@
 		to_chat(invoker, "<span class='brass'>You fail to invoke [name].</span>")
 		return FALSE
 	var/invokers
-	for(var/mob/living/M in view(invoker))
+	for(var/mob/living/M in viewers(invoker))
 		if(M.stat)
 			continue
 		if(is_servant_of_ratvar(M))
@@ -100,11 +100,11 @@
 		log_runtime("CLOCKCULT: Attempting to invoke a scripture that has not been unlocked. Either there is a bug, or [ADMIN_LOOKUP(invoker)] is using some wacky exploits.")
 		end_invoke()
 		return
-	if(!check_special_requirements())
+	if(!check_special_requirements(M))
 		end_invoke()
 		return
 	recital()
-	if(do_after(M, invokation_time, target=M, extra_checks=CALLBACK(src, .proc/check_special_requirements)))
+	if(do_after(M, invokation_time, target=M, extra_checks=CALLBACK(src, .proc/check_special_requirements, M)))
 		invoke()
 		to_chat(M, "<span class='brass'>You invoke [name].</span>")
 		if(end_on_invokation)
@@ -127,7 +127,7 @@
 /datum/clockcult/scripture/create_structure
 	var/summoned_structure
 
-/datum/clockcult/scripture/create_structure/check_special_requirements()
+/datum/clockcult/scripture/create_structure/check_special_requirements(mob/user)
 	if(!..())
 		return FALSE
 	for(var/obj/structure/destructible/clockwork/structure in get_turf(invoker))

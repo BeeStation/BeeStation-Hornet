@@ -15,7 +15,7 @@
 
 /datum/pipeline/Destroy()
 	SSair.networks -= src
-	if(air?.return_volume())
+	if(air && air.return_volume())
 		temporarily_store_air()
 	for(var/obj/machinery/atmospherics/pipe/P in members)
 		P.parent = null
@@ -30,52 +30,53 @@
 	update = air.react(src)
 
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
-	if(src != null && base != null)
-		var/volume = 0
-		if(istype(base, /obj/machinery/atmospherics/pipe))
-			var/obj/machinery/atmospherics/pipe/E = base
-			volume = E.volume
-			members += E
-			if(E.air_temporary)
-				air = E.air_temporary
-				E.air_temporary = null
-		else
-			addMachineryMember(base)
-		if(!air)
-			air = new
-		var/list/possible_expansions = list(base)
-		while(possible_expansions.len)
-			for(var/obj/machinery/atmospherics/borderline in possible_expansions)
-				var/list/result = borderline.pipeline_expansion(src)
-				if(result && result.len)
-					for(var/obj/machinery/atmospherics/P in result)
-						if(istype(P, /obj/machinery/atmospherics/pipe))
-							var/obj/machinery/atmospherics/pipe/item = P
-							if(!members.Find(item))
+	var/volume = 0
+	if(istype(base, /obj/machinery/atmospherics/pipe))
+		var/obj/machinery/atmospherics/pipe/E = base
+		volume = E.volume
+		members += E
+		if(E.air_temporary)
+			air = E.air_temporary
+			E.air_temporary = null
+	else
+		addMachineryMember(base)
+	if(!air)
+		air = new
+	var/list/possible_expansions = list(base)
+	while(possible_expansions.len>0)
+		for(var/obj/machinery/atmospherics/borderline in possible_expansions)
 
-								if(item.parent)
-									var/static/pipenetwarnings = 10
-									if(pipenetwarnings > 0)
-										log_mapping("build_pipeline(): [item.type] added to a pipenet while still having one. (pipes leading to the same spot stacking in one turf) around [AREACOORD(item)].")
-										pipenetwarnings--
-										if(pipenetwarnings == 0)
-											log_mapping("build_pipeline(): further messages about pipenets will be suppressed")
-								members += item
-								possible_expansions += item
+			var/list/result = borderline.pipeline_expansion(src)
 
-								volume += item.volume
-								item.parent = src
+			if(result.len>0)
+				for(var/obj/machinery/atmospherics/P in result)
+					if(istype(P, /obj/machinery/atmospherics/pipe))
+						var/obj/machinery/atmospherics/pipe/item = P
+						if(!members.Find(item))
 
-								if(item.air_temporary)
-									air.merge(item.air_temporary)
-									item.air_temporary = null
-						else
-							P.setPipenet(src, borderline)
-							addMachineryMember(P)
+							if(item.parent)
+								var/static/pipenetwarnings = 10
+								if(pipenetwarnings > 0)
+									log_mapping("build_pipeline(): [item.type] added to a pipenet while still having one. (pipes leading to the same spot stacking in one turf) Nearby: ([item.x], [item.y], [item.z]).")
+									pipenetwarnings -= 1
+									if(pipenetwarnings == 0)
+										log_mapping("build_pipeline(): further messages about pipenets will be suppressed")
+							members += item
+							possible_expansions += item
 
-				possible_expansions -= borderline
+							volume += item.volume
+							item.parent = src
 
-		air.set_volume(volume)
+							if(item.air_temporary)
+								air.merge(item.air_temporary)
+								item.air_temporary = null
+					else
+						P.setPipenet(src, borderline)
+						addMachineryMember(P)
+
+			possible_expansions -= borderline
+
+	air.set_volume(volume)
 
 /datum/pipeline/proc/addMachineryMember(obj/machinery/atmospherics/components/C)
 	other_atmosmch |= C
@@ -193,7 +194,7 @@
 
 	else
 		if((target.heat_capacity>0) && (partial_heat_capacity>0))
-			var/delta_temperature = air.return_temperature() - target.temperature
+			var/delta_temperature = air.return_temperature() - target.return_temperature()
 
 			var/heat = thermal_conductivity*delta_temperature* \
 				(partial_heat_capacity*target.heat_capacity/(partial_heat_capacity+target.heat_capacity))
@@ -204,10 +205,14 @@
 /datum/pipeline/proc/return_air()
 	. = other_airs + air
 	if(null in .)
-		stack_trace("[src] has one or more null gas mixtures, which may cause bugs. Null mixtures will not be considered in reconcile_air().")
-		return removeNullsFromList(.)
+		stack_trace("[src]([REF(src)]) has one or more null gas mixtures, which may cause bugs. Null mixtures will not be considered in reconcile_air().")
+		listclearnulls(.)
 
-/datum/pipeline/proc/reconcile_air()
+/datum/pipeline/proc/empty()
+	for(var/datum/gas_mixture/GM in get_all_connected_airs())
+		GM.clear()
+
+/datum/pipeline/proc/get_all_connected_airs()
 	var/list/datum/gas_mixture/GL = list()
 	var/list/datum/pipeline/PL = list()
 	PL += src
@@ -227,18 +232,8 @@
 				var/obj/machinery/atmospherics/components/unary/portables_connector/C = atmosmch
 				if(C.connected_device)
 					GL += C.portableConnectorReturnAir()
+	return GL
 
-	var/datum/gas_mixture/total_gas_mixture = new(0)
-	var/total_volume = 0
-
-	for(var/i in GL)
-		var/datum/gas_mixture/G = i
-		total_gas_mixture.merge(G)
-		total_volume += G.return_volume()
-
-	if(total_volume > 0)
-		//Update individual gas_mixtures by volume ratio
-		for(var/i in GL)
-			var/datum/gas_mixture/G = i
-			G.copy_from(total_gas_mixture)
-			G.multiply(G.return_volume()/total_volume)
+/datum/pipeline/proc/reconcile_air()
+	var/list/datum/gas_mixture/GL = get_all_connected_airs()
+	equalize_all_gases_in_list(GL)

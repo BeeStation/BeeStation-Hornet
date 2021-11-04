@@ -4,6 +4,7 @@
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "headset"
 	item_color = "r"
+	var/implant_colour = "#ff0000"
 	var/list/linked_implants // All other implants that this communicates to
 
 /obj/item/implant/bloodbrother/Initialize()
@@ -20,8 +21,8 @@
 			to_chat(imp_in, "<span class='warning'>The message contains prohibited words!</span>")
 			return
 
-		var/my_message = "<font color=\"#ff0000\"><b><i>[imp_in]:</i></b></font> [input]" //add sender, color source with syndie color
-		var/ghost_message = "<font color=\"#ff0000\"><b><i>[imp_in] -> Blood Brothers:</i></b></font> [input]"
+		var/my_message = "<font color=\"[implant_colour]\"><b><i>[imp_in]:</i></b></font> [input]" //add sender, color source with syndie color
+		var/ghost_message = "<font color=\"[implant_colour]\"><b><i>[imp_in] -> Blood Brothers:</i></b></font> [input]"
 
 		to_chat(imp_in, my_message) // Sends message to the user
 		for(var/obj/item/implant/bloodbrother/i in linked_implants) // Sends message to all linked implnats

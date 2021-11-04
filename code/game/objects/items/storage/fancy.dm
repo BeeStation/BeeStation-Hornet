@@ -150,14 +150,14 @@
 /obj/item/storage/fancy/cigarettes/AltClick(mob/living/carbon/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
-	var/obj/item/clothing/mask/cigarette/W = locate(/obj/item/clothing/mask/cigarette) in contents
-	if(W && contents.len > 0)
-		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, W, user)
-		user.put_in_hands(W)
-		contents -= W
-		to_chat(user, "<span class='notice'>You take \a [W] out of the pack.</span>")
+	var/obj/item/I = locate(/obj/item) in contents
+	if(I && contents.len > 0)
+		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, I, user)
+		user.put_in_hands(I)
+		contents -= I
+		to_chat(user, "<span class='notice'>You take \a [I] out of the pack.</span>")
 	else
-		to_chat(user, "<span class='notice'>There are no [icon_type]s left in the pack.</span>")
+		to_chat(user, "<span class='notice'>There is nothing left in the pack.</span>")
 
 /obj/item/storage/fancy/cigarettes/update_icon()
 	if(fancy_open || !contents.len)
@@ -187,18 +187,15 @@
 /obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!ismob(M))
 		return
-	var/obj/item/clothing/mask/cigarette/cig = locate(/obj/item/clothing/mask/cigarette) in contents
-	if(cig)
-		if(M == user && contents.len > 0 && !user.wear_mask)
-			var/obj/item/clothing/mask/cigarette/W = cig
-			SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, W, M)
-			M.equip_to_slot_if_possible(W, SLOT_WEAR_MASK)
-			contents -= W
-			to_chat(user, "<span class='notice'>You take \a [W] out of the pack.</span>")
-		else
-			..()
-	else
-		to_chat(user, "<span class='notice'>There are no [icon_type]s left in the pack.</span>")
+
+	var/obj/item/clothing/mask/cigarette/W = locate(/obj/item/clothing/mask/cigarette) in contents
+	if(!W)
+		return ..()
+	if(M == user && contents.len > 0 && !user.wear_mask)
+		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, W, M)
+		M.equip_to_slot_if_possible(W, ITEM_SLOT_MASK)
+		contents -= W
+		to_chat(user, "<span class='notice'>You take \a [W] out of the pack.</span>")
 
 /obj/item/storage/fancy/cigarettes/dromedaryco
 	name = "\improper DromedaryCo packet"

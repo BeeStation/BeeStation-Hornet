@@ -21,30 +21,32 @@ Bonus
 	stealth = 0
 	resistance = 2
 	stage_speed = 2
-	transmittable = 2
+	transmission = 2
 	level = 2
 	severity = 0
 	symptom_delay_min = 10
 	symptom_delay_max = 30
+	bodies = list("Shiver")
+	suffixes = list(" Shivers")
 	var/unsafe = FALSE //over the cold threshold
 	threshold_desc = "<b>Stage Speed 5:</b> Increases cooling speed; the host can fall below safe temperature levels.<br>\
 					  <b>Stage Speed 10:</b> Further increases cooling speed."
 
 /datum/symptom/shivering/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["stage_rate"] >= 5) //dangerous cold
+	if(A.stage_rate >= 5) //dangerous cold
 		severity += 1
-	if(A.properties["stage_rate"] >= 10)
-		severity += 1
+		if(A.stage_rate >= 10)
+			severity += 1
 
 /datum/symptom/shivering/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_rate"] >= 5) //dangerous cold
+	if(A.stage_rate >= 5) //dangerous cold
 		power = 1.5
 		unsafe = TRUE
-	if(A.properties["stage_rate"] >= 10)
-		power = 2.5
+		if(A.stage_rate >= 10)
+			power = 2.5
 
 /datum/symptom/shivering/Activate(datum/disease/advance/A)
 	if(!..())

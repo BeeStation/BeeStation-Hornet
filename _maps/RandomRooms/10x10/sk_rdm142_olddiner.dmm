@@ -39,7 +39,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "lT" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/wood,
 /area/template_noop)
 "nt" = (
