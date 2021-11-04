@@ -6,6 +6,7 @@
 	density = FALSE
 	anchored = TRUE
 	var/bonespear = FALSE
+	var/bamboospear = FALSE
 	var/obj/item/spear/spear
 	var/obj/item/bodypart/head/victim
 
@@ -13,15 +14,21 @@
 	icon_state = "headpike-bone"
 	bonespear = TRUE
 
+/obj/structure/headpike/bamboo //for bamboo spears
+	icon_state = "headpike-bamboo"
+	bamboospear = TRUE
+
 /obj/structure/headpike/CheckParts(list/parts_list)
-	..()
 	victim = locate(/obj/item/bodypart/head) in parts_list
 	name = "[victim.name] on a spear"
-	update_icon()
 	if(bonespear)
 		spear = locate(/obj/item/spear/bonespear) in parts_list
+	else if(bamboospear)
+		spear = locate(/obj/item/spear/bamboospear) in parts_list
 	else
 		spear = locate(/obj/item/spear) in parts_list
+	..()
+	update_icon()
 
 /obj/structure/headpike/Initialize()
 	. = ..()
