@@ -1,5 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - tweak: Protolathes and circuit imprinters are no longer dependent on R&D consoles.
-      This addresses issues with people being unable to print with them in some cases.
