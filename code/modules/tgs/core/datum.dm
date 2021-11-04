@@ -55,9 +55,3 @@ TGS_PROTECT_DATUM(/datum/tgs_api)
 
 /datum/tgs_api/proc/SecurityLevel()
 	return TGS_UNIMPLEMENTED
-
-/datum/tgs_api/vv_edit_var(var_name, var_value)
-	return FALSE
-
-/datum/tgs_api/can_vv_get(var_name)
-	return FALSE

@@ -44,7 +44,7 @@
 #undef SHELLEO_OUT
 
 /proc/shell_url_scrub(url)
-	var/static/regex/bad_chars_regex = regex("\[^#%&`./:=?\\w]*", "g")
+	var/static/regex/bad_chars_regex = regex("\[^#%&./:=?\\w]*", "g")
 	var/scrubbed_url = ""
 	var/bad_match = ""
 	var/last_good = 1
