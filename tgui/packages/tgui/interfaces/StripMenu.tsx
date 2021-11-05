@@ -192,6 +192,10 @@ interface StripMenuRowProps {
 const StripMenuRow = (props: StripMenuRowProps, context) => {
   const { act, data } = useBackend<StripMenuData>(context);
 
+  const name = props.obscured ? "Obscured"
+    : props.empty ? "Empty"
+      : props.itemName;
+
   return (
     <Table.Row
       className={classes([
@@ -210,7 +214,7 @@ const StripMenuRow = (props: StripMenuRowProps, context) => {
             !props.unavailable && (
               <Flex.Item>
                 <Button compact
-                  content={props.obscured ? "Obscured" : (props.itemName ?? "Empty")}
+                  content={name}
                   disabled={props.obscured === ObscuringLevel.Completely}
                   color={props.empty ? "transparent" : null}
                   ellipsis
