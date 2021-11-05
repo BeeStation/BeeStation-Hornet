@@ -586,13 +586,13 @@ Contains:
 	desc = "Wearing this makes you feel #1"
 	icon_state = "idpd_chief_suit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/idpd/chief
-	armor = list("melee" = 85, "bullet" = 75, "laser" = 75, "energy" = 75, "bomb" = 75, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 100, "stamina" = 90)
+	armor = list("melee" = 75, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80, "stamina" = 70)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/idpd/chief
 	name = "chief helmet"
 	desc = "Glorious"
 	icon_state = "idpd_chief_helmet"
-	armor = list("melee" = 85, "bullet" = 75, "laser" = 75, "energy" = 75, "bomb" = 75, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 100, "stamina" = 90)
+	armor = list("melee" = 75, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80, "stamina" = 70)
 
 ///Gazer
 /obj/item/clothing/suit/space/hardsuit/ert/idpd/gazer
@@ -611,9 +611,9 @@ Contains:
 	name = "titan suit"
 	icon_state = "idpd_titan_suit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/idpd/titan
-	armor = list("melee" = 80, "bullet" = 70, "laser" = 70, "energy" = 70, "bomb" = 90, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 90, "stamina" = 80)
+	armor = list("melee" = 70, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80, "stamina" = 70)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/idpd/titan
 	name = "titan helmet"
 	icon_state = "idpd_titan_helmet"
-	armor = list("melee" = 80, "bullet" = 70, "laser" = 70, "energy" = 70, "bomb" = 90, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 90, "stamina" = 80)
+	armor = list("melee" = 70, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80, "stamina" = 70)
