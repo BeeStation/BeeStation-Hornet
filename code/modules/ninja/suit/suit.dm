@@ -1,4 +1,4 @@
-
+//God this is ugly, why was it split in like 4 files
 /*
 
 Contents:
@@ -54,10 +54,6 @@ Contents:
 		//Ability function variables.
 	var/s_bombs = 10//Number of smoke bombs.
 	var/a_boost = 3//Number of adrenaline boosters.
-
-
-/obj/item/clothing/suit/space/space_ninja/get_cell()
-	return cell
 
 /obj/item/clothing/suit/space/space_ninja/Initialize()
 	. = ..()
@@ -156,12 +152,11 @@ Contents:
 
 /obj/item/clothing/suit/space/space_ninja/examine(mob/user)
 	. = .()
-	if(s_initialized)
-		if(user == affecting)
-			. += "All systems operational. Current energy capacity: <B>[DisplayEnergy(cell.charge)]</B>.\n"+\
-			"The CLOAK-tech device is <B>[stealth?"active":"inactive"]</B>.\n"+\
-			"There are <B>[s_bombs]</B> smoke bomb\s remaining.\n"+\
-			"There are <B>[a_boost]</B> adrenaline booster\s remaining."
+	if(s_initialized && user == affecting)
+		. += "All systems operational. Current energy capacity: <B>[DisplayEnergy(cell.charge)]</B>.\n"+\
+		"The CLOAK-tech device is <B>[stealth?"active":"inactive"]</B>.\n"+\
+		"There are <B>[s_bombs]</B> smoke bomb\s remaining.\n"+\
+		"There are <B>[a_boost]</B> adrenaline booster\s remaining."
 
 /obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/initialize_ninja_suit))
@@ -195,3 +190,104 @@ Contents:
 		n_gloves.toggledrain()
 		return TRUE
 	return FALSE
+
+/obj/item/clothing/suit/space/space_ninja/proc/toggle_on_off()
+	if(s_busy)
+		to_chat(loc, "<span class='userdanger'>ERROR</span>: You cannot use this function at this time.")
+		return FALSE
+	if(s_initialized)
+		deinitialize()
+	else
+		ninitialize()
+	. = TRUE
+
+/obj/item/clothing/suit/space/space_ninja/proc/set_up_suit()
+	s_busy = TRUE
+
+	to_chat(U, "<span class='notice'>Now initializing...</span>")
+	sleep(s_delay)
+
+	if(!lock_suit(U))//To lock the suit onto wearer.
+		s_busy = FALSE
+		return
+	to_chat(U, "<span class='notice'>Securing external locking mechanism...\nNeural-net established.</span>")
+	sleep(s_delay)
+
+	to_chat(U, "<span class='notice'>Extending neural-net interface...\nNow monitoring brain wave pattern...</span>")
+	sleep(s_delay)
+
+	if(U.stat == DEAD|| U.health <= 0)
+		to_chat(U, "<span class='danger'><B>FÄAL ï¿½Rrï¿½R</B>: 344--93#ï¿½&&21 BRï¿½ï¿½N |/|/aVï¿½ PATT$RN <B>RED</B>\nA-A-aBï¿½rTï¿½NG...</span>")
+		unlock_suit()
+		s_busy = FALSE
+		return
+	lockIcons(U)//Check for icons.
+	U.regenerate_icons()
+	to_chat(U, "<span class='notice'>Linking neural-net interface...\nPattern</span>\green <B>GREEN</B><span class='notice'>, continuing operation.</span>")
+	sleep(s_delay)
+
+	to_chat(U, "<span class='notice'>VOID-shift device status: <B>ONLINE</B>.\nCLOAK-tech device status: <B>ONLINE</B>.</span>")
+	sleep(s_delay)
+
+	to_chat(U, "<span class='notice'>Primary system status: <B>ONLINE</B>.\nBackup system status: <B>ONLINE</B>.\nCurrent energy capacity: <B>[DisplayEnergy(cell.charge)]</B>.</span>")
+	sleep(s_delay)
+
+	to_chat(U, "<span class='notice'>All systems operational. Welcome to <B>SpiderOS</B>, [U.real_name].</span>")
+	s_initialized = TRUE
+	START_PROCESSING(src, SSprocessing)
+	s_busy = FALSE
+
+/obj/item/clothing/suit/space/space_ninja/proc/turn_off()
+	if(alert("Are you certain you wish to remove the suit? This will take time and remove all abilities.",,"Yes","No")!="Yes")
+		return
+
+	s_busy = TRUE
+
+	sleep(s_delay)
+
+	to_chat(U, "<span class='notice'>Now de-initializing...</span>")
+	sleep(s_delay)
+
+	to_chat(U, "<span class='notice'>Logging off, [U.real_name]. Shutting down <B>SpiderOS</B>.</span>")
+	sleep(s_delay)
+
+	to_chat(U, "<span class='notice'>Primary system status: <B>OFFLINE</B>.\nBackup system status: <B>OFFLINE</B>.</span>")
+	sleep(s_delay)
+
+
+/obj/item/clothing/suit/space/space_ninja/proc/deinitialize_five(delay, mob/living/carbon/human/U)
+	to_chat(U, "<span class='notice'>VOID-shift device status: <B>OFFLINE</B>.\nCLOAK-tech device status: <B>OFFLINE</B>.</span>")
+	cancel_stealth()//Shutdowns stealth.
+	addtimer(CALLBACK(src, .proc/deinitialize_six, delay, U), delay)
+
+/obj/item/clothing/suit/space/space_ninja/proc/deinitialize_six(delay, mob/living/carbon/human/U)
+	to_chat(U, "<span class='notice'>Disconnecting neural-net interface...</span>\green<B>Success</B><span class='notice'>.</span>")
+	addtimer(CALLBACK(src, .proc/deinitialize_seven, delay, U), delay)
+
+/obj/item/clothing/suit/space/space_ninja/proc/deinitialize_seven(delay, mob/living/carbon/human/U)
+	to_chat(U, "<span class='notice'>Disengaging neural-net interface...</span>\green<B>Success</B><span class='notice'>.</span>")
+	addtimer(CALLBACK(src, .proc/deinitialize_eight, delay, U), delay)
+
+/obj/item/clothing/suit/space/space_ninja/proc/deinitialize_eight(delay, mob/living/carbon/human/U)
+	to_chat(U, "<span class='notice'>Unsecuring external locking mechanism...\nNeural-net abolished.\nOperation status: <B>FINISHED</B>.</span>")
+	unlock_suit()
+	U.regenerate_icons()
+	s_initialized = FALSE
+	s_busy = FALSE
+
+/obj/item/clothing/suit/space/space_ninja/proc/process(delta_time)
+	. = ..()
+	if(!affecting)
+		terminate()//Kills the suit and attached objects.
+
+	else if(cell.charge > 0)
+		if(s_coold)
+			s_coold--//Checks for ability s_cooldown first.
+
+		cell.charge -= s_cost//s_cost is the default energy cost each ntick, usually 5.
+		if(stealth)//If stealth is active.
+			cell.charge -= s_acost
+
+	else
+		cell.charge = 0
+		cancel_stealth()
