@@ -1,4 +1,0 @@
-author: mc_meiler
-delete-after: true
-changes:
-  - bugfix: fixed oozelings going below 0% blood
