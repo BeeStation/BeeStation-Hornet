@@ -259,7 +259,7 @@ export const StripMenu = (props, context) => {
             indented={slot.indented}
             slotID={slot.id}
             hidden={slot.indented && !hadLastTopLevelSlot}
-            alternates={alternate && [alternate]}
+            alternates={alternate ? [alternate] : null}
             empty={!item}
             key={slot.id}
           />
