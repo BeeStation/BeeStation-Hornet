@@ -333,11 +333,6 @@
 		ui.open()
 		ui.set_autoupdate(TRUE) // Item changes from outside stripping
 
-/datum/strip_menu/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/simple/inventory),
-	)
-
 /datum/strip_menu/ui_data(mob/user)
 	var/list/data = list()
 
