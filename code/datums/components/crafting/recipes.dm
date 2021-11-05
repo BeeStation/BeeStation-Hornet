@@ -37,18 +37,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
-/datum/crafting_recipe/lance
-	name = "Explosive Lance (Grenade)"
-	result = /obj/item/spear/explosive
-	reqs = list(/obj/item/spear = 1,
-				/obj/item/grenade = 1)
-	blacklist = list(/obj/item/spear/bonespear)
-	parts = list(/obj/item/spear = 1,
-				/obj/item/grenade = 1)
-	time = 15
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
 /datum/crafting_recipe/strobeshield
 	name = "Strobe Shield"
 	result = /obj/item/shield/riot/flash
@@ -785,7 +773,7 @@
 				/obj/item/bodypart/head = 1)
 	parts = list(/obj/item/bodypart/head = 1,
 			/obj/item/spear = 1)
-	blacklist = list(/obj/item/spear/explosive, /obj/item/spear/bonespear)
+	blacklist = list(/obj/item/spear/bonespear)
 	result = /obj/structure/headpike
 	category = CAT_PRIMAL
 
