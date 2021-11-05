@@ -586,7 +586,7 @@ Contains:
 	desc = "Wearing this makes you feel #1"
 	icon_state = "idpd_chief_suit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/idpd/chief
-	armor = list("melee" = 80, "bullet" = 70, "laser" = 70, "energy" = 70, "bomb" = 70, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 90, "stamina" = 90)
+	armor = list("melee" = 85, "bullet" = 75, "laser" = 75, "energy" = 75, "bomb" = 75, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 100, "stamina" = 90)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/idpd/chief
 	name = "chief helmet"

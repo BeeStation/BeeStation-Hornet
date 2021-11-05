@@ -1,6 +1,6 @@
 ////Outfit Datums////
 /datum/outfit/ert/idpd
-	name = "I.D.P.D Grunt"
+	name = "I.D.P.D. Grunt"
 
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/idpd
@@ -38,13 +38,13 @@
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
 	W.access += get_centcom_access("Death Commando")
-	W.assignment = "I.D.P.D Officer"
+	W.assignment = "I.D.P.D. Officer"
 	W.registered_name = H.real_name
 	W.update_label(W.registered_name, W.assignment)
 
 
 /datum/outfit/ert/idpd/chief
-	name = "I.D.P.D Chief"
+	name = "I.D.P.D. Chief"
 
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/idpd/chief
 	suit_store = /obj/item/gun/energy/pulse/carbine/loyalpin
@@ -53,7 +53,7 @@
 	l_hand = null
 
 /datum/outfit/ert/idpd/gazer
-	name = "I.D.P.D Gazer"
+	name = "I.D.P.D. Gazer"
 
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/idpd/gazer
 	suit_store = /obj/item/gun/energy/laser/scatter
@@ -66,7 +66,7 @@
 	if(!visualsOnly)
 		H.dna.add_mutation(TK)
 /datum/outfit/ert/idpd/titan
-	name = "I.D.P.D Titan"
+	name = "I.D.P.D. Titan"
 
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/idpd/titan
 	l_pocket = null
@@ -83,23 +83,23 @@
 
 ////Antag Datums////
 /datum/antagonist/ert/idpd
-	name = "I.D.P.D Grunt"
-	role = "I.D.P.D Grunt"
+	name = "I.D.P.D. Grunt"
+	role = "I.D.P.D. Grunt"
 	outfit = /datum/outfit/ert/idpd
 
 /datum/antagonist/ert/idpd/gazer
-	name = "I.D.P.D Gazer"
-	role = "I.D.P.D Gazer"
+	name = "I.D.P.D. Gazer"
+	role = "I.D.P.D. Gazer"
 	outfit = /datum/outfit/ert/idpd/gazer
 
 /datum/antagonist/ert/idpd/titan
-	name = "I.D.P.D Titan"
-	role = "I.D.P.D Titan"
+	name = "I.D.P.D. Titan"
+	role = "I.D.P.D. Titan"
 	outfit = /datum/outfit/ert/idpd/titan
 
 /datum/antagonist/ert/idpd/chief
-	name = "I.D.P.D Chief"
-	role = "I.D.P.D Chief"
+	name = "I.D.P.D. Chief"
+	role = "I.D.P.D. Chief"
 	outfit = /datum/outfit/ert/idpd/chief
 
 ////Titan Spell
@@ -123,8 +123,7 @@
 
 	var/list/mob/dead/observer/chosen = list()
 	for(var/X = 1, X <= num_agents, ++X)
-		var/mob/dead/observer/chosen_one = pick(candidates)
-		candidates -= chosen_one
+		var/mob/dead/observer/chosen_one = pick_n_take(candidates)
 		chosen += chosen_one
 
 	var/turf/spawnpoint = get_turf(pick(GLOB.blobstart)) //Ensures the portal spawns on station... for the most part.
@@ -143,9 +142,8 @@
 /datum/admins/proc/spawnIDPD(var/list/mob/dead/observer/chosen, var/datum/ert/ertemplate, var/obj/effect/portal/idpd_portal, var/datum/team/ert/ert_team, var/datum/objective/missionobj)
 	var/spawnloc = idpd_portal.loc
 	while(chosen.len)
-		var/mob/dead/observer/newguy = pick(chosen)
-		chosen -= newguy
-		if(!newguy.key)
+		var/mob/dead/observer/newguy = pick_n_take(chosen)
+		if(!newguy.client)
 			continue
 
 		//Spawn the body
