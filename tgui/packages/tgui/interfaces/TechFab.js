@@ -292,7 +292,7 @@ const Recipe = (props, context) => {
           content={recipe.description}
           position="bottom-end">
           <Flex.Item position="relative" width="100%">
-            <Box>
+            <Box fontSize="1.15em">
               {recipe.name}
             </Box>
             <Box color="lightgray">
