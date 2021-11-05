@@ -158,7 +158,7 @@ const TechFabHeader = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     materials = {},
-    materials_label = "0/unlimited", //Placeholder
+    materials_label = "0/unlimited", // Placeholder
     reagents = {},
     reagents_label = "",
   } = data;
