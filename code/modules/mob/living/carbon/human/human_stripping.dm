@@ -13,10 +13,10 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	/datum/strippable_item/mob_item_slot/gloves,
 	/datum/strippable_item/mob_item_slot/feet,
 	/datum/strippable_item/mob_item_slot/suit_storage,
-	/datum/strippable_item/mob_item_slot/id,
-	/datum/strippable_item/mob_item_slot/belt,
-	/datum/strippable_item/mob_item_slot/pocket/left,
-	/datum/strippable_item/mob_item_slot/pocket/right,
+	/datum/strippable_item/mob_item_slot/needs_jumpsuit/id,
+	/datum/strippable_item/mob_item_slot/needs_jumpsuit/belt,
+	/datum/strippable_item/mob_item_slot/needs_jumpsuit/pocket/left,
+	/datum/strippable_item/mob_item_slot/needs_jumpsuit/pocket/right,
 	/datum/strippable_item/hand/left,
 	/datum/strippable_item/hand/right,
 	/datum/strippable_item/mob_item_slot/handcuffs,
@@ -105,44 +105,72 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 	key = STRIPPABLE_ITEM_SUIT_STORAGE
 	item_slot = ITEM_SLOT_SUITSTORE
 
+/datum/strippable_item/mob_item_slot/suit_storage/is_unavailable(atom/source)
+	. = ..()
+	if(.)
+		return
+
+	if(!ishuman(source))
+		return
+
+	var/mob/living/carbon/human/human = source
+
+	if(!human.wear_suit)
+		return TRUE
+
 /datum/strippable_item/mob_item_slot/suit_storage/get_alternate_action(atom/source, mob/user)
 	return get_strippable_alternate_action_internals(get_item(source), source)
 
 /datum/strippable_item/mob_item_slot/suit_storage/alternate_action(atom/source, mob/user)
 	return strippable_alternate_action_internals(get_item(source), source, user)
 
-/datum/strippable_item/mob_item_slot/id
+/datum/strippable_item/mob_item_slot/needs_jumpsuit
+
+/datum/strippable_item/mob_item_slot/needs_jumpsuit/is_unavailable(atom/source)
+	. = ..()
+	if(.)
+		return
+
+	if(!ishuman(source))
+		return
+
+	var/mob/living/carbon/human/human = source
+	var/obj/item/bodypart/bodypart = human.get_bodypart(BODY_ZONE_CHEST)
+	if(!human.w_uniform && !human.dna?.species?.nojumpsuit && (!bodypart || bodypart.status != BODYPART_ROBOTIC))
+		return TRUE
+
+/datum/strippable_item/mob_item_slot/needs_jumpsuit/id
 	key = STRIPPABLE_ITEM_ID
 	item_slot = ITEM_SLOT_ID
 
-/datum/strippable_item/mob_item_slot/belt
+/datum/strippable_item/mob_item_slot/needs_jumpsuit/belt
 	key = STRIPPABLE_ITEM_BELT
 	item_slot = ITEM_SLOT_BELT
 
-/datum/strippable_item/mob_item_slot/belt/get_alternate_action(atom/source, mob/user)
+/datum/strippable_item/mob_item_slot/needs_jumpsuit/belt/get_alternate_action(atom/source, mob/user)
 	return get_strippable_alternate_action_internals(get_item(source), source)
 
-/datum/strippable_item/mob_item_slot/belt/alternate_action(atom/source, mob/user)
+/datum/strippable_item/mob_item_slot/needs_jumpsuit/belt/alternate_action(atom/source, mob/user)
 	return strippable_alternate_action_internals(get_item(source), source, user)
 
-/datum/strippable_item/mob_item_slot/pocket
+/datum/strippable_item/mob_item_slot/needs_jumpsuit/pocket
 	/// Which pocket we're referencing. Used for visible text.
 	var/pocket_side
 
-/datum/strippable_item/mob_item_slot/pocket/get_obscuring(atom/source)
+/datum/strippable_item/mob_item_slot/needs_jumpsuit/pocket/get_obscuring(atom/source)
 	return isnull(get_item(source)) \
 		? STRIPPABLE_OBSCURING_NONE \
 		: STRIPPABLE_OBSCURING_HIDDEN
 
-/datum/strippable_item/mob_item_slot/pocket/get_equip_delay(obj/item/equipping)
+/datum/strippable_item/mob_item_slot/needs_jumpsuit/pocket/get_equip_delay(obj/item/equipping)
 	return POCKET_EQUIP_DELAY
 
-/datum/strippable_item/mob_item_slot/pocket/start_equip(atom/source, obj/item/equipping, mob/user)
+/datum/strippable_item/mob_item_slot/needs_jumpsuit/pocket/start_equip(atom/source, obj/item/equipping, mob/user)
 	. = ..()
 	if(!.)
 		warn_owner(source)
 
-/datum/strippable_item/mob_item_slot/pocket/start_unequip(atom/source, mob/user)
+/datum/strippable_item/mob_item_slot/needs_jumpsuit/pocket/start_unequip(atom/source, mob/user)
 	var/obj/item/item = get_item(source)
 	if(isnull(item))
 		return FALSE
@@ -161,15 +189,15 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 
 	return result
 
-/datum/strippable_item/mob_item_slot/pocket/proc/warn_owner(atom/owner)
+/datum/strippable_item/mob_item_slot/needs_jumpsuit/pocket/proc/warn_owner(atom/owner)
 	to_chat(owner, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
 
-/datum/strippable_item/mob_item_slot/pocket/left
+/datum/strippable_item/mob_item_slot/needs_jumpsuit/pocket/left
 	key = STRIPPABLE_ITEM_LPOCKET
 	item_slot = ITEM_SLOT_LPOCKET
 	pocket_side = "left"
 
-/datum/strippable_item/mob_item_slot/pocket/right
+/datum/strippable_item/mob_item_slot/needs_jumpsuit/pocket/right
 	key = STRIPPABLE_ITEM_RPOCKET
 	item_slot = ITEM_SLOT_RPOCKET
 	pocket_side = "right"

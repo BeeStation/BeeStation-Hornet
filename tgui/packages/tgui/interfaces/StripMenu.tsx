@@ -34,6 +34,10 @@ type Interactable = {
   interacting: BooleanLike;
 };
 
+type Unavailable = {
+  unavailable: BooleanLike;
+}
+
 const SLOTS: Record<string, string> = {
   "left_hand": "Left hand",
   "right_hand": "Right hand",
@@ -150,6 +154,7 @@ const DEFAULT_LAYOUT: Layout = [
 type StripMenuItem =
   | null
   | Interactable
+  | Unavailable
   | ((
       | {
           icon?: string;
@@ -159,8 +164,9 @@ type StripMenuItem =
       | {
           obscured: ObscuringLevel;
         }
-    ) &
-      Partial<Interactable>);
+    )
+    & Partial<Interactable>
+    & Partial<Unavailable>);
 
 type StripMenuData = {
   items: Record<keyof typeof SLOTS, StripMenuItem>;
@@ -178,8 +184,8 @@ interface StripMenuRowProps {
 
   indented: BooleanLike;
   obscured: ObscuringLevel;
-  hidden: BooleanLike;
   empty: BooleanLike;
+  unavailable: BooleanLike;
 }
 
 const StripMenuRow = (props: StripMenuRowProps, context) => {
@@ -191,7 +197,7 @@ const StripMenuRow = (props: StripMenuRowProps, context) => {
         props.indented && "indented",
         props.obscured===ObscuringLevel.Completely && "obscured-complete",
         props.obscured===ObscuringLevel.Hidden && "obscured-hidden",
-        props.hidden && "hidden",
+        props.unavailable && "unavailable",
         props.empty && "empty",
       ])}>
       <Table.Cell pl={1.5}>
@@ -200,7 +206,7 @@ const StripMenuRow = (props: StripMenuRowProps, context) => {
       <Table.Cell pr={1.5} position="relative">
         <Flex direction="column">
           {
-            !props.hidden && (
+            !props.unavailable && (
               <Flex.Item>
                 <Button compact
                   content={props.obscured ? "Obscured" : (props.itemName ?? "Empty")}
@@ -236,16 +242,10 @@ export const StripMenu = (props, context) => {
   const layout = data.layout || DEFAULT_LAYOUT;
 
   const contents = layout.map(section => {
-    let hadLastTopLevelSlot = false;
-
     const rows = section
       .filter(slot => items[slot.id] !== undefined)
       .map(slot => {
         const item = items[slot.id];
-
-        if (!slot.indented) { 
-          hadLastTopLevelSlot = !!item;
-        }
 
         const alternate = item
           && ("alternate" in item)
@@ -258,9 +258,9 @@ export const StripMenu = (props, context) => {
             obscured={item && ("obscured" in item) ? item.obscured : 0}
             indented={slot.indented}
             slotID={slot.id}
-            hidden={slot.indented && !hadLastTopLevelSlot}
+            unavailable={item && ("unavailable" in item) && item.unavailable}
             alternates={alternate ? [alternate] : null}
-            empty={!item}
+            empty={!item || !(("name" in item) || ("obscured" in item))}
             key={slot.id}
           />
         );

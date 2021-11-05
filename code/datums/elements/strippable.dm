@@ -179,6 +179,10 @@
 /datum/strippable_item/proc/should_show(atom/source, mob/user)
 	return TRUE
 
+/// Returns TRUE if the item is present for the mob, but not available.
+/// This is used, for example, for pockets when a jumpsuit is not worn. 
+/datum/strippable_item/proc/is_unavailable(atom/source)
+
 /// A preset for equipping items onto mob slots
 /datum/strippable_item/mob_item_slot
 	/// The ITEM_SLOT_* to equip to.
@@ -273,6 +277,15 @@
 /datum/strippable_item/mob_item_slot/proc/get_equip_delay(obj/item/equipping)
 	return equipping.equip_delay_other
 
+/datum/strippable_item/mob_item_slot/is_unavailable(atom/source)
+	if(!iscarbon(source))
+		return
+
+	var/mob/living/carbon/carbon = source
+
+	if(carbon.dna?.species && (item_slot in carbon.dna.species.no_equip))
+		return TRUE
+
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
 	if(!do_mob(user, source, strip_delay || item.strip_delay))
@@ -343,6 +356,11 @@
 		var/obscuring = item_data.get_obscuring(owner)
 		if(obscuring != STRIPPABLE_OBSCURING_NONE)
 			LAZYSET(result, "obscured", obscuring)
+			items[strippable_key] = result
+			continue
+
+		if(item_data.is_unavailable(owner))
+			LAZYSET(result, "unavailable", TRUE)
 			items[strippable_key] = result
 			continue
 

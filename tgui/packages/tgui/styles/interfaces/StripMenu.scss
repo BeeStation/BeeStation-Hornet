@@ -46,8 +46,8 @@ $button-main-hover: lighten(Button.$color-default, 15%);
 		width: 10em;
 	}
 
-	//Make hidden (non-existing) slots have grayed out text
-	&.hidden > td:first-child {
+	//Make unavailable (non-existing) slots have grayed out text
+	&.unavailable > td:first-child {
 		@extend .color-grey;
 	}
 
