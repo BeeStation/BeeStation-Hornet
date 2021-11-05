@@ -1,0 +1,4 @@
+author: ghost
+delete-after: true
+changes:
+  - rscadd: 'New Wizard Spell : Lesser Summon Bees.'

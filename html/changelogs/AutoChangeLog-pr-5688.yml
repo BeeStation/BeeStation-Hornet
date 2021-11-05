@@ -1,0 +1,4 @@
+author: Nyksia
+delete-after: true
+changes:
+  - bugfix: fixes alien eggs from disappearing before hugger spawns

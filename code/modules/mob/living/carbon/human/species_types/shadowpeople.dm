@@ -180,6 +180,7 @@
 	. = ..()
 	if(!proximity)
 		return
+	AM.lighteater_act(src)
 
 /mob/living/lighteater_act(obj/item/light_eater/light_eater)
 	if(on_fire)
@@ -212,6 +213,8 @@
 		return
 	set_light(0)
 	light_power = 0
+	fon = FALSE
+	shorted = TRUE
 	update_icon()
 	visible_message("<span class='danger'>The light in [src] shorts out!</span>")
 

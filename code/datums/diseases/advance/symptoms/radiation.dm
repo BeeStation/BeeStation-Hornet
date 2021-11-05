@@ -9,6 +9,8 @@
 	severity = 3
 	symptom_delay_min = 10
 	symptom_delay_max = 40
+	prefixes = list("Gamma ")
+	bodies = list("Radiation")
 	var/fastrads = FALSE
 	var/radothers = FALSE
 	threshold_desc = "<b>Speed 8:</b> Host takes radiation damage faster."

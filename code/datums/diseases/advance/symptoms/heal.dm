@@ -52,6 +52,7 @@
 	transmission = -2
 	level = 7
 	power = 2
+	prefixes = list("Toxo")
 	var/food_conversion = FALSE
 	desc = "The virus rapidly breaks down any foreign chemicals in the bloodstream."
 	threshold_desc = "<b>Resistance 7:</b> Increases chem removal speed.<br>\
@@ -84,6 +85,8 @@
 	level = 8
 	severity = -2
 	passive_message = "<span class='notice'>The pain from your wounds makes you feel oddly sleepy.</span>"
+	prefixes = list("Sleeping ", "Regenerative ")
+	suffixes = list(" Coma")
 	var/deathgasp = FALSE
 	var/stabilize = FALSE
 	var/active_coma = FALSE //to prevent multiple coma procs
@@ -182,6 +185,7 @@
 	severity = -1
 	level = 6
 	passive_message = "<span class='notice'>Your skin tingles.</span>"
+	prefixes = list("Healing ", "Minor ")
 	var/threshhold = 15
 	var/scarcounter = 0
 
@@ -231,6 +235,8 @@
 	stage_speed = 2
 	transmission = 1
 	level = 4
+	prefixes = list("Metabolic ", "Junkie's ", "Chemical ")
+	bodies = list("Hunger")
 	var/triple_metabolism = FALSE
 	var/reduced_hunger = FALSE
 	desc = "The virus causes the host's metabolism to accelerate rapidly, making them process chemicals twice as fast,\
@@ -277,6 +283,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	severity = 2
 	symptom_delay_min = 15
 	symptom_delay_max = 40
+	prefixes = list("Magnetic ", "Electro")
+	bodies = list("Magnet")
 	var/bigemp = FALSE
 	var/cellheal = FALSE
 	threshold_desc = "<b>Stealth 2:</b> The disease resets cell DNA, quickly curing cell damage and mutations.<br>\
@@ -325,6 +333,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	severity = 1
 	symptom_delay_min = 10
 	symptom_delay_max = 30
+	prefixes = list("Sweaty ", "Moist ", "Mister ")
+	bodies = list("Perspiration")
 	var/bigsweat = FALSE
 	var/toxheal = FALSE
 	var/ammonia = FALSE
@@ -396,6 +406,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	severity = 0
 	symptom_delay_min = 1
 	symptom_delay_max = 1
+	prefixes = list("Quantum ", "Thermal ")
+	bodies = list("Teleport")
 	var/telethreshold = 15
 	var/burnheal = FALSE
 	var/turf/open/location_return = null
@@ -457,6 +469,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	severity = 1
 	symptom_delay_min = 1
 	symptom_delay_max = 1
+	prefixes = list("Blood ", "Meat ", "Flesh ")
+	bodies = list("Giant")
 	var/current_size = 1
 	var/tetsuo = FALSE
 	var/bruteheal = FALSE
