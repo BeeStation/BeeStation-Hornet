@@ -431,8 +431,8 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 												"We should store bank records in a webscale datastore, like /dev/null.",
 												"You ever wonder if /dev/null supports sharding?",
 												"What if we use a language that was written on a napkin and created over 1 weekend for all of our servers?",
-												"We should totally invent DNA-locked disablers with a red alert emitter mode.",
-												"Magical idea: Atmos pipes that only work 20% of the time!"))
+												"We should totally invent DNA-locked disablers with a high powered lethal mode.",
+												"Magical idea: atmos pipes that are optimized to only work 20% of the time!"))
 
 //this updates all special effects: stun, sleeping, knockdown, druggy, stuttering, etc..
 /mob/living/carbon/handle_status_effects()
