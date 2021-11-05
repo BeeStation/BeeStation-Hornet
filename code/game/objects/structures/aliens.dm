@@ -204,6 +204,7 @@
  */
 
 //for the status var
+#define BURSTING "bursting"
 #define BURST "burst"
 #define GROWING "growing"
 #define GROWN "grown"
@@ -256,6 +257,9 @@
 		return
 	if(user.getorgan(/obj/item/organ/alien/plasmavessel))
 		switch(status)
+			if(BURSTING)
+				to_chat(user, "<span class='notice'>The egg is in process of hatching.</span>")
+				return
 			if(BURST)
 				to_chat(user, "<span class='notice'>You clear the hatched egg.</span>")
 				playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
@@ -282,7 +286,7 @@
 /obj/structure/alien/egg/proc/Burst(kill = TRUE)
 	if(status == GROWN || status == GROWING)
 		proximity_monitor.SetRange(0)
-		status = BURST
+		status = BURSTING
 		update_icon()
 		flick("egg_opening", src)
 		addtimer(CALLBACK(src, .proc/finish_bursting, kill), 15)
@@ -291,6 +295,7 @@
 	if(child)
 		child.forceMove(get_turf(src))
 		// TECHNICALLY you could put non-facehuggers in the child var
+		status = BURST
 		if(istype(child))
 			if(kill)
 				child.Die()
@@ -335,6 +340,7 @@
 	qdel(child)
 	new /obj/item/paper/troll(get_turf(src))
 
+#undef BURSTING
 #undef BURST
 #undef GROWING
 #undef GROWN
