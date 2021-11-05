@@ -50,3 +50,12 @@
 #define ASSEMBLY_THIRD_STEP     2
 #define ASSEMBLY_FOURTH_STEP    3
 #define ASSEMBLY_FIFTH_STEP     4
+
+//Borg skin defines
+#define SKIN_ICON "skin_icon"
+#define SKIN_ICON_STATE "skin_icon_state"
+#define SKIN_PIXEL_X "skin_pixel_x"
+#define SKIN_PIXEL_Y "skin_pixel_y"
+#define SKIN_LIGHT_KEY "skin_light_key"
+#define SKIN_HAT_OFFSET "skin_hat_offset"
+#define SKIN_TRANSFORM "skin_transform"
