@@ -146,6 +146,13 @@
 	desc = "A patch of odd, glowing pink grass."
 	turf_type = /turf/open/floor/grass/fairy/pink
 	color = "#FFB3DA"
+	
+/obj/item/stack/tile/fairygrass/dark
+	name = "dark fairygrass tile"
+	singular_name = "dark fairygrass floor tile"
+	desc = "A patch of odd, light consuming grass."
+	turf_type = /turf/open/floor/grass/fairy/dark
+	color = "#410096"
 
 //Wood
 /obj/item/stack/tile/wood
