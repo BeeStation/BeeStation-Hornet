@@ -10,9 +10,12 @@
 		"**/.yarn": true,
 		"**/.pnp.*": true
 	},
-	"workbench.editorAssociations": {
-		"*.dmi": "imagePreview.previewEditor"
-	},
+	"workbench.editorAssociations": [
+		{
+			"filenamePattern": "*.dmi",
+			"viewType": "imagePreview.previewEditor"
+		}
+	],
 	"files.eol": "\n",
 	"gitlens.advanced.blame.customArguments": ["-w"],
 	"tgstationTestExplorer.project.resultsType": "json",
