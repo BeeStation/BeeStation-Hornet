@@ -23,6 +23,38 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	/datum/strippable_item/mob_item_slot/legcuffs
 )))
 
+GLOBAL_LIST_INIT(strippable_human_layout, list(
+	list(
+		new /datum/strippable_item_layout("left_hand"),
+		new /datum/strippable_item_layout("right_hand")
+	),
+	list(
+		new /datum/strippable_item_layout("back")
+	),
+	list(
+		new /datum/strippable_item_layout("head"),
+		new /datum/strippable_item_layout("mask"),
+		new /datum/strippable_item_layout("neck"),
+		new /datum/strippable_item_layout("corgi_collar"),
+		new /datum/strippable_item_layout("parrot_headset"),
+		new /datum/strippable_item_layout("eyes"),
+		new /datum/strippable_item_layout("ears")
+	),
+	list(
+		new /datum/strippable_item_layout("suit"),
+		new /datum/strippable_item_layout("suit_storage", TRUE),
+		new /datum/strippable_item_layout("shoes"),
+		new /datum/strippable_item_layout("gloves"),
+		new /datum/strippable_item_layout("jumpsuit"),
+		new /datum/strippable_item_layout("belt", TRUE),
+		new /datum/strippable_item_layout("left_pocket", TRUE),
+		new /datum/strippable_item_layout("right_pocket", TRUE),
+		new /datum/strippable_item_layout("id", TRUE),
+		new /datum/strippable_item_layout("handcuffs"),
+		new /datum/strippable_item_layout("legcuffs")
+	),
+))
+
 /mob/living/carbon/human/proc/should_strip(mob/user)
 	if(user.pulling != src || user.grab_state != GRAB_AGGRESSIVE)
 		return TRUE

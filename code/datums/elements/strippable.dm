@@ -6,6 +6,10 @@
 	/// An assoc list of keys to /datum/strippable_item
 	var/list/items
 
+	/// An optional list of lists of strippable_item_layout to order the slots in.
+	/// Nested lists are used to indicate sections which will be spaced out in the interface.
+	var/list/layout
+
 	/// A proc path that returns TRUE/FALSE if we should show the strip panel for this entity.
 	/// If it does not exist, the strip menu will always show.
 	/// Will be called with (mob/user).
@@ -14,7 +18,7 @@
 	/// An existing strip menus
 	var/list/strip_menus
 
-/datum/element/strippable/Attach(datum/target, list/items, should_strip_proc_path)
+/datum/element/strippable/Attach(datum/target, list/items, should_strip_proc_path, list/layout)
 	. = ..()
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
@@ -23,6 +27,7 @@
 
 	src.items = items
 	src.should_strip_proc_path = should_strip_proc_path
+	src.layout = layout
 
 /datum/element/strippable/Detach(datum/source, force)
 	. = ..()
@@ -57,6 +62,17 @@
 		LAZYSET(strip_menus, source, strip_menu)
 
 	INVOKE_ASYNC(strip_menu, /datum/.proc/ui_interact, user)
+
+/datum/strippable_item_layout
+	/// The STRIPPABLE_ITEM_* key
+	var/key
+
+	/// Is the slot dependent on the last non-indented slot?
+	var/indented
+
+/datum/strippable_item_layout/New(key, indented)
+	src.key = key
+	src.indented = indented
 
 /// A representation of an item that can be stripped down
 /datum/strippable_item
@@ -355,6 +371,25 @@
 	data["name"] = "\the [owner]"
 
 	return data
+
+/datum/strip_menu/ui_static_data(mob/user)
+	. = list()
+
+	if(!isnull(strippable.layout))
+		var/layout = list()
+
+		for(var/section in strippable.layout)
+			var/section_result = list()
+
+			for(var/datum/strippable_item_layout/slot as() in section)
+				section_result += list(list(
+					"id" = slot.key,
+					"indented" = slot.indented,
+				))
+
+			layout += list(section_result)
+
+		.["layout"] = layout
 
 /datum/strip_menu/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
