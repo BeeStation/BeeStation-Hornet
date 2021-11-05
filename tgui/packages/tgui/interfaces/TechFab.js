@@ -11,7 +11,7 @@ export const TechFab = (props, context) => {
   return (
     <Window
       width={590}
-      height={550}>
+      height={700}>
       <Window.Content>
         <Stack vertical fill>
           <TechFabTopBar />
