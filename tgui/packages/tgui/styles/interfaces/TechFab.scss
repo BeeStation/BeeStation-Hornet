@@ -33,3 +33,12 @@ $bg-map: colors.$bg-map !default;
 :not(:last-child) > .TechFab__NumberButton {
   border-right: solid 1px black;
 }
+
+.TechFab__Recipe {
+  border-image: linear-gradient(to right, 
+    colors.$grey 10%,
+    adjust-color(colors.$grey, $alpha: -1) 40%,
+    adjust-color(colors.$grey, $alpha: -1) 60%,
+    colors.$grey 90%) 30;
+  border-image-width: 1px 0 0 0;
+}

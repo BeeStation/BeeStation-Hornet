@@ -286,7 +286,7 @@ const Recipe = (props, context) => {
 
   return (
     <Flex.Item className="candystripe">
-      <Flex align="center">
+      <Flex align="center" py={0.6} className="TechFab__Recipe">
         <ConditionalTooltip
           condition={recipe.description && recipe.description !== "Desc"}
           content={recipe.description}
@@ -295,7 +295,7 @@ const Recipe = (props, context) => {
             <Box fontSize="1.15em">
               {recipe.name}
             </Box>
-            <Box color="lightgray">
+            <Box color="lightgray" pl={1}>
               {
                 reagent_objects
                   .reduce(reducefn, material_objects
