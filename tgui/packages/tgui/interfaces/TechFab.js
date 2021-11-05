@@ -257,7 +257,7 @@ const Recipe = (props, context) => {
     const mat_max = Math.floor(total/amountNeeded);
     max = Math.min(max, mat_max);
     return (
-      <Box inline key={recipe.id+id} color={mat_max < 1 ? "red" : null}>
+      <Box inline key={recipe.id+id} color={mat_max < 1 ? "#cb4848" : null}>
         {amountNeeded} {material.name}
       </Box>
     );
@@ -272,7 +272,7 @@ const Recipe = (props, context) => {
     const mat_max = Math.floor(total/amountNeeded);
     max = Math.min(max, mat_max);
     return (
-      <Box inline key={recipe.id+id} color={mat_max < 1 ? "red" : null}>
+      <Box inline key={recipe.id+id} color={mat_max < 1 ? "#cb4848" : null}>
         {amountNeeded} {recipeReagent.name}
       </Box>
     );
