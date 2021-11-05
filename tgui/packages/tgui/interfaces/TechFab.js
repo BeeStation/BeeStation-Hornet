@@ -40,6 +40,8 @@ const TechFabTopBar = (props, context) => {
             <Input
               align="right"
               value={search}
+              // Uncomment to make the search update as you type.
+              // Likely to cause issues with topic per minute limits.
               // onInput={(e, value) => {
               //   value.trim().length>2 && act("search", { "value": value });
               // }}
@@ -156,7 +158,7 @@ const TechFabHeader = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     materials = {},
-    materials_label = "0/unlimited",
+    materials_label = "0/unlimited", //Placeholder
     reagents = {},
     reagents_label = "",
   } = data;
