@@ -182,6 +182,7 @@ interface StripMenuRowProps {
 
   alternates?: AlternateAction[];
 
+  interacting: BooleanLike;
   indented: BooleanLike;
   obscured: ObscuringLevel;
   empty: BooleanLike;
@@ -214,6 +215,8 @@ const StripMenuRow = (props: StripMenuRowProps, context) => {
                   color={props.empty ? "transparent" : null}
                   ellipsis
                   maxWidth="100%"
+                  icon={props.interacting && "spinner"}
+                  iconSpin
                   onClick={() => act("use", { key: props.slotID })}
                 />
               </Flex.Item>
@@ -261,6 +264,7 @@ export const StripMenu = (props, context) => {
             unavailable={item && ("unavailable" in item) && item.unavailable}
             alternates={alternate ? [alternate] : null}
             empty={!item || !(("name" in item) || ("obscured" in item))}
+            interacting={item && ("interacting" in item) && item.interacting}
             key={slot.id}
           />
         );

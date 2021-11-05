@@ -331,6 +331,7 @@
 	if(!ui)
 		ui = new(user, src, "StripMenu")
 		ui.open()
+		ui.set_autoupdate(TRUE) // Item changes from outside stripping
 
 /datum/strip_menu/ui_assets(mob/user)
 	return list(
@@ -441,10 +442,12 @@
 				if(strippable_item.try_equip(owner, held_item, user))
 					LAZYORASSOCLIST(interactions, user, key)
 
+					SStgui.update_uis(src)
 					// Yielding call
 					var/should_finish = strippable_item.start_equip(owner, held_item, user)
 
 					LAZYREMOVEASSOC(interactions, user, key)
+					. = TRUE
 
 					if(!should_finish)
 						return
@@ -463,9 +466,11 @@
 			else if(strippable_item.try_unequip(owner, user))
 				LAZYORASSOCLIST(interactions, user, key)
 
+				SStgui.update_uis(src)
 				var/should_unequip = strippable_item.start_unequip(owner, user)
 
 				LAZYREMOVEASSOC(interactions, user, key)
+				. = TRUE
 
 				// Yielding call
 				if(!should_unequip)
