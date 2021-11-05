@@ -81382,10 +81382,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "49;47"
-	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/maintenance{
+	req_one_access_txt = "12;47"
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "lTL" = (
