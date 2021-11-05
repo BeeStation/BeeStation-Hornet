@@ -97,13 +97,13 @@
 /obj/item/toy/eightball/haunted
 	shake_time = 150
 	cooldown_time = 1800
-	flags_1 = HEAR_1
 	var/last_message
 	var/selected_message
 	var/list/votes
 
 /obj/item/toy/eightball/haunted/Initialize(mapload)
 	. = ..()
+	become_hearing_sensitive()
 	votes = list()
 	GLOB.poi_list |= src
 
@@ -122,13 +122,14 @@
 	interact(user)
 	return ..()
 
-/obj/item/toy/eightball/haunted/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, message_mode)
+/obj/item/toy/eightball/haunted/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods = list())
 	. = ..()
 	last_message = raw_message
 
 /obj/item/toy/eightball/haunted/start_shaking(mob/user)
 	// notify ghosts that someone's shaking a haunted eightball
 	// and inform them of the message, (hopefully a yes/no question)
+	votes = list()	//need to reset the votes everytime someone shakes it
 	selected_message = last_message
 	notify_ghosts("[user] is shaking [src], hoping to get an answer to \"[selected_message]\"", source=src, enter_link="<a href=?src=[REF(src)];interact=1>(Click to help)</a>", action=NOTIFY_ATTACK, header = "Magic eightball")
 

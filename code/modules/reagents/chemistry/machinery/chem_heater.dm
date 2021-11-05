@@ -12,7 +12,7 @@
 
 	var/obj/item/reagent_containers/beaker = null
 	var/target_temperature = 300
-	var/heater_coefficient = 0.1
+	var/heater_coefficient = 0.05
 	var/on = FALSE
 
 /obj/machinery/chem_heater/Destroy()
@@ -35,6 +35,7 @@
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 	replace_beaker(user)
+	ui_update()
 	return
 
 /obj/machinery/chem_heater/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)
@@ -46,6 +47,7 @@
 		beaker = new_beaker
 	else
 		beaker = null
+		on = FALSE
 	update_icon()
 	return TRUE
 
@@ -57,16 +59,16 @@
 /obj/machinery/chem_heater/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Heating reagents at <b>[heater_coefficient*1000]%</b> speed.<span>"
+		. += "<span class='notice'>The status display reads: Heating reagents at <b>[heater_coefficient*1000]%</b> speed.</span>"
 
-/obj/machinery/chem_heater/process()
+/obj/machinery/chem_heater/process(delta_time)
 	..()
 	if(stat & NOPOWER)
 		return
 	if(on)
 		if(beaker && beaker.reagents.total_volume)
 			//keep constant with the chemical acclimator please
-			beaker.reagents.adjust_thermal_energy((target_temperature - beaker.reagents.chem_temp) * heater_coefficient * SPECIFIC_HEAT_DEFAULT * beaker.reagents.total_volume)
+			beaker.reagents.adjust_thermal_energy((target_temperature - beaker.reagents.chem_temp) * heater_coefficient * delta_time * SPECIFIC_HEAT_DEFAULT * beaker.reagents.total_volume)
 			beaker.reagents.handle_reactions()
 
 /obj/machinery/chem_heater/attackby(obj/item/I, mob/user, params)
@@ -83,7 +85,7 @@
 			return
 		replace_beaker(user, B)
 		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
-		updateUsrDialog()
+		ui_update()
 		update_icon()
 		return
 	return ..()
@@ -92,6 +94,11 @@
 	replace_beaker()
 	return ..()
 
+
+/obj/machinery/chem_heater/ui_requires_update(mob/user, datum/tgui/ui)
+	. = ..()
+	if(on && beaker)
+		. = TRUE
 
 /obj/machinery/chem_heater/ui_state(mob/user)
 	return GLOB.default_state
@@ -127,13 +134,10 @@
 			on = !on
 			. = TRUE
 		if("temperature")
-			var/target = params["target"]
-			if(text2num(target) != null)
-				target = text2num(target)
-				. = TRUE
-			if(.)
+			var/target = text2num(params["target"])
+			if(target != null)
 				target_temperature = clamp(target, 0, 1000)
+				. = TRUE
 		if("eject")
-			on = FALSE
 			replace_beaker(usr)
 			. = TRUE

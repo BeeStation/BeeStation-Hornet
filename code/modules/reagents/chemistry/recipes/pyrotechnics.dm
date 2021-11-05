@@ -15,10 +15,10 @@
 		if(ismob(holder.my_atom))
 			var/mob/M = holder.my_atom
 			inside_msg = " inside [ADMIN_LOOKUPFLW(M)]"
-		var/lastkey = holder.my_atom.fingerprintslast
+		var/lastkey = holder.my_atom?.fingerprintslast
 		var/touch_msg = "N/A"
 		if(lastkey)
-			var/mob/toucher = get_mob_by_key(lastkey)
+			var/mob/toucher = get_mob_by_ckey(lastkey)
 			touch_msg = "[ADMIN_LOOKUPFLW(toucher)]"
 		if(!istype(holder.my_atom, /obj/machinery/plumbing)) //excludes standard plumbing equipment from spamming admins with this shit
 			message_admins("Reagent explosion reaction occurred at [ADMIN_VERBOSEJMP(T)][inside_msg]. Last Fingerprint: [touch_msg].")
@@ -65,12 +65,8 @@
 	if(created_volume >= 150)
 		playsound(get_turf(holder.my_atom), 'sound/effects/pray.ogg', 80, 0, round(created_volume/48))
 		strengthdiv = 8
-		for(var/mob/living/simple_animal/revenant/R in get_hearers_in_view(7,get_turf(holder.my_atom)))
-			var/deity
-			if(GLOB.deity)
-				deity = GLOB.deity
-			else
-				deity = "Christ"
+		for(var/mob/living/simple_animal/revenant/R in hearers(7,get_turf(holder.my_atom)))
+			var/deity = GLOB.deity || "Christ"
 			to_chat(R, "<span class='userdanger'>The power of [deity] compels you!</span>")
 			R.stun(20)
 			R.reveal(100)
@@ -79,7 +75,7 @@
 	..()
 
 /datum/chemical_reaction/reagent_explosion/potassium_explosion/holyboom/proc/divine_explosion(size, turf/T)
-	for(var/mob/living/carbon/C in get_hearers_in_view(size,T))
+	for(var/mob/living/carbon/C in hearers(size,T))
 		if(iscultist(C))
 			to_chat(C, "<span class='userdanger'>The divine explosion sears you!</span>")
 			C.Paralyze(40)
@@ -161,8 +157,9 @@
 
 /datum/chemical_reaction/clf3/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	for(var/turf/turf in range(1,T))
-		new /obj/effect/hotspot(turf)
+	for(var/turf/open/turf in RANGE_TURFS(1,T))
+		if(!locate(/obj/effect/hotspot) in turf)
+			new /obj/effect/hotspot(turf)
 	holder.chem_temp = 1000 // hot as shit
 
 /datum/chemical_reaction/reagent_explosion/methsplosion
@@ -176,8 +173,9 @@
 
 /datum/chemical_reaction/reagent_explosion/methsplosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	for(var/turf/turf in range(1,T))
-		new /obj/effect/hotspot(turf)
+	for(var/turf/open/turf in RANGE_TURFS(1,T))
+		if(!locate(/obj/effect/hotspot) in turf)
+			new /obj/effect/hotspot(turf)
 	holder.chem_temp = 1000 // hot as shit
 	..()
 
@@ -251,7 +249,7 @@
 	if(isatom(holder.my_atom))
 		var/atom/A = holder.my_atom
 		A.flash_lighting_fx(_range = (range + 2), _reset_lighting = FALSE)
-	for(var/mob/living/carbon/C in get_hearers_in_view(range, location))
+	for(var/mob/living/carbon/C in hearers(range, location))
 		if(C.flash_act())
 			if(get_dist(C, location) < 4)
 				C.Paralyze(60)
@@ -272,7 +270,7 @@
 	if(isatom(holder.my_atom))
 		var/atom/A = holder.my_atom
 		A.flash_lighting_fx(_range = (range + 2), _reset_lighting = FALSE)
-	for(var/mob/living/carbon/C in get_hearers_in_view(range, location))
+	for(var/mob/living/carbon/C in hearers(range, location))
 		if(C.flash_act())
 			if(get_dist(C, location) < 4)
 				C.Paralyze(60)
@@ -331,7 +329,7 @@
 	holder.remove_reagent(/datum/reagent/sonic_powder, created_volume*3)
 	var/location = get_turf(holder.my_atom)
 	playsound(location, 'sound/effects/bang.ogg', 25, 1)
-	for(var/mob/living/carbon/C in get_hearers_in_view(created_volume/3, location))
+	for(var/mob/living/carbon/C in hearers(created_volume/3, location))
 		C.soundbang_act(1, 100, rand(0, 5))
 
 /datum/chemical_reaction/sonic_powder_deafen
@@ -343,7 +341,7 @@
 /datum/chemical_reaction/sonic_powder_deafen/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	playsound(location, 'sound/effects/bang.ogg', 25, 1)
-	for(var/mob/living/carbon/C in get_hearers_in_view(created_volume/10, location))
+	for(var/mob/living/carbon/C in hearers(created_volume/10, location))
 		C.soundbang_act(1, 100, rand(0, 5))
 
 /datum/chemical_reaction/phlogiston
@@ -421,6 +419,13 @@
 	results = list(/datum/reagent/teslium/energized_jelly = 2)
 	required_reagents = list(/datum/reagent/toxin/slimejelly = 1, /datum/reagent/teslium = 1)
 	mix_message = "<span class='danger'>The slime jelly starts glowing intermittently.</span>"
+
+/datum/chemical_reaction/energized_jelly/energized_ooze
+	name = "Energized Ooze"
+	id = /datum/reagent/teslium/energized_jelly/energized_ooze
+	results = list(/datum/reagent/teslium/energized_jelly/energized_ooze = 2)
+	required_reagents = list(/datum/reagent/toxin/slimeooze = 1, /datum/reagent/teslium = 1)
+	mix_message = "<span class='danger'>The slime ooze starts glowing intermittently.</span>"
 
 /datum/chemical_reaction/reagent_explosion/teslium_lightning
 	name = "Teslium Destabilization"

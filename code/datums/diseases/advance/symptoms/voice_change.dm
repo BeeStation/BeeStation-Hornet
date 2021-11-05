@@ -6,7 +6,7 @@ Voice Change
 	Noticeable.
 	Lowers resistance.
 	Decreases stage speed.
-	Increased transmittable.
+	Increased transmission.
 	Fatal Level.
 
 Bonus
@@ -22,12 +22,13 @@ Bonus
 	stealth = -1
 	resistance = -2
 	stage_speed = -2
-	transmittable = 2
+	transmission = 2
 	level = 6
 	severity = 2
 	base_message_chance = 100
 	symptom_delay_min = 60
 	symptom_delay_max = 120
+	prefixes = list("Vocal ")
 	var/scramble_language = FALSE
 	var/datum/language/current_language
 	threshold_desc = "<b>Transmission 14:</b> The host's language center of the brain is damaged, leading to complete inability to speak or understand any language.<br>\
@@ -36,19 +37,20 @@ Bonus
 
 /datum/symptom/voice_change/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["transmittable"] >= 14) //random language
+	if(A.transmission >= 14) //random language
+		bodies += list("Polyglot")
 		severity += 1
 
 /datum/symptom/voice_change/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 3)
+	if(A.stealth >= 3)
 		suppress_warning = TRUE
-	if(A.properties["stage_rate"] >= 7) //faster change of voice
+	if(A.stage_rate >= 7) //faster change of voice
 		base_message_chance = 25
 		symptom_delay_min = 25
 		symptom_delay_max = 85
-	if(A.properties["transmittable"] >= 14) //random language
+	if(A.transmission >= 14) //random language
 		scramble_language = TRUE
 
 /datum/symptom/voice_change/Activate(datum/disease/advance/A)

@@ -2,12 +2,13 @@ name: Make changelogs
 
 on:
   push:
-    branches: [master]
+    branches:
+      - master
 
 jobs:
   MakeCL:
     runs-on: ubuntu-latest
-    if: github.repository == 'BeeStation/BeeStation-Hornet' && !contains(github.event.head_commit.message, '[ci skip]')
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -16,11 +17,11 @@ jobs:
       - name: Python setup
         uses: actions/setup-python@v1
         with:
-          python-version: '3.x'
+          python-version: "3.8"
       - name: Install depends
         run: |
           python -m pip install --upgrade pip
-          pip install ruamel.yaml PyGithub
+          pip install -r tools/changelog/requirements.txt
       - name: Make CL
         env:
           #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} Use this instead if you have unprotected branches

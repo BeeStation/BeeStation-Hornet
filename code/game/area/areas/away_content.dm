@@ -8,7 +8,8 @@ Unused icons for new areas are "awaycontent1" ~ "awaycontent30"
 	name = "Strange Location"
 	icon_state = "away"
 	has_gravity = STANDARD_GRAVITY
-	ambient_effects = AWAY_MISSION
+	ambience_index = AMBIENCE_AWAY
+	sound_environment = SOUND_ENVIRONMENT_ROOM
 
 /area/awaymission/beach
 	name = "Beach"
@@ -16,7 +17,7 @@ Unused icons for new areas are "awaycontent1" ~ "awaycontent30"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	ambient_effects = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
+	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
 
 /area/awaymission/errorroom
 	name = "Super Secret Room"

@@ -33,7 +33,7 @@
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	blood_overlay_type = "armor"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
@@ -80,7 +80,7 @@
 		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text], shutting itself off in the process!</span>")
 		playsound(get_turf(owner),'sound/magic/blink.ogg', 100, 1)
 		var/list/turfs = new/list()
-		for(var/turf/T in orange(tele_range, H))
+		for(var/turf/T as() in (RANGE_TURFS(tele_range, H)-get_turf(H)))
 			if(T.density)
 				continue
 			if(T.x>world.maxx-tele_range || T.x<tele_range)
@@ -89,11 +89,11 @@
 				continue
 			turfs += T
 		if(!turfs.len)
-			turfs += pick(/turf in orange(tele_range, H))
+			turfs += pick(RANGE_TURFS(tele_range, H)-get_turf(H))
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
 			return
-		H.forceMove(picked)
+		do_teleport(H, picked, no_effects = TRUE)
 		H.rad_act(rad_amount)
 		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 		return 1
@@ -114,10 +114,9 @@
 			return
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out jets of flame!</span>")
 		playsound(get_turf(owner),'sound/magic/fireball.ogg', 100, 1)
-		for(var/mob/living/carbon/C in range(6, owner))
-			if(C != owner)
-				C.fire_stacks += 8
-				C.IgniteMob()
+		for(var/mob/living/carbon/C in ohearers(6, owner))
+			C.fire_stacks += 8
+			C.IgniteMob()
 		owner.fire_stacks = -20
 		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 		return 1
@@ -131,7 +130,7 @@
 
 /obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
-		return 0
+		return FALSE
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
 			owner.visible_message("<span class='danger'>The reactive stealth system on [owner] activates, but is still recharging its holographic emitters!</span>")
@@ -142,10 +141,9 @@
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
 		owner.alpha = 0
 		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
-		spawn(40)
-			owner.alpha = initial(owner.alpha)
+		addtimer(VARSET_CALLBACK(owner, alpha, initial(owner.alpha)), 40)
 		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
-		return 1
+		return TRUE
 
 //Tesla
 
@@ -164,7 +162,7 @@
 
 /obj/item/clothing/suit/armor/reactive/tesla/equipped(mob/user, slot)
 	..()
-	if(slot_flags & slotdefine2slotbit(slot)) //Was equipped to a valid slot for this item?
+	if(slot_flags & slot) //Was equipped to a valid slot for this item?
 		user.flags_1 |= TESLA_IGNORE_1
 
 /obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -200,8 +198,8 @@
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], converting the attack into a wave of force!</span>")
 		var/turf/T = get_turf(owner)
 		var/list/thrown_items = list()
-		for(var/atom/movable/A in range(T, 7))
-			if(A == owner || A.anchored || thrown_items[A])
+		for(var/atom/movable/A as mob|obj in orange(7, T))
+			if(A.anchored || thrown_items[A])
 				continue
 			var/throwtarget = get_edge_target_turf(T, get_dir(T, get_step_away(A, T)))
 			A.safe_throw_at(throwtarget, 10, 1, force = repulse_force)
@@ -217,7 +215,7 @@
 
 /obj/item/clothing/suit/armor/reactive/table/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
-		return 0
+		return FALSE
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
 		if(world.time < reactivearmor_cooldown)
@@ -226,8 +224,9 @@
 		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text] and slams [H.p_them()] into a fabricated table!</span>")
 		owner.visible_message("<font color='red' size='3'>[H] GOES ON THE TABLE!!!</font>")
 		owner.Paralyze(40)
+		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table)
 		var/list/turfs = new/list()
-		for(var/turf/T in orange(tele_range, H))
+		for(var/turf/T as() in (RANGE_TURFS(tele_range, H)-get_turf(H)))
 			if(T.density)
 				continue
 			if(T.x>world.maxx-tele_range || T.x<tele_range)
@@ -236,15 +235,15 @@
 				continue
 			turfs += T
 		if(!turfs.len)
-			turfs += pick(/turf in orange(tele_range, H))
+			turfs += pick(RANGE_TURFS(tele_range, H)-get_turf(H))
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
 			return
-		H.forceMove(picked)
+		do_teleport(H, picked, no_effects = TRUE)
 		new /obj/structure/table(get_turf(owner))
 		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/clothing/suit/armor/reactive/table/emp_act()
 	return

@@ -1,3 +1,6 @@
+/obj/effect/turf_decal/stripes
+	layer = TURF_DECAL_STRIPE_LAYER
+
 /obj/effect/turf_decal/stripes/line
 	icon_state = "warningline"
 

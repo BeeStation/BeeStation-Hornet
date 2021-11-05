@@ -67,15 +67,15 @@
 	var/grasp_chance = 20
 	var/grasp_pull_chance = 85
 	var/grasp_range = 4
-	del_on_death = 1
+	del_on_death = TRUE
+	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/venus_human_trap/Destroy()
 	for(var/L in grasping)
 		var/datum/beam/B = grasping[L]
 		if(B)
 			qdel(B)
-	for(var/datum/component/tether in tethers)
-		tether.RemoveComponent()
+	QDEL_LIST(tethers)
 	grasping = null
 	return ..()
 
@@ -99,10 +99,10 @@
 
 		if(length(grasping) < max_grasps)
 			grasping:
-				for(var/mob/living/L in view(grasp_range, src))
-					if(L == src || faction_check_mob(L) || (L in grasping) || L == target)
+				for(var/mob/living/L in oview(grasp_range, src))
+					if(faction_check_mob(L) || (L in grasping) || L == target)
 						continue
-					for(var/turf/T in getline(src,L))
+					for(var/turf/T as() in getline(src,L))
 						if (T.density)
 							continue grasping
 						for(var/obj/O in T)

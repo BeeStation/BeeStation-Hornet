@@ -17,6 +17,7 @@
 	var/limit = 10
 	var/speed = 1
 	var/list/holdingitems
+	var/static/list/typecache_to_take
 
 	var/static/radial_examine = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_examine")
 	var/static/radial_eject = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_eject")
@@ -26,6 +27,8 @@
 
 /obj/machinery/reagentgrinder/Initialize()
 	. = ..()
+	if(!typecache_to_take)
+		typecache_to_take = typecacheof(/obj/item/reagent_containers/food/snacks/grown)
 	holdingitems = list()
 	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
 	beaker.desc += " May contain blended dust. Don't breathe this in!"
@@ -39,12 +42,19 @@
 /obj/machinery/reagentgrinder/Destroy()
 	if(beaker)
 		beaker.forceMove(drop_location())
+		beaker = null
 	drop_all_items()
 	return ..()
 
 /obj/machinery/reagentgrinder/contents_explosion(severity, target)
 	if(beaker)
-		beaker.ex_act(severity, target)
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.high_mov_atom += beaker
+			if(EXPLODE_HEAVY)
+				SSexplosions.med_mov_atom += beaker
+			if(EXPLODE_LIGHT)
+				SSexplosions.low_mov_atom += beaker
 
 /obj/machinery/reagentgrinder/RefreshParts()
 	speed = 1
@@ -70,8 +80,8 @@
 			. += "<span class='notice'>- \A [O.name].</span>"
 
 	if(!(stat & (NOPOWER|BROKEN)))
-		. += {"<span class='notice'>The status display reads:</span>\n
-		<span class='notice'>- Grinding reagents at <b>[speed*100]%</b>.<span>"}
+		. += "<span class='notice'>The status display reads:</span>\n"+\
+		"<span class='notice'>- Grinding reagents at <b>[speed*100]%</b>.</span>"
 		if(beaker)
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				. += "<span class='notice'>- [R.volume] units of [R.name].</span>"
@@ -139,7 +149,7 @@
 	//Fill machine with a bag!
 	if(istype(I, /obj/item/storage/bag))
 		var/list/inserted = list()
-		if(SEND_SIGNAL(I, COMSIG_TRY_STORAGE_TAKE_TYPE, /obj/item/reagent_containers/food/snacks/grown, src, limit - length(holdingitems), null, null, user, inserted))
+		if(SEND_SIGNAL(I, COMSIG_TRY_STORAGE_TAKE_TYPE, typecache_to_take, src, limit - length(holdingitems), null, null, user, inserted))
 			for(var/i in inserted)
 				holdingitems[i] = TRUE
 			if(!I.contents.len)

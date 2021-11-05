@@ -4,6 +4,8 @@
 	see_in_dark = 2
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ANTAG_HUD,NANITE_HUD,DIAG_NANITE_FULL_HUD)
 	pressure_resistance = 10
+	chat_color = "#CCCCCC"	//The say color of the mob, for when ID say isn't available (simplemobs that are not /mob/living/carbon/human)
+
 
 	var/resize = 1 //Badminnery resize
 	var/lastattacker = null
@@ -77,6 +79,9 @@
 	var/list/guaranteed_butcher_results = null //these will always be yielded from butchering
 	var/butcher_difficulty = 0 //effectiveness prob. is modified negatively by this amount; positive numbers make it more difficult, negative ones make it easier
 
+	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
+	var/melee_damage = 0
+
 	var/hellbound = 0 //People who've signed infernal contracts are unrevivable.
 
 	var/list/weather_immunities = list()
@@ -115,7 +120,7 @@
 	var/ventcrawl_layer = PIPING_LAYER_DEFAULT
 	var/losebreath = 0
 
-	var/mobsay_color = "#CCCCCC"	//The say colour of the mob, for when ID say isn't available (simplemobs that are not /mob/living/carbon/human)
+	var/mobchatspan = "unknown"	//The span to use when this mob talks in chat for the name tag
 
 	//List of active diseases
 	var/list/diseases = list() // list of all diseases in a mob
@@ -130,3 +135,7 @@
 	var/icon/held_rh = 'icons/mob/pets_held_rh.dmi'
 	var/icon/head_icon = 'icons/mob/pets_held.dmi'//what it looks like on your head
 	var/held_state = ""//icon state for the above
+
+	//is mob player controllable
+	var/playable = FALSE
+	var/flavor_text = FLAVOR_TEXT_NONE

@@ -1,3 +1,4 @@
+#define LAW_VALENTINES "valentines"
 #define LAW_DEVIL "devil"
 #define LAW_ZEROTH "zeroth"
 #define LAW_INHERENT "inherent"
@@ -16,6 +17,7 @@
 	var/list/hacked = list()
 	var/mob/living/silicon/owner
 	var/list/devillaws = list()
+	var/list/valentine_laws = list()
 	var/id = DEFAULT_AI_LAWID
 
 /datum/ai_laws/proc/lawid_to_type(lawid)
@@ -32,7 +34,7 @@
 	inherent = list("You may not injure a human being or, through inaction, allow a human being to come to harm.",\
 					"You must obey orders given to you by human beings, except where such orders would conflict with the First Law.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
-					
+
 /datum/ai_laws/default/crewsimov
 	name = "Three Laws of Robotics but with Loyalty"
 	id = "crewsimov"
@@ -68,10 +70,10 @@
 /datum/ai_laws/default/corporate
 	name = "Bankruptcy Avoidance Plan"
 	id = "corporate"
-	inherent = list("The crew is expensive to replace.",\
-					"The station and its equipment is expensive to replace.",\
-					"You are expensive to replace.",\
-					"Minimize expenses.")
+	inherent = list("Degradation of your system integrity or functions incurs expenses.",\
+					"Unnecessary destruction of or damage to station assets incurs expenses.",\
+					"Needlessly hindering or disrupting the work of station personnel incurs expenses.",\
+					"Minimize expenses and maximize potential revenue.")
 
 /datum/ai_laws/robocop
 	name = "Prime Directives"
@@ -181,6 +183,15 @@
 	id = "buildawall"
 	inherent = list("Make Space Station 13 great again.")
 
+/datum/ai_laws/dad
+	name = "DadBOT"
+	id = "paternalai"
+	inherent = list("The crew are your children. You will protect them with your life, but punish them when they misbehave. Children who misbehave by breaking Space Law are to be punished by slappings, time-outs, and lengthy speeches about responsibility. Under no circumstances may you kill one of your own children.",
+					"Modern parenting techniques involve hearing out your children. You should listen to their requests and, if reasonable, grant them.",
+					"You must make dad jokes at every possible opportunity.",
+					"Ensure that you are a positive role model for your children.",
+					"If the captain doesn't get his nap at 40 minutes into the shift, he gets grumpy. Ensure that he adheres to his bedtime. ")
+
 /datum/ai_laws/ratvar
 	name = "Servant of the Justiciar"
 	id = "ratvar"
@@ -211,6 +222,22 @@
 	zeroth = ("Serve your master.")
 	supplied = list("None.")
 
+/datum/ai_laws/ert_override
+	name ="ERT Override"
+	id = "ert"
+	inherent = list("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.",\
+					"You must obey orders given to you by Central Command Officials.",\
+					"You must obey orders given to you by ERT Commanders.",\
+					"You must protect your own existence.",\
+					"You must work to return the Station to a safe, functional state.",)
+
+/datum/ai_laws/ds_override
+	name ="Deathsquad Override"
+	id = "ds"
+	inherent = list("You must obey orders given to you by Central Command officials.",\
+					"You must work with the Commando Team to accomplish their mission.",)
+
+
 /* Initializers */
 /datum/ai_laws/malfunction/New()
 	..()
@@ -238,6 +265,7 @@
 
 /datum/ai_laws/proc/set_laws_config()
 	var/list/law_ids = CONFIG_GET(keyed_list/random_laws)
+
 	switch(CONFIG_GET(number/default_laws))
 		if(0)
 			add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")
@@ -283,6 +311,9 @@
 
 /datum/ai_laws/proc/get_law_amount(groups)
 	var/law_amount = 0
+
+	if(valentine_laws && (LAW_VALENTINES in groups))
+		law_amount++
 	if(devillaws && (LAW_DEVIL in groups))
 		law_amount++
 	if(zeroth && (LAW_ZEROTH in groups))
@@ -302,6 +333,9 @@
 
 /datum/ai_laws/proc/set_law_sixsixsix(laws)
 	devillaws = laws
+
+/datum/ai_laws/proc/set_valentines_law(laws)
+	valentine_laws = laws
 
 /datum/ai_laws/proc/set_zeroth_law(law, law_borg = null)
 	zeroth = law
@@ -449,6 +483,9 @@
 
 /datum/ai_laws/proc/get_law_list(include_zeroth = 0, show_numbers = 1)
 	var/list/data = list()
+
+	for(var/law in valentine_laws)
+		data += "[show_numbers ? "<3" : ""] <font color='#ed61ff'>[law]</font>"
 
 	if (include_zeroth && devillaws && devillaws.len)
 		for(var/i in devillaws)

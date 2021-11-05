@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	siemens_coefficient = 1
 	var/spamcheck = 0
-	var/list/voicespan = list(SPAN_COMMAND)
+	var/list/voicespan = list(SPAN_MEGAPHONE)
 
 /obj/item/megaphone/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is uttering [user.p_their()] last words into \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -19,7 +19,7 @@
 
 /obj/item/megaphone/equipped(mob/M, slot)
 	. = ..()
-	if (slot == SLOT_HANDS)
+	if (slot == ITEM_SLOT_HANDS)
 		RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
 	else
 		UnregisterSignal(M, COMSIG_MOB_SAY)
@@ -29,6 +29,8 @@
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/megaphone/proc/handle_speech(mob/living/carbon/user, list/speech_args)
+	SIGNAL_HANDLER
+
 	if (user.get_active_held_item() == src)
 		if(spamcheck > world.time)
 			to_chat(user, "<span class='warning'>\The [src] needs to recharge!</span>")

@@ -106,6 +106,7 @@
 	A.attack_animal(src)
 
 /atom/proc/attack_animal(mob/user)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_ANIMAL, user)
 	return
 
 /mob/living/RestrainedClickOn(atom/A)
@@ -184,8 +185,10 @@
 */
 /mob/living/simple_animal/slime/UnarmedAttack(atom/A)
 	A.attack_slime(src)
+
 /atom/proc/attack_slime(mob/user)
 	return
+
 /mob/living/simple_animal/slime/RestrainedClickOn(atom/A)
 	return
 
@@ -243,7 +246,7 @@
 */
 
 /mob/living/simple_animal/hostile/UnarmedAttack(atom/A)
-	target = A
+	GiveTarget(A)
 	if(dextrous && !ismob(A))
 		..()
 	else

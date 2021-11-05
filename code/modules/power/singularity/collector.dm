@@ -5,6 +5,7 @@
 #define RAD_COLLECTOR_MINING_CONVERSION_RATE 0.00001 //This is gonna need a lot of tweaking to get right. This is the number used to calculate the conversion of watts to research points per process()
 #define RAD_COLLECTOR_OUTPUT min(stored_energy, (stored_energy*RAD_COLLECTOR_STORED_OUT)+1000) //Produces at least 1000 watts if it has more than that stored
 
+
 /obj/machinery/power/rad_collector
 	name = "Radiation Collector Array"
 	desc = "A device which uses Hawking Radiation and plasma to produce power."
@@ -22,44 +23,54 @@
 	var/stored_energy = 0
 	var/active = 0
 	var/locked = FALSE
-	var/drainratio = 1
-	var/powerproduction_drain = 0.001
-
+	var/drainratio = 0.5
+	var/powerproduction_drain = 0.01
 	var/bitcoinproduction_drain = 0.15
 	var/bitcoinmining = FALSE
+	var/obj/item/radio/radio
 
+/obj/machinery/power/rad_collector/Initialize()
+	. = ..()
+
+	radio = new(src)
+	radio.keyslot = new /obj/item/encryptionkey/headset_eng
+	radio.subspace_transmission = TRUE
+	radio.canhear_range = 0
+	radio.recalculateChannels()
 
 /obj/machinery/power/rad_collector/anchored
 	anchored = TRUE
 
 /obj/machinery/power/rad_collector/Destroy()
+	QDEL_NULL(radio)
 	return ..()
 
-/obj/machinery/power/rad_collector/process()
+/obj/machinery/power/rad_collector/process(delta_time)
 	if(!loaded_tank)
 		return
 	if(!bitcoinmining)
-		if(loaded_tank.air_contents.get_moles(/datum/gas/plasma) < 0.0001)
-			investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_SINGULO)
+		if(loaded_tank.air_contents.get_moles(GAS_PLASMA) < 0.0001)
+			investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_ENGINES)
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
+			var/msg = "Plasma depleted, recommend replacing tank."
+			radio.talk_into(src, msg, RADIO_CHANNEL_ENGINEERING)
 			eject()
 		else
-			var/gasdrained = min(powerproduction_drain*drainratio,loaded_tank.air_contents.get_moles(/datum/gas/plasma))
-			loaded_tank.air_contents.adjust_moles(/datum/gas/plasma, -gasdrained)
-			loaded_tank.air_contents.adjust_moles(/datum/gas/tritium, gasdrained)
-
+			var/gasdrained = min(powerproduction_drain*drainratio*delta_time,loaded_tank.air_contents.get_moles(GAS_PLASMA))
+			loaded_tank.air_contents.adjust_moles(GAS_PLASMA, -gasdrained)
+			loaded_tank.air_contents.adjust_moles(GAS_TRITIUM, gasdrained)
 			var/power_produced = RAD_COLLECTOR_OUTPUT
 			add_avail(power_produced)
 			stored_energy-=power_produced
 	else if(is_station_level(z) && SSresearch.science_tech)
-		if(!loaded_tank.air_contents.get_moles(/datum/gas/tritium) || !loaded_tank.air_contents.get_moles(/datum/gas/oxygen))
+		if(!loaded_tank.air_contents.get_moles(GAS_TRITIUM) || !loaded_tank.air_contents.get_moles(GAS_O2))
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
 			eject()
 		else
-			var/gasdrained = bitcoinproduction_drain*drainratio
-			loaded_tank.air_contents.adjust_moles(/datum/gas/tritium, -gasdrained)
-			loaded_tank.air_contents.adjust_moles(/datum/gas/oxygen, -gasdrained)
-			loaded_tank.air_contents.adjust_moles(/datum/gas/carbon_dioxide, gasdrained*2)
+			var/gasdrained = bitcoinproduction_drain*drainratio*delta_time
+			loaded_tank.air_contents.adjust_moles(GAS_TRITIUM, -gasdrained)
+			loaded_tank.air_contents.adjust_moles(GAS_O2, -gasdrained)
+			loaded_tank.air_contents.adjust_moles(GAS_CO2, gasdrained*2)
 			var/bitcoins_mined = RAD_COLLECTOR_OUTPUT
 			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_ENG)
 			if(D)
@@ -73,8 +84,8 @@
 			toggle_power()
 			user.visible_message("[user.name] turns the [src.name] [active? "on":"off"].", \
 			"<span class='notice'>You turn the [src.name] [active? "on":"off"].</span>")
-			var/fuel = loaded_tank.air_contents.get_moles(/datum/gas/plasma)
-			investigate_log("turned [active?"<font color='green'>on</font>":"<font color='red'>off</font>"] by [key_name(user)]. [loaded_tank?"Fuel: [round(fuel/0.29)]%":"<font color='red'>It is empty</font>"].", INVESTIGATE_SINGULO)
+			var/fuel = loaded_tank?.air_contents.get_moles(GAS_PLASMA)
+			investigate_log("turned [active?"<font color='green'>on</font>":"<font color='red'>off</font>"] by [key_name(user)]. [loaded_tank?"Fuel: [round(fuel/0.29)]%":"<font color='red'>It is empty</font>"].", INVESTIGATE_ENGINES)
 			return
 		else
 			to_chat(user, "<span class='warning'>The controls are locked!</span>")

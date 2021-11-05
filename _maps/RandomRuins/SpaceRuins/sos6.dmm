@@ -1,0 +1,195 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/turf/closed/wall/r_wall/rust,
+/area/ruin/unpowered)
+"c" = (
+/obj/structure/window/reinforced/fulltile,
+/turf/open/floor/mineral/plastitanium/red,
+/area/ruin/unpowered)
+"d" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/corpse/russian,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/turf/open/floor/mineral/plastitanium/red,
+/area/ruin/unpowered)
+"e" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/space/basic,
+/area/ruin/unpowered)
+"f" = (
+/turf/open/floor/mineral/plastitanium/red,
+/area/ruin/unpowered)
+"g" = (
+/obj/machinery/computer,
+/turf/open/floor/mineral/plastitanium/red,
+/area/ruin/unpowered)
+"h" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/ruin/unpowered)
+"i" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/mob_spawn/human/corpse/russian/ranged,
+/obj/item/gun/ballistic/rifle/boltaction,
+/turf/open/floor/mineral/plastitanium/red,
+/area/ruin/unpowered)
+"j" = (
+/obj/item/gps{
+	gpstag = "SOS"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/ruin/unpowered)
+"k" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/ruin/unpowered)
+"l" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/item/storage/pod{
+	pixel_x = -32
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/ruin/unpowered)
+"m" = (
+/obj/machinery/door/airlock/vault{
+	name = "secured door";
+	req_access = 207
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/mineral/plastitanium/red,
+/area/ruin/unpowered)
+"n" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/item/storage/pod{
+	pixel_x = 32
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+a
+b
+b
+b
+b
+b
+e
+a
+a
+"}
+(3,1,1) = {"
+a
+a
+a
+a
+c
+h
+d
+d
+l
+b
+a
+a
+"}
+(4,1,1) = {"
+a
+a
+a
+a
+c
+f
+f
+j
+f
+m
+a
+a
+"}
+(5,1,1) = {"
+a
+a
+a
+a
+c
+g
+i
+k
+n
+b
+a
+a
+"}
+(6,1,1) = {"
+a
+a
+a
+a
+b
+b
+b
+b
+b
+e
+a
+a
+"}
+(7,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(8,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}

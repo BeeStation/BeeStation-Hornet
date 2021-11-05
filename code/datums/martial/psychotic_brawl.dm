@@ -3,9 +3,13 @@
 	id = MARTIALART_PSYCHOBRAWL
 
 /datum/martial_art/psychotic_brawling/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	if(HAS_TRAIT(A, TRAIT_PACIFISM))
+		return FALSE
 	return psycho_attack(A,D)
 
 /datum/martial_art/psychotic_brawling/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	if(HAS_TRAIT(A, TRAIT_PACIFISM))
+		return FALSE
 	return psycho_attack(A,D)
 
 /datum/martial_art/psychotic_brawling/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)

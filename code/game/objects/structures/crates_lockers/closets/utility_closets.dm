@@ -32,22 +32,26 @@
 			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/clothing/mask/breath(src)
 			new /obj/item/clothing/mask/breath(src)
+			for(var/i in 1 to rand(1,3))
+				new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
 
 		if ("aid")
 			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/storage/firstaid/o2(src)
 			new /obj/item/clothing/mask/breath(src)
+			for(var/i in 1 to rand(1,3))
+				new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
 
 		if ("tank")
 			new /obj/item/tank/internals/air(src)
 			new /obj/item/clothing/mask/breath(src)
+			for(var/i in 1 to rand(1,3))
+				new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
 
 		if ("both")
 			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/clothing/mask/breath(src)
-
-		if ("nothing")
-			// doot
+			new /obj/item/clothing/suit/space/hardsuit/skinsuit(src)
 
 		// teehee
 		if ("delete")

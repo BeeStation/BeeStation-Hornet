@@ -277,6 +277,12 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/assimilation.ogg', 100, FALSE, pressure_affected = FALSE)
 
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Hivemind",
+		"Your psionic powers will grow by assimilating the crew into your hive. Use the Assimilate Vessel spell on a stationary \
+		target, and after ten seconds he will be one of the hive. This is completely silent and safe to use, and failing will reset the cooldown. As \
+		you assimilate the crew, you will gain more powers to use. Most are silent and won't help you in a fight, but grant you great power over your \
+		vessels. Hover your mouse over a power's action icon for an extended description on what it does. There are other hiveminds onboard the station, \
+		collaboration is possible, but a strong enough hivemind can reap many rewards from a well planned betrayal.")
 
 /datum/antagonist/hivemind/roundend_report()
 	var/list/result = list()

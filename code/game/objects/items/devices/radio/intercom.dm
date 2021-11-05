@@ -7,6 +7,7 @@
 	canhear_range = 2
 	dog_fashion = null
 	unscrewed = FALSE
+	layer = ABOVE_WINDOW_LAYER
 
 /obj/item/radio/intercom/unscrewed
 	unscrewed = TRUE
@@ -58,6 +59,9 @@
 /obj/item/radio/intercom/attack_ai(mob/user)
 	interact(user)
 
+/obj/item/radio/intercom/attack_paw(mob/user)
+	return attack_hand(user)
+
 /obj/item/radio/intercom/attack_hand(mob/user)
 	. = ..()
 	if(.)
@@ -69,7 +73,10 @@
 	ui_interact(user)
 
 /obj/item/radio/intercom/ui_state(mob/user)
-	return GLOB.default_state
+	if(issilicon(user)) // Silicons can't use physical state remotely
+		return GLOB.default_state
+
+	return GLOB.physical_state // But monkeys can't use default state, and they can already use hotkeys
 
 /obj/item/radio/intercom/can_receive(freq, level)
 	if(!on)
@@ -78,7 +85,7 @@
 		return FALSE
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
-		if(isnull(position) || !(position.z in level))
+		if(isnull(position) || !(position.get_virtual_z_level() in level))
 			return FALSE
 	if(!listening)
 		return FALSE
@@ -89,8 +96,8 @@
 	return TRUE
 
 
-/obj/item/radio/intercom/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, message_mode)
-	if(message_mode == MODE_INTERCOM)
+/obj/item/radio/intercom/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, list/message_mods = list())
+	if(message_mods[RADIO_EXTENSION] == MODE_INTERCOM)
 		return  // Avoid hearing the same thing twice
 	return ..()
 
@@ -112,11 +119,13 @@
 /**
  * Proc called whenever the intercom's area loses or gains power. Responsible for setting the `on` variable and calling `update_icon()`.
  *
- * Normally called after the intercom's area recieves the `COMSIG_AREA_POWER_CHANGE` signal, but it can also be called directly.
+ * Normally called after the intercom's area receives the `COMSIG_AREA_POWER_CHANGE` signal, but it can also be called directly.
  * Arguments:
  * * source - the area that just had a power change.
  */
 /obj/item/radio/intercom/proc/AreaPowerCheck(datum/source)
+	SIGNAL_HANDLER
+
 	var/area/current_area = get_area(src)
 	if(!current_area)
 		on = FALSE
@@ -136,3 +145,9 @@
 	pixel_shift = 29
 	inverse = TRUE
 	materials = list(/datum/material/iron = 75, /datum/material/glass = 25)
+
+/obj/item/radio/intercom/chapel
+	name = "Confessional intercom"
+	anonymize = TRUE
+	frequency = 1481
+	broadcasting = TRUE

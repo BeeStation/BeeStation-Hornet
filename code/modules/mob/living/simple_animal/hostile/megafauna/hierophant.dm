@@ -54,8 +54,8 @@ Difficulty: Hard
 	ranged = TRUE
 	ranged_cooldown_time = 40
 	aggro_vision_range = 21 //so it can see to one side of the arena to the other
-	loot = list(/obj/item/hierophant_club)
-	crusher_loot = list(/obj/item/hierophant_club, /obj/item/crusher_trophy/vortex_talisman)
+	loot = list(/obj/structure/closet/crate/necropolis/hierophant)
+	crusher_loot = list(/obj/structure/closet/crate/necropolis/hierophant, /obj/item/crusher_trophy/vortex_talisman)
 	wander = FALSE
 	gps_name = "Zealous Signal"
 	medal_type = BOSS_MEDAL_HIEROPHANT
@@ -79,11 +79,16 @@ Difficulty: Hard
 	var/did_reset = TRUE //if we timed out, returned to our beacon, and healed some
 	var/list/kill_phrases = list("Wsyvgi sj irivkc xettih. Vitemvmrk...", "Irivkc wsyvgi jsyrh. Vitemvmrk...", "Jyip jsyrh. Egxmzexmrk vitemv gcgpiw...", "Kix fiex. Liepmrk...")
 	var/list/target_phrases = list("Xevkix psgexih.", "Iriqc jsyrh.", "Eguymvih xevkix.")
-	var/list/stored_nearby = list() // stores people nearby the hierophant when it enters the death animation
+
+	mobchatspan = "hierosay"
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Initialize()
 	. = ..()
 	spawned_beacon = new(loc)
+
+/mob/living/simple_animal/hostile/megafauna/hierophant/Destroy()
+	QDEL_NULL(spawned_beacon)
+	. = ..()
 
 /datum/action/innate/megafauna_attack/blink
 	name = "Blink To Target"
@@ -362,8 +367,7 @@ Difficulty: Hard
 /proc/hierophant_burst(mob/caster, turf/original, burst_range, spread_speed = 0.5)
 	playsound(original,'sound/machines/airlockopen.ogg', 200, 1)
 	var/last_dist = 0
-	for(var/t in spiral_range_turfs(burst_range, original))
-		var/turf/T = t
+	for(var/turf/T as() in spiral_range_turfs(burst_range, original))
 		if(!T)
 			continue
 		var/dist = get_dist(original, T)
@@ -397,19 +401,16 @@ Difficulty: Hard
 	if(health > 0 || stat == DEAD)
 		return
 	else
-		stat = DEAD
+		set_stat(DEAD)
 		blinking = TRUE //we do a fancy animation, release a huge burst(), and leave our staff.
 		visible_message("<span class='hierophant'>\"Mrmxmexmrk wipj-hiwxvygx wiuyirgi...\"</span>")
 		visible_message("<span class='hierophant_warning'>[src] shrinks, releasing a massive burst of energy!</span>")
-		for(var/mob/living/L in view(7,src))
+		var/list/stored_nearby = list()
+		for(var/mob/living/L in oviewers(7,src))
 			stored_nearby += L // store the people to grant the achievements to once we die
 		hierophant_burst(null, get_turf(src), 10)
-		stat = CONSCIOUS // deathgasp wont run if dead, stupid
+		set_stat(CONSCIOUS) // deathgasp wont run if dead, stupid
 		..(force_grant = stored_nearby)
-
-/mob/living/simple_animal/hostile/megafauna/hierophant/Destroy()
-	qdel(spawned_beacon)
-	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/devour(mob/living/L)
 	for(var/obj/item/W in L)
@@ -451,6 +452,7 @@ Difficulty: Hard
 				else
 					burst_range = 3
 					INVOKE_ASYNC(src, .proc/burst, get_turf(src), 0.25) //melee attacks on living mobs cause it to release a fast burst if on cooldown
+				OpenFire()
 			else
 				devour(L)
 		else
@@ -694,6 +696,9 @@ Difficulty: Hard
 			to_chat(M.occupant, "<span class='userdanger'>Your [M.name] is struck by a [name]!</span>")
 		playsound(M,'sound/weapons/sear.ogg', 50, 1, -4)
 		M.take_damage(damage, BURN, 0, 0)
+
+/obj/effect/temp_visual/hierophant/blast/vortex
+	damage = 25
 
 /obj/effect/hierophant
 	name = "hierophant beacon"

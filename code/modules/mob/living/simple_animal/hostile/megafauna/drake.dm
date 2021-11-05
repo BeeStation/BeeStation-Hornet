@@ -18,11 +18,7 @@ The drake also utilizes its wings to fly into the sky, flying after its target a
  - Sometimes it will chain these swooping attacks over and over, making swiftness a necessity.
  - Sometimes, it will encase its target in an arena of lava
 
-When an ash drake dies, it leaves behind a chest that can contain four things:
- 1. A spectral blade that allows its wielder to call ghosts to it, enhancing its power
- 2. A lava staff that allows its wielder to create lava
- 3. A spellbook and wand of fireballs
- 4. A bottle of dragon's blood with several effects, including turning its imbiber into a drake themselves.
+When an ash drake dies, it leaves behind a chest that contains a bottle of dragon's blood with several effects, ranging from turning the imbiber into a lizard, skeleton or just making them lavaproof.
 
 When butchered, they leave behind diamonds, sinew, bone, and ash drake hide. Ash drake hide can be used to create a hooded cloak that protects its wearer from ash storms.
 
@@ -49,7 +45,7 @@ Difficulty: Medium
 	move_to_delay = 5
 	ranged = TRUE
 	pixel_x = -16
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/dragon/crusher)
+	crusher_loot = list(/obj/structure/closet/crate/necropolis/dragon, /obj/item/crusher_trophy/tail_spike)
 	loot = list(/obj/structure/closet/crate/necropolis/dragon)
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/ashdrake = 10)
@@ -132,7 +128,7 @@ Difficulty: Medium
 	if(!target)
 		return
 	target.visible_message("<span class='boldwarning'>Fire rains from the sky!</span>")
-	for(var/turf/turf in range(9,get_turf(target)))
+	for(var/turf/turf as() in RANGE_TURFS(9,target))
 		if(prob(11))
 			new /obj/effect/temp_visual/target(turf)
 
@@ -182,10 +178,10 @@ Difficulty: Medium
 	var/turf/center = get_turf(target)
 	var/list/walled = RANGE_TURFS(3, center) - RANGE_TURFS(2, center)
 	var/list/drakewalls = list()
-	for(var/turf/T in walled)
+	for(var/turf/T as() in walled)
 		drakewalls += new /obj/effect/temp_visual/drakewall(T) // no people with lava immunity can just run away from the attack for free
 	var/list/indestructible_turfs = list()
-	for(var/turf/T in RANGE_TURFS(2, center))
+	for(var/turf/T as() in RANGE_TURFS(2, center))
 		if(istype(T, /turf/open/indestructible))
 			continue
 		if(!istype(T, /turf/closed/indestructible))
@@ -198,7 +194,7 @@ Difficulty: Medium
 	while(amount > 0)
 		var/list/empty = indestructible_turfs.Copy() // can't place safe turfs on turfs that weren't changed to be open
 		var/any_attack = 0
-		for(var/turf/T in turfs)
+		for(var/turf/T as() in turfs)
 			for(var/mob/living/L in T.contents)
 				if(L.client)
 					empty += pick(((RANGE_TURFS(2, L) - RANGE_TURFS(1, L)) & turfs) - empty) // picks a turf within 2 of the creature not outside or in the shield
@@ -290,7 +286,7 @@ Difficulty: Medium
 	if(stat || swooping)
 		return
 	if(manual_target)
-		target = manual_target
+		GiveTarget(manual_target)
 	if(!target)
 		return
 	stop_automated_movement = TRUE
@@ -389,7 +385,7 @@ Difficulty: Medium
 		return FALSE
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/visible_message()
+/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags)
 	if(swooping & SWOOP_INVULNERABLE) //to suppress attack messages without overriding every single proc that could send a message saying we got hit
 		return
 	return ..()
@@ -515,7 +511,7 @@ Difficulty: Medium
 	else
 		animate(src, pixel_x = -16, pixel_z = 0, time = 5)
 
-obj/effect/temp_visual/fireball
+/obj/effect/temp_visual/fireball
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "fireball"
 	name = "fireball"

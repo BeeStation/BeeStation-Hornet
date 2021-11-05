@@ -7,7 +7,7 @@
 	var/last_blink
 	var/check_every = 20 SECONDS			//we scp now
 	var/grace_period = 6 SECONDS
-	var/damage_rate = 1 // organ damage taken per tick
+	var/damage_rate = 0.5 // organ damage taken per second
 	var/list/valid_emotes = list(/datum/emote/living/carbon/blink, /datum/emote/living/carbon/blink_r)
 	var/datum/action/blink/button = new
 
@@ -56,12 +56,16 @@
 	UnregisterSignal(parent, COMSIG_MOB_DEATH)
 
 /datum/component/manual_blinking/proc/restart()
+	SIGNAL_HANDLER
+
 	START_PROCESSING(SSdcs, src)
 
 /datum/component/manual_blinking/proc/pause()
+	SIGNAL_HANDLER
+
 	STOP_PROCESSING(SSdcs, src)
 
-/datum/component/manual_blinking/process()
+/datum/component/manual_blinking/process(delta_time)
 	var/mob/living/carbon/C = parent
 
 	if(world.time > (last_blink + check_every + grace_period))
@@ -69,13 +73,15 @@
 			to_chat(C, "<span class='userdanger'>Your eyes begin to wither, you need to blink!</span>")
 			warn_dying = TRUE
 
-		E.applyOrganDamage(damage_rate)
+		E.applyOrganDamage(damage_rate * delta_time)
 	else if(world.time > (last_blink + check_every))
 		if(!warn_grace)
 			to_chat(C, "<span class='danger'>You feel a need to blink!</span>")
 			warn_grace = TRUE
 
 /datum/component/manual_blinking/proc/check_added_organ(mob/who_cares, obj/item/organ/O)
+	SIGNAL_HANDLER
+
 	var/obj/item/organ/eyes/new_eyes = O
 
 	if(istype(new_eyes,/obj/item/organ/eyes))
@@ -83,6 +89,8 @@
 		START_PROCESSING(SSdcs, src)
 
 /datum/component/manual_blinking/proc/check_removed_organ(mob/who_cares, obj/item/organ/O)
+	SIGNAL_HANDLER
+
 	var/obj/item/organ/eyes/bye_beyes = O // oh come on, that's pretty good
 
 	if(istype(bye_beyes, /obj/item/organ/eyes))
@@ -90,6 +98,8 @@
 		STOP_PROCESSING(SSdcs, src)
 
 /datum/component/manual_blinking/proc/check_emote(mob/living/carbon/user, datum/emote/emote)
+	SIGNAL_HANDLER
+
 	if(emote.type in valid_emotes)
 		warn_grace = FALSE
 		warn_dying = FALSE

@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Box, Button, Collapsible, Grid, LabeledList, NoticeBox, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
@@ -6,7 +5,6 @@ import { Window } from '../layouts';
 export const NaniteChamberControl = (props, context) => {
   return (
     <Window
-      resizable
       width={380}
       height={570}>
       <Window.Content scrollable>
@@ -51,7 +49,7 @@ export const NaniteChamberControlContent = (props, context) => {
           onClick={() => act('toggle_lock')} />
       )}>
       {!has_nanites ? (
-        <Fragment>
+        <>
           <Box
             bold
             color="bad"
@@ -70,9 +68,9 @@ export const NaniteChamberControlContent = (props, context) => {
             fontSize="30px"
             lineHeight="50px"
             onClick={() => act('nanite_injection')} />
-        </Fragment>
+        </>
       ) : (
-        <Fragment>
+        <>
           <Section
             title="Status"
             level={2}
@@ -258,10 +256,9 @@ export const NaniteChamberControlContent = (props, context) => {
                               title="Rules"
                               level={2}>
                               {rules.map(rule => (
-                                <Fragment key={rule.display}>
+                                <Box key={rule.display}>
                                   {rule.display}
-                                  <br />
-                                </Fragment>
+                                </Box>
                               ))}
                             </Section>
                           </Grid.Column>
@@ -273,7 +270,7 @@ export const NaniteChamberControlContent = (props, context) => {
               );
             })}
           </Section>
-        </Fragment>
+        </>
       )}
     </Section>
   );

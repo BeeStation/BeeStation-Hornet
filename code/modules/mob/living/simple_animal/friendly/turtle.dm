@@ -16,14 +16,14 @@
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
-	gold_core_spawnable = FRIENDLY_SPAWN
-	melee_damage = 18
+	gold_core_spawnable = NO_SPAWN
+	melee_damage = 0.5
 	health = 2500
 	maxHealth = 2500
-	speed = 8
+	speed = 4
 	glide_size = 2
 	can_be_held = TRUE
-	mobsay_color = "#E7D26F"
+	chat_color = "#E7D26F"
 
 	do_footstep = TRUE
 

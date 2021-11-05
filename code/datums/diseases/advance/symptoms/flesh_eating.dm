@@ -22,12 +22,14 @@ Bonus
 	stealth = -3
 	resistance = -4
 	stage_speed = 0
-	transmittable = -4
+	transmission = -4
 	level = 6
 	severity = 4
 	base_message_chance = 50
 	symptom_delay_min = 15
 	symptom_delay_max = 60
+	prefixes = list("Bloody ", "Hemo")
+	bodies = list("Hemophilia")
 	var/bleed = FALSE
 	var/pain = FALSE
 	threshold_desc = "<b>Resistance 7:</b> Host will bleed profusely during necrosis.<br>\
@@ -36,9 +38,9 @@ Bonus
 /datum/symptom/flesh_eating/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 7) //extra bleeding
+	if(A.resistance >= 7) //extra bleeding
 		bleed = TRUE
-	if(A.properties["transmittable"] >= 8) //extra stamina damage
+	if(A.transmission >= 8) //extra stamina damage
 		pain = TRUE
 
 /datum/symptom/flesh_eating/Activate(datum/disease/advance/A)
@@ -88,25 +90,32 @@ Bonus
 	stealth = -2
 	resistance = -2
 	stage_speed = 1
-	transmittable = -2
+	transmission = -2
 	level = 9
 	severity = 5
 	base_message_chance = 50
 	symptom_delay_min = 3
 	symptom_delay_max = 6
+	prefixes = list("Necrotic ", "Necro")
+	suffixes = list(" Rot")
 	var/chems = FALSE
 	var/zombie = FALSE
 	threshold_desc = "<b>Stage Speed 7:</b> Synthesizes Heparin and Lipolicide inside the host, causing increased bleeding and hunger.<br>\
 					  <b>Stealth 5:</b> The symptom remains hidden until active."
 
+/datum/symptom/flesh_death/severityset(datum/disease/advance/A)
+	. = ..()
+	if((A.stealth >= 2) && (A.stage_rate >= 12))
+		bodies = list("Zombie")
+
 /datum/symptom/flesh_death/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 5)
+	if(A.stealth >= 5)
 		suppress_warning = TRUE
-	if(A.properties["stage_rate"] >= 7) //bleeding and hunger
+	if(A.stage_rate >= 7) //bleeding and hunger
 		chems = TRUE
-	if((A.properties["stealth"] >= 2) && (A.properties["stage_rate"] >= 12))
+	if((A.stealth >= 2) && (A.stage_rate >= 12))
 		zombie = TRUE
 
 /datum/symptom/flesh_death/Activate(datum/disease/advance/A)
@@ -125,7 +134,7 @@ Bonus
 				return
 			if(prob(base_message_chance / 2)) //reduce spam
 				to_chat(M, "<span class='userdanger'>[pick("You feel your muscles weakening.", "Some of your skin detaches itself.", "You feel sandy.")]</span>")
-		
+
 /datum/symptom/flesh_death/proc/Flesh_death(mob/living/M, datum/disease/advance/A)
 	var/get_damage = rand(6,10)
 	if(MOB_UNDEAD in M.mob_biotypes)

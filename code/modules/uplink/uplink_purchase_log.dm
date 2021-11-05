@@ -59,6 +59,7 @@ GLOBAL_LIST(uplink_purchase_logs_by_key)	//assoc key = /datum/uplink_purchase_lo
 		UPE.name = uplink_item.name
 		UPE.base_cost = initial(uplink_item.cost)
 		UPE.spent_cost = spent_cost
+		UPE.allow_refund = uplink_item.refundable
 
 	UPE.amount_purchased++
 	total_spent += spent_cost
@@ -74,3 +75,4 @@ GLOBAL_LIST(uplink_purchase_logs_by_key)	//assoc key = /datum/uplink_purchase_lo
 	var/base_cost
 	var/spent_cost
 	var/name
+	var/allow_refund

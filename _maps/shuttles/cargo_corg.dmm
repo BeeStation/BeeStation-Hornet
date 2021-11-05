@@ -1,0 +1,230 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"e" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/shuttle/engine/heater,
+/turf/open/floor/plating/airless,
+/area/shuttle/supply)
+"i" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
+	},
+/obj/machinery/door/poddoor{
+	id = "QMLoaddoor";
+	name = "supply dock loading door"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"l" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/supply)
+"m" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Supply Shuttle Airlock";
+	req_access_txt = "31"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"o" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/supply)
+"p" = (
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/supply)
+"s" = (
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "QMLoad"
+	},
+/obj/machinery/door/poddoor{
+	id = "QMLoaddoor";
+	name = "supply dock loading door"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"u" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/floor/plating/airless,
+/area/shuttle/supply)
+"z" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/supply)
+"G" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
+	},
+/obj/machinery/door/poddoor{
+	id = "QMLoaddoor2";
+	name = "supply dock loading door"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"L" = (
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/supply)
+"M" = (
+/obj/machinery/button/door{
+	id = "QMLoaddoor2";
+	name = "Loading Doors";
+	pixel_x = 24;
+	pixel_y = 8
+	},
+/obj/machinery/button/door{
+	id = "QMLoaddoor";
+	name = "Loading Doors";
+	pixel_x = 24;
+	pixel_y = -8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/supply)
+"N" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Supply Shuttle Airlock";
+	req_access_txt = "31"
+	},
+/obj/docking_port/mobile/supply,
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"O" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/supply)
+"R" = (
+/obj/structure/shuttle/engine/propulsion/burst/right,
+/turf/open/floor/plating/airless,
+/area/shuttle/supply)
+"S" = (
+/turf/template_noop,
+/area/template_noop)
+"U" = (
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "QMLoad"
+	},
+/obj/machinery/door/poddoor{
+	id = "QMLoaddoor2";
+	name = "supply dock loading door"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"W" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"X" = (
+/obj/structure/shuttle/engine/propulsion/burst/left,
+/turf/open/floor/plating/airless,
+/area/shuttle/supply)
+
+(1,1,1) = {"
+p
+p
+p
+i
+m
+p
+m
+U
+p
+z
+l
+S
+"}
+(2,1,1) = {"
+p
+L
+O
+L
+L
+L
+L
+L
+O
+z
+l
+X
+"}
+(3,1,1) = {"
+W
+L
+L
+L
+L
+L
+L
+L
+L
+L
+e
+u
+"}
+(4,1,1) = {"
+W
+L
+L
+L
+L
+L
+L
+L
+L
+L
+e
+u
+"}
+(5,1,1) = {"
+W
+L
+L
+L
+L
+L
+L
+L
+L
+L
+e
+u
+"}
+(6,1,1) = {"
+p
+L
+o
+L
+L
+M
+L
+L
+o
+z
+l
+R
+"}
+(7,1,1) = {"
+p
+p
+p
+G
+m
+p
+N
+s
+p
+z
+l
+S
+"}

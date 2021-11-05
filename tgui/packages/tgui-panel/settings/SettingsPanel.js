@@ -5,21 +5,23 @@
  */
 
 import { toFixed } from 'common/math';
+import { useLocalState } from 'tgui/backend';
 import { useDispatch, useSelector } from 'common/redux';
-import { Box, Button, ColorBox, Divider, Dropdown, Flex, Input, LabeledList, NumberInput, Section, Tabs, TextArea } from 'tgui/components';
+import { Box, Button, ColorBox, Divider, Dropdown, Flex, Input, LabeledList, NumberInput, Section, Stack, Tabs, TextArea, Grid } from 'tgui/components';
 import { ChatPageSettings } from '../chat';
 import { rebuildChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
 import { changeSettingsTab, updateSettings } from './actions';
-import { SETTINGS_TABS } from './constants';
-import { selectActiveTab, selectSettings } from './selectors';
+import { FONTS, SETTINGS_TABS } from './constants';
+import { useSettings } from './hooks';
+import { selectActiveTab, selectSettings, selectStatPanel } from './selectors';
 
 export const SettingsPanel = (props, context) => {
   const activeTab = useSelector(context, selectActiveTab);
   const dispatch = useDispatch(context);
   return (
-    <Flex>
-      <Flex.Item mr={1}>
+    <Stack fill>
+      <Stack.Item>
         <Section fitted fill minHeight="8em">
           <Tabs vertical>
             {SETTINGS_TABS.map(tab => (
@@ -34,8 +36,8 @@ export const SettingsPanel = (props, context) => {
             ))}
           </Tabs>
         </Section>
-      </Flex.Item>
-      <Flex.Item grow={1} basis={0}>
+      </Stack.Item>
+      <Stack.Item grow={1} basis={0}>
         {activeTab === 'general' && (
           <SettingsGeneral />
         )}
@@ -45,20 +47,26 @@ export const SettingsPanel = (props, context) => {
         {activeTab === 'highlightPage' && (
           <SettingsHighlight />
         )}
-      </Flex.Item>
-    </Flex>
+        {activeTab === 'statPanelpage' && (
+          <SettingsStat />
+        )}
+      </Stack.Item>
+    </Stack>
   );
 };
 
 export const SettingsGeneral = (props, context) => {
   const {
     theme,
+    fontFamily,
+    highContrast,
     fontSize,
     lineHeight,
   } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
+  const [freeFont, setFreeFont] = useLocalState(context, "freeFont", false);
   return (
-    <Section fill>
+    <Section>
       <Flex bold>
         General Settings
       </Flex>
@@ -72,13 +80,50 @@ export const SettingsGeneral = (props, context) => {
               theme: value,
             }))} />
         </LabeledList.Item>
+        <LabeledList.Item label="Font style">
+          {!freeFont && (
+            <Dropdown
+              selected={fontFamily}
+              options={FONTS}
+              onSelected={value => dispatch(updateSettings({
+                fontFamily: value,
+              }))} />
+          ) || (
+            <Input
+              value={fontFamily}
+              onChange={(e, value) => dispatch(updateSettings({
+                fontFamily: value,
+              }))}
+            />
+          )}
+        </LabeledList.Item>
+        <LabeledList.Item>
+          <Button
+            content="Custom font"
+            icon={freeFont? "lock-open" : "lock"}
+            color={freeFont? "good" : "bad"}
+            ml={1}
+            onClick={() => {
+              setFreeFont(!freeFont);
+            }}
+          />
+        </LabeledList.Item>
+        <LabeledList.Item label="High Contrast">
+          <Button.Checkbox
+            checked={!highContrast}
+            onClick={() => dispatch(updateSettings({
+              highContrast: !highContrast,
+            }))}>
+            Colored names
+          </Button.Checkbox>
+        </LabeledList.Item>
         <LabeledList.Item label="Font size">
           <NumberInput
             width="4em"
             step={1}
             stepPixelSize={10}
             minValue={8}
-            maxValue={32}
+            maxValue={24}
             value={fontSize}
             unit="px"
             format={value => toFixed(value)}
@@ -106,6 +151,29 @@ export const SettingsGeneral = (props, context) => {
         onClick={() => dispatch(saveChatToDisk())}>
         Save chat log
       </Button>
+    </Section>
+  );
+};
+
+export const SettingsStat = (props, context) => {
+  const settings = useSettings(context);
+  const dispatch = useDispatch(context);
+  return (
+    <Section fill>
+      <Flex bold>
+        Stat Panel Settings
+      </Flex>
+      <Divider />
+      <LabeledList>
+        <LabeledList.Item label="Tab Mode">
+          <Dropdown
+            selected={settings.statTabMode}
+            options={["Scroll", "Multiline"]}
+            onSelected={value => dispatch(updateSettings({
+              statTabMode: value,
+            }))} />
+        </LabeledList.Item>
+      </LabeledList>
     </Section>
   );
 };

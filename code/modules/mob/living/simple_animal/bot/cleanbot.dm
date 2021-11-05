@@ -159,7 +159,7 @@
 
 		if(!path || path.len == 0) //No path, need a new one
 			//Try to produce a path to the target, and ignore airlocks to which it has access.
-			path = get_path_to(src, target.loc, /turf/proc/Distance_cardinal, 0, 30, id=access_card)
+			path = get_path_to(src, target, 30, id=access_card)
 			if(!bot_move(target))
 				add_to_ignore(target)
 				target = null
@@ -210,18 +210,7 @@
 		icon_state = "cleanbot-c"
 		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
 		mode = BOT_CLEANING
-		spawn(50)
-			if(mode == BOT_CLEANING)
-				if(A && isturf(A.loc))
-					var/atom/movable/AM = A
-					if(istype(AM, /obj/effect/decal/cleanable))
-						for(var/obj/effect/decal/cleanable/C in A.loc)
-							qdel(C)
-
-				anchored = FALSE
-				target = null
-			mode = BOT_IDLE
-			icon_state = "cleanbot[on]"
+		addtimer(CALLBACK(src, .proc/clean, A), 50)
 	else if(istype(A, /obj/item) || istype(A, /obj/effect/decal/remains))
 		visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [A]!</span>")
 		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
@@ -253,11 +242,24 @@
 				if(istype(T))
 					T.MakeSlippery(TURF_WET_WATER, min_wet_time = 20 SECONDS, wet_time_to_add = 15 SECONDS)
 			else
-				visible_message("<span class='danger'>[src] whirs and bubbles violently, before releasing a plume of froth!</span>")
+				visible_message("<span class='danger'>[src] whirs and bubbles violently before releasing a plume of froth!</span>")
 				new /obj/effect/particle_effect/foam(loc)
 
 	else
 		..()
+
+/mob/living/simple_animal/bot/cleanbot/proc/clean(atom/A)
+	mode = BOT_IDLE
+	icon_state = "cleanbot[on]"
+	if(!on)
+		return
+	if(A && isturf(A.loc))
+		var/atom/movable/AM = A
+		if(istype(AM, /obj/effect/decal/cleanable))
+			for(var/obj/effect/decal/cleanable/C in A.loc)
+				qdel(C)
+	anchored = FALSE
+	target = null
 
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = FALSE
@@ -273,6 +275,11 @@
 
 	do_sparks(3, TRUE, src)
 	..()
+
+/mob/living/simple_animal/bot/cleanbot/medbay
+	name = "Scrubs, MD"
+	bot_core_type = /obj/machinery/bot_core/cleanbot/medbay
+	on = FALSE
 
 /obj/machinery/bot_core/cleanbot
 	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
@@ -309,3 +316,6 @@ Maintenance panel panel is [open ? "opened" : "closed"]"})
 				drawn = !drawn
 		get_targets()
 		update_controls()
+
+/obj/machinery/bot_core/cleanbot/medbay
+	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS, ACCESS_MEDICAL)

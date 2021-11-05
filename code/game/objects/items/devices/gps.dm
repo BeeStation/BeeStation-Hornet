@@ -26,6 +26,10 @@
 	gpstag = "MINE0"
 	desc = "A positioning system helpful for rescuing trapped or injured miners, keeping one on you at all times while mining might just save your life."
 
+/obj/item/gps/mining/exploration
+	gpstag = "EXP0"
+	desc = "A positioning system used for long-ranged tracking of important beacons."
+
 /obj/item/gps/cyborg
 	icon_state = "gps-b"
 	gpstag = "BORG0"
@@ -59,7 +63,7 @@
 		// I assume it's faster to color,tag and OR the turf in, rather
 		// then checking if its there
 		T.color = RANDOM_COLOUR
-		T.maptext = "[T.x],[T.y],[T.z]"
+		T.maptext = MAPTEXT("[T.x],[T.y],[T.get_virtual_z_level()]")
 		tagged |= T
 
 /obj/item/gps/visible_debug/proc/clear()

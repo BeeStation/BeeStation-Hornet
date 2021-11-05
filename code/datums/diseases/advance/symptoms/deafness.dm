@@ -22,26 +22,28 @@ Bonus
 	stealth = -1
 	resistance = -2
 	stage_speed = -1
-	transmittable = -3
+	transmission = -3
 	level = 4
 	severity = 2
 	base_message_chance = 100
 	symptom_delay_min = 25
 	symptom_delay_max = 80
+	prefixes = list("Aural ")
+	bodies = list("Ear")
 	threshold_desc = "<b>Resistance 9:</b> Causes permanent deafness, instead of intermittent.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/deafness/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 9) 
+	if(A.resistance >= 9)
 		severity += 1
 
 /datum/symptom/deafness/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 4)
+	if(A.stealth >= 4)
 		suppress_warning = TRUE
-	if(A.properties["resistance"] >= 9) //permanent deafness
+	if(A.resistance >= 9) //permanent deafness
 		power = 2
 
 /datum/symptom/deafness/Activate(datum/disease/advance/A)

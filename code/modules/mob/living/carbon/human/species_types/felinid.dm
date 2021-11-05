@@ -1,18 +1,23 @@
 //Subtype of human
 /datum/species/human/felinid
 	name = "Felinid"
-	id = "felinid"
+	id = SPECIES_FELINID
+	bodyflag = FLAG_FELINID
 	limbs_id = "human"
+	say_mod = "meows"
 
 	disliked_food = VEGETABLES | SUGAR
 	liked_food = DAIRY | MEAT
 
 	mutant_bodyparts = list("ears", "tail_human")
-	default_features = list("mcolor" = "FFF", "tail_human" = "Cat", "ears" = "Cat", "wings" = "None")
+	default_features = list("mcolor" = "FFF", "wings" = "None")
+	forced_features = list("tail_human" = "Cat", "ears" = "Cat")
 
 	mutantears = /obj/item/organ/ears/cat
 	mutanttail = /obj/item/organ/tail/cat
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
+
+	swimming_component = /datum/component/swimming/felinid
 
 /datum/species/human/felinid/qualifies_for_rank(rank, list/features)
 	return TRUE
@@ -94,8 +99,7 @@
 			tail.Remove(H)
 
 /datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
-	.=..()
-	if(chem.type == /datum/reagent/consumable/cocoa)
+	if(istype(chem, /datum/reagent/consumable/cocoa))
 		if(prob(40))
 			M.adjust_disgust(20)
 		if(prob(5))
@@ -107,6 +111,7 @@
 			var/obj/item/organ/guts = pick(M.internal_organs)
 			guts.applyOrganDamage(15)
 		return FALSE
+	return ..()
 
 
 /proc/mass_purrbation()

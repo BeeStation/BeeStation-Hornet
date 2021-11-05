@@ -87,6 +87,7 @@
 /turf/open/floor/mineral/titanium/purple,
 /area/ruin/space/has_grav/powered/authorship)
 "s" = (
+/obj/structure/fans/tiny,
 /obj/machinery/door/poddoor{
 	id = "goonwizship1"
 	},

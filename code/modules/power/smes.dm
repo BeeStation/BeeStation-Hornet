@@ -157,7 +157,7 @@
 	if(default_deconstruction_crowbar(I))
 		message_admins("[src] has been deconstructed by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
 		log_game("[src] has been deconstructed by [key_name(user)] at [AREACOORD(src)]")
-		investigate_log("SMES deconstructed by [key_name(user)] at [AREACOORD(src)]", INVESTIGATE_SINGULO)
+		investigate_log("SMES deconstructed by [key_name(user)] at [AREACOORD(src)]", INVESTIGATE_ENGINES)
 		return
 	else if(panel_open && I.tool_behaviour == TOOL_CROWBAR)
 		return
@@ -188,7 +188,7 @@
 		var/turf/T = get_turf(src)
 		message_admins("SMES deleted at [ADMIN_VERBOSEJMP(T)]")
 		log_game("SMES deleted at [AREACOORD(T)]")
-		investigate_log("<font color='red'>deleted</font> at [AREACOORD(T)]", INVESTIGATE_SINGULO)
+		investigate_log("<font color='red'>deleted</font> at [AREACOORD(T)]", INVESTIGATE_ENGINES)
 	if(terminal)
 		disconnect_terminal()
 	return ..()
@@ -286,7 +286,7 @@
 
 			if(output_used < 0.0001)		// either from no charge or set to 0
 				outputting = FALSE
-				investigate_log("lost power and turned <font color='red'>off</font>", INVESTIGATE_SINGULO)
+				investigate_log("lost power and turned <font color='red'>off</font>", INVESTIGATE_ENGINES)
 		else if(output_attempt && charge > output_level && output_level > 0)
 			outputting = TRUE
 		else
@@ -339,6 +339,7 @@
 	if(!ui)
 		ui = new(user, src, "Smes")
 		ui.open()
+		ui.set_autoupdate(TRUE) // Power level
 
 /obj/machinery/power/smes/ui_data()
 	var/list/data = list(
@@ -366,12 +367,10 @@
 	switch(action)
 		if("tryinput")
 			input_attempt = !input_attempt
-			log_smes(usr)
 			update_icon()
 			. = TRUE
 		if("tryoutput")
 			output_attempt = !output_attempt
-			log_smes(usr)
 			update_icon()
 			. = TRUE
 		if("input")
@@ -391,7 +390,6 @@
 				. = TRUE
 			if(.)
 				input_level = clamp(target, 0, input_level_max)
-				log_smes(usr)
 		if("output")
 			var/target = params["target"]
 			var/adjust = text2num(params["adjust"])
@@ -409,10 +407,11 @@
 				. = TRUE
 			if(.)
 				output_level = clamp(target, 0, output_level_max)
-				log_smes(usr)
+	if(.)
+		log_smes(usr)
 
 /obj/machinery/power/smes/proc/log_smes(mob/user)
-	investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Charge: [charge] | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [user ? key_name(user) : "outside forces"]", INVESTIGATE_SINGULO)
+	investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Charge: [charge] | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [user ? key_name(user) : "outside forces"]", INVESTIGATE_ENGINES)
 
 
 /obj/machinery/power/smes/emp_act(severity)

@@ -25,16 +25,6 @@
 /datum/crafting_recipe/proc/check_requirements(mob/user, list/collected_requirements)
 	return TRUE
 
-/datum/crafting_recipe/pin_removal
-	name = "Pin Removal"
-	result = /obj/item/gun
-	reqs = list(/obj/item/gun = 1)
-	parts = list(/obj/item/gun = 1)
-	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	time = 50
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
 /datum/crafting_recipe/IED
 	name = "IED"
 	result = /obj/item/grenade/iedcasing
@@ -49,11 +39,11 @@
 
 /datum/crafting_recipe/lance
 	name = "Explosive Lance (Grenade)"
-	result = /obj/item/twohanded/spear
-	reqs = list(/obj/item/twohanded/spear = 1,
+	result = /obj/item/spear/explosive
+	reqs = list(/obj/item/spear = 1,
 				/obj/item/grenade = 1)
-	blacklist = list(/obj/item/twohanded/spear/explosive)
-	parts = list(/obj/item/twohanded/spear = 1,
+	blacklist = list(/obj/item/spear/bonespear)
+	parts = list(/obj/item/spear = 1,
 				/obj/item/grenade = 1)
 	time = 15
 	category = CAT_WEAPONRY
@@ -409,7 +399,7 @@
 
 /datum/crafting_recipe/chainsaw
 	name = "Chainsaw"
-	result = /obj/item/twohanded/required/chainsaw
+	result = /obj/item/chainsaw
 	reqs = list(/obj/item/circular_saw = 1,
 				/obj/item/stack/cable_coil = 3,
 				/obj/item/stack/sheet/plasteel = 5)
@@ -420,7 +410,7 @@
 
 /datum/crafting_recipe/spear
 	name = "Spear"
-	result = /obj/item/twohanded/spear
+	result = /obj/item/spear
 	reqs = list(/obj/item/restraints/handcuffs/cable = 1,
 				/obj/item/shard = 1,
 				/obj/item/stack/rods = 1)
@@ -615,7 +605,7 @@
 	result = /obj/item/bombcore/chemical
 	reqs = list(
 		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/twohanded/required/gibtonite = 1,
+		/obj/item/gibtonite = 1,
 		/obj/item/grenade/chem_grenade = 2
 	)
 	parts = list(/obj/item/stock_parts/matter_bin = 1, /obj/item/grenade/chem_grenade = 2)
@@ -759,7 +749,7 @@
 
 /datum/crafting_recipe/bonespear
 	name = "Bone Spear"
-	result = /obj/item/twohanded/bonespear
+	result = /obj/item/spear/bonespear
 	time = 30
 	reqs = list(/obj/item/stack/sheet/bone = 4,
 				 /obj/item/stack/sheet/sinew = 1)
@@ -767,7 +757,7 @@
 
 /datum/crafting_recipe/boneaxe
 	name = "Bone Axe"
-	result = /obj/item/twohanded/fireaxe/boneaxe
+	result = /obj/item/fireaxe/boneaxe
 	time = 50
 	reqs = list(/obj/item/stack/sheet/bone = 6,
 				 /obj/item/stack/sheet/sinew = 3)
@@ -780,23 +770,32 @@
 	result = /obj/structure/bonfire
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/skeleton_key
+	name = "Skeleton Key"
+	time = 30
+	reqs = list(/obj/item/stack/sheet/bone = 5)
+	result = /obj/item/skeleton_key
+	always_available = FALSE
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/headpike
 	name = "Spike Head (Glass Spear)"
 	time = 65
-	reqs = list(/obj/item/twohanded/spear = 1,
+	reqs = list(/obj/item/spear = 1,
 				/obj/item/bodypart/head = 1)
 	parts = list(/obj/item/bodypart/head = 1,
-			/obj/item/twohanded/spear = 1)
+			/obj/item/spear = 1)
+	blacklist = list(/obj/item/spear/explosive, /obj/item/spear/bonespear)
 	result = /obj/structure/headpike
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/headpikebone
 	name = "Spike Head (Bone Spear)"
 	time = 65
-	reqs = list(/obj/item/twohanded/bonespear = 1,
+	reqs = list(/obj/item/spear/bonespear = 1,
 				/obj/item/bodypart/head = 1)
 	parts = list(/obj/item/bodypart/head = 1,
-			/obj/item/twohanded/bonespear = 1)
+			/obj/item/spear/bonespear = 1)
 	result = /obj/structure/headpike/bone
 	category = CAT_PRIMAL
 
@@ -813,7 +812,7 @@
 
 /datum/crafting_recipe/rcl
 	name = "Makeshift Rapid Cable Layer"
-	result = /obj/item/twohanded/rcl/ghetto
+	result = /obj/item/rcl/ghetto
 	time = 40
 	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER, TOOL_WRENCH)
 	reqs = list(/obj/item/stack/sheet/iron = 15)
@@ -916,7 +915,7 @@
 	name = "Shank"
 	reqs = list(/obj/item/shard = 1,
 					/obj/item/stack/cable_coil = 10) // 1 glass shard + 10 cable; needs a wirecutter to snip the cable.
-	result = /obj/item/melee/shank
+	result = /obj/item/kitchen/knife/shank
 	tools = list(TOOL_WIRECUTTER)
 	time = 20
 	category = CAT_WEAPONRY
@@ -932,3 +931,48 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 	tools = list(TOOL_WIRECUTTER)
+
+/datum/crafting_recipe/poppy_pin
+	name = "Poppy Pin"
+	result = /obj/item/clothing/accessory/poppy_pin
+	time = 5
+	reqs = list(/obj/item/stack/rods = 1,
+				/obj/item/reagent_containers/food/snacks/grown/poppy = 1)
+	category = CAT_MISC
+
+/datum/crafting_recipe/poppy_pin_removal
+	name = "Poppy Pin Removal"
+	result = /obj/item/reagent_containers/food/snacks/grown/poppy
+	time = 5
+	reqs = list(/obj/item/clothing/accessory/poppy_pin = 1)
+
+	category = CAT_MISC
+
+/datum/crafting_recipe/insulated_boxing_gloves
+	name = "Insulated Boxing Gloves"
+	result = /obj/item/clothing/gloves/boxing/yellow/insulated
+	time = 60
+	reqs = list(/obj/item/clothing/gloves/boxing = 1,
+				/obj/item/clothing/gloves/color/yellow = 1)
+
+	category = CAT_CLOTHING
+
+
+/datum/crafting_recipe/aquarium
+	name = "Aquarium"
+	result = /obj/structure/aquarium
+	time = 10 SECONDS
+	reqs = list(/obj/item/stack/sheet/iron = 15,
+				/obj/item/stack/sheet/glass = 10,
+				/obj/item/aquarium_kit = 1
+				)
+	category = CAT_MISC
+	
+/datum/crafting_recipe/paper_cup
+	name= "Paper Cup"
+	result = /obj/item/reagent_containers/food/drinks/sillycup
+	time = 10
+	reqs = list(/obj/item/paper = 1)
+	category = CAT_MISC
+	tools = list(TOOL_WIRECUTTER)
+	

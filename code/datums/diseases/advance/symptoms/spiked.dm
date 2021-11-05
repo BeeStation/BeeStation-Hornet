@@ -19,12 +19,14 @@ Thresholds
 	stealth = -3
 	resistance = 3
 	stage_speed = -3
-	transmittable = 0
+	transmission = 0
 	level = 0
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	severity = 1
 	base_message_chance = 5
+	prefixes = list("Thorny ", "Horned ")
+	bodies = list("Horn", "Spiked")
 	var/Power = 1
 	var/armor = 0
 	var/done = FALSE
@@ -33,15 +35,15 @@ Thresholds
 
 /datum/symptom/spiked/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 6)
+	if(A.resistance >= 6)
 		severity -= 1
 
 /datum/symptom/spiked/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 6) //armor. capped at 20, but scaling with resistance, so if you want to max out spiked skin armor, you'll have to make several sacrifices
-		armor = min(20, A.properties["resistance"])
-	if(A.properties["transmittable"] >= 6) //higher damage
+	if(A.resistance >= 6) //armor. capped at 20, but scaling with resistance, so if you want to max out spiked skin armor, you'll have to make several sacrifices
+		armor = min(20, A.resistance)
+	if(A.transmission >= 6) //higher damage
 		Power = 1.4  //the typical +100% is waaaay too strong here when the symptom is stacked. +40% is sufficient
 
 /datum/symptom/spiked/Activate(var/datum/disease/advance/A)
@@ -69,7 +71,7 @@ Thresholds
 				C.apply_damage(1*power, BRUTE, blocked = def_check)
 				C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
 				playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
-			for(var/mob/living/carbon/C in oview(1, H))
+			for(var/mob/living/carbon/C in ohearers(1, H))
 				if(C.pulling && C.pulling == H)
 					var/def_check = C.getarmor(type = "melee")
 					C.apply_damage(3*power, BRUTE, blocked = def_check)

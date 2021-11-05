@@ -5,7 +5,9 @@
 	max_occurrences = 1
 	min_players = 10
 	earliest_start = 30 MINUTES
+	dynamic_should_hijack = TRUE
 	gamemode_blacklist = list("nuclear")
+	cannot_spawn_after_shuttlecall = TRUE
 
 /datum/round_event_control/pirates/preRunEvent()
 	if (!SSmapping.empty_space)
@@ -26,7 +28,7 @@
 	ship_name = pick(strings(PIRATE_NAMES_FILE, "ship_names"))
 
 /datum/round_event/pirates/announce(fake)
-	priority_announce("Incoming subspace communication. Secure channel opened at all communication consoles.", "Incoming Message", 'sound/ai/commandreport.ogg')
+	priority_announce("Incoming subspace communication. Secure channel opened at all communication consoles.", "Incoming Message", SSstation.announcer.get_rand_report_sound())
 	if(fake)
 		return
 	threat = new
@@ -44,15 +46,15 @@
 		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 		if(D)
 			if(D.adjust_money(-payoff))
-				priority_announce("Thanks for the credits, landlubbers.",sender_override = ship_name)
+				priority_announce("Thanks for the credits, landlubbers.", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
 				paid_off = TRUE
 				return
 			else
-				priority_announce("Trying to cheat us? You'll regret this!",sender_override = ship_name)
+				priority_announce("Trying to cheat us? You'll regret this!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
 	if(!shuttle_spawned)
 		spawn_shuttle()
 	else
-		priority_announce("Too late to beg for mercy!",sender_override = ship_name)
+		priority_announce("Too late to beg for mercy!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
 
 /datum/round_event/pirates/start()
 	if(threat && !threat.answered)
@@ -88,7 +90,7 @@
 			else
 				announce_to_ghosts(spawner)
 
-	priority_announce("Unidentified armed ship detected near the station.")
+	priority_announce("Unidentified armed ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
 
 //Shuttle equipment
 
@@ -157,7 +159,7 @@
 		to_chat(user,"<span class='notice'>There's nothing to withdraw.</span>")
 
 /obj/machinery/shuttle_scrambler/proc/send_notification()
-	priority_announce("Data theft signal detected, source registered on local gps units.")
+	priority_announce("Data theft signal detected, source registered on local gps units.", sound = SSstation.announcer.get_rand_alert_sound())
 
 /obj/machinery/shuttle_scrambler/proc/toggle_off(mob/user)
 	SSshuttle.clearTradeBlockade(src)
@@ -174,23 +176,13 @@
 	toggle_off()
 	return ..()
 
-/obj/machinery/computer/shuttle/pirate
+/obj/machinery/computer/shuttle_flight/pirate
 	name = "pirate shuttle console"
 	shuttleId = "pirateship"
 	icon_screen = "syndishuttle"
 	icon_keyboard = "syndie_key"
 	light_color = LIGHT_COLOR_RED
 	possible_destinations = "pirateship_away;pirateship_home;pirateship_custom"
-
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/pirate
-	name = "pirate shuttle navigation computer"
-	desc = "Used to designate a precise transit location for the pirate shuttle."
-	shuttleId = "pirateship"
-	lock_override = CAMERA_LOCK_STATION
-	shuttlePortId = "pirateship_custom"
-	x_offset = 9
-	y_offset = 0
-	see_hidden = FALSE
 
 /obj/docking_port/mobile/pirate
 	name = "pirate shuttle"
@@ -274,7 +266,8 @@
 	. = ..()
 	if (istype(I) && istype(I.buffer,/obj/machinery/piratepad))
 		to_chat(user, "<span class='notice'>You link [src] with [I.buffer] in [I] buffer.</span>")
-		pad = I.buffer
+		set_pad(I.buffer)
+		ui_update()
 		return TRUE
 
 /obj/machinery/computer/piratepad_control/LateInitialize()
@@ -282,10 +275,23 @@
 	if(cargo_hold_id)
 		for(var/obj/machinery/piratepad/P in GLOB.machines)
 			if(P.cargo_hold_id == cargo_hold_id)
-				pad = P
+				set_pad(P)
 				return
 	else
-		pad = locate() in range(4,src)
+		set_pad(locate(/obj/machinery/piratepad) in range(4,src))
+
+/obj/machinery/computer/piratepad_control/proc/set_pad(obj/machinery/piratepad/newpad)
+	if(pad)
+		UnregisterSignal(pad, COMSIG_PARENT_QDELETING)
+
+	pad = newpad
+
+	if(pad)
+		RegisterSignal(pad, COMSIG_PARENT_QDELETING, .proc/handle_pad_deletion)
+
+/obj/machinery/computer/piratepad_control/proc/handle_pad_deletion()
+	pad = null
+	ui_update()
 
 
 /obj/machinery/computer/piratepad_control/ui_state(mob/user)
@@ -381,6 +387,7 @@
 	flick(pad.sending_state,pad)
 	pad.icon_state = pad.idle_state
 	sending = FALSE
+	ui_update()
 
 /obj/machinery/computer/piratepad_control/proc/start_sending()
 	if(sending)

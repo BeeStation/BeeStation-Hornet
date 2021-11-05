@@ -84,7 +84,7 @@
 
 /datum/objective_item/steal/reactive
 	name = "the reactive teleport armor."
-	targetitem = /obj/item/clothing/suit/armor/reactive
+	targetitem = /obj/item/clothing/suit/armor/reactive/teleport
 	difficulty = 5
 	excludefromjob = list("Research Director")
 
@@ -116,7 +116,7 @@
 
 //Items with special checks!
 /datum/objective_item/steal/plasma
-	name = "28 moles of plasma (full tank)."
+	name = "28 moles of plasma (full tank). Be sure to fill up the tank with additional plasma since it doesn't start full!"
 	targetitem = /obj/item/tank
 	difficulty = 3
 	excludefromjob = list("Chief Engineer","Research Director","Station Engineer","Scientist","Atmospheric Technician")
@@ -124,7 +124,7 @@
 /datum/objective_item/steal/plasma/check_special_completion(obj/item/tank/T)
 	var/target_amount = text2num(name)
 	var/found_amount = 0
-	found_amount += T.air_contents.get_moles(/datum/gas/plasma)
+	found_amount += T.air_contents.get_moles(GAS_PLASMA)
 	return found_amount>=target_amount
 
 
@@ -165,6 +165,12 @@
 	if(E.Uses > 0)
 		return 1
 	return 0
+
+/datum/objective_item/steal/blackbox
+	name = "the blackbox."
+	targetitem = /obj/item/blackbox
+	difficulty = 10
+	excludefromjob = list("Chief Engineer","Station Engineer","Atmospheric Technician")
 
 //Unique Objectives
 /datum/objective_item/unique/docs_red

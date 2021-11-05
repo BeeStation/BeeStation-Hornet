@@ -276,7 +276,6 @@
 		"<span class='admin'>SDQL combined querys took [DisplayTimeText(end_time_total)] to complete.</span>") + combined_refs
 
 GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
-GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null, "VIEW VARIABLES (all)", null))
 
 /datum/SDQL2_query
 	var/list/query_tree
@@ -304,10 +303,6 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 	var/list/obj_count_all
 	var/list/obj_count_eligible
 	var/obj_count_finished
-
-	//Statclick
-	var/obj/effect/statclick/SDQL2_delete/delete_click
-	var/obj/effect/statclick/SDQL2_action/action_click
 
 /datum/SDQL2_query/New(list/tree, SU = FALSE, admin_interact = TRUE, _options = SDQL2_OPTIONS_DEFAULT, finished_qdel = FALSE)
 	if(IsAdminAdvancedProcCall() || !LAZYLEN(tree))
@@ -391,17 +386,29 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 			return "##HALTING"
 
 /datum/SDQL2_query/proc/generate_stat()
+	var/list/tab_data = list()
 	if(!allow_admin_interact)
 		return
-	if(!delete_click)
-		delete_click = new(null, "INITIALIZING", src)
-	if(!action_click)
-		action_click = new(null, "INITIALIZNG", src)
-	stat("[id]		", delete_click.update("DELETE QUERY | STATE : [text_state()] | ALL/ELIG/FIN \
-	[islist(obj_count_all)? length(obj_count_all) : (isnull(obj_count_all)? "0" : obj_count_all)]/\
-	[islist(obj_count_eligible)? length(obj_count_eligible) : (isnull(obj_count_eligible)? "0" : obj_count_eligible)]/\
-	[islist(obj_count_finished)? length(obj_count_finished) : (isnull(obj_count_finished)? "0" : obj_count_finished)] - [get_query_text()]"))
-	stat("			", action_click.update("[SDQL2_IS_RUNNING? "HALT" : "RUN"]"))
+	tab_data["Delete Query [id]"] = list(
+		text = "DELETE QUERY | STATE : [text_state()] | ALL/ELIG/FIN \
+			[islist(obj_count_all)? length(obj_count_all) : (isnull(obj_count_all)? "0" : obj_count_all)]/\
+			[islist(obj_count_eligible)? length(obj_count_eligible) : (isnull(obj_count_eligible)? "0" : obj_count_eligible)]/\
+			[islist(obj_count_finished)? length(obj_count_finished) : (isnull(obj_count_finished)? "0" : obj_count_finished)] - [get_query_text()]",
+		action = "sdql2delete",
+		params = list(
+			qid = id,
+		),
+		type = STAT_BUTTON,
+	)
+	tab_data["Toggle Query [id]"] = list(
+		text = "[SDQL2_IS_RUNNING? "HALT" : "RUN"]",
+		action = "sdql2toggle",
+		params = list(
+			qid = id,
+		),
+		type = STAT_BUTTON,
+	)
+	return tab_data
 
 /datum/SDQL2_query/proc/delete_click()
 	admin_del(usr)
@@ -762,7 +769,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 		new_args[++new_args.len] = SDQL_expression(source, arg)
 	if(object == GLOB) // Global proc.
 		procname = "/proc/[procname]"
-		return superuser? (call(procname)(new_args)) : (WrapAdminProcCall(GLOBAL_PROC, procname, new_args))
+		return superuser? (call("/proc/[procname]")(new_args)) : (WrapAdminProcCall(GLOBAL_PROC, procname, new_args))
 	return superuser? (call(object, procname)(new_args)) : (WrapAdminProcCall(object, procname, new_args))
 
 /datum/SDQL2_query/proc/SDQL_function_async(datum/object, procname, list/arguments, source)
@@ -968,13 +975,13 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 //Staying as a world proc as this is called too often for changes to offset the potential IsAdminAdvancedProcCall checking overhead.
 /world/proc/SDQL_var(object, list/expression, start = 1, source, superuser, datum/SDQL2_query/query)
 	var/v
-	var/static/list/exclude = list("usr", "src", "marked", "global")
+	var/static/list/exclude = list("usr", "src", "marked", "global", "MC", "FS", "CFG")
 	var/long = start < expression.len
 	var/datum/D
 	if(is_proper_datum(object))
 		D = object
 
-	if (object == world && (!long || expression[start + 1] == ".") && !(expression[start] in exclude))
+	if (object == world && (!long || expression[start + 1] == ".") && !(expression[start] in exclude) && copytext(expression[start], 1, 3) != "SS")
 		to_chat(usr, "<span class='danger'>World variables are not allowed to be accessed. Use global.</span>")
 		return null
 
@@ -1020,46 +1027,22 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 				v = Failsafe
 			if("CFG")
 				v = config
-			//Subsystem switches
-			if("SSgarbage")
-				v = SSgarbage
-			if("SSmachines")
-				v = SSmachines
-			if("SSobj")
-				v = SSobj
-			if("SSresearch")
-				v = SSresearch
-			if("SSprojectiles")
-				v = SSprojectiles
-			if("SSfastprocess")
-				v = SSfastprocess
-			if("SSticker")
-				v = SSticker
-			if("SStimer")
-				v = SStimer
-			if("SSradiation")
-				v = SSradiation
-			if("SSnpcpool")
-				v = SSnpcpool
-			if("SSmobs")
-				v = SSmobs
-			if("SSmood")
-				v = SSmood
-			if("SSquirks")
-				v = SSquirks
-			if("SSwet_floors")
-				v = SSwet_floors
-			if("SSshuttle")
-				v = SSshuttle
-			if("SSmapping")
-				v = SSmapping
-			if("SSevents")
-				v = SSevents
-			if("SSeconomy")
-				v = SSeconomy
-			//End
 			else
-				return null
+				if(copytext(expression[start], 1, 3) == "SS") //Subsystem
+					var/SSname = copytext(expression[start], 3)
+					var/SSlength = length(SSname)
+					var/datum/controller/subsystem/SS
+					var/SSmatch
+					for(var/_SS in Master.subsystems)
+						SS = _SS
+						if(copytext("[SS.type]", -SSlength) == SSname)
+							SSmatch = SS
+							break
+					if(!SSmatch)
+						return null
+					v = SSmatch
+				else
+					return null
 	else if(object == GLOB) // Shitty ass hack kill me.
 		v = expression[start]
 	if(long)
@@ -1187,16 +1170,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 /proc/is_proper_datum(thing)
 	return istype(thing, /datum) || istype(thing, /client)
 
-/obj/effect/statclick/SDQL2_delete/Click()
-	var/datum/SDQL2_query/Q = target
-	Q.delete_click()
-
-/obj/effect/statclick/SDQL2_action/Click()
-	var/datum/SDQL2_query/Q = target
-	Q.action_click()
-
-/obj/effect/statclick/SDQL2_VV_all
-	name = "VIEW VARIABLES"
-
-/obj/effect/statclick/SDQL2_VV_all/Click()
-	usr.client.debug_variables(GLOB.sdql2_queries)
+/proc/sdqlQueryByID(id)
+	for(var/datum/SDQL2_query/query as anything in GLOB.sdql2_queries)
+		if(query.id == id)
+			return query

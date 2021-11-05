@@ -22,7 +22,7 @@
 /turf/open/floor/pod/light,
 /area/shuttle/mining/large)
 "d" = (
-/obj/machinery/computer/shuttle/mining,
+/obj/machinery/computer/shuttle_flight/mining,
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
@@ -412,6 +412,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "E" = (
@@ -471,6 +472,7 @@
 	port_direction = 2;
 	width = 7
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "N" = (

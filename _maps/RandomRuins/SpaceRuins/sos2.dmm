@@ -1,0 +1,128 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/turf/closed/mineral/random/high_chance,
+/area/ruin/unpowered)
+"c" = (
+/obj/structure/girder,
+/turf/open/floor/mineral/titanium/white/airless,
+/area/ruin/unpowered)
+"d" = (
+/obj/structure/shuttle/engine/propulsion/right,
+/turf/open/space/basic,
+/area/ruin/unpowered)
+"e" = (
+/obj/structure/grille,
+/turf/open/floor/mineral/titanium/white/airless,
+/area/ruin/unpowered)
+"f" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/item/gps{
+	gpstag = "SOS"
+	},
+/turf/open/floor/mineral/titanium/white/airless,
+/area/ruin/unpowered)
+"g" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Escape Pod Airlock"
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/ruin/unpowered)
+"h" = (
+/turf/closed/wall/mineral/titanium/interior,
+/area/ruin/unpowered)
+"i" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/item/storage/pod{
+	pixel_y = -30
+	},
+/obj/effect/mob_spawn/human/corpse/cargo_tech,
+/turf/open/floor/mineral/titanium/white/airless,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+a
+a
+b
+b
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+b
+b
+b
+b
+b
+a
+a
+"}
+(3,1,1) = {"
+a
+b
+b
+b
+b
+b
+a
+a
+"}
+(4,1,1) = {"
+b
+b
+b
+b
+b
+e
+h
+a
+"}
+(5,1,1) = {"
+b
+b
+b
+b
+b
+f
+h
+a
+"}
+(6,1,1) = {"
+a
+b
+b
+b
+c
+i
+h
+a
+"}
+(7,1,1) = {"
+a
+a
+b
+a
+d
+g
+d
+a
+"}
+(8,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+"}

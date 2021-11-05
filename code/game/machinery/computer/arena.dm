@@ -187,7 +187,7 @@
 	to_chat(user,"[ckey] removed from [team] team.")
 
 /obj/machinery/computer/arena/proc/spawn_member(obj/machinery/arena_spawn/spawnpoint,ckey,team)
-	var/mob/oldbody = get_mob_by_key(ckey)
+	var/mob/oldbody = get_mob_by_ckey(ckey)
 	if(!isobserver(oldbody))
 		return
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(get_turf(spawnpoint))
@@ -217,7 +217,7 @@
 	. = list()
 	for(var/team in team_keys)
 		for(var/key in team_keys[team])
-			var/mob/M = get_mob_by_key(key)
+			var/mob/M = get_mob_by_ckey(key)
 			if(M)
 				. += M
 
@@ -336,7 +336,7 @@
 		dat += "<ul>"
 		for(var/ckey in team_keys[team])
 			var/player_status = "Not Present"
-			var/mob/M = get_mob_by_key(ckey)
+			var/mob/M = get_mob_by_ckey(ckey)
 			if(M)
 				//Should define waiting room upper/lower corner and check if they're there instead of generic live/dead check
 				if(isobserver(M))

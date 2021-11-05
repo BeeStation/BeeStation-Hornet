@@ -35,7 +35,7 @@
 	id = "nightmare"
 	limbs_id = "shadow"
 	burnmod = 1.5
-	no_equip = list(SLOT_WEAR_MASK, SLOT_WEAR_SUIT, SLOT_GLOVES, SLOT_SHOES, SLOT_W_UNIFORM, SLOT_S_STORE)
+	no_equip = list(ITEM_SLOT_MASK, ITEM_SLOT_OCLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_ICLOTHING, ITEM_SLOT_SUITSTORE)
 	species_traits = list(NOBLOOD,NO_UNDERWEAR,NO_DNA_COPY,NOTRANSSTING,NOEYESPRITES,NOFLASH)
 	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOGUNS,TRAIT_RADIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER,TRAIT_NOHUNGER)
 	mutanteyes = /obj/item/organ/eyes/night_vision/nightmare
@@ -49,7 +49,7 @@
 	. = ..()
 	to_chat(C, "[info_text]")
 
-	C.fully_replace_character_name("[pick(GLOB.nightmare_names)]")
+	C.fully_replace_character_name(null, pick(GLOB.nightmare_names))
 
 /datum/species/shadow/nightmare/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	var/turf/T = H.loc
@@ -180,40 +180,50 @@
 	. = ..()
 	if(!proximity)
 		return
-	if(isopenturf(AM)) //So you can actually melee with it
+	AM.lighteater_act(src)
+
+/mob/living/lighteater_act(obj/item/light_eater/light_eater)
+	if(on_fire)
+		ExtinguishMob()
+		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
+	for(var/obj/item/O in src)
+		if(O.light_range && O.light_power)
+			O.lighteater_act(light_eater)
+	if(pulling && pulling.light_range)
+		pulling.lighteater_act(light_eater)
+
+/mob/living/carbon/human/lighteater_act(obj/item/light_eater/light_eater)
+	..()
+	if(isethereal(src))
+		emp_act(EMP_LIGHT)
+
+/mob/living/silicon/robot/lighteater_act(obj/item/light_eater/light_eater)
+	..()
+	if(!lamp_cooldown)
+		update_headlamp(TRUE, INFINITY)
+		to_chat(src, "<span class='danger'>Your headlamp is fried! You'll need a human to help replace it.</span>")
+
+/obj/structure/bonfire/lighteater_act(obj/item/light_eater/light_eater)
+	if(burning)
+		extinguish()
+		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
+
+/obj/item/pda/lighteater_act(obj/item/light_eater/light_eater)
+	if(!light_range || !light_power)
 		return
-	if(isliving(AM))
-		var/mob/living/L = AM
-		if(isethereal(AM))
-			AM.emp_act(EMP_LIGHT)
+	set_light(0)
+	light_power = 0
+	fon = FALSE
+	shorted = TRUE
+	update_icon()
+	visible_message("<span class='danger'>The light in [src] shorts out!</span>")
 
-		if(iscyborg(AM))
-			var/mob/living/silicon/robot/borg = AM
-			if(!borg.lamp_cooldown)
-				borg.update_headlamp(TRUE, INFINITY)
-				to_chat(borg, "<span class='danger'>Your headlamp is fried! You'll need a human to help replace it.</span>")
-		else
-			for(var/obj/item/O in AM)
-				if(O.light_range && O.light_power)
-					disintegrate(O)
-		if(L.pulling && L.pulling.light_range && isitem(L.pulling))
-			disintegrate(L.pulling)
-	else if(isitem(AM))
-		var/obj/item/I = AM
-		if(I.light_range && I.light_power)
-			disintegrate(I)
-
-/obj/item/light_eater/proc/disintegrate(obj/item/O)
-	if(istype(O, /obj/item/pda))
-		var/obj/item/pda/PDA = O
-		PDA.set_light(0)
-		PDA.fon = FALSE
-		PDA.f_lum = 0
-		PDA.update_icon()
-		visible_message("<span class='danger'>The light in [PDA] shorts out!</span>")
-	else
-		visible_message("<span class='danger'>[O] is disintegrated by [src]!</span>")
-		O.burn()
+/obj/item/lighteater_act(obj/item/light_eater/light_eater)
+	if(!light_range || !light_power)
+		return
+	if(light_eater)
+		visible_message("<span class='danger'>[src] is disintegrated by [light_eater]!</span>")
+	burn()
 	playsound(src, 'sound/items/welder.ogg', 50, 1)
 
 #undef HEART_SPECIAL_SHADOWIFY

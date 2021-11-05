@@ -67,11 +67,11 @@
 	if(!dissolvable || !target.is_refillable())
 		return
 	if(target.is_drainable() && !target.reagents.total_volume)
-		to_chat(user, "<span class='warning'>[target] is empty! There's nothing to dissolve [src] in.</span>")
+		balloon_alert(user, "It's empty")
 		return
 
 	if(target.reagents.holder_full())
-		to_chat(user, "<span class='warning'>[target] is full.</span>")
+		balloon_alert(user, "It's full")
 		return
 
 	user.visible_message("<span class='warning'>[user] slips something into [target]!</span>", "<span class='notice'>You dissolve [src] in [target].</span>", null, 2)
@@ -137,6 +137,9 @@
 	icon_state = "pill17"
 	list_reagents = list(/datum/reagent/medicine/mannitol = 50)
 	rename_with_volume = TRUE
+
+/obj/item/reagent_containers/pill/mannitol/braintumor //For the brain tumor quirk
+	list_reagents = list(/datum/reagent/medicine/mannitol = 20)
 
 /obj/item/reagent_containers/pill/mutadone
 	name = "mutadone pill"
@@ -226,7 +229,7 @@
 	desc = "I wouldn't eat this if I were you."
 	icon_state = "pill9"
 	color = "#454545"
-	list_reagents = list(/datum/reagent/mutationtoxin/shadow = 1)
+	list_reagents = list(/datum/reagent/mutationtoxin/shadow = 5)
 
 //////////////////////////////////////// drugs
 /obj/item/reagent_containers/pill/zoom

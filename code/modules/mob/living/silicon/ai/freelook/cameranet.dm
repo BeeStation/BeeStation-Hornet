@@ -15,9 +15,6 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 	var/list/chunks = list()
 	var/ready = 0
 
-	// The object used for the clickable stat() button.
-	var/obj/effect/statclick/statclick
-
 	// The objects used in vis_contents of obscured turfs
 	var/list/vis_contents_objects
 	var/obj/effect/overlay/camera_static/vis_contents_opaque
@@ -45,15 +42,15 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 // Returns the chunk in the x, y, z.
 // If there is no chunk, it creates a new chunk and returns that.
-/datum/cameranet/proc/getCameraChunk(x, y, z)
+/datum/cameranet/proc/getCameraChunk(x, y, z, a)
 	x &= ~(CHUNK_SIZE - 1)
 	y &= ~(CHUNK_SIZE - 1)
 	var/key = "[x],[y],[z]"
 	. = chunks[key]
-	if(!.)
+	if(!. && !(istype(a, /area/ai_multicam_room)))
 		chunks[key] = . = new /datum/camerachunk(x, y, z)
 
-// Updates what the aiEye can see. It is recommended you use this when the aiEye moves or it's location is set.
+// Updates what the ai_eye can see. It is recommended you use this when the ai_eye moves or it's location is set.
 
 /datum/cameranet/proc/visibility(list/moved_eyes, client/C, list/other_eyes, use_static = USE_STATIC_OPAQUE)
 	if(!islist(moved_eyes))
@@ -71,7 +68,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 				C.images += obscured
 
 	for(var/V in moved_eyes)
-		var/mob/camera/aiEye/eye = V
+		var/mob/camera/ai_eye/eye = V
 		var/list/visibleChunks = list()
 		if(eye.loc)
 			// 0xf = 15
@@ -172,7 +169,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 
 /datum/cameranet/proc/checkTurfVis(turf/position)
-	var/datum/camerachunk/chunk = chunkGenerated(position.x, position.y, position.z)
+	var/datum/camerachunk/chunk = getCameraChunk(position.x, position.y, position.z, get_area(position))
 	if(chunk)
 		if(chunk.changed)
 			chunk.hasChanged(1) // Update now, no matter if it's visible or not.
@@ -181,10 +178,17 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 	return 0
 
 /datum/cameranet/proc/stat_entry()
-	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
-
-	stat(name, statclick.update("Cameras: [GLOB.cameranet.cameras.len] | Chunks: [GLOB.cameranet.chunks.len]"))
+	var/list/tab_data = list()
+	tab_data["[name]"] = list(
+		text="Cameras: [GLOB.cameranet.cameras.len] | Chunks: [GLOB.cameranet.chunks.len]",
+		action = "statClickDebug",
+		params=list(
+			"targetRef" = REF(src),
+			"class"="datum",
+		),
+		type=STAT_BUTTON,
+	)
+	return tab_data
 
 /obj/effect/overlay/camera_static
 	name = "static"

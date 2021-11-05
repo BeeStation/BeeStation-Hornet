@@ -121,7 +121,7 @@
 	if(anchored)
 		. += "<span class='notice'>It is anchored to the ground.</span>"
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Fuel efficiency increased by <b>[(consumption*100)-100]%</b>.<span>"
+		. += "<span class='notice'>The status display reads: Fuel efficiency increased by <b>[(consumption*100)-100]%</b>.</span>"
 
 /obj/machinery/power/port_gen/pacman/HasFuel()
 	if(sheets >= 1 / (time_per_sheet / power_output) - sheet_left)
@@ -228,6 +228,7 @@
 	if(!ui)
 		ui = new(user, src, "PortableGenerator")
 		ui.open()
+		ui.set_autoupdate(TRUE) // Fuel left, power generated, power in powernet, current heat(?)
 
 /obj/machinery/power/port_gen/pacman/ui_data()
 	var/data = list()

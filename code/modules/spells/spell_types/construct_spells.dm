@@ -173,9 +173,9 @@
 /obj/item/projectile/magic/spell/magic_missile/lesser
 	color = "red" //Looks more culty this way
 	range = 10
-	
+
 /obj/item/projectile/magic/spell/magic_missile/lesser/can_hit_target(atom/target, list/passthrough, direct_target = FALSE, ignore_loc = FALSE)
-	if (iscultist(target))
+	if(ismob(target) && iscultist(target))
 		return FALSE
 	return ..()
 
@@ -236,14 +236,12 @@
 	to_chat(target, "<span class='userdanger'>A freezing darkness surrounds you...</span>")
 	target.playsound_local(get_turf(target), 'sound/hallucinations/i_see_you1.ogg', 50, 1)
 	user.playsound_local(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
-	target.become_blind(ABYSSAL_GAZE_BLIND)
+	target.become_blind(MAGIC_BLIND)
 	addtimer(CALLBACK(src, .proc/cure_blindness, target), 40)
 	target.adjust_bodytemperature(-200)
 
-/obj/effect/proc_holder/spell/targeted/abyssal_gaze/proc/cure_blindness(mob/target)
-	if(isliving(target))
-		var/mob/living/L = target
-		L.cure_blind(ABYSSAL_GAZE_BLIND)
+/obj/effect/proc_holder/spell/targeted/abyssal_gaze/proc/cure_blindness(mob/living/L)
+		L.cure_blind(MAGIC_BLIND)
 
 /obj/effect/proc_holder/spell/targeted/dominate
 	name = "Dominate"
@@ -281,7 +279,7 @@
 		revert_cast()
 		return
 
-	if(S.sentience_type != SENTIENCE_ORGANIC)
+	if(!istype(S) || S.sentience_type != SENTIENCE_ORGANIC)
 		to_chat(user, "<span class='warning'>[S] cannot be dominated!</span>")
 		revert_cast()
 		return
@@ -339,7 +337,7 @@
 	var/turf/T = get_turf(src)
 	playsound(T, 'sound/weapons/resonator_blast.ogg', 100, FALSE)
 	new /obj/effect/temp_visual/cult/sac(T)
-	for(var/obj/O in range(src,1))
+	for(var/obj/O in range(1, src))
 		if(O.density && !istype(O, /obj/structure/destructible/cult))
 			O.take_damage(90, BRUTE, "melee", 0)
 			new /obj/effect/temp_visual/cult/turf/floor(get_turf(O))

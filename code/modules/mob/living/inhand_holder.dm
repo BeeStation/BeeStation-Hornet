@@ -6,6 +6,7 @@
 	icon = null
 	icon_state = ""
 	slot_flags = NONE
+	clothing_flags = NOTCONSUMABLE
 	var/mob/living/held_mob
 	var/can_head = TRUE
 	var/destroying = FALSE
@@ -44,10 +45,14 @@
 /obj/item/clothing/head/mob_holder/proc/update_visuals(mob/living/L)
 	appearance = L.appearance
 
-/obj/item/clothing/head/mob_holder/dropped()
+/obj/item/clothing/head/mob_holder/dropped(mob/user, thrown = FALSE)
 	..()
-	if(held_mob && isturf(loc))
+	if(held_mob && isturf(loc) && !thrown)
 		release()
+
+/obj/item/clothing/head/mob_holder/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
+	. = ..()
+	release()
 
 /obj/item/clothing/head/mob_holder/proc/release(del_on_release = TRUE)
 	if(!held_mob)

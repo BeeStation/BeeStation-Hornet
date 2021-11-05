@@ -8,14 +8,11 @@
 
 .dockerignore @crossedfall
 .github @crossedfall
-.travis.yml @crossedfall
-appveyor.yml @crossedfall
+/code/_compile_options.dm @crossedfall
 /code/modules/tgs @crossedfall
-/config @crossedfall
 dependencies.sh @crossedfall
 Dockerfile @crossedfall
 /SQL @crossedfall
-TGS3.json @crossedfall
 /tools @crossedfall
 
 
@@ -27,11 +24,6 @@ TGS3.json @crossedfall
 # powerfulbacon
 
 /code/game/machinery/shuttle @powerfulbacon
-/code/modules/shuttle @powerfulbacon
-
-# zeskorion
-
-/code/__DEFINES/diseases.dm @zeskorion
-/code/controllers/subsystem/disease.dm @zeskorion
-/code/datums/diseases @zeskorion
-/code/modules/antagonists/disease @zeskorion
+/code/modules/shuttle/super_cruise @powerfulbacon
+/code/modules/shuttle/shuttle_creation @powerfulbacon
+/_maps/map_files/CorgStation @powerfulbacon

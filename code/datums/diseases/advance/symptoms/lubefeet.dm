@@ -4,11 +4,13 @@
 	stealth = 0
 	resistance = 2
 	stage_speed = 5
-	transmittable = -2
+	transmission = -2
 	level = 9
 	severity = 2
 	symptom_delay_min = 1
 	symptom_delay_max = 3
+	prefixes = list("Slippery ", "Lubricated ")
+	bodies = list("Foot", "Feet")
 	var/morelube = FALSE
 	var/clownshoes = TRUE
 	threshold_desc = "<b>Transmission 10:</b> The host sweats even more profusely, lubing almost every tile they walk over<br>\
@@ -16,15 +18,15 @@
 
 /datum/symptom/lubefeet/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["transmittable"] >= 10)
+	if(A.transmission >= 10)
 		severity += 1
 
 /datum/symptom/lubefeet/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 10)
+	if(A.transmission >= 10)
 		morelube = TRUE
-	if(A.properties["resistance"] >= 14)
+	if(A.resistance >= 14)
 		clownshoes = TRUE
 
 /datum/symptom/lubefeet/Activate(datum/disease/advance/A)
@@ -75,5 +77,5 @@
 				qdel(M.shoes)
 		var/obj/item/clothing/C = new /obj/item/clothing/shoes/clown_shoes(M)
 		ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
-		M.equip_to_slot_or_del(C, SLOT_SHOES)
+		M.equip_to_slot_or_del(C, ITEM_SLOT_FEET)
 		return

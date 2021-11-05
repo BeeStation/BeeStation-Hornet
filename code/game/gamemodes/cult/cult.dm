@@ -38,7 +38,7 @@
 	report_type = "cult"
 	antag_flag = ROLE_CULTIST
 	false_report_weight = 1
-	restricted_jobs = list("Chaplain","AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Brig Physician")
+	restricted_jobs = list("Chaplain","AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel")
 	protected_jobs = list()
 	required_players = 29
 	required_enemies = 4
@@ -79,12 +79,16 @@
 	if(prob(remaining))
 		recommended_enemies++
 
+	recommended_enemies = max(recommended_enemies, required_enemies)
 
 	for(var/cultists_number = 1 to recommended_enemies)
 		if(!antag_candidates.len)
 			break
 		var/datum/mind/cultist = antag_pick(antag_candidates, ROLE_CULTIST)
 		antag_candidates -= cultist
+		if(!cultist)
+			cultists_number--
+			continue
 		cultists_to_cult += cultist
 		cultist.special_role = ROLE_CULTIST
 		cultist.restricted_roles = restricted_jobs

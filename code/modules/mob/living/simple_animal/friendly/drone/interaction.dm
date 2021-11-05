@@ -104,7 +104,7 @@
 	var/armorval = 0
 
 	if(head)
-		armorval = head.armor.getRating(type)
+		armorval = head.get_armor_rating(type, src)
 	return (armorval * get_armor_effectiveness()) //armor is reduced for tiny fragile drones
 
 /mob/living/simple_animal/drone/proc/get_armor_effectiveness()

@@ -114,6 +114,7 @@
 /datum/status_effect/incapacitating/stasis/on_creation(mob/living/new_owner, set_duration, updating_canmove)
         . = ..()
         update_time_of_death()
+        owner.reagents?.end_metabolization(owner, FALSE)
 
 /datum/status_effect/incapacitating/stasis/tick()
         update_time_of_death()
@@ -212,7 +213,7 @@
 		var/datum/status_effect/syringe/syringestatus = pick_n_take(syringes)
 		if(istype(syringestatus, /datum/status_effect/syringe))
 			var/obj/item/reagent_containers/syringe/syringe = syringestatus.syringe
-			to_chat(owner, "<span class='notice'>You begin carefully pulling the syringe out...</span>")
+			to_chat(owner, "<span class='notice'>You begin carefully pulling the syringe out.</span>")
 			if(do_after(C, 20, null, owner))
 				to_chat(C, "<span class='notice'>You succesfuly remove the syringe.</span>")
 				syringe.forceMove(C.loc)
@@ -301,9 +302,9 @@
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
 	var/mutable_appearance/marked_underlay
-	var/obj/item/twohanded/kinetic_crusher/hammer_synced
+	var/obj/item/kinetic_crusher/hammer_synced
 
-/datum/status_effect/crusher_mark/on_creation(mob/living/new_owner, obj/item/twohanded/kinetic_crusher/new_hammer_synced)
+/datum/status_effect/crusher_mark/on_creation(mob/living/new_owner, obj/item/kinetic_crusher/new_hammer_synced)
 	. = ..()
 	if(.)
 		hammer_synced = new_hammer_synced
@@ -395,7 +396,7 @@
 		new /obj/effect/temp_visual/bleed/explode(T)
 		for(var/d in GLOB.alldirs)
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, d)
-		playsound(T, "desceration", 200, 1, -1)
+		playsound(T, "desecration", 200, 1, -1)
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
@@ -512,7 +513,7 @@
 	ADD_TRAIT(owner, TRAIT_PACIFISM, "gonbolaPacify")
 	ADD_TRAIT(owner, TRAIT_MUTE, "gonbolaMute")
 	ADD_TRAIT(owner, TRAIT_JOLLY, "gonbolaJolly")
-	to_chat(owner, "<span class='notice'>You suddenly feel at peace and feel no need to make any sudden or rash actions...</span>")
+	to_chat(owner, "<span class='notice'>You suddenly feel at peace and feel no need to make any sudden or rash actions.</span>")
 	return ..()
 
 /datum/status_effect/gonbolaPacify/on_remove()
@@ -531,7 +532,7 @@
 
 /atom/movable/screen/alert/status_effect/trance
 	name = "Trance"
-	desc = "Everything feels so distant, and you can feel your thoughts forming loops inside your head..."
+	desc = "Everything feels so distant, and you can feel your thoughts forming loops inside your head."
 	icon_state = "high"
 
 /datum/status_effect/trance/tick()
@@ -547,7 +548,7 @@
 	if(!owner.has_quirk(/datum/quirk/monochromatic))
 		owner.add_client_colour(/datum/client_colour/monochrome)
 	owner.visible_message("[stun ? "<span class='warning'>[owner] stands still as [owner.p_their()] eyes seem to focus on a distant point.</span>" : ""]", \
-	"<span class='warning'>[pick("You feel your thoughts slow down...", "You suddenly feel extremely dizzy...", "You feel like you're in the middle of a dream...","You feel incredibly relaxed...")]</span>")
+	"<span class='warning'>[pick("You feel your thoughts slow down.", "You suddenly feel extremely dizzy.", "You feel like you're in the middle of a dream.","You feel incredibly relaxed.")]</span>")
 	return TRUE
 
 /datum/status_effect/trance/on_creation(mob/living/new_owner, _duration, _stun = TRUE)
@@ -563,14 +564,16 @@
 		owner.remove_client_colour(/datum/client_colour/monochrome)
 	to_chat(owner, "<span class='warning'>You snap out of your trance!</span>")
 
-/datum/status_effect/trance/proc/hypnotize(datum/source, message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode)
+/datum/status_effect/trance/proc/hypnotize(datum/source, list/hearing_args, list/spans, list/message_mods = list())
+	SIGNAL_HANDLER
+
 	if(!owner.can_hear())
 		return
-	if(speaker == owner)
+	if(hearing_args[HEARING_SPEAKER] == owner)
 		return
 	var/mob/living/carbon/C = owner
 	C.cure_trauma_type(/datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY) //clear previous hypnosis
-	addtimer(CALLBACK(C, /mob/living/carbon.proc/gain_trauma, /datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY, raw_message), 10)
+	addtimer(CALLBACK(C, /mob/living/carbon.proc/gain_trauma, /datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY, hearing_args[HEARING_RAW_MESSAGE]), 10)
 	addtimer(CALLBACK(C, /mob/living.proc/Stun, 60, TRUE, TRUE), 15) //Take some time to think about it
 	qdel(src)
 
@@ -603,9 +606,8 @@
 					range = 7
 
 				var/list/mob/living/targets = list()
-				for(var/mob/M in oview(owner, range))
-					if(isliving(M))
-						targets += M
+				for(var/mob/living/M in oview(range, owner))
+					targets += M
 				if(LAZYLEN(targets))
 					to_chat(owner, "<span class='warning'>Your arm spasms!</span>")
 					owner.log_message(" attacked someone due to a Muscle Spasm", LOG_ATTACK) //the following attack will log itself
@@ -623,7 +625,7 @@
 					return
 				var/obj/item/I = owner.get_active_held_item()
 				var/list/turf/targets = list()
-				for(var/turf/T in oview(owner, 3))
+				for(var/turf/T in oview(3, get_turf(owner)))
 					targets += T
 				if(LAZYLEN(targets) && I)
 					to_chat(owner, "<span class='warning'>Your arm spasms!</span>")
@@ -714,7 +716,7 @@
 		if(owner.confused < 10)
 			owner.confused = 10
 		running_toggled = TRUE
-		to_chat(owner, "<span class='warning'>You know you shouldn't be running here...</span>")
+		to_chat(owner, "<span class='warning'>You know you shouldn't be running here.</span>")
 	owner.add_movespeed_modifier(MOVESPEED_ID_INTERDICTION, multiplicative_slowdown=1.5)
 
 /datum/status_effect/interdiction/on_remove()
@@ -724,7 +726,7 @@
 
 /atom/movable/screen/alert/status_effect/interdiction
 	name = "Interdicted"
-	desc = "I don't think I am meant to go this way..."
+	desc = "I don't think I am meant to go this way."
 	icon_state = "inathneqs_endowment"
 
 /datum/status_effect/fake_virus
@@ -836,8 +838,8 @@
 		var/mob/living/carbon/carbon_owner = owner
 		carbon_owner.adjustStaminaLoss(10 * repetitions)
 		carbon_owner.adjustFireLoss(5 * repetitions)
-		for(var/mob/living/carbon/victim in range(1,carbon_owner))
-			if(IS_HERETIC(victim) || victim == carbon_owner)
+		for(var/mob/living/carbon/victim in ohearers(1,carbon_owner))
+			if(IS_HERETIC(victim))
 				continue
 			victim.apply_status_effect(type,repetitions-1)
 			break
@@ -861,36 +863,84 @@
 	id = "corrosion_curse"
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
-	tick_interval = 1 SECONDS
+	tick_interval = 4 SECONDS
 
 /datum/status_effect/corrosion_curse/on_creation(mob/living/new_owner, ...)
 	. = ..()
-	to_chat(owner, "<span class='danger'>Your feel your body starting to break apart...</span>")
+	to_chat(owner, "<span class='danger'>You hear a distant whisper that fills you with dread.</span>")
 
 /datum/status_effect/corrosion_curse/tick()
 	. = ..()
 	if(!ishuman(owner))
 		return
 	var/mob/living/carbon/human/H = owner
+	if (H.IsSleeping())
+		return
 	var/chance = rand(0,100)
+	var/message = "Coder did fucky wucky U w U"
 	switch(chance)
-		if(0 to 19)
+		if(0 to 39)
+			H.adjustStaminaLoss(20)
+			message = "<span class='notice'>You feel tired.</span>"
+		if(40 to 59)
+			H.Dizzy(3 SECONDS)
+			message = "<span class='warning'>Your feel light headed.</span>"
+		if(60 to 74)
+			H.confused = max(H.confused, 2 SECONDS)
+			message = "<span class='warning'>Your feel confused.</span>"
+		if(75 to 79)
+			H.adjustOrganLoss(ORGAN_SLOT_STOMACH,15)
 			H.vomit()
-		if(20 to 29)
-			H.Dizzy(10)
-		if(30 to 39)
-			H.adjustOrganLoss(ORGAN_SLOT_LIVER,5)
-		if(40 to 49)
-			H.adjustOrganLoss(ORGAN_SLOT_HEART,5)
-		if(50 to 59)
-			H.adjustOrganLoss(ORGAN_SLOT_STOMACH,5)
-		if(60 to 69)
-			H.adjustOrganLoss(ORGAN_SLOT_EYES,10)
-		if(70 to 79)
-			H.adjustOrganLoss(ORGAN_SLOT_EARS,10)
-		if(80 to 89)
-			H.adjustOrganLoss(ORGAN_SLOT_LUNGS,10)
-		if(90 to 99)
-			H.adjustOrganLoss(ORGAN_SLOT_TONGUE,10)
-		if(100)
-			H.adjustOrganLoss(ORGAN_SLOT_BRAIN,20)
+			message = "<span class='warning'>Black bile shoots out of your mouth.</span>"
+		if(80 to 84)
+			H.adjustOrganLoss(ORGAN_SLOT_LIVER,15)
+			H.SetKnockdown(10)
+			message = "<span class='warning'>Your feel a terrible pain in your abdomen.</span>"
+		if(85 to 89)
+			H.adjustOrganLoss(ORGAN_SLOT_EYES,15)
+			message = "<span class='warning'>Your eyes sting.</span>"
+		else
+			H.adjustOrganLoss(ORGAN_SLOT_EARS,15)
+			message = "<span class='warning'>Your inner ear hurts.</span>"
+	if (prob(33))	//so the victim isn't spammed with messages every 3 seconds
+		to_chat(H,message)
+
+/datum/status_effect/ghoul
+	id = "ghoul"
+	status_type = STATUS_EFFECT_UNIQUE
+	duration = -1
+	examine_text = "<span class='warning'>SUBJECTPRONOUN has a blank, catatonic like stare.</span>"
+	alert_type = /atom/movable/screen/alert/status_effect/ghoul
+
+/atom/movable/screen/alert/status_effect/ghoul
+	name = "Flesh Servant"
+	desc = "You are a Ghoul! A eldritch monster reanimated to serve its master."
+	icon_state = "mind_control"
+
+/datum/status_effect/spanish
+	id = "spanish"
+	duration = 120 SECONDS
+	alert_type = null
+
+/datum/status_effect/spanish/on_apply(mob/living/new_owner, ...)
+	. = ..()
+	to_chat(owner, "<span class='warning'>Alert: Vocal cords are malfunctioning.</span>")
+	owner.add_blocked_language(subtypesof(/datum/language/) - /datum/language/uncommon, LANGUAGE_EMP)
+	owner.grant_language(/datum/language/uncommon, FALSE, TRUE, LANGUAGE_EMP)
+
+/datum/status_effect/spanish/on_remove()
+	owner.remove_blocked_language(subtypesof(/datum/language/), LANGUAGE_EMP)
+	owner.remove_language(/datum/language/uncommon, TRUE, TRUE, LANGUAGE_EMP)
+	to_chat(owner, "<span class='warning'>Alert: Vocal cords restored to normal function.</span>")
+	return ..()
+
+/datum/status_effect/ipc/emp
+	id = "ipc_emp"
+	examine_text = "<span class='warning'>SUBJECTPRONOUN is buzzing and twitching!</span>"
+	duration = 120 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/emp
+	status_type = STATUS_EFFECT_REFRESH
+/atom/movable/screen/alert/status_effect/emp
+	name = "Electro-Magnetic Pulse"
+	desc = "You've been hit with an EMP! You're malfunctioning!"
+	icon_state = "hypnosis"

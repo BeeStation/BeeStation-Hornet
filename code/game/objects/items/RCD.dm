@@ -24,7 +24,7 @@ RLD
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(/datum/material/iron=100000)
 	req_access_txt = "11"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	var/datum/effect_system/spark_spread/spark_system
 	var/matter = 0
@@ -53,7 +53,7 @@ RLD
 	. += "\A [src]. It currently holds [matter]/[max_matter] matter-units."
 	if(upgrade & RCD_UPGRADE_SILO_LINK)
 		. += "\A [src]. Remote storage link state: [silo_link ? "[silo_mats.on_hold() ? "ON HOLD" : "ON"]" : "OFF"]."
-		if(silo_link && !silo_mats.on_hold())
+		if(silo_link && !silo_mats.on_hold() && silo_mats.mat_container)
 			. += "\A [src]. Remote connection have iron in equivalent to [silo_mats.mat_container.get_material_amount(/datum/material/iron)/500] rcd units." // 1 matter for 1 floortile, as 4 tiles are produced from 1 iron
 
 /obj/item/construction/Destroy()
@@ -133,17 +133,18 @@ RLD
 		update_icon()
 		return TRUE
 	else
+		var/list/matlist = list(getmaterialref(/datum/material/iron) = 500)
 		if(silo_mats.on_hold())
 			if(user)
 				to_chat(user, "Mineral access is on hold, please contact the quartermaster.")
 			return FALSE
-		if(!silo_mats.mat_container.has_materials(list(/datum/material/iron = 500), amount))
+		if(!silo_mats.mat_container?.has_materials(matlist, amount))
 			if(user)
 				to_chat(user, no_ammo_message)
 			return FALSE
 
-		silo_mats.mat_container.use_materials(list(/datum/material/iron = 500), amount)
-		silo_mats.silo_log(src, "consume", -amount, "build", list(/datum/material/iron = 500))
+		silo_mats.mat_container.use_materials(matlist, amount)
+		silo_mats.silo_log(src, "consume", -amount, "build", matlist)
 		return TRUE
 
 /obj/item/construction/proc/checkResource(amount, mob/user)
@@ -154,7 +155,7 @@ RLD
 			if(user)
 				to_chat(user, "Mineral access is on hold, please contact the quartermaster.")
 			return FALSE
-		. = silo_mats.mat_container.has_materials(list(/datum/material/iron = 500), amount)
+		. = silo_mats.mat_container?.has_materials(list(getmaterialref(/datum/material/iron) = 500), amount)
 	if(!. && user)
 		to_chat(user, no_ammo_message)
 		if(has_ammobar)
@@ -162,7 +163,7 @@ RLD
 	return .
 
 /obj/item/construction/proc/range_check(atom/A, mob/user)
-	if(!(A in view(7, get_turf(user))))
+	if(!(user in viewers(7, get_turf(A))))
 		to_chat(user, "<span class='warning'>The \'Out of Range\' light on [src] blinks red.</span>")
 		return FALSE
 	else
@@ -199,10 +200,10 @@ RLD
 	var/airlock_glass = FALSE // So the floor's rcd_act knows how much ammo to use
 	var/window_type = /obj/structure/window/fulltile
 	var/advanced_airlock_setting = 1 //Set to 1 if you want more paintjobs available
-	var/list/conf_access = null
-	var/use_one_access = 0 //If the airlock should require ALL or only ONE of the listed accesses.
 	var/delay_mod = 1
 	var/canRturf = FALSE //Variable for R walls to deconstruct them
+	/// Integrated airlock electronics for setting access to a newly built airlocks
+	var/obj/item/electronics/airlock/airlock_electronics
 
 /obj/item/construction/rcd/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] sets the RCD to 'Wall' and points it down [user.p_their()] throat! It looks like [user.p_theyre()] trying to commit suicide..</span>")
@@ -235,77 +236,6 @@ RLD
 		to_chat(user, "<span class='notice'>You change \the [src]'s storage link state: [silo_link ? "ON" : "OFF"].</span>")
 	else
 		to_chat(user, "<span class='warning'>\the [src] dont have remote storage connection.</span>")
-
-
-/obj/item/construction/rcd/proc/change_airlock_access(mob/user)
-	if (!ishuman(user) && !user.has_unlimited_silicon_privilege)
-		return
-
-	var/t1 = ""
-
-	if(use_one_access)
-		t1 += "Restriction Type: <a href='?src=[REF(src)];access=one'>At least one access required</a><br>"
-	else
-		t1 += "Restriction Type: <a href='?src=[REF(src)];access=one'>All accesses required</a><br>"
-
-	t1 += "<a href='?src=[REF(src)];access=all'>Remove All</a><br>"
-
-	var/accesses = ""
-	accesses += "<div align='center'><b>Access</b></div>"
-	accesses += "<table style='width:100%'>"
-	accesses += "<tr>"
-	for(var/i = 1; i <= 7; i++)
-		accesses += "<td style='width:14%'><b>[get_region_accesses_name(i)]:</b></td>"
-	accesses += "</tr><tr>"
-	for(var/i = 1; i <= 7; i++)
-		accesses += "<td style='width:14%' valign='top'>"
-		for(var/A in get_region_accesses(i))
-			if(A in conf_access)
-				accesses += "<a href='?src=[REF(src)];access=[A]'><font color=\"red\">[replacetext(get_access_desc(A), " ", "&nbsp")]</font></a> "
-			else
-				accesses += "<a href='?src=[REF(src)];access=[A]'>[replacetext(get_access_desc(A), " ", "&nbsp")]</a> "
-			accesses += "<br>"
-		accesses += "</td>"
-	accesses += "</tr></table>"
-	t1 += "<tt>[accesses]</tt>"
-
-	t1 += "<p><a href='?src=[REF(src)];close=1'>Close</a></p>\n"
-
-	var/datum/browser/popup = new(user, "rcd_access", "Access Control", 900, 500)
-	popup.set_content(t1)
-	popup.open()
-	onclose(user, "rcd_access")
-
-/obj/item/construction/rcd/Topic(href, href_list)
-	..()
-	if (usr.stat || usr.restrained())
-		return
-
-	if (href_list["close"])
-		usr << browse(null, "window=rcd_access")
-		return
-
-	if (href_list["access"])
-		toggle_access(href_list["access"])
-		change_airlock_access(usr)
-
-/obj/item/construction/rcd/proc/toggle_access(acc)
-	if (acc == "all")
-		conf_access = null
-	else if(acc == "one")
-		use_one_access = !use_one_access
-	else
-		var/req = text2num(acc)
-
-		if (conf_access == null)
-			conf_access = list()
-
-		if (!(req in conf_access))
-			conf_access += req
-		else
-			conf_access -= req
-			if (!conf_access.len)
-				conf_access = null
 
 /obj/item/construction/rcd/proc/get_airlock_image(airlock_type)
 	var/obj/machinery/door/airlock/proto = airlock_type
@@ -494,9 +424,13 @@ RLD
 
 /obj/item/construction/rcd/Initialize()
 	. = ..()
+	airlock_electronics = new(src)
+	airlock_electronics.name = "Access Control"
+	airlock_electronics.holder = src
 	GLOB.rcd_list += src
 
 /obj/item/construction/rcd/Destroy()
+	QDEL_NULL(airlock_electronics)
 	GLOB.rcd_list -= src
 	. = ..()
 
@@ -548,7 +482,7 @@ RLD
 			mode = RCD_LADDER
 			return
 		if("Change Access")
-			change_airlock_access(user)
+			airlock_electronics.ui_interact(user)
 			return
 		if("Change Airlock Type")
 			change_airlock_setting(user)
@@ -669,7 +603,7 @@ RLD
 	max_matter = INFINITY
 	matter = INFINITY
 	delay_mod = 0.1
-	upgrade = 1
+	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS
 
 // Ranged RCD
 

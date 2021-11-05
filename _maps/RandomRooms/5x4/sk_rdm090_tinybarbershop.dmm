@@ -97,7 +97,7 @@
 	amount = 2
 	},
 /obj/item/stack/sheet/iron/ten,
-/obj/item/twohanded/required/chainsaw,
+/obj/item/chainsaw,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/item/clothing/head/wig/random,
 /obj/item/radio,

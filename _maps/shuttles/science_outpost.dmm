@@ -23,7 +23,7 @@
 /turf/open/floor/plating,
 /area/shuttle/science)
 "g" = (
-/obj/machinery/computer/shuttle/science,
+/obj/machinery/computer/shuttle_flight/science,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "h" = (
@@ -68,12 +68,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "s" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/east,
-/obj/effect/mapping_helpers/apc/discharged,
 /obj/structure/janitorialcart,
 /obj/item/mop,
 /turf/open/floor/mineral/titanium/purple,
@@ -102,6 +102,7 @@
 /obj/machinery/door/poddoor{
 	id = "sciencecargo"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "I" = (

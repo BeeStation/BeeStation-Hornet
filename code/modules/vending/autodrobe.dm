@@ -76,6 +76,7 @@
 					/obj/item/clothing/under/rank/civilian/clown/sexy = 1,
 					/obj/item/clothing/mask/gas/sexymime = 1,
 					/obj/item/clothing/under/rank/civilian/mime/sexy = 1,
+					/obj/item/clothing/under/rank/civilian/mime/skirt = 1,
 					/obj/item/clothing/mask/rat/bat = 1,
 					/obj/item/clothing/mask/rat/bee = 1,
 					/obj/item/clothing/mask/rat/bear = 1,
@@ -113,6 +114,8 @@
 					/obj/item/clothing/head/cueball = 1,
 					/obj/item/clothing/under/costume/joker = 2,
 					/obj/item/clothing/suit/joker = 2,
+					/obj/item/clothing/under/dress/sailor = 1,
+        			/obj/item/clothing/head/wig/random = 3,
 					/obj/item/clothing/head/delinquent = 1,
 					/obj/item/clothing/ears/headphones = 2)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,

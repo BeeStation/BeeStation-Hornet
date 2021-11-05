@@ -22,6 +22,11 @@
 /datum/antagonist/blob/greet()
 	if(!isovermind(owner.current))
 		to_chat(owner,"<span class='userdanger'>You feel bloated.</span>")
+	else
+		owner.current.client?.tgui_panel?.give_antagonist_popup("Blob",
+			"Place your core by using the place core button.\n\
+			Expand and manage your resources carefully, the crew will know about your existence soon \
+			and will work together to destroy you.")
 
 /datum/antagonist/blob/on_gain()
 	create_objectives()

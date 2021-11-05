@@ -8,7 +8,7 @@
 	agent = "Unknown"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 1
-	severity = DISEASE_SEVERITY_BIOHAZARD
+	danger = DISEASE_BIOHAZARD
 
 /datum/disease/rhumba_beat/stage_act()
 	..()

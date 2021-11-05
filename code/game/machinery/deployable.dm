@@ -120,7 +120,7 @@
 	anchored = FALSE
 	max_integrity = 180
 	proj_pass_rate = 20
-	armor = list("melee" = 10, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 10, "acid" = 0)
+	armor = list("melee" = 10, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 10, "acid" = 0, "stamina" = 0)
 
 	var/deploy_time = 40
 	var/deploy_message = TRUE
@@ -167,7 +167,8 @@
 
 	to_chat(user, "[src] is now in [mode] mode.")
 
-/obj/item/grenade/barrier/prime()
+/obj/item/grenade/barrier/prime(mob/living/lanced_by)
+	. = ..()
 	new /obj/structure/barricade/security(get_turf(src.loc))
 	switch(mode)
 		if(VERTICAL)

@@ -15,7 +15,9 @@
 	var/time_of_birth
 
 	rotate_on_lying = 0
-	bodyparts = list(/obj/item/bodypart/chest/larva, /obj/item/bodypart/head/larva)
+	bodyparts = list(/obj/item/bodypart/chest/larva, /obj/item/bodypart/head/larva)	
+	flavor_text = FLAVOR_TEXT_EVIL
+	playable = TRUE
 
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
@@ -30,10 +32,10 @@
 	..()
 
 //This needs to be fixed
-/mob/living/carbon/alien/larva/Stat()
-	..()
-	if(statpanel("Status"))
-		stat(null, "Progress: [amount_grown]/[max_grown]")
+/mob/living/carbon/alien/larva/get_stat_tab_status()
+	var/list/tab_data = ..()
+	tab_data["Progress"] = GENERATE_STAT_TEXT("[amount_grown]/[max_grown]")
+	return tab_data
 
 /mob/living/carbon/alien/larva/adjustPlasma(amount)
 	if(stat != DEAD && amount > 0)

@@ -16,7 +16,7 @@
 	maxHealth = 40
 	health = 40
 	melee_damage = 15
-	del_on_death = 1
+	del_on_death = TRUE
 	emote_see = list("weeps silently", "groans", "mumbles")
 	attacktext = "grips"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
@@ -36,6 +36,7 @@
 	var/ghost_facial_hair_color
 	var/mutable_appearance/ghost_facial_hair
 	var/random = TRUE //if you want random names for ghosts or not
+	discovery_points = 1000
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Initialize()
 	. = ..()
@@ -47,7 +48,13 @@
 				name = "ghost of [pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
 			if(1)
 				name = "ghost of [pick(GLOB.first_names_female)] [pick(GLOB.last_names)]"
+	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
 
+/mob/living/simple_animal/hostile/retaliate/ghost/Destroy()
+	. = ..()
+	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
+	if(beacon)
+		qdel(beacon)
 
 /mob/living/simple_animal/hostile/retaliate/ghost/proc/give_hair()
 	if(ghost_hair_style != null)

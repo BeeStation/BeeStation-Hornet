@@ -23,16 +23,22 @@
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/on_attack)
 
 /datum/component/jousting/proc/on_equip(datum/source, mob/user, slot)
+	SIGNAL_HANDLER
+
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/mob_move, TRUE)
 	current_holder = user
 
 /datum/component/jousting/proc/on_drop(datum/source, mob/user)
+	SIGNAL_HANDLER
+
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	current_holder = null
 	current_direction = NONE
 	current_tile_charge = 0
 
 /datum/component/jousting/proc/on_attack(datum/source, mob/living/target, mob/user)
+	SIGNAL_HANDLER
+
 	if(user != current_holder)
 		return
 	var/current = current_tile_charge
@@ -41,7 +47,7 @@
 	if((requires_mount && ((requires_mob_riding && !ismob(user.buckled)) || (!user.buckled))) || !current_direction || (current_tile_charge < min_tile_charge))
 		return
 	var/turf/target_turf = get_step(user, current_direction)
-	if(target in range(1, target_turf))
+	if(get_dist(target, target_turf) <= 1)
 		var/knockdown_chance = (target_buckled? mounted_knockdown_chance_per_tile : unmounted_knockdown_chance_per_tile) * current
 		var/knockdown_time = (target_buckled? mounted_knockdown_time : unmounted_knockdown_time)
 		var/damage = (target_buckled? mounted_damage_boost_per_tile : unmounted_damage_boost_per_tile) * current
@@ -59,6 +65,8 @@
 			user.visible_message("<span class='danger'>[msg]!</span>")
 
 /datum/component/jousting/proc/mob_move(datum/source, newloc, dir)
+	SIGNAL_HANDLER
+
 	if(!current_holder || (requires_mount && ((requires_mob_riding && !ismob(current_holder.buckled)) || (!current_holder.buckled))))
 		return
 	if(dir != current_direction)

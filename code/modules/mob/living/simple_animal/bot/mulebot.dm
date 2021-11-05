@@ -20,6 +20,7 @@
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	a_intent = INTENT_HARM //No swapping
 	buckle_lying = 0
+	buckle_prevents_pull = TRUE // No pulling loaded shit
 	mob_size = MOB_SIZE_LARGE
 
 	radio_key = /obj/item/encryptionkey/headset_cargo
@@ -50,6 +51,8 @@
 
 	var/obj/item/stock_parts/cell/cell
 	var/bloodiness = 0
+	///The amount of steps we should take until we rest for a time.
+	var/num_steps = 0
 
 /mob/living/simple_animal/bot/mulebot/Initialize()
 	. = ..()
@@ -101,7 +104,7 @@
 		cell.forceMove(loc)
 		cell = null
 		visible_message("[user] crowbars out the power cell from [src].",
-						"<span class='notice'>You pry the powercell out of [src].</span>")
+						"<span class='notice'>You pry the power cell out of [src].</span>")
 	else if(is_wire_tool(I) && open)
 		return attack_hand(user)
 	else if(load && ismob(load))  // chance to knock off rider
@@ -177,6 +180,7 @@
 	if(!ui)
 		ui = new(user, src, "Mule")
 		ui.open()
+		ui.set_autoupdate(TRUE) // Cell charge, modeStatus
 
 /mob/living/simple_animal/bot/mulebot/ui_data(mob/user)
 	var/list/data = list()
@@ -223,8 +227,7 @@
 					return
 			. = TRUE
 		else
-			bot_control(action, usr, params) // Kill this later.
-			. = TRUE
+			. = bot_control(action, usr, params) // Kill this later.
 
 /mob/living/simple_animal/bot/mulebot/bot_control(command, mob/user, list/params = list(), pda = FALSE)
 	if(pda && wires.is_cut(WIRE_RX)) // MULE wireless is controlled by wires.
@@ -234,12 +237,15 @@
 		if("stop")
 			if(mode >= BOT_DELIVER)
 				bot_reset()
+				. = TRUE
 		if("go")
 			if(mode == BOT_IDLE)
 				start()
+				. = TRUE
 		if("home")
 			if(mode == BOT_IDLE || mode == BOT_DELIVER)
 				start_home()
+				. = TRUE
 		if("destination")
 			var/new_dest
 			if(pda)
@@ -248,6 +254,7 @@
 				new_dest = params["value"]
 			if(new_dest)
 				set_destination(new_dest)
+				. = TRUE
 		if("setid")
 			var/new_id
 			if(pda)
@@ -256,6 +263,7 @@
 				new_id = params["value"]
 			if(new_id)
 				set_id(new_id)
+				. = TRUE
 		if("sethome")
 			var/new_home
 			if(pda)
@@ -264,20 +272,26 @@
 				new_home = params["value"]
 			if(new_home)
 				home_destination = new_home
+				. = TRUE
 		if("unload")
 			if(load && mode != BOT_HUNT)
 				if(loc == target)
 					unload(loaddir)
 				else
 					unload(0)
+				. = TRUE
 		if("autoret")
 			auto_return = !auto_return
+			. = TRUE
 		if("autopick")
 			auto_pickup = !auto_pickup
+			. = TRUE
 		if("report")
 			report_delivery = !report_delivery
+			. = TRUE
 		if("ejectpai")
 			ejectpairemote(user)
+			. = TRUE
 
 // TODO: remove this; PDAs currently depend on it
 /mob/living/simple_animal/bot/mulebot/get_controls(mob/user)
@@ -457,25 +471,16 @@
 		return
 	if(on)
 		var/speed = (wires.is_cut(WIRE_MOTOR1) ? 0 : 1) + (wires.is_cut(WIRE_MOTOR2) ? 0 : 2)
-		var/num_steps = 0
-		switch(speed)
-			if(0)
-				// do nothing
-			if(1)
-				num_steps = 10
-			if(2)
-				num_steps = 5
-			if(3)
-				num_steps = 3
+		if(!speed)//Devide by zero man bad
+			return
+		num_steps = round(10/speed) //10, 5, or 3 steps, depending on how many wires we have cut
+		if(mode != BOT_IDLE)
+			START_PROCESSING(SSfastprocess, src)
 
-		if(num_steps)
-			process_bot()
-			num_steps--
-			if(mode != BOT_IDLE)
-				var/process_timer = addtimer(CALLBACK(src, .proc/process_bot), 2, TIMER_LOOP|TIMER_STOPPABLE)
-				addtimer(CALLBACK(GLOBAL_PROC, /proc/deltimer, process_timer), (num_steps*2) + 1)
-
-/mob/living/simple_animal/bot/mulebot/proc/process_bot()
+/mob/living/simple_animal/bot/mulebot/process()
+	if(num_steps <= 0)
+		return PROCESS_KILL
+	num_steps--
 	if(!on || client)
 		return
 	update_icon()
@@ -574,7 +579,7 @@
 // calculates a path to the current destination
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid = null)
-	path = get_path_to(src, target, /turf/proc/Distance_cardinal, 0, 250, id=access_card, exclude=avoid)
+	path = get_path_to(src, target, 250, id=access_card, exclude=avoid)
 
 // sets the current destination
 // signals all beacons matching the delivery code
@@ -745,6 +750,12 @@
 /mob/living/simple_animal/bot/mulebot/remove_air(amount) //To prevent riders suffocating
 	if(loc)
 		return loc.remove_air(amount)
+	else
+		return null
+
+/mob/living/simple_animal/bot/mulebot/remove_air_ratio(ratio)
+	if(loc)
+		return loc.remove_air_ratio(ratio)
 	else
 		return null
 

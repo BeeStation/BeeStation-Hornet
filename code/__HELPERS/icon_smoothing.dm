@@ -377,8 +377,7 @@
 
 //SSicon_smooth
 /proc/queue_smooth_neighbors(atom/A)
-	for(var/V in orange(1,A))
-		var/atom/T = V
+	for(var/atom/T as() in orange(1,A))
 		if(T.smooth)
 			queue_smooth(T)
 

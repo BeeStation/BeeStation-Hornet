@@ -25,10 +25,11 @@
 #define R_SPAWN			(1<<12)
 #define R_AUTOADMIN		(1<<13)
 #define R_DBRANKS		(1<<14)
+#define R_SUPPRESS	(1<<15) //GDPR/R5 Compliance
 
 #define R_DEFAULT R_AUTOADMIN
 
-#define R_EVERYTHING (1<<15)-1 //the sum of all other rank permissions, used for +EVERYTHING
+#define R_EVERYTHING (1<<16)-1 //the sum of all other rank permissions, used for +EVERYTHING
 
 #define ADMIN_QUE(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];adminmoreinfo=[REF(user)]'>?</a>)"
 #define ADMIN_FLW(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(user)]'>FLW</a>)"
@@ -54,8 +55,8 @@
 #define ADMIN_INDIVIDUALLOG(user) "(<a href='?_src_=holder;[HrefToken(TRUE)];individuallog=[REF(user)]'>LOGS</a>)"
 #define ADMIN_RETRIEVE_BOH_ITEMS(boh) "(<a href='?_src_=holder;[HrefToken(TRUE)];retrieveboh=[REF(boh)]'>RETRIEVE CONSUMED ITEMS</a>)"
 
-#define ADMIN_PUNISHMENT_LIGHTNING "Lightning bolt"
-#define ADMIN_PUNISHMENT_BRAINDAMAGE "Brain damage"
+#define ADMIN_PUNISHMENT_LIGHTNING "Lightning Bolt"
+#define ADMIN_PUNISHMENT_BRAINDAMAGE "Brain Damage"
 #define ADMIN_PUNISHMENT_GIB "Gib"
 #define ADMIN_PUNISHMENT_BSA "Bluespace Artillery Device"
 #define ADMIN_PUNISHMENT_FIREBALL "Fireball"
@@ -67,6 +68,11 @@
 #define ADMIN_PUNISHMENT_CLUWNE "Make Cluwne"
 #define ADMIN_PUNISHMENT_NUGGET "Nugget"
 #define ADMIN_PUNISHMENT_IMMERSE "Fully Immerse"
+#define ADMIN_PUNISHMENT_GHOST "Offer To Ghosts"
+#define ADMIN_PUNISHMENT_DEMOCRACY "Deadchat Control (Democracy)"
+#define ADMIN_PUNISHMENT_ANARCHY "Deadchat Control (Anarchy)"
+#define ADMIN_PUNISHMENT_TOE "Stub Toe (Once)"
+#define ADMIN_PUNISHMENT_TOEPLUS "Stub Toe (Always)"
 
 #define AHELP_UNCLAIMED 1
 #define AHELP_ACTIVE 2
@@ -87,3 +93,18 @@
 
 #define POLICY_POLYMORPH "polymorph" //Shown to vicitm of staff of change and related effects.
 #define POLICY_VERB_HEADER "policy_verb_header" //Shown on top of policy verb window
+
+// allowed ghost roles this round, starts as everything allowed
+GLOBAL_VAR_INIT(ghost_role_flags, (~0))
+
+//Flags that control what ways ghosts can get back into the round
+//ie fugitives, space dragon, etc. also includes dynamic midrounds as it's the same deal
+#define GHOSTROLE_MIDROUND_EVENT	(1<<0)
+//ie ashwalkers, free golems, beach bums
+#define GHOSTROLE_SPAWNER			(1<<1)
+//ie mind monkeys, sentience potion
+#define GHOSTROLE_STATION_SENTIENCE	(1<<2)
+//ie pais, posibrains
+#define GHOSTROLE_SILICONS			(1<<3)
+//ie mafia, ctf
+#define GHOSTROLE_MINIGAME			(1<<4)

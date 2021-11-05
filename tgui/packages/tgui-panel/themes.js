@@ -50,14 +50,6 @@ export const setClientTheme = name => {
       // Status and verb tabs
       'output.background-color': 'none',
       'output.text-color': '#000000',
-      'statwindow.background-color': 'none',
-      'statwindow.text-color': '#000000',
-      'stat.background-color': '#FFFFFF',
-      'stat.tab-background-color': 'none',
-      'stat.text-color': '#000000',
-      'stat.tab-text-color': '#000000',
-      'stat.prefix-color': '#000000',
-      'stat.suffix-color': '#000000',
       // Say, OOC, me Buttons etc.
       'saybutton.background-color': 'none',
       'saybutton.text-color': '#000000',
@@ -110,14 +102,6 @@ export const setClientTheme = name => {
     // Status and verb tabs
     'output.background-color': desired_background_darker,
     'output.text-color': desired_text,
-    'statwindow.background-color': desired_background_darker,
-    'statwindow.text-color': desired_text,
-    'stat.background-color': desired_background_darker,
-    'stat.tab-background-color': desired_background,
-    'stat.text-color': desired_text,
-    'stat.tab-text-color': desired_text,
-    'stat.prefix-color': desired_text,
-    'stat.suffix-color': desired_text,
     // Say, OOC, me Buttons etc.
     'saybutton.background-color': desired_background,
     'saybutton.text-color': desired_text,

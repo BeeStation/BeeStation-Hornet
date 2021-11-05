@@ -19,11 +19,15 @@
 			var/background
 			var/notice = ""
 			switch(current.fields["criminal"])
-				if("*Arrest*")
+				if("Arrest")
 					background = "background-color:#990000;"
 					notice = "<br>**REPORT TO THE BRIG**"
 				if("Incarcerated")
 					background = "background-color:#CD6500;"
+				if("Search")
+					background = "'background-color:#9B13EB;'"
+				if("Monitor")
+					background = "'background-color:#990000;'"
 				if("Paroled")
 					background = "background-color:#CD6500;"
 				if("Discharged")
@@ -97,8 +101,11 @@
 	var/mob/M = usr
 	switch(href_list["choice"])
 		if("Login")
+			if(iscyborg(M))		//cyborgs cannot be set to arrest
+				return
 			var/obj/item/card/id/scan = M.get_idcard(TRUE)
-			authenticated = scan.registered_name
+			if(scan)
+				authenticated = scan.registered_name
 			if(authenticated)
 				for(var/datum/data/record/R in GLOB.data_core.security)
 					if(R.fields["name"] == authenticated)

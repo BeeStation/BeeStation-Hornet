@@ -25,10 +25,10 @@
 	unsuitable_atmos_damage = 15
 	faction = list("russian")
 	status_flags = CANPUSH
-	del_on_death = 1
+	del_on_death = TRUE
 
 	do_footstep = TRUE
-
+	mobchatspan = "syndmob"
 
 /mob/living/simple_animal/hostile/russian/ranged
 	icon_state = "russianranged"

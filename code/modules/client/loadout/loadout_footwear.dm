@@ -1,6 +1,6 @@
 /datum/gear/footwear
 	subtype_path = /datum/gear/footwear
-	slot = SLOT_SHOES
+	slot = ITEM_SLOT_FEET
 	sort_category = "Footwear"
 	cost = 1000
 
@@ -18,6 +18,11 @@
 	display_name = "winter boots"
 	path = /obj/item/clothing/shoes/winterboots
 	cost = 4000
+
+/datum/gear/footwear/swagshoes
+	display_name = "swag shoes"
+	path = /obj/item/clothing/shoes/swagshoes
+	cost = 31000 
 
 //Standard shoes
 

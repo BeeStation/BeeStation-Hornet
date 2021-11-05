@@ -20,12 +20,12 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	del_on_death = 0
+	del_on_death = FALSE
 
 	do_footstep = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/nanotrasenpeace //this should be in a different file
-	name = "Nanotrasen Private Security Officer"
+	name = "\improper Nanotrasen Private Security Officer"
 	desc = "An officer part of Nanotrasen's private security force."
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "nanotrasen"

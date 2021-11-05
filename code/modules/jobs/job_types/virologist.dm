@@ -9,8 +9,9 @@
 	supervisors = "the chief medical officer"
 	selection_color = "#d4ebf2"
 	chat_color = "#75AEA3"
-	exp_type = EXP_TYPE_CREW
 	exp_requirements = 180
+	exp_type = EXP_TYPE_MEDICAL
+	exp_type_department = EXP_TYPE_MEDICAL
 
 	outfit = /datum/outfit/job/virologist
 
@@ -20,6 +21,11 @@
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
+	departments = DEPARTMENT_MEDICAL
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/viro
+	)
 
 /datum/outfit/job/virologist
 	name = "Virologist"
@@ -38,3 +44,4 @@
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel/vir
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
+	pda_slot = ITEM_SLOT_RPOCKET

@@ -68,8 +68,7 @@
 
 			for(var/mob/living/carbon/human/HU in seen_atoms) //check equipment for trigger items
 				var/spook = 0
-				for(var/X in HU.get_all_slots() | HU.held_items)
-					var/obj/I = X
+				for(var/obj/I as() in HU.get_all_slots() | HU.held_items)
 					if(!QDELETED(I) && is_type_in_typecache(I, trigger_objs))
 						spook ++
 				if(spook)
@@ -173,21 +172,20 @@
 
 
 
-/datum/brain_trauma/mild/phobia/on_hear(message, speaker, message_language, raw_message, radio_freq)
+/datum/brain_trauma/mild/phobia/handle_hearing(datum/source, list/hearing_args)
 
 	if(!owner.can_hear()) //words can't trigger you if you can't hear them *taps head*
-		return message
+		return
 	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
-		return message
+		return
 	for(var/word in trigger_words)
 		var/regex/reg = regex("(\\b|\\A)[REGEX_QUOTE(word)]'?s*(\\b|\\Z)", "i")
 
-		if(findtext(raw_message, reg))
+		if(findtext(hearing_args[HEARING_RAW_MESSAGE], reg))
 			if(fear_state <= (PHOBIA_STATE_CALM)) //words can put you on edge, but won't take you over it, unless you have gotten stressed already. don't call freak_out to avoid gaming the adrenaline rush
 				fearscore ++
-			message = reg.Replace(message, "<span class='phobia'>$1</span>")
+			hearing_args[HEARING_RAW_MESSAGE] = reg.Replace(hearing_args[HEARING_RAW_MESSAGE], "<span class='phobia'>$1</span>")
 			break
-	return message
 
 /datum/brain_trauma/mild/phobia/handle_speech(datum/source, list/speech_args)
 	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
@@ -251,8 +249,8 @@
 
 /datum/brain_trauma/mild/phobia/on_lose()
 	owner.remove_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE)
-	psychotic_brawling.remove(owner)
-	QDEL_NULL(psychotic_brawling)
+	if(psychotic_brawling)
+		QDEL_NULL(psychotic_brawling)
 	..()
 
 // Defined phobia types for badminry, not included in the RNG trauma pool to avoid diluting.

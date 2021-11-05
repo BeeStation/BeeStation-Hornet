@@ -1,0 +1,112 @@
+name: Run tests
+
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+    - 'html/changelogs/**'
+    - 'html/changelog.html'
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  run_linters:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup cache
+        id: cache-spacemandmm
+        uses: actions/cache@v2
+        with:
+          path: ~/dreamchecker
+          key: ${{ runner.os }}-spacemandmm-cache-${{ hashFiles('dependencies.sh') }}
+      - name: Install SpacemanDMM
+        if: steps.cache-spacemandmm.outputs.cache-hit != 'true'
+        run: bash tools/ci/install_spaceman_dmm.sh dreamchecker
+      - name: Install Tools
+        run: |
+          pip3 install setuptools
+          bash tools/ci/install_node.sh
+          bash tools/ci/install_auxmos.sh
+          pip3 install -r tools/requirements.txt
+      - name: Run Linters
+        run: |
+          bash tools/ci/check_filedirs.sh beestation.dme
+          bash tools/ci/check_changelogs.sh
+          find . -name "*.php" -print0 | xargs -0 -n1 php -l
+          find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/json_verifier.py
+          tgui/bin/tgui --lint
+          tgui/bin/tgui --test
+          bash tools/ci/check_grep.sh
+          tools/bootstrap/python -m dmi.test
+          tools/bootstrap/python -m mapmerge2.dmm_test
+          ~/dreamchecker
+  compile_all_maps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup cache
+        id: cache-byond
+        uses: actions/cache@v2
+        with:
+          path: ~/BYOND
+          key: ${{ runner.os }}-byond-cache-${{ hashFiles('Dockerfile') }}
+      - name: Install BYOND
+        if: steps.cache-byond.outputs.cache-hit != 'true'
+        run: bash tools/ci/install_byond.sh
+      - name: Compile All Maps
+        run: |
+          source $HOME/BYOND/byond/bin/byondsetup
+          python3 tools/ci/template_dm_generator.py
+          tools/build/build dm -DCIBUILDING -DCITESTING -DALL_MAPS
+  run_all_tests:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup cache
+        id: cache-byond
+        uses: actions/cache@v2
+        with:
+          path: ~/BYOND
+          key: ${{ runner.os }}-byond-cache-${{ hashFiles('Dockerfile') }}
+      - name: Install BYOND
+        if: steps.cache-byond.outputs.cache-hit != 'true'
+        run: bash tools/ci/install_byond.sh
+      - name: Setup database
+        run: |
+          sudo systemctl start mysql
+          mysql -u root -proot -e 'CREATE DATABASE bee_ci;'
+          mysql -u root -proot bee_ci < SQL/beestation_schema.sql
+      - name: Install rust-g
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt update || true
+          sudo apt install libssl1.1:i386
+          bash tools/ci/install_rust_g.sh
+      - name: Install auxmos
+        run: |
+          bash tools/ci/install_auxmos.sh
+      - name: Compile and run tests
+        run: |
+          source $HOME/BYOND/byond/bin/byondsetup
+          tools/build/build -DCIBUILDING
+          bash tools/ci/run_server.sh
+  test_windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Compile
+        run: pwsh tools/ci/build.ps1
+        env:
+          DM_EXE: "C:\\byond\\bin\\dm.exe"

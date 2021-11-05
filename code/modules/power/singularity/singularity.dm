@@ -7,6 +7,7 @@
 	icon_state = "singularity_s1"
 	anchored = TRUE
 	density = TRUE
+	var/is_real = TRUE
 	move_resist = INFINITY
 	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
@@ -16,9 +17,12 @@
 	var/contained = 1 //Are we going to move around?
 	var/energy = 100 //How strong are we?
 	var/dissipate = 1 //Do we lose energy over time?
-	var/dissipate_delay = 10
-	var/dissipate_track = 0
-	var/dissipate_strength = 1 //How much energy do we lose?
+	/// How long should it take for us to dissipate in seconds?
+	var/dissipate_delay = 20
+	/// How much energy do we lose every dissipate_delay?
+	var/dissipate_strength = 1
+	/// How long its been (in seconds) since the last dissipation
+	var/time_since_last_dissipiation = 0
 	var/move_self = 1 //Do we move on our own?
 	var/grav_pull = 4 //How many tiles out do we pull?
 	var/consume_range = 0 //How many tiles out do we eat
@@ -101,7 +105,7 @@
 	switch(severity)
 		if(1)
 			if(current_size <= STAGE_TWO)
-				investigate_log("has been destroyed by a heavy explosion.", INVESTIGATE_SINGULO)
+				investigate_log("has been destroyed by a heavy explosion.", INVESTIGATE_ENGINES)
 				qdel(src)
 				return
 			else
@@ -127,14 +131,14 @@
 	consume(AM)
 
 
-/obj/singularity/process()
+/obj/singularity/process(delta_time)
 	if(current_size >= STAGE_TWO)
 		move()
 		radiation_pulse(src, min(5000, (energy*4.5)+1000), RAD_DISTANCE_COEFFICIENT*0.5)
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
 	eat()
-	dissipate()
+	dissipate(delta_time)
 	check_energy()
 	return
 
@@ -149,17 +153,18 @@
 	var/count = locate(/obj/machinery/field/containment) in urange(30, src, 1)
 	if(!count)
 		message_admins("A singulo has been created without containment fields active at [ADMIN_VERBOSEJMP(T)].")
-	investigate_log("was created at [AREACOORD(T)]. [count?"":"<font color='red'>No containment fields were active</font>"]", INVESTIGATE_SINGULO)
+	investigate_log("was created at [AREACOORD(T)]. [count?"":"<font color='red'>No containment fields were active</font>"]", INVESTIGATE_ENGINES)
 
-/obj/singularity/proc/dissipate()
+/obj/singularity/proc/dissipate(delta_time)
 	if(!dissipate)
 		return
-	if(dissipate_track >= dissipate_delay)
-		src.energy -= dissipate_strength
-		dissipate_track = 0
-	else
-		dissipate_track++
+	time_since_last_dissipiation += delta_time
 
+	// Uses a while in case of especially long delta times
+	while (time_since_last_dissipiation >= dissipate_delay)
+		energy -= dissipate_strength
+
+	time_since_last_dissipiation -= dissipate_delay
 
 /obj/singularity/proc/expand(force_size = 0)
 	var/temp_allowed_size = src.allowed_size
@@ -177,7 +182,7 @@
 			grav_pull = 4
 			consume_range = 0
 			dissipate_delay = 10
-			dissipate_track = 0
+			time_since_last_dissipiation = 0
 			dissipate_strength = 1
 		if(STAGE_TWO)
 			if(check_cardinals_range(1, TRUE))
@@ -189,7 +194,7 @@
 				grav_pull = 6
 				consume_range = 1
 				dissipate_delay = 5
-				dissipate_track = 0
+				time_since_last_dissipiation = 0
 				dissipate_strength = 5
 		if(STAGE_THREE)
 			if(check_cardinals_range(2, TRUE))
@@ -201,7 +206,7 @@
 				grav_pull = 8
 				consume_range = 2
 				dissipate_delay = 4
-				dissipate_track = 0
+				time_since_last_dissipiation = 0
 				dissipate_strength = 20
 		if(STAGE_FOUR)
 			if(check_cardinals_range(3, TRUE))
@@ -213,7 +218,7 @@
 				grav_pull = 10
 				consume_range = 3
 				dissipate_delay = 10
-				dissipate_track = 0
+				time_since_last_dissipiation = 0
 				dissipate_strength = 10
 		if(STAGE_FIVE)//this one also lacks a check for gens because it eats everything
 			current_size = STAGE_FIVE
@@ -234,7 +239,7 @@
 			consume_range = 5
 			dissipate = 0
 	if(current_size == allowed_size)
-		investigate_log("<font color='red'>grew to size [current_size]</font>", INVESTIGATE_SINGULO)
+		investigate_log("<font color='red'>grew to size [current_size]</font>", INVESTIGATE_ENGINES)
 		return 1
 	else if(current_size < (--temp_allowed_size))
 		expand(temp_allowed_size)
@@ -244,7 +249,7 @@
 
 /obj/singularity/proc/check_energy()
 	if(energy <= 0)
-		investigate_log("collapsed.", INVESTIGATE_SINGULO)
+		investigate_log("collapsed.", INVESTIGATE_ENGINES)
 		qdel(src)
 		return 0
 	switch(energy)//Some of these numbers might need to be changed up later -Mport
@@ -267,8 +272,7 @@
 
 
 /obj/singularity/proc/eat()
-	for(var/tile in spiral_range_turfs(grav_pull, src))
-		var/turf/T = tile
+	for(var/turf/T as() in spiral_range_turfs(grav_pull, src))
 		if(!T || !isturf(loc))
 			continue
 		if(get_dist(T, src) > consume_range)
@@ -422,7 +426,7 @@
 			continue
 
 		if(M.stat == CONSCIOUS)
-			if (ishuman(M))
+			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				if(istype(H.glasses, /obj/item/clothing/glasses/meson))
 					var/obj/item/clothing/glasses/meson/MS = H.glasses
@@ -448,5 +452,19 @@
 	return(gain)
 
 /obj/singularity/proc/bluespace_reaction()
-	investigate_log("has been shot by bluespace artillery and destroyed.", INVESTIGATE_SINGULO)
+	SIGNAL_HANDLER
+
+	investigate_log("has been shot by bluespace artillery and destroyed.", INVESTIGATE_ENGINES)
 	qdel(src)
+
+/obj/singularity/deadchat_controlled
+	move_self = FALSE
+
+/obj/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
+	. = ..()
+	AddComponent(/datum/component/deadchat_control, DEMOCRACY_MODE, list(
+	 "up" = CALLBACK(GLOBAL_PROC, .proc/_step, src, NORTH),
+	 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, src, SOUTH),
+	 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, src, WEST),
+	 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, src, EAST)))
+	 

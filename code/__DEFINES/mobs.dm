@@ -7,6 +7,12 @@
 #define PLAYER_READY_TO_PLAY 1
 #define PLAYER_READY_TO_OBSERVE 2
 
+//Game mode list indexes
+#define CURRENT_LIVING_PLAYERS	"living_players_list"
+#define CURRENT_LIVING_ANTAGS	"living_antags_list"
+#define CURRENT_DEAD_PLAYERS	"dead_players_list"
+#define CURRENT_OBSERVERS		"current_observers_list"
+
 //movement intent defines for the m_intent var
 #define MOVE_INTENT_WALK "walk"
 #define MOVE_INTENT_RUN  "run"
@@ -67,6 +73,37 @@
 #define LARVA_BODYPART "larva"
 #define DEVIL_BODYPART "devil"
 
+//Species gib types
+
+#define GIB_TYPE_HUMAN "human"
+#define GIB_TYPE_ROBOTIC "robotic"
+//Species ID defines
+#define SPECIES_HUMAN			"human"
+#define SPECIES_IPC 			"ipc"
+#define SPECIES_ETHEREAL 		"ethereal"
+#define SPECIES_PLASMAMAN 		"plasmaman"
+#define SPECIES_APID 			"apid"
+#define SPECIES_MOTH			"moth"
+#define SPECIES_LIZARD			"lizard"
+#define SPECIES_FELINID			"felinid"
+#define SPECIES_OOZELING		"oozeling"
+#define SPECIES_FLY 			"fly"
+#define SPECIES_SQUID			"squid" //I forgot squids existed lmao
+
+//Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
+#define FLAG_HUMAN			(1<<0)
+#define FLAG_IPC			(1<<1)
+#define FLAG_ETHEREAL		(1<<2)
+#define FLAG_PLASMAMAN		(1<<3)
+#define	FLAG_APID			(1<<4)
+#define FLAG_MOTH			(1<<5)
+#define FLAG_LIZARD			(1<<6)
+#define FLAG_FELINID		(1<<7)
+#define FLAG_OOZELING		(1<<8)
+#define FLAG_FLY			(1<<9)
+#define FLAG_SQUID			(1<<10)
+#define FLAG_DEBUG_SPECIES	(1<<11)
+
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
 #define PROCESS_SYNTHETIC 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
@@ -81,7 +118,8 @@
 #define HUMAN_MAX_OXYLOSS 3
 #define HUMAN_CRIT_MAX_OXYLOSS (SSmobs.wait/30)
 
-#define STAMINA_REGEN_BLOCK_TIME (10 SECONDS)
+#define STAMINA_CRIT_TIME (5 SECONDS)	//Time before regen starts when in stam crit
+#define STAMINA_REGEN_BLOCK_TIME (2 SECONDS) //Time before regen starts when hit with stam damage
 
 #define HEAT_DAMAGE_LEVEL_1 2 //! Amount of damage applied when your body temperature just passes the 360.15k safety point
 #define HEAT_DAMAGE_LEVEL_2 3 //! Amount of damage applied when your body temperature passes the 400K point
@@ -167,6 +205,7 @@
 #define HYGIENE_LEVEL_CLEAN 250
 #define HYGIENE_LEVEL_NORMAL 200
 #define HYGIENE_LEVEL_DIRTY 75
+#define HYGIENE_LEVEL_DISGUSTING 0
 
 //Nutrition levels for humans
 #define NUTRITION_LEVEL_FAT 600
@@ -188,12 +227,8 @@
 //Used as an upper limit for species that continuously gain nutriment
 #define NUTRITION_LEVEL_ALMOST_FULL 535
 
-//Charge levels for Ethereals
-#define ETHEREAL_CHARGE_NONE 0
-#define ETHEREAL_CHARGE_LOWPOWER 20
-#define ETHEREAL_CHARGE_NORMAL 50
-#define ETHEREAL_CHARGE_ALMOSTFULL 75
-#define ETHEREAL_CHARGE_FULL 100
+//Base nutrition value used for newly initialized slimes
+#define SLIME_DEFAULT_NUTRITION 700
 
 //Slime evolution threshold. Controls how fast slimes can split/grow
 #define SLIME_EVOLUTION_THRESHOLD 10
@@ -209,6 +244,31 @@
 #define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY	6 //! Min friendship to order it to stop chasing someone (their target) without it losing friendship
 #define SLIME_FRIENDSHIP_STAY				3 //! Min friendship to order it to stay
 #define SLIME_FRIENDSHIP_ATTACK				8 //! Min friendship to order it to attack
+
+//Slime transformative extract effects
+#define SLIME_EFFECT_DEFAULT		(1<<0)
+#define SLIME_EFFECT_GREY			(1<<1)
+#define SLIME_EFFECT_ORANGE			(1<<2)
+#define SLIME_EFFECT_PURPLE			(1<<3)
+#define SLIME_EFFECT_BLUE			(1<<4)
+#define SLIME_EFFECT_METAL			(1<<5)
+#define SLIME_EFFECT_YELLOW			(1<<6)
+#define SLIME_EFFECT_DARK_PURPLE	(1<<7)
+#define SLIME_EFFECT_DARK_BLUE		(1<<8)
+#define SLIME_EFFECT_SILVER			(1<<9)
+#define SLIME_EFFECT_BLUESPACE		(1<<10)
+#define SLIME_EFFECT_SEPIA			(1<<11)
+#define SLIME_EFFECT_CERULEAN		(1<<12)
+#define SLIME_EFFECT_PYRITE			(1<<13)
+#define SLIME_EFFECT_RED			(1<<14)
+#define SLIME_EFFECT_GREEN			(1<<15)
+#define SLIME_EFFECT_PINK			(1<<16)
+#define SLIME_EFFECT_GOLD			(1<<17)
+#define SLIME_EFFECT_OIL			(1<<18)
+#define SLIME_EFFECT_BLACK			(1<<19)
+#define SLIME_EFFECT_LIGHT_PINK		(1<<20)
+#define SLIME_EFFECT_ADAMANTINE		(1<<21)
+#define SLIME_EFFECT_RAINBOW		(1<<22)
 
 //Sentience types, to prevent things like sentience potions from giving bosses sentience
 #define SENTIENCE_ORGANIC 1
@@ -236,6 +296,7 @@
 #define SLIDE					(1<<1)
 #define GALOSHES_DONT_HELP		(1<<2)
 #define SLIDE_ICE				(1<<3)
+#define SLIP_WHEN_CRAWLING		(1<<4) //clown planet ruin
 
 ///Flags used by the flags parameter of electrocute act.
 ///Makes it so that the shock doesn't take gloves into account.
@@ -250,8 +311,9 @@
 #define INCORPOREAL_MOVE_BASIC 1
 #define INCORPOREAL_MOVE_SHADOW 2 //!  leaves a trail of shadows
 #define INCORPOREAL_MOVE_JAUNT 3 //! is blocked by holy water/salt
+#define INCORPOREAL_MOVE_EMINENCE 4 //! same as jaunt, but lets eminence pass clockwalls
 
-//Secbot and ED209 judgement criteria bitflag values
+//Secbot and ED209 judgment criteria bitflag values
 #define JUDGE_EMAGGED		(1<<0)
 #define JUDGE_IDCHECK		(1<<1)
 #define JUDGE_WEAPONCHECK	(1<<2)
@@ -277,6 +339,8 @@
 #define OFFSET_BACK "back"
 #define OFFSET_SUIT "suit"
 #define OFFSET_NECK "neck"
+#define OFFSET_LEFT_HAND "l_hand"
+#define OFFSET_RIGHT_HAND "r_hand"
 
 //MINOR TWEAKS/MISC
 #define AGE_MIN				18	//! youngest a character can be
@@ -288,7 +352,6 @@
 #define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
 
 #define	HUNGER_FACTOR		0.1	//! factor at which mob nutrition decreases
-#define	ETHEREAL_CHARGE_FACTOR	0.1 //! factor at which ethereal's charge decreases
 #define	HYGIENE_FACTOR  0.1	//! factor at which mob hygiene decreases
 #define	REAGENTS_METABOLISM 0.4	//! How many units of reagent are consumed per tick, by default.
 #define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)	//! By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
@@ -333,5 +396,24 @@
 #define WABBAJACK     (1<<6)
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+#define INTERACTING_WITH(X, Y) (Y in X.do_afters)
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
+
+// Mob Playability Set By Admin Or Ghosting
+#define SENTIENCE_SKIP 0
+#define SENTIENCE_RETAIN 1	//a player ghosting out of the mob will make the mob playable for others, if it was already playable
+#define SENTIENCE_FORCE 2		//the mob will be made playable by force when a player is forcefully ejected from a mob (by admin, for example)
+#define SENTIENCE_ERASE 3
+
+//Flavor Text When Entering A Playable Mob
+#define FLAVOR_TEXT_EVIL "evil"	//mob antag
+#define FLAVOR_TEXT_GOOD "good"	//ie do not cause evil
+#define FLAVOR_TEXT_NONE "none"
+#define FLAVOR_TEXT_GOAL_ANTAG "blob"	//is antag, but should work towards its goals
+
+//Saves a proc call, life is suffering. If who has no targets_from var, we assume it's just who
+#define GET_TARGETS_FROM(who) (who.targets_from ? who.get_targets_from() : who)
+
+///Define for spawning megafauna instead of a mob for cave gen
+#define SPAWN_MEGAFAUNA "bluh bluh huge boss"

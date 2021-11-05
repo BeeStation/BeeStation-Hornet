@@ -3,6 +3,7 @@
 	typepath = /datum/round_event/obsessed
 	max_occurrences = 1
 	min_players = 20
+	cannot_spawn_after_shuttlecall = TRUE
 
 /datum/round_event/obsessed
 	fakeable = FALSE

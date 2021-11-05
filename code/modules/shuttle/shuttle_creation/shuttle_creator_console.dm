@@ -15,7 +15,7 @@
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/CreateEye()
-	eyeobj = new /mob/camera/aiEye/remote/shuttle_creation(get_turf(owner_rsd))
+	eyeobj = new /mob/camera/ai_eye/remote/shuttle_creation(get_turf(owner_rsd))
 	eyeobj.origin = src
 	eyeobj.use_static = USE_STATIC_NONE
 
@@ -78,13 +78,13 @@
 			eyeobj.eye_initialized = TRUE
 			give_eye_control(L)
 			eyeobj.setLoc(camera_location)
-			var/mob/camera/aiEye/remote/shuttle_creation/shuttle_eye = eyeobj
+			var/mob/camera/ai_eye/remote/shuttle_creation/shuttle_eye = eyeobj
 			shuttle_eye.source_turf = get_turf(user)
 		else
 			user.unset_machine()
 	else
 		var/camera_location = get_turf(owner_rsd)
-		var/mob/camera/aiEye/remote/shuttle_creation/eye = eyeobj
+		var/mob/camera/ai_eye/remote/shuttle_creation/eye = eyeobj
 		give_eye_control(L)
 		if(camera_location)
 			eye.source_turf = camera_location

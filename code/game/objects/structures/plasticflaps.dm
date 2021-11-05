@@ -3,7 +3,7 @@
 	desc = "Heavy duty, airtight, plastic flaps. Definitely can't get past those. No way."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "plasticflaps"
-	armor = list("melee" = 100, "bullet" = 80, "laser" = 80, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 50, "acid" = 50)
+	armor = list("melee" = 100, "bullet" = 80, "laser" = 80, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 50, "acid" = 50, "stamina" = 0)
 	density = FALSE
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER
@@ -57,17 +57,17 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/plasticflaps/CanAStarPass(ID, to_dir, caller)
+/obj/structure/plasticflaps/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
 	if(isliving(caller))
 		if(isbot(caller))
 			return TRUE
 
-		var/mob/living/M = caller
-		if(!M.ventcrawler && M.mob_size != MOB_SIZE_TINY)
+		var/mob/living/living_caller = caller
+		if(!living_caller.ventcrawler && living_caller.mob_size != MOB_SIZE_TINY)
 			return FALSE
-	var/atom/movable/M = caller
-	if(M?.pulling)
-		return CanAStarPass(ID, to_dir, M.pulling)
+
+	if(caller?.pulling)
+		return CanAStarPass(ID, to_dir, caller.pulling)
 	return TRUE //diseases, stings, etc can pass
 
 /obj/structure/plasticflaps/CanPass(atom/movable/A, turf/T)

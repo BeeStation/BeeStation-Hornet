@@ -52,7 +52,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	verb_exclaim = "beeps"
 	max_integrity = 300
 	integrity_failure = 100
-	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70)
+	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
 	circuit = /obj/item/circuitboard/machine/vendor
 	payment_department = ACCOUNT_SRV
 
@@ -64,7 +64,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	var/vend_ready = TRUE
 	///Next world time to send a purchase message
 	var/purchase_message_cooldown
-	///Last mob to shop with us
+	///The ref of the last mob to shop with us
 	var/last_shopper
 	var/tilted = FALSE
 	var/tiltable = TRUE
@@ -122,8 +122,8 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	var/seconds_electrified = MACHINE_NOT_ELECTRIFIED
 	///When this is TRUE, we fire items at customers! We're broken!
 	var/shoot_inventory = 0
-	///How likely this is to happen (prob 100)
-	var/shoot_inventory_chance = 2
+	///How likely this is to happen (prob 100) per second
+	var/shoot_inventory_chance = 1
 	//Stop spouting those godawful pitches!
 	var/shut_up = 0
 	///can we access the hidden inventory?
@@ -501,9 +501,11 @@ GLOBAL_LIST_EMPTY(vending_products)
 						crit_rebate = 50
 						for(var/i = 0, i < num_shards, i++)
 							var/obj/item/shard/shard = new /obj/item/shard(get_turf(C))
-							shard.embedding = shard.embedding.setRating(embed_chance = 100, embedded_ignore_throwspeed_threshold = TRUE, embedded_impact_pain_multiplier=1,embedded_pain_chance=5)
+							shard.embedding = list(embed_chance = 10000, ignore_throwspeed_threshold = TRUE, impact_pain_mult=1, pain_chance=5)
+							shard.updateEmbedding()
 							C.hitby(shard, skipcatch = TRUE, hitpush = FALSE)
-							shard.embedding = shard.embedding.setRating(embed_chance = EMBED_CHANCE, embedded_ignore_throwspeed_threshold = FALSE)
+							shard.embedding = list()
+							shard.updateEmbedding()
 					if(4) // paralyze this binch
 						// the new paraplegic gets like 4 lines of losing their legs so skip them
 						visible_message("<span class='danger'>[C]'s spinal cord is obliterated with a sickening crunch!</span>")
@@ -694,6 +696,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	. = list()
 	var/mob/living/carbon/human/H
 	var/obj/item/card/id/C
+	.["user"] = null
 	if(ishuman(user))
 		H = user
 		C = H.get_idcard(TRUE)
@@ -718,7 +721,6 @@ GLOBAL_LIST_EMPTY(vending_products)
 		return
 	switch(action)
 		if("vend")
-			. = TRUE
 			if(!vend_ready)
 				return
 			if(panel_open)
@@ -775,20 +777,22 @@ GLOBAL_LIST_EMPTY(vending_products)
 				var/datum/bank_account/D = SSeconomy.get_dep_account(payment_department)
 				if(D)
 					D.adjust_money(price_to_use)
-			if(last_shopper != usr || purchase_message_cooldown < world.time)
+			if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
 				say("Thank you for shopping with [src]!")
 				purchase_message_cooldown = world.time + 5 SECONDS
-				last_shopper = usr
+				//This is not the best practice, but it's safe enough here since the chances of two people using a machine with the same ref in 5 seconds is fuck low
+				last_shopper = REF(usr)
 			use_power(5)
 			if(icon_vend) //Show the vending animation if needed
 				flick(icon_vend,src)
 			playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
 			new R.product_path(get_turf(src))
 			R.amount--
+			. = TRUE
 			SSblackbox.record_feedback("nested tally", "vending_machine_usage", 1, list("[type]", "[R.product_path]"))
 			vend_ready = TRUE
 
-/obj/machinery/vending/process()
+/obj/machinery/vending/process(delta_time)
 	if(stat & (BROKEN|NOPOWER))
 		return PROCESS_KILL
 	if(!active)
@@ -796,14 +800,16 @@ GLOBAL_LIST_EMPTY(vending_products)
 
 	if(seconds_electrified > MACHINE_NOT_ELECTRIFIED)
 		seconds_electrified--
+		if(seconds_electrified <= MACHINE_NOT_ELECTRIFIED)
+			wires.ui_update()
 
 	//Pitch to the people!  Really sell it!
-	if(last_slogan + slogan_delay <= world.time && slogan_list.len > 0 && !shut_up && prob(5))
+	if(last_slogan + slogan_delay <= world.time && slogan_list.len > 0 && !shut_up && DT_PROB(2.5, delta_time))
 		var/slogan = pick(slogan_list)
 		speak(slogan)
 		last_slogan = world.time
 
-	if(shoot_inventory && prob(shoot_inventory_chance))
+	if(shoot_inventory && DT_PROB(shoot_inventory_chance, delta_time))
 		throw_item()
 /**
   * Speak the given message verbally
@@ -865,6 +871,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 
 	throw_item.throw_at(target, 16, 3)
 	visible_message("<span class='danger'>[src] launches [throw_item] at [target]!</span>")
+	ui_update()
 	return 1
 /**
   * A callback called before an item is tossed out
@@ -936,11 +943,14 @@ GLOBAL_LIST_EMPTY(vending_products)
 
 /obj/machinery/vending/custom/canLoadItem(obj/item/I, mob/user)
 	. = FALSE
+	if(I.flags_1 & HOLOGRAM_1)
+		say("This vendor cannot accept nonexistent items.")
+		return
 	if(loaded_items >= max_loaded_items)
 		say("There are too many items in stock.")
 		return
 	if(istype(I, /obj/item/stack))
-		say("Loose items may cause problems, try use it inside wrapping paper.")
+		say("Loose items may cause problems, try to use it inside wrapping paper.")
 		return
 	if(I.custom_price)
 		return TRUE
@@ -976,7 +986,6 @@ GLOBAL_LIST_EMPTY(vending_products)
 		return
 	switch(action)
 		if("dispense")
-			. = TRUE
 			if(!vend_ready)
 				return
 			var/N = params["item"]
@@ -1008,8 +1017,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 						loaded_items--
 						use_power(5)
 						vend_ready = TRUE
-						updateUsrDialog()
-						return
+						return TRUE
 					if(account.has_money(S.custom_price))
 						account.adjust_money(-S.custom_price)
 						var/datum/bank_account/owner = private_a
@@ -1020,13 +1028,12 @@ GLOBAL_LIST_EMPTY(vending_products)
 						S.forceMove(drop_location())
 						loaded_items--
 						use_power(5)
-						if(last_shopper != usr || purchase_message_cooldown < world.time)
+						if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
 							say("Thank you for buying local and purchasing [S]!")
 							purchase_message_cooldown = world.time + 5 SECONDS
-							last_shopper = usr
+							last_shopper = REF(usr)
 						vend_ready = TRUE
-						updateUsrDialog()
-						return
+						return TRUE
 					else
 						say("You do not possess the funds to purchase this.")
 			vend_ready = TRUE
@@ -1049,15 +1056,6 @@ GLOBAL_LIST_EMPTY(vending_products)
 			slogan_list += stripped_input(user,"Set slogan","Slogan","Epic", 60)
 			last_slogan = world.time + rand(0, slogan_delay)
 			return
-
-		if(canLoadItem(I))
-			loadingAttempt(I,user)
-			updateUsrDialog()
-			return
-
-	if(panel_open && is_wire_tool(I))
-		wires.interact(user)
-		return
 
 	return ..()
 

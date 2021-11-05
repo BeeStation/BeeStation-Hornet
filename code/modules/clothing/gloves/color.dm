@@ -1,5 +1,5 @@
 /obj/item/clothing/gloves/color/yellow
-	desc = "These gloves will protect the wearer from electric shock."
+	desc = "These gloves provide protection against electric shock."
 	name = "insulated gloves"
 	icon_state = "yellow"
 	item_state = "ygloves"
@@ -7,6 +7,39 @@
 	permeability_coefficient = 0.05
 	item_color="yellow"
 	resistance_flags = NONE
+	cut_type = /obj/item/clothing/gloves/cut
+
+/obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
+	. = ..()
+	if((slot == ITEM_SLOT_GLOVES) && (user.mind?.assigned_role in GLOB.security_positions))
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
+
+/obj/item/clothing/gloves/color/black/dropped(mob/user)
+	. = ..()
+	if(user.mind?.assigned_role in GLOB.security_positions)
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_black_gloves")
+
+/obj/item/clothing/gloves/color/black/hos
+	item_color = "hosred"	//Exists for washing machines. Is not different from black gloves in any way.
+
+/obj/item/clothing/gloves/color/black/ce
+	item_color = "chief"		//Exists for washing machines. Is not different from black gloves in any way.
+
+/obj/item/clothing/gloves/color/yellow/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_GLOVES)
+		if(user.mind?.assigned_role == "Assistant")
+			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "assistant_insulated_gloves", /datum/mood_event/assistant_insulated_gloves)
+		if(user.mind?.assigned_role in GLOB.security_positions)
+			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_insulated_gloves", /datum/mood_event/sec_insulated_gloves)
+
+/obj/item/clothing/gloves/color/yellow/dropped(mob/user)
+	. = ..()
+	if(user.mind?.assigned_role == "Assistant")
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "assistant_insulated_gloves")
+	if(user.mind?.assigned_role in GLOB.security_positions)
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_insulated_gloves")
+
 
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
 	desc = "These gloves are cheap knockoffs of the coveted ones - no way this can end badly."
@@ -17,6 +50,7 @@
 	permeability_coefficient = 0.05
 	item_color = "yellow"
 	resistance_flags = NONE
+	cut_type = /obj/item/clothing/gloves/cut
 
 /obj/item/clothing/gloves/color/fyellow/Initialize()
 	. = ..()
@@ -30,7 +64,7 @@
 			. += "[src] will fully protect from electric shocks."
 		if(siemens_coefficient > 1)
 			. += "[src] will only make shocks worse."
-		else 
+		else
 			. += "[src] will provide [protectionpercentage] percent protection from electric shocks."
 
 /obj/item/clothing/gloves/color/fyellow/old
@@ -40,6 +74,16 @@
 /obj/item/clothing/gloves/color/fyellow/old/Initialize()
 	. = ..()
 	siemens_coefficient = pick(0,0,0,0.5,0.5,0.5,0.75)
+
+/obj/item/clothing/gloves/cut
+	desc = "These gloves would protect the wearer from electric shock... if the fingers were covered."
+	name = "fingerless insulated gloves"
+	icon_state = "yellowcut"
+	item_state = "ygloves"
+	transfer_prints = TRUE
+
+/obj/item/clothing/gloves/cut/heirloom
+	desc = "The old gloves your great grandfather stole from Engineering, many moons ago. They've seen some tough times recently."
 
 /obj/item/clothing/gloves/color/black
 	desc = "These gloves are fire-resistant."
@@ -52,22 +96,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	var/can_be_cut = 1
-
-/obj/item/clothing/gloves/color/black/hos
-	item_color = "hosred"	//Exists for washing machines. Is not different from black gloves in any way.
-
-/obj/item/clothing/gloves/color/black/ce
-	item_color = "chief"		//Exists for washing machines. Is not different from black gloves in any way.
-
-/obj/item/clothing/gloves/color/black/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_WIRECUTTER)
-		if(can_be_cut && icon_state == initial(icon_state))//only if not dyed
-			to_chat(user, "<span class='notice'>You snip the fingertips off of [src].</span>")
-			I.play_tool_sound(src)
-			new /obj/item/clothing/gloves/fingerless(drop_location())
-			qdel(src)
-	..()
+	cut_type = /obj/item/clothing/gloves/fingerless
 
 /obj/item/clothing/gloves/color/orange
 	name = "orange gloves"
@@ -86,7 +115,7 @@
 
 /obj/item/clothing/gloves/color/red/insulated
 	name = "insulated gloves"
-	desc = "These gloves will protect the wearer from electric shock."
+	desc = "These gloves provide protection against electric shock."
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
@@ -165,26 +194,42 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 50)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 50, "stamina" = 0)
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
-	desc = "Cheap sterile gloves made from latex."
+	desc = "Cheap sterile gloves made from latex. Transfers minor paramedic knowledge to the user via budget nanochips."
 	icon_state = "latex"
-	item_state = "lgloves"
+	item_state = "latex"
 	siemens_coefficient = 0.3
 	permeability_coefficient = 0.01
 	item_color="mime"
 	transfer_prints = TRUE
 	resistance_flags = NONE
+	var/carrytrait = TRAIT_QUICK_CARRY
+
+/obj/item/clothing/gloves/color/latex/equipped(mob/user, slot)
+	..()
+	if(slot == ITEM_SLOT_GLOVES)
+		ADD_TRAIT(user, carrytrait, CLOTHING_TRAIT)
+
+/obj/item/clothing/gloves/color/latex/dropped(mob/user)
+	..()
+	REMOVE_TRAIT(user, carrytrait, CLOTHING_TRAIT)
+
+/obj/item/clothing/gloves/color/latex/obj_break()
+	..()
+	if(ishuman(loc))
+		REMOVE_TRAIT(loc, carrytrait, CLOTHING_TRAIT)
 
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
-	desc = "Pricy sterile gloves that are stronger than latex."
+	desc = "Pricy sterile gloves that are stronger than latex. Transfers intimate paramedic knowledge into the user via nanochips."
 	icon_state = "nitrile"
 	item_state = "nitrilegloves"
 	item_color = "cmo"
 	transfer_prints = FALSE
+	carrytrait = TRAIT_QUICKER_CARRY
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"

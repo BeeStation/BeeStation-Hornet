@@ -1,9 +1,19 @@
+# This file controls basic or highly important, but not strictly gameplay related options.
+
+
 # You can use the "$include" directive to split your configs however you want
 
+# Core gameplay options
 $include game_options.txt
+# More opinionated gameplay tweaks
+$include gameplay_tweaks.txt
+# Database (SQL), Sensitive stuff
 $include dbconfig.txt
+# Cross-Server Communications
 $include comms.txt
+# Antag Reputation (Alternative weighting)
 $include antag_rep.txt
+# Asset Transport (TGUI)
 $include resources.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
@@ -32,7 +42,9 @@ LOBBY_COUNTDOWN 180
 ## Round End Time: This is the amount of time after the round ends that players have to murder death kill each other.
 ROUND_END_COUNTDOWN 90
 
+## Uncomment this if you want to use the Discord webhook handler
 #USING_DISCORD
+#DISCORD_WEBHOOK http://127.0.0.1:5000/api/
 
 ## Comment this out if you want to use the SQL based admin system, the legacy system uses admins.txt.
 ## You need to set up your database to use the SQL based system.
@@ -238,16 +250,16 @@ CHECK_RANDOMIZER
 
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
 ## Don't set this to the same server, BYOND will automatically restart players to the server when it has restarted.
-SERVER  byond://golden.beestation13.com:7777
+SERVER  byond://sage.beestation13.com:7878
 
 ## forum address
-FORUMURL http://forums.beestation13.com
+FORUMURL https://forums.beestation13.com
 
 ## Wiki address
 WIKIURL https://wiki.beestation13.com/view
 
 ## Rules address
-RULESURL http://beestation13.com/rules?server=bs_golden
+RULESURL https://beestation13.com/rules
 
 ## Github address
 GITHUBURL https://www.github.com/beestation/beestation-hornet
@@ -291,7 +303,7 @@ INVOKE_YOUTUBEDL C:\youtubedl\youtube-dl.exe
 
 ## In-game features
 ##Toggle for having jobs load up from the .txt
-LOAD_JOBS_FROM_TXT
+#LOAD_JOBS_FROM_TXT
 
 ## Uncomment this to forbid admins from possessing the singularity.
 #FORBID_SINGULO_POSSESSION
@@ -365,6 +377,13 @@ NOTIFY_NEW_PLAYER_ACCOUNT_AGE 1
 ##	Requires database
 #PANIC_BUNKER
 
+## If a player connects during a bunker with less then or this amount of living time (Minutes), we deny the connection
+#PANIC_BUNKER_LIVING 60
+
+## The message the Panic Bunker gives when someone is rejected by it
+## %minutes% is replaced with PANIC_BUNKER_LIVING on runtime, remove it if you don't want this
+#PANIC_BUNKER_MESSAGE Sorry, but the server is currently not accepting connections from players with less than %minutes% minutes of living time.
+
 ## If panic bunker is on and a player is rejected (see above), attempt to send them to this connected server (see below) instead.
 ##	You probably want this to be the same as CROSS_SERVER_ADDRESS
 #PANIC_SERVER_ADDRESS byond://address:port
@@ -417,10 +436,10 @@ AUTOADMIN_RANK Admin
 #CLIENT_WARN_VERSION 513
 #CLIENT_WARN_POPUP
 #CLIENT_WARN_MESSAGE 512 is no longer being directly supported as version 513 is set to become the new stable version soon. We've made a number of changes to take advantage of the improvements made in 513 which should make for a smoother experience. We will be removing support for 512 when this new version replaces it as stable, so it's recommended that you upgrade now. (You can update to the BETA via the website or directly in the BYOND client)
-CLIENT_ERROR_VERSION 513
+CLIENT_ERROR_VERSION 514
 CLIENT_ERROR_MESSAGE Your version of byond is not supported. Please upgrade.
 ## The minimum build needed for joining the server, if using 513, a good minimum build would be 1526.
-CLIENT_ERROR_BUILD 1526
+CLIENT_ERROR_BUILD 1568
 
 ## TOPIC RATE LIMITING
 ## This allows you to limit how many topic calls (clicking on an interface window) the client can do in any given game second and/or game minute.
@@ -508,7 +527,6 @@ RESPECT_GLOBAL_BANS
 MAX_SHUTTLE_COUNT 6
 MAX_SHUTTLE_SIZE 300
 
-
 ### Fail2Topic settings
 ### fail2topic is a system for automating IP bans for abusers of the world/Topic API.
 ### Note that this subsystem respects the IPs listed in topic_rate_limit_whitelist.txt. They will not be considered for a ban.
@@ -554,3 +572,16 @@ VOTE_AUTOTRANSFER_INTERVAL 18000
 
 ## Ghost role cooldown time after death (In deciseconds)
 GHOST_ROLE_COOLDOWN 3000
+
+## Enable/disable roundstart station traits
+#STATION_TRAITS
+
+### ALL SETTINGS FOR SSmetrics ###
+## Uncomment the line below to enable SSmetrics sending data to ElasticSearch. You will need to fill in the other lines if you do
+#ELASTICSEARCH_METRICS_ENABLED
+
+## POST URL of your elasticsearch metrics. Include the IP, protocol, and datastream/index
+ELASTICSEARCH_METRICS_ENDPOINT http://10.0.0.40:9201/ss13-metrics-stream/_doc
+
+## ElasticSearch API key. This is formatted into the headers. Look at the ElasticSearch doc for how to make this
+ELASTICSEARCH_METRICS_APIKEY thisIsSomethingThatsBased64Encoded==

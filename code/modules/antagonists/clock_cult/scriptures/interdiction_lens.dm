@@ -1,4 +1,4 @@
-#define INTERDICTION_LENS_RANGE 3
+#define INTERDICTION_LENS_RANGE 5
 
 /datum/clockcult/scripture/create_structure/interdiction
 	name = "Interdiction Lens"
@@ -7,7 +7,7 @@
 	button_icon_state = "Interdiction Lens"
 	power_cost = 500
 	invokation_time = 80
-	invokation_text = list("Oh great lord...", "...may your divinity block the outsiders.")
+	invokation_text = list("Oh great lord...", "may your divinity block the outsiders.")
 	summoned_structure = /obj/structure/destructible/clockwork/gear_base/interdiction_lens
 	cogs_required = 4
 	category = SPELLTYPE_STRUCTURES
@@ -16,7 +16,7 @@
 	name = "interdiction lens"
 	desc = "A mesmerizing light that flashes to a rhythm that you just can't stop tapping to."
 	clockwork_desc = "A small device which will slow down nearby attackers at a small power cost."
-	default_icon_state = "interdiction_lens_inactive"
+	default_icon_state = "interdiction_lens"
 	anchored = TRUE
 	break_message = "<span class='warning'>The interdiction lens breaks into multiple fragments, which gently float to the ground.</span>"
 	max_integrity = 150
@@ -40,8 +40,11 @@
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/attack_hand(mob/user)
 	if(is_servant_of_ratvar(user))
+		if(!anchored)
+			to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor!</span>")
+			return
 		enabled = !enabled
-		to_chat(user, "<span class='brass'>You toggle [src] [enabled?"on":"off"].</span>")
+		to_chat(user, "<span class='brass'>You flick the switch on [src], turning it [enabled?"on":"off"]!</span>")
 		if(enabled)
 			if(update_power())
 				repowered()
@@ -53,22 +56,21 @@
 	else
 		. = ..()
 
-/obj/structure/destructible/clockwork/gear_base/interdiction_lens/process()
+/obj/structure/destructible/clockwork/gear_base/interdiction_lens/process(delta_time)
 	if(!anchored)
 		enabled = FALSE
 		STOP_PROCESSING(SSobj, src)
-		icon_state = "interdiction_lens_unwrenched"
+		update_icon_state()
 		return
-	if(prob(5))
+	if(DT_PROB(5, delta_time))
 		new /obj/effect/temp_visual/steam_release(get_turf(src))
-	for(var/mob/living/L in range(INTERDICTION_LENS_RANGE, src))
-		if(!is_servant_of_ratvar(L))
-			if(use_power(5))
-				L.apply_status_effect(STATUS_EFFECT_INTERDICTION)
-	for(var/obj/mecha/M in range(INTERDICTION_LENS_RANGE, src))
+	for(var/mob/living/L in viewers(INTERDICTION_LENS_RANGE, src))
+		if(!is_servant_of_ratvar(L) && use_power(5))
+			L.apply_status_effect(STATUS_EFFECT_INTERDICTION)
+	for(var/obj/mecha/M in dview(INTERDICTION_LENS_RANGE, src, SEE_INVISIBLE_MINIMUM))
 		if(use_power(5))
-			M.use_power(8000)
-			M.take_damage(80)
+			M.emp_act(EMP_HEAVY)
+			M.take_damage(400 * delta_time)
 			do_sparks(4, TRUE, M)
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/repowered()
@@ -86,9 +88,17 @@
 	if(processing)
 		STOP_PROCESSING(SSobj, src)
 		processing = FALSE
-	icon_state = "interdiction_lens_inactive"
+	icon_state = "interdiction_lens"
 	flick("interdiction_lens_discharged", src)
 	QDEL_NULL(dampening_field)
+
+/obj/structure/destructible/clockwork/gear_base/interdiction_lens/free/use_power(amount)
+	return
+
+/obj/structure/destructible/clockwork/gear_base/interdiction_lens/free/check_power(amount)
+	if(!LAZYLEN(transmission_sigils))
+		return FALSE
+	return TRUE
 
 //Dampening field
 /datum/proximity_monitor/advanced/peaceborg_dampener/clockwork

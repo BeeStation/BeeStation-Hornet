@@ -1,0 +1,4 @@
+author: TheFakeElon
+delete-after: true
+changes:
+  - server: Patches multiple security vulnerabilities

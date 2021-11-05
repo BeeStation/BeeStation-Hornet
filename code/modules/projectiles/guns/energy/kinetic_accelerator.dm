@@ -227,7 +227,8 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 	require_module = 1
-	module_type = /obj/item/robot_module/miner
+	module_type = list(/obj/item/robot_module/miner)
+	module_flags = BORG_MODULE_MINER
 	var/denied_type = null
 	var/maximum_of_type = 1
 	var/cost = 30
@@ -384,10 +385,8 @@
 		return
 	new /obj/effect/temp_visual/explosion/fast(target_turf)
 	if(turf_aoe)
-		for(var/T in RANGE_TURFS(1, target_turf) - target_turf)
-			if(ismineralturf(T))
-				var/turf/closed/mineral/M = T
-				M.gets_drilled(K.firer)
+		for(var/turf/closed/mineral/M in RANGE_TURFS(1, target_turf) - target_turf)
+			M.gets_drilled(K.firer)
 	if(modifier)
 		for(var/mob/living/L in range(1, target_turf) - K.firer - target)
 			var/armor = L.run_armor_check(K.def_zone, K.flag, "", "", K.armour_penetration)

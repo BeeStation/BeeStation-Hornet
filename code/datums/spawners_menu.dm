@@ -1,11 +1,3 @@
-/datum/spawners_menu
-	var/mob/dead/observer/owner
-
-/datum/spawners_menu/New(mob/dead/observer/new_owner)
-	if(!istype(new_owner))
-		qdel(src)
-	owner = new_owner
-
 /datum/spawners_menu/ui_state(mob/user)
 	return GLOB.observer_state
 
@@ -34,12 +26,20 @@
 					this["flavor_text"] = MS.flavour_text
 					this["important_info"] = MS.important_info
 				else
-					var/obj/O = spawner_obj
-					this["desc"] = O.desc
+					var/atom/movable/O = spawner_obj
+					if(isslime(O))
+						this["short_desc"] = O.get_spawner_desc()
+						this["flavor_text"] = O.get_spawner_flavour_text()
+					else
+						this["desc"] = O.desc
+
 		this["amount_left"] = LAZYLEN(GLOB.mob_spawners[spawner])
 		data["spawners"] += list(this)
 
 	return data
+
+/datum/spawners_menu/ui_state(mob/user)
+	return GLOB.observer_state
 
 /datum/spawners_menu/ui_act(action, params)
 	if(..())
@@ -49,17 +49,17 @@
 	if(!group_name || !(group_name in GLOB.mob_spawners))
 		return
 	var/list/spawnerlist = GLOB.mob_spawners[group_name]
-	if(!spawnerlist.len)
+	if(!LAZYLEN(spawnerlist))
 		return
-	var/obj/effect/mob_spawn/MS = pick(spawnerlist)
+	var/atom/movable/MS = pick(spawnerlist)
 	if(!istype(MS) || !(MS in GLOB.poi_list))
 		return
 	switch(action)
 		if("jump")
 			if(MS)
-				owner.forceMove(get_turf(MS))
+				usr.forceMove(get_turf(MS))
 				. = TRUE
 		if("spawn")
 			if(MS)
-				MS.attack_ghost(owner)
+				MS.attack_ghost(usr)
 				. = TRUE

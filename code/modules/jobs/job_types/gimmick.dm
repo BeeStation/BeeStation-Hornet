@@ -7,17 +7,23 @@
 	spawn_positions = 0
 	supervisors = "no one"
 	selection_color = "#dddddd"
+	chat_color = "#FFFFFF"
 
-	access = list( ACCESS_MAINT_TUNNELS)
+	exp_type_department = EXP_TYPE_GIMMICK
+
+	access = list(ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	paycheck = PAYCHECK_ASSISTANT
 	paycheck_department = ACCOUNT_CIV
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
+	departments = DEPARTMENT_SERVICE
 
-/datum/job/gimmick/New()
-	. = ..()
-	GLOB.civilian_positions |= title
+	allow_bureaucratic_error = FALSE
+	outfit = /datum/outfit/job/gimmick
+
+/datum/outfit/job/gimmick
+	can_be_admin_equipped = FALSE // we want just the parent outfit to be unequippable since this leads to problems
 
 /datum/job/gimmick/barber
 	title = "Barber"
@@ -26,6 +32,11 @@
 	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
+	chat_color = "#bd9e86"
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
+	)
 
 /datum/outfit/job/gimmick/barber
 	name = "Barber"
@@ -37,6 +48,7 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	l_hand = /obj/item/storage/wallet
 	l_pocket = /obj/item/razor/straightrazor
+	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/magician
 	title = "Stage Magician"
@@ -45,6 +57,11 @@
 	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
+	chat_color = "#b898b3"
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/magic
+	)
 
 /datum/outfit/job/gimmick/magician
 	name = "Stage Magician"
@@ -59,6 +76,7 @@
 	gloves = /obj/item/clothing/gloves/color/white
 	l_hand = /obj/item/cane
 	backpack_contents = list(/obj/item/choice_beacon/magic=1)
+	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/hobo
 	title = "Debtor"
@@ -67,6 +85,12 @@
 	access = list(ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
+	chat_color = "#929292"
+	departments = NONE		//being hobo is not a real job
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hobo
+	)
 
 /datum/outfit/job/gimmick/hobo
 	name = "Debtor"
@@ -76,7 +100,7 @@
 	ears = null //hobos dont start with a headset
 	uniform = /obj/item/clothing/under/pants/jeans
 	suit = /obj/item/clothing/suit/jacket
-	
+	can_be_admin_equipped = TRUE
 
 /datum/outfit/job/gimmick/hobo/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -86,7 +110,7 @@
 	var/list/possible_drugs = list(/obj/item/storage/pill_bottle/happy, /obj/item/storage/pill_bottle/zoom, /obj/item/storage/pill_bottle/stimulant, /obj/item/storage/pill_bottle/lsd, /obj/item/storage/pill_bottle/aranesp, /obj/item/storage/pill_bottle/floorpill/full)
 	var/chosen_drugs = pick(possible_drugs)
 	var/obj/item/storage/pill_bottle/I = new chosen_drugs(src)
-	H.equip_to_slot_or_del(I,SLOT_IN_BACKPACK)
+	H.equip_to_slot_or_del(I,ITEM_SLOT_BACKPACK)
 	var/datum/martial_art/psychotic_brawling/junkie = new //this fits well, but i'm unsure about it, cuz this martial art is so fucking rng dependent i swear...
 	junkie.teach(H)
 	ADD_TRAIT(H, TRAIT_APPRAISAL, JOB_TRAIT)
@@ -100,6 +124,12 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 	paycheck = PAYCHECK_EASY
 	gimmick = TRUE
+	chat_color = "#a2dfdc"
+	departments = DEPARTMENT_MEDICAL
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
+	)
 
 /datum/outfit/job/gimmick/shrink //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
 	name = "Psychiatrist"
@@ -109,6 +139,8 @@
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/suit/black
 	shoes = /obj/item/clothing/shoes/laceup
+	backpack_contents = list(/obj/item/choice_beacon/pet/ems=1)
+	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/celebrity
 	title = "VIP"
@@ -118,6 +150,11 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
 	paycheck = PAYCHECK_VIP //our power is being fucking rich
+	chat_color = "#ebc96b"
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/vip
+	)
 
 /datum/outfit/job/gimmick/celebrity
 	name = "VIP"
@@ -128,3 +165,4 @@
 	ears = /obj/item/radio/headset/heads //VIP can talk loud for no reason
 	uniform = /obj/item/clothing/under/suit/black_really
 	shoes = /obj/item/clothing/shoes/laceup
+	can_be_admin_equipped = TRUE

@@ -2,25 +2,32 @@
 /datum/team/ert
 	name = "Emergency Response Team"
 	var/datum/objective/mission //main mission
+	var/ert_frequency
+
+/datum/team/ert/New(starting_members)
+	. = ..()
+	ert_frequency = get_free_team_frequency("cent")
 
 /datum/antagonist/ert
 	name = "Emergency Response Officer"
 	var/datum/team/ert/ert_team
 	var/leader = FALSE
 	var/datum/outfit/outfit = /datum/outfit/ert/security
+	var/datum/outfit/plasmaman_outfit = /datum/outfit/plasmaman/ert
 	var/role = "Security Officer"
 	var/list/name_source
 	var/random_names = TRUE
+	can_elimination_hijack = ELIMINATION_PREVENT
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
-	can_hijack = HIJACK_PREVENT
 
 /datum/antagonist/ert/on_gain()
 	if(random_names)
 		update_name()
 	forge_objectives()
 	equipERT()
+	owner.store_memory("Your team's shared tracking beacon frequency is [ert_team.ert_frequency].")
 	. = ..()
 
 /datum/antagonist/ert/get_team()
@@ -77,12 +84,21 @@
 	name = "Deathsquad Trooper"
 	outfit = /datum/outfit/death_commando
 	role = "Trooper"
+	plasmaman_outfit = /datum/outfit/plasmaman/death_commando
 
 /datum/antagonist/ert/medic/inquisitor
 	outfit = /datum/outfit/ert/medic/inquisitor
 
+/datum/antagonist/ert/medic/inquisitor/on_gain()
+	. = ..()
+	owner.holy_role = HOLY_ROLE_PRIEST
+
 /datum/antagonist/ert/security/inquisitor
 	outfit = /datum/outfit/ert/security/inquisitor
+
+/datum/antagonist/ert/security/inquisitor/on_gain()
+	. = ..()
+	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/chaplain
 	role = "Chaplain"
@@ -93,14 +109,14 @@
 
 /datum/antagonist/ert/chaplain/on_gain()
 	. = ..()
-	owner.isholy = TRUE
+	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/commander/inquisitor
 	outfit = /datum/outfit/ert/commander/inquisitor
 
 /datum/antagonist/ert/commander/inquisitor/on_gain()
 	. = ..()
-	owner.isholy = TRUE
+	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/janitor
 	role = "Janitor"
@@ -109,6 +125,10 @@
 /datum/antagonist/ert/janitor/heavy
 	role = "Heavy Duty Janitor"
 	outfit = /datum/outfit/ert/janitor/heavy
+
+/datum/antagonist/ert/kudzu
+	role = "Weed Whacker"
+	outfit = /datum/outfit/ert/kudzu
 
 /datum/antagonist/ert/deathsquad/leader
 	name = "Deathsquad Officer"
@@ -120,6 +140,7 @@
 	outfit = /datum/outfit/centcom_intern
 	random_names = FALSE
 	role = "Intern"
+	plasmaman_outfit = /datum/outfit/plasmaman/intern
 
 /datum/antagonist/ert/intern/leader
 	name = "CentCom Head Intern"
@@ -136,11 +157,13 @@
 	name = "Comedy Response Officer"
 	outfit = /datum/outfit/centcom_clown
 	role = "Prankster"
+	plasmaman_outfit = /datum/outfit/plasmaman/honk
 
 /datum/antagonist/ert/clown/honk
 	name = "HONK Squad Trooper"
 	outfit = /datum/outfit/centcom_clown/honk_squad
 	role = "HONKER"
+	plasmaman_outfit = /datum/outfit/plasmaman/honk_squad
 
 /datum/antagonist/ert/create_team(datum/team/ert/new_team)
 	if(istype(new_team))
@@ -154,7 +177,18 @@
 	var/mob/living/carbon/human/H = owner.current
 	if(!istype(H))
 		return
+	if(isplasmaman(H))
+		H.equipOutfit(plasmaman_outfit)
+		H.internal = H.get_item_for_held_index(2)
+		H.update_internals_hud_icon(1)
 	H.equipOutfit(outfit)
+	//Set the suits frequency
+	var/obj/item/I = H.get_item_by_slot(ITEM_SLOT_OCLOTHING)
+	if(I)
+		var/datum/component/tracking_beacon/beacon = I.GetComponent(/datum/component/tracking_beacon)
+		if(beacon)
+			beacon.set_frequency(ert_team.ert_frequency)
+
 
 /datum/antagonist/ert/greet()
 	if(!ert_team)
@@ -171,6 +205,8 @@
 		missiondesc += "Avoid civilian casualites when possible."
 
 	missiondesc += "<BR><B>Your Mission</B> : [ert_team.mission.explanation_text]"
+	missiondesc += "<BR><b>Your Shared Tracking Frequency</b> : <i>[ert_team.ert_frequency]</i>"
+
 	to_chat(owner,missiondesc)
 
 /datum/antagonist/ert/deathsquad/greet()

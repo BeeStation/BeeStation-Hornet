@@ -6,9 +6,12 @@
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	max_integrity = 1
-	armor = list("melee" = 0, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20)
+	armor = list("melee" = 0, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20, "stamina" = 0)
 	layer = BELOW_OBJ_LAYER
 	var/obj/item/holosign_creator/projector
+
+/obj/structure/holosign/emp_act(severity)
+	take_damage(max_integrity/severity, BRUTE, "melee", 1)
 
 /obj/structure/holosign/New(loc, source_projector)
 	if(source_projector)
@@ -96,7 +99,19 @@
 
 /obj/structure/holosign/barrier/atmos/Initialize()
 	. = ..()
+	var/turf/local = get_turf(loc)
+	ADD_TRAIT(local, TRAIT_FIREDOOR_STOP, TRAIT_GENERIC)
 	air_update_turf(TRUE)
+
+/obj/structure/holosign/barrier/atmos/Destroy()
+	var/turf/local = get_turf(loc)
+	REMOVE_TRAIT(local, TRAIT_FIREDOOR_STOP, TRAIT_GENERIC)
+	return ..()
+
+/obj/structure/holosign/barrier/atmos/Move(atom/newloc, direct)
+	var/turf/local = get_turf(loc)
+	REMOVE_TRAIT(local, TRAIT_FIREDOOR_STOP, TRAIT_GENERIC)
+	return ..()
 
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"
@@ -132,7 +147,7 @@
 	if(ishuman(mover))
 		var/mob/living/carbon/human/sickboi = mover
 		var/threat = sickboi.check_virus()
-		if(get_disease_severity_value(threat) > get_disease_severity_value(DISEASE_SEVERITY_MINOR))
+		if(get_disease_danger_value(threat) > get_disease_danger_value(DISEASE_MINOR))
 			if(buzzcd < world.time)
 				playsound(get_turf(src),'sound/machines/buzz-sigh.ogg',65,1,4)
 				buzzcd = (world.time + 60)

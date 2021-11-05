@@ -23,8 +23,9 @@
 	speak_emote = list("yarrs")
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate,
 			/obj/item/melee/transforming/energy/sword/pirate)
-	del_on_death = 1
+	del_on_death = TRUE
 	faction = list("pirate")
+	mobchatspan = "syndmob"
 
 
 /mob/living/simple_animal/hostile/pirate/melee
@@ -40,7 +41,7 @@
 
 	do_footstep = TRUE
 	hardattacks = TRUE
- 
+
 /mob/living/simple_animal/hostile/pirate/melee/space
 	name = "Space Pirate Swashbuckler"
 	icon_state = "piratespace"

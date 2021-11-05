@@ -6,7 +6,7 @@
 	desc = "An eye turret that will fire upon nearby targets. Requires 2 invokers."
 	tip = "Place these around to prevent crew from rushing past your defenses."
 	button_icon_state = "Ocular Warden"
-	power_cost = 500
+	power_cost = 400
 	invokation_time = 50
 	invokation_text = list("Summon thee to defend our temple")
 	summoned_structure = /obj/structure/destructible/clockwork/ocular_warden
@@ -14,7 +14,7 @@
 	invokers_required = 2
 	category = SPELLTYPE_STRUCTURES
 
-/datum/clockcult/scripture/create_structure/ocular_warden/check_special_requirements()
+/datum/clockcult/scripture/create_structure/ocular_warden/check_special_requirements(mob/user)
 	if(!..())
 		return FALSE
 	for(var/obj/structure/destructible/clockwork/structure in get_turf(invoker))
@@ -32,16 +32,16 @@
 	break_message = "<span class='warning'>A black ooze leaks from the ocular warden as it slowly sinks to the ground.</span>"
 	icon_state = "ocular_warden"
 	max_integrity = 60
-	armor = list("melee" = -80, "bullet" = -50, "laser" = 40, "energy" = 40, "bomb" = 20, "bio" = 0, "rad" = 0)
+	armor = list("melee" = -80, "bullet" = -50, "laser" = 40, "energy" = 40, "bomb" = 20, "bio" = 0, "rad" = 0, "stamina" = 0)
 	var/cooldown
 
-/obj/structure/destructible/clockwork/ocular_warden/process()
+/obj/structure/destructible/clockwork/ocular_warden/process(delta_time)
 	//Can we fire?
 	if(world.time < cooldown)
 		return
 	//Check hostiles in range
 	var/list/valid_targets = list()
-	for(var/mob/living/potential in view(OCULAR_WARDEN_RANGE, src))
+	for(var/mob/living/potential in hearers(OCULAR_WARDEN_RANGE, src))
 		if(!is_servant_of_ratvar(potential) && !potential.stat)
 			valid_targets += potential
 	if(!LAZYLEN(valid_targets))
@@ -51,7 +51,7 @@
 	if(!target)
 		return
 	dir = get_dir(get_turf(src), get_turf(target))
-	target.apply_damage(max(20 - (get_dist(src, target)*5), 10), BURN)
+	target.apply_damage(max(10 - (get_dist(src, target)*2.5), 5)*delta_time, BURN)
 	new /obj/effect/temp_visual/ratvar/ocular_warden(get_turf(target))
 	new /obj/effect/temp_visual/ratvar/ocular_warden(get_turf(src))
 	playsound(get_turf(target), 'sound/machines/clockcult/ocularwarden-dot1.ogg', 60, TRUE)
