@@ -1,0 +1,4 @@
+author: Benbot16
+delete-after: true
+changes:
+  - bugfix: clientless mobs should no longer cause TGUI runtimes
