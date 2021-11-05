@@ -97,7 +97,7 @@ const Material = (props, context) => {
           {capitalize(material.name)}
         </Flex.Item>
         <Flex.Item grow>
-          <Flex>
+          <Flex align="baseline">
             <Flex.Item shrink px={1}>
               {formatBigNumber(material.amount, 4)}
             </Flex.Item>
