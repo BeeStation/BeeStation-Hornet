@@ -242,7 +242,7 @@ const Recipe = (props, context) => {
     recipe,
   } = props;
 
-  const craft_amounts = [1, 5, 10, 50];
+  const craft_amounts = [1, 5, 10];
   const substitutions = { "bluespace crystal": "bluespace_crystal" };
 
   let max = 50;

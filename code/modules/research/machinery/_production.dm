@@ -290,7 +290,7 @@
 		say("Mineral access is on hold, please contact the quartermaster.")
 		return FALSE
 	var/power = 1000
-	amount = CLAMP(amount, 1, 50)
+	amount = CLAMP(amount, 1, 10)
 	for(var/M in D.materials)
 		power += round(D.materials[M] * amount / 35)
 	power = min(3000, power)
