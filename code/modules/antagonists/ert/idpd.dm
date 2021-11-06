@@ -124,7 +124,7 @@
 	var/list/mob/dead/observer/chosen = list()
 	for(var/X = 1, X <= num_agents, ++X)
 		var/mob/dead/observer/chosen_one = pick_n_take(candidates)
-		chosen += chosen_one
+		chosen += chosen_one //Go forth chosen one
 
 	var/turf/spawnpoint = get_turf(pick(GLOB.blobstart)) //Ensures the portal spawns on station... for the most part.
 	var/obj/effect/portal/idpd_portal = new(spawnpoint) //"Fake" portal spawns 20 seconds before the IDPD spawns in
