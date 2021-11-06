@@ -25,11 +25,10 @@ Contents:
 	actions_types = list(/datum/action/item_action/initialize_ninja_suit, /datum/action/item_action/ninjasmoke, /datum/action/item_action/ninjaboost, /datum/action/item_action/ninjapulse, /datum/action/item_action/ninjastar, /datum/action/item_action/ninjanet, /datum/action/item_action/ninja_sword_recall, /datum/action/item_action/ninja_stealth, /datum/action/item_action/toggle_glove)
 
 		//Important parts of the suit.
-	var/mob/living/carbon/human/affecting = null
+	var/mob/living/carbon/human/suit_user
 	var/obj/item/stock_parts/cell/cell
 	var/datum/effect_system/spark_spread/spark_system
 	var/datum/techweb/stored_research
-	var/obj/item/disk/tech_disk/t_disk//To copy design onto disk.
 	var/obj/item/energy_katana/energyKatana //For teleporting the katana back to the ninja (It's an ability)
 
 		//Other articles of ninja gear worn together, used to easily reference them after initializing.
@@ -75,6 +74,9 @@ Contents:
 /obj/item/clothing/suit/space/space_ninja/Destroy()
 	QDEL_NULL(spark_system)
 	QDEL_NULL(cell)
+	if(suit_user)
+		UnregisterSignal(suit_user, COMSIG_MOB_DEATH)
+		suit_user = null
 	return ..()
 
 //Simply deletes all the attachments and self, killing all related procs.
@@ -113,7 +115,7 @@ Contents:
 	if(!istype(H.gloves, /obj/item/clothing/gloves/space_ninja))
 		to_chat(H, "<span class='userdanger'>ERROR</span>: 110223 UNABLE TO LOCATE HAND GEAR\nABORTING...")
 		return FALSE
-	affecting = H
+	suit_user = H
 	ADD_TRAIT(src, TRAIT_NODROP, NINJA_SUIT_TRAIT)
 	slowdown = 0
 	n_hood = H.head
@@ -123,17 +125,23 @@ Contents:
 	n_shoes.slowdown--
 	n_gloves = H.gloves
 	ADD_TRAIT(n_gloves, TRAIT_NODROP, NINJA_SUIT_TRAIT)
+	RegisterSignal(suit_user, COMSIG_MOB_DEATH, ./proc/on_user_death)
 	return TRUE
+
+/obj/item/clothing/suit/space/space_ninja/proc/on_user_death()
+	SIGNAL_HANDLER
+
+	cancel_stealth()
+	unlock_suit()
 
 /obj/item/clothing/suit/space/space_ninja/proc/lockIcons(mob/living/carbon/human/H)
 	icon_state = H.gender==FEMALE ? "s-ninjanf" : "s-ninjan"
 	H.gloves.icon_state = "s-ninjan"
 	H.gloves.item_state = "s-ninjan"
 
-
 //This proc allows the suit to be taken off.
 /obj/item/clothing/suit/space/space_ninja/proc/unlock_suit()
-	affecting = null
+	suit_user = null
 	REMOVE_TRAIT(src, TRAIT_NODROP, NINJA_SUIT_TRAIT)
 	slowdown = 1
 	icon_state = "s-ninja"
@@ -152,7 +160,7 @@ Contents:
 
 /obj/item/clothing/suit/space/space_ninja/examine(mob/user)
 	. = .()
-	if(s_initialized && user == affecting)
+	if(s_initialized && user == suit_user)
 		. += "All systems operational. Current energy capacity: <B>[DisplayEnergy(cell.charge)]</B>.\n"+\
 		"The CLOAK-tech device is <B>[stealth?"active":"inactive"]</B>.\n"+\
 		"There are <B>[s_bombs]</B> smoke bomb\s remaining.\n"+\
@@ -196,44 +204,44 @@ Contents:
 		to_chat(loc, "<span class='userdanger'>ERROR</span>: You cannot use this function at this time.")
 		return FALSE
 	if(s_initialized)
-		deinitialize()
+		turn_off()
 	else
-		ninitialize()
+		set_up_suit()
 	. = TRUE
 
 /obj/item/clothing/suit/space/space_ninja/proc/set_up_suit()
 	s_busy = TRUE
 
-	to_chat(U, "<span class='notice'>Now initializing...</span>")
+	to_chat(suit_user, "<span class='notice'>Now initializing...</span>")
 	sleep(s_delay)
 
-	if(!lock_suit(U))//To lock the suit onto wearer.
+	if(!lock_suit(suit_user))//To lock the suit onto wearer.
 		s_busy = FALSE
 		return
-	to_chat(U, "<span class='notice'>Securing external locking mechanism...\nNeural-net established.</span>")
+	to_chat(suit_user, "<span class='notice'>Securing external locking mechanism...\nNeural-net established.</span>")
 	sleep(s_delay)
 
-	to_chat(U, "<span class='notice'>Extending neural-net interface...\nNow monitoring brain wave pattern...</span>")
+	to_chat(suit_user, "<span class='notice'>Extending neural-net interface...\nNow monitoring brain wave pattern...</span>")
 	sleep(s_delay)
 
-	if(U.stat == DEAD|| U.health <= 0)
-		to_chat(U, "<span class='danger'><B>FÄAL ï¿½Rrï¿½R</B>: 344--93#ï¿½&&21 BRï¿½ï¿½N |/|/aVï¿½ PATT$RN <B>RED</B>\nA-A-aBï¿½rTï¿½NG...</span>")
+	if(suit_user.stat == DEAD|| suit_user.health <= 0)
+		to_chat(suit_user, "<span class='danger'><B>FÄAL ï¿½Rrï¿½R</B>: 344--93#ï¿½&&21 BRï¿½ï¿½N |/|/aVï¿½ PATT$RN <B>RED</B>\nA-A-aBï¿½rTï¿½NG...</span>")
 		unlock_suit()
 		s_busy = FALSE
 		return
-	lockIcons(U)//Check for icons.
-	U.regenerate_icons()
-	to_chat(U, "<span class='notice'>Linking neural-net interface...\nPattern</span>\green <B>GREEN</B><span class='notice'>, continuing operation.</span>")
+	lockIcons(suit_user)//Check for icons.
+	suit_user.regenerate_icons()
+	to_chat(suit_user, "<span class='notice'>Linking neural-net interface...\nPattern</span>\green <B>GREEN</B><span class='notice'>, continuing operation.</span>")
 	sleep(s_delay)
 
-	to_chat(U, "<span class='notice'>VOID-shift device status: <B>ONLINE</B>.\nCLOAK-tech device status: <B>ONLINE</B>.</span>")
+	to_chat(suit_user, "<span class='notice'>VOID-shift device status: <B>ONLINE</B>.\nCLOAK-tech device status: <B>ONLINE</B>.</span>")
 	sleep(s_delay)
 
-	to_chat(U, "<span class='notice'>Primary system status: <B>ONLINE</B>.\nBackup system status: <B>ONLINE</B>.\nCurrent energy capacity: <B>[DisplayEnergy(cell.charge)]</B>.</span>")
+	to_chat(suit_user, "<span class='notice'>Primary system status: <B>ONLINE</B>.\nBackup system status: <B>ONLINE</B>.\nCurrent energy capacity: <B>[DisplayEnergy(cell.charge)]</B>.</span>")
 	sleep(s_delay)
 
-	to_chat(U, "<span class='notice'>All systems operational. Welcome to <B>SpiderOS</B>, [U.real_name].</span>")
-	s_initialized = TRUE
+	to_chat(suit_user, "<span class='notice'>All systems operational. Welcome to <B>SpiderOS</B>, [U.real_name].</span>")
+	suit_user = TRUE
 	START_PROCESSING(src, SSprocessing)
 	s_busy = FALSE
 
@@ -245,39 +253,32 @@ Contents:
 
 	sleep(s_delay)
 
-	to_chat(U, "<span class='notice'>Now de-initializing...</span>")
+	to_chat(suit_user, "<span class='notice'>Now de-initializing...</span>")
 	sleep(s_delay)
 
-	to_chat(U, "<span class='notice'>Logging off, [U.real_name]. Shutting down <B>SpiderOS</B>.</span>")
+	to_chat(suit_user, "<span class='notice'>Logging off, [suit_user.real_name]. Shutting down <B>SpiderOS</B>.</span>")
 	sleep(s_delay)
 
-	to_chat(U, "<span class='notice'>Primary system status: <B>OFFLINE</B>.\nBackup system status: <B>OFFLINE</B>.</span>")
+	to_chat(suit_user, "<span class='notice'>Primary system status: <B>OFFLINE</B>.\nBackup system status: <B>OFFLINE</B>.</span>")
 	sleep(s_delay)
 
-
-/obj/item/clothing/suit/space/space_ninja/proc/deinitialize_five(delay, mob/living/carbon/human/U)
-	to_chat(U, "<span class='notice'>VOID-shift device status: <B>OFFLINE</B>.\nCLOAK-tech device status: <B>OFFLINE</B>.</span>")
+	to_chat(suit_user, "<span class='notice'>VOID-shift device status: <B>OFFLINE</B>.\nCLOAK-tech device status: <B>OFFLINE</B>.</span>")
 	cancel_stealth()//Shutdowns stealth.
-	addtimer(CALLBACK(src, .proc/deinitialize_six, delay, U), delay)
 
-/obj/item/clothing/suit/space/space_ninja/proc/deinitialize_six(delay, mob/living/carbon/human/U)
-	to_chat(U, "<span class='notice'>Disconnecting neural-net interface...</span>\green<B>Success</B><span class='notice'>.</span>")
-	addtimer(CALLBACK(src, .proc/deinitialize_seven, delay, U), delay)
+	to_chat(suit_user, "<span class='notice'>Disconnecting neural-net interface...</span>\green<B>Success</B><span class='notice'>.</span>")
+	sleep(s_delay)
 
-/obj/item/clothing/suit/space/space_ninja/proc/deinitialize_seven(delay, mob/living/carbon/human/U)
-	to_chat(U, "<span class='notice'>Disengaging neural-net interface...</span>\green<B>Success</B><span class='notice'>.</span>")
-	addtimer(CALLBACK(src, .proc/deinitialize_eight, delay, U), delay)
+	to_chat(suit_user, "<span class='notice'>Disengaging neural-net interface...</span>\green<B>Success</B><span class='notice'>.</span>")
+	sleep(s_delay)
 
-/obj/item/clothing/suit/space/space_ninja/proc/deinitialize_eight(delay, mob/living/carbon/human/U)
-	to_chat(U, "<span class='notice'>Unsecuring external locking mechanism...\nNeural-net abolished.\nOperation status: <B>FINISHED</B>.</span>")
+	to_chat(suit_user, "<span class='notice'>Unsecuring external locking mechanism...\nNeural-net abolished.\nOperation status: <B>FINISHED</B>.</span>")
 	unlock_suit()
-	U.regenerate_icons()
+	suit_user.regenerate_icons()
 	s_initialized = FALSE
 	s_busy = FALSE
 
-/obj/item/clothing/suit/space/space_ninja/proc/process(delta_time)
-	. = ..()
-	if(!affecting)
+/obj/item/clothing/suit/space/space_ninja/process(delta_time)
+	if(!suit_user)
 		terminate()//Kills the suit and attached objects.
 
 	else if(cell.charge > 0)
@@ -291,3 +292,56 @@ Contents:
 	else
 		cell.charge = 0
 		cancel_stealth()
+
+
+
+/obj/item/clothing/suit/space/space_ninja/attackby(obj/item/I, mob/user, params)
+	if(user != suit_user)//Safety, in case you try doing this without wearing the suit/being the person with the suit.
+		return ..()
+
+	if(istype(I, /obj/item/reagent_containers/glass))//If it's a glass beaker.
+		if(I.reagents.has_reagent(/datum/reagent/uranium/radium, a_transfer) && a_boost < a_maxamount)
+			I.reagents.remove_reagent(/datum/reagent/uranium/radium, a_transfer)
+			a_boost++;
+			to_chat(user, "<span class='notice'>There are now [a_boost] adrenaline boosts remaining.</span>")
+			return
+		if(I.reagents.has_reagent(/datum/reagent/smoke_powder, a_transfer) && s_bombs < s_maxamount)
+			I.reagents.remove_reagent(/datum/reagent/smoke_powder, a_transfer)
+			s_bombs++;
+			to_chat(user, "<span class='notice'>There are now [s_bombs] smoke bombs remaining.</span>")
+			return
+
+
+	else if(istype(I, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/C = I
+		if(C.maxcharge <= cell.maxcharge || !n_gloves?.candrain)
+			return
+		to_chat(user, "<span class='notice'>Higher maximum capacity detected.\nUpgrading...</span>")
+		if(!do_after(user, s_delay, target = src))
+			to_chat(user, "<span class='danger'>Procedure interrupted. Protocol terminated.</span>")
+			return
+		user.transferItemToLoc(C, src)
+		C.charge = min(C.charge+cell.charge, C.maxcharge)
+		var/obj/item/stock_parts/cell/old_cell = cell
+		old_cell.charge = 0
+		user.put_in_hands(old_cell)
+		old_cell.add_fingerprint(user)
+		old_cell.corrupt()
+		old_cell.update_icon()
+		cell = C
+		to_chat(user, "<span class='notice'>Upgrade complete. Maximum capacity: <b>[round(cell.maxcharge/100)]</b>%</span>")
+		return
+
+	else if(istype(I, /obj/item/disk/tech_disk))//If it's a data disk, we want to copy the research on to the suit.
+		var/obj/item/disk/tech_disk/TD = I
+		if(TD.stored_research)//If it has something on it.
+			to_chat(user, "Research information detected, processing...")
+			if(do_after(user, s_delay, target = src))
+				TD.stored_research.copy_research_to(stored_research)
+				to_chat(user, "<span class='notice'>Data analyzed and updated. Disk erased.</span>")
+			else
+				to_chat(user, "<span class='userdanger'>ERROR</span>: Procedure interrupted. Process terminated.")
+		else
+			to_chat(user, "<span class='notice'>No research information detected.</span>")
+		return
+	return ..()

@@ -3,7 +3,7 @@
 /obj/item/clothing/suit/space/space_ninja/proc/ninjaboost()
 
 	if(!ninjacost(0,N_ADRENALINE))
-		var/mob/living/carbon/human/H = affecting
+		var/mob/living/carbon/human/H = suit_user
 		H.SetUnconscious(0)
 		H.SetStun(0)
 		H.SetKnockdown(0)
@@ -21,6 +21,6 @@
 		addtimer(CALLBACK(src, .proc/ninjaboost_after), 70)
 
 /obj/item/clothing/suit/space/space_ninja/proc/ninjaboost_after()
-	var/mob/living/carbon/human/H = affecting
+	var/mob/living/carbon/human/H = suit_user
 	H.reagents.add_reagent(/datum/reagent/uranium/radium, a_transfer)
 	to_chat(H, "<span class='danger'>You are beginning to feel the after-effect of the injection.</span>")
