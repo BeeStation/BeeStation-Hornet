@@ -8,7 +8,7 @@
 #define FIRE_ALARM 2
 /obj/machinery/door/firedoor
 	name = "firelock"
-	desc = "A convenable firelock. Equipped with a manual lever for operating in case of emergency."
+	desc = "A convenable firelock. It has a card reader and a set of indicator lights on the side."
 	icon = 'icons/obj/doors/doorfireglass.dmi'
 	icon_state = "door_open"
 	opacity = FALSE
