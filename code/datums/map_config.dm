@@ -33,7 +33,8 @@
 		"emergency" = "emergency_box")
 
 /proc/load_map_config(filename = "next_map", default_to_box, delete_after, error_if_missing = TRUE)
-	filename = "_maps/[filename].json"
+	filename = SANITIZE_FILENAME(filename)
+	filename = "data/[filename].json"
 	var/datum/map_config/config = new
 	if (default_to_box)
 		return config
