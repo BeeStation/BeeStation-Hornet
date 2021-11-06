@@ -57,7 +57,7 @@
 	if(stored_card)
 		to_chat(user, "<span class='notice'>You eject [stored_card] from [src].</span>")
 		locked = FALSE
-		if(user && !issilicon(user))
+		if(user && in_range(src, user))
 			user.put_in_hands(stored_card)
 		else
 			stored_card.forceMove(drop_location())
