@@ -1,5 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - rscadd: Explorers now require 3-days on the server and 5-hours of Crew experience
-      before they can be selected
