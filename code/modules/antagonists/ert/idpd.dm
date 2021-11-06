@@ -127,7 +127,7 @@
 		chosen += chosen_one
 
 	var/turf/spawnpoint = get_turf(pick(GLOB.blobstart)) //Ensures the portal spawns on station... for the most part.
-	var/obj/effect/portal/idpd_portal = new(spawnpoint.loc) //"Fake" portal spawns 20 seconds before the IDPD spawns in
+	var/obj/effect/portal/idpd_portal = new(spawnpoint) //"Fake" portal spawns 20 seconds before the IDPD spawns in
 
 	message_admins("I.D.P.D portal spawned at [ADMIN_VERBOSEJMP(idpd_portal)]")
 
