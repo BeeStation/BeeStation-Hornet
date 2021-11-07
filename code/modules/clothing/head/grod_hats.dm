@@ -5,7 +5,7 @@
 	item_state = "grey"
 	icon = 'icons/mob/species/grod/onmob_grod_head.dmi'
 	flags_inv = HIDEHAIR
-	species_restricted = FLAG_HUMAN | FLAG_FELINID | FLAG_FLY | FLAG_IPC | FLAG_LIZARD | FLAG_MOTH | FLAG_OOZELING | FLAG_PLASMAMAN | FLAG_SQUID
+	species_restricted = FLAG_HUMAN | FLAG_FELINID | FLAG_FLY | FLAG_IPC | FLAG_LIZARD | FLAG_MOTH | FLAG_OOZELING | FLAG_PLASMAMAN
 	sprite_sheets = FLAG_GROD
 
 /obj/item/clothing/head/grodhat/captain
