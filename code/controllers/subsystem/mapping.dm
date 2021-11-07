@@ -1,5 +1,3 @@
-//#define FORCE_MAP "_maps/boxstation.json"
-
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
 	init_order = INIT_ORDER_MAPPING
@@ -50,7 +48,7 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/proc/HACK_LoadMapConfig()
 	if(!config)
 #ifdef FORCE_MAP
-		config = load_map_config(FORCE_MAP)
+		config = load_map_config(FORCE_MAP, MAP_DIRECTORY)
 #else
 		config = load_map_config(error_if_missing = FALSE)
 #endif
