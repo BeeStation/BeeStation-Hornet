@@ -18,14 +18,9 @@ const selectRemappedStaticData = data => {
   const node_cache = {};
   for (let id of Object.keys(data.static_data.node_cache)) {
     const node = data.static_data.node_cache[id];
-    const costs = Object.keys(node.costs || {}).map(x => ({
-      type: remapId(x),
-      value: node.costs[x],
-    }));
     node_cache[remapId(id)] = {
       ...node,
       id: remapId(id),
-      costs,
       prereq_ids: map(remapId)(node.prereq_ids || []),
       design_ids: map(remapId)(node.design_ids || []),
       unlock_ids: map(remapId)(node.unlock_ids || []),
@@ -724,11 +719,10 @@ const TechNode = (props, context) => {
     researchable,
   } = data;
   const { node, nodetails, nocontrols, destructive } = props;
-  const { id, can_unlock, tier } = node;
+  const { id, can_unlock, tier, costs } = node;
   const {
     name,
     description,
-    costs,
     design_ids,
     prereq_ids,
   } = node_cache[id];
@@ -782,11 +776,12 @@ const TechNode = (props, context) => {
         </>)}
       {tier !== 0 && !!compact && !destructive && (
         <Flex className="Techweb__NodeProgress">
-          {costs.map(k => {
-            const reqPts = Math.max(0, k.value);
-            const nodeProg = Math.min(reqPts, points[k.type]) || 0;
+          {!!costs && Object.keys(costs).map(key => {
+            const cost = costs[key]
+            const reqPts = Math.max(0, cost);
+            const nodeProg = Math.min(reqPts, points[key]) || 0;
             return (
-              <Flex.Item key={k.type} grow={1} basis={0}>
+              <Flex.Item key={key} grow={1} basis={0}>
                 <ProgressBar
                   ranges={{
                     good: [0.5, Infinity],
@@ -795,8 +790,8 @@ const TechNode = (props, context) => {
                   }}
                   value={reqPts === 0
                     ? 1
-                    : Math.min(1, (points[k.type]||0) / reqPts)}>
-                  {abbreviateName(k.type)} ({nodeProg}/{reqPts})
+                    : Math.min(1, (points[key]||0) / reqPts)}>
+                  {abbreviateName(key)} ({nodeProg}/{reqPts})
                 </ProgressBar>
               </Flex.Item>
             );

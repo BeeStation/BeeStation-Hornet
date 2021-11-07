@@ -281,9 +281,12 @@ Nothing else in the console has ID requirements.
 		if (stored_research.hidden_nodes[v])
 			continue
 
+		var/costs = n.get_price(stored_research)
+
 		.["nodes"] += list(list(
 			"id" = n.id,
-			"can_unlock" = stored_research.can_afford(n.get_price(stored_research)),
+			"can_unlock" = stored_research.can_afford(costs),
+			"costs" = costs,
 			"tier" = stored_research.tiers[n.id]
 		))
 
@@ -310,10 +313,6 @@ Nothing else in the console has ID requirements.
 			"name" = node.display_name,
 			"description" = node.description
 		)
-		if (LAZYLEN(node.research_costs))
-			node_cache[compressed_id]["costs"] = list()
-			for (var/node_cost in node.research_costs)
-				node_cache[compressed_id]["costs"]["[compress_id(node_cost)]"] = node.research_costs[node_cost]
 		if (LAZYLEN(node.prereq_ids))
 			node_cache[compressed_id]["prereq_ids"] = list()
 			for (var/prerequisite_node in node.prereq_ids)
