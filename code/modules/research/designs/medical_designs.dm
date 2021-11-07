@@ -389,6 +389,17 @@
 	category = list("Implants", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/cyberimp_brain_cell_stimmulator
+	name = "Brain Cell Stimmulator"
+	desc = "This implant will reduce effects of brain cell necrosis by half making it less risky to be off medication."
+	id = "ci-brainstimm"
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/silver = 500, /datum/material/gold = 1000, /datum/material/copper = 200)
+	build_path = /obj/item/organ/cyberimp/brain/brain_cell_stimmulator
+	category = list("Implants", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
 /datum/design/cyberimp_nutriment
 	name = "Nutriment Pump Implant"
 	desc = "This implant with synthesize and pump into your bloodstream a small amount of nutriment when you are starving."

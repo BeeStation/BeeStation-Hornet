@@ -143,6 +143,12 @@
 /obj/item/organ/cyberimp/brain/anti_stun/syndicate
 	syndicate_implant = TRUE
 
+/obj/item/organ/cyberimp/brain/brain_cell_stimmulator
+	name = "Brain cell stimmulator"
+	desc = "Decrases chance of getting a brain trauma from brain cell necrosis by half"
+	implant_color = "#ecbad3"
+	slot = ORGAN_SLOT_BRAIN_BRAINCELLSTIM
+
 //[[[[MOUTH]]]]
 /obj/item/organ/cyberimp/mouth
 	zone = BODY_ZONE_PRECISE_MOUTH

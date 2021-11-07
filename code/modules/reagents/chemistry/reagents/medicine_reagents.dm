@@ -1603,3 +1603,95 @@
 		M.Jitter(5)
 	M.losebreath = 0
 	..()
+
+//DEATH TRAUMA MEDICINE
+
+/datum/reagent/medicine/brendol
+	name = "Brendol"
+	description = "While in bloodstream prevents cell necrosis from causing further damage. Has severe side effects and larger doses will cause side effect to be more severe"
+	reagent_state = LIQUID
+	color = "#d348a5"
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+	overdose_threshold = 40
+
+/datum/reagent/medicine/brendol/on_mob_life(mob/living/carbon/M)
+	var/sideEffectFrequency = min( volume / 40 * 2 , 1)
+	if(prob(100 / (20 / sideEffectFrequency )))
+		M.AdjustStun(40)
+	if(prob(100 / (90 / sideEffectFrequency )))
+		M.flash_act()
+		M.confused += 10
+		M.blur_eyes(10)
+	..()
+	. = 1
+
+/datum/reagent/medicine/brendol/overdose_process(mob/living/M)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3)
+	if(prob(5))
+		M.adjustCloneLoss(5)
+	..()
+	. = 1
+
+/datum/reagent/medicine/cortexone
+	name = "Cortexone"
+	description = "While in bloodstream prevents cell necrosis from causing further damage. Has severe side effects and larger doses will cause side effect to be more severe"
+	reagent_state = LIQUID
+	color = "#393aa8"
+	metabolization_rate = 0.15 * REAGENTS_METABOLISM
+	overdose_threshold = 40
+
+/datum/reagent/medicine/cortexone/on_mob_life(mob/living/carbon/M)
+	var/sideEffectFrequency = min( volume / 40 * 2 , 1)
+	if(prob(100 / (7 / sideEffectFrequency )))
+		M.drop_all_held_items()
+	if(prob(100 / (300 / sideEffectFrequency )))
+		M.AdjustSleeping(200)
+	if(prob(100 / (40 / sideEffectFrequency )))
+		M.apply_damage(80, STAMINA)
+	..()
+	. = 1
+
+/datum/reagent/medicine/cortexone/overdose_process(mob/living/M)
+	M.adjustCloneLoss(1)
+	if(prob(1))
+		if(iscarbon(M))
+			var/mob/living/carbon/C = M
+			C.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_LOBOTOMY)
+	..()
+	. = 1
+
+/datum/reagent/medicine/cranizine
+	name = "Cranizine"
+	description = "Allows living comfortable live even with brain cell necrosis but considerable affects user making him hypersensitive to pain and very docile"
+	reagent_state = LIQUID
+	color = "#77fcb9"
+	metabolization_rate = 0.2 * REAGENTS_METABOLISM
+	overdose_threshold = 30
+
+/datum/reagent/medicine/cranizine/overdose_process(mob/living/M)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
+	if(prob(5))
+		M.adjustCloneLoss(5)
+	..()
+	. = 1
+
+/datum/reagent/medicine/cranizine/on_mob_life(mob/living/carbon/M)
+	var/damage = M.get_damage_amount(BRUTE) + M.get_damage_amount(BURN)
+	if(damage >= 10)
+		M.apply_damage(damage/2, STAMINA)
+		if(M.get_damage_amount(STAMINA) >= 100)
+			M.Jitter(2)
+			if(prob(20))
+				M.emote(pick("Squirms in pain","Convulses in pain","Rolls around in agony","Twiches in agony"))
+		if(prob(5))
+			to_chat(M, pick("AAArghh!!! It stings like hell!","It hurts! it hurts!","Ouch ouch ouch!!!","AAAAAARF!!!"))
+
+/datum/reagent/medicine/cranizine/on_mob_metabolize(mob/living/M)
+	ADD_TRAIT(M, TRAIT_PACIFISM, type)
+	M.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=0.8, blacklisted_movetypes=(FLYING|FLOATING))
+	..()
+
+/datum/reagent/medicine/cranizine/on_mob_end_metabolize(mob/living/M)
+	REMOVE_TRAIT(M, TRAIT_PACIFISM, type)
+	M.remove_movespeed_modifier(type)
+	..()

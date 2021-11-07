@@ -107,9 +107,9 @@
 	//Death trauma
 	var/obj/item/organ/brain/B = getorgan(/obj/item/organ/brain)
 	if(istype(B) && B.organ_flags & ORGAN_VITAL)
-		var/trauma_type = pick(BRAIN_TRAUMA_MILD, BRAIN_TRAUMA_SEVERE)
-		gain_trauma_type(trauma_type, TRAUMA_RESILIENCE_MAGIC)
-	
+		if(B.can_gain_trauma(/datum/brain_trauma/death, TRAUMA_RESILIENCE_ABSOLUTE))
+			B.brain_gain_trauma(/datum/brain_trauma/death, TRAUMA_RESILIENCE_ABSOLUTE)
+		
 	set_drugginess(0)
 	set_disgust(0)
 	update_damage_hud()

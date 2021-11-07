@@ -318,3 +318,24 @@
 	results = list(/datum/reagent/consumable/liquidelectricity = 3)
 	required_reagents = list(/datum/reagent/consumable/ethanol = 3, /datum/reagent/consumable/liquidelectricity = 1, /datum/reagent/toxin/plasma = 1)
 	mix_message = "The mixture sparks and then subsides."
+
+/datum/chemical_reaction/brendol
+	name = "Brendol"
+	id = /datum/reagent/medicine/brendol
+	results = list(/datum/reagent/medicine/brendol = 3)
+	required_reagents = list(/datum/reagent/medicine/synaptizine = 1, /datum/reagent/medicine/mannitol = 1, /datum/reagent/oil = 1)
+	required_temp = 475
+
+/datum/chemical_reaction/cortexone
+	name = "Cortexone"
+	id = /datum/reagent/medicine/cortexone
+	results = list(/datum/reagent/medicine/cortexone = 5)
+	required_reagents = list(/datum/reagent/medicine/brendol = 1, /datum/reagent/medicine/psicodine = 1, /datum/reagent/medicine/salglu_solution = 1, /datum/reagent/toxin/plasma = 2 )
+	is_cold_recipe = 1
+	required_temp = 140
+
+/datum/chemical_reaction/cranizine
+	name = "Cranizine"
+	id = /datum/reagent/medicine/cranizine
+	results = list(/datum/reagent/medicine/cranizine = 5)
+	required_reagents = list(/datum/reagent/medicine/cortexone = 1, /datum/reagent/medicine/omnizine = 1, /datum/reagent/consumable/frostoil = 1,/datum/reagent/liquidadamantine = 1, /datum/reagent/pax = 1)
