@@ -1,5 +1,6 @@
 /datum/component/haircolor_clothing/Initialize()
     RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/onEquip)
+    RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, .proc/update_color)
 
 /datum/component/haircolor_clothing/proc/onEquip(obj/item/I, mob/living/carbon/human/H, slot)
     SIGNAL_HANDLER
