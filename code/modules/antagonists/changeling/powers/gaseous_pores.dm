@@ -1,6 +1,6 @@
 /datum/action/changeling/gaseous_pores
 	name = "Gaseous Pores"
-	desc = "Our skins bursts, releasing gases which bring confusion to our chasers, covering our escape."
+	desc = "Our skins bursts, releasing gases which bring confusion to our pursuers, covering our escape."
 	helptext = "Our kind are immune to the gases internals are not necessary"
 	button_icon_state = "smoke"
 	chemical_cost = 25
