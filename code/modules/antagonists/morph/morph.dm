@@ -68,7 +68,7 @@
 	var/mob/living/simple_animal/hostile/morph/M = owner
 	M.manipulate(M)
 
-/mob/living/simple_animal/hostile/morph/proc/manipulate(var/mob/living/simple_animal/hostile/morph/M)
+/mob/living/simple_animal/hostile/morph/proc/manipulate(mob/living/simple_animal/hostile/morph/M)
 	var/list/choices = list()
 	var/list/mobfunctions = list("Drop", "Digest", "Disguise as", "Throw", "Strip")
 	var/list/itemfunctions = list("Use", "Throw", "Drop", "Use and Throw", "Digest", "Disguise as")
@@ -289,7 +289,7 @@
 /mob/living/simple_animal/hostile/morph/LoseAggro()
 	vision_range = initial(vision_range)
 
-/mob/living/simple_animal/hostile/morph/AIShouldSleep(var/list/possible_targets)
+/mob/living/simple_animal/hostile/morph/AIShouldSleep(list/possible_targets)
 	. = ..()
 	if(.)
 		var/list/things = list()

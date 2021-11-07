@@ -417,7 +417,7 @@
 			swag+=check_gangster_swag(gangmind.current)
 	return swag
 
-/datum/team/gang/proc/check_gangster_swag(var/mob/living/carbon/human/gangster)
+/datum/team/gang/proc/check_gangster_swag(mob/living/carbon/human/gangster)
 	//Gangster must be alive and on station
 	var/swag = 1
 	if((gangster.stat == DEAD) || !(is_station_level(gangster.z)))

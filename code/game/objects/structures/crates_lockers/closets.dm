@@ -84,7 +84,7 @@
 			else
 				add_overlay("[icon_state]_open")
 
-/obj/structure/closet/proc/animate_door(var/closing = FALSE)
+/obj/structure/closet/proc/animate_door(closing = FALSE)
 	if(!door_anim_time)
 		return
 	if(!door_obj) door_obj = new
@@ -561,7 +561,7 @@
 		togglelock(user)
 		T1.visible_message("<span class='warning'>[user] dives into [src]!</span>")
 
-/obj/structure/closet/on_object_saved(var/depth = 0)
+/obj/structure/closet/on_object_saved(depth = 0)
 	if(depth >= 10)
 		return ""
 	var/dat = ""

@@ -122,7 +122,7 @@
 		below.merge(src, failures)
 
 ///Merges the two powernets connected to the deck relays
-/obj/machinery/power/deck_relay/proc/merge(var/obj/machinery/power/deck_relay/DR, failures = 0)
+/obj/machinery/power/deck_relay/proc/merge(obj/machinery/power/deck_relay/DR, failures = 0)
 	if(!DR)
 		return
 	var/turf/merge_from = get_turf(DR)

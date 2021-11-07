@@ -14,7 +14,7 @@
 			"[user] begins to wedge \the [tool] in [target]'s [parse_zone(target_zone)].",
 			"[user] begins to wedge something in [target]'s [parse_zone(target_zone)].")
 
-/datum/surgery_step/insert_pill/success(mob/user, mob/living/carbon/target, target_zone, var/obj/item/reagent_containers/pill/tool, datum/surgery/surgery)
+/datum/surgery_step/insert_pill/success(mob/user, mob/living/carbon/target, target_zone, obj/item/reagent_containers/pill/tool, datum/surgery/surgery)
 	if(!istype(tool))
 		return 0
 

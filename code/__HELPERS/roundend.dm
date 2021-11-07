@@ -676,7 +676,7 @@
 		qdel(query_check_everything_ranks)
 
 
-/datum/controller/subsystem/ticker/proc/sendtodiscord(var/survivors, var/escapees, var/integrity)
+/datum/controller/subsystem/ticker/proc/sendtodiscord(survivors, escapees, integrity)
     var/discordmsg = ""
     discordmsg += "--------------ROUND END--------------\n"
     discordmsg += "Round Number: [GLOB.round_id]\n"

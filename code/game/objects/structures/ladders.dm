@@ -138,14 +138,14 @@
 			return list("mode" = RCD_DECONSTRUCT, "delay" = 30, "cost" = 15)
 	return FALSE
 
-/obj/structure/ladder/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
+/obj/structure/ladder/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct the ladder.</span>")
 			qdel(src)
 			return TRUE
 
-/obj/structure/ladder/unbreakable/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
+/obj/structure/ladder/unbreakable/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")

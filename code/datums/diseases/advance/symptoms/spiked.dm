@@ -46,7 +46,7 @@ Thresholds
 	if(A.transmission >= 6) //higher damage
 		Power = 1.4  //the typical +100% is waaaay too strong here when the symptom is stacked. +40% is sufficient
 
-/datum/symptom/spiked/Activate(var/datum/disease/advance/A)
+/datum/symptom/spiked/Activate(datum/disease/advance/A)
 	var/mob/living/carbon/human/H = A.affected_mob
 	if(!..())
 		return

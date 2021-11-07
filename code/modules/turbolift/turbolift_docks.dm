@@ -54,7 +54,7 @@
 		bottom_floor = TRUE //We let the lowest dock handle finding all of the other docks
 
 
-/obj/docking_port/stationary/turbolift/proc/locate_floors(var/obj/docking_port/mobile/turbolift/dock)
+/obj/docking_port/stationary/turbolift/proc/locate_floors(obj/docking_port/mobile/turbolift/dock)
 	if(!bottom_floor)
 		return
 	var/obj/docking_port/mobile/turbolift/M = SSshuttle.getShuttle(dock.id)

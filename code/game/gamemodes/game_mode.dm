@@ -568,13 +568,13 @@
 //Keeps track of all heads//
 ////////////////////////////
 
-/datum/game_mode/proc/get_living_by_department(var/department)
+/datum/game_mode/proc/get_living_by_department(department)
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.mob_list)
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in department))
 			. |= player.mind
 
-/datum/game_mode/proc/get_all_by_department(var/department)
+/datum/game_mode/proc/get_all_by_department(department)
 	. = list()
 	for(var/mob/player in GLOB.mob_list)
 		if(player.mind && (player.mind.assigned_role in department))

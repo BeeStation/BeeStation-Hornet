@@ -55,7 +55,7 @@
 		visible_message("<span class='warning'>[src] falls apart!</span>")
 		qdel(src)
 
-/obj/item/stand_arrow/proc/after_arrow_attack(mob/living/carbon/H, var/kill_chance)
+/obj/item/stand_arrow/proc/after_arrow_attack(mob/living/carbon/H, kill_chance)
 	if(prob(kill_chance))
 		H.visible_message("<span class='danger bold'>[H] stares ahead, eyes full of fear, before collapsing lifelessly into ash, \the [src] falling out...</span>")
 		log_game("[key_name(H)] was killed by a stand arrow.")

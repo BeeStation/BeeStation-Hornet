@@ -1,9 +1,9 @@
-/datum/controller/subsystem/ticker/proc/give_crew_objective(var/datum/mind/crewMind)
+/datum/controller/subsystem/ticker/proc/give_crew_objective(datum/mind/crewMind)
 	if(CONFIG_GET(flag/allow_crew_objectives) && crewMind?.current?.client.prefs.crew_objectives)
 		generate_individual_objectives(crewMind)
 	return
 
-/datum/controller/subsystem/ticker/proc/generate_individual_objectives(var/datum/mind/crewMind)
+/datum/controller/subsystem/ticker/proc/generate_individual_objectives(datum/mind/crewMind)
 	if(!(CONFIG_GET(flag/allow_crew_objectives)))
 		return
 	if(!crewMind)

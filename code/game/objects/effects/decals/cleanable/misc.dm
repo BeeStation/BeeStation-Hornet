@@ -153,7 +153,7 @@
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), 9, 4, infected = src)
 		disease += R
 
-/obj/effect/decal/cleanable/vomit/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+/obj/effect/decal/cleanable/vomit/old/extrapolator_act(mob/user, obj/item/extrapolator/E, scan = TRUE)
 	if(!disease.len)
 		return FALSE
 	if(scan)

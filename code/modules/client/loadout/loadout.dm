@@ -66,7 +66,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		var/obj/O = path
 		description = initial(O.desc)
 
-/datum/gear/proc/purchase(var/client/C) //Called when the gear is first purchased
+/datum/gear/proc/purchase(client/C) //Called when the gear is first purchased
 	return
 
 /datum/gear_data

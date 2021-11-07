@@ -23,7 +23,7 @@
 	var/randomname = TRUE
 	var/datum/symptom/setsymptom = null
 
-/datum/disease/advance/random/New(max_symptoms, max_level = 9, min_level = 1, var/datum/symptom/specialsymptom = setsymptom, var/atom/infected)
+/datum/disease/advance/random/New(max_symptoms, max_level = 9, min_level = 1, datum/symptom/specialsymptom = setsymptom, atom/infected)
 	if(!max_symptoms)
 		max_symptoms = (2 + rand(1, (VIRUS_SYMPTOM_LIMIT-2)))
 	if(specialsymptom)

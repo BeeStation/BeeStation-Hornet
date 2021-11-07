@@ -415,7 +415,7 @@
 	..()
 	setMovetype(movement_type & ~FLOATING) // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
-/mob/living/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+/mob/living/extrapolator_act(mob/user, obj/item/extrapolator/E, scan = TRUE)
 	if(istype(E) && diseases.len)
 		if(scan)
 			E.scan(src, diseases, user)

@@ -45,7 +45,7 @@ Bonus
 		symptom_delay_min = 5
 		symptom_delay_max = 20
 
-/datum/symptom/narcolepsy/Activate(var/datum/disease/advance/A)
+/datum/symptom/narcolepsy/Activate(datum/disease/advance/A)
 	var/mob/living/M = A.affected_mob
 	//this ticks even when on cooldown
 	switch(sleep_level) //Works sorta like morphine

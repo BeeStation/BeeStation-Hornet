@@ -34,7 +34,7 @@
 /datum/viewData/proc/isZooming()
 	return (width || height)
 
-/datum/viewData/proc/resetToDefault(var/new_default)
+/datum/viewData/proc/resetToDefault(new_default)
 	width = 0
 	height = 0
 	if(new_default != null)

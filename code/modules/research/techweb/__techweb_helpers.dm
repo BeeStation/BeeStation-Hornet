@@ -10,7 +10,7 @@
 	WARNING("Invalid boost information for node \[[id]\]: [message]")
 	SSresearch.invalid_node_boost[id] = message
 
-/proc/techweb_item_boost_check(obj/item/I)			//Returns an associative list of techweb node datums with values of the boost it gives.	var/list/returned = list()
+/proc/techweb_item_boost_check(obj/item/I)			//Returns an associative list of techweb node datums with values of the boost it gives.	list/returned = list()
 	. = list()
 	if(SSresearch.techweb_boost_items[I.type])
 		. += SSresearch.techweb_boost_items[I.type]		//It should already be formatted in node datum = list(point type = value)

@@ -282,7 +282,7 @@ BONUS
 	var/big_heal
 
 //Constructor
-/obj/item/reagent_containers/food/snacks/eggsac/New(loc, var/list/disease, var/eggsplodes, var/sneaky, var/large_heal)
+/obj/item/reagent_containers/food/snacks/eggsac/New(loc, list/disease, eggsplodes, sneaky, large_heal)
 	..()
 	for(var/datum/disease/D in disease)
 		diseases += D
@@ -319,7 +319,7 @@ BONUS
 	bitesize = 1
 	var/list/diseases = list()
 
-/obj/item/reagent_containers/food/snacks/fleshegg/New(loc, var/list/disease, var/sneaky, var/large_heal)
+/obj/item/reagent_containers/food/snacks/fleshegg/New(loc, list/disease, sneaky, large_heal)
 	..()
 	for(var/datum/disease/D in disease)
 		diseases += D

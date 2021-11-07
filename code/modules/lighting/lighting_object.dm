@@ -31,7 +31,7 @@
 	needs_update = TRUE
 	GLOB.lighting_update_objects += src
 
-/atom/movable/lighting_object/Destroy(var/force)
+/atom/movable/lighting_object/Destroy(force)
 	if (force)
 		GLOB.lighting_update_objects     -= src
 		if (loc != myturf)
@@ -143,6 +143,6 @@
 	return
 
 // Override here to prevent things accidentally moving around overlays.
-/atom/movable/lighting_object/forceMove(atom/destination, var/no_tp=FALSE, var/harderforce = FALSE)
+/atom/movable/lighting_object/forceMove(atom/destination, no_tp=FALSE, harderforce = FALSE)
 	if(harderforce)
 		. = ..()

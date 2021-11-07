@@ -50,7 +50,7 @@
 /obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
 	return
 
-/obj/item/reagent_containers/syringe/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+/obj/item/reagent_containers/syringe/extrapolator_act(mob/user, obj/item/extrapolator/E, scan = TRUE)
 	if(!syringediseases.len)
 		return FALSE
 	if(scan)

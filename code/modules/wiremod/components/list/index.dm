@@ -11,6 +11,6 @@
 	output_name = "Value"
 	output_port_type = PORT_TYPE_ANY
 
-/obj/item/circuit_component/indexer/index/calculate_output(var/index, var/list/list_input)
+/obj/item/circuit_component/indexer/index/calculate_output(index, list/list_input)
 
 	output.set_output(list_input[index])

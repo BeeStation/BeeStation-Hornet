@@ -137,7 +137,7 @@
 		to_chat(user, "<span class='info'>You increase the size of [A], giving it a surge of strength!</span>")
 		qdel(src)
 
-/obj/item/fugu_gland/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+/obj/item/fugu_gland/extrapolator_act(mob/user, obj/item/extrapolator/E, scan = TRUE)
 	if(scan)
 		to_chat(user, "<span class='info'>[src] has potential for extrapolation.</span>")
 	else

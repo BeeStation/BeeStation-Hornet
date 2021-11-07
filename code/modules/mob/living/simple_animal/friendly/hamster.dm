@@ -50,7 +50,7 @@
 	var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 5), 9, 1+rand(1,3), infected = src)
 	extrapolatordisease += R
 
-/mob/living/simple_animal/pet/hamster/vector/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+/mob/living/simple_animal/pet/hamster/vector/extrapolator_act(mob/user, obj/item/extrapolator/E, scan = TRUE)
 	if(!extrapolatordisease.len)
 		return FALSE
 	if(scan)

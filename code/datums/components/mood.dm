@@ -293,7 +293,7 @@
 		category = REF(category)
 	return mood_events[category]
 
-/datum/component/mood/proc/remove_temp_moods(var/admin) //Removes all temp moods
+/datum/component/mood/proc/remove_temp_moods(admin) //Removes all temp moods
 	for(var/i in mood_events)
 		var/datum/mood_event/moodlet = mood_events[i]
 		if(!moodlet || !moodlet.timeout)
@@ -380,7 +380,7 @@
 		if(HYGIENE_LEVEL_NORMAL to HYGIENE_LEVEL_CLEAN)
 			add_event(null, "hygiene", /datum/mood_event/neat)
 
-/datum/component/mood/proc/check_area_mood(datum/source, var/area/A)
+/datum/component/mood/proc/check_area_mood(datum/source, area/A)
 	SIGNAL_HANDLER
 
 	if(A.mood_bonus)

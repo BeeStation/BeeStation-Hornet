@@ -90,7 +90,7 @@
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] and [key_name_admin(new_owner.current)] into blood brothers.")
 	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(new_owner.current)] into incursion traitor team.")
 
-/datum/antagonist/incursion/proc/equip(var/silent = FALSE)
+/datum/antagonist/incursion/proc/equip(silent = FALSE)
 	var/obj/item/uplink/incursion/uplink = new(get_turf(owner.current), owner.key, 15)
 	var/where
 	if(ishuman(owner.current))		//if he's not a human, uplink will spawn under his feet

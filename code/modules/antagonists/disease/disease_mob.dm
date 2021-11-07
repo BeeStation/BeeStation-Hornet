@@ -106,7 +106,7 @@ the new instance inside the host to be updated to the template's stats.
 		for(var/datum/disease_ability/ability in purchased_abilities)
 			. += "<span class='notice'>[ability.name]</span>"
 
-/mob/camera/disease/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/camera/disease/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	return
 
 /mob/camera/disease/Move(NewLoc, Dir = 0)
@@ -282,13 +282,13 @@ the new instance inside the host to be updated to the template's stats.
 	if(T)
 		forceMove(T)
 
-/mob/camera/disease/DblClickOn(var/atom/A, params)
+/mob/camera/disease/DblClickOn(atom/A, params)
 	if(hosts[A])
 		set_following(A)
 	else
 		..()
 
-/mob/camera/disease/ClickOn(var/atom/A, params)
+/mob/camera/disease/ClickOn(atom/A, params)
 	if(freemove && ishuman(A))
 		var/mob/living/carbon/human/H = A
 		if(alert(src, "Select [H.name] as your initial host?", "Select Host", "Yes", "No") != "Yes")

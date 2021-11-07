@@ -69,7 +69,7 @@
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/simple_animal/hostile/blob/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	if(!overmind)
 		return ..()
 	var/spanned_message = say_quote(message)
@@ -111,7 +111,7 @@
 	var/list/disease = list()
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 
-/mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
+/mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
@@ -119,7 +119,7 @@
 	/*var/datum/disease/advance/random/blob/R = new //either viro is cooperating with xenobio, or a blob has spawned and the round is probably over sooner than they can make a virus for this
 	disease += R*/
 
-/mob/living/simple_animal/hostile/blob/blobspore/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+/mob/living/simple_animal/hostile/blob/blobspore/extrapolator_act(mob/user, obj/item/extrapolator/E, scan = TRUE)
 	if(scan)
 		E.scan(src, disease, user)
 	else

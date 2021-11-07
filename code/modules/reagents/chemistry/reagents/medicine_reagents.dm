@@ -1197,7 +1197,7 @@
 	metabolization_rate = REM * 3.75
 	overdose_threshold = 10
 
-/datum/reagent/medicine/hepanephrodaxon/on_mob_life(var/mob/living/carbon/M)
+/datum/reagent/medicine/hepanephrodaxon/on_mob_life(mob/living/carbon/M)
 	var/repair_strength = 1
 	var/obj/item/organ/liver/L = M.getorganslot(ORGAN_SLOT_LIVER)
 	if(L.damage > 0)

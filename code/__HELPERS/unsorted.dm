@@ -34,7 +34,7 @@
 		.+=360
 
 /// For getting the angle when animating something's pixel_x and pixel_y (normalized pixel deltas)
-/proc/Get_Pixel_Angle(var/y, var/x)
+/proc/Get_Pixel_Angle(y, x)
 	if(!y)
 		return (x>=0)?90:270
 	.=arctan(x/y)
@@ -455,7 +455,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	return locate(x,y,A.z)
 
 /// Gets all contents of contents and returns them all in a list.
-/atom/proc/GetAllContents(var/T, ignore_flag_1)
+/atom/proc/GetAllContents(T, ignore_flag_1)
 	var/list/processing_list = list(src)
 	var/list/assembled = list()
 	if(T)
@@ -782,7 +782,7 @@ GLOBAL_LIST_INIT(WALLITEMS_INVERSE, typecacheof(list(
 	/obj/structure/light_construct, /obj/machinery/light)))
 
 
-/proc/gotwallitem(loc, dir, var/check_external = 0)
+/proc/gotwallitem(loc, dir, check_external = 0)
 	var/locdir = get_step(loc, dir)
 	for(var/obj/O in loc)
 		if(is_type_in_typecache(O, GLOB.WALLITEMS) && check_external != 2)
@@ -941,7 +941,7 @@ eg: `center_image(I, 32,32)`
 
 eg2: `center_image(I, 96,96)`
 */
-/proc/center_image(var/image/I, x_dimension = 0, y_dimension = 0)
+/proc/center_image(image/I, x_dimension = 0, y_dimension = 0)
 	if(!I)
 		return
 
@@ -1098,7 +1098,7 @@ eg2: `center_image(I, 96,96)`
 
 	return L
 
-/atom/proc/contains(var/atom/A)
+/atom/proc/contains(atom/A)
 	if(!A)
 		return 0
 	for(var/atom/location = A.loc, location, location = location.loc)
@@ -1255,7 +1255,7 @@ Increases delay as the server gets more overloaded, as sleeps aren't cheap and s
 	pixel_x = initialpixelx
 	pixel_y = initialpixely
 
-/proc/weightclass2text(var/w_class)
+/proc/weightclass2text(w_class)
 	switch(w_class)
 		if(WEIGHT_CLASS_TINY)
 			. = "tiny"
@@ -1545,7 +1545,7 @@ If it ever becomes necesary to get a more performant REF(), this lies here in wa
 	for(var/i in L)
 		if(condition.Invoke(i))
 			. |= i
-/proc/generate_items_inside(list/items_list,var/where_to)
+/proc/generate_items_inside(list/items_list,where_to)
 	for(var/each_item in items_list)
 		for(var/i in 1 to items_list[each_item])
 			new each_item(where_to)
@@ -1597,7 +1597,7 @@ config_setting should be one of the following:
 	var/turf/T = get_turf(A)
 	return T ? T.z : A.z
 
-/proc/invertDir(var/input_dir)
+/proc/invertDir(input_dir)
 	switch(input_dir)
 		if(UP)
 			return DOWN

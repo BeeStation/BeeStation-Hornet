@@ -1,5 +1,5 @@
 //like orange but only checks north/south/east/west for one step
-/proc/cardinalrange(var/center)
+/proc/cardinalrange(center)
 	var/list/things = list()
 	for(var/direction in GLOB.cardinals)
 		var/turf/T = get_step(center, direction)

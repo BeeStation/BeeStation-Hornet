@@ -780,7 +780,7 @@
   *
   * Default behaviour is to send COMSIG_ATOM_EXTRAPOLATOR_ACT and return FALSE
   */
-/atom/proc/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+/atom/proc/extrapolator_act(mob/user, obj/item/extrapolator/E, scan = TRUE)
 	SEND_SIGNAL(src,COMSIG_ATOM_EXTRAPOLATOR_ACT, user, E, scan)
 	return FALSE
 /**
@@ -1321,7 +1321,7 @@
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, AM, levels)
 
 ///Sets the custom materials for an item.
-/atom/proc/set_custom_materials(var/list/materials, multiplier = 1)
+/atom/proc/set_custom_materials(list/materials, multiplier = 1)
 	if(custom_materials) //Only runs if custom materials existed at first. Should usually be the case but check anyways
 		for(var/i in custom_materials)
 			var/datum/material/custom_material = i

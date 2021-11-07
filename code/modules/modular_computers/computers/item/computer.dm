@@ -71,7 +71,7 @@
 	return ..()
 
 
-/obj/item/modular_computer/proc/add_computer_verbs(var/path)
+/obj/item/modular_computer/proc/add_computer_verbs(path)
 	switch(path)
 		if(MC_CARD)
 			add_verb(/obj/item/modular_computer/proc/eject_id)

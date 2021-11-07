@@ -92,12 +92,12 @@
 	air_contents.set_volume(gas_capacity)
 	air_contents.set_temperature(T20C)
 
-/obj/machinery/atmospherics/components/unary/shuttle/heater/proc/hasFuel(var/required)
+/obj/machinery/atmospherics/components/unary/shuttle/heater/proc/hasFuel(required)
 	var/datum/gas_mixture/air_contents = airs[1]
 	var/moles = air_contents.total_moles()
 	return moles >= required
 
-/obj/machinery/atmospherics/components/unary/shuttle/heater/proc/consumeFuel(var/amount)
+/obj/machinery/atmospherics/components/unary/shuttle/heater/proc/consumeFuel(amount)
 	var/datum/gas_mixture/air_contents = airs[1]
 	air_contents.remove(amount)
 	return

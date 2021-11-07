@@ -207,5 +207,5 @@ FLOOR SAFES
 		hide(T.intact)
 
 
-/obj/structure/safe/floor/hide(var/intact)
+/obj/structure/safe/floor/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0

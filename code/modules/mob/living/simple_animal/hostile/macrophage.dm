@@ -46,7 +46,7 @@
 	if(alreadyinfected)
 		return FALSE
 
-/mob/living/simple_animal/hostile/macrophage/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+/mob/living/simple_animal/hostile/macrophage/extrapolator_act(mob/user, obj/item/extrapolator/E, scan = TRUE)
 	if(scan)
 		E.scan(src, infections, user)
 	else

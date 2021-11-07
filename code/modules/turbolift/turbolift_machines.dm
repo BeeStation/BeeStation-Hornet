@@ -151,7 +151,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 		var/obj/docking_port/mobile/turbolift/M = SSshuttle.getShuttle(shuttle_id)
 		L.dock_dir = M.dir
 
-/obj/machinery/computer/turbolift/proc/close_airlock(var/obj/machinery/door/airlock/turbolift/T)
+/obj/machinery/computer/turbolift/proc/close_airlock(obj/machinery/door/airlock/turbolift/T)
 	T.unbolt()
 	T.close()
 	T.bolt()
@@ -162,7 +162,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	A.close()
 	A.bolt()
 
-/obj/machinery/computer/turbolift/proc/open_airlock(var/obj/machinery/door/airlock/turbolift/T)
+/obj/machinery/computer/turbolift/proc/open_airlock(obj/machinery/door/airlock/turbolift/T)
 	T.unbolt()
 	T.open()
 	T.bolt()
@@ -191,7 +191,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 		in_use = TRUE
 		pre_move(destination_queue[1])
 
-/obj/machinery/computer/turbolift/proc/pre_move(var/destination_id)
+/obj/machinery/computer/turbolift/proc/pre_move(destination_id)
 	if(!airlocks.len)
 		find_airlocks()
 	var/obj/docking_port/stationary/turbolift/dock = SSshuttle.getDock(destination_id) //We check this in both procs because who knows what might happen to the dock while the timer is going
@@ -210,7 +210,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 
 	addtimer(CALLBACK(src, .proc/move, destination_id), 5 SECONDS)
 
-/obj/machinery/computer/turbolift/proc/move(var/destination_id)
+/obj/machinery/computer/turbolift/proc/move(destination_id)
 	var/obj/docking_port/mobile/turbolift/M = SSshuttle.getShuttle(shuttle_id)
 	if(!M)
 		say("An unexpected error has occured. The turbolift is now offline. Please contact a Nanotrasen Turbolift Repair Technician.")
@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	SSshuttle.moveShuttle(shuttle_id, dock.id, 0)
 	addtimer(CALLBACK(src, .proc/post_move, destination_id), 5 SECONDS)
 
-/obj/machinery/computer/turbolift/proc/post_move(var/destination_id)
+/obj/machinery/computer/turbolift/proc/post_move(destination_id)
 	var/obj/docking_port/stationary/turbolift/dock = SSshuttle.getDock(destination_id)
 	say("Arrived at [dock ? "Deck [dock.deck]: [dock.name]" : "destination"].")
 	for(var/datum/weakref/T in airlocks)

@@ -22,7 +22,7 @@
 	value_port = null
 	return ..()
 
-/obj/item/circuit_component/indexer/write/calculate_output(var/index, var/list/list_input)
+/obj/item/circuit_component/indexer/write/calculate_output(index, list/list_input)
 	list_input[index] = value_port.input_value
 	output.set_output(list_input)
 
