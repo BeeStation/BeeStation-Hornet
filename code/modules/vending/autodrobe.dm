@@ -87,7 +87,7 @@
 					/obj/item/clothing/mask/rat/tribal = 1,
 					/obj/item/clothing/mask/rat = 1,
 					/obj/item/clothing/suit/apron/overalls = 1,
-					/obj/item/clothing/head/kitty/rabbit =1,
+					/obj/item/clothing/head/rabbitears =1,
 					/obj/item/clothing/head/sombrero = 1,
 					/obj/item/clothing/head/sombrero/green = 1,
 					/obj/item/clothing/suit/poncho = 1,
