@@ -82,3 +82,9 @@
   background-color: black;
   border: 1px solid #40628a;
 }
+
+.Techweb__TierDisplay {
+  padding: 0.2em;
+  border-radius: 5px;
+  background-color: adjust-color(colors.$black, $alpha: -0.2);
+}

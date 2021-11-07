@@ -139,6 +139,7 @@ export const TechwebContent = (props, context) => {
     locked,
     linkedanalyzer,
     compact,
+    tech_tier,
   } = data;
   const [
     techwebRoute,
@@ -173,6 +174,9 @@ export const TechwebContent = (props, context) => {
                 className={`Techweb__SecProtocol ${!!sec_protocols && "engaged"}`}>
                 {sec_protocols ? "Engaged" : "Disengaged"}
               </span>
+            </Box>
+            <Box>
+              Tech Tier: {tech_tier}
             </Box>
             <Box>
               <Button.Checkbox
@@ -723,6 +727,7 @@ const TechNode = (props, context) => {
     description,
     design_ids,
     prereq_ids,
+    tech_tier,
   } = node_cache[id];
   const [
     techwebRoute,
@@ -737,6 +742,7 @@ const TechNode = (props, context) => {
     <Section
       className="Techweb__NodeContainer"
       title={name}
+      buttons={<Box className="Techweb__TierDisplay">T{tech_tier}</Box>}
       width={25}
       fitted>
       {!nocontrols && (
@@ -771,7 +777,7 @@ const TechNode = (props, context) => {
       {tier !== 0 && !!compact && !destructive && (
         <Flex className="Techweb__NodeProgress">
           {!!costs && Object.keys(costs).map(key => {
-            const cost = costs[key]
+            const cost = costs[key];
             const reqPts = Math.max(0, cost);
             const nodeProg = Math.min(reqPts, points[key]) || 0;
             return (
