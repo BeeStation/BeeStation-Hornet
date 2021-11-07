@@ -94,6 +94,7 @@
 /obj/item/organ/eyes/apid,
 /obj/item/organ/eyes/moth,
 /obj/item/organ/eyes/robotic,
+/obj/effect/spawner/lootdrop/organ_spawner/major,
 /turf/open/floor/plasteel/white,
 /area/template_noop)
 

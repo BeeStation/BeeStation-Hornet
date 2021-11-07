@@ -58,6 +58,7 @@
 "h" = (
 /obj/item/reagent_containers/glass/bottle/synaptizine,
 /obj/structure/table/glass,
+/obj/effect/spawner/lootdrop/organ_spawner/major,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/plating,
 /area/template_noop)
