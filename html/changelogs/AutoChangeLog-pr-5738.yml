@@ -1,0 +1,4 @@
+author: Sarchutar
+delete-after: true
+changes:
+  - bugfix: silicons can remotely open windoors again
