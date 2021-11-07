@@ -450,12 +450,8 @@ SUBSYSTEM_DEF(job)
 			DropLandAtRandomHallwayPoint(living_mob)
 			spawning_handled = TRUE
 		else if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER) && job.random_spawns_possible)
-			for(var/obj/effect/landmark/start/hangover/hangover_spawn in GLOB.start_landmarks_list)
-				S = hangover_spawn
-				if(locate(/mob/living) in hangover_spawn.loc) //so we can revert to spawning them on top of eachother if something goes wrong
-					continue
-				hangover_spawn.used = TRUE
-				break
+			SpawnLandAtRandomHallwayPoint(living_mob)
+			spawning_handled = TRUE
 		else if(length(GLOB.jobspawn_overrides[rank]))
 			S = pick(GLOB.jobspawn_overrides[rank])
 		else
@@ -691,9 +687,23 @@ SUBSYSTEM_DEF(job)
 		message_admins(msg)
 		CRASH(msg)
 
+///Spawns specified mob at a random spot in the hallways
+/datum/controller/subsystem/job/proc/SpawnLandAtRandomHallwayPoint(mob/living/living_mob)
+	var/turf/spawn_turf = get_safe_random_station_turfs(typesof(/area/hallway))
+
+	if(!spawn_turf)
+		SendToLateJoin(living_mob)
+		return
+
+	living_mob.forceMove(spawn_turf)
+
 ///Lands specified mob at a random spot in the hallways
 /datum/controller/subsystem/job/proc/DropLandAtRandomHallwayPoint(mob/living/living_mob)
-	var/turf/spawn_turf = get_safe_random_station_turf(typesof(/area/hallway))
+	var/turf/spawn_turf = get_safe_random_station_turfs(typesof(/area/hallway))
+
+	if(!spawn_turf)
+		SendToLateJoin(living_mob)
+		return
 
 	var/obj/structure/closet/supplypod/centcompod/toLaunch = new()
 	living_mob.forceMove(toLaunch)

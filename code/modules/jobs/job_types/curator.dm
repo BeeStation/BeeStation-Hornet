@@ -20,6 +20,9 @@
 	display_order = JOB_DISPLAY_ORDER_CURATOR
 	departments = DEPARTMENT_SERVICE
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/curator
+	)
 /datum/outfit/job/curator
 	name = "Curator"
 	jobtype = /datum/job/curator

@@ -41,8 +41,7 @@
 		meteor.meteor_types = wave_type
 		meteor.start_x = start_x + rand(-600, 600)
 		meteor.start_y = start_y + rand(-600, 600)
-		meteor.position.x = meteor.start_x
-		meteor.position.y = meteor.start_y
+		MOVE_ORBITAL_BODY(meteor, meteor.start_x, meteor.start_y)
 		//Calculate velocity
 		meteor.velocity.x = (station_target.position.x - meteor.start_x * 10) / meteor_time
 		meteor.velocity.y = (station_target.position.y - meteor.start_y * 10) / meteor_time

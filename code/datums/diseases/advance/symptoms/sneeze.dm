@@ -26,6 +26,8 @@ Bonus
 	severity = 0
 	symptom_delay_min = 5
 	symptom_delay_max = 35
+	prefixes = list("Nasal ")
+	bodies = list("Cold")
 	threshold_desc = "<b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/sneeze/Start(datum/disease/advance/A)

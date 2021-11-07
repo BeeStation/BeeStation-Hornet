@@ -29,6 +29,9 @@
 	var/neutered = FALSE
 	var/list/thresholds
 	var/naturally_occuring = TRUE //if this symptom can appear from /datum/disease/advance/GenerateSymptoms()
+	var/list/prefixes = list()
+	var/list/bodies = list()
+	var/list/suffixes = list()
 
 /datum/symptom/New()
 	var/list/S = SSdisease.list_symptoms

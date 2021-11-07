@@ -35,7 +35,7 @@
 			cached_map = parsed
 	return bounds
 
-/datum/map_template/proc/initTemplateBounds(list/bounds)
+/datum/map_template/proc/initTemplateBounds(list/bounds, init_atmos = TRUE)
 	if (!bounds) //something went wrong
 		stack_trace("[name] template failed to initialize correctly!")
 		return
@@ -85,22 +85,23 @@
 	SSmachines.setup_template_powernets(cables)
 	SSair.setup_template_machinery(atmos_machines)
 
-	//calculate all turfs inside the border
-	var/list/template_and_bordering_turfs = block(
-		locate(
-			max(bounds[MAP_MINX]-1, 1),
-			max(bounds[MAP_MINY]-1, 1),
-			bounds[MAP_MINZ]
-			),
-		locate(
-			min(bounds[MAP_MAXX]+1, world.maxx),
-			min(bounds[MAP_MAXY]+1, world.maxy),
-			bounds[MAP_MAXZ]
-			)
+	if(init_atmos)
+		//calculate all turfs inside the border
+		var/list/template_and_bordering_turfs = block(
+			locate(
+				max(bounds[MAP_MINX]-1, 1),
+				max(bounds[MAP_MINY]-1, 1),
+				bounds[MAP_MINZ]
+				),
+			locate(
+				min(bounds[MAP_MAXX]+1, world.maxx),
+				min(bounds[MAP_MAXY]+1, world.maxy),
+				bounds[MAP_MAXZ]
+				)
 		)
-	for(var/turf/affected_turf as anything in template_and_bordering_turfs)
-		affected_turf.air_update_turf(TRUE)
-		affected_turf.levelupdate()
+		for(var/turf/affected_turf as anything in template_and_bordering_turfs)
+			affected_turf.air_update_turf(TRUE)
+			affected_turf.levelupdate()
 
 /datum/map_template/proc/load_new_z(orbital_body_type, list/level_traits = list(ZTRAIT_AWAY = TRUE))
 	var/x = round((world.maxx - width)/2)
@@ -121,7 +122,7 @@
 
 	return level
 
-/datum/map_template/proc/load(turf/T, centered = FALSE)
+/datum/map_template/proc/load(turf/T, centered = FALSE, init_atmos = TRUE)
 	if(centered)
 		T = locate(T.x - round(width/2) , T.y - round(height/2) , T.z)
 	if(!T)
@@ -130,6 +131,12 @@
 		return
 	if(T.y+height > world.maxy)
 		return
+
+	var/list/border = block(locate(max(T.x, 1), max(T.y, 1),  T.z),
+							locate(min(T.x+width, world.maxx), min(T.y+height, world.maxy), T.z))
+	for(var/L in border)
+		var/turf/turf_to_disable = L
+		turf_to_disable.ImmediateDisableAdjacency()
 
 	// Accept cached maps, but don't save them automatically - we don't want
 	// ruins clogging up memory for the whole round.
@@ -150,7 +157,7 @@
 		repopulate_sorted_areas()
 
 	//initialize things that are normally initialized after map load
-	initTemplateBounds(bounds)
+	initTemplateBounds(bounds, init_atmos)
 
 	log_game("[name] loaded at [T.x],[T.y],[T.z]")
 	return bounds

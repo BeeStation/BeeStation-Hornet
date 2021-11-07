@@ -956,3 +956,23 @@
 				/obj/item/clothing/gloves/color/yellow = 1)
 
 	category = CAT_CLOTHING
+
+
+/datum/crafting_recipe/aquarium
+	name = "Aquarium"
+	result = /obj/structure/aquarium
+	time = 10 SECONDS
+	reqs = list(/obj/item/stack/sheet/iron = 15,
+				/obj/item/stack/sheet/glass = 10,
+				/obj/item/aquarium_kit = 1
+				)
+	category = CAT_MISC
+	
+/datum/crafting_recipe/paper_cup
+	name= "Paper Cup"
+	result = /obj/item/reagent_containers/food/drinks/sillycup
+	time = 10
+	reqs = list(/obj/item/paper = 1)
+	category = CAT_MISC
+	tools = list(TOOL_WIRECUTTER)
+	
