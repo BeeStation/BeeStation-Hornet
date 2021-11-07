@@ -251,22 +251,3 @@ Any-Mode: (hotkey doesn't need to be on)
 	else
 		to_chat(src, "<span class='danger'>The Discord invite is not set in the server configuration.</span>")
 	return
-
-/client/verb/map() // i couldn't be fucked to config-ize this
-	set name = "map"
-	set desc = "View the current map in the webviewer"
-	set hidden = 1
-	var/map_in_url
-	switch(SSmapping.config?.map_name)
-		if("Box Station")			map_in_url = "box"
-		if("Delta Station")			map_in_url = "delta"
-		if("MetaStation")			map_in_url = "meta"
-		if("Kilo Station")          map_in_url = "kilo"
-		if("PubbyStation")          map_in_url = "pubby"
-		if("CorgStation")			map_in_url = "corg"
-	if(map_in_url)
-		if(alert("This will open the current map in your browser. Are you sure?",,"Yes","No")!="Yes")
-			return
-		src << link("http://beestation13.com/map/[map_in_url]")
-	else
-		to_chat(src, "<span class='danger'>The current map is either invalid or unavailable.</span>")
