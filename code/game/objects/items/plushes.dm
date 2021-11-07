@@ -574,7 +574,7 @@
 
 /obj/item/toy/plush/crossed
 	name = "ghost plushie"
-	desc = "It reminds you of someone important, you just can't make out of who."
+	desc = "It reminds you of someone important, you just can't make out who."
 	icon_state = "crossedplush"
 	squeak_override = list('sound/items/haunted/ghostitemattack.ogg'=1)
 
