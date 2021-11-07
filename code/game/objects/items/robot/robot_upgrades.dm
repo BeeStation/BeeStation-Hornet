@@ -835,7 +835,7 @@
 /obj/item/borg/upgrade/speciality/casino
 	name = "Gambler Speciality"
 	desc = "It's not crew harm if they do it themselves!"
-	hat = /obj/item/clothing/head/rabbitears
+	hat = /obj/item/clothing/head/kitty/rabbit
 	addmodules = list (
 		/obj/item/gobbler,
 		/obj/item/storage/pill_bottle/dice_cup/cyborg,
