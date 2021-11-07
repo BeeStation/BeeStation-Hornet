@@ -513,18 +513,13 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
 				if(prob(60))
 					if(tetsuo && prob(15))
-						if(A.affected_mob.job == "Clown")
-							new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
 						if(MOB_ROBOTIC in A.infectable_biotypes)
 							new /obj/effect/decal/cleanable/robot_debris(M.loc)
-							new /obj/effect/spawner/lootdrop/teratoma/robot(M.loc)
-					new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
 				if(tetsuo)
 					var/list/organcantidates = list()
 					var/list/missing = M.get_missing_limbs()
 					if(prob(35))
 						new /obj/effect/decal/cleanable/blood/gibs(M.loc) //yes. this is very messy. very, very messy.
-						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
 						for(var/obj/item/organ/O in M.loc)
 							if(O.organ_flags & ORGAN_FAILING || O.organ_flags & ORGAN_VITAL) //dont use shitty organs or brains
 								continue
@@ -583,45 +578,3 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	animate(M, pixel_z = 4, time = 0) //size is fixed by having the player do one waddle. Animation for some reason resets size, meaning waddling can desize you
 	animate(pixel_z = 0, transform = turn(matrix(), pick(-12, 0, 12)), time=2) //waddle desizing is an issue, because you can game it to use this symptom and become small
 	animate(pixel_z = 0, transform = matrix(), time = 0) //so, instead, we use waddle desizing to desize you from this symptom, instead of a transformation, because it wont shrink you naturally
-
-//they are used for the maintenance spawn, for ling teratoma see changeling\teratoma.dm
-/obj/effect/mob_spawn/teratomamonkey //spawning these is one of the downsides of overclocking the symptom
-	name = "fleshy mass"
-	desc = "A writhing mass of flesh."
-	icon = 'icons/mob/blob.dmi'
-	icon_state = "blob_spore_temp"
-	density = FALSE
-	anchored = FALSE
-
-	antagonist_type = /datum/antagonist/teratoma/hugbox
-	mob_type = /mob/living/carbon/monkey/tumor
-	mob_name = "a living tumor"
-	death = FALSE
-	roundstart = FALSE
-	use_cooldown = TRUE
-	show_flavour = FALSE	//it's handled by antag datum
-	short_desc = "You are a living tumor. By all accounts you should not exist."
-	flavour_text = "Spread misery and chaos upon the station."
-	important_info = "Avoid killing unprovoked, kill only in self defense!"
-
-/obj/effect/mob_spawn/teratomamonkey/Initialize()
-	. = ..()
-	var/area/A = get_area(src)
-	if(A)
-		notify_ghosts("A living tumor has been born in [A.name].", 'sound/effects/splat.ogg', source = src, action = NOTIFY_ATTACK, flashwindow = FALSE)
-
-/obj/effect/mob_spawn/teratomamonkey/attack_hand(mob/living/user)
-	. = ..()
-	if(.)
-		return
-	to_chat(user, "<span class='notice'>Ew. It would be a bad idea to touch this. It could probably be destroyed with the extreme heat of a welder.</span>")
-
-/obj/effect/mob_spawn/teratomamonkey/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
-		user.visible_message("<span class='warning'>[usr.name] destroys [src].</span>",
-			"<span class='notice'>You hold the welder to [src] and it violently bursts!</span>",
-			"<span class='italics'>You hear a gurgling noise.</span>")
-		new /obj/effect/gibspawner/human(get_turf(src))
-		qdel(src)
-	else
-		..()
