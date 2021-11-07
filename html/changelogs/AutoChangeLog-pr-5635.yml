@@ -1,4 +1,0 @@
-author: St0rmC4st3r
-delete-after: true
-changes:
-  - bugfix: People no longer get stuck on walls of an empty z-level.

@@ -1,4 +1,0 @@
-author: benbot16
-delete-after: true
-changes:
-  - code_imp: Fixes another runtime in TGUI with clientless mobs
