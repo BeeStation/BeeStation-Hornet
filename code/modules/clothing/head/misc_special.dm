@@ -193,6 +193,29 @@
 
 	dog_fashion = /datum/dog_fashion/head/reindeer
 
+/*
+	Rabbit ears
+*/
+
+/obj/item/clothing/head/rabbitears
+	name = "rabbit ears"
+	desc = "Wearing these makes you look useless, and only good for your sex appeal."
+	icon_state = "bunny"
+	clothing_flags = SNUG_FIT
+	dynamic_hair_suffix = ""
+	color = "#999999"
+	dog_fashion = /datum/dog_fashion/head/rabbit
+
+/obj/item/clothing/head/rabbitears/equipped(mob/living/carbon/user, slot)
+	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
+		update_icon(user)
+		user.update_inv_head() //Color might have been changed by update_icon.
+	..()
+
+/obj/item/clothing/head/rabbitears/update_icon(mob/living/carbon/human/user)
+	if(ishuman(user))
+		add_atom_colour("#[user.hair_color]", FIXED_COLOUR_PRIORITY)
+
 /obj/item/clothing/head/cardborg
 	name = "cardborg helmet"
 	desc = "A helmet made out of a box."
