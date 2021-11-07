@@ -667,8 +667,6 @@ const TechNodeDetail = (props, context) => {
   ] = useLocalState(context, 'techwebRoute', null);
 
   const prereqNodes = nodes.filter(x => prereq_ids.includes(x.id));
-  const complPrereq = prereq_ids
-    .filter(x => nodes.find(y => y.id === x)?.tier === 0).length;
   const unlockedNodes = nodes.filter(x => unlock_ids.includes(x.id));
 
   return (
@@ -734,10 +732,6 @@ const TechNode = (props, context) => {
     tabIndex,
     setTabIndex,
   ] = useLocalState(context, 'nodeDetailTabIndex', 0);
-
-  const techcompl = prereq_ids
-    .filter(x => nodes.find(y => y.id === x)?.tier === 0)
-    .length;
 
   return (
     <Section
