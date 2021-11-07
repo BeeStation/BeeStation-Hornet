@@ -77,7 +77,7 @@ SUBSYSTEM_DEF(mapping)
 	// and one level with no ruins
 	for (var/i in 1 to config.space_empty_levels)
 		++space_levels_so_far
-		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = CROSSLINKED), orbital_body_type = /datum/orbital_object/z_linked/beacon/weak)
+		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = SELFLOOPING), orbital_body_type = /datum/orbital_object/z_linked/beacon/weak)
 	// and the transit level
 	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE))
 
