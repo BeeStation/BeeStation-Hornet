@@ -63,7 +63,7 @@
 	display_name = "Basic Integrated Circuits"
 	description = "Research on how to fully exploit the power of integrated circuits"
 	design_ids = list("integrated_circuit", "circuit_multitool", "comp_arithmetic", "comp_clock", "comp_combiner", "comp_comparison", "comp_delay",
-		"comp_direction", "comp_get_column", "comp_gps", "comp_health", "comp_hear", "comp_index", "comp_index_table", "comp_length", "comp_light", "comp_logic", "comp_mmi", "comp_multiplexer", "comp_not", "comp_ram",
+		"comp_direction", "comp_get_column", "comp_gps", "comp_health", "comp_hear", "comp_light", "comp_logic", "comp_index_table", "comp_mmi", "comp_multiplexer", "comp_not", "comp_ram",
 		"comp_random", "comp_round", "comp_select_query", "comp_species", "comp_textcase", "comp_trig", "comp_speech", "comp_concat", "comp_concat_list", "comp_speech", "comp_self", "comp_soundemitter", "comp_radio", "comp_tostring",
 		"comp_typecheck", "compact_remote_shell", "component_printer", "comp_string_contains", "usb_cable")
 
@@ -349,6 +349,15 @@
 	description = "Development of more complex mathematical components for all your number manipulating needs"
 	prereq_ids = list("basic_circuitry", "datatheory")
 	design_ids = list("comp_adv_trig","comp_hyper_trig", "comp_bitwise", "comp_bitflag")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
+
+/datum/techweb_node/list_circuits
+	id = "list_circuits"
+	tech_tier = 1
+	display_name = "List Circuitry"
+	description = "Configures new integrated circuit components capable of representing one dimensional data structures such as arrays, stacks, and queues."
+	prereq_ids = list("basic_circuitry", "datatheory")
+	design_ids = list("comp_index", "comp_write", "comp_append", "comp_pop", "comp_length", "comp_list_constructor", "comp_list_length_constructor")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
 /datum/techweb_node/adv_shells

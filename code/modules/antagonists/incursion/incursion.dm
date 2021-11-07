@@ -178,6 +178,9 @@
 				//Kill head
 				var/datum/objective/assassinate/killchosen = new
 				var/current_heads = SSjob.get_all_heads()
+				if(!current_heads)
+					generate_traitor_kill_objective()
+					return
 				var/datum/mind/selected = pick(current_heads)
 				if(selected.special_role)
 					generate_traitor_kill_objective()
