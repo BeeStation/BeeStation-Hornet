@@ -3,30 +3,13 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/mining/large)
 "c" = (
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot_white,
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
-"d" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/item/storage/firstaid/regular,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "g" = (
@@ -36,18 +19,12 @@
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "l" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/effect/turf_decal/bot_white,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
@@ -63,23 +40,26 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "n" = (
-/turf/closed/wall/mineral/titanium/survival,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	name = "Mining Shuttle External Airlock"
+	},
+/turf/open/floor/pod/light,
 /area/shuttle/mining/large)
 "q" = (
 /obj/structure/shuttle/engine/heater,
 /obj/effect/turf_decal/stripes/full,
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional,
 /turf/open/floor/plating/airless,
-/area/shuttle/mining/large)
-"s" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "t" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
@@ -88,13 +68,6 @@
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 "u" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
-	},
-/obj/machinery/computer/shuttle_flight/mining,
-/turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
-"x" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -105,15 +78,18 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/box/white/corners,
-/obj/effect/turf_decal/box/white/corners{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/box/white/corners{
-	dir = 4
-	},
-/obj/effect/turf_decal/box/white/corners{
+/turf/open/floor/pod/dark,
+/area/shuttle/mining/large)
+"x" = (
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
@@ -211,6 +187,23 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/mining/large)
 "A" = (
+/obj/machinery/computer/shuttle_flight/mining,
+/obj/effect/turf_decal/stripes/box,
+/obj/effect/turf_decal/stripes/white/box,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining/large)
+"B" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/item/storage/firstaid/regular,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining/large)
+"D" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -221,21 +214,18 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/open/floor/pod/dark,
-/area/shuttle/mining/large)
-"B" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/box/white/corners,
+/obj/effect/turf_decal/box/white/corners{
 	dir = 8
 	},
-/obj/structure/chair/comfy/shuttle{
+/obj/effect/turf_decal/box/white/corners{
 	dir = 4
 	},
-/obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/box/white/corners{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
-"D" = (
-/turf/template_noop,
-/area/template_noop)
 "E" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/shuttle/engine/propulsion/right,
@@ -251,19 +241,31 @@
 /area/shuttle/mining/large)
 "K" = (
 /obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot_white,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "L" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional,
-/turf/open/floor/plating,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
-"M" = (
+"P" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -276,57 +278,26 @@
 /obj/structure/fans/tiny,
 /obj/docking_port/mobile{
 	dir = 8;
-	dwidth = 4;
+	dwidth = 3;
 	height = 5;
 	id = "mining";
 	name = "mining shuttle";
 	port_direction = 4;
-	width = 9
+	width = 7
 	},
 /obj/machinery/door/airlock/external{
 	name = "Mining Shuttle External Airlock"
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/mining/large)
-"P" = (
+"U" = (
+/turf/closed/wall/mineral/titanium/survival,
+/area/shuttle/mining/large)
+"V" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/shuttle/mining/large)
-"U" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external{
-	name = "Mining Shuttle External Airlock"
-	},
-/turf/open/floor/pod/light,
-/area/shuttle/mining/large)
-"V" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/end,
-/obj/effect/turf_decal/stripes/white/end,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/open/floor/pod/dark,
 /area/shuttle/mining/large)
 "Y" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -340,10 +311,8 @@
 /area/shuttle/mining/large)
 
 (1,1,1) = {"
-D
-n
+U
 t
-n
 U
 n
 t
@@ -351,45 +320,37 @@ I
 a
 "}
 (2,1,1) = {"
-P
-L
-d
+V
 B
 c
-B
+u
 y
 I
 z
 "}
 (3,1,1) = {"
-P
-u
 V
 A
 x
-A
+D
 Y
 q
 F
 "}
 (4,1,1) = {"
-P
-L
-s
+V
 K
 l
-K
+L
 m
 I
 E
 "}
 (5,1,1) = {"
-D
-n
+U
 g
-n
-M
-n
+U
+P
 g
 I
 a
