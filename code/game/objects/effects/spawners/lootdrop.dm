@@ -161,8 +161,8 @@
 				"" = 80
 				)
 
-/obj/effect/spawner/lootdrop/organ_spawner
-	name = "organ spawner"
+/obj/effect/spawner/lootdrop/fleshy_mass_spawner
+	name = "fleshy mass spawner"
 	loot = list(
 		/obj/item/organ/heart/gland/electric = 3,
 		/obj/item/organ/heart/gland/trauma = 4,
@@ -177,6 +177,94 @@
 		/obj/item/organ/body_egg/alien_embryo = 1,
 		/obj/item/organ/regenerative_core = 2)
 	lootcount = 3
+
+/obj/effect/spawner/lootdrop/organ_spawner
+	name = "organ spawner"
+	loot = list(
+		/obj/item/organ/tongue = 5,
+		/obj/item/organ/tongue/lizard = 1,
+		/obj/item/organ/tail/cat = 1,
+		/obj/item/organ/stomach = 5,
+		/obj/item/organ/tongue/zombie = 1,
+		/obj/item/organ/tongue/fly = 1,
+		/obj/item/organ/stomach/fly = 1,
+		/obj/item/organ/ears = 5,
+		/obj/item/organ/ears/cat = 1,
+		/obj/item/organ/eyes/snail = 1,
+		/obj/item/organ/eyes/moth = 1,
+		/obj/item/organ/eyes = 5,
+		/obj/item/organ/heart = 5,
+		/obj/item/organ/liver = 5,
+		/obj/item/organ/tail/lizard = 1,
+		/obj/item/organ/tongue/snail = 1,
+		/obj/item/organ/appendix = 5,
+		/obj/effect/gibspawner/human = 1,
+		/obj/item/organ/wings = 1,
+		/obj/item/organ/wings/moth = 1,
+		/obj/item/organ/wings/bee = 1,
+		/obj/item/organ/wings/dragon/fake = 1)
+
+/obj/effect/spawner/lootdrop/organ_spawner/major
+	name = "major organ spawner"
+	loot = list(
+		/obj/item/organ/adamantine_resonator = 2,,
+		/obj/item/organ/ears/penguin = 2,
+		/obj/item/organ/heart/gland/viral = 1,
+		/obj/item/organ/eyes/night_vision = 1,
+		/obj/item/organ/liver/plasmaman = 3,
+		/obj/item/organ/liver/alien = 3,
+		/obj/item/organ/stomach/plasmaman = 3,
+		/obj/item/organ/lungs/plasmaman = 3,
+		/obj/item/organ/lungs/slime = 3,
+		/obj/item/organ/tongue/abductor = 1,
+		/obj/item/organ/tongue/alien = 1,
+		/obj/item/organ/tongue/bone = 3,
+		/obj/item/organ/tongue/bone/plasmaman = 1,
+		/obj/item/organ/vocal_cords/adamantine = 1,
+		/obj/effect/gibspawner/xeno = 1,
+		/obj/effect/mob_spawn/human/corpse/assistant = 1,
+		/obj/item/organ/wings/moth/robust = 1,
+		/obj/item/organ/wings/dragon = 1)
+
+/obj/effect/spawner/lootdrop/organ_spawner/robot
+	name = "robotic organ spawner"
+	loot = list(
+		/obj/item/organ/ears/robot = 5,
+		/obj/item/organ/eyes/robotic = 5,
+		/obj/item/organ/eyes/robotic/flashlight = 1,
+		/obj/item/organ/eyes/night_vision = 1,
+		/obj/item/organ/liver/cybernetic = 4,
+		/obj/item/organ/liver/cybernetic/upgraded/ipc = 3,
+		/obj/item/organ/lungs/cybernetic = 4,
+		/obj/item/organ/lungs/cybernetic/upgraded= 2,
+		/obj/item/organ/stomach/battery/ipc = 4,
+		/obj/item/organ/heart/clockwork = 6,
+		/obj/item/organ/stomach/clockwork = 6,
+		/obj/item/organ/liver/clockwork = 6,
+		/obj/item/organ/lungs/clockwork = 6,
+		/obj/item/organ/tail/clockwork = 6,
+		/obj/item/organ/adamantine_resonator = 1,
+		/obj/item/organ/eyes/robotic/thermals = 2,
+		/obj/item/organ/heart/gland/viral = 1,
+		/obj/item/organ/eyes/robotic/shield = 2,
+		/obj/item/organ/eyes/robotic/glow = 2,
+		/obj/item/organ/heart/cybernetic = 2,
+		/obj/item/organ/wings/cybernetic = 2,
+		/obj/item/organ/tongue/robot/clockwork/better = 2,
+		/obj/effect/gibspawner/robot = 4,
+		/obj/item/drone_shell = 1)
+
+/obj/effect/spawner/lootdrop/organ_spawner/major/clown
+	name = "clown organ spawner"
+	loot = list(
+		/mob/living/simple_animal/cluwne = 1,
+		/mob/living/simple_animal/hostile/retaliate/clown/lube = 1,
+		/mob/living/simple_animal/hostile/retaliate/clown/fleshclown = 1,
+		/mob/living/simple_animal/hostile/retaliate/clown/mutant = 1,
+		/obj/item/clothing/mask/gas/clown_hat = 4,
+		/obj/item/clothing/shoes/clown_shoes = 3,
+		/obj/item/bikehorn = 5,
+		/obj/item/reagent_containers/food/snacks/pie/cream = 3)
 
 /obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner
 	name = "2% chance xeno egg spawner"
