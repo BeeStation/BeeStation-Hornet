@@ -223,7 +223,6 @@ Difficulty: Very Hard
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "at_shield2"
 	layer = FLY_LAYER
-	light_system = MOVABLE_LIGHT
 	light_range = 2
 	duration = 8
 	var/target
@@ -641,7 +640,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	speak_emote = list("oscillates")
 	maxHealth = 2
 	health = 2
-	harm_intent_damage = 1 //leaving this at 1 so lightgeists don't get beat to death
 	friendly = "mends"
 	density = FALSE
 	movement_type = FLYING

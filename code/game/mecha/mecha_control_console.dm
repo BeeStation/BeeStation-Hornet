@@ -16,6 +16,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ExosuitControlConsole")
+		ui.set_autoupdate(TRUE) // Live tracking of exosuit information
 		ui.open()
 
 /obj/machinery/computer/mecha/ui_data(mob/user)

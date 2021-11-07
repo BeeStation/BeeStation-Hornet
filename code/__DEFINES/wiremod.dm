@@ -48,6 +48,9 @@
 /// The value that is sent whenever a component is simply sending a signal. This can be anything.
 #define COMPONENT_SIGNAL 1
 
+/// The largest sized list a component can make
+#define COMPONENT_MAXIMUM_LIST_SIZE 256
+
 // Comparison defines
 #define COMP_COMPARISON_EQUAL "="
 #define COMP_COMPARISON_NOT_EQUAL "!="
@@ -70,8 +73,53 @@
 #define COMP_ARITHMETIC_SUBTRACT "Subtract"
 #define COMP_ARITHMETIC_MULTIPLY "Multiply"
 #define COMP_ARITHMETIC_DIVIDE "Divide"
+#define COMP_ARITHMETIC_MODULO "Modulus"
 #define COMP_ARITHMETIC_MIN "Minimum"
 #define COMP_ARITHMETIC_MAX "Maximum"
+
+//Bitwise defines
+#define COMP_BITWISE_AND "And"
+#define COMP_BITWISE_OR "Or"
+#define COMP_BITWISE_XOR "Xor"
+#define COMP_BITWISE_LEFTSHIFT "Left Shift"
+#define COMP_BITWISE_RIGHTSHIFT "Right Shift"
+
+//Round defines
+#define COMP_ROUND_ROUND "Round"
+#define COMP_ROUND_FLOOR "Floor"
+#define COMP_ROUND_CEIL "Ceil"
+
+//Trig defines
+#define COMP_TRIG_COSINE "COS"
+#define COMP_TRIG_SINE "SIN"
+#define COMP_TRIG_TANGENT "TAN"
+#define COMP_TRIG_ASINE "ASIN"
+#define COMP_TRIG_ACOSINE "ACOS"
+#define COMP_TRIG_ATANGENT "ATAN"
+
+//Advanced Trig defines
+#define COMP_TRIG_SECANT "SEC"
+#define COMP_TRIG_COSECANT "CSC"
+#define COMP_TRIG_COTANGENT "COT"
+
+//Hyperbolic Trig Defines
+#define COMP_TRIG_HYPERBOLIC_COSINE "COSH"
+#define COMP_TRIG_HYPERBOLIC_SINE "SINH"
+#define COMP_TRIG_AHYPERBOLIC_COSINE "ACOSH"
+#define COMP_TRIG_AHYPERBOLIC_SINE "ASING"
+
+//Indexer defines
+#define COMP_INDEXER_NONE "None"
+#define COMP_INDEXER_INCREMENT "Increment"
+#define COMP_INDEXER_LOOP "Loop"
+#define COMP_INDEXER_BOTH "Both"
+
+#define COMP_INDEXER_FLAG_INCREMENT (1<<0)
+#define COMP_INDEXER_FLAG_LOOP (1<<1)
+
+//Pop defines
+#define COMP_POP_POP "Pop"
+#define COMP_POP_DEQUEUE "Dequeue"
 
 // Text defines
 #define COMP_TEXT_LOWER "To Lower"
@@ -135,3 +183,29 @@
 #define CIRCUIT_FLAG_INPUT_SIGNAL (1<<0)
 /// Creates an output trigger that sends a pulse whenever the component is successfully triggered
 #define CIRCUIT_FLAG_OUTPUT_SIGNAL (1<<1)
+
+#define WIREMOD_CIRCUITRY "Circuitry"
+#define WIREMOD_CORE "Core"
+#define WIREMOD_SHELLS "Shells"
+#define WIREMOD_INPUT_COMPONENTS "Input Components"
+#define WIREMOD_OUTPUT_COMPONENTS "Output Components"
+#define WIREMOD_MATH_COMPONENTS "Math Components"
+#define WIREMOD_TIME_COMPONENTS "Time Components"
+#define WIREMOD_LOGIC_COMPONENTS "Logic Components"
+#define WIREMOD_LIST_COMPONENTS "List Components"
+#define WIREMOD_MEMORY_COMPONENTS "Memory Components"
+#define WIREMOD_CONVERSION_COMPONENTS "Conversion Components"
+#define WIREMOD_STRING_COMPONENTS "String Components"
+#define WIREMOD_REFERENCE_COMPONENTS "Reference Components"
+
+#define WIREMODE_CATEGORIES list(\
+	WIREMOD_CIRCUITRY,\
+	WIREMOD_CORE,\
+	WIREMOD_SHELLS,\
+	WIREMOD_INPUT_COMPONENTS,\
+	WIREMOD_OUTPUT_COMPONENTS,\
+	WIREMOD_MATH_COMPONENTS,\
+	WIREMOD_TIME_COMPONENTS,\
+	WIREMOD_LOGIC_COMPONENTS,\
+	WIREMOD_LIST_COMPONENTS\
+	)

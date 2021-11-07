@@ -3,12 +3,15 @@
 	var/datum/bounty/item/botany/multiplier = 0 //adds bonus reward money; increased for higher tier or rare mutations
 	var/datum/bounty/item/botany/bonus_desc //for adding extra flavor text to bounty descriptions
 	var/datum/bounty/item/botany/foodtype = "meal" //same here
+	var/datum/bounty/item/botany/format_exception = FALSE //Set to true if the bounty uses a custom format from the one below
 
 /datum/bounty/item/botany/New()
 	..()
-	description = "Central Command's head chef is looking to prepare a fine [foodtype] with [name]. [bonus_desc]"
-	reward += multiplier * 1000
-	required_count = rand(5, 10)
+
+	if (format_exception == FALSE)
+		description = "Central Command's head chef is looking to prepare a fine [foodtype] with [name]. [bonus_desc]"
+		reward += multiplier * 1000
+		required_count = rand(5, 10)
 
 /datum/bounty/item/botany/ambrosia_vulgaris
 	name = "Ambrosia Vulgaris Leaves"
@@ -199,3 +202,27 @@
 	multiplier = 2
 	foodtype = "batch of oatmeal"
 	bonus_desc = "Squats and oats. We're all out of oats."
+
+/datum/bounty/item/botany/forgetmenot
+	name = "Forget-Me-Nots"
+	description = "Commander Zot has his eyes on Quartermaster Maya. Send a shipment of forget-me-nots - her favorite flower - and he'll happily reward you."
+	reward = 7000
+	required_count = 3
+	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/poppy/geranium/forgetmenot)
+	format_exception = TRUE
+
+/datum/bounty/item/botany/geranium
+	name = "Geraniums"
+	description = "Commander Zot has the hots for Commander Zena. Send a shipment of geraniums - her favorite flower - and he'll happily reward you."
+	reward = 6000
+	required_count = 3
+	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/poppy/geranium)
+	format_exception = TRUE
+
+/datum/bounty/item/botany/rainbowflowercrown
+	name = "Rainbow Flower Crowns"
+	description = "Central Command is concerned about their intern suicide rate. A shipment of rainbow flower crowns should do nicely to improve morale."
+	reward = 10000
+	required_count = 3
+	wanted_types = list(/obj/item/clothing/head/rainbowbunchcrown)
+	format_exception = TRUE

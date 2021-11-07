@@ -74,11 +74,6 @@
 		rename(user)
 		ui_update()
 
-/obj/item/folder/attack_self(mob/user)
-	add_fingerprint(usr)
-	ui_interact(user)
-	return
-
 /obj/item/folder/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)

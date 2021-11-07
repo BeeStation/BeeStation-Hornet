@@ -4,6 +4,7 @@
 	layer = MOB_LAYER
 	gender = NEUTER
 	mob_biotypes = list(MOB_ROBOTIC)
+	light_range = 3
 	stop_automated_movement = 1
 	wander = FALSE
 	healable = 0
@@ -22,11 +23,10 @@
 	bubble_icon = "machine"
 	speech_span = SPAN_ROBOT
 	faction = list("neutral", "silicon" , "turret")
-	light_system = MOVABLE_LIGHT
-	light_range = 3
-	light_power = 0.9
+	hardattacks = TRUE
 
 	mobchatspan = "mime"
+	discovery_points = 0
 
 	var/obj/machinery/bot_core/bot_core = null
 	var/bot_core_type = /obj/machinery/bot_core
@@ -128,7 +128,7 @@
 		return FALSE
 	on = TRUE
 	update_mobility()
-	set_light_on(on)
+	set_light(initial(light_range))
 	update_icon()
 	diag_hud_set_botstat()
 	return TRUE
@@ -136,7 +136,7 @@
 /mob/living/simple_animal/bot/proc/turn_off()
 	on = FALSE
 	update_mobility()
-	set_light_on(on)
+	set_light(0)
 	bot_reset() //Resets an AI's call, should it exist.
 	update_icon()
 
@@ -551,7 +551,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/datum/job/captain/All = new/datum/job/captain
 	all_access.access = All.get_access()
 
-	set_path(get_path_to(src, waypoint, /turf/proc/Distance_cardinal, 0, 200, id=all_access))
+	set_path(get_path_to(src, waypoint, 200, id=all_access))
 	calling_ai = caller //Link the AI to the bot!
 	ai_waypoint = waypoint
 
@@ -765,12 +765,12 @@ Pass a positive integer as an argument to override a bot's default speed.
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/proc/calc_path(turf/avoid)
 	check_bot_access()
-	set_path(get_path_to(src, patrol_target, /turf/proc/Distance_cardinal, 0, 120, id=access_card, exclude=avoid))
+	set_path(get_path_to(src, patrol_target, 120, id=access_card, exclude=avoid))
 
 /mob/living/simple_animal/bot/proc/calc_summon_path(turf/avoid)
 	check_bot_access()
 	spawn()
-		set_path(get_path_to(src, summon_target, /turf/proc/Distance_cardinal, 0, 150, id=access_card, exclude=avoid))
+		set_path(get_path_to(src, summon_target, 150, id=access_card, exclude=avoid))
 		if(!path.len) //Cannot reach target. Give up and announce the issue.
 			speak("Summon command failed, destination unreachable.",radio_channel)
 			bot_reset()

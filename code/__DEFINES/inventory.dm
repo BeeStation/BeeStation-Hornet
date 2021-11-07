@@ -4,7 +4,7 @@
 #define WEIGHT_CLASS_TINY     1 //! Usually items smaller then a human hand, (e.g. playing cards, lighter, scalpel, coins/holochips)
 #define WEIGHT_CLASS_SMALL    2 //! Pockets can hold small and tiny items, (e.g. flashlight, multitool, grenades, GPS device)
 #define WEIGHT_CLASS_NORMAL   3 //! Standard backpacks can carry tiny, small & normal items, (e.g. fire extinguisher, stun baton, gas mask, iron sheets)
-#define WEIGHT_CLASS_BULKY    4 //! Items that can be weilded or equipped but not stored in an inventory, (e.g. defibrillator, backpack, space suits)
+#define WEIGHT_CLASS_BULKY    4 //! Items that can be wielded or equipped but not stored in an inventory, (e.g. defibrillator, backpack, space suits)
 #define WEIGHT_CLASS_HUGE     5 //! Usually represents objects that require two hands to operate, (e.g. shotgun, two-handed melee weapons)
 #define WEIGHT_CLASS_GIGANTIC 6 //! Essentially means it cannot be picked up or placed in an inventory, (e.g. mech parts, safe)
 

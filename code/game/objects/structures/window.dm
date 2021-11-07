@@ -356,7 +356,7 @@
 /obj/structure/window/get_dumping_location(obj/item/storage/source,mob/user)
 	return null
 
-/obj/structure/window/CanAStarPass(ID, to_dir)
+/obj/structure/window/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
 	if(!density)
 		return 1
 	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir))
@@ -462,7 +462,7 @@
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
 	icon_state = "twindow"
-	opacity = TRUE
+	opacity = 1
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
 	icon_state = "fwindow"

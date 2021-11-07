@@ -119,7 +119,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/list/attack_verb
 	/// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/list/species_exception = null
-
+	///A bitfield of a species to use as an alternative sprite for any given item. DMIs are stored in the species datum and called via proc in update_icons.
+	var/sprite_sheets = null
+	///A bitfield of species that the item cannot be worn by.
+	var/species_restricted = null
 	///A weakref to the mob who threw the item
 	var/datum/weakref/thrownby = null
 
@@ -491,7 +494,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30)
 		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack!</span>")
 		return 0
-	if(owner.a_intent == INTENT_HARM) //you can choose not to block an attack
+	if(owner.a_intent == INTENT_HELP) //you can choose not to block an attack
 		return 0
 	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src) //you can still parry with the offhand
 		return 0

@@ -67,36 +67,6 @@
 //////////////////Misc///////////////////
 /////////////////////////////////////////
 
-/datum/design/shuttle_speed_upgrade
-	name = "Shuttle Route Optimisation Upgrade"
-	desc = "A disk that allows for calculating shorter routes when inserted into a flight control console."
-	id = "disk_shuttle_route"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 1000, /datum/material/glass = 1000)
-	build_path = /obj/item/shuttle_route_optimisation
-	category = list("Equipment")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
-
-/datum/design/shuttle_speed_upgrade_hyper
-	name = "Shuttle Bluespace Hyperlane Optimisation Upgrade"
-	desc = "A disk that allows for calculating shorter routes when inserted into a flight control console. This one abuses bluespace hyperlanes for increased efficiency."
-	id = "disk_shuttle_route_hyper"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 1000, /datum/material/glass = 1000)
-	build_path = /obj/item/shuttle_route_optimisation/hyperlane
-	category = list("Equipment")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
-
-/datum/design/shuttle_speed_upgrade_void
-	name = "Shuttle Voidspace Optimisation Upgrade"
-	desc = "A disk that allows for calculating shorter routes when inserted into a flight control console. This one access voidspace for increased efficiency."
-	id = "disk_shuttle_route_void"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 1000, /datum/material/glass = 1000)
-	build_path = /obj/item/shuttle_route_optimisation/void
-	category = list("Equipment")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
-
 /datum/design/welding_mask
 	name = "Welding Gas Mask"
 	desc = "A gas mask with built in welding goggles and face shield. Looks like a skull, clearly designed by a nerd."
@@ -364,7 +334,6 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
-
 /datum/design/holosignsec
 	name = "Security Holobarrier Projector"
 	desc = "A holographic projector that creates holographic security barriers."
@@ -492,7 +461,15 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
-
+/datum/design/glasses_prescription
+	name = "Prescription Glasses"
+	desc = "Made by Nerd. Co."
+	id = "glasses_prescription"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 500, /datum/material/glass = 2000)
+	build_path = /obj/item/clothing/glasses/regular
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /////////////////////////////////////////
 /////////////////Tape////////////////////

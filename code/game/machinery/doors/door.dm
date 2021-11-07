@@ -3,7 +3,7 @@
 	desc = "It opens and closes."
 	icon = 'icons/obj/doors/Doorint.dmi'
 	icon_state = "door1"
-	opacity = TRUE
+	opacity = 1
 	density = TRUE
 	move_resist = MOVE_FORCE_VERY_STRONG
 	layer = OPEN_DOOR_LAYER
@@ -155,14 +155,14 @@
 	. = ..()
 	if(.)
 		return
-	return try_to_activate_door(user)
+	return try_to_activate_door(null, user)
 
 /obj/machinery/door/attack_tk(mob/user)
 	if(requiresID() && !allowed(null))
 		return
 	..()
 
-/obj/machinery/door/proc/try_to_activate_door(mob/user)
+/obj/machinery/door/proc/try_to_activate_door(obj/item/I, mob/user)
 	add_fingerprint(user)
 	if(operating || (obj_flags & EMAGGED))
 		return
@@ -226,7 +226,7 @@
 		try_to_weld(I, user)
 		return 1
 	else if(!(I.item_flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
-		try_to_activate_door(user)
+		try_to_activate_door(I, user)
 		return 1
 	return ..()
 

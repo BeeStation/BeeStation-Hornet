@@ -217,7 +217,7 @@ world
 
 
 	// Multiply all alpha values by this float
-/icon/proc/ChangeOpacity(opacity = TRUE)
+/icon/proc/ChangeOpacity(opacity = 1)
 	MapColors(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,opacity, 0,0,0,0)
 
 // Convert to grayscale
@@ -1200,7 +1200,7 @@ GLOBAL_DATUM_INIT(dummySave, /savefile, new("tmp/dummySave.sav")) //Cache of ico
 			return
 	if (!isicon(I))
 		if (isfile(thing)) //special snowflake
-			var/name = sanitize_filename("[generate_asset_name(thing)].png")
+			var/name = SANITIZE_FILENAME("[generate_asset_name(thing)].png")
 			SSassets.transport.register_asset(name, thing)
 			for (var/thing2 in targets)
 				SSassets.transport.send_assets(thing2, name)

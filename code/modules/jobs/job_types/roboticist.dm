@@ -9,6 +9,7 @@
 	supervisors = "the research director"
 	selection_color = "#ffeeff"
 	chat_color = "#AC71BA"
+	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/roboticist
@@ -22,6 +23,10 @@
 
 	display_order = JOB_DISPLAY_ORDER_ROBOTICIST
 	departments = DEPARTMENT_SCIENCE
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/robotics
+	)
 
 /datum/outfit/job/roboticist
 	name = "Roboticist"

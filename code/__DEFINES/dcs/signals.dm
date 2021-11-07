@@ -11,6 +11,10 @@
 #define COMSIG_GLOB_MOB_CREATED "!mob_created"					//! mob was created somewhere : (mob)
 #define COMSIG_GLOB_MOB_DEATH "!mob_death"						//! mob died somewhere : (mob , gibbed)
 #define COMSIG_GLOB_LIVING_SAY_SPECIAL "!say_special"			//! global living say plug - use sparingly: (mob/speaker , message)
+#define COMSIG_GLOB_CARBON_THROW_THING	"!throw_thing"			//! a person somewhere has thrown something : (mob/living/carbon/carbon_thrower, target)
+/// called by datum/cinematic/play() : (datum/cinematic/new_cinematic)
+#define COMSIG_GLOB_PLAY_CINEMATIC "!play_cinematic"
+	#define COMPONENT_GLOB_BLOCK_CINEMATIC 1
 /// Random event is trying to roll. (/datum/round_event_control/random_event)
 /// Called by (/datum/round_event_control/preRunEvent).
 #define COMSIG_GLOB_PRE_RANDOM_EVENT "!pre_random_event"
@@ -89,6 +93,8 @@
 	#define COMPONENT_BLOCK_REACH 1
 #define COMSIG_ATOM_INTERCEPT_TELEPORT "intercept_teleport"		//! called when teleporting into a protected turf: (channel, turf/origin)
 	#define COMPONENT_BLOCK_TELEPORT 1
+#define COMSIG_ATOM_ORBIT_BEGIN "atom_orbit_begin"           //called when an atom starts orbiting another atom: (atom)
+#define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"           //called when an atom stops orbiting another atom: (atom)
 /////////////////
 /* Attack signals. They should share the returned flags, to standardize the attack chain. */
 /// tool_act -> pre_attack -> target.attackby (item.attack) -> afterattack
@@ -101,22 +107,12 @@
 #define COMSIG_ATOM_ATTACK_HAND "atom_attack_hand"				//! from base of atom/attack_hand(): (mob/user)
 #define COMSIG_ATOM_ATTACK_PAW "atom_attack_paw"				//! from base of atom/attack_paw(): (mob/user)
 	#define COMPONENT_NO_ATTACK_HAND 1							//works on all 3.
-#define COMSIG_ATOM_SET_OPACITY "atom_set_opacity"
+#define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"				//! from base of atom/animal_attack(): (/mob/user)
+//This signal return value bitflags can be found in __DEFINES/misc.dm
+#define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"	//called for each movable in a turf contents on /turf/zImpact(): (atom/movable/A, levels)
 
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
 
-///Called right before the atom changes the value of light_range to a different one, from base atom/set_light_range(): (new_range)
-#define COMSIG_ATOM_SET_LIGHT_RANGE "atom_set_light_range"
-///Called right before the atom changes the value of light_power to a different one, from base atom/set_light_power(): (new_power)
-#define COMSIG_ATOM_SET_LIGHT_POWER "atom_set_light_power"
-///Called right before the atom changes the value of light_color to a different one, from base atom/set_light_color(): (new_color)
-#define COMSIG_ATOM_SET_LIGHT_COLOR "atom_set_light_color"
-///Called right before the atom changes the value of light_on to a different one, from base atom/set_light_on(): (new_value)
-#define COMSIG_ATOM_SET_LIGHT_ON "atom_set_light_on"
-///Called right before the atom changes the value of light_flags to a different one, from base atom/set_light_flags(): (new_value)
-#define COMSIG_ATOM_SET_LIGHT_FLAGS "atom_set_light_flags"
-///called for each movable in a turf contents on /turf/zImpact(): (atom/movable/A, levels)
-#define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
 
@@ -163,6 +159,7 @@
 #define COMSIG_MOVABLE_PRE_THROW "movable_pre_throw"			//! from base of atom/movable/throw_at(): (list/args)
 	#define COMPONENT_CANCEL_THROW 1
 #define COMSIG_MOVABLE_POST_THROW "movable_post_throw"			//! from base of atom/movable/throw_at(): (datum/thrownthing, spin)
+#define COMSIG_MOVABLE_THROW_LANDED "movable_throw_landed"		//! from base of datum/thrownthing/finalize(): (obj/thrown_object, datum/thrownthing) used for when a throw is finished
 #define COMSIG_MOVABLE_Z_CHANGED "movable_ztransit" 			//! from base of atom/movable/onTransitZ(): (old_z, new_z)
 #define COMSIG_MOVABLE_SECLUDED_LOCATION "movable_secluded" 	//! called when the movable is placed in an unaccessible area, used for stationloving: ()
 #define COMSIG_MOVABLE_HEAR "movable_hear"						//! from base of atom/movable/Hear(): (message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
@@ -174,11 +171,6 @@
 	#define HEARING_SPANS 6
 	#define HEARING_MESSAGE_MODE 7 */
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"			//! called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
-
-#define COMSIG_MOVABLE_LIGHT_OVERLAY_SET_RANGE "movable_light_overlay_set_color" //! Called when the movable tries to change its dynamic light color setting, from base atom/movable/lighting_overlay_set_color(): (color)
-#define COMSIG_MOVABLE_LIGHT_OVERLAY_SET_POWER "movable_light_overlay_set_power" //! Called when the movable tries to change its dynamic light power setting, from base atom/movable/lighting_overlay_set_power(): (power)
-#define COMSIG_MOVABLE_LIGHT_OVERLAY_SET_COLOR "movable_light_overlay_set_range" //! Called when the movable tries to change its dynamic light range setting, from base atom/movable/lighting_overlay_set_range(): (range)
-#define COMSIG_MOVABLE_LIGHT_OVERLAY_TOGGLE_ON "movable_light_overlay_toggle_on" //! Called when the movable tries to toggle its dynamic light LIGHTING_ON status, from base atom/movable/lighting_overlay_toggle_on(): (new_state)
 
 // /mob signals
 #define COMSIG_MOB_LOGIN "mob_login"
@@ -203,6 +195,8 @@
 #define COMSIG_MOB_UPDATE_SIGHT "mob_update_sight"				//! from base of /mob/update_sight(): ()
 #define COMSIG_MOB_EXAMINATE "mob_examinate"					//from base of /mob/verb/examinate(): (atom/target)
 #define COMSIG_MOB_SAY "mob_say" // from /mob/living/say(): ()
+#define COMSIG_MOB_ATTACK_ALIEN "mob_attack_alien"				//! from base of /mob/living/attack_alien(): (user)
+#define COMSIG_MOB_MOVESPEED_UPDATED "mob_update_movespeed"		//! From base of mob/update_movespeed():area
 	#define COMPONENT_UPPERCASE_SPEECH 1
 	// used to access COMSIG_MOB_SAY argslist
 	#define SPEECH_MESSAGE 1
@@ -215,6 +209,9 @@
 #define COMSIG_MOB_EMOTE "mob_emote" // from /mob/living/emote(): ()
 #define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"        //from base of mob/swap_hand()
   #define COMPONENT_BLOCK_SWAP 1
+#define COMSIG_MOB_DEADSAY "mob_deadsay" // from /mob/say_dead(): (mob/speaker, message)
+	#define MOB_DEADSAY_SIGNAL_INTERCEPT 1
+#define COMSIG_MOB_POINTED "mob_pointed" //from base of /mob/verb/pointed: (atom/A)
 
 ///from base of /obj/item/mmi/set_brainmob(): (mob/living/brain/new_brainmob)
 #define COMSIG_MMI_SET_BRAINMOB "mmi_set_brainmob"
@@ -343,6 +340,10 @@
 #define COMSIG_SPECIES_GAIN "species_gain"						//! from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
 #define COMSIG_SPECIES_LOSS "species_loss"						//! from datum/species/on_species_loss(): (datum/species/lost_species)
 
+// /datum/song signals
+#define COMSIG_SONG_START 	"song_start"						//sent to the instrument when a song starts playing
+#define COMSIG_SONG_END		"song_end"	
+
 /*******Component Specific Signals*******/
 //Janitor
 #define COMSIG_TURF_IS_WET "check_turf_wet"							//! (): Returns bitflags of wet values.
@@ -395,7 +396,7 @@
 #define COMSIG_TRY_STORAGE_HIDE_ALL "storage_hide_all"				//! returns bool
 #define COMSIG_TRY_STORAGE_SET_LOCKSTATE "storage_lock_set_state"	//! (newstate)
 #define COMSIG_IS_STORAGE_LOCKED "storage_get_lockstate"			//! () - returns bool. MUST CHECK IF STORAGE IS THERE FIRST!
-#define COMSIG_TRY_STORAGE_TAKE_TYPE "storage_take_type"			//! (type, atom/destination, amount = INFINITY, check_adjacent, force, mob/user, list/inserted) - returns bool - type can be a list of types.
+#define COMSIG_TRY_STORAGE_TAKE_TYPE "storage_take_type"			//! (typecache, atom/destination, amount = INFINITY, check_adjacent, force, mob/user, list/inserted) - returns bool - typecache has to be list of types.
 #define COMSIG_TRY_STORAGE_FILL_TYPE "storage_fill_type"			//! (type, amount = INFINITY, force = FALSE)			//don't fuck this up. Force will ignore max_items, and amount is normally clamped to max_items.
 #define COMSIG_TRY_STORAGE_TAKE "storage_take_obj"					//! (obj, new_loc, force = FALSE) - returns bool
 #define COMSIG_TRY_STORAGE_QUICK_EMPTY "storage_quick_empty"		//! (loc) - returns bool - if loc is null it will dump at parent location.
@@ -501,3 +502,16 @@
 
 /// from /obj/machinery/atmospherics/components/binary/valve/toggle(): (on)
 #define COMSIG_VALVE_SET_OPEN "valve_toggled"
+
+
+// /obj/machinery signals
+
+/// Sent from /obj/machinery/open_machine(): (drop)
+#define COMSIG_MACHINE_OPEN "machine_open"
+/// Sent from /obj/machinery/close_machine(): (atom/movable/target)
+#define COMSIG_MACHINE_CLOSE "machine_close"
+
+// Aquarium related signals
+#define COMSIG_AQUARIUM_BEFORE_INSERT_CHECK "aquarium_about_to_be_inserted"
+#define COMSIG_AQUARIUM_SURFACE_CHANGED "aquarium_surface_changed"
+#define COMSIG_AQUARIUM_FLUID_CHANGED "aquarium_fluid_changed"

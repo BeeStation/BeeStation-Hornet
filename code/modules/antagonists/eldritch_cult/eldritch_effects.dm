@@ -131,7 +131,7 @@
 	var/number = max(targets * ( 4 - (targets-1) ) - smashes,1)
 
 	for(var/i in 0 to number)
-		var/turf/chosen_location = get_safe_random_station_turf()
+		var/turf/chosen_location = get_safe_random_station_turfs()
 		//we also dont want them close to each other, at least 1 tile of seperation
 		var/obj/effect/reality_smash/what_if_i_have_one = locate() in range(1, chosen_location)
 		var/obj/effect/broken_illusion/what_if_i_had_one_but_got_used = locate() in range(1, chosen_location)
@@ -148,6 +148,9 @@
 	forensic_protected = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	alpha = 0
+
+/obj/effect/broken_illusion/ComponentInitialize()
+	AddComponent(/datum/component/discoverable, 5000)
 
 /obj/effect/broken_illusion/Initialize()
 	. = ..()

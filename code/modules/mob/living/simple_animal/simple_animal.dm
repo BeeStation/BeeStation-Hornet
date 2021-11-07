@@ -28,7 +28,6 @@
 	var/response_help   = "pokes"
 	var/response_disarm = "shoves"
 	var/response_harm   = "hits"
-	var/harm_intent_damage = 6 //the damage dealt to a mob when punched. default is default punch damage
 	var/force_threshold = 0 //Minimum force required to deal any damage
 
 	//Temperature effect
@@ -42,8 +41,6 @@
 	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) //Leaving something at 0 means it's off - has no maximum
 	var/unsuitable_atmos_damage = 2	//This damage is taken when atmos doesn't fit all the requirements above
 
-	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
-	var/melee_damage = 0
 	var/obj_damage = 0 //how much damage this simple animal does to objects, if any
 	var/armour_penetration = 0 //How much armour they ignore, as a flat reduction from the targets armour value
 	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
@@ -97,6 +94,9 @@
 
 	var/special_process = FALSE
 
+	//Discovery
+	var/discovery_points = 200
+
 /mob/living/simple_animal/Initialize()
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src
@@ -109,6 +109,8 @@
 	update_simplemob_varspeed()
 	if(dextrous)
 		AddComponent(/datum/component/personal_crafting)
+	if(discovery_points)
+		AddComponent(/datum/component/discoverable, discovery_points)
 
 /mob/living/simple_animal/Destroy()
 	GLOB.simple_animals[AIStatus] -= src

@@ -506,16 +506,18 @@ Auto Patrol[]"},
 				lasertag_check++
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"
-			disabled = 1
+			disabled = TRUE
 			target = null
-			spawn(100)
-				disabled = 0
-				icon_state = "[lasercolor]ed2091"
+			addtimer(CALLBACK(src, .proc/reenable), 100)
 			return BULLET_ACT_HIT
 		else
 			. = ..()
 	else
 		. = ..()
+
+/mob/living/simple_animal/bot/ed209/proc/reenable()
+	disabled = FALSE
+	icon_state = "[lasercolor]ed2091"
 
 /mob/living/simple_animal/bot/ed209/bluetag
 	lasercolor = "b"
@@ -572,11 +574,13 @@ Auto Patrol[]"},
 	playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+	addtimer(CALLBACK(src, .proc/attempt_handcuff, C), 60)
 
-	spawn(60)
-		if( !on || !Adjacent(C) || !isturf(C.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
-			return
-		if(!C.handcuffed)
-			C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
-			C.update_handcuffed()
-			back_to_idle()
+/mob/living/simple_animal/bot/ed209/proc/attempt_handcuff(mob/living/carbon/C)
+	if(!on || !Adjacent(C) || !isturf(C.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
+		return
+	if(!C.handcuffed)
+		C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
+		C.update_handcuffed()
+		playsound(src, "law", 50, 0)
+		back_to_idle()

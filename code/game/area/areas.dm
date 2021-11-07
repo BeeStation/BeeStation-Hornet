@@ -15,7 +15,7 @@
 	invisibility = INVISIBILITY_LIGHTING
 
 	var/area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
-	
+
 	var/clockwork_warp_allowed = TRUE // Can servants warp into this area from Reebe?
 	var/clockwork_warp_fail = "The structure there is too dense for warping to pierce. (This is normal in high-security areas.)"
 
@@ -51,8 +51,11 @@
 
 	var/ambience_index = AMBIENCE_GENERIC
 	var/list/ambientsounds
+
 	var/ambient_buzz = 'sound/ambience/shipambience.ogg' // Ambient buzz of the station, plays repeatedly, also IC
-	var/ambientmusic
+
+	var/ambient_music_index
+	var/list/ambientmusic
 
 	flags_1 = CAN_BE_DIRTY_1
 
@@ -68,7 +71,7 @@
 	var/lighting_colour_tube = "#FFF6ED"
 	var/lighting_colour_bulb = "#FFE6CC"
 	var/lighting_colour_night = "#FFDBB5"
-	var/lighting_brightness_tube = 10
+	var/lighting_brightness_tube = 11
 	var/lighting_brightness_bulb = 6
 	var/lighting_brightness_night = 6
 
@@ -79,8 +82,17 @@
 	///Used to decide what kind of reverb the area makes sound have
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
+	//Lighting overlay
+	var/obj/effect/lighting_overlay
+	var/lighting_overlay_colour = "#FFFFFF"
+	var/lighting_overlay_opacity = 0
+
 	///This datum, if set, allows terrain generation behavior to be ran on Initialize()
 	var/datum/map_generator/map_generator
+
+	///Lazylist that contains additional turfs that map generation should be ran on. This is used for ruins which need a noop turf under non-noop areas so they don't leave genturfs behind.
+	var/list/additional_genturfs
+
 
 /**
   * A list of teleport locations
@@ -139,8 +151,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	icon_state = ""
 	canSmoothWithAreas = typecacheof(canSmoothWithAreas)
 
-	if(!ambientsounds)
+	if(!ambientsounds && ambience_index)
 		ambientsounds = GLOB.ambience_assoc[ambience_index]
+
+	if(!ambientmusic && ambient_music_index)
+		ambientmusic = GLOB.ambient_music_assoc[ambient_music_index]
 
 	if(requires_power)
 		luminosity = 0
@@ -163,7 +178,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 	if(!IS_DYNAMIC_LIGHTING(src))
 		add_overlay(/obj/effect/fullbright)
-
+	else if(lighting_overlay_opacity && lighting_overlay_colour)
+		lighting_overlay = new /obj/effect/fullbright
+		lighting_overlay.color = lighting_overlay_colour
+		lighting_overlay.alpha = lighting_overlay_opacity
+		add_overlay(lighting_overlay)
 	reg_in_areas_in_z()
 
 	return INITIALIZE_HINT_LATELOAD
@@ -180,6 +199,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		var/list/turfs = list()
 		for(var/turf/T in contents)
 			turfs += T
+		if(additional_genturfs)
+			turfs += additional_genturfs
+			additional_genturfs = null
 		map_generator.generate_terrain(turfs)
 
 /area/proc/test_gen()
@@ -187,6 +209,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		var/list/turfs = list()
 		for(var/turf/T in contents)
 			turfs += T
+		if(additional_genturfs)
+			turfs += additional_genturfs
+			additional_genturfs = null
 		map_generator.generate_terrain(turfs)
 
 
@@ -631,7 +656,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 			max_grav = max(max_grav, i)
 		return max_grav
 
-	if(isspaceturf(T)) // Turf never has gravity
+
+	if(!T.check_gravity()) // Turf never has gravity
 		return 0
 
 	var/area/A = get_area(T)

@@ -64,6 +64,7 @@
 	desc = "Every time you look it makes you laugh."
 	icon = 'icons/obj/decals.dmi'
 	icon_state = "frame-empty"
+	layer = ABOVE_WINDOW_LAYER
 	var/obj/item/photo/framed
 	var/persistence_id
 	var/can_decon = TRUE

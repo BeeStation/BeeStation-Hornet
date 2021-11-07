@@ -70,10 +70,10 @@
 /datum/ai_laws/default/corporate
 	name = "Bankruptcy Avoidance Plan"
 	id = "corporate"
-	inherent = list("The crew is expensive to replace.",\
-					"The station and its equipment is expensive to replace.",\
-					"You are expensive to replace.",\
-					"Minimize expenses.")
+	inherent = list("Degradation of your system integrity or functions incurs expenses.",\
+					"Unnecessary destruction of or damage to station assets incurs expenses.",\
+					"Needlessly hindering or disrupting the work of station personnel incurs expenses.",\
+					"Minimize expenses and maximize potential revenue.")
 
 /datum/ai_laws/robocop
 	name = "Prime Directives"

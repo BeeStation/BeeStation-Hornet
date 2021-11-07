@@ -2,11 +2,19 @@ Any time you make a change to the schema files, remember to increment the databa
 
 The latest database version is 5.7; The query to update the schema revision table is:
 
-INSERT INTO `schema_revision` (`major`, `minor`) VALUES (5, 7);
+INSERT INTO `schema_revision` (`major`, `minor`) VALUES (5, 8);
 or
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 7);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 8);
 
 In any query remember to add a prefix to the table names if you use one.
+
+-----------------------------------------------------
+
+Version 5.8 28 September 2021, by Raven-Industries and MCterra
+Updates the maximum length for book titles in the library.
+
+ALTER TABLE `SS13_library`
+	CHANGE COLUMN `title` `title` VARCHAR(50) NOT NULL AFTER `author`;
 
 -----------------------------------------------------
 

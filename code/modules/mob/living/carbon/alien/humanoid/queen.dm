@@ -69,7 +69,8 @@
 	..()
 
 /mob/living/carbon/alien/humanoid/royal/queen/proc/game_end()
-	if(stat != DEAD)
+	var/turf/T = get_turf(src)
+	if(stat != DEAD && is_station_level(T.z))
 		SSshuttle.clearHostileEnvironment(src)
 		if(EMERGENCY_IDLE_OR_RECALLED)
 			priority_announce("Xenomorph infestation detected: crisis shuttle protocols activated - jamming recall signals across all frequencies.", SSstation.announcer.get_rand_alert_sound())

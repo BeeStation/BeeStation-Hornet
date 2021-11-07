@@ -21,6 +21,7 @@
 	if(can_interact(user))
 		on = !on
 		update_icon()
+		ui_update()
 	return ..()
 
 /obj/machinery/atmospherics/components/trinary/filter/AltClick(mob/user)
@@ -28,6 +29,7 @@
 		transfer_rate = MAX_TRANSFER_RATE
 		balloon_alert(user, "Set to [transfer_rate] L/s")
 		update_icon()
+		ui_update()
 	return
 
 /obj/machinery/atmospherics/components/trinary/filter/proc/set_frequency(new_frequency)
@@ -159,8 +161,8 @@
 				filter_name	= GLOB.gas_data.names[gas]
 			investigate_log("was set to filter [filter_name] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			. = TRUE
-	ui_update()
-	update_icon()
+	if(.)
+		update_icon()
 
 /obj/machinery/atmospherics/components/trinary/filter/can_unwrench(mob/user)
 	. = ..()

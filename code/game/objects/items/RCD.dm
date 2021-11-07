@@ -12,7 +12,7 @@ RLD
 /obj/item/construction
 	name = "not for ingame use"
 	desc = "A device used to rapidly build and deconstruct. Reload with iron, plasteel, glass or compressed matter cartridges."
-	opacity = FALSE
+	opacity = 0
 	density = FALSE
 	anchored = FALSE
 	flags_1 = CONDUCT_1
@@ -603,7 +603,7 @@ RLD
 	max_matter = INFINITY
 	matter = INFINITY
 	delay_mod = 0.1
-	upgrade = 1
+	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS
 
 // Ranged RCD
 

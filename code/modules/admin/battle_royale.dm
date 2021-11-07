@@ -28,13 +28,13 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/storage/box/syndie_kit/imp_uplink,
 		/obj/item/storage/box/syndie_kit/origami_bundle,
 		/obj/item/storage/box/syndie_kit/throwing_weapons,
-		/obj/item/storage/box/syndicate/bundle_A,
-		/obj/item/storage/box/syndicate/bundle_B,
+		/obj/item/storage/box/syndie_kit/bundle_A,
+		/obj/item/storage/box/syndie_kit/bundle_B,
 		/obj/item/gun/ballistic/automatic/pistol,
 		/obj/item/gun/energy/disabler,
 		/obj/item/construction/rcd,
 		/obj/item/clothing/glasses/chameleon/flashproof,
-		/obj/item/clothing/glasses/clockwork/wraith_spectacles,
+		/obj/item/book/granter/spell/knock,
 		/obj/item/clothing/glasses/sunglasses/advanced,
 		/obj/item/clothing/glasses/thermal/eyepatch,
 		/obj/item/clothing/glasses/thermal/syndi,
@@ -115,9 +115,9 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 /client/proc/battle_royale()
 	set name = "Battle Royale"
-	set category = "Fun"
-	if(!check_rights(R_FUN))
-		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
+	set category = "Adminbus"
+	if(!(check_rights(R_FUN) || (check_rights(R_ADMIN) && SSticker.current_state == GAME_STATE_FINISHED)))
+		to_chat(src, "<span class='warning'>You do not have permission to do that! (If you don't have +FUN, wait until the round is over then you can trigger it.)</span>")
 		return
 	if(GLOB.battle_royale)
 		to_chat(src, "<span class='warning'>A game is already in progress!</span>")
@@ -129,7 +129,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	message_admins("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
 
 	for(var/client/admin in GLOB.admins)
-		if(check_rights(R_FUN) && !GLOB.battle_royale && admin.tgui_panel)
+		if(check_rights(R_ADMIN) && !GLOB.battle_royale && admin.tgui_panel)
 			admin.tgui_panel.clear_br_popup()
 
 	GLOB.battle_royale = new()
@@ -138,7 +138,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /client/proc/battle_royale_speed()
 	set name = "Battle Royale - Change wall speed"
 	set category = "Event"
-	if(!check_rights(R_FUN))
+	if(!check_rights(R_ADMIN))
 		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
 		return
 	if(!GLOB.battle_royale)
@@ -208,11 +208,11 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 //Trigger random events and shit, update the world border
 /datum/battle_royale_controller/process()
 	process_num++
-	//Once every 50 seconds
-	if(prob(2))
+	//Once every 25 seconds
+	if(prob(4))
 		generate_basic_loot(5)
-	//Once every 100 seconds.
-	if(prob(1))
+	//Once every 50 seconds.
+	if(prob(2))
 		generate_good_drop()
 	var/living_victims = 0
 	var/mob/winner
@@ -259,7 +259,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /datum/battle_royale_controller/proc/start()
 	//Give Verbs to admins
 	for(var/client/C in GLOB.admins)
-		if(check_rights_for(C, R_FUN))
+		if(check_rights_for(C, R_ADMIN))
 			C.add_verb(BATTLE_ROYALE_AVERBS)
 	toggle_ooc(FALSE)
 	to_chat(world, "<span class='ratvar'><font size=24>Battle Royale will begin soon...</span></span>")
@@ -316,7 +316,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 /datum/battle_royale_controller/proc/titanfall()
 	var/list/participants = pollGhostCandidates("Would you like to partake in BATTLE ROYALE?")
-	var/turf/spawn_turf = get_safe_random_station_turf()
+	var/turf/spawn_turf = get_safe_random_station_turfs()
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()
 	players = list()
@@ -351,7 +351,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		M.RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/knock)
 		M.status_flags -= GODMODE
 		REMOVE_TRAIT(M, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
-		to_chat(M, "<span class='greenannounce'>You are no longer a pacafist. Be the last [M.gender == MALE ? "man" : "woman"] standing.</span>")
+		to_chat(M, "<span class='greenannounce'>You are no longer a pacifist. Be the last [M.gender == MALE ? "man" : "woman"] standing.</span>")
 
 //==================================
 // EVENTS / DROPS
@@ -366,16 +366,16 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/list/good_drops = list()
 	for(var/i in 1 to rand(1,3))
 		good_drops += pick(GLOB.battle_royale_good_loot)
-	send_item(good_drops, announce = "Incoming extended supply materials.", force_time = 600)
+	send_item(good_drops, announce = "Incoming extended supply materials.", force_time = 150)
 
 /datum/battle_royale_controller/proc/generate_endgame_drop()
 	var/obj/item = pick(GLOB.battle_royale_insane_loot)
-	send_item(item, announce = "We found a weird looking package in the back of our warehouse. We have no idea what is in it, but it is marked as incredibily dangerous and could be a superweapon.", force_time = 9000)
+	send_item(item, announce = "We found a weird looking package in the back of our warehouse. We have no idea what is in it, but it is marked as incredibily dangerous and could be a superweapon.", force_time = 600)
 
 /datum/battle_royale_controller/proc/send_item(item_path, style = STYLE_BOX, announce=FALSE, force_time = 0)
 	if(!item_path)
 		return
-	var/turf/target = get_safe_random_station_turf()
+	var/turf/target = get_safe_random_station_turfs()
 	var/obj/structure/closet/supplypod/battleroyale/pod = new()
 	if(islist(item_path))
 		for(var/thing in item_path)

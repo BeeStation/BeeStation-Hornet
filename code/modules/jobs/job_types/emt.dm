@@ -9,6 +9,8 @@
 	supervisors = "the chief medical officer"
 	selection_color = "#d4ebf2"
 	chat_color = "#8FBEB4"
+	exp_requirements = 120
+	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/emt
 
@@ -22,6 +24,9 @@
 	display_order = JOB_DISPLAY_ORDER_MEDICAL_DOCTOR
 	departments = DEPARTMENT_MEDICAL
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/emt
+	)
 /datum/outfit/job/emt
 	name = "Paramedic"
 	jobtype = /datum/job/emt
@@ -29,6 +34,7 @@
 	id = /obj/item/card/id/job/med
 	belt = /obj/item/pda/medical
 	ears = /obj/item/radio/headset/headset_med
+	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	uniform = /obj/item/clothing/under/rank/medical/emt
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	head = /obj/item/clothing/head/soft/emt

@@ -9,6 +9,7 @@
 	supervisors = "the chief medical officer and research director"
 	selection_color = "#d4ebf2"
 	chat_color = "#83BBBF"
+	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/geneticist
@@ -21,6 +22,9 @@
 	display_order = JOB_DISPLAY_ORDER_GENETICIST
 	departments = DEPARTMENT_MEDICAL
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/genetics
+	)
 /datum/outfit/job/geneticist
 	name = "Geneticist"
 	jobtype = /datum/job/geneticist

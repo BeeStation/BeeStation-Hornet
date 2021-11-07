@@ -19,7 +19,7 @@
 	current_cycle++
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(!HAS_TRAIT(H, TRAIT_NOHUNGER))
+		if(!HAS_TRAIT(H, TRAIT_NOHUNGER) && !HAS_TRAIT(H, TRAIT_POWERHUNGRY))
 			H.adjust_nutrition(nutriment_factor)
 	holder.remove_reagent(type, metabolization_rate)
 
@@ -664,37 +664,17 @@
 		. = TRUE
 	..()
 
-
 /datum/reagent/consumable/tinlux
 	name = "Tinea Luxor"
 	description = "A stimulating ichor which causes luminescent fungi to grow on the skin. "
 	color = "#b5a213"
 	taste_description = "tingling mushroom"
-	//Lazy list of mobs affected by the luminosity of this reagent.
-	var/list/mobs_affected
 
-/datum/reagent/consumable/tinlux/reaction_mob(mob/living/M)
-	add_reagent_light(M)
+/datum/reagent/consumable/tinlux/on_mob_metabolize(mob/living/carbon/M)
+	M.set_light(2)
 
-/datum/reagent/consumable/tinlux/on_mob_end_metabolize(mob/living/M)
-	remove_reagent_light(M)
-
-/datum/reagent/consumable/tinlux/proc/on_living_holder_deletion(mob/living/source)
-	SIGNAL_HANDLER
-	remove_reagent_light(source)
-
-/datum/reagent/consumable/tinlux/proc/add_reagent_light(mob/living/living_holder)
-	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = living_holder.mob_light(2)
-	LAZYSET(mobs_affected, living_holder, mob_light_obj)
-	RegisterSignal(living_holder, COMSIG_PARENT_QDELETING, .proc/on_living_holder_deletion)
-
-/datum/reagent/consumable/tinlux/proc/remove_reagent_light(mob/living/living_holder)
-	UnregisterSignal(living_holder, COMSIG_PARENT_QDELETING)
-	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = LAZYACCESS(mobs_affected, living_holder)
-	LAZYREMOVE(mobs_affected, living_holder)
-	if(mob_light_obj)
-		qdel(mob_light_obj)
-
+/datum/reagent/consumable/tinlux/on_mob_end_metabolize(mob/living/carbon/M)
+	M.set_light(0)
 
 /datum/reagent/consumable/vitfro
 	name = "Vitrium Froth"
@@ -726,10 +706,10 @@
 	taste_description = "pure electrictiy"
 
 /datum/reagent/consumable/liquidelectricity/on_mob_life(mob/living/carbon/M)
-	if(isethereal(M))
-		var/mob/living/carbon/human/H = M
-		var/datum/species/ethereal/E = H.dna?.species
-		E.adjust_charge(5*REM)
+	if(HAS_TRAIT(M, TRAIT_POWERHUNGRY))
+		var/obj/item/organ/stomach/battery/stomach = M.getorganslot(ORGAN_SLOT_STOMACH)
+		if(istype(stomach))
+			stomach.adjust_charge(40*REM)
 	else if(prob(3)) //scp13 optimization
 		M.electrocute_act(rand(3,5), "Liquid Electricity in their body", 1) //lmao at the newbs who eat energy bars
 		playsound(M, "sparks", 50, 1)
