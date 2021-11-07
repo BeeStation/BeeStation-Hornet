@@ -1587,6 +1587,8 @@ config_setting should be one of the following:
 
 /proc/CallAsync(datum/source, proctype, list/arguments)
 	set waitfor = FALSE
+	if(IsAdminAdvancedProcCall())
+		return
 	return call(source, proctype)(arglist(arguments))
 
 #define TURF_FROM_COORDS_LIST(List) (locate(List[1], List[2], List[3]))

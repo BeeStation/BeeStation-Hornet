@@ -85,6 +85,9 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src)
 
+	if(color)
+		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
+		
 	if (light_power && light_range)
 		update_light()
 

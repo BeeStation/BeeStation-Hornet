@@ -285,9 +285,9 @@
 	return ..()
 
 /obj/machinery/door/window/interact(mob/user)		//for sillycones
-	try_to_activate_door(user)
+	try_to_activate_door(null, user)
 
-/obj/machinery/door/window/try_to_activate_door(mob/user)
+/obj/machinery/door/window/try_to_activate_door(obj/item/I, mob/user)
 	if (..())
 		autoclose = FALSE
 

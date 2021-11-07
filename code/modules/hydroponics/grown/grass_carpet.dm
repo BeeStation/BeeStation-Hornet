@@ -85,6 +85,8 @@
 				stacktype = /obj/item/stack/tile/fairygrass/purple
 			if(/datum/plant_gene/trait/glow/pink)
 				stacktype = /obj/item/stack/tile/fairygrass/pink
+			if(/datum/plant_gene/trait/glow/shadow)
+				stacktype = /obj/item/stack/tile/fairygrass/dark
 
 	. = ..()
 

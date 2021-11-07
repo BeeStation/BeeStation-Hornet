@@ -31,7 +31,7 @@
 	icon_state = "salt_pile"
 
 /obj/effect/decal/cleanable/food/salt/Crossed(mob/living/L)
-	if(is_species(L, /datum/species/snail) || is_species(L, /datum/species/squid))
+	if(is_species(L, /datum/species/snail))
 		L.adjustFireLoss(10, TRUE)
 		to_chat(L, "<span class='danger'>The salt! It burns!</span>")
 
