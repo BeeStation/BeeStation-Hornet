@@ -509,12 +509,6 @@ ROUNDSTART_RACES plasmaman
 #ROUNDSTART_RACES slime
 #ROUNDSTART_RACES zombie
 
-## Roundstart no-reset races
-##-------------------------------------------------------------------------------------------
-## Races defined here will not cause existing characters to be reset to human if they currently have a non-roundstart species defined.
-ROUNDSTART_NO_HARD_CHECK squid
-ROUNDSTART_NO_HARD_CHECK fly
-
 ## Paywall Races
 ##-------------------------------------------------------------------------------------------
 ## Uncommenting races will restrict them behind the patreon paywall
