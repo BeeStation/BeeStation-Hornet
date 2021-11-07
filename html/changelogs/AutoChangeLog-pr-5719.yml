@@ -1,0 +1,5 @@
+author: francinum
+delete-after: true
+changes:
+  - balance: Janitors are now expected to use their actual wet floor signs. Their
+      supply and cost have been adjusted accordingly.
