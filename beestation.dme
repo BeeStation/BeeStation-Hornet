@@ -42,6 +42,7 @@
 #include "code\__DEFINES\clockcult.dm"
 #include "code\__DEFINES\colors.dm"
 #include "code\__DEFINES\combat.dm"
+#include "code\__DEFINES\config_defines.dm"
 #include "code\__DEFINES\configuration.dm"
 #include "code\__DEFINES\construction.dm"
 #include "code\__DEFINES\contracts.dm"
