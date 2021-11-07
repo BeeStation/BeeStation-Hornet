@@ -1,0 +1,4 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - tweak: Mind Crawler now plays when the hostile environment is triggered.
