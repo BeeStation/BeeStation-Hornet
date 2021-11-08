@@ -95,7 +95,7 @@ SUBSYSTEM_DEF(input)
 // For initially setting up or resetting to default the movement keys
 /datum/controller/subsystem/input/proc/setup_default_movement_keys()
 	var/static/list/default_movement_keys = list(
-		"W" = NORTH, "A" = WEST, "S" = SOUTH, "D" = EAST,				// WASD
+//		"W" = NORTH, "A" = WEST, "S" = SOUTH, "D" = EAST,				// WASD are now keybinds, not hard-coded.
 		"North" = NORTH, "West" = WEST, "South" = SOUTH, "East" = EAST,	// Arrow keys & Numpad
 		)
 
