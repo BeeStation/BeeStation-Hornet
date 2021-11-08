@@ -1,0 +1,5 @@
+author: benbot16
+delete-after: true
+changes:
+  - code_imp: Fixes modular consoles teleporting intellicards/IDs to cyborgs and AIs
+      who try to eject them
