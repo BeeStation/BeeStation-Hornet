@@ -976,32 +976,3 @@
 	category = CAT_MISC
 	tools = list(TOOL_WIRECUTTER)
 	
-/datum/crafting_recipe/iron_pickaxe
-	name = "Iron Pickaxe"
-	result = /obj/item/pickaxe
-	time = 40
-	reqs = list(/obj/item/stack/sheet/iron = 3,
-			/obj/item/stack/sheet/mineral/wood = 2
-			)
-	category = CAT_PRIMAL
-	tools = list(TOOL_WELDER)
-	
-/datum/crafting_recipe/silver_pickaxe
-	name = "Silver Pickaxe"
-	result = /obj/item/pickaxe/silver
-	time = 50
-	reqs = list(/obj/item/stack/sheet/mineral/silver = 3,
-			/obj/item/stack/sheet/mineral/wood = 2
-			)
-	category = CAT_PRIMAL
-	tools = list(TOOL_WELDER)
-	
-/datum/crafting_recipe/diamond_pickaxe
-	name = "Diamond Pickaxe"
-	result = /obj/item/pickaxe/diamond
-	time = 60
-	reqs = list(/obj/item/stack/sheet/mineral/diamond = 3,
-			/obj/item/stack/sheet/mineral/wood = 2
-			)
-	category = CAT_PRIMAL
-	tools = list(TOOL_WELDER)
