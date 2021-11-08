@@ -15,10 +15,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	var/hair_color	// this allows races to have specific hair colors... if null, it uses the H's hair/facial hair colors. if "mutcolor", it uses the H's mutant_color
 	var/hair_alpha = 255	// the alpha used by the hair. 255 is completely solid, 0 is transparent.
-	///The gradient style used for the mob's hair.
-	var/gradient_style
-	///The gradient color used to color the gradient.
-	var/gradient_color
 
 	var/use_skintones = 0	// does it use skintones or not? (spoiler alert this is only used by humans)
 	var/exotic_blood = ""	// If your race wants to bleed something other than bog standard blood, change this to reagent id.
@@ -523,8 +519,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						hair_overlay.color = "#" + H.hair_color
 
 					//Gradients
-					gradient_style = H.gradient_style
-					gradient_color = H.gradient_color
+					var/gradient_style = H.gradient_style
+					var/gradient_color = H.gradient_color
 					if(gradient_style)
 						var/datum/sprite_accessory/gradient = GLOB.hair_gradients_list[gradient_style]
 						var/icon/temp = icon(gradient.icon, gradient.icon_state)
