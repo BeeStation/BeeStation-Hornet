@@ -294,7 +294,7 @@ const Recipe = (props, context) => {
           content={recipe.description}
           position="bottom-end">
           <Flex.Item position="relative" width="100%">
-            <Box fontSize="1.15em">
+            <Box className="TechFab__RecipeName">
               {recipe.name}
             </Box>
             <Box color="lightgray" pl={1}>

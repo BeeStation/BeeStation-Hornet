@@ -34,6 +34,7 @@ $bg-map: colors.$bg-map !default;
   border-right: solid 1px black;
 }
 
+//Add a thin gradient border between entries
 .TechFab__Recipe {
   border-image: linear-gradient(to right, 
     colors.$grey 10%,
@@ -41,4 +42,12 @@ $bg-map: colors.$bg-map !default;
     adjust-color(colors.$grey, $alpha: -1) 60%,
     colors.$grey 90%) 30;
   border-image-width: 1px 0 0 0;
+}
+
+//Accent the design names using a grey shadow
+//Previous alternatives used are left commented out for reference
+.TechFab__RecipeName {
+  //font-size: 1.15em;
+  //font-weight: bold;
+  text-shadow: colors.$grey base.em(1px) base.em(1px);
 }
