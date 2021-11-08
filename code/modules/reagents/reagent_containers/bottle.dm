@@ -67,6 +67,11 @@
 	desc = "A small bottle of Mannitol. Useful for healing brain damage."
 	list_reagents = list(/datum/reagent/medicine/mannitol = 30)
 
+/obj/item/reagent_containers/glass/bottle/brendol
+	name = "brendol bottle"
+	desc = "A small bottle of Brendol. Helps prevent brain cell necrosis from progressing."
+	list_reagents = list(/datum/reagent/medicine/brendol = 30)
+
 /obj/item/reagent_containers/glass/bottle/charcoal
 	name = "charcoal bottle"
 	desc = "A small bottle of charcoal, which removes toxins and other chemicals from the bloodstream."
