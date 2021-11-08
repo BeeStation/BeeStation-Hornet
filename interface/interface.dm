@@ -258,15 +258,15 @@ Any-Mode: (hotkey doesn't need to be on)
 	set hidden = 1
 	var/map_in_url
 	switch(SSmapping.config?.map_name)
-		if("Box Station")			map_in_url = "box"
-		if("Delta Station")			map_in_url = "delta"
-		if("MetaStation")			map_in_url = "meta"
-		if("Kilo Station")          map_in_url = "kilo"
-		if("PubbyStation")          map_in_url = "pubby"
-		if("CorgStation")			map_in_url = "corg"
+		if("Box Station")			map_in_url = "BoxStation"
+		if("Delta Station")			map_in_url = "DeltaStation"
+		if("MetaStation")			map_in_url = "MetaStation"
+		if("Kilo Station")          map_in_url = "KiloStation"
+		if("PubbyStation")          map_in_url = "PubbyStation"
+		if("CorgStation")			map_in_url = "CorgStation"
 	if(map_in_url)
 		if(alert("This will open the current map in your browser. Are you sure?",,"Yes","No")!="Yes")
 			return
-		src << link("http://beestation13.com/map/[map_in_url]")
+		src << link("https://affectedarc07.github.io/SS13WebMap/BeeStation/[map_in_url]/")
 	else
 		to_chat(src, "<span class='danger'>The current map is either invalid or unavailable.</span>")
