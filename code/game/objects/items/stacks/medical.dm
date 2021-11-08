@@ -34,10 +34,15 @@
 	var/obj/item/bodypart/affecting
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
+		if(!get_location_accessible(C, user.zone_selected)) //If the location is covered, no healies for you.
+			to_chat(user, "<span class='warning'>[C]'s [parse_zone(user.zone_selected)] is covered!</span>")
+			return
+
 		affecting = C.get_bodypart(check_zone(user.zone_selected))
 		if(!affecting) //Missing limb?
 			to_chat(user, "<span class='warning'>[C] doesn't have \a [parse_zone(user.zone_selected)]!</span>")
 			return
+
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
 			if(stop_bleeding)
@@ -81,15 +86,21 @@
 
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
+		if(!get_location_accessible(C, user.zone_selected)) //If the location is covered, no healies for you.
+			to_chat(user, "<span class='warning'>[C]'s [parse_zone(user.zone_selected)] is covered!</span>")
+			return
+
 		affecting = C.get_bodypart(check_zone(user.zone_selected))
 		if(!affecting) //Missing limb?
 			to_chat(user, "<span class='warning'>[C] doesn't have \a [parse_zone(user.zone_selected)]!</span>")
 			return
+
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
 			if(stop_bleeding)
 				if(!H.bleedsuppress) //so you can't stack bleed suppression
 					H.suppress_bloodloss(stop_bleeding)
+
 		if(affecting.status == BODYPART_ORGANIC) //Limb must be organic to be healed - RR
 			if(affecting.heal_damage(heal_brute, heal_burn))
 				C.update_damage_overlays()
