@@ -61,7 +61,7 @@
 
 /datum/blackmarket_item/clothing/combatmedic_suit
 	name = "Combat Medic hardsuit"
-	desc = "A discarded combat medic hardsuit, found in the ruins of a carpet bombed xeno hive. Definately used, but as sturdy as an anchor."
+	desc = "A discarded combat medic hardsuit, found in the ruins of a carpet bombed xeno hive. Definitely used, but as sturdy as an anchor."
 	item = /obj/item/clothing/head/helmet/space/hardsuit/ancient 
 
 	price_min = 5500
