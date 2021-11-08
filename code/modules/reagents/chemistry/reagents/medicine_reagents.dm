@@ -1615,7 +1615,7 @@
 	overdose_threshold = 40
 
 /datum/reagent/medicine/brendol/on_mob_life(mob/living/carbon/M)
-	var/sideEffectFrequency = min( volume / 40 * 2 , 1)
+	var/sideEffectFrequency = max( volume / 40 * 2 , 0.5)
 	if(prob(100 / (20 / sideEffectFrequency )))
 		M.AdjustStun(40)
 	if(prob(100 / (90 / sideEffectFrequency )))
@@ -1641,7 +1641,7 @@
 	overdose_threshold = 40
 
 /datum/reagent/medicine/cortexone/on_mob_life(mob/living/carbon/M)
-	var/sideEffectFrequency = min( volume / 40 * 2 , 1)
+	var/sideEffectFrequency = max( volume / 40 * 2 , 0.5)
 	if(prob(100 / (7 / sideEffectFrequency )))
 		M.drop_all_held_items()
 	if(prob(100 / (300 / sideEffectFrequency )))
