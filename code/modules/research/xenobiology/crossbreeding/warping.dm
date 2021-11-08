@@ -632,7 +632,8 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	)
 
 	var/static/list/rare_items = list(
-		/obj/effect/spawner/lootdrop/armory_contraband
+		/obj/effect/spawner/lootdrop/armory_contraband,
+		/obj/effect/spawner/lootdrop/organ_spawner/major
 	)
 
 
