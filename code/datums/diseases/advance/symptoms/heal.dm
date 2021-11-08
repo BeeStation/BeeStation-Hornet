@@ -513,13 +513,18 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
 				if(prob(60))
 					if(tetsuo && prob(15))
+						if(A.affected_mob.job == "Clown")
+							new /obj/effect/spawner/lootdrop/organ_spawner/major/clown(M.loc)
 						if(MOB_ROBOTIC in A.infectable_biotypes)
 							new /obj/effect/decal/cleanable/robot_debris(M.loc)
+							new /obj/effect/spawner/lootdrop/organ_spawner/robot(M.loc)
+				new /obj/effect/spawner/lootdrop/organ_spawner(M.loc)
 				if(tetsuo)
 					var/list/organcantidates = list()
 					var/list/missing = M.get_missing_limbs()
 					if(prob(35))
 						new /obj/effect/decal/cleanable/blood/gibs(M.loc) //yes. this is very messy. very, very messy.
+						new /obj/effect/spawner/lootdrop/organ_spawner/major(M.loc)
 						for(var/obj/item/organ/O in M.loc)
 							if(O.organ_flags & ORGAN_FAILING || O.organ_flags & ORGAN_VITAL) //dont use shitty organs or brains
 								continue
