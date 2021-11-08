@@ -5,9 +5,9 @@
 
 /datum/brain_trauma/death/on_life()
     . = ..()
-    var/chance = 200
+    var/chance = 300
     if(owner.reagents.has_reagent(/datum/reagent/medicine/mannitol))
-        chance += 40
+        chance += 50
     for(var/X in owner.internal_organs)
         if(istype(X, /obj/item/organ/cyberimp/brain/brain_cell_stimmulator))
             chance = chance * 2
