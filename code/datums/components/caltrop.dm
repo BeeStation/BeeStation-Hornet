@@ -48,8 +48,7 @@
 		var/damage = rand(min_damage, max_damage)
 		if(HAS_TRAIT(H, TRAIT_LIGHT_STEP))
 			damage *= 0.5
-		if(is_species(H, /datum/species/squid))
-			damage *= 1.3
+
 		H.apply_damage(damage, BRUTE, picked_def_zone)
 
 		if(COOLDOWN_FINISHED(src, caltrop_cooldown))
@@ -61,7 +60,4 @@
 				H.visible_message("<span class='danger'>[H] slides on [A]!</span>", \
 						"<span class='userdanger'>You slide on [A]!</span>")
 
-		if(is_species(H, /datum/species/squid))
-			H.Paralyze(10)
-		else
-			H.Paralyze(40)
+		H.Paralyze(40)
