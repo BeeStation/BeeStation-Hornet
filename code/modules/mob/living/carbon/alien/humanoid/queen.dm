@@ -41,7 +41,7 @@
 	var/datum/action/small_sprite/smallsprite = new/datum/action/small_sprite/queen()
 
 /mob/living/carbon/alien/humanoid/royal/queen/Initialize()
-	RegisterSignal(src, list(COMSIG_MOVABLE_Z_CHANGED), .proc/check_hostile)
+	RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, .proc/check_hostile)
 	check_hostile() //still need to call this
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/royal/queen/Q in GLOB.carbon_list)
@@ -92,6 +92,11 @@
 	UnregisterSignal(src, COMSIG_MOVABLE_Z_CHANGED)
 	SSshuttle.clearHostileEnvironment(src)
 	..()
+
+/mob/living/carbon/alien/humanoid/royal/queen/revive(full_heal = 0, admin_revive = 0)
+	if(..())
+		RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, .proc/check_hostile)
+		check_hostile()
 
 /mob/living/carbon/alien/humanoid/royal/queen/Destroy()
 	UnregisterSignal(src, COMSIG_MOVABLE_Z_CHANGED)
