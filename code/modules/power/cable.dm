@@ -539,7 +539,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		return ..()
 	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
 	if(affecting?.status == BODYPART_ROBOTIC && user.a_intent != INTENT_HARM)
-		if(!get_location_accessible(H, user.zone_selected)) //If the location is covered, no healies for you.
+		if(!H.can_inject(H, FALSE, user.zone_selected)) //If the location is covered by thick material, no healies for you.
 			to_chat(user, "<span class='warning'>[H]'s [parse_zone(user.zone_selected)] is covered!</span>")
 			return
 		if(user == H)

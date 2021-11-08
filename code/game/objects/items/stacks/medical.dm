@@ -34,10 +34,6 @@
 	var/obj/item/bodypart/affecting
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(!get_location_accessible(C, user.zone_selected)) //If the location is covered, no healies for you.
-			to_chat(user, "<span class='warning'>[C]'s [parse_zone(user.zone_selected)] is covered!</span>")
-			return
-
 		affecting = C.get_bodypart(check_zone(user.zone_selected))
 		if(!affecting) //Missing limb?
 			to_chat(user, "<span class='warning'>[C] doesn't have \a [parse_zone(user.zone_selected)]!</span>")
@@ -45,6 +41,10 @@
 
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
+			if(!H.can_inject(H, FALSE, user.zone_selected)) //If the location is covered by thick material, no healies for you.
+				to_chat(user, "<span class='warning'>[C]'s [parse_zone(user.zone_selected)] is covered!</span>")
+				return
+
 			if(stop_bleeding)
 				if(H.bleedsuppress)
 					to_chat(user, "<span class='warning'>[H]'s bleeding is already bandaged!</span>")
@@ -86,10 +86,6 @@
 
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(!get_location_accessible(C, user.zone_selected)) //If the location is covered, no healies for you.
-			to_chat(user, "<span class='warning'>[C]'s [parse_zone(user.zone_selected)] is covered!</span>")
-			return
-
 		affecting = C.get_bodypart(check_zone(user.zone_selected))
 		if(!affecting) //Missing limb?
 			to_chat(user, "<span class='warning'>[C] doesn't have \a [parse_zone(user.zone_selected)]!</span>")
@@ -97,6 +93,10 @@
 
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
+			if(!H.can_inject(H, FALSE, user.zone_selected)) //If the location is covered by thick material, no healies for you.
+				to_chat(user, "<span class='warning'>[C]'s [parse_zone(user.zone_selected)] is covered!</span>")
+				return
+
 			if(stop_bleeding)
 				if(!H.bleedsuppress) //so you can't stack bleed suppression
 					H.suppress_bloodloss(stop_bleeding)
