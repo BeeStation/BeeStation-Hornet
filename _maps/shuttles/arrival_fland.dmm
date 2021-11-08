@@ -323,8 +323,6 @@
 	},
 /obj/structure/closet/crate/internals,
 /obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/internals,
-/obj/structure/closet/crate/internals,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
