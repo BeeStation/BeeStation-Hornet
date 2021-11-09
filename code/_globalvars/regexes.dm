@@ -8,3 +8,4 @@ GLOBAL_DATUM_INIT(is_punctuation, /regex, regex("\[.!?]+", "i"))
 
 //All characters forbidden by filenames: ", \, \n, \t, /, ?, %, *, :, |, <, >, ..
 GLOBAL_DATUM_INIT(filename_forbidden_chars, /regex, regex(@{""|[\\\n\t/?%*:|<>]|\.\."}, "g"))
+GLOBAL_PROTECT(filename_forbidden_chars)
