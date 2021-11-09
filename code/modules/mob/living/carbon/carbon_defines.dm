@@ -41,6 +41,7 @@
 
 	var/tinttotal = 0	// Total level of visualy impairing items
 
+	var/list/icon_render_keys = list()
 	var/list/bodyparts = list(
 		/obj/item/bodypart/chest,
 		/obj/item/bodypart/head,
@@ -53,7 +54,7 @@
 
 	var/list/hand_bodyparts = list() //a collection of arms (or actually whatever the fug /bodyparts you monsters use to wreck my systems)
 
-	var/icon_render_key = ""
+
 	var/static/list/limb_icon_cache = list()
 
 	//halucination vars

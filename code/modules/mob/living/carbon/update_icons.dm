@@ -215,19 +215,33 @@
 	update_body_parts()
 
 /mob/living/carbon/proc/update_body_parts(var/force_update)
+	//Check the cache to see if it needs a new sprite
+	var/list/needs_update = list()
+	var/limb_dismemberment = FALSE
+	for(var/obj/item/bodypart/BP in bodyparts)
+		BP.update_limb(is_creating = force_update) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
+		var/old_key = icon_render_keys?[BP.body_zone]
+		icon_render_keys[BP.body_zone] = generate_icon_key(BP)
+		if(!(icon_render_keys[BP.body_zone] == old_key))
+			needs_update += BP
+
+	if(bodyparts.len != icon_render_keys.len)
+		limb_dismemberment = TRUE
+
+	if(!needs_update.len && !limb_dismemberment)
+		return
 
 	remove_overlay(BODYPARTS_LAYER)
-
-	for(var/X in bodyparts)
-		var/obj/item/bodypart/BP = X
-		BP.update_limb(is_creating = force_update)
 
 
 	//GENERATE NEW LIMBS
 	var/list/new_limbs = list()
-	for(var/X in bodyparts)
-		var/obj/item/bodypart/BP = X
-		new_limbs += BP.get_limb_icon()
+	for(var/obj/item/bodypart/BP in bodyparts)
+		if(BP in needs_update)
+			new_limbs += BP.get_limb_icon()
+			limb_icon_cache[icon_render_keys[BP.body_zone]] = BP.get_limb_icon()
+		else
+			new_limbs += limb_icon_cache[icon_render_keys[BP.body_zone]]
 
 	if(new_limbs.len)
 		overlays_standing[BODYPARTS_LAYER] = new_limbs
@@ -235,3 +249,13 @@
 	apply_overlay(BODYPARTS_LAYER)
 	update_damage_overlays()
 
+///The Icon Render Key system. This generates and stores icons with keys to reduce the number of items bodypart icons are built.
+/mob/living/carbon/proc/generate_icon_key(obj/item/bodypart/BP)
+	if(BP.is_dimorphic)
+		. += "[BP.limb_gender]"
+	. += "-[BP.limb_id]"
+	. += "-[BP.body_zone]"
+	if(BP.should_draw_greyscale && !BP.is_husked)
+		. += "-[BP.draw_color]"
+	if(BP.is_husked)
+		. += "-husk"

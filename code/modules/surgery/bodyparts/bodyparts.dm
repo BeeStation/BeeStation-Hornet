@@ -19,6 +19,7 @@
 	var/limb_gender //Defines what sprite the limb should use if it is also sexually dimorphic.
 	var/uses_mutcolor = FALSE
 	var/is_dimorphic = FALSE //Is there a sprite difference between male and female?
+	var/draw_color //Greyscale draw color
 
 	var/body_zone //BODY_ZONE_CHEST, BODY_ZONE_L_ARM, etc , used for def_zone
 	var/aux_zone // used for hands
@@ -326,6 +327,9 @@
 
 	if(no_update)
 		return
+	draw_color = mutation_color
+	if(should_draw_greyscale) //Should the limb be colored?
+		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
 
 	if(!is_creating)
 		return
@@ -430,7 +434,7 @@
 		. += aux
 
 
-	var/draw_color = mutation_color
+	draw_color = mutation_color
 	if(should_draw_greyscale) //Should the limb be colored?
 		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
 
