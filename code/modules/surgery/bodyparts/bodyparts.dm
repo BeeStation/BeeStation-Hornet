@@ -270,7 +270,7 @@
 //Change limb between
 //Note:This proc only exists because I can't be arsed to remove it yet. Theres no real reason this should ever be used.
 /obj/item/bodypart/proc/change_bodypart_status(new_limb_status, heal_limb, change_icon_to_default)
- 	if(!(new_limb_status in bodytype) && (new_limb_status == BODYTYPE_ORGANIC))
+	if(!(new_limb_status in bodytype) && (new_limb_status == BODYTYPE_ORGANIC))
 		bodytype -= BODYTYPE_ROBOTIC
 		bodytype += BODYTYPE_ORGANIC
 	else
