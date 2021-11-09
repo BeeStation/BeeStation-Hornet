@@ -101,7 +101,7 @@
 	recalculate_tiers()
 	for(var/v in consoles_accessing)
 		var/obj/machinery/computer/rdconsole/V = v
-		V.updateUsrDialog()
+		V.ui_update()
 
 /datum/techweb/proc/recalculate_tiers()
 	for(var/id in researched_nodes)
@@ -340,7 +340,7 @@
 	if(autoupdate_consoles)
 		for(var/v in consoles_accessing)
 			var/obj/machinery/computer/rdconsole/V = v
-			V.updateUsrDialog()
+			V.ui_update()
 
 //Laggy procs to do specific checks, just in case. Don't use them if you can just use the vars that already store all this!
 /datum/techweb/proc/designHasReqs(datum/design/D)
