@@ -20,6 +20,10 @@
 	species_language_holder = /datum/language_holder/jelly
 	swimming_component = /datum/component/swimming/dissolve
 
+	limbs_id = "jelly"
+	use_generic_limbs = TRUE
+	limb_icon_file = 'icons/mob/human_parts_greyscale.dmi'
+
 /datum/species/jelly/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
 		regenerate_limbs.Remove(C)
