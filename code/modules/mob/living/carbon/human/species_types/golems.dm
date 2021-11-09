@@ -278,7 +278,7 @@
 /datum/species/golem/alloy/spec_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
 		return
-	H.heal_overall_damage(2,2, 0, BODYPART_ORGANIC)
+	H.heal_overall_damage(2,2, 0, BODYTYPE_ORGANIC)
 	H.adjustToxLoss(-2)
 	H.adjustOxyLoss(-2)
 
@@ -311,7 +311,7 @@
 		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2) //if there's enough light, heal
-			H.heal_overall_damage(1,1,0, BODYPART_ORGANIC)
+			H.heal_overall_damage(1,1,0, BODYTYPE_ORGANIC)
 			H.adjustToxLoss(-1)
 			H.adjustOxyLoss(-1)
 

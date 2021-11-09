@@ -185,7 +185,7 @@
 	if(L)
 		L.update_limb(fixed_icon, src)
 		if(robotic)
-			L.change_bodypart_status(BODYPART_ROBOTIC)
+			L.change_bodypart_status(BODYTYPE_ROBOTIC)
 	. = L
 
 /mob/living/carbon/monkey/newBodyPart(zone, robotic, fixed_icon)
@@ -206,7 +206,7 @@
 	if(L)
 		L.update_limb(fixed_icon, src)
 		if(robotic)
-			L.change_bodypart_status(BODYPART_ROBOTIC)
+			L.change_bodypart_status(BODYTYPE_ROBOTIC)
 	. = L
 
 /mob/living/carbon/alien/larva/newBodyPart(zone, robotic, fixed_icon)
@@ -219,7 +219,7 @@
 	if(L)
 		L.update_limb(fixed_icon, src)
 		if(robotic)
-			L.change_bodypart_status(BODYPART_ROBOTIC)
+			L.change_bodypart_status(BODYTYPE_ROBOTIC)
 	. = L
 
 /mob/living/carbon/alien/humanoid/newBodyPart(zone, robotic, fixed_icon)
@@ -240,7 +240,7 @@
 	if(L)
 		L.update_limb(fixed_icon, src)
 		if(robotic)
-			L.change_bodypart_status(BODYPART_ROBOTIC)
+			L.change_bodypart_status(BODYTYPE_ROBOTIC)
 	. = L
 
 

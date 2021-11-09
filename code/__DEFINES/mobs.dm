@@ -57,10 +57,10 @@
 #define ORGAN_ORGANIC   1
 #define ORGAN_ROBOTIC   2
 
-#define BODYPART_ORGANIC   1
-#define BODYPART_ROBOTIC   2
 
 //Bodytype defines for how things can be worn.
+#define BODYTYPE_ORGANIC		"organic"
+#define BODYTYPE_ROBOTIC		"robotic"
 #define BODYTYPE_HUMANOID		"humanoid" //Everything that isnt Grod
 #define BODYTYPE_BOXHEAD		"boxhead" //TV Head
 #define BODYTYPE_DIGITIGRADE	"digitigrade" //Cancer

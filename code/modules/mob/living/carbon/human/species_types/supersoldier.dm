@@ -15,6 +15,6 @@
 		var/turf/T = H.loc
 		light_amount = min(1,T.get_lumcount()) - 0.5
 		if(light_amount > 0) //if there's any light, heal
-			H.heal_overall_damage(1,1, 0, BODYPART_ORGANIC)
+			H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
 			H.adjustToxLoss(-1)
 			H.adjustOxyLoss(-1)

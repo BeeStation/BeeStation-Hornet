@@ -68,7 +68,7 @@
 		take_overall_damage(amount, 0, 0, updating_health, required_status)
 	else
 		if(!required_status)
-			required_status = forced ? null : BODYPART_ORGANIC
+			required_status = forced ? null : BODYTYPE_ORGANIC
 		heal_overall_damage(abs(amount), 0, 0, required_status, updating_health)
 	return amount
 
@@ -79,7 +79,7 @@
 		take_overall_damage(0, amount, 0, updating_health, required_status)
 	else
 		if(!required_status)
-			required_status = forced ? null : BODYPART_ORGANIC
+			required_status = forced ? null : BODYTYPE_ORGANIC
 		heal_overall_damage(0, abs(amount), 0, required_status, updating_health)
 	return amount
 
@@ -154,7 +154,7 @@
 	var/list/obj/item/bodypart/parts = list()
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
-		if(status && (BP.status != status))
+		if(status && !(status in BP.bodytype))
 			continue
 		if((brute && BP.brute_dam) || (burn && BP.burn_dam) || (stamina && BP.stamina_dam))
 			parts += BP
@@ -165,7 +165,7 @@
 	var/list/obj/item/bodypart/parts = list()
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
-		if(status && (BP.status != status))
+		if(status && !(status in BP.bodytype))
 			continue
 		if(BP.brute_dam + BP.burn_dam < BP.max_damage)
 			parts += BP

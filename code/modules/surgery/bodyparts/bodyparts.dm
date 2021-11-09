@@ -10,10 +10,10 @@
 	layer = BELOW_MOB_LAYER //so it isn't hidden behind objects when on the floor
 	var/mob/living/carbon/owner = null
 	var/datum/weakref/original_owner = null
-	var/status = BODYPART_ORGANIC
 	var/needs_processing = FALSE
+	///If you'd like to know if a bodypart is organic, please use is_organic_limb()
+	var/list/bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ORGANIC) //List of bodytypes flags, important for fitting clothing.
 
-	var/list/bodytype = list(BODYTYPE_HUMANOID) //List of bodytypes flags, important for fitting clothing.
 	var/is_husked = FALSE
 	var/limb_id = SPECIES_HUMAN //This is effectively the icon_state for limbs.
 	var/limb_gender //Defines what sprite the limb should use if it is also sexually dimorphic.
@@ -27,7 +27,7 @@
 
 	var/list/embedded_objects = list()
 	var/held_index = 0 //are we a hand? if so, which one!
-	var/render_like_organic = FALSE // TRUE is for when you want a BODYPART_ROBOTIC to pretend to be a BODYPART_ORGANIC.
+	var/render_like_organic = FALSE // TRUE is for when you want a BODYTYPE_ROBOTIC to pretend to be a BODYTYPE_ORGANIC.
 	var/is_pseudopart = FALSE //For limbs that don't really exist, eg chainsaws
 
 	var/disabled = BODYPART_NOT_DISABLED //If disabled, limb is as good as missing
@@ -120,7 +120,7 @@
 
 /obj/item/bodypart/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
-	if(status != BODYPART_ROBOTIC)
+	if(BODYTYPE_ORGANIC in bodytype)
 		playsound(get_turf(src), 'sound/misc/splort.ogg', 50, 1, -1)
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3)
@@ -128,7 +128,7 @@
 //empties the bodypart from its organs and other things inside it
 /obj/item/bodypart/proc/drop_organs(mob/user, violent_removal)
 	var/turf/T = get_turf(src)
-	if(status != BODYPART_ROBOTIC)
+	if(BODYTYPE_ORGANIC in bodytype)
 		playsound(T, 'sound/misc/splort.ogg', 50, 1, -1)
 	for(var/obj/item/I in src)
 		I.forceMove(T)
@@ -156,7 +156,7 @@
 		return FALSE
 	if(owner && (owner.status_flags & GODMODE))
 		return FALSE	//godmode
-	if(required_status && (status != required_status))
+	if(required_status && !(required_status in bodytype))
 		return FALSE
 
 	var/dmg_mlt = CONFIG_GET(number/damage_multiplier) * hit_percent
@@ -208,7 +208,7 @@
 //Cannot remove negative damage (i.e. apply damage)
 /obj/item/bodypart/proc/heal_damage(brute, burn, stamina, required_status, updating_health = TRUE)
 
-	if(required_status && (status != required_status)) //So we can only heal certain kinds of limbs, ie robotic vs organic.
+	if(required_status && !(required_status in bodytype)) //So we can only heal certain kinds of limbs, ie robotic vs organic.
 		return
 
 	brute_dam	= round(max(brute_dam - brute, 0), DAMAGE_PRECISION)
@@ -267,9 +267,16 @@
 		return TRUE
 	return FALSE
 
-//Change limb status
+//Change limb between
+//Note:This proc only exists because I can't be arsed to remove it yet. Theres no real reason this should ever be used.
 /obj/item/bodypart/proc/change_bodypart_status(new_limb_status, heal_limb, change_icon_to_default)
-	status = new_limb_status
+ 	if(!(new_limb_status in bodytype) && (new_limb_status == BODYTYPE_ORGANIC))
+		bodytype -= BODYTYPE_ROBOTIC
+		bodytype += BODYTYPE_ORGANIC
+	else
+		bodytype -= BODYTYPE_ORGANIC
+		bodytype += BODYTYPE_ROBOTIC
+
 	if(heal_limb)
 		burn_dam = 0
 		brute_dam = 0
@@ -277,9 +284,9 @@
 		burnstate = 0
 
 	if(change_icon_to_default)
-		if(status == BODYPART_ORGANIC)
+		if(BODYTYPE_ORGANIC in bodytype)
 			icon = DEFAULT_BODYPART_ICON_ORGANIC
-		else if(status == BODYPART_ROBOTIC)
+		else if(BODYTYPE_ROBOTIC in bodytype)
 			icon = DEFAULT_BODYPART_ICON_ROBOTIC
 
 	if(owner)
@@ -289,7 +296,7 @@
 		owner.update_damage_overlays()
 
 /obj/item/bodypart/proc/is_organic_limb()
-	return (status == BODYPART_ORGANIC)
+	return (BODYTYPE_ORGANIC in bodytype)
 
 //we inform the bodypart of the changes that happened to the owner, or give it the informations from a source mob.
 //set is_creating to true if you want to change the appearance of the limb outside of mutation changes or forced changes.
@@ -354,7 +361,7 @@
 	else if(animal_origin == MONKEY_BODYPART) //currently monkeys are the only non human mob to have damage overlays.
 		dmg_overlay_type = animal_origin
 
-	if(status == BODYPART_ROBOTIC)
+	if(BODYTYPE_ROBOTIC in bodytype)
 		dmg_overlay_type = "robotic"
 
 	if(dropping_limb)
@@ -409,29 +416,19 @@
 			limb.icon_state = "[animal_origin]_[body_zone]"
 		return
 
-	if(status == BODYPART_ORGANIC || (status == BODYPART_ROBOTIC && render_like_organic == TRUE)) // So IPC augments can be colorful without disrupting normal BODYPART_ROBOTIC render code.
-		limb.icon = icon
-		if(!should_draw_greyscale)
-			limb.icon = static_icon
-		if(is_dimorphic) //Does this type of limb have sexual dimorphism?
-			limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]"
-		else
-			limb.icon_state = "[limb_id]_[body_zone]"
+	////This is the MEAT of limb icon code
+	limb.icon = icon
+	if(!should_draw_greyscale)
+		limb.icon = static_icon
+	if(is_dimorphic) //Does this type of limb have sexual dimorphism?
+		limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]"
+	else
+		limb.icon_state = "[limb_id]_[body_zone]"
 
-		if(aux_zone) //Hand shit
-			aux = image(limb.icon, "[limb_id]_[aux_zone]", -aux_layer, image_dir)
-			. += aux
+	if(aux_zone) //Hand shit
+		aux = image(limb.icon, "[limb_id]_[aux_zone]", -aux_layer, image_dir)
+		. += aux
 
-	else //Robotic limb handling
-		limb.icon = icon
-		if(is_dimorphic)
-			limb.icon_state = "[body_zone]_[limb_gender]" //Robotic limbs are stored without a species identifier
-		else
-			limb.icon_state = "[body_zone]"
-		if(aux_zone)
-			aux = image(limb.icon, "[aux_zone]", -aux_layer, image_dir)
-			. += aux
-		return
 
 	var/draw_color = mutation_color
 	if(should_draw_greyscale) //Should the limb be colored?

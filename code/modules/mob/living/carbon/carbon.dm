@@ -950,7 +950,7 @@
 				if("augment")
 					if(ishuman(src))
 						if(BP)
-							BP.change_bodypart_status(BODYPART_ROBOTIC, TRUE, TRUE)
+							BP.change_bodypart_status(BODYTYPE_ROBOTIC, TRUE, TRUE)
 						else
 							to_chat(usr, "[src] doesn't have such bodypart.")
 					else
