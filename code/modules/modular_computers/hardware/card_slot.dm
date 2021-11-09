@@ -90,7 +90,7 @@
 
 	var/ejected = 0
 	if(stored_card && (!slot || slot == 1))
-		if(user)
+		if(user && in_range(src, user))
 			user.put_in_hands(stored_card)
 		else
 			stored_card.forceMove(drop_location())
@@ -98,7 +98,7 @@
 		ejected++
 
 	if(stored_card2 && (!slot || slot == 2))
-		if(user)
+		if(user && in_range(src, user))
 			user.put_in_hands(stored_card2)
 		else
 			stored_card2.forceMove(drop_location())
@@ -116,7 +116,7 @@
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.sec_hud_set_ID()
-		to_chat(user, "<span class='notice'>You remove the card[ejected>1 ? "s" : ""] from \the [src].</span>")
+		to_chat(user, "<span class='notice'>You eject the card[ejected>1 ? "s" : ""] from \the [src].</span>")
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 		return TRUE
 	return FALSE

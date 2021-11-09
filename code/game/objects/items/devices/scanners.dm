@@ -946,6 +946,8 @@ GENE SCANNER
 
 /obj/item/extrapolator/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
+	if(!proximity_flag)
+		return
 	if(scanner)
 		if(!target.extrapolator_act(user, src, scan))
 			if(locate(/datum/component/infective) in target.datum_components)
@@ -964,10 +966,16 @@ GENE SCANNER
 			var/datum/disease/advance/A = D
 			if(A.stealth >= (2 + scanner.rating)) //the extrapolator can detect diseases of higher stealth than a normal scanner
 				continue
-			to_chat(user, "<span class='info'><font color='green'><b>[A.name]</b>, stage [A.stage]/5</font></span>")
-			to_chat(user, "<span class='info'><b>[A] has the following symptoms:</b></span>")
-			for(var/datum/symptom/S in A.symptoms)
-				to_chat(user, "<span class='info'>[S.name]</span>")
+			if(A.dormant)
+				to_chat(user, "<span class='info'><font color='A19D9C'><b>[A.name]</b>, dormant virus</font></span>")
+				to_chat(user, "<span class='info'><font color='BAB9B9'><b>[A] has the following symptoms:</b></font></span>")
+				for(var/datum/symptom/S in A.symptoms)
+					to_chat(user, "<span class='info'><font color='BAB9B9'>[S.name]</font></span>")
+			else
+				to_chat(user, "<span class='info'><font color='green'><b>[A.name]</b>, stage [A.stage]/5</font></span>")
+				to_chat(user, "<span class='info'><b>[A] has the following symptoms:</b></span>")
+				for(var/datum/symptom/S in A.symptoms)
+					to_chat(user, "<span class='info'>[S.name]</span>")
 		else
 			to_chat(user, "<span class='info'><font color='green'><b>[D.name]</b>, stage [D.stage]/[D.max_stages].</font></span>")
 

@@ -62,10 +62,10 @@
 /obj/structure/necropolis_gate/singularity_pull()
 	return 0
 
-/obj/structure/necropolis_gate/CanPass(atom/movable/mover, turf/target)
-	if(get_dir(loc, target) == dir)
-		return !density
-	return 1
+/obj/structure/necropolis_gate/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
+	if(!(get_dir(loc, target) == dir))
+		return TRUE
 
 /obj/structure/necropolis_gate/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER

@@ -668,17 +668,26 @@
 				if(E.drain_time > world.time)
 					return
 				var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+				if(!istype(stomach))
+					to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+					return
+				if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
+					to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+					return
+
 				to_chat(H, "<span class='notice'>You start channeling some power through the [fitting] into your body.</span>")
-				E.drain_time = world.time + 30
+				E.drain_time = world.time + 35
 				while(do_after(user, 30, target = src))
-					E.drain_time = world.time + 30
+					E.drain_time = world.time + 35
 					if(!istype(stomach))
 						to_chat(H, "<span class='warning'>You can't receive charge!</span>")
 						return
 					to_chat(H, "<span class='notice'>You receive some charge from the [fitting].</span>")
 					stomach.adjust_charge(50)
+					use_power(50)
 					if(stomach.charge >= stomach.max_charge)
 						to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+						E.drain_time = 0
 						return
 				to_chat(H, "<span class='warning'>You fail to receive charge from the [fitting]!</span>")
 				E.drain_time = 0

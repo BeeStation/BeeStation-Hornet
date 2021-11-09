@@ -61,9 +61,8 @@
 		var/damage = rand(min_damage, max_damage)
 		if(HAS_TRAIT(H, TRAIT_LIGHT_STEP))
 			damage *= 0.5
-		if(is_species(H, /datum/species/squid))
-			damage *= 1.3
-		INVOKE_ASYNC(H, /mob/living.proc/apply_damage, damage, BRUTE, picked_def_zone)
+
+		H.apply_damage(damage, BRUTE, picked_def_zone)
 
 		if(COOLDOWN_FINISHED(src, caltrop_cooldown))
 			COOLDOWN_START(src, caltrop_cooldown, 1 SECONDS) //cooldown to avoid message spam.
@@ -74,12 +73,7 @@
 				H.visible_message("<span class='danger'>[H] slides on [A]!</span>", \
 						"<span class='userdanger'>You slide on [A]!</span>")
 
-		if(is_species(H, /datum/species/squid))
-			INVOKE_ASYNC(H, /mob/living.proc/Paralyze, 10)
-		else
-			INVOKE_ASYNC(H, /mob/living.proc/Paralyze, 40)
-	else
-		return
+		H.Paralyze(40)
 
 /datum/component/caltrop/UnregisterFromParent()
 	. = ..()

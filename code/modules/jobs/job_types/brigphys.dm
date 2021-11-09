@@ -23,6 +23,11 @@
 	display_order = JOB_DISPLAY_ORDER_BRIG_PHYS
 	departments = DEPARTMENT_MEDICAL | DEPARTMENT_SECURITY
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/secmed
+	)
+	biohazard = 15 //still deals with the sick and injured, just less than a medical doctor
+
 /datum/outfit/job/brig_phys
 	name = "Brig Physician"
 	jobtype = /datum/job/brig_phys

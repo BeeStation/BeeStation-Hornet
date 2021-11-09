@@ -603,7 +603,7 @@ RLD
 	max_matter = INFINITY
 	matter = INFINITY
 	delay_mod = 0.1
-	upgrade = 1
+	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS
 
 // Ranged RCD
 

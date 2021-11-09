@@ -47,7 +47,7 @@
 		vector_disease = new disease
 		message_admins("Vector was roundstart infected with [vector_disease.name]. Don't lynch the virologist!")
 		log_game("Vector was roundstart infected with [vector_disease.name].")
-	var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 5), 9, 1+rand(1,3))
+	var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 5), 9, 1+rand(1,3), infected = src)
 	extrapolatordisease += R
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,

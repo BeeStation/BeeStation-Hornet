@@ -152,7 +152,6 @@
 	to_chat(H, "<span class='warning'>...but there is not enough of you to go around! You must attain more blood volume to heal!</span>")
 
 /datum/species/oozeling/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
-	. = ..()
 	if(chem.type == /datum/reagent/water)
 		if(chem.volume > 10)
 			H.reagents.remove_reagent(chem.type, chem.volume - 10)
@@ -160,3 +159,4 @@
 		H.blood_volume -= 25
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
+	return ..()

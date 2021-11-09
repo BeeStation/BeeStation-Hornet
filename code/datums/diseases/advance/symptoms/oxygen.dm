@@ -28,6 +28,7 @@ Bonus
 	base_message_chance = 5
 	symptom_delay_min = 1
 	symptom_delay_max = 1
+	prefixes = list("Breathless ", "Anaerobic ")
 	var/regenerate_blood = FALSE
 	var/gas_type = GAS_MIASMA
 	var/base_moles = 3
