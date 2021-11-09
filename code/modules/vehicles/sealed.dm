@@ -3,9 +3,10 @@
 	var/enter_delay = 20
 	var/mouse_pointer
 
-/obj/vehicle/sealed/CanPass(atom/movable/mover, turf/target)
+/obj/vehicle/sealed/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(mover in buckled_mobs)
-		return 1
+		return TRUE
 
 /obj/vehicle/sealed/generate_actions()
 	. = ..()

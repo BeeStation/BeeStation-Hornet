@@ -29,6 +29,8 @@ Bonus
 	base_message_chance = 50
 	symptom_delay_min = 60
 	symptom_delay_max = 120
+	prefixes = list("Genetic ", "Chromosomal ", "Mutagenic ", "Muta-")
+	bodies = list("Mutant")
 	var/no_reset = FALSE
 	threshold_desc = "<b>Resistance 8:</b> Causes two harmful mutations at once.<br>\
 					  <b>Stage Speed 10:</b> Increases mutation frequency.<br>\

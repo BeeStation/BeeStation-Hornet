@@ -281,7 +281,7 @@
 /obj/machinery/capture_the_flag/proc/spawn_team_member(client/new_team_member)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(get_turf(src))
 	new_team_member.prefs.copy_to(M)
-	M.set_species(/datum/species/synth)
+	M.set_species(/datum/species/human)
 	M.key = new_team_member.key
 	M.faction += team
 	M.equipOutfit(ctf_gear)
@@ -411,9 +411,10 @@
 /obj/item/projectile/bullet/ctf
 	damage = 0
 
-/obj/item/projectile/bullet/ctf/prehit(atom/target)
+/obj/item/projectile/bullet/ctf/prehit_pierce(atom/target)
 	if(is_ctf_target(target))
 		damage = 60
+		return PROJECTILE_PIERCE_NONE	/// hey uhh don't hit anyone behind them
 	. = ..()
 
 /obj/item/gun/ballistic/automatic/laser/ctf
@@ -447,9 +448,10 @@
 	damage = 0
 	icon_state = "omnilaser"
 
-/obj/item/projectile/beam/ctf/prehit(atom/target)
+/obj/item/projectile/beam/ctf/prehit_pierce(atom/target)
 	if(is_ctf_target(target))
 		damage = 150
+		return PROJECTILE_PIERCE_NONE		/// hey uhhh don't hit anyone behind them
 	. = ..()
 
 /proc/is_ctf_target(atom/target)

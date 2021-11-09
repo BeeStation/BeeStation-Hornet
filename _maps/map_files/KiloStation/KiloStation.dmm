@@ -47183,6 +47183,9 @@
 	pixel_x = 28
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/painting/library_private{
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/dark,
 /area/library)
 "bpI" = (
@@ -50929,17 +50932,10 @@
 /turf/open/floor/plasteel/dark,
 /area/library)
 "buX" = (
-/obj/structure/table/wood,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/clipboard,
-/obj/item/camera_film{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/camera_film,
 /obj/machinery/newscaster{
 	pixel_x = 30
 	},
@@ -50948,6 +50944,7 @@
 	dir = 8;
 	name = "bar camera"
 	},
+/obj/machinery/modular_computer/console/preset/curator,
 /turf/open/floor/plasteel/dark,
 /area/library)
 "buY" = (

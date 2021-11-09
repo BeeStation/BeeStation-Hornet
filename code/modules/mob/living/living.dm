@@ -658,7 +658,7 @@
 	if(!(mobility_flags & MOBILITY_STAND) && !buckled && prob(getBruteLoss()*200/maxHealth))
 		makeTrail(newloc, T, old_direction)
 
-/mob/living/proc/makeTrail(turf/target_turf, turf/start, direction)
+/mob/living/proc/makeTrail(turf/target_turf, turf/start, direction, spec_color)
 	if(!has_gravity() || (movement_type & THROWN))
 		return
 	var/blood_exists = FALSE
@@ -689,9 +689,13 @@
 						TH.add_overlay(image('icons/effects/blood.dmi', trail_type, dir = newdir))
 						TH.transfer_mob_blood_dna(src)
 
-/mob/living/carbon/human/makeTrail(turf/T)
+						if(spec_color)
+							TH.color = spec_color
+
+/mob/living/carbon/human/makeTrail(turf/T, turf/start, direction, spec_color)
 	if((NOBLOOD in dna.species.species_traits) || !bleed_rate || bleedsuppress)
 		return
+	spec_color = dna.species.blood_color
 	..()
 
 /mob/living/proc/getTrail()
@@ -772,8 +776,7 @@
 		var/altered_grab_state = pulledby.grab_state
 		if((resting || HAS_TRAIT(src, TRAIT_GRABWEAKNESS)) && pulledby.grab_state < GRAB_KILL) //If resting, resisting out of a grab is equivalent to 1 grab state higher. wont make the grab state exceed the normal max, however
 			altered_grab_state++
-		else if(is_species(pulledby, /datum/species/squid) && pulledby.grab_state < GRAB_KILL) // If the puller is a squid, suction cups make it harder to break free
-			altered_grab_state++
+
 		var/resist_chance = BASE_GRAB_RESIST_CHANCE // see defines/combat.dm
 		resist_chance = max(resist_chance/altered_grab_state-sqrt((getStaminaLoss()+getBruteLoss()/2)*(3-altered_grab_state)), 0) // https://i.imgur.com/6yAT90T.png for sample output values
 		if(prob(resist_chance))
