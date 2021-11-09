@@ -25,6 +25,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 	var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, loc)
 
+	var/drain
 	. = 0
 	while(G.candrain && S.cell.charge >= S.cell.maxcharge)
 		drain = rand(G.drain * 0.75, G.drain * 1.5)
@@ -62,6 +63,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 	var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, loc)
 
+	var/drain
 	. = 0
 	while(G.candrain && S.cell.charge >= S.cell.maxcharge)
 		drain = rand(G.drain * 0.75, G.drain * 1.5)
@@ -69,10 +71,10 @@ They *could* go in their appropriate files, but this is supposed to be modular
 		if(!do_after(H, 1 SECONDS, target = src))
 			break
 
-		if(cell.charge < drain)
-			. += cell.charge
-			S.cell.give(cell.charge)
-			cell.use(cell.charge)
+		if(charge < drain)
+			. += charge
+			S.cell.give(charge)
+			charge = 0
 			break
 
 		spark_system.start()
@@ -142,7 +144,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 	if(!P)
 		return
 
-	drain = round(rand(G.drain * 0.75, G.drain * 1.5))/2)
+	var/drain = round(rand(G.drain * 0.75, G.drain * 1.5))/2
 	if(!do_after(H, 10, target = src))
 		break
 	var/drained = min(drain, delayed_surplus())
@@ -167,6 +169,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 	if(!get_charge())
 		return
 
+	var/drain
 	. = 0
 	while(G.candrain && S.cell.charge >= S.cell.maxcharge)
 		drain = rand(G.drain * 0.75, G.drain * 1.5)
@@ -196,6 +199,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 	if(!cell?.charge)
 		return
 
+	var/drain
 	. = 0
 	while(G.candrain && S.cell.charge >= S.cell.maxcharge)
 		drain = rand(G.drain * 0.75, G.drain * 1.5)

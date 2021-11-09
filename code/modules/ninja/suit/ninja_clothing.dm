@@ -49,6 +49,8 @@ Contents:
 	var/s_bombs = 10//Number of smoke bombs.
 	var/a_boost = 3//Number of adrenaline boosters.
 
+	var/datum/effect_system/spark_spread/spark_system
+
 /obj/item/clothing/suit/space/space_ninja/Initialize()
 	. = ..()
 
@@ -120,7 +122,7 @@ Contents:
 	n_shoes.slowdown--
 	n_gloves = H.gloves
 	ADD_TRAIT(n_gloves, TRAIT_NODROP, NINJA_SUIT_TRAIT)
-	RegisterSignal(suit_user, COMSIG_MOB_DEATH, ./proc/on_user_death)
+	RegisterSignal(suit_user, COMSIG_MOB_DEATH, .proc/on_user_death)
 	return TRUE
 
 /obj/item/clothing/suit/space/space_ninja/proc/on_user_death()
@@ -235,7 +237,7 @@ Contents:
 	to_chat(suit_user, "<span class='notice'>Primary system status: <B>ONLINE</B>.\nBackup system status: <B>ONLINE</B>.\nCurrent energy capacity: <B>[DisplayEnergy(cell.charge)]</B>.</span>")
 	sleep(s_delay)
 
-	to_chat(suit_user, "<span class='notice'>All systems operational. Welcome to <B>SpiderOS</B>, [U.real_name].</span>")
+	to_chat(suit_user, "<span class='notice'>All systems operational. Welcome to <B>SpiderOS</B>, [suit_user.real_name].</span>")
 	suit_user = TRUE
 	START_PROCESSING(src, SSprocessing)
 	s_busy = FALSE
