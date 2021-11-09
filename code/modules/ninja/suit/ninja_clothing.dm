@@ -7,10 +7,6 @@ Contents:
 
 */
 
-
-// /obj/item/clothing/suit/space/space_ninja
-
-
 /obj/item/clothing/suit/space/space_ninja
 	name = "ninja suit"
 	desc = "A unique, vacuum-proof suit of nano-enhanced armor designed specifically for Spider Clan assassins."
@@ -27,7 +23,6 @@ Contents:
 		//Important parts of the suit.
 	var/mob/living/carbon/human/suit_user
 	var/obj/item/stock_parts/cell/cell
-	var/datum/effect_system/spark_spread/spark_system
 	var/datum/techweb/stored_research
 	var/obj/item/energy_katana/energyKatana //For teleporting the katana back to the ninja (It's an ability)
 
@@ -345,3 +340,90 @@ Contents:
 			to_chat(user, "<span class='notice'>No research information detected.</span>")
 		return
 	return ..()
+
+/obj/item/clothing/head/helmet/space/space_ninja
+	desc = "What may appear to be a simple black garment is in fact a highly sophisticated nano-weave helmet. Standard issue ninja gear."
+	name = "ninja hood"
+	icon_state = "s-ninja"
+	item_state = "s-ninja_mask"
+	armor = list("melee" = 60, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 25, "fire" = 100, "acid" = 100, "stamina" = 60)
+	strip_delay = 12
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	blockTracking = 1//Roughly the only unique thing about this helmet.
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+
+/obj/item/clothing/mask/gas/space_ninja
+	name = "ninja mask"
+	desc = "A close-fitting mask that acts both as an air filter and a post-modern fashion statement."
+	icon_state = "s-ninja"
+	item_state = "s-ninja_mask"
+	strip_delay = 120
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+
+/obj/item/clothing/shoes/space_ninja
+	name = "ninja shoes"
+	desc = "A pair of running shoes. Excellent for running and even better for smashing skulls."
+	icon_state = "s-ninja"
+	item_state = "secshoes"
+	permeability_coefficient = 0.01
+	clothing_flags = NOSLIP
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	armor = list("melee" = 60, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100, "stamina" = 60)
+	strip_delay = 120
+	cold_protection = FEET
+	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
+	heat_protection = FEET
+	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
+
+/obj/item/clothing/gloves/space_ninja
+	desc = "These nano-enhanced gloves insulate from electricity and provide fire resistance."
+	name = "ninja gloves"
+	icon_state = "s-ninja"
+	item_state = "s-ninja"
+	siemens_coefficient = 0
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	strip_delay = 120
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	var/draining = 0
+	var/candrain = 0
+	var/drain = 300
+
+
+/obj/item/clothing/gloves/space_ninja/Touch(atom/A, proximity)
+	if(!candrain || draining || !proximity)
+		return FALSE
+	if(!ishuman(loc))
+		return FALSE	//Only works while worn
+	if(isturf(A))
+		return FALSE
+
+	var/mob/living/carbon/human/H = loc
+
+	var/obj/item/clothing/suit/space/space_ninja/suit = H.wear_suit
+	if(!istype(suit))
+		return FALSE
+
+	A.add_fingerprint(H)
+
+	draining = TRUE
+	var/result = A.ninjadrain_act(suit,H,src)
+	draining = FALSE
+
+	if(result)
+		to_chat(H, "<span class='notice'>Gained <B>[DisplayEnergy(.)]</B> of energy from [A].</span>")
+	return FALSE	//as to not cancel attack_hand()
+
+
+/obj/item/clothing/gloves/space_ninja/proc/toggledrain()
+	var/mob/living/carbon/human/U = loc
+	to_chat(U, "You <b>[candrain?"disable":"enable"]</b> special interaction.")
+	candrain =! candrain
+
+/obj/item/clothing/gloves/space_ninja/examine(mob/user)
+	. = ..()
+	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, NINJA_SUIT_TRAIT))
+		. += "The energy drain mechanism is <B>[candrain?"active":"inactive"]</B>."

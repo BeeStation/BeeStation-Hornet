@@ -12,120 +12,101 @@ They *could* go in their appropriate files, but this is supposed to be modular
 
 //Needs to return the amount drained from the atom, if no drain on a power object, return FALSE, otherwise, return a define.
 /atom/proc/ninjadrain_act()
-	return INVALID_DRAIN
-
-
-
+	return
 
 //APC//
 /obj/machinery/power/apc/ninjadrain_act(obj/item/clothing/suit/space/space_ninja/S, mob/living/carbon/human/H, obj/item/clothing/gloves/space_ninja/G)
-	if(!S || !H || !G)
-		return INVALID_DRAIN
+	if(!S?.cell || !G)
+		return
 
-	var/maxcapacity = 0 //Safety check for batteries
-	var/drain = 0 //Drain amount from batteries
+	if(!cell?.charge || !S.cell || S.cell.charge == S.cell.maxcharge)
+		return
+
+	var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
+	spark_system.set_up(5, 0, loc)
 
 	. = 0
+	while(G.candrain && S.cell.charge >= S.cell.maxcharge)
+		drain = rand(G.drain * 0.75, G.drain * 1.5)
 
-	if(cell && cell.charge)
-		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
-		spark_system.set_up(5, 0, loc)
+		if(!do_after(H, 1 SECONDS, target = src))
+			break
 
-		while(G.candrain && cell.charge> 0 && !maxcapacity)
-			drain = rand(G.mindrain, G.maxdrain)
+		if(cell.charge < drain)
+			. += cell.charge
+			S.cell.give(cell.charge)
+			cell.use(cell.charge)
+			break
 
-			if(cell.charge < drain)
-				drain = cell.charge
+		spark_system.start()
+		playsound(loc, "sparks", 50, 1)
+		. += drain
+		cell.use(drain)
+		S.cell.give(drain)
 
-			if(S.cell.charge + drain > S.cell.maxcharge)
-				drain = S.cell.maxcharge - S.cell.charge
-				maxcapacity = 1//Reached maximum battery capacity.
-
-			if (do_after(H,10, target = src))
-				spark_system.start()
-				playsound(loc, "sparks", 50, 1)
-				cell.use(drain)
-				S.cell.give(drain)
-				. += drain
-			else
-				break
-
-		if(!(obj_flags & EMAGGED))
-			flick("apc-spark", G)
-			playsound(loc, "sparks", 50, 1)
-			obj_flags |= EMAGGED
-			locked = FALSE
-			update_icon()
-
-
-
-
+	if(!(obj_flags & EMAGGED))
+		flick("apc-spark", G)
+		playsound(loc, "sparks", 50, 1)
+		obj_flags |= EMAGGED
+		locked = FALSE
+		update_icon()
 
 //SMES//
 /obj/machinery/power/smes/ninjadrain_act(obj/item/clothing/suit/space/space_ninja/S, mob/living/carbon/human/H, obj/item/clothing/gloves/space_ninja/G)
-	if(!S || !H || !G)
-		return INVALID_DRAIN
+	if(!S?.cell || !G)
+		return
 
-	var/maxcapacity = 0 //Safety check for batteries
-	var/drain = 0 //Drain amount from batteries
+	if(!charge)
+		return
+
+	var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
+	spark_system.set_up(5, 0, loc)
 
 	. = 0
+	while(G.candrain && S.cell.charge >= S.cell.maxcharge)
+		drain = rand(G.drain * 0.75, G.drain * 1.5)
 
-	if(charge)
-		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
-		spark_system.set_up(5, 0, loc)
+		if(!do_after(H, 1 SECONDS, target = src))
+			break
 
-		while(G.candrain && charge > 0 && !maxcapacity)
-			drain = rand(G.mindrain, G.maxdrain)
+		if(cell.charge < drain)
+			. += cell.charge
+			S.cell.give(cell.charge)
+			cell.use(cell.charge)
+			break
 
-			if(charge < drain)
-				drain = charge
-
-			if(S.cell.charge + drain > S.cell.maxcharge)
-				drain = S.cell.maxcharge - S.cell.charge
-				maxcapacity = 1
-
-			if (do_after(H,10, target = src))
-				spark_system.start()
-				playsound(loc, "sparks", 50, 1)
-				charge -= drain
-				S.cell.give(drain)
-				. += drain
-
-			else
-				break
-
+		spark_system.start()
+		playsound(loc, "sparks", 50, 1)
+		. += drain
+		charge -= drain
+		S.cell.give(drain)
 
 //CELL//
 /obj/item/stock_parts/cell/ninjadrain_act(obj/item/clothing/suit/space/space_ninja/S, mob/living/carbon/human/H, obj/item/clothing/gloves/space_ninja/G)
-	if(!S || !H || !G)
-		return INVALID_DRAIN
+	if(!S?.cell || !G)
+		return
 
-	. = 0
+	if(!charge || !G.candrain)
+		return
+	if(!do_after(H,30, target = src))
+		return
 
-	if(charge)
-		if(G.candrain && do_after(H,30, target = src))
-			. = charge
-			if(S.cell.charge + charge > S.cell.maxcharge)
-				S.cell.charge = S.cell.maxcharge
-			else
-				S.cell.give(charge)
-			charge = 0
-			corrupt()
-			update_icon()
+	. = charge
+	S.cell.give(charge)
+	charge = 0
+	corrupt()
+	update_icon()
 
 /obj/machinery/proc/AI_notify_hack()
 	var/turf/location = get_turf(src)
 	var/alertstr = "<span class='userdanger'>Network Alert: Hacking attempt detected[location?" in [location]":". Unable to pinpoint location"]</span>."
-	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
+	for(var/mob/living/silicon/ai/AI as() in GLOB.ai_list)
 		to_chat(AI, alertstr)
 
 //RDCONSOLE//
 /obj/machinery/computer/rdconsole/ninjadrain_act(obj/item/clothing/suit/space/space_ninja/S, mob/living/carbon/human/H, obj/item/clothing/gloves/space_ninja/G)
-	if(!S || !H || !G)
-		return INVALID_DRAIN
-
-	. = DRAIN_RD_HACK_FAILED
+	if(!S?.cell || !G)
+		return
 
 	to_chat(H, "<span class='notice'>Hacking \the [src]...</span>")
 	AI_notify_hack()
@@ -139,10 +120,8 @@ They *could* go in their appropriate files, but this is supposed to be modular
 //RD SERVER//
 //Shamelessly copypasted from above, since these two used to be the same proc, but with MANY colon operators
 /obj/machinery/rnd/server/ninjadrain_act(obj/item/clothing/suit/space/space_ninja/S, mob/living/carbon/human/H, obj/item/clothing/gloves/space_ninja/G)
-	if(!S || !H || !G)
-		return INVALID_DRAIN
-
-	. = DRAIN_RD_HACK_FAILED
+	if(!S?.cell || !G)
+		return
 
 	to_chat(H, "<span class='notice'>Hacking \the [src]...</span>")
 	AI_notify_hack()
@@ -156,106 +135,94 @@ They *could* go in their appropriate files, but this is supposed to be modular
 
 //WIRE//
 /obj/structure/cable/ninjadrain_act(obj/item/clothing/suit/space/space_ninja/S, mob/living/carbon/human/H, obj/item/clothing/gloves/space_ninja/G)
-	if(!S || !H || !G)
-		return INVALID_DRAIN
+	if(!S?.cell || !G)
+		return
 
-	var/maxcapacity = 0 //Safety check
-	var/drain = 0 //Drain amount
+	var/datum/powernet/P = powernet
+	if(!P)
+		return
 
-	. = 0
+	drain = round(rand(G.drain * 0.75, G.drain * 1.5))/2)
+	if(!do_after(H, 10, target = src))
+		break
+	var/drained = min(drain, delayed_surplus())
+	add_delayedload(drained)
+	if(drained < drain)//if no power on net, drain apcs
+		for(var/obj/machinery/power/terminal/T in P.nodes)
+			var/obj/machinery/power/apc/AP = T.master
+			if(AP.operating && AP.cell && AP.cell.charge > 0)
+				AP.cell.charge = max(0, AP.cell.charge - 5)
+				drained += 5
 
-	var/datum/powernet/PN = powernet
-	while(G.candrain && !maxcapacity && src)
-		drain = (round((rand(G.mindrain, G.maxdrain))/2))
-		var/drained = 0
-		if(PN && do_after(H,10, target = src))
-			drained = min(drain, delayed_surplus())
-			add_delayedload(drained)
-			if(drained < drain)//if no power on net, drain apcs
-				for(var/obj/machinery/power/terminal/T in PN.nodes)
-					if(istype(T.master, /obj/machinery/power/apc))
-						var/obj/machinery/power/apc/AP = T.master
-						if(AP.operating && AP.cell && AP.cell.charge > 0)
-							AP.cell.charge = max(0, AP.cell.charge - 5)
-							drained += 5
-		else
-			break
-
-		S.cell.give(drain)
-		if(S.cell.charge > S.cell.maxcharge)
-			. += (drained-(S.cell.charge - S.cell.maxcharge))
-			S.cell.charge = S.cell.maxcharge
-			maxcapacity = 1
-		else
-			. += drained
-		S.spark_system.start()
+	S.cell.give(drain)
+	S.spark_system.start()
+	return drain
 
 //MECH//
 /obj/mecha/ninjadrain_act(obj/item/clothing/suit/space/space_ninja/S, mob/living/carbon/human/H, obj/item/clothing/gloves/space_ninja/G)
-	if(!S || !H || !G)
-		return INVALID_DRAIN
-
-	var/maxcapacity = 0 //Safety check
-	var/drain = 0 //Drain amount
-	. = 0
+	if(!S?.cell || !G)
+		return
 
 	occupant_message("<span class='danger'>Warning: Unauthorized access through sub-route 4, block H, detected.</span>")
-	if(get_charge())
-		while(G.candrain && cell.charge > 0 && !maxcapacity)
-			drain = rand(G.mindrain,G.maxdrain)
-			if(cell.charge < drain)
-				drain = cell.charge
-			if(S.cell.charge + drain > S.cell.maxcharge)
-				drain = S.cell.maxcharge - S.cell.charge
-				maxcapacity = 1
-			if (do_after(H,10, target = src))
-				spark_system.start()
-				playsound(loc, "sparks", 50, 1)
-				cell.use(drain)
-				S.cell.give(drain)
-				. += drain
-			else
-				break
+	if(!get_charge())
+		return
+
+	. = 0
+	while(G.candrain && S.cell.charge >= S.cell.maxcharge)
+		drain = rand(G.drain * 0.75, G.drain * 1.5)
+
+		if(!do_after(H, 1 SECONDS, target = src))
+			break
+
+		if(cell.charge < drain)
+			. += cell.charge
+			S.cell.give(cell.charge)
+			cell.use(cell.charge)
+			break
+
+		spark_system.start()
+		playsound(loc, "sparks", 50, 1)
+		. += drain
+		cell.use(drain)
+		S.cell.give(drain)
 
 //BORG//
 /mob/living/silicon/robot/ninjadrain_act(obj/item/clothing/suit/space/space_ninja/S, mob/living/carbon/human/H, obj/item/clothing/gloves/space_ninja/G)
-	if(!S || !H || !G)
-		return INVALID_DRAIN
-
-	var/maxcapacity = 0 //Safety check
-	var/drain = 0 //Drain amount
-	. = 0
+	if(!S?.cell || !G)
+		return
 
 	to_chat(src, "<span class='danger'>Warning: Unauthorized access through sub-route 12, block C, detected.</span>")
 
-	if(cell && cell.charge)
-		while(G.candrain && cell.charge > 0 && !maxcapacity)
-			drain = rand(G.mindrain,G.maxdrain)
-			if(cell.charge < drain)
-				drain = cell.charge
-			if(S.cell.charge+drain > S.cell.maxcharge)
-				drain = S.cell.maxcharge - S.cell.charge
-				maxcapacity = 1
-			if (do_after(H,10))
-				spark_system.start()
-				playsound(loc, "sparks", 50, 1)
-				cell.use(drain)
-				S.cell.give(drain)
-				. += drain
-			else
-				break
+	if(!cell?.charge)
+		return
+
+	. = 0
+	while(G.candrain && S.cell.charge >= S.cell.maxcharge)
+		drain = rand(G.drain * 0.75, G.drain * 1.5)
+
+		if(!do_after(H, 1 SECONDS, target = src))
+			break
+
+		if(cell.charge < drain)
+			. += cell.charge
+			S.cell.give(cell.charge)
+			cell.use(cell.charge)
+			break
+
+		spark_system.start()
+		playsound(loc, "sparks", 50, 1)
+		. += drain
+		cell.use(drain)
+		S.cell.give(drain)
 
 
 //CARBON MOBS//
 /mob/living/carbon/ninjadrain_act(obj/item/clothing/suit/space/space_ninja/S, mob/living/carbon/human/H, obj/item/clothing/gloves/space_ninja/G)
-	if(!S || !H || !G)
-		return INVALID_DRAIN
-
-	. = DRAIN_MOB_SHOCK_FAILED
+	if(!S?.cell || !G)
+		return
 
 	//Default cell = 10,000 charge, 10,000/1000 = 10 uses without charging/upgrading
-	if(S.cell?.charge && S.cell.use(1000))
-		. = DRAIN_MOB_SHOCK
+	if(S.cell.use(1000))
 		//Got that electric touch
 		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 		spark_system.set_up(5, 0, loc)

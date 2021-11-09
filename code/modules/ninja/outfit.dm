@@ -22,4 +22,3 @@
 		if(istype(H.belt, belt))
 			S.energyKatana = H.belt
 		S.randomize_param()
-
