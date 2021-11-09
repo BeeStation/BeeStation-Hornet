@@ -31,8 +31,8 @@
 	var/list/scanned_atoms = list()
 	//Discovery cost tiers
 	var/current_tier = 1
-	var/list/items_per_tier = list()			//Assoc list, Key = "[tier level]", Value = Amount of items in tier
-	var/list/unlocked_in_tier = list()			//Assoc list, Key = "[tier level]", Value = Amount of items unlocked in tier
+	var/list/items_per_tier = list()			//Assoc list, Key = "[tier level]", Value = Amount of nodes in tier
+	var/list/unlocked_in_tier = list()			//Assoc list, Key = "[tier level]", Value = Amount of nodes unlocked in tier
 
 /datum/techweb/New()
 	SSresearch.techwebs += src
