@@ -12,6 +12,7 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/xeno = 20, /obj/item/stack/sheet/animalhide/xeno = 3)
 
 	var/alt_inhands_file = 'icons/mob/alienqueen.dmi'
+	var/game_end_timer
 
 /mob/living/carbon/alien/humanoid/royal/can_inject()
 	return FALSE
@@ -72,7 +73,9 @@
 	SIGNAL_HANDLER
 	if(is_station_level(src.z)) //we don't want the hostile environment if the xenos aren't actually on station
 		SSshuttle.registerHostileEnvironment(src) //aliens delay shuttle
-		addtimer(CALLBACK(src, .proc/game_end), 30 MINUTES) //time until shuttle is freed/called
+		if(game_end_timer)	//clear the timer if it exists
+			deltimer(game_end_timer)
+		game_end_timer = addtimer(CALLBACK(src, .proc/game_end), 30 MINUTES, TIMER_STOPPABLE) //time until shuttle is freed/called
 		return
 	if(src in SSshuttle.hostileEnvironments)
 		SSshuttle.clearHostileEnvironment(src) //left the z level, no longer matters
