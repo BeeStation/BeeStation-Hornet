@@ -95,7 +95,7 @@
 		H.dna.species.inherent_traits += TRAIT_NOBLOCK
 		H.dna.species.stance = STANCE_INTERACT
 		H.dna.species.staminamod = GROD_STAMMOD + 0.3
-		H.dna.species.speedmod = GROD_SPEEDMOD + 0.2 //10% slower than human
+		H.add_movespeed_modifier(MOVESPEED_ID_GROD_INTERACT, update=TRUE, priority=100, multiplicative_slowdown=0.8) //Undocumented movespeed system. I tried.
 		H.nutrition -= 20
 	else
 
@@ -110,7 +110,7 @@
 		H.dna.species.inherent_traits -= TRAIT_NOBLOCK
 		H.dna.species.stance = STANCE_MOBILE
 		H.dna.species.staminamod = GROD_STAMMOD
-		H.dna.species.speedmod = GROD_SPEEDMOD
+		H.remove_movespeed_modifier(MOVESPEED_ID_GROD_INTERACT, TRUE)
 		H.nutrition -= 20
 
 /datum/action/innate/grod/crownspider
