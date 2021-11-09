@@ -5546,6 +5546,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
 "bnb" = (
@@ -6284,6 +6287,9 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/railing{
 	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_y = 24
 	},
 /turf/open/floor/monotile/dark,
 /area/engine/atmos)
@@ -10087,6 +10093,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/green/visible{
 	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_y = 24
 	},
 /turf/open/floor/vault,
 /area/engine/atmospherics_engine)
@@ -19648,6 +19657,9 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/heater/on{
 	dir = 1
 	},
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /turf/open/floor/vault,
 /area/engine/atmospherics_engine)
 "ekp" = (
@@ -29143,6 +29155,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 8
 	},
@@ -35268,6 +35283,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "hFJ" = (
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
 /turf/open/floor/plasteel/dark/corner{
 	dir = 8
 	},
@@ -47718,11 +47736,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/medical)
-"kyN" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/turf/closed/wall,
-/area/crew_quarters/dorms)
 "kyV" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 4
@@ -54101,9 +54114,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 10
-	},
 /turf/open/floor/monotile/steel,
 /area/hydroponics/garden)
 "lZL" = (
@@ -65390,6 +65400,9 @@
 	dir = 8;
 	light_color = "#e8eaff"
 	},
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "oPF" = (
@@ -67870,6 +67883,15 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
+"pxf" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
+/turf/open/floor/vault,
+/area/engine/atmospherics_engine)
 "pxh" = (
 /obj/machinery/deepfryer,
 /obj/effect/turf_decal/bot,
@@ -68946,6 +68968,23 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"pKv" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/main)
 "pKK" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
@@ -74789,6 +74828,9 @@
 	},
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_x = -28
 	},
 /turf/open/floor/vault,
 /area/engine/atmospherics_engine)
@@ -133679,7 +133721,7 @@ cMX
 usc
 jqG
 rDV
-iIe
+pKv
 kWi
 iIe
 iIe
@@ -150933,7 +150975,7 @@ ifq
 kyA
 xqT
 cug
-oAY
+pxf
 wWM
 jpM
 lsA
@@ -151671,7 +151713,7 @@ sWv
 rNn
 rNn
 wtw
-kyN
+wtw
 wtw
 wtw
 wtw
