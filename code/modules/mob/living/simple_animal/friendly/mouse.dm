@@ -41,7 +41,7 @@
 	icon_living = "mouse_[body_color]"
 	icon_dead = "mouse_[body_color]_dead"
 	held_state = "mouse_[body_color]"
-	if(prob(75) && !clean)
+	if(prob(75) && !sterile)
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), 9, rand(3,4))
 		ratdisease += R
 
@@ -154,4 +154,4 @@
 /mob/living/simple_animal/mouse/sterile
 	name = "lab mouse"
 	desc = "It's a skittish, clean-looking little rodent."
-	clean = TRUE
+	sterile = TRUE
