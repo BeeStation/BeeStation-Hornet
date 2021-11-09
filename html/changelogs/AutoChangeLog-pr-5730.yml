@@ -1,0 +1,5 @@
+author: Sarchutar, Crossedfall
+delete-after: true
+changes:
+  - bugfix: roundstart_no_hard_check config option is working now
+  - config: Commented config option for `roundstart_no_hard_check`
