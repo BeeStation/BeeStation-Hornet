@@ -100,7 +100,7 @@
 	if(isanimal(target) || non_simple_animals[target.type])
 		if(isanimal(target))
 			var/mob/living/simple_animal/A = target
-			if(!A.healable)//simple approximation of being animal not a robot or similar
+			if(!A.healable || (A.flags_1 & HOLOGRAM_1)) //simple approximation of being animal not a robot or similar. Also checking if holographic
 				to_chat(user, "<span class='warning'>No compatible DNA detected.</span>")
 				return
 		if(animals[target.type])

@@ -27356,9 +27356,6 @@
 	name = "Experimentation Lab";
 	req_access_txt = "8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1

@@ -13,7 +13,8 @@
 	if(!blacklisted_turfs)
 		whitelisted_areas = typecacheof(list(
 			/area/space,
-			/area/lavaland
+			/area/lavaland,
+			/area/asteroid
 		))
 		whitelisted_turfs = typecacheof(list(
 			/turf/open/space,

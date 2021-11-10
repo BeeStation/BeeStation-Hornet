@@ -145,6 +145,14 @@
 	floor_tile = /obj/item/stack/tile/fairygrass/pink
 	light_color = "#FFB3DA"
 	color = "#FFB3DA"
+	
+/turf/open/floor/grass/fairy/dark
+	name = "dark fairygrass patch"
+	floor_tile = /obj/item/stack/tile/fairygrass/dark
+	light_power = -0.15
+	light_range = 2
+	light_color = "#AAD84B"
+	color = "#53003f"
 
 /turf/open/floor/grass/snow
 	gender = PLURAL
