@@ -3305,4 +3305,10 @@
 #include "interface\interface.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
+#include "modular_nostra\code\datums\components\crafting\recipes.dm"
+#include "modular_nostra\code\game\objects\items\tools\crowbar.dm"
+#include "modular_nostra\code\game\objects\items\tools\screwdriver.dm"
+#include "modular_nostra\code\game\objects\items\tools\weldingtool.dm"
+#include "modular_nostra\code\game\objects\items\tools\wirecutters.dm"
+#include "modular_nostra\code\game\objects\items\tools\wrench.dm"
 // END_INCLUDE
