@@ -17,6 +17,10 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 	species_language_holder = /datum/language_holder/skeleton
 
+	limbs_id = "skeleton"
+	use_generic_limbs = TRUE
+	limb_icon_file = 'icons/mob/human_parts.dmi'
+
 /datum/species/skeleton/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE

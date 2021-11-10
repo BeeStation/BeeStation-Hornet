@@ -17,6 +17,10 @@
 	liked_food = GROSS | MEAT | RAW
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 
+	limbs_id = "zombie"
+	use_generic_limbs = TRUE
+	limb_icon_file = 'icons/mob/human_parts.dmi'
+
 /datum/species/zombie/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
@@ -49,7 +53,7 @@
 /datum/species/zombie/infectious/spec_life(mob/living/carbon/C)
 	. = ..()
 	C.a_intent = INTENT_HARM // THE SUFFERING MUST FLOW
-	
+
 	//Zombies never actually die, they just fall down until they regenerate enough to rise back up.
 	//They must be restrained, beheaded or gibbed to stop being a threat.
 	if(regen_cooldown < world.time)
@@ -60,7 +64,7 @@
 		C.adjustToxLoss(-heal_amt)
 	if(!C.InCritical() && prob(4))
 		playsound(C, pick(spooks), 50, TRUE, 10)
-		
+
 //Congrats you somehow died so hard you stopped being a zombie
 /datum/species/zombie/infectious/spec_death(gibbed, mob/living/carbon/C)
 	. = ..()

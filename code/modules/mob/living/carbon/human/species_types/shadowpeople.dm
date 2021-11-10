@@ -14,6 +14,10 @@
 	mutanteyes = /obj/item/organ/eyes/night_vision
 	species_language_holder = /datum/language_holder/shadowpeople
 
+	limbs_id = "shadow"
+	use_generic_limbs = TRUE
+	limb_icon_file = 'icons/mob/human_parts.dmi'
+
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H)
 	var/turf/T = H.loc
