@@ -42,6 +42,7 @@
 	var/dual_wield_spread = 24			//additional spread when dual wielding
 	var/spread = 0						//Spread induced by the gun itself.
 	var/spread_multiplier = 1			//Multiplier for shotgun spread
+	var/spread_unwielded				//Spread induced by holding the gun with 1 hand. Can be set to 0 to disable autocalc. (40 for light weapons, 60 for medium by default)
 	var/randomspread = 1				//Set to 0 for shotguns. This is used for weapons that don't fire all their bullets at once.
 
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
@@ -90,6 +91,8 @@
 	if(!canMouseDown) //Some things like beam rifles override this.
 		canMouseDown = automatic //Nsv13 / Bee change.
 	build_zooming()
+	if(isnull(spread_unwielded))
+		spread_unwielded = weapon_weight * 10 + 10 //20, 30, 40.
 
 /obj/item/gun/Destroy()
 	if(isobj(pin)) //Can still be the initial path, then we skip
@@ -153,6 +156,10 @@
 //i.e if clicking would make it shoot
 /obj/item/gun/proc/can_shoot()
 	return TRUE
+
+/obj/item/gun/proc/check_wielded(mob/living/user)
+	var/obj/item/bodypart/other_hand = user.has_hand_for_held_index(user.get_inactive_hand_index()) //returns non-disabled inactive hands
+	return (user.get_inactive_held_item() || !other_hand)
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	balloon_alert(user, "Gun clicks")
@@ -228,10 +235,12 @@
 				user.dropItemToGround(src, TRUE)
 				return
 
-	var/obj/item/bodypart/other_hand = user.has_hand_for_held_index(user.get_inactive_hand_index()) //returns non-disabled inactive hands
-	if(weapon_weight == WEAPON_HEAVY && (user.get_inactive_held_item() || !other_hand))
-		balloon_alert(user, "You need both hands free to fire")
-		return
+	var/wielded = check_wielded(user)
+	if(wielded)
+		if(weapon_weight == WEAPON_HEAVY)
+			balloon_alert(user, "You need both hands free to fire")
+			return
+
 
 	//DUAL (or more!) WIELDING
 	var/bonus_spread = 0
@@ -324,6 +333,8 @@
 		randomized_gun_spread =	rand(0,spread)
 	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex
 		bonus_spread += 25
+	if(!check_wielded(user))
+		bonus_spread += spread_unwielded
 	var/randomized_bonus_spread = rand(0, bonus_spread)
 
 	if(burst_size > 1)
