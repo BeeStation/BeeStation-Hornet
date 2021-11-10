@@ -226,7 +226,7 @@
 			needs_update += BP
 
 	var/list/missing_limbs = get_missing_limbs()
-	if((6 - icon_render_keys.len) != missing_limbs)
+	if((dna?.species.max_bodypart_count - icon_render_keys.len) != missing_limbs.len)
 		limb_count_update = TRUE
 
 	if(!needs_update.len && !limb_count_update)
