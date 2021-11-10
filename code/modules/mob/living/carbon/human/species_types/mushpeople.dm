@@ -27,6 +27,10 @@
 	var/datum/martial_art/mushpunch/mush
 	species_language_holder = /datum/language_holder/mushroom
 
+	limbs_id = "mush"
+	use_generic_limbs = TRUE
+	limb_icon_file = 'icons/mob/human_parts_greyscale.dmi'
+
 /datum/species/mush/check_roundstart_eligible()
 	return FALSE //hard locked out of roundstart on the order of design lead kor, this can be removed in the future when planetstation is here OR SOMETHING but right now we have a problem with races.
 
