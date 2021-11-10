@@ -1,5 +1,5 @@
 
-#define DUALWIELD_PENALTY_EXTRA_MULTIPLIER 1.4
+#define DUALWIELD_PENALTY_EXTRA_MULTIPLIER 1.1
 #define FIRING_PIN_REMOVAL_DELAY 50
 
 /obj/item/gun
@@ -159,7 +159,7 @@
 
 /obj/item/gun/proc/check_wielded(mob/living/user)
 	var/obj/item/bodypart/other_hand = user.has_hand_for_held_index(user.get_inactive_hand_index()) //returns non-disabled inactive hands
-	return (user.get_inactive_held_item() || !other_hand)
+	return !(user.get_inactive_held_item() || !other_hand)
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	balloon_alert(user, "Gun clicks")
@@ -235,11 +235,9 @@
 				user.dropItemToGround(src, TRUE)
 				return
 
-	var/wielded = check_wielded(user)
-	if(wielded)
-		if(weapon_weight == WEAPON_HEAVY)
-			balloon_alert(user, "You need both hands free to fire")
-			return
+	if(!check_wielded(user) && weapon_weight == WEAPON_HEAVY)
+		balloon_alert(user, "You need both hands free to fire")
+		return
 
 
 	//DUAL (or more!) WIELDING
