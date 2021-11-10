@@ -94,7 +94,7 @@
 		canMouseDown = automatic //Nsv13 / Bee change.
 	build_zooming()
 	if(isnull(spread_unwielded))
-		spread_unwielded = weapon_weight * 10 + 10 //20, 30, 40.
+		spread_unwielded = weapon_weight * 20 + 20 //{40, 60, 80}
 
 /obj/item/gun/Destroy()
 	if(isobj(pin)) //Can still be the initial path, then we skip
