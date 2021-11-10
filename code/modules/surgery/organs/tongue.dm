@@ -52,7 +52,7 @@
 	M.RegisterSignal(M, COMSIG_MOB_SAY, /mob/living/carbon/.proc/handle_tongueless_speech)
 
 /obj/item/organ/tongue/could_speak_language(datum/language/dt)
-	return languages_possible[dt.type]
+	return languages_possible[dt]
 
 /obj/item/organ/tongue/lizard
 	name = "forked tongue"
