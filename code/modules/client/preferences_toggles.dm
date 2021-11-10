@@ -55,7 +55,7 @@
 	set category = "Preferences"
 	set desc = "See All Law Changes"
 	prefs.chat_toggles ^= CHAT_GHOSTLAWS
-	to_chat(usr, "As a ghost, you will now [(prefs.chat_toggles & CHAT_GHOSTLAWS) ? "be notified of all law chanes" : "no longer be notified of law changes"].")
+	to_chat(usr, "As a ghost, you will now [(prefs.chat_toggles & CHAT_GHOSTLAWS) ? "be notified of all law changes" : "no longer be notified of law changes"].")
 	prefs.save_preferences()
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ghost Laws", "[prefs.chat_toggles & CHAT_GHOSTLAWS ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

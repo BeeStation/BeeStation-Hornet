@@ -1615,7 +1615,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						uplink_spawn_loc = new_loc
 
 				if("ai_core_icon")
-					var/ai_core_icon = input(user, "Choose your preferred AI core display screen:", "AI Core Display Screen Selection") as null|anything in GLOB.ai_core_display_screens
+					var/ai_core_icon = input(user, "Choose your preferred AI core display screen:", "AI Core Display Screen Selection") as null|anything in GLOB.ai_core_display_screens - "Portrait"
 					if(ai_core_icon)
 						preferred_ai_core_display = ai_core_icon
 
@@ -1969,7 +1969,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/datum/species/chosen_species
 	chosen_species = pref_species.type
-	if(!roundstart_checks || (pref_species.id in GLOB.roundstart_races))
+	if(!roundstart_checks || (pref_species.id in GLOB.roundstart_races) || pref_species.check_no_hard_check())
 		chosen_species = pref_species.type
 	else
 		chosen_species = /datum/species/human

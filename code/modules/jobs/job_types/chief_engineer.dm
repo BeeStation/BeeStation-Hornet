@@ -33,6 +33,9 @@
 	display_order = JOB_DISPLAY_ORDER_CHIEF_ENGINEER
 	departments = DEPARTMENT_ENGINEERING | DEPARTMENT_COMMAND
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/ce
+	)
 /datum/outfit/job/ce
 	name = "Chief Engineer"
 	jobtype = /datum/job/chief_engineer
