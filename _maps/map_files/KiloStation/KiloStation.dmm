@@ -7486,15 +7486,10 @@
 	name = "Exploration Dock"
 	})
 "alG" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12";
-	req_one_access_txt = "0"
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
 	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/structure/barricade/wooden/crude,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
-/turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
 "alH" = (
 /obj/machinery/atmospherics/pipe/simple/supply/visible{
@@ -7551,6 +7546,7 @@
 "alK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
@@ -8423,14 +8419,9 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics)
 "ane" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plating,
 /area/maintenance/port/fore)
 "anf" = (
 /obj/effect/turf_decal/stripes/line{
@@ -10255,6 +10246,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/genetics)
 "apX" = (
@@ -14569,6 +14561,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/genetics)
 "awp" = (
@@ -15536,6 +15529,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/genetics)
 "axJ" = (
@@ -20163,7 +20157,11 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "aEG" = (
-/obj/structure/girder,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -26984,6 +26982,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/genetics/cloning)
 "aOL" = (
@@ -27287,6 +27286,7 @@
 /obj/item/clothing/neck/stethoscope{
 	pixel_y = 5
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/heads/cmo)
 "aPc" = (
@@ -28124,6 +28124,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "aQi" = (
@@ -28216,6 +28217,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "aQp" = (
@@ -28587,6 +28589,7 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/storage)
 "aQU" = (
@@ -28707,6 +28710,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "aRf" = (
@@ -29101,6 +29105,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "aRD" = (
@@ -30525,6 +30530,7 @@
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "aTv" = (
@@ -30666,6 +30672,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/chemistry)
 "aTG" = (
@@ -31421,6 +31428,7 @@
 	dir = 1;
 	pixel_y = -26
 	},
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/surgery)
 "aUC" = (
@@ -32705,6 +32713,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "aWr" = (
@@ -39384,6 +39393,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
 "bfw" = (
@@ -86167,13 +86177,11 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "cvJ" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12";
-	req_one_access_txt = "0"
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/structure/barricade/wooden/crude,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/plating,
 /area/maintenance/port/fore)
 "cvK" = (
 /obj/structure/table,
@@ -88596,6 +88604,7 @@
 "czH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -88642,13 +88651,13 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "czL" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/cobweb,
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	icon_state = "platingdmg1"
 	},
 /area/maintenance/port/fore)
 "czN" = (
@@ -98731,6 +98740,17 @@
 /area/maintenance/department/electrical{
 	name = "Exploration Dock"
 	})
+"duP" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12";
+	req_one_access_txt = "0"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/port/fore)
 "dxj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/caution/stand_clear{
@@ -99096,6 +99116,16 @@
 	icon_state = "platingdmg1"
 	},
 /area/quartermaster/warehouse)
+"fkw" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/maintenance/port/fore)
 "fnM" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/stripes/corner{
@@ -99490,6 +99520,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/starboard)
+"huW" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "hxj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
@@ -100116,6 +100150,13 @@
 /area/maintenance/department/electrical{
 	name = "Exploration Dock"
 	})
+"lOr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/girder,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/maintenance/port/fore)
 "lTi" = (
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall/rust,
@@ -100619,6 +100660,22 @@
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
+"pcC" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "12";
+	req_one_access_txt = "0"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/structure/barricade/wooden/crude,
+/turf/open/floor/plasteel/dark,
+/area/maintenance/port/fore)
+"pjN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "pjW" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/plating{
@@ -118884,7 +118941,7 @@ azU
 aCi
 aDe
 aDi
-cwy
+cnr
 amA
 amR
 csr
@@ -121696,7 +121753,7 @@ czz
 czz
 swr
 czz
-wMS
+alG
 cwq
 aAB
 apb
@@ -121953,8 +122010,8 @@ wMS
 czz
 czz
 czz
-czz
-cwp
+ane
+pcC
 aEG
 apd
 aDB
@@ -121987,7 +122044,7 @@ aQN
 aTx
 arZ
 aVa
-afe
+aoH
 acZ
 adf
 bBO
@@ -122210,9 +122267,9 @@ czz
 oTh
 czz
 wMS
-oTh
 cvJ
-ane
+cwq
+cwy
 cLl
 aDB
 and
@@ -122467,9 +122524,9 @@ czz
 oTh
 czz
 czz
-czz
-cwq
-cwy
+huW
+duP
+fkw
 apg
 aNt
 aNJ
@@ -122724,8 +122781,8 @@ vEm
 czz
 oTh
 czz
-czz
-alG
+pjN
+cwp
 czL
 aqR
 aNt
@@ -122981,9 +123038,9 @@ oTh
 czz
 czz
 czz
-oTh
+czz
 cwp
-cwp
+lOr
 cLg
 aDB
 aDB
