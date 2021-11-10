@@ -77,7 +77,7 @@
 	viewing_mobs -= user
 
 /obj/machinery/rnd/production/proc/update_viewer_statics()
-	for(var/mob/M in viewing_mobs)
+	for(var/mob/M as() in viewing_mobs)
 		if(QDELETED(M) || !(M.client || M.mind))
 			continue
 		update_static_data(M)
@@ -191,7 +191,7 @@
 		. = TRUE
 	if(action == "ejectsheet" && materials && materials.mat_container)
 		var/datum/material/M
-		for(var/datum/material/potential_material in materials.mat_container.materials)
+		for(var/datum/material/potential_material as() in materials.mat_container.materials)
 			if(potential_material.id == params["material_id"])
 				M = potential_material
 				break
