@@ -496,9 +496,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			power = 3 //should make this symptom actually worth it
 	var/mob/living/carbon/M = A.affected_mob
 	ownermind = M.mind
-	sizemult = CLAMP((0.5 + A.stage_rate / 10), 1.1, 2.5)
-	M.resize = sizemult
-	M.update_transform()
+	if(!A.carrier && !A.dormant)
+		sizemult = CLAMP((0.5 + A.stage_rate / 10), 1.1, 2.5)
+		M.resize = sizemult
+		M.update_transform()
 
 /datum/symptom/growth/Activate(datum/disease/advance/A)
 	if(!..())

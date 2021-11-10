@@ -51,6 +51,8 @@
  * return datum/tgui The requested UI.
  */
 /datum/tgui/New(mob/user, datum/src_object, interface, title, ui_x, ui_y)
+	if(!user.client) // No client to show the TGUI to, so stop here
+		return
 	log_tgui(user, "new [interface] fancy [user.client.prefs.tgui_fancy]")
 	src.user = user
 	src.src_object = src_object
@@ -80,7 +82,7 @@
  * return bool - TRUE if a new pooled window is opened, FALSE in all other situations including if a new pooled window didn't open because one already exists.
  */
 /datum/tgui/proc/open()
-	if(!user.client)
+	if(!user?.client)
 		return FALSE
 	if(window)
 		return FALSE
