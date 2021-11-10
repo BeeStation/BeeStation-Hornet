@@ -41,14 +41,6 @@
 	ricochet_decay_damage = 0.8
 	shrapnel_type = NONE
 
-/obj/item/projectile/bullet/c38/bouncy/rubber
-	name = ".38 Rubber bullet"
-	ricochets_max = 2
-	ricochet_chance = 50
-	ricochet_auto_aim_angle = 10
-	ricochet_auto_aim_range = 3
-
-
 /obj/item/projectile/bullet/c38/dumdum
 	name = ".38 DumDum bullet"
 	damage = 15
