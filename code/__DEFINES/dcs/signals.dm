@@ -40,6 +40,8 @@
 /// fires on the target datum when an element is attached to it  (/datum/element)
 #define COMSIG_ELEMENT_DETACH "element_detach"
 
+/// Sent when the amount of materials in material_container changes
+#define COMSIG_MATERIAL_CONTAINER_CHANGED "material_container_changed"
 
 // /atom signals
 #define COMSIG_ATOM_CREATED "atom_created"						///from base of atom/proc/Initialize(): sent any time a new atom is created
@@ -116,6 +118,8 @@
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
 
+/// Sent when the amount of materials in silo connected to remote_materials changes. Does not apply when remote_materials is not connected to a silo.
+#define COMSIG_REMOTE_MATERIALS_CHANGED "remote_materials_changed"
 
 /////////////////
 

@@ -40,10 +40,6 @@
 			index = findtext(t, char, index + length(char))
 	return t
 
-/// Sanitizes a string to act as a file path
-/proc/sanitize_filename(t)
-	return sanitize_simple(t, list("\n"="", "\t"="", "/"="", "\\"="", "?"="", "%"="", "*"="", ":"="", "|"="", "\""="", "<"="", ">"=""))
-
 ///returns nothing with an alert instead of the message if it contains something in the ic filter, and sanitizes normally if the name is fine. It returns nothing so it backs out of the input the same way as if you had entered nothing.
 /proc/sanitize_name(t,list/repl_chars = null)
 	if(CHAT_FILTER_CHECK(t))

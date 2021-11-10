@@ -9791,16 +9791,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
-"asA" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating,
-/area/security/warden)
 "asB" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/plating,
@@ -30785,9 +30775,6 @@
 	},
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/green{
@@ -114101,7 +114088,7 @@ ahB
 aoA
 ahB
 ark
-asA
+aoA
 ahB
 ave
 awl

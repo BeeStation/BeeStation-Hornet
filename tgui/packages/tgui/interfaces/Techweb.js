@@ -143,6 +143,7 @@ export const TechwebContent = (props, context) => {
     d_disk,
     locked,
     linkedanalyzer,
+    compact,
   } = data;
   const [
     techwebRoute,
@@ -179,11 +180,12 @@ export const TechwebContent = (props, context) => {
               </span>
             </Box>
             <Box>
-              <Button
+              <Button.Checkbox
+                color="default"
                 onClick={() => { act("compactify"); }}
-                color={compact ? "blue" : "yellow"}>
+                checked={!compact}>
                 Compactify
-              </Button>
+              </Button.Checkbox>
               <Button
                 icon="link"
                 onClick={() => { act("linkmachines"); }} >
@@ -496,7 +498,7 @@ const TechwebItemmaterials = (props, context) => {
   const { act, data } = useRemappedBackend(context);
   const { itemmats, itempoints } = data;
 
-  return (
+  return (itempoints || itemmats) && (
     <Section mt={1} className="Techweb__NodeContainer">
       {!!itempoints && (
         <>
@@ -512,16 +514,18 @@ const TechwebItemmaterials = (props, context) => {
           <Divider />
         </>
       )}
-      <Flex direction="column">
-        Reclaimable materials:
-        {itemmats.map(mats => {
-          return (
-            <Flex.Item key={mats}>
-              {mats}
-            </Flex.Item>
-          );
-        })}
-      </Flex>
+      {!!itemmats && (
+        <Flex direction="column">
+          Reclaimable materials:
+          {itemmats.map(mats => {
+            return (
+              <Flex.Item key={mats}>
+                {mats}
+              </Flex.Item>
+            );
+          })}
+        </Flex>
+      )}
     </Section>
   );
 };

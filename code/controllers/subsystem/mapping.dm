@@ -1,5 +1,3 @@
-//#define FORCE_MAP "_maps/boxstation.json"
-
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
 	init_order = INIT_ORDER_MAPPING
@@ -50,7 +48,7 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/proc/HACK_LoadMapConfig()
 	if(!config)
 #ifdef FORCE_MAP
-		config = load_map_config(FORCE_MAP)
+		config = load_map_config(FORCE_MAP, MAP_DIRECTORY)
 #else
 		config = load_map_config(error_if_missing = FALSE)
 #endif
@@ -79,7 +77,7 @@ SUBSYSTEM_DEF(mapping)
 	// and one level with no ruins
 	for (var/i in 1 to config.space_empty_levels)
 		++space_levels_so_far
-		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = CROSSLINKED), orbital_body_type = /datum/orbital_object/z_linked/beacon/weak)
+		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = SELFLOOPING), orbital_body_type = /datum/orbital_object/z_linked/beacon/weak)
 	// and the transit level
 	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE))
 
@@ -352,7 +350,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	if (. && VM.map_name != config.map_name)
 		to_chat(world, "<span class='boldannounce'>Map rotation has chosen [VM.map_name] for next round!</span>")
 
-/datum/controller/subsystem/mapping/proc/changemap(var/datum/map_config/VM)
+/datum/controller/subsystem/mapping/proc/changemap(datum/map_config/VM)
 	if(!VM.MakeNextMap())
 		next_map_config = load_map_config(default_to_box = TRUE)
 		message_admins("Failed to set new map with next_map.json for [VM.map_name]! Using default as backup!")
@@ -384,8 +382,8 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 /datum/controller/subsystem/mapping/proc/preloadRuinTemplates()
 	// Still supporting bans by filename
-	var/list/banned = generateMapList("[global.config.directory]/lavaruinblacklist.txt")
-	banned += generateMapList("[global.config.directory]/spaceruinblacklist.txt")
+	var/list/banned = generateMapList("lavaruinblacklist.txt")
+	banned += generateMapList("spaceruinblacklist.txt")
 
 	for(var/item in sortList(subtypesof(/datum/map_template/ruin), /proc/cmp_ruincost_priority))
 		var/datum/map_template/ruin/ruin_type = item
@@ -406,8 +404,8 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 			space_ruins_templates[R.name] = R
 
 /datum/controller/subsystem/mapping/proc/preloadShuttleTemplates()
-	var/list/unbuyable = generateMapList("[global.config.directory]/shuttles_unbuyable.txt")
-	var/list/illegal = generateMapList("[global.config.directory]/shuttles_illegal.txt")
+	var/list/unbuyable = generateMapList("shuttles_unbuyable.txt")
+	var/list/illegal = generateMapList("shuttles_illegal.txt")
 
 	for(var/item in subtypesof(/datum/map_template/shuttle))
 		var/datum/map_template/shuttle/shuttle_type = item
