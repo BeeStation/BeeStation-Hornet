@@ -528,13 +528,6 @@
 				break
 
 /**
- * Projectile crossed: When something enters a projectile's tile, make sure the projectile hits it if it should be hitting it.
- */
-/obj/item/projectile/Crossed(atom/movable/AM)
-	. = ..()
-	scan_crossed_hit(AM)
-
-/**
  * Projectile can pass through
  * Used to not even attempt to Bump() or fail to Cross() anything we already hit.
  */
@@ -864,19 +857,7 @@
 /obj/item/projectile/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
-	if(isliving(AM) && !(pass_flags & PASSMOB))
-		var/mob/living/L = AM
-		if(can_hit_target(L, permutated, (AM == original)))
-			Bump(AM)
-
-/obj/item/projectile/Move(atom/newloc, dir = NONE)
-	. = ..()
-	if(.)
-		if(temporary_unstoppable_movement)
-			temporary_unstoppable_movement = FALSE
-			DISABLE_BITFIELD(movement_type, UNSTOPPABLE)
-		if(fired && can_hit_target(original, permutated, TRUE))
-			Bump(original)
+	scan_crossed_hit(AM)
 
 /obj/item/projectile/Destroy()
 	if(hitscan)

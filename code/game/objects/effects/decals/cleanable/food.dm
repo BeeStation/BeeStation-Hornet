@@ -31,11 +31,10 @@
 	icon_state = "salt_pile"
 
 /obj/effect/decal/cleanable/food/salt/on_entered(datum/source, atom/movable/L)
-	. = ..()
-	if(is_species(L, /datum/species/snail) || is_species(L, /datum/species/squid))
-		var/mob/living/snails = L
-		snails.adjustFireLoss(10, TRUE)
-		to_chat(snails, "<span class='danger'>The salt! It burns!</span>")
+	if(is_species(L, /datum/species/snail))
+		var/mob/living/snail
+		snail.adjustFireLoss(10, TRUE)
+		to_chat(L, "<span class='danger'>The salt! It burns!</span>")
 
 /obj/effect/decal/cleanable/food/flour
 	name = "flour"
