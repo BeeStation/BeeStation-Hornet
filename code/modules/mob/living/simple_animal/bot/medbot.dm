@@ -428,7 +428,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 						log_combat(src, patient, "tended the wounds of", "internal tools", "([uppertext(treatment_method)])")
 					C.visible_message("<span class='danger'>[src] tends the wounds of [patient]!</span>", \
 						"<span class='userdanger'>[src] tends your wounds!</span>")
-					ADD_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
 				else
 					tending = FALSE
 			else
