@@ -12,9 +12,9 @@
 /area/template_noop)
 "c" = (
 /obj/structure/closet,
-/obj/item/canvas/twentythreeXnineteen,
-/obj/item/canvas/nineteenXnineteen,
-/obj/item/canvas/twentythreeXtwentythree,
+/obj/item/canvas/twentythree_nineteen,
+/obj/item/canvas/nineteen_nineteen,
+/obj/item/canvas/twentythree_twentythree,
 /obj/item/storage/crayons,
 /turf/open/floor/plating,
 /area/template_noop)

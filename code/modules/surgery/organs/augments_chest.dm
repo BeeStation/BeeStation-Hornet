@@ -114,6 +114,8 @@
 	if(H.stat == CONSCIOUS)
 		to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
 
+/obj/item/organ/cyberimp/chest/reviver/syndicate
+	syndicate_implant = TRUE
 
 /obj/item/organ/cyberimp/chest/thrusters
 	name = "implantable thrusters set"
@@ -200,13 +202,8 @@
 
 	// Priority 3: use internals tank.
 	var/obj/item/tank/I = owner.internal
-	if(I?.air_contents && I.air_contents.total_moles() > num)
-		var/datum/gas_mixture/removed = I.air_contents.remove(num)
-		if(removed.total_moles() > 0.005)
-			T.assume_air(removed)
-			return 1
-		else
-			T.assume_air(removed)
+	if(I && I.air_contents && I.air_contents.total_moles() >= num)
+		T.assume_air_moles(I.air_contents, num)
 
 	toggle(silent = TRUE)
 	return 0

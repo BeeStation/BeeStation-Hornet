@@ -61,6 +61,7 @@
 					/obj/item/clothing/under/rank/medical/emt/skirt = 4,
 					/obj/item/clothing/under/rank/medical/doctor/nurse = 4,
 					/obj/item/clothing/head/nursehat = 4,
+					/obj/item/clothing/head/beret/med = 4,
 					/obj/item/clothing/under/rank/medical/doctor/blue = 4,
 					/obj/item/clothing/under/rank/medical/doctor/green = 4,
 					/obj/item/clothing/under/rank/medical/doctor/purple = 4,
@@ -118,8 +119,8 @@
 					/obj/item/storage/backpack/duffelbag/engineering = 2,
 					/obj/item/storage/backpack/satchel/eng = 2,
 					/obj/item/storage/backpack/industrial = 2,
-					/obj/item/clothing/under/plasmaman/atmospherics = 3,
-					/obj/item/clothing/head/helmet/space/plasmaman/replacement/atmospherics = 3,
+					/obj/item/clothing/under/plasmaman/engineering/atmospherics = 3,
+					/obj/item/clothing/head/helmet/space/plasmaman/replacement/engineering/atmospherics = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
 					/obj/item/clothing/under/rank/engineering/atmospheric_technician = 3,
 					/obj/item/clothing/shoes/sneakers/black = 3)
@@ -146,6 +147,7 @@
 					/obj/item/clothing/head/soft = 3,
 					/obj/item/radio/headset/headset_cargo = 3)
 	premium = list(/obj/item/clothing/under/rank/cargo/miner = 3)
+	contraband = list(/obj/item/radio/headset/headset_quartermaster = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/cargo_wardrobe
 	payment_department = ACCOUNT_CAR
 /obj/item/vending_refill/wardrobe/cargo_wardrobe
@@ -332,14 +334,17 @@
 					/obj/item/paint/paint_remover = 2,
 					/obj/item/melee/flyswatter = 2,
 					/obj/item/flashlight = 2,
-					/obj/item/clothing/suit/caution = 6,
-					/obj/item/holosign_creator/janibarrier = 2,
+					/obj/item/clothing/suit/caution = 12, //The modern, good ones.
 					/obj/item/lightreplacer = 2,
 					/obj/item/soap/nanotrasen = 2,
 					/obj/item/storage/bag/trash = 2,
 					/obj/item/clothing/shoes/galoshes = 2,
 					/obj/item/watertank/janitor = 1,
 					/obj/item/storage/belt/janitor = 2)
+	contraband = list(
+					/obj/item/holosign_creator/janibarrier = 1,
+					/obj/item/caution = 3, //The really old crusty ones
+	)
 	refill_canister = /obj/item/vending_refill/wardrobe/jani_wardrobe
 	payment_department = ACCOUNT_SRV
 /obj/item/vending_refill/wardrobe/jani_wardrobe
@@ -359,7 +364,6 @@
 					/obj/item/clothing/under/lawyer/civilian/lawyer/purpsuit/skirt = 1,
 					/obj/item/clothing/under/suit/black = 1,
 					/obj/item/clothing/under/suit/black/skirt = 1,
-					/obj/item/clothing/under/rank/civilian/lawyer/black/skirt = 1,
 					/obj/item/clothing/suit/toggle/lawyer/black = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/female = 1,
 					/obj/item/clothing/under/lawyer/civilian/lawyer/female/skirt = 1,
@@ -370,6 +374,7 @@
 					/obj/item/clothing/under/rank/civilian/lawyer/red = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/red/skirt = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/black = 1,
+					/obj/item/clothing/under/rank/civilian/lawyer/black/skirt = 1,
 					/obj/item/clothing/suit/aristo_orange = 1,
 				   	/obj/item/clothing/suit/aristo_red = 1,
 				   	/obj/item/clothing/suit/aristo_brown = 1,

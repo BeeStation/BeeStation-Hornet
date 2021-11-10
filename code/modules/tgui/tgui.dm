@@ -22,7 +22,7 @@
 	/// The interface (template) to be used for this UI.
 	var/interface
 	/// Update the UI every MC tick.
-	var/autoupdate = TRUE
+	var/autoupdate = FALSE
 	/// If the UI has been initialized yet.
 	var/initialized = FALSE
 	/// Time of opening the window.
@@ -33,6 +33,8 @@
 	var/status = UI_INTERACTIVE
 	/// Topic state used to determine status/interactability.
 	var/datum/ui_state/state = null
+	/// If the window should update
+	var/needs_update = FALSE
 
 /**
  * public
@@ -49,6 +51,8 @@
  * return datum/tgui The requested UI.
  */
 /datum/tgui/New(mob/user, datum/src_object, interface, title, ui_x, ui_y)
+	if(!user.client) // No client to show the TGUI to, so stop here
+		return
 	log_tgui(user, "new [interface] fancy [user.client.prefs.tgui_fancy]")
 	src.user = user
 	src.src_object = src_object
@@ -65,6 +69,11 @@
 	if(ui_x && ui_y)
 		src.window_size = list(ui_x, ui_y)
 
+/datum/tgui/Destroy()
+	user = null
+	src_object = null
+	return ..()
+
 /**
  * public
  *
@@ -73,7 +82,7 @@
  * return bool - TRUE if a new pooled window is opened, FALSE in all other situations including if a new pooled window didn't open because one already exists.
  */
 /datum/tgui/proc/open()
-	if(!user.client)
+	if(!user?.client)
 		return FALSE
 	if(window)
 		return FALSE
@@ -128,7 +137,7 @@
 		// the error message properly.
 		window.release_lock()
 		window.close(can_be_suspended)
-		src_object.ui_close(user)
+		src_object.ui_close(user, src)	//Bee edit: ui_close now sends the tgui closed.
 		SStgui.on_close(src)
 	state = null
 	qdel(src)
@@ -263,15 +272,16 @@
 		close(can_be_suspended = FALSE)
 		return
 	// Update through a normal call to ui_interact
-	if(status != UI_DISABLED && (autoupdate || force))
+	if(status != UI_DISABLED && (autoupdate || force || src_object.ui_requires_update(user, src)))
+		needs_update = FALSE
 		src_object.ui_interact(user, src)
 		return
 	// Update status only
-	var/needs_update = process_status()
+	var/requires_update = process_status()
 	if(status <= UI_CLOSE)
 		close()
 		return
-	if(needs_update)
+	if(requires_update)
 		window.send_message("update", get_payload())
 
 /**

@@ -64,7 +64,8 @@
 	return data
 
 /obj/machinery/modular_fabricator/autolathe/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 
 	switch(action)
@@ -72,14 +73,13 @@
 			if(security_interface_locked)
 				return
 			adjust_hacked(!hacked)
+			. = TRUE
 
 		if("toggle_lock")
 			if(obj_flags & EMAGGED)
 				return
 			security_interface_locked = TRUE
-
-	//Update the UI for them so it's smooth
-	ui_interact(usr)
+			. = TRUE
 
 /obj/machinery/modular_fabricator/autolathe/attackby(obj/item/O, mob/user, params)
 
@@ -130,6 +130,7 @@
 		if(WIRE_DISABLE)
 			if(!wires.is_cut(wire))
 				disabled = FALSE
+	wires.ui_update()
 
 /obj/machinery/modular_fabricator/autolathe/proc/shock(mob/user, prb)
 	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock
@@ -154,6 +155,7 @@
 			else
 				stored_research.remove_design(D)
 	update_viewer_statics()
+	wires.ui_update()
 
 /obj/machinery/modular_fabricator/autolathe/emag_act(mob/user)
 	if(obj_flags & EMAGGED)

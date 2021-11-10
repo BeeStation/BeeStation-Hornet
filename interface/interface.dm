@@ -6,7 +6,7 @@
 	var/wikiurl = CONFIG_GET(string/wikiurl)
 	if(wikiurl)
 		if(query)
-			var/output = wikiurl + "/index.php?title=Special%3ASearch&profile=default&search=" + query
+			var/output = wikiurl + "/Special:Search/" + query
 			src << link(output)
 		else if (query != null)
 			src << link(wikiurl)

@@ -39,8 +39,8 @@
 	if(hotspot && istype(T) && T.air)
 		qdel(hotspot)
 		var/datum/gas_mixture/G = T.air
-		var/plas_amt = min(30,G.get_moles(/datum/gas/plasma)) //Absorb some plasma
-		G.adjust_moles(/datum/gas/plasma, -plas_amt)
+		var/plas_amt = min(30,G.get_moles(GAS_PLASMA)) //Absorb some plasma
+		G.adjust_moles(GAS_PLASMA, -plas_amt)
 		absorbed_plasma += plas_amt
 		if(G.return_temperature() > T20C)
 			G.set_temperature(max(G.return_temperature()/2,T20C))
@@ -291,9 +291,6 @@
 	to_chat(user, "<span class='warning'>You hit [src] but bounce off it!</span>")
 	playsound(src.loc, 'sound/weapons/tap.ogg', 100, 1)
 
-/obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target)
-	return !density
-
 /obj/structure/foamedmetal/iron
 	max_integrity = 50
 	icon_state = "ironfoam"
@@ -306,6 +303,7 @@
 	icon_state = "atmos_resin"
 	alpha = 120
 	max_integrity = 10
+	pass_flags_self = PASSGLASS
 
 /obj/structure/foamedmetal/resin/Initialize()
 	. = ..()
@@ -318,7 +316,7 @@
 			for(var/obj/effect/hotspot/H in O)
 				qdel(H)
 			for(var/I in G.get_gases())
-				if(I == /datum/gas/oxygen || I == /datum/gas/nitrogen)
+				if(I == GAS_O2 || I == GAS_N2)
 					continue
 				G.set_moles(I, 0)
 			O.air_update_turf()
@@ -331,11 +329,6 @@
 			L.ExtinguishMob()
 		for(var/obj/item/Item in O)
 			Item.extinguish()
-
-/obj/structure/foamedmetal/resin/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && (mover.pass_flags & PASSGLASS))
-		return TRUE
-	. = ..()
 
 #undef ALUMINUM_FOAM
 #undef IRON_FOAM

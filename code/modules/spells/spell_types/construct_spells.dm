@@ -236,14 +236,12 @@
 	to_chat(target, "<span class='userdanger'>A freezing darkness surrounds you...</span>")
 	target.playsound_local(get_turf(target), 'sound/hallucinations/i_see_you1.ogg', 50, 1)
 	user.playsound_local(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
-	target.become_blind(ABYSSAL_GAZE_BLIND)
+	target.become_blind(MAGIC_BLIND)
 	addtimer(CALLBACK(src, .proc/cure_blindness, target), 40)
 	target.adjust_bodytemperature(-200)
 
-/obj/effect/proc_holder/spell/targeted/abyssal_gaze/proc/cure_blindness(mob/target)
-	if(isliving(target))
-		var/mob/living/L = target
-		L.cure_blind(ABYSSAL_GAZE_BLIND)
+/obj/effect/proc_holder/spell/targeted/abyssal_gaze/proc/cure_blindness(mob/living/L)
+		L.cure_blind(MAGIC_BLIND)
 
 /obj/effect/proc_holder/spell/targeted/dominate
 	name = "Dominate"

@@ -28,6 +28,9 @@ Bonus
 	base_message_chance = 50
 	symptom_delay_min = 25
 	symptom_delay_max = 80
+	prefixes = list("Eye ")
+	bodies = list("Blind")
+	suffixes = list(" Blindness")
 	var/remove_eyes = FALSE
 	threshold_desc = "<b>Resistance 12:</b> Weakens extraocular muscles, eventually leading to complete detachment of the eyes.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."

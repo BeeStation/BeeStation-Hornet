@@ -43,6 +43,9 @@
 	else if(x<0)
 		.+=360
 
+//Better performant than an artisanal proc and more reliable than Turn(). From TGMC.
+#define REVERSE_DIR(dir) ( ((dir & 85) << 1) | ((dir & 170) >> 1) )
+
 //Returns location. Returns null if no location was found.
 /proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = FALSE, closed = FALSE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
 /*
@@ -394,6 +397,17 @@ Turf and target are separate in case you want to teleport some distance from a t
 			break
 	return loc
 
+//Returns a list of all locations (except the area) the movable is within.
+/proc/get_nested_locs(atom/movable/AM, include_turf = FALSE)
+	. = list()
+	var/atom/location = AM.loc
+	var/turf/turf = get_turf(AM)
+	while(location && location != turf)
+		. += location
+		location = location.loc
+	if(location && include_turf) //At this point, only the turf is left, provided it exists.
+		. += location
+
 /// Returns the turf located at the map edge in the specified direction relative to A. Used for mass driver
 /proc/get_edge_target_turf(atom/A, direction)
 	var/turf/target = locate(A.x, A.y, A.z)
@@ -594,18 +608,15 @@ Returns: A list of all areas of that type in the world.
 
 	var/list/areas = list()
 	if(subtypes)
-		var/list/cache = typecacheof(areatype)
-		for(var/V in GLOB.sortedAreas)
-			var/area/A = V
-			if(cache[A.type])
+		for(var/area/A as() in GLOB.sortedAreas)
+			if(istype(A, areatype))
 				if(target_z == 0 || A.z == target_z)
-					areas += V
+					areas += A
 	else
-		for(var/V in GLOB.sortedAreas)
-			var/area/A = V
+		for(var/area/A as() in GLOB.sortedAreas)
 			if(A.type == areatype)
 				if(target_z == 0 || A.z == target_z)
-					areas += V
+					areas += A
 	return areas
 
 /**
@@ -624,17 +635,14 @@ Returns: A list of all turfs in areas of that type of that type in the world.
 
 	var/list/turfs = list()
 	if(subtypes)
-		var/list/cache = typecacheof(areatype)
-		for(var/V in GLOB.sortedAreas)
-			var/area/A = V
-			if(!cache[A.type])
+		for(var/area/A as() in GLOB.sortedAreas)
+			if(!istype(A, areatype))
 				continue
 			for(var/turf/T in A)
 				if(target_z == 0 || target_z == T.z)
 					turfs += T
 	else
-		for(var/V in GLOB.sortedAreas)
-			var/area/A = V
+		for(var/area/A as() in GLOB.sortedAreas)
 			if(A.type != areatype)
 				continue
 			for(var/turf/T in A)
@@ -1108,26 +1116,30 @@ eg2: `center_image(I, 96,96)`
 /proc/get_random_station_turf()
 	return safepick(get_area_turfs(pick(GLOB.the_station_areas)))
 
-/proc/get_safe_random_station_turf(list/areas_to_pick_from = GLOB.the_station_areas) //excludes dense turfs (like walls) and areas that have valid_territory set to FALSE
-	for (var/i in 1 to 5)
-		var/list/L = get_area_turfs(pick(areas_to_pick_from))
-		var/turf/target
-		while (L.len && !target)
-			var/I = rand(1, L.len)
-			var/turf/T = L[I]
-			if(!T.density)
-				var/clear = TRUE
-				for(var/obj/O in T)
-					if(O.density)
-						clear = FALSE
-						break
-				if(clear)
-					target = T
-			if (!target)
-				L.Cut(I,I+1)
-		if (target)
-			return target
-
+///Gets random safe - which mean clear of dense objects and valid, turf from provided areas that are on station
+///Amount 1 makes it return turf, anything else a list of turfs
+/proc/get_safe_random_station_turfs(list/areas_to_pick_from = GLOB.the_station_areas, amount = 1)
+	var/list/picked_turfs = list()
+	var/list/L
+	for(var/area/A as() in areas_to_pick_from)
+		L += get_area_turfs(A)
+	while(L.len && length(picked_turfs) <= amount)
+		var/I = rand(1, length(L))
+		var/turf/T = L[I]
+		var/area/X = get_area(T)
+		if(!T.density && (X.area_flags & VALID_TERRITORY))
+			var/clear = TRUE
+			for(var/obj/O in T)
+				if(O.density)
+					clear = FALSE
+					break
+			if(clear)
+				picked_turfs |= T
+			L.Cut(I,I+1)
+		CHECK_TICK
+	if(amount == 1)
+		return picked_turfs[1]
+	return picked_turfs
 
 /proc/get_closest_atom(type, list, source)
 	var/closest_atom
@@ -1575,6 +1587,8 @@ config_setting should be one of the following:
 
 /proc/CallAsync(datum/source, proctype, list/arguments)
 	set waitfor = FALSE
+	if(IsAdminAdvancedProcCall())
+		return
 	return call(source, proctype)(arglist(arguments))
 
 #define TURF_FROM_COORDS_LIST(List) (locate(List[1], List[2], List[3]))
@@ -1592,33 +1606,3 @@ config_setting should be one of the following:
 		if(-INFINITY to 0, 11 to INFINITY)
 			CRASH("Can't turn invalid directions!")
 	return turn(input_dir, 180)
-
-/**
- * Sends a topic call to crosscomms servers.
- *
- * Params:
- * sender - Name of the IC entity sending the message
- * msg - Message text to send
- * type - What handler the recieving server should use
- * insecure - Send the messages to insecure servers
-*/
-/proc/comms_send(sender, msg, type, insecure = FALSE)
-	var/list/message = list()
-	message["message_sender"] = sender
-	message["message"] = msg
-	message["source"] = "([CONFIG_GET(string/cross_comms_name)])"
-	message += type
-
-	var/comms_key = CONFIG_GET(string/comms_key)
-	if(comms_key)
-		message["key"] = comms_key
-		var/list/servers = CONFIG_GET(keyed_list/cross_server)
-		for(var/I in servers)
-			world.Export("[servers[I]]?[list2params(message)]")
-
-	comms_key = CONFIG_GET(string/comms_key_insecure)
-	if(comms_key && insecure)
-		message["key"] = comms_key
-		var/list/servers = CONFIG_GET(keyed_list/insecure_cross_server)
-		for(var/I in servers)
-			world.Export("[servers[I]]?[list2params(message)]")

@@ -40,6 +40,7 @@
 	if(!ui)
 		ui = new(user, src, "ChemReactionChamber")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/plumbing/reaction_chamber/ui_data(mob/user)
 	var/list/data = list()
@@ -55,15 +56,16 @@
 /obj/machinery/plumbing/reaction_chamber/ui_act(action, params)
 	if(..())
 		return
-	. = TRUE
 	switch(action)
 		if("remove")
 			var/reagent = get_chem_id(params["chem"])
 			if(reagent)
 				required_reagents.Remove(reagent)
+				. = TRUE
 		if("add")
 			var/input_reagent = get_chem_id(params["chem"])
 			if(input_reagent && !required_reagents.Find(input_reagent))
 				var/input_amount = text2num(params["amount"])
 				if(input_amount)
 					required_reagents[input_reagent] = input_amount
+					. = TRUE

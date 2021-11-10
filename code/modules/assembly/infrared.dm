@@ -213,8 +213,9 @@
 			visible = !visible
 			. = TRUE
 
-	update_icon()
-	refreshBeam()
+	if(.)
+		update_icon()
+		refreshBeam()
 
 /***************************IBeam*********************************/
 
@@ -224,7 +225,8 @@
 	icon_state = "ibeam"
 	anchored = TRUE
 	density = FALSE
-	pass_flags = PASSTABLE|PASSGLASS|PASSGRILLE|LETPASSTHROW
+	pass_flags = PASSTABLE|PASSGLASS|PASSGRILLE
+	pass_flags_self = LETPASSTHROW
 	var/obj/item/assembly/infra/master
 
 /obj/effect/beam/i_beam/Crossed(atom/movable/AM as mob|obj)

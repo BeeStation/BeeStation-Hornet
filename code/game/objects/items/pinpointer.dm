@@ -94,6 +94,12 @@
 	var/has_owner = FALSE
 	var/pinpointer_owner = null
 
+/obj/item/pinpointer/crew/examine(mob/user)
+	. = ..()
+	if(!active || !target)
+		return
+	. += "It is currently tracking <b>[target]</b>."
+
 /obj/item/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
 	var/turf/here = get_turf(src)
 	if((H.z == 0 || H.get_virtual_z_level() == here.get_virtual_z_level() || (is_station_level(here.z) && is_station_level(H.z))) && istype(H.w_uniform, /obj/item/clothing/under))

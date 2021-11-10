@@ -1073,7 +1073,7 @@
 	return (istype(target) && target.stat == CONSCIOUS && (target.mobility_flags & MOBILITY_STAND))
 
 /mob/living/carbon/human/proc/can_be_firemanned(mob/living/carbon/target)
-	return (ishuman(target) && !(target.mobility_flags & MOBILITY_STAND))
+	return ((ishuman(target) || ismonkey(target)) && !(target.mobility_flags & MOBILITY_STAND))
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
 	var/carrydelay = 50 //if you have latex you are faster at grabbing
@@ -1161,10 +1161,6 @@
 	if(is_type_in_typecache(active_item, GLOB.shove_disarming_types))
 		visible_message("<span class='warning'>[src.name] regains their grip on \the [active_item]!</span>", "<span class='warning'>You regain your grip on \the [active_item].</span>", null, COMBAT_MESSAGE_RANGE)
 
-/mob/living/carbon/human/do_after_coefficent()
-	. = ..()
-	. *= physiology.do_after_speed
-
 /mob/living/carbon/human/updatehealth()
 	. = ..()
 	dna?.species.spec_updatehealth(src)
@@ -1184,10 +1180,20 @@
 /mob/living/carbon/human/adjust_nutrition(var/change) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
+	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
+		var/obj/item/organ/stomach/battery/battery = getorganslot(ORGAN_SLOT_STOMACH)
+		if(istype(battery))
+			battery.adjust_charge_scaled(change)
+		return FALSE
 	return ..()
 
 /mob/living/carbon/human/set_nutrition(var/change) //Seriously fuck you oldcoders.
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
+		var/obj/item/organ/stomach/battery/battery = getorganslot(ORGAN_SLOT_STOMACH)
+		if(istype(battery))
+			battery.set_charge_scaled(change)
 		return FALSE
 	return ..()
 
@@ -1203,6 +1209,16 @@
 	//Nailed it!
 	visible_message("<span class='notice'>[src] lands elegantly on [p_their()] feet!</span>",
 		"<span class='warning'>You fall [levels] level[levels > 1 ? "s" : ""] into [T], perfecting the landing!</span>")
+	Stun(levels * 50)
+
+/mob/living/carbon/human/proc/stub_toe(var/power)
+	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))
+		power *= 0.5
+		src.emote("gasp")
+	else
+		src.emote("scream")
+	src.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+	src.Paralyze(10 * power)
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey
@@ -1220,11 +1236,17 @@
 /mob/living/carbon/human/species/android
 	race = /datum/species/android
 
+/mob/living/carbon/human/species/apid
+	race = /datum/species/apid
+
 /mob/living/carbon/human/species/corporate
 	race = /datum/species/corporate
 
 /mob/living/carbon/human/species/dullahan
 	race = /datum/species/dullahan
+
+/mob/living/carbon/human/species/ethereal
+	race = /datum/species/ethereal
 
 /mob/living/carbon/human/species/felinid
 	race = /datum/species/human/felinid
@@ -1322,6 +1344,9 @@
 /mob/living/carbon/human/species/golem/soviet
 	race = /datum/species/golem/soviet
 
+/mob/living/carbon/human/species/ipc
+	race = /datum/species/ipc
+
 /mob/living/carbon/human/species/jelly
 	race = /datum/species/jelly
 
@@ -1340,17 +1365,11 @@
 /mob/living/carbon/human/species/lizard
 	race = /datum/species/lizard
 
-/mob/living/carbon/human/species/ethereal
-	race = /datum/species/ethereal
-
 /mob/living/carbon/human/species/lizard/ashwalker
 	race = /datum/species/lizard/ashwalker
 
 /mob/living/carbon/human/species/moth
 	race = /datum/species/moth
-
-/mob/living/carbon/human/species/apid
-	race = /datum/species/apid
 
 /mob/living/carbon/human/species/mush
 	race = /datum/species/mush
@@ -1369,12 +1388,6 @@
 
 /mob/living/carbon/human/species/skeleton
 	race = /datum/species/skeleton
-
-/mob/living/carbon/human/species/synth
-	race = /datum/species/synth
-
-/mob/living/carbon/human/species/synth/military
-	race = /datum/species/synth/military
 
 /mob/living/carbon/human/species/supersoldier
 	race = /datum/species/human/supersoldier

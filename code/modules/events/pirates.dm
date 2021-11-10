@@ -176,23 +176,13 @@
 	toggle_off()
 	return ..()
 
-/obj/machinery/computer/shuttle/pirate
+/obj/machinery/computer/shuttle_flight/pirate
 	name = "pirate shuttle console"
 	shuttleId = "pirateship"
 	icon_screen = "syndishuttle"
 	icon_keyboard = "syndie_key"
 	light_color = LIGHT_COLOR_RED
 	possible_destinations = "pirateship_away;pirateship_home;pirateship_custom"
-
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/pirate
-	name = "pirate shuttle navigation computer"
-	desc = "Used to designate a precise transit location for the pirate shuttle."
-	shuttleId = "pirateship"
-	lock_override = CAMERA_LOCK_STATION
-	shuttlePortId = "pirateship_custom"
-	x_offset = 9
-	y_offset = 0
-	see_hidden = FALSE
 
 /obj/docking_port/mobile/pirate
 	name = "pirate shuttle"
@@ -276,7 +266,8 @@
 	. = ..()
 	if (istype(I) && istype(I.buffer,/obj/machinery/piratepad))
 		to_chat(user, "<span class='notice'>You link [src] with [I.buffer] in [I] buffer.</span>")
-		pad = I.buffer
+		set_pad(I.buffer)
+		ui_update()
 		return TRUE
 
 /obj/machinery/computer/piratepad_control/LateInitialize()
@@ -284,10 +275,23 @@
 	if(cargo_hold_id)
 		for(var/obj/machinery/piratepad/P in GLOB.machines)
 			if(P.cargo_hold_id == cargo_hold_id)
-				pad = P
+				set_pad(P)
 				return
 	else
-		pad = locate() in range(4,src)
+		set_pad(locate(/obj/machinery/piratepad) in range(4,src))
+
+/obj/machinery/computer/piratepad_control/proc/set_pad(obj/machinery/piratepad/newpad)
+	if(pad)
+		UnregisterSignal(pad, COMSIG_PARENT_QDELETING)
+
+	pad = newpad
+
+	if(pad)
+		RegisterSignal(pad, COMSIG_PARENT_QDELETING, .proc/handle_pad_deletion)
+
+/obj/machinery/computer/piratepad_control/proc/handle_pad_deletion()
+	pad = null
+	ui_update()
 
 
 /obj/machinery/computer/piratepad_control/ui_state(mob/user)
@@ -383,6 +387,7 @@
 	flick(pad.sending_state,pad)
 	pad.icon_state = pad.idle_state
 	sending = FALSE
+	ui_update()
 
 /obj/machinery/computer/piratepad_control/proc/start_sending()
 	if(sending)

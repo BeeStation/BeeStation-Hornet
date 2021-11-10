@@ -130,6 +130,10 @@
 		radio.keyslot = new radio_key
 	radio.recalculateChannels()
 
+/obj/item/implant/radio/Destroy()
+	QDEL_NULL(radio)
+	return ..()
+
 /obj/item/implant/radio/mining
 	radio_key = /obj/item/encryptionkey/headset_cargo
 
@@ -155,16 +159,13 @@
 /obj/item/implant/radio/syndicate/selfdestruct
 	name = "hacked internal radio implant"
 
-/obj/item/implant/radio/syndicate/selfdestruct/on_implanted(mob/living/user, var/time = 50)
+/obj/item/implant/radio/syndicate/selfdestruct/on_implanted(mob/living/user)
 	if(!user.mind.has_antag_datum(/datum/antagonist/incursion))
-		if(time <= 0)
-			explosion(src,0,0,2,2, flame_range = 2)
-			user.gib(1)
-			qdel(src)
 		user.visible_message("<span class='warning'>[imp_in] starts beeping ominously!</span>", "<span class='userdanger'>You have a sudden feeling of dread. The implant is rigged to explode!</span>")
 		playsound(user, 'sound/items/timer.ogg', 30, 0)
-		INVOKE_ASYNC(src, .proc/on_implanted, time - 10)
-
+		explosion(src,0,0,2,2, flame_range = 2)
+		user.gib(1)
+		qdel(src)
 
 /obj/item/implanter/radio
 	name = "implanter (internal radio)"

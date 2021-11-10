@@ -26,6 +26,10 @@
 	display_order = JOB_DISPLAY_ORDER_WARDEN
 	departments = DEPARTMENT_SECURITY
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/warden
+	)
+
 /datum/job/warden/get_access()
 	var/list/L = list()
 	L = ..() | check_config_for_sec_maint()

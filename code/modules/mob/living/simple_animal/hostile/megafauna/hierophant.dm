@@ -526,7 +526,8 @@ Difficulty: Hard
 	queue_smooth_neighbors(src)
 	return ..()
 
-/obj/effect/temp_visual/hierophant/wall/CanPass(atom/movable/mover, turf/target)
+/obj/effect/temp_visual/hierophant/wall/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(QDELETED(caster))
 		return FALSE
 	if(mover == caster.pulledby)
@@ -537,7 +538,6 @@ Difficulty: Hard
 			return TRUE
 	if(mover == caster)
 		return TRUE
-	return FALSE
 
 /obj/effect/temp_visual/hierophant/chaser //a hierophant's chaser. follows target around, moving and producing a blast every speed deciseconds.
 	duration = 98
@@ -696,6 +696,9 @@ Difficulty: Hard
 			to_chat(M.occupant, "<span class='userdanger'>Your [M.name] is struck by a [name]!</span>")
 		playsound(M,'sound/weapons/sear.ogg', 50, 1, -4)
 		M.take_damage(damage, BURN, 0, 0)
+
+/obj/effect/temp_visual/hierophant/blast/vortex
+	damage = 25
 
 /obj/effect/hierophant
 	name = "hierophant beacon"

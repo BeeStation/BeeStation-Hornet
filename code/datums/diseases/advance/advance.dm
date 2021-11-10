@@ -39,12 +39,23 @@
 	var/sentient = FALSE //used to classify if a disease is sentient
 	var/faltered = FALSE //used if a disease has been made non-contagious
 	// The order goes from easy to cure to hard to cure.
+	var/mutability = 1
+	var/dormant = FALSE //this prevents a disease from having any effects or spreading
+	var/keepid = FALSE
+	var/archivecure
 	var/static/list/advance_cures = list(
-									/datum/reagent/water, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sodiumchloride,
-									/datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/mine_salve,
-									/datum/reagent/medicine/leporazine, /datum/reagent/concentrated_barbers_aid, /datum/reagent/toxin/lipolicide,
-									/datum/reagent/medicine/haloperidol, /datum/reagent/drug/krokodil
-								)
+		list(/datum/reagent/water, /datum/reagent/consumable/nutriment, /datum/reagent/ash, /datum/reagent/iron),
+		list(/datum/reagent/consumable/ethanol, /datum/reagent/uranium/radium, /datum/reagent/oil, /datum/reagent/potassium, /datum/reagent/lithium), 
+		list(/datum/reagent/consumable/sodiumchloride, /datum/reagent/drug/nicotine, /datum/reagent/drug/space_drugs),
+		list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/antihol, /datum/reagent/fuel, /datum/reagent/space_cleaner), 
+		list(/datum/reagent/medicine/spaceacillin, /datum/reagent/toxin/mindbreaker, /datum/reagent/toxin/itching_powder, /datum/reagent/medicine/cryoxadone, /datum/reagent/medicine/epinephrine), 
+		list(/datum/reagent/medicine/mine_salve, /datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/atropine), 
+		list(/datum/reagent/medicine/leporazine, /datum/reagent/water/holywater, /datum/reagent/medicine/neurine), 
+		list(/datum/reagent/concentrated_barbers_aid, /datum/reagent/drug/happiness, /datum/reagent/medicine/pen_acid), 
+		list(/datum/reagent/medicine/haloperidol, /datum/reagent/pax, /datum/reagent/blackpowder, /datum/reagent/medicine/diphenhydramine),
+		list(/datum/reagent/toxin/lipolicide, /datum/reagent/drug/ketamine, /datum/reagent/drug/methamphetamine), 
+		list(/datum/reagent/drug/krokodil, /datum/reagent/hair_dye, /datum/reagent/medicine/modafinil)
+		)
 /*
 
 	OLD PROCS
@@ -57,12 +68,13 @@
 /datum/disease/advance/Destroy()
 	if(affected_mob)
 		SEND_SIGNAL(affected_mob, COMSIG_DISEASE_END, GetDiseaseID())
+		UnregisterSignal(affected_mob, COMSIG_MOB_DEATH)
 	if(processing)
 		for(var/datum/symptom/S in symptoms)
 			S.End(src)
 	return ..()
 
-/datum/disease/advance/try_infect(var/mob/living/infectee, make_copy = TRUE)
+/datum/disease/advance/try_infect(mob/living/infectee, make_copy = TRUE)
 	//see if we are more transmittable than enough diseases to replace them
 	//diseases replaced in this way do not confer immunity
 	var/list/advance_diseases = list()
@@ -73,22 +85,36 @@
 			if(P.sentient)
 				advance_diseases += P
 			continue
-		if(channel == otherchannel && !P.sentient)
+		if(dormant || P.dormant)//dormant diseases dont interfere with channels, not even with other dormant diseases if you manage to get two
+			continue
+		if((IsSame(P) || channel == otherchannel) && !P.sentient)
 			advance_diseases += P
 	var/replace_num = advance_diseases.len + 1 - DISEASE_LIMIT //amount of diseases that need to be removed to fit this one
 	if(replace_num > 0)
 		sortTim(advance_diseases, /proc/cmp_advdisease_resistance_asc)
 		for(var/i in 1 to replace_num)
 			var/datum/disease/advance/competition = advance_diseases[i]
-			if(transmission > competition.resistance)
+			if(transmission > (competition.resistance * 2))
 				competition.cure(FALSE)
 			else
 				return FALSE //we are not strong enough to bully our way in
 	infect(infectee, make_copy)
 	return TRUE
 
+/datum/disease/advance/after_add()
+	if(affected_mob)
+		RegisterSignal(affected_mob, COMSIG_MOB_DEATH, .proc/on_mob_death)
+
+/datum/disease/advance/proc/on_mob_death()
+	SIGNAL_HANDLER
+
+	for(var/datum/symptom/S as() in symptoms)
+		S.OnDeath(src)
+
 // Randomly pick a symptom to activate.
 /datum/disease/advance/stage_act()
+	if(dormant)
+		return
 	..()
 	if(carrier)
 		return
@@ -106,7 +132,7 @@
 // Tell symptoms stage changed
 /datum/disease/advance/update_stage(new_stage)
 	..()
-	for(var/datum/symptom/S in symptoms)
+	for(var/datum/symptom/S as() in symptoms)
 		S.on_stage_change(new_stage, src)
 
 // Compares type then ID.
@@ -122,8 +148,9 @@
 /datum/disease/advance/Copy()
 	var/datum/disease/advance/A = ..()
 	QDEL_LIST(A.symptoms)
-	for(var/datum/symptom/S in symptoms)
+	for(var/datum/symptom/S as() in symptoms)
 		A.symptoms += S.Copy()
+	A.dormant = dormant
 	A.resistance = resistance
 	A.stealth = stealth
 	A.stage_rate = stage_rate
@@ -131,6 +158,7 @@
 	A.severity = severity
 	A.speed = speed
 	A.id = id
+	A.keepid = keepid
 	A.mutable = mutable
 	A.faltered = faltered
 	//this is a new disease starting over at stage 1, so processing is not copied
@@ -193,7 +221,8 @@
 /datum/disease/advance/proc/Refresh(new_name = FALSE)
 	GenerateProperties()
 	AssignProperties()
-	id = null
+	if(!keepid)
+		id = null
 	var/the_id = GetDiseaseID()
 	if(!SSdisease.archive_diseases[the_id])
 		SSdisease.archive_diseases[the_id] = src // So we don't infinite loop
@@ -208,30 +237,36 @@
 	stage_rate = 0
 	transmission = 0
 	severity = 0
-	for(var/datum/symptom/S in symptoms) //I can't change the order of the symptom list by severity, so i have to loop through symptoms three times, one for each tier of severity, to keep it consistent
+	var/c1sev
+	var/c2sev
+	var/c3sev
+	for(var/datum/symptom/S as() in symptoms) 
 		resistance += S.resistance
 		stealth += S.stealth
 		stage_rate += S.stage_speed
 		transmission += S.transmission
+	for(var/datum/symptom/S as() in symptoms) 
 		S.severityset(src)
-		if(!S.neutered && S.severity >= 5) //big severity goes first. This means it can be reduced by beneficials, but won't increase from minor symptoms
-			severity += S.severity
-	for(var/datum/symptom/S in symptoms)
-		S.severityset(src)
-		if(!S.neutered)
-			switch(S.severity)//these go in the middle. They won't augment large severity diseases, but they can push low ones up to channel 2
-				if(1 to 2)
-					severity= max(severity, min(3, (S.severity + severity)))
-				if(3 to 4)
-					severity = max(severity, min(4, (S.severity + severity)))
-	for(var/datum/symptom/S in symptoms) //benign and beneficial symptoms go last
-		S.severityset(src)
-		if(!S.neutered && S.severity <= 0)
-			severity += S.severity
+		if(S.neutered)
+			continue
+		switch(S.severity)
+			if(-INFINITY to 0)
+				c1sev += S.severity
+			if(1 to 2)
+				c2sev= max(c2sev, min(3, (S.severity + c2sev)))
+			if(3 to 4)
+				c2sev = max(c2sev, min(4, (S.severity + c2sev)))
+			if(5 to INFINITY)
+				if(c3sev >= 5)
+					c3sev += (S.severity -3)//diminishing returns
+				else 
+					c3sev += S.severity
+	severity += (max(c2sev, c3sev) + c1sev)
+
 
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/AssignProperties()
-	if(stealth >= 2)
+	if(dormant || stealth >= 2)//dormant diseases dont need to show up for normal docs
 		visibility_flags |= HIDDEN_SCANNER
 	else
 		visibility_flags &= ~HIDDEN_SCANNER
@@ -251,6 +286,9 @@
 	if(faltered)
 		spread_flags = DISEASE_SPREAD_FALTERED
 		spread_text = "Intentional Injection"
+	else if(dormant)
+		spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
+		spread_text = "None"
 	else
 		switch(spread_id)
 			if(DISEASE_SPREAD_NON_CONTAGIOUS)
@@ -321,11 +359,13 @@
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure()
 	var/res = CLAMP(resistance - (symptoms.len / 2), 1, advance_cures.len)
-	cures = list(advance_cures[res])
+	if(archivecure != res)
+		cures = list(pick(advance_cures[res]))
+		// Get the cure name from the cure_id
+		var/datum/reagent/D = GLOB.chemical_reagents_list[cures[1]]
+		cure_text = D.name
+	archivecure = res
 
-	// Get the cure name from the cure_id
-	var/datum/reagent/D = GLOB.chemical_reagents_list[cures[1]]
-	cure_text = D.name
 
 // Randomly generate a symptom, has a chance to lose or gain a symptom.
 /datum/disease/advance/proc/Evolve(min_level, max_level, ignore_mutable = FALSE)
@@ -391,7 +431,7 @@
 	if(HasSymptom(S))
 		return
 
-	if(!(symptoms.len < (VIRUS_SYMPTOM_LIMIT - 1) + rand(-1, 1)))
+	if(symptoms.len >= VIRUS_SYMPTOM_LIMIT)
 		RemoveSymptom(pick(symptoms))
 	symptoms += S
 	S.OnAdd(src)
@@ -415,7 +455,7 @@
 */
 
 // Mix a list of advance diseases and return the mixed result.
-/proc/Advance_Mix(var/list/D_list)
+/proc/Advance_Mix(list/D_list)
 	var/list/diseases = list()
 
 	for(var/datum/disease/advance/A in D_list)
@@ -504,3 +544,126 @@
 			name_symptoms += S.name
 		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.admin_details()]")
 		log_virus("[key_name(user)] has triggered a custom virus outbreak of [D.admin_details()]!")
+
+/datum/disease/advance/infect(var/mob/living/infectee, make_copy = TRUE)
+	var/datum/disease/advance/A = make_copy ? Copy() : src
+	if(!initial && A.mutable && (spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
+		var/minimum = 1
+		if(prob(CLAMP(35-(A.resistance + A.stealth), 0, 50) * (A.mutability)))//stealthy/resistant diseases are less likely to mutate. this means diseases used to farm mutations should be easier to cure. hypothetically.
+			if(infectee.job == "clown" || infectee.job == "mime" || prob(1))//infecting a clown or mime can evolve l0 symptoms/. they can also appear very rarely
+				minimum = 0
+			else
+				minimum = CLAMP(A.severity - 3, 1, 6)
+			A.Evolve(minimum, CLAMP(A.severity + 4, minimum, 9))
+			A.id = GetDiseaseID()
+			A.keepid = TRUE//this is really janky, but basically mutated diseases count as the original disease
+				//if you want to evolve a higher level symptom you need to test and spread a deadly virus among test subjects. 
+				//this is to give monkey testing a use, and add a bit more of a roleplay element to virology- testing deadly diseases on and curing/vaccinating monkeys
+				//this also adds the risk of disease escape if strict biohazard protocol is not followed, however
+				//the immutability of resistant diseases discourages this with hard-to-cure diseases.
+				//if players intentionally grief/cant seem to get biohazard protocol down, this can be changed to not use severity. 
+	else
+		A.initial = FALSE //diseases *only* mutate when spreading. they wont mutate from any other kind of injection	*/	
+	infectee.diseases += A
+	A.affected_mob = infectee
+	SSdisease.active_diseases += A //Add it to the active diseases list, now that it's actually in a mob and being processed.
+
+	A.after_add()
+	infectee.med_hud_set_status()
+
+	var/turf/source_turf = get_turf(infectee)
+	log_virus("[key_name(infectee)] was infected by virus: [src.admin_details()] at [loc_name(source_turf)]")
+
+
+/datum/disease/advance/proc/random_disease_name(var/atom/diseasesource)//generates a name for a disease depending on its symptoms and where it comes from
+	var/list/prefixes = list("Spacer's ", "Space ", "Infectious ","Viral ", "The ", "[pick(GLOB.first_names)]'s ", "[pick(GLOB.last_names)]'s ", "Acute ")//prefixes that arent tacked to the body need spaces after the word
+	var/list/bodies = list(pick("[pick(GLOB.first_names)]", "[pick(GLOB.last_names)]"), "Space", "Disease", "Noun", "Cold", "Germ", "Virus")
+	var/list/suffixes = list("ism", "itis", "osis", "itosis", " #[rand(1,10000)]", "-[rand(1,100)]", "s", "y", " ovirus", " Bug", " Infection", " Disease", " Complex", " Syndrome", " Sickness") //suffixes that arent tacked directly on need spaces before the word
+	if(stealth >=2)
+		prefixes += "Crypto "
+	switch(max(resistance - (symptoms.len / 2), 1))
+		if(1)
+			suffixes += "-alpha"
+		if(2)
+			suffixes += "-beta"
+		if(3)
+			suffixes += "-gamma"
+		if(4)
+			suffixes += "-delta"
+		if(5)
+			suffixes += "-epsilon"
+		if(6)
+			suffixes += pick("-zeta", "-eta", "-theta", "-iota")
+		if(7)
+			suffixes += pick("-kappa", "-lambda")
+		if(8)
+			suffixes += pick("-mu", "-nu", "-xi", "-omicron")
+		if(9)
+			suffixes += pick("-pi", "-rho", "-sigma", "-tau")
+		if(10)
+			suffixes += pick("-upsilon", "-phi", "-chi", "-psi")
+		if(11 to INFINITY)
+			suffixes += "-omega"
+			prefixes += "Robust "
+	switch(transmission - symptoms.len)
+		if(-INFINITY to 2)
+			prefixes += "Bloodborne "
+		if(3)
+			prefixes += list("Mucous ", "Kissing ")
+		if(4)
+			prefixes += "Contact "
+			suffixes += " Flu"
+		if(5 to INFINITY)
+			prefixes += "Airborne "
+			suffixes += " Plague"
+	switch(severity)
+		if(-INFINITY to 0)
+			prefixes += "Altruistic "
+		if(1 to 2)
+			prefixes += "Benign "
+		if(3 to 4)
+			prefixes += "Malignant "
+		if(5)
+			prefixes += "Terminal "
+			bodies += "Death"
+		if(6 to INFINITY)
+			prefixes += "Deadly "
+			bodies += "Death"
+	if(diseasesource)
+		if(ishuman(diseasesource))
+			var/mob/living/carbon/human/H = diseasesource
+			prefixes += pick("[H.first_name()]'s", "[H.name]'s", "[H.job]'s", "[H.dna.species]'s")
+			bodies += pick("[H.first_name()]", "[H.job]", "[H.dna.species]")
+			if(islizard(H) || iscatperson(H))//add rat-origin prefixes to races that eat rats
+				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
+				bodies += list("Rat", "Maint")
+		else switch(diseasesource.type)
+			if(/mob/living/simple_animal/pet/hamster/vector)
+				prefixes += list("Vector's ", "Hamster ")
+				bodies += list("Freebie")
+			if(/obj/effect/decal/cleanable)
+				prefixes += list("Bloody ", "Maintenance ") 
+				bodies += list("Maint")
+			if(/mob/living/simple_animal/mouse)
+				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
+				bodies += list("Rat", "Maint")
+			if(/obj/item/reagent_containers/syringe)
+				prefixes += list("Junkie ", "Maintenance ") 
+				bodies += list("Needle", "Maint")
+			if(/obj/item/fugu_gland)
+				prefixes += "Wumbo"
+			if(/obj/item/organ/lungs)
+				prefixes += "Miasmic "
+				bodies += list("Stench", "Lung")
+	for(var/datum/symptom/Symptom as() in symptoms)
+		if(!Symptom.neutered)
+			prefixes += Symptom.prefixes
+			bodies += Symptom.bodies
+			suffixes += Symptom.suffixes
+	switch(rand(1, 3))
+		if(1)
+			return "[pick(prefixes)][pick(bodies)]"
+		if(2)
+			return "[pick(prefixes)][pick(bodies)][pick(suffixes)]"
+		if(3)
+			return "[pick(bodies)][pick(suffixes)]"

@@ -7,6 +7,7 @@
 	transmission = 0
 	level = 5
 	severity = 0
+	prefixes = list("Zombie ")
 
 /datum/symptom/undead_adaptation/OnAdd(datum/disease/advance/A)
 	A.process_dead = TRUE
@@ -25,6 +26,8 @@
 	transmission = 3
 	level = 5
 	severity = 0
+	prefixes = list("Crystalline ")
+
 
 /datum/symptom/inorganic_adaptation/OnAdd(datum/disease/advance/A)
 	A.infectable_biotypes |= MOB_INORGANIC

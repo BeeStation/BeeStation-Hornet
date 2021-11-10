@@ -61,6 +61,10 @@
 			L["key"] = initial(language.key)
 
 			data["unknown_languages"] += list(L)
+	else
+		data["admin_mode"] = null
+		data["omnitongue"] = null
+		data["unknown_languages"] = null
 	return data
 
 /datum/language_menu/ui_act(action, params)

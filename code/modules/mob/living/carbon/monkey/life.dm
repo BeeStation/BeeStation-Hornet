@@ -57,9 +57,9 @@
 		adjust_bodytemperature(natural_bodytemperature_stabilization())
 
 	if(!on_fire) //If you're on fire, you do not heat up or cool down based on surrounding gases
-		if(loc_temp < bodytemperature)
+		if(loc_temp < bodytemperature && (!head?.min_cold_protection_temperature || head.min_cold_protection_temperature > loc_temp))
 			adjust_bodytemperature(max((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR, BODYTEMP_COOLING_MAX))
-		else
+		else if(!head?.max_heat_protection_temperature || head.max_heat_protection_temperature < loc_temp)
 			adjust_bodytemperature(min((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR, BODYTEMP_HEATING_MAX))
 
 
@@ -116,6 +116,13 @@
 
 	return
 
+/mob/living/carbon/monkey/calculate_affecting_pressure(pressure)
+	if (head && isclothing(head))
+		var/obj/item/clothing/CH = head
+		if (CH.clothing_flags & STOPSPRESSUREDAMAGE)
+			return ONE_ATMOSPHERE
+	return pressure
+
 /mob/living/carbon/monkey/handle_random_events()
 	if (prob(1) && prob(2))
 		emote("scratch")
@@ -148,5 +155,6 @@
 		var/obj/item/I = X
 		I.fire_act((fire_stacks * 50)) //damage taken is reduced to 2% of this value by fire_act()
 
-	adjust_bodytemperature(BODYTEMP_HEATING_MAX)
-	SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "on_fire", /datum/mood_event/on_fire)
+	if(!head?.max_heat_protection_temperature || head.max_heat_protection_temperature < FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+		adjust_bodytemperature(BODYTEMP_HEATING_MAX)
+		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "on_fire", /datum/mood_event/on_fire)

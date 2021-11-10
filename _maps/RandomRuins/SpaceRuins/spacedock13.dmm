@@ -32,7 +32,6 @@
 /area/ruin/space/has_grav/powered)
 "h" = (
 /obj/structure/closet/crate/science,
-/obj/item/circuitboard/computer/shuttle/docker,
 /obj/item/circuitboard/computer/shuttle/flight_control,
 /obj/item/circuitboard/machine/shuttle/heater,
 /obj/item/circuitboard/machine/shuttle/engine/plasma,

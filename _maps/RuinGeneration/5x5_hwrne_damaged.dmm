@@ -1,0 +1,76 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/ruin/unpowered)
+"e" = (
+/turf/open/space/basic,
+/area/ruin/unpowered)
+"h" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"v" = (
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/ruin/unpowered)
+"x" = (
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"z" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"D" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"N" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"X" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+N
+X
+z
+x
+N
+"}
+(2,1,1) = {"
+N
+X
+x
+v
+x
+"}
+(3,1,1) = {"
+D
+x
+v
+e
+v
+"}
+(4,1,1) = {"
+N
+X
+x
+b
+x
+"}
+(5,1,1) = {"
+N
+N
+h
+N
+N
+"}

@@ -153,7 +153,7 @@
 
 /datum/spellbook_entry/blind
 	name = "Blind"
-	spell_type = /obj/effect/proc_holder/spell/pointed/trigger/blind
+	spell_type = /obj/effect/proc_holder/spell/targeted/blind
 	cost = 1
 
 /datum/spellbook_entry/mindswap
@@ -265,6 +265,10 @@
 	category = "Defensive"
 	cost = 1
 
+/datum/spellbook_entry/bees
+	name = "Lesser Summon Bees"
+	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/creature/bee
+	category = "Defensive"
 
 /datum/spellbook_entry/item
 	name = "Buy Item"

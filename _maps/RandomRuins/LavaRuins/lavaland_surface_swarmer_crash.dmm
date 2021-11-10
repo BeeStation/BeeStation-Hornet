@@ -3,26 +3,26 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
-/turf/closed/mineral/volcanic/lava_land_surface,
+/turf/template_noop/closed,
 /area/template_noop)
 "c" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered)
 "d" = (
 /turf/open/floor/mineral/plastitanium/red{
-	initial_gas_mix = "LAVALAND_ATMOS"
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "e" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4
 	},
-/turf/template_noop,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "f" = (
 /mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon,
 /turf/open/floor/mineral/plastitanium/red{
-	initial_gas_mix = "LAVALAND_ATMOS"
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 

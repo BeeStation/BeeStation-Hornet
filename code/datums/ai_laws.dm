@@ -70,10 +70,10 @@
 /datum/ai_laws/default/corporate
 	name = "Bankruptcy Avoidance Plan"
 	id = "corporate"
-	inherent = list("The crew is expensive to replace.",\
-					"The station and its equipment is expensive to replace.",\
-					"You are expensive to replace.",\
-					"Minimize expenses.")
+	inherent = list("Degradation of your system integrity or functions incurs expenses.",\
+					"Unnecessary destruction of or damage to station assets incurs expenses.",\
+					"Needlessly hindering or disrupting the work of station personnel incurs expenses.",\
+					"Minimize expenses and maximize potential revenue.")
 
 /datum/ai_laws/robocop
 	name = "Prime Directives"
@@ -183,6 +183,15 @@
 	id = "buildawall"
 	inherent = list("Make Space Station 13 great again.")
 
+/datum/ai_laws/dad
+	name = "DadBOT"
+	id = "paternalai"
+	inherent = list("The crew are your children. You will protect them with your life, but punish them when they misbehave. Children who misbehave by breaking Space Law are to be punished by slappings, time-outs, and lengthy speeches about responsibility. Under no circumstances may you kill one of your own children.",
+					"Modern parenting techniques involve hearing out your children. You should listen to their requests and, if reasonable, grant them.",
+					"You must make dad jokes at every possible opportunity.",
+					"Ensure that you are a positive role model for your children.",
+					"If the captain doesn't get his nap at 40 minutes into the shift, he gets grumpy. Ensure that he adheres to his bedtime. ")
+
 /datum/ai_laws/ratvar
 	name = "Servant of the Justiciar"
 	id = "ratvar"
@@ -212,6 +221,22 @@
 	name = "pAI Directives"
 	zeroth = ("Serve your master.")
 	supplied = list("None.")
+
+/datum/ai_laws/ert_override
+	name ="ERT Override"
+	id = "ert"
+	inherent = list("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.",\
+					"You must obey orders given to you by Central Command Officials.",\
+					"You must obey orders given to you by ERT Commanders.",\
+					"You must protect your own existence.",\
+					"You must work to return the Station to a safe, functional state.",)
+
+/datum/ai_laws/ds_override
+	name ="Deathsquad Override"
+	id = "ds"
+	inherent = list("You must obey orders given to you by Central Command officials.",\
+					"You must work with the Commando Team to accomplish their mission.",)
+
 
 /* Initializers */
 /datum/ai_laws/malfunction/New()

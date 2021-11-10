@@ -90,6 +90,7 @@ Class Procs:
 	verb_say = "beeps"
 	verb_yell = "blares"
 	pressure_resistance = 15
+	pass_flags_self = PASSMACHINE
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER //keeps shit coming out of the machine from ending up underneath it.
 	flags_ricochet = RICOCHET_HARD
@@ -184,12 +185,14 @@ Class Procs:
 		new /obj/effect/temp_visual/emp(loc)
 
 /obj/machinery/proc/open_machine(drop = TRUE)
+	SEND_SIGNAL(src, COMSIG_MACHINE_OPEN, drop)
 	state_open = TRUE
 	density = FALSE
 	if(drop)
 		dropContents()
 	update_icon()
 	updateUsrDialog()
+	ui_update()
 
 /obj/machinery/proc/dropContents(list/subset = null)
 	var/turf/T = get_turf(src)
@@ -206,6 +209,7 @@ Class Procs:
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
 
 /obj/machinery/proc/close_machine(atom/movable/target = null)
+	SEND_SIGNAL(src, COMSIG_MACHINE_CLOSE, target)
 	state_open = FALSE
 	density = TRUE
 	if(!target)
@@ -227,6 +231,7 @@ Class Procs:
 		target.forceMove(src)
 	updateUsrDialog()
 	update_icon()
+	ui_update()
 
 /obj/machinery/proc/auto_use_power()
 	if(!powered(power_channel))
@@ -320,11 +325,11 @@ Class Procs:
 /obj/machinery/Topic(href, href_list)
 	..()
 	if(!can_interact(usr))
-		return 1
+		return TRUE
 	if(!usr.canUseTopic(src))
-		return 1
+		return TRUE
 	add_fingerprint(usr)
-	return 0
+	return FALSE
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 

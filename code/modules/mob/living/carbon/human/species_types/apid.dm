@@ -1,7 +1,8 @@
 /datum/species/apid
 	// Beepeople, god damn it. It's hip, and alive! - Fuck ubunutu edition
 	name = "Apids"
-	id = "apid"
+	id = SPECIES_APID
+	bodyflag = FLAG_APID
 	say_mod = "buzzes"
 	default_color = "FFE800"
 	species_traits = list(LIPS,NOEYESPRITES)
@@ -28,7 +29,7 @@
 
 /datum/species/apid/spec_life(mob/living/carbon/human/H)
 	. = ..()
-	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !H.IsSleeping()) // Sleep when cold, like bees
+	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !H.IsSleeping() && !HAS_TRAIT(H,TRAIT_RESISTCOLD)) // Sleep when cold, like bees
 		cold_cycle++
 		if(prob(5))
 			to_chat(H, "<span class='warning'>The cold is making you feel tired...</span>")
@@ -59,10 +60,11 @@
 	return 0
 
 /datum/species/apid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
-	. = ..()
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
+		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		return FALSE
+	return ..()
 
 /datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H) // For roundstart
 	H.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
