@@ -422,7 +422,7 @@
 
 	////This is the MEAT of limb icon code
 	limb.icon = icon
-	if(!should_draw_greyscale)
+	if(!should_draw_greyscale || !icon)
 		limb.icon = static_icon
 	if(is_dimorphic) //Does this type of limb have sexual dimorphism?
 		limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]"
@@ -432,13 +432,14 @@
 	if(aux_zone) //Hand shit
 		aux = image(limb.icon, "[limb_id]_[aux_zone]", -aux_layer, image_dir)
 		. += aux
-
+	if(limb_id == "apid")
+		to_chat(world, "[limb.icon] | [limb.icon_state]")
 
 	draw_color = mutation_color
 	if(should_draw_greyscale) //Should the limb be colored?
 		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
 
-	if(draw_color)
+	if(draw_color && should_draw_greyscale)
 		limb.color = "#[draw_color]"
 		if(aux_zone)
 			aux.color = "#[draw_color]"
