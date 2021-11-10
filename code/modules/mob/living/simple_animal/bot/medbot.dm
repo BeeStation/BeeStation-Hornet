@@ -108,6 +108,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 /mob/living/simple_animal/bot/medbot/bot_reset()
 	..()
+	REMOVE_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
 	patient = null
 	oldpatient = null
 	oldloc = null
@@ -116,6 +117,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	update_icon()
 
 /mob/living/simple_animal/bot/medbot/proc/soft_reset() //Allows the medibot to still actively perform its medical duties without being completely halted as a hard reset does.
+	REMOVE_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
 	path = list()
 	patient = null
 	mode = BOT_IDLE
@@ -239,6 +241,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 	if(IsStun() || IsParalyzed())
 		oldpatient = patient
+		REMOVE_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
 		patient = null
 		mode = BOT_IDLE
 		return
