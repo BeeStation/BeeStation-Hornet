@@ -1379,5 +1379,5 @@
 	room_id = "sk_rdm161_kilovault"
 	mappath = "_maps/RandomRooms/10x5/sk_rdm161_kilovault.dmm"
 	centerspawner = FALSE
-	template_height = 5
-	template_width = 3
+	template_height = 10
+	template_width = 5
