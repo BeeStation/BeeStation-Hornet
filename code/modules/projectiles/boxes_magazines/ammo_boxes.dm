@@ -20,11 +20,6 @@
 	multiple_sprites = 1
 	materials = list(/datum/material/iron = 20000)
 
-/obj/item/ammo_box/c38/rubber
-	name = "speed loader (.38 Rubber)"
-	desc = "Designed to quickly reload revolvers. Rubber bullets are MOSTLY non-lethal."
-	ammo_type = /obj/item/ammo_casing/c38/rubber
-
 /obj/item/ammo_box/c38/trac
 	name = "speed loader (.38 TRAC)"
 	desc = "Designed to quickly reload revolvers. TRAC bullets embed a tracking implant within the target's body."
