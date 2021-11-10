@@ -108,8 +108,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 /mob/living/simple_animal/bot/medbot/bot_reset()
 	..()
-	REMOVE_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
-	patient = null
+	set_patient(null)
 	oldpatient = null
 	oldloc = null
 	last_found = world.time
@@ -117,9 +116,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	update_icon()
 
 /mob/living/simple_animal/bot/medbot/proc/soft_reset() //Allows the medibot to still actively perform its medical duties without being completely halted as a hard reset does.
-	REMOVE_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
 	path = list()
-	patient = null
+	set_patient(null)
 	mode = BOT_IDLE
 	last_found = world.time
 	update_icon()
@@ -240,14 +238,11 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		return
 
 	if(IsStun() || IsParalyzed())
-		oldpatient = patient
-		REMOVE_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
-		patient = null
+		set_patient(null)
 		mode = BOT_IDLE
 		return
 
 	if(frustration > 8)
-		oldpatient = patient
 		soft_reset()
 
 	if(QDELETED(patient))
@@ -257,8 +252,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			speak(message)
 			playsound(src, messagevoice[message], 50)
 		var/scan_range = (stationary_mode ? 1 : DEFAULT_SCAN_RANGE) //If in stationary mode, scan range is limited to adjacent patients.
-		patient = scan(/mob/living/carbon/human, oldpatient, scan_range)
-		oldpatient = patient
+		set_patient(scan(/mob/living/carbon/human, oldpatient, scan_range))
 
 	if(patient && (get_dist(src,patient) <= 1)) //Patient is next to us, begin treatment!
 		if(mode != BOT_HEALING)
@@ -288,7 +282,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 	if(path.len > 0 && patient)
 		if(!bot_move(path[path.len]))
-			oldpatient = patient
 			soft_reset()
 		return
 
@@ -360,7 +353,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
-		patient = C
+		set_patient(C)
 		mode = BOT_HEALING
 		update_icon()
 		medicate_patient(C)
@@ -378,7 +371,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		return
 
 	if(!istype(C))
-		oldpatient = patient
 		soft_reset()
 		return
 
@@ -387,7 +379,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		var/message = pick(messagevoice)
 		speak(message)
 		playsound(src, messagevoice[message], 50)
-		oldpatient = patient
 		soft_reset()
 		return
 
@@ -467,6 +458,14 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 	do_sparks(3, TRUE, src)
 	..()
+
+/mob/living/simple_animal/bot/medbot/proc/set_patient(new_patient)
+	if(patient)
+		REMOVE_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
+		oldpatient = patient
+	patient = new_patient
+	if(patient)
+		ADD_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
 
 /mob/living/simple_animal/bot/medbot/proc/declare(crit_patient)
 	if(declare_cooldown > world.time)
