@@ -217,7 +217,7 @@
 /mob/living/carbon/proc/update_body_parts(var/force_update)
 	//Check the cache to see if it needs a new sprite
 	var/list/needs_update = list()
-	var/limb_dismemberment = FALSE
+	var/limb_count_update = FALSE
 	for(var/obj/item/bodypart/BP in bodyparts)
 		BP.update_limb(is_creating = force_update) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
 		var/old_key = icon_render_keys?[BP.body_zone]
@@ -225,10 +225,11 @@
 		if(!(icon_render_keys[BP.body_zone] == old_key))
 			needs_update += BP
 
-	if(bodyparts.len != icon_render_keys.len)
-		limb_dismemberment = TRUE
+	var/list/missing_limbs = get_missing_limbs()
+	if((6 - icon_render_keys.len) != missing_limbs)
+		limb_count_update = TRUE
 
-	if(!needs_update.len && !limb_dismemberment)
+	if(!needs_update.len && !limb_count_update)
 		return
 
 	remove_overlay(BODYPARTS_LAYER)

@@ -124,7 +124,7 @@
 			O.transfer_to_limb(src, C)
 
 	synchronize_bodytypes(C)
-
+	C.icon_render_keys -= body_zone
 	update_icon_dropped()
 	C.update_health_hud() //update the healthdoll
 	C.update_body()
@@ -258,15 +258,15 @@
 	..()
 
 //Attach a limb to a human and drop any existing limb of that type.
-/obj/item/bodypart/proc/replace_limb(mob/living/carbon/C, special)
+/obj/item/bodypart/proc/replace_limb(mob/living/carbon/C, special, is_creating = FALSE)
 	if(!istype(C))
 		return
 	var/obj/item/bodypart/O = C.get_bodypart(body_zone)
 	if(O)
 		O.drop_limb(1)
-	attach_limb(C, special)
+	attach_limb(C, special, is_creating)
 
-/obj/item/bodypart/head/replace_limb(mob/living/carbon/C, special)
+/obj/item/bodypart/head/replace_limb(mob/living/carbon/C, special, is_creating = FALSE)
 	if(!istype(C))
 		return
 	var/obj/item/bodypart/head/O = C.get_bodypart(body_zone)
@@ -275,9 +275,9 @@
 			return
 		else
 			O.drop_limb(1)
-	attach_limb(C, special)
+	attach_limb(C, special, is_creating)
 
-/obj/item/bodypart/proc/attach_limb(mob/living/carbon/C, special)
+/obj/item/bodypart/proc/attach_limb(mob/living/carbon/C, special, is_creating = FALSE)
 	moveToNullspace()
 	owner = C
 	C.bodyparts += src
@@ -306,7 +306,8 @@
 		O.Insert(C)
 
 	synchronize_bodytypes(C)
-
+	if(is_creating)
+		update_limb(is_creating = TRUE)
 	update_bodypart_damage_state()
 
 	C.updatehealth()
@@ -387,7 +388,7 @@
 	if(get_bodypart(limb_zone))
 		return 0
 	L = newBodyPart(limb_zone, 0, 0)
-	if(L)
+	/*if(L)
 		if(!noheal)
 			L.brute_dam = 0
 			L.burn_dam = 0
@@ -398,7 +399,7 @@
 			if(limb_zone == "head" && H.dna && H.dna.species && (NOMOUTH in H.dna.species.species_traits))
 				var/obj/item/bodypart/head/head = L
 				if(head)
-					head.mouth = FALSE
+					head.mouth = FALSE*/
 
-		L.attach_limb(src, 1)
-		return 1
+	L.replace_limb(src, TRUE, TRUE)
+	return 1

@@ -167,6 +167,8 @@
 	return get_bodypart(check_zone(which_hand))
 
 //Helper for quickly creating a new limb - used by augment code in species.dm spec_attacked_by
+//
+// FUCK YOU AUGMENT CODE - With love, Kapu
 /mob/living/carbon/proc/newBodyPart(zone, robotic, fixed_icon)
 	var/obj/item/bodypart/L
 	switch(zone)
@@ -182,10 +184,6 @@
 			L = new dna.species.species_r_leg()
 		if(BODY_ZONE_CHEST)
 			L = new dna.species.species_chest()
-	if(L)
-		L.update_limb(fixed_icon, src)
-		if(robotic)
-			L.change_bodypart_status(BODYTYPE_ROBOTIC)
 	. = L
 
 /mob/living/carbon/monkey/newBodyPart(zone, robotic, fixed_icon)
