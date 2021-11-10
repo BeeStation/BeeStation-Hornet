@@ -256,17 +256,9 @@ Any-Mode: (hotkey doesn't need to be on)
 	set name = "map"
 	set desc = "View the current map in the webviewer"
 	set hidden = 1
-	var/map_in_url
-	switch(SSmapping.config?.map_name)
-		if("Box Station")			map_in_url = "box"
-		if("Delta Station")			map_in_url = "delta"
-		if("MetaStation")			map_in_url = "meta"
-		if("Kilo Station")          map_in_url = "kilo"
-		if("PubbyStation")          map_in_url = "pubby"
-		if("CorgStation")			map_in_url = "corg"
-	if(map_in_url)
+	if(SSmapping.config.map_link)	
 		if(alert("This will open the current map in your browser. Are you sure?",,"Yes","No")!="Yes")
 			return
-		src << link("http://beestation13.com/map/[map_in_url]")
+		src << link("https://affectedarc07.github.io/SS13WebMap/NSV13/[SSmapping.config.map_link]")
 	else
-		to_chat(src, "<span class='danger'>The current map is either invalid or unavailable.</span>")
+		to_chat(src, "<span class='danger'>The current map is either invalid or unavailable. Open an issue on the github. </span>")
