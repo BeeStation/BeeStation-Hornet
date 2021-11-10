@@ -103,4 +103,8 @@
 	mutanttongue = /obj/item/organ/tongue/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
+	limbs_id = "zombie"
+	use_generic_limbs = TRUE
+	limb_icon_file = 'icons/mob/human_parts.dmi'
+
 #undef REGENERATION_DELAY

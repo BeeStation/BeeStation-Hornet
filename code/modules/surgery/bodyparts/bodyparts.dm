@@ -5,6 +5,8 @@
 	force = 3
 	throwforce = 3
 	icon = 'icons/mob/human_parts_greyscale.dmi'
+	var/husk_icon = 'icons/mob/human_parts.dmi'
+	var/husk_type = "humanoid"
 	var/static_icon = 'icons/mob/human_parts.dmi' //Uncolorable sprites
 	icon_state = ""
 	layer = BELOW_MOB_LAYER //so it isn't hidden behind objects when on the floor
@@ -315,10 +317,10 @@
 
 	if(HAS_TRAIT(C, TRAIT_HUSK) && is_organic_limb())
 		dmg_overlay_type = "" //no damage overlay shown when husked
-		should_draw_gender = FALSE
-		should_draw_greyscale = FALSE
-		no_update = TRUE
 		is_husked = TRUE
+	else
+		dmg_overlay_type = initial(dmg_overlay_type)
+		is_husked = FALSE
 
 	if(!dropping_limb && C.dna?.check_mutation(HULK)) //Please remove hulk from the game. I beg you.
 		mutation_color = "00aa00"
@@ -403,10 +405,6 @@
 	var/image/aux
 	. += limb
 
-	if(is_husked)
-		limb.icon = 'icons/mob/human_parts.dmi'
-		limb.icon_state = "[limb_id]_husk_[body_zone]"
-		return
 
 	if(animal_origin) //Cringe ass animal-specific code.
 		if(is_organic_limb())
@@ -418,6 +416,14 @@
 		else
 			limb.icon = 'icons/mob/augmentation/augments.dmi'
 			limb.icon_state = "[animal_origin]_[body_zone]"
+		return
+
+	if(is_husked)
+		limb.icon = husk_icon
+		limb.icon_state = "[husk_type]_husk_[body_zone]"
+		if(aux_zone) //Hand shit
+			aux = image(limb.icon, "[husk_type]_husk_[aux_zone]", -aux_layer, image_dir)
+			. += aux
 		return
 
 	////This is the MEAT of limb icon code
