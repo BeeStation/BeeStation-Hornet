@@ -1,5 +1,0 @@
-author: rkvothe14
-delete-after: true
-changes:
-  - bugfix: Discovery Scanner is no longer able to scan holographic pets.
-  - bugfix: DNA Probe no longer gets animal DNA from holographic pets.

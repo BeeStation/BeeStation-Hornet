@@ -1,5 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - bugfix: The xenomorph queen no longer blocks the shuttle if it's not on the station's
-      Z level
