@@ -237,7 +237,7 @@
 				user.dropItemToGround(src, TRUE)
 				return
 
-	if(!check_wielded(user) && weapon_weight == WEAPON_HEAVY)
+	if(weapon_weight == WEAPON_HEAVY && !check_wielded(user))
 		balloon_alert(user, "You need both hands free to fire")
 		return
 
