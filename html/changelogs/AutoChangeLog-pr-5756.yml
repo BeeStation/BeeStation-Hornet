@@ -1,4 +1,0 @@
-author: mcmeiler
-delete-after: true
-changes:
-  - rscadd: mobs which prime grenades now have this logged in individual logs.
