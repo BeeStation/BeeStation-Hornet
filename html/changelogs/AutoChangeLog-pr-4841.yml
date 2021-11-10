@@ -1,0 +1,4 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - rscadd: Protolathes, techfabs and circuit imprinters have a brand new tgui interface
