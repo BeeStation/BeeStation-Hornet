@@ -432,8 +432,6 @@
 	if(aux_zone) //Hand shit
 		aux = image(limb.icon, "[limb_id]_[aux_zone]", -aux_layer, image_dir)
 		. += aux
-	if(limb_id == "apid")
-		to_chat(world, "[limb.icon] | [limb.icon_state]")
 
 	draw_color = mutation_color
 	if(should_draw_greyscale) //Should the limb be colored?
