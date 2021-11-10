@@ -251,11 +251,11 @@
 
 ///The Icon Render Key system. This generates and stores icons with keys to reduce the number of items bodypart icons are built.
 /mob/living/carbon/proc/generate_icon_key(obj/item/bodypart/BP)
-	if(BP.is_dimorphic)
-		. += "[BP.limb_gender]"
-	. += "-[BP.limb_id]"
+	if(BP.is_dimorphic && BP.should_draw_gender)
+		. += "[BP.limb_gender]-"
+	. += "[BP.limb_id]"
 	. += "-[BP.body_zone]"
-	if(BP.should_draw_greyscale && !BP.is_husked)
+	if(BP.should_draw_greyscale && !BP.is_husked && BP.draw_color)
 		. += "-[BP.draw_color]"
 	if(BP.is_husked)
 		. += "-husk"
