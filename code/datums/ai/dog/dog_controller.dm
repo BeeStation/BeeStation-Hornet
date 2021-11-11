@@ -76,7 +76,7 @@
 		living_pawn.manual_emote(pick("dances around.", "chases [living_pawn.p_their()] tail!</span>"))
 		living_pawn.AddComponent(/datum/component/spinny)
 		for (var/mob/i in oviewers(living_pawn))
-			if (ishuman(i) && i.mind) //if viewer is human and a player. maybe check if isn't SSD? also, do non-human players have moods?
+			if (ishuman(i) && i.mind) //if viewer is human and a player. do non-human players have moods?
 				SEND_SIGNAL(i, COMSIG_ADD_MOOD_EVENT, "animal_play", /datum/mood_event/animal_play, living_pawn)
 
 /// Someone has thrown something, see if it's someone we care about and start listening to the thrown item so we can see if we want to fetch it when it lands

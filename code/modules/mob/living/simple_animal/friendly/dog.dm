@@ -498,9 +498,9 @@
 
 		if(prob(1))
 			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("dances around.","chases its tail!"))
-			//not sure if this does anything (ai/dog/dog-controller seems to be the real one) but just in case im putting this here
+			//not sure if this does anything (ai/dog/dog-controller seems to be the real one) but just in case im putting this here too
 			for (var/mob/i in oviewers(src))
-				if (ishuman(i) && i.client) //if viewer is human and a player. maybe check if isn't SSD? also, do non-human players have moods?
+				if (ishuman(i) && i.mind)
 					SEND_SIGNAL(i, COMSIG_ADD_MOOD_EVENT, "animal_play", /datum/mood_event/animal_play, src)
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
@@ -682,7 +682,7 @@
 		if(prob(1))
 			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("dances around.","chases her tail."))
 			for (var/mob/i in oviewers(src))
-				if (ishuman(i) && i.client) //if viewer is human and a player. maybe check if isn't SSD? also, do non-human players have moods?
+				if (ishuman(i) && i.mind)
 					SEND_SIGNAL(i, COMSIG_ADD_MOOD_EVENT, "animal_play", /datum/mood_event/animal_play, src)
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
@@ -696,7 +696,7 @@
 		if(prob(1))
 			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("chases its tail."))
 			for (var/mob/i in oviewers(src))
-				if (ishuman(i) && i.client) //if viewer is human and a player. maybe check if isn't SSD? also, do non-human players have moods?
+				if (ishuman(i) && i.mind)
 					SEND_SIGNAL(i, COMSIG_ADD_MOOD_EVENT, "animal_play", /datum/mood_event/animal_play, src)
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
