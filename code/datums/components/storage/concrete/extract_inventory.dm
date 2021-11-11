@@ -11,25 +11,25 @@
 	locked = TRUE //True in order to prevent messing with the inventory in any way other than the specified ways on reproductive.dm
 	rustle_sound = FALSE
 	silent = TRUE
-	var/obj/item/slimecross/reproductive/parentSlimeExtract
+	var/obj/item/slimecross/reproductive/parent_slime_extract
 
 /datum/component/storage/concrete/extract_inventory/Initialize()
 	. = ..()
 	if(!istype(parent, /obj/item/slimecross/reproductive))
 		return COMPONENT_INCOMPATIBLE
-	parentSlimeExtract = parent
+	parent_slime_extract = parent
 
 
-/datum/component/storage/concrete/extract_inventory/proc/processCubes(obj/item/slimecross/reproductive/parentSlimeExtract, mob/user)
+/datum/component/storage/concrete/extract_inventory/proc/process_cubes(obj/item/slimecross/reproductive/parent_slime_extract, mob/user)
 
-	if(length(parentSlimeExtract.contents) >= max_items)
-		QDEL_LIST(parentSlimeExtract.contents)
-		createExtracts(parentSlimeExtract,user)
+	if(length(parent_slime_extract.contents) >= max_items)
+		QDEL_LIST(parent_slime_extract.contents)
+		create_extracts(parent_slime_extract,user)
 
-/datum/component/storage/concrete/extract_inventory/proc/createExtracts(obj/item/slimecross/reproductive/parentSlimeExtract, mob/user)
+/datum/component/storage/concrete/extract_inventory/proc/create_extracts(obj/item/slimecross/reproductive/parent_slime_extract, mob/user)
 	var/cores = rand(1,4)
-	playsound(parentSlimeExtract, 'sound/effects/splat.ogg', 40, TRUE)
-	parentSlimeExtract.last_produce = world.time
-	to_chat(user, "<span class='notice'>[parentSlimeExtract] briefly swells to a massive size, and expels [cores] extract[cores > 1 ? "s":""]!</span>")
+	playsound(parent_slime_extract, 'sound/effects/splat.ogg', 40, TRUE)
+	parent_slime_extract.last_produce = world.time
+	to_chat(user, "<span class='notice'>[parent_slime_extract] briefly swells to a massive size, and expels [cores] extract[cores > 1 ? "s":""]!</span>")
 	for(var/i in 1 to cores)
-		new parentSlimeExtract.extract_type(parentSlimeExtract.drop_location())
+		new parent_slime_extract.extract_type(parent_slime_extract.drop_location())
