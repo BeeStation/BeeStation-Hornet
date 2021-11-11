@@ -1969,7 +1969,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/datum/species/chosen_species
 	chosen_species = pref_species.type
-	if(!roundstart_checks || (pref_species.id in GLOB.roundstart_races))
+	if(!roundstart_checks || (pref_species.id in GLOB.roundstart_races) || pref_species.check_no_hard_check())
 		chosen_species = pref_species.type
 	else
 		chosen_species = /datum/species/human

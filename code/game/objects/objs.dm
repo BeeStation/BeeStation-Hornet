@@ -260,6 +260,8 @@
  * * caller- The movable we're checking pass flags for, if we're making any such checks
  **/
 /obj/proc/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
+	if(istype(caller) && (caller.pass_flags & pass_flags_self))
+		return TRUE
 	. = !density
 
 /obj/proc/check_uplink_validity()

@@ -101,7 +101,7 @@
 	if(usr.canUseTopic(src, BE_CLOSE))
 		card_slot.try_eject(null, usr)
 
-// Eject ID card from computer, if it has ID slot with card inside.
+// Ejects an intellicard from a computer, if there's a slot and an intellicard inside.
 /obj/item/modular_computer/proc/eject_card()
 	set name = "Eject Intellicard"
 	set category = "Object"
@@ -113,7 +113,7 @@
 		ai_slot.try_eject(null, usr,1)
 
 
-// Eject ID card from computer, if it has ID slot with card inside.
+// Ejects a data disk from a computer, if there's a slot and a disk inside.
 /obj/item/modular_computer/proc/eject_disk()
 	set name = "Eject Data Disk"
 	set category = "Object"

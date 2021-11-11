@@ -106,7 +106,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		limbs_id = id
 	..()
 
-
 /proc/generate_selectable_species()
 	for(var/I in subtypesof(/datum/species))
 		var/datum/species/S = new I
@@ -118,6 +117,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/check_roundstart_eligible()
 	if(id in (CONFIG_GET(keyed_list/roundstart_races)))
+		return TRUE
+	return FALSE
+
+/datum/species/proc/check_no_hard_check()
+	if(id in (CONFIG_GET(keyed_list/roundstart_no_hard_check)))
 		return TRUE
 	return FALSE
 
