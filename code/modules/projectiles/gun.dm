@@ -145,6 +145,19 @@
 	else if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
 
+	if(weapon_weight == WEAPON_HEAVY)
+		. += "You need both hands free to fire."
+	else
+		switch(spread_unwielded)
+			if(1 to 20)
+				. += "You could probably keep this reasonably on-target with one hand."
+			if(21 to 40)
+				. += "You can't aim this very accurately with one hand."
+			if(41 to 60)
+				. += "You are unlikely to hit anything if you fire this with one hand."
+			if(61 to INFINITY)
+				. += "You can't hit shit firing this one handed."
+
 /obj/item/gun/equipped(mob/living/user, slot)
 	. = ..()
 	if(zoomed && user.get_active_held_item() != src)
