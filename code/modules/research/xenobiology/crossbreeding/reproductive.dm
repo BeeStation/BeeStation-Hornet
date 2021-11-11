@@ -56,9 +56,8 @@ Reproductive extracts:
 			playsound(src, 'sound/items/eatfood.ogg', 20, TRUE)
 			slime_storage.locked = TRUE //relock once its done inserting
 			return
-		else
-			slime_storage.locked = TRUE //it couldnt insert for some reason, relock it
-			to_chat(user, "<span class='notice'>The [src] rejects the Monkey Cube!</span>") //in case it fails to insert for whatever reason you get feedback
+		slime_storage.locked = TRUE //it couldnt insert for some reason, relock it
+		to_chat(user, "<span class='notice'>The [src] rejects the Monkey Cube!</span>") //in case it fails to insert for whatever reason you get feedback
 
 /obj/item/slimecross/reproductive/Destroy()
 	. = ..()
