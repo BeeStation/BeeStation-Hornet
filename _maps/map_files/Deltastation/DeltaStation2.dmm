@@ -56782,7 +56782,7 @@
 /area/ai_monitored/security/armory)
 "bTl" = (
 /obj/machinery/camera/motion{
-	c_tag = "Armoury - Exterior";
+	c_tag = "Armory - Exterior";
 	dir = 4
 	},
 /turf/open/space,
@@ -58245,7 +58245,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/security{
-	name = "Armoury";
+	name = "Armory";
 	req_access_txt = "3";
 	security_level = 6
 	},
@@ -60130,7 +60130,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/security{
-	name = "Armoury";
+	name = "Armory";
 	req_access_txt = "3";
 	security_level = 6
 	},
@@ -61544,7 +61544,7 @@
 /obj/machinery/power/apc{
 	areastring = "/area/ai_monitored/security/armory";
 	dir = 2;
-	name = "Armoury APC";
+	name = "Armory APC";
 	pixel_y = -24
 	},
 /obj/machinery/camera{
@@ -62558,8 +62558,8 @@
 /area/ai_monitored/security/armory)
 "cbI" = (
 /obj/machinery/door/poddoor{
-	id = "armouryaccess";
-	name = "Armoury Access"
+	id = "armoryaccess";
+	name = "Armory Access"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
@@ -62572,13 +62572,13 @@
 "cbJ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor/northright{
-	name = "Armoury Desk";
+	name = "Armory Desk";
 	req_access_txt = "3"
 	},
 /obj/item/folder/red,
 /obj/item/pen,
 /obj/machinery/door/window/southright{
-	name = "Armoury Desk"
+	name = "Armory Desk"
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
@@ -62595,8 +62595,8 @@
 /area/ai_monitored/security/armory)
 "cbL" = (
 /obj/machinery/button/door{
-	id = "armouryaccess";
-	name = "Armoury Access";
+	id = "armoryaccess";
+	name = "Armory Access";
 	pixel_x = -26;
 	pixel_y = -26;
 	req_access_txt = "3"

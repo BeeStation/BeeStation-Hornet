@@ -448,21 +448,15 @@
 		return 0 // not big enough to matter
 	return start_point.air.return_pressure() < 20 ? -1 : 1
 
-/obj/machinery/door/firedoor/border_only/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && (mover.pass_flags & PASSGLASS))
-		return TRUE
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
-		return !density
-	else
+/obj/machinery/door/firedoor/border_only/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
+	if(!(get_dir(loc, target) == dir)) //Make sure looking at appropriate border
 		return TRUE
 
 /obj/machinery/door/firedoor/border_only/CheckExit(atom/movable/mover as mob|obj, turf/target)
-	if(istype(mover) && (mover.pass_flags & PASSGLASS))
-		return TRUE
 	if(get_dir(loc, target) == dir)
 		return !density
-	else
-		return TRUE
+	return TRUE
 
 /obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/T)
 	if(get_dir(loc, T) == dir)
