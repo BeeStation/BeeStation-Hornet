@@ -225,10 +225,12 @@
 		if(!(icon_render_keys[BP.body_zone] == old_key))
 			needs_update += BP
 
-	var/list/tmissing_bodyparts = get_missing_limbs()
-	if((dna?.species.max_bodypart_count - icon_render_keys.len) != tmissing_bodyparts.len)
+
+	var/list/missing_bodyparts = get_missing_limbs()
+	//var/max_bodyparts = dna ? dna.species.max_bodypart_count : 6
+	if(((dna ? dna.species.max_bodypart_count : 6) - icon_render_keys.len) != missing_bodyparts.len)
 		limb_count_update = TRUE
-		for(var/X in tmissing_bodyparts)
+		for(var/X in missing_bodyparts)
 			icon_render_keys -= X
 
 	if(!needs_update.len && !limb_count_update)
