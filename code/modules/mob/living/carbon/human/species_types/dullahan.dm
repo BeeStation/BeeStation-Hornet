@@ -1,6 +1,7 @@
 /datum/species/dullahan
 	name = "Dullahan"
 	id = "dullahan"
+	max_bodypart_count = 5 //No head
 	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH, TRAIT_NONECRODISEASE)

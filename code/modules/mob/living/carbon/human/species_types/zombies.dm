@@ -19,6 +19,7 @@
 
 	limbs_id = "zombie"
 	use_generic_limbs = TRUE
+	gen_limbs_are_colored = FALSE
 	limb_icon_file = 'icons/mob/human_parts.dmi'
 
 /datum/species/zombie/check_roundstart_eligible()
@@ -106,5 +107,6 @@
 	limbs_id = "zombie"
 	use_generic_limbs = TRUE
 	limb_icon_file = 'icons/mob/human_parts.dmi'
+	gen_limbs_are_colored = FALSE
 
 #undef REGENERATION_DELAY

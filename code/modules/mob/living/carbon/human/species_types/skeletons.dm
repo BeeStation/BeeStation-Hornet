@@ -20,6 +20,7 @@
 	limbs_id = "skeleton"
 	use_generic_limbs = TRUE
 	limb_icon_file = 'icons/mob/human_parts.dmi'
+	gen_limbs_are_colored = FALSE
 
 /datum/species/skeleton/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])

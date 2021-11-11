@@ -4,7 +4,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species
 	var/id	// if the game needs to manually check your race to do something not included in a proc here, it will use this
-	var/limbs_id		//this is used if you want to use a different species limb sprites. Mainly used for angels as they look like humans.
 	var/name	// this is the fluff name. these will be left generic (such as 'Lizardperson' for the lizard race) so servers can change them to whatever
 	var/bodyflag = FLAG_HUMAN //Species flags currently used for species restriction on items
 	var/default_color = "#FFF"	// if alien colors are disabled, this is the color that will be used by that race
@@ -19,6 +18,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	//KAPU LIMBS OVERRIDES - Used for barely used species that dont deserve their own limb datums.
 	var/limb_icon_file //DO. NOT. USE.
 	var/use_generic_limbs = FALSE //Does this species have its own bodypart type, or does it use a reskinned human limb?
+	var/gen_limbs_are_colored = TRUE
+	var/limbs_id
 
 	var/digitigrade_customization = DIGITIGRADE_NEVER //Never, Optional, or Forced digi legs?
 	var/use_skintones = 0	// does it use skintones or not? (spoiler alert this is only used by humans)
@@ -293,9 +294,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		for(var/obj/item/bodypart/BP in C.bodyparts)
 			BP.limb_id = limbs_id
 			BP.icon = limb_icon_file
-			if(fixed_mut_color)
+			if(gen_limbs_are_colored)
 				BP.should_draw_greyscale = TRUE
 				BP.species_color = fixed_mut_color
+			else
+				BP.should_draw_greyscale = FALSE
 			BP.render_like_organic = TRUE
 			BP.is_dimorphic = FALSE
 			BP.update_limb()

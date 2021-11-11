@@ -123,8 +123,9 @@
 				continue
 			O.transfer_to_limb(src, C)
 
+
 	synchronize_bodytypes(C)
-	C.icon_render_keys -= body_zone
+
 	update_icon_dropped()
 	C.update_health_hud() //update the healthdoll
 	C.update_body()

@@ -22,6 +22,7 @@
 	limbs_id = "fly"
 	use_generic_limbs = TRUE
 	limb_icon_file = 'icons/mob/human_parts.dmi'
+	gen_limbs_are_colored = FALSE
 
 /datum/species/fly/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/pestkiller)

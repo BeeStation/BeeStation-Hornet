@@ -17,6 +17,7 @@
 	limbs_id = "shadow"
 	use_generic_limbs = TRUE
 	limb_icon_file = 'icons/mob/human_parts.dmi'
+	gen_limbs_are_colored = FALSE
 
 
 /datum/species/shadow/spec_life(mob/living/carbon/human/H)

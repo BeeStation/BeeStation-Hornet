@@ -7,9 +7,11 @@
 	inherent_traits = list(TRAIT_VIRUSIMMUNE,TRAIT_NOGUNS,TRAIT_NOHUNGER,TRAIT_NOBREATH)
 	mutanttongue = /obj/item/organ/tongue/abductor
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
+
 	limbs_id = "abductor"
 	use_generic_limbs = TRUE
 	limb_icon_file = 'icons/mob/human_parts.dmi'
+	gen_limbs_are_colored = FALSE
 
 /datum/species/abductor/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()

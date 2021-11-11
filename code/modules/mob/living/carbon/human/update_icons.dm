@@ -762,7 +762,7 @@ generate/load female uniform sprites matching all previously decided variables
 					break
 
 // Only renders the head of the human
-/mob/living/carbon/human/proc/update_body_parts_head_only(var/forced_update)
+/mob/living/carbon/human/proc/update_body_parts_head_only(var/update_limb_data)
 	if (!dna)
 		return
 
@@ -774,7 +774,7 @@ generate/load female uniform sprites matching all previously decided variables
 	if (!istype(HD))
 		return
 
-	HD.update_limb(,,forced_update)
+	HD.update_limb(,,update_limb_data)
 
 	add_overlay(HD.get_limb_icon())
 	update_damage_overlays()

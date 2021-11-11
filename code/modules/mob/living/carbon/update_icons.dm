@@ -214,20 +214,22 @@
 /mob/living/carbon/update_body()
 	update_body_parts()
 
-/mob/living/carbon/proc/update_body_parts(var/force_update)
+/mob/living/carbon/proc/update_body_parts(var/update_limb_data)
 	//Check the cache to see if it needs a new sprite
 	var/list/needs_update = list()
 	var/limb_count_update = FALSE
 	for(var/obj/item/bodypart/BP in bodyparts)
-		BP.update_limb(is_creating = force_update) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
+		BP.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
 		var/old_key = icon_render_keys?[BP.body_zone]
 		icon_render_keys[BP.body_zone] = (BP.is_husked) ? generate_husk_key(BP) : generate_icon_key(BP)
 		if(!(icon_render_keys[BP.body_zone] == old_key))
 			needs_update += BP
 
-	var/list/missing_limbs = get_missing_limbs()
-	if((dna?.species.max_bodypart_count - icon_render_keys.len) != missing_limbs.len)
+	var/list/tmissing_bodyparts = get_missing_limbs()
+	if((dna?.species.max_bodypart_count - icon_render_keys.len) != tmissing_bodyparts.len)
 		limb_count_update = TRUE
+		for(var/X in tmissing_bodyparts)
+			icon_render_keys -= X
 
 	if(!needs_update.len && !limb_count_update)
 		return
