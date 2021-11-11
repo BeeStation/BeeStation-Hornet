@@ -252,7 +252,7 @@ Any-Mode: (hotkey doesn't need to be on)
 		to_chat(src, "<span class='danger'>The Discord invite is not set in the server configuration.</span>")
 	return
 
-/client/verb/map() // i couldn't be fucked to config-ize this
+/client/verb/map()
 	set name = "map"
 	set desc = "View the current map in the webviewer"
 	set category = "OOC"
