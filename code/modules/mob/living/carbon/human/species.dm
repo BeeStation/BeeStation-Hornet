@@ -289,6 +289,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
 	new_species ||= C.dna?.species //If no new species is provided, assume its src.
+	//Note for future: Potentionally add a new C.dna.species() to build a template species for more accurate limb replacement
 
 	if(use_generic_limbs) //Generic limbs dont need to be rebuild because theyre just human limbs reskinned.
 		for(var/obj/item/bodypart/BP in C.bodyparts)
@@ -309,6 +310,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		new_species.species_l_leg = /obj/item/bodypart/l_leg/digitigrade
 
 	for(var/obj/item/bodypart/old_part in C.bodyparts)
+		if(old_part.change_exempt_flags & CHANGE_SPECIES)
+			continue
+
 		switch(old_part.body_zone)
 			if(BODY_ZONE_HEAD)
 				var/obj/item/bodypart/head/new_part = new new_species.species_head()

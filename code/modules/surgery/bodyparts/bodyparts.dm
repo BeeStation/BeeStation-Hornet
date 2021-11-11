@@ -15,6 +15,7 @@
 	var/needs_processing = FALSE
 	///If you'd like to know if a bodypart is organic, please use is_organic_limb()
 	var/list/bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ORGANIC) //List of bodytypes flags, important for fitting clothing.
+	var/change_exempt_flags //Defines when a bodypart should not be changed. Example: CHANGE_SPECIES prevents the limb from being overwritten on species gain
 
 	var/is_husked = FALSE
 	var/limb_id = SPECIES_HUMAN //This is effectively the icon_state for limbs.

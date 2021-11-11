@@ -78,6 +78,9 @@
 #define LARVA_BODYPART "larva"
 #define DEVIL_BODYPART "devil"
 
+//Bodypart change blocking flags
+#define CHANGE_SPECIES	(1<<0)
+
 //Species gib types
 
 #define GIB_TYPE_HUMAN "human"
