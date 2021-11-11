@@ -1548,8 +1548,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			This innovative shuttle can seat up to 4 passengers, willing or not! Shuttle must be deployed in space or on lavaland, space suits not included."
 	item = /obj/item/survivalcapsule/shuttle/traitor
 	cost = 8
-	//You get your own shuttle
-	exclude_modes = list(/datum/game_mode/nuclear)
+	purchasable_from = (UPLINK_INCURSION | UPLINK_TRAITORS)
 
 /datum/uplink_item/device_tools/magboots
 	name = "Blood-Red Magboots"
@@ -1876,7 +1875,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	uplink_box.name = "Uplink Implant Box"
 	new /obj/item/implanter/uplink(uplink_box, purchaser_uplink.uplink_flag)
 	return uplink_box
-	
+
 
 /datum/uplink_item/implants/xray
 	name = "X-ray Vision Implant"
