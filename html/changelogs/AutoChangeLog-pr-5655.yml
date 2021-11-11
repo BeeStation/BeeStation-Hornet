@@ -1,0 +1,5 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - imageadd: harmonizes the sprites related to the Ore Redemption machine and ending
+      machine sprites with the rest.
