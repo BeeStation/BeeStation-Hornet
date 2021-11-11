@@ -77,7 +77,7 @@
 		living_pawn.AddComponent(/datum/component/spinny)
 		for(var/mob/living/carbon/human/H in oviewers(living_pawn))
 			if(H.mind)
-				SEND_SIGNAL(i, COMSIG_ADD_MOOD_EVENT, "animal_play", /datum/mood_event/animal_play, living_pawn)
+				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "animal_play", /datum/mood_event/animal_play, living_pawn)
 
 /// Someone has thrown something, see if it's someone we care about and start listening to the thrown item so we can see if we want to fetch it when it lands
 /datum/ai_controller/dog/proc/listened_throw(datum/source, mob/living/carbon/carbon_thrower)
