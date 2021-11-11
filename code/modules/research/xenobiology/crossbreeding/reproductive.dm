@@ -23,6 +23,7 @@ Reproductive extracts:
 		typecache_to_take = typecacheof(/obj/item/reagent_containers/food/snacks/monkeycube)
 	slime_storage = AddComponent(/datum/component/storage/concrete/extract_inventory)
 	slime_storage.can_hold = typecache_to_take
+
 /obj/item/slimecross/reproductive/examine()
 	. = ..()
 	. += "<span class='danger'>It appears to have eaten [length(contents)] Monkey Cube[p_s()]</span>"
