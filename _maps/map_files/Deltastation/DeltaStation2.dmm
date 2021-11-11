@@ -118309,6 +118309,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
 	},
+/obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "eCM" = (
@@ -118629,6 +118630,9 @@
 	dir = 8
 	},
 /obj/structure/tank_dispenser/oxygen,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "fuY" = (
@@ -118909,6 +118913,9 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera/autoname{
 	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
@@ -123887,6 +123894,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
 	},
+/obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "vUG" = (
