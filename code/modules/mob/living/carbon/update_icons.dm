@@ -227,7 +227,6 @@
 
 
 	var/list/missing_bodyparts = get_missing_limbs()
-	//var/max_bodyparts = dna ? dna.species.max_bodypart_count : 6
 	if(((dna ? dna.species.max_bodypart_count : 6) - icon_render_keys.len) != missing_bodyparts.len)
 		limb_count_update = TRUE
 		for(var/X in missing_bodyparts)
