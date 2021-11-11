@@ -18,7 +18,12 @@
 	var/obj/item/bodypart/affecting = C.get_bodypart(BODY_ZONE_CHEST)
 	affecting.receive_damage(CLAMP(brute_dam/2 * affecting.body_damage_coeff, 15, 50), CLAMP(burn_dam/2 * affecting.body_damage_coeff, 0, 50)) //Damage the chest based on limb's existing damage
 	C.visible_message("<span class='danger'><B>[C]'s [src.name] has been violently dismembered!</B></span>")
-	C.emote("scream")
+
+	if(C.stat <= SOFT_CRIT)//No more screaming while unconsious
+		for(var/obj/item/bodypart/chest/chest in C.bodyparts)
+			if(chest.is_organic_limb())//Chest is a good indicator for if a carbon is robotic in nature or not.
+				C.emote("scream")
+
 	SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "dismembered", /datum/mood_event/dismembered)
 	drop_limb()
 
