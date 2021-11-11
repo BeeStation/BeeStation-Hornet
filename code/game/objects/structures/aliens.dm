@@ -291,6 +291,7 @@
 		child.forceMove(get_turf(src))
 		// TECHNICALLY you could put non-facehuggers in the child var
 		status = BURST
+		update_icon()
 		if(istype(child))
 			if(kill)
 				child.Die()
