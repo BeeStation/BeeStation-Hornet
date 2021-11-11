@@ -135,7 +135,7 @@
 	var/species = selected_category
 	var/path
 	if(species == SPECIES_HUMAN) //Humans use the parent type.
-		path = "obj/item/bodypart/[part_type]"
+		path = "/obj/item/bodypart/[part_type]"
 	else
 		path = "/obj/item/bodypart/[part_type]/[species]"
 	return path
