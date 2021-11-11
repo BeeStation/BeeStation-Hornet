@@ -53,6 +53,9 @@ They are mostly the same as /tg/station's code standards, though we are not quit
 Failure to meet these standards can result in your pull request being closed. The code standards are non-exhaustive and Maintainers have the final say.
 
 ## 5. Codebase-specific Policies
+### CEV-Eris
+Sprites from CEV-Eris and sprites clearly inspired by their art style are generally not permitted unless you recolor them using a tolerable color palette.
+
 ### HippieStation
 HippieStation's code standards are much more lax than BeeStation. Their code typically does not meet our standards. Therefore, you should not attempt to port code from HippieStation unless you have the experience and knowledge necessary to rewrite the code to our standards. Maintainers will not hold your hand for this, instead they will simply close the pull request.
 
