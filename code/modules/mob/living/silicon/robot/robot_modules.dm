@@ -249,7 +249,7 @@
 	var/mob/living/silicon/robot/R = loc
 	var/prev_lockcharge = R.lockcharge
 	sleep(1)
-	if(animated_transform == TRUE)
+	if(animated_transform)
 		flick("[cyborg_base_icon]_transform", R)
 	else
 		var/obj/effect/temp_visual/decoy/fading/fivesecond/ANM = new /obj/effect/temp_visual/decoy/fading/fivesecond(R.loc, R)
