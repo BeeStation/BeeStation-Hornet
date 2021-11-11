@@ -84,7 +84,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/compact/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
-	if(!is_wielded)
+	if(check_wielded(user))
 		recoil = 6
 	else
 		recoil = initial(recoil)

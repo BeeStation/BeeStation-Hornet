@@ -55,9 +55,9 @@
 		return FALSE
 
 	if(stored_card)
-		to_chat(user, "<span class='notice'>You remove [stored_card] from [src].</span>")
+		to_chat(user, "<span class='notice'>You eject [stored_card] from [src].</span>")
 		locked = FALSE
-		if(user)
+		if(user && in_range(src, user))
 			user.put_in_hands(stored_card)
 		else
 			stored_card.forceMove(drop_location())

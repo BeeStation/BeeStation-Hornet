@@ -41,7 +41,26 @@ GLOBAL_LIST_EMPTY(ipc_antennas_list)
 GLOBAL_LIST_EMPTY(ipc_chassis_list)
 GLOBAL_LIST_EMPTY(insect_type_list)
 
-GLOBAL_LIST_INIT(color_list_ethereal, list("F Class(Green)" = "97ee63", "F2 Class (Light Green)" = "00fa9a", "F3 Class (Dark Green)" = "37835b", "M Class (Red)" = "9c3030", "M1 Class (Purple)" = "ee82ee", "G Class (Yellow)" = "fbdf56", "O Class (Blue)" = "3399ff", "A Class (Cyan)" = "00ffff"))
+GLOBAL_LIST_INIT(color_list_ethereal, list(
+	"Red" = "ff3131",
+	"Maroon" = "9c3030",
+	"Orange" = "f69c28",
+	"Sandy Yellow" = "ffefa5",
+	"Yellow" = "fbdf56",
+	"Green" = "97ee63",
+	"Dark Green" = "0ab432",
+	"Spring Green" = "00fa9a",
+	"Sea Green" = "37835b",
+	"Cyan" = "00ffff",
+	"Dark Teal" = "5ea699",
+	"Powder Blue" = "95e5ff",
+	"Denim Blue" = "3399ff",
+	"Royal Blue" = "5860f5",
+	"Lavender" = "d1acff",
+	"Purple" = "a42df7",
+	"Orchid Purple" = "ee82ee",
+	"Rose" = "ff92b6",
+	"Gray" = "979497"))
 
 GLOBAL_LIST_INIT(ghost_forms_with_directions_list, list("ghost")) //stores the ghost forms that support directional sprites
 GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list("ghost")) //stores the ghost forms that support hair and other such things
