@@ -1,0 +1,5 @@
+author: francinum
+delete-after: true
+changes:
+  - refactor: Gun weilding's internal mechanisms have been changed to be more reliable.
+      It no longer plays a sound either. Or spawns an offhand object.
