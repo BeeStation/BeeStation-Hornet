@@ -9,8 +9,8 @@
 	var/obj/item/card/id/stored_card
 	var/obj/item/card/id/stored_card2
 
-/obj/item/computer_hardware/card_slot/Exited(atom/A, atom/newloc)
-	if(!(A == stored_card || A == stored_card2))
+/obj/item/computer_hardware/card_slot/Exited(atom/movable/gone, direction)
+	if(!(gone == stored_card || gone == stored_card2))
 		return ..()
 	if(holder)
 		if(holder.active_program)
