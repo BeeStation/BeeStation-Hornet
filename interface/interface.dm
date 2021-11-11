@@ -255,12 +255,12 @@ Any-Mode: (hotkey doesn't need to be on)
 /client/verb/map() // i couldn't be fucked to config-ize this
 	set name = "map"
 	set desc = "View the current map in the webviewer"
-	set hidden = 1
-	if(SSmapping.config.map_link && SSmapping.config.map_link !="None")	
+	set category = "OOC"
+	if(SSmapping.config.map_link == "None")
+		to_chat(src,"<span class='danger'>The current map does not have a webmap. </span>")
+	else if(SSmapping.config.map_link)
 		if(alert("This will open the current map in your browser. Are you sure?",,"Yes","No")!="Yes")
 			return
 		src << link("https://affectedarc07.github.io/SS13WebMap/BeeStation/[SSmapping.config.map_link]")
-	else if(SSmapping.config.map_link == "None")
-		to_chat(src,"<span class='danger'>The current map does not have a webmap. </span>")
 	else
 		to_chat(src, "<span class='danger'>The current map is either invalid or unavailable. Open an issue on the github. </span>")
