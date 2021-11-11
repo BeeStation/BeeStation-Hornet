@@ -1,0 +1,5 @@
+author: St0rmC4st3r
+delete-after: true
+changes:
+  - tweak: Changed the layout of the Deltastation exploration shuttle.
+  - bugfix: Added lights to Deltastation exploration office.
