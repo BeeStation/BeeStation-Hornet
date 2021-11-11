@@ -1,0 +1,4 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - bugfix: fixed armory spelling
