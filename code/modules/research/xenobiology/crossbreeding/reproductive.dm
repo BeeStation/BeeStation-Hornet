@@ -51,7 +51,7 @@ Reproductive extracts:
 	else if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
 		slimeStorage.locked = FALSE //This weird unlock-then-lock nonsense brought to you courtesy of storage jank
 		if(SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, O, user, TRUE))
-			to_chat(user, "<span class='notice'>You feed 1 Monkey Cube to [src], and it pulses gently.</span>")
+			to_chat(user, "<span class='notice'>You feed a Monkey Cube to [src], and it pulses gently.</span>")
 			slimeStorage.processCubes(src, user)
 			playsound(src, 'sound/items/eatfood.ogg', 20, TRUE)
 			slimeStorage.locked = TRUE //relock once its done inserting
