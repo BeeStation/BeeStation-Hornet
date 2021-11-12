@@ -1,0 +1,5 @@
+author: zeskorion
+delete-after: true
+changes:
+  - bugfix: sentient diseases are curable again
+  - bugfix: viruses no longer become mutable on transmission
