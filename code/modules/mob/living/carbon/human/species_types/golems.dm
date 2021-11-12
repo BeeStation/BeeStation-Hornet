@@ -1,6 +1,6 @@
 /datum/species/golem
 	// Animated beings of stone. They have increased defenses, and do not need to breathe. They're also slow as fuuuck.
-	name = "Golem"
+	name = "\improper Golem"
 	id = "iron_golem"
 	say_mod = "rumbles"
 	species_traits = list(NOBLOOD,MUTCOLORS,NO_UNDERWEAR,NOTRANSSTING)

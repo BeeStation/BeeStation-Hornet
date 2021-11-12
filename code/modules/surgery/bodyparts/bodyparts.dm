@@ -416,7 +416,7 @@
 	if(animal_origin) //Cringe ass animal-specific code.
 		if(is_organic_limb())
 			limb.icon = 'icons/mob/animal_parts.dmi'
-			if(limb_id == "husk")
+			if(is_husked)
 				limb.icon_state = "[animal_origin]_husk_[body_zone]"
 			else
 				limb.icon_state = "[animal_origin]_[body_zone]"
@@ -491,6 +491,7 @@
 /obj/item/bodypart/chest/monkey
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_chest"
+	limb_id = SPECIES_MONKEY
 	animal_origin = MONKEY_BODYPART
 
 /obj/item/bodypart/chest/monkey/teratoma
@@ -564,6 +565,7 @@
 /obj/item/bodypart/l_arm/monkey
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_l_arm"
+	limb_id = SPECIES_MONKEY
 	animal_origin = MONKEY_BODYPART
 	px_x = -5
 	px_y = -3
@@ -632,6 +634,7 @@
 /obj/item/bodypart/r_arm/monkey
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_r_arm"
+	limb_id = SPECIES_MONKEY
 	animal_origin = MONKEY_BODYPART
 	px_x = 5
 	px_y = -3
@@ -690,6 +693,7 @@
 /obj/item/bodypart/l_leg/monkey
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_l_leg"
+	limb_id = SPECIES_MONKEY
 	animal_origin = MONKEY_BODYPART
 	px_y = 4
 
@@ -749,6 +753,7 @@
 /obj/item/bodypart/r_leg/monkey
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_r_leg"
+	limb_id = SPECIES_MONKEY
 	animal_origin = MONKEY_BODYPART
 	px_y = 4
 

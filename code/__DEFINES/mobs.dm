@@ -96,6 +96,7 @@
 #define SPECIES_FELINID			"felinid"
 #define SPECIES_OOZELING		"oozeling"
 #define SPECIES_FLY 			"fly"
+#define SPECIES_MONKEY			"monkey"
 
 //Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
 #define FLAG_HUMAN			(1<<0)
@@ -109,6 +110,7 @@
 #define FLAG_OOZELING		(1<<8)
 #define FLAG_FLY			(1<<9)
 #define FLAG_DEBUG_SPECIES	(1<<10)
+#define FLAG_MONKEY (1<<11)
 
 #define DIGITIGRADE_NEVER 0
 #define DIGITIGRADE_OPTIONAL 1

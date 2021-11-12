@@ -1,5 +1,5 @@
 /datum/species/fly
-	name = "Flyperson"
+	name = "\improper Flyperson"
 	id = SPECIES_FLY
 	bodyflag = FLAG_FLY
 	say_mod = "buzzes"

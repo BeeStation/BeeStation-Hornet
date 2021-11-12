@@ -1,6 +1,6 @@
 /datum/species/skeleton
 	// 2spooky
-	name = "Spooky Scary Skeleton"
+	name = "\improper Spooky Scary Skeleton"
 	id = "skeleton"
 	say_mod = "rattles"
 	sexes = 0

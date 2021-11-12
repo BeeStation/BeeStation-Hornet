@@ -1,5 +1,5 @@
 /datum/species/plasmaman
-	name = "Plasmaman"
+	name = "\improper Plasmaman"
 	id = SPECIES_PLASMAMAN
 	bodyflag = FLAG_PLASMAMAN
 	say_mod = "rattles"

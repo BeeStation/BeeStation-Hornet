@@ -1,5 +1,5 @@
 /datum/species/dullahan
-	name = "Dullahan"
+	name = "\improper Dullahan"
 	id = "dullahan"
 	max_bodypart_count = 5 //No head
 	default_color = "FFFFFF"

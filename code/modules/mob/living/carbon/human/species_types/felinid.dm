@@ -1,6 +1,6 @@
 //Subtype of human
 /datum/species/human/felinid
-	name = "Felinid"
+	name = "\improper Felinid"
 	id = SPECIES_FELINID
 	bodyflag = FLAG_FELINID
 	limbs_id = "human"

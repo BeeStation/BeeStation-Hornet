@@ -1,5 +1,5 @@
 /datum/species/moth
-	name = "Mothman"
+	name = "\improper Mothman"
 	id = SPECIES_MOTH
 	bodyflag = FLAG_MOTH
 	say_mod = "flutters"

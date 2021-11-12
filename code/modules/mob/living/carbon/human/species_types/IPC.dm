@@ -1,5 +1,5 @@
 /datum/species/ipc
-	name = "IPC"
+	name = "\improper Integrated Positronic Chassis"
 	id = SPECIES_IPC
 	bodyflag = FLAG_IPC
 	say_mod = "states"

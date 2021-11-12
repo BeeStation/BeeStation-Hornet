@@ -2,7 +2,7 @@
 
 /datum/species/zombie
 	// 1spooky
-	name = "High-Functioning Zombie"
+	name = "\improper High-Functioning Zombie"
 	id = "zombie"
 	say_mod = "moans"
 	sexes = 0
@@ -28,7 +28,7 @@
 	return ..()
 
 /datum/species/zombie/infectious
-	name = "Infectious Zombie"
+	name = "\improper Infectious Zombie"
 	id = "memezombies"
 	limbs_id = "zombie"
 	mutanthands = /obj/item/zombie_hand
@@ -87,7 +87,7 @@
 		infection.Insert(C)
 
 /datum/species/zombie/infectious/fast
-	name = "Fast Infectious Zombie"
+	name = "\improper Fast Infectious Zombie"
 	id = "memezombiesfast"
 	limbs_id = "fzombie"
 	armor = 0
@@ -96,7 +96,7 @@
 
 // Your skin falls off
 /datum/species/krokodil_addict
-	name = "Human"
+	name = "\improper Human"
 	id = "goofzombies"
 	limbs_id = "zombie" //They look like zombies
 	sexes = 0

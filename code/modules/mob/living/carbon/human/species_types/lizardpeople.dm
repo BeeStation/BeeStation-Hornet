@@ -1,6 +1,6 @@
 /datum/species/lizard
 	// Reptilian humanoids with scaled skin and tails.
-	name = "Lizardperson"
+	name = "\improper Lizardperson"
 	id = SPECIES_LIZARD
 	bodyflag = FLAG_LIZARD
 	say_mod = "hisses"

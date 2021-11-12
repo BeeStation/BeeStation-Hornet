@@ -1,6 +1,6 @@
 /datum/species/apid
 	// Beepeople, god damn it. It's hip, and alive! - Fuck ubunutu edition
-	name = "Apids"
+	name = "\improper Apid"
 	id = SPECIES_APID
 	bodyflag = FLAG_APID
 	say_mod = "buzzes"

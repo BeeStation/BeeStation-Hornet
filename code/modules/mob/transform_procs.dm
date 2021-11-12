@@ -49,6 +49,7 @@
 
 	//handle DNA and other attributes
 	dna.transfer_identity(O)
+	O.set_species(/datum/species/monkey)
 	O.updateappearance(icon_update=0)
 
 	if(tr_flags & TR_KEEPSE)

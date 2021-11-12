@@ -1,5 +1,5 @@
 /datum/species/oozeling
-	name = "Oozeling"
+	name = "\improper Oozeling"
 	id = SPECIES_OOZELING
 	bodyflag = FLAG_OOZELING
 	default_color = "00FF90"
