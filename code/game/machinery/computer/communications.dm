@@ -3,7 +3,6 @@
 
 #define STATE_BUYING_SHUTTLE "buying_shuttle"
 #define STATE_CHANGING_STATUS "changing_status"
-#define STATE_MAIN "main"
 #define STATE_MESSAGES "messages"
 
 // The communications computer
@@ -23,10 +22,10 @@
 	COOLDOWN_DECLARE(static/important_action_cooldown)
 
 	/// The current state of the UI
-	var/state = STATE_MAIN
+	var/state = STATE_MESSAGES
 
 	/// The current state of the UI for AIs
-	var/cyborg_state = STATE_MAIN
+	var/cyborg_state = STATE_MESSAGES
 
 	/// The name of the user who logged in
 	var/authorize_name
@@ -82,7 +81,7 @@
 	playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 
 /obj/machinery/computer/communications/ui_act(action, list/params)
-	var/static/list/approved_states = list(STATE_BUYING_SHUTTLE, STATE_CHANGING_STATUS, STATE_MAIN, STATE_MESSAGES)
+	var/static/list/approved_states = list(STATE_BUYING_SHUTTLE, STATE_CHANGING_STATUS, STATE_MESSAGES)
 	var/static/list/approved_status_pictures = list("biohazard", "blank", "default", "lockdown", "redalert", "shuttle")
 
 	. = ..()
@@ -210,7 +209,7 @@
 			message_admins("[ADMIN_LOOKUPFLW(usr)] purchased [shuttle.name].")
 			log_game("[key_name(usr)] has purchased [shuttle.name].")
 			SSblackbox.record_feedback("text", "shuttle_purchase", 1, shuttle.name)
-			state = STATE_MAIN
+			//state = STATE_MAIN
 			. = TRUE
 		if ("recallShuttle")
 			// AIs cannot recall the shuttle
@@ -297,7 +296,7 @@
 				authorize_access = null
 				authorize_name = null
 				playsound(src, 'sound/machines/terminal_off.ogg', 50, FALSE)
-				return
+				return TRUE
 
 			if (obj_flags & EMAGGED)
 				authenticated = TRUE
@@ -312,7 +311,7 @@
 					authorize_access = id_card.access
 					authorize_name = "[id_card.registered_name] - [id_card.assignment]"
 
-			state = STATE_MAIN
+			state = STATE_MESSAGES
 			playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
 			. = TRUE
 		if ("toggleEmergencyAccess")
@@ -347,48 +346,49 @@
 		if (obj_flags & EMAGGED)
 			data["emagged"] = TRUE
 
+		//Main section is always visible when authenticated
+		data["canBuyShuttles"] = can_buy_shuttles(user)
+		data["canMakeAnnouncement"] = FALSE
+		data["canMessageAssociates"] = FALSE
+		data["canRecallShuttles"] = !issilicon(user)
+		data["canRequestNuke"] = FALSE
+		data["canSendToSectors"] = FALSE
+		data["canSetAlertLevel"] = FALSE
+		data["canToggleEmergencyAccess"] = FALSE
+		data["importantActionReady"] = COOLDOWN_FINISHED(src, important_action_cooldown)
+		data["shuttleCalled"] = FALSE
+		data["shuttleLastCalled"] = FALSE
+
+		data["alertLevel"] = get_security_level()
+		data["authorizeName"] = authorize_name
+		data["canLogOut"] = !issilicon(user)
+		data["shuttleCanEvacOrFailReason"] = SSshuttle.canEvac(user)
+
+		if (authenticated_as_non_silicon_captain(user))
+			data["canMessageAssociates"] = TRUE
+			data["canRequestNuke"] = TRUE
+
+		if (can_send_messages_to_other_sectors(user))
+			data["canSendToSectors"] = TRUE
+
+		if (authenticated_as_silicon_or_captain(user))
+			data["canToggleEmergencyAccess"] = TRUE
+			data["emergencyAccess"] = GLOB.emergency_access
+
+			data["alertLevelTick"] = alert_level_tick
+			data["canMakeAnnouncement"] = TRUE
+			data["canSetAlertLevel"] = issilicon(user) ? "NO_SWIPE_NEEDED" : "SWIPE_NEEDED"
+
+		if (SSshuttle.emergency.mode != SHUTTLE_IDLE && SSshuttle.emergency.mode != SHUTTLE_RECALL)
+			data["shuttleCalled"] = TRUE
+			data["shuttleRecallable"] = SSshuttle.canRecall()
+
+		if (SSshuttle.emergencyCallAmount)
+			data["shuttleCalledPreviously"] = TRUE
+			if (SSshuttle.emergencyLastCallLoc)
+				data["shuttleLastCalled"] = format_text(SSshuttle.emergencyLastCallLoc.name)
+
 		switch (ui_state)
-			if (STATE_MAIN)
-				data["canBuyShuttles"] = can_buy_shuttles(user)
-				data["canMakeAnnouncement"] = FALSE
-				data["canMessageAssociates"] = FALSE
-				data["canRecallShuttles"] = !issilicon(user)
-				data["canRequestNuke"] = FALSE
-				data["canSendToSectors"] = FALSE
-				data["canSetAlertLevel"] = FALSE
-				data["canToggleEmergencyAccess"] = FALSE
-				data["importantActionReady"] = COOLDOWN_FINISHED(src, important_action_cooldown)
-				data["shuttleCalled"] = FALSE
-				data["shuttleLastCalled"] = FALSE
-
-				data["alertLevel"] = get_security_level()
-				data["authorizeName"] = authorize_name
-				data["canLogOut"] = !issilicon(user)
-				data["shuttleCanEvacOrFailReason"] = SSshuttle.canEvac(user)
-
-				if (authenticated_as_non_silicon_captain(user))
-					data["canMessageAssociates"] = TRUE
-					data["canRequestNuke"] = TRUE
-
-				if (can_send_messages_to_other_sectors(user))
-					data["canSendToSectors"] = TRUE
-
-				if (authenticated_as_silicon_or_captain(user))
-					data["canToggleEmergencyAccess"] = TRUE
-					data["emergencyAccess"] = GLOB.emergency_access
-
-					data["alertLevelTick"] = alert_level_tick
-					data["canMakeAnnouncement"] = TRUE
-					data["canSetAlertLevel"] = issilicon(user) ? "NO_SWIPE_NEEDED" : "SWIPE_NEEDED"
-
-				if (SSshuttle.emergency.mode != SHUTTLE_IDLE && SSshuttle.emergency.mode != SHUTTLE_RECALL)
-					data["shuttleCalled"] = TRUE
-					data["shuttleRecallable"] = SSshuttle.canRecall()
-
-				if (SSshuttle.emergencyCallAmount)
-					data["shuttleCalledPreviously"] = TRUE
-					if (SSshuttle.emergencyLastCallLoc)
-						data["shuttleLastCalled"] = format_text(SSshuttle.emergencyLastCallLoc.name)
 			if (STATE_MESSAGES)
 				data["messages"] = list()
 
@@ -534,5 +534,4 @@
 #undef MAX_STATUS_LINE_LENGTH
 #undef STATE_BUYING_SHUTTLE
 #undef STATE_CHANGING_STATUS
-#undef STATE_MAIN
 #undef STATE_MESSAGES

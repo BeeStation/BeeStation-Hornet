@@ -1,12 +1,11 @@
 import { sortBy } from "common/collections";
 import { capitalize } from "common/string";
 import { useBackend, useLocalState } from "../backend";
-import { Blink, Box, Button, Dimmer, Flex, Icon, Input, Modal, Section, TextArea } from "../components";
+import { Blink, Box, Button, Dimmer, Flex, Icon, Input, Modal, Section, TextArea, Stack, Divider, Tabs } from "../components";
 import { Window } from "../layouts";
 
 const STATE_BUYING_SHUTTLE = "buying_shuttle";
 const STATE_CHANGING_STATUS = "changing_status";
-const STATE_MAIN = "main";
 const STATE_MESSAGES = "messages";
 
 // Used for whether or not you need to swipe to confirm an alert level change
@@ -54,16 +53,15 @@ const MessageModal = (props, context) => {
 
   return (
     <Modal>
-      <Flex direction="column">
-        <Flex.Item fontSize="16px" maxWidth="90vw" mb={1}>
+      <Stack vertical position="relative">
+        <Stack.Item fontSize="16px" maxWidth="90vw">
           {props.label}:
-        </Flex.Item>
+        </Stack.Item>
 
-        <Flex.Item mr={2} mb={1}>
+        <Stack.Item>
           <TextArea
             fluid
             height="20vh"
-            width="80vw"
             backgroundColor="black"
             textColor="white"
             onInput={(_, value) => {
@@ -71,9 +69,9 @@ const MessageModal = (props, context) => {
             }}
             value={input}
           />
-        </Flex.Item>
+        </Stack.Item>
 
-        <Flex.Item>
+        <Stack.Item>
           <Button
             icon={props.icon}
             content={props.buttonText}
@@ -95,12 +93,12 @@ const MessageModal = (props, context) => {
             color="bad"
             onClick={props.onBack}
           />
-        </Flex.Item>
+        </Stack.Item>
 
         {!!props.notice && (
-          <Flex.Item maxWidth="90vw">{props.notice}</Flex.Item>
+          <Stack.Item maxWidth="90vw">{props.notice}</Stack.Item>
         )}
-      </Flex>
+      </Stack>
     </Modal>
   );
 };
@@ -143,55 +141,56 @@ const PageBuyingShuttle = (props, context) => {
   const { act, data } = useBackend(context);
 
   return (
-    <Box>
-      <Section>
-        <Button
-          icon="chevron-left"
-          content="Back"
-          onClick={() => act("setState", { state: STATE_MAIN })}
-        />
-      </Section>
-
-      <Section>
-        Budget: <b>{data.budget.toLocaleString()}</b> credits
-      </Section>
-
-      {sortByCreditCost(data.shuttles).map(shuttle => (
-        <Section
-          title={(
-            <span
-              style={{
-                display: "inline-block",
-                width: "70%",
-              }}>
-              {shuttle.name}
-            </span>
-          )}
-          key={shuttle.ref}
-          buttons={(
-            <Button
-              content={`${shuttle.creditCost.toLocaleString()} credits`}
-              disabled={data.budget < shuttle.creditCost}
-              onClick={() => act("purchaseShuttle", {
-                shuttle: shuttle.ref,
-              })}
-              tooltip={
-                data.budget < shuttle.creditCost
-                  ? `You need ${shuttle.creditCost - data.budget} more credits.`
-                  : undefined
-              }
-              tooltipPosition="left"
-            />
-          )}>
-          <Box>{shuttle.description}</Box>
-          {
-            shuttle.prerequisites
-              ? <b>Prerequisites: {shuttle.prerequisites}</b>
-              : null
-          }
+    <Stack vertical fill>
+      <Stack.Item>
+        <Section>
+          Budget: <b>{data.budget.toLocaleString()}</b> credits
         </Section>
-      ))}
-    </Box>
+      </Stack.Item>
+
+      <Stack.Item grow>
+        <Section fill scrollable>
+          <Stack vertical>
+            {sortByCreditCost(data.shuttles).slice(0, 6).map(shuttle => (
+              <Stack.Item key={shuttle.ref}>
+                <Section
+                  title={(
+                    <span
+                      style={{
+                        display: "inline-block",
+                        width: "70%",
+                      }}>
+                      {shuttle.name}
+                    </span>
+                  )}
+                  buttons={(
+                    <Button
+                      content={`${shuttle.creditCost.toLocaleString()} credits`}
+                      disabled={data.budget < shuttle.creditCost}
+                      onClick={() => act("purchaseShuttle", {
+                        shuttle: shuttle.ref,
+                      })}
+                      tooltip={
+                        data.budget < shuttle.creditCost
+                          ? `You need ${shuttle.creditCost - data.budget} more credits.`
+                          : undefined
+                      }
+                      tooltipPosition="left"
+                    />
+                  )}>
+                  <Box textAlign="justify">{shuttle.description}</Box>
+                  {
+                    shuttle.prerequisites
+                      ? <b>Prerequisites: {shuttle.prerequisites}</b>
+                      : null
+                  }
+                </Section>
+              </Stack.Item>
+            ))}
+          </Stack>
+        </Section>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -204,14 +203,6 @@ const PageChangingStatus = (props, context) => {
 
   return (
     <Box>
-      <Section>
-        <Button
-          icon="chevron-left"
-          content="Back"
-          onClick={() => act("setState", { state: STATE_MAIN })}
-        />
-      </Section>
-
       <Section>
         <Flex direction="column">
           <Flex.Item>
@@ -315,6 +306,7 @@ const PageMain = (props, context) => {
     shuttleCanEvacOrFailReason,
     shuttleLastCalled,
     shuttleRecallable,
+    page,
   } = data;
 
   const [callingShuttle, setCallingShuttle] = useLocalState(
@@ -406,6 +398,34 @@ const PageMain = (props, context) => {
         </Section>
       )}
 
+      <Section title="Menus">
+        <Tabs vertical>
+          <Tabs.Tab fluid
+            icon="desktop"
+            selected={page===STATE_CHANGING_STATUS}
+            onClick={() => act("setState", { state: STATE_CHANGING_STATUS })}
+          >Set Status Display</Tabs.Tab>
+
+          <Tabs.Tab fluid
+            icon="envelope-o"
+            selected={page===STATE_MESSAGES}
+            onClick={() => act("setState", { state: STATE_MESSAGES })}
+          >Message List</Tabs.Tab>
+
+          {(canBuyShuttles !== 0) && (
+            <Tabs.Tab fluid
+              icon="shopping-cart"
+              selected={page===STATE_BUYING_SHUTTLE}
+              onClick={() => act("setState", { state: STATE_BUYING_SHUTTLE })}
+              disabled={canBuyShuttles !== 1}
+              tooltip={canBuyShuttles !== 1 ? canBuyShuttles : undefined}
+              tooltipPosition="right"
+            >Purchase Shuttle</Tabs.Tab>
+          )}
+
+        </Tabs>
+      </Section>
+
       <Section title="Functions">
         <Flex
           direction="column">
@@ -426,37 +446,6 @@ const PageMain = (props, context) => {
                 content={`${emergencyAccess ? "Disable" : "Enable"} Emergency Maintenance Access`}
                 color={emergencyAccess ? "bad" : undefined}
                 onClick={() => act("toggleEmergencyAccess")}
-              />
-            </Flex.Item>
-          )}
-
-          <Flex.Item mt={0.3}>
-            <Button fluid
-              icon="desktop"
-              content="Set Status Display"
-              onClick={() => act("setState", { state: STATE_CHANGING_STATUS })}
-            />
-          </Flex.Item>
-
-          <Flex.Item mt={0.3}>
-            <Button fluid
-              icon="envelope-o"
-              content="Message List"
-              onClick={() => act("setState", { state: STATE_MESSAGES })}
-            />
-          </Flex.Item>
-
-          {(canBuyShuttles !== 0) && (
-            <Flex.Item mt={0.3}>
-              <Button fluid
-                icon="shopping-cart"
-                content="Purchase Shuttle"
-                disabled={canBuyShuttles !== 1}
-                // canBuyShuttles is a string detailing the fail reason
-                // if one can be given
-                tooltip={canBuyShuttles !== 1 ? canBuyShuttles : undefined}
-                tooltipPosition="right"
-                onClick={() => act("setState", { state: STATE_BUYING_SHUTTLE })}
               />
             </Flex.Item>
           )}
@@ -491,6 +480,17 @@ const PageMain = (props, context) => {
                 onClick={() => act("restoreBackupRoutingData")}
               />
             </Flex.Item>
+          )}
+
+          {!canMakeAnnouncement
+            && !canToggleEmergencyAccess
+            && !canMessageAssociates
+            && !canRequestNuke
+            && !emagged
+            && (
+              <Flex.Item>
+                No functions available
+              </Flex.Item>
           )}
         </Flex>
       </Section>
@@ -615,14 +615,7 @@ const PageMessages = (props, context) => {
   const messages = data.messages || [];
 
   return (
-    <>
-      <Section>
-        <Button
-          icon="chevron-left"
-          content="Back"
-          onClick={() => act("setState", { state: STATE_MAIN })}
-        />
-      </Section>
+    <Section fill scrollable title="Messages">
       {
         messages.map((message, messageIndex) => {
           let answers = null;
@@ -666,7 +659,7 @@ const PageMessages = (props, context) => {
           );
         }).reverse()
       }
-    </>
+    </Section>
   );
 };
 
@@ -683,32 +676,44 @@ export const CommunicationsConsole = (props, context) => {
 
   return (
     <Window
-      width={400}
-      height={650}
+      width={800}
+      height={550}
       theme={emagged ? "syndicate" : undefined}>
-      <Window.Content scrollable>
+      <Window.Content>
         {!hasConnection && <NoConnectionModal />}
 
-        {(canLogOut || !authenticated)
-          ? (
-            <Section title="Authentication">
-              <Button
-                icon={authenticated ? "sign-out-alt" : "sign-in-alt"}
-                content={authenticated ? `Log Out${authorizeName ? ` (${authorizeName})` : ""}` : "Log In"}
-                color={authenticated ? "bad" : "good"}
-                onClick={() => act("toggleAuthentication")}
-              />
-            </Section>
-          )
-          : null}
+        <Stack fill>
+          <Stack.Item width="40%">
+            {(canLogOut || !authenticated)
+              ? (
+                <Section title="Authentication">
+                  <Button
+                    icon={authenticated ? "sign-out-alt" : "sign-in-alt"}
+                    content={authenticated ? `Log Out${authorizeName ? ` (${authorizeName})` : ""}` : "Log In"}
+                    color={authenticated ? "bad" : "good"}
+                    onClick={() => act("toggleAuthentication")}
+                  />
+                </Section>
+              )
+              : null}
 
-        {!!authenticated && (
-          page === STATE_BUYING_SHUTTLE && <PageBuyingShuttle />
-          || page === STATE_CHANGING_STATUS && <PageChangingStatus />
-          || page === STATE_MAIN && <PageMain />
-          || page === STATE_MESSAGES && <PageMessages />
-          || <Box>Page not implemented: {page}</Box>
-        )}
+            {!!authenticated && <PageMain />}
+          </Stack.Item>
+          <Stack.Item width="60%">
+            <Stack vertical fill>
+              <Stack.Item>
+              </Stack.Item>
+              <Stack.Item grow>
+                {!!authenticated && (
+                  page === STATE_BUYING_SHUTTLE && <PageBuyingShuttle />
+                  || page === STATE_CHANGING_STATUS && <PageChangingStatus />
+                  || page === STATE_MESSAGES && <PageMessages />
+                  || <Box>Page not implemented: {page}</Box>
+                )}
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
