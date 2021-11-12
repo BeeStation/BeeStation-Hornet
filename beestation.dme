@@ -1029,6 +1029,7 @@
 #include "code\game\objects\items\hot_potato.dm"
 #include "code\game\objects\items\hourglass.dm"
 #include "code\game\objects\items\inducer.dm"
+#include "code\game\objects\items\item_arms.dm"
 #include "code\game\objects\items\kitchen.dm"
 #include "code\game\objects\items\latexballoon.dm"
 #include "code\game\objects\items\manuals.dm"

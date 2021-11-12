@@ -690,6 +690,17 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
+/datum/techweb_node/shock_arm
+	id = "shock_arm"
+	tech_tier = 5
+	display_name = "Shock Arm"
+	description = "High voltage prosthetic arm for security personnel"
+	prereq_ids = list("cyber_implants","weaponry","high_efficiency")
+	design_ids = list("shock_arm")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+	hidden = TRUE
+
 /datum/techweb_node/combat_cyber_implants
 	id = "combat_cyber_implants"
 	tech_tier = 5

@@ -422,3 +422,13 @@
 	build_path = /obj/item/flashbulb
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/shock_arm
+	name = "Shock Arm"
+	desc = "Powerfull prosthesis which can lock onto targets and incapiciate them with electric shocks"
+	id = "shock_arm"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/titanium = 8000, /datum/material/copper = 6000, /datum/material/gold = 4000, /datum/material/silver = 2000, /datum/material/uranium = 2000)
+	build_path = /obj/item/shock_arm_unattached
+	category = list("Weapons")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
