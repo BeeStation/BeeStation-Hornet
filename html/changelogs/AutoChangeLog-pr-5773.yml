@@ -1,0 +1,4 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - bugfix: Clicking things with a biobag now works correctly.
