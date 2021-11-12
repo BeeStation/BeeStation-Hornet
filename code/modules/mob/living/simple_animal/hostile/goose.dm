@@ -164,7 +164,7 @@
 	 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, src, SOUTH),
 	 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, src, WEST),
 	 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, src, EAST),
-	 "vomit" = CALLBACK(src, .proc/vomit_prestart, 25)), 12 SECONDS, 4 SECONDS)
+	 "vomit" = CALLBACK(src, .proc/vomit_prestart, 25)), 20)
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/eat()
 	var/turf/currentTurf = get_turf(src)

@@ -25,6 +25,10 @@
 	display_order = JOB_DISPLAY_ORDER_STATION_ENGINEER
 	departments = DEPARTMENT_ENGINEERING
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/engineering
+	)
+
 /datum/outfit/job/engineer
 	name = "Station Engineer"
 	jobtype = /datum/job/engineer
