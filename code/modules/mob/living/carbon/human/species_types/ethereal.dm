@@ -56,6 +56,12 @@
 		RegisterSignal(C, COMSIG_ATOM_EMAG_ACT, .proc/on_emag_act)
 		RegisterSignal(C, COMSIG_ATOM_EMP_ACT, .proc/on_emp_act)
 
+	//The following code is literally only to make admin-spawned ethereals not be black.
+	C.dna.features["mcolor"] = C.dna.features["ethcolor"] //Ethcolor and Mut color are both dogshit and will be replaced
+	for(var/obj/item/bodypart/BP in C.bodyparts)
+		if(BP.limb_id == SPECIES_ETHEREAL)
+			BP.update_limb(is_creating = TRUE)
+
 /datum/species/ethereal/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	.=..()
 	C.set_light(0)
