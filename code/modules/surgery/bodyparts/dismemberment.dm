@@ -319,7 +319,6 @@
 	C.updatehealth()
 	C.update_body()
 	C.update_hair()
-	C.update_damage_overlays()
 	C.update_mobility()
 
 

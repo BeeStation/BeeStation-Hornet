@@ -216,6 +216,7 @@
 
 /mob/living/carbon/proc/update_body_parts(var/update_limb_data)
 	//Check the cache to see if it needs a new sprite
+	update_damage_overlays()
 	var/list/needs_update = list()
 	var/limb_count_update = FALSE
 	for(var/obj/item/bodypart/BP in bodyparts)
@@ -251,7 +252,7 @@
 		overlays_standing[BODYPARTS_LAYER] = new_limbs
 
 	apply_overlay(BODYPARTS_LAYER)
-	update_damage_overlays()
+
 
 ///The Icon Render Key system. This generates and stores icons with keys to reduce the number of items bodypart icons are built.
 /mob/living/carbon/proc/generate_icon_key(obj/item/bodypart/BP)
