@@ -966,3 +966,27 @@
 				/obj/item/clothing/gloves/color/yellow = 1)
 
 	category = CAT_CLOTHING
+
+/datum/crafting_recipe/zip_pistol
+	name = "Zip Pistol"
+	result = /obj/item/gun/ballistic/automatic/zip_pistol
+	reqs = list(/obj/item/stack/rods = 4,
+			/obj/item/pipe = 1,
+			/obj/item/stack/cable_coil = 15,
+			/obj/item/weaponcrafting/receiver = 1,
+			/obj/item/airlock_painter = 1,
+			/obj/item/stack/packageWrap = 10)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 100
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/scrap_armor
+	name = "Scrap Armor"
+	result = /obj/item/clothing/suit/armor/vest/scrap_armor
+	time = 60
+	reqs = list(
+		/obj/item/stack/sheet/iron = 10,
+		/obj/item/stack/cable_coil = 20,
+	)
+	category = CAT_CLOTHING
