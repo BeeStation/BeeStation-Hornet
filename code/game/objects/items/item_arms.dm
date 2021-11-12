@@ -65,7 +65,7 @@
 		is_shocking = FALSE
 		STOP_PROCESSING(SSobj, src)
 
-obj/item/item_arm/shock_arm/attack_self(mob/user)
+/obj/item/item_arm/shock_arm/attack_self(mob/user)
 	is_shocking = TRUE
 	STOP_PROCESSING(SSobj, src)
 
