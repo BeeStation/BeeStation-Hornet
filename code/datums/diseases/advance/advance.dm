@@ -151,16 +151,17 @@
 	for(var/datum/symptom/S as() in symptoms)
 		A.symptoms += S.Copy()
 	A.dormant = dormant
+	A.mutable = mutable
+	A.initial = initial
+	A.faltered = faltered
 	A.resistance = resistance
 	A.stealth = stealth
 	A.stage_rate = stage_rate
 	A.transmission = transmission
 	A.severity = severity
 	A.speed = speed
-	A.id = id
 	A.keepid = keepid
-	A.mutable = mutable
-	A.faltered = faltered
+	A.id = id
 	//this is a new disease starting over at stage 1, so processing is not copied
 	return A
 
@@ -563,7 +564,7 @@
 				//the immutability of resistant diseases discourages this with hard-to-cure diseases.
 				//if players intentionally grief/cant seem to get biohazard protocol down, this can be changed to not use severity. 
 	else
-		A.initial = FALSE //diseases *only* mutate when spreading. they wont mutate from any other kind of injection	*/	
+		A.initial = FALSE //diseases *only* mutate when spreading. they wont mutate from any other kind of injection
 	infectee.diseases += A
 	A.affected_mob = infectee
 	SSdisease.active_diseases += A //Add it to the active diseases list, now that it's actually in a mob and being processed.

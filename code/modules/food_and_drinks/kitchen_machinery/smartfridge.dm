@@ -447,10 +447,11 @@
 			return
 		O.applyOrganDamage(-repair_rate * delta_time)
 
-/obj/machinery/smartfridge/organ/Exited(obj/item/organ/AM, atom/newLoc)
+/obj/machinery/smartfridge/organ/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(istype(AM))
-		AM.organ_flags &= ~ORGAN_FROZEN
+	if(istype(gone))
+		var/obj/item/organ/organ = gone
+		organ.organ_flags &= ~ORGAN_FROZEN
 
 // -----------------------------
 // Chemistry Medical Smartfridge
