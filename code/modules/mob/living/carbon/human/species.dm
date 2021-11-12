@@ -300,7 +300,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				BP.species_color = fixed_mut_color
 			else
 				BP.should_draw_greyscale = FALSE
-			BP.render_like_organic = TRUE
 			BP.is_dimorphic = FALSE
 			BP.update_limb()
 		return

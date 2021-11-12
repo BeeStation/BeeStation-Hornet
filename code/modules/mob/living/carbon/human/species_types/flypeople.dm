@@ -40,15 +40,6 @@
 		return TRUE
 	return ..()
 
-// Change body types
-/datum/species/fly/on_species_gain(mob/living/carbon/C)
-	. = ..()
-	for(var/obj/item/bodypart/O in C.bodyparts)
-		O.render_like_organic = TRUE // Makes limbs render like organic limbs instead of augmented limbs, check bodyparts.dm
-		var/species = C.dna.features["insect_type"]
-		var/datum/sprite_accessory/insect_type/player_species = GLOB.insect_type_list[species]
-		C.dna.species.limbs_id = player_species.limbs_id
-
 /datum/species/fly/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter))
 		return 29 //Flyswatters deal 30x damage to flypeople.
