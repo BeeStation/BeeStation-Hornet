@@ -155,6 +155,11 @@
 	. = ..()
 	decayedRange = range
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/projectile/proc/Range()
 	range--
 	if(range <= 0 && loc)
@@ -523,13 +528,6 @@
 				break
 
 /**
- * Projectile crossed: When something enters a projectile's tile, make sure the projectile hits it if it should be hitting it.
- */
-/obj/item/projectile/Crossed(atom/movable/AM)
-	. = ..()
-	scan_crossed_hit(AM)
-
-/**
  * Projectile can pass through
  * Used to not even attempt to Bump() or fail to Cross() anything we already hit.
  */
@@ -855,6 +853,11 @@
 		var/oy = round(screenviewY/2) - user.client.pixel_y //"origin" y
 		angle = ATAN2(y - oy, x - ox)
 	return list(angle, p_x, p_y)
+
+/obj/item/projectile/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
+	scan_crossed_hit(AM)
 
 /obj/item/projectile/Destroy()
 	if(hitscan)

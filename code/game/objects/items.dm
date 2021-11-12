@@ -288,8 +288,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return
 
 	var/turf/T = loc
-	loc = null
-	loc = T
+	abstract_move(null)
+	forceMove(T)
 
 /obj/item/examine(mob/user) //This might be spammy. Remove?
 	. = ..()
@@ -589,7 +589,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(item_flags & DROPDEL)
 		qdel(src)
 	item_flags &= ~IN_INVENTORY
-	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
+	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
 	if(item_flags & SLOWS_WHILE_IN_HAND)
 		user.update_equipment_speed_mods()
 	remove_outline()
