@@ -17,7 +17,7 @@
 	var/list/bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ORGANIC) //List of bodytypes flags, important for fitting clothing.
 	var/change_exempt_flags //Defines when a bodypart should not be changed. Example: CHANGE_SPECIES prevents the limb from being overwritten on species gain
 
-	var/is_husked = FALSE
+	var/is_husked = FALSE //Duh
 	var/limb_id = SPECIES_HUMAN //This is effectively the icon_state for limbs.
 	var/limb_gender //Defines what sprite the limb should use if it is also sexually dimorphic.
 	var/uses_mutcolor = FALSE
