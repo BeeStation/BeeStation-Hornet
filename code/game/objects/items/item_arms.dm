@@ -42,13 +42,11 @@
 	var/shock_stamina = 15
 	var/mob/living/shock_target
 	var/mob/living/shock_instigator
-	var/is_shocking = TRUE
 
 /obj/item/item_arm/shock_arm/attack(mob/living/target, mob/living/user)
 	. = ..()
 	if(!ishuman(target))
 		return
-	is_shocking = TRUE
 	shock_target = target
 	shock_instigator = user
 	START_PROCESSING(SSobj, src)
@@ -62,11 +60,9 @@
 		shock_target.electrocute_act(0, shock_instigator, 1, FALSE, FALSE, FALSE, FALSE, FALSE)
 		playsound(src, 'sound/weapons/zapbang.ogg', 50)
 	else
-		is_shocking = FALSE
 		STOP_PROCESSING(SSobj, src)
 
 obj/item/item_arm/shock_arm/attack_self(mob/user)
-	is_shocking = TRUE
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/item_arm/mounted_chainsaw
