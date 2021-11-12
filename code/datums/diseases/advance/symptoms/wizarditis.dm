@@ -102,7 +102,7 @@
 /datum/symptom/wizarditis/proc/teleport(datum/disease/advance/A)
 	var/turf/L = get_safe_random_station_turfs()
 	A.affected_mob.say("SCYAR NILA!")
-	do_teleport(A.affected_mob, L, forceMove = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
+	do_teleport(A.affected_mob, L, channel = TELEPORT_CHANNEL_MAGIC)
 	playsound(get_turf(A.affected_mob), 'sound/weapons/zapbang.ogg', 50,1)
 
 /datum/symptom/wizarditis/End(datum/disease/advance/A)

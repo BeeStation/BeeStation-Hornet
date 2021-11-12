@@ -15078,7 +15078,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/button/door{
-	id = "armourydoors";
+	id = "armorydoors";
 	name = "Xenobiology Containment Cell Lockdown";
 	pixel_x = -28;
 	pixel_y = 28;
@@ -26156,7 +26156,7 @@
 	},
 /obj/effect/turf_decal/tile/red,
 /obj/machinery/button/door{
-	id = "armourydoors";
+	id = "armorydoors";
 	name = "Armory Blast Doors";
 	pixel_x = -28;
 	pixel_y = 28;
@@ -27355,9 +27355,6 @@
 /obj/machinery/door/airlock/research{
 	name = "Experimentation Lab";
 	req_access_txt = "8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -36241,7 +36238,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/door/poddoor/preopen{
-	id = "armourydoors";
+	id = "armorydoors";
 	name = "Blast Doors"
 	},
 /obj/machinery/door/firedoor,
@@ -43243,7 +43240,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/button/door{
-	id = "armourydoors";
+	id = "armorydoors";
 	name = "Armory Blast Doors";
 	pixel_x = 26;
 	pixel_y = -26;
@@ -55926,7 +55923,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/door/poddoor/preopen{
-	id = "armourydoors";
+	id = "armorydoors";
 	name = "Blast Doors"
 	},
 /obj/machinery/door/firedoor,
