@@ -75,8 +75,10 @@
 	var/light_burn_msg = "numb"
 	var/medium_burn_msg = "blistered"
 	var/heavy_burn_msg = "peeling away"
+
 /obj/item/bodypart/Initialize()
 	..()
+	name = "[limb_id] [parse_zone(body_zone)]"
 	update_icon_dropped()
 
 /obj/item/bodypart/examine(mob/user)

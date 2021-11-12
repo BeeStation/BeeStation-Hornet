@@ -629,21 +629,6 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/abductor
 	taste_description = "something out of this world... no, universe!"
-
-/datum/reagent/mutationtoxin/android
-	name = "Android Mutation Toxin"
-	description = "A robotic toxin."
-	color = "#5EFF3B" //RGB: 94, 255, 59
-	race = /datum/species/android
-	taste_description = "circuitry and steel"
-
-/datum/reagent/mutationtoxin/ipc
-	name = "IPC Mutation Toxin"
-	description = "An integrated positronic toxin."
-	color = "#5EFF3B" //RGB: 94, 255, 59
-	race = /datum/species/ipc
-	taste_description = "silicon and copper"
-
 /datum/reagent/mutationtoxin/ethereal
 	name = "Ethereal Mutation Toxin"
 	description = "A positively electric toxin."
@@ -687,16 +672,6 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/lizard/ashwalker
 	taste_description = "savagery"
-
-/datum/reagent/mutationtoxin/supersoldier
-	name = "Super Soldier Toxin"
-	description = "A flesh-sculpting toxin."
-	color = "#5EFF3B" //RGB: 94, 255, 59
-	race = /datum/species/human/supersoldier
-	taste_description = "adminbuse"
-	can_synth = FALSE
-	random_unrestricted = FALSE
-
 
 
 //DANGEROUS RACES

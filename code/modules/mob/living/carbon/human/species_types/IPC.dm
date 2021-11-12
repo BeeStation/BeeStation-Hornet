@@ -207,4 +207,5 @@
 			BP.species_color = C.dna?.features["mcolor"]
 
 		BP.limb_id = chassis_of_choice.limbs_id
+		BP.name = "[chassis_of_choice.limbs_id] [parse_zone(BP.body_zone)]"
 		BP.update_limb()
