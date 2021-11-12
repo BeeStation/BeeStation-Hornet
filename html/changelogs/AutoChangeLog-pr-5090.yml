@@ -1,0 +1,6 @@
+author: MNarath1, JustANormalHooman
+delete-after: true
+changes:
+  - tweak: Reproductive extracts are now on the lower item layer
+  - bugfix: you can feed reproductive extracts with the biobag again
+  - refactor: refractors reproductive extract and biobag interaction
