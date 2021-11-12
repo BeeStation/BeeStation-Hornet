@@ -50,10 +50,8 @@
 
 /obj/machinery/igniter/attackby(obj/item/I, mob/living/user, params)
 
-	if(is_wire_tool(I) && panel_open)
-		wires.interact(user)
-		return
 	if(default_deconstruction_screwdriver(user, "igniter_o", "igniter[on]", I))
+		on = FALSE
 		return
 	if(default_deconstruction_crowbar(I))
 		return
