@@ -38,7 +38,7 @@
 	var/canDispose = FALSE // Whether the borg can stuff itself into disposal
 
 	var/list/borg_skins
-	var/animated_transform = FALSE
+	var/animated_transform
 
 /obj/item/robot_module/Initialize()
 	. = ..()
@@ -216,20 +216,13 @@
 		if(!borg_skin)
 			return FALSE
 		var/list/details = borg_skins[borg_skin]
-		if(!isnull(details[SKIN_ICON_STATE]))
-			cyborg_base_icon = details[SKIN_ICON_STATE]
-		if(!isnull(details[SKIN_ICON]))
-			R.icon = details[SKIN_ICON]
-		if(!isnull(details[SKIN_PIXEL_X]))
-			R.pixel_x = details[SKIN_PIXEL_X]
-		if(!isnull(details[SKIN_PIXEL_Y]))
-			R.pixel_y = details[SKIN_PIXEL_Y]
-		if(!isnull(details[SKIN_LIGHT_KEY]))
-			special_light_key = details[SKIN_LIGHT_KEY]
-		if(!isnull(details[SKIN_HAT_OFFSET]))
-			hat_offset = details[SKIN_HAT_OFFSET]
-		if(!isnull(details[SKIN_TRANSFORM]))
-			animated_transform = details[SKIN_TRANSFORM]
+		cyborg_base_icon = details[SKIN_ICON_STATE] || cyborg_base_icon
+		R.icon = details[SKIN_ICON] || R.icon
+		R.pixel_x = details[SKIN_PIXEL_X] || R.pixel_x
+		R.pixel_y = details[SKIN_PIXEL_Y] || R.pixel_y
+		special_light_key = details[SKIN_LIGHT_KEY] || special_light_key
+		hat_offset = details[SKIN_HAT_OFFSET] || hat_offset
+		animated_transform = details[SKIN_TRANSFORM] || animated_transform
 	for(var/i in old_module.added_modules)
 		added_modules += i
 		old_module.added_modules -= i
@@ -642,14 +635,13 @@
 		/obj/item/clockwork/replica_fabricator)
 	moduleselect_icon = "service"
 	cyborg_base_icon = "service_m" // display as butlerborg for radial model selection
-	special_light_key = "service"
 	hat_offset = 0
 	borg_skins = list(
-		"Waitress" = list(SKIN_ICON_STATE = "service_f", SKIN_TRANSFORM = TRUE),
-		"Butler" = list(SKIN_ICON_STATE = "service_m", SKIN_TRANSFORM = TRUE),
-		"Bro" = list(SKIN_ICON_STATE = "brobot", SKIN_TRANSFORM = TRUE),
+		"Waitress" = list(SKIN_ICON_STATE = "service_f", SKIN_LIGHT_KEY = "service", SKIN_TRANSFORM = TRUE),
+		"Butler" = list(SKIN_ICON_STATE = "service_m", SKIN_LIGHT_KEY = "service", SKIN_TRANSFORM = TRUE),
+		"Bro" = list(SKIN_ICON_STATE = "brobot", SKIN_LIGHT_KEY = "service", SKIN_TRANSFORM = TRUE),
 		"Kent" = list(SKIN_ICON_STATE = "kent", SKIN_LIGHT_KEY = "medical", SKIN_HAT_OFFSET = 3, SKIN_TRANSFORM = TRUE),
-		"Tophat" = list(SKIN_ICON_STATE = "tophat", SKIN_LIGHT_KEY = null, SKIN_HAT_OFFSET = INFINITY, SKIN_TRANSFORM = TRUE),
+		"Tophat" = list(SKIN_ICON_STATE = "tophat", SKIN_HAT_OFFSET = INFINITY, SKIN_TRANSFORM = TRUE),
 		"Basic" = list(SKIN_ICON = 'icons/mob/robots_extra.dmi', SKIN_ICON_STATE = "robot_service", SKIN_LIGHT_KEY = "robot"),
 		"Drone" = list(SKIN_ICON = 'icons/mob/robots_extra.dmi', SKIN_ICON_STATE = "drone_service"),
 		"Heavy" = list(SKIN_ICON = 'icons/mob/robots_extra.dmi', SKIN_ICON_STATE = "heavy_service"),
