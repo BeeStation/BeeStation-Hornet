@@ -62,7 +62,7 @@
 	else
 		STOP_PROCESSING(SSobj, src)
 
-obj/item/item_arm/shock_arm/attack_self(mob/user)
+/obj/item/item_arm/shock_arm/attack_self(mob/user)
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/item_arm/mounted_chainsaw
