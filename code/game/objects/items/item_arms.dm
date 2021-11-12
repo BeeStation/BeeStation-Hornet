@@ -70,26 +70,26 @@ obj/item/item_arm/shock_arm/attack_self(mob/user)
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/item_arm/mounted_chainsaw
-    name = "mounted chainsaw template"
-    desc = "A chainsaw that has replaced your arm."
-    icon_state = "chainsaw_on"
-    item_state = "mounted_chainsaw"
-    lefthand_file = 'icons/mob/inhands/weapons/chainsaw_lefthand.dmi'
-    righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
-    block_upgrade_walk = 2
-    block_power = 20
-    block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
-    force = 24
-    attack_weight = 2
-    throwforce = 0
-    throw_range = 0
-    throw_speed = 0
-    sharpness = IS_SHARP
-    attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
-    hitsound = 'sound/weapons/chainsawhit.ogg'
-    tool_behaviour = TOOL_SAW
-    toolspeed = 1
-    droped_object = /obj/item/chainsaw
+	name = "mounted chainsaw template"
+	desc = "A chainsaw that has replaced your arm."
+	icon_state = "chainsaw_on"
+	item_state = "mounted_chainsaw"
+	lefthand_file = 'icons/mob/inhands/weapons/chainsaw_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
+	block_upgrade_walk = 2
+	block_power = 20
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	force = 24
+	attack_weight = 2
+	throwforce = 0
+	throw_range = 0
+	throw_speed = 0
+	sharpness = IS_SHARP
+	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
+	hitsound = 'sound/weapons/chainsawhit.ogg'
+	tool_behaviour = TOOL_SAW
+	toolspeed = 1
+	droped_object = /obj/item/chainsaw
 
 /obj/item/item_arm/mounted_chainsaw/normal
 	name = "mounted chainsaw"
