@@ -11,7 +11,7 @@
 	growthstages = 5
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy)
 	mutatelist = list(/obj/item/seeds/nettle/death)
-	reagents_add = list(/datum/reagent/toxin/acid = 0.5)
+	reagents_add = list(/datum/reagent/toxin/acid = 0.25)
 
 /obj/item/seeds/nettle/death
 	name = "pack of death-nettle seeds"
@@ -25,7 +25,7 @@
 	yield = 2
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy, /datum/plant_gene/trait/stinging)
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/toxin/acid/fluacid = 0.5, /datum/reagent/toxin/acid = 0.5)
+	reagents_add = list(/datum/reagent/toxin/acid/fluacid = 0.25)
 	rarity = 20
 
 /obj/item/reagent_containers/food/snacks/grown/nettle // "snack"
@@ -88,12 +88,13 @@
 	name = "deathnettle"
 	desc = "The <span class='danger'>glowing</span> nettle incites <span class='boldannounce'>rage</span> in you just from looking at it!"
 	icon_state = "deathnettle"
-	force = 30
-	throwforce = 15
+	force = 25
+	throwforce = 12
 
 /obj/item/reagent_containers/food/snacks/grown/nettle/death/add_juice()
 	..()
-	force = round((5 + seed.potency / 2.5), 1)
+	force = round((5 + seed.potency / 5), 1)
+	throwforce = round((2 + seed.potency / 10), 1)
 
 /obj/item/reagent_containers/food/snacks/grown/nettle/death/pickup(mob/living/carbon/user)
 	if(..())
@@ -101,15 +102,9 @@
 			user.Paralyze(100)
 			to_chat(user, "<span class='userdanger'>You are stunned by [src] as you try picking it up!</span>")
 
-/obj/item/reagent_containers/food/snacks/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
-	if(!..())
-		return
-	if(isliving(M))
-		to_chat(M, "<span class='danger'>You are stunned by the powerful acid of [src]!</span>")
-		log_combat(user, M, "attacked", src)
-
-		M.adjust_blurriness(force/7)
-		if(prob(20))
-			M.Unconscious(force / 0.3)
-			M.Paralyze(force / 0.75)
-		M.drop_all_held_items()
+/obj/item/reagent_containers/food/snacks/grown/nettle/death/attack(mob/living/M, mob/user)
+	if(!M.can_inject(user) && user.a_intent == INTENT_HARM)
+		to_chat(user, "<span class='warning'>The [src] harmlessly bounces off of [M]! They're protected from its needles!</span>")
+		return FALSE
+	else
+		return ..()
