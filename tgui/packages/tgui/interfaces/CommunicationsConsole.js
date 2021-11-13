@@ -1,7 +1,7 @@
 import { sortBy } from "common/collections";
 import { capitalize } from "common/string";
 import { useBackend, useLocalState } from "../backend";
-import { Blink, Box, Button, Dimmer, Flex, Icon, Input, Modal, Section, TextArea, Stack, Divider, Tabs } from "../components";
+import { Blink, Box, Button, Dimmer, Divider, Flex, Icon, Input, Modal, NoticeBox, Section, Stack, Tabs, TextArea } from "../components";
 import { Window } from "../layouts";
 
 const STATE_BUYING_SHUTTLE = "buying_shuttle";
@@ -139,58 +139,71 @@ const NoConnectionModal = () => {
 
 const PageBuyingShuttle = (props, context) => {
   const { act, data } = useBackend(context);
+  const {
+    canBuyShuttles,
+  } = data;
 
   return (
-    <Stack vertical fill>
-      <Stack.Item>
-        <Section>
-          Budget: <b>{data.budget.toLocaleString()}</b> credits
-        </Section>
-      </Stack.Item>
+    <>
+      {canBuyShuttles !== 1 && (
+        <Stack.Item>
+          <NoticeBox danger>
+            {canBuyShuttles}
+          </NoticeBox>
+        </Stack.Item>
+      )}
 
-      <Stack.Item grow>
-        <Section fill scrollable>
-          <Stack vertical>
-            {sortByCreditCost(data.shuttles).slice(0, 6).map(shuttle => (
-              <Stack.Item key={shuttle.ref}>
-                <Section
-                  title={(
-                    <span
-                      style={{
-                        display: "inline-block",
-                        width: "70%",
-                      }}>
-                      {shuttle.name}
-                    </span>
-                  )}
-                  buttons={(
-                    <Button
-                      content={`${shuttle.creditCost.toLocaleString()} credits`}
-                      disabled={data.budget < shuttle.creditCost}
-                      onClick={() => act("purchaseShuttle", {
-                        shuttle: shuttle.ref,
-                      })}
-                      tooltip={
-                        data.budget < shuttle.creditCost
-                          ? `You need ${shuttle.creditCost - data.budget} more credits.`
-                          : undefined
-                      }
-                      tooltipPosition="left"
-                    />
-                  )}>
-                  <Box textAlign="justify">{shuttle.description}</Box>
-                  {
-                    shuttle.prerequisites
-                      ? <b>Prerequisites: {shuttle.prerequisites}</b>
-                      : null
-                  }
-                </Section>
-              </Stack.Item>
-            ))}
-          </Stack>
-        </Section>
-      </Stack.Item>
-    </Stack>
+      <Stack vertical fill>
+        <Stack.Item>
+          <Section>
+            Budget: <b>{data.budget.toLocaleString()}</b> credits
+          </Section>
+        </Stack.Item>
+
+        <Stack.Item grow>
+          <Section fill scrollable>
+            <Stack vertical>
+              {sortByCreditCost(data.shuttles).slice(0, 6).map(shuttle => (
+                <Stack.Item key={shuttle.ref}>
+                  <Section
+                    title={(
+                      <span
+                        style={{
+                          display: "inline-block",
+                          width: "70%",
+                        }}>
+                        {shuttle.name}
+                      </span>
+                    )}
+                    buttons={(
+                      <Button
+                        content={`${shuttle.creditCost.toLocaleString()} credits`}
+                        disabled={!canBuyShuttles || data.budget < shuttle.creditCost}
+                        onClick={() => act("purchaseShuttle", {
+                          shuttle: shuttle.ref,
+                        })}
+                        tooltip={
+                          data.budget < shuttle.creditCost
+                            ? `You need ${shuttle.creditCost - data.budget} more credits.`
+                            : undefined
+                        }
+                        tooltipPosition="left"
+                      />
+                    )}>
+                    <Box textAlign="justify">{shuttle.description}</Box>
+                    {
+                      shuttle.prerequisites
+                        ? <b>Prerequisites: {shuttle.prerequisites}</b>
+                        : null
+                    }
+                  </Section>
+                </Stack.Item>
+              ))}
+            </Stack>
+          </Section>
+        </Stack.Item>
+      </Stack>
+    </>
   );
 };
 
@@ -398,34 +411,6 @@ const PageMain = (props, context) => {
         </Section>
       )}
 
-      <Section title="Menus">
-        <Tabs vertical>
-          <Tabs.Tab fluid
-            icon="desktop"
-            selected={page===STATE_CHANGING_STATUS}
-            onClick={() => act("setState", { state: STATE_CHANGING_STATUS })}
-          >Set Status Display</Tabs.Tab>
-
-          <Tabs.Tab fluid
-            icon="envelope-o"
-            selected={page===STATE_MESSAGES}
-            onClick={() => act("setState", { state: STATE_MESSAGES })}
-          >Message List</Tabs.Tab>
-
-          {(canBuyShuttles !== 0) && (
-            <Tabs.Tab fluid
-              icon="shopping-cart"
-              selected={page===STATE_BUYING_SHUTTLE}
-              onClick={() => act("setState", { state: STATE_BUYING_SHUTTLE })}
-              disabled={canBuyShuttles !== 1}
-              tooltip={canBuyShuttles !== 1 ? canBuyShuttles : undefined}
-              tooltipPosition="right"
-            >Purchase Shuttle</Tabs.Tab>
-          )}
-
-        </Tabs>
-      </Section>
-
       <Section title="Functions">
         <Flex
           direction="column">
@@ -491,7 +476,7 @@ const PageMain = (props, context) => {
               <Flex.Item>
                 No functions available
               </Flex.Item>
-          )}
+            )}
         </Flex>
       </Section>
 
@@ -672,6 +657,7 @@ export const CommunicationsConsole = (props, context) => {
     emagged,
     hasConnection,
     page,
+    canBuyShuttles,
   } = data;
 
   return (
@@ -680,40 +666,84 @@ export const CommunicationsConsole = (props, context) => {
       height={550}
       theme={emagged ? "syndicate" : undefined}>
       <Window.Content>
+        {authenticated ? (
+          <Stack fill>
+            <Stack.Item width="40%">
+              {(canLogOut || !authenticated)
+                ? (
+                  <Section title="Authentication">
+                    <Button
+                      icon={authenticated ? "sign-out-alt" : "sign-in-alt"}
+                      content={authenticated ? `Log Out${authorizeName ? ` (${authorizeName})` : ""}` : "Log In"}
+                      color={authenticated ? "bad" : "good"}
+                      onClick={() => act("toggleAuthentication")}
+                    />
+                  </Section>
+                )
+                : null}
+
+              {!!authenticated && <PageMain />}
+            </Stack.Item>
+            <Stack.Item width="60%">
+              <Stack vertical fill>
+                <Stack.Item>
+                  <Section title="Menus" fitted>
+                    <Tabs>
+                      <Tabs.Tab fluid
+                        icon="desktop"
+                        selected={page===STATE_CHANGING_STATUS}
+                        onClick={() => act("setState", { state: STATE_CHANGING_STATUS })}>Set Status Display
+                      </Tabs.Tab>
+
+                      <Tabs.Tab fluid
+                        icon="envelope-o"
+                        selected={page===STATE_MESSAGES}
+                        onClick={() => act("setState", { state: STATE_MESSAGES })}>Message List
+                      </Tabs.Tab>
+
+                      {(canBuyShuttles !== 0) && (
+                        <Tabs.Tab fluid
+                          icon="shopping-cart"
+                          selected={page===STATE_BUYING_SHUTTLE}
+                          onClick={() => act("setState", { state: STATE_BUYING_SHUTTLE })}
+                          disabled={canBuyShuttles !== 1}
+                          tooltip={canBuyShuttles !== 1 ? canBuyShuttles : undefined}
+                          tooltipPosition="right">Purchase Shuttle
+                        </Tabs.Tab>
+                      )}
+                    </Tabs>
+                  </Section>
+                </Stack.Item>
+                <Stack.Item grow position="relative">
+                  {!!authenticated && (
+                    page === STATE_BUYING_SHUTTLE && <PageBuyingShuttle />
+                    || page === STATE_CHANGING_STATUS && <PageChangingStatus />
+                    || page === STATE_MESSAGES && <PageMessages />
+                    || <Box>Page not implemented: {page}</Box>
+                  )}
+                </Stack.Item>
+              </Stack>
+            </Stack.Item>
+          </Stack>
+        ) : (
+          <Flex
+            height="100%"
+            width="100%"
+            justify="center"
+            align="center">
+            <Section title="Authentication">
+              <Button
+                icon="sign-in-alt"
+                content="Log In"
+                color="good"
+                onClick={() => act("toggleAuthentication")}
+                fluid
+              />
+            </Section>
+          </Flex>
+        )}
+
         {!hasConnection && <NoConnectionModal />}
-
-        <Stack fill>
-          <Stack.Item width="40%">
-            {(canLogOut || !authenticated)
-              ? (
-                <Section title="Authentication">
-                  <Button
-                    icon={authenticated ? "sign-out-alt" : "sign-in-alt"}
-                    content={authenticated ? `Log Out${authorizeName ? ` (${authorizeName})` : ""}` : "Log In"}
-                    color={authenticated ? "bad" : "good"}
-                    onClick={() => act("toggleAuthentication")}
-                  />
-                </Section>
-              )
-              : null}
-
-            {!!authenticated && <PageMain />}
-          </Stack.Item>
-          <Stack.Item width="60%">
-            <Stack vertical fill>
-              <Stack.Item>
-              </Stack.Item>
-              <Stack.Item grow>
-                {!!authenticated && (
-                  page === STATE_BUYING_SHUTTLE && <PageBuyingShuttle />
-                  || page === STATE_CHANGING_STATUS && <PageChangingStatus />
-                  || page === STATE_MESSAGES && <PageMessages />
-                  || <Box>Page not implemented: {page}</Box>
-                )}
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-        </Stack>
       </Window.Content>
     </Window>
   );
