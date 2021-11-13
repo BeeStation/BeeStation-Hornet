@@ -19,7 +19,7 @@
 /obj/machinery/door/poddoor/preopen
 	icon_state = "open"
 	density = FALSE
-	opacity = FALSE
+	opacity = 0
 
 /obj/machinery/door/poddoor/ert
 	name = "hardened blast door"
@@ -85,7 +85,7 @@
 	else
 		icon_state = "open"
 
-/obj/machinery/door/poddoor/try_to_activate_door(mob/user)
+/obj/machinery/door/poddoor/try_to_activate_door(obj/item/I, mob/user)
 	return
 
 /obj/machinery/door/poddoor/try_to_crowbar(obj/item/I, mob/user)

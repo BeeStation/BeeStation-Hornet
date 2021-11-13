@@ -88,6 +88,72 @@
 	else
 		return ..()
 
+//Fairygrass
+/obj/item/stack/tile/fairygrass
+	name = "fairygrass tile"
+	singular_name = "fairygrass floor tile"
+	desc = "A patch of odd, glowing blue grass."
+	icon_state = "tile_fairygrass"
+	item_state = "tile-fairygrass"
+	turf_type = /turf/open/floor/grass/fairy
+	resistance_flags = FLAMMABLE
+	color = "#33CCFF"
+
+/obj/item/stack/tile/fairygrass/white
+	name = "white fairygrass tile"
+	singular_name = "white fairygrass floor tile"
+	desc = "A patch of odd, glowing white grass."
+	turf_type = /turf/open/floor/grass/fairy/white
+	color = "#FFFFFF"
+
+/obj/item/stack/tile/fairygrass/red
+	name = "red fairygrass tile"
+	singular_name = "red fairygrass floor tile"
+	desc = "A patch of odd, glowing red grass."
+	turf_type = /turf/open/floor/grass/fairy/red
+	color = "#FF3333"
+
+/obj/item/stack/tile/fairygrass/yellow
+	name = "yellow fairygrass tile"
+	singular_name = "yellow fairygrass floor tile"
+	desc = "A patch of odd, glowing yellow grass."
+	turf_type = /turf/open/floor/grass/fairy/yellow
+	color = "#FFFF66"
+
+/obj/item/stack/tile/fairygrass/green
+	name = "green fairygrass tile"
+	singular_name = "green fairygrass floor tile"
+	desc = "A patch of odd, glowing green grass."
+	turf_type = /turf/open/floor/grass/fairy/green
+	color = "#99FF99"
+
+/obj/item/stack/tile/fairygrass/blue
+	name = "blue fairygrass tile"
+	singular_name = "blue fairygrass floor tile"
+	desc = "A patch of odd, glowing blue grass."
+	turf_type = /turf/open/floor/grass/fairy/blue
+
+/obj/item/stack/tile/fairygrass/purple
+	name = "purple fairygrass tile"
+	singular_name = "purple fairygrass floor tile"
+	desc = "A patch of odd, glowing purple grass."
+	turf_type = /turf/open/floor/grass/fairy/purple
+	color = "#D966FF"
+
+/obj/item/stack/tile/fairygrass/pink
+	name = "pink fairygrass tile"
+	singular_name = "pink fairygrass floor tile"
+	desc = "A patch of odd, glowing pink grass."
+	turf_type = /turf/open/floor/grass/fairy/pink
+	color = "#FFB3DA"
+	
+/obj/item/stack/tile/fairygrass/dark
+	name = "dark fairygrass tile"
+	singular_name = "dark fairygrass floor tile"
+	desc = "A patch of odd, light consuming grass."
+	turf_type = /turf/open/floor/grass/fairy/dark
+	color = "#410096"
+
 //Wood
 /obj/item/stack/tile/wood
 	name = "wood floor tile"

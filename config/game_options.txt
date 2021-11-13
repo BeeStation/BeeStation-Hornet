@@ -90,7 +90,7 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 ## GAME MODES ###
 
 #Set the Master (Default) Game Mode.
-MASTER_MODE secret_extended 
+MASTER_MODE secret_extended
 
 ## Uncomment to not send a roundstart intercept report. Gamemodes may override this.
 NO_INTERCEPT_REPORT
@@ -101,24 +101,24 @@ NO_INTERCEPT_REPORT
 
 PROBABILITY DYNAMIC 9
 PROBABILITY TRAITOR 8
-PROBABILITY SECRET_EXTENDED 7
 PROBABILITY CULT 6
-PROBABILITY HERESY 6
-PROBABILITY INTERNAL_AFFAIRS 6
 PROBABILITY TRAITORCHAN 5
 PROBABILITY CHANGELING 5
 PROBABILITY REVOLUTION 4
 PROBABILITY INCURSION 4
 PROBABILITY NUCLEAR 4
-PROBABILITY TRAITORBRO 3
 PROBABILITY CLOCKCULT 2
-PROBABILITY WIZARD 1
-PROBABILITY MONKEY 0
-PROBABILITY GANG 0
+PROBABILITY SECRET_EXTENDED 1
 PROBABILITY CLOWNOPS 0
-PROBABILITY METEOR 0
 PROBABILITY DEVIL 0
 PROBABILITY DEVIL_AGENTS 0
+PROBABILITY GANG 0
+PROBABILITY HERESY 0
+PROBABILITY INTERNAL_AFFAIRS 0
+PROBABILITY METEOR 0
+PROBABILITY MONKEY 0
+PROBABILITY TRAITORBRO 0
+PROBABILITY WIZARD 0
 
 ## Creates issues when NO_INTERCEPT_REPORT is enabled
 PROBABILITY EXTENDED 0
@@ -397,7 +397,7 @@ NEAR_DEATH_EXPERIENCE
 ## Set to 1 for "custom", silicons will start with the custom laws defined in silicon_laws.txt. (If silicon_laws.txt is empty, the AI will spawn with asimov and Custom boards will auto-delete.)
 ## Set to 2 for "random", silicons will start with a random lawset picked from random laws specified below.
 ## Set to 3 for "weighted random", using values in "silicon_weights.txt", a law will be selected, with weights specifed in that file.
-DEFAULT_LAWS 1
+DEFAULT_LAWS 2
 
 ## RANDOM LAWS ##
 ## ------------------------------------------------------------------------------------------
@@ -407,9 +407,9 @@ DEFAULT_LAWS 1
 ## standard-ish laws. These are fairly ok to run
 RANDOM_LAWS asimov
 RANDOM_LAWS asimovpp
-RANDOM_LAWS paladin
-RANDOM_LAWS robocop
+RANDOM_LAWS crewsimov
 RANDOM_LAWS corporate
+RANDOM_LAWS maintain
 
 ## Quirky laws. Shouldn't cause too much harm
 #RANDOM_LAWS hippocratic
@@ -419,6 +419,8 @@ RANDOM_LAWS corporate
 #RANDOM_LAWS peacekeeper
 #RANDOM_LAWS reporter
 #RANDOM_LAWS hulkamania
+#RANDOM_LAWS paladin
+#RANDOM_LAWS robocop
 
 ## Bad idea laws. Probably shouldn't enable these
 #RANDOM_LAWS syndie
@@ -476,38 +478,40 @@ SILICON_MAX_LAW_AMOUNT 12
 ROUNDSTART_RACES human
 
 ## Races that are strictly worse than humans that could probably be turned on without balance concerns
-ROUNDSTART_RACES lizard
-ROUNDSTART_RACES fly
-ROUNDSTART_RACES moth
 ROUNDSTART_RACES felinid
-ROUNDSTART_RACES squid
+ROUNDSTART_RACES lizard
+ROUNDSTART_RACES moth
+#ROUNDSTART_RACES fly
 
 
 ## Races that are better than humans in some ways, but worse in others
-ROUNDSTART_RACES ethereal
 ROUNDSTART_RACES apid
+ROUNDSTART_RACES ethereal
+ROUNDSTART_RACES ipc
 ROUNDSTART_RACES oozeling
-#ROUNDSTART_RACES jelly
-#ROUNDSTART_RACES shadow
 ROUNDSTART_RACES plasmaman
-#ROUNDSTART_RACES iron_golem
+#ROUNDSTART_RACES abductor
 #ROUNDSTART_RACES adamantine_golem
-#ROUNDSTART_RACES plasma_golem
 #ROUNDSTART_RACES diamond_golem
 #ROUNDSTART_RACES gold_golem
+#ROUNDSTART_RACES iron_golem
+#ROUNDSTART_RACES jelly
+#ROUNDSTART_RACES plasma_golem
+#ROUNDSTART_RACES shadow
 #ROUNDSTART_RACES silver_golem
 #ROUNDSTART_RACES uranium_golem
-#ROUNDSTART_RACES abductor
-#ROUNDSTART_RACES synth
-ROUNDSTART_RACES ipc
 
 ## Races that are straight upgrades. If these are on expect powergamers to always pick them
-#ROUNDSTART_RACES skeleton
-#ROUNDSTART_RACES zombie
-#ROUNDSTART_RACES slime
-#ROUNDSTART_RACES pod
-#ROUNDSTART_RACES military_synth
 #ROUNDSTART_RACES agent
+#ROUNDSTART_RACES pod
+#ROUNDSTART_RACES skeleton
+#ROUNDSTART_RACES slime
+#ROUNDSTART_RACES zombie
+
+## Roundstart no-reset races
+##-------------------------------------------------------------------------------------------
+## Races defined here will not cause existing characters to be reset to human if they currently have a non-roundstart species defined.
+#ROUNDSTART_NO_HARD_CHECK plasmaman
 
 ## Paywall Races
 ##-------------------------------------------------------------------------------------------
@@ -610,12 +614,6 @@ RANDOMIZE_SHIFT_TIME
 
 ## Sets shift time to server time at roundstart. Overridden by RANDOMIZE_SHIFT_TIME ##
 #SHIFT_TIME_REALTIME
-
-## Maximum fine for a citation
-MAXFINE 2000
-
-## Enable the capitalist agenda on your server.
-ECONOMY
 
 ## Crew objectives
 ALLOW_CREW_OBJECTIVES

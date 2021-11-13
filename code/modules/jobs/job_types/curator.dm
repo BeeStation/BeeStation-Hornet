@@ -20,6 +20,11 @@
 	display_order = JOB_DISPLAY_ORDER_CURATOR
 	departments = DEPARTMENT_SERVICE
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/curator
+	)
+	biohazard = 5 //he doesnt get out much
+
 /datum/outfit/job/curator
 	name = "Curator"
 	jobtype = /datum/job/curator
@@ -27,7 +32,7 @@
 	id = /obj/item/card/id/job/chap
 	shoes = /obj/item/clothing/shoes/laceup
 	belt = /obj/item/pda/curator
-	ears = /obj/item/radio/headset/headset_srv
+	ears = /obj/item/radio/headset/headset_curator
 	uniform = /obj/item/clothing/under/rank/civilian/curator
 	l_hand = /obj/item/storage/bag/books
 	r_pocket = /obj/item/key/displaycase

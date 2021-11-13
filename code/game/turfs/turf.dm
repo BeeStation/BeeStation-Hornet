@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(station_turfs)
 /turf
 	icon = 'icons/turf/floors.dmi'
-	luminosity = 1
+	level = 1
 
 	/// If this is TRUE, that means this floor is on top of plating so pipes and wires and stuff will appear under it... or something like that it's not entirely clear.
 	var/intact = 1
@@ -22,6 +22,9 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	/// Used for fire, if a melting temperature was reached, it will be destroyed
 	var/to_be_destroyed = 0
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
+
+	//If true, turf will allow users to float up and down in 0 grav.
+	var/allow_z_travel = FALSE
 
 	/// Whether the turf blocks atmos from passing through it or not
 	var/blocks_air = FALSE
@@ -51,25 +54,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	///the holodeck can load onto this turf if TRUE
 	var/holodeck_compatible = FALSE
 
-	///Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.
-	var/dynamic_lumcount = 0
-
-	var/dynamic_lighting = TRUE
-
-	var/tmp/lighting_corners_initialised = FALSE
-
-	///List of light sources affecting this turf.
-	var/tmp/list/datum/light_source/affecting_lights
-	///Our lighting object.
-	var/tmp/atom/movable/lighting_object/lighting_object
-	var/tmp/list/datum/lighting_corner/corners
-
-	///Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.
-	var/directional_opacity = NONE
-	///Lazylist of movable atoms providing opacity sources.
-	var/list/atom/movable/opacity_sources
-
-
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
@@ -91,8 +75,8 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		queue_smooth(src)
 	visibilityChanged()
 
-	for(var/atom/movable/AM in src)
-		Entered(AM)
+	for(var/atom/movable/content as anything in src)
+		Entered(content, null)
 
 	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
@@ -101,6 +85,9 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src)
 
+	if(color)
+		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
+		
 	if (light_power && light_range)
 		update_light()
 
@@ -114,7 +101,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, UP)
 
 	if (opacity)
-		directional_opacity = ALL_CARDINALS
+		has_opaque_atom = TRUE
 
 	ComponentInitialize()
 	if(isopenturf(src))
@@ -163,13 +150,73 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	vis_contents.Cut()
 
+/// WARNING WARNING
+/// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
+/// It's possible because turfs are fucked, and if you have one in a list and it's replaced with another one, the list ref points to the new turf
+/// We do it because moving signals over was needlessly expensive, and bloated a very commonly used bit of code
+/turf/clear_signal_refs()
+	return
+
 /turf/attack_hand(mob/user)
+	//Must have no gravity.
+	if(allow_z_travel && get_turf(user) == src)
+		if(!user.has_gravity(src) || (user.movement_type & FLYING))
+			check_z_travel(user)
+			return
+		else
+			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
 	. = ..()
 	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_NO_ATTACK_HAND)
 		. = TRUE
 	if(.)
 		return
 	user.Move_Pulled(src)
+
+/turf/proc/check_z_travel(mob/user)
+	if(get_turf(user) != src)
+		return
+	var/list/tool_list = list()
+	var/turf/above = above()
+	if(above)
+		tool_list["Up"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTH)
+	var/turf/below = below()
+	if(below)
+		tool_list["Down"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTH)
+
+	if(!length(tool_list))
+		return
+
+	var/result = show_radial_menu(user, user, tool_list, require_near = TRUE, tooltips = TRUE)
+	if(get_turf(user) != src)
+		return
+	switch(result)
+		if("Cancel")
+			return
+		if("Up")
+			travel_z(user, above, TRUE)
+		if("Down")
+			travel_z(user, below, FALSE)
+
+/turf/proc/travel_z(mob/user, turf/target, upwards = TRUE)
+	user.visible_message("<span class='notice'>[user] begins floating upwards!</span>", "<span class='notice'>You begin floating upwards.</span>")
+	var/matrix/M = user.transform
+	//Animation is inverted due to immediately resetting user vars.
+	animate(user, 30, pixel_y = upwards ? -64 : 64, transform = matrix() * (upwards ? 0.7 : 1.3))
+	user.pixel_y = 0
+	user.transform = M
+	if(!do_after(user, 30, FALSE, get_turf(user)))
+		animate(user, 0, flags = ANIMATION_END_NOW)
+		return
+	if(!istype(target, /turf/open/space) && !istype(target, /turf/open/openspace))
+		to_chat(user, "<span class='warning'>Something is blocking you!</span>")
+		return
+	var/atom/movable/AM
+	if(user.pulling)
+		AM = user.pulling
+		AM.forceMove(target)
+	user.forceMove(target)
+	if(AM)
+		user.start_pulling(AM)
 
 /turf/proc/multiz_turf_del(turf/T, dir)
 
@@ -220,8 +267,16 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(!force && (!can_zFall(A, levels, target) || !A.can_zFall(src, levels, target, DOWN)))
 		return FALSE
 	A.zfalling = TRUE
+	var/atom/movable/pulling = A.pulling
 	A.forceMove(target)
 	A.zfalling = FALSE
+	if(pulling)
+		//Things you are pulling fall with you
+		pulling.zfalling = TRUE
+		pulling.forceMove(target)
+		A.start_pulling(pulling)
+		pulling.zfalling = FALSE
+		target.zImpact(pulling, levels, src)
 	target.zImpact(A, levels, src)
 	return TRUE
 
@@ -253,25 +308,15 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	return FALSE
 
-/turf/CanPass(atom/movable/mover, turf/target)
-	if(!target)
-		return FALSE
-
-	if(istype(mover)) // turf/Enter(...) will perform more advanced checks
-		return !density
-
-	stack_trace("Non movable passed to turf CanPass : [mover]")
-	return FALSE
-
 //There's a lot of QDELETED() calls here if someone can figure out how to optimize this but not runtime when something gets deleted by a Bump/CanPass/Cross call, lemme know or go ahead and fix this mess - kevinz000
-/turf/Enter(atom/movable/mover, atom/oldloc)
+/turf/Enter(atom/movable/mover)
 	// Do not call ..()
 	// Byond's default turf/Enter() doesn't have the behaviour we want with Bump()
 	// By default byond will call Bump() on the first dense object in contents
 	// Here's hoping it doesn't stay like this for years before we finish conversion to step_
 	var/atom/firstbump
 	var/canPassSelf = CanPass(mover, src)
-	if(canPassSelf || CHECK_BITFIELD(mover.movement_type, UNSTOPPABLE))
+	if(canPassSelf || (mover.movement_type & PHASING))
 		for(var/i in contents)
 			if(QDELETED(mover))
 				return FALSE		//We were deleted, do not attempt to proceed with movement.
@@ -281,7 +326,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 			if(!thing.Cross(mover))
 				if(QDELETED(mover))		//Mover deleted from Cross/CanPass, do not proceed.
 					return FALSE
-				if(CHECK_BITFIELD(mover.movement_type, UNSTOPPABLE))
+				if((mover.movement_type & PHASING))
 					mover.Bump(thing)
 					continue
 				else
@@ -293,41 +338,25 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		firstbump = src
 	if(firstbump)
 		mover.Bump(firstbump)
-		return CHECK_BITFIELD(mover.movement_type, UNSTOPPABLE)
+		return (mover.movement_type & PHASING)
 	return TRUE
 
-/turf/Exit(atom/movable/mover, atom/newloc)
-	. = ..()
-	if(!. || QDELETED(mover))
-		return FALSE
-	for(var/i in contents)
-		if(i == mover)
-			continue
-		var/atom/movable/thing = i
-		if(!thing.Uncross(mover, newloc))
-			if(thing.flags_1 & ON_BORDER_1)
-				mover.Bump(thing)
-			if(!CHECK_BITFIELD(mover.movement_type, UNSTOPPABLE))
-				return FALSE
-		if(QDELETED(mover))
-			return FALSE		//We were deleted.
-
-/turf/Entered(atom/movable/AM)
+/turf/Entered(atom/movable/arrived, direction)
 	..()
 	// If an opaque movable atom moves around we need to potentially update visibility.
-	if (AM.opacity)
-		directional_opacity = ALL_CARDINALS // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
+	if (arrived.opacity)
+		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
 		reconsider_lights()
 
-/turf/open/Entered(atom/movable/AM)
+/turf/open/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	..()
 	//melting
-	if(isobj(AM) && air && air.return_temperature() > T0C)
-		var/obj/O = AM
+	if(isobj(arrived) && air && air.return_temperature() > T0C)
+		var/obj/O = arrived
 		if(O.obj_flags & FROZEN)
 			O.make_unfrozen()
-	if(!AM.zfalling)
-		zFall(AM)
+	if(!arrived.zfalling)
+		zFall(arrived)
 
 /turf/proc/is_plasteel_floor()
 	return FALSE
@@ -620,7 +649,25 @@ GLOBAL_LIST_EMPTY(station_turfs)
 /turf/proc/Melt()
 	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
-/turf/bullet_act(obj/item/projectile/P)
-	. = ..()
-	if(. != BULLET_ACT_FORCE_PIERCE)
-		. =  BULLET_ACT_TURF
+/turf/proc/check_gravity()
+	return TRUE
+
+/**
+ * Returns adjacent turfs to this turf that are reachable, in all cardinal directions
+ *
+ * Arguments:
+ * * caller: The movable, if one exists, being used for mobility checks to see what tiles it can reach
+ * * ID: An ID card that decides if we can gain access to doors that would otherwise block a turf
+ * * simulated_only: Do we only worry about turfs with simulated atmos, most notably things that aren't space?
+*/
+/turf/proc/reachableAdjacentTurfs(caller, ID, simulated_only)
+	var/static/space_type_cache = typecacheof(/turf/open/space)
+	. = list()
+
+	for(var/iter_dir in GLOB.cardinals)
+		var/turf/turf_to_check = get_step(src,iter_dir)
+		if(!turf_to_check || (simulated_only && space_type_cache[turf_to_check.type]))
+			continue
+		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, caller, ID))
+			continue
+		. += turf_to_check

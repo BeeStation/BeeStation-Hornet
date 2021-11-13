@@ -4,6 +4,8 @@
 	var/open_turf_types = list(/turf/open/floor/plating/asteroid = 1)
 	///Weighted list of the types that spawns if the turf is closed
 	var/closed_turf_types =  list(/turf/closed/mineral/random/volcanic = 1)
+	///List of turf types (subtypes included) to skip when generating terrain
+	var/blacklisted_turf_types
 
 
 	///Weighted list of extra features that can spawn in the area, such as geysers.
@@ -46,15 +48,33 @@
 	. = ..()
 	var/start_time = REALTIMEOFDAY
 	string_gen = rustg_cnoise_generate("[initial_closed_chance]", "[smoothing_iterations]", "[birth_limit]", "[death_limit]", "[world.maxx]", "[world.maxy]") //Generate the raw CA data
+	var/blacklist = typecacheof(blacklisted_turf_types)
 
 	for(var/i in turfs) //Go through all the turfs and generate them
 		var/turf/gen_turf = i
 
-		var/area/A = gen_turf.loc
-		if(!(A.area_flags & CAVES_ALLOWED))
+		if(blacklist && blacklist[gen_turf.type])
 			continue
 
-		var/closed = text2num(string_gen[world.maxx * (gen_turf.y - 1) + gen_turf.x])
+		var/forced
+		var/closed
+
+		if(istype(gen_turf, /turf/open/genturf))
+			var/turf/open/genturf/genturf = gen_turf
+			if(genturf.force_generation)
+				forced = TRUE
+			switch(genturf.genturf_hint)
+				if(GENTURF_HINT_OPEN)
+					closed = FALSE
+				if(GENTURF_HINT_CLOSED)
+					closed = TRUE
+
+		var/area/A = gen_turf.loc
+		if(!forced && !(A.area_flags & CAVES_ALLOWED))
+			continue
+
+		if(isnull(closed))
+			closed = text2num(string_gen[world.maxx * (gen_turf.y - 1) + gen_turf.x])
 
 		var/stored_flags
 		if(gen_turf.flags_1 & NO_RUINS_1)

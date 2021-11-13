@@ -140,4 +140,3 @@
 				disk.program = null
 				disk.name = initial(disk.name)
 			. = TRUE
-	ui_update()

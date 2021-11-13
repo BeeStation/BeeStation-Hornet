@@ -204,6 +204,11 @@
 			. += C
 	return .
 
+/obj/machinery/power/lateShuttleMove(turf/oldT, list/movement_force, move_dir)
+	. = ..()
+	disconnect_from_network()
+	connect_to_network()
+
 ///////////////////////////////////////////
 // GLOBAL PROCS for powernets handling
 //////////////////////////////////////////

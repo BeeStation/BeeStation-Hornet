@@ -37,15 +37,19 @@
 
 #include "anchored_mobs.dm"
 #include "component_tests.dm"
+#include "connect_loc.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "reagent_id_typos.dm"
 #include "reagent_recipe_collisions.dm"
 #include "spawn_humans.dm"
 #include "species_whitelists.dm"
+#include "projectiles.dm"
 #include "subsystem_init.dm"
+#include "subsystem_metric_sanity.dm"
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"
 #include "unit_test.dm"
+#include "random_ruin_mapsize.dm"
 
 #undef TEST_ASSERT
 #undef TEST_ASSERT_EQUAL

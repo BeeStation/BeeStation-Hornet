@@ -109,9 +109,11 @@
 			if(client && !eye_blind)
 				clear_alert("blind")
 				clear_fullscreen("blind")
+			//Prevents healing blurryness while blind from normal means
+			return
 		else
 			eye_blind = max(eye_blind-1,1)
-	else if(eye_blurry)			//blurry eyes heal slowly
+	if(eye_blurry)			//blurry eyes heal slowly
 		eye_blurry = max(eye_blurry-1, 0)
 		if(client)
 			update_eye_blur()

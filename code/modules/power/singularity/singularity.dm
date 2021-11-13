@@ -7,6 +7,7 @@
 	icon_state = "singularity_s1"
 	anchored = TRUE
 	density = TRUE
+	var/is_real = TRUE
 	move_resist = INFINITY
 	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
@@ -455,3 +456,15 @@
 
 	investigate_log("has been shot by bluespace artillery and destroyed.", INVESTIGATE_ENGINES)
 	qdel(src)
+
+/obj/singularity/deadchat_controlled
+	move_self = FALSE
+
+/obj/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
+	. = ..()
+	AddComponent(/datum/component/deadchat_control, DEMOCRACY_MODE, list(
+	 "up" = CALLBACK(GLOBAL_PROC, .proc/_step, src, NORTH),
+	 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, src, SOUTH),
+	 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, src, WEST),
+	 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, src, EAST)))
+	 

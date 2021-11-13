@@ -1,10 +1,11 @@
 /turf/closed
 	layer = CLOSED_TURF_LAYER
-	opacity = TRUE
+	opacity = 1
 	density = TRUE
 	blocks_air = TRUE
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
+	pass_flags_self = PASSCLOSEDTURF
 
 /turf/closed/Initialize()
 	. = ..()
@@ -15,11 +16,6 @@
 
 /turf/closed/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE
-
-/turf/closed/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && (mover.pass_flags & PASSCLOSEDTURF))
-		return TRUE
-	return ..()
 
 /turf/closed/indestructible
 	name = "wall"
@@ -101,7 +97,7 @@
 /turf/closed/indestructible/fakeglass
 	name = "window"
 	icon_state = "fake_window"
-	opacity = FALSE
+	opacity = 0
 	smooth = SMOOTH_TRUE
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
 
@@ -114,7 +110,7 @@
 /turf/closed/indestructible/opsglass
 	name = "window"
 	icon_state = "plastitanium_window"
-	opacity = FALSE
+	opacity = 0
 	smooth = SMOOTH_TRUE
 	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
 

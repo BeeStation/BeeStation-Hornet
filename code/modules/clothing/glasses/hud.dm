@@ -83,6 +83,12 @@
 	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/blue
 
+/obj/item/clothing/glasses/hud/health/prescription
+	name = "prescription medical HUDglasses"
+	desc = "Prescription glasses with a built-in medical HUD."
+	icon_state = "prescmedhud"
+	vision_correction = 1
+
 /obj/item/clothing/glasses/hud/health/sunglasses/degraded
 	name = "degraded medical HUDSunglasses"
 	desc = "Sunglasses with a medical HUD. They do not provide flash protection."
@@ -116,6 +122,12 @@
 	name = "degraded diagnostic sunglasses"
 	desc = "Sunglasses with a diagnostic HUD. They do not provide flash protection."
 	flash_protect = 0
+
+/obj/item/clothing/glasses/hud/diagnostic/prescription
+	name = "prescription diagnostic HUDglasses"
+	desc = "Prescription glasses with a built-in diagnostic HUD."
+	icon_state = "prescdiaghud"
+	vision_correction = 1
 
 /obj/item/clothing/glasses/hud/security
 	name = "security HUD"
@@ -178,7 +190,7 @@
 
 /obj/item/clothing/glasses/hud/security/sunglasses/degraded
 	name = "degraded security HUDSunglasses"
-	desc = "Sunglasses with a security HUD. They do not provide flash protection"
+	desc = "Sunglasses with a security HUD. They do not provide flash protection."
 	flash_protect = 0
 
 /obj/item/clothing/glasses/hud/security/night
@@ -188,6 +200,12 @@
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
+
+/obj/item/clothing/glasses/hud/security/prescription
+	name = "prescription security HUDglasses"
+	desc = "Prescription glasses with a built-in security HUD. They do not provide flash protection."
+	icon_state = "prescsechud"
+	vision_correction = 1
 
 /obj/item/clothing/glasses/hud/security/sunglasses/gars
 	name = "\improper HUD gar glasses"
@@ -271,3 +289,30 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	thermal_overload()
+
+/obj/item/clothing/glasses/hud/debug
+	name = "Omni HUD"
+	desc = "Glasses with every function."
+	icon_state = "doublegodeye"
+	item_state = "doublegodeye"
+	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
+	darkness_view = 8
+	flash_protect = 2
+	vision_correction = 1
+	clothing_flags = SCAN_REAGENTS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	hud_type = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED)
+	resistance_flags = INDESTRUCTIBLE
+	actions_types = list(/datum/action/item_action/toggle,/datum/action/item_action/toggle_research_scanner)
+	var/xray = TRUE
+
+/obj/item/clothing/glasses/hud/debug/attack_self(mob/user)
+	if(!ishuman(user))
+		return
+	if(xray)
+		vision_flags -= SEE_MOBS|SEE_OBJS
+	else
+		vision_flags += SEE_MOBS|SEE_OBJS
+	xray = !xray
+	var/mob/living/carbon/human/wearer = user
+	wearer.update_sight()

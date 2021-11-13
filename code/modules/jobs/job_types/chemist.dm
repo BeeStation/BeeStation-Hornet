@@ -9,6 +9,7 @@
 	supervisors = "the chief medical officer"
 	selection_color = "#d4ebf2"
 	chat_color = "#82BDCE"
+	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/chemist
@@ -20,6 +21,11 @@
 
 	display_order = JOB_DISPLAY_ORDER_CHEMIST
 	departments = DEPARTMENT_MEDICAL
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chemist
+	)
+	biohazard = 15
 
 /datum/outfit/job/chemist
 	name = "Chemist"

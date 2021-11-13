@@ -128,19 +128,20 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 			icon_state = "[initial(icon_state)]_off"
 
 /obj/machinery/telecomms/proc/update_power()
+	var/newState = on
 
 	if(toggled)
 		if(stat & (BROKEN|NOPOWER|EMPED)) // if powered, on. if not powered, off. if too damaged, off
-			on = FALSE
-			ui_update()
+			newState = FALSE
 		else
-			on = TRUE
-			ui_update()
+			newState = TRUE
 	else
-		on = FALSE
-		ui_update()
+		newState = FALSE
 
-	set_light(on)
+	if(newState != on)
+		on = newState
+		ui_update()
+		set_light(on)
 
 /obj/machinery/telecomms/process(delta_time)
 	update_power()

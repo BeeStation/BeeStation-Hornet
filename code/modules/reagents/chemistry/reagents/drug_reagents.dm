@@ -195,10 +195,12 @@
 	if (L.client)
 		SSmedals.UnlockMedal(MEDAL_APPLY_REAGENT_METH,L.client)
 
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-2, blacklisted_movetypes=(FLYING|FLOATING))
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1.25, blacklisted_movetypes=(FLYING|FLOATING))
+	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
 
 /datum/reagent/drug/methamphetamine/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_NOBLOCK, type)
+	REMOVE_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
 	L.remove_movespeed_modifier(type)
 	..()
 
@@ -211,7 +213,8 @@
 	M.AdjustUnconscious(-40, FALSE)
 	M.AdjustParalyzed(-40, FALSE)
 	M.AdjustImmobilized(-40, FALSE)
-	M.adjustStaminaLoss(-30, 0)
+	M.adjustStaminaLoss(-40, 0)
+	M.drowsyness = max(0,M.drowsyness-30)
 	M.Jitter(2)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
 	if(prob(5))

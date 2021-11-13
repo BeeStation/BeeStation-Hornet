@@ -40,10 +40,6 @@
 			index = findtext(t, char, index + length(char))
 	return t
 
-/// Sanitizes a string to act as a file path
-/proc/sanitize_filename(t)
-	return sanitize_simple(t, list("\n"="", "\t"="", "/"="", "\\"="", "?"="", "%"="", "*"="", ":"="", "|"="", "\""="", "<"="", ">"=""))
-
 ///returns nothing with an alert instead of the message if it contains something in the ic filter, and sanitizes normally if the name is fine. It returns nothing so it backs out of the input the same way as if you had entered nothing.
 /proc/sanitize_name(t,list/repl_chars = null)
 	if(CHAT_FILTER_CHECK(t))
@@ -329,10 +325,8 @@
 		new_text = letter + new_text
 	return new_text
 
-GLOBAL_LIST_INIT(zero_character_only, list("0"))
 GLOBAL_LIST_INIT(hex_characters, list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"))
 GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"))
-GLOBAL_LIST_INIT(binary, list("0","1"))
 
 /// Returns a random string of `length` length and made up of chars from `characters`
 /proc/random_string(length, list/characters)

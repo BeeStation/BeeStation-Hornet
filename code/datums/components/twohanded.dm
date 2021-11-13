@@ -8,8 +8,8 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS 		// Only one of the component can exist on an item
 	var/wielded = FALSE 							/// Are we holding the two handed item properly
 	var/force_multiplier = 0						/// The multiplier applied to force when wielded, does not work with force_wielded, and force_unwielded
-	var/force_wielded = 0	 						/// The force of the item when weilded
-	var/force_unwielded = 0		 					/// The force of the item when unweilded
+	var/force_wielded = 0	 						/// The force of the item when wielded
+	var/force_unwielded = 0		 					/// The force of the item when unwielded
 	var/block_power_wielded = 0						/// The block power of the item when wielded
 	var/block_power_unwielded = 0					/// The block power of the item when unwielded
 	var/wieldsound = FALSE 							/// Play sound when wielded
@@ -49,6 +49,9 @@
 	src.block_power_wielded = block_power_wielded
 	src.block_power_unwielded = block_power_unwielded
 	src.icon_wielded = icon_wielded
+
+	if(require_twohands)
+		ADD_TRAIT(parent, TRAIT_NEEDS_TWO_HANDS, ABSTRACT_ITEM_TRAIT)
 
 // Inherit the new values passed to the component
 #define ISWIELDED(O) (SEND_SIGNAL(O, COMSIG_ITEM_CHECK_WIELDED) & COMPONENT_IS_WIELDED)

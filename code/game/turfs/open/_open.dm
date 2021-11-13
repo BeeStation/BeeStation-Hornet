@@ -63,9 +63,10 @@
 	heavyfootstep = null
 	var/sound
 
-/turf/open/indestructible/sound/Entered(var/mob/AM)
-	..()
-	if(istype(AM))
+/turf/open/indestructible/sound/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+
+	if(istype(arrived) && !(arrived.movement_type & (FLYING|FLOATING)))
 		playsound(src,sound,50,1)
 
 /turf/open/indestructible/necropolis
@@ -126,10 +127,11 @@
 	CanAtmosPass = ATMOS_PASS_NO
 	baseturfs = /turf/open/indestructible/binary
 	icon_state = "binary"
-	footstep = null
+	footstep = FOOTSTEP_PLATING
 	barefootstep = null
 	clawfootstep = null
 	heavyfootstep = null
+	slowdown = 3
 
 /turf/open/indestructible/airblock
 	icon_state = "bluespace"

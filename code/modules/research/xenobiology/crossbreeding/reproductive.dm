@@ -9,40 +9,60 @@ Reproductive extracts:
 	icon_state = "reproductive"
 	effect = "reproductive"
 	effect_desc = "When fed monkey cubes it produces more extracts. Bio bag compatible as well."
+	layer = LOW_ITEM_LAYER
 	var/extract_type = /obj/item/slime_extract/
-	var/cubes_eaten = 0
 	var/last_produce = 0
-	var/cooldown = 30 // 3 seconds.
+	var/cooldown = 3 SECONDS
+	var/feed_amount = 3
+	var/datum/component/storage/concrete/extract_inventory/slime_storage
+	var/static/list/typecache_to_take
+
+/obj/item/slimecross/reproductive/Initialize()
+	. = ..()
+	if(!typecache_to_take)
+		typecache_to_take = typecacheof(/obj/item/reagent_containers/food/snacks/monkeycube)
+	slime_storage = AddComponent(/datum/component/storage/concrete/extract_inventory)
+	slime_storage.can_hold = typecache_to_take
+
+/obj/item/slimecross/reproductive/examine()
+	. = ..()
+	. += "<span class='danger'>It appears to have eaten [length(contents)] Monkey Cube[p_s()]</span>"
 
 /obj/item/slimecross/reproductive/attackby(obj/item/O, mob/user)
 	if((last_produce + cooldown) > world.time)
 		to_chat(user, "<span class='warning'>[src] is still digesting!</span>")
 		return
+
+	if(length(contents) >= feed_amount) //if for some reason the contents are full, but it didnt digest, attempt to digest again
+		to_chat(user,"<span class='warning'>[src] appears to be full but is not digesting! Maybe poking it stimulated it to digest.</span>")
+		slime_storage.process_cubes(src, user)
+		return
+
 	if(istype(O, /obj/item/storage/bag/bio))
 		var/list/inserted = list()
-		SEND_SIGNAL(O, COMSIG_TRY_STORAGE_TAKE_TYPE, /obj/item/reagent_containers/food/snacks/monkeycube, src, 1, null, null, user, inserted)
+		SEND_SIGNAL(O, COMSIG_TRY_STORAGE_TAKE_TYPE, typecache_to_take, src, 1, null, null, user, inserted)
 		if(inserted.len)
-			var/obj/item/reagent_containers/food/snacks/monkeycube/M = inserted[1]
-			if(istype(M))
-				eat_cube(M, user)
+			to_chat(user, "<span class='warning'>You feed [length(inserted)] Monkey Cube[p_s()] to [src], and it pulses gently.</span>")
+			playsound(src, 'sound/items/eatfood.ogg', 20, TRUE)
+			slime_storage.process_cubes(src, user)
 		else
-			to_chat(user, "<span class='warning'>There are no monkey cubes in the bio bag!</span>")
-	if(istype(O,/obj/item/reagent_containers/food/snacks/monkeycube))
-		eat_cube(O, user)
-	if(cubes_eaten >= 3)
-		var/cores = rand(1,4)
-		visible_message("<span class='notice'>[src] briefly swells to a massive size, and expels [cores] extract[cores > 1 ? "s":""]!</span>")
-		playsound(src, 'sound/effects/splat.ogg', 40, 1)
-		last_produce = world.time
-		for(var/i = 0, i < cores, i++)
-			new extract_type(get_turf(loc))
-		cubes_eaten = 0
+			to_chat(user, "<span class='notice'>There are no monkey cubes in the bio bag!</span>")
+		return
 
-/obj/item/slimecross/reproductive/proc/eat_cube(obj/item/reagent_containers/food/snacks/monkeycube, mob/user)
-		qdel(monkeycube)
-		cubes_eaten++
-		to_chat(user, "<span class='notice'>You feed [monkeycube] to [src], and it pulses gently.</span>")
-		playsound(src, 'sound/items/eatfood.ogg', 20, 1)
+	else if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
+		slime_storage.locked = FALSE //This weird unlock-then-lock nonsense brought to you courtesy of storage jank
+		if(SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, O, user, TRUE))
+			to_chat(user, "<span class='notice'>You feed a Monkey Cube to [src], and it pulses gently.</span>")
+			slime_storage.process_cubes(src, user)
+			playsound(src, 'sound/items/eatfood.ogg', 20, TRUE)
+			slime_storage.locked = TRUE //relock once its done inserting
+			return
+		slime_storage.locked = TRUE //it couldnt insert for some reason, relock it
+		to_chat(user, "<span class='notice'>The [src] rejects the Monkey Cube!</span>") //in case it fails to insert for whatever reason you get feedback
+
+/obj/item/slimecross/reproductive/Destroy()
+	. = ..()
+	QDEL_NULL(slime_storage)
 
 /obj/item/slimecross/reproductive/grey
 	extract_type = /obj/item/slime_extract/grey

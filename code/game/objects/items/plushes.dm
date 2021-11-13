@@ -9,7 +9,6 @@
 	var/list/squeak_override //Weighted list; If you want your plush to have different squeak sounds use this
 	var/stuffed = TRUE //If the plushie has stuffing in it
 	var/obj/item/grenade/grenade //You can remove the stuffing from a plushie and add a grenade to it for *nefarious uses*
-	//--love ~<3--
 	gender = NEUTER
 	var/obj/item/toy/plush/lover
 	var/obj/item/toy/plush/partner
@@ -22,7 +21,7 @@
 	var/heartbroken = FALSE
 	var/vowbroken = FALSE
 	var/young = FALSE
-///Prevents players from cutting stuffing out of a plushie if true
+	///Prevents players from cutting stuffing out of a plushie if true
 	var/divine = FALSE
 	var/mood_message
 	var/list/love_message
@@ -31,7 +30,6 @@
 	var/list/vowbroken_message
 	var/list/parent_message
 	var/normal_desc
-	//--end of love :'(--
 
 /obj/item/toy/plush/Initialize()
 	. = ..()
@@ -539,6 +537,14 @@
 	gender = FEMALE
 	squeak_override = list('sound/voice/moth/scream_moth.ogg'=1)
 
+/obj/item/toy/plush/rouny
+	name = "runner plushie"
+	desc = "A plushie depicting a xenomorph runner, made to commemorate the centenary of the Battle of LV-426. Much cuddlier than the real thing."
+	icon_state = "rouny"
+	icon_state = "rouny"
+	attack_verb = list("slashes", "bites", "charges")
+	squeak_override = list('sound/weapons/bite.ogg' = 1)
+
 /obj/item/toy/plush/moth
 	name = "moth plushie"
 	desc = "An adorable mothperson plushy. It's a huggable bug!"
@@ -565,6 +571,12 @@
 		forceMove(random_open_spot)
 	user.dust(just_ash = FALSE, drop_items = TRUE)
 	return MANUAL_SUICIDE
+
+/obj/item/toy/plush/crossed
+	name = "ghost plushie"
+	desc = "It reminds you of someone important, you just can't make out who."
+	icon_state = "crossedplush"
+	squeak_override = list('sound/items/haunted/ghostitemattack.ogg'=1)
 
 /////////////////
 //DONATOR ITEMS//

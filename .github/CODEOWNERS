@@ -24,5 +24,6 @@ Dockerfile @crossedfall
 # powerfulbacon
 
 /code/game/machinery/shuttle @powerfulbacon
-/code/modules/shuttle @powerfulbacon
+/code/modules/shuttle/super_cruise @powerfulbacon
+/code/modules/shuttle/shuttle_creation @powerfulbacon
 /_maps/map_files/CorgStation @powerfulbacon

@@ -88,6 +88,7 @@
 	set_nutrition(rand(NUTRITION_LEVEL_START_MIN, NUTRITION_LEVEL_START_MAX))
 	. = ..()
 	update_config_movespeed()
+	initialize_actionspeed()
 	update_movespeed(TRUE)
 	//Give verbs to stat
 	add_verb(verbs, TRUE)
@@ -567,6 +568,7 @@
 	var/obj/visual = new /obj/effect/temp_visual/point(our_tile, invisibility)
 	animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
 
+	SEND_SIGNAL(src, COMSIG_MOB_POINTED, A)
 	return TRUE
 
 /**
@@ -802,7 +804,7 @@
 		var/mob/M = dropping
 		if(ismob(user))
 			var/mob/U = user
-			if(!iscyborg(U) || U.a_intent == INTENT_HARM)
+			if((!iscyborg(U) || U.a_intent == INTENT_HARM) && !isAI(U))
 				M.show_inv(U)
 		else
 			M.show_inv(user)

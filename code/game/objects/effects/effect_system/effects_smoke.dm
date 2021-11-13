@@ -8,7 +8,7 @@
 	icon_state = "smoke"
 	pixel_x = -32
 	pixel_y = -32
-	opacity = FALSE
+	opacity = 0
 	layer = FLY_LAYER
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -132,13 +132,6 @@
 		M.adjustOxyLoss(1)
 		M.emote("cough")
 		return 1
-
-/obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover, /obj/item/projectile/beam))
-		var/obj/item/projectile/beam/B = mover
-		B.damage = (B.damage/2)
-	return 1
-
 
 
 /datum/effect_system/smoke_spread/bad
