@@ -1,5 +1,6 @@
 {
     "map_name": "Kilo Station",
+    "map_link": "KiloStation",
     "map_path": "map_files/KiloStation",
     "map_file": "KiloStation.dmm",
     "shuttles": {
