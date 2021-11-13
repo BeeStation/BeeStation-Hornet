@@ -224,6 +224,7 @@
 	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
 	item_state = "buildpipe"
 	static_icon =  'icons/mob/augmentation/augments.dmi'
+	limb_id = "robotic"
 	icon = null
 	flags_1 = CONDUCT_1
 	icon_state = "borg_head"
