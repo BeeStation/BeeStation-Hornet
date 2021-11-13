@@ -96,8 +96,8 @@
 	file_name = "9x9_checkpoint"
 	weight = 5
 
-/datum/map_template/ruin_part/corgarmoury
-	file_name = "13x13_corgarmoury"
+/datum/map_template/ruin_part/corgarmory
+	file_name = "13x13_corgarmory"
 	weight = 5
 	loot_room = TRUE
 

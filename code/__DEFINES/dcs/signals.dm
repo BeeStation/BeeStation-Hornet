@@ -40,6 +40,8 @@
 /// fires on the target datum when an element is attached to it  (/datum/element)
 #define COMSIG_ELEMENT_DETACH "element_detach"
 
+/// Sent when the amount of materials in material_container changes
+#define COMSIG_MATERIAL_CONTAINER_CHANGED "material_container_changed"
 
 // /atom signals
 #define COMSIG_ATOM_CREATED "atom_created"						///from base of atom/proc/Initialize(): sent any time a new atom is created
@@ -116,6 +118,8 @@
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
 
+/// Sent when the amount of materials in silo connected to remote_materials changes. Does not apply when remote_materials is not connected to a silo.
+#define COMSIG_REMOTE_MATERIALS_CHANGED "remote_materials_changed"
 
 /////////////////
 
@@ -147,10 +151,6 @@
 	#define COMPONENT_MOVABLE_BLOCK_PRE_MOVE 1
 #define COMSIG_MOVABLE_MOVED "movable_moved"					//! from base of atom/movable/Moved(): (/atom, dir)
 #define COMSIG_MOVABLE_CROSS "movable_cross"					//! from base of atom/movable/Cross(): (/atom/movable)
-#define COMSIG_MOVABLE_CROSSED "movable_crossed"                //! from base of atom/movable/Crossed(): (/atom/movable)
-#define COMSIG_MOVABLE_UNCROSS "movable_uncross"				//! from base of atom/movable/Uncross(): (/atom/movable)
-	#define COMPONENT_MOVABLE_BLOCK_UNCROSS 1
-#define COMSIG_MOVABLE_UNCROSSED "movable_uncrossed"            //! from base of atom/movable/Uncrossed(): (/atom/movable)
 #define COMSIG_MOVABLE_BUMP "movable_bump"						//! from base of atom/movable/Bump(): (/atom)
 #define COMSIG_MOVABLE_IMPACT "movable_impact"					//! from base of atom/movable/throw_impact(): (/atom/hit_atom, /datum/thrownthing/throwingdatum)
 #define COMSIG_MOVABLE_IMPACT_ZONE "item_impact_zone"			//! from base of mob/living/hitby(): (mob/living/target, hit_zone)
