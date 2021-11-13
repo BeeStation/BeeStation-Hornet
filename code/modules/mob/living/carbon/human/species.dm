@@ -298,11 +298,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			BP.icon = limb_icon_file
 			if(gen_limbs_are_colored)
 				BP.should_draw_greyscale = TRUE
+				BP.uses_mutcolor = TRUE
 				BP.species_color = fixed_mut_color
 			else
 				BP.should_draw_greyscale = FALSE
 			BP.is_dimorphic = FALSE
-			BP.update_limb()
+			BP.update_limb(is_creating = TRUE)
 			BP.name = "[BP.limb_id] [parse_zone(BP.body_zone)]"
 		return
 
