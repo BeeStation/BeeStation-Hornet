@@ -126,6 +126,10 @@
 	role = "Heavy Duty Janitor"
 	outfit = /datum/outfit/ert/janitor/heavy
 
+/datum/antagonist/ert/kudzu
+	role = "Weed Whacker"
+	outfit = /datum/outfit/ert/kudzu
+
 /datum/antagonist/ert/deathsquad/leader
 	name = "Deathsquad Officer"
 	outfit = /datum/outfit/death_commando/officer

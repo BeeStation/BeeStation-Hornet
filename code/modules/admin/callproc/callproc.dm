@@ -100,7 +100,6 @@ GLOBAL_PROTECT(LastAdminCalledProc)
 	if(current_caller && current_caller != ckey)
 		to_chat(usr, "<span class='adminnotice'>Another set of admin called procs are still running. Try again later.</span>")
 		return
-
 	GLOB.LastAdminCalledProc = procname
 	if(target != GLOBAL_PROC)
 		GLOB.LastAdminCalledTargetRef = REF(target)

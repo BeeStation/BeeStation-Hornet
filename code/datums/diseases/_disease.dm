@@ -33,6 +33,7 @@
 	var/list/infectable_biotypes = list(MOB_ORGANIC) //if the disease can spread on organics, synthetics, or undead
 	var/process_dead = FALSE //if this ticks while the host is dead
 	var/copy_type = null //if this is null, copies will use the type of the instance being copied
+	var/initial = TRUE //used in advance diseases to check if a virus has already infected a mob- the first infection never mutates
 
 /datum/disease/Destroy()
 	. = ..()
@@ -47,7 +48,7 @@
 
 //add the disease with no checks
 /datum/disease/proc/infect(var/mob/living/infectee, make_copy = TRUE)
-	var/datum/disease/D = make_copy ? Copy() : src
+	var/datum/disease/D = make_copy ? Copy() : src	
 	infectee.diseases += D
 	D.affected_mob = infectee
 	SSdisease.active_diseases += D //Add it to the active diseases list, now that it's actually in a mob and being processed.

@@ -148,8 +148,8 @@
 		/obj/item/grenade/exploration = 1,
 	)
 
-//Armoury stuff
-/obj/effect/spawner/lootdrop/ruinloot/armoury
+//Armory stuff
+/obj/effect/spawner/lootdrop/ruinloot/armory
 	loot = list(
 		"" = 30,
 		/obj/item/gun/energy/disabler = 5,

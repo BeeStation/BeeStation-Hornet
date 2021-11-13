@@ -663,20 +663,34 @@
 		var/mob/living/carbon/human/H = user
 
 		if(istype(H))
-			var/datum/species/ethereal/eth_species = H.dna?.species
-			if(istype(eth_species))
+			if(isethereal(H))
 				var/datum/species/ethereal/E = H.dna.species
 				if(E.drain_time > world.time)
 					return
+				var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+				if(!istype(stomach))
+					to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+					return
+				if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
+					to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+					return
+
 				to_chat(H, "<span class='notice'>You start channeling some power through the [fitting] into your body.</span>")
-				E.drain_time = world.time + 30
-				if(do_after(user, 30, target = src))
-					var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
-					if(istype(stomach))
-						to_chat(H, "<span class='notice'>You receive some charge from the [fitting].</span>")
-						stomach.adjust_charge(2)
-					else
-						to_chat(H, "<span class='warning'>You fail to receive charge from the [fitting]!</span>")
+				E.drain_time = world.time + 35
+				while(do_after(user, 30, target = src))
+					E.drain_time = world.time + 35
+					if(!istype(stomach))
+						to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+						return
+					to_chat(H, "<span class='notice'>You receive some charge from the [fitting].</span>")
+					stomach.adjust_charge(50)
+					use_power(50)
+					if(stomach.charge >= stomach.max_charge)
+						to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+						E.drain_time = 0
+						return
+				to_chat(H, "<span class='warning'>You fail to receive charge from the [fitting]!</span>")
+				E.drain_time = 0
 				return
 
 			if(H.gloves)
@@ -865,13 +879,18 @@
 /obj/item/light/Initialize()
 	. = ..()
 	update()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/light/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
 
-/obj/item/light/Crossed(mob/living/L)
-	. = ..()
+/obj/item/light/proc/on_entered(datum/source, atom/movable/L)
+	SIGNAL_HANDLER
+
 	if(istype(L) && has_gravity(loc))
 		if(HAS_TRAIT(L, TRAIT_LIGHT_STEP))
 			playsound(loc, 'sound/effects/glass_step.ogg', 30, 1)
