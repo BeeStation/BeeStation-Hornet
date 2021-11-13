@@ -100,7 +100,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/proc/get_target()
 	return target
 
-/datum/objective/proc/set_target(var/datum/mind/M)
+/datum/objective/proc/set_target(datum/mind/M)
 	if(target)
 		UnregisterSignal(target, COMSIG_MIND_CRYOED)
 	target = M
