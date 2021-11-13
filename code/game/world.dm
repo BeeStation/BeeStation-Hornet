@@ -165,10 +165,12 @@ GLOBAL_VAR(restart_counter)
 		response["response"] = "Rate limited"
 		return json_encode(response)
 
+	var/logging = CONFIG_GET(flag/log_world_topic)
 	var/topic_decoded = rustg_url_decode(T)
 	if(!rustg_json_is_valid(topic_decoded))
+		if(logging)
+			log_topic("(NON-JSON) \"[topic_decoded]\", from:[addr], master:[master], key:[key]")
 		// Fallback check for spacestation13.com requests
-		log_topic("(NON-JSON) \"[topic_decoded]\", from:[addr], master:[master], key:[key]")
 		if(topic_decoded == "ping")
 			return length(GLOB.clients)
 		response["statuscode"] = 400
@@ -181,7 +183,7 @@ GLOBAL_VAR(restart_counter)
 	var/auth = params["auth"]
 	var/source = params["source"]
 
-	if(CONFIG_GET(flag/log_world_topic))
+	if(logging)
 		var/list/censored_params = params.Copy()
 		censored_params["auth"] = "***[copytext(params["auth"], -4)]"
 		log_topic("\"[json_encode(censored_params)]\", from:[addr], master:[master], auth:[censored_params["auth"]], key:[key], source:[source]")
