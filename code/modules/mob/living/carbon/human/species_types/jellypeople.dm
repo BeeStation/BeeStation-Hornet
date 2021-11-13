@@ -20,6 +20,7 @@
 	species_language_holder = /datum/language_holder/jelly
 	swimming_component = /datum/component/swimming/dissolve
 
+
 	limbs_id = "jelly"
 	use_generic_limbs = TRUE
 	limb_icon_file = 'icons/mob/human_parts_greyscale.dmi'
@@ -123,6 +124,8 @@
 	var/datum/action/innate/split_body/slime_split
 	var/list/mob/living/carbon/bodies
 	var/datum/action/innate/swap_body/swap_body
+
+	parent_limb_id = "jelly"
 
 /datum/species/jelly/slime/on_species_loss(mob/living/carbon/C)
 	if(slime_split)
@@ -419,6 +422,8 @@
 	var/datum/action/innate/use_extract/major/extract_major
 	var/extract_cooldown = 0
 
+	parent_limb_id = "jelly"
+
 //Species datums don't normally implement destroy, but JELLIES SUCK ASS OUT OF A STEEL STRAW
 /datum/species/jelly/luminescent/Destroy(force, ...)
 	current_extract = null
@@ -588,6 +593,8 @@
 	var/list/datum/action/innate/linked_speech/linked_actions = list()
 	var/datum/weakref/slimelink_owner
 	var/current_link_id = 0
+
+	parent_limb_id = "jelly"
 
 //Species datums don't normally implement destroy, but JELLIES SUCK ASS OUT OF A STEEL STRAW
 /datum/species/jelly/stargazer/Destroy()

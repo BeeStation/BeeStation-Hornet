@@ -175,8 +175,9 @@
 	else if(l_limbs_missing >= 2 && r_limbs_missing >= 2)
 		msg += "[t_He] [p_do()]n't seem all there.\n"
 
+
 	for(var/obj/item/bodypart/BP in bodyparts)
-		if(BP.limb_id != dna?.species.id)
+		if(BP.limb_id != (dna?.species.parent_limb_id ? dna.species.parent_limb_id : dna.species.id))
 			msg += "<span class='info'>[t_He] has \an [BP.name].</span>\n"
 
 	var/list/harm_descriptors = dna?.species.get_harm_descriptors()

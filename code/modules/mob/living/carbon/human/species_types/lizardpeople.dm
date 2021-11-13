@@ -84,6 +84,7 @@
 /datum/species/lizard/ashwalker
 	name = "Ash Walker"
 	id = "ashlizard"
+	parent_limb_id = SPECIES_LIZARD
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS, NO_UNDERWEAR)
 	inherent_traits = list(TRAIT_NOGUNS,TRAIT_NOBREATH)
 	species_language_holder = /datum/language_holder/lizard/ash

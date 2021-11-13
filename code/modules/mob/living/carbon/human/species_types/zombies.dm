@@ -31,6 +31,7 @@
 	name = "\improper Infectious Zombie"
 	id = "memezombies"
 	limbs_id = "zombie"
+	parent_limb_id = "zombie"
 	mutanthands = /obj/item/zombie_hand
 	armor = 20 // 120 damage to KO a zombie, which kills it
 	speedmod = 1.6
@@ -98,12 +99,12 @@
 /datum/species/krokodil_addict
 	name = "\improper Human"
 	id = "goofzombies"
-	limbs_id = "zombie" //They look like zombies
 	sexes = 0
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/zombie
 	mutanttongue = /obj/item/organ/tongue/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
+	parent_limb_id = "zombie"
 	limbs_id = "zombie"
 	use_generic_limbs = TRUE
 	limb_icon_file = 'icons/mob/human_parts.dmi'
