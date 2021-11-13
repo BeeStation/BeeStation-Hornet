@@ -37,7 +37,7 @@
 		var/datum/antagonist/devil/D = target_mind.has_antag_datum(/datum/antagonist/devil)
 		var/datum/objective/devil/outsell/outsellobjective = new
 		outsellobjective.owner = devil
-		outsellobjective.target = target_mind
+		outsellobjective.set_target(target_mind)
 		outsellobjective.update_explanation_text()
 		D.objectives += outsellobjective
 		log_objective(devil, outsellobjective.explanation_text)

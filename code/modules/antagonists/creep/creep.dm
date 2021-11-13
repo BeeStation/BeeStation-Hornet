@@ -49,7 +49,7 @@
 	var/list/objectives_left = list("spendtime", "polaroid", "hug")
 	var/datum/objective/assassinate/obsessed/kill = new
 	kill.owner = owner
-	kill.target = obsessionmind
+	kill.set_target(obsessionmind)
 	var/datum/quirk/family_heirloom/family_heirloom
 
 	for(var/datum/quirk/quirky in obsessionmind.current.roundstart_quirks)
@@ -69,32 +69,32 @@
 			if("spendtime")
 				var/datum/objective/spendtime/spendtime = new
 				spendtime.owner = owner
-				spendtime.target = obsessionmind
+				spendtime.set_target(obsessionmind)
 				objectives += spendtime
 				log_objective(owner, spendtime.explanation_text)
 			if("polaroid")
 				var/datum/objective/polaroid/polaroid = new
 				polaroid.owner = owner
-				polaroid.target = obsessionmind
+				polaroid.set_target(obsessionmind)
 				objectives += polaroid
 				log_objective(owner, polaroid.explanation_text)
 			if("hug")
 				var/datum/objective/hug/hug = new
 				hug.owner = owner
-				hug.target = obsessionmind
+				hug.set_target(obsessionmind)
 				objectives += hug
 				log_objective(owner, hug.explanation_text)
 			if("heirloom")
 				var/datum/objective/steal/heirloom_thief/heirloom_thief = new
 				heirloom_thief.owner = owner
-				heirloom_thief.target = obsessionmind//while you usually wouldn't need this for stealing, we need the name of the obsession
+				heirloom_thief.set_target(obsessionmind)//while you usually wouldn't need this for stealing, we need the name of the obsession
 				heirloom_thief.steal_target = family_heirloom.heirloom
 				objectives += heirloom_thief
 				log_objective(owner, heirloom_thief.explanation_text)
 			if("jealous")
 				var/datum/objective/assassinate/jealous/jealous = new
 				jealous.owner = owner
-				jealous.target = obsessionmind//will reroll into a coworker on the objective itself
+				jealous.set_target(obsessionmind)//will reroll into a coworker on the objective itself
 				objectives += jealous
 				log_objective(owner, jealous.explanation_text)
 
@@ -209,9 +209,9 @@
 		viable_coworkers += H.mind
 
 	if(viable_coworkers.len > 0)//find someone in the same department
-		target = pick(viable_coworkers)
+		set_target(pick(viable_coworkers))
 	else if(all_coworkers.len > 0)//find someone who works on the station
-		target = pick(all_coworkers)
+		set_target(pick(all_coworkers))
 	return oldmind
 
 /datum/objective/spendtime //spend some time around someone, handled by the obsessed trauma since that ticks

@@ -342,7 +342,7 @@
 
 // /datum/song signals
 #define COMSIG_SONG_START 	"song_start"						//sent to the instrument when a song starts playing
-#define COMSIG_SONG_END		"song_end"	
+#define COMSIG_SONG_END		"song_end"
 
 /*******Component Specific Signals*******/
 //Janitor
@@ -515,3 +515,6 @@
 #define COMSIG_AQUARIUM_BEFORE_INSERT_CHECK "aquarium_about_to_be_inserted"
 #define COMSIG_AQUARIUM_SURFACE_CHANGED "aquarium_surface_changed"
 #define COMSIG_AQUARIUM_FLUID_CHANGED "aquarium_fluid_changed"
+
+// Sent when a mob with a mind enters cryo storage
+#define COMSIG_MIND_CRYOED "mind_cryoed"

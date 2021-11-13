@@ -1,5 +1,4 @@
 GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
-GLOBAL_LIST_EMPTY(objectives)
 
 /datum/objective
 	var/datum/mind/owner				//The primary owner of the objective. !!SOMEWHAT DEPRECATED!! Prefer using 'team' for new code.
@@ -13,13 +12,18 @@ GLOBAL_LIST_EMPTY(objectives)
 	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 
 /datum/objective/New(var/text)
-	GLOB.objectives += src
 	if(text)
 		explanation_text = text
 
 //Apparently objectives can be qdel'd. Learn a new thing every day
 /datum/objective/Destroy()
-	GLOB.objectives -= src
+	set_target(null)
+	if(team)
+		team.objectives -= src
+	for(var/datum/mind/own as() in get_owners())
+		for(var/datum/antagonist/A as() in own.antag_datums)
+			A.objectives -= src
+		own.crew_objectives -= src
 	return ..()
 
 /datum/objective/proc/get_owners() // Combine owner and team into a single list.
@@ -47,11 +51,11 @@ GLOBAL_LIST_EMPTY(objectives)
 		return
 
 	if (new_target == "Free objective")
-		target = null
+		set_target(null)
 	else if (new_target == "Random")
 		find_target()
 	else
-		target = new_target.mind
+		set_target(new_target.mind)
 
 	update_explanation_text()
 
@@ -95,6 +99,14 @@ GLOBAL_LIST_EMPTY(objectives)
 
 /datum/objective/proc/get_target()
 	return target
+
+/datum/objective/proc/set_target(var/datum/mind/M)
+	if(target)
+		UnregisterSignal(target, COMSIG_MIND_CRYOED)
+	target = M
+	if(istype(target, /datum/mind))
+		RegisterSignal(target, COMSIG_MIND_CRYOED, .proc/on_target_cryo)
+		target.isAntagTarget = TRUE
 
 /datum/objective/proc/get_crewmember_minds()
 	. = list()
@@ -163,11 +175,9 @@ GLOBAL_LIST_EMPTY(objectives)
 			possible_targets = all_possible_targets
 	//30% chance to go for a prefered target
 	if(prefered_targets.len > 0 && prob(30))
-		target = pick(prefered_targets)
-		target.isAntagTarget = TRUE
+		set_target(pick(prefered_targets))
 	else if(possible_targets.len > 0)
-		target = pick(possible_targets)
-		target.isAntagTarget = TRUE
+		set_target(pick(possible_targets))
 	update_explanation_text()
 	return target
 
@@ -189,8 +199,7 @@ GLOBAL_LIST_EMPTY(objectives)
 			if(is_role && !invert || !is_role && invert)
 				possible_targets += possible_target
 	if(length(possible_targets))
-		target = pick(possible_targets)
-		target.isAntagTarget = TRUE
+		set_target(pick(possible_targets))
 	update_explanation_text()
 	return target
 
@@ -211,6 +220,30 @@ GLOBAL_LIST_EMPTY(objectives)
 			for(var/eq_path in special_equipment)
 				var/obj/O = new eq_path(get_turf(receiver.current))
 				H.equip_in_one_of_slots(O, slots)
+
+/datum/objective/proc/on_target_cryo()
+	SIGNAL_HANDLER
+
+	var/datum/mind/old_target = target
+	set_target(null)
+	find_target(null, list(old_target))
+	if(!target || target == old_target)
+		set_target(null)
+		if(team)
+			team.objectives -= src
+		for(var/datum/mind/own as() in get_owners())
+			for(var/datum/antagonist/A as() in own.antag_datums)
+				A.objectives -= src
+			own.crew_objectives -= src
+
+			to_chat(own.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
+			own.announce_objectives()
+		qdel(src)
+	else
+		update_explanation_text()
+		for(var/datum/mind/own as() in get_owners())
+			to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+			own.announce_objectives()
 
 /datum/objective/assassinate
 	name = "assasinate"
@@ -275,6 +308,16 @@ GLOBAL_LIST_EMPTY(objectives)
 		explanation_text = "Assassinate or exile [target.name], the [!target_role_type ? target.assigned_role : target.special_role]."
 	else
 		explanation_text = "Free Objective"
+
+/datum/objective/mutiny/on_target_cryo()
+	set_target(null)
+	team.objectives -= src
+	for(var/datum/mind/M as() in team.members)
+		var/datum/antagonist/rev/R = M.has_antag_datum(/datum/antagonist/rev)
+		R?.objectives -= src
+		to_chat(M.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
+		M.announce_objectives()
+	qdel(src)
 
 /datum/objective/maroon
 	name = "maroon"
@@ -342,7 +385,6 @@ GLOBAL_LIST_EMPTY(objectives)
 	if(!invert)
 		target_role_type = role_type
 	..()
-	return target
 
 /datum/objective/protect/check_completion()
 	var/obj/item/organ/brain/brain_target
@@ -487,10 +529,6 @@ GLOBAL_LIST_EMPTY(objectives)
 	var/target_real_name // Has to be stored because the target's real_name can change over the course of the round
 	var/target_missing_id
 
-/datum/objective/escape/escape_with_identity/find_target(dupe_search_range)
-	target = ..()
-	update_explanation_text()
-
 /datum/objective/escape/escape_with_identity/is_valid_target(possible_target)
 	var/list/datum/mind/owners = get_owners()
 	for(var/datum/mind/M in owners)
@@ -594,7 +632,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 		for(var/I in subtypesof(/datum/objective_item/steal))
 			new I
 
-/datum/objective/steal/find_target(dupe_search_range)
+/datum/objective/steal/find_target(dupe_search_range, blacklist)
 	var/list/datum/mind/owners = get_owners()
 	if(!dupe_search_range)
 		dupe_search_range = get_owners()
@@ -607,9 +645,9 @@ GLOBAL_LIST_EMPTY(possible_items)
 				if(M.current.mind.assigned_role in possible_item.excludefromjob)
 					continue check_items
 			approved_targets += possible_item
-	return set_target(safepick(approved_targets))
+	return set_steal_target(safepick(approved_targets))
 
-/datum/objective/steal/proc/set_target(datum/objective_item/item)
+/datum/objective/steal/proc/set_steal_target(datum/objective_item/item)
 	if(item)
 		targetinfo = item
 		steal_target = targetinfo.targetitem
@@ -639,7 +677,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 		explanation_text = "Steal [custom_name]."
 
 	else
-		set_target(new_target)
+		set_steal_target(new_target)
 
 /datum/objective/steal/check_completion()
 	var/list/datum/mind/owners = get_owners()
@@ -673,8 +711,8 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		for(var/I in subtypesof(/datum/objective_item/special) + subtypesof(/datum/objective_item/stack))
 			new I
 
-/datum/objective/steal/special/find_target(dupe_search_range)
-	return set_target(pick(GLOB.possible_items_special))
+/datum/objective/steal/special/find_target(dupe_search_range, blacklist)
+	return set_steal_target(pick(GLOB.possible_items_special))
 
 /datum/objective/steal/exchange
 	name = "exchange"
@@ -684,7 +722,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	return
 
 /datum/objective/steal/exchange/proc/set_faction(faction,otheragent)
-	target = otheragent
+	set_target(otheragent)
 	if(faction == "red")
 		targetinfo = new/datum/objective_item/unique/docs_blue
 	else if(faction == "blue")
@@ -797,7 +835,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	name = "protect object"
 	var/obj/protect_target
 
-/datum/objective/protect_object/proc/set_target(obj/O)
+/datum/objective/protect_object/proc/set_protect_target(obj/O)
 	protect_target = O
 	update_explanation_text()
 
@@ -890,10 +928,17 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	name = "destroy AI"
 	martyr_compatible = 1
 
-/datum/objective/destroy/find_target(dupe_search_range)
-	var/list/possible_targets = active_ais(1)
-	var/mob/living/silicon/ai/target_ai = pick(possible_targets)
-	target = target_ai.mind
+/datum/objective/destroy/find_target(dupe_search_range, blacklist)
+	var/list/possible_targets = list()
+	for(var/mob/living/silicon/ai/A in active_ais(TRUE))
+		if(A.mind in blacklist)
+			continue
+		possible_targets += A
+	if(possible_targets)
+		var/mob/living/silicon/ai/target_ai = pick(possible_targets)
+		set_target(target_ai.mind)
+	else
+		set_target(null)
 	update_explanation_text()
 	return target
 
@@ -913,7 +958,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	var/list/possible_targets = active_ais(1)
 	if(possible_targets.len)
 		var/mob/new_target = input(admin,"Select target:", "Objective target") as null|anything in sortNames(possible_targets)
-		target = new_target.mind
+		set_target(new_target.mind)
 	else
 		to_chat(admin, "No active AIs with minds")
 	update_explanation_text()
@@ -1011,6 +1056,19 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	var/payout = 0
 	var/payout_bonus = 0
 	var/area/dropoff = null
+
+/datum/objective/contract/on_target_cryo()
+	set_target(null)
+	var/datum/antagonist/traitor/affected_traitor = owner.has_antag_datum(/datum/antagonist/traitor)
+	if(!affected_traitor?.contractor_hub)
+		return
+	var/datum/contractor_hub/hub = affected_traitor.contractor_hub
+	for(var/datum/syndicate_contract/affected_contract as() in hub.assigned_contracts)
+		if(affected_contract.contract == src)
+			affected_contract.generate(hub.assigned_targets)
+			hub.assigned_targets.Add(affected_contract.contract.target)
+			to_chat(owner.current, "<BR><span class='userdanger'>Contract target out of reach. Contract rerolled.")
+			break
 
 // Generate a random valid area on the station that the dropoff will happen.
 /datum/objective/contract/proc/generate_dropoff()

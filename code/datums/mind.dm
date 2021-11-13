@@ -41,7 +41,6 @@
 	var/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
-	var/list/datum/objective/objectives = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 
@@ -380,13 +379,12 @@
 	output += memory
 
 
-	var/list/all_objectives = list()
+	var/list/all_objectives = get_all_objectives()
 	for(var/datum/antagonist/A in antag_datums)
 		output += A.antag_memory
-		all_objectives |= A.objectives
 
 	if(all_objectives.len)
-		output += "<B>Objectives:</B>"
+		output += "<br><B>Objectives:</B>"
 		var/obj_count = 1
 		for(var/datum/objective/objective in all_objectives)
 			output += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
@@ -396,10 +394,14 @@
 				for(var/datum/mind/M in other_owners)
 					output += "<li>Conspirator: [M.name]</li>"
 				output += "</ul>"
+	if(crew_objectives.len)
+		output += "<br><B>Optional Objectives:</B>"
+		for(var/datum/objective/objective in crew_objectives)
+			output += "<br>[objective.explanation_text]"
 
 	if(window)
 		recipient << browse(output,"window=memory")
-	else if(all_objectives.len || memory)
+	else if(all_objectives.len || crew_objectives.len || memory)
 		to_chat(recipient, "<i>[output]</i>")
 
 /datum/mind/Topic(href, href_list)
@@ -584,15 +586,23 @@
 	var/list/all_objectives = list()
 	for(var/datum/antagonist/A in antag_datums)
 		all_objectives |= A.objectives
+		var/datum/team/team = A.get_team()
+		if(team)
+			all_objectives |= team.objectives
 	return all_objectives
 
 /datum/mind/proc/announce_objectives()
 	var/obj_count = 1
-	to_chat(current, "<span class='notice'>Your current objectives:</span>")
-	for(var/objective in get_all_objectives())
-		var/datum/objective/O = objective
-		to_chat(current, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
-		obj_count++
+	var/list/all_objectives = get_all_objectives()
+	if(all_objectives.len)
+		to_chat(current, "<span class='notice'>Your current objectives:</span>")
+		for(var/datum/objective/O in all_objectives)
+			to_chat(current, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
+			obj_count++
+	if(crew_objectives.len)
+		to_chat(current, "<span class='notice'>Your optional objectives:</span>")
+		for(var/datum/objective/C in crew_objectives)
+			to_chat(current, "[C.explanation_text]")
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.GetAllContents()

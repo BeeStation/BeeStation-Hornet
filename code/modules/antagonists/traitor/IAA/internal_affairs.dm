@@ -142,7 +142,7 @@
 			else if(targets_stolen.Find(objective.target) == 0)
 				var/datum/objective/assassinate/internal/new_objective = new
 				new_objective.owner = owner
-				new_objective.target = objective.target
+				new_objective.set_target(objective.target)
 				new_objective.update_explanation_text()
 				add_objective(new_objective)
 				targets_stolen += objective.target
@@ -155,7 +155,7 @@
 				continue
 			else if(targets_stolen.Find(objective.target) == 0)
 				new_objective.owner = owner
-				new_objective.target = objective.target
+				new_objective.set_target(objective.target)
 				new_objective.update_explanation_text()
 				add_objective(new_objective)
 				targets_stolen += objective.target
@@ -210,13 +210,13 @@
 		if(issilicon(target_mind.current))
 			var/datum/objective/destroy/internal/destroy_objective = new
 			destroy_objective.owner = owner
-			destroy_objective.target = target_mind
+			destroy_objective.set_target(target_mind)
 			destroy_objective.update_explanation_text()
 			add_objective(destroy_objective)
 		else
 			var/datum/objective/assassinate/internal/kill_objective = new
 			kill_objective.owner = owner
-			kill_objective.target = target_mind
+			kill_objective.set_target(target_mind)
 			kill_objective.update_explanation_text()
 			add_objective(kill_objective)
 

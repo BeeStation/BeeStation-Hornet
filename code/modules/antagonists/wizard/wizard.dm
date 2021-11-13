@@ -228,7 +228,7 @@
 /datum/antagonist/wizard/apprentice/create_objectives()
 	var/datum/objective/protect/new_objective = new /datum/objective/protect
 	new_objective.owner = owner
-	new_objective.target = master
+	new_objective.set_target(master)
 	new_objective.explanation_text = "Protect [master.current.real_name], the wizard."
 	objectives += new_objective
 	log_objective(owner, new_objective.explanation_text)

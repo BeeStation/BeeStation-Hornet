@@ -23,7 +23,7 @@
 	.=..()
 	ashies = new /datum/team/ashwalkers()
 	var/datum/objective/protect_object/objective = new
-	objective.set_target(src)
+	objective.set_protect_target(src)
 	linked_objective = objective
 	ashies.objectives += objective
 	for(var/datum/mind/M in ashies.members)

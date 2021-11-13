@@ -199,7 +199,7 @@
 			yandere_one.find_target()
 			var/datum/objective/maroon/yandere_two = new
 			yandere_two.owner = owner
-			yandere_two.target = yandere_one.target
+			yandere_two.set_target(yandere_one.target)
 			yandere_two.update_explanation_text() // normally called in find_target()
 			add_objective(yandere_two)
 			.=2

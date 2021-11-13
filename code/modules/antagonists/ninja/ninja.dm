@@ -68,14 +68,14 @@
 				if(is_bad_guy ^ helping_station)			//kill (good-ninja + bad-guy or bad-ninja + good-guy)
 					var/datum/objective/assassinate/O = new /datum/objective/assassinate()
 					O.owner = owner
-					O.target = M
+					O.set_target(M)
 					O.explanation_text = "Slay \the [M.current.real_name], the [M.assigned_role]."
 					objectives += O
 					log_objective(owner, O.explanation_text)
 				else										//protect
 					var/datum/objective/protect/O = new /datum/objective/protect()
 					O.owner = owner
-					O.target = M
+					O.set_target(M)
 					O.explanation_text = "Protect \the [M.current.real_name], the [M.assigned_role], from harm."
 					objectives += O
 					log_objective(owner, O.explanation_text)
@@ -89,7 +89,7 @@
 				if(is_bad_guy ^ helping_station)			//debrain (good-ninja + bad-guy or bad-ninja + good-guy)
 					var/datum/objective/debrain/O = new /datum/objective/debrain()
 					O.owner = owner
-					O.target = M
+					O.set_target(M)
 					O.explanation_text = "Steal the brain of [M.current.real_name]."
 					objectives += O
 					log_objective(owner, O.explanation_text)

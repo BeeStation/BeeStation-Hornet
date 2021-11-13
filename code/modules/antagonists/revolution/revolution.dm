@@ -314,7 +314,7 @@
 	for(var/datum/mind/M in untracked_heads)
 		var/datum/objective/mutiny/new_target = new()
 		new_target.team = src
-		new_target.target = M
+		new_target.set_target(M)
 		new_target.update_explanation_text()
 		objectives += new_target
 	for(var/datum/mind/M in members)

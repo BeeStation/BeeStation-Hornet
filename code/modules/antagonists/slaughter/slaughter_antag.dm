@@ -19,7 +19,7 @@
 	if(summoner)
 		var/datum/objective/assassinate/new_objective = new /datum/objective/assassinate
 		new_objective.owner = owner
-		new_objective.target = summoner
+		new_objective.set_target(summoner)
 		new_objective.explanation_text = "[objective_verb] [summoner.name], the one who summoned you."
 		objectives += new_objective
 		log_objective(owner, new_objective.explanation_text)
