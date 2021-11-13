@@ -155,17 +155,26 @@ GLOBAL_VAR(restart_counter)
 
 	var/list/response[] = list()
 
-	if (length(T) > CONFIG_GET(number/topic_max_size))
+	if(length(T) > CONFIG_GET(number/topic_max_size))
 		response["statuscode"] = 413
 		response["response"] = "Payload too large"
 		return json_encode(response)
 
-	if (SSfail2topic?.IsRateLimited(addr))
+	if(SSfail2topic?.IsRateLimited(addr))
 		response["statuscode"] = 429
 		response["response"] = "Rate limited"
 		return json_encode(response)
 
-	var/list/params[] = json_decode(rustg_url_decode(T))
+	var/topic_decoded = rustg_url_decode(T)
+	if(!rustg_json_is_valid(topic_decoded))
+		// Fallback check for spacestation13.com requests
+		if(T == "ping")
+			return length(GLOB.clients)
+		response["statuscode"] = 400
+		response["response"] = "Bad Request - Invalid JSON format"
+		return json_encode(response)
+
+	var/list/params[] = json_decode(topic_decoded)
 	params["addr"] = addr
 	var/query = params["query"]
 	var/auth = params["auth"]
