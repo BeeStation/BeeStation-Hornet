@@ -125,7 +125,9 @@
 	var/list/mob/living/carbon/bodies
 	var/datum/action/innate/swap_body/swap_body
 
-	parent_limb_id = "jelly"
+	limbs_id = "slime"
+	use_generic_limbs = TRUE
+	limb_icon_file = 'icons/mob/human_parts_greyscale.dmi'
 
 /datum/species/jelly/slime/on_species_loss(mob/living/carbon/C)
 	if(slime_split)
