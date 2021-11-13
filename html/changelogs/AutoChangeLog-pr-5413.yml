@@ -1,0 +1,5 @@
+author: FriendlyContractor
+delete-after: true
+changes:
+  - rscadd: Morph will perform powerfull ambush attack on players tricked into interacting
+      with it
