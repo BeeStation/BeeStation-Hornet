@@ -502,6 +502,7 @@
 
 /obj/item/bodypart/chest/monkey/teratoma
 	icon_state = "teratoma_chest"
+	limb_id = "teratoma"
 	animal_origin = TERATOMA_BODYPART
 
 /obj/item/bodypart/chest/alien
@@ -647,6 +648,7 @@
 
 /obj/item/bodypart/r_arm/monkey/teratoma
 	icon_state = "teratoma_r_arm"
+	limb_id = "teratoma"
 	animal_origin = TERATOMA_BODYPART
 
 /obj/item/bodypart/r_arm/alien
@@ -705,6 +707,7 @@
 
 /obj/item/bodypart/l_leg/monkey/teratoma
 	icon_state = "teratoma_l_leg"
+	limb_id = "teratoma"
 	animal_origin = TERATOMA_BODYPART
 
 /obj/item/bodypart/l_leg/alien
@@ -765,6 +768,7 @@
 
 /obj/item/bodypart/r_leg/monkey/teratoma
 	icon_state = "teratoma_r_leg"
+	limb_id = "teratoma"
 	animal_origin = TERATOMA_BODYPART
 
 /obj/item/bodypart/r_leg/alien

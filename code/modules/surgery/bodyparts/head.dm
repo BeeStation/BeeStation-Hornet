@@ -256,6 +256,7 @@
 
 /obj/item/bodypart/head/monkey/teratoma
 	icon_state = "teratoma_head"
+	limb_id = "teratoma"
 	animal_origin = TERATOMA_BODYPART
 
 /obj/item/bodypart/head/alien
