@@ -345,7 +345,7 @@
 	if(!is_creating)
 		return
 
-	if(!animal_origin)
+	if(!animal_origin && ishuman(C))
 		var/mob/living/carbon/human/H = C
 		should_draw_greyscale = FALSE
 
