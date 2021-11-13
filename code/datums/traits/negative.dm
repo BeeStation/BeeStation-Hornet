@@ -477,6 +477,15 @@
 		if(prob(1))
 			new/obj/item/reagent_containers/food/snacks/spaghetti/pastatomato(get_turf(H)) //now that's what I call spaghetti code
 
+/datum/quirk/mute
+	name = "Mute"
+	desc = "You are unable to speak."
+	value = -2
+	mob_trait = TRAIT_MUTE
+	gain_text = "<span class='danger'>You feel unable to talk.</span>"
+	lose_text = "<span class='notice'>You feel able to talk again.</span>"
+	medical_record_text = "Patient is unable to speak."
+
 //If you want to make some kind of junkie variant, just extend this quirk.
 /datum/quirk/junkie
 	name = "Junkie"
@@ -661,5 +670,5 @@
 	H.gain_trauma(T, TRAUMA_RESILIENCE_ABSOLUTE)
 
 /datum/quirk/phobia/remove()
-	var/mob/living/carbon/human/H = quirk_holder	
+	var/mob/living/carbon/human/H = quirk_holder
 	H.cure_trauma_type(/datum/brain_trauma/mild/phobia, TRAUMA_RESILIENCE_ABSOLUTE)
