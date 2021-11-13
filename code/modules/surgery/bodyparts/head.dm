@@ -233,20 +233,20 @@
 					. += hair_overlay
 
 
-		// lipstick
-		if(lip_style)
-			var/image/lips_overlay = image('icons/mob/human_face.dmi', "lips_[lip_style]", -BODY_LAYER, SOUTH)
-			lips_overlay.color = lip_color
-			. += lips_overlay
+			// lipstick
+			if(lip_style)
+				var/image/lips_overlay = image('icons/mob/human_face.dmi', "lips_[lip_style]", -BODY_LAYER, SOUTH)
+				lips_overlay.color = lip_color
+				. += lips_overlay
 
-		// eyes
-		var/image/eyes_overlay = image('icons/mob/human_face.dmi', "eyes_missing", -BODY_LAYER, SOUTH)
-		. += eyes_overlay
-		if(eyes)
-			eyes_overlay.icon_state = eyes.eye_icon_state
+			// eyes
+			var/image/eyes_overlay = image('icons/mob/human_face.dmi', "eyes_missing", -BODY_LAYER, SOUTH)
+			. += eyes_overlay
+			if(eyes)
+				eyes_overlay.icon_state = eyes.eye_icon_state
 
-			if(eyes.eye_color)
-				eyes_overlay.color = "#" + eyes.eye_color
+				if(eyes.eye_color)
+					eyes_overlay.color = "#" + eyes.eye_color
 
 /obj/item/bodypart/head/monkey
 	icon = 'icons/mob/animal_parts.dmi'
