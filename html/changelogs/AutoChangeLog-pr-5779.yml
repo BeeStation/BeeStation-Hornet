@@ -1,5 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - bugfix: hangover spawns now delete themselves
-  - tweak: structure spawners are dense now
