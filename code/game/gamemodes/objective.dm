@@ -178,6 +178,8 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		set_target(pick(prefered_targets))
 	else if(possible_targets.len > 0)
 		set_target(pick(possible_targets))
+	else
+		set_target(null)
 	update_explanation_text()
 	return target
 
@@ -200,6 +202,8 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 				possible_targets += possible_target
 	if(length(possible_targets))
 		set_target(pick(possible_targets))
+	else
+		set_target(null)
 	update_explanation_text()
 	return target
 
@@ -224,11 +228,8 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/proc/on_target_cryo()
 	SIGNAL_HANDLER
 
-	var/datum/mind/old_target = target
-	set_target(null)
-	find_target(null, list(old_target))
-	if(!target || target == old_target)
-		set_target(null)
+	find_target(null, list(target))
+	if(!target)
 		if(team)
 			team.objectives -= src
 		for(var/datum/mind/own as() in get_owners())
