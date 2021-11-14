@@ -1,4 +1,5 @@
 @use '../colors.scss';
+@use '../base.scss';
 
 .Techweb__NodeProgress {
   margin-bottom: 1rem;
@@ -84,7 +85,10 @@
 }
 
 .Techweb__TierDisplay {
-  padding: 0.2em;
+  position: absolute;
+  right: base.em(3px);
+  top: base.em(3px);
+  padding: 0.3em;
   border-radius: 5px;
-  background-color: adjust-color(colors.$black, $alpha: -0.2);
+  background-color: adjust-color(colors.$grey, $alpha: -0.5);
 }
