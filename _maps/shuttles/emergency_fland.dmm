@@ -5,13 +5,10 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aM" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/tile_marquee/neutral,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aU" = (
@@ -34,10 +31,7 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "cg" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/tile_marquee/brown,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "cF" = (
@@ -66,10 +60,6 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "dV" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light{
 	dir = 8
@@ -81,6 +71,7 @@
 /obj/structure/sign/warning/nosmoking/circle{
 	pixel_x = -32
 	},
+/obj/effect/turf_decal/tile/tile_marquee/brown,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "fC" = (
@@ -197,10 +188,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
+/obj/effect/turf_decal/tile/tile_marquee/neutral,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "iL" = (
@@ -233,10 +221,7 @@
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/assembly/flash/handheld,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
+/obj/effect/turf_decal/tile/tile_marquee/neutral,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "ke" = (
@@ -270,15 +255,12 @@
 /obj/item/weldingtool,
 /obj/item/wirecutters,
 /obj/item/stack/cable_coil,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/tile_marquee/brown,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "mr" = (
@@ -316,19 +298,13 @@
 	},
 /obj/item/storage/firstaid/regular,
 /obj/item/crowbar/large,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
+/obj/effect/turf_decal/tile/tile_marquee/neutral,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "pd" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
+/obj/effect/turf_decal/tile/tile_marquee/neutral,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "rF" = (
@@ -371,10 +347,6 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "ty" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency{
@@ -393,6 +365,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/tile_marquee/brown,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "tC" = (
@@ -443,10 +416,6 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "ux" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light{
 	dir = 4
@@ -455,6 +424,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/effect/turf_decal/tile/tile_marquee/brown,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "uQ" = (
@@ -517,10 +487,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "yq" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
+/obj/effect/turf_decal/tile/tile_marquee/neutral,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "yT" = (
@@ -626,6 +593,7 @@
 	dir = 8;
 	name = "emergency shower"
 	},
+/obj/effect/turf_decal/tile/tile_marquee/blue,
 /turf/open/floor/noslip/darkblue,
 /area/shuttle/escape)
 "CX" = (
@@ -667,10 +635,6 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "EX" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/item/storage/box/zipties{
 	pixel_y = 4
 	},
@@ -740,12 +704,6 @@
 /area/shuttle/escape)
 "HC" = (
 /obj/structure/table/optable,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "HX" = (
@@ -835,15 +793,12 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "KX" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/effect/turf_decal/tile/tile_marquee/brown,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Lb" = (
@@ -859,10 +814,6 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "LR" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -873,6 +824,7 @@
 	pixel_y = 2
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/tile_marquee/brown,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "LT" = (
@@ -902,13 +854,10 @@
 /obj/item/wrench,
 /obj/item/radio,
 /obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/effect/turf_decal/tile/tile_marquee/brown,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "MJ" = (
@@ -965,14 +914,11 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "OA" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/machinery/button/flasher{
 	id = "cockpit_flasher";
 	pixel_y = -24
 	},
+/obj/effect/turf_decal/tile/tile_marquee/neutral,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "OF" = (
@@ -1026,15 +972,6 @@
 "Rz" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
-"RG" = (
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "RL" = (
 /obj/effect/turf_decal/arrows{
@@ -1109,16 +1046,13 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "VN" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/tile_marquee/brown,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "VT" = (
@@ -1133,16 +1067,13 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = -24
 	},
+/obj/effect/turf_decal/tile/tile_marquee/neutral,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "WB" = (
@@ -1160,13 +1091,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/tile_marquee/neutral,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Xf" = (
@@ -1186,10 +1114,6 @@
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/escape)
 "Yj" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1198,6 +1122,7 @@
 	pixel_y = -27
 	},
 /obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/tile_marquee/brown,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Yp" = (
@@ -1216,28 +1141,22 @@
 /obj/item/clothing/suit/fire/firefighter,
 /obj/item/clothing/mask/gas,
 /obj/item/clothing/head/hardhat/red,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/tile_marquee/brown,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "YW" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/tile_marquee/brown,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Zn" = (
@@ -1363,7 +1282,7 @@ KV
 Dg
 tC
 Hg
-RG
+Hg
 RX
 Fm
 AS

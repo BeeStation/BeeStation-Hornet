@@ -1,16 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
+/obj/effect/turf_decal/tile/tile_full/neutral,
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "e" = (
@@ -75,16 +66,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "z" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
+/obj/effect/turf_decal/tile/tile_full/neutral,
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "A" = (
@@ -118,19 +100,10 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "E" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/tile_full/neutral,
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "F" = (
@@ -281,18 +254,9 @@
 /area/shuttle/labor)
 "Y" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/structure/ore_box,
 /obj/machinery/light,
+/obj/effect/turf_decal/tile/tile_full/neutral,
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "Z" = (

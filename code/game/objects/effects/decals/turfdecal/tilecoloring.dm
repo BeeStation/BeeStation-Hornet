@@ -51,6 +51,160 @@
 	color = "#[random_short_color()]"
 	. = ..()
 
+//marquee tide decals
+/obj/effect/turf_decal/tile/tile_marquee
+	name = "marquee tile decals"
+	icon_state = "tile_marquee"
+	layer = TURF_PLATING_DECAL_LAYER
+	alpha = 110
+
+/obj/effect/turf_decal/tile/tile_side/Initialize()
+	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
+		color = "#[random_short_color()]"
+	. = ..()
+
+/obj/effect/turf_decal/tile/tile_marquee/blue
+	name = "blue side"
+	color = "#52B4E9"
+
+/obj/effect/turf_decal/tile/tile_marquee/green
+	name = "green side"
+	color = "#9FED58"
+
+/obj/effect/turf_decal/tile/tile_marquee/yellow
+	name = "yellow side"
+	color = "#EFB341"
+
+/obj/effect/turf_decal/tile/tile_marquee/red
+	name = "red side"
+	color = "#DE3A3A"
+
+/obj/effect/turf_decal/tile/tile_marquee/bar
+	name = "bar side"
+	color = "#791500"
+	alpha = 130
+
+/obj/effect/turf_decal/tile/tile_marquee/purple
+	name = "purple side"
+	color = "#D381C9"
+
+/obj/effect/turf_decal/tile/tile_marquee/brown
+	name = "brown side"
+	color = "#A46106"
+
+/obj/effect/turf_decal/tile/tile_marquee/neutral
+	name = "neutral side"
+	color = "#D4D4D4"
+	alpha = 50
+
+//side tide decals
+/obj/effect/turf_decal/tile/tile_side
+	name = "tile decals"
+	icon_state = "tile_side"
+	layer = TURF_PLATING_DECAL_LAYER
+	alpha = 110
+
+/obj/effect/turf_decal/tile/tile_side/Initialize()
+	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
+		color = "#[random_short_color()]"
+	. = ..()
+
+/obj/effect/turf_decal/tile/tile_side/blue
+	name = "blue side"
+	color = "#52B4E9"
+
+/obj/effect/turf_decal/tile/tile_side/green
+	name = "green side"
+	color = "#9FED58"
+
+/obj/effect/turf_decal/tile/tile_side/yellow
+	name = "yellow side"
+	color = "#EFB341"
+
+/obj/effect/turf_decal/tile/tile_side/red
+	name = "red side"
+	color = "#DE3A3A"
+
+/obj/effect/turf_decal/tile/tile_side/bar
+	name = "bar side"
+	color = "#791500"
+	alpha = 130
+
+/obj/effect/turf_decal/tile/tile_side/purple
+	name = "purple side"
+	color = "#D381C9"
+
+/obj/effect/turf_decal/tile/tile_side/brown
+	name = "brown side"
+	color = "#A46106"
+
+/obj/effect/turf_decal/tile/tile_side/neutral
+	name = "neutral side"
+	color = "#D4D4D4"
+	alpha = 50
+
+/obj/effect/turf_decal/tile/tile_side/random // so many colors
+	name = "colorful side"
+	color = "#E300FF" //bright pink as default for mapping
+
+/obj/effect/turf_decal/tile/tile_side/random/Initialize()
+	color = "#[random_short_color()]"
+	. = ..()
+
+//full tide decal(s)
+/obj/effect/turf_decal/tile/tile_full
+	name = "full tile decals"
+	icon_state = "tile_full"
+	layer = TURF_PLATING_DECAL_LAYER
+	alpha = 110
+
+/obj/effect/turf_decal/tile/tile_full/Initialize()
+	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
+		color = "#[random_short_color()]"
+	. = ..()
+
+/obj/effect/turf_decal/tile/tile_full/blue
+	name = "blue plate decal"
+	color = "#52B4E9"
+
+/obj/effect/turf_decal/tile/tile_full/green
+	name = "green plate decal"
+	color = "#9FED58"
+
+/obj/effect/turf_decal/tile/tile_full/yellow
+	name = "yellow plate decal"
+	color = "#EFB341"
+
+/obj/effect/turf_decal/tile/tile_full/red
+	name = "red plate decal"
+	color = "#DE3A3A"
+
+/obj/effect/turf_decal/tile/tile_full/bar
+	name = "bar plate decal"
+	color = "#791500"
+	alpha = 130
+
+/obj/effect/turf_decal/tile/tile_full/purple
+	name = "purple siplate decalde"
+	color = "#D381C9"
+
+/obj/effect/turf_decal/tile/tile_full/brown
+	name = "brown plate decal"
+	color = "#A46106"
+
+/obj/effect/turf_decal/tile/tile_full/neutral
+	name = "neutral plate decal"
+	color = "#D4D4D4"
+	alpha = 50
+
+/obj/effect/turf_decal/tile/tile_full/random // so many colors
+	name = "colorful plate decal"
+	color = "#E300FF" //bright pink as default for mapping
+
+/obj/effect/turf_decal/tile/tile_full/random/Initialize()
+	color = "#[random_short_color()]"
+	. = ..()
+
 
 /obj/effect/turf_decal/trimline
 	layer = TURF_PLATING_DECAL_LAYER
