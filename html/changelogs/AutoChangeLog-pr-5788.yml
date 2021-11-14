@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - rscdel: owospeak doesn't have the funny word in it anymore
