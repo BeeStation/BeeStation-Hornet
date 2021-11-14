@@ -20,7 +20,7 @@
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>",\
 				"<span class='userdanger'>[M] [response_harm] you!</span>", null, COMBAT_MESSAGE_RANGE)
 			playsound(loc, attacked_sound, 25, 1, -1)
-			attack_threshold_check(harm_intent_damage)
+			attack_threshold_check(M.dna.species.punchdamage)
 			log_combat(M, src, "attacked")
 			updatehealth()
 			return TRUE
@@ -108,9 +108,9 @@
 		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
 		return TRUE
 
-/mob/living/simple_animal/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bullet_act(obj/item/projectile/Proj, def_zone, piercing_hit = FALSE)
 	apply_damage(Proj.damage, Proj.damage_type)
-	Proj.on_hit(src)
+	Proj.on_hit(src, 0, piercing_hit)
 	return BULLET_ACT_HIT
 
 /mob/living/simple_animal/ex_act(severity, target, origin)

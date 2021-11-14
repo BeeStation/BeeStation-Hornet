@@ -55,10 +55,6 @@
 	var/turf/T = get_turf(src)
 	for(var/obj/item/I in contents)
 		I.on_mob_death(src, gibbed)
-	for(var/datum/disease/advance/D in diseases)
-		for(var/symptom in D.symptoms)
-			var/datum/symptom/S = symptom
-			S.OnDeath(D)
 	if(mind)
 		if(mind.name && mind.active && !istype(T.loc, /area/ctf))
 			var/rendered = "<span class='deadsay'><b>[mind.name]</b> has died at <b>[get_area_name(T)]</b>.</span>"

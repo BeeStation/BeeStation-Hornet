@@ -7,6 +7,8 @@
 	transmission = 1
 	level = 9
 	severity = 3
+	prefixes = list("Xeno", "Sporing ")
+	bodies = list("Blob")
 	var/ready_to_pop
 	var/factory_blob
 	var/strong_blob

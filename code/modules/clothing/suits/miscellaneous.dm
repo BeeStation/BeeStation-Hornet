@@ -570,6 +570,7 @@
 	icon_state = "caution"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
+	custom_price = 10
 	force = 1
 	throwforce = 3
 	throw_speed = 2
