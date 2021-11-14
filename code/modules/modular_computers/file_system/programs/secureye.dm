@@ -65,17 +65,15 @@
 
 	if(!ui)
 		var/user_ref = REF(user)
-		var/is_living = isliving(user)
 		// Ghosts shouldn't count towards concurrent users, which produces
 		// an audible terminal_on click.
-		if(is_living)
+		if(isliving(user))
 			concurrent_users += user_ref
 		// Register map objects
 		user.client.register_map_obj(cam_screen)
 		for(var/plane in cam_plane_masters)
 			user.client.register_map_obj(plane)
 		user.client.register_map_obj(cam_background)
-		ui.set_autoupdate(FALSE)
 		return ..()
 
 /datum/computer_file/program/secureye/ui_data()
