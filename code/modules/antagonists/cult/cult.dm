@@ -34,6 +34,8 @@
 	cult_team = new_team
 
 /datum/antagonist/cult/proc/add_objectives()
+	for(var/datum/objective/objective in (cult_team.objectives-objectives))
+		log_objective(owner, objective.explanation_text)
 	objectives |= cult_team.objectives
 
 /datum/antagonist/cult/Destroy()
@@ -297,9 +299,17 @@
 		H.apply_overlay(HALO_LAYER)
 
 /datum/team/cult/proc/make_image(datum/objective/sacrifice/sac_objective)
-	var/datum/job/sacjob = SSjob.GetJob(sac_objective.target.assigned_role)
-	var/datum/preferences/sacface = sac_objective.target.current.client.prefs
-	var/icon/reshape = get_flat_human_icon(null, sacjob, sacface, list(SOUTH))
+	if(!sac_objective.target)
+		return
+	var/icon/reshape
+	for(var/V in GLOB.data_core.locked)
+		var/datum/data/record/R = V
+		var/datum/mind/M = R.fields["mindref"]
+		if(sac_objective.target == M)
+			reshape = R.fields["image"]
+			break
+	if(!reshape)
+		return
 	reshape.Shift(SOUTH, 4)
 	reshape.Shift(EAST, 1)
 	reshape.Crop(7,4,26,31)
@@ -311,25 +321,38 @@
 		return
 	var/datum/team/cult/C = team
 	var/list/target_candidates = list()
-	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(player.mind && !player.mind.has_antag_datum(/datum/antagonist/cult) && !is_convertable_to_cult(player) && player.stat != DEAD && !(player.mind in blacklist))
-			target_candidates += player.mind
+	for(var/datum/mind/possible_target in get_crewmember_minds())
+		if(is_valid_target(possible_target) && !is_convertable_to_cult(possible_target.current) && !(possible_target in blacklist))
+			target_candidates += possible_target
 	if(target_candidates.len == 0)
 		message_admins("Cult Sacrifice: Could not find unconvertible target, checking for convertible target.")
-		for(var/mob/living/carbon/human/player in GLOB.player_list)
-			if(player.mind && !player.mind.has_antag_datum(/datum/antagonist/cult) && player.stat != DEAD && !(player.mind in blacklist))
-				target_candidates += player.mind
+		for(var/datum/mind/possible_target in get_crewmember_minds())
+			if(is_valid_target(possible_target) && !(possible_target in blacklist))
+				target_candidates += possible_target
 	listclearnulls(target_candidates)
 	if(LAZYLEN(target_candidates))
 		set_target(pick(target_candidates))
-		update_explanation_text()
 	else
 		message_admins("Cult Sacrifice: Could not find unconvertible or convertible target. WELP!")
+		set_target(null)
+	update_explanation_text()
 	C.make_image(src)
 	for(var/datum/mind/M in C.members)
 		if(M.current)
 			M.current.clear_alert("bloodsense")
 			M.current.throw_alert("bloodsense", /atom/movable/screen/alert/bloodsense)
+
+/datum/objective/sacrifice/on_target_cryo()
+	find_target(null, list(target))
+	update_explanation_text()
+	var/message
+	if(!target)
+		message = "<BR><span class='userdanger'>Your target is no longer within reach. The veil is now weak enough to proceed to the final objective.</span>"
+	else
+		message = "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")].</span>"
+	for(var/datum/mind/own as() in get_owners())
+		to_chat(own.current, message)
+		own.announce_objectives()
 
 /datum/team/cult/proc/setup_objectives()
 	var/datum/objective/sacrifice/sac_objective = new
@@ -340,11 +363,6 @@
 	var/datum/objective/eldergod/summon_objective = new
 	summon_objective.team = src
 	objectives += summon_objective
-
-	for(var/datum/mind/M in members)
-		var/datum/antagonist/cult/cultist = M.has_antag_datum(/datum/antagonist/cult)
-		cultist?.add_objectives()
-
 
 /datum/objective/sacrifice
 	var/sacced = FALSE
@@ -364,7 +382,7 @@
 	//Target's a clockie
 	if(target?.has_antag_datum(/datum/antagonist/servant_of_ratvar))
 		return TRUE
-	return sacced || completed
+	return sacced || completed || !target
 
 /datum/objective/sacrifice/update_explanation_text()
 	if(target)
