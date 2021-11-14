@@ -749,8 +749,7 @@ const TechNode = (props, context) => {
     <Section
       className="Techweb__NodeContainer"
       title={name}
-      width={25}
-      fitted>
+      width={25}>
       {!nocontrols && (
         <>
           {!nodetails && (
