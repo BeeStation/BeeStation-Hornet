@@ -87,7 +87,7 @@ const CargoStatus = (props, context) => {
     <Section
       title="Cargo"
       buttons={(
-        <Box inline bold>
+        <Box fontFamily="verdana" inline bold>
           <AnimatedNumber
             value={points}
             format={value => formatMoney(value)} />
@@ -196,6 +196,7 @@ export const CargoCatalog = (props, context) => {
                     collapsing
                     textAlign="right">
                     <Button
+                      fontFamily="verdana"
                       fluid
                       tooltip={pack.desc}
                       tooltipPosition="left"
@@ -262,7 +263,7 @@ const CargoRequests = (props, context) => {
               <Table.Cell width="25%">
                 <i>{request.reason}</i>
               </Table.Cell>
-              <Table.Cell collapsing textAlign="right">
+              <Table.Cell fontFamily="verdana" collapsing textAlign="right">
                 {formatMoney(request.cost)} cr
               </Table.Cell>
               {(!requestonly || can_send) && can_approve_requests && (
@@ -357,7 +358,7 @@ const CargoCart = (props, context) => {
                   <b>[Paid Privately]</b>
                 )}
               </Table.Cell>
-              <Table.Cell collapsing textAlign="right">
+              <Table.Cell fontFamily="verdana" collapsing textAlign="right">
                 {formatMoney(entry.cost)} cr
               </Table.Cell>
               <Table.Cell collapsing>
