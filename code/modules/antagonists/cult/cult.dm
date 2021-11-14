@@ -92,10 +92,10 @@
 	var/where = mob.equip_in_one_of_slots(T, slots)
 	if(!where)
 		//Our last attempt, we force the item into the backpack
-		if(istype(H.back, /obj/item/storage/backpack))
-			var/obj/item/storage/backpack/B = H.back
+		if(istype(mob.back, /obj/item/storage/backpack))
+			var/obj/item/storage/backpack/B = mob.back
 			SEND_SIGNAL(B, COMSIG_TRY_STORAGE_INSERT, T, null, TRUE, TRUE)
-			to_chat(H, "<span class='danger'>You have a [item_name] in your backpack.</span>")
+			to_chat(mob, "<span class='danger'>You have a [item_name] in your backpack.</span>")
 			return TRUE
 		else
 			message_admins("Heretic couldn't be equipped.")
