@@ -56,15 +56,6 @@
 		if(hand_number)
 			. += "<span class='warning'>[t_He] [t_has] [hand_number > 1 ? "" : "a"] blood-stained hand[hand_number > 1 ? "s" : ""]!</span>"
 
-	//handcuffed?
-
-	//handcuffed?
-	if(handcuffed)
-		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
-			. += "<span class='warning'>[t_He] [t_is] [icon2html(handcuffed, user)] restrained with cable!</span>"
-		else
-			. += "<span class='warning'>[t_He] [t_is] [icon2html(handcuffed, user)] handcuffed!</span>"
-
 	//belt
 	if(belt)
 		. += "[t_He] [t_has] [belt.get_examine_string(user)] about [t_his] waist."
@@ -310,6 +301,17 @@
 		if(HAS_TRAIT(src, TRAIT_DIGICAMO))
 			msg += "[t_He] [t_is] moving [t_his] body in an unnatural and blatantly inhuman manner.\n"
 
+	//handcuffed?
+	if(handcuffed)
+		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
+			. += "<span class='warning'>[t_He] [t_is] [icon2html(handcuffed, user)] restrained with cable!</span>"
+		else
+			. += "<span class='warning'>[t_He] [t_is] [icon2html(handcuffed, user)] handcuffed with [handcuffed]!</span>"
+
+	//legcuffed?
+	if(legcuffed)
+		. += "<span class='warning'>[t_He] [t_is] [icon2html(legcuffed, user)] legcuffed with [legcuffed]!</span>"
+
 	if (length(msg))
 		. += "<span class='warning'>[msg.Join("")]</span>"
 
@@ -373,3 +375,4 @@
 			dat += "[new_text]\n" //dat.Join("\n") doesn't work here, for some reason
 	if(dat.len)
 		return dat.Join()
+a
