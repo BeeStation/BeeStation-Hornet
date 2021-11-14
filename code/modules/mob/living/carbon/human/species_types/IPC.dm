@@ -76,10 +76,18 @@
 		O.medium_burn_msg = "scorched"
 		O.heavy_burn_msg = "seared"
 
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		H.physiology.bleed_mod *= 0.1
+
 /datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	if(change_screen)
 		change_screen.Remove(C)
+
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		H.physiology.bleed_mod *= 10
 
 /datum/species/ipc/proc/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
