@@ -3,24 +3,16 @@
 /obj/item/clothing/suit/space/space_ninja/proc/ninjaboost()
 
 	if(!ninjacost(0,N_ADRENALINE))
-		var/mob/living/carbon/human/H = suit_user
-		H.SetUnconscious(0)
-		H.SetStun(0)
-		H.SetKnockdown(0)
-		H.SetImmobilized(0)
-		H.SetParalyzed(0)
-		H.adjustStaminaLoss(-75)
-		H.stuttering = 0
-		H.lying = 0
-		H.update_mobility()
-		H.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 5)
-		H.say(pick("A CORNERED FOX IS MORE DANGEROUS THAN A JACKAL!","HURT ME MOOORRREEE!","IMPRESSIVE!"), forced = "ninjaboost")
+		suit_user.SetUnconscious(0)
+		suit_user.SetStun(0)
+		suit_user.SetKnockdown(0)
+		suit_user.SetImmobilized(0)
+		suit_user.SetParalyzed(0)
+		suit_user.adjustStaminaLoss(-75)
+		suit_user.stuttering = 0
+		suit_user.lying = 0
+		suit_user.update_mobility()
+		suit_user.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 5)
 		a_boost--
-		to_chat(H, "<span class='notice'>There are <B>[a_boost]</B> adrenaline boosts remaining.</span>")
+		to_chat(suit_user, "<span class='notice'>There are <B>[a_boost]</B> adrenaline boosts remaining.</span>")
 		s_coold = 6
-		addtimer(CALLBACK(src, .proc/ninjaboost_after), 70)
-
-/obj/item/clothing/suit/space/space_ninja/proc/ninjaboost_after()
-	var/mob/living/carbon/human/H = suit_user
-	H.reagents.add_reagent(/datum/reagent/uranium/radium, a_transfer)
-	to_chat(H, "<span class='danger'>You are beginning to feel the after-effect of the injection.</span>")

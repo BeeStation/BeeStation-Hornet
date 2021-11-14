@@ -34,7 +34,6 @@ Contents:
 		control.occurrences--
 	return ..()
 
-
 /datum/round_event/ghost_role/ninja/spawn_role()
 	//selecting a spawn_loc
 	if(!spawn_loc)

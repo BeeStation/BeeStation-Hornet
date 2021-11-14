@@ -32,7 +32,7 @@
 
 /obj/item/energy_katana/attack_self(mob/user)
 	dash_toggled = !dash_toggled
-	to_chat(user, "<span class='notice'>You [dash_toggled ? "enable" : "disable"] the dash function on [src].</span>")
+	balloon_alert(user, "Dash [dash_toggled ? "enabled" : "disabled"]")
 
 /obj/item/energy_katana/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -59,17 +59,19 @@
 //Works for if the Ninja throws it or it throws itself or someone tries
 //To throw it at the ninja
 /obj/item/energy_katana/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(ishuman(hit_atom))
-		var/mob/living/carbon/human/H = hit_atom
-		if(istype(H.wear_suit, /obj/item/clothing/suit/space/space_ninja))
-			var/obj/item/clothing/suit/space/space_ninja/SN = H.wear_suit
-			if(SN.energyKatana == src)
-				returnToOwner(H, 0, 1)
-				return
+	if(!ishuman(hit_atom))
+		return ..()
 
-	..()
+	var/mob/living/carbon/human/H = hit_atom
+	if(istype(H.wear_suit, /obj/item/clothing/suit/space/space_ninja))
+		var/obj/item/clothing/suit/space/space_ninja/SN = H.wear_suit
+		if(SN.energyKatana == src)
+			returnToOwner(H, 0, 1)
+			return
 
-/obj/item/energy_katana/proc/returnToOwner(mob/living/carbon/human/user, doSpark = 1, caught = 0)
+	return ..()
+
+/obj/item/energy_katana/proc/returnToOwner(mob/living/carbon/human/user, doSpark = TRUE, caught = 0)
 	if(!istype(user))
 		return
 	forceMove(get_turf(user))

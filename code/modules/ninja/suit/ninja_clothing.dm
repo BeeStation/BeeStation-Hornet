@@ -239,7 +239,7 @@ Contents:
 
 	to_chat(suit_user, "<span class='notice'>All systems operational. Welcome to <B>SpiderOS</B>, [suit_user.real_name].</span>")
 	suit_user = TRUE
-	START_PROCESSING(src, SSprocessing)
+	START_PROCESSING(SSprocessing, src)
 	s_busy = FALSE
 
 /obj/item/clothing/suit/space/space_ninja/proc/turn_off()

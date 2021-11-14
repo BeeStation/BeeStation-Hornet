@@ -146,7 +146,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 
 	var/drain = round(rand(G.drain * 0.75, G.drain * 1.5))/2
 	if(!do_after(H, 10, target = src))
-		break
+		return
 	var/drained = min(drain, delayed_surplus())
 	add_delayedload(drained)
 	if(drained < drain)//if no power on net, drain apcs
