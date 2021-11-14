@@ -803,6 +803,8 @@ prop, but now it is automatically calculated.
 - `buttons: any` - Buttons to render aside the section title.
 - `fill: boolean` - If true, fills all available vertical space.
 - `fitted: boolean` - If true, removes all section padding.
+- `independent: boolean` - If true, prevents automatic adjustments done to width
+and background color when nested.
 - `scrollable: boolean` - Shows or hides the scrollbar.
 - `children: any` - Content of this section.
 

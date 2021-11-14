@@ -101,7 +101,7 @@ $separator-color: colors.$primary !default;
 }
 
 // Nested sections
-.Section .Section {
+.Section .Section:not(.Section--independent) {
   background-color: transparent;
   margin-left: -0.5em;
   margin-right: -0.5em;
