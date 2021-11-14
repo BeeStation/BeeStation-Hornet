@@ -1,0 +1,5 @@
+author: KubeRoot, stylemistake
+delete-after: true
+changes:
+  - bugfix: Sections in TGUI should now behave more consistently, especially when
+      nested

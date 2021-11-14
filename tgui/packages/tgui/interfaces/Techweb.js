@@ -743,8 +743,7 @@ const TechNode = (props, context) => {
       className="Techweb__NodeContainer"
       title={name}
       buttons={<Box className="Techweb__TierDisplay">T{tech_tier}</Box>}
-      width={25}
-      fitted>
+      width={25}>
       {!nocontrols && (
         <>
           {!nodetails && (

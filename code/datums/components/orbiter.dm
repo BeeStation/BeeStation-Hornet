@@ -81,7 +81,7 @@
 
 	orbiter.SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
 
-	orbiter.forceMove(get_turf(parent))
+	orbiter.abstract_move(get_turf(parent))
 	to_chat(orbiter, "<span class='notice'>Now orbiting [parent].</span>")
 
 /datum/component/orbiter/proc/end_orbit(atom/movable/orbiter, refreshing=FALSE)
@@ -110,11 +110,10 @@
 		qdel(src)
 
 	var/atom/curloc = master.loc
-	for(var/i in orbiters)
-		var/atom/movable/thing = i
-		if(QDELETED(thing) || thing.loc == newturf)
+	for(var/atom/movable/movable_orbiter as anything in orbiters)
+		if(QDELETED(movable_orbiter) || movable_orbiter.loc == newturf)
 			continue
-		thing.forceMove(newturf)
+		movable_orbiter.abstract_move(newturf)
 		if(CHECK_TICK && master.loc != curloc)
 			// We moved again during the checktick, cancel current operation
 			break
