@@ -368,9 +368,7 @@
 	//This codeblock makes sure that the owner's bodytype flags match the flags of all of it's parts.
 	var/all_limb_flags
 	for(var/obj/item/bodypart/BP as() in C.bodyparts)
-		for(var/flag = 1, flag < (1<<NUMBER_OF_BODYTYPES), flag *= 2)
-			if((BP.bodytype & flag) && !(all_limb_flags & flag))
-				all_limb_flags =  all_limb_flags | flag
+		all_limb_flags =  all_limb_flags | BP.bodytype
 
 	C.dna.species.bodytype = all_limb_flags
 
