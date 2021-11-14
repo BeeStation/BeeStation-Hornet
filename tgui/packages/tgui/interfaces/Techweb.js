@@ -18,14 +18,9 @@ const selectRemappedStaticData = data => {
   const node_cache = {};
   for (let id of Object.keys(data.static_data.node_cache)) {
     const node = data.static_data.node_cache[id];
-    const costs = Object.keys(node.costs || {}).map(x => ({
-      type: remapId(x),
-      value: node.costs[x],
-    }));
     node_cache[remapId(id)] = {
       ...node,
       id: remapId(id),
-      costs,
       prereq_ids: map(remapId)(node.prereq_ids || []),
       design_ids: map(remapId)(node.design_ids || []),
       unlock_ids: map(remapId)(node.unlock_ids || []),
@@ -144,6 +139,7 @@ export const TechwebContent = (props, context) => {
     locked,
     linkedanalyzer,
     compact,
+    tech_tier,
   } = data;
   const [
     techwebRoute,
@@ -178,6 +174,9 @@ export const TechwebContent = (props, context) => {
                 className={`Techweb__SecProtocol ${!!sec_protocols && "engaged"}`}>
                 {sec_protocols ? "Engaged" : "Disengaged"}
               </span>
+            </Box>
+            <Box>
+              Tech Tier: {tech_tier}
             </Box>
             <Box>
               <Button.Checkbox
@@ -672,8 +671,6 @@ const TechNodeDetail = (props, context) => {
   ] = useLocalState(context, 'techwebRoute', null);
 
   const prereqNodes = nodes.filter(x => prereq_ids.includes(x.id));
-  const complPrereq = prereq_ids
-    .filter(x => nodes.find(y => y.id === x)?.tier === 0).length;
   const unlockedNodes = nodes.filter(x => unlock_ids.includes(x.id));
 
   return (
@@ -724,13 +721,13 @@ const TechNode = (props, context) => {
     researchable,
   } = data;
   const { node, nodetails, nocontrols, destructive } = props;
-  const { id, can_unlock, tier } = node;
+  const { id, can_unlock, tier, costs } = node;
   const {
     name,
     description,
-    costs,
     design_ids,
     prereq_ids,
+    tech_tier,
   } = node_cache[id];
   const [
     techwebRoute,
@@ -741,15 +738,14 @@ const TechNode = (props, context) => {
     setTabIndex,
   ] = useLocalState(context, 'nodeDetailTabIndex', 0);
 
-  const techcompl = prereq_ids
-    .filter(x => nodes.find(y => y.id === x)?.tier === 0)
-    .length;
-
   return (
     <Section
       className="Techweb__NodeContainer"
       title={name}
       width={25}>
+      <Box inline className="Techweb__TierDisplay">
+        Tier {tech_tier}
+      </Box>
       {!nocontrols && (
         <>
           {!nodetails && (
@@ -781,11 +777,12 @@ const TechNode = (props, context) => {
         </>)}
       {tier !== 0 && !!compact && !destructive && (
         <Flex className="Techweb__NodeProgress">
-          {costs.map(k => {
-            const reqPts = Math.max(0, k.value);
-            const nodeProg = Math.min(reqPts, points[k.type]) || 0;
+          {!!costs && Object.keys(costs).map(key => {
+            const cost = costs[key];
+            const reqPts = Math.max(0, cost);
+            const nodeProg = Math.min(reqPts, points[key]) || 0;
             return (
-              <Flex.Item key={k.type} grow={1} basis={0}>
+              <Flex.Item key={key} grow={1} basis={0}>
                 <ProgressBar
                   ranges={{
                     good: [0.5, Infinity],
@@ -794,8 +791,8 @@ const TechNode = (props, context) => {
                   }}
                   value={reqPts === 0
                     ? 1
-                    : Math.min(1, (points[k.type]||0) / reqPts)}>
-                  {abbreviateName(k.type)} ({nodeProg}/{reqPts})
+                    : Math.min(1, (points[key]||0) / reqPts)}>
+                  {abbreviateName(key)} ({nodeProg}/{reqPts})
                 </ProgressBar>
               </Flex.Item>
             );
@@ -811,8 +808,13 @@ const TechNode = (props, context) => {
             <Box
               key={id}
               className={`${design_cache[k].class} Techweb__DesignIcon`}
-              tooltip={design_cache[k].name}
-              tooltipPosition={i % 15 < 7 ? "right" : "left"}
+              // Tooltips are disabled due to performance issues
+              // The interace stutters every time it updates
+              // Those can be uncommented and the Box can be swapped for a
+              //  Button when the issues are resolved. Make sure to test
+              //  that they don't lag and *actually work*.
+              // tooltip={design_cache[k].name}
+              // tooltipPosition={i % 15 < 7 ? "right" : "left"}
             />
           ))}
         </Box>
