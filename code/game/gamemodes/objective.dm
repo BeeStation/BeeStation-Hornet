@@ -76,7 +76,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/proc/check_completion()
 	return completed
 
-/datum/objective/proc/is_unique_objective(datum/mind/possible_target, dupe_search_range)
+/datum/objective/proc/is_unique_objective(datum/mind/possible_target, list/dupe_search_range)
 	if(!islist(dupe_search_range))
 		stack_trace("Non-list passed as duplicate objective search range")
 		dupe_search_range = list(dupe_search_range)
@@ -100,10 +100,10 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/proc/get_target()
 	return target
 
-/datum/objective/proc/set_target(datum/mind/M)
+/datum/objective/proc/set_target(datum/mind/new_target)
 	if(target)
 		UnregisterSignal(target, COMSIG_MIND_CRYOED)
-	target = M
+	target = new_target
 	if(istype(target, /datum/mind))
 		RegisterSignal(target, COMSIG_MIND_CRYOED, .proc/on_target_cryo)
 		target.isAntagTarget = TRUE
@@ -212,7 +212,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	if(team_explanation_text && LAZYLEN(get_owners()) > 1)
 		explanation_text = team_explanation_text
 
-/datum/objective/proc/give_special_equipment(special_equipment)
+/datum/objective/proc/give_special_equipment(list/special_equipment)
 	var/datum/mind/receiver = pick(get_owners())
 	if(receiver && receiver.current)
 		if(ishuman(receiver.current))
@@ -724,7 +724,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/steal/exchange/admin_edit(mob/admin)
 	return
 
-/datum/objective/steal/exchange/proc/set_faction(faction,otheragent)
+/datum/objective/steal/exchange/proc/set_faction(faction, datum/mind/otheragent)
 	set_target(otheragent)
 	if(faction == "red")
 		targetinfo = new/datum/objective_item/unique/docs_blue

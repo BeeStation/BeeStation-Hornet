@@ -7,9 +7,6 @@ GLOBAL_VAR(survivor_report) //! Contains shared survivor report for roundend rep
 GLOBAL_VAR_INIT(wavesecret, 0) //! meteor mode, delays wave progression, terrible name
 GLOBAL_DATUM(start_state, /datum/station_state) //! Used in round-end report
 
-GLOBAL_DATUM(sac_mind, /datum/mind) // So Cryo can modify sac stuff
-GLOBAL_VAR_INIT(sac_image, null)
-
 //TODO clear this one up too
 GLOBAL_DATUM(cult_narsie, /obj/singularity/narsie/large/cult)
 

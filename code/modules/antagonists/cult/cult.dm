@@ -298,28 +298,30 @@
 		H.overlays_standing[HALO_LAYER] = new_halo_overlay
 		H.apply_overlay(HALO_LAYER)
 
-/datum/team/cult/proc/make_image(datum/objective/sacrifice/sac_objective)
-	if(!sac_objective.target)
-		return
+
+/datum/objective/sacrifice
+	var/sacced = FALSE
+	var/icon/sac_image
+
+/datum/objective/sacrifice/proc/make_image()
 	var/icon/reshape
-	for(var/V in GLOB.data_core.locked)
-		var/datum/data/record/R = V
-		var/datum/mind/M = R.fields["mindref"]
-		if(sac_objective.target == M)
-			reshape = R.fields["image"]
-			break
+	if(target)
+		for(var/datum/data/record/R as() in GLOB.data_core.locked)
+			var/datum/mind/M = R.fields["mindref"]
+			if(target == M)
+				reshape = R.fields["image"]
+				break
 	if(!reshape)
-		return
+		reshape = icon('icons/mob/mob.dmi', "ghost", SOUTH)
 	reshape.Shift(SOUTH, 4)
 	reshape.Shift(EAST, 1)
 	reshape.Crop(7,4,26,31)
 	reshape.Crop(-5,-3,26,30)
-	sac_objective.sac_image = reshape
+	sac_image = reshape
 
 /datum/objective/sacrifice/find_target(list/dupe_search_range, list/blacklist)
 	if(!istype(team, /datum/team/cult))
 		return
-	var/datum/team/cult/C = team
 	var/list/target_candidates = list()
 	for(var/datum/mind/possible_target in get_crewmember_minds())
 		if(is_valid_target(possible_target) && !is_convertable_to_cult(possible_target.current) && !(possible_target in blacklist))
@@ -336,8 +338,11 @@
 		message_admins("Cult Sacrifice: Could not find unconvertible or convertible target. WELP!")
 		set_target(null)
 	update_explanation_text()
-	C.make_image(src)
-	for(var/datum/mind/M in C.members)
+
+/datum/objective/sacrifice/set_target(datum/mind/new_target)
+	..()
+	make_image()
+	for(var/datum/mind/M in get_owners())
 		if(M.current)
 			M.current.clear_alert("bloodsense")
 			M.current.throw_alert("bloodsense", /atom/movable/screen/alert/bloodsense)
@@ -353,20 +358,6 @@
 	for(var/datum/mind/own as() in get_owners())
 		to_chat(own.current, message)
 		own.announce_objectives()
-
-/datum/team/cult/proc/setup_objectives()
-	var/datum/objective/sacrifice/sac_objective = new
-	sac_objective.team = src
-	sac_objective.find_target()
-	objectives += sac_objective
-
-	var/datum/objective/eldergod/summon_objective = new
-	summon_objective.team = src
-	objectives += summon_objective
-
-/datum/objective/sacrifice
-	var/sacced = FALSE
-	var/sac_image
 
 /datum/objective/sacrifice/is_valid_target(datum/mind/possible_target)
 	var/datum/mind/M = possible_target
@@ -409,6 +400,17 @@
 
 /datum/objective/eldergod/check_completion()
 	return summoned || completed
+
+
+/datum/team/cult/proc/setup_objectives()
+	var/datum/objective/sacrifice/sac_objective = new
+	sac_objective.team = src
+	sac_objective.find_target()
+	objectives += sac_objective
+
+	var/datum/objective/eldergod/summon_objective = new
+	summon_objective.team = src
+	objectives += summon_objective
 
 /datum/team/cult/proc/check_cult_victory()
 	for(var/datum/objective/O in objectives)
