@@ -1,0 +1,4 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - bugfix: The latejoin menu no longer mislabels Cargo as Command
