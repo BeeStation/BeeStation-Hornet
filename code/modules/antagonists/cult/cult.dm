@@ -306,7 +306,7 @@
 	reshape.Crop(-5,-3,26,30)
 	sac_objective.sac_image = reshape
 
-/datum/objective/sacrifice/find_target(dupe_search_range, blacklist)
+/datum/objective/sacrifice/find_target(list/dupe_search_range, list/blacklist)
 	if(!istype(team, /datum/team/cult))
 		return
 	var/datum/team/cult/C = team
@@ -350,11 +350,15 @@
 	var/sacced = FALSE
 	var/sac_image
 
-/datum/objective/sacrifice/is_valid_target(possible_target)
-	. = ..()
+/datum/objective/sacrifice/is_valid_target(datum/mind/possible_target)
 	var/datum/mind/M = possible_target
-	if(istype(M) && isipc(M.current))
+	if(!istype(M) || !M.current)
 		return FALSE
+	if(isipc(M.current))
+		return FALSE
+	if(M.has_antag_datum(/datum/antagonist/cult))
+		return FALSE
+	return ..()
 
 /datum/objective/sacrifice/check_completion()
 	//Target's a clockie

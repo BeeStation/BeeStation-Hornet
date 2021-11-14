@@ -76,7 +76,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/proc/check_completion()
 	return completed
 
-/datum/objective/proc/is_unique_objective(possible_target, dupe_search_range)
+/datum/objective/proc/is_unique_objective(datum/mind/possible_target, dupe_search_range)
 	if(!islist(dupe_search_range))
 		stack_trace("Non-list passed as duplicate objective search range")
 		dupe_search_range = list(dupe_search_range)
@@ -85,7 +85,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		var/list/objectives_to_compare
 		if(istype(A,/datum/mind))
 			var/datum/mind/M = A
-			objectives_to_compare = M.get_all_objectives()
+			objectives_to_compare = M.get_all_objectives() + M.crew_objectives
 		else if(istype(A,/datum/antagonist))
 			var/datum/antagonist/G = A
 			objectives_to_compare = G.objectives
@@ -117,7 +117,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			. += M
 
 //dupe_search_range is a list of antag datums / minds / teams
-/datum/objective/proc/find_target(dupe_search_range, blacklist)
+/datum/objective/proc/find_target(list/dupe_search_range, list/blacklist)
 	var/list/datum/mind/owners = get_owners()
 	if(!dupe_search_range)
 		dupe_search_range = get_owners()
@@ -135,16 +135,9 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		if(O.assigned_role == "Shaft Miner")
 			owner_is_shaft_miner = TRUE
 	for(var/datum/mind/possible_target in get_crewmember_minds())
-		if(possible_target in owners)
-			continue
-		if(!ishuman(possible_target.current))
-			continue
-		if(possible_target.current.stat == DEAD)
+		if(!is_valid_target(possible_target))
 			continue
 		if(!is_unique_objective(possible_target,dupe_search_range))
-			continue
-		var/target_area = get_area(possible_target.current)
-		if(!HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS) && istype(target_area, /area/shuttle/arrival))
 			continue
 		if(possible_target in blacklist)
 			continue
@@ -183,14 +176,22 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	update_explanation_text()
 	return target
 
-/datum/objective/proc/is_valid_target(possible_target)
+/datum/objective/proc/is_valid_target(datum/mind/possible_target)
+	if(possible_target in get_owners())
+		return FALSE
+	if(!ishuman(possible_target.current))
+		return FALSE
+	if(possible_target.current.stat == DEAD)
+		return FALSE
+	var/target_area = get_area(possible_target.current)
+	if(!HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS) && istype(target_area, /area/shuttle/arrival))
+		return FALSE
 	return TRUE
 
 /datum/objective/proc/find_target_by_role(role, role_type=FALSE,invert=FALSE)//Option sets either to check assigned role or special role. Default to assigned., invert inverts the check, eg: "Don't choose a Ling"
-	var/list/datum/mind/owners = get_owners()
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in get_crewmember_minds())
-		if(!(possible_target in owners) && ishuman(possible_target.current) && is_valid_target(possible_target))
+		if(is_valid_target(possible_target))
 			var/is_role = FALSE
 			if(role_type)
 				if(possible_target.special_role == role)
@@ -530,17 +531,18 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/target_real_name // Has to be stored because the target's real_name can change over the course of the round
 	var/target_missing_id
 
-/datum/objective/escape/escape_with_identity/is_valid_target(possible_target)
+/datum/objective/escape/escape_with_identity/is_valid_target(datum/mind/possible_target)
 	var/list/datum/mind/owners = get_owners()
 	for(var/datum/mind/M in owners)
 		if(!M)
 			continue
-		if(!M.has_antag_datum(/datum/antagonist/changeling))
+		var/datum/antagonist/changeling/C = M.has_antag_datum(/datum/antagonist/changeling)
+		if(!C)
 			continue
 		var/datum/mind/T = possible_target
-		if(!istype(T) || isipc(T.current))
+		if(!istype(T) || !C.can_absorb_dna(T.current, FALSE))
 			return FALSE
-	return TRUE
+	return ..()
 
 /datum/objective/escape/escape_with_identity/update_explanation_text()
 	if(target && target.current)
@@ -633,7 +635,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 		for(var/I in subtypesof(/datum/objective_item/steal))
 			new I
 
-/datum/objective/steal/find_target(dupe_search_range, blacklist)
+/datum/objective/steal/find_target(list/dupe_search_range, list/blacklist)
 	var/list/datum/mind/owners = get_owners()
 	if(!dupe_search_range)
 		dupe_search_range = get_owners()
@@ -712,7 +714,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		for(var/I in subtypesof(/datum/objective_item/special) + subtypesof(/datum/objective_item/stack))
 			new I
 
-/datum/objective/steal/special/find_target(dupe_search_range, blacklist)
+/datum/objective/steal/special/find_target(list/dupe_search_range, list/blacklist)
 	return set_steal_target(pick(GLOB.possible_items_special))
 
 /datum/objective/steal/exchange
@@ -929,7 +931,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	name = "destroy AI"
 	martyr_compatible = 1
 
-/datum/objective/destroy/find_target(dupe_search_range, blacklist)
+/datum/objective/destroy/find_target(list/dupe_search_range, list/blacklist)
 	var/list/possible_targets = list()
 	for(var/mob/living/silicon/ai/A in active_ais(TRUE))
 		if(A.mind in blacklist)
