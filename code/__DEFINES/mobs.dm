@@ -59,11 +59,12 @@
 
 
 //Bodytype defines for how things can be worn.
-#define BODYTYPE_ORGANIC		"organic"
-#define BODYTYPE_ROBOTIC		"robotic"
-#define BODYTYPE_HUMANOID		"humanoid" //Everything that isnt Grod
-#define BODYTYPE_BOXHEAD		"boxhead" //TV Head
-#define BODYTYPE_DIGITIGRADE	"digitigrade" //Cancer
+#define BODYTYPE_ORGANIC		(1<<0)
+#define BODYTYPE_ROBOTIC		(1<<1)
+#define BODYTYPE_HUMANOID		(1<<2) //Everything that isnt Grod
+#define BODYTYPE_BOXHEAD		(1<<3) //TV Head
+#define BODYTYPE_DIGITIGRADE	(1<<4) //Cancer
+#define NUMBER_OF_BODYTYPES	5 //KEEP THIS UPDATED OR SHIT WILL BREAK
 
 #define BODYPART_NOT_DISABLED 0
 #define BODYPART_DISABLED_DAMAGE 1

@@ -310,7 +310,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/can_inject = FALSE
 	for(var/X in C.bodyparts)
 		var/obj/item/bodypart/part = X
-		if(BODYTYPE_ORGANIC in part.bodytype)
+		if(part.is_organic_limb())
 			can_inject = TRUE
 	if(!can_inject)
 		return 0

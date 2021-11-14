@@ -219,7 +219,7 @@
 	update_damage_overlays()
 	var/list/needs_update = list()
 	var/limb_count_update = FALSE
-	for(var/obj/item/bodypart/BP in bodyparts)
+	for(var/obj/item/bodypart/BP as() in bodyparts)
 		BP.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
 		var/old_key = icon_render_keys?[BP.body_zone]
 		icon_render_keys[BP.body_zone] = (BP.is_husked) ? generate_husk_key(BP) : generate_icon_key(BP)
@@ -241,7 +241,7 @@
 
 	//GENERATE NEW LIMBS
 	var/list/new_limbs = list()
-	for(var/obj/item/bodypart/BP in bodyparts)
+	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(BP in needs_update)
 			new_limbs += BP.get_limb_icon()
 			limb_icon_cache[icon_render_keys[BP.body_zone]] = BP.get_limb_icon()

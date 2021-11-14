@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	user.updateappearance(mutcolor_update=1)
 
 	///Bodypart data hack. Will rewrite when I rewrite changelings soon-ish
-	for(var/obj/item/bodypart/BP in user.bodyparts)
+	for(var/obj/item/bodypart/BP as() in user.bodyparts)
 		if(BP.is_organic_limb())
 			BP.update_limb(is_creating = TRUE)
 

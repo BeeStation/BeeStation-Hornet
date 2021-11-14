@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/name	// this is the fluff name. these will be left generic (such as 'Lizardperson' for the lizard race) so servers can change them to whatever
 	var/bodyflag = FLAG_HUMAN //Species flags currently used for species restriction on items
 	var/default_color = "#FFF"	// if alien colors are disabled, this is the color that will be used by that race
-	var/list/bodytype = list(BODYTYPE_HUMANOID)
+	var/bodytype = BODYTYPE_HUMANOID
 	var/sexes = 1		// whether or not the race has sexual characteristics. at the moment this is only 0 for skeletons and shadows
 
 	var/list/offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
@@ -289,11 +289,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		I.Insert(C)
 
 /datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
-	new_species ||= C.dna?.species //If no new species is provided, assume its src.
+	new_species ||= C.dna.species //If no new species is provided, assume its src.
 	//Note for future: Potentionally add a new C.dna.species() to build a template species for more accurate limb replacement
 
 	if(use_generic_limbs) //Generic limbs dont need to be rebuild because theyre just human limbs reskinned.
-		for(var/obj/item/bodypart/BP in C.bodyparts)
+		for(var/obj/item/bodypart/BP as() in C.bodyparts)
 			BP.limb_id = limbs_id
 			BP.icon = limb_icon_file
 			if(gen_limbs_are_colored)
@@ -307,11 +307,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			BP.name = "[BP.limb_id] [parse_zone(BP.body_zone)]"
 		return
 
-	if(((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL) && C.dna?.features["legs"] == "Digitigrade Legs") || new_species.digitigrade_customization == DIGITIGRADE_FORCED)
+	if((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL && C.dna.features["legs"] == "Digitigrade Legs") || new_species.digitigrade_customization == DIGITIGRADE_FORCED)
 		new_species.species_r_leg = /obj/item/bodypart/r_leg/digitigrade
 		new_species.species_l_leg = /obj/item/bodypart/l_leg/digitigrade
 
-	for(var/obj/item/bodypart/old_part in C.bodyparts)
+	for(var/obj/item/bodypart/old_part as() in C.bodyparts)
 		if(old_part.change_exempt_flags & CHANGE_SPECIES)
 			continue
 
@@ -319,32 +319,32 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if(BODY_ZONE_HEAD)
 				var/obj/item/bodypart/head/new_part = new new_species.species_head()
 				new_part.replace_limb(C, TRUE)
-				new_part.update_limb(,,TRUE)
+				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 			if(BODY_ZONE_CHEST)
 				var/obj/item/bodypart/chest/new_part = new new_species.species_chest()
 				new_part.replace_limb(C, TRUE)
-				new_part.update_limb(,,TRUE)
+				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 			if(BODY_ZONE_L_ARM)
 				var/obj/item/bodypart/l_arm/new_part = new new_species.species_l_arm()
 				new_part.replace_limb(C, TRUE)
-				new_part.update_limb(,,TRUE)
+				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 			if(BODY_ZONE_R_ARM)
 				var/obj/item/bodypart/r_arm/new_part = new new_species.species_r_arm()
 				new_part.replace_limb(C, TRUE)
-				new_part.update_limb(,,TRUE)
+				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 			if(BODY_ZONE_L_LEG)
 				var/obj/item/bodypart/l_leg/new_part = new new_species.species_l_leg()
 				new_part.replace_limb(C, TRUE)
-				new_part.update_limb(,,TRUE)
+				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 			if(BODY_ZONE_R_LEG)
 				var/obj/item/bodypart/r_leg/new_part = new new_species.species_r_leg()
 				new_part.replace_limb(C, TRUE)
-				new_part.update_limb(,,TRUE)
+				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 
 
@@ -467,7 +467,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/dynamic_fhair_suffix = ""
 
 	//for augmented heads
-	if(BODYTYPE_ROBOTIC in HD.bodytype)
+	if(!HD.is_organic_limb())
 		return
 
 	//we check if our hat or helmet hides our facial hair.
@@ -647,7 +647,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				else
 					standing += mutable_appearance(undershirt.icon, undershirt.icon_state, -BODY_LAYER)
 
-		if(H.socks && H.get_num_legs(FALSE) >= 2 && !(BODYTYPE_DIGITIGRADE in H.dna?.species.bodytype) && !(NOSOCKS in species_traits))
+		if(H.socks && H.get_num_legs(FALSE) >= 2 && !(H.dna.species.bodytype & BODYTYPE_DIGITIGRADE) && !(NOSOCKS in species_traits))
 			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[H.socks]
 			if(socks)
 				standing += mutable_appearance(socks.icon, socks.icon_state, -BODY_LAYER)
@@ -740,22 +740,22 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
 	///Digi handling
-	if(BODYTYPE_DIGITIGRADE in H.dna?.species.bodytype)
+	if(H.dna.species.bodytype & BODYTYPE_DIGITIGRADE)
 		var/uniform_compatible = FALSE
 		var/suit_compatible = FALSE
-		if(!(H.w_uniform) || (H.w_uniform?.supports_variations & DIGITIGRADE_VARIATION) || (H.w_uniform?.supports_variations & DIGITIGRADE_VARIATION_NO_NEW_ICON)) //Checks uniform compatibility
+		if(!(H.w_uniform) || (H.w_uniform.supports_variations & DIGITIGRADE_VARIATION) || (H.w_uniform.supports_variations & DIGITIGRADE_VARIATION_NO_NEW_ICON)) //Checks uniform compatibility
 			uniform_compatible = TRUE
-		if((!H.wear_suit) || (H.wear_suit?.supports_variations & DIGITIGRADE_VARIATION) || !(H.wear_suit?.body_parts_covered & LEGS) || (H.wear_suit?.supports_variations & DIGITIGRADE_VARIATION_NO_NEW_ICON)) //Checks suit compatability
+		if((!H.wear_suit) || (H.wear_suit.supports_variations & DIGITIGRADE_VARIATION) || !(H.wear_suit.body_parts_covered & LEGS) || (H.wear_suit.supports_variations & DIGITIGRADE_VARIATION_NO_NEW_ICON)) //Checks suit compatability
 			suit_compatible = TRUE
 
-		if((uniform_compatible && suit_compatible) || (suit_compatible && H.wear_suit?.flags_inv & HIDEJUMPSUIT)) //If the uniform is hidden, it doesnt matter if its compatible
-			for(var/obj/item/bodypart/BP in H.bodyparts)
-				if(BODYTYPE_DIGITIGRADE in BP.bodytype)
+		if((uniform_compatible && suit_compatible) || (suit_compatible && H.wear_suit.flags_inv & HIDEJUMPSUIT)) //If the uniform is hidden, it doesnt matter if its compatible
+			for(var/obj/item/bodypart/BP as() in H.bodyparts)
+				if(BP.bodytype & BODYTYPE_DIGITIGRADE)
 					BP.limb_id = "digitigrade"
 
 		else
-			for(var/obj/item/bodypart/BP in H.bodyparts)
-				if(BODYTYPE_DIGITIGRADE in BP.bodytype)
+			for(var/obj/item/bodypart/BP as() in H.bodyparts)
+				if(BP.bodytype & BODYTYPE_DIGITIGRADE)
 					BP.limb_id = "lizard"
 	///End digi handling
 
@@ -962,7 +962,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				return FALSE
 			if(num_legs < 2)
 				return FALSE
-			if((BODYTYPE_DIGITIGRADE in bodytype) && !(I.supports_variations & DIGITIGRADE_VARIATION))
+			if((bodytype & BODYTYPE_DIGITIGRADE) && !(I.supports_variations & DIGITIGRADE_VARIATION))
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>The footwear around here isn't compatible with your feet!</span>")
 				return FALSE
@@ -973,7 +973,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || (BODYTYPE_ORGANIC in O.bodytype)))
+			if(!H.w_uniform && !nojumpsuit && (!O || O.is_organic_limb()))
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name]!</span>")
 				return FALSE
@@ -1018,7 +1018,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				return FALSE
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
-			if(!H.w_uniform && !nojumpsuit && (!O || (BODYTYPE_ORGANIC in O.bodytype)))
+			if(!H.w_uniform && !nojumpsuit && (!O || O.is_organic_limb()))
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name]!</span>")
 				return FALSE
@@ -1033,7 +1033,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_L_LEG)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || (BODYTYPE_ORGANIC in O.bodytype)))
+			if(!H.w_uniform && !nojumpsuit && (!O || O.is_organic_limb()))
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name]!</span>")
 				return FALSE
@@ -1047,7 +1047,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_R_LEG)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || (BODYTYPE_ORGANIC in O.bodytype)))
+			if(!H.w_uniform && !nojumpsuit && (!O || O.is_organic_limb()))
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name]!</span>")
 				return FALSE
@@ -1662,7 +1662,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	var/bloody = 0
 	if((I.damtype == BRUTE) && (I.force >= max(10, armor_block) || I.is_sharp()))
-		if(BODYTYPE_ORGANIC in affecting.bodytype)
+		if(affecting.is_organic_limb())
 			I.add_mob_blood(H)	//Make the weapon bloody, not the person.
 			if(prob(I.force * 2))	//blood spatter!
 				bloody = 1

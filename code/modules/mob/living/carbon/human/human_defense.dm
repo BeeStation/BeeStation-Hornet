@@ -168,7 +168,7 @@
 		affecting = get_bodypart(ran_zone(user.zone_selected))
 	var/target_area = parse_zone(check_zone(user.zone_selected)) //our intended target
 	if(affecting)
-		if(I.force && I.damtype != STAMINA && (BODYTYPE_ROBOTIC in affecting.bodytype)) // Bodpart_robotic sparks when hit, but only when it does real damage
+		if(I.force && I.damtype != STAMINA && (!affecting.is_organic_limb())) // Bodpart_robotic sparks when hit, but only when it does real damage
 			if(I.force >= 5)
 				do_sparks(1, FALSE, loc)
 				if(prob(25))
@@ -492,7 +492,7 @@
 		return
 	var/informed = FALSE
 	for(var/obj/item/bodypart/L in src.bodyparts)
-		if(BODYTYPE_ROBOTIC in L.bodytype)
+		if(!L.is_organic_limb())
 			if(!informed)
 				to_chat(src, "<span class='userdanger'>You feel a sharp pain as your robotic limbs overload.</span>")
 				informed = TRUE

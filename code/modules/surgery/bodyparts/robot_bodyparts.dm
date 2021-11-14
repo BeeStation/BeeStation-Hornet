@@ -22,7 +22,7 @@
 	icon_state = "borg_l_arm"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ROBOTIC)
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 	change_exempt_flags = CHANGE_SPECIES
 
 	brute_reduction = 5
@@ -48,7 +48,7 @@
 	icon_state = "borg_r_arm"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ROBOTIC)
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 	change_exempt_flags = CHANGE_SPECIES
 
 	brute_reduction = 5
@@ -74,7 +74,7 @@
 	icon_state = "borg_l_leg"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ROBOTIC)
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 	change_exempt_flags = CHANGE_SPECIES
 
 	brute_reduction = 5
@@ -100,7 +100,7 @@
 	icon_state = "borg_r_leg"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ROBOTIC)
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 	change_exempt_flags = CHANGE_SPECIES
 
 	brute_reduction = 5
@@ -125,7 +125,7 @@
 	icon_state = "borg_chest"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ROBOTIC)
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 	change_exempt_flags = CHANGE_SPECIES
 
 	brute_reduction = 5
@@ -223,14 +223,14 @@
 	name = "cyborg head"
 	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
 	item_state = "buildpipe"
-	static_icon =  'icons/mob/augmentation/augments.dmi'
+	static_icon = 'icons/mob/augmentation/augments.dmi'
 	limb_id = "robotic"
 	icon = null
 	flags_1 = CONDUCT_1
 	icon_state = "borg_head"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ROBOTIC)
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 	change_exempt_flags = CHANGE_SPECIES
 
 	brute_reduction = 5

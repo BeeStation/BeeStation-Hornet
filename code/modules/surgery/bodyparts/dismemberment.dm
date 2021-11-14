@@ -363,14 +363,14 @@
 	..()
 
 /obj/item/bodypart/proc/synchronize_bodytypes(mob/living/carbon/C)
-	if(!C.dna?.species)
+	if(!C.dna.species)
 		return
 	//This codeblock makes sure that the owner's bodytype flags match the flags of all of it's parts.
-	var/all_limb_flags = list()
-	for(var/obj/item/bodypart/BP in C.bodyparts)
-		for(var/flag in BP.bodytype)
-			if(!(flag in all_limb_flags))
-				all_limb_flags += flag
+	var/all_limb_flags
+	for(var/obj/item/bodypart/BP as() in C.bodyparts)
+		for(var/flag = 1, flag < (1<<NUMBER_OF_BODYTYPES), flag *= 2)
+			if((BP.bodytype & flag) && !(all_limb_flags & flag))
+				all_limb_flags =  all_limb_flags | flag
 
 	C.dna.species.bodytype = all_limb_flags
 
@@ -393,18 +393,5 @@
 	if(get_bodypart(limb_zone))
 		return 0
 	L = newBodyPart(limb_zone, 0, 0)
-	/*if(L)
-		if(!noheal)
-			L.brute_dam = 0
-			L.burn_dam = 0
-			L.brutestate = 0
-			L.burnstate = 0
-		if(ishuman(src))
-			var/mob/living/carbon/human/H = src
-			if(limb_zone == "head" && H.dna && H.dna.species && (NOMOUTH in H.dna.species.species_traits))
-				var/obj/item/bodypart/head/head = L
-				if(head)
-					head.mouth = FALSE*/
-
 	L.replace_limb(src, TRUE, TRUE)
 	return 1

@@ -14,7 +14,7 @@
 	var/datum/weakref/original_owner = null
 	var/needs_processing = FALSE
 	///If you'd like to know if a bodypart is organic, please use is_organic_limb()
-	var/list/bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ORGANIC) //List of bodytypes flags, important for fitting clothing.
+	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC //List of bodytypes flags, important for fitting clothing.
 	var/change_exempt_flags //Defines when a bodypart should not be changed. Example: CHANGE_SPECIES prevents the limb from being overwritten on species gain
 
 	var/is_husked = FALSE //Duh
@@ -128,7 +128,7 @@
 
 /obj/item/bodypart/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
-	if(BODYTYPE_ORGANIC in bodytype)
+	if(is_organic_limb())
 		playsound(get_turf(src), 'sound/misc/splort.ogg', 50, 1, -1)
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3)
@@ -136,7 +136,7 @@
 //empties the bodypart from its organs and other things inside it
 /obj/item/bodypart/proc/drop_organs(mob/user, violent_removal)
 	var/turf/T = get_turf(src)
-	if(BODYTYPE_ORGANIC in bodytype)
+	if(is_organic_limb())
 		playsound(T, 'sound/misc/splort.ogg', 50, 1, -1)
 	for(var/obj/item/I in src)
 		I.forceMove(T)
@@ -164,7 +164,7 @@
 		return FALSE
 	if(owner && (owner.status_flags & GODMODE))
 		return FALSE	//godmode
-	if(required_status && !(required_status in bodytype))
+	if(required_status && !(bodytype & required_status))
 		return FALSE
 
 	var/dmg_mlt = CONFIG_GET(number/damage_multiplier) * hit_percent
@@ -216,7 +216,7 @@
 //Cannot remove negative damage (i.e. apply damage)
 /obj/item/bodypart/proc/heal_damage(brute, burn, stamina, required_status, updating_health = TRUE)
 
-	if(required_status && !(required_status in bodytype)) //So we can only heal certain kinds of limbs, ie robotic vs organic.
+	if(required_status && !(bodytype & required_status)) //So we can only heal certain kinds of limbs, ie robotic vs organic.
 		return
 
 	brute_dam	= round(max(brute_dam - brute, 0), DAMAGE_PRECISION)
@@ -278,12 +278,12 @@
 //Change limb between
 //Note:This proc only exists because I can't be arsed to remove it yet. Theres no real reason this should ever be used.
 /obj/item/bodypart/proc/change_bodypart_status(new_limb_status, heal_limb, change_icon_to_default)
-	if(!(new_limb_status in bodytype) && (new_limb_status == BODYTYPE_ORGANIC))
-		bodytype -= BODYTYPE_ROBOTIC
-		bodytype += BODYTYPE_ORGANIC
+	if(!(bodytype & new_limb_status) && (new_limb_status == BODYTYPE_ORGANIC))
+		bodytype = bodytype & ~BODYTYPE_ROBOTIC
+		bodytype = bodytype | BODYTYPE_ORGANIC
 	else
-		bodytype -= BODYTYPE_ORGANIC
-		bodytype += BODYTYPE_ROBOTIC
+		bodytype = bodytype & ~BODYTYPE_ORGANIC
+		bodytype = bodytype | BODYTYPE_ROBOTIC
 
 	if(heal_limb)
 		burn_dam = 0
@@ -292,9 +292,9 @@
 		burnstate = 0
 
 	if(change_icon_to_default)
-		if(BODYTYPE_ORGANIC in bodytype)
+		if(is_organic_limb())
 			icon = DEFAULT_BODYPART_ICON_ORGANIC
-		else if(BODYTYPE_ROBOTIC in bodytype)
+		else
 			icon = DEFAULT_BODYPART_ICON_ROBOTIC
 
 	if(owner)
@@ -303,8 +303,6 @@
 		owner.update_hair()
 		owner.update_damage_overlays()
 
-/obj/item/bodypart/proc/is_organic_limb()
-	return (BODYTYPE_ORGANIC in bodytype)
 
 //we inform the bodypart of the changes that happened to the owner, or give it the informations from a source mob.
 //set is_creating to true if you want to change the appearance of the limb outside of mutation changes or forced changes.
@@ -380,7 +378,7 @@
 	else if(animal_origin == MONKEY_BODYPART) //currently monkeys are the only non human mob to have damage overlays.
 		dmg_overlay_type = animal_origin
 
-	if(BODYTYPE_ROBOTIC in bodytype)
+	if(!is_organic_limb())
 		dmg_overlay_type = "robotic"
 
 	if(dropping_limb)

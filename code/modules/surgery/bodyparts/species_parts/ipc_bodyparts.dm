@@ -4,7 +4,7 @@
 	limb_id = "synth" //Overriden in /species/ipc/replace_body()
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ROBOTIC, BODYTYPE_BOXHEAD)
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC | BODYTYPE_BOXHEAD
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"
 	heavy_brute_msg = "sheared"
@@ -19,7 +19,7 @@
 	limb_id = "synth"
 	is_dimorphic = FALSE
 	should_draw_greyscale = FALSE
-	bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ROBOTIC)
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"
@@ -34,7 +34,7 @@
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
-	bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ROBOTIC)
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"
@@ -49,7 +49,7 @@
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
-	bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ROBOTIC)
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"
@@ -64,7 +64,7 @@
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
-	bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ROBOTIC)
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"
@@ -79,7 +79,7 @@
 	icon = 'icons/mob/species/ipc/bodyparts.dmi'
 	limb_id = "synth"
 	should_draw_greyscale = FALSE
-	bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ROBOTIC)
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ROBOTIC
 
 	light_brute_msg = "scratched"
 	medium_brute_msg = "dented"

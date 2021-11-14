@@ -274,3 +274,8 @@
 		if("pink")
 			. = "D7377D"
 
+/obj/item/bodypart/proc/is_organic_limb()
+	if(bodytype & BODYTYPE_ORGANIC)
+		return TRUE
+	else
+		return FALSE

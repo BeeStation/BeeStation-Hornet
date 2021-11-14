@@ -134,7 +134,7 @@ There are several things that need to be remembered:
 				icon_file = dna.species.get_custom_icons("uniform")
 
 			//Kapu's autistic attempt at digitigrade handling
-			if(BODYTYPE_DIGITIGRADE in dna?.species.bodytype)
+			if(dna?.species.bodytype & BODYTYPE_DIGITIGRADE)
 				if(U.supports_variations & DIGITIGRADE_VARIATION)
 					icon_file = 'icons/mob/species/misc/digitigrade.dmi'
 
@@ -326,7 +326,7 @@ There are several things that need to be remembered:
 			if(S.sprite_sheets & (dna?.species.bodyflag))
 				icon_file = dna.species.get_custom_icons("shoes")
 
-			if(BODYTYPE_DIGITIGRADE in dna?.species.bodytype)
+			if(dna?.species.bodytype & BODYTYPE_DIGITIGRADE)
 				if(S.supports_variations & DIGITIGRADE_VARIATION)
 					icon_file = 'icons/mob/species/misc/digitigrade_shoes.dmi'
 
@@ -443,7 +443,7 @@ There are several things that need to be remembered:
 		if(S.sprite_sheets & (dna?.species.bodyflag))
 			icon_file = dna.species.get_custom_icons("suit")
 
-		if(BODYTYPE_DIGITIGRADE in dna?.species.bodytype)
+		if(dna?.species.bodytype & BODYTYPE_DIGITIGRADE)
 			if(S.supports_variations & DIGITIGRADE_VARIATION)
 				icon_file = 'icons/mob/species/misc/digitigrade_suits.dmi'
 

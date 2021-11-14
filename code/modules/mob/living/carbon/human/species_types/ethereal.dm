@@ -58,7 +58,7 @@
 
 	//The following code is literally only to make admin-spawned ethereals not be black.
 	C.dna.features["mcolor"] = C.dna.features["ethcolor"] //Ethcolor and Mut color are both dogshit and will be replaced
-	for(var/obj/item/bodypart/BP in C.bodyparts)
+	for(var/obj/item/bodypart/BP as() in C.bodyparts)
 		if(BP.limb_id == SPECIES_ETHEREAL)
 			BP.update_limb(is_creating = TRUE)
 

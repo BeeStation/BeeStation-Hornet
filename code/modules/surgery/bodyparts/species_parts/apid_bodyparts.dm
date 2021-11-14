@@ -1,6 +1,6 @@
 /obj/item/bodypart/head/apid
 	static_icon = 'icons/mob/species/apid/bodyparts.dmi'
-	icon = null //I HATE STATICALLY-COLORED SPRITES
+	icon = null
 	limb_id = "apid"
 	is_dimorphic = TRUE
 

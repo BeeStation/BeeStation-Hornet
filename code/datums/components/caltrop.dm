@@ -34,7 +34,7 @@
 		var/obj/item/bodypart/O = H.get_bodypart(picked_def_zone)
 		if(!istype(O))
 			return
-		if(BODYTYPE_ROBOTIC in O.bodytype)
+		if(!O.is_organic_limb())
 			return
 
 		var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))

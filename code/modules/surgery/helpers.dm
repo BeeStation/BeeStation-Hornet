@@ -26,7 +26,7 @@
 			if(affecting)
 				if(!S.requires_bodypart)
 					continue
-				if(S.requires_bodypart_type && !(S.requires_bodypart_type in affecting.bodytype))
+				if(S.requires_bodypart_type && !(affecting.bodytype & S.requires_bodypart_type))
 					continue
 				if(S.requires_real_bodypart && affecting.is_pseudopart)
 					continue
@@ -58,7 +58,7 @@
 			if(affecting)
 				if(!S.requires_bodypart)
 					return
-				if(S.requires_bodypart_type && !(S.requires_bodypart_type in affecting.bodytype))
+				if(S.requires_bodypart_type && !(affecting.bodytype & S.requires_bodypart_type))
 					return
 			else if(C && S.requires_bodypart)
 				return

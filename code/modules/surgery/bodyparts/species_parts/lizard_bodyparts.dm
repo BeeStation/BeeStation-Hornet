@@ -34,10 +34,10 @@
 	icon = 'icons/mob/species/lizard/bodyparts.dmi'
 	uses_mutcolor = TRUE
 	limb_id = "digitigrade"
-	bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ORGANIC, BODYTYPE_DIGITIGRADE)
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC | BODYTYPE_DIGITIGRADE
 
 /obj/item/bodypart/r_leg/digitigrade
 	icon = 'icons/mob/species/lizard/bodyparts.dmi'
 	uses_mutcolor = TRUE
 	limb_id = "digitigrade"
-	bodytype = list(BODYTYPE_HUMANOID, BODYTYPE_ORGANIC, BODYTYPE_DIGITIGRADE)
+	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC | BODYTYPE_DIGITIGRADE

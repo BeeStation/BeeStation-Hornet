@@ -373,7 +373,7 @@
 	//check variables
 	for(var/A in range(1, loc))	//this
 		var/obj/item/bodypart/selected_part = A
-		if (istype(selected_part) && (BODYTYPE_ORGANIC in selected_part.bodytype))
+		if (istype(selected_part) && (selected_part.is_organic_limb()))
 			switch(selected_part.body_zone)
 				if(BODY_ZONE_R_LEG)
 					extra_atoms |= A
