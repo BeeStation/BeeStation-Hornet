@@ -9,7 +9,8 @@
 	display_desc = "General arithmetic component with arithmetic capabilities."
 
 	//The type of port
-	port_type = PORT_TYPE_NUMBER
+	input_port_type = PORT_TYPE_NUMBER
+	output_port_type = PORT_TYPE_NUMBER
 
 	/// The amount of input ports to have
 	input_port_amount = 4

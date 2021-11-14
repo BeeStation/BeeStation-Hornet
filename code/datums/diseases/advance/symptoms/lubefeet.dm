@@ -9,6 +9,8 @@
 	severity = 2
 	symptom_delay_min = 1
 	symptom_delay_max = 3
+	prefixes = list("Slippery ", "Lubricated ")
+	bodies = list("Foot", "Feet")
 	var/morelube = FALSE
 	var/clownshoes = TRUE
 	threshold_desc = "<b>Transmission 10:</b> The host sweats even more profusely, lubing almost every tile they walk over<br>\

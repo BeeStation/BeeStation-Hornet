@@ -640,7 +640,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	speak_emote = list("oscillates")
 	maxHealth = 2
 	health = 2
-	harm_intent_damage = 1 //leaving this at 1 so lightgeists don't get beat to death
 	friendly = "mends"
 	density = FALSE
 	movement_type = FLYING
@@ -752,10 +751,10 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
 
-/obj/structure/closet/stasis/Entered(atom/A)
+/obj/structure/closet/stasis/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	if(isliving(A) && holder_animal)
-		var/mob/living/L = A
+	if(isliving(arrived) && holder_animal)
+		var/mob/living/L = arrived
 		L.notransform = 1
 		ADD_TRAIT(L, TRAIT_MUTE, STASIS_MUTE)
 		L.status_flags |= GODMODE

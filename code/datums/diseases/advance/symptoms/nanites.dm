@@ -9,6 +9,8 @@
 	severity = 0
 	symptom_delay_min = 1
 	symptom_delay_max = 1
+	prefixes = list("Nano-")
+	suffixes = list(" Silicophilia")
 	var/reverse_boost = FALSE
 	threshold_desc = "<b>Transmission 5:</b> Increases the virus' growth rate while nanites are present.<br>\
 					  <b>Stage Speed 7:</b> Increases the replication boost."
@@ -48,6 +50,8 @@
 	severity = 0
 	symptom_delay_min = 1
 	symptom_delay_max = 1
+	prefixes = list("Nano-")
+	suffixes = list(" Silicophobia")
 	var/reverse_boost = FALSE
 	threshold_desc = "<b>Stage Speed 5:</b> Increases the virus' growth rate while nanites are present.<br>\
 					  <b>Resistance 7:</b> Severely increases the rate at which the nanites are destroyed."
