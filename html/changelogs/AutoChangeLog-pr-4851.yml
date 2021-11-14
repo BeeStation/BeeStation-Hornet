@@ -1,0 +1,9 @@
+author: Coiax, Cenrus, Supernovaa41, Mothblocks, RandomGamer123
+delete-after: true
+changes:
+  - rscadd: Uplink implant choice in preferences. deducts 3 TC when used.
+  - bugfix: Uplinks will now be implanted internally if the game can't find anywhere
+      to put it
+  - rscadd: Population restricted uplink equipment will now automatically unlock when
+      enough players are active
+  - bugfix: Fixed syndicate uplink UI not having a name
