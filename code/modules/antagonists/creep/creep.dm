@@ -94,7 +94,8 @@
 			if("jealous")
 				var/datum/objective/assassinate/jealous/jealous = new
 				jealous.owner = owner
-				jealous.set_target(obsessionmind)//will reroll into a coworker on the objective itself
+				jealous.obsession = obsessionmind
+				jealous.find_target()//will reroll into a coworker on the objective itself
 				objectives += jealous
 				log_objective(owner, jealous.explanation_text)
 
@@ -150,69 +151,58 @@
 		message_admins("WARNING! [ADMIN_LOOKUPFLW(owner)] obsessed objectives forged without an obsession!")
 		explanation_text = "Free Objective"
 
-/datum/objective/assassinate/jealous //assassinate, but it changes the target to someone else in the previous target's department. cool, right?
-	var/datum/mind/old //the target the coworker was picked from.
+/datum/objective/assassinate/jealous //assassinate, but it changes the target to someone else in the obsession's department. cool, right?
+	var/datum/mind/obsession //the target the coworker is picked from.
 
 /datum/objective/assassinate/jealous/update_explanation_text()
 	..()
-	old = find_coworker(target)
-	if(target && target.current && old)
-		explanation_text = "Murder [target.name], [old]'s coworker."
+	if(obsession && target?.current)
+		explanation_text = "Murder [target.name], [obsession]'s coworker."
+	else if(target?.current)
+		explanation_text = "Murder [target.name]."
 	else
 		explanation_text = "Free Objective"
 
-/datum/objective/assassinate/jealous/proc/find_coworker(datum/mind/oldmind)//returning null = free objective
-	if(!oldmind.assigned_role)
+/datum/objective/assassinate/jealous/find_target(list/dupe_search_range, list/blacklist)//returning null = free objective
+	if(!obsession?.assigned_role)
+		set_target(null)
+		update_explanation_text()
 		return
 	var/list/viable_coworkers = list()
 	var/list/all_coworkers = list()
-	var/chosen_department
-	var/their_chosen_department
+	var/list/chosen_department
 	//note that command and sillycone are gone because borgs can't be obsessions and the heads have their respective department. Sorry cap, your place is more with centcom or something
-	if(oldmind.assigned_role in GLOB.security_positions)
-		chosen_department = "security"
-	if(oldmind.assigned_role in GLOB.engineering_positions)
-		chosen_department = "engineering"
-	if(oldmind.assigned_role in GLOB.medical_positions)
-		chosen_department = "medical"
-	if(oldmind.assigned_role in GLOB.science_positions)
-		chosen_department = "science"
-	if(oldmind.assigned_role in GLOB.supply_positions)
-		chosen_department = "supply"
-	if(oldmind.assigned_role in GLOB.civilian_positions)
-		chosen_department = "civilian"
-	if(oldmind.assigned_role in GLOB.gimmick_positions)
-		chosen_department = "civilian"
-	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-		if(!H.mind)
-			continue
-		if(!SSjob.GetJob(H.mind.assigned_role) || H == oldmind.current || H.mind.has_antag_datum(/datum/antagonist/obsessed))
+	if(obsession.assigned_role in GLOB.security_positions)
+		chosen_department = GLOB.security_positions
+	else if(obsession.assigned_role in GLOB.engineering_positions)
+		chosen_department = GLOB.engineering_positions
+	else if(obsession.assigned_role in GLOB.medical_positions)
+		chosen_department = GLOB.medical_positions
+	else if(obsession.assigned_role in GLOB.science_positions)
+		chosen_department = GLOB.science_positions
+	else if(obsession.assigned_role in GLOB.supply_positions)
+		chosen_department = GLOB.supply_positions
+	else if(obsession.assigned_role in (GLOB.civilian_positions | GLOB.gimmick_positions))
+		chosen_department = GLOB.civilian_positions | GLOB.gimmick_positions
+	else
+		set_target(null)
+		update_explanation_text()
+		return
+	for(var/datum/mind/possible_target as() in get_crewmember_minds())
+		if(!SSjob.GetJob(possible_target.assigned_role) || possible_target == obsession || possible_target.has_antag_datum(/datum/antagonist/obsessed) || (possible_target in blacklist))
 			continue //the jealousy target has to have a job, and not be the obsession or obsessed.
-		all_coworkers += H.mind
-		//this won't be called often thankfully.
-		if(H.mind.assigned_role in GLOB.security_positions)
-			their_chosen_department = "security"
-		if(H.mind.assigned_role in GLOB.engineering_positions)
-			their_chosen_department = "engineering"
-		if(H.mind.assigned_role in GLOB.medical_positions)
-			their_chosen_department = "medical"
-		if(H.mind.assigned_role in GLOB.science_positions)
-			their_chosen_department = "science"
-		if(H.mind.assigned_role in GLOB.supply_positions)
-			their_chosen_department = "supply"
-		if(H.mind.assigned_role in GLOB.civilian_positions)
-			their_chosen_department = "civilian"
-		if(H.mind.assigned_role in GLOB.gimmick_positions)
-			chosen_department = "civilian"
-		if(their_chosen_department != chosen_department)
-			continue
-		viable_coworkers += H.mind
+		all_coworkers += possible_target
+		if(possible_target.assigned_role in chosen_department)
+			viable_coworkers += possible_target
 
-	if(viable_coworkers.len > 0)//find someone in the same department
+	if(viable_coworkers.len)//find someone in the same department
 		set_target(pick(viable_coworkers))
-	else if(all_coworkers.len > 0)//find someone who works on the station
+	else if(all_coworkers.len)//find someone who works on the station
 		set_target(pick(all_coworkers))
-	return oldmind
+	else
+		set_target(null)
+	update_explanation_text()
+	return target
 
 /datum/objective/spendtime //spend some time around someone, handled by the obsessed trauma since that ticks
 	name = "spendtime"
