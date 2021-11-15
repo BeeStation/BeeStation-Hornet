@@ -84,3 +84,19 @@
 		to_chat(user, "<span class='notice'>..and falls into view. Whew, that was a close one.</span>")
 		user.dropItemToGround(src)
 
+// NSV Glocks //
+
+/obj/item/gun/ballistic/automatic/pistol/glock
+	name = "\improper Glock-13"
+	desc = "A small 9mm handgun used by Nanotrasen security forces. It has a polymer handle and a full durasteel body construction, giving it a nice weight. "
+	icon_state = "glock"
+	w_class = WEIGHT_CLASS_NORMAL
+	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
+	fire_sound = "sound/weapons/glock.ogg"
+	fire_sound_volume = 40
+
+
+/obj/item/gun/ballistic/automatic/pistol/glock/makarov
+	name = "\improper Makarov NT"
+	desc = "An older handgun used by NT security forces, produced by H&KC but slowly being phased out by the Glock-13. One of the designers of the weapon went on record saying: 'There are no brakes on this commie fucktrain.'"
+	icon_state = "makarov"
