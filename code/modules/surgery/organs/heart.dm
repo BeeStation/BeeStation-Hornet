@@ -204,6 +204,10 @@
 	. = ..()
 	addtimer(VARSET_CALLBACK(src, dose_available, TRUE), 5 MINUTES)
 
+/obj/item/organ/heart/cybernetic/ipc
+	desc = "An electronic device that appears to mimic the functions of an organic heart."
+	dose_available = FALSE
+
 /obj/item/organ/heart/freedom
 	name = "heart of freedom"
 	desc = "This heart pumps with the passion to give... something freedom."
