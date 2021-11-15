@@ -322,8 +322,8 @@
 	scanner = new
 
 /obj/machinery/smartfridge/plants/Destroy()
+	QDEL_NULL(scanner)
 	. = ..()
-	qdel(scanner)
 
 /obj/machinery/smartfridge/plants/scan(obj/item/O, mob/M)
 	O.attackby(scanner, M)
