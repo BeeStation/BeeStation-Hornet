@@ -19,6 +19,9 @@
 	var/allow_ai_retrieve = FALSE
 	var/list/initial_contents
 	var/visible_contents = TRUE
+	/// Set to TRUE on subtypes if they have a built-in scanner.
+	/// Also needs to implement scan proc
+	var/can_scan = FALSE
 
 /obj/machinery/smartfridge/Initialize()
 	. = ..()
@@ -192,6 +195,8 @@
 		O.forceMove(drop_location())
 		adjust_item_drop_location(O)
 
+///Perform a scan on the item stored in the fridge, available if can_scan is TRUE
+/obj/machinery/smartfridge/proc/scan(obj/item/O, mob/user)
 
 
 /obj/machinery/smartfridge/ui_state(mob/user)
@@ -221,6 +226,7 @@
 	.["contents"] = listofitems
 	.["name"] = name
 	.["isdryer"] = FALSE
+	.["canscan"] = can_scan
 
 
 /obj/machinery/smartfridge/handle_atom_del(atom/A) // Update the UIs in case something inside gets deleted
@@ -280,17 +286,47 @@
 			SEND_SIGNAL(usr, COMSIG_MOB_EXAMINATE, target)
 			return
 
+		if("scan")
+			if(!can_scan)
+				return
+
+			var/name = params["name"]
+			var/obj/item/target
+			for(var/obj/item/O in src)
+				if(O.name == name)
+					target = O
+					break
+
+			if(!target)
+				return
+
+			scan(target, usr)
+			return
+
 // -----------------------------
 //  Standard botany smartfridge
 // -----------------------------
 
 /obj/machinery/smartfridge/plants
 	name = "smartfridge"
+	can_scan = TRUE
+	var/obj/item/plant_analyzer/scanner
 
 /obj/machinery/smartfridge/plants/accept_check(obj/item/O)
 	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/) || istype(O, /obj/item/seeds/) || istype(O, /obj/item/grown/))
 		return TRUE
 	return FALSE
+
+/obj/machinery/smartfridge/plants/Initialize()
+	. = ..()
+	scanner = new
+
+/obj/machinery/smartfridge/plants/Destroy()
+	. = ..()
+	qdel(scanner)
+
+/obj/machinery/smartfridge/plants/scan(obj/item/O, mob/M)
+	O.attackby(scanner, M)
 
 // ----------------------------
 //  Drying Rack 'smartfridge'
@@ -522,6 +558,9 @@
 /obj/machinery/smartfridge/chemistry/virology
 	name = "smart virus storage"
 	desc = "A refrigerated storage unit for volatile sample storage."
+	can_scan = TRUE
+	var/obj/item/extrapolator/extrapolator
+	var/scanner_rating = 0
 
 /obj/machinery/smartfridge/chemistry/virology/preloaded
 	initial_contents = list(
@@ -533,6 +572,29 @@
 		/obj/item/reagent_containers/glass/bottle/synaptizine = 1,
 		/obj/item/reagent_containers/glass/bottle/formaldehyde = 1,
 		/obj/item/reagent_containers/glass/bottle/cryostylane = 1)
+
+/obj/machinery/smartfridge/chemistry/virology/Initialize()
+	. = ..()
+	extrapolator = new
+	extrapolator.scanner.rating = scanner_rating
+
+/obj/machinery/smartfridge/chemistry/virology/Destroy()
+	QDEL_NULL(extrapolator)
+	. = ..()
+
+/obj/machinery/smartfridge/chemistry/virology/RefreshParts()
+	. = ..()
+	var/scanner_count = 0
+	scanner_rating = 0
+	for(var/obj/item/stock_parts/scanning_module/scanner in component_parts)
+		scanner_rating += scanner.rating
+		scanner_count++
+	scanner_rating /= scanner_count
+	if(extrapolator)
+		extrapolator.scanner.rating = scanner_rating
+
+/obj/machinery/smartfridge/chemistry/virology/scan(obj/item/O, mob/user)
+	return O.extrapolator_act(user, extrapolator, TRUE)
 
 // ----------------------------
 // Disk """fridge"""
