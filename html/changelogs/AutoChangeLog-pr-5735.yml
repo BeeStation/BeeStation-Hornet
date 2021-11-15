@@ -1,0 +1,9 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - bugfix: Research Console now accurately displays technology costs.
+  - rscadd: Research Console now displays the current tech tier and the tiers of research
+      nodes.
+  - bugfix: Research Console no longer freezes for long periods of time when uploading
+      a lot of research from a disk.
+  - bugfix: Supercruise tech disks now upload correctly without workarounds.
