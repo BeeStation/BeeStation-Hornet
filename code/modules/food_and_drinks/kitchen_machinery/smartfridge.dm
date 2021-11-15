@@ -258,6 +258,27 @@
 						break
 			if (visible_contents && .)
 				update_icon()
+		if("examine")
+			var/name = params["name"]
+			var/obj/item/target
+			for(var/obj/item/O in src)
+				if(O.name == name)
+					target = O
+					break
+
+			if(!target)
+				return
+
+			//Code copypasted from /mob/verb/examinate
+			if(is_blind(usr))
+				to_chat(usr, "<span class='warning'>You can't see inside [src]!</span>")
+				return
+
+			usr.face_atom(src)
+			var/list/result = target.examine(usr)
+			to_chat(usr, result.Join("\n"))
+			SEND_SIGNAL(usr, COMSIG_MOB_EXAMINATE, target)
+			return
 
 // -----------------------------
 //  Standard botany smartfridge
