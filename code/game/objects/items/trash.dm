@@ -101,8 +101,22 @@
 	pixel_x = rand(-4,4)
 	pixel_y = rand(-4,4)
 
-/obj/item/trash/attack(mob/M, mob/living/user)
-	return
+// Monkestation Change Start
+
+/obj/item/trash/attack(mob/M, mob/user, def_zone) //Just hooks into the moth clothing eating. Trash shouldn't taste good.
+	if(!ishuman(M))
+		return
+	var/mob/living/carbon/human/H = M
+	if(user.a_intent != INTENT_HARM && HAS_TRAIT(H, TRAIT_TRASH_EATER)) //Added via the goat.dm disease symptom
+		var/obj/item/reagent_containers/food/snacks/clothing/clothing_as_food = new
+		clothing_as_food.name = name
+		if(clothing_as_food.attack(M, user, def_zone))
+			take_damage(15, sound_effect=FALSE)
+		qdel(clothing_as_food)
+	else
+		return ..()
+
+// Monkestation Change End
 
 /obj/item/trash/coal
 	name = "lump of coal"
