@@ -93,7 +93,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
 	fire_sound = "sound/weapons/glock.ogg"
-	fire_sound_volume = 40
+	fire_sound_volume = 30
+	can_suppress = FALSE
 
 
 /obj/item/gun/ballistic/automatic/pistol/glock/makarov
