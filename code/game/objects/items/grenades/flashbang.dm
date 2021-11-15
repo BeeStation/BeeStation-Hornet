@@ -33,8 +33,8 @@
 
 	if(M.flash_act(intensity = 1, affect_silicon = 1))
 		if(distance_proportion)
-			M.Paralyze(20 * distance_proportion)
-			M.Knockdown(200 * distance_proportion)
+			M.apply_status_effect(STATUS_EFFECT_FLASHED)
+			M.Knockdown(100 * distance_proportion)
 	else
 		M.flash_act(intensity = 2)
 

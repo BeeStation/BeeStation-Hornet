@@ -102,7 +102,7 @@
 /obj/item/clothing/suit/bomb_suit/security
 	icon_state = "bombsuit_sec"
 	item_state = "bombsuit_sec"
-	allowed = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/restraints/handcuffs)
+	allowed = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/melee/lawbaton, /obj/item/restraints/handcuffs)
 
 
 /obj/item/clothing/head/bomb_hood/white

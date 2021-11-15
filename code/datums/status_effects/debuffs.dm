@@ -944,3 +944,29 @@
 	name = "Electro-Magnetic Pulse"
 	desc = "You've been hit with an EMP! You're malfunctioning!"
 	icon_state = "hypnosis"
+
+/datum/status_effect/flashed
+	id = "flash"
+	duration = 30 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/flashed
+	status_type = STATUS_EFFECT_REFRESH
+
+/datum/status_effect/flashed/on_apply(mob/living/new_owner, ...)
+	. = ..()
+	if(iscarbon(owner))
+		var/mob/living/carbon/C = owner
+		C.Stun(30)
+		C.blind_eyes(5)
+		C.blur_eyes(10)
+	owner.confused = (owner.confused + 20)
+	owner.add_movespeed_modifier(MOVESPEED_ID_FLASHED, override = TRUE, multiplicative_slowdown = 1) 
+
+
+/datum/status_effect/flashed/on_remove()
+	owner.remove_movespeed_modifier(MOVESPEED_ID_FLASHED, TRUE)
+	return ..()
+
+/atom/movable/screen/alert/status_effect/flashed
+	name = "Flashed"
+	desc = "You've recently been blinded by a flash. You'll be disoriented and slowed for a few seconds, but you can't be flashed again until then!"
+	icon_state = "stun"

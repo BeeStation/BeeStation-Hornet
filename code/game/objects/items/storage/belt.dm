@@ -250,6 +250,7 @@
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.can_hold = typecacheof(list(
 		/obj/item/melee/baton,
+		/obj/item/melee/lawbaton,
 		/obj/item/melee/classic_baton/police,
 		/obj/item/grenade,
 		/obj/item/reagent_containers/spray/pepper,

@@ -388,6 +388,29 @@
 	#define COMPONENT_PROGRAM_NOT_INSTALLED		2				//Installation failed, but there are still nanites
 #define COMSIG_NANITE_SYNC "nanite_sync"						//(datum/component/nanites, full_overwrite, copy_activation) Called to sync the target's nanites to a given nanite component
 
+//law baton signals
+#define COMSIG_BATON_ACTIVATE "baton_activate" //triggered when a baton is turned on
+	#define COMSIG_BATON_NOACTIVATE 1
+#define COMSIG_BATON_DEACTIVATE "baton_deactivate" //triggered when a baton is turned off
+#define COMSIG_BATON_DISCHARGE "baton_discharge" //triggered when a baton is forcibly turned off
+	#define COMSIG_BATON_NODISCHARGE 1
+#define COMSIG_BATON_TOGGLE_MODE "baton_toggle" //triggered when a baton's mode is toggled 
+#define COMSIG_BATON_NO_CHARGE "baton_no_charge" //triggered when a baton runs out of charge
+#define COMSIG_BATON_ATTACK "baton_attack" //triggers when a baton hits with any attack
+	#define COMSIG_BATON_NOATTACK 1
+#define COMSIG_BATON_STRONG_ATTACK "baton_strong" //triggered when a baton uses a strong attack
+#define COMSIG_BATON_NORMAL_ATTACK "baton_attack" //triggers when a baton hits with a normal attack while active
+#define COMSIG_BATON_WEAK_ATTACK "baton_weak" //triggers when a baton hits with any "weak" attack while on. exists so most on-hit effects dont care for weak attacks
+#define COMSIG_BATON_BLOCK "baton_block" //triggers when a baton blocks an attack
+	#define COMSIG_BATON_NOBLOCK 1
+#define COMSIG_BATON_BLOCKED "baton_blocked" //triggers when a baton is blocked by an attack
+	#define COMSIG_BATON_UNBLOCKABLE 1
+#define COMSIG_BATON_FAILED_STUNCHECK "baton_failed_stuncheck" //triggers when a baton hits with an attack against a target, but isn't allowed to attack due to a failed check
+#define COMSIG_BATON_THROWN "baton_thrown" //triggered when a baton is thrown
+#define COMSIG_BATON_THROW_IMPACT "baton_throw_impact" //triggers when a thrown baton hits a target
+#define COMSIG_BATON_EXAMINED "baton_examined" //triggers when a baton is examined
+
+
 // /datum/component/storage signals
 #define COMSIG_CONTAINS_STORAGE "is_storage"						//! () - returns bool.
 #define COMSIG_TRY_STORAGE_INSERT "storage_try_insert"				//! (obj/item/inserting, mob/user, silent, force) - returns bool

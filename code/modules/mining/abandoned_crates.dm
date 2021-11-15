@@ -47,7 +47,7 @@
 		if(31 to 35)
 			new /obj/item/seeds/firelemon(src)
 		if(36 to 40)
-			new /obj/item/melee/baton(src)
+			new /obj/item/melee/lawbaton(src)
 		if(41 to 45)
 			new /obj/item/clothing/under/shorts/red(src)
 			new /obj/item/clothing/under/shorts/blue(src)

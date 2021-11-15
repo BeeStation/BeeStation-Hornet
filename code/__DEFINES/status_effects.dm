@@ -101,6 +101,8 @@
 
 #define STATUS_EFFECT_IPC_EMP /datum/status_effect/ipc/emp //EMP'd IPC
 
+#define STATUS_EFFECT_FLASHED /datum/status_effect/flashed //slowdown from being flashed
+
 //---------//
 // NEUTRAL //
 //---------//
