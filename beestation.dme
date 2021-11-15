@@ -3447,4 +3447,10 @@
 #include "interface\interface.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
+#include "monkestation\code\datums\diseases\advance\symptoms\fermentation.dm"
+#include "monkestation\code\datums\diseases\advance\symptoms\gateway.dm"
+#include "monkestation\code\datums\diseases\advance\symptoms\goat.dm"
+#include "monkestation\code\datums\diseases\advance\symptoms\rodman.dm"
+#include "monkestation\code\game\area\Space_Station_13_areas.dm"
+#include "monkestation\code\modules\clothing\masks\miscellaneous.dm"
 // END_INCLUDE
