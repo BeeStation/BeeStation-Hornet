@@ -304,13 +304,13 @@
 	//handcuffed?
 	if(handcuffed)
 		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
-			. += "<span class='warning'>[t_He] [t_is] [icon2html(handcuffed, user)] restrained with cable!</span>"
+			. += "<span class='warning'>[t_He] [t_is] restrained with cable!</span>"
 		else
-			. += "<span class='warning'>[t_He] [t_is] [icon2html(handcuffed, user)] handcuffed with [handcuffed]!</span>"
+			. += "<span class='warning'>[t_He] [t_is] handcuffed with [handcuffed]!</span>"
 
 	//legcuffed?
 	if(legcuffed)
-		. += "<span class='warning'>[t_He] [t_is] [icon2html(legcuffed, user)] legcuffed with [legcuffed]!</span>"
+		. += "<span class='warning'>[t_He] [t_is] legcuffed with [legcuffed]!</span>"
 
 	if (length(msg))
 		. += "<span class='warning'>[msg.Join("")]</span>"
