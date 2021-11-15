@@ -29,8 +29,10 @@ export const SmartVend = (props, context) => {
           ) || (
             <Table>
               <Table.Row header>
-                <Table.Cell collapsing colspan={canscan ? 2 : 1}>
-                  Actions
+                <Table.Cell
+                  collapsing textAlign="center"
+                  colspan={canscan ? 2 : 1}>
+                  Act
                 </Table.Cell>
                 <Table.Cell>
                   Item
@@ -43,26 +45,26 @@ export const SmartVend = (props, context) => {
               {map((value, key) => (
                 <Table.Row key={key}>
                   {!!canscan && (
-                    <Table.Cell>
+                    <Table.Cell collapsing>
                       <Button
                         icon="search"
                         onClick={() => act('scan', {
-                          name: value.name
+                          name: value.name,
                         })}
                         tooltip="Scan"
                         tooltipPosition="bottom"
-                        />
+                      />
                     </Table.Cell>
                   )}
-                  <Table.Cell>
+                  <Table.Cell collapsing>
                     <Button
-                      icon = "eye"
+                      icon="eye"
                       onClick={() => act('examine', {
-                        name: value.name
+                        name: value.name,
                       })}
                       tooltip="Examine"
                       tooltipPosition="bottom"
-                      />
+                    />
                   </Table.Cell>
                   <Table.Cell>
                     {value.name}
