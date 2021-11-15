@@ -443,9 +443,10 @@
 /obj/item/circuitboard/machine/smartfridge
 	name = "smartfridge (Machine Board)"
 	icon_state = "generic"
-	build_path = /obj/machinery/smartfridge
+	build_path = /obj/machinery/smartfridge/plants
 	req_components = list(/obj/item/stock_parts/matter_bin = 1)
 	var/static/list/fridges_name_paths = list(/obj/machinery/smartfridge = "plant produce",
+	var/static/list/fridges_name_paths = list(/obj/machinery/smartfridge/plants = "plant produce",
 		/obj/machinery/smartfridge/food = "food",
 		/obj/machinery/smartfridge/drinks = "drinks",
 		/obj/machinery/smartfridge/extract = "slimes",

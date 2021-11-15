@@ -525,7 +525,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/awaymission/cabin)
 "bx" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/plants,
 /turf/open/floor/plasteel/cafeteria,
 /area/awaymission/cabin)
 "by" = (

@@ -35014,7 +35014,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "idd" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/plants,
 /turf/closed/wall,
 /area/crew_quarters/bar)
 "idt" = (
@@ -48707,7 +48707,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "lsq" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/plants,
 /turf/closed/wall,
 /area/crew_quarters/kitchen)
 "lsv" = (
@@ -50855,7 +50855,7 @@
 /turf/open/floor/plasteel,
 /area/medical/chemistry/upper)
 "lSH" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/plants,
 /turf/closed/wall,
 /area/hydroponics)
 "lSU" = (

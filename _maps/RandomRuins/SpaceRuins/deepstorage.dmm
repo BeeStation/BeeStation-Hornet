@@ -825,7 +825,7 @@
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bZ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/plants,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "ca" = (

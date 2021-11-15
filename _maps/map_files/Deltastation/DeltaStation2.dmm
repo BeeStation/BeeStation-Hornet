@@ -32251,7 +32251,7 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "bhG" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/plants,
 /turf/closed/wall,
 /area/hydroponics)
 "bhH" = (
@@ -32294,7 +32294,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "bhK" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/plants,
 /turf/closed/wall,
 /area/crew_quarters/kitchen)
 "bhL" = (

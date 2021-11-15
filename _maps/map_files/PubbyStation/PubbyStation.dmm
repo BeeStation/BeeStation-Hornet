@@ -22745,7 +22745,7 @@
 /turf/open/floor/grass,
 /area/hydroponics)
 "aZZ" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/plants,
 /turf/closed/wall,
 /area/crew_quarters/kitchen)
 "baa" = (

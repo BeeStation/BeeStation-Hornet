@@ -15613,7 +15613,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "aSP" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/plants,
 /turf/closed/wall,
 /area/crew_quarters/kitchen)
 "aSQ" = (

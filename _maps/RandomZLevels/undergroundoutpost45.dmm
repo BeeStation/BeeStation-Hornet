@@ -2887,7 +2887,7 @@
 /turf/closed/wall/r_wall,
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "fL" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/plants,
 /turf/closed/wall,
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "fM" = (

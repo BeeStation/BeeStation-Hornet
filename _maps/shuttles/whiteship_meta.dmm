@@ -2922,7 +2922,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/shuttle/abandoned/bar)
 "dS" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/plants,
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned/bar)
 "dT" = (

@@ -44911,7 +44911,7 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/aft)
 "bmA" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/plants,
 /turf/closed/wall,
 /area/crew_quarters/kitchen)
 "bmB" = (
@@ -45355,7 +45355,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
 "bnj" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/plants,
 /turf/closed/wall,
 /area/hydroponics)
 "bnk" = (

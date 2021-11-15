@@ -2,7 +2,7 @@
 //  SmartFridge.  Much todo
 // -------------------------
 /obj/machinery/smartfridge
-	name = "smartfridge"
+	name = "undefined smartfridge"
 	desc = "Keeps cold things cold and hot things cold."
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "smartfridge"
@@ -166,8 +166,6 @@
 
 
 /obj/machinery/smartfridge/proc/accept_check(obj/item/O)
-	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/) || istype(O, /obj/item/seeds/) || istype(O, /obj/item/grown/))
-		return TRUE
 	return FALSE
 
 /obj/machinery/smartfridge/proc/load(obj/item/O)
@@ -261,6 +259,17 @@
 			if (visible_contents && .)
 				update_icon()
 
+// -----------------------------
+//  Standard botany smartfridge
+// -----------------------------
+
+/obj/machinery/smartfridge/plants
+	name = "smartfridge"
+
+/obj/machinery/smartfridge/plants/accept_check(obj/item/O)
+	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/) || istype(O, /obj/item/seeds/) || istype(O, /obj/item/grown/))
+		return TRUE
+	return FALSE
 
 // ----------------------------
 //  Drying Rack 'smartfridge'
@@ -390,6 +399,7 @@
 //  Food smartfridge
 // ----------------------------
 /obj/machinery/smartfridge/food
+	name = "smartfridge"
 	desc = "A refrigerated storage unit for food."
 
 /obj/machinery/smartfridge/food/accept_check(obj/item/O)

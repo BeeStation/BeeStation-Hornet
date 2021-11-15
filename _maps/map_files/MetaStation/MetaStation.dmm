@@ -47969,7 +47969,7 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "bSW" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/plants,
 /turf/closed/wall,
 /area/hydroponics)
 "bSX" = (

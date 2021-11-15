@@ -41,7 +41,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "an" = (
-/obj/machinery/smartfridge,
+/obj/machinery/smartfridge/plants,
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "ao" = (
