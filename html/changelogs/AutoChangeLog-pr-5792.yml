@@ -1,0 +1,5 @@
+author: Kapu1178
+delete-after: true
+changes:
+  - balance: IPCs bleed 10x slower
+  - bugfix: IPCs no longer get heart attacks.
