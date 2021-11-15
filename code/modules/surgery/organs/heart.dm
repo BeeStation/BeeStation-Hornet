@@ -208,6 +208,11 @@
 	desc = "An electronic device that appears to mimic the functions of an organic heart."
 	dose_available = FALSE
 
+/obj/item/organ/heart/cybernetic/ipc/emp_act()
+	. = ..()
+	to_chat(owner, "<span class='warning'>Alert: Cybernetic heart failed one heartbeat</span>")
+	addtimer(CALLBACK(src, .proc/Restart), 10 SECONDS)
+
 /obj/item/organ/heart/freedom
 	name = "heart of freedom"
 	desc = "This heart pumps with the passion to give... something freedom."
