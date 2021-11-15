@@ -5,6 +5,9 @@ import { Window } from '../layouts';
 
 export const SmartVend = (props, context) => {
   const { act, data } = useBackend(context);
+  const {
+    canscan,
+  } = data;
   return (
     <Window
       width={440}
@@ -26,6 +29,9 @@ export const SmartVend = (props, context) => {
           ) || (
             <Table>
               <Table.Row header>
+                <Table.Cell collapsing colspan={canscan ? 2 : 1}>
+                  Actions
+                </Table.Cell>
                 <Table.Cell>
                   Item
                 </Table.Cell>
@@ -36,6 +42,28 @@ export const SmartVend = (props, context) => {
               </Table.Row>
               {map((value, key) => (
                 <Table.Row key={key}>
+                  {!!canscan && (
+                    <Table.Cell>
+                      <Button
+                        icon="search"
+                        onClick={() => act('scan', {
+                          name: value.name
+                        })}
+                        tooltip="Scan"
+                        tooltipPosition="bottom"
+                        />
+                    </Table.Cell>
+                  )}
+                  <Table.Cell>
+                    <Button
+                      icon = "eye"
+                      onClick={() => act('examine', {
+                        name: value.name
+                      })}
+                      tooltip="Examine"
+                      tooltipPosition="bottom"
+                      />
+                  </Table.Cell>
                   <Table.Cell>
                     {value.name}
                   </Table.Cell>
