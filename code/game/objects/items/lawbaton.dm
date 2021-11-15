@@ -45,7 +45,7 @@
 					return FALSE
 			if(check_martial_counter(M, user))
 				if(!SEND_SIGNAL(src, COMSIG_BATON_BLOCKED, M, user) & COMSIG_BATON_UNBLOCKABLE)
-					return FALSE
+					return FALSE 
 			if(mode == MODE_LETHAL && HAS_TRAIT(user, TRAIT_PACIFISM))
 				to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 				return
