@@ -82,8 +82,8 @@
 			var/armor_block = M.run_armor_check(affecting, "stamina", armour_penetration = armour_penetration)
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
-				if(!H.can_inject(penetrate_thick = penetrateclothes))
-					armor_block += 20
+				if(!H.can_inject(penetrate_thick = penetrateclothes)) 
+					armor_block += 25 //your average security member has about 65 chest stamina armor including this bonus. An assistant in a firesuit carries 35, with slowdown. without security gear or hardsuits, the most a tider can feasibly get is 50ish- still better than lethals
 			M.apply_damage(damage, STAMINA, affecting, armor_block)
 			user.do_attack_animation(M)
 		if(MODE_LETHAL)
@@ -311,15 +311,16 @@
 /obj/item/melee/lawbaton/proc/stuncheck(mob/living/M, mob/living/user) //can we stun the target?
 	var/obj/item/bodypart/affecting = M.get_bodypart(ran_zone(user.zone_selected))
 	var/armor_block = M.run_armor_check(affecting, "stamina", armour_penetration = armour_penetration)
-	var/counterarmor = M.run_armor_check(affecting, "melee", armour_penetration = armour_penetration)
 	var/penetrateclothes = FALSE 
 	if(armour_penetration >= 15)
 		penetrateclothes = TRUE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!H.can_inject(penetrate_thick = penetrateclothes))
-			armor_block += 20
-	if((armor_block - counterarmor) >= 80) //if the target isn't feasible to take down nonlethally, and they don't have similar melee armor, don't bother
+			armor_block += 25
+	if(armor_block  >= 80) //if the target isn't feasible to take down nonlethally, dont bother. This is about how protected nukies and other such threats are
+		if(mode = MODE_STUN)
+			to_chat(user, "<span_class = 'warning'>[M] is too heavily armored in this area to feasibly stun.</span>")
 		return FALSE
 	if(iscarbon(M))
 		if(HAS_TRAIT(M, TRAIT_NOSTAMCRIT))
