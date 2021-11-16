@@ -19,7 +19,7 @@ GLOBAL_VAR(string_filename_current_key)
 	else
 		CRASH("strings list not found: [STRING_DIRECTORY]/[filename], index=[key]")
 
-/proc/strings(filename as text, key as text, (directory as text) = STRING_DIRECTORY)
+/proc/strings(filename as text, key as text, directory = STRING_DIRECTORY)
 	if(IsAdminAdvancedProcCall())
 		return
 

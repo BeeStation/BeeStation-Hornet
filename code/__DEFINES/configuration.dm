@@ -20,7 +20,8 @@
 /// Folder directory for config
 #define CONFIG_DIRECTORY "config"
 
-#define DSAY_NICKNAME_FILE "admin_nicknames.json"
+/// File defines, most of them are loaded from STRING_DIRECTORY
+#define DSAY_NICKNAME_FILE "admin_nicknames.json"	//loaded from CONFIG_DIRECTORY
 #define PHOBIA_FILE "phobia.json"
 #define ION_LAWS_FILE "ion_laws.json"
 #define OWO_TALK_FILE "owo_talk.json"
