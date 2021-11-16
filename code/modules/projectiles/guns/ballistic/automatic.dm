@@ -221,6 +221,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	full_auto = TRUE
 	burst_size = 3
+	fire_delay = 2
 	
 
 /obj/item/gun/ballistic/automatic/mp16
@@ -236,6 +237,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	full_auto = TRUE
 	burst_size = 4
+	fire_delay = 2
 
 // L6 SAW //
 
