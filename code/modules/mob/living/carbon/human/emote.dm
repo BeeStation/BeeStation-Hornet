@@ -56,6 +56,11 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
+	// MonkeStation Edit Start
+	// Alternative Scream Hook
+	if(H.alternative_screams.len)
+		return pick(H.alternative_screams)
+	// MonkeStation Edit End
 	if(H.mind?.miming)
 		return
 	if(ishumanbasic(H) || iscatperson(H))

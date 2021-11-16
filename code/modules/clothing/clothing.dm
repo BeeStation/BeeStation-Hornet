@@ -28,6 +28,11 @@
 	var/toggle_cooldown = null
 	var/cooldown = 0
 	var/envirosealed = FALSE //is it safe for plasmamen
+	//MonkeStation Edit Start
+	//Alternative Scream/Laugh Vars
+	var/list/alternative_screams = list()
+	var/list/alternative_laughs = list()
+	//MonkeStation Edit End
 
 	var/blocks_shove_knockdown = FALSE //Whether wearing the clothing item blocks the ability for shove to knock down.
 
@@ -113,6 +118,16 @@
 				if(user.vars[variable] == user_vars_to_edit[variable]) //Is it still what we set it to? (if not we best not change it)
 					user.vars[variable] = user_vars_remembered[variable]
 		user_vars_remembered = initial(user_vars_remembered) // Effectively this sets it to null.
+	//MonkeStation Edit Start
+	//Alternative Scream
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/wearer = user
+	if(alternative_screams.len)
+		wearer.alternative_screams -= alternative_screams
+	if(alternative_laughs.len)
+		wearer.alternative_laughs -= alternative_laughs
+	//MonkeStation Edit End
 
 /obj/item/clothing/equipped(mob/user, slot)
 	..()
@@ -124,6 +139,16 @@
 				if(variable in user.vars)
 					LAZYSET(user_vars_remembered, variable, user.vars[variable])
 					user.vv_edit_var(variable, user_vars_to_edit[variable])
+		//MonkeStation Edit Start
+		//Alternative Scream
+		if(!ishuman(user))
+			return
+		var/mob/living/carbon/human/wearer = user
+		if(alternative_screams.len)
+			wearer.alternative_screams.Add(alternative_screams)
+		if(alternative_laughs.len)
+			wearer.alternative_laughs.Add(alternative_laughs)
+		//MonkeStation Edit End
 
 /obj/item/clothing/examine(mob/user)
 	. = ..()
