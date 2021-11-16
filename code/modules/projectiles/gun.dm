@@ -216,7 +216,7 @@
 		for(var/obj/O in contents)
 			O.emp_act(severity)
 
-/obj/item/gun/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/afterattack(atom/target, mob/living/user, flag, params, aimed)
 	. = ..()
 	if(!target)
 		return
@@ -273,7 +273,7 @@
 				loop_counter++
 				addtimer(CALLBACK(G, /obj/item/gun.proc/process_fire, target, user, TRUE, params, null, bonus_spread, flag), loop_counter)
 
-	process_fire(target, user, TRUE, params, null, bonus_spread)
+	process_fire(target, user, TRUE, params, null, bonus_spread, aimed)
 
 /obj/item/gun/can_trigger_gun(mob/living/user)
 	. = ..()
@@ -333,7 +333,7 @@
 	update_icon()
 	return TRUE
 
-/obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0, aimed = FALSE)
 	add_fingerprint(user)
 	if(fire_rate)
 		ranged_cooldown = world.time + 10 / fire_rate
@@ -364,7 +364,7 @@
 					to_chat(user, "<span class='notice'> [src] is lethally chambered! You don't want to risk harming anyone...</span>")
 					return
 			sprd = round((rand() - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * (randomized_gun_spread + randomized_bonus_spread))
-			before_firing(target,user)
+			before_firing(target, user, aimed)
 			if(!chambered.fire_casing(target, user, params, , suppressed, zone_override, sprd, spread_multiplier, src))
 				shoot_with_empty_chamber(user)
 				return
@@ -639,8 +639,10 @@
 	pin = new /obj/item/firing_pin
 
 //Happens before the actual projectile creation
-/obj/item/gun/proc/before_firing(atom/target,mob/user)
-	return
+/obj/item/gun/proc/before_firing(atom/target, mob/user, aimed)
+	if(aimed)
+		if(chambered?.BB && !istype(src, /obj/item/gun/ballistic/automatic/toy))
+			chambered.BB.jitter = initial(chambered.BB.speed) *= 0.5 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
 
 /////////////
 // ZOOMING //
