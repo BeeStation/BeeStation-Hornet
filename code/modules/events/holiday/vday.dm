@@ -1,8 +1,6 @@
 // Valentine's Day events //
 // why are you playing spessmens on valentine's day you wizard //
 
-#define VALENTINE_FILE "valentines.json"
-
 //Assoc list
 // Key: Sender
 // Value: Receiever
