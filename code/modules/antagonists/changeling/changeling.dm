@@ -228,7 +228,7 @@
 			return TRUE
 	return FALSE
 
-/datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, var/verbose=1)
+/datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, verbose=TRUE)
 	var/mob/living/carbon/user = owner.current
 	if(!istype(user))
 		return
@@ -436,8 +436,8 @@
 
 			if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
 				var/datum/objective/escape/escape_with_identity/identity_theft = new
+				identity_theft.owner = owner
 				if(identity_theft.is_valid_target(maroon_objective.target))
-					identity_theft.owner = owner
 					identity_theft.set_target(maroon_objective.target)
 					identity_theft.update_explanation_text()
 					objectives += identity_theft

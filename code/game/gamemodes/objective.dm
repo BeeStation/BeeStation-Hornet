@@ -540,7 +540,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		if(!C)
 			continue
 		var/datum/mind/T = possible_target
-		if(!istype(T) || !C.can_absorb_dna(T.current, FALSE))
+		if(!istype(T) || !C.can_absorb_dna(T.current, verbose=FALSE))
 			return FALSE
 	return ..()
 
