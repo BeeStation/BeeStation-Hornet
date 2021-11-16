@@ -37,7 +37,6 @@ GLOBAL_VAR(string_filename_current_key)
 	if(IsAdminAdvancedProcCall())
 		return
 
-	filename = SANITIZE_FILENAME(filename) // in case we're called directly
 	GLOB.string_filename_current_key = filename
 	if(filename in GLOB.string_cache)
 		return //no work to do
