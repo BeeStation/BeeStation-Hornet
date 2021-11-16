@@ -375,3 +375,30 @@
 			owner.SetStun(owner.AmountStun()*2)
 			owner.visible_message("<span class='danger'>[owner] tries to stand up, but trips!</span>", "<span class='userdanger'>You trip over your own feet!</span>")
 			stun_cooldown = world.time + 300
+
+/datum/mutation/human/strongwings
+	name = "Strengthened Wings"
+	desc = "Subject's bee wings allow for longer dashes."
+	quality = POSITIVE
+	difficulty = 12
+	species_allowed = list("apid")
+
+/datum/mutation/human/strongwings/on_acquiring()
+	if(..())
+		return
+	if(locate(/obj/item/organ/wings/bee) in owner.internal_organs)
+		var/wings = locate(/obj/item/organ/wings/bee) in owner.internal_organs
+		wings.jumpdist = 6 * GET_MUTATION_POWER(src)
+		to_chat(owner, "<span class='notice'>Your wings feel stronger.</span>")
+	else
+		to_chat(owner, "<span class='warning'>You don't have wings to strengthen!")
+
+/datum/mutation/human/strongwings/on_losing()
+	if(..())
+		return
+	if(locate(/obj/item/organ/wings/bee) in owner.internal_organs)
+		var/wings = locate(/obj/item/organ/wings/bee) in owner.internal_organs
+		wings.jumpdist = 3
+		to_chat(owner, "<span class='warning'>Your wings feel weak.</span>")
+	else
+		to_chat(owner, "<span class='warning'>The stubs of your wings feel weak!")

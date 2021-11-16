@@ -111,6 +111,7 @@
 	instability = 30
 	energy_coeff = 1
 	power_coeff = 1
+	species_allowed = list("lizard")
 
 /datum/mutation/human/firebreath/modify()
 	if(power)

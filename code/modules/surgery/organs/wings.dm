@@ -149,15 +149,17 @@
 	flight_level = WINGS_COSMETIC
 	actions_types = list(/datum/action/item_action/organ_action/use/bee_dash)
 	wing_type = "Bee"
+	var/jumpdist = 3
 
 /datum/action/item_action/organ_action/use/bee_dash
-	var/jumpdistance = 3
 	var/jumpspeed = 1
 	var/recharging_rate = 100
 	var/recharging_time = 0
 
 /datum/action/item_action/organ_action/use/bee_dash/Trigger()
 	var/mob/living/carbon/L = owner
+	var/wings = locate(/obj/item/organ/wings/bee) in L.internal_organs
+	var/jumpdistance = wings.jumpdist
 
 	if(L.stat != CONSCIOUS || L.buckling || L.restrained()) // Has to be concious and unbuckled
 		return
