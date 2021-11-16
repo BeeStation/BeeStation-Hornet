@@ -13,6 +13,7 @@
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 10
+	ai_controller = /datum/ai_controller/dog
 	can_be_held = TRUE
 	chat_color = "#ECDA88"
 	mobchatspan = "corgi"
@@ -632,6 +633,10 @@
 	maxbodytemp = T0C + 40
 	held_state = "void_puppy"
 	worn_slot_flags = ITEM_SLOT_HEAD
+
+/mob/living/simple_animal/pet/dog/corgi/puppy/void/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_AI_BAGATTACK, INNATE_TRAIT)
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
 	return 1	//Void puppies can navigate space.

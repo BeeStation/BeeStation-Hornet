@@ -24,6 +24,11 @@
 	display_order = JOB_DISPLAY_ORDER_SCIENTIST
 	departments = DEPARTMENT_SCIENCE
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/science
+	)
+	biohazard = 15
+
 /datum/outfit/job/scientist
 	name = "Scientist"
 	jobtype = /datum/job/scientist

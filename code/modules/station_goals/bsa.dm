@@ -140,6 +140,7 @@
 	bound_width = 352
 	bound_x = -192
 	appearance_flags = NONE //Removes default TILE_BOUND
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/bsa/full/wrench_act(mob/living/user, obj/item/I)
 	return FALSE

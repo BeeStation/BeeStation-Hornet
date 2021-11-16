@@ -26,9 +26,17 @@
 	if(M.stat == DEAD)	//They're dead!
 		return
 	var/distance = max(0,get_dist(get_turf(src),T))
-	if(M.flash_act(affect_silicon = 1))
-		M.Paralyze(max(20/max(1,distance), 5))
-		M.Knockdown(max(200/max(1,distance), 60))
+	//When distance is 0, will be 1
+	//When distance is 7, will be 0
+	//Can be less than 0 due to hearers being a circular radius.
+	var/distance_proportion = max(1 - (distance / flashbang_range), 0)
+
+	if(M.flash_act(intensity = 1, affect_silicon = 1))
+		if(distance_proportion)
+			M.Paralyze(20 * distance_proportion)
+			M.Knockdown(200 * distance_proportion)
+	else
+		M.flash_act(intensity = 2)
 
 //Bang
 /obj/item/grenade/flashbang/proc/bang(turf/T, mob/living/M)
@@ -44,7 +52,10 @@
 		if(distance <= 1)
 			M.Paralyze(5)
 			M.Knockdown(30)
-		M.soundbang_act(1, max(200/max(1,distance), 60), rand(0, 5))
+			
+		var/distance_proportion = max(1 - (distance / flashbang_range), 0)
+		if(distance_proportion)
+			M.soundbang_act(1, 200 * distance_proportion, rand(0, 5))
 
 /obj/item/grenade/stingbang
 	name = "stingbang"
