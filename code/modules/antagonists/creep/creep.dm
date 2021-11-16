@@ -22,6 +22,8 @@
 	C.gain_trauma(/datum/brain_trauma/special/obsessed)//ZAP
 
 /datum/antagonist/obsessed/greet()
+	if(!trauma?.obsession)
+		return
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/creepalert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(owner, "<span class='userdanger'>You are the Obsessed!</span>")
 	to_chat(owner, "<B>The Voices have reached out to you, and are using you to complete their evil deeds.</B>")
@@ -151,6 +153,9 @@
 		message_admins("WARNING! [ADMIN_LOOKUPFLW(owner)] obsessed objectives forged without an obsession!")
 		explanation_text = "Free Objective"
 
+/datum/objective/assassinate/obsessed/on_target_cryo()
+	qdel(src) //trauma will give replacement objectives
+
 /datum/objective/assassinate/jealous //assassinate, but it changes the target to someone else in the obsession's department. cool, right?
 	var/datum/mind/obsession //the target the coworker is picked from.
 
@@ -221,6 +226,8 @@
 /datum/objective/spendtime/check_completion()
 	return timer <= 0 || explanation_text == "Free Objective"
 
+/datum/objective/spendtime/on_target_cryo()
+	qdel(src)
 
 /datum/objective/hug//this objective isn't perfect. hugging the correct amount of times, then switching bodies, might fail the objective anyway. maybe i'll come back and fix this sometime.
 	name = "hugs"
@@ -241,6 +248,9 @@
 	if(!creeper || !creeper.trauma || !hugs_needed)
 		return TRUE//free objective
 	return creeper.trauma.obsession_hug_count >= hugs_needed
+
+/datum/objective/hug/on_target_cryo()
+	qdel(src)
 
 /datum/objective/polaroid //take a picture of the target with you in it.
 	name = "polaroid"
@@ -265,6 +275,8 @@
 					return TRUE
 	return FALSE
 
+/datum/objective/polaroid/on_target_cryo()
+	qdel(src)
 
 /datum/objective/steal/heirloom_thief //exactly what it sounds like, steal someone's heirloom.
 	name = "heirloomthief"
