@@ -14675,7 +14675,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9
 	},
-/turf/open/floor/plasteel,
+/obj/structure/lattice/catwalk,
+/turf/open/floor/plating,
 /area/engine/atmos)
 "dvX" = (
 /obj/machinery/computer/teleporter{
@@ -45214,6 +45215,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"kOL" = (
+/obj/machinery/vending/boozeomat,
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "kOR" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
 	dir = 1;
@@ -56226,7 +56231,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plating,
 /area/engine/atmos)
 "nGN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -61967,6 +61972,16 @@
 /obj/structure/sink/puddle,
 /turf/open/floor/plating/asteroid,
 /area/hallway/primary/central)
+"pjh" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple,
+/obj/machinery/camera{
+	c_tag = "Supermatter Cool Loop";
+	dir = 4;
+	network = list("ss13","engine")
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "pjr" = (
 /obj/machinery/light{
 	dir = 8
@@ -93571,10 +93586,10 @@
 /turf/open/floor/plasteel/techmaint,
 /area/engine/atmospherics_engine)
 "xtE" = (
-/obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 4
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "xtH" = (
@@ -115116,7 +115131,7 @@ giY
 giY
 xwZ
 oxv
-wEE
+kOL
 wEE
 wEE
 wEE
@@ -146214,7 +146229,7 @@ jZo
 rHd
 rHd
 rHd
-rHd
+pjh
 rHd
 rHd
 rHd
@@ -147247,9 +147262,9 @@ pLj
 pLj
 pLj
 boF
-csJ
-csJ
 nnx
+nnx
+csJ
 nnx
 nnx
 abN
@@ -147504,9 +147519,9 @@ pLj
 pLj
 pLj
 oFW
-csJ
-acQ
 nnx
+nnx
+csJ
 nnx
 nnx
 rgd
@@ -147762,8 +147777,8 @@ boF
 eJB
 boF
 nnx
-xJu
 nnx
+xJu
 nnx
 nnx
 abN
@@ -148020,7 +148035,7 @@ xJu
 xJu
 csJ
 csJ
-csJ
+xJu
 csJ
 csJ
 lCe
