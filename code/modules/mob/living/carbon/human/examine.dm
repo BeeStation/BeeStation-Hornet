@@ -177,7 +177,7 @@
 
 
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		if(BP.limb_id != (dna?.species.parent_limb_id ? dna.species.parent_limb_id : dna.species.id))
+		if(BP.limb_id != (dna.species.examine_limb_id ? dna.species.examine_limb_id : dna.species.id))
 			msg += "<span class='info'>[t_He] has \an [BP.name].</span>\n"
 
 	var/list/harm_descriptors = dna?.species.get_harm_descriptors()

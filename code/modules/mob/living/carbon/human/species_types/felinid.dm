@@ -4,7 +4,7 @@
 	id = SPECIES_FELINID
 	bodyflag = FLAG_FELINID
 	limbs_id = "human"
-	parent_limb_id = SPECIES_HUMAN
+	examine_limb_id = SPECIES_HUMAN
 	say_mod = "meows"
 
 

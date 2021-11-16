@@ -424,7 +424,7 @@
 	var/datum/action/innate/use_extract/major/extract_major
 	var/extract_cooldown = 0
 
-	parent_limb_id = "jelly"
+	examine_limb_id = "jelly"
 
 //Species datums don't normally implement destroy, but JELLIES SUCK ASS OUT OF A STEEL STRAW
 /datum/species/jelly/luminescent/Destroy(force, ...)
@@ -596,7 +596,7 @@
 	var/datum/weakref/slimelink_owner
 	var/current_link_id = 0
 
-	parent_limb_id = "jelly"
+	examine_limb_id = "jelly"
 
 //Species datums don't normally implement destroy, but JELLIES SUCK ASS OUT OF A STEEL STRAW
 /datum/species/jelly/stargazer/Destroy()

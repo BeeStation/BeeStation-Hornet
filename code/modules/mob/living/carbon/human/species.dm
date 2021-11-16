@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/use_generic_limbs = FALSE //Does this species have its own bodypart type, or does it use a reskinned human limb?
 	var/gen_limbs_are_colored = TRUE
 	var/limbs_id
-	var/parent_limb_id //This is used for children, felinids and ashwalkers namely
+	var/examine_limb_id //This is used for children, felinids and ashwalkers namely
 
 	var/digitigrade_customization = DIGITIGRADE_NEVER //Never, Optional, or Forced digi legs?
 	var/use_skintones = 0	// does it use skintones or not? (spoiler alert this is only used by humans)
