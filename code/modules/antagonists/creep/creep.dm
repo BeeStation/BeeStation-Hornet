@@ -224,7 +224,7 @@
 		explanation_text = "Free Objective"
 
 /datum/objective/spendtime/check_completion()
-	return timer <= 0 || explanation_text == "Free Objective"
+	return timer <= 0 || explanation_text == "Free Objective" || ..()
 
 /datum/objective/spendtime/on_target_cryo()
 	qdel(src)
@@ -247,7 +247,7 @@
 	var/datum/antagonist/obsessed/creeper = owner.has_antag_datum(/datum/antagonist/obsessed)
 	if(!creeper || !creeper.trauma || !hugs_needed)
 		return TRUE//free objective
-	return creeper.trauma.obsession_hug_count >= hugs_needed
+	return (creeper.trauma.obsession_hug_count >= hugs_needed) || ..()
 
 /datum/objective/hug/on_target_cryo()
 	qdel(src)
@@ -273,7 +273,7 @@
 				var/obj/item/photo/P = I
 				if(P.picture && (target.current in P.picture.mobs_seen) && !(target.current in P.picture.dead_seen)) //Does the picture exist and is the target in it and is the target not dead
 					return TRUE
-	return FALSE
+	return ..()
 
 /datum/objective/polaroid/on_target_cryo()
 	qdel(src)

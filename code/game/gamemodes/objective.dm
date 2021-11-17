@@ -254,7 +254,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	..()
 
 /datum/objective/assassinate/check_completion()
-	return completed || (!considered_alive(target) || considered_afk(target))
+	return ..() || (!considered_alive(target) || considered_afk(target))
 
 /datum/objective/assassinate/update_explanation_text()
 	..()
@@ -298,7 +298,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	if(!target || !considered_alive(target) || considered_afk(target))
 		return TRUE
 	var/turf/T = get_turf(target.current)
-	return !T || !is_station_level(T.z)
+	return ..() || !T || !is_station_level(T.z)
 
 /datum/objective/mutiny/update_explanation_text()
 	..()
@@ -328,7 +328,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	..()
 
 /datum/objective/maroon/check_completion()
-	return !target || !considered_alive(target) || (!target.current.onCentCom() && !target.current.onSyndieBase())
+	return ..() || !target || !considered_alive(target) || (!target.current.onCentCom() && !target.current.onSyndieBase())
 
 /datum/objective/maroon/update_explanation_text()
 	if(target && target.current)
@@ -352,7 +352,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	if(!target)//If it's a free objective.
 		return TRUE
 	if(!target.current || !isbrain(target.current))
-		return FALSE
+		return ..()
 	var/atom/A = target.current
 
 	while(A.loc) // Check to see if the brainmob is on our person
@@ -360,7 +360,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		for(var/datum/mind/M as() in get_owners())
 			if(M.current && M.current.stat != DEAD && A == M.current)
 				return TRUE
-	return FALSE
+	return ..()
 
 /datum/objective/debrain/update_explanation_text()
 	..()
@@ -386,9 +386,9 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/protect/check_completion()
 	var/obj/item/organ/brain/brain_target
 	if(human_check)
-		brain_target = target.current.getorganslot(ORGAN_SLOT_BRAIN)
+		brain_target = target?.current.getorganslot(ORGAN_SLOT_BRAIN)
 	//Protect will always suceed when someone suicides
-	return !target || considered_alive(target, enforce_human = human_check) || (human_check == TRUE && brain_target)? brain_target.suicided : FALSE
+	return ..() || !target || considered_alive(target, enforce_human = human_check) || (human_check == TRUE && brain_target)? brain_target?.suicided : FALSE
 
 /datum/objective/protect/update_explanation_text()
 	..()
@@ -414,11 +414,11 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/hijack/check_completion() // Requires all owners to escape.
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
-		return FALSE
+		return ..()
 	for(var/datum/mind/M as() in get_owners())
 		if(!considered_alive(M) || !SSshuttle.emergency.shuttle_areas[get_area(M.current)])
-			return FALSE
-	return SSshuttle.emergency.is_hijacked()
+			return ..()
+	return SSshuttle.emergency.is_hijacked() || ..()
 
 /datum/objective/elimination
 	name = "elimination"
@@ -428,11 +428,11 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/elimination/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
-		return FALSE
+		return ..()
 	for(var/datum/mind/M as() in get_owners())
 		if(!considered_alive(M, enforce_human = FALSE) || !SSshuttle.emergency.shuttle_areas[get_area(M.current)])
-			return FALSE
-	return SSshuttle.emergency.elimination_hijack()
+			return ..()
+	return SSshuttle.emergency.elimination_hijack() || ..()
 
 /datum/objective/elimination/highlander
 	name="highlander elimination"
@@ -440,11 +440,11 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/elimination/highlander/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
-		return FALSE
+		return ..()
 	for(var/datum/mind/M as() in get_owners())
 		if(!considered_alive(M, enforce_human = FALSE) || !SSshuttle.emergency.shuttle_areas[get_area(M.current)])
-			return FALSE
-	return SSshuttle.emergency.elimination_hijack(filter_by_human = FALSE, solo_hijack = TRUE)
+			return ..()
+	return SSshuttle.emergency.elimination_hijack(filter_by_human = FALSE, solo_hijack = TRUE) || ..()
 
 /datum/objective/block
 	name = "no organics on shuttle"
@@ -457,7 +457,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	for(var/mob/living/player in GLOB.player_list)
 		if(player.mind && player.stat != DEAD && !issilicon(player))
 			if(get_area(player) in SSshuttle.emergency.shuttle_areas)
-				return FALSE
+				return ..()
 	return TRUE
 
 /datum/objective/purge
@@ -472,7 +472,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		if((get_area(player) in SSshuttle.emergency.shuttle_areas) && player.mind && player.stat != DEAD && ishuman(player))
 			var/mob/living/carbon/human/H = player
 			if(H.dna.species.id != "human")
-				return FALSE
+				return ..()
 	return TRUE
 
 /datum/objective/robot_army
@@ -489,7 +489,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		for(var/mob/living/silicon/robot/R as() in A.connected_robots)
 			if(R.stat != DEAD)
 				counter++
-	return counter >= 8
+	return (counter >= 8) || ..()
 
 /datum/objective/escape
 	name = "escape"
@@ -500,7 +500,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	// Require all owners escape safely.
 	for(var/datum/mind/M as() in get_owners())
 		if(!considered_escaped(M))
-			return FALSE
+			return ..()
 	return TRUE
 
 /datum/objective/escape/single
@@ -513,7 +513,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	for(var/datum/mind/M as() in get_owners())
 		if(considered_escaped(M))
 			return TRUE
-	return FALSE
+	return ..()
 
 /datum/objective/escape/escape_with_identity
 	name = "escape with identity"
@@ -554,7 +554,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		var/mob/living/carbon/human/H = M.current
 		if(H.dna.real_name == target_real_name && (H.get_id_name() == target_real_name || target_missing_id))
 			return TRUE
-	return FALSE
+	return ..()
 
 /datum/objective/escape/escape_with_identity/admin_edit(mob/admin)
 	admin_simple_target_pick(admin)
@@ -566,7 +566,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/survive/check_completion()
 	for(var/datum/mind/M as() in get_owners())
 		if(!considered_alive(M))
-			return FALSE
+			return ..()
 	return TRUE
 
 /datum/objective/survive/exist //Like survive, but works for silicons and zombies and such.
@@ -575,7 +575,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/survive/exist/check_completion()
 	for(var/datum/mind/M as() in get_owners())
 		if(!considered_alive(M, FALSE))
-			return FALSE
+			return ..()
 	return TRUE
 
 /datum/objective/martyr
@@ -585,9 +585,9 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/martyr/check_completion()
 	for(var/datum/mind/M as() in get_owners())
 		if(considered_alive(M))
-			return FALSE
+			return ..()
 		if(M.current?.suiciding) //killing yourself ISN'T glorious.
-			return FALSE
+			return ..()
 	return TRUE
 
 /datum/objective/nuclear
@@ -598,7 +598,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/nuclear/check_completion()
 	if(SSticker && SSticker.mode && SSticker.mode.station_was_nuked)
 		return TRUE
-	return FALSE
+	return ..()
 
 GLOBAL_LIST_EMPTY(possible_items)
 /datum/objective/steal
@@ -681,7 +681,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 			if(targetinfo && (I.type in targetinfo.altitems)) //Ok, so you don't have the item. Do you have an alternative, at least?
 				if(targetinfo.check_special_completion(I))//Yeah, we do! Don't return 0 if we don't though - then you could fail if you had 1 item that didn't pass and got checked first!
 					return TRUE
-	return FALSE
+	return ..()
 
 GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/steal/special //ninjas are so special they get their own subtype good for them
@@ -758,7 +758,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 			var/list/otherwise = M.GetAllContents()
 			for(var/obj/item/disk/tech_disk/TD in otherwise)
 				TD.stored_research.copy_research_to(checking)
-	return checking.researched_nodes.len >= target_amount
+	return (checking.researched_nodes.len >= target_amount) || ..()
 
 /datum/objective/download/admin_edit(mob/admin)
 	var/count = input(admin,"How many nodes ?","Nodes",target_amount) as num|null
@@ -804,7 +804,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 			captured_amount+=1
 			continue
 		captured_amount+=2
-	return captured_amount >= target_amount
+	return (captured_amount >= target_amount) || ..()
 
 /datum/objective/capture/admin_edit(mob/admin)
 	var/count = input(admin,"How many mobs to capture ?","capture",target_amount) as num|null
@@ -828,7 +828,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		explanation_text = "Free objective."
 
 /datum/objective/protect_object/check_completion()
-	return !QDELETED(protect_target)
+	return !QDELETED(protect_target) || ..()
 
 //Changeling Objectives
 
@@ -871,7 +871,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		if(!changeling || !changeling.stored_profiles)
 			continue
 		absorbedcount += changeling.absorbedcount
-	return absorbedcount >= target_amount
+	return (absorbedcount >= target_amount) || ..()
 
 /datum/objective/absorb_most
 	name = "absorb most"
@@ -890,7 +890,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	for(var/datum/antagonist/changeling/changeling2 in GLOB.antagonists)
 		if(!changeling2.owner || changeling2.owner == owner || !changeling2.stored_profiles || changeling2.absorbedcount < absorbedcount)
 			continue
-		return FALSE
+		return ..()
 	return TRUE
 
 //Teratoma objective
@@ -923,7 +923,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 
 /datum/objective/destroy/check_completion()
 	if(target && target.current)
-		return target.current.stat == DEAD || target.current.z > 6 || !target.current.ckey //Borgs/brains/AIs count as dead for traitor objectives.
+		return target.current.stat == DEAD || target.current.z > 6 || !target.current.ckey || ..()//Borgs/brains/AIs count as dead for traitor objectives.
 	return TRUE
 
 /datum/objective/destroy/update_explanation_text()
@@ -963,7 +963,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		for(var/obj/I in all_items) //Check for wanted items
 			if(is_type_in_typecache(I, wanted_items))
 				stolen_count++
-	return stolen_count >= 5
+	return (stolen_count >= 5) || ..()
 
 /datum/objective/steal_five_of_type/summon_guns
 	name = "steal guns"
@@ -992,7 +992,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 					stolen_count++ //it counts. nice.
 			else if(is_type_in_typecache(I, wanted_items))
 				stolen_count++
-	return stolen_count >= 5
+	return (stolen_count >= 5) || ..()
 
 //Created by admin tools
 /datum/objective/custom

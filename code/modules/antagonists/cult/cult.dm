@@ -372,7 +372,7 @@
 	//Target's a clockie
 	if(target?.has_antag_datum(/datum/antagonist/servant_of_ratvar))
 		return TRUE
-	return sacced || completed || !target
+	return sacced || !target || ..()
 
 /datum/objective/sacrifice/update_explanation_text()
 	if(target)
@@ -398,7 +398,7 @@
 	explanation_text = "Summon Nar'Sie by invoking the rune 'Summon Nar'Sie'. <b>The summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin.</b>"
 
 /datum/objective/eldergod/check_completion()
-	return summoned || completed
+	return summoned || ..()
 
 
 /datum/team/cult/proc/setup_objectives()

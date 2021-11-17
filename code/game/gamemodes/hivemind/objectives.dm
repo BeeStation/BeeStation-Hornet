@@ -14,8 +14,8 @@
 /datum/objective/hivemind/hivesize/check_completion()
 	var/datum/antagonist/hivemind/host = owner.has_antag_datum(/datum/antagonist/hivemind)
 	if(!host)
-		return FALSE
-	return host.hive_size >= target_amount
+		return ..()
+	return (host.hive_size >= target_amount) || ..()
 
 /datum/objective/hivemind/hiveescape
 	explanation_text = "This is a bug. Error:HIVE2"
@@ -32,11 +32,11 @@
 	var/count = 0
 	var/datum/antagonist/hivemind/host = owner.has_antag_datum(/datum/antagonist/hivemind)
 	if(!host)
-		return FALSE
+		return ..()
 	for(var/datum/mind/M in host.hivemembers)
 		if(considered_escaped(M))
 			count++
-	return count >= target_amount
+	return (count >= target_amount) || ..()
 
 /datum/objective/hivemind/biggest
 	explanation_text = "End the round with more vessels than any other hivemind host."
@@ -44,10 +44,10 @@
 /datum/objective/hivemind/biggest/check_completion()
 	var/datum/antagonist/hivemind/host = owner.has_antag_datum(/datum/antagonist/hivemind)
 	if(!host)
-		return FALSE
+		return ..()
 	for(var/datum/antagonist/hivemind/H in GLOB.antagonists)
 		if(H == host)
 			continue
 		if(H.hive_size >= host.hive_size)
-			return FALSE
+			return ..()
 	return TRUE
