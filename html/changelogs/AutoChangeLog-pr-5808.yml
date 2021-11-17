@@ -1,0 +1,5 @@
+author: francinum
+delete-after: true
+changes:
+  - bugfix: You can walk over chasms again. The way this works is honestly super nasty
+      but it's good enough.
