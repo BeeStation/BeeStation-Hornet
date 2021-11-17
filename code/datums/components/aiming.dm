@@ -111,6 +111,10 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	if(held != parent)
 		stop_aiming()
 		return FALSE
+	if(!(target in view(user))) // Check to make sure we can still see the target
+		to_chat(user, "<span class='warning'>You can't see [target] anymore!</span>")
+		stop_aiming()
+		return FALSE
 	if(istype(parent, /obj/item/gun)) // If we have a gun, fire it at the target
 		var/obj/item/gun/G = parent
 		G.afterattack(target, user, null, null, TRUE)
