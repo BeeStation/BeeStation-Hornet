@@ -177,7 +177,7 @@
 			else if(prob(32))						//~26%
 				//Kill head
 				var/datum/objective/assassinate/killchosen = new
-				var/current_heads = SSjob.get_all_heads()
+				var/list/current_heads = SSjob.get_all_heads()
 				if(!current_heads.len)
 					generate_traitor_kill_objective()
 					return

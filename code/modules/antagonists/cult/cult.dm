@@ -360,12 +360,11 @@
 		own.announce_objectives()
 
 /datum/objective/sacrifice/is_valid_target(datum/mind/possible_target)
-	var/datum/mind/M = possible_target
-	if(!istype(M) || !M.current)
+	if(!istype(possible_target) || !possible_target.current)
 		return FALSE
-	if(isipc(M.current))
+	if(isipc(possible_target.current))
 		return FALSE
-	if(M.has_antag_datum(/datum/antagonist/cult))
+	if(possible_target.has_antag_datum(/datum/antagonist/cult))
 		return FALSE
 	return ..()
 
