@@ -111,7 +111,7 @@
 	instability = 30
 	energy_coeff = 1
 	power_coeff = 1
-	species_allowed = list("lizard")
+	species_allowed = list(SPECIES_LIZARD)
 
 /datum/mutation/human/firebreath/modify()
 	if(power)
@@ -243,7 +243,7 @@
 	text_gain_indication = "<span class='notice'>Your skin feels more crackly.</span>"
 	instability = 30
 	power = /obj/effect/proc_holder/spell/self/overload
-	species_allowed = list("ethereal")
+	species_allowed = list(SPECIES_ETHEREAL)
 
 /obj/effect/proc_holder/spell/self/overload
 	name = "Overload"
@@ -277,7 +277,7 @@
 	text_gain_indication = "<span class='notice'>Your hands feel sore.</span>"
 	instability = 30
 	power = /obj/effect/proc_holder/spell/targeted/touch/acidooze
-	species_allowed = list("oozeling")
+	species_allowed = list(SPECIES_OOZELING)
 
 /obj/effect/proc_holder/spell/targeted/touch/acidooze
 	name = "Acidic Hands"

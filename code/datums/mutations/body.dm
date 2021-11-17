@@ -382,7 +382,7 @@
 	quality = POSITIVE
 	difficulty = 12
 	instability = 15
-	species_allowed = list("apid", "moth")
+	species_allowed = list(SPECIES_APID, SPECIES_MOTH)
 
 /datum/mutation/human/strongwings/on_acquiring()
 	if(..())
@@ -420,7 +420,7 @@
 	quality = POSITIVE
 	difficulty = 12
 	instability = 25
-	species_allowed = list("felinid")
+	species_allowed = list(SPECIES_FELINID)
 
 /datum/mutation/human/catclaws/on_acquiring()
 	if(..())
