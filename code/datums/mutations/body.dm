@@ -426,7 +426,7 @@
 	if(..())
 		return
 	owner.dna.species.punchdamage += 6 * GET_MUTATION_POWER(src)
-	to_chat(owner, "<span class='notice'>Claws extend between your fingers.")
+	to_chat(owner, "<span class='notice'>Claws extend from your fingertips.")
 	owner.dna.species.attack_verb = "slash"
 
 /datum/mutation/human/catclaws/on_losing()
