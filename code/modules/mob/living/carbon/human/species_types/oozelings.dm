@@ -21,6 +21,7 @@
 	swimming_component = /datum/component/swimming/dissolve
 	toxic_food = NONE
 	disliked_food = NONE
+	inert_mutation = ACIDOOZE
 
 /datum/species/oozeling/random_name(gender,unique,lastname)
 	if(unique)

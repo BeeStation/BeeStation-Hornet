@@ -24,7 +24,7 @@
 	staminamod = 1.25
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/apid
-	inert_mutation = WAXSALIVA | STRONGWINGS
+	inert_mutation = WAXSALIVA
 	var/cold_cycle = 0
 
 /datum/species/apid/spec_life(mob/living/carbon/human/H)

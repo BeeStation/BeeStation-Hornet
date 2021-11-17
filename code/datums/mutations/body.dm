@@ -378,18 +378,24 @@
 
 /datum/mutation/human/strongwings
 	name = "Strengthened Wings"
-	desc = "Subject's bee wings allow for longer dashes."
+	desc = "Subject's wing muscle volume rapidly increases."
 	quality = POSITIVE
 	difficulty = 12
-	species_allowed = list("apid")
+	instability = 15
+	species_allowed = list("apid", "moth")
 
 /datum/mutation/human/strongwings/on_acquiring()
 	if(..())
 		return
 	if(locate(/obj/item/organ/wings/bee) in owner.internal_organs)
-		var/wings = locate(/obj/item/organ/wings/bee) in owner.internal_organs
+		var/obj/item/organ/wings/bee/wings = locate(/obj/item/organ/wings/bee) in owner.internal_organs
 		wings.jumpdist = 6 * GET_MUTATION_POWER(src)
 		to_chat(owner, "<span class='notice'>Your wings feel stronger.</span>")
+	else if(locate(/obj/item/organ/wings/moth) in owner.internal_organs)
+		var/obj/item/organ/wings/moth/wings = locate(/obj/item/organ/wings/moth) in owner.internal_organs
+		wings.flight_level = WINGS_FLYING
+		to_chat(owner, "<span class='notice'>Your wings feel stronger.</span>")
+		wings.Refresh(owner)
 	else
 		to_chat(owner, "<span class='warning'>You don't have wings to strengthen!")
 
@@ -397,8 +403,36 @@
 	if(..())
 		return
 	if(locate(/obj/item/organ/wings/bee) in owner.internal_organs)
-		var/wings = locate(/obj/item/organ/wings/bee) in owner.internal_organs
+		var/obj/item/organ/wings/bee/wings = locate(/obj/item/organ/wings/bee) in owner.internal_organs
 		wings.jumpdist = 3
 		to_chat(owner, "<span class='warning'>Your wings feel weak.</span>")
+	else if(locate(/obj/item/organ/wings/moth) in owner.internal_organs)
+		var/obj/item/organ/wings/moth/wings = locate(/obj/item/organ/wings/moth) in owner.internal_organs
+		wings.flight_level = WINGS_FLIGHTLESS
+		to_chat(owner, "<span class='warning'>Your wings feel weak.</span>")
+		wings.Refresh(owner)
 	else
 		to_chat(owner, "<span class='warning'>The stubs of your wings feel weak!")
+
+/datum/mutation/human/catclaws
+	name = "Cat Claws"
+	desc = "Subject's hands grow sharpened claws."
+	quality = POSITIVE
+	difficulty = 12
+	instability = 25
+	species_allowed = list("felinid")
+
+/datum/mutation/human/catclaws/on_acquiring()
+	if(..())
+		return
+	owner.dna.species.punchdamage += 6 * GET_MUTATION_POWER(src)
+	to_chat(owner, "<span class='notice'>Claws extend between your fingers.")
+	owner.dna.species.attack_verb = "slash"
+
+/datum/mutation/human/catclaws/on_losing()
+	if(..())
+		return
+	owner.dna.species.punchdamage -= 6 * GET_MUTATION_POWER(src)
+	to_chat(owner, "<span class='warning'> Your claws retract into your hand.")
+	owner.dna.species.attack_verb = initial(owner.dna.species.attack_verb)
+	

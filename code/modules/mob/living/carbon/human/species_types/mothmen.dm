@@ -19,6 +19,7 @@
 	mutantwings = /obj/item/organ/wings/moth
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
+	inert_mutation = STRONGWINGS
 
 /datum/species/moth/random_name(gender,unique,lastname)
 	if(unique)

@@ -30,6 +30,11 @@
 	if(flight_level >= WINGS_FLYING)
 		fly = new
 		fly.Grant(H)
+	else if(fly)
+		fly.Remove(H)
+		QDEL_NULL(fly)
+		if(H.movement_type & FLYING)
+			H.dna.species.toggle_flight(H)
 
 /obj/item/organ/wings/Remove(mob/living/carbon/human/H,  special = 0)
 	..()
@@ -158,7 +163,7 @@
 
 /datum/action/item_action/organ_action/use/bee_dash/Trigger()
 	var/mob/living/carbon/L = owner
-	var/wings = locate(/obj/item/organ/wings/bee) in L.internal_organs
+	var/obj/item/organ/wings/bee/wings = locate(/obj/item/organ/wings/bee) in L.internal_organs
 	var/jumpdistance = wings.jumpdist
 
 	if(L.stat != CONSCIOUS || L.buckling || L.restrained()) // Has to be concious and unbuckled

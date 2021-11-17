@@ -235,3 +235,94 @@
 
 	var/obj/item/bodypart/BP = pick(parts)
 	BP.dismember()
+
+/datum/mutation/human/overload
+	name = "Overload"
+	desc = "Allows an Ethereal to overload their skin to cause a bright flash."
+	quality = POSITIVE
+	text_gain_indication = "<span class='notice'>Your skin feels more crackly.</span>"
+	instability = 30
+	power = /obj/effect/proc_holder/spell/self/overload
+	species_allowed = list("ethereal")
+
+/obj/effect/proc_holder/spell/self/overload
+	name = "Overload"
+	desc = "Concentrate to make your skin energize."
+	clothes_req = FALSE
+	human_req = FALSE
+	charge_max = 400
+	action_icon_state = "blind"
+	var/maxdist = 4
+
+/obj/effect/proc_holder/spell/self/overload/cast(mob/user = usr)
+	if(!is_species(user, /datum/species/ethereal))
+		return
+
+	var/list/mob/targets = viewers(maxdist, get_turf(user))
+	targets -= user
+	visible_message("<span class='disarm'>[user] emits a blinding light!</span>")
+	for(var/mob/living/carbon/C in targets)
+		C.flash_act()
+		C.Paralyze(10 + (5*maxdist))
+
+/datum/mutation/human/overload/modify()
+	if(power)
+		var/obj/effect/proc_holder/spell/self/overload/S = power
+		S.maxdist = 4 * GET_MUTATION_POWER(src)
+
+/datum/mutation/human/acidooze
+	name = "Acidic Hands"
+	desc = "Allows an Oozeling to metabolize some of their blood into acid, concentrated on their hands."
+	quality = POSITIVE
+	text_gain_indication = "<span class='notice'>Your hands feel sore.</span>"
+	instability = 30
+	power = /obj/effect/proc_holder/spell/targeted/touch/acidooze
+	species_allowed = list("oozeling")
+
+/obj/effect/proc_holder/spell/targeted/touch/acidooze
+	name = "Acidic Hands"
+	desc = "Concentrate to make some of your blood become acidic."
+	clothes_req = FALSE
+	human_req = FALSE
+	charge_max = 100
+	action_icon_state = "summons"
+	var/volume = 10
+	hand_path = /obj/item/melee/touch_attack/acidooze
+	drawmessage = "You secrete acid into your hand."
+	dropmessage = "You let the acid in your hand dissipate."
+
+/obj/item/melee/touch_attack/acidooze
+	name = "\improper acidic hand"
+	desc = "Keep away from children, paperwork, and children doing paperwork."
+	catchphrase = null
+	icon = 'icons/effects/blood.dmi'
+	var/icon_left = "bloodhand_left"
+	var/icon_right = "bloodhand_right"
+	icon_state = "bloodhand_left"
+	item_state = "fleshtostone"
+
+/obj/item/melee/touch_attack/acidooze/equipped(mob/user, slot)
+	. = ..()
+	//these are intentionally inverted
+	var/i = user.get_held_index_of_item(src)
+	if(!(i % 2))
+		icon_state = icon_left
+	else
+		icon_state = icon_right
+
+/obj/item/melee/touch_attack/acidooze/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(!is_species(user, /datum/species/oozeling))
+		return
+	var/mob/living/carbon/human/H = user
+	if(!target || user.incapacitated())
+		return FALSE
+	if(H.blood_volume < 40)
+		to_chat(user, "<span class='warning'>You don't have enough blood to do that!")
+		return FALSE
+	if(target.acid_act(75, 15))
+		user.visible_message("<span class='warning'>[user] rubs globs of vile stuff all over [target].</span>")
+		H.blood_volume -= 20
+		return ..()
+	else
+		to_chat(user, "<span class='notice'>You cannot dissolve this object.</span>")
+		return FALSE
