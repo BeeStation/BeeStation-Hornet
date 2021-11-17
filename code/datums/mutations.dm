@@ -150,12 +150,11 @@
 	power_dormant = !GET_MUTATION_SYNCHRONIZER(src) //Granting dormant powers is only by synchronizer chromosome so far
 	if(power)
 		var/power_given = FALSE
-		for(var/spell in owner.mind.spell_list)
-			if(spell == power)
-				power_given = TRUE
+		if(locate(power) in owner.mind.spell_list)
+			power_given = TRUE
 		if(power_given && power_dormant) //Power going back into dormancy
 			owner.RemoveSpell(power)
-		if(!power_given && !power_dormant)
+		else if(!power_given && !power_dormant)
 			grant_spell()
 		if(istype(power))
 			power.charge_max *= GET_MUTATION_ENERGY(src)

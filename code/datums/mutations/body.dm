@@ -330,7 +330,7 @@
 		warpchance += 0.25 * GET_MUTATION_ENERGY(src)
 
 /datum/mutation/human/badblink/trigger_mutation()
-	var/warpmessage = pick(
+	var/static/warpmessage = pick(
 		"<span class='warning'>With a sickening 720 degree twist of their back, [owner] vanishes into thin air.</span>",
 		"<span class='warning'>[owner] does some sort of strange backflip into another dimension. It looks pretty painful.</span>",
 		"<span class='warning'>[owner] does a jump to the left, a step to the right, and warps out of reality.</span>",
