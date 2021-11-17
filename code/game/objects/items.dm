@@ -288,8 +288,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return
 
 	var/turf/T = loc
-	loc = null
-	loc = T
+	abstract_move(null)
+	forceMove(T)
 
 /obj/item/examine(mob/user) //This might be spammy. Remove?
 	. = ..()
@@ -501,7 +501,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(isprojectile(hitby)) //fucking bitflags broke this when coded in other ways
 		var/obj/item/projectile/P = hitby
 		if(block_flags & BLOCKING_PROJECTILE)
-			if(P.movement_type & UNSTOPPABLE) //you can't block piercing rounds!
+			if(P.movement_type & PHASING) //you can't block piercing rounds!
 				return 0
 		else
 			return 0
@@ -589,7 +589,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(item_flags & DROPDEL)
 		qdel(src)
 	item_flags &= ~IN_INVENTORY
-	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
+	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
 	if(item_flags & SLOWS_WHILE_IN_HAND)
 		user.update_equipment_speed_mods()
 	remove_outline()
