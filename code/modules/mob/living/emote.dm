@@ -211,6 +211,11 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/human_laugh = ishumanbasic(H) || iscatperson(H)
+		// MonkeStation Edit Start
+		// Alternative Laugh Hook
+		if(H.alternative_laughs.len)
+			return pick(H.alternative_laughs)
+		// MonkeStation Edit End
 		if(human_laugh && (!H.mind || !H.mind.miming))
 			if(user.gender == FEMALE)
 				return 'sound/voice/human/womanlaugh.ogg'
