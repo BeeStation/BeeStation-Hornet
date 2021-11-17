@@ -38,7 +38,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/proc/admin_simple_target_pick(mob/admin)
 	var/list/possible_targets = list()
 	var/def_value
-	for(var/datum/mind/possible_target in SSticker.minds)
+	for(var/datum/mind/possible_target as() in SSticker.minds)
 		if ((possible_target != src) && ishuman(possible_target.current))
 			possible_targets += possible_target.current
 
@@ -92,7 +92,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		else if(istype(A,/datum/team))
 			var/datum/team/T = A
 			objectives_to_compare = T.objectives
-		for(var/datum/objective/O in objectives_to_compare)
+		for(var/datum/objective/O as() in objectives_to_compare)
 			if(istype(O, type) && O.get_target() == possible_target)
 				return FALSE
 	return TRUE
@@ -110,15 +110,13 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/proc/get_crewmember_minds()
 	. = list()
-	for(var/V in GLOB.data_core.locked)
-		var/datum/data/record/R = V
+	for(var/datum/data/record/R as() in GLOB.data_core.locked)
 		var/datum/mind/M = R.fields["mindref"]
 		if(M)
 			. += M
 
 //dupe_search_range is a list of antag datums / minds / teams
 /datum/objective/proc/find_target(list/dupe_search_range, list/blacklist)
-	var/list/datum/mind/owners = get_owners()
 	if(!dupe_search_range)
 		dupe_search_range = get_owners()
 	var/list/prefered_targets = list()
@@ -126,15 +124,14 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/try_target_late_joiners = FALSE
 	var/owner_is_exploration_crew = FALSE
 	var/owner_is_shaft_miner = FALSE
-	for(var/I in owners)
-		var/datum/mind/O = I
+	for(var/datum/mind/O as() in get_owners())
 		if(O.late_joiner)
 			try_target_late_joiners = TRUE
 		if(O.assigned_role == "Exploration Crew")
 			owner_is_exploration_crew = TRUE
 		if(O.assigned_role == "Shaft Miner")
 			owner_is_shaft_miner = TRUE
-	for(var/datum/mind/possible_target in get_crewmember_minds())
+	for(var/datum/mind/possible_target as() in get_crewmember_minds())
 		if(!is_valid_target(possible_target))
 			continue
 		if(!is_unique_objective(possible_target,dupe_search_range))
@@ -160,8 +157,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		possible_targets += possible_target
 	if(try_target_late_joiners)
 		var/list/all_possible_targets = possible_targets.Copy()
-		for(var/I in all_possible_targets)
-			var/datum/mind/PT = I
+		for(var/datum/mind/PT as() in all_possible_targets)
 			if(!PT.late_joiner)
 				possible_targets -= PT
 		if(!possible_targets.len)
@@ -190,7 +186,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/proc/find_target_by_role(role, role_type=FALSE,invert=FALSE)//Option sets either to check assigned role or special role. Default to assigned., invert inverts the check, eg: "Don't choose a Ling"
 	var/list/possible_targets = list()
-	for(var/datum/mind/possible_target in get_crewmember_minds())
+	for(var/datum/mind/possible_target as() in get_crewmember_minds())
 		if(is_valid_target(possible_target))
 			var/is_role = FALSE
 			if(role_type)
@@ -358,11 +354,10 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	if(!target.current || !isbrain(target.current))
 		return FALSE
 	var/atom/A = target.current
-	var/list/datum/mind/owners = get_owners()
 
 	while(A.loc) // Check to see if the brainmob is on our person
 		A = A.loc
-		for(var/datum/mind/M in owners)
+		for(var/datum/mind/M as() in get_owners())
 			if(M.current && M.current.stat != DEAD && A == M.current)
 				return TRUE
 	return FALSE
@@ -420,8 +415,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/hijack/check_completion() // Requires all owners to escape.
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return FALSE
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners)
+	for(var/datum/mind/M as() in get_owners())
 		if(!considered_alive(M) || !SSshuttle.emergency.shuttle_areas[get_area(M.current)])
 			return FALSE
 	return SSshuttle.emergency.is_hijacked()
@@ -435,8 +429,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/elimination/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return FALSE
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners)
+	for(var/datum/mind/M as() in get_owners())
 		if(!considered_alive(M, enforce_human = FALSE) || !SSshuttle.emergency.shuttle_areas[get_area(M.current)])
 			return FALSE
 	return SSshuttle.emergency.elimination_hijack()
@@ -448,8 +441,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/elimination/highlander/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return FALSE
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners)
+	for(var/datum/mind/M as() in get_owners())
 		if(!considered_alive(M, enforce_human = FALSE) || !SSshuttle.emergency.shuttle_areas[get_area(M.current)])
 			return FALSE
 	return SSshuttle.emergency.elimination_hijack(filter_by_human = FALSE, solo_hijack = TRUE)
@@ -490,12 +482,11 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/robot_army/check_completion()
 	var/counter = 0
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners)
+	for(var/datum/mind/M as() in get_owners())
 		if(!M.current || !isAI(M.current))
 			continue
 		var/mob/living/silicon/ai/A = M.current
-		for(var/mob/living/silicon/robot/R in A.connected_robots)
+		for(var/mob/living/silicon/robot/R as() in A.connected_robots)
 			if(R.stat != DEAD)
 				counter++
 	return counter >= 8
@@ -507,8 +498,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/escape/check_completion()
 	// Require all owners escape safely.
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners)
+	for(var/datum/mind/M as() in get_owners())
 		if(!considered_escaped(M))
 			return FALSE
 	return TRUE
@@ -520,8 +510,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/escape/single/check_completion()
 	// Require all owners escape safely.
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners)
+	for(var/datum/mind/M as() in get_owners())
 		if(considered_escaped(M))
 			return TRUE
 	return FALSE
@@ -532,10 +521,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/target_missing_id
 
 /datum/objective/escape/escape_with_identity/is_valid_target(datum/mind/possible_target)
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners)
-		if(!M)
-			continue
+	for(var/datum/mind/M as() in get_owners())
 		var/datum/antagonist/changeling/C = M.has_antag_datum(/datum/antagonist/changeling)
 		if(!C)
 			continue
@@ -556,15 +542,13 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		else
 			explanation_text += " while wearing their identification card"
 		explanation_text += "." //Proper punctuation is important!
-
 	else
 		explanation_text = "Free Objective."
 
 /datum/objective/escape/escape_with_identity/check_completion()
 	if(!target || !target_real_name)
 		return TRUE
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners)
+	for(var/datum/mind/M as() in get_owners())
 		if(!ishuman(M.current) || !considered_escaped(M))
 			continue
 		var/mob/living/carbon/human/H = M.current
@@ -580,8 +564,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	explanation_text = "Stay alive until the end."
 
 /datum/objective/survive/check_completion()
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners)
+	for(var/datum/mind/M as() in get_owners())
 		if(!considered_alive(M))
 			return FALSE
 	return TRUE
@@ -590,8 +573,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	name = "survive nonhuman"
 
 /datum/objective/survive/exist/check_completion()
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners)
+	for(var/datum/mind/M as() in get_owners())
 		if(!considered_alive(M, FALSE))
 			return FALSE
 	return TRUE
@@ -601,8 +583,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	explanation_text = "Die a glorious death."
 
 /datum/objective/martyr/check_completion()
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners)
+	for(var/datum/mind/M as() in get_owners())
 		if(considered_alive(M))
 			return FALSE
 		if(M.current?.suiciding) //killing yourself ISN'T glorious.
@@ -636,7 +617,6 @@ GLOBAL_LIST_EMPTY(possible_items)
 			new I
 
 /datum/objective/steal/find_target(list/dupe_search_range, list/blacklist)
-	var/list/datum/mind/owners = get_owners()
 	if(!dupe_search_range)
 		dupe_search_range = get_owners()
 	var/approved_targets = list()
@@ -644,7 +624,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 		for(var/datum/objective_item/possible_item in GLOB.possible_items)
 			if(!is_unique_objective(possible_item.targetitem,dupe_search_range))
 				continue
-			for(var/datum/mind/M in owners)
+			for(var/datum/mind/M as() in get_owners())
 				if(M.current.mind.assigned_role in possible_item.excludefromjob)
 					continue check_items
 			approved_targets += possible_item
@@ -683,10 +663,9 @@ GLOBAL_LIST_EMPTY(possible_items)
 		set_steal_target(new_target)
 
 /datum/objective/steal/check_completion()
-	var/list/datum/mind/owners = get_owners()
 	if(!steal_target)
 		return TRUE
-	for(var/datum/mind/M in owners)
+	for(var/datum/mind/M as() in get_owners())
 		if(!isliving(M.current))
 			continue
 
@@ -768,8 +747,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 
 /datum/objective/download/check_completion()
 	var/datum/techweb/checking = new
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/owner in owners)
+	for(var/datum/mind/owner as() in get_owners())
 		if(ismob(owner.current))
 			var/mob/M = owner.current			//Yeah if you get morphed and you eat a quantum tech disk with the RD's latest backup good on you soldier.
 			if(ishuman(M))
@@ -885,9 +863,8 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	update_explanation_text()
 
 /datum/objective/absorb/check_completion()
-	var/list/datum/mind/owners = get_owners()
 	var/absorbedcount = 0
-	for(var/datum/mind/M in owners)
+	for(var/datum/mind/M as() in get_owners())
 		if(!M)
 			continue
 		var/datum/antagonist/changeling/changeling = M.has_antag_datum(/datum/antagonist/changeling)
@@ -901,9 +878,8 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	explanation_text = "Extract more compatible genomes than any other Changeling."
 
 /datum/objective/absorb_most/check_completion()
-	var/list/datum/mind/owners = get_owners()
 	var/absorbedcount = 0
-	for(var/datum/mind/M in owners)
+	for(var/datum/mind/M as() in get_owners())
 		if(!M)
 			continue
 		var/datum/antagonist/changeling/changeling = M.has_antag_datum(/datum/antagonist/changeling)
@@ -933,11 +909,11 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 
 /datum/objective/destroy/find_target(list/dupe_search_range, list/blacklist)
 	var/list/possible_targets = list()
-	for(var/mob/living/silicon/ai/A in active_ais(TRUE))
+	for(var/mob/living/silicon/ai/A as() in active_ais(TRUE))
 		if(A.mind in blacklist)
 			continue
 		possible_targets += A
-	if(possible_targets)
+	if(possible_targets.len)
 		var/mob/living/silicon/ai/target_ai = pick(possible_targets)
 		set_target(target_ai.mind)
 	else
@@ -979,9 +955,8 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	wanted_items = typecacheof(wanted_items)
 
 /datum/objective/steal_five_of_type/check_completion()
-	var/list/datum/mind/owners = get_owners()
 	var/stolen_count = 0
-	for(var/datum/mind/M in owners)
+	for(var/datum/mind/M as() in get_owners())
 		if(!isliving(M.current))
 			continue
 		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
@@ -1005,9 +980,8 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	..()
 
 /datum/objective/steal_five_of_type/summon_magic/check_completion()
-	var/list/datum/mind/owners = get_owners()
 	var/stolen_count = 0
-	for(var/datum/mind/M in owners)
+	for(var/datum/mind/M as() in get_owners())
 		if(!isliving(M.current))
 			continue
 		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
@@ -1051,9 +1025,8 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		/datum/objective/custom
 	),/proc/cmp_typepaths_asc)
 
-	for(var/T in allowed_types)
-		var/datum/objective/X = T
-		GLOB.admin_objective_list[initial(X.name)] = T
+	for(var/datum/objective/X as() in allowed_types)
+		GLOB.admin_objective_list[initial(X.name)] = X
 
 /datum/objective/contract
 	var/payout = 0
