@@ -65,7 +65,7 @@
 
 /datum/brain_trauma/special/obsessed/on_lose()
 	..()
-	antagonist.trauma = null
+	antagonist?.trauma = null
 	owner.mind.remove_antag_datum(/datum/antagonist/obsessed)
 
 /datum/brain_trauma/special/obsessed/handle_speech(datum/source, list/speech_args)
