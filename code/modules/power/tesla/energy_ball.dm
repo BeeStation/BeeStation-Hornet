@@ -185,7 +185,7 @@
 	if(power < 1000)
 		return
 
-	var/closest_dist = 0
+	var/closest_dist = zap_range+3
 	var/atom/closest_atom
 	var/static/things_to_shock = typecacheof(list(/obj/machinery, /mob/living, /obj/structure))
 	var/static/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
@@ -215,8 +215,8 @@
 		//typecache_filter_multi_list_exclusion has been inlined to minimize lag.
 		if(!things_to_shock[A.type] || blacklisted_tesla_types[A.type] || (!(tesla_flags & TESLA_ALLOW_DUPLICATES) && LAZYACCESS(shocked_targets, A)))
 			continue
-		switch("[jointext(splittext(A.type,"/"),"/",1,4)]-[priority]") //takes the typpath and cuts it down to the parent so machine, living, structure and merges it with priority inside the switch
-			if("/obj/machinery-2","/obj/machinery-4","/obj/machinery-3","/obj/machinery-5","/obj/machinery-6")
+		switch("[jointext(splittext("[A.type]","/"),"/",1,4)]-[priority]") //takes the typpath and cuts it down to the parent so machine, living, structure and merges it with priority inside the switch
+			if("/obj/machinery-1","/obj/machinery-2","/obj/machinery-4","/obj/machinery-3","/obj/machinery-5","/obj/machinery-6")
 				var/obj/o = A
 				var/dist = get_dist(source, A)
 				if(dist <= zap_range && (dist < closest_dist) && !(o.obj_flags & BEING_SHOCKED))
@@ -229,14 +229,14 @@
 							priority = 2
 						else
 							priority = 4
-			if("/mob/living-4","/mob/living-5","/mob/living-6")
+			if("/mob/living-3","/mob/living-4","/mob/living-5","/mob/living-6")
 				var/mob/living/L = A
 				var/dist = get_dist(source, A)
 				if(dist <= zap_range && (dist < closest_dist) && L.stat != DEAD && !(L.flags_1 & TESLA_IGNORE_1))
 					closest_atom = A
 					closest_dist = dist
 					priority = 3
-			if("/obj/structure-6")
+			if("/obj/structure-5","/obj/structure-6")
 				var/obj/o = A
 				var/dist = get_dist(source, A)
 				if(dist <= zap_range && (dist < closest_dist) && !(o.obj_flags & BEING_SHOCKED))
@@ -258,16 +258,16 @@
 			. = zapdir
 
 	//per type stuff:
-	if(isliving(closest_atom))
-		var/mob/living/m = closest_atom
-		var/shock_damage = (tesla_flags & TESLA_MOB_DAMAGE)? (min(round(power/600), 90) + rand(-5, 5)) : 0
-		m.electrocute_act(shock_damage, source, 1, tesla_shock = 1, stun = (tesla_flags & TESLA_MOB_STUN))
-		if(issilicon(m))
-			if((tesla_flags & TESLA_MOB_STUN) && (tesla_flags & TESLA_MOB_DAMAGE))
-				m.emp_act(EMP_LIGHT)
-			tesla_zap(m, 7, power / 1.5, tesla_flags, shocked_targets) // metallic folks bounce it further
+		if(isliving(closest_atom))
+			var/mob/living/m = closest_atom
+			var/shock_damage = (tesla_flags & TESLA_MOB_DAMAGE)? (min(round(power/600), 90) + rand(-5, 5)) : 0
+			m.electrocute_act(shock_damage, source, 1, tesla_shock = 1, stun = (tesla_flags & TESLA_MOB_STUN))
+			if(issilicon(m))
+				if((tesla_flags & TESLA_MOB_STUN) && (tesla_flags & TESLA_MOB_DAMAGE))
+					m.emp_act(EMP_LIGHT)
+				tesla_zap(m, 7, power / 1.5, tesla_flags, shocked_targets) // metallic folks bounce it further
+			else
+				tesla_zap(m, 5, power / 1.5, tesla_flags, shocked_targets)
 		else
-			tesla_zap(m, 5, power / 1.5, tesla_flags, shocked_targets)
-	else
-		closest_atom.tesla_act(power, tesla_flags, shocked_targets)
+			closest_atom.tesla_act(power, tesla_flags, shocked_targets)
 #undef TESLA_MAX_BALLS
