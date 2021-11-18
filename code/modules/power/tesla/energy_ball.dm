@@ -187,13 +187,6 @@
 
 	var/closest_dist = 0
 	var/atom/closest_atom
-	var/obj/machinery/power/tesla_coil/closest_tesla_coil
-	var/obj/machinery/power/grounding_rod/closest_grounding_rod
-	var/mob/living/closest_mob
-	var/obj/machinery/closest_machine
-	var/obj/structure/closest_structure
-	var/obj/structure/blob/closest_blob
-	var/obj/closest_object
 	var/static/things_to_shock = typecacheof(list(/obj/machinery, /mob/living, /obj/structure))
 	var/static/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
 										/obj/machinery/power/emitter,
@@ -222,14 +215,14 @@
 		//typecache_filter_multi_list_exclusion has been inlined to minimize lag.
 		if(!things_to_shock[A.type] || blacklisted_tesla_types[A.type] || (!(tesla_flags & TESLA_ALLOW_DUPLICATES) && LAZYACCESS(shocked_targets, A)))
 			continue
-		switch("[jointext(splittext(A.type,"/"),"/",1,4)]-[priority]")
+		switch("[jointext(splittext(A.type,"/"),"/",1,4)]-[priority]") //takes the typpath and cuts it down to the parent so machine, living, structure and merges it with priority inside the switch
 			if("/obj/machinery-2","/obj/machinery-4","/obj/machinery-3","/obj/machinery-5","/obj/machinery-6")
 				var/obj/o = A
 				var/dist = get_dist(source, A)
 				if(dist <= zap_range && (dist < closest_dist) && !(o.obj_flags & BEING_SHOCKED))
 					closest_atom = A
 					closest_dist = dist
-					switch(A.type)
+					switch(A.type) //sadly needs to be done because of the special treatment for those particular objects
 						if("/obj/machinery/power/tesla_coil")
 							priority = 1
 						if("/obj/machinery/power/grounding_rod")
@@ -249,7 +242,7 @@
 				if(dist <= zap_range && (dist < closest_dist) && !(o.obj_flags & BEING_SHOCKED))
 					closest_atom = A
 					closest_dist = dist
-					if(istype(A, /obj/structure/blob))
+					if(istype(A, /obj/structure/blob)) //same problem as above in the machine switch
 						priority = 5
 					else
 						priority = 6
