@@ -112,7 +112,7 @@
 			break
 		else
 			requested_page++
-		var/regex/R = regex(@'medal/\d+[\s\n]*key = "(.*)"[\s\n]*name = "(.*)"[\s\n]*desc = ".*"[\s\n]*icon = ".*"[\s\n]*earned = "(.*)"',"gm")
+		var/regex/R = regex(@'medal\/\d+[\s\n]*key = "(.*)"[\s\n]*name = "(.*)"[\s\n]*desc = ".*"[\s\n]*earned = "(.*)"',"gm")
 		while(R.Find(data))
 			var/key = ckey(R.group[1])
 			var/medal = R.group[2]
