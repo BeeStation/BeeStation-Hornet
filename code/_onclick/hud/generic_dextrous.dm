@@ -9,6 +9,12 @@
 	using.hud = src
 	static_inventory += using
 
+	using = new /atom/movable/screen/act_intent()
+	using.icon = ui_style
+	using.screen_loc = ui_acti
+	using.hud = src
+	static_inventory += using
+
 	pull_icon = new /atom/movable/screen/pull()
 	pull_icon.icon = ui_style
 	pull_icon.update_icon()

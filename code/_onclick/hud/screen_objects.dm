@@ -262,6 +262,7 @@
 
 /atom/movable/screen/act_intent
 	name = "intent"
+	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "help"
 	screen_loc = ui_acti
 
