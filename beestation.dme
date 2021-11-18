@@ -3456,4 +3456,8 @@
 #include "monkestation\code\modules\clothing\masks\miscellaneous.dm"
 #include "monkestation\code\modules\clothing\suits\labcoat.dm"
 #include "monkestation\code\modules\clothing\under\costume.dm"
+#include "monkestation\code\modules\hydroponics\plant_genes.dm"
+#include "monkestation\code\modules\hydroponics\grown\berries.dm"
+#include "monkestation\code\modules\research\designs\biogenerator_designs.dm"
+#include "monkestation\code\modules\research\techweb\_techweb.dm"
 // END_INCLUDE

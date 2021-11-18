@@ -16,13 +16,21 @@
 	var/productivity = 0
 	var/max_items = 40
 	var/datum/techweb/stored_research
-	var/list/show_categories = list("Food", "Botany Chemicals", "Organic Materials")
+	//MonkeStation Edit Start (Adds new category)
+	var/list/show_categories = list("Food", "Botany Chemicals", "Organic Materials", "Clothing")
+	//MonkeStation Edit End
 	/// Currently selected category in the UI
 	var/selected_cat
 
 /obj/machinery/biogenerator/Initialize()
 	. = ..()
-	stored_research = new /datum/techweb/specialized/autounlocking/biogenerator
+	//MonkeStation Changes Start
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
+		var/datum/techweb/specialized/autounlocking/biogenerator/bio_parts = new
+		bio_parts.update_biogen(M.rating)
+		stored_research = bio_parts
+		ui_update()
+	//MonkeStation Changes End
 	create_reagents(1000)
 
 /obj/machinery/biogenerator/Destroy()
@@ -56,6 +64,12 @@
 		max_storage = 40 * B.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		E += M.rating
+		//MonkeStation Changes Start
+		var/datum/techweb/specialized/autounlocking/biogenerator/bio_parts = new
+		bio_parts.update_biogen(M.rating)
+		stored_research = bio_parts
+		ui_update()
+		//MonkeStation Changes End
 	efficiency = E
 	productivity = P
 	max_items = max_storage
@@ -190,7 +204,9 @@
 			points += 1 * productivity
 			ui_update()
 		else
-			points += I.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) * 10 * productivity
+			//MonkeStation Edit Start (Rounds income)
+			points += round(I.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) * 10 * productivity)
+			//MonkeStation Edit End
 			ui_update()
 		qdel(I)
 	if(S)
@@ -211,7 +227,9 @@
 		return FALSE
 	else
 		if(remove_points)
-			points -= materials[getmaterialref(/datum/material/biomass)]*multiplier/efficiency
+		//MonkeStation Edit Start (Round costs)
+			points -= round(materials[getmaterialref(/datum/material/biomass)]*multiplier/efficiency)
+		//MonkeStation Edit End
 			ui_update()
 		update_icon()
 		return TRUE
@@ -317,7 +335,9 @@
 			cat["items"] += list(list(
 				"id" = D.id,
 				"name" = D.name,
-				"cost" = D.materials[getmaterialref(/datum/material/biomass)]/efficiency,
+				//MonkeStation Edit Start(Rounds price)
+				"cost" = round(D.materials[getmaterialref(/datum/material/biomass)]/efficiency),
+				//MonkeStation Edit End
 			))
 		data["categories"] += list(cat)
 
