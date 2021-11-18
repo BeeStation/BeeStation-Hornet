@@ -204,9 +204,6 @@
 	. = ..()
 	if(.)
 		return
-	. = ..()
-	if(.)
-		return
 	var/mob/M = user.mob
 	M.toggle_move_intent()
 	return TRUE
@@ -324,9 +321,6 @@
 	keybind_signal = COMSIG_KB_MOB_PREVENTMOVEMENT_DOWN
 
 /datum/keybinding/mob/prevent_movement/down(client/user)
-	. = ..()
-	if(.)
-		return
 	. = ..()
 	if(.)
 		return
