@@ -123,7 +123,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	if(isitem(parent)) // Otherwise, just wave it at them
 		var/obj/item/I = parent
 		I.afterattack(target, user)
-		user.visible_message("<span class='warning'>[user] waves [parent] around menacingly!</span>")
+		user.balloon_alert("<span class='warning'>[user] waves [parent] around menacingly!</span>")
 		stop_aiming()
 
 /datum/component/aiming/proc/stop_aiming()

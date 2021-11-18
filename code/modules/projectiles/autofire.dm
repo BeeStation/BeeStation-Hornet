@@ -107,7 +107,7 @@ Everything else should be handled for you. Good luck soldier.
 /obj/item/gun/onMouseDown(object, location, params)
 	. = ..()
 	var/datum/component/aiming/aiming = GetComponent(/datum/component/aiming)
-	if(aiming) // We don't want to full-auto while we're trying to aim at someone
+	if(aiming?.target) // We don't want to full-auto while we're trying to aim at someone
 		return FALSE
 	if(burst_size <= 1) //Don't let them autofire with bursts. That would just be awful.
 		autofire_component?.set_target(object)
