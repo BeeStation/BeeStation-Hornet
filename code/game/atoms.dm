@@ -1393,3 +1393,8 @@
 /atom/proc/InitializeAIController()
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
+/**
+  *Defines the tesla_act proc for all atoms.
+*/
+/atom/proc/tesla_act()
+	return
