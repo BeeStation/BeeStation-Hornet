@@ -255,7 +255,7 @@
 	var/maxdist = 4
 
 /obj/effect/proc_holder/spell/self/overload/cast(mob/user = usr)
-	if(!is_species(user, /datum/species/ethereal))
+	if(!isethereal(user))
 		return
 
 	var/list/mob/targets = viewers(maxdist, get_turf(user))
@@ -311,7 +311,7 @@
 		icon_state = icon_right
 
 /obj/item/melee/touch_attack/acidooze/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!is_species(user, /datum/species/oozeling))
+	if(!isoozeling(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(!target || user.incapacitated())
