@@ -102,3 +102,14 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
+
+/obj/item/clothing/under/rank/rnd/roboticist/retro
+	desc = "It's a slimming black jumpsuit with reinforced seams; great for industrial work. Vintage design, modern look, and the gloves are just for show."
+	name = "roboticist's retro jumpsuit"
+	icon_state = "robotics_retro"
+	item_state = "robotics"
+	item_color = "robotics_retro"
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	fitted = NO_FEMALE_UNIFORM
+	alternate_worn_layer = GLOVES_LAYER
+	can_adjust = FALSE

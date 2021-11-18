@@ -133,7 +133,7 @@
 /datum/supply_pack/emergency/firefighting
 	name = "Firefighting Crate"
 	desc = "Only you can prevent station fires. Partner up with three firefighter suits, gas masks, flashlights, large oxygen tanks, extinguishers, and hardhats!"
-	cost = 800 
+	cost = 800
 	contains = list(/obj/item/clothing/suit/fire/firefighter,
 					/obj/item/clothing/suit/fire/firefighter,
 					/obj/item/clothing/suit/fire/firefighter,
@@ -206,7 +206,7 @@
 /datum/supply_pack/emergency/plasmaman
 	name = "Plasmaman Supply Kit"
 	desc = "Keep those Plasmamen alive with three sets of Plasmaman outfits. Each set contains a plasmaman jumpsuit, internals tank, and helmet."
-	cost = 700 //50 credits per suit. 
+	cost = 700 //50 credits per suit.
 	contains = list(/obj/item/clothing/under/plasmaman,
 					/obj/item/clothing/under/plasmaman,
 					/obj/item/clothing/under/plasmaman,
@@ -453,7 +453,7 @@
 /datum/supply_pack/security/wall_flash
 	name = "Wall-Mounted Flash Crate"
 	desc = "Contains five wall-mounted flashes. Requires Security access to open."
-	cost = 800 
+	cost = 800
 	contains = list(/obj/item/storage/box/wall_flash,
 					/obj/item/storage/box/wall_flash,
 					/obj/item/storage/box/wall_flash,
@@ -1701,7 +1701,7 @@
 /datum/supply_pack/service/cargo_supples
 	name = "Cargo Supplies Crate"
 	desc = "Sold everything that wasn't bolted down? You can get right back to work with this crate containing stamps, an export scanner, destination tagger, hand labeler and some package wrapping."
-	cost = 700    
+	cost = 700
 	contains = list(/obj/item/stamp,
 					/obj/item/stamp/denied,
 					/obj/item/export_scanner,
@@ -1833,7 +1833,7 @@
 /datum/supply_pack/service/lightbulbs
 	name = "Replacement Lights"
 	desc = "May the light of Aether shine upon this station! Or at least, the light of fifty six light tubes and twenty eight light bulbs."
-	cost = 800 
+	cost = 800
 	contains = list(/obj/item/storage/box/lights/mixed,
 					/obj/item/storage/box/lights/mixed,
 					/obj/item/storage/box/lights/mixed,
@@ -2051,7 +2051,7 @@
 /datum/supply_pack/organic/hydroponics
 	name = "Hydroponics Crate"
 	desc = "Supplies for growing a great garden! Contains two bottles of ammonia, two Plant-B-Gone spray bottles, a hatchet, cultivator, plant analyzer, as well as a pair of leather gloves and a botanist's apron."
-	cost = 800 
+	cost = 800
 	contains = list(/obj/item/reagent_containers/spray/plantbgone,
 					/obj/item/reagent_containers/spray/plantbgone,
 					/obj/item/reagent_containers/glass/bottle/ammonia,
@@ -2537,16 +2537,6 @@
 	contains = list(/obj/item/storage/box/lasertagpins)
 	crate_name = "laser tag crate"
 
-/datum/supply_pack/costumes_toys/mech_suits
-	name = "Mech Pilot's Suit Crate"
-	desc = "Suits for piloting big robots. Contains all three colors!"
-	cost = 1500 //state-of-the-art technology doesn't come cheap
-	contains = list(/obj/item/clothing/under/costume/mech_suit,
-					/obj/item/clothing/under/costume/mech_suit/white,
-					/obj/item/clothing/under/costume/mech_suit/blue)
-	crate_name = "mech pilot's suit crate"
-	crate_type = /obj/structure/closet/crate/wooden
-
 /datum/supply_pack/costumes_toys/costume_original
 	name = "Original Costume Crate"
 	desc = "Reenact Shakespearean plays with this assortment of outfits. Contains eight different costumes!"
@@ -2626,7 +2616,7 @@
 /datum/supply_pack/costumes_toys/chess_white
 	name = "White Chess Piece Crate"
 	desc = "Look at you, playing a nerd game within a nerd game!"
-	cost = 800 
+	cost = 800
 	contains = list(
 		/obj/item/cardboard_cutout/adaptive/chess/king,
 		/obj/item/cardboard_cutout/adaptive/chess/queen,
@@ -2678,28 +2668,28 @@
 /datum/supply_pack/costumes_toys/wardrobes/autodrobe
 	name = "Autodrobe Supply Crate"
 	desc = "Autodrobe missing your favorite dress? Solve that issue today with this autodrobe refill."
-	cost = 800 
+	cost = 800
 	contains = list(/obj/item/vending_refill/autodrobe)
 	crate_name = "autodrobe supply crate"
 
 /datum/supply_pack/costumes_toys/wardrobes/cargo
 	name = "Cargo Wardrobe Supply Crate"
 	desc = "This crate contains a refill for the CargoDrobe."
-	cost = 800 
+	cost = 800
 	contains = list(/obj/item/vending_refill/wardrobe/cargo_wardrobe)
 	crate_name = "cargo department supply crate"
 
 /datum/supply_pack/costumes_toys/wardrobes/clothesmate
 	name = "ClothesMate Wardrobe Supply Crate"
 	desc = "This crate contains a refill for the ClothesMate."
-	cost = 800 
+	cost = 800
 	contains = list(/obj/item/vending_refill/clothing)
 	crate_name = "clothesmate supply crate"
 
 /datum/supply_pack/costumes_toys/wardrobes/engineering
 	name = "Engineering Wardrobe Supply Crate"
 	desc = "This crate contains refills for the EngiDrobe and AtmosDrobe."
-	cost = 800 
+	cost = 800
 	contains = list(/obj/item/vending_refill/wardrobe/engi_wardrobe,
 					/obj/item/vending_refill/wardrobe/atmos_wardrobe)
 	crate_name = "engineering department wardrobe supply crate"
@@ -2805,7 +2795,7 @@
 /datum/supply_pack/misc/bigband
 	name = "Big Band Instrument Collection"
 	desc = "Get your sad station movin' and groovin' with this fine collection! Contains nine different instruments!"
-	cost = 800 
+	cost = 800
 	crate_name = "Big band musical instruments collection"
 	contains = list(/obj/item/instrument/violin,
 					/obj/item/instrument/guitar,
@@ -2868,7 +2858,7 @@
 /datum/supply_pack/misc/wrapping_paper
 	name = "Festive Wrapping Paper Crate"
 	desc = "Want to mail your loved ones gift-wrapped chocolates, stuffed animals, the Clown's severed head? You can do all that, with this crate full of wrapping paper."
-	cost = 800 
+	cost = 800
 	contains = list(/obj/item/stack/wrapping_paper)
 	crate_type = /obj/structure/closet/crate/wooden
 	crate_name = "festive wrapping paper crate"
@@ -2900,7 +2890,7 @@
 /datum/supply_pack/misc/toner
 	name = "Toner Crate"
 	desc = "Spent too much ink printing butt pictures? Fret not, with these eight toner refills, you'll be printing butts 'till the cows come home!'"
-	cost = 800 
+	cost = 800
 	contains = list(/obj/item/toner,
 					/obj/item/toner,
 					/obj/item/toner,
