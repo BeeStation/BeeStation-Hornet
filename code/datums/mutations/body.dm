@@ -389,11 +389,11 @@
 		return
 	if(locate(/obj/item/organ/wings/bee) in owner.internal_organs)
 		var/obj/item/organ/wings/bee/wings = locate(/obj/item/organ/wings/bee) in owner.internal_organs
-		wings.jumpdist = 6 * GET_MUTATION_POWER(src)
+		wings.jumpdist += (6 * GET_MUTATION_POWER(src)) - 3
 		to_chat(owner, "<span class='notice'>Your wings feel stronger.</span>")
 	else if(locate(/obj/item/organ/wings/moth) in owner.internal_organs)
 		var/obj/item/organ/wings/moth/wings = locate(/obj/item/organ/wings/moth) in owner.internal_organs
-		wings.flight_level = WINGS_FLYING
+		wings.flight_level += 1
 		to_chat(owner, "<span class='notice'>Your wings feel stronger.</span>")
 		wings.Refresh(owner)
 	else
@@ -404,11 +404,11 @@
 		return
 	if(locate(/obj/item/organ/wings/bee) in owner.internal_organs)
 		var/obj/item/organ/wings/bee/wings = locate(/obj/item/organ/wings/bee) in owner.internal_organs
-		wings.jumpdist = 3
+		wings.jumpdist -= (6 * GET_MUTATION_POWER(src)) - 3
 		to_chat(owner, "<span class='warning'>Your wings feel weak.</span>")
 	else if(locate(/obj/item/organ/wings/moth) in owner.internal_organs)
 		var/obj/item/organ/wings/moth/wings = locate(/obj/item/organ/wings/moth) in owner.internal_organs
-		wings.flight_level = WINGS_FLIGHTLESS
+		wings.flight_level -= 1
 		to_chat(owner, "<span class='warning'>Your wings feel weak.</span>")
 		wings.Refresh(owner)
 	else
@@ -421,18 +421,23 @@
 	difficulty = 12
 	instability = 25
 	species_allowed = list(SPECIES_FELINID)
+	var/dmgadd = 6
 
 /datum/mutation/human/catclaws/on_acquiring()
 	if(..())
 		return
-	owner.dna.species.punchdamage += 6 * GET_MUTATION_POWER(src)
+	if((6 * GET_MUTATION_POWER(src) + owner.dna.species.punchdamage) > 17)
+		dmgadd = 17 - owner.dna.species.punchdamage
+	else
+		dmgadd = 6 * GET_MUTATION_POWER(src)
+	owner.dna.species.punchdamage += dmgadd
 	to_chat(owner, "<span class='notice'>Claws extend from your fingertips.")
 	owner.dna.species.attack_verb = "slash"
 
 /datum/mutation/human/catclaws/on_losing()
 	if(..())
 		return
-	owner.dna.species.punchdamage -= 6 * GET_MUTATION_POWER(src)
+	owner.dna.species.punchdamage -= dmgadd
 	to_chat(owner, "<span class='warning'> Your claws retract into your hand.")
 	owner.dna.species.attack_verb = initial(owner.dna.species.attack_verb)
 	

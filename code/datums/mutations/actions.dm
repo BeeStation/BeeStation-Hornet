@@ -262,8 +262,8 @@
 	targets -= user
 	visible_message("<span class='disarm'>[user] emits a blinding light!</span>")
 	for(var/mob/living/carbon/C in targets)
-		C.flash_act()
-		C.Paralyze(10 + (5*maxdist))
+		if(C.flash_act(1))
+			C.Paralyze(10 + (5*maxdist))
 
 /datum/mutation/human/overload/modify()
 	if(power)
