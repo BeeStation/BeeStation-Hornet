@@ -321,7 +321,7 @@
 		return FALSE
 	if(target.acid_act(75, 15))
 		user.visible_message("<span class='warning'>[user] rubs globs of vile stuff all over [target].</span>")
-		H.blood_volume -= 20
+		H.blood_volume = max(H.blood_volume - 20, 0)
 		return ..()
 	else
 		to_chat(user, "<span class='notice'>You cannot dissolve this object.</span>")
