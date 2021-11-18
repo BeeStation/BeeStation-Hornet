@@ -7,11 +7,11 @@
 	alignment = ALIGNMENT_NEUT
 	favor = 100 //Starts off with enough favor to make an obelisk
 	//No desired items, favor is gained through obelisks and the altar in darkness
-	rites_list = list(/datum/religion_rites/extend_darkness,/datum/religion_rites/darkobelisk, /datum/religion_rites/darkconversion)
+	rites_list = list(/datum/religion_rites/extend_darkness,/datum/religion_rites/dark_obelisk, /datum/religion_rites/dark_conversion)
 	altar_icon_state = "convertaltar-dark"
 	var/light_reach = 1
 	var/light_power = 0
-	var/list/obelisks
+	var/list/obelisks = list()
 
 /datum/religion_sect/darkness_sect/sect_bless(mob/living/blessed, mob/living/user)
 	return TRUE
@@ -24,9 +24,9 @@
 
 /**** Rites ****/
 
-#define DARKNESS_INVERSE_COLOR "#88ff88" //The color of light has to be inverse, since we're using negative light power
+#define DARKNESS_INVERSE_COLOR "#AAD84B" //The color of light has to be inverse, since we're using negative light power
 
-/datum/religion_rites/darkconversion
+/datum/religion_rites/dark_conversion
 	name = "Shadowperson Conversion"
 	desc = "Converts a humanoid into a shadowperson, a race blessed by darkness."
 	ritual_length = 30 SECONDS
@@ -36,13 +36,11 @@
 	invoke_msg = "... And let you be born again!"
 	favor_cost = 500
 
-/datum/religion_rites/darkconversion/perform_rite(mob/living/user, atom/religious_tool)
+/datum/religion_rites/dark_conversion/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
 		to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
 		return FALSE
 	var/atom/movable/movable_reltool = religious_tool
-	if(!movable_reltool)
-		return FALSE
 	if(!LAZYLEN(movable_reltool.buckled_mobs))
 		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
 			to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
@@ -51,11 +49,11 @@
 		return FALSE
 	return ..()
 
-/datum/religion_rites/darkconversion/invoke_effect(mob/living/user, atom/religious_tool)
+/datum/religion_rites/dark_conversion/invoke_effect(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
 		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
 	var/atom/movable/movable_reltool = religious_tool
-	if(!movable_reltool?.buckled_mobs?.len)
+	if(!movable_reltool.buckled_mobs?.len)
 		return FALSE
 	var/mob/living/carbon/human/human2darken = locate() in movable_reltool.buckled_mobs
 	if(!human2darken)
@@ -64,16 +62,16 @@
 	human2darken.visible_message("<span class='notice'>[human2darken] has been converted by the rite of [name]!</span>")
 	return ..()
 
-/datum/religion_rites/darkobelisk
+/datum/religion_rites/dark_obelisk
 	name = "Obelisk Manifestation"
 	desc = "Creates an obelisk that generates favor when in a dark area."
 	ritual_length = 15 SECONDS
 	invoke_msg = "I summon forth an obelisk, to appease the darkness."
 	favor_cost = 100 //Sect starts with 100 favor to begin
 
-/datum/religion_rites/darkobelisk/invoke_effect(mob/living/user, atom/religious_tool)
+/datum/religion_rites/dark_obelisk/invoke_effect(mob/living/user, atom/religious_tool)
 	var/altar_turf = get_turf(religious_tool)
-	var/obj/structure/darkobelisk/obelisk = new(altar_turf)
+	var/obj/structure/dark_obelisk/obelisk = new(altar_turf)
 	var/datum/religion_sect/darkness_sect/sect = GLOB.religious_sect
 	sect.obelisks += obelisk
 	obelisk.AddComponent(/datum/component/dark_favor, user)
@@ -81,7 +79,7 @@
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
 	return ..()
 
-/obj/structure/darkobelisk
+/obj/structure/dark_obelisk
 	name = "obelisk of darkness"
 	desc = "Grants favor from being shrouded in darkness."
 	icon = 'icons/obj/hand_of_god_structures.dmi'
@@ -95,6 +93,13 @@
 	invoke_msg = "Darkness, reach your tendrils from my altar, and extend thy domain."
 	favor_cost = 75
 
+/datum/religion_rites/extend_darkness/perform_rite(mob/living/user, atom/religious_tool)
+	var/datum/religion_sect/darkness_sect/sect = GLOB.religious_sect
+	if((sect.light_power <= -5) || (sect.light_reach >= 10))
+		to_chat(user, "<span class='warning'>The darkness emanating from your idols is as strong as it could be.</span>")
+		return FALSE
+	return ..()
+
 /datum/religion_rites/extend_darkness/invoke_effect(mob/living/user, atom/religious_tool)
 	. = ..()
 	var/datum/religion_sect/darkness_sect/sect = GLOB.religious_sect
@@ -103,7 +108,7 @@
 	sect.light_reach += 2
 	sect.light_power -= 1
 	religious_tool.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
-	for(var/obj/structure/darkobelisk/D in sect.obelisks)
+	for(var/obj/structure/dark_obelisk/D in sect.obelisks)
 		D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 
 // Favor generator component. Used on the altar and obelisks
@@ -121,13 +126,16 @@
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 
-/datum/component/dark_favor/process()
-	if(!istype(parent, /atom) || !istype(creator))
+/datum/component/dark_favor/process(delta_time)
+	var/datum/religion_sect/darkness_sect/sect = GLOB.religious_sect
+	if(!istype(parent, /atom) || !istype(creator) || !istype(sect))
 		return
 	var/atom/P = parent
 	var/turf/T = P.loc
 	if(!istype(T))
 		return
 	var/light_amount = T.get_lumcount()
-	var/favor_gained = max(1 - light_amount, 0)
-	GLOB.religious_sect?.adjust_favor(favor_gained, creator)
+	var/favor_gained = max(1 - light_amount, 0) * delta_time
+	sect.adjust_favor(favor_gained, creator)
+
+#undef DARKNESS_INVERSE_COLOR
