@@ -55,11 +55,13 @@
 	var/atom/movable/movable_reltool = religious_tool
 	if(!movable_reltool.buckled_mobs?.len)
 		return FALSE
-	var/mob/living/carbon/human/human2darken = locate() in movable_reltool.buckled_mobs
-	if(!human2darken)
+	var/anyconverts = FALSE
+	for(var/mob/living/carbon/human/human2darken in movable_reltool.buckled_mobs)
+		human2darken.set_species(/datum/species/shadow)
+		human2darken.visible_message("<span class='notice'>[human2darken] has been converted by the rite of [name]!</span>")
+		anyconverts = TRUE
+	if(!anyconverts) //Check to make sure we converted at least one person to complete the rite
 		return FALSE
-	human2darken.set_species(/datum/species/shadow)
-	human2darken.visible_message("<span class='notice'>[human2darken] has been converted by the rite of [name]!</span>")
 	return ..()
 
 /datum/religion_rites/dark_obelisk
