@@ -27,6 +27,8 @@ Bonus
 	base_message_chance = 25
 	symptom_delay_min = 10
 	symptom_delay_max = 70
+	prefixes = list("Narcotic ", "Narco", "Psycho-")
+	suffixes = list(" Psychosis")
 	var/fake_healthy = FALSE
 	threshold_desc = "<b>Stage Speed 7:</b> Increases the amount of hallucinations.<br>\
 					  <b>Stealth 2:</b> The virus mimics positive symptoms.."

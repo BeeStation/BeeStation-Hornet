@@ -43,11 +43,23 @@
 		var/obj/item/circuit_component/component_path = build_path
 		desc = initial(component_path.display_desc)
 
-/datum/design/component/arithmetic
+/datum/design/component/arbitrary_input_amount/arithmetic
 	name = "Arithmetic Component"
 	id = "comp_arithmetic"
-	build_path = /obj/item/circuit_component/arithmetic
+	build_path = /obj/item/circuit_component/arbitrary_input_amount/arithmetic
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
+
+/datum/design/component/arbitrary_input_amount/bitwise
+	name = "Bitwise Component"
+	id = "comp_bitwise"
+	build_path = /obj/item/circuit_component/arbitrary_input_amount/bitwise
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
+
+/datum/design/component/bitflag
+	name = "Bitflag Component"
+	id = "comp_bitflag"
+	build_path = /obj/item/circuit_component/compare/bitflag
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS, WIREMOD_LOGIC_COMPONENTS)
 
 /datum/design/component/clock
 	name = "Clock Component"
@@ -76,8 +88,26 @@
 /datum/design/component/index
 	name = "Index Component"
 	id = "comp_index"
-	build_path = /obj/item/circuit_component/index
+	build_path = /obj/item/circuit_component/indexer/index
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
+
+/datum/design/component/write
+	name = "Write Component"
+	id = "comp_write"
+	build_path = /obj/item/circuit_component/indexer/write
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
+
+/datum/design/component/append
+	name = "Append Component"
+	id = "comp_append"
+	build_path = /obj/item/circuit_component/append
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
+
+/datum/design/component/pop
+	name = "Pop Component"
+	id = "comp_pop"
+	build_path = /obj/item/circuit_component/pop
+	category = list(WIREMOD_CIRCUITRY,WIREMOD_LIST_COMPONENTS)
 
 /datum/design/component/length
 	name = "Length Component"
@@ -90,6 +120,18 @@
 	id = "comp_light"
 	build_path = /obj/item/circuit_component/light
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_OUTPUT_COMPONENTS)
+
+/datum/design/component/list_constructor
+	name = "List Constructor"
+	id = "comp_list_constructor"
+	build_path = /obj/item/circuit_component/arbitrary_input_amount/list_constructor
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
+
+/datum/design/component/list_length_constructor
+	name = "List Length Constructor"
+	id = "comp_list_length_constructor"
+	build_path = /obj/item/circuit_component/list_length_constructor
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
 
 /datum/design/component/not
 	name = "Not Component"
@@ -109,6 +151,12 @@
 	build_path = /obj/item/circuit_component/random
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS, WIREMOD_LOGIC_COMPONENTS)
 
+/datum/design/component/round
+	name = "Round Component"
+	id = "comp_round"
+	build_path = /obj/item/circuit_component/round
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
+
 /datum/design/component/species
 	name = "Get Species Component"
 	id = "comp_species"
@@ -126,6 +174,24 @@
 	id = "comp_tostring"
 	build_path = /obj/item/circuit_component/tostring
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_STRING_COMPONENTS, WIREMOD_CONVERSION_COMPONENTS)
+
+/datum/design/component/trig
+	name = "Trigonometry Component"
+	id = "comp_trig"
+	build_path = /obj/item/circuit_component/trig/trig
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
+
+/datum/design/component/adv_trig
+	name = "Advanced Trigonometry Component"
+	id = "comp_adv_trig"
+	build_path = /obj/item/circuit_component/trig/adv_trig
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
+
+/datum/design/component/hyper_trig
+	name = "Hyperbolic Trigonometry Component"
+	id = "comp_hyper_trig"
+	build_path = /obj/item/circuit_component/trig/hyper_trig
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
 
 /datum/design/component/typecheck
 	name = "Typecheck Component"

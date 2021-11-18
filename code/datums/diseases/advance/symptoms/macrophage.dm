@@ -9,6 +9,8 @@
 	severity = 2
 	symptom_delay_min = 30
 	symptom_delay_max = 60
+	prefixes = list("Ambulant ", "Macro")
+	bodies = list("Phage")
 	var/gigagerms = FALSE
 	var/netspeed = 0
 	var/phagecounter = 10

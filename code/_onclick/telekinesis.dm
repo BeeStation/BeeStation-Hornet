@@ -135,7 +135,14 @@
 		target.attack_self_tk(user)
 		update_icon()
 		return
+	
+	if(focus.buckled_mobs)
+		to_chat(user, "<span class='notice'>This object is too heavy to move with something buckled to it!</span>")
+		return
 
+	if(length(focus.client_mobs_in_contents))
+		to_chat(user, "<span class='notice'>This object is too heavy to move with something inside of it!</span>")
+		return
 
 	if(!isturf(target) && isitem(focus) && target.Adjacent(focus))
 		apply_focus_overlay()
@@ -144,6 +151,7 @@
 		if(check_if_focusable(focus))
 			focus.do_attack_animation(target, null, focus)
 	else
+
 		apply_focus_overlay()
 		focus.throw_at(target, 10, 1,user)
 	user.changeNext_move(CLICK_CD_MELEE)

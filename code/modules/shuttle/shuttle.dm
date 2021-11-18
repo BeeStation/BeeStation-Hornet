@@ -300,6 +300,8 @@
 	//The virtual Z-Value of the shuttle
 	var/virtual_z
 
+	var/shuttle_object_type = /datum/orbital_object/shuttle
+
 /obj/docking_port/mobile/proc/register()
 	SSshuttle.mobile += src
 
@@ -713,7 +715,7 @@
 	if(timeleft > 1 HOURS)
 		return "--:--"
 	else if(timeleft > 0)
-		return "[add_leading(num2text((timeleft / 60) % 60), 2, "0")]:[add_leading(num2text(timeleft % 60), 2, " ")]"
+		return "[add_leading(num2text((timeleft / 60) % 60), 2, "0")]:[add_leading(num2text(timeleft % 60), 2, "0")]"
 	else
 		return "00:00"
 
@@ -760,7 +762,7 @@
 /obj/docking_port/mobile/proc/getControlConsole()
 	for(var/place in shuttle_areas)
 		var/area/shuttle/shuttle_area = place
-		for(var/obj/machinery/computer/shuttle/S in shuttle_area)
+		for(var/obj/machinery/computer/shuttle_flight/S in shuttle_area)
 			if(S.shuttleId == id)
 				return S
 	return null

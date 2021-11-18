@@ -153,6 +153,10 @@
 	name = "Science Shuttle"
 	requires_power = TRUE
 
+/area/shuttle/exploration
+	name = "Exploration Shuttle"
+	requires_power = TRUE
+
 /area/shuttle/labor
 	name = "Labor Camp Shuttle"
 

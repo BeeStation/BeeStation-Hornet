@@ -280,6 +280,13 @@
 	icon_state = "janitor_envirohelm"
 	item_state = "janitor_envirohelm"
 
+/obj/item/clothing/head/helmet/space/plasmaman/exploration
+	name = "exploration envirosuit helmet"
+	desc = "A plasmaman envirohelmet designed for the exploration crew, decked out in their iconic garish turquiose."
+	icon_state = "exploration_envirohelm"
+	item_state = "exploration_envirohelm"
+	visor_icon = "explorer_envisor"
+
 //mime and clown
 /obj/item/clothing/head/helmet/space/plasmaman/mime
 	name = "mime's envirosuit helmet"
@@ -364,7 +371,7 @@
 	desc = "An outdated helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment, still kept in use as replacement helmets."
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/security
-	name = "security replacementenvirosuit helmet"
+	name = "security replacement envirosuit helmet"
 	desc = "An outdated containment helmet designed for security officers."
 	icon_state = "security_envirohelm"
 	item_state = "security_envirohelm"

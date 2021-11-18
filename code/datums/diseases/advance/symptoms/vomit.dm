@@ -32,6 +32,9 @@ Bonus
 	base_message_chance = 100
 	symptom_delay_min = 25
 	symptom_delay_max = 80
+	prefixes = list("Digestive ")
+	bodies = list("Vomit")
+	suffixes = list(" Emission")
 	var/vomit_blood = FALSE
 	var/proj_vomit = 0
 	threshold_desc = "<b>Resistance 7:</b> Host will vomit blood, causing internal damage.<br>\

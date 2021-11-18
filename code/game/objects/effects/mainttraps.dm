@@ -21,7 +21,16 @@
 	var/pick_style = PICK_STYLE_ORDERED
 	var/requirehuman = TRUE
 
-/obj/effect/trap/trigger/Crossed(AM as mob|obj)
+/obj/effect/trap/trigger/Initialize()
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/trap/trigger/proc/on_entered(datum/source, AM as mob|obj)
+	SIGNAL_HANDLER
+
 	if(isturf(loc))
 		if(ismob(AM) && grounded)
 			var/mob/MM = AM
@@ -73,7 +82,6 @@
 					if(!chosen.reusable)
 						qdel(chosen)
 					success = TRUE
-				stoplag()
 			if(success)
 				inuse = FALSE
 				return TRUE
@@ -250,11 +258,13 @@
 	melee_damage = 12 //zombies have a base of 21, a bit much
 	stat_attack = CONSCIOUS
 	mobchatspan = "chaplain"
+	discovery_points = 1000
 
 /mob/living/simple_animal/hostile/alien/hugbox
 	health = 60 //they go down easy, to lull the player into a sense of false security
 	maxHealth = 60
 	mobchatspan = "researchdirector"
+	discovery_points = 1000
 
 /mob/living/simple_animal/hostile/cat_butcherer/hugbox //a cat butcher without a melee speed buff or a syringe gun. he's not too hard to take down, but can still go on catification rampages
 	ranged = FALSE

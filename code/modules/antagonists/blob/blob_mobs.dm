@@ -22,6 +22,7 @@
 	var/obj/structure/blob/factory/factory = null
 	var/independent = FALSE
 	mobchatspan = "blob"
+	discovery_points = 1000
 
 /mob/living/simple_animal/hostile/blob/update_icons()
 	if(overmind)
@@ -58,10 +59,10 @@
 	else
 		adjustFireLoss(5)
 
-/mob/living/simple_animal/hostile/blob/CanPass(atom/movable/mover, turf/target)
+/mob/living/simple_animal/hostile/blob/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(istype(mover, /obj/structure/blob))
-		return 1
-	return ..()
+		return TRUE
 
 /mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0)
 	for(var/obj/structure/blob/B in range(1, src))
@@ -241,6 +242,7 @@
 	mob_size = MOB_SIZE_LARGE
 	hud_type = /datum/hud/blobbernaut
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
+	move_resist = MOVE_FORCE_STRONG
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life()
 	if(..())

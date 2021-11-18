@@ -84,3 +84,7 @@
 /obj/machinery/telecomms/relay/preset/auto
 	hide = TRUE
 	autolinkers = list("autorelay")
+
+/obj/machinery/telecomms/relay/preset/exploration
+	id = "Exploration Relay"
+	autolinkers = list("exp_relay")
