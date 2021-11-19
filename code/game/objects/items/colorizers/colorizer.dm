@@ -15,18 +15,18 @@
 
 /obj/item/colorizer/attack_self(mob/user)
     . = ..()
-    var/obj/item/applyto = user.get_inactive_held_item()
-    if(applyto && is_type_in_list(applyto, allowed_items))
+    var/obj/item/O = user.get_inactive_held_item()
+    if(O && is_type_in_list(O, allowed_items))
         if(apply_icon)
-            applyto.icon = apply_icon
+            O.icon = apply_icon
         if(apply_icon_state)
-            applyto.icon_state = apply_icon_state
+            O.icon_state = apply_icon_state
         if(apply_item_state)
-            applyto.item_state = apply_item_state
+            O.item_state = apply_item_state
         if(apply_righthand_file)
-            applyto.righthand_file = apply_righthand_file
+            O.righthand_file = apply_righthand_file
         if(apply_lefthand_file)
-            applyto.righthand_file = apply_lefthand_file
+            O.righthand_file = apply_lefthand_file
         to_chat(user, "<span class='notice'>Color applied!</span>")
         qdel(src)
     else
