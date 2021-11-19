@@ -1106,7 +1106,10 @@
 				if(target.incapacitated(FALSE, TRUE) || incapacitated(FALSE, TRUE))
 					target.visible_message("<span class='warning'>[target] can't hang onto [src]!</span>")
 					return
-				buckle_mob(target, TRUE, TRUE, FALSE, 0, 2)
+				if(!isgrod(src))
+					buckle_mob(target, TRUE, TRUE, FALSE, 0, 2)
+				else
+					buckle_mob(target, TRUE, TRUE, FALSE, 0, 1)
 		else
 			visible_message("<span class='warning'>[target] fails to climb onto [src]!</span>")
 	else
