@@ -1,0 +1,5 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - rscadd: Legcuffs now show up in examine
+  - rscadd: You can now see what type of restraint the mob is restrained with
