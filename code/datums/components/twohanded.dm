@@ -126,7 +126,8 @@
 /// Triggered on attack self of the item containing the component
 /datum/component/two_handed/proc/on_attack_self(datum/source, mob/user)
 	SIGNAL_HANDLER
-
+	if(require_twohands)//cant wield/unwield something if it needs two hands constantly. 
+		return
 	if(wielded)
 		unwield(user)
 	else
@@ -235,7 +236,7 @@
 		user.update_inv_hands()
 
 	// if the item requires two handed drop the item on unwield
-	if(require_twohands)
+	if(require_twohands && user.is_holding(parent))
 		user.dropItemToGround(parent, force=TRUE)
 
 	// Show message if requested

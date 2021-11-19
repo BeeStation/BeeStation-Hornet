@@ -392,8 +392,6 @@
 #define COMSIG_BATON_ACTIVATE "baton_activate" //triggered when a baton is turned on
 	#define COMSIG_BATON_NOACTIVATE 1
 #define COMSIG_BATON_DEACTIVATE "baton_deactivate" //triggered when a baton is turned off
-#define COMSIG_BATON_DISCHARGE "baton_discharge" //triggered when a baton is forcibly turned off
-	#define COMSIG_BATON_NODISCHARGE 1
 #define COMSIG_BATON_TOGGLE_MODE "baton_toggle" //triggered when a baton's mode is toggled 
 #define COMSIG_BATON_NO_CHARGE "baton_no_charge" //triggered when a baton runs out of charge
 #define COMSIG_BATON_ATTACK "baton_attack" //triggers when a baton hits with any attack
@@ -401,8 +399,11 @@
 #define COMSIG_BATON_STRONG_ATTACK "baton_strong" //triggered when a baton uses a strong attack
 #define COMSIG_BATON_NORMAL_ATTACK "baton_attack" //triggers when a baton hits with a normal attack while active
 #define COMSIG_BATON_WEAK_ATTACK "baton_weak" //triggers when a baton hits with any "weak" attack while on. exists so most on-hit effects dont care for weak attacks
+#define COMSIG_BATON_OVERCHARGE "baton_overcharge" //triggers when a baton hits with an "overcharge" attack.
+#define COMSIG_BATON_OVERCHARGING "baton_overcharged" //triggers when a baton gains overcharge
+#define COMSIG_BATON_OVERCHARGE_PLUS "baton_overcharge_plus" //triggers when a baton would overcharge when already overcharged.
+	#define COMSIG_BATON_NOOVERCHARGEMESSAGE 1 //used for modules that have their own effect on exceeding overcharge
 #define COMSIG_BATON_BLOCK "baton_block" //triggers when a baton blocks an attack
-	#define COMSIG_BATON_NOBLOCK 1
 #define COMSIG_BATON_BLOCKED "baton_blocked" //triggers when a baton is blocked by an attack
 	#define COMSIG_BATON_UNBLOCKABLE 1
 #define COMSIG_BATON_FAILED_STUNCHECK "baton_failed_stuncheck" //triggers when a baton hits with an attack against a target, but isn't allowed to attack due to a failed check

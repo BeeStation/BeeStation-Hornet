@@ -160,3 +160,22 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		if("globalmode")
 			global_mode = !global_mode
 			. = TRUE
+
+//similar to an item gps component, but far more limiting. Essentially a gps component, but it can be toggled and EMPd.
+/datum/component/gps/tracker 
+
+/datum/component/gps/tracking/Initialize(_gpstag = "COM0", emp_proof = FALSE)
+	. = ..()
+	if(!emp_proof)
+		RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, .proc/on_emp_act)
+
+/datum/component/gps/tracking/proc/toggletracking()
+	tracking = !tracking
+
+/datum/component/gps/tracking/proc/reboot()
+	emped = FALSE
+
+/datum/component/gps/tracking/proc/on_emp_act(datum/source, severity)
+	SIGNAL_HANDLER
+	emped = TRUE
+	addtimer(CALLBACK(src, .proc/reboot), 300, TIMER_UNIQUE|TIMER_OVERRIDE)
