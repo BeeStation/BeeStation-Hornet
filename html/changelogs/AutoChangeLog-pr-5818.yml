@@ -1,0 +1,5 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - bugfix: 'Random Room #032 will no longer cause a runtime during mapload by initializing
+      a decal inside a crate.'
