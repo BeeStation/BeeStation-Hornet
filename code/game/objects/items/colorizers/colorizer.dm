@@ -30,4 +30,4 @@
         to_chat(user, "<span class='notice'>Color applied!</span>")
         qdel(src)
     else
-        to_chat(user, "<span class='warning'>This colorizer is not compatible with that item!")
+        to_chat(user, "<span class='warning'>This colorizer is not compatible with that item!</span>")
