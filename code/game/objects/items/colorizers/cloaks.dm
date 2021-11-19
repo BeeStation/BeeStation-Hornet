@@ -9,7 +9,7 @@
     allowed_items = list(/obj/item/clothing/neck/cloak/rd)
     apply_icon_state = "royalrdcloak"
 
-/obj/item/colorizer/rdcloakroyal
+/obj/item/colorizer/hoscloakroyal
     name = "Head of Security's Cloak Colorizer (Royal)"
     allowed_items = list(/obj/item/clothing/neck/cloak/hos)
     apply_icon_state = "royalhoscloak"
