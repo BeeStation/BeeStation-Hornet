@@ -27,7 +27,7 @@
             applyto.righthand_file = apply_righthand_file
         if(apply_lefthand_file)
             applyto.righthand_file = apply_lefthand_file
-        to_chat(user, "<span class='notice'>Color applied!")
+        to_chat(user, "<span class='notice'>Color applied!</span>")
         qdel(src)
     else
         to_chat(user, "<span class='warning'>This colorizer is not compatible with that item!")
