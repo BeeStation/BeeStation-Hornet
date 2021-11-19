@@ -281,6 +281,7 @@
 		return
 	if(!try_use_flash())
 		return
+	bulb.charges_left = 0
 	AOE_flash()
 	burn_out()
 
