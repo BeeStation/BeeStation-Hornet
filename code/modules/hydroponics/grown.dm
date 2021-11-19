@@ -117,10 +117,17 @@
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target)
-	reagents.reaction(T)
-	for(var/A in T)
-		reagents.reaction(A)
-	qdel(src)
+	//MonkeStation Edit Start
+	//Re-adds Separated Chemicals and all that it needs
+	if(!seed.get_gene(/datum/plant_gene/trait/noreact))
+		reagents.reaction(T)
+		for(var/A in T)
+			reagents.reaction(A)
+		qdel(src)
+	if(seed.get_gene(/datum/plant_gene/trait/noreact))
+		visible_message("<span class='warning'>[src] crumples, and bubbles ominously as its contents mix.</span>")
+		addtimer(CALLBACK(src, .proc/squashreact), 20)
+	//MonkeStation Edit End
 
 /obj/item/reagent_containers/food/snacks/grown/proc/squashreact()
 	for(var/datum/plant_gene/trait/trait in seed.genes)
