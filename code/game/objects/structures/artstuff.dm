@@ -194,7 +194,7 @@
 			painting_name = new_name
 			SStgui.update_uis(src)
 		else
-			to_chat(user, "<span class='warning'>That name is prohibited under the IC Filter!")
+			to_chat(user, "<span class='warning'>That name is prohibited by the Nanotrasen Ministry of Truth!")
 
 /obj/item/canvas/nineteen_nineteen
 	icon_state = "19x19"
