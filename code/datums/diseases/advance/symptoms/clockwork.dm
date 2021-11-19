@@ -158,7 +158,7 @@
 					return TRUE
 	if(replacebody)
 		for(var/obj/item/bodypart/O in H.bodyparts)
-			if(!O.is_organic_limb())
+			if(!IS_ORGANIC_LIMB(O))
 				if(robustbits && O.brute_reduction < 3 || O.burn_reduction < 2)
 					O.burn_reduction = max(2, O.burn_reduction)
 					O.brute_reduction = max(3, O.brute_reduction)

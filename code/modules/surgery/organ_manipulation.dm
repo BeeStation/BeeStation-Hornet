@@ -100,7 +100,7 @@
 			var/obj/item/bodypart/affected = target.get_bodypart(check_zone(I.zone))
 			if(!affected)
 				return -1
-			if(affected.is_organic_limb())
+			if(IS_ORGANIC_LIMB(affected))
 				to_chat(user, "<span class='notice'>You can't put [I] into a meat enclosure!</span>")
 				return -1
 			if(!isipc(target))

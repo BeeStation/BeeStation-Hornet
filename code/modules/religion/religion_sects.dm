@@ -158,7 +158,7 @@
 
 	//if we're not targetting a robot part we stop early
 	var/obj/item/bodypart/BP = H.get_bodypart(user.zone_selected)
-	if(BP.is_organic_limb())
+	if(IS_ORGANIC_LIMB(BP))
 		if(!did_we_charge)
 			to_chat(user, "<span class='warning'>[GLOB.deity] scoffs at the idea of healing such fleshy matter!</span>")
 		else

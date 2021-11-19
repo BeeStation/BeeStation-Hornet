@@ -467,7 +467,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/dynamic_fhair_suffix = ""
 
 	//for augmented heads
-	if(!HD.is_organic_limb())
+	if(!IS_ORGANIC_LIMB(HD))
 		return
 
 	//we check if our hat or helmet hides our facial hair.
@@ -973,7 +973,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || O.is_organic_limb()))
+			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name]!</span>")
 				return FALSE
@@ -1018,7 +1018,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				return FALSE
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_CHEST)
-			if(!H.w_uniform && !nojumpsuit && (!O || O.is_organic_limb()))
+			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name]!</span>")
 				return FALSE
@@ -1033,7 +1033,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_L_LEG)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || O.is_organic_limb()))
+			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name]!</span>")
 				return FALSE
@@ -1047,7 +1047,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_R_LEG)
 
-			if(!H.w_uniform && !nojumpsuit && (!O || O.is_organic_limb()))
+			if(!H.w_uniform && !nojumpsuit && (!O || IS_ORGANIC_LIMB(O)))
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [I.name]!</span>")
 				return FALSE
@@ -1662,7 +1662,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	var/bloody = 0
 	if((I.damtype == BRUTE) && (I.force >= max(10, armor_block) || I.is_sharp()))
-		if(affecting.is_organic_limb())
+		if(IS_ORGANIC_LIMB(affecting))
 			I.add_mob_blood(H)	//Make the weapon bloody, not the person.
 			if(prob(I.force * 2))	//blood spatter!
 				bloody = 1

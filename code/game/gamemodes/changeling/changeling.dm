@@ -106,7 +106,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 
 	///Bodypart data hack. Will rewrite when I rewrite changelings soon-ish
 	for(var/obj/item/bodypart/BP as() in user.bodyparts)
-		if(BP.is_organic_limb())
+		if(IS_ORGANIC_LIMB(BP))
 			BP.update_limb(is_creating = TRUE)
 
 	user.domutcheck()

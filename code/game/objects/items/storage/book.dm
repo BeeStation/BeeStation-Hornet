@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 
 	for(var/X in H.bodyparts)
 		var/obj/item/bodypart/BP = X
-		if(!BP.is_organic_limb())
+		if(!IS_ORGANIC_LIMB(BP))
 			to_chat(user, "<span class='warning'>[src.deity_name] refuses to heal this metallic taint!</span>")
 			return 0
 

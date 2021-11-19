@@ -128,7 +128,7 @@
 
 /obj/item/bodypart/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
-	if(is_organic_limb())
+	if(IS_ORGANIC_LIMB(src))
 		playsound(get_turf(src), 'sound/misc/splort.ogg', 50, 1, -1)
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3)
@@ -136,7 +136,7 @@
 //empties the bodypart from its organs and other things inside it
 /obj/item/bodypart/proc/drop_organs(mob/user, violent_removal)
 	var/turf/T = get_turf(src)
-	if(is_organic_limb())
+	if(IS_ORGANIC_LIMB(src))
 		playsound(T, 'sound/misc/splort.ogg', 50, 1, -1)
 	for(var/obj/item/I in src)
 		I.forceMove(T)
@@ -292,7 +292,7 @@
 		burnstate = 0
 
 	if(change_icon_to_default)
-		if(is_organic_limb())
+		if(IS_ORGANIC_LIMB(src))
 			icon = DEFAULT_BODYPART_ICON_ORGANIC
 		else
 			icon = DEFAULT_BODYPART_ICON_ROBOTIC
@@ -318,7 +318,7 @@
 		C = owner
 		no_update = FALSE
 
-	if(HAS_TRAIT(C, TRAIT_HUSK) && is_organic_limb())
+	if(HAS_TRAIT(C, TRAIT_HUSK) && IS_ORGANIC_LIMB(src))
 		dmg_overlay_type = "" //no damage overlay shown when husked
 		is_husked = TRUE
 	else
@@ -378,7 +378,7 @@
 	else if(animal_origin == MONKEY_BODYPART) //currently monkeys are the only non human mob to have damage overlays.
 		dmg_overlay_type = animal_origin
 
-	if(!is_organic_limb())
+	if(!IS_ORGANIC_LIMB(src))
 		dmg_overlay_type = "robotic"
 
 	if(dropping_limb)
@@ -418,7 +418,7 @@
 
 
 	if(animal_origin) //Cringe ass animal-specific code.
-		if(is_organic_limb())
+		if(IS_ORGANIC_LIMB(src))
 			limb.icon = 'icons/mob/animal_parts.dmi'
 			if(is_husked)
 				limb.icon_state = "[animal_origin]_husk_[body_zone]"

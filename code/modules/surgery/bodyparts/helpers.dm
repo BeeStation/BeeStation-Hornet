@@ -1,4 +1,3 @@
-
 /mob/living/proc/get_bodypart(zone)
 	return
 
@@ -273,7 +272,3 @@
 			. = "ffc905"
 		if("pink")
 			. = "D7377D"
-
-/obj/item/bodypart/proc/is_organic_limb()
-	if(bodytype & BODYTYPE_ORGANIC)
-		return TRUE

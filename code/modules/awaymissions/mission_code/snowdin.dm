@@ -212,9 +212,9 @@
 
 					for(var/BP in PP.bodyparts)
 						var/obj/item/bodypart/NN = BP
-						if(NN.is_organic_limb() && NN.limb_id != "plasmaman") //getting every organic, non-plasmaman limb (augments/androids are immune to this)
+						if(IS_ORGANIC_LIMB(NN) && NN.limb_id != "plasmaman") //getting every organic, non-plasmaman limb (augments/androids are immune to this)
 							plasma_parts += NN
-						if(!NN.is_organic_limb())
+						if(!IS_ORGANIC_LIMB(NN))
 							robo_parts += NN
 
 					if(prob(35)) //checking if the delay is over & if the victim actually has any parts to nom
