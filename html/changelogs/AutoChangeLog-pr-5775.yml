@@ -1,5 +1,0 @@
-author: MCterra10
-delete-after: true
-changes:
-  - server: fixes runtime due to legacy topic requests, adds fallback for spacestation13.com
-      player counts
