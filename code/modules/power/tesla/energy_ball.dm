@@ -223,7 +223,9 @@
 				closest_dist = dist
 				priority = 1
 				continue
-		else if(priority >=2 && istype(A, /obj/machinery/power/grounding_rod))
+		else if(priority == 1) //i hate to do it like that but my original plan to handle this didn't work so back we go to additional else if
+			continue
+		else if(istype(A, /obj/machinery/power/grounding_rod))
 			var/obj/o = A
 			var/dist = get_dist(source, A)
 			if(dist <= zap_range && (priority >= 2) && (dist < closest_dist || !(priority == 2)) && !(o.obj_flags & BEING_SHOCKED))
@@ -231,9 +233,9 @@
 				closest_dist = dist
 				priority = 2
 				continue
-			else
-				continue
-		else if(priority >= 3 && isliving(A))
+		else if(priority <= 2)
+			continue
+		else if(isliving(A))
 			var/mob/living/L = A
 			var/dist = get_dist(source, A)
 			if(dist <= zap_range && (priority >= 3) && (dist < closest_dist || !(priority == 3)) && L.stat != DEAD && !(L.flags_1 & TESLA_IGNORE_1))
@@ -241,9 +243,9 @@
 				closest_dist = dist
 				priority = 3
 				continue
-			else
-				continue
-		else if(priority >= 4 && istype(A, /obj/machinery))
+		else if(priority <= 3)
+			continue
+		else if(istype(A, /obj/machinery))
 			var/obj/o = A
 			var/dist = get_dist(source, A)
 			if(dist <= zap_range && (priority >= 4) && (dist < closest_dist || !(priority == 4)) && !(o.obj_flags & BEING_SHOCKED))
@@ -251,9 +253,9 @@
 				closest_dist = dist
 				priority = 4
 				continue
-			else
-				continue
-		else if(priority >= 5 && istype(A, /obj/structure/blob))
+		else if(priority <= 4)
+			continue
+		else if(istype(A, /obj/structure/blob))
 			var/obj/o = A
 			var/dist = get_dist(source, A)
 			if(dist <= zap_range && (priority >= 5) && (dist < closest_dist || !(priority == 5)) && !(o.obj_flags & BEING_SHOCKED))
@@ -261,8 +263,8 @@
 				closest_dist = dist
 				priority = 5
 				continue
-			else
-				continue
+		else if(priority <= 5)
+			continue
 		else if(istype(A, /obj/structure))
 			var/obj/o = A
 			var/dist = get_dist(source, A)
@@ -270,6 +272,7 @@
 				closest_atom = A
 				closest_dist = dist
 				priority = 6
+
 	//Alright, we've done our loop, now lets see if was anything interesting in range
 	if(closest_atom)
 		//common stuff
