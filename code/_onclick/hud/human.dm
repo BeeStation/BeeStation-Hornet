@@ -95,11 +95,6 @@
 	using.icon = ui_style
 	static_inventory += using
 
-	action_intent = new /atom/movable/screen/act_intent/segmented
-	action_intent.icon_state = mymob.a_intent
-	action_intent.hud = src
-	static_inventory += action_intent
-
 	using = new /atom/movable/screen/mov_intent
 	using.icon = ui_style
 	using.icon_state = (mymob.m_intent == MOVE_INTENT_RUN ? "running" : "walking")
@@ -277,7 +272,6 @@
 	inv_box.name = "belt"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "belt"
-//	inv_box.icon_full = "template_small"
 	inv_box.screen_loc = ui_belt
 	inv_box.slot_id = ITEM_SLOT_BELT
 	inv_box.hud = src
@@ -306,6 +300,14 @@
 	healthdoll = new /atom/movable/screen/healthdoll()
 	healthdoll.hud = src
 	infodisplay += healthdoll
+
+	action_intent = new /atom/movable/screen/act_intent()
+	action_intent.icon = ui_style
+	action_intent.update_icon()
+	action_intent.icon_state = mymob.a_intent
+	action_intent.screen_loc = ui_acti
+	action_intent.hud = src
+	static_inventory += action_intent
 
 	pull_icon = new /atom/movable/screen/pull()
 	pull_icon.icon = ui_style
