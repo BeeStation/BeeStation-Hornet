@@ -15,7 +15,9 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 1
 	},
-/obj/effect/spawner/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/hollow/reinforced/end{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "ds" = (
@@ -40,6 +42,9 @@
 	},
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/turf_decal/bot,
+/obj/structure/cable/orange{
+	icon_state = "0-8"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "eA" = (
@@ -209,6 +214,12 @@
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 6
 	},
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
+/obj/structure/cable/orange{
+	icon_state = "0-4"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "su" = (
@@ -261,6 +272,9 @@
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 4
 	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Ai" = (
@@ -278,6 +292,9 @@
 /area/shuttle/exploration)
 "BT" = (
 /obj/machinery/atmospherics/pipe/manifold/purple/visible,
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Cf" = (
@@ -335,6 +352,9 @@
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
 	},
+/obj/structure/cable/orange{
+	icon_state = "4-8"
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Lx" = (
@@ -368,6 +388,15 @@
 /area/shuttle/exploration)
 "Rt" = (
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"SP" = (
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 1
+	},
+/obj/effect/spawner/structure/window/hollow/reinforced/end{
+	dir = 4
+	},
+/turf/open/floor/plating,
 /area/shuttle/exploration)
 "TJ" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
@@ -436,7 +465,7 @@ du
 nG
 ds
 IM
-bJ
+SP
 id
 "}
 (4,1,1) = {"
@@ -516,7 +545,7 @@ GJ
 nG
 gT
 dT
-bJ
+SP
 id
 "}
 (9,1,1) = {"
