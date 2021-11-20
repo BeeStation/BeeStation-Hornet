@@ -7,6 +7,7 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	resistance_flags = FLAMMABLE
 	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
+	var/discovery_points = 300 //Amount of discovery points given for scanning
 
 /obj/item/grown/Initialize(newloc, obj/item/seeds/new_seed)
 	. = ..()
