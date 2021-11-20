@@ -184,7 +184,7 @@
 	if(power < 1000)
 		return
 
-	var/closest_dist = zap_range+3
+	var/closest_dist = 0
 	var/atom/closest_atom
 	var/priority = 7 //Initial Value is always lowest priority + 1
 	var/static/things_to_shock = typecacheof(list(/obj/machinery, /mob/living, /obj/structure))
