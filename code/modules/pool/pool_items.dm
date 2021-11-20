@@ -6,18 +6,8 @@
 	damtype = STAMINA
 	w_class = WEIGHT_CLASS_BULKY
 	block_sound = 'sound/weapons/tap.ogg'
-	block_level = 1
-	block_upgrade_walk = 1
-	block_power = 0
-	block_flags = BLOCKING_ACTIVE
 	attack_verb = list("wacked")
 
-/obj/item/pool/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
-	var/atom/throw_target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
-	if(damage)
-		throw_at(throw_target, 5, 1)
-		to_chat(owner, "<span class='userdanger'>The [src] is flung away by [attack_text]!</span>")
-	return ..()
 
 /obj/item/pool/Initialize()
 	. = ..()

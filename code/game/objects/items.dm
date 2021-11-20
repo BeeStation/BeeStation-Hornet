@@ -593,20 +593,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	owner.apply_damage(attackforce, STAMINA, blockhand, block_power)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
 		owner.blockbreak()
-	if(attackforce)//right here is essentially the same code used for animating a melee attack, but it's inverted and slightly smaller a difference
-		var/pixel_x_diff = 0 
-		var/pixel_y_diff = 0
-		var/direction = get_dir(owner, hitby)
-		if(direction & NORTH)
-			pixel_y_diff = -6
-		else if(direction & SOUTH)
-			pixel_y_diff = 6
-		if(direction & EAST)
-			pixel_x_diff = -6
-		else if(direction & WEST)
-			pixel_x_diff = 6
-		animate(owner, pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, time = 2)
-		animate(owner, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
+	if(attackforce)
 		owner.changeNext_move(CLICK_CD_MELEE) 
 	return TRUE
 
