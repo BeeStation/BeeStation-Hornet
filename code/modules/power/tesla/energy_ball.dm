@@ -281,17 +281,16 @@
 			. = zapdir
 
 	//per type stuff:
-		switch(priority) //we already known what it is so lets use that here
-			if(3)
-				var/mob/living/m = closest_atom
-				var/shock_damage = (tesla_flags & TESLA_MOB_DAMAGE)? (min(round(power/600), 90) + rand(-5, 5)) : 0
-				m.electrocute_act(shock_damage, source, 1, tesla_shock = 1, stun = (tesla_flags & TESLA_MOB_STUN))
-				if(issilicon(m))
-					if((tesla_flags & TESLA_MOB_STUN) && (tesla_flags & TESLA_MOB_DAMAGE))
-						m.emp_act(EMP_LIGHT)
-					tesla_zap(m, 7, power / 1.5, tesla_flags, shocked_targets) // metallic folks bounce it further
-				else
-					tesla_zap(m, 5, power / 1.5, tesla_flags, shocked_targets)
+		if(priority == 3)
+			var/mob/living/m = closest_atom
+			var/shock_damage = (tesla_flags & TESLA_MOB_DAMAGE)? (min(round(power/600), 90) + rand(-5, 5)) : 0
+			m.electrocute_act(shock_damage, source, 1, tesla_shock = 1, stun = (tesla_flags & TESLA_MOB_STUN))
+			if(issilicon(m))
+				if((tesla_flags & TESLA_MOB_STUN) && (tesla_flags & TESLA_MOB_DAMAGE))
+					m.emp_act(EMP_LIGHT)
+				tesla_zap(m, 7, power / 1.5, tesla_flags, shocked_targets) // metallic folks bounce it further
 			else
-				closest_atom.tesla_act(power, tesla_flags, shocked_targets)
+				tesla_zap(m, 5, power / 1.5, tesla_flags, shocked_targets)
+		else
+			closest_atom.tesla_act(power, tesla_flags, shocked_targets)
 #undef TESLA_MAX_BALLS
