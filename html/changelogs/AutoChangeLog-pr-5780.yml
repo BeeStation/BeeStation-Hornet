@@ -1,5 +1,0 @@
-author: ImSynthex
-delete-after: true
-changes:
-  - rscadd: You can now sort Mentor PMs in tgchat
-  - bugfix: Fixed tgchat sorting for radio channels
