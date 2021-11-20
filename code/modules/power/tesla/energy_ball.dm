@@ -295,5 +295,6 @@
 			else
 				tesla_zap(m, 5, power / 1.5, tesla_flags, shocked_targets)
 		else
-			closest_atom.tesla_act(power, tesla_flags, shocked_targets)
+			var/obj/o = closest_atom
+			o.tesla_act(power, tesla_flags, shocked_targets)
 #undef TESLA_MAX_BALLS
