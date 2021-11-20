@@ -180,13 +180,13 @@
 		qdel(src)
 
 /proc/tesla_zap(atom/source, zap_range = 3, power, tesla_flags = TESLA_DEFAULT_FLAGS, list/shocked_targets)
-	var/priority = 6 //priority value for what gets zapped starts at the highest number aka lowest priority
 	. = source.dir
 	if(power < 1000)
 		return
 
 	var/closest_dist = zap_range+3
 	var/atom/closest_atom
+	var/priority = 7 //Initial Value is always max priority + 1
 	var/static/things_to_shock = typecacheof(list(/obj/machinery, /mob/living, /obj/structure))
 	var/static/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
 										/obj/machinery/power/emitter,
@@ -215,38 +215,61 @@
 		//typecache_filter_multi_list_exclusion has been inlined to minimize lag.
 		if(!things_to_shock[A.type] || blacklisted_tesla_types[A.type] || (!(tesla_flags & TESLA_ALLOW_DUPLICATES) && LAZYACCESS(shocked_targets, A)))
 			continue
-		switch("[jointext(splittext("[A.type]","/"),"/",1,4)]-[priority]") //takes the typpath and cuts it down to the parent so machine, living, structure and merges it with priority inside the switch
-			if("/obj/machinery-1","/obj/machinery-2","/obj/machinery-4","/obj/machinery-3","/obj/machinery-5","/obj/machinery-6")
-				var/obj/o = A
-				var/dist = get_dist(source, A)
-				if(dist <= zap_range && (dist < closest_dist) && !(o.obj_flags & BEING_SHOCKED))
-					closest_atom = A
-					closest_dist = dist
-					switch(A.type) //sadly needs to be done because of the special treatment for those particular objects
-						if("/obj/machinery/power/tesla_coil")
-							priority = 1
-						if("/obj/machinery/power/grounding_rod")
-							priority = 2
-						else
-							priority = 4
-			if("/mob/living-3","/mob/living-4","/mob/living-5","/mob/living-6")
-				var/mob/living/L = A
-				var/dist = get_dist(source, A)
-				if(dist <= zap_range && (dist < closest_dist) && L.stat != DEAD && !(L.flags_1 & TESLA_IGNORE_1))
-					closest_atom = A
-					closest_dist = dist
-					priority = 3
-			if("/obj/structure-5","/obj/structure-6")
-				var/obj/o = A
-				var/dist = get_dist(source, A)
-				if(dist <= zap_range && (dist < closest_dist) && !(o.obj_flags & BEING_SHOCKED))
-					closest_atom = A
-					closest_dist = dist
-					if(istype(A, /obj/structure/blob)) //same problem as above in the machine switch
-						priority = 5
-					else
-						priority = 6
-
+		if(istype(A, /obj/machinery/power/tesla_coil))
+			var/obj/o = A
+			var/dist = get_dist(source, A)
+			if(dist <= zap_range && (dist < closest_dist || !(priority == 1)) && !(o.obj_flags & BEING_SHOCKED))
+				closest_atom = A
+				closest_dist = dist
+				priority = 1
+				continue
+		else if(priority >=2 && istype(A, /obj/machinery/power/grounding_rod))
+			var/obj/o = A
+			var/dist = get_dist(source, A)
+			if(dist <= zap_range && (priority >= 2) && (dist < closest_dist || !(priority == 2)) && !(o.obj_flags & BEING_SHOCKED))
+				closest_atom = A
+				closest_dist = dist
+				priority = 2
+				continue
+			else
+				continue
+		else if(priority >= 3 && isliving(A))
+			var/mob/living/L = A
+			var/dist = get_dist(source, A)
+			if(dist <= zap_range && (priority >= 3) && (dist < closest_dist || !(priority == 3)) && L.stat != DEAD && !(L.flags_1 & TESLA_IGNORE_1))
+				closest_atom = A
+				closest_dist = dist
+				priority = 3
+				continue
+			else
+				continue
+		else if(priority >= 4 && istype(A, /obj/machinery))
+			var/obj/o = A
+			var/dist = get_dist(source, A)
+			if(dist <= zap_range && (priority >= 4) && (dist < closest_dist || !(priority == 4)) && !(o.obj_flags & BEING_SHOCKED))
+				closest_atom = A
+				closest_dist = dist
+				priority = 4
+				continue
+			else
+				continue
+		else if(priority >= 5 && istype(A, /obj/structure/blob))
+			var/obj/o = A
+			var/dist = get_dist(source, A)
+			if(dist <= zap_range && (priority >= 5) && (dist < closest_dist || !(priority == 5)) && !(o.obj_flags & BEING_SHOCKED))
+				closest_atom = A
+				closest_dist = dist
+				priority = 5
+				continue
+			else
+				continue
+		else if(istype(A, /obj/structure))
+			var/obj/o = A
+			var/dist = get_dist(source, A)
+			if(dist <= zap_range && (priority >= 6) && (dist < closest_dist || !(priority == 6)) && !(o.obj_flags & BEING_SHOCKED))
+				closest_atom = A
+				closest_dist = dist
+				priority = 6
 	//Alright, we've done our loop, now lets see if was anything interesting in range
 	if(closest_atom)
 		//common stuff
@@ -258,16 +281,17 @@
 			. = zapdir
 
 	//per type stuff:
-		if(isliving(closest_atom))
-			var/mob/living/m = closest_atom
-			var/shock_damage = (tesla_flags & TESLA_MOB_DAMAGE)? (min(round(power/600), 90) + rand(-5, 5)) : 0
-			m.electrocute_act(shock_damage, source, 1, tesla_shock = 1, stun = (tesla_flags & TESLA_MOB_STUN))
-			if(issilicon(m))
-				if((tesla_flags & TESLA_MOB_STUN) && (tesla_flags & TESLA_MOB_DAMAGE))
-					m.emp_act(EMP_LIGHT)
-				tesla_zap(m, 7, power / 1.5, tesla_flags, shocked_targets) // metallic folks bounce it further
+		switch(priority) //we already known what it is so lets use that here
+			if(3)
+				var/mob/living/m = closest_atom
+				var/shock_damage = (tesla_flags & TESLA_MOB_DAMAGE)? (min(round(power/600), 90) + rand(-5, 5)) : 0
+				m.electrocute_act(shock_damage, source, 1, tesla_shock = 1, stun = (tesla_flags & TESLA_MOB_STUN))
+				if(issilicon(m))
+					if((tesla_flags & TESLA_MOB_STUN) && (tesla_flags & TESLA_MOB_DAMAGE))
+						m.emp_act(EMP_LIGHT)
+					tesla_zap(m, 7, power / 1.5, tesla_flags, shocked_targets) // metallic folks bounce it further
+				else
+					tesla_zap(m, 5, power / 1.5, tesla_flags, shocked_targets)
 			else
-				tesla_zap(m, 5, power / 1.5, tesla_flags, shocked_targets)
-		else
-			closest_atom.tesla_act(power, tesla_flags, shocked_targets)
+				closest_atom.tesla_act(power, tesla_flags, shocked_targets)
 #undef TESLA_MAX_BALLS
