@@ -50,3 +50,7 @@
 	filling_color = "#FFD700"
 	distill_reagent = null
 	wine_power = 50
+
+/obj/item/reagent_containers/food/snacks/grown/apple/gold/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)

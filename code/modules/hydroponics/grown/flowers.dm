@@ -47,6 +47,10 @@
 	icon_state = "lily"
 	filling_color = "#fff8ea"
 
+/obj/item/reagent_containers/food/snacks/grown/poppy/lily/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
+
 //Spacemans's Trumpet
 /obj/item/seeds/poppy/lily/trumpet
 	name = "pack of spaceman's trumpet seeds"
@@ -86,6 +90,10 @@
 	bitesize_mod = 3
 	foodtype = VEGETABLES
 
+/obj/item/reagent_containers/food/snacks/grown/trumpet/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
+
 // Geranium
 /obj/item/seeds/poppy/geranium
 	name = "pack of geranium seeds"
@@ -104,6 +112,10 @@
 	desc = "A cluster of small purple geranium flowers. They symbolize happiness, good health, wishes and friendship and are generally associated with positive emotions."
 	icon_state = "geranium"
 	filling_color = "#9325ee"
+
+/obj/item/reagent_containers/food/snacks/grown/poppy/geranium/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
 
 //Forget-Me-Not
 /obj/item/seeds/poppy/geranium/forgetmenot
@@ -129,6 +141,10 @@
 	icon_state = "forget_me_not"
 	filling_color = "#4466ff"
 	bitesize_mod = 2
+
+/obj/item/reagent_containers/food/snacks/grown/poppy/geranium/forgetmenot/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
 
 // Harebell
 /obj/item/seeds/harebell
@@ -223,6 +239,10 @@
 	bitesize_mod = 2
 	distill_reagent = /datum/reagent/consumable/ethanol/absinthe //It's made from flowers.
 
+/obj/item/reagent_containers/food/snacks/grown/moonflower/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
+
 // Novaflower
 /obj/item/seeds/sunflower/novaflower
 	name = "pack of novaflower seeds"
@@ -253,6 +273,10 @@
 	throw_range = 3
 	attack_verb = list("roasted", "scorched", "burned")
 	grind_results = list(/datum/reagent/consumable/capsaicin = 0, /datum/reagent/consumable/condensedcapsaicin = 0)
+
+/obj/item/grown/novaflower/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
 
 /obj/item/grown/novaflower/add_juice()
 	..()

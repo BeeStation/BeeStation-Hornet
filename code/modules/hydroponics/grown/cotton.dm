@@ -77,3 +77,7 @@
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 	cotton_type = /obj/item/stack/sheet/cotton/durathread
 	cotton_name = "raw durathread"
+
+/obj/item/grown/cotton/durathread/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)

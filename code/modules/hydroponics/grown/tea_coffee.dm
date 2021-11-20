@@ -45,6 +45,10 @@
 	filling_color = "#4582B4"
 	grind_results = list(/datum/reagent/toxin/teapowder = 0, /datum/reagent/medicine/salglu_solution = 0)
 
+/obj/item/reagent_containers/food/snacks/grown/tea/astra/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
+
 
 // Coffee
 /obj/item/seeds/coffee

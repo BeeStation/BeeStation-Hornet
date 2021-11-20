@@ -48,3 +48,7 @@
 	bitesize_mod = 2
 	foodtype = MEAT
 	distill_reagent = /datum/reagent/consumable/ethanol/eggnog
+
+/obj/item/reagent_containers/food/snacks/grown/shell/eggy/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)

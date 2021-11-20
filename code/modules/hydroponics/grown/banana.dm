@@ -82,6 +82,10 @@
 	filling_color = "#FFFFEE"
 	distill_reagent = /datum/reagent/consumable/ethanol/silencer
 
+/obj/item/reagent_containers/food/snacks/grown/banana/mime/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
+
 /obj/item/grown/bananapeel/mimanapeel
 	seed = /obj/item/seeds/banana/mime
 	name = "mimana peel"
@@ -113,6 +117,10 @@
 	tastes = list("banana" = 1)
 	wine_power = 60
 	wine_flavor = "slippery hypercubes"
+
+/obj/item/reagent_containers/food/snacks/grown/banana/bluespace/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
 
 /obj/item/grown/bananapeel/bluespace
 	seed = /obj/item/seeds/banana/bluespace

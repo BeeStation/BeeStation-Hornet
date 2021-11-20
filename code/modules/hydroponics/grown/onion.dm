@@ -46,6 +46,9 @@
 	filling_color = "#C29ACF"
 	slice_path = /obj/item/reagent_containers/food/snacks/onion_slice/red
 	wine_power = 60
+/obj/item/reagent_containers/food/snacks/grown/onion/red/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
 
 /obj/item/reagent_containers/food/snacks/grown/onion/slice(accuracy, obj/item/W, mob/user)
 	var/datum/effect_system/smoke_spread/chem/S = new	//Since the onion is destroyed when it's sliced,

@@ -61,6 +61,10 @@
 	filling_color = "#3399ff"
 	stacktype = /obj/item/stack/tile/fairygrass
 
+/obj/item/reagent_containers/food/snacks/grown/grass/fairy/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
+
 /obj/item/reagent_containers/food/snacks/grown/grass/fairy/attack_self(mob/user)
 	var/datum/plant_gene/trait/glow/G = null
 	for(var/datum/plant_gene/trait/glow/gene in seed.genes)
@@ -108,3 +112,7 @@
 	icon_state = "carpetclump"
 	stacktype = /obj/item/stack/tile/carpet
 	can_distill = FALSE
+
+/obj/item/reagent_containers/food/snacks/grown/grass/carpet/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)

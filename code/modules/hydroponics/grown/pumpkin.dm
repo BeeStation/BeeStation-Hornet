@@ -58,3 +58,7 @@
 	foodtype = FRUIT
 	juice_results = list(/datum/reagent/consumable/blumpkinjuice = 0)
 	wine_power = 50
+
+/obj/item/reagent_containers/food/snacks/grown/blumpkin/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)

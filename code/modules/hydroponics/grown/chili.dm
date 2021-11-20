@@ -53,6 +53,10 @@
 	foodtype = FRUIT
 	wine_power = 30
 
+/obj/item/reagent_containers/food/snacks/grown/icepepper/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
+
 // Ghost Chili
 /obj/item/seeds/chili/ghost
 	name = "pack of ghost chili seeds"
@@ -79,6 +83,10 @@
 	bitesize_mod = 4
 	foodtype = FRUIT
 	wine_power = 50
+
+/obj/item/reagent_containers/food/snacks/grown/ghost_chili/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
 
 /obj/item/reagent_containers/food/snacks/grown/ghost_chili/attack_hand(mob/user)
 	. = ..()

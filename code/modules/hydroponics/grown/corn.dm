@@ -70,6 +70,10 @@
 	throw_range = 7
 	var/snap_pops = 1
 
+/obj/item/grown/snapcorn/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
+
 /obj/item/grown/snapcorn/add_juice()
 	..()
 	snap_pops = max(round(seed.potency/8), 1)

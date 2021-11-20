@@ -50,6 +50,10 @@
 	grind_results = list(/datum/reagent/consumable/ketchup = 0, /datum/reagent/blood = 0)
 	distill_reagent = /datum/reagent/consumable/ethanol/bloody_mary
 
+/obj/item/reagent_containers/food/snacks/grown/tomato/blood/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
+
 /obj/item/reagent_containers/food/snacks/grown/tomato/blood/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(istype(thrower) && thrower.ckey)
 		thrower.investigate_log("has thrown bloodtomatoes at [AREACOORD(thrower)].", INVESTIGATE_BOTANY)
@@ -79,6 +83,10 @@
 	filling_color = "#0000FF"
 	distill_reagent = /datum/reagent/consumable/laughter
 
+/obj/item/reagent_containers/food/snacks/grown/tomato/blue/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
+
 // Bluespace Tomato
 /obj/item/seeds/tomato/blue/bluespace
 	name = "pack of bluespace tomato seeds"
@@ -100,6 +108,10 @@
 	icon_state = "bluespacetomato"
 	distill_reagent = null
 	wine_power = 80
+
+/obj/item/reagent_containers/food/snacks/grown/tomato/bluespace/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
 
 // Killer Tomato
 /obj/item/seeds/tomato/killer

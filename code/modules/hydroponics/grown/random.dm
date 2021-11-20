@@ -30,6 +30,8 @@
 
 /obj/item/reagent_containers/food/snacks/grown/random/Initialize()
 	. = ..()
+	AddComponent(/datum/component/discoverable, discovery_points)
+
 	wine_power = rand(10,150)
 	if(prob(1))
 		wine_power = 200
