@@ -36,7 +36,6 @@
 	desc = "It's better than bad, it's good!"
 	icon_state = "logs"
 	force = 5
-	block_upgrade_walk = 1
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 2

@@ -307,6 +307,22 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			. += "[src] is made of cold-resistant materials."
 		if(resistance_flags & FIRE_PROOF)
 			. += "[src] is made of fire-retardant materials."
+	if(block_level || block_upgrade_walk)
+		. += "[src] has blocking capabilities. It blocks in a [45 * ((block_level * 2) - 1)] degree arc, or a [45 * ((block_level + block_upgrade_walk * 2) - 1)] degree arc while walking"
+		switch(block_power)
+			if(-INFINITY to -1)
+				. += "[src] is weighted extremely poorly for blocking"
+			if(0 to 10)
+				. += "[src] is average at blocking"
+			if(10 to 30)
+				. += "[src] is well-weighted for blocking"
+			if(31 to 50)
+				. += "[src] is extremely well-weighted for blocking"
+			if(51 to INFINITY)
+				. += "[src] is as well weighted as possible for blocking"
+	if(force)
+		. += "Force: [force_string]"
+
 
 	if(!user.research_scanner)
 		return
@@ -474,7 +490,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/obj/item/bodypart/blockhand = null
 	if(owner.stat) //can't block if you're dead
 		return 0
-	if(HAS_TRAIT(owner, TRAIT_NOBLOCK) && istype(src, /obj/item/shield)) //shields can always block, because they break instead of using stamina damage
+	if(HAS_TRAIT(owner, TRAIT_NOBLOCK) && !istype(src, /obj/item/shield)) //shields can always block, because they break instead of using stamina damage
 		return 0
 	if(owner.get_active_held_item() == src) //copypaste of this code for an edgecase-nodrops
 		if(owner.active_hand_index == 1)
@@ -577,6 +593,21 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	owner.apply_damage(attackforce, STAMINA, blockhand, block_power)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
 		owner.blockbreak()
+	if(attackforce)//right here is essentially the same code used for animating a melee attack, but it's inverted and slightly smaller a difference
+		var/pixel_x_diff = 0 
+		var/pixel_y_diff = 0
+		var/direction = get_dir(owner, hitby)
+		if(direction & NORTH)
+			pixel_y_diff = -6
+		else if(direction & SOUTH)
+			pixel_y_diff = 6
+		if(direction & EAST)
+			pixel_x_diff = -6
+		else if(direction & WEST)
+			pixel_x_diff = 6
+		animate(owner, pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, time = 2)
+		animate(owner, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
+		owner.changeNext_move(CLICK_CD_MELEE) 
 	return TRUE
 
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language, list/message_mods)

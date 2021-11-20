@@ -247,6 +247,13 @@
 	block_upgrade_walk = 1
 	block_power = -200
 
+/obj/item/toy/sword/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	var/atom/throw_target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
+	if(damage)
+		throw_at(throw_target, 5, 1)
+		to_chat(owner, "<span class='userdanger'>The [src] is flung away by [attack_text]!</span>")
+	return ..()
+
 /obj/item/toy/sword/attack_self(mob/user)
 	active = !( active )
 	if (active)
@@ -312,6 +319,12 @@
 	block_upgrade_walk = 1
 	block_power = -200
 
+/obj/item/toy/foamblade/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	var/atom/throw_target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
+	if(damage)
+		throw_at(throw_target, 5, 1)
+		to_chat(owner, "<span class='userdanger'>The [src] is flung away by [attack_text]!</span>")
+	return ..()
 
 /obj/item/toy/windupToolbox
 	name = "windup toolbox"
@@ -373,6 +386,13 @@
 	block_upgrade_walk = 1
 	block_power = -100
 
+/obj/item/dualsaber/toy/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	var/atom/throw_target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
+	if(damage)
+		throw_at(throw_target, 5, 1)
+		to_chat(owner, "<span class='userdanger'>The [src] is flung away by [attack_text]!</span>")
+	return ..()
+
 /obj/item/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
@@ -402,6 +422,13 @@
 	block_level = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE
 	block_power = -500 //not to be used on anything more effective than nerf darts
+
+/obj/item/toy/katana/on_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
+	var/atom/throw_target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
+	if(damage > 5)// a toy katana can block other toy katanas, that's about it.
+		throw_at(throw_target, 5, 1)
+		to_chat(owner, "<span class='userdanger'>The [src] is flung away by [attack_text]!</span>")
+	return ..()
 
 /*
  * Snap pops
