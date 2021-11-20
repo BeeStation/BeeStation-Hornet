@@ -52,6 +52,8 @@ endmap
 #Event Maps, not intended for normal gameplay
 
 map payday
+minplayers 69
+maxplayers 420
 endmap
 
 #Debug Maps, you probably don't want these enabled.
