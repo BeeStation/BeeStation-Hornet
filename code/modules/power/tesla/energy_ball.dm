@@ -186,7 +186,7 @@
 
 	var/closest_dist = zap_range+3
 	var/atom/closest_atom
-	var/priority = 7 //Initial Value is always min priority + 1
+	var/priority = 7 //Initial Value is always lowest priority + 1
 	var/static/things_to_shock = typecacheof(list(/obj/machinery, /mob/living, /obj/structure))
 	var/static/blacklisted_tesla_types = typecacheof(list(/obj/machinery/atmospherics,
 										/obj/machinery/power/emitter,
