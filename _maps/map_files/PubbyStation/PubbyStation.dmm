@@ -9471,6 +9471,7 @@
 "avY" = (
 /obj/structure/table/glass,
 /obj/item/aicard,
+/obj/item/paicard,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "avZ" = (
@@ -21795,6 +21796,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/item/paicard,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "aYi" = (
@@ -28377,6 +28379,7 @@
 	dir = 8;
 	pixel_x = 23
 	},
+/obj/item/paicard,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "bnT" = (
@@ -36713,6 +36716,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/item/paicard,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hor)
 "bEU" = (
@@ -61777,6 +61781,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
+"tbi" = (
+/obj/structure/table/wood/fancy,
+/obj/item/paicard,
+/turf/open/floor/carpet,
+/area/library)
 "tcY" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -64265,6 +64274,9 @@
 	},
 /turf/open/floor/engine,
 /area/science/explab)
+"xPw" = (
+/turf/open/space/basic,
+/area/bridge)
 "xQc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -81123,7 +81135,7 @@ cyZ
 ckH
 czl
 czr
-czr
+tbi
 czI
 ckH
 ckH
@@ -97704,7 +97716,7 @@ aaa
 aaa
 aaa
 ahi
-atY
+xPw
 fYG
 iwi
 vEe

@@ -5966,7 +5966,6 @@
 /area/vacant_room/office)
 "ane" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
 /turf/open/floor/plasteel/grimy,
 /area/vacant_room/office)
 "anf" = (
@@ -55043,7 +55042,6 @@
 /obj/structure/table/reinforced,
 /obj/item/wrench,
 /obj/item/crowbar,
-/obj/item/paicard,
 /obj/machinery/newscaster{
 	pixel_y = -32
 	},
@@ -80018,7 +80016,6 @@
 /area/bridge/showroom/corporate)
 "cGv" = (
 /obj/structure/table/wood,
-/obj/item/paicard,
 /turf/open/floor/plasteel/grimy,
 /area/bridge/showroom/corporate)
 "cGw" = (
@@ -87659,7 +87656,6 @@
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
-/obj/item/paicard,
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "cUW" = (

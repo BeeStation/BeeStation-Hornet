@@ -65922,6 +65922,7 @@
 /obj/item/assembly/flash/handheld/weak,
 /obj/item/assembly/flash/handheld/weak,
 /obj/item/assembly/flash/handheld/weak,
+/obj/item/paicard,
 /obj/machinery/status_display/ai{
 	pixel_x = 32
 	},

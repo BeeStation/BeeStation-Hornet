@@ -16596,6 +16596,7 @@
 	pixel_x = 1;
 	pixel_y = 9
 	},
+/obj/item/paicard,
 /turf/open/floor/wood,
 /area/library)
 "aVV" = (
@@ -17107,6 +17108,7 @@
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/obj/item/paicard,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "aXl" = (
@@ -18763,6 +18765,7 @@
 /obj/item/hand_labeler,
 /obj/item/assembly/timer,
 /obj/structure/table,
+/obj/item/paicard,
 /turf/open/floor/wood,
 /area/bridge/meeting_room)
 "bcZ" = (
@@ -20316,11 +20319,11 @@
 	pixel_y = 7
 	},
 /obj/item/pen,
+/obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "robotics";
 	name = "robotics lab shutters"
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/science/robotics/lab)
 "bhA" = (
@@ -20345,6 +20348,7 @@
 	name = "research lab shutters"
 	},
 /obj/machinery/door/firedoor,
+/obj/item/paicard,
 /turf/open/floor/plating,
 /area/science/lab)
 "bhE" = (
@@ -22474,6 +22478,7 @@
 /obj/item/radio/headset/headset_sci{
 	pixel_x = -3
 	},
+/obj/item/paicard,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "bow" = (
