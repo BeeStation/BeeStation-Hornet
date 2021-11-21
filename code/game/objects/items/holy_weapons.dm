@@ -375,7 +375,6 @@
 	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
 	tool_behaviour = TOOL_SAW
-	block_upgrade_walk = 0
 	toolspeed = 1.5 //slower than a real saw
 
 /obj/item/nullrod/claymore/glowing
@@ -579,7 +578,7 @@
 	tool_behaviour = TOOL_SAW
 	toolspeed = 2 //slower than a real saw
 	attack_weight = 2
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	block_upgrade_walk = 0
 
 
 /obj/item/nullrod/chainsaw/Initialize()
