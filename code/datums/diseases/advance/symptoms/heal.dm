@@ -456,10 +456,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						M.adjust_fire_stacks(-10)
 					location_return = null
 					cooldowntimer = 60
-				if(cooldowntimer > 0)
-					cooldowntimer --
-				else
-					location_return = null
+			if(cooldowntimer > 0)
+				cooldowntimer --
+			else
+				location_return = null
 		else
 			if(prob(7))
 				to_chat(M, "<span class='notice'>[pick("Your warm breath fizzles out of existence.", "You feel attracted to temperate climates", "You feel like you're forgetting something")]</span>")
