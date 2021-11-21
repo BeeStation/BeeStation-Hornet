@@ -129,7 +129,7 @@
 				if(S.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need at least two sheets to create a false wall!</span>")
 					return
-				balloon_alert(user, "You start building reinfored false wall")
+				balloon_alert(user, "You start building reinforced false wall")
 				if(do_after(user, 20, target = src))
 					if(S.get_amount() < 2)
 						return
@@ -284,20 +284,15 @@
 			qdel(src)
 		return TRUE
 
-/obj/structure/girder/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && (mover.pass_flags & PASSGRILLE))
+/obj/structure/girder/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
+	if((mover.pass_flags & PASSGRILLE) || istype(mover, /obj/item/projectile))
 		return prob(girderpasschance)
-	else
-		if(istype(mover, /obj/item/projectile))
-			return prob(girderpasschance)
-		else
-			return 0
 
-/obj/structure/girder/CanAStarPass(ID, dir, caller)
+/obj/structure/girder/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
 	. = !density
-	if(ismovableatom(caller))
-		var/atom/movable/mover = caller
-		. = . || (mover.pass_flags & PASSGRILLE)
+	if(istype(caller))
+		. = . || (caller.pass_flags & PASSGRILLE)
 
 /obj/structure/girder/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))

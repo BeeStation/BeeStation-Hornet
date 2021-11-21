@@ -2689,6 +2689,13 @@
 	contains = list(/obj/item/vending_refill/wardrobe/cargo_wardrobe)
 	crate_name = "cargo department supply crate"
 
+/datum/supply_pack/costumes_toys/wardrobes/clothesmate
+	name = "ClothesMate Wardrobe Supply Crate"
+	desc = "This crate contains a refill for the ClothesMate."
+	cost = 800 
+	contains = list(/obj/item/vending_refill/clothing)
+	crate_name = "clothesmate supply crate"
+
 /datum/supply_pack/costumes_toys/wardrobes/engineering
 	name = "Engineering Wardrobe Supply Crate"
 	desc = "This crate contains refills for the EngiDrobe and AtmosDrobe."
@@ -2755,16 +2762,37 @@
 	cost = 500
 	contains = list(/obj/structure/easel,
 					/obj/structure/easel,
-					/obj/item/canvas/nineteenXnineteen,
-					/obj/item/canvas/nineteenXnineteen,
-					/obj/item/canvas/twentythreeXnineteen,
-					/obj/item/canvas/twentythreeXnineteen,
-					/obj/item/canvas/twentythreeXtwentythree,
-					/obj/item/canvas/twentythreeXtwentythree,
+					/obj/item/canvas/nineteen_nineteen,
+					/obj/item/canvas/nineteen_nineteen,
+					/obj/item/canvas/twentythree_nineteen,
+					/obj/item/canvas/twentythree_nineteen,
+					/obj/item/canvas/twentythree_twentythree,
+					/obj/item/canvas/twentythree_twentythree,
 					/obj/item/toy/crayon/rainbow,
 					/obj/item/toy/crayon/rainbow)
 	crate_name = "art supply crate"
 	crate_type = /obj/structure/closet/crate/wooden
+
+/datum/supply_pack/misc/aquarium_kit
+	name = "Aquarium Kit"
+	desc = "Everything you need to start your own aquarium. Contains aquarium construction kit, fish catalog, feed can and three freshwater fish from our collection."
+	cost = 2000
+	contains = list(/obj/item/book/fish_catalog,
+					/obj/item/storage/fish_case/random/freshwater,
+					/obj/item/storage/fish_case/random/freshwater,
+					/obj/item/storage/fish_case/random/freshwater,
+					/obj/item/fish_feed,
+					/obj/item/storage/box/aquarium_props,
+					/obj/item/aquarium_kit)
+	crate_name = "aquarium kit crate"
+	crate_type = /obj/structure/closet/crate/wooden
+
+/datum/supply_pack/misc/aquarium_fish
+	name = "Aquarium Fish Case"
+	desc = "An aquarium fish handpicked by monkeys from our collection."
+	cost = 600
+	contains = list(/obj/item/storage/fish_case/random)
+	crate_name = "aquarium fish crate"
 
 /datum/supply_pack/misc/bicycle
 	name = "Bicycle"
@@ -2787,7 +2815,7 @@
 					/obj/item/instrument/trombone,
 					/obj/item/instrument/recorder,
 					/obj/item/instrument/harmonica,
-					/obj/structure/piano/unanchored)
+					/obj/structure/musician/piano/unanchored)
 	crate_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/misc/book_crate
@@ -2882,3 +2910,15 @@
 					/obj/item/toner,
 					/obj/item/toner)
 	crate_name = "toner crate"
+
+/datum/supply_pack/misc/toner_large
+	name = "Toner Crate (Large)"
+	desc = "Tired of changing toner cartridges? These six extra heavy duty refills contain roughly five times as much toner as the base model!"
+	cost = 3000
+	contains = list(/obj/item/toner/large,
+					/obj/item/toner/large,
+					/obj/item/toner/large,
+					/obj/item/toner/large,
+					/obj/item/toner/large,
+					/obj/item/toner/large)
+	crate_name = "large toner crate"

@@ -440,4 +440,5 @@
 		new /obj/effect/temp_visual/hierophant/wall/crusher(otherT, user)
 
 /obj/effect/temp_visual/hierophant/wall/crusher
+	density = TRUE
 	duration = 75

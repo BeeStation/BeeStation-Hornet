@@ -200,3 +200,8 @@
 /datum/mood_event/assistant_insulated_gloves
 	description = "<span class='nicegreen'>Finally got my hands on a good pair of gloves!</span>\n"
 	mood_change = 1
+
+/datum/mood_event/aquarium_positive
+	description = "<span class='nicegreen'>Watching fish in aquarium is calming.</span>\n"
+	mood_change = 3
+	timeout = 1.5 MINUTES

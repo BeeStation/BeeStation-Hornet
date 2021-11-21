@@ -390,7 +390,7 @@
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"
-		var/list/french_words = strings("french_replacement.json", "french")
+		var/list/french_words = strings(FRENCH_TALK_FILE, "french")
 
 		for(var/key in french_words)
 			var/value = french_words[key]
@@ -437,6 +437,50 @@
 	desc = "A horrifying mix of beanie and softcap in CentCom green. You'd have to be pretty desperate for power over your peers to agree to wear this."
 	icon_state = "intern_hat"
 	item_state = "intern_hat"
+
+/obj/item/clothing/head/rainbowbunchcrown
+	name = "rainbow flower crown"
+	desc = "A flower crown made out of the flowers of the rainbow bunch plant."
+	dynamic_hair_suffix = ""
+	attack_verb = list("crowned")
+
+/obj/item/clothing/head/rainbowbunchcrown/Initialize()
+	. = ..()
+	var/crown_type = rand(1,4)
+	switch(crown_type)
+		if(1)
+			desc += " This one has red, yellow and white flowers."
+			icon_state = "rainbow_bunch_crown_1"
+		if(2)
+			desc += " This one has blue, yellow, green and white flowers."
+			icon_state = "rainbow_bunch_crown_2"
+		if(3)
+			desc += " This one has red, blue, purple and pink flowers."
+			icon_state = "rainbow_bunch_crown_3"
+		if(4)
+			desc += " This one has yellow, green and white flowers."
+			icon_state = "rainbow_bunch_crown_4"
+
+/obj/item/clothing/head/sunflowercrown
+	name = "sunflower crown"
+	desc = "A bright flower crown made out sunflowers that is sure to brighten up anyone's day!"
+	icon_state = "sunflower_crown"
+	dynamic_hair_suffix = ""
+	attack_verb = list("crowned")
+
+/obj/item/clothing/head/poppycrown
+	name = "poppy crown"
+	desc = "A flower crown made out of a string of bright red poppies."
+	icon_state = "poppy_crown"
+	dynamic_hair_suffix = ""
+	attack_verb = list("crowned")
+
+/obj/item/clothing/head/lilycrown
+	name = "lily crown"
+	desc = "A leafy flower crown with a cluster of large white lilies at at the front."
+	icon_state = "lily_crown"
+	dynamic_hair_suffix = ""
+	attack_verb = list("crowned")
 
 /////////////////
 //DONATOR ITEMS//

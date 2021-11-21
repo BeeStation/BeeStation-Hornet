@@ -15,7 +15,7 @@
 	invisibility = INVISIBILITY_LIGHTING
 
 	var/area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
-	
+
 	var/clockwork_warp_allowed = TRUE // Can servants warp into this area from Reebe?
 	var/clockwork_warp_fail = "The structure there is too dense for warping to pierce. (This is normal in high-security areas.)"
 
@@ -51,8 +51,11 @@
 
 	var/ambience_index = AMBIENCE_GENERIC
 	var/list/ambientsounds
+
 	var/ambient_buzz = 'sound/ambience/shipambience.ogg' // Ambient buzz of the station, plays repeatedly, also IC
-	var/ambientmusic
+
+	var/ambient_music_index
+	var/list/ambientmusic
 
 	flags_1 = CAN_BE_DIRTY_1
 
@@ -148,8 +151,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	icon_state = ""
 	canSmoothWithAreas = typecacheof(canSmoothWithAreas)
 
-	if(!ambientsounds)
+	if(!ambientsounds && ambience_index)
 		ambientsounds = GLOB.ambience_assoc[ambience_index]
+
+	if(!ambientmusic && ambient_music_index)
+		ambientmusic = GLOB.ambient_music_assoc[ambient_music_index]
 
 	if(requires_power)
 		luminosity = 0
@@ -604,19 +610,19 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   *
   * If the area has ambience, then it plays some ambience music to the ambience channel
   */
-/area/Entered(atom/movable/M)
+/area/Entered(atom/movable/arrived, area/old_area)
 	set waitfor = FALSE
-	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, M)
-	SEND_SIGNAL(M, COMSIG_ENTER_AREA, src) //The atom that enters the area
+	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
+	SEND_SIGNAL(arrived, COMSIG_ENTER_AREA, src) //The atom that enters the area
 
 /**
   * Called when an atom exits an area
   *
   * Sends signals COMSIG_AREA_EXITED and COMSIG_EXIT_AREA (to the atom)
   */
-/area/Exited(atom/movable/M)
-	SEND_SIGNAL(src, COMSIG_AREA_EXITED, M)
-	SEND_SIGNAL(M, COMSIG_EXIT_AREA, src) //The atom that exits the area
+/area/Exited(atom/movable/gone, direction)
+	SEND_SIGNAL(src, COMSIG_AREA_EXITED, gone, direction)
+	SEND_SIGNAL(gone, COMSIG_EXIT_AREA, src) //The atom that exits the area
 
 /**
   * Returns true if this atom has gravity for the passed in turf or other gravity-mimicking behaviors

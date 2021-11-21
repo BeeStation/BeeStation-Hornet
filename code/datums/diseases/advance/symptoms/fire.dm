@@ -28,6 +28,9 @@ Bonus
 	base_message_chance = 20
 	symptom_delay_min = 20
 	symptom_delay_max = 75
+	prefixes = list("Burning ")
+	bodies = list("Combustion")
+	suffixes = list(" Combustion")
 	var/infective = FALSE
 	threshold_desc = "<b>Stage Speed 4:</b> Increases the intensity of the flames.<br>\
 					  <b>Stage Speed 8:</b> Further increases flame intensity.<br>\
@@ -103,7 +106,7 @@ Bonus
 
 /datum/symptom/alkali
 
-	name = "Alkali perspiration"
+	name = "Alkali Perspiration"
 	desc = "The virus attaches to sudoriparous glands, synthesizing a chemical that bursts into flames when reacting with water, leading to self-immolation."
 	stealth = 2
 	resistance = -2
@@ -114,6 +117,9 @@ Bonus
 	base_message_chance = 100
 	symptom_delay_min = 30
 	symptom_delay_max = 90
+	prefixes = list("Explosive ")
+	bodies = list("Hellfire")
+	suffixes = list(" of the Damned")
 	var/chems = FALSE
 	var/explosion_power = 1
 	threshold_desc = "<b>Resistance 9:</b> Doubles the intensity of the effect, but reduces its frequency.<br>\
@@ -122,7 +128,7 @@ Bonus
 
 /datum/symptom/alkali/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 9 || A.stage_rate >= 10)
+	if(A.resistance >= 9 || A.stage_rate >= 8)
 		severity = 6
 
 /datum/symptom/alkali/Start(datum/disease/advance/A)
