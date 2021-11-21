@@ -431,7 +431,7 @@
 	else
 		dmgadd = 6 * GET_MUTATION_POWER(src)
 	owner.dna.species.punchdamage += dmgadd
-	to_chat(owner, "<span class='notice'>Claws extend from your fingertips.")
+	to_chat(owner, "<span class='notice'>Claws extend from your fingertips.</span>")
 	owner.dna.species.attack_verb = "slash"
 
 /datum/mutation/human/catclaws/on_losing()
