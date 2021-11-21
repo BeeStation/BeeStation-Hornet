@@ -385,6 +385,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Law Hallway"
 	icon_state = "security"
 
+/area/hallway/secondary/asteroid
+	name = "Asteroid Hallway"
+	icon_state = "construction"
 
 /area/hallway/upper/primary/aft
 	name = "Upper Aft Primary Hallway"
