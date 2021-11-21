@@ -53,10 +53,6 @@
 	filling_color = "#008B8B"
 	wine_power = 50
 
-/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
-
 //Ambrosia Gaia
 /obj/item/seeds/ambrosia/gaia
 	name = "pack of ambrosia gaia seeds"
@@ -81,7 +77,3 @@
 	seed = /obj/item/seeds/ambrosia/gaia
 	wine_power = 70
 	wine_flavor = "the earthmother's blessing"
-
-/obj/item/reagent_containers/food/snacks/grown/ambrosia/gaia/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
