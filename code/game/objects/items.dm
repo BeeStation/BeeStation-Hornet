@@ -308,7 +308,20 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(resistance_flags & FIRE_PROOF)
 			. += "[src] is made of fire-retardant materials."
 	if(block_level || block_upgrade_walk)
-		. += "[src] has blocking capabilities. It blocks in a [45 * ((block_level * 2) - 1)] degree arc, or a [45 * ((block_level + block_upgrade_walk * 2) - 1)] degree arc while walking"
+		if(block_upgrade_walk == 1 && !block_level)
+			. += "While walking, [src] can block attacks in a <b>narrow</b> arc."
+		else 
+			switch(block_upgrade_walk + block_level)
+				if(1)
+					. += "[src] can block attacks in a <b>narrow</b> arc."
+				if(2)
+					. += "[src] can block attacks in a <b>wide</b> arc."
+				if(3)
+					. += "[src] can block attacks in a <b>very wide</b> arc."
+				if(4 to INFINITY)
+					. += "[src] can block attacks in a <b>nearly complete</b> arc."
+			if(block_upgrade_walk)
+				. += "[src] is <b>less</b> effective at blocking while the user is <b>running</b>."
 		switch(block_power)
 			if(-INFINITY to -1)
 				. += "[src] is weighted extremely poorly for blocking"
