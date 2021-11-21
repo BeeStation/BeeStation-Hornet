@@ -95,6 +95,7 @@
 	grind_results = list(/datum/reagent/consumable/flour = 0, /datum/reagent/blood = 0)
 	tastes = list("meatwheat" = 1)
 	can_distill = FALSE
+	discovery_points = 300
 
 /obj/item/reagent_containers/food/snacks/grown/meatwheat/attack_self(mob/living/user)
 	user.visible_message("<span class='notice'>[user] crushes [src] into meat.</span>", "<span class='notice'>You crush [src] into something that resembles meat.</span>")
