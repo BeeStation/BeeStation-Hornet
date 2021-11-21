@@ -314,7 +314,7 @@
 
 /mob/living/simple_animal/hostile/bear/fightpit/Initialize()
 	. = ..()
-	var/M = round(GLOB.player_list.len / 20, 1)
+	var/M = round(GLOB.player_list.len / 20, 0.1)
 	src.maxHealth *= M
 	src.health *= M
 	src.melee_damage *= M
