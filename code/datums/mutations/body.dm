@@ -438,6 +438,6 @@
 	if(..())
 		return
 	owner.dna.species.punchdamage -= dmgadd
-	to_chat(owner, "<span class='warning'> Your claws retract into your hand.")
+	to_chat(owner, "<span class='warning'> Your claws retract into your hand.</span>")
 	owner.dna.species.attack_verb = initial(owner.dna.species.attack_verb)
 	
