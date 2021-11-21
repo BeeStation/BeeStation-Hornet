@@ -412,7 +412,7 @@
 		to_chat(owner, "<span class='warning'>Your wings feel weak.</span>")
 		wings.Refresh(owner)
 	else
-		to_chat(owner, "<span class='warning'>The stubs of your wings feel weak!")
+		to_chat(owner, "<span class='warning'>The stubs of your wings feel weak!</span>")
 
 /datum/mutation/human/catclaws
 	name = "Cat Claws"
