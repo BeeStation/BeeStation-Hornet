@@ -65,7 +65,7 @@ Bonus
 		if(bleed) // this is really, really messy
 			var/geysers = rand(2, 6)
 			var/bloodsplatters = transmission
-			var/list/geyserdirs = GLOB.alldirs
+			var/list/geyserdirs = GLOB.alldirs.copy
 			var/turf/T = H.loc
 			playsound(T, 'sound/effects/splat.ogg', 50, 1)
 			H.visible_message("<span class='danger'>Blood bursts from [H]'s flesh!</span>", \
