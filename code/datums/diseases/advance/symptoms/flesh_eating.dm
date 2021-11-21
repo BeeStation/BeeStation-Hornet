@@ -65,18 +65,17 @@ Bonus
 		if(bleed) // this is really, really messy
 			var/geysers = rand(2, 6)
 			var/bloodsplatters = transmission
-			var/list/splatterdirs = list()
+			var/list/geyserdirs = GLOB.alldirs
 			var/turf/T = H.loc
 			playsound(T, 'sound/effects/splat.ogg', 50, 1)
 			H.visible_message("<span class='danger'>Blood bursts from [H]'s flesh!</span>", \
 	  "<span class='userdanger'>Blood spews forth from your flesh! It hurts!</span>")
-			for(var/i=0 to geysers)
-				var/geyserdir=pick(GLOB.alldirs - splatterdirs)
-				splatterdirs += geyserdir
+			for(var/i in 0 to geysers)
+				var/geyserdir = pick_n_take(geyserdirs)
 				var/geyserdist = rand(1, max(1,bloodsplatters))
 				bloodsplatters -= geyserdist
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, geyserdir)
-				for(var/a=0 to geyserdist)
+				for(var/a in 0 to geyserdist)
 					T = get_step(T, geyserdir)
 					H.add_splatter_floor(T)
 				T = H.loc

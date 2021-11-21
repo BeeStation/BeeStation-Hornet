@@ -36,10 +36,10 @@
 	. = ..()
 	if(A.stage_rate >= 4)
 		replaceorgans = TRUE
-		if(A.stage_rate >= 4)
-			replacebody = TRUE
-			if(A.stage_rate >= 12)
-				robustbits = TRUE //note that having this symptom means most healing symptoms won't work on you
+	if(A.resistance >= 4)
+		replacebody = TRUE
+	if(A.stage_rate >= 12)
+		robustbits = TRUE //note that having this symptom means most healing symptoms won't work on you
 
 
 /datum/symptom/robotic_adaptation/Activate(datum/disease/advance/A)
@@ -221,6 +221,13 @@
 		return
 	var/mob/living/carbon/human/H = A.affected_mob
 	REMOVE_TRAIT(H, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
+	if(A.stage >= 5 && (replaceorgans || replacebody)) //sorry. no disease quartets allowed
+		to_chat(H, "<span class='userdanger'>You feel lighter and springier as your innards lose their clockwork facade.</span>")
+		H.dna.species.regenerate_organs(H, replace_current = TRUE)
+		for(var/obj/item/bodypart/O in H.bodyparts)
+			if(O.status == BODYPART_ROBOTIC)
+				O.burn_reduction = initial(O.burn_reduction)
+				O.brute_reduction = initial(O.brute_reduction)
 
 /datum/symptom/robotic_adaptation/OnRemove(datum/disease/advance/A)
 	A.infectable_biotypes -= MOB_ROBOTIC
