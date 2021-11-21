@@ -397,7 +397,7 @@
 		to_chat(owner, "<span class='notice'>Your wings feel stronger.</span>")
 		wings.Refresh(owner)
 	else
-		to_chat(owner, "<span class='warning'>You don't have wings to strengthen!")
+		to_chat(owner, "<span class='warning'>You don't have wings to strengthen!</span>")
 
 /datum/mutation/human/strongwings/on_losing()
 	if(..())
