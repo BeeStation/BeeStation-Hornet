@@ -11,7 +11,7 @@
 	if(!client?.holder)
 		return TRUE
 	if(!istype(src, /mob/living/silicon/pai) && (CONFIG_GET(flag/auto_deadmin_silicons) || (client.prefs?.toggles & DEADMIN_POSITION_SILICON)))
-			return client.holder.auto_deadmin()
+		return client.holder.auto_deadmin()
 	if(istype(src, /mob/living/silicon/pai) && (CONFIG_GET(flag/auto_deadmin_pai) || (client.prefs?.toggles & DEADMIN_POSITION_PAI)))
-			return client.holder.auto_deadmin()
+		return client.holder.auto_deadmin()
 	return ..()
