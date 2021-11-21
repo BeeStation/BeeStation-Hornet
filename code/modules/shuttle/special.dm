@@ -310,6 +310,14 @@
 	name = "fight pit bear"
 	desc = "This bear's trained through ancient Russian secrets to fear the walls of its glass prison."
 	environment_smash = ENVIRONMENT_SMASH_NONE
+	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/hostile/bear/fightpit/Initialize()
+	. = ..()
+	var/M = round(GLOB.player_list.len / 20, 1)
+	src.maxHealth *= M
+	src.health *= M
+	src.melee_damage *= M
 
 /obj/effect/decal/hammerandsickle
 	name = "hammer and sickle"
