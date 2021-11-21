@@ -48,6 +48,7 @@
 	grind_results = list(/datum/reagent/consumable/flour = 0)
 	tastes = list("oat" = 1)
 	distill_reagent = /datum/reagent/consumable/ethanol/ale
+	discovery_points = 300
 
 // Rice
 /obj/item/seeds/wheat/rice
