@@ -21,7 +21,7 @@
 	var/wine_flavor //If NULL, this is automatically set to the fruit's flavor. Determines the flavor of the wine if distill_reagent is NULL.
 	var/wine_power = 10 //Determines the boozepwr of the wine if distill_reagent is NULL.
 
-	var/discovery_points = 300 //Amount of discovery points given for scanning
+	var/discovery_points = 0 //Amount of discovery points given for scanning
 
 /obj/item/reagent_containers/food/snacks/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
