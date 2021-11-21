@@ -84,10 +84,6 @@
 	filling_color = "#C0C0C0"
 	wine_power = 60
 
-/obj/item/reagent_containers/food/snacks/grown/mushroom/angel/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
-
 // Liberty Cap
 /obj/item/seeds/liberty
 	name = "pack of liberty-cap mycelium"
@@ -164,10 +160,6 @@
 	filling_color = "#9370DB"
 	can_distill = FALSE
 
-/obj/item/reagent_containers/food/snacks/grown/mushroom/walkingmushroom/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
-
 /obj/item/reagent_containers/food/snacks/grown/mushroom/walkingmushroom/attack_self(mob/user)
 	if(isspaceturf(user.loc))
 		return
@@ -236,10 +228,6 @@
 	desc = "A strange red mushroom, its surface is moist and slick. You wonder how many tiny worms have met their fate inside."
 	icon_state = "jupitercup"
 	filling_color = "#B5003D"
-
-/obj/item/reagent_containers/food/snacks/grown/jupitercup/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
 
 // Glowshroom
 /obj/item/seeds/glowshroom
@@ -317,10 +305,6 @@
 	effect_path = /obj/structure/glowshroom/glowcap
 	tastes = list("glowcap" = 1)
 
-/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/glowcap/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
-
 //Shadowshroom
 /obj/item/seeds/glowshroom/shadowshroom
 	name = "pack of shadowshroom mycelium"
@@ -344,10 +328,6 @@
 	effect_path = /obj/structure/glowshroom/shadowshroom
 	tastes = list("shadow" = 1, "mushroom" = 1)
 	wine_power = 60
-
-/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/shadowshroom/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/shadowshroom/attack_self(mob/user)
 	. = ..()

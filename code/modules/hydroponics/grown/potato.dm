@@ -65,7 +65,3 @@
 	desc = "It's sweet."
 	icon_state = "sweetpotato"
 	distill_reagent = /datum/reagent/consumable/ethanol/sbiten
-
-/obj/item/reagent_containers/food/snacks/grown/potato/sweet/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)

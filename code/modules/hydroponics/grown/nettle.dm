@@ -91,10 +91,6 @@
 	force = 25
 	throwforce = 12
 
-/obj/item/reagent_containers/food/snacks/grown/nettle/death/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
-
 /obj/item/reagent_containers/food/snacks/grown/nettle/death/add_juice()
 	..()
 	force = round((5 + seed.potency / 5), 1)

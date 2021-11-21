@@ -53,7 +53,3 @@
 	foodtype = VEGETABLES
 	tastes = list("koi" = 1)
 	wine_power = 40
-
-/obj/item/reagent_containers/food/snacks/grown/koibeans/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)

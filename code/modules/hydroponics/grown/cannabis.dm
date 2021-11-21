@@ -102,20 +102,12 @@
 	icon_state = "megacannabis"
 	wine_power = 60
 
-/obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
-
 /obj/item/reagent_containers/food/snacks/grown/cannabis/death
 	seed = /obj/item/seeds/cannabis/death
 	name = "death cannabis leaf"
 	desc = "Looks a bit dark. Oh well."
 	icon_state = "blackcannabis"
 	wine_power = 40
-
-/obj/item/reagent_containers/food/snacks/grown/cannabis/death/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
 
 /obj/item/reagent_containers/food/snacks/grown/cannabis/white
 	seed = /obj/item/seeds/cannabis/white
@@ -124,10 +116,6 @@
 	icon_state = "whitecannabis"
 	wine_power = 10
 
-/obj/item/reagent_containers/food/snacks/grown/cannabis/white/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
-
 /obj/item/reagent_containers/food/snacks/grown/cannabis/ultimate
 	seed = /obj/item/seeds/cannabis/ultimate
 	name = "omega cannabis leaf"
@@ -135,7 +123,3 @@
 	icon_state = "ocannabis"
 	volume = 420
 	wine_power = 90
-
-/obj/item/reagent_containers/food/snacks/grown/cannabis/ultimate/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)

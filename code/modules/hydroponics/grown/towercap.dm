@@ -95,10 +95,6 @@
 	plank_type = /obj/item/stack/rods
 	plank_name = "rods"
 
-/obj/item/grown/log/steel/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
-
 /obj/item/grown/log/steel/CheckAccepted(obj/item/I)
 	return FALSE
 /obj/item/seeds/bamboo
@@ -126,10 +122,6 @@
 	icon_state = "bamboo"
 	plank_type = /obj/item/stack/sheet/mineral/bamboo
 	plank_name = "bamboo sticks"
-
-/obj/item/grown/log/bamboo/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
 
 /obj/item/grown/log/bamboo/CheckAccepted(obj/item/I)
 	return FALSE

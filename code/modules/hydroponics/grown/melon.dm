@@ -59,10 +59,6 @@
 	wine_power = 70 //Water to wine, baby.
 	wine_flavor = "divinity"
 
-/obj/item/reagent_containers/food/snacks/grown/holymelon/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
-
 /obj/item/reagent_containers/food/snacks/grown/holymelon/Initialize()
 	. = ..()
 	var/uses = 1

@@ -49,10 +49,6 @@
 	tastes = list("oat" = 1)
 	distill_reagent = /datum/reagent/consumable/ethanol/ale
 
-/obj/item/reagent_containers/food/snacks/grown/oat/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
-
 // Rice
 /obj/item/seeds/wheat/rice
 	name = "pack of rice seeds"
@@ -99,10 +95,6 @@
 	grind_results = list(/datum/reagent/consumable/flour = 0, /datum/reagent/blood = 0)
 	tastes = list("meatwheat" = 1)
 	can_distill = FALSE
-
-/obj/item/reagent_containers/food/snacks/grown/meatwheat/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
 
 /obj/item/reagent_containers/food/snacks/grown/meatwheat/attack_self(mob/living/user)
 	user.visible_message("<span class='notice'>[user] crushes [src] into meat.</span>", "<span class='notice'>You crush [src] into something that resembles meat.</span>")

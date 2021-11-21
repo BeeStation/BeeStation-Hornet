@@ -57,10 +57,6 @@
 	juice_results = list(/datum/reagent/consumable/parsnipjuice = 0)
 	wine_power = 35
 
-/obj/item/reagent_containers/food/snacks/grown/parsnip/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
-
 
 // White-Beet
 /obj/item/seeds/whitebeet
@@ -112,7 +108,3 @@
 	bitesize_mod = 2
 	foodtype = VEGETABLES
 	wine_power = 60
-
-/obj/item/reagent_containers/food/snacks/grown/redbeet/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)

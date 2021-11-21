@@ -54,10 +54,6 @@
 	distill_reagent = null
 	wine_power = 35
 
-/obj/item/reagent_containers/food/snacks/grown/berries/poison/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
-
 // Death Berries
 /obj/item/seeds/berry/death
 	name = "pack of death-berry seeds"
@@ -82,10 +78,6 @@
 	tastes = list("death-berry" = 1)
 	distill_reagent = null
 	wine_power = 50
-
-/obj/item/reagent_containers/food/snacks/grown/berries/death/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
 
 // Glow Berries
 /obj/item/seeds/berry/glow
@@ -112,10 +104,6 @@
 	tastes = list("glow-berry" = 1)
 	distill_reagent = null
 	wine_power = 60
-
-/obj/item/reagent_containers/food/snacks/grown/berries/glow/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
 
 // Cherries
 /obj/item/seeds/cherry
@@ -175,10 +163,6 @@
 	tastes = list("blue cherry" = 1)
 	wine_power = 50
 
-/obj/item/reagent_containers/food/snacks/grown/bluecherries/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
-
 //Cherry Bulbs
 /obj/item/seeds/cherry/bulb
 	name = "pack of cherry bulb pits"
@@ -203,10 +187,6 @@
 	grind_results = list(/datum/reagent/consumable/cherryjelly = 0)
 	tastes = list("cherry" = 1)
 	wine_power = 50
-
-/obj/item/reagent_containers/food/snacks/grown/cherrybulbs/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
 
 // Grapes
 /obj/item/seeds/grape
@@ -261,7 +241,3 @@
 	filling_color = "#7FFF00"
 	tastes = list("green grape" = 1)
 	distill_reagent = /datum/reagent/consumable/ethanol/cognac
-
-/obj/item/reagent_containers/food/snacks/grown/grapes/green/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)

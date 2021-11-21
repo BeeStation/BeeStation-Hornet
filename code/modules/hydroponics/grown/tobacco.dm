@@ -43,10 +43,6 @@
 	distill_reagent = null
 	wine_power = 50
 
-/obj/item/reagent_containers/food/snacks/grown/tobacco/space/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
-
 //Lavaland Tobacco
 
 /obj/item/seeds/tobacco/lavaland
@@ -68,7 +64,3 @@
 	icon_state = "ltobacco_leaves"
 	distill_reagent = null
 	wine_power = 10
-
-/obj/item/reagent_containers/food/snacks/grown/tobacco/lavaland/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/discoverable, discovery_points)
