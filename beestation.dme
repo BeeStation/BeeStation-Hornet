@@ -3458,4 +3458,8 @@
 #include "monkestation\code\modules\clothing\under\costume.dm"
 #include "monkestation\code\modules\mob\living\carbon\human\human.dm"
 #include "monkestation\code\modules\mob\living\carbon\human\species_emotes.dm"
+#include "monkestation\code\modules\hydroponics\plant_genes.dm"
+#include "monkestation\code\modules\hydroponics\grown\berries.dm"
+#include "monkestation\code\modules\research\designs\biogenerator_designs.dm"
+#include "monkestation\code\modules\research\techweb\_techweb.dm"
 // END_INCLUDE
