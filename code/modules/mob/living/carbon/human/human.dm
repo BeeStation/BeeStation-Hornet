@@ -4,8 +4,7 @@
 	icon = 'icons/mob/human.dmi'
 	icon_state = ""
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
-	var/list/alternative_screams = list()
-	var/list/alternative_laughs = list()
+
 
 /mob/living/carbon/human/Initialize()
 	add_verb(/mob/living/proc/mob_sleep)
