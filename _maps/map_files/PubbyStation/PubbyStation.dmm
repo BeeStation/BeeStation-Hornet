@@ -64274,9 +64274,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/explab)
-"xPw" = (
-/turf/open/space/basic,
-/area/bridge)
 "xQc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -97716,7 +97713,7 @@ aaa
 aaa
 aaa
 ahi
-xPw
+atY
 fYG
 iwi
 vEe
