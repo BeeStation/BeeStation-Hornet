@@ -63,16 +63,61 @@
 	// MonkeStation Edit End
 	if(H.mind?.miming)
 		return
-	if(ishumanbasic(H) || iscatperson(H))
-		if(user.gender == FEMALE)
-			return pick('sound/voice/human/femalescream_1.ogg', 'sound/voice/human/femalescream_2.ogg', 'sound/voice/human/femalescream_3.ogg', 'sound/voice/human/femalescream_4.ogg')
-		else
-			return pick('sound/voice/human/malescream_1.ogg', 'sound/voice/human/malescream_2.ogg', 'sound/voice/human/malescream_3.ogg', 'sound/voice/human/malescream_4.ogg', 'sound/voice/human/malescream_5.ogg')
-	else if(ismoth(H))
-		return 'sound/voice/moth/scream_moth.ogg'
-	else if(islizard(H))
-		return pick('sound/voice/lizard/lizard_scream_1.ogg', 'sound/voice/lizard/lizard_scream_2.ogg', 'sound/voice/lizard/lizard_scream_3.ogg', 'sound/voice/lizard/lizard_scream_4.ogg')
+	// MonkeStation Edit Start
+	//Ease of adding new emotes to species
+	var/species = H.dna.species.id
+	var/list/options
+	if(user.gender == FEMALE)
+		if(!GLOB.female_screams.Find(species))
+			options = GLOB.female_screams["human"]
+			return pick(options)
+		options = GLOB.female_screams[species]
+		return pick(options)
+	if(!GLOB.male_screams.Find(species))
+		options = GLOB.male_screams["human"]
+		return pick(options)
+	options = GLOB.male_screams[species]
+	return pick(options)
+	//MonkeStation Edit End
 
+// MonkeStation Edit Start
+//Reworks the laugh emote
+/datum/emote/living/carbon/human/laugh
+	key = "laugh"
+	key_third_person = "laughs"
+	message = "laughs"
+	message_mime = "laughs silently"
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+
+/datum/emote/living/carbon/human/laugh/can_run_emote(mob/living/user, status_check = TRUE , intentional)
+	. = ..()
+	if(. && iscarbon(user))
+		var/mob/living/carbon/C = user
+		return !C.silent
+
+/datum/emote/living/carbon/human/laugh/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	// Alternative Laugh Hook
+	if(H.alternative_laughs.len)
+		return pick(H.alternative_laughs)
+	//Laugh changes for alternative species
+	var/species = H.dna.species.id
+	var/list/options
+	if(user.gender == FEMALE)
+		if(!GLOB.female_laughs.Find(species))
+			options = GLOB.female_laughs["human"]
+			return pick(options)
+		options = GLOB.female_laughs[species]
+		return pick(options)
+	if(!GLOB.male_laughs.Find(species))
+		options = GLOB.male_laughs["human"]
+		return pick(options)
+	options = GLOB.male_laughs[species]
+	return pick(options)
+// MonkeStation Edit End
 
 /datum/emote/living/carbon/human/pale
 	key = "pale"

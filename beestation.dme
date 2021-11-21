@@ -3456,4 +3456,6 @@
 #include "monkestation\code\modules\clothing\masks\miscellaneous.dm"
 #include "monkestation\code\modules\clothing\suits\labcoat.dm"
 #include "monkestation\code\modules\clothing\under\costume.dm"
+#include "monkestation\code\modules\mob\living\carbon\human\human.dm"
+#include "monkestation\code\modules\mob\living\carbon\human\species_emotes.dm"
 // END_INCLUDE

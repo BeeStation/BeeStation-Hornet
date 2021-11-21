@@ -1,7 +1,8 @@
 /obj/item/clothing/suit/toggle/labcoat
-	alternative_screams = list(	'monkestation/sound/voice/scream_sci0.ogg',
-								'monkestation/sound/voice/scream_sci1.ogg',
-								'monkestation/sound/voice/scream_sci2.ogg')
+	alternative_screams = list(	'monkestation/sound/voice/screams/misc/HL1 Scientist/scream_sci0.ogg',
+								'monkestation/sound/voice/screams/misc/HL1 Scientist/scream_sci1.ogg',
+								'monkestation/sound/voice/screams/misc/HL1 Scientist/scream_sci2.ogg',
+								'monkestation/sound/voice/screams/misc/HL1 Scientist/scream_sci3.ogg')
 
 //Only basic and scientist labcoats get to STAPH
 

@@ -13,8 +13,8 @@
 								'sound/creatures/monkey/monkey_screech_6.ogg',
 								'sound/creatures/monkey/monkey_screech_7.ogg')
 
-	alternative_laughs = list(	'monkestation/sound/voice/laugh/big_laugh0.ogg',
-								'monkestation/sound/voice/laugh/big_laugh1.ogg',
-								'monkestation/sound/voice/laugh/big_laugh2.ogg',
-								'monkestation/sound/voice/laugh/big_laugh3.ogg',
-								'monkestation/sound/voice/laugh/big_laugh4.ogg')
+	alternative_laughs = list(	'monkestation/sound/voice/laugh/misc/big_laugh0.ogg',
+								'monkestation/sound/voice/laugh/misc/big_laugh1.ogg',
+								'monkestation/sound/voice/laugh/misc/big_laugh2.ogg',
+								'monkestation/sound/voice/laugh/misc/big_laugh3.ogg',
+								'monkestation/sound/voice/laugh/misc/big_laugh4.ogg')
