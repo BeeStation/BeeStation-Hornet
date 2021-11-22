@@ -50575,7 +50575,8 @@
 /area/medical/chemistry)
 "gHD" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
-	dir = 8
+	dir = 8;
+	level = 2
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -53821,7 +53822,8 @@
 /area/gateway)
 "ldf" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
-	dir = 8
+	dir = 8;
+	level = 2
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -56595,6 +56597,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/components/binary/pump/on/layer1{
+	level = 1;
 	name = "Virology Positive Pressure Distribution Pump"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
