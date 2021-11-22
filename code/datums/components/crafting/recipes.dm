@@ -786,7 +786,7 @@
 	parts = list(/obj/item/bodypart/head = 1,
 			/obj/item/spear = 1)
 	blacklist = list(/obj/item/spear/explosive, /obj/item/spear/bonespear, /obj/item/spear/bamboospear)
-	result = /obj/structure/headpike
+	result = /obj/structure/headpike/glass
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/headpikebone
