@@ -119,3 +119,70 @@ Bonus
 	if(A.stealth >= 4) //more time before it's cured
 		power = 2
 	time_to_cure = max(A.resistance, A.stage_rate) * 10 * power
+
+
+
+/*
+//////////////////////////////////////
+
+Viral power multiplier
+
+	Average stats
+	UNOBTAINABLE- THIS SYMPTOM IS FOR ADMINBUS OR WEIRD CRAZY SHIT. You can enable it if you like, but be warned that this symptom is potentially very abusable
+
+Bonus
+	All unneutered symptoms in the virus have their power boosted
+
+//////////////////////////////////////
+*/
+/datum/symptom/viralpower
+	name = "Viral power multiplier"
+	desc = "The virus has more powerful symptoms. May have unpredictable effects"
+	stealth = 2
+	resistance = 2
+	stage_speed = 2
+	transmission = 2
+	level = -1 //currently unobtainable
+	prefixes = list("Super", "Mega", "Admin ")
+	var/maxpower
+	var/powerbudget
+	var/scramble = FALSE 
+	var/used = FALSE
+	threshold_desc = "<b>Transmission 8:</b> Constantly scrambles the power of all unneutered symptoms.<br>\
+					  <b>Stage Speed 8</b> Doubles the power boost"
+
+
+/datum/symptom/viralpower/Start(datum/disease/advance/A)
+	if(!..())
+		return
+	if(A.speed >= 8)
+		power = 2
+	if(A.transmission >= 8)
+		scramble = TRUE
+
+/datum/symptom/viralpower/Activate(datum/disease/advance/A)
+	if(!..())
+		return
+	if(!used)
+		for(var/datum/symptom/S in A.symptoms)
+			if(S.neutered)
+				continue
+			S.power += power
+			maxpower += S.power 
+		if(scramble)
+			powerbudget += power 
+			power = 0
+		used = TRUE
+	if(scramble)
+		var/datum/symptom/S = pick(A.symptoms)
+		if(S == src)
+			return
+		if(S.neutered)
+			return
+		if(powerbudget && (prob(50) || powerbudget == maxpower))
+			S.power += 1
+			powerbudget -= 1
+		else if(S.power >= 2)
+			S.power -= 1
+			powerbudget += 1
+

@@ -575,7 +575,10 @@
 #include "code\datums\diseases\advance\symptoms\heal.dm"
 #include "code\datums\diseases\advance\symptoms\heartattack.dm"
 #include "code\datums\diseases\advance\symptoms\itching.dm"
+<<<<<<< refs/remotes/BeeStation/master
 #include "code\datums\diseases\advance\symptoms\kitty.dm"
+=======
+>>>>>>> photosensitive muscle condensation
 #include "code\datums\diseases\advance\symptoms\light.dm"
 #include "code\datums\diseases\advance\symptoms\lubefeet.dm"
 #include "code\datums\diseases\advance\symptoms\macrophage.dm"

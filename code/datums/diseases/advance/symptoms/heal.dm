@@ -676,8 +676,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/mob/living/carbon/M = A.affected_mob
 	var/mob/living/carbon/human/H = A.affected_mob
 	switch(A.stage)
-		if(1-4)
-			to_chat(M, "<span class='userdanger'>[pick(".", "It dawns upon you that every single human on this station has warm blood pulsing through their veins.")]</span>")
+		if(1 to 4)
+			to_chat(M, "<span class='warning'>[pick("You feel cold...", "You feel a bit thirsty", "It dawns upon you that every single human on this station has warm blood pulsing through their veins.")]</span>")
 		if(5)
 			ADD_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
 			var/grabbedblood = succ(M) //before adding sucked blood to bloodpoints, immediately try to heal bloodloss
