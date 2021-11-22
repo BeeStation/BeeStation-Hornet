@@ -48,7 +48,7 @@
 		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 		add_juice()
 	
-	if(discovery_points && discovery_points > 0)
+	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
 
 

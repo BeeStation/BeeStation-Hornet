@@ -32,7 +32,7 @@
 		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5
 		add_juice()
 
-	if(discovery_points && discovery_points > 0)
+	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
 
 /obj/item/grown/attackby(obj/item/O, mob/user, params)
