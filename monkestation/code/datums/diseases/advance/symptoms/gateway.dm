@@ -69,6 +69,7 @@
 			Blink.charge_max = (src.blink_cooldown * 10)
 			Blink.charge_counter = (src.blink_cooldown * 10)
 			M.AddSpell(Blink)
+			to_chat(M, "<span class='notice'>You feel charged with bluespace energy!</span>")
 		if(random_teleportation && prob(15))
 			do_teleport(M, get_turf(M), blink_distance, channel = TELEPORT_CHANNEL_BLUESPACE)
 			M.visible_message("<span class='warning'>[M] [pick("stumbles into a hidden bluespace portal!", "suddenly vanishes from sight!", "is there one moment, then isn't!", "vanishes in a cloud of sparks!", "is no longer there!", "rudely leaves without a word.", "walks into an unseen gateway.", "wasn't where they were a moment ago.", "shifts position before your eyes.", "warps away in a flash of blue.", "catches a case of the Freakin' Gones!", "goes poof!", "blinks and...Flash! Bang! Alakazam! They're gone!")]</span>")

@@ -49,6 +49,7 @@
 		speed_bonus = FALSE
 		var/mob/living/carbon/human/H = A.affected_mob
 		ADD_TRAIT(H, TRAIT_TRASH_EATER, type)
+		to_chat(M, "<span class='notice'>You feel more limber and able to climb with ease!</span>")
 
 	if(A.stage >= 5 && has_headbutt) 				//Checks for existing headbutt ability before granting it.
 		var/mob/living/carbon/C = A.affected_mob
@@ -56,6 +57,7 @@
 			return
 		var/obj/effect/proc_holder/spell/aimed/headbutt/headbuttgrant = new()
 		M.AddSpell(headbuttgrant)
+		to_chat(M, "<span class='notice'>You're ready to charge!</span>")
 		has_headbutt = FALSE
 
 /datum/symptom/goat/End(datum/disease/advance/A)
@@ -118,7 +120,7 @@
 	user.throwforce = 25 //Just enough to very slowly break a door, window or crate. 25 hits on a crate.
 	user.emote("scream")
 	user.visible_message("<span class='warning'>[user] charges forward!</span>")
-	user.throw_at(target, 4, 5)
+	user.throw_at(target, 4, 4)
 	M.Paralyze(20) 	//You're stunned, hit or miss
 	spawn(10) 		//Waits on the hit/miss to apply brain damage and readjust the throwforce.
 		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2) //Very minor brain damage since you're hitting your head against things.
