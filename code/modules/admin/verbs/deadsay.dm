@@ -21,9 +21,10 @@
 		return
 	var/rank_name = holder.rank
 	var/admin_name = key
+	//json_decode(rustg_file_read("[global.config.directory]/badges.json")
 	if(holder.fakekey)
-		rank_name = pick(strings("admin_nicknames.json", "ranks", "config"))
-		admin_name = pick(strings("admin_nicknames.json", "names", "config"))
+		rank_name = pick(strings(DSAY_NICKNAME_FILE, "ranks", CONFIG_DIRECTORY))
+		admin_name = pick(strings(DSAY_NICKNAME_FILE, "names", CONFIG_DIRECTORY))
 	var/rendered = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <span class='name'>[rank_name]([admin_name])</span> says, <span class='message'>\"[emoji_parse(msg)]\"</span></span>"
 
 	for (var/mob/M in GLOB.player_list)
