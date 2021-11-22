@@ -5,7 +5,7 @@
 	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 2
-	spawn_positions = 2
+	spawn_positions = 2 
 	supervisors = "the chief medical officer"
 	selection_color = "#d4ebf2"
 	chat_color = "#75AEA3"
