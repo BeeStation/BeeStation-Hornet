@@ -1,3 +1,5 @@
+#define TELEPORT_COOLDOWN 30 SECONDS
+
 /datum/symptom/heal
 	name = "Basic Healing (does nothing)" //warning for adminspawn viruses
 	desc = "You should not be seeing this."
@@ -411,7 +413,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/telethreshold = 15
 	var/burnheal = FALSE
 	var/turf/open/location_return = null
-	var/cooldowntimer = 0
+	COOLDOWN_DECLARE(teleport_cooldown)
 	threshold_desc = "<b>Resistance 6:</b> The disease acts on a smaller scale, resetting burnt tissue back to a state of health.<br>\
 					<b>Transmission 8:</b> The disease becomes more active, activating in a smaller temperature range."
 
@@ -439,26 +441,25 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		if(4, 5)
 			if(burnheal)
 				M.heal_overall_damage(0, 1.5 * power) //no required_status checks here, this does all bodyparts equally
-			if(!cooldowntimer && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
+
+			if(COOLDOWN_FINISHED(src, teleport_cooldown) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
 				location_return = get_turf(M)	//sets up return point
 				to_chat(M, "<span class='warning'>The lukewarm temperature makes you feel strange!</span>")
-				cooldowntimer = 300 + rand(1, 300)
+				COOLDOWN_START(src, teleport_cooldown, TELEPORT_COOLDOWN + rand(1, 300))
 			if(location_return)
 				if(location_return.z != M.loc.z)
 					location_return = null
-					cooldowntimer = 0
+					COOLDOWN_RESET(src, teleport_cooldown)
 				else if(((M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT + telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTHEAT)) || (M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT - telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTCOLD)) || (burnheal && M.getFireLoss() > 60 + telethreshold)))
-					do_sparks(5,FALSE,M)
+					do_sparks(5, FALSE, M)
 					to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spatial state!</span>")
 					do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home
-					do_sparks(5,FALSE,M)
+					do_sparks(5, FALSE, M)
 					if(burnheal)
 						M.adjust_fire_stacks(-10)
 					location_return = null
-					cooldowntimer = 60
-			if(cooldowntimer > 0)
-				cooldowntimer --
-			else
+					COOLDOWN_START(src, teleport_cooldown, TELEPORT_COOLDOWN/5)
+			if(COOLDOWN_FINISHED(src, teleport_cooldown))
 				location_return = null
 		else
 			if(prob(7))
@@ -614,3 +615,5 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		qdel(src)
 	else
 		..()
+
+#undef TELEPORT_COOLDOWN
