@@ -12,3 +12,7 @@
     SIGNAL_HANDLER
     if(ishuman(H))
         I.add_atom_colour("#[H.hair_color]", FIXED_COLOUR_PRIORITY)
+
+/datum/component/haircolor_clothing/Destroy()
+    UnregisterSignal(parent, list(COMSIG_ITEM_EQUIPPED,COMSIG_ATOM_UPDATE_ICON))
+    return ..()
