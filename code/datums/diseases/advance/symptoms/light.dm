@@ -24,7 +24,8 @@
 		power = 2
 
 /datum/symptom/light/Activate(datum/disease/advance/A)
-	. = ..()
+	if(!..())
+		return
 	var/mob/living/M = A.affected_mob
 	var/realpower = power
 	var/healthchange = min(1 * realpower, (10 * realpower) - currenthealthmodifier)

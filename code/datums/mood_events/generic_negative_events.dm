@@ -231,3 +231,7 @@
 	description = "<span class='warning'>All the fish are dead...</span>\n"
 	mood_change = -3
 	timeout = 1.5 MINUTES
+
+/datum/mood_event/feline_dysmorphia
+	description = "<span class='boldwarning'>I'm so ugly. I wish I was cuter!</span>\n"
+	mood_change = -10
