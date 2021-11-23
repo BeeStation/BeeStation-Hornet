@@ -888,8 +888,10 @@
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
 
-/obj/item/light/proc/on_entered(datum/source, mob/living/L)
+/obj/item/light/proc/on_entered(datum/source, atom/movable/L)
 	SIGNAL_HANDLER
+	if(!istype(L, /mob/living))
+		return
 
 	if(istype(L) && has_gravity(loc))
 		if(HAS_TRAIT(L, TRAIT_LIGHT_STEP))
