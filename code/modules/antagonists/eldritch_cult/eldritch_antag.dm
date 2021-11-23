@@ -83,7 +83,7 @@
 			to_chat(H, "<span class='danger'>You have a [item_name] in your backpack.</span>")
 			return TRUE
 		else
-			message_admins("Heretic couldn't be equipped.")
+			message_admins("[ADMIN_FULLMONTY(H)] the heretic couldn't be equipped.")
 			return FALSE
 	else
 		to_chat(H, "<span class='danger'>You have a [item_name] in your [where].</span>")
