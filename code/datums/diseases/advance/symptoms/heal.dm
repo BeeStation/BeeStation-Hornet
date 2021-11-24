@@ -1,4 +1,4 @@
-#define TELEPORT_COOLDOWN 30 SECONDS
+#define TELEPORT_COOLDOWN 60 SECONDS
 
 /datum/symptom/heal
 	name = "Basic Healing (does nothing)" //warning for adminspawn viruses
@@ -445,7 +445,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(COOLDOWN_FINISHED(src, teleport_cooldown) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
 				location_return = get_turf(M)	//sets up return point
 				to_chat(M, "<span class='warning'>The lukewarm temperature makes you feel strange!</span>")
-				COOLDOWN_START(src, teleport_cooldown, TELEPORT_COOLDOWN + rand(1, 300))
+				COOLDOWN_START(src, teleport_cooldown, (TELEPORT_COOLDOWN * 5) + (rand(1, 300) * 10))
 			if(location_return)
 				if(location_return.z != M.loc.z)
 					location_return = null
@@ -458,7 +458,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					if(burnheal)
 						M.adjust_fire_stacks(-10)
 					location_return = null
-					COOLDOWN_START(src, teleport_cooldown, TELEPORT_COOLDOWN/5)
+					COOLDOWN_START(src, teleport_cooldown, TELEPORT_COOLDOWN)
 			if(COOLDOWN_FINISHED(src, teleport_cooldown))
 				location_return = null
 		else
