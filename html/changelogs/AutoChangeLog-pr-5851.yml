@@ -1,4 +1,0 @@
-author: mcmeiler
-delete-after: true
-changes:
-  - tweak: Say messages ending in "~" no longer have a period appended to them.
