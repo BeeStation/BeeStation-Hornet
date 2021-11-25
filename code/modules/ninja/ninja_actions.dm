@@ -150,4 +150,3 @@
 
 	G.toggle_drain()
 	return TRUE
-
