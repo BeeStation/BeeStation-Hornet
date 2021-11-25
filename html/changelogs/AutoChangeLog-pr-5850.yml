@@ -1,4 +1,0 @@
-author: desluOs
-delete-after: true
-changes:
-  - bugfix: lights no longer break when moving into different containers
