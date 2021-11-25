@@ -10,7 +10,8 @@
 	description = "Talk with other admins."
 
 /datum/keybinding/admin/admin_say/down(client/user)
-	if (!user.holder) return
+	if(!user.holder)
+		return
 	user.get_admin_say()
 	return TRUE
 
@@ -22,7 +23,8 @@
 	description = "Speak with other mentors."
 
 /datum/keybinding/admin/mentor_say/down(client/user)
-	if (!user.holder) return
+	if(!user.holder && !user.is_mentor())
+		return
 	user.get_mentor_say()
 	return TRUE
 
@@ -34,7 +36,8 @@
 	description = "Toggle your admin ghost status."
 
 /datum/keybinding/admin/admin_ghost/down(client/user)
-	if (!user.holder) return
+	if(!user.holder)
+		return
 	user.admin_ghost()
 	return TRUE
 
@@ -46,7 +49,8 @@
 	description = "View the player panel list."
 
 /datum/keybinding/admin/player_panel/down(client/user)
-	if (!user.holder) return
+	if(!user.holder)
+		return
 	user.holder.player_panel_new()
 	return TRUE
 
@@ -58,7 +62,8 @@
 	description = "Toggle admin build mode on or off."
 
 /datum/keybinding/admin/build_mode/down(client/user)
-	if (!user.holder) return
+	if(!user.holder)
+		return
 	user.togglebuildmodeself()
 	return TRUE
 
@@ -70,7 +75,8 @@
 	description = "Toggle your admin invisibility."
 
 /datum/keybinding/admin/invismin/down(client/user)
-	if (!user.holder) return
+	if(!user.holder)
+		return
 	user.invisimin()
 	return TRUE
 
