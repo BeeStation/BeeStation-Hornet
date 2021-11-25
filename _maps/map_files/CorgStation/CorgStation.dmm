@@ -1467,9 +1467,7 @@
 /area/engine/supermatter)
 "auO" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/structure/disposalpipe/junction/flip,
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -4658,9 +4656,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "bfc" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -5395,9 +5391,7 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/starboard/fore)
 "bpJ" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
@@ -5963,9 +5957,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -7803,7 +7795,6 @@
 	desc = "A remote control switch.";
 	id = "QMLoaddoor2";
 	name = "Cargo Offload";
-	normaldoorcontrol = 0;
 	pixel_x = 6;
 	pixel_y = 28
 	},
@@ -7811,7 +7802,6 @@
 	desc = "A remote control switch.";
 	id = "QMLoaddoor";
 	name = "Cargo Loading";
-	normaldoorcontrol = 0;
 	pixel_x = -5;
 	pixel_y = 28
 	},
@@ -8457,9 +8447,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/upper/primary/fore)
 "bZK" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -9470,9 +9458,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cmR" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
@@ -9873,16 +9859,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/airless,
 /area/engine/engine_room)
-"cri" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "crl" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -10144,9 +10120,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -12018,9 +11992,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -12596,9 +12568,7 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
 "cZL" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -13345,7 +13315,6 @@
 	desc = "A remote control switch.";
 	id = "gateway";
 	name = "Gateway Shutters Control";
-	normaldoorcontrol = 0;
 	pixel_x = -28;
 	pixel_y = 28
 	},
@@ -14334,9 +14303,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "dsq" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -16177,9 +16144,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -16477,9 +16442,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -16540,9 +16503,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -16771,7 +16732,6 @@
 	desc = "A remote control switch.";
 	id = "warehouse";
 	name = "Warehouse Shutters Control";
-	normaldoorcontrol = 0;
 	pixel_x = -28;
 	pixel_y = 6
 	},
@@ -17365,9 +17325,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/requests_console{
 	department = "Chapel";
 	pixel_y = 32
@@ -17814,8 +17772,7 @@
 "ekv" = (
 /obj/machinery/flasher{
 	id = "aicore";
-	pixel_x = -26;
-	range = 2
+	pixel_x = -26
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
@@ -17823,8 +17780,7 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/flasher{
 	id = "aicore";
-	pixel_x = 26;
-	range = 2
+	pixel_x = 26
 	},
 /turf/open/openspace,
 /area/ai_monitored/turret_protected/ai)
@@ -18307,7 +18263,6 @@
 	desc = "A remote control switch.";
 	id = "shower2a";
 	name = "Privacy Shutters";
-	normaldoorcontrol = 0;
 	pixel_x = 7;
 	pixel_y = -27
 	},
@@ -18705,9 +18660,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "eub" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -19369,9 +19322,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
 "eBi" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/newscaster/security_unit{
 	pixel_x = 32
@@ -19969,9 +19920,7 @@
 /area/hallway/secondary/service)
 "eHn" = (
 /obj/machinery/processor,
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "eHt" = (
@@ -20205,9 +20154,7 @@
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "eJs" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -22336,7 +22283,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Office";
-	req_access_txt = "30"
+	req_one_access_txt = "30;70"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
@@ -22738,9 +22685,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/item/radio/intercom{
 	pixel_x = -29;
 	pixel_y = -29
@@ -23066,9 +23011,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -24589,9 +24532,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/item/radio/intercom{
 	pixel_x = -29;
 	pixel_y = -29
@@ -24842,8 +24783,7 @@
 "fKW" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Command Maintenance Hatch";
-	req_access_txt = "19";
-	security_level = 0
+	req_access_txt = "19"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -28238,9 +28178,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "gxN" = (
@@ -28631,9 +28569,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
@@ -28740,9 +28676,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "gDN" = (
@@ -29010,9 +28944,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -29359,9 +29291,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -31016,9 +30946,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
 "hfp" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
 	},
@@ -33775,9 +33703,7 @@
 	pixel_y = 5
 	},
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "hOu" = (
@@ -34115,9 +34041,7 @@
 /turf/open/openspace/airless,
 /area/space/nearstation)
 "hSG" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
@@ -34163,9 +34087,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
@@ -34567,9 +34489,7 @@
 /area/crew_quarters/theatre)
 "hYQ" = (
 /obj/machinery/food_cart,
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -34970,9 +34890,7 @@
 /turf/open/floor/plasteel,
 /area/teleporter)
 "icW" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/caution,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -35909,9 +35827,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -36080,9 +35996,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
 "ipu" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 1
 	},
@@ -40516,9 +40430,7 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "jwr" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 4
 	},
@@ -40903,9 +40815,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -40971,9 +40881,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/airalarm/directional/north,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
@@ -41942,8 +41850,7 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/flasher{
 	id = "aicore";
-	pixel_y = 36;
-	range = 2
+	pixel_y = 36
 	},
 /turf/open/openspace,
 /area/ai_monitored/turret_protected/ai)
@@ -42117,9 +42024,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -43955,9 +43860,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "klH" = (
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
-	dir = 2
-	},
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer,
 /obj/machinery/camera/autoname{
 	dir = 4
 	},
@@ -44367,8 +44270,7 @@
 "kqs" = (
 /obj/machinery/flasher{
 	id = "aicore";
-	pixel_x = 26;
-	range = 2
+	pixel_x = 26
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
@@ -46815,7 +46717,6 @@
 	desc = "A remote control switch.";
 	id = "qmoffice";
 	name = "Quartermaster's Office Control";
-	normaldoorcontrol = 0;
 	pixel_x = 29;
 	pixel_y = 28
 	},
@@ -46846,9 +46747,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -47057,9 +46956,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/cmo)
 "laD" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/light,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
@@ -47626,7 +47523,6 @@
 	desc = "A remote control switch.";
 	id = "hop";
 	name = "Privacy Shutters";
-	normaldoorcontrol = 0;
 	pixel_x = 27;
 	pixel_y = -26
 	},
@@ -47634,7 +47530,6 @@
 	desc = "A remote control switch.";
 	id = "hopqueue";
 	name = "Queue Shutters";
-	normaldoorcontrol = 0;
 	pixel_x = 27;
 	pixel_y = -37
 	},
@@ -47720,9 +47615,7 @@
 /area/hallway/primary/central)
 "lio" = (
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/item/book/manual/wiki/cooking_to_serve_man,
 /obj/item/reagent_containers/food/condiment/enzyme{
 	pixel_y = 5
@@ -48489,9 +48382,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
@@ -49561,7 +49452,6 @@
 	desc = "A remote control switch.";
 	id = "shower1a";
 	name = "Privacy Shutters";
-	normaldoorcontrol = 0;
 	pixel_x = 7;
 	pixel_y = -27
 	},
@@ -49606,9 +49496,7 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/qm)
 "lDa" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -49706,7 +49594,6 @@
 "lEb" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "0";
 	req_one_access_txt = "12,47"
 	},
 /obj/structure/cable/yellow{
@@ -49725,7 +49612,6 @@
 	desc = "A remote control switch.";
 	id = "dorm2";
 	name = "Privacy Shutters";
-	normaldoorcontrol = 0;
 	pixel_x = -4;
 	pixel_y = -26
 	},
@@ -50025,9 +49911,7 @@
 /turf/open/floor/plasteel,
 /area/science/shuttle)
 "lIa" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -50396,9 +50280,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -51420,9 +51302,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/structure/disposalpipe/junction{
 	dir = 8
 	},
@@ -51490,9 +51370,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
@@ -51850,9 +51728,7 @@
 /area/hallway/primary/central)
 "mdQ" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /turf/open/floor/grass,
 /area/crew_quarters/park)
@@ -51911,7 +51787,6 @@
 	icon_living = "magicarp";
 	icon_state = "magicarp";
 	maxHealth = 200;
-	melee_damage = 20;
 	name = "Lia"
 	},
 /turf/open/floor/plasteel/dark,
@@ -52113,9 +51988,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -52641,9 +52514,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -53480,7 +53351,6 @@
 	desc = "A remote control switch.";
 	id = "dorm1";
 	name = "Privacy Shutters";
-	normaldoorcontrol = 0;
 	pixel_x = -4;
 	pixel_y = -26
 	},
@@ -53983,8 +53853,7 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "mFU" = (
 /obj/machinery/atmospherics/components/binary/circulator/cold{
-	dir = 8;
-	icon_state = "circ-off-0"
+	dir = 8
 	},
 /turf/open/floor/engine,
 /area/engine/engine_room)
@@ -54306,7 +54175,6 @@
 	desc = "A remote control switch.";
 	id = "gateway";
 	name = "Gateway Shutters Control";
-	normaldoorcontrol = 0;
 	pixel_x = -28;
 	pixel_y = -26
 	},
@@ -54811,9 +54679,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "mQt" = (
@@ -54845,9 +54711,7 @@
 /turf/open/floor/plasteel,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "mQy" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
@@ -55576,9 +55440,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -55809,9 +55671,7 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
 "ncz" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -56036,7 +55896,6 @@
 /area/science/explab)
 "nfx" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 2;
 	external_pressure_bound = 140;
 	name = "killroom vent";
 	pressure_checks = 0
@@ -56560,9 +56419,7 @@
 	pixel_y = -3
 	},
 /obj/item/clothing/neck/stethoscope,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -56654,9 +56511,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/item/radio/intercom{
 	pixel_y = 24
 	},
@@ -57106,9 +56961,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -57919,9 +57772,7 @@
 	},
 /area/science/test_area)
 "nFk" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "nFw" = (
@@ -57974,9 +57825,7 @@
 	pixel_y = 5
 	},
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "nGg" = (
@@ -58336,9 +58185,7 @@
 /turf/open/floor/plasteel,
 /area/science/lab)
 "nKA" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 4
 	},
@@ -59405,9 +59252,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "nWN" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -59851,9 +59696,7 @@
 /area/medical/virology)
 "oct" = (
 /obj/structure/table,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -60335,9 +60178,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/airalarm/directional/east,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -60514,9 +60355,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -60811,9 +60650,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -61248,9 +61085,7 @@
 	pixel_y = -3
 	},
 /obj/item/clothing/neck/stethoscope,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -61349,9 +61184,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
@@ -62017,9 +61850,7 @@
 	dir = 8
 	},
 /obj/structure/closet/secure_closet/personal/patient,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -62878,9 +62709,7 @@
 /turf/open/floor/plating,
 /area/security/brig)
 "oOR" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
@@ -62902,9 +62731,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
 "oPy" = (
@@ -62945,7 +62772,6 @@
 "oQi" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "0";
 	req_one_access_txt = "12,47"
 	},
 /turf/open/floor/plating,
@@ -63272,7 +63098,6 @@
 	desc = "A remote control switch.";
 	id = "comms";
 	name = "Communications Shutters";
-	normaldoorcontrol = 0;
 	pixel_x = 26;
 	pixel_y = -38
 	},
@@ -63321,9 +63146,7 @@
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "oVq" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/white,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
@@ -63672,9 +63495,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -63700,7 +63521,6 @@
 /area/crew_quarters/heads/hop)
 "paF" = (
 /obj/machinery/power/supermatter_crystal/shard/engine{
-	anchored = 1;
 	moveable = 1
 	},
 /obj/machinery/mass_driver{
@@ -64342,7 +64162,6 @@
 	desc = "Welcome to your new life, employee.";
 	id = "deathdoor";
 	name = "Transfer Switch";
-	normaldoorcontrol = 0;
 	pixel_x = -6;
 	pixel_y = 27
 	},
@@ -64668,9 +64487,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "pkT" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 9
@@ -64904,16 +64721,12 @@
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
 "poy" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -65622,7 +65435,6 @@
 /area/security/brig)
 "pxQ" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 2;
 	external_pressure_bound = 120;
 	name = "server vent"
 	},
@@ -65862,9 +65674,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/item/radio/intercom{
 	pixel_x = -29;
 	pixel_y = -29
@@ -66449,8 +66259,7 @@
 "pIf" = (
 /obj/machinery/flasher{
 	id = "aicore";
-	pixel_y = 26;
-	range = 2
+	pixel_y = 26
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
@@ -66866,8 +66675,7 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/flasher{
 	id = "aicore";
-	pixel_x = -26;
-	range = 2
+	pixel_x = -26
 	},
 /turf/open/openspace,
 /area/ai_monitored/turret_protected/ai)
@@ -69139,8 +68947,7 @@
 	},
 /obj/machinery/flasher{
 	id = "aicore";
-	pixel_y = 36;
-	range = 2
+	pixel_y = 36
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
@@ -70119,9 +69926,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "qyT" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -70566,9 +70371,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
 "qDa" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
@@ -71068,9 +70871,7 @@
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/relay)
 "qJs" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 8
 	},
@@ -72045,9 +71846,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
@@ -73801,9 +73600,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -74132,8 +73929,7 @@
 "rvB" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "MedbayFoyer";
-	name = "Medbay";
-	req_access_txt = "0"
+	name = "Medbay"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -74396,9 +74192,7 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/dorms)
 "rzm" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
@@ -74446,9 +74240,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
 "rAj" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 4
 	},
@@ -75062,8 +74854,7 @@
 /obj/machinery/flasher{
 	id = "aicore";
 	pixel_x = 5;
-	pixel_y = 26;
-	range = 2
+	pixel_y = 26
 	},
 /obj/machinery/button/flasher{
 	id = "aicore";
@@ -79474,9 +79265,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
@@ -79767,9 +79556,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "sRX" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/newscaster{
 	pixel_x = 30
 	},
@@ -80159,9 +79946,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /turf/open/floor/plasteel,
 /area/medical/morgue)
 "sXi" = (
@@ -80577,7 +80362,6 @@
 /area/crew_quarters/heads/captain/private)
 "tch" = (
 /obj/machinery/atmospherics/components/binary/volume_pump{
-	icon_state = "volpump_map-2";
 	name = "Gas to Mix"
 	},
 /obj/structure/cable/yellow{
@@ -80727,9 +80511,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -81411,12 +81193,8 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/disposal)
 "tlo" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/effect/turf_decal/tile/red,
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -81502,9 +81280,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
 "tmV" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = 32
@@ -81605,9 +81381,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "tnR" = (
@@ -82267,9 +82041,7 @@
 /area/hallway/primary/fore)
 "txh" = (
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/item/book/manual/wiki/cooking_to_serve_man,
 /obj/item/reagent_containers/food/condiment/enzyme{
 	pixel_y = 5
@@ -82298,9 +82070,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/item/seeds/tea,
 /turf/open/floor/plasteel,
 /area/security/prison)
@@ -82400,9 +82170,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/science)
@@ -82469,9 +82237,7 @@
 	pixel_y = -3
 	},
 /obj/item/clothing/neck/stethoscope,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -82964,9 +82730,7 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/dorms)
 "tEn" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -83712,7 +83476,6 @@
 "tNi" = (
 /obj/machinery/power/apc{
 	areastring = "/area/engine/gravity_generator";
-	dir = 2;
 	name = "Gravity Generator APC";
 	pixel_y = -24
 	},
@@ -84365,9 +84128,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "tVd" = (
@@ -84661,9 +84422,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -84829,8 +84588,7 @@
 "ubi" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Command Maintenance Hatch";
-	req_access_txt = "19";
-	security_level = 0
+	req_access_txt = "19"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -84913,9 +84671,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
 "ucq" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
@@ -85054,9 +84810,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/holopad{
 	pixel_y = 16
 	},
@@ -85093,9 +84847,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "udM" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 4
 	},
@@ -86669,9 +86421,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "uxv" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -86989,9 +86739,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -87231,9 +86979,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "uDF" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/light_switch{
 	pixel_x = 26
 	},
@@ -87330,7 +87076,6 @@
 	desc = "A remote control switch.";
 	id = "hosoffice";
 	name = "Head of Security's Office Shutters";
-	normaldoorcontrol = 0;
 	pixel_x = -26
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -87991,8 +87736,7 @@
 /area/maintenance/starboard/central)
 "uNJ" = (
 /obj/machinery/atmospherics/components/binary/circulator{
-	dir = 4;
-	icon_state = "circ-off-0"
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/engine/engine_room)
@@ -88427,13 +88171,11 @@
 /obj/machinery/door/window/northleft{
 	dir = 8;
 	name = "Heavy Containment Access";
-	reinf = 0;
 	req_access_txt = "55"
 	},
 /obj/machinery/door/window/northleft{
 	dir = 4;
 	name = "Heavy Containment Access";
-	reinf = 0;
 	req_access_txt = "55"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -88641,9 +88383,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/button/door{
 	id = "kitchenconveyor";
 	name = "Kitchen Belt Shutters";
@@ -88789,9 +88529,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
@@ -89300,9 +89038,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/supply)
@@ -91270,9 +91006,7 @@
 /turf/open/floor/carpet/cyan,
 /area/medical/patients_rooms/room_b)
 "vBb" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -91816,9 +91550,7 @@
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "vJB" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -94210,9 +93942,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "wkT" = (
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_atmos{
-	dir = 2
-	},
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_atmos,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -95011,7 +94741,6 @@
 	desc = "A remote control switch.";
 	id = "gateway_viewing";
 	name = "Gateway Shutters Control";
-	normaldoorcontrol = 0;
 	pixel_x = 28;
 	pixel_y = 6
 	},
@@ -95350,8 +95079,7 @@
 /area/library)
 "wAy" = (
 /obj/machinery/sleeper{
-	dir = 4;
-	icon_state = "sleeper"
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -96678,9 +96406,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -97136,7 +96862,6 @@
 	desc = "A remote control switch.";
 	id = "QMLoaddoor2";
 	name = "Cargo Offload";
-	normaldoorcontrol = 0;
 	pixel_x = 6;
 	pixel_y = -26
 	},
@@ -97144,7 +96869,6 @@
 	desc = "A remote control switch.";
 	id = "QMLoaddoor";
 	name = "Cargo Loading";
-	normaldoorcontrol = 0;
 	pixel_x = -5;
 	pixel_y = -26
 	},
@@ -97542,9 +97266,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "xcS" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
@@ -98008,9 +97730,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "xhK" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -98520,9 +98240,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "xnv" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
@@ -99965,9 +99683,7 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
 "xDG" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -100440,9 +100156,7 @@
 /turf/open/openspace,
 /area/hallway/upper/secondary/entry)
 "xJW" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -101796,9 +101510,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/law)
 "yaZ" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "ybg" = (
@@ -102496,9 +102208,7 @@
 /turf/open/floor/plasteel,
 /area/engine/storage)
 "ykV" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -145092,7 +144802,7 @@ tnP
 gxJ
 dUT
 hTr
-cri
+hSi
 wpH
 dVk
 eSf

@@ -299,8 +299,7 @@
 	dir = 4
 	},
 /obj/machinery/sleeper{
-	dir = 4;
-	icon_state = "sleeper"
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
@@ -330,9 +329,7 @@
 	req_access_txt = "5"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -364,9 +361,7 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -430,9 +425,7 @@
 	name = "Security Maintenance";
 	req_access_txt = "63"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -456,8 +449,7 @@
 /area/crew_quarters/cryopods)
 "aba" = (
 /obj/machinery/cryopod{
-	dir = 1;
-	icon_state = "cryopod-open"
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -525,8 +517,7 @@
 /area/space/nearstation)
 "abk" = (
 /obj/machinery/cryopod{
-	dir = 1;
-	icon_state = "cryopod-open"
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -568,8 +559,7 @@
 /area/crew_quarters/cryopods)
 "abo" = (
 /obj/machinery/cryopod{
-	dir = 1;
-	icon_state = "cryopod-open"
+	dir = 1
 	},
 /obj/machinery/light{
 	dir = 8
@@ -615,7 +605,6 @@
 /area/crew_quarters/cryopods)
 "abs" = (
 /obj/docking_port/stationary{
-	dir = 1;
 	dwidth = 1;
 	height = 4;
 	name = "escape pod loader";
@@ -736,9 +725,7 @@
 	name = "External Airlock";
 	req_access_txt = "13"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -812,8 +799,7 @@
 /area/crew_quarters/cryopods)
 "abM" = (
 /obj/machinery/cryopod{
-	dir = 1;
-	icon_state = "cryopod-open"
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -859,9 +845,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod 1"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -872,9 +856,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod 2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -981,9 +963,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "abZ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1028,9 +1008,7 @@
 	name = "WARNING: EXTERNAL AIRLOCK";
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1753,7 +1731,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc/highcap/ten_k{
 	areastring = "/area/maintenance/solars/starboard/fore";
-	dir = 2;
 	name = "Starboard Bow Solar APC";
 	pixel_y = -24
 	},
@@ -1783,8 +1760,7 @@
 /obj/machinery/power/solar_control{
 	dir = 8;
 	id = "forestarboard";
-	name = "Starboard Bow Solar Control";
-	track = 0
+	name = "Starboard Bow Solar Control"
 	},
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
@@ -1805,9 +1781,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -1964,7 +1938,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc{
 	areastring = "/area/maintenance/department/medical/morgue";
-	dir = 2;
 	name = "Morgue Maintenance APC";
 	pixel_y = -24
 	},
@@ -1993,9 +1966,7 @@
 	req_access_txt = "12"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -2521,9 +2492,7 @@
 	name = "Auxiliary Construction Storage";
 	req_one_access_txt = "10;72"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -3805,9 +3774,7 @@
 	name = "Maintenance Hatch";
 	req_one_access_txt = "72"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -3815,7 +3782,6 @@
 /area/maintenance/starboard/fore)
 "aid" = (
 /obj/docking_port/stationary{
-	dir = 1;
 	dwidth = 2;
 	height = 13;
 	id = "ferry_home";
@@ -3914,9 +3880,7 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -4123,9 +4087,7 @@
 	req_access_txt = "12"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -4134,9 +4096,7 @@
 /area/maintenance/port/fore)
 "ajd" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -4145,9 +4105,7 @@
 /area/hallway/secondary/entry)
 "aje" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -4172,9 +4130,7 @@
 "ajg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -4188,9 +4144,7 @@
 "aji" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -4788,9 +4742,7 @@
 /area/maintenance/port)
 "aku" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -4812,9 +4764,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/port)
 "akw" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -4837,9 +4787,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -5592,7 +5540,6 @@
 /obj/item/flashlight/lamp,
 /obj/machinery/camera{
 	c_tag = "Arrivals - Center";
-	dir = 2;
 	name = "arrivals camera"
 	},
 /turf/open/floor/plasteel/grimy,
@@ -6181,7 +6128,6 @@
 "anB" = (
 /obj/machinery/power/apc{
 	areastring = "/area/science/misc_lab/range";
-	dir = 2;
 	name = "Testing Range APC";
 	pixel_y = -24
 	},
@@ -6354,9 +6300,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/wooden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -7043,9 +6987,7 @@
 /obj/structure/sign/warning/vacuum{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -7059,9 +7001,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -7075,9 +7015,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -7249,7 +7187,6 @@
 "aqg" = (
 /obj/machinery/power/apc{
 	areastring = "/area/vacant_room/office";
-	dir = 2;
 	name = "Auxiliary Office APC";
 	pixel_y = -24
 	},
@@ -7584,9 +7521,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -7602,9 +7537,7 @@
 	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -7620,9 +7553,7 @@
 	req_access_txt = "63"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -7694,7 +7625,6 @@
 /area/maintenance/disposal)
 "ari" = (
 /obj/machinery/mineral/stacking_unit_console{
-	dir = 2;
 	machinedir = 8;
 	pixel_x = 32
 	},
@@ -7734,9 +7664,7 @@
 	req_one_access_txt = "24;10"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -7758,9 +7686,7 @@
 	name = "Reflector Access";
 	req_one_access_txt = "24;10"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -7936,7 +7862,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "Arrivals - Aft";
-	dir = 2;
 	name = "arrivals camera"
 	},
 /obj/effect/turf_decal/bot,
@@ -8077,7 +8002,6 @@
 "ash" = (
 /obj/machinery/door/window/eastright{
 	base_state = "left";
-	dir = 4;
 	icon_state = "left";
 	name = "Danger: Conveyor Access";
 	req_access_txt = "12"
@@ -8823,9 +8747,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/structure/barricade/wooden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -8932,7 +8854,6 @@
 /area/maintenance/disposal)
 "atF" = (
 /obj/machinery/door/window/eastright{
-	dir = 4;
 	name = "Danger: Conveyor Access";
 	req_access_txt = "12"
 	},
@@ -9272,9 +9193,7 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -9291,9 +9210,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -9708,7 +9625,6 @@
 "auO" = (
 /obj/machinery/power/apc{
 	areastring = "/area/maintenance/disposal";
-	dir = 2;
 	name = "Disposal APC";
 	pixel_y = -24
 	},
@@ -9906,8 +9822,7 @@
 /area/engine/atmospherics_engine)
 "avi" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
-	dir = 8;
-	name = "scrubbers pipe"
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -10077,7 +9992,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "Custodial Closet";
-	dir = 2;
 	name = "service camera"
 	},
 /obj/effect/turf_decal/bot,
@@ -10183,9 +10097,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -10195,11 +10107,8 @@
 /obj/structure/sign/directions/evac{
 	pixel_y = -8
 	},
-/obj/structure/sign/directions/science{
-	dir = 2
-	},
+/obj/structure/sign/directions/science,
 /obj/structure/sign/directions/engineering{
-	dir = 2;
 	pixel_y = 8
 	},
 /turf/closed/wall,
@@ -10210,9 +10119,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -10223,9 +10130,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Fore Primary Hallway"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -10237,9 +10142,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Fore Primary Hallway"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -10250,11 +10153,8 @@
 /obj/structure/sign/directions/evac{
 	pixel_y = -8
 	},
-/obj/structure/sign/directions/medical{
-	dir = 2
-	},
+/obj/structure/sign/directions/medical,
 /obj/structure/sign/directions/security{
-	dir = 2;
 	pixel_y = 8
 	},
 /turf/closed/wall,
@@ -10272,9 +10172,7 @@
 	req_access_txt = "31"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -10317,9 +10215,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -10659,7 +10555,6 @@
 /obj/item/kirbyplants/random,
 /obj/machinery/camera{
 	c_tag = "Auxiliary Restroom";
-	dir = 2;
 	name = "restroom camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -10780,7 +10675,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "Cargo - Warehouse";
-	dir = 2;
 	name = "cargo camera"
 	},
 /turf/open/floor/plating,
@@ -11059,7 +10953,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Supermatter Chamber";
-	dir = 2;
 	network = list("engine")
 	},
 /turf/open/floor/engine,
@@ -11296,7 +11189,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc{
 	areastring = "/area/crew_quarters/toilet/auxiliary";
-	dir = 2;
 	name = "Auxiliary Restrooms APC";
 	pixel_y = -24
 	},
@@ -11773,7 +11665,6 @@
 /obj/machinery/light/small,
 /obj/machinery/power/apc{
 	areastring = "/area/maintenance/port/fore";
-	dir = 2;
 	name = "Port Bow Maintenance APC";
 	pixel_y = -24
 	},
@@ -11901,9 +11792,7 @@
 /obj/machinery/door/airlock{
 	name = "Toilet Unit"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -12335,9 +12224,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/wooden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -12397,9 +12284,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -12411,9 +12296,7 @@
 	id = "custodialshutters";
 	name = "Custodial Closet Shutters"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -12431,9 +12314,7 @@
 	req_access_txt = "26"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -13945,9 +13826,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "aDg" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -14109,9 +13988,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -14306,7 +14183,6 @@
 /area/quartermaster/storage)
 "aEg" = (
 /obj/machinery/button/door{
-	dir = 2;
 	id = "cargounload";
 	layer = 4;
 	name = "Loading Doors";
@@ -14669,7 +14545,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /obj/machinery/camera{
 	c_tag = "Bar Backroom";
-	dir = 2;
 	name = "service camera"
 	},
 /turf/open/floor/plasteel/dark,
@@ -14864,9 +14739,7 @@
 	req_access_txt = "31"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -15732,7 +15605,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "Prison - Garden";
-	dir = 2;
 	name = "prison camera";
 	network = list("ss13","prison")
 	},
@@ -16158,9 +16030,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/wooden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -16392,7 +16262,6 @@
 "aHK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor{
-	dir = 2;
 	id = "cargodisposals"
 	},
 /turf/open/floor/plating,
@@ -16896,9 +16765,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Access";
 	req_one_access_txt = "24;10"
@@ -16920,9 +16787,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Engine Access";
 	req_one_access_txt = "24;10"
@@ -16965,9 +16830,7 @@
 	req_one_access_txt = "24;10"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -17284,7 +17147,6 @@
 "aJk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor{
-	dir = 2;
 	id = "cargodisposals"
 	},
 /obj/effect/spawner/lootdrop/maintenance,
@@ -17463,8 +17325,7 @@
 /obj/machinery/power/solar_control{
 	dir = 4;
 	id = "foreport";
-	name = "Port Bow Solar Control";
-	track = 0
+	name = "Port Bow Solar Control"
 	},
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
@@ -17493,7 +17354,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc/highcap/ten_k{
 	areastring = "/area/maintenance/solars/port/fore";
-	dir = 2;
 	name = "Port Bow Solar APC";
 	pixel_y = -24
 	},
@@ -18253,9 +18113,7 @@
 	id = "justiceblast";
 	name = "Justice Blast door"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -19106,9 +18964,7 @@
 	name = "Turbine Generator Access";
 	req_one_access_txt = "24;10"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -19129,9 +18985,7 @@
 /area/engine/atmos)
 "aMH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Access";
 	req_one_access_txt = "24;10"
@@ -19154,9 +19008,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Engine Access";
 	req_one_access_txt = "24;10"
@@ -19213,9 +19065,7 @@
 	req_access_txt = "12"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -19311,7 +19161,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Theatre Stage";
-	dir = 2;
 	name = "service camera"
 	},
 /turf/open/floor/plasteel/grimy,
@@ -19441,7 +19290,6 @@
 "aNp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor{
-	dir = 2;
 	id = "cargodisposals"
 	},
 /obj/structure/plasticflaps,
@@ -19810,9 +19658,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_atmos{
-	dir = 2
-	},
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_atmos,
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "aNU" = (
@@ -21795,7 +21641,6 @@
 /obj/machinery/holopad,
 /obj/item/radio/intercom{
 	desc = "Talk through this. It looks like it has been modified to not broadcast.";
-	dir = 2;
 	name = "Prison Intercom";
 	pixel_y = -28;
 	prison_radio = 1
@@ -22369,9 +22214,7 @@
 	req_access_txt = "50"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -22423,9 +22266,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -22724,9 +22565,7 @@
 	name = "Cell 3"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -22745,9 +22584,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -22764,9 +22601,7 @@
 	name = "Cell 1"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -23613,7 +23448,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Cargo - Office";
-	dir = 2;
 	name = "cargo camera"
 	},
 /obj/effect/turf_decal/tile/brown{
@@ -24067,7 +23901,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/machinery/camera{
 	c_tag = "Prison - Cell 3";
-	dir = 2;
 	name = "prison camera";
 	network = list("ss13","prison")
 	},
@@ -24114,7 +23947,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/machinery/camera{
 	c_tag = "Prison - Cell 2";
-	dir = 2;
 	name = "prison camera";
 	network = list("ss13","prison")
 	},
@@ -24147,7 +23979,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/machinery/camera{
 	c_tag = "Prison - Cell 1";
-	dir = 2;
 	name = "prison camera";
 	network = list("ss13","prison")
 	},
@@ -24295,9 +24126,7 @@
 	name = "Security External Airlock";
 	req_access_txt = "63"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -25481,7 +25310,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc{
 	areastring = "/area/security/execution/education";
-	dir = 2;
 	name = "Education Chamber APC";
 	pixel_y = -24
 	},
@@ -25711,9 +25539,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -26167,8 +25993,7 @@
 "aXq" = (
 /obj/machinery/door/airlock/mining{
 	name = "Cargo Bay";
-	req_access_txt = "31";
-	req_one_access_txt = "0"
+	req_access_txt = "31"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -26553,9 +26378,7 @@
 	name = "WARNING: EXTERNAL AIRLOCK";
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -27448,8 +27271,7 @@
 /area/security/prison)
 "aZm" = (
 /obj/machinery/camera{
-	c_tag = "Security - Prison Port";
-	dir = 2
+	c_tag = "Security - Prison Port"
 	},
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
@@ -27526,9 +27348,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "aZt" = (
@@ -27555,8 +27375,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /obj/machinery/camera{
-	c_tag = "Security - Prison";
-	dir = 2
+	c_tag = "Security - Prison"
 	},
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
@@ -27597,9 +27416,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "aZx" = (
@@ -27658,9 +27475,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/prison)
 "aZB" = (
@@ -27813,8 +27628,7 @@
 "aZK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
-	c_tag = "Security - Escape Pod";
-	dir = 2
+	c_tag = "Security - Escape Pod"
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -28161,9 +27975,7 @@
 	req_access_txt = "35"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -28188,9 +28000,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
@@ -28199,9 +28009,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
@@ -28236,7 +28044,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Kitchen Cold Room";
-	dir = 2;
 	name = "service camera"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -28441,9 +28248,7 @@
 	req_access_txt = "31"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -28608,7 +28413,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc/highcap/five_k{
 	areastring = "/area/security/prison";
-	dir = 2;
 	name = "Prison Wing APC";
 	pixel_y = -24
 	},
@@ -29116,9 +28920,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -29137,9 +28939,7 @@
 	req_one_access_txt = "31;48"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -29359,9 +29159,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -29380,9 +29178,7 @@
 	req_one_access_txt = "1;34"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -30127,7 +29923,6 @@
 "bdS" = (
 /obj/machinery/camera{
 	c_tag = "Cargo - Waiting Room";
-	dir = 2;
 	name = "cargo camera"
 	},
 /obj/effect/turf_decal/loading_area{
@@ -30755,7 +30550,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc{
 	areastring = "/area/crew_quarters/kitchen";
-	dir = 2;
 	name = "Kitchen APC";
 	pixel_y = -24
 	},
@@ -31355,9 +31149,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -31468,9 +31260,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -31486,9 +31276,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -31509,9 +31297,7 @@
 	req_access_txt = "28"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -31809,9 +31595,7 @@
 /area/quartermaster/miningoffice)
 "bgR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -31821,9 +31605,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/miningoffice)
 "bgS" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -31874,9 +31656,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -31904,9 +31684,7 @@
 	req_one_access_txt = "1;34"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -32860,8 +32638,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Security - Medbay";
-	dir = 2
+	c_tag = "Security - Medbay"
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -32968,8 +32745,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera{
-	c_tag = "Security - Office Fore";
-	dir = 2
+	c_tag = "Security - Office Fore"
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -34168,8 +33944,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera{
-	c_tag = "Security - Head of Security's Office";
-	dir = 2
+	c_tag = "Security - Head of Security's Office"
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -34616,7 +34391,6 @@
 	dir = 4
 	},
 /obj/machinery/door/window/eastleft{
-	dir = 4;
 	name = "Kitchen Desk";
 	req_access_txt = "28"
 	},
@@ -35226,7 +35000,6 @@
 	icon_living = "magicarp";
 	icon_state = "magicarp";
 	maxHealth = 200;
-	melee_damage = 20;
 	name = "Lia"
 	},
 /turf/open/floor/carpet/red,
@@ -35306,8 +35079,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera{
-	c_tag = "Security - Head of Security's Quarters";
-	dir = 2
+	c_tag = "Security - Head of Security's Quarters"
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
@@ -35734,9 +35506,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -35775,9 +35545,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Fore Primary Hallway"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -35792,9 +35560,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -35815,9 +35581,7 @@
 /turf/closed/wall,
 /area/hallway/primary/fore)
 "bnv" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -35826,9 +35590,7 @@
 /area/hallway/primary/fore)
 "bnw" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -35841,9 +35603,7 @@
 /area/hallway/primary/fore)
 "bny" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -35873,9 +35633,7 @@
 	name = "Mining Dock";
 	req_access_txt = "48"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -36337,9 +36095,7 @@
 	name = "Distribution Loop";
 	req_access_txt = "24"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -36379,9 +36135,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bor" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -36399,16 +36153,12 @@
 /obj/item/clipboard,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/toy/figure/atmos,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bot" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -36546,7 +36296,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Central Hallway - Fore Port";
-	dir = 2;
 	name = "hallway camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -36643,7 +36392,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Central Hallway - Fore Starboard";
-	dir = 2;
 	name = "hallway camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -36845,8 +36593,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera{
-	c_tag = "Security - Transfer Centre";
-	dir = 2
+	c_tag = "Security - Transfer Centre"
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -37000,8 +36747,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Head of Security's Office";
-	req_access_txt = "58";
-	security_level = 6
+	req_access_txt = "58"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -37112,8 +36858,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Head of Security's Quarters";
-	req_access_txt = "58";
-	security_level = 6
+	req_access_txt = "58"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -37360,7 +37105,6 @@
 /area/engine/atmos)
 "bpT" = (
 /obj/machinery/atmospherics/components/binary/pump{
-	dir = 2;
 	name = "Pure to Mix"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -37439,9 +37183,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bqa" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/effect/landmark/start/atmospheric_technician,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
@@ -37463,9 +37205,7 @@
 /obj/item/clothing/head/welding,
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
@@ -37473,9 +37213,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bqc" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -38792,9 +38530,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/belt/utility,
 /obj/item/t_scanner,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -39975,9 +39711,7 @@
 /area/engine/atmos)
 "btU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -39991,9 +39725,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "btV" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 2
-	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -40193,9 +39925,7 @@
 /area/hydroponics)
 "bun" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -40207,9 +39937,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -40219,9 +39947,7 @@
 "bup" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -40240,9 +39966,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -40272,9 +39996,7 @@
 /turf/open/floor/plasteel,
 /area/security/execution/transfer)
 "buA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -40439,9 +40161,7 @@
 	dir = 8
 	},
 /obj/machinery/light/small,
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "buN" = (
@@ -40515,7 +40235,6 @@
 /obj/item/kirbyplants/random,
 /obj/machinery/power/apc{
 	areastring = "/area/crew_quarters/heads/hos";
-	dir = 2;
 	name = "Head of Security's Office APC";
 	pixel_y = -24
 	},
@@ -40637,7 +40356,6 @@
 /area/engine/atmos)
 "bva" = (
 /obj/machinery/atmospherics/components/binary/pump{
-	dir = 2;
 	name = "Mix to Distro"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -41189,7 +40907,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc{
 	areastring = "/area/security/execution/transfer";
-	dir = 2;
 	name = "Security Transferring APC";
 	pixel_y = -24
 	},
@@ -41517,9 +41234,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Access";
 	req_one_access_txt = "24;10"
@@ -42238,9 +41953,7 @@
 	name = "External Airlock";
 	req_access_txt = "13"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -42870,9 +42583,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/line{
@@ -43354,9 +43065,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Access";
 	req_one_access_txt = "24;10"
@@ -43533,9 +43242,7 @@
 	req_access_txt = "19;23"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -43954,9 +43661,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
@@ -44396,9 +44101,7 @@
 	req_access_txt = "13"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -44424,9 +44127,7 @@
 /area/engine/storage_shared)
 "bAT" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -44466,9 +44167,7 @@
 	name = "Atmospherics Lockdown Blast door"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -44482,9 +44181,7 @@
 	id = "atmoslock";
 	name = "Atmospherics Lockdown Blast door"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -44502,9 +44199,7 @@
 	req_access_txt = "24"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -44754,9 +44449,7 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -44774,7 +44467,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
-	dir = 2;
 	freq = 1400;
 	location = "Tool Storage"
 	},
@@ -45172,9 +44864,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
+/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
@@ -45320,9 +45010,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "bCn" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -45521,8 +45209,7 @@
 "bCG" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Power Tools Storage";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -45530,9 +45217,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -45552,8 +45237,7 @@
 "bCI" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Power Tools Storage";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -45564,9 +45248,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -46187,8 +45869,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -46275,8 +45956,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -46568,8 +46248,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -46622,8 +46301,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -47616,8 +47294,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -47685,8 +47362,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -47968,8 +47644,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -48915,7 +48590,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc{
 	areastring = "/area/bridge";
-	dir = 2;
 	name = "Bridge APC";
 	pixel_y = -24
 	},
@@ -49421,9 +49095,7 @@
 /area/engine/gravity_generator)
 "bHQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/light/small,
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
@@ -49456,9 +49128,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -49476,9 +49146,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -49974,8 +49642,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Council Chambers";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
@@ -50133,8 +49800,7 @@
 "bIX" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Office";
-	req_access_txt = "20";
-	security_level = 6
+	req_access_txt = "20"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -51376,8 +51042,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Telecomms Control Room";
-	req_access_txt = "19; 61";
-	security_level = 6
+	req_access_txt = "19; 61"
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -51511,9 +51176,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -52156,8 +51819,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Chief Engineer's Office";
-	req_access_txt = "56";
-	security_level = 6
+	req_access_txt = "56"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -52638,7 +52300,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Telecomms - Monitoring";
-	dir = 2;
 	name = "telecomms camera";
 	network = list("ss13","tcomms")
 	},
@@ -54900,9 +54561,7 @@
 	req_access_txt = "10"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -55337,7 +54996,6 @@
 "bQV" = (
 /obj/machinery/power/apc/highcap/ten_k{
 	areastring = "/area/crew_quarters/heads/captain";
-	dir = 2;
 	name = "Captain's Office APC";
 	pixel_y = -24
 	},
@@ -55849,7 +55507,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/machinery/camera{
 	c_tag = "AI Satellite - Antechamber";
-	dir = 2;
 	name = "ai camera";
 	network = list("minisat");
 	start_active = 1
@@ -56137,7 +55794,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Engineering - Chief Engineer's Quarters";
-	dir = 2;
 	name = "engineering camera"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -56250,9 +55906,7 @@
 	req_access_txt = "23"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -56264,9 +55918,7 @@
 	name = "Primary Tool Storage"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -56277,9 +55929,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Primary Tool Storage"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -56287,9 +55937,7 @@
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "bSv" = (
-/obj/structure/sign/directions/science{
-	dir = 2
-	},
+/obj/structure/sign/directions/science,
 /obj/structure/sign/directions/engineering{
 	dir = 8;
 	pixel_y = 8
@@ -56302,9 +55950,7 @@
 /area/storage/primary)
 "bSw" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -56517,7 +56163,6 @@
 /area/crew_quarters/heads/captain)
 "bSS" = (
 /obj/structure/sign/directions/science{
-	dir = 2;
 	pixel_y = -8
 	},
 /obj/structure/sign/directions/command{
@@ -56964,7 +56609,6 @@
 /obj/item/kirbyplants/random,
 /obj/machinery/turretid{
 	control_area = "/area/ai_monitored/turret_protected/aisat_interior";
-	enabled = 1;
 	name = "Antechamber Turret Control";
 	pixel_x = -32;
 	req_access = null;
@@ -57137,7 +56781,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "AI Satellite - Transit Tube";
-	dir = 2;
 	name = "ai camera";
 	network = list("minisat");
 	start_active = 1
@@ -57326,8 +56969,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Chief Engineer's Quarters";
-	req_access_txt = "56";
-	security_level = 6
+	req_access_txt = "56"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -57709,7 +57351,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Engineering Hallway - Starboard";
-	dir = 2;
 	name = "hallway camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -57812,8 +57453,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel's Office";
-	req_access_txt = "57";
-	security_level = 6
+	req_access_txt = "57"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
@@ -57863,8 +57503,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/command{
 	name = "Telecomms Server Room";
-	req_access_txt = "61";
-	security_level = 6
+	req_access_txt = "61"
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -58023,7 +57662,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Security Hallway - Port";
-	dir = 2;
 	name = "hallway camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -60441,7 +60079,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc{
 	areastring = "/area/aisat";
-	dir = 2;
 	name = "AI Satellite Exterior APC";
 	pixel_y = -24
 	},
@@ -60625,7 +60262,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc{
 	areastring = "/area/crew_quarters/heads/chief";
-	dir = 2;
 	name = "Chief Engineer's APC";
 	pixel_y = -24
 	},
@@ -61096,8 +60732,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Telecomms Server Room";
-	req_access_txt = "61";
-	security_level = 6
+	req_access_txt = "61"
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -61143,8 +60778,7 @@
 "bZm" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters";
-	req_access_txt = "20";
-	security_level = 6
+	req_access_txt = "20"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -61275,7 +60909,6 @@
 	},
 /obj/machinery/power/apc{
 	areastring = "/area/hallway/primary/starboard";
-	dir = 2;
 	name = "Starboard Primary Hallway APC";
 	pixel_y = -24
 	},
@@ -61543,7 +61176,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc{
 	areastring = "/area/ai_monitored/security/armory";
-	dir = 2;
 	name = "Armory APC";
 	pixel_y = -24
 	},
@@ -61602,7 +61234,6 @@
 	},
 /obj/machinery/power/apc{
 	areastring = "/area/ai_monitored/turret_protected/aisat_interior";
-	dir = 2;
 	name = "MiniSat APC";
 	pixel_y = -24
 	},
@@ -61921,9 +61552,7 @@
 	req_access_txt = "10"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -61947,9 +61576,7 @@
 	req_access_txt = "63"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -62047,11 +61674,8 @@
 /obj/structure/sign/directions/evac{
 	pixel_y = -8
 	},
-/obj/structure/sign/directions/medical{
-	dir = 2
-	},
+/obj/structure/sign/directions/medical,
 /obj/structure/sign/directions/security{
-	dir = 2;
 	pixel_y = 8
 	},
 /turf/closed/wall,
@@ -62275,9 +61899,7 @@
 /obj/structure/sign/directions/evac{
 	pixel_y = -8
 	},
-/obj/structure/sign/directions/medical{
-	dir = 2
-	},
+/obj/structure/sign/directions/medical,
 /obj/structure/sign/directions/security{
 	dir = 4;
 	pixel_y = 8
@@ -62561,9 +62183,7 @@
 	id = "armoryaccess";
 	name = "Armory Access"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -62777,7 +62397,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Engineering - Fore";
-	dir = 2;
 	name = "engineering camera"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -62903,9 +62522,7 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -63128,7 +62745,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 2;
 	external_pressure_bound = 140;
 	name = "server vent";
 	pressure_checks = 0
@@ -63178,7 +62794,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 2;
 	external_pressure_bound = 120;
 	name = "server vent"
 	},
@@ -63344,8 +62959,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Courtroom - Fore";
-	dir = 2
+	c_tag = "Courtroom - Fore"
 	},
 /obj/structure/sign/poster/official/report_crimes{
 	pixel_y = 32
@@ -63504,7 +63118,6 @@
 /obj/item/folder/red,
 /obj/item/pen,
 /obj/machinery/door/window/brigdoor/southright{
-	dir = 2;
 	name = "Security Desk";
 	req_access_txt = "63"
 	},
@@ -64514,7 +64127,6 @@
 /area/security/courtroom)
 "ceP" = (
 /obj/structure/chair{
-	dir = 2;
 	name = "Prosecution"
 	},
 /obj/effect/turf_decal/tile/red{
@@ -64530,7 +64142,6 @@
 /area/security/courtroom)
 "ceQ" = (
 /obj/structure/chair{
-	dir = 2;
 	name = "Prosecution"
 	},
 /obj/effect/turf_decal/tile/red{
@@ -64876,8 +64487,7 @@
 	pixel_y = 24
 	},
 /obj/machinery/camera{
-	c_tag = "Security - Gear Room";
-	dir = 2
+	c_tag = "Security - Gear Room"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -65463,7 +65073,6 @@
 	},
 /obj/machinery/power/apc/highcap/ten_k{
 	areastring = "/area/crew_quarters/heads/captain/private";
-	dir = 2;
 	name = "Captain's Quarters APC";
 	pixel_y = -24
 	},
@@ -66440,7 +66049,6 @@
 /obj/structure/bookcase/manuals/research_and_development,
 /obj/machinery/camera{
 	c_tag = "Library";
-	dir = 2;
 	name = "library camera"
 	},
 /turf/open/floor/wood,
@@ -66583,17 +66191,14 @@
 "cij" = (
 /obj/machinery/door/airlock/command{
 	name = "Emergency Escape";
-	req_access_txt = "20";
-	security_level = 6
+	req_access_txt = "20"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -67484,8 +67089,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/command{
 	name = "Telecomms Server Room";
-	req_access_txt = "61";
-	security_level = 6
+	req_access_txt = "61"
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -67807,9 +67411,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -68238,9 +67840,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -68466,9 +68066,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -69012,8 +68610,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Telecomms Server Room";
-	req_access_txt = "61";
-	security_level = 6
+	req_access_txt = "61"
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -69511,7 +69108,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/power/apc{
 	areastring = "/area/ai_monitored/turret_protected/ai_upload";
-	dir = 2;
 	name = "AI Upload Access APC";
 	pixel_y = -24
 	},
@@ -69662,9 +69258,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -69817,8 +69411,7 @@
 "cnY" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel's Quarters";
-	req_access_txt = "57";
-	security_level = 6
+	req_access_txt = "57"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -70452,9 +70045,7 @@
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 20
 	},
-/obj/item/gps/engineering{
-	gpstag = "ENG0"
-	},
+/obj/item/gps/engineering,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -70878,9 +70469,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -71216,8 +70805,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel's Office";
-	req_access_txt = "57";
-	security_level = 6
+	req_access_txt = "57"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/firedoor,
@@ -71244,13 +70832,10 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Telecomms Foyer";
-	req_access_txt = "61";
-	security_level = 6
+	req_access_txt = "61"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -71260,12 +70845,9 @@
 "crc" = (
 /obj/machinery/door/airlock/command{
 	name = "Teleport Access";
-	req_access_txt = "17";
-	security_level = 6
+	req_access_txt = "17"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -71284,9 +70866,7 @@
 	id = "teleportershutters";
 	name = "Teleporter Shutters"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -71299,9 +70879,7 @@
 	name = "Teleporter Shutters"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -71775,9 +71353,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "crX" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -71785,9 +71361,7 @@
 /area/engine/engineering)
 "crY" = (
 /obj/effect/decal/cleanable/oil,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -72082,7 +71656,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Central Hallway - Center";
-	dir = 2;
 	name = "hallway camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -72369,7 +71942,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Locker Room - Fore";
-	dir = 2;
 	name = "dormitories camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -73578,13 +73150,10 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "E.V.A. Storage";
-	req_access_txt = "18";
-	security_level = 6
+	req_access_txt = "18"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -73594,13 +73163,10 @@
 "cvq" = (
 /obj/machinery/door/airlock/command{
 	name = "E.V.A. Storage";
-	req_access_txt = "18";
-	security_level = 6
+	req_access_txt = "18"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -73709,14 +73275,11 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Gateway Atrium";
-	req_access_txt = "62";
-	security_level = 6
+	req_access_txt = "62"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -73848,7 +73411,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Dormitory Hallway";
-	dir = 2;
 	name = "hallway camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -74092,7 +73654,6 @@
 /obj/item/pen,
 /obj/machinery/camera{
 	c_tag = "Recreation - Fore";
-	dir = 2;
 	name = "recreation camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -74373,7 +73934,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/camera{
 	c_tag = "Bridge - E.V.A. Fore";
-	dir = 2;
 	name = "command camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -76233,8 +75793,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Corporate Lounge";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -76244,8 +75803,7 @@
 "cAb" = (
 /obj/machinery/door/airlock/command{
 	name = "Corporate Lounge";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -76385,9 +75943,7 @@
 /obj/machinery/door/airlock{
 	name = "Primary Restroom"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -76535,9 +76091,7 @@
 	req_access_txt = "12"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -76976,7 +76530,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Bridge - Corporate Lounge";
-	dir = 2;
 	name = "command camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -77273,7 +76826,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Primary Restroom";
-	dir = 2;
 	name = "restroom camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -79182,8 +78734,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Gateway Chamber";
-	req_access_txt = "62";
-	security_level = 6
+	req_access_txt = "62"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -79569,7 +79120,6 @@
 "cFG" = (
 /obj/machinery/camera{
 	c_tag = "Holodeck - Fore";
-	dir = 2;
 	name = "holodeck camera"
 	},
 /turf/open/floor/engine{
@@ -80300,7 +79850,6 @@
 	},
 /obj/item/reagent_containers/food/drinks/beer{
 	desc = "Whatever it is, it reeks of foul, putrid froth.";
-	icon_state = "beer";
 	list_reagents = list(/datum/reagent/consumable/ethanol/bacchus_blessing = 15);
 	name = "Delta-Down";
 	pixel_x = 5;
@@ -80668,9 +80217,7 @@
 	name = "E.V.A. Storage Shutters"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -80682,9 +80229,7 @@
 	id = "evashutters";
 	name = "E.V.A. Storage Shutters"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -80703,9 +80248,7 @@
 	name = "E.V.A. Storage Shutters"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -80728,8 +80271,7 @@
 "cHO" = (
 /obj/machinery/door/airlock/command{
 	name = "Corporate Lounge";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -80744,12 +80286,9 @@
 "cHP" = (
 /obj/machinery/door/airlock/command{
 	name = "Gateway Atrium";
-	req_access_txt = "62";
-	security_level = 6
+	req_access_txt = "62"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -80769,9 +80308,7 @@
 	req_access_txt = "19"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -80784,9 +80321,7 @@
 	name = "Gateway Chamber Shutters"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -80798,9 +80333,7 @@
 	id = "gatewayshutters";
 	name = "Gateway Chamber Shutters"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -80891,9 +80424,7 @@
 	name = "Lockerroom"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -80906,9 +80437,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -80998,9 +80527,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -81047,7 +80574,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Central Hallway - Science Aft";
-	dir = 2;
 	name = "hallway camera"
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -81202,7 +80728,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Central Hallway - Medbay Aft";
-	dir = 2;
 	name = "hallway camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -81274,9 +80799,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -81476,7 +80999,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Dormitories - Starboard";
-	dir = 2;
 	name = "dormitories camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -82765,7 +82287,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Holodeck Control";
-	dir = 2;
 	name = "holodeck camera"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -83416,7 +82937,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc{
 	areastring = "/area/crew_quarters/dorms";
-	dir = 2;
 	name = "Dormitories APC";
 	pixel_y = -24
 	},
@@ -83752,7 +83272,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Xenobiology - Killroom Chamber";
-	dir = 2;
 	name = "xenobiology camera";
 	network = list("ss13","xeno","rd")
 	},
@@ -83822,9 +83341,7 @@
 /area/science/research)
 "cNr" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -83835,9 +83352,7 @@
 /turf/closed/wall,
 /area/science/research)
 "cNt" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -83862,9 +83377,7 @@
 	name = "Aft Primary Hallway"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -83875,9 +83388,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Aft Primary Hallway"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -83890,9 +83401,7 @@
 	name = "Aft Primary Hallway"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -83917,9 +83426,7 @@
 /turf/open/floor/plating,
 /area/medical/medbay/central)
 "cNA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -83932,9 +83439,7 @@
 /area/medical/medbay/central)
 "cNC" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -84397,7 +83902,6 @@
 /area/science/xenobiology)
 "cOO" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 2;
 	external_pressure_bound = 140;
 	name = "killroom vent";
 	pressure_checks = 0
@@ -84409,7 +83913,6 @@
 /area/science/xenobiology)
 "cOQ" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 2;
 	external_pressure_bound = 120;
 	name = "server vent"
 	},
@@ -84431,9 +83934,7 @@
 	req_access_txt = "47"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -85064,9 +84565,7 @@
 	req_access_txt = "47"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -85813,7 +85312,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Xenobiology - Port";
-	dir = 2;
 	name = "xenobiology camera";
 	network = list("ss13","xeno","rd")
 	},
@@ -86018,9 +85516,7 @@
 	name = "Xenobiology Kill Room";
 	req_access_txt = "47"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -86572,9 +86068,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -86795,7 +86289,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/window/brigdoor{
-	dir = 2;
 	name = "Creature Pen";
 	req_access_txt = "47"
 	},
@@ -88480,9 +87973,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -88757,9 +88248,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -88775,9 +88264,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -88787,9 +88274,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -89280,9 +88765,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -89294,9 +88777,7 @@
 	name = "Medbay Storage";
 	req_access_txt = "5"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -89327,7 +88808,6 @@
 "cYc" = (
 /obj/machinery/camera{
 	c_tag = "Medbay - Break Room";
-	dir = 2;
 	name = "medbay camera";
 	network = list("ss13","medbay")
 	},
@@ -89924,9 +89404,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -89945,9 +89423,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -91647,7 +91123,6 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/door/window/brigdoor{
-	dir = 2;
 	name = "Creature Pen";
 	req_access_txt = "47"
 	},
@@ -91698,7 +91173,6 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/door/window/brigdoor{
-	dir = 2;
 	name = "Creature Pen";
 	req_access_txt = "47"
 	},
@@ -91753,7 +91227,6 @@
 	name = "Creature Cell #3"
 	},
 /obj/machinery/door/window/brigdoor{
-	dir = 2;
 	name = "Creature Pen";
 	req_access_txt = "47"
 	},
@@ -93042,9 +92515,7 @@
 	name = "Xenobiology Lab";
 	req_access_txt = "47"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -93071,9 +92542,7 @@
 /area/science/xenobiology)
 "dfg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -93082,9 +92551,7 @@
 /area/science/research)
 "dfh" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -93135,9 +92602,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -93154,9 +92619,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -93371,9 +92834,7 @@
 	name = "Medical Cell";
 	req_access_txt = "63"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -93382,9 +92843,7 @@
 /area/security/checkpoint/medical)
 "dfF" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -93393,9 +92852,7 @@
 /area/medical/medbay/central)
 "dfG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -93417,9 +92874,7 @@
 	req_access_txt = "5"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -93649,7 +93104,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Science - Port";
-	dir = 2;
 	name = "science camera";
 	network = list("ss13","rd")
 	},
@@ -93734,7 +93188,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Science - Center";
-	dir = 2;
 	name = "science camera";
 	network = list("ss13","rd")
 	},
@@ -94139,7 +93592,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Medbay - Center";
-	dir = 2;
 	name = "medbay camera";
 	network = list("ss13","medbay")
 	},
@@ -95117,7 +94569,6 @@
 "djC" = (
 /obj/machinery/camera{
 	c_tag = "Science - Experimentation Lab";
-	dir = 2;
 	name = "science camera";
 	network = list("ss13","rd")
 	},
@@ -96053,9 +95504,7 @@
 	name = "Research Division Access";
 	req_access_txt = "47"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -96168,9 +95617,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -96180,9 +95627,7 @@
 "dlQ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -96190,9 +95635,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "dlR" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -96206,9 +95649,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -96224,9 +95665,7 @@
 	req_access_txt = "5; 33"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -96249,9 +95688,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -96262,9 +95699,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -96283,9 +95718,7 @@
 	name = "Surgery Observation"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -96300,9 +95733,7 @@
 /obj/machinery/door/airlock/medical{
 	name = "Surgery Observation"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -97941,7 +97372,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Science - Lab Access";
-	dir = 2;
 	name = "science camera";
 	network = list("ss13","rd")
 	},
@@ -98359,8 +97789,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Office";
-	req_access_txt = "30";
-	security_level = 6
+	req_access_txt = "30"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -98734,9 +98163,7 @@
 /obj/machinery/door/airlock/medical{
 	name = "Surgery Observation"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -98924,9 +98351,7 @@
 	id = "rdtoxins";
 	name = "Toxins Lab Shutters"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -99666,9 +99091,7 @@
 	name = "Genetics Desk Maintenance";
 	req_access_txt = "9"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -99704,9 +99127,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -101280,8 +100701,7 @@
 "dwY" = (
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer's Office";
-	req_access_txt = "40";
-	security_level = 6
+	req_access_txt = "40"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -101385,8 +100805,7 @@
 "dxe" = (
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer's Office";
-	req_access_txt = "40";
-	security_level = 6
+	req_access_txt = "40"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -101610,13 +101029,10 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Quarters";
-	req_access_txt = "30";
-	security_level = 6
+	req_access_txt = "30"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -101636,9 +101052,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -101648,9 +101062,7 @@
 "dyb" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/airalarm{
 	dir = 8;
 	pixel_x = 24
@@ -101684,9 +101096,7 @@
 	name = "Robotics Lab";
 	req_access_txt = "29"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -101699,9 +101109,7 @@
 "dyh" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -102154,7 +101562,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc{
 	areastring = "/area/medical/surgery";
-	dir = 2;
 	name = "Surgery APC";
 	pixel_y = -24
 	},
@@ -104031,9 +103438,7 @@
 	req_access_txt = "9"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -104328,7 +103733,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc/highcap/ten_k{
 	areastring = "/area/maintenance/solars/starboard/aft";
-	dir = 2;
 	name = "Starboard Quarter Solar APC";
 	pixel_y = -24
 	},
@@ -104354,8 +103758,7 @@
 /obj/machinery/power/solar_control{
 	dir = 8;
 	id = "aftstarboard";
-	name = "Starboard Quarter Solar Control";
-	track = 0
+	name = "Starboard Quarter Solar Control"
 	},
 /obj/structure/cable,
 /obj/machinery/airalarm{
@@ -104474,9 +103877,7 @@
 	id = "rdtoxins";
 	name = "Toxins Lab Shutters"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -105298,8 +104699,7 @@
 "dFg" = (
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer's Quarters";
-	req_access_txt = "40";
-	security_level = 6
+	req_access_txt = "40"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -105502,7 +104902,6 @@
 /obj/item/clothing/mask/gas,
 /obj/machinery/camera{
 	c_tag = "Science - Toxins Launch Site";
-	dir = 2;
 	name = "science camera";
 	network = list("ss13","rd")
 	},
@@ -105545,9 +104944,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -105738,8 +105135,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Research Division Server Room";
-	req_access_txt = "30";
-	security_level = 6
+	req_one_access_txt = "30;70"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -106300,9 +105696,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -106430,8 +105824,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Server Access";
-	req_access_txt = "30";
-	security_level = 6
+	req_one_access_txt = "30;70"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -106855,7 +106248,6 @@
 /area/science/test_area)
 "dIj" = (
 /obj/machinery/button/massdriver{
-	dir = 2;
 	id = "toxinsdriver";
 	pixel_x = -24
 	},
@@ -106878,9 +106270,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "dIm" = (
@@ -106888,18 +106278,14 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "dIn" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "dIo" = (
@@ -106910,9 +106296,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -107165,7 +106549,6 @@
 /area/science/storage)
 "dIF" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 2;
 	external_pressure_bound = 140;
 	name = "server vent";
 	pressure_checks = 0
@@ -107188,7 +106571,6 @@
 /area/science/server)
 "dIH" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 2;
 	external_pressure_bound = 120;
 	name = "server vent"
 	},
@@ -107369,7 +106751,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc{
 	areastring = "/area/medical/morgue";
-	dir = 2;
 	name = "Morgue APC";
 	pixel_y = -24
 	},
@@ -107909,9 +107290,7 @@
 	req_access_txt = "29"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -107952,9 +107331,7 @@
 	name = "Virology Access";
 	req_access_txt = "39"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -108030,9 +107407,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -108049,9 +107424,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -108082,9 +107455,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -108613,9 +107984,7 @@
 /area/science/test_area)
 "dLG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "dLH" = (
@@ -108665,9 +108034,7 @@
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "dLM" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -109124,7 +108491,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc{
 	areastring = "/area/maintenance/aft";
-	dir = 2;
 	name = "Aft Maintenance APC";
 	pixel_y = -24
 	},
@@ -109743,9 +109109,7 @@
 	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -109764,9 +109128,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -109777,9 +109139,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Departures Lounge"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -109792,9 +109152,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -110372,9 +109730,7 @@
 /obj/machinery/door/airlock{
 	name = "Bathroom"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -110600,9 +109956,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/virology{
 	autoclose = 0;
@@ -110671,9 +110025,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/wooden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -110686,9 +110038,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/wooden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -111183,9 +110533,7 @@
 	req_access_txt = "47"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -111432,9 +110780,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -111453,9 +110799,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -111959,9 +111303,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -112058,9 +111400,7 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 4
 	},
@@ -112106,9 +111446,7 @@
 	name = "Departures Lounge"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -112119,9 +111457,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Departures Lounge"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -112331,7 +111667,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Departures - Fore";
-	dir = 2;
 	name = "departures camera"
 	},
 /obj/structure/cable/yellow{
@@ -113872,9 +113207,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -114714,7 +114047,6 @@
 /obj/effect/landmark/start/assistant,
 /obj/machinery/camera{
 	c_tag = "Departures - Center";
-	dir = 2;
 	name = "departures camera"
 	},
 /obj/effect/turf_decal/bot,
@@ -115088,7 +114420,6 @@
 /area/hallway/secondary/exit/departure_lounge)
 "eab" = (
 /obj/docking_port/stationary{
-	dheight = 0;
 	dir = 4;
 	dwidth = 11;
 	height = 18;
@@ -115131,9 +114462,7 @@
 	req_access_txt = "39"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -115523,9 +114852,7 @@
 	req_access_txt = "12"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -116028,8 +115355,7 @@
 /obj/machinery/power/solar_control{
 	dir = 4;
 	id = "aftport";
-	name = "Port Quarter Solar Control";
-	track = 0
+	name = "Port Quarter Solar Control"
 	},
 /obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
@@ -116058,7 +115384,6 @@
 /obj/structure/cable/white,
 /obj/machinery/power/apc/highcap/ten_k{
 	areastring = "/area/maintenance/solars/port/aft";
-	dir = 2;
 	name = "Port Quarter Solar APC";
 	pixel_y = -24
 	},
@@ -116656,9 +115981,7 @@
 	req_access_txt = "12"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -116696,9 +116019,7 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -116720,9 +116041,7 @@
 	req_access_txt = "63"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -116743,9 +116062,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -116786,9 +116103,7 @@
 	name = "Holding Area";
 	req_access_txt = "2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -116848,7 +116163,6 @@
 	pixel_x = -26
 	},
 /obj/machinery/airalarm{
-	dir = 2;
 	pixel_y = 22
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -116894,7 +116208,6 @@
 /obj/item/kirbyplants/random,
 /obj/machinery/camera{
 	c_tag = "Chapel Quarters";
-	dir = 2;
 	name = "chapel camera"
 	},
 /turf/open/floor/plasteel/grimy,
@@ -117011,8 +116324,7 @@
 	pixel_y = 26
 	},
 /obj/machinery/camera{
-	c_tag = "Security - Departures Port";
-	dir = 2
+	c_tag = "Security - Departures Port"
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -117363,9 +116675,7 @@
 	name = "External Airlock";
 	req_access_txt = "13"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -118007,9 +117317,7 @@
 	name = "External Airlock";
 	req_access_txt = "13"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -118093,9 +117401,7 @@
 /turf/open/floor/plasteel/dark/corner,
 /area/engine/engineering)
 "ehy" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -118140,9 +117446,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "ehM" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -118163,9 +117467,7 @@
 /turf/open/floor/plasteel/dark,
 /area/library)
 "ejx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -118178,9 +117480,7 @@
 /area/engine/gravity_generator)
 "emE" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -118195,9 +117495,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -118351,9 +117649,7 @@
 /area/engine/gravity_generator)
 "ePW" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -118514,9 +117810,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
@@ -119170,9 +118464,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -120077,7 +119369,6 @@
 /obj/structure/table/glass,
 /obj/machinery/camera{
 	c_tag = "Medbay - Sleepers";
-	dir = 2;
 	name = "medbay camera";
 	network = list("ss13","medbay")
 	},
@@ -121670,8 +120961,7 @@
 "oZC" = (
 /obj/machinery/door/airlock/command{
 	name = "Corporate Lounge";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -122068,9 +121358,7 @@
 /obj/machinery/door/airlock{
 	name = "Auxiliary Storage Closet"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -123606,9 +122894,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -123742,9 +123028,7 @@
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
 "vFI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -124067,7 +123351,6 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Arrivals - Center Port";
-	dir = 2;
 	name = "arrivals camera"
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -124286,9 +123569,7 @@
 /turf/open/floor/plasteel,
 /area/science/research)
 "xPT" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
