@@ -21,7 +21,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/datum/effect_system/spark_spread/spark_system
 	var/datum/action/innate/dash/ninja/jaunt
-	var/dash_toggled = TRUE
+	var/dash_toggle = TRUE
 
 /obj/item/energy_katana/Initialize()
 	. = ..()
@@ -31,13 +31,14 @@
 	spark_system.attach(src)
 
 /obj/item/energy_katana/attack_self(mob/user)
-	dash_toggled = !dash_toggled
-	balloon_alert(user, "Dash [dash_toggled ? "enabled" : "disabled"]")
+	dash_toggle = !dash_toggle
+	balloon_alert(user, "Dash [dash_toggle ? "enabled" : "disabled"]")
 
 /obj/item/energy_katana/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(dash_toggled)
+	if(dash_toggle)
 		jaunt.Teleport(user, target)
+		return
 	if(proximity_flag && (isobj(target) || issilicon(target)))
 		spark_system.start()
 		playsound(user, "sparks", 50, 1)
@@ -66,12 +67,12 @@
 	if(istype(H.wear_suit, /obj/item/clothing/suit/space/space_ninja))
 		var/obj/item/clothing/suit/space/space_ninja/SN = H.wear_suit
 		if(SN.energyKatana == src)
-			returnToOwner(H, 0, 1)
+			return_to_owner(H, FALSE)
 			return
 
 	return ..()
 
-/obj/item/energy_katana/proc/returnToOwner(mob/living/carbon/human/user, doSpark = TRUE, caught = 0)
+/obj/item/energy_katana/proc/return_to_owner(mob/living/carbon/human/user, doSpark = TRUE)
 	if(!istype(user))
 		return
 	forceMove(get_turf(user))
@@ -88,12 +89,6 @@
 		msg = "Your Energy Katana teleports back to you, sheathing itself as it does so!</span>"
 	else
 		msg = "Your Energy Katana teleports to your location!"
-
-	if(caught)
-		if(loc == user)
-			msg = "You catch your Energy Katana!"
-		else
-			msg = "Your Energy Katana lands at your feet!"
 
 	if(msg)
 		to_chat(user, "<span class='notice'>[msg]</span>")

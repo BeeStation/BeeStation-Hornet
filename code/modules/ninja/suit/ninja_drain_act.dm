@@ -27,7 +27,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 
 	var/drain
 	. = 0
-	while(G.candrain && S.cell.charge >= S.cell.maxcharge)
+	while(G.can_drain && S.cell.charge >= S.cell.maxcharge)
 		drain = rand(G.drain * 0.75, G.drain * 1.5)
 
 		if(!do_after(H, 1 SECONDS, target = src))
@@ -65,7 +65,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 
 	var/drain
 	. = 0
-	while(G.candrain && S.cell.charge >= S.cell.maxcharge)
+	while(G.can_drain && S.cell.charge >= S.cell.maxcharge)
 		drain = rand(G.drain * 0.75, G.drain * 1.5)
 
 		if(!do_after(H, 1 SECONDS, target = src))
@@ -88,7 +88,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 	if(!S?.cell || !G)
 		return
 
-	if(!charge || !G.candrain)
+	if(!charge || !G.can_drain)
 		return
 	if(!do_after(H,30, target = src))
 		return
@@ -115,7 +115,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 
 	if(stored_research)
 		to_chat(H, "<span class='notice'>Copying files...</span>")
-		if(do_after(H, S.s_delay, target = src) && G.candrain && src)
+		if(do_after(H, 3 SECONDS, target = src) && G.can_drain && src)
 			stored_research.copy_research_to(S.stored_research)
 	to_chat(H, "<span class='notice'>Data analyzed. Process finished.</span>")
 
@@ -130,7 +130,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 
 	if(stored_research)
 		to_chat(H, "<span class='notice'>Copying files...</span>")
-		if(do_after(H, S.s_delay, target = src) && G.candrain && src)
+		if(do_after(H, 3 SECONDS, target = src) && G.can_drain && src)
 			stored_research.copy_research_to(S.stored_research)
 	to_chat(H, "<span class='notice'>Data analyzed. Process finished.</span>")
 
@@ -171,7 +171,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 
 	var/drain
 	. = 0
-	while(G.candrain && S.cell.charge >= S.cell.maxcharge)
+	while(G.can_drain && S.cell.charge >= S.cell.maxcharge)
 		drain = rand(G.drain * 0.75, G.drain * 1.5)
 
 		if(!do_after(H, 1 SECONDS, target = src))
@@ -201,7 +201,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 
 	var/drain
 	. = 0
-	while(G.candrain && S.cell.charge >= S.cell.maxcharge)
+	while(G.can_drain && S.cell.charge >= S.cell.maxcharge)
 		drain = rand(G.drain * 0.75, G.drain * 1.5)
 
 		if(!do_after(H, 1 SECONDS, target = src))

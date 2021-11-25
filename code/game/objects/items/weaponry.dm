@@ -350,6 +350,11 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb = list("stabbed", "ripped", "gored", "impaled")
 	embedding = list("pain_mult" = 8, "embed_chance" = 1000, "fall_chance" = 0, "armour_block" = 100)
 
+/obj/item/throwing_star/ninja
+	name = "ninja throwing star"
+	throwforce = 30
+	embedding = list("pain_mult" = 6, "embed_chance" = 180, "fall_chance" = 0)
+
 /obj/item/switchblade
 	name = "long switchblade"
 	icon_state = "switchblade"

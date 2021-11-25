@@ -21,4 +21,3 @@
 		var/obj/item/clothing/suit/space/space_ninja/S = H.wear_suit
 		if(istype(H.belt, belt))
 			S.energyKatana = H.belt
-		S.randomize_param()

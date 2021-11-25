@@ -1,7 +1,3 @@
-//Note to future generations: I didn't write this god-awful code I just ported it to the event system and tried to make it less moon-speaky.
-//Don't judge me D; ~Carn //Maximum judging occuring - Remie.
-// Tut tut Remie, let's keep our comments constructive. - coiax
-
 /*
 
 Contents:
@@ -62,28 +58,18 @@ Contents:
 	Mind.active = 1
 
 	//spawn the ninja and assign the candidate
-	var/mob/living/carbon/human/Ninja = create_space_ninja(spawn_loc)
-	Mind.transfer_to(Ninja)
+	var/mob/living/carbon/human/ninja = new /mob/living/carbon/human(spawn_loc)
+	var/datum/preferences/A = new()//Randomize appearance for the ninja.
+	A.real_name = "[pick(GLOB.ninja_titles)] [pick(GLOB.ninja_names)]"	//I wish we didn't have so much stupid globals like that
+	A.copy_to(ninja)
+	ninja.dna.update_dna_identity()
+	Mind.transfer_to(ninja)
 	var/datum/antagonist/ninja/ninjadatum = new
 	ninjadatum.helping_station = pick(TRUE,FALSE)
 	Mind.add_antag_datum(ninjadatum)
 
-	if(Ninja.mind != Mind)			//something has gone wrong!
-		CRASH("Ninja created with incorrect mind")
-
-	spawned_mobs += Ninja
-	message_admins("[ADMIN_LOOKUPFLW(Ninja)] has been made into a ninja by an event.")
-	log_game("[key_name(Ninja)] was spawned as a ninja by an event.")
+	spawned_mobs += ninja
+	message_admins("[ADMIN_LOOKUPFLW(ninja)] has been made into a ninja by an event.")
+	log_game("[key_name(ninja)] was spawned as a ninja by an event.")
 
 	return SUCCESSFUL_SPAWN
-
-
-//=======//NINJA CREATION PROCS//=======//
-
-/proc/create_space_ninja(spawn_loc)
-	var/mob/living/carbon/human/new_ninja = new(spawn_loc)
-	var/datum/preferences/A = new()//Randomize appearance for the ninja.
-	A.real_name = "[pick(GLOB.ninja_titles)] [pick(GLOB.ninja_names)]"
-	A.copy_to(new_ninja)
-	new_ninja.dna.update_dna_identity()
-	return new_ninja
