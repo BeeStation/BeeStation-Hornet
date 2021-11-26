@@ -392,12 +392,11 @@
 						   /obj/item/stamp/denied)
 
 	// 4-1. For everyone
-	if(TRUE)
-		heirloom_table.Add(pick(subtypesof(/obj/item/bedsheet)), //random bedsheet. you can get a fancy one if you're lucky.
-						   /obj/item/toy/cards/deck,
-						   /obj/item/lighter,
-						   /obj/item/dice/d20,
-						   /obj/item/book/manual/wiki/security_space_law) //1984. all crews are encourage to hold this book all times. giving higher chance for sec.
+	heirloom_table.Add(pick(subtypesof(/obj/item/bedsheet)), //random bedsheet. you can get a fancy one if you're lucky.
+					   /obj/item/toy/cards/deck,
+					   /obj/item/lighter,
+					   /obj/item/dice/d20,
+					   /obj/item/book/manual/wiki/security_space_law) //1984. all crews are encourage to hold this book all times. giving higher chance for sec.
 
 	// 4-2. Rare chance to be fucked up
 	if(prob(5)) //with 5% chance, these items are added to your table - which means you still have a chance to avoid them.
