@@ -426,8 +426,6 @@
 
 
 	// 4-3. Super rare chance to be powerful
-	if(prob(0.5))
-		heirloom_table.Add(/obj/item/bodybag/bluespace)
 		// the real worth heirloom, but you are not the one getting this.
 	//------------End Of Random Table List------------------
 
