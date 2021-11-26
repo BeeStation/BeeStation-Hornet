@@ -106,9 +106,6 @@
 		return
 	if(istype(item, /obj/item/clothing/head))
 		var/obj/item/clothing/head/hat = item
-		if(hat.clothing_flags & PLASMAMAN_HELMET_EXEMPT)
-			to_chat(user, "<span class='notice'>You cannot place \the [hat.name] onto the helmet!</span>")
-			return
 		if(attached_hat)
 			to_chat(user, "<span class='notice'>There's already a hat on the helmet!</span>")
 			return
