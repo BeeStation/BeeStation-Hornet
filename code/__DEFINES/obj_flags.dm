@@ -45,6 +45,7 @@
 #define SCAN_REAGENTS           (1<<11) //! Allows helmets and glasses to scan reagents.
 #define MASKEXTENDRANGE			(1<<12) //! For masks, allows you to breathe from internals on adjecent tiles
 #define NOTCONSUMABLE			(1<<13) //! Moths cannot eat clothing with that flag
+#define PLASMAMAN_HELMET_EXEMPT (1<<14) //! prevents from placing on envirohelm
 
 /// Flags for the organ_flags var on /obj/item/organ
 
