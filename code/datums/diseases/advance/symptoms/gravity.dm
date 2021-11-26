@@ -36,9 +36,9 @@
 	if(A.transmission >= 6)
 		throwobj = TRUE
 	if(A.resistance >= 6)
-		power = 3
+		power = 4
 	if(A.resistance >= 10)
-		power = 5
+		power = 6
 
 /datum/symptom/gravity/Activate(datum/disease/advance/A)
 	if(!..())
