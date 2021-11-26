@@ -178,7 +178,7 @@
 			heirloom_table.Add(/obj/item/storage/toolbox/mechanical/old/heirloom,
 						   	   /obj/item/clothing/gloves/cut/heirloom,
 						   	   /obj/item/multitool)
-			if(prob(1) && prob(50))
+			if(prob(0.5))
 				heirloom_table.Add(/obj/item/clothing/under/color/grey/glorf) //very rare chance for ancient jumpsuit
 		if("Janitor")
 			civ = TRUE
@@ -426,7 +426,7 @@
 
 
 	// 4-3. Super rare chance to be powerful
-	if(prob(1) && prob(50))
+	if(prob(0.5))
 		heirloom_table.Add(/obj/item/bodybag/bluespace)
 		// the real worth heirloom, but you are not the one getting this.
 	//------------End Of Random Table List------------------
