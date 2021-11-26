@@ -417,7 +417,7 @@
 		heirloom_table.Add(/obj/item/storage/backpack/duffelbag/syndie, 	//and another chance to get syndi one. woo, even suspicious.
 						   /obj/item/skub) 		//more worse
 		if(!comm && !sec) //crews will suspiciously get this traitor operative item, but they can't do anything with this. security will just be upset at you and taking your heirloom.
-			heirloom_table.Add(/obj/item/nuke_core/supermatter_sliver)
+			heirloom_table.Add(/obj/item/nuke_core_container/supermatter)
 		else
 			heirloom_table.Add(/obj/item/storage/backpack/duffelbag) //just balancing for chance to opposite departments
 
