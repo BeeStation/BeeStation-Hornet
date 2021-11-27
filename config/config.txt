@@ -248,7 +248,7 @@ CHECK_RANDOMIZER
 ## Set to prevent anyone but those ckeys listed in config/whitelist.txt and config/admins.txt from joining your server
 #USEWHITELIST
 
-## Use the patron list as a whitelist. 'USEWHITELIST' must also be enabled.
+## Use the patron list as a whitelist. 'USEWHITELIST' must also be enabled. The two lists will be joined together.
 #USE_PATRONS_AS_WHITELIST
 
 
