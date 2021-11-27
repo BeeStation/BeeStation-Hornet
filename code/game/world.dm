@@ -47,7 +47,7 @@ GLOBAL_VAR(restart_counter)
 	if(CONFIG_GET(flag/usewhitelist))
 		load_whitelist()
 		if(CONFIG_GET(flag/use_patrons_as_whitelist))
-			GLOB.whitelist =+ GLOB.patrons
+			GLOB.whitelist |= GLOB.patrons
 
 	if(fexists(RESTART_COUNTER_PATH))
 		GLOB.restart_counter = text2num(trim(rustg_file_read(RESTART_COUNTER_PATH)))
