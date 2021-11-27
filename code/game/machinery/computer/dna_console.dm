@@ -1851,7 +1851,9 @@
 	if(stored_research && !(path in stored_research.discovered_mutations))
 		var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(path)
 		stored_research.discovered_mutations += path
-		say("Successfully discovered [HM.name].")
+		if(M.discovery_points)
+			stored_research.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, HM.discovery_points)
+		say("Successfully discovered [HM.name]. [HM.discovery_points] discovery research gained.")
 		return TRUE
 
 	return FALSE
