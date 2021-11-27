@@ -91,9 +91,10 @@
 	width = 7
 	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
-	icon_state = "pipe11-2";
-	dir = 8
+	dir = 8;
+	icon_state = "pipe11-2"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "k" = (
@@ -189,8 +190,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
-	icon_state = "pipe11-2";
-	dir = 8
+	dir = 8;
+	icon_state = "pipe11-2"
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/mining)
