@@ -1,0 +1,4 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - server: Yarn has been upgraded to 3.1.1
