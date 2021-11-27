@@ -24,8 +24,8 @@ Bonus
 	name = "Vomiting"
 	desc = "The virus causes nausea and irritates the stomach, causing occasional vomit."
 	stealth = -2
-	resistance = 1
-	stage_speed = 0
+	resistance = 0
+	stage_speed = 1
 	transmission = 2
 	level = 3
 	severity = 1
@@ -37,8 +37,8 @@ Bonus
 	suffixes = list(" Emission")
 	var/vomit_blood = FALSE
 	var/proj_vomit = 0
-	threshold_desc = "<b>Resistance 7:</b> Host will vomit blood, causing internal damage.<br>\
-					  <b>Transmission 7:</b> Host will projectile vomit, increasing vomiting range.<br>\
+	threshold_desc = "<b>Stage Speed 5:</b> Host will vomit blood, causing internal damage.<br>\
+					  <b>Transmission 6:</b> Host will projectile vomit, increasing vomiting range.<br>\
 					  <b>Stealth 4:</b> The symptom remains hidden until active."
 
 /datum/symptom/vomit/Start(datum/disease/advance/A)
@@ -46,9 +46,9 @@ Bonus
 		return
 	if(A.stealth >= 4)
 		suppress_warning = TRUE
-	if(A.resistance >= 7) //blood vomit
+	if(A.stage_rate >= 5) //blood vomit
 		vomit_blood = TRUE
-	if(A.transmission >= 7) //projectile vomit
+	if(A.transmission >= 6) //projectile vomit
 		proj_vomit = 5
 
 /datum/symptom/vomit/Activate(datum/disease/advance/A)

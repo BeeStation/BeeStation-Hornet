@@ -23,7 +23,7 @@ Bonus
 	resistance = -2
 	stage_speed = -2
 	transmission = 2
-	level = 6
+	level = 3
 	severity = 2
 	base_message_chance = 100
 	symptom_delay_min = 60
@@ -31,15 +31,15 @@ Bonus
 	prefixes = list("Vocal ")
 	var/scramble_language = FALSE
 	var/datum/language/current_language
-	threshold_desc = "<b>Transmission 14:</b> The host's language center of the brain is damaged, leading to complete inability to speak or understand any language.<br>\
+	threshold_desc = "<b>Transmission 10:</b> The host's language center of the brain is damaged, leading to complete inability to speak or understand any language.<br>\
 					  <b>Stage Speed 7:</b> Changes voice more often.<br>\
 					  <b>Stealth 3:</b> The symptom remains hidden until active."
 
 /datum/symptom/voice_change/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.transmission >= 14) //random language
-		bodies += list("Polyglot")
+	if(A.transmission >= 10) //random language
 		severity += 1
+		bodies = list("Polyglot")
 
 /datum/symptom/voice_change/Start(datum/disease/advance/A)
 	if(!..())
@@ -50,7 +50,7 @@ Bonus
 		base_message_chance = 25
 		symptom_delay_min = 25
 		symptom_delay_max = 85
-	if(A.transmission >= 14) //random language
+	if(A.transmission >= 10) //random language
 		scramble_language = TRUE
 
 /datum/symptom/voice_change/Activate(datum/disease/advance/A)

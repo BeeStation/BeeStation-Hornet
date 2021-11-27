@@ -64527,6 +64527,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/light_switch{
+	pixel_x = -23
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "cBI" = (
@@ -71997,12 +72003,6 @@
 "cQC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/light_switch{
-	pixel_x = -23
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
