@@ -1,4 +1,0 @@
-author: francinum
-delete-after: true
-changes:
-  - config: the Patreon donators list can now be used as a whitelist.
