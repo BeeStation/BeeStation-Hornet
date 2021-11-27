@@ -45,7 +45,10 @@ GLOBAL_VAR(restart_counter)
 		world.log = file("[GLOB.log_directory]/dd.log") //not all runtimes trigger world/Error, so this is the only way to ensure we can see all of them.
 #endif
 	if(CONFIG_GET(flag/usewhitelist))
-		load_whitelist()
+		if(CONFIG_GET(flag/use_patrons_as_whitelist))
+			GLOB.whitelist = GLOB.patrons
+		else
+			load_whitelist()
 
 	if(fexists(RESTART_COUNTER_PATH))
 		GLOB.restart_counter = text2num(trim(rustg_file_read(RESTART_COUNTER_PATH)))
