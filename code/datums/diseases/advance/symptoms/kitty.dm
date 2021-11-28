@@ -134,6 +134,7 @@
 					H.visible_message("<span class='warning'>[H] yanks on [target]'s ears!</span>", "<span class='hypnophrase'>You scratch behind [target]'s ears!</span>")
 					to_chat(target, "<span class='userdanger'>[H] yanks on your ears!</span>")
 					H.emote("laugh")
+			target.apply_damage(rand(1, 10), BRUTE)
 
 /datum/symptom/toxoplasmosis/End(datum/disease/advance/A)
 	. = ..()

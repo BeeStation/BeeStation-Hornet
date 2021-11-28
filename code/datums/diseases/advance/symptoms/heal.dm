@@ -904,6 +904,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		return
 	var/mob/living/carbon/M = A.affected_mob
 	switch(A.stage)
+		if(1, 2)	
+			to_chat(M, "<span class='warning'>[pick("You feel something crawling in your veins!", "You feel an unpleasant throbbing.", "You hear something squishy in your ear.")]</span>")
 		if(3 to 5)
 			var/slowdown = 0
 			for(var/mob/living/simple_animal/hostile/redgrub/grub in grubs)//check if grubs need to be born, then feed existing grubs, or get them closer to hatching
@@ -948,7 +950,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		playsound(M.loc, 'sound/effects/splat.ogg', 50, 1)
 
 /datum/symptom/parasite/OnDeath(datum/disease/advance/A)
-	. = ..()
+	if(!..())
+		return
 	var/mob/living/carbon/M = A.affected_mob
 	for(var/mob/living/simple_animal/hostile/redgrub/grub in grubs)
 		grub.forceMove(M.loc)
@@ -960,4 +963,73 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			grub.grubdisease = list(A)
 		M.gib()
 		M.visible_message("<span class='warning'>[M] is eaten alive by a swarm of red grubs!</span>")
-	
+
+/datum/symptom/jitters
+	name = "Hyperactivity"
+	desc = "The virus causes restlessness, nervousness and hyperactivity, increasing the rate at which the host needs to eat,but making them harder to tire out"
+	stealth = -4
+	resistance = 0
+	stage_speed = 2
+	transmission = -3
+	level = 8
+	severity = 1
+	symptom_delay_min = 1
+	symptom_delay_max = 1
+	prefixes = list("Gray ", "Amped ", "Nervous ")
+	var/clearcc = FALSE
+	threshold_desc = "<b>Resistance 8:</b>The virus causes an even greater rate of nutriment loss, able to cause starvation, but its energy gain greatly increases<br>\
+					<b>Stage Speed 8:</b>The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness." 
+
+/datum/symptom/jitters/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.resistance >= 8)
+		severity -= 1
+	if(A.stage_rate >= 8)
+		severity -= 1
+		prefixes = list("Gray ", "Amped ", "Paranoid ")
+		suffixes = list(" Madness", " Insanity")
+
+/datum/symptom/jitters/Start(datum/disease/advance/A)
+	if(!..())
+		return
+	power = initial(power)
+	if(A.resistance >= 8)
+		power += 2
+	if(A.stage_rate >= 8)
+		power += 1
+		clearcc = TRUE
+
+/datum/symptom/jitters/Activate(datum/disease/advance/A)
+	if(!..())
+		return
+	var/mob/living/carbon/M = A.affected_mob
+	switch(A.stage)
+		if(2 to 3)
+			if(prob(power) && M.stat)
+				M.Jitter(2 * power)
+				M.emote("twitch")
+				to_chat(M, "<span class='notice'>[pick("You feel energetic!", "You feel well-rested.", "You feel great!")]</span>")
+		if(4 to 5)
+			M.adjustStaminaLoss((-5 * power), 0)
+			M.drowsyness = max(0, M.drowsyness - 10 * power)
+			M.AdjustSleeping(-10 * power)
+			M.AdjustUnconscious(-10 * power)
+			if(prob(power) && prob(50))
+				if(M.stat)
+					M.emote("twitch")
+					M.Jitter(2 * power)
+				to_chat(M, "<span class='notice'>[pick("You feel nervous...", "You feel anxious.", "You feel like everything is moving in slow motion.")]</span>")
+				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "hyperactivity", /datum/mood_event/nervous)
+			if(M.satiety > NUTRITION_LEVEL_HUNGRY - (30 * power))
+				M.satiety = max(NUTRITION_LEVEL_HUNGRY - (30 * power), M.satiety - (2 * power))
+			if(prob(25))
+				M.Jitter(2 * power)
+			if(clearcc)
+				var/realpower = power
+				if(prob(power) && prob(50))
+					realpower = power + 10
+					if(M.stat)
+						M.emote("scream")
+					M.hallucination = min(40, M.hallucination + (5 * power))
+					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "hyperactivity", /datum/mood_event/paranoid)
+				M.AdjustAllImmobility((rand(1, realpower) * 10),TRUE)

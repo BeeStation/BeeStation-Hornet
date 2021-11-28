@@ -68,7 +68,7 @@
 					var/atom/movable/AM = pick_n_take(throwing)
 					if(AM)
 						AM.throw_at(M, 4, 2)
-			if(gravcomponent.gravity >= 5 && M.stat >= UNCONSCIOUS && !HAS_TRAIT(M, TRAIT_NODISMEMBER))
+			if(gravcomponent.gravity >= 6 && M.stat >= UNCONSCIOUS && !HAS_TRAIT(M, TRAIT_NODISMEMBER))
 				M.visible_message("<span class='userdanger'>[M]'s body contorts, compresses, and collapses in on itself, before exploding into a shower of gore!</span>")
 				playsound(M, 'sound/magic/demon_consume.ogg', 50, 1, -1)
 				M.gib()
@@ -87,3 +87,10 @@
 	if(gravcomponent)
 		gravcomponent.RemoveComponent()
 		gravcomponent = null
+
+/datum/symptom/gravity/OnDeath(datum/disease/advance/A)
+	if(!..())
+		return
+	var/mob/living/carbon/M = A.affected_mob
+	if(power >= 6)
+		M.visible_message("<span class='userdanger'>[M]'s body contorts, compresses, and collapses in on itself, before exploding into a shower of gore!</span>")

@@ -235,3 +235,13 @@
 /datum/mood_event/feline_dysmorphia
 	description = "<span class='boldwarning'>I'm so ugly. I wish I was cuter!</span>\n"
 	mood_change = -10
+
+/datum/mood_event/nervous
+	description = "<span class='warning'>I feel on edge... Gotta get a grip.</span>\n"
+	mood_change = -3
+	timeout = 30 SECONDS
+
+/datum/mood_event/paranoid
+	description = "<span class='boldwarning'>I'm not safe! I can't trust anybody!</span>\n"
+	mood_change = -6
+	timeout = 30 SECONDS
