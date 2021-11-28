@@ -124,6 +124,27 @@
 /obj/item/bodypart/r_leg/pod
 	limb_id = "pod"
 
+///FLY
+/obj/item/bodypart/head/fly
+	limb_id = "fly"
+	is_dimorphic = FALSE
+
+/obj/item/bodypart/chest/fly
+	limb_id = "fly"
+	is_dimorphic = FALSE
+
+/obj/item/bodypart/l_arm/fly
+	limb_id = "fly"
+
+/obj/item/bodypart/r_arm/fly
+	limb_id = "fly"
+
+/obj/item/bodypart/l_leg/fly
+	limb_id = "fly"
+
+/obj/item/bodypart/r_leg/fly
+	limb_id = "fly"
+
 ///SHADOW
 /obj/item/bodypart/head/shadow
 	limb_id = "shadow"
