@@ -35878,11 +35878,16 @@
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
 "bzl" = (
+<<<<<<< HEAD
 /obj/machinery/rnd/production/circuit_imprinter,
+=======
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+>>>>>>> master
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/rnd/production/circuit_imprinter/department/engineering,
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
 "bzm" = (
