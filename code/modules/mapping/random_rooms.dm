@@ -1349,3 +1349,69 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
+
+//Flandstation Dedicated Random Room
+
+/datum/map_template/random_room/sk_rdm_fln_01
+	name = "Scooter Rental Park"
+	room_id = "sk_rdm_fln_01_scooterpark"
+	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_01_scooterpark.dmm"
+	centerspawner = FALSE
+	template_height = 11
+	template_width = 5
+
+/datum/map_template/random_room/sk_rdm_fln_02
+	name = "Bee Lounge"
+	room_id = "sk_rdm_fln_02_beelounge"
+	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_02_beelounge.dmm"
+	centerspawner = FALSE
+	template_height = 11
+	template_width = 5
+
+/datum/map_template/random_room/sk_rdm_fln_03
+	name = "Vending machine Minimarket"
+	room_id = "sk_rdm_fln_03_vendingminimarket"
+	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_03_vendingminimarket.dmm"
+	centerspawner = FALSE
+	template_height = 11
+	template_width = 5
+
+/datum/map_template/random_room/sk_rdm_fln_04
+	name = "Empty Convenience store"
+	room_id = "sk_rdm_fln_04_conveniencestore"
+	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_04_conveniencestore.dmm"
+	centerspawner = FALSE
+	template_height = 11
+	template_width = 5
+
+/datum/map_template/random_room/sk_rdm_fln_05
+	name = "Apiary"
+	room_id = "sk_rdm_fln_05_apiary"
+	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_05_apiary.dmm"
+	centerspawner = FALSE
+	template_height = 11
+	template_width = 5
+
+/datum/map_template/random_room/sk_rdm_fln_06
+	name = "Public Garden"
+	room_id = "sk_rdm_fln_06_publicgarden"
+	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_06_publicgarden.dmm"
+	centerspawner = FALSE
+	template_height = 11
+	template_width = 5
+
+/datum/map_template/random_room/sk_rdm_fln_07
+	name = "The Letter H"
+	room_id = "sk_rdm_fln_07_theletterh"
+	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_07_theletterh.dmm"
+	centerspawner = FALSE
+	template_height = 11
+	template_width = 5
+
+/datum/map_template/random_room/sk_rdm_fln_08
+	name = "Zen Room"
+	room_id = "sk_rdm_fln_08_zenroom"
+	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_08_zenroom.dmm"
+	centerspawner = FALSE
+	template_height = 11
+	template_width = 5

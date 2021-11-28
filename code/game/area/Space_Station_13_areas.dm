@@ -1086,6 +1086,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/checkpoint/customs/auxiliary
 	icon_state = "customs_point_aux"
 
+/area/security/prison/vip
+	name = "VIP Prison Wing"
+	icon_state = "sec_prison"
+
 /area/security/prison/asteroid
 	name = "Outer Asteroid Prison Wing"
 	icon_state = "sec_prison"
@@ -1355,6 +1359,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/vacant_room/commissary/commissaryFood
 	name = "Vacant Food Stall Commissary"
 	icon_state = "vacant_commissary"
+
+/area/vacant_room/commissary/commissaryRandom
+	name = "Unique Commissary"
+	icon_state = "vacant_commissary"
+
 //AI
 
 /area/ai_monitored

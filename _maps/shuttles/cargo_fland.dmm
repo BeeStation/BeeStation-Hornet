@@ -113,6 +113,7 @@
 	id = "QMUnloadDoor";
 	name = "Supply Dock Loading Door"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "q" = (
@@ -261,6 +262,7 @@
 	id = "QMLoadingDoor";
 	name = "Supply Dock Loading Door"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "Q" = (
