@@ -20,6 +20,13 @@
 	mutanttongue = /obj/item/organ/tongue/snail
 	exotic_blood = /datum/reagent/lube
 
+	species_chest = /obj/item/bodypart/chest/snail
+	species_head = /obj/item/bodypart/head/snail
+	species_l_arm = /obj/item/bodypart/l_arm/snail
+	species_r_arm = /obj/item/bodypart/r_arm/snail
+	species_l_leg = /obj/item/bodypart/l_leg/snail
+	species_r_leg = /obj/item/bodypart/r_leg/snail
+
 /datum/species/snail/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(istype(chem,/datum/reagent/consumable/sodiumchloride))
 		H.adjustFireLoss(2)

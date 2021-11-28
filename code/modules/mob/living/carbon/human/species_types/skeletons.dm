@@ -17,10 +17,12 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 	species_language_holder = /datum/language_holder/skeleton
 
-	limbs_id = "skeleton"
-	use_generic_limbs = TRUE
-	limb_icon_file = 'icons/mob/human_parts.dmi'
-	gen_limbs_are_colored = FALSE
+	species_chest = /obj/item/bodypart/chest/shadow
+	species_head = /obj/item/bodypart/head/shadow
+	species_l_arm = /obj/item/bodypart/l_arm/shadow
+	species_r_arm = /obj/item/bodypart/r_arm/shadow
+	species_l_leg = /obj/item/bodypart/l_leg/shadow
+	species_r_leg = /obj/item/bodypart/r_leg/shadow
 
 /datum/species/skeleton/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])

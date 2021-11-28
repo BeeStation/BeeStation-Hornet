@@ -20,7 +20,7 @@
 	var/is_husked = FALSE //Duh
 	var/limb_id = SPECIES_HUMAN //This is effectively the icon_state for limbs.
 	var/limb_gender //Defines what sprite the limb should use if it is also sexually dimorphic.
-	var/uses_mutcolor = FALSE
+	var/uses_mutcolor = TRUE //Does this limb have a greyscale version?
 	var/is_dimorphic = FALSE //Is there a sprite difference between male and female?
 	var/draw_color //Greyscale draw color
 
@@ -52,7 +52,7 @@
 	//Coloring and proper item icon update
 	var/skin_tone = ""
 	var/should_draw_gender = FALSE
-	var/should_draw_greyscale = TRUE //Is the sprite going to be greyscale, or a static color defined by the DMI?
+	var/should_draw_greyscale = FALSE //Automatically determined by species information later.
 	var/species_color = ""
 	var/mutation_color = ""
 	var/no_update = 0

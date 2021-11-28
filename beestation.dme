@@ -3283,6 +3283,7 @@
 #include "code\modules\surgery\bodyparts\species_parts\ethereal_bodyparts.dm"
 #include "code\modules\surgery\bodyparts\species_parts\ipc_bodyparts.dm"
 #include "code\modules\surgery\bodyparts\species_parts\lizard_bodyparts.dm"
+#include "code\modules\surgery\bodyparts\species_parts\misc_bodyparts.dm"
 #include "code\modules\surgery\bodyparts\species_parts\moth_bodyparts.dm"
 #include "code\modules\surgery\bodyparts\species_parts\oozeling_bodyparts.dm"
 #include "code\modules\surgery\bodyparts\species_parts\plasmaman_bodyparts.dm"

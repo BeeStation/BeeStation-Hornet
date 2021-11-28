@@ -18,9 +18,12 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/plant
 
-	limbs_id = "pod"
-	use_generic_limbs = TRUE
-	limb_icon_file = 'icons/mob/human_parts_greyscale.dmi'
+	species_chest = /obj/item/bodypart/chest/pod
+	species_head = /obj/item/bodypart/head/pod
+	species_l_arm = /obj/item/bodypart/l_arm/pod
+	species_r_arm = /obj/item/bodypart/r_arm/pod
+	species_l_leg = /obj/item/bodypart/l_leg/pod
+	species_r_leg = /obj/item/bodypart/r_leg/pod
 
 /datum/species/pod/spec_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)

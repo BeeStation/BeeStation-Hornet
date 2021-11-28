@@ -296,21 +296,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	new_species ||= C.dna.species //If no new species is provided, assume its src.
 	//Note for future: Potentionally add a new C.dna.species() to build a template species for more accurate limb replacement
 
-	if(use_generic_limbs) //Generic limbs dont need to be rebuild because theyre just human limbs reskinned.
-		for(var/obj/item/bodypart/BP as() in C.bodyparts)
-			BP.limb_id = limbs_id
-			BP.icon = limb_icon_file
-			if(gen_limbs_are_colored)
-				BP.should_draw_greyscale = TRUE
-				BP.uses_mutcolor = TRUE
-				BP.species_color = fixed_mut_color
-			else
-				BP.should_draw_greyscale = FALSE
-			BP.is_dimorphic = FALSE
-			BP.update_limb(is_creating = TRUE)
-			BP.name = "[BP.limb_id] [parse_zone(BP.body_zone)]"
-		return
-
 	if((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL && C.dna.features["legs"] == "Digitigrade Legs") || new_species.digitigrade_customization == DIGITIGRADE_FORCED)
 		new_species.species_r_leg = /obj/item/bodypart/r_leg/digitigrade
 		new_species.species_l_leg = /obj/item/bodypart/l_leg/digitigrade

@@ -21,9 +21,12 @@
 	swimming_component = /datum/component/swimming/dissolve
 
 
-	limbs_id = "jelly"
-	use_generic_limbs = TRUE
-	limb_icon_file = 'icons/mob/human_parts_greyscale.dmi'
+	species_chest = /obj/item/bodypart/chest/jelly
+	species_head = /obj/item/bodypart/head/jelly
+	species_l_arm = /obj/item/bodypart/l_arm/jelly
+	species_r_arm = /obj/item/bodypart/r_arm/jelly
+	species_l_leg = /obj/item/bodypart/l_leg/jelly
+	species_r_leg = /obj/item/bodypart/r_leg/jelly
 
 /datum/species/jelly/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
@@ -125,9 +128,13 @@
 	var/list/mob/living/carbon/bodies
 	var/datum/action/innate/swap_body/swap_body
 
-	limbs_id = "slime"
-	use_generic_limbs = TRUE
-	limb_icon_file = 'icons/mob/human_parts_greyscale.dmi'
+	species_chest = /obj/item/bodypart/chest/slime
+	species_head = /obj/item/bodypart/head/slime
+	species_l_arm = /obj/item/bodypart/l_arm/slime
+	species_r_arm = /obj/item/bodypart/r_arm/slime
+	species_l_leg = /obj/item/bodypart/l_leg/slime
+	species_r_leg = /obj/item/bodypart/r_leg/slime
+
 
 /datum/species/jelly/slime/on_species_loss(mob/living/carbon/C)
 	if(slime_split)

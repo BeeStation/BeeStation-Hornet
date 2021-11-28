@@ -17,10 +17,12 @@
 	liked_food = GROSS | MEAT | RAW
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 
-	limbs_id = "zombie"
-	use_generic_limbs = TRUE
-	gen_limbs_are_colored = FALSE
-	limb_icon_file = 'icons/mob/human_parts.dmi'
+	species_chest = /obj/item/bodypart/chest/zombie
+	species_head = /obj/item/bodypart/head/zombie
+	species_l_arm = /obj/item/bodypart/l_arm/zombie
+	species_r_arm = /obj/item/bodypart/r_arm/zombie
+	species_l_leg = /obj/item/bodypart/l_leg/zombie
+	species_r_leg = /obj/item/bodypart/r_leg/zombie
 
 /datum/species/zombie/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
@@ -30,7 +32,6 @@
 /datum/species/zombie/infectious
 	name = "\improper Infectious Zombie"
 	id = "memezombies"
-	limbs_id = "zombie"
 	examine_limb_id = "zombie"
 	mutanthands = /obj/item/zombie_hand
 	armor = 20 // 120 damage to KO a zombie, which kills it
@@ -90,7 +91,6 @@
 /datum/species/zombie/infectious/fast
 	name = "\improper Fast Infectious Zombie"
 	id = "memezombiesfast"
-	limbs_id = "fzombie"
 	armor = 0
 	speedmod = 0
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
@@ -105,9 +105,5 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
 	examine_limb_id = "zombie"
-	limbs_id = "zombie"
-	use_generic_limbs = TRUE
-	limb_icon_file = 'icons/mob/human_parts.dmi'
-	gen_limbs_are_colored = FALSE
 
 #undef REGENERATION_DELAY

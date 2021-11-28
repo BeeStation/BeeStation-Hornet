@@ -20,9 +20,13 @@
 	species_language_holder = /datum/language_holder/golem
 	// To prevent golem subtypes from overwhelming the odds when random species
 	// changes, only the Random Golem type can be chosen
-	limbs_id = "golem"
-	use_generic_limbs = TRUE
-	limb_icon_file = 'icons/mob/human_parts.dmi'
+	species_chest = /obj/item/bodypart/chest/golem
+	species_head = /obj/item/bodypart/head/golem
+	species_l_arm = /obj/item/bodypart/l_arm/golem
+	species_r_arm = /obj/item/bodypart/r_arm/golem
+	species_l_leg = /obj/item/bodypart/l_leg/golem
+	species_r_leg = /obj/item/bodypart/r_leg/golem
+
 	fixed_mut_color = "aaa"
 	swimming_component = /datum/component/swimming/golem
 	var/info_text = "As an <span class='danger'>Iron Golem</span>, you don't have any special traits."
@@ -274,6 +278,13 @@
 	prefix = "Alien"
 	special_names = list("Outsider", "Technology", "Watcher", "Stranger") //ominous and unknown
 
+	species_chest = /obj/item/bodypart/chest/golem/alloy
+	species_head = /obj/item/bodypart/head/golem/alloy
+	species_l_arm = /obj/item/bodypart/l_arm/golem/alloy
+	species_r_arm = /obj/item/bodypart/r_arm/golem/alloy
+	species_l_leg = /obj/item/bodypart/l_leg/golem/alloy
+	species_r_leg = /obj/item/bodypart/r_leg/golem/alloy
+
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/spec_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
@@ -518,10 +529,16 @@
 	meat = /obj/item/stack/ore/bananium
 	info_text = "As a <span class='danger'>Bananium Golem</span>, you are made for pranking. Your body emits natural honks, and you can barely even hurt people when punching them. Your skin also bleeds banana peels when damaged."
 	attack_verb = "honk"
-	limbs_id = "ba_golem"
 	attack_sound = 'sound/items/airhorn2.ogg'
 	prefix = "Bananium"
 	special_names = null
+
+	species_chest = /obj/item/bodypart/chest/golem/bananium
+	species_head = /obj/item/bodypart/head/golem/bananium
+	species_l_arm = /obj/item/bodypart/l_arm/golem/bananium
+	species_r_arm = /obj/item/bodypart/r_arm/golem/bananium
+	species_l_leg = /obj/item/bodypart/l_leg/golem/bananium
+	species_r_leg = /obj/item/bodypart/r_leg/golem/bananium
 
 	var/last_honk = 0
 	var/honkooldown = 0
@@ -607,6 +624,13 @@
 	var/obj/effect/proc_holder/spell/targeted/abyssal_gaze/abyssal_gaze
 	var/obj/effect/proc_holder/spell/targeted/dominate/dominate
 
+	species_chest = /obj/item/bodypart/chest/golem/cult
+	species_head = /obj/item/bodypart/head/golem/cult
+	species_l_arm = /obj/item/bodypart/l_arm/golem/cult
+	species_r_arm = /obj/item/bodypart/r_arm/golem/cult
+	species_l_leg = /obj/item/bodypart/l_leg/golem/cult
+	species_r_leg = /obj/item/bodypart/r_leg/golem/cult
+
 /datum/species/golem/runic/random_name(gender,unique,lastname)
 	var/edgy_first_name = pick("Razor","Blood","Dark","Evil","Cold","Pale","Black","Silent","Chaos","Deadly","Coldsteel")
 	var/edgy_last_name = pick("Edge","Night","Death","Razor","Blade","Steel","Calamity","Twilight","Shadow","Nightmare") //dammit Razor Razor
@@ -669,6 +693,13 @@
 	inherent_factions = list("ratvar")
 	var/has_corpse
 
+	species_chest = /obj/item/bodypart/chest/golem/clock
+	species_head = /obj/item/bodypart/head/golem/clock
+	species_l_arm = /obj/item/bodypart/l_arm/golem/clock
+	species_r_arm = /obj/item/bodypart/r_arm/golem/clock
+	species_l_leg = /obj/item/bodypart/l_leg/golem/clock
+	species_r_leg = /obj/item/bodypart/r_leg/golem/clock
+
 /datum/species/golem/clockwork/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	RegisterSignal(H, COMSIG_MOB_SAY, .proc/handle_speech)
@@ -717,6 +748,13 @@
 	punchdamage = 6
 	prefix = "Cloth"
 	special_names = null
+
+	species_chest = /obj/item/bodypart/chest/golem/cloth
+	species_head = /obj/item/bodypart/head/golem/cloth
+	species_l_arm = /obj/item/bodypart/l_arm/golem/cloth
+	species_r_arm = /obj/item/bodypart/r_arm/golem/cloth
+	species_l_leg = /obj/item/bodypart/l_leg/golem/cloth
+	species_r_leg = /obj/item/bodypart/r_leg/golem/cloth
 
 /datum/species/golem/cloth/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
@@ -920,6 +958,13 @@
 	var/last_creation = 0
 	var/brother_creation_cooldown = 300
 
+	species_chest = /obj/item/bodypart/chest/golem/cardboard
+	species_head = /obj/item/bodypart/head/golem/cardboard
+	species_l_arm = /obj/item/bodypart/l_arm/golem/cardboard
+	species_r_arm = /obj/item/bodypart/r_arm/golem/cardboard
+	species_l_leg = /obj/item/bodypart/l_leg/golem/cardboard
+	species_r_leg = /obj/item/bodypart/r_leg/golem/cardboard
+
 /datum/species/golem/cardboard/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
 	. = ..()
 	if(user != H)
@@ -967,6 +1012,13 @@
 	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOGUNS,TRAIT_RADIMMUNE,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER)
 	info_text = "As a <span class='danger'>Durathread Golem</span>, your strikes will cause those your targets to start choking, but your woven body won't withstand fire as well."
 
+	species_chest = /obj/item/bodypart/chest/golem/durathread
+	species_head = /obj/item/bodypart/head/golem/durathread
+	species_l_arm = /obj/item/bodypart/l_arm/golem/durathread
+	species_r_arm = /obj/item/bodypart/r_arm/golem/durathread
+	species_l_leg = /obj/item/bodypart/l_leg/golem/durathread
+	species_r_leg = /obj/item/bodypart/r_leg/golem/durathread
+
 /datum/species/golem/durathread/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = ..()
 	target.apply_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
@@ -989,6 +1041,13 @@
 	species_language_holder = /datum/language_holder/golem/bone
 	info_text = "As a <span class='danger'>Bone Golem</span>, You have a powerful spell that lets you chill your enemies with fear, and milk heals you! Just make sure to watch our for bone-hurting juice."
 	var/datum/action/innate/bonechill/bonechill
+
+	species_chest = /obj/item/bodypart/chest/golem/bone
+	species_head = /obj/item/bodypart/head/golem/bone
+	species_l_arm = /obj/item/bodypart/l_arm/golem/bone
+	species_r_arm = /obj/item/bodypart/r_arm/golem/bone
+	species_l_leg = /obj/item/bodypart/l_leg/golem/bone
+	species_r_leg = /obj/item/bodypart/r_leg/golem/bone
 
 /datum/species/golem/bone/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
@@ -1066,6 +1125,13 @@
 	var/obj/effect/proc_holder/spell/targeted/conjure_item/snowball/ball
 	var/obj/effect/proc_holder/spell/aimed/cryo/cryo
 
+	species_chest = /obj/item/bodypart/chest/golem/snow
+	species_head = /obj/item/bodypart/head/golem/snow
+	species_l_arm = /obj/item/bodypart/l_arm/golem/snow
+	species_r_arm = /obj/item/bodypart/r_arm/golem/snow
+	species_l_leg = /obj/item/bodypart/l_leg/golem/snow
+	species_r_leg = /obj/item/bodypart/r_leg/golem/snow
+
 /datum/species/golem/snow/spec_death(gibbed, mob/living/carbon/human/H)
 	H.visible_message("<span class='danger'>[H] turns into a pile of snow!</span>")
 	for(var/obj/item/W in H)
@@ -1108,7 +1174,6 @@
 	id = "capitalist_golem"
 	prefix = "Capitalist"
 	attack_verb = "monopoliz"
-	limbs_id = "ca_golem"
 	special_names = list("John D. Rockefeller","Rich Uncle Pennybags","Commodore Vanderbilt","Entrepreneur","Mr. Moneybags", "Adam Smith")
 	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOTRANSSTING)
 	fixed_mut_color = null
@@ -1155,7 +1220,6 @@
 	id = "soviet_golem"
 	prefix = "Comrade"
 	attack_verb = "nationaliz"
-	limbs_id = "s_golem"
 	special_names = list("Stalin","Lenin","Trotsky","Marx","Comrade") //comrade comrade
 	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOTRANSSTING)
 	fixed_mut_color = null
