@@ -71,7 +71,7 @@
 	resistance = 1
 	stage_speed = -2
 	transmission = 2
-	level = 4
+	level = 6
 	severity = -1
 	base_message_chance = 7
 	symptom_delay_min = 1
@@ -117,7 +117,7 @@
 	resistance = 3
 	stage_speed = -2
 	transmission = -1
-	level = 4
+	level = 6
 	severity = -1
 	symptom_delay_min = 1
 	symptom_delay_max = 1

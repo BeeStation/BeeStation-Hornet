@@ -120,7 +120,57 @@ Bonus
 		power = 2
 	time_to_cure = max(A.resistance, A.stage_rate) * 10 * power
 
+/*
+//////////////////////////////////////
 
+Viral aggressive metabolism
+
+	Somewhat increased stealth.
+	Abysmal resistance.
+	Increased stage speed.
+	Poor transmitability.
+	Medium Level.
+
+Bonus
+	The virus starts at stage 5, but after a certain time will start curing itself.
+	Stages still increase naturally with stage speed.
+
+//////////////////////////////////////
+*/
+
+/datum/symptom/viralincubate
+	name = "Viral Suspended Animation"
+	desc = "The virus has very little effect until it reaches its final stage"
+	stealth = 4
+	resistance = -4
+	stage_speed = -4
+	transmission = 1
+	level = 4
+	symptom_delay_min = 1
+	symptom_delay_max = 1
+	prefixes = list("Asymptomatic ")
+	var/list/captives = list()
+	var/used = FALSE
+
+/datum/symptom/viralincubate/Activate(datum/disease/advance/A)
+	if(!..())
+		return
+	if(A.stage >= 5)
+		for(var/datum/symptom/S in captives)
+			S.stopped = FALSE
+			captives -= S
+		if(!LAZYLEN(captives))
+			stopped = TRUE
+	else if(!used)
+		for(var/datum/symptom/S in A.symptoms)
+			if(S.neutered)
+				continue
+			if(S == src)
+				continue
+			S.stopped = TRUE
+			captives += S
+		used = TRUE
+	
 
 /*
 //////////////////////////////////////
@@ -142,7 +192,7 @@ Bonus
 	resistance = 2
 	stage_speed = 2
 	transmission = 2
-	level = -1 //currently unobtainable
+	level = -1 //currently unobtainable except by adminbus
 	prefixes = list("Super", "Mega", "Admin ")
 	var/maxpower
 	var/powerbudget
