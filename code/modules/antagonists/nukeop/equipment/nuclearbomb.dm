@@ -8,6 +8,8 @@
 	anchored = FALSE
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	can_buckle = 1 //Monkestation edit
+	buckle_lying = 0 //Monkestation edit
 
 
 
@@ -47,6 +49,8 @@
 	update_icon()
 	GLOB.poi_list |= src
 	previous_level = get_security_level()
+	var/datum/component/riding/D = LoadComponent(/datum/component/riding) //Monkestation edit
+	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 7), TEXT_EAST = list(-12, 7), TEXT_WEST = list( 12, 7))) //Monkestation edit
 
 /obj/machinery/nuclearbomb/Destroy()
 	safety = FALSE

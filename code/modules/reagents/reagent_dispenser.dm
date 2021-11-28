@@ -44,12 +44,36 @@
 	name = "water tank"
 	desc = "A water tank."
 	icon_state = "water"
+	can_buckle = 1 //Monkestation edit start
+	buckle_lying = 0
+
+/obj/structure/reagent_dispensers/watertank/Initialize(mapload)
+	. = ..()
+	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 7), TEXT_EAST = list(-12, 7), TEXT_WEST = list( 12, 7)))
+
+/obj/structure/reagent_dispensers/watertank/Moved()
+	. = ..()
+	if(has_gravity())
+		playsound(src, 'sound/effects/roll.ogg', 100, 1)//Monkestation edit end
 
 /obj/structure/reagent_dispensers/watertank/high
 	name = "high-capacity water tank"
 	desc = "A highly pressurized water tank made to hold gargantuan amounts of water."
 	icon_state = "water_high" //I was gonna clean my room...
 	tank_volume = 100000
+	can_buckle = 1 //Monkestation edit start
+	buckle_lying = 0
+
+/obj/structure/reagent_dispensers/watertank/high/Initialize(mapload)
+	. = ..()
+	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 7), TEXT_EAST = list(-12, 7), TEXT_WEST = list( 12, 7)))
+
+/obj/structure/reagent_dispensers/watertank/high/Moved()
+	. = ..()
+	if(has_gravity())
+		playsound(src, 'sound/effects/roll.ogg', 100, 1)//Monkestation edit end
 
 /obj/structure/reagent_dispensers/foamtank
 	name = "firefighting foam tank"
@@ -57,12 +81,36 @@
 	icon_state = "foam"
 	reagent_id = /datum/reagent/firefighting_foam
 	tank_volume = 500
+	can_buckle = 1 //Monkestation edit start
+	buckle_lying = 0
+
+/obj/structure/reagent_dispensers/foamtank/Initialize(mapload)
+	. = ..()
+	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 7), TEXT_EAST = list(-12, 7), TEXT_WEST = list( 12, 7)))
+
+/obj/structure/reagent_dispensers/foamtank/Moved()
+	. = ..()
+	if(has_gravity())
+		playsound(src, 'sound/effects/roll.ogg', 100, 1)//Monkestation edit end
 
 /obj/structure/reagent_dispensers/fueltank
 	name = "fuel tank"
 	desc = "A tank full of industrial welding fuel. Do not consume."
 	icon_state = "fuel"
 	reagent_id = /datum/reagent/fuel
+	can_buckle = 1 //Monkestation edit start
+	buckle_lying = 0
+
+/obj/structure/reagent_dispensers/fueltank/Initialize(mapload)
+	. = ..()
+	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 7), TEXT_EAST = list(-12, 7), TEXT_WEST = list( 12, 7)))
+
+/obj/structure/reagent_dispensers/fueltank/Moved()
+	. = ..()
+	if(has_gravity())
+		playsound(src, 'sound/effects/roll.ogg', 100, 1)//Monkestation edit end
 
 /obj/structure/reagent_dispensers/fueltank/boom()
 	var/light_explosion_range = CLAMP(round(reagents.get_reagent_amount(/datum/reagent/fuel)/200, 1), 1, 5) //explosion range should decrease when there is less fuel in the tank
