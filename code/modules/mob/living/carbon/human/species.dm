@@ -737,7 +737,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if((!H.wear_suit) || (H.wear_suit.supports_variations & DIGITIGRADE_VARIATION) || !(H.wear_suit.body_parts_covered & LEGS) || (H.wear_suit.supports_variations & DIGITIGRADE_VARIATION_NO_NEW_ICON)) //Checks suit compatability
 			suit_compatible = TRUE
 
-		if((uniform_compatible && suit_compatible) || (suit_compatible && H.wear_suit.flags_inv & HIDEJUMPSUIT)) //If the uniform is hidden, it doesnt matter if its compatible
+		if((uniform_compatible && suit_compatible) || (suit_compatible && H.wear_suit?.flags_inv & HIDEJUMPSUIT)) //If the uniform is hidden, it doesnt matter if its compatible
 			for(var/obj/item/bodypart/BP as() in H.bodyparts)
 				if(BP.bodytype & BODYTYPE_DIGITIGRADE)
 					BP.limb_id = "digitigrade"
