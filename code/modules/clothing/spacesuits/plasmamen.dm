@@ -82,11 +82,8 @@
 		if(on)
 			to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
 			on = FALSE
-			playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-			update_icon()
-		else
-			playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-			update_icon()
+		playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
+		update_icon()
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon()
 	cut_overlays()
@@ -136,6 +133,8 @@
 	set src in usr
 
 	if(!attached_hat)
+		// because the player may be confused seeing this verb in the object section what the source is
+		to_chat(usr, "<span class='notice'>There is no hat to take off of the [src.name]</span>")
 		return
 	usr.put_in_active_hand(attached_hat)
 	attached_hat = null
