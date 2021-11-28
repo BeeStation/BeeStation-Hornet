@@ -8,7 +8,7 @@
 	power = /obj/effect/proc_holder/spell/targeted/telepathy
 	instability = 10
 	energy_coeff = 1
-
+	discovery_points = 400
 
 /datum/mutation/human/olfaction
 	name = "Transcendent Olfaction"
@@ -20,6 +20,7 @@
 	power = /obj/effect/proc_holder/spell/targeted/olfaction
 	instability = 30
 	synchronizer_coeff = 1
+	discovery_points = 400
 	var/reek = 200
 
 /datum/mutation/human/olfaction/on_life()
@@ -111,6 +112,7 @@
 	instability = 30
 	energy_coeff = 1
 	power_coeff = 1
+	discovery_points = 400
 
 /datum/mutation/human/firebreath/modify()
 	if(power)

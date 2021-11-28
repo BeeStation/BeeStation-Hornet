@@ -46,7 +46,7 @@
 	var/power_coeff = -1 //boosts mutation strength
 	var/energy_coeff = -1 //lowers mutation cooldown
 
-	var/discovery_points = 400 // Amount of discovery points given for discovering a mutation
+	var/discovery_points = 200 // Default amount of discovery points given for discovering a mutation
 
 /datum/mutation/human/New(class_ = MUT_OTHER, timer, datum/mutation/human/copymut)
 	. = ..()
