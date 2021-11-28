@@ -654,7 +654,7 @@
 
 /obj/structure/sign/poster/official/moth9
 	name = "Safety Moth - Delamination Safety Precautions"
-	desc = "This informational poster uses Safety Moth(TM) to tell the viewer to hide in lockers when the Supermatter Crystal has delaminated. Running away might be a better strategy. It's signed by 'AspEv'."
+	desc = "This outdated informational poster uses Safety Moth(TM) to tell the viewer to hide in lockers when the Supermatter Crystal has delaminated. Running away might be a better strategy. It's signed by 'AspEv'."
 	icon_state = "poster44_legit"
 
 /obj/structure/sign/poster/contraband/syndiemoth
