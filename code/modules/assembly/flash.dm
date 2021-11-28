@@ -156,6 +156,7 @@
 	return TRUE
 
 /obj/item/assembly/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
+	bulb.charges_left = 0
 	if(!burnt_out)
 		burnt_out = TRUE
 		update_icon()
