@@ -1853,7 +1853,8 @@
 		stored_research.discovered_mutations += path
 		if(HM.discovery_points)
 			stored_research.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, HM.discovery_points)
-		say("Successfully discovered [HM.name]. [HM.discovery_points] discovery research gained.")
+			say("[HM.discovery_points] discovery research gained.")
+		say("Successfully discovered [HM.name].")
 		return TRUE
 
 	return FALSE
