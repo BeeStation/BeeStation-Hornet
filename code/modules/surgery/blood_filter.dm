@@ -37,18 +37,21 @@
 			if(!..())
 				break
 
-/datum/surgery_step/filter_blood/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
+/datum/surgery_step/filter_blood/success(mob/user, mob/living/carbon/target, target_zone, obj/item/blood_filter/filter, datum/surgery/surgery, default_display_results = FALSE) //Monkestation edit
 	if(target.reagents.total_volume)
 		for(var/blood_chem in target.reagents.reagent_list)
 			var/datum/reagent/chem = blood_chem
-			target.reagents.remove_reagent(chem.type, min(chem.volume * 0.22, 10)) //Removes more reagent for higher amounts
-		display_results(user, target, "<span class='notice'>[tool] pings as it finishes filtering [target]'s blood.</span>",
-			"<span class='notice'>[tool] pings as it stops pumping your blood.</span>",
-			"[tool] pings as it stops pumping.")
+			var/transfer_amount = min(chem.volume * 0.22, 10)
+			target.reagents.remove_reagent(chem.type, transfer_amount) //Removes more reagent for higher amounts //Monkestation edit start
+			if(filter.beaker)
+				filter.beaker.reagents.add_reagent(chem.type, min(transfer_amount, filter.beaker.volume - filter.beaker.reagents.total_volume))
+		display_results(user, target, "<span class='notice'>[filter] pings as it finishes filtering [target]'s blood.</span>",
+			"<span class='notice'>[filter] pings as it stops pumping your blood.</span>",
+			"[filter] pings as it stops pumping.")
 	else
-		display_results(user, target, "<span class='notice'>[tool] flashes, [target]'s blood is clean.</span>",
-			"<span class='notice'>[tool] flashes, your blood is clean.</span>",
-			"[tool] has no chemcials to filter.")
+		display_results(user, target, "<span class='notice'>[filter] flashes, [target]'s blood is clean.</span>",
+			"<span class='notice'>[filter] flashes, your blood is clean.</span>",
+			"[filter] has no chemcials to filter.") //Monkestation edit end
 	if(istype(surgery, /datum/surgery/blood_filter))
 		var/datum/surgery/blood_filter/the_surgery = surgery
 		the_surgery.antispam = TRUE
