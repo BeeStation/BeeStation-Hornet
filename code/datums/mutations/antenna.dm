@@ -5,7 +5,6 @@
 	text_gain_indication = "<span class='notice'>You feel an antenna sprout from your forehead.</span>"
 	text_lose_indication = "<span class='notice'>Your antenna shrinks back down.</span>"
 	instability = 5
-	difficulty = 8
 	var/datum/weakref/radio_weakref
 
 /obj/item/implant/radio/antenna

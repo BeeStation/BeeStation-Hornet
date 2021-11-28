@@ -5,7 +5,6 @@
 	text_gain_indication = "<span class='warning'>You can feel it in your bones!</span>"
 	time_coeff = 5
 	instability = 5
-	difficulty = 8
 	power_coeff = 1
 
 
