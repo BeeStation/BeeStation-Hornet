@@ -136,7 +136,7 @@
 		// because the player may be confused seeing this verb in the object section what the source is
 		to_chat(usr, "<span class='notice'>There is no hat to take off of the [src.name]</span>")
 		return
-	usr.put_in_active_hand(attached_hat)
+	usr.put_in_hands(attached_hat)
 	attached_hat = null
 	update_icon()
 
