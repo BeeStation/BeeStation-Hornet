@@ -42,6 +42,7 @@
 	text_gain_indication = "<span class='notice'>You can see the heat rising off of your skin...</span>"
 	time_coeff = 2
 	instability = 25
+	discovery_points = 1200
 	var/visionflag = TRAIT_THERMAL_VISION
 
 /datum/mutation/human/thermal/on_acquiring(mob/living/carbon/human/owner)
@@ -76,6 +77,7 @@
 	text_gain_indication = "<span class='notice'>You feel pressure building up behind your eyes.</span>"
 	layer_used = FRONT_MUTATIONS_LAYER
 	limb_req = BODY_ZONE_HEAD
+	discovery_points = 800
 
 /datum/mutation/human/laser_eyes/New(class_ = MUT_OTHER, timer, datum/mutation/human/copymut)
 	..()

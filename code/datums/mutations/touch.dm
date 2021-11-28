@@ -9,6 +9,7 @@
 	power = /obj/effect/proc_holder/spell/targeted/touch/shock
 	instability = 30
 	locked = TRUE
+	discovery_points = 800
 
 /obj/effect/proc_holder/spell/targeted/touch/shock
 	name = "Shock Touch"

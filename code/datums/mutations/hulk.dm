@@ -10,6 +10,7 @@
 	health_req = 25
 	instability = 40
 	locked = TRUE
+	discovery_points = 800
 
 /datum/mutation/human/hulk/on_acquiring(mob/living/carbon/human/owner)
 	if(..())

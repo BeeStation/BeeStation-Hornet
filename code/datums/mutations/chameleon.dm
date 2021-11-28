@@ -8,6 +8,7 @@
 	text_lose_indication = "<span class='notice'>You feel oddly exposed.</span>"
 	time_coeff = 5
 	instability = 25
+	discovery_points = 800
 
 /datum/mutation/human/chameleon/on_acquiring(mob/living/carbon/human/owner)
 	if(..())

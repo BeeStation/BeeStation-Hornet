@@ -88,6 +88,7 @@
 	instability = 5
 	conflicts = list(GIGANTISM)
 	locked = TRUE    // Default intert species for now, so locked from regular pool.
+	discovery_points = 800
 
 /datum/mutation/human/dwarfism/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
@@ -226,6 +227,7 @@
 	quality = POSITIVE
 	text_gain_indication = "<span class='notice'>You feel strong.</span>"
 	difficulty = 16
+	discovery_points = 800
 
 /datum/mutation/human/insulated
 	name = "Insulated"
@@ -235,6 +237,7 @@
 	text_lose_indication = "<span class='notice'>Your fingertips regain feeling.</span>"
 	difficulty = 16
 	instability = 25
+	discovery_points = 800
 
 /datum/mutation/human/insulated/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
@@ -255,6 +258,7 @@
 	difficulty = 14
 	synchronizer_coeff = 1
 	power_coeff = 1
+	discovery_points = 400
 
 /datum/mutation/human/fire/on_life()
 	if(prob((1+(100-dna.stability)/10)) * GET_MUTATION_SYNCHRONIZER(src))
@@ -282,6 +286,7 @@
 	synchronizer_coeff = 1
 	energy_coeff = 1
 	power_coeff = 1
+	discovery_points = 1200
 	var/warpchance = 0
 
 /datum/mutation/human/badblink/on_life()
@@ -308,6 +313,7 @@
 	text_gain_indication = "<span class='userdanger'>A horrible burning sensation envelops you as your flesh turns to acid!</span>"
 	text_lose_indication = "<span class='notice'>A feeling of relief covers you as your flesh goes back to normal.</span>"
 	difficulty = 18//high so it's hard to unlock and use on others
+	discovery_points = 1200
 	var/msgcooldown = 0
 
 /datum/mutation/human/acidflesh/on_life()
@@ -326,6 +332,7 @@
 	quality = MINOR_NEGATIVE
 	difficulty = 12
 	conflicts = list(DWARFISM)
+	discovery_points = 400
 
 /datum/mutation/human/gigantism/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
@@ -348,6 +355,7 @@
 	text_gain_indication = "<span class='warning'>You flinch.</span>"
 	text_lose_indication = "<span class='notice'>Your flinching subsides.</span>"
 	difficulty = 16
+	discovery_points = 800
 
 /datum/mutation/human/spastic/on_acquiring()
 	if(..())
@@ -366,6 +374,7 @@
 	text_gain_indication = "<span class='warning'>Your right foot feels... left.</span>"
 	text_lose_indication = "<span class='notice'>Your right foot feels alright.</span>"
 	difficulty = 16
+	discovery_points = 800
 	var/stun_cooldown = 0
 
 /datum/mutation/human/extrastun/on_life()

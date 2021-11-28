@@ -44,6 +44,7 @@
 	difficulty = 12
 	synchronizer_coeff = 1
 	power = /obj/effect/proc_holder/spell/aimed/cryo
+	discovery_points = 400
 
 /obj/effect/proc_holder/spell/aimed/cryo
 	name = "Cryobeam"

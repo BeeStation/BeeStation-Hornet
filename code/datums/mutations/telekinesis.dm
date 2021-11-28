@@ -7,6 +7,7 @@
 	text_gain_indication = "<span class='notice'>You feel smarter!</span>"
 	limb_req = BODY_ZONE_HEAD
 	instability = 30
+	discovery_points = 1200
 
 /datum/mutation/human/telekinesis/New(class_ = MUT_OTHER, timer, datum/mutation/human/copymut)
 	..()
