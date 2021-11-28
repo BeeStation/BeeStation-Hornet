@@ -62,6 +62,10 @@
 	. = ..()
 	visor_toggling()
 
+/obj/item/clothing/head/helmet/space/plasmaman/Destroy()
+	QDEL_NULL(attached_hat)
+	..()
+
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE))
 		toggle_welding_screen(user)
