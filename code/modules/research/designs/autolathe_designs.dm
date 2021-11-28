@@ -168,6 +168,14 @@
 	build_path = /obj/item/storage/toolbox
 	category = list("initial","Tools")
 
+/datum/design/navbeacon //Monkestation edit start
+	name = "Navigation Beacon"
+	id = "navbeacon"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 100, /datum/material/glass = 50)
+	build_path = /obj/item/navbeacon
+	category = list("initial", "Electronics") //Monkestation edit end
+
 /datum/design/apc_board
 	name = "APC Module"
 	id = "power control"
