@@ -493,7 +493,7 @@ Thresholds
 		var/mob/living/carbon/C = source
 		var/obj/item/ammo_casing/caseless/pimple/pustule = new(T)
 		for(var/datum/disease/advance/A in C.diseases) //spreads all diseases in the host, but only if they have fluid spread or higher
-			if(A.spread_flags && DISEASE_SPREAD_CONTACT_FLUIDS)
+			if(A.spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS)
 				pustule.diseases += A
 		pustule.pellets = popped
 		pustule.fire_casing(AM, C, fired_from = T)

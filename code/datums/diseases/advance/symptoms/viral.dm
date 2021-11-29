@@ -14,7 +14,7 @@ BONUS
 //////////////////////////////////////
 */
 /datum/symptom/viraladaptation
-	name = "Viral self-adaptation"
+	name = "Viral Self-Adaptation"
 	desc = "The virus mimics the function of normal body cells, becoming harder to spot and to eradicate, but reducing its speed. This symptom discourages disease mutation"
 	stealth = 3
 	resistance = 5
@@ -45,7 +45,7 @@ BONUS
 //////////////////////////////////////
 */
 /datum/symptom/viralevolution
-	name = "Viral evolutionary acceleration"
+	name = "Viral Evolutionary Acceleration"
 	desc = "The virus quickly adapts to spread as fast as possible both outside and inside a host. \
 	This, however, makes the virus easier to spot, and less able to fight off a cure. This symptom encourages disease mutation"
 	stealth = -2
@@ -81,7 +81,7 @@ Bonus
 
 /datum/symptom/viralreverse
 
-	name = "Viral aggressive metabolism"
+	name = "Viral Aggressive Metabolism"
 	desc = "The virus sacrifices its long term survivability to nearly instantly fully spread inside a host. \
 	The virus will start at the last stage, but will eventually decay and die off by itself."
 	stealth = 1
@@ -123,17 +123,16 @@ Bonus
 /*
 //////////////////////////////////////
 
-Viral aggressive metabolism
+Viral Suspended Animation
 
-	Somewhat increased stealth.
+	Very high stealth.
 	Abysmal resistance.
-	Increased stage speed.
-	Poor transmitability.
+	Poor stage speed.
+	Decent transmitability.
 	Medium Level.
 
 Bonus
-	The virus starts at stage 5, but after a certain time will start curing itself.
-	Stages still increase naturally with stage speed.
+	The virus does not start until stage 5
 
 //////////////////////////////////////
 */
@@ -142,8 +141,8 @@ Bonus
 	name = "Viral Suspended Animation"
 	desc = "The virus has very little effect until it reaches its final stage"
 	stealth = 4
-	resistance = -4
-	stage_speed = -4
+	resistance = -2
+	stage_speed = -2
 	transmission = 1
 	level = 4
 	symptom_delay_min = 1
