@@ -5,7 +5,6 @@
 	item_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
-	block_upgrade_walk = 1
 	modifystate = TRUE
 	flags_1 =  CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
