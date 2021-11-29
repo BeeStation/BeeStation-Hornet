@@ -122,7 +122,7 @@
 /area/ruin/powered/beach)
 "az" = (
 /obj/item/clothing/neck/necklace/dope,
-/obj/item/reagent_containers/spray/spraytan,
+/obj/item/reagent_containers/spray/gamerspray,
 /turf/open/floor/plating/beach/sand,
 /area/ruin/powered/beach)
 "aA" = (
@@ -555,7 +555,7 @@
 /turf/open/floor/pod/light,
 /area/ruin/powered/beach)
 "yp" = (
-/obj/item/reagent_containers/spray/spraytan,
+/obj/item/reagent_containers/spray/gamerspray,
 /obj/effect/turf_decal/sand,
 /turf/open/floor/plasteel,
 /area/ruin/powered/beach)

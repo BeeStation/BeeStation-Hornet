@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/table,
-/obj/item/reagent_containers/medspray/spraytan{
+/obj/item/reagent_containers/medspray/gamerspray{
 	pixel_x = 8;
 	pixel_y = 4
 	},

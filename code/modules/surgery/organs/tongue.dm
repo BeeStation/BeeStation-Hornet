@@ -27,7 +27,9 @@
 		/datum/language/slime,
 		/datum/language/sylvan,
 		/datum/language/terrum,
-		/datum/language/uncommon))
+		/datum/language/uncommon,
+		/datum/language/zoomercant,
+		/datum/language/sippins)) //MonkeStation Edit, adds Zoomercant and Sippins
 
 /obj/item/organ/tongue/Initialize(mapload)
 	. = ..()

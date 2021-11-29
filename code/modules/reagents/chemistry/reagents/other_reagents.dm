@@ -379,7 +379,6 @@
 	description = "This \[REDACTED\] has been outlawed after the incident on \[DATA EXPUNGED\]."
 	lube_kind = TURF_WET_SUPERLUBE
 
-
 /datum/reagent/spraytan
 	name = "Spray Tan"
 	description = "A substance applied to the skin to darken the skin."
@@ -451,11 +450,10 @@
 			if(show_message)
 				to_chat(M, "<span class='notice'>That tasted horrible.</span>")
 	..()
-
-
-/datum/reagent/spraytan/overdose_process(mob/living/M)
-	metabolization_rate = 1 * REAGENTS_METABOLISM
-
+//MonkeStation Edit Start
+//Changes Spray Tan's Overdose
+/datum/reagent/spraytan/overdose_start(mob/living/M)
+	. = ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/N = M
 		N.hair_style = "Spiky"
@@ -469,15 +467,14 @@
 		else if(MUTCOLORS in N.dna.species.species_traits) //Aliens with custom colors simply get turned orange
 			N.dna.features["mcolor"] = "f80"
 		N.regenerate_icons()
-		if(prob(7))
-			if(N.w_uniform)
-				M.visible_message(pick("<b>[M]</b>'s collar pops up without warning.</span>", "<b>[M]</b> flexes [M.p_their()] arms."))
-			else
-				M.visible_message("<b>[M]</b> flexes [M.p_their()] arms.")
-	if(prob(10))
-		M.say(pick("Shit was SO cash.", "You are everything bad in the world.", "What sports do you play, other than 'jack off to naked drawn Japanese people?'", "Don???t be a stranger. Just hit me with your best shot.", "My name is John and I hate every single one of you."), forced = /datum/reagent/spraytan)
-	..()
-	return
+
+/datum/reagent/spraytan/overdose_process(mob/living/M)
+	metabolization_rate = 1 * REAGENTS_METABOLISM
+
+	if(ishuman(M) && prob(5))
+		var/mob/living/carbon/human/H = M
+		H.emote(pick("snap", "laugh", "airguitar", "smug", "grin"))
+//MonkeStation Edit End
 
 #define MUT_MSG_IMMEDIATE 1
 #define MUT_MSG_EXTENDED 2

@@ -31,6 +31,7 @@
 	results = list(/datum/reagent/spraytan = 2)
 	required_reagents = list(/datum/reagent/consumable/orangejuice = 1, /datum/reagent/consumable/cornoil = 1)
 
+
 /datum/chemical_reaction/impedrezene
 	name = "Impedrezene"
 	id = /datum/reagent/impedrezene

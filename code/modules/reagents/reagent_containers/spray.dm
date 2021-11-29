@@ -186,7 +186,6 @@
 	desc = "Gyaro brand spray tan. Do not spray near eyes or other orifices."
 	list_reagents = list(/datum/reagent/spraytan = 50)
 
-
 //pepperspray
 /obj/item/reagent_containers/spray/pepper
 	name = "pepperspray"

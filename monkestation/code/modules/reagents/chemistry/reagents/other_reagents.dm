@@ -1,4 +1,5 @@
 //The following is all part of the botany chemical rebalance
+//Move chems from this block if you modify them
 /datum/reagent/vaccine
 	random_unrestricted = FALSE //This does nothing without data, so don't synth it.
 
@@ -154,3 +155,4 @@
 	can_synth = FALSE
 
 //Virology chem end
+//End of botany chem balance

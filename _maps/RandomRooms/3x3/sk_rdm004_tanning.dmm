@@ -15,7 +15,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/item/reagent_containers/spray/spraytan,
+/obj/item/reagent_containers/spray/gamerspray,
 /obj/machinery/light{
 	icon_state = "tube";
 	dir = 4
