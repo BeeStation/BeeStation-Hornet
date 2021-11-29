@@ -1,3 +1,6 @@
+// DO NOT CHANGE display_name
+// Colorizers should ideally be restricted to the jobs that they are most relevant to
+// This prevents people with lots of colorizer's bags overflowing with useless ones on spawn
 
 /datum/gear/colorizer
     subtype_path = /datum/gear/colorizer
@@ -18,3 +21,9 @@
     display_name = "Research Director's Cloak Colorizer (Royal)"
     path = /obj/item/colorizer/rdcloakroyal
     allowed_roles = list("Research Director")
+
+/datum/gear/colorizer/iandeathsquad
+    display_name = "Ian Colorizer (Death Squad)"
+    path = /obj/item/colorizer/iandeathsquad
+    allowed_roles = list("Head of Personnel")
+    cost = 20000

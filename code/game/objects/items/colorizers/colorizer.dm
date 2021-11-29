@@ -5,7 +5,7 @@
     icon = 'icons/obj/crayons.dmi'
     icon_state = "rainbowcan"
 
-    var/list/allowed_items = list()
+    var/list/allowed_targets = list()
     var/apply_icon = null
     var/apply_icon_state = null
     var/apply_item_state = null
@@ -14,20 +14,31 @@
 
 
 /obj/item/colorizer/attack_self(mob/user)
+    var/obj/item/target_atom = user.get_inactive_held_item()
+    do_colorize(target_atom, user)
     . = ..()
-    var/obj/item/O = user.get_inactive_held_item()
-    if(O && is_type_in_list(O, allowed_items))
+
+/obj/item/colorizer/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+    do_colorize(target, user)
+    . = ..()
+
+/obj/item/colorizer/proc/do_colorize(atom/to_be_colored, mob/user)
+    if(to_be_colored && is_type_in_list(to_be_colored, allowed_targets))
         if(apply_icon)
-            O.icon = apply_icon
+            to_be_colored.icon = apply_icon
         if(apply_icon_state)
-            O.icon_state = apply_icon_state
-        if(apply_item_state)
-            O.item_state = apply_item_state
-        if(apply_righthand_file)
-            O.righthand_file = apply_righthand_file
-        if(apply_lefthand_file)
-            O.righthand_file = apply_lefthand_file
+            to_be_colored.icon_state = apply_icon_state
+        var/obj/item/target_item = to_be_colored
+        if(istype(target_item))
+            if(apply_item_state)
+                target_item.item_state = apply_item_state
+            if(apply_righthand_file)
+                target_item.righthand_file = apply_righthand_file
+            if(apply_lefthand_file)
+                target_item.righthand_file = apply_lefthand_file
         to_chat(user, "<span class='notice'>Color applied!</span>")
+        playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
         qdel(src)
     else
-        to_chat(user, "<span class='warning'>This colorizer is not compatible with that item!</span>")
+        to_chat(user, "<span class='warning'>This colorizer is not compatible with that!</span>")
+    
