@@ -1,0 +1,9 @@
+author: zeskorion
+delete-after: true
+changes:
+  - rscadd: examining an item now tells its blocking ability, blocking arc, and the
+      force string you see on a mouse over
+  - balance: shields can now block projectiles again
+  - balance: blocking has been nerfed on many items
+  - balance: blocking itself has had a minor nerf- blocking an attack delays your
+      next action as if you have hit with a melee attack
