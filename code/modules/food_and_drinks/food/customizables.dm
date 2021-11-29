@@ -14,9 +14,8 @@
 /obj/item/reagent_containers/food/snacks/customizable
 	bitesize = 4
 	w_class = WEIGHT_CLASS_SMALL
-	volume = 80
+	volume = 1000	//MonkeStation Edit: No food limit & volume increase
 
-	var/ingMax = 12
 	var/list/ingredients = list()
 	var/ingredients_placement = INGREDIENTS_FILL
 	var/customname = "custom"
@@ -27,12 +26,37 @@
 	for(var/obj/item/reagent_containers/food/snacks/ING in ingredients)
 		ingredients_listed += "[ING.name], "
 	var/size = "standard"
-	if(ingredients.len<2)
-		size = "small"
-	if(ingredients.len>5)
-		size = "big"
-	if(ingredients.len>8)
-		size = "monster"
+	//MonkeStation Edit Start
+	//Changes food size names
+	switch(ingredients.len)
+		if(1)
+			size = "small"
+		if(2 to 5)
+			size = "reasonable"
+		if(6 to 12)
+			size = "big"
+		if(13 to 20)
+			size = "huge"
+		if(21 to 30)
+			size = "massive"
+		if(31 to 40)
+			size = "generous"
+		if(41 to 49)
+			size = "overwhelming"
+		if(50 to 100)
+			size = "grand"
+		if(101 to 200)
+			size = "worthy of kings"
+		if(201 to 300)
+			size = "worthy of emperors"
+		if(301 to 400)
+			size = "brobdingnagian"
+		if(401 to 500)
+			size = "impossibly"
+		if(501 to INFINITY)
+			size = "It is done. You have used over 500 ingredients. Let it be known this day that you have created a monster of a meal, that which can never truly be consumed properly. May Nanotrasen forgive our sins."
+
+	//MonkeStation Edit End
 	. += "It contains [ingredients.len?"[ingredients_listed]":"no ingredient, "]making a [size]-sized [initial(name)]."
 
 /obj/item/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
@@ -40,8 +64,7 @@
 		var/obj/item/reagent_containers/food/snacks/S = I
 		if(I.w_class > WEIGHT_CLASS_SMALL)
 			to_chat(user, "<span class='warning'>The ingredient is too big for [src]!</span>")
-		else if((ingredients.len >= ingMax) || (reagents.total_volume >= volume))
-			to_chat(user, "<span class='warning'>You can't add more ingredients to [src]!</span>")
+		//MonkeStation Edit: Food Limit Removed
 		else if(istype(I, /obj/item/reagent_containers/food/snacks/pizzaslice/custom) || istype(I, /obj/item/reagent_containers/food/snacks/cakeslice/custom))
 			to_chat(user, "<span class='warning'>Adding [I.name] to [src] would make a mess.</span>")
 		else
@@ -164,7 +187,8 @@
 
 /obj/item/reagent_containers/food/snacks/customizable/bread
 	name = "bread"
-	ingMax = 6
+	//ingmax = 6
+	//MonkeStation Edit: Food Limit Removed
 	slice_path = /obj/item/reagent_containers/food/snacks/breadslice/custom
 	slices_num = 5
 	icon = 'icons/obj/food/burgerbread.dmi'
@@ -174,7 +198,8 @@
 
 /obj/item/reagent_containers/food/snacks/customizable/cake
 	name = "cake"
-	ingMax = 6
+	//ingMax = 6
+	//MonkeStation Edit: Food Limit Removed
 	slice_path = /obj/item/reagent_containers/food/snacks/cakeslice/custom
 	slices_num = 5
 	icon = 'icons/obj/food/piecake.dmi'
@@ -188,14 +213,16 @@
 	ingredients_placement = INGREDIENTS_LINE
 	trash = /obj/item/stack/rods
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
-	ingMax = 6
+	//ingMax = 6
+	//MonkeStation Edit: Food Limit Removed
 	icon_state = "rod"
 
 /obj/item/reagent_containers/food/snacks/customizable/pasta
 	name = "spaghetti"
 	desc = "Noodles. With stuff. Delicious."
 	ingredients_placement = INGREDIENTS_SCATTER
-	ingMax = 6
+	//ingMax = 6
+	//MonkeStation Edit: Food Limit Removed
 	icon = 'icons/obj/food/pizzaspaghetti.dmi'
 	icon_state = "spaghettiboiled"
 	foodtype = GRAIN
@@ -203,7 +230,8 @@
 
 /obj/item/reagent_containers/food/snacks/customizable/pie
 	name = "pie"
-	ingMax = 6
+	//ingMax = 6
+	//MonkeStation Edit: Food Limit Removed
 	icon = 'icons/obj/food/piecake.dmi'
 	icon_state = "pie"
 	foodtype = GRAIN | DAIRY
@@ -213,7 +241,8 @@
 	name = "pizza"
 	desc = "A personalized pan pizza meant for only one person."
 	ingredients_placement = INGREDIENTS_SCATTER
-	ingMax = 8
+	//ingMax = 8
+	//MonkeStation Edit: Food Limit Removed
 	slice_path = /obj/item/reagent_containers/food/snacks/pizzaslice/custom
 	slices_num = 6
 	icon = 'icons/obj/food/pizzaspaghetti.dmi'
@@ -225,7 +254,8 @@
 	name = "salad"
 	desc = "Very tasty."
 	trash = /obj/item/reagent_containers/glass/bowl
-	ingMax = 6
+	//ingMax = 6
+	//MonkeStation Edit: Food Limit Removed
 	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "bowl"
 
@@ -252,7 +282,7 @@
 		finished = 1
 		name = "[customname] sandwich"
 		BS.reagents.trans_to(src, BS.reagents.total_volume, transfered_by = user)
-		ingMax = ingredients.len //can't add more ingredients after that
+		//MonkeStation Edit: Food Limit Removed
 		var/mutable_appearance/TOP = mutable_appearance(icon, "[BS.icon_state]")
 		TOP.pixel_y = 2 * ingredients.len + 3
 		add_overlay(TOP)
@@ -271,7 +301,8 @@
 	name = "soup"
 	desc = "A bowl with liquid and... stuff in it."
 	trash = /obj/item/reagent_containers/glass/bowl
-	ingMax = 8
+	//ingMax = 8
+	//MonkeStation Edit: Food Limit Removed
 	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "wishsoup"
 
