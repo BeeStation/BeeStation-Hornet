@@ -485,7 +485,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/sizemult = 1
 	var/datum/mind/ownermind
 	threshold_desc = "<b>Stage Speed 6:</b> The disease heals brute damage at a fast rate, but causes expulsion of benign tumors.<br>\
-					<b>Stage Speed 12:</b> The disease heals brute damage incredibly fast, but deteriorates cell health and causes tumors to become more advanced. The disease will also regenerate lost limbs and cause organ mutation."
+					<b>Stage Speed 12:</b> The disease heals brute damage incredibly fast, but deteriorates cell health and causes tumors to become more advanced. The disease will also regenerate lost limbs."
 
 /datum/symptom/growth/severityset(datum/disease/advance/A)
 	. = ..()
