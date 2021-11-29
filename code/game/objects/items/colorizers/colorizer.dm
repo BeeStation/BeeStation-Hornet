@@ -23,22 +23,26 @@
     . = ..()
 
 /obj/item/colorizer/proc/do_colorize(atom/to_be_colored, mob/user)
-    if(to_be_colored && is_type_in_list(to_be_colored, allowed_targets))
-        if(apply_icon)
-            to_be_colored.icon = apply_icon
-        if(apply_icon_state)
-            to_be_colored.icon_state = apply_icon_state
-        var/obj/item/target_item = to_be_colored
-        if(istype(target_item))
-            if(apply_item_state)
-                target_item.item_state = apply_item_state
-            if(apply_righthand_file)
-                target_item.righthand_file = apply_righthand_file
-            if(apply_lefthand_file)
-                target_item.righthand_file = apply_lefthand_file
-        to_chat(user, "<span class='notice'>Color applied!</span>")
-        playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
-        qdel(src)
-    else
+    if(!(to_be_colored && is_type_in_list(to_be_colored, allowed_targets)))
         to_chat(user, "<span class='warning'>This colorizer is not compatible with that!</span>")
+        return
+
+    if(apply_icon)
+        to_be_colored.icon = apply_icon
+    if(apply_icon_state)
+        to_be_colored.icon_state = apply_icon_state
+
+    var/obj/item/target_item = to_be_colored
+    if(istype(target_item))
+        if(apply_item_state)
+            target_item.item_state = apply_item_state
+        if(apply_righthand_file)
+            target_item.righthand_file = apply_righthand_file
+        if(apply_lefthand_file)
+            target_item.righthand_file = apply_lefthand_file
+
+    to_chat(user, "<span class='notice'>Color applied!</span>")
+    playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
+    qdel(src)
+
     
