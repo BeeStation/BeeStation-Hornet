@@ -16596,7 +16596,6 @@
 	pixel_x = 1;
 	pixel_y = 9
 	},
-/obj/item/paicard,
 /turf/open/floor/wood,
 /area/library)
 "aVV" = (
@@ -18765,7 +18764,6 @@
 /obj/item/hand_labeler,
 /obj/item/assembly/timer,
 /obj/structure/table,
-/obj/item/paicard,
 /turf/open/floor/wood,
 /area/bridge/meeting_room)
 "bcZ" = (

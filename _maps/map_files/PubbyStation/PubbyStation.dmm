@@ -37529,11 +37529,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
-"kky" = (
-/obj/structure/table/wood/fancy,
-/obj/item/paicard,
-/turf/open/floor/carpet,
-/area/library)
 "kkD" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
@@ -45758,7 +45753,6 @@
 "ozm" = (
 /obj/structure/table/glass,
 /obj/item/aicard,
-/obj/item/paicard,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "ozx" = (
@@ -80204,7 +80198,7 @@ cyZ
 ckH
 czl
 czr
-kky
+czr
 czI
 ckH
 ckH
