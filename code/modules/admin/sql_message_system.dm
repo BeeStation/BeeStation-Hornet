@@ -54,7 +54,7 @@
 			else
 				return
 
-	if(CONFIG_GET(flag/manual_note_expiry) && type in list("note", "message"))
+	if(CONFIG_GET(flag/manual_note_expiry) && (type in list("note", "message")))
 		expiry = -1
 	if(isnull(expiry))
 		if(alert(usr, "Set an expiry time? Expired messages are hidden like deleted ones.", "Expiry time?", "Yes", "No", "Cancel") == "Yes")
