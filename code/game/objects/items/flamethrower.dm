@@ -9,7 +9,6 @@
 	flags_1 = CONDUCT_1
 	force = 3
 	throwforce = 10
-	block_upgrade_walk = 1
 	var/acti_sound = 'sound/items/welderactivate.ogg'
 	var/deac_sound = 'sound/items/welderdeactivate.ogg'
 	throw_speed = 1
