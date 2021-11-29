@@ -104,6 +104,6 @@
 	mutanttongue = /obj/item/organ/tongue/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
-	examine_limb_id = "zombie"
+	examine_limb_id = "human"
 
 #undef REGENERATION_DELAY
