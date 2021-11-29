@@ -27,7 +27,7 @@
 	desc = "A very dangerous disease engineered by the Animal Rights Coalition. Causes mass feline hysteria."
 	mutable = FALSE
 	symptoms = list(new/datum/symptom/toxoplasmosis, new/datum/symptom/viralincubate, new/datum/symptom/sneeze, new/datum/symptom/revitiligo, new/datum/symptom/inorganic_adaptation, new/datum/symptom/organ_restoration)
-	for(var/datum/symptom/S in (symptoms))
+	for(var/datum/symptom/S as() in (symptoms))
 		if(istype(S, /datum/symptom/toxoplasmosis))
 			continue
 		if(istype(S, /datum/symptom/organ_restoration))
