@@ -10,6 +10,7 @@
 	var/medical_record_text //This text will appear on medical records for the trait. Not yet implemented
 	var/mood_quirk = FALSE //if true, this quirk affects mood and is unavailable if moodlets are disabled
 	var/mob_trait //if applicable, apply and remove this mob trait
+	var/process = FALSE // Does this proc use on_process()?
 	var/mob/living/quirk_holder
 
 /datum/quirk/New(mob/living/quirk_mob, spawn_effects)
@@ -23,6 +24,8 @@
 	quirk_holder.roundstart_quirks += src
 	if(mob_trait)
 		ADD_TRAIT(quirk_holder, mob_trait, ROUNDSTART_TRAIT)
+	if(process)
+		START_PROCESSING(SSquirks, src)
 	RegisterSignal(quirk_holder, COMSIG_PARENT_QDELETING, .proc/handle_parent_del)
 	add()
 	if(spawn_effects)
