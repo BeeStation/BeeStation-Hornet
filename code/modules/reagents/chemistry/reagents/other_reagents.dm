@@ -453,7 +453,6 @@
 	..()
 
 /datum/reagent/spraytan/overdose_start(mob/living/M)
-	. = ..()
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 
 	if(!ishuman(M))
