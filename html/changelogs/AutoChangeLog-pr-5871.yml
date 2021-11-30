@@ -1,0 +1,5 @@
+author: francinum
+delete-after: true
+changes:
+  - config: A new config has been added to make setting notes to expire a more intentional
+      action.
