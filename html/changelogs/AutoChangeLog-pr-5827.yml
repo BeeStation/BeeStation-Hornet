@@ -1,0 +1,5 @@
+author: St0rmC4st3r
+delete-after: true
+changes:
+  - tweak: The pod recovery ship has been replaced with one that supports up to 6
+      pods.
