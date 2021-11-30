@@ -20,8 +20,8 @@
 	src.user = user
 	src.target = target
 	user.visible_message("<span class='warning'>[user] points [parent] at [target]!</span>")
-	to_chat(target, "<span class='warning'>[user] is pointing [parent] at you! If you attempt to pull out a weapon, or otherwise resist, they will be notified! \n <b>You can use *surrender to give yourself up</b>.</span>")
-	to_chat(user, "<span class='notice'>You're now aiming at [target]. If they attempt to pull a weapon on you, or otherwise resist, you'll be notified by a loud sound.</span>")
+	to_chat(target, "<span class='userdanger'>[user] is pointing [parent] at you! If you equip or drop anything they will be notified! \n <b>You can use *surrender to give yourself up</b>.</span>")
+	to_chat(user, "<span class='notice'>You're now aiming at [target]. If they attempt to equip anything you'll be notified by a loud sound.</span>")
 	user.say("FREEZE!!")
 	playsound(target, 'sound/weapons/autoguninsert.ogg', 100, TRUE)
 	aiming_cooldown = TRUE
@@ -51,7 +51,7 @@ Methods to alert the aimer about events, usually to signify that they're complyi
 
 /datum/component/aiming/proc/on_equip()
 	new /obj/effect/temp_visual/aiming/suspect_alert(get_turf(target))
-	to_chat(user, "<span class='userdanger'>[target] has pulled out something from their storage!</span>")
+	to_chat(user, "<span class='userdanger'>[target] has equipped something!</span>")
 	SEND_SOUND(user, 'sound/machines/chime.ogg')
 
 /**
@@ -123,7 +123,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	if(isitem(parent)) // Otherwise, just wave it at them
 		var/obj/item/I = parent
 		I.afterattack(target, user)
-		user.balloon_alert("<span class='warning'>[user] waves [parent] around menacingly!</span>")
+		user.visible_message("<span class='warning'>[user] waves [parent] around menacingly!</span>")
 		stop_aiming()
 
 /datum/component/aiming/proc/stop_aiming()
