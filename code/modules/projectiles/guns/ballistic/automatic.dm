@@ -208,6 +208,36 @@
 	can_suppress = FALSE
 	fire_rate = 4
 
+// GUNS FROM NSV //
+
+/obj/item/gun/ballistic/automatic/ar/m4a
+	name = "\improper M4A-16A1 assault rifle"
+	desc = "A 5.56mm caliber assault rifle used by Blue Phalanx marines in boarding operations. While it's a relatively old-fashioned design, it's proven cheap to mass produce and exceptionally reliable."
+	icon = 'icons/obj/guns/guns_big.dmi'
+	icon_state = "m4a4"
+	item_state = "arg"
+	fire_sound = 'sound/weapons/rifle_fire.ogg'
+	can_suppress = TRUE
+	w_class = WEIGHT_CLASS_BULKY
+	full_auto = TRUE
+	burst_size = 3
+	fire_delay = 2
+	
+
+/obj/item/gun/ballistic/automatic/mp16
+	name = "\improper MP-16A4 'peacemaker' military police SMG"
+	desc = "A bullpup style 9mm SMG used by peacekeeping forces. While bulky, it's an imposing weapon designed to instill order into the masses."
+	icon = 'icons/obj/guns/guns_big.dmi'
+	icon_state = "mp16"
+	item_state = "c20r"
+	mag_type = /obj/item/ammo_box/magazine/smgm9mm
+	fire_sound = 'sound/weapons/gunshot_smg.ogg'
+	can_suppress = TRUE
+	fire_rate = 6
+	w_class = WEIGHT_CLASS_BULKY
+	full_auto = TRUE
+	burst_size = 4
+	fire_delay = 2
 
 // L6 SAW //
 
