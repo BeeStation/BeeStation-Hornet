@@ -131,7 +131,7 @@
 					possible_objectives += NINJA_OBJECTIVE_CAPTURE
 
 	//10% chance to have hijack objective if you don't have protect and at least 30 players joined this round
-	if(can_elimination_hijack && GLOB.joined_player_list >= 30 && prob(10))
+	if(can_elimination_hijack && GLOB.joined_player_list.len >= 30 && prob(10))
 		var/datum/objective/O = new /datum/objective/hijack()
 		add_objective(O)
 	else

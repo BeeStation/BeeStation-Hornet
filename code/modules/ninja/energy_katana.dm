@@ -35,10 +35,10 @@
 	balloon_alert(user, "Dash [dash_toggle ? "enabled" : "disabled"]")
 
 /obj/item/energy_katana/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
 	if(dash_toggle)
 		jaunt.Teleport(user, target)
 		return
+	. = ..()
 	if(proximity_flag && (isobj(target) || issilicon(target)))
 		spark_system.start()
 		playsound(user, "sparks", 50, 1)
@@ -66,7 +66,7 @@
 	var/mob/living/carbon/human/H = hit_atom
 	if(istype(H.wear_suit, /obj/item/clothing/suit/space/space_ninja))
 		var/obj/item/clothing/suit/space/space_ninja/SN = H.wear_suit
-		if(SN.energyKatana == src)
+		if(SN.energy_katana == src)
 			return_to_owner(H, FALSE)
 			return
 

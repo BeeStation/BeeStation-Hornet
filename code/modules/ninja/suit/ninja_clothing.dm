@@ -22,7 +22,7 @@
 	var/mob/living/carbon/human/suit_user
 	var/obj/item/stock_parts/cell/cell
 	var/datum/techweb/stored_research
-	var/obj/item/energy_katana/energyKatana //For teleporting the katana back to the ninja (It's an ability)
+	var/obj/item/energy_katana/energy_katana //For teleporting the katana back to the ninja (It's an ability)
 
 	//Other articles of ninja gear worn together, used to easily reference them after initializing.
 	var/obj/item/clothing/head/helmet/space/space_ninja/n_hood
@@ -59,9 +59,9 @@
 	qdel(n_hood)
 	qdel(n_gloves)
 	qdel(n_shoes)
-	if(energyKatana)
-		energyKatana.visible_message("<span class='warning'>[src] flares and then turns to dust!</span>")
-		qdel(energyKatana)
+	if(energy_katana)
+		energy_katana.visible_message("<span class='warning'>[src] flares and then turns to dust!</span>")
+		qdel(energy_katana)
 	if(suit_user)
 		UnregisterSignal(suit_user, COMSIG_MOB_DEATH)
 		suit_user = null
@@ -215,8 +215,6 @@
 		return
 
 	cell.charge -= STEALTH_COST
-
-
 
 /obj/item/clothing/suit/space/space_ninja/attackby(obj/item/I, mob/user, params)
 	if(user != suit_user)//Safety, in case you try doing this without wearing the suit/being the person with the suit.

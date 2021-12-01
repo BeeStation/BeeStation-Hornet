@@ -5,7 +5,7 @@
 	var/obj/item/clothing/suit/space/space_ninja/suit
 	var/power_cost = 50
 
-/datum/action/cooldown/ninja/New()
+/datum/action/cooldown/ninja/New(target)
 	. = ..()
 	if(!istype(target, /obj/item/clothing/suit/space/space_ninja))
 		return

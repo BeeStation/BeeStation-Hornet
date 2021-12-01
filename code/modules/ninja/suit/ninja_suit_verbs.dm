@@ -74,21 +74,21 @@
 		to_chat(suit_user, "<span class='notice'>A throwing star has been created under your feet!</span>")
 
 /obj/item/clothing/suit/space/space_ninja/proc/ninja_sword_recall()
-	if(!energyKatana)
+	if(!energy_katana)
 		to_chat(suit_user, "<span class='warning'>Could not locate Energy Katana!</span>")
 		return
 
-	if(get_dist(suit_user, energyKatana) <= 1)
+	if(get_dist(suit_user, energy_katana) <= 1)
 		return
 
-	if(iscarbon(energyKatana.loc))
-		var/mob/living/carbon/C = energyKatana.loc
-		C.transferItemToLoc(energyKatana, get_turf(energyKatana), TRUE)
+	if(iscarbon(energy_katana.loc))
+		var/mob/living/carbon/C = energy_katana.loc
+		C.transferItemToLoc(energy_katana, get_turf(energy_katana), TRUE)
 
 	else
-		energyKatana.forceMove(get_turf(energyKatana))
+		energy_katana.forceMove(get_turf(energy_katana))
 
-	energyKatana.return_to_owner(suit_user, 1)
+	energy_katana.return_to_owner(suit_user, 1)
 
 //Stealth verbs
 
