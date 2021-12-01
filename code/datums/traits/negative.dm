@@ -498,7 +498,7 @@
 	var/obj/item/drug_container_type //! If this is defined before pill generation, pill generation will be skipped. This is the type of the pill bottle.
 	var/where_accessory //! where the accessory spawned
 	var/obj/item/accessory_type //! If this is null, an accessory won't be spawned.
-	var/static/process_interval = 30 SECONDS //! how frequently the quirk processes
+	var/process_interval = 30 SECONDS //! how frequently the quirk processes
 	var/next_process = 0 //! ticker for processing
 
 /datum/quirk/junkie/on_spawn()
