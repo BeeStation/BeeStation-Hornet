@@ -72,4 +72,8 @@ Contents:
 	message_admins("[ADMIN_LOOKUPFLW(ninja)] has been made into a ninja by an event.")
 	log_game("[key_name(ninja)] was spawned as a ninja by an event.")
 
+	spawned_mobs += Ninja
+	message_admins("[ADMIN_LOOKUPFLW(Ninja)] has been made into a ninja by an event. They are employed by [ninjadatum.helping_station?"Nanotrasen":"The Syndicate"].")
+	log_game("[key_name(Ninja)] was spawned as a ninja by an event. They are employed by [ninjadatum.helping_station?"Nanotrasen":"The Syndicate"]")
+
 	return SUCCESSFUL_SPAWN
