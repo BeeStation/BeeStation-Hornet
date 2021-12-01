@@ -381,4 +381,18 @@
 	casing_ejector = FALSE
 	fire_rate = 2
 	block_upgrade_walk = 1
-
+	
+// Pistol/SMG Makeshift hybrid if you don't believe me look up Brazilian zip guns //
+	
+/obj/item/gun/ballistic/automatic/zip_pistol
+	name = "Makeshift Pistol"
+	desc = "A makeshift janky pistol, its a miracle it even works."
+	icon_state = "ZipPistol"
+	item_state = "ZipPistol"
+	mag_type = /obj/item/ammo_box/magazine/zip_ammo_9mm
+	can_suppress = FALSE
+	actions_types = list()
+	can_bayonet = FALSE
+	mag_display = TRUE
+	weapon_weight = WEAPON_LIGHT
+	fire_rate = 3

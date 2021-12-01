@@ -300,3 +300,10 @@
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	armor = list("melee" = 25, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 50, "rad" = 20, "fire" = -10, "acid" = 50, "stamina" = 30)
+	
+/obj/item/clothing/suit/armor/vest/scrap_armor
+	name = "\improper Scrap Armor"
+	desc = "Who thought this is a good idea for armor?"
+	icon_state = "scraparmor"
+	item_state = "scraparmor"
+	armor = list(melee = 5)
