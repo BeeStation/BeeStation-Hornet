@@ -168,7 +168,6 @@
 		if(prob(15) && !(locate(/datum/objective/download) in objectives) && !(owner.assigned_role in list("Research Director", "Scientist", "Roboticist")))
 			var/datum/objective/download/download_objective = new
 			download_objective.owner = owner
-			download_objective.gen_amount_goal()
 			add_objective(download_objective)
 		else
 			var/datum/objective/steal/steal_objective = new

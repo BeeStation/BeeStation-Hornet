@@ -48,7 +48,7 @@ Contents:
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 
-	var/mob/dead/selected_candidate = pick_n_take(candidates)
+	var/mob/dead/selected_candidate = pick(candidates)
 	var/key = selected_candidate.key
 
 	//Prepare ninja player mind
@@ -65,15 +65,10 @@ Contents:
 	ninja.dna.update_dna_identity()
 	Mind.transfer_to(ninja)
 	var/datum/antagonist/ninja/ninjadatum = new
-	ninjadatum.helping_station = pick(TRUE,FALSE)
 	Mind.add_antag_datum(ninjadatum)
 
 	spawned_mobs += ninja
 	message_admins("[ADMIN_LOOKUPFLW(ninja)] has been made into a ninja by an event.")
 	log_game("[key_name(ninja)] was spawned as a ninja by an event.")
-
-	spawned_mobs += Ninja
-	message_admins("[ADMIN_LOOKUPFLW(Ninja)] has been made into a ninja by an event. They are employed by [ninjadatum.helping_station?"Nanotrasen":"The Syndicate"].")
-	log_game("[key_name(Ninja)] was spawned as a ninja by an event. They are employed by [ninjadatum.helping_station?"Nanotrasen":"The Syndicate"]")
 
 	return SUCCESSFUL_SPAWN

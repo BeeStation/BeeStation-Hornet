@@ -402,7 +402,6 @@
 		else
 			var/datum/objective/download/download_objective = new
 			download_objective.owner = owner
-			download_objective.gen_amount_goal()
 			objectives += download_objective
 			log_objective(owner, download_objective.explanation_text)
 
