@@ -20,7 +20,7 @@
 	C.visible_message("<span class='danger'><B>[C]'s [src.name] has been violently dismembered!</B></span>")
 
 	if(C.stat <= SOFT_CRIT)//No more screaming while unconsious
-		if(IS_ORGANIC_LIMB(C.dna.species.species_chest))//Chest is a good indicator for if a carbon is robotic in nature or not.
+		if(IS_ORGANIC_LIMB(affecting))//Chest is a good indicator for if a carbon is robotic in nature or not.
 			C.emote("scream")
 
 	SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "dismembered", /datum/mood_event/dismembered)
