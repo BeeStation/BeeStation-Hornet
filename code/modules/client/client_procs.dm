@@ -966,15 +966,15 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/vv_edit_var(var_name, var_value)
 	switch (var_name)
-		if ("holder")
+		if (NAMEOF(src, holder))
 			return FALSE
-		if ("ckey")
+		if (NAMEOF(src, ckey))
 			return FALSE
-		if ("key")
+		if (NAMEOF(src, key))
 			return FALSE
-		if("cached_badges")
+		if (NAMEOF(src, cached_badges))
 			return FALSE
-		if("view")
+		if (NAMEOF(src, view))
 			view_size.setDefault(var_value)
 			return TRUE
 	. = ..()
