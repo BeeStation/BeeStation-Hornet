@@ -1,0 +1,35 @@
+author: nemvar, Skoglol, 81Denton, ninjanomnom, AnturK, Cyberboss, MrStonedOne, Fox
+  McCloud, LemonInTheDark, Arkatos, Timberpoes, Kathy Ryals, ShizCalev, Jordie0608,
+  Dennok, Kylerace, Fikou, JJRcop
+delete-after: true
+changes:
+  - admin: You can now properly apply arguments when adding components/elements via
+      the VV dropdown.
+  - bugfix: Abandoned crates will no longer explode roundstart. Some loot has been
+      fixed.
+  - bugfix: Fixes station alert consoles not properly displaying alerts
+  - rscadd: The sm will no longer gain eer when hugboxed, such as on shuttles.
+  - admin: Added some more hugbox flags, use as desired.
+  - rscadd: Jukebox now uses tgui.
+  - tweak: You can now set a volume of a jukebox songs.
+  - tweak: The Bluespace Locator now uses TGUI.
+  - bugfix: Fixed inducers not working on a couple items with internal powercells.
+  - refactor: Optimized a good chunk of MULEbot code, fixing things such as it rebuilding
+      it's overlays/icons 5 times every second while moving to a destination. Less
+      free lag!
+  - tweak: MULEbots will now flash when they beep / buzz.
+  - rscadd: Added a bit more examine text to MULEbots.
+  - bugfix: A ton of MULEbot fixes, way too many in the original changelog, see https://github.com/tgstation/tgstation/pull/51987
+      for details
+  - bugfix: Ghost orbit menu can now orbit things with weird metadata in their names
+      like medibots and MULEBOTs.
+  - tweak: Ghost orbit menu search bar looks prettier.
+  - tweak: Ghost orbit menu no longer auto-closes when you select something to orbit.
+      Indirectly buffs voyeurs.
+  - code_imp: Separate BLOCK_Z_FALL flag to BLOCK_Z_OUT_DOWN, BLOCK_Z_OUT_UP, BLOCK_Z_IN_DOWN,
+      BLOCK_Z_IN_UP
+  - rscadd: Now lattice can support spaceman
+  - bugfix: Catwalk block uplifting from below
+  - tweak: Surgeries now only write to your chat if you're next to the surgeon.
+  - bugfix: Added some sanity checking for varedit values.
+  - code_imp: ai upload now doesnt lag you as much
