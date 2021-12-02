@@ -18,7 +18,6 @@
 	owner.alpha = max(0, owner.alpha - 25)
 
 /datum/mutation/human/chameleon/on_move()
-	SIGNAL_HANDLER
 	owner.alpha = CHAMELEON_MUTATION_DEFAULT_TRANSPARENCY
 
 /datum/mutation/human/chameleon/on_attack_hand(atom/target, proximity)
