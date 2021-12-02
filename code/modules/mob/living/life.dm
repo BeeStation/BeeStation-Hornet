@@ -2,12 +2,7 @@
 	set waitfor = FALSE
 	set invisibility = 0
 
-	if(HAS_TRAIT(src,TRAIT_DIGINVIS)) //AI unable to see mob
-		if(!digitaldisguise)
-			src.digitaldisguise = image(loc = src)
-		src.digitaldisguise.override = 1
-		for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
-			AI.client?.images |= src.digitaldisguise
+	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, seconds, times_fired)
 
 	if((movement_type & FLYING) && !(movement_type & FLOATING))	//TODO: Better floating
 		float(on = TRUE)
@@ -17,7 +12,7 @@
 	if(!loc)
 		return
 
-	if(!has_status_effect(STATUS_EFFECT_STASIS))
+	if(!IS_IN_STASIS(src))
 
 		if(stat != DEAD)
 			//Mutations and radiation
