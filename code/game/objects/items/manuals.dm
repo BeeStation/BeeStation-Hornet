@@ -243,42 +243,15 @@
 
 // A book that links to the wiki
 /obj/item/book/manual/wiki
+	var/wikiurl = ""
 	var/page_link = ""
-	window_size = "970x710"
 
-/obj/item/book/manual/wiki/attack_self()
-	if(!dat)
-		initialize_wikibook()
-	return ..()
+/obj/item/book/manual/wiki/Initialize()
+	. = ..()
+	wikiurl = CONFIG_GET(string/wikiurl)
 
-/obj/item/book/manual/wiki/proc/initialize_wikibook()
-	var/wikiurl = CONFIG_GET(string/wikiurl)
-	if(wikiurl)
-		dat = {"
-
-			<html>
-			<head>
-			<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-			<style>
-				iframe {
-					display: none;
-				}
-			</style>
-			</head>
-			<body>
-			<script type="text/javascript">
-				function pageloaded(myframe) {
-					document.getElementById("loading").style.display = "none";
-					myframe.style.display = "inline";
-    			}
-			</script>
-			<p id='loading'>You start skimming through the manual...</p>
-			<iframe width='100%' height='97%' onload="pageloaded(this)" src="[wikiurl]/[page_link]?printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
-			</body>
-
-			</html>
-
-			"}
+/obj/item/book/manual/wiki/attack_self(mob/user)
+	DIRECT_OUTPUT(user, link("[wikiurl]/[page_link]"))
 
 /obj/item/book/manual/wiki/chemistry
 	name = "Chemistry Textbook"
