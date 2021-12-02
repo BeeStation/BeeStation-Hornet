@@ -938,8 +938,6 @@
 	cameraFollow = null
 
 /mob/living/proc/can_track(mob/living/user)
-	if(SEND_SIGNAL(src, COMSIG_LIVING_CAN_TRACK, args) & COMPONENT_CANT_TRACK)
-		return FALSE
 	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -951,6 +949,8 @@
 	if(user != null && src == user)
 		return FALSE
 	if(invisibility || alpha == 0)//cloaked
+		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_LIVING_CAN_TRACK, args) & COMPONENT_CANT_TRACK)
 		return FALSE
 	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
 	if(!near_camera(src))
