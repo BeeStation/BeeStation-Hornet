@@ -23,7 +23,9 @@
     . = ..()
 
 /obj/item/colorizer/proc/do_colorize(atom/to_be_colored, mob/user)
-    if(!(to_be_colored && is_type_in_list(to_be_colored, allowed_targets)))
+    if(!to_be_colored)
+        return
+    if(!is_type_in_list(to_be_colored, allowed_targets))
         to_chat(user, "<span class='warning'>This colorizer is not compatible with that!</span>")
         return
 
