@@ -1,5 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - bugfix: heretics or cult won't fail to equip if you have your backpack already
-      full
