@@ -100,15 +100,6 @@
 
 	return data
 
-/datum/preference/color_legacy/gradient_color
-	db_key = "gradient_color"
-	preference_type = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
-	relevant_species_trait = HAIR
-
-/datum/preference/color_legacy/gradient_color/apply_to_human(mob/living/carbon/human/target, value)
-	target.gradient_color = value
-
 /datum/preference/choiced/gradient_style
 	db_key = "gradient_style"
 	preference_type = PREFERENCE_CHARACTER
@@ -129,3 +120,17 @@
 	data[SUPPLEMENTAL_FEATURE_KEY] = "gradient_color"
 
 	return data
+
+/datum/preference/color_legacy/gradient_color
+	db_key = "gradient_color"
+	preference_type = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
+	relevant_species_trait = HAIR
+
+/datum/preference/color_legacy/gradient_color/apply_to_human(mob/living/carbon/human/target, value)
+	target.gradient_color = value
+
+/datum/preference/color/gradient_color/is_accessible(datum/preferences/preferences)
+	if (!..(preferences))
+		return FALSE
+	return preferences.read_preference(/datum/preference/choiced/gradient_style) != "None"
