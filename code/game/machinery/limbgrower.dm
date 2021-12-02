@@ -119,7 +119,7 @@
 		reagents.remove_reagent(/datum/reagent/medicine/synthflesh,being_built.reagents_list[/datum/reagent/medicine/synthflesh]*prod_coeff)
 		var/buildpath = being_built.build_path
 		if(ispath(buildpath, /obj/item/bodypart))	//This feels like spatgheti code, but i need to initilise a limb somehow
-			build_limb(text2path(create_buildpath())) //Agonizing.
+			build_limb(create_buildpath())
 		else
 			//Just build whatever it is
 			new buildpath(loc)
@@ -130,7 +130,7 @@
 	icon_state = "limbgrower_idleoff"
 	updateUsrDialog()
 
-/obj/machinery/limbgrower/proc/create_buildpath(buildpath)
+/obj/machinery/limbgrower/proc/create_buildpath()
 	var/part_type = being_built.id //their ids match bodypart typepaths
 	var/species = selected_category
 	var/path
@@ -138,7 +138,7 @@
 		path = "/obj/item/bodypart/[part_type]"
 	else
 		path = "/obj/item/bodypart/[part_type]/[species]"
-	return path
+	return text2path(path)
 
 /obj/machinery/limbgrower/proc/build_limb(buildpath)
 	//i need to create a body part manually using a set icon (otherwise it doesnt appear)
