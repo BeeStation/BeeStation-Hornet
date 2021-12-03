@@ -204,13 +204,14 @@
 "jB" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp{
-	pixel_x = 2;
-	pixel_y = 6
+	pixel_x = -1;
+	pixel_y = 12
 	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -26
 	},
+/obj/machinery/recharger,
 /turf/open/floor/carpet/blue,
 /area/shuttle/exploration)
 "jI" = (
@@ -843,6 +844,10 @@
 /obj/item/reagent_containers/food/drinks/beer/almost_empty{
 	pixel_x = -8;
 	pixel_y = 2
+	},
+/obj/machinery/recharger{
+	pixel_x = 4;
+	pixel_y = 12
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/exploration)
