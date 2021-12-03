@@ -72,11 +72,13 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			possible_actions += "raise_hands"
 			possible_actions += "drop_weapon"
 		if("raise_hands")
+			possible_actions += "drop_to_floor"
 			possible_actions += "face_wall"
 			possible_actions += "raise_hands"
 		if("drop_weapon")
 			possible_actions += "drop_to_floor"
 			possible_actions += "drop_weapon"
+			possible_actions += "raise_hands"
 		if("drop_to_floor")
 			possible_actions += "drop_to_floor"
 		if("face_wall")
