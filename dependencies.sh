@@ -18,7 +18,7 @@ export NODE_VERSION=12
 export NODE_VERSION_PRECISE=12.22.4
 
 # SpacemanDMM git tag
-export SPACEMAN_DMM_VERSION=suite-1.7
+export SPACEMAN_DMM_VERSION=suite-1.7.1
 
 #auxmos version
 export AUXMOS_VERSION=0.2.4
