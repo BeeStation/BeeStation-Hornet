@@ -118534,7 +118534,6 @@
 /area/crew_quarters/fitness/recreation)
 "fAL" = (
 /obj/effect/landmark/start/exploration,
-/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood,
 /area/quartermaster/exploration_prep)
 "fGq" = (
@@ -118560,6 +118559,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
+	},
+/obj/machinery/camera/autoname{
+	dir = 9
 	},
 /turf/open/floor/wood,
 /area/quartermaster/exploration_prep)
@@ -119662,6 +119664,9 @@
 	dir = 4
 	},
 /obj/machinery/vendor/exploration,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "jmY" = (
@@ -124130,6 +124135,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/trash/cheesie,
+/obj/machinery/camera/autoname,
 /turf/open/floor/wood,
 /area/quartermaster/exploration_prep)
 "vPa" = (
