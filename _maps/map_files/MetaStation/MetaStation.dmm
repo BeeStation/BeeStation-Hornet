@@ -55535,6 +55535,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/camera/autoname{
+	dir = 9
+	},
 /turf/open/floor/engine,
 /area/science/explab)
 "ciX" = (
@@ -57019,6 +57022,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "cmT" = (
@@ -58347,6 +58353,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
+	},
+/obj/machinery/camera/autoname{
+	dir = 9
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
@@ -62268,7 +62277,7 @@
 	req_one_access_txt = "49"
 	},
 /turf/open/floor/plasteel/dark,
-/area/science/misc_lab/range)
+/area/science/shuttledock)
 "cxa" = (
 /obj/item/stack/cable_coil,
 /obj/structure/lattice/catwalk,
@@ -72383,6 +72392,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/machinery/camera/autoname,
 /turf/open/floor/plasteel,
 /area/science/shuttledock)
 "cSl" = (
@@ -82161,6 +82171,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
 	},
+/obj/machinery/camera/autoname,
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
 "pco" = (
@@ -120888,7 +120899,7 @@ vKB
 vKB
 vKB
 cAP
-fbK
+mjJ
 cwZ
 mjJ
 lwJ
