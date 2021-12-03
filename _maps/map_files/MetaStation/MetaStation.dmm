@@ -3804,7 +3804,6 @@
 	desc = "A fierce companion for any person of power, this spider has been carefully trained by Nanotrasen specialists. Its beady, staring eyes send shivers down your spine.";
 	emote_hear = list("chitters");
 	faction = list("spiders");
-	harm_intent_damage = 3;
 	health = 200;
 	icon_dead = "guard_dead";
 	icon_gib = "guard_dead";
