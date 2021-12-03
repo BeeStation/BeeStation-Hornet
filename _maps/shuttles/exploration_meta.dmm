@@ -37,21 +37,8 @@
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "aA" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/structure/window/reinforced/spawner/north{
-	pixel_y = 4
-	},
-/obj/structure/chair/comfy/shuttle,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "aB" = (
 /obj/effect/turf_decal/tile/red{
@@ -64,9 +51,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
+/obj/machinery/vending/cigarette,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "aM" = (
@@ -87,6 +73,24 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/exploration)
 "cb" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/grass/green{
+	pixel_x = -2
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/grass,
+/area/shuttle/exploration)
+"cd" = (
+/obj/structure/window/reinforced/spawner/north{
+	pixel_y = 4
+	},
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"ce" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -97,32 +101,11 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/beer/almost_empty{
-	pixel_x = -6;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/food/drinks/beer/almost_empty{
-	pixel_x = 6;
+/obj/structure/window/reinforced/spawner/north{
 	pixel_y = 4
 	},
+/obj/structure/chair/sofa/corp/corner,
 /turf/open/floor/plasteel,
-/area/shuttle/exploration)
-"cd" = (
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "exploration";
-	name = "Exploration Shuttle Shutters";
-	pixel_x = 24
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"ce" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/ywflowers,
-/turf/open/floor/grass,
 /area/shuttle/exploration)
 "cp" = (
 /obj/effect/turf_decal/stripes/line{
@@ -135,17 +118,35 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/advanced_airlock_controller{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "dZ" = (
-/obj/machinery/light/small{
-	dir = 2
+/obj/structure/window/reinforced/spawner/north{
+	pixel_y = 4
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/spaghetti/pastatomato{
+	pixel_y = 1
+	},
+/obj/item/candle/infinite{
+	pixel_y = 6
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "ew" = (
-/obj/effect/turf_decal/caution{
-	dir = 4
+/obj/structure/window/reinforced/spawner/north{
+	pixel_y = 4
+	},
+/obj/structure/window/reinforced/spawner/east{
+	pixel_x = 4
+	},
+/obj/structure/chair{
+	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -165,26 +166,25 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "gI" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/open/floor/grass,
 /area/shuttle/exploration)
 "iQ" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"jd" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_x = -8;
+	pixel_y = 15
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/grass,
 /area/shuttle/exploration)
 "jf" = (
 /obj/machinery/door/poddoor/shutters{
@@ -223,6 +223,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "lM" = (
@@ -293,19 +294,20 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "pP" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/grassybush{
-	pixel_x = -2
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/stalkybush{
-	pixel_x = 16;
-	pixel_y = 26
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
 	},
-/obj/structure/flora/ausbushes/brflowers,
-/obj/machinery/light/floor,
-/turf/open/floor/grass,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/structure/chair/sofa/corp/right{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "pV" = (
 /obj/effect/turf_decal/tile/red{
@@ -408,15 +410,23 @@
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "xm" = (
-/obj/effect/turf_decal/box/corners,
-/obj/effect/turf_decal/box/corners{
-	dir = 8
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/grassybush{
+	pixel_x = -2
 	},
-/obj/structure/closet/crate,
-/turf/open/floor/mineral/plastitanium,
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/stalkybush{
+	pixel_x = 16;
+	pixel_y = 26
+	},
+/obj/structure/flora/ausbushes/brflowers,
+/obj/machinery/light/floor,
+/turf/open/floor/grass,
 /area/shuttle/exploration)
 "xt" = (
 /obj/machinery/computer/objective,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/carpet/blue,
 /area/shuttle/exploration)
 "xO" = (
@@ -444,6 +454,7 @@
 	name = "Exploration Shuttle Shutters";
 	pixel_x = -24
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "zn" = (
@@ -500,25 +511,8 @@
 /obj/structure/chair/stool/bar,
 /turf/open/floor/plasteel,
 /area/shuttle/exploration)
-"Dw" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
 "DK" = (
 /turf/closed/wall/mineral/titanium,
-/area/shuttle/exploration)
-"Fq" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Fs" = (
 /obj/effect/turf_decal/tile/red{
@@ -537,14 +531,20 @@
 /turf/open/floor/carpet/blue,
 /area/shuttle/exploration)
 "Gk" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/sparsegrass{
-	pixel_x = -8;
-	pixel_y = 15
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
-/obj/machinery/light/floor,
-/turf/open/floor/grass,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/structure/chair/sofa/corp/left{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "Hl" = (
 /obj/machinery/atmospherics/pipe/simple/dark/hidden,
@@ -571,13 +571,41 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"Ke" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	pixel_y = 12
+	},
+/obj/structure/flora/ausbushes/lavendergrass{
+	pixel_x = -11;
+	pixel_y = 15
+	},
+/obj/structure/flora/grass/green{
+	pixel_x = 12;
+	pixel_y = 4
+	},
+/turf/open/floor/grass,
+/area/shuttle/exploration)
 "KC" = (
 /turf/template_noop,
 /area/template_noop)
 "KG" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/floor/grass,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/structure/window/reinforced/spawner/north{
+	pixel_y = 4
+	},
+/obj/structure/chair/sofa/corp,
+/turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "Ld" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -617,9 +645,6 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/north{
-	pixel_y = 4
-	},
 /mob/living/simple_animal/chicken/turkey{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
@@ -635,20 +660,29 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "NM" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/ausbushes/sparsegrass{
-	pixel_y = 12
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
-/obj/structure/flora/ausbushes/lavendergrass{
-	pixel_x = -11;
-	pixel_y = 15
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
 	},
-/obj/structure/flora/grass/green{
-	pixel_x = 12;
-	pixel_y = 4
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
 	},
-/turf/open/floor/grass,
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/beer/almost_empty{
+	pixel_x = 6;
+	pixel_y = 13
+	},
+/obj/item/reagent_containers/food/drinks/beer/almost_empty{
+	pixel_x = -8;
+	pixel_y = 2
+	},
+/obj/item/toy/cards/deck{
+	pixel_x = 2
+	},
+/turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "NN" = (
 /obj/effect/turf_decal/stripes/line{
@@ -687,6 +721,7 @@
 /area/shuttle/exploration)
 "Ph" = (
 /obj/machinery/computer/crew,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/carpet/blue,
 /area/shuttle/exploration)
 "Pj" = (
@@ -707,13 +742,11 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
 "PG" = (
-/obj/structure/window/reinforced/spawner/north{
-	pixel_y = 4
+/obj/structure/window/reinforced/spawner/east{
+	pixel_x = 4
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration{
-	luminosity = 8
-	})
+/area/shuttle/exploration)
 "PR" = (
 /obj/structure/railing{
 	dir = 8
@@ -741,6 +774,7 @@
 	dir = 4;
 	initialize_directions = 4
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Rh" = (
@@ -863,29 +897,11 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/toy/cards/deck{
-	pixel_x = 2
-	},
-/obj/item/reagent_containers/food/drinks/beer/almost_empty{
-	pixel_x = -8;
-	pixel_y = 2
-	},
 /obj/machinery/recharger{
-	pixel_x = 4;
-	pixel_y = 12
+	pixel_x = 1;
+	pixel_y = 3
 	},
 /turf/open/floor/plasteel,
-/area/shuttle/exploration)
-"UF" = (
-/obj/effect/turf_decal/box/corners{
-	dir = 4
-	},
-/obj/effect/turf_decal/box/corners{
-	dir = 1
-	},
-/obj/structure/closet/crate/large,
-/obj/item/stack/sheet/mineral/sandbags,
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "US" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
@@ -897,15 +913,6 @@
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "Ve" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/flora/grass/green{
-	pixel_x = -2
-	},
-/obj/machinery/light/floor,
-/turf/open/floor/grass,
-/area/shuttle/exploration)
-"Wo" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -919,10 +926,21 @@
 /obj/structure/window/reinforced/spawner/north{
 	pixel_y = 4
 	},
+/obj/structure/chair/sofa/corp/corner{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
+/area/shuttle/exploration)
+"Wo" = (
+/obj/structure/flora/ausbushes/grassybush,
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/lavendergrass,
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/floor/grass,
 /area/shuttle/exploration)
 "Wq" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/carpet/blue,
 /area/shuttle/exploration)
 "WA" = (
@@ -1062,8 +1080,8 @@ bT
 "}
 (4,1,1) = {"
 wh
-NB
-NB
+aA
+aA
 NB
 JS
 NB
@@ -1108,8 +1126,8 @@ QK
 KC
 KC
 KC
-KC
-PG
+cd
+NB
 wX
 xt
 jB
@@ -1130,8 +1148,8 @@ QK
 KC
 KC
 KC
-KC
-PG
+dZ
+NB
 wX
 Wq
 wx
@@ -1152,7 +1170,7 @@ QK
 KC
 KC
 KC
-KC
+ew
 PG
 wX
 Ph
@@ -1171,11 +1189,11 @@ ay
 QK
 "}
 (9,1,1) = {"
+KC
+KC
+KC
 DK
-jf
-Fq
 wh
-Ml
 wh
 wX
 wX
@@ -1193,15 +1211,15 @@ ay
 QK
 "}
 (10,1,1) = {"
-wh
-NB
-NB
-NB
-ew
-wh
+KC
+KC
+KC
+wX
+cb
+xm
 Ve
 pP
-Wo
+Fs
 pV
 CT
 CT
@@ -1215,17 +1233,17 @@ ay
 QK
 "}
 (11,1,1) = {"
-wh
-Dw
-cd
-NB
-dZ
-wh
+KC
+KC
+KC
+wX
+gI
+Ke
 KG
 NM
 MM
-gI
-gI
+Fs
+Fs
 Fs
 pA
 av
@@ -1237,16 +1255,16 @@ Sk
 bT
 "}
 (12,1,1) = {"
-DK
-wh
-wh
-UF
-xm
-wh
+KC
+KC
+KC
+wX
+Wo
+jd
 ce
 Gk
-aA
-cb
+Fs
+Fs
 Ug
 aB
 wh
@@ -1261,10 +1279,10 @@ KC
 (13,1,1) = {"
 KC
 KC
+KC
 DK
 wh
-wh
-wh
+DK
 wh
 wh
 wX
