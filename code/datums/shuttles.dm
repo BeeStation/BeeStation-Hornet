@@ -562,6 +562,10 @@
 	name = "exploration shuttle"
 	can_be_bought = FALSE
 
+/datum/map_template/shuttle/exploration/meta
+	suffix = "meta"
+	name = "meta exploration shuttle"
+
 /datum/map_template/shuttle/exploration/corg
 	suffix = "corg"
 	name = "corg exploration shuttle"
