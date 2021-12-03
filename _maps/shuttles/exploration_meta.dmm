@@ -2,6 +2,7 @@
 "ak" = (
 /obj/machinery/telecomms/relay/preset/exploration,
 /obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "am" = (
@@ -59,6 +60,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "bB" = (
@@ -67,6 +69,7 @@
 	},
 /obj/item/kirbyplants/random,
 /obj/machinery/light,
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "bT" = (
@@ -82,13 +85,8 @@
 /turf/open/floor/grass,
 /area/shuttle/exploration)
 "cd" = (
-/obj/structure/window/reinforced/spawner/north{
-	pixel_y = 4
-	},
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/carpet/blue,
 /area/shuttle/exploration)
 "ce" = (
 /obj/effect/turf_decal/tile/red{
@@ -126,32 +124,31 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "dZ" = (
-/obj/structure/window/reinforced/spawner/north{
-	pixel_y = 4
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/spaghetti/pastatomato{
-	pixel_y = 1
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
 	},
-/obj/item/candle/infinite{
-	pixel_y = 6
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
 	},
-/turf/open/floor/mineral/plastitanium,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "ew" = (
 /obj/structure/window/reinforced/spawner/north{
 	pixel_y = 4
 	},
-/obj/structure/window/reinforced/spawner/east{
-	pixel_x = 4
-	},
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/open/floor/mineral/plastitanium,
+/obj/machinery/suit_storage_unit/exploration,
+/obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "eZ" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "fh" = (
@@ -174,6 +171,7 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "jd" = (
@@ -566,10 +564,14 @@
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "JS" = (
-/obj/effect/turf_decal/caution{
-	dir = 8
+/obj/machinery/door/airlock/shuttle,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Ke" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -605,6 +607,7 @@
 	pixel_y = 4
 	},
 /obj/structure/chair/sofa/corp,
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "Ld" = (
@@ -616,17 +619,6 @@
 	},
 /obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/open/floor/plasteel,
-/area/shuttle/exploration)
-"Ml" = (
-/obj/machinery/door/airlock/external,
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/noslip/dark,
 /area/shuttle/exploration)
 "MK" = (
 /obj/structure/railing{
@@ -697,6 +689,7 @@
 /obj/machinery/light/small{
 	dir = 2
 	},
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "OP" = (
@@ -709,6 +702,7 @@
 	pixel_x = -4;
 	pixel_y = 6
 	},
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "OS" = (
@@ -722,6 +716,7 @@
 "Ph" = (
 /obj/machinery/computer/crew,
 /obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/blue,
 /area/shuttle/exploration)
 "Pj" = (
@@ -740,12 +735,6 @@
 	dir = 5
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/exploration)
-"PG" = (
-/obj/structure/window/reinforced/spawner/east{
-	pixel_x = 4
-	},
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "PR" = (
 /obj/structure/railing{
@@ -859,6 +848,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ST" = (
@@ -874,6 +864,7 @@
 "Th" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/atmospherics/components/unary/plasma_refiner,
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "Ua" = (
@@ -929,6 +920,7 @@
 /obj/structure/chair/sofa/corp/corner{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "Wo" = (
@@ -966,6 +958,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "XE" = (
@@ -995,6 +988,7 @@
 "Za" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
+/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "ZN" = (
@@ -1047,7 +1041,7 @@ iQ
 Rf
 zn
 Pj
-WT
+ew
 WT
 wh
 wh
@@ -1083,7 +1077,7 @@ wh
 aA
 aA
 NB
-JS
+NB
 NB
 Ua
 ov
@@ -1104,8 +1098,8 @@ QK
 DK
 jf
 oG
+jf
 wh
-Ml
 wh
 wh
 wh
@@ -1126,8 +1120,8 @@ QK
 KC
 KC
 KC
-cd
-NB
+KC
+KC
 wX
 xt
 jB
@@ -1148,8 +1142,8 @@ QK
 KC
 KC
 KC
-dZ
-NB
+KC
+KC
 wX
 Wq
 wx
@@ -1157,7 +1151,7 @@ CN
 wh
 eZ
 Sa
-pA
+JS
 av
 wh
 Za
@@ -1170,12 +1164,12 @@ QK
 KC
 KC
 KC
-ew
-PG
+KC
+KC
 wX
 Ph
 CE
-Ft
+cd
 wh
 Ld
 zW
@@ -1243,7 +1237,7 @@ KG
 NM
 MM
 Fs
-Fs
+dZ
 Fs
 pA
 av
