@@ -38,7 +38,6 @@
 		old_eye_color = HMN.eye_color
 		if(eye_color)
 			HMN.eye_color = eye_color
-			HMN.regenerate_icons()
 		else
 			eye_color = HMN.eye_color
 		if(HAS_TRAIT(HMN, TRAIT_NIGHT_VISION) && !lighting_alpha)
@@ -53,7 +52,7 @@
 	if(ishuman(M) && eye_color)
 		var/mob/living/carbon/human/HMN = M
 		HMN.eye_color = old_eye_color
-		HMN.regenerate_icons()
+		HMN.update_body()
 	M.update_tint()
 	M.update_sight()
 
