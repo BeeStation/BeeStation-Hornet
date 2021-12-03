@@ -7,12 +7,8 @@
 
 ## Why It's Good For The Game
 
-<!-- Please add a short description of why you think these changes would benefit the game. If you can't justify it in words, it might not be worth adding. -->
-
-## Closed Issues
-<!--
-Put closed issues under this tag, if any. Remove the above header if not applicable in your PR.
-Format is as follows(must be lowercase):
+<!-- Please add a short description of why you think these changes would benefit the game. If you can't justify it in words, it might not be worth adding.
+Also put closed issues under this tag, if any. Format is as follows(must be lowercase):
 closes #123456789
 -->
 
