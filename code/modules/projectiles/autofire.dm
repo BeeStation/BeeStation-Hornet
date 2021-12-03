@@ -108,7 +108,8 @@ Everything else should be handled for you. Good luck soldier.
 	. = ..()
 	if(istype(object, /atom/movable/screen) && !istype(object, /atom/movable/screen/click_catcher))
 		return
-	if(params2list(params)["middle"]) // No firing on middle click, since we might be trying to aim at someone
+	var/modifiers = params2list(params)
+	if(modifiers["middle"] || modifiers["shift"]) // No firing on middle or shift click, since we might be trying to aim at someone or examine something
 		return FALSE
 	if(burst_size <= 1) //Don't let them autofire with bursts. That would just be awful.
 		autofire_component?.set_target(object)
