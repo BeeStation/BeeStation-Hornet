@@ -243,7 +243,6 @@
 
 // A book that links to the wiki
 /obj/item/book/manual/wiki
-	var/wikiurl = ""
 	var/page_link = ""
 
 /obj/item/book/manual/wiki/Initialize()
