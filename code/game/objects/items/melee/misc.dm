@@ -38,8 +38,6 @@
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
-	block_upgrade_walk = 1
-	block_level = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 20
 	throwforce = 10
@@ -165,7 +163,6 @@
 	item_state = "classic_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	block_upgrade_walk = 1
 	slot_flags = ITEM_SLOT_BELT
 	force = 12 //9 hit crit
 	w_class = WEIGHT_CLASS_NORMAL
@@ -732,7 +729,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NONE
 	force = 0
-	block_upgrade_walk = 1
 	attack_verb = list("hit", "poked")
 	var/obj/item/reagent_containers/food/snacks/sausage/held_sausage
 	var/static/list/ovens
@@ -845,7 +841,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 0
 	throwforce = 0
-	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("repelled")
 	var/cooldown = 0

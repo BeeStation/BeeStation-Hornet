@@ -53,7 +53,10 @@
 				secret = 0
 			else
 				return
-	if(isnull(expiry))
+
+	if(CONFIG_GET(flag/manual_note_expiry) && (type in list("note", "message")))
+		expiry = -1
+	else if(isnull(expiry))
 		if(alert(usr, "Set an expiry time? Expired messages are hidden like deleted ones.", "Expiry time?", "Yes", "No", "Cancel") == "Yes")
 			var/expire_time = input("Set expiry time for [type] as format YYYY-MM-DD HH:MM:SS. All times in server time. HH:MM:SS is optional and 24-hour. Must be later than current time for obvious reasons.", "Set expiry time", SQLtime()) as null|text
 			if(!expire_time)
