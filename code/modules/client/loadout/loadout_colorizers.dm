@@ -5,7 +5,7 @@
 /datum/gear/colorizer
     subtype_path = /datum/gear/colorizer
     sort_category = "Colorizers"
-    cost = 10000
+    cost = 15000
 
 /datum/gear/colorizer/capcloakroyal
     display_name = "Captain's Cloak Colorizer (Royal)"
