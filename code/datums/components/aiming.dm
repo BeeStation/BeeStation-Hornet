@@ -22,6 +22,7 @@
 	user.visible_message("<span class='warning'>[user] points [parent] at [target]!</span>")
 	to_chat(target, "<span class='userdanger'>[user] is pointing [parent] at you! If you equip or drop anything they will be notified! \n <b>You can use *surrender to give yourself up</b>.</span>")
 	to_chat(user, "<span class='notice'>You're now aiming at [target]. If they attempt to equip anything you'll be notified by a loud sound.</span>")
+	target.balloon_alert(target, "[user] is pointing [parent] at you!")
 	playsound(target, 'sound/weapons/autoguninsert.ogg', 100, TRUE)
 	new /obj/effect/temp_visual/aiming(get_turf(target))
 
@@ -41,12 +42,15 @@ Methods to alert the aimer about events, usually to signify that they're complyi
 */
 
 /datum/component/aiming/proc/on_drop()
+	SIGNAL_HANDLER
 	to_chat(user, "<span class='nicegreen'>[target] has dropped something.</span>")
 
 /datum/component/aiming/proc/on_paralyze()
+	SIGNAL_HANDLER
 	to_chat(user, "<span class='nicegreen'>[target] appears to be surrendering!</span>")
 
 /datum/component/aiming/proc/on_equip()
+	SIGNAL_HANDLER
 	new /obj/effect/temp_visual/aiming/suspect_alert(get_turf(target))
 	to_chat(user, "<span class='userdanger'>[target] has equipped something!</span>")
 	SEND_SOUND(user, 'sound/machines/chime.ogg')
