@@ -4,8 +4,7 @@
 	can_transfer = FALSE
 	var/mob/living/user = null
 	var/mob/living/target = null
-	var/aiming_cooldown = FALSE
-	var/cooldown_time = 5 SECONDS // So you can't spam aiming for faster bullets/spamming lines
+	COOLDOWN_DECLARE(aiming_cooldown) // 5 second cooldown so you can't spam aiming for faster bullets/spamming lines
 
 /datum/component/aiming/Initialize(source)
 	. = ..()
@@ -15,16 +14,15 @@
 
 /datum/component/aiming/proc/aim(mob/user, mob/target)
 	set waitfor = FALSE // So we don't hold up the pointing animation.
-	if(aiming_cooldown || src.target || user == target) // No double-aiming
+	if(!COOLDOWN_FINISHED(src, aiming_cooldown) || src.target || user == target) // No double-aiming
 		return
+	COOLDOWN_START(src, aiming_cooldown, 5 SECONDS)
 	src.user = user
 	src.target = target
 	user.visible_message("<span class='warning'>[user] points [parent] at [target]!</span>")
 	to_chat(target, "<span class='userdanger'>[user] is pointing [parent] at you! If you equip or drop anything they will be notified! \n <b>You can use *surrender to give yourself up</b>.</span>")
 	to_chat(user, "<span class='notice'>You're now aiming at [target]. If they attempt to equip anything you'll be notified by a loud sound.</span>")
 	playsound(target, 'sound/weapons/autoguninsert.ogg', 100, TRUE)
-	aiming_cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, aiming_cooldown, FALSE), cooldown_time)
 	new /obj/effect/temp_visual/aiming(get_turf(target))
 
 	// Register signals to alert our user if the target does something shifty.
