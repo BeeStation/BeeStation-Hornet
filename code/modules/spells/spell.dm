@@ -153,13 +153,15 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 	var/centcom_cancast = TRUE //Whether or not the spell should be allowed on z2
 
-	//The clothing required when clothes_req = TRUE
-	var/list/casting_clothes = list(/obj/item/clothing/suit/wizrobe,
-		/obj/item/clothing/suit/space/hardsuit/wizard,
-		/obj/item/clothing/head/wizard,
-		/obj/item/clothing/head/helmet/space/hardsuit/wizard,
-		/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
-		/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard)
+
+	var/list/casting_clothes //used in the actuel checks
+	var/static/list/casting_clothes_override //if you want your spell to require different clothing, use this
+	var/static/list/casting_clothes_base = typecacheof(list(/obj/item/clothing/suit/wizrobe,
+			/obj/item/clothing/suit/space/hardsuit/wizard,
+			/obj/item/clothing/head/wizard,
+			/obj/item/clothing/head/helmet/space/hardsuit/wizard,
+			/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
+			/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard))//base clothing list, do not modify
 
 	action_icon = 'icons/mob/actions/actions_spells.dmi'
 	action_icon_state = "spell_default"
@@ -283,7 +285,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/Initialize()
 	. = ..()
 
-	casting_clothes = typecacheof(casting_clothes)
+	if(casting_clothes_override)
+		casting_clothes = casting_clothes_override
+	else
+		casting_clothes = casting_clothes_base
+
 	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
 	charge_counter = charge_max
 
