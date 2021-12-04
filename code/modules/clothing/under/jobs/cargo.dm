@@ -14,6 +14,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/under/rank/cargo/tech
 	name = "cargo technician's jumpsuit"
@@ -34,7 +35,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
-	supports_variations = null
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/under/rank/cargo/miner
 	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."
