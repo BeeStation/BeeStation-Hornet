@@ -1,0 +1,4 @@
+author: Autisem
+delete-after: true
+changes:
+  - tweak: Clothing req is now a variable of spell instead of hard coded in the proc
