@@ -287,3 +287,17 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 		pct += delta
 		winset(src, "mainwindow.split", "splitter=[pct]")
+
+/client/verb/speech_format_help()
+	set name = "Speech Format Help"
+	set category = "OOC"
+	set desc = "Chat formatting help"
+
+	var/message
+
+	message += "<span class='big'>You can add emphasis to your text by surrounding words or sentences in certain characters.</span>\n"
+	message += "+bold+, _underline_, and |italics| are supported.\n\n"
+	message += "<span class='big'>You can made custom saymods by doing <i>say 'screams*HELP IM DYING!'</i>. This works over the radio, and can be used to emote over the radio.</span>\n"
+	message += "Example: say ';laughs maniacally!*' >> \[Common] Joe Schmoe laughs maniacally!"
+
+	to_chat(usr, "<span class='notice'>[message]</span>")
