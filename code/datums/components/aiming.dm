@@ -22,7 +22,6 @@
 	user.visible_message("<span class='warning'>[user] points [parent] at [target]!</span>")
 	to_chat(target, "<span class='userdanger'>[user] is pointing [parent] at you! If you equip or drop anything they will be notified! \n <b>You can use *surrender to give yourself up</b>.</span>")
 	to_chat(user, "<span class='notice'>You're now aiming at [target]. If they attempt to equip anything you'll be notified by a loud sound.</span>")
-	user.say("FREEZE!!")
 	playsound(target, 'sound/weapons/autoguninsert.ogg', 100, TRUE)
 	aiming_cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, aiming_cooldown, FALSE), cooldown_time)
