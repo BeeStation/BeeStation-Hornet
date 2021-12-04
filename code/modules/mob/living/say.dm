@@ -97,6 +97,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	message = get_message_mods(message, message_mods)
 	var/datum/saymode/saymode = SSradio.saymodes[message_mods[RADIO_KEY]]
 	var/in_critical = InCritical()
+	message = check_for_custom_say_emote(message, message_mods)
 
 	if(!message)
 		return
@@ -137,6 +138,9 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/message_range = 7
 
 	var/succumbed = FALSE
+
+	if(message_mods[MODE_CUSTOM_SAY_EMOTE])
+		log_message(message_mods[MODE_CUSTOM_SAY_EMOTE], LOG_RADIO_EMOTE)
 
 	var/fullcrit = InFullCritical()
 	if((in_critical && !fullcrit) || message_mods[WHISPER_MODE] == MODE_WHISPER)
@@ -276,7 +280,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 					show_overhead_message_to += M
 			AM.Hear(rendered, src, message_language, message, , spans, message_mods)
 	if(length(show_overhead_message_to))
-		create_chat_message(src, message_language, show_overhead_message_to, message, spans)
+		if(message_mods[MODE_CUSTOM_SAY_EMOTE])
+			create_chat_message(src, message_language, show_overhead_message_to, message, spans)
+		else
+			create_chat_message(src, message_language, show_overhead_message_to, message, spans)
 	if(length(show_overhead_message_to_eavesdrop))
 		create_chat_message(src, message_language, show_overhead_message_to_eavesdrop, eavesdropping, spans)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_LIVING_SAY_SPECIAL, src, message)
