@@ -315,9 +315,9 @@
 /mob/living/simple_animal/hostile/bear/fightpit/Initialize()
 	. = ..()
 	var/M = round(GLOB.player_list.len / 20, 0.1)
-	src.maxHealth *= M
-	src.health *= M
-	src.melee_damage *= M
+	maxHealth *= M
+	health *= M
+	melee_damage *= M
 
 /obj/effect/decal/hammerandsickle
 	name = "hammer and sickle"
