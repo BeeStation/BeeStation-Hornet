@@ -3,6 +3,8 @@
 // Wabbajack statue, a sleeping frog statue that shoots bolts of change if
 // living carbons are put on its altar/tables
 
+#define BASE_BEAR_DIVISOR 20 //the number of players for Fight Pit Bears to scale to, standard stats at this number
+
 /obj/machinery/power/emitter/energycannon/magical
 	name = "wabbajack statue"
 	desc = "Who am I? What is my purpose in life? What do I mean by who am I?"
@@ -314,10 +316,10 @@
 
 /mob/living/simple_animal/hostile/bear/fightpit/Initialize()
 	. = ..()
-	var/M = round(GLOB.player_list.len / 20, 0.1)
-	maxHealth *= M
-	health *= M
-	melee_damage *= M
+	var/multiplier = round(length(SSticker.mode.current_players[CURRENT_LIVING_PLAYERS]) / BASE_BEAR_DIVISOR, 0.1)
+	maxHealth *= multiplier
+	health *= multiplier
+	melee_damage *= multiplier
 
 /obj/effect/decal/hammerandsickle
 	name = "hammer and sickle"
@@ -330,3 +332,5 @@
 
 /obj/effect/decal/hammerandsickle/shuttleRotate(rotation)
 	setDir(angle2dir(rotation+dir2angle(dir))) // No parentcall, rest of the rotate code breaks the pixel offset.
+
+#undef BASE_BEAR_DIVISOR
