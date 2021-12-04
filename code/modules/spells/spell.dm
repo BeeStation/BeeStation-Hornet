@@ -153,12 +153,13 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 	var/centcom_cancast = TRUE //Whether or not the spell should be allowed on z2
 
-	var/list/casting_clothes = typecacheof(list(/obj/item/clothing/suit/wizrobe, //The clothing required when clothes_req = TRUE
+	//The clothing required when clothes_req = TRUE
+	var/list/casting_clothes = list(/obj/item/clothing/suit/wizrobe,
 		/obj/item/clothing/suit/space/hardsuit/wizard,
 		/obj/item/clothing/head/wizard,
 		/obj/item/clothing/head/helmet/space/hardsuit/wizard,
 		/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
-		/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard))
+		/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard)
 
 	action_icon = 'icons/mob/actions/actions_spells.dmi'
 	action_icon_state = "spell_default"
@@ -282,6 +283,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/Initialize()
 	. = ..()
 
+	casting_clothes = typecacheof(casting_clothes)
 	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
 	charge_counter = charge_max
 
