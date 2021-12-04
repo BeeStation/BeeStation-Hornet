@@ -154,8 +154,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/centcom_cancast = TRUE //Whether or not the spell should be allowed on z2
 
 
-	var/list/casting_clothes //used in the actuel checks
-	var/static/list/casting_clothes_base //to modify clothing list, overwrite the init call to re-assign casting_clothes
+	/// Typecache of clothing needed to cast the spell. Used in actual checks. Override in Initialize if your spell requires different clothing.
+	/// !!Shared between instances, make a copy to modify.
+	var/list/casting_clothes
+
+	/// Base typecache of clothing needed to cast spells. Do not modify, make a separate static var in subtypes if necessary.
+	var/static/list/casting_clothes_base
 
 	action_icon = 'icons/mob/actions/actions_spells.dmi'
 	action_icon_state = "spell_default"
