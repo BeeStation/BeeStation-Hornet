@@ -155,7 +155,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 
 	var/list/casting_clothes //used in the actuel checks
-	var/static/list/casting_clothes_override //if you want your spell to require different clothing, use this
+	var/static/list/casting_clothes_override //if you want your spell to require different clothing, use this. besure to do typecacheof(list(stuff))!!!!
 	var/static/list/casting_clothes_base = typecacheof(list(/obj/item/clothing/suit/wizrobe,
 			/obj/item/clothing/suit/space/hardsuit/wizard,
 			/obj/item/clothing/head/wizard,
