@@ -250,7 +250,7 @@
 	. = ..()
 
 /obj/item/book/manual/wiki/attack_self(mob/user)
-	wikiurl = CONFIG_GET(string/wikiurl)
+	var/wikiurl = CONFIG_GET(string/wikiurl)
 	if(alert(user, "This will open the wiki page in your browser. Are you sure?", null, "Yes", "No")!="Yes")
 		return
 	DIRECT_OUTPUT(user, link("[wikiurl]/[page_link]"))
