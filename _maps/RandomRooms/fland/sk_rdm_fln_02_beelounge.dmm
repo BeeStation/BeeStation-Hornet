@@ -88,7 +88,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/public/glass{
-	name = "Bee Lounge Corridor"
+	name = "Bee Lounge Backroom"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -126,8 +126,11 @@
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Bee Lounge access"
+	name = "Bee Lounge Maintenance";
+	req_access_txt = "12"
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/template_noop,
 /area/template_noop)
 "K" = (
@@ -150,7 +153,7 @@
 /turf/open/floor/noslip/standard,
 /area/template_noop)
 "P" = (
-/obj/structure/beebox/premade/random,
+/obj/structure/beebox,
 /turf/open/floor/wax,
 /area/template_noop)
 "Q" = (

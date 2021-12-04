@@ -3,7 +3,7 @@
 /obj/machinery/suit_storage_unit/exploration,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/tile_full/neutral,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "aA" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
@@ -31,7 +31,7 @@
 /obj/machinery/power/apc/auto_name/north{
 	cell_type = /obj/item/stock_parts/cell/high
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "ds" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -48,7 +48,7 @@
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 10
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "du" = (
 /obj/machinery/light/small{
@@ -85,7 +85,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "eA" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -144,7 +144,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "gz" = (
 /obj/machinery/door/airlock/shuttle,
@@ -163,7 +163,7 @@
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "hQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -220,7 +220,8 @@
 /obj/item/multitool,
 /obj/item/gps/mining,
 /obj/item/circuitboard/computer/exploration_shuttle,
-/turf/open/floor/mineral/plastitanium,
+/obj/item/stack/sheet/mineral/plasma/fifty,
+/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "ma" = (
 /obj/structure/railing{
@@ -241,14 +242,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "np" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "nG" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
@@ -327,7 +328,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "tF" = (
 /obj/machinery/computer/arcade/orion_trail,
@@ -353,7 +354,7 @@
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "vf" = (
 /obj/effect/decal/cleanable/oil,
@@ -363,7 +364,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "vp" = (
 /obj/machinery/computer/rdconsole{
@@ -383,7 +384,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "wy" = (
 /obj/structure/closet/crate/large,
@@ -442,7 +443,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "yV" = (
 /obj/machinery/door/airlock/shuttle,
@@ -450,7 +451,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "zC" = (
 /obj/machinery/camera{
@@ -465,7 +466,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/tile_full/neutral,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "Ai" = (
 /obj/effect/turf_decal/stripes/line{
@@ -474,7 +475,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "BP" = (
 /obj/effect/turf_decal/bot,
@@ -489,7 +490,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/end,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "BT" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -497,7 +498,7 @@
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 4
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "Cf" = (
 /obj/effect/turf_decal/weather,
@@ -541,7 +542,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "Gc" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -573,7 +574,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "IC" = (
 /obj/structure/table/reinforced,
@@ -589,8 +590,8 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner,
-/obj/machinery/atmospherics/pipe/manifold4w/purple,
-/turf/open/floor/mineral/plastitanium,
+/obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "JF" = (
 /obj/effect/turf_decal/bot,
@@ -639,7 +640,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/telecomms/relay/preset/exploration,
 /obj/effect/turf_decal/tile/tile_full/neutral,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "Nt" = (
 /obj/machinery/light,
@@ -744,7 +745,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "RB" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -762,9 +763,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "Sf" = (
 /obj/structure/sign/poster/contraband/smoke{
@@ -818,7 +817,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/end,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "Tj" = (
 /obj/structure/chair/stool/bar,
@@ -837,7 +836,7 @@
 /obj/structure/tank_dispenser/oxygen,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/tile_full/neutral,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "Ug" = (
 /obj/structure/table/reinforced,
@@ -855,7 +854,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "UN" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -908,7 +907,7 @@
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "Xo" = (
 /obj/machinery/door/airlock/shuttle,
@@ -916,7 +915,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "XP" = (
 /obj/effect/turf_decal/stripes/line{

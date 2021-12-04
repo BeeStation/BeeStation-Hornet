@@ -141,7 +141,12 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "J" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	name = "Public Garden Maintenance";
+	req_access_txt = "12"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/template_noop,
 /area/template_noop)
 "L" = (

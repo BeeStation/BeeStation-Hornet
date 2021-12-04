@@ -2,9 +2,32 @@
 "a" = (
 /turf/closed/wall,
 /area/template_noop)
+"c" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/turf/open/floor/bamboo,
+/area/template_noop)
+"d" = (
+/obj/structure/chair/stool/bamboo,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/turf/open/floor/bamboo,
+/area/template_noop)
 "e" = (
 /obj/structure/window/paperframe,
 /turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+	dir = 4
+	},
+/obj/item/kirbyplants/random,
+/turf/open/floor/wood,
+/area/template_noop)
+"i" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 10
+	},
+/turf/open/floor/wood,
 /area/template_noop)
 "k" = (
 /obj/structure/table/wood,
@@ -13,6 +36,12 @@
 	pixel_y = 12
 	},
 /turf/open/floor/bamboo,
+/area/template_noop)
+"m" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 6
+	},
+/turf/open/floor/wood,
 /area/template_noop)
 "o" = (
 /obj/structure/table/wood,
@@ -26,6 +55,12 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "r" = (
+/turf/open/floor/wood,
+/area/template_noop)
+"s" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "u" = (
@@ -60,6 +95,9 @@
 /obj/machinery/light_switch{
 	pixel_x = 27
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/bamboo,
 /area/template_noop)
 "G" = (
@@ -75,8 +113,19 @@
 	},
 /turf/open/floor/bamboo,
 /area/template_noop)
+"I" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 8
+	},
+/obj/item/kirbyplants/random,
+/turf/open/floor/wood,
+/area/template_noop)
 "J" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	name = "Zen Room Maintenance"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/template_noop,
 /area/template_noop)
 "K" = (
@@ -116,12 +165,17 @@
 "W" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/structure/mineral_door/paperframe,
+/obj/structure/mineral_door/paperframe{
+	name = "Zen Room"
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
 "Y" = (
 /obj/item/radio/intercom{
 	pixel_x = 28
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/open/floor/bamboo,
 /area/template_noop)
@@ -142,25 +196,25 @@ r
 r
 L
 x
-r
+h
 a
 "}
 (2,1,1) = {"
 W
-r
-V
-V
-v
-v
-v
-V
-V
-r
+m
+c
+c
+d
+d
+d
+c
+c
+i
 J
 "}
 (3,1,1) = {"
 W
-r
+s
 V
 V
 k
@@ -173,7 +227,7 @@ a
 "}
 (4,1,1) = {"
 U
-r
+I
 V
 Y
 v

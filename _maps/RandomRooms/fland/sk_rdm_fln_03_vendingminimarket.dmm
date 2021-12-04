@@ -113,7 +113,7 @@
 /area/template_noop)
 "u" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Vending machine Store backroom"
+	name = "Vending machine Store Backroom"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
@@ -250,7 +250,12 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "J" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	name = "Vending machine Store Maintenance";
+	req_access_txt = "12"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/template_noop,
 /area/template_noop)
 "R" = (

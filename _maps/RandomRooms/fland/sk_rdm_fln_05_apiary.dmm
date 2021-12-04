@@ -177,9 +177,11 @@
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Apiary access";
+	name = "Apiary Maintenance";
 	req_one_access_txt = "22;35"
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/template_noop,
 /area/template_noop)
 "L" = (

@@ -198,8 +198,11 @@
 "J" = (
 /obj/machinery/door/airlock/maintenance{
 	id_tag = "ScooterBack";
-	name = "Scooter Rental"
+	name = "Scooter Rental Maintenance";
+	req_access_txt = "12"
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/template_noop,
 /area/template_noop)
 "O" = (

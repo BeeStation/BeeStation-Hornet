@@ -1415,3 +1415,35 @@
 	centerspawner = FALSE
 	template_height = 11
 	template_width = 5
+
+/datum/map_template/random_room/sk_rdm_fln_09
+	name = "Barber Shop"
+	room_id = "sk_rdm_fln_09_barbershop"
+	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_09_barbershop.dmm"
+	centerspawner = FALSE
+	template_height = 11
+	template_width = 5
+
+/datum/map_template/random_room/sk_rdm_fln_10
+	name = "Reading Room"
+	room_id = "sk_rdm_fln_10_readingroom"
+	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_10_readingroom.dmm"
+	centerspawner = FALSE
+	template_height = 11
+	template_width = 5
+
+/datum/map_template/random_room/sk_rdm_fln_11
+	name = "Hobo Box"
+	room_id = "sk_rdm_fln_11_hobobox"
+	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_11_hobobox.dmm"
+	centerspawner = FALSE
+	template_height = 11
+	template_width = 5
+
+/datum/map_template/random_room/sk_rdm_fln_12
+	name = "Magic Stage"
+	room_id = "sk_rdm_fln_12_magicstage"
+	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_12_magicstage.dmm"
+	centerspawner = FALSE
+	template_height = 11
+	template_width = 5
