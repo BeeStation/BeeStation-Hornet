@@ -155,13 +155,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 
 	var/list/casting_clothes //used in the actuel checks
-	var/static/list/casting_clothes_override //if you want your spell to require different clothing, use this. besure to do typecacheof(list(stuff))!!!!
-	var/static/list/casting_clothes_base = typecacheof(list(/obj/item/clothing/suit/wizrobe,
-			/obj/item/clothing/suit/space/hardsuit/wizard,
-			/obj/item/clothing/head/wizard,
-			/obj/item/clothing/head/helmet/space/hardsuit/wizard,
-			/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
-			/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard))//base clothing list, do not modify
+	var/static/list/casting_clothes_base //to modify clothing list, overwrite the init call to re-assign casting_clothes
 
 	action_icon = 'icons/mob/actions/actions_spells.dmi'
 	action_icon_state = "spell_default"
@@ -285,10 +279,15 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/Initialize()
 	. = ..()
 
-	if(casting_clothes_override)
-		casting_clothes = casting_clothes_override
-	else
-		casting_clothes = casting_clothes_base
+	if(!casting_clothes_base)
+		casting_clothes_base = typecacheof(list(/obj/item/clothing/suit/wizrobe,
+			/obj/item/clothing/suit/space/hardsuit/wizard,
+			/obj/item/clothing/head/wizard,
+			/obj/item/clothing/head/helmet/space/hardsuit/wizard,
+			/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
+			/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard))
+
+	casting_clothes = casting_clothes_base
 
 	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
 	charge_counter = charge_max
