@@ -314,18 +314,6 @@
 		return
 	if(M.has_bane(BANE_SALT))
 		M.mind.disrupt_spells(-200)
-	if(method == INGEST && is_species(M, /datum/species/squid))
-		to_chat(M, "<span class='danger'>Your tongue shrivels as you taste the salt! It burns!</span>")
-		if(prob(25))
-			M.emote("scream")
-		M.adjustFireLoss(5, TRUE)
-	else if(method == TOUCH && is_species(M, /datum/species/squid))
-		if(M.incapacitated())
-			return
-		var/obj/item/I = M.get_active_held_item()
-		M.throw_item(get_ranged_target_turf(M, pick(GLOB.alldirs), rand(1, 3)))
-		to_chat(M, "<span class='warning'>The salt causes your arm to spasm!</span>")
-		M.log_message("threw [I] due to a Muscle Spasm", LOG_ATTACK)
 
 /datum/reagent/consumable/sodiumchloride/reaction_turf(turf/T, reac_volume) //Creates an umbra-blocking salt pile
 	if(!istype(T))
@@ -456,7 +444,7 @@
 
 /datum/reagent/consumable/enzyme
 	name = "Universal Enzyme"
-	description = "A universal enzyme used in the preperation of certain chemicals and foods."
+	description = "A universal enzyme used in the preparation of certain chemicals and foods."
 	color = "#365E30" // rgb: 54, 94, 48
 	taste_description = "sweetness"
 

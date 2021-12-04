@@ -1,3 +1,5 @@
+#define TELEPORT_COOLDOWN 60 SECONDS
+
 /datum/symptom/heal
 	name = "Basic Healing (does nothing)" //warning for adminspawn viruses
 	desc = "You should not be seeing this."
@@ -50,7 +52,7 @@
 	resistance = -2
 	stage_speed = 2
 	transmission = -2
-	level = 7
+	level = 6
 	power = 2
 	prefixes = list("Toxo")
 	var/food_conversion = FALSE
@@ -183,7 +185,7 @@
 	stage_speed = -2
 	transmission = 0
 	severity = -1
-	level = 6
+	level = 8
 	passive_message = "<span class='notice'>Your skin tingles.</span>"
 	prefixes = list("Healing ", "Minor ")
 	var/threshhold = 15
@@ -234,7 +236,7 @@
 	resistance = -2
 	stage_speed = 2
 	transmission = 1
-	level = 4
+	level = 6
 	prefixes = list("Metabolic ", "Junkie's ", "Chemical ")
 	bodies = list("Hunger")
 	var/triple_metabolism = FALSE
@@ -364,7 +366,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	switch(A.stage)
 		if(4, 5)
 			M.adjust_fire_stacks(-5)
-			if(prob(30))
+			if(!ammonia && prob(30))
 				var/turf/open/OT = get_turf(M)
 				if(istype(OT))
 					to_chat(M, "<span class='danger'>The sweat pools into a puddle!</span>")
@@ -411,7 +413,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/telethreshold = 15
 	var/burnheal = FALSE
 	var/turf/open/location_return = null
-	var/cooldowntimer = 0
+	COOLDOWN_DECLARE(teleport_cooldown)
 	threshold_desc = "<b>Resistance 6:</b> The disease acts on a smaller scale, resetting burnt tissue back to a state of health.<br>\
 					<b>Transmission 8:</b> The disease becomes more active, activating in a smaller temperature range."
 
@@ -438,21 +440,27 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	switch(A.stage)
 		if(4, 5)
 			if(burnheal)
-				M.heal_overall_damage(0, 1.5) //no required_status checks here, this does all bodyparts equally
-			if(prob(5) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
+				M.heal_overall_damage(0, 1.5 * power) //no required_status checks here, this does all bodyparts equally
+
+			if(COOLDOWN_FINISHED(src, teleport_cooldown) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
 				location_return = get_turf(M)	//sets up return point
-				if(prob(50))
-					to_chat(M, "<span class='userwarning'>The lukewarm temperature makes you feel strange!</span>")
-			if(cooldowntimer == 0 && ((M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT + telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTHEAT)) || (M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT - telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTCOLD)) || (burnheal && M.getFireLoss() > 60 + telethreshold)))
-				do_sparks(5,FALSE,M)
-				to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spatial state!</span>")
-				do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home
-				do_sparks(5,FALSE,M)
-				cooldowntimer = 10
-				if(burnheal)
-					M.adjust_fire_stacks(-10)
-			if(cooldowntimer > 0)
-				cooldowntimer --
+				to_chat(M, "<span class='warning'>The lukewarm temperature makes you feel strange!</span>")
+				COOLDOWN_START(src, teleport_cooldown, (TELEPORT_COOLDOWN * 5) + (rand(1, 300) * 10))
+			if(location_return)
+				if(location_return.z != M.loc.z)
+					location_return = null
+					COOLDOWN_RESET(src, teleport_cooldown)
+				else if(((M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT + telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTHEAT)) || (M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT - telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTCOLD)) || (burnheal && M.getFireLoss() > 60 + telethreshold)))
+					do_sparks(5, FALSE, M)
+					to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spatial state!</span>")
+					do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home
+					do_sparks(5, FALSE, M)
+					if(burnheal)
+						M.adjust_fire_stacks(-10)
+					location_return = null
+					COOLDOWN_START(src, teleport_cooldown, TELEPORT_COOLDOWN)
+			if(COOLDOWN_FINISHED(src, teleport_cooldown))
+				location_return = null
 		else
 			if(prob(7))
 				to_chat(M, "<span class='notice'>[pick("Your warm breath fizzles out of existence.", "You feel attracted to temperate climates", "You feel like you're forgetting something")]</span>")
@@ -465,7 +473,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	resistance = -2
 	stage_speed = 1
 	transmission = -2
-	level = 7
+	level = 8
 	severity = 1
 	symptom_delay_min = 1
 	symptom_delay_max = 1
@@ -496,9 +504,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			power = 3 //should make this symptom actually worth it
 	var/mob/living/carbon/M = A.affected_mob
 	ownermind = M.mind
-	sizemult = CLAMP((0.5 + A.stage_rate / 10), 1.1, 2.5)
-	M.resize = sizemult
-	M.update_transform()
+	if(!A.carrier && !A.dormant)
+		sizemult = CLAMP((0.5 + A.stage_rate / 10), 1.1, 2.5)
+		M.resize = sizemult
+		M.update_transform()
 
 /datum/symptom/growth/Activate(datum/disease/advance/A)
 	if(!..())
@@ -509,9 +518,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(prob(5) && bruteheal)
 				to_chat(M, "<span class='userdanger'>You retch, and a splatter of gore escapes your gullet!</span>")
 				M.Immobilize(5)
-				new /obj/effect/decal/cleanable/blood/(M.loc)
+				M.add_splatter_floor()
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
-				if(prob(60))
+				if(prob(60) && M.mind && ishuman(M))
 					if(tetsuo && prob(15))
 						if(A.affected_mob.job == "Clown")
 							new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
@@ -520,28 +529,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 							new /obj/effect/spawner/lootdrop/teratoma/robot(M.loc)
 					new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
 				if(tetsuo)
-					var/list/organcantidates = list()
 					var/list/missing = M.get_missing_limbs()
 					if(prob(35))
 						new /obj/effect/decal/cleanable/blood/gibs(M.loc) //yes. this is very messy. very, very messy.
 						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
-						for(var/obj/item/organ/O in M.loc)
-							if(O.organ_flags & ORGAN_FAILING || O.organ_flags & ORGAN_VITAL) //dont use shitty organs or brains
-								continue
-							if(O.organ_flags & (ORGAN_SYNTHETIC)) //if we can infect robots, we can implant cyber organs
-								if(MOB_ROBOTIC in A.infectable_biotypes) //why do i have to do this this way? no idea, but it wont fucking work otherwise
-									organcantidates += O
-								continue
-							organcantidates += O
-							if(ishuman(M))
-								var/mob/living/carbon/human/H = M //To view species
-								if(!is_species(H, /datum/species/plasmaman))
-									O -= /obj/item/organ/lungs/plasmaman //So this disease doesn't eventually kill everyone with lungs
-						if(organcantidates.len)
-							for(var/I in 1 to min(rand(1, 3), organcantidates.len))
-								var/obj/item/organ/chosen = pick_n_take(organcantidates)
-								chosen.Insert(M, TRUE, FALSE)
-								to_chat(M, "<span class='userdanger'>As the [chosen] touches your skin, it is promptly absorbed.</span>")
 					if(missing.len) //we regrow one missing limb
 						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling.
 							if(M.regenerate_limb(Z, TRUE))
@@ -569,7 +560,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 								break
 			if(bruteheal)
 				M.heal_overall_damage(2 * power, required_status = BODYPART_ORGANIC)
-				if(prob(11 * power))
+				if(prob(33) && tetsuo)
 					M.adjustCloneLoss(1)
 		else
 			if(prob(5))
@@ -625,3 +616,5 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		qdel(src)
 	else
 		..()
+
+#undef TELEPORT_COOLDOWN

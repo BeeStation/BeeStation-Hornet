@@ -40,7 +40,6 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 	var/mob/affecting = null
 	var/deity_name = "Christ"
 	force_string = "holy"
-	block_upgrade_walk = 1
 
 /obj/item/storage/book/bible/Initialize()
 	. = ..()
