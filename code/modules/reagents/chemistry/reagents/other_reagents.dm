@@ -455,33 +455,31 @@
 /datum/reagent/spraytan/overdose_start(mob/living/M)
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 
-	if(!ishuman(M))
-		return
-	var/mob/living/carbon/human/N = M
-	N.hair_style = "Spiky"
-	N.facial_hair_style = "Shaved"
-	N.facial_hair_color = "000"
-	N.hair_color = "000"
-	if(!(HAIR in N.dna.species.species_traits)) //No hair? No problem!
-		N.dna.species.species_traits += HAIR
-	if(N.dna.species.use_skintones)
-		N.skin_tone = "orange"
-	else if(MUTCOLORS in N.dna.species.species_traits) //Aliens with custom colors simply get turned orange
-		N.dna.features["mcolor"] = "f80"
-	N.regenerate_icons()
+	if(ishuman(M))
+		var/mob/living/carbon/human/N = M
+		N.hair_style = "Spiky"
+		N.facial_hair_style = "Shaved"
+		N.facial_hair_color = "000"
+		N.hair_color = "000"
+		if(!(HAIR in N.dna.species.species_traits)) //No hair? No problem!
+			N.dna.species.species_traits += HAIR
+		if(N.dna.species.use_skintones)
+			N.skin_tone = "orange"
+		else if(MUTCOLORS in N.dna.species.species_traits) //Aliens with custom colors simply get turned orange
+			N.dna.features["mcolor"] = "f80"
+		N.regenerate_icons()
 	..()
-	return
 
 /datum/reagent/spraytan/overdose_process(mob/living/M)
-	var/mob/living/carbon/human/N = M
-	if(prob(7))
-		if(N.w_uniform)
-			M.visible_message(pick("<b>[M]</b>'s collar pops up without warning.</span>", "<b>[M]</b> flexes [M.p_their()] arms."))
-		else
-			M.visible_message("<b>[M]</b> flexes [M.p_their()] arms.")
-	if(prob(10))
-		M.say(pick("Shit was SO cash.", "You are everything bad in the world.", "What sports do you play, other than 'jack off to naked drawn Japanese people?'", "Don???t be a stranger. Just hit me with your best shot.", "My name is John and I hate every single one of you."), forced = /datum/reagent/spraytan)
-	..()
+	if(ishuman(M))
+		var/mob/living/carbon/human/N = M
+		if(prob(7))
+			if(N.w_uniform)
+				M.visible_message(pick("<b>[M]</b>'s collar pops up without warning.</span>", "<b>[M]</b> flexes [M.p_their()] arms."))
+			else
+				M.visible_message("<b>[M]</b> flexes [M.p_their()] arms.")
+		if(prob(10))
+			M.say(pick("Shit was SO cash.", "You are everything bad in the world.", "What sports do you play, other than 'jack off to naked drawn Japanese people?'", "Don???t be a stranger. Just hit me with your best shot.", "My name is John and I hate every single one of you."), forced = /datum/reagent/spraytan)
 
 #define MUT_MSG_IMMEDIATE 1
 #define MUT_MSG_EXTENDED 2
