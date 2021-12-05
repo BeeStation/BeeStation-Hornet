@@ -7,8 +7,8 @@
 /obj/item/assembly/modular
 	name = "modular assembly"
 	desc = "a modified remote signalling device with its wiring removed and adapted for integrated circuitry."
-	icon_state = "signaller" //Uses signaller icon and item states as a place holder
-	item_state = "signaler"
+	icon_state = "wiremod"
+	item_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 
