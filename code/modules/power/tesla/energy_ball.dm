@@ -222,7 +222,7 @@
 				closest_atom = A
 				closest_dist = dist
 				priority = 1
-				continue
+			continue
 		else if(priority == 1) //i hate to do it like that but my original plan to handle this didn't work so back we go to additional else if
 			continue
 		else if(priority >= 2 && istype(A, /obj/machinery/power/grounding_rod))
@@ -232,7 +232,7 @@
 				closest_atom = A
 				closest_dist = dist
 				priority = 2
-				continue
+			continue
 		else if(priority <= 2)
 			continue
 		else if(priority >= 3 && isliving(A))
@@ -242,7 +242,7 @@
 				closest_atom = A
 				closest_dist = dist
 				priority = 3
-				continue
+			continue
 		else if(priority <= 3)
 			continue
 		else if(priority >= 4 && istype(A, /obj/machinery))
@@ -252,7 +252,7 @@
 				closest_atom = A
 				closest_dist = dist
 				priority = 4
-				continue
+			continue
 		else if(priority <= 4)
 			continue
 		else if(priority >= 5 && istype(A, /obj/structure/blob))
@@ -262,7 +262,7 @@
 				closest_atom = A
 				closest_dist = dist
 				priority = 5
-				continue
+			continue
 		else if(priority <= 5)
 			continue
 		else if(priority >= 6 && istype(A, /obj/structure))
