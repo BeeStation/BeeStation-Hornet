@@ -1,5 +1,0 @@
-author: TheFakeElon
-delete-after: true
-changes:
-  - code_imp: misc optimizations to quirk code
-  - refactor: refactored quirk processing
