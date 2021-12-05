@@ -12,7 +12,7 @@
 #define DATUMVAR_DEBUGGING_MODE
 
 ///Method of tracking references.
-//#define LEGACY_REFERENCE_TRACKING
+#define LEGACY_REFERENCE_TRACKING
 #ifdef LEGACY_REFERENCE_TRACKING
 
 ///Should we be logging our findings or not
@@ -76,12 +76,12 @@
 #define TESTING
 #endif
 
-//#if defined(UNIT_TESTS)
+#if defined(UNIT_TESTS)
 //Hard del testing defines
-//#define REFERENCE_TRACKING
-//#define REFERENCE_TRACKING_DEBUG
-//#define FIND_REF_NO_CHECK_TICK
-//#endif
+#define REFERENCE_TRACKING
+#define REFERENCE_TRACKING_DEBUG
+#define FIND_REF_NO_CHECK_TICK
+#endif
 
 #ifdef TGS
 // TGS performs its own build of dm.exe, but includes a prepended TGS define.
