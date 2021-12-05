@@ -96,10 +96,6 @@ GLOBAL_LIST_EMPTY(deletion_failures)
 		message_admins("Found [type] \ref[src] [ADMIN_VV(src)] in [datum_ref.type][datum_ref.gc_destroyed ? " (destroyed)" : ""] [ADMIN_VV(datum_ref)]")
 	testing("Completed search for references to a [type].")
 
-#endif
-
-#ifdef LEGACY_REFERENCE_TRACKING
-
 /datum/verb/legacy_find_refs()
 	set category = "Debug"
 	set name = "Find References"

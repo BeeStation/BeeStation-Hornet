@@ -12,7 +12,7 @@
 #define DATUMVAR_DEBUGGING_MODE
 
 ///Method of tracking references.
-#define LEGACY_REFERENCE_TRACKING
+//#define LEGACY_REFERENCE_TRACKING
 #ifdef LEGACY_REFERENCE_TRACKING
 
 ///Should we be logging our findings or not
