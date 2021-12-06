@@ -100,6 +100,54 @@
 #define JOB_DISPLAY_ORDER_AI 34
 #define JOB_DISPLAY_ORDER_CYBORG 35
 
+
+#define JOB_STRING_ASSISTANT	"Assistant"
+#define JOB_STRING_JANITOR		"Janitor"
+#define JOB_STRING_BARTENDER	"Bartender"
+#define JOB_STRING_COOK			"Cook"
+#define JOB_STRING_BOTANIST		"Botanist"
+#define JOB_STRING_CURATOR		"Curator"
+#define JOB_STRING_CHAPLAIN		"Chaplain"
+#define JOB_STRING_BARBER		"Barber"
+#define JOB_STRING_VIP			"VIP"
+#define JOB_STRING_DEBTOR		"Debtor"
+#define JOB_STRING_LAWYER		"Lawyer"
+#define JOB_STRING_CLOWN		"Clown"
+#define JOB_STRING_MIME			"Mime"
+#define JOB_STRING_STAGE_MAGICIAN		"Stage Magician"
+#define JOB_STRING_HEAD_OF_SECURITY		"Head of Security"
+#define JOB_STRING_HOS 					JOB_STRING_HEAD_OF_SECURITY
+#define JOB_STRING_WARDEN				"Warden"
+#define JOB_STRING_SECURITY_OFFICER		"Security Officer"
+#define JOB_STRING_DETECTIVE			"Detective"
+#define JOB_STRING_DEPUTY				"Deputy"
+#define JOB_STRING_RESEARCH_DIRECTOR		"Research Director"
+#define JOB_STRING_RD						JOB_STRING_RESEARCH_DIRECTOR
+#define JOB_STRING_SCIENTIST				"Scientist"
+#define JOB_STRING_EXPLORATION_CREW			"Exploration Crew"
+#define JOB_STRING_ROBOTICIST				"Roboticist"
+#define JOB_STRING_CHIEF_MEDICAL_OFFICIER		"Chief Medical Officer"
+#define JOB_STRING_CMO						JOB_STRING_CHIEF_MEDICAL_OFFICIER
+#define JOB_STRING_BRIG_PHYSICIAN			"Brig Physician"
+#define JOB_STRING_MEDICAL_DOCTOR 			"Medical Doctor"
+#define JOB_STRING_PARAMEDIC				"Paramedic"
+#define JOB_STRING_PSYCHIATRIST				"Psychiatrist"
+#define JOB_STRING_CHEMIST					"Chemist"
+#define JOB_STRING_VIROLOGIST				"Virologist"
+#define JOB_STRING_GENETICIST				"Geneticist"
+#define JOB_STRING_CHIEF_ENGINEER"			Chief Engineer"
+#define JOB_STRING_CE						JOB_STRING_CHIEF_ENGINEER
+#define JOB_STRING_STATION_ENGINEER			"Station Engineer"
+#define JOB_STRING_ATMOSPHERIC_TECHNICIAN	"Atmospheric Technician"
+#define JOB_STRING_QUARTERMASTER			"Quartermaster"
+#define JOB_STRING_QM						JOB_STRING_QUARTERMASTER
+#define JOB_STRING_CARGO_TECHNICIAN			"Cargo Technician"
+#define JOB_STRING_SHAFT_MINER				"Shaft Miner"
+#define JOB_STRING_CAPTAIN					"Captain"
+#define JOB_STRING_HEAD_OF_PERSONNEL		"Head of Personnel"
+#define JOB_STRING_HOP						JOB_STRING_HEAD_OF_PERSONNEL
+
+
 #define DEPARTMENT_SECURITY (1<<0)
 #define DEPARTMENT_COMMAND (1<<1)
 #define DEPARTMENT_SERVICE (1<<2)
