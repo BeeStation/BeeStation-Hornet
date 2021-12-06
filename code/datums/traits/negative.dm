@@ -1,3 +1,67 @@
+#define SPECIES_HUMAN /datum/species/human
+#define SPECIES_FELINID /datum/species/human/felinid
+#define SPECIES_LIZARD /datum/species/lizard
+#define SPECIES_OOZELING /datum/species/oozeling
+#define SPECIES_MOTH /datum/species/moth
+#define SPECIES_APID /datum/species/apid
+#define SPECIES_PLASMAMAN /datum/species/plasmaman
+#define SPECIES_ETHREAL /datum/species/ethereal
+#define SPECIES_IPC /datum/species/ipc
+#define SPECIES_FLY /datum/species/fly
+#define ROLE_ASSISTANT "Assistant"
+#define ROLE_JANITOR "Janitor"
+#define ROLE_BARTENDER "Bartender"
+#define ROLE_COOK "Cook"
+#define ROLE_BOTANIST "Botanist"
+#define ROLE_CURATOR "Curator"
+#define ROLE_CHAPLAIN "Chaplain"
+#define ROLE_BARBER "Barber"
+#define ROLE_VIP "VIP"
+#define ROLE_DEBTOR "Debtor"
+#define ROLE_LAWYER "Lawyer"
+#define ROLE_CLOWN "Clown"
+#define ROLE_MIME "Mime"
+#define ROLE_STAGEMAGICIAN "Stage Magician"
+#define ROLE_HEADOFSECURITY "Head of Security"
+#define ROLE_HOS ROLE_HEADOFSECURITY
+#define ROLE_WARDEN "Warden"
+#define ROLE_SECURITYOFFICER "Security Officer"
+#define ROLE_DETECTIVE "Detective"
+#define ROLE_DEPUTY "Deputy"
+#define ROLE_RESEARCHDIRECTOR "Research Director"
+#define ROLE_RD ROLE_RESEARCHDIRECTOR
+#define ROLE_SCIENTIST "Scientist"
+#define ROLE_EXPLORATIONCREW "Exploration Crew"
+#define ROLE_ROBOTICIST "Roboticist"
+#define ROLE_CHIEFMEDICALOFFICIER "Chief Medical Officer"
+#define ROLE_CMO ROLE_CHIEFMEDICALOFFICIER
+#define ROLE_BRIGPHYSICIAN "Brig Physician"
+#define ROLE_MEDICALDOCTOR "Medical Doctor"
+#define ROLE_PARAMEDIC "Paramedic"
+#define ROLE_PSYCHIATRIST "Psychiatrist"
+#define ROLE_CHEMIST "Chemist"
+#define ROLE_VIROLOGIST "Virologist"
+#define ROLE_GENETICIST "Geneticist"
+#define ROLE_CHIEFENGINEER "Chief Engineer"
+#define ROLE_CE ROLE_CHIEFENGINEER
+#define ROLE_STATIONENGINEER "Station Engineer"
+#define ROLE_ATMOSPHERICTECHNICIAN "Atmospheric Technician"
+#define ROLE_QUARTERMASTER "Quartermaster"
+#define ROLE_QM ROLE_QUARTERMASTER
+#define ROLE_CARGOTECHNICIAN "Cargo Technician"
+#define ROLE_SHAFTMINER "Shaft Miner"
+#define ROLE_CAPTAIN "Captain"
+#define ROLE_HEADOFPERSONNEL "Head of Personnel"
+#define ROLE_HOP ROLE_HEADOFPERSONNEL
+#define DEPT_SERVICE 1
+#define DEPT_MEDICAL 2
+#define DEPT_SECURITY 4
+#define DEPT_SCIENCE 8
+#define DEPT_ENGINEERING 16
+#define DEPT_SUPPLY 32
+#define DEPT_COMMAND 64
+//defines for family heirloom trait
+
 //predominantly negative traits
 
 /datum/quirk/badback
@@ -104,329 +168,306 @@
 /datum/quirk/family_heirloom
 	name = "Family Heirloom"
 	desc = "You are the current owner of an heirloom, passed down for generations. You have to keep it safe!"
-	value = -2
+	value = -1
 	mood_quirk = TRUE
 	var/obj/item/heirloom
 	var/where
+	var/static/list/random_bedsheets = subtypesof(/obj/item/bedsheet)
+	var/static/list/random_figures = subtypesof(/obj/item/toy/prize)
+	var/static/list/random_trashes = subtypesof(/obj/item/trash)
+
 
 /datum/quirk/family_heirloom/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/heirloom_type
 	var/list/heirloom_table = list()
-	var/civ = FALSE
-	var/med = FALSE
-	var/sec = FALSE
-	var/sci = FALSE
-	var/engi = FALSE
-	var/supp = FALSE
-	var/comm = FALSE
+	var/DEPT_FLAG = 0 //for department. (civ 1, med 2, sec 4, sci 8, engi 16, supp 32, comm 64)
+	//family_heirloom.initialize()
 
-	//------------------------------//
-	// Adding items from this point //
-	//------------------------------//
+	// Adding items from this point
+	// Note: having the same multiple item means giving it a high chance to pick()
 
 	// 1. Species specific table
 	// '|| prob(1)' means you can get other race's heirloom at low chance.
-	//Human
-	if(is_species(H, /datum/species/human) || prob(1))
-		heirloom_table.Add(/obj/item/clothing/head/kitty) //you had terrible parents.
-	//Felinid
-	if(is_species(H, /datum/species/human/felinid) || prob(1))
-		heirloom_table.Add(/obj/item/clothing/head/kitty)
-	//Lizard
-	if(is_species(H, /datum/species/lizard) || prob(1))
-		heirloom_table.Add(/obj/item/toy/plush/lizardplushie,
-						   /obj/item/clothing/under/costume/gladiator)
-	//Oozeling
-	if(is_species(H, /datum/species/oozeling) || prob(1))
-		heirloom_table.Add(/obj/item/toy/plush/slimeplushie)
-	//Moth
-	if(is_species(H, /datum/species/moth) || prob(1))
-		heirloom_table.Add(/obj/item/flashlight/lantern/heirloom_moth,
-						   /obj/item/toy/plush/moth)
-	//Apid
-	if(is_species(H, /datum/species/apid) || prob(1))
-		heirloom_table.Add(/obj/item/toy/plush/beeplushie)
-	//Plamaman
-	if(is_species(H, /datum/species/plasmaman) || prob(1))
-		heirloom_table.Add(/obj/item/coin/plasma)
-	//Ethereal
-	if(is_species(H, /datum/species/ethereal) || prob(1))
-		heirloom_table.Add(/obj/item/coin/plasma) //I am not sure what to give them
-	//IPC
-	if(is_species(H, /datum/species/ipc) || prob(1))
-		heirloom_table.Add(/obj/item/disk/data)
-	//Grod
-	//*TBD
-	//if(is_species(H, /datum/species/grod) || prob(1))
-	//	heirloom_table.Add(TBD)
+	switch(0)//H.dna.species.type)
+		if(SPECIES_HUMAN)
+			heirloom_table += /obj/item/clothing/head/kitty //you had terrible parents.
+		if(SPECIES_FELINID)
+			heirloom_table += /obj/item/clothing/head/kitty
+		if(SPECIES_LIZARD)
+			heirloom_table += /obj/item/toy/plush/lizardplushie
+		if(SPECIES_OOZELING)
+			heirloom_table += /obj/item/toy/plush/slimeplushie
+		if(SPECIES_MOTH)
+			heirloom_table += /obj/item/flashlight/lantern/heirloom_moth
+			heirloom_table += /obj/item/toy/plush/moth
+		if(SPECIES_APID)
+			heirloom_table += /obj/item/toy/plush/beeplushie
+		if(SPECIES_PLASMAMAN)
+			heirloom_table += /obj/item/coin/plasma
+		if(SPECIES_ETHEREAL)
+			heirloom_table += /obj/item/coin/plasma //I am not sure what to give them
+		if(SPECIES_IPC)
+			heirloom_table += /obj/item/disk/data
+		//retired beecode speices, but let's give them some love
+		if(SPECIES_FLY)
+			heirloom_table += /obj/item/reagent_containers/food/drinks/bottle/virusfood
+		else
+			heirloom_table += /obj/item/toy/eldrich_book //spooky, eldritch
 
-	//retired beecode speices, but let's give them some love
-	//Fly
-	if(is_species(H, /datum/species/fly) || prob(1))
-		heirloom_table.Add(/obj/item/reagent_containers/food/drinks/bottle/virusfood)
-	//Squid
-	//if(is_species(H, /datum/species/squid) || prob(1))
-	//	heirloom_table.Add(/obj/item/toy/eldrich_book)
-
+	// 1-extra. You get everything for 1% chance.
+	prob(1)
+		heirloom_table += /obj/item/clothing/head/kitty
+		heirloom_table += /obj/item/toy/plush/lizardplushie
+		heirloom_table += /obj/item/toy/plush/slimeplushie
+		heirloom_table += /obj/item/flashlight/lantern/heirloom_moth
+		heirloom_table += /obj/item/toy/plush/moth
+		heirloom_table += /obj/item/toy/plush/beeplushie
+		heirloom_table += /obj/item/coin/plasma
+		heirloom_table += /obj/item/disk/data
+		heirloom_table += /obj/item/reagent_containers/food/drinks/bottle/virusfood
+		heirloom_table += /obj/item/toy/eldrich_book
 
 	// 2. Job specific table
 	switch(quirk_holder.mind.assigned_role)
 		//Service jobs
-		if("Assistant")
-			civ = TRUE
-			heirloom_table.Add(/obj/item/storage/toolbox/mechanical/old/heirloom,
-						   	   /obj/item/clothing/gloves/cut/heirloom,
-						   	   /obj/item/multitool)
+		if(ROLE_ASSISTANT)
+			DEPT_FLAG |= DEPT_SERVICE
+			heirloom_table += /obj/item/storage/toolbox/mechanical/old/heirloom
+			heirloom_table += /obj/item/clothing/gloves/cut/heirloom
+			heirloom_table += /obj/item/multitool
 			if(prob(0.5))
-				heirloom_table.Add(/obj/item/clothing/under/color/grey/glorf) //very rare chance for ancient jumpsuit
-		if("Janitor")
-			civ = TRUE
-			heirloom_table.Add(/obj/item/mop,
-						   	   /obj/item/clothing/suit/caution,
-						   	   /obj/item/reagent_containers/glass/bucket)
-		if("Bartender")
-			civ = TRUE
-			heirloom_table.Add(/obj/item/reagent_containers/glass/rag,
-						   	   /obj/item/clothing/head/that,
-						   	   /obj/item/reagent_containers/food/drinks/shaker)
-		if("Cook")
-			civ = TRUE
-			heirloom_table.Add(/obj/item/reagent_containers/food/condiment/saltshaker,
-						   	   /obj/item/kitchen/rollingpin,
-						   	   /obj/item/clothing/head/chefhat)
-		if("Botanist")
-			civ = TRUE
-			heirloom_table.Add(/obj/item/cultivator,
-						   	   /obj/item/reagent_containers/glass/bucket,
-						   	   /obj/item/storage/bag/plants,
-						   	   /obj/item/toy/plush/beeplushie,
-						   	   /obj/item/seeds/random) //Would you dare to plant your heirloom?
-		if("Curator")
-			civ = TRUE
-			heirloom_table.Add(/obj/item/pen/fountain,
-						   	   /obj/item/storage/pill_bottle/dice)
-		if("Chaplain")
-			civ = TRUE
-			heirloom_table.Add(/obj/item/toy/windupToolbox,
-						   	   /obj/item/reagent_containers/food/drinks/bottle/holywater)
-		if("Barber")
-			civ = TRUE
-			heirloom_table.Add(/obj/item/handmirror)
-		if("VIP")
-			comm = TRUE //They'll just get more annoying items
-			civ = TRUE
-			heirloom_table.Add(/obj/item/handmirror, //so narcissistic
-						   	   /obj/item/modular_computer/laptop/preset/civillian) //for business.
-		if("Debtor")
-			civ = TRUE
-			heirloom_table.Add(pick(subtypesof(/obj/item/trash)), //even such thing is precious to hobo. poor.
-						   	   pick(subtypesof(/obj/item/trash)),
-						   	   pick(subtypesof(/obj/item/trash)))
-		if("Lawyer")
-			civ = TRUE
-			//sec = TRUE //maybe not...
-			heirloom_table.Add(/obj/item/gavelhammer,
-						   	   /obj/item/book/manual/wiki/security_space_law)
+				heirloom_table += /obj/item/clothing/under/color/grey/glorf //very rare chance for ancient jumpsuit
+				//the actual chance is likely 0.083% or less.
+		if(ROLE_JANITOR)
+			DEPT_FLAG |= DEPT_SERVICE
+			heirloom_table += /obj/item/mop
+			heirloom_table += /obj/item/clothing/suit/caution
+			heirloom_table += /obj/item/reagent_containers/glass/bucket
+		if(ROLE_BARTENDER)
+			DEPT_FLAG |= DEPT_SERVICE
+			heirloom_table += /obj/item/reagent_containers/glass/rag
+			heirloom_table += /obj/item/clothing/head/that
+			heirloom_table += /obj/item/reagent_containers/food/drinks/shaker
+		if(ROLE_COOK)
+			DEPT_FLAG |= DEPT_SERVICE
+			heirloom_table += /obj/item/reagent_containers/food/condiment/saltshaker
+			heirloom_table += /obj/item/kitchen/rollingpin
+			heirloom_table += /obj/item/clothing/head/chefhat
+		if(ROLE_BOTANIST)
+			DEPT_FLAG |= DEPT_SERVICE
+			heirloom_table += /obj/item/cultivator
+			heirloom_table += /obj/item/reagent_containers/glass/bucket
+			heirloom_table += /obj/item/storage/bag/plants
+			heirloom_table += /obj/item/toy/plush/beeplushie
+			heirloom_table += /obj/item/seeds/random //Would you dare to plant your heirloom?
+		if(ROLE_CURATOR)
+			DEPT_FLAG |= DEPT_SERVICE
+			heirloom_table += /obj/item/pen/fountain
+			heirloom_table += /obj/item/storage/pill_bottle/dice
+		if(ROLE_CHAPLAIN)
+			DEPT_FLAG |= DEPT_SERVICE
+			heirloom_table += /obj/item/toy/windupToolbox
+			heirloom_table += /obj/item/reagent_containers/food/drinks/bottle/holywater
+		if(ROLE_BARBER)
+			DEPT_FLAG |= DEPT_SERVICE
+			heirloom_table += /obj/item/handmirror
+		if(ROLE_VIP)
+			DEPT_FLAG |= DEPT_COMMAND //They'll just get more annoying items
+			DEPT_FLAG |= DEPT_SERVICE
+			heirloom_table += /obj/item/handmirror //so narcissistic
+			heirloom_table += /obj/item/modular_computer/laptop/preset/civillian //for business.
+		if(ROLE_DEBTOR)
+			DEPT_FLAG |= DEPT_SERVICE
+			heirloom_table += pick(random_trashes) //even such thing is precious to hobo. poor.
+			heirloom_table += pick(random_trashes)
+			heirloom_table += pick(random_trashes)
+		if(ROLE_LAWYER)
+			DEPT_FLAG |= DEPT_SERVICE
+			//DEPT_FLAG |= DEPT_SECURITY //maybe not...
+			heirloom_table += /obj/item/gavelhammer
+			heirloom_table += /obj/item/book/manual/wiki/security_space_law
 		//Entertainers
-		if("Clown")
-			civ = TRUE
-			heirloom_table.Add(/obj/item/bikehorn/golden,
-						   	   /obj/item/bikehorn/golden,
-						   	   /obj/item/bikehorn/golden)	//high chance of spawning them
-		if("Mime")
-			civ = TRUE
-			heirloom_table.Add(/obj/item/reagent_containers/food/snacks/baguette/mime,
-						   	   /obj/item/reagent_containers/food/snacks/baguette/mime,
-						   	   /obj/item/reagent_containers/food/snacks/baguette/mime)	//high chance of spawning them
-		if("Stage Magician")
-			civ = TRUE
-			heirloom_table.Add(/obj/item/gun/magic/wand,
-						   	   /obj/item/gun/magic/wand,
-						   	   /obj/item/gun/magic/wand)	//high chance of spawning them
+		if(ROLE_CLOWN)
+			DEPT_FLAG |= DEPT_SERVICE
+			heirloom_table += /obj/item/bikehorn/golden
+			heirloom_table += /obj/item/bikehorn/golden
+			heirloom_table += /obj/item/bikehorn/golden	//high chance of spawning them
+		if(ROLE_MIME)
+			DEPT_FLAG |= DEPT_SERVICE
+			heirloom_table += /obj/item/reagent_containers/food/snacks/baguette/mime
+			heirloom_table += /obj/item/reagent_containers/food/snacks/baguette/mime
+			heirloom_table += /obj/item/reagent_containers/food/snacks/baguette/mime	//high chance of spawning them
+		if(ROLE_STAGEMAGICIAN)
+			DEPT_FLAG |= DEPT_SERVICE
+			heirloom_table += /obj/item/gun/magic/wand
+			heirloom_table += /obj/item/gun/magic/wand
+			heirloom_table += /obj/item/gun/magic/wand	//high chance of spawning them
 		//Security
-		if("Head of Security")
-			comm = TRUE
-			sec = TRUE
-		if("Warden")
-			sec = TRUE
-			heirloom_table.Add(/obj/item/restraints/handcuffs)
-		if("Security Officer")
-			sec = TRUE
-			heirloom_table.Add(/obj/item/clothing/head/beret/sec)
-		if("Detective")
-			sec = TRUE
-			heirloom_table.Add(/obj/item/reagent_containers/food/drinks/bottle/whiskey)
-		if("Deputy") //It won't happen, but just in case.
-			sec = TRUE
-			civ = TRUE
+		if(ROLE_HOS)
+			DEPT_FLAG |= DEPT_COMMAND
+			DEPT_FLAG |= DEPT_SECURITY
+		if(ROLE_WARDEN)
+			DEPT_FLAG |= DEPT_SECURITY
+			heirloom_table += /obj/item/restraints/handcuffs
+		if(ROLE_SECURITYOFFICER)
+			DEPT_FLAG |= DEPT_SECURITY
+			heirloom_table += /obj/item/clothing/head/beret/sec
+		if(ROLE_DETECTIVE)
+			DEPT_FLAG |= DEPT_SECURITY
+			heirloom_table += /obj/item/reagent_containers/food/drinks/bottle/whiskey
+		if(ROLE_DEPUTY) //It won't happen, but just in case.
+			DEPT_FLAG |= DEPT_SECURITY
+			DEPT_FLAG |= DEPT_SERVICE
 		//Science
-		if("Research Director")
-			comm = TRUE
-			sci = TRUE
-			heirloom_table.Add(/obj/item/nanite_remote)
-		if("Scientist")
-			sci = TRUE
-			heirloom_table.Add(/obj/item/nanite_remote)
-		if("Exploration Crew")
-			sci = TRUE
-			heirloom_table.Add(/obj/item/throwing_star/toy)
-		if("Roboticist")
-			sci = TRUE
-			heirloom_table.Add(pick(subtypesof(/obj/item/toy/prize)), //look at this nerd
-						   	   /obj/item/book/manual/wiki/medicine)
+		if(ROLE_RD)
+			DEPT_FLAG |= DEPT_COMMAND
+			DEPT_FLAG |= DEPT_SCIENCE
+			heirloom_table += /obj/item/nanite_remote
+		if(ROLE_SCIENTIST)
+			DEPT_FLAG |= DEPT_SCIENCE
+			heirloom_table += /obj/item/nanite_remote
+		if(ROLE_EXPLORATIONCREW)
+			DEPT_FLAG |= DEPT_SCIENCE
+			heirloom_table += /obj/item/throwing_star/toy
+		if(ROLE_ROBOTICIST)
+			DEPT_FLAG |= DEPT_SCIENCE
+			heirloom_table += pick(random_figures) //look at this nerd
+			heirloom_table += /obj/item/book/manual/wiki/medicine
 		//Medical
-		if("Chief Medical Officer")
-			comm = TRUE
-			med = TRUE
-			heirloom_table.Add(/obj/item/book/manual/wiki/chemistry,
-						   	   /obj/item/book/manual/wiki/infections,
-						   	   /obj/item/reagent_containers/dropper,
-						   	   /obj/item/healthanalyzer)
-		if("Brig Physician")
-			med = TRUE
-			sec = TRUE
-			heirloom_table.Add(/obj/item/healthanalyzer)
-		if("Medical Doctor")
-			med = TRUE
-			heirloom_table.Add(/obj/item/healthanalyzer)
-		if("Paramedic")
-			med = TRUE
-			heirloom_table.Add(/obj/item/healthanalyzer)
-		if("Psychiatrist")
-			med = TRUE
-			heirloom_table.Add(/obj/item/healthanalyzer)
-		if("Chemist")
-			med = TRUE
-			heirloom_table.Add(/obj/item/book/manual/wiki/chemistry,
-						   	   /obj/item/storage/bag/chemistry,
-						   	   /obj/item/reagent_containers/dropper)
-		if("Virologist")
-			med = TRUE
-			heirloom_table.Add(/obj/item/book/manual/wiki/infections,
-						   	   /obj/item/book/manual/wiki/chemistry,
-						   	   /obj/item/storage/bag/bio,
-						   	   /obj/item/reagent_containers/food/drinks/bottle/virusfood,
-						   	   /obj/item/reagent_containers/dropper)
-		if("Geneticist")
-			sci = TRUE
-			med = TRUE
-			heirloom_table.Add(/obj/item/nanite_remote)
+		if(ROLE_CMO)
+			DEPT_FLAG |= DEPT_COMMAND
+			DEPT_FLAG |= DEPT_MEDICAL
+			heirloom_table += /obj/item/book/manual/wiki/chemistry
+			heirloom_table += /obj/item/book/manual/wiki/infections
+			heirloom_table += /obj/item/reagent_containers/dropper
+			heirloom_table += /obj/item/healthanalyzer
+		if(ROLE_BRIGPHYSICIAN)
+			DEPT_FLAG |= DEPT_MEDICAL
+			DEPT_FLAG |= DEPT_SECURITY
+			heirloom_table += /obj/item/healthanalyzer
+		if(ROLE_MEDICALDOCTOR)
+			DEPT_FLAG |= DEPT_MEDICAL
+			heirloom_table += /obj/item/healthanalyzer
+		if(ROLE_PARAMEDIC)
+			DEPT_FLAG |= DEPT_MEDICAL
+			heirloom_table += /obj/item/healthanalyzer
+		if(ROLE_PSYCHIATRIST)
+			DEPT_FLAG |= DEPT_MEDICAL
+			DEPT_FLAG |= DEPT_SERVICE //this is the true nature of your job.
+			heirloom_table += /obj/item/healthanalyzer
+		if(ROLE_CHEMIST)
+			DEPT_FLAG |= DEPT_MEDICAL
+			heirloom_table += /obj/item/book/manual/wiki/chemistry
+			heirloom_table += /obj/item/storage/bag/chemistry
+			heirloom_table += /obj/item/reagent_containers/dropper
+		if(ROLE_VIROLOGIST)
+			DEPT_FLAG |= DEPT_MEDICAL
+			heirloom_table += /obj/item/book/manual/wiki/infections
+			heirloom_table += /obj/item/book/manual/wiki/chemistry
+			heirloom_table += /obj/item/storage/bag/bio
+			heirloom_table += /obj/item/reagent_containers/food/drinks/bottle/virusfood
+			heirloom_table += /obj/item/reagent_containers/dropper
+		if(ROLE_GENETICIST)
+			DEPT_FLAG |= DEPT_SCIENCE
+			DEPT_FLAG |= DEPT_MEDICAL
+			heirloom_table += /obj/item/nanite_remote
 		//Engineering
-		if("Chief Engineer")
-			comm = TRUE
-			engi = TRUE
-			heirloom_table.Add(/obj/item/clothing/head/hardhat/white)
-		if("Station Engineer")
-			engi = TRUE
-			heirloom_table.Add(/obj/item/clothing/head/hardhat)
-		if("Atmospheric Technician")
-			engi = TRUE
-			heirloom_table.Add(/obj/item/lighter,
-						   	   /obj/item/lighter/greyscale,
-						   	   /obj/item/storage/box/matches,
-						   	   /obj/item/tank/internals/emergency_oxygen/empty)
+		if(ROLE_CE)
+			DEPT_FLAG |= DEPT_COMMAND
+			DEPT_FLAG |= DEPT_ENGINEERING
+			heirloom_table += /obj/item/clothing/head/hardhat/white
+		if(ROLE_STATIONENGINEER)
+			DEPT_FLAG |= DEPT_ENGINEERING
+			heirloom_table += /obj/item/clothing/head/hardhat
+		if(ROLE_ATMOSPHERICTECHNICIAN)
+			DEPT_FLAG |= DEPT_ENGINEERING
+			heirloom_table += /obj/item/lighter
+			heirloom_table += /obj/item/lighter/greyscale
+			heirloom_table += /obj/item/storage/box/matches
+			heirloom_table += /obj/item/tank/internals/emergency_oxygen/empty
 		//Supply
-		if("Quartermaster")
-			supp = TRUE
-			heirloom_table.Add(/obj/item/stamp,
-						   	   /obj/item/stamp/denied)
-		if("Cargo Technician")
-			supp = TRUE
-			heirloom_table.Add(/obj/item/clipboard)
-		if("Shaft Miner")
-			supp = TRUE
-			heirloom_table.Add(/obj/item/pickaxe/mini,
-						   	   /obj/item/shovel)
+		if(ROLE_QM)
+			DEPT_FLAG |= DEPT_SUPPLY
+			heirloom_table += /obj/item/stamp
+			heirloom_table += /obj/item/stamp/denied
+		if(ROLE_CARGOTECHNICIAN)
+			DEPT_FLAG |= DEPT_SUPPLY
+			heirloom_table += /obj/item/clipboard
+		if(ROLE_SHAFTMINER)
+			DEPT_FLAG |= DEPT_SUPPLY
+			heirloom_table += /obj/item/pickaxe/mini
+			heirloom_table += /obj/item/shovel
 		//Other
-		if("Captain")
-			comm = TRUE
-			heirloom_table.Add(/obj/item/reagent_containers/food/drinks/flask/gold,
-						   	   /obj/item/reagent_containers/food/drinks/flask/gold,
-						   	   /obj/item/reagent_containers/food/drinks/flask/gold)
+		if(ROLE_CAPTAIN)
+			DEPT_FLAG |= DEPT_COMMAND
+			heirloom_table += /obj/item/reagent_containers/food/drinks/flask/gold
+			heirloom_table += /obj/item/reagent_containers/food/drinks/flask/gold
+			heirloom_table += /obj/item/reagent_containers/food/drinks/flask/gold
 			//hich chance of spawning captain's flask
-		if("Head of Personnel")
-			comm = TRUE
-			civ = TRUE
-			heirloom_table.Add(/obj/item/toy/plush/ian)
+		if(ROLE_HOP)
+			DEPT_FLAG |= DEPT_COMMAND
+			DEPT_FLAG |= DEPT_SERVICE
+			heirloom_table += /obj/item/toy/plush/ian
 		//---End of Switch If lines---
 
 	// 3.Department specific table
-	// Note: do not use 'else if' here because certain jobs are in multiple departments.
-	if(civ || prob(1))
-		heirloom_table.Add(/obj/item/storage/toolbox/mechanical/old/heirloom,
-						   /obj/item/storage/box/matches)
-	if(sec || prob(1))
-		heirloom_table.Add(/obj/item/book/manual/wiki/security_space_law,
-						   /obj/item/radio/off)
-	if(sci || prob(1))
-		heirloom_table.Add(/obj/item/toy/plush/slimeplushie,
-						   /obj/item/reagent_containers/food/snacks/monkeycube,
-						   /obj/item/screwdriver,
-						   /obj/item/wrench,
-						   /obj/item/multitool)
-	if(med || prob(1))
-		heirloom_table.Add(/obj/item/clothing/neck/stethoscope,
-						   /obj/item/book/manual/wiki/medicine,
-						   /obj/item/bodybag,
-						   /obj/item/surgical_drapes,
-						   /obj/item/scalpel,
-						   /obj/item/hemostat,
-						   /obj/item/retractor,
-						   /obj/item/cautery,
-						   /obj/item/bedsheet/medical)
-	if(engi || prob(1))
-		heirloom_table.Add(/obj/item/screwdriver,
-						   /obj/item/wrench,
-						   /obj/item/weldingtool,
-						   /obj/item/crowbar,
-						   /obj/item/wirecutters)
-	if(supp || prob(1))
-		heirloom_table.Add(/obj/item/hand_labeler,
-						   /obj/item/shovel)
-	if(comm || prob(1))
-		heirloom_table.Add(/obj/item/reagent_containers/food/drinks/flask/gold,
-						   /obj/item/book/manual/wiki/security_space_law,
-						   /obj/item/clothing/glasses/sunglasses/advanced/gar/supergar,
-						   /obj/item/stamp,
-						   /obj/item/stamp/denied)
+	// Do NOT use 'else if' here because certain jobs are in multiple departments.
+	// prob(1) means you can get an item assgiend to another department at a low chance.
+	if(DEPT_FLAG & DEPT_SERVICE || prob(1))
+		heirloom_table += /obj/item/reagent_containers/glass/bucket
+		heirloom_table += /obj/item/storage/toolbox/mechanical/old/heirloom
+		heirloom_table += /obj/item/storage/box/matches
+	if(DEPT_FLAG & DEPT_SECURITY || prob(1))
+		heirloom_table += /obj/item/book/manual/wiki/security_space_law
+		heirloom_table += /obj/item/radio/off
+	if(DEPT_FLAG & DEPT_SCIENCE || prob(1))
+		heirloom_table += /obj/item/toy/plush/slimeplushie
+		heirloom_table += /obj/item/reagent_containers/food/snacks/monkeycube
+		heirloom_table += /obj/item/screwdriver
+		heirloom_table += /obj/item/wrench
+		heirloom_table += /obj/item/multitool
+	if(DEPT_FLAG & DEPT_MEDICAL || prob(1))
+		heirloom_table += /obj/item/clothing/neck/stethoscope
+		heirloom_table += /obj/item/book/manual/wiki/medicine
+		heirloom_table += /obj/item/bodybag
+		heirloom_table += /obj/item/surgical_drapes
+		heirloom_table += /obj/item/scalpel
+		heirloom_table += /obj/item/hemostat
+		heirloom_table += /obj/item/retractor
+		heirloom_table += /obj/item/cautery
+		heirloom_table += /obj/item/bedsheet/medical
+	if(DEPT_FLAG & DEPT_ENGINEERING || prob(1))
+		heirloom_table += /obj/item/screwdriver
+		heirloom_table += /obj/item/wrench
+		heirloom_table += /obj/item/weldingtool
+		heirloom_table += /obj/item/crowbar
+		heirloom_table += /obj/item/wirecutters
+	if(DEPT_FLAG & DEPT_SUPPLY || prob(1))
+		heirloom_table += /obj/item/hand_labeler
+		heirloom_table += /obj/item/shovel
+	if(DEPT_FLAG & DEPT_COMMAND || prob(1))
+		heirloom_table += /obj/item/reagent_containers/food/drinks/flask/gold
+		heirloom_table += /obj/item/book/manual/wiki/security_space_law
+		heirloom_table += /obj/item/clothing/glasses/sunglasses/advanced/gar/supergar
+		heirloom_table += /obj/item/stamp
+		heirloom_table += /obj/item/stamp/denied
 
-	// 4-1. For everyone
-	heirloom_table.Add(pick(subtypesof(/obj/item/bedsheet)), //random bedsheet. you can get a fancy one if you're lucky.
-					   /obj/item/toy/cards/deck,
-					   /obj/item/lighter,
-					   /obj/item/dice/d20,
-					   /obj/item/book/manual/wiki/security_space_law) //1984. all crews are encourage to hold this book all times. giving higher chance for sec.
+	// 4. For everyone
+	//heirloom_table += pick(random_bedsheets) //random bedsheet. you can get a fancy one if you're lucky.
+	//heirloom_table += /obj/item/toy/cards/deck
+	//heirloom_table += /obj/item/lighter
+	//heirloom_table += /obj/item/dice/d20
+	//heirloom_table += /obj/item/book/manual/wiki/security_space_law //1984. all crews are encourage to hold this book all times. giving higher chance for sec.
 
-	// 4-2. Rare chance to be fucked up
+	// 5. Rare chance to add some suspicious looking items
 	if(prob(5)) //with 5% chance, these items are added to your table - which means you still have a chance to avoid them.
-		if(comm) //get one of duffelbags
-			heirloom_table.Add(/obj/item/storage/backpack/duffelbag/captain)
-		else if(sec)
-			heirloom_table.Add(/obj/item/storage/backpack/duffelbag/med)
-		else if(med)
-			heirloom_table.Add(/obj/item/storage/backpack/duffelbag/sec)
-		else if(engi)
-			heirloom_table.Add(/obj/item/storage/backpack/duffelbag/engineering)
-		else if(sci)
-			heirloom_table.Add(/obj/item/storage/backpack/duffelbag/engineering) //there's no sci theme duffelbag
-		else if(quirk_holder.mind.assigned_role == "Clown")
-			heirloom_table.Add(/obj/item/storage/backpack/duffelbag/clown)
-		else
-			heirloom_table.Add(/obj/item/storage/backpack/duffelbag)
-		heirloom_table.Add(/obj/item/storage/backpack/duffelbag/syndie, 	//and another chance to get syndi one. woo, even suspicious.
-						   /obj/item/skub) 		//more worse
-		if(!comm && !sec) //crews will suspiciously get this traitor operative item, but they can't do anything with this. security will just be upset at you and taking your heirloom.
-			heirloom_table.Add(/obj/item/nuke_core_container/supermatter)
-		else
-			heirloom_table.Add(/obj/item/storage/backpack/duffelbag) //just balancing for chance to opposite departments
+		//They are just looking suspicious, but don't really do a thing. For syndi card, it deals 1 throw damage.
+		heirloom_table += /obj/item/storage/toolbox/mechanical/old/heirloom/syndicate
+		heirloom_table += /obj/item/toy/cards/deck/heirloom
+		heirloom_table += /obj/item/soap/syndie
+		heirloom_table += /obj/item/reagent_containers/food/drinks/syndicatebeer/heirloom
 
-		//All annoying items. This is your Family Heirloom you decided to have.
-		//So, It is not actually high chance to happen, but it's why it costs -2 points as you're risking of getting this shit accidentaly.
-
-
-	// 4-3. Super rare chance to be powerful
-		// the real worth heirloom, but you are not the one getting this.
 	//------------End Of Random Table List------------------
 
 	heirloom_type = pick(heirloom_table) //pick one from the grand total table

@@ -1025,6 +1025,24 @@
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
 	resistance_flags = NONE
 
+
+//Family heirloom fake
+/obj/item/toy/cards/deck/heirloom
+	name = "really suspicious looking deck of cards"
+	desc = "A deck of space-grade playing cards. They seem a little slightly rigid."
+	icon_state = "deck_syndicate_full"
+	deckstyle = "syndicate"
+	card_hitsound = 'sound/weapons/bladeslice.ogg'
+	card_force = 3
+	card_throwforce = 1 //not really harmful, but sharp anyways.
+	card_throw_speed = 6
+	card_sharpness = IS_SHARP
+	card_throw_range = 6
+	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
+	resistance_flags = NONE
+
+
+
 /*
  * Fake nuke
  */
