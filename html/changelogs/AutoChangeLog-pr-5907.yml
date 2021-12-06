@@ -1,0 +1,4 @@
+author: PrefabQuasar
+delete-after: true
+changes:
+  - bugfix: Removed the ability for nanite programmers to crash the server.
