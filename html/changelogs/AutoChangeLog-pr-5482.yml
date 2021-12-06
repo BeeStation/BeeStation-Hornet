@@ -1,5 +1,0 @@
-author: Ivniinvi, AMonkeyThatCodes, Qustinnus, Willox, AnturK, SpaceManiac
-delete-after: true
-changes:
-  - server: Achievements are now handled by the DB instead of the BYOND hub
-  - rscadd: The verb check-achievements in the OOC tab can be used to see your achievements
