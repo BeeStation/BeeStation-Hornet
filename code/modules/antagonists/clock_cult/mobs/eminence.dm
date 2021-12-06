@@ -163,7 +163,7 @@
 /obj/effect/proc_holder/spell/targeted/eminence/reebe/cast(mob/living/user)
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/G = GLOB.celestial_gateway
 	if(G)
-		user.forceMove(get_turf(G))
+		user.abstract_move(get_turf(G))
 		SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
 		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
 	else
@@ -177,7 +177,7 @@
 
 /obj/effect/proc_holder/spell/targeted/eminence/station/cast(mob/living/user)
 	if(!is_station_level(user.z))
-		user.forceMove(get_turf(pick(GLOB.generic_event_spawns)))
+		user.abstract_move(get_turf(pick(GLOB.generic_event_spawns)))
 		SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
 		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
 	else

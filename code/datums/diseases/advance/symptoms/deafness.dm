@@ -20,10 +20,10 @@ Bonus
 	name = "Deafness"
 	desc = "The virus causes inflammation of the eardrums, causing intermittent deafness."
 	stealth = -1
-	resistance = -2
-	stage_speed = -1
+	resistance = -1
+	stage_speed = 1
 	transmission = -3
-	level = 4
+	level = 3
 	severity = 2
 	base_message_chance = 100
 	symptom_delay_min = 25

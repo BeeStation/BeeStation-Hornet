@@ -26,7 +26,6 @@
 								"Subspace Telecomms",
 								"Research Machinery",
 								"Misc. Machinery",
-								"Computer Parts",
 								"Circuitry"
 								)
 	console_link = FALSE

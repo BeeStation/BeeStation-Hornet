@@ -36994,8 +36994,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/rnd/production/circuit_imprinter,
 /obj/effect/turf_decal/bot,
+/obj/machinery/rnd/production/circuit_imprinter/department/engineering,
 /turf/open/floor/plasteel/dark/corner,
 /area/engine/storage_shared)
 "bvf" = (
@@ -64527,6 +64527,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/light_switch{
+	pixel_x = -23
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "cBI" = (
@@ -71997,12 +72003,6 @@
 "cQC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/light_switch{
-	pixel_x = -23
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
