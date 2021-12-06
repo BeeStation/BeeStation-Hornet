@@ -1,7 +1,7 @@
 {
     "map_name": "Dead Station",
     "map_path": "map_files/Deadstation",
-    "map_file": "deadstation.dmm",
+    "map_file": ["Deadstation.dmm", "Deadstation2.dmm"],
     "shuttles": {
 	    "emergency": "emergency_kilo",
 	    "ferry": "ferry_kilo",
