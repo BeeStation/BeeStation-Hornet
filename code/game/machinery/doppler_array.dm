@@ -243,7 +243,7 @@
 		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_SCI)
 		if(D)
 			D.adjust_money(general_point_gain)
-			discovery_point_gain = general_point_gain * 0.1
+			discovery_point_gain = general_point_gain * 0.5
 			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, general_point_gain)
 			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, discovery_point_gain)
 
