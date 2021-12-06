@@ -27,7 +27,7 @@
 
 /datum/quirk/blooddeficiency/on_process(delta_time)
 	var/mob/living/carbon/human/H = quirk_holder
-	if(NOBLOOD in H.dna.species.SPECIES_PATH_traits) //can't lose blood if your species doesn't have any
+	if(NOBLOOD in H.dna.species.species_traits) //can't lose blood if your species doesn't have any
 		return
 	else
 		if (H.blood_volume > (BLOOD_VOLUME_SAFE - 25)) // just barely survivable without treatment
@@ -154,7 +154,7 @@
 			heirloom_table += /obj/item/toy/eldrich_book //spooky, eldritch
 
 	// 1-extra. You get everything for 1% chance.
-	prob(1)
+	if(prob(1))
 		heirloom_table += /obj/item/clothing/head/kitty
 		heirloom_table += /obj/item/toy/plush/lizardplushie
 		heirloom_table += /obj/item/toy/plush/slimeplushie

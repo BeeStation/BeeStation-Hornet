@@ -126,7 +126,7 @@
 #define JOB_STRING_SCIENTIST				"Scientist"
 #define JOB_STRING_EXPLORATION_CREW			"Exploration Crew"
 #define JOB_STRING_ROBOTICIST				"Roboticist"
-#define JOB_STRING_CHIEF_MEDICAL_OFFICIER		"Chief Medical Officer"
+#define JOB_STRING_CHIEF_MEDICAL_OFFICIER	"Chief Medical Officer"
 #define JOB_STRING_CMO						JOB_STRING_CHIEF_MEDICAL_OFFICIER
 #define JOB_STRING_BRIG_PHYSICIAN			"Brig Physician"
 #define JOB_STRING_MEDICAL_DOCTOR 			"Medical Doctor"
@@ -135,7 +135,7 @@
 #define JOB_STRING_CHEMIST					"Chemist"
 #define JOB_STRING_VIROLOGIST				"Virologist"
 #define JOB_STRING_GENETICIST				"Geneticist"
-#define JOB_STRING_CHIEF_ENGINEER"			Chief Engineer"
+#define JOB_STRING_CHIEF_ENGINEER			"Chief Engineer"
 #define JOB_STRING_CE						JOB_STRING_CHIEF_ENGINEER
 #define JOB_STRING_STATION_ENGINEER			"Station Engineer"
 #define JOB_STRING_ATMOSPHERIC_TECHNICIAN	"Atmospheric Technician"

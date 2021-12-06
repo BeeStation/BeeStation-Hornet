@@ -92,7 +92,7 @@
 //Species ID DEFINES as path
 #define SPECIES_PATH_HUMAN		/datum/species/human
 #define SPECIES_PATH_IPC		/datum/species/ipc
-#define SPECIES_PATH_ETHREAL	/datum/species/ethereal
+#define SPECIES_PATH_ETHEREAL	/datum/species/ethereal
 #define SPECIES_PATH_PLASMAMAN	/datum/species/plasmaman
 #define SPECIES_PATH_APID		/datum/species/apid
 #define SPECIES_PATH_MOTH		/datum/species/moth
