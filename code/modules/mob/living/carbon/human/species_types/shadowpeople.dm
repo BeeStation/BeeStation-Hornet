@@ -161,8 +161,6 @@
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	force = 25
-	block_upgrade_walk = 1
-	block_level = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	armour_penetration = 35
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
@@ -180,6 +178,7 @@
 	. = ..()
 	if(!proximity)
 		return
+	AM.lighteater_act(src)
 
 /mob/living/lighteater_act(obj/item/light_eater/light_eater)
 	if(on_fire)
@@ -212,6 +211,8 @@
 		return
 	set_light(0)
 	light_power = 0
+	fon = FALSE
+	shorted = TRUE
 	update_icon()
 	visible_message("<span class='danger'>The light in [src] shorts out!</span>")
 

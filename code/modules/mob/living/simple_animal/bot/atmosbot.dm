@@ -165,7 +165,7 @@
 
 		if(!LAZYLEN(path))
 			var/turf/target_turf = get_turf(target)
-			path = get_path_to(src, target_turf, /turf/proc/Distance_cardinal, 0, 30, id=access_card, simulated_only = FALSE)
+			path = get_path_to(src, target_turf, 30, id=access_card, simulated_only = FALSE)
 
 			if(!bot_move(target))
 				add_to_ignore(target)

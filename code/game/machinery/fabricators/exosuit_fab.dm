@@ -13,7 +13,6 @@
 	output_direction = SOUTH
 
 	remote_materials = TRUE
-	auto_link = TRUE
 	can_sync = TRUE
 	can_print_category = TRUE
 

@@ -50,6 +50,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
+"ft" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
 "fE" = (
 /obj/effect/mob_spawn/human/oldsec,
 /turf/open/floor/plasteel/showroomfloor,
@@ -93,13 +97,26 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
-"kw" = (
-/obj/structure/closet/crate/secure/weapon{
-	req_access_txt = "203"
+"jR" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
 	},
-/obj/item/storage/box/firingpins,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/machinery/modular_fabricator/autolathe/hacked,
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"jW" = (
+/obj/structure/table,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/mineral/copper/five,
+/turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "kC" = (
 /obj/effect/mob_spawn/human/oldsci,
@@ -111,6 +128,10 @@
 /area/ruin/unpowered)
 "lk" = (
 /turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"lm" = (
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
 "lZ" = (
 /obj/structure/table/reinforced,
@@ -140,8 +161,23 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
+"of" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/mineral/uranium/twenty,
+/turf/open/floor/carpet/red,
+/area/ruin/unpowered)
+"po" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "ps" = (
 /obj/structure/chair/office/light,
+/turf/open/floor/carpet/red,
+/area/ruin/unpowered)
+"ry" = (
+/obj/structure/table/reinforced,
+/obj/item/shuttle_creator,
 /turf/open/floor/carpet/red,
 /area/ruin/unpowered)
 "sU" = (
@@ -183,6 +219,17 @@
 /obj/machinery/recharger,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
+"wX" = (
+/obj/structure/closet/crate/secure/weapon{
+	req_access_txt = "203"
+	},
+/obj/item/storage/box/firingpins,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/mineral/diamond/five,
+/obj/item/stack/sheet/mineral/gold/five,
+/obj/item/stack/sheet/mineral/silver/five,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
 "yg" = (
 /turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
@@ -213,50 +260,38 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
-"Au" = (
-/obj/structure/table,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
 "Cq" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
 /turf/open/floor/carpet/red,
 /area/ruin/unpowered)
-"Dg" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
+"Cv" = (
+/obj/item/gun/energy/kinetic_accelerator,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Dy" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/soda_cans/cola,
 /turf/open/floor/carpet/red,
 /area/ruin/unpowered)
-"Ef" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
 "Em" = (
 /obj/structure/chair/office/light{
 	dir = 4
 	},
 /turf/open/floor/carpet/red,
+/area/ruin/unpowered)
+"Ff" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/gloves/color/fyellow/old,
+/obj/item/clothing/gloves/color/fyellow/old,
+/obj/item/stack/sheet/mineral/plasma/five,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"Fq" = (
+/obj/machinery/modular_fabricator/exosuit_fab{
+	auto_link = 0
+	},
+/turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "FZ" = (
 /obj/machinery/chem_master,
@@ -287,10 +322,6 @@
 /obj/item/crowbar,
 /obj/item/flashlight/glowstick,
 /turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"Kx" = (
-/obj/machinery/modular_fabricator/exosuit_fab,
-/turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "KM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -323,16 +354,26 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
-"Pd" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/gloves/color/fyellow/old,
-/obj/item/clothing/gloves/color/fyellow/old,
-/turf/open/floor/plasteel/dark,
+"Pp" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/machinery/ore_silo,
+/obj/item/multitool,
+/turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "Pw" = (
 /obj/structure/showcase/machinery/oldpod,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/showroomfloor,
+/area/ruin/unpowered)
+"PK" = (
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "QB" = (
 /obj/effect/mob_spawn/human/oldeng,
@@ -346,11 +387,32 @@
 /obj/machinery/rnd/destructive_analyzer,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
+"UJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "Vu" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/armor/vest/old,
 /obj/item/clothing/head/helmet/old,
 /turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"Vz" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/machinery/mineral/ore_redemption{
+	input_dir = 4;
+	output_dir = 8
+	},
+/turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "VC" = (
 /obj/machinery/computer{
@@ -363,26 +425,12 @@
 /obj/structure/rack,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
-"Wh" = (
-/obj/structure/table/reinforced,
-/turf/open/floor/carpet/red,
-/area/ruin/unpowered)
 "Wt" = (
 /obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
-/area/ruin/unpowered)
-"WT" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "Yp" = (
 /obj/machinery/rnd/production/protolathe,
@@ -423,7 +471,7 @@ kC
 iW
 bb
 aY
-yg
+lm
 lk
 GX
 sU
@@ -466,8 +514,8 @@ lk
 uO
 uO
 uO
-Wh
-Wh
+of
+ry
 Cq
 Ln
 lf
@@ -498,7 +546,7 @@ VC
 VC
 Vu
 OX
-Pd
+Ff
 lf
 Ks
 uO
@@ -552,7 +600,7 @@ lf
 lf
 mj
 KT
-kw
+wX
 uh
 Iw
 Wc
@@ -595,7 +643,7 @@ uO
 uO
 uO
 uO
-sU
+Cv
 uO
 sU
 lf
@@ -609,8 +657,8 @@ lf
 lf
 sU
 uO
-uO
-uO
+po
+UJ
 uO
 sU
 sU
@@ -629,7 +677,7 @@ lf
 nX
 Uh
 mW
-Dg
+Vz
 sU
 sU
 nX
@@ -648,7 +696,7 @@ lf
 aW
 td
 td
-aW
+ft
 sU
 sU
 aW
@@ -672,9 +720,9 @@ uO
 sU
 aW
 aW
+PK
 aW
-aW
-Au
+jW
 lf
 de
 de
@@ -683,14 +731,14 @@ lf
 "}
 (16,1,1) = {"
 lf
-WT
+Pp
 eh
 Yp
-Ef
+jR
 KM
 uO
 hQ
-Kx
+Fq
 FZ
 aW
 yL

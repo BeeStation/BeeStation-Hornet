@@ -23,7 +23,7 @@
 	var/randomname = TRUE
 	var/datum/symptom/setsymptom = null
 
-/datum/disease/advance/random/New(max_symptoms, max_level = 9, min_level = 1, var/datum/symptom/specialsymptom = setsymptom)
+/datum/disease/advance/random/New(max_symptoms, max_level = 9, min_level = 1, var/datum/symptom/specialsymptom = setsymptom, var/atom/infected)
 	if(!max_symptoms)
 		max_symptoms = (2 + rand(1, (VIRUS_SYMPTOM_LIMIT-2)))
 	if(specialsymptom)
@@ -35,7 +35,7 @@
 			continue
 		if(initial(S.level) > max_level || initial(S.level) < min_level)
 			continue
-		if(initial(S.level) <= 0) //unobtainable symptoms
+		if(initial(S.level) <= -1) //unobtainable symptoms
 			continue
 		possible_symptoms += S
 	for(var/i in 1 to max_symptoms)
@@ -49,7 +49,10 @@
 	Finalize()
 	Refresh()
 	if(randomname)
-		name = "Sample #[rand(1,10000)]"
+		var/randname = random_disease_name(infected)
+		AssignName(randname)
+		name = randname
+
 
 /datum/disease/advance/random/macrophage
 	name = "Unknown Disease"

@@ -1198,12 +1198,22 @@
 	name = "box of materials"
 	illustration = "implant"
 
+/obj/item/storage/box/material/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_combined_w_class = 1000
+	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
+	STR.max_items = 1000
+	STR.allow_big_nesting = TRUE
+
 /obj/item/storage/box/material/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/stack/sheet/iron/fifty=1, \
 		/obj/item/stack/sheet/glass/fifty=1,\
 		/obj/item/stack/sheet/rglass=50,\
+		/obj/item/stack/sheet/mineral/copper/fifty=1,\
 		/obj/item/stack/sheet/plasmaglass=50,\
+		/obj/item/stack/sheet/plasmarglass=50,\
 		/obj/item/stack/sheet/titaniumglass=50,\
 		/obj/item/stack/sheet/plastitaniumglass=50,\
 		/obj/item/stack/sheet/plasteel=50,\
@@ -1216,9 +1226,18 @@
 		/obj/item/stack/sheet/mineral/diamond=50,\
 		/obj/item/stack/sheet/bluespace_crystal=50,\
 		/obj/item/stack/sheet/mineral/bananium=50,\
-		/obj/item/stack/sheet/mineral/wood=50,\
 		/obj/item/stack/sheet/plastic/fifty=1,\
-		/obj/item/stack/sheet/runed_metal/fifty=1
+		/obj/item/stack/sheet/runed_metal/fifty=1,\
+		/obj/item/stack/tile/brass/fifty=1,\
+		/obj/item/stack/sheet/mineral/abductor=50,\
+		/obj/item/stack/sheet/mineral/adamantine=50,\
+		/obj/item/stack/sheet/mineral/wood=50,\
+		/obj/item/stack/sheet/cotton/cloth=50,\
+		/obj/item/stack/sheet/leather=50,\
+		/obj/item/stack/sheet/bone=12,\
+		/obj/item/stack/sheet/cardboard/fifty=1,\
+		/obj/item/stack/sheet/mineral/sandstone=50,\
+		/obj/item/stack/sheet/mineral/snow=50
 		)
 	generate_items_inside(items_inside,src)
 
@@ -1226,28 +1245,37 @@
 	name = "box of debug tools"
 	icon_state = "syndiebox"
 
+/obj/item/storage/box/debugtools/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_combined_w_class = 1000
+	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
+	STR.max_items = 1000
+	STR.allow_big_nesting = TRUE
+
 /obj/item/storage/box/debugtools/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/flashlight/emp/debug=1,\
 		/obj/item/pda=1,\
 		/obj/item/modular_computer/tablet/preset/advanced=1,\
+		/obj/item/storage/belt/military/abductor/full=1,\
 		/obj/item/geiger_counter=1,\
+		/obj/item/holosign_creator/atmos=1,\
 		/obj/item/pipe_dispenser=1,\
 		/obj/item/construction/rcd/combat/admin=1,\
+		/obj/item/areaeditor/blueprints=1,\
 		/obj/item/card/emag=1,\
-		/obj/item/card/id/syndicate/nuke_leader=1,\
-		/obj/item/card/id/departmental_budget/car=1,\
 		/obj/item/stack/spacecash/c1000=50,\
 		/obj/item/healthanalyzer/advanced=1,\
 		/obj/item/disk/tech_disk/debug=1,\
 		/obj/item/disk/surgery/debug=1,\
+		/obj/item/disk/data/debug=1,\
 		/obj/item/uplink/debug=1,\
 		/obj/item/uplink/nuclear/debug=1,\
+		/obj/item/spellbook=1,\
 		/obj/item/storage/box/beakers/bluespace=1,\
 		/obj/item/storage/box/beakers/variety=1,\
-		/obj/item/storage/box/material=1,\
-		/obj/item/storage/box/beakers/bluespace=1,\
-		/obj/item/storage/box/beakers/variety=1
+		/obj/item/storage/box/material=1
 		)
 	generate_items_inside(items_inside,src)
 
