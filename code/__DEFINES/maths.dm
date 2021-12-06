@@ -6,7 +6,7 @@
 
 #define PI						3.1416
 #define INFINITY				1e31	//closer then enough
-#define inf_win_lin					1.#INF //only for isinf test
+#define system_type_infinity					1.#INF //only for isinf check
 
 #define SHORT_REAL_LIMIT 16777216
 
