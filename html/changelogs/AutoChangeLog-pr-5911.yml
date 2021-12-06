@@ -1,0 +1,5 @@
+author: rkvothe14
+delete-after: true
+changes:
+  - tweak: Toxins Bombs now grant 50% of General Research Points as Discovery Research
+      Points
