@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 /// isnum() returns TRUE for NaN. Also, NaN != NaN. Checkmate, BYOND.
 #define isnan(x) ( (x) != (x) )
 
-#define isinf(x) (isnum((x)) && ((num2text(x) == "inf") || (num2text(x) == "-inf") || (num2text(x) == "-1.#INF") || (num2text(x) == "1.#INF")))
+#define isinf(x) (isnum((x)) && (((x) == -inf_win_lin) || ((x) == inf_win_lin)))
 
 #define isProbablyWallMounted(O) (O.pixel_x > 20 || O.pixel_x < -20 || O.pixel_y > 20 || O.pixel_y < -20)
 
