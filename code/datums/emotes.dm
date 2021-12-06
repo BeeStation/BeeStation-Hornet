@@ -59,10 +59,6 @@
 
 	user.log_message(msg, LOG_EMOTE)
 
-	var/end = copytext(msg, length(message))
-	if(!(end in list("!", ".", "?", ":", "\"", "-")))
-		msg += "."
-
 	var/dchatmsg = "<b>[user]</b> [msg]"
 
 	var/tmp_sound = get_sound(user)
