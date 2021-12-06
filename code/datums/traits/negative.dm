@@ -1,5 +1,3 @@
-//defines for family heirloom trait
-
 //predominantly negative traits
 
 /datum/quirk/badback
