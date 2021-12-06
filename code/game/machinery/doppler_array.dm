@@ -217,32 +217,37 @@
 		say("Warning: No linked research system!")
 		return
 
-	var/point_gain = 0
+	var/general_point_gain = 0
+	var/discovery_point_gain = 0
+
 	/*****The Point Calculator*****/
 
 	if(orig_light_range < 10)
 		say("Explosion not large enough for research calculations.")
 		return
 	else if(orig_light_range < 4500)
-		point_gain = (83300 * orig_light_range) / (orig_light_range + 3000)
+		general_point_gain = (83300 * orig_light_range) / (orig_light_range + 3000)
 	else
-		point_gain = TECHWEB_BOMB_POINTCAP
+		general_point_gain = TECHWEB_BOMB_POINTCAP
 
 	/*****The Point Capper*****/
-	if(point_gain > linked_techweb.largest_bomb_value)
-		if(point_gain <= TECHWEB_BOMB_POINTCAP || linked_techweb.largest_bomb_value < TECHWEB_BOMB_POINTCAP)
+	if(general_point_gain > linked_techweb.largest_bomb_value)
+		if(general_point_gain <= TECHWEB_BOMB_POINTCAP || linked_techweb.largest_bomb_value < TECHWEB_BOMB_POINTCAP)
 			var/old_tech_largest_bomb_value = linked_techweb.largest_bomb_value //held so we can pull old before we do math
-			linked_techweb.largest_bomb_value = point_gain
-			point_gain -= old_tech_largest_bomb_value
-			point_gain = min(point_gain,TECHWEB_BOMB_POINTCAP)
+			linked_techweb.largest_bomb_value = general_point_gain
+			general_point_gain -= old_tech_largest_bomb_value
+			general_point_gain = min(general_point_gain,TECHWEB_BOMB_POINTCAP)
 		else
 			linked_techweb.largest_bomb_value = TECHWEB_BOMB_POINTCAP
-			point_gain = 1000
+			general_point_gain = 1000
 		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_SCI)
 		if(D)
-			D.adjust_money(point_gain)
-			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, point_gain)
-			say("Explosion details and mixture analyzed and sold to the highest bidder for $[point_gain], with a reward of [point_gain] points.")
+			D.adjust_money(general_point_gain)
+			discovery_point_gain = general_point_gain * 0.1
+			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, general_point_gain)
+			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, discovery_point_gain)
+
+			say("Explosion details and mixture analyzed and sold to the highest bidder for $[general_point_gain], with a reward of [general_point_gain] General Research points and [discovery_point_gain] Discovery Research points.")
 
 	else //you've made smaller bombs
 		say("Data already captured. Aborting.")
