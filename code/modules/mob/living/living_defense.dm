@@ -359,7 +359,7 @@
 
 
 	if (client)
-		SSmedals.UnlockMedal(MEDAL_SINGULARITY_DEATH,client)
+		client.give_award(/datum/award/achievement/misc/singularity_death, client.mob)
 
 
 	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
