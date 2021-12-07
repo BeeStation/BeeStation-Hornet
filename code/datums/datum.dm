@@ -42,7 +42,7 @@
 	var/list/cooldowns
 
 
-#ifdef TESTING
+#ifdef REFERENCE_TRACKING_DEBUG
 	var/running_find_references
 	var/last_find_references = 0
 	#ifdef REFERENCE_TRACKING_DEBUG
