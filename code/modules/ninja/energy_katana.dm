@@ -34,10 +34,13 @@
 	dash_toggle = !dash_toggle
 	balloon_alert(user, "Dash [dash_toggle ? "enabled" : "disabled"]")
 
-/obj/item/energy_katana/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/energy_katana/melee_attack_chain(mob/user, atom/target, params)
 	if(dash_toggle)
 		jaunt.Teleport(user, target)
 		return
+	..()
+
+/obj/item/energy_katana/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(proximity_flag && (isobj(target) || issilicon(target)))
 		spark_system.start()

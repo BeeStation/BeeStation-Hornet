@@ -21,7 +21,7 @@
 	SEND_SOUND(owner.current, sound('sound/effects/ninja_greeting.ogg'))
 	to_chat(owner.current, "I am an elite mercenary assassin of the mighty Spider Clan. A <font color='red'><b>SPACE NINJA</b></font>!<br>\
 							Surprise is my weapon. Shadows are my armor. Without them, I am nothing.<br>\
-							My suit can be initialized can be initialized with button on the top left of your screen.<br>\
+							My suit can be initialized with button on the top left of your screen.<br>\
 							Every ability you use consumes a power, if your suit runs out of power it will shut down!")
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Ninja",
@@ -64,8 +64,8 @@
 /datum/antagonist/ninja/proc/add_memories()
 	antag_memory += "I am an elite mercenary assassin of the mighty Spider Clan. A <font color='red'><B>SPACE NINJA</B></font>!<br>\
 					Surprise is my weapon. Shadows are my armor. Without them, I am nothing. !<br>\
-					My suit can be initialized can be initialized with button on the top left of your screen.<br>\
-					Every ability you use consumes a power, if your suit runs out of power it will shut down!"
+					My suit can be initialized with button on the top left of your screen.<br>\
+					Every ability you use consumes a power, if your suit runs out of power it will shut down!<br>"
 
 /datum/antagonist/ninja/proc/forge_objectives()
 	if(!give_objectives)
