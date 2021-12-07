@@ -1,5 +1,0 @@
-author: KubeRoot, AnturK, Coul, Rohesie, zxaber
-delete-after: true
-changes:
-  - bugfix: Fixed at least two ways of detaching arm augment items from your hand.
-  - code_imp: Added can_use and signals to keybinds.
