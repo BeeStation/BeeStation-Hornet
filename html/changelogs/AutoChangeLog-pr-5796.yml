@@ -1,6 +1,0 @@
-author: Kapu1178
-delete-after: true
-changes:
-  - rscdel: Engivend no longer stocks RCDs.
-  - rscdel: Cargo can no longer print RCDs (Engineering still can)
-  - rscadd: Chief Engineer starts with an RCD in their locker.
