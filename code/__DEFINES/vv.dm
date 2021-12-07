@@ -75,12 +75,9 @@
 #define VV_HK_MARK "mark"
 #define VV_HK_ADDCOMPONENT "addcomponent"
 #define VV_HK_MODIFY_TRAITS "modtraits"
-<<<<<<< HEAD
 #ifdef REFERENCE_TRACKING
 #define VV_HK_VIEW_REFERENCES "viewreferences"
 #endif
-=======
->>>>>>> 40cdb6d025 (Enables 514 testing on master, Removes all reliance on extools outside of maptick (#56724))
 
 // /atom
 #define VV_HK_MODIFY_TRANSFORM "atom_transform"

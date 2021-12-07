@@ -48,7 +48,6 @@
 #error You need version 514.1568 or higher.
 #endif
 
-<<<<<<< HEAD
 //Update this whenever the byond version is stable so people stop updating to hilariously broken versions
 #define MAX_COMPILER_VERSION 514
 #define MAX_COMPILER_BUILD 1571
@@ -60,12 +59,6 @@
 #define SENDMAPS_PROFILE
 #endif
 
-=======
-//Don't load extools on 514
-#if DM_VERSION < 514
-#define USE_EXTOOLS
-#endif
->>>>>>> 40cdb6d025 (Enables 514 testing on master, Removes all reliance on extools outside of maptick (#56724))
 
 //Additional code for the above flags.
 #ifdef TESTING

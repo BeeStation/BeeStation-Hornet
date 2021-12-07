@@ -59,12 +59,9 @@
 			"Set len" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_SET_LENGTH),
 			"Shuffle" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_LIST_SHUFFLE),
 			"Show VV To Player" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_EXPOSE),
-<<<<<<< HEAD
 			#ifdef REFERENCE_TRACKING
 			"View References" = VV_HREF_TARGETREF_INTERNAL(refid, VV_HK_VIEW_REFERENCES),
 			#endif
-=======
->>>>>>> 40cdb6d025 (Enables 514 testing on master, Removes all reliance on extools outside of maptick (#56724))
 			"---"
 			)
 		for(var/i in 1 to length(dropdownoptions))
