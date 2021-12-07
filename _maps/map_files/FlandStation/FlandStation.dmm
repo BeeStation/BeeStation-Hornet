@@ -5580,13 +5580,6 @@
 /obj/effect/turf_decal/trimline/red/warning,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
-"bru" = (
-/obj/machinery/airalarm{
-	TLV = list("pressure" = new /datum/tlv(-1, 91.1925, 111.458, 121.59), "temperature" = new /datum/tlv(273.15, 283.15, 313.15, 339.15), "o2" = new /datum/tlv(16, 19, 40, 50), "n2" = new /datum/tlv(-1, -1, 1000, 1000), "co2" = new /datum/tlv(-1, -1, 5, 10), "miasma" = new /datum/tlv(-1, -1, 15, 30), "plasma" = new /datum/tlv/dangerous, "n2o" = new /datum/tlv/dangerous, "bz" = new /datum/tlv/dangerous, "nob" = new /datum/tlv(-1, -1, 1000, 1000), "water_vapor" = new /datum/tlv/dangerous, "tritium" = new /datum/tlv/dangerous, "stim" = new /datum/tlv/dangerous, "no2" = new /datum/tlv/dangerous, "pluox" = new /datum/tlv(-1, -1, 5, 6));
-	pixel_y = 22
-	},
-/turf/open/floor/plating,
-/area/maintenance/port)
 "brx" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/external{
@@ -36287,6 +36280,12 @@
 /obj/item/stock_parts/matter_bin,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"irW" = (
+/obj/machinery/airalarm{
+	pixel_y = 22
+	},
+/turf/open/floor/plating,
+/area/maintenance/port)
 "irY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -60667,9 +60666,6 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden{
 	dir = 6
 	},
-/obj/machinery/airalarm{
-	pixel_y = 22
-	},
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
@@ -82220,10 +82216,6 @@
 	c_tag = "Arrivals Docking area - Fore";
 	name = "hallway camera"
 	},
-/obj/machinery/airalarm{
-	TLV = list("pressure" = new /datum/tlv(-1, 91.1925, 111.458, 121.59), "temperature" = new /datum/tlv(273.15, 283.15, 313.15, 339.15), "o2" = new /datum/tlv(16, 19, 40, 50), "n2" = new /datum/tlv(-1, -1, 1000, 1000), "co2" = new /datum/tlv(-1, -1, 5, 10), "miasma" = new /datum/tlv(-1, -1, 15, 30), "plasma" = new /datum/tlv/dangerous, "n2o" = new /datum/tlv/dangerous, "bz" = new /datum/tlv/dangerous, "nob" = new /datum/tlv(-1, -1, 1000, 1000), "water_vapor" = new /datum/tlv/dangerous, "tritium" = new /datum/tlv/dangerous, "stim" = new /datum/tlv/dangerous, "no2" = new /datum/tlv/dangerous, "pluox" = new /datum/tlv(-1, -1, 5, 6));
-	pixel_y = 22
-	},
 /turf/open/floor/engine{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
@@ -82869,9 +82861,6 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 8
-	},
-/obj/machinery/airalarm{
-	pixel_y = 22
 	},
 /turf/open/floor/plating/airless{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
@@ -120090,7 +120079,7 @@ vib
 vDh
 wlt
 qBn
-jYF
+irW
 vqA
 dgO
 wxd
@@ -120347,7 +120336,7 @@ qBn
 vDz
 qBn
 qBn
-bru
+jYF
 fZs
 ljQ
 rqI
