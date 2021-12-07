@@ -1068,7 +1068,8 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/poddoor/preopen{
-	id = "executionfireblast"
+	id = "executionfireblast";
+	name = "blast door"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/tile/red{
@@ -1086,7 +1087,8 @@
 "acB" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "executionfireblast"
+	id = "executionfireblast";
+	name = "blast door"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
@@ -1125,7 +1127,8 @@
 	req_access_txt = "3"
 	},
 /obj/machinery/door/poddoor/preopen{
-	id = "executionfireblast"
+	id = "executionfireblast";
+	name = "blast door"
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -4696,7 +4699,8 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/command{
 	name = "Head of Security's Office";
-	req_access_txt = "58"
+	req_access_txt = "58";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -8163,7 +8167,8 @@
 "apj" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Gravity Generator Area";
-	req_access_txt = "19; 61"
+	req_access_txt = "19; 61";
+	security_level = 6
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
@@ -24153,7 +24158,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock/command{
 	name = "Chief Engineer's Office";
-	req_access_txt = "56"
+	req_access_txt = "56";
+	security_level = 6
 	},
 /obj/effect/turf_decal/bot{
 	dir = 1
@@ -32750,7 +32756,8 @@
 "bmI" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters";
-	req_access_txt = "20"
+	req_access_txt = "20";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
@@ -35889,7 +35896,8 @@
 "bsS" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/tile/blue{
@@ -35909,7 +35917,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/tile/blue{
@@ -35993,7 +36002,8 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/tile/blue{
@@ -36013,7 +36023,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/tile/blue{
@@ -36597,7 +36608,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access_txt = "57"
+	req_access_txt = "57";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -36687,7 +36699,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access_txt = "57"
+	req_access_txt = "57";
+	security_level = 6
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -36733,7 +36746,8 @@
 "buA" = (
 /obj/machinery/door/airlock/command{
 	name = "Command Desk";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -37767,7 +37781,8 @@
 "bwG" = (
 /obj/machinery/door/airlock/command{
 	name = "Emergency Escape";
-	req_access_txt = "20"
+	req_access_txt = "20";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -38477,7 +38492,8 @@
 "bye" = (
 /obj/machinery/door/airlock/command{
 	name = "Council Chamber";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -38525,7 +38541,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Council Chamber";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -38558,7 +38575,8 @@
 "byo" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters";
-	req_access_txt = "20"
+	req_access_txt = "20";
+	security_level = 6
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -40071,7 +40089,8 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -40101,7 +40120,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -40208,7 +40228,8 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -42330,7 +42351,8 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock/command{
 	name = "E.V.A. Storage";
-	req_access_txt = "18"
+	req_access_txt = "18";
+	security_level = 6
 	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
@@ -42350,7 +42372,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/machinery/door/airlock/command{
 	name = "E.V.A. Storage";
-	req_access_txt = "18"
+	req_access_txt = "18";
+	security_level = 6
 	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
@@ -42368,7 +42391,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Teleport Access";
-	req_one_access_txt = "17;19"
+	req_one_access_txt = "17;19";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
@@ -42453,7 +42477,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Gateway Atrium";
-	req_access_txt = "62"
+	req_access_txt = "62";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/delivery,
@@ -59796,7 +59821,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer's Office";
-	req_access_txt = "40"
+	req_access_txt = "40";
+	security_level = 6
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -61643,7 +61669,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Office";
-	req_access_txt = "30"
+	req_access_txt = "30";
+	security_level = 6
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -68024,7 +68051,7 @@
 "cHZ" = (
 /obj/machinery/door/airlock/command{
 	name = "Research Division Server Room";
-	req_one_access_txt = "30;70"
+	req_access_txt = "30;70"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -68497,7 +68524,7 @@
 "cIX" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Server Access";
-	req_one_access_txt = "30;70"
+	req_access_txt = "30;70"
 	},
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 4
@@ -85004,7 +85031,8 @@
 "xzJ" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters";
-	req_access_txt = "20"
+	req_access_txt = "20";
+	security_level = 6
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/firedoor,
