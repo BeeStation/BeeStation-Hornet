@@ -275,15 +275,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"oG" = (
-/obj/structure/railing/corner,
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
 "pA" = (
 /obj/machinery/door/airlock/shuttle,
 /obj/machinery/door/firedoor,
@@ -1091,7 +1082,7 @@ QK
 (5,1,1) = {"
 DK
 jf
-oG
+jf
 jf
 wh
 wh
