@@ -838,10 +838,6 @@
 	name = "Wisp"
 	icon_state = "hair_wisp"
 
-
-
-
-
 /////////////////////////////
 // Facial Hair Definitions //
 /////////////////////////////
