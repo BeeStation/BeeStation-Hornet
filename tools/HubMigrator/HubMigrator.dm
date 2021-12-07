@@ -94,7 +94,7 @@
 	fdel(outfile)
 	outfile << "BEGIN;"
 
-	var/list/giant_list_of_ckeys
+	var/list/giant_list_of_ckeys = list()
 
 	var/perpage = 100
 	var/requested_page = 1
