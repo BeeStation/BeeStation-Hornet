@@ -112,302 +112,15 @@
 	var/static/list/random_figures = subtypesof(/obj/item/toy/prize)
 	var/static/list/random_trashes = subtypesof(/obj/item/trash)
 
-
 /datum/quirk/family_heirloom/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/heirloom_type
 	var/list/heirloom_table = list()
-	var/DEPARTMENT_FLAG = 0 //for department. (civ 1, med 2, sec 4, sci 8, engi 16, supp 32, comm 64)
-	//family_heirloom.initialize()
 
-	// Adding items from this point
-	// Note: having the same multiple item means giving it a high chance to pick()
-
-	// 1. Species specific table
-	// '|| prob(1)' means you can get other race's heirloom at low chance.
-	switch(H.dna.species.type)
-		if(SPECIES_PATH_HUMAN)
-			heirloom_table += /obj/item/clothing/head/kitty //you had terrible parents.
-		if(SPECIES_PATH_FELINID)
-			heirloom_table += /obj/item/clothing/head/kitty
-		if(SPECIES_PATH_LIZARD)
-			heirloom_table += /obj/item/toy/plush/lizardplushie
-		if(SPECIES_PATH_OOZELING)
-			heirloom_table += /obj/item/toy/plush/slimeplushie
-		if(SPECIES_PATH_MOTH)
-			heirloom_table += /obj/item/flashlight/lantern/heirloom_moth
-			heirloom_table += /obj/item/toy/plush/moth
-		if(SPECIES_PATH_APID)
-			heirloom_table += /obj/item/toy/plush/beeplushie
-		if(SPECIES_PATH_PLASMAMAN)
-			heirloom_table += /obj/item/coin/plasma
-		if(SPECIES_PATH_ETHEREAL)
-			heirloom_table += /obj/item/coin/plasma //I am not sure what to give them
-		if(SPECIES_PATH_IPC)
-			heirloom_table += /obj/item/disk/data
-		//retired beecode speices, but let's give them some love
-		if(SPECIES_PATH_FLY)
-			heirloom_table += /obj/item/reagent_containers/food/drinks/bottle/virusfood
-		else
-			heirloom_table += /obj/item/toy/eldrich_book //spooky, eldritch
-
-	// 1-extra. You get everything for 1% chance.
-	if(prob(1))
-		heirloom_table += /obj/item/clothing/head/kitty
-		heirloom_table += /obj/item/toy/plush/lizardplushie
-		heirloom_table += /obj/item/toy/plush/slimeplushie
-		heirloom_table += /obj/item/flashlight/lantern/heirloom_moth
-		heirloom_table += /obj/item/toy/plush/moth
-		heirloom_table += /obj/item/toy/plush/beeplushie
-		heirloom_table += /obj/item/coin/plasma
-		heirloom_table += /obj/item/disk/data
-		heirloom_table += /obj/item/reagent_containers/food/drinks/bottle/virusfood
-		heirloom_table += /obj/item/toy/eldrich_book
-
-	// 2. Job specific table
-	switch(quirk_holder.mind.assigned_role)
-		//Service jobs
-		if(JOB_STRING_ASSISTANT)
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			heirloom_table += /obj/item/storage/toolbox/mechanical/old/heirloom
-			heirloom_table += /obj/item/clothing/gloves/cut/heirloom
-			heirloom_table += /obj/item/multitool
-			if(prob(0.5))
-				heirloom_table += /obj/item/clothing/under/color/grey/glorf //very rare chance for ancient jumpsuit
-				//the actual chance is likely 0.083% or less.
-		if(JOB_STRING_JANITOR)
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			heirloom_table += /obj/item/mop
-			heirloom_table += /obj/item/clothing/suit/caution
-			heirloom_table += /obj/item/reagent_containers/glass/bucket
-		if(JOB_STRING_BARTENDER)
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			heirloom_table += /obj/item/reagent_containers/glass/rag
-			heirloom_table += /obj/item/clothing/head/that
-			heirloom_table += /obj/item/reagent_containers/food/drinks/shaker
-		if(JOB_STRING_COOK)
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			heirloom_table += /obj/item/reagent_containers/food/condiment/saltshaker
-			heirloom_table += /obj/item/kitchen/rollingpin
-			heirloom_table += /obj/item/clothing/head/chefhat
-		if(JOB_STRING_BOTANIST)
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			heirloom_table += /obj/item/cultivator
-			heirloom_table += /obj/item/reagent_containers/glass/bucket
-			heirloom_table += /obj/item/storage/bag/plants
-			heirloom_table += /obj/item/toy/plush/beeplushie
-			heirloom_table += /obj/item/seeds/random //Would you dare to plant your heirloom?
-		if(JOB_STRING_CURATOR)
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			heirloom_table += /obj/item/pen/fountain
-			heirloom_table += /obj/item/storage/pill_bottle/dice
-		if(JOB_STRING_CHAPLAIN)
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			heirloom_table += /obj/item/toy/windupToolbox
-			heirloom_table += /obj/item/reagent_containers/food/drinks/bottle/holywater
-		if(JOB_STRING_BARBER)
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			heirloom_table += /obj/item/handmirror
-		if(JOB_STRING_VIP)
-			DEPARTMENT_FLAG |= DEPARTMENT_COMMAND //They'll just get more annoying items
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			heirloom_table += /obj/item/handmirror //so narcissistic
-			heirloom_table += /obj/item/modular_computer/laptop/preset/civillian //for business.
-		if(JOB_STRING_DEBTOR)
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			heirloom_table += pick(random_trashes) //even such thing is precious to hobo. poor.
-			heirloom_table += pick(random_trashes)
-			heirloom_table += pick(random_trashes)
-		if(JOB_STRING_LAWYER)
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			//DEPARTMENT_FLAG |= DEPARTMENT_SECURITY //maybe not...
-			heirloom_table += /obj/item/gavelhammer
-			heirloom_table += /obj/item/book/manual/wiki/security_space_law
-		//Entertainers
-		if(JOB_STRING_CLOWN)
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			heirloom_table += /obj/item/bikehorn/golden
-			heirloom_table += /obj/item/bikehorn/golden
-			heirloom_table += /obj/item/bikehorn/golden	//high chance of spawning them
-		if(JOB_STRING_MIME)
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			heirloom_table += /obj/item/reagent_containers/food/snacks/baguette/mime
-			heirloom_table += /obj/item/reagent_containers/food/snacks/baguette/mime
-			heirloom_table += /obj/item/reagent_containers/food/snacks/baguette/mime	//high chance of spawning them
-		if(JOB_STRING_STAGE_MAGICIAN)
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			heirloom_table += /obj/item/gun/magic/wand
-			heirloom_table += /obj/item/gun/magic/wand
-			heirloom_table += /obj/item/gun/magic/wand	//high chance of spawning them
-		//Security
-		if(JOB_STRING_HOS)
-			DEPARTMENT_FLAG |= DEPARTMENT_COMMAND
-			DEPARTMENT_FLAG |= DEPARTMENT_SECURITY
-		if(JOB_STRING_WARDEN)
-			DEPARTMENT_FLAG |= DEPARTMENT_SECURITY
-			heirloom_table += /obj/item/restraints/handcuffs
-		if(JOB_STRING_SECURITY_OFFICER)
-			DEPARTMENT_FLAG |= DEPARTMENT_SECURITY
-			heirloom_table += /obj/item/clothing/head/beret/sec
-		if(JOB_STRING_DETECTIVE)
-			DEPARTMENT_FLAG |= DEPARTMENT_SECURITY
-			heirloom_table += /obj/item/reagent_containers/food/drinks/bottle/whiskey
-		if(JOB_STRING_DEPUTY) //It won't happen, but just in case.
-			DEPARTMENT_FLAG |= DEPARTMENT_SECURITY
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-		//Science
-		if(JOB_STRING_RD)
-			DEPARTMENT_FLAG |= DEPARTMENT_COMMAND
-			DEPARTMENT_FLAG |= DEPARTMENT_SCIENCE
-			heirloom_table += /obj/item/nanite_remote
-		if(JOB_STRING_SCIENTIST)
-			DEPARTMENT_FLAG |= DEPARTMENT_SCIENCE
-			heirloom_table += /obj/item/nanite_remote
-		if(JOB_STRING_EXPLORATION_CREW)
-			DEPARTMENT_FLAG |= DEPARTMENT_SCIENCE
-			heirloom_table += /obj/item/throwing_star/toy
-		if(JOB_STRING_ROBOTICIST)
-			DEPARTMENT_FLAG |= DEPARTMENT_SCIENCE
-			heirloom_table += pick(random_figures) //look at this nerd
-			heirloom_table += /obj/item/book/manual/wiki/medicine
-		//Medical
-		if(JOB_STRING_CMO)
-			DEPARTMENT_FLAG |= DEPARTMENT_COMMAND
-			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
-			heirloom_table += /obj/item/book/manual/wiki/chemistry
-			heirloom_table += /obj/item/book/manual/wiki/infections
-			heirloom_table += /obj/item/reagent_containers/dropper
-			heirloom_table += /obj/item/healthanalyzer
-		if(JOB_STRING_BRIG_PHYSICIAN)
-			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
-			DEPARTMENT_FLAG |= DEPARTMENT_SECURITY
-			heirloom_table += /obj/item/healthanalyzer
-		if(JOB_STRING_MEDICAL_DOCTOR)
-			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
-			heirloom_table += /obj/item/healthanalyzer
-		if(JOB_STRING_PARAMEDIC)
-			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
-			heirloom_table += /obj/item/healthanalyzer
-		if(JOB_STRING_PSYCHIATRIST)
-			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE //this is the true nature of your job.
-			heirloom_table += /obj/item/healthanalyzer
-		if(JOB_STRING_CHEMIST)
-			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
-			heirloom_table += /obj/item/book/manual/wiki/chemistry
-			heirloom_table += /obj/item/storage/bag/chemistry
-			heirloom_table += /obj/item/reagent_containers/dropper
-		if(JOB_STRING_VIROLOGIST)
-			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
-			heirloom_table += /obj/item/book/manual/wiki/infections
-			heirloom_table += /obj/item/book/manual/wiki/chemistry
-			heirloom_table += /obj/item/storage/bag/bio
-			heirloom_table += /obj/item/reagent_containers/food/drinks/bottle/virusfood
-			heirloom_table += /obj/item/reagent_containers/dropper
-		if(JOB_STRING_GENETICIST)
-			DEPARTMENT_FLAG |= DEPARTMENT_SCIENCE
-			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
-			heirloom_table += /obj/item/nanite_remote
-		//Engineering
-		if(JOB_STRING_CE)
-			DEPARTMENT_FLAG |= DEPARTMENT_COMMAND
-			DEPARTMENT_FLAG |= DEPARTMENT_ENGINEERING
-			heirloom_table += /obj/item/clothing/head/hardhat/white
-		if(JOB_STRING_STATION_ENGINEER)
-			DEPARTMENT_FLAG |= DEPARTMENT_ENGINEERING
-			heirloom_table += /obj/item/clothing/head/hardhat
-		if(JOB_STRING_ATMOSPHERIC_TECHNICIAN)
-			DEPARTMENT_FLAG |= DEPARTMENT_ENGINEERING
-			heirloom_table += /obj/item/lighter
-			heirloom_table += /obj/item/lighter/greyscale
-			heirloom_table += /obj/item/storage/box/matches
-			heirloom_table += /obj/item/tank/internals/emergency_oxygen/empty
-		//Supply
-		if(JOB_STRING_QM)
-			DEPARTMENT_FLAG |= DEPARTMENT_CARGO
-			heirloom_table += /obj/item/stamp
-			heirloom_table += /obj/item/stamp/denied
-		if(JOB_STRING_CARGO_TECHNICIAN)
-			DEPARTMENT_FLAG |= DEPARTMENT_CARGO
-			heirloom_table += /obj/item/clipboard
-		if(JOB_STRING_SHAFT_MINER)
-			DEPARTMENT_FLAG |= DEPARTMENT_CARGO
-			heirloom_table += /obj/item/pickaxe/mini
-			heirloom_table += /obj/item/shovel
-		//Other
-		if(JOB_STRING_CAPTAIN)
-			DEPARTMENT_FLAG |= DEPARTMENT_COMMAND
-			heirloom_table += /obj/item/reagent_containers/food/drinks/flask/gold
-			heirloom_table += /obj/item/reagent_containers/food/drinks/flask/gold
-			heirloom_table += /obj/item/reagent_containers/food/drinks/flask/gold
-			//hich chance of spawning captain's flask
-		if(JOB_STRING_HOP)
-			DEPARTMENT_FLAG |= DEPARTMENT_COMMAND
-			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			heirloom_table += /obj/item/toy/plush/ian
-		//---End of Switch If lines---
-
-	// 3.Department specific table
-	// Do NOT use 'else if' here because certain jobs are in multiple departments.
-	// prob(1) means you can get an item assgiend to another department at a low chance.
-	if(DEPARTMENT_FLAG & DEPARTMENT_SERVICE || prob(1))
-		heirloom_table += /obj/item/reagent_containers/glass/bucket
-		heirloom_table += /obj/item/storage/toolbox/mechanical/old/heirloom
-		heirloom_table += /obj/item/storage/box/matches
-	if(DEPARTMENT_FLAG & DEPARTMENT_SECURITY || prob(1))
-		heirloom_table += /obj/item/book/manual/wiki/security_space_law
-		heirloom_table += /obj/item/radio/off
-	if(DEPARTMENT_FLAG & DEPARTMENT_SCIENCE || prob(1))
-		heirloom_table += /obj/item/toy/plush/slimeplushie
-		heirloom_table += /obj/item/reagent_containers/food/snacks/monkeycube
-		heirloom_table += /obj/item/screwdriver
-		heirloom_table += /obj/item/wrench
-		heirloom_table += /obj/item/multitool
-	if(DEPARTMENT_FLAG & DEPARTMENT_MEDICAL || prob(1))
-		heirloom_table += /obj/item/clothing/neck/stethoscope
-		heirloom_table += /obj/item/book/manual/wiki/medicine
-		heirloom_table += /obj/item/bodybag
-		heirloom_table += /obj/item/surgical_drapes
-		heirloom_table += /obj/item/scalpel
-		heirloom_table += /obj/item/hemostat
-		heirloom_table += /obj/item/retractor
-		heirloom_table += /obj/item/cautery
-		heirloom_table += /obj/item/bedsheet/medical
-	if(DEPARTMENT_FLAG & DEPARTMENT_ENGINEERING || prob(1))
-		heirloom_table += /obj/item/screwdriver
-		heirloom_table += /obj/item/wrench
-		heirloom_table += /obj/item/weldingtool
-		heirloom_table += /obj/item/crowbar
-		heirloom_table += /obj/item/wirecutters
-	if(DEPARTMENT_FLAG & DEPARTMENT_CARGO || prob(1))
-		heirloom_table += /obj/item/hand_labeler
-		heirloom_table += /obj/item/shovel
-	if(DEPARTMENT_FLAG & DEPARTMENT_COMMAND || prob(1))
-		heirloom_table += /obj/item/reagent_containers/food/drinks/flask/gold
-		heirloom_table += /obj/item/book/manual/wiki/security_space_law
-		heirloom_table += /obj/item/clothing/glasses/sunglasses/advanced/gar/supergar
-		heirloom_table += /obj/item/stamp
-		heirloom_table += /obj/item/stamp/denied
-
-	// 4. For everyone
-	heirloom_table += pick(random_bedsheets) //random bedsheet. you can get a fancy one if you're lucky.
-	heirloom_table += /obj/item/toy/cards/deck
-	heirloom_table += /obj/item/lighter
-	heirloom_table += /obj/item/dice/d20
-	heirloom_table += /obj/item/book/manual/wiki/security_space_law //1984. all crews are encourage to hold this book all times. giving higher chance for sec.
-
-	// 5. Rare chance to add some suspicious looking items
-	if(prob(5)) //with 5% chance, these items are added to your table - which means you still have a chance to avoid them.
-		//They are just looking suspicious, but don't really do a thing. For syndi card, it deals 1 throw damage.
-		heirloom_table += /obj/item/storage/toolbox/mechanical/old/heirloom/syndicate
-		heirloom_table += /obj/item/toy/cards/deck/heirloom
-		heirloom_table += /obj/item/soap/syndie
-		heirloom_table += /obj/item/reagent_containers/food/drinks/syndicatebeer/heirloom
-
-	//------------End Of Random Table List------------------
-
-	heirloom_type = pick(heirloom_table) //pick one from the grand total table
-
+	heirloom_table += itemlist_species(quirk_holder) // 1. Species specific table
+	heirloom_table += itemlist_jobs()				 // 2. Job & department specific table
+	heirloom_table += itemlist_general()			 // 3. for everyone
+	heirloom_type = pick(heirloom_table)			 // 4. pick one from the grand total table
 
 	if(!heirloom_type)
 		heirloom_type = pick(
@@ -447,6 +160,301 @@
 
 /datum/quirk/family_heirloom/on_clone(data)
 	heirloom = data
+
+/datum/quirk/family_heirloom/proc/itemlist_species(var/mob/living/carbon/human/H)
+	var/list/heirloom_addition = list()
+
+	switch(H.dna.species.id)
+		if(SPECIES_HUMAN)
+			heirloom_addition += /obj/item/clothing/head/kitty //you had terrible parents.
+		if(SPECIES_FELINID)
+			heirloom_addition += /obj/item/clothing/head/kitty
+		if(SPECIES_LIZARD)
+			heirloom_addition += /obj/item/toy/plush/lizardplushie
+		if(SPECIES_OOZELING)
+			heirloom_addition += /obj/item/toy/plush/slimeplushie
+		if(SPECIES_MOTH)
+			heirloom_addition += /obj/item/flashlight/lantern/heirloom_moth
+			heirloom_addition += /obj/item/toy/plush/moth
+		if(SPECIES_APID)
+			heirloom_addition += /obj/item/toy/plush/beeplushie
+		if(SPECIES_PLASMAMAN)
+			heirloom_addition += /obj/item/coin/plasma
+		if(SPECIES_ETHEREAL)
+			heirloom_addition += /obj/item/coin/plasma //I am not sure what to give them
+		if(SPECIES_IPC)
+			heirloom_addition += /obj/item/disk/data
+		//retired beecode speices, but let's give them some love
+		if(SPECIES_FLY)
+			heirloom_addition += /obj/item/reagent_containers/food/drinks/bottle/virusfood
+		else
+			heirloom_addition += /obj/item/toy/eldrich_book //spooky, eldritch
+
+	// You get everything for 1% chance.
+	if(prob(1))
+		heirloom_addition += /obj/item/clothing/head/kitty
+		heirloom_addition += /obj/item/toy/plush/lizardplushie
+		heirloom_addition += /obj/item/toy/plush/slimeplushie
+		heirloom_addition += /obj/item/flashlight/lantern/heirloom_moth
+		heirloom_addition += /obj/item/toy/plush/moth
+		heirloom_addition += /obj/item/toy/plush/beeplushie
+		heirloom_addition += /obj/item/coin/plasma
+		heirloom_addition += /obj/item/disk/data
+		heirloom_addition += /obj/item/reagent_containers/food/drinks/bottle/virusfood
+		heirloom_addition += /obj/item/toy/eldrich_book
+
+	return heirloom_addition
+
+
+/datum/quirk/family_heirloom/proc/itemlist_jobs()
+	var/list/heirloom_addition = list()
+	var/DEPARTMENT_FLAG = 0
+
+	// Job specific table
+	switch(quirk_holder.mind.assigned_role)
+		//Service jobs
+		if(JOB_STRING_ASSISTANT)
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			heirloom_addition += /obj/item/storage/toolbox/mechanical/old/heirloom
+			heirloom_addition += /obj/item/clothing/gloves/cut/heirloom
+			heirloom_addition += /obj/item/multitool
+			if(prob(0.5))
+				heirloom_addition += /obj/item/clothing/under/color/grey/glorf //very rare chance for ancient jumpsuit
+				//the actual chance is likely 0.083% or less.
+		if(JOB_STRING_JANITOR)
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			heirloom_addition += /obj/item/mop
+			heirloom_addition += /obj/item/clothing/suit/caution
+			heirloom_addition += /obj/item/reagent_containers/glass/bucket
+		if(JOB_STRING_BARTENDER)
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			heirloom_addition += /obj/item/reagent_containers/glass/rag
+			heirloom_addition += /obj/item/clothing/head/that
+			heirloom_addition += /obj/item/reagent_containers/food/drinks/shaker
+		if(JOB_STRING_COOK)
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			heirloom_addition += /obj/item/reagent_containers/food/condiment/saltshaker
+			heirloom_addition += /obj/item/kitchen/rollingpin
+			heirloom_addition += /obj/item/clothing/head/chefhat
+		if(JOB_STRING_BOTANIST)
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			heirloom_addition += /obj/item/cultivator
+			heirloom_addition += /obj/item/reagent_containers/glass/bucket
+			heirloom_addition += /obj/item/storage/bag/plants
+			heirloom_addition += /obj/item/toy/plush/beeplushie
+			heirloom_addition += /obj/item/seeds/random //Would you dare to plant your heirloom?
+		if(JOB_STRING_CURATOR)
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			heirloom_addition += /obj/item/pen/fountain
+			heirloom_addition += /obj/item/storage/pill_bottle/dice
+		if(JOB_STRING_CHAPLAIN)
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			heirloom_addition += /obj/item/toy/windupToolbox
+			heirloom_addition += /obj/item/reagent_containers/food/drinks/bottle/holywater
+		if(JOB_STRING_BARBER)
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			heirloom_addition += /obj/item/handmirror
+		if(JOB_STRING_VIP)
+			DEPARTMENT_FLAG |= DEPARTMENT_COMMAND //They'll just get more annoying items
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			heirloom_addition += /obj/item/handmirror //so narcissistic
+			heirloom_addition += /obj/item/modular_computer/laptop/preset/civillian //for business.
+		if(JOB_STRING_DEBTOR)
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			heirloom_addition += pick(random_trashes) //even such thing is precious to hobo. poor.
+			heirloom_addition += pick(random_trashes)
+			heirloom_addition += pick(random_trashes)
+		if(JOB_STRING_LAWYER)
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			//DEPARTMENT_FLAG |= DEPARTMENT_SECURITY //maybe not...
+			heirloom_addition += /obj/item/gavelhammer
+			heirloom_addition += /obj/item/book/manual/wiki/security_space_law
+		//Entertainers
+		if(JOB_STRING_CLOWN)
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			heirloom_addition += /obj/item/bikehorn/golden
+			heirloom_addition += /obj/item/bikehorn/golden
+			heirloom_addition += /obj/item/bikehorn/golden	//high chance of spawning them
+		if(JOB_STRING_MIME)
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			heirloom_addition += /obj/item/reagent_containers/food/snacks/baguette/mime
+			heirloom_addition += /obj/item/reagent_containers/food/snacks/baguette/mime
+			heirloom_addition += /obj/item/reagent_containers/food/snacks/baguette/mime	//high chance of spawning them
+		if(JOB_STRING_STAGE_MAGICIAN)
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			heirloom_addition += /obj/item/gun/magic/wand
+			heirloom_addition += /obj/item/gun/magic/wand
+			heirloom_addition += /obj/item/gun/magic/wand	//high chance of spawning them
+		//Security
+		if(JOB_STRING_HOS)
+			DEPARTMENT_FLAG |= DEPARTMENT_COMMAND
+			DEPARTMENT_FLAG |= DEPARTMENT_SECURITY
+		if(JOB_STRING_WARDEN)
+			DEPARTMENT_FLAG |= DEPARTMENT_SECURITY
+			heirloom_addition += /obj/item/restraints/handcuffs
+		if(JOB_STRING_SECURITY_OFFICER)
+			DEPARTMENT_FLAG |= DEPARTMENT_SECURITY
+			heirloom_addition += /obj/item/clothing/head/beret/sec
+		if(JOB_STRING_DETECTIVE)
+			DEPARTMENT_FLAG |= DEPARTMENT_SECURITY
+			heirloom_addition += /obj/item/reagent_containers/food/drinks/bottle/whiskey
+		if(JOB_STRING_DEPUTY) //It won't happen, but just in case.
+			DEPARTMENT_FLAG |= DEPARTMENT_SECURITY
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+		//Science
+		if(JOB_STRING_RD)
+			DEPARTMENT_FLAG |= DEPARTMENT_COMMAND
+			DEPARTMENT_FLAG |= DEPARTMENT_SCIENCE
+			heirloom_addition += /obj/item/nanite_remote
+		if(JOB_STRING_SCIENTIST)
+			DEPARTMENT_FLAG |= DEPARTMENT_SCIENCE
+			heirloom_addition += /obj/item/nanite_remote
+		if(JOB_STRING_EXPLORATION_CREW)
+			DEPARTMENT_FLAG |= DEPARTMENT_SCIENCE
+			heirloom_addition += /obj/item/throwing_star/toy
+		if(JOB_STRING_ROBOTICIST)
+			DEPARTMENT_FLAG |= DEPARTMENT_SCIENCE
+			heirloom_addition += pick(random_figures) //look at this nerd
+			heirloom_addition += /obj/item/book/manual/wiki/medicine
+		//Medical
+		if(JOB_STRING_CMO)
+			DEPARTMENT_FLAG |= DEPARTMENT_COMMAND
+			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
+			heirloom_addition += /obj/item/book/manual/wiki/chemistry
+			heirloom_addition += /obj/item/book/manual/wiki/infections
+			heirloom_addition += /obj/item/reagent_containers/dropper
+			heirloom_addition += /obj/item/healthanalyzer
+		if(JOB_STRING_BRIG_PHYSICIAN)
+			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
+			DEPARTMENT_FLAG |= DEPARTMENT_SECURITY
+			heirloom_addition += /obj/item/healthanalyzer
+		if(JOB_STRING_MEDICAL_DOCTOR)
+			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
+			heirloom_addition += /obj/item/healthanalyzer
+		if(JOB_STRING_PARAMEDIC)
+			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
+			heirloom_addition += /obj/item/healthanalyzer
+		if(JOB_STRING_PSYCHIATRIST)
+			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE //this is the true nature of your job.
+			heirloom_addition += /obj/item/healthanalyzer
+		if(JOB_STRING_CHEMIST)
+			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
+			heirloom_addition += /obj/item/book/manual/wiki/chemistry
+			heirloom_addition += /obj/item/storage/bag/chemistry
+			heirloom_addition += /obj/item/reagent_containers/dropper
+		if(JOB_STRING_VIROLOGIST)
+			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
+			heirloom_addition += /obj/item/book/manual/wiki/infections
+			heirloom_addition += /obj/item/book/manual/wiki/chemistry
+			heirloom_addition += /obj/item/storage/bag/bio
+			heirloom_addition += /obj/item/reagent_containers/food/drinks/bottle/virusfood
+			heirloom_addition += /obj/item/reagent_containers/dropper
+		if(JOB_STRING_GENETICIST)
+			DEPARTMENT_FLAG |= DEPARTMENT_SCIENCE
+			DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
+			heirloom_addition += /obj/item/nanite_remote
+		//Engineering
+		if(JOB_STRING_CE)
+			DEPARTMENT_FLAG |= DEPARTMENT_COMMAND
+			DEPARTMENT_FLAG |= DEPARTMENT_ENGINEERING
+			heirloom_addition += /obj/item/clothing/head/hardhat/white
+		if(JOB_STRING_STATION_ENGINEER)
+			DEPARTMENT_FLAG |= DEPARTMENT_ENGINEERING
+			heirloom_addition += /obj/item/clothing/head/hardhat
+		if(JOB_STRING_ATMOSPHERIC_TECHNICIAN)
+			DEPARTMENT_FLAG |= DEPARTMENT_ENGINEERING
+			heirloom_addition += /obj/item/lighter
+			heirloom_addition += /obj/item/lighter/greyscale
+			heirloom_addition += /obj/item/storage/box/matches
+			heirloom_addition += /obj/item/tank/internals/emergency_oxygen/empty
+		//Supply
+		if(JOB_STRING_QM)
+			DEPARTMENT_FLAG |= DEPARTMENT_CARGO
+			heirloom_addition += /obj/item/stamp
+			heirloom_addition += /obj/item/stamp/denied
+		if(JOB_STRING_CARGO_TECHNICIAN)
+			DEPARTMENT_FLAG |= DEPARTMENT_CARGO
+			heirloom_addition += /obj/item/clipboard
+		if(JOB_STRING_SHAFT_MINER)
+			DEPARTMENT_FLAG |= DEPARTMENT_CARGO
+			heirloom_addition += /obj/item/pickaxe/mini
+			heirloom_addition += /obj/item/shovel
+		//Other
+		if(JOB_STRING_CAPTAIN)
+			DEPARTMENT_FLAG |= DEPARTMENT_COMMAND
+			heirloom_addition += /obj/item/reagent_containers/food/drinks/flask/gold
+			heirloom_addition += /obj/item/reagent_containers/food/drinks/flask/gold
+			heirloom_addition += /obj/item/reagent_containers/food/drinks/flask/gold
+			//hich chance of spawning captain's flask
+		if(JOB_STRING_HOP)
+			DEPARTMENT_FLAG |= DEPARTMENT_COMMAND
+			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			heirloom_addition += /obj/item/toy/plush/ian
+		//---End of Switch If lines---
+
+	// Department specific table
+	// Do NOT use 'else if' here because certain jobs are in multiple departments.
+	// prob(1) means you can get an item assgiend to another department at a low chance.
+	if(DEPARTMENT_FLAG & DEPARTMENT_SERVICE || prob(1))
+		heirloom_addition += /obj/item/reagent_containers/glass/bucket
+		heirloom_addition += /obj/item/storage/toolbox/mechanical/old/heirloom
+		heirloom_addition += /obj/item/storage/box/matches
+	if(DEPARTMENT_FLAG & DEPARTMENT_SECURITY || prob(1))
+		heirloom_addition += /obj/item/book/manual/wiki/security_space_law
+		heirloom_addition += /obj/item/radio/off
+	if(DEPARTMENT_FLAG & DEPARTMENT_SCIENCE || prob(1))
+		heirloom_addition += /obj/item/toy/plush/slimeplushie
+		heirloom_addition += /obj/item/reagent_containers/food/snacks/monkeycube
+		heirloom_addition += /obj/item/screwdriver
+		heirloom_addition += /obj/item/wrench
+		heirloom_addition += /obj/item/multitool
+	if(DEPARTMENT_FLAG & DEPARTMENT_MEDICAL || prob(1))
+		heirloom_addition += /obj/item/clothing/neck/stethoscope
+		heirloom_addition += /obj/item/book/manual/wiki/medicine
+		heirloom_addition += /obj/item/bodybag
+		heirloom_addition += /obj/item/surgical_drapes
+		heirloom_addition += /obj/item/scalpel
+		heirloom_addition += /obj/item/hemostat
+		heirloom_addition += /obj/item/retractor
+		heirloom_addition += /obj/item/cautery
+		heirloom_addition += /obj/item/bedsheet/medical
+	if(DEPARTMENT_FLAG & DEPARTMENT_ENGINEERING || prob(1))
+		heirloom_addition += /obj/item/screwdriver
+		heirloom_addition += /obj/item/wrench
+		heirloom_addition += /obj/item/weldingtool
+		heirloom_addition += /obj/item/crowbar
+		heirloom_addition += /obj/item/wirecutters
+	if(DEPARTMENT_FLAG & DEPARTMENT_CARGO || prob(1))
+		heirloom_addition += /obj/item/hand_labeler
+		heirloom_addition += /obj/item/shovel
+	if(DEPARTMENT_FLAG & DEPARTMENT_COMMAND || prob(1))
+		heirloom_addition += /obj/item/reagent_containers/food/drinks/flask/gold
+		heirloom_addition += /obj/item/book/manual/wiki/security_space_law
+		heirloom_addition += /obj/item/clothing/glasses/sunglasses/advanced/gar/supergar
+		heirloom_addition += /obj/item/stamp
+		heirloom_addition += /obj/item/stamp/denied
+
+	return heirloom_addition
+
+
+/datum/quirk/family_heirloom/proc/itemlist_general()
+	var/list/heirloom_addition = list()
+	heirloom_addition += pick(random_bedsheets) //random bedsheet. you can get a fancy one if you're lucky.
+	heirloom_addition += /obj/item/toy/cards/deck
+	heirloom_addition += /obj/item/lighter
+	heirloom_addition += /obj/item/dice/d20
+	heirloom_addition += /obj/item/book/manual/wiki/security_space_law //1984. all crews are encourage to hold this book all times. giving higher chance for sec.
+
+	// Rare chance to add some suspicious looking items
+	if(prob(5)) //with 5% chance, these items are added to your table - which means you still have a chance to avoid them.
+		//They are just looking suspicious, but don't really do a thing. For syndi card, it deals 1 throw damage.
+		heirloom_addition += /obj/item/storage/toolbox/mechanical/old/heirloom/syndicate
+		heirloom_addition += /obj/item/toy/cards/deck/heirloom
+		heirloom_addition += /obj/item/soap/syndie
+		heirloom_addition += /obj/item/reagent_containers/food/drinks/syndicatebeer/heirloom
+
+	return heirloom_addition
 
 /datum/quirk/frail
 	name = "Frail"

@@ -89,17 +89,6 @@
 #define SPECIES_OOZELING		"oozeling"
 #define SPECIES_FLY 			"fly"
 
-//Species ID DEFINES as path
-#define SPECIES_PATH_HUMAN		/datum/species/human
-#define SPECIES_PATH_IPC		/datum/species/ipc
-#define SPECIES_PATH_ETHEREAL	/datum/species/ethereal
-#define SPECIES_PATH_PLASMAMAN	/datum/species/plasmaman
-#define SPECIES_PATH_APID		/datum/species/apid
-#define SPECIES_PATH_MOTH		/datum/species/moth
-#define SPECIES_PATH_LIZARD		/datum/species/lizard
-#define SPECIES_PATH_FELINID	/datum/species/human/felinid
-#define SPECIES_PATH_OOZELING	/datum/species/oozeling
-#define SPECIES_PATH_FLY		/datum/species/fly
 
 //Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
 #define FLAG_HUMAN			(1<<0)
