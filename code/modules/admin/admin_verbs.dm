@@ -191,13 +191,8 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/display_sendmaps,
 	#endif
 	/client/proc/toggle_cdn,
-	/client/proc/check_timer_sources
-//!!!!!!!!!!!!!!!!CURRENCT CHANGE END!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!INCOMING CHANGE!!!!!!!!!!!!!!!!!!!!!!
-	/datum/admins/proc/create_or_modify_area,
 	/client/proc/check_timer_sources,
-	/client/proc/toggle_cdn
-//!!!!!!!!!!!!!!!!INCOMING CHANGE END!!!!!!!!!!!!!!!!!!!!!!
+	/datum/admins/proc/create_or_modify_area
 	)
 
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, /proc/release))
