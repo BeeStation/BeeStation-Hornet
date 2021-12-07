@@ -22,7 +22,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/light,
-/obj/machinery/power/apc/highcap,
+/obj/machinery/power/apc/highcap{
+	pixel_y = -24
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "av" = (
@@ -157,7 +159,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "gr" = (
-/obj/structure/railing{
+/obj/structure/railing/corner{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -324,10 +326,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "rq" = (
-/obj/machinery/computer/cargo/request{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery,
+/obj/structure/railing,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "sP" = (
@@ -432,7 +431,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/loading_area,
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "yu" = (
@@ -443,9 +441,6 @@
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "yE" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
 /obj/machinery/button/door{
 	desc = "A remote control switch.";
 	id = "exploration";
@@ -476,8 +471,8 @@
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "BH" = (
-/obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/delivery,
+/obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "CE" = (
@@ -710,7 +705,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/loading_area,
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "Ph" = (
@@ -973,10 +967,10 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "XU" = (
-/obj/machinery/computer/rdconsole{
+/obj/effect/turf_decal/delivery,
+/obj/machinery/computer/cargo/request{
 	dir = 4
 	},
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Yr" = (
@@ -1054,7 +1048,7 @@ KC
 wh
 jI
 yE
-gr
+NB
 gr
 OB
 wh
