@@ -186,7 +186,6 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/export_dynamic_json,
 	/client/proc/run_dynamic_simulations,
 	#endif
-//!!!!!!!!!!!!!!!!CURRENCT CHANGE!!!!!!!!!!!!!!!!!!!!!!
 	#ifdef SENDMAPS_PROFILE
 	/client/proc/display_sendmaps,
 	#endif
