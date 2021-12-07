@@ -20,11 +20,13 @@ Thresholds
 	resistance = 3
 	stage_speed = -3
 	transmission = 0
-	level = 0
+	level = 8
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	severity = 1
 	base_message_chance = 5
+	prefixes = list("Thorny ", "Horned ")
+	bodies = list("Horn", "Spiked")
 	var/Power = 1
 	var/armor = 0
 	var/done = FALSE

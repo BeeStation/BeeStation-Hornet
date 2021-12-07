@@ -221,7 +221,7 @@
 
 
 			if (user.client)
-				SSmedals.UnlockMedal(MEDAL_UNWRENCH_HIGH_PRESSURE,user.client)
+				user.client.give_award(/datum/award/achievement/misc/pressure, user)
 
 
 		deconstruct(TRUE)
@@ -291,9 +291,9 @@
 		A.addMember(src)
 	build_network()
 
-/obj/machinery/atmospherics/Entered(atom/movable/AM)
-	if(istype(AM, /mob/living))
-		var/mob/living/L = AM
+/obj/machinery/atmospherics/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	if(istype(arrived, /mob/living))
+		var/mob/living/L = arrived
 		L.ventcrawl_layer = piping_layer
 	return ..()
 

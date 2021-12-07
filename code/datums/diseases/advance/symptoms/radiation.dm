@@ -5,10 +5,12 @@
 	resistance = 2
 	stage_speed = -1
 	transmission = 2
-	level = 8
+	level = 7
 	severity = 3
 	symptom_delay_min = 10
 	symptom_delay_max = 40
+	prefixes = list("Gamma ")
+	bodies = list("Radiation")
 	var/fastrads = FALSE
 	var/radothers = FALSE
 	threshold_desc = "<b>Speed 8:</b> Host takes radiation damage faster."

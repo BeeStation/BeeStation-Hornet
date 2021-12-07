@@ -91,5 +91,5 @@
 /obj/item/gun/magic/vv_edit_var(var_name, var_value)
 	. = ..()
 	switch (var_name)
-		if ("charges")
+		if(NAMEOF(src, charges))
 			recharge_newshot()

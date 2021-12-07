@@ -671,7 +671,7 @@
 
 		return
 
-	if(isobj(target))
+	if(isobj(target) && !(target.flags_1 & UNPAINTABLE_1))
 		if(actually_paints)
 			if(color_hex2num(paint_color) < 350 && !istype(target, /obj/structure/window)) //Colors too dark are rejected
 				if(isclothing(target))

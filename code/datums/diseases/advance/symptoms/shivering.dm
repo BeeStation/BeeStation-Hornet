@@ -26,6 +26,8 @@ Bonus
 	severity = 0
 	symptom_delay_min = 10
 	symptom_delay_max = 30
+	bodies = list("Shiver")
+	suffixes = list(" Shivers")
 	var/unsafe = FALSE //over the cold threshold
 	threshold_desc = "<b>Stage Speed 5:</b> Increases cooling speed; the host can fall below safe temperature levels.<br>\
 					  <b>Stage Speed 10:</b> Further increases cooling speed."
