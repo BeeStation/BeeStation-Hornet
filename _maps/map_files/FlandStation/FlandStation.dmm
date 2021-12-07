@@ -5580,6 +5580,13 @@
 /obj/effect/turf_decal/trimline/red/warning,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"bru" = (
+/obj/machinery/airalarm{
+	TLV = list("pressure" = new /datum/tlv(-1, 91.1925, 111.458, 121.59), "temperature" = new /datum/tlv(273.15, 283.15, 313.15, 339.15), "o2" = new /datum/tlv(16, 19, 40, 50), "n2" = new /datum/tlv(-1, -1, 1000, 1000), "co2" = new /datum/tlv(-1, -1, 5, 10), "miasma" = new /datum/tlv(-1, -1, 15, 30), "plasma" = new /datum/tlv/dangerous, "n2o" = new /datum/tlv/dangerous, "bz" = new /datum/tlv/dangerous, "nob" = new /datum/tlv(-1, -1, 1000, 1000), "water_vapor" = new /datum/tlv/dangerous, "tritium" = new /datum/tlv/dangerous, "stim" = new /datum/tlv/dangerous, "no2" = new /datum/tlv/dangerous, "pluox" = new /datum/tlv(-1, -1, 5, 6));
+	pixel_y = 22
+	},
+/turf/open/floor/plating,
+/area/maintenance/port)
 "brx" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/external{
@@ -30426,12 +30433,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
-"hal" = (
-/obj/machinery/airalarm{
-	pixel_y = 22
-	},
-/turf/open/floor/plating,
-/area/maintenance/port)
 "hao" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -120089,7 +120090,7 @@ vib
 vDh
 wlt
 qBn
-hal
+jYF
 vqA
 dgO
 wxd
@@ -120346,7 +120347,7 @@ qBn
 vDz
 qBn
 qBn
-jYF
+bru
 fZs
 ljQ
 rqI
