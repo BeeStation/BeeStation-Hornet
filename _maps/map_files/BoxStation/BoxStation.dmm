@@ -33584,10 +33584,10 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/obj/machinery/rnd/production/circuit_imprinter,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/machinery/rnd/production/circuit_imprinter/department/engineering,
 /turf/open/floor/plasteel/checker,
 /area/engine/break_room)
 "cax" = (
