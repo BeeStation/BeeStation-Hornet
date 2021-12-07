@@ -1,0 +1,5 @@
+author: MNarath1
+delete-after: true
+changes:
+  - refactor: refactors isinf macro
+  - bugfix: fixes isinf for windows hosts
