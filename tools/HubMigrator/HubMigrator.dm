@@ -125,11 +125,11 @@
 			if(!medal_data[key])
 				medal_data[key] = list()
 			medal_data[key][medal] = out_date.Join("/")
-			if(!(giant_list_of_ckeys & key)) //this is probably really slow
+			if(!(giant_list_of_ckeys.Find(key))) //this is probably really slow
 				giant_list_of_ckeys += key
 
 	for(var/listkey in params2list(world.GetScores(null,null,hub_address,hub_password)))
-		if(!(giant_list_of_ckeys & listkey)) //this is probably really slow
+		if(!(giant_list_of_ckeys.Find(listkey))) //this is probably really slow
 			giant_list_of_ckeys += listkey
 
 	world << "Found [giant_list_of_ckeys.len] as total entry count."
