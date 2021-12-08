@@ -5273,9 +5273,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/aft)
 "bnI" = (
@@ -20288,15 +20285,15 @@
 /area/maintenance/starboard/aft)
 "eEE" = (
 /obj/machinery/button/door{
-	id = "evashutters";
-	name = "E.V.A. Shutters";
+	id = "evasuitshutters";
+	name = "E.V.A. Suit Shutters";
 	pixel_x = -26;
 	pixel_y = 6;
 	req_access_txt = "19"
 	},
 /obj/machinery/button/door{
-	id = "evasuitshutters";
-	name = "E.V.A. Suit Shutters";
+	id = "evashutters";
+	name = "E.V.A. Shutters";
 	pixel_x = -26;
 	pixel_y = -6;
 	req_access_txt = "19"
@@ -36637,6 +36634,10 @@
 	req_access_txt = "57"
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "hop";
+	name = "Privacy Shutters"
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/crew_quarters/heads/hop)
 "iuL" = (
@@ -39033,8 +39034,8 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "iZE" = (
-/obj/effect/spawner/structure/window,
 /obj/structure/disposalpipe/segment,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/hallway/primary/starboard)
 "iZN" = (
@@ -58165,6 +58166,7 @@
 	dir = 4;
 	pixel_x = 11
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/techmaint,
 /area/science/research)
 "nNg" = (
@@ -66776,14 +66778,14 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
 "qaT" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Server Access";
-	req_access_txt = "30"
-	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/command/glass{
+	name = "Research Server Room";
+	req_access_txt = "30;70"
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/server)
 "qaW" = (
@@ -67747,10 +67749,6 @@
 /turf/closed/wall/r_wall/rust,
 /area/security/prison/asteroid/service)
 "qmm" = (
-/obj/machinery/door/airlock/command{
-	name = "Research Division Server Room";
-	req_access_txt = "30"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
@@ -67764,6 +67762,10 @@
 /obj/effect/turf_decal/tile/tile_full/purple,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
+	},
+/obj/machinery/door/airlock/command{
+	name = "Research Division Server Room";
+	req_access_txt = "30;70"
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/server)
@@ -67844,11 +67846,11 @@
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "qmQ" = (
-/obj/machinery/rnd/production/circuit_imprinter/department/science,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/rnd/production/circuit_imprinter/department/science,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "qnb" = (
@@ -74322,12 +74324,12 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "rNt" = (
-/obj/machinery/rnd/production/circuit_imprinter/department/science,
 /obj/item/borg/upgrade/rename,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light_switch{
 	pixel_x = 24
 	},
+/obj/machinery/rnd/production/circuit_imprinter/department/science,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "rNE" = (
@@ -78479,8 +78481,8 @@
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "sQn" = (
-/obj/machinery/rnd/production/circuit_imprinter,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/rnd/production/circuit_imprinter/department/engineering,
 /turf/open/floor/plasteel/dark,
 /area/engine/storage_shared)
 "sQo" = (
@@ -125433,7 +125435,7 @@ xcn
 tHT
 rFf
 jKi
-rzZ
+jKi
 gkk
 ltK
 rzZ
@@ -133397,9 +133399,9 @@ fEe
 sMJ
 dqZ
 sgy
-lLM
-wxS
 hhd
+wxS
+iAI
 sck
 hmn
 hVM
@@ -134168,7 +134170,7 @@ rMz
 biQ
 dqZ
 exB
-iAI
+lLM
 wxS
 fMl
 sck
@@ -139833,7 +139835,7 @@ hBL
 gwM
 wFC
 iLD
-qIr
+lVc
 xDa
 wVe
 ydU
@@ -140090,7 +140092,7 @@ kad
 eot
 iuI
 oRt
-qIr
+lVc
 xPJ
 cpS
 oqc
@@ -140347,7 +140349,7 @@ kad
 jfR
 wXc
 iON
-qIr
+lVc
 xPJ
 wVe
 ydU
@@ -140861,7 +140863,7 @@ hCG
 cSE
 wFC
 ixC
-qIr
+lVc
 xPJ
 wVe
 uvb
@@ -141118,7 +141120,7 @@ hqk
 hVq
 wXc
 ixP
-qIr
+lVc
 xPJ
 wVe
 kER
@@ -141375,7 +141377,7 @@ vKC
 tGs
 aFb
 iON
-qIr
+lVc
 xPJ
 wVe
 ydU

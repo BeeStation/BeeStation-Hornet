@@ -218,6 +218,7 @@
 /obj/machinery/defibrillator_mount/loaded{
 	pixel_x = 32
 	},
+/obj/item/surgical_drapes,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "in" = (
@@ -1600,8 +1601,8 @@ Lc
 nO
 lQ
 yT
-HX
 HC
+HX
 ht
 MM
 uY
