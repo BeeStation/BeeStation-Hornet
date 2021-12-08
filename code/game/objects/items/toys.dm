@@ -848,6 +848,10 @@
 	if(href_list["pick"])
 		if (cardUser.is_holding(src))
 			var/choice = href_list["pick"]
+			if(!(choice in src.currenthand))
+				message_admins("Href exploit detected by [ADMIN_FLW(usr)]")
+				log_game("Href exploit attempted by [key_name(usr)]")
+				return
 			var/obj/item/toy/cards/singlecard/C = new/obj/item/toy/cards/singlecard(cardUser.loc)
 			src.currenthand -= choice
 			C.parentdeck = src.parentdeck
