@@ -1022,7 +1022,7 @@
 /datum/supply_pack/engineering/portable_pumps
 	name = "Portable Pumps"
 	desc = "A set of spare portable pumps. Perfect for larger atmospheric projects or restocking after a toxins problem goes wrong."
-	cost = 2500
+	cost = 1500
 	contains = list(
 		/obj/machinery/portable_atmospherics/pump,
 		/obj/machinery/portable_atmospherics/pump
@@ -1033,7 +1033,7 @@
 /datum/supply_pack/engineering/portable_scrubbers
 	name = "Portable Scrubbers"
 	desc = "A set of spare portable scrubbers. Perfect for when plasma 'accidentally' gets into the air supply."
-	cost = 2500
+	cost = 1500
 	contains = list(
 		/obj/machinery/portable_atmospherics/scrubber,
 		/obj/machinery/portable_atmospherics/scrubber
