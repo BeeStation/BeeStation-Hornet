@@ -244,8 +244,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "struck", "hit")
 	var/hacked = FALSE
-	block_upgrade_walk = 1
-	block_power = -200
 
 /obj/item/toy/sword/attack_self(mob/user)
 	active = !( active )
@@ -309,9 +307,6 @@
 	attack_verb = list("pricked", "absorbed", "gored")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
-	block_upgrade_walk = 1
-	block_power = -200
-
 
 /obj/item/toy/windupToolbox
 	name = "windup toolbox"
@@ -370,8 +365,8 @@
 	throw_range = 5
 	twohand_force = 0
 	attack_verb = list("attacked", "struck", "hit")
-	block_upgrade_walk = 1
-	block_power = -100
+	block_upgrade_walk = 0
+	block_level = 0
 
 /obj/item/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
@@ -398,10 +393,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	block_upgrade_walk = 1
-	block_level = 1
-	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE
-	block_power = -500 //not to be used on anything more effective than nerf darts
+	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE //if it some how gets block level, katanas block projectiles for the meme
 
 /*
  * Snap pops

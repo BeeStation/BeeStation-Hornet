@@ -142,7 +142,7 @@
 	. = ..()
 	if(.)
 		switch(var_name)
-			if("assignment","registered_name")
+			if(NAMEOF(src, assignment),NAMEOF(src, registered_name))
 				update_label()
 
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)

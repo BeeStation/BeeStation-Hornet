@@ -88,7 +88,7 @@
 		//This first death of the game will not incur a ghost role cooldown
 		client.next_ghost_role_tick = client.next_ghost_role_tick || suiciding ? world.time + CONFIG_GET(number/ghost_role_cooldown) : world.time
 
-		SSmedals.UnlockMedal(MEDAL_GHOSTS,client)
+		INVOKE_ASYNC(client, /client.proc/give_award, /datum/award/achievement/misc/ghosts, client.mob)
 
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
