@@ -134,7 +134,7 @@
 
 /client/verb/checkachievements()
 	set category = "OOC"
-	set name = "Check achievements"
+	set name = "Check Achievements"
 	set desc = "See all of your achievements!"
 
 	player_details.achievements.ui_interact(usr)
