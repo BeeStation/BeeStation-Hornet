@@ -1,0 +1,4 @@
+author: ike709
+delete-after: true
+changes:
+  - bugfix: Check Achievements capitalization is now consistent with other verbs.
