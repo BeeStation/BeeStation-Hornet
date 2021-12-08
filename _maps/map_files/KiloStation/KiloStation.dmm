@@ -14331,7 +14331,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Research Division Server Room";
-	req_access_txt = "30";
+	req_access_txt = "30;70";
 	security_level = 6
 	},
 /obj/structure/disposalpipe/segment{
@@ -37371,7 +37371,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
 	name = "Server Access";
-	req_access_txt = "30"
+	req_access_txt = "30;70"
 	},
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
