@@ -17,7 +17,6 @@
 
 	var/gps = null
 	var/obj/effect/light_emitter/tendril/emitted_light
-	var/list/necroseed = list()
 
 
 /obj/structure/spawner/lavaland/goliath
@@ -34,17 +33,6 @@ GLOBAL_LIST_INIT(tendrils, list())
 		M.ScrapeAway(null, CHANGETURF_IGNORE_AIR)
 	AddComponent(/datum/component/gps, "Eerie Signal")
 	GLOB.tendrils += src
-	var/datum/disease/advance/random/necropolis/R = new
-	necroseed += R
-
-/obj/structure/spawner/lavaland/extrapolator_act(mob/user, obj/item/extrapolator/E, scan = TRUE)
-	if(!necroseed.len)
-		return FALSE
-	if(scan)
-		E.scan(src, necroseed, user)
-	else
-		E.extrapolate(src, necroseed, user)
-	return TRUE
 
 /obj/structure/spawner/lavaland/deconstruct(disassembled)
 	new /obj/effect/collapse(loc)
@@ -58,12 +46,12 @@ GLOBAL_LIST_INIT(tendrils, list())
 		last_tendril = FALSE
 
 	if(last_tendril && !(flags_1 & ADMIN_SPAWNED_1))
-		if(SSmedals.hub_enabled)
+		if(SSachievements.achievements_enabled)
 			for(var/mob/living/L in hearers(7,src))
 				if(L.stat || !L.client)
 					continue
-				SSmedals.UnlockMedal("[BOSS_MEDAL_TENDRIL] [ALL_KILL_MEDAL]", L.client)
-				SSmedals.SetScore(TENDRIL_CLEAR_SCORE, L.client, 1)
+				L.client.give_award(/datum/award/achievement/boss/tendril_exterminator, L)
+				L.client.give_award(/datum/award/score/tendril_score, L) //Progresses score by one
 	GLOB.tendrils -= src
 	QDEL_NULL(emitted_light)
 	QDEL_NULL(gps)

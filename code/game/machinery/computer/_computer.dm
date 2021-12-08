@@ -9,7 +9,10 @@
 	max_integrity = 200
 	integrity_failure = 100
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20, "stamina" = 0)
-	var/brightness_on = 2
+	light_system = STATIC_LIGHT
+	light_range = 2
+	light_power = 1
+	light_on = TRUE
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
 	var/clockwork = FALSE
@@ -77,9 +80,9 @@
 /obj/machinery/computer/power_change()
 	..()
 	if(stat & NOPOWER)
-		set_light(0, 0)
+		set_light(FALSE)
 	else
-		set_light(brightness_on, 2)
+		set_light(TRUE)
 	update_icon()
 	return
 

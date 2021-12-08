@@ -7,6 +7,25 @@
  * Fake space
  */
 
+/turf/open/floor/bamboo
+	desc = "A bamboo mat with a decorative trim."
+	icon = 'icons/turf/floors/bamboo_mat.dmi'
+	icon_state = "bamboo"
+	floor_tile = /obj/item/stack/tile/bamboo
+	broken_states = list("damaged")
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/open/floor/bamboo)
+	flags_1 = NONE
+	footstep = FOOTSTEP_WOOD
+	barefootstep = FOOTSTEP_WOOD_BAREFOOT
+	clawfootstep = FOOTSTEP_WOOD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	tiled_dirt = FALSE
+
+/turf/open/floor/carpet/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
+
 /turf/open/floor/wood
 	desc = "Stylish dark wood."
 	icon_state = "wood"
@@ -145,6 +164,14 @@
 	floor_tile = /obj/item/stack/tile/fairygrass/pink
 	light_color = "#FFB3DA"
 	color = "#FFB3DA"
+	
+/turf/open/floor/grass/fairy/dark
+	name = "dark fairygrass patch"
+	floor_tile = /obj/item/stack/tile/fairygrass/dark
+	light_power = -0.15
+	light_range = 2
+	light_color = "#AAD84B"
+	color = "#53003f"
 
 /turf/open/floor/grass/snow
 	gender = PLURAL
