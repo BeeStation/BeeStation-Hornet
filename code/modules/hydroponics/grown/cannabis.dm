@@ -101,6 +101,7 @@
 	desc = "Is it supposed to be glowing like that...?"
 	icon_state = "megacannabis"
 	wine_power = 60
+	discovery_points = 300
 
 /obj/item/reagent_containers/food/snacks/grown/cannabis/death
 	seed = /obj/item/seeds/cannabis/death
@@ -108,6 +109,7 @@
 	desc = "Looks a bit dark. Oh well."
 	icon_state = "blackcannabis"
 	wine_power = 40
+	discovery_points = 300
 
 /obj/item/reagent_containers/food/snacks/grown/cannabis/white
 	seed = /obj/item/seeds/cannabis/white
@@ -115,6 +117,7 @@
 	desc = "It feels smooth and nice to the touch."
 	icon_state = "whitecannabis"
 	wine_power = 10
+	discovery_points = 300
 
 /obj/item/reagent_containers/food/snacks/grown/cannabis/ultimate
 	seed = /obj/item/seeds/cannabis/ultimate
@@ -123,3 +126,4 @@
 	icon_state = "ocannabis"
 	volume = 420
 	wine_power = 90
+	discovery_points = 300
