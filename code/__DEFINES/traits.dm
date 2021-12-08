@@ -278,6 +278,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_GRABWEAKNESS		"grab_weakness"
 //MonkeStation Edit Start
 #define TRAIT_JAILBIRD			"jailbird"
+#define TRAIT_STOWAWAY			"stowaway"
 //MonkeStation Edit End
 
 ///Trait applied to turfs when an atmos holosign is placed on them. It will stop firedoors from closing.
