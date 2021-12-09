@@ -1,0 +1,4 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - bugfix: Fixed on all maps the access to the server room.
