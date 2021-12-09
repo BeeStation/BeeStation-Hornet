@@ -13,7 +13,7 @@
 /obj/effect/abstract/proximity_checker/advanced/Initialize(mapload, _monitor)
 	if(_monitor)
 		parent = _monitor
-	return ..()
+	. = ..()
 
 /obj/effect/abstract/proximity_checker/advanced/center
 	name = "field anchor"
@@ -28,19 +28,16 @@
 	if(parent)
 		return parent.field_turf_canpass(AM, src, target)
 
-/obj/effect/abstract/proximity_checker/advanced/field_turf/Crossed(atom/movable/AM)
+/obj/effect/abstract/proximity_checker/advanced/field_turf/on_entered(datum/source, atom/movable/AM)
+	. = ..()
 	if(parent)
 		return parent.field_turf_crossed(AM, src)
 	return TRUE
 
-/obj/effect/abstract/proximity_checker/advanced/field_turf/Uncross(atom/movable/AM)
+/obj/effect/abstract/proximity_checker/advanced/field_turf/on_uncrossed(datum/source, atom/movable/gone, direction)
+	. = ..()
 	if(parent)
-		return parent.field_turf_uncross(AM, src)
-	return TRUE
-
-/obj/effect/abstract/proximity_checker/advanced/field_turf/Uncrossed(atom/movable/AM)
-	if(parent)
-		return parent.field_turf_uncrossed(AM, src)
+		return parent.field_turf_uncrossed(gone, src)
 	return TRUE
 
 /obj/effect/abstract/proximity_checker/advanced/field_edge
@@ -52,19 +49,15 @@
 	if(parent)
 		return parent.field_edge_canpass(AM, src, target)
 
-/obj/effect/abstract/proximity_checker/advanced/field_edge/Crossed(atom/movable/AM)
+/obj/effect/abstract/proximity_checker/advanced/field_edge/on_entered(datum/source, atom/movable/AM)
+	. = ..()
 	if(parent)
 		return parent.field_edge_crossed(AM, src)
 	return TRUE
 
-/obj/effect/abstract/proximity_checker/advanced/field_edge/Uncross(atom/movable/AM)
+/obj/effect/abstract/proximity_checker/advanced/field_edge/on_uncrossed(datum/source, atom/movable/gone, direction)
 	if(parent)
-		return parent.field_edge_uncross(AM, src)
-	return TRUE
-
-/obj/effect/abstract/proximity_checker/advanced/field_edge/Uncrossed(atom/movable/AM)
-	if(parent)
-		return parent.field_edge_uncrossed(AM, src)
+		return parent.field_edge_uncrossed(gone, src)
 	return TRUE
 
 /proc/is_turf_in_field(turf/T, datum/proximity_monitor/advanced/F)	//Looking for ways to optimize this!

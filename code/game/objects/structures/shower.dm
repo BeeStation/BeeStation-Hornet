@@ -50,6 +50,12 @@
 
 	soundloop = new(list(src), FALSE)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)
 	QDEL_NULL(reagents)
@@ -120,10 +126,11 @@
 		qdel(mist)
 
 
-/obj/machinery/shower/Crossed(atom/movable/AM)
-	..()
+/obj/machinery/shower/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
 	if(on)
-		wash_atom(AM)
+		INVOKE_ASYNC(src, .proc/wash_atom, AM)
 
 /obj/machinery/shower/proc/wash_atom(atom/A)
 	SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)

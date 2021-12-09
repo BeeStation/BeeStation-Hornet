@@ -43,6 +43,10 @@
 	if(prob(75))
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), rand(5, 9), rand(3,4), infected = src)
 		ratdisease += R
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/mouse/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(!ratdisease.len)
@@ -75,12 +79,13 @@
 	else
 		..(gibbed)
 
-/mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
+/mob/living/simple_animal/mouse/proc/on_entered(datum/source, AM as mob|obj)
+	SIGNAL_HANDLER
+
 	if( ishuman(AM) )
 		if(!stat)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[icon2html(src, M)] Squeak!</span>")
-	..()
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability))

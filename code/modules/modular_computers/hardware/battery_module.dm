@@ -7,6 +7,9 @@
 	var/obj/item/stock_parts/cell/battery
 	device_type = MC_CELL
 
+/obj/item/computer_hardware/battery/get_cell()
+	return battery
+
 /obj/item/computer_hardware/battery/Initialize(mapload, battery_type)
 	. = ..()
 	if(battery_type)
@@ -17,8 +20,8 @@
 	return ..()
 
 ///What happens when the battery is removed (or deleted) from the module, through try_eject() or not.
-/obj/item/computer_hardware/battery/Exited(atom/A, atom/newloc)
-	if(A == battery)
+/obj/item/computer_hardware/battery/Exited(atom/movable/gone, atom/newloc)
+	if(gone == battery)
 		try_eject(0, null, TRUE)
 	return ..()
 

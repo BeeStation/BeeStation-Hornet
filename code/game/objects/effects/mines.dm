@@ -97,6 +97,13 @@
 	var/disarm_time = 200
 	var/disarm_product = /obj/item/deployablemine // ie what drops when the mine is disarmed
 
+/obj/effect/mine/Initialize()
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/effect/mine/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/multitool))
 		to_chat(user, "<span class='notice'>You begin to disarm the [src]...</span>")
@@ -108,14 +115,15 @@
 /obj/effect/mine/proc/mineEffect(mob/victim)
 	to_chat(victim, "<span class='danger'>*click*</span>")
 
-/obj/effect/mine/Crossed(atom/movable/AM as mob|obj)
+/obj/effect/mine/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
 	if(!isturf(loc) || AM.throwing || (AM.movement_type & (FLYING | FLOATING)) || !AM.has_gravity())
 		return
-	. = ..()
 	if(ismob(AM))
 		checksmartmine(AM)
 	else
-		triggermine(AM)
+		INVOKE_ASYNC(src, .proc/triggermine, AM)
 
 /obj/effect/mine/proc/checksmartmine(mob/target)
 	if(target)
@@ -352,6 +360,8 @@
 		return
 	to_chat(victim, "<span class='notice'>You feel fast!</span>")
 	victim.add_movespeed_modifier(MOVESPEED_ID_YELLOW_ORB, update=TRUE, priority=100, multiplicative_slowdown=-2, blacklisted_movetypes=(FLYING|FLOATING))
-	sleep(duration)
+	addtimer(CALLBACK(src, .proc/finish_effect, victim), duration)
+
+/obj/effect/mine/pickup/speed/proc/finish_effect(mob/living/carbon/victim)
 	victim.remove_movespeed_modifier(MOVESPEED_ID_YELLOW_ORB)
 	to_chat(victim, "<span class='notice'>You slow down.</span>")
