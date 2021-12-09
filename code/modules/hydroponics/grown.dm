@@ -47,7 +47,7 @@
 		seed.prepare_result(src)
 		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 		add_juice()
-	
+
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
 
@@ -122,9 +122,9 @@
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target)
-	reagents.reaction(T)
+	reagents.expose(T)
 	for(var/A in T)
-		reagents.reaction(A)
+		reagents.expose(A)
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/squashreact()

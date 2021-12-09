@@ -54,8 +54,8 @@
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, M, "<span class='notice'>[makes_me_think]</span>"), 5 SECONDS)
 
 	if(reagents.total_volume)
-		reagents.reaction(M, apply_type)
-		reagents.trans_to(M, reagents.total_volume, transfered_by = user)
+		reagents.expose(M, apply_type)
+		reagents.trans_to(M, reagents.total_volume, transfered_by = user, methods = apply_type)
 	qdel(src)
 	return TRUE
 
@@ -75,7 +75,7 @@
 		return
 
 	user.visible_message("<span class='warning'>[user] slips something into [target]!</span>", "<span class='notice'>You dissolve [src] in [target].</span>", null, 2)
-	reagents.trans_to(target, reagents.total_volume, transfered_by = user)
+	reagents.trans_to(M, reagents.total_volume, transfered_by = user, methods = INGEST)
 	qdel(src)
 
 /obj/item/reagent_containers/pill/tox

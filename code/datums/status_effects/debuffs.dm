@@ -180,14 +180,14 @@
 /datum/status_effect/syringe/on_apply()
 	. = ..()
 	var/amount = syringe.initial_inject
-	syringe.reagents.reaction(owner, INJECT)
+	syringe.reagents.expose(owner, INJECT)
 	syringe.reagents.trans_to(owner, max(3.1, amount * injectmult))
 	owner.throw_alert("syringealert", /atom/movable/screen/alert/syringe)
 
 /datum/status_effect/syringe/tick()
 	. = ..()
 	var/amount = syringe.units_per_tick
-	syringe.reagents.reaction(owner, INJECT, amount / 10)//so the slow drip-feed of reagents isn't exploited
+	syringe.reagents.expose(owner, INJECT, amount / 10)//so the slow drip-feed of reagents isn't exploited
 	syringe.reagents.trans_to(owner, amount * injectmult)
 
 
@@ -222,7 +222,7 @@
 			else
 				to_chat(C, "<span class='userdanger'>You screw up, and inject yourself with more chemicals by mistake!</span>")
 				var/amount = syringe.initial_inject
-				syringe.reagents.reaction(C, INJECT)
+				syringe.reagents.expose(C, INJECT)
 				syringe.reagents.trans_to(C, amount)
 				syringe.forceMove(C.loc)
 				qdel(syringestatus)

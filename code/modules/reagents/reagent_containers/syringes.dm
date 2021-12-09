@@ -125,7 +125,7 @@
 					balloon_alert(user, "You can't remove its reagents")
 					return
 
-				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user) // transfer from, transfer to - who cares?
+				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user, methods = INJECT) // transfer from, transfer to - who cares?
 
 				to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the solution. It now contains [reagents.total_volume] units.</span>")
 				balloon_alert(user, "You fill [src] with [trans]u")
@@ -186,8 +186,8 @@
 					L.log_message("injected themselves ([contained]) with [src.name]", LOG_ATTACK, color="orange")
 				transfer_diseases(L)
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
-			reagents.reaction(L, INJECT, fraction)
-			reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
+			reagents.expose(L, INJECT, fraction)
+			reagents.trans_to(M, round(reagents.total_volume*(2/3)), transfered_by = user, methods = INJECT)
 			balloon_alert(user, "[amount_per_transfer_from_this]u injected")
 			to_chat(user, "<span class='notice'>You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
 			if (reagents.total_volume <= 0 && mode==SYRINGE_INJECT)

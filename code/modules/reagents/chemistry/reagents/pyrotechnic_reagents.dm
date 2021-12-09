@@ -7,7 +7,7 @@
 	taste_description = "sweet tasting metal"
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/thermite/reaction_turf(turf/T, reac_volume)
+/datum/reagent/thermite/expose_turf(turf/T, reac_volume)
 	if(reac_volume >= 1)
 		T.AddComponent(/datum/component/thermite, reac_volume)
 
@@ -46,7 +46,7 @@
 	..()
 	return TRUE
 
-/datum/reagent/clf3/reaction_turf(turf/T, reac_volume)
+/datum/reagent/clf3/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	if(isplatingturf(T))
 		var/turf/open/floor/plating/F = T
 		if(prob(10 + F.burnt + 5*F.broken)) //broken or burnt plating is more susceptible to being destroyed
@@ -66,9 +66,9 @@
 		if(prob(reac_volume))
 			W.ScrapeAway()
 
-/datum/reagent/clf3/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/clf3/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	if(istype(M))
-		if(method != INGEST && method != INJECT)
+		if(methods & (TOUCH|VAPOR|PATCH))
 			M.adjust_fire_stacks(min(reac_volume/5, 10))
 			M.IgniteMob()
 			if(!locate(/obj/effect/hotspot) in M.loc)
@@ -138,7 +138,7 @@
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/phlogiston/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/phlogiston/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	M.adjust_fire_stacks(1)
 	var/burndmg = max(0.3*M.fire_stacks, 0.3)
 	M.adjustFireLoss(burndmg, 0)
@@ -165,9 +165,9 @@
 	M.adjust_fire_stacks(1)
 	..()
 
-/datum/reagent/napalm/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+/datum/reagent/napalm/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	if(istype(M))
-		if(method != INGEST && method != INJECT)
+		if(methods & (TOUCH|VAPOR|PATCH))
 			M.adjust_fire_stacks(min(reac_volume/4, 20))
 
 /datum/reagent/cryostylane
@@ -187,7 +187,7 @@
 		M.adjust_bodytemperature(-15)
 	..()
 
-/datum/reagent/cryostylane/reaction_turf(turf/T, reac_volume)
+/datum/reagent/cryostylane/expose_turf(turf/T, reac_volume)
 	if(reac_volume >= 5)
 		for(var/mob/living/simple_animal/slime/M in T)
 			M.adjustToxLoss(rand(15,30))
@@ -274,7 +274,7 @@
 	color = "#A6FAFF55"
 	taste_description = "the inside of a fire extinguisher"
 
-/datum/reagent/firefighting_foam/reaction_turf(turf/open/T, reac_volume)
+/datum/reagent/firefighting_foam/expose_turf(turf/open/T, reac_volume)
 	if (!istype(T))
 		return
 
@@ -294,11 +294,11 @@
 			G.react(src)
 			qdel(hotspot)
 
-/datum/reagent/firefighting_foam/reaction_obj(obj/O, reac_volume)
+/datum/reagent/firefighting_foam/expose_obj(obj/O, reac_volume)
 	O.extinguish()
 
-/datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(method in list(VAPOR, TOUCH))
+/datum/reagent/firefighting_foam/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+	if(methods & (TOUCH|VAPOR))
 		M.adjust_fire_stacks(-reac_volume)
 		M.ExtinguishMob()
 	..()

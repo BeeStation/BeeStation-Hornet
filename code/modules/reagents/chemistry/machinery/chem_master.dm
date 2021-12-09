@@ -10,15 +10,13 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_master
 
-
-
 	var/obj/item/reagent_containers/beaker = null
 	var/obj/item/storage/pill_bottle/bottle = null
 	var/mode = 1
 	var/condi = FALSE
 	var/chosenPillStyle = 1
 	var/screen = "home"
-	var/analyzeVars[0]
+	var/analyze_vars[0]
 	var/useramount = 30 // Last used amount
 	var/list/pillStyles = null
 
@@ -172,12 +170,12 @@
 /obj/machinery/chem_master/ui_data(mob/user)
 	var/list/data = list()
 	data["isBeakerLoaded"] = beaker ? 1 : 0
-	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
+	data["beakerCurrentVolume"] = beaker ? round(beaker.reagents.total_volume, 0.01) : null
 	data["beakerMaxVolume"] = beaker ? beaker.volume : null
 	data["mode"] = mode
 	data["condi"] = condi
 	data["screen"] = screen
-	data["analyzeVars"] = analyzeVars
+	data["analyze_vars"] = analyze_vars
 	data["chosenPillStyle"] = chosenPillStyle
 	data["isPillBottleLoaded"] = bottle ? 1 : 0
 	if(bottle)
@@ -188,13 +186,13 @@
 	var/beakerContents[0]
 	if(beaker)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "id" = ckey(R.name), "volume" = R.volume))) // list in a list because Byond merges the first list...
+			beaker_contents.Add(list(list("name" = R.name, "id" = ckey(R.name), "volume" = round(R.volume, 0.01)))) // list in a list because Byond merges the first list...
 	data["beakerContents"] = beakerContents
 
 	var/bufferContents[0]
 	if(reagents.total_volume)
 		for(var/datum/reagent/N in reagents.reagent_list)
-			bufferContents.Add(list(list("name" = N.name, "id" = ckey(N.name), "volume" = N.volume))) // ^
+			buffer_contents.Add(list(list("name" = N.name, "id" = ckey(N.name), "volume" = round(N.volume, 0.01)))) // ^
 	data["bufferContents"] = bufferContents
 
 	//Calculated at init time as it never changes
@@ -217,8 +215,6 @@
 			bottle = null
 			. = TRUE
 		if("transfer")
-			if(!beaker)
-				return
 			var/reagent = GLOB.name2reagent[params["id"]]
 			var/amount = text2num(params["amount"])
 			var/to_container = params["to"]
@@ -229,15 +225,21 @@
 					name, ""))
 			if (amount == null || amount <= 0)
 				return
-			if (to_container == "buffer")
-				beaker.reagents.trans_id_to(src, reagent, amount)
-				. = TRUE
-			else if (to_container == "beaker" && mode)
-				reagents.trans_id_to(beaker, reagent, amount)
-				. = TRUE
-			else if (to_container == "beaker" && !mode)
+			if (to_container == "beaker" && !mode)
 				reagents.remove_reagent(reagent, amount)
-				. = TRUE
+				return TRUE
+			if (!beaker)
+				return FALSE
+			if (to_container == "buffer")
+				var/datum/reagent/R = beaker.reagents.get_reagent(reagent)
+				if(!check_reactions(R, beaker.reagents))
+					return FALSE
+			else if (to_container == "beaker" && mode)
+				var/datum/reagent/R = reagents.get_reagent(reagent)
+				if(!check_reactions(R, reagents))
+					return FALSE
+				reagents.trans_id_to(beaker, reagent, amount)
+				return TRUE
 		if("toggleMode")
 			mode = !mode
 			. = TRUE
@@ -255,7 +257,7 @@
 				amount = text2num(input(usr,
 					"Max 10. Buffer content will be split evenly.",
 					"How many to make?", 1))
-			amount = clamp(round(amount), 0, 10)
+			vol_each = round(clamp(vol_each, 0, vol_each_max), 0.01)
 			if (amount <= 0)
 				return
 			// Get units per item
@@ -369,7 +371,7 @@
 					state = "Gas"
 				var/const/P = 3 //The number of seconds between life ticks
 				var/T = initial(R.metabolization_rate) * (60 / P)
-				analyzeVars = list("name" = initial(R.name), "state" = state, "color" = initial(R.color), "description" = initial(R.description), "metaRate" = T, "overD" = initial(R.overdose_threshold), "addicD" = initial(R.addiction_threshold))
+				analyze_vars = list("name" = initial(R.name), "state" = state, "color" = initial(R.color), "description" = initial(R.description), "metaRate" = T, "overD" = initial(R.overdose_threshold), "addicD" = initial(R.addiction_threshold), "pH" = initial(R.ph))
 				screen = "analyze"
 				. = TRUE
 		if("goScreen")
@@ -409,6 +411,25 @@
 		. = . % 9
 		AM.pixel_x = ((.%3)*6)
 		AM.pixel_y = -8 + (round( . / 3)*8)
+
+//Checks to see if the target reagent is being created (reacting) and if so prevents transfer
+//Only prevents reactant from being moved so that people can still manlipulate input reagents
+/obj/machinery/chem_master/proc/check_reactions(datum/reagent/reagent, datum/reagents/holder)
+	if(!reagent)
+		return FALSE
+	var/canMove = TRUE
+	for(var/e in holder.reaction_list)
+		var/datum/equilibrium/E = e
+		if(E.reaction.reaction_flags & REACTION_COMPETITIVE)
+			continue
+		for(var/result in E.reaction.required_reagents)
+			var/datum/reagent/R = result
+			if(R == reagent.type)
+				canMove = FALSE
+	if(!canMove)
+		say("Cannot move arrested chemical reaction reagents!")
+	return canMove
+
 
 /obj/machinery/chem_master/condimaster
 	name = "CondiMaster 3000"

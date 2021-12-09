@@ -29,6 +29,12 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/list/data
 	var/current_cycle = 0
 	var/volume = 0									//pretend this is moles
+	/// pH of the reagent
+	var/ph = 7
+	///Purity of the reagent - for use with internal reaction mechanics only. Use below (creation_purity) if you're writing purity effects into a reagent's use mechanics.
+	var/purity = 1
+	///the purity of the reagent on creation (i.e. when it's added to a mob and it's purity split it into 2 chems; the purity of the resultant chems are kept as 1, this tracks what the purity was before that)
+	var/creation_purity = 1
 	var/color = "#000000" // rgb: 0, 0, 0
 	var/can_synth = TRUE // can this reagent be synthesized? (for example: odysseus syringe gun)
 	var/metabolization_rate = REAGENTS_METABOLISM //how fast the reagent is metabolized by the mob
@@ -42,15 +48,34 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/self_consuming = FALSE
 	var/reagent_weight = 1 //affects how far it travels when sprayed
 	var/metabolizing = FALSE
+	/// See fermi_readme.dm REAGENT_DEAD_PROCESS, REAGENT_DONOTSPLIT, REAGENT_INVISIBLE, REAGENT_SNEAKYNAME, REAGENT_SPLITRETAINVOL
+	var/chemical_flags = NONE
+	///impure chem values (see fermi_readme.dm for more details on impure/inverse/failed mechanics):
+	/// What chemical path is made when metabolised as a function of purity
+	var/impure_chem = /datum/reagent/impurity
+	/// If the impurity is below 0.5, replace ALL of the chem with inverse_chem upon metabolising
+	var/inverse_chem_val = 0.25
+	/// What chem is metabolised when purity is below inverse_chem_val
+	var/inverse_chem = /datum/reagent/impurity/toxic
+	///what chem is made at the end of a reaction IF the purity is below the recipies purity_min at the END of a reaction only
+	var/failed_chem = /datum/reagent/consumable/failed_reaction
 
 /datum/reagent/Destroy() // This should only be called by the holder, so it's already handled clearing its references
 	. = ..()
 	holder = null
 
-/datum/reagent/proc/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection = 0)
+/// Applies this reagent to an [/atom]
+/datum/reagent/proc/expose_atom(atom/A, volume)
+	SHOULD_CALL_PARENT(TRUE)
+
+	. = 0
+	. |= SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_ATOM, exposed_atom, reac_volume)
+	. |= SEND_SIGNAL(exposed_atom, COMSIG_ATOM_EXPOSE_REAGENT, src, reac_volume)
+
+/datum/reagent/proc/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message = 1, touch_protection = 0)
 	if(!istype(M))
 		return 0
-	if(method == VAPOR) //smoke, foam, spray
+	if(methods & VAPOR) //smoke, foam, spray
 		if(M.reagents)
 			var/modifier = CLAMP((1 - touch_protection), 0, 1)
 			var/amount = round(reac_volume*modifier, 0.1)
@@ -58,10 +83,10 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 				M.reagents.add_reagent(type, amount)
 	return 1
 
-/datum/reagent/proc/reaction_obj(obj/O, volume)
+/datum/reagent/proc/expose_obj(obj/O, volume)
 	return
 
-/datum/reagent/proc/reaction_turf(turf/T, volume)
+/datum/reagent/proc/expose_turf(turf/T, volume)
 	return
 
 /datum/reagent/proc/on_mob_life(mob/living/carbon/M)
@@ -69,36 +94,18 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
 	return
 
-/datum/reagent/proc/on_transfer(atom/A, method=TOUCH, trans_volume) //Called after a reagent is transfered
+/*
+Used to run functions before a reagent is transfered. Returning TRUE will block the transfer attempt.
+Primarily used in reagents/reaction_agents
+*/
+/datum/reagent/proc/intercept_reagents_transfer(datum/reagents/target)
+	return FALSE
+
+/datum/reagent/proc/on_transfer(atom/A, methods=TOUCH, trans_volume)
 	return
 
-/datum/reagents/proc/react_single(datum/reagent/R, atom/A, method = TOUCH, volume_modifier = 1, show_message = TRUE)
-	var/react_type
-	if(isliving(A))
-		react_type = "LIVING"
-		if(method == INGEST)
-			var/mob/living/L = A
-			L.taste(src)
-	else if(isturf(A))
-		react_type = "TURF"
-	else if(isobj(A))
-		react_type = "OBJ"
-	else
-		return
-	switch(react_type)
-		if("LIVING")
-			var/touch_protection = 0
-			if(method == VAPOR)
-				var/mob/living/L = A
-				touch_protection = L.get_permeability_protection()
-			R.reaction_mob(A, method, R.volume * volume_modifier, show_message, touch_protection)
-		if("TURF")
-			R.reaction_turf(A, R.volume * volume_modifier, show_message)
-		if("OBJ")
-			R.reaction_obj(A, R.volume * volume_modifier, show_message)
-
 // Called when this reagent is first added to a mob
-/datum/reagent/proc/on_mob_add(mob/living/L)
+/datum/reagent/proc/on_mob_add(mob/living/L, amount)
 	return
 
 // Called when this reagent is removed while inside a mob
@@ -113,6 +120,15 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/on_mob_end_metabolize(mob/living/L)
 	return
 
+/// Called when a reagent is inside of a mob when they are dead
+/datum/reagent/proc/on_mob_dead(mob/living/carbon/C)
+	if(!(chemical_flags & REAGENT_DEAD_PROCESS))
+		return
+	current_cycle++
+	if(length(reagent_removal_skip_list))
+		return
+	holder.remove_reagent(type, metabolization_rate * C.metabolism_efficiency)
+
 /datum/reagent/proc/on_move(mob/M)
 	return
 
@@ -121,7 +137,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	return
 
 // Called when two reagents of the same are mixing.
-/datum/reagent/proc/on_merge(data)
+/datum/reagent/proc/on_merge(data, amount)
 	return
 
 /datum/reagent/proc/on_update(atom/A)

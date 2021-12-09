@@ -13,8 +13,9 @@
 	taste_description = "heaven"
 	color = "#C8A5DC"
 
-/datum/reagent/blob/regenerative_materia/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
-	reac_volume = ..()
+/datum/reagent/blob/regenerative_materia/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
+	. = ..()
+	reac_volume = return_mob_expose_reac_volume(exposed_mob, methods, reac_volume, show_message, touch_protection, overmind)
 	M.adjust_drugginess(reac_volume)
 	if(M.reagents)
 		M.reagents.add_reagent(/datum/reagent/blob/regenerative_materia, 0.2*reac_volume)

@@ -38,11 +38,11 @@
 		playsound(loc, 'sound/items/hypospray.ogg', 50, 1)
 
 		var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
-		reagents.reaction(M, INJECT, fraction)
+		reagents.expose(M, INJECT, fraction)
 		if(M.reagents)
 			var/trans = 0
 			if(!infinite)
-				trans = reagents.trans_to(M, amount_per_transfer_from_this, transfered_by = user)
+				trans = reagents.trans_to(M, amount_per_transfer_from_this, transfered_by = user, methods = INJECT)
 			else
 				trans = reagents.copy_to(M, amount_per_transfer_from_this)
 
@@ -61,7 +61,7 @@
 		return
 	if(isturf(usr.loc) && src.loc == usr)
 		to_chat(usr, "<span class='notice'>You empty \the [src] onto the floor.</span>")
-		reagents.reaction(usr.loc)
+		reagents.expose(usr.loc)
 		src.reagents.clear_reagents()
 /obj/item/reagent_containers/hypospray/CMO
 	list_reagents = list(/datum/reagent/medicine/omnizine = 30)
@@ -110,21 +110,6 @@
 	icon_state = "nanite_hypo"
 	list_reagents = list(/datum/reagent/mutationtoxin/supersoldier = 5)
 	possible_transfer_amounts = list()
-/*
-/obj/item/reagent_containers/hypospray/supersoldier/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
-	if(iscarbon(M) && M.stat != DEAD)
-		if(!ishumanbasic(M) || reac_volume < 5) // implying xenohumans are holy
-			if(method == INGEST && show_message)
-				to_chat(M, "<span class='notice'><i>You feel nothing, your DNA must not be compatible.</i></span>")
-			return ..()
-
-		to_chat(M, "<span class='userdanger'>A flare of pain washes over you as the nanites restructure your body!</span>")
-		M.set_species(/datum/species/human/supersoldier)
-		playsound(M.loc, 'sound/items/poster_ripped.ogg', 50, 1, -1)
-		M.adjustBruteLoss(10)
-		M.emote("scream")
-	..()
-	*/
 
 //MediPens
 

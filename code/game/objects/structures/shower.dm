@@ -134,7 +134,7 @@
 
 /obj/machinery/shower/proc/wash_atom(atom/A)
 	SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
-	reagents.reaction(A, TOUCH, reaction_volume)
+	reagents.expose(A, TOUCH, reaction_volume)
 
 	if(isobj(A))
 		wash_obj(A)
