@@ -1,4 +1,4 @@
-b//predominantly negative traits
+//predominantly negative traits
 
 /datum/quirk/badback
 	name = "Bad Back"
