@@ -112,8 +112,8 @@
 	if(affecting && (!IS_ORGANIC_LIMB(affecting)) && user.a_intent != INTENT_HARM)
 		if(src.use_tool(H, user, 0, volume=50, amount=1))
 			if(user == H)
-				user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [H]'s [affecting.name].</span>",
-					"<span class='notice'>You start fixing some of the dents on [H == user ? "your" : "[H]'s"] [affecting.name].</span>")
+				user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [H]'s [parse_zone(affecting.body_zone)].</span>",
+					"<span class='notice'>You start fixing some of the dents on [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)].</span>")
 				if(!do_mob(user, H, 50))
 					return
 			item_heal_robotic(H, user, 15, 0)
