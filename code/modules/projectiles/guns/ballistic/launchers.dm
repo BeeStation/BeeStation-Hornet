@@ -14,7 +14,6 @@
 	bolt_type = BOLT_TYPE_NO_BOLT
 	weapon_weight = WEAPON_MEDIUM
 	fire_rate = 2
-	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/unrestricted
 	pin = /obj/item/firing_pin

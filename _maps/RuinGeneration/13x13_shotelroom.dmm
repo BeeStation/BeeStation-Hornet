@@ -115,7 +115,6 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "C" = (
-/obj/item/dnainjector/mindread,
 /obj/structure/table/glass,
 /obj/structure/sign/departments/minsky/research/genetics{
 	pixel_y = 32
@@ -142,7 +141,6 @@
 /area/ruin/unpowered)
 "G" = (
 /obj/structure/table/glass,
-/obj/item/dnainjector/mindread,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "H" = (

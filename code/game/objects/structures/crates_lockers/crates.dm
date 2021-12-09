@@ -1,3 +1,7 @@
+/* 	Important Info for anyone that wants to make new crates if the open sprite of the crate has a uniform color then you just
+	have to mirror it once in the x and y axis to get the back sprite but if there are any details like writing icons etc in the sprite (like for example the engineering electricity crate) then you
+	have to do the stuff i mentioned first and then mirror the details yet again by selecting them respectivly independently from the rest of the sprite in the x axis.
+	You may also have to adjust the position of the sprite to match the crate in DM.*/
 /obj/structure/closet/crate
 	name = "crate"
 	desc = "A rectangular steel crate."
@@ -33,15 +37,15 @@
 	if(!door_anim_time == 0 && !animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"])
 		animation_list()
 
-/obj/structure/closet/crate/CanPass(atom/movable/mover, turf/target)
+/obj/structure/closet/crate/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(!istype(mover, /obj/structure/closet))
 		var/obj/structure/closet/crate/locatedcrate = locate(/obj/structure/closet/crate) in get_turf(mover)
 		if(locatedcrate) //you can walk on it like tables, if you're not in an open crate trying to move to a closed crate
 			if(opened) //if we're open, allow entering regardless of located crate openness
-				return 1
+				return TRUE
 			if(!locatedcrate.opened) //otherwise, if the located crate is closed, allow entering
-				return 1
-	return !density
+				return TRUE
 
 /obj/structure/closet/crate/update_icon()
 	cut_overlays()

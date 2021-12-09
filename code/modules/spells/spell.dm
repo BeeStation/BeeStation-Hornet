@@ -153,6 +153,14 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 	var/centcom_cancast = TRUE //Whether or not the spell should be allowed on z2
 
+
+	/// Typecache of clothing needed to cast the spell. Used in actual checks. Override in Initialize if your spell requires different clothing.
+	/// !!Shared between instances, make a copy to modify.
+	var/list/casting_clothes
+
+	/// Base typecache of clothing needed to cast spells. Do not modify, make a separate static var in subtypes if necessary.
+	var/static/list/casting_clothes_base
+
 	action_icon = 'icons/mob/actions/actions_spells.dmi'
 	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_spell"
@@ -204,13 +212,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		if((invocation_type == "whisper" || invocation_type == "shout") && !H.can_speak_vocal())
 			to_chat(user, "<span class='notice'>You can't get the words out!</span>")
 			return FALSE
-
-		var/list/casting_clothes = typecacheof(list(/obj/item/clothing/suit/wizrobe,
-		/obj/item/clothing/suit/space/hardsuit/wizard,
-		/obj/item/clothing/head/wizard,
-		/obj/item/clothing/head/helmet/space/hardsuit/wizard,
-		/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
-		/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard))
 
 		if(clothes_req) //clothes check
 			if(!is_type_in_typecache(H.wear_suit, casting_clothes))
@@ -281,6 +282,16 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 /obj/effect/proc_holder/spell/Initialize()
 	. = ..()
+
+	if(!casting_clothes_base)
+		casting_clothes_base = typecacheof(list(/obj/item/clothing/suit/wizrobe,
+			/obj/item/clothing/suit/space/hardsuit/wizard,
+			/obj/item/clothing/head/wizard,
+			/obj/item/clothing/head/helmet/space/hardsuit/wizard,
+			/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
+			/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard))
+
+	casting_clothes = casting_clothes_base
 
 	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
 	charge_counter = charge_max

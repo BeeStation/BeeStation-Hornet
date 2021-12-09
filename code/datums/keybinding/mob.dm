@@ -68,8 +68,12 @@
 	name = "face_north"
 	full_name = "Face North"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_FACENORTH_DOWN
 
 /datum/keybinding/mob/face_north/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.northface()
@@ -81,8 +85,12 @@
 	name = "face_east"
 	full_name = "Face East"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_FACEEAST_DOWN
 
 /datum/keybinding/mob/face_east/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.eastface()
@@ -94,8 +102,12 @@
 	name = "face_south"
 	full_name = "Face South"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_FACESOUTH_DOWN
 
 /datum/keybinding/mob/face_south/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.southface()
@@ -106,8 +118,12 @@
 	name = "face_west"
 	full_name = "Face West"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_FACEWEST_DOWN
 
 /datum/keybinding/mob/face_west/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.westface()
@@ -118,8 +134,12 @@
 	name = "stop_pulling"
 	full_name = "Stop pulling"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_STOPPULLING_DOWN
 
 /datum/keybinding/mob/stop_pulling/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	var/mob/M = user.mob
 	if (!M.pulling)
@@ -133,8 +153,12 @@
 	name = "cycle_intent_right"
 	full_name = "Cycle Intent Right"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_CYCLEINTENTRIGHT_DOWN
 
 /datum/keybinding/mob/cycle_intent_right/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.a_intent_change(INTENT_HOTKEY_RIGHT)
@@ -145,8 +169,12 @@
 	name = "cycle_intent_left"
 	full_name = "Cycle Intent Left"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_CYCLEINTENTLEFT_DOWN
 
 /datum/keybinding/mob/cycle_intent_left/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.a_intent_change(INTENT_HOTKEY_LEFT)
@@ -157,8 +185,12 @@
 	name = "swap_hands"
 	full_name = "Swap hands"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_SWAPHANDS_DOWN
 
 /datum/keybinding/mob/swap_hands/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	user.mob.swap_hand()
 	return TRUE
@@ -168,8 +200,12 @@
 	name = "activate_inhand"
 	full_name = "Activate in-hand"
 	description = "Uses whatever item you have inhand"
+	keybind_signal = COMSIG_KB_MOB_ACTIVATEINHAND_DOWN
 
 /datum/keybinding/mob/activate_inhand/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.mode()
@@ -180,8 +216,12 @@
 	name = "drop_item"
 	full_name = "Drop Item"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_DROPITEM_DOWN
 
 /datum/keybinding/mob/drop_item/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	var/mob/M = user.mob
 	var/obj/item/I = M.get_active_held_item()
@@ -196,8 +236,12 @@
 	name = "toggle_move_intent"
 	full_name = "Hold to toggle move intent"
 	description = "Held down to cycle to the other move intent, release to cycle back"
+	keybind_signal = COMSIG_KB_MOB_TOGGLEMOVEINTENT_DOWN
 
 /datum/keybinding/mob/toggle_move_intent/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	var/mob/M = user.mob
 	M.toggle_move_intent()
@@ -214,6 +258,7 @@
 	name = "toggle_move_intent_alt"
 	full_name = "press to cycle move intent"
 	description = "Pressing this cycle to the opposite move intent, does not cycle back"
+	keybind_signal = COMSIG_KB_MOB_TOGGLEMOVEINTENTALT_DOWN
 
 /datum/keybinding/mob/toggle_move_intent_alternative/down(client/user)
 	. = ..()
@@ -228,8 +273,12 @@
 	name = "target_head_cycle"
 	full_name = "Target: Cycle head"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_TARGETCYCLEHEAD_DOWN
 
 /datum/keybinding/mob/target_head_cycle/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	user.body_toggle_head()
 	return TRUE
@@ -239,8 +288,12 @@
 	name = "target_r_arm"
 	full_name = "Target: right arm"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_TARGETRIGHTARM_DOWN
 
 /datum/keybinding/mob/target_r_arm/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	user.body_r_arm()
 	return TRUE
@@ -250,8 +303,12 @@
 	name = "target_body_chest"
 	full_name = "Target: Body"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_TARGETBODYCHEST_DOWN
 
 /datum/keybinding/mob/target_body_chest/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	user.body_chest()
 	return TRUE
@@ -261,8 +318,12 @@
 	name = "target_left_arm"
 	full_name = "Target: left arm"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_TARGETLEFTARM_DOWN
 
 /datum/keybinding/mob/target_left_arm/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	user.body_l_arm()
 	return TRUE
@@ -272,8 +333,12 @@
 	name = "target_right_leg"
 	full_name = "Target: Right leg"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_TARGETRIGHTLEG_DOWN
 
 /datum/keybinding/mob/target_right_leg/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	user.body_r_leg()
 	return TRUE
@@ -283,8 +348,12 @@
 	name = "target_body_groin"
 	full_name = "Target: Groin"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_TARGETBODYGROIN_DOWN
 
 /datum/keybinding/mob/target_body_groin/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	user.body_groin()
 	return TRUE
@@ -294,8 +363,12 @@
 	name = "target_left_leg"
 	full_name = "Target: left leg"
 	description = ""
+	keybind_signal = COMSIG_KB_MOB_TARGETLEFTLEG_DOWN
 
 /datum/keybinding/mob/target_left_leg/down(client/user)
+	. = ..()
+	if(.)
+		return
 	if(!user.mob) return
 	user.body_l_leg()
 	return TRUE
@@ -305,6 +378,7 @@
 	name = "block_movement"
 	full_name = "Block movement"
 	description = "While pressed, prevents movement when pressing directional keys; instead just changes your facing direction"
+	keybind_signal = COMSIG_KB_MOB_PREVENTMOVEMENT_DOWN
 
 /datum/keybinding/mob/prevent_movement/down(client/user)
 	. = ..()
