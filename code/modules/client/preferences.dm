@@ -75,6 +75,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/underwear_color = "000"			//underwear color
 	var/undershirt = "Nude"				//undershirt type
 	var/socks = "Nude"					//socks type
+	var/helmet_style = HELMET_DEFAULT
 	var/backbag = DBACKPACK				//backpack type
 	var/jumpsuit_style = PREF_SUIT		//suit/skirt
 	var/hair_style = "Bald"				//Hair type
@@ -89,7 +90,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							"ears" = "None", "wings" = "None", "frills" = "None", "spines" = "None",
 							"body_markings" = "None", "legs" = "Normal Legs", "moth_wings" = "Plain",
 							"ipc_screen" = "Blue", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)",
-							"insect_type" = "Common Fly", "helmet_style" = HELMET_DEFAULT)
+							"insect_type" = "Common Fly")
 
 	var/list/custom_names = list()
 	var/preferred_ai_core_display = "Blue"
@@ -297,7 +298,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				dat += "<h3>Plasmaman helmet style</h3>"
 
-				dat += "<a href='?_src_=prefs;preference=helmet_style;task=input'>[features["helmet_style"]]</a><BR>"
+				dat += "<a href='?_src_=prefs;preference=helmet_style;task=input'>[helmet_style]</a><BR>"
 
 			if((EYECOLOR in pref_species.species_traits) && !(NOEYESPRITES in pref_species.species_traits))
 
@@ -1499,7 +1500,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("helmet_style")
 					var/style = input(user, "Choose your helmet style", "Character Preference") as null|anything in list(HELMET_DEFAULT, HELMET_MK2, HELMET_PROTECTIVE)
 					if(style)
-						features["helmet_style"] = style
+						helmet_style = style
 
 				if("tail_lizard")
 					var/new_tail

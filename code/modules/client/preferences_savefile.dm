@@ -5,7 +5,7 @@
 //	You do not need to raise this if you are adding new values that have sane defaults.
 //	Only raise this value when changing the meaning/format/name/layout of an existing value
 //	where you would want the updater procs below to run
-#define SAVEFILE_VERSION_MAX	35
+#define SAVEFILE_VERSION_MAX	36
 
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
@@ -69,6 +69,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		S.dir.Remove("overhead_chat")
 	if(current_version < 35)
 		see_balloon_alerts = BALLOON_ALERT_ALWAYS
+	if(current_version < 36)
+		WRITE_FILE(S["helmet_style"], HELMET_DEFAULT)
 	return
 
 /datum/preferences/proc/update_character(current_version, savefile/S)
@@ -141,8 +143,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	if(current_version < 27)
 		if (!(underwear in GLOB.underwear_list))
 			underwear = "Nude"
-	if(current_version < 28)
-		WRITE_FILE(S["helmet_style"], HELMET_DEFAULT)
 
 /datum/preferences/proc/load_path(ckey,filename="preferences.sav")
 	if(!ckey)
@@ -356,9 +356,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	if(!S["feature_ethcolor"] || S["feature_ethcolor"] == "#000")
 		WRITE_FILE(S["feature_ethcolor"]	, "9c3030")
 
-	if(!S["helmet_style"])
-		S["helmet_style"] = HELMET_DEFAULT
-
 	//Character
 	READ_FILE(S["real_name"], real_name)
 	READ_FILE(S["name_is_always_random"], be_random_name)
@@ -380,7 +377,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["uplink_loc"], uplink_spawn_loc)
 	READ_FILE(S["feature_mcolor"], features["mcolor"])
 	READ_FILE(S["feature_ethcolor"], features["ethcolor"])
-	READ_FILE(S["helmet_style"], features["helmet_style"])
+	READ_FILE(S["helmet_style"], helmet_style)
 	READ_FILE(S["feature_lizard_tail"], features["tail_lizard"])
 	READ_FILE(S["feature_lizard_snout"], features["snout"])
 	READ_FILE(S["feature_lizard_horns"], features["horns"])
@@ -439,8 +436,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	if(!features["ethcolor"] || features["ethcolor"] == "#000")
 		features["ethcolor"] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
 
-	if(!features["helmet_style"])
-		features["helmet_style"] = HELMET_DEFAULT
+	if(!helmet_style)
+		helmet_style = HELMET_DEFAULT
 
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
 	be_random_body	= sanitize_integer(be_random_body, 0, 1, initial(be_random_body))
@@ -533,7 +530,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["species"]			, pref_species.id)
 	WRITE_FILE(S["feature_mcolor"]					, features["mcolor"])
 	WRITE_FILE(S["feature_ethcolor"]					, features["ethcolor"])
-	WRITE_FILE(S["helmet_style"], 					features["helmet_style"])
+	WRITE_FILE(S["helmet_style"], 					helmet_style)
 	WRITE_FILE(S["feature_lizard_tail"]			, features["tail_lizard"])
 	WRITE_FILE(S["feature_human_tail"]				, features["tail_human"])
 	WRITE_FILE(S["feature_lizard_snout"]			, features["snout"])
