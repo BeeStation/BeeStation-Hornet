@@ -12,6 +12,8 @@
 #define LAZYINITLIST(L) if (!L) L = list()
 #define UNSETEMPTY(L) if (L && !length(L)) L = null
 #define LAZYCOPY(L) (L ? L.Copy() : list() )
+///Like LAZYCOPY - copies an input list if the list has entries, If it doesn't the assigned list is nulled
+#define LAZYLISTDUPLICATE(L) (L ? L.Copy() : null )
 #define LAZYREMOVE(L, I) if(L) { L -= I; if(!length(L)) { L = null; } }
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
 #define LAZYOR(L, I) if(!L) { L = list(); } L |= I;
@@ -21,6 +23,8 @@
 #define LAZYLEN(L) length(L) // should only be used for lazy lists. Using this with non-lazy lists is bad
 #define LAZYCLEARLIST(L) if(L) L.Cut()
 #define SANITIZE_LIST(L) ( islist(L) ? L : list() )
+///Sets a list to null
+#define LAZYNULL(L) L = null
 #define reverseList(L) reverseRange(L.Copy())
 #define LAZYADDASSOC(L, K, V) if(!L) { L = list(); } L[K] += V;
 ///This is used to add onto lazy assoc list when the value you're adding is a /list/. This one has extra safety over lazyaddassoc because the value could be null (and thus cant be used to += objects)

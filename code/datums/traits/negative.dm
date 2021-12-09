@@ -173,7 +173,7 @@
 			if("Paramedic")
 				heirloom_type = pick(/obj/item/bodybag)
 			if("Chemist")
-				heirloom_type = /obj/item/book/manual/wiki/chemistry
+				heirloom_type = pick(/obj/item/book/manual/wiki/chemistry, /obj/item/ph_booklet)
 			if("Virologist")
 				heirloom_type = /obj/item/reagent_containers/dropper
 			if("Geneticist")

@@ -163,7 +163,8 @@ God bless America.
 		reagents.reaction(C, TOUCH)
 		log_combat(user, C, "fryer slammed")
 		C.apply_damage(min(30, reagents.total_volume), BURN, BODY_ZONE_HEAD)
-		reagents.remove_any((reagents.total_volume/2))
+		if(reagents.reagent_list) //This can runtime if reagents has nothing in it.
+			reagents.remove_any((reagents.total_volume/2))
 		C.Paralyze(60)
 		user.changeNext_move(CLICK_CD_MELEE)
 	return ..()

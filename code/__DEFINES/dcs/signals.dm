@@ -342,7 +342,7 @@
 
 // /datum/song signals
 #define COMSIG_SONG_START 	"song_start"						//sent to the instrument when a song starts playing
-#define COMSIG_SONG_END		"song_end"	
+#define COMSIG_SONG_END		"song_end"
 
 /*******Component Specific Signals*******/
 //Janitor
@@ -534,3 +534,6 @@
 #define COMSIG_MOVABLE_LIGHT_OVERLAY_SET_COLOR "movable_light_overlay_set_range"
 ///Called when the movable tries to toggle its dynamic light LIGHTING_ON status, from base atom/movable/lighting_overlay_toggle_on(): (new_state)
 #define COMSIG_MOVABLE_LIGHT_OVERLAY_TOGGLE_ON "movable_light_overlay_toggle_on"
+
+///from base of [/datum/reagents/proc/process]: (num_reactions)
+#define COMSIG_REAGENTS_REACTION_STEP	"reagents_time_step"

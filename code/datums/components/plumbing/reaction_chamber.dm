@@ -37,12 +37,7 @@
 	//everything for every chemical removed, wich isn't a good option either.
 	RC.on_reagent_change() //We need to check it now, because some reactions leave nothing left.
 
-/datum/component/plumbing/reaction_chamber/can_give(amount, reagent, datum/ductnet/net)
-	. = ..()
-	var/obj/machinery/plumbing/reaction_chamber/RC = parent
-	if(!. || !RC.emptying)
-		return FALSE
-
-
-
-
+/datum/component/plumbing/reaction_chamber/transfer_to(datum/component/plumbing/target, amount, reagent, datum/ductnet/net)
+	if(reagents.is_reacting == TRUE) //Let the thing react in peace
+		return
+	return ..()

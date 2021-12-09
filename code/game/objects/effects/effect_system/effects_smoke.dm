@@ -257,7 +257,7 @@
 /datum/effect_system/smoke_spread/chem/New()
 	..()
 	chemholder = new /obj()
-	var/datum/reagents/R = new/datum/reagents(500)
+	var/datum/reagents/R = new (500, REAGENT_HOLDER_INSTANT_REACT) //This is a safety for now to prevent smoke generating more smoke as the smoke reagents react in the smoke. This is prevented naturally from happening even if this is off, but I want to be sure that any edge cases are prevented before I get a chance to rework smoke reactions (specifically adding water or reacting away stabilizing agent in the middle of it).
 	chemholder.reagents = R
 	R.my_atom = chemholder
 
@@ -282,7 +282,7 @@
 			contained = "\[[contained]\]"
 
 		var/where = "[AREACOORD(location)]"
-		if(carry.my_atom.fingerprintslast)
+		if(carry.my_atom?.fingerprintslast) //Some reagents don't have a my_atom in some cases
 			var/mob/M = get_mob_by_ckey(carry.my_atom.fingerprintslast)
 			var/more = ""
 			if(M)

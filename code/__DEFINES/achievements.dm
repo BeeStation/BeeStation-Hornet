@@ -19,6 +19,7 @@
 #define MEDAL_GHOSTS                  "G-G-Ghosts?"
 #define MEDAL_CLOWNCARKING            "Round and Full"
 #define MEDAL_THANKSALOT              "The Best Driver"
+#define MEDAL_CHEM_TUT          "Beginner Chemist"
 
 //Boss medals
 
