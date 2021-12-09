@@ -476,9 +476,9 @@
 // The Mark 2 variants of the standard envirohelms.
 /obj/item/clothing/head/helmet/space/plasmaman/mark2
 	name = "Mk.II envirosuit helmet"
-	desc = "A sleek new plasmaman containment helmet. This one is unpainted, showing off its sleek metallic frame."
-	icon_state = "openvirohelm"
-	item_state = "openvirohelm"
+	desc = "A sleek new plasmaman containment helmet, painted in classic Hazardous Orange."
+	icon_state = "assistant_openvirohelm"
+	item_state = "assistant_openvirohelm"
 	visor_icon = "openvisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/mark2
@@ -677,8 +677,8 @@
 /obj/item/clothing/head/helmet/space/plasmaman/protective
 	name = "protective envirosuit helmet"
 	desc = "This helmet was originally designed for engineering crews on the more ramshackle plasma mining colonies. Now, after several design improvements and class-action lawsuits, this helmet has been distributed once more as a fun cosmetic choice for NTs plasmafolk."
-	icon_state = "armouredenvirohelm"
-	item_state = "armouredenvirohelm"
+	icon_state = "assistant_armouredenvirohelm"
+	item_state = "assistant_armouredenvirohelm"
 	visor_icon = "armouredenvisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/protective
@@ -776,8 +776,8 @@
 /obj/item/clothing/head/helmet/space/plasmaman/white/protective
 	name = "white Mk.II envirosuit helmet"
 	desc = "The generic white envirohelm wrapped in a bulky, possibly more protective shell."
-	icon_state = "white_openvirohelm"
-	item_state = "white_openvirohelm"
+	icon_state = "white_armouredenvirohelm"
+	item_state = "white_armouredenvirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/botany/protective
 	name = "botany Mk.II envirosuit helmet"

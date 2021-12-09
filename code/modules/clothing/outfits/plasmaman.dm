@@ -4,7 +4,7 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/white
 	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2,
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/white/mark2,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/white/protective)
 
 /datum/outfit/plasmaman/magic
@@ -39,7 +39,7 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/white
 	uniform = /obj/item/clothing/under/plasmaman/chef
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2,
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/white/mark2,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/white/protective)
 
 /datum/outfit/plasmaman/botany
@@ -78,6 +78,15 @@
 	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/janitor/mark2,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/janitor/protective)
 
+/datum/outfit/plasmaman/lawyer
+	name = "Lawyer Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/white
+	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/white/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/white/protective)
+
 /datum/outfit/plasmaman/security
 	name = "Security Plasmaman"
 
@@ -96,8 +105,8 @@
 	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
 	ears = /obj/item/radio/headset/headset_sec
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/security/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/security/protective)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/white/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/white/protective)
 
 /datum/outfit/plasmaman/warden
 	name = "Warden Plasmaman"
