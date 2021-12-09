@@ -108,7 +108,7 @@
 	mood_quirk = TRUE
 	var/obj/item/heirloom
 	var/where
-	var/static/list/random_bedsheets = subtypesof(/obj/item/bedsheet)
+	var/static/list/random_bedsheets = subtypesof(/obj/item/bedsheet/random)
 	var/static/list/random_figures = subtypesof(/obj/item/toy/prize)
 	var/static/list/random_trashes = subtypesof(/obj/item/trash)
 
