@@ -258,9 +258,10 @@
 				src.active2 = null
 
 			else if(href_list["vir"])
-				var/datum/disease/type = text2path(href_list["vir"])
+				var/href_type = text2path(href_list["vir"])
+				var/datum/disease/type = href_type
 				var/AfS = ""
-				for(var/mob/M in initial(type.viable_mobtypes))
+				for(var/mob/M as() in initial(type.viable_mobtypes))
 					AfS += " [initial(M.name)];"
 				src.temp = {"<b>Name:</b> [initial(type.name)]
 <BR><b>Number of stages:</b> [initial(type.max_stages)]
