@@ -259,8 +259,9 @@
 
 			else if(href_list["vir"])
 				var/href_type = text2path(href_list["vir"])
-				var/datum/disease/type = href_type
-				src.temp = {"<b>Name:</b> [initial(type.name)]
+				if(ispath(href_type, /datum/disease))
+					  var/datum/disease/type = href_type
+					  src.temp = {"<b>Name:</b> [initial(type.name)]
 <BR><b>Number of stages:</b> [initial(type.max_stages)]
 <BR><b>Spread:</b> [initial(type.spread_text)] Transmission
 <BR><b>Possible Cure:</b> [(initial(type.cure_text)||"none")]
