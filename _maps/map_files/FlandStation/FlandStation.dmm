@@ -35463,7 +35463,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 9
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "ihU" = (
 /obj/effect/turf_decal/stripes/line{
@@ -41267,7 +41267,7 @@
 	dir = 8
 	},
 /obj/machinery/light/small,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "jAW" = (
 /obj/structure/chair/comfy/black{
@@ -58941,7 +58941,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "nYg" = (
 /obj/structure/table,
@@ -66784,7 +66784,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
 	name = "Research Server Room";
-	req_access_txt = "30;70"
+	req_one_access_txt = "30;70"
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/server)
@@ -67765,7 +67765,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Research Division Server Room";
-	req_access_txt = "30;70"
+	req_one_access_txt = "30;70"
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/server)
@@ -73585,7 +73585,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "rEu" = (
 /obj/effect/turf_decal/stripes/line{
@@ -80346,7 +80346,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 1
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "tiM" = (
 /obj/machinery/power/apc/auto_name/south{
@@ -86099,7 +86099,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "uBI" = (
 /turf/open/floor/plasteel,
@@ -96785,7 +96785,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "xos" = (
 /obj/effect/turf_decal/bot,
