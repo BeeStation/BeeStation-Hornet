@@ -108,7 +108,6 @@
 	mood_quirk = TRUE
 	var/obj/item/heirloom
 	var/where
-	var/static/list/random_bedsheets = subtypesof(/obj/item/bedsheet/random)
 	var/static/list/random_figures = subtypesof(/obj/item/toy/prize)
 	var/static/list/random_trashes = subtypesof(/obj/item/trash)
 
@@ -440,7 +439,7 @@
 
 /datum/quirk/family_heirloom/proc/itemlist_general()
 	var/list/heirloom_addition = list()
-	heirloom_addition += pick(random_bedsheets) //random bedsheet. you can get a fancy one if you're lucky.
+	heirloom_addition += /obj/item/bedsheet/random //random bedsheet. you can get a fancy one if you're lucky.
 	heirloom_addition += /obj/item/toy/cards/deck
 	heirloom_addition += /obj/item/lighter
 	heirloom_addition += /obj/item/dice/d20
