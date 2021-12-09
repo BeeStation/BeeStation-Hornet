@@ -260,14 +260,10 @@
 			else if(href_list["vir"])
 				var/href_type = text2path(href_list["vir"])
 				var/datum/disease/type = href_type
-				var/AfS = ""
-				for(var/mob/M as() in initial(type.viable_mobtypes))
-					AfS += " [initial(M.name)];"
 				src.temp = {"<b>Name:</b> [initial(type.name)]
-<BR><b>Number of stages:</b> [initial(type.max_stages)]
+<BR><b>Number of stages:</b> [type.max_stages)]
 <BR><b>Spread:</b> [initial(type.spread_text)] Transmission
 <BR><b>Possible Cure:</b> [(initial(type.cure_text)||"none")]
-<BR><b>Affected Lifeforms:</b>[AfS]
 <BR>
 <BR><b>Notes:</b> [initial(type.desc)]
 <BR>
