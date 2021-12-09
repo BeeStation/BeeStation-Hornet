@@ -258,7 +258,7 @@
 			M.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
-		else if(M.getFireLoss() && (method & PATCH))
+		else if(M.getFireLoss() && (methods & PATCH))
 			M.adjustFireLoss(-reac_volume)
 			M.adjustStaminaLoss(reac_volume*2)
 			if(show_message)
@@ -309,15 +309,11 @@
 
 /datum/reagent/medicine/strange_reagent/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	if(iscarbon(M) && M.stat != DEAD)
-		if(methods & INGEST|VAPOR|INJECT))
+		if(methods & INGEST|VAPOR|INJECT)
 			M.adjustToxLoss(0.5*reac_volume)
-			if(show_message)
-				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
 		else if(M.getBruteLoss() && (methods & PATCH))
 			M.adjustBruteLoss(-reac_volume)
 			M.adjustStaminaLoss(reac_volume*2)
-			if(show_message)
-				to_chat(M, "<span class='danger'>You feel your bruises healing! It stings like hell!</span>")
 			M.emote("scream")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
 	..()
@@ -392,7 +388,7 @@
 
 /datum/reagent/medicine/mine_salve/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
-		if(methods & INGEST|VAPOR|INJECT))
+		if(methods & INGEST|VAPOR|INJECT)
 			M.adjust_nutrition(-5)
 			if(show_message)
 				to_chat(M, "<span class='warning'>Your stomach feels empty and cramps!</span>")
@@ -1605,7 +1601,7 @@
 	. = 1
 
 /datum/reagent/medicine/polypyr/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(method & TOUCH|VAPOR)
+	if(methods & TOUCH|VAPOR)
 		if(M && ishuman(M) && reac_volume >= 0.5)
 			var/mob/living/carbon/human/H = M
 			H.hair_color = "92f"

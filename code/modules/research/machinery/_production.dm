@@ -45,10 +45,6 @@
 	SIGNAL_HANDLER
 	ui_update()
 
-/obj/machinery/rnd/production/on_reagent_change(changetype)
-	. = ..()
-	ui_update()
-
 /obj/machinery/rnd/production/proc/update_research()
 	host_research.copy_research_to(stored_research, TRUE)
 	update_designs()

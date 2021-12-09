@@ -168,7 +168,7 @@
 		var/datum/component/mood/mood = reactor.GetComponent(/datum/component/mood)
 		if (mood.get_event("slipped"))
 			SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "laughter", /datum/mood_event/funny_prank)
-			SEND_SIGNAL(M, COMSIG_CLEAR_MOOD_EVENT, "slipped")
+			SEND_SIGNAL(reactor, COMSIG_CLEAR_MOOD_EVENT, "slipped")
 			reactor.AdjustKnockdown(-20)
 
 /datum/reagent/consumable/superlaughter

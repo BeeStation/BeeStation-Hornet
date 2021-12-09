@@ -26,10 +26,10 @@
 	taste_description = "gelatin"
 	color = "#EFD65A"
 
-/datum/reagent/blob/energized_jelly/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
+/datum/reagent/blob/energized_jelly/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	. = ..()
-	reac_volume = return_mob_expose_reac_volume(exposed_mob, methods, reac_volume, show_message, touch_protection, o
-	M.losebreath += round(0.2*reac_volume)
-	M.adjustStaminaLoss(reac_volume)
-	if(M)
-		M.apply_damage(0.6*reac_volume, OXY)
+	reac_volume = return_mob_expose_reac_volume(exposed_mob, methods, reac_volume, show_message, touch_protection)
+	exposed_mob.losebreath += round(0.2*reac_volume)
+	exposed_mob.adjustStaminaLoss(reac_volume)
+	if(exposed_mob)
+		exposed_mob.apply_damage(0.6*reac_volume, OXY)

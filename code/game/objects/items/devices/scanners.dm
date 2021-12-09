@@ -414,7 +414,7 @@ GENE SCANNER
 			if(M.reagents.reagent_list.len)
 				to_chat(user, "<span class='notice'>Subject contains the following reagents:</span>")
 				for(var/datum/reagent/R in M.reagents.reagent_list)
-					if(reagent.chemical_flags & REAGENT_INVISIBLE) //Don't show hidden chems on scanners
+					if(R.chemical_flags & REAGENT_INVISIBLE) //Don't show hidden chems on scanners
 						continue
 					to_chat(user, "<span class='notice'>[round(R.volume, 0.001)] units of [R.name][R.overdosed == 1 ? "</span> - <span class='boldannounce'>OVERDOSING</span>" : ".</span>"]")
 			else

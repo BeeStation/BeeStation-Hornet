@@ -34,8 +34,6 @@
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_verygood)
 			if (DRINK_FANTASTIC)
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
-			if (FOOD_AMAZING)
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_food", /datum/mood_event/amazingtaste)
 	return ..()
 
 /datum/reagent/consumable/nutriment

@@ -46,25 +46,22 @@
 	..()
 	return TRUE
 
-/datum/reagent/clf3/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(isplatingturf(T))
-		var/turf/open/floor/plating/F = T
-		if(prob(10 + F.burnt + 5*F.broken)) //broken or burnt plating is more susceptible to being destroyed
-			F.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-	if(isfloorturf(T))
-		var/turf/open/floor/F = T
+/datum/reagent/clf3/expose_turf(turf/exposed_turf, reac_volume)
+	. = ..()
+	if(isplatingturf(exposed_turf))
+		var/turf/open/floor/plating/target_plating = exposed_turf
+		if(prob(10 + target_plating.burnt + 5*target_plating.broken)) //broken or burnt plating is more susceptible to being destroyed
+			target_plating.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
+	if(isfloorturf(exposed_turf))
+		var/turf/open/floor/target_floor = exposed_turf
 		if(prob(reac_volume))
-			F.make_plating()
+			target_floor.make_plating()
 		else if(prob(reac_volume))
-			F.burn_tile()
-		if(isfloorturf(F))
-			for(var/turf/open/turf in RANGE_TURFS(1,F))
-				if(!locate(/obj/effect/hotspot) in turf)
-					new /obj/effect/hotspot(F)
-	if(iswallturf(T))
-		var/turf/closed/wall/W = T
-		if(prob(reac_volume))
-			W.ScrapeAway()
+			target_floor.burn_tile()
+		if(isfloorturf(target_floor))
+			for(var/turf/nearby_turf in RANGE_TURFS(1, target_floor))
+				if(!locate(/obj/effect/hotspot) in nearby_turf)
+					new /obj/effect/hotspot(nearby_turf)
 
 /datum/reagent/clf3/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	if(istype(M))

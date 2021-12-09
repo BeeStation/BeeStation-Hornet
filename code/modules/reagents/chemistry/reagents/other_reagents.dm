@@ -10,7 +10,7 @@
 	glass_desc = "Are you sure this is tomato juice?"
 	shot_glass_icon_state = "shotglassred"
 
-/datum/reagent/blood/expose_mob(mob/living/L, s=TOUCH, reac_volume)
+/datum/reagent/blood/expose_mob(mob/living/L, methods=TOUCH, reac_volume)
 	if(data && data["viruses"])
 		for(var/thing in data["viruses"])
 			var/datum/disease/D = thing
