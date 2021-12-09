@@ -295,7 +295,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(!use_skintones)
 					dat += APPEARANCE_CATEGORY_COLUMN
 
-				dat += "<h3>Plasmaman helmet style</h3>"
+				dat += "<h3>Envirohelmet Type</h3>"
 
 				dat += "<a href='?_src_=prefs;preference=helmet_style;task=input'>[features["helmet_style"]]</a><BR>"
 
