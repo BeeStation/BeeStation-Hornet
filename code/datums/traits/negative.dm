@@ -1,4 +1,4 @@
-//predominantly negative traits
+b//predominantly negative traits
 
 /datum/quirk/badback
 	name = "Bad Back"
@@ -108,6 +108,7 @@
 	mood_quirk = TRUE
 	var/obj/item/heirloom
 	var/where
+	var/static/list/random_bedsheets = subtypesof(/obj/item/bedsheet) - /obj/item/bedsheet/random
 	var/static/list/random_figures = subtypesof(/obj/item/toy/prize)
 	var/static/list/random_trashes = subtypesof(/obj/item/trash)
 
@@ -119,7 +120,7 @@
 	heirloom_table += itemlist_species(quirk_holder) // 1. Species specific table
 	heirloom_table += itemlist_jobs()				 // 2. Job & department specific table
 	heirloom_table += itemlist_general()			 // 3. for everyone
-	heirloom_type = pick(heirloom_table)			 // 4. pick one from the grand total table
+	heirloom_type = pick(heirloom_table)
 
 	if(!heirloom_type)
 		heirloom_type = pick(
@@ -204,10 +205,9 @@
 
 	return heirloom_addition
 
-
 /datum/quirk/family_heirloom/proc/itemlist_jobs()
 	var/list/heirloom_addition = list()
-	var/DEPARTMENT_FLAG = 0
+	var/DEPARTMENT_FLAG = 0 //For department shared items
 
 	// Job specific table
 	switch(quirk_holder.mind.assigned_role)
@@ -260,7 +260,7 @@
 			heirloom_addition += /obj/item/modular_computer/laptop/preset/civillian //for business.
 		if(JOB_STRING_DEBTOR)
 			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
-			heirloom_addition += pick(random_trashes) //even such thing is precious to hobo. poor.
+			heirloom_addition += pick(random_trashes) //even such thing is precious to hobo. oh, poor.
 			heirloom_addition += pick(random_trashes)
 			heirloom_addition += pick(random_trashes)
 		if(JOB_STRING_LAWYER)
@@ -273,14 +273,20 @@
 			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
 			heirloom_addition += /obj/item/bikehorn/golden
 			heirloom_addition += /obj/item/bikehorn/golden
+			heirloom_addition += /obj/item/bikehorn/golden
+			heirloom_addition += /obj/item/bikehorn/golden
 			heirloom_addition += /obj/item/bikehorn/golden	//high chance of spawning them
 		if(JOB_STRING_MIME)
 			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
 			heirloom_addition += /obj/item/reagent_containers/food/snacks/baguette/mime
 			heirloom_addition += /obj/item/reagent_containers/food/snacks/baguette/mime
+			heirloom_addition += /obj/item/reagent_containers/food/snacks/baguette/mime
+			heirloom_addition += /obj/item/reagent_containers/food/snacks/baguette/mime
 			heirloom_addition += /obj/item/reagent_containers/food/snacks/baguette/mime	//high chance of spawning them
 		if(JOB_STRING_STAGE_MAGICIAN)
 			DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
+			heirloom_addition += /obj/item/gun/magic/wand
+			heirloom_addition += /obj/item/gun/magic/wand
 			heirloom_addition += /obj/item/gun/magic/wand
 			heirloom_addition += /obj/item/gun/magic/wand
 			heirloom_addition += /obj/item/gun/magic/wand	//high chance of spawning them
@@ -436,10 +442,9 @@
 
 	return heirloom_addition
 
-
 /datum/quirk/family_heirloom/proc/itemlist_general()
 	var/list/heirloom_addition = list()
-	heirloom_addition += /obj/item/bedsheet/random //random bedsheet. you can get a fancy one if you're lucky.
+	heirloom_addition += pick(random_bedsheets)  //random bedsheet. you can get a fancy one if you're lucky.
 	heirloom_addition += /obj/item/toy/cards/deck
 	heirloom_addition += /obj/item/lighter
 	heirloom_addition += /obj/item/dice/d20
@@ -454,6 +459,7 @@
 		heirloom_addition += /obj/item/reagent_containers/food/drinks/syndicatebeer/heirloom
 
 	return heirloom_addition
+
 
 /datum/quirk/frail
 	name = "Frail"
