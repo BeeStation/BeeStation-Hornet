@@ -196,7 +196,7 @@
 
 	//Equip the rest of the gear
 	H.dna.species.before_equip_job(src, H, visualsOnly)
-	
+
 	if(src.species_outfits)
 		if(H.dna.species.id in src.species_outfits)
 			var/datum/outfit/O = species_outfits[H.dna.species.id]

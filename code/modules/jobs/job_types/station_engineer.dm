@@ -11,6 +11,7 @@
 	chat_color = "#D9BC89"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
+	mind_traits = list(TRAIT_CONSTRUCTION_ADEPT)
 
 	outfit = /datum/outfit/job/engineer
 

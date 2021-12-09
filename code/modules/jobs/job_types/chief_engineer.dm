@@ -16,6 +16,7 @@
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_ENGINEERING
 	exp_type_department = EXP_TYPE_ENGINEERING
+	mind_traits = list(TRAIT_CONSTRUCTION_ADEPT)
 
 	outfit = /datum/outfit/job/ce
 
