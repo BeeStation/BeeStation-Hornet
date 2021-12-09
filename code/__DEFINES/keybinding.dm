@@ -39,6 +39,10 @@
 #define COMSIG_KB_LIVING_LOOKDOWN_DOWN "keybinding_living_lookdown_down"
 
 //Mob
+#define COMSIG_KB_MOB_MOVENORTH_DOWN "keybinding_mob_movenorth_down"
+#define COMSIG_KB_MOB_MOVEEAST_DOWN "keybinding_mob_moveeast_down"
+#define COMSIG_KB_MOB_MOVESOUTH_DOWN "keybinding_mob_movesouth_down"
+#define COMSIG_KB_MOB_MOVEWEST_DOWN "keybinding_mob_movewest_down"
 #define COMSIG_KB_MOB_FACENORTH_DOWN "keybinding_mob_facenorth_down"
 #define COMSIG_KB_MOB_FACEEAST_DOWN "keybinding_mob_faceeast_down"
 #define COMSIG_KB_MOB_FACESOUTH_DOWN "keybinding_mob_facesouth_down"
