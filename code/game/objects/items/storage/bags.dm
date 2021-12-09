@@ -408,7 +408,7 @@
 /obj/item/storage/bag/bio/pre_attack(atom/A, mob/living/user, params)
 	if(istype(A, /obj/item/slimecross/reproductive))
 		return TRUE
-	..()
+	return ..()
   
 /obj/item/storage/bag/construction
 	name = "construction bag"
