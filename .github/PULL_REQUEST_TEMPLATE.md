@@ -21,6 +21,18 @@ Potential edge cases(IE: try loading different ammo than you designed for into t
 Please include the steps you went through for the testing(videos are exempt so long as we can see everything being done in frame). Said steps can also help us help you with any issues you encounter during development.
 Pulls from Upstream are generally exempt from this.
 -->
+<details>
+
+
+
+<summary>Screenshots&Videos</summary>
+
+
+
+Put screenshots and Videos documenting testing and execution of intended behaviors here
+
+
+</details>
 
 ## Changelog
 :cl:
