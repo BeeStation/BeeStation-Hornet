@@ -78,6 +78,15 @@
 	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/janitor/mark2,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/janitor/protective)
 
+/datum/outfit/plasmaman/lawyer
+	name = "Lawyer Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/white
+	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/white/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/white/protective)
+
 /datum/outfit/plasmaman/security
 	name = "Security Plasmaman"
 
