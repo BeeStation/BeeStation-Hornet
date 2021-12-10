@@ -374,6 +374,18 @@
 /obj/proc/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
 	return
 
+/obj/attack_hand(mob/user)
+	if(user.a_intent == INTENT_HARM)
+		for(var/mob/living/L in get_turf(src))
+			if(L.stat)
+				continue
+			if(user == L)
+				continue
+			L.attack_hand(user)
+			user.changeNext_move(CLICK_CD_MELEE)
+			return
+	. = ..()
+
 //For returning special data when the object is saved
 //For example, or silos will return a list of their materials which will be dumped on top of them
 //Can be customised if you have something that contains something you want saved

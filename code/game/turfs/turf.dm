@@ -168,6 +168,15 @@ GLOBAL_LIST_EMPTY(station_turfs)
 			return
 		else
 			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
+	if(user.a_intent == INTENT_HARM)
+		for(var/mob/living/L in src)
+			if(L.stat)
+				continue
+			if(user == L)
+				continue
+			L.attack_hand(user)
+			user.changeNext_move(CLICK_CD_MELEE)
+			return
 	. = ..()
 	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_NO_ATTACK_HAND)
 		. = TRUE
@@ -309,6 +318,14 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	else if(istype(C, /obj/item/rcl))
 		handleRCL(C, user)
 
+	if(user.a_intent == INTENT_HARM)
+		for(var/mob/living/L in src)
+			if(L.stat)
+				continue
+			if(user == L)
+				continue
+			L.attackby(C, user)
+			return FALSE
 	return FALSE
 
 //There's a lot of QDELETED() calls here if someone can figure out how to optimize this but not runtime when something gets deleted by a Bump/CanPass/Cross call, lemme know or go ahead and fix this mess - kevinz000

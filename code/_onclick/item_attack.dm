@@ -41,6 +41,14 @@
 	return FALSE
 
 /obj/attackby(obj/item/I, mob/living/user, params)
+	if(user.a_intent == INTENT_HARM)
+		for(var/mob/living/L in get_turf(src))
+			if(L.stat)
+				continue
+			if(user == L)
+				continue
+			L.attackby(I, user)
+			return FALSE
 	return ..() || ((obj_flags & CAN_BE_HIT) && I.attack_obj(src, user))
 
 /mob/living/attackby(obj/item/I, mob/living/user, params)
