@@ -1,5 +1,0 @@
-author: Dejaku51
-delete-after: true
-changes:
-  - bugfix: Fixed Security cameras not working properly with Overlay Lighting
-  - bugfix: Fixed Exosuits having really small light
