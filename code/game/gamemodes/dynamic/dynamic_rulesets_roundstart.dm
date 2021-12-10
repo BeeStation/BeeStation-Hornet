@@ -27,6 +27,8 @@
 	COOLDOWN_START(src, autotraitor_cooldown_check, autotraitor_cooldown)
 	var/num_traitors = get_antag_cap(population) * (scaled_times + 1)
 	for (var/i = 1 to num_traitors)
+		if(candidates.len <= 0)
+			break
 		var/mob/M = pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.special_role = ROLE_TRAITOR
@@ -110,6 +112,8 @@
 	. = ..()
 	var/num_changelings = get_antag_cap(population) * (scaled_times + 1)
 	for (var/i = 1 to num_changelings)
+		if(candidates.len <= 0)
+			break
 		var/mob/M = pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
@@ -147,6 +151,8 @@
 	var/num_ecult = get_antag_cap(population) * (scaled_times + 1)
 
 	for (var/i = 1 to num_ecult)
+		if(candidates.len <= 0)
+			break
 		var/mob/picked_candidate = pick_n_take(candidates)
 		assigned += picked_candidate.mind
 		picked_candidate.mind.restricted_roles = restricted_roles
@@ -503,7 +509,7 @@
 	var/num_devils = get_antag_cap(population) * (scaled_times + 1)
 
 	for(var/j = 0, j < num_devils, j++)
-		if (!candidates.len)
+		if (candidates.len <= 0)
 			break
 		var/mob/devil = pick_n_take(candidates)
 		assigned += devil.mind
