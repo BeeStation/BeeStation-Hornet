@@ -94,6 +94,24 @@
 		return
 	strength -= strength / hl3_release_date
 
+/datum/component/radioactive/proc/rad_clean(datum/source, clean_types)
+	SIGNAL_HANDLER
+
+	if(QDELETED(src))
+		return COMPONENT_CLEANED
+
+	if(!(clean_types & CLEAN_TYPE_RADIATION))
+		return COMPONENT_CLEANED
+
+	if(!(clean_types & CLEAN_TYPE_WEAK))
+		qdel(src)
+		return COMPONENT_CLEANED
+
+	strength = max(0, (strength - (RAD_BACKGROUND_RADIATION * 2)))
+	if(strength <= RAD_BACKGROUND_RADIATION)
+		qdel(src)
+		return COMPONENT_CLEANED
+
 #undef RAD_AMOUNT_LOW
 #undef RAD_AMOUNT_MEDIUM
 #undef RAD_AMOUNT_HIGH

@@ -39,12 +39,11 @@
  	if(((methods & VAPOR) && prob(min(33, reac_volume))) || (methods & (INGEST|PATCH|INJECT)))
 		M.randmuti()
 		if(prob(98))
-			M.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+			exposed_mob.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
 		else
-			M.easy_randmut(POSITIVE)
-		M.updateappearance()
-		M.domutcheck()
-	..()
+			exposed_mob.easy_randmut(POSITIVE)
+		exposed_mob.updateappearance()
+		exposed_mob.domutcheck()
 
 /datum/reagent/toxin/mutagen/on_mob_life(mob/living/carbon/C)
 	C.apply_effect(5,EFFECT_IRRADIATE,0)
@@ -78,11 +77,11 @@
 		T.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
 	return
 
-/datum/reagent/toxin/plasma/expose_mob(mob/living/M, methods=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
+/datum/reagent/toxin/plasma/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
+	. = ..()
 	if(methods & (TOUCH|VAPOR))
-		M.adjust_fire_stacks(reac_volume / 5)
+		exposed_mob.adjust_fire_stacks(reac_volume / 5)
 		return
-	..()
 
 /datum/reagent/toxin/lexorin
 	name = "Lexorin"
@@ -223,22 +222,25 @@
 	color = "#49002E" // rgb: 73, 0, 46
 	toxpwr = 1
 	taste_mult = 1
+	penetrates_skin = NONE
 
 /datum/reagent/toxin/plantbgone/expose_obj(obj/O, reac_volume)
 	if(istype(O, /obj/structure/alien/weeds))
 		var/obj/structure/alien/weeds/alien_weeds = O
 		alien_weeds.take_damage(rand(15,35), BRUTE, 0) // Kills alien weeds pretty fast
-	else if(istype(O, /obj/structure/glowshroom)) //even a small amount is enough to kill it
-		qdel(O)
-	else if(istype(O, /obj/structure/spacevine))
-		var/obj/structure/spacevine/SV = O
+	else if(istype(exposed_obj, /obj/structure/glowshroom)) //even a small amount is enough to kill it
+		qdel(exposed_obj)
+	else if(istype(exposed_obj, /obj/structure/spacevine))
+		var/obj/structure/spacevine/SV = exposed_obj
 		SV.on_chem_effect(src)
 
-/datum/reagent/toxin/plantbgone/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if((methods & VAPOR) && iscarbon(M))
-		var/mob/living/carbon/exposed_carbon = M
-		if(!exposed_carbon.wear_mask)
-			exposed_carbon.adjustToxLoss(min(round(0.4 * reac_volume, 0.1), 10))
+/datum/reagent/toxin/plantbgone/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	if(!(methods & VAPOR) || !iscarbon(exposed_mob))
+		return
+	var/mob/living/carbon/exposed_carbon = exposed_mob
+	if(!exposed_carbon.wear_mask)
+		exposed_carbon.adjustToxLoss(min(round(0.4 * reac_volume, 0.1), 10))
 
 /datum/reagent/toxin/plantbgone/weedkiller
 	name = "Weed Killer"
@@ -255,7 +257,7 @@
 	..()
 	if(MOB_BUG in M.mob_biotypes)
 		var/damage = min(round(0.4*reac_volume, 0.1),10)
-		M.adjustToxLoss(damage)
+		exposed_mob.adjustToxLoss(damage)
 
 /datum/reagent/toxin/spore
 	name = "Spore Toxin"
@@ -496,10 +498,7 @@
 	color = "#C8C8C8"
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 	toxpwr = 0
-
-/datum/reagent/toxin/itching_powder/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(methods & (TOUCH|VAPOR))
-		M.reagents?.add_reagent(/datum/reagent/toxin/itching_powder, reac_volume)
+	penetrates_skin = TOUCH|VAPOR
 
 /datum/reagent/toxin/itching_powder/on_mob_life(mob/living/carbon/M)
 	if(prob(15))
@@ -763,24 +762,26 @@
 		return
 	reac_volume = round(reac_volume,0.1)
 	if(methods & INGEST)
-		C.adjustBruteLoss(min(6*toxpwr, reac_volume * toxpwr))
+		exposed_carbon.adjustBruteLoss(min(6*toxpwr, reac_volume * toxpwr))
 		return
 	if(methods & INJECT)
-		C.adjustBruteLoss(1.5 * min(6*toxpwr, reac_volume * toxpwr))
+		exposed_carbon.adjustBruteLoss(1.5 * min(6*toxpwr, reac_volume * toxpwr))
 		return
-	C.acid_act(acidpwr, reac_volume)
+	exposed_carbon.acid_act(acidpwr, reac_volume)
 
-/datum/reagent/toxin/acid/expose_obj(obj/O, reac_volume)
-	if(ismob(O.loc)) //handled in human acid_act()
+/datum/reagent/toxin/acid/expose_obj(obj/exposed_obj, reac_volume)
+	. = ..()
+	if(ismob(exposed_obj.loc)) //handled in human acid_act()
 		return
 	reac_volume = round(reac_volume,0.1)
-	O.acid_act(acidpwr, reac_volume)
+	exposed_obj.acid_act(acidpwr, reac_volume)
 
-/datum/reagent/toxin/acid/expose_turf(turf/T, reac_volume)
-	if (!istype(T))
+/datum/reagent/toxin/acid/expose_turf(turf/exposed_turf, reac_volume)
+	. = ..()
+	if (!istype(exposed_turf))
 		return
 	reac_volume = round(reac_volume,0.1)
-	T.acid_act(acidpwr, reac_volume)
+	exposed_turf.acid_act(acidpwr, reac_volume)
 
 /datum/reagent/toxin/acid/fluacid
 	name = "Fluorosulfuric acid"

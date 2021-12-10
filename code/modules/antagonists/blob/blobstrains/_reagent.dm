@@ -25,7 +25,7 @@
 	color = "#FFFFFF"
 	taste_description = "bad code and slime"
 	can_synth = FALSE
-	random_unrestricted = FALSE
+	penetrates_skin = NONE
 
 
 /// Used by blob reagents to calculate the reaction volume they should use when exposing mobs.

@@ -18,6 +18,14 @@
 		return damage * 1.5
 	return ..()
 
+/datum/blobstrain/reagent/explosive_lattice/on_sporedeath(mob/living/spore)
+	var/obj/effect/temp_visual/explosion/fast/effect = new /obj/effect/temp_visual/explosion/fast(get_turf(spore))
+	effect.alpha = 150
+	for(var/mob/living/actor in orange(get_turf(spore), 1))
+		if(ROLE_BLOB in actor.faction) //no friendly fire
+			continue
+		actor.apply_damage(20, BRUTE, wound_bonus=CANT_WOUND)
+
 /datum/reagent/blob/explosive_lattice
 	name = "Explosive Lattice"
 	taste_description = "the bomb"

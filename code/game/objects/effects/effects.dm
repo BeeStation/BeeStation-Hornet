@@ -16,7 +16,7 @@
 	return
 
 /obj/effect/acid_act()
-	return
+	return FALSE
 
 /obj/effect/mech_melee_attack(obj/mecha/M)
 	return 0

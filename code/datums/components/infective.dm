@@ -48,8 +48,19 @@
 /datum/component/infective/proc/clean(datum/source, clean_strength)
 	SIGNAL_HANDLER
 
-	if(clean_strength >= min_clean_strength)
+	for(var/disease in diseases)
+		drinker.ForceContractDisease(disease)
+	var/appendage_zone = feeder.held_items.Find(source)
+	appendage_zone = appendage_zone == 0 ? BODY_ZONE_CHEST : appendage_zone % 2 ? BODY_ZONE_R_ARM : BODY_ZONE_L_ARM
+	try_infect(feeder, appendage_zone)
+
+/datum/component/infective/proc/clean(datum/source, clean_types)
+	SIGNAL_HANDLER
+
+	. = NONE
+	if(clean_types & required_clean_types)
 		qdel(src)
+		return COMPONENT_CLEANED
 
 /datum/component/infective/proc/try_infect_buckle(datum/source, mob/M, force)
 	SIGNAL_HANDLER

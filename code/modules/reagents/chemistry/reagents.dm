@@ -59,6 +59,14 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/inverse_chem = /datum/reagent/impurity/toxic
 	///what chem is made at the end of a reaction IF the purity is below the recipies purity_min at the END of a reaction only
 	var/failed_chem = /datum/reagent/consumable/failed_reaction
+	/// is it bad for you? Currently only used for borghypo. C2s and Toxins have it TRUE by default.
+	var/harmful = FALSE
+	/// Are we from a material? We might wanna know that for special stuff. Like metalgen. Is replaced with a ref of the material on New()
+	var/datum/material/material
+	///A list of causes why this chem should skip being removed, if the length is 0 it will be removed from holder naturally, if this is >0 it will not be removed from the holder.
+	var/list/reagent_removal_skip_list = list()
+	///The set of exposure methods this penetrates skin with.
+	var/penetrates_skin = VAPOR
 
 /datum/reagent/Destroy() // This should only be called by the holder, so it's already handled clearing its references
 	. = ..()
@@ -66,6 +74,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 /// Applies this reagent to an [/atom]
 /datum/reagent/proc/expose_atom(atom/A, volume)
+	SHOULD_CALL_PARENT(TRUE)
+/datum/reagent/proc/expose_atom(atom/exposed_atom, reac_volume)
 	SHOULD_CALL_PARENT(TRUE)
 
 	. = 0
@@ -82,13 +92,40 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 			if(amount >= 0.5)
 				M.reagents.add_reagent(type, amount)
 	return 1
+	SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_ATOM, exposed_atom, reac_volume)
+	SEND_SIGNAL(exposed_atom, COMSIG_ATOM_EXPOSE_REAGENT, src, reac_volume)
+	return TRUE
+
+/// Applies this reagent to a [/mob/living]
+/datum/reagent/proc/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE, touch_protection = 0)
+	SHOULD_CALL_PARENT(TRUE)
+
+	SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_MOB, exposed_mob, methods, reac_volume, show_message, touch_protection)
+	if((methods & penetrates_skin) && exposed_mob.reagents) //smoke, foam, spray
+		var/amount = round(reac_volume*clamp((1 - touch_protection), 0, 1), 0.1)
+		if(amount >= 0.5)
+			exposed_mob.reagents.add_reagent(type, amount)
+	return TRUE
 
 /datum/reagent/proc/expose_obj(obj/O, volume)
 	return
+/// Applies this reagent to an [/obj]
+/datum/reagent/proc/expose_obj(obj/exposed_obj, reac_volume)
+	SHOULD_CALL_PARENT(TRUE)
 
 /datum/reagent/proc/expose_turf(turf/T, volume)
 	return
+	SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_OBJ, exposed_obj, reac_volume)
+	return TRUE
 
+/// Applies this reagent to a [/turf]
+/datum/reagent/proc/expose_turf(turf/exposed_turf, reac_volume)
+	SHOULD_CALL_PARENT(TRUE)
+
+	SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_TURF, exposed_turf, reac_volume)
+	return TRUE
+
+/// Called from [/datum/reagents/proc/metabolize]
 /datum/reagent/proc/on_mob_life(mob/living/carbon/M)
 	current_cycle++
 	holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.

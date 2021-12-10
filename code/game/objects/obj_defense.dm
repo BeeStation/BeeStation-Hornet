@@ -176,34 +176,15 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 //the obj's reaction when touched by acid
 /obj/acid_act(acidpwr, acid_volume)
-	if(!(resistance_flags & UNACIDABLE) && acid_volume)
+	. = ..()
+	if((resistance_flags & UNACIDABLE) || (acid_volume <= 0) || acidpwr <= 0)
+		return FALSE
 
-		if(!acid_level)
-			SSacid.processing[src] = src
-			add_overlay(GLOB.acid_overlay, TRUE)
-		var/acid_cap = acidpwr * 300 //so we cannot use huge amounts of weak acids to do as well as strong acids.
-		if(acid_level < acid_cap)
-			acid_level = min(acid_level + acidpwr * acid_volume, acid_cap)
-		return 1
+	AddComponent(/datum/component/acid, acidpwr, acid_volume)
+	return TRUE
 
-//the proc called by the acid subsystem to process the acid that's on the obj
-/obj/proc/acid_processing()
-	. = 1
-	if(!(resistance_flags & ACID_PROOF))
-		for(var/armour_value in armor.getList())
-			if(armour_value != "acid" && armour_value != "fire")
-				armor = armor.modifyAllRatings(0 - round(sqrt(acid_level)*0.1))
-		if(prob(33))
-			playsound(loc, 'sound/items/welder.ogg', 150, 1)
-		take_damage(min(1 + round(sqrt(acid_level)*0.3), 300), BURN, "acid", 0)
-
-	acid_level = max(acid_level - (5 + 3*round(sqrt(acid_level))), 0)
-	if(!acid_level)
-		return 0
-
-//called when the obj is destroyed by acid.
+///called when the obj is destroyed by acid.
 /obj/proc/acid_melt()
-	SSacid.processing -= src
 	deconstruct(FALSE)
 
 //// FIRE
