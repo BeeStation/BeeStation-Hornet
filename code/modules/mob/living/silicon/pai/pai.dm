@@ -113,6 +113,7 @@
 	forceMove(P)
 	card = P
 	job = "Personal AI"
+	mind.assigned_role = "Personal AI"
 	signaler = new(src)
 	hostscan = new /obj/item/healthanalyzer(src)
 	if(!radio)

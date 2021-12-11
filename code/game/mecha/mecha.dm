@@ -12,6 +12,8 @@
 	force = 5
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
+	light_power = 1
+	light_range = 5
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/can_move = 0 //time of next allowed movement
 	var/mob/living/carbon/occupant = null
