@@ -320,9 +320,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	if(user.a_intent == INTENT_HARM)
 		for(var/mob/living/L in src)
-			if(L.stat)
-				continue
-			if(user == L)
+			if(L.stat || user == L)
 				continue
 			L.attackby(C, user)
 			return FALSE
