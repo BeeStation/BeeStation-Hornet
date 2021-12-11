@@ -75,3 +75,20 @@
 
 ///Used to force an equlibrium to end a reaction in reaction_step() (i.e. in a reaction_step() proc return END_REACTION to end it)
 #define END_REACTION                "end_reaction"
+
+///if the ph_meter gives a detailed output
+#define DETAILED_CHEM_OUTPUT 1
+///if the pH meter gives a shorter output
+#define SHORTENED_CHEM_OUTPUT 0
+
+#define ENABLE_FLASHING -1
+
+///Tutorial states
+#define TUT_NO_BUFFER 50
+#define TUT_START 1
+#define TUT_HAS_REAGENTS 2
+#define TUT_IS_ACTIVE 3
+#define TUT_IS_REACTING 4
+#define TUT_FAIL 4.5
+#define TUT_COMPLETE 5
+#define TUT_MISSING 10
