@@ -111,8 +111,25 @@
 	handle_emag(H)
 	addtimer(CALLBACK(src, .proc/stop_emag, H), 30 SECONDS) //Disco mode for 30 seconds! This doesn't affect the ethereal at all besides either annoying some players, or making someone look badass.
 
-/datum/species/ethereal/spec_life(mob/living/carbon/human/H)
-	.=..()
+/datum/species/ethereal/proc/stop_emp(mob/living/carbon/human/H)
+	EMPeffect = FALSE
+	spec_updatehealth(H)
+	to_chat(H, "<span class='notice'>You feel more energized as your shine comes back.</span>")
+
+/datum/species/ethereal/proc/handle_emag(mob/living/carbon/human/H)
+	if(!emageffect)
+		return
+	current_color = "#[GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]]"	//Picks a random colour from the Ethereal colour list
+	spec_updatehealth(H)
+	addtimer(CALLBACK(src, .proc/handle_emag, H), 5) //Call ourselves every 0.5 seconds to change color
+
+/datum/species/ethereal/proc/stop_emag(mob/living/carbon/human/H)
+	emageffect = FALSE
+	spec_updatehealth(H)
+	H.visible_message("<span class='danger'>[H] stops flickering and goes back to their normal state!</span>")
+
+/datum/species/ethereal/handle_charge(mob/living/carbon/human/H)
+	. = ..()
 	brutemod = 1.25
 	if(HAS_TRAIT(H, TRAIT_NOHUNGER))
 		return
@@ -132,20 +149,3 @@
 			if(H.health > 10.5)
 				apply_damage(1, TOX, null, null, H)
 			brutemod = 2
-
-/datum/species/ethereal/proc/stop_emp(mob/living/carbon/human/H)
-	EMPeffect = FALSE
-	spec_updatehealth(H)
-	to_chat(H, "<span class='notice'>You feel more energized as your shine comes back.</span>")
-
-/datum/species/ethereal/proc/handle_emag(mob/living/carbon/human/H)
-	if(!emageffect)
-		return
-	current_color = "#[GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]]"	//Picks a random colour from the Ethereal colour list
-	spec_updatehealth(H)
-	addtimer(CALLBACK(src, .proc/handle_emag, H), 5) //Call ourselves every 0.5 seconds to change color
-
-/datum/species/ethereal/proc/stop_emag(mob/living/carbon/human/H)
-	emageffect = FALSE
-	spec_updatehealth(H)
-	H.visible_message("<span class='danger'>[H] stops flickering and goes back to their normal state!</span>")
