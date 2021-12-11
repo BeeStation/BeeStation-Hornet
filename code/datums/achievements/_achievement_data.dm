@@ -65,7 +65,7 @@
 /datum/achievement_data/proc/unlock(achievement_type, mob/user)
 	var/datum/award/A = SSachievements.awards[achievement_type]
 	get_data(achievement_type) //Get the current status first if necessary
-	if(istype(A, /datum/award/achievement))
+	if(istype(A, /datum/award/achievement) && !data[achievement_type])
 		data[achievement_type] = TRUE
 		A.on_unlock(user) //Only on default achievement, as scores keep going up.
 	else if(istype(A, /datum/award/score))
