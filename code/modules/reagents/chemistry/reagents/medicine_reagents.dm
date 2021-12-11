@@ -230,8 +230,8 @@
 
 /datum/reagent/medicine/rezadone/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
 	. = ..()
-	if(iscarbon(M))
-		var/mob/living/carbon/patient = M
+	if(iscarbon(exposed_mob))
+		var/mob/living/carbon/patient = exposed_mob
 		if(reac_volume >= 5 && HAS_TRAIT_FROM(patient, TRAIT_HUSK, "burn") && patient.getFireLoss() < THRESHOLD_UNHUSK) //One carp yields 12u rezadone.
 			patient.cure_husk("burn")
 			patient.visible_message("<span class='nicegreen'>[patient]'s body rapidly absorbs moisture from the environment, taking on a more healthy appearance.")
@@ -391,22 +391,15 @@
 	..()
 	return TRUE
 
-/datum/reagent/medicine/mine_salve/expose_mob(mob/living/M, methods=TOUCH, reac_volume, show_message = 1)
-	if(iscarbon(M) && M.stat != DEAD)
-		if(methods & INGEST|VAPOR|INJECT)
-			M.adjust_nutrition(-5)
-			if(show_message)
-				to_chat(M, "<span class='warning'>Your stomach feels empty and cramps!</span>")
-		else
-			var/mob/living/carbon/C = M
-			for(var/s in C.surgeries)
-				var/datum/surgery/S = s
-				S.speed_modifier = max(0.1, S.speed_modifier)
-				// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
+/datum/reagent/medicine/mine_salve/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message = TRUE)
+	. = ..()
+	if(!iscarbon(exposed_mob) || (exposed_mob.stat == DEAD))
+		return
 
-			if(show_message)
-				to_chat(M, "<span class='danger'>You feel your wounds fade away to nothing!</span>" )
-	..()
+	if(methods & (INGEST|VAPOR|INJECT))
+		exposed_mob.adjust_nutrition(-5)
+		if(show_message)
+			to_chat(exposed_mob, span_warning("Your stomach feels empty and cramps!"))
 
 	if(methods & (PATCH|TOUCH))
 		var/mob/living/carbon/exposed_carbon = exposed_mob
@@ -415,7 +408,7 @@
 			surgery.speed_modifier = max(0.1, surgery.speed_modifier)
 
 		if(show_message)
-			to_chat(exposed_carbon, "<span class='danger'>You feel your injuries fade away to nothing!</span>" )
+			to_chat(exposed_carbon, span_danger("You feel your injuries fade away to nothing!") )
 
 /datum/reagent/medicine/mine_salve/on_mob_end_metabolize(mob/living/M)
 	if(iscarbon(M))

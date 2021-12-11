@@ -45,15 +45,6 @@
 		eater.ForceContractDisease(V)
 	try_infect(feeder, BODY_ZONE_L_ARM)
 
-/datum/component/infective/proc/clean(datum/source, clean_strength)
-	SIGNAL_HANDLER
-
-	for(var/disease in diseases)
-		drinker.ForceContractDisease(disease)
-	var/appendage_zone = feeder.held_items.Find(source)
-	appendage_zone = appendage_zone == 0 ? BODY_ZONE_CHEST : appendage_zone % 2 ? BODY_ZONE_R_ARM : BODY_ZONE_L_ARM
-	try_infect(feeder, appendage_zone)
-
 /datum/component/infective/proc/clean(datum/source, clean_types)
 	SIGNAL_HANDLER
 

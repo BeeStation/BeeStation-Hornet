@@ -893,13 +893,40 @@
 
 	if(!istype(L, /mob/living) || !has_gravity(loc))
 		return
-	
+
 	if(HAS_TRAIT(L, TRAIT_LIGHT_STEP))
 		playsound(loc, 'sound/effects/glass_step.ogg', 30, 1)
 	else
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, 1)
 	if(status == LIGHT_BURNED || status == LIGHT_OK)
 		shatter()
+
+/obj/item/light/create_reagents(max_vol, flags)
+	. = ..()
+	RegisterSignal(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_ADD_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_REAGENTS_REM_REAGENT), .proc/on_reagent_change)
+	RegisterSignal(reagents, COMSIG_PARENT_QDELETING, .proc/on_reagents_del)
+
+/**
+ * Handles rigging the cell if it contains enough plasma.
+ */
+/obj/item/light/proc/on_reagent_change(datum/reagents/holder, ...)
+	SIGNAL_HANDLER
+	rigged = (reagents.has_reagent(/datum/reagent/toxin/plasma, LIGHT_REAGENT_CAPACITY)) ? TRUE : FALSE //has_reagent returns the reagent datum, we don't want to hold a reference to prevent hard dels
+	return NONE
+
+/**
+ * Handles the reagent holder datum being deleted for some reason. Probably someone making pizza lights.
+ */
+/obj/item/light/proc/on_reagents_del(datum/reagents/holder)
+	SIGNAL_HANDLER
+	UnregisterSignal(holder, list(
+		COMSIG_PARENT_QDELETING,
+		COMSIG_REAGENTS_NEW_REAGENT,
+		COMSIG_REAGENTS_ADD_REAGENT,
+		COMSIG_REAGENTS_REM_REAGENT,
+		COMSIG_REAGENTS_DEL_REAGENT,
+	))
+	return NONE
 
 // attack bulb/tube with object
 // if a syringe, can inject plasma to make it explode

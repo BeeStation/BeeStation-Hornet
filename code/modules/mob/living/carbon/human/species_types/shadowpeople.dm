@@ -165,7 +165,7 @@
 	armour_penetration = 35
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
-	item_flags = ABSTRACT | DROPDEL
+	item_flags = ABSTRACT | DROPDEL | ACID_PROOF
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = IS_SHARP
 

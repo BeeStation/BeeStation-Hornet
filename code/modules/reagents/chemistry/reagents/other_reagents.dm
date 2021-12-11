@@ -104,13 +104,10 @@
 	taste_description = "slime"
 	penetrates_skin = NONE
 
-/datum/reagent/vaccine/expose_mob(mob/living/L, methods=TOUCH, reac_volume)
-	if(islist(data) && (methods & (INGEST|INJECT)))
-		for(var/thing in L.diseases)
-			var/datum/disease/D = thing
-			if(D.GetDiseaseID() in data)
-				D.cure()
-		LAZYOR(L.disease_resistances, data)
+/datum/reagent/vaccine/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message=TRUE, touch_protection=0)
+	. = ..()
+	if(!islist(data) || !(methods & (INGEST|INJECT)))
+		return
 
 	for(var/thing in exposed_mob.diseases)
 		var/datum/disease/infection = thing
@@ -203,17 +200,13 @@
 	for(var/mob/living/simple_animal/slime/exposed_slime in exposed_turf)
 		exposed_slime.apply_water()
 
-	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && !isspaceturf(T))
-		if(T.air)
-			var/datum/gas_mixture/G = T.air
-			G.temperature = max(min(G.temperature-(CT*1000),G.temperature/CT),TCMB)
-			G.react(src)
+	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in exposed_turf)
+	if(hotspot && !isspaceturf(exposed_turf))
+		if(exposed_turf.air)
+			var/datum/gas_mixture/air = exposed_turf.air
+			air.temperature = max(min(air.temperature-(cool_temp*1000), air.temperature/cool_temp),TCMB)
+			air.react(src)
 			qdel(hotspot)
-	//fixed
-	var/obj/effect/acid/A = (locate(/obj/effect/acid) in T)
-	if(A)
-		A.acid_level = max(A.acid_level - reac_volume*50, 0)
 
 /*
  *	Water reaction to an object
@@ -233,8 +226,8 @@
 		var/obj/item/toy/plush/carpplushie/dehy_carp/dehy = exposed_obj
 		dehy.Swell() // Makes a carp
 
-	else if(istype(O, /obj/item/stack/sheet/hairlesshide))
-		var/obj/item/stack/sheet/hairlesshide/HH = O
+	else if(istype(exposed_obj, /obj/item/stack/sheet/hairlesshide))
+		var/obj/item/stack/sheet/hairlesshide/HH = exposed_obj
 		new /obj/item/stack/sheet/wethide(get_turf(HH), HH.amount)
 		qdel(HH)
 
@@ -830,7 +823,7 @@
 /datum/reagent/oxygen/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()
 	if((!exposed_obj) || (!reac_volume))
-		return 0
+		return
 	var/temp = holder ? holder.chem_temp : T20C
 	exposed_obj.atmos_spawn_air("o2=[reac_volume/2];TEMP=[temp]")
 
@@ -848,9 +841,9 @@
 	taste_description = "metal"
 	random_unrestricted = FALSE
 
-/datum/reagent/copper/expose_obj(obj/O, reac_volume)
-	if(istype(O, /obj/item/stack/sheet/metal))
-		var/obj/item/stack/sheet/metal/M = O
+/datum/reagent/copper/expose_obj(obj/exposed_obj, reac_volume)
+	if(istype(exposed_obj, /obj/item/stack/sheet/metal))
+		var/obj/item/stack/sheet/metal/M = exposed_obj
 		reac_volume = min(reac_volume, M.amount)
 		new/obj/item/stack/tile/bronze(get_turf(M), reac_volume)
 		M.use(reac_volume)
@@ -867,6 +860,13 @@
 	color = "#808080" // rgb: 128, 128, 128
 	taste_mult = 0
 	random_unrestricted = FALSE
+
+/datum/reagent/nitrogen/expose_obj(obj/exposed_obj, reac_volume)
+	. = ..()
+	if((!exposed_obj) || (!reac_volume))
+		return
+	var/temp = holder ? holder.chem_temp : T20C
+	exposed_obj.atmos_spawn_air("n2=[reac_volume/2];TEMP=[temp]")
 
 /datum/reagent/nitrogen/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()
@@ -1191,7 +1191,7 @@
 /datum/reagent/space_cleaner/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message=TRUE, touch_protection=0)
 	. = ..()
 	if(methods & (TOUCH|VAPOR))
-		M.wash(clean_types)
+		exposed_mob.wash(clean_types)
 
 /datum/reagent/space_cleaner/ez_clean
 	name = "EZ Clean"
@@ -1342,7 +1342,7 @@
 /datum/reagent/carbondioxide/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()
 	if((!exposed_obj) || (!reac_volume))
-		return 0
+		return
 	var/temp = holder ? holder.chem_temp : T20C
 	exposed_obj.atmos_spawn_air("co2=[reac_volume/5];TEMP=[temp]")
 
@@ -1373,10 +1373,12 @@
 		var/temp = holder ? holder.chem_temp : T20C
 		exposed_turf.atmos_spawn_air("n2o=[reac_volume/5];TEMP=[temp]")
 
-/datum/reagent/nitrous_oxide/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+/datum/reagent/nitrous_oxide/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()
-	if(methods & VAPOR)
-		exposed_mob.drowsyness += max(round(reac_volume, 1), 2)
+	if((!exposed_obj) || (!reac_volume))
+		return
+	var/temp = holder ? holder.chem_temp : T20C
+	exposed_obj.atmos_spawn_air("n2o=[reac_volume/5];TEMP=[temp]")
 
 /datum/reagent/nitrous_oxide/on_mob_life(mob/living/carbon/M)
 	M.drowsyness += 2

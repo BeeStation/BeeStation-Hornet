@@ -50,6 +50,17 @@
 	SSmobs.cubemonkeys -= src
 	return ..()
 
+/mob/living/carbon/monkey/create_reagents(max_vol, flags)
+	. = ..()
+	RegisterSignal(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_DEL_REAGENT), .proc/on_reagent_change)
+	RegisterSignal(reagents, COMSIG_PARENT_QDELETING, .proc/on_reagents_del)
+
+/// Handles removing signal hooks incase someone is crazy enough to reset the reagents datum.
+/mob/living/carbon/monkey/proc/on_reagents_del(datum/reagents/reagents)
+	SIGNAL_HANDLER
+	UnregisterSignal(reagents, list(COMSIG_REAGENTS_NEW_REAGENT, COMSIG_REAGENTS_DEL_REAGENT, COMSIG_PARENT_QDELETING))
+	return NONE
+
 /mob/living/carbon/monkey/create_internal_organs()
 	internal_organs += new /obj/item/organ/appendix
 	internal_organs += new /obj/item/organ/lungs
@@ -62,8 +73,13 @@
 	internal_organs += new /obj/item/organ/stomach
 	..()
 
-/mob/living/carbon/monkey/on_reagent_change()
-	. = ..()
+/**
+ * Snowflake handling for morphine and nuka cola speed mods.
+ *
+ * Should be moved to the reagents at some future point. As it is I'm in a hurry.
+ */
+/mob/living/carbon/monkey/proc/on_reagent_change(datum/reagents/holder, ...)
+	SIGNAL_HANDLER
 	remove_movespeed_modifier(MOVESPEED_ID_MONKEY_REAGENT_SPEEDMOD, TRUE)
 	var/amount
 	if(reagents.has_reagent(/datum/reagent/medicine/morphine))
@@ -72,6 +88,7 @@
 		amount = -1
 	if(amount)
 		add_movespeed_modifier(MOVESPEED_ID_MONKEY_REAGENT_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = amount)
+	return NONE
 
 /mob/living/carbon/monkey/updatehealth()
 	. = ..()

@@ -24,9 +24,6 @@
 		mode = SYRINGE_INJECT
 		update_icon()
 
-/obj/item/reagent_containers/syringe/on_reagent_change(changetype)
-	update_icon()
-
 /obj/item/reagent_containers/syringe/pickup(mob/user)
 	..()
 	update_icon()

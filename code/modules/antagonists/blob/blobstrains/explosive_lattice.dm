@@ -24,7 +24,7 @@
 	for(var/mob/living/actor in orange(get_turf(spore), 1))
 		if(ROLE_BLOB in actor.faction) //no friendly fire
 			continue
-		actor.apply_damage(20, BRUTE, wound_bonus=CANT_WOUND)
+		actor.apply_damage(20, BRUTE)
 
 /datum/reagent/blob/explosive_lattice
 	name = "Explosive Lattice"

@@ -59,6 +59,26 @@
 	toxpwr = 3
 	process_flags = ORGANIC | SYNTHETIC
 
+/datum/reagent/toxin/plasma/on_new(data)
+	. = ..()
+	RegisterSignal(holder, COMSIG_REAGENTS_TEMP_CHANGE, .proc/on_temp_change)
+
+/datum/reagent/toxin/plasma/Destroy()
+	UnregisterSignal(holder, COMSIG_REAGENTS_TEMP_CHANGE)
+	return ..()
+
+/// Handles plasma boiling.
+/datum/reagent/toxin/plasma/proc/on_temp_change(datum/reagents/_holder, old_temp)
+	SIGNAL_HANDLER
+	if(holder.chem_temp < LIQUID_PLASMA_BP)
+		return
+	if(!holder.my_atom)
+		return
+
+	var/atom/A = holder.my_atom
+	A.atmos_spawn_air("plasma=[volume];TEMP=[holder.chem_temp]")
+	holder.del_reagent(type)
+
 /datum/reagent/toxin/plasma/on_mob_life(mob/living/carbon/C)
 	if(holder.has_reagent(/datum/reagent/medicine/epinephrine))
 		holder.remove_reagent(/datum/reagent/medicine/epinephrine, 2*REM)
@@ -67,7 +87,7 @@
 
 /datum/reagent/toxin/plasma/expose_obj(obj/O, reac_volume)
 	if((!O) || (!reac_volume))
-		return 0
+		return
 	var/temp = holder ? holder.chem_temp : T20C
 	O.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
 
@@ -224,9 +244,9 @@
 	taste_mult = 1
 	penetrates_skin = NONE
 
-/datum/reagent/toxin/plantbgone/expose_obj(obj/O, reac_volume)
-	if(istype(O, /obj/structure/alien/weeds))
-		var/obj/structure/alien/weeds/alien_weeds = O
+/datum/reagent/toxin/plantbgone/expose_obj(obj/exposed_obj, reac_volume)
+	if(istype(exposed_obj, /obj/structure/alien/weeds))
+		var/obj/structure/alien/weeds/alien_weeds = exposed_obj
 		alien_weeds.take_damage(rand(15,35), BRUTE, 0) // Kills alien weeds pretty fast
 	else if(istype(exposed_obj, /obj/structure/glowshroom)) //even a small amount is enough to kill it
 		qdel(exposed_obj)
@@ -253,9 +273,9 @@
 	color = "#4B004B" // rgb: 75, 0, 75
 	toxpwr = 1
 
-/datum/reagent/toxin/pestkiller/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
+/datum/reagent/toxin/pestkiller/expose_mob(mob/living/exposed_carbon, methods=TOUCH, reac_volume)
 	..()
-	if(MOB_BUG in M.mob_biotypes)
+	if(MOB_BUG in exposed_carbon.mob_biotypes)
 		var/damage = min(round(0.4*reac_volume, 0.1),10)
 		exposed_mob.adjustToxLoss(damage)
 
@@ -757,8 +777,8 @@
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/toxin/acid/expose_mob(mob/living/carbon/C, methods=TOUCH, reac_volume)
-	if(!istype(C))
+/datum/reagent/toxin/acid/expose_mob(mob/living/carbon/exposed_carbon, methods=TOUCH, reac_volume)
+	if(!istype(exposed_carbon))
 		return
 	reac_volume = round(reac_volume,0.1)
 	if(methods & INGEST)

@@ -53,8 +53,7 @@
 
 /datum/component/acid/Destroy(force, silent)
 	STOP_PROCESSING(SSacid, src)
-	if(sizzle)
-		QDEL_NULL(sizzle)
+	QDEL_NULL(sizzle)
 	if(process_effect)
 		QDEL_NULL(process_effect)
 	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS)
@@ -203,7 +202,7 @@
 		return
 	if(crosser.movement_type & FLYING)
 		return
-	if(crosser.m_intent & MOVE_INTENT_WALK)
+	if(crosser.m_intent == MOVE_INTENT_WALK)
 		return
 	if(prob(60))
 		return

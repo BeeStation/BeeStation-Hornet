@@ -76,15 +76,11 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(!iscarbon(exposed_mob))
 		return
 
-			for(var/s in C.surgeries)
-				var/datum/surgery/S = s
-				S.speed_modifier = max(0.1*power_multiplier, S.speed_modifier)
-				// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
+	for(var/s in C.surgeries)
+		var/datum/surgery/S = s
+		S.speed_modifier = max(0.1*power_multiplier, S.speed_modifier)
+		// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
 	return ..()
-
-	for(var/s in exposed_carbon.surgeries)
-		var/datum/surgery/surgery = s
-		surgery.speed_modifier = max(0.1*power_multiplier, surgery.speed_modifier)
 
 /datum/reagent/consumable/ethanol/beer
 	name = "Beer"

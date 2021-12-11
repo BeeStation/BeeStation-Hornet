@@ -62,7 +62,7 @@
 
 			log_combat(user, M, "squirted", R)
 
-		trans = reagents.trans_to(safe_thing, amount_per_transfer_from_this, transfered_by = user, methods = TOUCH)
+		trans = reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user, methods = TOUCH)
 		to_chat(user, "<span class='notice'>You transfer [trans] unit\s of the solution.</span>")
 		update_icon()
 

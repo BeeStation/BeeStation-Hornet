@@ -111,14 +111,19 @@
 	var/fry_temperature = 450 //Around ~350 F (117 C) which deep fryers operate around in the real world
 	var/boiling //Used in mob life to determine if the oil kills, and only on touch application
 
-/datum/reagent/consumable/cooking_oil/expose_obj(obj/O, reac_volume)
-	if(holder && holder.chem_temp >= fry_temperature)
-		if(isitem(O) && !istype(O, /obj/item/reagent_containers/food/snacks/deepfryholder))
-			log_game("[O.name] ([O.type]) has been deep fried by a reaction with cooking oil reagent at [AREACOORD(O)].")
-			O.loc.visible_message("<span class='warning'>[O] rapidly fries as it's splashed with hot oil! Somehow.</span>")
-			var/obj/item/reagent_containers/food/snacks/deepfryholder/F = new(O.drop_location(), O)
-			F.fry(volume)
-			F.reagents.add_reagent(/datum/reagent/consumable/cooking_oil, reac_volume)
+/datum/reagent/consumable/cooking_oil/expose_obj(obj/exposed_obj, reac_volume)
+	. = ..()
+	if(!holder || (holder.chem_temp <= fry_temperature))
+		return
+	if(!isitem(exposed_obj) || istype(exposed_obj, /obj/item/food/deepfryholder))
+		return
+	if(is_type_in_typecache(exposed_obj, GLOB.oilfry_blacklisted_items) || (exposed_obj.resistance_flags & INDESTRUCTIBLE))
+		exposed_obj.loc.visible_message(span_notice("The hot oil has no effect on [exposed_obj]!"))
+		return
+	exposed_obj.loc.visible_message(span_warning("[exposed_obj] rapidly fries as it's splashed with hot oil! Somehow."))
+	var/obj/item/food/deepfryholder/fry_target = new(exposed_obj.drop_location(), exposed_obj)
+	fry_target.fry(volume)
+	fry_target.reagents.add_reagent(/datum/reagent/consumable/cooking_oil, reac_volume)
 
 /datum/reagent/consumable/cooking_oil/expose_mob(mob/living/exposed_mob, methods = TOUCH, reac_volume, show_message = TRUE, touch_protection = 0)
 	. = ..()
@@ -128,15 +133,14 @@
 		boiling = TRUE
 	if(!(methods & (VAPOR|TOUCH))) //Directly coats the mob, and doesn't go into their bloodstream
 		if(boiling)
-			M.visible_message("<span class='warning'>The boiling oil sizzles as it covers [M]!</span>", \
+			exposed_mob.visible_message("<span class='warning'>The boiling oil sizzles as it covers [M]!</span>", \
 			"<span class='userdanger'>You're covered in boiling oil!</span>")
-			M.emote("scream")
-			playsound(M, 'sound/machines/fryer/deep_fryer_emerge.ogg', 25, TRUE)
+			exposed_mob.emote("scream")
+			playsound(exposed_mob, 'sound/machines/fryer/deep_fryer_emerge.ogg', 25, TRUE)
 			var/oil_damage = (holder.chem_temp / fry_temperature) * 0.33 //Damage taken per unit
-			M.adjustFireLoss(min(35, oil_damage * reac_volume)) //Damage caps at 35
+			exposed_mob.adjustFireLoss(min(35, oil_damage * reac_volume)) //Damage caps at 35
 	else
 		..()
-	return TRUE
 
 /datum/reagent/consumable/cooking_oil/expose_turf(turf/open/exposed_turf, reac_volume)
 	. = ..()
@@ -294,7 +298,7 @@
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
 				victim.emote("scream")
-			victim.confused = max(M.confused, 5) // 10 seconds
+			victim.confused = max(exposed_mob.confused, 5) // 10 seconds
 			victim.add_movespeed_modifier(MOVESPEED_ID_PEPPER_SPRAY, update=TRUE, priority=100, multiplicative_slowdown=0.25, blacklisted_movetypes=(FLYING|FLOATING))
 			addtimer(CALLBACK(victim, /mob.proc/remove_movespeed_modifier, MOVESPEED_ID_PEPPER_SPRAY), 10 SECONDS)
 		victim.update_damage_hud()
@@ -598,16 +602,16 @@
 	if(!(methods & INGEST) || !((methods & (TOUCH|PATCH|VAPOR)) && (exposed_mob.is_mouth_covered() || exposed_mob.is_eyes_covered())))
 		return
 	var/unprotected = FALSE
-	if((methods & INGEST) || ((methods & (TOUCH|PATCH|VAPOR)) && !M.is_mouth_covered() && !M.is_eyes_covered()))
+	if((methods & INGEST) || ((methods & (TOUCH|PATCH|VAPOR)) && !exposed_mob.is_mouth_covered() && !exposed_mob.is_eyes_covered()))
 		unprotected = TRUE
 	if(unprotected)
-		if(!M.getorganslot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes
-			to_chat(M, "<span class = 'notice'>Your eye sockets feel wet.</span>")
+		if(!exposed_mob.getorganslot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes
+			to_chat(exposed_mob, "<span class = 'notice'>Your eye sockets feel wet.</span>")
 		else
-			if(!M.eye_blurry)
-				to_chat(M, "<span class = 'warning'>Tears well up in your eyes!</span>")
-			M.blind_eyes(2)
-			M.blur_eyes(5)
+			if(!exposed_mob.eye_blurry)
+				to_chat(exposed_mob, "<span class = 'warning'>Tears well up in your eyes!</span>")
+			exposed_mob.blind_eyes(2)
+			exposed_mob.blur_eyes(5)
 	..()
 
 	if(!exposed_mob.getorganslot(ORGAN_SLOT_EYES))	//can't blind somebody with no eyes

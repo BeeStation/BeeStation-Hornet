@@ -371,26 +371,22 @@
 	icon_state = "sink_frame"
 	desc = "A sink frame, that needs a water recycler to finish construction."
 	anchored = FALSE
-	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
+	material_flags = MATERIAL_AFFECT_STATISTICS
 
 /obj/structure/sinkframe/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
 
-/obj/structure/sinkframe/proc/can_be_rotated(mob/user, rotation_type)
-	if(anchored)
-		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
-	return !anchored
-
 /obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/stock_parts/water_recycler))
-		qdel(I)
-		var/obj/structure/sink/greyscale/new_sink = new /obj/structure/sink/greyscale(loc)
-		new_sink.has_water_reclaimer = TRUE
-		new_sink.set_custom_materials(custom_materials)
-		new_sink.setDir(dir)
-		qdel(src)
-		return
+	if(istype(I, /obj/item/stack/sheet/plastic))
+		balloon_alert(user, "You start constructing the sink")
+		if(do_after(user, 4 SECONDS, target = src))
+			I.use(1)
+			balloon_alert(user, "Sink created")
+			var/obj/structure/sink/new_sink = new /obj/structure/sink(loc)
+			new_sink.setDir(dir)
+			qdel(src)
+			return
 	return ..()
 
 //Water source, use the type water_source for unlimited water sources like classic sinks.
