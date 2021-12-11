@@ -14,7 +14,6 @@
 
 	var/has_fine_manipulation = 0
 	var/move_delay_add = 0 // movement delay to add
-
 	status_flags = CANUNCONSCIOUS|CANPUSH
 
 	var/heat_protection = 0.5
@@ -28,7 +27,7 @@
 /mob/living/carbon/alien/Initialize()
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/lay_down)
-
+	ADD_TRAIT(src, TRAIT_NOGASP, SPECIES_TRAIT)
 	create_bodyparts() //initialize bodyparts
 
 	create_internal_organs()
