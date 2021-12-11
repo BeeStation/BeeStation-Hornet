@@ -377,9 +377,7 @@
 /obj/attack_hand(mob/user)
 	if(user.a_intent == INTENT_HARM)
 		for(var/mob/living/L in get_turf(src))
-			if(L.stat)
-				continue
-			if(user == L)
+			if(L.stat || user == L)
 				continue
 			L.attack_hand(user)
 			user.changeNext_move(CLICK_CD_MELEE)
