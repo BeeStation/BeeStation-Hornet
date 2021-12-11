@@ -30,7 +30,7 @@
 	var/temp_tolerance_damage = T0C + 200		// Most CPUS get up to 200C they start breaking.  TODO: Start doing damage to the server?
 	var/temp_penalty_coefficient = 0.5	//1 = -1 points per degree above high tolerance. 0.5 = -0.5 points per degree above high tolerance.
 	var/current_temp = -1
-	req_access = list(ACCESS_RD) //ONLY THE R&D CAN CHANGE SERVER SETTINGS.
+	req_access = list(ACCESS_RD_SERVER) //ONLY THE R&D, AND WHO HAVE THE ACCESS TO CAN CHANGE SERVER SETTINGS.
 
 /obj/machinery/rnd/server/Initialize(mapload)
 	. = ..()
@@ -169,7 +169,7 @@
 	desc = "Used to manage access to research and manufacturing databases."
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
-	req_access = list(ACCESS_RD)
+	req_access = list(ACCESS_RD_SERVER)
 	circuit = /obj/item/circuitboard/computer/rdservercontrol
 
 

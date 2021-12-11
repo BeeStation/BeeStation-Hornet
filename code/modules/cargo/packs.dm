@@ -262,7 +262,7 @@
 
 /datum/supply_pack/emergency/specialops
 	name = "Special Ops Supplies"
-	desc = "(*!&@#SAD ABOUT THAT NULL_ENTRY, HUH OPERATIVE? WELL, THIS LITTLE ORDER CAN STILL HELP YOU OUT IN A PINCH. CONTAINS A BOX OF FIVE EMP GRENADES, THREE SMOKEBOMBS, AN INCENDIARY GRENADE, AND A \"SLEEPY PEN\" FULL OF NICE TOXINS!#@*$"
+	desc = "(*!&@#OPERATIVE THIS LITTLE ORDER CAN STILL HELP YOU OUT IN A PINCH. CONTAINS A BOX OF FIVE EMP GRENADES, THREE SMOKEBOMBS, AN INCENDIARY GRENADE, AND A \"SLEEPY PEN\" FULL OF NICE TOXINS!#@*$"
 	hidden = TRUE
 	cost = 800
 	contains = list(/obj/item/storage/box/emps,
@@ -271,6 +271,32 @@
 					/obj/item/grenade/smokebomb,
 					/obj/item/pen/sleepy,
 					/obj/item/grenade/chem_grenade/incendiary)
+	crate_name = "emergency crate"
+	crate_type = /obj/structure/closet/crate/internals
+
+/datum/supply_pack/emergency/syndieclothes
+	name = "Syndicate Uniform Supplies"
+	desc = "(*!&@#OPERATIVE THIS LITTLE ORDER WILL MAKE YOU STYLISH SYNDICATE STYLE. CONTAINS A COLLECTION OF THREE TACTICAL TURTLENECKS, THREE COMBAT BOOTS, THREE COMBAT GLOVES, THREE BALACLAVAS, THREE SYNDICATE BERETS AND THREE ARMOR VESTS!#@*$"
+	hidden = TRUE
+	cost = 3000
+	contains = list(/obj/item/clothing/under/syndicate,
+					/obj/item/clothing/under/syndicate,
+					/obj/item/clothing/under/syndicate,
+					/obj/item/clothing/shoes/combat,
+					/obj/item/clothing/shoes/combat,
+					/obj/item/clothing/shoes/combat,
+					/obj/item/clothing/mask/balaclava,
+					/obj/item/clothing/mask/balaclava,
+					/obj/item/clothing/mask/balaclava,
+					/obj/item/clothing/gloves/combat,
+					/obj/item/clothing/gloves/combat,
+					/obj/item/clothing/gloves/combat,
+					/obj/item/clothing/head/HoS/beret/syndicate,
+					/obj/item/clothing/head/HoS/beret/syndicate,
+					/obj/item/clothing/head/HoS/beret/syndicate,
+					/obj/item/clothing/suit/armor/vest,
+					/obj/item/clothing/suit/armor/vest,
+					/obj/item/clothing/suit/armor/vest)
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
 

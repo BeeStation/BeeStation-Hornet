@@ -30,6 +30,9 @@
 	pressure_resistance = 300
 	gold_core_spawnable = NO_SPAWN //too spooky for science
 	var/ghost_hair_style
+	light_system = MOVABLE_LIGHT
+	light_range = 1 // same glowing as visible player ghosts
+	light_power = 2
 	var/ghost_hair_color
 	var/mutable_appearance/ghost_hair
 	var/ghost_facial_hair_style
@@ -41,7 +44,6 @@
 /mob/living/simple_animal/hostile/retaliate/ghost/Initialize()
 	. = ..()
 	give_hair()
-	set_light(1, 2) // same glowing as visible player ghosts
 	if(random)
 		switch(rand(0,1))
 			if(0)
