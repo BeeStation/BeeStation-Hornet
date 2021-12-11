@@ -677,7 +677,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/mob/living/carbon/human/H = A.affected_mob
 	switch(A.stage)
 		if(1 to 4)
-			to_chat(M, "<span class='warning'>[pick("You feel cold...", "You feel a bit thirsty", "It dawns upon you that every single human on this station has warm blood pulsing through their veins.")]</span>")
+			if(prob(5))
+				to_chat(M, "<span class='warning'>[pick("You feel cold...", "You feel a bit thirsty", "It dawns upon you that every single human on this station has warm blood pulsing through their veins.")]</span>")
 		if(5)
 			ADD_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
 			var/grabbedblood = succ(M) //before adding sucked blood to bloodpoints, immediately try to heal bloodloss
@@ -690,7 +691,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				M.blood_volume = (M.blood_volume - 4)
 				bloodpoints += 1
 			else
-				bloodpoints += grabbedblood
+				bloodpoints += max(0, grabbedblood)
 			for(var/I in 1 to power)//power doesnt increase efficiency, just usage. 
 				if(bloodpoints)
 					if(H.bleed_rate >= 2 && bruteheal && bloodpoints)
@@ -719,9 +720,11 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/vampirism/proc/succ(mob/living/carbon/M) //you dont need the blood reagent to suck blood. however, you need 
 	var/gainedpoints = 0
+	if(bloodbag && !bloodbag.blood_volume) //we've exsanguinated them!
+		bloodbag = null
 	if(ishuman(M) && M.stat == DEAD && vampire)
 		var/mob/living/carbon/human/H = M
-		var/possibledist = power
+		var/possibledist = power + 1
 		if(M.get_blood_id() != /datum/reagent/blood)
 			possibledist = 1
 		if(!(NOBLOOD in H.dna.species.species_traits)) //if you dont have blood, well... sucks to be you
@@ -738,10 +741,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					bloodbag.blood_volume = max(bloodbag.blood_volume - amt, 0)
 					bloodpoints += max(excess, 0)
 					bloodbag.visible_message("<span class='warning'>Blood flows from [bloodbag.name]'s wounds into [H.name]'s corpse!</span>", "<span class='userdanger'>Blood flows from your wounds into [H.name]'s corpse!</span>")
-				else if(bloodbag.stat >= SOFT_CRIT && bloodpoints <= 20) //don't waste blood chasing them
-					bloodbag = null
 				else if(get_dist(bloodbag, H) >= possibledist) //they've been taken out of range.
 					bloodbag = null
+					return
 				else if(bloodpoints >= 2)
 					var/turf/T = H.loc
 					var/obj/effect/decal/cleanable/blood/influenceone = (locate(/obj/effect/decal/cleanable/blood) in H.loc)
@@ -764,20 +766,15 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 								bloodpoints -= 2
 								return 0
 							else if(T == targetloc && bloodpoints >= 2)
-								bloodbag.throw_at(H, 2, spin = FALSE)
+								bloodbag.throw_at(H, 1, 1)
 								bloodpoints -= 2
 								bloodbag.visible_message("<span class='warning'>A current of blood pushes [bloodbag.name] towards [H.name]'s corpse!</span>")
 								playsound(bloodbag.loc, 'sound/magic/exit_blood.ogg', 50, 1)
 								return 0 
-					
-				if(!bloodbag.blood_volume) //we've exsanguinated them!
-					bloodbag = null
 			else 
 				var/list/cantidates = list()
 				for(var/mob/living/carbon/human/C in ohearers(min(bloodpoints/4, possibledist), H))
 					if(NOBLOOD in C.dna.species.species_traits)
-						continue
-					if(C.stat >= SOFT_CRIT && bloodpoints <= (20 + get_dist(C, H) * 4))//this target can crawl, so we dont want to waste blood chasing them down if we dont have enough
 						continue
 					if(C.stat && C.blood_volume && C.get_blood_id() == H.get_blood_id())
 						cantidates += C
@@ -812,7 +809,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(locate(/obj/effect/decal/cleanable/blood) in M.loc)
 		var/obj/effect/decal/cleanable/blood/initialstain = (locate(/obj/effect/decal/cleanable/blood) in M.loc)
 		var/list/stains = list()
-		var/suckamt = power
+		var/suckamt = power + 1
 		if(aggression)
 			for(var/obj/effect/decal/cleanable/blood/contiguousstain in orange(1, M))
 				if(suckamt)
@@ -821,24 +818,21 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(suckamt)
 				suckamt --
 				stains += initialstain
-		for(var/obj/effect/decal/cleanable/blood/stain in stains)
-			switch(stain.type)
-				if(/obj/effect/decal/cleanable/blood/gibs/old)
-					playsound(stain.loc, 'sound/magic/exit_blood.ogg', 50, 1)
-					gainedpoints += 3
-					qdel(stain)
-				if(/obj/effect/decal/cleanable/blood/old)
-					gainedpoints += 1
-					qdel(stain)
-				if(/obj/effect/decal/cleanable/blood/gibs)
-					playsound(stain.loc, 'sound/magic/exit_blood.ogg', 50, 1)
-					gainedpoints += 5
-					qdel(stain)
-				if(/obj/effect/decal/cleanable/blood/footprints,  /obj/effect/decal/cleanable/blood/tracks, /obj/effect/decal/cleanable/blood/drip)
-					qdel(stain)
-				if(/obj/effect/decal/cleanable/blood)
-					gainedpoints += 2
-					qdel(stain)
+		for(var/obj/effect/decal/cleanable/blood/stain in stains) //this doesnt use switch(type) because that doesnt check subtypes
+			if(istype(stain, /obj/effect/decal/cleanable/blood/gibs/old))
+				gainedpoints += 3
+				qdel(stain)
+			else if(istype(stain, /obj/effect/decal/cleanable/blood/old))
+				gainedpoints += 1
+				qdel(stain)
+			else if(istype(stain, /obj/effect/decal/cleanable/blood/gibs))
+				gainedpoints += 5
+				qdel(stain)
+			else if(istype(stain, /obj/effect/decal/cleanable/blood/footprints) || istype(stain, /obj/effect/decal/cleanable/blood/tracks) || istype(stain, /obj/effect/decal/cleanable/blood/drip))
+				qdel(stain)
+			else if(istype(stain, /obj/effect/decal/cleanable/blood))
+				gainedpoints += 2
+				qdel(stain)
 		if(gainedpoints)
 			playsound(M.loc, 'sound/magic/exit_blood.ogg', 50, 1)
 			M.visible_message("<span class='warning'>Blood flows from the floor into [M.name]!</span>", "<span class='warning'>You consume the errant blood</span>")
