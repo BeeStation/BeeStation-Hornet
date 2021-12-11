@@ -111,7 +111,7 @@
 	//Suffocate
 	if(losebreath >= 1) //You've missed a breath, take oxy damage
 		losebreath--
-		if(prob(10) && !HAS_TRAIT(src, TRAIT_NOGASP))
+		if(prob(10))
 			emote("gasp")
 		if(istype(loc, /obj/))
 			var/obj/loc_as_obj = loc
@@ -187,7 +187,7 @@
 
 	//OXYGEN
 	if(O2_partialpressure < safe_oxy_min) //Not enough oxygen
-		if(prob(20) && !HAS_TRAIT(src, TRAIT_NOGASP))
+		if(prob(20))
 			emote("gasp")
 		if(O2_partialpressure > 0)
 			var/ratio = 1 - O2_partialpressure/safe_oxy_min
