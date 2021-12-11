@@ -43,9 +43,7 @@
 /obj/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
 		for(var/mob/living/L in get_turf(src))
-			if(L.stat)
-				continue
-			if(user == L)
+			if(L.stat || user == L)
 				continue
 			L.attackby(I, user)
 			return FALSE
