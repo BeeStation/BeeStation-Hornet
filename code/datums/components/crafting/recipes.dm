@@ -977,7 +977,7 @@
 				/obj/item/aquarium_kit = 1
 				)
 	category = CAT_MISC
-	
+
 /datum/crafting_recipe/paper_cup
 	name= "Paper Cup"
 	result = /obj/item/reagent_containers/food/drinks/sillycup
@@ -985,4 +985,3 @@
 	reqs = list(/obj/item/paper = 1)
 	category = CAT_MISC
 	tools = list(TOOL_WIRECUTTER)
-	
