@@ -91,5 +91,5 @@ while read f; do
         echo "file $f is missing a trailing newline"
         st=1
     fi;
-done < <(find . -type f -not -path "./.git/*" -exec grep -Iq . {} \; -print)
+done < <(find . -type f -not \( -path "./.git/*" -prune -o -path "./tgui/*" -prune \) -exec grep -Iq . {} \; -print)
 exit $st
