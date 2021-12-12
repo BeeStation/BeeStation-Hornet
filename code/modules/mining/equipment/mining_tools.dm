@@ -6,7 +6,6 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	attack_weight = 2
-	block_upgrade_walk = 1
 	force = 15
 	throwforce = 10
 	item_state = "pickaxe"
@@ -101,7 +100,6 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	force = 8
-	block_upgrade_walk = 1
 	tool_behaviour = TOOL_SHOVEL
 	toolspeed = 1
 	usesound = 'sound/effects/shovel_dig.ogg'

@@ -26,7 +26,6 @@
 	cartridge_wording = "shell"
 	tac_reloads = FALSE
 	fire_rate = 1 //reee
-	block_upgrade_walk = 1
 	recoil = 1
 	pb_knockback = 2
 

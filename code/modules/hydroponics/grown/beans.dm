@@ -53,3 +53,4 @@
 	foodtype = VEGETABLES
 	tastes = list("koi" = 1)
 	wine_power = 40
+	discovery_points = 300

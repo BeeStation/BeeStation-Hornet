@@ -81,5 +81,15 @@ do
 		fi
 	fi
 done
-
+echo "Checking for missing newlines"
+nl='
+'
+nl=$'\n'
+while read f; do
+    t=$(tail -c2 "$f"; printf x); r1="${nl}$"; r2="${nl}${r1}"
+    if [[ ! ${t%x} =~ $r1 ]]; then
+        echo "file $f is missing a trailing newline"
+        st=1
+    fi;
+done < <(find . -type f -not \( -path "./.git/*" -prune \) -exec grep -Iq . {} \; -print)
 exit $st

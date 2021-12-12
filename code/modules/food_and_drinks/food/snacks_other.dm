@@ -656,4 +656,4 @@
 	list_reagents = list(/datum/reagent/consumable/beefbroth = 50)
 	filling_color = "#100800"
 	tastes = list("disgust" = 7, "tin" = 1)
-	foodtype = MEAT | GROSS | JUNKFOOD 
+	foodtype = MEAT | GROSS | JUNKFOOD
