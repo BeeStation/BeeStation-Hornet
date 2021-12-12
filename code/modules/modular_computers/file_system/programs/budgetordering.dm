@@ -271,4 +271,3 @@
 
 	var/datum/signal/status_signal = new(list("command" = command))
 	frequency.post_signal(src, status_signal)
-	
