@@ -4,7 +4,7 @@ heatmelt.ogg - 	from https://freesound.org/people/toiletrolltube/sounds/181483/
 		from bubbles2.ogg
 heatacid.ogg - 	from https://freesound.org/people/klankbeeld/sounds/233697/
 	        from bubbles2.ogg
-	        from fuse.ogg		
+	        from fuse.ogg
 bufferadd.ogg-  https://freesound.org/people/toiletrolltube/sounds/181483/
 heatdamn.ogg -  from https://freesound.org/people/klankbeeld/sounds/233697/
 catalyst.ogg -  from: https://freesound.org/people/Melthurian/sounds/319384/
