@@ -49,7 +49,7 @@
 
 	var/atom/parent_atom = parent
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, .proc/on_update_overlays)
-	parent_atom.update_appearance()
+	parent_atom.update_overlays()
 	sizzle = new(parent, TRUE)
 	START_PROCESSING(SSacid, src)
 
@@ -61,7 +61,7 @@
 	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS)
 	if(parent && !QDELING(parent))
 		var/atom/parent_atom = parent
-		parent_atom.update_appearance()
+		parent_atom.update_overlays()
 	return ..()
 
 /datum/component/acid/RegisterWithParent()

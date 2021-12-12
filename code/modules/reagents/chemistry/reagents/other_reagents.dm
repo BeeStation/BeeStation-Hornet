@@ -1180,15 +1180,13 @@
 	if(reac_volume < 1)
 		return
 
-	exposed_turf.wash(clean_types)
-	for(var/am in exposed_turf)
-		var/atom/movable/movable_content = am
-		if(ismopable(movable_content)) // Mopables will be cleaned anyways by the turf wash
-			continue
-		movable_content.wash(clean_types)
+	exposed_turf.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	SEND_SIGNAL(exposed_turf, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
+	for(var/obj/effect/decal/cleanable/C in exposed_turf)
+		qdel(C)
 
-	for(var/mob/living/simple_animal/slime/exposed_slime in exposed_turf)
-		exposed_slime.adjustToxLoss(rand(5,10))
+	for(var/mob/living/simple_animal/slime/M in exposed_turf)
+		M.adjustToxLoss(rand(5,10))
 
 /datum/reagent/space_cleaner/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message=TRUE, touch_protection=0)
 	. = ..()
@@ -1658,10 +1656,10 @@
 	taste_description = "carpet" // Your tounge feels furry.
 
 /datum/reagent/carpet/expose_turf(turf/T, reac_volume)
+	. = ..()
 	if(isplatingturf(T) || istype(T, /turf/open/floor/plasteel))
 		var/turf/open/floor/F = T
-		F.PlaceOnTop(carpet_type, flags = CHANGETURF_INHERIT_AIR)
-	..()
+		F.PlaceOnTop(/turf/open/floor/carpet, flags = CHANGETURF_INHERIT_AIR)
 
 /datum/reagent/bromine
 	name = "Bromine"

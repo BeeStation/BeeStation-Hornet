@@ -52,16 +52,12 @@
 /datum/component/forensics/proc/clean_act(datum/source, strength)
 	SIGNAL_HANDLER
 
-	. = NONE
-	if(clean_types & CLEAN_TYPE_FINGERPRINTS)
+	if(strength >= CLEAN_STRENGTH_FINGERPRINTS)
 		wipe_fingerprints()
-		. = COMPONENT_CLEANED
-	if(clean_types & CLEAN_TYPE_BLOOD)
+	if(strength >= CLEAN_STRENGTH_BLOOD)
 		wipe_blood_DNA()
-		. = COMPONENT_CLEANED
-	if(clean_types & CLEAN_TYPE_FIBERS)
+	if(strength >= CLEAN_STRENGTH_FIBERS)
 		wipe_fibers()
-		. = COMPONENT_CLEANED
 
 /datum/component/forensics/proc/add_fingerprint_list(list/_fingerprints)	//list(text)
 	if(!length(_fingerprints))

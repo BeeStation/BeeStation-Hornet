@@ -45,13 +45,11 @@
 		eater.ForceContractDisease(V)
 	try_infect(feeder, BODY_ZONE_L_ARM)
 
-/datum/component/infective/proc/clean(datum/source, clean_types)
+/datum/component/infective/proc/clean(datum/source, clean_strength)
 	SIGNAL_HANDLER
 
-	. = NONE
-	if(clean_types & required_clean_types)
+	if(clean_strength >= min_clean_strength)
 		qdel(src)
-		return COMPONENT_CLEANED
 
 /datum/component/infective/proc/try_infect_buckle(datum/source, mob/M, force)
 	SIGNAL_HANDLER
