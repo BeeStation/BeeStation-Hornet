@@ -96,8 +96,7 @@ const ColorDisplay = (props, context) => {
           <LabeledList.Item
             key={`colorgroup${item.index}${item.value}`}
             label={`Color Group ${item.index}`}
-            color={item.value}
-          >
+            color={item.value}>
             <ColorBox
               color={item.value}
             />
