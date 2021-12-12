@@ -364,6 +364,25 @@
 	name = "kitchen sink"
 	icon_state = "sink_alt"
 
+/obj/structure/sink/puddle	//splishy splashy ^_^
+	name = "puddle"
+	desc = "A puddle used for washing one's hands and face."
+	icon_state = "puddle"
+	resistance_flags = UNACIDABLE
+
+//ATTACK HAND IGNORING PARENT RETURN VALUE
+/obj/structure/sink/puddle/attack_hand(mob/M)
+	icon_state = "puddle-splash"
+	. = ..()
+	icon_state = "puddle"
+
+/obj/structure/sink/puddle/attackby(obj/item/O, mob/user, params)
+	icon_state = "puddle-splash"
+	. = ..()
+	icon_state = "puddle"
+
+/obj/structure/sink/puddle/deconstruct(disassembled = TRUE)
+	qdel(src)
 
 /obj/structure/sinkframe
 	name = "sink frame"
