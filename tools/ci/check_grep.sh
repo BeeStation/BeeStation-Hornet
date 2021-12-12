@@ -81,6 +81,7 @@ do
 		fi
 	fi
 done
+echo "Checking for missing newlines"
 nl='
 '
 nl=$'\n'
@@ -90,6 +91,5 @@ while read f; do
         echo "file $f is missing a trailing newline"
         st=1
     fi;
-done < <(find . -type f -name '*.dm')
-
+done < <(find . -type f -not \( -path "./.git/*" -prune \) -exec grep -Iq . {} \; -print)
 exit $st
