@@ -287,6 +287,7 @@ This is highly likely to cause massive amounts of lag as every object in the gam
 
 	sprite_data["time_spent"] = TICK_DELTA_TO_MS(time_spent)
 	sprite_data["finished"] = icon2html(finished, user, dir=sprite_dir, sourceonly=TRUE)
+	ui_update()
 	refreshing = FALSE
 
 /datum/greyscale_modify_menu/proc/Unlock()
