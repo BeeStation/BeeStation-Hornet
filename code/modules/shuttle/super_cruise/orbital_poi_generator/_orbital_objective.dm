@@ -45,7 +45,7 @@
 	completed = TRUE
 	//Handle payout
 	SSeconomy.distribute_funds(payout)
-	GLOB.exploration_points += payout * 0.1
+	GLOB.exploration_points += payout
 	//Announcement
 	priority_announce("Central Command priority objective completed. [payout] credits have been \
 		distributed across departmental budgets. [payout * 0.1] points have been distrubted to exploration vendors.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
