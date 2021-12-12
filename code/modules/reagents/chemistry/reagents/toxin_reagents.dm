@@ -38,12 +38,11 @@
 	if(!exposed_mob.has_dna())
 		return  //No robots, AIs, aliens, Ians or other mobs should be affected by this.
 	if(((methods & VAPOR) && prob(min(33, reac_volume))) || (methods & (INGEST|PATCH|INJECT)))
-		exposed_mob.random_mutate_unique_identity()
-		exposed_mob.random_mutate_unique_features()
+		exposed_mob.randmuti()
 		if(prob(98))
-			exposed_mob.easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
+			exposed_mob.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
 		else
-			exposed_mob.easy_random_mutate(POSITIVE)
+			exposed_mob.easy_randmut(POSITIVE)
 		exposed_mob.updateappearance()
 		exposed_mob.domutcheck()
 
@@ -257,6 +256,7 @@
 	ph = 2.7
 
 /datum/reagent/toxin/plantbgone/expose_obj(obj/exposed_obj, reac_volume)
+	. = ..()
 	if(istype(exposed_obj, /obj/structure/alien/weeds))
 		var/obj/structure/alien/weeds/alien_weeds = exposed_obj
 		alien_weeds.take_damage(rand(15,35), BRUTE, 0) // Kills alien weeds pretty fast

@@ -301,5 +301,5 @@
 /datum/reagent/firefighting_foam/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
 	. = ..()
 	if(methods & (TOUCH|VAPOR))
-		M.extinguish_mob() //All stacks are removed
+		exposed_mob.extinguish_mob() //All stacks are removed
 	..()

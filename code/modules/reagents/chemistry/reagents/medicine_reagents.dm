@@ -311,6 +311,7 @@
 	color = "#FF9696"
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 100
+	ph = 5.5
 
 /datum/reagent/medicine/strange_reagent/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -1102,6 +1103,7 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
+	ph = 8.2
 
 /datum/reagent/medicine/bicaridine/on_mob_life(mob/living/carbon/M)
 	if(M.getBruteLoss() < 50)

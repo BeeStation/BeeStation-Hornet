@@ -206,7 +206,7 @@
 	if(hotspot && !isspaceturf(exposed_turf))
 		if(exposed_turf.air)
 			var/datum/gas_mixture/air = exposed_turf.air
-			air.set_temperature(max(min(air.return_temperature()-(CT*1000),air.return_temperature()/CT),TCMB))
+			air.set_temperature(max(min(air.return_temperature()-(cool_temp*1000),air.return_temperature()/cool_temp),TCMB))
 			air.react(src)
 			qdel(hotspot)
 
@@ -850,7 +850,7 @@
 
 	var/obj/item/stack/sheet/iron/M = exposed_obj
 	reac_volume = min(reac_volume, M.amount)
-	new/obj/item/stack/sheet/bronze(get_turf(M), reac_volume)
+	new/obj/item/stack/tile/bronze(get_turf(M), reac_volume)
 	M.use(reac_volume)
 
 /datum/reagent/nitrogen
@@ -1018,15 +1018,12 @@
 	taste_description = "bitterness"
 	ph = 10.5
 
-/datum/reagent/space_cleaner/sterilizine/expose_mob(mob/living/carbon/C, methods=TOUCH, reac_volume)
-	if(methods & (TOUCH|VAPOR|PATCH))
-		for(var/s in C.surgeries)
-			var/datum/surgery/S = s
-			S.speed_modifier = max(0.2, S.speed_modifier)
-	..()
+/datum/reagent/space_cleaner/sterilizine/expose_mob(mob/living/carbon/exposed_carbon, methods=TOUCH, reac_volume)
+	. = ..()
+	if(!(methods & (TOUCH|VAPOR|PATCH)))
+		return
 
-	for(var/s in exposed_carbon.surgeries)
-		var/datum/surgery/surgery = s
+	for(var/datum/surgery/surgery in exposed_carbon.surgeries)
 		surgery.speed_modifier = max(0.2, surgery.speed_modifier)
 
 /datum/reagent/iron
@@ -1174,8 +1171,9 @@
 	var/clean_types = CLEAN_WASH
 	ph = 5.5
 
-/datum/reagent/space_cleaner/expose_obj(obj/O, reac_volume)
-	O?.wash(clean_types)
+/datum/reagent/space_cleaner/expose_obj(obj/exposed_obj, reac_volume)
+	. = ..()
+	exposed_obj?.wash(clean_types)
 
 /datum/reagent/space_cleaner/expose_turf(turf/exposed_turf, reac_volume)
 	. = ..()
@@ -1778,13 +1776,10 @@
 /datum/reagent/hair_dye/proc/UpdateColor()
 	color = pick(potential_colors)
 
-/datum/reagent/hair_dye/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(methods & (TOUCH|VAPOR))
-		if(M && ishuman(M))
-			var/mob/living/carbon/human/H = M
-			H.hair_color = pick(potential_colors)
-			H.facial_hair_color = pick(potential_colors)
-			H.update_hair()
+/datum/reagent/hair_dye/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	if(!(methods & (TOUCH|VAPOR)) || !ishuman(exposed_mob))
+		return
 
 	var/mob/living/carbon/human/exposed_human = exposed_mob
 	exposed_human.hair_color = pick(potential_colors)
@@ -1808,8 +1803,8 @@
 	var/datum/sprite_accessory/hair/picked_hair = pick(GLOB.hair_styles_list)
 	var/datum/sprite_accessory/facial_hair/picked_beard = pick(GLOB.facial_hair_styles_list)
 	to_chat(exposed_human, "<span class='notice'>Hair starts sprouting from your scalp.</span>")
-	exposed_human.hairstyle = picked_hair
-	exposed_human.facial_hairstyle = picked_beard
+	exposed_human.hair_style = picked_hair
+	exposed_human.facial_hair_style = picked_beard
 	exposed_human.update_hair()
 
 /datum/reagent/concentrated_barbers_aid
@@ -1820,14 +1815,16 @@
 	taste_description = "sourness"
 	penetrates_skin = NONE
 
-/datum/reagent/concentrated_barbers_aid/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(methods & (TOUCH|VAPOR))
-		if(M && ishuman(M) && !HAS_TRAIT(M, TRAIT_BALD))
-			var/mob/living/carbon/human/H = M
-			to_chat(H, "<span class='notice'>Your hair starts growing at an incredible speed!</span>")
-			H.hairstyle = "Very Long Hair"
-			H.facial_hairstyle = "Beard (Very Long)"
-			H.update_hair()
+/datum/reagent/concentrated_barbers_aid/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	if(!(methods & (TOUCH|VAPOR)) || !ishuman(exposed_mob))
+		return
+
+	var/mob/living/carbon/human/exposed_human = exposed_mob
+	to_chat(exposed_human, "<span class='notice'>Your hair starts growing at an incredible speed!</span>")
+	exposed_human.hair_style = "Very Long Hair"
+	exposed_human.facial_hair_style = "Beard (Very Long)"
+	exposed_human.update_hair()
 
 /datum/reagent/saltpetre
 	name = "Saltpetre"
@@ -2255,25 +2252,6 @@
 	description = "An extremely rare metallic-white substance only found on demon-class planets."
 	color = "#FFFFFF" // rgb: 255, 255, 255
 	taste_mult = 0 // oderless and tasteless
-
-///turn an object into a special material
-/datum/reagent/metalgen/proc/metal_morph(atom/A)
-	var/metal_ref = data["material"]
-	if(!metal_ref)
-		return
-	var/metal_amount = 0
-
-	for(var/B in A.custom_materials) //list with what they're made of
-		metal_amount += A.custom_materials[B]
-
-	if(!metal_amount)
-		metal_amount = minumum_material_amount //some stuff doesn't have materials at all. To still give them properties, we give them a material. Basically doesnt exist
-
-	var/list/metal_dat = list()
-	metal_dat[metal_ref] = metal_amount //if we pass the list directly, byond turns metal_ref into "metal_ref" kjewrg8fwcyvf
-
-	A.material_flags = applied_material_flags
-	A.set_custom_materials(metal_dat)
 
 /datum/reagent/cellulose
 	name = "Cellulose Fibers"
