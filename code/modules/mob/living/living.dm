@@ -600,7 +600,7 @@
 	cure_husk()
 	hallucination = 0
 	heal_overall_damage(INFINITY, INFINITY, INFINITY, null, TRUE) //heal brute and burn dmg on both organic and robotic limbs, and update health right away.
-	ExtinguishMob()
+	extinguish_mob()
 	fire_stacks = 0
 	confused = 0
 	dizziness = 0
@@ -1081,7 +1081,7 @@
 		return TRUE
 	return FALSE
 
-/mob/living/proc/ExtinguishMob()
+/mob/living/proc/extinguish_mob()
 	if(on_fire)
 		on_fire = 0
 		fire_stacks = 0
@@ -1095,7 +1095,7 @@
 /mob/living/proc/adjust_fire_stacks(add_fire_stacks) //Adjusting the amount of fire_stacks we have on person
 	fire_stacks = CLAMP(fire_stacks + add_fire_stacks, -20, 20)
 	if(on_fire && fire_stacks <= 0)
-		ExtinguishMob()
+		extinguish_mob()
 
 //Share fire evenly between the two mobs
 //Called in MobBump() and Crossed()

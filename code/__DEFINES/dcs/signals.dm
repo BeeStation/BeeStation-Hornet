@@ -115,9 +115,6 @@
 
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
 ///from base of atom/expose_reagents(): (/list, /datum/reagents, methods, volume_modifier, show_message)
-#define COMSIG_ATOM_EXPOSE_REAGENTS "atom_expose_reagents"
-	/// Prevents the atom from being exposed to reagents if returned on [COMPONENT_ATOM_EXPOSE_REAGENTS]
-	#define COMPONENT_NO_EXPOSE_REAGENTS (1<<0)
 ///from base of [/datum/reagent/proc/expose_atom]: (/datum/reagent, reac_volume)
 #define COMSIG_ATOM_EXPOSE_REAGENT	"atom_expose_reagent"
 ///from base of [/datum/reagent/proc/expose_atom]: (/atom, reac_volume)
@@ -234,7 +231,7 @@
 #define COMSIG_LIVING_REVIVE "living_revive"					//! from base of mob/living/revive() (/mob/living, full_heal, admin_revive)
 #define COMSIG_LIVING_RESIST "living_resist"					//! from base of mob/living/resist() (/mob/living)
 #define COMSIG_LIVING_IGNITED "living_ignite"					//! from base of mob/living/IgniteMob() (/mob/living)
-#define COMSIG_LIVING_EXTINGUISHED "living_extinguished"		//! from base of mob/living/ExtinguishMob() (/mob/living)
+#define COMSIG_LIVING_EXTINGUISHED "living_extinguished"		//! from base of mob/living/extinguish_mob() (/mob/living)
 #define COMSIG_LIVING_ELECTROCUTE_ACT "living_electrocute_act"	//! from base of mob/living/electrocute_act(): (shock_damage)
 #define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"			//! sent by stuff like stunbatons and tasers: ()
 #define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"		//! sent from borg recharge stations: (amount, repairs)
@@ -362,7 +359,6 @@
 //Janitor
 #define COMSIG_TURF_IS_WET "check_turf_wet"							//! (): Returns bitflags of wet values.
 #define COMSIG_TURF_MAKE_DRY "make_turf_try"						//! (max_strength, immediate, duration_decrease = INFINITY): Returns bool.
-#define COMSIG_COMPONENT_CLEAN_ACT "clean_act"					//! called on an object to clean it of cleanables. Usualy with soap: (num/strength)
 
 //Food
 #define COMSIG_FOOD_EATEN "food_eaten"		//! from base of obj/item/reagent_containers/food/snacks/attack(): (mob/living/eater, mob/feeder)

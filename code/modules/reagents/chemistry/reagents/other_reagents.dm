@@ -206,7 +206,7 @@
 	if(hotspot && !isspaceturf(exposed_turf))
 		if(exposed_turf.air)
 			var/datum/gas_mixture/air = exposed_turf.air
-			air.temperature = max(min(air.temperature-(cool_temp*1000), air.temperature/cool_temp),TCMB)
+			air.set_temperature(max(min(air.return_temperature()-(CT*1000),air.return_temperature()/CT),TCMB))
 			air.react(src)
 			qdel(hotspot)
 
@@ -230,7 +230,7 @@
 
 	else if(istype(exposed_obj, /obj/item/stack/sheet/hairlesshide))
 		var/obj/item/stack/sheet/hairlesshide/HH = exposed_obj
-		new /obj/item/stack/sheet/wethide(get_turf(HH), HH.amount)
+		new /obj/item/stack/sheet/wetleather(get_turf(HH), HH.amount)
 		qdel(HH)
 
 /*
@@ -319,13 +319,6 @@
 			qdel(R)
 	exposed_turf.Bless()
 
-/datum/reagent/water/holywater/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray)
-	. = ..()
-	mytray.adjustWater(round(chems.get_reagent_amount(src.type) * 1))
-	mytray.adjustHealth(round(chems.get_reagent_amount(src.type) * 0.1))
-	if(myseed)
-		myseed.adjust_instability(round(chems.get_reagent_amount(src.type) * 0.15))
-
 /datum/reagent/water/hollowwater
 	name = "Hollow Water"
 	description = "An ubiquitous chemical substance that is composed of hydrogen and oxygen, but it looks kinda hollow."
@@ -345,24 +338,23 @@
 	ph = 6.2
 
 /*
- *	Water reaction to turf
+ * Water reaction to turf
  */
 
-/datum/reagent/hydrogen_peroxide/expose_turf(turf/open/T, reac_volume)
-	if(!istype(T))
+/datum/reagent/hydrogen_peroxide/expose_turf(turf/open/exposed_turf, reac_volume)
+	. = ..()
+	if(!istype(exposed_turf))
 		return
 	if(reac_volume >= 5)
-		T.MakeSlippery(TURF_WET_WATER, 10 SECONDS, min(reac_volume*1.5 SECONDS, 60 SECONDS))
+		exposed_turf.MakeSlippery(TURF_WET_WATER, 10 SECONDS, min(reac_volume*1.5 SECONDS, 60 SECONDS))
 /*
- *	Water reaction to a mob
+ * Water reaction to a mob
  */
 
-/datum/reagent/hydrogen_peroxide/expose_mob(mob/living/M, methods=TOUCH, reac_volume)//Splashing people with h2o2 can burn them !
-	if(!istype(M))
-		return
+/datum/reagent/hydrogen_peroxide/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)//Splashing people with h2o2 can burn them !
+	. = ..()
 	if(methods & TOUCH)
-		M.adjustFireLoss(2, 0) // burns
-	..()
+		exposed_mob.adjustFireLoss(2, 0) // burns
 
 /datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
 	name = "Unholy Water"
@@ -852,15 +844,13 @@
 	ph = 5.5
 
 /datum/reagent/copper/expose_obj(obj/exposed_obj, reac_volume)
-	if(istype(exposed_obj, /obj/item/stack/sheet/metal))
-		var/obj/item/stack/sheet/metal/M = exposed_obj
-		reac_volume = min(reac_volume, M.amount)
-		new/obj/item/stack/tile/bronze(get_turf(M), reac_volume)
-		M.use(reac_volume)
+	. = ..()
+	if(!istype(exposed_obj, /obj/item/stack/sheet/iron))
+		return
 
-	var/obj/item/stack/sheet/metal/M = exposed_obj
+	var/obj/item/stack/sheet/iron/M = exposed_obj
 	reac_volume = min(reac_volume, M.amount)
-	new/obj/item/stack/tile/bronze(get_turf(M), reac_volume)
+	new/obj/item/stack/sheet/bronze(get_turf(M), reac_volume)
 	M.use(reac_volume)
 
 /datum/reagent/nitrogen
@@ -1102,14 +1092,6 @@
 	if((reac_volume < 3) || isspaceturf(exposed_turf))
 		return
 
-//Mutagenic chem side-effects.
-/datum/reagent/uranium/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
-	. = ..()
-	mytray.mutation_roll(user)
-	if(chems.has_reagent(src.type, 1))
-		mytray.adjustHealth(-round(chems.get_reagent_amount(src.type) * 1))
-		mytray.adjustToxic(round(chems.get_reagent_amount(src.type) * 2))
-
 /datum/reagent/uranium/radium
 	name = "Radium"
 	description = "Radium is an alkaline earth metal. It is extremely radioactive."
@@ -1195,14 +1177,10 @@
 /datum/reagent/space_cleaner/expose_obj(obj/O, reac_volume)
 	O?.wash(clean_types)
 
-/datum/reagent/space_cleaner/expose_turf(turf/T, reac_volume)
-	if(reac_volume >= 1)
-		T.wash(clean_types)
-		for(var/am in T)
-			var/atom/movable/movable_content = am
-			if(ismopable(movable_content)) // Mopables will be cleaned anyways by the turf wash
-				continue
-			movable_content.wash(clean_types)
+/datum/reagent/space_cleaner/expose_turf(turf/exposed_turf, reac_volume)
+	. = ..()
+	if(reac_volume < 1)
+		return
 
 	exposed_turf.wash(clean_types)
 	for(var/am in exposed_turf)
@@ -1823,12 +1801,12 @@
 
 /datum/reagent/barbers_aid/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume, show_message=TRUE, touch_protection=FALSE)
 	. = ..()
-	if(!(methods & (TOUCH|VAPOR)) || !ishuman(exposed_mob) || HAS_TRAIT(exposed_mob, TRAIT_BALD))
+	if(!(methods & (TOUCH|VAPOR)) || !ishuman(exposed_mob))
 		return
 
 	var/mob/living/carbon/human/exposed_human = exposed_mob
-	var/datum/sprite_accessory/hair/picked_hair = pick(GLOB.hairstyles_list)
-	var/datum/sprite_accessory/facial_hair/picked_beard = pick(GLOB.facial_hairstyles_list)
+	var/datum/sprite_accessory/hair/picked_hair = pick(GLOB.hair_styles_list)
+	var/datum/sprite_accessory/facial_hair/picked_beard = pick(GLOB.facial_hair_styles_list)
 	to_chat(exposed_human, "<span class='notice'>Hair starts sprouting from your scalp.</span>")
 	exposed_human.hairstyle = picked_hair
 	exposed_human.facial_hairstyle = picked_beard
@@ -1850,21 +1828,6 @@
 			H.hairstyle = "Very Long Hair"
 			H.facial_hairstyle = "Beard (Very Long)"
 			H.update_hair()
-
-/datum/reagent/baldium
-	name = "Baldium"
-	description = "A major cause of hair loss across the world."
-	reagent_state = LIQUID
-	color = "#ecb2cf"
-	taste_description = "bitterness"
-
-/datum/reagent/baldium/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if((methods & (TOUCH|VAPOR)) && ishuman(M))
-		var/mob/living/carbon/human/exposed_human = M
-		to_chat(exposed_human, "<span class='danger'>Your hair is falling out in clumps!</span>")
-		exposed_human.hairstyle = "Bald"
-		exposed_human.facial_hairstyle = "Shaved"
-		exposed_human.update_hair()
 
 /datum/reagent/saltpetre
 	name = "Saltpetre"
@@ -1897,7 +1860,7 @@
 	. = ..()
 	if(!istype(exposed_turf))
 		return
-	exposed_turf.MakeDry(ALL, TRUE, reac_volume * 5 SECONDS)		//50 deciseconds per unit
+	exposed_turf.MakeDry(ALL, TRUE, reac_volume * 5 SECONDS) //50 deciseconds per unit
 
 /datum/reagent/drying_agent/expose_obj(obj/exposed_obj, reac_volume)
 	. = ..()
@@ -2293,23 +2256,6 @@
 	color = "#FFFFFF" // rgb: 255, 255, 255
 	taste_mult = 0 // oderless and tasteless
 
-/datum/reagent/metalgen
-	name = "Metalgen"
-	data = list("material"=null)
-	description = "A purple metal morphic liquid, said to impose it's metallic properties on whatever it touches."
-	color = "#b000aa"
-	taste_mult = 0 // oderless and tasteless
-	var/applied_material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR
-	var/minumum_material_amount = 100
-
-/datum/reagent/metalgen/expose_obj(obj/O, volume)
-	metal_morph(O)
-	return
-
-/datum/reagent/metalgen/expose_turf(turf/T, volume)
-	metal_morph(T)
-	return
-
 ///turn an object into a special material
 /datum/reagent/metalgen/proc/metal_morph(atom/A)
 	var/metal_ref = data["material"]
@@ -2329,26 +2275,6 @@
 	A.material_flags = applied_material_flags
 	A.set_custom_materials(metal_dat)
 
-/datum/reagent/gravitum
-	name = "Gravitum"
-	description = "A rare kind of null fluid, capable of temporalily removing all weight of whatever it touches." //i dont even
-	color = "#050096" // rgb: 5, 0, 150
-	taste_mult = 0 // oderless and tasteless
-	metabolization_rate = 0.1 * REAGENTS_METABOLISM //20 times as long, so it's actually viable to use
-	var/time_multiplier = 1 MINUTES //1 minute per unit of gravitum on objects. Seems overpowered, but the whole thing is very niche
-
-/datum/reagent/gravitum/expose_obj(obj/O, volume)
-	O.AddElement(/datum/element/forced_gravity, 0)
-
-	addtimer(CALLBACK(O, .proc/_RemoveElement, list(/datum/element/forced_gravity, 0)), volume * time_multiplier)
-
-/datum/reagent/gravitum/on_mob_add(mob/living/L)
-	L.AddElement(/datum/element/forced_gravity, 0) //0 is the gravity, and in this case weightless
-	retun ..()
-
-/datum/reagent/gravitum/on_mob_end_metabolize(mob/living/L)
-	L.RemoveElement(/datum/element/forced_gravity, 0)
-
 /datum/reagent/cellulose
 	name = "Cellulose Fibers"
 	description = "A crystaline polydextrose polymer, plants swear by this stuff."
@@ -2362,41 +2288,6 @@
 	taste_description = "gravy"
 	color = "#623301"
 	taste_mult = 1.2
-
-/datum/reagent/determination
-	name = "Determination"
-	description = "For when you need to push on a little more. Do NOT allow near plants."
-	reagent_state = LIQUID
-	color = "#D2FFFA"
-	metabolization_rate = 0.75 * REAGENTS_METABOLISM // 5u (WOUND_DETERMINATION_CRITICAL) will last for ~17 ticks
-	self_consuming = TRUE
-	/// Whether we've had at least WOUND_DETERMINATION_SEVERE (2.5u) of determination at any given time. No damage slowdown immunity or indication we're having a second wind if it's just a single moderate wound
-	var/significant = FALSE
-
-/datum/reagent/determination/on_mob_end_metabolize(mob/living/carbon/M)
-	if(significant)
-		var/stam_crash = 0
-		for(var/thing in M.all_wounds)
-			var/datum/wound/W = thing
-			stam_crash += (W.severity + 1) * 3 // spike of 3 stam damage per wound severity (moderate = 6, severe = 9, critical = 12) when the determination wears off if it was a combat rush
-		M.adjustStaminaLoss(stam_crash)
-	M.remove_status_effect(STATUS_EFFECT_DETERMINED)
-	..()
-
-/datum/reagent/determination/on_mob_life(mob/living/carbon/M)
-	if(!significant && volume >= WOUND_DETERMINATION_SEVERE)
-		significant = TRUE
-		M.apply_status_effect(STATUS_EFFECT_DETERMINED) // in addition to the slight healing, limping cooldowns are divided by 4 during the combat high
-
-	volume = min(volume, WOUND_DETERMINATION_MAX)
-
-	for(var/thing in M.all_wounds)
-		var/datum/wound/W = thing
-		var/obj/item/bodypart/wounded_part = W.limb
-		if(wounded_part)
-			wounded_part.heal_damage(0.25, 0.25)
-		M.adjustStaminaLoss(-0.25*REM) // the more wounds, the more stamina regen
-	..()
 
 /datum/reagent/eldritch //unholy water, but for eldritch cultists. why couldn't they have both just used the same reagent? who knows. maybe nar'sie is considered to be too "mainstream" of a god to worship in the cultist community.
 	name = "Eldritch Essence"

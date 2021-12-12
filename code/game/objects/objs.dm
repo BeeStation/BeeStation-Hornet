@@ -407,8 +407,6 @@
 
 /obj/update_overlays()
 	. = ..()
-	if(acid_level)
-		. += GLOB.acid_overlay
 	if(resistance_flags & ON_FIRE)
 		. += custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay
 

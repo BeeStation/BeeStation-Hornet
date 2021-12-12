@@ -387,7 +387,7 @@
 /mob/living/simple_animal/IgniteMob()
 	return FALSE
 
-/mob/living/simple_animal/ExtinguishMob()
+/mob/living/simple_animal/extinguish_mob()
 	return
 
 /mob/living/simple_animal/revive(full_heal = 0, admin_revive = 0)

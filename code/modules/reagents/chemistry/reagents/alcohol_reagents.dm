@@ -76,7 +76,10 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(!iscarbon(exposed_mob))
 		return
 
-	for(var/s in C.surgeries)
+	var/mob/living/carbon/exposed_carbon = exposed_mob
+	var/power_multiplier = boozepwr / 65 // Weak alcohol has less sterilizing power
+
+	for(var/s in exposed_carbon.surgeries)
 		var/datum/surgery/S = s
 		S.speed_modifier = max(0.1*power_multiplier, S.speed_modifier)
 		// +10% surgery speed on each step, useful while operating in less-than-perfect conditions

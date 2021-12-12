@@ -285,12 +285,12 @@
 		else if(istype(foam))
 			foam.lifetime = initial(foam.lifetime) //reduce object churn a little bit when using smoke by keeping existing foam alive a bit longer
 
-	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot && !isspaceturf(T))
-		if(T.air)
-			var/datum/gas_mixture/G = T.air
-			if(G.temperature > T20C)
-				G.temperature = max(G.temperature/2,T20C)
+	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in exposed_turf)
+	if(hotspot && !isspaceturf(exposed_turf))
+		if(exposed_turf.air)
+			var/datum/gas_mixture/G = exposed_turf.air
+			if(G.return_temperature() > T20C)
+				G.set_temperature(max(G.return_temperature()/2,T20C))
 			G.react(src)
 			qdel(hotspot)
 

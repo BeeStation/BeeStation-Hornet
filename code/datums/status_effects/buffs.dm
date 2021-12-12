@@ -471,7 +471,7 @@
 	owner.adjustBruteLoss(-50 * power)
 	owner.adjustFireLoss(-50 * power)
 	owner.cure_nearsighted()
-	owner.ExtinguishMob()
+	owner.extinguish_mob()
 	owner.fire_stacks = 0
 	owner.set_blindness(0)
 	owner.set_blurriness(0)

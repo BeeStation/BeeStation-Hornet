@@ -186,13 +186,13 @@
 	var/beakerContents[0]
 	if(beaker)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beaker_contents.Add(list(list("name" = R.name, "id" = ckey(R.name), "volume" = round(R.volume, 0.01)))) // list in a list because Byond merges the first list...
+			beakerContents.Add(list(list("name" = R.name, "id" = ckey(R.name), "volume" = round(R.volume, 0.01)))) // list in a list because Byond merges the first list...
 	data["beakerContents"] = beakerContents
 
 	var/bufferContents[0]
 	if(reagents.total_volume)
 		for(var/datum/reagent/N in reagents.reagent_list)
-			buffer_contents.Add(list(list("name" = N.name, "id" = ckey(N.name), "volume" = round(N.volume, 0.01)))) // ^
+			bufferContents.Add(list(list("name" = N.name, "id" = ckey(N.name), "volume" = round(N.volume, 0.01)))) // ^
 	data["bufferContents"] = bufferContents
 
 	//Calculated at init time as it never changes
@@ -253,6 +253,9 @@
 			var/item_type = params["type"]
 			// Get amount of items
 			var/amount = text2num(params["amount"])
+			var/vol_each = text2num(params["volume"])
+			var/vol_each_text = params["volume"]
+			var/vol_each_max = reagents.total_volume / amount
 			if(amount == null)
 				amount = text2num(input(usr,
 					"Max 10. Buffer content will be split evenly.",
@@ -261,9 +264,6 @@
 			if (amount <= 0)
 				return
 			// Get units per item
-			var/vol_each = text2num(params["volume"])
-			var/vol_each_text = params["volume"]
-			var/vol_each_max = reagents.total_volume / amount
 			if (item_type == "pill" && !condi)
 				vol_each_max = min(50, vol_each_max)
 			else if (item_type == "patch" && !condi)

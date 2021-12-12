@@ -399,7 +399,7 @@
 	if(methods & (INGEST|VAPOR|INJECT))
 		exposed_mob.adjust_nutrition(-5)
 		if(show_message)
-			to_chat(exposed_mob, span_warning("Your stomach feels empty and cramps!"))
+			to_chat(exposed_mob, "<span class'warning'>Your stomach feels empty and cramps!</span>")
 
 	if(methods & (PATCH|TOUCH))
 		var/mob/living/carbon/exposed_carbon = exposed_mob
@@ -408,7 +408,7 @@
 			surgery.speed_modifier = max(0.1, surgery.speed_modifier)
 
 		if(show_message)
-			to_chat(exposed_carbon, span_danger("You feel your injuries fade away to nothing!") )
+			to_chat(exposed_carbon, "<span class='warning'>You feel your injuries fade away to nothing!</span>")
 
 /datum/reagent/medicine/mine_salve/on_mob_end_metabolize(mob/living/M)
 	if(iscarbon(M))
@@ -1608,13 +1608,14 @@
 	..()
 	. = 1
 
-/datum/reagent/medicine/polypyr/expose_mob(mob/living/M, methods=TOUCH, reac_volume)
-	if(methods & TOUCH|VAPOR)
-		if(M && ishuman(M) && reac_volume >= 0.5)
-			var/mob/living/carbon/human/H = M
-			H.hair_color = "92f"
-			H.facial_hair_color = "92f"
-			H.update_hair()
+/datum/reagent/medicine/polypyr/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	if(!(methods & (TOUCH|VAPOR)) || !ishuman(exposed_mob) || (reac_volume < 0.5))
+		return
+	var/mob/living/carbon/human/exposed_human = exposed_mob
+	exposed_human.hair_color = "#9922ff"
+	exposed_human.facial_hair_color = "#9922ff"
+	exposed_human.update_hair()
 
 /datum/reagent/medicine/polypyr/overdose_process(mob/living/M)
 	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 0.5)

@@ -40,8 +40,6 @@
 	var/mob/living/user = usr
 	if(!isliving(user))
 		return
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
 	if(!number_of_pages)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		add_fingerprint(user)

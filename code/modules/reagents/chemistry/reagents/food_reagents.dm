@@ -120,13 +120,13 @@
 	. = ..()
 	if(!holder || (holder.chem_temp <= fry_temperature))
 		return
-	if(!isitem(exposed_obj) || istype(exposed_obj, /obj/item/food/deepfryholder))
+	if(!isitem(exposed_obj) || istype(exposed_obj, /obj/item/reagent_containers/food/snacks/deepfryholder))
 		return
-	if(is_type_in_typecache(exposed_obj, GLOB.oilfry_blacklisted_items) || (exposed_obj.resistance_flags & INDESTRUCTIBLE))
-		exposed_obj.loc.visible_message(span_notice("The hot oil has no effect on [exposed_obj]!"))
+	if(exposed_obj.resistance_flags & INDESTRUCTIBLE)
+		exposed_obj.loc.visible_message("<span class='notice'>The hot oil has no effect on [exposed_obj]!</span>")
 		return
-	exposed_obj.loc.visible_message(span_warning("[exposed_obj] rapidly fries as it's splashed with hot oil! Somehow."))
-	var/obj/item/food/deepfryholder/fry_target = new(exposed_obj.drop_location(), exposed_obj)
+	exposed_obj.loc.visible_message("<span class'warning'>[exposed_obj] rapidly fries as it's splashed with hot oil! Somehow.</span>")
+	var/obj/item/reagent_containers/food/snacks/deepfryholder/fry_target = new(exposed_obj.drop_location(), exposed_obj)
 	fry_target.fry(volume)
 	fry_target.reagents.add_reagent(/datum/reagent/consumable/cooking_oil, reac_volume)
 
@@ -138,7 +138,7 @@
 		boiling = TRUE
 	if(!(methods & (VAPOR|TOUCH))) //Directly coats the mob, and doesn't go into their bloodstream
 		if(boiling)
-			exposed_mob.visible_message("<span class='warning'>The boiling oil sizzles as it covers [M]!</span>", \
+			exposed_mob.visible_message("<span class='warning'>The boiling oil sizzles as it covers [exposed_mob]!</span>", \
 			"<span class='userdanger'>You're covered in boiling oil!</span>")
 			exposed_mob.emote("scream")
 			playsound(exposed_mob, 'sound/machines/fryer/deep_fryer_emerge.ogg', 25, TRUE)
@@ -272,15 +272,18 @@
 	M.adjust_bodytemperature(cooling, 50)
 	..()
 
-/datum/reagent/consumable/frostoil/expose_turf(turf/T, reac_volume)
-	if(reac_volume >= 5)
-		for(var/mob/living/simple_animal/slime/M in T)
-			M.adjustToxLoss(rand(15,30))
-	if(reac_volume >= 1) // Make Freezy Foam and anti-fire grenades!
-		if(isopenturf(T))
-			var/turf/open/OT = T
-			OT.MakeSlippery(wet_setting=TURF_WET_ICE, min_wet_time=100, wet_time_to_add=reac_volume SECONDS) // Is less effective in high pressure/high heat capacity environments. More effective in low pressure.
-			OT.air.set_temperature(OT.air.return_temperature() - MOLES_CELLSTANDARD*100*reac_volume/OT.air.heat_capacity()) // reduces environment temperature by 5K per unit.
+/datum/reagent/consumable/frostoil/expose_turf(turf/exposed_turf, reac_volume)
+	. = ..()
+	if(reac_volume < 1)
+		return
+	if(isopenturf(exposed_turf))
+		var/turf/open/exposed_open_turf = exposed_turf
+		exposed_open_turf.MakeSlippery(wet_setting=TURF_WET_ICE, min_wet_time=100, wet_time_to_add=reac_volume SECONDS) // Is less effective in high pressure/high heat capacity environments. More effective in low pressure.
+		exposed_open_turf.air.set_temperature(OT.air.return_temperature() - MOLES_CELLSTANDARD*100*reac_volume/OT.air.heat_capacity()) // reduces environment temperature by 5K per unit.
+	if(reac_volume < 5)
+		return
+	for(var/mob/living/simple_animal/slime/exposed_slime in exposed_turf)
+		exposed_slime.adjustToxLoss(rand(15,30))
 
 /datum/reagent/consumable/condensedcapsaicin
 	name = "Condensed Capsaicin"
@@ -452,7 +455,7 @@
 	exposed_turf.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = reac_volume*2 SECONDS)
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in exposed_turf)
 	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.return_air()
+		var/datum/gas_mixture/lowertemp = exposed_turf.return_air()
 		lowertemp.set_temperature(max( min(lowertemp.return_temperature()-2000,lowertemp.return_temperature() / 2) ,TCMB))
 		lowertemp.react(src)
 		qdel(hotspot)

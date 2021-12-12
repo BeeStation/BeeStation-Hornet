@@ -33,17 +33,17 @@
 	taste_mult = 0.9
 	ph = 2.3
 
-/datum/reagent/toxin/mutagen/expose_mob(mob/living/carbon/M, methods=TOUCH, reac_volume)
-	if(!..())
-		return
-	if(!M.has_dna())
+/datum/reagent/toxin/mutagen/expose_mob(mob/living/carbon/exposed_mob, methods=TOUCH, reac_volume)
+	. = ..()
+	if(!exposed_mob.has_dna())
 		return  //No robots, AIs, aliens, Ians or other mobs should be affected by this.
- 	if(((methods & VAPOR) && prob(min(33, reac_volume))) || (methods & (INGEST|PATCH|INJECT)))
-		M.randmuti()
+	if(((methods & VAPOR) && prob(min(33, reac_volume))) || (methods & (INGEST|PATCH|INJECT)))
+		exposed_mob.random_mutate_unique_identity()
+		exposed_mob.random_mutate_unique_features()
 		if(prob(98))
-			exposed_mob.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+			exposed_mob.easy_random_mutate(NEGATIVE+MINOR_NEGATIVE)
 		else
-			exposed_mob.easy_randmut(POSITIVE)
+			exposed_mob.easy_random_mutate(POSITIVE)
 		exposed_mob.updateappearance()
 		exposed_mob.domutcheck()
 
@@ -51,15 +51,18 @@
 	C.apply_effect(5,EFFECT_IRRADIATE,0)
 	return ..()
 
+#define LIQUID_PLASMA_BP (50+T0C)
+
 /datum/reagent/toxin/plasma
 	name = "Plasma"
 	description = "Plasma in its liquid form."
-	taste_description = "a burning, tingling sensation"
+	taste_description = "bitterness"
 	specific_heat = SPECIFIC_HEAT_PLASMA
 	taste_mult = 1.5
 	color = "#8228A0"
 	toxpwr = 3
-	process_flags = ORGANIC | SYNTHETIC
+	material = /datum/material/plasma
+	penetrates_skin = NONE
 	ph = 4
 
 /datum/reagent/toxin/plasma/on_new(data)
@@ -68,6 +71,12 @@
 
 /datum/reagent/toxin/plasma/Destroy()
 	UnregisterSignal(holder, COMSIG_REAGENTS_TEMP_CHANGE)
+	return ..()
+
+/datum/reagent/toxin/plasma/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
+	if(holder.has_reagent(/datum/reagent/medicine/epinephrine))
+		holder.remove_reagent(/datum/reagent/medicine/epinephrine, 2 * REM * delta_time)
+	C.adjustPlasma(20 * REM * delta_time)
 	return ..()
 
 /// Handles plasma boiling.
@@ -82,29 +91,21 @@
 	A.atmos_spawn_air("plasma=[volume];TEMP=[holder.chem_temp]")
 	holder.del_reagent(type)
 
-/datum/reagent/toxin/plasma/on_mob_life(mob/living/carbon/C)
-	if(holder.has_reagent(/datum/reagent/medicine/epinephrine))
-		holder.remove_reagent(/datum/reagent/medicine/epinephrine, 2*REM)
-	C.adjustPlasma(20)
-	return ..()
-
-/datum/reagent/toxin/plasma/expose_obj(obj/O, reac_volume)
-	if((!O) || (!reac_volume))
+/datum/reagent/toxin/plasma/expose_turf(turf/open/exposed_turf, reac_volume)
+	if(!istype(exposed_turf))
 		return
 	var/temp = holder ? holder.chem_temp : T20C
-	O.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
-
-/datum/reagent/toxin/plasma/expose_turf(turf/open/T, reac_volume)
-	if(istype(T))
-		var/temp = holder ? holder.chem_temp : T20C
-		T.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
-	return
+	if(temp >= LIQUID_PLASMA_BP)
+		exposed_turf.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
+	return ..()
 
 /datum/reagent/toxin/plasma/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
 	. = ..()
 	if(methods & (TOUCH|VAPOR))
 		exposed_mob.adjust_fire_stacks(reac_volume / 5)
 		return
+
+#undef LIQUID_PLASMA_BP
 
 /datum/reagent/toxin/lexorin
 	name = "Lexorin"
@@ -799,6 +800,7 @@
 	ph = 2.75
 
 /datum/reagent/toxin/acid/expose_mob(mob/living/carbon/exposed_carbon, methods=TOUCH, reac_volume)
+	. = ..()
 	if(!istype(exposed_carbon))
 		return
 	reac_volume = round(reac_volume,0.1)

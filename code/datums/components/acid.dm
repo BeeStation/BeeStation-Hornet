@@ -68,7 +68,7 @@
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, .proc/on_attack_hand)
 	RegisterSignal(parent, COMSIG_ATOM_EXPOSE_REAGENT, .proc/on_expose_reagent)
 	if(isturf(parent))
-		RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/on_crossed)
+		RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/on_entered)
 
 /datum/component/acid/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -78,7 +78,7 @@
 		COMSIG_ATOM_EXPOSE_REAGENT))
 
 	if(isturf(parent))
-		UnregisterSignal(parent, COMSIG_MOVABLE_CROSSED)
+		UnregisterSignal(parent, COMSIG_ATOM_ENTERED)
 
 /// Averages corrosive power and sums volume.
 /datum/component/acid/InheritComponent(datum/component/C, i_am_original, _acid_power, _acid_volume)

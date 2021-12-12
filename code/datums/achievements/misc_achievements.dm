@@ -86,7 +86,7 @@
 	desc = "100 honks later"
 	database_id = MEDAL_THANKSALOT
 
-/datum/award/achievement/misc/chemistry_tut
+/datum/award/achievement/jobs/chemistry_tut
 	name = "Perfect chemistry blossom"
 	desc = "Passed the chemistry tutorial with perfect purity!"
 	database_id = MEDAL_CHEM_TUT
