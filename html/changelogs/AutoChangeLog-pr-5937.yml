@@ -1,0 +1,5 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - bugfix: Achievements will now award beecoins like they're supposed to.
+  - bugfix: Achievements will now only unlock once, like they're supposed to.
