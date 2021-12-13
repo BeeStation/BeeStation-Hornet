@@ -2040,10 +2040,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				continue
 			purchased_gear[AG.id] = 1
 			AG.purchase(parent)
-		save_preferences()
 	else if(purchased_gear.len || equipped_gear.len)
 		for(var/gear_id in DLC.gear)
 			var/datum/gear/RG = DLC.gear[gear_id]
 			equipped_gear -= RG.id
 			purchased_gear[RG.id] = 0
-		save_preferences()
