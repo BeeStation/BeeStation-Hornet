@@ -344,7 +344,6 @@
 				else
 					player_status = M.stat == DEAD ? "Dead" : "Alive"
 				dat += "<li>[ckey] - [player_status] - "
-				dat += "<a href='?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(M)]'>FLW</a>"
 				dat += "<a href='?src=[REF(src)];member_action=remove;team=[team];ckey=[ckey]'>Remove</a>"
 				//Add more per player features here
 				dat += "</li>"
