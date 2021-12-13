@@ -24,7 +24,7 @@
 	mob_react = FALSE
 	reaction_flags = REACTION_INSTANT
 
-/datum/chemical_reaction/food/tofu/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
+/datum/chemical_reaction/food/tofu/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/reagent_containers/food/snacks/tofu(location)
@@ -35,7 +35,7 @@
 	id = "chocolate_bar"
 	required_reagents = list(/datum/reagent/consumable/soymilk = 2, /datum/reagent/consumable/cocoa = 2, /datum/reagent/consumable/sugar = 2)
 
-/datum/chemical_reaction/food/chocolate_bar/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
+/datum/chemical_reaction/food/chocolate_bar/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/reagent_containers/food/snacks/chocolatebar(location)
@@ -48,7 +48,7 @@
 	required_reagents = list(/datum/reagent/consumable/milk/chocolate_milk = 4, /datum/reagent/consumable/sugar = 2)
 	mob_react = FALSE
 
-/datum/chemical_reaction/food/chocolate_bar2/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
+/datum/chemical_reaction/food/chocolate_bar2/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/reagent_containers/food/snacks/chocolatebar(location)
@@ -107,7 +107,7 @@
 	required_reagents = list(/datum/reagent/consumable/milk = 40)
 	required_catalysts = list(/datum/reagent/consumable/enzyme = 5)
 
-/datum/chemical_reaction/food/cheesewheel/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
+/datum/chemical_reaction/food/cheesewheel/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/reagent_containers/food/snacks/store/cheesewheel(location)
@@ -118,7 +118,7 @@
 	required_reagents = list(/datum/reagent/blood = 5, /datum/reagent/medicine/cryoxadone = 1)
 	mob_react = FALSE
 
-/datum/chemical_reaction/food/synthmeat/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
+/datum/chemical_reaction/food/synthmeat/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/reagent_containers/food/snacks/meat/slab/synthmeat(location)
@@ -154,7 +154,7 @@
 	required_reagents = list(/datum/reagent/water = 10, /datum/reagent/consumable/flour = 15)
 	mix_message = "The ingredients form a dough."
 
-/datum/chemical_reaction/food/dough/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
+/datum/chemical_reaction/food/dough/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/reagent_containers/food/snacks/dough(location)
@@ -165,7 +165,7 @@
 	required_reagents = list(/datum/reagent/consumable/eggyolk = 15, /datum/reagent/consumable/flour = 15, /datum/reagent/consumable/sugar = 5)
 	mix_message = "The ingredients form a cake batter."
 
-/datum/chemical_reaction/food/cakebatter/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
+/datum/chemical_reaction/food/cakebatter/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/reagent_containers/food/snacks/cakebatter(location)

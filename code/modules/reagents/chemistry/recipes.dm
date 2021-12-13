@@ -64,7 +64,7 @@
  * * holder - the datum that holds this reagent, be it a beaker or anything else
  * * created_volume - volume created when this is mixed. look at 'var/list/results'.
  */
-/datum/chemical_reaction/proc/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
+/datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
 	return
 	//I recommend you set the result amount to the total volume of all components.
 
@@ -83,7 +83,7 @@
  * Outputs:
  * * returning END_REACTION will end the associated reaction - flagging it for deletion and preventing any reaction in that timestep from happening. Make sure to set the vars in the holder to one that can't start it from starting up again.
  */
-/datum/chemical_reaction/proc/reaction_step(datum/equilibrium/reaction, datum/reagents/holder, delta_t, delta_ph, step_reaction_vol)
+/datum/chemical_reaction/proc/reaction_step(datum/reagents/holder, datum/equilibrium/reaction, delta_t, delta_ph, step_reaction_vol)
 	return
 
 /**
@@ -100,7 +100,7 @@
  * * holder - the datum that holds this reagent, be it a beaker or anything else
  * * react_volume - volume created across the whole reaction
  */
-/datum/chemical_reaction/proc/reaction_finish(datum/reagents/holder, react_vol)
+/datum/chemical_reaction/proc/reaction_finish(datum/reagents/holder, datum/equilibrium/reaction, react_vol)
 	//failed_chem handler
 	var/cached_temp = holder.chem_temp
 	for(var/id in results)
@@ -119,7 +119,7 @@
  * * reagent - the target reagent to convert
  */
 /datum/chemical_reaction/proc/convert_into_failed(datum/reagent/reagent, datum/reagents/holder)
-	if(reagent.purity < purity_min)
+	if(reagent.purity < purity_min && reagent.failed_chem)
 		var/cached_volume = reagent.volume
 		holder.remove_reagent(reagent.type, cached_volume, FALSE)
 		holder.add_reagent(reagent.failed_chem, cached_volume, FALSE, added_purity = 1)
@@ -162,8 +162,9 @@
  * Arguments:
  * * holder - the datum that holds this reagent, be it a beaker or anything else
  * * equilibrium - the equilibrium datum that contains the equilibrium reaction properties and methods
+ * * step_volume_added - how much product (across all products) was added for this single step
  */
-/datum/chemical_reaction/proc/overheated(datum/reagents/holder, datum/equilibrium/equilibrium)
+/datum/chemical_reaction/proc/overheated(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
 	for(var/id in results)
 		var/datum/reagent/reagent = holder.get_reagent(id)
 		if(!reagent)
@@ -180,8 +181,9 @@
  * Arguments:
  * * holder - the datum that holds this reagent, be it a beaker or anything else
  * * equilibrium - the equilibrium datum that contains the equilibrium reaction properties and methods
+ * * step_volume_added - how much product (across all products) was added for this single step
  */
-/datum/chemical_reaction/proc/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium)
+/datum/chemical_reaction/proc/overly_impure(datum/reagents/holder, datum/equilibrium/equilibrium, step_volume_added)
 	var/affected_list = results + required_reagents
 	for(var/_reagent in affected_list)
 		var/datum/reagent/reagent = holder.get_reagent(_reagent)
@@ -347,3 +349,50 @@
 	if(!holder)
 		return FALSE
 	holder.remove_all(volume)
+
+/*
+* "Attacks" all mobs within range with a specified reagent
+* Will be blocked if they're wearing proper protective equipment unless disabled
+* Arguments
+* * reagent - the reagent typepath that will be added
+* * vol - how much will be added
+* * range - the range that this will affect mobs for
+* * ignore_mask - if masks block the effect, making this true will affect someone regardless
+* * ignore_eyes - if glasses block the effect, making this true will affect someone regardless
+*/
+/datum/chemical_reaction/proc/explode_attack_chem(datum/reagents/holder, datum/equilibrium/equilibrium, reagent, vol, range = 3, ignore_mask = FALSE, ignore_eyes = FALSE)
+	if(istype(reagent, /datum/reagent))
+		var/datum/reagent/temp_reagent = reagent
+		reagent = temp_reagent.type
+	for(var/mob/living/carbon/target in orange(range, get_turf(holder.my_atom)))
+		if(target.has_smoke_protection() && !ignore_mask)
+			continue
+		if(target.get_eye_protection() && !ignore_eyes)
+			continue
+		to_chat(target, "The [holder.my_atom.name] launches some of [holder.p_their()] contents at you!")
+		target.reagents.add_reagent(reagent, vol)
+
+
+/*
+* Applys a cooldown to the reaction
+* Returns false if time is below required, true if it's above required
+* Time is kept in eqilibrium data
+*
+* Arguments:
+* * seconds - the amount of time in server seconds to delay between true returns, will ceiling to the nearest 0.25
+* * id - a string phrase so that multiple cooldowns can be applied if needed
+* * initial_delay - The number of seconds of delay to add on creation
+*/
+/datum/chemical_reaction/proc/off_cooldown(datum/reagents/holder, datum/equilibrium/equilibrium, seconds = 1, id = "default", initial_delay = 0)
+	id = "[id]_cooldown"
+	if(isnull(equilibrium.data[id]))
+		equilibrium.data[id] = 0
+		if(initial_delay)
+			equilibrium.data[id] += initial_delay
+			return FALSE
+		return TRUE//first time we know we can go
+	equilibrium.data[id] += equilibrium.time_deficit ? 0.5 : 0.25 //sync to lag compensator
+	if(equilibrium.data[id] >= seconds)
+		equilibrium.data[id] = 0
+		return TRUE
+	return FALSE
