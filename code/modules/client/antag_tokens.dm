@@ -18,7 +18,7 @@
 	return text2num(token_count)
 
 /client/proc/set_antag_token_count(token_count)
-	if(IsAdminAdvancedProcCall() || !SSdbcore.IsConnected())
+	if(!SSdbcore.IsConnected())
 		return
 	var/datum/DBQuery/query_set_antag_tokens = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET antag_tokens = :token_count WHERE ckey = :ckey",
@@ -30,7 +30,7 @@
 	qdel(query_set_antag_tokens)
 
 /client/proc/inc_antag_token_count(token_count)
-	if(IsAdminAdvancedProcCall() || !SSdbcore.IsConnected())
+	if(!SSdbcore.IsConnected())
 		return
 	var/datum/DBQuery/query_inc_antag_tokens = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET antag_tokens = antag_tokens + :token_count WHERE ckey = :ckey",

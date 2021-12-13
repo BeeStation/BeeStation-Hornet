@@ -37,8 +37,6 @@
 	return metacoin_balance
 
 /client/proc/set_metacoin_count(mc_count, ann=TRUE)
-	if(IsAdminAdvancedProcCall())
-		return
 	var/datum/DBQuery/query_set_metacoins = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET metacoins = :mc_count WHERE ckey = :ckey",
 		list("mc_count" = mc_count, "ckey" = ckey)
@@ -50,8 +48,6 @@
 		to_chat(src, "<span class='rose bold'>Your new metacoin balance is [mc_count]!</span>")
 
 /client/proc/inc_metabalance(mc_count, ann=TRUE, reason=null)
-	if(IsAdminAdvancedProcCall())
-		return
 	if(mc_count >= 0 && !CONFIG_GET(flag/grant_metacurrency))
 		return
 	var/datum/DBQuery/query_inc_metacoins = SSdbcore.NewQuery(

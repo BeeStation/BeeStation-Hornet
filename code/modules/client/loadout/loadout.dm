@@ -69,7 +69,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 
 /datum/gear/proc/purchase(var/client/C) //Called when the gear is first purchased
 	SHOULD_CALL_PARENT(TRUE)
-	if(IsAdminAdvancedProcCall() || !SSdbcore.IsConnected())
+	if(!SSdbcore.IsConnected())
 		return
 	if(!C)
 		return
