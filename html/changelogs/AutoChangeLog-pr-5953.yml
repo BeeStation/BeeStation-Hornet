@@ -1,6 +1,0 @@
-author: ike709
-delete-after: true
-changes:
-  - bugfix: Arena controller no longer leaks admin auth tokens. As a result the follow
-      button has been removed from the UI.
-  - bugfix: Security records console no longer contains an href exploit
