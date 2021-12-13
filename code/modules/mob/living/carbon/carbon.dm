@@ -462,8 +462,8 @@
 	if(!has_mouth())
 		return 1
 
-	if(reagents.has_reagent(/datum/reagent/medicine/meclizine, 1, TRUE))
-		return 1
+	if(HAS_TRAIT(src, TRAIT_NOVOMIT))
+		return TRUE
 
 	if(nutrition < 100 && !blood)
 		if(message)

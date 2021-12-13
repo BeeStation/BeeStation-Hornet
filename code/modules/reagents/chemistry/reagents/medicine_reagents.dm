@@ -1197,8 +1197,8 @@
 	overdose_threshold = 25
 
 /datum/reagent/medicine/meclizine/on_mob_life(mob/living/carbon/M)
-	if(prob(25))
-		M.adjustToxLoss(-1) //Vomiting prevention handled in vomit()
+	if(prob(10))
+		M.adjustToxLoss(-1)
 	..()
 	. = TRUE //Some other poor sod can do the rest, I just make chems
 
@@ -1207,6 +1207,14 @@
 	M.adjustOrganLoss(ORGAN_SLOT_STOMACH, 2)
 	..()
 	. = TRUE
+
+/datum/reagent/medicine/meclizine/on_mob_metabolize(mob/living/M)
+	..()
+	ADD_TRAIT(M, TRAIT_NOVOMIT, type)
+
+/datum/reagent/medicine/meclizin/on_mob_end_metabolize(mob/living/M)
+	..()
+	REMOVE_TRAIT(M, TRAIT_NOVOMIT, type)
 
 /datum/reagent/medicine/hepanephrodaxon
 	name = "Hepanephrodaxon"
