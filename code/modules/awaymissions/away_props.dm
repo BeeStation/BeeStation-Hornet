@@ -53,4 +53,3 @@
 			if(blocked_types[thing.type])
 				return reverse
 	return !reverse
-	

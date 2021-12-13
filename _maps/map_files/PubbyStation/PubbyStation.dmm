@@ -25580,7 +25580,7 @@
 "bnU" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Server Room";
-	req_access_txt = "30"
+	req_one_access_txt = "30;70"
 	},
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -27887,7 +27887,7 @@
 "btf" = (
 /obj/machinery/door/airlock/command{
 	name = "Server Room";
-	req_access_txt = "30"
+	req_one_access_txt = "30;70"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -32168,12 +32168,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
-"bDg" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
-	dir = 2
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/engine)
 "bDh" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/plating,
@@ -34642,12 +34636,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/storage)
-"bIK" = (
-/obj/machinery/atmospherics/pipe/simple/general/visible{
-	dir = 2
-	},
-/turf/closed/wall/r_wall,
-/area/science/mixing/chamber)
 "bIL" = (
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_interior,
@@ -56906,6 +56894,12 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"pci" = (
+/obj/machinery/atmospherics/components/unary/tank/air{
+	dir = 2
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/engine)
 "pdF" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/general/visible,
@@ -59309,6 +59303,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
+"sgI" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 2
+	},
+/turf/closed/wall/r_wall,
+/area/science/mixing/chamber)
 "slE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -84754,7 +84754,7 @@ bxY
 bzz
 bAK
 bBX
-bDg
+pci
 ljA
 bFF
 bva
@@ -85011,7 +85011,7 @@ bxZ
 bzA
 bAK
 bBX
-bDg
+pci
 bEk
 bDi
 bva
@@ -105832,9 +105832,9 @@ bEb
 bFn
 bGt
 bHz
-bIK
+sgI
 bJQ
-bIK
+sgI
 bMl
 bNp
 bOt

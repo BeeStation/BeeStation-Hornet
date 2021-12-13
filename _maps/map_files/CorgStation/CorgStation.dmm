@@ -6138,7 +6138,8 @@
 	dir = 8
 	},
 /obj/machinery/door/window/brigdoor{
-	dir = 8
+	dir = 8;
+	req_one_access_txt = "30;70"
 	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 4
@@ -9873,16 +9874,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plating/airless,
 /area/engine/engine_room)
-"cri" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 2
-	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "crl" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -22336,7 +22327,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Office";
-	req_access_txt = "30"
+	req_one_access_txt = "30;70"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
@@ -34610,6 +34601,16 @@
 "hZl" = (
 /turf/open/floor/carpet,
 /area/hallway/primary/fore)
+"hZy" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "hZA" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -145092,7 +145093,7 @@ tnP
 gxJ
 dUT
 hTr
-cri
+hZy
 wpH
 dVk
 eSf
