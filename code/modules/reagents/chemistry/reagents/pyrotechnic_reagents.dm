@@ -3,6 +3,7 @@
 	name = "Thermite"
 	description = "Thermite produces an aluminothermic reaction known as a thermite reaction. Can be used to melt walls."
 	reagent_state = SOLID
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	color = "#550000"
 	taste_description = "sweet tasting metal"
 	process_flags = ORGANIC | SYNTHETIC
@@ -22,6 +23,7 @@
 	description = "Nitroglycerin is a heavy, colorless, oily, explosive liquid obtained by nitrating glycerol."
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "oil"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/stabilizing_agent
 	name = "Stabilizing Agent"
@@ -29,6 +31,7 @@
 	reagent_state = LIQUID
 	color = "#FFFF00"
 	taste_description = "metal"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 	random_unrestricted = FALSE
 
 /datum/reagent/clf3
@@ -40,6 +43,7 @@
 	taste_description = "burning"
 	process_flags = ORGANIC | SYNTHETIC
 	penetrates_skin = NONE
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/clf3/on_mob_life(mob/living/carbon/M)
 	M.adjust_fire_stacks(2)
@@ -78,6 +82,7 @@
 	reagent_state = LIQUID
 	color = "#5A64C8"
 	taste_description = "air and bitterness"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/liquid_dark_matter
 	name = "Liquid Dark Matter"
@@ -85,6 +90,7 @@
 	reagent_state = LIQUID
 	color = "#210021"
 	taste_description = "compressed bitterness"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/blackpowder
 	name = "Black Powder"
@@ -93,6 +99,7 @@
 	color = "#000000"
 	metabolization_rate = 0.05
 	taste_description = "salt"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/blackpowder/on_mob_life(mob/living/carbon/M)
 	..()
@@ -106,12 +113,27 @@
 	e.start()
 	holder.clear_reagents()
 
+/datum/reagent/rdx
+	name = "RDX"
+	description = "Military grade explosive"
+	reagent_state = SOLID
+	color = "#FFFFFF"
+	taste_description = "salt"
+
+/datum/reagent/tatp
+	name = "TaTP"
+	description = "Suicide grade explosive"
+	reagent_state = SOLID
+	color = "#FFFFFF"
+	taste_description = "death"
+
 /datum/reagent/flash_powder
 	name = "Flash Powder"
 	description = "Makes a very bright flash."
 	reagent_state = LIQUID
 	color = "#C8C8C8"
 	taste_description = "salt"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/smoke_powder
 	name = "Smoke Powder"
@@ -119,6 +141,7 @@
 	reagent_state = LIQUID
 	color = "#C8C8C8"
 	taste_description = "smoke"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/sonic_powder
 	name = "Sonic Powder"
@@ -126,6 +149,7 @@
 	reagent_state = LIQUID
 	color = "#C8C8C8"
 	taste_description = "loud noises"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/phlogiston
 	name = "Phlogiston"
@@ -134,7 +158,6 @@
 	color = "#FA00AF"
 	taste_description = "burning"
 	self_consuming = TRUE
-	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/phlogiston/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)
 	. = ..()
@@ -157,6 +180,7 @@
 	color = "#FA00AF"
 	taste_description = "burning"
 	self_consuming = TRUE
+	penetrates_skin = NONE
 
 /datum/reagent/napalm/on_mob_life(mob/living/carbon/M)
 	M.adjust_fire_stacks(1)
@@ -174,10 +198,6 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "bitterness"
 	self_consuming = TRUE
-	burning_volume = 0.05
-	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
-	process_flags = ORGANIC | SYNTHETIC
-	random_unrestricted = FALSE
 
 /datum/reagent/cryostylane/burn(datum/reagents/holder)
 	if(holder.has_reagent(/datum/reagent/oxygen))
@@ -205,9 +225,6 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "bitterness"
 	self_consuming = TRUE
-	burning_temperature = null
-	burning_volume = 0.05
-	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/pyrosium/on_mob_life(mob/living/carbon/M)
 	if(M.reagents.has_reagent(/datum/reagent/oxygen))
@@ -230,7 +247,6 @@
 	taste_description = "charged metal"
 	self_consuming = TRUE
 	var/shock_timer = 0
-	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/teslium/on_mob_life(mob/living/carbon/M)
 	shock_timer++
@@ -246,6 +262,7 @@
 	reagent_state = LIQUID
 	color = "#CAFF43"
 	taste_description = "jelly"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/teslium/energized_jelly/on_mob_life(mob/living/carbon/M)
 	if(isjellyperson(M))
@@ -286,6 +303,7 @@
 	reagent_state = LIQUID
 	color = "#A6FAFF55"
 	taste_description = "the inside of a fire extinguisher"
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/firefighting_foam/expose_turf(turf/open/exposed_turf, reac_volume)
 	. = ..()

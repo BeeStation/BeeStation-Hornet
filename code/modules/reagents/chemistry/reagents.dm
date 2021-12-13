@@ -36,8 +36,9 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	///the purity of the reagent on creation (i.e. when it's added to a mob and it's purity split it into 2 chems; the purity of the resultant chems are kept as 1, this tracks what the purity was before that)
 	var/creation_purity = 1
 	var/color = "#000000" // rgb: 0, 0, 0
-	var/can_synth = TRUE // can this reagent be synthesized? (for example: odysseus syringe gun)
-	var/metabolization_rate = REAGENTS_METABOLISM //how fast the reagent is metabolized by the mob
+	///how fast the reagent is metabolized by the mob
+	var/metabolization_rate = REAGENTS_METABOLISM
+	/// appears unused
 	var/overrides_metab = 0
 	var/overdose_threshold = 0
 	var/addiction_threshold = 0
@@ -52,7 +53,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/harmful = FALSE
 	///The set of exposure methods this penetrates skin with.
 	var/penetrates_skin = VAPOR
-	/// See fermi_readme.dm REAGENT_DEAD_PROCESS, REAGENT_DONOTSPLIT, REAGENT_INVISIBLE, REAGENT_SNEAKYNAME, REAGENT_SPLITRETAINVOL, REAGENT_CANSYNTH, REAGENT_IMPURE
+	/// See fermi_readme.dm REAGENT_DEAD_PROCESS, REAGENT_DONOTSPLIT, REAGENT_INVISIBLE, REAGENT_SNEAKYNAME, REAGENT_SPLITRETAINVOL, REAGENT_CANSYNTH
 	var/chemical_flags = NONE
 	///impure chem values (see fermi_readme.dm for more details on impure/inverse/failed mechanics):
 	/// What chemical path is made when metabolised as a function of purity
