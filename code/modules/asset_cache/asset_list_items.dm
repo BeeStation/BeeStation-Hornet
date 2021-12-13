@@ -526,3 +526,24 @@
 	assets = list(
 		"chem_help_advisor.gif" = 'icons/ui_icons/advisors/chem_help_advisor.gif',
 	)
+
+/datum/asset/spritesheet/simple/condiments
+	name = "condiments"
+	assets = list(
+		CONDIMASTER_STYLE_FALLBACK = 'icons/UI_Icons/Condiments/emptycondiment.png',
+		"enzyme" = 'icons/UI_Icons/Condiments/enzyme.png',
+		"flour" = 'icons/UI_Icons/Condiments/flour.png',
+		"mayonnaise" = 'icons/UI_Icons/Condiments/mayonnaise.png',
+		"milk" = 'icons/UI_Icons/Condiments/milk.png',
+		"blackpepper" = 'icons/UI_Icons/Condiments/peppermillsmall.png',
+		"rice" = 'icons/UI_Icons/Condiments/rice.png',
+		"sodiumchloride" = 'icons/UI_Icons/Condiments/saltshakersmall.png',
+		"soymilk" = 'icons/UI_Icons/Condiments/soymilk.png',
+		"soysauce" = 'icons/UI_Icons/Condiments/soysauce.png',
+		"sugar" = 'icons/UI_Icons/Condiments/sugar.png',
+		"ketchup" = 'icons/UI_Icons/Condiments/ketchup.png',
+		"capsaicin" = 'icons/UI_Icons/Condiments/hotsauce.png',
+		"frostoil" = 'icons/UI_Icons/Condiments/coldsauce.png',
+		"bbqsauce" = 'icons/UI_Icons/Condiments/bbqsauce.png',
+		"cornoil" = 'icons/UI_Icons/Condiments/oliveoil.png',
+	)

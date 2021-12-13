@@ -3,13 +3,11 @@
 	name = "reaction chamber"
 	desc = "Keeps chemicals seperated until given conditions are met."
 	icon_state = "reaction_chamber"
-
 	buffer = 200
 	reagent_flags = TRANSPARENT | NO_REACT
 
-
 	/**list of set reagents that the reaction_chamber allows in, and must all be present before mixing is enabled.
-	* example: list(/datum/reagent/water = 20, /datum/reagent/oil = 50)
+	* example: list(/datum/reagent/water = 20, /datum/reagent/fuel/oil = 50)
 	*/
 	var/list/required_reagents = list()
 	///our reagent goal has been reached, so now we lock our inputs and start emptying
@@ -56,16 +54,11 @@
 	else
 		icon_state = initial(icon_state)
 
-
-/obj/machinery/plumbing/reaction_chamber/ui_state(mob/user)
-	return GLOB.default_state
-
 /obj/machinery/plumbing/reaction_chamber/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ChemReactionChamber")
+		ui = new(user, src, "ChemReactionChamber", name)
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/plumbing/reaction_chamber/ui_data(mob/user)
 	var/list/data = list()
@@ -83,21 +76,21 @@
 	return data
 
 /obj/machinery/plumbing/reaction_chamber/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
+	. = TRUE
 	switch(action)
 		if("remove")
 			var/reagent = get_chem_id(params["chem"])
 			if(reagent)
 				required_reagents.Remove(reagent)
-				. = TRUE
 		if("add")
 			var/input_reagent = get_chem_id(params["chem"])
 			if(input_reagent && !required_reagents.Find(input_reagent))
 				var/input_amount = text2num(params["amount"])
 				if(input_amount)
 					required_reagents[input_reagent] = input_amount
-					. = TRUE
 		if("temperature")
 			var/target = params["target"]
 			if(text2num(target) != null)

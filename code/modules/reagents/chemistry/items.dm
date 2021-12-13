@@ -14,7 +14,7 @@
 
 //A little janky with pockets
 /obj/item/ph_booklet/attack_hand(mob/user)
-	if(user.get_held_index_of_item(src))//Does this check pockets too..?
+	if(user.get_held_index_of_item(src))
 		if(number_of_pages == 50)
 			icon_state = "pHbooklet_open"
 		if(!number_of_pages)
