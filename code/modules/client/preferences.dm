@@ -714,7 +714,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
 				var/donator = G.sort_category == "Donator" // purchase box and cost coloumns doesn't appear on donator items
-				if(G.id in purchased_gear)
+				if(purchased_gear?[G.id] >= 1)
 					if(G.sort_category == "OOC")
 						dat += "<i>Purchased.</i></td>"
 					else
@@ -1228,7 +1228,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(href_list["preference"] == "gear")
 		if(href_list["purchase_gear"])
 			var/datum/gear/TG = GLOB.gear_datums[href_list["purchase_gear"]]
-			if(purchased_gear[TG.id] > TG.max_purchases)
+			if(purchased_gear[TG.id] >= TG.max_purchases)
 				to_chat(user, "<span class='warning'>You can't purchase this gear again!</span>")
 				return
 			if(TG.sort_category == "Donator")
@@ -1253,7 +1253,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							type_blacklist += G.subtype_path
 						if(!(G.slot in slot_blacklist))
 							slot_blacklist += G.slot
-				if((TG.id in purchased_gear))
+				if(purchased_gear?[TG.id] >= 1)
 					if(!(TG.subtype_path in type_blacklist) || !(TG.slot in slot_blacklist))
 						equipped_gear += TG.id
 					else
@@ -2036,14 +2036,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(IS_PATRON(parent.ckey) || (parent in GLOB.admins))
 		for(var/gear_id in DLC.gear)
 			var/datum/gear/AG = DLC.gear[gear_id]
-			if(AG.id in purchased_gear)
+			if(purchased_gear?[AG.id] >= 1)
 				continue
-			purchased_gear += AG.id
+			purchased_gear[AG.id] = 1
 			AG.purchase(parent)
 		save_preferences()
 	else if(purchased_gear.len || equipped_gear.len)
 		for(var/gear_id in DLC.gear)
 			var/datum/gear/RG = DLC.gear[gear_id]
 			equipped_gear -= RG.id
-			purchased_gear -= RG.id
+			purchased_gear[RG.id] -= 1
 		save_preferences()
