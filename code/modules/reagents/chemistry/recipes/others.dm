@@ -6,6 +6,7 @@
 	id = /datum/reagent/space_cleaner/sterilizine
 	results = list(/datum/reagent/space_cleaner/sterilizine = 3)
 	required_reagents = list(/datum/reagent/consumable/ethanol = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/chlorine = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/cooking_oil
 	name = "Cooking Oil"
@@ -18,48 +19,58 @@
 	id = /datum/reagent/lube
 	results = list(/datum/reagent/lube = 4)
 	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/silicon = 1, /datum/reagent/oxygen = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/spraytan
 	name = "Spray Tan"
 	id = /datum/reagent/spraytan
 	results = list(/datum/reagent/spraytan = 2)
-	required_reagents = list(/datum/reagent/consumable/orangejuice = 1, /datum/reagent/oil = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/spraytan2
 	name = "Spray Tan"
 	id = /datum/reagent/spraytan
 	results = list(/datum/reagent/spraytan = 2)
 	required_reagents = list(/datum/reagent/consumable/orangejuice = 1, /datum/reagent/consumable/cornoil = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/impedrezene
 	name = "Impedrezene"
 	id = /datum/reagent/impedrezene
 	results = list(/datum/reagent/impedrezene = 2)
 	required_reagents = list(/datum/reagent/mercury = 1, /datum/reagent/oxygen = 1, /datum/reagent/consumable/sugar = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_ORGAN
 
 /datum/chemical_reaction/cryptobiolin
 	name = "Cryptobiolin"
 	id = /datum/reagent/cryptobiolin
 	results = list(/datum/reagent/cryptobiolin = 3)
 	required_reagents = list(/datum/reagent/potassium = 1, /datum/reagent/oxygen = 1, /datum/reagent/consumable/sugar = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/glycerol
 	name = "Glycerol"
 	id = /datum/reagent/glycerol
 	results = list(/datum/reagent/glycerol = 1)
 	required_reagents = list(/datum/reagent/consumable/cornoil = 3, /datum/reagent/toxin/acid = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_EXPLOSIVE
 
 /datum/chemical_reaction/sodiumchloride
 	name = "Sodium Chloride"
 	id = /datum/reagent/consumable/sodiumchloride
 	results = list(/datum/reagent/consumable/sodiumchloride = 3)
 	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/sodium = 1, /datum/reagent/chlorine = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_FOOD
 
-/datum/chemical_reaction/plasmasolidification
-	name = "Solid Plasma"
-	id = "solidplasma"
+/datum/chemical_reaction/stable_plasma
+	results = list(/datum/reagent/stable_plasma = 1)
+	required_reagents = list(/datum/reagent/toxin/plasma = 1)
+	required_catalysts = list(/datum/reagent/stabilizing_agent = 1)
+
+/datum/chemical_reaction/plasma_solidification
 	required_reagents = list(/datum/reagent/iron = 5, /datum/reagent/consumable/frostoil = 5, /datum/reagent/toxin/plasma = 20)
 	mob_react = FALSE
+	reaction_flags = REACTION_INSTANT
 
 /datum/chemical_reaction/plasmasolidification/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -71,6 +82,7 @@
 	id = "solidgold"
 	required_reagents = list(/datum/reagent/consumable/frostoil = 5, /datum/reagent/gold = 20, /datum/reagent/iron = 1)
 	mob_react = FALSE
+	reaction_flags = REACTION_INSTANT
 
 /datum/chemical_reaction/goldsolidification/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -82,6 +94,7 @@
 	id = "solidadam"
 	required_reagents = list(/datum/reagent/gold = 5, /datum/reagent/consumable/frostoil = 5, /datum/reagent/liquidadamantine = 10)
 	mob_react = FALSE
+	reaction_flags = REACTION_INSTANT
 
 /datum/chemical_reaction/adamantinesolidification/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -93,6 +106,7 @@
 	id = "capsaicincondensation"
 	results = list(/datum/reagent/consumable/condensedcapsaicin = 5)
 	required_reagents = list(/datum/reagent/consumable/capsaicin = 1, /datum/reagent/consumable/ethanol = 5)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/soapification
 	name = "Soapification"
@@ -100,11 +114,23 @@
 	required_reagents = list(/datum/reagent/liquidgibs = 10, /datum/reagent/lye  = 10) // requires two scooped gib tiles
 	required_temp = 374
 	mob_react = FALSE
+	reaction_flags = REACTION_INSTANT
 
 /datum/chemical_reaction/soapification/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/soap/homemade(location)
+
+/datum/chemical_reaction/omegasoapification
+	required_reagents = list(/datum/reagent/consumable/potato_juice = 10, /datum/reagent/consumable/ethanol/lizardwine = 10, /datum/reagent/monkey_powder = 10, /datum/reagent/drug/krokodil = 10, /datum/reagent/toxin/acid/nitracid = 10, /datum/reagent/baldium = 10, /datum/reagent/consumable/ethanol/hooch = 10, /datum/reagent/bluespace = 10, /datum/reagent/drug/pumpup = 10, /datum/reagent/consumable/space_cola = 10)
+	required_temp = 999
+	mob_react = FALSE
+	reaction_flags = REACTION_INSTANT
+
+/datum/chemical_reaction/omegasoapification/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i = 1, i <= created_volume, i++)
+		new /obj/item/soap/omega(location)
 
 /datum/chemical_reaction/candlefication
 	name = "Candlefication"
@@ -113,6 +139,7 @@
 	required_temp = 374
 	mob_react = FALSE
 	reaction_flags = REACTION_INSTANT
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_OTHER
 
 /datum/chemical_reaction/candlefication/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -124,6 +151,7 @@
 	id = "meatification"
 	required_reagents = list(/datum/reagent/liquidgibs = 10, /datum/reagent/consumable/nutriment = 10, /datum/reagent/carbon = 10)
 	mob_react = FALSE
+	reaction_flags = REACTION_INSTANT
 
 /datum/chemical_reaction/meatification/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -137,6 +165,7 @@
 	results = list(/datum/reagent/carbondioxide = 3)
 	required_reagents = list(/datum/reagent/carbon = 1, /datum/reagent/oxygen = 2)
 	required_temp = 777 // pure carbon isn't especially reactive.
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/nitrous_oxide
 	name = "Nitrous Oxide"
@@ -144,6 +173,12 @@
 	results = list(/datum/reagent/nitrous_oxide = 5)
 	required_reagents = list(/datum/reagent/ammonia = 2, /datum/reagent/nitrogen = 1, /datum/reagent/oxygen = 2)
 	required_temp = 525
+	optimal_temp = 550
+	overheat_temp = 575
+	temp_exponent_factor = 0.2
+	purity_min = 0.3
+	thermic_constant = 35 //gives a bonus 15C wiggle room
+	rate_up_lim = 25 //Give a chance to pull back
 
 //Technically a mutation toxin
 /datum/chemical_reaction/mulligan
@@ -151,6 +186,7 @@
 	id = /datum/reagent/mulligan
 	results = list(/datum/reagent/mulligan = 1)
 	required_reagents = list(/datum/reagent/mutationtoxin/jelly = 1, /datum/reagent/toxin/mutagen = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 ////////////////////////////////// VIROLOGY //////////////////////////////////////////
 
@@ -414,6 +450,7 @@
 	results = list(/datum/reagent/fluorosurfactant = 5)
 	required_reagents = list(/datum/reagent/fluorine = 2, /datum/reagent/carbon = 2, /datum/reagent/toxin/acid = 1)
 	reaction_flags = REACTION_INSTANT
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/foam
 	name = "Foam"
@@ -423,14 +460,7 @@
 	reaction_flags = REACTION_INSTANT
 
 /datum/chemical_reaction/foam/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
-	var/location = get_turf(holder.my_atom)
-	for(var/mob/M as() in viewers(5, location))
-		to_chat(M, "<span class='danger'>The solution spews out foam!</span>")
-	var/datum/effect_system/foam_spread/s = new()
-	s.set_up(created_volume*2, location, holder)
-	s.start()
-	holder.clear_reagents()
-	return
+	holder.create_foam(/datum/effect_system/foam_spread,2*created_volume,notification="<span class='danger'>The solution spews out foam!</span>")
 
 
 /datum/chemical_reaction/metalfoam
@@ -439,6 +469,7 @@
 	required_reagents = list(/datum/reagent/aluminium = 3, /datum/reagent/foaming_agent = 1, /datum/reagent/toxin/acid/fluacid = 1)
 	mob_react = FALSE
 	reaction_flags = REACTION_INSTANT
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/metalfoam/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -457,6 +488,7 @@
 	required_reagents = list(/datum/reagent/aluminium = 3, /datum/reagent/smart_foaming_agent = 1, /datum/reagent/toxin/acid/fluacid = 1)
 	mob_react = TRUE
 	reaction_flags = REACTION_INSTANT
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/smart_foam/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
 	var/turf/location = get_turf(holder.my_atom)
@@ -472,6 +504,7 @@
 	required_reagents = list(/datum/reagent/iron = 3, /datum/reagent/foaming_agent = 1, /datum/reagent/toxin/acid/fluacid = 1)
 	mob_react = FALSE
 	reaction_flags = REACTION_INSTANT
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/ironfoam/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -487,6 +520,7 @@
 	id = /datum/reagent/foaming_agent
 	results = list(/datum/reagent/foaming_agent = 1)
 	required_reagents = list(/datum/reagent/lithium = 1, /datum/reagent/hydrogen = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/smart_foaming_agent
 	name = "Smart foaming Agent"
@@ -494,6 +528,7 @@
 	results = list(/datum/reagent/smart_foaming_agent = 3)
 	required_reagents = list(/datum/reagent/foaming_agent = 3, /datum/reagent/acetone = 1, /datum/reagent/iron = 1)
 	mix_message = "The solution mixes into a frothy metal foam and conforms to the walls of its container."
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 
 /////////////////////////////// Cleaning and hydroponics /////////////////////////////////////////////////
@@ -506,44 +541,48 @@
 	optimal_ph_min = 1  // Lets increase our range for this basic chem
 	optimal_ph_max = 12
 	H_ion_release = -0.02 //handmade is more neutral
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/diethylamine
 	name = "Diethylamine"
 	id = /datum/reagent/diethylamine
 	results = list(/datum/reagent/diethylamine = 2)
 	required_reagents = list (/datum/reagent/ammonia = 1, /datum/reagent/consumable/ethanol = 1)
-	rate_up_lim = 40
 
 /datum/chemical_reaction/space_cleaner
 	name = "Space cleaner"
 	id = /datum/reagent/space_cleaner
 	results = list(/datum/reagent/space_cleaner = 2)
 	required_reagents = list(/datum/reagent/ammonia = 1, /datum/reagent/water = 1)
+	rate_up_lim = 40
 
 /datum/chemical_reaction/plantbgone
 	name = "Plant-B-Gone"
 	id = /datum/reagent/toxin/plantbgone
 	results = list(/datum/reagent/toxin/plantbgone = 5)
 	required_reagents = list(/datum/reagent/toxin = 1, /datum/reagent/water = 4)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/weedkiller
 	name = "Weed Killer"
 	id = /datum/reagent/toxin/plantbgone/weedkiller
 	results = list(/datum/reagent/toxin/plantbgone/weedkiller = 5)
 	required_reagents = list(/datum/reagent/toxin = 1, /datum/reagent/ammonia = 4)
-	H_ion_release = -0.05		// Push towards acidic
+	H_ion_release = -0.05 // Push towards acidic
 
 /datum/chemical_reaction/pestkiller
 	name = "Pest Killer"
 	id = /datum/reagent/toxin/pestkiller
 	results = list(/datum/reagent/toxin/pestkiller = 5)
 	required_reagents = list(/datum/reagent/toxin = 1, /datum/reagent/consumable/ethanol = 4)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/drying_agent
 	name = "Drying agent"
 	id = /datum/reagent/drying_agent
 	results = list(/datum/reagent/drying_agent = 3)
 	required_reagents = list(/datum/reagent/stable_plasma = 2, /datum/reagent/consumable/ethanol = 1, /datum/reagent/sodium = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 //////////////////////////////////// Other goon stuff ///////////////////////////////////////////
 
@@ -551,25 +590,27 @@
 	name = /datum/reagent/acetone
 	id = /datum/reagent/acetone
 	results = list(/datum/reagent/acetone = 3)
-	required_reagents = list(/datum/reagent/oil = 1, /datum/reagent/fuel = 1, /datum/reagent/oxygen = 1)
+	required_reagents = list(/datum/reagent/fuel/oil = 1, /datum/reagent/fuel = 1, /datum/reagent/oxygen = 1)
 
 /datum/chemical_reaction/carpet
 	name = /datum/reagent/carpet
 	id = /datum/reagent/carpet
 	results = list(/datum/reagent/carpet = 2)
 	required_reagents = list(/datum/reagent/drug/space_drugs = 1, /datum/reagent/blood = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/oil
 	name = "Oil"
 	id = /datum/reagent/oil
 	results = list(/datum/reagent/oil = 3)
 	required_reagents = list(/datum/reagent/fuel = 1, /datum/reagent/carbon = 1, /datum/reagent/hydrogen = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
 
 /datum/chemical_reaction/phenol
 	name = /datum/reagent/phenol
 	id = /datum/reagent/phenol
 	results = list(/datum/reagent/phenol = 3)
-	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/chlorine = 1, /datum/reagent/oil = 1)
+	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/chlorine = 1, /datum/reagent/fuel/oil = 1)
 
 /datum/chemical_reaction/ash
 	name = "Ash"
@@ -577,6 +618,7 @@
 	results = list(/datum/reagent/ash = 1)
 	required_reagents = list(/datum/reagent/oil = 1)
 	required_temp = 480
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/colorful_reagent
 	name = /datum/reagent/colorful_reagent
@@ -590,6 +632,7 @@
 	required_reagents = list(/datum/reagent/medicine/strange_reagent = 1, /datum/reagent/medicine/synthflesh = 1, /datum/reagent/blood = 1)
 	required_temp = 374
 	reaction_flags = REACTION_INSTANT
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/life/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
 	chemical_mob_spawn(holder, rand(1, round(created_volume, 1)), "Life (hostile)") //defaults to HOSTILE_SPAWN
@@ -600,6 +643,7 @@
 	required_reagents = list(/datum/reagent/medicine/strange_reagent = 1, /datum/reagent/medicine/synthflesh = 1, /datum/reagent/consumable/sugar = 1)
 	required_temp = 374
 	reaction_flags = REACTION_INSTANT
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/life_friendly/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
 	chemical_mob_spawn(holder, rand(1, round(created_volume, 1)), "Life (friendly)", FRIENDLY_SPAWN)
@@ -609,6 +653,7 @@
 	id = "corgium"
 	required_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/colorful_reagent = 1, /datum/reagent/medicine/strange_reagent = 1, /datum/reagent/blood = 1)
 	reaction_flags = REACTION_INSTANT
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/corgium/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
 	if(isliving(holder.my_atom) && !iscorgi(holder.my_atom))
@@ -620,54 +665,110 @@
 			new /mob/living/simple_animal/pet/dog/corgi(location)
 	..()
 
+//monkey powder heehoo
+/datum/chemical_reaction/monkey_powder
+	results = list(/datum/reagent/monkey_powder = 5)
+	required_reagents = list(/datum/reagent/consumable/banana = 1, /datum/reagent/consumable/nutriment=2,/datum/reagent/liquidgibs = 1)
+	reaction_flags = REACTION_INSTANT
+
+/datum/chemical_reaction/monkey
+	required_reagents = list(/datum/reagent/monkey_powder = 50, /datum/reagent/water = 1)
+	mix_message = "<span class='danger'>Expands into a brown mass before shaping itself into a monkey!.</span>"
+
+/datum/chemical_reaction/monkey/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
+	var/mob/living/carbon/M = holder.my_atom
+	var/location = get_turf(M)
+	if(istype(M, /mob/living/carbon))
+		if(ismonkey(M))
+			M.gib()
+		else
+			M.vomit(blood = TRUE, stun = TRUE) //not having a redo of itching powder (hopefully)
+	new /mob/living/carbon/human/species/monkey(location, TRUE)
+
+//water electrolysis
+/datum/chemical_reaction/electrolysis
+	results = list(/datum/reagent/oxygen = 1.5, /datum/reagent/hydrogen = 3)
+	required_reagents = list(/datum/reagent/consumable/liquidelectricity = 1, /datum/reagent/water = 5)
+
+//butterflium
+/datum/chemical_reaction/butterflium
+	required_reagents = list(/datum/reagent/colorful_reagent = 1, /datum/reagent/medicine/omnizine = 1, /datum/reagent/medicine/strange_reagent = 1, /datum/reagent/consumable/nutriment = 1)
+	reaction_flags = REACTION_INSTANT
+
+/datum/chemical_reaction/butterflium/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i = rand(1, created_volume), i <= created_volume, i++)
+		new /mob/living/simple_animal/butterfly(location)
+	..()
+//scream powder
+/datum/chemical_reaction/scream
+	required_reagents = list(/datum/reagent/medicine/strange_reagent = 1, /datum/reagent/consumable/cream = 5, /datum/reagent/consumable/ethanol/lizardwine = 5 )
+	required_temp = 374
+	reaction_flags = REACTION_INSTANT
+
+/datum/chemical_reaction/scream/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
+	playsound(holder.my_atom, pick(list( 'sound/voice/human/malescream_1.ogg', 'sound/voice/human/malescream_2.ogg', 'sound/voice/human/malescream_3.ogg', 'sound/voice/human/malescream_4.ogg', 'sound/voice/human/malescream_5.ogg', 'sound/voice/human/malescream_6.ogg', 'sound/voice/human/femalescream_1.ogg', 'sound/voice/human/femalescream_2.ogg', 'sound/voice/human/femalescream_3.ogg', 'sound/voice/human/femalescream_4.ogg', 'sound/voice/human/femalescream_5.ogg', 'sound/voice/human/wilhelm_scream.ogg')), created_volume*5,TRUE)
+
 /datum/chemical_reaction/hair_dye
 	name = /datum/reagent/hair_dye
 	id = /datum/reagent/hair_dye
 	results = list(/datum/reagent/hair_dye = 5)
 	required_reagents = list(/datum/reagent/colorful_reagent = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/drug/space_drugs = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/barbers_aid
 	name = /datum/reagent/barbers_aid
 	id = /datum/reagent/barbers_aid
 	results = list(/datum/reagent/barbers_aid = 5)
 	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/drug/space_drugs = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/concentrated_barbers_aid
 	name = /datum/reagent/concentrated_barbers_aid
 	id = /datum/reagent/concentrated_barbers_aid
 	results = list(/datum/reagent/concentrated_barbers_aid = 2)
 	required_reagents = list(/datum/reagent/barbers_aid = 1, /datum/reagent/toxin/mutagen = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
+
+/datum/chemical_reaction/baldium
+	results = list(/datum/reagent/baldium = 1)
+	required_reagents = list(/datum/reagent/uranium/radium = 1, /datum/reagent/toxin/acid = 1, /datum/reagent/lye = 1)
+	required_temp = 395
 
 /datum/chemical_reaction/saltpetre
 	name = /datum/reagent/saltpetre
 	id = /datum/reagent/saltpetre
 	results = list(/datum/reagent/saltpetre = 3)
 	required_reagents = list(/datum/reagent/potassium = 1, /datum/reagent/nitrogen = 1, /datum/reagent/oxygen = 3)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/lye
 	name = /datum/reagent/lye
 	id = /datum/reagent/lye
 	results = list(/datum/reagent/lye = 3)
 	required_reagents = list(/datum/reagent/sodium = 1, /datum/reagent/hydrogen = 1, /datum/reagent/oxygen = 1)
-	required_temp = 10
+	required_temp = 10 //So hercuri still shows life.
 
 /datum/chemical_reaction/lye2
 	name = /datum/reagent/lye
 	id = /datum/reagent/lye
 	results = list(/datum/reagent/lye = 2)
 	required_reagents = list(/datum/reagent/ash = 1, /datum/reagent/water = 1, /datum/reagent/carbon = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
 
 /datum/chemical_reaction/royal_bee_jelly
 	name = "royal bee jelly"
 	id = /datum/reagent/royal_bee_jelly
 	results = list(/datum/reagent/royal_bee_jelly = 5)
 	required_reagents = list(/datum/reagent/toxin/mutagen = 10, /datum/reagent/consumable/honey = 40)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_PLANT
 
 /datum/chemical_reaction/laughter
 	name = /datum/reagent/consumable/laughter
 	id = /datum/reagent/consumable/laughter
 	results = list(/datum/reagent/consumable/laughter = 10) // Fuck it. I'm not touching this one.
 	required_reagents = list(/datum/reagent/consumable/sugar = 1, /datum/reagent/consumable/banana = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
 
 /datum/chemical_reaction/plastic_polymers
 	name = "plastic polymers"
@@ -675,6 +776,7 @@
 	required_reagents = list(/datum/reagent/oil = 5, /datum/reagent/toxin/acid = 2, /datum/reagent/ash = 3)
 	required_temp = 374 //lazily consistent with soap & other crafted objects generically created with heat.
 	reaction_flags = REACTION_INSTANT
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_CHEMICAL
 
 /datum/chemical_reaction/plastic_polymers/on_reaction(datum/equilibrium/reaction, datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -686,21 +788,25 @@
 	id = /datum/reagent/pax
 	results = list(/datum/reagent/pax = 3)
 	required_reagents  = list(/datum/reagent/toxin/mindbreaker = 1, /datum/reagent/medicine/synaptizine = 1, /datum/reagent/water = 1)
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE | REACTION_TAG_OTHER
 
+/datum/chemical_reaction/yuck
+	results = list(/datum/reagent/yuck = 4)
+	required_reagents = list(/datum/reagent/fuel = 3)
+	required_container = /obj/item/food/deadmouse
 
 //////////////////EXPANDED MUTATION TOXINS/////////////////////
 
-/datum/chemical_reaction/mutationtoxin/stable
-	name = /datum/reagent/mutationtoxin
-	id = /datum/reagent/mutationtoxin
-	results = list(/datum/reagent/mutationtoxin = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/blood = 10)
+/datum/chemical_reaction/slimejelly
+	results = list(/datum/reagent/toxin/slimejelly = 5)
+	required_reagents = list(/datum/reagent/fuel/oil = 3, /datum/reagent/uranium/radium = 2, /datum/reagent/consumable/tinlux =1)
+	required_container = /obj/item/food/grown/mushroom/glowshroom
+	mix_message = "The mushroom's insides bubble and pop and it becomes very limp."
 
-/datum/chemical_reaction/mutationtoxin/lizard
-	name = /datum/reagent/mutationtoxin/lizard
-	id = /datum/reagent/mutationtoxin/lizard
-	results = list(/datum/reagent/mutationtoxin/lizard = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/liquidgibs = 10)
+/datum/chemical_reaction/slime_extractification
+	required_reagents = list(/datum/reagent/toxin/slimejelly = 30, /datum/reagent/consumable/frostoil = 5, /datum/reagent/toxin/plasma = 5)
+	mix_message = "The mixture condenses into a ball."
+	reaction_flags = REACTION_INSTANT
 
 /datum/chemical_reaction/mutationtoxin/felinid
 	name = /datum/reagent/mutationtoxin/felinid
@@ -708,11 +814,10 @@
 	results = list(/datum/reagent/mutationtoxin/felinid = 5)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/toxin/fentanyl = 10, /datum/reagent/impedrezene = 10)
 
-/datum/chemical_reaction/mutationtoxin/fly
-	name = /datum/reagent/mutationtoxin/fly
-	id = /datum/reagent/mutationtoxin/fly
-	results = list(/datum/reagent/mutationtoxin/fly = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/toxin/mutagen = 10)
+/datum/chemical_reaction/metalgen_imprint
+	required_reagents = list(/datum/reagent/metalgen = 1, /datum/reagent/liquid_dark_matter = 1)
+	results = list(/datum/reagent/metalgen = 1)
+	reaction_flags = REACTION_INSTANT
 
 /datum/chemical_reaction/mutationtoxin/moth
 	name = /datum/reagent/mutationtoxin/moth
@@ -720,55 +825,46 @@
 	results = list(/datum/reagent/mutationtoxin/moth = 5)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/toxin/lipolicide = 10) //I know it's the opposite of what moths like, but I am out of ideas for this.
 
-/datum/chemical_reaction/mutationtoxin/apid
-	name = /datum/reagent/mutationtoxin/apid
-	id = /datum/reagent/mutationtoxin/apid
-	results = list(/datum/reagent/mutationtoxin/apid = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/consumable/honey = 20) // beeeeeeeeeeeeeeeeeeeeees
+/datum/chemical_reaction/gravitum
+	required_reagents = list(/datum/reagent/wittel = 1, /datum/reagent/sorium = 10)
+	results = list(/datum/reagent/gravitum = 10)
 
-/datum/chemical_reaction/mutationtoxin/pod
-	name = /datum/reagent/mutationtoxin/pod
-	id = /datum/reagent/mutationtoxin/pod
-	results = list(/datum/reagent/mutationtoxin/pod = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/plantnutriment/eznutriment = 10)
+/datum/chemical_reaction/cellulose_carbonization
+	results = list(/datum/reagent/carbon = 1)
+	required_reagents = list(/datum/reagent/cellulose = 1)
+	required_temp = 512
 
-/datum/chemical_reaction/mutationtoxin/golem
-	name = /datum/reagent/mutationtoxin/golem
-	id = /datum/reagent/mutationtoxin/golem
-	results = list(/datum/reagent/mutationtoxin/golem = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/liquidadamantine = 20)
+/datum/chemical_reaction/hydrogen_peroxide
+	results = list(/datum/reagent/hydrogen_peroxide = 3)
+	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/oxygen = 1, /datum/reagent/chlorine = 1)
 
-/datum/chemical_reaction/mutationtoxin/abductor
-	name = /datum/reagent/mutationtoxin/abductor
-	id = /datum/reagent/mutationtoxin/abductor
-	results = list(/datum/reagent/mutationtoxin/abductor = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/medicine/morphine = 10, /datum/reagent/toxin/mutetoxin = 10)
+/datum/chemical_reaction/acetone_oxide
+	results = list(/datum/reagent/acetone_oxide = 2)
+	required_reagents = list(/datum/reagent/acetone = 2, /datum/reagent/oxygen = 1, /datum/reagent/hydrogen_peroxide = 1)
 
-/datum/chemical_reaction/mutationtoxin/ipc
-	name = /datum/reagent/mutationtoxin/ipc
-	id = /datum/reagent/mutationtoxin/ipc
-	results = list(/datum/reagent/mutationtoxin/ipc = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/teslium = 20)
+/datum/chemical_reaction/pentaerythritol
+	results = list(/datum/reagent/pentaerythritol = 2)
+	required_reagents = list(/datum/reagent/acetaldehyde = 1, /datum/reagent/toxin/formaldehyde = 3, /datum/reagent/water = 1 )
 
-/datum/chemical_reaction/mutationtoxin/ethereal
-	name = /datum/reagent/mutationtoxin/ethereal
-	id = /datum/reagent/mutationtoxin/ethereal
-	results = list(/datum/reagent/mutationtoxin/ethereal = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/consumable/liquidelectricity = 20)
+/datum/chemical_reaction/acetaldehyde
+	results = list(/datum/reagent/acetaldehyde = 3)
+	required_reagents = list(/datum/reagent/acetone = 1, /datum/reagent/toxin/formaldehyde = 1, /datum/reagent/water = 1)
+	required_temp = 450
 
-/datum/chemical_reaction/mutationtoxin/oozeling
-	name = /datum/reagent/mutationtoxin/oozeling
-	id = /datum/reagent/mutationtoxin/oozeling
-	results = list(/datum/reagent/mutationtoxin/oozeling = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/medicine/calomel = 10, /datum/reagent/toxin/bad_food = 30, /datum/reagent/stable_plasma = 5)
+/datum/chemical_reaction/holywater
+	results = list(/datum/reagent/water/holywater = 1)
+	required_reagents = list(/datum/reagent/water/hollowwater = 1)
+	required_catalysts = list(/datum/reagent/water/holywater = 1)
 
-//////////////Mutation toxins made out of advanced toxin/////////////
+/datum/chemical_reaction/exotic_stabilizer
+	results = list(/datum/reagent/exotic_stabilizer = 2)
+	required_reagents = list(/datum/reagent/plasma_oxide = 1,/datum/reagent/stabilizing_agent = 1)
 
-/datum/chemical_reaction/mutationtoxin/skeleton
-	name = /datum/reagent/mutationtoxin/skeleton
-	id = /datum/reagent/mutationtoxin/skeleton
-	results = list(/datum/reagent/mutationtoxin/skeleton = 5)
-	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/consumable/milk = 30, /datum/reagent/toxin/acid/fluacid = 30) //Because acid melts flesh off.
+/datum/chemical_reaction/silver_solidification
+	required_reagents = list(/datum/reagent/silver = 20, /datum/reagent/carbon = 10)
+	required_temp = 630
+	mob_react = FALSE
+	reaction_flags = REACTION_INSTANT
 
 ///datum/chemical_reaction/mutationtoxin/zombie //No zombies untill holopara issue is fixed.
 //	name = /datum/reagent/mutationtoxin/zombie
