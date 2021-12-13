@@ -2045,5 +2045,5 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		for(var/gear_id in DLC.gear)
 			var/datum/gear/RG = DLC.gear[gear_id]
 			equipped_gear -= RG.id
-			purchased_gear[RG.id] -= 1
+			purchased_gear[RG.id] = 0
 		save_preferences()
