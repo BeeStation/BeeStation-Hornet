@@ -1,14 +1,24 @@
 Any time you make a change to the schema files, remember to increment the database schema version. Generally increment the minor number, major should be reserved for significant changes to the schema. Both values go up to 255.
 
-The latest database version is 5.9; The query to update the schema revision table is:
+The latest database version is 5.10; The query to update the schema revision table is:
 
-INSERT INTO `schema_revision` (`major`, `minor`) VALUES (5, 9);
+INSERT INTO `schema_revision` (`major`, `minor`) VALUES (5, 10);
 or
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 9);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 10);
 
 In any query remember to add a prefix to the table names if you use one.
 
 -----------------------------------------------------
+Version 5.10, 13 December 2021 by ike709
+Moved the beecoin shop to the DB. Check tools/DatabaseMigrations for the migration script.
+
+CREATE TABLE IF NOT EXISTS `metacoin_item_purchases` (
+	`ckey` varchar(32) NOT NULL,
+	`purchase_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+	`item_id` varchar(50) NOT NULL,
+	`amount` tinyint(4) NOT NULL,
+	CONSTRAINT `positive_amounts` CHECK (`amount` >= 0)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 Version 5.9, 5 October 2019 by Anturke, ported 1 October 2021 by Ivniinvi
 Added achievements table.

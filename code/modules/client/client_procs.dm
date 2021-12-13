@@ -977,6 +977,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if (NAMEOF(src, view))
 			view_size.setDefault(var_value)
 			return TRUE
+		if (NAMEOF(src, metacoin_balance))
+			return FALSE
 	. = ..()
 
 /client/proc/rescale_view(change, min, max)
@@ -1103,4 +1105,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		SSambience.ambience_listening_clients -= src
 
 /client/proc/give_award(achievement_type, mob/user)
+	if(IsAdminAdvancedProcCall())
+		return
 	return	player_details.achievements.unlock(achievement_type, user)

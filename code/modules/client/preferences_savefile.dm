@@ -47,20 +47,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		outline_color = COLOR_BLUE_GRAY
 	if(current_version < 31)
 		auto_fit_viewport = TRUE
-	if(current_version < 32)
-		//Okay this is gonna s u c k
-		var/list/legacy_purchases = purchased_gear.Copy()
-		purchased_gear.Cut()
-		equipped_gear.Cut() //Not gonna bother.
-		for(var/l_gear in legacy_purchases)
-			var/n_gear
-			for(var/rg_nam in GLOB.gear_datums) //this is ugly.
-				var/datum/gear/r_gear = GLOB.gear_datums[rg_nam]
-				if(r_gear.display_name == l_gear)
-					n_gear = r_gear.id
-					break
-			if(n_gear)
-				purchased_gear += n_gear
 	if(current_version < 33)
 		chat_on_map = TRUE
 //		max_chat_length = CHAT_MESSAGE_MAX_LENGTH			> Depreciated as of 31/07/2021
@@ -209,8 +195,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["show_credits"], show_credits)
 
 	READ_FILE(S["key_bindings"], key_bindings)
-
-	READ_FILE(S["purchased_gear"], purchased_gear)
 	READ_FILE(S["equipped_gear"], equipped_gear)
 
 	//try to fix any outdated data if necessary
@@ -311,7 +295,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["pda_style"], pda_style)
 	WRITE_FILE(S["pda_color"], pda_color)
 	WRITE_FILE(S["show_credits"], show_credits)
-	WRITE_FILE(S["purchased_gear"], purchased_gear)
 	WRITE_FILE(S["equipped_gear"], equipped_gear)
 
 	if (!key_bindings)
@@ -557,6 +540,21 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	return TRUE
 
+/datum/preferences/proc/load_gear(var/ckey)
+	if(!ckey || !SSdbcore.IsConnected())
+		return
+	var/datum/DBQuery/query_gear = SSdbcore.NewQuery(
+		"SELECT item_id,amount FROM [format_table_name("metacoin_item_purchases")] WHERE ckey = :ckey",
+		list("ckey" = ckey)
+	)
+	if(!query_gear.Execute())
+		qdel(query_gear)
+		return
+	while(query_gear.NextRow())
+		var/key = query_gear.item[1]
+		var/value = text2num(query_gear.item[2])
+		purchased_gear[key] = value
+	qdel(query_gear)
 
 #undef SAVEFILE_VERSION_MAX
 #undef SAVEFILE_VERSION_MIN

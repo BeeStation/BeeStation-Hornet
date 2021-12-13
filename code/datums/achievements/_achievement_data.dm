@@ -63,6 +63,8 @@
 
 ///Unlocks an achievement of a specific type.
 /datum/achievement_data/proc/unlock(achievement_type, mob/user)
+	if(IsAdminAdvancedProcCall())
+		return
 	var/datum/award/A = SSachievements.awards[achievement_type]
 	get_data(achievement_type) //Get the current status first if necessary
 	if(istype(A, /datum/award/achievement) && !data[achievement_type])

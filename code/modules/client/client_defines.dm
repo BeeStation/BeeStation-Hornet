@@ -119,3 +119,6 @@
 
 	//Tick when ghost roles are useable again
 	var/next_ghost_role_tick = 0
+
+	// Metacoin balance, cached to reduce DB queries. Do not directly read or modify this value.
+	var/metacoin_balance

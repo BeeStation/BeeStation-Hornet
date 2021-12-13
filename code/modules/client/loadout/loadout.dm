@@ -58,6 +58,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/list/species_whitelist //Only allow certain species to receive this gear
 	var/sort_category = "General"
 	var/subtype_path = /datum/gear //for skipping organizational subtypes (optional)
+	var/max_purchases = 1 //Max number of times this gear can be purchased.
 
 /datum/gear/New()
 	..()
@@ -67,7 +68,28 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		description = initial(O.desc)
 
 /datum/gear/proc/purchase(var/client/C) //Called when the gear is first purchased
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	if(IsAdminAdvancedProcCall() || !SSdbcore.IsConnected())
+		return
+	if(!C)
+		return
+	if(!C.prefs?.purchased_gear[id])
+		C.prefs?.purchased_gear[id] = 1
+		var/datum/DBQuery/query_add_gear_purchase = SSdbcore.NewQuery({"
+			INSERT INTO [format_table_name("metacoin_item_purchases")] (`ckey`, `item_id`, `amount`) VALUES (:ckey, :item_id, :amount)"},
+			list("ckey" = C.ckey, "item_id" = id, "amount" = 1))
+		query_add_gear_purchase.Execute()
+		qdel(query_add_gear_purchase)
+		return
+	else
+		C.prefs?.purchased_gear[id] += 1
+		var/amount = C.prefs?.purchased_gear[id]
+		var/datum/DBQuery/query_add_gear_purchase = SSdbcore.NewQuery({"
+			UPDATE [format_table_name("metacoin_item_purchases")] SET amount = :amount WHERE ckey = :ckey AND item_id = :item_id"},
+			list("ckey" = C.ckey, "item_id" = id, "amount" = amount))
+		query_add_gear_purchase.Execute()
+		qdel(query_add_gear_purchase)
+		return
 
 /datum/gear_data
 	var/path

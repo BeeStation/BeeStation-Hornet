@@ -141,13 +141,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(istype(C))
 		if(!IsGuestKey(C.key))
 			load_path(C.ckey)
+			load_gear(C.ckey)
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
 				max_save_slots = 8
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
-		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
-			max_save_slots += 1
+		if(purchased_gear?["6030fe461e610e2be3a2c3e75c06067e"]) //MD5 hash of, "extra character slot"
+			max_save_slots += purchased_gear["6030fe461e610e2be3a2c3e75c06067e"]
 		if(load_character())
 			return
 	//we couldn't load character data so just randomize the character appearance + name
@@ -1227,14 +1228,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(href_list["preference"] == "gear")
 		if(href_list["purchase_gear"])
 			var/datum/gear/TG = GLOB.gear_datums[href_list["purchase_gear"]]
+			if(purchased_gear[TG.id] > TG.max_purchases)
+				to_chat(user, "<span class='warning'>You can't purchase this gear again!</span>")
+				return
 			if(TG.sort_category == "Donator")
 				if(CONFIG_GET(flag/donator_items) && alert(parent, "This item is only accessible to our patrons. Would you like to subscribe?", "Patron Locked", "Yes", "No") == "Yes")
 					parent.donate()
-			else if(TG.cost < user.client.get_metabalance())
-				purchased_gear += TG.id
+			else if(TG.cost <= user.client.get_metabalance())
 				TG.purchase(user.client)
 				user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
-				save_preferences()
 			else
 				to_chat(user, "<span class='warning'>You don't have enough [CONFIG_GET(string/metacurrency_name)]s to purchase \the [TG.display_name]!</span>")
 		if(href_list["toggle_gear"])
