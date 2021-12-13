@@ -178,17 +178,6 @@
 	else
 		return null
 
-///Returns a random reagent object minus blacklisted reagents
-/proc/get_random_reagent_id()
-	var/static/list/random_reagents = list()
-	if(!random_reagents.len)
-		for(var/thing in subtypesof(/datum/reagent))
-			var/datum/reagent/R = thing
-			if(initial(R.chemical_flags) & REAGENT_CAN_BE_SYNTHESIZED)
-				random_reagents += R
-	var/picked_reagent = pick(random_reagents)
-	return picked_reagent
-
 ///Returns reagent datum from reagent name string
 /proc/get_chem_id(chem_name)
 	for(var/X in GLOB.chemical_reagents_list)

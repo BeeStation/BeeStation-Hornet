@@ -611,16 +611,6 @@
 	overheat_temp = 5
 	thermic_constant= -1
 
-/datum/chemical_reaction/drink/hot_coco
-	results = list(/datum/reagent/consumable/hot_coco = 6)
-	required_reagents = list(/datum/reagent/consumable/milk = 5, /datum/reagent/consumable/coco = 1)
-	required_temp = 320
-
-/datum/chemical_reaction/drink/hot_coco_from_chocolate_milk
-	results = list(/datum/reagent/consumable/hot_coco = 3)
-	required_reagents = list(/datum/reagent/consumable/milk/chocolate_milk = 1, /datum/reagent/consumable/milk = 2)
-	required_temp = 320
-
 /datum/chemical_reaction/drink/coffee
 	results = list(/datum/reagent/consumable/coffee = 5)
 	required_reagents = list(/datum/reagent/toxin/coffeepowder = 1, /datum/reagent/water = 5)
@@ -726,7 +716,7 @@
 	name = "Peppermint Patty"
 	id = /datum/reagent/consumable/ethanol/peppermint_patty
 	results = list(/datum/reagent/consumable/ethanol/peppermint_patty = 10)
-	required_reagents = list(/datum/reagent/consumable/hot_coco = 6, /datum/reagent/consumable/ethanol/creme_de_cacao = 1, /datum/reagent/consumable/ethanol/creme_de_menthe = 1, /datum/reagent/consumable/ethanol/vodka = 1, /datum/reagent/consumable/menthol = 1)
+	required_reagents = list(/datum/reagent/consumable/cocoa/hot_cocoa = 6, /datum/reagent/consumable/ethanol/creme_de_cacao = 1, /datum/reagent/consumable/ethanol/creme_de_menthe = 1, /datum/reagent/consumable/ethanol/vodka = 1, /datum/reagent/consumable/menthol = 1)
 	mix_message = "The coco turns mint green just as the strong scent hits your nose."
 	reaction_tags = REACTION_TAG_DRINK | REACTION_TAG_EASY | REACTION_TAG_OTHER
 
@@ -901,8 +891,3 @@
 	required_reagents = list(/datum/reagent/consumable/ethanol/wine = 5, /datum/reagent/consumable/ethanol/triple_sec = 5, /datum/reagent/consumable/sugar = 1, /datum/reagent/iron = 1, /datum/reagent/copper = 0.6)
 	mix_message = "The mixture develops a golden glow."
 	mix_sound = 'sound/magic/clockwork/scripture_tier_up.ogg'
-
-/datum/chemical_reaction/drink/ginger_amaretto
-	results = list(/datum/reagent/consumable/ethanol/ginger_amaretto = 4)
-	required_reagents = list(/datum/reagent/consumable/ethanol/amaretto = 1, /datum/reagent/consumable/sol_dry = 1, /datum/reagent/consumable/ice = 1, /datum/reagent/consumable/lemonjuice = 1)
-

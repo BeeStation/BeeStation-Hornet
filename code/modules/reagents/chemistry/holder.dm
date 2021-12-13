@@ -25,7 +25,6 @@
 	//For chemical reactions list lookup list - creates a bit list of info passed to the UI. This is saved to reduce lag from new windows opening, since it's a lot of data.
 
 	//Prevent these reactions from appearing in lookup tables (UI code)
-	var/list/blacklist = (/datum/chemical_reaction/randomized)
 
 	if(GLOB.chemical_reactions_list)
 		return
@@ -67,15 +66,11 @@
 
 		// Create filters based on each reagent id in the required reagents list - this is specifically for finding reactions from product(reagent) ids/typepaths.
 		for(var/id in product_ids)
-			if(is_type_in_list(D.type, blacklist))
-				continue
 			if(!GLOB.chemical_reactions_list_product_index[id])
 				GLOB.chemical_reactions_list_product_index[id] = list()
 			GLOB.chemical_reactions_list_product_index[id] += D
 
-		//Master list of ALL reactions that is used in the UI lookup table. This is expensive to make, and we don't want to lag the server by creating it on UI request, so it's cached to send to UIs instantly.
-		if(!(is_type_in_list(D.type, blacklist)))
-			GLOB.chemical_reactions_results_lookup_list += list(list("name" = product_name, "id" = D.type, "bitflags" = bitflags, "reactants" = reagents))
+		GLOB.chemical_reactions_results_lookup_list += list(list("name" = product_name, "id" = D.type, "bitflags" = bitflags, "reactants" = reagents))
 
 		// Create filters based on each reagent id in the required reagents list - this is used to speed up handle_reactions()
 		for(var/id in reaction_ids)
@@ -1540,23 +1535,6 @@
 		if(1500 to INFINITY)
 			return "Overwhelmingly exothermic"
 
-/datum/reagents/proc/parse_addictions(datum/reagent/reagent)
-	var/addict_text = list()
-	for(var/entry in reagent.addiction_types)
-		var/datum/addiction/ref = SSaddiction.all_addictions[entry]
-		switch(reagent.addiction_types[entry])
-			if(-INFINITY to 0)
-				continue
-			if(0 to 5)
-				addict_text += "Weak [ref.name]"
-			if(5 to 10)
-				addict_text += "[ref.name]"
-			if(10 to 20)
-				addict_text += "Strong [ref.name]"
-			if(20 to INFINITY)
-				addict_text += "Potent [ref.name]"
-	return addict_text
-
 /datum/reagents/ui_data(mob/user)
 	var/data = list()
 	data["selectedBitflags"] = ui_tags_selected
@@ -1580,8 +1558,9 @@
 			ui_reagent_id = null
 		else
 			data["reagent_mode_reagent"] = list("name" = reagent.name, "id" = reagent.type, "desc" = reagent.description, "reagentCol" = reagent.color, "pH" = reagent.ph, "pHCol" = convert_ph_to_readable_color(reagent.ph), "metaRate" = (reagent.metabolization_rate/2), "OD" = reagent.overdose_threshold)
-			data["reagent_mode_reagent"]["addictions"] = list()
-			data["reagent_mode_reagent"]["addictions"] = parse_addictions(reagent)
+			//UNCOMMENT WHEN ADDICTION REWORK GETS PORTED
+			//data["reagent_mode_reagent"]["addictions"] = list()
+			//data["reagent_mode_reagent"]["addictions"] = parse_addictions(reagent)
 
 
 			var/datum/reagent/impure_reagent = GLOB.chemical_reagents_list[reagent.impure_chem]
@@ -1876,3 +1855,23 @@
 		qdel(reagents)
 	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
+
+/proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents and most foods and drinks
+	var/static/list/random_reagents = list()
+	if(!random_reagents.len)
+		for(var/thing  in subtypesof(/datum/reagent))
+			var/datum/reagent/R = thing
+			if(initial(R.can_synth) && initial(R.random_unrestricted))
+				random_reagents += R
+	var/picked_reagent = pick(random_reagents)
+	return picked_reagent
+
+/proc/get_unrestricted_random_reagent_id()	// Returns a random reagent ID minus most foods and drinks
+	var/static/list/random_reagents = list()
+	if(!random_reagents.len)
+		for(var/thing  in subtypesof(/datum/reagent))
+			var/datum/reagent/R = thing
+			if(initial(R.random_unrestricted))
+				random_reagents += R
+	var/picked_reagent = pick(random_reagents)
+	return picked_reagent

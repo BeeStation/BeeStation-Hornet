@@ -38,11 +38,6 @@
 	required_temp = 380
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_DAMAGING | REACTION_TAG_PLANT | REACTION_TAG_BURN | REACTION_TAG_TOXIN
 
-/datum/chemical_reaction/nitracid
-	results = list(/datum/reagent/toxin/acid/nitracid = 2)
-	required_reagents = list(/datum/reagent/toxin/acid/fluacid = 1, /datum/reagent/nitrogen = 1,  /datum/reagent/hydrogen_peroxide = 1)
-	required_temp = 480
-
 /datum/chemical_reaction/sulfonal
 	name = /datum/reagent/toxin/sulfonal
 	id = /datum/reagent/toxin/sulfonal
@@ -66,12 +61,6 @@
 /datum/chemical_reaction/lexorin
 	results = list(/datum/reagent/toxin/lexorin = 3)
 	required_reagents = list(/datum/reagent/toxin/plasma = 1, /datum/reagent/hydrogen = 1, /datum/reagent/medicine/salbutamol = 1)
-
-/datum/chemical_reaction/hot_ice_melt
-	results = list(/datum/reagent/toxin/plasma = 12) //One sheet of hot ice makes 200m of plasma
-	required_reagents = list(/datum/reagent/toxin/hot_ice = 1)
-	required_temp = T0C + 30 //Don't burst into flames when you melt
-	thermic_constant = -200//Counter the heat
 
 /datum/chemical_reaction/chloralhydrate
 	name = "Chloral Hydrate"
@@ -105,7 +94,7 @@
 	name = "Mindbreaker Toxin"
 	id = /datum/reagent/toxin/mindbreaker
 	results = list(/datum/reagent/toxin/mindbreaker = 5)
-	required_reagents = list(/datum/reagent/silicon = 1, /datum/reagent/hydrogen = 1, /datum/reagent/medicine/c2/multiver = 1)
+	required_reagents = list(/datum/reagent/silicon = 1, /datum/reagent/hydrogen = 1, /datum/reagent/medicine/charcoal = 1)
 
 /datum/chemical_reaction/heparin
 	name = "Heparin"
