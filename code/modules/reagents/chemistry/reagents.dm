@@ -63,10 +63,13 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/inverse_chem = /datum/reagent/impurity/toxic
 	///what chem is made at the end of a reaction IF the purity is below the recipies purity_min at the END of a reaction only
 	var/failed_chem = /datum/reagent/consumable/failed_reaction
-	/// Are we from a material? We might wanna know that for special stuff. Like metalgen. Is replaced with a ref of the material on New()
-	var/datum/material/material
-	///A list of causes why this chem should skip being removed, if the length is 0 it will be removed from holder naturally, if this is >0 it will not be removed from the holder.
-	var/list/reagent_removal_skip_list = list()
+	///Thermodynamic vars
+	///How hot this reagent burns when it's on fire - null means it can't burn
+	var/burning_temperature = null
+	///How much is consumed when it is burnt per second
+	var/burning_volume = 0.5
+	///Assoc list with key type of addiction this reagent feeds, and value amount of addiction points added per unit of reagent metabolzied (which means * REAGENTS_METABOLISM every life())
+	var/list/addiction_types = null
 
 
 /datum/reagent/Destroy() // This should only be called by the holder, so it's already handled clearing its references
@@ -101,6 +104,10 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	SHOULD_CALL_PARENT(TRUE)
 
 	return SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_TURF, exposed_turf, reac_volume)
+
+///Called whenever a reagent is on fire, or is in a holder that is on fire. (WIP)
+/datum/reagent/proc/burn(datum/reagents/holder)
+	return
 
 /// Called from [/datum/reagents/proc/metabolize]
 /datum/reagent/proc/on_mob_life(mob/living/carbon/M)

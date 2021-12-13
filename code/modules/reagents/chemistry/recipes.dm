@@ -9,10 +9,12 @@
 	var/required_container = null // the exact container path required for the reaction to happen
 	var/required_other = 0 // an integer required for the reaction to happen
 
-	var/mob_react = TRUE //Determines if a chemical reaction can occur inside a mob
-
-	var/mix_message = "The solution begins to bubble." //The message shown to nearby people upon mixing, if applicable
-	var/mix_sound = 'sound/effects/bubbles.ogg' //The sound played upon mixing, if applicable
+	///Determines if a chemical reaction can occur inside a mob
+	var/mob_react = TRUE
+	///The message shown to nearby people upon mixing, if applicable
+	var/mix_message = "The solution begins to bubble."
+	///The sound played upon mixing, if applicable
+	var/mix_sound = 'sound/effects/bubbles.ogg'
 
 	/// Set to TRUE if you want the recipe to only react when it's BELOW the required temp.
 	var/is_cold_recipe = FALSE
