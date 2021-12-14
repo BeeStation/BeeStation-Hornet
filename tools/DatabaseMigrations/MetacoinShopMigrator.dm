@@ -33,14 +33,14 @@
 		var/savefile/S = new /savefile(ckey_prefpath[key])
 		if(!S)
 			world.log << "Failed to load savefile for [key]"
-			skipped_noload += 1
+			skipped_noload++
 			continue
 		S.cd = "/"
 		var/savefile_version
 		S["version"] >> savefile_version
 		if(savefile_version < 32)
 			world.log << "Skipping [key] because savefile version is too old ([savefile_version], expected 32 or greater)"
-			skipped_nogear += 1
+			skipped_old += 1
 			continue
 		var/list/purchased_gear = list()
 		S["purchased_gear"] >> purchased_gear
@@ -59,7 +59,7 @@
 			outfile << keyline.Join()
 			passed++
 		else
-			skipped_nogear += 1
+			skipped_nogear++
 	outfile << "END"
 
 	world.log << "Converted [passed] of [length(ckeys)] keys successfully, failed to load [skipped_noload] keys, skipped [skipped_old] due to being too old, skipped [skipped_nogear] due to having no gear."
