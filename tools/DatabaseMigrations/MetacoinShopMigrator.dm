@@ -1,4 +1,3 @@
-
 //Migration script generation
 //Fire to generate shop_migration.sql script to use.
 
@@ -14,11 +13,11 @@
 	var/path = "data/player_saves/"
 	var/list/ckeys = list()
 	var/list/ckey_prefpath = list()
-	var/list/directory flist(path)
+	var/list/directory = flist(path)
 	for(var/subdir in directory)
 		var/list/subdirs = flist("data/player_saves/[subdir]")
 		for(var/player in subdirs)
-			var/key = player.copytext(player, 1, length(player))
+			var/key = copytext(player, 1, length(player))
 			var/fullpath = "data/player_saves/[subdir][player]preferences.sav"
 			if(!fexists(fullpath))
 				world.log << "Failed to find [fullpath] for [key]"
@@ -26,26 +25,28 @@
 			ckeys += key
 			ckey_prefpath[key] = fullpath
 
-	var/skipped_keys = 0
-	var/i = 0
+	var/skipped_old = 0
+	var/skipped_nogear = 0
+	var/skipped_noload = 0
+	var/passed = 0
 	for(var/key in ckeys)
 		var/savefile/S = new /savefile(ckey_prefpath[key])
 		if(!S)
 			world.log << "Failed to load savefile for [key]"
-			skipped_keys += 1
+			skipped_noload += 1
 			continue
 		S.cd = "/"
 		var/savefile_version
 		S["version"] >> savefile_version
 		if(savefile_version < 32)
-			world.log << "Skipping [key] because savefile version is too old"
-			skipped_keys += 1
+			world.log << "Skipping [key] because savefile version is too old ([savefile_version], expected 32 or greater)"
+			skipped_nogear += 1
 			continue
 		var/list/purchased_gear = list()
 		S["purchased_gear"] >> purchased_gear
 		if(!length(purchased_gear))
 			world.log << "Skipping [key] because no purchased gear"
-			i++
+			skipped_nogear++
 			continue
 
 		var/list/values = list()
@@ -56,9 +57,9 @@
 			keyline += values.Join(",")
 			keyline += ";"
 			outfile << keyline.Join()
-			i++
+			passed++
 		else
-			skipped_ckeys += 1
+			skipped_nogear += 1
 	outfile << "END"
 
-	world.log << "Converted [i]/[length(ckeys)] keys successfully, failed to convert [skipped_ckeys] keys"
+	world.log << "Converted [passed] of [length(ckeys)] keys successfully, failed to load [skipped_noload] keys, skipped [skipped_old] due to being too old, skipped [skipped_nogear] due to having no gear."
