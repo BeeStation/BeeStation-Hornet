@@ -5,6 +5,7 @@
 	var/mob/living/user = null
 	var/mob/living/target = null
 	COOLDOWN_DECLARE(aiming_cooldown) // 5 second cooldown so you can't spam aiming for faster bullets/spamming lines
+	COOLDOWN_DECLARE(voiceline_cooldown)
 
 /datum/component/aiming/Initialize(source)
 	. = ..()
@@ -90,8 +91,18 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	act(choice)
 
 /datum/component/aiming/proc/act(choice)
-	if(!user || !target)
-		return //If the aim was cancelled halfway through the process, and the radial didn't close by itself.
+	if(!user || !target) // If the aim was cancelled halfway through the process, and the radial didn't close by itself.
+		return
+	if(choice != "cancel" && choice != "fire") // Handling voiceline cooldowns and mimes
+		if(!COOLDOWN_FINISHED(src, voiceline_cooldown))
+			to_chat(user, "<span class = 'warning'>You've already given a command recently!</span>")
+			show_ui(user, target, choice)
+			return
+		if(user.mind.assigned_role == "Mime")
+			user.visible_message("<span class='warning'>[user] waves [parent] around menacingly!</span>")
+			show_ui(user, target, choice)
+			COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
+			return
 	switch(choice)
 		if("cancel") //first off, are they telling us to stop aiming?
 			stop_aiming()
@@ -100,13 +111,14 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			fire()
 			return
 		if("raise_hands")
-			user.say("PUT YOUR HANDS BEHIND YOUR HEAD!")
+			user.say("PUT YOUR HANDS BEHIND YOUR HEAD!",  forced = "aiming")
 		if("drop_weapon")
-			user.say("DROP YOUR WEAPON!")
+			user.say("DROP YOUR WEAPON!",  forced = "aiming")
 		if("face_wall")
-			user.say("TURN AROUND AND FACE THE WALL. SLOWLY.")
+			user.say("TURN AROUND AND FACE THE WALL. SLOWLY.",  forced = "aiming")
 		if("drop_to_floor")
-			user.say("ON THE FLOOR, NOW!")
+			user.say("ON THE FLOOR, NOW!",  forced = "aiming")
+	COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
 	show_ui(user, target, choice)
 
 /datum/component/aiming/proc/fire()
