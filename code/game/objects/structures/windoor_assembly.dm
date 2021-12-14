@@ -71,11 +71,11 @@
 
 	return TRUE
 
-/obj/structure/windoor_assembly/can_atmos_pass(turf/T)
+/obj/structure/windoor_assembly/can_atmos_pass(turf/T, vertical = FALSE)
 	if(get_dir(loc, T) == dir)
 		return !density
 	else
-		return 1
+		return TRUE
 
 /obj/structure/windoor_assembly/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER

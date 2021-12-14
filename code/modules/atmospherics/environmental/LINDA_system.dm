@@ -1,7 +1,8 @@
-/atom/var/can_atmos_pass = ATMOS_PASS_YES
-/atom/var/can_atmos_pass_vertical = ATMOS_PASS_YES
+/atom
+	///Check if atmos can pass in this atom (ATMOS_PASS_YES, ATMOS_PASS_NO, ATMOS_PASS_DENSITY, ATMOS_PASS_PROC)
+	var/can_atmos_pass = ATMOS_PASS_YES
 
-/atom/proc/can_atmos_pass(turf/T)
+/atom/proc/can_atmos_pass(turf/target_turf, vertical = FALSE)
 	switch (can_atmos_pass)
 		if (ATMOS_PASS_PROC)
 			return ATMOS_PASS_YES
@@ -10,48 +11,58 @@
 		else
 			return can_atmos_pass
 
-/turf/can_atmos_pass = ATMOS_PASS_NO
-/turf/can_atmos_pass_vertical = ATMOS_PASS_NO
+/turf
+	can_atmos_pass = ATMOS_PASS_NO
 
-/turf/open/can_atmos_pass = ATMOS_PASS_PROC
-/turf/open/can_atmos_pass_vertical = ATMOS_PASS_PROC
+/turf/open
+	can_atmos_pass = ATMOS_PASS_PROC
 
-//Do NOT use this to see if 2 turfs are connected, it mutates state, and we cache that info anyhow. Use TURFS_CAN_SHARE or TURF_SHARES depending on your usecase
-/turf/open/can_atmos_pass(turf/T, vertical = FALSE)
-	var/dir = vertical? get_dir_multiz(src, T) : get_dir(src, T)
-	var/opp = REVERSE_DIR(dir)
-	var/R = FALSE
-	if(vertical && !(zAirOut(dir, T) && T.zAirIn(dir, src)))
-		R = TRUE
-	if(blocks_air || T.blocks_air)
-		R = TRUE
-	if (T == src)
-		return !R
-	for(var/obj/O in contents+T.contents)
-		var/turf/other = (O.loc == src ? T : src)
-		if(!(vertical? (CANVERTICALATMOSPASS(O, other)) : (CANATMOSPASS(O, other))))
-			R = TRUE
-			if(O.block_superconductivity()) 	//the direction and open/closed are already checked on can_atmos_pass() so there are no arguments
-				atmos_supeconductivity |= dir
-				T.atmos_supeconductivity |= opp
-				return FALSE						//no need to keep going, we got all we asked
+///Do NOT use this to see if 2 turfs are connected, it mutates state, and we cache that info anyhow.
+///Use TURFS_CAN_SHARE or TURF_SHARES depending on your usecase
+/turf/open/can_atmos_pass(turf/target_turf, vertical = FALSE)
+	var/can_pass = TRUE
+	var/direction = vertical ? get_dir_multiz(src, target_turf) : get_dir(src, target_turf)
+	var/opposite_direction = REVERSE_DIR(direction)
+	if(vertical && !(zAirOut(direction, target_turf) && target_turf.zAirIn(direction, src)))
+		can_pass = FALSE
+	if(blocks_air || target_turf.blocks_air)
+		can_pass = FALSE
+	//This path is a bit weird, if we're just checking with ourselves no sense asking objects on the turf
+	if (target_turf == src)
+		return can_pass
 
-	atmos_supeconductivity &= ~dir
-	T.atmos_supeconductivity &= ~opp
+	//Can't just return if canpass is false here, we need to set superconductivity
+	for(var/obj/checked_object in contents + target_turf.contents)
+		var/turf/other = (checked_object.loc == src ? target_turf : src)
+		if(CANATMOSPASS(checked_object, other, vertical))
+			continue
+		can_pass = FALSE
+		//the direction and open/closed are already checked on can_atmos_pass() so there are no arguments
+		if(checked_object.block_superconductivity())
+			atmos_supeconductivity |= direction
+			target_turf.atmos_supeconductivity |= opposite_direction
+			return FALSE //no need to keep going, we got all we asked (Is this even faster? fuck you it's soul)
 
-	return !R
+	//Superconductivity is a bitfield of directions we can't conduct with
+	//Yes this is really weird. Fuck you
+	atmos_supeconductivity &= ~direction
+	target_turf.atmos_supeconductivity &= ~opposite_direction
+
+	return can_pass
 
 /atom/movable/proc/block_superconductivity() // objects that block air and don't let superconductivity act. Only firelocks atm.
 	return FALSE
 
 /turf/proc/immediate_calculate_adjacent_turfs()
-	var/canpass = CANATMOSPASS(src, src)
-	var/canvpass = CANVERTICALATMOSPASS(src, src)
+	//Basic optimization, if we can't share why bother asking other people ya feel?
+	var/canpass = CANATMOSPASS(src, src, FALSE)
 	for(var/direction in GLOB.cardinals_multiz)
-		var/turf/T = get_step_multiz(src, direction)
-		if(!isopenturf(T))
+		var/turf/current_turf = get_step_multiz(src, direction)
+		if(!isopenturf(current_turf)) // not interested in you brother
 			continue
-		if(!(blocks_air || T.blocks_air) && ((direction & (UP|DOWN))? (canvpass && CANVERTICALATMOSPASS(T, src)) : (canpass && CANATMOSPASS(T, src))) )
+		//Can you and me form a deeper relationship, or is this just a passing wind
+		// (direction & (UP | DOWN)) is just "is this vertical" by the by
+		if(canpass && CANATMOSPASS(current_turf, src, (direction & (UP|DOWN))) && !(blocks_air || current_turf.blocks_air))
 			LAZYINITLIST(atmos_adjacent_turfs)
 			LAZYINITLIST(T.atmos_adjacent_turfs)
 			atmos_adjacent_turfs[T] = TRUE
