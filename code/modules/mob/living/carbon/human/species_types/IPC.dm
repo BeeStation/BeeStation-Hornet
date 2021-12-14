@@ -138,10 +138,10 @@
 	var/mob/living/carbon/human/H = user
 	var/obj/item/organ/stomach/battery/battery = H.getorganslot(ORGAN_SLOT_STOMACH)
 	if(!battery)
-		to_chat(H, "<span class='warning'>You try to siphon energy from the [istype(target,/obj/machinery/power/apc) ? "the " : ""][target], but your power cell is gone!</span>")
+		to_chat(H, "<span class='warning'>You try to siphon energy from \the [target], but your power cell is gone!</span>")
 		return
 
-	if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
+	if(istype(H) && H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
 		to_chat(user, "<span class='warning'>You are already fully charged!</span>")
 		return
 
@@ -157,7 +157,7 @@
 	if(isethereal(target))
 		var/mob/living/carbon/human/target_ethereal = target
 		var/obj/item/organ/stomach/battery/target_battery = target_ethereal.getorganslot(ORGAN_SLOT_STOMACH)
-		if(target_ethereal.nutrition > 0)
+		if(target_ethereal.nutrition > 0 && target_battery)
 			powerdraw_loop(target_battery, H, FALSE)
 			return
 		else
@@ -168,6 +168,8 @@
 	var/obj/item/organ/stomach/battery/battery = H.getorganslot(ORGAN_SLOT_STOMACH)
 	if(apc_target)
 		var/obj/machinery/power/apc/A = target
+		if(!istype(A))
+			return
 		while(do_after(H, 10, target = A))
 			if(!battery)
 				to_chat(H, "<span class='warning'>You need a battery to recharge!</span>")
@@ -193,6 +195,8 @@
 				break
 	else
 		var/obj/item/organ/stomach/battery/A = target
+		if(!istype(A))
+			return
 		var/charge_amt
 		while(do_after(H, 10, target = A.owner))
 			if(!battery)
@@ -204,7 +208,7 @@
 			if(A.charge == 0)
 				to_chat(H, "<span class='warning'>[A] is completely drained!</span>")
 				break
-			charge_amt = A.charge <= 100 ? A.charge : 100
+			charge_amt = A.charge <= 50 ? A.charge : 50
 			A.adjust_charge(-1 * charge_amt)
 			battery.adjust_charge(charge_amt)
 			if(battery.charge >= battery.max_charge)
