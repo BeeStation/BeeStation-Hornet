@@ -87,7 +87,9 @@
 			continue
 		if(dormant || P.dormant)//dormant diseases dont interfere with channels, not even with other dormant diseases if you manage to get two
 			continue
-		if((IsSame(P) || channel == otherchannel) && !P.sentient)
+		if(IsSame(P))
+			continue
+		if(channel == otherchannel && !P.sentient)
 			advance_diseases += P
 	var/replace_num = advance_diseases.len + 1 - DISEASE_LIMIT //amount of diseases that need to be removed to fit this one
 	if(replace_num > 0)
