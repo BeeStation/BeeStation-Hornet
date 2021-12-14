@@ -87,7 +87,7 @@
 
 /obj/machinery/door/firedoor/power_change()
 	if(powered(power_channel))
-		stat &= ~NOPOWER
+		DISABLE_BITFIELD(stat, NOPOWER)
 		INVOKE_ASYNC(src, .proc/latetoggle)
 	else
 		stat |= NOPOWER

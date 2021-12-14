@@ -186,12 +186,12 @@
 		log_game("[key_name(user)] has set the teleporter target to [target_station] at [AREACOORD(T)]")
 		target_ref = WEAKREF(target_station.teleporter_hub)
 		target_station.linked_stations |= power_station
-		target_station.stat &= ~NOPOWER
+		DISABLE_BITFIELD(target_station.stat, NOPOWER)
 		if(target_station.teleporter_hub)
-			target_station.teleporter_hub.stat &= ~NOPOWER
+			DISABLE_BITFIELD(target_station.teleporter_hub.stat, NOPOWER)
 			target_station.teleporter_hub.update_icon()
 		if(target_station.teleporter_console)
-			target_station.teleporter_console.stat &= ~NOPOWER
+			DISABLE_BITFIELD(target_station.teleporter_console.stat, NOPOWER)
 			target_station.teleporter_console.update_icon()
 
 /obj/machinery/computer/teleporter/proc/is_eligible(atom/movable/AM)

@@ -1432,7 +1432,7 @@ If it ever becomes necesary to get a more performant REF(), this lies here in wa
 		if(input.tag)
 			return "\[[rustg_url_encode(input.tag)]\]"
 		stack_trace("A ref was requested of an object with DF_USE_TAG set but no tag: [input]")
-		input.datum_flags &= ~DF_USE_TAG
+		DISABLE_BITFIELD(input.datum_flags, DF_USE_TAG)
 	return "\ref[input]"
 
 /// Makes a call in the context of a different usr. Use sparingly

@@ -230,7 +230,7 @@
 			"<span class='notice'>[user] fixes [src]!</span>",
 			"<span class='notice'>You restore [src] to operation.</span>")
 
-		stat &= ~BROKEN
+		DISABLE_BITFIELD(stat, BROKEN)
 		obj_integrity = max_integrity
 		update_icon()
 	else

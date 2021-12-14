@@ -345,7 +345,7 @@
 				var/obj/item/I = pick_n_take(unattached_flesh)
 				if(isorgan(I))
 					var/obj/item/organ/O = I
-					O.organ_flags &= ~ORGAN_FROZEN
+					DISABLE_BITFIELD(O.organ_flags, ORGAN_FROZEN)
 					O.Insert(mob_occupant)
 				else if(isbodypart(I))
 					var/obj/item/bodypart/BP = I
@@ -363,7 +363,7 @@
 			for(var/i in unattached_flesh)
 				if(isorgan(i))
 					var/obj/item/organ/O = i
-					O.organ_flags &= ~ORGAN_FROZEN
+					DISABLE_BITFIELD(O.organ_flags, ORGAN_FROZEN)
 					O.Insert(mob_occupant)
 				else if(isbodypart(i))
 					var/obj/item/bodypart/BP = i
@@ -456,7 +456,7 @@
 			fl.forceMove(T)
 			if(istype(fl, /obj/item/organ))
 				var/obj/item/organ/O = fl
-				O.organ_flags &= ~ORGAN_FROZEN
+				DISABLE_BITFIELD(O.organ_flags, ORGAN_FROZEN)
 		unattached_flesh.Cut()
 		mess = FALSE
 		new /obj/effect/gibspawner/generic(get_turf(src), mob_occupant)

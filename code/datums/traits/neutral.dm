@@ -19,7 +19,7 @@
 
 /datum/quirk/vegetarian/add()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.liked_food &= ~MEAT
+	DISABLE_BITFIELD(H.dna.species.liked_food, MEAT)
 	H.dna.species.disliked_food |= MEAT
 
 /datum/quirk/vegetarian/remove()
@@ -29,7 +29,7 @@
 		if(initial(species.liked_food) & MEAT)
 			species.liked_food |= MEAT
 		if(!(initial(species.disliked_food) & MEAT))
-			species.disliked_food &= ~MEAT
+			DISABLE_BITFIELD(species.disliked_food, MEAT)
 
 /datum/quirk/pineapple_liker
 	name = "Ananas Affinity"
@@ -44,7 +44,7 @@
 
 /datum/quirk/pineapple_liker/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.liked_food &= ~PINEAPPLE
+	DISABLE_BITFIELD(H.dna.species.liked_food, PINEAPPLE)
 
 /datum/quirk/pineapple_hater
 	name = "Ananas Aversion"
@@ -59,7 +59,7 @@
 
 /datum/quirk/pineapple_hater/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.disliked_food &= ~PINEAPPLE
+	DISABLE_BITFIELD(H.dna.species.disliked_food, PINEAPPLE)
 
 /datum/quirk/deviant_tastes
 	name = "Deviant Tastes"

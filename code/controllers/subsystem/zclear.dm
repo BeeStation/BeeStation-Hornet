@@ -314,7 +314,7 @@ SUBSYSTEM_DEF(zclear)
 			var/area/newA = GLOB.areas_by_type[/area/space]
 			newA.contents += newT
 			newT.change_area(newT.loc, newA)
-		newT.flags_1 &= ~NO_RUINS_1
+		DISABLE_BITFIELD(newT.flags_1, NO_RUINS_1)
 		new_turfs += newT
 	return new_turfs
 

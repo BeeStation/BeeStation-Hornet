@@ -44,7 +44,7 @@
 
 /obj/machinery/flasher/power_change()
 	if (powered() && anchored && bulb)
-		stat &= ~NOPOWER
+		DISABLE_BITFIELD(stat, NOPOWER)
 		if(bulb.burnt_out)
 			icon_state = "[base_state]1-p"
 		else

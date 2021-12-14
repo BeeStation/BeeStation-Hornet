@@ -52,7 +52,7 @@ SUBSYSTEM_DEF(machines)
 		else
 			processing -= thing
 			if (!QDELETED(thing))
-				thing.datum_flags &= ~DF_ISPROCESSING
+				DISABLE_BITFIELD(thing.datum_flags, DF_ISPROCESSING)
 		if (MC_TICK_CHECK)
 			return
 

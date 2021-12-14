@@ -95,7 +95,7 @@
 	if(ignore_malf_upgrades) //don't downgrade it if malf software is forced onto it.
 		return
 	emp_component.RemoveComponent()
-	upgrades &= ~CAMERA_UPGRADE_EMP_PROOF
+	DISABLED_BITFIELD(upgrades, CAMERA_UPGRADE_EMP_PROOF)
 
 
 
@@ -121,7 +121,7 @@
 
 /obj/machinery/camera/proc/removeXRay(ignore_malf_upgrades)
 	if(!ignore_malf_upgrades) //don't downgrade it if malf software is forced onto it.
-		upgrades &= ~CAMERA_UPGRADE_XRAY
+		DISABLE_BITFIELD(upgrades, CAMERA_UPGRADE_XRAY)
 	update_icon()
 
 
@@ -143,4 +143,4 @@
 /obj/machinery/camera/proc/removeMotion()
 	if(name == "motion-sensitive security camera")
 		name = "security camera"
-	upgrades &= ~CAMERA_UPGRADE_MOTION
+	DISABLE_BITFIELD(upgrades, CAMERA_UPGRADE_MOTION)

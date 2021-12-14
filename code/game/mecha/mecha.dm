@@ -722,7 +722,7 @@
 				occupant_message("<span class='boldnotice'>Internal fire extinguished.</span>")
 			if(MECHA_INT_TANK_BREACH)
 				occupant_message("<span class='boldnotice'>Damaged internal tank has been sealed.</span>")
-	internal_damage &= ~int_dam_flag
+	DISABLE_BITFIELD(internal_damage, int_dam_flag)
 	diag_hud_set_mechstat()
 
 /////////////////////////////////////

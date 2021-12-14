@@ -22,7 +22,7 @@
 		return
 	else
 		if(powered())
-			stat &= ~NOPOWER
+			DISABLE_FIELD(stat, NOPOWER)
 		else
 			stat |= NOPOWER
 		if((stat & (NOPOWER|BROKEN)) || cooldown_time > world.time || !uses)

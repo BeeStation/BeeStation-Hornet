@@ -191,7 +191,7 @@
 	else
 		if(powered() && anchored)
 			icon_state = initial(icon_state)
-			stat &= ~NOPOWER
+			DISABLE_BITFIELD(stat, NOPOWER)
 		else
 			icon_state = "[initial(icon_state)]-off"
 			stat |= NOPOWER

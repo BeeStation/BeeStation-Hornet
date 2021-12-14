@@ -229,7 +229,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 
 /obj/proc/extinguish()
 	if(resistance_flags & ON_FIRE)
-		resistance_flags &= ~ON_FIRE
+		DISABLE_BITFIELD(resistance_flags, ON_FIRE)
 		cut_overlay(GLOB.fire_overlay, TRUE)
 		SSfire_burning.processing -= src
 
@@ -248,7 +248,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 			buckled_mob.electrocute_act((CLAMP(round(strength/400), 10, 90) + rand(-5, 5)), src, tesla_shock = 1)
 
 /obj/proc/reset_shocked()
-	obj_flags &= ~BEING_SHOCKED
+	DISABLE_BITFIELD(obj_flags, BEING_SHOCKED)
 
 //the obj is deconstructed into pieces, whether through careful disassembly or when destroyed.
 /obj/proc/deconstruct(disassembled = TRUE)

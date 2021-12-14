@@ -251,7 +251,7 @@
 	screen = MSG_MON_SCREEN_MAIN // Return the screen back to normal
 
 /obj/machinery/computer/message_monitor/proc/UnmagConsole()
-	obj_flags &= ~EMAGGED
+	DISABLE_BITFIELD(obj_flags, EMAGGED)
 
 /obj/machinery/computer/message_monitor/proc/ResetMessage()
 	customsender 	= "System Administrator"

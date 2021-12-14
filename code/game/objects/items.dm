@@ -229,7 +229,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		updateEmbedding()
 
 /obj/item/Destroy()
-	item_flags &= ~DROPDEL	//prevent reqdels
+	DISABLE_BITFIELD(item_flags, DROPDEL)	//prevent reqdels
 	if(ismob(loc))
 		var/mob/m = loc
 		m.temporarilyRemoveItemFromInventory(src, TRUE)
@@ -310,7 +310,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(block_level || block_upgrade_walk)
 		if(block_upgrade_walk == 1 && !block_level)
 			. += "While walking, [src] can block attacks in a <b>narrow</b> arc."
-		else 
+		else
 			switch(block_upgrade_walk + block_level)
 				if(1)
 					. += "[src] can block attacks in a <b>narrow</b> arc."
@@ -607,7 +607,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
 		owner.blockbreak()
 	if(attackforce)
-		owner.changeNext_move(CLICK_CD_MELEE) 
+		owner.changeNext_move(CLICK_CD_MELEE)
 	return TRUE
 
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language, list/message_mods)
@@ -619,7 +619,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		A.Remove(user)
 	if(item_flags & DROPDEL)
 		qdel(src)
-	item_flags &= ~IN_INVENTORY
+	DISABLE_BITFIELD(item_flags, IN_INVENTORY)
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
 	if(item_flags & SLOWS_WHILE_IN_HAND)
 		user.update_equipment_speed_mods()
@@ -785,7 +785,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/after_throw(datum/callback/callback)
 	if (callback) //call the original callback
 		. = callback.Invoke()
-	item_flags &= ~IN_INVENTORY
+	DISABLE_BITFIELD(item_flags, IN_INVENTORY)
 
 /obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
@@ -1052,7 +1052,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				M.client.screen -= src
 			layer = initial(layer)
 			plane = initial(plane)
-			appearance_flags &= ~NO_CLIENT_COLOR
+			DISABLE_BITFIELD(appearance_flags, NO_CLIENT_COLOR)
 			dropped(M)
 	return ..()
 

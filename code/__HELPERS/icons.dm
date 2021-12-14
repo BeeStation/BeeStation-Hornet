@@ -1156,7 +1156,7 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 		name = replacetext(name, "frozen ", "")
 		remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, GLOB.freon_color_matrix)
 		alpha += 25
-		obj_flags &= ~FROZEN
+		DISABLE_BITFIELD(obj_flags, FROZEN)
 
 /// Save file used in icon2base64. Used for converting icons to base64.
 GLOBAL_DATUM_INIT(dummySave, /savefile, new("tmp/dummySave.sav")) //Cache of icons for the browser output

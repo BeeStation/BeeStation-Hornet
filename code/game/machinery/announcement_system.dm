@@ -68,7 +68,7 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 		return
 	else if(P.tool_behaviour == TOOL_MULTITOOL && panel_open && (stat & BROKEN))
 		to_chat(user, "<span class='notice'>You reset [src]'s firmware.</span>")
-		stat &= ~BROKEN
+		DISABLE_BIFIELD(stat, BROKEN)
 		update_icon()
 	else
 		return ..()

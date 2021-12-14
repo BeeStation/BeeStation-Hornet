@@ -329,7 +329,7 @@ GLOBAL_LIST_EMPTY(species_list)
 				break
 	if (progress)
 		qdel(progbar)
-	
+
 	if(!QDELETED(target))
 		LAZYREMOVE(user.do_afters, target)
 		LAZYREMOVE(target.targeted_by, user)
@@ -533,7 +533,7 @@ GLOBAL_LIST_EMPTY(species_list)
 	var/mob/living/L = target
 	REMOVE_TRAIT(L, TRAIT_PASSTABLE, source)
 	if(!HAS_TRAIT(L, TRAIT_PASSTABLE))
-		L.pass_flags &= ~PASSTABLE
+		DISABLE_BIFIELD(L.pass_flags, PASSTABLE)
 
 //Gets the sentient mobs that are not on centcom and are alive
 /proc/get_sentient_mobs()

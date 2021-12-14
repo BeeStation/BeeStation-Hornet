@@ -256,7 +256,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 	if(stat & BROKEN)
 		return
 	if(powered())
-		stat &= ~NOPOWER
+		DISABLE_BITFIELD(stat, NOPOWER)
 		update_icon()
 	else
 		spawn(rand(0, 15))
@@ -746,7 +746,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 				obj_integrity = max_integrity
-				stat &= ~BROKEN
+				DISABLE_BITFIELD(stat, BROKEN)
 				update_icon()
 		else
 			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")

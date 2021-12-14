@@ -245,7 +245,7 @@
 				AA.copy_overlays(A, TRUE);\
 			}\
 		}\
-		A.flags_1 &= ~OVERLAY_QUEUED_1;\
+		DISABLE_BITFIELD(A.flags_1, OVERLAY_QUEUED_1);\
 	}
 
 /**

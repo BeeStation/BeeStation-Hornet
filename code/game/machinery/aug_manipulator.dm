@@ -86,7 +86,7 @@
 				if(!(stat & BROKEN))
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
-				stat &= ~BROKEN
+				DISABLE_BITFIELD(stat, BROKEN)
 				obj_integrity = max(obj_integrity, max_integrity)
 				update_icon()
 		else

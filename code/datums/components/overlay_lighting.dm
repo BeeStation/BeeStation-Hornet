@@ -101,7 +101,7 @@
 
 
 /datum/component/overlay_lighting/UnregisterFromParent()
-	overlay_lighting_flags &= ~LIGHTING_ATTACHED
+	DISABLE_FIELD(overlay_lighting_flags, LIGHTING_ATTACHED)
 	set_parent_attached_to(null)
 	set_holder(null)
 	clean_old_turfs()
@@ -311,7 +311,7 @@
 			if(ismovable(movable_parent.loc))
 				set_parent_attached_to(movable_parent.loc)
 	else if(movable_parent.light_flags & LIGHT_ATTACHED) //Lost the LIGHT_ATTACHED property.
-		overlay_lighting_flags &= ~LIGHTING_ATTACHED
+		DISABLE_FIELD(overlay_lighting_flags, LIGHTING_ATTACHED)
 		set_parent_attached_to(null)
 
 
@@ -331,7 +331,7 @@
 		return
 	if(current_holder)
 		remove_dynamic_lumi(current_holder)
-	overlay_lighting_flags &= ~LIGHTING_ON
+	DISABLE_FIELD(overlay_lighting_flags, LIGHTING_ON)
 	clean_old_turfs()
 
 

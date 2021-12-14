@@ -70,7 +70,7 @@
 		for (var/flag in flagslist)
 			if(flag[1] == "!")
 				flag = copytext(flag, length(flag[1]) + 1) // Get all but the initial !
-				obj_flags &= ~string_to_objflag[flag]
+				DISABLE_BITFIELD(obj_flags, string_to_objflag[flag])
 			else
 				obj_flags |= string_to_objflag[flag]
 
@@ -181,7 +181,7 @@
 		if (is_in_use)
 			obj_flags |= IN_USE
 		else
-			obj_flags &= ~IN_USE
+			DISABLE_BITFIELD(obj_flags, IN_USE)
 
 /obj/proc/updateDialog(update_viewers = TRUE,update_ais = TRUE)
 	// Check that people are actually using the machine. If not, don't update anymore.
@@ -198,7 +198,7 @@
 
 		if(update_viewers && update_ais) //State change is sure only if we check both
 			if(!ai_in_use && !is_in_use)
-				obj_flags &= ~IN_USE
+				DISABLE_BITFIELD(obj_flags, IN_USE)
 
 
 /obj/attack_ghost(mob/user)

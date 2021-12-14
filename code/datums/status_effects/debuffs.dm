@@ -456,7 +456,7 @@
 /datum/status_effect/necropolis_curse/proc/remove_curse(remove_curse)
 	if(remove_curse & CURSE_BLINDING)
 		owner.clear_fullscreen("curse", 50)
-	curse_flags &= ~remove_curse
+	DISABLE_BITFIELD(curse_flags, remove_curse)
 
 /datum/status_effect/necropolis_curse/tick()
 	if(owner.stat == DEAD)

@@ -30,7 +30,7 @@
 			process_request(min(RC.required_reagents[RT], MACHINE_REAGENT_TRANSFER), RT, dir)
 			return
 
-	reagents.flags &= ~NO_REACT
+	DISABLE_BIFIELD(reagents.flags, NO_REACT)
 	reagents.handle_reactions()
 
 	RC.emptying = TRUE //If we move this up, it'll instantly get turned off since any reaction always sets the reagent_total to zero. Other option is make the reaction update

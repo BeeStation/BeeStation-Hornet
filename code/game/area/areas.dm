@@ -682,8 +682,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	power_light = FALSE
 	power_environ = FALSE
 	always_unpowered = FALSE
-	area_flags &= ~VALID_TERRITORY
-	area_flags &= ~BLOBS_ALLOWED
+	DISABLE_FIELD(area_flags, VALID_TERRITORY)
+	DISABLE_FIELD(area_flags, BLOBS_ALLOWED)
 	addSorted()
 /**
   * Set the area size of the area

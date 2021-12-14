@@ -128,7 +128,7 @@
 		M.client.screen -= AM
 	if(isitem(AM))
 		var/obj/item/I = AM
-		I.item_flags &= ~IN_STORAGE
+		DISABLE_BITFIELD(I.item_flags, IN_STORAGE)
 		I.remove_outline()
 		if(ismob(parent.loc))
 			var/mob/M = parent.loc

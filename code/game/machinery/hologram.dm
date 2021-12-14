@@ -124,7 +124,7 @@ Possible to do for anyone motivated enough:
 
 /obj/machinery/holopad/power_change()
 	if (powered())
-		stat &= ~NOPOWER
+		DISABLE_BITFIELD(stat, NOPOWER)
 	else
 		stat |= NOPOWER
 		if(replay_mode)

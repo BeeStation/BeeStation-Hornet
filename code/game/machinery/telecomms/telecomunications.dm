@@ -170,4 +170,4 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	update_power()
 
 /obj/machinery/telecomms/proc/de_emp()
-	stat &= ~EMPED
+	DISABLE_BITFIELD(stat, EMPED)

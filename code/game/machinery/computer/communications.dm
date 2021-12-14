@@ -309,7 +309,7 @@
 		if("RestoreBackup")
 			to_chat(usr, "<span class='notice'>Backup routing data restored!</span>")
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-			obj_flags &= ~EMAGGED
+			DISABLE_BITFIELD(obj_flags, EMAGGED)
 			updateDialog()
 
 		if("nukerequest") //When there's no other way

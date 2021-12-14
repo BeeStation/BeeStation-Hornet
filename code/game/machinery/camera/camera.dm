@@ -153,7 +153,7 @@
 					triggerCameraAlarm() //camera alarm triggers even if multiple EMPs are in effect.
 					if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
 						network = previous_network
-						stat &= ~EMPED
+						DISABLE_BITFIELD(stat, EMPED)
 						update_icon()
 						if(can_use())
 							GLOB.cameranet.addCamera(src)

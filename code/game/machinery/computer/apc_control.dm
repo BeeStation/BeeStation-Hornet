@@ -104,7 +104,7 @@
 		auth_id = "\[NULL\]"
 	if(href_list["restore_logging"])
 		to_chat(usr, "<span class='robot notice'>[icon2html(src, usr)] Logging functionality restored from backup data.</span>")
-		obj_flags &= ~EMAGGED
+		DISABLE_BITFIELD(obj_flags, EMAGGED)
 		LAZYADD(logs, "<b>-=- Logging restored to full functionality at this point -=-</b>")
 	if(href_list["access_apc"])
 		playsound(src, "terminal_type", 50, 0)

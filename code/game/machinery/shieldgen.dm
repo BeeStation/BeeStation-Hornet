@@ -165,7 +165,7 @@
 				return
 			coil.use(1)
 			obj_integrity = max_integrity
-			stat &= ~BROKEN
+			DISABLE_BITFIELD(stat, BROKEN)
 			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
 			update_icon()
 

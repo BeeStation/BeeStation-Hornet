@@ -251,7 +251,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 		if(obj_flags & EMAGGED)
 			Reset()
-			obj_flags &= ~EMAGGED
+			DISABLE_BITFIELD(obj_flags, EMAGGED)
 
 	add_fingerprint(usr)
 	updateUsrDialog()
@@ -270,7 +270,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 				message_admins("[ADMIN_LOOKUPFLW(usr)] has outbombed Cuban Pete and been awarded a bomb.")
 				log_game("[key_name(usr)] has outbombed Cuban Pete and been awarded a bomb.")
 				Reset()
-				obj_flags &= ~EMAGGED
+				DISABLE_BITFIELD(obj_flags, EMAGGED)
 			else
 				prizevend(user)
 			SSblackbox.record_feedback("nested tally", "arcade_results", 1, list("win", (obj_flags & EMAGGED ? "emagged":"normal")))
@@ -529,7 +529,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		if(obj_flags & EMAGGED)
 			to_chat(user, "<span class='userdanger'>You're never going to make it to Orion...</span>")
 			user.death()
-			obj_flags &= ~EMAGGED //removes the emagged status after you lose
+			DISABLE_BITFIELD(obj_flags, EMAGGED) //removes the emagged status after you lose
 			gameStatus = ORION_STATUS_START
 			name = "The Orion Trail"
 			desc = "Learn how our ancestors got to Orion, and have fun in the process!"
@@ -1173,7 +1173,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		log_game("[key_name(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
 	else
 		prizevend(user)
-	obj_flags &= ~EMAGGED
+	DISABLE_BITFIELD(obj_flags, EMAGGED)
 	name = "The Orion Trail"
 	desc = "Learn how our ancestors got to Orion, and have fun in the process!"
 

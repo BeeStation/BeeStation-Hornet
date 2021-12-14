@@ -51,7 +51,7 @@
 /obj/machinery/light_switch/power_change()
 	if(area == get_area(src))
 		if(powered(AREA_USAGE_LIGHT))
-			stat &= ~NOPOWER
+			DISABLE_BITFIELD(stat, NOPOWER)
 		else
 			stat |= NOPOWER
 
