@@ -16,9 +16,8 @@ CREATE TABLE IF NOT EXISTS `metacoin_item_purchases` (
 	`ckey` varchar(32) NOT NULL,
 	`purchase_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
 	`item_id` varchar(50) NOT NULL,
-	`amount` tinyint(4) NOT NULL,
-	PRIMARY KEY (`ckey`,`item_id`),
-	CONSTRAINT `positive_amounts` CHECK (`amount` >= 0)
+	`amount` tinyint(4) unsigned NOT NULL,
+	PRIMARY KEY (`ckey`,`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 Version 5.9, 5 October 2019 by Anturke, ported 1 October 2021 by Ivniinvi
