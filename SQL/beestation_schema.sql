@@ -568,6 +568,14 @@ CREATE TABLE `achievement_metadata` (
 	PRIMARY KEY (`achievement_key`)
 ) ENGINE=InnoDB;
 
+DROP TABLE IF EXISTS `metacoin_item_purchases`;
+CREATE TABLE IF NOT EXISTS `metacoin_item_purchases` (
+	`ckey` varchar(32) NOT NULL,
+	`purchase_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+	`item_id` varchar(50) NOT NULL,
+	`amount` tinyint(4) unsigned NOT NULL,
+	PRIMARY KEY (`ckey`,`item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
