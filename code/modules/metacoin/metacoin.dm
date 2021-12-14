@@ -14,7 +14,6 @@
 			inc_metabalance(METACOIN_NOTSURVIVE_REWARD, reason="You tried.")
 
 /client/proc/process_greentext()
-	inc_metabalance(METACOIN_GREENTEXT_REWARD, reason="Greentext!")
 	src.give_award(/datum/award/achievement/misc/greentext, src.mob)
 
 /client/proc/process_ten_minute_living()
@@ -36,7 +35,7 @@
 /client/proc/set_metacoin_count(mc_count, ann=TRUE)
 	var/datum/DBQuery/query_set_metacoins = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET metacoins = :mc_count WHERE ckey = :ckey",
-		list("mc_count" = mc_count, "ckey" = ckey)	
+		list("mc_count" = mc_count, "ckey" = ckey)
 	)
 	query_set_metacoins.warn_execute()
 	qdel(query_set_metacoins)
@@ -48,7 +47,7 @@
 		return
 	var/datum/DBQuery/query_inc_metacoins = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET metacoins = metacoins + :mc_count WHERE ckey = :ckey",
-		list("mc_count" = mc_count, "ckey" = ckey)	
+		list("mc_count" = mc_count, "ckey" = ckey)
 	)
 	query_inc_metacoins.warn_execute()
 	qdel(query_inc_metacoins)
