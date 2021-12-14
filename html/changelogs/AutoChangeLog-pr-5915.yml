@@ -1,0 +1,5 @@
+author: Kapu1178
+delete-after: true
+changes:
+  - rscadd: IPCs can charge off of ethereals.
+  - tweak: Ethereals no longer call handle_charge() twice per life loop.
