@@ -1,0 +1,5 @@
+author: zeskorion
+delete-after: true
+changes:
+  - bugfix: tones down disease mutation. you'll now only get one strain of a virus
+      if it mutates. Remember, even if cures change, vaccines stay the same!
