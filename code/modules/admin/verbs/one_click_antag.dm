@@ -55,6 +55,9 @@
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		temp.restricted_jobs += GLOB.command_positions
 
+	if(CONFIG_GET(flag/protect_exploration_from_antagonist))
+		temp.restricted_jobs += "Exploration Crew"
+
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
@@ -89,6 +92,9 @@
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		temp.restricted_jobs += GLOB.command_positions
+
+	if(CONFIG_GET(flag/protect_exploration_from_antagonist))
+		temp.restricted_jobs += "Exploration Crew"
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
@@ -161,6 +167,9 @@
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		temp.restricted_jobs += GLOB.command_positions
+
+	if(CONFIG_GET(flag/protect_exploration_from_antagonist))
+		temp.restricted_jobs += "Exploration Crew"
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null

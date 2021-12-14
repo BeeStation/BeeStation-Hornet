@@ -40,6 +40,9 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
 
+	if(CONFIG_GET(flag/protect_exploration_from_antagonist))
+		restricted_jobs += "Exploration Crew"
+
 	var/num_changelings = 1
 
 	var/csc = CONFIG_GET(number/changeling_scaling_coeff)

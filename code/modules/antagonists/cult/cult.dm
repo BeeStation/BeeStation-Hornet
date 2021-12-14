@@ -358,10 +358,9 @@
 	var/sacced = FALSE
 	var/sac_image
 
-/datum/objective/sacrifice/is_valid_target(possible_target)
+/datum/objective/sacrifice/is_valid_target(var/datum/mind/possible_target)
 	. = ..()
-	var/datum/mind/M = possible_target
-	if(istype(M) && isipc(M.current))
+	if(istype(possible_target) && isipc(possible_target.current))
 		return FALSE
 
 /datum/objective/sacrifice/check_completion()

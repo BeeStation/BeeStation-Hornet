@@ -37,6 +37,9 @@
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
 
+	if(CONFIG_GET(flag/protect_exploration_from_antagonist))
+		restricted_jobs += "Exploration Crew"
+
 /datum/special_role/proc/add_to_pool()
 	if(spawn_mode == SPAWNTYPE_ROUNDSTART)
 		return

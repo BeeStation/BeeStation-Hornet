@@ -738,6 +738,8 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		ruleset.restricted_roles |= "Assistant"
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		ruleset.restricted_roles |= GLOB.command_positions
+	if(CONFIG_GET(flag/protect_exploration_from_antagonist))
+		restricted_jobs |= "Exploration Crew"
 
 /// Refund threat, but no more than threat_level.
 /datum/game_mode/dynamic/proc/refund_threat(regain)

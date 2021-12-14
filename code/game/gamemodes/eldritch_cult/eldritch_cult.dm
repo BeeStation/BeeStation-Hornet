@@ -34,6 +34,8 @@
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
 
+	if(CONFIG_GET(flag/protect_exploration_from_antagonist))
+		restricted_jobs += "Exploration Crew"
 
 	var/esc = CONFIG_GET(number/ecult_scaling_coeff)
 	if(esc)

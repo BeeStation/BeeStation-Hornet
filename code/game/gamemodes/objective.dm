@@ -171,7 +171,11 @@ GLOBAL_LIST_EMPTY(objectives)
 	update_explanation_text()
 	return target
 
-/datum/objective/proc/is_valid_target(possible_target)
+/datum/objective/proc/is_valid_target(var/datum/mind/possible_target)
+	if(CONFIG_GET(flag/protect_exploration_from_antagonist))
+		if(possible_target.assigned_role == "Exploration Crew")
+			return FALSE
+
 	return TRUE
 
 /datum/objective/proc/find_target_by_role(role, role_type=FALSE,invert=FALSE)//Option sets either to check assigned role or special role. Default to assigned., invert inverts the check, eg: "Don't choose a Ling"
@@ -491,8 +495,12 @@ GLOBAL_LIST_EMPTY(objectives)
 	target = ..()
 	update_explanation_text()
 
-/datum/objective/escape/escape_with_identity/is_valid_target(possible_target)
+/datum/objective/escape/escape_with_identity/is_valid_target(var/datum/mind/possible_target)
 	var/list/datum/mind/owners = get_owners()
+	if(CONFIG_GET(flag/protect_exploration_from_antagonist))
+		if(possible_target.assigned_role == "Exploration Crew")
+			return FALSE
+
 	for(var/datum/mind/M in owners)
 		if(!M)
 			continue

@@ -73,6 +73,9 @@
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
 
+	if(CONFIG_GET(flag/protect_exploration_from_antagonist))
+		restricted_jobs += "Exploration Crew"
+
 	//cult scaling goes here
 	recommended_enemies = 1 + round(num_players()/CULT_SCALING_COEFFICIENT)
 	var/remaining = (num_players() % CULT_SCALING_COEFFICIENT) * 10 //Basically the % of how close the population is toward adding another cultis

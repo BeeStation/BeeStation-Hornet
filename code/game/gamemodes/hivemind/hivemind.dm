@@ -80,6 +80,9 @@
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
 
+	if(CONFIG_GET(flag/protect_exploration_from_antagonist))
+		restricted_jobs += "Exploration Crew"
+
 	var/num_hosts = max( 1 , rand(0,1) + min(8, round(num_players() / 8) ) ) //1 host for every 8 players up to 64, with a 50% chance of an extra
 
 	for(var/j = 0, j < num_hosts, j++)
