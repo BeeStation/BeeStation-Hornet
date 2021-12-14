@@ -569,7 +569,7 @@ CREATE TABLE `achievement_metadata` (
 ) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `SS13_metacoin_item_purchases`;
-CREATE TABLE IF NOT EXISTS `metacoin_item_purchases` (
+CREATE TABLE IF NOT EXISTS `SS13_metacoin_item_purchases` (
 	`ckey` varchar(32) NOT NULL,
 	`purchase_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
 	`item_id` varchar(50) NOT NULL,
