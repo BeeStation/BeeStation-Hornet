@@ -210,6 +210,9 @@
 		add_overlay(blob_head_overlay)
 
 /mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, minimum_distance)
+	goto_blob(target,delay)
+
+/mob/living/simple_animal/hostile/blob/blobspore/proc/goto_blob(target, delay)
 	var/list/path = list()
 	if(target == src.target)
 		approaching_target = TRUE
