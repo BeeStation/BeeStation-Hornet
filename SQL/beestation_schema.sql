@@ -559,7 +559,7 @@ $$
 DELIMITER ;
 
 DROP TABLE IF EXISTS `SS13_achievement_metadata`;
-CREATE TABLE `SS13_achievement_metadata` (
+CREATE TABLE IF NOT EXISTS `SS13_achievement_metadata` (
 	`achievement_key` VARCHAR(32) NOT NULL,
 	`achievement_version` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
 	`achievement_type` enum('achievement','score','award') NULL DEFAULT NULL,
