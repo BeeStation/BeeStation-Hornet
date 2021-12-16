@@ -11,6 +11,7 @@
 	var/charge_cost = 30
 
 /obj/item/borg/stun/attack(mob/living/M, mob/living/user)
+	var/armor_block = M.run_armor_check(attack_flag = "stamina")
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.check_shields(src, 0, "[M]'s [name]", MELEE_ATTACK))
@@ -20,9 +21,8 @@
 		var/mob/living/silicon/robot/R = user
 		if(!R.cell.use(charge_cost))
 			return
-
+	M.apply_damage(80, STAMINA, blocked = armor_block)
 	user.do_attack_animation(M)
-	M.adjustStaminaLoss(80)
 	M.apply_effect(EFFECT_STUTTER, 5)
 
 	M.visible_message("<span class='danger'>[user] has prodded [M] with [src]!</span>", \
@@ -792,12 +792,12 @@
 		stored.forceMove(get_turf(src))
 		stored = null
 
-/obj/item/borg/apparatus/Exited(atom/A)
-	if(A == stored) //sanity check
+/obj/item/borg/apparatus/Exited(atom/movable/gone, direction)
+	if(gone == stored) //sanity check
 		UnregisterSignal(stored, COMSIG_ATOM_UPDATE_ICON)
 		stored = null
 	update_icon()
-	. = ..()
+	return ..()
 
 ///A right-click verb, for those not using hotkey mode.
 /obj/item/borg/apparatus/verb/verb_dropHeld()
