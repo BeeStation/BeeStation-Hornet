@@ -209,20 +209,14 @@
 		color = initial(color)//looks better.
 		add_overlay(blob_head_overlay)
 
-/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, minimum_distance)
-	goto_blob(target,delay)
-
-/mob/living/simple_animal/hostile/blob/blobspore/proc/goto_blob(target, delay)
-	var/list/path = list()
+/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay)
 	if(target == src.target)
 		approaching_target = TRUE
 	else
 		approaching_target = FALSE
-	path = get_path_to(src, target, simulated_only = FALSE)
-	for(var/w in path)
-		walk(src,get_dir(src,w),delay)
+	for(var/w in get_path_to(src, target, simulated_only = FALSE, avoid_mobs = TRUE))
+		step(src, get_dir(src, w))
 		sleep(delay)
-	walk(src,0) //at some point it needs to stop walking too
 
 /mob/living/simple_animal/hostile/blob/blobspore/weak
 	name = "fragile blob spore"
