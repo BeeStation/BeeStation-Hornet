@@ -67,29 +67,37 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		var/obj/O = path
 		description = initial(O.desc)
 
-/datum/gear/proc/purchase(var/client/C) //Called when the gear is first purchased
+/datum/gear/proc/purchase(var/client/C, var/donor = FALSE) //Called when the gear is first purchased
 	SHOULD_CALL_PARENT(TRUE)
+	var/fail_message = donor ? "<span class='warning'>Failed to equip donor gear.</span>" : "<span class='warning'>Failed to add purchase to database. You have not been charged.</span>"
 	if(!SSdbcore.IsConnected())
-		return
-	if(!C)
-		return
-	if(!C.prefs?.purchased_gear[id])
-		C.prefs?.purchased_gear[id] = 1
+		to_chat(C, fail_message)
+		return FALSE
+	if(!C?.prefs)
+		return FALSE
+	if(!C.prefs.purchased_gear[id])
+		C.prefs.purchased_gear[id] = 1
 		var/datum/DBQuery/query_add_gear_purchase = SSdbcore.NewQuery({"
 			INSERT INTO [format_table_name("metacoin_item_purchases")] (`ckey`, `item_id`, `amount`) VALUES (:ckey, :item_id, :amount)"},
 			list("ckey" = C.ckey, "item_id" = id, "amount" = 1))
-		query_add_gear_purchase.Execute()
+		if(!query_add_gear_purchase.Execute())
+			to_chat(C, fail_message)
+			qdel(query_add_gear_purchase)
+			return FALSE
 		qdel(query_add_gear_purchase)
-		return
 	else
-		C.prefs?.purchased_gear[id] += 1
-		var/amount = C.prefs?.purchased_gear[id]
+		C.prefs.purchased_gear[id] += 1
+		var/amount = C.prefs.purchased_gear[id]
 		var/datum/DBQuery/query_add_gear_purchase = SSdbcore.NewQuery({"
 			UPDATE [format_table_name("metacoin_item_purchases")] SET amount = :amount WHERE ckey = :ckey AND item_id = :item_id"},
 			list("ckey" = C.ckey, "item_id" = id, "amount" = amount))
-		query_add_gear_purchase.Execute()
+		if(!query_add_gear_purchase.Execute())
+			to_chat(C, fail_message)
+			qdel(query_add_gear_purchase)
+			return FALSE
 		qdel(query_add_gear_purchase)
-		return
+
+	return TRUE
 
 /datum/gear_data
 	var/path

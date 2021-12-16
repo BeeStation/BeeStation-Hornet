@@ -1235,8 +1235,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(CONFIG_GET(flag/donator_items) && alert(parent, "This item is only accessible to our patrons. Would you like to subscribe?", "Patron Locked", "Yes", "No") == "Yes")
 					parent.donate()
 			else if(TG.cost <= user.client.get_metabalance())
-				TG.purchase(user.client)
-				user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
+				if(TG.purchase(user.client))
+					user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
 			else
 				to_chat(user, "<span class='warning'>You don't have enough [CONFIG_GET(string/metacurrency_name)]s to purchase \the [TG.display_name]!</span>")
 		if(href_list["toggle_gear"])
@@ -2039,7 +2039,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(purchased_gear?[AG.id] >= 1)
 				continue
 			purchased_gear[AG.id] = 1
-			AG.purchase(parent)
+			if(!AG.purchase(parent, donor = TRUE))
+				purchased_gear[AG.id] = 0
 	else if(purchased_gear.len || equipped_gear.len)
 		for(var/gear_id in DLC.gear)
 			var/datum/gear/RG = DLC.gear[gear_id]
