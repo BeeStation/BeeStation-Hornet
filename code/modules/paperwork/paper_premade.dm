@@ -80,6 +80,10 @@
 	May I always act so as to preserve the finest traditions of my calling and may I long experience the joy of healing those who seek my help.
 	</i>"}
 
+/obj/item/paper/fluff/jobs/spacelaw
+	name = "Note from Nanotrasen Legal Department"
+	info = "Dear Nanotrasen Security Officer,<br><br>We have published a new edition of the guidelines for your job, commonly known as 'Space Law'. We suggest you take some time to familiarize yourself with these revisions. Most notably, the Enemy of the Corporation charge no longer applies to Traitors from the Syndicate.<br><br>Sincerely,<br>Chester W. Tarkington, esq.<br>Nanotrasen General Counsel<br><br>P.S.: I wish you, but in no way guarantee you, a reasonably Merry Christmas and/or festive period, including but not limited to a happy twelve (12) months from the date hereof."
+
 	/*
 	*	Stations
 	*/

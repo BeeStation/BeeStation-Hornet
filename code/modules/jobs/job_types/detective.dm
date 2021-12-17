@@ -46,8 +46,10 @@
 	r_pocket = /obj/item/lighter
 	backpack_contents = list(/obj/item/storage/box/evidence=1,\
 		/obj/item/detective_scanner=1,\
-		/obj/item/melee/classic_baton/police=1)
+		/obj/item/melee/classic_baton/police=1,\
+		/obj/item/book/manual/wiki/security_space_law=1)
 	mask = /obj/item/clothing/mask/cigarette
+	r_hand = /obj/item/paper/fluff/jobs/spacelaw
 
 	implants = list(/obj/item/implant/mindshield)
 
