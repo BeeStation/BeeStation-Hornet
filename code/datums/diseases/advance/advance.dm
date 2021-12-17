@@ -550,11 +550,11 @@
 	var/datum/disease/advance/A = make_copy ? Copy() : src
 	if(!initial && A.mutable && (spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
 		var/minimum = 1
-		if(prob(CLAMP(35-(A.resistance + A.stealth), 0, 50) * (A.mutability)))//stealthy/resistant diseases are less likely to mutate. this means diseases used to farm mutations should be easier to cure. hypothetically.
+		if(prob(CLAMP(35-(A.resistance + A.stealth - A.speed), 0, 50) * (A.mutability)))//stealthy/resistant diseases are less likely to mutate. this means diseases used to farm mutations should be easier to cure. hypothetically.
 			if(infectee.job == "clown" || infectee.job == "mime" || prob(1))//infecting a clown or mime can evolve l0 symptoms/. they can also appear very rarely
 				minimum = 0
 			else
-				minimum = CLAMP(A.severity - 3, 1, 6)
+				minimum = CLAMP(A.severity - 1, 1, 7)
 			A.Evolve(minimum, CLAMP(A.severity + 4, minimum, 9))
 			A.id = GetDiseaseID()
 			A.keepid = TRUE//this is really janky, but basically mutated diseases count as the original disease
