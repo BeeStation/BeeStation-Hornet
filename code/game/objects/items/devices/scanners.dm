@@ -701,9 +701,6 @@ GENE SCANNER
 	if(T.cores > 1)
 		to_chat(user, "Multiple cores detected")
 	to_chat(user, "Growth progress: [T.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]")
-	if(T.has_status_effect(STATUS_EFFECT_SLIMEGRUB))
-		to_chat(user, "<b>Redgrub infestation detected. Quarantine immediately.</b>")
-		to_chat(user, "Redgrubs can be purged from a slime using capsaicin oil or extreme heat")
 	if(T.effectmod)
 		to_chat(user, "<span class='notice'>Core mutation in progress: [T.effectmod]</span>")
 		to_chat(user, "<span class = 'notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")
@@ -1009,14 +1006,17 @@ GENE SCANNER
 		symptomholder.Finalize()
 		symptomholder.Refresh()
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
-		if(do_mob(user, AM, (600 / scanner.rating)))
-			create_culture(symptomholder, user)
-	else if(do_mob(user, AM, (timer / scanner.rating)))
-		create_culture(A, user)
+		if(do_mob(user, AM, (600 / scanner.rating + 1)))
+			create_culture(symptomholder, user, AM)
+	else if(do_mob(user, AM, (timer / scanner.rating + 1)))
+		create_culture(A, user, AM)
 
-/obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)
+/obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user, atom/AM)
 	if(cooldown > world.time - (12 / scanner.rating))
 		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
+		return FALSE
+	if(!user.get_item_for_held_index(user.active_hand_index))
+		to_chat(user, "<span class='warning'>The extrapolator must be held in your active hand to work!</span>")
 		return FALSE
 	var/list/data = list("viruses" = list(A))
 	var/obj/item/reagent_containers/glass/bottle/B = new(user.loc)
@@ -1024,6 +1024,6 @@ GENE SCANNER
 	B.name = "[A.name] culture bottle"
 	B.desc = "A small bottle. Contains [A.agent] culture in synthblood medium."
 	B.reagents.add_reagent(/datum/reagent/blood, 20, data)
-	user.put_in_hands(B)
+	user.put_in_hand(B, user.get_inactive_hand_index(), TRUE)
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	return TRUE

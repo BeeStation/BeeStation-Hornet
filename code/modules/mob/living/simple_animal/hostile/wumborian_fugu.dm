@@ -142,6 +142,6 @@
 		to_chat(user, "<span class='info'>[src] has potential for extrapolation.</span>")
 	else
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), 4+(rand(1, 5)), /datum/symptom/growth)
-		if(E.create_culture(R, user))
+		if(E.create_culture(R, user, src))
 			qdel(src)
 	return TRUE
