@@ -177,14 +177,20 @@ const PageBuyingShuttle = (props, context) => {
                     )}
                     buttons={(
                       <Button
-                        content={`${shuttle.creditCost.toLocaleString()} credits`}
-                        disabled={!canBuyShuttles || data.budget < shuttle.creditCost}
+                        content={
+                          `${shuttle.creditCost.toLocaleString()} credits`
+                        }
+                        disabled={
+                          !canBuyShuttles || data.budget < shuttle.creditCost
+                        }
                         onClick={() => act("purchaseShuttle", {
                           shuttle: shuttle.ref,
                         })}
                         tooltip={
                           data.budget < shuttle.creditCost
-                            ? `You need ${shuttle.creditCost - data.budget} more credits.`
+                            ? `You need ${
+                              shuttle.creditCost - data.budget
+                            } more credits.`
                             : undefined
                         }
                         tooltipPosition="left"
@@ -692,23 +698,30 @@ export const CommunicationsConsole = (props, context) => {
                       <Tabs.Tab fluid
                         icon="desktop"
                         selected={page===STATE_CHANGING_STATUS}
-                        onClick={() => act("setState", { state: STATE_CHANGING_STATUS })}>Set Status Display
+                        onClick={() => act("setState", { state: STATE_CHANGING_STATUS })}>
+                        Set Status Display
                       </Tabs.Tab>
 
                       <Tabs.Tab fluid
                         icon="envelope-o"
                         selected={page===STATE_MESSAGES}
-                        onClick={() => act("setState", { state: STATE_MESSAGES })}>Message List
+                        onClick={() => act("setState", { state: STATE_MESSAGES })}>
+                        Message List
                       </Tabs.Tab>
 
                       {(canBuyShuttles !== 0) && (
                         <Tabs.Tab fluid
                           icon="shopping-cart"
                           selected={page===STATE_BUYING_SHUTTLE}
-                          onClick={() => act("setState", { state: STATE_BUYING_SHUTTLE })}
+                          onClick={() => act("setState", 
+                            { state: STATE_BUYING_SHUTTLE }
+                          )}
                           disabled={canBuyShuttles !== 1}
-                          tooltip={canBuyShuttles !== 1 ? canBuyShuttles : undefined}
-                          tooltipPosition="right">Purchase Shuttle
+                          tooltip={canBuyShuttles !== 1
+                            ? canBuyShuttles 
+                            : undefined}
+                          tooltipPosition="right">
+                          Purchase Shuttle
                         </Tabs.Tab>
                       )}
                     </Tabs>
