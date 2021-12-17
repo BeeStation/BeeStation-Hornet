@@ -471,7 +471,7 @@
 	name = "Slime Potion 2"
 	id = "m_potion2"
 	required_container = /obj/item/slime_extract/lightpink
-	required_reagents = list(/datum/reagent/toxin/plasma = 1)
+	required_reagents = list(/datum/reagent/medicine/strange_reagent = 5)
 	required_other = TRUE
 
 /datum/chemical_reaction/slime/slimepotion2/on_reaction(datum/reagents/holder)
