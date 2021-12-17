@@ -701,6 +701,9 @@ GENE SCANNER
 	if(T.cores > 1)
 		to_chat(user, "Multiple cores detected")
 	to_chat(user, "Growth progress: [T.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]")
+	if(T.has_status_effect(STATUS_EFFECT_SLIMEGRUB))
+		to_chat(user, "<b>Redgrub infestation detected. Quarantine immediately.</b>")
+		to_chat(user, "Redgrubs can be purged from a slime using capsaicin oil or extreme heat")
 	if(T.effectmod)
 		to_chat(user, "<span class='notice'>Core mutation in progress: [T.effectmod]</span>")
 		to_chat(user, "<span class = 'notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")
@@ -891,7 +894,7 @@ GENE SCANNER
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
 	var/scan = TRUE
-	var/cooldown = -1000 //so it's charged roundstart
+	var/cooldown = -12 //so it's charged roundstart
 	var/obj/item/stock_parts/scanning_module/scanner //used for upgrading!
 
 /obj/item/extrapolator/Initialize()
@@ -935,7 +938,7 @@ GENE SCANNER
 			. += "<span class='notice'>The scanner is missing.</span>"
 		else
 			. += "<span class='notice'>A class <b>[scanner.rating]</b> scanning module is installed. It is <i>screwed</i> in place.</span>"
-		if(cooldown > world.time - (1200 / scanner.rating))
+		if(cooldown > world.time - (12 / scanner.rating))
 			. += "<span class='warning'>The extrapolator is still recharging!</span>"
 		else
 			. += "<span class='info'>The extrapolator is ready to use!</span>"
@@ -982,7 +985,7 @@ GENE SCANNER
 /obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 200)
 	var/list/advancediseases = list()
 	var/list/symptoms = list()
-	if(cooldown > world.time - (1000 / scanner.rating))
+	if(cooldown > world.time - (12 / scanner.rating))
 		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
 		return
 	for(var/datum/disease/advance/cantidate in diseases)
@@ -1012,7 +1015,7 @@ GENE SCANNER
 		create_culture(A, user)
 
 /obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)
-	if(cooldown > world.time - (1200 / scanner.rating))
+	if(cooldown > world.time - (12 / scanner.rating))
 		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
 		return FALSE
 	var/list/data = list("viruses" = list(A))
