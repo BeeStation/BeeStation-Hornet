@@ -235,5 +235,4 @@
 				playsound(src.loc, 'sound/effects/blobattack.ogg', 60, TRUE)
 				death()
 				qdel(src)
-				
-			
+	

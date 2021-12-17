@@ -992,5 +992,3 @@
 	name = "Infected"
 	desc = "You have a redgrub infection, and can't reproduce or grow! If you don't find a source of heat, you will die!"
 	icon_state = "grub"
-
-	

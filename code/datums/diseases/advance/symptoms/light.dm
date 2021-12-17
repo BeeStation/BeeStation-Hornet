@@ -51,4 +51,3 @@
 	M.remove_movespeed_modifier(MOVESPEED_ID_LIGHT_VIRUS_SLOWDOWN, TRUE)
 	M.maxHealth -= currenthealthmodifier 
 	M.health -= currenthealthmodifier 
-	

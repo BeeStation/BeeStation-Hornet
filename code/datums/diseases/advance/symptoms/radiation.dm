@@ -100,4 +100,3 @@
 				to_chat(M, "<span class='userdanger'>A nasty rash appears on your skin!</span>")
 	else if(prob(2) && ((M.getCloneLoss() && cellheal) || (M.getToxLoss() && toxheal) || M.radiation))
 		to_chat(M, "<span class='notice'>You feel a tingling sensation</span>")
-	

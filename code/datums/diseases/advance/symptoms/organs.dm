@@ -223,4 +223,4 @@
 						M.add_splatter_floor(get_turf(M))
 						return
 	if(prob(2))
-		to_chat(M, "<span class='notice'>[pick("You feel healthy!.","You feel energetic!", "You feel rejuvinated!")]</span>")
+		to_chat(M, "<span class='notice'>[pick("You feel healthy!.","You feel energetic!", "You feel rejuvenated!")]</span>")
