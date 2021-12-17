@@ -535,8 +535,8 @@ CREATE TABLE IF NOT EXISTS `SS13_stickyban_matched_ip` (
 --
 -- Table structure for table `achievements`
 --
-DROP TABLE IF EXISTS `achievements`;
-CREATE TABLE `achievements` (
+DROP TABLE IF EXISTS `SS13_achievements`;
+CREATE TABLE IF NOT EXISTS `SS13_achievements` (
 	`ckey` VARCHAR(32) NOT NULL,
 	`achievement_key` VARCHAR(32) NOT NULL,
 	`value` INT NULL,
@@ -558,8 +558,8 @@ END
 $$
 DELIMITER ;
 
-DROP TABLE IF EXISTS `achievement_metadata`;
-CREATE TABLE `achievement_metadata` (
+DROP TABLE IF EXISTS `SS13_achievement_metadata`;
+CREATE TABLE IF NOT EXISTS `SS13_achievement_metadata` (
 	`achievement_key` VARCHAR(32) NOT NULL,
 	`achievement_version` SMALLINT UNSIGNED NOT NULL DEFAULT 0,
 	`achievement_type` enum('achievement','score','award') NULL DEFAULT NULL,

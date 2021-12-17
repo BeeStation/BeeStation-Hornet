@@ -163,6 +163,7 @@
 /mob/living/silicon/pai/Login()
 	..()
 	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
+	mind.assigned_role = "Personal AI"
 	notes_assets.send(client)
 	client.perspective = EYE_PERSPECTIVE
 	if(holoform)

@@ -626,7 +626,7 @@ What a mess.*/
 							printing = 1
 							for(var/i in 1 to posternum)
 								playsound(loc, 'sound/items/poster_being_created.ogg', 100, 1)
-								
+
 								sleep(30)
 								if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))//make sure the record still exists.
 									var/obj/item/photo/photo = active1.fields["photo_front"]
@@ -792,7 +792,7 @@ What a mess.*/
 					if("age")
 						if(istype(active1, /datum/data/record))
 							var/t1 = input("Please input age:", "Secure. records", active1.fields["age"], null) as num
-							if(!canUseSecurityRecordsConsole(usr, "age", a1))
+							if(!isnum_safe(t1) || !canUseSecurityRecordsConsole(usr, "age", a1))
 								return
 							active1.fields["age"] = t1
 					if("species")
@@ -942,7 +942,7 @@ What a mess.*/
 				switch(href_list["choice"])
 					if("Change Rank")
 						if(active1)
-							active1.fields["rank"] = href_list["rank"]
+							active1.fields["rank"] = strip_html(href_list["rank"])
 							if(href_list["rank"] in get_all_jobs())
 								active1.fields["real_rank"] = href_list["real_rank"]
 
