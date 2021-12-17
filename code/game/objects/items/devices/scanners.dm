@@ -1011,7 +1011,7 @@ GENE SCANNER
 	else if(do_mob(user, AM, (timer / scanner.rating + 1)))
 		create_culture(A, user, AM)
 
-/obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user, atom/AM)
+/obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)
 	if(cooldown > world.time - (12 / scanner.rating))
 		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
 		return FALSE

@@ -123,7 +123,7 @@
 	if(scan)
 		E.scan(src, disease, user)
 	else
-		if(E.create_culture(disease, user, src))
+		if(E.create_culture(disease, user))
 			dust()
 			user.visible_message("<span class='danger'>[user] stabs [src] with [E], sucking it up!</span>", \
 	 				 "<span class='danger'>You stab [src] with [E]'s probe, destroying it!</span>")
