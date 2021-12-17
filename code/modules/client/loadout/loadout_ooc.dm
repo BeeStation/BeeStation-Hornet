@@ -8,7 +8,7 @@
 	description = "An extra charslot. Pretty self-explanatory."
 	cost = 10000
 
-/datum/gear/ooc/char_slot/purchase(var/client/C)
+/datum/gear/ooc/char_slot/purchase(var/client/C, donor = FALSE)
 	. = ..()
 	if(.)
 		C?.prefs?.max_save_slots += 1
@@ -18,7 +18,7 @@
 	description = "If you can afford it, you deserve it."
 	cost = 100000
 
-/datum/gear/ooc/real_antagtoken/purchase(var/client/C)
+/datum/gear/ooc/real_antagtoken/purchase(var/client/C, donor = FALSE)
 	. = ..()
 	if(.)
 		C.inc_antag_token_count(1)
