@@ -472,7 +472,7 @@
 			if(is_banned_from(M.ckey, list(jobbanType, ROLE_SYNDICATE)) || QDELETED(M))
 				continue
 		if(req_hours) //minimum living hour count
-			if(M.client.get_exp_living(TRUE) < req_hours)
+			if((M.client.get_exp_living(TRUE)/60) < req_hours)
 				continue
 
 		showCandidatePollWindow(M, poll_time, Question, result, ignore_category, time_passed, flashwindow)
