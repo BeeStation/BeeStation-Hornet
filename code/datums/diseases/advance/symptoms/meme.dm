@@ -5,7 +5,7 @@
 	resistance = -2
 	stage_speed = -2
 	transmission = 3
-	level = 5
+	level = 9
 	severity = 0
 	base_message_chance = 50
 	symptom_delay_min = 15
@@ -13,7 +13,7 @@
 	suffixes = list(" Hysteria", " Madness")
 	var/emote
 	var/emotelist = list("flip", "spin", "laugh", "dance", "grin", "grimace", "wave", "yawn", "snap", "clap", "moan", "wink", "eyebrow", "scream", "raise", "shrug")
-	threshold_desc = "<b>Airborne Spread:</b>The virus spreads memetically, infecting hosts who can see the target.<br>"
+	threshold_desc = "<b>Airborne Spread:</b>The virus spreads memetically, infecting hosts who can see the target."
 
 /datum/symptom/meme/Copy()
 	var/datum/symptom/meme/new_symp = new type

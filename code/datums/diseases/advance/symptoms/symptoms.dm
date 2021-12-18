@@ -27,6 +27,7 @@
 	var/power = 1
 	//A neutered symptom has no effect, and only affects statistics.
 	var/neutered = FALSE
+	//used for viral suspended animation. dont use this elsewhere. Stops a symptom without neutering it
 	var/stopped = FALSE
 	var/list/thresholds
 	var/naturally_occuring = TRUE //if this symptom can appear from /datum/disease/advance/GenerateSymptoms()

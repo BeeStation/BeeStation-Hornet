@@ -718,7 +718,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		var/mob/living/carbon/human/H = A.affected_mob
 		H.dna.blood_type = bloodtypearchive 
 
-/datum/symptom/vampirism/proc/succ(mob/living/carbon/M) //you dont need the blood reagent to suck blood. however, you need 
+/datum/symptom/vampirism/proc/succ(mob/living/carbon/M) //you dont need the blood reagent to suck blood. however, you need to have blood, or at least a shared blood reagent, for most of the other uses
 	var/gainedpoints = 0
 	if(bloodbag && !bloodbag.blood_volume) //we've exsanguinated them!
 		bloodbag = null
@@ -951,7 +951,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		grub.forceMove(M.loc)
 		grub.togglehibernation()
 		playsound(M.loc, 'sound/effects/splat.ogg', 50, 1)
-	if(isslimetarget(M))
+	if(isslimetarget(M) && A.stage >= 3)
 		for(var/I in 1 to (rand(1, A.stage)))
 			var/mob/living/simple_animal/hostile/redgrub/grub = new(M.loc)
 			grub.grubdisease = list(A)

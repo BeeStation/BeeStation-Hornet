@@ -460,7 +460,7 @@
 	cooked_type = /obj/item/reagent_containers/food/snacks/meat/cutlet/chicken
 	tastes = list("chicken" = 1)
 
-/obj/item/reagent_containers/food/snacks/meat/rawcutlet/grub//grub meat is small, so its in cutlets
+/obj/item/reagent_containers/food/snacks/meat/ //grub meat is small, so its in cutlets
 	name = "redgrub cutlet"
 	desc = "A tough, slimy cut of raw Redgrub. Very toxic, and probably infectious, but delicious when cooked. Do not handle without proper biohazard equipment."
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/toxin/slimejelly = 2)

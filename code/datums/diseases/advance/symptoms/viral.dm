@@ -216,10 +216,13 @@ Bonus
 		for(var/datum/symptom/S as() in A.symptoms)
 			if(S.neutered)
 				continue
+			if(S == src)
+				return
 			S.power += power
 			maxpower += S.power 
 		if(scramble)
 			powerbudget += power 
+			maxpower += power 
 			power = 0
 		used = TRUE
 	if(scramble)

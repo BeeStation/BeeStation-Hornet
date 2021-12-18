@@ -362,7 +362,6 @@ Thresholds
 	base_message_chance = 5
 	prefixes = list("Thorny ", "Horned ")
 	bodies = list("Horn", "Spiked")
-	var/Power = 1
 	var/armor = 0
 	var/done = FALSE
 	threshold_desc = "<b>Transmission 6:</b> Spikes deal more damage.<br>\
@@ -379,7 +378,7 @@ Thresholds
 	if(A.resistance >= 6) //armor. capped at 20, but scaling with resistance, so if you want to max out spiked skin armor, you'll have to make several sacrifices
 		armor = min(20, A.resistance)
 	if(A.transmission >= 6) //higher damage
-		Power = 1.4  //the typical +100% is waaaay too strong here when the symptom is stacked. +40% is sufficient
+		power = 1.4  //the typical +100% is waaaay too strong here when the symptom is stacked. +40% is sufficient
 
 /datum/symptom/spiked/Activate(var/datum/disease/advance/A)
 	var/mob/living/carbon/human/H = A.affected_mob
