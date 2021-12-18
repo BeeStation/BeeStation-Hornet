@@ -390,7 +390,7 @@
 	var/static/list/cart_spaghetti_list
 	if(!cart_spaghetti_list)
 		cart_spaghetti_list = list()
-		var/list/templist = list(/obj/vehicle/ridden/janicart/upgraded)
+		var/list/templist = list(/obj/vehicle/ridden/janicart/upgraded/keyless)
 		for(var/V in templist)
 			var/atom/A = V
 			cart_spaghetti_list[initial(A.name)] = A
