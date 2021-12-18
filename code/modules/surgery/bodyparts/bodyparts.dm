@@ -450,8 +450,6 @@
 		limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]"
 	else
 		limb.icon_state = "[limb_id]_[body_zone]"
-	if(owner && owner.dna?.species == /datum/species/human/krokodil_addict)
-		to_chat(world, "<span class=warning>[limb.icon_state] was given to [src.name]")
 
 	if(aux_zone) //Hand shit
 		aux = image(limb.icon, "[limb_id]_[aux_zone]", -aux_layer, image_dir)
