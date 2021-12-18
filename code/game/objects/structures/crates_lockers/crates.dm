@@ -17,15 +17,15 @@
 	climb_time = 10 //real fast, because let's be honest stepping into or onto a crate is easy
 	climb_stun = 0 //climbing onto crates isn't hard, guys
 	delivery_icon = "deliverycrate"
-	door_anim_time = 3
-	door_anim_angle = 180
-	door_hinge = 3.5
+	door_anim_time = 4
+	door_anim_angle = 140 //180
+	door_hinge = 3.5 //3.5
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
 	open_sound_volume = 35
 	close_sound_volume = 50
-	drag_slowdown = 0
-	var/azimuth_angle_2 = 138 //in this context the azimuth angle for over 90 degree
+	drag_slowdown = 1.5
+	var/azimuth_angle_2 = 180 //in this context the azimuth angle for over 90 degree (138)
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 	var/radius_2 = 1.35
 	var/static/list/animation_math //assoc list with pre calculated values
