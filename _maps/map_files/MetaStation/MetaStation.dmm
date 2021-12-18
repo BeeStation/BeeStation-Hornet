@@ -10735,6 +10735,7 @@
 	req_access_txt = "12"
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "auu" = (
@@ -49023,6 +49024,7 @@
 /area/engine/engineering)
 "bUx" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "bUz" = (
@@ -50245,9 +50247,7 @@
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "bXd" = (
@@ -78556,6 +78556,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
+"ecO" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "efV" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -80773,6 +80786,11 @@
 	},
 /turf/open/floor/plating,
 /area/science/shuttledock)
+"maf" = (
+/obj/effect/landmark/blobstart,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "mdo" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -80813,6 +80831,12 @@
 /obj/structure/window/spawner/north,
 /turf/open/floor/grass,
 /area/hallway/primary/central)
+"mlQ" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "mom" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -81396,6 +81420,10 @@
 	},
 /turf/open/floor/carpet,
 /area/crew_quarters/theatre)
+"oqb" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "oqs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -83082,6 +83110,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
+"vEQ" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "vKx" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -83813,6 +83845,14 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/carpet/blue,
 /area/bridge)
+"xPr" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "xQk" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/layer_manifold{
@@ -105100,9 +105140,9 @@ aXr
 dne
 baB
 bbY
-bbY
-bbY
-bgW
+mlQ
+vEQ
+ecO
 bbY
 bku
 bml
@@ -105357,7 +105397,7 @@ aXs
 aYT
 baC
 bdu
-bdu
+xPr
 bdu
 bgX
 biQ
@@ -123884,8 +123924,8 @@ atm
 bLX
 apc
 bQQ
-bSe
-apc
+maf
+oqb
 bUx
 aut
 bXc
