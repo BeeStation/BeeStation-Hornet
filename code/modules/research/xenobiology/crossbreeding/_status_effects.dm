@@ -965,15 +965,22 @@
 /datum/status_effect/stabilized/rainbow
 	id = "stabilizedrainbow"
 	colour = "rainbow"
+	var/messagefired = FALSE
 
 /datum/status_effect/stabilized/rainbow/tick()
-	if(owner.health <= 0)
+	if(owner.health <= 0 && !messagefired)
 		var/obj/item/slimecross/stabilized/rainbow/X = linked_extract
 		if(istype(X))
 			if(X.regencore)
-				X.regencore.afterattack(owner,owner,TRUE)
-				X.regencore = null
 				owner.visible_message("<span class='warning'>[owner] flashes a rainbow of colors, and [owner.p_their()] skin is coated in a milky regenerative goo!</span>")
-				qdel(src)
-				qdel(linked_extract)
+				addtimer(CALLBACK(src, .proc/activate), 50)
+				messagefired = TRUE
+				
 	return ..()
+
+/datum/status_effect/stabilized/rainbow/proc/activate()
+	var/obj/item/slimecross/stabilized/rainbow/X = linked_extract
+	X.regencore.afterattack(owner,owner,TRUE)
+	X.regencore = null
+	qdel(src)
+	qdel(linked_extract)
