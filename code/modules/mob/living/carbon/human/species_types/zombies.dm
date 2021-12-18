@@ -96,14 +96,38 @@
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
 
 // Your skin falls off
-/datum/species/krokodil_addict
+/datum/species/human/krokodil_addict
 	name = "\improper Human"
 	id = "goofzombies"
-	sexes = 0
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/zombie
 	mutanttongue = /obj/item/organ/tongue/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
 	examine_limb_id = "human"
+
+	species_chest = /obj/item/bodypart/chest/zombie
+	species_head = /obj/item/bodypart/head/zombie
+	species_l_arm = /obj/item/bodypart/l_arm/zombie
+	species_r_arm = /obj/item/bodypart/r_arm/zombie
+	species_l_leg = /obj/item/bodypart/l_leg/zombie
+	species_r_leg = /obj/item/bodypart/r_leg/zombie
+
+/datum/species/human/krokodil_addict/replace_body(mob/living/carbon/C, datum/species/new_species)
+	..()
+	var/skintone
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		skintone = H.skin_tone
+
+	for(var/obj/item/bodypart/BP as() in C.bodyparts)
+		if(IS_ORGANIC_LIMB(BP))
+			if(BP.body_zone == BODY_ZONE_HEAD || BP.body_zone == BODY_ZONE_CHEST)
+				BP.is_dimorphic = TRUE
+			BP.skin_tone ||= skintone
+			BP.limb_id = SPECIES_HUMAN
+			BP.should_draw_greyscale = TRUE
+			BP.name = "human [parse_zone(BP.body_zone)]"
+			BP.update_limb()
+
 
 #undef REGENERATION_DELAY
