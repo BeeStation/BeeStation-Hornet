@@ -1008,7 +1008,7 @@ GENE SCANNER
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
 		if(do_mob(user, AM, (600 / (scanner.rating + 1))))
 			create_culture(symptomholder, user, AM)
-	else if(do_mob(user, AM, (timer / scanner.rating + 1)))
+	else if(do_mob(user, AM, (timer / (scanner.rating + 1))))
 		create_culture(A, user, AM)
 
 /obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)
