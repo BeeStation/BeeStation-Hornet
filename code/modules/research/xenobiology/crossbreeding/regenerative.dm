@@ -30,6 +30,7 @@ Regenerative extracts:
 			"<span class='notice'>You squeeze the [src], and it bursts in your hand, splashing you with milky goo which quickly regenerates your injuries!</span>")
 	core_effect_before(H, user)
 	H.heal_overall_damage(50, 50, 50)
+	H.adjustToxLoss(-50, forced = TRUE)
 	core_effect(H, user)
 	playsound(target, 'sound/effects/splat.ogg', 40, 1)
 	qdel(src)
