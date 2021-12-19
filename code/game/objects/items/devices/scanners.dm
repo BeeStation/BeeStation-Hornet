@@ -891,6 +891,7 @@ GENE SCANNER
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
 	var/scan = TRUE
+	var/cooldown
 	var/obj/item/stock_parts/scanning_module/scanner //used for upgrading!
 
 /obj/item/extrapolator/Initialize()
@@ -982,6 +983,9 @@ GENE SCANNER
 	if(!LAZYLEN(advancediseases))
 		to_chat(user, "<span class='warning'>There are no valid diseases to make a culture from.</span>")
 		return
+	if(cooldown > world.time - (10))
+		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
+		return
 	var/datum/disease/advance/A = input(user,"What disease do you wish to extract") in null|advancediseases
 	if(isolate)
 		for(var/datum/symptom/S in A.symptoms)
@@ -1004,8 +1008,12 @@ GENE SCANNER
 		create_culture(A, user, AM)
 
 /obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)
+	if(cooldown > world.time - (10))
+		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
+		return
 	var/list/data = list("viruses" = list(A))
 	var/obj/item/reagent_containers/glass/bottle/B = new(user.loc)
+	cooldown = world.time
 	if(!(user.get_item_for_held_index(user.active_hand_index) == src))
 		to_chat(user, "<span class='warning'>The extrapolator must be held in your active hand to work!</span>")
 		return FALSE
