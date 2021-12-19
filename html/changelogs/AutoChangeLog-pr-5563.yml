@@ -1,0 +1,7 @@
+author: The-Moon-Itself
+delete-after: true
+changes:
+  - rscadd: Circuit boards for the plasma refiner, mass driver, and igniter.
+  - tweak: Efficiency of the plasma refiner and the range and power usage of the mass
+      driver have been modified to scale with stock parts.
+  - imageadd: Panel open sprites for the plasma refiner, mass driver, and igniter.
