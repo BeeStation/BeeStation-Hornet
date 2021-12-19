@@ -300,6 +300,7 @@
 	desc = "The brand logo of this beer's label is quite suspicious looking."
 	list_reagents = null
 	foodtype = null
+	isGlass = FALSE
 
 /obj/item/reagent_containers/food/drinks/ftliver
 	name = "Faster-Than-Liver"
