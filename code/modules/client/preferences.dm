@@ -2001,6 +2001,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return pick(GLOB.clown_names)
 		if("mime")
 			return pick(GLOB.mime_names)
+		if("magician")
+			return pick(GLOB.magician_names)
 		if("religion")
 			return DEFAULT_RELIGION
 		if("deity")

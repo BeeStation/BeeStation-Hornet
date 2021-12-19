@@ -215,6 +215,8 @@ Turf and target are separate in case you want to teleport some distance from a t
 					newname = pick(GLOB.clown_names)
 				if("mime")
 					newname = pick(GLOB.mime_names)
+				if("stage magician")
+					newname = pick(GLOB.magician_names)
 				if("ai")
 					newname = pick(GLOB.ai_names)
 				else
