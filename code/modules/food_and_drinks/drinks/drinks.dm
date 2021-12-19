@@ -295,6 +295,13 @@
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 10, /datum/reagent/medicine/antitoxin = 20)
 	foodtype = GRAIN | ALCOHOL
 
+/obj/item/reagent_containers/food/drinks/syndicatebeer/heirloom
+	name = "suspicious looking brand beer"
+	desc = "The brand logo of this beer's label is quite suspicious looking."
+	list_reagents = null
+	foodtype = null
+	isGlass = FALSE
+
 /obj/item/reagent_containers/food/drinks/ftliver
 	name = "Faster-Than-Liver"
 	desc = "They've gone into plaid!"

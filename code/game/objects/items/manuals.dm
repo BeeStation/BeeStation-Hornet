@@ -436,3 +436,11 @@
 	author = "Nanotrasen"
 	title = "Chemical Factories Without Narcotics"
 	page_link = "Guide_to_plumbing"
+
+/obj/item/book/manual/wiki/traitor
+	name = "How to be traitorous against Nanotrasen"
+	icon_state ="bookNuclear"
+	author = "Syndicate"
+	title = "How to be traitorous against Nanotrasen"
+	desc = "A set of Syndicate guidelines for harassing Nanotrasen crews on their space stations."
+	page_link = "Traitor"
