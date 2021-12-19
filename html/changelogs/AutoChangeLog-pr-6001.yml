@@ -1,0 +1,5 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - bugfix: Disposals will no longer randomly delete their contents when destroyed
+      in a rare case.
