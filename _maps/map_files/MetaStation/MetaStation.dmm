@@ -14287,7 +14287,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "aBM" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -14296,6 +14295,9 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 9
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 9
 	},
 /turf/open/floor/plasteel,
@@ -14841,23 +14843,12 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "aCT" = (
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/turf/open/floor/plasteel,
-/area/engine/engineering)
-"aCU" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aCV" = (
@@ -74987,6 +74978,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 6
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "ddX" = (
@@ -75000,6 +74994,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "ddY" = (
@@ -75011,6 +75008,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
@@ -125002,7 +125002,7 @@ axT
 axY
 aAr
 ddX
-aCU
+aTO
 aEq
 aTO
 aTO
