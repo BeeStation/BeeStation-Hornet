@@ -1,0 +1,4 @@
+author: Phil Smith
+delete-after: true
+changes:
+  - imageadd: discovery scanners have an in-hand sprite now
