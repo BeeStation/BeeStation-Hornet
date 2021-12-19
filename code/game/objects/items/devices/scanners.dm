@@ -891,7 +891,6 @@ GENE SCANNER
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
 	var/scan = TRUE
-	var/cooldown = -12 //so it's charged roundstart
 	var/obj/item/stock_parts/scanning_module/scanner //used for upgrading!
 
 /obj/item/extrapolator/Initialize()
@@ -935,10 +934,6 @@ GENE SCANNER
 			. += "<span class='notice'>The scanner is missing.</span>"
 		else
 			. += "<span class='notice'>A class <b>[scanner.rating]</b> scanning module is installed. It is <i>screwed</i> in place.</span>"
-		if(cooldown > world.time - (12 / scanner.rating))
-			. += "<span class='warning'>The extrapolator is still recharging!</span>"
-		else
-			. += "<span class='info'>The extrapolator is ready to use!</span>"
 
 
 /obj/item/extrapolator/attack(atom/AM, mob/living/user)
@@ -982,9 +977,6 @@ GENE SCANNER
 /obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 200)
 	var/list/advancediseases = list()
 	var/list/symptoms = list()
-	if(cooldown > world.time - (12 / scanner.rating))
-		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
-		return
 	for(var/datum/disease/advance/cantidate in diseases)
 		advancediseases += cantidate
 	if(!LAZYLEN(advancediseases))
@@ -1006,24 +998,20 @@ GENE SCANNER
 		symptomholder.Finalize()
 		symptomholder.Refresh()
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
-		if(do_mob(user, AM, (600 / (scanner.rating + 1))))
+		if(do_after(user, (600 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
-	else if(do_mob(user, AM, (timer / (scanner.rating + 1))))
+	else if(do_after(user, (timer / (scanner.rating + 1)), target = AM))
 		create_culture(A, user, AM)
 
 /obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)
-	if(cooldown > world.time - (12 / scanner.rating))
-		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
-		return FALSE
-	if(!user.get_item_for_held_index(user.active_hand_index))
-		to_chat(user, "<span class='warning'>The extrapolator must be held in your active hand to work!</span>")
-		return FALSE
 	var/list/data = list("viruses" = list(A))
 	var/obj/item/reagent_containers/glass/bottle/B = new(user.loc)
-	cooldown = world.time
+	if(!(user.get_item_for_held_index(user.active_hand_index) == src))
+		to_chat(user, "<span class='warning'>The extrapolator must be held in your active hand to work!</span>")
+		return FALSE
 	B.name = "[A.name] culture bottle"
 	B.desc = "A small bottle. Contains [A.agent] culture in synthblood medium."
 	B.reagents.add_reagent(/datum/reagent/blood, 20, data)
-	user.put_in_hand(B, user.get_inactive_hand_index(), TRUE)
+	user.put_in_hands(B)
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	return TRUE
