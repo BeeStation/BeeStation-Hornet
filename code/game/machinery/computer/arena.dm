@@ -287,7 +287,7 @@
 	if(href_list["follow"])
 		var/mob/observed_team_member = locate(href_list["follow"]) in GLOB.mob_list
 		if(observed_team_member)
-			user.client?.admin_follow(observed_team_member)
+			user.holder?.admin_follow(observed_team_member)
 	if(href_list["team_action"])
 		var/team = href_list["team"]
 		switch(href_list["team_action"])
