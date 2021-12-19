@@ -1,5 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - bugfix: Fixed inserting IDs into prisoner management and labor camp teleporter
-      consoles.
