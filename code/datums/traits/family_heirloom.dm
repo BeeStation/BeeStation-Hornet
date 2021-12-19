@@ -12,22 +12,43 @@
 	var/mob/living/carbon/human/H = quirk_holder
 	var/datum/job/J = SSjob.GetJob(H.mind.assigned_role)
 	var/obj/item/heirloom_type
-	var/list/heirloom_table = list()
+	var/list/tablesize = list()
+	var/weightvalue = 0
 
+	//Calculate the table size before picking up
 	if(prob(99))
-		heirloom_table += H.dna.species.get_heirloom_list() // 1-A. Species specific table
+		tablesize += H.dna.species.get_heirloom_list(TRUE)                // 1-A. Species specific table
 	else
-		heirloom_table += get_heirloom_list_species()       // 1-B. 1% chance for all species table
-	heirloom_table += J.get_heirloom_list()                 // 2. Job specific table
-	heirloom_table += get_department_items(quirk_holder)    // 3. Department specific table (job based)
-	heirloom_table += get_heirloom_list_general()           // 4. For everyone
-	if(prob(5))
-		heirloom_table += get_heirloom_list_suspicious()    // 5. For everyone: suspicious items
+		tablesize += get_heirloom_list_species(TRUE)                      // 1-B. 1% chance for all species table
+	tablesize += J.get_heirloom_list(TRUE)+tablesize[1]                   // 2. Job specific table
+	tablesize += get_department_items(TRUE, quirk_holder)+tablesize[2]    // 3. Department specific table (job based)
+	tablesize += get_heirloom_list_general(TRUE)+tablesize[3]             // 4. For everyone
+	if(prob(3))
+		tablesize += get_heirloom_list_suspicious(TRUE)+tablesize[4]      // 5. For everyone: 3% chance suspicious items
+	else
+		tablesize += tablesize[4]  // still need to calculate the size
 
-	heirloom_type = pick(heirloom_table)
+	weightvalue = rand(1, tablesize[5])
+	if(weightvalue <= tablesize[1])
+		if(tablesize[1] < 9) // less then 9 means it's not a roll for all racial heirlooms. there's no species having 9 items in their heirloom table.
+			heirloom_type = H.dna.species.get_heirloom_list()
+		else
+			heirloom_type = get_heirloom_list_species()
+	else if(weightvalue > tablesize[1] && weightvalue <= tablesize[2])
+		heirloom_type = J.get_heirloom_list()
+	else if(weightvalue > tablesize[2] && weightvalue <= tablesize[3])
+		heirloom_type = get_department_items(FALSE, quirk_holder)
+	else if(weightvalue > tablesize[3] && weightvalue <= tablesize[4])
+		heirloom_type = get_heirloom_list_general()
+	else if(weightvalue > tablesize[4] && weightvalue <= tablesize[5])
+		heirloom_type = get_heirloom_list_suspicious()
+	else
+		heirloom_type = /obj/item/toy/plush/heirloom_dummy // something weird value happened
 
-	if(!heirloom_type) //fail to load
+	//fail to pick an item from table
+	if(!heirloom_type)
 		heirloom_type = /obj/item/toy/plush/heirloom_dummy
+
 	heirloom = new heirloom_type(get_turf(quirk_holder))
 	var/list/slots = list(
 		"in your left pocket" = ITEM_SLOT_LPOCKET,
@@ -65,105 +86,104 @@
 	heirloom = data
 
 //procs for heirloom trait
-/datum/species/proc/get_heirloom_list() //species items
-/datum/job/proc/get_heirloom_list() //Job items
+/datum/species/proc/get_heirloom_list(var/lencheck) //species items
+/datum/job/proc/get_heirloom_list(var/lencheck) //Job items
 
 //-----------------------SPECIES-----------------------
-/datum/species/human/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/species/human/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/clothing/head/kitty), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/species/human/felinid/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/species/human/felinid/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/clothing/head/kitty), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/species/ipc/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/species/ipc/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/disk/data), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/species/ethereal/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/species/ethereal/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/coin/plasma), only_root_path=TRUE)
 			//I am not sure what to give them
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/species/plasmaman/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/species/plasmaman/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/coin/plasma), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/species/apid/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/species/apid/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/toy/plush/beeplushie), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/species/moth/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/species/moth/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/flashlight/lantern/heirloom_moth,
 			/obj/item/toy/plush/moth), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/species/lizard/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/species/lizard/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/toy/plush/lizardplushie), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/species/oozeling/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/species/oozeling/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/toy/plush/slimeplushie), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/species/fly/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/species/fly/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 //a rare chance to roll everything
-/datum/quirk/family_heirloom/proc/get_heirloom_list_species()
-	var/list/heirloom_items = list()
+/datum/quirk/family_heirloom/proc/get_heirloom_list_species(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
@@ -178,12 +198,13 @@
 			/obj/item/reagent_containers/food/drinks/bottle/virusfood,
 			/obj/item/toy/eldrich_book
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 //-------------------------JOBS-------------------------
 //SERVICE
-/datum/job/assistant/get_heirloom_list()
+/datum/job/assistant/get_heirloom_list(var/lencheck)
 	var/list/heirloom_items = list()
 	var/static/list/heirloom_items_base
 	var/static/list/heirloom_items_base_random
@@ -197,14 +218,15 @@
 		heirloom_items_base_random = typecacheof(list(
 			/obj/item/clothing/under/color/grey/glorf
 		), only_root_path=TRUE)
+	if(lencheck)
+		return length(heirloom_items_base) //you don't have to calculate a pickweight of the ancient jumpsuit chance
 	if(prob(99.9))
 		heirloom_items = heirloom_items_base
 	else // 0.1% chance to add ancient jumpsuit
 		heirloom_items = heirloom_items_base + heirloom_items_base_random
 	return heirloom_items
 
-/datum/job/janitor/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/janitor/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
@@ -212,11 +234,11 @@
 			/obj/item/clothing/suit/caution,
 			/obj/item/reagent_containers/glass/bucket
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/job/bartender/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/bartender/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
@@ -224,11 +246,11 @@
 			/obj/item/clothing/head/that,
 			/obj/item/reagent_containers/food/drinks/shaker
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/job/cook/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/cook/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
@@ -236,215 +258,198 @@
 			/obj/item/kitchen/rollingpin,
 			/obj/item/clothing/head/chefhat
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // botanist
-/datum/job/hydro/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/hydro/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/seeds/random //Would you dare to plant your heirloom?
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/job/curator/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/curator/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/pen/fountain,
 			/obj/item/storage/pill_bottle/dice
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/job/chaplain/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/chaplain/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/toy/windupToolbox,
 			/obj/item/reagent_containers/food/drinks/bottle/holywater
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // barber
-/datum/job/gimmick/barber/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/gimmick/barber/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/handmirror
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // VIP
-/datum/job/gimmick/celebrity/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/gimmick/celebrity/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/handmirror, //so narcissistic
 			/obj/item/modular_computer/laptop/preset/civillian //for business.
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // debtor, aka hobo
-/datum/job/gimmick/hobo/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/gimmick/hobo/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_random
 	if(!heirloom_random)
 		heirloom_random = typecacheof(
 			subtypesof(/obj/item/trash), only_root_path=TRUE)
-	heirloom_items = list(
-			pick(heirloom_random),
-			pick(heirloom_random),
-			pick(heirloom_random),
-			pick(heirloom_random),
-			pick(heirloom_random)
-		)
-	return heirloom_items
+	if(lencheck)
+		return 5 // debtor will have a high chance to get trash
+	return pick(heirloom_random)
 
-/datum/job/lawyer/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/lawyer/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/gavelhammer,
 			/obj/item/book/manual/wiki/security_space_law
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // Entertainers
-/datum/job/clown/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/clown/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
-			/obj/item/bikehorn/golden,
-			/obj/item/bikehorn/golden,
-			/obj/item/bikehorn/golden,
-			/obj/item/bikehorn/golden,
-			/obj/item/bikehorn/golden	//high chance of spawning them
+			/obj/item/bikehorn/golden
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return 10 // clown will have a high chance to get a golden horn
+	return pick(heirloom_items_base)
 
-/datum/job/mime/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/mime/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
-			/obj/item/reagent_containers/food/snacks/baguette/mime,
-			/obj/item/reagent_containers/food/snacks/baguette/mime,
-			/obj/item/reagent_containers/food/snacks/baguette/mime,
-			/obj/item/reagent_containers/food/snacks/baguette/mime,
-			/obj/item/reagent_containers/food/snacks/baguette/mime	//high chance of spawning them
+			/obj/item/reagent_containers/food/snacks/baguette/mime
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return 10 // mile will have a high chance to get a baguette
+	return pick(heirloom_items_base)
 
 // stage magician
-/datum/job/gimmick/magician/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/gimmick/magician/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
-			/obj/item/gun/magic/wand,
-			/obj/item/gun/magic/wand,
-			/obj/item/gun/magic/wand,
-			/obj/item/gun/magic/wand,
-			/obj/item/gun/magic/wand	//high chance of spawning them
+			/obj/item/gun/magic/wand
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return 10 // magician will have a high chance to get wand
+	return pick(heirloom_items_base)
 
 //SECURITY
 // head of security
-/datum/job/hos/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/hos/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/job/warden/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/warden/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/restraints/handcuffs
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // security officer
-/datum/job/officer/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/officer/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/clothing/head/beret/sec
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/job/detective/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/detective/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/reagent_containers/food/drinks/bottle/whiskey
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 /datum/job/deputy/get_heirloom_list() //It won't happen, but coded just in case
 	return
 
 //Science
 // research director
-/datum/job/rd/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/rd/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/nanite_remote
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/job/scientist/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/scientist/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/nanite_remote
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // exploration crew
-/datum/job/exploration/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/exploration/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/nanite_remote
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/job/roboticist/get_heirloom_list()
+/datum/job/roboticist/get_heirloom_list(var/lencheck)
 	var/list/heirloom_items = list()
 	var/static/list/heirloom_random
 	var/static/list/heirloom_items_base
@@ -455,13 +460,14 @@
 		heirloom_items_base = typecacheof(list(
 			/obj/item/book/manual/wiki/medicine
 		), only_root_path=TRUE)
+	if(lencheck)
+		return length(heirloom_items_base)
 	heirloom_items = heirloom_items_base + pick(heirloom_random)
-	return heirloom_items
+	return pick(heirloom_items)
 
 //MEDICAL
 // chief medical officer
-/datum/job/cmo/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/cmo/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
@@ -470,55 +476,55 @@
 			/obj/item/reagent_containers/dropper,
 			/obj/item/healthanalyzer
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // brig physician
-/datum/job/brig_phys/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/brig_phys/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/healthanalyzer
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // medical doctor
-/datum/job/doctor/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/doctor/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/healthanalyzer
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // paramedic
-/datum/job/emt/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/emt/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/healthanalyzer
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // psychiatrist
-/datum/job/gimmick/shrink/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/gimmick/shrink/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/healthanalyzer
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/job/chemist/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/chemist/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
@@ -526,11 +532,11 @@
 			/obj/item/storage/bag/chemistry,
 			/obj/item/reagent_containers/dropper
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/job/virologist/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/virologist/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
@@ -540,44 +546,44 @@
 			/obj/item/reagent_containers/food/drinks/bottle/virusfood,
 			/obj/item/reagent_containers/dropper
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/job/geneticist/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/geneticist/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/nanite_remote
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 //ENGINEERING
-/datum/job/chief_engineer/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/chief_engineer/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/clothing/head/hardhat/white
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // station engineer
-/datum/job/engineer/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/engineer/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/clothing/head/hardhat
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // atmospheric technician
-/datum/job/atmos/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/atmos/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
@@ -586,48 +592,48 @@
 			/obj/item/storage/box/matches,
 			/obj/item/tank/internals/emergency_oxygen/empty
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 //CARGO
 // quartermaster
-/datum/job/qm/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/qm/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/stamp,
 			/obj/item/stamp/denied
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // cargo technician
-/datum/job/cargo_tech/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/cargo_tech/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/clipboard
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // shaft miner
-/datum/job/mining/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/mining/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/pickaxe/mini,
 			/obj/item/shovel
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 //COMMANDERS
-/datum/job/captain/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/captain/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
@@ -636,28 +642,34 @@
 			/obj/item/reagent_containers/food/drinks/flask/gold
 			//hich chance of spawning captain's flask
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // head of personnel
-/datum/job/hop/get_heirloom_list()
-	var/list/heirloom_items = list()
+/datum/job/hop/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/toy/plush/ian
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 
 //------------------DEPARTMENT ROLLS SET UP-----------------------
-/datum/quirk/family_heirloom/proc/get_department_items(var/mob/living/carbon/human/H)
+/datum/quirk/family_heirloom/proc/get_department_items(var/lencheck, var/mob/living/carbon/human/H)
 	var/list/heirloom_department = list()
-	var/DEPARTMENT_FLAG = 0 // Bitflag for department shared items
+	var/static/DEPARTMENT_FLAG // Bitflag for department shared items
+	var/tablesize = 0
+
+	if(lencheck)
+		DEPARTMENT_FLAG = 0 //We're going to initialize this when we calculate size
 
 	// This IF checks your job then turn on the bitflag
 	// It's to get multiple departments from a mob rather than to get their 'real department'
+	// "|| prob(1)" means you get this flag at 1% chance
 	//SERVICE
 	if(H.mind.assigned_role in list(
 		    JOB_ASSISTANT,
@@ -675,7 +687,7 @@
 		    JOB_STAGE_MAGICIAN,
 			JOB_PSYCHIATRIST, //this is the true nature of your job.
 		    JOB_VIP
-		))
+		) || prob(1))
 		DEPARTMENT_FLAG |= DEPARTMENT_SERVICE
 
 	//SECURITY
@@ -686,7 +698,7 @@
 			JOB_DETECTIVE,
 			JOB_DEPUTY,
 			JOB_BRIG_PHYSICIAN
-		))
+		) || prob(1))
 		DEPARTMENT_FLAG |= DEPARTMENT_SECURITY
 
 	//SCIENCE
@@ -695,7 +707,7 @@
 		    JOB_SCIENTIST,
 			JOB_EXPLORATION_CREW,
 			JOB_ROBOTICIST
-		))
+		) || prob(1))
 		DEPARTMENT_FLAG |= DEPARTMENT_SCIENCE
 
 	//MEDICAL
@@ -708,7 +720,7 @@
 			JOB_CHEMIST,
 			JOB_VIROLOGIST,
 			JOB_GENETICIST
-		))
+		) || prob(1))
 		DEPARTMENT_FLAG |= DEPARTMENT_MEDICAL
 
 	//ENGINEERING
@@ -716,7 +728,7 @@
 		    JOB_CE,
 			JOB_STATION_ENGINEER,
 			JOB_ATMOSPHERIC_TECHNICIAN
-		))
+		) || prob(1))
 		DEPARTMENT_FLAG |= DEPARTMENT_ENGINEERING
 
 	//CARGO
@@ -724,7 +736,7 @@
 		    JOB_QM,
 		    JOB_CARGO_TECHNICIAN,
 			JOB_SHAFT_MINER
-		))
+		) || prob(1))
 		DEPARTMENT_FLAG |= DEPARTMENT_CARGO
 
 	//COMMAND
@@ -736,31 +748,48 @@
 			JOB_CMO,
 			JOB_CE,
 			JOB_VIP // just for giving annoying items
-		))
+		) || prob(1))
 		DEPARTMENT_FLAG |= DEPARTMENT_COMMAND
 
-	// Get items, and 1% chance to get items from other departments
-	if(DEPARTMENT_FLAG & DEPARTMENT_SERVICE) //  || prob(1))
-		heirloom_department += get_heirloom_list_d_service()
-	if(DEPARTMENT_FLAG & DEPARTMENT_SECURITY) //  || prob(1))
-		heirloom_department += get_heirloom_list_d_security()
-	if(DEPARTMENT_FLAG & DEPARTMENT_SCIENCE) //  || prob(1))
-		heirloom_department += get_heirloom_list_d_science()
-	if(DEPARTMENT_FLAG & DEPARTMENT_MEDICAL) //  || prob(1))
-		heirloom_department += get_heirloom_list_d_medical()
-	if(DEPARTMENT_FLAG & DEPARTMENT_ENGINEERING) //  || prob(1))
-		heirloom_department += get_heirloom_list_d_engineering()
-	if(DEPARTMENT_FLAG & DEPARTMENT_CARGO) //  || prob(1))
-		heirloom_department += get_heirloom_list_d_cargo()
-	if(DEPARTMENT_FLAG & DEPARTMENT_COMMAND) //  || prob(1))
-		heirloom_department += get_heirloom_list_d_command()
+	//Do not change these into else-if
+	if(lencheck)
+		if(DEPARTMENT_FLAG & DEPARTMENT_SERVICE)
+			tablesize += get_heirloom_list_d_service(lencheck)
+		if(DEPARTMENT_FLAG & DEPARTMENT_SECURITY)
+			tablesize += get_heirloom_list_d_security(lencheck)
+		if(DEPARTMENT_FLAG & DEPARTMENT_SCIENCE)
+			tablesize += get_heirloom_list_d_science(lencheck)
+		if(DEPARTMENT_FLAG & DEPARTMENT_MEDICAL)
+			tablesize += get_heirloom_list_d_medical(lencheck)
+		if(DEPARTMENT_FLAG & DEPARTMENT_ENGINEERING)
+			tablesize += get_heirloom_list_d_engineering(lencheck)
+		if(DEPARTMENT_FLAG & DEPARTMENT_CARGO)
+			tablesize += get_heirloom_list_d_cargo(lencheck)
+		if(DEPARTMENT_FLAG & DEPARTMENT_COMMAND)
+			tablesize += get_heirloom_list_d_command(lencheck)
+		return tablesize
+
+	// Get items
+	if(DEPARTMENT_FLAG & DEPARTMENT_SERVICE)
+		heirloom_department += get_heirloom_list_d_service(lencheck)
+	if(DEPARTMENT_FLAG & DEPARTMENT_SECURITY)
+		heirloom_department += get_heirloom_list_d_security(lencheck)
+	if(DEPARTMENT_FLAG & DEPARTMENT_SCIENCE)
+		heirloom_department += get_heirloom_list_d_science(lencheck)
+	if(DEPARTMENT_FLAG & DEPARTMENT_MEDICAL)
+		heirloom_department += get_heirloom_list_d_medical(lencheck)
+	if(DEPARTMENT_FLAG & DEPARTMENT_ENGINEERING)
+		heirloom_department += get_heirloom_list_d_engineering(lencheck)
+	if(DEPARTMENT_FLAG & DEPARTMENT_CARGO)
+		heirloom_department += get_heirloom_list_d_cargo(lencheck)
+	if(DEPARTMENT_FLAG & DEPARTMENT_COMMAND)
+		heirloom_department += get_heirloom_list_d_command(lencheck)
 
 	return heirloom_department
 
 //---------------------DEPARTMENT ROLLS-----------------------
 // SERVICE
-/datum/quirk/family_heirloom/proc/get_heirloom_list_d_service()
-	var/list/heirloom_items = list()
+/datum/quirk/family_heirloom/proc/get_heirloom_list_d_service(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
@@ -768,23 +797,24 @@
 			/obj/item/storage/toolbox/mechanical/old/heirloom,
 			/obj/item/storage/box/matches
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
+
 
 // SECURITY
-/datum/quirk/family_heirloom/proc/get_heirloom_list_d_security()
-	var/list/heirloom_items = list()
+/datum/quirk/family_heirloom/proc/get_heirloom_list_d_security(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/book/manual/wiki/security_space_law,
 			/obj/item/radio/off
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
-/datum/quirk/family_heirloom/proc/get_heirloom_list_d_science()
-	var/list/heirloom_items = list()
+/datum/quirk/family_heirloom/proc/get_heirloom_list_d_science(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
@@ -794,12 +824,12 @@
 			/obj/item/wrench,
 			/obj/item/multitool
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // MEDICAL
-/datum/quirk/family_heirloom/proc/get_heirloom_list_d_medical()
-	var/list/heirloom_items = list()
+/datum/quirk/family_heirloom/proc/get_heirloom_list_d_medical(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
@@ -813,12 +843,12 @@
 			/obj/item/cautery,
 			/obj/item/bedsheet/medical
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // ENGINEERING
-/datum/quirk/family_heirloom/proc/get_heirloom_list_d_engineering()
-	var/list/heirloom_items = list()
+/datum/quirk/family_heirloom/proc/get_heirloom_list_d_engineering(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
@@ -828,24 +858,24 @@
 			/obj/item/crowbar,
 			/obj/item/wirecutters
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // CARGO
-/datum/quirk/family_heirloom/proc/get_heirloom_list_d_cargo()
-	var/list/heirloom_items = list()
+/datum/quirk/family_heirloom/proc/get_heirloom_list_d_cargo(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/hand_labeler,
 			/obj/item/shovel
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 // COMMAND
-/datum/quirk/family_heirloom/proc/get_heirloom_list_d_command()
-	var/list/heirloom_items = list()
+/datum/quirk/family_heirloom/proc/get_heirloom_list_d_command(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
@@ -855,14 +885,15 @@
 			/obj/item/stamp,
 			/obj/item/stamp/denied
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 
 
 //-------------------------FOR EVERYONE----------------------------/
 //General items
-/datum/quirk/family_heirloom/proc/get_heirloom_list_general()
+/datum/quirk/family_heirloom/proc/get_heirloom_list_general(var/lencheck)
 	var/list/heirloom_items = list()
 	var/static/list/heirloom_items_base
 	var/static/list/heirloom_random
@@ -875,12 +906,13 @@
 			/obj/item/dice/d20,
 			/obj/item/book/manual/wiki/security_space_law //1984. all crews are encouraged to hold this book all times. giving higher chance for sec.
 		), only_root_path=TRUE)
+	if(lencheck)
+		return length(heirloom_items_base)+1 // +1 for random bedsheets
 	heirloom_items = heirloom_items_base + pick(heirloom_random)
-	return heirloom_items
+	return pick(heirloom_items)
 
 //Suspicious items
-/datum/quirk/family_heirloom/proc/get_heirloom_list_suspicious()
-	var/list/heirloom_items = list()
+/datum/quirk/family_heirloom/proc/get_heirloom_list_suspicious(var/lencheck)
 	var/static/list/heirloom_items_base
 	//var/list/heirloom_random = list()
 	if(!heirloom_items_base)
@@ -893,8 +925,9 @@
 			/obj/item/scalpel/heirloom_fake,
 			/obj/item/heirloom_hypermatter_bin
 		), only_root_path=TRUE)
-	heirloom_items = heirloom_items_base
-	return heirloom_items
+	if(lencheck)
+		return length(heirloom_items_base)
+	return pick(heirloom_items_base)
 
 
 //family heirloom fakes
