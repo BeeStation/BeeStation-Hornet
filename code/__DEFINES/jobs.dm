@@ -100,6 +100,48 @@
 #define JOB_DISPLAY_ORDER_AI 34
 #define JOB_DISPLAY_ORDER_CYBORG 35
 
+
+#define JOB_ASSISTANT    "Assistant"
+#define JOB_JANITOR      "Janitor"
+#define JOB_BARTENDER    "Bartender"
+#define JOB_COOK         "Cook"
+#define JOB_BOTANIST     "Botanist"
+#define JOB_CURATOR      "Curator"
+#define JOB_CHAPLAIN     "Chaplain"
+#define JOB_BARBER       "Barber"
+#define JOB_VIP          "VIP"
+#define JOB_DEBTOR       "Debtor"
+#define JOB_LAWYER       "Lawyer"
+#define JOB_CLOWN            "Clown"
+#define JOB_MIME             "Mime"
+#define JOB_STAGE_MAGICIAN   "Stage Magician"
+#define JOB_HOS                   "Head of Security"
+#define JOB_WARDEN                "Warden"
+#define JOB_SECURITY_OFFICER      "Security Officer"
+#define JOB_DETECTIVE             "Detective"
+#define JOB_DEPUTY                "Deputy"
+#define JOB_RD                    "Research Director"
+#define JOB_SCIENTIST             "Scientist"
+#define JOB_EXPLORATION_CREW      "Exploration Crew"
+#define JOB_ROBOTICIST            "Roboticist"
+#define JOB_CMO                       "Chief Medical Officer"
+#define JOB_BRIG_PHYSICIAN            "Brig Physician"
+#define JOB_MEDICAL_DOCTOR            "Medical Doctor"
+#define JOB_PARAMEDIC                 "Paramedic"
+#define JOB_PSYCHIATRIST              "Psychiatrist"
+#define JOB_CHEMIST                   "Chemist"
+#define JOB_VIROLOGIST                "Virologist"
+#define JOB_GENETICIST                "Geneticist"
+#define JOB_CE                        "Chief Engineer"
+#define JOB_STATION_ENGINEER          "Station Engineer"
+#define JOB_ATMOSPHERIC_TECHNICIAN    "Atmospheric Technician"
+#define JOB_QM                        "Quartermaster"
+#define JOB_CARGO_TECHNICIAN          "Cargo Technician"
+#define JOB_SHAFT_MINER               "Shaft Miner"
+#define JOB_CAPTAIN                   "Captain"
+#define JOB_HOP                       "Head of Personnel"
+
+
 #define DEPARTMENT_SECURITY (1<<0)
 #define DEPARTMENT_COMMAND (1<<1)
 #define DEPARTMENT_SERVICE (1<<2)

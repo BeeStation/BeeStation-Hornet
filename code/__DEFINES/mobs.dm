@@ -89,6 +89,7 @@
 #define SPECIES_OOZELING		"oozeling"
 #define SPECIES_FLY 			"fly"
 
+
 //Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
 #define FLAG_HUMAN			(1<<0)
 #define FLAG_IPC			(1<<1)
