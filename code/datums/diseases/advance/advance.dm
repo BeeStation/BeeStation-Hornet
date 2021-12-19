@@ -87,7 +87,9 @@
 			continue
 		if(dormant || P.dormant)//dormant diseases dont interfere with channels, not even with other dormant diseases if you manage to get two
 			continue
-		if((IsSame(P) || channel == otherchannel) && !P.sentient)
+		if(IsSame(P))
+			continue
+		if(channel == otherchannel && !P.sentient)
 			advance_diseases += P
 	var/replace_num = advance_diseases.len + 1 - DISEASE_LIMIT //amount of diseases that need to be removed to fit this one
 	if(replace_num > 0)
@@ -579,7 +581,7 @@
 /datum/disease/advance/proc/random_disease_name(var/atom/diseasesource)//generates a name for a disease depending on its symptoms and where it comes from
 	var/list/prefixes = list("Spacer's ", "Space ", "Infectious ","Viral ", "The ", "[pick(GLOB.first_names)]'s ", "[pick(GLOB.last_names)]'s ", "Acute ")//prefixes that arent tacked to the body need spaces after the word
 	var/list/bodies = list(pick("[pick(GLOB.first_names)]", "[pick(GLOB.last_names)]"), "Space", "Disease", "Noun", "Cold", "Germ", "Virus")
-	var/list/suffixes = list("ism", "itis", "osis", "itosis", " #[rand(1,10000)]", "-[rand(1,100)]", "s", "y", " ovirus", " Bug", " Infection", " Disease", " Complex", " Syndrome", " Sickness") //suffixes that arent tacked directly on need spaces before the word
+	var/list/suffixes = list("ism", "itis", "osis", "itosis", " #[rand(1,10000)]", "-[rand(1,100)]", "s", "y", "ovirus", " Bug", " Infection", " Disease", " Complex", " Syndrome", " Sickness") //suffixes that arent tacked directly on need spaces before the word
 	if(stealth >=2)
 		prefixes += "Crypto "
 	switch(max(resistance - (symptoms.len / 2), 1))
