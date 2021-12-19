@@ -78,6 +78,10 @@
 	backpack_contents = list(/obj/item/choice_beacon/magic=1)
 	can_be_admin_equipped = TRUE
 
+/datum/job/gimmick/magician/after_spawn(mob/living/carbon/human/H, mob/M)
+	. = ..()
+	H.apply_pref_name("magician", M.client)
+
 /datum/job/gimmick/hobo
 	title = "Debtor"
 	flag = HOBO
@@ -87,7 +91,7 @@
 	gimmick = TRUE
 	chat_color = "#929292"
 	departments = NONE		//being hobo is not a real job
-	biohazard = 50 //hobos are very likely to have diseases 
+	biohazard = 50 //hobos are very likely to have diseases
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hobo
