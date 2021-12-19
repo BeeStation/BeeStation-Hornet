@@ -762,7 +762,6 @@
 /datum/quirk/family_heirloom/proc/get_heirloom_list_d_service()
 	var/list/heirloom_items = list()
 	var/static/list/heirloom_items_base
-	var/list/heirloom_random = list()
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/reagent_containers/glass/bucket,
@@ -770,25 +769,23 @@
 			/obj/item/storage/box/matches
 		), only_root_path=TRUE)
 	heirloom_items = heirloom_items_base
-	return heirloom_items+heirloom_random
+	return heirloom_items
 
 // SECURITY
 /datum/quirk/family_heirloom/proc/get_heirloom_list_d_security()
 	var/list/heirloom_items = list()
 	var/static/list/heirloom_items_base
-	var/list/heirloom_random = list()
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/book/manual/wiki/security_space_law,
 			/obj/item/radio/off
 		), only_root_path=TRUE)
 	heirloom_items = heirloom_items_base
-	return heirloom_items+heirloom_random
+	return heirloom_items
 
 /datum/quirk/family_heirloom/proc/get_heirloom_list_d_science()
 	var/list/heirloom_items = list()
 	var/static/list/heirloom_items_base
-	var/list/heirloom_random = list()
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/toy/plush/slimeplushie,
@@ -798,13 +795,12 @@
 			/obj/item/multitool
 		), only_root_path=TRUE)
 	heirloom_items = heirloom_items_base
-	return heirloom_items+heirloom_random
+	return heirloom_items
 
 // MEDICAL
 /datum/quirk/family_heirloom/proc/get_heirloom_list_d_medical()
 	var/list/heirloom_items = list()
 	var/static/list/heirloom_items_base
-	var/list/heirloom_random = list()
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/clothing/neck/stethoscope,
@@ -818,13 +814,12 @@
 			/obj/item/bedsheet/medical
 		), only_root_path=TRUE)
 	heirloom_items = heirloom_items_base
-	return heirloom_items+heirloom_random
+	return heirloom_items
 
 // ENGINEERING
 /datum/quirk/family_heirloom/proc/get_heirloom_list_d_engineering()
 	var/list/heirloom_items = list()
 	var/static/list/heirloom_items_base
-	var/list/heirloom_random = list()
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/screwdriver,
@@ -834,26 +829,24 @@
 			/obj/item/wirecutters
 		), only_root_path=TRUE)
 	heirloom_items = heirloom_items_base
-	return heirloom_items+heirloom_random
+	return heirloom_items
 
 // CARGO
 /datum/quirk/family_heirloom/proc/get_heirloom_list_d_cargo()
 	var/list/heirloom_items = list()
 	var/static/list/heirloom_items_base
-	var/list/heirloom_random = list()
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/hand_labeler,
 			/obj/item/shovel
 		), only_root_path=TRUE)
 	heirloom_items = heirloom_items_base
-	return heirloom_items+heirloom_random
+	return heirloom_items
 
 // COMMAND
 /datum/quirk/family_heirloom/proc/get_heirloom_list_d_command()
 	var/list/heirloom_items = list()
 	var/static/list/heirloom_items_base
-	var/list/heirloom_random = list()
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
 			/obj/item/reagent_containers/food/drinks/flask/gold,
@@ -863,7 +856,7 @@
 			/obj/item/stamp/denied
 		), only_root_path=TRUE)
 	heirloom_items = heirloom_items_base
-	return heirloom_items+heirloom_random
+	return heirloom_items
 
 
 
