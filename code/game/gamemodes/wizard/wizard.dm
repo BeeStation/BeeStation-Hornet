@@ -18,6 +18,7 @@
 	<span class='danger'>Wizard</span>: Accomplish your objectives and cause mayhem on the station.\n\
 	<span class='notice'>Crew</span>: Eliminate the wizard before they can succeed!"
 	var/finished = 0
+	min_antag_hours = 200
 
 	title_icon = "wizard"
 
