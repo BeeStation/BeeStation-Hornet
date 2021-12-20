@@ -45,14 +45,15 @@
 	else
 		heirloom_type = /obj/item/toy/plush/heirloom_dummy // something weird value happened
 
+
 	//fail to pick an item from table
 	if(!heirloom_type)
 		heirloom_type = /obj/item/toy/plush/heirloom_dummy
 
 	heirloom = new heirloom_type(get_turf(quirk_holder))
 	var/list/slots = list(
-		"in your left pocket" = ITEM_SLOT_LPOCKET,
-		"in your right pocket" = ITEM_SLOT_RPOCKET,
+		//"in your left pocket" = ITEM_SLOT_LPOCKET,
+		//"in your right pocket" = ITEM_SLOT_RPOCKET, //since they're buggy, I comentized them. Maybe a better way someday.
 		"in your backpack" = ITEM_SLOT_BACKPACK
 	)
 	where = H.equip_in_one_of_slots(heirloom, slots, FALSE) || "at your feet"
@@ -93,8 +94,8 @@
 /datum/species/human/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/clothing/head/kitty), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/clothing/head/kitty)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -102,8 +103,8 @@
 /datum/species/human/felinid/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/clothing/head/kitty), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/clothing/head/kitty)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -111,8 +112,8 @@
 /datum/species/ipc/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/disk/data), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/disk/data)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -120,8 +121,8 @@
 /datum/species/ethereal/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/coin/plasma), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/coin/plasma)
 			//I am not sure what to give them
 	if(lencheck)
 		return length(heirloom_items_base)
@@ -130,8 +131,8 @@
 /datum/species/plasmaman/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/coin/plasma), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/coin/plasma)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -139,8 +140,8 @@
 /datum/species/apid/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/toy/plush/beeplushie), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/toy/plush/beeplushie)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -148,9 +149,9 @@
 /datum/species/moth/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/flashlight/lantern/heirloom_moth,
-			/obj/item/toy/plush/moth), only_root_path=TRUE)
+			/obj/item/toy/plush/moth)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -158,8 +159,8 @@
 /datum/species/lizard/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/toy/plush/lizardplushie), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/toy/plush/lizardplushie)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -167,8 +168,8 @@
 /datum/species/oozeling/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/toy/plush/slimeplushie), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/toy/plush/slimeplushie)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -176,8 +177,8 @@
 /datum/species/fly/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/reagent_containers/food/drinks/bottle/virusfood)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -186,7 +187,7 @@
 /datum/quirk/family_heirloom/proc/get_heirloom_list_species(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/clothing/head/kitty,
 			/obj/item/toy/plush/lizardplushie,
 			/obj/item/toy/plush/slimeplushie,
@@ -196,8 +197,7 @@
 			/obj/item/coin/plasma,
 			/obj/item/disk/data,
 			/obj/item/reagent_containers/food/drinks/bottle/virusfood,
-			/obj/item/toy/eldrich_book
-		), only_root_path=TRUE)
+			/obj/item/toy/eldrich_book)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -209,15 +209,13 @@
 	var/static/list/heirloom_items_base
 	var/static/list/heirloom_items_base_random
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/storage/toolbox/mechanical/old/heirloom,
 			/obj/item/clothing/gloves/cut/heirloom,
-			/obj/item/multitool
-		), only_root_path=TRUE)
+			/obj/item/multitool)
 	if(!heirloom_items_base_random)
-		heirloom_items_base_random = typecacheof(list(
-			/obj/item/clothing/under/color/grey/glorf
-		), only_root_path=TRUE)
+		heirloom_items_base_random = list(
+			/obj/item/clothing/under/color/grey/glorf)
 	if(lencheck)
 		return length(heirloom_items_base) //you don't have to calculate a pickweight of the ancient jumpsuit chance
 	if(prob(99.9))
@@ -229,11 +227,10 @@
 /datum/job/janitor/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/mop,
 			/obj/item/clothing/suit/caution,
-			/obj/item/reagent_containers/glass/bucket
-		), only_root_path=TRUE)
+			/obj/item/reagent_containers/glass/bucket)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -241,11 +238,10 @@
 /datum/job/bartender/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/reagent_containers/glass/rag,
 			/obj/item/clothing/head/that,
-			/obj/item/reagent_containers/food/drinks/shaker
-		), only_root_path=TRUE)
+			/obj/item/reagent_containers/food/drinks/shaker)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -253,11 +249,10 @@
 /datum/job/cook/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/reagent_containers/food/condiment/saltshaker,
 			/obj/item/kitchen/rollingpin,
-			/obj/item/clothing/head/chefhat
-		), only_root_path=TRUE)
+			/obj/item/clothing/head/chefhat)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -266,9 +261,8 @@
 /datum/job/hydro/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/seeds/random //Would you dare to plant your heirloom?
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/seeds/random) //Would you dare to plant your heirloom?
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -276,10 +270,9 @@
 /datum/job/curator/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/pen/fountain,
-			/obj/item/storage/pill_bottle/dice
-		), only_root_path=TRUE)
+			/obj/item/storage/pill_bottle/dice)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -287,10 +280,9 @@
 /datum/job/chaplain/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/toy/windupToolbox,
-			/obj/item/reagent_containers/food/drinks/bottle/holywater
-		), only_root_path=TRUE)
+			/obj/item/reagent_containers/food/drinks/bottle/holywater)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -299,9 +291,8 @@
 /datum/job/gimmick/barber/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/handmirror
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/handmirror)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -310,10 +301,9 @@
 /datum/job/gimmick/celebrity/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/handmirror, //so narcissistic
-			/obj/item/modular_computer/laptop/preset/civillian //for business.
-		), only_root_path=TRUE)
+			/obj/item/modular_computer/laptop/preset/civillian) //for business.
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -322,8 +312,7 @@
 /datum/job/gimmick/hobo/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_random
 	if(!heirloom_random)
-		heirloom_random = typecacheof(
-			subtypesof(/obj/item/trash), only_root_path=TRUE)
+		heirloom_random = subtypesof(/obj/item/trash)
 	if(lencheck)
 		return 5 // debtor will have a high chance to get trash
 	return pick(heirloom_random)
@@ -331,10 +320,9 @@
 /datum/job/lawyer/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/gavelhammer,
-			/obj/item/book/manual/wiki/security_space_law
-		), only_root_path=TRUE)
+			/obj/item/book/manual/wiki/security_space_law)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -343,9 +331,8 @@
 /datum/job/clown/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/bikehorn/golden
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/bikehorn/golden)
 	if(lencheck)
 		return 10 // clown will have a high chance to get a golden horn
 	return pick(heirloom_items_base)
@@ -353,9 +340,8 @@
 /datum/job/mime/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/reagent_containers/food/snacks/baguette/mime
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/reagent_containers/food/snacks/baguette/mime)
 	if(lencheck)
 		return 10 // mime will have a high chance to get a baguette
 	return pick(heirloom_items_base)
@@ -364,9 +350,8 @@
 /datum/job/gimmick/magician/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/gun/magic/wand
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/gun/magic/wand)
 	if(lencheck)
 		return 10 // magician will have a high chance to get wand
 	return pick(heirloom_items_base)
@@ -376,8 +361,8 @@
 /datum/job/hos/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+		) // nothing
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -385,9 +370,8 @@
 /datum/job/warden/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/restraints/handcuffs
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/restraints/handcuffs)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -396,9 +380,8 @@
 /datum/job/officer/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/clothing/head/beret/sec
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/clothing/head/beret/sec)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -406,9 +389,8 @@
 /datum/job/detective/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/reagent_containers/food/drinks/bottle/whiskey
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/reagent_containers/food/drinks/bottle/whiskey)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -421,9 +403,8 @@
 /datum/job/rd/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/nanite_remote
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/nanite_remote)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -431,9 +412,8 @@
 /datum/job/scientist/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/nanite_remote
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/nanite_remote)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -442,9 +422,8 @@
 /datum/job/exploration/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/nanite_remote
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/nanite_remote)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -454,12 +433,10 @@
 	var/static/list/heirloom_random
 	var/static/list/heirloom_items_base
 	if(!heirloom_random)
-		heirloom_random = typecacheof(
-			subtypesof(/obj/item/toy/prize), only_root_path=TRUE)
+		heirloom_random = subtypesof(/obj/item/toy/prize)
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/book/manual/wiki/medicine
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/book/manual/wiki/medicine)
 	if(lencheck)
 		return length(heirloom_items_base)
 	heirloom_items = heirloom_items_base + pick(heirloom_random)
@@ -470,12 +447,11 @@
 /datum/job/cmo/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/book/manual/wiki/chemistry,
 			/obj/item/book/manual/wiki/infections,
 			/obj/item/reagent_containers/dropper,
-			/obj/item/healthanalyzer
-		), only_root_path=TRUE)
+			/obj/item/healthanalyzer)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -484,9 +460,8 @@
 /datum/job/brig_phys/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/healthanalyzer
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/healthanalyzer)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -495,9 +470,8 @@
 /datum/job/doctor/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/healthanalyzer
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/healthanalyzer)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -506,9 +480,8 @@
 /datum/job/emt/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/healthanalyzer
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/healthanalyzer)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -517,9 +490,8 @@
 /datum/job/gimmick/shrink/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/healthanalyzer
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/healthanalyzer)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -527,11 +499,10 @@
 /datum/job/chemist/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/book/manual/wiki/chemistry,
 			/obj/item/storage/bag/chemistry,
-			/obj/item/reagent_containers/dropper
-		), only_root_path=TRUE)
+			/obj/item/reagent_containers/dropper)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -539,13 +510,12 @@
 /datum/job/virologist/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/book/manual/wiki/infections,
 			/obj/item/book/manual/wiki/chemistry,
 			/obj/item/storage/bag/bio,
 			/obj/item/reagent_containers/food/drinks/bottle/virusfood,
-			/obj/item/reagent_containers/dropper
-		), only_root_path=TRUE)
+			/obj/item/reagent_containers/dropper)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -553,9 +523,8 @@
 /datum/job/geneticist/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/nanite_remote
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/nanite_remote)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -564,9 +533,8 @@
 /datum/job/chief_engineer/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/clothing/head/hardhat/white
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/clothing/head/hardhat/white)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -575,9 +543,8 @@
 /datum/job/engineer/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/clothing/head/hardhat
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/clothing/head/hardhat)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -586,12 +553,11 @@
 /datum/job/atmos/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/lighter,
 			/obj/item/lighter/greyscale,
 			/obj/item/storage/box/matches,
-			/obj/item/tank/internals/emergency_oxygen/empty
-		), only_root_path=TRUE)
+			/obj/item/tank/internals/emergency_oxygen/empty)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -601,10 +567,9 @@
 /datum/job/qm/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/stamp,
-			/obj/item/stamp/denied
-		), only_root_path=TRUE)
+			/obj/item/stamp/denied)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -613,9 +578,8 @@
 /datum/job/cargo_tech/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/clipboard
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/clipboard)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -624,10 +588,9 @@
 /datum/job/mining/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/pickaxe/mini,
-			/obj/item/shovel
-		), only_root_path=TRUE)
+			/obj/item/shovel)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -636,9 +599,8 @@
 /datum/job/captain/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/reagent_containers/food/drinks/flask/gold
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/reagent_containers/food/drinks/flask/gold)
 	if(lencheck)
 		return 4 //hich chance of spawning captain's flask
 	return pick(heirloom_items_base)
@@ -647,9 +609,8 @@
 /datum/job/hop/get_heirloom_list(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
-			/obj/item/toy/plush/ian
-		), only_root_path=TRUE)
+		heirloom_items_base = list(
+			/obj/item/toy/plush/ian)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -657,7 +618,6 @@
 
 //------------------DEPARTMENT ROLLS SET UP-----------------------
 /datum/quirk/family_heirloom/proc/get_department_items(var/lencheck, var/mob/living/carbon/human/H)
-	var/list/heirloom_department = list()
 	var/static/DEPARTMENT_FLAG // Bitflag for department shared items
 	var/tablesize = 0
 
@@ -767,33 +727,34 @@
 		return tablesize
 
 	// Get items
-	if(DEPARTMENT_FLAG & DEPARTMENT_SERVICE)
-		heirloom_department += get_heirloom_list_d_service(lencheck)
-	if(DEPARTMENT_FLAG & DEPARTMENT_SECURITY)
-		heirloom_department += get_heirloom_list_d_security(lencheck)
-	if(DEPARTMENT_FLAG & DEPARTMENT_SCIENCE)
-		heirloom_department += get_heirloom_list_d_science(lencheck)
-	if(DEPARTMENT_FLAG & DEPARTMENT_MEDICAL)
-		heirloom_department += get_heirloom_list_d_medical(lencheck)
-	if(DEPARTMENT_FLAG & DEPARTMENT_ENGINEERING)
-		heirloom_department += get_heirloom_list_d_engineering(lencheck)
-	if(DEPARTMENT_FLAG & DEPARTMENT_CARGO)
-		heirloom_department += get_heirloom_list_d_cargo(lencheck)
-	if(DEPARTMENT_FLAG & DEPARTMENT_COMMAND)
-		heirloom_department += get_heirloom_list_d_command(lencheck)
+	for(var/i = 0, i<100, i++)
+		var/n = rand(1,7)
+		if(DEPARTMENT_FLAG & DEPARTMENT_SERVICE && n==1)
+			return pick(get_heirloom_list_d_service())
+		else if(DEPARTMENT_FLAG & DEPARTMENT_SECURITY && n==2)
+			return pick(get_heirloom_list_d_security())
+		else if(DEPARTMENT_FLAG & DEPARTMENT_SCIENCE && n==3)
+			return pick(get_heirloom_list_d_science())
+		else if(DEPARTMENT_FLAG & DEPARTMENT_MEDICAL && n==4)
+			return pick(get_heirloom_list_d_medical())
+		else if(DEPARTMENT_FLAG & DEPARTMENT_ENGINEERING && n==5)
+			return pick(get_heirloom_list_d_engineering())
+		else if(DEPARTMENT_FLAG & DEPARTMENT_CARGO && n==6)
+			return pick(get_heirloom_list_d_cargo())
+		else if(DEPARTMENT_FLAG & DEPARTMENT_COMMAND && n==7)
+			return pick(get_heirloom_list_d_command())
 
-	return heirloom_department
+	return pick(get_heirloom_list_d_service()) //when fail to load something
 
 //---------------------DEPARTMENT ROLLS-----------------------
 // SERVICE
 /datum/quirk/family_heirloom/proc/get_heirloom_list_d_service(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/reagent_containers/glass/bucket,
 			/obj/item/storage/toolbox/mechanical/old/heirloom,
-			/obj/item/storage/box/matches
-		), only_root_path=TRUE)
+			/obj/item/storage/box/matches)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -803,10 +764,9 @@
 /datum/quirk/family_heirloom/proc/get_heirloom_list_d_security(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/book/manual/wiki/security_space_law,
-			/obj/item/radio/off
-		), only_root_path=TRUE)
+			/obj/item/radio/off)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -814,13 +774,12 @@
 /datum/quirk/family_heirloom/proc/get_heirloom_list_d_science(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/toy/plush/slimeplushie,
 			/obj/item/reagent_containers/food/snacks/monkeycube,
 			/obj/item/screwdriver,
 			/obj/item/wrench,
-			/obj/item/multitool
-		), only_root_path=TRUE)
+			/obj/item/multitool)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -829,7 +788,7 @@
 /datum/quirk/family_heirloom/proc/get_heirloom_list_d_medical(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/clothing/neck/stethoscope,
 			/obj/item/book/manual/wiki/medicine,
 			/obj/item/bodybag,
@@ -838,23 +797,21 @@
 			/obj/item/hemostat,
 			/obj/item/retractor,
 			/obj/item/cautery,
-			/obj/item/bedsheet/medical
-		), only_root_path=TRUE)
+			/obj/item/bedsheet/medical)
 	if(lencheck)
-		return length(heirloom_items_base)
+		return 5 //too much of them. Let's give a custom pickweight.
 	return pick(heirloom_items_base)
 
 // ENGINEERING
 /datum/quirk/family_heirloom/proc/get_heirloom_list_d_engineering(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/screwdriver,
 			/obj/item/wrench,
 			/obj/item/weldingtool,
 			/obj/item/crowbar,
-			/obj/item/wirecutters
-		), only_root_path=TRUE)
+			/obj/item/wirecutters)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -863,10 +820,9 @@
 /datum/quirk/family_heirloom/proc/get_heirloom_list_d_cargo(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/hand_labeler,
-			/obj/item/shovel
-		), only_root_path=TRUE)
+			/obj/item/shovel)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -875,13 +831,12 @@
 /datum/quirk/family_heirloom/proc/get_heirloom_list_d_command(var/lencheck)
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/reagent_containers/food/drinks/flask/gold,
 			/obj/item/book/manual/wiki/security_space_law,
 			/obj/item/clothing/glasses/sunglasses/advanced/gar/supergar,
 			/obj/item/stamp,
-			/obj/item/stamp/denied
-		), only_root_path=TRUE)
+			/obj/item/stamp/denied)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -895,14 +850,13 @@
 	var/static/list/heirloom_items_base
 	var/static/list/heirloom_random
 	if(!heirloom_random)
-		heirloom_random = typecacheof(subtypesof(/obj/item/bedsheet) - /obj/item/bedsheet/random, only_root_path=TRUE)
+		heirloom_random = subtypesof(/obj/item/bedsheet) - /obj/item/bedsheet/random
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/toy/cards/deck,
 			/obj/item/lighter,
 			/obj/item/dice/d20,
-			/obj/item/book/manual/wiki/security_space_law //1984. all crews are encouraged to hold this book all times. giving higher chance for sec.
-		), only_root_path=TRUE)
+			/obj/item/book/manual/wiki/security_space_law) //1984. all crews are encouraged to hold this book all times. giving higher chance for sec.
 	if(lencheck)
 		return length(heirloom_items_base)+1 // +1 for random bedsheets
 	heirloom_items = heirloom_items_base + pick(heirloom_random)
@@ -913,15 +867,14 @@
 	var/static/list/heirloom_items_base
 	//var/list/heirloom_random = list()
 	if(!heirloom_items_base)
-		heirloom_items_base = typecacheof(list(
+		heirloom_items_base = list(
 			/obj/item/storage/toolbox/mechanical/old/heirloom/syndicate,
 			/obj/item/toy/cards/deck/heirloom,
 			/obj/item/soap/syndie,
 			/obj/item/reagent_containers/food/drinks/syndicatebeer/heirloom,
 			/obj/item/book/manual/wiki/traitor,
 			/obj/item/scalpel/heirloom_fake,
-			/obj/item/heirloom_hypermatter_bin
-		), only_root_path=TRUE)
+			/obj/item/heirloom_hypermatter_bin)
 	if(lencheck)
 		return length(heirloom_items_base)
 	return pick(heirloom_items_base)
@@ -957,4 +910,4 @@
 	item_state = "facehugger"
 	attack_verb = list("clutched", "hissed", "impregnated")
 	squeak_override = list('sound/weapons/slash.ogg' = 1)
-	//You get this when Family Heirloom fail to load an item, but this is still functional as a toy plushie.
+	//You get this when Family Heirloom fails to load an item, but this is still functional as a toy plushie.
