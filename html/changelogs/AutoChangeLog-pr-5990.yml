@@ -1,5 +1,0 @@
-author: zeskorion
-delete-after: true
-changes:
-  - balance: regenerative extracts now heal about half a human's health, instead of
-      being an aheal
