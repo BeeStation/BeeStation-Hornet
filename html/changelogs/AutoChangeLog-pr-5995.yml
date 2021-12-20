@@ -1,4 +1,0 @@
-author: Ivniinvi
-delete-after: true
-changes:
-  - rscdel: PRs will no longer auto-stale.

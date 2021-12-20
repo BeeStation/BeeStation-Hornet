@@ -1,5 +1,0 @@
-author: zeskorion
-delete-after: true
-changes:
-  - tweak: Extrapolators have been buffed, but you can no longer use multiple at once,
-      and their scans work at range again, though extraction does not
