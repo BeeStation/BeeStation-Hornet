@@ -33,8 +33,8 @@ GLOBAL_VAR_INIT(hearer_dark_test_passed, FALSE)
 	new /obj/listener/light(light_turf)
 
 	//Have something speak
-	var/turf/speaking_turf = locate(6, 6, 1)
-	speaking_turf.say("test")
+	var/obj/speaker/speaker = new(locate(6, 6, 1))
+	speaker.say("test")
 
 	//Reset the area
 	for(var/turf/T in block(locate(3, 3, 1), locate(9, 9, 1)))
@@ -50,6 +50,8 @@ GLOBAL_VAR_INIT(hearer_dark_test_passed, FALSE)
 		Fail("Hearing test failed, listener failed to hear any messages!")
 	if(!GLOB.hearer_dark_test_passed)
 		Fail("Hearing test failed, listener failed to hear any messages while in the dark!")
+
+/obj/speaker
 
 /obj/listener/dark/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	if(message == "test")
