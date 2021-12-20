@@ -671,3 +671,27 @@
 /datum/quirk/phobia/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	H.cure_trauma_type(/datum/brain_trauma/mild/phobia, TRAUMA_RESILIENCE_ABSOLUTE)
+
+/datum/quirk/conspiracy
+	name = "Paranoid"
+	desc = "Everyone's out to get you! You don't trust authority or shady individuals. As long as you have this trusty tinfoil hat, you'll be safe, though."
+	value = -1
+	gain_text = "<span class='danger'>Everyone's out to get you!</span>"
+	lose_text = "<span class='notice'>You can trust your coworkers again.</span>"
+	medical_record_text = "Patient suffers from a paranoid personality disorder."
+
+/datum/quirk/conspiracy/add()
+	var/datum/brain_trauma/mild/phobia/conspiracies/T = new()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.gain_trauma(T, TRAUMA_RESILIENCE_ABSOLUTE)
+	var/obj/item/clothing/head/foilhat/tinfoil
+	if(is_species(H, /datum/species/plasmaman))
+		tinfoil = new /obj/item/clothing/head/foilhat/plasmaman(H)
+	else
+		tinfoil = new /obj/item/clothing/head/foilhat(H)
+	H.dropItemToGround(H.head)
+	H.equip_to_slot_or_del(tinfoil, ITEM_SLOT_HEAD)
+
+/datum/quirk/conspiracy/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.cure_trauma_type(/datum/brain_trauma/mild/phobia/conspiracies, TRAUMA_RESILIENCE_ABSOLUTE)
