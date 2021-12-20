@@ -18,3 +18,4 @@
 		if(ismoth(H) && isliving(H))
 			pick(H.emote("scream"), H.visible_message("<span class='boldwarning'>[H] lunges for the light!</span>"))
 			H.throw_at(T, range, speed)
+
