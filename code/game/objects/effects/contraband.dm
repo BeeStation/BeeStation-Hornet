@@ -103,14 +103,17 @@
 		return
 	if(ruined)
 		return
-	visible_message("[user] rips [src] in a single, decisive motion!" )
-	playsound(src.loc, 'sound/items/poster_ripped.ogg', 100, 1)
+	//MonkeStation Edit
+	//Requires Harm Intent to rip a poster.
+	if(user.a_intent == INTENT_HARM)
+		visible_message("[user] rips [src] in a single, decisive motion!" )
+		playsound(src.loc, 'sound/items/poster_ripped.ogg', 100, 1)
+		var/obj/structure/sign/poster/ripped/R = new(loc)
+		R.pixel_y = pixel_y
+		R.pixel_x = pixel_x
+		R.add_fingerprint(user)
+		qdel(src)
 
-	var/obj/structure/sign/poster/ripped/R = new(loc)
-	R.pixel_y = pixel_y
-	R.pixel_x = pixel_x
-	R.add_fingerprint(user)
-	qdel(src)
 
 /obj/structure/sign/poster/proc/roll_and_drop(loc)
 	pixel_x = 0

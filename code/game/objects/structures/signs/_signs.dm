@@ -8,11 +8,32 @@
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
 	var/buildable_sign = 1 //unwrenchable and modifiable
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
+	//MonkeStation Edit: Sign Scaling
+	var/size = 1
 
 /obj/structure/sign/basic
 	name = "blank sign"
 	desc = "How can signs be real if our eyes aren't real?"
 	icon_state = "backing"
+
+//MonkeStation Edit Start
+//Scaling Signs
+/obj/structure/sign/attack_hand(mob/user)
+	if(user.a_intent == INTENT_HELP)
+		add_fingerprint(user)
+		visible_message("<span class='warning'>[pick("[user] taps the sign.", "[user] stares intently as they tap that sign.", "Don't make [user] tap that sign again.")]</span>")
+		var/matrix/M = new
+		M.Scale(size*0.25+1)
+		animate(src, transform = M, time = 5)
+		playsound(src, 'sound/effects/Glassknock.ogg', 50, 1)
+		user.changeNext_move(CLICK_CD_MELEE)
+		spawn(1 SECONDS)
+			if(size)
+				var/scaled = 100/(100+((size*0.25)*100))
+				M.Scale(scaled)
+				animate(src, transform = M, time = 5)
+				size++
+//MonkeStation Edit End
 
 /obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
