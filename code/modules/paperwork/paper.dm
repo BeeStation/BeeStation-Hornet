@@ -338,6 +338,9 @@
 				log_paper("[key_name(ui.user)] writing to paper [name], and overwrote it by [paper_len-MAX_PAPER_LENGTH]")
 			if(paper_len == 0)
 				to_chat(ui.user, pick("Writing block strikes again!", "You forgot to write anthing!"))
+			else if(CHAT_FILTER_CHECK(in_paper))
+				to_chat(ui.user, "<span class='warning'>The text contains prohibited word(s). The paper remains unsaved.</span>")
+				message_admins("[ADMIN_LOOKUPFLW(ui.user)] has attempted to save a paper containing words prohibited by the IC filter.")
 			else
 				log_paper("[key_name(ui.user)] writing to paper [name]")
 				if(info != in_paper)
