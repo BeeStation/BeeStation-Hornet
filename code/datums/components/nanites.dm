@@ -211,10 +211,10 @@
 		NP.on_emp(severity)
 
 
-/datum/component/nanites/proc/on_shock(datum/source, shock_damage, siemens_coeff = 1, flags = NONE)
+/datum/component/nanites/proc/on_shock(datum/source, shock_damage, shock_source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
 	SIGNAL_HANDLER
 
-	if(flags & SHOCK_ILLUSION || shock_damage < 1)
+	if(illusion || shock_damage < 1)
 		return
 
 	if(!HAS_TRAIT_NOT_FROM(host_mob, TRAIT_SHOCKIMMUNE, "nanites"))//Another shock protection must protect nanites too, but nanites protect only host

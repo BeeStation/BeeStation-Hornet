@@ -66,13 +66,13 @@
 	fire_delay = 2
 	burst_size = 2
 	pin = /obj/item/firing_pin/implant/pindicate
+	spread_unwielded = 15
 	can_bayonet = TRUE
 	knife_x_offset = 26
 	knife_y_offset = 12
 	mag_display = TRUE
 	mag_display_ammo = TRUE
 	empty_indicator = TRUE
-	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/automatic/c20r/unrestricted
 	pin = /obj/item/firing_pin
@@ -96,7 +96,6 @@
 	mag_display_ammo = TRUE
 	empty_indicator = TRUE
 	fire_rate = 3
-	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/gun/ballistic/automatic/wt550/rubber_loaded
@@ -124,9 +123,9 @@
 	burst_size = 3
 	fire_delay = 2
 	pin = /obj/item/firing_pin/implant/pindicate
+	spread_unwielded = 15
 	mag_display = TRUE
 	empty_indicator = TRUE
-	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/automatic/m90/Initialize()
 	. = ..()
@@ -198,7 +197,6 @@
 	fire_rate = 5
 	can_suppress = FALSE
 	bolt_type = BOLT_TYPE_OPEN
-	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/automatic/ar
 	name = "\improper NT-ARG 'Boarder'"
@@ -228,13 +226,13 @@
 	fire_rate = 6
 	spread = 7
 	pin = /obj/item/firing_pin/implant/pindicate
+	spread_unwielded = 15 //This can't be fired onehanded?
 	bolt_type = BOLT_TYPE_OPEN
 	mag_display = TRUE
 	mag_display_ammo = TRUE
 	tac_reloads = FALSE
 	fire_sound = 'sound/weapons/rifleshot.ogg'
 	rack_sound = 'sound/weapons/chunkyrack.ogg'
-	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/automatic/l6_saw/unrestricted
 	pin = /obj/item/firing_pin
@@ -312,7 +310,6 @@
 	slot_flags = ITEM_SLOT_BACK
 	actions_types = list()
 	mag_display = TRUE
-	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
@@ -338,7 +335,6 @@
 	mag_display = TRUE
 	automatic = 0
 	fire_rate = 1.5
-	block_upgrade_walk = 1
 
 // Laser rifle (rechargeable magazine) //
 
@@ -353,5 +349,4 @@
 	fire_sound = 'sound/weapons/laser.ogg'
 	casing_ejector = FALSE
 	fire_rate = 2
-	block_upgrade_walk = 1
 

@@ -19,3 +19,10 @@
 
 /obj/machinery/atmospherics/components/binary/getNodeConnects()
 	return list(turn(dir, 180), dir)
+
+/obj/machinery/atmospherics/components/binary/proc/set_overlay_offset(pipe_layer)
+	switch(pipe_layer)
+		if(2)
+			return 1
+		if(1, 3)
+			return 2

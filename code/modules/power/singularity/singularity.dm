@@ -7,6 +7,7 @@
 	icon_state = "singularity_s1"
 	anchored = TRUE
 	density = TRUE
+	var/is_real = TRUE
 	move_resist = INFINITY
 	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
@@ -466,4 +467,3 @@
 	 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, src, SOUTH),
 	 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, src, WEST),
 	 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, src, EAST)))
-	 

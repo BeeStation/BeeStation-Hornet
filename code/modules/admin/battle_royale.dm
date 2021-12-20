@@ -115,9 +115,9 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 /client/proc/battle_royale()
 	set name = "Battle Royale"
-	set category = "Fun"
-	if(!check_rights(R_FUN))
-		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
+	set category = "Adminbus"
+	if(!(check_rights(R_FUN) || (check_rights(R_ADMIN) && SSticker.current_state == GAME_STATE_FINISHED)))
+		to_chat(src, "<span class='warning'>You do not have permission to do that! (If you don't have +FUN, wait until the round is over then you can trigger it.)</span>")
 		return
 	if(GLOB.battle_royale)
 		to_chat(src, "<span class='warning'>A game is already in progress!</span>")
@@ -129,7 +129,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	message_admins("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
 
 	for(var/client/admin in GLOB.admins)
-		if(check_rights(R_FUN) && !GLOB.battle_royale && admin.tgui_panel)
+		if(check_rights(R_ADMIN) && !GLOB.battle_royale && admin.tgui_panel)
 			admin.tgui_panel.clear_br_popup()
 
 	GLOB.battle_royale = new()
@@ -138,7 +138,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /client/proc/battle_royale_speed()
 	set name = "Battle Royale - Change wall speed"
 	set category = "Event"
-	if(!check_rights(R_FUN))
+	if(!check_rights(R_ADMIN))
 		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
 		return
 	if(!GLOB.battle_royale)
@@ -259,7 +259,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /datum/battle_royale_controller/proc/start()
 	//Give Verbs to admins
 	for(var/client/C in GLOB.admins)
-		if(check_rights_for(C, R_FUN))
+		if(check_rights_for(C, R_ADMIN))
 			C.add_verb(BATTLE_ROYALE_AVERBS)
 	toggle_ooc(FALSE)
 	to_chat(world, "<span class='ratvar'><font size=24>Battle Royale will begin soon...</span></span>")
@@ -316,7 +316,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 /datum/battle_royale_controller/proc/titanfall()
 	var/list/participants = pollGhostCandidates("Would you like to partake in BATTLE ROYALE?")
-	var/turf/spawn_turf = get_safe_random_station_turf()
+	var/turf/spawn_turf = get_safe_random_station_turfs()
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()
 	players = list()
@@ -351,7 +351,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		M.RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/knock)
 		M.status_flags -= GODMODE
 		REMOVE_TRAIT(M, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
-		to_chat(M, "<span class='greenannounce'>You are no longer a pacafist. Be the last [M.gender == MALE ? "man" : "woman"] standing.</span>")
+		to_chat(M, "<span class='greenannounce'>You are no longer a pacifist. Be the last [M.gender == MALE ? "man" : "woman"] standing.</span>")
 
 //==================================
 // EVENTS / DROPS
@@ -375,7 +375,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /datum/battle_royale_controller/proc/send_item(item_path, style = STYLE_BOX, announce=FALSE, force_time = 0)
 	if(!item_path)
 		return
-	var/turf/target = get_safe_random_station_turf()
+	var/turf/target = get_safe_random_station_turfs()
 	var/obj/structure/closet/supplypod/battleroyale/pod = new()
 	if(islist(item_path))
 		for(var/thing in item_path)
@@ -398,12 +398,19 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	icon = 'icons/effects/fields.dmi'
 	icon_state = "projectile_dampen_generic"
 
-/obj/effect/death_wall/Crossed(atom/movable/AM, oldloc)
+/obj/effect/death_wall/Initialize()
 	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/death_wall/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
 	//lol u died
 	if(isliving(AM))
 		var/mob/living/M = AM
-		M.gib()
+		INVOKE_ASYNC(M, /mob/living/carbon.proc/gib)
 		to_chat(M, "<span class='warning'>You left the zone!</span>")
 
 /obj/effect/death_wall/Moved(atom/OldLoc, Dir)

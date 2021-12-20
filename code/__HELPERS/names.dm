@@ -28,12 +28,6 @@
 /proc/ooze_name()
 	return "[pick(GLOB.oozeling_first_names)] [pick(GLOB.oozeling_last_names)]"
 
-/proc/squid_name(gender)
-	if(gender == MALE)
-		return "[pick(GLOB.squid_names_male)] [pick(GLOB.last_names)]"
-	else
-		return "[pick(GLOB.squid_names_female)] [pick(GLOB.last_names)]"
-
 GLOBAL_VAR(command_name)
 /proc/command_name()
 	if (GLOB.command_name)
@@ -73,9 +67,8 @@ GLOBAL_VAR(command_name)
 		world.name = GLOB.station_name
 
 	//Rename the station on the orbital charter.
-	var/datum/orbital_object/z_linked/station/station = locate() in SSorbits.orbital_map.bodies
-	if(station)
-		station.name = newname
+	if(SSorbits.station_instance)
+		SSorbits.station_instance.name = newname
 
 
 /proc/new_station_name()

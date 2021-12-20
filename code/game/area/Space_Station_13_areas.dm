@@ -31,7 +31,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	power_environ = FALSE
 	area_flags = UNIQUE_AREA
 	outdoors = TRUE
-	ambientmusic = AMBIENCE_SPACE
+	ambience_index = null
+	ambient_music_index = AMBIENCE_SPACE
 	ambient_buzz = null
 	sound_environment = SOUND_AREA_SPACE
 
@@ -45,6 +46,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	has_gravity = STANDARD_GRAVITY
+	ambience_index = null
 	ambient_buzz = null
 
 /area/testroom
@@ -970,6 +972,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/prison
 	name = "Prison Wing"
 	icon_state = "sec_prison"
+	mood_bonus = -4
+	mood_message = "<span class='warning'>I'm trapped here with little hope of escape!\n</span>"
 
 /area/security/processing
 	name = "Labor Shuttle Dock"
@@ -1105,7 +1109,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "mining"
 
 /area/quartermaster/exploration_prep
-	name = "Exploration Preperation Room"
+	name = "Exploration Preparation Room"
 	icon_state = "mining"
 
 /area/quartermaster/exploration_dock

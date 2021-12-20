@@ -26,14 +26,14 @@
 /turf/open/space/transit/east
 	dir = EAST
 
-/turf/open/space/transit/Entered(atom/movable/AM, atom/OldLoc)
-	..()
+/turf/open/space/transit/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
 	if(!locate(/obj/structure/lattice) in src)
-		throw_atom(AM, OldLoc)
+		throw_atom(arrived, old_loc)
 
 /turf/open/space/transit/proc/throw_atom(atom/movable/AM, atom/OldLoc)
 	set waitfor = FALSE
-	if(!AM || istype(AM, /obj/docking_port))
+	if(!AM || istype(AM, /obj/docking_port) || istype(AM, /obj/effect/abstract))
 		return
 	if(AM.loc != src) 	// Multi-tile objects are "in" multiple locs but its loc is it's true placement.
 		return			// Don't move multi tile objects if their origin isn't in transit
@@ -64,8 +64,9 @@
 					_z = shuttleObj.docking_target.linked_z_level[1].z_value
 				else
 					//Interdiction (Its an empty z-level)
-					var/datum/orbital_object/z_linked/beacon/ruin/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/interdiction()
-					z_linked.position = new /datum/orbital_vector(shuttleObj.position.x, shuttleObj.position.y)
+					var/datum/orbital_object/z_linked/beacon/ruin/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/interdiction(
+						new /datum/orbital_vector(shuttleObj.position.x, shuttleObj.position.y)
+					)
 					z_linked.name = "Stranded [AM]"
 					z_linked.assign_z_level()
 					if(length(z_linked.linked_z_level))

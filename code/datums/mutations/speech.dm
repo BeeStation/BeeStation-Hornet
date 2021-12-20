@@ -190,9 +190,9 @@
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"
-		var/list/whole_words = strings("british_talk.json", "words")
-		var/list/british_sounds = strings("british_talk.json", "sounds")
-		var/list/british_appends = strings("british_talk.json", "appends")
+		var/list/whole_words = strings(BRIISH_TALK_FILE, "words")
+		var/list/british_sounds = strings(BRIISH_TALK_FILE, "sounds")
+		var/list/british_appends = strings(BRIISH_TALK_FILE, "appends")
 
 		for(var/key in whole_words)
 			var/value = whole_words[key]

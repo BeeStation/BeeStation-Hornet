@@ -52,6 +52,14 @@
 /datum/mood_event/pet_animal/add_effects(mob/animal)
 	description = "<span class='nicegreen'>\The [animal.name] is adorable! I can't stop petting [animal.p_them()]!</span>\n"
 
+/datum/mood_event/animal_play
+	description = "<span class='nicegreen'>Aww, it's having fun!</span>\n"
+	mood_change = 2
+	timeout = 3 MINUTES
+
+/datum/mood_event/animal_play/add_effects(mob/animal)
+	description = "<span class='nicegreen'>Aww, [animal.name]'s having fun!</span>\n"
+
 /datum/mood_event/honk
 	description = "<span class='nicegreen'>Maybe clowns aren't so bad after all. Honk!</span>\n"
 	mood_change = 2
@@ -200,3 +208,8 @@
 /datum/mood_event/assistant_insulated_gloves
 	description = "<span class='nicegreen'>Finally got my hands on a good pair of gloves!</span>\n"
 	mood_change = 1
+
+/datum/mood_event/aquarium_positive
+	description = "<span class='nicegreen'>Watching fish in aquarium is calming.</span>\n"
+	mood_change = 3
+	timeout = 1.5 MINUTES

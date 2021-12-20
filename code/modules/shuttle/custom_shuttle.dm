@@ -98,8 +98,7 @@
 				shuttleObject.commence_docking(shuttleObject.can_dock_with, TRUE)
 			else
 				//Send shuttle object to random location
-				var/datum/orbital_object/z_linked/beacon/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle()
-				z_linked.position = new /datum/orbital_vector(shuttleObject.position.x, shuttleObject.position.y)
+				var/datum/orbital_object/z_linked/beacon/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle(new /datum/orbital_vector(shuttleObject.position.x, shuttleObject.position.y))
 				z_linked.name = "Stranded [shuttleObject]"
 				if(!z_linked)
 					say("Failed to dethrottle shuttle, please contact a Nanotrasen supervisor.")
@@ -145,7 +144,8 @@
 	//Calculate all the data
 	var/list/areas = M.shuttle_areas
 	for(var/shuttleArea in areas)
-		calculated_mass += length(get_area_turfs(shuttleArea))
+		for(var/turf/T in shuttleArea)
+			calculated_mass += 1
 	for(var/obj/machinery/shuttle/engine/E in GLOB.custom_shuttle_machines)
 		if(!(get_area(E) in areas))
 			continue

@@ -26,7 +26,6 @@
 	cartridge_wording = "shell"
 	tac_reloads = FALSE
 	fire_rate = 1 //reee
-	block_upgrade_walk = 1
 	recoil = 1
 	pb_knockback = 2
 
@@ -80,7 +79,15 @@
 	desc = "A compact version of the semi automatic combat shotgun. For close encounters."
 	icon_state = "cshotgunc"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com/compact
+	weapon_weight = WEAPON_MEDIUM
 	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/gun/ballistic/shotgun/automatic/combat/compact/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
+	if(check_wielded(user))
+		recoil = 6
+	else
+		recoil = initial(recoil)
+	. = ..()
 
 // Breaching Shotgun //
 
@@ -148,6 +155,7 @@
 	burst_size = 1
 	fire_delay = 0
 	pin = /obj/item/firing_pin/implant/pindicate
+	spread_unwielded = 15
 	actions_types = list()
 	mag_display = TRUE
 	empty_indicator = TRUE

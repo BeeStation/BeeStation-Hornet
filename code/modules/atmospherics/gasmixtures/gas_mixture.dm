@@ -300,3 +300,5 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 		return TRUE
 	return FALSE
 
+/datum/gas_mixture/proc/vv_react(datum/holder)
+	return react(holder)

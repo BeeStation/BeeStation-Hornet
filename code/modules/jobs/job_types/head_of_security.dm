@@ -34,6 +34,10 @@
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_SECURITY
 	departments = DEPARTMENT_SECURITY | DEPARTMENT_COMMAND
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hos
+	)
+
 /datum/outfit/job/hos
 	name = "Head of Security"
 	jobtype = /datum/job/hos
