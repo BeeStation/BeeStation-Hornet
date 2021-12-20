@@ -121,6 +121,8 @@
 
 	last_flash = world.time
 	use_power(1000)
+	//MonkeStation Edit: Moths are flung towards flashers.
+	Grab_Moths(get_turf(src), 3)
 
 	for (var/mob/living/L in hearers(range, src))
 		if(L.flash_act(affect_silicon = 1))

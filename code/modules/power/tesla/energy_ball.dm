@@ -121,6 +121,8 @@
 	orbitsize -= (orbitsize / world.icon_size) * (world.icon_size * 0.25)
 
 	EB.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36))
+	//MonkeStation Edit: Moths leap for teslas
+	Grab_Moths(get_turf(EB), 10)
 
 
 /obj/singularity/energy_ball/Bump(atom/A)
