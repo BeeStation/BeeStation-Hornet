@@ -91,6 +91,7 @@
 
 /obj/item/storage/toolbox/mechanical/old/heirloom/syndicate
 	name = "really suspicious looking toolbox"
+	desc = "A toolbox designed for a Syndicate agent."
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
 	material_flags = MATERIAL_NO_COLOR
