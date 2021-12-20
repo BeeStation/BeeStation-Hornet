@@ -1,0 +1,4 @@
+author: lowwy
+delete-after: true
+changes:
+  - tweak: Give EVA and External airlocks access to the CMO
