@@ -12,6 +12,11 @@
 GLOBAL_VAR_INIT(hearer_light_test_passed, FALSE)
 GLOBAL_VAR_INIT(hearer_dark_test_passed, FALSE)
 
+/datum/unit_test/test_hearing/New()
+	. = ..()
+	run_loc_bottom_left = locate(1, 1, 1)
+	run_loc_top_right = locate(9, 9, 1)
+
 /datum/unit_test/test_hearing/Run()
 	//Clear out a random area near the base of the world
 	for(var/turf/T in block(locate(3, 3, 1), locate(9, 9, 1)))
