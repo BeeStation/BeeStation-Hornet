@@ -357,7 +357,7 @@
 			/obj/item/reagent_containers/food/snacks/baguette/mime
 		), only_root_path=TRUE)
 	if(lencheck)
-		return 10 // mile will have a high chance to get a baguette
+		return 10 // mime will have a high chance to get a baguette
 	return pick(heirloom_items_base)
 
 // stage magician
@@ -637,13 +637,10 @@
 	var/static/list/heirloom_items_base
 	if(!heirloom_items_base)
 		heirloom_items_base = typecacheof(list(
-			/obj/item/reagent_containers/food/drinks/flask/gold,
-			/obj/item/reagent_containers/food/drinks/flask/gold,
 			/obj/item/reagent_containers/food/drinks/flask/gold
-			//hich chance of spawning captain's flask
 		), only_root_path=TRUE)
 	if(lencheck)
-		return length(heirloom_items_base)
+		return 4 //hich chance of spawning captain's flask
 	return pick(heirloom_items_base)
 
 // head of personnel
