@@ -29,7 +29,7 @@ GLOBAL_VAR_INIT(hearer_dark_test_passed, FALSE)
 
 	//Have something speak
 	var/turf/speaking_turf = locate(6, 6, 1)
-	speaking_turf.Say("test")
+	speaking_turf.say("test")
 
 	//Reset the area
 	for(var/turf/T in block(locate(3, 3, 1), locate(9, 9, 1)))
