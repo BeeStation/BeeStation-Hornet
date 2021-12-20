@@ -107,8 +107,6 @@
 				to_chat(owner, "<span class ='notice'>you manage to calm down a little.</span>")
 			if(fear_state == PHOBIA_STATE_CALM)
 				fear_state = PHOBIA_STATE_EDGY
-				if(prob(stress * 5))
-					fearscore = 9
 		if(9 to 16)
 			if(fear_state >= PHOBIA_STATE_FIGHTORFLIGHT)
 				fear_state = PHOBIA_STATE_UNEASY
@@ -119,8 +117,6 @@
 				fear_state = PHOBIA_STATE_UNEASY
 				owner.add_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE, 100, override=TRUE, multiplicative_slowdown = 1)
 				owner.Jitter(5)
-				if(prob(stress * 5))
-					fearscore = 17
 		if(17 to 28)
 			if(fear_state >= PHOBIA_STATE_TERROR) //we don't get an adrenaline rush when calming down
 				fear_state = PHOBIA_STATE_FIGHTORFLIGHT
