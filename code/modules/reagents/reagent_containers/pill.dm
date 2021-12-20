@@ -269,17 +269,28 @@
 	name = "floorpill"
 	desc = "A strange pill found in the depths of maintenance. Somehow, it can't be dissolved or used in a grinder."
 	icon_state = "pill21"
-	var/static/list/names = list("maintenance pill","floorpill","mystery pill","suspicious pill","strange pill")
 	var/static/list/descs = list("Your feeling is telling you no, but...","Drugs are expensive, you can't afford not to eat any pills that you find."\
 	, "Surely, there's no way this could go bad.")
 	prevent_grinding = TRUE
 	dissolvable = FALSE
 
+	//MonkeStation Edit Start
+	//Randomized Floorpill Names/colors
 /obj/item/reagent_containers/pill/floorpill/Initialize()
 	list_reagents = list(get_unrestricted_random_reagent_id() = rand(10,50))
 	. = ..()
-	name = pick(names)
-
+	add_atom_colour(rgb(rand(255),rand(255),rand(255)), FIXED_COLOUR_PRIORITY)
+	var/drug_word = pick(GLOB.random_drug_names)
+	if(prob(10))
+		drug_word = "[pick("The", "All-Natural", "Kilgor's Favorite", "Tasty", "New & Improved", "Radical", "Double", "Triple", "Quad")] [drug_word]"
+	if(prob(25))
+		drug_word = "[drug_word]'s"
+	drug_word = "[drug_word] [pick(GLOB.random_drug_names)]"
+	if(!drug_word)
+		name = "Floorpill"
+		return
+	name = "[drug_word]"
+	//MonkeStation Edit end
 
 /obj/item/reagent_containers/pill/floorpill/examine(mob/user)
 	. = ..()
