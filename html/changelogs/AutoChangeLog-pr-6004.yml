@@ -1,0 +1,4 @@
+author: KubeRoot, Arkatos1
+delete-after: true
+changes:
+  - bugfix: Fixed ghosts being able to use remote signallers
