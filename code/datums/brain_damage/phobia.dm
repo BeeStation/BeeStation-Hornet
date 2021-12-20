@@ -131,8 +131,6 @@
 				to_chat(owner, "<span class ='userdanger'>YOU HAVE TO GET OUT OF HERE! IT'S DANGEROUS!</span>")
 				owner.add_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE, 100, override=TRUE, multiplicative_slowdown = -0.4)//while terrified, get a speed boost
 				owner.emote("scream")
-				if(prob(stress * 5))
-					fearscore = 27 //we don't get the adrenaline rush, and keel over like a baby immediately
 				psychotic_brawling = new(null)
 				psychotic_brawling.teach(owner, TRUE)
 				owner.adjustStaminaLoss(-75)
@@ -156,8 +154,6 @@
 				owner.Jitter(8)
 				psychotic_brawling.remove(owner)
 				stress++
-				if(prob(stress * 5))
-					fearscore = 36 //we immediately keel over and faint
 		if(36 to INFINITY)
 			if(fear_state <= PHOBIA_STATE_TERROR)
 				fear_state = PHOBIA_STATE_FAINT
@@ -165,7 +161,7 @@
 				psychotic_brawling.remove(owner)//ditto
 				owner.Sleeping(300)
 				owner.visible_message("<span class ='danger'>[owner] faints in fear!.</span>", "<span class ='userdanger'>It's too much! you faint!</span>")
-				if(prob(stress * 1))
+				if(prob(stress))
 					owner.set_heartattack(TRUE)
 					to_chat(owner, "<span class='userdanger'>Your heart stops!</span>")
 				stress++
@@ -202,7 +198,7 @@
 	if(owner.stat >= UNCONSCIOUS)
 		return
 	if(fear_state >= PHOBIA_STATE_EDGY)
-		stress_check = world.time + 3000
+		stress_check = world.time + min(1500, (300 * stress))
 		last_scare = world.time + 100
 	if(reason)
 		if(isliving(reason))
@@ -245,7 +241,7 @@
 			owner.Jitter(3)
 		if(PHOBIA_STATE_FAINT)
 			if(!owner.stat)
-				owner.Sleeping(300)
+				owner.Sleeping(200)
 
 /datum/brain_trauma/mild/phobia/on_lose()
 	owner.remove_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE)

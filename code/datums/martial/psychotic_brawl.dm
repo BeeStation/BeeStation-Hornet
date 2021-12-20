@@ -3,21 +3,10 @@
 	id = MARTIALART_PSYCHOBRAWL
 
 /datum/martial_art/psychotic_brawling/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-<<<<<<< refs/remotes/BeeStation/master
-	if(HAS_TRAIT(A, TRAIT_PACIFISM))
-		return FALSE
-	return psycho_attack(A,D)
-
-/datum/martial_art/psychotic_brawling/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	if(HAS_TRAIT(A, TRAIT_PACIFISM))
-		return FALSE
-	return psycho_attack(A,D)
-=======
 	return psycho_disarm(A,D)
 
 /datum/martial_art/psychotic_brawling/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	return psycho_grab(A,D)
->>>>>>> reworks psychotic brawling, debtor changes
 
 /datum/martial_art/psychotic_brawling/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	return psycho_attack(A,D)
@@ -41,7 +30,13 @@
 			A.Paralyze(40)
 			A.Knockdown(60)
 		if(4)
-			psycho_attack(A,D)
+			A.visible_message("<span class='warning'>[A] starts throwing a tantrum!</span>")
+			A.emote("scream")
+			atk_verb = "throws a tantrum at"
+			A.Paralyze(10)
+			A.Knockdown(15)
+			var/obj/effect/proc_holder/spell/aoe_turf/repulse/R = new(null)
+			R.cast(RANGE_TURFS(1,A))
 		if(5)
 			var/obj/item/I = D.get_active_held_item()
 			if(I && D.temporarilyRemoveItemFromInventory(I))
@@ -49,10 +44,10 @@
 				D.visible_message("<span class='warning'>[A] takes [D]'s [I]!</span>", "<span class='userdanger'>[A] snatches the [I] from your hands!!</span>")
 			else
 				D.visible_message("<span class='warning'>[A] shoves [D]!</span>", "<span class='userdanger'>[A] shoves you to the ground!</span>")
-				if(D.mobility_flags & MOBILITY_STAND)
-					D.Knockdown(20)
-				else
+				if(!(D.mobility_flags & MOBILITY_STAND))
 					D.Paralyze(40)
+				else
+					D.Knockdown(20)
 			atk_verb = "disarms"
 			playsound(D, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
@@ -60,12 +55,12 @@
 			playsound(D, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 			D.visible_message("<span class='warning'>[A] shoves [D] with great force!</span>", "<span class='userdanger'>[A] shoves you to the ground!</span>")
-			if(D.mobility_flags & MOBILITY_STAND)
+			if(!(D.mobility_flags & MOBILITY_STAND))
+				D.Paralyze(20)
+			else
 				var/throwtarget = get_edge_target_turf(A, get_dir(A, get_step_away(D, A)))
 				D.throw_at(throwtarget, 2, 2, A)
 				D.Knockdown(10)
-			else
-				D.Paralyze(20)
 			atk_verb = "shoves"
 	if(atk_verb)
 		log_combat(A, D, "[atk_verb] (Psychotic Brawling)")
@@ -73,11 +68,6 @@
 
 /datum/martial_art/psychotic_brawling/proc/psycho_grab(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/atk_verb
-	if(D.stat)
-		atk_verb = "grabbed"
-		A.start_pulling(D)
-		log_combat(A, D, "grabbed (Psychotic Brawling)")
-		return TRUE
 	switch(rand(1,6))
 		if(1,2)
 			A.stop_pulling()
@@ -136,11 +126,11 @@
 			A.do_attack_animation(D, ATTACK_EFFECT_BITE)
 			D.apply_damage(D.dna.species.punchdamage-3, A.dna.species.attack_type, blocked = armor_block)
 			for(var/datum/disease/V in A.diseases)
-				if((V.spread_flags &(DISEASE_SPREAD_SPECIAL|DISEASE_SPREAD_NON_CONTAGIOUS|DISEASE_SPREAD_FALTERED))
+				if((V.spread_flags & DISEASE_SPREAD_SPECIAL) || (V.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (V.spread_flags & DISEASE_SPREAD_FALTERED))
 					continue
 				V.try_infect(D)
 			for(var/datum/disease/V in D.diseases)
-				if((V.spread_flags & (DISEASE_SPREAD_SPECIAL|DISEASE_SPREAD_NON_CONTAGIOUS|DISEASE_SPREAD_FALTERED))
+				if((V.spread_flags & DISEASE_SPREAD_SPECIAL) || (V.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (V.spread_flags & DISEASE_SPREAD_FALTERED))
 					continue
 				V.try_infect(A)
 			if(prob(10))
