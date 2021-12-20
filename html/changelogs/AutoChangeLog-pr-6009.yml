@@ -1,0 +1,5 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - code_imp: Auto Stale Action no longer marks your PR as stale one day before you
+      make it.
