@@ -134,12 +134,12 @@
 					continue
 				V.try_infect(A)
 			if(prob(10))
-				var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 3), rand(4,9), 0)
+				var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 3), rand(2,7), 1)
 				R.try_infect(D)
 			atk_verb = "bit"		
 		if(2)
 			A.emote("cry")
-			A.Stun(20)
+			A.Stun(16)
 			atk_verb = "cried looking at"
 		if(3)
 			A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
@@ -147,18 +147,16 @@
 			D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>", \
 					  "<span class='userdanger'>[A] [atk_verb] you!</span>")
 			playsound(get_turf(D), 'sound/weapons/punch1.ogg', 40, 1, -1)
-			D.apply_damage(rand(5,10), A.dna.species.attack_type, BODY_ZONE_HEAD)
-			A.apply_damage(rand(5,10), A.dna.species.attack_type, BODY_ZONE_HEAD)
-			if(!istype(D.head,/obj/item/clothing/head/helmet/) && !istype(D.head,/obj/item/clothing/head/hardhat))
-				D.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
+			D.apply_damage(rand(5,10), A.dna.species.attack_type, BODY_ZONE_HEAD, blocked = armor_block)
+			A.apply_damage(rand(5,10), A.dna.species.attack_type, BODY_ZONE_HEAD, blocked = armor_block)
 			A.Stun(rand(10,45))
-			D.Stun(rand(5,30))
+			D.Stun(rand(5,40))
 		if(4)
 			basic_hit(A,D)
 		if(5)
 			A.do_attack_animation(D, ATTACK_EFFECT_BOOP)
 			atk_verb = "pokes"
-			D.apply_damage(max(0, D.dna.species.punchdamage-5), A.dna.species.attack_type, BODY_ZONE_HEAD)
+			D.apply_damage(max(0, D.dna.species.punchdamage-5), A.dna.species.attack_type, BODY_ZONE_HEAD, blocked = armor_block)
 			A.changeNext_move(2)
 			A.emote("laugh")
 			D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>", \
