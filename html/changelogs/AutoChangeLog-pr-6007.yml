@@ -1,0 +1,5 @@
+author: Vasily2013
+delete-after: true
+changes:
+  - bugfix: Delta toxins now has a dual port vent in the airlock again after people
+      neglected to mention it was missing for two weeks
