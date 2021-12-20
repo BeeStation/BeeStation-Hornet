@@ -45,6 +45,10 @@
 	else
 		heirloom_type = /obj/item/toy/plush/heirloom_dummy // something weird value happened
 
+<<<<<<< HEAD
+=======
+	world.log << "0:1 / 1: [tablesize[1]] / 2: [tablesize[2]] / 3: [tablesize[3]] / 4: [tablesize[4]] / 5: [tablesize[5]] / rand: [weightvalue]"
+>>>>>>> family
 
 	//fail to pick an item from table
 	if(!heirloom_type)
