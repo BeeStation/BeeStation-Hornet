@@ -3,7 +3,7 @@
 	desc = "A scanner used by scientists to collect research data about unknown artifacts and specimins."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "discovery"
-	item_state = "healthanalyzer"
+	item_state = "discoveryscanner"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
