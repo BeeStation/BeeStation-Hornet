@@ -832,7 +832,6 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		)
 		if(!query_library_print.Execute())
 			to_chat(usr, "<span class='warning'>Failed to delete book.</span>")
-			qdel(query_burn_book)
 		else
 			message_admins("[usr] deleted book number [bookid] with title [title]")
 			log_admin("[usr] deleted book number [bookid] with title [title]")
