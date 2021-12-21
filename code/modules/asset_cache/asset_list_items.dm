@@ -235,6 +235,12 @@
 		"boss6.gif" = 'icons/UI_Icons/Arcade/boss6.gif',
 		)
 
+/datum/asset/spritesheet/simple/achievements
+	name ="achievements"
+	assets = list(
+		"default" = 'icons/UI_Icons/Achievements/default.png'
+	)
+
 /datum/asset/spritesheet/simple/pills
 	name ="pills"
 	assets = list(

@@ -239,5 +239,4 @@
 	item_color = "lawyer_purp_skirt"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP 
-
+	fitted = FEMALE_UNIFORM_TOP

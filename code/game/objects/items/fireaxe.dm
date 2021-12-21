@@ -8,7 +8,6 @@
 	name = "fire axe"
 	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
 	attack_weight = 3
-	block_upgrade_walk = 1
 	force = 5
 	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY

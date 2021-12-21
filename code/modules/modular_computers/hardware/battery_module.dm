@@ -7,6 +7,9 @@
 	var/obj/item/stock_parts/cell/battery
 	device_type = MC_CELL
 
+/obj/item/computer_hardware/battery/get_cell()
+	return battery
+
 /obj/item/computer_hardware/battery/Initialize(mapload, battery_type)
 	. = ..()
 	if(battery_type)

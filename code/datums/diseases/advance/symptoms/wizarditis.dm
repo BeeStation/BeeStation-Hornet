@@ -49,7 +49,7 @@
 			if(prob(30) && prob(50))
 				to_chat(M, "<span class='danger'>You feel [pick("the magic bubbling in your veins","that this location gives you a +1 to INT","an urge to summon familiar")].</span>")
 
-		if(4,5)
+		if(4, 5)
 
 			if(prob(50))
 				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"))
@@ -71,7 +71,7 @@
 			if(!istype(H.head, /obj/item/clothing/head/wizard))
 				if(!H.dropItemToGround(H.head))
 					qdel(H.head)
-				C = new /obj/item/clothing/head/wizard(H)
+				C = new /obj/item/clothing/head/wizard/fake(H)
 				ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
 				H.equip_to_slot_or_del(C, ITEM_SLOT_HEAD)
 			return
@@ -79,15 +79,15 @@
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
 				if(!H.dropItemToGround(H.wear_suit))
 					qdel(H.wear_suit)
-				C = new /obj/item/clothing/suit/wizrobe(H)
+				C = new /obj/item/clothing/suit/wizrobe/fake(H)
 				ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
 				H.equip_to_slot_or_del(C, ITEM_SLOT_OCLOTHING)
 			return
 		if(prob(chance))
-			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal/magic))
+			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
 				if(!H.dropItemToGround(H.shoes))
 					qdel(H.shoes)
-				C = new /obj/item/clothing/shoes/sandal/magic(H)
+				C = new /obj/item/clothing/shoes/sandal(H)
 				ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
 				H.equip_to_slot_or_del(C, ITEM_SLOT_FEET)
 			return
@@ -112,7 +112,7 @@
 			REMOVE_TRAIT(H.head, TRAIT_NODROP, DISEASE_TRAIT)
 		if(istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
 			REMOVE_TRAIT(H.wear_suit, TRAIT_NODROP, DISEASE_TRAIT)
-		if(istype(H.shoes, /obj/item/clothing/shoes/sandal/magic))
+		if(istype(H.shoes, /obj/item/clothing/shoes/sandal))
 			REMOVE_TRAIT(H.shoes, TRAIT_NODROP, DISEASE_TRAIT)
 
 
