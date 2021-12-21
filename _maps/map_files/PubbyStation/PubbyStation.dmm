@@ -25580,7 +25580,7 @@
 "bnU" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Server Room";
-	req_access_txt = "30;70"
+	req_one_access_txt = "30;70"
 	},
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -27887,7 +27887,7 @@
 "btf" = (
 /obj/machinery/door/airlock/command{
 	name = "Server Room";
-	req_access_txt = "30;70"
+	req_one_access_txt = "30;70"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"

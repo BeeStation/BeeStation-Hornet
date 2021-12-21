@@ -209,6 +209,15 @@
 		color = initial(color)//looks better.
 		add_overlay(blob_head_overlay)
 
+/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay)
+	if(target == src.target)
+		approaching_target = TRUE
+	else
+		approaching_target = FALSE
+	for(var/w in get_path_to(src, target, simulated_only = FALSE, avoid_mobs = TRUE))
+		step(src, get_dir(src, w))
+		sleep(delay)
+
 /mob/living/simple_animal/hostile/blob/blobspore/weak
 	name = "fragile blob spore"
 	health = 15
