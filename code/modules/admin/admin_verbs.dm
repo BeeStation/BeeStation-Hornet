@@ -827,7 +827,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		var/confirmation = alert(src,"Are you sure you want to delete the book with author [author] and title [title]?","Guy Montag Incarnate","Yes","No")
 		if(confirmation == "Yes")
 			var/datum/DBQuery/query_burn_book = SSdbcore.NewQuery(
-				"UPDATE [format_table_name("library")] SET deleted = NULL WHERE id=:id",
+				"UPDATE [format_table_name("library")] SET deleted = 1 WHERE id=:id",
 				list("id" = bookid)
 			)
 			if(!query_library_print.Execute())
