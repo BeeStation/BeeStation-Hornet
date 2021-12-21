@@ -164,8 +164,6 @@
 
 /obj/item/janicart_upgrade/vacuum/uninstall(obj/vehicle/ridden/janicart/installee)
 	qdel(installee.GetComponent(/datum/component/vacuum))
-	floorbuffer = TRUE
 
 /obj/vehicle/ridden/janicart/upgraded/keyless
-	floorbuffer = TRUE
 	key_type = null
