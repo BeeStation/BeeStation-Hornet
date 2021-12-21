@@ -387,11 +387,4 @@
 	desc = "Summons a pod containing one (1) pimpin ride."
 
 /obj/item/choice_beacon/janicart/generate_display_names()
-	var/static/list/cart_spaghetti_list
-	if(!cart_spaghetti_list)
-		cart_spaghetti_list = list()
-		var/list/templist = list(/obj/vehicle/ridden/janicart/upgraded/keyless)
-		for(var/V in templist)
-			var/atom/A = V
-			cart_spaghetti_list[initial(A.name)] = A
-	return cart_spaghetti_list
+	return list("janitor cart" = /obj/vehicle/ridden/janicart/upgraded/keyless)
