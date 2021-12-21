@@ -1,0 +1,8 @@
+author: MNarath1
+delete-after: true
+changes:
+  - rscadd: ability to ignore mobs for JPS (Jump Point Search) pathing
+  - tweak: blob spores will ignore mobs during pathfinding
+  - bugfix: fixes blob spores beeing unable to path trough blob structures
+  - refactor: Refactors Goto for blob spores to use JPS pathing instead of the byond
+      native pathfinding
