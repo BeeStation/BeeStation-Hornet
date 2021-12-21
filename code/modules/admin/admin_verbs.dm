@@ -817,12 +817,10 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		"SELECT * FROM [format_table_name("library")] WHERE id=:id AND isnull(deleted)",
 		list("id" = bookid)
 	)
-	if(!query_library_print.Execute())
+	if(!query_library_print.Execute() || !query_library_print.NextRow())
 		to_chat(usr, "<span class='warning'>Failed to locate book [bookid].</span>")
 		qdel(query_library_print)
 		return
-
-	query_library_print.NextRow()
 	var/author = query_library_print.item[2]
 	var/title = query_library_print.item[3]
 	var/confirmation = alert(src,"Are you sure you want to delete the book with author [author] and title [title]?","Guy Montag Incarnate","Yes","No")
