@@ -820,6 +820,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	if(!query_library_print.Execute())
 		to_chat(usr, "<span class='warning'>Failed to locate book [bookid].</span>")
 		qdel(query_library_print)
+		return
 
 	query_library_print.NextRow()
 	var/author = query_library_print.item[2]
