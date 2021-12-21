@@ -108,6 +108,9 @@
 /obj/vehicle/ridden/janicart/upgraded
 	installed_upgrade = new /obj/item/janicart_upgrade/buffer
 
+/obj/vehicle/ridden/janicart/upgraded/keyless
+	key_type = null
+
 /obj/vehicle/ridden/janicart/upgraded/vacuum
 	installed_upgrade = new /obj/item/janicart_upgrade/vacuum
 
@@ -164,6 +167,3 @@
 
 /obj/item/janicart_upgrade/vacuum/uninstall(obj/vehicle/ridden/janicart/installee)
 	qdel(installee.GetComponent(/datum/component/vacuum))
-
-/obj/vehicle/ridden/janicart/upgraded/keyless
-	key_type = null
