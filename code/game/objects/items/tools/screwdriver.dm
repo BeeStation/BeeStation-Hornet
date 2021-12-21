@@ -26,15 +26,15 @@
 	greyscale_config_inhand_left = /datum/greyscale_config/screwdriver_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/screwdriver_inhand_right
 	greyscale_config_belt = /datum/greyscale_config/screwdriver_belt
-	var/random_color = TRUE //if the screwdriver uses random coloring
+	var/random_color = TRUE // if the screwdriver uses random coloring
 	var/static/list/screwdriver_colors = list(
-		"blue" = "#1861d5",
-		"red" = "#ff0000",
-		"pink" = "#d5188d",
-		"brown" = "#a05212",
-		"green" = "#0e7f1b",
-		"cyan" = "#18a2d5",
-		"yellow" = "#ffa500"
+		"blue" = "#1861D5",
+		"red" = "#FF0000",
+		"pink" = "#D5188D",
+		"brown" = "#A05212",
+		"green" = "#0E7F1B",
+		"cyan" = "#18A2D5",
+		"yellow" = "#FFA500",
 	)
 
 /obj/item/screwdriver/suicide_act(mob/user)
@@ -44,7 +44,7 @@
 /obj/item/screwdriver/Initialize()
 	if(random_color)
 		var/our_color = pick(screwdriver_colors)
-		set_greyscale(colors=list(screwdriver_colors[our_color]))
+		set_greyscale(colors = screwdriver_colors[our_color])
 	. = ..()
 
 /obj/item/screwdriver/worn_overlays(isinhands = FALSE, icon_file)

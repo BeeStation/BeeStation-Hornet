@@ -155,10 +155,7 @@
 	if(freshly_laundered)
 		. += "It looks fresh and clean."
 	if(can_adjust)
-		if(adjusted == ALT_STYLE)
-			. += "Alt-click on [src] to wear it normally."
-		else
-			. += "Alt-click on [src] to wear it casually."
+		. += "Alt-click on [src] to wear it [adjusted == ALT_STYLE ? "normally" : "casually"]."
 	if (has_sensor == BROKEN_SENSORS)
 		. += "Its sensors appear to be shorted out."
 	else if(has_sensor > NO_SENSORS)
