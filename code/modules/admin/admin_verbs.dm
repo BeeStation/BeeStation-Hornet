@@ -818,7 +818,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		list("id" = bookid)
 	)
 	if(!query_library_print.Execute())
-		to_chat(usr, "<span class='warning'>Failed to locate book.</span>")
+		to_chat(usr, "<span class='warning'>Failed to locate book [bookid].</span>")
 		qdel(query_library_print)
 
 	query_library_print.NextRow()
