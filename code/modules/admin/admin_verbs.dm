@@ -821,22 +821,23 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		to_chat(usr, "<span class='warning'>Failed to locate book.</span>")
 		qdel(query_library_print)
 
-	while(query_library_print.NextRow())
-		var/author = query_library_print.item[2]
-		var/title = query_library_print.item[3]
-		var/confirmation = alert(src,"Are you sure you want to delete the book with author [author] and title [title]?","Guy Montag Incarnate","Yes","No")
-		if(confirmation == "Yes")
-			var/datum/DBQuery/query_burn_book = SSdbcore.NewQuery(
-				"UPDATE [format_table_name("library")] SET deleted = 1 WHERE id=:id",
-				list("id" = bookid)
-			)
-			if(!query_library_print.Execute())
-				to_chat(usr, "<span class='warning'>Failed to delete book.</span>")
-				qdel(query_burn_book)
-			else
-				message_admins("[usr] deleted book number [bookid] with title [title]")
+	query_library_print.NextRow()
+	var/author = query_library_print.item[2]
+	var/title = query_library_print.item[3]
+	var/confirmation = alert(src,"Are you sure you want to delete the book with author [author] and title [title]?","Guy Montag Incarnate","Yes","No")
+	if(confirmation == "Yes")
+		var/datum/DBQuery/query_burn_book = SSdbcore.NewQuery(
+			"UPDATE [format_table_name("library")] SET deleted = 1 WHERE id=:id",
+			list("id" = bookid)
+		)
+		if(!query_library_print.Execute())
+			to_chat(usr, "<span class='warning'>Failed to delete book.</span>")
 			qdel(query_burn_book)
-			qdel(query_library_print)
+		else
+			message_admins("[usr] deleted book number [bookid] with title [title]")
+			log_admin("[usr] deleted book number [bookid] with title [title]")
+		qdel(query_burn_book)
+		qdel(query_library_print)
 
 #ifdef SENDMAPS_PROFILE
 /client/proc/display_sendmaps()
