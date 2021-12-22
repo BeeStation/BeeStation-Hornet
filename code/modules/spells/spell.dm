@@ -582,21 +582,25 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/proc/can_cast(mob/user = usr)
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
 		return FALSE
-
+	to_chat(user, "mind passed at [world.time]")
 	if(!charge_check(user,TRUE))
 		return FALSE
-
+	to_chat(user, "charge passed at [world.time]")
 	if(user.stat && !stat_allowed)
 		return FALSE
-
+	to_chat(user, "stat passed at [world.time]")
 	if(!antimagic_allowed && user.anti_magic_check(TRUE, FALSE, major = FALSE, self = TRUE))
 		return FALSE
-
+	to_chat(user, "antimagic passed at [world.time]")
 	if(!ishuman(user))
+		to_chat(user, "notishuman passed at [world.time]")
 		if(clothes_req || human_req)
 			return FALSE
+		to_chat(user, "clothes passed at [world.time]")
 		if(nonabstract_req && (isbrain(user) || ispAI(user)))
 			return FALSE
+		to_chat(user, "nonabstract passed at [world.time]")
+	to_chat(user, "base return true at [world.time]")
 	return TRUE
 
 //===Timer animation===
