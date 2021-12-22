@@ -2002,7 +2002,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if("mime")
 			return pick(GLOB.mime_names)
 		if("magician")
-			return pick(GLOB.magician_names)
+			return "[random_unique_name()] [pick(GLOB.magician_titles)]"
 		if("religion")
 			return DEFAULT_RELIGION
 		if("deity")
