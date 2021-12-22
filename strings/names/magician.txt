@@ -2,9 +2,7 @@ The Master Magician
 The Mystical Magician
 The Powerful Magician
 The Great Magician
-The Magician
 The Master Illusionist
-The Illusionist
 The Master Legerdemain
 The Master Legerdemainist
 The Legerdemainist
@@ -13,23 +11,17 @@ The Prestidigitator
 The Master Prestidigitator
 The Master Sleight Of Hand
 The Master Trickster
-The Trickster
 The Master Deceiver
-The Deceiver
 The Master Escapist
-The Escapist
 The Master Manipulator
-The Manipulator
 The Master Of Attraction
 The Master Of Magic
 The Master Mystery
 The Invisible Hands
-The Great
 The Great and Powerful
-The Foreseer
-The Creator
-The Wonderful
-The Wonder
+The Wonderous Foreseer
+The Wonderous Creator
+The Wonderful and Mystical
 The Mystical Hands
 The Living Magician
 The Silver tongue and Hands
