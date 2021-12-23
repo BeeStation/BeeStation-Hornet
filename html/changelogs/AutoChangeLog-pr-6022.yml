@@ -1,0 +1,5 @@
+author: zeskorion
+delete-after: true
+changes:
+  - bugfix: regenerative extracts now have correct descriptions
+  - bugfix: light pink regen core has been nerfed as well
