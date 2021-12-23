@@ -35,3 +35,8 @@
 	lighting_overlay_colour = "#93c3cf"
 	lighting_overlay_opacity = 60
 	luminosity = 1
+
+/area/planet/Initialize()
+	. = ..()
+	//Force luminosity
+	luminosity = 1

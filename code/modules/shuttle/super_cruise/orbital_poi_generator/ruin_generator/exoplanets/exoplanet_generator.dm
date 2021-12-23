@@ -1,8 +1,8 @@
-/proc/generate_exoplanet(center_z)
+/proc/generate_exoplanet(center_z, datum/exoplanet_biome/biome)
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = TRUE
 	try
-		_generate_exoplanet(center_z, new /datum/exoplanet_biome/lavaland)
+		_generate_exoplanet(center_z, biome)
 	catch(var/exception/e)
 		message_admins("Exoplanet failed to generate!")
 		stack_trace("Exoplanet failed to generate! [e] on [e.file]:[e.line]")
@@ -52,7 +52,14 @@
 			else
 				T.ChangeTurf(biome.river_type, list(biome.river_type), CHANGETURF_IGNORE_AIR)
 		else
-			T.baseturfs = list(biome.plains_type, biome.river_type)
+			if(!islist(T.baseturfs))
+				T.baseturfs = list()
+			//Remove the space baseturf
+			if(T.baseturfs.len && ispath(T.baseturfs[1], /turf/open/space))
+				T.baseturfs.Remove(T.baseturfs[1])
+			//Insert our own baseturfs
+			T.baseturfs.Insert(0, biome.plains_type)
+			T.baseturfs.Insert(0, biome.river_type)
 		CHECK_TICK
 	new_area.update_areasize()
 

@@ -177,6 +177,9 @@
 /turf/open/floor/plating/asteroid/snow/ice/burn_tile()
 	return FALSE
 
+/turf/open/floor/plating/asteroid/snow/ice/frozen_atmos
+	initial_gas_mix = FROZEN_ATMOS
+
 /turf/open/floor/plating/asteroid/snow/airless
 	initial_gas_mix = AIRLESS_ATMOS
 

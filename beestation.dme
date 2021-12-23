@@ -3180,6 +3180,7 @@
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\exoplanets\biomes\_biome.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\exoplanets\biomes\lavaland.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\exoplanets\biomes\lush.dm"
+#include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\exoplanets\biomes\winter_planes.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\generator_settings\_generator_settings.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\generator_settings\generator_abandoned.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\generator_settings\generator_blob.dm"

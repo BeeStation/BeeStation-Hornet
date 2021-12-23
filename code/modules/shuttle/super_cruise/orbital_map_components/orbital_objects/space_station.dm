@@ -10,6 +10,9 @@
 /datum/orbital_object/z_linked/station/New()
 	. = ..()
 	SSorbits.station_instance = src
+	if(FESTIVE_SEASON in SSevents.holidays)
+		name = "Winter Planet"
+		radius = 110
 
 /datum/orbital_object/z_linked/station/explode()
 	. = ..()
