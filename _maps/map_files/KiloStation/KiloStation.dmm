@@ -61172,7 +61172,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/locker)
 "bKb" = (
-/obj/machinery/atmospherics/components/binary/valve/layer3,
+/obj/machinery/atmospherics/components/binary/valve/layer4,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)

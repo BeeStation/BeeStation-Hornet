@@ -6189,7 +6189,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "aok" = (
-/obj/machinery/atmospherics/components/binary/valve/layer1{
+/obj/machinery/atmospherics/components/binary/valve/layer2{
 	dir = 4
 	},
 /turf/open/floor/plating,

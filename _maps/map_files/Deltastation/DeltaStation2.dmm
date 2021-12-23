@@ -44651,7 +44651,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer2{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -118199,7 +118199,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer2{
 	dir = 4
 	},
 /turf/open/floor/plating,
