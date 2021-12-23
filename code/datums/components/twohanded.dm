@@ -122,7 +122,7 @@
 /// Triggered on equip of the item containing the component
 /datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
-
+	
 	if(auto_wield)
 		if(slot == ITEM_SLOT_HANDS)
 			RegisterSignal(user, COMSIG_MOB_SWAP_HANDS, .proc/on_swap_hands)

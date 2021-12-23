@@ -95,7 +95,7 @@
 	if(!canMouseDown) //Some things like beam rifles override this.
 		canMouseDown = automatic //Nsv13 / Bee change.
 	build_zooming()
-	if(!spread_unwielded)
+	if(isnull(spread_unwielded))
 		spread_unwielded = weapon_weight * 20 + 20
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/wield)
 	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/unwield)
@@ -139,14 +139,13 @@
 
 /obj/item/gun/examine(mob/user)
 	. = ..()
-	if(no_pin_required)
-		return
 
-	if(pin)
-		. += "It has \a [pin] installed."
-		. += "<span class='info'>[pin] looks like it could be removed with some <b>tools</b>.</span>"
-	else
-		. += "It doesn't have a <b>firing pin</b> installed, and won't fire."
+	if(!no_pin_required)
+		if(pin)
+			. += "It has \a [pin] installed."
+			. += "<span class='info'>[pin] looks like it could be removed with some <b>tools</b>.</span>"
+		else
+			. += "It doesn't have a <b>firing pin</b> installed, and won't fire."
 
 	if(gun_light)
 		. += "It has \a [gun_light] [can_flashlight ? "" : "permanently "]mounted on it."
@@ -161,6 +160,10 @@
 			. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
 	else if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
+
+	if(weapon_weight == WEAPON_HEAVY)
+		. += "This weapon is too heavy to use with just 1 hand!"
+
 
 /obj/item/gun/equipped(mob/living/user, slot)
 	. = ..()
@@ -250,8 +253,7 @@
 				user.dropItemToGround(src, TRUE)
 				return
 
-	var/obj/item/bodypart/other_hand = user.has_hand_for_held_index(user.get_inactive_hand_index()) //returns non-disabled inactive hands
-	if(weapon_weight == WEAPON_HEAVY && (!istype(user.get_inactive_held_item(), /obj/item/offhand) || !other_hand))
+	if(weapon_weight == WEAPON_HEAVY && !is_wielded)
 		balloon_alert(user, "You need both hands free to fire")
 		return
 

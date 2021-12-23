@@ -226,7 +226,6 @@
 	fire_rate = 6
 	spread = 7
 	pin = /obj/item/firing_pin/implant/pindicate
-	spread_unwielded = 15
 	bolt_type = BOLT_TYPE_OPEN
 	mag_display = TRUE
 	mag_display_ammo = TRUE
