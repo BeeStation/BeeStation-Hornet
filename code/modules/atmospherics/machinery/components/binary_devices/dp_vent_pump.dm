@@ -6,7 +6,7 @@
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump
 	icon = 'icons/obj/atmospherics/components/unary_devices.dmi' //We reuse the normal vent icons!
-	icon_state = "dpvent_map-2"
+	icon_state = "dpvent_map-3"
 
 	//node2 is output port
 	//node1 is input port
