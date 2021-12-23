@@ -237,11 +237,11 @@
 	icon_state = "dpvent_map_on-3"
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/on/layer2
-	piping_layer = 1
+	piping_layer = 2
 	icon_state = "dpvent_map_on-2"
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/on/layer4
-	piping_layer = 3
+	piping_layer = 4
 	icon_state = "dpvent_map_on-4"
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_toxmix
@@ -269,11 +269,11 @@
 	icon_state = "dpvent_map_on-3"
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/on/layer2
-	piping_layer = 1
+	piping_layer = 2
 	icon_state = "dpvent_map_on-2"
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/on/layer4
-	piping_layer = 3
+	piping_layer = 4
 	icon_state = "dpvent_map_on-4"
 
 #undef EXT_BOUND
