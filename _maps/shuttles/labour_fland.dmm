@@ -22,7 +22,7 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/labor)
 "k" = (
-/obj/effect/turf_decal/tile/tile_full/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /obj/machinery/light,
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
@@ -52,7 +52,7 @@
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = -32
 	},
-/obj/effect/turf_decal/tile/tile_full/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "w" = (
@@ -75,7 +75,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "z" = (
-/obj/effect/turf_decal/tile/tile_full/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "A" = (
@@ -107,7 +107,7 @@
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/tile_full/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "G" = (

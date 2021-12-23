@@ -22,7 +22,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/biogenerator,
-/obj/effect/turf_decal/tile/tile_side/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "h" = (
@@ -43,7 +43,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/effect/turf_decal/tile/tile_side/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -84,7 +84,7 @@
 /obj/item/melee/flyswatter,
 /obj/item/melee/flyswatter,
 /obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/tile_side/neutral{
+/obj/effect/turf_decal/tile/neutral/tile_side{
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
@@ -120,7 +120,7 @@
 /obj/item/honey_frame,
 /obj/item/honey_frame,
 /obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/tile_side/neutral{
+/obj/effect/turf_decal/tile/neutral/tile_side{
 	dir = 10
 	},
 /turf/open/floor/plasteel/dark,
@@ -170,7 +170,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/seed_extractor,
-/obj/effect/turf_decal/tile/tile_side/neutral{
+/obj/effect/turf_decal/tile/neutral/tile_side{
 	dir = 6
 	},
 /turf/open/floor/plasteel/dark,

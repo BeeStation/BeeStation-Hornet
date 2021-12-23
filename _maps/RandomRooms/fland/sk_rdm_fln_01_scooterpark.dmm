@@ -68,7 +68,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "n" = (
-/obj/effect/turf_decal/tile/tile_full/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "o" = (
@@ -138,7 +138,7 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "y" = (
-/obj/effect/turf_decal/tile/tile_full/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -167,7 +167,7 @@
 /area/template_noop)
 "D" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/tile_full/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "F" = (
@@ -224,7 +224,7 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "T" = (
-/obj/effect/turf_decal/tile/tile_full/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
 /turf/open/floor/plasteel,
 /area/template_noop)

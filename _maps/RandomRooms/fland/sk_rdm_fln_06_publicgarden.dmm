@@ -17,8 +17,8 @@
 	pixel_y = 4
 	},
 /obj/item/reagent_containers/spray/plantbgone,
-/obj/effect/turf_decal/tile/tile_full/green,
-/obj/effect/turf_decal/tile/tile_side/neutral,
+/obj/effect/turf_decal/tile/green/tile_full,
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "h" = (
@@ -33,14 +33,14 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/tile_side/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /turf/open/floor/grass,
 /area/template_noop)
 "k" = (
-/obj/effect/turf_decal/tile/tile_side/green{
+/obj/effect/turf_decal/tile/green/tile_side{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/tile_side/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
@@ -50,8 +50,8 @@
 	dir = 8;
 	pixel_x = -12
 	},
-/obj/effect/turf_decal/tile/tile_full/green,
-/obj/effect/turf_decal/tile/tile_side/neutral,
+/obj/effect/turf_decal/tile/green/tile_full,
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "u" = (
@@ -59,8 +59,8 @@
 	pixel_x = -6;
 	pixel_y = -25
 	},
-/obj/effect/turf_decal/tile/tile_side/green,
-/obj/effect/turf_decal/tile/tile_side/neutral{
+/obj/effect/turf_decal/tile/green/tile_side,
+/obj/effect/turf_decal/tile/neutral/tile_side{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -73,10 +73,10 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "y" = (
-/obj/effect/turf_decal/tile/tile_side/green{
+/obj/effect/turf_decal/tile/green/tile_side{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/tile_side/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 6
 	},
@@ -93,10 +93,10 @@
 /turf/closed/wall/r_wall,
 /area/template_noop)
 "C" = (
-/obj/effect/turf_decal/tile/tile_side/green{
+/obj/effect/turf_decal/tile/green/tile_side{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/tile_side/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 6
@@ -104,30 +104,30 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "D" = (
-/obj/effect/turf_decal/tile/tile_side/green{
+/obj/effect/turf_decal/tile/green/tile_side{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/tile_side/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "E" = (
-/obj/effect/turf_decal/tile/tile_side/green{
+/obj/effect/turf_decal/tile/green/tile_side{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/tile_side/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "F" = (
-/obj/effect/turf_decal/tile/tile_side/green,
-/obj/effect/turf_decal/tile/tile_side/neutral{
+/obj/effect/turf_decal/tile/green/tile_side,
+/obj/effect/turf_decal/tile/neutral/tile_side{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "H" = (
-/obj/effect/turf_decal/tile/tile_side/green,
-/obj/effect/turf_decal/tile/tile_side/neutral{
+/obj/effect/turf_decal/tile/green/tile_side,
+/obj/effect/turf_decal/tile/neutral/tile_side{
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
@@ -137,7 +137,7 @@
 /area/template_noop)
 "I" = (
 /obj/machinery/hydroponics/soil,
-/obj/effect/turf_decal/tile/tile_side/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /turf/open/floor/grass,
 /area/template_noop)
 "J" = (
@@ -158,8 +158,8 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "P" = (
-/obj/effect/turf_decal/tile/tile_side/green,
-/obj/effect/turf_decal/tile/tile_side/neutral{
+/obj/effect/turf_decal/tile/green/tile_side,
+/obj/effect/turf_decal/tile/neutral/tile_side{
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
@@ -170,8 +170,8 @@
 "Q" = (
 /obj/structure/table,
 /obj/item/storage/bag/plants/portaseeder,
-/obj/effect/turf_decal/tile/tile_full/green,
-/obj/effect/turf_decal/tile/tile_side/neutral,
+/obj/effect/turf_decal/tile/green/tile_full,
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "R" = (
@@ -183,8 +183,8 @@
 /obj/item/crowbar,
 /obj/item/hatchet,
 /obj/item/cultivator,
-/obj/effect/turf_decal/tile/tile_full/green,
-/obj/effect/turf_decal/tile/tile_side/neutral,
+/obj/effect/turf_decal/tile/green/tile_full,
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "U" = (
@@ -199,8 +199,8 @@
 	},
 /obj/item/hatchet,
 /obj/item/cultivator,
-/obj/effect/turf_decal/tile/tile_full/green,
-/obj/effect/turf_decal/tile/tile_side/neutral,
+/obj/effect/turf_decal/tile/green/tile_full,
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "W" = (
@@ -225,8 +225,8 @@
 /obj/item/seeds/cocoapod,
 /obj/item/seeds/banana,
 /obj/item/seeds/apple,
-/obj/effect/turf_decal/tile/tile_full/green,
-/obj/effect/turf_decal/tile/tile_side/neutral,
+/obj/effect/turf_decal/tile/green/tile_full,
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /turf/open/floor/plasteel,
 /area/template_noop)
 

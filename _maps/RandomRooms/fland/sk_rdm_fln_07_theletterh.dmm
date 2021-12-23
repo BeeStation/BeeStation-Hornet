@@ -32,7 +32,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
-/obj/effect/turf_decal/tile/tile_side/red{
+/obj/effect/turf_decal/tile/red/tile_side{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -49,7 +49,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "q" = (
-/obj/effect/turf_decal/tile/tile_side/red{
+/obj/effect/turf_decal/tile/red/tile_side{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
@@ -60,7 +60,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "s" = (
-/obj/effect/turf_decal/tile/tile_side/red{
+/obj/effect/turf_decal/tile/red/tile_side{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
@@ -76,14 +76,14 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "v" = (
-/obj/effect/turf_decal/tile/tile_side/red{
+/obj/effect/turf_decal/tile/red/tile_side{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "y" = (
-/obj/effect/turf_decal/tile/tile_side/red,
+/obj/effect/turf_decal/tile/red/tile_side,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24
 	},
@@ -96,20 +96,20 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "A" = (
-/obj/effect/turf_decal/tile/tile_side/red{
+/obj/effect/turf_decal/tile/red/tile_side{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "C" = (
-/obj/effect/turf_decal/tile/tile_side/red{
+/obj/effect/turf_decal/tile/red/tile_side{
 	dir = 6
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "D" = (
-/obj/effect/turf_decal/tile/tile_side/red{
+/obj/effect/turf_decal/tile/red/tile_side{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -121,7 +121,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "G" = (
-/obj/effect/turf_decal/tile/tile_side/red{
+/obj/effect/turf_decal/tile/red/tile_side{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -154,7 +154,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "S" = (
-/obj/effect/turf_decal/tile/tile_side/red,
+/obj/effect/turf_decal/tile/red/tile_side,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "U" = (
@@ -162,7 +162,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "V" = (
-/obj/effect/turf_decal/tile/tile_side/red,
+/obj/effect/turf_decal/tile/red/tile_side,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
