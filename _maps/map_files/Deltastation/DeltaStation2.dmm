@@ -6219,10 +6219,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/components/binary/pump/layer1{
+/obj/machinery/atmospherics/components/binary/pump/layer2{
 	name = "Arrivals Distribution Drain"
 	},
-/obj/machinery/atmospherics/components/binary/pump/on/layer3{
+/obj/machinery/atmospherics/components/binary/pump/on/layer4{
 	dir = 1;
 	name = "Arrivals Distribution Pump";
 	target_pressure = 3000
@@ -96411,7 +96411,7 @@
 	dir = 9
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/components/binary/pump/on/layer1{
+/obj/machinery/atmospherics/components/binary/pump/on/layer2{
 	level = 1;
 	name = "Virology Positive Pressure Distribution Pump"
 	},
