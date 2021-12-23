@@ -38,7 +38,7 @@
 	var/list/display_names = generate_display_names()
 	if(!display_names.len)
 		return
-	var/choice = tgui_input_list(M, "Which item would you like to order?", "Select an Item", display_names)
+	var/choice = input(M,"Which item would you like to order?","Select an Item") as null|anything in sortList(display_names)
 	if(!choice || !M.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 
@@ -126,6 +126,15 @@
 	new /obj/item/clothing/mask/gas/carp(src)
 	new /obj/item/kitchen/knife/hunting(src)
 	new /obj/item/storage/box/papersack/meat(src)
+
+/obj/item/storage/box/hero/ronin
+    name = "Sword Saint, Wandering Vagabond - 1600's."
+
+/obj/item/storage/box/hero/ronin/PopulateContents()
+    new /obj/item/clothing/under/costume/kamishimo(src)
+    new /obj/item/clothing/head/rice_hat(src)
+    new /obj/item/katana/weak/curator(src)
+    new /obj/item/clothing/shoes/sandal(src)
 
 /obj/item/choice_beacon/augments
 	name = "augment beacon"

@@ -94,7 +94,7 @@
 	set_butchering()
 
 	///Adds the butchering component, used to override stats for special cases
-	/obj/item/kitchen/knife/proc/set_butchering()
+/obj/item/kitchen/knife/proc/set_butchering()
 	AddComponent(/datum/component/butchering, 80 - force, 100, force - 10) //bonus chance increases depending on force
 
 /obj/item/kitchen/knife/attack(mob/living/carbon/M, mob/living/carbon/user)
