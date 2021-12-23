@@ -42,8 +42,10 @@
 	var/dual_wield_spread = 24			//additional spread when dual wielding
 	var/spread = 0						//Spread induced by the gun itself.
 	var/spread_multiplier = 1			//Multiplier for shotgun spread
-	var/spread_unwielded				//Spread induced by holding the gun with 1 hand. Can be set to 0 to disable autocalc. (40 for light weapons, 60 for medium by default)
+	var/spread_unwielded				//Spread induced by holding the gun with 1 hand. (40 for light weapons, 60 for medium by default)
 	var/randomspread = 1				//Set to 0 for shotguns. This is used for weapons that don't fire all their bullets at once.
+
+	var/is_wielded = FALSE
 
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
@@ -93,8 +95,21 @@
 	if(!canMouseDown) //Some things like beam rifles override this.
 		canMouseDown = automatic //Nsv13 / Bee change.
 	build_zooming()
-	if(isnull(spread_unwielded))
-		spread_unwielded = weapon_weight * 20 + 20 //{40, 60, 80}
+	if(!spread_unwielded)
+		spread_unwielded = weapon_weight * 20 + 20
+	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/wield)
+	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/unwield)
+
+/obj/item/gun/ComponentInitialize()
+	. = ..()
+	//Smaller weapons are better when used in a single hand.
+	AddComponent(/datum/component/two_handed, unwield_on_swap = TRUE, auto_wield = TRUE, ignore_attack_self = TRUE, force_wielded = force, force_unwielded = force, block_power_wielded = block_power, block_power_unwielded = block_power, wieldsound = 'sound/effects/suitstep1.ogg', unwieldsound = 'sound/effects/suitstep2.ogg')
+
+/obj/item/gun/proc/wield()
+	is_wielded = TRUE
+
+/obj/item/gun/proc/unwield()
+	is_wielded = FALSE
 
 /obj/item/gun/Destroy()
 	if(isobj(pin)) //Can still be the initial path, then we skip
@@ -107,6 +122,7 @@
 		QDEL_NULL(chambered)
 	if(azoom)
 		QDEL_NULL(azoom)
+	UnregisterSignal(list(COMSIG_TWOHANDED_WIELD, COMSIG_TWOHANDED_UNWIELD))
 	return ..()
 
 /obj/item/gun/handle_atom_del(atom/A)
@@ -123,13 +139,14 @@
 
 /obj/item/gun/examine(mob/user)
 	. = ..()
+	if(no_pin_required)
+		return
 
-	if(!no_pin_required)
-		if(pin)
-			. += "It has \a [pin] installed."
-			. += "<span class='info'>[pin] looks like it could be removed with some <b>tools</b>.</span>"
-		else
-			. += "It doesn't have a <b>firing pin</b> installed, and won't fire."
+	if(pin)
+		. += "It has \a [pin] installed."
+		. += "<span class='info'>[pin] looks like it could be removed with some <b>tools</b>.</span>"
+	else
+		. += "It doesn't have a <b>firing pin</b> installed, and won't fire."
 
 	if(gun_light)
 		. += "It has \a [gun_light] [can_flashlight ? "" : "permanently "]mounted on it."
@@ -145,19 +162,6 @@
 	else if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
 
-	if(weapon_weight == WEAPON_HEAVY)
-		. += "You need both hands free to fire."
-	else
-		switch(spread_unwielded)
-			if(1 to 20)
-				. += "You could probably keep this reasonably on-target with one hand."
-			if(21 to 40)
-				. += "You can't aim this very accurately with one hand."
-			if(41 to 60)
-				. += "You are unlikely to hit anything if you fire this with one hand."
-			if(61 to INFINITY)
-				. += "You can't hit shit firing this one handed."
-
 /obj/item/gun/equipped(mob/living/user, slot)
 	. = ..()
 	if(zoomed && user.get_active_held_item() != src)
@@ -171,10 +175,6 @@
 //i.e if clicking would make it shoot
 /obj/item/gun/proc/can_shoot()
 	return TRUE
-
-/obj/item/gun/proc/check_wielded(mob/living/user)
-	var/obj/item/bodypart/other_hand = user.has_hand_for_held_index(user.get_inactive_hand_index()) //returns non-disabled inactive hands
-	return !(user.get_inactive_held_item() || !other_hand)
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	balloon_alert(user, "Gun clicks")
@@ -250,7 +250,8 @@
 				user.dropItemToGround(src, TRUE)
 				return
 
-	if(weapon_weight == WEAPON_HEAVY && !check_wielded(user))
+	var/obj/item/bodypart/other_hand = user.has_hand_for_held_index(user.get_inactive_hand_index()) //returns non-disabled inactive hands
+	if(weapon_weight == WEAPON_HEAVY && (!istype(user.get_inactive_held_item(), /obj/item/offhand) || !other_hand))
 		balloon_alert(user, "You need both hands free to fire")
 		return
 
@@ -343,7 +344,7 @@
 		randomized_gun_spread =	rand(0,spread)
 	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex
 		bonus_spread += 25
-	if(!check_wielded(user))
+	if(!is_wielded)
 		bonus_spread += spread_unwielded
 	var/randomized_bonus_spread = rand(0, bonus_spread)
 
