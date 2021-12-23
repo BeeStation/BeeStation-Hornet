@@ -251,7 +251,7 @@ SUBSYSTEM_DEF(mapping)
 
 #ifndef LOWMEMORYMODE
 	//Generate station z
-	if(FESTIVE_SEASON in SSevents.holidays && !CONFIG_GET(flag/disable_christmas_planet))
+	if((FESTIVE_SEASON in SSevents.holidays) && !CONFIG_GET(flag/disable_christmas_planet))
 		generate_exoplanet(station_start, new /datum/exoplanet_biome/winter_planes())
 #endif
 

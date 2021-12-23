@@ -13,19 +13,22 @@
 	SSair.pause_z(center_z)
 
 	var/perlin_noise_scale = 65
-	var/river_height = 0.25
-	var/beach_height = 0.32
-	var/mountain_height = 0.7
-	var/deepmountain_height = 0.8
 	var/seed = rand(0, 999999)
 	var/area/new_area = new biome.area_type
 	new_area.setup("Alien Planet")
+	var/turf/center_turf = locate(world.maxx / 2, world.maxy / 2, center_z)
 	for(var/turf/T as() in block(locate(1, 1, center_z), locate(world.maxx, world.maxy, center_z)))
+		var/distance_from_center = 1 - (get_dist(T, center_turf) / (world.maxx / 2))**2
+		var/river_height = 0.25
+		var/beach_height = 0.32
+		var/mountain_height = 0.65
+		var/deepmountain_height = 0.73
 		if(istype(T.loc, /area/space) && new_area)
 			T.change_area(T.loc, new_area)
 			new_area.contents += T
 		if(isspaceturf(T))
 			var/area_height = text2num(rustg_noise_get_at_coordinates("[seed]", "[T.x / perlin_noise_scale]", "[T.y / perlin_noise_scale]"))
+			area_height *= distance_from_center
 			if(area_height > deepmountain_height)
 				T.ChangeTurf(biome.deep_rock_type, list(biome.plains_type, biome.river_type), CHANGETURF_IGNORE_AIR)
 			else if(area_height > mountain_height)
