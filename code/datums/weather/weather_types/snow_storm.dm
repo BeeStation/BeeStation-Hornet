@@ -26,6 +26,11 @@
 	area_type = /area/planet/winter_planes
 	target_trait = ZTRAIT_STATION
 
+/datum/weather/snow_storm/station/New(z_levels)
+	. = ..()
+	if(!(FESTIVE_SEASON in SSevents.holidays))
+		probability = 0
+
 /datum/weather/snow_storm/weather_act(mob/living/L)
 	L.adjust_bodytemperature(-rand(5,15))
 
