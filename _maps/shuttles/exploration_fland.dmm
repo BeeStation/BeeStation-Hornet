@@ -2,7 +2,7 @@
 "ax" = (
 /obj/machinery/suit_storage_unit/exploration,
 /obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/tile_full/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "aA" = (
@@ -162,7 +162,7 @@
 "hQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/generic,
-/obj/effect/turf_decal/tile/tile_full/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "id" = (
@@ -279,7 +279,7 @@
 /area/template_noop)
 "pP" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/tile/tile_full/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "qX" = (
@@ -459,7 +459,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/tile_full/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "Ai" = (
@@ -633,7 +633,7 @@
 "Nj" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/telecomms/relay/preset/exploration,
-/obj/effect/turf_decal/tile/tile_full/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "Nt" = (
@@ -829,7 +829,7 @@
 "TJ" = (
 /obj/structure/tank_dispenser/oxygen,
 /obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/tile_full/neutral,
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "Ug" = (
