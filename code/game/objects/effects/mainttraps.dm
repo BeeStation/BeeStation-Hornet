@@ -21,7 +21,16 @@
 	var/pick_style = PICK_STYLE_ORDERED
 	var/requirehuman = TRUE
 
-/obj/effect/trap/trigger/Crossed(AM as mob|obj)
+/obj/effect/trap/trigger/Initialize()
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/trap/trigger/proc/on_entered(datum/source, AM as mob|obj)
+	SIGNAL_HANDLER
+
 	if(isturf(loc))
 		if(ismob(AM) && grounded)
 			var/mob/MM = AM
@@ -73,7 +82,6 @@
 					if(!chosen.reusable)
 						qdel(chosen)
 					success = TRUE
-				stoplag()
 			if(success)
 				inuse = FALSE
 				return TRUE

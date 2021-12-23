@@ -11,6 +11,8 @@
 	var/stop = 0
 	var/list/songs = list()
 	var/datum/track/selection = null
+	/// Volume of the songs played
+	var/volume = 100
 
 /obj/machinery/jukebox/disco
 	name = "radiant dance machine mark IV"
@@ -82,40 +84,53 @@
 	else
 		icon_state = "[initial(icon_state)]"
 
-/obj/machinery/jukebox/ui_interact(mob/user)
-	. = ..()
-	if(!user.canUseTopic(src, !issilicon(user)))
-		return
-	if (!anchored)
+/obj/machinery/jukebox/ui_status(mob/user)
+	if(!anchored)
 		to_chat(user,"<span class='warning'>This device must be anchored by a wrench!</span>")
-		return
-	if(!allowed(user))
+		return UI_CLOSE
+	if(!allowed(user) && !isobserver(user))
 		to_chat(user,"<span class='warning'>Error: Access Denied.</span>")
-		user.playsound_local(src,'sound/misc/compiler-failure.ogg', 25, 1)
-		return
-	if(!songs.len)
+		user.playsound_local(src, 'sound/misc/compiler-failure.ogg', 25, TRUE)
+		return UI_CLOSE
+	if(!songs.len && !isobserver(user))
 		to_chat(user,"<span class='warning'>Error: No music tracks have been authorized for your station. Petition Central Command to resolve this issue.</span>")
-		playsound(src,'sound/misc/compiler-failure.ogg', 25, 1)
-		return
-	var/list/dat = list()
-	dat +="<div class='statusDisplay' style='text-align:center'>"
-	dat += "<b><A href='?src=[REF(src)];action=toggle'>[!active ? "BREAK IT DOWN" : "SHUT IT DOWN"]<b></A><br>"
-	dat += "</div><br>"
-	dat += "<A href='?src=[REF(src)];action=select'> Select Track</A><br>"
-	dat += "Track Selected: [selection.song_name]<br>"
-	dat += "Track Length: [DisplayTimeText(selection.song_length)]<br><br>"
-	var/datum/browser/popup = new(user, "vending", "[name]", 400, 350)
-	popup.set_content(dat.Join())
-	popup.open()
+		playsound(src, 'sound/misc/compiler-failure.ogg', 25, TRUE)
+		return UI_CLOSE
+	return ..()
 
+/obj/machinery/jukebox/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Jukebox", name)
+		ui.open()
 
-/obj/machinery/jukebox/Topic(href, href_list)
-	if(..())
+/obj/machinery/jukebox/ui_data(mob/user)
+	var/list/data = list()
+	data["active"] = active
+	data["songs"] = list()
+	for(var/datum/track/S in songs)
+		var/list/track_data = list(
+			name = S.song_name
+		)
+		data["songs"] += list(track_data)
+	data["track_selected"] = null
+	data["track_length"] = null
+	data["track_beat"] = null
+	if(selection)
+		data["track_selected"] = selection.song_name
+		data["track_length"] = DisplayTimeText(selection.song_length)
+		data["track_beat"] = selection.song_beat
+	data["volume"] = volume
+	return data
+
+/obj/machinery/jukebox/ui_act(action, list/params)
+	. = ..()
+	if(.)
 		return
-	add_fingerprint(usr)
-	switch(href_list["action"])
+
+	switch(action)
 		if("toggle")
-			if (QDELETED(src))
+			if(QDELETED(src))
 				return
 			if(!active)
 				if(stop > world.time)
@@ -123,30 +138,44 @@
 					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
 					return
 				activate_music()
-				START_PROCESSING(SSmachines, src)
-				updateUsrDialog()
-			else if(active)
+				START_PROCESSING(SSobj, src)
+				return TRUE
+			else
 				stop = 0
-				updateUsrDialog()
-		if("select")
+				return TRUE
+		if("select_track")
 			if(active)
 				to_chat(usr, "<span class='warning'>Error: You cannot change the song until the current one is over.</span>")
 				return
-
 			var/list/available = list()
 			for(var/datum/track/S in songs)
 				available[S.song_name] = S
-			var/selected = input(usr, "Choose your song", "Track:") as null|anything in sortList(available)
+			var/selected = params["track"]
 			if(QDELETED(src) || !selected || !istype(available[selected], /datum/track))
 				return
 			selection = available[selected]
-			updateUsrDialog()
+			return TRUE
+		if("set_volume")
+			var/new_volume = params["volume"]
+			if(new_volume  == "reset")
+				volume = initial(volume)
+				return TRUE
+			else if(new_volume == "min")
+				volume = 0
+				return TRUE
+			else if(new_volume == "max")
+				volume = 100
+				return TRUE
+			else if(text2num(new_volume) != null)
+				volume = text2num(new_volume)
+				return TRUE
 
 /obj/machinery/jukebox/proc/activate_music()
 	active = TRUE
 	update_icon()
 	START_PROCESSING(SSmachines, src)
 	stop = world.time + selection.song_length
+	ui_update()
 
 /obj/machinery/jukebox/disco/activate_music()
 	..()
@@ -160,56 +189,56 @@
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_RED
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1+get_dist(src, L)
+			L.light_range  = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if(t.x == cen.x && t.y < cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_PURPLE
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1+get_dist(src, L)
+			L.light_range  = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if(t.x > cen.x && t.y == cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_YELLOW
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1+get_dist(src, L)
+			L.light_range = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if(t.x < cen.x && t.y == cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_GREEN
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1+get_dist(src, L)
+			L.light_range = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x+1 == cen.x && t.y+1 == cen.y) || (t.x+2==cen.x && t.y+2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_ORANGE
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1.4+get_dist(src, L)
+			L.light_range = 1.4+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x-1 == cen.x && t.y-1 == cen.y) || (t.x-2==cen.x && t.y-2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_CYAN
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1.4+get_dist(src, L)
+			L.light_range = 1.4+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x-1 == cen.x && t.y+1 == cen.y) || (t.x-2==cen.x && t.y+2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_BLUEGREEN
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1.4+get_dist(src, L)
+			L.light_range = 1.4+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x+1 == cen.x && t.y-1 == cen.y) || (t.x+2==cen.x && t.y-2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = LIGHT_COLOR_BLUE
 			L.light_power = 30-(get_dist(src,L)*8)
-			L.range = 1.4+get_dist(src, L)
+			L.light_range = 1.4+get_dist(src, L)
 			spotlights+=L
 			continue
 		continue
@@ -256,7 +285,7 @@
 				continue
 			if(glow.light_color == LIGHT_COLOR_BLUE)
 				glow.light_color = LIGHT_COLOR_GREEN
-				glow.light_range = glow.range * DISCO_INFENO_RANGE
+				glow.light_range = glow.light_range * DISCO_INFENO_RANGE
 				glow.light_power = glow.light_power * 2 // Any changes to power must come in pairs to neutralize it for other colors
 				glow.update_light()
 				continue
@@ -269,7 +298,7 @@
 			if(glow.light_color == LIGHT_COLOR_ORANGE)
 				glow.light_color = LIGHT_COLOR_PURPLE
 				glow.light_power = glow.light_power * 2.27
-				glow.light_range = glow.range * DISCO_INFENO_RANGE
+				glow.light_range = glow.light_range * DISCO_INFENO_RANGE
 				glow.update_light()
 				continue
 			if(glow.light_color == LIGHT_COLOR_PURPLE)
@@ -280,7 +309,7 @@
 				continue
 			if(glow.light_color == LIGHT_COLOR_BLUEGREEN)
 				glow.light_color = LIGHT_COLOR_YELLOW
-				glow.light_range = glow.range * DISCO_INFENO_RANGE
+				glow.light_range = glow.light_range * DISCO_INFENO_RANGE
 				glow.update_light()
 				continue
 			if(glow.light_color == LIGHT_COLOR_YELLOW)
@@ -291,7 +320,7 @@
 			if(glow.light_color == LIGHT_COLOR_CYAN)
 				glow.light_color = LIGHT_COLOR_RED
 				glow.light_power = glow.light_power * 0.68
-				glow.light_range = glow.range * DISCO_INFENO_RANGE
+				glow.light_range = glow.light_range * DISCO_INFENO_RANGE
 				glow.update_light()
 				continue
 		if(prob(2))  // Unique effects for the dance floor that show up randomly to mix things up
@@ -367,7 +396,6 @@
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 		sleep(1)
 	M.lying_fix()
-
 
 /obj/machinery/jukebox/disco/proc/dance4(var/mob/living/M)
 	var/speed = rand(1,3)
@@ -447,13 +475,14 @@
 				continue
 			if(!(M in rangers))
 				rangers += M
-				M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
+				M.playsound_local(get_turf(M), null, volume, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
 	else if(active)
 		active = FALSE
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		update_icon()
 		stop = world.time + 100
+		ui_update()
 		return PROCESS_KILL
 
 /obj/machinery/jukebox/disco/process(delta_time)

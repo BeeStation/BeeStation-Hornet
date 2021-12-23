@@ -75,6 +75,9 @@
 	else if(DT_PROB(10, delta_time))
 		living_pawn.manual_emote(pick("dances around.", "chases [living_pawn.p_their()] tail!</span>"))
 		living_pawn.AddComponent(/datum/component/spinny)
+		for(var/mob/living/carbon/human/H in oviewers(living_pawn))
+			if(H.mind)
+				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "animal_play", /datum/mood_event/animal_play, living_pawn)
 
 /// Someone has thrown something, see if it's someone we care about and start listening to the thrown item so we can see if we want to fetch it when it lands
 /datum/ai_controller/dog/proc/listened_throw(datum/source, mob/living/carbon/carbon_thrower)

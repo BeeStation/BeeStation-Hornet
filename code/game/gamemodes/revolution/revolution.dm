@@ -19,6 +19,7 @@
 	required_enemies = 2
 	recommended_enemies = 3
 	enemy_minimum_age = 14
+	title_icon = "revolution"
 
 	announce_span = "danger"
 	announce_text = "Some crewmembers are attempting a coup!\n\

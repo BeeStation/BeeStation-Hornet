@@ -482,7 +482,6 @@ ROUNDSTART_RACES felinid
 ROUNDSTART_RACES lizard
 ROUNDSTART_RACES moth
 #ROUNDSTART_RACES fly
-#ROUNDSTART_RACES squid
 
 
 ## Races that are better than humans in some ways, but worse in others
@@ -508,6 +507,11 @@ ROUNDSTART_RACES plasmaman
 #ROUNDSTART_RACES skeleton
 #ROUNDSTART_RACES slime
 #ROUNDSTART_RACES zombie
+
+## Roundstart no-reset races
+##-------------------------------------------------------------------------------------------
+## Races defined here will not cause existing characters to be reset to human if they currently have a non-roundstart species defined.
+#ROUNDSTART_NO_HARD_CHECK plasmaman
 
 ## Paywall Races
 ##-------------------------------------------------------------------------------------------

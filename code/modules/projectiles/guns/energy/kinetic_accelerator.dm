@@ -19,7 +19,6 @@
 	can_bayonet = TRUE
 	knife_x_offset = 20
 	knife_y_offset = 12
-	block_upgrade_walk = 1
 
 	var/max_mod_capacity = 100
 	var/list/modkits = list()
@@ -182,17 +181,18 @@
 	kinetic_gun = null
 	return ..()
 
-/obj/item/projectile/kinetic/prehit(atom/target)
+/obj/item/projectile/kinetic/prehit_pierce(atom/target)
 	. = ..()
-	if(.)
-		if(kinetic_gun)
-			var/list/mods = kinetic_gun.get_modkits()
-			for(var/obj/item/borg/upgrade/modkit/M in mods)
-				M.projectile_prehit(src, target, kinetic_gun)
-		if(!lavaland_equipment_pressure_check(get_turf(target)))
-			name = "weakened [name]"
-			damage = damage * pressure_decrease
-			pressure_decrease_active = TRUE
+	if(. == PROJECTILE_PIERCE_PHASE)
+		return
+	if(kinetic_gun)
+		var/list/mods = kinetic_gun.get_modkits()
+		for(var/obj/item/borg/upgrade/modkit/modkit in mods)
+			modkit.projectile_prehit(src, target, kinetic_gun)
+	if(!pressure_decrease_active && !lavaland_equipment_pressure_check(get_turf(target)))
+		name = "weakened [name]"
+		damage = damage * pressure_decrease
+		pressure_decrease_active = TRUE
 
 /obj/item/projectile/kinetic/on_range()
 	strike_thing()

@@ -17,7 +17,7 @@
 	var/telecrystals
 	var/selected_cat
 	var/owner = null
-	var/datum/game_mode/gamemode
+	var/uplink_flag
 	var/datum/uplink_purchase_log/purchase_log
 	var/list/uplink_items
 	var/hidden_crystals = 0
@@ -30,7 +30,7 @@
 
 	var/list/previous_attempts
 
-/datum/component/uplink/Initialize(_owner, _lockable = TRUE, _enabled = FALSE, datum/game_mode/_gamemode, starting_tc = 20)
+/datum/component/uplink/Initialize(_owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = UPLINK_TRAITORS, starting_tc = TELECRYSTALS_DEFAULT)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -49,8 +49,6 @@
 	else if(istype(parent, /obj/item/pen))
 		RegisterSignal(parent, COMSIG_PEN_ROTATED, .proc/pen_rotation)
 
-	uplink_items = get_uplink_items(_gamemode, TRUE, allow_restricted)
-
 	if(_owner)
 		owner = _owner
 		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
@@ -60,7 +58,8 @@
 			purchase_log = new(owner, src)
 	lockable = _lockable
 	active = _enabled
-	gamemode = _gamemode
+	src.uplink_flag = uplink_flag
+	update_items()
 	telecrystals = starting_tc
 	if(!lockable)
 		active = TRUE
@@ -71,16 +70,28 @@
 /datum/component/uplink/InheritComponent(datum/component/uplink/U)
 	lockable |= U.lockable
 	active |= U.active
-	if(!gamemode)
-		gamemode = U.gamemode
+	uplink_flag |= U.uplink_flag
 	telecrystals += U.telecrystals
 	if(purchase_log && U.purchase_log)
 		purchase_log.MergeWithAndDel(U.purchase_log)
 
 /datum/component/uplink/Destroy()
-	gamemode = null
 	purchase_log = null
 	return ..()
+
+/datum/component/uplink/proc/update_items()
+	var/updated_items
+	updated_items = get_uplink_items(uplink_flag, TRUE, allow_restricted)
+	update_sales(updated_items)
+	uplink_items = updated_items
+
+/datum/component/uplink/proc/update_sales(updated_items)
+	var/discount_categories = list("Discounted Gear", "Discounted Team Gear", "Limited Stock Team Gear")
+	if (uplink_items == null)
+		return
+	for (var/category in discount_categories) // Makes sure discounted items aren't renewed or replaced
+		if (uplink_items[category] != null && updated_items[category] != null)
+			updated_items[category] = uplink_items[category]
 
 /datum/component/uplink/proc/LoadTC(mob/user, obj/item/stack/telecrystal/TC, silent = FALSE)
 	if(!silent)
@@ -88,10 +99,6 @@
 	var/amt = TC.amount
 	telecrystals += amt
 	TC.use(amt)
-
-/datum/component/uplink/proc/set_gamemode(_gamemode)
-	gamemode = _gamemode
-	uplink_items = get_uplink_items(gamemode, TRUE, allow_restricted)
 
 /datum/component/uplink/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
 	SIGNAL_HANDLER
@@ -129,6 +136,7 @@
 	if(!non_traitor_allowed && !user.mind.special_role)
 		return
 	active = TRUE
+	update_items()
 	if(user)
 		INVOKE_ASYNC(src, .proc/ui_interact, user)
 	// an unlocked uplink blocks also opening the PDA or headset menu
@@ -142,7 +150,7 @@
 	active = TRUE
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Uplink")
+		ui = new(user, src, "Uplink", name)
 		// This UI is only ever opened by one person,
 		// and never is updated outside of user input.
 		ui.set_autoupdate(FALSE)
@@ -235,6 +243,7 @@
 		U.limited_stock -= 1
 
 	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(U.name)]", "[U.cost]"))
+	log_game("[initial(U.name)] purchased by [user.ckey]/[user.name] the [user.job ? user.job : "Unknown Job"] for [U.cost] TC, [telecrystals] TC remaining.")
 	return TRUE
 
 // Implant signal responses
@@ -250,7 +259,13 @@
 	SIGNAL_HANDLER
 
 	var/mob/user = arguments[2]
-	owner = "[user.key]"
+	owner = user?.key
+	if(owner && !purchase_log)
+		LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
+		if(GLOB.uplink_purchase_logs_by_key[owner])
+			purchase_log = GLOB.uplink_purchase_logs_by_key[owner]
+		else
+			purchase_log = new(owner, src)
 
 /datum/component/uplink/proc/old_implant(datum/source, list/arguments, obj/item/implant/new_implant)
 	SIGNAL_HANDLER

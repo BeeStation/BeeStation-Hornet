@@ -43,7 +43,6 @@
 	var/list/idle_threads							// Idle programs on background. They still receive process calls but can't be interacted with.
 	var/obj/physical = null									// Object that represents our computer. It's used for Adjacent() and UI visibility checks.
 	var/has_light = FALSE						//If the computer has a flashlight/LED light/what-have-you installed
-	var/light_on = FALSE						//If that light is enabled
 	var/comp_light_luminosity = 3				//The brightness of that light
 	var/comp_light_color			//The color of that light
 
@@ -101,7 +100,7 @@
 	if(usr.canUseTopic(src, BE_CLOSE))
 		card_slot.try_eject(null, usr)
 
-// Eject ID card from computer, if it has ID slot with card inside.
+// Ejects an intellicard from a computer, if there's a slot and an intellicard inside.
 /obj/item/modular_computer/proc/eject_card()
 	set name = "Eject Intellicard"
 	set category = "Object"
@@ -113,7 +112,7 @@
 		ai_slot.try_eject(null, usr,1)
 
 
-// Eject ID card from computer, if it has ID slot with card inside.
+// Ejects a data disk from a computer, if there's a slot and a disk inside.
 /obj/item/modular_computer/proc/eject_disk()
 	set name = "Eject Data Disk"
 	set category = "Object"

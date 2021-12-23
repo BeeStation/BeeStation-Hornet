@@ -35,7 +35,7 @@
 			continue
 		if(initial(S.level) > max_level || initial(S.level) < min_level)
 			continue
-		if(initial(S.level) <= 0) //unobtainable symptoms
+		if(initial(S.level) <= -1) //unobtainable symptoms
 			continue
 		possible_symptoms += S
 	for(var/i in 1 to max_symptoms)

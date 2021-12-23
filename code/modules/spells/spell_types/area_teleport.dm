@@ -68,7 +68,7 @@
 				tempL.Remove(attempt)
 
 		if(!success)
-			do_teleport(target, L, forceMove = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
+			do_teleport(target, L, channel = TELEPORT_CHANNEL_MAGIC)
 			playsound(get_turf(user), sound2, 50,1)
 
 /obj/effect/proc_holder/spell/targeted/area_teleport/invocation(area/chosenarea = null,mob/living/user = usr)
@@ -84,9 +84,6 @@
 		switch(invocation_type)
 			if("shout")
 				user.say(words, forced = "spell")
-				if(user.gender==MALE)
-					playsound(user.loc, pick('sound/misc/null.ogg','sound/misc/null.ogg'), 100, 1)
-				else
-					playsound(user.loc, pick('sound/misc/null.ogg','sound/misc/null.ogg'), 100, 1)
+				playsound(user.loc, pick('sound/misc/null.ogg','sound/misc/null.ogg'), 100, 1)
 			if("whisper")
 				user.whisper(words, forced = "spell")

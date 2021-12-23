@@ -6,7 +6,7 @@
 	number_of_rods = 2
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null
-	obj_flags = CAN_BE_HIT | BLOCK_Z_FALL
+	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 	//Negates the effect of space and openspace.
 	//Shouldn't be placed above anything else.
 	FASTDMM_PROP(\
