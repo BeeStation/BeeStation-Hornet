@@ -174,73 +174,6 @@
 		. = "NONE"
 	return .
 
-/// Converts an RGB color to an HSL color
-/proc/rgb2hsl(red, green, blue)
-	red /= 255;green /= 255;blue /= 255;
-	var/max = max(red,green,blue)
-	var/min = min(red,green,blue)
-	var/range = max-min
-
-	var/hue=0;var/saturation=0;var/lightness=0;
-	lightness = (max + min)/2
-	if(range != 0)
-		if(lightness < 0.5)
-			saturation = range/(max+min)
-		else
-			saturation = range/(2-max-min)
-
-		var/dred = ((max-red)/(6*max)) + 0.5
-		var/dgreen = ((max-green)/(6*max)) + 0.5
-		var/dblue = ((max-blue)/(6*max)) + 0.5
-
-		if(max==red)
-			hue = dblue - dgreen
-		else if(max==green)
-			hue = dred - dblue + (1/3)
-		else
-			hue = dgreen - dred + (2/3)
-		if(hue < 0)
-			hue++
-		else if(hue > 1)
-			hue--
-
-	return list(hue, saturation, lightness)
-
-/// Converts an HSL color to an RGB color
-/proc/hsl2rgb(hue, saturation, lightness)
-	var/red;var/green;var/blue;
-	if(saturation == 0)
-		red = lightness * 255
-		green = red
-		blue = red
-	else
-		var/a;var/b;
-		if(lightness < 0.5)
-			b = lightness*(1+saturation)
-		else
-			b = (lightness+saturation) - (saturation*lightness)
-		a = 2*lightness - b
-
-		red = round(255 * hue2rgb(a, b, hue+(1/3)))
-		green = round(255 * hue2rgb(a, b, hue))
-		blue = round(255 * hue2rgb(a, b, hue-(1/3)))
-
-	return list(red, green, blue)
-
-/// Converts an ABH color to an RGB color
-/proc/hue2rgb(a, b, hue)
-	if(hue < 0)
-		hue++
-	else if(hue > 1)
-		hue--
-	if(6*hue < 1)
-		return (a+(b-a)*6*hue)
-	if(2*hue < 1)
-		return b
-	if(3*hue < 2)
-		return (a+(b-a)*((2/3)-hue)*6)
-	return a
-
 /// Very ugly, BYOND doesn't support unix time and rounding errors make it really hard to convert it to BYOND time. returns "YYYY-MM-DD" by default
 /proc/unix2date(timestamp, seperator = "-")
 
@@ -395,6 +328,7 @@
 		else
 			. = max(0, min(255, 138.5177312231 * log(temp - 10) - 305.0447927307))
 
+<<<<<<< HEAD
 
 /// Converts a text color like "red" to a hex color ("#FF0000")
 /proc/color2hex(color)	//web colors
@@ -444,6 +378,12 @@
 
 /**
 This is a weird one: It returns a list of all var names found in the string. These vars must be in the [var_name] format
+=======
+//This is a weird one:
+//It returns a list of all var names found in the string
+//These vars must be in the [var_name] format
+//It's only a proc because it's used in more than one place
+>>>>>>> 619acc1624c (Fix skin tone sorting and refactor color procs (#63554))
 
 It's only a proc because it's used in more than one place
 
@@ -476,6 +416,7 @@ Takes a string and a datum. The string is well, obviously the string being check
 					if(var_source.vars.Find(A))
 						. += A
 
+<<<<<<< HEAD
 /// Converts a hex code to a number
 /proc/color_hex2num(A)
 	if(!A || length(A) != length_char(A))
@@ -485,6 +426,8 @@ Takes a string and a datum. The string is well, obviously the string being check
 	var/B = hex2num(copytext(A, 6, 8))
 	return R+G+B
 
+=======
+>>>>>>> 619acc1624c (Fix skin tone sorting and refactor color procs (#63554))
 //word of warning: using a matrix like this as a color value will simplify it back to a string after being set
 /proc/color_hex2color_matrix(string)
 	var/length = length(string)

@@ -19,7 +19,7 @@
 	var/datum/port/input/on
 
 	var/max_power = 5
-	var/min_lightness = 0.4
+	var/min_lightness = 40
 	var/shell_light_color
 
 /obj/item/circuit_component/light/get_ui_notices()
@@ -54,13 +54,12 @@
 
 /obj/item/circuit_component/light/input_received(datum/port/input/port)
 	. = ..()
-	brightness.set_input(clamp(brightness.input_value || 0, 0, max_power), FALSE)
-	red.set_input(clamp(red.input_value, 0, 255), FALSE)
-	blue.set_input(clamp(blue.input_value, 0, 255), FALSE)
-	green.set_input(clamp(green.input_value, 0, 255), FALSE)
-	var/list/hsl = rgb2hsl(red.input_value || 0, green.input_value || 0, blue.input_value || 0)
-	var/list/light_col = hsl2rgb(hsl[1], hsl[2], max(min_lightness, hsl[3]))
-	shell_light_color = rgb(light_col[1], light_col[2], light_col[3])
+	brightness.set_value(clamp(brightness.value || 0, 0, max_power))
+	red.set_value(clamp(red.value, 0, 255))
+	blue.set_value(clamp(blue.value, 0, 255))
+	green.set_value(clamp(green.value, 0, 255))
+	var/list/hsl = rgb2num(rgb(red.value || 0, green.value || 0, blue.value || 0), COLORSPACE_HSL)
+	shell_light_color = rgb(hsl[1], hsl[2], max(min_lightness, hsl[3]), space=COLORSPACE_HSL)
 	if(.)
 		return
 
