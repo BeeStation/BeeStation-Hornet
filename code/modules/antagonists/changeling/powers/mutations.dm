@@ -247,6 +247,7 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
+	requires_wielding = FALSE
 
 /obj/item/gun/magic/tentacle/Initialize(mapload, silent)
 	. = ..()

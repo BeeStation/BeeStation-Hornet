@@ -42,6 +42,7 @@
 	var/dual_wield_spread = 24			//additional spread when dual wielding
 	var/spread = 0						//Spread induced by the gun itself.
 	var/spread_multiplier = 1			//Multiplier for shotgun spread
+	var/requires_wielding = TRUE
 	var/spread_unwielded				//Spread induced by holding the gun with 1 hand. (40 for light weapons, 60 for medium by default)
 	var/randomspread = 1				//Set to 0 for shotguns. This is used for weapons that don't fire all their bullets at once.
 
@@ -97,13 +98,15 @@
 	build_zooming()
 	if(isnull(spread_unwielded))
 		spread_unwielded = weapon_weight * 20 + 20
-	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/wield)
-	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/unwield)
+	if(requires_wielding)
+		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/wield)
+		RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/unwield)
 
 /obj/item/gun/ComponentInitialize()
 	. = ..()
 	//Smaller weapons are better when used in a single hand.
-	AddComponent(/datum/component/two_handed, unwield_on_swap = TRUE, auto_wield = TRUE, ignore_attack_self = TRUE, force_wielded = force, force_unwielded = force, block_power_wielded = block_power, block_power_unwielded = block_power, wieldsound = 'sound/effects/suitstep1.ogg', unwieldsound = 'sound/effects/suitstep2.ogg')
+	if(requires_wielding)
+		AddComponent(/datum/component/two_handed, unwield_on_swap = TRUE, auto_wield = TRUE, ignore_attack_self = TRUE, force_wielded = force, force_unwielded = force, block_power_wielded = block_power, block_power_unwielded = block_power, wieldsound = 'sound/effects/suitstep1.ogg', unwieldsound = 'sound/effects/suitstep2.ogg')
 
 /obj/item/gun/proc/wield()
 	is_wielded = TRUE
@@ -346,7 +349,7 @@
 		randomized_gun_spread =	rand(0,spread)
 	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex
 		bonus_spread += 25
-	if(!is_wielded)
+	if(!is_wielded && requires_wielding)
 		bonus_spread += spread_unwielded
 	var/randomized_bonus_spread = rand(0, bonus_spread)
 
