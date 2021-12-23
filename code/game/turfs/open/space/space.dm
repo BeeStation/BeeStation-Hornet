@@ -14,10 +14,6 @@
 	thermal_conductivity = 0
 	heat_capacity = 700000
 
-	var/destination_z
-	var/destination_x
-	var/destination_y
-
 	var/static/datum/gas_mixture/immutable/space/space_gas
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
@@ -57,12 +53,6 @@
 	ComponentInitialize()
 
 	return INITIALIZE_HINT_NORMAL
-
-//ATTACK GHOST IGNORING PARENT RETURN VALUE
-/turf/open/space/attack_ghost(mob/dead/observer/user)
-	if(destination_z)
-		var/turf/T = locate(destination_x, destination_y, destination_z)
-		user.forceMove(T)
 
 /turf/open/space/Initalize_Atmos(times_fired)
 	return
@@ -145,45 +135,6 @@
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place iron rods first.</span>")
 
-/turf/open/space/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-	. = ..()
-	if(!arrived || src != arrived.loc)
-		return
-
-	if(destination_z && destination_x && destination_y && !(arrived.pulledby || !arrived.can_be_z_moved))
-		var/tx = destination_x
-		var/ty = destination_y
-		var/turf/DT = locate(tx, ty, destination_z)
-		var/itercount = 0
-		while(DT.density || istype(DT.loc,/area/shuttle)) // Extend towards the center of the map, trying to look for a better place to arrive
-			if (itercount++ >= 100)
-				log_game("SPACE Z-TRANSIT ERROR: Could not find a safe place to land [arrived] within 100 iterations.")
-				break
-			if (tx < 128)
-				tx++
-			else
-				tx--
-			if (ty < 128)
-				ty++
-			else
-				ty--
-			DT = locate(tx, ty, destination_z)
-
-		var/atom/movable/AM = arrived.pulling
-		arrived.forceMove(DT)
-		if(AM)
-			var/turf/T = get_step(arrived.loc,turn(arrived.dir, 180))
-			AM.can_be_z_moved = FALSE
-			AM.forceMove(T)
-			arrived.start_pulling(AM)
-			AM.can_be_z_moved = TRUE
-
-		//now we're on the new z_level, proceed the space drifting
-		stoplag()//Let a diagonal move finish, if necessary
-		arrived.newtonian_move(arrived.inertia_dir)
-		arrived.inertia_moving = TRUE
-
-
 /turf/open/space/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return
 
@@ -194,10 +145,6 @@
 	if(locate(/obj/structure/lattice/catwalk, src))
 		return 1
 	return 0
-
-/turf/open/space/is_transition_turf()
-	if(destination_x || destination_y || destination_z)
-		return 1
 
 
 /turf/open/space/acid_act(acidpwr, acid_volume)

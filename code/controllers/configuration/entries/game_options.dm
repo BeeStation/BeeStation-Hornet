@@ -457,3 +457,5 @@
 /datum/config_entry/flag/spare_enforce_coc
 
 /datum/config_entry/flag/station_traits
+
+/datum/config_entry/flag/disable_christmas_planet

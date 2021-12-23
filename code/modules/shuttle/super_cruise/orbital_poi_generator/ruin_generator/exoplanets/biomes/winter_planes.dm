@@ -12,12 +12,12 @@
 
 	plains_type = /turf/open/floor/plating/asteroid/snow
 	plains_decoration = list(\
-		null = 15,\
-		/obj/structure/flora/grass/both = 15,\
-		/obj/structure/flora/stump = 15,\
-		/obj/structure/flora/tree/pine = 13,\
-		/obj/structure/flora/bush = 9,\
-		/obj/structure/flora/tree/dead = 5,
+		null = 150,\
+		/obj/structure/flora/grass/both = 150,\
+		/obj/structure/flora/stump = 150,\
+		/obj/structure/flora/tree/pine = 130,\
+		/obj/structure/flora/bush = 90,\
+		/obj/structure/flora/tree/dead = 50,
 		/mob/living/simple_animal/hostile/bear/snow = 2,\
 		/mob/living/simple_animal/hostile/asteroid/goldgrub = 1,\
 		/mob/living/simple_animal/hostile/asteroid/basilisk = 2,\
@@ -29,7 +29,7 @@
 	jungle_type = /turf/open/floor/plating/asteroid/snow/ice/frozen_atmos
 	jungle_decoration = list(\
 		/obj/structure/geyser/random = 5,\
-		null = 100,\
+		null = 400,\
 		/obj/structure/flora/rock/pile/icy = 20,\
 		/obj/structure/flora/rock/icy = 15\
 	)

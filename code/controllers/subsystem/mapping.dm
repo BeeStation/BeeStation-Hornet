@@ -249,9 +249,11 @@ SUBSYSTEM_DEF(mapping)
 	INIT_ANNOUNCE("Loading [config.map_name]...")
 	LoadGroup(FailedZs, "Station", config.map_path, config.map_file, config.traits, ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/station)
 
+#ifndef LOWMEMORYMODE
 	//Generate station z
-	if(FESTIVE_SEASON in SSevents.holidays)
+	if(FESTIVE_SEASON in SSevents.holidays && !CONFIG_GET(flag/disable_christmas_planet))
 		generate_exoplanet(station_start, new /datum/exoplanet_biome/winter_planes())
+#endif
 
 	if(SSdbcore.Connect())
 		var/datum/DBQuery/query_round_map_name = SSdbcore.NewQuery({"

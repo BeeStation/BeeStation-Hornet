@@ -14,6 +14,10 @@
 	var/clawfootstep = null
 	var/heavyfootstep = null
 
+	var/destination_z
+	var/destination_x
+	var/destination_y
+
 /turf/open/ComponentInitialize()
 	. = ..()
 	if(wet)
@@ -259,3 +263,53 @@
 		air.set_moles(GAS_CO2, max(air.get_moles(GAS_CO2)-(pulse_strength/1000),0))
 		air.set_moles(GAS_O2, max(air.get_moles(GAS_O2)-(pulse_strength/2000),0))
 		air.adjust_moles(GAS_PLUOXIUM, pulse_strength/4000)
+
+/turf/open/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+
+	if(!arrived || src != arrived.loc)
+		return
+
+	if(destination_z && destination_x && destination_y && !(arrived.pulledby || !arrived.can_be_z_moved))
+		var/tx = destination_x
+		var/ty = destination_y
+		var/turf/DT = locate(tx, ty, destination_z)
+		var/itercount = 0
+		while(DT.density || istype(DT.loc,/area/shuttle)) // Extend towards the center of the map, trying to look for a better place to arrive
+			if (itercount++ >= 100)
+				log_game("SPACE Z-TRANSIT ERROR: Could not find a safe place to land [arrived] within 100 iterations.")
+				break
+			if (tx < 128)
+				tx++
+			else
+				tx--
+			if (ty < 128)
+				ty++
+			else
+				ty--
+			DT = locate(tx, ty, destination_z)
+
+		var/atom/movable/AM = arrived.pulling
+		arrived.forceMove(DT)
+		if(AM)
+			var/turf/T = get_step(arrived.loc,turn(arrived.dir, 180))
+			AM.can_be_z_moved = FALSE
+			AM.forceMove(T)
+			arrived.start_pulling(AM)
+			AM.can_be_z_moved = TRUE
+
+		//now we're on the new z_level, proceed the space drifting
+		stoplag()//Let a diagonal move finish, if necessary
+		arrived.newtonian_move(arrived.inertia_dir)
+		arrived.inertia_moving = TRUE
+
+/turf/open/attack_ghost(mob/dead/observer/user)
+	if(destination_z)
+		var/turf/T = locate(destination_x, destination_y, destination_z)
+		user.forceMove(T)
+	else
+		return ..()
+
+/turf/open/is_transition_turf()
+	if(destination_x || destination_y || destination_z)
+		return 1

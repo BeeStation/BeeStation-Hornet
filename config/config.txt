@@ -582,6 +582,9 @@ GHOST_ROLE_COOLDOWN 3000
 ## Enable/disable roundstart station traits
 #STATION_TRAITS
 
+## Disable the loading of the christmas planet map
+#DISABLE_CHRISTMAS_PLANET
+
 ### ALL SETTINGS FOR SSmetrics ###
 ## Uncomment the line below to enable SSmetrics sending data to ElasticSearch. You will need to fill in the other lines if you do
 #ELASTICSEARCH_METRICS_ENABLED

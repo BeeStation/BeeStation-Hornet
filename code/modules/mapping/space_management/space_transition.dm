@@ -121,11 +121,11 @@
 					D = D.neigbours["[dirside]"]
 				zdestination = D.z_value
 			D = I
-			for(var/turf/open/space/S in turfblock)
+			for(var/turf/open/S in turfblock)
 				S.destination_x = x_pos_transition[side] == 1 ? S.x : x_pos_transition[side]
 				S.destination_y = y_pos_transition[side] == 1 ? S.y : y_pos_transition[side]
 				S.destination_z = zdestination
-				
+
 				// Mirage border code
 				var/mirage_dir
 				if(S.x == 1 + TRANSITIONEDGE)
