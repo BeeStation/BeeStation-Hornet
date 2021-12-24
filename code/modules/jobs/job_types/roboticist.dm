@@ -43,3 +43,11 @@
 	satchel = /obj/item/storage/backpack/satchel/tox
 
 	pda_slot = ITEM_SLOT_LPOCKET
+
+/datum/outfit/job/roboticist/mod
+	name = "Roboticist (MODsuit)"
+	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/standard
+	suit = null
+	mask = /obj/item/clothing/mask/breath
+	internals_slot = ITEM_SLOT_SUITSTORE

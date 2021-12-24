@@ -117,7 +117,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/holder_var_amount = 20 //same. The amount adjusted with the mob's var when the spell is used
 
 	var/clothes_req = TRUE //see if it requires clothes
-	var/cult_req = FALSE //SPECIAL SNOWFLAKE clothes required for cult only spells
 	var/human_req = FALSE //spell can only be cast by humans
 	var/nonabstract_req = FALSE //spell can only be cast by mobs that are physical entities
 	var/stat_allowed = FALSE //see if it requires being conscious/alive, need to set to 1 for ghostpells
@@ -214,11 +213,16 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			return FALSE
 
 		if(clothes_req) //clothes check
-			if(!is_type_in_typecache(H.wear_suit, casting_clothes))
-				to_chat(H, "<span class='notice'>I don't feel strong enough without my robe.</span>")
+			var/passes_req = FALSE
+			if(istype(H.back, /obj/item/mod/control))
+				var/obj/item/mod/control/mod = H.back
+				if(istype(mod.theme, /datum/mod_theme/enchanted))
+					passes_req = TRUE
+			if(!passes_req && !is_type_in_typecache(H.wear_suit, casting_clothes))
+				to_chat(H, span_warning("You don't feel strong enough without your robe!"))
 				return FALSE
-			if(!is_type_in_typecache(H.head, casting_clothes))
-				to_chat(H, "<span class='notice'>I don't feel strong enough without my hat.</span>")
+			if(!passes_req && !is_type_in_typecache(H.head, casting_clothes))
+				to_chat(H, span_warning("You don't feel strong enough without your hat!"))
 				return FALSE
 		if(cult_req) //CULT_REQ CLOTHES CHECK
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/magusred) && !istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/cult))

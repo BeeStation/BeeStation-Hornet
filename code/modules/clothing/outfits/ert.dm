@@ -28,10 +28,9 @@
 	name = "ERT Commander"
 
 	id = /obj/item/card/id/ert
-	suit = /obj/item/clothing/suit/space/hardsuit/ert
 	suit_store = /obj/item/gun/energy/e_gun
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	back = /obj/item/storage/backpack/ert
+	back = /obj/item/mod/control/pre_equipped/responsory/commander
 	belt = /obj/item/storage/belt/security/full
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
@@ -62,10 +61,9 @@
 	name = "ERT Security"
 
 	id = /obj/item/card/id/ert/Security
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/sec
 	suit_store = /obj/item/gun/energy/e_gun/stun
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	back = /obj/item/storage/backpack/ert/security
+	back = /obj/item/mod/control/pre_equipped/responsory/security
 	belt = /obj/item/storage/belt/security/full
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/storage/box/handcuffs=1,
@@ -95,10 +93,9 @@
 	name = "ERT Medic"
 
 	id = /obj/item/card/id/ert/Medical
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/med
 	suit_store = /obj/item/gun/energy/e_gun
 	glasses = /obj/item/clothing/glasses/hud/health
-	back = /obj/item/storage/backpack/ert/medical
+	back = /obj/item/mod/control/pre_equipped/responsory/medic
 	belt = /obj/item/storage/belt/medical
 	l_hand = /obj/item/storage/firstaid/regular
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
@@ -130,11 +127,10 @@
 	name = "ERT Engineer"
 
 	id = /obj/item/card/id/ert/Engineer
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/engi
 	suit_store = /obj/item/gun/energy/e_gun
 	glasses =  /obj/item/clothing/glasses/meson/engine
-	back = /obj/item/storage/backpack/ert/engineer
 	belt = /obj/item/storage/belt/utility/full
+	back = /obj/item/mod/control/pre_equipped/responsory/engineer
 	l_pocket = /obj/item/rcd_ammo/large
 	l_hand = /obj/item/storage/firstaid/regular
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
@@ -196,7 +192,7 @@
 /datum/outfit/ert/commander/inquisitor
 	name = "Inquisition Commander"
 	l_hand = /obj/item/nullrod/scythe/talking/chainsword
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
+	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/aiModule/core/full/ert=1,
 		/obj/item/door_remote/omni=1)
@@ -204,8 +200,8 @@
 /datum/outfit/ert/security/inquisitor
 	name = "Inquisition Security"
 
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
 	suit_store = /obj/item/gun/energy/e_gun/stun
+	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/security
 
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/storage/box/handcuffs=1,
@@ -215,8 +211,8 @@
 /datum/outfit/ert/medic/inquisitor
 	name = "Inquisition Medic"
 
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
 	suit_store = /obj/item/gun/energy/e_gun
+	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/medic
 
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
@@ -249,9 +245,8 @@
 /datum/outfit/ert/chaplain/inquisitor
 	name = "Inquisition Chaplain"
 
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
 	suit_store = /obj/item/gun/energy/e_gun
-
+	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
 	belt = /obj/item/storage/belt/soulstone/full/chappy
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/grenade/chem_grenade/holy=1,
@@ -261,7 +256,7 @@
 	name = "ERT Janitor"
 
 	id = /obj/item/card/id/ert/Janitor
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/jani
+	back = /obj/item/mod/control/pre_equipped/responsory/janitor
 	glasses = /obj/item/clothing/glasses/night
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/janitor/full

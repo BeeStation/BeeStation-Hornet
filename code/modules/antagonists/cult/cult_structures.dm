@@ -127,8 +127,8 @@
 		choice = alert(user,"You study the schematics etched into the forge...",,"Shielded Robe","Flagellant's Robe","Mirror Shield")
 	var/list/pickedtype = list()
 	switch(choice)
-		if("Shielded Robe")
-			pickedtype += /obj/item/clothing/suit/hooded/cultrobes/cult_shield
+		if("Nar'Sien Hardened Armor")
+			pickedtype += /obj/item/clothing/suit/hooded/cultrobes/hardened
 		if("Flagellant's Robe")
 			pickedtype += /obj/item/clothing/suit/hooded/cultrobes/berserker
 		if("Mirror Shield")

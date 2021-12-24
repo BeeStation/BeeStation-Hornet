@@ -370,7 +370,7 @@
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 	..()
 
-/obj/structure/window/get_dumping_location(obj/item/storage/source,mob/user)
+/obj/structure/window/get_dumping_location()
 	return null
 
 /obj/structure/window/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)

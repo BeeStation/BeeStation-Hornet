@@ -335,6 +335,7 @@
 /obj/item/clothing/head/helmet/update_icon()
 	var/state = "[initial(icon_state)]"
 	if(attached_light)
+		var/state = "[initial(icon_state)]"
 		if(attached_light.on)
 			state += "-flight-on" //"helmet-flight-on" // "helmet-cam-flight-on"
 		else

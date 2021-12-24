@@ -43,10 +43,10 @@
 	pda_slot = ITEM_SLOT_LPOCKET
 	backpack_contents = list(/obj/item/modular_computer/tablet/preset/advanced=1)
 
-/datum/outfit/job/atmos/rig
-	name = "Atmospheric Technician (Hardsuit)"
+/datum/outfit/job/atmos/mod
+	name = "Atmospheric Technician (MODsuit)"
 
 	mask = /obj/item/clothing/mask/gas
-	suit = /obj/item/clothing/suit/space/hardsuit/engine/atmos
 	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/atmospheric
 	internals_slot = ITEM_SLOT_SUITSTORE

@@ -333,6 +333,18 @@
 	name = "Quickbind"
 	desc = "If you're seeing this, file a bug report."
 	var/scripture_index = 0 //the index of the scripture we're associated with
+/datum/action/item_action/berserk_mode/Trigger()
+	if(istype(target, /obj/item/clothing/head/hooded/berserker))
+		var/obj/item/clothing/head/hooded/berserker/berzerk = target
+		if(berzerk.berserk_active)
+			to_chat(owner, span_warning("You are already berserk!"))
+			return
+		if(berzerk.berserk_charge < 100)
+			to_chat(owner, span_warning("You don't have a full charge."))
+			return
+		berzerk.berserk_mode(owner)
+		return
+	..()
 
 /datum/action/item_action/toggle_helmet_flashlight
 	name = "Toggle Helmet Flashlight"

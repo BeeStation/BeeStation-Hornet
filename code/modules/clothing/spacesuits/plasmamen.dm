@@ -34,7 +34,7 @@
 			new /obj/effect/particle_effect/water(get_turf(H))
 
 
-//I just want the light feature of the hardsuit helmet
+//I just want the light feature of helmets
 /obj/item/clothing/head/helmet/space/plasmaman
 	name = "plasma envirosuit helmet"
 	desc = "A special containment helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment. It is space-worthy, and may be worn in tandem with other EVA gear."

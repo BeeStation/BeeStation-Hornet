@@ -140,6 +140,14 @@
 	//to be overridden for toggling internals, id binding, access etc
 	return
 
+#define EQUIP_OUTFIT_ITEM(item_path, slot_name) if(##item_path) { \
+	H.equip_to_slot_or_del(SSwardrobe.provide_type(##item_path), ##slot_name, TRUE); \
+	var/obj/item/outfit_item = H.get_item_by_slot(##slot_name); \
+	if (outfit_item && outfit_item.type == ##item_path) { \
+		outfit_item.on_outfit_equip(H, visualsOnly, ##slot_name); \
+	} \
+}
+
 /**
   * Equips all defined types and paths to the mob passed in
   *
@@ -211,10 +219,6 @@
 				for(var/i in 1 to number)
 					H.equip_to_slot_or_del(new path(H),ITEM_SLOT_BACKPACK, TRUE)
 
-	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
-		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
-		HS.ToggleHelmet()
-
 	post_equip(H, visualsOnly)
 
 	if(!visualsOnly)
@@ -229,6 +233,8 @@
 
 	H.update_body()
 	return TRUE
+
+#undef EQUIP_OUTFIT_ITEM
 
 /**
   * Apply a fingerprint from the passed in human to all items in the outfit
@@ -291,7 +297,6 @@
 	.["name"] = name
 	.["uniform"] = uniform
 	.["suit"] = suit
-	.["toggle_helmet"] = toggle_helmet
 	.["back"] = back
 	.["belt"] = belt
 	.["gloves"] = gloves
@@ -327,7 +332,6 @@
 	name = outfit_data["name"]
 	uniform = text2path(outfit_data["uniform"])
 	suit = text2path(outfit_data["suit"])
-	toggle_helmet = outfit_data["toggle_helmet"]
 	back = text2path(outfit_data["back"])
 	belt = text2path(outfit_data["belt"])
 	gloves = text2path(outfit_data["gloves"])

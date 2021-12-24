@@ -57,10 +57,10 @@
 
 	chameleon_extras = list(/obj/item/gun/syringe, /obj/item/stamp/cmo)
 
-/datum/outfit/job/cmo/hardsuit
-	name = "Chief Medical Officer (Hardsuit)"
+/datum/outfit/job/cmo/mod
+	name = "Chief Medical Officer (MODsuit)"
 
 	mask = /obj/item/clothing/mask/breath
-	suit = /obj/item/clothing/suit/space/hardsuit/medical/cmo
 	suit_store = /obj/item/tank/internals/oxygen
 	r_pocket = /obj/item/flashlight/pen
+	back = /obj/item/mod/control/pre_equipped/rescue

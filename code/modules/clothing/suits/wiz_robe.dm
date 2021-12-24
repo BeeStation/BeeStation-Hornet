@@ -179,40 +179,7 @@
 	src.robe_charge = TRUE
 	to_chat(usr, "<span class='notice'>\The robe hums, its internal magic supply restored.</span>")
 
-
-//Shielded Armour
-
-/obj/item/clothing/suit/space/hardsuit/shielded/wizard
-	name = "battlemage armour"
-	desc = "Not all wizards are afraid of getting up close and personal."
-	icon_state = "battlemage"
-	item_state = "battlemage"
-	recharge_rate = 0
-	current_charges = 15
-	recharge_cooldown = INFINITY
-	shield_state = "shield-red"
-	shield_on = "shield-red"
-	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
-	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100, "stamina" = 70)
-	slowdown = 0
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
-	name = "battlemage helmet"
-	desc = "A suitably impressive helmet.."
-	icon_state = "battlemage"
-	item_state = "battlemage"
-	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100, "stamina" = 70)
-	actions_types = null //No inbuilt light
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/attack_self(mob/user)
-	return
-
+// The actual code for this is handled in the shielded component, see [/datum/component/shielded/proc/check_recharge_rune]
 /obj/item/wizard_armour_charge
 	name = "battlemage shield charges"
 	desc = "A powerful rune that will increase the number of hits a suit of battlemage armour can take before failing.."

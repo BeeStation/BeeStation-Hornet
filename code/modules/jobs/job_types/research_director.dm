@@ -59,11 +59,10 @@
 
 	chameleon_extras = /obj/item/stamp/rd
 
-/datum/outfit/job/rd/rig
-	name = "Research Director (Hardsuit)"
+/datum/outfit/job/rd/mod
+	name = "Research Director (MODsuit)"
 
-	l_hand = null
 	mask = /obj/item/clothing/mask/breath
-	suit = /obj/item/clothing/suit/space/hardsuit/rd
 	suit_store = /obj/item/tank/internals/oxygen
+	back = /obj/item/mod/control/pre_equipped/research
 	internals_slot = ITEM_SLOT_SUITSTORE
