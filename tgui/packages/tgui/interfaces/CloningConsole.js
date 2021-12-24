@@ -38,7 +38,7 @@ export const CloningConsole = (props, context) => {
                 </Box>
               </Box><br />
               <Button
-                content={useRecords ? "Start Scan" : "Clone"}
+                content={useRecords ? "Full Scan" : "Clone"}
                 icon={useRecords ? "search" : "power-off"}
                 disabled={!hasOccupant}
                 onClick={() => act('scan')}

@@ -249,7 +249,7 @@
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
 	for(var/datum/data/record/R in records)
-		if(R.fields["id"] == diskette.fields["id"] && R.fields["body_only"] == diskette.fields["body_only"] && R.fields["last_death"] == diskette.fields["last_death"])
+		if(R.fields["id"] == diskette.fields["id"] && R.fields["body_only"] == diskette.fields["body_only"])
 			scantemp = "Failed loading: Data already exists!"
 			return FALSE
 	var/datum/data/record/R = new(src)
