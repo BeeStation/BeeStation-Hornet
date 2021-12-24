@@ -356,7 +356,7 @@
 /obj/machinery/smartfridge/disks{
 	pixel_y = 2
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 8
 	},
 /turf/open/floor/plasteel/freezer,
@@ -371,7 +371,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "Ag" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 1
 	},
 /obj/machinery/light{
@@ -448,7 +448,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "Jy" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
@@ -470,7 +470,7 @@
 /area/ruin/powered/seedvault)
 "Se" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,

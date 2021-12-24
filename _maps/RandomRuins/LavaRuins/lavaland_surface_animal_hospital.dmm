@@ -729,7 +729,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
@@ -826,7 +826,7 @@
 "nI" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/hug,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -952,7 +952,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
@@ -996,7 +996,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -1039,7 +1039,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland,
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "zw" = (
@@ -1069,7 +1069,7 @@
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/dromedaryco,
 /obj/item/storage/box/matches,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -1085,7 +1085,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
@@ -1133,7 +1133,7 @@
 	pixel_x = 4
 	},
 /obj/item/surgicaldrill,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
@@ -1257,7 +1257,7 @@
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "Rp" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
@@ -1433,7 +1433,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 9
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
