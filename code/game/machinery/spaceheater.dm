@@ -14,6 +14,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 10, "stamina" = 0)
 	circuit = /obj/item/circuitboard/machine/space_heater
 
+	var/heating_range = 1
 	var/obj/item/stock_parts/cell/cell
 	var/on = FALSE
 	var/mode = HEATER_MODE_STANDBY
@@ -80,39 +81,48 @@
 				update_icon()
 			return
 
-		var/datum/gas_mixture/env = L.return_air()
-
-		var/newMode = HEATER_MODE_STANDBY
-		if(setMode != HEATER_MODE_COOL && env.return_temperature() < targetTemperature - temperatureTolerance)
-			newMode = HEATER_MODE_HEAT
-		else if(setMode != HEATER_MODE_HEAT && env.return_temperature() > targetTemperature + temperatureTolerance)
-			newMode = HEATER_MODE_COOL
-
-		if(mode != newMode)
-			mode = newMode
-			update_icon()
-
-		if(mode == HEATER_MODE_STANDBY)
-			return
-
-		var/heat_capacity = env.heat_capacity()
-		var/requiredPower = abs(env.return_temperature() - targetTemperature) * heat_capacity
-		requiredPower = min(requiredPower, heatingPower)
-
-		if(requiredPower < 1)
-			return
-
-		var/deltaTemperature = requiredPower / heat_capacity
-		if(mode == HEATER_MODE_COOL)
-			deltaTemperature *= -1
-		if(deltaTemperature)
-			env.set_temperature(env.return_temperature() + deltaTemperature)
-			air_update_turf()
-		cell.use(requiredPower / efficiency)
+		for(var/turf/T in block(
+				locate(
+					max(T.x - heating_range, 1), max(T.y - heating_range, 1), T.z
+				), locate(
+					min(T.x + heating_range, world.maxx), min(T.y + heating_range, world.maxy), T.z
+				)))
+			heat_turf(T)
 	else
 		on = FALSE
 		update_icon()
 		return PROCESS_KILL
+
+/obj/machinery/space_heater/proc/heat_turf(turf/L)
+	var/datum/gas_mixture/env = L.return_air()
+
+	var/newMode = HEATER_MODE_STANDBY
+	if(setMode != HEATER_MODE_COOL && env.return_temperature() < targetTemperature - temperatureTolerance)
+		newMode = HEATER_MODE_HEAT
+	else if(setMode != HEATER_MODE_HEAT && env.return_temperature() > targetTemperature + temperatureTolerance)
+		newMode = HEATER_MODE_COOL
+
+	if(mode != newMode)
+		mode = newMode
+		update_icon()
+
+	if(mode == HEATER_MODE_STANDBY)
+		return
+
+	var/heat_capacity = env.heat_capacity()
+	var/requiredPower = abs(env.return_temperature() - targetTemperature) * heat_capacity
+	requiredPower = min(requiredPower, heatingPower)
+
+	if(requiredPower < 1)
+		return
+
+	var/deltaTemperature = requiredPower / heat_capacity
+	if(mode == HEATER_MODE_COOL)
+		deltaTemperature *= -1
+	if(deltaTemperature)
+		env.set_temperature(env.return_temperature() + deltaTemperature)
+		air_update_turf()
+	cell.use(requiredPower / efficiency)
 
 /obj/machinery/space_heater/RefreshParts()
 	var/laser = 0
@@ -123,9 +133,10 @@
 		cap += M.rating
 
 	heatingPower = laser * 20000
+	heating_range = laser
 
 	settableTemperatureRange = cap * 30
-	efficiency = (cap + 1) * 10000
+	efficiency = (cap + 1) * 5000
 
 	targetTemperature = clamp(targetTemperature,
 		max(settableTemperatureMedian - settableTemperatureRange, TCMB),
