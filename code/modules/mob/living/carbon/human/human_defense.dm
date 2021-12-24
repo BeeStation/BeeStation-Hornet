@@ -124,8 +124,6 @@
 	if(wear_neck)
 		if(wear_neck.hit_reaction(src, AM, attack_text, damage, attack_type))
 			return TRUE
-	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, damage, attack_text, attack_type, armour_penetration) & SHIELD_BLOCK)
-		return TRUE
 	return FALSE
 
 /mob/living/carbon/human/proc/check_block()
