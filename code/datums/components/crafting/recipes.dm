@@ -991,7 +991,7 @@
 /datum/crafting_recipe/mod_core
 	name = "MOD core"
 	result = /obj/item/mod/construction/core
-	tool_behaviors = list(TOOL_SCREWDRIVER)
+	tools = list(TOOL_SCREWDRIVER)
 	time = 10 SECONDS
 	reqs = list(/obj/item/stack/cable_coil = 5,
 				/obj/item/stack/rods = 2,
