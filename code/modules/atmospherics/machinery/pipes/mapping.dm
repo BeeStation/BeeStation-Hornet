@@ -11,24 +11,24 @@
 		FASTDMM_PROP(pipe_group = "atmos-[piping_layer]-"+Type+"-visible");\
 	}									\
 	##Fulltype/visible/layer1 {			\
-		piping_layer = 1;				\
-		icon_state = Iconbase + "-1";	\
+		piping_layer = 2;				\
+		icon_state = Iconbase + "-2";	\
 	}									\
 	##Fulltype/visible/layer3 {			\
-		piping_layer = 3;				\
-		icon_state = Iconbase + "-3";	\
+		piping_layer = 4;				\
+		icon_state = Iconbase + "-4";	\
 	}									\
 	##Fulltype/hidden {					\
 		level = PIPE_HIDDEN_LEVEL;		\
 		FASTDMM_PROP(pipe_group = "atmos-[piping_layer]-"+Type+"-hidden");\
 	}									\
 	##Fulltype/hidden/layer1 {			\
-		piping_layer = 1;				\
-		icon_state = Iconbase + "-1";	\
+		piping_layer = 2;				\
+		icon_state = Iconbase + "-2";	\
 	}									\
 	##Fulltype/hidden/layer3 {			\
-		piping_layer = 3;				\
-		icon_state = Iconbase + "-3";	\
+		piping_layer = 4;				\
+		icon_state = Iconbase + "-4";	\
 	}
 
 #define HELPER_PARTIAL_NAMED(Fulltype, Type, Iconbase, Color, Name) \
