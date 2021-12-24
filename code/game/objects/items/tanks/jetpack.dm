@@ -88,12 +88,6 @@
 
 	allow_thrust(0.01, user)
 
-/obj/item/tank/jetpack/proc/spacemove_react(mob/user, movement_dir)
-	SIGNAL_HANDLER
-
-	if(on && (movement_dir || stabilizers))
-		return COMSIG_MOVABLE_STOP_SPACEMOVE
-
 /obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user)
 	if(!on)
 		return
