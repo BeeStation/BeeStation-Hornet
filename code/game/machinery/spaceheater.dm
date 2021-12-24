@@ -136,7 +136,7 @@
 	heating_range = laser - 1
 
 	settableTemperatureRange = cap * 30
-	efficiency = (cap + 1) * 5000
+	efficiency = (cap + 1) * 20000
 
 	targetTemperature = clamp(targetTemperature,
 		max(settableTemperatureMedian - settableTemperatureRange, TCMB),
