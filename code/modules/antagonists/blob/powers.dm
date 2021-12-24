@@ -324,6 +324,7 @@
 		if(!BS.key && isturf(BS.loc) && get_dist(BS, T) <= 35)
 			BS.LoseTarget()
 			INVOKE_ASYNC(BS, /mob/living/simple_animal/hostile/proc/Goto, pick(surrounding_turfs), BS.move_to_delay)
+			BS.in_movement = TRUE
 
 /mob/camera/blob/verb/blob_broadcast()
 	set category = "Blob"
