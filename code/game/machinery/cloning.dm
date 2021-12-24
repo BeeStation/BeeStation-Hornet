@@ -182,38 +182,40 @@
 /obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance, list/traumas, empty)
 	if(!reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 		connected_message("Cannot start cloning: Not enough synthflesh.")
-		return NONE
+		return CLONING_ERROR_101
 	if(panel_open)
-		return NONE
+		return CLONING_ERROR_102
 	if(mess || attempting)
-		return NONE
+		return CLONING_ERROR_103
 
 	if(!empty) //Doesn't matter if we're just making a copy
 		clonemind = locate(mindref) in SSticker.minds
 		if(!istype(clonemind))	//not a mind
-			return NONE
-		if(clonemind.last_death != last_death) //The soul has advanced, the record has not.
-			return NONE
+			return CLONING_ERROR_201
+		if(last_death<0) //presaved clone is not clonable
+			return CLONING_ERROR_202
+		if(abs(clonemind.last_death - last_death) > 60) //You can't clone old ones. 60 seconds grace because a sync-failure can happen.
+			return CLONING_ERROR_203
 		if(!QDELETED(clonemind.current))
 			if(clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
-				return NONE
+				return CLONING_ERROR_203
 			if(clonemind.current.suiciding) // Mind is associated with a body that is suiciding.
-				return NONE
+				return CLONING_ERROR_204
 		if(!clonemind.active)
 			// get_ghost() will fail if they're unable to reenter their body
 			var/mob/dead/observer/G = clonemind.get_ghost()
 			if(!G)
-				return NONE
+				return CLONING_ERROR_205
 			if(G.suiciding) // The ghost came from a body that is suiciding.
-				return NONE
+				return CLONING_ERROR_206
 		if(clonemind.damnation_type) //Can't clone the damned.
 			INVOKE_ASYNC(src, .proc/horrifyingsound)
 			mess = TRUE
 			icon_state = "pod_g"
 			update_icon()
-			return NONE
+			return CLONING_ERROR_666
 		if(clonemind.no_cloning_at_all) // nope.
-			return NONE
+			return CLONING_ERROR_901
 		current_insurance = insurance
 	attempting = TRUE //One at a time!!
 	countdown.start()
@@ -371,6 +373,7 @@
 
 			go_out()
 			log_cloning("[key_name(mob_occupant)] completed cloning cycle in [src] at [AREACOORD(src)].")
+			to_chat(mob_occupant, "<span class='notice'><b>The cloning machine notifies inside your mind, </b></span><span class='nicegreen'><b>\"To prevent PTSD by the possibly horrible cause of your death, Your memories past though for 5 minutes from your death have not been transferred to your new brain. Please understand the medical purpose.\"</b></span>")
 
 	else if (!mob_occupant || mob_occupant.loc != src)
 		occupant = null

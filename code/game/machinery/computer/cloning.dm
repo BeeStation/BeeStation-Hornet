@@ -280,15 +280,52 @@
 		else if(pod.occupant)
 			temp = "Warning: Cloning cycle already in progress."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-		else if(pod.growclone(C.fields["name"], C.fields["UI"], C.fields["SE"], C.fields["mindref"], C.fields["last_death"], C.fields["mrace"], C.fields["features"], C.fields["factions"], C.fields["quirks"], C.fields["bank_account"], C.fields["traumas"], C.fields["body_only"]))
-			temp = "Notice: [C.fields["name"]] => Cloning cycle in progress..."
-			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-			if(!C.fields["body_only"])
-				records.Remove(C)
-			. = TRUE
 		else
-			temp = "Error: [C.fields["name"]] => Initialisation failure."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			switch(pod.growclone(C.fields["name"], C.fields["UI"], C.fields["SE"], C.fields["mindref"], C.fields["last_death"], C.fields["mrace"], C.fields["features"], C.fields["factions"], C.fields["quirks"], C.fields["bank_account"], C.fields["traumas"], C.fields["body_only"]))
+				if(CLONING_SUCCESS)
+					temp = "Notice: [C.fields["name"]] => Cloning cycle in progress..."
+					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+					if(!C.fields["body_only"])
+						records.Remove(C)
+					. = TRUE
+				if(CLONING_ERROR_101)
+					temp = "Error 101: Out of synthflesh."
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				if(CLONING_ERROR_102)
+					temp = "Error 102: Panel opened."
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				if(CLONING_ERROR_103)
+					temp = "Error 103 => Initialisation failure."
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				if(CLONING_ERROR_201)
+					temp = "Error 201: [C.fields["name"]]'s lack of their mind."
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				if(CLONING_ERROR_202)
+					temp = "Error 202: [C.fields["name"]]'s clone record is presaved."
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				if(CLONING_ERROR_203)
+					temp = "Error 203: [C.fields["name"]]'s clone record is outdated."
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				if(CLONING_ERROR_204)
+					temp = "Error 204: [C.fields["name"]] already alive."
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				if(CLONING_ERROR_205)
+					temp = "Error 205: [C.fields["name"]] commited a suicide."
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				if(CLONING_ERROR_206)
+					temp = "Error 206: [C.fields["name"]]'s soul had departed."
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				if(CLONING_ERROR_207)
+					temp = "Error 207: [C.fields["name"]] commited a suicide."
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				if(CLONING_ERROR_666)
+					temp = "Err#^ 666: #$%SGFG$#their@soul&is$mine@#%# => 1(i*i@%i$(t!0n $A!l^r#."
+				if(CLONING_ERROR_901)
+					temp = "Error 901: [C.fields["name"]] is not clonable."
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				else
+					temp = "Error unknown => Initialisation failure."
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 
 	else
 		temp = "Failed to clone: Data corrupted."
@@ -347,6 +384,7 @@
 				record_entry["UI"] = "[R.fields["UI"]]"
 				record_entry["UE"] = "[R.fields["UE"]]"
 				record_entry["blood_type"] = "[R.fields["blood_type"]]"
+				record_entry["last_death"] = "[R.fields["last_death"]]"
 				record_entry["body_only"] = "[R.fields["body_only"]]"
 				records_to_send += list(record_entry)
 			data["records"] = records_to_send
@@ -359,6 +397,7 @@
 			disk_data["UI"] = "[diskette.fields["UI"]]"
 			disk_data["UE"] = "[diskette.fields["UE"]]"
 			disk_data["blood_type"] = "[diskette.fields["blood_type"]]"
+			disk_data["last_death"] = "[diskette.fields["last_death"]]"
 			data["diskData"] = disk_data
 		else
 			data["diskData"] = list()
@@ -598,6 +637,7 @@
 	records += R
 	log_cloning("[user ? key_name(user) : "Autoprocess"] added the [body_only ? "body-only " : ""]record of [key_name(mob_occupant)] to [src] at [AREACOORD(src)].")
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50)
+	ui_update()
 
 //Prototype cloning console, much more rudimental and lacks modern functions such as saving records, autocloning, or safety checks.
 /obj/machinery/computer/cloning/prototype

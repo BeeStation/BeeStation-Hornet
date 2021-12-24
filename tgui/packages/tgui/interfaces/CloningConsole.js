@@ -89,8 +89,8 @@ export const CloningConsole = (props, context) => {
                     {records.map(record => (
                       <Section backgroundColor="#191919" color="white" key={record}>
                         <Collapsible
-                          title={record["name"] + (record["body_only"] ? " (Body Only)" : "")}
-                          color={record["body_only"] ? "yellow" : "blue"}>
+                          title={record["name"] + (record["body_only"]==true ? " (Body Only)" : (record["last_death"]<0 ? " (Presaved, not clonable)" : ""))}
+                          color={record["body_only"]==true ? "yellow" : (record["last_death"]<0 ? "green" : "blue")}>
                           <div key={record["name"]} style={{
                             'word-break': 'break-all',
                           }}>
@@ -118,7 +118,7 @@ export const CloningConsole = (props, context) => {
                               })}
                             />
                             <br />
-                            {!record["body_only"] ? (
+                            {(record["body_only"]==false ? (
                               <Fragment>
                                 Health Implant Data<br />
 
@@ -137,7 +137,7 @@ export const CloningConsole = (props, context) => {
                               <Fragment>
                                 Health implant data not available<br />
                               </Fragment>
-                            )}
+                            ))}
                             Unique Identifier:<br />
                             {record["UI"]}<br />
                             Unique Enzymes:<br />

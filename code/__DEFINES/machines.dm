@@ -129,6 +129,19 @@
 #define CLONING_SUCCESS (1<<0)
 #define CLONING_DELETE_RECORD (1<<1)
 
+#define CLONING_ERROR_101 (101)
+#define CLONING_ERROR_102 (102)
+#define CLONING_ERROR_103 (103)
+#define CLONING_ERROR_201 (201)
+#define CLONING_ERROR_202 (202)
+#define CLONING_ERROR_203 (203)
+#define CLONING_ERROR_204 (204)
+#define CLONING_ERROR_205 (205)
+#define CLONING_ERROR_206 (206)
+#define CLONING_ERROR_207 (207)
+#define CLONING_ERROR_666 (666)
+#define CLONING_ERROR_901 (901)
+
 //these flags are used to tell the DNA modifier if a plant gene cannot be extracted or modified.
 #define PLANT_GENE_REMOVABLE	(1<<0)
 #define PLANT_GENE_EXTRACTABLE	(1<<1)
