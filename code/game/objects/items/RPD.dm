@@ -420,8 +420,8 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 							PM.wrench_act(user, src)
 				else
 					if(recipe.all_layers == FALSE && (piping_layer == 1 || piping_layer == 5))
-							to_chat(user, "<span class='notice'>You can't build this object on the layer...</span>")
-							return ..()
+						to_chat(user, "<span class='notice'>You can't build this object on the layer...</span>")
+						return ..()
 					to_chat(user, "<span class='notice'>You start building a pipe...</span>")
 					if(do_after(user, atmos_build_speed, target = A))
 						if(recipe.all_layers == FALSE && (piping_layer == 1 || piping_layer == 5)) // double check to stop cheaters (and to not waste time waiting for something that can't be placed)
