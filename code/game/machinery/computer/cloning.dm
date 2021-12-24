@@ -249,12 +249,12 @@
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
 	for(var/datum/data/record/R in records)
-		if(R.fields["key"] == diskette.fields["key"])
+		if(R.fields["id"] == diskette.fields["id"] && R.fields["body_only"] == diskette.fields["body_only"] && R.fields["last_death"] == diskette.fields["last_death"])
 			scantemp = "Failed loading: Data already exists!"
 			return FALSE
 	var/datum/data/record/R = new(src)
-	for(var/key in diskette.fields)
-		R.fields[key] = diskette.fields[key]
+	for(var/each in diskette.fields)
+		R.fields[each] = diskette.fields[each]
 	records += R
 	scantemp = "Loaded into internal storage successfully."
 	var/obj/item/circuitboard/computer/cloning/board = circuit
@@ -384,8 +384,8 @@
 				record_entry["UI"] = "[R.fields["UI"]]"
 				record_entry["UE"] = "[R.fields["UE"]]"
 				record_entry["blood_type"] = "[R.fields["blood_type"]]"
-				record_entry["last_death"] = "[R.fields["last_death"]]"
-				record_entry["body_only"] = "[R.fields["body_only"]]"
+				record_entry["last_death"] = R.fields["last_death"]
+				record_entry["body_only"] = R.fields["body_only"]
 				records_to_send += list(record_entry)
 			data["records"] = records_to_send
 		else
@@ -397,7 +397,8 @@
 			disk_data["UI"] = "[diskette.fields["UI"]]"
 			disk_data["UE"] = "[diskette.fields["UE"]]"
 			disk_data["blood_type"] = "[diskette.fields["blood_type"]]"
-			disk_data["last_death"] = "[diskette.fields["last_death"]]"
+			disk_data["last_death"] = diskette.fields["last_death"]
+			disk_data["body_only"] = diskette.fields["body_only"]
 			data["diskData"] = disk_data
 		else
 			data["diskData"] = list()
