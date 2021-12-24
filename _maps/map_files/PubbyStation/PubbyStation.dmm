@@ -35612,7 +35612,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/layer3{
+/obj/machinery/atmospherics/components/unary/portables_connector/layer4{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white/corner{
@@ -35908,7 +35908,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/layer3{
+/obj/machinery/atmospherics/components/unary/portables_connector/layer4{
 	dir = 8
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -36236,7 +36236,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/layer1{
+/obj/machinery/atmospherics/components/unary/portables_connector/layer2{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white/corner{
@@ -36459,7 +36459,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/layer1{
+/obj/machinery/atmospherics/components/unary/portables_connector/layer2{
 	dir = 8
 	},
 /turf/open/floor/plasteel/cafeteria,
@@ -51005,7 +51005,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible/layer3,
-/obj/machinery/atmospherics/components/unary/portables_connector/layer1,
+/obj/machinery/atmospherics/components/unary/portables_connector/layer2,
 /obj/machinery/portable_atmospherics/canister/toxins,
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -54569,7 +54569,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/layer3,
+/obj/machinery/atmospherics/components/unary/portables_connector/layer4,
 /obj/machinery/portable_atmospherics/canister/toxins,
 /turf/open/floor/engine,
 /area/engine/engineering)

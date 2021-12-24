@@ -5415,7 +5415,7 @@
 /area/maintenance/port/fore)
 "amY" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/machinery/atmospherics/components/unary/portables_connector/layer1{
+/obj/machinery/atmospherics/components/unary/portables_connector/layer2{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -36629,7 +36629,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/layer3{
+/obj/machinery/atmospherics/components/unary/portables_connector/layer4{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white/corner,
@@ -38894,7 +38894,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/layer1{
+/obj/machinery/atmospherics/components/unary/portables_connector/layer2{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white/corner,
@@ -39759,7 +39759,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/layer1{
+/obj/machinery/atmospherics/components/unary/portables_connector/layer2{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white/corner,

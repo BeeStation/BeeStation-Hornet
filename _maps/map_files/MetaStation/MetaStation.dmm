@@ -19046,7 +19046,7 @@
 	pixel_y = 27
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer1,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "aLO" = (
@@ -19055,7 +19055,7 @@
 	pixel_y = 30
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer3,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer4,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "aLP" = (
@@ -19067,7 +19067,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer3,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer4,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "aLQ" = (
@@ -40283,7 +40283,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer1{
+/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white/corner{
@@ -41052,7 +41052,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer1{
+/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white/corner{
@@ -41707,7 +41707,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer3{
+/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer4{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white/corner{
@@ -42626,7 +42626,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer3{
+/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer4{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white/corner{
@@ -76146,7 +76146,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer1,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "dhK" = (

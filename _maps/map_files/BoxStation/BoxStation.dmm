@@ -6837,7 +6837,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/layer1{
+/obj/machinery/atmospherics/components/unary/portables_connector/layer2{
 	dir = 1
 	},
 /turf/open/floor/plating,
