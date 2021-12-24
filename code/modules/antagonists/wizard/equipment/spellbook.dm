@@ -280,7 +280,7 @@
 /datum/spellbook_entry/item/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
 	new item_path(get_turf(user))
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
-	return spawned_path
+	return TRUE
 
 /datum/spellbook_entry/item/GetInfo()
 	var/dat =""
