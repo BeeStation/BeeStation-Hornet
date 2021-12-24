@@ -83,9 +83,9 @@
 
 		for(var/turf/T in block(
 				locate(
-					max(T.x - heating_range, 1), max(T.y - heating_range, 1), T.z
+					max(L.x - heating_range, 1), max(L.y - heating_range, 1), L.z
 				), locate(
-					min(T.x + heating_range, world.maxx), min(T.y + heating_range, world.maxy), T.z
+					min(L.x + heating_range, world.maxx), min(L.y + heating_range, world.maxy), L.z
 				)))
 			heat_turf(T)
 	else
@@ -133,7 +133,7 @@
 		cap += M.rating
 
 	heatingPower = laser * 20000
-	heating_range = laser
+	heating_range = laser - 1
 
 	settableTemperatureRange = cap * 30
 	efficiency = (cap + 1) * 5000
