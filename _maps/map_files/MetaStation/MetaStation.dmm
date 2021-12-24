@@ -70521,7 +70521,7 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "cNs" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/on/layer3{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on/layer4{
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
@@ -74396,7 +74396,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "dcE" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/on/layer3{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on/layer4{
 	dir = 4
 	},
 /turf/open/floor/plating/airless,

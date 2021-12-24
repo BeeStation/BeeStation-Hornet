@@ -100696,7 +100696,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "ecg" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/unary/outlet_injector/on/layer3{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on/layer4{
 	dir = 1
 	},
 /turf/open/floor/plating/airless,

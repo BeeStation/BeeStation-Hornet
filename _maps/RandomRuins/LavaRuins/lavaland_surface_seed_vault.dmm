@@ -293,7 +293,7 @@
 /turf/closed/wall/r_wall,
 /area/ruin/powered/seedvault)
 "nH" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/on/layer3{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on/layer4{
 	dir = 4
 	},
 /turf/template_noop/open,
