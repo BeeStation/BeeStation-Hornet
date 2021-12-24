@@ -3465,6 +3465,7 @@
 #include "monkestation\code\game\area\Space_Station_13_areas.dm"
 #include "monkestation\code\modules\clothing\head\misc_special.dm"
 #include "monkestation\code\modules\clothing\masks\miscellaneous.dm"
+#include "monkestation\code\modules\clothing\shoes\magboots.dm"
 #include "monkestation\code\modules\clothing\suits\labcoat.dm"
 #include "monkestation\code\modules\clothing\under\costume.dm"
 #include "monkestation\code\modules\hydroponics\plant_genes.dm"
@@ -3481,4 +3482,5 @@
 #include "monkestation\code\modules\reagents\reagent_containers\spray.dm"
 #include "monkestation\code\modules\research\designs\biogenerator_designs.dm"
 #include "monkestation\code\modules\research\techweb\_techweb.dm"
+#include "monkestation\code\modules\uplink\uplink_items.dm"
 // END_INCLUDE
