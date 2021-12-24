@@ -32205,13 +32205,6 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/port)
-"hCk" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/xmastree,
-/turf/open/floor/carpet/red,
-/area/crew_quarters/bar/atrium)
 "hCC" = (
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
@@ -46501,7 +46494,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay";
-	req_access_txt = "31"
+	req_access_txt = "31;48"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/techmaint,
@@ -58474,9 +58467,6 @@
 	},
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_compressed_out/purple{
-	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -78529,6 +78519,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 8
 	},
+/obj/effect/spawner/xmastree,
 /turf/open/floor/carpet/grimy,
 /area/chapel/main/monastery)
 "sVK" = (
@@ -85594,7 +85585,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Office";
-	req_access_txt = "31"
+	req_one_access_txt = "31;48"
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
@@ -91788,6 +91779,11 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/port)
+"wgq" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/spawner/xmastree,
+/turf/open/floor/carpet/purple,
+/area/crew_quarters/theatre)
 "wgD" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -120350,7 +120346,7 @@ rHr
 sdz
 uLz
 sQK
-pLt
+wgq
 pLt
 ssu
 aOg
@@ -120860,7 +120856,7 @@ kzK
 ecw
 uFw
 lCT
-hCk
+vro
 dcY
 mjR
 uTc
