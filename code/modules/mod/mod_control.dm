@@ -3,14 +3,14 @@
 	name = "Base MOD"
 	desc = "You should not see this, yell at a coder!"
 	icon = 'icons/obj/mod.dmi'
-	icon_state = "standard-control"
-	worn_icon = 'icons/mob/mod.dmi'
+	item_state = "standard-control"
+	icon_state = 'icons/mob/mod.dmi'
 
 /obj/item/mod/control
 	name = "MOD control unit"
 	desc = "The control unit of a Modular Outerwear Device, a powered, back-mounted suit that protects against various environments."
 	icon_state = "control"
-	inhand_icon_state = "mod_control"
+	item_state = "mod_control"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	strip_delay = 10 SECONDS
@@ -276,7 +276,7 @@
 			if(!module.removable)
 				continue
 			removable_modules += module
-		var/obj/item/mod/module/module_to_remove = tgui_input_list(user, "Which module to remove?", "Module Removal", removable_modules)
+		var/obj/item/mod/module/module_to_remove = input(user, "Which module to remove?") in null|removable_modules
 		if(!module_to_remove?.mod)
 			return FALSE
 		uninstall(module_to_remove)
@@ -342,12 +342,12 @@
 
 /obj/item/mod/control/emp_act(severity)
 	. = ..()
-	to_chat(wearer, span_notice("[severity > 1 ? "Light" : "Strong"] electromagnetic pulse detected!"))
+	to_chat(wearer, "<span class='notice'>[severity > 1 ? "Light" : "Strong"] electromagnetic pulse detected!")
 	if(!active || !wearer || . & EMP_PROTECT_CONTENTS)
 		return
 	selected_module = null
-	wearer.apply_damage(10 / severity, BURN, spread_damage=TRUE)
-	to_chat(wearer, span_danger("You feel [src] heat up from the EMP, burning you slightly."))
+	wearer.apply_damage(10 / severity, BURN)
+	to_chat(wearer, "<span class='danger'>You feel [src] heat up from the EMP, burning you slightly.")
 	if (wearer.stat < UNCONSCIOUS && prob(10))
 		wearer.emote("scream")
 
