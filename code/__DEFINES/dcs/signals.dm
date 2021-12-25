@@ -534,3 +534,11 @@
 #define COMSIG_MOVABLE_LIGHT_OVERLAY_SET_COLOR "movable_light_overlay_set_range"
 ///Called when the movable tries to toggle its dynamic light LIGHTING_ON status, from base atom/movable/lighting_overlay_toggle_on(): (new_state)
 #define COMSIG_MOVABLE_LIGHT_OVERLAY_TOGGLE_ON "movable_light_overlay_toggle_on"
+
+//MODsuit signals
+/// Called when a module is selected to be the active one from on_select()
+#define COMSIG_MOD_MODULE_SELECTED "mod_module_selected"
+/// Called when a MOD activation is called from toggle_activate(mob/user)
+#define COMSIG_MOD_ACTIVATE "mod_activate"
+	/// Cancels the suit's activation
+	#define MOD_CANCEL_ACTIVATE (1 << 0)
