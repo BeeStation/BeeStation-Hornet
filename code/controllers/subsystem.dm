@@ -45,9 +45,10 @@
 /datum/controller/subsystem/proc/PreInit()
 	return
 
-//This is used so the mc knows when the subsystem sleeps. do not override.
-/datum/controller/subsystem/proc/ignite(resumed = 0)
-	set waitfor = 0
+///This is used so the mc knows when the subsystem sleeps. do not override.
+/datum/controller/subsystem/proc/ignite(resumed = FALSE)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	set waitfor = FALSE
 	. = SS_SLEEPING
 	fire(resumed)
 	. = state
@@ -59,10 +60,10 @@
 		state = SS_PAUSED
 		queued_time = QT
 
-//previously, this would have been named 'process()' but that name is used everywhere for different things!
-//fire() seems more suitable. This is the procedure that gets called every 'wait' deciseconds.
-//Sleeping in here prevents future fires until returned.
-/datum/controller/subsystem/proc/fire(resumed = 0)
+///previously, this would have been named 'process()' but that name is used everywhere for different things!
+///fire() seems more suitable. This is the procedure that gets called every 'wait' deciseconds.
+///Sleeping in here prevents future fires until returned.
+/datum/controller/subsystem/proc/fire(resumed = FALSE)
 	flags |= SS_NO_FIRE
 	CRASH("Subsystem [src]([type]) does not fire() but did not set the SS_NO_FIRE flag. Please add the SS_NO_FIRE flag to any subsystem that doesn't fire so it doesn't get added to the processing list and waste cpu.")
 
@@ -73,9 +74,34 @@
 	Master.subsystems -= src
 	return ..()
 
-//Queue it to run.
-//	(we loop thru a linked list until we get to the end or find the right point)
-//	(this lets us sort our run order correctly without having to re-sort the entire already sorted list)
+
+/** Update next_fire for the next run.
+ *  reset_time (bool) - Ignore things that would normally alter the next fire, like tick_overrun, and last_fire. (also resets postpone)
+ */
+/datum/controller/subsystem/proc/update_nextfire(reset_time = FALSE)
+	var/queue_node_flags = flags
+
+	if (reset_time)
+		postponed_fires = 0
+		if (queue_node_flags & SS_TICKER)
+			next_fire = world.time + (world.tick_lag * wait)
+		else
+			next_fire = world.time + wait
+		return
+
+	if (queue_node_flags & SS_TICKER)
+		next_fire = world.time + (world.tick_lag * wait)
+	else if (queue_node_flags & SS_POST_FIRE_TIMING)
+		next_fire = world.time + wait + (world.tick_lag * (tick_overrun/100))
+	else if (queue_node_flags & SS_KEEP_TIMING)
+		next_fire += wait
+	else
+		next_fire = queued_time + wait + (world.tick_lag * (tick_overrun/100))
+
+
+///Queue it to run.
+/// (we loop thru a linked list until we get to the end or find the right point)
+/// (this lets us sort our run order correctly without having to re-sort the entire already sorted list)
 /datum/controller/subsystem/proc/enqueue()
 	var/SS_priority = priority
 	var/SS_flags = flags
