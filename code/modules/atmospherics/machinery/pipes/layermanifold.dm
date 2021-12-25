@@ -19,7 +19,7 @@
 	var/list/back_nodes
 
 /obj/machinery/atmospherics/pipe/layer_manifold/Initialize()
-	volume = 280 //260 isn't divisible by 35 bull this is 280L
+	volume = 350 // was previously 280 which was 8 ports but now this thing has 10
 	front_nodes = list()
 	back_nodes = list()
 	icon_state = "manifoldlayer_center"
