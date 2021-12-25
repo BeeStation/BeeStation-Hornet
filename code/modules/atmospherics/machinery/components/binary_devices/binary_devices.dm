@@ -22,7 +22,7 @@
 
 /obj/machinery/atmospherics/components/binary/proc/set_overlay_offset(pipe_layer)
 	switch(pipe_layer)
-		if(2)
+		if(1, 3, 5)
 			return 1
-		if(1, 3)
+		if(2, 4)
 			return 2
