@@ -996,7 +996,7 @@
 	reqs = list(/obj/item/stack/cable_coil = 5,
 				/obj/item/stack/rods = 2,
 				/obj/item/stack/sheet/glass = 1,
-				/obj/item/organ/heart/ethereal = 1
+				/obj/item/organ/heart/cybernetic/ipc = 1
 				)
 	category = CAT_MISC
 /datum/crafting_recipe/paper_cup
