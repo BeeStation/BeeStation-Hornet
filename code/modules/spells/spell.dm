@@ -220,10 +220,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 				if(istype(mod.theme, /datum/mod_theme/enchanted))
 					passes_req = TRUE
 			if(!passes_req && !is_type_in_typecache(H.wear_suit, casting_clothes))
-				to_chat(H, "<span class='warning'>You don't feel strong enough without your robe!"))
+				to_chat(H, "<span class='warning'>You don't feel strong enough without your robe!")
 				return FALSE
 			if(!passes_req && !is_type_in_typecache(H.head, casting_clothes))
-				to_chat(H, "<span class='warning'>You don't feel strong enough without your hat!"))
+				to_chat(H, "<span class='warning'>You don't feel strong enough without your hat!")
 				return FALSE
 		if(cult_req) //CULT_REQ CLOTHES CHECK
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/magusred) && !istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/cult))
