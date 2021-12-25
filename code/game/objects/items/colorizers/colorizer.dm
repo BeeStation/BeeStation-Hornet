@@ -47,4 +47,3 @@
     playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
     qdel(src)
 
-    
