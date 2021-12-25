@@ -5513,7 +5513,7 @@
 	dir = 4
 	},
 /turf/closed/wall/r_wall,
-/area/engine/atmospherics_engine)
+/area/engine/supermatter)
 "bqz" = (
 /obj/machinery/computer/med_data,
 /obj/machinery/airalarm{
@@ -8201,18 +8201,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"bUb" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
-/turf/open/floor/vault,
-/area/engine/atmospherics_engine)
 "bUl" = (
 /obj/structure/table,
 /obj/item/wrench,
@@ -11953,7 +11941,7 @@
 	dir = 5
 	},
 /turf/open/floor/plasteel/dark,
-/area/engine/atmospherics_engine)
+/area/engine/supermatter)
 "cKA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -13551,7 +13539,9 @@
 /turf/open/floor/plasteel/techmaint,
 /area/science/storage)
 "ddD" = (
-/obj/machinery/atmospherics/pipe/simple/green/visible,
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 10
+	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmospherics_engine)
@@ -17590,7 +17580,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
-/area/engine/atmospherics_engine)
+/area/engine/supermatter)
 "dZC" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -19173,8 +19163,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	pixel_y = -24
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
 	},
 /turf/open/floor/vault,
 /area/engine/atmospherics_engine)
@@ -20752,7 +20742,7 @@
 	pixel_x = 24
 	},
 /turf/open/floor/vault,
-/area/engine/atmospherics_engine)
+/area/engine/supermatter)
 "ePo" = (
 /obj/effect/turf_decal/trimline/blue/line{
 	dir = 1
@@ -28670,7 +28660,7 @@
 	dir = 8
 	},
 /turf/open/floor/vault,
-/area/engine/supermatter)
+/area/engine/atmospherics_engine)
 "gKj" = (
 /obj/structure/bodycontainer/morgue{
 	dir = 2
@@ -31450,7 +31440,7 @@
 	dir = 1
 	},
 /turf/open/floor/engine,
-/area/engine/atmospherics_engine)
+/area/engine/supermatter)
 "hsP" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -47802,7 +47792,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/open/floor/plasteel/dark,
-/area/engine/atmospherics_engine)
+/area/engine/supermatter)
 "ltK" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -54439,7 +54429,7 @@
 	network = list("ss13","engine")
 	},
 /turf/open/floor/vault,
-/area/engine/supermatter)
+/area/engine/atmospherics_engine)
 "naV" = (
 /turf/closed/wall/r_wall,
 /area/engine/gravity_generator)
@@ -55861,6 +55851,13 @@
 "nte" = (
 /obj/effect/landmark/event_spawn,
 /obj/structure/lattice/catwalk,
+/turf/open/floor/plating,
+/area/engine/atmospherics_engine)
+"ntq" = (
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 5
+	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmospherics_engine)
 "nty" = (
@@ -63649,7 +63646,7 @@
 	req_one_access_txt = "10;24"
 	},
 /turf/open/floor/vault,
-/area/engine/atmospherics_engine)
+/area/engine/supermatter)
 "puF" = (
 /obj/machinery/airalarm{
 	pixel_y = 22
@@ -70376,7 +70373,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/open/floor/plasteel/dark,
-/area/engine/atmospherics_engine)
+/area/engine/supermatter)
 "qZK" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /turf/open/floor/carpet/blue,
@@ -85506,7 +85503,7 @@
 "uCx" = (
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating,
-/area/engine/supermatter)
+/area/engine/atmospherics_engine)
 "uCC" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
@@ -86652,6 +86649,9 @@
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
+	},
+/obj/machinery/light_switch{
+	pixel_y = -24
 	},
 /turf/open/floor/vault,
 /area/engine/atmospherics_engine)
@@ -88683,7 +88683,7 @@
 	dir = 4
 	},
 /turf/closed/wall/r_wall,
-/area/engine/atmospherics_engine)
+/area/engine/supermatter)
 "vro" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -97232,7 +97232,7 @@
 	dir = 8
 	},
 /turf/open/floor/vault,
-/area/engine/supermatter)
+/area/engine/atmospherics_engine)
 "xCx" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
@@ -148128,7 +148128,7 @@ yes
 cKy
 dZz
 urK
-bUb
+mDM
 uQH
 tTv
 fhW
@@ -148375,15 +148375,15 @@ wWM
 oyN
 vUv
 pDm
-wWM
-wWM
+yes
+yes
 nMq
 iEo
 iZQ
 sug
 chP
-wWM
-wWM
+yes
+yes
 sRQ
 onl
 wWM
@@ -149414,7 +149414,7 @@ yes
 yes
 cib
 cvq
-vhm
+ntq
 dsJ
 eyP
 ekl
