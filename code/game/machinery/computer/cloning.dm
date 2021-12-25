@@ -288,40 +288,40 @@
 					if(!C.fields["body_only"])
 						records.Remove(C)
 					. = TRUE
-				if(CLONING_ERROR_101)
-					temp = "Error 101: Out of synthflesh."
+				if(ERROR_NO_SYNTHFLESH)
+					temp = "Error [ERROR_NO_SYNTHFLESH]: Out of synthflesh."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(CLONING_ERROR_102)
-					temp = "Error 102: Panel opened."
+				if(ERROR_PANEL_OPENED)
+					temp = "Error [ERROR_PANEL_OPENED]: Panel opened."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(CLONING_ERROR_103)
-					temp = "Error 103 => Initialisation failure."
+				if(ERROR_MESS_OR_ATTEMPTING)
+					temp = "Error [ERROR_MESS_OR_ATTEMPTING] => Initialisation failure."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(CLONING_ERROR_201)
-					temp = "Error 201: [C.fields["name"]]'s lack of their mind."
+				if(ERROR_NOT_MIND)
+					temp = "Error [ERROR_NOT_MIND]: [C.fields["name"]]'s lack of their mind."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(CLONING_ERROR_202)
-					temp = "Error 202: [C.fields["name"]]'s clone record is presaved."
+				if(ERROR_PRESAVED_CLONE)
+					temp = "Error [ERROR_PRESAVED_CLONE]: [C.fields["name"]]'s clone record is presaved."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(CLONING_ERROR_203)
-					temp = "Error 203: [C.fields["name"]]'s clone record is outdated."
+				if(ERROR_OUTDATED_CLONE)
+					temp = "Error [ERROR_OUTDATED_CLONE]: [C.fields["name"]]'s clone record is outdated."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(CLONING_ERROR_204)
-					temp = "Error 204: [C.fields["name"]] already alive."
+				if(ERROR_ALREADY_ALIVE)
+					temp = "Error [ERROR_ALREADY_ALIVE]: [C.fields["name"]] already alive."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(CLONING_ERROR_205)
-					temp = "Error 205: [C.fields["name"]] commited a suicide."
+				if(ERROR_COMMITED_SUICIDE)
+					temp = "Error [ERROR_COMMITED_SUICIDE]: [C.fields["name"]] commited a suicide."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(CLONING_ERROR_206)
-					temp = "Error 206: [C.fields["name"]]'s soul had departed."
+				if(ERROR_SOUL_DEPARTED)
+					temp = "Error [ERROR_SOUL_DEPARTED]: [C.fields["name"]]'s soul had departed."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(CLONING_ERROR_207)
-					temp = "Error 207: [C.fields["name"]] commited a suicide."
+				if(ERROR_SUICIDED_BODY)
+					temp = "Error [ERROR_SUICIDED_BODY]: [C.fields["name"]] commited a suicide."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(CLONING_ERROR_666)
-					temp = "Err#^ 666: #$%SGFG$#their@soul&is$mine@#%# => 1(i*i@%i$(t!0n $A!l^r#."
-				if(CLONING_ERROR_901)
-					temp = "Error 901: [C.fields["name"]] is not clonable."
+				if(ERROR_SOUL_DAMNED)
+					temp = "Err#^ [ERROR_SOUL_DAMNED]: #$%SGFG$#their@soul&is$mine@#%# => 1(i*i@%i$(t!0n $A!l^r#."
+				if(ERROR_UNCLONABLE)
+					temp = "Error [ERROR_UNCLONABLE]: [C.fields["name"]] is not clonable."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				else
 					temp = "Error unknown => Initialisation failure."

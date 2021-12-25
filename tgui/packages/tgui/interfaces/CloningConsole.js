@@ -75,8 +75,8 @@ export const CloningConsole = (props, context) => {
                     {records.map(record => (
                       <Section backgroundColor="#191919" color="white" key={record}>
                         <Collapsible
-                          title={record["name"] + (record["body_only"]===1 ? " (Body Only)" : (record["last_death"]<0 ? " (Presaved, not clonable)" : ""))}
-                          color={record["body_only"]===1 ? "yellow" : (record["last_death"]<0 ? "green" : "blue")}>
+                          title={record["name"] + (record["body_only"] ? " (Body Only)" : (record["last_death"]<0 ? " (Presaved, not clonable)" : ""))}
+                          color={record["body_only"] ? "yellow" : (record["last_death"]<0 ? "green" : "blue")}>
                           <div key={record["name"]} style={{
                             'word-break': 'break-all',
                           }}>
@@ -104,7 +104,7 @@ export const CloningConsole = (props, context) => {
                               })}
                             />
                             <br />
-                            {(record["body_only"]===0 ? (
+                            {(!record["body_only"] ? (
                               <Fragment>
                                 Health Implant Data<br />
 
@@ -157,8 +157,8 @@ export const CloningConsole = (props, context) => {
                 }>
                 {diskData.length !== 0 ? (
                   <Collapsible
-                    title={diskData["name"] ? diskData["name"]+(diskData["body_only"]===1 ? " (Body Only)" : diskData["last_death"]<0 ? " (Presaved)" : "") :"Empty Disk"}
-                    color={diskData["name"] ? (diskData["body_only"]===1 ? "yellow" : (diskData["last_death"]<0 ? "green" : "blue")) : "grey"}>
+                    title={diskData["name"] ? diskData["name"]+(diskData["body_only"] ? " (Body Only)" : diskData["last_death"]<0 ? " (Presaved)" : "") :"Empty Disk"}
+                    color={diskData["name"] ? (diskData["body_only"] ? "yellow" : (diskData["last_death"]<0 ? "green" : "blue")) : "grey"}>
                     {diskData["id"] ? (
                       <Box style={{
                         'word-break': 'break-all',
