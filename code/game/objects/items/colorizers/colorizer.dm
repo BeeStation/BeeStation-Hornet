@@ -18,8 +18,15 @@
     do_colorize(target_atom, user)
     . = ..()
 
+/obj/item/colorizer/proc/can_use(mob/user)
+	if(user && ismob(user))
+		if(!user.incapacitated())
+			return TRUE
+	return FALSE
+
 /obj/item/colorizer/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-    do_colorize(target, user)
+    if(proximity_flag && can_use(user))
+        do_colorize(target, user)
     . = ..()
 
 /obj/item/colorizer/proc/do_colorize(atom/to_be_colored, mob/user)
