@@ -31,6 +31,7 @@
 #define IMMUTABLE_SLOW			(1<<10) //! When players should not be able to change the slowdown of the item (Speed potions, etc)
 #define IN_STORAGE				(1<<11) //! is this item in the storage item, such as backpack? used for tooltips
 #define ILLEGAL					(1<<12)	//! this item unlocks illegal tech
+#define PICKED_UP				(1<<13)	//! This item has been picked up by someone
 
 // Flags for the clothing_flags var on /obj/item/clothing
 

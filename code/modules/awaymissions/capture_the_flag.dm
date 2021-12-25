@@ -71,7 +71,6 @@
 		if(!user.dropItemToGround(src))
 			return
 	anchored = FALSE
-	pickup(user)
 	if(!user.put_in_active_hand(src))
 		dropped(user)
 		return
