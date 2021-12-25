@@ -496,7 +496,7 @@
 			return
 
 		if(controlled_equipment)
-			to_chat(src, span_warning("You are already loaded into an onboard computer!"))
+			to_chat(src, "<span class='warning'>You are already loaded into an onboard computer!")
 			return
 		if(!GLOB.cameranet.checkCameraVis(M))
 			to_chat(src, "<span class='warning'>Exosuit is no longer near active cameras.</span>")
