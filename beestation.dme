@@ -1884,7 +1884,6 @@
 #include "code\modules\clothing\shoes\taeclowndo.dm"
 #include "code\modules\clothing\spacesuits\_spacesuits.dm"
 #include "code\modules\clothing\spacesuits\chronosuit.dm"
-#include "code\modules\clothing\spacesuits\hardsuit.dm"
 #include "code\modules\clothing\spacesuits\miscellaneous.dm"
 #include "code\modules\clothing\spacesuits\plasmamen.dm"
 #include "code\modules\clothing\spacesuits\syndi.dm"
