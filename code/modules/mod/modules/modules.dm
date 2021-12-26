@@ -683,13 +683,13 @@
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(mod.wearer, TRAIT_REAGENT_SCANNER, MOD_TRAIT)
+	mod.helmet.clothing_flags |= SCAN_REAGENTS
 
 /obj/item/mod/module/reagent_scanner/on_deactivation()
 	. = ..()
 	if(!.)
 		return
-	REMOVE_TRAIT(mod.wearer, TRAIT_REAGENT_SCANNER, MOD_TRAIT)
+	mod.helmet.clothing_flags |- SCAN_REAGENTS
 
 /obj/item/mod/module/reagent_scanner/advanced
 	name = "MOD advanced reagent scanner module"
