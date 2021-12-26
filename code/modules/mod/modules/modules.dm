@@ -154,7 +154,7 @@
 	overlay_state_inactive = "module_welding"
 
 /obj/item/mod/module/welding/on_suit_activation()
-	mod.helmet.flash_protect = FLASH_PROTECTION_WELDER
+	mod.helmet.flash_protect = 2
 
 /obj/item/mod/module/welding/on_suit_deactivation()
 	mod.helmet.flash_protect = initial(mod.helmet.flash_protect)
@@ -203,8 +203,6 @@
 	switch(mode)
 		if(HEALTH_SCAN)
 			healthscan(mod.wearer, target)
-		if(WOUND_SCAN)
-			woundscan(mod.wearer, target)
 		if(CHEM_SCAN)
 			chemscan(mod.wearer, target)
 	drain_power(use_power_cost)
@@ -241,8 +239,6 @@
 	. = ..()
 	if(!.)
 		return
-	if(bumpoff)
-		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, .proc/unstealth)
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, .proc/on_unarmed_attack)
 	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, .proc/on_bullet_act)
 	RegisterSignal(mod.wearer, list(COMSIG_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_ATTACK_PAW, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED), .proc/unstealth)
@@ -253,15 +249,13 @@
 	. = ..()
 	if(!.)
 		return
-	if(bumpoff)
-		UnregisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP)
 	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED))
 	animate(mod.wearer, alpha = 255, time = 1.5 SECONDS)
 
 /obj/item/mod/module/stealth/proc/unstealth(datum/source)
 	SIGNAL_HANDLER
 
-	to_chat(mod.wearer, span_warning("[src] gets discharged from contact!"))
+	to_chat(mod.wearer, "<span class='warning'>[src] gets discharged from contact!")
 	do_sparks(2, TRUE, src)
 	drain_power(use_power_cost)
 	on_deactivation()
@@ -340,7 +334,6 @@
 	ion_trail.stop()
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_PRE_MOVE)
-	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_SPACEMOVE)
 	if(full_speed)
 		mod.wearer.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 
@@ -404,7 +397,6 @@
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(mod.wearer, TRAIT_NEGATES_GRAVITY, MOD_TRAIT)
 	ADD_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, MOD_TRAIT)
 	mod.slowdown += slowdown_active
 	mod.wearer.update_gravity(mod.wearer.has_gravity())
@@ -414,7 +406,6 @@
 	. = ..()
 	if(!.)
 		return
-	REMOVE_TRAIT(mod.wearer, TRAIT_NEGATES_GRAVITY, MOD_TRAIT)
 	REMOVE_TRAIT(mod.wearer, TRAIT_NOSLIPWATER, MOD_TRAIT)
 	mod.slowdown -= slowdown_active
 	mod.wearer.update_gravity(mod.wearer.has_gravity())
