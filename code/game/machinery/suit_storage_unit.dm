@@ -286,7 +286,7 @@
 			else
 				if (occupant)
 					var/mob/living/mob_occupant = occupant
-					to_chat(mob_occupant, span_userdanger("[src]'s confines grow warm, then hot, then scorching. You're being burned [!mob_occupant.stat ? "alive" : "away"]!"))
+					to_chat(mob_occupant, "<span class='danger'>[src]'s confines grow warm, then hot, then scorching. You're being burned [!mob_occupant.stat ? "alive" : "away"]!")
 				cook()
 		if ("lock", "unlock")
 			if (!state_open)
@@ -525,7 +525,7 @@
 			mask = I
 		else if(istype(I, /obj/item/mod/control))
 			if(mod)
-				to_chat(user, span_warning("The unit already contains a MOD!"))
+				to_chat(user, "<span class='warning'>The unit already contains a MOD!")
 				return
 			if(!user.transferItemToLoc(I, src))
 				return
