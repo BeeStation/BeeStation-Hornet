@@ -488,35 +488,34 @@
 	. = ..()
 	if(!.)
 		return
-	var/obj/projectile/tether = new /obj/projectile/tether(mod.wearer.loc)
+	var/obj/item/projectile/tether = new /obj/item/projectile/tether(mod.wearer.loc)
 	tether.preparePixelProjectile(target, mod.wearer)
 	tether.firer = mod.wearer
-	INVOKE_ASYNC(tether, /obj/projectile.proc/fire)
+	INVOKE_ASYNC(tether, /obj/item/projectile.proc/fire)
 	drain_power(use_power_cost)
 
-/obj/projectile/tether
+/obj/item/projectile/tether
 	name = "tether"
 	icon_state = "tether_projectile"
 	icon = 'icons/obj/mod.dmi'
 	pass_flags = PASSTABLE
 	damage = 0
-	nodamage = TRUE
 	range = 10
 	hitsound = 'sound/weapons/batonextend.ogg'
 	hitsound_wall = 'sound/weapons/batonextend.ogg'
 	var/line
 
-/obj/projectile/tether/fire(setAngle)
+/obj/item/projectile/tether/fire(setAngle)
 	if(firer)
 		line = firer.Beam(src, "line", 'icons/obj/mod.dmi')
 	..()
 
-/obj/projectile/tether/on_hit(atom/target)
+/obj/item/projectile/tether/on_hit(atom/target)
 	. = ..()
 	if(firer)
 		firer.throw_at(target, 10, 1, firer, FALSE, FALSE, null, MOVE_FORCE_NORMAL, TRUE)
 
-/obj/projectile/tether/Destroy()
+/obj/item/projectile/tether/Destroy()
 	QDEL_NULL(line)
 	return ..()
 
@@ -1230,14 +1229,14 @@
 	if(!length(organ_list))
 		return
 	var/atom/movable/fired_organ = pop(organ_list)
-	var/obj/projectile/organ/projectile = new /obj/projectile/organ(mod.wearer.loc, fired_organ)
+	var/obj/item/projectile/organ/projectile = new /obj/item/projectile/organ(mod.wearer.loc, fired_organ)
 	projectile.preparePixelProjectile(target, mod.wearer)
 	projectile.firer = mod.wearer
 	playsound(src, 'sound/mecha/hydraulic.ogg', 25, TRUE)
-	INVOKE_ASYNC(projectile, /obj/projectile.proc/fire)
+	INVOKE_ASYNC(projectile, /obj/item/projectile.proc/fire)
 	drain_power(use_power_cost)
 
-/obj/projectile/organ
+/obj/item/projectile/organ
 	name = "organ"
 	damage = 0
 	nodamage = TRUE
@@ -1245,7 +1244,7 @@
 	hitsound_wall = 'sound/effects/attackblob.ogg'
 	var/obj/item/organ/organ
 
-/obj/projectile/organ/Initialize(mapload, obj/item/stored_organ)
+/obj/item/projectile/organ/Initialize(mapload, obj/item/stored_organ)
 	. = ..()
 	if(!stored_organ)
 		return INITIALIZE_HINT_QDEL
@@ -1253,11 +1252,11 @@
 	stored_organ.forceMove(src)
 	organ = stored_organ
 
-/obj/projectile/organ/Destroy()
+/obj/item/projectile/organ/Destroy()
 	organ = null
 	return ..()
 
-/obj/projectile/organ/on_hit(atom/target)
+/obj/item/projectile/organ/on_hit(atom/target)
 	. = ..()
 	if(!ishuman(target))
 		organ.forceMove(drop_location())
