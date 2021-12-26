@@ -818,11 +818,9 @@
 
 /obj/item/mod/module/quick_carry/on_suit_activation()
 	ADD_TRAIT(mod.wearer, TRAIT_QUICKER_CARRY, MOD_TRAIT)
-	ADD_TRAIT(mod.wearer, TRAIT_FASTMED, MOD_TRAIT)
 
 /obj/item/mod/module/quick_carry/on_suit_deactivation()
 	REMOVE_TRAIT(mod.wearer, TRAIT_QUICKER_CARRY, MOD_TRAIT)
-	REMOVE_TRAIT(mod.wearer, TRAIT_FASTMED, MOD_TRAIT)
 
 /obj/item/mod/module/longfall
 	name = "MOD longfall module"
