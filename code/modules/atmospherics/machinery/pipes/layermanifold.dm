@@ -10,6 +10,7 @@
 	device_type = 0
 	construction_type = /obj/item/pipe/binary
 	pipe_state = "manifoldlayer"
+	paintable = FALSE
 	FASTDMM_PROP(\
 		pipe_type = PIPE_TYPE_STRAIGHT,\
 		pipe_interference_group = list("atmos-1","atmos-2","atmos-3")\
@@ -42,7 +43,7 @@
 /obj/machinery/atmospherics/pipe/layer_manifold/proc/get_all_connected_nodes()
 	return front_nodes + back_nodes + nodes
 
-/obj/machinery/atmospherics/pipe/layer_manifold/update_icon()	//HEAVILY WIP FOR UPDATE ICONS!!
+/obj/machinery/atmospherics/pipe/layer_manifold/update_icon()
 	cut_overlays()
 	layer = initial(layer) + (PIPING_LAYER_MAX * PIPING_LAYER_LCHANGE)	//This is above everything else.
 

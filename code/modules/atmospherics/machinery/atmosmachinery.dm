@@ -37,6 +37,8 @@
 	var/construction_type
 	var/pipe_state //icon_state as a pipe item
 	var/on = FALSE
+	/// whether it can be painted
+	var/paintable = FALSE
 	var/interacts_with_air = FALSE
 
 /obj/machinery/atmospherics/examine(mob/user)
@@ -357,3 +359,6 @@
 
 /obj/machinery/atmospherics/proc/update_layer()
 	layer = initial(layer) + (piping_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_LCHANGE
+
+/obj/machinery/atmospherics/proc/paint(paint_color)
+	return FALSE
