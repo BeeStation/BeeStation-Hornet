@@ -198,16 +198,16 @@
 			return ERROR_OUTDATED_CLONE
 		if(!QDELETED(clonemind.current))
 			if(clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
-				return ERROR_OUTDATED_CLONE
-			if(clonemind.current.suiciding) // Mind is associated with a body that is suiciding.
 				return ERROR_ALREADY_ALIVE
+			if(clonemind.current.suiciding) // Mind is associated with a body that is suiciding.
+				return ERROR_COMMITED_SUICIDE
 		if(!clonemind.active)
 			// get_ghost() will fail if they're unable to reenter their body
 			var/mob/dead/observer/G = clonemind.get_ghost()
 			if(!G)
-				return ERROR_COMMITED_SUICIDE
-			if(G.suiciding) // The ghost came from a body that is suiciding.
 				return ERROR_SOUL_DEPARTED
+			if(G.suiciding) // The ghost came from a body that is suiciding.
+				return ERROR_SUICIDED_BODY
 		if(clonemind.damnation_type) //Can't clone the damned.
 			INVOKE_ASYNC(src, .proc/horrifyingsound)
 			mess = TRUE
@@ -373,7 +373,6 @@
 
 			go_out()
 			log_cloning("[key_name(mob_occupant)] completed cloning cycle in [src] at [AREACOORD(src)].")
-			to_chat(mob_occupant, "<span class='notice'><b>The cloning machine notifies inside your mind, </b></span><span class='nicegreen'><b>\"To prevent PTSD by the possibly horrible cause of your death, Your memories past though for 5 minutes from your death have not been transferred to your new brain. Please understand the medical purpose.\"</b></span>")
 
 	else if (!mob_occupant || mob_occupant.loc != src)
 		occupant = null

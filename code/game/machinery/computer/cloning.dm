@@ -249,7 +249,7 @@
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
 	for(var/datum/data/record/R in records)
-		if(R.fields["id"] == diskette.fields["id"] && R.fields["body_only"] == diskette.fields["body_only"])
+		if(R.fields["id"] == diskette.fields["id"])
 			scantemp = "Failed loading: Data already exists!"
 			return FALSE
 	var/datum/data/record/R = new(src)
@@ -498,8 +498,8 @@
 	if(dna.species)
 		clone_species = dna.species
 	else
-		var/datum/species/rando_race = pick(GLOB.roundstart_races)
-		clone_species = rando_race.type
+		scantemp = "Unauthorized clone process detected => Interrupted."
+		return //no dna info for species? you're not allowed to clone them. Don't harass xeno, don't try xeno farm.
 	var/obj/machinery/clonepod/pod = GetAvailablePod()
 	//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
 	if(!LAZYLEN(pods))
@@ -587,11 +587,15 @@
 		dna.delete_species = FALSE
 		R.fields["mrace"] = dna.species
 	else
-		var/datum/species/rando_race = pick(GLOB.roundstart_races)
-		R.fields["mrace"] = rando_race.type
+		return //no dna info for species? you're not allowed to clone them. Don't harass xeno, don't try xeno farm.
+		//Note: if you want to clone unusual species, you need to check 'carbon/human' rather than 'dna.species'
 
 	R.fields["name"] = mob_occupant.real_name
-	R.fields["id"] = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 2, 6)
+	if(!body_only)
+		//even if you have the same identity, this will give you different id based on your mind. body_only gets β at their id.
+		R.fields["id"] = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 7)+copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.mind), -4)
+	else
+		R.fields["id"] = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 10)+"β"
 	R.fields["UE"] = dna.unique_enzymes
 	R.fields["UI"] = dna.uni_identity
 	R.fields["SE"] = dna.mutation_index
@@ -599,15 +603,16 @@
 	R.fields["features"] = dna.features
 	R.fields["factions"] = mob_occupant.faction
 	R.fields["quirks"] = list()
-	for(var/V in mob_occupant.roundstart_quirks)
-		var/datum/quirk/T = V
-		R.fields["quirks"][T.type] = T.clone_data()
-
 	R.fields["traumas"] = list()
-	if(ishuman(mob_occupant))
-		R.fields["traumas"] = C.get_traumas()
-	if(isbrain(mob_occupant))
-		R.fields["traumas"] = B.get_traumas()
+	if(!body_only) //these are personal features from the brain, not the body.
+		for(var/V in mob_occupant.roundstart_quirks)
+			var/datum/quirk/T = V
+			R.fields["quirks"][T.type] = T.clone_data()
+		if(isbrain(mob_occupant)) //We'll detect the brain first because trauma is from the brain, not from the body.
+			R.fields["traumas"] = B.get_traumas()
+		else if(ishuman(mob_occupant))
+			R.fields["traumas"] = C.get_traumas()
+		//Note: this will not transfer your quirks and traumas if your brain is transfered to the body_only cloned body. However, this is likely a bug from the structure of quirks and traumas.
 
 	R.fields["bank_account"] = has_bank_account
 	R.fields["mindref"] = "[REF(mob_occupant.mind)]"
@@ -625,11 +630,7 @@
 			imp.implant(mob_occupant)
 		R.fields["imp"] = "[REF(imp)]"
 
-	var/datum/data/record/old_record = find_record("mindref", REF(mob_occupant.mind), records)
-	if(body_only)
-		old_record = find_record("UE", dna.unique_enzymes, records) //Body-only records cannot be identified by mind, so we use the DNA
-		if(old_record && ((old_record.fields["UI"] != dna.uni_identity) || (!old_record.fields["body_only"]))) //Never overwrite a mind-and-body record if it exists
-			old_record = null
+	var/datum/data/record/old_record = find_record("id", R.fields["id"], records)
 	if(old_record)
 		records -= old_record
 		scantemp = "Record updated."
