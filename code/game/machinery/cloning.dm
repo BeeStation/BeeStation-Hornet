@@ -194,7 +194,7 @@
 			return ERROR_NOT_MIND
 		if(last_death<0) //presaved clone is not clonable
 			return ERROR_PRESAVED_CLONE
-		if(abs(clonemind.last_death - last_death) > 60) //You can't clone old ones. 60 seconds grace because a sync-failure can happen.
+		if(abs(clonemind.last_death - last_death) > 5) //You can't clone old ones. 5 seconds grace because a sync-failure can happen.
 			return ERROR_OUTDATED_CLONE
 		if(!QDELETED(clonemind.current))
 			if(clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
