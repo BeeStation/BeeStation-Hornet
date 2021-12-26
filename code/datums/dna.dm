@@ -16,6 +16,7 @@
 	var/default_mutation_genes[DNA_MUTATION_BLOCKS] //List of the default genes from this mutation to allow DNA Scanner highlighting
 	var/stability = 100
 	var/scrambled = FALSE //Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
+	var/current_body_size = BODY_SIZE_NORMAL
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
@@ -60,6 +61,7 @@
 	new_dna.features = features.Copy()
 	new_dna.species = new species.type
 	new_dna.real_name = real_name
+	new_dna.update_body_size() //Must come after features.Copy()
 	new_dna.mutations = mutations.Copy()
 
 //See mutation.dm for what 'class' does. 'time' is time till it removes itself in decimals. 0 for no timer
@@ -272,6 +274,23 @@
 	return
 
 /////////////////////////// DNA MOB-PROCS //////////////////////
+/datum/dna/proc/update_body_size()
+	if(!holder)
+		return
+	var/desired_size
+	if(features["body_size"] == "Normal" || !species?.default_features["body_size"])
+		desired_size = BODY_SIZE_NORMAL
+	else
+		desired_size = BODY_SIZE_SHORT
+
+	if(desired_size == current_body_size)
+		return
+
+	var/change_multiplier = desired_size / current_body_size
+	var/translate = ((change_multiplier-1) * 32)/2
+	holder.transform = holder.transform.Scale(change_multiplier)
+	holder.transform = holder.transform.Translate(0, translate)
+	current_body_size = desired_size
 
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
 	return
