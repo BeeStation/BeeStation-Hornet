@@ -46,10 +46,10 @@
 	for(var/obj/machinery/atmospherics/pipe/multiz/above in SSmapping.get_turf_above(T))
 		if(above.piping_layer == piping_layer)
 			nodes += above
-			above.nodes += src //Two way travel :)
+			above.nodes += src // Two way travel :)
 	for(var/obj/machinery/atmospherics/pipe/multiz/below in SSmapping.get_turf_below(T))
 		if(below.piping_layer == piping_layer)
-			below.pipeline_expansion() //If we've got one below us, force it to add us on facebook
+			below.pipeline_expansion() // If we've got one below us, force it to add us on facebook
 	return ..()
 
 // MAPPING
