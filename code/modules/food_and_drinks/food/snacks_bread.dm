@@ -261,7 +261,7 @@
 	. = ..()
 
 /obj/item/reagent_containers/food/snacks/deepfryholder/On_Consume(mob/living/eater)
-	if(LAZYLEN(contents) && !reagents.total_volume)
+	if(length(contents) && !reagents.total_volume)
 		for(var/atom/movable/A in contents)
 			A.forceMove(eater.loc)
 	..()
