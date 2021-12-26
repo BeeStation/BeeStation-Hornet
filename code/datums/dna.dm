@@ -280,8 +280,10 @@
 	var/desired_size
 	if(features["body_size"] == "Normal" || !species?.default_features["body_size"])
 		desired_size = BODY_SIZE_NORMAL
-	else
+	else if(features["body_size"] == "Short")
 		desired_size = BODY_SIZE_SHORT
+	else
+		desired_size = BODY_SIZE_TALL
 
 	if(desired_size == current_body_size)
 		return
