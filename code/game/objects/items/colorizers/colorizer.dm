@@ -19,10 +19,9 @@
     . = ..()
 
 /obj/item/colorizer/proc/can_use(mob/user)
-	if(user && ismob(user))
-		if(!user.incapacitated())
-			return TRUE
-	return FALSE
+	if(!user || !ismob(user) || user.incapacitated())
+		return FALSE
+	return TRUE
 
 /obj/item/colorizer/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
     if(proximity_flag && can_use(user))
