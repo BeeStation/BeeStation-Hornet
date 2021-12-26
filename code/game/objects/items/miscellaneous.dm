@@ -337,6 +337,28 @@
 	to_chat(M, msg)
 	new /obj/effect/pod_landingzone(get_turf(src), pod)
 
+/obj/item/choice_beacon/petchoice
+	name = "Multiple choice animal delivery beacon"
+	desc = "There are no faster ways, only more humane."
+	var/default_name = "Petsie"
+	
+	/obj/item/choice_beacon/petchoice/generate_display_names()
+	var/static/list/pets
+	if(!pets)
+		pets = list()
+		var/list/templist = list(/mob/living/simple_animal/pet/cat,
+							/obj/item/choice_beacon/pet/mouse,
+							/obj/item/choice_beacon/pet/corgi,
+							/obj/item/choice_beacon/pet/hamster,
+							/obj/item/choice_beacon/pet/pug,
+							/mob/living/simple_animal/pet/penguin/baby,
+							/mob/living/simple_animal/hostile/retaliate/goat
+							)
+		for(var/V in templist)
+			var/atom/A = V
+			pets[initial(A.name)] = A
+	return pets
+
 /obj/item/choice_beacon/pet/cat
 	name = "cat delivery beacon"
 	default_name = "Tom"
