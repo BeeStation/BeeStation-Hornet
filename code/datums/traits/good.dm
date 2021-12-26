@@ -41,6 +41,22 @@
 	mob_trait = TRAIT_EMPATH
 	gain_text = "<span class='notice'>You feel in tune with those around you.</span>"
 	lose_text = "<span class='danger'>You feel isolated from others.</span>"
+	
+/datum/quirk/Supportanimal
+	name = "Emotional Support Animal"
+	desc = "You gain a random pet delivery beacon give it lots of love and care and it will take care of your mood"
+	value = 1
+	gain_text = "<span class='notice'>You feel happy with your pet.</span>"
+	lose_text = "<span class='danger'>You lament the loss of your pet.</span>"
+
+/datum/quirk/Supportanimal/on_spawn()
+	var/mob/living/carbon/human/H = quirk_holder
+	var/obj/item/choice_beacon/petchoice/B = new(get_turf(H))
+	var/list/slots = list (
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"hands" = ITEM_SLOT_HANDS,
+	)
+	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
 
 /datum/quirk/freerunning
 	name = "Freerunning"
