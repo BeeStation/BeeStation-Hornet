@@ -342,7 +342,7 @@
 	desc = "There are no faster ways, only more humane."
 	var/default_name = "Petsie"
 	
-	/obj/item/choice_beacon/petchoice/generate_display_names()
+/obj/item/choice_beacon/petchoice/generate_display_names()
 	var/static/list/pet
 	if(!pet)
 		pet = list()
