@@ -343,9 +343,9 @@
 	var/default_name = "Petsie"
 	
 	/obj/item/choice_beacon/petchoice/generate_display_names()
-	var/static/list/pets
-	if(!pets)
-		pets = list()
+	var/static/list/pet
+	if(!pet)
+		pet = list()
 		var/list/templist = list(/mob/living/simple_animal/pet/cat,
 							/obj/item/choice_beacon/pet/mouse,
 							/obj/item/choice_beacon/pet/corgi,
@@ -356,8 +356,8 @@
 							)
 		for(var/V in templist)
 			var/atom/A = V
-			pets[initial(A.name)] = A
-	return pets
+			pet[initial(A.name)] = A
+	return pet
 
 /obj/item/choice_beacon/pet/cat
 	name = "cat delivery beacon"
