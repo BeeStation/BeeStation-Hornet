@@ -7,7 +7,7 @@
 
 /obj/item/ammo_casing/energy/lasergun
 	projectile_type = /obj/item/projectile/beam/laser
-	e_cost = 71
+	e_cost = 50
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/lasergun/old
