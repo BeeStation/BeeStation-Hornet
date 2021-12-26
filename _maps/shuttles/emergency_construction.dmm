@@ -30,6 +30,19 @@
 "f" = (
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"g" = (
+/obj/structure/table,
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/titaniumglass{
+	amount = 50;
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "j" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical{
@@ -131,18 +144,6 @@
 	pixel_y = 3
 	},
 /obj/item/stack/sheet/mineral/titanium/fifty{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"o" = (
-/obj/structure/table,
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/titaniumglass{
 	pixel_x = -2;
 	pixel_y = -2
 	},
@@ -395,7 +396,7 @@ f
 f
 l
 f
-o
+g
 f
 f
 f

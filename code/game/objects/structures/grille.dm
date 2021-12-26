@@ -6,6 +6,7 @@
 	density = TRUE
 	anchored = TRUE
 	flags_1 = CONDUCT_1
+	pass_flags_self = PASSGRILLE
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
 	armor = list("melee" = 50, "bullet" = 70, "laser" = 70, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0, "stamina" = 0)
@@ -124,21 +125,15 @@
 	if(!shock(user, 70))
 		take_damage(20, BRUTE, "melee", 1)
 
+/obj/structure/grille/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
+	if(!. && istype(mover, /obj/item/projectile))
+		return prob(30)
 
-/obj/structure/grille/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && (mover.pass_flags & PASSGRILLE))
-		return TRUE
-	else
-		if(istype(mover, /obj/item/projectile) && density)
-			return prob(30)
-		else
-			return !density
-
-/obj/structure/grille/CanAStarPass(ID, dir, caller)
+/obj/structure/grille/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
 	. = !density
-	if(ismovableatom(caller))
-		var/atom/movable/mover = caller
-		. = . || (mover.pass_flags & PASSGRILLE)
+	if(istype(caller))
+		. = . || (caller.pass_flags & PASSGRILLE)
 
 /obj/structure/grille/attackby(obj/item/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)

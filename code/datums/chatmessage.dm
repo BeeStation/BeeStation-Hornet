@@ -225,8 +225,9 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	if (LAZYLEN(message_loc.chat_messages))
 		var/idx = 1
 		var/combined_height = approx_lines
-		for(var/msg in message_loc.chat_messages)
-			var/datum/chatmessage/m = msg
+		for(var/datum/chatmessage/m as() in message_loc.chat_messages)
+			if(!m?.message)
+				continue
 			animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME)
 			combined_height += m.approx_lines
 
@@ -307,6 +308,9 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			return CHATMESSAGE_CANNOT_HEAR
 		//Dont create the overhead radio chat if we heard the speaker speak
 		if(get_dist(get_turf(v.source), get_turf(src)) <= 1)
+			return CHATMESSAGE_CANNOT_HEAR
+		//The AI shouldn't be able to see the overhead chat trough the static
+		if(isAI(src) && !GLOB.cameranet.checkCameraVis(v.source))
 			return CHATMESSAGE_CANNOT_HEAR
 	var/datum/language/language_instance = GLOB.language_datum_instances[message_language]
 	if(language_instance?.display_icon(src))

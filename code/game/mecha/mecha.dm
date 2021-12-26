@@ -10,6 +10,10 @@
 	layer = BELOW_MOB_LAYER//icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
+	light_power = 1
+	light_range = 5
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/can_move = 0 //time of next allowed movement
 	var/mob/living/carbon/occupant = null
@@ -1164,3 +1168,12 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 
 /obj/mecha/rust_heretic_act()
 	take_damage(500,  BRUTE)
+
+/obj/mecha/lighteater_act(obj/item/light_eater/light_eater)
+	if(!lights_power)
+		return
+	lights = FALSE
+	lights_power = 0
+	set_light(0)
+	visible_message(src, "<span class='danger'>The lights on [src] short out!</span>")
+	playsound(src, 'sound/items/welder.ogg', 50, 1)

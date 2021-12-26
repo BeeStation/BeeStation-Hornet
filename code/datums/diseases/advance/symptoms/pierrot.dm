@@ -18,6 +18,8 @@
 
 /datum/symptom/pierrot/severityset(datum/disease/advance/A)
 	. = ..()
+	bodies = list("Clown", "Red-Nose", "[pick(GLOB.clown_names)]") //added here because it doesnt wanna pick in base vars
+	prefixes = list("Fool's ", "[pick(GLOB.clown_names)]'s ")
 	if(A.resistance >= 10)
 		severity +=1
 		if(A.resistance >= 15)

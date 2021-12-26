@@ -269,6 +269,16 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/woodenbow
+	name = "Wooden Bow"
+	result = /obj/item/gun/ballistic/bow
+	reqs = list(/obj/item/stack/sheet/mineral/wood = 8,
+				/obj/item/stack/sheet/iron = 2,
+				/obj/item/weaponcrafting/silkstring = 4)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/meteorslug
 	name = "Meteorslug Shell"
 	result = /obj/item/ammo_casing/shotgun/meteorslug
@@ -785,8 +795,8 @@
 				/obj/item/bodypart/head = 1)
 	parts = list(/obj/item/bodypart/head = 1,
 			/obj/item/spear = 1)
-	blacklist = list(/obj/item/spear/explosive, /obj/item/spear/bonespear)
-	result = /obj/structure/headpike
+	blacklist = list(/obj/item/spear/explosive, /obj/item/spear/bonespear, /obj/item/spear/bamboospear)
+	result = /obj/structure/headpike/glass
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/headpikebone
@@ -797,6 +807,16 @@
 	parts = list(/obj/item/bodypart/head = 1,
 			/obj/item/spear/bonespear = 1)
 	result = /obj/structure/headpike/bone
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/headpikebamboo
+	name = "Spike Head (Bamboo Spear)"
+	time = 65
+	reqs = list(/obj/item/spear/bamboospear = 1,
+				/obj/item/bodypart/head = 1)
+	parts = list(/obj/item/bodypart/head = 1,
+			/obj/item/spear/bamboospear = 1)
+	result = /obj/structure/headpike/bamboo
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/pressureplate
@@ -967,3 +987,11 @@
 				/obj/item/aquarium_kit = 1
 				)
 	category = CAT_MISC
+
+/datum/crafting_recipe/paper_cup
+	name= "Paper Cup"
+	result = /obj/item/reagent_containers/food/drinks/sillycup
+	time = 10
+	reqs = list(/obj/item/paper = 1)
+	category = CAT_MISC
+	tools = list(TOOL_WIRECUTTER)

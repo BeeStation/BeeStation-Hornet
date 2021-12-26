@@ -7,6 +7,8 @@
 	transmission = 1
 	level = 9
 	severity = 3
+	prefixes = list("Xeno", "Sporing ")
+	bodies = list("Blob")
 	var/ready_to_pop
 	var/factory_blob
 	var/strong_blob
@@ -55,8 +57,10 @@
 			ready_to_pop = TRUE
 			if(prob(5))
 				M.visible_message("<span class='warning'>[M] coughs blood!</span>")
-				new /obj/effect/decal/cleanable/blood/(M.loc)
-				M.adjustBruteLoss(3)
+				M.add_splatter_floor(M.loc)
+				if(iscarbon(M))
+					var/mob/living/carbon/C = M
+					C.bleed(rand(1, 10))
 
 
 /datum/symptom/blobspores/OnDeath(datum/disease/advance/A)

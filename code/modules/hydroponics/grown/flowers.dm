@@ -46,6 +46,7 @@
 	desc = "A beautiful white flower with rich symbolism. The lily is said to represent love and affection as well as purity and innocence in some cultures."
 	icon_state = "lily"
 	filling_color = "#fff8ea"
+	discovery_points = 300
 
 //Spacemans's Trumpet
 /obj/item/seeds/poppy/lily/trumpet
@@ -104,6 +105,7 @@
 	desc = "A cluster of small purple geranium flowers. They symbolize happiness, good health, wishes and friendship and are generally associated with positive emotions."
 	icon_state = "geranium"
 	filling_color = "#9325ee"
+	discovery_points = 300
 
 //Forget-Me-Not
 /obj/item/seeds/poppy/geranium/forgetmenot
@@ -129,6 +131,7 @@
 	icon_state = "forget_me_not"
 	filling_color = "#4466ff"
 	bitesize_mod = 2
+	discovery_points = 300
 
 // Harebell
 /obj/item/seeds/harebell
@@ -208,6 +211,7 @@
 	icon_grow = "moonflower-grow"
 	icon_dead = "sunflower-dead"
 	product = /obj/item/reagent_containers/food/snacks/grown/moonflower
+	genes = list(/datum/plant_gene/trait/glow/purple)
 	mutatelist = list()
 	reagents_add = list(/datum/reagent/consumable/ethanol/moonshine = 0.2,/datum/reagent/medicine/morphine = 0.3, /datum/reagent/consumable/nutriment = 0.02)
 	rarity = 20
@@ -221,6 +225,7 @@
 	filling_color = "#E6E6FA"
 	bitesize_mod = 2
 	distill_reagent = /datum/reagent/consumable/ethanol/absinthe //It's made from flowers.
+	discovery_points = 300
 
 // Novaflower
 /obj/item/seeds/sunflower/novaflower
@@ -252,6 +257,7 @@
 	throw_range = 3
 	attack_verb = list("roasted", "scorched", "burned")
 	grind_results = list(/datum/reagent/consumable/capsaicin = 0, /datum/reagent/consumable/condensedcapsaicin = 0)
+	discovery_points = 300
 
 /obj/item/grown/novaflower/add_juice()
 	..()

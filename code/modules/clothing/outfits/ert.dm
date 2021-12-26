@@ -273,7 +273,8 @@
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/mop/advanced=1,
 		/obj/item/reagent_containers/glass/bucket=1,
-		/obj/item/grenade/clusterbuster/cleaner=1)
+		/obj/item/grenade/clusterbuster/cleaner=1,
+		/obj/item/choice_beacon/janicart)
 
 /datum/outfit/ert/janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -291,7 +292,35 @@
 		/obj/item/storage/box/lights/mixed=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/grenade/clusterbuster/cleaner=3,
-		/obj/item/reagent_containers/spray/chemsprayer/janitor=1)
+		/obj/item/reagent_containers/spray/chemsprayer/janitor=1,
+		/obj/item/choice_beacon/janicart)
+
+/datum/outfit/ert/kudzu
+	name = "ERT Weed Whacker"
+
+	id = /obj/item/card/id/ert/kudzu
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/jani
+	glasses = /obj/item/clothing/glasses/night
+	back = /obj/item/storage/backpack
+	belt = /obj/item/storage/belt/janitor/full
+	r_pocket = /obj/item/grenade/chem_grenade/antiweed
+	l_pocket = /obj/item/grenade/chem_grenade/antiweed
+	l_hand = /obj/item/scythe
+	backpack_contents = list(/obj/item/storage/box/engineer=1,
+		/obj/item/storage/box/lights/mixed=1,
+		/obj/item/melee/baton/loaded=1,
+		/obj/item/choice_beacon/pet/goat,
+		/obj/item/grenade/clusterbuster/antiweed=2)
+
+/datum/outfit/ert/kudzu/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+
+	if(visualsOnly)
+		return
+
+	var/obj/item/radio/R = H.ears
+	R.keyslot = new /obj/item/encryptionkey/headset_service
+	R.recalculateChannels()
 
 /datum/outfit/centcom_intern
 	name = "CentCom Intern"

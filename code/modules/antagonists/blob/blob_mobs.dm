@@ -59,10 +59,10 @@
 	else
 		adjustFireLoss(5)
 
-/mob/living/simple_animal/hostile/blob/CanPass(atom/movable/mover, turf/target)
+/mob/living/simple_animal/hostile/blob/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(istype(mover, /obj/structure/blob))
-		return 1
-	return ..()
+		return TRUE
 
 /mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0)
 	for(var/obj/structure/blob/B in range(1, src))
@@ -209,6 +209,15 @@
 		color = initial(color)//looks better.
 		add_overlay(blob_head_overlay)
 
+/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay)
+	if(target == src.target)
+		approaching_target = TRUE
+	else
+		approaching_target = FALSE
+	for(var/w in get_path_to(src, target, simulated_only = FALSE, avoid_mobs = TRUE))
+		step(src, get_dir(src, w))
+		sleep(delay)
+
 /mob/living/simple_animal/hostile/blob/blobspore/weak
 	name = "fragile blob spore"
 	health = 15
@@ -242,6 +251,7 @@
 	mob_size = MOB_SIZE_LARGE
 	hud_type = /datum/hud/blobbernaut
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
+	move_resist = MOVE_FORCE_STRONG
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life()
 	if(..())

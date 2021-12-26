@@ -304,8 +304,9 @@
 	return max(S.potency*(rate + 0.01), 0.1)
 
 /datum/plant_gene/trait/glow/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
-	..()
-	G.set_light(glow_range(G.seed), glow_power(G.seed), glow_color)
+	. = ..()
+	G.light_system = MOVABLE_LIGHT
+	G.AddComponent(/datum/component/overlay_lighting, glow_range(G.seed), glow_power(G.seed), glow_color)
 
 /datum/plant_gene/trait/glow/shadow
 	//makes plant emit slightly purple shadows
@@ -317,15 +318,39 @@
 /datum/plant_gene/trait/glow/shadow/glow_power(obj/item/seeds/S)
 	return -max(S.potency*(rate*0.2), 0.2)
 
+/datum/plant_gene/trait/glow/white
+	name = "White Bioluminescence"
+	glow_color = "#FFFFFF"
+
 /datum/plant_gene/trait/glow/red
-	name = "Red Electrical Glow"
-	glow_color = LIGHT_COLOR_RED
+	//Colored versions of bioluminescence.
+	name = "Red Bioluminescence"
+	glow_color = "#FF3333"
 
-/datum/plant_gene/trait/glow/berry
-	name = "Strong Bioluminescence"
-	rate = 0.05
-	glow_color = null
+/datum/plant_gene/trait/glow/yellow
+	//not the disgusting glowshroom yellow hopefully
+	name = "Yellow Bioluminescence"
+	glow_color = "#FFFF66"
 
+/datum/plant_gene/trait/glow/green
+	//oh no, now I'm radioactive
+	name = "Green Bioluminescence"
+	glow_color = "#99FF99"
+
+/datum/plant_gene/trait/glow/blue
+	//the best one
+	name = "Blue Bioluminescence"
+	glow_color = "#6699FF"
+
+/datum/plant_gene/trait/glow/purple
+	//did you know that Notepad++ doesnt think bioluminescence is a word
+	name = "Purple Bioluminescence"
+	glow_color = "#D966FF"
+
+/datum/plant_gene/trait/glow/pink
+	//gay tide station pride
+	name = "Pink Bioluminescence"
+	glow_color = "#FFB3DA"
 
 /datum/plant_gene/trait/teleport
 	// Makes plant teleport people when squashed or slipped on.

@@ -17,29 +17,32 @@ Bonus
 
 /datum/symptom/flesh_eating
 
-	name = "Necrotizing Fasciitis"
-	desc = "The virus aggressively attacks body cells, necrotizing tissues and organs."
+	name = "Hemorrhaging Fasciitis"
+	desc = "The virus aggressively attacks the skin and blood, leading to extreme bleeding."
 	stealth = -3
-	resistance = -4
+	resistance = -2
 	stage_speed = 0
-	transmission = -4
-	level = 6
+	transmission = -1
+	level = 7
 	severity = 4
 	base_message_chance = 50
 	symptom_delay_min = 15
 	symptom_delay_max = 60
+	prefixes = list("Bloody ", "Hemo")
+	bodies = list("Hemophilia")
 	var/bleed = FALSE
-	var/pain = FALSE
-	threshold_desc = "<b>Resistance 7:</b> Host will bleed profusely during necrosis.<br>\
-					  <b>Transmission 8:</b> Causes extreme pain to the host, weakening it."
+	var/damage = FALSE
+	threshold_desc = "<b>Resistance 10:</b> The host takes brute damage as their flesh is burst open<br>\
+					  <b>Transmission 8:</b> The host will bleed far more violently, losing even more blood, and spraying infected blood everywhere."
 
 /datum/symptom/flesh_eating/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 7) //extra bleeding
+	if(A.resistance >= 10) //extra bleeding
+		damage = TRUE
+	if(A.transmission >= 8)
+		power = 2
 		bleed = TRUE
-	if(A.transmission >= 8) //extra stamina damage
-		pain = TRUE
 
 /datum/symptom/flesh_eating/Activate(datum/disease/advance/A)
 	if(!..())
@@ -54,15 +57,32 @@ Bonus
 			Flesheat(M, A)
 
 /datum/symptom/flesh_eating/proc/Flesheat(mob/living/M, datum/disease/advance/A)
-	var/get_damage = rand(15,25) * power
-	M.take_overall_damage(brute = get_damage, required_status = BODYPART_ORGANIC)
-	if(pain)
-		M.adjustStaminaLoss(get_damage * 2)
-	if(bleed)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			H.bleed_rate += 5 * power
-	return 1
+	if(damage)
+		M.take_overall_damage(brute = rand(15,25), required_status = BODYPART_ORGANIC)
+	if(!ishuman(M))
+		return
+	var/mob/living/carbon/human/H = M
+	H.bleed_rate += 2 * power //bleeding is quite strong. this is more than enough 
+	H.bleed(max(10*power, H.bleed_rate))//having power actually up the bleed rate on this puts it into a pretty dangerous territory. this should be more managable
+	H.add_splatter_floor(H.loc)
+	if(bleed) // this is really, really messy
+		var/geysers = rand(2, 6)
+		var/bloodsplatters = transmission
+		var/list/geyserdirs = GLOB.alldirs.Copy()
+		var/turf/T = H.loc
+		playsound(T, 'sound/effects/splat.ogg', 50, 1)
+		H.visible_message("<span class='danger'>Blood bursts from [H]'s flesh!</span>", \
+  "<span class='userdanger'>Blood spews forth from your flesh! It hurts!</span>")
+		for(var/i in 0 to geysers)
+			var/geyserdir = pick_n_take(geyserdirs)
+			var/geyserdist = rand(1, max(1,bloodsplatters))
+			bloodsplatters -= geyserdist
+			new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, geyserdir)
+			for(var/a in 0 to geyserdist)
+				T = get_step(T, geyserdir)
+				H.add_splatter_floor(T)
+			T = H.loc
+	return TRUE
 
 /*
 //////////////////////////////////////
@@ -94,10 +114,17 @@ Bonus
 	base_message_chance = 50
 	symptom_delay_min = 3
 	symptom_delay_max = 6
+	prefixes = list("Necrotic ", "Necro")
+	suffixes = list(" Rot")
 	var/chems = FALSE
 	var/zombie = FALSE
 	threshold_desc = "<b>Stage Speed 7:</b> Synthesizes Heparin and Lipolicide inside the host, causing increased bleeding and hunger.<br>\
 					  <b>Stealth 5:</b> The symptom remains hidden until active."
+
+/datum/symptom/flesh_death/severityset(datum/disease/advance/A)
+	. = ..()
+	if((A.stealth >= 2) && (A.stage_rate >= 12))
+		bodies = list("Zombie")
 
 /datum/symptom/flesh_death/Start(datum/disease/advance/A)
 	if(!..())
