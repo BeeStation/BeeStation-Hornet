@@ -348,7 +348,7 @@
 	else
 		..()
 
-/mob/living/simple_animal/bot/cleanbot/roomba/proc/clean(atom/A)
+/mob/living/simple_animal/bot/cleanbot/roomba/clean(atom/A)
 	mode = BOT_IDLE
 	icon_state = "roomba[on]"
 	if(!on)
