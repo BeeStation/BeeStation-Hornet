@@ -7,6 +7,14 @@
 	var/t_is = p_are()
 
 	. = list("<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[src]</EM>!")
+
+
+	try
+		.+= "[src.flavor_text]"
+	catch
+
+	. +=  "<span class='notice'>*---------*</span>"
+
 	var/list/obscured = check_obscured_slots()
 
 	if(handcuffed)
