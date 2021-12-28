@@ -287,13 +287,6 @@
 	if(desired_size == current_body_size)
 		return
 
-	if(ishuman(holder))
-		var/mob/living/carbon/human/H = holder
-		if(desired_size == BODY_SIZE_SHORT) //"Powergaming by 2 pixels."
-			H.physiology?.stamina_mod += 0.1
-		else if(current_body_size == BODY_SIZE_SHORT) //Transitioning away from short removes the mod
-			H.physiology?.stamina_mod -= 0.1
-
 	var/change_multiplier = desired_size / current_body_size
 	var/translate = ((change_multiplier-1) * 32)/2
 	holder.transform = holder.transform.Scale(change_multiplier)
