@@ -110,7 +110,7 @@
 	var/is_zombie = FALSE
 	var/list/disease = list()
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
-	var/in_movement
+	var/in_movement //only for rally command so blob spores will stop chasing after that one guy and get to the rally point
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
@@ -211,9 +211,7 @@
 		add_overlay(blob_head_overlay)
 /mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, rally)
 	var/movement_steps = 0
-	if(in_movement && !rally) //please lets not try to do two things at once one attempt to go somewhere at a time
-		return
-	else
+	if(rally)
 		in_movement = TRUE
 
 	if(target == src.target)
@@ -222,16 +220,18 @@
 		approaching_target = FALSE
 
 	for(var/w in get_path_to(src, target, simulated_only = FALSE))
+		for(in_movement && !rally) //incase the spore is already chasing something like a player but the rally command is called
+			return
 		movement_steps += 1
 		step(src,get_dir(src,w))
 		sleep(delay)
 
-	if(!movement_steps)
+	if(!movement_steps) //pathfinding fallback in case we cannot find a valid path at the first attempt
 		var/ln = get_dist(src, target)
 		var/target_new = target
 		var/found_blocker
 		while(!movement_steps && (ln > 0)) //max number of attempts is how big the distance is
-			for(var/i in 1 to ln) //calling get_path_to every time is quite taxin lets see if we can find whatever blocks us
+			for(var/i in 1 to ln) //calling get_path_to every time is quite taxing lets see if we can find whatever blocks us
 				target_new = get_step(target_new,  get_dir(target_new, src))
 				ln -= 1
 				if(istype(target_new,/turf/closed) || (locate(/obj/structure/window) in target_new) || (locate(/obj/mecha) in target_new)) //this is really bad but yeah
@@ -241,6 +241,8 @@
 					break
 			found_blocker = FALSE
 			for(var/w in get_path_to(src, target_new, simulated_only = FALSE))
+				for(in_movement && !rally)
+					return
 				movement_steps += 1
 				step(src,get_dir(src,w))
 				sleep(delay)
