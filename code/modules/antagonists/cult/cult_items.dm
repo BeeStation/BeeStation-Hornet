@@ -151,7 +151,7 @@
 	user.update_icons()
 
 /obj/item/cult_bastard/dropped(mob/user)
-	. = ..()
+	..()
 	linked_action.Remove(user)
 	jaunt.Remove(user)
 	user.update_icons()

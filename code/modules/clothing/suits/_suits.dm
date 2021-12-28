@@ -68,7 +68,7 @@
 	listeningTo = user
 
 /obj/item/clothing/suit/dropped(mob/user)
-	. = ..()
+	..()
 	//Remove our listener
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)

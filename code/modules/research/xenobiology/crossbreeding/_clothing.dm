@@ -141,7 +141,7 @@ Slimecrossing Armor
 	user.add_movespeed_modifier(MOVESPEED_ID_SLOW_ARMOR, update=TRUE, priority=100, multiplicative_slowdown= 4)
 
 /obj/item/clothing/suit/armor/heavy/adamantine/dropped(mob/user)
-	. = ..()
+	..()
 	user.remove_movespeed_modifier(MOVESPEED_ID_SLOW_ARMOR, TRUE)
 
 /obj/item/clothing/suit/armor/heavy/adamantine/IsReflect(def_zone)

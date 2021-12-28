@@ -58,6 +58,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	..()
 
 /obj/item/clockwork/clockwork_slab/dropped(mob/user)
+	..()
 	//Clear quickbinds
 	for(var/datum/action/innate/clockcult/quick_bind/script in quick_bound_scriptures)
 		script.Remove(user)
@@ -65,7 +66,6 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		active_scripture.end_invokation()
 	if(buffer)
 		buffer = null
-	. = ..()
 
 /obj/item/clockwork/clockwork_slab/pickup(mob/user)
 	..()

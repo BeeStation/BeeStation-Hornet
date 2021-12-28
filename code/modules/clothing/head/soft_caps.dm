@@ -10,9 +10,9 @@
 	var/flipped = 0
 
 /obj/item/clothing/head/soft/dropped()
+	..()
 	src.icon_state = "[item_color]soft"
 	src.flipped=0
-	..()
 
 /obj/item/clothing/head/soft/verb/flipcap()
 	set category = "Object"

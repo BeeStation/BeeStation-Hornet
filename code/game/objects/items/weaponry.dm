@@ -131,6 +131,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	user.ignore_slowdown(HIGHLANDER)
 
 /obj/item/claymore/highlander/dropped(mob/living/user)
+	..()
 	user.unignore_slowdown(HIGHLANDER)
 	if(!QDELETED(src))
 		qdel(src) //If this ever happens, it's because you lost an arm

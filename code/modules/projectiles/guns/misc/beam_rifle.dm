@@ -94,8 +94,8 @@
 	..()
 
 /obj/item/gun/energy/beam_rifle/dropped(mob/user)
+	..()
 	set_user()
-	return ..()
 
 /obj/item/gun/energy/beam_rifle/ui_action_click(mob/user, actiontype)
 	if(istype(actiontype, zoom_lock_action))

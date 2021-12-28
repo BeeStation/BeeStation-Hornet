@@ -36,7 +36,7 @@
 	return ..()
 
 /obj/item/borg_chameleon/dropped(mob/user)
-	. = ..()
+	..()
 	disrupt(user)
 
 /obj/item/borg_chameleon/equipped(mob/user)

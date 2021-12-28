@@ -584,7 +584,7 @@
 		azoom.Grant(user)
 
 /obj/item/gun/dropped(mob/user)
-	. = ..()
+	..()
 	if(azoom)
 		azoom.Remove(user)
 	if(zoomed)

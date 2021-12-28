@@ -109,5 +109,5 @@
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED,.proc/crush)
 
 /obj/item/clothing/shoes/magboots/crushing/dropped(mob/user)
-	. = ..()
+	..()
 	UnregisterSignal(user,COMSIG_MOVABLE_MOVED)

@@ -145,7 +145,7 @@
 	listeningTo = user
 
 /obj/item/storage/bag/ore/dropped()
-	. = ..()
+	..()
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
 		listeningTo = null
@@ -409,7 +409,7 @@
 	if(istype(A, /obj/item/slimecross/reproductive))
 		return TRUE
 	return ..()
-  
+
 /obj/item/storage/bag/construction
 	name = "construction bag"
 	icon = 'icons/obj/tools.dmi'

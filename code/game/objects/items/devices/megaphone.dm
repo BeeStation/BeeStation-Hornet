@@ -25,7 +25,7 @@
 		UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/megaphone/dropped(mob/M)
-	. = ..()
+	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/megaphone/proc/handle_speech(mob/living/carbon/user, list/speech_args)

@@ -128,7 +128,7 @@
 		user.put_in_hands(src)
 
 /obj/item/hot_potato/dropped(mob/user)
-	. = ..()
+	..()
 	colorize(null)
 
 /obj/item/hot_potato/proc/activate(delay, mob/user)

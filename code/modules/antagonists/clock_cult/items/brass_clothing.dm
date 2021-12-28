@@ -58,7 +58,7 @@
 		apply_wibbly_filters(user)
 
 /obj/item/clothing/suit/clockwork/cloak/dropped(mob/user)
-	. = ..()
+	..()
 	if(shroud_active)
 		shroud_active = FALSE
 		do_sparks(3, FALSE, user)
@@ -123,7 +123,7 @@
 	applied_eye_damage = min(applied_eye_damage + 1, 70)
 
 /obj/item/clothing/glasses/clockwork/wraith_spectacles/dropped(mob/user)
-	. = ..()
+	..()
 	if(wearer && is_servant_of_ratvar(wearer))
 		to_chat(user, "<span class='nezbere'>You feel your eyes slowly recovering.</span>")
 		addtimer(CALLBACK(wearer, /mob/living.proc/adjustOrganLoss, ORGAN_SLOT_EYES, -applied_eye_damage), 600)

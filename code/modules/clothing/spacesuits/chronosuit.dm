@@ -9,9 +9,9 @@
 	var/obj/item/clothing/suit/space/chronos/suit
 
 /obj/item/clothing/head/helmet/space/chronos/dropped()
+	..()
 	if(suit)
 		suit.deactivate(1, 1)
-	..()
 
 /obj/item/clothing/head/helmet/space/chronos/Destroy()
 	dropped()
@@ -59,9 +59,9 @@
 			deactivate()
 
 /obj/item/clothing/suit/space/chronos/dropped()
+	..()
 	if(activated)
 		deactivate()
-	..()
 
 /obj/item/clothing/suit/space/chronos/Destroy()
 	dropped()

@@ -193,5 +193,5 @@
 	icon_state = "orange"
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/dropped(mob/user)
-	. = ..()
+	..()
 	icon_state = "orang"

@@ -130,9 +130,9 @@
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "badass_antag", /datum/mood_event/badass_antag)
 
 /obj/item/toy/syndicateballoon/dropped(mob/user)
+	..()
 	if(user)
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "badass_antag", /datum/mood_event/badass_antag)
-	. = ..()
 
 
 /obj/item/toy/syndicateballoon/Destroy()

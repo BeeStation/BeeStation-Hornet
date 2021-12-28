@@ -20,7 +20,7 @@
 // Flags for the item_flags var on /obj/item
 
 #define BEING_REMOVED			(1<<0)
-#define IN_INVENTORY			(1<<1)  //! is this item equipped into an inventory slot or hand of a mob? used for tooltips
+#define PICKED_UP				(1<<1)  //! is this item equipped into an inventory slot or hand of a mob? used for tooltips
 #define FORCE_STRING_OVERRIDE	(1<<2)  //! used for tooltips
 #define NEEDS_PERMIT			(1<<3)  //! Used by security bots to determine if this item is safe for public use.
 #define SLOWS_WHILE_IN_HAND		(1<<4)
@@ -31,7 +31,6 @@
 #define IMMUTABLE_SLOW			(1<<10) //! When players should not be able to change the slowdown of the item (Speed potions, etc)
 #define IN_STORAGE				(1<<11) //! is this item in the storage item, such as backpack? used for tooltips
 #define ILLEGAL					(1<<12)	//! this item unlocks illegal tech
-#define PICKED_UP				(1<<13)	//! This item has been picked up by someone and is on their person. Prevents pickup() from being called when an item is moved to a player's hand from the backpack, and allows pickup() to be called when the item is picked up from a non-player location (IE when something is moved into the players hand by force, or by them clicking on something)
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
