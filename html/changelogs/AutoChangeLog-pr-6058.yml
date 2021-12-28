@@ -1,4 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - server: The SQL server name will now be reported alongside SSBlackbox data.
