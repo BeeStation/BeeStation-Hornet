@@ -17,7 +17,6 @@
  * * simulated_only: Whether we consider turfs without atmos simulation (AKA do we want to ignore space)
  * * exclude: If we want to avoid a specific turf, like if we're a mulebot who already got blocked by some turf
  * * skip_first: Whether or not to delete the first item in the path. This would be done because the first item is the starting tile, which can break movement for some creatures.
- * * avoid_mobs: If we want to avoid turfs with mobs on them except the goal turf for the purpose of pathfinding to a target is set to FALSE on default
  */
 /proc/get_path_to(caller, end, max_distance = 30, mintargetdist, id=null, simulated_only = TRUE, turf/exclude, skip_first = TRUE)
 	if(!caller || !get_turf(end))
