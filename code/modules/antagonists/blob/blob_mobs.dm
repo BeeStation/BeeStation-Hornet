@@ -220,7 +220,7 @@
 		approaching_target = FALSE
 
 	for(var/w in get_path_to(src, target, simulated_only = FALSE))
-		for(in_movement && !rally) //incase the spore is already chasing something like a player but the rally command is called
+		if(in_movement && !rally) //incase the spore is already chasing something like a player but the rally command is called
 			return
 		movement_steps += 1
 		step(src,get_dir(src,w))
@@ -241,7 +241,7 @@
 					break
 			found_blocker = FALSE
 			for(var/w in get_path_to(src, target_new, simulated_only = FALSE))
-				for(in_movement && !rally)
+				if(in_movement && !rally)
 					return
 				movement_steps += 1
 				step(src,get_dir(src,w))
