@@ -629,6 +629,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
 	item_flags |= IN_INVENTORY
 	item_flags |= PICKED_UP
