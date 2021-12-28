@@ -140,7 +140,7 @@
 	icon_state = "huntingknife"
 
 /obj/item/kitchen/knife/hunting/set_butchering()
-	AddComponent(/datum/component/butchering, 80 - force, 100, force + 10)
+	AddComponent(/datum/component/butchering, 80 - force, 100, force + 12)
 
 /obj/item/kitchen/knife/poison
 	name = "venom knife"
