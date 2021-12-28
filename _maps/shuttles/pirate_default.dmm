@@ -198,6 +198,7 @@
 /area/shuttle/pirate)
 "au" = (
 /obj/machinery/door/airlock/hatch{
+	aiControlDisabled = 1;
 	id_tag = "piratebridgebolt";
 	name = "Bridge";
 	req_access_txt = "150"
@@ -217,6 +218,7 @@
 /area/shuttle/pirate)
 "av" = (
 /obj/machinery/door/airlock/hatch{
+	aiControlDisabled = 1;
 	name = "Milk Storage";
 	req_access_txt = "150"
 	},
@@ -337,6 +339,7 @@
 /area/shuttle/pirate)
 "aJ" = (
 /obj/machinery/door/airlock/external/glass{
+	aiControlDisabled = 1;
 	id_tag = "pirateportexternal";
 	req_access_txt = "150"
 	},
@@ -468,13 +471,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/turretid{
-	icon_state = "control_kill";
-	lethal = 1;
-	locked = 0;
-	pixel_y = -24;
-	req_access = null
-	},
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
@@ -490,6 +486,12 @@
 	pixel_y = 5
 	},
 /obj/machinery/recharger,
+/obj/machinery/turretid{
+	icon_state = "control_kill";
+	lethal = 1;
+	pixel_y = 24;
+	req_access = "150"
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/pirate)
 "bk" = (
@@ -702,6 +704,7 @@
 "bM" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock{
+	aiControlDisabled = 1;
 	name = "Crew Cabin";
 	req_access_txt = "150"
 	},
@@ -766,6 +769,7 @@
 /area/shuttle/pirate)
 "bZ" = (
 /obj/machinery/door/airlock/external/glass{
+	aiControlDisabled = 1;
 	id_tag = "pirateportexternal";
 	req_access_txt = "150"
 	},
@@ -775,6 +779,7 @@
 /area/shuttle/pirate)
 "ce" = (
 /obj/machinery/door/airlock/external/glass{
+	aiControlDisabled = 1;
 	id_tag = "pirateportexternal";
 	req_access_txt = "150"
 	},
@@ -947,8 +952,14 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "hA" = (
-/obj/machinery/power/port_gen/pacman,
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/obj/machinery/door/airlock/hatch{
+	aiControlDisabled = 1;
+	name = "Milker Storage";
+	req_access_txt = "150"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/pod/dark,
 /area/shuttle/pirate)
 "km" = (
 /obj/effect/turf_decal/bot,
@@ -983,6 +994,7 @@
 "mU" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock/engineering{
+	aiControlDisabled = 1;
 	name = "Engineering";
 	req_access_txt = "150"
 	},
@@ -1019,6 +1031,7 @@
 /area/shuttle/pirate)
 "wf" = (
 /obj/machinery/door/airlock{
+	aiControlDisabled = 1;
 	name = "Poopdeck";
 	req_access_txt = "150"
 	},
@@ -1055,6 +1068,7 @@
 "zw" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock{
+	aiControlDisabled = 1;
 	name = "Captain's Quarters";
 	req_access_txt = "150"
 	},
@@ -1156,7 +1170,7 @@ af
 af
 eu
 fW
-hA
+aj
 aj
 aj
 aj
@@ -1428,7 +1442,7 @@ aj
 ez
 Vw
 ao
-av
+hA
 bv
 aj
 bK
