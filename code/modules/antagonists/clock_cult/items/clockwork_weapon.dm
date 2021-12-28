@@ -21,7 +21,7 @@
 	var/obj/effect/proc_holder/spell/targeted/summon_spear/SS
 
 /obj/item/clockwork/weapon/pickup(mob/user)
-	. = ..()
+	..()
 	user.mind.RemoveSpell(SS)
 	if(is_servant_of_ratvar(user))
 		SS = new

@@ -91,7 +91,7 @@
 
 /obj/item/gun/energy/beam_rifle/pickup(mob/user)
 	set_user(user)
-	return ..()
+	..()
 
 /obj/item/gun/energy/beam_rifle/dropped(mob/user)
 	set_user()

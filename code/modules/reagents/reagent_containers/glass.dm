@@ -376,7 +376,7 @@
 			animate(src, transform = matrix(prob(50)? 90 : -90, MATRIX_ROTATE), time = 3, loop = 0)
 
 /obj/item/reagent_containers/glass/waterbottle/pickup(mob/user)
-	. = ..()
+	..()
 	animate(src, transform = null, time = 1, loop = 0)
 
 /obj/item/reagent_containers/glass/waterbottle/empty

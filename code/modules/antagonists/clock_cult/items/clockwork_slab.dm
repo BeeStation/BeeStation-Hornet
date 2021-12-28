@@ -68,7 +68,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	. = ..()
 
 /obj/item/clockwork/clockwork_slab/pickup(mob/user)
-	. = ..()
+	..()
 	if(!is_servant_of_ratvar(user))
 		return
 	//Grant quickbound spells

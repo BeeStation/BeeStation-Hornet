@@ -125,7 +125,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/toy/syndicateballoon/pickup(mob/user)
-	. = ..()
+	..()
 	if(user?.mind && user.mind.has_antag_datum(/datum/antagonist, TRUE))
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "badass_antag", /datum/mood_event/badass_antag)
 

@@ -91,7 +91,7 @@
 	return ..()
 
 /obj/item/melee/sickly_blade/pickup(mob/user)
-	. = ..()
+	..()
 	linked_action.Grant(user, src)
 
 /obj/item/melee/sickly_blade/dropped(mob/user, silent)
