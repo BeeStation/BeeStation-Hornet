@@ -31,7 +31,7 @@
 
 /obj/item/projectile/beam/laser/anti_creature/prehit_pierce(atom/target)
     if(!iscarbon(target) && !issilicon(target))
-        damage += 15
+        damage = 30
     return ..()
 
 //Cutting projectile - Damage against objects
