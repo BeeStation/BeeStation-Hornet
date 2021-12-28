@@ -94,7 +94,6 @@
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACK, .proc/preattack_intercept)
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, .proc/attack_self)
 	RegisterSignal(parent, COMSIG_ITEM_PICKUP, .proc/signal_on_pickup)
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/on_drop)
 
 	RegisterSignal(parent, COMSIG_MOVABLE_POST_THROW, .proc/close_all)
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/on_move)
@@ -114,15 +113,6 @@
 
 /datum/component/storage/PreTransfer()
 	update_actions()
-
-/datum/component/storage/proc/on_drop()
-	var/atom/real_location = real_location()
-	if(ismob(real_location))
-		return
-	//The items in the bag are no longer in an inventory
-	for(var/obj/item/item in real_location.GetAllContents())
-		//Anything in the storage conatiner was also dropped
-		item.item_flags &= ~PICKED_UP
 
 /datum/component/storage/proc/update_actions()
 	QDEL_NULL(modeswitch_action)
