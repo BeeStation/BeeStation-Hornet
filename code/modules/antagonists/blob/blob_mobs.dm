@@ -21,7 +21,6 @@
 	var/mob/camera/blob/overmind = null
 	var/obj/structure/blob/factory/factory = null
 	var/independent = FALSE
-	var/in_movement
 	mobchatspan = "blob"
 	discovery_points = 1000
 
@@ -111,6 +110,7 @@
 	var/is_zombie = FALSE
 	var/list/disease = list()
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
+	var/in_movement
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
@@ -188,52 +188,6 @@
 
 	..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/MoveToTarget(list/possible_targets)//Step 5, handle movement between us and our target
-	stop_automated_movement = 1
-	if(!target || !CanAttack(target))
-		LoseTarget()
-		return 0
-	var/atom/target_from = GET_TARGETS_FROM(src)
-	if(target in possible_targets)
-		var/turf/T = get_turf(src)
-		var/turf/target_beside = get_step(target, get_dir(get_turf(target),T))
-		if(target.get_virtual_z_level() != T.get_virtual_z_level())
-			LoseTarget()
-			return 0
-		var/target_distance = get_dist(target_from,target)
-		if(!Process_Spacemove()) //Drifting
-			walk(src,0)
-			return 1
-		if(retreat_distance != null) //If we have a retreat distance, check if we need to run from our target
-			if(target_distance <= retreat_distance) //If target's closer than our retreat distance, run
-				walk_away(src,target,retreat_distance,move_to_delay)
-			else
-				Goto(target_beside,move_to_delay,minimum_distance) //Otherwise, get to our minimum distance so we chase them
-		else
-			Goto(target_beside,move_to_delay,minimum_distance)
-		if(target)
-			if(isturf(target_from.loc) && target.Adjacent(target_from)) //If they're next to us, attack
-				MeleeAction()
-			else
-				if(rapid_melee > 1 && target_distance <= melee_queue_distance)
-					MeleeAction(FALSE)
-				in_melee = FALSE //If we're just preparing to strike do not enter sidestep mode
-			return 1
-		return 0
-	if(environment_smash)
-		if(target.loc != null && get_dist(target_from, target.loc) <= vision_range) //We can't see our target, but he's in our vision range still
-			if(ranged_ignores_vision && ranged_cooldown <= world.time) //we can't see our target... but we can fire at them!
-				OpenFire(target)
-			if((environment_smash & ENVIRONMENT_SMASH_WALLS) || (environment_smash & ENVIRONMENT_SMASH_RWALLS)) //If we're capable of smashing through walls, forget about vision completely after finding our target
-				Goto(target,move_to_delay,minimum_distance)
-				FindHidden()
-				return 1
-			else
-				if(FindHidden())
-					return 1
-	LoseTarget()
-	return 0
-
 /mob/living/simple_animal/hostile/blob/blobspore/Destroy()
 	if(factory)
 		factory.spores -= src
@@ -255,19 +209,41 @@
 			blob_head_overlay.color = overmind.blobstrain.complementary_color
 		color = initial(color)//looks better.
 		add_overlay(blob_head_overlay)
-/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay)
-	if(in_movement) //lets stop blob spores from trying to attack and go to the rally point
+/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, rally)
+	var/movement_steps = 0
+	if(in_movement && !rally) //please lets not try to do two things at once one attempt to go somewhere at a time
 		return
+	else
+		in_movement = TRUE
+
 	if(target == src.target)
 		approaching_target = TRUE
 	else
 		approaching_target = FALSE
-	var/list/path = get_path_to(src, target, simulated_only = FALSE, avoid_mobs = /mob/living/simple_animal/hostile/blob/blobspore)
-	var/pathlen = 0
-	while(!(pathlen == length(path)))
-		if(get_turf(src) == get_path_to[pathlen])
-			pathlen = pathlen + 1
-			walk(src, get_dir(src, get_path_to[pathlen]))
+
+	for(var/w in get_path_to(src, target, simulated_only = FALSE))
+		movement_steps += 1
+		step(src,get_dir(src,w))
+		sleep(delay)
+
+	if(!movement_steps)
+		var/ln = get_dist(src, target)
+		var/target_new = target
+		var/found_blocker
+		while(!movement_steps && (ln > 0)) //max number of attempts is how big the distance is
+			for(var/i in 1 to ln) //calling get_path_to every time is quite taxin lets see if we can find whatever blocks us
+				target_new = get_step(target_new,  get_dir(target_new, src))
+				ln -= 1
+				if(istype(target_new,/turf/closed) || (locate(/obj/structure/window) in target_new) || (locate(/obj/mecha) in target_new)) //this is really bad but yeah
+					found_blocker = TRUE
+					continue //incase there is like a doublewall
+				if(found_blocker) //cursed but after we found the blocker we end the loop on the next gotrough
+					break
+			found_blocker = FALSE
+			for(var/w in get_path_to(src, target_new, simulated_only = FALSE))
+				movement_steps += 1
+				step(src,get_dir(src,w))
+				sleep(delay)
 	in_movement = FALSE
 
 /mob/living/simple_animal/hostile/blob/blobspore/weak
