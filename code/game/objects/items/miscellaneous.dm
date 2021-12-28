@@ -125,7 +125,6 @@
 	new /obj/item/clothing/suit/space/hardsuit/carp/old(src)
 	new /obj/item/clothing/mask/gas/carp(src)
 	new /obj/item/kitchen/knife/hunting(src)
-	new /obj/item/storage/box/papersack/meat(src)
 
 /obj/item/storage/box/hero/ronin
     name = "Sword Saint, Wandering Vagabond - 1600's."
