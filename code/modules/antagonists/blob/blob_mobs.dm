@@ -234,10 +234,10 @@
 			for(var/i in 1 to ln) //calling get_path_to every time is quite taxing lets see if we can find whatever blocks us
 				target_new = get_step(target_new,  get_dir(target_new, src))
 				ln -= 1
-				if(istype(target_new,/turf/closed) || (locate(/obj/structure/window) in target_new) || (locate(/obj/mecha) in target_new)) //this is really bad but yeah
+				if(istype(target_new,/turf/closed) || (locate(/obj/structure/window) in target_new) || (locate(/obj/mecha) in target_new)) //we check for possible things that could block us
 					found_blocker = TRUE
 					continue //incase there is like a doublewall
-				if(found_blocker) //cursed but after we found the blocker we end the loop on the next gotrough
+				if(found_blocker) //cursed but after we found the blocker we end the loop on the next illiteration
 					break
 			found_blocker = FALSE
 			for(var/w in get_path_to(src, target_new, simulated_only = FALSE))
