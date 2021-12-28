@@ -223,7 +223,7 @@
 		if(in_movement && !rally) //incase the spore is already chasing something like a player but the rally command is called
 			return
 		movement_steps += 1
-		step(src,get_dir(src,w))
+		step(src, get_dir(src, w))
 		sleep(delay)
 
 	if(!movement_steps) //pathfinding fallback in case we cannot find a valid path at the first attempt
@@ -244,7 +244,7 @@
 				if(in_movement && !rally)
 					return
 				movement_steps += 1
-				step(src,get_dir(src,w))
+				step(src, get_dir(src, w))
 				sleep(delay)
 	in_movement = FALSE
 
