@@ -250,16 +250,13 @@
 //This Action Handles DNA locking
 /datum/action/item_action/chameleon/dnalock
 	name = "Chameleon DNA Lock"
-	var/chameleon_name = "Item"
-
-	var/emp_timer
 
 //Action Toggles DNA Lock
 //Toggle Should only be present if not locked or you pass the DNA Lock
 /datum/action/item_action/chameleon/dnalock/Grant(mob/M)
 	if(M && (owner != M))
 		//Can't DNA Lock Something with No DNA
-		if(iscarbon)
+		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			//Checks if there is a lock
 			if(target.dna_lock)
@@ -295,13 +292,29 @@
 	toggle_lock()
 
 /datum/action/item_action/chameleon/dnalock/proc/toggle_lock(mob/M)
+	//Turn Lock Off
+	if(target.dna_lock)
+		target.dna_lock = null
+	//Turn Lock On
+	else
+		if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		target.dna_lock = C.dna.unique_enzymes
+
 
 /datum/action/chameleon_outfit_dnalock
 	name = "Lock Chameleon Outfit"
+	button_icon_state = "dna_lock"
+	var/lock = TRUE //Changes name and determines if the action sets all items to locked or unlocked.
 
 /datum/action/chameleon_outfit_dnalock/Trigger()
-	
+	toggle_lock()
+
 /datum/action/chameleon_outfit_dnalock/proc/toggle_lock(mob/M)
+	for(var/V in user.chameleon_item_actions)
+		var/datum/action/item_action/chameleon/dnalock/A = V
+		if(A.target.dna_lock ^ src.lock)
+			A.Trigger()
 
 /obj/item/clothing/under/chameleon
 //starts off as black
@@ -316,7 +329,6 @@
 	can_adjust = FALSE
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 10)
 
-	var/dna_lock = NULL
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/under/chameleon/envirosuit
@@ -369,7 +381,6 @@
 	resistance_flags = NONE
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 10)
 
-	var/dna_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/suit/chameleon/Initialize()
@@ -398,7 +409,6 @@
 	resistance_flags = NONE
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 10)
 
-	var/dna_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/glasses/chameleon/Initialize()
@@ -435,7 +445,6 @@
 	resistance_flags = NONE
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 10)
 
-	var/dna_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/gloves/chameleon/Initialize()
@@ -480,7 +489,6 @@
 	resistance_flags = NONE
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 10)
 
-	var/dna_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/head/chameleon/Initialize()
@@ -555,7 +563,6 @@
 
 	var/vchange = 1
 
-	var/dna_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/mask/chameleon/Initialize()
@@ -609,7 +616,6 @@
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 10)
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
-	var/dna_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/shoes/chameleon/Initialize()
@@ -641,7 +647,6 @@
 /obj/item/storage/backpack/chameleon
 	name = "backpack"
 
-	var/dna_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/storage/backpack/chameleon/Initialize()
@@ -665,7 +670,6 @@
 	name = "toolbelt"
 	desc = "Holds tools."
 
-	var/dna_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/storage/belt/chameleon/Initialize()
@@ -694,7 +698,6 @@
 /obj/item/radio/headset/chameleon
 	name = "radio headset"
 
-	var/dna_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/radio/headset/chameleon/Initialize()
@@ -723,7 +726,6 @@
 /obj/item/pda/chameleon
 	name = "PDA"
 
-	var/dna_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/pda/chameleon/Initialize()
@@ -765,7 +767,6 @@
 	resistance_flags = NONE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
 
-	var/dna_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/neck/cloak/chameleon/Initialize()
