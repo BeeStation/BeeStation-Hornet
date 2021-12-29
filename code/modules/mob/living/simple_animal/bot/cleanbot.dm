@@ -287,7 +287,7 @@
 		to_chat(user, "<span class='notice'>You add [O] to [src].</span>")
 		qdel(O)
 		qdel(src)
-		user.put_in_hands(new /obj/item/bot_assembly/cleanbot)
+		user.put_in_hands(new /obj/item/bot_assembly/roomba)
 	else
 		..()
 
