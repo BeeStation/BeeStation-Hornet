@@ -304,7 +304,6 @@
 	bot_core.updateUsrDialog()
 	
 /mob/living/simple_animal/bot/cleanbot/roomba/UnarmedAttack(atom/A)
-	UnarmedAttack(atom/A)
 	if(istype(A, /obj/effect/decal/cleanable))
 		anchored = TRUE
 		icon_state = "roomba-c"
