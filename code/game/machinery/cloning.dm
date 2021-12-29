@@ -185,10 +185,8 @@
 		return ERROR_NO_SYNTHFLESH
 	if(panel_open)
 		return ERROR_PANEL_OPENED
-	if(attempting)
-		return ERROR_ATTEMPTING
-	if(mess)
-		return ERROR_MESS
+	if(mess || attempting)
+		return ERROR_MESS_OR_ATTEMPTING
 
 	if(!empty) //Doesn't matter if we're just making a copy
 		clonemind = locate(mindref) in SSticker.minds

@@ -75,7 +75,7 @@ export const CloningConsole = (props, context) => {
                     {records.map(record => (
                       <Section backgroundColor="#191919" color="white" key={record}>
                         <Collapsible
-                          title={record["name"] + (record["body_only"] ? " (Body Only)" : (record["last_death"]<0 ? " (Presaved, not clonable)" : ""))}
+                          title={record["name"] + (record["body_only"] ? " (Body Only)" : (record["last_death"]<0 ? " (Presaved)" : ""))}
                           color={record["body_only"] ? "yellow" : (record["last_death"]<0 ? "green" : "blue")}>
                           <div key={record["name"]} style={{
                             'word-break': 'break-all',
@@ -84,6 +84,7 @@ export const CloningConsole = (props, context) => {
                             <Button
                               content="Clone"
                               icon="power-off"
+                              disabled={(!record["body_only"] && record["last_death"]<0)}
                               onClick={() => act('clone', {
                                 target: record["id"],
                               })}

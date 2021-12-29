@@ -294,11 +294,8 @@
 				if(ERROR_PANEL_OPENED)
 					temp = "Error [ERROR_PANEL_OPENED]: Panel opened."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(ERROR_ATTEMPTING)
-					temp = "Error [ERROR_ATTEMPTING]: In attempting."
-					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(ERROR_MESS)
-					temp = "Error [ERROR_MESS]: Cloning machine is mess."
+				if(ERROR_MESS_OR_ATTEMPTING)
+					temp = "Error [ERROR_MESS_OR_ATTEMPTING]: Pod is already occupied."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_NOT_MIND)
 					temp = "Error [ERROR_NOT_MIND]: [C.fields["name"]]'s lack of their mind."
@@ -319,7 +316,7 @@
 					temp = "Error [ERROR_SOUL_DEPARTED]: [C.fields["name"]]'s soul had departed."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_SUICIDED_BODY)
-					temp = "Error [ERROR_SUICIDED_BODY]: [C.fields["name"]] commited a suicide."
+					temp = "Error [ERROR_SUICIDED_BODY]: Failed to capture [C.fields["name"]]'s mind from a suicided body."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_SOUL_DAMNED)
 					temp = "Err#^ [ERROR_SOUL_DAMNED]: #$%SGFG$#their@soul&is$mine@#%# => 1(i*i@%i$(t!0n $A!l^r#."
