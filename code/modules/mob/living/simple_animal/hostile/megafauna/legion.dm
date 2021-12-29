@@ -35,7 +35,9 @@ Difficulty: Medium
 	crusher_achievement_type = /datum/award/achievement/boss/legion_crusher
 	score_achievement_type = /datum/award/score/legion_score
 	pixel_y = -90
+	base_pixel_y = -90
 	pixel_x = -75
+	base_pixel_x = -75
 	loot = list(/obj/item/stack/sheet/bone = 3)
 	vision_range = 13
 	wander = FALSE

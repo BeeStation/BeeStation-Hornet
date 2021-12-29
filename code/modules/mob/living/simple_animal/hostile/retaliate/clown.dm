@@ -151,6 +151,7 @@
 	maxHealth = 150
 	health = 150
 	pixel_x = -16
+	base_pixel_x = -16
 	speed = 10
 	melee_damage = 5
 	attacktext = "YA-HONKs"
@@ -171,6 +172,7 @@
 	maxHealth = 400
 	health = 400
 	pixel_x = -16
+	base_pixel_x = -16
 	speed = 2
 	melee_damage = 17
 	attacktext = "pummels"
@@ -250,6 +252,7 @@
 	maxHealth = 130
 	health = 130
 	pixel_x = -16
+	base_pixel_x = -16
 	speed = -5
 	melee_damage = 15
 	attacktext = "awkwardly flails at"

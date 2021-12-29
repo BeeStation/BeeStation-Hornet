@@ -97,8 +97,8 @@
 
 /obj/item/paper/Initialize()
 	. = ..()
-	pixel_y = rand(-8, 8)
-	pixel_x = rand(-9, 9)
+	pixel_y = base_pixel_y + rand(-8, 8)
+	pixel_x = base_pixel_x + rand(-9, 9)
 	update_icon()
 
 /obj/item/paper/update_icon_state()

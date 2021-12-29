@@ -56,6 +56,7 @@
 	maxHealth = 20
 	health = 20
 	pixel_x = -16
+	base_pixel_x = -16
 	mob_size = MOB_SIZE_LARGE
 
 	obj_damage = 80
