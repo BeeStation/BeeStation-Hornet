@@ -351,8 +351,7 @@
 							/obj/item/choice_beacon/pet/corgi,
 							/obj/item/choice_beacon/pet/hamster,
 							/obj/item/choice_beacon/pet/pug,
-							/mob/living/simple_animal/pet/penguin/baby,
-							/mob/living/simple_animal/hostile/retaliate/goat
+							/mob/living/simple_animal/pet/penguin/baby
 							)
 		for(var/V in templist)
 			var/atom/A = V
