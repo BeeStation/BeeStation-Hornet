@@ -146,12 +146,26 @@
 
 /datum/action/item_action/chameleon/change/Grant(mob/M)
 	if(M && (owner != M))
-		if(!M.chameleon_item_actions)
-			M.chameleon_item_actions = list(src)
-			var/datum/action/chameleon_outfit/O = new /datum/action/chameleon_outfit()
-			O.Grant(M)
+		if(target.dna_lock)
+			//Non-Carbons can't even have a DNA Check
+			if(iscarbon(M))
+				var/mob/living/carbon/C = M
+				//The actual DNA check itself
+				if(C.dna.unique_enzymes == target.dna_lock)
+					if(!M.chameleon_item_actions)
+						M.chameleon_item_actions = list(src)
+						var/datum/action/chameleon_outfit/O = new /datum/action/chameleon_outfit()
+						O.Grant(M)
+					else
+						M.chameleon_item_actions |= src
+		//No Lock? No Problem
 		else
-			M.chameleon_item_actions |= src
+			if(!M.chameleon_item_actions)
+				M.chameleon_item_actions = list(src)
+				var/datum/action/chameleon_outfit/O = new /datum/action/chameleon_outfit()
+				O.Grant(M)
+			else
+				M.chameleon_item_actions |= src
 	..()
 
 /datum/action/item_action/chameleon/change/Remove(mob/M)
