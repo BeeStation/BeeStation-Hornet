@@ -399,6 +399,7 @@
 /obj/item/clothing/under/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
+	dna_lock = null
 
 /obj/item/clothing/suit/chameleon
 	name = "armor"
@@ -426,6 +427,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+	dna_lock = null
 
 /obj/item/clothing/suit/chameleon/broken/Initialize()
 	. = ..()
@@ -456,6 +458,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+	dna_lock = null
 
 /obj/item/clothing/glasses/chameleon/broken/Initialize()
 	. = ..()
@@ -494,6 +497,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+	dna_lock = null
 
 /obj/item/clothing/gloves/chameleon/broken/Initialize()
 	. = ..()
@@ -540,6 +544,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+	dna_lock = null
 
 /obj/item/clothing/head/chameleon/broken/Initialize()
 	. = ..()
@@ -616,6 +621,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+	dna_lock = null
 
 /obj/item/clothing/mask/chameleon/broken/Initialize()
 	. = ..()
@@ -671,6 +677,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+	dna_lock = null
 
 /obj/item/clothing/shoes/chameleon/noslip
 	name = "black shoes"
@@ -703,6 +710,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+	dna_lock = null
 
 /obj/item/storage/backpack/chameleon/broken/Initialize()
 	. = ..()
@@ -734,6 +742,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+	dna_lock = null
 
 /obj/item/storage/belt/chameleon/broken/Initialize()
 	. = ..()
@@ -758,6 +767,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+	dna_lock = null
 
 /obj/item/radio/headset/chameleon/broken/Initialize()
 	. = ..()
@@ -789,6 +799,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+	dna_lock = null
 
 /obj/item/pda/chameleon/broken/Initialize()
 	. = ..()
@@ -833,3 +844,4 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+	dna_lock = null
