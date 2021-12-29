@@ -312,14 +312,14 @@
 /datum/action/item_action/chameleon/dnalock/Trigger()
 	toggle_lock()
 
-/datum/action/item_action/chameleon/dnalock/proc/toggle_lock(mob/M)
+/datum/action/item_action/chameleon/dnalock/proc/toggle_lock()
 	//Turn Lock Off
 	if(target.dna_lock)
 		target.dna_lock = null
 	//Turn Lock On
 	else
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
+		if(iscarbon(owner))
+			var/mob/living/carbon/C = owner
 			target.dna_lock = C.dna.unique_enzymes
 
 
@@ -331,8 +331,8 @@
 /datum/action/chameleon_outfit_dnalock/Trigger()
 	toggle_lock()
 
-/datum/action/chameleon_outfit_dnalock/proc/toggle_lock(mob/M)
-	for(var/V in M.chameleon_item_locks)
+/datum/action/chameleon_outfit_dnalock/proc/toggle_lock()
+	for(var/V in owner.chameleon_item_locks)
 		var/datum/action/item_action/chameleon/dnalock/A = V
 		if(A.target.dna_lock ^ src.lock)
 			A.Trigger()
