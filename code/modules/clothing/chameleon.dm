@@ -150,14 +150,18 @@
 			//Non-Carbons can't even have a DNA Check
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
-				//The actual DNA check itself
-				if(C.dna.unique_enzymes == target.dna_lock)
-					if(!M.chameleon_item_actions)
-						M.chameleon_item_actions = list(src)
-						var/datum/action/chameleon_outfit/O = new /datum/action/chameleon_outfit()
-						O.Grant(M)
-					else
-						M.chameleon_item_actions |= src
+			else
+				return
+			//The actual DNA check itself
+			if(C.dna.unique_enzymes == target.dna_lock)
+				if(!M.chameleon_item_actions)
+					M.chameleon_item_actions = list(src)
+					var/datum/action/chameleon_outfit/O = new /datum/action/chameleon_outfit()
+					O.Grant(M)
+				else
+					M.chameleon_item_actions |= src
+			else
+				return
 		//No Lock? No Problem
 		else
 			if(!M.chameleon_item_actions)
@@ -268,30 +272,32 @@
 //Action Toggles DNA Lock
 //Toggle Should only be present if not locked or you pass the DNA Lock
 /datum/action/item_action/chameleon/dnalock/Grant(mob/M)
-	if(M && (owner != M))
-		//Can't DNA Lock Something with No DNA
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
-			//Checks if there is a lock
-			if(target.dna_lock)
-				//Checks If you Match the Lock
-				if(C.dna.unique_enzymes == target.dna_lock)
-					if(!M.chameleon_item_locks)
-						M.chameleon_item_locks = list(src)
-						var/datum/action/chameleon_outfit_dnalock/O = new /datum/action/chameleon_outfit_dnalock()
-						O.Grant(M)
-					else
-						M.chameleon_item_locks |= src
-				else
-					return //They have no idea
-			//No Lock? No problem
+	if(M && (owner != M)
+		//Checks if there is a lock
+		if(target.dna_lock)
+			//Can't DNA Lock Something with No DNA
+			if(iscarbon(M))
+				var/mob/living/carbon/C = M
 			else
+				return //No idea
+			//Checks If you Match the Lock
+			if(C.dna.unique_enzymes == target.dna_lock)
 				if(!M.chameleon_item_locks)
 					M.chameleon_item_locks = list(src)
 					var/datum/action/chameleon_outfit_dnalock/O = new /datum/action/chameleon_outfit_dnalock()
 					O.Grant(M)
 				else
-					M.chameleon_item_locks |= src		
+					M.chameleon_item_locks |= src
+			else
+				return //They have no idea
+		//No Lock? No problem
+		else
+			if(!M.chameleon_item_locks)
+				M.chameleon_item_locks = list(src)
+				var/datum/action/chameleon_outfit_dnalock/O = new /datum/action/chameleon_outfit_dnalock()
+				O.Grant(M)
+			else
+				M.chameleon_item_locks |= src		
 	..()
 
 /datum/action/item_action/chameleon/dnalock/Remove(mob/M)
