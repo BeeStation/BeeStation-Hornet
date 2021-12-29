@@ -335,9 +335,9 @@
 	for(var/V in owner.chameleon_item_locks)
 		var/datum/action/item_action/chameleon/dnalock/A = V
 		//DM lacks a logical XOR
-		//Logical XOR consists of the Equation: (A NAND (A NAND B)) NAND (B NAND (A NAND B))
+		//Logical XOR consists of the Equation: (A OR B) AND (A NAND B)
 		//Lock is Input A, DNA Lock is Input B
-		if(!(!(lock && !(A.target.dna_lock && lock)) && !(A.target.dna_lock && !(A.target.dna_lock && lock))))
+		if((lock || target.dna_lock)&&!(lock && target.dna_lock))
 			A.Trigger()
 	lock = !lock
 	name = "[lock ? "Unlock" : "Lock"] Chameleon Outfit"
