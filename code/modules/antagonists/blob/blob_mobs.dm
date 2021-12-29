@@ -234,7 +234,7 @@
 			for(var/i in 1 to ln) //calling get_path_to every time is quite taxing lets see if we can find whatever blocks us
 				target_new = get_step(target_new,  get_dir(target_new, src)) //step towards the origin until we find the blocker then 1 further
 				ln--
-				if(istype(target_new,/turf/closed) || (locate(/obj/structure/window) in target_new) || (locate(/obj/machinery/door) in target_new) || (locate(/obj/mecha) in target_new)) //we check for possible things that could block us
+				if(istype(target_new,/turf/closed) || (locate(/obj/structure/window) in target_new) || (locate(/obj/machinery/door) in target_new) || (locate(/obj/structure/table) in target_new) || (locate(/obj/mecha) in target_new)) //we check for possible things that could block us
 					found_blocker = TRUE
 					continue //in case there is like a double wall
 				if(found_blocker) //cursed but after we found the blocker we end the loop on the next illiteration
