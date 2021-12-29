@@ -294,8 +294,11 @@
 				if(ERROR_PANEL_OPENED)
 					temp = "Error [ERROR_PANEL_OPENED]: Panel opened."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(ERROR_MESS_OR_ATTEMPTING)
-					temp = "Error [ERROR_MESS_OR_ATTEMPTING] => Initialisation failure."
+				if(ERROR_ATTEMPTING)
+					temp = "Error [ERROR_ATTEMPTING]: In attempting."
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				if(ERROR_MESS)
+					temp = "Error [ERROR_MESS]: Cloning machine is mess."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_NOT_MIND)
 					temp = "Error [ERROR_NOT_MIND]: [C.fields["name"]]'s lack of their mind."
