@@ -246,6 +246,63 @@
 		return PROCESS_KILL
 	random_look(owner)
 
+//Chameleon Item Actions are DNA Locked to Ensure Operational Integrity
+//This Action Handles DNA locking
+/datum/action/item_action/chameleon/dnalock
+	name = "Chameleon DNA Lock"
+	var/chameleon_name = "Item"
+
+	var/emp_timer
+
+//Action Toggles DNA Lock
+//Toggle Should only be present if not locked or you pass the DNA Lock
+/datum/action/item_action/chameleon/dnalock/Grant(mob/M)
+	if(M && (owner != M))
+		//Can't DNA Lock Something with No DNA
+		if(iscarbon)
+			var/mob/living/carbon/C = M
+			//Checks if there is a lock
+			if(target.dna_lock)
+				//Checks If you Match the Lock
+				if(C.dna.unique_enzymes == target.dna_lock)
+					if(!M.chameleon_item_actions)
+						M.chameleon_item_actions = list(src)
+						var/datum/action/chameleon_outfit_dnalock/O = new /datum/action/chameleon_outfit_dnalock()
+						O.Grant(M)
+					else
+						M.chameleon_item_actions |= src
+				else
+					return //They have no idea
+			//No Lock? No problem
+			else
+				if(!M.chameleon_item_actions)
+					M.chameleon_item_actions = list(src)
+					var/datum/action/chameleon_outfit_dnalock/O = new /datum/action/chameleon_outfit_dnalock()
+					O.Grant(M)
+				else
+					M.chameleon_item_actions |= src		
+	..()
+
+/datum/action/item_action/chameleon/dnalock/Remove(mob/M)
+	if(M && (M == owner))
+		LAZYREMOVE(M.chameleon_item_actions, src)
+		if(!LAZYLEN(M.chameleon_item_actions))
+			var/datum/action/chameleon_outfit_dnalock/O = locate(/datum/action/chameleon_outfit_dnalock) in M.actions
+			qdel(O)
+	..()
+
+/datum/action/item_action/chameleon/dnalock/Trigger()
+	toggle_lock()
+
+/datum/action/item_action/chameleon/dnalock/proc/toggle_lock(mob/M)
+
+/datum/action/chameleon_outfit_dnalock
+	name = "Lock Chameleon Outfit"
+
+/datum/action/chameleon_outfit_dnalock/Trigger()
+	
+/datum/action/chameleon_outfit_dnalock/proc/toggle_lock(mob/M)
+
 /obj/item/clothing/under/chameleon
 //starts off as black
 	name = "black jumpsuit"
