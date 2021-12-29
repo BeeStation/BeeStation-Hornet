@@ -315,6 +315,8 @@
 		var/datum/action/item_action/chameleon/dnalock/A = V
 		if(A.target.dna_lock ^ src.lock)
 			A.Trigger()
+	lock = !lock
+	name = "[lock ? "Unlock" : "Lock"] Chameleon Outfit"
 
 /obj/item/clothing/under/chameleon
 //starts off as black
@@ -329,6 +331,7 @@
 	can_adjust = FALSE
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 10)
 
+	var/datum/action/item_action/chameleon/dnalock/chameleon_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/under/chameleon/envirosuit
@@ -357,6 +360,7 @@
 /obj/item/clothing/under/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
+	chameleon_lock = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/under
 	chameleon_action.chameleon_name = "Jumpsuit"
 	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/under, /obj/item/clothing/under/color, /obj/item/clothing/under/rank, /obj/item/clothing/under/changeling), only_root_path = TRUE)
@@ -381,11 +385,13 @@
 	resistance_flags = NONE
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 10)
 
+	var/datum/action/item_action/chameleon/dnalock/chameleon_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/suit/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
+	chameleon_lock = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/suit
 	chameleon_action.chameleon_name = "Suit"
 	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/suit/armor/abductor, /obj/item/clothing/suit/changeling), only_root_path = TRUE)
@@ -409,11 +415,13 @@
 	resistance_flags = NONE
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 10)
 
+	var/datum/action/item_action/chameleon/dnalock/chameleon_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/glasses/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
+	chameleon_lock = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/glasses
 	chameleon_action.chameleon_name = "Glasses"
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/glasses/changeling, only_root_path = TRUE)
@@ -445,11 +453,13 @@
 	resistance_flags = NONE
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 10)
 
+	var/datum/action/item_action/chameleon/dnalock/chameleon_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/gloves/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
+	chameleon_lock = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/gloves
 	chameleon_action.chameleon_name = "Gloves"
 	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/gloves, /obj/item/clothing/gloves/color, /obj/item/clothing/gloves/changeling), only_root_path = TRUE)
@@ -489,11 +499,13 @@
 	resistance_flags = NONE
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 10)
 
+	var/datum/action/item_action/chameleon/dnalock/chameleon_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/head/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
+	chameleon_lock = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/head
 	chameleon_action.chameleon_name = "Hat"
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/head/changeling, only_root_path = TRUE)
@@ -563,11 +575,13 @@
 
 	var/vchange = 1
 
+	var/datum/action/item_action/chameleon/dnalock/chameleon_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/mask/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
+	chameleon_lock = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/mask
 	chameleon_action.chameleon_name = "Mask"
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/mask/changeling, only_root_path = TRUE)
@@ -616,11 +630,13 @@
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 10)
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
+	var/datum/action/item_action/chameleon/dnalock/chameleon_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/shoes/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
+	chameleon_lock = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/shoes
 	chameleon_action.chameleon_name = "Shoes"
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/shoes/changeling, only_root_path = TRUE)
@@ -647,11 +663,13 @@
 /obj/item/storage/backpack/chameleon
 	name = "backpack"
 
+	var/datum/action/item_action/chameleon/dnalock/chameleon_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/storage/backpack/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
+	chameleon_lock = new(src)
 	chameleon_action.chameleon_type = /obj/item/storage/backpack
 	chameleon_action.chameleon_name = "Backpack"
 	chameleon_action.initialize_disguises()
@@ -670,12 +688,14 @@
 	name = "toolbelt"
 	desc = "Holds tools."
 
+	var/datum/action/item_action/chameleon/dnalock/chameleon_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/storage/belt/chameleon/Initialize()
 	. = ..()
 
 	chameleon_action = new(src)
+	chameleon_lock = new(src)
 	chameleon_action.chameleon_type = /obj/item/storage/belt
 	chameleon_action.chameleon_name = "Belt"
 	chameleon_action.initialize_disguises()
@@ -698,11 +718,13 @@
 /obj/item/radio/headset/chameleon
 	name = "radio headset"
 
+	var/datum/action/item_action/chameleon/dnalock/chameleon_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/radio/headset/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
+	chameleon_lock = new(src)
 	chameleon_action.chameleon_type = /obj/item/radio/headset
 	chameleon_action.chameleon_name = "Headset"
 	chameleon_action.initialize_disguises()
@@ -726,11 +748,13 @@
 /obj/item/pda/chameleon
 	name = "PDA"
 
+	var/datum/action/item_action/chameleon/dnalock/chameleon_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/pda/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
+	chameleon_lock = new(src)
 	chameleon_action.chameleon_type = /obj/item/pda
 	chameleon_action.chameleon_name = "PDA"
 	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/pda/heads, /obj/item/pda/ai, /obj/item/pda/ai/pai), only_root_path = TRUE)
@@ -747,11 +771,13 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/stamp/chameleon
+	var/datum/action/item_action/chameleon/dnalock/chameleon_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/stamp/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
+	chameleon_lock = new(src)
 	chameleon_action.chameleon_type = /obj/item/stamp
 	chameleon_action.chameleon_name = "Stamp"
 	chameleon_action.initialize_disguises()
@@ -767,11 +793,13 @@
 	resistance_flags = NONE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
 
+	var/datum/action/item_action/chameleon/dnalock/chameleon_lock
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/neck/cloak/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
+	chameleon_lock = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/neck
 	chameleon_action.chameleon_name = "Cloak"
 	chameleon_action.initialize_disguises()
