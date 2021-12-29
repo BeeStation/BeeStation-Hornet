@@ -23,6 +23,10 @@
 	/// How much acid is on that obj
 	var/acid_level = 0
 
+
+	//DNA Lock. Store carbon.dna.unique_enzyme here. Check if another carbon's unique enzyme matches in an if, and boom, you have a DNA Lock.
+	var/dna_lock = null
+
 	/// Have something WAY too amazing to live to the next round? Set a new path here. Overuse of this var will make me upset. Will replace the object with the type you specify during persistence.
 	var/persistence_replacement
 	var/current_skin //Has the item been reskinned?
