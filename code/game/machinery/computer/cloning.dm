@@ -604,11 +604,15 @@
 	R.fields["factions"] = mob_occupant.faction
 	R.fields["quirks"] = list()
 	R.fields["traumas"] = list()
-	if(!body_only) //Quirks 'should be' personal features from a brain, not a body. but quirks actually come from a body. We need to fix the quirk code.
+	if(!body_only) //Body only will not copy quirks.
 		for(var/V in mob_occupant.roundstart_quirks)
 			var/datum/quirk/T = V
 			R.fields["quirks"][T.type] = T.clone_data()
-			//Note: this will not transfer your quirks if your brain is transfered to the body_only cloned body. However, this is likely a bug from the structure of quirks and traumas.
+			/*
+			Quirks 'should be' personal features from a brain, not a body. but quirks actually come from a body.
+			This will not transfer your quirks if your brain is transfered to the body_only cloned body, because someone's brain in your clone is not a musician/smoker/brain-tumored or something else.
+			This is likely a bug from the structure of quirks. We need to fix the quirk code.
+			*/
 
 	if(isbrain(mob_occupant)) //We'll detect the brain first because trauma is from the brain, not from the body.
 		R.fields["traumas"] = B.get_traumas()
