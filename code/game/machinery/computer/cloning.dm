@@ -604,7 +604,7 @@
 	R.fields["factions"] = mob_occupant.faction
 	R.fields["quirks"] = list()
 	R.fields["traumas"] = list()
-	if(!body_only) //these are personal features from the brain, not the body.
+	if(!body_only) //Quirks 'should be' personal features from a brain, not a body. but quirks actually come from a body. We need to fix the quirk code.
 		for(var/V in mob_occupant.roundstart_quirks)
 			var/datum/quirk/T = V
 			R.fields["quirks"][T.type] = T.clone_data()
