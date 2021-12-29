@@ -371,6 +371,7 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/syndicate/Initialize()
 	. = ..()
 	var/datum/action/item_action/chameleon/change/chameleon_action = new(src)
+	var/datum/action/item_action/chameleon/dnalock/chameleon_lock = new(src)
 	chameleon_action.chameleon_type = /obj/item/card/id
 	chameleon_action.chameleon_name = "ID Card"
 	chameleon_action.initialize_disguises()
