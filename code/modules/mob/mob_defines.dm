@@ -36,6 +36,8 @@
 	var/list/datum/action/actions = list()
 	/// A special action? No idea why this lives here
 	var/list/datum/action/chameleon_item_actions
+	//The locks for the above actions. Made because it wouldn't fucking work otherwise.
+	var/list/datum/action/chameleon_item_locks
 
 	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak (2019, still here)
 	var/stat = CONSCIOUS

@@ -276,28 +276,28 @@
 			if(target.dna_lock)
 				//Checks If you Match the Lock
 				if(C.dna.unique_enzymes == target.dna_lock)
-					if(!M.chameleon_item_actions)
-						M.chameleon_item_actions = list(src)
+					if(!M.chameleon_item_locks)
+						M.chameleon_item_locks = list(src)
 						var/datum/action/chameleon_outfit_dnalock/O = new /datum/action/chameleon_outfit_dnalock()
 						O.Grant(M)
 					else
-						M.chameleon_item_actions |= src
+						M.chameleon_item_locks |= src
 				else
 					return //They have no idea
 			//No Lock? No problem
 			else
-				if(!M.chameleon_item_actions)
-					M.chameleon_item_actions = list(src)
+				if(!M.chameleon_item_locks)
+					M.chameleon_item_locks = list(src)
 					var/datum/action/chameleon_outfit_dnalock/O = new /datum/action/chameleon_outfit_dnalock()
 					O.Grant(M)
 				else
-					M.chameleon_item_actions |= src		
+					M.chameleon_item_locks |= src		
 	..()
 
 /datum/action/item_action/chameleon/dnalock/Remove(mob/M)
 	if(M && (M == owner))
-		LAZYREMOVE(M.chameleon_item_actions, src)
-		if(!LAZYLEN(M.chameleon_item_actions))
+		LAZYREMOVE(M.chameleon_item_locks, src)
+		if(!LAZYLEN(M.chameleon_item_locks))
 			var/datum/action/chameleon_outfit_dnalock/O = locate(/datum/action/chameleon_outfit_dnalock) in M.actions
 			qdel(O)
 	..()
@@ -325,7 +325,7 @@
 	toggle_lock()
 
 /datum/action/chameleon_outfit_dnalock/proc/toggle_lock(mob/M)
-	for(var/V in M.chameleon_item_actions)
+	for(var/V in M.chameleon_item_locks)
 		var/datum/action/item_action/chameleon/dnalock/A = V
 		if(A.target.dna_lock ^ src.lock)
 			A.Trigger()
