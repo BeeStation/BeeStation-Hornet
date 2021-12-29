@@ -283,6 +283,9 @@
 
 //Crossed Wanted Roomba Sprites to be Separate
 /mob/living/simple_animal/bot/cleanbot/roomba
+	name = "\improper Roomba"
+	desc = "A little Roomba, he looks so excited!"
+	icon_state = "roomba0"
 
 /mob/living/simple_animal/bot/cleanbot/roomba/Initialize()
 	. = ..()
