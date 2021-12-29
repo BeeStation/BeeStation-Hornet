@@ -608,11 +608,13 @@
 		for(var/V in mob_occupant.roundstart_quirks)
 			var/datum/quirk/T = V
 			R.fields["quirks"][T.type] = T.clone_data()
-		if(isbrain(mob_occupant)) //We'll detect the brain first because trauma is from the brain, not from the body.
-			R.fields["traumas"] = B.get_traumas()
-		else if(ishuman(mob_occupant))
-			R.fields["traumas"] = C.get_traumas()
-		//Note: this will not transfer your quirks and traumas if your brain is transfered to the body_only cloned body. However, this is likely a bug from the structure of quirks and traumas.
+			//Note: this will not transfer your quirks if your brain is transfered to the body_only cloned body. However, this is likely a bug from the structure of quirks and traumas.
+
+	if(isbrain(mob_occupant)) //We'll detect the brain first because trauma is from the brain, not from the body.
+		R.fields["traumas"] = B.get_traumas()
+	else if(ishuman(mob_occupant))
+		R.fields["traumas"] = C.get_traumas()
+	//Traumas will be overriden if the brain transplant is made because '/obj/item/organ/brain/Insert' does that thing. This should be done since we want a monkey yelling to people with 'God voice syndrome'
 
 	R.fields["bank_account"] = has_bank_account
 	R.fields["mindref"] = "[REF(mob_occupant.mind)]"
