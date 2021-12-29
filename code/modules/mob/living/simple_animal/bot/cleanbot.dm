@@ -276,6 +276,21 @@
 	do_sparks(3, TRUE, src)
 	..()
 
+/obj/item/roombaframe
+	name = "Roomba Frame"
+	desc = "A housing that serves as the base for constructing Roombas."
+	icon = 'icons/obj/janitor.dmi'
+	icon_state = "roombaframe"
+
+/obj/item/roombaframe/attackby(obj/O, mob/user, params)
+	if(isprox(O))
+		to_chat(user, "<span class='notice'>You add [O] to [src].</span>")
+		qdel(O)
+		qdel(src)
+		user.put_in_hands(new /obj/item/bot_assembly/cleanbot)
+	else
+		..()
+
 /mob/living/simple_animal/bot/cleanbot/medbay
 	name = "Scrubs, MD"
 	bot_core_type = /obj/machinery/bot_core/cleanbot/medbay
