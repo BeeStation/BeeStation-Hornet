@@ -452,7 +452,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	age = sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
 	hair_color = sanitize_hexcolor(hair_color, 3, 0)
 	facial_hair_color = sanitize_hexcolor(facial_hair_color, 3, 0)
-	gradient_style = sanitize_inlist(gradient_style, GLOB.hair_gradients_list)
+	gradient_style = sanitize_inlist(gradient_style, GLOB.hair_gradients_list, "None")
 	gradient_color = sanitize_hexcolor(gradient_color, 3, 0)
 	underwear_color	= sanitize_hexcolor(underwear_color, 3, 0)
 	eye_color = sanitize_hexcolor(eye_color, 3, 0)
