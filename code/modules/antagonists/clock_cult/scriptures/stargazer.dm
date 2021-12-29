@@ -130,4 +130,3 @@
 	var/static/list/possible_components = subtypesof(/datum/component/enchantment)
 	I.AddComponent(pick(possible_components))
 	to_chat(user, "<span class='notice'>[I] glows with a brilliant light!</span>")
-6
