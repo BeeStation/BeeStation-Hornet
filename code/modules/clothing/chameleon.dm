@@ -298,8 +298,8 @@
 	//Turn Lock On
 	else
 		if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		target.dna_lock = C.dna.unique_enzymes
+			var/mob/living/carbon/C = M
+			target.dna_lock = C.dna.unique_enzymes
 
 
 /datum/action/chameleon_outfit_dnalock
@@ -311,7 +311,7 @@
 	toggle_lock()
 
 /datum/action/chameleon_outfit_dnalock/proc/toggle_lock(mob/M)
-	for(var/V in user.chameleon_item_actions)
+	for(var/V in M.chameleon_item_actions)
 		var/datum/action/item_action/chameleon/dnalock/A = V
 		if(A.target.dna_lock ^ src.lock)
 			A.Trigger()
