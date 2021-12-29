@@ -222,7 +222,7 @@
 	for(var/w in get_path_to(src, target, simulated_only = FALSE))
 		if(in_movement && !rally) //incase the spore is already chasing something like a player but the rally command is called
 			return
-		movement_steps += 1
+		movement_steps++
 		step(src, get_dir(src, w))
 		sleep(delay)
 
@@ -230,20 +230,20 @@
 		var/ln = get_dist(src, target)
 		var/target_new = target
 		var/found_blocker
-		while(!movement_steps && (ln > 0)) //max number of attempts is how big the distance is
+		while(!movement_steps && (ln > 0)) //will stop if we can find a valid path or if ln gets reduced to 0 or less
 			for(var/i in 1 to ln) //calling get_path_to every time is quite taxing lets see if we can find whatever blocks us
 				target_new = get_step(target_new,  get_dir(target_new, src)) //step towards the origin until we find the blocker then 1 further
-				ln -= 1
-				if(istype(target_new,/turf/closed) || (locate(/obj/structure/window) in target_new) || (locate(/obj/mecha) in target_new)) //we check for possible things that could block us
+				ln--
+				if(istype(target_new,/turf/closed) || (locate(/obj/structure/window) in target_new) || (locate(/obj/machinery/door) in target_new) || (locate(/obj/mecha) in target_new)) //we check for possible things that could block us
 					found_blocker = TRUE
-					continue //in case there is like a doublewall
+					continue //in case there is like a double wall
 				if(found_blocker) //cursed but after we found the blocker we end the loop on the next illiteration
 					break
 			found_blocker = FALSE
 			for(var/w in get_path_to(src, target_new, simulated_only = FALSE))
 				if(in_movement && !rally)
 					return
-				movement_steps += 1
+				movement_steps++
 				step(src, get_dir(src, w))
 				sleep(delay)
 	in_movement = FALSE
