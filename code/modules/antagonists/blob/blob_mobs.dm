@@ -232,11 +232,11 @@
 		var/found_blocker
 		while(!movement_steps && (ln > 0)) //max number of attempts is how big the distance is
 			for(var/i in 1 to ln) //calling get_path_to every time is quite taxing lets see if we can find whatever blocks us
-				target_new = get_step(target_new,  get_dir(target_new, src))
+				target_new = get_step(target_new,  get_dir(target_new, src)) //step towards the origin until we find the blocker then 1 further
 				ln -= 1
 				if(istype(target_new,/turf/closed) || (locate(/obj/structure/window) in target_new) || (locate(/obj/mecha) in target_new)) //we check for possible things that could block us
 					found_blocker = TRUE
-					continue //incase there is like a doublewall
+					continue //in case there is like a doublewall
 				if(found_blocker) //cursed but after we found the blocker we end the loop on the next illiteration
 					break
 			found_blocker = FALSE
