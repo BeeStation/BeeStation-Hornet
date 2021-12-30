@@ -284,8 +284,10 @@
 						M.chameleon_item_locks = list(src)
 						var/datum/action/chameleon_outfit_dnalock/O = new /datum/action/chameleon_outfit_dnalock()
 						O.Grant(M)
+						return
 					else
 						M.chameleon_item_locks |= src
+						return
 				else
 					return //They have no idea
 			else
@@ -297,8 +299,10 @@
 				M.chameleon_item_locks = list(src)
 				var/datum/action/chameleon_outfit_dnalock/O = new /datum/action/chameleon_outfit_dnalock()
 				O.Grant(M)
+				return
 			else
-				M.chameleon_item_locks |= src		
+				M.chameleon_item_locks |= src
+				return	
 	..()
 
 /datum/action/item_action/chameleon/dnalock/Remove(mob/M)
