@@ -192,7 +192,10 @@
 		owner.updatehealth()
 		if(stamina > DAMAGE_PRECISION)
 			owner.update_stamina(TRUE)
-			owner.stam_regen_start_time = max(owner.stam_regen_start_time, world.time + STAMINA_REGEN_BLOCK_TIME)
+			var/stamina_regen_time = STAMINA_REGEN_BLOCK_TIME
+			if(HAS_TRAIT(owner, TRAIT_STUNRESISTANCE))
+				stamina_regen_time *= 0.5
+			owner.stam_regen_start_time = max(owner.stam_regen_start_time, world.time + stamina_regen_time)
 	consider_processing()
 	update_disabled()
 	return update_bodypart_damage_state()

@@ -146,8 +146,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FAKEDEATH			"fakedeath" //Makes the owner appear as dead to most forms of medical examination
 #define TRAIT_DISFIGURED		"disfigured"
 #define TRAIT_XENO_HOST			"xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
-#define TRAIT_STUNIMMUNE		"stun_immunity"
-#define TRAIT_STUNRESISTANCE    "stun_resistance"
+#define TRAIT_STUNIMMUNE		"stun_immunity"	//Makes you completely immune to stuns
+#define TRAIT_STUNRESISTANCE    "stun_resistance"	//Allows you to take 40% of your max health more stun damage, you recover from stuns twice as fast and stay stunned for half as long
 #define TRAIT_CONFUSEIMMUNE		"confuse_immunity"
 #define TRAIT_SLEEPIMMUNE		"sleep_immunity"
 #define TRAIT_PUSHIMMUNE		"push_immunity"

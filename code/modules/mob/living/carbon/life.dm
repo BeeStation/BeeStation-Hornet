@@ -353,6 +353,9 @@
 	//Increase damage the more stam damage
 	//Incraesed stamina healing when above 50 stamloss, up to 2x healing rate when at 100 stamloss.
 	stam_heal_multiplier = CLAMP(total_stamina_loss / 50, 1, 2)
+	//Heal stamina damage faster if stun reistant
+	if(HAS_TRAIT(src, TRAIT_STUNRESISTANCE))
+		stam_heal_multiplier *= 2
 	//Heal bodypart stamina damage
 	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(BP.needs_processing)

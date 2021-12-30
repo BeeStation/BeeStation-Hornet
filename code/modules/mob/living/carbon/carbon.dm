@@ -560,6 +560,10 @@
 
 /mob/living/carbon/update_stamina(extend_stam_crit = FALSE)
 	var/stam = getStaminaLoss()
+	var/stamina_crit_point = crit_threshold
+	//Stun resistant trait allows you to take extra stamina damage
+	if(HAS_TRAIT(src, TRAIT_STUNRESISTANCE))
+		stamina_crit_point -= maxHealth * 0.4
 	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !stat && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
 		if(extend_stam_crit || !stam_paralyzed)
 			enter_stamcrit()
