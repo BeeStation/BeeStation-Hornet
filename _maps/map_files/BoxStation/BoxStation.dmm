@@ -22474,6 +22474,7 @@
 /obj/item/radio/headset/headset_sci{
 	pixel_x = -3
 	},
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "bow" = (

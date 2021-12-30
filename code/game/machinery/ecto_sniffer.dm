@@ -42,6 +42,7 @@
 	on = !on
 	balloon_alert(user, "sniffer turned [on ? "on" : "off"]")
 	//update_appearance() - not working until update_appearance is ported
+	update_icon()
 
 /obj/machinery/ecto_sniffer/update_icon_state()
 	. = ..()

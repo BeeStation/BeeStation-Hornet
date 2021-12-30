@@ -68090,6 +68090,7 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname,
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "qaZ" = (
