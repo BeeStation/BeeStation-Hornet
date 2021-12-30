@@ -14,7 +14,7 @@
 	if(!IsParalyzed())
 		to_chat(src, "<span class='notice'>You're too exhausted to keep going.</span>")
 	var/stamina_crit_timer = STAMINA_CRIT_TIME
-	if(HAS_TRAIT(owner, TRAIT_STUNRESISTANCE))
+	if(HAS_TRAIT(src, TRAIT_STUNRESISTANCE))
 		stamina_crit_timer *= 0.5
 	stam_regen_start_time = world.time + stamina_crit_timer
 	stam_paralyzed = TRUE
