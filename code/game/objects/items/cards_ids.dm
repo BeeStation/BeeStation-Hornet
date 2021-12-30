@@ -338,6 +338,7 @@ update_label("John Doe", "Clowny")
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE)
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
 	var/forged = FALSE //have we set a custom name and job assignment, or will we use what we're given when we chameleon change?
+	var/datum/action/item_action/chameleon/dnalock/chameleon_lock
 	var/static/list/available_icon_states = list(
 		"id",
 		"orange",
@@ -370,8 +371,8 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/syndicate/Initialize()
 	. = ..()
+	chameleon_lock = new(src)
 	var/datum/action/item_action/chameleon/change/chameleon_action = new(src)
-	var/datum/action/item_action/chameleon/dnalock/chameleon_lock = new(src)
 	chameleon_action.chameleon_type = /obj/item/card/id
 	chameleon_action.chameleon_name = "ID Card"
 	chameleon_action.initialize_disguises()
