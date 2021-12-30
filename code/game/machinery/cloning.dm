@@ -304,7 +304,7 @@
 		var/mob/dead/observer/C = pick(candidates)
 		H.key = C.key
 		log_game("[key_name(C)] became [H.real_name]'s experimental clone.")
-		message_admins("[ADMIN_LOOKUPFLW(C)] became [H.real_name]'s experimental clone.")
+		message_admins("[key_name_admin(C)] became [H.real_name]'s experimental clone.")
 		to_chat(H, "<span class='warning'>You will instantly die if you do 'ghost'. Please stand by until the cloning is done.</span>")
 
 //Grow clones to maturity then kick them out.  FREELOADERS
