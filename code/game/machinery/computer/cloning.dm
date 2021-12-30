@@ -67,8 +67,8 @@
 			else if(!. && pod.is_operational() && !(pod.occupant || pod.mess) && pod.efficiency > 5)
 				. = pod
 
-/proc/grow_clone_from_record(obj/machinery/clonepod/pod, datum/data/record/R)
-	return pod.growclone(R.fields["name"], R.fields["UI"], R.fields["SE"], R.fields["mindref"], R.fields["last_death"], R.fields["mrace"], R.fields["features"], R.fields["factions"], R.fields["quirks"], R.fields["bank_account"], R.fields["traumas"], R.fields["body_only"])
+/proc/grow_clone_from_record(obj/machinery/clonepod/pod, datum/data/record/R, experimental)
+	return pod.growclone(R.fields["name"], R.fields["UI"], R.fields["SE"], R.fields["mindref"], R.fields["last_death"], R.fields["mrace"], R.fields["features"], R.fields["factions"], R.fields["quirks"], R.fields["bank_account"], R.fields["traumas"], R.fields["body_only"], experimental)
 
 /obj/machinery/computer/cloning/process()
 	if(!(scanner && LAZYLEN(pods) && autoprocess))
@@ -87,7 +87,7 @@
 		if(pod.occupant)
 			break
 
-		var/result = grow_clone_from_record(pod, R)
+		var/result = grow_clone_from_record(pod, R, experimental)
 		if(result & CLONING_SUCCESS)
 			temp = "[R.fields["name"]] => Cloning cycle in progress..."
 			log_cloning("Cloning of [key_name(R.fields["mindref"])] automatically started via autoprocess - [src] at [AREACOORD(src)]. Pod: [pod] at [AREACOORD(pod)].")
@@ -284,7 +284,7 @@
 			temp = "Warning: Cloning cycle already in progress."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		else
-			switch(pod.growclone(C.fields["name"], C.fields["UI"], C.fields["SE"], C.fields["mindref"], C.fields["last_death"], C.fields["mrace"], C.fields["features"], C.fields["factions"], C.fields["quirks"], C.fields["bank_account"], C.fields["traumas"], C.fields["body_only"]))
+			switch(pod.growclone(C.fields["name"], C.fields["UI"], C.fields["SE"], C.fields["mindref"], C.fields["last_death"], C.fields["mrace"], C.fields["features"], C.fields["factions"], C.fields["quirks"], C.fields["bank_account"], C.fields["traumas"], C.fields["body_only"], experimental))
 				if(CLONING_SUCCESS)
 					temp = "Notice: [C.fields["name"]] => Cloning cycle in progress..."
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
@@ -292,7 +292,7 @@
 						records.Remove(C)
 					. = TRUE
 				if(CLONING_SUCCESS_EXPERIMENTAL)
-					temp = "Notice: [C.fields["name"]] => Cloning cycle in progress..."
+					temp = "Notice: [C.fields["name"]] => Experimental cloning cycle in progress..."
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 					. = TRUE
 				if(ERROR_NO_SYNTHFLESH)
@@ -304,8 +304,8 @@
 				if(ERROR_MESS_OR_ATTEMPTING)
 					temp = "Error [ERROR_MESS_OR_ATTEMPTING]: Pod is already occupied."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				if(experimental)
-					temp = "Error: Experimental pod is not detected."
+				if(ERROR_MISSING_EXPERIMENTAL_POD)
+					temp = "Error [ERROR_MISSING_EXPERIMENTAL_POD]: Experimental pod is not detected."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_NOT_MIND)
 					temp = "Error [ERROR_NOT_MIND]: [C.fields["name"]]'s lack of their mind."
@@ -632,7 +632,7 @@
 		R.fields["last_death"] = 0
 		R.fields["body_only"] = 0
 
-	if(!body_only || experimental)
+	if(!body_only || experimental && mob_occupant.stat != DEAD)
 	    //Add an implant if needed
 		var/obj/item/implant/health/imp
 		for(var/obj/item/implant/health/HI in mob_occupant.implants)
