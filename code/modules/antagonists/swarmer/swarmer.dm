@@ -679,10 +679,16 @@
 		to_chat(src, "<span class='info'>We successfully repaired ourselves.</span>")
 
 /mob/living/simple_animal/hostile/swarmer/proc/ToggleLight()
-	if(!light_range)
-		set_light_on(TRUE)
-	else
+	if(swarmer_flags & SWARMER_LIGHT_ON)
+		swarmer_flags = ~SWARMER_LIGHT_ON
 		set_light_on(FALSE)
+		if(!mind)
+			return
+		return
+	swarmer_flags |= SWARMER_LIGHT_ON
+	set_light_on(TRUE)
+	if(!mind)
+		return
 
 /mob/living/simple_animal/hostile/swarmer/proc/swarmer_chat(msg)
 	var/rendered = "<B>Swarm communication - [src]</b> [say_quote(msg)]"
