@@ -258,7 +258,7 @@
 				for(var/i in 1 to ln) //calling get_path_to every time is quite taxing lets see if we can find whatever blocks us
 					target_new = get_step(target_new,  get_dir(target_new, src)) //step towards the origin until we find the blocker then 1 further
 					ln--
-					if(istype(target_new,/turf/closed)) //we check for possible things that could block us
+					if(istype(target_new, /turf/closed)) //we check for possible things that could block us
 						found_blocker = TRUE
 						continue find_target //in case there is like a double wall
 					for(var/obj/o in target_new.contents)
