@@ -26,6 +26,14 @@
 	category = list ("Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/board/plasma_refiner
+	name = "Machine Design (Plasma Refiner Board)"
+	desc = "The circuit board for a plasma refiner."
+	id = "plasma_refiner"
+	build_path = /obj/item/circuitboard/machine/plasma_refiner
+	category = list ("Shuttle Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/board/smes
 	name = "Machine Design (SMES Board)"
 	desc = "The circuit board for a SMES."
@@ -105,6 +113,14 @@
 	build_path = /obj/item/circuitboard/machine/space_heater
 	category = list ("Engineering Machinery")
 	departmental_flags = ALL
+
+/datum/design/board/igniter
+	name = "Machine Design (Igniter)"
+	desc = "The circuit board for an igniter."
+	id = "machine_igniter"
+	build_path = /obj/item/circuitboard/machine/igniter
+	category = list ("Engineering Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/board/teleport_station
 	name = "Machine Design (Teleportation Station Board)"
@@ -594,6 +610,14 @@
 	build_path = /obj/item/circuitboard/machine/stacking_machine
 	category = list ("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/mass_driver
+	name = "Machine Design (Mass Driver)"
+	desc = "The circuit board for a mass driver."
+	id = "mass_driver"
+	build_path = /obj/item/circuitboard/machine/mass_driver
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/board/ore_silo
 	name = "Machine Design (Ore Silo)"

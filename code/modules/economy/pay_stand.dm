@@ -81,7 +81,7 @@
 				desc += " A signaler appears to be attached to the scanner."
 		else
 			to_chat(user, "<span class='warning'>A signaler is already attached to this unit!</span>")
-		
+
 	if(default_deconstruction_screwdriver(user, "card_scanner", "card_scanner", W))
 		return
 
@@ -95,7 +95,7 @@
 		return
 	else
 		return ..()
-		
+
 /obj/machinery/paystand/proc/purchase(buyer, price)
 	my_card.registered_account.adjust_money(price)
 	my_card.registered_account.bank_card_talk("Purchase made at your vendor by [buyer] for [price] credits.")
@@ -109,4 +109,3 @@
 		to_chat(user, "<span class='warning'>The anchored bolts on this paystand are currently locked!</span>")
 		return
 	. = ..()
-	
