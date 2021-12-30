@@ -393,6 +393,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						accesses += "<br>"
 					accesses += "</td>"
 				accesses += "</tr></table>"
+
+				//Give me AA code
+				if(authenticated == 2)
+					accesses += "<b>Super danger buttons HAHA: </b>"
+					accesses += "<a href='?src=[REF(src)];choice=access_give_aa'>Give me AA</a>"
+					accesses += "<a href='?src=[REF(src)];choice=access_remove_aa'>Remove AA</a>"
+
 			body = "[carddesc]<br>[jobs]<br><br>[accesses]" //CHECK THIS
 
 		else
@@ -475,6 +482,22 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							modify.access += access_type
 							log_id("[key_name(usr)] added [get_access_desc(access_type)] to [modify] using [scan] at [AREACOORD(usr)].")
 						playsound(src, "terminal_type", 50, 0)
+
+		if("access_give_aa")
+			if(authenticated == 2)
+				if(length(modify.access)<length(get_all_accesses())) //This is a shit comparison, but it works anyway.
+					modify.access += get_all_accesses()
+					log_id("[key_name(usr)] hit the danger button to add AA to [modify] using [scan] at [AREACOORD(usr)].")
+					message_admins("[key_name(usr)] hit the danger button to add AA to [modify] using [scan] at [AREACOORD(usr)].")
+					playsound(src, "terminal_type", 50, 0)
+
+		if("access_remove_aa")
+			if(authenticated == 2)
+				modify.access -= get_all_accesses()
+				log_id("[key_name(usr)] stripped all access from [modify] using [scan] at [AREACOORD(usr)].")
+				message_admins("[key_name(usr)] stripped all access from [modify] using [scan] at [AREACOORD(usr)].")
+				playsound(src, "terminal_type", 50, 0)
+
 		if ("assign")
 			if (authenticated == 2)
 				var/t1 = href_list["assign_target"]
