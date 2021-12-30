@@ -262,7 +262,7 @@
 						found_blocker = TRUE
 						continue find_target //in case there is like a double wall
 					for(var/obj/o in target_new.contents)
-						if(typelist_blockers[o.type])
+						if(typelist_blockers[o.type]) //We look trough the assoc list for any of the objects typpaths
 							found_blocker = TRUE
 							continue find_target
 					if(found_blocker) //cursed but after we found the blocker we end the loop on the next illiteration
