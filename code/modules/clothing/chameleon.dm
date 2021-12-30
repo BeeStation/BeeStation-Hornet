@@ -387,8 +387,8 @@
 
 /obj/item/clothing/under/chameleon/Initialize()
 	. = ..()
-	chameleon_action = new(src)
 	chameleon_lock = new(src)
+	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/under
 	chameleon_action.chameleon_name = "Jumpsuit"
 	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/under, /obj/item/clothing/under/color, /obj/item/clothing/under/rank, /obj/item/clothing/under/changeling), only_root_path = TRUE)
@@ -419,8 +419,8 @@
 
 /obj/item/clothing/suit/chameleon/Initialize()
 	. = ..()
-	chameleon_action = new(src)
 	chameleon_lock = new(src)
+	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/suit
 	chameleon_action.chameleon_name = "Suit"
 	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/suit/armor/abductor, /obj/item/clothing/suit/changeling), only_root_path = TRUE)
@@ -450,8 +450,8 @@
 
 /obj/item/clothing/glasses/chameleon/Initialize()
 	. = ..()
-	chameleon_action = new(src)
 	chameleon_lock = new(src)
+	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/glasses
 	chameleon_action.chameleon_name = "Glasses"
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/glasses/changeling, only_root_path = TRUE)
@@ -489,8 +489,8 @@
 
 /obj/item/clothing/gloves/chameleon/Initialize()
 	. = ..()
-	chameleon_action = new(src)
 	chameleon_lock = new(src)
+	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/gloves
 	chameleon_action.chameleon_name = "Gloves"
 	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/gloves, /obj/item/clothing/gloves/color, /obj/item/clothing/gloves/changeling), only_root_path = TRUE)
@@ -536,8 +536,8 @@
 
 /obj/item/clothing/head/chameleon/Initialize()
 	. = ..()
-	chameleon_action = new(src)
 	chameleon_lock = new(src)
+	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/head
 	chameleon_action.chameleon_name = "Hat"
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/head/changeling, only_root_path = TRUE)
@@ -613,8 +613,8 @@
 
 /obj/item/clothing/mask/chameleon/Initialize()
 	. = ..()
-	chameleon_action = new(src)
 	chameleon_lock = new(src)
+	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/mask
 	chameleon_action.chameleon_name = "Mask"
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/mask/changeling, only_root_path = TRUE)
@@ -669,8 +669,8 @@
 
 /obj/item/clothing/shoes/chameleon/Initialize()
 	. = ..()
-	chameleon_action = new(src)
 	chameleon_lock = new(src)
+	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/shoes
 	chameleon_action.chameleon_name = "Shoes"
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/shoes/changeling, only_root_path = TRUE)
@@ -703,8 +703,8 @@
 
 /obj/item/storage/backpack/chameleon/Initialize()
 	. = ..()
-	chameleon_action = new(src)
 	chameleon_lock = new(src)
+	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/storage/backpack
 	chameleon_action.chameleon_name = "Backpack"
 	chameleon_action.initialize_disguises()
@@ -729,9 +729,8 @@
 
 /obj/item/storage/belt/chameleon/Initialize()
 	. = ..()
-
-	chameleon_action = new(src)
 	chameleon_lock = new(src)
+	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/storage/belt
 	chameleon_action.chameleon_name = "Belt"
 	chameleon_action.initialize_disguises()
@@ -760,8 +759,8 @@
 
 /obj/item/radio/headset/chameleon/Initialize()
 	. = ..()
-	chameleon_action = new(src)
 	chameleon_lock = new(src)
+	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/radio/headset
 	chameleon_action.chameleon_name = "Headset"
 	chameleon_action.initialize_disguises()
@@ -791,8 +790,8 @@
 
 /obj/item/pda/chameleon/Initialize()
 	. = ..()
-	chameleon_action = new(src)
 	chameleon_lock = new(src)
+	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/pda
 	chameleon_action.chameleon_name = "PDA"
 	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/pda/heads, /obj/item/pda/ai, /obj/item/pda/ai/pai), only_root_path = TRUE)
@@ -815,8 +814,8 @@
 
 /obj/item/stamp/chameleon/Initialize()
 	. = ..()
-	chameleon_action = new(src)
 	chameleon_lock = new(src)
+	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/stamp
 	chameleon_action.chameleon_name = "Stamp"
 	chameleon_action.initialize_disguises()
@@ -837,8 +836,8 @@
 
 /obj/item/clothing/neck/cloak/chameleon/Initialize()
 	. = ..()
-	chameleon_action = new(src)
 	chameleon_lock = new(src)
+	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/neck
 	chameleon_action.chameleon_name = "Cloak"
 	chameleon_action.initialize_disguises()
