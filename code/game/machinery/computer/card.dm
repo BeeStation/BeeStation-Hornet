@@ -485,19 +485,23 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if("access_give_aa")
 			if(authenticated == 2)
+				var/tried = 0
 				for(var/each in get_all_accesses())
 					if(!(each in modify.access))
 						modify.access += each
-				log_id("[key_name(usr)] hit the danger button to add AA to [modify] using [scan] at [AREACOORD(usr)].")
-				message_admins("[key_name(usr)] hit the danger button to add AA to [modify] using [scan] at [AREACOORD(usr)].")
-				playsound(src, "terminal_type", 60, 0)
+						tried = TRUE
+				if(tried)
+					log_id("[key_name(usr)] hit the danger button to add AA to [modify] using [scan] at [AREACOORD(usr)].")
+					message_admins("[key_name(usr)] hit the danger button to add AA to [modify] using [scan] at [AREACOORD(usr)].")
+					playsound(src, "terminal_type", 60, 0)
 
 		if("access_remove_aa")
 			if(authenticated == 2)
-				modify.access -= get_all_accesses()
-				log_id("[key_name(usr)] stripped all access from [modify] using [scan] at [AREACOORD(usr)].")
-				message_admins("[key_name(usr)] stripped all access from [modify] using [scan] at [AREACOORD(usr)].")
-				playsound(src, "terminal_type", 50, 0)
+				if(length(modify.access)>0)
+					modify.access -= get_all_accesses()
+					log_id("[key_name(usr)] stripped all access from [modify] using [scan] at [AREACOORD(usr)].")
+					message_admins("[key_name(usr)] stripped all access from [modify] using [scan] at [AREACOORD(usr)].")
+					playsound(src, "terminal_type", 50, 0)
 
 		if ("assign")
 			if (authenticated == 2)
