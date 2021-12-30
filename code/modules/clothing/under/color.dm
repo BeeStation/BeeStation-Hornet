@@ -14,7 +14,7 @@
 	var/obj/item/clothing/under/color/C = pick(subtypesof(/obj/item/clothing/under/color) - subtypesof(/obj/item/clothing/under/skirt/color) - /obj/item/clothing/under/color/random - /obj/item/clothing/under/color/grey/glorf - /obj/item/clothing/under/color/black/ghost)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.equip_to_slot_or_del(new C(H), ITEM_SLOT_ICLOTHING) //or else you end up with naked assistants running around everywhere...
+		H.equip_to_slot_or_del(new C(H), ITEM_SLOT_ICLOTHING, initial = TRUE) //or else you end up with naked assistants running around everywhere...
 	else
 		new C(loc)
 	return INITIALIZE_HINT_QDEL
@@ -27,7 +27,7 @@
 	var/obj/item/clothing/under/skirt/color/C = pick(subtypesof(/obj/item/clothing/under/skirt/color) - /obj/item/clothing/under/skirt/color/random)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.equip_to_slot_or_del(new C(H), ITEM_SLOT_ICLOTHING)
+		H.equip_to_slot_or_del(new C(H), ITEM_SLOT_ICLOTHING, initial = TRUE)
 	else
 		new C(loc)
 	return INITIALIZE_HINT_QDEL
@@ -43,7 +43,7 @@
 	name = "black jumpskirt"
 	icon_state = "black_skirt"
 	item_state = "bl_suit"
-	item_color = "black_skirt"	
+	item_color = "black_skirt"
 
 /obj/item/clothing/under/color/black/ghost
 	item_flags = DROPDEL

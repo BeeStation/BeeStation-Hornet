@@ -6,7 +6,7 @@
 //Drone hands
 
 //Does nobody read the comments telling you to not touch shit you souldn't?
-/mob/living/simple_animal/drone/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE)
+/mob/living/simple_animal/drone/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
 	if(..())
 		update_inv_hands()
 		if(I == head)
