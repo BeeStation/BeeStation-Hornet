@@ -15,6 +15,7 @@ export const CloningConsole = (props, context) => {
     scannerLocked,
     hasOccupant,
     recordsLength,
+    experimental,
   } = data;
   const lacksMachine = data.lacksMachine || [];
   const diskData = data.diskData || [];
@@ -38,18 +39,18 @@ export const CloningConsole = (props, context) => {
                 </Box>
               </Box><br />
               <Button
-                content={useRecords ? "Full Scan" : "Clone"}
-                icon={useRecords ? "search" : "power-off"}
+                content={"Full Scan"}
+                icon={"search"}
                 disabled={!hasOccupant}
                 onClick={() => act('scan')}
               />
-              {!! useRecords && (
+              {(!experimental ? (
                 <Button
                   content={"Body only"}
                   disabled={!hasOccupant}
                   icon={"search"}
                   onClick={() => act('scan_body_only')}
-                />)}
+                />):"")}
               <Button
                 content={scannerLocked ? "Unlock Scanner" : "Lock Scanner"}
                 icon={scannerLocked ? "lock" : "lock-open"}
@@ -105,7 +106,7 @@ export const CloningConsole = (props, context) => {
                               })}
                             />
                             <br />
-                            {(!record["body_only"] ? (
+                            {(!record["body_only"] || experimental ? (
                               <Fragment>
                                 Health Implant Data<br />
 

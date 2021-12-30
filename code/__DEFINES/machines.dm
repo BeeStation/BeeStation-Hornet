@@ -128,6 +128,7 @@
 //cloning defines. These are flags.
 #define CLONING_SUCCESS (1<<0)
 #define CLONING_DELETE_RECORD (1<<1)
+#define CLONING_SUCCESS_EXPERIMENTAL (1<<2)
 
 #define ERROR_NO_SYNTHFLESH 101
 #define ERROR_PANEL_OPENED 102

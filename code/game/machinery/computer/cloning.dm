@@ -27,6 +27,8 @@
 	var/loading = FALSE // Nice loading text
 	var/autoprocess = FALSE
 
+	var/experimental = FALSE //experimental cloner will have true. TRUE allows you to scan a weird brain.
+
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/machinery/computer/cloning/Initialize()
@@ -255,6 +257,7 @@
 	var/datum/data/record/R = new(src)
 	for(var/each in diskette.fields)
 		R.fields[each] = diskette.fields[each]
+
 	records += R
 	scantemp = "Loaded into internal storage successfully."
 	var/obj/item/circuitboard/computer/cloning/board = circuit
@@ -288,6 +291,10 @@
 					if(!C.fields["body_only"])
 						records.Remove(C)
 					. = TRUE
+				if(CLONING_SUCCESS_EXPERIMENTAL)
+					temp = "Notice: [C.fields["name"]] => Cloning cycle in progress..."
+					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+					. = TRUE
 				if(ERROR_NO_SYNTHFLESH)
 					temp = "Error [ERROR_NO_SYNTHFLESH]: Out of synthflesh."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
@@ -296,6 +303,9 @@
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_MESS_OR_ATTEMPTING)
 					temp = "Error [ERROR_MESS_OR_ATTEMPTING]: Pod is already occupied."
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+				if(experimental)
+					temp = "Error: Experimental pod is not detected."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				if(ERROR_NOT_MIND)
 					temp = "Error [ERROR_NOT_MIND]: [C.fields["name"]]'s lack of their mind."
@@ -426,6 +436,7 @@
 	data["scannerLocked"] = scanner?.locked
 	data["hasOccupant"] = scanner?.occupant
 	data["recordsLength"] = "View Records ([length(records)])"
+	data["experimental"] = experimental
 	return data
 
 /obj/machinery/computer/cloning/ui_act(action, params)
@@ -492,7 +503,7 @@
 	if(isbrain(mob_occupant))
 		var/mob/living/brain/B = mob_occupant
 		dna = B.stored_dna
-	if(!can_scan(dna, mob_occupant, TRUE))
+	if(!can_scan(dna, mob_occupant))
 		return
 	var/clone_species
 	if(dna.species)
@@ -517,7 +528,7 @@
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 		log_cloning("[user ? key_name(user) : "Unknown"] cloned [key_name(mob_occupant)] with [src] at [AREACOORD(src)].")
 
-/obj/machinery/computer/cloning/proc/can_scan(datum/dna/dna, mob/living/mob_occupant, experimental = FALSE, datum/bank_account/account, body_only)
+/obj/machinery/computer/cloning/proc/can_scan(datum/dna/dna, mob/living/mob_occupant, datum/bank_account/account, body_only)
 	if(!istype(dna))
 		scantemp = "Unable to locate valid genetic data."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
@@ -548,15 +559,6 @@
 				scantemp = "Subject is either missing an ID card with a bank account on it, or does not have an account to begin with. Please ensure the ID card is on the body before attempting to scan."
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				return FALSE
-	else
-		if(mob_occupant.suiciding)
-			scantemp = "Subject's brain is not responding to scanning stimuli."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-			return FALSE
-		if(!mob_occupant.mind)
-			scantemp = "Mental interface failure."
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-			return FALSE
 	return TRUE
 
 /obj/machinery/computer/cloning/proc/scan_occupant(occupant, mob/user, body_only)
@@ -576,7 +578,7 @@
 	if(isbrain(mob_occupant))
 		dna = B.stored_dna
 
-	if(!can_scan(dna, mob_occupant, FALSE, has_bank_account, body_only))
+	if(!can_scan(dna, mob_occupant, has_bank_account, body_only))
 		return
 
 	var/datum/data/record/R = new()
@@ -591,11 +593,12 @@
 		//Note: if you want to clone unusual species, you need to check 'carbon/human' rather than 'dna.species'
 
 	R.fields["name"] = mob_occupant.real_name
-	if(!body_only)
-		//even if you have the same identity, this will give you different id based on your mind. body_only gets β at their id.
-		R.fields["id"] = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 7)+copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.mind), -4)
+	if(experimental) //even if you have the same identity, this will give you different id based on your mind. body_only gets β at their id.
+		R.fields["id"] =  copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 10)+"β+" //beta plus
+	else if(body_only)
+		R.fields["id"] = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 10)+"β" //beta
 	else
-		R.fields["id"] = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 10)+"β"
+		R.fields["id"] = copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.real_name), 3, 7)+copytext_char(rustg_hash_string(RUSTG_HASH_MD5, mob_occupant.mind), -4)
 	R.fields["UE"] = dna.unique_enzymes
 	R.fields["UI"] = dna.uni_identity
 	R.fields["SE"] = dna.mutation_index
@@ -604,7 +607,7 @@
 	R.fields["factions"] = mob_occupant.faction
 	R.fields["quirks"] = list()
 	R.fields["traumas"] = list()
-	if(!body_only) //Body only will not copy quirks.
+	if(!body_only || experimental) //Body only will not copy quirks.
 		for(var/V in mob_occupant.roundstart_quirks)
 			var/datum/quirk/T = V
 			R.fields["quirks"][T.type] = T.clone_data()
@@ -621,11 +624,15 @@
 	//Traumas will be overriden if the brain transplant is made because '/obj/item/organ/brain/Insert' does that thing. This should be done since we want a monkey yelling to people with 'God voice syndrome'
 
 	R.fields["bank_account"] = has_bank_account
-	R.fields["mindref"] = "[REF(mob_occupant.mind)]"
-	R.fields["last_death"] = (mob_occupant.stat == DEAD && mob_occupant.mind) ? mob_occupant.mind.last_death : -1
-	R.fields["body_only"] = body_only
+	if(!experimental)
+		R.fields["mindref"] = "[REF(mob_occupant.mind)]"
+		R.fields["last_death"] = (mob_occupant.stat == DEAD && mob_occupant.mind) ? mob_occupant.mind.last_death : -1
+		R.fields["body_only"] = body_only
+	else
+		R.fields["last_death"] = 0
+		R.fields["body_only"] = 0
 
-	if(!body_only)
+	if(!body_only || experimental)
 	    //Add an implant if needed
 		var/obj/item/implant/health/imp
 		for(var/obj/item/implant/health/HI in mob_occupant.implants)
@@ -643,7 +650,11 @@
 	else
 		scantemp = "Subject successfully scanned."
 	records += R
-	log_cloning("[user ? key_name(user) : "Autoprocess"] added the [body_only ? "body-only " : ""]record of [key_name(mob_occupant)] to [src] at [AREACOORD(src)].")
+
+	if(!experimental)
+		log_cloning("[user ? key_name(user) : "Autoprocess"] added the [body_only ? "body-only " : ""]record of [key_name(mob_occupant)] to [src] at [AREACOORD(src)].")
+	else
+		log_cloning("[user ? key_name(user) : "Autoprocess"] added the experimental record of [key_name(mob_occupant)] to [src] at [AREACOORD(src)].")
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50)
 	ui_update()
 
@@ -655,4 +666,4 @@
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/computer/cloning/prototype
 	clonepod_type = /obj/machinery/clonepod/experimental
-	use_records = FALSE	//Wait, so you tell me it lacks records but you never set it as false?
+	experimental = TRUE
