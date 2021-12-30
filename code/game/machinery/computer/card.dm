@@ -485,11 +485,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if("access_give_aa")
 			if(authenticated == 2)
-				if(length(modify.access)<length(get_all_accesses())) //This is a shit comparison, but it works anyway.
-					modify.access += get_all_accesses()
-					log_id("[key_name(usr)] hit the danger button to add AA to [modify] using [scan] at [AREACOORD(usr)].")
-					message_admins("[key_name(usr)] hit the danger button to add AA to [modify] using [scan] at [AREACOORD(usr)].")
-					playsound(src, "terminal_type", 50, 0)
+				for(var/each in get_all_accesses())
+					if(!(each in modify.access))
+						modify.access += each
+				log_id("[key_name(usr)] hit the danger button to add AA to [modify] using [scan] at [AREACOORD(usr)].")
+				message_admins("[key_name(usr)] hit the danger button to add AA to [modify] using [scan] at [AREACOORD(usr)].")
+				playsound(src, "terminal_type", 60, 0)
 
 		if("access_remove_aa")
 			if(authenticated == 2)
