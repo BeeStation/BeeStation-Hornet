@@ -336,8 +336,8 @@
   * set disable_warning to disable the 'you are unable to equip that' warning.
   *
   * unset redraw_mob to prevent the mob icons from being redrawn at the end.
-
-  Initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
+  *
+  * initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
   */
 /mob/proc/equip_to_slot_if_possible(obj/item/W, slot, qdel_on_fail = FALSE, disable_warning = FALSE, redraw_mob = TRUE, bypass_equip_delay_self = FALSE, initial = FALSE)
 	if(!istype(W))
