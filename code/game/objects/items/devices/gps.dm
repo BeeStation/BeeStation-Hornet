@@ -11,7 +11,10 @@
 
 /obj/item/gps/Initialize()
 	. = ..()
-	AddComponent(/datum/component/gps/item, gpstag)
+	add_gps_component()
+
+/// Adds the GPS component to this item.
+/obj/item/gps/proc/add_gps_component()
 
 /obj/item/gps/science
 	icon_state = "gps-s"
@@ -43,6 +46,15 @@
 	icon_state = "gps-m"
 	gpstag = "MINER"
 	desc = "A positioning system helpful for rescuing trapped or injured miners, keeping one on you at all times while mining might just save your life."
+
+/*
+ * GPS for pAIS, which only allows access if it's contained within the user.
+ */
+/obj/item/gps/pai
+	gpstag = "PAI0"
+
+/obj/item/gps/pai/add_gps_component()
+	AddComponent(/datum/component/gps/item, gpstag, state = GLOB.inventory_state)
 
 /obj/item/gps/visible_debug
 	name = "visible GPS"

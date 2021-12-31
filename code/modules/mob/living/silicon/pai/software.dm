@@ -27,6 +27,7 @@
 															"security HUD" = 20,
 															"loudness booster" = 20,
 															"newscaster" = 20,
+															"internal gps" = 35,
 															"door jack" = 25,
 															"encryption keys" = 25,
 															"universal translator" = 35
@@ -299,6 +300,10 @@
 			if("loudness")
 				if(subscreen == 1) // Open Instrument
 					internal_instrument.interact(src)
+			if("internalgps")
+				if(!internal_gps)
+					internal_gps = new(src)
+				internal_gps.attack_self(src)
 
 		paiInterface()
 
@@ -334,6 +339,8 @@
 			dat += "<a href='byond://?src=[REF(src)];software=signaller;sub=0'>Remote Signaller</a> <br>"
 		if(s == "loudness booster")
 			dat += "<a href='byond://?src=[REF(src)];software=loudness;sub=0'>Loudness Booster</a> <br>"
+		if(s == "internal gps")
+			dat += "<a href='byond://?src=[REF(src)];software=internalgps;sub=0'>Internal GPS</a> <br>"
 	dat += "<br>"
 
 	// Advanced

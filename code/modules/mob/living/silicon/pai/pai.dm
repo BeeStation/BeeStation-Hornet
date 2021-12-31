@@ -59,6 +59,7 @@
 	var/obj/item/instrument/piano_synth/internal_instrument
 	var/obj/machinery/newscaster			//pAI Newscaster
 	var/obj/item/healthanalyzer/hostscan				//pAI healthanalyzer
+	var/obj/item/gps/pai/internal_gps = null		/// Internal pAI GPS, enabled if pAI downloads GPS software, and then uses it.
 
 	var/encryptmod = FALSE
 	var/holoform = FALSE
@@ -93,6 +94,7 @@
 
 /mob/living/silicon/pai/Destroy()
 	QDEL_NULL(internal_instrument)
+	QDEL_NULL(internal_gps)
 	if (loc != card)
 		card.forceMove(drop_location())
 	card.pai = null
