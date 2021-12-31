@@ -38,19 +38,19 @@
 
 /obj/machinery/firealarm/directional/north
 	dir = SOUTH
-	pixel_y = 26
+	pixel_y = 24
 
 /obj/machinery/firealarm/directional/south
 	dir = NORTH
-	pixel_y = -26
+	pixel_y = -24
 
 /obj/machinery/firealarm/directional/east
 	dir = WEST
-	pixel_x = 26
+	pixel_x = 24
 
 /obj/machinery/firealarm/directional/west
 	dir = EAST
-	pixel_x = -26
+	pixel_x = -24
 
 /obj/machinery/firealarm/Initialize(mapload, dir, building)
 	. = ..()

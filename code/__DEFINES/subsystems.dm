@@ -20,7 +20,7 @@
   *
   * make sure you add an update to the schema_version stable in the db changelog
   */
-#define DB_MINOR_VERSION 8
+#define DB_MINOR_VERSION 10
 
 
 //! ## Timing subsystem
@@ -113,6 +113,7 @@
 #define INIT_ORDER_SOUNDS			82
 #define INIT_ORDER_INSTRUMENTS		81
 #define INIT_ORDER_VIS				80
+#define INIT_ORDER_ACHIEVEMENTS 77
 #define INIT_ORDER_MATERIALS		76
 #define INIT_ORDER_RESEARCH			75
 #define INIT_ORDER_ORBITS			74 //Other things use the orbital map, so it needs to be made early on.
@@ -186,6 +187,7 @@
 #define FIRE_PRIORITY_OVERLAYS		500
 #define FIRE_PRIORITY_CALLBACKS		600
 #define FIRE_PRIORITY_EXPLOSIONS	666
+#define FIRE_PRIORITY_TIMER			700
 #define FIRE_PRIORITY_SOUND_LOOPS	800
 #define FIRE_PRIORITY_INPUT			1000 // This must always always be the max highest priority. Player input must never be lost.
 

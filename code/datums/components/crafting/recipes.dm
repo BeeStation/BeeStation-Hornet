@@ -269,6 +269,16 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/woodenbow
+	name = "Wooden Bow"
+	result = /obj/item/gun/ballistic/bow
+	reqs = list(/obj/item/stack/sheet/mineral/wood = 8,
+				/obj/item/stack/sheet/iron = 2,
+				/obj/item/weaponcrafting/silkstring = 4)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/meteorslug
 	name = "Meteorslug Shell"
 	result = /obj/item/ammo_casing/shotgun/meteorslug
@@ -977,7 +987,7 @@
 				/obj/item/aquarium_kit = 1
 				)
 	category = CAT_MISC
-	
+
 /datum/crafting_recipe/paper_cup
 	name= "Paper Cup"
 	result = /obj/item/reagent_containers/food/drinks/sillycup
@@ -985,4 +995,3 @@
 	reqs = list(/obj/item/paper = 1)
 	category = CAT_MISC
 	tools = list(TOOL_WIRECUTTER)
-	

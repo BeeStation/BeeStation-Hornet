@@ -55,6 +55,10 @@
 	 * do NOT add channels to this for little reason as it can add considerable memory usage.
 	 */
 	var/list/important_recursive_contents
+	///Lazylist to keep track on the sources of illumination.
+	var/list/affected_dynamic_lights
+	///Highest-intensity light affecting us, which determines our visibility.
+	var/affecting_dynamic_lumi = 0
 
 
 /atom/movable/Initialize(mapload)
@@ -74,6 +78,8 @@
 
 	if(pulling)
 		stop_pulling()
+	if(light_system == MOVABLE_LIGHT)
+		AddComponent(/datum/component/overlay_lighting)
 
 
 /atom/movable/proc/update_emissive_block()
@@ -94,7 +100,6 @@
 /atom/movable/update_overlays()
 	. = ..()
 	. += update_emissive_block()
-
 /atom/movable/proc/can_zFall(turf/source, levels = 1, turf/target, direction)
 	if(!direction)
 		direction = DOWN

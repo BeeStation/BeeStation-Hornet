@@ -92,6 +92,8 @@
 	throw_range = 3
 	sharpness = IS_SHARP
 	light_color = "#ff0000"
+	light_system = MOVABLE_LIGHT
+	light_range = 4
 	attack_verb = list("cleaved", "slashed", "tore", "hacked", "ripped", "diced", "carved")
 	icon_state = "cultbastard"
 	item_state = "cultbastard"
@@ -110,7 +112,6 @@
 
 /obj/item/cult_bastard/Initialize()
 	. = ..()
-	set_light(4)
 	jaunt = new(src)
 	linked_action = new(src)
 	AddComponent(/datum/component/butchering, 50, 80)
@@ -342,7 +343,7 @@
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75, "stamina" = 50)
-	brightness_on = 0
+	light_system = NO_LIGHT_SUPPORT
 	actions_types = list()
 	high_pressure_multiplier = 0.5
 
@@ -577,7 +578,7 @@
 	name = "void torch"
 	desc = "Used by veteran cultists to instantly transport items to their needful brethren."
 	w_class = WEIGHT_CLASS_SMALL
-	brightness_on = 1
+	light_range = 1
 	icon_state = "torch"
 	item_state = "torch"
 	color = "#ff0000"

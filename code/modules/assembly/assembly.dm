@@ -38,14 +38,16 @@
 
 /obj/item/assembly/proc/on_attach()
 
-/obj/item/assembly/proc/on_detach() //call this when detaching it from a device. handles any special functions that need to be updated ex post facto
+//Call this when detaching it from a device. handles any special functions that need to be updated ex post facto
+/obj/item/assembly/proc/on_detach()
 	if(!holder)
 		return FALSE
 	forceMove(holder.drop_location())
 	holder = null
 	return TRUE
 
-/obj/item/assembly/proc/holder_movement()							//Called when the holder is moved
+//Called when the holder is moved
+/obj/item/assembly/proc/holder_movement()
 	if(!holder)
 		return FALSE
 	setDir(holder.dir)
@@ -130,7 +132,7 @@
 /obj/item/assembly/interact(mob/user)
 	return ui_interact(user)
 
-/obj/item/assembly/ui_status(mob/user)
-	. = ..()
-	if(src.can_interact(user) || holder?.can_interact(user))
-		return UI_INTERACTIVE
+/obj/item/assembly/ui_host(mob/user)
+	if(holder)
+		return holder
+	return src

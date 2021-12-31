@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 		kbs += kb
 	kbs = sortList(kbs, /proc/cmp_keybinding_dsc)
 	for (var/datum/keybinding/kb in kbs)
-		if (kb.down(src))
+		if (kb.can_use(src) && kb.down(src))
 			break
 
 	if(holder)
