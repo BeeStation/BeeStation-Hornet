@@ -398,7 +398,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(authenticated == 2)
 					accesses += "<b>Super danger buttons HAHA: </b>"
 					accesses += "<a href='?src=[REF(src)];choice=access_give_aa'>Give me AA</a>"
-					accesses += "<a href='?src=[REF(src)];choice=access_remove_aa'>Remove AA</a>"
+					accesses += "<a href='?src=[REF(src)];choice=access_remove_aa'>Revoke all access</a>"
 
 			body = "[carddesc]<br>[jobs]<br><br>[accesses]" //CHECK THIS
 
