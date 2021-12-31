@@ -396,7 +396,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 				//Give me AA code
 				if(authenticated == 2)
-					accesses += "<b>Super danger buttons HAHA: </b>"
+					accesses += "<b>Miscellaneous options: </b>"
 					accesses += "<a href='?src=[REF(src)];choice=access_give_aa'>Give me AA</a>"
 					accesses += "<a href='?src=[REF(src)];choice=access_remove_aa'>Revoke all access</a>"
 
