@@ -240,7 +240,7 @@
 						found_blocker = TRUE
 						continue find_target //in case there is like a double wall
 					for(var/obj/o in target_new.contents)
-						if(istype(o, /obj/structure/grille) || istype(o, /obj/structure/window) || istype(o, /obj/mecha) || istype(o, /obj/machinery/door)) //We check for possible blockers on the tile
+						if(istype(o, /obj/structure/grille) || istype(o, /obj/structure/window) || istype(o, /obj/machinery/door) || istype(o, /obj/mecha)) //We check for possible blockers on the tile
 							found_blocker = TRUE
 							continue find_target
 					if(found_blocker) //cursed but after we found the blocker we end the loop on the next illiteration
