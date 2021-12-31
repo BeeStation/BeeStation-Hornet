@@ -90,7 +90,8 @@
 	/obj/machinery/meter, /obj/structure/disposalpipe, /obj/machinery/camera, /obj/machinery/light,\
 	/obj/machinery/requests_console, /obj/machinery/power/apc, /obj/machinery/airalarm, /obj/machinery/computer/security/telescreen,\
 	/obj/machinery/shower,/obj/structure/sink, /obj/structure/chair, /obj/machinery/button, /obj/machinery/light_switch, /obj/machinery/firealarm,\
-	/obj/structure/extinguisher_cabinet, /obj/structure/sign, /obj/machinery/newscaster, /obj/structure/bed, /obj/effect))
+	/obj/structure/extinguisher_cabinet, /obj/structure/sign, /obj/machinery/newscaster, /obj/structure/bed, /obj/effect, /obj/structure/fans, /obj/structure/lattice,\
+	/obj/structure/spider/spiderling, /obj/machinery/duct, /obj/machinery/air_sensor, /obj/machinery/bot_core))
 
 #define	blockers_whitelist	typecacheof(list(/obj/item/mecha_parts/chassis, /obj/machinery/atmospherics/components/unary/thermomachine))
 
