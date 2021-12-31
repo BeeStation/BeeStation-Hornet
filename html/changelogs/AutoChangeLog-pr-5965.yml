@@ -1,7 +1,0 @@
-author: Dejaku51
-delete-after: true
-changes:
-  - bugfix: Fixed kinetic Crusher Light not working
-  - bugfix: Fixed desword glowing even if not wielded
-  - bugfix: Fixed swarmer lights
-  - bugfix: Fixed pAI lights
