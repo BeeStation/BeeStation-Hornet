@@ -15,10 +15,11 @@
 															"digital messenger" = 5,
 															"atmosphere sensor" = 5,
 															"photography module" = 5,
+															"camera zoom" = 10,
+															"printer module" = 10,
 															"remote signaller" = 10,
 															"medical records" = 10,
 															"security records" = 10,
-															"camera zoom" = 10,
 															"host scan" = 10,
 															//"camera jack" = 10,
 															//"heartbeat sensor" = 10,
@@ -81,6 +82,8 @@
 				left_part = softwareLoudness()
 			if("hostscan")
 				left_part = softwareHostScan()
+			if("printer module")
+				left_part = softwarePrinter()
 
 
 	//usr << browse_rsc('windowbak.png')		// This has been moved to the mob's Login() proc
@@ -304,7 +307,8 @@
 				if(!internal_gps)
 					internal_gps = new(src)
 				internal_gps.attack_self(src)
-
+			if("printermodule")
+				aicamera.paiprint(usr)
 		paiInterface()
 
 // MENUS
@@ -341,6 +345,8 @@
 			dat += "<a href='byond://?src=[REF(src)];software=loudness;sub=0'>Loudness Booster</a> <br>"
 		if(s == "internal gps")
 			dat += "<a href='byond://?src=[REF(src)];software=internalgps;sub=0'>Internal GPS</a> <br>"
+		if(s == "printer module")
+			dat += "<a href='byond://?src=[REF(src)];software=printermodule;sub=0'>Printer Module</a> <br>"
 	dat += "<br>"
 
 	// Advanced
@@ -663,3 +669,6 @@
 	dat += "<a href='byond://?src=[REF(src)];software=loudness;sub=1'>Open Synthesizer Interface</a><br>"
 	dat += "<a href='byond://?src=[REF(src)];software=loudness;sub=2'>Choose Instrument Type</a>"
 	return dat
+
+/mob/living/silicon/pai/proc/softwarePrinter()
+	aicamera.paiprint(usr)

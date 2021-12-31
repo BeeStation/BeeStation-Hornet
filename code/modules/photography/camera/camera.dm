@@ -220,9 +220,10 @@
 /obj/item/camera/proc/printpicture(mob/user, datum/picture/picture) //Normal camera proc for creating photos
 	var/obj/item/photo/p = new(get_turf(src), picture)
 	if(in_range(src, user)) //needed because of TK
-		user.put_in_hands(p)
-		pictures_left--
-		to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
+		if(!ispAI(user))
+			user.put_in_hands(p)
+			pictures_left--
+			to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 		var/customise = "No"
 		if(can_customise)
 			customise = alert(user, "Do you want to customize the photo?", "Customization", "Yes", "No")
