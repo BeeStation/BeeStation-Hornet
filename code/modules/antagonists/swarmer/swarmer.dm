@@ -96,7 +96,6 @@
 	loot = list(/obj/effect/decal/cleanable/robot_debris, /obj/item/stack/ore/bluespace_crystal)
 	del_on_death = TRUE
 	deathmessage = "explodes with a sharp pop!"
-	light_color = LIGHT_COLOR_CYAN
 	hud_type = /datum/hud/swarmer
 	speech_span = SPAN_ROBOT
 	hardattacks = TRUE
@@ -106,8 +105,8 @@
 	discovery_points = 1000
 	light_system = MOVABLE_LIGHT
 	light_range = 3
-	///Bitflags to store boolean conditions, such as whether the light is on or off.
-	var/swarmer_flags = NONE
+	light_on = TRUE
+	light_color = LIGHT_COLOR_CYAN
 
 /mob/living/simple_animal/hostile/swarmer/Initialize()
 	. = ..()
@@ -679,16 +678,7 @@
 		to_chat(src, "<span class='info'>We successfully repaired ourselves.</span>")
 
 /mob/living/simple_animal/hostile/swarmer/proc/ToggleLight()
-	if(swarmer_flags & SWARMER_LIGHT_ON)
-		swarmer_flags = ~SWARMER_LIGHT_ON
-		set_light_on(FALSE)
-		if(!mind)
-			return
-		return
-	swarmer_flags |= SWARMER_LIGHT_ON
-	set_light_on(TRUE)
-	if(!mind)
-		return
+	set_light_on(!light_on)
 
 /mob/living/simple_animal/hostile/swarmer/proc/swarmer_chat(msg)
 	var/rendered = "<B>Swarm communication - [src]</b> [say_quote(msg)]"
