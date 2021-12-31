@@ -257,6 +257,7 @@
 			if("encryptionkeys")
 				if(href_list["toggle"])
 					encryptmod = TRUE
+					radio.subspace_transmission = TRUE
 
 			if("translator")
 				if(href_list["toggle"])
