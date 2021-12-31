@@ -491,8 +491,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						modify.access += each
 						tried = TRUE
 				if(tried)
-					log_id("[key_name(usr)] hit the danger button to add AA to [modify] using [scan] at [AREACOORD(usr)].")
-					message_admins("[key_name(usr)] hit the danger button to add AA to [modify] using [scan] at [AREACOORD(usr)].")
+					log_id("[key_name(usr)] granted all access to [modify] using [scan] at [AREACOORD(usr)].")
+					message_admins("[key_name(usr)] granted all access to [modify] using [scan] at [AREACOORD(usr)].")
 					playsound(src, "terminal_type", 60, 0)
 
 		if("access_remove_aa")
