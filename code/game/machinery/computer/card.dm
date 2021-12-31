@@ -397,7 +397,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				//Give me AA code
 				if(authenticated == 2)
 					accesses += "<b>Miscellaneous options: </b>"
-					accesses += "<a href='?src=[REF(src)];choice=access_give_aa'>Give me AA</a>"
+					accesses += "<a href='?src=[REF(src)];choice=access_give_aa'>Grant all access</a>"
 					accesses += "<a href='?src=[REF(src)];choice=access_remove_aa'>Revoke all access</a>"
 
 			body = "[carddesc]<br>[jobs]<br><br>[accesses]" //CHECK THIS
