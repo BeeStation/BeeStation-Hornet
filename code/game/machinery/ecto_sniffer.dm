@@ -23,9 +23,8 @@
 	if(!is_operational() || !on || !sensor_enabled)
 		return
 
-	for(var/spirit_key in ectoplasmic_residues)
-		if(spirit_key == user.ckey)
-			return
+	if(ectoplasmic_residues[user.ckey])
+		return
 	activate(user)
 
 /obj/machinery/ecto_sniffer/proc/activate(mob/activator)
@@ -33,7 +32,7 @@
 	playsound(loc, 'sound/machines/ectoscope_beep.ogg', 25)
 	use_power(10)
 	if(activator?.ckey)
-		ectoplasmic_residues += activator.ckey
+		ectoplasmic_residues[activator.ckey] = TRUE
 		addtimer(CALLBACK(src, .proc/clear_residue, activator.ckey), 15 SECONDS)
 
 /obj/machinery/ecto_sniffer/attack_hand(mob/living/user, list/modifiers)
@@ -76,7 +75,7 @@
 
 ///Removes the ghost from the ectoplasmic_residues list and lets them know they are free to activate the sniffer again.
 /obj/machinery/ecto_sniffer/proc/clear_residue(ghost_ckey)
-	ectoplasmic_residues -= ghost_ckey
+	ectoplasmic_residues[ghost_ckey] = FALSE
 	var/mob/ghost = get_mob_by_ckey(ghost_ckey)
 	if(!ghost || isliving(ghost))
 		return
