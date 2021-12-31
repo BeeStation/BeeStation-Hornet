@@ -85,16 +85,6 @@
 // BLOB SPORE //
 ////////////////
 
-#define	blockers_blacklist	typecacheof(list(/obj/machinery/atmospherics/pipe, /obj/structure/blob,\
-	/obj/machinery/holopad, /obj/item, /obj/machinery/atmospherics/components, /obj/structure/cable,\
-	/obj/machinery/meter, /obj/structure/disposalpipe, /obj/machinery/camera, /obj/machinery/light,\
-	/obj/machinery/requests_console, /obj/machinery/power/apc, /obj/machinery/airalarm, /obj/machinery/computer/security/telescreen,\
-	/obj/machinery/shower,/obj/structure/sink, /obj/structure/chair, /obj/machinery/button, /obj/machinery/light_switch, /obj/machinery/firealarm,\
-	/obj/structure/extinguisher_cabinet, /obj/structure/sign, /obj/machinery/newscaster, /obj/structure/bed, /obj/effect, /obj/structure/fans, /obj/structure/lattice,\
-	/obj/structure/spider/spiderling, /obj/machinery/duct, /obj/machinery/air_sensor, /obj/machinery/bot_core))
-
-#define	blockers_whitelist	typecacheof(list(/obj/item/mecha_parts/chassis, /obj/machinery/atmospherics/components/unary/thermomachine))
-
 /mob/living/simple_animal/hostile/blob/blobspore
 	name = "blob spore"
 	desc = "A floating, fragile spore."
@@ -121,27 +111,14 @@
 	var/list/disease = list()
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 	var/in_movement //only for rally command so blob spores will stop chasing after that one guy and get to the rally point
-	var/static/list/typelist_blockers //assoc list of all typpathes of possible blockers
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
 		factory = linked_node
 		factory.spores += src
-	if(!typelist_blockers)
-		typelist_blockers = list()
-		build_blockers()
 	. = ..()
 	/*var/datum/disease/advance/random/blob/R = new //either viro is cooperating with xenobio, or a blob has spawned and the round is probably over sooner than they can make a virus for this
 	disease += R*/
-
-/mob/living/simple_animal/hostile/blob/blobspore/proc/build_blockers()
-	var/list/temp_blacklist = blockers_blacklist
-	var/list/temp_whitelist = blockers_whitelist
-	for(var/t in subtypesof(/obj))
-		if(temp_blacklist[t] && !temp_whitelist[t])
-			continue
-		else
-			typelist_blockers[t] = TRUE
 
 /mob/living/simple_animal/hostile/blob/blobspore/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(scan)
@@ -263,7 +240,7 @@
 						found_blocker = TRUE
 						continue find_target //in case there is like a double wall
 					for(var/obj/o in target_new.contents)
-						if(typelist_blockers[o.type]) //We look trough the assoc list for any of the objects typpaths
+						if(istype(o, /obj/structure/grille) || istype(o, /obj/structure/window) || istype(o, /obj/mecha) || istype(o, /obj/machinery/door)) //We check for possible blockers on the tile
 							found_blocker = TRUE
 							continue find_target
 					if(found_blocker) //cursed but after we found the blocker we end the loop on the next illiteration
@@ -284,8 +261,6 @@
 	melee_damage = 2
 	death_cloud_size = 0
 
-#undef	blockers_blacklist
-#undef	blockers_whitelist
 /////////////////
 // BLOBBERNAUT //
 /////////////////
