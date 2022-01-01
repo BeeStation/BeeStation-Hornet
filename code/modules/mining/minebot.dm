@@ -93,14 +93,15 @@
 		qdel(action)
 
 	// Clear any equipment they might have
-	for(var/obj/item/minebot_upgrade/U as anything in installed_upgrades)
-		U.unequip()
-		qdel(U)
+	if(LAZYLEN(installed_upgrades))
+		for(var/obj/item/minebot_upgrade/U as anything in installed_upgrades)
+			U.unequip()
+			qdel(U)
+		QDEL_LIST(installed_upgrades)
 	QDEL_NULL(stored_pka)
 	QDEL_NULL(stored_cutter)
 	QDEL_NULL(stored_drill)
 	QDEL_NULL(stored_scanner)
-	QDEL_LIST(installed_upgrades)
 	return ..()
 
 /mob/living/simple_animal/hostile/mining_drone/death()
@@ -110,9 +111,10 @@
 			qdel(M)
 	if(stored_cutter && prob(MINEBOT_DAMAGE_PROB))
 		QDEL_NULL(stored_cutter)
-	for(var/upgrade in installed_upgrades)
-		if(prob(MINEBOT_DAMAGE_PROB))
-			qdel(upgrade)
+	if(LAZYLEN(installed_upgrades))
+		for(var/upgrade in installed_upgrades)
+			if(prob(MINEBOT_DAMAGE_PROB))
+				qdel(upgrade)
 	..()
 
 /mob/living/simple_animal/hostile/mining_drone/update_health_hud()
@@ -147,7 +149,7 @@
 			. += "<span class='boldwarning'>[t_He] look[t_s] severely dented!</span>"
 		if(health <= 0)
 			. += "<span class='warning'>[t_He] is disabled and requires a reset.</span>"
-	. += "<span class='notice'>Using a mining scanner on [t_him] will instruct [t_him] to drop stored ore.</span>"
+	. += "<span class='notice'>Using a mining scanner on or alt-clicking [t_him] will instruct [t_him] to drop any stored ore.</span>"
 	. += "<span class='notice'>Field repairs can be done with a welder.</span>"
 	if(stored_pka && stored_pka.max_mod_capacity)
 		. += "<span class='notice'>\The [stored_pka] has <b>[stored_pka.get_remaining_mod_capacity()]%</b> mod capacity remaining.</span>"
@@ -160,19 +162,24 @@
 		. += "<span class='notice'>There is nothing on [t_their] plasma cutter mount.</span>"
 	. += "<span class='notice'>There is \a [stored_drill] installed on [t_their] drill mount.</span>"
 	if(client)
-		. += "<span class='notice'>[t_He]'s AI light is on.</span>"
+		. += "<span class='notice'>[t_He]s AI light is on.</span>"
 
 // Generates the stat tab for player-controlled minebots
 /mob/living/simple_animal/hostile/mining_drone/get_stat_tab_status()
 	var/list/tab_data = ..()
 	tab_data["Mode"] = GENERATE_STAT_TEXT("[mode]")
+
+	// Handles Equipment
 	if(stored_cutter)
 		tab_data["Plasma cutter charge"] = GENERATE_STAT_TEXT("[round(stored_cutter.cell.percent())]%")
 	tab_data["Equipped drill"] = GENERATE_STAT_TEXT("[stored_drill]")
-	for(var/obj/item/minebot_upgrade/U as anything in installed_upgrades)
-		var/upgrade_data = U.get_stat_data()
-		if(upgrade_data)
-			tab_data[upgrade_data[1]] = GENERATE_STAT_TEXT(upgrade_data[2])
+
+	// Handles Upgrades
+	if(LAZYLEN(installed_upgrades))
+		for(var/obj/item/minebot_upgrade/U as anything in installed_upgrades)
+			var/upgrade_data = U.get_stat_data()
+			if(upgrade_data)
+				tab_data[upgrade_data[1]] = GENERATE_STAT_TEXT(upgrade_data[2])
 	return tab_data
 
 // Repairing/reviving
@@ -182,7 +189,7 @@
 	if(maxHealth == health)
 		to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
 		return
-	if(I.use_tool(src, user, 0, volume=40))
+	if(I.use_tool(src, user, 0, volume = 40))
 		if(stat == DEAD)
 			adjustBruteLoss(-25)
 			to_chat(user, "<span class='info'>You repair and restart [src].</span>")
@@ -280,6 +287,8 @@
 // Acticating installed minebot mods
 /mob/living/simple_animal/hostile/mining_drone/AltClickOn(atom/A)
 	. = ..()
+	if(!LAZYLEN(installed_upgrades))
+		return
 	for(var/obj/item/minebot_upgrade/upgrade as anything in installed_upgrades)
 		upgrade.onAltClick(A)
 
@@ -385,6 +394,11 @@
 		return
 	. = ..()
 
+/mob/living/simple_animal/hostile/mining_drone/dodge(moving_to,move_direction)
+	if(mode == MODE_MINING) // No dodging while mining
+		return
+	. = ..()
+
 /**********************Minebot Procs**********************/
 
 /mob/living/simple_animal/hostile/mining_drone/proc/SetCollectBehavior()
@@ -394,7 +408,6 @@
 	wander = TRUE
 	minimum_distance = 1
 	retreat_distance = null
-	dodge_prob = 0 // no point in "dodging" ore
 	icon_state = "mining_drone"
 	if(stored_cutter)
 		to_chat(src, "<span class='info'>You are set to mining mode. You will now fire your plasma cutter.</span>")
@@ -407,7 +420,6 @@
 	search_objects = 0
 	retreat_distance = 2
 	minimum_distance = 1
-	dodge_prob = 30
 	icon_state = "mining_drone_offense"
 	to_chat(src, "<span class='info'>You are set to attack mode. You will now fire your proto-kinetic accelerator at targets.</span>")
 
@@ -415,7 +427,7 @@
 	for(var/obj/item/stack/ore/O in range(collect_range, src))
 		O.forceMove(src)
 
-/mob/living/simple_animal/hostile/mining_drone/proc/DropOre(message = 0)
+/mob/living/simple_animal/hostile/mining_drone/proc/DropOre()
 	if(!contents.len)
 		to_chat(src, "<span class='notice'>You attempt to dump your stored ore, but you have none.</span>")
 		return
@@ -430,6 +442,8 @@
 	SetOffenseBehavior()
 
 /mob/living/simple_animal/hostile/mining_drone/proc/uninstall_upgrades()
+	if(!LAZYLEN(installed_upgrades))
+		return
 	for(var/obj/item/minebot_upgrade/upgrade as anything in installed_upgrades)
 		upgrade.unequip()
 
@@ -492,7 +506,7 @@
 
 /datum/action/innate/minedrone/dump_ore/Activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
-	user.DropOre(TRUE)
+	user.DropOre()
 	to_chat(user, "<span class='notice'>You dump your stored ore on the ground.</span>")
 
 /datum/action/innate/minedrone/toggle_scanner
@@ -522,7 +536,7 @@
 
 /obj/item/minebot_upgrade
 	name = "generic minebot upgrade"
-	desc = "A generic minebot upgrage. It doesn't seem to do anything."
+	desc = "A generic minebot upgrade. It doesn't seem to do anything."
 	icon_state = "door_electronics"
 	icon = 'icons/obj/module.dmi'
 	var/mob/living/simple_animal/hostile/mining_drone/linked_bot
@@ -538,6 +552,7 @@
 		return ..()
 	upgrade_bot(M, user)
 
+// Handles adding upgrades. This checks for any duplicate mods and links the mod to the minebot.
 /obj/item/minebot_upgrade/proc/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
 	if(M.get_mods() && is_type_in_list(src, M.get_mods()))
 		M.balloon_alert(user, "A similar mod has already been installed.")
@@ -550,7 +565,7 @@
 	playsound(loc, 'sound/items/screwdriver.ogg', 100, 1)
 	return TRUE
 
-// Handles removing upgrades. This should be called after any upgrade-specific unequip actions.
+// Handles removing upgrades. This handles unlinking the minebot as well, so it should be called after any upgrade-specific stuff
 /obj/item/minebot_upgrade/proc/unequip()
 	LAZYREMOVE(linked_bot.installed_upgrades, src)
 	forceMove(get_turf(linked_bot))
