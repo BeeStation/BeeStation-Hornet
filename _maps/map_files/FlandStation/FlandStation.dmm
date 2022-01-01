@@ -1822,7 +1822,7 @@
 "aya" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /obj/item/flashlight,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -3085,7 +3085,7 @@
 "aNh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /obj/item/crowbar/red,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -28670,7 +28670,7 @@
 /area/quartermaster/storage)
 "gFU" = (
 /obj/structure/closet/crate{
-	opened = TRUE
+	opened = 1
 	},
 /obj/item/flashlight,
 /obj/effect/spawner/lootdrop/maintenance,
