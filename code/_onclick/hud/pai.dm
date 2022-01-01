@@ -86,10 +86,11 @@
 	if(!..())
 		return
 	var/mob/living/silicon/pai/pAI = usr
-	if(iscarbon(pAI.card.loc))
-		pAI.hostscan.attack(pAI.card.loc, pAI)
+	var/mob/living/carbon/holder = get(pAI.card.loc, /mob/living/carbon)
+	if(holder)
+		pAI.hostscan.attack(holder, pAI)
 	else
-		to_chat(src, "You are not being carried by anyone!")
+		to_chat(usr, "<span class='warning'>You are not being carried by anyone!</span>")
 		return 0
 
 /atom/movable/screen/pai/crew_manifest

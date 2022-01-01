@@ -57,7 +57,7 @@
 	var/obj/machinery/door/hackdoor		// The airlock being hacked
 	var/hackprogress = 0				// Possible values: 0 - 100, >= 100 means the hack is complete and will be reset upon next check
 
-	var/obj/item/integrated_signaler/signaler // AI's signaller
+	var/obj/item/assembly/signaler/internal/signaler // AI's signaler
 
 	var/obj/item/instrument/piano_synth/internal_instrument
 	var/obj/machinery/newscaster			//pAI Newscaster
@@ -134,7 +134,7 @@
 	forceMove(P)
 	card = P
 	job = "Personal AI"
-	signaler = new(src)
+	signaler = new /obj/item/assembly/signaler/internal(src)
 	hostscan = new /obj/item/healthanalyzer(src)
 	if(!radio)
 		radio = new /obj/item/radio/headset/silicon/pai(src)
@@ -316,13 +316,20 @@
 /mob/living/silicon/pai/process(delta_time)
 	emitterhealth = CLAMP((emitterhealth + (emitterregen * delta_time)), -50, emittermaxhealth)
 
-/obj/item/paicard/attackby(obj/item/W, mob/user, params)
-	if(pai && (istype(W, /obj/item/encryptionkey) || W.tool_behaviour == TOOL_SCREWDRIVER))
+/mob/living/silicon/pai/can_interact_with(atom/A)
+	if(A == signaler) // Bypass for signaler
+		return TRUE
+
+	return ..()
+
+/obj/item/paicard/attackby(obj/item/used, mob/user, params)
+	if(pai && (istype(used, /obj/item/encryptionkey) || used.tool_behaviour == TOOL_SCREWDRIVER))
 		if(!pai.encryptmod)
 			to_chat(user, "<span class='alert'>Encryption Key ports not configured.</span>")
 			return
 		user.set_machine(src)
-		pai.radio.attackby(W, user, params)
+		pai.radio.attackby(used, user, params)
+		to_chat(user, "<span class='notice'>You insert [used] into the [src].</span>")
 		return
 
 	return ..()
