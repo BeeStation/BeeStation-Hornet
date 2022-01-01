@@ -189,25 +189,3 @@
 
 /obj/effect/turf_decal/raven/nine
 	icon_state = "RAVEN9"
-
-/*/obj/effect/turf_decal/fland
-	icon_state = "FLAND4"
-
-/obj/effect/turf_decal/fland/one
-	icon_state = "FLAND1"
-
-/obj/effect/turf_decal/fland/two
-	icon_state = "FLAND2"
-
-/obj/effect/turf_decal/fland/three
-	icon_state = "FLAND3"
-
-/obj/effect/turf_decal/fland/four
-	icon_state = "FLAND4"
-
-/obj/effect/turf_decal/fland/five
-	icon_state = "FLAND5"
-
-/obj/effect/turf_decal/fland/six
-	icon_state = "FLAND6"
-*/
