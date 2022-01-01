@@ -600,6 +600,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 						pai.attack_self(U)
 					if("2")		// Eject pAI device
 						usr.put_in_hands(pai)
+						pai.slotted = FALSE
 						to_chat(usr, "<span class='notice'>You remove the pAI from the [name].</span>")
 
 //LINK FUNCTIONS===================================
@@ -975,6 +976,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(!user.transferItemToLoc(C, src))
 			return
 		pai = C
+		pai.slotted = TRUE
 		to_chat(user, "<span class='notice'>You slot \the [C] into [src].</span>")
 		update_icon()
 		updateUsrDialog()
