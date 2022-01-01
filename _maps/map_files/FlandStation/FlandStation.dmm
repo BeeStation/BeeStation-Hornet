@@ -18565,7 +18565,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/water_vapor,
 /turf/open/floor/plasteel,
-/area/maintenance/central)
+/area/janitor)
 "eja" = (
 /obj/effect/turf_decal/trimline/blue/filled/warning,
 /turf/open/floor/plasteel/white,
@@ -87120,7 +87120,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/vending/wardrobe/jani_wardrobe,
 /turf/open/floor/plasteel,
-/area/maintenance/central)
+/area/janitor)
 "uIx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate{
@@ -89787,7 +89787,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/maintenance/central)
+/area/janitor)
 "vqm" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -127800,14 +127800,14 @@ nAD
 nAD
 ttD
 wsD
-nAD
+wUu
 uIh
 eiX
-nAD
+wUu
 vql
-nAD
-nAD
-nAD
+wUu
+wUu
+wUu
 xKl
 xKl
 rRx
@@ -128057,10 +128057,10 @@ rJx
 nAD
 tTf
 wsD
-nAD
-nAD
-nAD
-nAD
+wUu
+wUu
+wUu
+wUu
 vqZ
 jzk
 ugQ
