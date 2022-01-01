@@ -172,6 +172,7 @@ CREATE TABLE IF NOT EXISTS `SS13_feedback` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `datetime` datetime NOT NULL,
   `round_id` int(11) unsigned NOT NULL,
+  `server_name` varchar(32) DEFAULT NULL,
   `key_name` varchar(32) NOT NULL,
   `version` tinyint(3) unsigned NOT NULL,
   `key_type` enum('text','amount','tally','nested tally','associative') NOT NULL,
