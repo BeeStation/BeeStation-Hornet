@@ -36,6 +36,7 @@
 	light_color = LIGHT_COLOR_FIRE
 	var/progress_flash_divisor = 10
 	var/burned_fuel_for = 0	//when fuel was last removed
+	var/light_intensity = 2
 	heat = 3800
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 1
@@ -247,14 +248,14 @@
 /obj/item/weldingtool/tool_start_check(mob/living/user, amount=0)
 	. = tool_use_check(user, amount)
 	if(. && user)
-		user.flash_act(light_range)
+		user.flash_act(light_intensity)
 
 // Flash the user during welding progress
 /obj/item/weldingtool/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
 	. = ..()
 	if(. && user)
 		if (progress_flash_divisor == 0)
-			user.flash_act(min(light_range,1))
+			user.flash_act(min(light_intensity,1))
 			progress_flash_divisor = initial(progress_flash_divisor)
 		else
 			progress_flash_divisor--
