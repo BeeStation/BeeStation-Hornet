@@ -217,11 +217,9 @@
 	base_icon_state = "poll"
 	screen_loc = "TOP:-98,CENTER:-40"
 
-	var/new_poll = FALSE
-
 /atom/movable/screen/lobby/button/poll/update_overlays()
 	. = ..()
-	if(new_poll)
+	if(GLOB.polls.len)
 		. += mutable_appearance('monkestation/icons/hud/lobby/poll.dmi', "new_poll")
 
 /atom/movable/screen/lobby/button/poll/Click(location, control, params)
