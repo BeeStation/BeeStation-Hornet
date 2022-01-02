@@ -137,7 +137,7 @@
 	tab_data["Round ID"] = GENERATE_STAT_TEXT("[GLOB.round_id ? GLOB.round_id : "Null"]")
 	tab_data["Server Time"] = GENERATE_STAT_TEXT(time2text(world.timeofday,"YYYY-MM-DD hh:mm:ss"))
 	tab_data["Station Time"] = GENERATE_STAT_TEXT(station_time_timestamp())
-	tab_data["divider_1"] = GENERATE_STAT_DIVIDER
+	tab_data["divider_1"] = GENERATE_STAT_BLANK
 
 	tab_data["Time Dilation"] = GENERATE_STAT_TEXT("[round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)")
 	if (SSticker.round_start_time)
@@ -145,7 +145,7 @@
 		tab_data["Actual Round Timer"] = GENERATE_STAT_TEXT(time2text(world.timeofday - SSticker.round_start_timeofday, "hh:mm:ss", 0))
 	else
 		tab_data["Lobby Timer"] = GENERATE_STAT_TEXT(worldtime2text())
-	tab_data["divider_2"] = GENERATE_STAT_DIVIDER
+	tab_data["divider_2"] = GENERATE_STAT_BLANK
 
 	if(!SSticker.HasRoundStarted())
 		tab_data["Players Ready/Connected"] = GENERATE_STAT_TEXT("[SSticker.totalPlayersReady]/[GLOB.clients.len]")

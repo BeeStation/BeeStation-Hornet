@@ -91,8 +91,6 @@
 
 /mob/living/carbon/monkey/get_stat_tab_status()
 	var/list/tab_data = ..()
-	tab_data["Intent"] = GENERATE_STAT_TEXT("[a_intent]")
-	tab_data["Move Mode"] = GENERATE_STAT_TEXT("[m_intent]")
 	if(client && mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)

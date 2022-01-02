@@ -5,6 +5,7 @@
 #define STAT_ATOM 2
 #define STAT_DIVIDER 3
 #define STAT_VERB 4	//Similar to button, but multiple on 1 line
+#define STAT_BLANK 5
 
 #define STAT_SLOW_UPDATE 4	//Once every 4 seconds
 #define STAT_MEDIUM_UPDATE 2	//Once every 2 seconds
