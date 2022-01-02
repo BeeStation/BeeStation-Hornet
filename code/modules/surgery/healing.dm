@@ -23,7 +23,8 @@
 
 /datum/surgery_step/heal
 	name = "repair body"
-	implements = list(TOOL_HEMOSTAT = 100, TOOL_SCREWDRIVER = 35, /obj/item/pen = 15)
+	//MonkeStation Edit: Tool chances and choices modified.
+	implements = list(TOOL_HEMOSTAT = 70, TOOL_SCREWDRIVER = 47, /obj/item/pen = 32)
 	repeatable = TRUE
 	time = 25
 	var/brutehealing = 0

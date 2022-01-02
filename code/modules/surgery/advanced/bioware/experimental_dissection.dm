@@ -22,7 +22,8 @@
 
 /datum/surgery_step/dissection
 	name = "dissection"
-	implements = list(TOOL_SCALPEL = 60, /obj/item/kitchen/knife = 30, /obj/item/shard = 15)
+	//MonkeStation Edit: Tool chances and choices modified.
+	implements = list(TOOL_SCALPEL = 47, /obj/item/kitchen/knife = 32, /obj/item/toy/cards/singlecard = 32, /obj/item/shard = 16)
 	time = 125
 
 /datum/surgery_step/dissection/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

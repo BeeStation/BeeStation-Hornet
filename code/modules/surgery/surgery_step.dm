@@ -56,7 +56,7 @@
 	return FALSE
 
 /datum/surgery_step/proc/get_speed_modifier(mob/user, mob/target)
-	var/propability = 0.3
+	var/multiplier = 0.3
 	var/turf/T = get_turf(target)
 	var/selfpenalty = 0
 	var/sleepbonus = 0
@@ -68,22 +68,22 @@
 	if(target.stat)//are they not conscious
 		sleepbonus = 0.5
 	if(locate(/obj/structure/table/optable/abductor, T))
-		propability = 1.2
+		multiplier = 1.2
 	else if(locate(/obj/structure/table/optable, T))
-		propability = 1
+		multiplier = 1
 	else if(locate(/obj/machinery/stasis, T))
-		propability = 0.8
+		multiplier = 0.8
 	else if(locate(/obj/structure/table, T))
-		propability = 0.6
+		multiplier = 0.6
 	else if(locate(/obj/structure/bed, T))
-		propability = 0.5
+		multiplier = 0.5
 
-	return max(propability + sleepbonus - selfpenalty, 0.1)
+	return max(multiplier + sleepbonus - selfpenalty, 0.1)
 
 /datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	surgery.step_in_progress = TRUE
 	var/speed_mod = 1
-	var/fail_prob = 0//100 - fail_prob = success_prob
+	var/success_prob = 0
 	var/advance = FALSE
 
 	if(preop(user, target, target_zone, tool, surgery) == -1)
@@ -92,26 +92,27 @@
 
 	if(tool)
 		speed_mod = tool.toolspeed
+		if(!speed_mod)
+			speed_mod = 1
 
-	var/implement_speed_mod = 1
-	if(implement_type)//this means it isn't a require hand or any item step.
-		implement_speed_mod = implements[implement_type] / 100.0
-	speed_mod /= (get_speed_modifier(user, target) * (1 + surgery.speed_modifier) * implement_speed_mod)
-	
-	var/modded_time = time * speed_mod
-	fail_prob = min(max(0, modded_time - (time * 2)), 99)//if modded_time > time * 2, then fail_prob = modded_time - time*2. starts at 0, caps at 99
-	modded_time = min(modded_time, time * 2)//also if that, then cap modded_time at time*2
+	speed_mod /= get_speed_modifier(user, target) * (1 + surgery.speed_modifier)
+
+	var/modded_time = time * speed_mod * (1 - sterilization_check(target)) * clothing_check(user)
+	//Speed = Base time * Tool Speed * Between 1 to 0.60 sterilization * Between 1 to 0.40 clothing
+	success_prob = (implements[implement_type] * ( 1 +sterilization_check(target)))
+	//Success Chance = implement chance per surgery * 1 to 1.6 sterilization
+	//Full sterilization odds of success: 63% = 100%, 47% = 75%, 32% = 50%, 16% = 25%
 
 	if(iscyborg(user))//any immunities to surgery slowdown should go in this check.
 		modded_time = time
 
 	if(do_after(user, modded_time, target = target))
 
-		if((prob(100 - fail_prob) || iscyborg(user)) && chem_check(target) && !try_to_fail)
+		if((prob(0 + success_prob) || iscyborg(user) || HAS_TRAIT(user, TRAIT_SURGEON)) && chem_check(target) && !try_to_fail)
 
 			if(success(user, target, target_zone, tool, surgery))
 				advance = TRUE
-		else if(failure(user, target, target_zone, tool, surgery, fail_prob))
+		else if(failure(user, target, target_zone, tool, surgery, success_prob))
 			advance = TRUE
 
 		if(advance && !repeatable)
@@ -133,15 +134,17 @@
 		"<span class='notice'>[user] finishes.</span>")
 	return TRUE
 
-/datum/surgery_step/proc/failure(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, var/fail_prob = 0)
+/datum/surgery_step/proc/failure(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, success_prob = 0)
 	var/screwedmessage = ""
-	switch(fail_prob)
-		if(0 to 24)
-			screwedmessage = " You almost had it, though."
-		if(50 to 74)//25 to 49 = no extra text
-			screwedmessage = " This is hard to get right in these conditions..."
+	switch(success_prob)
 		if(75 to 99)
-			screwedmessage = " This is practically impossible in these conditions..."
+			screwedmessage = pick(" You almost had it, though.", " Just got to keep trying...", " So close...")
+		if(50 to 74)
+			screwedmessage = pick(" This is hard to get right in these conditions...", " Maybe I need more sterilizer...")
+		if(25 to 49)
+			screwedmessage = pick(" This is practically impossible in these conditions...", " I'm going to need better tools...", " Did I sterilize the patient?")
+		if(0 to 24)
+			screwedmessage = pick(" This probably isn't going to work...", " Am I qualified for this?", " I'd better check my tools...", " Did I sterilize the patient?")
 
 	display_results(user, target, "<span class='warning'>You screw up![screwedmessage]</span>",
 		"<span class='warning'>[user] screws up!</span>",
@@ -150,6 +153,65 @@
 
 /datum/surgery_step/proc/tool_check(mob/user, obj/item/tool)
 	return TRUE
+
+/datum/surgery_step/proc/clothing_check(mob/living/user) 		//Checks if the SURGEON is wearing proper attire
+	if(!ishuman(user))
+		return 1 //I'm gonna just catch any weird cases of non-humans doing surgery right here
+
+	var/mob/living/carbon/human/surgeon = user
+	var/clothing_multiplier = 1
+	var/list/surgery_clothes = list(	/obj/item/clothing/suit/apron,
+										/obj/item/clothing/gloves/color/latex,
+										/obj/item/clothing/mask/surgical,
+										/obj/item/clothing/head/nursehat,
+										/obj/item/clothing/head/beret/cmo,
+										/obj/item/clothing/head/beret/med,
+										/obj/item/clothing/neck/stethoscope,
+										/obj/item/clothing/head/helmet/space/plasmaman/medical,
+										/obj/item/clothing/head/helmet/space/plasmaman/cmo,
+										/obj/item/clothing/suit/toggle/labcoat,
+										/obj/item/clothing/mask/breath,
+										/obj/item/clothing/suit/hooded/techpriest,
+										/obj/item/clothing/suit/bio_suit/plaguedoctorsuit,
+										/obj/item/clothing/mask/gas/plaguedoctor,
+										/obj/item/clothing/head/plaguedoctorhat,
+										/obj/item/clothing/under/suit/sl,
+										/obj/item/clothing/glasses/hud/health
+										)
+
+	for(var/obj/item/I in surgeon.get_equipped_items(FALSE))
+		if(locate(I) in surgery_clothes)
+			clothing_multiplier -= 0.15
+	if(clothing_multiplier < 0.40) //Max of 60% bonus from clothing.
+		clothing_multiplier = 0.40
+	return clothing_multiplier
+
+
+/datum/surgery_step/proc/sterilization_check(mob/living/target) //Checks if the victim/patient has any reagents in them that will increase surgery speed
+	var/list/sterilization_chems = list(	/datum/reagent/space_cleaner/sterilizine,
+											/datum/reagent/consumable/honey,
+											/datum/reagent/medicine/mine_salve,
+											/datum/reagent/consumable/laughter,
+											/datum/reagent/consumable/ethanol
+										)
+	var/sterile_multiplier = 0
+
+	for(var/i = 1, i < sterilization_chems.len, i++)
+		if(target.reagents.has_reagent(sterilization_chems[i]))
+			switch(sterilization_chems[i])
+				if(/datum/reagent/space_cleaner/sterilizine)
+					sterile_multiplier += 0.5
+				if(/datum/reagent/consumable/honey)
+					sterile_multiplier += 0.6
+				if(/datum/reagent/medicine/mine_salve)
+					sterile_multiplier += 0.3
+				if(/datum/reagent/consumable/laughter) //Truly the best medicine.
+					sterile_multiplier += 0.3
+				if(/datum/reagent/consumable/ethanol)
+					sterile_multiplier += 0.3
+	if(sterile_multiplier >= 0.6)
+		sterile_multiplier = 0.6
+	return sterile_multiplier //Max of 60% bonus from this for success, max 40% for speed
 
 /datum/surgery_step/proc/chem_check(mob/living/carbon/target)
 	if(!LAZYLEN(chems_needed))

@@ -5,7 +5,6 @@
 	possible_locs = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_HEAD)
 	requires_bodypart = FALSE //need a missing limb
 	requires_bodypart_type = 0
-	self_operable = TRUE
 
 /datum/surgery/prosthetic_replacement/can_start(mob/user, mob/living/carbon/target)
 	if(!iscarbon(target))

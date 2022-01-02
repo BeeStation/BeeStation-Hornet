@@ -15,8 +15,9 @@
 //lobectomy, removes the most damaged lung lobe with a 95% base success chance
 /datum/surgery_step/lobectomy
 	name = "excise damaged lung node"
-	implements = list(TOOL_SCALPEL = 95, /obj/item/melee/transforming/energy/sword = 65, /obj/item/kitchen/knife = 45,
-		/obj/item/shard = 35)
+	//MonkeStation Edit: Tool chances and choices modified.
+	implements = list(TOOL_SCALPEL = 63, /obj/item/melee/transforming/energy/sword = 47, /obj/item/kitchen/knife = 47,
+		/obj/item/shard = 32, /obj/item/toy/cards/singlecard = 32)
 	time = 42
 
 /datum/surgery_step/lobectomy/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

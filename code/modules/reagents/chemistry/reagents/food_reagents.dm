@@ -553,6 +553,7 @@
 	random_unrestricted = TRUE
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/carbon/M)
+	//MonkeStation Edit: Surgery effects moved to surgery_step.dm
 	if(power == 0)
 		M.reagents.add_reagent(/datum/reagent/consumable/sugar,3)
 	if(prob(55))
@@ -560,14 +561,6 @@
 		M.adjustFireLoss(-1*REM+power, 0)
 		M.adjustOxyLoss(-1*REM+power, 0)
 		M.adjustToxLoss(-1*REM+power, 0)
-	..()
-
-/datum/reagent/consumable/honey/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(iscarbon(M) && (method in list(TOUCH, VAPOR, PATCH)))
-		var/mob/living/carbon/C = M
-		for(var/s in C.surgeries)
-			var/datum/surgery/S = s
-			S.speed_modifier = max(0.6, S.speed_modifier) // +60% surgery speed on each step, compared to bacchus' blessing's ~46%
 	..()
 
 /datum/reagent/consumable/honey/special

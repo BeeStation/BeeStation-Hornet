@@ -152,13 +152,14 @@
 /datum/reagent/consumable/laughter
 	name = "Laughter"
 	description = "Some say that this is the best medicine, but recent studies have proven that to be untrue."
-	metabolization_rate = INFINITY
 	color = "#FF4DD2"
 	taste_description = "laughter"
 	random_unrestricted = TRUE
 
 /datum/reagent/consumable/laughter/on_mob_life(mob/living/carbon/M)
-	M.emote("laugh")
+	//MonkeStation Edit: Laughter lasts longer in the body.
+	if(prob(25))
+		M.emote("laugh")
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "chemical_laughter", /datum/mood_event/chemical_laughter)
 	..()
 

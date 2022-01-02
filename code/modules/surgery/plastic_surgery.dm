@@ -6,7 +6,8 @@
 //reshape_face
 /datum/surgery_step/reshape_face
 	name = "reshape face"
-	implements = list(TOOL_SCALPEL = 100, /obj/item/kitchen/knife = 50, TOOL_WIRECUTTER = 35)
+	//MonkeStation Edit: Tool chances and choices modified.
+	implements = list(TOOL_SCALPEL = 75, /obj/item/kitchen/knife = 47, TOOL_WIRECUTTER = 32, /obj/item/toy/cards/singlecard = 32)
 	time = 64
 
 /datum/surgery_step/reshape_face/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

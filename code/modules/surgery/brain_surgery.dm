@@ -14,7 +14,8 @@
 
 /datum/surgery_step/fix_brain
 	name = "fix brain"
-	implements = list(TOOL_HEMOSTAT = 85, TOOL_SCREWDRIVER = 35, /obj/item/pen = 15) //don't worry, pouring some alcohol on their open brain will get that chance to 100
+	//MonkeStation Edit: Tool chances and choices modified.
+	implements = list(TOOL_HEMOSTAT = 65, TOOL_SCREWDRIVER = 47, /obj/item/pen = 35) //don't worry, pouring some alcohol on their open brain will get that chance to 100
 	time = 120 //long and complicated
 
 /datum/surgery/brain_surgery/can_start(mob/user, mob/living/carbon/target)

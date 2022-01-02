@@ -27,7 +27,9 @@
 
 /datum/surgery_step/brainwash
 	name = "brainwash"
-	implements = list(TOOL_HEMOSTAT = 85, TOOL_WIRECUTTER = 50, /obj/item/stack/packageWrap = 35, /obj/item/stack/cable_coil = 15)
+	//MonkeStation Edit: Tool chances and choices modified.
+	//And yes. Pen is 100% because you're writing the instruction on their brain.
+	implements = list(/obj/item/pen = 100, TOOL_HEMOSTAT = 63, TOOL_WIRECUTTER = 47, /obj/item/stack/packageWrap = 32, /obj/item/stack/cable_coil = 32)
 	time = 200
 	var/objective
 

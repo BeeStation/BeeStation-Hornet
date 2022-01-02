@@ -16,7 +16,7 @@
 	var/speed_modifier = 0											//Step speed multiplier
 	var/requires_real_bodypart = FALSE								//Some surgeries don't work on limbs that don't really exist
 	var/lying_required = TRUE										//Does the vicitm needs to be lying down.
-	var/self_operable = FALSE										//Can the surgery be performed on yourself.
+	var/self_operable = TRUE //MonkeStation Edit: All self-op 		//Can the surgery be performed on yourself.
 	var/requires_tech = FALSE										//handles techweb-oriented surgeries, previously restricted to the /advanced subtype (You still need to add designs)
 	var/replaced_by													//type; doesn't show up if this type exists. Set to /datum/surgery if you want to hide a "base" surgery (useful for typing parents IE healing.dm just make sure to null it out again)
 

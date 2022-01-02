@@ -16,7 +16,6 @@
 
 /datum/surgery/organ_manipulation/soft
 	possible_locs = list(BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-	self_operable = TRUE
 	steps = list(
 		/datum/surgery_step/incise,
 		/datum/surgery_step/retract_skin,
@@ -44,7 +43,6 @@
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 	requires_bodypart_type = BODYPART_ROBOTIC
 	lying_required = FALSE
-	self_operable = TRUE
 	speed_modifier = 0.8 //on a surgery bed you can do prosthetic manipulation relatively risk-free
 	steps = list(
 		/datum/surgery_step/mechanic_open,
