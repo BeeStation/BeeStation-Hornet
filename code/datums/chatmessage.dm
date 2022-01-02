@@ -22,6 +22,8 @@
 #define CHAT_MESSAGE_ICON_SIZE		7
 /// How much the message moves up before fading out.
 #define MESSAGE_FADE_PIXEL_Y 10
+/// How many messages can be generated in one spot
+#define MAX_MESSAGE_COUNT 2
 
 #define BUCKET_LIMIT (world.time + TICKS2DS(min(BUCKET_LEN - (SSrunechat.practical_offset - DS2TICKS(world.time - SSrunechat.head_offset)) - 1, BUCKET_LEN - 1)))
 #define BALLOON_TEXT_WIDTH 200
@@ -208,10 +210,15 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
 	message_loc = get_atom_on_turf(target)
-	if (owned_by.seen_messages)
+
+	if(owned_by.seen_messages)
 		var/idx = 1
 		var/combined_height = approx_lines
-		for(var/datum/chatmessage/m as() in message_loc.chat_messages)
+		// This line here assumes we won't ever have more than 3 messages at once.
+		if(length(owned_by.seen_messages[message_loc]) > MAX_MESSAGE_COUNT)
+			qdel(owned_by.seen_messages[message_loc][1])
+
+		for(var/datum/chatmessage/m as() in owned_by.seen_messages[message_loc])
 			if(!m?.message)
 				continue
 			animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME)
