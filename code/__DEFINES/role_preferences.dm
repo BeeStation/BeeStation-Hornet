@@ -13,6 +13,7 @@
 #define ROLE_WIZARD				"Wizard"
 #define ROLE_MALF				"Malf AI"
 #define ROLE_INCURSION			"Incursion Team"
+#define ROLE_EXCOMM				"Excommunicated Syndicate Agent"
 #define ROLE_REV				"Revolutionary"
 #define ROLE_REV_HEAD			"Head Revolutionary"
 #define ROLE_REV_SUCCESSFUL		"Victorious Revolutionary"
