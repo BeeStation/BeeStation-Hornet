@@ -27,7 +27,9 @@
 	///Ceiling of range, integer without decimal entries.
 	var/lumcount_range = 0
 	///How much this light affects the dynamic_lumcount of turfs.
-	var/lum_power = 0.5
+	var/real_lum_power = 0.5
+	///The lum power being used
+	var/used_lum_power = 0.5
 	///Transparency value.
 	var/set_alpha = 0
 	///For light sources that can be turned on and off.
@@ -97,7 +99,7 @@
 		set_parent_attached_to(ismovable(movable_parent.loc) ? movable_parent.loc : null)
 	if(movable_parent.light_flags & LIGHT_NO_LUMCOUNT)
 		overlay_lighting_flags |= LIGHT_NO_LUMCOUNT
-		set_lum_power(lum_power)
+		set_lum_power(real_lum_power)
 	check_holder()
 	if(movable_parent.light_on)
 		turn_on()
@@ -133,7 +135,7 @@
 /datum/component/overlay_lighting/proc/clean_old_turfs()
 	for(var/t in affected_turfs)
 		var/turf/lit_turf = t
-		lit_turf.dynamic_lumcount -= lum_power
+		lit_turf.dynamic_lumcount -= used_lum_power
 	affected_turfs = null
 
 
@@ -142,7 +144,7 @@
 	if(!current_holder)
 		return
 	for(var/turf/lit_turf in view(lumcount_range, get_turf(current_holder)))
-		lit_turf.dynamic_lumcount += lum_power
+		lit_turf.dynamic_lumcount += used_lum_power
 		LAZYADD(affected_turfs, lit_turf)
 
 
@@ -321,11 +323,11 @@
 		if(!(movable_parent.light_flags & LIGHT_NO_LUMCOUNT)) //Gained the NO_LUMCOUNT property
 			overlay_lighting_flags |= LIGHT_NO_LUMCOUNT
 			//Recalculate affecting
-			set_lum_power(lum_power)
+			set_lum_power(real_lum_power)
 	else if(movable_parent.light_flags & LIGHT_NO_LUMCOUNT)	//Lost the NO_LUMCOUNT property
 		overlay_lighting_flags &= ~LIGHT_NO_LUMCOUNT
 		//Recalculate affecting
-		set_lum_power(lum_power)
+		set_lum_power(real_lum_power)
 
 ///Toggles the light on.
 /datum/component/overlay_lighting/proc/turn_on()
@@ -349,22 +351,25 @@
 
 ///Here we append the behavior associated to changing lum_power.
 /datum/component/overlay_lighting/proc/set_lum_power(new_lum_power)
-	//Get the simulated luminosity count
-	var/used_lum_power = new_lum_power
+	//Get the simulated luminosity count (If we have no lumcount, this is set to 0)
+	var/simulated_lum_power = new_lum_power
 	if(overlay_lighting_flags & LIGHT_NO_LUMCOUNT)
-		used_lum_power = 0
+		simulated_lum_power = 0
 	//The new lum power is the same
-	if(lum_power == used_lum_power)
+	if(used_lum_power == simulated_lum_power)
 		//This light doesn't affect lumcount, but lum_power must be updated regardless
-		if(new_lum_power != used_lum_power)
-			. = lum_power
-			lum_power = new_lum_power
+		if(new_lum_power != simulated_lum_power)
+			. = real_lum_power
+			real_lum_power = new_lum_power
 		return
 	//Set the return value to the old lum power
-	. = lum_power
-	lum_power = new_lum_power
+	. = real_lum_power
+	real_lum_power = new_lum_power
+	//Get the old used lum power
+	var/old_lum_power = used_lum_power
+	used_lum_power = simulated_lum_power
 	//Calculate the difference
-	var/difference = . - lum_power
+	var/difference = old_lum_power - used_lum_power
 	//Apply it to any turf we are affecting
 	for(var/t in affected_turfs)
 		var/turf/lit_turf = t
