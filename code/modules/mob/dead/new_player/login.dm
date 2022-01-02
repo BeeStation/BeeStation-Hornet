@@ -21,8 +21,7 @@
 		to_chat(src, "<span class='notice'><b>Server Notice:</b>\n \t [CONFIG_GET(string/soft_popcap_message)]</span>", allow_linkify = TRUE)
 
 	sight |= SEE_TURFS
-
-	new_player_panel()
+	//monkestation edit: removed new_player_panel() for /tg/ menu port
 	client.playtitlemusic()
 	if(SSticker.current_state < GAME_STATE_SETTING_UP)
 		var/tl = SSticker.GetTimeLeft()

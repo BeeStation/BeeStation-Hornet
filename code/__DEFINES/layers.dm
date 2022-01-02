@@ -163,3 +163,10 @@
 
 ///Plane master controller keys
 #define PLANE_MASTERS_GAME "plane_masters_game"
+
+
+///MONKESTATION EDIT
+//////TG MENUS/////
+#define LOBBY_BACKGROUND_LAYER 3
+#define LOBBY_BUTTON_LAYER 4
+///MONKESTATION EDIT END

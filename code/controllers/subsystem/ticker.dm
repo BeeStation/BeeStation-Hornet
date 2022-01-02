@@ -169,8 +169,9 @@ SUBSYSTEM_DEF(ticker)
 			to_chat(world, "<span class='boldnotice'>Welcome to [station_name()]!</span>")
 			send2chat("New round starting on [SSmapping.config.map_name]!", CONFIG_GET(string/chat_announce_new_game))
 			current_state = GAME_STATE_PREGAME
-			//Everyone who wants to be an observer is now spawned
-			create_observers()
+			//monkestation edit begin
+			SEND_SIGNAL(src, COMSIG_TICKER_ENTER_PREGAME)
+			//monkestation edit end
 			fire()
 		if(GAME_STATE_PREGAME)
 				//lobby stats for statpanels
@@ -203,6 +204,9 @@ SUBSYSTEM_DEF(ticker)
 				pre_setup_completed = TRUE
 
 			if(timeLeft <= 0)
+				//monkestation edit begin
+				SEND_SIGNAL(src, COMSIG_TICKER_ENTER_SETTING_UP)
+				//monkestation edit end
 				current_state = GAME_STATE_SETTING_UP
 				Master.SetRunLevel(RUNLEVEL_SETUP)
 				if(start_immediately)
@@ -415,9 +419,8 @@ SUBSYSTEM_DEF(ticker)
 	for(var/mob/dead/new_player/player in GLOB.player_list)
 		if(player.ready == PLAYER_READY_TO_PLAY && player.mind)
 			GLOB.joined_player_list += player.ckey
+			//monkestation edit updated for /tg/ menu
 			player.create_character(FALSE)
-		else
-			player.new_player_panel()
 		CHECK_TICK
 
 /datum/controller/subsystem/ticker/proc/collect_minds()
@@ -652,12 +655,7 @@ SUBSYSTEM_DEF(ticker)
 	else
 		timeLeft = newtime
 
-//Everyone who wanted to be an observer gets made one now
-/datum/controller/subsystem/ticker/proc/create_observers()
-	for(var/mob/dead/new_player/player in GLOB.player_list)
-		if(player.ready == PLAYER_READY_TO_OBSERVE && player.mind)
-			//Break chain since this has a sleep input in it
-			addtimer(CALLBACK(player, /mob/dead/new_player.proc/make_me_an_observer), 1)
+//monkestation edit: deleted observer section here for tg port
 
 /datum/controller/subsystem/ticker/proc/load_mode()
 	var/mode = CONFIG_GET(string/master_mode)

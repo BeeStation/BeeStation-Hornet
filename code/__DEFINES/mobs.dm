@@ -5,7 +5,7 @@
 //Ready states at roundstart for mob/dead/new_player
 #define PLAYER_NOT_READY 0
 #define PLAYER_READY_TO_PLAY 1
-#define PLAYER_READY_TO_OBSERVE 2
+//monkestation edit: remove ready to observe for /tg/ menu port
 
 //Game mode list indexes
 #define CURRENT_LIVING_PLAYERS	"living_players_list"
