@@ -113,4 +113,4 @@
 		for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
 			TV.notify(FALSE)
 
-#undef
+#undef MOTION_SENSOR_MINIMUM_ALPHA
