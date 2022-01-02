@@ -47,8 +47,9 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Reset Thunderdome to default state", "tdomereset"),
 			list("Rename Station Name", "set_name"),
 			list("Reset Station Name", "reset_name"),
-			list("Set Night Shift Mode", "night_shift_set")
-			)
+			list("Set Night Shift Mode", "night_shift_set"),
+			list("Spawn as Test Dummy", "testdummy")
+			)//MonkeStation Edit: Test Dummy Secret
 
 		data["Categories"]["Shuttles"] += list(
 			list("Move Ferry", "moveferry"),
@@ -193,6 +194,14 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				if("Off")
 					SSnightshift.can_fire = FALSE
 					SSnightshift.update_nightshift(FALSE, TRUE)
+
+		//MonkeStation Edit Start
+		//Quick Admin Spawn
+		if("testdummy")
+			if(!check_rights(R_ADMIN))
+				return
+			spawn_as_dummy(usr)
+		//MonkeStation Edit End
 
 		if("reset_name")
 			if(!check_rights(R_ADMIN))
