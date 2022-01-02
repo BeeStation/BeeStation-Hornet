@@ -17,4 +17,6 @@
 			//Check for the icon
 			if(!(icon_name in valid_states))
 				failing += path
+	if(!length(failing))
+		return
 	Fail("The following clothing items have can_adjust set to true, but have no adjusted icon state: [failing.Join(" \n")]")
