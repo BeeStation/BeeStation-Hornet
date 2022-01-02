@@ -9,9 +9,12 @@
 			//If not existing, get the icon state
 			if(!icon_name)
 				icon_name = initial(path.icon_state)
+			//Check if the original icon exists (Ignore parent types)
+			if(!(icon_name in valid_states))
+				continue
 			//Add the adjusted modifier
 			icon_name = "[icon_name]_d"
 			//Check for the icon
 			if(!(icon_name in valid_states))
 				failing += path
-	Fail("The following clothing items have can_adjust set to true, but have no adjusted icon state: [failing.Join(" ")]")
+	Fail("The following clothing items have can_adjust set to true, but have no adjusted icon state: [failing.Join(" \n")]")
