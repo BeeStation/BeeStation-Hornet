@@ -8,6 +8,9 @@
 ///Is a movable light source attached to another movable (its loc), meaning that the lighting component should go one level deeper.
 #define LIGHT_ATTACHED (1<<0)
 
+///This light doesn't affect turf's lumcount calculations. Set to 1<<15 to ignore conflicts
+#define LIGHT_NO_LUMCOUNT (1<<15)
+
 //Bay lighting engine shit, not in /code/modules/lighting because BYOND is being shit about it
 #define LIGHTING_INTERVAL       5 // frequency, in 1/10ths of a second, of the lighting process
 

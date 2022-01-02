@@ -164,9 +164,9 @@
 
 /obj/item/rod_of_asclepius/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, damage, attack_type)
 	if(!activated)
-		return FALSE 
+		return FALSE
 	return ..()
-	
+
 
 /obj/item/rod_of_asclepius/attack_self(mob/user)
 	if(activated)
