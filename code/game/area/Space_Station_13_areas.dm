@@ -77,6 +77,27 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 //STATION13
 
+//Docking Areas
+
+/area/docking
+	ambience_index = AMBIENCE_MAINT
+	mood_bonus = -1
+	mood_message = "<span class='warning'>You feel that you shouldn't stay here with such shuttle traffic...\n</span>"
+	lighting_colour_tube = "#1c748a"
+	lighting_colour_bulb = "#1c748a"
+
+/area/docking/arrival
+	name = "Arrival Docking Area"
+	icon_state = "arrivaldockarea"
+
+/area/docking/arrivalaux
+	name = "Auxiliary Arrival Docking Area"
+	icon_state = "arrivalauxdockarea"
+
+/area/docking/bridge
+	name = "Bridge Docking Area"
+	icon_state = "bridgedockarea"
+
 //Maintenance
 
 /area/maintenance
@@ -364,6 +385,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Law Hallway"
 	icon_state = "security"
 
+/area/hallway/secondary/asteroid
+	name = "Asteroid Hallway"
+	icon_state = "construction"
 
 /area/hallway/upper/primary/aft
 	name = "Upper Aft Primary Hallway"
@@ -604,6 +628,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/theatre
 	name = "Theatre"
 	icon_state = "Theatre"
+	sound_environment = SOUND_AREA_WOODFLOOR
+
+/area/crew_quarters/theatre/backstage
+	name = "Backstage"
+	icon_state = "Theatre_Back"
 	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/crew_quarters/theatre/abandoned
@@ -1059,6 +1088,27 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/checkpoint/customs/auxiliary
 	icon_state = "customs_point_aux"
 
+/area/security/prison/vip
+	name = "VIP Prison Wing"
+	icon_state = "sec_prison"
+
+/area/security/prison/asteroid
+	name = "Outer Asteroid Prison Wing"
+	icon_state = "sec_prison"
+
+/area/security/prison/asteroid/service
+	name = "Outer Asteroid Prison Wing Services"
+	icon_state = "sec_prison"
+
+/area/security/prison/asteroid/arrival
+	name = "Outer Asteroid Prison Wing Arrival"
+	icon_state = "sec_prison"
+
+/area/security/prison/asteroid/abbandoned
+	name = "Outer Asteroid Prison Wing Abbandoned maintenance"
+	icon_state = "sec_prison"
+	mood_bonus = -2
+	mood_message = "<span class='warning'>This place gives me the creeps...\n</span>"
 
 //Service
 
@@ -1298,6 +1348,22 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/vacant_room/commissary
 	name = "Vacant Commissary"
+	icon_state = "vacant_commissary"
+
+/area/vacant_room/commissary/commissary1
+	name = "Vacant Commissary #1"
+	icon_state = "vacant_commissary"
+
+/area/vacant_room/commissary/commissary2
+	name = "Vacant Commissary #2"
+	icon_state = "vacant_commissary"
+
+/area/vacant_room/commissary/commissaryFood
+	name = "Vacant Food Stall Commissary"
+	icon_state = "vacant_commissary"
+
+/area/vacant_room/commissary/commissaryRandom
+	name = "Unique Commissary"
 	icon_state = "vacant_commissary"
 
 //AI

@@ -318,6 +318,13 @@
 	floor_tile = /obj/item/stack/tile/carpet/royalblue
 	canSmoothWith = list(/turf/open/floor/carpet/royalblue)
 
+/turf/open/floor/carpet/grimy
+	name = "grimy carpet"
+	desc = "Hold on, wasn't this made with steel once?"
+	icon = 'icons/turf/floors/carpet_grimy.dmi'
+	floor_tile = /obj/item/stack/tile/carpet/grimy
+	canSmoothWith = list(/turf/open/floor/carpet/grimy)
+
 /turf/open/floor/eighties
 	name = "retro floor"
 	desc = "This one takes you back."
