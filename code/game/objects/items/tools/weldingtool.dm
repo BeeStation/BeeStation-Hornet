@@ -348,6 +348,7 @@
 	toolspeed = 0.1
 	light_system = NO_LIGHT_SUPPORT
 	light_range = 0
+	light_intensity = 0
 	change_icons = 0
 
 /obj/item/weldingtool/abductor/process()
@@ -373,7 +374,7 @@
 	var/last_gen = 0
 	change_icons = 0
 	can_off_process = 1
-	light_range = 1
+	light_intensity = 1
 	toolspeed = 0.5
 	var/nextrefueltick = 0
 
@@ -383,7 +384,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	icon_state = "brasswelder"
 	item_state = "brasswelder"
-
+	light_intensity = 1
 
 /obj/item/weldingtool/experimental/process(delta_time)
 	..()
