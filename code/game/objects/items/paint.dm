@@ -93,14 +93,24 @@
 /obj/item/paint/paint_remover
 	gender =  PLURAL
 	name = "paint remover"
-	desc = "Used to remove color from anything."
+	desc = "Used to remove color and stickers from surfaces and objects." //MonkeStation Edit: Sticker Removal
 	icon_state = "paint_neutral"
 
 /obj/item/paint/paint_remover/afterattack(atom/target, mob/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
-	if(!isturf(target) || !isobj(target))
+	if(ismob(target) || isarea(target))
 		return
 	if(target.color != initial(target.color))
 		target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	//MonkeStation Edit: Sticker Removal
+	var/atom/movable/selected = target
+	if(locate(/obj/item/stickable/dummy_holder) in selected.vis_contents)
+		var/obj/item/stickable/dummy_holder/dummy = locate(/obj/item/stickable/dummy_holder) in selected.vis_contents
+		var/turf/location = get_turf(user)
+		user.visible_message("<span class='notice'>[user] scrapes off the stickers on [selected]!</span>")
+		for(var/obj/item/stickable/dropping in dummy.contents)
+			dropping.forceMove(location)
+		selected.vis_contents -= dummy
+	//MonkeStation Edit End

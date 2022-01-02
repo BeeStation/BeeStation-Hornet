@@ -235,6 +235,7 @@
 	new /obj/item/stack/cable_coil/orange(src)
 	new /obj/item/stack/cable_coil/cyan(src)
 	new /obj/item/stack/cable_coil/white(src)
+	new /obj/item/storage/box/stickers(src) //MonkeStation Edit: Stickers in Artistic Toolboxes
 
 /obj/item/storage/toolbox/ammo
 	name = "ammo box"

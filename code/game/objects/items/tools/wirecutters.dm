@@ -58,6 +58,15 @@
 		if(do_after(user, 15, null, C))
 			to_chat(C, "<span class='notice'>You succesfuly remove the durathread strand.</span>")
 			C.remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
+	//MonkeStation Edit: Sticker Removal
+	else if(locate(/obj/item/stickable/dummy_holder) in C.vis_contents)
+		var/obj/item/stickable/dummy_holder/dummy = locate(/obj/item/stickable/dummy_holder) in C.vis_contents
+		var/turf/location = get_turf(C)
+		user.visible_message("<span class='notice'>[user] pulls off [C]'s stickers!</span>")
+		for(var/obj/item/stickable/dropping in dummy.contents)
+			dropping.forceMove(location)
+		C.vis_contents -= dummy
+	//MonkeStation Edit End
 	else
 		..()
 
