@@ -1,3 +1,7 @@
+/* 	Important Info for anyone that wants to make new crates if the open sprite of the crate has a uniform color then you just
+	have to mirror it once in the x and y axis to get the back sprite but if there are any details like writing icons etc in the sprite (like for example the engineering electricity crate) then you
+	have to do the stuff i mentioned first and then mirror the details yet again by selecting them respectivly independently from the rest of the sprite in the x axis.
+	You may also have to adjust the position of the sprite to match the crate in DM.*/
 /obj/structure/closet/crate
 	name = "crate"
 	desc = "A rectangular steel crate."

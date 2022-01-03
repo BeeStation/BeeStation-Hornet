@@ -26,7 +26,6 @@
 	cartridge_wording = "shell"
 	tac_reloads = FALSE
 	fire_rate = 1 //reee
-	block_upgrade_walk = 1
 	recoil = 1
 	pb_knockback = 2
 
@@ -169,6 +168,7 @@
 	automatic = 1
 	recoil = 0
 	bolt_type = BOLT_TYPE_STANDARD	//Not using a pump
+	full_auto = TRUE
 
 /obj/item/gun/ballistic/shotgun/bulldog/unrestricted
 	pin = /obj/item/firing_pin

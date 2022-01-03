@@ -2,8 +2,8 @@
 	name = "VIP Recovery"
 	var/generated = FALSE
 	var/mob/mob_to_recover
-	min_payout = 100000
-	max_payout = 200000
+	min_payout = 10000
+	max_payout = 20000
 
 /datum/orbital_objective/vip_recovery/get_text()
 	return "Someone of particular interest to us is located at [station_name]. We require them to be extracted immediately. \

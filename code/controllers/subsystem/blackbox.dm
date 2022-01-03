@@ -77,9 +77,9 @@ SUBSYSTEM_DEF(blackbox)
 
 /datum/controller/subsystem/blackbox/vv_edit_var(var_name, var_value)
 	switch(var_name)
-		if("feedback")
+		if(NAMEOF(src, feedback))
 			return FALSE
-		if("sealed")
+		if(NAMEOF(src, sealed))
 			if(var_value)
 				return Seal()
 			return FALSE
@@ -114,6 +114,7 @@ SUBSYSTEM_DEF(blackbox)
 	for (var/datum/feedback_variable/FV in feedback)
 		sqlrowlist += list(list(
 			"round_id" = GLOB.round_id,
+			"server_name" = CONFIG_GET(string/serversqlname),
 			"key_name" = FV.key,
 			"key_type" = FV.key_type,
 			"version" = versions[FV.key] || 1,

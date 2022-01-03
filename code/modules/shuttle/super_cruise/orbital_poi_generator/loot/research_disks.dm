@@ -36,6 +36,9 @@
 /obj/item/disk/tech_disk/research/swapper
 	node_id = "qswapper"
 
+/obj/item/disk/tech_disk/research/plasma_refiner
+	node_id = "plasmarefiner"
+
 /obj/item/disk/tech_disk/research/adv_combat_implants
 	node_id = "adv_combat_cyber_implants"
 

@@ -36,9 +36,11 @@
 #define TRAIT_SOURCE_UNIT_TESTS "unit_tests"
 
 #include "anchored_mobs.dm"
+#include "check_adjustable_clothing.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
 #include "dynamic_ruleset_sanity.dm"
+#include "keybinding_init.dm"
 #include "reagent_id_typos.dm"
 #include "reagent_recipe_collisions.dm"
 #include "spawn_humans.dm"
