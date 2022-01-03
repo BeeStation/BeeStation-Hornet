@@ -38,6 +38,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_PERSONNEL
 	departments = DEPARTMENT_COMMAND | DEPARTMENT_SERVICE
+	rpg_title = "Guild Questgiver"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hop

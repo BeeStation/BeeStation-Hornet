@@ -32,6 +32,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_ENGINEER
 	departments = DEPARTMENT_ENGINEERING | DEPARTMENT_COMMAND
+	rpg_title = "High Crystallomancer"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/ce

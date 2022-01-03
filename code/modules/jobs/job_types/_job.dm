@@ -79,6 +79,10 @@
 	///A dictionary of species IDs and a path to the outfit.
 	var/list/species_outfits = null
 
+	///RPG job names, for the memes
+	var/rpg_title
+
+
 /datum/job/New()
 	. = ..()
 	say_span = replacetext(lowertext(title), " ", "")
