@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - refactor: Refactors silicon access, so that station cyborgs and AIs cannot use
+      doors that don't belong to Nanotrasen. (Pirate doors, gateway doors, Centcom
+      doors, Syndicate doors).

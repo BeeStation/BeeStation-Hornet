@@ -30,7 +30,7 @@
 	light_system = MOVABLE_LIGHT
 	light_range = 6
 	light_power = 1
-	light_on = TRUE
+	light_on = FALSE
 	var/twohand_force = 34
 	var/hacked = FALSE
 	var/list/possible_colors = list("red", "blue", "green", "purple")
@@ -73,7 +73,7 @@
 	w_class = w_class_on
 	hitsound = 'sound/weapons/blade1.ogg'
 	START_PROCESSING(SSobj, src)
-	set_light(TRUE)
+	set_light_on(TRUE)
 
 /// Triggered on unwield of two handed item
 /// switch hitsounds
@@ -84,7 +84,7 @@
 	w_class = initial(w_class)
 	hitsound = "swing_hit"
 	STOP_PROCESSING(SSobj, src)
-	set_light(FALSE)
+	set_light_on(FALSE)
 
 /obj/item/dualsaber/update_icon()
 	icon_state = "dualsaber0"

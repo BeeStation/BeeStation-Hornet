@@ -273,7 +273,8 @@
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/mop/advanced=1,
 		/obj/item/reagent_containers/glass/bucket=1,
-		/obj/item/grenade/clusterbuster/cleaner=1)
+		/obj/item/grenade/clusterbuster/cleaner=1,
+		/obj/item/choice_beacon/janicart)
 
 /datum/outfit/ert/janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -291,7 +292,8 @@
 		/obj/item/storage/box/lights/mixed=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/grenade/clusterbuster/cleaner=3,
-		/obj/item/reagent_containers/spray/chemsprayer/janitor=1)
+		/obj/item/reagent_containers/spray/chemsprayer/janitor=1,
+		/obj/item/choice_beacon/janicart)
 
 /datum/outfit/ert/kudzu
 	name = "ERT Weed Whacker"

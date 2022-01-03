@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Cult and clockie spells now check for holy anti-magic sources.
+  - balance: The bible now needs to be held in hand to function as an anti-magic source
+      (The bible also now protects against clockie and cult spells)

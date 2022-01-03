@@ -1,0 +1,257 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall,
+/area/template_noop)
+"d" = (
+/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"e" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/table/wood/fancy/orange,
+/obj/machinery/chem_dispenser/drinks{
+	dir = 4
+	},
+/turf/open/floor/wax,
+/area/template_noop)
+"k" = (
+/obj/structure/closet,
+/turf/open/floor/wax,
+/area/template_noop)
+"o" = (
+/obj/structure/chair/sofa/corp/right{
+	color = "#ffd966";
+	dir = 8
+	},
+/obj/machinery/newscaster{
+	pixel_x = 28;
+	pixel_y = 1
+	},
+/turf/open/floor/wax,
+/area/template_noop)
+"p" = (
+/obj/structure/closet,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/wax,
+/area/template_noop)
+"s" = (
+/obj/machinery/jukebox,
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
+/turf/open/floor/wax,
+/area/template_noop)
+"t" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/turf/open/floor/wax,
+/area/template_noop)
+"v" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 24
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/turf/open/floor/wax,
+/area/template_noop)
+"x" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 6
+	},
+/turf/open/floor/wax,
+/area/template_noop)
+"C" = (
+/obj/structure/chair/sofa/corp/corner{
+	color = "#ffd966";
+	dir = 8
+	},
+/turf/open/floor/wax,
+/area/template_noop)
+"D" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/public/glass{
+	name = "Bee Lounge Backroom"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/turf/open/floor/plasteel/grid/steel,
+/area/template_noop)
+"E" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/toy/plush/beeplushie,
+/turf/open/floor/wax,
+/area/template_noop)
+"F" = (
+/obj/machinery/shower{
+	dir = 8
+	},
+/obj/structure/sink{
+	pixel_y = 30
+	},
+/turf/open/floor/noslip/standard,
+/area/template_noop)
+"G" = (
+/obj/structure/chair/sofa/corp/right{
+	color = "#ffd966";
+	dir = 1
+	},
+/obj/machinery/light_switch{
+	pixel_x = -4;
+	pixel_y = -32
+	},
+/obj/item/toy/plush/beeplushie,
+/turf/open/floor/wax,
+/area/template_noop)
+"H" = (
+/obj/item/toy/plush/beeplushie,
+/turf/open/floor/wax,
+/area/template_noop)
+"J" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Bee Lounge Maintenance";
+	req_access_txt = "12"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/turf/template_noop,
+/area/template_noop)
+"K" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/turf/open/floor/wax,
+/area/template_noop)
+"M" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 8
+	},
+/turf/open/floor/wax,
+/area/template_noop)
+"O" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/noslip/standard,
+/area/template_noop)
+"P" = (
+/obj/structure/beebox,
+/turf/open/floor/wax,
+/area/template_noop)
+"Q" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+	dir = 8
+	},
+/turf/open/floor/wax,
+/area/template_noop)
+"R" = (
+/turf/closed/wall/r_wall,
+/area/template_noop)
+"S" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 6
+	},
+/turf/open/floor/wax,
+/area/template_noop)
+"U" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/template_noop)
+"V" = (
+/turf/open/floor/wax,
+/area/template_noop)
+"W" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/structure/mineral_door/wood{
+	name = "Bee Lounge"
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/template_noop)
+"X" = (
+/turf/open/floor/noslip/standard,
+/area/template_noop)
+
+(1,1,1) = {"
+U
+V
+V
+E
+e
+V
+P
+a
+p
+k
+a
+"}
+(2,1,1) = {"
+W
+V
+S
+K
+K
+x
+t
+D
+t
+v
+J
+"}
+(3,1,1) = {"
+W
+V
+Q
+V
+V
+M
+G
+a
+X
+a
+a
+"}
+(4,1,1) = {"
+U
+s
+H
+V
+d
+o
+C
+a
+F
+O
+R
+"}
+(5,1,1) = {"
+a
+a
+U
+U
+a
+a
+a
+a
+a
+a
+R
+"}

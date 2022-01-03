@@ -269,6 +269,16 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/woodenbow
+	name = "Wooden Bow"
+	result = /obj/item/gun/ballistic/bow
+	reqs = list(/obj/item/stack/sheet/mineral/wood = 8,
+				/obj/item/stack/sheet/iron = 2,
+				/obj/item/weaponcrafting/silkstring = 4)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/meteorslug
 	name = "Meteorslug Shell"
 	result = /obj/item/ammo_casing/shotgun/meteorslug

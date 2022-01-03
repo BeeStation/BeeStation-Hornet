@@ -73,6 +73,7 @@
 	mag_display = TRUE
 	mag_display_ammo = TRUE
 	empty_indicator = TRUE
+	full_auto = TRUE
 
 /obj/item/gun/ballistic/automatic/c20r/unrestricted
 	pin = /obj/item/firing_pin
@@ -97,6 +98,7 @@
 	empty_indicator = TRUE
 	fire_rate = 3
 	w_class = WEIGHT_CLASS_BULKY
+	full_auto = TRUE
 
 /obj/item/gun/ballistic/automatic/wt550/rubber_loaded
 	mag_type = /obj/item/ammo_box/magazine/wt550m9/rubber
@@ -233,6 +235,7 @@
 	tac_reloads = FALSE
 	fire_sound = 'sound/weapons/rifleshot.ogg'
 	rack_sound = 'sound/weapons/chunkyrack.ogg'
+	full_auto = TRUE
 
 /obj/item/gun/ballistic/automatic/l6_saw/unrestricted
 	pin = /obj/item/firing_pin
