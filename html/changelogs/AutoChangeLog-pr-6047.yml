@@ -1,0 +1,5 @@
+author: Isy232
+delete-after: true
+changes:
+  - balance: Removed blindness traps on ratvar ruins.
+  - balance: Xeno spawns on xeno ruins scaled by 1/3rd.
