@@ -1,0 +1,5 @@
+author: ike709
+delete-after: true
+changes:
+  - admin: The "follow" button in the arena controller has been re-added, minus the
+      serious security problem.
