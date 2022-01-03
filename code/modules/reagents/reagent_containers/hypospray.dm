@@ -8,7 +8,7 @@
 	icon_state = "hypo"
 	amount_per_transfer_from_this = 5
 	volume = 30
-	possible_transfer_amounts = list(1,5,10,15,20,25,30)
+	possible_transfer_amounts = list(1,5,15)
 	resistance_flags = ACID_PROOF
 	reagent_flags = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT

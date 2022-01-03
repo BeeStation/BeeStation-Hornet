@@ -160,7 +160,6 @@
 	updated = 0
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/proc/update_surgery()
-	. = ..()
 	for(var/i in linked_techweb.researched_designs)
 		var/datum/design/surgery/D = SSresearch.techweb_design_by_id(i)
 		if(!istype(D))
@@ -168,7 +167,6 @@
 		advanced_surgeries |= D.surgery
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/proc/show_surgery_list()
-	. = ..()
 	if(updated<length(advanced_surgeries))
 		to_chat(usr, "Surgical Implant updated.")
 		updated = length(advanced_surgeries)

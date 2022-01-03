@@ -25,7 +25,7 @@
 /obj/item/autosurgeon/proc/insert_organ(var/obj/item/I)
 	storedorgan += I
 	I.forceMove(src)
-	if(initial(name) == "autosurgeon")
+	if(cmptext(initial(name), "autosurgeon"))
 		name = "[initial(name)] ([storedorgan.name])"
 	else
 		name = "[initial(name)]"
