@@ -41,9 +41,9 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 	var/deity_name = "Christ"
 	force_string = "holy"
 
-/obj/item/storage/book/bible/Initialize()
+/obj/item/storage/book/bible/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/anti_magic, FALSE, TRUE)
+	AddComponent(/datum/component/anti_magic, FALSE, TRUE, _allowed_slots = ITEM_SLOT_HANDS)
 
 /obj/item/storage/book/bible/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is offering [user.p_them()]self to [deity_name]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
