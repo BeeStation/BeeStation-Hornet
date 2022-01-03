@@ -114,7 +114,7 @@
 	mask = /obj/item/clothing/mask/breath
 	suit_store = /obj/item/tank/internals/oxygen
 	ears = /obj/item/radio/headset/syndicate
-	id = /obj/item/card/id
+	id = /obj/item/card/id/pirate
 
 /datum/outfit/pirate/space/captain
 	head = /obj/item/clothing/head/helmet/space/pirate

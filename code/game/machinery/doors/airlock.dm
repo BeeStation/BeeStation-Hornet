@@ -1595,7 +1595,7 @@
 			. = TRUE
 
 /obj/machinery/door/airlock/proc/user_allowed(mob/user)
-	return (issilicon(user) && canAIControl(user)) || IsAdminGhost(user)
+	return (issilicon(user) && allowed(user) && canAIControl(user)) || IsAdminGhost(user)
 
 /obj/machinery/door/airlock/proc/shock_restore(mob/user)
 	if(!user_allowed(user))
