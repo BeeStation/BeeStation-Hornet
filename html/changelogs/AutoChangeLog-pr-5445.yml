@@ -1,0 +1,4 @@
+author: KubeRoot, Mothblocks
+delete-after: true
+changes:
+  - rscadd: The communications console now uses tgui
