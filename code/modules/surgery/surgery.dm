@@ -64,6 +64,13 @@
 		if(type in SP.advanced_surgeries)
 			return TRUE
 
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.getorganslot(ORGAN_SLOT_SURGICAL_IMPLANT)
+		if(!IMP || (replaced_by in IMP.advanced_surgeries))
+			return .
+		if(type in IMP.advanced_surgeries)
+			return TRUE
 
 	var/turf/T = get_turf(target)
 	var/obj/structure/table/optable/table = locate(/obj/structure/table/optable, T)
@@ -83,6 +90,7 @@
 			return FALSE
 		if(type in the_stasis_bed.op_computer.advanced_surgeries)
 			return TRUE
+
 
 /datum/surgery/proc/next_step(mob/user, intent)
 	if(step_in_progress)
@@ -132,6 +140,14 @@
 		if(!SP)
 			return FALSE
 		if(type in SP.advanced_surgeries)
+			return TRUE
+
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.getorganslot(ORGAN_SLOT_SURGICAL_IMPLANT)
+		if(!IMP)
+			return FALSE
+		if(type in IMP.advanced_surgeries)
 			return TRUE
 
 	var/turf/T = get_turf(target)

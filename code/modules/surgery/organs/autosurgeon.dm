@@ -7,10 +7,10 @@
 	icon_state = "autoimplanter"
 	item_state = "nothing"
 	w_class = WEIGHT_CLASS_SMALL
-	var/obj/item/organ/storedorgan
+	var/list/obj/item/organ/storedorgan = list()
 	var/organ_type = /obj/item/organ
 	var/uses = INFINITE
-	var/starting_organ
+	var/list/starting_organ
 
 /obj/item/autosurgeon/syndicate
 	name = "suspicious autosurgeon"
@@ -19,12 +19,16 @@
 /obj/item/autosurgeon/Initialize(mapload)
 	. = ..()
 	if(starting_organ)
-		insert_organ(new starting_organ(src))
+		for(var/each in starting_organ)
+			insert_organ(new each(src))
 
 /obj/item/autosurgeon/proc/insert_organ(var/obj/item/I)
-	storedorgan = I
+	storedorgan += I
 	I.forceMove(src)
-	name = "[initial(name)] ([storedorgan.name])"
+	if(initial(name) == "autosurgeon")
+		name = "[initial(name)] ([storedorgan.name])"
+	else
+		name = "[initial(name)]"
 
 /obj/item/autosurgeon/attack_self(mob/user)//when the object it used...
 	if(!uses)
@@ -33,7 +37,8 @@
 	else if(!storedorgan)
 		to_chat(user, "<span class='notice'>[src] currently has no implant stored.</span>")
 		return
-	storedorgan.Insert(user)//insert stored organ into the user
+	for(var/obj/item/organ/each in storedorgan)
+		each.Insert(user)//insert stored organ into the user
 	user.visible_message("<span class='notice'>[user] presses a button on [src], and you hear a short mechanical noise.</span>", "<span class='notice'>You feel a sharp sting as [src] plunges into your body.</span>")
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 50, 1)
 	storedorgan = null
@@ -82,9 +87,10 @@
 	return TRUE
 
 /obj/item/autosurgeon/cmo
+	name = "Nanotrasen Medical Autosurgeon"
 	desc = "A single use autosurgeon that contains a medical heads-up display augment. A screwdriver can be used to remove it, but implants can't be placed back in."
 	uses = 1
-	starting_organ = /obj/item/organ/cyberimp/eyes/hud/medical
+	starting_organ = list(/obj/item/organ/cyberimp/eyes/hud/medical, /obj/item/organ/cyberimp/brain/linkedsurgery)
 
 /obj/item/autosurgeon/syndicate/laser_arm
 	desc = "A single use autosurgeon that contains a combat arms-up laser augment. A screwdriver can be used to remove it, but implants can't be placed back in."
