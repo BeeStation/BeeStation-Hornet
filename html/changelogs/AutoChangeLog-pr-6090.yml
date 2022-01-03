@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Pubbystation book inventory management console is now close enough to
-      the scanner to upload books.
