@@ -389,3 +389,15 @@
 	build_path = /obj/item/shell/airlock
 	build_type = PROTOLATHE | COMPONENT_PRINTER
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_SHELLS)
+
+/datum/design/assembly_shell
+	name = "Modular Assembly Shell"
+	desc = "A shell that functions as an assembly."
+	id = "assembly_shell"
+	materials = list(
+		/datum/material/glass = 2000,
+		/datum/material/iron = 5000,
+	)
+	build_path = /obj/item/assembly/modular
+	build_type = PROTOLATHE | COMPONENT_PRINTER
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_SHELLS)
