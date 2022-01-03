@@ -12,10 +12,11 @@
 /obj/item/stickable/examine(mob/user)
 	. = ..()
 	if(possible_icon_states)
-		. +=  "\n[current_icon] is currently selected, <span class='notice'>Alt-click to switch the sticker selected.</span>"
+		. +=  "\n[current_icon] is currently selected, <span class='notice'>Use in hand to switch the sticker selected.</span>"
 
-//Alt Click sticker selection
-/obj/item/stickable/AltClick(mob/user)
+//Sticker selection
+/obj/item/stickable/attack_self(mob/user)
+	. = ..()
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
 	var/obj/item/stickable/selecting = src
@@ -158,7 +159,7 @@
 //Bag Quick Reference: "sticker_type" is a typepath for the sticker/object you want inside, "sticker_count" (default 10) is how many stickers you can get
 //Stickable Quick Ref: icon/icon_state are for the in-hand and ground icons, "current_icon" is the icon_state that will be applied to a target.
 //"target_icon" is the .dmi icon file selected to use, very rare that it will be needed but exists for possible alternate icon files.
-//"possible_icon_states" is optional and is a list of possible states for "current_icon" that can be switched between with alt-click.
+//"possible_icon_states" is optional and is a list of possible states for "current_icon" that can be switched between by using in hand.
 
 //Sticker Roll Box
 /obj/item/storage/box/stickers
@@ -190,7 +191,7 @@
 //Alphabet Sticker
 /obj/item/stickable/alphabet
 	name = "Alphabet Sticker"
-	desc = "Using bluespace technology, you can apply any letter of the alphabet to almost any surface.\n <span class='notice'>Alt-click to switch the letter selected.</span>"
+	desc = "Using bluespace technology, you can apply any letter of the alphabet to almost any surface."
 	possible_icon_states = list("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
 	current_icon = "A"
 
@@ -204,7 +205,7 @@
 //Number Stickers
 /obj/item/stickable/number
 	name = "Number Sticker"
-	desc = "Using bluespace technology, you can apply any number to almost any surface.\n <span class='notice'>Alt-click to switch the number selected.</span>"
+	desc = "Using bluespace technology, you can apply any number to almost any surface."
 	possible_icon_states = list("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
 	current_icon = "0"
 
