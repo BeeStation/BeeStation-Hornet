@@ -190,6 +190,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 				if(cogs >= S.cogs_required)
 					cogs -= S.cogs_required
 					to_chat(M, "<span class='brass'>You unlocked [S.name]. It can now be invoked and quickbound through your slab.</span>")
+					log_game("[S.name] purchased by [M.ckey]/[M.name] the [M.job] for [S.cogs_required] cogs, [cogs] cogs remaining.")
 					purchased_scriptures += S.type
 				else
 					to_chat(M, "<span class='brass'>You need [S.cogs_required] cogs to unlock [S.name], you only have [cogs] left!</span>")

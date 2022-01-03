@@ -742,6 +742,7 @@
 					if(E.limit)
 						E.limit--
 					uses -= E.cost
+					log_game("[initial(E.name)] purchased by [H.ckey]/[H.name] the [H.job] for [E.cost] SP, [uses] SP remaining.")
 		else if(href_list["refund"])
 			E = entries[text2num(href_list["refund"])]
 			if(E?.refundable)

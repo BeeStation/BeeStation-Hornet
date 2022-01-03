@@ -22,6 +22,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
 	departments = DEPARTMENT_MEDICAL
+	rpg_title = "Plague Doctor"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/viro
