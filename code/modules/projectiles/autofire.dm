@@ -33,25 +33,6 @@ Everything else should be handled for you. Good luck soldier.
 			autofire_component?.default_fire_delay = (10 / var_value)
 			return
 
-//Place any guns that you want to be fully automatic here (for record-keeping and so NSV can avoid conflicts please and thank.)
-/obj/item/gun/ballistic/automatic/l6_saw
-	full_auto = TRUE
-
-/obj/item/gun/ballistic/automatic/c20r
-	full_auto = TRUE
-
-/obj/item/gun/energy/minigun
-	full_auto = TRUE
-
-/obj/item/gun/ballistic/automatic/laser/ctf
-	full_auto = TRUE //Rule of cool.
-
-/obj/item/gun/ballistic/automatic/wt550
-	full_auto = TRUE
-
-/obj/item/gun/ballistic/shotgun/bulldog
-	full_auto = TRUE
-
 /obj/item/gun/Initialize()
 	. = ..()
 	if(full_auto)
