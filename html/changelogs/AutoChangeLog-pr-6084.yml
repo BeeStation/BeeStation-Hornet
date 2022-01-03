@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - code_imp: Moved the auto-fire variable to the guns themselves rather than autofire.dm
