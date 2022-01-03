@@ -68,6 +68,7 @@
 ///Achievements are one-off awards for usually doing cool things.
 /datum/award/achievement
 	desc = "Achievement for epic people"
+	var/reward = 100
 
 /datum/award/achievement/get_metadata_row()
 	. = ..()
@@ -80,7 +81,7 @@
 	. = ..()
 	for(var/client/C in GLOB.clients)
 		to_chat(C, "<span class='greenannounce'><B>[user.client.key] earned the achievement: [name]</B></span>")
-	user.client.inc_metabalance(METACOIN_ACHIEVEMENT_REWARD, reason="Earned an achievement!")
+	user.client.inc_metabalance(reward, reason="Earned an achievement!")
 
 ///Scores are for leaderboarded things, such as killcount of a specific boss
 /datum/award/score
