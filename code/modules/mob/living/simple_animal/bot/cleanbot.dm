@@ -362,16 +362,6 @@
 			else
 				visible_message("<span class='danger'>[src] whirs and bubbles violently before releasing a plume of froth!</span>")
 				new /obj/effect/particle_effect/foam(loc)
-	else if(knife)
-		if(istype(A, /mob/living))
-			var/mob/living/victim = A
-			if(victim.stat != DEAD)
-				if(prob(35)) //Not all the time
-					if(prob(50))
-						zone_selected = LEG_LEFT
-					else
-						zone_selected = LEG_RIGHT
-					knife.attack(victim, src)
 
 	else
 		..()
