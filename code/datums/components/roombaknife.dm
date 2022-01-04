@@ -6,7 +6,6 @@
 
 /datum/component/roombaknife/Initialize(damage = 0)
     knife_damage = damage
-    RegisterSignal(parent, COMSIG_MOVABLE_BUMP, .proc/knife_collide)
     RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/knife_crossed)
     RegisterSignal(parent, COMSIG_ROOMBA_DESTROY, .proc/roomba_destroyed)
 
@@ -23,14 +22,8 @@
         playsound(get_turf(P), 'sound/weapons/slice.ogg', 50, 1)
         cooldown = (world.time + 8) //Knife cooldown is equal to default unarmed attack speed
 
-/datum/component/roombaknife/proc/knife_collide(datum/source, atom/A)
-	SIGNAL_HANDLER
 
-	if(iscarbon(A))
-		var/mob/living/carbon/C = A
-		stab(C)
-
-/datum/component/roombaknife/proc/knife_crossed(datum/source, atom/movable/M)
+/datum/component/roombaknife/proc/knife_crossed(datum/source, atom/movable/M, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(iscarbon(M))
