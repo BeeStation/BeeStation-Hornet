@@ -66,8 +66,10 @@
 	verbs -= /obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat
 
 /obj/item/clothing/head/helmet/space/plasmaman/Destroy()
-	if (attached_hat && !attached_hat.resistance_flags & INDESTRUCTIBLE)
+	if (attached_hat && !(attached_hat.resistance_flags & INDESTRUCTIBLE))
 		QDEL_NULL(attached_hat)
+	else
+		attached_hat.force_move(get_turf(src))
 	..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
