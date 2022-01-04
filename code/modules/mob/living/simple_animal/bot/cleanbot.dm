@@ -392,11 +392,12 @@
 				message_admins("[user] attached a [newknife.name] to [src]") //This should definitely be a notified thing.
 				src.AddComponent(/datum/component/roombaknife, knife.force)
 				update_icons()
-	return ..()
+	else
+		return ..()
 
 /mob/living/simple_animal/bot/cleanbot/roomba/update_icons()
 	if(knife)
-		var/mutable_appearance/knife_overlay = knife.build_worn_icon(state = knife.icon_state, default_layer = 20, default_icon_file = knife.lefthand_file)
+		var/mutable_appearance/knife_overlay = knife.build_worn_icon(state = knife.icon_state, default_layer = 20, default_icon_file = 'icons/mob/inhands/misc/roomba.dmi')
 		var/matrix/M = knife_overlay.transform
 		knife_overlay.transform = M.Turn(-45)
 		add_overlay(knife_overlay)
