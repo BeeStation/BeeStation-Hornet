@@ -274,7 +274,7 @@
 		drop_part(robot_arm, Tsec)
 
 	do_sparks(3, TRUE, src)
-	..()
+	qdel(src)
 
 /obj/item/roombaframe
 	name = "Roomba Frame"
