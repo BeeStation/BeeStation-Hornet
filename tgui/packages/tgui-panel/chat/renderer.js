@@ -105,7 +105,6 @@ const formatHighContrast = inputHtml => {
     "gimmick",
     "barber",
     "stagemagician",
-    "debtor",
     "psychiatrist",
     "vip",
   ];

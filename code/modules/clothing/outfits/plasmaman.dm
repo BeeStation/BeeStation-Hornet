@@ -24,15 +24,6 @@
 	helmet_variants = list(HELMET_MK2 = null,
 							HELMET_PROTECTIVE = null)
 
-/datum/outfit/plasmaman/hobo
-	name = "Hobo Plasmaman"
-
-	head = /obj/item/clothing/head/foilhat/plasmaman
-	uniform = /obj/item/clothing/under/plasmaman
-
-	helmet_variants = list(HELMET_MK2 = null,
-							HELMET_PROTECTIVE = null)
-
 /datum/outfit/plasmaman/chef
 	name = "Chef Plasmaman"
 

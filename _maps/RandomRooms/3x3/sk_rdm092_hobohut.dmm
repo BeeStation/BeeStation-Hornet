@@ -50,7 +50,6 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/landmark/start/randommaint/hobo,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/template_noop)
