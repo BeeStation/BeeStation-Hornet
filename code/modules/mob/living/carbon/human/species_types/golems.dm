@@ -179,6 +179,7 @@
 /datum/species/golem/silver/on_species_loss(mob/living/carbon/C)
 	REMOVE_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)
 	..()
+
 // Softer and faster, but conductive
 /datum/species/golem/copper
 	name = "Copper Golem"

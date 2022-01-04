@@ -22,6 +22,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_BRIG_PHYS
 	departments = DEPARTMENT_MEDICAL | DEPARTMENT_SECURITY
+	rpg_title = "Battle Cleric"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/secmed
