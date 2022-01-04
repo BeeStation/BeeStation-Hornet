@@ -11311,16 +11311,6 @@
 	},
 /turf/open/floor/plasteel/grid,
 /area/medical/virology)
-"cBD" = (
-/obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-left-fland";
-	pixel_y = 32
-	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
-/area/docking/arrival)
 "cBG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -45838,16 +45828,6 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/research)
-"kII" = (
-/obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-right-fland";
-	pixel_y = 32
-	},
-/turf/open/floor/plating/airless{
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	},
-/area/docking/arrival)
 "kIU" = (
 /obj/effect/turf_decal/loading_area,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
@@ -117683,7 +117663,7 @@ bbm
 bbm
 bbm
 bbm
-cBD
+bbm
 bbm
 bbm
 bbm
@@ -117940,7 +117920,7 @@ bbm
 bbm
 bbm
 bbm
-kII
+bbm
 bbm
 bbm
 bbm
