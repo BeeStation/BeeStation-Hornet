@@ -392,10 +392,11 @@
 /mob/living/simple_animal/bot/cleanbot/roomba/attacked_by(obj/item/I, mob/living/user)
 	if(I) //Does the arg exist?
 		if(istype(I, /obj/item/kitchen/knife)) //Is it a knife?
-			var/obj/item/kitchen/knife/newknife = I
-			knife = newknife
-			message_admins("[user] attached a [newknife] to [src]") //This should definitely be a notified thing.
-			update_icons()
+			if(!knife)
+				var/obj/item/kitchen/knife/newknife = I
+				knife = newknife
+				message_admins("[user] attached a [newknife] to [src]") //This should definitely be a notified thing.
+				update_icons()
 	else
 		..()
 
