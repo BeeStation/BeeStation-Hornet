@@ -393,9 +393,11 @@
 	if(I) //Does the arg exist?
 		if(istype(I, /obj/item/kitchen/knife)) //Is it a knife?
 			var/obj/item/kitchen/knife/newknife = I
-			newknife = knife
+			knife = newknife
 			message_admins("[user] attached a [newknife] to [src]") //This should definitely be a notified thing.
 			update_icons()
+	else
+		..()
 
 /mob/living/simple_animal/bot/cleanbot/roomba/update_icons()
 	if(knife)
