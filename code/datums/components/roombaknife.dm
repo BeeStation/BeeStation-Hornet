@@ -23,11 +23,20 @@
 		playsound(get_turf(P), 'sound/weapons/slice.ogg', 50, 1)
 		cooldown = (world.time + 8) //spike cooldown is equal to default unarmed attack speed
 
-/datum/component/roombaknife/proc/knife_collide()
-    return
+/datum/component/roombaknife/proc/knife_collide(datum/source, atom/A)
+	SIGNAL_HANDLER
 
-/datum/component/roombaknife/proc/knife_crossed()
-    return
+	if(iscarbon(A))
+		var/mob/living/carbon/C = A
+		stab(C)
+
+/datum/component/roombaknife/proc/knife_crossed(datum/source, atom/movable/M)
+	SIGNAL_HANDLER
+
+	var/atom/movable/P = parent
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		stab(C)
 
 /datum/component/roombaknife/proc/roomba_destroyed()
     qdel(src) //No more!!
