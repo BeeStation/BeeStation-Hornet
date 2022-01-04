@@ -301,6 +301,7 @@
 	name = "\improper Roomba"
 	desc = "A little Roomba, he looks so excited!"
 	icon_state = "roomba0"
+	var/obj/item/kitchen/knife/knife //You know exactly what this is about
 
 /mob/living/simple_animal/bot/cleanbot/roomba/Initialize()
 	. = ..()
@@ -361,6 +362,16 @@
 			else
 				visible_message("<span class='danger'>[src] whirs and bubbles violently before releasing a plume of froth!</span>")
 				new /obj/effect/particle_effect/foam(loc)
+	if(knife)
+		if(istype(A, /mob/living))
+			var/mob/living/victim = A
+			if(victim.stat != DEAD)
+				if(prob(35)) //Not all the time
+					if(prob(50))
+						zone_selected = LEG_LEFT
+					else
+						zone_selected = LEG_RIGHT
+					knife.attack(victim, src)
 
 	else
 		..()
@@ -377,6 +388,19 @@
 				qdel(C)
 	anchored = FALSE
 	target = null
+
+/mob/living/simple_animal/bot/cleanbot/roomba/attacked_by(obj/item/I, mob/living/user)
+	if(I) //Does the arg exist?
+		if(istype(I, /obj/item/kitchen/knife)) //Is it a knife?
+			var/obj/item/kitchen/knife/newknife = I
+			newknife = knife
+			message_admins("[user] attached a [newknife] to [src]") //This should definitely be a notified thing.
+			update_icons()
+
+/mob/living/simple_animal/bot/cleanbot/roomba/update_icons()
+	if(knife)
+		var/mutable_appearance/knife_overlay = knife.build_worn_icon(state = knife.icon_state, default_layer = 20, default_icon_file = knife.lefthand_file)
+		add_overlay(knife_overlay)
 
 /obj/machinery/bot_core/cleanbot
 	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
