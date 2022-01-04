@@ -159,10 +159,9 @@
 		return ..()
 
 /obj/machinery/computer/scan_consolenew/interact(mob/user, special_state)
-	if(!connected_scanner?.ignore_id)
-		if(!allowed(user))
-			to_chat(user, "<span class='warning'>Missing required access!</span>")
-			return
+	if(!connected_scanner?.ignore_id && !allowed(user))
+		to_chat(user, "<span class='warning'>Missing required access!</span>")
+		return
 	..()
 
 /obj/machinery/computer/scan_consolenew/AltClick(mob/user)
@@ -233,7 +232,6 @@
 		can_use_scanner = TRUE
 	else
 		can_use_scanner = FALSE
-		connect_scanner(null)
 		is_viable_occupant = FALSE
 
 	// Check for a viable occupant in the scanner.

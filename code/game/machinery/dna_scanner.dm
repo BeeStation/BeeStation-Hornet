@@ -151,20 +151,23 @@
 	close_machine(target)
 
 /obj/machinery/dna_scannernew/proc/irradiate(mob/living/carbon/target)
-	if(!HAS_TRAIT(target, TRAIT_RADIMMUNE))
-		to_chat(target, "<span class='danger'>You feel warm.</span>")
-		target.rad_act(250/(damage_coeff ** 2))
+	if(HAS_TRAIT(target, TRAIT_RADIMMUNE))
+		return
+	to_chat(target, "<span class='danger'>You feel warm.</span>")
+	target.rad_act(250/(damage_coeff ** 2))
 
-		if(target.has_dna() && !HAS_TRAIT(target, TRAIT_BADDNA))
-			var/resist = target.getarmor(null, "rad")
-			if(prob(max(0,100-resist)))
-				target.randmuti()
-				if(prob(20))
-					if(prob(90))
-						target.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
-					else
-						target.easy_randmut(POSITIVE)
-					target.domutcheck()
+	if(!target.has_dna() || HAS_TRAIT(target, TRAIT_BADDNA))
+		return
+
+	var/resist = target.getarmor(null, "rad")
+	if(prob(max(0,100-resist)))
+		target.randmuti()
+		if(prob(20))
+			if(prob(90))
+				target.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
+			else
+				target.easy_randmut(POSITIVE)
+			target.domutcheck()
 
 /obj/machinery/dna_scannernew/proc/shock(mob/user, prb)
 	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock

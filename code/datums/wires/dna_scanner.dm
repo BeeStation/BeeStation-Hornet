@@ -21,7 +21,7 @@
 	status += "The bolt lights are [S.locked ? "on" : "off"]."
 	return status
 
-/datum/wires/dna_scanner/on_pulse(wire)
+/datum/wires/dna_scanner/on_pulse(wire, user)
 	var/obj/machinery/dna_scannernew/S = holder
 	switch(wire)
 		if(WIRE_IDSCAN)
@@ -31,8 +31,8 @@
 			S.locked = !S.locked
 			S.update_icon()
 		if(WIRE_LIMIT)
-			if(iscarbon(usr))
-				S.irradiate(usr)
+			if(iscarbon(user))
+				S.irradiate(user)
 		if(WIRE_OPEN)
 			if(!S.locked)
 				if(S.state_open)
@@ -40,8 +40,8 @@
 				else
 					S.open_machine()
 		if(WIRE_ZAP1, WIRE_ZAP2)
-			if(isliving(usr))
-				S.shock(usr, 50)
+			if(isliving(user))
+				S.shock(user, 50)
 	ui_update()
 
 /datum/wires/dna_scanner/on_cut(wire, mend)
