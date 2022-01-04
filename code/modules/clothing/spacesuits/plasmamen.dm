@@ -63,9 +63,11 @@
 /obj/item/clothing/head/helmet/space/plasmaman/Initialize()
 	. = ..()
 	visor_toggling()
+	verbs -= /obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat
 
 /obj/item/clothing/head/helmet/space/plasmaman/Destroy()
-	QDEL_NULL(attached_hat)
+	if (attached_hat && !attached_hat.resistance_flags & INDESTRUCTIBLE)
+		QDEL_NULL(attached_hat)
 	..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
@@ -107,7 +109,7 @@
 				to_chat(user, "You draw a smiley on the helmet visor.")
 				update_icon()
 		return
-	if(istype(item, /obj/item/clothing/head))
+	if(istype(item, /obj/item/clothing/head) && !istype(item, /obj/item/clothing/head/helmet/space/plasmaman)) // i know someone is gonna do it after i thought about it
 		var/obj/item/clothing/head/hat = item
 		if(attached_hat)
 			to_chat(user, "<span class='notice'>There's already a hat on the helmet!</span>")
@@ -115,6 +117,7 @@
 		attached_hat = hat
 		hat.forceMove(src)
 		update_icon()
+		verbs += /obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat
 
 /obj/item/clothing/head/helmet/space/plasmaman/worn_overlays(isinhands)
 	. = ..()
@@ -134,13 +137,10 @@
 	set category = "Object"
 	set src in usr
 
-	if(!attached_hat)
-		// because the player may be confused seeing this verb in the object section what the source is
-		to_chat(usr, "<span class='notice'>There is no hat to take off of the [src.name]</span>")
-		return
 	usr.put_in_hands(attached_hat)
 	attached_hat = null
 	update_icon()
+	verbs -= /obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat
 
 /obj/item/clothing/head/helmet/space/plasmaman/ComponentInitialize()
 	. = ..()
