@@ -1,0 +1,4 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - admin: Admins can now delete library books.
