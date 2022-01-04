@@ -1,4 +1,0 @@
-author: Ivniinvi
-delete-after: true
-changes:
-  - bugfix: BoxStation Toxins will no longer blow up the exploration shuttle.
