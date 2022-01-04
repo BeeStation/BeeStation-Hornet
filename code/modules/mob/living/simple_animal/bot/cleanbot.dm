@@ -394,6 +394,8 @@
 /mob/living/simple_animal/bot/cleanbot/roomba/update_icons()
 	if(knife)
 		var/mutable_appearance/knife_overlay = knife.build_worn_icon(state = knife.icon_state, default_layer = 20, default_icon_file = knife.lefthand_file)
+		var/matrix/M = knife_overlay.transform
+		knife_overlay.transform = M.Turn(-45)
 		add_overlay(knife_overlay)
 
 /mob/living/simple_animal/bot/cleanbot/roomba/explode()
