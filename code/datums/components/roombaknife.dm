@@ -6,8 +6,8 @@
 /datum/component/roombaknife/Initialize(damage = 0)
     knife_damage = damage
     RegisterSignal(parent, COMSIG_MOVABLE_BUMP, .proc/knife_collide)
-	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/knife_crossed)
-	RegisterSignal(parent, COMSIG_ROOMBA_DESTROY, .proc/roomba_destroyed)
+    RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/knife_crossed)
+    RegisterSignal(parent, COMSIG_ROOMBA_DESTROY, .proc/roomba_destroyed)
 
 /datum/component/roombaknife/proc/stab(mob/living/carbon/C)
     if(istype(C) && cooldown <= world.time)
