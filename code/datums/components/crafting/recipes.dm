@@ -185,6 +185,14 @@
 	time = 40
 	category = CAT_ROBOT
 
+/datum/crafting_recipe/cleanbot/roomba
+	name = "Roomba"
+	result = /mob/living/simple_animal/bot/cleanbot/roomba
+	reqs = list(/obj/item/roombaframe = 1,
+				/obj/item/assembly/prox_sensor = 1,
+				/obj/item/bodypart/r_arm/robot = 1)
+
+
 /datum/crafting_recipe/floorbot
 	name = "Floorbot"
 	result = /mob/living/simple_animal/bot/floorbot
