@@ -661,7 +661,7 @@
 				return
 
 			var/path = GET_MUTATION_TYPE_FROM_ALIAS(params["alias"])
-			if(stored_research && (path in stored_research.discovered_mutations))
+			if(stored_research && stored_research.discovered_mutations[path])
 				var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(path)
 				// GUARD CHECK - This should not be possible. Unexpected result
 				if(!HM)
@@ -923,11 +923,11 @@
 			// If it's already discovered, end here. Otherwise, add it to the list of
 			//  discovered mutations.
 			// We've already checked for stored_research earlier
-			if(result_path in stored_research.discovered_mutations)
+			if(stored_research.discovered_mutations[result_path])
 				return
 
 			var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(result_path)
-			stored_research.discovered_mutations += result_path
+			stored_research.discovered_mutations[result_path] = TRUE
 			say("Successfully mutated [HM.name].")
 			return
 
@@ -985,11 +985,11 @@
 			// If it's already discovered, end here. Otherwise, add it to the list of
 			//  discovered mutations
 			// We've already checked for stored_research earlier
-			if(result_path in stored_research.discovered_mutations)
+			if(stored_research.discovered_mutations[result_path])
 				return
 
 			var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(result_path)
-			stored_research.discovered_mutations += result_path
+			stored_research.discovered_mutations[result_path] = TRUE
 			say("Successfully mutated [HM.name].")
 			return
 
@@ -1674,7 +1674,7 @@
 			var/list/mutation_data = list()
 			var/text_sequence = scanner_occupant.dna.mutation_index[mutation_type]
 			var/default_sequence = scanner_occupant.dna.default_mutation_genes[mutation_type]
-			var/discovered = (stored_research && (mutation_type in stored_research.discovered_mutations))
+			var/discovered = (stored_research && stored_research.discovered_mutations[mutation_type])
 
 			mutation_data["Alias"] = HM.alias
 			mutation_data["Sequence"] = text_sequence
@@ -1917,9 +1917,9 @@
 		return FALSE
 	if(M.scrambled)
 		return FALSE
-	if(stored_research && !(path in stored_research.discovered_mutations))
+	if(stored_research && !stored_research.discovered_mutations[path])
 		var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(path)
-		stored_research.discovered_mutations += path
+		stored_research.discovered_mutations[path] = TRUE
 		say("Successfully discovered [HM.name].")
 		return TRUE
 
