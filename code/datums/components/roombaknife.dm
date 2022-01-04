@@ -33,7 +33,6 @@
 /datum/component/roombaknife/proc/knife_crossed(datum/source, atom/movable/M)
 	SIGNAL_HANDLER
 
-	var/atom/movable/P = parent
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		stab(C)
