@@ -301,7 +301,9 @@
 	name = "\improper Roomba"
 	desc = "A little Roomba, he looks so excited!"
 	icon_state = "roomba0"
+
 	var/obj/item/kitchen/knife/knife //You know exactly what this is about
+
 
 /mob/living/simple_animal/bot/cleanbot/roomba/Initialize()
 	. = ..()
@@ -379,6 +381,7 @@
 	anchored = FALSE
 	target = null
 
+
 /mob/living/simple_animal/bot/cleanbot/roomba/attackby(obj/item/I, mob/living/user)
 	if(I) //Does the arg exist?
 		if(istype(I, /obj/item/kitchen/knife)) //Is it a knife?
@@ -416,6 +419,7 @@
 
 	do_sparks(3, TRUE, src)
 	..()
+
 
 /obj/machinery/bot_core/cleanbot
 	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)

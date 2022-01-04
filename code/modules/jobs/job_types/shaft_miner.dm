@@ -21,6 +21,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_SHAFT_MINER
 	departments = DEPARTMENT_CARGO
+	rpg_title = "Adventurer"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/mining

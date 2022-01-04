@@ -49,6 +49,11 @@ map kilostation
 	disabled
 endmap
 
+map flandstation
+	minplayers 40
+	votable
+endmap
+
 #Debug Maps, you probably don't want these enabled.
 
 map runtimestation

@@ -646,7 +646,10 @@
 // attack with hand - remove tube/bulb
 // if hands aren't protected and the light is on, burn the player
 
-/obj/machinery/light/attack_hand(mob/living/carbon/human/user)
+/obj/machinery/light/attack_paw(mob/living/carbon/user)
+	return attack_hand(user)
+
+/obj/machinery/light/attack_hand(mob/living/carbon/user)
 	. = ..()
 	if(.)
 		return
@@ -660,41 +663,39 @@
 	// make it burn hands unless you're wearing heat insulated gloves or have the RESISTHEAT/RESISTHEATHANDS traits
 	if(on)
 		var/prot = 0
-		var/mob/living/carbon/human/H = user
-
-		if(istype(H))
-			if(isethereal(H))
-				var/datum/species/ethereal/E = H.dna.species
+		if(istype(user))
+			if(isethereal(user))
+				var/datum/species/ethereal/E = user.dna.species
 				if(E.drain_time > world.time)
 					return
-				var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+				var/obj/item/organ/stomach/battery/stomach = user.getorganslot(ORGAN_SLOT_STOMACH)
 				if(!istype(stomach))
-					to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+					to_chat(user, "<span class='warning'>You can't receive charge!</span>")
 					return
-				if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
+				if(user.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
 					to_chat(user, "<span class='warning'>You are already fully charged!</span>")
 					return
 
-				to_chat(H, "<span class='notice'>You start channeling some power through the [fitting] into your body.</span>")
+				to_chat(user, "<span class='notice'>You start channeling some power through the [fitting] into your body.</span>")
 				E.drain_time = world.time + 35
 				while(do_after(user, 30, target = src))
 					E.drain_time = world.time + 35
 					if(!istype(stomach))
-						to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+						to_chat(user, "<span class='warning'>You can't receive charge!</span>")
 						return
-					to_chat(H, "<span class='notice'>You receive some charge from the [fitting].</span>")
+					to_chat(user, "<span class='notice'>You receive some charge from the [fitting].</span>")
 					stomach.adjust_charge(50)
 					use_power(50)
 					if(stomach.charge >= stomach.max_charge)
-						to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+						to_chat(user, "<span class='notice'>You are now fully charged.</span>")
 						E.drain_time = 0
 						return
-				to_chat(H, "<span class='warning'>You fail to receive charge from the [fitting]!</span>")
+				to_chat(user, "<span class='warning'>You fail to receive charge from the [fitting]!</span>")
 				E.drain_time = 0
 				return
 
-			if(H.gloves)
-				var/obj/item/clothing/gloves/G = H.gloves
+			if(user.gloves)
+				var/obj/item/clothing/gloves/G = user.gloves
 				if(G.max_heat_protection_temperature)
 					prot = (G.max_heat_protection_temperature > 360)
 		else
@@ -707,9 +708,9 @@
 		else
 			to_chat(user, "<span class='warning'>You try to remove the light [fitting], but you burn your hand on it!</span>")
 
-			var/obj/item/bodypart/affecting = H.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
+			var/obj/item/bodypart/affecting = user.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
 			if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
-				H.update_damage_overlays()
+				user.update_damage_overlays()
 			return				// if burned, don't remove the light
 	else
 		to_chat(user, "<span class='notice'>You remove the light [fitting].</span>")
@@ -893,7 +894,7 @@
 
 	if(!istype(L, /mob/living) || !has_gravity(loc))
 		return
-	
+
 	if(HAS_TRAIT(L, TRAIT_LIGHT_STEP))
 		playsound(loc, 'sound/effects/glass_step.ogg', 30, 1)
 	else
