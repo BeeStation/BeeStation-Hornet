@@ -1,3 +1,4 @@
+//Roombas With Knives
 /datum/component/roombaknife
     dupe_mode = COMPONENT_DUPE_ALLOWED
     var/knife_damage
@@ -13,9 +14,16 @@
     if(istype(C) && cooldown <= world.time)
         var/atom/movable/P = parent
         var/leg
-        if(prob50)
+        if(prob(50))
             leg = LEG_RIGHT
         else
             leg = LEG_LEFT
 
+/datum/component/roombaknife/proc/knife_collide()
+    return
 
+/datum/component/roombaknife/proc/knife_crossed()
+    return
+
+/datum/component/roombaknife/proc/roomba_destroyed()
+    qdel(src) //No more!!
