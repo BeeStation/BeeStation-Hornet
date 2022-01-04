@@ -396,6 +396,25 @@
 		var/mutable_appearance/knife_overlay = knife.build_worn_icon(state = knife.icon_state, default_layer = 20, default_icon_file = knife.lefthand_file)
 		add_overlay(knife_overlay)
 
+/mob/living/simple_animal/bot/cleanbot/roomba/explode()
+	on = FALSE
+	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	SEND_SIGNAL(src, COMSIG_ROOMBA_DESTROY)
+	var/atom/Tsec = drop_location()
+
+	new /obj/item/roombaframe(Tsec)
+
+	new /obj/item/assembly/prox_sensor(Tsec)
+
+	if(prob(50))
+		drop_part(robot_arm, Tsec)
+	if(knife)
+		if(prob(50))
+			new knife(Tsec)
+
+	do_sparks(3, TRUE, src)
+	..()
+
 /obj/machinery/bot_core/cleanbot
 	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
 
