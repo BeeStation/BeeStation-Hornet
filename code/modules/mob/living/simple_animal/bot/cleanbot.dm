@@ -396,7 +396,8 @@
 				var/obj/item/kitchen/knife/newknife = I
 				knife = newknife
 				newknife.forceMove(src)
-				message_admins("[user] attached a [newknife] to [src]") //This should definitely be a notified thing.
+				message_admins("[user] attached a [newknife.name] to [src]") //This should definitely be a notified thing.
+				src.AddComponent(/datum/component/roombaknife, knife.force)
 				update_icons()
 	return ..()
 
