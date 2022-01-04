@@ -5714,7 +5714,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1;
 	name = "supermatter vent";
-	tag =  "sm_in"
+	tag = "sm_in"
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
