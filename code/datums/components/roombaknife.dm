@@ -11,6 +11,7 @@
 /datum/component/roombaknife/Initialize(damage = 0)
     knife_damage = damage
     RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/knife_crossed)
+    RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/knife_move)
     RegisterSignal(parent, COMSIG_ROOMBA_DESTROY, .proc/roomba_destroyed)
     add_connect_loc_behalf_to_parent()
 
@@ -37,6 +38,16 @@
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		stab(C)
+
+/datum/component/roombaknife/proc/knife_move()
+    if(istype(parent, /atom/movable))
+        var/atom/movable/A = parent
+        if(isturf(A.loc))
+            var/turf/T = get_turf(A)
+
+            for(var/mob/living/carbon/C in T.contents)
+                stab(C)
+
 
 /datum/component/roombaknife/proc/roomba_destroyed()
     qdel(src) //No more!!
