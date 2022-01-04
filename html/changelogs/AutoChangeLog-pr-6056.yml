@@ -1,6 +1,0 @@
-author: PestoVerde322, DatBoiTim
-delete-after: true
-changes:
-  - rscadd: Roomba Subtype of Cleanbot and associated recipe to make them
-  - rscadd: Roomba frame for constructing Roombas
-  - imageadd: New Roomba Sprite for Cleanbots, courtesy of Pestoverde322
