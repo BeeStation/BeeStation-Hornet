@@ -18,6 +18,10 @@
             leg = LEG_RIGHT
         else
             leg = LEG_LEFT
+        C.apply_damage(netdamage, BRUTE, blocked = def_check)
+		P.visible_message("<span class='warning'>[C.name] is stabbed in the leg by [P.name].</span>")
+		playsound(get_turf(P), 'sound/weapons/slice.ogg', 50, 1)
+		cooldown = (world.time + 8) //spike cooldown is equal to default unarmed attack speed
 
 /datum/component/roombaknife/proc/knife_collide()
     return
