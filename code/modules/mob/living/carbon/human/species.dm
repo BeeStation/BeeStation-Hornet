@@ -106,7 +106,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		limbs_id = id
 	..()
 
-
 /proc/generate_selectable_species()
 	for(var/I in subtypesof(/datum/species))
 		var/datum/species/S = new I
@@ -118,6 +117,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/check_roundstart_eligible()
 	if(id in (CONFIG_GET(keyed_list/roundstart_races)))
+		return TRUE
+	return FALSE
+
+/datum/species/proc/check_no_hard_check()
+	if(id in (CONFIG_GET(keyed_list/roundstart_no_hard_check)))
 		return TRUE
 	return FALSE
 
@@ -1036,10 +1040,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	H.visible_message("<span class='notice'>[H] start putting on [I].</span>", "<span class='notice'>You start putting on [I].</span>")
 	return do_after(H, I.equip_delay_self, target = H)
 
-/datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H)
+/datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null)
 	return
 
-/datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+/datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null)
 	H.update_mutant_bodyparts()
 
 // Do species-specific reagent handling here

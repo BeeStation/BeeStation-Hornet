@@ -447,10 +447,11 @@
 			return
 		O.applyOrganDamage(-repair_rate * delta_time)
 
-/obj/machinery/smartfridge/organ/Exited(obj/item/organ/AM, atom/newLoc)
+/obj/machinery/smartfridge/organ/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(istype(AM))
-		AM.organ_flags &= ~ORGAN_FROZEN
+	if(istype(gone))
+		var/obj/item/organ/organ = gone
+		organ.organ_flags &= ~ORGAN_FROZEN
 
 // -----------------------------
 // Chemistry Medical Smartfridge
@@ -501,6 +502,37 @@
 		/obj/item/reagent_containers/glass/bottle/synaptizine = 1,
 		/obj/item/reagent_containers/glass/bottle/formaldehyde = 1,
 		/obj/item/reagent_containers/glass/bottle/cryostylane = 1)
+
+/obj/machinery/smartfridge/chemistry/virology/preloaded/debug
+	name = "debug virus storage"
+	desc = "Oh boy, badmin at it again with the Toxoplasmosis!"
+
+/obj/machinery/smartfridge/chemistry/virology/preloaded/debug/Initialize()
+	. = ..()
+	for(var/symptom in subtypesof(/datum/symptom))
+		var/datum/symptom/S = new symptom
+		var/datum/disease/advance/symptomholder = new
+		symptomholder.name = S.name
+		symptomholder.symptoms += S
+		symptomholder.Finalize()
+		symptomholder.Refresh()
+		var/list/data = list("viruses" = list(symptomholder))
+		var/obj/item/reagent_containers/glass/bottle/B = new
+		B.name = "[symptomholder.name] culture bottle"
+		B.desc = "A small bottle. Contains [symptomholder.agent] culture in synthblood medium."
+		B.reagents.add_reagent(/datum/reagent/blood, 20, data)
+		B.forceMove(src)
+	for(var/disease in subtypesof(/datum/disease))
+		if(!istype(disease, /datum/disease/advance))
+			var/datum/disease/target = new disease
+			var/list/data = list("viruses" = list(target))
+			var/obj/item/reagent_containers/glass/bottle/B = new
+			B.name = "[target.name] culture bottle"
+			B.desc = "A small bottle. Contains [target.agent] culture in synthblood medium."
+			B.reagents.add_reagent(/datum/reagent/blood, 20, data)
+			B.forceMove(src)
+
+
 
 // ----------------------------
 // Disk """fridge"""

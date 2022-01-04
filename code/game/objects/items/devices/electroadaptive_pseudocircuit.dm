@@ -74,4 +74,3 @@
 /obj/item/electroadaptive_pseudocircuit/Destroy()
 	QDEL_NULL(electronics)
 	. = ..()
-	

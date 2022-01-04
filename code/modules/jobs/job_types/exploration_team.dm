@@ -22,10 +22,12 @@
 
 	display_order = JOB_DISPLAY_ORDER_EXPLORATION
 	departments = DEPARTMENT_SCIENCE
+	rpg_title = "Sailor"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/exploration
 	)
+	biohazard = 20//who knows what you'll find out there that could have nasties on it...
 
 /datum/job/exploration/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source)
 	if(outfit_override)

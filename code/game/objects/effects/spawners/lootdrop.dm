@@ -43,6 +43,14 @@
 			/obj/item/storage/box/donkpockets = 1
 		)
 
+/obj/effect/spawner/lootdrop/donkpocketsfinlandia
+	name = "5% gondola pocket spawner"
+	lootdoubles = FALSE
+
+	loot = list(
+			/obj/item/storage/box/donkpockets = 19,
+			/obj/item/storage/box/donkpockets/donkpocketgondolafinlandia = 1
+		)
 
 /obj/effect/spawner/lootdrop/armory_contraband
 	name = "armory contraband gun spawner"

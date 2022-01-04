@@ -49,6 +49,10 @@
 		log_game("Vector was roundstart infected with [vector_disease.name].")
 	var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 5), 9, 1+rand(1,3), infected = src)
 	extrapolatordisease += R
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/pet/hamster/vector/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(!extrapolatordisease.len)
@@ -59,9 +63,10 @@
 		E.extrapolate(src, extrapolatordisease, user)
 	return TRUE
 
-/mob/living/simple_animal/pet/hamster/vector/Crossed(M as mob)
+/mob/living/simple_animal/pet/hamster/vector/proc/on_entered(datum/source, M as mob)
+	SIGNAL_HANDLER
+
 	if(isliving(M) && !isnull(vector_disease) && prob(20))
 		var/mob/living/L = M
 		if(!L.HasDisease(vector_disease)) //I'm not actually sure if this check is needed, but better to be safe than sorry
 			L.ContactContractDisease(vector_disease)
-	..()

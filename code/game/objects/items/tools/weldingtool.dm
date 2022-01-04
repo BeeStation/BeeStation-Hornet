@@ -16,6 +16,10 @@
 	usesound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')
 	var/acti_sound = 'sound/items/welderactivate.ogg'
 	var/deac_sound = 'sound/items/welderdeactivate.ogg'
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 0.75
+	light_on = FALSE
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
@@ -23,15 +27,16 @@
 	resistance_flags = FIRE_PROOF
 
 	materials = list(/datum/material/iron=70, /datum/material/glass=30)
-	var/welding = 0 	//Whether or not the welding tool is off(0), on(1) or currently welding(2)
+	///Whether the welding tool is on or off.
+	var/welding = FALSE
 	var/status = TRUE 		//Whether the welder is secured or unsecured (able to attach rods to it to make a flamethrower)
 	var/max_fuel = 20 	//The max amount of fuel the welder can hold
 	var/change_icons = 1
 	var/can_off_process = 0
-	var/light_intensity = 1 //how powerful the emitted light is when used.
 	light_color = LIGHT_COLOR_FIRE
 	var/progress_flash_divisor = 10
 	var/burned_fuel_for = 0	//when fuel was last removed
+	var/light_intensity = 2
 	heat = 3800
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 1
@@ -41,7 +46,6 @@
 	create_reagents(max_fuel)
 	reagents.add_reagent(/datum/reagent/fuel, max_fuel)
 	update_icon()
-
 
 /obj/item/weldingtool/proc/update_torch()
 	if(welding)
@@ -134,7 +138,7 @@
 		var/turf/location = get_turf(user)
 		location.hotspot_expose(700, 50, 1)
 		if(get_fuel() <= 0)
-			set_light(0)
+			set_light_on(0)
 
 		if(isliving(O))
 			var/mob/living/L = O
@@ -148,8 +152,6 @@
 		message_admins("[ADMIN_LOOKUPFLW(user)] activated a rigged welder at [AREACOORD(user)].")
 		explode()
 	switched_on(user)
-	if(welding)
-		set_light(light_intensity)
 
 	update_icon()
 
@@ -175,9 +177,19 @@
 		return FALSE
 
 
+//Toggles the welding value.
+/obj/item/weldingtool/proc/set_welding(new_value)
+	if(welding == new_value)
+		return
+	. = welding
+	welding = new_value
+	set_light_on(welding)
+
+
 //Turns off the welder if there is no more fuel (does this really need to be its own proc?)
 /obj/item/weldingtool/proc/check_fuel(mob/user)
 	if(get_fuel() <= 0 && welding)
+		set_light_on(FALSE)
 		switched_on(user)
 		update_icon()
 		//mob icon update
@@ -193,7 +205,7 @@
 	if(!status)
 		balloon_alert(user, "It can't be turned on while unsecured")
 		return
-	welding = !welding
+	set_welding(!welding)
 	if(welding)
 		if(get_fuel() >= 1)
 			balloon_alert(user, "[src] turned on")
@@ -213,8 +225,7 @@
 
 //Switches the welder off
 /obj/item/weldingtool/proc/switched_off(mob/user)
-	welding = 0
-	set_light(0)
+	set_welding(FALSE)
 
 	force = 3
 	damtype = "brute"
@@ -335,6 +346,8 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "welder"
 	toolspeed = 0.1
+	light_system = NO_LIGHT_SUPPORT
+	light_range = 0
 	light_intensity = 0
 	change_icons = 0
 
@@ -371,7 +384,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	icon_state = "brasswelder"
 	item_state = "brasswelder"
-
+	light_intensity = 1
 
 /obj/item/weldingtool/experimental/process(delta_time)
 	..()

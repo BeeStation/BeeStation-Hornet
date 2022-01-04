@@ -50,7 +50,6 @@
 #define ACCESS_CE 56
 #define ACCESS_HOP 57
 #define ACCESS_HOS 58
-#define ACCESS_APOTHECARY 59
 /// Request console announcements
 #define ACCESS_RC_ANNOUNCE 59
 /// Used for events which require at least two people to confirm them
@@ -65,6 +64,7 @@
 #define ACCESS_NETWORK 67 //! NTnet diagnostics/monitoring software
 #define ACCESS_CLONING 68 //! Cloning room and clone pod ejection
 #define ACCESS_SEC_RECORDS 69 //! Update security records
+#define ACCESS_RD_SERVER 70 //! Access to the R&D server room
 
 /// Room and launching.
 #define ACCESS_AUX_BASE 72
@@ -85,6 +85,10 @@
 	//The Syndicate
 #define ACCESS_SYNDICATE 150 //!General Syndicate Access. Includes Syndicate mechs and ruins.
 #define ACCESS_SYNDICATE_LEADER 151 //!Nuke Op Leader Access
+
+	//Independant Factions
+#define ACCESS_PIRATES 180 //! Pirate ship access
+#define ACCESS_HUNTERS 181 //! Bounty hunter access
 
 	//Away Missions or Ruins
 	/*For generic away-mission/ruin access. Why would normal crew have access to a long-abandoned derelict
