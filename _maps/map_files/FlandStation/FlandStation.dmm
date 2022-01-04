@@ -88648,10 +88648,10 @@
 /obj/item/reagent_containers/glass/bottle/charcoal,
 /obj/item/reagent_containers/glass/bottle/epinephrine,
 /obj/item/storage/backpack/duffelbag/sec/surgery,
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/red/tile_side{
 	dir = 4
 	},
+/obj/structure/table,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "vbB" = (
