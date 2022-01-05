@@ -1110,6 +1110,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_bonus = -2
 	mood_message = "<span class='warning'>This place gives me the creeps...\n</span>"
 
+/area/security/prison/asteroid/shielded
+	name = "Outer Asteroid Prison Wing Shielded area"
+	icon_state = "sec_prison"
+
 //Service
 
 /area/quartermaster
