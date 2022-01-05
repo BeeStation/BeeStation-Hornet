@@ -518,12 +518,12 @@
 	name = "prisoner shuttle console (Computer Board)"
 	build_path = /obj/machinery/computer/shuttle_flight/labor/one_way
 
-/obj/item/circuitboard/computer/shuttle/ferry
+/obj/item/circuitboard/computer/ferry
 	name = "transport ferry control (Computer Board)"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/shuttle_flight/ferry
 
-/obj/item/circuitboard/computer/shuttle/ferry/request
+/obj/item/circuitboard/computer/ferry/request
 	name = "transport ferry console (Computer Board)"
 	build_path = /obj/machinery/computer/shuttle_flight/ferry/request
 

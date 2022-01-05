@@ -1,7 +1,7 @@
 /obj/machinery/computer/shuttle_flight/ferry
 	name = "transport ferry console"
 	desc = "A console that controls the transport ferry."
-	circuit = /obj/item/circuitboard/computer/shuttle/ferry
+	circuit = /obj/item/circuitboard/computer/ferry
 	shuttleId = "ferry"
 	possible_destinations = "ferry_home;ferry_away"
 	req_access = list(ACCESS_CENT_GENERAL)
@@ -23,7 +23,7 @@
 
 /obj/machinery/computer/shuttle_flight/ferry/request
 	name = "ferry console"
-	circuit = /obj/item/circuitboard/computer/shuttle/ferry/request
+	circuit = /obj/item/circuitboard/computer/ferry/request
 	var/last_request //prevents spamming admins
 	var/cooldown = 600
 	possible_destinations = "ferry_home;ferry_away"
