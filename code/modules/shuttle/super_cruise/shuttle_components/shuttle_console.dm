@@ -32,6 +32,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	var/orbital_map_index = PRIMARY_ORBITAL_MAP
 
 	//Our orbital body.
+	var/referencedOrbitalObjectVarName = "shuttleObject"
 	var/datum/orbital_object/shuttle/shuttleObject
 
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
@@ -388,9 +389,11 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		return
 	if(SSorbits.assoc_shuttles.Find(shuttleId))
 		say("Shuttle is controlled from another location, updating telemetry.")
-		shuttleObject = SSorbits.assoc_shuttles[shuttleId]
+		var/datum/orbital_object/O = SSorbits.assoc_shuttles[shuttleId]
+		O.RegisterReference(src)
 		return shuttleObject
-	shuttleObject = mobile_port.enter_supercruise()
+	var/datum/orbital_object/O = mobile_port.enter_supercruise()
+	O.RegisterReference(src)
 	if(!shuttleObject)
 		say("Failed to enter supercruise due to an unknown error.")
 		return

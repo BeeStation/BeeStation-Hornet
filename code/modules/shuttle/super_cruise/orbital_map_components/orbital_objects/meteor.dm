@@ -21,7 +21,7 @@
 	radius = rand(10, 50)
 
 /datum/orbital_object/meteor/Destroy()
-	target = null
+	target.UnregisterReference(src)
 	meteor_types = null
 	. = ..()
 
