@@ -2,7 +2,7 @@
 
 // Made by powerfulbacon
 
-import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, ScrollableBox, Flex, OrbitalMapComponent, OrbitalMapSvg } from '../components';
+import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, Flex, OrbitalMapComponent, OrbitalMapSvg } from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
@@ -138,7 +138,6 @@ export const OrbitalMap = (props, context) => {
                   onSelected={value => setTrackedBody(value)} />
               </Section>
               <Divider />
-<<<<<<< HEAD
               <Section title="Flight Controls">
                 {(!thrust_alert) || (
                   <NoticeBox color="red">
@@ -172,37 +171,6 @@ export const OrbitalMap = (props, context) => {
                       <NoticeBox
                         color="red">
                         Not linked to a shuttle.
-=======
-              <Dropdown
-                selected={trackedBody}
-                width="100%"
-                color="grey"
-                options={map_objects.sort((first,
-                  second) => { return second.priority - first.priority; })
-                  .map(map_object => (map_object.name))}
-                onSelected={value => setTrackedBody(value)} />
-            </Section>
-            <Divider />
-            <Section title="Flight Controls">
-              {(!thrust_alert) || (
-                <NoticeBox color="red">
-                  {thrust_alert}
-                </NoticeBox>
-              )}
-              {(!damage_alert) || (
-                <NoticeBox color="red">
-                  {damage_alert}
-                </NoticeBox>
-              )}
-              {recall_docking_port_id !== ""
-                ? <RecallControl />
-                : linkedToShuttle
-                  ? <ShuttleControls />
-                  : (canLaunch ? (
-                    <>
-                      <NoticeBox>
-                        Currently docked, awaiting launch order.
->>>>>>> dfe6730d03 (Adds in priority based sorting)
                       </NoticeBox>
                     ))}
               </Section>
