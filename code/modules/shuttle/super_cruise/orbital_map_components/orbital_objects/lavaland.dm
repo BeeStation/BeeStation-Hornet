@@ -5,6 +5,7 @@
 	forced_docking = TRUE
 	static_object = TRUE
 	random_docking = TRUE
+	render_mode = RENDER_MODE_PLANET
 
 /datum/orbital_object/z_linked/lavaland/New()
 	. = ..()

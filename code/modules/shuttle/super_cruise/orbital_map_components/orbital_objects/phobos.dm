@@ -4,6 +4,7 @@
 	name = "Phobos"
 	mass = 500
 	radius = 130
+	render_mode = RENDER_MODE_PLANET
 
 /datum/orbital_object/z_linked/phobos/post_map_setup()
 	//Orbit around the systems sun

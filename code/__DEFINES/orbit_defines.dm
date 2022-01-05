@@ -30,3 +30,12 @@
 #define COLLISION_SHUTTLES (1 << 1)	//Shuttle collision flag
 #define COLLISION_Z_LINKED (1 << 2)	//Z linked collision flag
 #define COLLISION_METEOR (1 << 3) //Meteor collisions
+
+//Render modes
+//These are defined in OrbitalMapSvg.js
+//Its much better to have the defines on the javascript so we don't have to constantly send it across every update.
+#define RENDER_MODE_DEFAULT "default"			//Classic white circle with a velocity line
+#define RENDER_MODE_PLANET "planet"				//Filled circle
+#define RENDER_MODE_BEACON "beacon"				//Some kind of beacon type thing?
+#define RENDER_MODE_SHUTTLE "shuttle"			//Maybe a green square with heading line + line indicating where it came from
+#define RENDER_MODE_PROJECTILE "projectile"		//No circle, just a straight, short velocity line.
