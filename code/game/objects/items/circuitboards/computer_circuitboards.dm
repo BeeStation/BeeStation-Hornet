@@ -481,7 +481,7 @@
 /obj/item/circuitboard/computer/shuttle
 	var/hacked = FALSE
 
-/obj/item/circuitboard/computer/shuttle/attacked_by(obj/item/I, mob/living/user)
+/obj/item/circuitboard/computer/shuttle/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_MULTITOOL)
 		hacked = !hacked
 		if(hacked)
