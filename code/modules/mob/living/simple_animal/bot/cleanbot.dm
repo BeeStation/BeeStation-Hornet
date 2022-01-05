@@ -274,7 +274,7 @@
 		drop_part(robot_arm, Tsec)
 
 	do_sparks(3, TRUE, src)
-	qdel(src)
+	..()
 
 /obj/item/roombaframe
 	name = "Roomba Frame"
@@ -417,7 +417,7 @@
 			new knife(Tsec)
 
 	do_sparks(3, TRUE, src)
-	..()
+	qdel(src)
 
 
 /obj/machinery/bot_core/cleanbot
