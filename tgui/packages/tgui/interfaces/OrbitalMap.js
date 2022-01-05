@@ -182,6 +182,12 @@ export const OrbitalMap = (props, context) => {
 
 export const InterdictionDisplay = (props, context) => {
 
+  const boxTargetStyle = {
+    "fill-opacity": 0,
+    stroke: '#DDDDDD',
+    strokeWidth: '1',
+  };
+
   const {
     xOffset,
     yOffset,
@@ -334,26 +340,6 @@ export const InterdictionDisplay = (props, context) => {
 };
 
 export const OrbitalMapDisplay = (props, context) => {
-
-  // SVG Background Style
-  const lineStyle = {
-    stroke: '#BBBBBB',
-    strokeWidth: '2',
-  };
-  const blueLineStyle = {
-    stroke: '#8888FF',
-    strokeWidth: '2',
-  };
-  const boxTargetStyle = {
-    "fill-opacity": 0,
-    stroke: '#DDDDDD',
-    strokeWidth: '1',
-  };
-  const lineTargetStyle = {
-    opacity: 0.4,
-    stroke: '#DDDDDD',
-    strokeWidth: '1',
-  };
 
   const {
     zoomScale,
