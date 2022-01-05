@@ -29,7 +29,6 @@ export const MESSAGE_TYPE_WARNING = 'warning';
 export const MESSAGE_TYPE_DEADCHAT = 'deadchat';
 export const MESSAGE_TYPE_OOC = 'ooc';
 export const MESSAGE_TYPE_ADMINPM = 'adminpm';
-export const MESSAGE_TYPE_MENTORPM = 'mentorpm';
 export const MESSAGE_TYPE_COMBAT = 'combat';
 export const MESSAGE_TYPE_ADMINCHAT = 'adminchat';
 export const MESSAGE_TYPE_MODCHAT = 'modchat';
@@ -90,12 +89,6 @@ export const MESSAGE_TYPES = [
     name: 'Admin PMs',
     description: 'Messages to/from admins (adminhelp)',
     selector: '.pm, .adminhelp',
-  },
-  {
-    type: MESSAGE_TYPE_MENTORPM,
-    name: 'Mentor PMs',
-    description: 'Messages to/from mentors (mentorhelp)',
-    selector: '.mentorhelp, .mentorto, .mentorfrom',
   },
   {
     type: MESSAGE_TYPE_COMBAT,
