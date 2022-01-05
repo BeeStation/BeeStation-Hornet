@@ -262,11 +262,31 @@
 		usr.dropItemToGround(usr.get_active_held_item())
 
 /atom/movable/screen/act_intent
-	icon = 'icons/mob/screen_midnight.dmi'
+	name = "intent"
+	icon_state = "help"
 	screen_loc = ui_acti
 
-/atom/movable/screen/act_intent/Click()
+/atom/movable/screen/act_intent/Click(location, control, params)
 	usr.a_intent_change(INTENT_HOTKEY_RIGHT)
+
+/atom/movable/screen/act_intent/segmented/Click(location, control, params)
+	if(usr.client.prefs.toggles & INTENT_STYLE)
+		var/_x = text2num(params2list(params)["icon-x"])
+		var/_y = text2num(params2list(params)["icon-y"])
+
+		if(_x<=16 && _y<=16)
+			usr.a_intent_change(INTENT_HARM)
+
+		else if(_x<=16 && _y>=17)
+			usr.a_intent_change(INTENT_HELP)
+
+		else if(_x>=17 && _y<=16)
+			usr.a_intent_change(INTENT_GRAB)
+
+		else if(_x>=17 && _y>=17)
+			usr.a_intent_change(INTENT_DISARM)
+	else
+		return ..()
 
 /atom/movable/screen/act_intent/alien
 	icon = 'icons/mob/screen_alien.dmi'
