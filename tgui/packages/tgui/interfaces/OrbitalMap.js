@@ -2,7 +2,7 @@
 
 // Made by powerfulbacon
 
-import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, Slider, ProgressBar, Fragment, ScrollableBox, OrbitalMapComponent, OrbitalMapSvg } from '../components';
+import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, Fragment, ScrollableBox, OrbitalMapComponent, OrbitalMapSvg } from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
@@ -16,7 +16,6 @@ export const OrbitalMap = (props, context) => {
     thrust_alert = false,
     damage_alert = false,
     shuttleName = "",
-    update_index = -1,
     interdictionTime = 0,
   } = data;
   const [
@@ -199,10 +198,9 @@ export const InterdictionDisplay = (props, context) => {
 
   let lockedZoomScale = Math.max(Math.min(zoomScale, 4), 0.125);
 
-  const { act, data } = useBackend(context);
+  const { data } = useBackend(context);
 
   const {
-    map_objects = [],
     interdictionTime = 0,
     interdictedShuttles = [],
   } = data;
@@ -369,7 +367,6 @@ export const OrbitalMapDisplay = (props, context) => {
     shuttleTargetX = 0,
     shuttleTargetY = 0,
     update_index = 0,
-    interdictionTime = 0,
   } = data;
 
   return (
@@ -507,7 +504,6 @@ export const ShuttleControls = (props, context) => {
     shuttleThrust = 0,
     canDock = false,
     isDocking = false,
-    validDockingPorts = [],
     display_fuel = false,
     fuel = 0,
     display_stats = [],

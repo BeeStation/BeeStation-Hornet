@@ -187,7 +187,6 @@ export class OrbitalMapComponent extends Component {
     } = this.state;
     const {
       children,
-      currentUpdateIndex,
       isTracking,
       dynamicXOffset,
       dynamicYOffset,

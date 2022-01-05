@@ -1,7 +1,6 @@
 
 import { clamp } from 'common/math';
-import { pureComponentHooks } from 'common/react';
-import { Component, createRef } from 'inferno';
+import { Component } from 'inferno';
 
 const FPS = 20;
 // Scales the positions to make things on the map appear closer or further away.
@@ -18,7 +17,6 @@ export class OrbitalMapSvg extends Component {
       tickIndex: -1,
       tickTimer: new Date(),
       renderableObjectTypes: {},
-      debugging: false,
     };
     this.renderTypeDict = {
       "broken": Broken,
@@ -175,15 +173,6 @@ export class OrbitalMapSvg extends Component {
 
   // Handles rendering of the orbital map
   render() {
-    // SVG Background Style
-    const lineStyle = {
-      stroke: '#BBBBBB',
-      strokeWidth: '2',
-    };
-    const blueLineStyle = {
-      stroke: '#8888FF',
-      strokeWidth: '2',
-    };
     const boxTargetStyle = {
       "fill-opacity": 0,
       stroke: '#DDDDDD',
@@ -199,8 +188,6 @@ export class OrbitalMapSvg extends Component {
       tickIndex,
       internalElapsed,
       renderableObjectTypes,
-      debugging,
-      singleInstanceObjects,
     } = this.state;
 
     const {
@@ -212,7 +199,6 @@ export class OrbitalMapSvg extends Component {
       shuttleTargetX = 0,
       shuttleTargetY = 0,
       zoomScale,
-      shuttleName,
       currentUpdateIndex,
       children,
       lockedZoomScale,
@@ -759,7 +745,6 @@ class Projectile extends RenderableObjectType {
     elapsed,
     // Zoom scale of the map
     zoomScale,
-    lockedZoomScale,
   )
   {
 
