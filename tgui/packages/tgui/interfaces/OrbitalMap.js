@@ -44,7 +44,7 @@ export const OrbitalMap = (props, context) => {
   let firstObjectName = "null";
   if (map_objects.length > 0 && interdictionTime === 0)
   {
-    firstObjectName = firstObjectName;
+    firstObjectName = map_objects[1].name;
     // Find the right tracked body
     map_objects.forEach(element => {
       if (element.name === shuttleName)
