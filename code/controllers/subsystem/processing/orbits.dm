@@ -197,5 +197,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 				"velocity_y" = object.velocity.y,
 				"radius" = object.radius,
 				"render_mode" = object.render_mode,
+				"priority" = object.priority,
 			))
 	return data

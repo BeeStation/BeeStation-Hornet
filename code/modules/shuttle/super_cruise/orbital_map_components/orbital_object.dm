@@ -27,6 +27,8 @@
 	var/velocity_multiplier = 1
 	//Do we ignore gravity?
 	var/ignore_gravity = FALSE
+	//Priority in the sorted list
+	var/priority = 0
 
 	//Delta time updates
 	//Ship translations are smooth so must use a delta time

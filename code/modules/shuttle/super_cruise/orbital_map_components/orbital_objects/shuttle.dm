@@ -4,6 +4,7 @@
 	//Collision is handled by z-linked.
 	collision_flags = NONE
 	render_mode = RENDER_MODE_SHUTTLE
+	priority = 10
 	var/shuttle_port_id
 	//Shuttle data
 	var/max_thrust = 2
