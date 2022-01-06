@@ -38,14 +38,14 @@
 /datum/element/digital_camo/proc/on_mob_login(datum/source, mob/new_login)
 	SIGNAL_HANDLER
 	if(issilicon(new_login))
-		for(var/mob/M as() in attached_mobs)
+		for(var/mob/target as() in attached_mobs)
 			var/mob/living/silicon/silicon = new_login
-			silicon.client.images |= attached_mobs[M]
+			silicon.client.images |= attached_mobs[target]
 			//Hide from HUD
 			var/datum/atom_hud/M = GLOB.huds[silicon.med_hud]
 			var/datum/atom_hud/S = GLOB.huds[silicon.sec_hud]
-			M.hide_single_atomhud_from(silicon,target)
-			S.hide_single_atomhud_from(silicon,target)
+			M.hide_single_atomhud_from(silicon, target)
+			S.hide_single_atomhud_from(silicon, target)
 
 /datum/element/digital_camo/proc/HideFromSiliconHuds(mob/living/target)
 	for(var/mob/living/silicon/silicon as() in GLOB.silicon_mobs)
