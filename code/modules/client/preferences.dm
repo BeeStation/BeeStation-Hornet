@@ -1979,6 +1979,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	character.dna.features = features.Copy()
 	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
+	character.dna.features = features.Copy() //MonkeStation Edit: Character generation bugfix
+
 	character.dna.real_name = character.real_name
 
 	if("tail_lizard" in pref_species.default_features)

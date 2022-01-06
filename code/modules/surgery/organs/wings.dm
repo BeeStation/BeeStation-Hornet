@@ -107,7 +107,7 @@
 	icon_state = "mothwings"
 	flight_level = WINGS_FLIGHTLESS
 	basewings = "moth_wings"
-	wing_type = "plain"
+	wing_type = "Plain" //MonkeStation Edit: Moth Wing Bugfix
 	canopen = FALSE
 
 /obj/item/organ/wings/moth/robust
