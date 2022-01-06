@@ -261,6 +261,12 @@
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
 		return
+	if(ismob(hit_atom))
+		var/mob/M = hit_atom
+		var/anti_magic_source = M.anti_magic_check(holy = TRUE)
+		if(anti_magic_source)
+			M.visible_message("[src] passes right through [M]!")
+			return
 	. = ..()
 
 
