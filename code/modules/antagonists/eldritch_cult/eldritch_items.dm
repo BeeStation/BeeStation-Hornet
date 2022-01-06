@@ -161,7 +161,8 @@
 
 /obj/item/clothing/neck/eldritch_amulet/guise/equipped(mob/user, slot)
 	. = ..()
-	user.AddElement(/datum/element/digitalcamo)
+	if(slot == ITEM_SLOT_NECK)
+		user.AddElement(/datum/element/digitalcamo)
 
 /obj/item/clothing/neck/eldritch_amulet/guise/dropped(mob/user)
 	. = ..()

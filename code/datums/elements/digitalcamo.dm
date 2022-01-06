@@ -39,10 +39,10 @@
 		var/datum/atom_hud/S = GLOB.huds[AI.sec_hud]
 		S.unhide_single_atomhud_from(AI,target)
 
-/datum/element/digitalcamo/proc/on_examine(datum/source, mob/M)
+/datum/element/digitalcamo/proc/on_examine(datum/source, mob/M, list/examine_text)
 	SIGNAL_HANDLER
 
-	to_chat(M, "<span class = 'warning'>[source.p_their()] skin seems to be shifting and morphing like is moving around below it.</span>")
+	examine_text += "<span class = 'warning'>[source.p_their()] skin seems to be shifting and morphing like is moving around below it.</span>"
 
 /datum/element/digitalcamo/proc/can_track(datum/source)
 	SIGNAL_HANDLER
@@ -50,6 +50,6 @@
 	return COMPONENT_CANT_TRACK
 
 /datum/element/digitalcamo/process()
-	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
-		for(var/mob in attached_mobs)
+	for(var/mob/living/silicon/ai/AI as() in GLOB.player_list)
+		for(var/mob/mob as() in attached_mobs)
 			AI.client.images |= attached_mobs[mob]
