@@ -336,7 +336,7 @@
 		linked_alert.icon_state = "fleshmend"
 	if(ticks_passed < 2)
 		return
-	else if(ticks_passed == 20)
+	else if(ticks_passed == 2)
 		to_chat(owner, "<span class=changeling>We begin to repair our tissue damage...</span>")
 	//Heals 2 brute per second, for a total of 60
 	owner.adjustBruteLoss(-2, FALSE, TRUE)
