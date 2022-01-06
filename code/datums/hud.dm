@@ -65,7 +65,9 @@ GLOBAL_LIST_INIT(huds, list(
 	else
 		hud_exceptions[hud_user] += hidden_atom
 
-/datum/atom_hud/proc/unhide_single_atomhud_from(hud_user,hidden_atom)
+/datum/atom_hud/proc/unhide_single_atomhud_from(hud_user, hidden_atom)
+	if(!hud_exceptions[hud_user])
+		return
 	hud_exceptions[hud_user] -= hidden_atom
 	if(hudusers[hud_user])
 		add_to_single_hud(hud_user,hidden_atom)
