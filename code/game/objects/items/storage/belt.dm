@@ -769,8 +769,8 @@
 		to_chat(user, "[src] is empty.")
 
 /obj/item/storage/belt/sabre/update_icon()
-	icon_state = "sheath"
-	item_state = "sheath"
+	icon_state = initial(icon_state)
+	item_state = initial(item_state)
 	if(contents.len)
 		icon_state += "-sabre"
 		item_state += "-sabre"
@@ -781,6 +781,16 @@
 
 /obj/item/storage/belt/sabre/PopulateContents()
 	new /obj/item/melee/sabre(src)
+	update_icon()
+
+/obj/item/storage/belt/sabre/fiber
+	name = "carbon-fiber saber sheath"
+	desc = "A military grade saber sheath. While once used widely by Nanotrasen space forces due to its reliability in space, the advancement in energy weapons have made them redundant."
+	icon_state = "sheath-fiber"
+	item_state = "sheath-fiber"
+
+/obj/item/storage/belt/sabre/fiber/PopulateContents()
+	new /obj/item/melee/sabre/carbon_fiber(src)
 	update_icon()
 
 /obj/item/storage/belt/sabre/mime

@@ -71,7 +71,6 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(/datum/material/iron = 1000)
 
-
 /obj/item/melee/sabre/Initialize()
 	. = ..()
 	AddComponent(/datum/component/butchering, 30, 95, 5) //fast and effective, but as a sword, it might damage the results.
@@ -145,15 +144,18 @@
 	block_power = 60
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 
-/obj/item/melee/sabre/mime/on_exit_storage(datum/component/storage/concrete/R)
-	var/obj/item/storage/belt/sabre/mime/M = R.real_location()
-	if(istype(M))
-		playsound(M, 'sound/items/unsheath.ogg', 25, TRUE)
-
-/obj/item/melee/sabre/on_enter_storage(datum/component/storage/concrete/R)
-	var/obj/item/storage/belt/sabre/mime/M = R.real_location()
-	if(istype(M))
-		playsound(M, 'sound/items/sheath.ogg', 25, TRUE)
+/obj/item/melee/sabre/carbon_fiber
+	name = "carbon-fiber sabre"
+	desc = "A sabre made of a reinforced carbon-fiber polymer. While lighter and sharper than its monomolecular counterpart, it has a tougher time penetrating armour."
+	icon_state = "sabre_fiber"
+	item_state = "sabre_fiber"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	obj_flags = NONE
+	force = 17	//1 damage weaker than the nullrod and energy pen
+	block_upgrade_walk = 0
+	block_power = 30
+	armour_penetration = 25
 
 /obj/item/melee/classic_baton
 	name = "classic baton"

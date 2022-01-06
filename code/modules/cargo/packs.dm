@@ -344,6 +344,14 @@
 					/obj/item/gun/energy/disabler)
 	crate_name = "disabler crate"
 
+/datum/supply_pack/security/saber
+	name = "Carbon Fiber Saber"
+	desc = "A single carbon-fiber saber and sheath. Highly reliable, sharp and contains no electronic components."
+	cost = 800
+	contains = list(/obj/item/storage/belt/sabre/fiber)
+	crate_name = "surplus military crate"
+	small_item = TRUE
+
 /datum/supply_pack/security/dumdum
 	name = ".38 DumDum Speedloader"
 	desc = "Contains one speedloader of .38 DumDum ammunition, good for embedding in soft targets. Requires Security or Forensics access to open."
@@ -1790,7 +1798,7 @@
 /datum/supply_pack/service/cargo_supples
 	name = "Cargo Supplies Crate"
 	desc = "Sold everything that wasn't bolted down? You can get right back to work with this crate containing stamps, an export scanner, destination tagger, hand labeler and some package wrapping."
-	cost = 700    
+	cost = 700
 	access_budget = ACCESS_CARGO
 	contains = list(/obj/item/stamp,
 					/obj/item/stamp/denied,
@@ -2156,7 +2164,7 @@
 /datum/supply_pack/organic/hydroponics
 	name = "Hydroponics Crate"
 	desc = "Supplies for growing a great garden! Contains two bottles of ammonia, two Plant-B-Gone spray bottles, a hatchet, cultivator, plant analyzer, as well as a pair of leather gloves and a botanist's apron."
-	cost = 800 
+	cost = 800
 	access_budget = ACCESS_HYDROPONICS
 	contains = list(/obj/item/reagent_containers/spray/plantbgone,
 					/obj/item/reagent_containers/spray/plantbgone,
@@ -2794,7 +2802,7 @@
 /datum/supply_pack/costumes_toys/wardrobes/cargo
 	name = "Cargo Wardrobe Supply Crate"
 	desc = "This crate contains a refill for the CargoDrobe."
-	cost = 800 
+	cost = 800
 	access_budget = ACCESS_CARGO
 	contains = list(/obj/item/vending_refill/wardrobe/cargo_wardrobe)
 	crate_name = "cargo department supply crate"
@@ -2809,7 +2817,7 @@
 /datum/supply_pack/costumes_toys/wardrobes/engineering
 	name = "Engineering Wardrobe Supply Crate"
 	desc = "This crate contains refills for the EngiDrobe and AtmosDrobe."
-	cost = 800 
+	cost = 800
 	access_budget = ACCESS_ENGINE
 	contains = list(/obj/item/vending_refill/wardrobe/engi_wardrobe,
 					/obj/item/vending_refill/wardrobe/atmos_wardrobe)
