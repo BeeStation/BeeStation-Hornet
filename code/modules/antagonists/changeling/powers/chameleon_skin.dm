@@ -14,7 +14,7 @@
 		return
 	..()
 
-	if(user.has_status_effect(STATUS_EFFECT_CHANGELING_CAMO))
+	if(!user.has_status_effect(STATUS_EFFECT_CHANGELING_CAMO))
 		user.apply_status_effect(STATUS_EFFECT_CHANGELING_CAMO)
 	else
 		user.remove_status_effect(STATUS_EFFECT_CHANGELING_CAMO)
