@@ -7,7 +7,8 @@
 
 /datum/orbital_objective/assassination/get_text()
 	return "We have located a hostile agent currently stranded at [station_name]. We need you to send in a team and eliminate the \
-		target. Our intelligence suggests that the target will be armed and dangerous, thus a security team is recommended in this mission."
+		target. Our intelligence suggests that the target will be armed and dangerous, thus a security team is recommended in this mission. \
+		Please keep in mind that the Nanotrasen approved exploration handheld laser gun is not adept at handling human based targets."
 
 //If nobody takes up the ghost role, then we dont care if they died.
 //I know, its a bit sad.
@@ -58,7 +59,7 @@
 			created_human.equipOutfit(/datum/outfit/vip_operative)
 	created_human.mind.store_memory("Someone is out to assassinate you... Stay alive.")
 	created_human.mind.add_antag_datum(/datum/antagonist/survivalist)
-	mob_to_recover = created_human
+	mob_to_kill = created_human
 	generated = TRUE
 
 //=====================
