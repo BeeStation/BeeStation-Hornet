@@ -111,3 +111,7 @@
 /obj/item/projectile/energy/trap/cyborg/on_range()
 	do_sparks(1, TRUE, src)
 	qdel(src)
+
+/obj/item/projectile/energy/trap/cyborg/emp_act(severity)
+	do_sparks(1, TRUE, src)
+	qdel(src)
