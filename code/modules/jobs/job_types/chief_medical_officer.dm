@@ -30,6 +30,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_MEDICAL_OFFICER
 	departments = DEPARTMENT_MEDICAL | DEPARTMENT_COMMAND
+	rpg_title = "High Cleric"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cmo
@@ -49,7 +50,8 @@
 	suit = /obj/item/clothing/suit/toggle/labcoat/cmo
 	l_hand = /obj/item/storage/firstaid/medical
 	suit_store = /obj/item/flashlight/pen
-	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1)
+	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1,
+		/obj/item/modular_computer/tablet/preset/advanced/command=1)
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
