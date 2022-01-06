@@ -102,12 +102,12 @@
 		GAS_STIMULUM			= new/datum/tlv/dangerous,
 		GAS_NITRYL			= new/datum/tlv/dangerous,
 		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 5, 6), // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
-		/datum/gas/freon			= new/datum/tlv/dangerous,
-		/datum/gas/healium			= new/datum/tlv/dangerous,
-		/datum/gas/proto_nitrate	= new/datum/tlv/dangerous,
-		/datum/gas/cyrion_b			= new/datum/tlv/dangerous,
-		/datum/gas/halon			= new/datum/tlv/dangerous,
-		/datum/gas/hexane			= new/datum/tlv/dangerous
+		GAS_FREON			= new/datum/tlv/dangerous,
+		GAS_HEALIUM			= new/datum/tlv/dangerous,
+		GAS_PROTO_NITRATE	= new/datum/tlv/dangerous,
+		GAS_CYRION_B		= new/datum/tlv/dangerous,
+		GAS_HALON			= new/datum/tlv/dangerous,
+		GAS_HEXANE			= new/datum/tlv/dangerous
 	)
 
 /obj/machinery/airalarm/server // No checks here.
@@ -126,13 +126,13 @@
 		GAS_TRITIUM			= new/datum/tlv/no_checks,
 		GAS_STIMULUM			= new/datum/tlv/no_checks,
 		GAS_NITRYL			= new/datum/tlv/no_checks,
-		GAS_PLUOXIUM			= new/datum/tlv/no_checks
-		/datum/gas/freon			= new/datum/tlv/no_checks,
-		/datum/gas/healium			= new/datum/tlv/dangerous,
-		/datum/gas/proto_nitrate	= new/datum/tlv/dangerous,
-		/datum/gas/cyrion_b			= new/datum/tlv/dangerous,
-		/datum/gas/halon			= new/datum/tlv/dangerous,
-		/datum/gas/hexane			= new/datum/tlv/dangerous
+		GAS_PLUOXIUM			= new/datum/tlv/no_checks,
+		GAS_FREON			= new/datum/tlv/dangerous,
+		GAS_HEALIUM			= new/datum/tlv/dangerous,
+		GAS_PROTO_NITRATE	= new/datum/tlv/dangerous,
+		GAS_CYRION_B		= new/datum/tlv/dangerous,
+		GAS_HALON			= new/datum/tlv/dangerous,
+		GAS_HEXANE			= new/datum/tlv/dangerous
 	)
 
 /obj/machinery/airalarm/kitchen_cold_room // Kitchen cold rooms start off at -20°C or 253.15°K.
@@ -151,13 +151,13 @@
 		GAS_TRITIUM			= new/datum/tlv/dangerous,
 		GAS_STIMULUM			= new/datum/tlv/dangerous,
 		GAS_NITRYL			= new/datum/tlv/dangerous,
-		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 1000, 1000) // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
-		/datum/gas/freon			= new/datum/tlv/dangerous,
-		/datum/gas/healium			= new/datum/tlv/dangerous,
-		/datum/gas/proto_nitrate	= new/datum/tlv/dangerous,
-		/datum/gas/cyrion_b			= new/datum/tlv/dangerous,
-		/datum/gas/hexane			= new/datum/tlv/dangerous
-		/datum/gas/halon			= new/datum/tlv/dangerous,
+		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 1000, 1000), // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
+		GAS_FREON			= new/datum/tlv/dangerous,
+		GAS_HEALIUM			= new/datum/tlv/dangerous,
+		GAS_PROTO_NITRATE	= new/datum/tlv/dangerous,
+		GAS_CYRION_B		= new/datum/tlv/dangerous,
+		GAS_HALON			= new/datum/tlv/dangerous,
+		GAS_HEXANE			= new/datum/tlv/dangerous
 	)
 
 /obj/machinery/airalarm/unlocked
@@ -557,13 +557,13 @@
 						GAS_TRITIUM,
 						GAS_BZ,
 						GAS_STIMULUM,
-						GAS_PLUOXIUM
-						/datum/gas/freon,
-						/datum/gas/healium,
-						/datum/gas/proto_nitrate,
-						/datum/gas/cyrion_b,
-						/datum/gas/halon,
-						/datum/gas/hexane,
+						GAS_PLUOXIUM,
+						GAS_FREON,
+						GAS_HEALIUM,
+						GAS_PROTO_NITRATE,
+						GAS_CYRION_B,
+						GAS_HALON,
+						GAS_HEXANE,
 					),
 					"scrubbing" = 1,
 					"widenet" = 1
