@@ -285,6 +285,12 @@
 #define GAS_STIMULUM			"stim"
 #define GAS_PLUOXIUM			"pluox"
 #define GAS_MIASMA				"miasma"
+#define GAS_FREON				"freon"
+#define GAS_HEALIUM				"healium"
+#define GAS_PROTO_NTIRATE		"proto-nitrate"
+#define GAS_CYRION_B			"cyrion-b"
+#define GAS_HALON				"halon"
+#define GAS_HEXANE				"hexane"
 
 #define GAS_FLAG_DANGEROUS		(1<<0)
 #define GAS_FLAG_BREATH_PROC	(1<<1)
