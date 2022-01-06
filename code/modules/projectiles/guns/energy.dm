@@ -24,10 +24,17 @@
 /obj/item/gun/energy/emp_act(severity)
 	. = ..()
 	if(!(. & EMP_PROTECT_CONTENTS))
-		cell.use(round(cell.charge / severity))
-		chambered = null //we empty the chamber
-		recharge_newshot() //and try to charge a new shot
+		obj_flags |= OBJ_EMPED
 		update_icon()
+		addtimer(CALLBACK(src, .proc/emp_reset), rand(600 / severity, 300 / severity))
+		playsound(src, 'sound/machines/capacitor_discharge.ogg', 60, TRUE)
+
+/obj/item/gun/energy/proc/emp_reset()
+	obj_flags &= ~OBJ_EMPED
+	//Update the icon
+	update_icon()
+	//Play a sound to indicate re-activation
+	playsound(src, 'sound/machines/capacitor_charge.ogg', 90, TRUE)
 
 /obj/item/gun/energy/get_cell()
 	return cell
@@ -85,6 +92,9 @@
 		update_icon()
 
 /obj/item/gun/energy/can_shoot()
+	//Cannot shoot while EMPed
+	if(obj_flags & OBJ_EMPED)
+		return FALSE
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	return !QDELETED(cell) ? (cell.charge >= shot.e_cost) : FALSE
 
@@ -143,6 +153,9 @@
 	if(!automatic_charge_overlays)
 		return
 	var/ratio = CEILING(CLAMP(cell.charge / cell.maxcharge, 0, 1) * charge_sections, 1)
+	//Display no power if EMPed
+	if(obj_flags & OBJ_EMPED)
+		ratio = 0
 	if(ratio == old_ratio && !force_update)
 		return
 	old_ratio = ratio

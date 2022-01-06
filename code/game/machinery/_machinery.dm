@@ -132,6 +132,9 @@ Class Procs:
 	var/tgui_id // ID of TGUI interface
 	var/ui_style // ID of custom TGUI style (optional)
 
+	//Maximum time an EMP will disable this machine for
+	var/emp_susceptibility = 2 MINUTES
+
 /obj/machinery/Initialize()
 	if(!armor)
 		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
@@ -180,9 +183,21 @@ Class Procs:
 
 /obj/machinery/emp_act(severity)
 	. = ..()
-	if(use_power && !stat && !(. & EMP_PROTECT_SELF))
+	if(use_power && !stat && !(. & EMP_PROTECT_SELF) && prob(100 / severity))
 		use_power(7500/severity)
+		//Set the machine to be EMPed
+		stat |= EMPED
+		//Reset EMP state in 120/60 seconds
+		addtimer(CALLBACK(src, .proc/emp_reset), emp_susceptibility / severity)
+		//Update power
+		power_change()
 		new /obj/effect/temp_visual/emp(loc)
+
+/obj/machinery/proc/emp_reset()
+	//Reset EMP state
+	stat &= ~EMPED
+	//Update power
+	power_change()
 
 /obj/machinery/proc/open_machine(drop = TRUE)
 	SEND_SIGNAL(src, COMSIG_MACHINE_OPEN, drop)
