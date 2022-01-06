@@ -8,11 +8,6 @@
 		src.digitaldisguise.override = 1
 		for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
 			AI.client?.images |= src.digitaldisguise
-	else if(digitaldisguise)
-		//Remove digital disguise
-		for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
-			AI.client?.images -= digitaldisguise
-		digitaldisguise = null
 
 	if((movement_type & FLYING) && !(movement_type & FLOATING))	//TODO: Better floating
 		float(on = TRUE)
