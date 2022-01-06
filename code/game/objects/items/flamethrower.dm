@@ -221,7 +221,6 @@
 	target.hotspot_expose((ptank.air_contents.return_temperature()*2) + 380,500)
 	//location.hotspot_expose(1000,500,1)
 
-
 /obj/item/flamethrower/Initialize(mapload)
 	. = ..()
 	if(create_full)

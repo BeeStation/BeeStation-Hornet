@@ -1,4 +1,22 @@
 //All defines used in reactions are located in ..\__DEFINES\reactions.dm
+/*priority so far, check this list to see what are the numbers used. please use a different priority if the reaction doesn't work (higher number are done first)
+miaster = -10 (this should always be under all other fires)
+freonfire = -4
+plasmafire = -3
+h2fire = -2
+tritfire = -1
+nitrous_decomp = 0
+water_vapor = 1
+fusion = 2
+nitrylformation = 3
+bzformation = 4
+freonformation = 5
+stimformation = 5
+nobiliumformation = 6
+stimball = 7
+ammoniacrystals = 8
+nobiliumsuppression = INFINITY
+*/
 
 /proc/init_gas_reactions()
 	. = list()

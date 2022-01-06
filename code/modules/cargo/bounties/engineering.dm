@@ -27,3 +27,9 @@
 	description = "Station 24 is being overrun by hordes of angry Mothpeople. They are requesting the ultimate bug zapper."
 	reward = 75000 //requires 14k credits of purchases, not to mention cooperation with engineering/heads of staff to set up inside the cramped shuttle
 	wanted_types = list(/obj/singularity/energy_ball)
+
+/datum/bounty/item/engineering/gas/cyrion_b_tank
+	name = "Full Tank of Cyrion-B"
+	description = "The main planet of \[REDACTED] has been chosen as testing grounds for the new weapon that uses the Cyrion-B gas. Ship us a tank full of it. (20 Moles)"
+	reward = 10000
+	gas_type = /datum/gas/cyrion_b
