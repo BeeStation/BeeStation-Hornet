@@ -13887,9 +13887,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 1
 	},
-/obj/structure/table,
-/obj/item/storage/box/donkpockets,
-/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "dgn" = (
@@ -14149,14 +14146,13 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 1
 	},
-/obj/structure/table/reinforced,
-/obj/item/paper/fluff{
-	info = "Remember that the Brig shuttle can dock with the southern PERMA";
-	name = "Reminder"
-	},
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
+/obj/structure/chair/office{
+	dir = 1
+	},
+/obj/effect/landmark/start/warden,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "djE" = (
@@ -22334,6 +22330,18 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/mixing)
+"fdm" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/storage/box/donkpockets,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel/dark,
+/area/security/main)
 "fdn" = (
 /turf/closed/mineral/random,
 /area/engine/gravity_generator)
@@ -24618,6 +24626,22 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"fES" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor/northright{
+	dir = 2;
+	name = "Warden's Desk";
+	req_access_txt = "3"
+	},
+/obj/machinery/door/window/westleft{
+	dir = 1;
+	name = "Warden's Desk"
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
+/obj/item/book/manual/wiki/security_space_law,
+/turf/open/floor/plasteel,
+/area/security/warden)
 "fEU" = (
 /obj/item/radio/intercom{
 	pixel_y = 24
@@ -55017,14 +55041,15 @@
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "mOs" = (
-/obj/structure/closet/secure_closet/warden,
-/obj/item/clothing/mask/gas/sechailer,
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 9
 	},
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
+/obj/structure/table/reinforced,
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "mOu" = (
@@ -75531,6 +75556,11 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
 	},
+/obj/effect/turf_decal/bot{
+	dir = 1
+	},
+/obj/structure/closet/secure_closet/warden,
+/obj/item/clothing/mask/gas/sechailer,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "rPw" = (
@@ -82496,6 +82526,10 @@
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
+/obj/item/paper/fluff{
+	info = "Remember that the Brig shuttle can dock with the southern PERMA";
+	name = "Reminder"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "twx" = (
@@ -84625,12 +84659,11 @@
 "tVH" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor/northright{
-	dir = 2;
 	name = "Warden's Desk";
 	req_access_txt = "3"
 	},
 /obj/machinery/door/window/westleft{
-	dir = 1;
+	dir = 2;
 	name = "Warden's Desk"
 	},
 /obj/item/folder/red,
@@ -133395,7 +133428,7 @@ arz
 qSw
 xFD
 sMN
-bPT
+fdm
 sQf
 xyy
 mOs
@@ -133654,7 +133687,7 @@ kNC
 hAS
 tct
 dfL
-xyy
+fES
 djC
 xCu
 xCu
