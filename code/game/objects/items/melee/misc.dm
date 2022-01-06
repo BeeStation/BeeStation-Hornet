@@ -153,7 +153,9 @@
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	obj_flags = NONE
 	force = 17	//1 damage weaker than the nullrod and energy pen
-	block_upgrade_walk = 0
+	//Walking is required for blocking
+	block_level = 0
+	block_upgrade_walk = 2
 	block_power = 30
 	armour_penetration = 25
 
