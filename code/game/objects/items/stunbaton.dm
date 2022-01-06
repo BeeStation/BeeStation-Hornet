@@ -193,8 +193,14 @@
 	return 1
 
 /obj/item/melee/baton/emp_act(severity)
-	. = ..()
-	if (!(. & EMP_PROTECT_SELF))
+	//Stun baton is protected from EMPs
+	if (..() & EMP_PROTECT_SELF)
+		return
+	//Large probability to have its power consumed
+	if(prob(100 / severity))
+		deductcharge(cell.charge)
+	else
+		//Otherwise just deduct a smaller amount of power
 		deductcharge(1000 / severity)
 
 //Makeshift stun baton. Replacement for stun gloves.
