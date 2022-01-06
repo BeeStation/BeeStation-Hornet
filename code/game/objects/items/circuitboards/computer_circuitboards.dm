@@ -49,7 +49,6 @@
 	icon_state = "command"
 	desc = "Can be modified using a screwdriver."
 	build_path = /obj/machinery/computer/communications
-	var/lastTimeUsed = 0
 	var/insecure = FALSE // Forbids shuttles that are set as illegal.
 
 /obj/item/circuitboard/computer/communications/attackby(obj/item/I, mob/user, params)

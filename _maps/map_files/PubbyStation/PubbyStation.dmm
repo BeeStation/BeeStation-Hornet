@@ -43590,13 +43590,6 @@
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/asteroid/nearstation/bomb_site)
-"clk" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/libraryscanner,
-/turf/open/floor/plasteel/dark,
-/area/library/lounge)
 "clm" = (
 /obj/structure/closet/crate/bin,
 /turf/open/floor/plasteel/dark,
@@ -47001,12 +46994,6 @@
 "czO" = (
 /obj/structure/table/wood,
 /obj/item/instrument/saxophone,
-/turf/open/floor/plasteel/dark,
-/area/library)
-"czP" = (
-/obj/structure/table/wood,
-/obj/item/stack/packageWrap,
-/obj/item/coin/gold,
 /turf/open/floor/plasteel/dark,
 /area/library)
 "czQ" = (
@@ -50890,6 +50877,15 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"hjk" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/item/stack/packageWrap,
+/obj/item/coin/gold,
+/turf/open/floor/plasteel/dark,
+/area/library/lounge)
 "hjz" = (
 /obj/effect/turf_decal/stripes/line,
 /mob/living/simple_animal/bot/cleanbot/medbay,
@@ -62971,6 +62967,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
+"xCy" = (
+/obj/machinery/libraryscanner,
+/turf/open/floor/plasteel/dark,
+/area/library)
 "xCE" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 6
@@ -80951,7 +80951,7 @@ ckl
 ckD
 ckS
 clg
-clk
+hjk
 cwe
 cwe
 cyB
@@ -82509,7 +82509,7 @@ ckH
 czp
 ckH
 ckH
-czP
+xCy
 ckH
 ckH
 cjp

@@ -780,7 +780,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	set_light(6, 1, color)
 	for(var/mob/living/L in viewers(T))
 		if(!iscultist(L) && L.blood_volume)
-			var/atom/I = L.anti_magic_check(major = FALSE)
+			var/atom/I = L.anti_magic_check(holy = TRUE, major = FALSE)
 			if(I)
 				if(isitem(I))
 					to_chat(L, "<span class='userdanger'>[I] suddenly burns hotly before returning to normal!</span>")
@@ -808,7 +808,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	set_light(6, 1, color)
 	for(var/mob/living/L in viewers(T))
 		if(!iscultist(L) && L.blood_volume)
-			if(L.anti_magic_check(major = FALSE))
+			if(L.anti_magic_check(holy = TRUE, major = FALSE))
 				continue
 			L.take_overall_damage(tick_damage*multiplier, tick_damage*multiplier)
 

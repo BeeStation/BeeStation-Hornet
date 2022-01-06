@@ -131,6 +131,7 @@ There are several things that need to be remembered:
 			if(G == "f" && U.fitted != NO_FEMALE_UNIFORM)
 				uniform_overlay = U.build_worn_icon(state = "[t_color]", default_layer = UNIFORM_LAYER, default_icon_file = 'icons/mob/uniform.dmi', isinhands = FALSE, femaleuniform = U.fitted)
 
+		//Change check_adjustable_clothing.dm if you change this
 		var/icon_file = 'icons/mob/uniform.dmi'
 		if(!uniform_overlay)
 			if(U.sprite_sheets & (dna?.species.bodyflag))

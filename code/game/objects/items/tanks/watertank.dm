@@ -418,8 +418,8 @@
 /obj/item/watertank/op
 	name = "backpack water tank"
 	desc = "A New Russian backpack spray for systematic cleansing of carbon lifeforms."
-	icon_state = "waterbackop"
-	item_state = "waterbackop"
+	icon_state = "waterbackpackop"
+	item_state = "waterbackpackop"
 	w_class = WEIGHT_CLASS_NORMAL
 	volume = 2000
 	slowdown = 0
