@@ -323,24 +323,71 @@
 /datum/status_effect/fleshmend
 	id = "fleshmend"
 	alert_type = /atom/movable/screen/alert/status_effect/fleshmend
-	duration = 100
+	//Actual healing lasts for 30 seconds
+	duration = 320
+	var/ticks_passed = 0
 
 /datum/status_effect/fleshmend/tick()
+	ticks_passed ++
 	if(owner.on_fire)
 		linked_alert.icon_state = "fleshmend_fire"
 		return
 	else
 		linked_alert.icon_state = "fleshmend"
-	owner.adjustBruteLoss(-2.5, FALSE)
-	owner.adjustFireLoss(-2.5, FALSE)
-	owner.adjustOxyLoss(-2.5)
-	owner.adjustCloneLoss(-2.5)
-	owner.adjustToxLoss(-2.5, FALSE, TRUE)
+	if(ticks_passed < 20)
+		return
+	else if(ticks_passed == 20)
+		to_chat(owner, "<span class=changeling>We begin to repair our tissue damage...</span>")
+	//Heals 2 brute per second, for a total of 60
+	owner.adjustBruteLoss(-2, FALSE, TRUE)
+	//Heals 1 fireloss per second, for a total of 30
+	owner.adjustFireLoss(-1, FALSE, TRUE)
+	//Heals 5 oxyloss per second for a total of 150
+	owner.adjustOxyLoss(-5, FALSE, TRUE)
+	//Heals 0.5 cloneloss per second for a total of 15
+	owner.adjustCloneLoss(-0.5, TRUE, TRUE)
 
 /atom/movable/screen/alert/status_effect/fleshmend
 	name = "Fleshmend"
 	desc = "Our wounds are rapidly healing. <i>This effect is prevented if we are on fire.</i>"
 	icon_state = "fleshmend"
+
+//Changeling invisibility
+/datum/status_effect/changeling_camoflague
+	id = "changelingcamo"
+	alert_type = /atom/movable/screen/alert/status_effect/changeling_camoflague
+	tick_interval = 5
+	var/datum/antagonist/changeling/ling
+
+/datum/status_effect/changeling_camoflague/tick()
+	if(owner.on_fire)
+		increase_opacity()
+		return
+	if(ling.chem_charges <= 0)
+		qdel(src)
+		return
+	ling.chem_charges -= 1
+	owner.alpha = max(owner.alpha - 20, 255)
+
+/datum/status_effect/changeling_camoflague/on_apply()
+	ling = is_changeling(owner)
+	if(!ling)
+		return FALSE
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/increase_opacity)
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, .proc/increase_opacity)
+	RegisterSignal(owner, COMSIG_ATOM_BUMPED, .proc/increase_opacity)
+	return TRUE
+
+/datum/status_effect/changeling_camoflague/on_remove()
+	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMGE, COMSIG_ATOM_BUMPED))
+	owner.alpha = 255
+
+/datum/status_effect/changeling_camoflague/proc/increase_opacity()
+	owner.alpha = max(owner.alpha + 15, 255)
+
+/atom/movable/screen/alert/status_effect/changeling_camoflague
+	name = "Camoflague"
+	desc = "We have adapted our skin to refract light around us."
 
 /datum/status_effect/exercised
 	id = "Exercised"
