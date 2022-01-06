@@ -1397,10 +1397,10 @@
 
 /datum/reagent/freon/on_mob_metabolize(mob/living/L)
 	. = ..()
-	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/freon)
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=1.6, blacklisted_movetypes=(FLYING|FLOATING))
 
 /datum/reagent/freon/on_mob_end_metabolize(mob/living/L)
-	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/freon)
+	L.remove_movespeed_modifier(type)
 	return ..()
 
 /datum/reagent/hypernoblium
@@ -1447,11 +1447,11 @@
 
 /datum/reagent/halon/on_mob_metabolize(mob/living/L)
 	. = ..()
-	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/halon)
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=1.8, blacklisted_movetypes=(FLYING|FLOATING))
 	ADD_TRAIT(L, TRAIT_RESISTHEAT, type)
 
 /datum/reagent/halon/on_mob_end_metabolize(mob/living/L)
-	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/halon)
+	L.remove_movespeed_modifier(type)
 	REMOVE_TRAIT(L, TRAIT_RESISTHEAT, type)
 	return ..()
 
@@ -1465,12 +1465,12 @@
 
 /datum/reagent/hexane/on_mob_metabolize(mob/living/L)
 	. = ..()
-	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/halon)
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=1.8, blacklisted_movetypes=(FLYING|FLOATING))
 	ADD_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
 	ADD_TRAIT(L, TRAIT_SIXTHSENSE, type)
 
 /datum/reagent/hexane/on_mob_end_metabolize(mob/living/L)
-	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/halon)
+	L.remove_movespeed_modifier(type)
 	REMOVE_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
 	REMOVE_TRAIT(L, TRAIT_SIXTHSENSE, type)
 	return ..()
