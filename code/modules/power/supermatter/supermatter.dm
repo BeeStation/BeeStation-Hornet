@@ -550,7 +550,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			src.fire_nuclear_particle()		// Start to emit radballs at a maximum of 30% chance per tick
 		if(prob(gas_comp[/datum/gas/cyrion_b]))
 			playsound(src.loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10)
-			supermatter_zap(src, 6, clamp(power*2, 4000, 20000), ZAP_MOB_STUN)
+			supermatter_zap(src, 6, clamp(power*2, 4000, 20000))
 
 
 		var/device_energy = power * REACTION_POWER_MODIFIER
