@@ -1433,6 +1433,10 @@
 	. = ..()
 	if(current_cycle >= 15)
 		L.Sleeping(40, 0)
+		L.adjustOxyLoss(-5)
+		L.adjustFireLoss(-7)
+		L.adjustToxLoss(-7)
+		L.adjustBruteLoss(-10)
 
 /datum/reagent/halon
 	name = "Halon"
