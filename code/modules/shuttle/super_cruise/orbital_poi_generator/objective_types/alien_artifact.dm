@@ -17,7 +17,7 @@
 		valid_turfs += F
 	//Shuffle the list
 	shuffle_inplace(valid_turfs)
-	for(var/i in rand(6, 15))
+	for(var/i in 1 to rand(6, 15))
 		if(valid_turfs.len < i)
 			message_admins("Ran out of valid turfs to create artifact defenses on.")
 			return
