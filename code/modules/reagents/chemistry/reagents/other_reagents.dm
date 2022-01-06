@@ -1429,13 +1429,10 @@
 	color = "90560B"
 	taste_description = "rubbery"
 
-/datum/reagent/healium/on_mob_metabolize(mob/living/L)
+/datum/reagent/healium/on_mob_life(mob/living/L)
 	. = ..()
-	ADD_TRAIT(L, TRAIT_KNOCKEDOUT, type)
-
-/datum/reagent/healium/on_mob_end_metabolize(mob/living/L)
-	REMOVE_TRAIT(L, TRAIT_KNOCKEDOUT, type)
-	return ..()
+	if(current_cycle >= 15)
+		L.Sleeping(40, 0)
 
 /datum/reagent/halon
 	name = "Halon"
