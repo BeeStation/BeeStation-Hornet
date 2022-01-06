@@ -157,7 +157,7 @@
 	block_level = 0
 	block_upgrade_walk = 2
 	block_power = 30
-	armour_penetration = 25
+	armour_penetration = 45
 
 /obj/item/melee/classic_baton
 	name = "classic baton"
