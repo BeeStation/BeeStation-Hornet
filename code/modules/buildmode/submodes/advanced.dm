@@ -56,4 +56,3 @@
 		if(isobj(object))
 			log_admin("Build Mode: [key_name(c)] deleted [object] at [AREACOORD(object)]")
 			qdel(object)
-	

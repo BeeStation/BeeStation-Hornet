@@ -80,6 +80,12 @@
 	var/list/custom_materials
 	///Bitfield for how the atom handles materials.
 	var/material_flags = NONE
+	///Light systems, both shouldn't be active at the same time.
+	var/light_system = STATIC_LIGHT
+	///Boolean variable for toggleable lights. Has no effect without the proper light_system, light_range and light_power values.
+	var/light_on = TRUE
+	///Bitflags to determine lighting-related atom properties.
+	var/light_flags = NONE
 
 	var/flags_ricochet = NONE
 	///When a projectile tries to ricochet off this atom, the projectile ricochet chance is multiplied by this
@@ -172,7 +178,7 @@
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
-	if (light_power && light_range)
+	if (light_system == STATIC_LIGHT && light_power && light_range)
 		update_light()
 
 	if (opacity && isturf(loc))
@@ -971,7 +977,7 @@
 		flags_1 |= ADMIN_SPAWNED_1
 	. = ..()
 	switch(var_name)
-		if("color")
+		if(NAMEOF(src, color))
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
 
 /**

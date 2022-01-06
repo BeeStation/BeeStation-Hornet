@@ -24923,7 +24923,7 @@
 "byh" = (
 /obj/machinery/door/airlock/command{
 	name = "Server Room";
-	req_access_txt = "30"
+	req_one_access_txt = "30;70"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -25901,7 +25901,7 @@
 "bAB" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Server Room";
-	req_access_txt = "30"
+	req_one_access_txt = "30;70"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
@@ -28337,15 +28337,15 @@
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "bIZ" = (
-/obj/structure/chair,
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "bJa" = (
+/obj/structure/chair,
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 5
 	},
 /turf/open/floor/plating/airless,
 /area/science/test_area)
@@ -28605,12 +28605,12 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "bKg" = (
-/turf/open/floor/plating/airless,
-/area/science/test_area)
-"bKh" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/turf/open/floor/plating/airless,
+/area/science/test_area)
+"bKh" = (
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "bKi" = (
@@ -29046,13 +29046,13 @@
 /area/science/mixing)
 "bLn" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "bLo" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/science/test_area)
@@ -29061,13 +29061,6 @@
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "bLq" = (
-/turf/closed/indestructible{
-	desc = "A wall impregnated with Fixium, able to withstand massive explosions with ease";
-	icon_state = "riveted";
-	name = "hyper-reinforced wall"
-	},
-/area/science/test_area)
-"bLr" = (
 /obj/item/target/alien/anchored,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -29078,6 +29071,13 @@
 /turf/open/floor/plating{
 	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=293.15";
 	luminosity = 2
+	},
+/area/science/test_area)
+"bLr" = (
+/turf/closed/indestructible{
+	desc = "A wall impregnated with Fixium, able to withstand massive explosions with ease";
+	icon_state = "riveted";
+	name = "hyper-reinforced wall"
 	},
 /area/science/test_area)
 "bLu" = (
@@ -29735,16 +29735,16 @@
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "bNE" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plating/airless,
+/area/science/test_area)
+"bNF" = (
 /obj/structure/chair{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/plating/airless,
-/area/science/test_area)
-"bNF" = (
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "bNG" = (
@@ -36116,12 +36116,6 @@
 	dir = 5
 	},
 /turf/open/floor/plasteel,
-/area/engine/engineering)
-"cjb" = (
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel{
-	name = "floor"
-	},
 /area/engine/engineering)
 "cjc" = (
 /obj/effect/turf_decal/stripes/line{
@@ -53312,6 +53306,12 @@
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat_interior)
+"oJY" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel{
+	name = "floor"
+	},
+/area/engine/engineering)
 "oKo" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -88048,8 +88048,8 @@ bVJ
 cay
 ccw
 cig
-cjb
-cjb
+oJY
+oJY
 cig
 cig
 cmG
@@ -118605,11 +118605,11 @@ aaa
 aaa
 aaa
 aaa
-aaf
+aaa
 aaf
 aaa
 aaf
-aaf
+aaa
 aaa
 aaa
 aaa
@@ -118861,13 +118861,13 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
 aaf
+aaa
 aaf
-bGf
-bLo
-bGf
-aaf
-aaf
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -119117,15 +119117,15 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
 aaf
+aaa
 aaf
-bIX
-bGf
-bLn
-bGf
-bIX
-aaf
-aaf
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -119373,17 +119373,17 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
+aaa
 aaf
+aaa
 aaf
-bGf
-bGf
-bKh
-bLo
-bMD
-bGf
-bGf
-aaf
-aaf
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -119630,17 +119630,17 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
+aaa
 aaf
-bGe
-bGe
-bIY
-bKg
-bKg
-bKg
-bND
-bGe
-bGe
+aaa
 aaf
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -119885,21 +119885,21 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaf
+aaa
 aaf
-aaf
-bGf
-bHw
-bJa
-bKg
-bLp
-bKg
-bNF
-bOJ
-bGf
-aaf
-aaf
-aaf
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -120144,17 +120144,17 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
+aaa
 aaf
-bGe
-bGe
-bIZ
-bKg
-bKg
-bKg
-bNE
-bGe
-bGe
+aaa
 aaf
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -120401,17 +120401,17 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
+aaa
 aaf
+aaa
 aaf
-bGf
-bGf
-bKi
-bLr
-bME
-bNG
-bNG
-aaf
-aaf
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -120659,15 +120659,15 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
+aaa
 aaf
+aaa
 aaf
-bIX
-bGf
-bLq
-bGf
-bIX
-aaf
-aaf
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -120917,13 +120917,13 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
 aaf
+aaa
 aaf
-bGf
-bGe
-bGf
-aaf
-aaf
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -121175,11 +121175,11 @@ aaa
 aaa
 aaa
 aaa
+aaa
 aaf
+aaa
 aaf
-aaf
-aaf
-aaf
+aaa
 aaa
 aaa
 aaa
@@ -121434,7 +121434,7 @@ aaa
 aaa
 aaa
 aaf
-aaf
+aaa
 aaf
 aaa
 aaa
@@ -121690,9 +121690,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
 aaf
 aaa
+aaf
 aaa
 aaa
 aaa
@@ -121947,9 +121947,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
 aaf
 aaa
+aaf
 aaa
 aaa
 aaa
@@ -122204,9 +122204,9 @@ aaa
 aaa
 aaa
 aaa
+aaf
 aaa
-aaa
-aaa
+aaf
 aaa
 aaa
 aaa
@@ -122460,11 +122460,11 @@ aaa
 aaa
 aaa
 aaa
+aaf
+aaf
 aaa
-aaa
-aaa
-aaa
-aaa
+aaf
+aaf
 aaa
 aaa
 aaa
@@ -122716,13 +122716,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aaf
+aaf
+bGf
+bLn
+bGf
+aaf
+aaf
 aaa
 aaa
 aaa
@@ -122972,15 +122972,15 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aaf
+aaf
+bIX
+bGf
+bLo
+bGf
+bIX
+aaf
+aaf
 aaa
 aaa
 aaa
@@ -123228,17 +123228,17 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aaf
+aaf
+bGf
+bGf
+bKg
+bLn
+bMD
+bGf
+bGf
+aaf
+aaf
 aaa
 aaa
 aaa
@@ -123485,17 +123485,17 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aaf
+bGe
+bGe
+bIY
+bKh
+bKh
+bKh
+bND
+bGe
+bGe
+aaf
 aaa
 aaa
 aaa
@@ -123740,21 +123740,21 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aaf
+aaf
+aaf
+bGf
+bHw
+bIZ
+bKh
+bLp
+bKh
+bNE
+bOJ
+bGf
+aaf
+aaf
+aaf
 aaa
 aaa
 aaa
@@ -123999,17 +123999,17 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aaf
+bGe
+bGe
+bJa
+bKh
+bKh
+bKh
+bNF
+bGe
+bGe
+aaf
 aaa
 aaa
 aaa
@@ -124256,17 +124256,17 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aaf
+aaf
+bGf
+bGf
+bKi
+bLq
+bME
+bNG
+bNG
+aaf
+aaf
 aaa
 aaa
 aaa
@@ -124514,15 +124514,15 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aaf
+aaf
+bIX
+bGf
+bLr
+bGf
+bIX
+aaf
+aaf
 aaa
 aaa
 aaa
@@ -124766,19 +124766,19 @@ aaa
 aaa
 aaa
 aaa
-aoV
 aaa
 aaa
 aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aaf
+aaf
+bGf
+bGe
+bGf
+aaf
+aaf
 aaa
 aaa
 aaa
@@ -125030,11 +125030,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aaf
+aaf
+aaf
+aaf
+aaf
 aaa
 aaa
 aaa
@@ -125288,9 +125288,9 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
+aaf
+aaf
+aaf
 aaa
 aaa
 aaa
@@ -125546,7 +125546,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aaf
 aaa
 aaa
 aaa
@@ -125803,7 +125803,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aaf
 aaa
 aaa
 aaa
