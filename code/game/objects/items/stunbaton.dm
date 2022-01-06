@@ -201,7 +201,7 @@
 		deductcharge(cell.charge)
 	else
 		//Otherwise just deduct a smaller amount of power
-		deductcharge(1000 / severity)
+		deductcharge(5000 / severity)
 
 //Makeshift stun baton. Replacement for stun gloves.
 /obj/item/melee/baton/cattleprod
