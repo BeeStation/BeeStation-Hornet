@@ -1,6 +1,0 @@
-author: lordScrubling, ArcaneMusic, RandomGamer123
-delete-after: true
-changes:
-  - rscadd: cargo ordering app
-  - rscadd: heads start with a tablet with the app installed
-  - tweak: bz and co2 canister shipments require atmos access

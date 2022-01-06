@@ -260,6 +260,16 @@
 ////////////Janitor Designs//////////////
 /////////////////////////////////////////
 
+/datum/design/roombaframe
+	name = "Roomba Frame"
+	desc = "A housing that serves as the base for constructing Roombas."
+	id = "roomba"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 200)
+	build_path = /obj/item/roombaframe
+	category = list("Electronics")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/advmop
 	name = "Advanced Mop"
 	desc = "An upgraded mop with a large internal capacity for holding water or other cleaning chemicals."

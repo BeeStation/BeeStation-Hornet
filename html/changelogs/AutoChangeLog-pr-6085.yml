@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Mobs that are unable to hold items will drop embedded items to the ground
-      when removed, rather than have that item go to their hand.

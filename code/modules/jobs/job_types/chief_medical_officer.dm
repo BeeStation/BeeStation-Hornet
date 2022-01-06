@@ -30,6 +30,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_MEDICAL_OFFICER
 	departments = DEPARTMENT_MEDICAL | DEPARTMENT_COMMAND
+	rpg_title = "High Cleric"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cmo

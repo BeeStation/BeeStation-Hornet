@@ -393,6 +393,9 @@
 	W.update_label()
 
 /datum/outfit/plasmaman
+	var/list/helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2,
+									HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective)
+
 	name = "Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman
