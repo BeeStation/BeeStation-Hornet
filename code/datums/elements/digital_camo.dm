@@ -40,26 +40,27 @@
 	if(issilicon(new_login))
 		for(var/mob/target as() in attached_mobs)
 			var/mob/living/silicon/silicon = new_login
+			//Hide the mob
 			silicon.client.images |= attached_mobs[target]
 			//Hide from HUD
-			var/datum/atom_hud/M = GLOB.huds[silicon.med_hud]
-			var/datum/atom_hud/S = GLOB.huds[silicon.sec_hud]
+			var/datum/atom_hud/M = GLOB.huds[target.med_hud]
+			var/datum/atom_hud/S = GLOB.huds[target.sec_hud]
 			M.hide_single_atomhud_from(silicon, target)
 			S.hide_single_atomhud_from(silicon, target)
 
 /datum/element/digital_camo/proc/HideFromSiliconHuds(mob/living/target)
 	for(var/mob/living/silicon/silicon as() in GLOB.silicon_mobs)
-		var/datum/atom_hud/M = GLOB.huds[silicon.med_hud]
-		var/datum/atom_hud/S = GLOB.huds[silicon.sec_hud]
-		M.hide_single_atomhud_from(silicon,target)
-		S.hide_single_atomhud_from(silicon,target)
+		var/datum/atom_hud/M = GLOB.huds[target.med_hud]
+		var/datum/atom_hud/S = GLOB.huds[target.sec_hud]
+		M.hide_single_atomhud_from(silicon, target)
+		S.hide_single_atomhud_from(silicon, target)
 
 /datum/element/digital_camo/proc/UnhideFromSiliconHuds(mob/living/target)
 	for(var/mob/living/silicon/silicon as() in GLOB.silicon_mobs)
-		var/datum/atom_hud/M = GLOB.huds[silicon.med_hud]
-		var/datum/atom_hud/S = GLOB.huds[silicon.sec_hud]
-		M.unhide_single_atomhud_from(silicon,target)
-		S.unhide_single_atomhud_from(silicon,target)
+		var/datum/atom_hud/M = GLOB.huds[target.med_hud]
+		var/datum/atom_hud/S = GLOB.huds[target.sec_hud]
+		M.unhide_single_atomhud_from(silicon, target)
+		S.unhide_single_atomhud_from(silicon, target)
 
 /datum/element/digital_camo/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
