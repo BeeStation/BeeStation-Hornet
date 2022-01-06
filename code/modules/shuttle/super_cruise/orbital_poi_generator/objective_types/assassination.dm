@@ -22,7 +22,7 @@
 			complete_objective()
 			return FALSE
 		//Recovered and alive
-		if(mob_to_recover.stat == DEAD)
+		if(mob_to_kill.stat == DEAD)
 			complete_objective()
 			return FALSE
 	return FALSE
@@ -55,7 +55,7 @@
 		if("operative")
 			created_human.flavor_text = "You are a syndicate operative standed by your team aboard an ancient ruin. You know it won't take long for Nanotrasen \
 				to catch up and eliminate you, stay on your guard."
-			created_human.equipOutfit(/datum/output/vip_operative)
+			created_human.equipOutfit(/datum/outfit/vip_operative)
 	created_human.mind.store_memory("Someone is out to assassinate you... Stay alive.")
 	created_human.mind.add_antag_datum(/datum/antagonist/survivalist)
 	mob_to_recover = created_human
