@@ -539,5 +539,5 @@
 ///Called when the movable tries to toggle its dynamic light LIGHTING_ON status, from base atom/movable/lighting_overlay_toggle_on(): (new_state)
 #define COMSIG_MOVABLE_LIGHT_OVERLAY_TOGGLE_ON "movable_light_overlay_toggle_on"
 
-//Roomba_Destroyed, for when a roomba explodes
-#define COMSIG_ROOMBA_DESTROY	 "roomba_destroy"
+//Larry_Destroy, for when a Larry explodes
+#define COMSIG_LARRY_DESTROY	 "larry_destroy"

@@ -389,23 +389,23 @@
 				knife = newknife
 				newknife.forceMove(src)
 				message_admins("[user] attached a [newknife.name] to [src]") //This should definitely be a notified thing.
-				src.AddComponent(/datum/component/roombaknife, knife.force)
+				src.AddComponent(/datum/component/larryknife, knife.force)
 				update_icons()
 	else
 		return ..()
 
 /mob/living/simple_animal/bot/cleanbot/larry/update_icons()
 	if(knife)
-		var/mutable_appearance/knife_overlay = knife.build_worn_icon(state = knife.icon_state, default_layer = 20, default_icon_file = 'icons/mob/inhands/misc/roomba.dmi')
+		var/mutable_appearance/knife_overlay = knife.build_worn_icon(state = knife.icon_state, default_layer = 20, default_icon_file = 'icons/mob/inhands/misc/larry.dmi')
 		add_overlay(knife_overlay)
 
 /mob/living/simple_animal/bot/cleanbot/larry/explode()
 	on = FALSE
 	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
-	SEND_SIGNAL(src, COMSIG_ROOMBA_DESTROY)
+	SEND_SIGNAL(src, COMSIG_LARRY_DESTROY)
 	var/atom/Tsec = drop_location()
 
-	new /obj/item/roombaframe(Tsec)
+	new /obj/item/larryframe(Tsec)
 
 	new /obj/item/assembly/prox_sensor(Tsec)
 
