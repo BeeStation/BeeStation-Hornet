@@ -140,33 +140,17 @@
 /datum/export/large/gas_canister/get_cost(obj/O)
 	var/obj/machinery/portable_atmospherics/canister/C = O
 	var/worth = 10
-	var/gases = C.air_contents.gases
-	C.air_contents.assert_gases(/datum/gas/bz,
-								/datum/gas/stimulum,
-								/datum/gas/hypernoblium,
-								/datum/gas/miasma,
-								/datum/gas/tritium,
-								/datum/gas/pluoxium,
-								/datum/gas/freon,
-								/datum/gas/hydrogen,
-								/datum/gas/healium,
-								/datum/gas/proto_nitrate,
-								/datum/gas/cyrion_b,
-								/datum/gas/halon,
-								/datum/gas/hexane
-								)
 
-	worth += gases[/datum/gas/hypernoblium][MOLES]*1000
-	worth += gases[/datum/gas/stimulum][MOLES]*100
-	worth += gases[/datum/gas/freon][MOLES]*15
-	worth += gases[/datum/gas/tritium][MOLES]*5
-	worth += gases[/datum/gas/pluoxium][MOLES]*5
-	worth += gases[/datum/gas/bz][MOLES]*4
-	worth += gases[/datum/gas/miasma][MOLES]*2
-	worth += gases[/datum/gas/hydrogen][MOLES]*1
-	worth += gases[/datum/gas/healium][MOLES]*19
-	worth += gases[/datum/gas/proto_nitrate][MOLES]*5
-	worth += gases[/datum/gas/cyrion_b][MOLES]*1050
-	worth += gases[/datum/gas/halon][MOLES]*9
-	worth += gases[/datum/gas/hexane][MOLES]*6
+	worth += C.air_contents.get_moles(GAS_BZ)*4
+	worth += C.air_contents.get_moles(GAS_STIMULUM)*100
+	worth += C.air_contents.get_moles(GAS_HYPERNOB)*1000
+	worth += C.air_contents.get_moles(GAS_MIASMA)*10
+	worth += C.air_contents.get_moles(GAS_TRITIUM)*5
+	worth += C.air_contents.get_moles(GAS_PLUOXIUM)*5
+	worth += C.air_contents.get_moles(GAS_HEALIUM)*19
+	worth += C.air_contents.get_moles(GAS_PROTO_NITRATE)*5
+	worth += C.air_contents.get_moles(GAS_CYRION_B)*1050
+	worth += C.air_contents.get_moles(GAS_HALON)*9
+	worth += C.air_contents.get_moles(GAS_HEXANE)*6
+	worth += C.air_contents.get_moles(GAS_FREON)*15
 	return worth
