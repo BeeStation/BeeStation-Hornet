@@ -150,7 +150,7 @@
 			threatcount += 4 //trigger look_for_perp() since they're nonhuman and very likely hostile
 
 	//mindshield implants imply trustworthyness
-	if(HAS_TRAIT(src, TRAIT_MINDSHIELD))
+	if(has_mindshield_hud_icon())
 		threatcount -= 1
 
 	return threatcount

@@ -1503,6 +1503,7 @@
 #include "code\modules\antagonists\changeling\powers\lesserform.dm"
 #include "code\modules\antagonists\changeling\powers\mimic_voice.dm"
 #include "code\modules\antagonists\changeling\powers\mutations.dm"
+#include "code\modules\antagonists\changeling\powers\organic_mindshield.dm"
 #include "code\modules\antagonists\changeling\powers\panacea.dm"
 #include "code\modules\antagonists\changeling\powers\regenerate.dm"
 #include "code\modules\antagonists\changeling\powers\shriek.dm"

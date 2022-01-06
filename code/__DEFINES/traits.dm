@@ -189,6 +189,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOSOFTCRIT		"nosoftcrit"
 #define TRAIT_NOSTAMCRIT		"nostamcrit"
 #define TRAIT_MINDSHIELD		"mindshield"
+#define TRAIT_FAKE_MINDSHIELD	"fakemindshield"
 #define TRAIT_DISSECTED			"dissected"
 #define TRAIT_SIXTHSENSE		"sixth_sense" //I can hear dead people
 #define TRAIT_FEARLESS			"fearless"

@@ -352,42 +352,86 @@
 	desc = "Our wounds are rapidly healing. <i>This effect is prevented if we are on fire.</i>"
 	icon_state = "fleshmend"
 
-//Changeling invisibility
-/datum/status_effect/changeling_camoflague
-	id = "changelingcamo"
-	alert_type = /atom/movable/screen/alert/status_effect/changeling_camoflague
-	tick_interval = 5
+/datum/status_effect/changeling
 	var/datum/antagonist/changeling/ling
+	var/chem_per_tick = 1
 
-/datum/status_effect/changeling_camoflague/tick()
-	if(owner.on_fire)
-		increase_opacity()
-		return
-	if(ling.chem_charges <= 0)
-		qdel(src)
-		return
-	ling.chem_charges -= 1
-	owner.alpha = max(owner.alpha - 20, 255)
-
-/datum/status_effect/changeling_camoflague/on_apply()
+/datum/status_effect/changeling/on_apply()
 	ling = is_changeling(owner)
 	if(!ling)
 		return FALSE
-	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/increase_opacity)
-	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, .proc/increase_opacity)
-	RegisterSignal(owner, COMSIG_ATOM_BUMPED, .proc/increase_opacity)
 	return TRUE
 
-/datum/status_effect/changeling_camoflague/on_remove()
+/datum/status_effect/changeling/tick()
+	if(ling.chem_charges < chem_per_tick)
+		qdel(src)
+		return FALSE
+	ling.chem_charges -= chem_per_tick
+	return TRUE
+
+//Changeling invisibility
+/datum/status_effect/changeling/camoflague
+	id = "changelingcamo"
+	alert_type = /atom/movable/screen/alert/status_effect/changeling_camoflague
+	tick_interval = 5
+
+/datum/status_effect/changeling/camoflague/tick()
+	if(!..())
+		return
+	if(owner.on_fire)
+		large_increase()
+		return
+	owner.alpha = max(owner.alpha - 20, 0)
+
+/datum/status_effect/changeling/camoflague/on_apply()
+	if(!..())
+		return FALSE
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/slight_increase)
+	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, .proc/large_increase)
+	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, .proc/large_increase)
+	RegisterSignal(owner, COMSIG_ATOM_BUMPED, .proc/slight_increase)
+	return TRUE
+
+/datum/status_effect/changeling/camoflague/on_remove()
 	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_APPLY_DAMGE, COMSIG_ATOM_BUMPED))
 	owner.alpha = 255
 
-/datum/status_effect/changeling_camoflague/proc/increase_opacity()
-	owner.alpha = max(owner.alpha + 15, 255)
+/datum/status_effect/changeling/camoflague/proc/slight_increase()
+	owner.alpha = min(owner.alpha + 15, 255)
+
+/datum/status_effect/changeling/camoflague/proc/large_increase()
+	owner.alpha = min(owner.alpha + 50, 255)
 
 /atom/movable/screen/alert/status_effect/changeling_camoflague
 	name = "Camoflague"
 	desc = "We have adapted our skin to refract light around us."
+	icon_state = "changeling_camo"
+
+//Changeling mindshield
+/datum/status_effect/changeling/mindshield
+	id = "changelingmindshield"
+	alert_type = /atom/movable/screen/alert/status_effect/changeling_mindshield
+	tick_interval = 30
+
+/datum/status_effect/changeling/mindshield/tick()
+	if(..() && owner.on_fire)
+		qdel(src)
+
+/datum/status_effect/changeling/mindshield/on_apply()
+	if(!..())
+		return FALSE
+	ADD_TRAIT(owner, TRAIT_FAKE_MINDSHIELD, CHANGELING_TRAIT)
+	owner.sec_hud_set_implants()
+	return TRUE
+
+/datum/status_effect/changeling/mindshield/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_FAKE_MINDSHIELD, CHANGELING_TRAIT)
+	owner.sec_hud_set_implants()
+
+/atom/movable/screen/alert/status_effect/changeling_mindshield
+	name = "Fake Mindshield"
+	desc = "We are emitting a signal, causing us to appear as mindshielded to security HUDs."
+	icon_state = "changeling_mindshield"
 
 /datum/status_effect/exercised
 	id = "Exercised"
