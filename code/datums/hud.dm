@@ -143,7 +143,7 @@ GLOBAL_LIST_INIT(huds, list(
 	if(!M || !M.client || !A)
 		return
 	for(var/i in hud_icons)
-		if(A.hud_list[i])
+		if(A.hud_list[i] && (!hud_exceptions[M] || !(A in hud_exceptions[M])))
 			M.client.images |= A.hud_list[i]
 
 //MOB PROCS
