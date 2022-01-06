@@ -51,7 +51,7 @@
 		"stimulum" = /obj/machinery/portable_atmospherics/canister/stimulum,
 		"pluoxium" = /obj/machinery/portable_atmospherics/canister/pluoxium,
 		"caution" = /obj/machinery/portable_atmospherics/canister,
-		"miasma" = /obj/machinery/portable_atmospherics/canister/miasma
+		"miasma" = /obj/machinery/portable_atmospherics/canister/miasma,
 		"freon" = /obj/machinery/portable_atmospherics/canister/freon,
 		"healium" = /obj/machinery/portable_atmospherics/canister/healium,
 		"proto_nitrate" = /obj/machinery/portable_atmospherics/canister/proto_nitrate,
@@ -156,7 +156,6 @@
 	name = "Freon canister"
 	desc = "Freon. Can absorb heat"
 	icon_state = "freon"
-	base_icon_state = "freon"
 	gas_type = /datum/gas/freon
 	filled = 1
 
@@ -165,7 +164,6 @@
 	name = "Healium canister"
 	desc = "Healium, causes deep sleep"
 	icon_state = "healium"
-	base_icon_state = "healium"
 	gas_type = /datum/gas/healium
 	filled = 1
 
@@ -173,7 +171,6 @@
 	name = "Proto Nitrate canister"
 	desc = "Proto Nitrate, react differently with various gases"
 	icon_state = "proto_nitrate"
-	base_icon_state = "proto_nitrate"
 	gas_type = /datum/gas/proto_nitrate
 	filled = 1
 
@@ -181,7 +178,6 @@
 	name = "Cyrion B canister"
 	desc = "Cyrion B, highly toxic"
 	icon_state = "cyrion_b"
-	base_icon_state = "cyrion_b"
 	gas_type = /datum/gas/cyrion_b
 	filled = 1
 
@@ -189,7 +185,6 @@
 	name = "Halon canister"
 	desc = "Halon, remove oxygen from high temperature fires and cool down the area"
 	icon_state = "halon"
-	base_icon_state = "halon"
 	gas_type = /datum/gas/halon
 	filled = 1
 
@@ -197,23 +192,8 @@
 	name = "Hexane canister"
 	desc = "hexane, highly flammable"
 	icon_state = "hexane"
-	base_icon_state = "hexane"
 	gas_type = /datum/gas/hexane
 	filled = 1
-
-/obj/machinery/portable_atmospherics/canister/fusion_test
-	name = "fusion test canister"
-	desc = "Don't be a badmin."
-	heat_limit = 1e12
-	pressure_limit = 1e14
-	mode = CANISTER_TIER_3
-
-/obj/machinery/portable_atmospherics/canister/fusion_test/create_gas()
-	air_contents.add_gases(/datum/gas/hydrogen, /datum/gas/plasma, /datum/gas/tritium)
-	air_contents.gases[/datum/gas/hydrogen][MOLES] = 500
-	air_contents.gases[/datum/gas/plasma][MOLES] = 500
-	air_contents.gases[/datum/gas/tritium][MOLES] = 350
-	air_contents.temperature = 10000
 
 /obj/machinery/portable_atmospherics/canister/proc/get_time_left()
 	if(timing)
