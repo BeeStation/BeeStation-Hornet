@@ -49,6 +49,7 @@
 	name = "practice laser"
 	damage = 0
 	nodamage = TRUE
+	martial_arts_no_deflect = TRUE
 
 /obj/item/projectile/beam/scatter
 	name = "laser pellet"

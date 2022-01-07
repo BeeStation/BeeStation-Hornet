@@ -129,7 +129,6 @@
 	H.visible_message("<span class='danger'>[H] stops flickering and goes back to their normal state!</span>")
 
 /datum/species/ethereal/handle_charge(mob/living/carbon/human/H)
-	. = ..()
 	brutemod = 1.25
 	if(HAS_TRAIT(H, TRAIT_NOHUNGER))
 		return

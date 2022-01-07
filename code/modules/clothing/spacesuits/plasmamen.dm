@@ -472,3 +472,375 @@
 	desc = "A replacement grey helmet bearing a pair of purple stripes, designating the wearer as a janitor."
 	icon_state = "janitor_envirohelm"
 	item_state = "janitor_envirohelm"
+
+// The Mark 2 variants of the standard envirohelms.
+/obj/item/clothing/head/helmet/space/plasmaman/mark2
+	name = "Mk.II envirosuit helmet"
+	desc = "A sleek new plasmaman containment helmet, painted in classic Hazardous Orange."
+	icon_state = "assistant_openvirohelm"
+	item_state = "assistant_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/security/mark2
+	name = "security Mk.II envirosuit helmet"
+	desc = "A stylish new iteration upon the original plasmaman containment helmet design for security officers, retaining all the old protections for a new era of fragile law enforcement."
+	icon_state = "security_openvirohelm"
+	item_state = "security_openvirohelm"
+	visor_icon = "openvisor"
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75, "stamina" = 10)
+
+/obj/item/clothing/head/helmet/space/plasmaman/security/warden/mark2
+	name = "warden's Mk.II envirosuit helmet"
+	desc = "A stylish new iteration upon the original plasmaman containment helmet design for the warden. All the chic of the standard look with the Warden's iconic reflective white stripe."
+	icon_state = "warden_openvirohelm"
+	item_state = "warden_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/medical/mark2
+	name = "medical's Mk.II envirosuit helmet"
+	desc = "A stylish new iteration upon the original plasmaman containment helmet design for medical doctors. Glue your fellow crewmen back together and make a fashion statement while you're at it."
+	icon_state = "doctor_openvirohelm"
+	item_state = "doctor_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/genetics/mark2
+	name = "geneticist's Mk.II envirosuit helmet"
+	desc = "A stylish new iteration upon the original plasmaman containment helmet design for geneticists. Pushing the boundaries of organic life never looked so good!"
+	icon_state = "geneticist_openvirohelm"
+	item_state = "geneticist_envirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/viro/mark2
+	name = "virology Mk.II envirosuit helmet"
+	desc = "The helmet worn by the safest people on the station, those who are completely immune to the monstrosities they create, including the monstrosities of outdated fashion"
+	icon_state = "virologist_openvirohelm"
+	item_state = "virologist_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/chemist/mark2
+	name = "chemistry Mk.II envirosuit helmet"
+	desc = "A braced plasmaman containment helmet design for chemists."
+	icon_state = "chemist_openvirohelm"
+	item_state = "chemist_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/emt/mark2
+	name = "paramedic Mk.II envirosuit helmet"
+	desc = "A new and improved envirosuit helmet only for the bravest medical plasmaman."
+	icon_state = "emt_openvirohelm"
+	item_state = "emt_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/security/secmed/mark2
+	name = "brig physician Mk.II envirosuit helmet"
+	desc = "A braced plasmaman containment helmet design for brig physicians."
+	icon_state = "secmed_openvirohelm"
+	item_state = "secmed_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/science/mark2
+	name = "science Mk.II envirosuit helmet"
+	desc = "A stylish new iteration upon the original plasmaman containment helmet design for scientists."
+	icon_state = "scientist_openvirohelm"
+	item_state = "scientist_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/robotics/mark2
+	name = "robotics Mk.II envirosuit helmet"
+	desc = "A stylish new iteration upon the original plasmaman containment helmet design for roboticists."
+	icon_state = "roboticist_openvirohelm"
+	item_state = "roboticist_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/engineering/mark2
+	name = "engineering Mk.II envirosuit helmet"
+	desc = "A new iteration upon the classic space-worthy design, painted in classic engineering pigments."
+	icon_state = "engineer_openvirohelm"
+	item_state = "engineer_openvirohelm"
+	visor_icon = "openvisor"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75, "stamina" = 0)
+
+/obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics/mark2
+	name = "atmospherics Mk.II envirosuit helmet"
+	desc = "A new iteration upon the classic space-worthy design, painted in classic atmosian pigments."
+	icon_state = "atmos_openvirohelm"
+	item_state = "atmos_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/cargo/mark2
+	name = "cargo Mk.II envirosuit helmet"
+	desc = "A stylish new iteration upon the original plasmaman containment helmet design for cargo techs and quartermasters. Neo-liberal grifting has never been this groovy"
+	icon_state = "cargo_openvirohelm"
+	item_state = "cargo_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/mining/mark2
+	name = "mining Mk.II envirosuit helmet"
+	desc = "A new styling of the classi khaki helmet given to plasmamen miners."
+	icon_state = "explorer_openvirohelm"
+	item_state = "explorer_openvirohelm"
+	visor_icon = "explorer_openvisor"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/chaplain/mark2
+	name = "chaplain's Mk.II envirosuit helmet"
+	desc = "A stylish new iteration upon the original plasmaman containment helmet design for only the most pious of plasmamen. Old age traditions wrapped in a new age shell."
+	icon_state = "chap_openvirohelm"
+	item_state = "chap_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/white/mark2
+	name = "white Mk.II envirosuit helmet"
+	desc = "The generic white envirohelm brought into a new era of fashion."
+	icon_state = "white_openvirohelm"
+	item_state = "white_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/botany/mark2
+	name = "botany Mk.II envirosuit helmet"
+	desc = "A stylish new iteration upon the original plasmaman containment helmet design for botanists. Now specially designed against minor planet-related injuries."
+	icon_state = "botany_openvirohelm"
+	item_state = "botany_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/janitor/mark2
+	name = "janitor's Mk.II envirosuit helmet"
+	desc = "A new look for the flashy janitor enviro helmet. Get the appreciation you deserve with this cutting edge vogue."
+	icon_state = "janitor_openvirohelm"
+	item_state = "janitor_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/exploration/mark2
+	name = "mining envirosuit helmet"
+	desc = "A new plasmaman envirohelmet designed for the exploration crew, decked out in their iconic garish turquiose."
+	icon_state = "exploration_openvirohelm"
+	item_state = "exploration_openvirohelm"
+	visor_icon = "explorer_openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/command/mark2
+	name = "captain's Mk.II envirosuit helmet"
+	desc = "A new age helmet issued to the head of the command staff. Sleeker and stylish-er, as all captains should be."
+	icon_state = "command_openvirohelm"
+	item_state = "command_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/engineering/ce/mark2
+	name = "chief engineer's Mk.II envirohelmet"
+	desc = "A stylish new iteration upon the original plasmaman containment helmet design for the Chief Engineer. This one doesn't smell as strongly of bird poo."
+	icon_state = "ce_openvirohelm"
+	item_state = "ce_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/cmo/mark2
+	name = "chief medical officer's Mk.II envirohelmet"
+	desc = "A sleek new helmet issued to the chief of the medical staff. Show off that big forehead of yours to all the squares in science."
+	icon_state = "cmo_openvirohelm"
+	item_state = "cmo_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/security/hos/mark2
+	name = "head of security's Mk.II envirosuit helmet"
+	desc = "A new variant of the head of security's classic reinforced envirohelmet. You'll still need it."
+	icon_state = "hos_openvirohelm"
+	item_state = "hos_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/rd/mark2
+	name = "research director's Mk.II envirosuit helmet"
+	desc = "A stylish new helmet issued to the director of the research staff. Show off that big forehead of yours to all the wimps in medical."
+	icon_state = "rd_openvirohelm"
+	item_state = "rd_openvirohelm"
+	visor_icon = "openvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/hop/mark2
+	name = "head of personnel's Mk.II envirosuit helmet"
+	desc = "An new envirosuit helmet made for the Head of Personnel, sprayed with Corgi pheromones."
+	icon_state = "hop_openvirohelm"
+	item_state = "hop_openvirohelm"
+	visor_icon = "openvisor"
+
+// The Protective helmet variants
+
+/obj/item/clothing/head/helmet/space/plasmaman/command/protective
+	name = "captain's Mk.II envirosuit helmet"
+	desc = "A better protected helmet issued to the head of the command staff. This might help. Might."
+	icon_state = "command_armouredenvirohelm"
+	item_state = "command_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/engineering/ce/protective
+	name = "chief engineer's Mk.II envirohelmet"
+	desc = "A braced plasmaman containment helmet design for the Chief Engineer."
+	icon_state = "ce_armouredenvirohelm"
+	item_state = "ce_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/cmo/protective
+	name = "chief medical officer's Mk.II envirohelmet"
+	desc = "A bulky new helmet issued to the chief of the medical staff."
+	icon_state = "cmo_armouredenvirohelm"
+	item_state = "cmo_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/security/hos/protective
+	name = "head of security's Mk.II envirosuit helmet"
+	desc = "A better-armoured variant of the head of security's classic reinforced envirohelmet."
+	icon_state = "hos_armouredenvirohelm"
+	item_state = "hos_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/rd/protective
+	name = "research director's Mk.II envirosuit helmet"
+	desc = "An encumbering new helmet issued to the director of the research staff."
+	icon_state = "rd_armouredenvirohelm"
+	item_state = "rd_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/hop/protective
+	name = "head of personnel's Mk.II envirosuit helmet"
+	desc = "An new, debatably safer envirosuit helmet made for the Head of Personnel."
+	icon_state = "hop_armouredenvirohelm"
+	item_state = "hop_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+
+/obj/item/clothing/head/helmet/space/plasmaman/protective
+	name = "protective envirosuit helmet"
+	desc = "This helmet was originally designed for engineering crews on the more ramshackle plasma mining colonies. Now, after several design improvements and class-action lawsuits, this helmet has been distributed once more as a fun cosmetic choice for NTs plasmafolk."
+	icon_state = "assistant_armouredenvirohelm"
+	item_state = "assistant_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/security/protective
+	name = "security protective envirosuit helmet"
+	desc = "A braced plasmaman containment helmet design for security officers."
+	icon_state = "security_armouredenvirohelm"
+	item_state = "security_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/security/warden/protective
+	name = "warden's Mk.II envirosuit helmet"
+	desc = "A braced plasmaman containment helmet design for the warden."
+	icon_state = "warden_armouredenvirohelm"
+	item_state = "warden_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/medical/protective
+	name = "medical's Mk.II envirosuit helmet"
+	desc = "A braced plasmaman containment helmet design for medical doctors."
+	icon_state = "doctor_armouredenvirohelm"
+	item_state = "doctor_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/genetics/protective
+	name = "geneticist's Mk.II envirosuit helmet"
+	desc = "A braced plasmaman containment helmet design for geneticists."
+	icon_state = "geneticist_armouredenvirohelm"
+	item_state = "geneticist_armouredvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/viro/protective
+	name = "virology Mk.II envirosuit helmet"
+	desc = "The helmet worn by the safest people on the station, those who are completely immune to the monstrosities they create."
+	icon_state = "virologist_armouredenvirohelm"
+	item_state = "virologist_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/chemist/protective
+	name = "chemistry Mk.II envirosuit helmet"
+	desc = "A braced plasmaman containment helmet design for chemists."
+	icon_state = "chemist_armouredenvirohelm"
+	item_state = "chemist_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/emt/protective
+	name = "paramedic Mk.II envirosuit helmet"
+	desc = "A new and improved envirosuit helmet only for the bravest medical plasmaman."
+	icon_state = "emt_armouredenvirohelm"
+	item_state = "emt_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/security/secmed/protective
+	name = "brig physician Mk.II envirosuit helmet"
+	desc = "A braced plasmaman containment helmet design for brig physicians."
+	icon_state = "secmed_armouredenvirohelm"
+	item_state = "secmed_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/science/protective
+	name = "science Mk.II envirosuit helmet"
+	desc = "A braced plasmaman containment helmet design for scientists."
+	icon_state = "scientist_armouredenvirohelm"
+	item_state = "scientist_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/robotics/protective
+	name = "robotics Mk.II envirosuit helmet"
+	desc = "A braced plasmaman containment helmet design for roboticists."
+	icon_state = "roboticist_armouredenvirohelm"
+	item_state = "roboticist_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/engineering/protective
+	name = "engineering Mk.II envirosuit helmet"
+	desc = "A safer looking re-imagining of the classic space-worthy design, painted in classic engineering pigments."
+	icon_state = "engineer_armouredenvirohelm"
+	item_state = "engineer_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75, "stamina" = 0)
+
+/obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics/protective
+	name = "atmospherics Mk.II envirosuit helmet"
+	desc = "A safer looking re-imagining of the classic space-worthy design, painted in classic atmosian pigments."
+	icon_state = "atmos_armouredenvirohelm"
+	item_state = "atmos_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/cargo/protective
+	name = "cargo Mk.II envirosuit helmet"
+	desc = "A braced plasmaman containment helmet design for cargo techs and quartermasters."
+	icon_state = "cargo_armouredenvirohelm"
+	item_state = "cargo_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/mining/protective
+	name = "mining Mk.II envirosuit helmet"
+	desc = "A new styling of the classic khaki helmet given to plasmamen miners."
+	icon_state = "explorer_armouredenvirohelm"
+	item_state = "explorer_armouredenvirohelm"
+	visor_icon = "explorer_armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/chaplain/protective
+	name = "chaplain's Mk.II envirosuit helmet"
+	desc = "A braced plasmaman containment helmet design for only the most pious of plasmamen."
+	icon_state = "chap_armouredenvirohelm"
+	item_state = "chap_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/white/protective
+	name = "white Mk.II envirosuit helmet"
+	desc = "The generic white envirohelm wrapped in a bulky, possibly more protective shell."
+	icon_state = "white_armouredenvirohelm"
+	item_state = "white_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/botany/protective
+	name = "botany Mk.II envirosuit helmet"
+	desc = "A braced plasmaman containment helmet design for botanists."
+	icon_state = "botany_armouredenvirohelm"
+	item_state = "botany_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/janitor/protective
+	name = "janitor's Mk.II envirosuit helmet"
+	desc = "A bulkier variation on the janitor envirohelmet."
+	icon_state = "janitor_armouredenvirohelm"
+	item_state = "janitor_armouredenvirohelm"
+	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/exploration/protective
+	name = "mining envirosuit helmet"
+	desc = "A new plasmaman envirohelmet designed for the exploration crew, decked out in their iconic garish turquiose."
+	icon_state = "exploration_armouredenvirohelm"
+	item_state = "exploration_armouredenvirohelm"
+	visor_icon = "explorer_armouredenvisor"
