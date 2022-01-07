@@ -153,7 +153,7 @@
 /datum/gas/zauker
 	id = GAS_ZAUKER
 	specific_heat = 350
-	name = "zauker"
+	name = "Zauker"
 	gas_overlay = "zauker"
 	moles_visible = MOLES_GAS_VISIBLE
 
