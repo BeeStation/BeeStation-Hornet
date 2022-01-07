@@ -518,7 +518,7 @@ nobiliumsuppression = INFINITY
 	if(energy_released > 0)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat(max(((temperature*old_heat_capacity + energy_released)/new_heat_capacity),TCMB))
+			air.set_temperature(max(((temperature*old_heat_capacity + energy_released)/new_heat_capacity),TCMB))
 		return REACTING
 
 /datum/gas_reaction/freonformation
@@ -549,7 +549,7 @@ nobiliumsuppression = INFINITY
 	if(energy_used > 0)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat(max(((temperature*old_heat_capacity - energy_used)/new_heat_capacity),TCMB))
+			air.set_temperature(max(((temperature*old_heat_capacity - energy_used)/new_heat_capacity),TCMB))
 		return REACTING
 
 /datum/gas_reaction/stimformation //Stimulum formation follows a strange pattern of how effective it will be at a given temperature, having some multiple peaks and some large dropoffs. Exo and endo thermic.
@@ -702,7 +702,7 @@ nobiliumsuppression = INFINITY
 	if(energy_used)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat(max(((temperature * old_heat_capacity + energy_used) / new_heat_capacity), TCMB))
+			air.set_temperature(max(((temperature * old_heat_capacity + energy_used) / new_heat_capacity), TCMB))
 	return REACTING
 
 /datum/gas_reaction/hexane_formation
@@ -732,7 +732,7 @@ nobiliumsuppression = INFINITY
 	if(energy_used)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat(max(((temperature * old_heat_capacity - energy_used) / new_heat_capacity), TCMB))
+			air.set_temperature(max(((temperature * old_heat_capacity - energy_used) / new_heat_capacity), TCMB))
 	return REACTING
 
 /datum/gas_reaction/healium_formation
@@ -762,7 +762,7 @@ nobiliumsuppression = INFINITY
 	if(energy_used)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat(max(((temperature * old_heat_capacity + energy_used) / new_heat_capacity), TCMB))
+			air.set_temperature(max(((temperature * old_heat_capacity + energy_used) / new_heat_capacity), TCMB))
 	return REACTING
 
 /datum/gas_reaction/proto_nitrate_formation
@@ -792,7 +792,7 @@ nobiliumsuppression = INFINITY
 	if(energy_used > 0)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat(max(((temperature * old_heat_capacity + energy_used) / new_heat_capacity), TCMB))
+			air.set_temperature(max(((temperature * old_heat_capacity + energy_used) / new_heat_capacity), TCMB))
 	return REACTING
 
 /datum/gas_reaction/cyrion_b_formation
@@ -822,7 +822,7 @@ nobiliumsuppression = INFINITY
 	if(energy_used)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat(max(((temperature * old_heat_capacity - energy_used) / new_heat_capacity), TCMB))
+			air.set_temperature(max(((temperature * old_heat_capacity - energy_used) / new_heat_capacity), TCMB))
 	return REACTING
 
 /datum/gas_reaction/halon_o2removal
@@ -852,7 +852,7 @@ nobiliumsuppression = INFINITY
 	if(energy_used)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat(max(((temperature * old_heat_capacity - energy_used) / new_heat_capacity), TCMB))
+			air.set_temperature(max(((temperature * old_heat_capacity - energy_used) / new_heat_capacity), TCMB))
 	return REACTING
 
 /datum/gas_reaction/hexane_plasma_filtering
@@ -882,7 +882,7 @@ nobiliumsuppression = INFINITY
 	if(energy_used)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat(max(((temperature * old_heat_capacity - energy_used) / new_heat_capacity), TCMB))
+			air.set_temperature(max(((temperature * old_heat_capacity - energy_used) / new_heat_capacity), TCMB))
 	return REACTING
 
 /datum/gas_reaction/hexane_n2o_filtering
@@ -912,7 +912,7 @@ nobiliumsuppression = INFINITY
 	if(energy_used)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat(max(((temperature * old_heat_capacity + energy_used) / new_heat_capacity), TCMB))
+			air.set_temperature(max(((temperature * old_heat_capacity + energy_used) / new_heat_capacity), TCMB))
 	return REACTING
 
 /datum/gas_reaction/cyrion_b_decomp
@@ -945,7 +945,7 @@ nobiliumsuppression = INFINITY
 
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
+			air.set_temperature(max((temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB))
 		return REACTING
 	return NO_REACTION
 
@@ -982,7 +982,7 @@ nobiliumsuppression = INFINITY
 	if(energy_released)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
+			air.set_temperature((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
 	return REACTING
 
 /datum/gas_reaction/proto_nitrate_crystal_formation
@@ -1018,7 +1018,7 @@ nobiliumsuppression = INFINITY
 	if(energy_released)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
+			air.set_temperature((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
 	return REACTING
 
 /datum/gas_reaction/cyrion_b_crystal_formation
@@ -1054,7 +1054,7 @@ nobiliumsuppression = INFINITY
 	if(energy_released)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
+			air.set_temperature((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
 	return REACTING
 
 /datum/gas_reaction/proto_nitrate_plasma_response
@@ -1091,7 +1091,7 @@ nobiliumsuppression = INFINITY
 	if(energy_released)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
+			air.set_temperature((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
 	return REACTING
 
 /datum/gas_reaction/proto_nitrate_bz_response
@@ -1126,7 +1126,7 @@ nobiliumsuppression = INFINITY
 	if(energy_released)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
+			air.set_temperature((temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
 	return REACTING
 
 /datum/gas_reaction/proto_nitrate_freon_fire_response
@@ -1158,7 +1158,7 @@ nobiliumsuppression = INFINITY
 		if(energy_released)
 			var/new_heat_capacity = air.heat_capacity()
 			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-				air.adjust_heat((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
+				air.set_temperature((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
 		return REACTING
 	return NO_REACTION
 
@@ -1192,7 +1192,7 @@ nobiliumsuppression = INFINITY
 	if(energy_released)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
+			air.set_temperature((temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
 	return REACTING
 
 /datum/gas_reaction/proto_nitrate_n2o_response
@@ -1220,7 +1220,7 @@ nobiliumsuppression = INFINITY
 	if(energy_released)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.adjust_heat((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
+			air.set_temperature((temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
 	return REACTING
 
 /datum/gas_reaction/proto_nitrate_cyrion_b_response
