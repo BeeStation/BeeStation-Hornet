@@ -30,7 +30,11 @@
 /// Cached list for security records to send as static data
 /mob/living/silicon/pai/var/list/security_records = list()
 
+/mob/living/silicon/pai/ui_status(mob/user, state)
+	return UI_INTERACTIVE
+
 /mob/living/silicon/pai/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PaiInterface", name)
