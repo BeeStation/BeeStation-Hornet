@@ -586,14 +586,18 @@
 	width = 3
 	height = 4
 	launch_status = UNLAUNCHED
+	var/launched = FALSE
 
 /obj/docking_port/mobile/pod/request(obj/docking_port/stationary/S)
 	var/obj/machinery/computer/shuttle_flight/C = getControlConsole()
 	if(!istype(C, /obj/machinery/computer/shuttle_flight/pod))
+		launched = TRUE
 		return ..()
-	if(GLOB.security_level >= SEC_LEVEL_RED || (C && (C.obj_flags & EMAGGED)))
+	//If the pod launches and then the security level is lowered, the pod should still function.
+	if(GLOB.security_level >= SEC_LEVEL_RED || (C && (C.obj_flags & EMAGGED)) || launched)
 		if(launch_status == UNLAUNCHED)
 			launch_status = EARLY_LAUNCHED
+			launched = TRUE
 			return ..()
 	else
 		to_chat(usr, "<span class='warning'>Escape pods will only launch during \"Code Red\" security alert.</span>")
