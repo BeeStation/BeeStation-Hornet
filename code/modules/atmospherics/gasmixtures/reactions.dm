@@ -18,15 +18,15 @@ stimball = 7
 ammoniacrystals = 8
 hexane_plasma_filtering = 9
 hexane_n2o_filtering = 10
-cyrion_b_decomp = 11
+zauker_decomp = 11
 healium_production = 12
 proto_nitrate_production = 13
-cyrion_b_production = 14
+zauker_production = 14
 halon_formation = 15
 hexane_formation = 16
 healium_crystal_production = 17
 proto_nitrate_crystal_production = 18
-cyrion_b_crystal_production = 19
+zauker_crystal_production = 19
 proto_nitrate_response = 20 - 25
 fusion = 26
 nobiliumsuppression = INFINITY
@@ -795,12 +795,12 @@ nobiliumsuppression = INFINITY
 			air.set_temperature(max(((temperature * old_heat_capacity + energy_used) / new_heat_capacity), TCMB))
 	return REACTING
 
-/datum/gas_reaction/cyrion_b_formation
+/datum/gas_reaction/zauker_formation
 	priority = 14
-	name = "Cyrion B formation"
-	id = "cyrion_b_formation"
+	name = "Zauker formation"
+	id = "zauker_formation"
 
-/datum/gas_reaction/cyrion_b_formation/init_reqs()
+/datum/gas_reaction/zauker_formation/init_reqs()
 	min_requirements = list(
 		GAS_HYPERNOB = MINIMUM_MOLE_COUNT,
 		GAS_STIMULUM = MINIMUM_MOLE_COUNT,
@@ -808,7 +808,7 @@ nobiliumsuppression = INFINITY
 		"MAX_TEMP" = 75000
 	)
 
-/datum/gas_reaction/cyrion_b_formation/react(datum/gas_mixture/air, datum/holder)
+/datum/gas_reaction/zauker_formation/react(datum/gas_mixture/air, datum/holder)
 	var/temperature =  air.return_temperature()
 	var/old_heat_capacity = air.heat_capacity()
 	var/heat_efficency = min(temperature * 0.000005, air.get_moles(GAS_HYPERNOB), air.get_moles(GAS_STIMULUM))
@@ -817,7 +817,7 @@ nobiliumsuppression = INFINITY
 		return NO_REACTION
 	air.adjust_moles(GAS_HYPERNOB, -(heat_efficency * 0.01)) 
 	air.adjust_moles(GAS_STIMULUM, -(heat_efficency * 0.5)) 
-	air.adjust_moles(GAS_CYRION_B, heat_efficency * 0.5)
+	air.adjust_moles(GAS_ZAUKER, heat_efficency * 0.5)
 
 	if(energy_used)
 		var/new_heat_capacity = air.heat_capacity()
@@ -915,27 +915,27 @@ nobiliumsuppression = INFINITY
 			air.set_temperature(max(((temperature * old_heat_capacity + energy_used) / new_heat_capacity), TCMB))
 	return REACTING
 
-/datum/gas_reaction/cyrion_b_decomp
+/datum/gas_reaction/zauker_decomp
 	priority = 11
-	name = "Cyrion B decomposition"
-	id = "cyrion_b_decomp"
+	name = "Zauker decomposition"
+	id = "zauker_decomp"
 
-/datum/gas_reaction/cyrion_b_decomp/init_reqs()
+/datum/gas_reaction/zauker_decomp/init_reqs()
 	min_requirements = list(
 		GAS_N2 = MINIMUM_MOLE_COUNT,
-		GAS_CYRION_B = MINIMUM_MOLE_COUNT
+		GAS_ZAUKER = MINIMUM_MOLE_COUNT
 	)
 
-/datum/gas_reaction/cyrion_b_decomp/react(datum/gas_mixture/air, datum/holder)
+/datum/gas_reaction/zauker_decomp/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
 	var/old_heat_capacity = air.heat_capacity()
 	  //this speeds things up because accessing datum vars is slow
 	var/temperature =  air.return_temperature()
 	var/burned_fuel = 0
-	burned_fuel = min(20, air.get_moles(GAS_N2), air.get_moles(GAS_CYRION_B))
-	if(air.get_moles(GAS_CYRION_B) - burned_fuel < 0)
+	burned_fuel = min(20, air.get_moles(GAS_N2), air.get_moles(GAS_ZAUKER))
+	if(air.get_moles(GAS_ZAUKER) - burned_fuel < 0)
 		return NO_REACTION
-	air.adjust_moles(GAS_CYRION_B, -burned_fuel)
+	air.adjust_moles(GAS_ZAUKER, -burned_fuel)
 
 	if(burned_fuel)
 		energy_released += (460 * burned_fuel)
@@ -1021,20 +1021,20 @@ nobiliumsuppression = INFINITY
 			air.set_temperature((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
 	return REACTING
 
-/datum/gas_reaction/cyrion_b_crystal_formation
+/datum/gas_reaction/zauker_crystal_formation
 	priority = 19
-	name = "cyrion_b crystal formation"
-	id = "cyrion_b_crystal_formation"
+	name = "zauker crystal formation"
+	id = "zauker_crystal_formation"
 
-/datum/gas_reaction/cyrion_b_crystal_formation/init_reqs()
+/datum/gas_reaction/zauker_crystal_formation/init_reqs()
 	min_requirements = list(
 		GAS_PLASMA = 50,
-		GAS_CYRION_B = 10,
+		GAS_ZAUKER = 10,
 		"TEMP" = 270,
 		"MAX_TEMP" = 280
 	)
 
-/datum/gas_reaction/cyrion_b_crystal_formation/react(datum/gas_mixture/air, datum/holder)
+/datum/gas_reaction/zauker_crystal_formation/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
 	var/old_heat_capacity = air.heat_capacity()
 	 
@@ -1043,13 +1043,13 @@ nobiliumsuppression = INFINITY
 		return NO_REACTION
 	var/turf/open/location = holder
 	var/consumed_fuel = 0
-	consumed_fuel = min(air.get_moles(GAS_CYRION_B) * 0.1, 20 * (temperature * 0.02))
-	if ((air.get_moles(GAS_CYRION_B) - consumed_fuel * 0.05 < 0 ) || (air.get_moles(GAS_PLASMA) - consumed_fuel * 5 < 0)) //Shouldn't produce gas from nothing.
+	consumed_fuel = min(air.get_moles(GAS_ZAUKER) * 0.1, 20 * (temperature * 0.02))
+	if ((air.get_moles(GAS_ZAUKER) - consumed_fuel * 0.05 < 0 ) || (air.get_moles(GAS_PLASMA) - consumed_fuel * 5 < 0)) //Shouldn't produce gas from nothing.
 		return NO_REACTION
 	air.adjust_moles(GAS_PLASMA, -(consumed_fuel * 5))
-	air.adjust_moles(GAS_CYRION_B, -(consumed_fuel * 0.05))
+	air.adjust_moles(GAS_ZAUKER, -(consumed_fuel * 0.05))
 	if(prob(10 * consumed_fuel))
-		new /obj/item/grenade/gas_crystal/cyrion_b_crystal(location)
+		new /obj/item/grenade/gas_crystal/zauker_crystal(location)
 	energy_released += consumed_fuel * 800
 	if(energy_released)
 		var/new_heat_capacity = air.heat_capacity()
@@ -1225,22 +1225,22 @@ nobiliumsuppression = INFINITY
 			air.set_temperature((temperature * old_heat_capacity + energy_released) / new_heat_capacity, TCMB)
 	return REACTING
 
-/datum/gas_reaction/proto_nitrate_cyrion_b_response
+/datum/gas_reaction/proto_nitrate_zauker_response
 	priority = 25
-	name = "Proto Nitrate Cyrion B response"
-	id = "proto_nitrate_cyrion_b_response"
+	name = "Proto Nitrate Zauker response"
+	id = "proto_nitrate_zauker_response"
 
-/datum/gas_reaction/proto_nitrate_cyrion_b_response/init_reqs()
+/datum/gas_reaction/proto_nitrate_zauker_response/init_reqs()
 	min_requirements = list(
 		GAS_PROTO_NITRATE = MINIMUM_MOLE_COUNT,
-		GAS_CYRION_B = MINIMUM_MOLE_COUNT,
+		GAS_ZAUKER = MINIMUM_MOLE_COUNT,
 		"TEMP" = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
 	)
 
-/datum/gas_reaction/proto_nitrate_cyrion_b_response/react(datum/gas_mixture/air, datum/holder)
+/datum/gas_reaction/proto_nitrate_zauker_response/react(datum/gas_mixture/air, datum/holder)
 	 
 	var/turf/open/location = isturf(holder) ? holder : null
-	var max_power = min(5, air.get_moles(GAS_CYRION_B))
-	air.adjust_moles(GAS_CYRION_B, -(air.get_moles(GAS_CYRION_B)))
+	var max_power = min(5, air.get_moles(GAS_ZAUKER))
+	air.adjust_moles(GAS_ZAUKER, -(air.get_moles(GAS_ZAUKER)))
 	explosion(location, max_power * 0.55, max_power * 0.95, max_power * 1.25, max_power* 3)
 	return REACTING

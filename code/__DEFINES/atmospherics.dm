@@ -288,7 +288,7 @@
 #define GAS_FREON				"freon"
 #define GAS_HEALIUM				"healium"
 #define GAS_PROTO_NITRATE		"proto-nitrate"
-#define GAS_CYRION_B			"cyrion-b"
+#define GAS_ZAUKER			"cyrion-b"
 #define GAS_HALON				"halon"
 #define GAS_HEXANE				"hexane"
 

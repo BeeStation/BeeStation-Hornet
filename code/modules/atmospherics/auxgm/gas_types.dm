@@ -150,11 +150,11 @@
 	gas_overlay = "proto_nitrate"
 	moles_visible = MOLES_GAS_VISIBLE
 
-/datum/gas/cyrion_b
-	id = "cyrion_b"
+/datum/gas/zauker
+	id = "zauker"
 	specific_heat = 350
-	name = "Cyrion B"
-	gas_overlay = "cyrion_b"
+	name = "zauker"
+	gas_overlay = "zauker"
 	moles_visible = MOLES_GAS_VISIBLE
 
 /datum/gas/halon

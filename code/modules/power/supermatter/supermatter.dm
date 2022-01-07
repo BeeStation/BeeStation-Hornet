@@ -15,7 +15,7 @@
 #define FREON_HEAT_PENALTY -10 //very good heat absorbtion and less plasma and o2 generation
 #define HEALIUM_HEAT_PENALTY 4
 #define PROTO_NITRATE_HEAT_PENALTY -3
-#define CYRION_B_HEAT_PENALTY 8
+#define ZAUKER_HEAT_PENALTY 8
 
 
 //All of these get divided by 10-bzcomp * 5 before having 1 added and being multiplied with power to determine rads
@@ -29,7 +29,7 @@
 #define HYDROGEN_TRANSMIT_MODIFIER 25 //increase the radiation emission, but less than the trit (2.5)
 #define HEALIUM_TRANSMIT_MODIFIER 2.4
 #define PROTO_NITRATE_TRANSMIT_MODIFIER 15
-#define CYRION_B_TRANSMIT_MODIFIER 20
+#define ZAUKER_TRANSMIT_MODIFIER 20
 
 #define N2O_HEAT_RESISTANCE 6          //Higher == Gas makes the crystal more resistant against heat damage.
 #define HYDROGEN_HEAT_RESISTANCE 2 // just a bit of heat resistance to spice it up
@@ -136,7 +136,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/tritiumcomp = 0
 	var/bzcomp = 0
 	var/n2ocomp = 0
-	var/cyrion_bcomp = 0
+	var/zaukercomp = 0
 	var/healiumcomp = 0
 	var/freon_comp = 0
 	var/proto_nitcomp = 0
@@ -420,7 +420,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		pluoxiumcomp = max(removed.get_moles(GAS_PLUOXIUM)/combined_gas, 0)
 		tritiumcomp = max(removed.get_moles(GAS_TRITIUM)/combined_gas, 0)
 		bzcomp = max(removed.get_moles(GAS_BZ)/combined_gas, 0)
-		cyrion_bcomp = max(removed.get_moles(GAS_CYRION_B)/combined_gas, 0)
+		zaukercomp = max(removed.get_moles(GAS_ZAUKER)/combined_gas, 0)
 		healiumcomp = max(removed.get_moles(GAS_HEALIUM)/combined_gas, 0)
 		freon_comp = max(removed.get_moles(GAS_FREON)/combined_gas, 0)
 		proto_nitcomp = max(removed.get_moles(GAS_PROTO_NITRATE)/combined_gas, 0)
@@ -435,7 +435,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + tritiumcomp + bzcomp - pluoxiumcomp - n2comp, 0), 1)
 
-		dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (tritiumcomp * TRITIUM_HEAT_PENALTY) + ((pluoxiumcomp * PLUOXIUM_HEAT_PENALTY) * pluoxiumbonus) + (n2comp * NITROGEN_HEAT_PENALTY) + (bzcomp * BZ_HEAT_PENALTY) + (cyrion_bcomp * CYRION_B_HEAT_PENALTY) + (healiumcomp * HEALIUM_HEAT_PENALTY) + (freon_comp * FREON_HEAT_PENALTY) + (proto_nitcomp * PROTO_NITRATE_HEAT_PENALTY), 0.5)
+		dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (tritiumcomp * TRITIUM_HEAT_PENALTY) + ((pluoxiumcomp * PLUOXIUM_HEAT_PENALTY) * pluoxiumbonus) + (n2comp * NITROGEN_HEAT_PENALTY) + (bzcomp * BZ_HEAT_PENALTY) + (zaukercomp * ZAUKER_HEAT_PENALTY) + (healiumcomp * HEALIUM_HEAT_PENALTY) + (freon_comp * FREON_HEAT_PENALTY) + (proto_nitcomp * PROTO_NITRATE_HEAT_PENALTY), 0.5)
 		dynamic_heat_resistance = max((n2ocomp * N2O_HEAT_RESISTANCE) + ((pluoxiumcomp * PLUOXIUM_HEAT_RESISTANCE) * pluoxiumbonus), 1)
 
 		power_transmission_bonus = max((plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER), 0)
@@ -470,10 +470,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		if(prob(50))
 			radiation_pulse(src, power * (1 + (tritiumcomp * TRITIUM_RADIOACTIVITY_MODIFIER) + ((pluoxiumcomp * PLUOXIUM_RADIOACTIVITY_MODIFIER) * pluoxiumbonus) * (power_transmission_bonus/(10-(bzcomp * BZ_RADIOACTIVITY_MODIFIER))))) // Rad Modifiers BZ(500%), Tritium(300%), and Pluoxium(-200%)
-
 		if(bzcomp >= 0.4 && prob(30 * bzcomp))
 			src.fire_nuclear_particle()		// Start to emit radballs at a maximum of 30% chance per tick
-		if(prob(cyrion_bcomp))
+		if(prob(zaukercomp))
 			playsound(src.loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10)
 			supermatter_zap(src, 6, clamp(power*2, 4000, 20000))
 

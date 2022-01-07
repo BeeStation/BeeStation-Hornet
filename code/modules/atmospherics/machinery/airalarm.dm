@@ -105,33 +105,7 @@
 		GAS_FREON			= new/datum/tlv/dangerous,
 		GAS_HEALIUM			= new/datum/tlv/dangerous,
 		GAS_PROTO_NITRATE	= new/datum/tlv/dangerous,
-		GAS_CYRION_B		= new/datum/tlv/dangerous,
-		GAS_HALON			= new/datum/tlv/dangerous,
-		GAS_HEXANE			= new/datum/tlv/dangerous
-
-	)
-
-/obj/machinery/airalarm/server // No checks here.
-	TLV = list(
-		"pressure"					= new/datum/tlv/no_checks,
-		"temperature"				= new/datum/tlv/no_checks,
-		GAS_O2			= new/datum/tlv/no_checks,
-		GAS_N2			= new/datum/tlv/no_checks,
-		GAS_CO2	= new/datum/tlv/no_checks,
-		GAS_MIASMA			= new/datum/tlv/no_checks,
-		GAS_PLASMA			= new/datum/tlv/no_checks,
-		GAS_NITROUS	= new/datum/tlv/no_checks,
-		GAS_BZ				= new/datum/tlv/no_checks,
-		GAS_HYPERNOB		= new/datum/tlv/no_checks,
-		GAS_H2O		= new/datum/tlv/no_checks,
-		GAS_TRITIUM			= new/datum/tlv/no_checks,
-		GAS_STIMULUM			= new/datum/tlv/no_checks,
-		GAS_NITRYL			= new/datum/tlv/no_checks,
-		GAS_PLUOXIUM			= new/datum/tlv/no_checks,
-		GAS_FREON			= new/datum/tlv/dangerous,
-		GAS_HEALIUM			= new/datum/tlv/dangerous,
-		GAS_PROTO_NITRATE	= new/datum/tlv/dangerous,
-		GAS_CYRION_B		= new/datum/tlv/dangerous,
+		GAS_ZAUKER		= new/datum/tlv/dangerous,
 		GAS_HALON			= new/datum/tlv/dangerous,
 		GAS_HEXANE			= new/datum/tlv/dangerous
 	)
@@ -156,7 +130,7 @@
 		GAS_FREON			= new/datum/tlv/dangerous,
 		GAS_HEALIUM			= new/datum/tlv/dangerous,
 		GAS_PROTO_NITRATE	= new/datum/tlv/dangerous,
-		GAS_CYRION_B		= new/datum/tlv/dangerous,
+		GAS_ZAUKER		= new/datum/tlv/dangerous,
 		GAS_HALON			= new/datum/tlv/dangerous,
 		GAS_HEXANE			= new/datum/tlv/dangerous
 	)
@@ -562,7 +536,7 @@
 						GAS_FREON,
 						GAS_HEALIUM,
 						GAS_PROTO_NITRATE,
-						GAS_CYRION_B,
+						GAS_ZAUKER,
 						GAS_HALON,
 						GAS_HEXANE,
 					),

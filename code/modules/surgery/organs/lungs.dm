@@ -298,15 +298,15 @@
 	// Proto Nitrate
 		// Inert
 
-	// Cyrion B
-		var/cyrion_b_pp = PP(breath, GAS_CYRION_B)
-		if(cyrion_b_pp > gas_stimulation_min)
+	// Zauker
+		var/zauker_pp = PP(breath, GAS_ZAUKER)
+		if(zauker_pp > gas_stimulation_min)
 			H.adjustBruteLoss(25)
 			H.adjustOxyLoss(5)
 			H.adjustFireLoss(8)
 			H.adjustToxLoss(8)
-		gas_breathed = breath.get_moles(GAS_CYRION_B)
-		breath.adjust_moles(GAS_CYRION_B, -gas_breathed)
+		gas_breathed = breath.get_moles(GAS_ZAUKER)
+		breath.adjust_moles(GAS_ZAUKER, -gas_breathed)
 
 	// Halon
 		var/halon_pp = PP(breath, GAS_HALON)

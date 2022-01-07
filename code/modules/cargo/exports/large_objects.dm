@@ -149,7 +149,7 @@
 	worth += C.air_contents.get_moles(GAS_PLUOXIUM)*5
 	worth += C.air_contents.get_moles(GAS_HEALIUM)*19
 	worth += C.air_contents.get_moles(GAS_PROTO_NITRATE)*5
-	worth += C.air_contents.get_moles(GAS_CYRION_B)*1050
+	worth += C.air_contents.get_moles(GAS_ZAUKER)*1050
 	worth += C.air_contents.get_moles(GAS_HALON)*9
 	worth += C.air_contents.get_moles(GAS_HEXANE)*6
 	worth += C.air_contents.get_moles(GAS_FREON)*15
