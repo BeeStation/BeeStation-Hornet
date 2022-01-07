@@ -130,7 +130,7 @@
 		GAS_FREON			= new/datum/tlv/dangerous,
 		GAS_HEALIUM			= new/datum/tlv/dangerous,
 		GAS_PROTO_NITRATE	= new/datum/tlv/dangerous,
-		GAS_CYRION_B		= new/datum/tlv/dangerous,
+		GAS_ZAUKER		= new/datum/tlv/dangerous,
 		GAS_HALON			= new/datum/tlv/dangerous,
 		GAS_HEXANE			= new/datum/tlv/dangerous
 	)
