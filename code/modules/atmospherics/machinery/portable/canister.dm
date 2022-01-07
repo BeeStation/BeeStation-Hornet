@@ -52,12 +52,16 @@
 		"pluoxium" = /obj/machinery/portable_atmospherics/canister/pluoxium,
 		"caution" = /obj/machinery/portable_atmospherics/canister,
 		"miasma" = /obj/machinery/portable_atmospherics/canister/miasma,
+<<<<<<< HEAD
 		"freon" = /obj/machinery/portable_atmospherics/canister/freon,
 		"healium" = /obj/machinery/portable_atmospherics/canister/healium,
 		"proto_nitrate" = /obj/machinery/portable_atmospherics/canister/proto_nitrate,
 		"cyrion_b" = /obj/machinery/portable_atmospherics/canister/cyrion_b,
 		"halon" = /obj/machinery/portable_atmospherics/canister/halon,
 		"hexane" = /obj/machinery/portable_atmospherics/canister/hexane
+=======
+		"freon" = /obj/machinery/portable_atmospherics/canister/freon
+>>>>>>> e7a2285... Addition of Freon (no removal, no fire) (#49821)
 	)
 
 /obj/machinery/portable_atmospherics/canister/interact(mob/user)
@@ -179,12 +183,25 @@
 	gas_type = /datum/gas/proto_nitrate
 	filled = 1
 
+<<<<<<< HEAD
 /obj/machinery/portable_atmospherics/canister/cyrion_b
 	name = "Cyrion B canister"
 	desc = "Cyrion B, highly toxic"
 	icon_state = "cyrion_b"
 	gas_type = /datum/gas/cyrion_b
 	filled = 1
+=======
+/obj/machinery/portable_atmospherics/canister/freon
+	name = "freon canister"
+	desc = "Freon. Can absorb heat"
+	icon_state = "freon"
+	gas_type = /datum/gas/freon
+	filled = 1
+
+/obj/machinery/portable_atmospherics/canister/fusion_test
+	name = "fusion test canister"
+	desc = "Don't be a badmin."
+>>>>>>> e7a2285... Addition of Freon (no removal, no fire) (#49821)
 
 /obj/machinery/portable_atmospherics/canister/halon
 	name = "Halon canister"

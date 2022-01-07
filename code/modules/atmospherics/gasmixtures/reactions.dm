@@ -282,6 +282,7 @@ nobiliumsuppression = INFINITY
 
 	return cached_results["fire"] ? REACTING : NO_REACTION
 
+<<<<<<< HEAD
 /datum/gas_reaction/genericfire
 	priority = -3 // very last reaction
 	name = "Combustion"
