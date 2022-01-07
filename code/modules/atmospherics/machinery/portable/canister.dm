@@ -153,26 +153,18 @@
 	gas_type = GAS_MIASMA
 	filled = 1
 
-/obj/machinery/portable_atmospherics/canister/freon
-	name = "Freon canister"
-	desc = "Freon. Can absorb heat"
-	icon_state = "freon"
-	gas_type = /datum/gas/freon
-	filled = 1
-
-
 /obj/machinery/portable_atmospherics/canister/healium
 	name = "Healium canister"
 	desc = "Healium, causes deep sleep"
 	icon_state = "healium"
-	gas_type = /datum/gas/healium
+	gas_type = GAS_HEALIUM
 	filled = 1
 
 /obj/machinery/portable_atmospherics/canister/proto_nitrate
 	name = "Proto Nitrate canister"
 	desc = "Proto Nitrate, react differently with various gases"
 	icon_state = "proto_nitrate"
-	gas_type = /datum/gas/proto_nitrate
+	gas_type = GAS_PROTO_NITRATE
 	filled = 1
 
 
@@ -180,7 +172,7 @@
 	name = "Zauker canister"
 	desc = "Zauker, highly toxic"
 	icon_state = "zauker"
-	gas_type = /datum/gas/zauker
+	gas_type = GAS_ZAUKER
 	filled = 1
 
 /obj/machinery/portable_atmospherics/canister/freon
@@ -195,14 +187,14 @@
 	name = "Halon canister"
 	desc = "Halon, remove oxygen from high temperature fires and cool down the area"
 	icon_state = "halon"
-	gas_type = /datum/gas/halon
+	gas_type = GAS_HALON
 	filled = 1
 
 /obj/machinery/portable_atmospherics/canister/hexane
 	name = "Hexane canister"
 	desc = "hexane, highly flammable"
 	icon_state = "hexane"
-	gas_type = /datum/gas/hexane
+	gas_type = GAS_HEXANE
 	filled = 1
 
 /obj/machinery/portable_atmospherics/canister/proc/get_time_left()
