@@ -110,6 +110,31 @@
 		GAS_HEXANE			= new/datum/tlv/dangerous
 	)
 
+/obj/machinery/airalarm/server // No checks here.
+	TLV = list(
+		"pressure"					= new/datum/tlv/no_checks,
+		"temperature"				= new/datum/tlv/no_checks,
+		GAS_O2			= new/datum/tlv/no_checks,
+		GAS_N2			= new/datum/tlv/no_checks,
+		GAS_CO2	= new/datum/tlv/no_checks,
+		GAS_MIASMA			= new/datum/tlv/no_checks,
+		GAS_PLASMA			= new/datum/tlv/no_checks,
+		GAS_NITROUS	= new/datum/tlv/no_checks,
+		GAS_BZ				= new/datum/tlv/no_checks,
+		GAS_HYPERNOB		= new/datum/tlv/no_checks,
+		GAS_H2O		= new/datum/tlv/no_checks,
+		GAS_TRITIUM			= new/datum/tlv/no_checks,
+		GAS_STIMULUM			= new/datum/tlv/no_checks,
+		GAS_NITRYL			= new/datum/tlv/no_checks,
+		GAS_PLUOXIUM			= new/datum/tlv/no_checks,
+		GAS_FREON			= new/datum/tlv/dangerous,
+		GAS_HEALIUM			= new/datum/tlv/dangerous,
+		GAS_PROTO_NITRATE	= new/datum/tlv/dangerous,
+		GAS_CYRION_B		= new/datum/tlv/dangerous,
+		GAS_HALON			= new/datum/tlv/dangerous,
+		GAS_HEXANE			= new/datum/tlv/dangerous
+	)
+
 /obj/machinery/airalarm/kitchen_cold_room // Kitchen cold rooms start off at -20°C or 253.15°K.
 	TLV = list(
 		"pressure"					= new/datum/tlv(ONE_ATMOSPHERE * 0.8, ONE_ATMOSPHERE*  0.9, ONE_ATMOSPHERE * 1.1, ONE_ATMOSPHERE * 1.2), // kPa
