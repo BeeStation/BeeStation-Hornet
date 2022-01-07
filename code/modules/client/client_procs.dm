@@ -983,14 +983,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	view_size.setTo(clamp(change, min, max), clamp(change, min, max))
 
 /client/proc/change_view(new_size)
-	if (isnull(new_size))
-		CRASH("change_view called without argument.")
-		view = new_size
-		apply_clickcatcher()
-		mob.reload_fullscreen()
-
 	if(mob && istype(mob.hud_used, /datum/hud/ai))
-		if(new_size == CONFIG_GET(string/default_view) || new_size == CONFIG_GET(string/default_view_square))
+		if(new_size == CONFIG_GET(string/default_view))
 			QDEL_NULL(mob.hud_used)
 			mob.create_mob_hud()
 			mob.hud_used.show_hud(mob.hud_used.hud_version)

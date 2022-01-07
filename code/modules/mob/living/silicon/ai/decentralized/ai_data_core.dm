@@ -39,7 +39,7 @@ GLOBAL_VAR_INIT(primary_data_core, null)
 		all_ais -= AI
 		AI.relocate()
 
-	to_chat(all_ais, span_userdanger("Warning! Data Core brought offline in [get_area(src)]! Please verify that no malicious actions were taken."))
+	to_chat(all_ais, "<span class = 'userdanger'>Warning! Data Core brought offline in [get_area(src)]! Please verify that no malicious actions were taken.</span>")
 
 	..()
 
@@ -49,7 +49,7 @@ GLOBAL_VAR_INIT(primary_data_core, null)
 		return
 	. += "<b>Networked AI Laws:</b>"
 	for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
-		var/active_status = !AI.mind ? "([span_warning("OFFLINE")])" : ""
+		var/active_status = !AI.mind ? "(["<span class = 'warning'>OFFLINE</span>"])" : ""
 		. += "<b>[AI] [active_status] has the following laws: </b>"
 		for(var/law in AI.laws.get_law_list(include_zeroth = TRUE))
 			. += law
@@ -73,7 +73,7 @@ GLOBAL_VAR_INIT(primary_data_core, null)
 	else
 		valid_ticks--
 		warning_sent = TRUE
-		to_chat(GLOB.ai_list, span_userdanger("Data core in [get_area(src)] is on the verge of failing! Please contact technical support."))
+		to_chat(GLOB.ai_list, "<span class = 'userdanger'>Data core in [get_area(src)] is on the verge of failing! Please contact technical support.</span>")
 
 
 

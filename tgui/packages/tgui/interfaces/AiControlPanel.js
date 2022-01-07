@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, LabeledList, Tabs, ProgressBar, Section, Flex, Icon, NoticeBox } from '../components';
@@ -93,9 +94,7 @@ export const AiControlPanel = (props, context) => {
                       return (
                         <Section key={index} title={(<Box inline color={ai.active ? "good" : "bad"}>{ai.name} | {ai.active ? "Active" : "Inactive"}</Box>)}
                           buttons={(
-                            <Fragment>
-                              <Button color={ai.can_download ? "good" : "bad"} tooltip={!data.intellicard ? ai.can_download ? "Requires IntelliCard" : "&¤!65%" : null} disabled={data.intellicard ? !ai.can_download : true} icon="download" onClick={() => act("start_download", { download_target: ai.ref })}>{ai.can_download ? "Download" : "&gr4&!/"}</Button>
-                            </Fragment>
+                            <Button color={ai.can_download ? "good" : "bad"} tooltip={!data.intellicard ? ai.can_download ? "Requires IntelliCard" : "&¤!65%" : null} disabled={data.intellicard ? !ai.can_download : true} icon="download" onClick={() => act("start_download", { download_target: ai.ref })}>{ai.can_download ? "Download" : "&gr4&!/"}</Button>
                           )}>
                           <Box bold>Integrity:</Box>
                           <ProgressBar mt={0.5} minValue={0}

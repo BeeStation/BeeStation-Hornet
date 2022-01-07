@@ -9,7 +9,7 @@
 	icon_screen = "ai-fixer"
 	light_color = LIGHT_COLOR_PINK
 
-	authenticated = FALSE
+	var/authenticated = FALSE
 
 	var/obj/item/aicard/intellicard
 
@@ -23,16 +23,16 @@
 /obj/machinery/computer/ai_control_console/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/aicard))
 		if(intellicard)
-			to_chat(user, span_warning("There's already an IntelliCard inserted!"))
+			to_chat(user, "<span class = 'warning'><There's already an IntelliCard inserted!/span>")
 			return ..()
-		to_chat(user, span_notice("You insert [W]."))
+		to_chat(user, "<span class = 'notice'>You insert [W].</span>")
 		W.forceMove(src)
 		intellicard = W
 		return FALSE
 	if(istype(W, /obj/item/mmi))
 		var/obj/item/mmi/brain = W
 		if(!brain.brainmob)
-			to_chat(user, span_warning("[W] is not active!"))
+			to_chat(user, "<span class = 'warning'>[W] is not active!</span>")
 			return ..()
 		SSticker.mode.remove_antag_for_borging(brain.brainmob.mind)
 		if(!istype(brain.laws, /datum/ai_laws/ratvar))
@@ -53,7 +53,7 @@
 			A.fully_replace_character_name(A.name, brain.replacement_ai_name())
 		SSblackbox.record_feedback("amount", "ais_created", 1)
 		qdel(W)
-		to_chat(user, span_notice("AI succesfully uploaded."))
+		to_chat(user, "<span class = 'notice'>AI succesfully uploaded.</span>")
 		return FALSE
 
 	return ..()
@@ -61,7 +61,7 @@
 /obj/machinery/computer/ai_control_console/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
 		return
-	to_chat(user, span_warning("You bypass the access restrictions"))
+	to_chat(user, "<span class = 'warning'>You bypass the access restrictions</span>")
 	authenticated = TRUE
 	obj_flags |= EMAGGED
 
@@ -71,7 +71,7 @@
 
 	if(downloading && download_progress >= 50 && !download_warning)
 		var/turf/T = get_turf(src)
-		to_chat(downloading, span_userdanger("Warning! Download is 50% completed! Download location: [get_area(src)] ([T.x], [T.y], [T.z])!"))
+		to_chat(downloading, "<span class = 'userdanger'>Warning! Download is 50% completed! Download location: [get_area(src)] ([T.x], [T.y], [T.z])!</span>")
 		download_warning = TRUE
 	if(downloading && download_progress >= 100)
 		finish_download()
@@ -160,12 +160,6 @@
 	if(isAI(user))
 		data["current_ai_ref"] = REF(user)
 
-	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
-		var/being_hijacked = A.hijacking ? TRUE : FALSE
-		data["ais"] += list(list("name" = A.name, "ref" = REF(A), "can_download" = A.can_download, "health" = A.health, "active" = A.mind ? TRUE : FALSE, "being_hijacked" = being_hijacked, "in_core" = istype(A.loc, /obj/machinery/ai/data_core)))
-
-	data["is_infiltrator"] = is_infiltrator(user)
-
 	return data
 
 /obj/machinery/computer/ai_control_console/proc/finish_download()
@@ -178,14 +172,14 @@
 /obj/machinery/computer/ai_control_console/proc/stop_download(silent = FALSE)
 	if(downloading)
 		if(!silent)
-			to_chat(downloading, span_userdanger("Download stopped."))
+			to_chat(downloading, "<span class = 'userdanger'>Download stopped.</span>")
 		downloading = null
 		user_downloading = null
 		download_progress = 0
 		download_warning = FALSE
 
 /obj/machinery/computer/ai_control_console/proc/upload_ai(silent = FALSE)
-	to_chat(intellicard.AI, span_notice("You are being uploaded. Please stand by..."))
+	to_chat(intellicard.AI, "<span class = 'userdanger'>You are being uploaded. Please stand by...</span>")
 	intellicard.AI.radio_enabled = TRUE
 	intellicard.AI.control_disabled = FALSE
 	intellicard.AI.relocate(TRUE)
@@ -228,7 +222,7 @@
 
 		if("eject_intellicard")
 			if(issilicon(usr))
-				to_chat(usr, span_warning("You're unable to remotely eject the IntelliCard!"))
+				to_chat(usr, "<span class = 'warning'>You're unable to remotely eject the IntelliCard!</span>")
 				return
 			stop_download()
 			intellicard.forceMove(get_turf(src))
@@ -236,7 +230,7 @@
 
 		if("stop_download")
 			if(isAI(usr))
-				to_chat(span_warning("You need physical access to stop the download!"))
+				to_chat("<span class = 'warning'>You need physical access to stop the download!</span>")
 				return
 			stop_download()
 
@@ -251,7 +245,7 @@
 			if(!target.can_download)
 				return
 			downloading = target
-			to_chat(downloading, span_userdanger("Warning! Someone is attempting to download you from [get_area(src)]!"))
+			to_chat(downloading, "<span class = 'userdanger'>Warning! Someone is attempting to download you from [get_area(src)]!</span>")
 			user_downloading = usr
 			download_progress = 0
 			. = TRUE

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Tabs, ProgressBar, Section, Divider, LabeledControls, NumberInput } from '../components';
@@ -51,7 +52,6 @@ export const AiDashboard = (props, context) => {
                   bad: [750, Infinity],
                 }}
                 value={data.temperature}
-
                 maxValue={750}>{data.temperature}K
               </ProgressBar>
               Uplink Temperature
@@ -80,7 +80,6 @@ export const AiDashboard = (props, context) => {
                   bad: [0, data.current_ram * 0.3],
                 }}
                 value={data.used_ram}
-
                 maxValue={data.current_ram}>
                 {data.used_ram ? data.used_ram : 0}/{data.current_ram} TB
               </ProgressBar>

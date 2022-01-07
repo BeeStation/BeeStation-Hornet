@@ -217,16 +217,10 @@
 	if(client && !C)
 		C = client
 	if(!input && !C?.prefs?.preferred_ai_core_display)
-		for (var/each in GLOB.ai_core_displays) //change status of displays
-			var/obj/machinery/status_display/ai_core/M = each
-			M.set_ai(initial(icon_state))
-			M.update()
+		icon_state = initial(icon_state)
 	else
 		var/preferred_icon = input ? input : C.prefs.preferred_ai_core_display
-		for (var/each in GLOB.ai_core_displays) //change status of displays
-			var/obj/machinery/status_display/ai_core/M = each
-			M.set_ai(resolve_ai_icon(preferred_icon))
-			M.update()
+		icon_state = resolve_ai_icon(preferred_icon)
 
 /mob/living/silicon/ai/verb/pick_icon()
 	set category = "AI Commands"
@@ -256,7 +250,6 @@
 		return
 
 	display_icon_override = ai_core_icon
-	set_core_display_icon(ai_core_icon)
 
 /mob/living/silicon/ai/get_stat_tab_status()
 	var/list/tab_data = ..()
@@ -1018,7 +1011,7 @@
 /mob/living/silicon/ai/revive(full_heal = 0, admin_revive = 0)
 	. = ..()
 	if(.) //successfully ressuscitated from death
-		set_core_display_icon(display_icon_override)
+		set_core_display_icon()
 		set_eyeobj_visible(TRUE)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)

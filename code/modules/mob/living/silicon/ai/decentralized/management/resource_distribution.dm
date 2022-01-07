@@ -7,7 +7,7 @@
 	icon_screen = "ai-fixer"
 	light_color = LIGHT_COLOR_PINK
 
-	authenticated = FALSE
+	var/authenticated = FALSE
 
 	var/human_only = FALSE
 
@@ -17,7 +17,7 @@
 /obj/machinery/computer/ai_resource_distribution/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
 		return
-	to_chat(user, span_warning("You bypass the access restrictions"))
+	to_chat(user, "<span class = 'warning'>You bypass the access restrictions.</span>")
 	authenticated = TRUE
 	obj_flags |= EMAGGED
 
@@ -141,7 +141,7 @@
 			if(!istype(target_ai))
 				return
 			if(human_only && !is_human)
-				to_chat(usr, span_warning("CAPTCHA check failed. This console is NOT silicon operable. Please call for human assistance."))
+				to_chat(usr, "<span class = 'warning'>CAPTCHA check failed. This console is NOT silicon operable. Please call for human assistance.</span>")
 				return
 
 			if(GLOB.ai_os.total_cpu_assigned() >= GLOB.ai_os.total_cpu)
@@ -154,7 +154,7 @@
 			if(!istype(target_ai))
 				return
 			if(human_only && !is_human)
-				to_chat(usr, span_warning("CAPTCHA check failed. This console is NOT silicon operable. Please call for human assistance."))
+				to_chat(usr, "<span class = 'warning'>CAPTCHA check failed. This console is NOT silicon operable. Please call for human assistance.</span>")
 				return
 
 			var/current_cpu = GLOB.ai_os.cpu_assigned[target_ai]
@@ -169,7 +169,7 @@
 			if(!istype(target_ai))
 				return
 			if(human_only && !is_human)
-				to_chat(usr, span_warning("CAPTCHA check failed. This console is NOT silicon operable. Please call for human assistance."))
+				to_chat(usr, "<span class = 'warning'>CAPTCHA check failed. This console is NOT silicon operable. Please call for human assistance.</span>")
 				return
 
 			if(GLOB.ai_os.total_ram_assigned() >= GLOB.ai_os.total_ram)
@@ -182,7 +182,7 @@
 			if(!istype(target_ai))
 				return
 			if(human_only && !is_human)
-				to_chat(usr, span_warning("CAPTCHA check failed. This console is NOT silicon operable. Please call for human assistance."))
+				to_chat(usr, "<span class = 'warning'>CAPTCHA check failed. This console is NOT silicon operable. Please call for human assistance.</span>")
 				return
 
 			var/current_ram = GLOB.ai_os.ram_assigned[target_ai]
@@ -193,7 +193,7 @@
 			. = TRUE
 		if("toggle_human_status")
 			if(!is_human)
-				to_chat(usr, span_warning("CAPTCHA check failed. This console is NOT silicon operable. Please call for human assistance."))
+				to_chat(usr, "<span class = 'warning'>CAPTCHA check failed. This console is NOT silicon operable. Please call for human assistance.</span>")
 				return
 			human_only = !human_only
-			to_chat(usr, span_notice("This console is now operable by [human_only ? "humans only." : "humans and silicons."]"))
+			to_chat(usr, "<span class = 'notice'>This console is now operable by [human_only ? "humans only." : "humans and silicons."]</span>")

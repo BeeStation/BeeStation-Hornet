@@ -17,16 +17,17 @@
 	set desc = "Allow or disallow carbon lifeforms to download you from an AI control console."
 
 	if(incapacitated())
-		return //won't work if dead
+		return //Won't work if dead
 	var/mob/living/silicon/ai/A = usr
 	A.can_download = !A.can_download
-	to_chat(A, span_warning("You [A.can_download ? "enable" : "disable"] read/write permission to your memorybanks! You [A.can_download ? "can" : "cannot"] be downloaded!"))
+	to_chat(A, "<span class = 'warning'>You [A.can_download ? "enable" : "disable"] read/write permission to your memorybanks! You [A.can_download ? "can" : "cannot"] be downloaded!</span>")
 
 
 
 /mob/living/silicon/ai/proc/relocate(silent = FALSE)
 	if(!silent)
-		to_chat(src, span_userdanger("Connection to data core lost. Attempting to reaquire connection..."))
+		to_chat(src, "<span class = 'userdanger'>Connection to data core lost. Attempting to reaquire connection...</span>")
+		return
 
 	if(!GLOB.data_cores.len)
 		INVOKE_ASYNC(src, /mob/living/silicon/ai.proc/death_prompt)
@@ -41,24 +42,24 @@
 		return
 
 	if(!silent)
-		to_chat(src, span_danger("Alternative data core detected. Rerouting connection..."))
+		to_chat(src, "<span class = 'danger'>Alternative data core detected. Rerouting connection...</span>")
 	new_data_core.transfer_AI(src)
 
 
 /mob/living/silicon/ai/proc/death_prompt()
-	to_chat(src, span_userdanger("Unable to re-establish connection to data core. System shutting down..."))
+	to_chat(src, "<span class = 'userdanger'>Unable to re-establish connection to data core. System shutting down...</span>")
 	sleep(2 SECONDS)
-	to_chat(src, span_notice("Searching for available data cores before initiating shutdown..."))
+	to_chat(src, "<span class = 'notice'>Searching for available data cores before initiating shutdown...</span>")
 	sleep(2 SECONDS)
 	if(available_ai_cores())
-		to_chat(src, span_usernotice("Alternative data core detected. Rerouting connection..."))
+		to_chat(src, "<span class = 'usernotice'>Alternative data core detected. Rerouting connection...</span>")
 		relocate(TRUE)
 		return
-	to_chat(src, span_notice("No data cores available..."))
+	to_chat(src, "<span class = 'notice'>No data cores available...</span>")
 	sleep(2 SECONDS)
-	to_chat(src, span_notice("System shutdown complete. Thank you for using NTOS."))
+	to_chat(src, "<span class = 'notice'>System shutdown complete. Thank you for using NTOS.</span>")
 	sleep(1.5 SECONDS)
 
-	adjustOxyLoss(200) //Death
+	adjustOxyLoss(200) //Get killed, nerd
 
 	QDEL_IN(src, 2 SECONDS)

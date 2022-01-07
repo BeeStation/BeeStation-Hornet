@@ -1070,14 +1070,14 @@
 			silicon_pilot = FALSE
 			return
 		else
-			to_chat(AI, span_notice("Attempting to return to core..."))
+			to_chat(AI, "<span class = 'notice'>Attempting to return to core...</span>")
 			AI.controlled_mech = null
 			AI.remote_control = null
 			RemoveActions(occupant, 1)
 			mob_container = AI
 			newloc = GLOB.primary_data_core ? GLOB.primary_data_core : GLOB.data_cores[1]
 			if(!newloc)
-				to_chat(AI, span_userdanger("No cores available. Core code corrupted. Goodbye."))
+				to_chat(AI, "<span class = 'userdanger'>No cores available. Core code corrupted. Goodbye.</span>")
 				qdel(AI)
 				return
 			is_ai_user = TRUE

@@ -26107,7 +26107,6 @@
 /turf/open/floor/wood,
 /area/library)
 "aZQ" = (
-/obj/effect/landmark/start/ai/secondary,
 /obj/item/radio/intercom{
 	freerange = 1;
 	listening = 0;
@@ -26241,7 +26240,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "aZY" = (
-/obj/effect/landmark/start/ai/secondary,
 /obj/item/radio/intercom{
 	freerange = 1;
 	listening = 0;
@@ -37584,7 +37582,6 @@
 	pixel_x = 27;
 	pixel_y = -7
 	},
-/obj/effect/landmark/start/ai,
 /obj/machinery/button/door{
 	id = "AI Core shutters";
 	name = "AI Core shutters control";
@@ -37599,6 +37596,7 @@
 	pixel_y = -23;
 	req_access_txt = "16"
 	},
+/obj/machinery/status_display/ai_core,
 /turf/open/floor/circuit/green,
 /area/ai_monitored/turret_protected/ai)
 "bvg" = (
@@ -39297,7 +39295,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "byx" = (
-/obj/machinery/porta_turret/ai,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = 24
@@ -60996,10 +60993,6 @@
 "cuP" = (
 /obj/structure/table,
 /obj/item/aicard,
-/obj/item/circuitboard/aicore{
-	pixel_x = -2;
-	pixel_y = 4
-	},
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -79109,6 +79102,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plating,
 /area/maintenance/aft/secondary)
+"gNm" = (
+/obj/machinery/ai/expansion_card_holder/prefilled,
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "gQZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -81195,6 +81192,10 @@
 	},
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
+"oev" = (
+/obj/machinery/ai/data_core/primary,
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "ofy" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -138144,7 +138145,7 @@ bzo
 bAV
 bCD
 bEh
-bGd
+oev
 bGd
 bKL
 bNY
@@ -139172,7 +139173,7 @@ bzs
 bJi
 bCD
 bEj
-bGd
+gNm
 bGd
 bKP
 bOb

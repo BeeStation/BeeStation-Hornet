@@ -141,6 +141,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 		GLOB.cameranet.visibility(src)
 	update_camera_telegraphing()
 	update_ai_detect_hud()
+	return
 
 /mob/camera/ai_eye/pic_in_pic/get_visible_turfs()
 	return screen ? screen.get_visible_turfs() : list()
@@ -220,6 +221,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 		end_multicam()
 	else
 		start_multicam()
+	return
 
 /mob/living/silicon/ai/proc/start_multicam()
 	if(multicam_on || aiRestorePowerRoutine || !(isturf(loc) || istype(loc, /obj/machinery/ai/data_core)))

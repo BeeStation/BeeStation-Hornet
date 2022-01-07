@@ -975,4 +975,5 @@ GLOBAL_LIST_INIT(vox_sounds, list("abduction" = 'sound/vox_fem/abduction.ogg',
 "zombie" = 'sound/vox_fem/zombie.ogg',
 "zone" = 'sound/vox_fem/zone.ogg',
 "zulu" = 'sound/vox_fem/zulu.ogg'))
-#endif
+
+#endif AI_VOX

@@ -2514,6 +2514,7 @@
 #include "code\modules\mob\living\silicon\ai\say.dm"
 #include "code\modules\mob\living\silicon\ai\vox_sounds.dm"
 #include "code\modules\mob\living\silicon\ai\decentralized\_ai_machinery.dm"
+#include "code\modules\mob\living\silicon\ai\decentralized\ai_core_display.dm"
 #include "code\modules\mob\living\silicon\ai\decentralized\ai_data_core.dm"
 #include "code\modules\mob\living\silicon\ai\decentralized\decentralized_os.dm"
 #include "code\modules\mob\living\silicon\ai\decentralized\expansion_card.dm"

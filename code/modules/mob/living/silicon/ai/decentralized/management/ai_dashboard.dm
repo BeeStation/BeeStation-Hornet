@@ -31,7 +31,7 @@ GLOBAL_VAR_INIT(sent_crash_message, FALSE)
 	if(user != owner || owner.incapacitated())
 		return FALSE
 	if(owner.control_disabled)
-		to_chat(user, span_warning("Wireless control is disabled."))
+		to_chat(user, "<span class = 'warning'>Wireless control is disabled.</span>")
 		return FALSE
 	return TRUE
 
@@ -105,21 +105,21 @@ GLOBAL_VAR_INIT(sent_crash_message, FALSE)
 		if("run_project")
 			var/datum/ai_project/project = get_project_by_name(params["project_name"])
 			if(!project || !run_project(project))
-				to_chat(owner, span_warning("Unable to run the program '[params["project_name"]].'"))
+				to_chat(owner, "<span class = 'warning'>Unable to run the program '[params["project_name"]].'</span>")
 			else
-				to_chat(owner, span_notice("Spinning up instance of [params["project_name"]]..."))
+				to_chat(owner, "<span class = 'notice'>Spinning up instance of [params["project_name"]]...</span>")
 				. = TRUE
 		if("stop_project")
 			var/datum/ai_project/project = get_project_by_name(params["project_name"])
 			if(project)
 				stop_project(project)
-				to_chat(owner, span_notice("Instance of [params["project_name"]] succesfully ended."))
+				to_chat(owner, "<span class = 'notice'>Instance of [params["project_name"]] succesfully ended.</span>")
 				. = TRUE
 		if("allocate_cpu")
 			var/datum/ai_project/project = get_project_by_name(params["project_name"])
 
 			if(!project || !set_project_cpu(project, text2num(params["amount"])))
-				to_chat(owner, span_warning("Unable to add CPU to [params["project_name"]]. Either not enough free CPU or project is unavailable."))
+				to_chat(owner, "<span class = 'warning'>Unable to add CPU to [params["project_name"]]. Either not enough free CPU or project is unavailable.</span>")
 			. = TRUE
 
 /datum/ai_dashboard/proc/get_project_by_name(project_name, only_available = FALSE)
@@ -184,7 +184,7 @@ GLOBAL_VAR_INIT(sent_crash_message, FALSE)
 	completed_projects += project
 	cpu_usage[project.name] = 0
 	if(notify_user)
-		to_chat(owner, span_notice("[project] has been completed. User input required."))
+		to_chat(owner, "<span class = 'notice'>[project] has been completed. User input required.</span>")
 
 
 //Stuff is handled in here per tick :)
@@ -232,7 +232,7 @@ GLOBAL_VAR_INIT(sent_crash_message, FALSE)
 			message_admins("this is still broken. dashboard-cpu")
 
 	if(reduction_of_resources)
-		to_chat(owner, span_warning("Lack of computational capacity. Some programs may have been stopped."))
+		to_chat(owner, "<span class = 'warning'>Lack of computational capacity. Some programs may have been stopped.</span>")
 
 	for(var/project_being_researched in cpu_usage)
 		if(!cpu_usage[project_being_researched])

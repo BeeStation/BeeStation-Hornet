@@ -11,5 +11,5 @@
 		end_multicam()
 	view_core()
 	if(!login_warned_temp)
-		to_chat(src, span_userdanger("Warning, the way AI is played has changed, please refer to ")
+		to_chat(src, "<span class = 'userdanger'>Warning, the way AI is played has changed, please refer to PLACEHOLDERURL</span>")
 		login_warned_temp = TRUE

@@ -231,13 +231,13 @@
 	static_inventory += using
 
 //AI core
-	using = new /atom/movable/screen/ai/aicore()
+	using = new /atom/movable/screen/ai/aicore
 	using.screen_loc = ui_ai_core
 	using.hud = src
 	static_inventory += using
 
 //Camera list
-	using = new /atom/movable/screen/ai/camera_list()
+	using = new /atom/movable/screen/ai/camera_list
 	using.screen_loc = ui_ai_camera_list
 	using.hud = src
 	static_inventory += using
@@ -249,103 +249,103 @@
 	static_inventory += using
 
 //Track
-	using = new /atom/movable/screen/ai/camera_track()
+	using = new /atom/movable/screen/ai/camera_track
 	using.screen_loc = ui_ai_track_with_camera
 	using.hud = src
 	static_inventory += using
 
 //Camera light
-	using = new /atom/movable/screen/ai/camera_light()
+	using = new /atom/movable/screen/ai/camera_light
 	using.screen_loc = ui_ai_camera_light
 	using.hud = src
 	static_inventory += using
 
 //Crew Monitoring
-	using = new /atom/movable/screen/ai/crew_monitor()
+	using = new /atom/movable/screen/ai/crew_monitor
 	using.screen_loc = ui_ai_crew_monitor
 	using.hud = src
 	static_inventory += using
 
 //Crew Manifest
-	using = new /atom/movable/screen/ai/crew_manifest()
+	using = new /atom/movable/screen/ai/crew_manifest
 	using.screen_loc = ui_ai_crew_manifest
 	using.hud = src
 	static_inventory += using
 
 //Alerts
-	using = new /atom/movable/screen/ai/alerts()
+	using = new /atom/movable/screen/ai/alerts
 	using.screen_loc = ui_ai_alerts
 	using.hud = src
 	static_inventory += using
 
 //Announcement
-	using = new /atom/movable/screen/ai/announcement()
+	using = new /atom/movable/screen/ai/announcement
 	using.screen_loc = ui_ai_announcement
 	using.hud = src
 	static_inventory += using
 
 //Shuttle
-	using = new /atom/movable/screen/ai/call_shuttle()
+	using = new /atom/movable/screen/ai/call_shuttle
 	using.screen_loc = ui_ai_shuttle
 	using.hud = src
 	static_inventory += using
 
 //Laws
-	using = new /atom/movable/screen/ai/state_laws()
+	using = new /atom/movable/screen/ai/state_laws
 	using.screen_loc = ui_ai_state_laws
 	using.hud = src
 	static_inventory += using
 
 //PDA message
-	using = new /atom/movable/screen/ai/pda_msg_send()
+	using = new /atom/movable/screen/ai/pda_msg_send
 	using.screen_loc = ui_ai_pda_send
 	using.hud = src
 	static_inventory += using
 
 //PDA log
-	using = new /atom/movable/screen/ai/pda_msg_show()
+	using = new /atom/movable/screen/ai/pda_msg_show
 	using.screen_loc = ui_ai_pda_log
 	using.hud = src
 	static_inventory += using
 
 //Take image
-	using = new /atom/movable/screen/ai/image_take()
+	using = new /atom/movable/screen/ai/image_take
 	using.screen_loc = ui_ai_take_picture
 	using.hud = src
 	static_inventory += using
 
 //View images
-	using = new /atom/movable/screen/ai/image_view()
+	using = new /atom/movable/screen/ai/image_view
 	using.screen_loc = ui_ai_view_images
 	using.hud = src
 	static_inventory += using
 
 //Medical/Security sensors
-	using = new /atom/movable/screen/ai/sensors()
+	using = new /atom/movable/screen/ai/sensors
 	using.screen_loc = ui_ai_sensor
 	using.hud = src
 	static_inventory += using
 
 //Multicamera mode
-	using = new /atom/movable/screen/ai/multicam()
+	using = new /atom/movable/screen/ai/multicam
 	using.screen_loc = ui_ai_multicam
 	using.hud = src
 	static_inventory += using
 
 //Add multicamera camera
-	using = new /atom/movable/screen/ai/add_multicam()
+	using = new /atom/movable/screen/ai/add_multicam
 	using.screen_loc = ui_ai_add_multicam
 	using.hud = src
 	static_inventory += using
 
 //Add multi z up
-	using = new /atom/movable/screen/ai/move_z()
+	using = new /atom/movable/screen/ai/move_z
 	using.screen_loc = ui_ai_move_up
 	using.hud = src
 	static_inventory += using
 
 //Add multi z down
-	using = new /atom/movable/screen/ai/move_z/down()
+	using = new /atom/movable/screen/ai/move_z/down
 	using.screen_loc = ui_ai_move_down
 	using.hud = src
 	static_inventory += using

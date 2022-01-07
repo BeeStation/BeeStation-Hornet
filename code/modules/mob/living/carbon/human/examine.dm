@@ -389,7 +389,7 @@
 	var/list/obscured = check_obscured_slots()
 
 	//uniform
-	if(w_uniform && !(SLOT_W_UNIFORM in obscured))
+	if(w_uniform && !(ITEM_SLOT_ICLOTHING in obscured))
 		//accessory
 		var/accessory_msg
 		if(istype(w_uniform, /obj/item/clothing/under))
@@ -414,41 +414,41 @@
 			. += "[t_He] [t_is] holding a [weightclass2text(I.w_class)] item in [t_his] [get_held_index_name(get_held_index_of_item(I))]."
 
 	//gloves
-	if(gloves && !(SLOT_GLOVES in obscured))
+	if(gloves && !(ITEM_SLOT_GLOVES in obscured))
 		. += "[t_He] [t_has] [gloves.get_examine_string(user)] on [t_his] hands."
 
 
 	//handcuffed?
 	if(handcuffed)
 		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
-			. += span_warning("[t_He] [t_is] [icon2html(handcuffed, user)] restrained with cable!")
+			. += "<span class = 'warning'>[t_He] [t_is] [icon2html(handcuffed, user)] restrained with cable!</span>"
 		else
-			. += span_warning("[t_He] [t_is] [icon2html(handcuffed, user)] handcuffed!")
+			. += "<span class = 'warning'>[t_He] [t_is] [icon2html(handcuffed, user)] handcuffed!</span>"
 
 	//belt
 	if(belt)
 		. += "[t_He] [t_has] [belt.get_examine_string(user)] about [t_his] waist."
 
 	//shoes
-	if(shoes && !(SLOT_SHOES in obscured))
+	if(shoes && !(ITEM_SLOT_FEET in obscured))
 		. += "[t_He] [t_is] wearing [shoes.get_examine_string(user)] on [t_his] feet."
 
 	//mask
-	if(wear_mask && !(SLOT_WEAR_MASK in obscured))
+	if(wear_mask && !(ITEM_SLOT_MASK in obscured))
 		. += "[t_He] [t_has] [wear_mask.get_examine_string(user)] on [t_his] face."
 
-	if(wear_neck && !(SLOT_NECK in obscured))
+	if(wear_neck && !(ITEM_SLOT_NECK in obscured))
 		. += "[t_He] [t_is] wearing [wear_neck.get_examine_string(user)] around [t_his] neck."
 
 	//eyes
-	if(!(SLOT_GLASSES in obscured))
+	if(!(ITEM_SLOT_EYES in obscured))
 		if(glasses)
 			. += "[t_He] [t_has] [glasses.get_examine_string(user)] covering [t_his] eyes."
 		else if(eye_color == BLOODCULT_EYE && iscultist(src) && HAS_TRAIT(src, CULT_EYES))
-			. += span_warning("<B>[t_His] eyes are glowing an unnatural red!</B>")
+			. += "<span class = 'warning'><B>[t_His] eyes are glowing an unnatural red!</B></span>"
 
 	//ears
-	if(ears && !(SLOT_EARS in obscured))
+	if(ears && !(ITEM_SLOT_EARS in obscured))
 		. += "[t_He] [t_has] [ears.get_examine_string(user)] on [t_his] ears."
 
 
@@ -482,10 +482,10 @@
 		msg += "[t_He] [p_do()]n't seem all there.\n"
 
 
-	if(!glasses && mind && mind.has_antag_datum(ANTAG_DATUM_THRALL))
+	if(!glasses && mind)
 		msg += "[t_His] eyes seem unnaturally dark and soulless.\n" // I'VE BECOME SO NUMB, I CAN'T FEEL YOU THERE
 
 	if (length(msg))
-		. += span_warning("[msg.Join("")]")
+		. += ("<span_class='userdanger'>[msg.Join("")]</span>")
 
 	. += "*---------*</span>"

@@ -29,7 +29,6 @@ export const AiServerConsole = (props, context) => {
                     bad: [750, Infinity],
                   }}
                   value={server.temp}
-
                   maxValue={750}>{server.temp}K
                 </ProgressBar>
                 <Box textAlign="center">Capacity: <Box inline bold>{server.card_capacity} cards</Box></Box>

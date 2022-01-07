@@ -84,9 +84,9 @@ GLOBAL_LIST_EMPTY(expansion_card_holders)
 /obj/machinery/ai/expansion_card_holder/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/processing_card) || istype(W, /obj/item/memory_card))
 		if(installed_cards.len >= max_cards)
-			to_chat(user, span_warning("[src] cannot fit the [W]!"))
+			to_chat(user, "<span class = 'warning'>[src] cannot fit the [W]!</span>")
 			return ..()
-		to_chat(user, span_notice("You install [W] into [src]."))
+		to_chat(user, "<span class = 'notice'>You install [W] into [src].</span>")
 		W.forceMove(src)
 		installed_cards += W
 		GLOB.ai_os.update_hardware()
@@ -106,7 +106,7 @@ GLOBAL_LIST_EMPTY(expansion_card_holders)
 			total_cpu = 0
 			total_ram = 0
 			GLOB.ai_os.update_hardware()
-			to_chat(user, span_notice("You remove all the cards from [src]"))
+			to_chat(user, "<span class = 'notice'>You remove all the cards from [src]</span>")
 			return FALSE
 	return ..()
 
