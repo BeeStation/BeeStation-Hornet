@@ -1181,6 +1181,8 @@ nobiliumsuppression = INFINITY
 	 
 	var/temperature =  air.return_temperature()
 	var/turf/open/location = isturf(holder) ? holder : null
+	if(location == null)
+		return NO_REACTION
 	var produced_amount = min(5, air.get_moles(GAS_TRITIUM), air.get_moles(GAS_PROTO_NITRATE))
 	if(air.get_moles(GAS_TRITIUM) - produced_amount < 0 || air.get_moles(GAS_PROTO_NITRATE) - produced_amount * 0.01 < 0)
 		return NO_REACTION
