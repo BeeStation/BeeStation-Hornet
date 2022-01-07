@@ -395,8 +395,8 @@ nobiliumsuppression = INFINITY
 
 		if(freon_burn_rate > MINIMUM_HEAT_CAPACITY)
 			freon_burn_rate = min(air.get_moles(GAS_FREON), air.get_moles(GAS_O2)/oxygen_burn_rate) //Ensures matter is conserved properly
-			air.set_moles(GAS_FREON, QUANTIZE(air.get_moles(GAS_FREON) - freon_burn_rate))
-			air.set_moles(GAS_O2, QUANTIZE(air.get_moles(GAS_O2)-(freon_burn_rate * oxygen_burn_rate)))
+			air.adjust_moles(GAS_FREON, QUANTIZE(air.get_moles(GAS_FREON) - freon_burn_rate))
+			air.adjust_moles(GAS_O2, QUANTIZE(air.get_moles(GAS_O2)-(freon_burn_rate * oxygen_burn_rate)))
 			air.adjust_moles(GAS_CO2, freon_burn_rate)
 
 			if(temperature < 150 && temperature > 130 && prob(2))
