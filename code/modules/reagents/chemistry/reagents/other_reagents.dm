@@ -1468,13 +1468,17 @@
 	. = ..()
 	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=1.8, blacklisted_movetypes=(FLYING|FLOATING))
 	ADD_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
-	ADD_TRAIT(L, TRAIT_SIXTHSENSE, type)
+	ADD_TRAIT(L, TRAIT_RESISTHEAT, type)
 
 /datum/reagent/hexane/on_mob_end_metabolize(mob/living/L)
 	L.remove_movespeed_modifier(type)
 	REMOVE_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
-	REMOVE_TRAIT(L, TRAIT_SIXTHSENSE, type)
+	REMOVE_TRAIT(L, TRAIT_RESISTHEAT, type)
 	return ..()
+
+/datum/reagent/hexane/on_mob_life(mob/living/L)
+	. = ..()
+	L.hallucination += 10
 
 /////////////////////////Colorful Powder////////////////////////////
 //For colouring in /proc/mix_color_from_reagents

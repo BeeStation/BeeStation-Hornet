@@ -45,6 +45,12 @@
 	var/SA_sleep_min = 5
 	var/BZ_trip_balls_min = 1 //BZ gas
 	var/gas_stimulation_min = 0.002 //Nitryl, Stimulum and Freon
+	///Minimum amount of healium to make you unconscious for 4 seconds
+	var/healium_para_min = 3
+	///Minimum amount of healium to knock you down for good
+	var/healium_sleep_min = 6
+	///Minimum amount of hexane needed to start having effect
+	var/hexane_min = 2
 
 	var/cold_message = "your face freezing and an icicle forming"
 	var/cold_level_1_threshold = 260
@@ -313,13 +319,12 @@
 
 	// Hexane
 		var/hexane_pp = PP(breath, GAS_HEXANE)
-		if(hexane_pp > gas_stimulation_min)
-			H.hallucination += 50
-			H.reagents.add_reagent(/datum/reagent/hexane,5)
-			if(prob(33))
-				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
+		if(hexane_pp > hexane_min)
+			var/existing = H.reagents.get_reagent_amount(/datum/reagent/hexane)
+			H.reagents.add_reagent(/datum/reagent/hexane,max(0, 5 - existing))
 		gas_breathed = breath.get_moles(GAS_HEXANE)
 		breath.adjust_moles(GAS_HEXANE, -gas_breathed)
+
 	// Stimulum
 		gas_breathed = PP(breath,GAS_STIMULUM)
 		if (gas_breathed > gas_stimulation_min)
