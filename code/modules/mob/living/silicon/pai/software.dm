@@ -34,6 +34,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PaiInterface", name)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /mob/living/silicon/pai/ui_static_data(mob/user)
@@ -281,3 +282,4 @@
  * the records window again.
  */
 /mob/living/silicon/pai/proc/refresh_again()
+	refresh_spam = FALSE

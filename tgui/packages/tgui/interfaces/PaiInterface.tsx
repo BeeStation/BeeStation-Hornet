@@ -181,7 +181,6 @@ const SystemWallpaper = (_, context) => {
   const { emagged } = data;
 
   const owner = !emagged ? 'NANOTRASEN' : ' SYNDICATE';
-  const eyebrows = !emagged ? "/\\ ' /\\" : ' \\\\ // ';
 
   const paiAscii = [
     ' ________  ________  ___',
@@ -194,25 +193,11 @@ const SystemWallpaper = (_, context) => {
     '',
   ].join('\n');
 
-  const floofAscii = [
-    '                              .--.       .-.',
-    "        ,;;``;;-;,,..___.,,.-/   `;_//,.'   )",
-    "      .' ;;  `;  :; `;;  ;;  `.       '/   .'",
-    `     ,;  ';   ;   '  ';  ';   ,'    ${eyebrows}';`, // lol
-    "    /'     `      \\   `     ;','   ( d\\__b_),",
-    "   /   /       .,;;)       ', (    .'     __\\",
-    "  ;:.  \\     ,_   /         ', ' .'_      \\/;",
-    " ,   ,;'      `;;/       /    ';,\\ `-..__._,'",
-    " ;:.  /____  ..-'--.    /-'    ..---. ._._/ ---.",
-    " |    ;' ;'|        \\--/;' ,' /      \\   ,      \\",
-    " `.fL__;,__/-..__)_)/  `--'--'`-._)_)/ --\\.._)_)/",
-  ].join('\n');
 
   return (
     <Section fill nowrap overflow="hidden">
       <pre>
         <Box color={!emagged ? 'blue' : 'crimson'}>{paiAscii}</Box>
-        <Box color={!emagged ? 'gold' : 'limegreen'}>{floofAscii}</Box>
       </pre>
     </Section>
   );
