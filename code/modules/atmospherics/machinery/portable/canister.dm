@@ -68,25 +68,25 @@
 	..()
 
 /obj/machinery/portable_atmospherics/canister/nitrogen
-	name = "Nitrogen canister"
+	name = "n2 canister"
 	desc = "Nitrogen gas. Reportedly useful for something."
 	icon_state = "red"
 	gas_type = GAS_N2
 
 /obj/machinery/portable_atmospherics/canister/oxygen
-	name = "Oxygen canister"
+	name = "o2 canister"
 	desc = "Oxygen. Necessary for human life."
 	icon_state = "blue"
 	gas_type = GAS_O2
 
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide
-	name = "Carbon dioxide canister"
+	name = "co2 canister"
 	desc = "Carbon dioxide. What the fuck is carbon dioxide?"
 	icon_state = "black"
 	gas_type = GAS_CO2
 
 /obj/machinery/portable_atmospherics/canister/toxins
-	name = "Plasma canister"
+	name = "plasma canister"
 	desc = "Plasma gas. The reason YOU are here. Highly toxic."
 	icon_state = "orange"
 	gas_type = GAS_PLASMA
@@ -98,49 +98,49 @@
 	gas_type = GAS_BZ
 
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide
-	name = "Nitrous oxide canister"
+	name = "n2o canister"
 	desc = "Nitrous oxide gas. Known to cause drowsiness."
 	icon_state = "redws"
 	gas_type = GAS_NITROUS
 
 /obj/machinery/portable_atmospherics/canister/air
-	name = "Air canister"
+	name = "air canister"
 	desc = "Pre-mixed air."
 	icon_state = "grey"
 
 /obj/machinery/portable_atmospherics/canister/tritium
-	name = "Tritium canister"
+	name = "tritium canister"
 	desc = "Tritium. Inhalation might cause irradiation."
 	icon_state = "green"
 	gas_type = GAS_TRITIUM
 
 /obj/machinery/portable_atmospherics/canister/nob
-	name = "Hyper-noblium canister"
+	name = "hyper-noblium canister"
 	desc = "Hyper-Noblium. More noble than all other gases."
 	gas_type = GAS_HYPERNOB
 	icon_state = "nob"
 
 
 /obj/machinery/portable_atmospherics/canister/nitryl
-	name = "Nitryl canister"
+	name = "nitryl canister"
 	desc = "Nitryl gas. Feels great 'til the acid eats your lungs."
 	icon_state = "brown"
 	gas_type = GAS_NITRYL
 
 /obj/machinery/portable_atmospherics/canister/stimulum
-	name = "Stimulum canister"
+	name = "stimulum canister"
 	desc = "Stimulum. High energy gas, high energy people."
 	icon_state = "darkpurple"
 	gas_type = GAS_STIMULUM
 
 /obj/machinery/portable_atmospherics/canister/pluoxium
-	name = "Pluoxium canister"
+	name = "pluoxium canister"
 	desc = "Pluoxium. Like oxygen, but more bang for your buck."
 	icon_state = "darkblue"
 	gas_type = GAS_PLUOXIUM
 
 /obj/machinery/portable_atmospherics/canister/water_vapor
-	name = "Water vapor canister"
+	name = "water vapor canister"
 	desc = "Water Vapor. We get it, you vape."
 	icon_state = "water_vapor"
 	gas_type = GAS_H2O
