@@ -296,3 +296,13 @@
 				if(!M.special_role && !(M.assigned_role == "Security Officer") && !(M.assigned_role == "Detective") && !(M.assigned_role == "Head of Security") && !(M.assigned_role == "Internal Affairs Agent") && !(M.assigned_role == "Warden") && get_area(M.current) != typesof(/area/security/prison))
 					return FALSE
 		return TRUE
+
+/datum/objective/crew/linger
+	explanation_text = "Survive on the station until the end of the shift. Do not escape on the shuttle!"
+	jobs = "debtor" // gimmick optionals likely belong in their own file, but as there's only one this stays in civilian_objectives.dm
+
+/datum/objective/crew/linger/check_completion()
+	if(owner?.current)
+		var/area/A = get_area(owner.current)
+		return considered_alive(owner) && is_station_level(A.z)
+	return FALSE
