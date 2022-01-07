@@ -1,0 +1,6 @@
+author: KubeRoot, lordScrubling, Mothblocks
+delete-after: true
+changes:
+  - rscadd: Brand new TGUI Strip menu, based on tg's one
+  - code_imp: Strippable element
+  - refactor: Stripping is now unified to use the strippable element
