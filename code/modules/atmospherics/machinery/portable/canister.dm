@@ -117,8 +117,13 @@
 /obj/machinery/portable_atmospherics/canister/nob
 	name = "Hyper-noblium canister"
 	desc = "Hyper-Noblium. More noble than all other gases."
+<<<<<<< HEAD
 	icon_state = "freon"
 	gas_type = GAS_HYPERNOB
+=======
+	icon_state = "nob"
+	gas_type = /datum/gas/hypernoblium
+>>>>>>> 22cf0dc... Freon fixes, tweaks and balancing (#50153)
 
 /obj/machinery/portable_atmospherics/canister/nitryl
 	name = "Nitryl canister"
