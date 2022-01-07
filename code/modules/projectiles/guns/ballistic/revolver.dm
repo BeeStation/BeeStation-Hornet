@@ -79,7 +79,7 @@
 	fire_sound = 'sound/weapons/revolver38shot.ogg'
 	icon_state = "detective"
 	fire_rate = 2
-	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/rubber
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	obj_flags = UNIQUE_RENAME
 	unique_reskin = list("Default" = "detective",
 						"Fitz Special" = "detective_fitz",
