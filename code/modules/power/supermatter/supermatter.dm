@@ -13,7 +13,6 @@
 #define TRITIUM_HEAT_PENALTY 10
 #define H2O_HEAT_PENALTY 12 //This'll get made slowly over time, I want my spice rock spicy god damnit
 #define FREON_HEAT_PENALTY -10 //very good heat absorbtion and less plasma and o2 generation
-#define HYDROGEN_HEAT_PENALTY 10 // similar heat penalty as tritium (dangerous)
 #define HEALIUM_HEAT_PENALTY 4
 #define PROTO_NITRATE_HEAT_PENALTY -3
 #define CYRION_B_HEAT_PENALTY 8
@@ -136,96 +135,13 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/tritiumcomp = 0
 	var/bzcomp = 0
 	var/n2ocomp = 0
+	var/cyrion_bcomp = 0
+	var/healiumcomp = 0
+	var/freon_comp = 0
+	var/proto_nitcomp = 0
 
 	var/pluoxiumbonus = 0
 
-	///Determines the rate of positve change in gas comp values
-	var/gas_change_rate = 0.05
-	///The list of gases we will be interacting with in process_atoms()
-	var/list/gases_we_care_about = list(
-		/datum/gas/oxygen,
-		/datum/gas/water_vapor,
-		/datum/gas/plasma,
-		/datum/gas/carbon_dioxide,
-		/datum/gas/nitrous_oxide,
-		/datum/gas/nitrogen,
-		/datum/gas/pluoxium,
-		/datum/gas/tritium,
-		/datum/gas/bz,
-		/datum/gas/freon,
-		/datum/gas/hydrogen,
-		/datum/gas/healium,
-		/datum/gas/proto_nitrate,
-		/datum/gas/cyrion_b,
-	)
-	///The list of gases mapped against their current comp. We use this to calculate different values the supermatter uses, like power or heat resistance. It doesn't perfectly match the air around the sm, instead moving up at a rate determined by gas_change_rate per call. Ranges from 0 to 1
-	var/list/gas_comp = list(
-		/datum/gas/oxygen = 0,
-		/datum/gas/water_vapor = 0,
-		/datum/gas/plasma = 0,
-		/datum/gas/carbon_dioxide = 0,
-		/datum/gas/nitrous_oxide = 0,
-		/datum/gas/nitrogen = 0,
-		/datum/gas/pluoxium = 0,
-		/datum/gas/tritium = 0,
-		/datum/gas/bz = 0,
-		/datum/gas/freon = 0,
-		/datum/gas/hydrogen = 0,
-		/datum/gas/healium = 0,
-		/datum/gas/proto_nitrate = 0,
-		/datum/gas/cyrion_b = 0,
-	)
-	///The list of gases mapped against their transmit values. We use it to determine the effect different gases have on radiation
-	var/list/gas_trans = list(
-		/datum/gas/oxygen = OXYGEN_TRANSMIT_MODIFIER,
-		/datum/gas/water_vapor = H2O_TRANSMIT_MODIFIER,
-		/datum/gas/plasma = PLASMA_TRANSMIT_MODIFIER,
-		/datum/gas/pluoxium = PLUOXIUM_TRANSMIT_MODIFIER,
-		/datum/gas/tritium = TRITIUM_TRANSMIT_MODIFIER,
-		/datum/gas/bz = BZ_TRANSMIT_MODIFIER,
-		/datum/gas/hydrogen = HYDROGEN_TRANSMIT_MODIFIER,
-		/datum/gas/healium = HEALIUM_TRANSMIT_MODIFIER,
-		/datum/gas/proto_nitrate = PROTO_NITRATE_TRANSMIT_MODIFIER,
-		/datum/gas/cyrion_b = CYRION_B_TRANSMIT_MODIFIER,
-	)
-	///The list of gases mapped against their heat penaltys. We use it to determin molar and heat output
-	var/list/gas_heat = list(
-		/datum/gas/oxygen = OXYGEN_HEAT_PENALTY,
-		/datum/gas/water_vapor = H2O_HEAT_PENALTY,
-		/datum/gas/plasma = PLASMA_HEAT_PENALTY,
-		/datum/gas/carbon_dioxide = CO2_HEAT_PENALTY,
-		/datum/gas/nitrogen = NITROGEN_HEAT_PENALTY,
-		/datum/gas/pluoxium = PLUOXIUM_HEAT_PENALTY,
-		/datum/gas/tritium = TRITIUM_HEAT_PENALTY,
-		/datum/gas/bz = BZ_HEAT_PENALTY,
-		/datum/gas/freon = FREON_HEAT_PENALTY,
-		/datum/gas/hydrogen = HYDROGEN_HEAT_PENALTY,
-		/datum/gas/healium = HEALIUM_HEAT_PENALTY,
-		/datum/gas/proto_nitrate = PROTO_NITRATE_HEAT_PENALTY,
-		/datum/gas/cyrion_b = CYRION_B_HEAT_PENALTY,
-	)
-	///The list of gases mapped against their heat resistance. We use it to moderate heat damage.
-	var/list/gas_resist = list(
-		/datum/gas/nitrous_oxide = N2O_HEAT_RESISTANCE,
-		/datum/gas/hydrogen = HYDROGEN_HEAT_RESISTANCE,
-		/datum/gas/proto_nitrate = PROTO_NITRATE_HEAT_RESISTANCE,
-	)
-	///The list of gases mapped against their powermix ratio
-	var/list/gas_powermix = list(
-		/datum/gas/oxygen = 1,
-		/datum/gas/water_vapor = 1,
-		/datum/gas/plasma = 1,
-		/datum/gas/carbon_dioxide = 1,
-		/datum/gas/nitrogen = -1,
-		/datum/gas/pluoxium = -1,
-		/datum/gas/tritium = 1,
-		/datum/gas/bz = 1,
-		/datum/gas/freon = -1,
-		/datum/gas/hydrogen = 1,
-		/datum/gas/healium = 1,
-		/datum/gas/proto_nitrate = 1,
-		/datum/gas/cyrion_b = 1,
-	)
 	///The last air sample's total molar count, will always be above or equal to 0
 	var/combined_gas = 0
 	var/gasmix_power_ratio = 0
@@ -501,6 +417,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		pluoxiumcomp = max(removed.get_moles(GAS_PLUOXIUM)/combined_gas, 0)
 		tritiumcomp = max(removed.get_moles(GAS_TRITIUM)/combined_gas, 0)
 		bzcomp = max(removed.get_moles(GAS_BZ)/combined_gas, 0)
+		cyrion_bcomp = max(removed.get_moles(GAS_CYRION_B)/combined_gas, 0)
+		healiumcomp = max(removed.get_moles(GAS_HEALIUM)/combined_gas, 0)
+		freon_comp = max(removed.get_moles(GAS_FREON)/combined_gas, 0)
+		proto_nitcomp = max(removed.get_moles(GAS_PROTO_NITRATE)/combined_gas, 0)
+
 
 		n2ocomp = max(removed.get_moles(GAS_NITROUS)/combined_gas, 0)
 		n2comp = max(removed.get_moles(GAS_N2)/combined_gas, 0)
@@ -512,7 +433,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + tritiumcomp + bzcomp - pluoxiumcomp - n2comp, 0), 1)
 
-		dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (tritiumcomp * TRITIUM_HEAT_PENALTY) + ((pluoxiumcomp * PLUOXIUM_HEAT_PENALTY) * pluoxiumbonus) + (n2comp * NITROGEN_HEAT_PENALTY) + (bzcomp * BZ_HEAT_PENALTY), 0.5)
+		dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (tritiumcomp * TRITIUM_HEAT_PENALTY) + ((pluoxiumcomp * PLUOXIUM_HEAT_PENALTY) * pluoxiumbonus) + (n2comp * NITROGEN_HEAT_PENALTY) + (bzcomp * BZ_HEAT_PENALTY) + (cyrion_bcomp * CYRION_B_HEAT_PENALTY) + (healiumcomp * HEALIUM_HEAT_PENALTY) + (freon_comp * FREON_HEAT_PENALTY) + (proto_nitcomp * PROTO_NITRATE_HEAT_PENALTY), 0.5)
 		dynamic_heat_resistance = max((n2ocomp * N2O_HEAT_RESISTANCE) + ((pluoxiumcomp * PLUOXIUM_HEAT_RESISTANCE) * pluoxiumbonus), 1)
 
 		power_transmission_bonus = max((plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER), 0)
@@ -548,7 +469,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			radiation_pulse(src, power * (1 + (tritiumcomp * TRITIUM_RADIOACTIVITY_MODIFIER) + ((pluoxiumcomp * PLUOXIUM_RADIOACTIVITY_MODIFIER) * pluoxiumbonus) * (power_transmission_bonus/(10-(bzcomp * BZ_RADIOACTIVITY_MODIFIER))))) // Rad Modifiers BZ(500%), Tritium(300%), and Pluoxium(-200%)
 		if(bzcomp >= 0.4 && prob(30 * bzcomp))
 			src.fire_nuclear_particle()		// Start to emit radballs at a maximum of 30% chance per tick
-		if(prob(gas_comp[/datum/gas/cyrion_b]))
+		if(prob(cyrion_bcomp))
 			playsound(src.loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10)
 			supermatter_zap(src, 6, clamp(power*2, 4000, 20000))
 
