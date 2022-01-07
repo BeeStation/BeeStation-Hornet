@@ -1,0 +1,4 @@
+author: stinky-lizard
+delete-after: true
+changes:
+  - rscadd: Made WASD movement keys rebindable
