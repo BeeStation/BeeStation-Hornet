@@ -82,6 +82,8 @@
 		//Remove old glitching hud
 		if(glitching_hud)
 			glitching_hud.transform = matrix()
+			glitching_hud.filters = null
+			glitching_hud.color = null
 			glitching_hud = null
 		//Get a new glitching hud
 		glitching_hud = locate(/atom/movable/screen/plane_master/data_hud) in M.client?.screen
@@ -91,6 +93,7 @@
 /obj/item/clothing/glasses/hud/proc/stop_glitch()
 	if(glitching_hud)
 		glitching_hud.transform = matrix()
+		glitching_hud.filters = null
 		glitching_hud.color = null
 		glitching_hud = null
 
@@ -100,28 +103,21 @@
 	if(!glitching_hud)
 		return
 	//Invert colours
-	if(prob(45))
-		var/colour_amount = rand(-1, 0)
+	if(prob(35))
+		var/colour_amount = -1
 		glitching_hud.color = list(
 			colour_amount, 0, 0,
 			0, colour_amount, 0,
 			0, 0, colour_amount,
 			1, 1, 1
 		)
-	else if(prob(45))
+	else if(prob(70))
 		glitching_hud.color = null
 
 	var/matrix/M = matrix()
 	M.Translate(rand(-5, 5), rand(-1, 1))
-	animate(glitching_hud, time = 5, transform = M, flags = ANIMATION_PARALLEL, easing = SINE_EASING)
-	M.Translate(rand(-5, 5), rand(-1, 1))
-	animate(glitching_hud, time = 10, transform = M, flags = ANIMATION_PARALLEL, easing = BOUNCE_EASING)
-	M.Translate(rand(-5, 5), rand(-1, 1))
-	animate(glitching_hud, time = 15, transform = M, flags = ANIMATION_PARALLEL)
-	M.Translate(rand(-5, 5), rand(-1, 1))
-	animate(glitching_hud, time = 20, transform = M, flags = ANIMATION_PARALLEL, easing = BACK_EASING)
-	M.Translate(rand(-5, 5), rand(-1, 1))
-	animate(glitching_hud, time = 25, transform = M, flags = ANIMATION_PARALLEL, easing = ELASTIC_EASING)
+	glitching_hud.transform = M
+	glitching_hud.filters = filter(type="motion_blur", x=rand(1, 3))
 
 /obj/item/clothing/glasses/hud/health
 	name = "health scanner HUD"
