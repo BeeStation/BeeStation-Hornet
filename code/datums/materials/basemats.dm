@@ -148,8 +148,6 @@
 	color = "#735b4d"
 	strength_modifier = 0.8
 
-
-<<<<<<< HEAD
 /datum/material/copper
 	name = "copper"
 	id = "copper"
@@ -157,29 +155,6 @@
 	color = "#d95802"
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/copper
-=======
-///RPG Magic.
-/datum/material/mythril
-	name = "mythril"
-	id = "mythril"
-	desc = "How this even exists is byond me"
-	color = "#f2d5d7"
-	categories = list(MAT_CATEGORY_RIGID = TRUE)
-	sheet_type = /obj/item/stack/sheet/mineral/mythril
-	value_per_unit = 0.75
-	strength_modifier = 1.2
-	armor_modifiers = list("melee" = 1.5, "bullet" = 1.5, "laser" = 1.5, "energy" = 1.5, "bomb" = 1.5, "bio" = 1.5, "rad" = 1.5, "fire" = 1.5, "acid" = 1.5)
-	beauty_modifier = 0.5
-
-/datum/material/mythril/on_applied_obj(atom/source, amount, material_flags)
-	. = ..()
-	if(istype(source, /obj/item))
-		source.AddComponent(/datum/component/fantasy)
-
-/datum/material/mythril/on_removed_obj(atom/source, material_flags)
-	. = ..()
-	if(istype(source, /obj/item))
-		qdel(source.GetComponent(/datum/component/fantasy))
 
 //formed when freon react with o2, emits a lot of plasma when heated
 /datum/material/hot_ice
@@ -190,8 +165,6 @@
 	alpha = 150
 	categories = list(MAT_CATEGORY_RIGID = TRUE)
 	sheet_type = /obj/item/stack/sheet/hot_ice
-	value_per_unit = 0.75
-	beauty_modifier = 0.75
 
 /datum/material/hot_ice/on_applied(atom/source, amount, material_flags)
 	. = ..()
@@ -200,4 +173,3 @@
 /datum/material/hot_ice/on_removed(atom/source, amount, material_flags)
 	qdel(source.GetComponent(/datum/component/hot_ice, "plasma", amount*150, amount*20+300))
 	return ..()
->>>>>>> 22cf0dc... Freon fixes, tweaks and balancing (#50153)

@@ -1391,17 +1391,12 @@
 	name = "Freon"
 	description = "A powerful heat adsorbant."
 	reagent_state = GAS
-<<<<<<< HEAD
 	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because stimulum/nitryl/freon/hypernoblium are handled through gas breathing, metabolism must be lower for breathcode to keep up
-=======
-	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because stimulum/nitryl/freon are handled through gas breathing, metabolism must be lower for breathcode to keep up
->>>>>>> e7a2285... Addition of Freon (no removal, no fire) (#49821)
 	color = "90560B"
 	taste_description = "burning"
 
 /datum/reagent/freon/on_mob_metabolize(mob/living/L)
 	. = ..()
-<<<<<<< HEAD
 	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=1.6, blacklisted_movetypes=(FLYING|FLOATING))
 
 /datum/reagent/freon/on_mob_end_metabolize(mob/living/L)
@@ -1479,12 +1474,6 @@
 	L.remove_movespeed_modifier(type)
 	REMOVE_TRAIT(L, CHANGELING_HIVEMIND_MUTE, type)
 	REMOVE_TRAIT(L, TRAIT_SIXTHSENSE, type)
-=======
-	L.add_movespeed_modifier(/datum/movespeed_modifier/reagent/freon)
-
-/datum/reagent/freon/on_mob_end_metabolize(mob/living/L)
-	L.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/freon)
->>>>>>> e7a2285... Addition of Freon (no removal, no fire) (#49821)
 	return ..()
 
 /////////////////////////Colorful Powder////////////////////////////

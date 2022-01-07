@@ -32,5 +32,5 @@
 		hot_ice_melt()
 
 /datum/component/hot_ice/proc/attackby_react(datum/source, obj/item/thing, mob/user, params)
-	if(thing.get_temperature())
+	if(thing.is_hot())
 		hot_ice_melt(user)

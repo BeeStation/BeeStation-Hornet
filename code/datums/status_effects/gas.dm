@@ -15,7 +15,7 @@
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	owner.Immobilize(INFINITY, TRUE, TRUE)
 	RegisterSignal(owner, COMSIG_LIVING_RESIST, .proc/owner_resist)
 	if(!owner.stat)
 		to_chat(owner, "<span class='userdanger'>You become frozen in a cube!</span>")
@@ -48,7 +48,7 @@
 	owner.adjust_bodytemperature(100)
 	owner.update_mobility()
 	UnregisterSignal(owner, COMSIG_LIVING_RESIST)
-	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, TRAIT_STATUS_EFFECT(id))
+	owner.SetImmobilized(0, TRUE, TRUE)
 	return ..()
 
 /datum/status_effect/freon/watcher

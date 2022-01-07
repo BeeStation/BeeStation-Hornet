@@ -29,7 +29,6 @@ proto_nitrate_crystal_production = 18
 cyrion_b_crystal_production = 19
 proto_nitrate_response = 20 - 25
 fusion = 26
-metallic_hydrogen = 27
 nobiliumsuppression = INFINITY
 */
 
@@ -282,7 +281,6 @@ nobiliumsuppression = INFINITY
 
 	return cached_results["fire"] ? REACTING : NO_REACTION
 
-<<<<<<< HEAD
 /datum/gas_reaction/genericfire
 	priority = -3 // very last reaction
 	name = "Combustion"
@@ -318,7 +316,6 @@ nobiliumsuppression = INFINITY
 	var/list/fuel_temps = GLOB.gas_data.fire_temperatures
 	var/total_fuel = 0
 	var/energy_released = 0
-<<<<<<< HEAD
 	for(var/G in air.get_gases())
 		var/oxidation_temp = oxidation_temps[G]
 		if(oxidation_temp && oxidation_temp > temperature)
@@ -361,46 +358,6 @@ nobiliumsuppression = INFINITY
 	var/list/cached_results = air.reaction_results
 	cached_results["fire"] = min(total_fuel, oxidation_power) * 2
 	return cached_results["fire"] ? REACTING : NO_REACTION
-=======
-	var/old_heat_capacity = air.heat_capacity()
-	var/list/cached_gases = air.gases //this speeds things up because accessing datum vars is slow
-	var/temperature = air.temperature
-	var/turf/open/location = isturf(holder) ? holder : null
-
-	//Handle freon burning (only reaction now)
-	var/freon_burn_rate = 0
-	var/oxygen_burn_rate = 0
-	//more freon released at lower temperatures
-	var/temperature_scale = 1
-
-	if(temperature < FREON_LOWER_TEMPERATURE) //stop the reaction when too cold
-		temperature_scale = 0
-	else
-		temperature_scale = (FREON_MAXIMUM_BURN_TEMPERATURE - temperature)/(FREON_MAXIMUM_BURN_TEMPERATURE - FREON_LOWER_TEMPERATURE) //calculate the scale based on the temperature
-	if(temperature_scale >= 0)
-		oxygen_burn_rate = OXYGEN_BURN_RATE_BASE - temperature_scale
-		if(cached_gases[/datum/gas/oxygen][MOLES] > cached_gases[/datum/gas/freon][MOLES]*FREON_OXYGEN_FULLBURN)
-			freon_burn_rate = (cached_gases[/datum/gas/freon][MOLES]*temperature_scale)/FREON_BURN_RATE_DELTA
-		else
-			freon_burn_rate = (temperature_scale*(cached_gases[/datum/gas/oxygen][MOLES]/FREON_OXYGEN_FULLBURN))/FREON_BURN_RATE_DELTA
-
-		if(freon_burn_rate > MINIMUM_HEAT_CAPACITY)
-			freon_burn_rate = min(freon_burn_rate,cached_gases[/datum/gas/freon][MOLES],cached_gases[/datum/gas/oxygen][MOLES]/oxygen_burn_rate) //Ensures matter is conserved properly
-			cached_gases[/datum/gas/freon][MOLES] = QUANTIZE(cached_gases[/datum/gas/freon][MOLES] - freon_burn_rate)
-			cached_gases[/datum/gas/oxygen][MOLES] = QUANTIZE(cached_gases[/datum/gas/oxygen][MOLES] - (freon_burn_rate * oxygen_burn_rate))
-			ASSERT_GAS(/datum/gas/carbon_dioxide,air)
-			cached_gases[/datum/gas/carbon_dioxide][MOLES] += freon_burn_rate
-
-			if(temperature < 160 && temperature > 120 && prob(2))
-				new /obj/item/stack/sheet/hot_ice(location)
-
-			energy_released += FIRE_FREON_ENERGY_RELEASED * (freon_burn_rate)
-
-	if(energy_released < 0)
-		var/new_heat_capacity = air.heat_capacity()
-		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.temperature = (temperature*old_heat_capacity + energy_released)/new_heat_capacity
->>>>>>> 22cf0dc... Freon fixes, tweaks and balancing (#50153)
 
 //fusion: a terrible idea that was fun but broken. Now reworked to be less broken and more interesting. Again (and again, and again). Again!
 //Fusion Rework Counter: Please increment this if you make a major overhaul to this system again.
@@ -561,10 +518,7 @@ nobiliumsuppression = INFINITY
 	if(energy_released > 0)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-<<<<<<< HEAD
-			air.set_temperature(max(((temperature*old_heat_capacity + energy_released)/new_heat_capacity),TCMB))
-=======
-			air.temperature = max(((temperature*old_heat_capacity + energy_released)/new_heat_capacity),TCMB)
+			air.adjust_heat(max(((temperature*old_heat_capacity + energy_released)/new_heat_capacity),TCMB))
 		return REACTING
 
 /datum/gas_reaction/freonformation
@@ -581,24 +535,21 @@ nobiliumsuppression = INFINITY
 		)
 
 /datum/gas_reaction/freonformation/react(datum/gas_mixture/air)
-	var/list/cached_gases = air.gases
-	var/temperature = air.temperature
+	var/temperature = air.return_temperature()
 	var/old_heat_capacity = air.heat_capacity()
-	var/heat_efficency = min(temperature/(FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 10), cached_gases[/datum/gas/plasma][MOLES], cached_gases[/datum/gas/carbon_dioxide][MOLES], cached_gases[/datum/gas/bz][MOLES])
+	var/heat_efficency = min(temperature/(FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 10), air.get_moles(GAS_PLASMA), air.get_moles(GAS_CO2), air.get_moles(GAS_BZ))
 	var/energy_used = heat_efficency * 100
-	ASSERT_GAS(/datum/gas/freon,air)
-	if ((cached_gases[/datum/gas/plasma][MOLES] - heat_efficency < 0 ) || (cached_gases[/datum/gas/carbon_dioxide][MOLES] - heat_efficency < 0) || (cached_gases[/datum/gas/bz][MOLES] - heat_efficency < 0)) //Shouldn't produce gas from nothing.
+	if ((air.get_moles(GAS_PLASMA) - heat_efficency < 0 ) || (air.get_moles(GAS_CO2) - heat_efficency < 0) || (air.get_moles(GAS_BZ) - heat_efficency < 0)) //Shouldn't produce gas from nothing.
 		return NO_REACTION
-	cached_gases[/datum/gas/plasma][MOLES] -= heat_efficency * 5
-	cached_gases[/datum/gas/carbon_dioxide][MOLES] -= heat_efficency
-	cached_gases[/datum/gas/bz][MOLES] -= heat_efficency * 0.25
-	cached_gases[/datum/gas/freon][MOLES] += heat_efficency * 2
+	air.adjust_moles(GAS_PLASMA, -(heat_efficency * 5))
+	air.adjust_moles(GAS_CO2, -heat_efficency)
+	air.adjust_moles(GAS_BZ, -(heat_efficency * 0.25))
+	air.adjust_moles(GAS_FREON, heat_efficency * 2)
 
 	if(energy_used > 0)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.temperature = max(((temperature*old_heat_capacity - energy_used)/new_heat_capacity),TCMB)
->>>>>>> 22cf0dc... Freon fixes, tweaks and balancing (#50153)
+			air.adjust_heat(max(((temperature*old_heat_capacity - energy_used)/new_heat_capacity),TCMB))
 		return REACTING
 
 /datum/gas_reaction/stimformation //Stimulum formation follows a strange pattern of how effective it will be at a given temperature, having some multiple peaks and some large dropoffs. Exo and endo thermic.

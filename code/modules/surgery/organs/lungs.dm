@@ -112,15 +112,7 @@
 			H.throw_alert(alert_category, alert_type)
 		return FALSE
 
-<<<<<<< HEAD
 	#define PP_MOLES(X) ((X / total_moles) * pressure)
-=======
-	var/gas_breathed = 0
-
-	var/list/breath_gases = breath.gases
-
-	breath.assert_gases(/datum/gas/oxygen, /datum/gas/plasma, /datum/gas/carbon_dioxide, /datum/gas/nitrous_oxide, /datum/gas/bz, /datum/gas/nitrogen, /datum/gas/tritium, /datum/gas/nitryl, /datum/gas/pluoxium, /datum/gas/stimulum, /datum/gas/freon)
->>>>>>> e7a2285... Addition of Freon (no removal, no fire) (#49821)
 
 	#define PP(air, gas) PP_MOLES(air.get_moles(gas))
 
@@ -272,13 +264,8 @@
 		breath.adjust_moles(GAS_NITRYL, -gas_breathed)
 
 	// Freon
-<<<<<<< HEAD
 		var/freon_pp = PP(breath,GAS_FREON)
 		if (prob(freon_pp))
-=======
-		var/freon_pp = breath.get_breath_partial_pressure(breath_gases[/datum/gas/freon][MOLES])
-		if (prob(nitryl_pp))
->>>>>>> e7a2285... Addition of Freon (no removal, no fire) (#49821)
 			to_chat(H, "<span class='alert'>Your mouth feels like it's burning!</span>")
 		if (freon_pp >40)
 			H.emote("gasp")
@@ -288,7 +275,6 @@
 				H.silent = max(H.silent, 3)
 		else
 			H.adjustFireLoss(freon_pp/4)
-<<<<<<< HEAD
 		gas_breathed = breath.get_moles(GAS_FREON)
 		if (gas_breathed > gas_stimulation_min)
 			H.reagents.add_reagent(/datum/reagent/freon,1)
@@ -334,14 +320,6 @@
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
 		gas_breathed = breath.get_moles(GAS_HEXANE)
 		breath.adjust_moles(GAS_HEXANE, -gas_breathed)
-=======
-		gas_breathed = breath_gases[/datum/gas/freon][MOLES]
-		if (gas_breathed > gas_stimulation_min)
-			H.reagents.add_reagent(/datum/reagent/freon,1)
-
-		breath_gases[/datum/gas/freon][MOLES]-=gas_breathed
-
->>>>>>> e7a2285... Addition of Freon (no removal, no fire) (#49821)
 	// Stimulum
 		gas_breathed = PP(breath,GAS_STIMULUM)
 		if (gas_breathed > gas_stimulation_min)
