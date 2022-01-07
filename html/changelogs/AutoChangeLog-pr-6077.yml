@@ -1,8 +1,0 @@
-author: PestoVerde322
-delete-after: true
-changes:
-  - bugfix: Fixed a broken ss13 logo.
-  - bugfix: Fixed some terribly broken piping & cable placement.
-  - rscadd: Added a commemorative plaque thanking you all for playtesting my map,
-      thank you.
-  - rscdel: Removed An unused (commented) decal from markings.dm

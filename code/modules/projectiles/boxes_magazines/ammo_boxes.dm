@@ -31,7 +31,7 @@
 	ammo_type = /obj/item/ammo_casing/c38/match
 
 /obj/item/ammo_box/c38/match/bouncy
-	name = "speed loader (.38 Rubber)"
+	name = "speed loader (.38 Bouncy Rubber)"
 	desc = "Designed to quickly reload revolvers. These rounds are incredibly bouncy and MOSTLY nonlethal, making them great to show off trickshots with."
 	ammo_type = /obj/item/ammo_casing/c38/match/bouncy
 
