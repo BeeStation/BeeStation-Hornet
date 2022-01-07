@@ -137,35 +137,35 @@
 	fusion_power = -5
 
 /datum/gas/healium
-	id = "healium"
+	id = GAS_HEALIUM
 	specific_heat = 10
 	name = "Healium"
 	gas_overlay = "healium"
 	moles_visible = MOLES_GAS_VISIBLE
 
 /datum/gas/proto_nitrate
-	id = "proto_nitrate"
+	id = GAS_PROTO_NITRATE
 	specific_heat = 30
 	name = "Proto Nitrate"
 	gas_overlay = "proto_nitrate"
 	moles_visible = MOLES_GAS_VISIBLE
 
 /datum/gas/zauker
-	id = "zauker"
+	id = GAS_ZAUKER
 	specific_heat = 350
 	name = "zauker"
 	gas_overlay = "zauker"
 	moles_visible = MOLES_GAS_VISIBLE
 
 /datum/gas/halon
-	id = "halon"
+	id = GAS_HALON
 	specific_heat = 175
 	name = "Halon"
 	gas_overlay = "halon"
 	moles_visible = MOLES_GAS_VISIBLE
 
 /datum/gas/hexane
-	id = "hexane"
+	id = GAS_HEXANE
 	specific_heat = 5
 	name = "Hexane"
 	gas_overlay = "hexane"
