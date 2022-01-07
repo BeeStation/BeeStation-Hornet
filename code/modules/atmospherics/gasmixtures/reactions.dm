@@ -359,6 +359,56 @@ nobiliumsuppression = INFINITY
 	cached_results["fire"] = min(total_fuel, oxidation_power) * 2
 	return cached_results["fire"] ? REACTING : NO_REACTION
 
+/datum/gas_reaction/freonfire
+	priority = -4
+	name = "Freon combustion"
+	id = "freonfire"
+
+/datum/gas_reaction/freonfire/init_reqs()
+	min_requirements = list(
+		GAS_O2 = MINIMUM_MOLE_COUNT,
+		GAS_FREON = MINIMUM_MOLE_COUNT
+		)
+
+/datum/gas_reaction/freonfire/react(datum/gas_mixture/air, datum/holder)
+	var/energy_released = 0
+	var/old_heat_capacity = air.heat_capacity()
+	var/temperature = air.return_temperature()
+	var/turf/open/location = isturf(holder) ? holder : null
+
+	//Handle freon burning (only reaction now)
+	var/freon_burn_rate = 0
+	var/oxygen_burn_rate = 0
+	//more freon released at lower temperatures
+	var/temperature_scale = 1
+
+	if(temperature < FREON_LOWER_TEMPERATURE) //stop the reaction when too cold
+		temperature_scale = 0
+	else
+		temperature_scale = (FREON_MAXIMUM_BURN_TEMPERATURE - temperature)/(FREON_MAXIMUM_BURN_TEMPERATURE - FREON_LOWER_TEMPERATURE) //calculate the scale based on the temperature
+	if(temperature_scale > 0)
+		oxygen_burn_rate = OXYGEN_BURN_RATE_BASE - temperature_scale
+		if(air.get_moles(GAS_O2) > air.get_moles(GAS_O2)*FREON_OXYGEN_FULLBURN)
+			freon_burn_rate = (air.get_moles(GAS_FREON)*temperature_scale)/FREON_BURN_RATE_DELTA
+		else
+			freon_burn_rate = (temperature_scale*(air.get_moles(GAS_O2)/FREON_OXYGEN_FULLBURN))/FREON_BURN_RATE_DELTA
+
+		if(freon_burn_rate > MINIMUM_HEAT_CAPACITY)
+			freon_burn_rate = min(air.get_moles(GAS_FREON), air.get_moles(GAS_O2)/oxygen_burn_rate) //Ensures matter is conserved properly
+			air.set_moles(GAS_FREON, QUANTIZE(air.get_moles(GAS_FREON) - freon_burn_rate))
+			air.set_moles(GAS_O2, QUANTIZE(air.get_moles(GAS_O2)-(freon_burn_rate * oxygen_burn_rate)))
+			air.adjust_moles(GAS_CO2, freon_burn_rate)
+
+			if(temperature < 150 && temperature > 130 && prob(2))
+				new /obj/item/stack/sheet/hot_ice(location)
+
+			energy_released += FIRE_FREON_ENERGY_RELEASED * (freon_burn_rate)
+
+	if(energy_released < 0)
+		var/new_heat_capacity = air.heat_capacity()
+		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+			air.set_temperature((temperature*old_heat_capacity + energy_released)/new_heat_capacity)
+
 //fusion: a terrible idea that was fun but broken. Now reworked to be less broken and more interesting. Again (and again, and again). Again!
 //Fusion Rework Counter: Please increment this if you make a major overhaul to this system again.
 //6 reworks
