@@ -985,13 +985,21 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /client/proc/change_view(new_size)
 	if (isnull(new_size))
 		CRASH("change_view called without argument.")
+		view = new_size
+		apply_clickcatcher()
+		mob.reload_fullscreen()
 
-	view = new_size
-	apply_clickcatcher()
-	mob.reload_fullscreen()
+	if(mob && istype(mob.hud_used, /datum/hud/ai))
+		if(new_size == CONFIG_GET(string/default_view) || new_size == CONFIG_GET(string/default_view_square))
+			QDEL_NULL(mob.hud_used)
+			mob.create_mob_hud()
+			mob.hud_used.show_hud(mob.hud_used.hud_version)
+			mob.hud_used.update_ui_style(ui_style2icon(prefs.UI_style))
+
 	if (isliving(mob))
 		var/mob/living/M = mob
 		M.update_damage_hud()
+
 	if (prefs.auto_fit_viewport)
 		addtimer(CALLBACK(src,.verb/fit_viewport,10)) //Delayed to avoid wingets from Login calls.
 

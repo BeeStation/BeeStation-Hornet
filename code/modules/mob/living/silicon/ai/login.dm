@@ -10,3 +10,6 @@
 	if(multicam_on)
 		end_multicam()
 	view_core()
+	if(!login_warned_temp)
+		to_chat(src, span_userdanger("Warning, the way AI is played has changed, please refer to ")
+		login_warned_temp = TRUE

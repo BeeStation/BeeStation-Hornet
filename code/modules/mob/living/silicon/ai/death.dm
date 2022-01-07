@@ -28,10 +28,12 @@
 
 	ShutOffDoomsdayDevice()
 
+	GLOB.ai_os.remove_ai(src)
+
 	if(explosive)
 		var/T = get_turf(src)
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/explosion, T, 3, 6, 12, 15), 10)
-		
+
 	if(src.key)
 		for(var/each in GLOB.ai_status_displays) //change status
 			var/obj/machinery/status_display/ai/O = each

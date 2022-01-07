@@ -71,17 +71,20 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 		var/mob/camera/ai_eye/eye = V
 		var/list/visibleChunks = list()
 		if(eye.loc)
+			var/x_value = eye.x
+			var/y_value = eye.y
+			var/z_value = eye.z
 			// 0xf = 15
 			var/static_range = eye.static_visibility_range
-			var/x1 = max(0, eye.x - static_range) & ~(CHUNK_SIZE - 1)
-			var/y1 = max(0, eye.y - static_range) & ~(CHUNK_SIZE - 1)
-			var/x2 = min(world.maxx, eye.x + static_range) & ~(CHUNK_SIZE - 1)
-			var/y2 = min(world.maxy, eye.y + static_range) & ~(CHUNK_SIZE - 1)
+			var/x1 = max(0, x_value - static_range) & ~(CHUNK_SIZE - 1)
+			var/y1 = max(0, y_value - static_range) & ~(CHUNK_SIZE - 1)
+			var/x2 = min(world.maxx, x_value + static_range) & ~(CHUNK_SIZE - 1)
+			var/y2 = min(world.maxy, y_value + static_range) & ~(CHUNK_SIZE - 1)
 
 
 			for(var/x = x1; x <= x2; x += CHUNK_SIZE)
 				for(var/y = y1; y <= y2; y += CHUNK_SIZE)
-					visibleChunks |= getCameraChunk(x, y, eye.z)
+					visibleChunks |= getCameraChunk(x, y, z_value)
 
 		var/list/remove = eye.visibleCameraChunks - visibleChunks
 		var/list/add = visibleChunks - eye.visibleCameraChunks

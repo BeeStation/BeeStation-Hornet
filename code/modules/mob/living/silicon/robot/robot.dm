@@ -14,7 +14,7 @@
 	light_on = FALSE
 	var/custom_name = ""
 	var/braintype = "Cyborg"
-	var/obj/item/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
+	var/obj/item/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of
 	var/obj/item/mmi/mmi = null
 
 	var/shell = FALSE
@@ -37,10 +37,11 @@
 	var/shown_robot_modules = 0	//Used to determine whether they have the module menu shown or not
 	var/atom/movable/screen/robot_modules_background
 
-//3 Modules can be activated at any one time.
+//3 Modules can be activated at any one time
+
 	var/obj/item/robot_module/module = null
 	var/obj/item/module_active = null
-	held_items = list(null, null, null) //we use held_items for the module holding, because that makes sense to do!
+	held_items = list(null, null, null) //We use held_items for the module holding, because that makes sense to do!
 
 	var/mutable_appearance/eye_lights
 
@@ -58,25 +59,25 @@
 
 	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list(), "Burglar"=list())
 
-	var/speed = 0 // VTEC speed boost.
-	var/magpulse = FALSE // Magboot-like effect.
-	var/ionpulse = FALSE // Jetpack-like effect.
-	var/ionpulse_on = FALSE // Jetpack-like effect.
-	var/datum/effect_system/trail_follow/ion/ion_trail // Ionpulse effect.
+	var/speed = 0 // VTEC speed boost
+	var/magpulse = FALSE // Magboot-like effect
+	var/ionpulse = FALSE // Jetpack-like effect
+	var/ionpulse_on = FALSE // Jetpack-like effect
+	var/datum/effect_system/trail_follow/ion/ion_trail // Ionpulse effect
 
-	var/low_power_mode = 0 //whether the robot has no charge left.
+	var/low_power_mode = 0 //whether the robot has no charge left
 	var/datum/effect_system/spark_spread/spark_system // So they can initialize sparks whenever/N
 
 	var/lawupdate = TRUE //Cyborgs will sync their laws with their AI by default
-	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
+	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them
 	var/lockcharge //Boolean of whether the borg is locked down or not
 
 	var/toner = 0
 	var/tonermax = 40
 
-	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
-	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
-	var/lamp_cooldown = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
+	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting
+	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power
+	var/lamp_cooldown = 0 //Flag for if the lamp is on cooldown after being forcibly disabled
 
 	var/sight_mode = 0
 	hud_possible = list(ANTAG_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_TRACK_HUD)
@@ -113,7 +114,7 @@
 
 	robot_modules_background = new()
 	robot_modules_background.icon_state = "block"
-	robot_modules_background.layer = HUD_LAYER	//Objects that appear on screen are on layer ABOVE_HUD_LAYER, UI should be just below it.
+	robot_modules_background.layer = HUD_LAYER	//Objects that appear on screen are on layer ABOVE_HUD_LAYER, UI should be just below it
 	robot_modules_background.plane = HUD_PLANE
 
 	ident = rand(1, 999)
@@ -144,7 +145,7 @@
 	if(shell)
 		make_shell()
 
-	//MMI stuff. Held togheter by magic. ~Miauw
+	//MMI stuff. Held togheter by magic
 	else if(!mmi || !mmi.brainmob)
 		mmi = new (src)
 		mmi.brain = new /obj/item/organ/brain(mmi)
@@ -166,10 +167,10 @@
 	toner = tonermax
 	diag_hud_set_borgcell()
 
-//If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
+//If there's an MMI in the robot, have it ejected when the mob goes away --NEO
 /mob/living/silicon/robot/Destroy()
-	var/atom/T = drop_location()//To hopefully prevent run time errors.
-	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
+	var/atom/T = drop_location()//To hopefully prevent run time errors
+	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside
 		if(T)
 			mmi.forceMove(T)
 		if(mmi.brainmob)
@@ -1179,6 +1180,7 @@
 
 	if(!deployed || !mind || !mainframe)
 		return
+	remove_sensors()
 	mainframe.redeploy_action.Grant(mainframe)
 	mainframe.redeploy_action.last_used_shell = src
 	mind.transfer_to(mainframe)

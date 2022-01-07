@@ -204,6 +204,14 @@
 	hangup_all_calls()
 	add_hiddenprint(usr)
 
+/* Humans (With upgrade) */
+/mob/living/carbon/human/AIShiftClick(mob/living/silicon/ai/user)
+	if(!user.canExamineHumans)
+		return
+	if(user.client && (user.client.eye == user.eyeobj || user.client.eye == user.loc))
+		user.examinate(src)
+	return
+
 //
 // Override TurfAdjacent for AltClicking
 //

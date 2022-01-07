@@ -335,3 +335,27 @@
 	build_path = /obj/item/circuitboard/computer/shuttle/flight_control
 	category = list("Computer Boards", "Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/ai_upload_download
+	name = "Computer Design (AI Control Console)"
+	desc = "Allows for the construction of circuit boards used to build an AI Control console."
+	id = "ai_control"
+	build_path = /obj/item/circuitboard/computer/ai_upload_download
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/ai_server_overview
+	name = "Computer Design (AI Server Overview Console)"
+	desc = "Allows for the construction of circuit boards used to build an AI Server Overview console."
+	id = "ai_server_overview"
+	build_path = /obj/item/circuitboard/computer/ai_server_overview
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/ai_resource_distribution
+	name = "Computer Design (AI Resource Distribution Console)"
+	desc = "Allows for the construction of circuit boards used to build an AI Resource Distribution console."
+	id = "ai_resource_distribution"
+	build_path = /obj/item/circuitboard/computer/ai_resource_distribution
+	category = list("Computer Boards")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE

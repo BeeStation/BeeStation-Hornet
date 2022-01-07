@@ -46,6 +46,10 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isplatingturf(A) (istype(A, /turf/open/floor/plating))
 
+#define isaicore(A) (istype(A, /obj/machinery/ai/data_core))
+
+#define isvalidAIloc(A) ((isturf(A) || isaicore(A)))
+
 //Mobs
 #define isliving(A) (istype(A, /mob/living))
 

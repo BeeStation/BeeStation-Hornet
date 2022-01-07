@@ -66,6 +66,16 @@
 	var/mob/living/silicon/ai/AI = usr
 	AI.ai_roster()
 
+/obj/screen/ai/dashboard
+	name = "Processing Dashboard"
+	icon_state = "dashboard"
+
+/obj/screen/ai/dashboard/Click()
+	if(..())
+		return
+	var/mob/living/silicon/ai/AI = usr
+	AI.dashboard.ui_interact(AI)
+
 /atom/movable/screen/ai/alerts
 	name = "Show Alerts"
 	icon_state = "alerts"
@@ -229,6 +239,12 @@
 //Camera list
 	using = new /atom/movable/screen/ai/camera_list()
 	using.screen_loc = ui_ai_camera_list
+	using.hud = src
+	static_inventory += using
+
+//Dashboard
+	using = new /obj/screen/ai/dashboard
+	using.screen_loc = ui_ai_dashboard
 	using.hud = src
 	static_inventory += using
 

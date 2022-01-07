@@ -3,7 +3,7 @@
 #define POWER_RESTORATION_SEARCH_APC 2
 #define POWER_RESTORATION_APC_FOUND 3
 
-/mob/living/silicon/ai/Life()
+/mob/living/silicon/ai/Life(seconds)
 	if (stat == DEAD)
 		return
 	else //I'm not removing that shitton of tabs, unneeded as they are. -- Urist
@@ -12,6 +12,9 @@
 		update_gravity(has_gravity())
 
 		handle_status_effects()
+
+		if(dashboard)
+			dashboard.tick(seconds)
 
 		if(malfhack && malfhack.aidisabled)
 			deltimer(malfhacking)
@@ -92,7 +95,6 @@
 	if(see_override)
 		see_invisible = see_override
 	sync_lighting_plane_alpha()
-
 
 /mob/living/silicon/ai/proc/start_RestorePowerRoutine()
 	to_chat(src, "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection.")

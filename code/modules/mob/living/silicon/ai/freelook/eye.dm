@@ -70,7 +70,7 @@
 
 /mob/camera/ai_eye/proc/setLoc(destination, force_update = FALSE)
 	if(ai)
-		if(!isturf(ai.loc))
+		if(!(isturf(ai.loc) || istype(ai.loc, /obj/machinery/ai/data_core)))
 			return
 		destination = get_turf(destination)
 		if(!force_update && (destination == get_turf(src)) )
@@ -150,7 +150,7 @@
 /client/proc/AIMove(n, direct, mob/living/silicon/ai/user)
 
 	var/initial = initial(user.sprint)
-	var/max_sprint = 50
+	var/max_sprint = user.max_camera_sprint
 
 	if(user.cooldown && user.cooldown < world.timeofday) // 3 seconds
 		user.sprint = initial
