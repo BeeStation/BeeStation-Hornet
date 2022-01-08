@@ -263,8 +263,7 @@
 		return
 	if(ismob(hit_atom))
 		var/mob/M = hit_atom
-		var/anti_magic_source = M.anti_magic_check(holy = TRUE)
-		if(anti_magic_source)
+		if(M.anti_magic_check(holy = TRUE))
 			M.visible_message("[src] passes right through [M]!")
 			return
 	. = ..()
