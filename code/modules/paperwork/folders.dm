@@ -26,7 +26,7 @@
 
 /obj/item/folder/examine()
 	. = ..()
-	if(contents)
+	if(length(contents))
 		. += "<span class='notice'>Alt-click to remove [contents[1]].</span>"
 
 /obj/item/folder/proc/rename(mob/user)
