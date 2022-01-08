@@ -11,5 +11,5 @@
 		end_multicam()
 	view_core()
 	if(!login_warned_temp)
-		to_chat(src, "<span class = 'userdanger'>Warning, the way AI is played has changed, please refer to PLACEHOLDERURL</span>")
+		to_chat(src, "<span class = 'userdanger'>Warning, the way AI is played has changed, please refer to https://github.com/BeeStation/BeeStation-Hornet/pull/6152</span>")
 		login_warned_temp = TRUE
