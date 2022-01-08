@@ -1,6 +1,6 @@
 /datum/ai_project/security_hud
 	name = "Advanced Security HUD"
-	description = "Using experimental long range passive sensors should allow you to detect various implants such as loyalty implants and tracking implants."
+	description = "Using experimental long range passive sensors should allow you to detect various implants such as mind shields and tracking implants."
 	research_cost = 1000
 	ram_required = 2
 	research_requirements = "None"
