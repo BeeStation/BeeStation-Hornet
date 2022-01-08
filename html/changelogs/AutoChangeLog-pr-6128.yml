@@ -1,0 +1,5 @@
+author: Victor239
+delete-after: true
+changes:
+  - balance: Harmbaton damage increase from 5 to 8. No more doing less damage than
+      punches.
