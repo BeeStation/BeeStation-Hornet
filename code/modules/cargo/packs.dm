@@ -346,7 +346,7 @@
 
 /datum/supply_pack/security/saber
 	name = "Carbon Fiber Saber"
-	desc = "A single carbon-fiber saber and sheath. Highly reliable, sharp and contains no electronic components."
+	desc = "A single carbon-fiber sabre and sheath. Highly reliable, sharp and contains no electronic components."
 	cost = 800
 	contains = list(/obj/item/storage/belt/sabre/fiber)
 	crate_name = "surplus military crate"
