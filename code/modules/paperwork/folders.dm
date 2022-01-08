@@ -52,7 +52,7 @@
 
 /obj/item/folder/AltClick(mob/user)
 	..()
-	if(contents)
+	if(length(contents))
 		remove_item(contents[1], user)
 
 /obj/item/folder/update_overlays()
