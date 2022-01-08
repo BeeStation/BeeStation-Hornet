@@ -490,6 +490,15 @@
 	toxpwr = 0.5
 	taste_description = "bad cooking"
 
+//MonkeStation Edit: Bad Food can cause disease
+/datum/reagent/toxin/bad_food/reaction_mob(mob/living/M, method = INGEST, reac_volume, show_message, touch_protection)
+	. = ..()
+	if(prob(20) && (ishuman(M) || ismonkey(M)))
+		var/datum/disease/advance/plague = new /datum/disease/advance/random(rand(2,3), 9, 0, /datum/symptom/vomit)
+		plague.name = "Food Poisoning"
+		plague.try_infect(M)
+//MonkeStation Edit End
+
 /datum/reagent/toxin/itching_powder
 	name = "Itching Powder"
 	description = "A powder that induces itching upon contact with the skin. Causes the victim to scratch at their itches and has a very low chance to decay into Histamine."
