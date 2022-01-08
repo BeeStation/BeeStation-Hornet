@@ -1,0 +1,4 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - bugfix: Finally fixed hardsuit glowing
