@@ -714,7 +714,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/held_in_place = FALSE
 	if(iscarbon(cultist_to_summon))
 		var/mob/living/carbon/C = cultist_to_summon
-		if(C.handcuffed && cultist_to_summon.pulledby || cultist_to_summon.buckled)
+		if(C.handcuffed && (cultist_to_summon.pulledby || cultist_to_summon.buckled))
 			held_in_place = TRUE
 	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 		return
