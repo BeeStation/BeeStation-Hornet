@@ -103356,7 +103356,10 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "fhk" = (
-/obj/machinery/mineral/ore_redemption,
+/obj/machinery/mineral/ore_redemption{
+	input_dir = 4;
+	output_dir = 8
+	},
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
