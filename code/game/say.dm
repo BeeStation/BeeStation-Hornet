@@ -8,6 +8,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	"[FREQ_MEDICAL]" = "medradio",
 	"[FREQ_ENGINEERING]" = "engradio",
 	"[FREQ_SUPPLY]" = "suppradio",
+	"[FREQ_EXPLORATION]" = "explradio",
 	"[FREQ_SERVICE]" = "servradio",
 	"[FREQ_SECURITY]" = "secradio",
 	"[FREQ_COMMAND]" = "comradio",
@@ -29,15 +30,22 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	send_speech(message, 7, src, , spans, message_language=language)
 
 /atom/movable/proc/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
-	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, args)
 
 /atom/movable/proc/can_speak()
-	return 1
+	return TRUE
 
 /atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language = null, list/message_mods = list())
 	var/rendered = compose_message(src, message_language, message, , spans, message_mods)
+	var/list/show_overhead_message_to = list()
 	for(var/atom/movable/AM as() in get_hearers_in_view(range, source))
+		if(ismob(AM))
+			var/mob/M = AM
+			if(M.should_show_chat_message(source, message_language, FALSE, is_heard = TRUE))
+				show_overhead_message_to += M
 		AM.Hear(rendered, src, message_language, message, , spans, message_mods)
+	if(length(show_overhead_message_to))
+		create_chat_message(src, message_language, show_overhead_message_to, message, spans, message_mods)
 
 /atom/movable/proc/compose_message(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), face_name = FALSE)
 	//This proc uses text() because it is faster than appending strings. Thanks BYOND.
@@ -187,12 +195,12 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	var/obj/item/radio/radio
 
 INITIALIZE_IMMEDIATE(/atom/movable/virtualspeaker)
-/atom/movable/virtualspeaker/Initialize(mapload, atom/movable/M, radio)
+/atom/movable/virtualspeaker/Initialize(mapload, atom/movable/M, _radio)
 	. = ..()
-	radio = radio
+	radio = _radio
 	source = M
-	if (istype(M))
-		name = M.GetVoice()
+	if(istype(M))
+		name = radio.anonymize ? "Unknown" : M.GetVoice()
 		verb_say = M.verb_say
 		verb_ask = M.verb_ask
 		verb_exclaim = M.verb_exclaim

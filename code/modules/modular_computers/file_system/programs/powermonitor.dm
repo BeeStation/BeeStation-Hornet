@@ -92,7 +92,7 @@
 			if(istype(A))
 				data["areas"] += list(list(
 					"name" = A.area.name,
-					"charge" = A.cell ? A.cell.percent() : 0,
+					"charge" = A.integration_cog ? 100 : A.cell ? A.cell.percent() : 0,
 					"load" = DisplayPower(A.lastused_total),
 					"charging" = A.charging,
 					"eqp" = A.equipment,

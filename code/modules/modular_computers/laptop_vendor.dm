@@ -47,6 +47,7 @@
 	dev_apc_recharger = 0
 	dev_printer = 0
 	dev_card = 0
+	ui_update()
 
 // Recalculates the price and optionally even fabricates the device.
 /obj/machinery/lapvend/proc/fabricate_and_recalc_price(fabricate = FALSE)
@@ -112,6 +113,7 @@
 			if(fabricate)
 				fabricated_laptop.install_component(new /obj/item/computer_hardware/card_slot)
 
+		ui_update()
 		return total_price
 	else if(devtype == 2) 	// Tablet, more expensive, not everyone could probably afford this.
 		var/obj/item/computer_hardware/battery/battery_module = null
@@ -162,7 +164,9 @@
 			total_price += 199
 			if(fabricate)
 				fabricated_tablet.install_component(new/obj/item/computer_hardware/card_slot)
+		ui_update()
 		return total_price
+	ui_update()
 	return FALSE
 
 
@@ -247,12 +251,14 @@
 		credits += c.value
 		visible_message("<span class='info'><span class='name'>[user]</span> inserts [c.value] credits into [src].</span>")
 		qdel(c)
+		ui_update()
 		return
 	else if(istype(I, /obj/item/holochip))
 		var/obj/item/holochip/HC = I
 		credits += HC.credits
 		visible_message("<span class='info'>[user] inserts a $[HC.credits] holocredit chip into [src].</span>")
 		qdel(HC)
+		ui_update()
 		return
 	else if(istype(I, /obj/item/card/id))
 		if(state != 2)
@@ -265,6 +271,7 @@
 			return
 		credits += target_credits
 		say("$[target_credits] has been deposited from your account.")
+		ui_update()
 		return
 	return ..()
 
@@ -311,5 +318,7 @@
 			say("Enjoy your new product!")
 			state = 3
 			addtimer(CALLBACK(src, .proc/reset_order), 100)
+			ui_update()
 			return TRUE
+		ui_update()
 		return FALSE

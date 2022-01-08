@@ -5,6 +5,8 @@
 	item_state = "security_envirosuit"
 	item_color = "security_envirosuit"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 95, "acid" = 95, "stamina" = 20)
+	sensor_mode = SENSOR_COORDS
+	random_sensor = FALSE
 
 /obj/item/clothing/under/plasmaman/security/warden
 	name = "warden plasma envirosuit"

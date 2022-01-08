@@ -1,4 +1,4 @@
-#define NANITE_SYNC_DELAY 300
+#define NANITE_SYNC_DELAY 900
 
 #define NANITE_SHOCK_IMMUNE 1
 #define NANITE_EMP_IMMUNE 2
@@ -47,3 +47,10 @@
 #define NES_BUTTON_NAME "Button Name"
 #define NES_ICON "Icon"
 #define NES_COLOR "Color"
+#define NES_RULE_LOGIC "Logic"
+
+//Nanite Logic
+#define NL_AND "AND"
+#define NL_OR "OR"
+#define NL_NOR "NOR"
+#define NL_NAND "NAND"

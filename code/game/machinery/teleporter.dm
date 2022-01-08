@@ -21,6 +21,8 @@
 
 /obj/machinery/teleport/hub/Destroy()
 	if (power_station)
+		if(power_station.teleporter_console)
+			power_station.teleporter_console.ui_update()
 		power_station.teleporter_hub = null
 		power_station = null
 	return ..()
@@ -34,7 +36,7 @@
 /obj/machinery/teleport/hub/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Probability of malfunction decreased by <b>[(accuracy*25)-25]%</b>.</span>"
+		. += "<span class='notice'>The status display reads: Probability of malfunction decreased by <b>[(accuracy-1)*100/3]%</b>.</span>"
 
 /obj/machinery/teleport/hub/proc/link_power_station()
 	if(power_station)
@@ -66,22 +68,25 @@
 	var/obj/machinery/computer/teleporter/com = power_station.teleporter_console
 	if (QDELETED(com))
 		return
-	if (QDELETED(com.target))
-		com.target = null
+	var/atom/target
+	if(com.target_ref)
+		target = com.target_ref.resolve()
+	if (!target)
+		com.target_ref = null
 		visible_message("<span class='alert'>Cannot authenticate locked on coordinates. Please reinstate coordinate matrix.</span>")
 		return
 	if (ismovableatom(M))
-		if(do_teleport(M, com.target, channel = TELEPORT_CHANNEL_BLUESPACE))
+		if(do_teleport(M, target, channel = TELEPORT_CHANNEL_BLUESPACE))
 			use_power(7500)
-			if(!calibrated && prob(30 - ((accuracy) * 10))) //oh dear a problem
-				log_game("[M] ([key_name(M)]) was turned into a fly person")
+			if(!calibrated && prob(40 - ((accuracy) * 10))) //oh dear a problem
 				if(ishuman(M))//don't remove people from the round randomly you jerks
 					var/mob/living/carbon/human/human = M
-					if(human.dna && human.dna.species.id == "human")
+					if(human.dna && !isflyperson(human) && !HAS_TRAIT(M, TRAIT_RADIMMUNE))
+						log_game("[M] ([key_name(M)]) was turned into a fly person")
 						to_chat(M, "<span class='italics'>You hear a buzzing in your ears.</span>")
 						human.set_species(/datum/species/fly)
 
-					human.apply_effect((rand(120 - accuracy * 40, 180 - accuracy * 60)), EFFECT_IRRADIATE, 0)
+					human.apply_effect((rand(160 - accuracy * 40, 240 - accuracy * 60)), EFFECT_IRRADIATE, 0)
 			calibrated = 0
 	return
 
@@ -149,6 +154,7 @@
 		teleporter_console = locate(/obj/machinery/computer/teleporter, get_step(src, direction))
 		if(teleporter_console)
 			teleporter_console.link_power_station()
+			teleporter_console.ui_update()
 			break
 	return teleporter_hub && teleporter_console
 
@@ -159,6 +165,7 @@
 		teleporter_hub.update_icon()
 		teleporter_hub = null
 	if (teleporter_console)
+		teleporter_console.ui_update()
 		teleporter_console.power_station = null
 		teleporter_console = null
 	return ..()
@@ -201,7 +208,7 @@
 /obj/machinery/teleport/station/proc/toggle(mob/user)
 	if(stat & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console )
 		return
-	if (teleporter_console.target)
+	if (teleporter_console.target_ref.resolve())
 		if(teleporter_hub.panel_open || teleporter_hub.stat & (BROKEN|NOPOWER))
 			to_chat(user, "<span class='alert'>The teleporter hub isn't responding.</span>")
 		else
@@ -209,6 +216,7 @@
 			use_power(5000)
 			to_chat(user, "<span class='notice'>Teleporter [engaged ? "" : "dis"]engaged!</span>")
 	else
+		teleporter_console.target_ref = null
 		to_chat(user, "<span class='alert'>No target detected.</span>")
 		engaged = FALSE
 	teleporter_hub.update_icon()

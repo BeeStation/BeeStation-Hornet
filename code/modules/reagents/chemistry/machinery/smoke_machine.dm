@@ -13,7 +13,6 @@
 	var/efficiency = 10
 	var/on = FALSE
 	var/cooldown = 0
-	var/screen = "home"
 	var/useramount = 30 // Last used amount
 	var/setting = 1 // displayed range is 3 * setting
 	var/max_range = 3 // displayed max range is 3 * max range
@@ -37,6 +36,11 @@
 	AddComponent(/datum/component/plumbing/simple_demand)
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		reagents.maximum_volume += REAGENTS_BASE_VOLUME * B.rating
+
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
+
+/obj/machinery/smoke_machine/proc/can_be_rotated(mob/user,rotation_type)
+	return !anchored
 
 /obj/machinery/smoke_machine/update_icon()
 	if((!is_operational()) || (!on) || (reagents.total_volume == 0))
@@ -113,6 +117,7 @@
 	if(!ui)
 		ui = new(user, src, "SmokeMachine")
 		ui.open()
+		ui.set_autoupdate(TRUE) // Tank contents, particularly plumbing
 
 /obj/machinery/smoke_machine/ui_data(mob/user)
 	var/data = list()
@@ -127,7 +132,6 @@
 	data["TankMaxVolume"] = reagents.maximum_volume
 	data["active"] = on
 	data["setting"] = setting
-	data["screen"] = screen
 	data["maxSetting"] = max_range
 	return data
 
@@ -147,12 +151,10 @@
 		if("power")
 			on = !on
 			update_icon()
+			. = TRUE
 			if(on)
 				message_admins("[ADMIN_LOOKUPFLW(usr)] activated a smoke machine that contains [english_list(reagents.reagent_list)] at [ADMIN_VERBOSEJMP(src)].")
 				log_game("[key_name(usr)] activated a smoke machine that contains [english_list(reagents.reagent_list)] at [AREACOORD(src)].")
 				log_combat(usr, src, "has activated [src] which contains [english_list(reagents.reagent_list)] at [AREACOORD(src)].")
-		if("goScreen")
-			screen = params["screen"]
-			. = TRUE
 
 #undef REAGENTS_BASE_VOLUME

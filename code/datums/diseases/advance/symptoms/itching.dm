@@ -23,11 +23,13 @@ BONUS
 	stealth = 0
 	resistance = 3
 	stage_speed = 3
-	transmittable = 1
+	transmission = 1
 	level = 1
 	severity = 0
 	symptom_delay_min = 5
 	symptom_delay_max = 25
+	prefixes = list("Irritant ")
+	bodies = list("Itch")
 	var/scratch = FALSE
 	threshold_desc = "<b>Transmission 6:</b> Increases frequency of itching.<br>\
 					  <b>Stage Speed 7:</b> The host will scrath itself when itching, causing superficial damage."
@@ -35,10 +37,10 @@ BONUS
 /datum/symptom/itching/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 6) //itch more often
+	if(A.transmission >= 6) //itch more often
 		symptom_delay_min = 1
 		symptom_delay_max = 4
-	if(A.properties["stage_rate"] >= 7) //scratch
+	if(A.stage_rate >= 7) //scratch
 		scratch = TRUE
 
 /datum/symptom/itching/Activate(datum/disease/advance/A)

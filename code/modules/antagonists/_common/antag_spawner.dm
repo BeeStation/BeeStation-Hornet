@@ -275,3 +275,53 @@
 	veil_msg = "<span class='warning'>You sense an adorable presence lurking just beyond the veil...</span>"
 	demon_type = /mob/living/simple_animal/slaughter/laughter
 	antag_type = /datum/antagonist/slaughter/laughter
+
+///////////GANGSTER REINFORCEMENT SPAWNER
+
+/obj/item/antag_spawner/gangster
+	name = "crook spawner"
+	desc = "Have headquarters deliver you a crook that just dropped out of high-school and is ready for the front-line. He comes dressed with your gang's outfit and a spray can in hand."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "locator"
+
+
+/obj/item/antag_spawner/gangster/attack_self(mob/user)
+	if(!(check_usability(user)))
+		return
+
+	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
+	var/list/candidates = pollGhostCandidates("Do you want to play as a gangster reinforcements?", ROLE_GANG, null, ROLE_GANG, 150)
+	if(LAZYLEN(candidates))
+		if(QDELETED(src) || !check_usability(user))
+			return
+		used = TRUE
+		var/mob/dead/observer/G = pick(candidates)
+		spawn_antag(G.client, get_turf(src), user.mind)
+		qdel(src)
+	else
+		to_chat(user, "<span class='warning'>No response from headquarters. Please wait and try again later.</span>")
+
+/obj/item/antag_spawner/gangster/proc/check_usability(mob/user)
+	if(used)
+		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
+		return FALSE
+	if(!user.mind.has_antag_datum(/datum/antagonist/gang,TRUE))
+		to_chat(user, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
+		return FALSE
+	return TRUE
+
+/obj/item/antag_spawner/gangster/spawn_antag(client/C, turf/T, datum/mind/user)
+	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
+	if (C)
+		C.prefs.copy_to(M)
+		M.key = C.key
+
+	var/datum/antagonist/gang/alignment = user.has_antag_datum(/datum/antagonist/gang,TRUE)
+	if(alignment)
+		M.mind.add_antag_datum(/datum/antagonist/gang, alignment)
+		M.equip_to_slot_or_del(new alignment.gang.outfit(M),ITEM_SLOT_ICLOTHING)
+		M.equip_to_slot_or_del(new alignment.gang.suit(M),ITEM_SLOT_OCLOTHING)
+		M.equip_to_slot_or_del(new alignment.gang.hat(M),ITEM_SLOT_HEAD)
+
+	M.mind.special_role = "Gangster"
+	M.equipOutfit(/datum/outfit/crook)

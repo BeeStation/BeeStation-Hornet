@@ -2,11 +2,8 @@
 #define FONT_SIZE "5pt"
 #define FONT_COLOR "#09f"
 #define FONT_STYLE "Small Fonts"
-#define MAX_TIMER 15 MINUTES
 
-#define PRESET_SHORT 2 MINUTES
-#define PRESET_MEDIUM 3 MINUTES
-#define PRESET_LONG 5 MINUTES
+
 
 
 
@@ -25,13 +22,20 @@
 	desc = "A remote control for a door."
 	req_access = list(ACCESS_SECURITY)
 	density = FALSE
+	layer = ABOVE_WINDOW_LAYER
 	var/id = null // id of linked machinery/lockers
 
 	var/activation_time = 0
 	var/timer_duration = 0
 
 	var/timing = FALSE // boolean, true/1 timer is on, false/0 means it's not timing
-	var/list/obj/machinery/targets = list()
+	///List of weakrefs to nearby doors
+	var/list/doors = list()
+	///List of weakrefs to nearby flashers
+	var/list/flashers = list()
+	///List of weakrefs to nearby closets
+	var/list/closets = list()
+
 	var/obj/item/radio/Radio //needed to send messages to sec radio
 
 	maptext_height = 26
@@ -51,17 +55,17 @@
 	if(id != null)
 		for(var/obj/machinery/door/window/brigdoor/M in urange(20, src))
 			if (M.id == id)
-				targets += M
+				doors += WEAKREF(M)
 
 		for(var/obj/machinery/flasher/F in urange(20, src))
 			if(F.id == id)
-				targets += F
+				flashers += WEAKREF(F)
 
 		for(var/obj/structure/closet/secure_closet/brig/C in urange(20, src))
 			if(C.id == id)
-				targets += C
+				closets += WEAKREF(C)
 
-	if(!targets.len)
+	if(!length(doors) && !length(flashers) && length(closets))
 		stat |= BROKEN
 	update_icon()
 
@@ -92,18 +96,26 @@
 	activation_time = world.time
 	timing = TRUE
 
-	for(var/obj/machinery/door/window/brigdoor/door in targets)
+	for(var/datum/weakref/door_ref as anything in doors)
+		var/obj/machinery/door/window/brigdoor/door = door_ref.resolve()
+		if(!door)
+			doors -= door_ref
+			continue
 		if(door.density)
 			continue
 		INVOKE_ASYNC(door, /obj/machinery/door/window/brigdoor.proc/close)
 
-	for(var/obj/structure/closet/secure_closet/brig/C in targets)
-		if(C.broken)
+	for(var/datum/weakref/closet_ref as anything in closets)
+		var/obj/structure/closet/secure_closet/brig/closet = closet_ref.resolve()
+		if(!closet)
+			closets -= closet_ref
 			continue
-		if(C.opened && !C.close())
+		if(closet.broken)
 			continue
-		C.locked = TRUE
-		C.update_icon()
+		if(closet.opened && !closet.close())
+			continue
+		closet.locked = TRUE
+		closet.update_icon()
 	return 1
 
 
@@ -120,19 +132,28 @@
 	activation_time = null
 	set_timer(0)
 	update_icon()
+	ui_update()
 
-	for(var/obj/machinery/door/window/brigdoor/door in targets)
+	for(var/datum/weakref/door_ref as anything in doors)
+		var/obj/machinery/door/window/brigdoor/door = door_ref.resolve()
+		if(!door)
+			doors -=  door_ref
+			continue
 		if(!door.density)
 			continue
 		INVOKE_ASYNC(door, /obj/machinery/door/window/brigdoor.proc/open)
 
-	for(var/obj/structure/closet/secure_closet/brig/C in targets)
-		if(C.broken)
+	for(var/datum/weakref/closet_ref as anything in closets)
+		var/obj/structure/closet/secure_closet/brig/closet = closet_ref.resolve()
+		if(!closet)
+			closets -= closet_ref
 			continue
-		if(C.opened)
+		if(closet.broken)
 			continue
-		C.locked = FALSE
-		C.update_icon()
+		if(closet.opened)
+			continue
+		closet.locked = FALSE
+		closet.update_icon()
 
 	return 1
 
@@ -143,10 +164,15 @@
 		. /= 10
 
 /obj/machinery/door_timer/proc/set_timer(value)
-	var/new_time = clamp(value,0,MAX_TIMER)
+	var/new_time = clamp(value,0,CONFIG_GET(number/brig_timer_max) MINUTES)
 	. = new_time == timer_duration //return 1 on no change
 	timer_duration = new_time
 
+
+/obj/machinery/door_timer/ui_requires_update(mob/user, datum/tgui/ui)
+	. = ..()
+	if(timing)
+		. = TRUE // Autoupdate while timer is counting down
 
 /obj/machinery/door_timer/ui_state(mob/user)
 	return GLOB.default_state
@@ -207,8 +233,12 @@
 	data["minutes"] = round((time_left - data["seconds"]) / 60)
 	data["timing"] = timing
 	data["flash_charging"] = FALSE
-	for(var/obj/machinery/flasher/F in targets)
-		if(F.last_flash && (F.last_flash + 15 SECONDS) > world.time)
+	for(var/datum/weakref/flash_ref as anything in flashers)
+		var/obj/machinery/flasher/flasher = flash_ref.resolve()
+		if(!flasher)
+			flashers -= flash_ref
+			continue
+		if(flasher.last_flash && (flasher.last_flash + 15 SECONDS) > world.time)
 			data["flash_charging"] = TRUE
 			break
 	return data
@@ -229,7 +259,7 @@
 		if("time")
 			var/value = text2num(params["adjust"])
 			if(value)
-				. = set_timer(time_left()+value)
+				. = !set_timer(time_left()+value)
 				investigate_log("[key_name(usr)] modified the timer by [value/10] seconds for cell [id], currently [time_left(seconds = TRUE)]", INVESTIGATE_RECORDS)
 				user.log_message("modified the timer by [value/10] seconds for cell [id], currently [time_left(seconds = TRUE)]", LOG_ATTACK)
 		if("start")
@@ -243,19 +273,23 @@
 		if("flash")
 			investigate_log("[key_name(usr)] has flashed cell [id]", INVESTIGATE_RECORDS)
 			user.log_message("[key_name(usr)] has flashed cell [id]", LOG_ATTACK)
-			for(var/obj/machinery/flasher/F in targets)
-				F.flash()
+			for(var/datum/weakref/flash_ref as anything in flashers)
+				var/obj/machinery/flasher/flasher = flash_ref.resolve()
+				if(!flasher)
+					flashers -= flash_ref
+					continue
+				flasher.flash()
 		if("preset")
 			var/preset = params["preset"]
 			var/preset_time = time_left()
 			switch(preset)
 				if("short")
-					preset_time = PRESET_SHORT
+					preset_time = CONFIG_GET(number/brig_timer_preset_short) MINUTES
 				if("medium")
-					preset_time = PRESET_MEDIUM
+					preset_time = CONFIG_GET(number/brig_timer_preset_med) MINUTES
 				if("long")
-					preset_time = PRESET_LONG
-			. = set_timer(preset_time)
+					preset_time = CONFIG_GET(number/brig_timer_preset_long) MINUTES
+			. = !set_timer(preset_time)
 			investigate_log("[key_name(usr)] set cell [id]'s timer to [preset_time/10] seconds", INVESTIGATE_RECORDS)
 			user.log_message("set cell [id]'s timer to [preset_time/10] seconds", LOG_ATTACK)
 			if(timing)
@@ -264,11 +298,8 @@
 			. = FALSE
 
 
-#undef PRESET_SHORT
-#undef PRESET_MEDIUM
-#undef PRESET_LONG
 
-#undef MAX_TIMER
+
 #undef FONT_SIZE
 #undef FONT_COLOR
 #undef FONT_STYLE

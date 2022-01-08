@@ -6,16 +6,6 @@
 	item_color = "scratch"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/suit/white/skirt
-	name = "white suitskirt"
-	desc = "A white suitskirt, suitable for an excellent host."
-	icon_state = "white_suit_skirt"
-	item_state = "scratch"
-	item_color = "white_suit_skirt"
-	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
-
 /obj/item/clothing/under/suit/sl
 	desc = "It's a very amish looking suit."
 	name = "amish suit"
@@ -44,9 +34,9 @@
 	icon_state = "blacksuit_skirt"
 	item_state = "bar_suit"
 	item_color = "blacksuit_skirt"
-	alt_covers_chest = TRUE
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
-
 
 /obj/item/clothing/under/suit/black_really
 	name = "executive suit"
@@ -54,6 +44,17 @@
 	icon_state = "really_black_suit"
 	item_state = "bl_suit"
 	item_color = "really_black_suit"
+	can_adjust = FALSE
+
+/obj/item/clothing/under/suit/black_really/skirt
+	name = "executive suitskirt"
+	desc = "A formal black suitskirt and red tie, intended for the station's finest."
+	icon_state = "reallyblack_suit_skirt"
+	item_state = "bl_suit"
+	item_color = "reallyblack_suit_skirt"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	fitted = FEMALE_UNIFORM_TOP
 
 /obj/item/clothing/under/suit/black/female
 	name = "executive suit"
@@ -79,6 +80,7 @@
 	icon_state = "red_suit"
 	item_state = "r_suit"
 	item_color = "red_suit"
+	can_adjust = FALSE
 
 /obj/item/clothing/under/suit/charcoal
 	name = "charcoal suit"
@@ -86,6 +88,7 @@
 	icon_state = "charcoal_suit"
 	item_state = "charcoal_suit"
 	item_color = "charcoal_suit"
+	can_adjust = FALSE
 
 /obj/item/clothing/under/suit/navy
 	name = "navy suit"
@@ -93,6 +96,7 @@
 	icon_state = "navy_suit"
 	item_state = "navy_suit"
 	item_color = "navy_suit"
+	can_adjust = FALSE
 
 /obj/item/clothing/under/suit/burgundy
 	name = "burgundy suit"
@@ -100,6 +104,7 @@
 	icon_state = "burgundy_suit"
 	item_state = "burgundy_suit"
 	item_color = "burgundy_suit"
+	can_adjust = FALSE
 
 /obj/item/clothing/under/suit/checkered
 	name = "checkered suit"
@@ -107,6 +112,7 @@
 	icon_state = "checkered_suit"
 	item_state = "checkered_suit"
 	item_color = "checkered_suit"
+	can_adjust = FALSE
 
 /obj/item/clothing/under/suit/tan
 	name = "tan suit"
@@ -114,6 +120,7 @@
 	icon_state = "tan_suit"
 	item_state = "tan_suit"
 	item_color = "tan_suit"
+	can_adjust = FALSE
 
 /obj/item/clothing/under/suit/white
 	name = "white suit"
@@ -121,3 +128,4 @@
 	icon_state = "white_suit"
 	item_state = "white_suit"
 	item_color = "white_suit"
+	can_adjust = FALSE

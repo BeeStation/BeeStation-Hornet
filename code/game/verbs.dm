@@ -80,6 +80,30 @@
 		verbs -= old_verbs
 	return ..(old_verbs)
 
+/obj/item/remove_verb(new_verbs, tgui_only = FALSE)
+	if(IsAdminAdvancedProcCall())
+		message_admins("[key_name(usr)] attempted to edit their verbs.")
+		log_game("[key_name(usr)] attempted to edit their verbs.")
+		return
+	//If we lose an old verb while in someone's inventory, remove it frmo their panel.
+	if(item_flags & IN_INVENTORY)
+		var/mob/living/L = loc
+		if(istype(L) && L.client)
+			L.client.remove_verbs(new_verbs)
+	return ..(new_verbs)
+
+/obj/item/add_verb(new_verbs, tgui_only = FALSE)
+	if(IsAdminAdvancedProcCall())
+		message_admins("[key_name(usr)] attempted to edit their verbs.")
+		log_game("[key_name(usr)] attempted to edit their verbs.")
+		return
+	//If we get a new verb while in someone's inventory, add it to their panel.
+	if(item_flags & IN_INVENTORY)
+		var/mob/living/L = loc
+		if(istype(L) && L.client)
+			L.client.add_verbs(new_verbs)
+	return ..(new_verbs)
+
 /client/add_verb(new_verbs, tgui_only = FALSE)
 	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to edit their verbs.")
@@ -87,6 +111,7 @@
 		return
 	if(!tgui_only)
 		verbs += new_verbs
+	add_verbs(new_verbs)
 	return ..(new_verbs)
 
 /client/remove_verb(old_verbs, tgui_only = FALSE)
@@ -96,7 +121,58 @@
 		return
 	if(!tgui_only)
 		verbs -= old_verbs
+	remove_verbs(old_verbs)
 	return ..(old_verbs)
+
+/mob/remove_verb(old_verbs, tgui_only = FALSE)
+	if(IsAdminAdvancedProcCall())
+		message_admins("[key_name(usr)] attempted to edit their verbs.")
+		log_game("[key_name(usr)] attempted to edit their verbs.")
+		return
+	if(client)
+		client.remove_verbs(old_verbs)
+	return ..()
+
+/mob/add_verb(new_verbs, tgui_only)
+	if(IsAdminAdvancedProcCall())
+		message_admins("[key_name(usr)] attempted to edit their verbs.")
+		log_game("[key_name(usr)] attempted to edit their verbs.")
+		return
+	if(client)
+		client.add_verbs(new_verbs)
+	return ..()
+
+/client/proc/remove_verbs(old_verbs)
+	if(!islist(old_verbs))
+		old_verbs = list(old_verbs)
+	var/list/removed_verbs = list()
+	for(var/pp in old_verbs)
+		var/procpath/P = pp
+		if(!P)
+			continue
+		if(!islist(removed_verbs[P.category]))
+			removed_verbs[P.category] = list()
+		removed_verbs[P.category] += "[P.name]"
+	tgui_panel.remove_verbs(removed_verbs)
+
+/client/proc/add_verbs(new_verbs)
+	if(!islist(new_verbs))
+		new_verbs = list(new_verbs)
+	var/list/added_verbs = list()
+	for(var/pp in new_verbs)
+		var/procpath/P = pp
+		if(!P)
+			continue
+		if((!mob && P.invisibility) || (mob && P.invisibility > mob.see_invisible))
+			continue
+		if(!islist(added_verbs[P.category]))
+			added_verbs[P.category] = list()
+		added_verbs[P.category]["[P.name]"] = list(
+			action = "verb",
+			params = list("verb" = P.name),
+			type = STAT_VERB,
+		)
+	tgui_panel.add_verbs(added_verbs)
 
 /proc/cmp_verb_des(procpath/a,procpath/b)
 	return sorttext(b.name, a.name)

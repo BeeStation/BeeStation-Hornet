@@ -25,7 +25,7 @@
 	minbodytemp = 0
 	speak_emote = list("states")
 	gold_core_spawnable = HOSTILE_SPAWN
-	del_on_death = 1
+	del_on_death = TRUE
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 
 	do_footstep = TRUE

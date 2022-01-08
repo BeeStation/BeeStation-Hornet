@@ -17,7 +17,7 @@
 	damage = 0
 
 /obj/item/projectile/bullet/sleepy/on_hit(atom/target, blocked = FALSE)
-	if((blocked != 100) && isliving(target))
+	if((blocked != 100) && ishuman(target))
 		var/mob/living/L = target
 		if(L.confused)
 			L.Sleeping(50)
@@ -71,6 +71,9 @@
 /obj/item/projectile/bullet/pellet
 	var/tile_dropoff = 0.75
 	var/tile_dropoff_s = 0.5
+	ricochets_max = 1
+	ricochet_chance = 50
+	ricochet_decay_chance = 0.9
 
 /obj/item/projectile/bullet/pellet/shotgun_buckshot
 	name = "buckshot pellet"

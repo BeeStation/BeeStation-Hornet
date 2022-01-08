@@ -2,15 +2,20 @@
 	category = CATEGORY_HUMAN
 	weight = WEIGHT_MOB
 
+/datum/keybinding/human/can_use(client/user)
+	return ishuman(user.mob) && !user.mob.incapacitated()
+
 
 /datum/keybinding/human/quick_equip
 	key = "E"
 	name = "quick_equip"
 	full_name = "Quick equip"
 	description = ""
+	keybind_signal = COMSIG_KB_HUMAN_QUICKEQUIP_DOWN
 
 /datum/keybinding/human/quick_equip/down(client/user)
-	if(!ishuman(user.mob) || user.mob.incapacitated())
+	. = ..()
+	if(.)
 		return
 	var/mob/living/carbon/human/H = user.mob
 	H.quick_equip()
@@ -22,9 +27,11 @@
 	name = "quick_equip_belt"
 	full_name = "Put Item In Belt"
 	description = ""
+	keybind_signal = COMSIG_KB_HUMAN_QUICKEQUIPBELT_DOWN
 
 /datum/keybinding/human/quick_equip_belt/down(client/user)
-	if(!ishuman(user.mob) || user.mob.incapacitated())
+	. = ..()
+	if(.)
 		return
 	var/mob/living/carbon/human/H = user.mob
 	var/obj/item/thing = H.get_active_held_item()
@@ -61,9 +68,11 @@
 	name = "quick_equip_backpack"
 	full_name = "Put Item In Backpack"
 	description = ""
+	keybind_signal = COMSIG_KB_HUMAN_BAGEQUIP_DOWN
 
 /datum/keybinding/human/quick_equip_backpack/down(client/user)
-	if(!ishuman(user.mob) || user.mob.incapacitated())
+	. = ..()
+	if(.)
 		return
 	var/mob/living/carbon/human/H = user.mob
 	var/obj/item/thing = H.get_active_held_item()
@@ -93,3 +102,33 @@
 		return
 	stored.attack_hand(H) // take out thing from backpack
 	return
+
+
+/datum/keybinding/human/quick_equip_suit_storage
+	key = "Shift-Q"
+	name = "quick_equip_suit_storage"
+	full_name = "Put Item In Suit Storage"
+	description = ""
+	keybind_signal = COMSIG_KB_HUMAN_SUITEQUIP_DOWN
+
+/datum/keybinding/human/quick_equip_suit_storage/down(client/user)
+	. = ..()
+	if(.)
+		return
+	var/mob/living/carbon/human/H = user.mob
+	var/obj/item/thing = H.get_active_held_item()
+	var/obj/item/stored = H.get_item_by_slot(ITEM_SLOT_SUITSTORE)
+	if(!stored)
+		if(!thing)
+			to_chat(user, "<span class='notice'>There's nothing in your suit storage to take out.")
+			return TRUE
+		if(H.equip_to_slot_if_possible(thing, ITEM_SLOT_SUITSTORE))
+			H.update_inv_hands()
+			return TRUE
+	if(thing && stored)
+		to_chat(user, "<span class='notice'>There's already something in your suit storage!")
+		return TRUE
+	if(!stored || stored.on_found(H))
+		return TRUE
+	stored.attack_hand(H)
+	return TRUE

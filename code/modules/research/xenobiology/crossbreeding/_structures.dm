@@ -173,7 +173,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		if(2)
 			carbon_mob.adjustOxyLoss(-heal_amt)
 		if(3)
-			carbon_mob.adjustToxLoss(-heal_amt)
+			carbon_mob.adjustToxLoss(-heal_amt, forced = TRUE)
 		if(4)
 			carbon_mob.adjustCloneLoss(-heal_amt)
 		if(5)
@@ -236,8 +236,8 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	var/turf/open/open_turf = T
 	var/datum/gas_mixture/air = open_turf.return_air()
 
-	if(air.get_moles(/datum/gas/plasma) > 15)
-		air.adjust_moles(/datum/gas/plasma, -15)
+	if(air.get_moles(GAS_PLASMA) > 15)
+		air.adjust_moles(GAS_PLASMA, -15)
 		new /obj/item/stack/sheet/mineral/plasma(open_turf)
 
 /obj/structure/slime_crystal/darkpurple/Destroy()
@@ -247,24 +247,24 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 /obj/structure/slime_crystal/darkblue
 	colour = "dark blue"
 
-/obj/structure/slime_crystal/darkblue/process()
+/obj/structure/slime_crystal/darkblue/process(delta_time)
 	for(var/turf/open/T in RANGE_TURFS(5, src))
-		if(prob(75))
+		if(DT_PROB(75, delta_time))
 			continue
 		T.MakeDry(TURF_WET_LUBE)
 
 	for(var/obj/item/trash/trashie in range(5, src))
-		if(prob(25))
+		if(DT_PROB(25, delta_time))
 			qdel(trashie)
 
 /obj/structure/slime_crystal/silver
 	colour = "silver"
 
-/obj/structure/slime_crystal/silver/process()
+/obj/structure/slime_crystal/silver/process(delta_time)
 	for(var/obj/machinery/hydroponics/hydr in range(5,src))
 		hydr.weedlevel = 0
 		hydr.pestlevel = 0
-		if(prob(10))
+		if(DT_PROB(10, delta_time))
 			hydr.age++
 
 /obj/structure/slime_crystal/bluespace

@@ -4,13 +4,14 @@
 	department_head = list("Chief Medical Officer")
 	department_flag = MEDSCI
 	faction = "Station"
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2
+	spawn_positions = 2
 	supervisors = "the chief medical officer"
 	selection_color = "#d4ebf2"
 	chat_color = "#75AEA3"
-	exp_type = EXP_TYPE_CREW
 	exp_requirements = 180
+	exp_type = EXP_TYPE_MEDICAL
+	exp_type_department = EXP_TYPE_MEDICAL
 
 	outfit = /datum/outfit/job/virologist
 
@@ -20,6 +21,13 @@
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
+	departments = DEPARTMENT_MEDICAL
+	rpg_title = "Plague Doctor"
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/viro
+	)
+	biohazard = 50 //duh
 
 /datum/outfit/job/virologist
 	name = "Virologist"

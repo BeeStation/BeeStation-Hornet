@@ -48,6 +48,7 @@
 	for(var/i in 1 to I)
 		available_chems |= possible_chems[i]
 	reset_chem_buttons()
+	ui_update()
 
 /obj/machinery/sleeper/update_icon()
 	if(state_open)
@@ -60,14 +61,16 @@
 		"<span class='notice'>You climb out of [src]!</span>")
 	open_machine()
 
-/obj/machinery/sleeper/Exited(atom/movable/user)
-	if (!state_open && user == occupant)
-		container_resist(user)
+/obj/machinery/sleeper/Exited(atom/movable/gone, direction)
+	. = ..()
+	if (!state_open && gone == occupant)
+		container_resist(gone)
 
 /obj/machinery/sleeper/relaymove(mob/user)
 	if (!state_open)
 		container_resist(user)
 
+//Note: open_machine and close_machine already ui_update()
 /obj/machinery/sleeper/open_machine()
 	if(!state_open && !panel_open)
 		flick("[initial(icon_state)]-anim", src)
@@ -128,6 +131,12 @@
 		visible_message("<span class='notice'>[usr] pries open [src].</span>", "<span class='notice'>You pry open [src].</span>")
 		open_machine()
 
+
+/obj/machinery/sleeper/ui_requires_update(mob/user, datum/tgui/ui)
+	. = ..()
+
+	if(occupant)
+		. = TRUE // Only autoupdate when occupied
 
 /obj/machinery/sleeper/ui_state(mob/user)
 	if(controls_inside)
@@ -261,16 +270,8 @@
 	icon_state = "sleeper_s"
 	controls_inside = TRUE
 
-/obj/machinery/sleeper/syndie/fullupgrade/Initialize()
-	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/machine/sleeper(null)
-	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
-	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/stack/cable_coil(null)
-	RefreshParts()
+/obj/machinery/sleeper/syndie/fullupgrade
+	circuit = /obj/item/circuitboard/machine/sleeper/fullupgrade
 
 /obj/machinery/sleeper/clockwork
 	name = "soothing sleeper"

@@ -82,18 +82,18 @@
 				var/list/this_symptom = list()
 				this_symptom = get_symptom_data(S)
 				this["symptoms"] += list(this_symptom)
-			this["resistance"] = A.totalResistance()
-			this["stealth"] = A.totalStealth()
-			this["stage_speed"] = A.totalStageSpeed()
-			this["transmission"] = A.totalTransmittable()
-			this["symptom_severity"] = A.totalSeverity()
+			this["resistance"] = A.resistance
+			this["stealth"] = A.stealth
+			this["stage_speed"] = A.stage_rate
+			this["transmission"] = A.transmission
+			this["symptom_severity"] = A.severity
 
 		this["index"] = index++
 		this["agent"] = D.agent
 		this["description"] = D.desc || "none"
 		this["spread"] = D.spread_text || "none"
 		this["cure"] = D.cure_text || "none"
-		this["severity"] = D.severity || "none"
+		this["danger"] = D.danger || "none"
 
 		. += list(this)
 
@@ -105,7 +105,7 @@
 	this["stealth"] = S.stealth
 	this["resistance"] = S.resistance
 	this["stage_speed"] = S.stage_speed
-	this["transmission"] = S.transmittable
+	this["transmission"] = S.transmission
 	this["level"] = S.level
 	this["neutered"] = S.neutered
 	this["threshold_desc"] = S.threshold_desc
@@ -129,6 +129,7 @@
 /obj/machinery/computer/pandemic/proc/reset_replicator_cooldown()
 	wait = FALSE
 	update_icon()
+	SStgui.update_uis(src)
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 
 /obj/machinery/computer/pandemic/update_icon()
@@ -147,6 +148,7 @@
 		beaker.forceMove(drop_location())
 		beaker = null
 		update_icon()
+		ui_update()
 
 
 /obj/machinery/computer/pandemic/ui_state(mob/user)
@@ -255,6 +257,7 @@
 		beaker = I
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 		update_icon()
+		ui_update()
 	else
 		return ..()
 

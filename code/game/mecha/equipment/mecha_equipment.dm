@@ -13,6 +13,8 @@
 	var/obj/mecha/chassis = null
 	///Bitflag. Determines the range of the equipment.
 	var/range = MECHA_MELEE
+	/// Bitflag. Used by exosuit fabricator to assign sub-categories based on which exosuits can equip this.
+	var/mech_flags = NONE
 	var/salvageable = 1
 	var/detachable = TRUE // Set to FALSE for built-in equipment that cannot be removed
 	var/selectable = 1	// Set to 0 for passive equipment such as mining scanner or armor plates
@@ -46,14 +48,16 @@
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/try_attach_part(mob/user, obj/mecha/M)
-	if(can_attach(M))
-		if(!user.temporarilyRemoveItemFromInventory(src))
-			return FALSE
-		attach(M)
-		user.visible_message("[user] attaches [src] to [M].", "<span class='notice'>You attach [src] to [M].</span>")
-		return TRUE
-	to_chat(user, "<span class='warning'>You are unable to attach [src] to [M]!</span>")
-	return FALSE
+	if(!do_mob(user, M, 15))
+		return FALSE
+	if(!can_attach(M))
+		to_chat(user, "<span class='warning'>You are unable to attach [src] to [M]!</span>")
+		return FALSE
+	if(!user.temporarilyRemoveItemFromInventory(src))
+		return FALSE
+	attach(M)
+	user.visible_message("[user] attaches [src] to [M].", "<span class='notice'>You attach [src] to [M].</span>")
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/proc/get_equip_info()
 	if(!chassis)

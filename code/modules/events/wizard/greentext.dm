@@ -83,7 +83,8 @@
 	if(!(resistance_flags & ON_FIRE) && !force)
 		return QDEL_HINT_LETMELIVE
 
-	SSticker.round_end_events -= roundend_callback
+	LAZYREMOVE(SSticker.round_end_events, roundend_callback)
+	roundend_callback = null //This ought to free the callback datum, and prevent us from harddeling
 	GLOB.poi_list.Remove(src)
 	for(var/i in GLOB.player_list)
 		var/mob/M = i

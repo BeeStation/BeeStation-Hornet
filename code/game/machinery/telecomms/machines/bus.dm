@@ -80,3 +80,9 @@
 	name = "Bus"
 	autolinkers = list("processor1", "common", "messaging")
 	freq_listening = list()
+
+/obj/machinery/telecomms/bus/preset_exploration
+	id = "Exploration Bus"
+	network = "exploration"
+	freq_listening = list(FREQ_EXPLORATION)
+	autolinkers = list("processorExp", "exploration")

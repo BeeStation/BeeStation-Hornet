@@ -169,7 +169,7 @@
 					dat += "<br><b>Medical Robots:</b>"
 					var/bdat = null
 					for(var/mob/living/simple_animal/bot/medbot/M in GLOB.alive_mob_list)
-						if(M.z != src.z)
+						if(M.get_virtual_z_level() != src.get_virtual_z_level())
 							continue	//only find medibots on the same z-level as the computer
 						var/turf/bl = get_turf(M)
 						if(bl)	//if it can't find a turf for the medibot, then it probably shouldn't be showing up
@@ -258,20 +258,17 @@
 				src.active2 = null
 
 			else if(href_list["vir"])
-				var/type = href_list["vir"]
-				var/datum/disease/Dis = new type(0)
-				var/AfS = ""
-				for(var/mob/M in Dis.viable_mobtypes)
-					AfS += " [initial(M.name)];"
-				src.temp = {"<b>Name:</b> [Dis.name]
-<BR><b>Number of stages:</b> [Dis.max_stages]
-<BR><b>Spread:</b> [Dis.spread_text] Transmission
-<BR><b>Possible Cure:</b> [(Dis.cure_text||"none")]
-<BR><b>Affected Lifeforms:</b>[AfS]
+				var/href_type = text2path(href_list["vir"])
+				if(ispath(href_type, /datum/disease))
+					var/datum/disease/type = href_type
+					src.temp = {"<b>Name:</b> [initial(type.name)]
+<BR><b>Number of stages:</b> [initial(type.max_stages)]
+<BR><b>Spread:</b> [initial(type.spread_text)] Transmission
+<BR><b>Possible Cure:</b> [(initial(type.cure_text)||"none")]
 <BR>
-<BR><b>Notes:</b> [Dis.desc]
+<BR><b>Notes:</b> [initial(type.desc)]
 <BR>
-<BR><b>Severity:</b> [Dis.severity]"}
+<BR><b>Danger:</b> [initial(type.danger)]"}
 
 			else if(href_list["del_all"])
 				src.temp = "Are you sure you wish to delete all records?<br>\n\t<A href='?src=[REF(src)];temp=1;del_all2=1'>Yes</A><br>\n\t<A href='?src=[REF(src)];temp=1'>No</A><br>"
@@ -590,4 +587,5 @@
 	icon_screen = "medlaptop"
 	icon_keyboard = "laptop_key"
 	clockwork = TRUE //it'd look weird
+	broken_overlay_emissive = TRUE
 	pass_flags = PASSTABLE

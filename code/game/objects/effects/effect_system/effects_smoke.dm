@@ -133,13 +133,6 @@
 		M.emote("cough")
 		return 1
 
-/obj/effect/particle_effect/smoke/bad/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover, /obj/item/projectile/beam))
-		var/obj/item/projectile/beam/B = mover
-		B.damage = (B.damage/2)
-	return 1
-
-
 
 /datum/effect_system/smoke_spread/bad
 	effect_type = /obj/effect/particle_effect/smoke/bad
@@ -170,9 +163,9 @@
 		T.air_update_turf()
 		for(var/obj/effect/hotspot/H in T)
 			qdel(H)
-		if(G.get_moles(/datum/gas/plasma))
-			G.adjust_moles(/datum/gas/nitrogen, G.get_moles(/datum/gas/plasma))
-			G.set_moles(/datum/gas/plasma, 0)
+		if(G.get_moles(GAS_PLASMA))
+			G.adjust_moles(GAS_N2, G.get_moles(GAS_PLASMA))
+			G.set_moles(GAS_PLASMA, 0)
 	if (weldvents)
 		for(var/obj/machinery/atmospherics/components/unary/U in T)
 			if(!isnull(U.welded) && !U.welded) //must be an unwelded vent pump or vent scrubber.

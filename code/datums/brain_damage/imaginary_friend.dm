@@ -148,11 +148,6 @@
 
 	friend_talk(message)
 
-/mob/camera/imaginary_friend/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
-	if (client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)))
-		create_chat_message(speaker, message_language, raw_message, spans)
-	to_chat(src, compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods))
-
 /mob/camera/imaginary_friend/proc/friend_talk(message)
 	message = capitalize(trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN)))
 
@@ -184,18 +179,17 @@
 		recall()
 		move_delay = world.time + 10
 		return FALSE
-	forceMove(NewLoc)
+	abstract_move(NewLoc)
 	move_delay = world.time + 1
 
-/mob/camera/imaginary_friend/forceMove(atom/destination)
-	dir = get_dir(get_turf(src), destination)
-	loc = destination
+/mob/camera/imaginary_friend/abstract_move(atom/destination)
+	. = ..()
 	Show()
 
 /mob/camera/imaginary_friend/proc/recall()
 	if(!owner || loc == owner)
 		return FALSE
-	forceMove(owner)
+	abstract_move(owner)
 
 /datum/action/innate/imaginary_join
 	name = "Join"

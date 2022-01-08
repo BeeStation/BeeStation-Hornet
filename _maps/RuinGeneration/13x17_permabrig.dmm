@@ -1,0 +1,776 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aW" = (
+/turf/template_noop,
+/area/template_noop)
+"bO" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"cK" = (
+/obj/machinery/biogenerator,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"dn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/cola/random,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"dQ" = (
+/obj/machinery/computer/libraryconsole/bookmanagement,
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"ee" = (
+/obj/effect/turf_decal/tile/red,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/ruinloot/security,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"fL" = (
+/obj/structure/window/reinforced,
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/grass,
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"fZ" = (
+/obj/machinery/door/airlock{
+	name = "Unisex Restroom"
+	},
+/turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
+"hq" = (
+/obj/structure/table,
+/obj/item/pen,
+/obj/effect/spawner/lootdrop/ruinloot/security,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"hU" = (
+/obj/structure/bookcase,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"jz" = (
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"kJ" = (
+/obj/machinery/seed_extractor,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"lv" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"lG" = (
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
+"lI" = (
+/obj/machinery/door/airlock/public/glass{
+	id_tag = "permabolt2";
+	name = "Cell 2"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"mj" = (
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"pC" = (
+/obj/structure/table,
+/obj/item/storage/pill_bottle/dice,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"pO" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Long-Term Cell 1";
+	req_access_txt = "2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"pR" = (
+/obj/structure/table,
+/obj/structure/bedsheetbin,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"rp" = (
+/obj/machinery/door/airlock/public/glass{
+	id_tag = "permabolt3";
+	name = "Cell 3"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"sa" = (
+/obj/structure/window/reinforced,
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/potato,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"sx" = (
+/obj/structure/window/reinforced,
+/obj/machinery/hydroponics/soil,
+/obj/item/cultivator,
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"ve" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/window/westleft{
+	base_state = "right";
+	icon_state = "right";
+	name = "Unisex Showers"
+	},
+/turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
+"vM" = (
+/obj/structure/table,
+/obj/item/paper,
+/obj/item/pen,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"vY" = (
+/obj/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"wg" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 1;
+	pixel_y = -27
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"xh" = (
+/turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
+"xS" = (
+/obj/machinery/shower{
+	dir = 8
+	},
+/obj/item/soap/nanotrasen,
+/turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
+"xV" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"zd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
+"zq" = (
+/obj/structure/table,
+/obj/item/toy/cards/deck,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"zE" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"AG" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"AM" = (
+/obj/structure/sink{
+	pixel_y = 20
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"Be" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"Bh" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/glowshroom,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"BT" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/spawner/lootdrop/ruinloot/security,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"CC" = (
+/obj/machinery/door/airlock/public/glass{
+	id_tag = "permabolt1";
+	name = "Cell 1"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"CE" = (
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Ez" = (
+/obj/structure/bed,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"EM" = (
+/obj/machinery/washing_machine,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"EW" = (
+/turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"Fz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/paper,
+/obj/item/pen,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"FW" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/carrot,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Ha" = (
+/obj/machinery/light,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/sustenance,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"HD" = (
+/obj/structure/window/reinforced,
+/obj/machinery/hydroponics/soil,
+/obj/item/cultivator,
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Jw" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/ambrosia,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Le" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/arcade,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Me" = (
+/obj/structure/closet/secure_closet/brig,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"My" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"MX" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Nf" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"NC" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"NR" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"NZ" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Long-Term Cell 2";
+	req_access_txt = "2"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Oe" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"Pb" = (
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"PN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"PW" = (
+/obj/structure/table,
+/obj/item/razor{
+	pixel_x = -6
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/security,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Qh" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
+"RC" = (
+/obj/structure/chair/stool,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"SO" = (
+/obj/structure/bed,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/toy/plush/carpplushie,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"SX" = (
+/obj/item/reagent_containers/glass/bucket,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"Ty" = (
+/obj/machinery/washing_machine,
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"TT" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"UG" = (
+/mob/living/simple_animal/mouse/brown/Tom,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"VE" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Long-Term Cell 3";
+	req_access_txt = "2"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"VL" = (
+/obj/machinery/holopad,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"VT" = (
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Wr" = (
+/obj/structure/sign/warning/electricshock{
+	pixel_y = 32
+	},
+/obj/machinery/hydroponics/soil,
+/obj/item/plant_analyzer,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/machinery/camera/autoname,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Xh" = (
+/obj/structure/table,
+/obj/item/electropack,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"ZT" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/closed/wall,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+Oe
+Oe
+Oe
+EW
+EW
+EW
+TT
+TT
+TT
+EW
+TT
+TT
+lv
+bO
+xV
+ee
+lv
+"}
+(2,1,1) = {"
+EW
+EW
+EW
+EW
+hU
+dQ
+NR
+NR
+NR
+rp
+NR
+NR
+VE
+bO
+bO
+wg
+lv
+"}
+(3,1,1) = {"
+EW
+Jw
+Nf
+sa
+NR
+RC
+NR
+VL
+dn
+lv
+PN
+vM
+lv
+bO
+bO
+mj
+Be
+"}
+(4,1,1) = {"
+My
+FW
+jz
+fL
+NR
+NR
+NR
+NR
+Ha
+lv
+lv
+lv
+lv
+bO
+bO
+VT
+lv
+"}
+(5,1,1) = {"
+EW
+jz
+UG
+vY
+NR
+NR
+RC
+NR
+NR
+lv
+Ez
+NR
+lv
+bO
+bO
+Xh
+lv
+"}
+(6,1,1) = {"
+My
+Bh
+jz
+sx
+NR
+pC
+zq
+NR
+NR
+lI
+NR
+NR
+NZ
+bO
+bO
+PW
+lv
+"}
+(7,1,1) = {"
+EW
+Wr
+jz
+HD
+RC
+hq
+CE
+NR
+NR
+lv
+RC
+vM
+lv
+bO
+bO
+BT
+lv
+"}
+(8,1,1) = {"
+My
+NR
+jz
+NR
+NR
+RC
+NR
+NR
+NR
+lv
+lv
+lv
+lv
+bO
+bO
+Me
+lv
+"}
+(9,1,1) = {"
+EW
+AM
+SX
+NR
+NR
+NR
+NR
+NR
+NR
+lv
+SO
+Fz
+lv
+bO
+bO
+Me
+lv
+"}
+(10,1,1) = {"
+My
+NR
+NR
+NR
+zE
+NC
+Pb
+Le
+NR
+CC
+NR
+NR
+pO
+bO
+bO
+Me
+lv
+"}
+(11,1,1) = {"
+EW
+cK
+kJ
+NR
+EM
+pR
+Ty
+zd
+ve
+lv
+ZT
+ZT
+lv
+bO
+bO
+MX
+lv
+"}
+(12,1,1) = {"
+EW
+EW
+EW
+EW
+EW
+EW
+EW
+xS
+xh
+fZ
+Qh
+lG
+lv
+bO
+bO
+bO
+lv
+"}
+(13,1,1) = {"
+aW
+aW
+Oe
+Oe
+aW
+Oe
+EW
+EW
+EW
+EW
+EW
+EW
+EW
+bO
+AG
+bO
+lv
+"}

@@ -28,11 +28,15 @@
 		sigdev = new
 		sigdev.code = roundstart_signaller_code
 		sigdev.frequency = roundstart_signaller_freq
-		if(isopenturf(loc))
-			hide(TRUE)
+	if(isopenturf(loc))
+		hide(TRUE)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/pressure_plate/Crossed(atom/movable/AM)
-	. = ..()
+/obj/item/pressure_plate/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
 	if(!can_trigger || !active)
 		return
 	if(trigger_mob && isliving(AM))

@@ -16,6 +16,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	icon_state = "cellconsole_1"
 	// circuit = /obj/item/circuitboard/cryopodcontrol
 	density = FALSE
+	layer = ABOVE_WINDOW_LAYER
 	interaction_flags_machine = INTERACT_MACHINE_OFFLINE
 	req_one_access = list(ACCESS_HEADS, ACCESS_ARMORY) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
 	var/mode = null
@@ -150,7 +151,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	var/time_till_despawn = 5 * 600 // This is reduced to 30 seconds if a player manually enters cryo
 	var/despawn_world_time = null          // Used to keep track of the safe period.
 
-	var/obj/machinery/computer/cryopod/control_computer
+	var/datum/weakref/control_computer_weakref
 	var/last_no_computer_message = 0
 
 	// These items are preserved when the process() despawn proc occurs.
@@ -191,26 +192,26 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 // This is not a good situation
 /obj/machinery/cryopod/Destroy()
-	control_computer = null
+	control_computer_weakref = null
 	return ..()
 
-/obj/machinery/cryopod/proc/find_control_computer(urgent = 0)
-	for(var/M in GLOB.cryopod_computers)
-		var/obj/machinery/computer/cryopod/C = M
-		if(get_area(C) == get_area(src))
-			control_computer = C
+/obj/machinery/cryopod/proc/find_control_computer(urgent = FALSE)
+	for(var/cryo_console as anything in GLOB.cryopod_computers)
+		var/obj/machinery/computer/cryopod/console = cryo_console
+		if(get_area(console) == get_area(src))
+			control_computer_weakref = WEAKREF(console)
 			break
 
 	// Don't send messages unless we *need* the computer, and less than five minutes have passed since last time we messaged
-	if(!control_computer && urgent && last_no_computer_message + 5*60*10 < world.time)
+	if(!control_computer_weakref && urgent && last_no_computer_message + 5*60*10 < world.time)
 		log_admin("Cryopod in [get_area(src)] could not find control computer!")
 		message_admins("Cryopod in [get_area(src)] could not find control computer!")
 		last_no_computer_message = world.time
 
-	return control_computer != null
+	return control_computer_weakref != null
 
 /obj/machinery/cryopod/close_machine(mob/user)
-	if(!control_computer)
+	if(!control_computer_weakref)
 		find_control_computer(TRUE)
 	if((isnull(user) || istype(user)) && state_open && !panel_open)
 		..(user)
@@ -251,53 +252,52 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			return
 
 		if(!mob_occupant.client && mob_occupant.stat < 2) //Occupant is living and has no client.
-			if(!control_computer)
+			if(!control_computer_weakref)
 				find_control_computer(urgent = TRUE)//better hope you found it this time
 
 			despawn_occupant()
 
 /obj/machinery/cryopod/proc/handle_objectives()
 	var/mob/living/mob_occupant = occupant
+	if(!mob_occupant.mind)
+		return
 	//Update any existing objectives involving this mob.
-	for(var/datum/objective/O in GLOB.objectives)
+	for(var/datum/objective/O as() in GLOB.objectives)
+		if(!O.target || O.target != mob_occupant.mind)
+			continue
 		// We don't want revs to get objectives that aren't for heads of staff. Letting
 		// them win or lose based on cryo is silly so we remove the objective.
-		if(istype(O,/datum/objective/mutiny) && O.target == mob_occupant.mind)
+		if(istype(O,/datum/objective/mutiny))
 			O.team.objectives -= O
-			qdel(O)
-			for(var/datum/mind/M in O.team.members)
+			for(var/datum/mind/M as() in O.team.members)
 				to_chat(M.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
 				M.announce_objectives()
-		else if(O.target && istype(O.target, /datum/mind))
-			if(O.target == mob_occupant.mind)
-				var/old_target = O.target
-				O.target = null
-				if(!O)
-					return
-				O.find_target()
-				if(!O.target && O.owner)
-					to_chat(O.owner.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
-					for(var/datum/antagonist/A in O.owner.antag_datums)
+			qdel(O)
+		else if(istype(O, /datum/objective/contract))
+			var/datum/antagonist/traitor/affected_traitor = O.owner.has_antag_datum(/datum/antagonist/traitor)
+			for(var/datum/syndicate_contract/affected_contract as anything in affected_traitor.contractor_hub.assigned_contracts)
+				if(affected_contract.contract == O)
+					affected_contract.generate(affected_traitor.contractor_hub.assigned_targets)
+					affected_traitor.contractor_hub.assigned_targets.Add(affected_contract.contract.target)
+					to_chat(O.owner.current, "<BR><span class='userdanger'>Contract target out of reach. Contract rerolled.")
+					break
+		else
+			O.target = null
+			O.find_target()
+			if(!O.target || O.target == mob_occupant.mind)
+				for(var/datum/mind/own as() in O.get_owners())
+					to_chat(own.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
+					for(var/datum/antagonist/A as() in own.antag_datums)
 						A.objectives -= O
-				if (!O.team)
-					O.update_explanation_text()
-					O.owner.announce_objectives()
-					to_chat(O.owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-				else
-					var/list/objectivestoupdate
-					for(var/datum/mind/own in O.get_owners())
-						to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-						for(var/datum/objective/ob in own.get_all_objectives())
-							LAZYADD(objectivestoupdate, ob)
-					objectivestoupdate += O.team.objectives
-					for(var/datum/objective/ob in objectivestoupdate)
-						if(ob.target != old_target || !istype(ob,O.type))
-							return
-						ob.target = O.target
-						ob.update_explanation_text()
-						to_chat(O.owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-						ob.owner.announce_objectives()
+					own.announce_objectives()
+				if(O.team)
+					O.team.objectives -= O
 				qdel(O)
+			else
+				O.update_explanation_text()
+				for(var/datum/mind/own as() in O.get_owners())
+					to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+					own.announce_objectives()
 
 // This function can not be undone; do not call this unless you are sure
 /obj/machinery/cryopod/proc/despawn_occupant()
@@ -314,24 +314,27 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	// Delete them from datacore.
 
 	var/announce_rank = null
-	for(var/datum/data/record/R in GLOB.data_core.medical)
+	for(var/datum/data/record/R as() in GLOB.data_core.medical)
 		if((R.fields["name"] == mob_occupant.real_name))
 			qdel(R)
-	for(var/datum/data/record/T in GLOB.data_core.security)
+	for(var/datum/data/record/T as() in GLOB.data_core.security)
 		if((T.fields["name"] == mob_occupant.real_name))
 			qdel(T)
-	for(var/datum/data/record/G in GLOB.data_core.general)
+	for(var/datum/data/record/G as() in GLOB.data_core.general)
 		if((G.fields["name"] == mob_occupant.real_name))
 			announce_rank = G.fields["rank"]
 			qdel(G)
 
-	for(var/obj/machinery/computer/cloning/cloner in world)
-		for(var/datum/data/record/R in cloner.records)
+	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
+		for(var/datum/data/record/R as() in cloner.records)
 			if(R.fields["name"] == mob_occupant.real_name)
 				cloner.records.Remove(R)
 
 	//Make an announcement and log the person entering storage.
-	if(control_computer)
+	var/obj/machinery/computer/cryopod/control_computer = control_computer_weakref?.resolve()
+	if(!control_computer)
+		control_computer_weakref = null
+	else
 		control_computer.frozen_crew += "[mob_occupant.real_name]"
 
 	if(GLOB.announcement_systems.len)
@@ -361,14 +364,14 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(!istype(R)) return
 
 		R.contents -= R.mmi
-		qdel(R.mmi)
+		QDEL_NULL(R.mmi)
 
 	// Ghost and delete the mob.
-	if(!mob_occupant.get_ghost(1))
+	if(!mob_occupant.get_ghost(TRUE))
 		if(world.time < 15 * 600)//before the 15 minute mark
-			mob_occupant.ghostize(0) // Players despawned too early may not re-enter the game
+			mob_occupant.ghostize(FALSE,SENTIENCE_ERASE) // Players despawned too early may not re-enter the game
 		else
-			mob_occupant.ghostize(1)
+			mob_occupant.ghostize(TRUE,SENTIENCE_ERASE)
 	handle_objectives()
 	QDEL_NULL(occupant)
 	open_machine()

@@ -177,7 +177,13 @@
 
 /datum/config_entry/flag/guest_jobban
 
+//These are locked because only a restart can really change them.
+
 /datum/config_entry/flag/usewhitelist
+	protection = CONFIG_ENTRY_LOCKED
+
+/datum/config_entry/flag/use_patrons_as_whitelist
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/flag/use_age_restriction_for_jobs	//Do jobs use account age restrictions? --requires database
 
@@ -292,6 +298,8 @@
 	min_val = 0
 	integer = FALSE
 
+/datum/config_entry/flag/manual_note_expiry //Notes can only have expiration times added after creation, not during. Will also prevent automatic notes from expiring.
+
 /datum/config_entry/flag/maprotation
 
 /datum/config_entry/flag/automapvote
@@ -327,6 +335,8 @@
 
 /datum/config_entry/flag/panic_bunker	// prevents people the server hasn't seen before from connecting
 
+/datum/config_entry/number/panic_bunker_living // living time in minutes that a player needs to pass the panic bunker
+
 /datum/config_entry/string/panic_bunker_message
 	config_entry_value = "Sorry but the server is currently not accepting connections from never before seen players."
 
@@ -336,7 +346,7 @@
 /datum/config_entry/number/notify_new_player_account_age	// how long do we notify admins of a new byond account
 	min_val = 0
 
-/datum/config_entry/flag/irc_first_connection_alert	// do we notify the irc channel when somebody is connecting for the first time?
+/datum/config_entry/flag/irc_first_connection_alert	// do we notify the irc/discord channel when somebody is connecting for the first time?
 
 /datum/config_entry/flag/check_randomizer
 
@@ -554,3 +564,11 @@
 /datum/config_entry/number/ghost_role_cooldown
 	config_entry_value = 0
 	min_val = 0
+
+
+// Elasticsearch stuffs
+/datum/config_entry/flag/elasticsearch_metrics_enabled
+
+/datum/config_entry/string/elasticsearch_metrics_endpoint
+
+/datum/config_entry/string/elasticsearch_metrics_apikey

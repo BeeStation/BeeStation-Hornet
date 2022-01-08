@@ -30,18 +30,13 @@ docker run -d -p <your port>:1337 -v /path/to/your/config:/beestation/config -v 
 
 ## INSTALLATION
 
-First-time installation should be fairly straightforward. First, you'll need
-BYOND installed. You can get it from https://www.byond.com/download. Once you've done
-that, extract the game files to wherever you want to keep them. This is a
-sourcecode-only release, so the next step is to compile the server files.
-Open beestation.dme by double-clicking it, open the Build menu, and click
-compile. This'll take a little while, and if everything's done right you'll get
-a message like this:
+You can **no** longer compile the codebase simply through **DreamMaker**.
 
-```
-saving beestation.dmb (DEBUG mode)
-beestation.dmb - 0 errors, 0 warnings
-```
+You will find `BUILD.bat` in the root folder of Beestation, double-clicking it will initiate the build. It consists of multiple steps and might take around 1-5 minutes to compile. Unix users can directly call ./tools/build/build.
+
+**Building Beestation in DreamMaker directly is now deprecated and might produce errors**, such as `'tgui.bundle.js': cannot find file`.
+
+**[How to compile in VSCode and other build options](tools/build/README.md).**
 
 If you see any errors or warnings, something has gone wrong - possibly a corrupt
 download or the files extracted wrong. If problems persist, ask for assistance
@@ -93,8 +88,10 @@ the new version.
 
 ## HOSTING
 
-If you'd like a more robust server hosting option for tgstation and its
-derivatives. Check out their server tools suite at
+Hosting requires the [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=52685). Specifically, 	
+`vc_redist.x86.exe`. *Not* the 64-bit version. There is a decent chance you already have it if you've installed a game on Steam.
+
+If you'd like a more robust server hosting option, check out tgstation's server tools suite at
 https://github.com/tgstation/tgstation-server
 
 ## MAPS
@@ -105,7 +102,6 @@ BeeStation currently comes equipped with these maps.
 * [BoxStation](https://wiki.beestation13.com/view/Boxstation)
 * [MetaStation](https://wiki.beestation13.com/view/MetaStation)
 * [PubbyStation](https://wiki.beestation13.com/view/PubbyStation)
-* [DonutStation](https://wiki.beestation13.com/view/Donutstation)
 
 
 All maps have their own code file that is in the base of the _maps directory. Maps are loaded dynamically when the game starts. Follow this guideline when adding your own map, to your fork, for easy compatibility.
@@ -167,8 +163,6 @@ See tgui/assets/fonts/SIL-OFL-1.1-LICENSE.md for the SIL Open Font License.
 See the footers of code/\_\_DEFINES/server\_tools.dm, code/modules/server\_tools/st\_commands.dm, and code/modules/server\_tools/st\_inteface.dm for the MIT license.
 
 All assets including icons and sound are under a [Creative Commons 3.0 BY-SA license](https://creativecommons.org/licenses/by-sa/3.0/) unless otherwise indicated.
-
-byond-extools.dll is licensed under MIT. See MIT.txt for more details.
 
 # Other Codebase Credits
 - /tg/, for the codebase.

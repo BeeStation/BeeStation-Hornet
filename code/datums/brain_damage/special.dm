@@ -47,6 +47,28 @@
 	playsound(get_turf(owner), 'sound/magic/clockwork/invoke_general.ogg', 200, 1, 5)
 	voice_of_god(message, owner, list("colossus","yell"), 2.5, include_owner, FALSE)
 
+/datum/brain_trauma/special/ghost_control
+	name = "Spiritual Connection"
+	desc = "Patient claims to receive impulses from the supernatural that they feel compelled to follow."
+	scan_desc = "spiritual involuntary muscle contraction"
+	gain_text = "<span class='notice'>You hear voices in your head, speaking of different directions...</span>"
+	lose_text = "<span class='warning'>The voices in your head fade into silence.</span>"
+
+/datum/brain_trauma/special/ghost_control/on_gain()
+	owner._AddComponent(list(/datum/component/deadchat_control, "democracy", list(
+			 "up" = CALLBACK(GLOBAL_PROC, .proc/_step, owner, NORTH),
+			 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, owner, SOUTH),
+			 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, owner, WEST),
+			 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, owner, EAST)), 120))
+	..()
+	
+/datum/brain_trauma/special/ghost_control/on_lose()
+	var/datum/component/deadchat_control/D = owner.GetComponent(/datum/component/deadchat_control)
+	if(D)
+		D.RemoveComponent()
+	..()
+	
+
 /datum/brain_trauma/special/bluespace_prophet
 	name = "Bluespace Prophecy"
 	desc = "Patient can sense the bob and weave of bluespace around them, showing them passageways no one else can see."
@@ -246,10 +268,10 @@
 	START_PROCESSING(SSfastprocess,src)
 	..()
 
-/obj/effect/hallucination/simple/securitron/process()
-	if(prob(60))
+/obj/effect/hallucination/simple/securitron/process(delta_time)
+	if(DT_PROB(60, delta_time))
 		forceMove(get_step_towards(src, victim))
-		if(prob(5))
+		if(DT_PROB(5, delta_time))
 			to_chat(victim, "<span class='name'>[name]</span> exclaims, \"<span class='robotic'>Level 10 infraction alert!\"</span>")
 
 /obj/effect/hallucination/simple/securitron/Destroy()

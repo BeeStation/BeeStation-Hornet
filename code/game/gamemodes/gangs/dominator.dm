@@ -179,7 +179,7 @@
 
 		gang = tempgang
 		gang.dom_attempts --
-		priority_announce("Network breach detected in [locname]. The [gang.name] Gang is attempting to seize control of the station!","Network Alert")
+		priority_announce("Network breach detected in [locname]. The [gang.name] Gang is attempting to seize control of the station!", "Network Alert", SSstation.announcer.get_rand_alert_sound())
 		gang.domination()
 		SSshuttle.registerHostileEnvironment(src)
 		name = "[gang.name] Gang [name]"
@@ -222,7 +222,7 @@
 		if(!takeover_in_progress)
 			var/was_stranded = SSshuttle.emergency.mode == SHUTTLE_STRANDED
 			if(!was_stranded)
-				priority_announce("All hostile activity within station systems has ceased.","Network Alert")
+				priority_announce("All hostile activity within station systems has ceased.","Network Alert", SSstation.announcer.get_rand_alert_sound())
 
 			if(get_security_level() == "delta")
 				set_security_level("red")

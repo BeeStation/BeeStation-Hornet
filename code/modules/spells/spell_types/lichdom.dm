@@ -82,6 +82,8 @@
 	icon_state = "bluespace"
 	color = "#003300"
 	light_color = "#003300"
+	light_system = MOVABLE_LIGHT
+	light_range = 3
 	var/lon_range = 3
 	var/resurrections = 0
 	var/datum/mind/mind
@@ -97,7 +99,6 @@
 	active_phylacteries++
 	GLOB.poi_list |= src
 	START_PROCESSING(SSobj, src)
-	set_light(lon_range)
 	if(initial(SSticker.mode.round_ends_with_antag_death))
 		SSticker.mode.round_ends_with_antag_death = FALSE
 
@@ -136,7 +137,7 @@
 	lich.real_name = mind.name
 	mind.transfer_to(lich)
 	mind.grab_ghost(force=TRUE)
-	lich.hardset_dna(null,null,lich.real_name,null, new /datum/species/skeleton)
+	lich.hardset_dna(null,null,lich.real_name,null, new /datum/species/skeleton,null)
 	to_chat(lich, "<span class='warning'>Your bones clatter and shudder as you are pulled back into this world!</span>")
 	var/turf/body_turf = get_turf(old_body)
 	lich.Paralyze(200 + 200*resurrections)

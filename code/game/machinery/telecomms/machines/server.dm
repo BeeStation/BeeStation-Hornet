@@ -88,6 +88,12 @@
 	freq_listening = list(FREQ_SUPPLY)
 	autolinkers = list("supply")
 
+/obj/machinery/telecomms/server/presets/exploration
+	id = "Exploration Server"
+	network = "exploration"
+	freq_listening = list(FREQ_EXPLORATION)
+	autolinkers = list("exploration")
+
 /obj/machinery/telecomms/server/presets/service
 	id = "Service Server"
 	freq_listening = list(FREQ_SERVICE)

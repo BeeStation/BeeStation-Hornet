@@ -26,17 +26,20 @@
 
 	faction = list("mimic")
 	move_to_delay = 9
-	gold_core_spawnable = HOSTILE_SPAWN
-	del_on_death = 1
+	gold_core_spawnable = NO_SPAWN
+	del_on_death = TRUE
 	hardattacks = TRUE
+
+	discovery_points = 4000
 
 // Aggro when you try to open them. Will also pickup loot when spawns and drop it when dies.
 /mob/living/simple_animal/hostile/mimic/crate
 	attacktext = "bites"
 	speak_emote = list("clatters")
 	stop_automated_movement = 1
-	wander = 0
+	wander = FALSE
 	var/attempt_open = FALSE
+	gold_core_spawnable = HOSTILE_SPAWN
 
 // Pickup loot
 /mob/living/simple_animal/hostile/mimic/crate/Initialize(mapload)

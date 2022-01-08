@@ -109,7 +109,8 @@
 				code = initial(code)
 			. = TRUE
 
-	update_icon()
+	if(.)
+		update_icon()
 
 /obj/item/assembly/signaler/attackby(obj/item/W, mob/user, params)
 	if(issignaler(W))
@@ -118,6 +119,7 @@
 			code = signaler2.code
 			set_frequency(signaler2.frequency)
 			to_chat(user, "You transfer the frequency and code of \the [signaler2.name] to \the [name]")
+			ui_update()
 	..()
 
 /obj/item/assembly/signaler/proc/signal()
@@ -152,7 +154,6 @@
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_SIGNALER)
-	return
 
 // Embedded signaller used in grenade construction.
 // It's necessary because the signaler doens't have an off state.

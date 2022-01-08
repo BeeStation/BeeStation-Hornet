@@ -6,15 +6,27 @@
 	w_class = WEIGHT_CLASS_TINY
 	device_type = MC_CARD
 
-	var/obj/item/card/id/stored_card = null
-	var/obj/item/card/id/stored_card2 = null
+	var/obj/item/card/id/stored_card
+	var/obj/item/card/id/stored_card2
 
-/obj/item/computer_hardware/card_slot/handle_atom_del(atom/A)
-	if(A == stored_card)
-		try_eject(1, null, TRUE)
-	if(A == stored_card2)
-		try_eject(2, null, TRUE)
-	. = ..()
+/obj/item/computer_hardware/card_slot/Exited(atom/movable/gone, direction)
+	if(!(gone == stored_card || gone == stored_card2))
+		return ..()
+	if(holder)
+		if(holder.active_program)
+			holder.active_program.event_idremoved(0)
+		for(var/p in holder.idle_threads)
+			var/datum/computer_file/program/computer_program = p
+			computer_program.event_idremoved(1)
+
+		holder.update_slot_icon()
+
+		if(!ishuman(holder.loc))
+			return ..()
+		var/mob/living/carbon/human/human_wearer = holder.loc
+		if(human_wearer.wear_id == holder)
+			human_wearer.sec_hud_set_ID()
+	return ..()
 
 /obj/item/computer_hardware/card_slot/Destroy()
 	try_eject()
@@ -78,7 +90,7 @@
 
 	var/ejected = 0
 	if(stored_card && (!slot || slot == 1))
-		if(user)
+		if(user && in_range(src, user))
 			user.put_in_hands(stored_card)
 		else
 			stored_card.forceMove(drop_location())
@@ -86,7 +98,7 @@
 		ejected++
 
 	if(stored_card2 && (!slot || slot == 2))
-		if(user)
+		if(user && in_range(src, user))
 			user.put_in_hands(stored_card2)
 		else
 			stored_card2.forceMove(drop_location())
@@ -104,7 +116,7 @@
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.sec_hud_set_ID()
-		to_chat(user, "<span class='notice'>You remove the card[ejected>1 ? "s" : ""] from \the [src].</span>")
+		to_chat(user, "<span class='notice'>You eject the card[ejected>1 ? "s" : ""] from \the [src].</span>")
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 		return TRUE
 	return FALSE

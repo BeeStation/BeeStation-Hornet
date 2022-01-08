@@ -25,8 +25,8 @@
 	add_blood_DNA(list("Non-human DNA" = random_blood_type())) // Needs to happen before ..()
 	. = ..()
 	icon_state = "[icon_state]-old" //change from the normal blood icon selected from random_icon_states in the parent's Initialize to the old dried up blood.
-	if(prob(40))
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 4), rand(4, 9))
+	if(prob(75))
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 4), rand(7, 9), 4)
 		disease += R
 
 /obj/effect/decal/cleanable/blood/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
@@ -65,6 +65,7 @@
 	layer = LOW_OBJ_LAYER
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	mergeable_decal = FALSE
+	turf_loc_check = FALSE
 
 	var/already_rotting = FALSE
 
@@ -82,12 +83,15 @@
 		desc += " They smell terrible."
 	AddComponent(/datum/component/rot/gibs)
 
+/obj/effect/decal/cleanable/blood/gibs/replace_decal(obj/effect/decal/cleanable/C)
+	return FALSE //Never fail to place us
+
 /obj/effect/decal/cleanable/blood/gibs/ex_act(severity, target)
 	return
 
-/obj/effect/decal/cleanable/blood/gibs/Crossed(mob/living/L)
-	if(istype(L) && has_gravity(loc))
-		playsound(loc, 'sound/effects/gib_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 20 : 50, 1)
+/obj/effect/decal/cleanable/blood/gibs/on_entered(datum/source, atom/movable/L)
+	if(isliving(L) && has_gravity(loc))
+		playsound(loc, 'sound/effects/gib_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 20 : 50, TRUE)
 	. = ..()
 
 /obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions)
@@ -138,8 +142,8 @@
 	setDir(pick(1,2,4,8))
 	icon_state += "-old"
 	add_blood_DNA(list("Non-human DNA" = random_blood_type()))
-	if(prob(50))
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), rand(5, 9))
+	if(prob(80))
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), rand(8, 9), 4)
 		disease += R
 
 /obj/effect/decal/cleanable/blood/gibs/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
@@ -176,8 +180,8 @@
 	var/exited_dirs = 0
 	var/list/shoe_types = list()
 
-/obj/effect/decal/cleanable/blood/footprints/Crossed(atom/movable/O)
-	..()
+/obj/effect/decal/cleanable/blood/footprints/on_entered(datum/source, atom/movable/O)
+	. = ..()
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/clothing/shoes/S = H.shoes
@@ -188,8 +192,8 @@
 				entered_dirs |= H.dir
 				update_icon()
 
-/obj/effect/decal/cleanable/blood/footprints/Uncrossed(atom/movable/O)
-	..()
+/obj/effect/decal/cleanable/blood/footprints/on_uncrossed(datum/source, atom/movable/O)
+	. = ..()
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/clothing/shoes/S = H.shoes

@@ -4,24 +4,26 @@
 	stealth = -1
 	resistance = 2
 	stage_speed = -1
-	transmittable = 2
-	level = 8
+	transmission = 2
+	level = 7
 	severity = 3
 	symptom_delay_min = 10
 	symptom_delay_max = 40
+	prefixes = list("Gamma ")
+	bodies = list("Radiation")
 	var/fastrads = FALSE
 	var/radothers = FALSE
 	threshold_desc = "<b>Speed 8:</b> Host takes radiation damage faster."
 
 /datum/symptom/radiation/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["stage_rate"] >= 8)
+	if(A.stage_rate >= 8)
 		severity += 1
 
 /datum/symptom/radiation/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_rate"] >= 8)
+	if(A.stage_rate >= 8)
 		fastrads = TRUE
 
 /datum/symptom/radiation/Activate(datum/disease/advance/A)

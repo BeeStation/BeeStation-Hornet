@@ -1,4 +1,4 @@
-##Listing maps here will make the shuttle be available to be bought if comms console is emagged or hacked
+##Listing maps here will make the shuttle be available to be bought if comms console is emagged
 ##Make sure the shuttle is already unbuyable
 ##Maps must be the full path to them
 ##Only shuttles with a price in the code will work with this!
@@ -14,7 +14,7 @@
 
 ##Others
 #_maps/shuttles/emergency_asteroid.dmm
-_maps/shuttles/emergency_arena.dmm
+#_maps/shuttles/emergency_arena.dmm
 #_maps/shuttles/emergency_bar.dmm
 #_maps/shuttles/emergency_construction.dmm
 #_maps/shuttles/emergency_clown.dmm
@@ -27,5 +27,5 @@ _maps/shuttles/emergency_meteor.dmm
 #_maps/shuttles/emergency_russiafightpit.dmm
 #_maps/shuttles/emergency_scrapheap.dmm
 _maps/shuttles/emergency_supermatter.dmm
-#_maps/shuttles/emergency_wabbajack.dmm
+_maps/shuttles/emergency_wabbajack.dmm
 _maps/shuttles/emergency_discoinferno.dmm

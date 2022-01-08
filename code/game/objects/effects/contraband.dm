@@ -49,6 +49,7 @@
 	var/original_name
 	desc = "A large piece of space-resistant printed paper."
 	icon = 'icons/obj/contraband.dmi'
+	layer = ABOVE_WINDOW_LAYER
 	anchored = TRUE
 	var/ruined = FALSE
 	var/random_basetype
@@ -628,7 +629,7 @@
 
 /obj/structure/sign/poster/official/moth5
 	name = "Safety Moth - Piping"
-	desc = "This informational poster uses Safety Moth(TM) to tell atmospheric technicians correct types of piping to be used. Proper pipe placement prevents poor preformance! It's signed by 'AspEv'."
+	desc = "This informational poster uses Safety Moth(TM) to tell atmospheric technicians correct types of piping to be used. Proper pipe placement prevents poor performance! It's signed by 'AspEv'."
 	icon_state = "poster40_legit"
 
 /obj/structure/sign/poster/official/moth6
@@ -653,7 +654,7 @@
 
 /obj/structure/sign/poster/official/moth9
 	name = "Safety Moth - Delamination Safety Precautions"
-	desc = "This informational poster uses Safety Moth(TM) to tell the viewer to hide in lockers when the Supermatter Crystal has delaminated. Running away might be a better strategy. It's signed by 'AspEv'."
+	desc = "This outdated informational poster uses Safety Moth(TM) to tell the viewer to hide in lockers when the Supermatter Crystal has delaminated. Running away might be a better strategy. It's signed by 'AspEv'."
 	icon_state = "poster44_legit"
 
 /obj/structure/sign/poster/contraband/syndiemoth

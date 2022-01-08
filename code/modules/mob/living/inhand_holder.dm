@@ -6,6 +6,7 @@
 	icon = null
 	icon_state = ""
 	slot_flags = NONE
+	clothing_flags = NOTCONSUMABLE
 	var/mob/living/held_mob
 	var/can_head = TRUE
 	var/destroying = FALSE
@@ -49,7 +50,7 @@
 	if(held_mob && isturf(loc) && !thrown)
 		release()
 
-/obj/item/clothing/head/mob_holder/after_throw(datum/callback/callback)
+/obj/item/clothing/head/mob_holder/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
 	. = ..()
 	release()
 

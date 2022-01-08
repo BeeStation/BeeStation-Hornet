@@ -1,8 +1,6 @@
 // Valentine's Day events //
 // why are you playing spessmens on valentine's day you wizard //
 
-#define VALENTINE_FILE "valentines.json"
-
 //Assoc list
 // Key: Sender
 // Value: Receiever
@@ -59,7 +57,7 @@ GLOBAL_LIST(valentine_mobs)
 	lover.mind.add_antag_datum(V) //These really should be teams but i can't be assed to incorporate third wheels right now
 
 /datum/round_event/valentines/announce(fake)
-	priority_announce("It's Valentine's Day! Give a valentine to that special someone!")
+	priority_announce("It's Valentine's Day! Give a valentine to that special someone!", sound = SSstation.announcer.get_rand_alert_sound())
 
 /obj/item/valentine
 	name = "valentine"

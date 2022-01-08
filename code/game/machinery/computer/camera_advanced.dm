@@ -80,11 +80,10 @@
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/Destroy()
-	if(current_user)
-		current_user.unset_machine()
 	if(eyeobj)
-		qdel(eyeobj)
+		QDEL_NULL(eyeobj)
 	QDEL_LIST(actions)
+	current_user = null
 	return ..()
 
 /obj/machinery/computer/camera_advanced/on_unset_machine(mob/M)
@@ -191,11 +190,11 @@
 		return eye_user.client
 	return null
 
-/mob/camera/ai_eye/remote/setLoc(T)
+/mob/camera/ai_eye/remote/setLoc(destination)
 	if(eye_user)
-		T = get_turf(T)
-		if (T)
-			forceMove(T)
+		destination = get_turf(destination)
+		if (destination)
+			abstract_move(destination)
 		else
 			moveToNullspace()
 		update_ai_detect_hud()

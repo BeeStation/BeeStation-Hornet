@@ -8,12 +8,18 @@
 	use_power = IDLE_POWER_USE
 	anchored = TRUE
 	density = TRUE
-	flags_1 = HEAR_1
 	circuit = /obj/item/circuitboard/machine/nanite_programmer
 
-
+/obj/machinery/nanite_programmer/Initialize()
+	. = ..()
+	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 
 /obj/machinery/nanite_programmer/attackby(obj/item/I, mob/user)
+	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+		update_icon()
+		return
+	if(default_deconstruction_crowbar(I))
+		return
 	if(istype(I, /obj/item/disk/nanite_program))
 		var/obj/item/disk/nanite_program/N = I
 		if(user.transferItemToLoc(N, src))
@@ -23,6 +29,7 @@
 				eject(user)
 			disk = N
 			program = N.program
+			ui_update()
 	else
 		..()
 
@@ -33,6 +40,7 @@
 		disk.forceMove(drop_location())
 	disk = null
 	program = null
+	ui_update()
 
 /obj/machinery/nanite_programmer/AltClick(mob/user)
 	if(disk && user.canUseTopic(src, !issilicon(user)))
@@ -140,9 +148,3 @@
 				timer *= 10 //convert to deciseconds
 				program.timer_trigger_delay = timer
 			. = TRUE
-
-/obj/machinery/nanite_programmer/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
-	. = ..()
-	var/static/regex/when = regex("(?:^\\W*when|when\\W*$)", "i") //starts or ends with when
-	if(findtext(raw_message, when) && !istype(speaker, /obj/machinery/nanite_programmer))
-		say("When you code it!!")

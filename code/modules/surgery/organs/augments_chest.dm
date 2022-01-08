@@ -114,6 +114,8 @@
 	if(H.stat == CONSCIOUS)
 		to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
 
+/obj/item/organ/cyberimp/chest/reviver/syndicate
+	syndicate_implant = TRUE
 
 /obj/item/organ/cyberimp/chest/thrusters
 	name = "implantable thrusters set"
@@ -174,6 +176,8 @@
 		A.UpdateButtonIcon()
 
 /obj/item/organ/cyberimp/chest/thrusters/proc/move_react()
+	SIGNAL_HANDLER
+
 	allow_thrust(0.01)
 
 /obj/item/organ/cyberimp/chest/thrusters/proc/allow_thrust(num)
@@ -183,7 +187,8 @@
 	var/turf/T = get_turf(owner)
 	if(!T) // No more runtimes from being stuck in nullspace.
 		return 0
-
+	if(owner.is_flying() && owner.has_gravity())
+		return 0
 	// Priority 1: use air from environment.
 	var/datum/gas_mixture/environment = T.return_air()
 	if(environment && environment.return_pressure() > 30)
@@ -197,13 +202,8 @@
 
 	// Priority 3: use internals tank.
 	var/obj/item/tank/I = owner.internal
-	if(I?.air_contents && I.air_contents.total_moles() > num)
-		var/datum/gas_mixture/removed = I.air_contents.remove(num)
-		if(removed.total_moles() > 0.005)
-			T.assume_air(removed)
-			return 1
-		else
-			T.assume_air(removed)
+	if(I && I.air_contents && I.air_contents.total_moles() >= num)
+		T.assume_air_moles(I.air_contents, num)
 
 	toggle(silent = TRUE)
 	return 0

@@ -9,8 +9,7 @@ export const TicketMessenger = (props, context) => {
     <Window
       theme="admin"
       width={620}
-      height={500}
-      resizable>
+      height={500}>
       <Window.Content>
         <Section
           height="85px">
@@ -166,7 +165,7 @@ export const TicketChatWindow = (props, context) => {
         height="315px">
         <Table>
           {messages.map(message => (
-            <Section
+            <Section independent
               key={message.time}>
               <Table.Row>
                 <Table.Cell>

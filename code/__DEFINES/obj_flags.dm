@@ -10,7 +10,10 @@
 #define UNIQUE_RENAME			(1<<6)  //! can you customize the description/name of the thing?
 #define USES_TGUI				(1<<7)  //! put on things that use tgui on ui_interact instead of custom/old UI.
 #define FROZEN					(1<<8)
-#define BLOCK_Z_FALL			(1<<9)  // Should this object block z falling?
+#define BLOCK_Z_OUT_DOWN		(1<<9)  // Should this object block z falling from loc?
+#define BLOCK_Z_OUT_UP			(1<<10) // Should this object block z uprise from loc?
+#define BLOCK_Z_IN_DOWN			(1<<11) // Should this object block z falling from above?
+#define BLOCK_Z_IN_UP			(1<<12) // Should this object block z uprise from below?
 
 // If you add new ones, be sure to add them to /obj/Initialize as well for complete mapping support
 
@@ -27,6 +30,7 @@
 #define ABSTRACT				(1<<9) 	//! for all things that are technically items but used for various different stuff
 #define IMMUTABLE_SLOW			(1<<10) //! When players should not be able to change the slowdown of the item (Speed potions, etc)
 #define IN_STORAGE				(1<<11) //! is this item in the storage item, such as backpack? used for tooltips
+#define ILLEGAL					(1<<12)	//! this item unlocks illegal tech
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
@@ -41,8 +45,9 @@
 #define SHOWEROKAY				(1<<8)	//! prevents you from being stupid if you shower in them
 #define SNUG_FIT                (1<<9)  //! prevents hat throwing from knocking this hat off
 #define EFFECT_HAT              (1<<10) //! For hats with an effect that shouldn't get knocked off ie finfoil
-#define SCAN_REAGENTS           (1<<11) // Allows helmets and glasses to scan reagents.
+#define SCAN_REAGENTS           (1<<11) //! Allows helmets and glasses to scan reagents.
 #define MASKEXTENDRANGE			(1<<12) //! For masks, allows you to breathe from internals on adjecent tiles
+#define NOTCONSUMABLE			(1<<13) //! Moths cannot eat clothing with that flag
 
 /// Flags for the organ_flags var on /obj/item/organ
 

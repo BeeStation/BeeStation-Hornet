@@ -5,8 +5,7 @@
 #define INVESTIGATE_EXPERIMENTOR	"experimentor"
 #define INVESTIGATE_GRAVITY			"gravity"
 #define INVESTIGATE_RECORDS			"records"
-#define INVESTIGATE_SINGULO			"singulo"
-#define INVESTIGATE_SUPERMATTER		"supermatter"
+#define INVESTIGATE_ENGINES			"engines"
 #define INVESTIGATE_TELESCI			"telesci"
 #define INVESTIGATE_WIRES			"wires"
 #define INVESTIGATE_PORTAL			"portals"
@@ -15,7 +14,6 @@
 #define INVESTIGATE_RADIATION		"radiation"
 #define INVESTIGATE_EXONET			"exonet"
 #define INVESTIGATE_NANITES			"nanites"
-#define INVESTIGATE_CIRCUIT			"circuit"
 #define INVESTIGATE_PRESENTS		"presents"
 
 // Logging types for log_message()

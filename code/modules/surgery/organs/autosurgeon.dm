@@ -95,13 +95,13 @@
 	starting_organ = /obj/item/organ/eyes/robotic/thermals
 
 /obj/item/autosurgeon/syndicate/xray_eyes
-	starting_organ = /obj/item/organ/eyes/robotic/xray
+	starting_organ = /obj/item/organ/eyes/robotic/xray/syndicate
 
 /obj/item/autosurgeon/syndicate/anti_stun
-	starting_organ = /obj/item/organ/cyberimp/brain/anti_stun
+	starting_organ = /obj/item/organ/cyberimp/brain/anti_stun/syndicate
 
 /obj/item/autosurgeon/syndicate/reviver
-	starting_organ = /obj/item/organ/cyberimp/chest/reviver
+	starting_organ = /obj/item/organ/cyberimp/chest/reviver/syndicate
 
 /obj/item/autosurgeon/syndicate/esaw_arm
 	desc = "A single use autosurgeon that contains an energy saw arm implant."

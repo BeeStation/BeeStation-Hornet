@@ -45,23 +45,26 @@
 		user.dropItemToGround(src, TRUE)
 		forceMove(H)
 		if(iscarbon(M))
-			sleep(15 SECONDS)
-			if(prob(kill_chance))
-				H.visible_message("<span class='danger bold'>[H] stares ahead, eyes full of fear, before collapsing lifelessly into ash, \the [src] falling out...</span>")
-				log_game("[key_name(H)] was killed by a stand arrow.")
-				forceMove(H.drop_location())
-				H.mind.no_cloning_at_all = TRUE
-				H.adjustCloneLoss(500)
-				H.dust(TRUE)
-				in_use = FALSE
-			else
-				INVOKE_ASYNC(src, .proc/generate_stand, H)
+			in_use = TRUE
+			addtimer(CALLBACK(src, .proc/after_arrow_attack, H, kill_chance), 15 SECONDS)
+			in_use = FALSE
 		else if(isguardian(M))
 			INVOKE_ASYNC(src, .proc/requiem, M)
 
 	if(!uses)
 		visible_message("<span class='warning'>[src] falls apart!</span>")
 		qdel(src)
+
+/obj/item/stand_arrow/proc/after_arrow_attack(mob/living/carbon/H, var/kill_chance)
+	if(prob(kill_chance))
+		H.visible_message("<span class='danger bold'>[H] stares ahead, eyes full of fear, before collapsing lifelessly into ash, \the [src] falling out...</span>")
+		log_game("[key_name(H)] was killed by a stand arrow.")
+		forceMove(H.drop_location())
+		H.mind.no_cloning_at_all = TRUE
+		H.adjustCloneLoss(500)
+		H.dust(TRUE)
+	else
+		INVOKE_ASYNC(src, .proc/generate_stand, H)
 
 /obj/item/stand_arrow/proc/requiem(mob/living/simple_animal/hostile/guardian/G)
 	G.range = 255

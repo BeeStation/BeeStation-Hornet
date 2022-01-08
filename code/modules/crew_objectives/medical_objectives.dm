@@ -9,7 +9,8 @@
 		/area/medical/medbay/aft, /area/medical/medbay/central, /area/medical/medbay/lobby, /area/medical/patients_rooms,
 		/area/medical/sleeper, /area/medical/storage))
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
-		if(H.stat == DEAD && is_station_level(H.z) && is_type_in_typecache(get_area(H), medical_areas)) // If person is dead and corpse is in one of these areas
+		var/area/A = get_area(H)
+		if(H.stat == DEAD && is_station_level(H.z) && is_type_in_typecache(A, medical_areas)) // If person is dead and corpse is in one of these areas
 			return FALSE
 	return TRUE
 
@@ -22,7 +23,8 @@
 		/area/medical/medbay/aft, /area/medical/medbay/central, /area/medical/medbay/lobby, /area/medical/patients_rooms,
 		/area/medical/sleeper, /area/medical/storage, /area/medical/morgue))
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
-		if(H.stat == DEAD && is_station_level(H.z) && !is_type_in_typecache(get_area(H), medical_areas_morgue)) // If person is dead and corpse is NOT in one of these areas
+		var/area/A = get_area(H)
+		if(H.stat == DEAD && is_station_level(H.z) && !is_type_in_typecache(A, medical_areas_morgue)) // If person is dead and corpse is NOT in one of these areas
 			return FALSE
 	return TRUE
 

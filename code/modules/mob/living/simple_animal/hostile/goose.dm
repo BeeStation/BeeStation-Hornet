@@ -57,6 +57,9 @@
 	goosevomit = new
 	goosevomit.Grant(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/goosement)
+	if(prob(50))
+		desc = "[initial(desc)] It's waddling more than usual. It seems to be possessed."
+		deadchat_plays_goose()
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/Destroy()
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
@@ -91,7 +94,7 @@
 	if (stat == DEAD)
 		return
 	var/turf/T = get_turf(src)
-	var/obj/item/reagent_containers/food/consumed = locate() in contents //Barf out a single food item from our guts
+	var/obj/item/consumed = locate() in contents //Barf out a single food item from our guts
 	if (prob(50) && consumed)
 		barf_food(consumed)
 	else
@@ -140,21 +143,36 @@
 	icon_state = initial(icon_state)
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/goosement(atom/movable/AM, OldLoc, Dir, Forced)
+	SIGNAL_HANDLER
+
 	if(stat == DEAD)
 		return
 	if(vomiting)
-		vomit() // its supposed to keep vomiting if you move
+		INVOKE_ASYNC(src, .proc/vomit) // its supposed to keep vomiting if you move
 		return
+	INVOKE_ASYNC(src, .proc/eat)
+	if(prob(vomitCoefficient * 0.2))
+		vomit_prestart(vomitTimeBonus + 25)
+		vomitCoefficient = 1
+		vomitTimeBonus = 0
+
+/// A proc to make it easier for admins to make the goose playable by deadchat.
+/mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/deadchat_plays_goose()
+	stop_automated_movement = TRUE
+	AddComponent(/datum/component/deadchat_control, ANARCHY_MODE, list(
+	 "up" = CALLBACK(GLOBAL_PROC, .proc/_step, src, NORTH),
+	 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, src, SOUTH),
+	 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, src, WEST),
+	 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, src, EAST),
+	 "vomit" = CALLBACK(src, .proc/vomit_prestart, 25)), 20)
+
+/mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/eat()
 	var/turf/currentTurf = get_turf(src)
 	while (currentTurf == get_turf(src))
 		var/obj/item/reagent_containers/food/tasty = locate() in currentTurf
 		if (tasty)
 			feed(tasty)
 		stoplag(2)
-	if(prob(vomitCoefficient * 0.2))
-		vomit_prestart(vomitTimeBonus + 25)
-		vomitCoefficient = 1
-		vomitTimeBonus = 0
 
 /datum/action/cooldown/vomit
 	name = "Vomit"

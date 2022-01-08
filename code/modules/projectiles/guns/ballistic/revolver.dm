@@ -79,7 +79,7 @@
 	fire_sound = 'sound/weapons/revolver38shot.ogg'
 	icon_state = "detective"
 	fire_rate = 2
-	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/rubber
 	obj_flags = UNIQUE_RENAME
 	unique_reskin = list("Default" = "detective",
 						"Fitz Special" = "detective_fitz",
@@ -286,3 +286,7 @@
 
 /obj/item/gun/ballistic/revolver/mime/attack_self(mob/user)
 	qdel(src)
+
+//The Lethal Version from Advanced Mimery
+/obj/item/gun/ballistic/revolver/mime/magic
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/mime/lethal

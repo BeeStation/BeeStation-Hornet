@@ -1,18 +1,12 @@
 /turf
-	//used for temperature calculations
+	//conductivity is divided by 10 when interacting with air for balance purposes
 	var/thermal_conductivity = 0.05
 	var/heat_capacity = 1
-	var/temperature_archived
 
 	//list of open turfs adjacent to us
 	var/list/atmos_adjacent_turfs
-	//bitfield of dirs in which we are superconducitng
-	var/atmos_supeconductivity = NONE
-	var/is_openturf = FALSE // used by extools shizz.
-
-	//used to determine whether we should archive
-	var/archived_cycle = 0
-	var/current_cycle = 0
+	//bitfield of dirs in which we thermal conductivity is blocked
+	var/conductivity_blocked_directions = NONE
 
 	//used for mapping and for breathing while in walls (because that's a thing that needs to be accounted for...)
 	//string parsed by /datum/gas/proc/copy_from_turf
@@ -32,21 +26,17 @@
 	var/planetary_atmos = FALSE //air will revert to initial_gas_mix over time
 
 	var/list/atmos_overlay_types //gas IDs of current active gas overlays
-	is_openturf = TRUE
 
 /turf/open/Initialize()
 	if(!blocks_air)
-		air = new
+		air = new(2500,src)
 		air.copy_from_turf(src)
-		update_air_ref()
+		update_air_ref(planetary_atmos ? 1 : 2)
 	. = ..()
 
 /turf/open/Destroy()
 	if(active_hotspot)
 		QDEL_NULL(active_hotspot)
-	// Adds the adjacent turfs to the current atmos processing
-	for(var/T in atmos_adjacent_turfs)
-		SSair.add_to_active(T)
 	return ..()
 
 /turf/proc/update_air_ref()
@@ -54,15 +44,57 @@
 /////////////////GAS MIXTURE PROCS///////////////////
 
 /turf/open/assume_air(datum/gas_mixture/giver) //use this for machines to adjust air
+	return assume_air_ratio(giver, 1)
+
+/turf/open/assume_air_moles(datum/gas_mixture/giver, moles)
 	if(!giver)
 		return FALSE
-	air.merge(giver)
-	update_visuals()
+	if(SSair.thread_running())
+		SSair.deferred_airs += list(list(giver, air, moles / giver.total_moles()))
+	else
+		giver.transfer_to(air, moles)
+		update_visuals()
+	return TRUE
+
+/turf/open/assume_air_ratio(datum/gas_mixture/giver, ratio)
+	if(!giver)
+		return FALSE
+	if(SSair.thread_running())
+		SSair.deferred_airs += list(list(giver, air, ratio))
+	else
+		giver.transfer_ratio_to(air, ratio)
+		update_visuals()
+	return TRUE
+
+/turf/open/transfer_air(datum/gas_mixture/taker, moles)
+	if(!taker || !return_air()) // shouldn't transfer from space
+		return FALSE
+	if(SSair.thread_running())
+		SSair.deferred_airs += list(list(air, taker, moles / air.total_moles()))
+	else
+		air.transfer_to(taker, moles)
+		update_visuals()
+	return TRUE
+
+/turf/open/transfer_air_ratio(datum/gas_mixture/taker, ratio)
+	if(!taker || !return_air())
+		return FALSE
+	if(SSair.thread_running())
+		SSair.deferred_airs += list(list(air, taker, ratio))
+	else
+		air.transfer_ratio_to(taker, ratio)
+		update_visuals()
 	return TRUE
 
 /turf/open/remove_air(amount)
 	var/datum/gas_mixture/ours = return_air()
 	var/datum/gas_mixture/removed = ours.remove(amount)
+	update_visuals()
+	return removed
+
+/turf/open/remove_air_ratio(ratio)
+	var/datum/gas_mixture/ours = return_air()
+	var/datum/gas_mixture/removed = ours.remove_ratio(ratio)
 	update_visuals()
 	return removed
 
@@ -88,16 +120,9 @@
 	return return_air()
 
 /turf/temperature_expose()
-	if(temperature > heat_capacity)
+	if(return_temperature() > heat_capacity)
 		to_be_destroyed = TRUE
 
-/turf/proc/archive()
-	temperature_archived = temperature
-
-/turf/open/archive()
-	air.archive()
-	archived_cycle = SSair.times_fired
-	temperature_archived = temperature
 
 /turf/open/proc/eg_reset_cooldowns()
 /turf/open/proc/eg_garbage_collect()
@@ -124,9 +149,8 @@
 	for(var/id in air.get_gases())
 		if (nonoverlaying_gases[id])
 			continue
-		var/gas_meta = GLOB.meta_gas_info[id]
-		var/gas_overlay = gas_meta[META_GAS_OVERLAY]
-		if(gas_overlay && air.get_moles(id) > gas_meta[META_GAS_MOLES_VISIBLE])
+		var/gas_overlay = GLOB.gas_data.overlays[id]
+		if(gas_overlay && air.get_moles(id) > GLOB.gas_data.visibility[id])
 			new_overlay_types += gas_overlay[min(FACTOR_GAS_VISIBLE_MAX, CEILING(air.get_moles(id) / MOLES_GAS_VISIBLE_STEP, 1))]
 
 	if (atmos_overlay_types)
@@ -160,12 +184,11 @@
 	for (var/gastype in subtypesof(/datum/gas))
 		var/datum/gas/gasvar = gastype
 		if (!initial(gasvar.gas_overlay))
-			.[gastype] = TRUE
+			.[initial(gasvar.id)] = TRUE
 
 /////////////////////////////SIMULATION///////////////////////////////////
 
 /turf/proc/process_cell(fire_count)
-	SSair.remove_from_active(src)
 
 /turf/open/proc/equalize_pressure_in_zone(cyclenum)
 /turf/open/proc/consider_firelocks(turf/T2)
@@ -200,7 +223,10 @@
 
 //////////////////////////SPACEWIND/////////////////////////////
 
-/turf/open/proc/consider_pressure_difference(turf/T, difference)
+/turf/proc/consider_pressure_difference()
+	return
+
+/turf/open/consider_pressure_difference(turf/T, difference)
 	SSair.high_pressure_delta |= src
 	if(difference > pressure_difference)
 		pressure_direction = get_dir(src, T)
@@ -217,8 +243,6 @@
 		M = thing
 		if (!M.anchored && !M.pulledby && M.last_high_pressure_movement_air_cycle < SSair.times_fired)
 			M.experience_pressure_difference(pressure_difference * multiplier, pressure_direction, 0, pressure_specific_target)
-	if(pressure_difference > 100)
-		new /obj/effect/temp_visual/dir_setting/space_wind(src, pressure_direction, CLAMP(round(sqrt(pressure_difference) * 2), 10, 255))
 
 /atom/movable/var/pressure_resistance = 10
 /atom/movable/var/last_high_pressure_movement_air_cycle = 0
@@ -244,112 +268,3 @@
 		else
 			step(src, direction)
 		last_high_pressure_movement_air_cycle = SSair.times_fired
-
-////////////////////////SUPERCONDUCTIVITY/////////////////////////////
-/turf/proc/conductivity_directions()
-	if(archived_cycle < SSair.times_fired)
-		archive()
-	return NORTH|SOUTH|EAST|WEST
-
-/turf/open/conductivity_directions()
-	if(blocks_air)
-		return ..()
-	for(var/direction in GLOB.cardinals)
-		var/turf/T = get_step(src, direction)
-		if(!(T in atmos_adjacent_turfs) && !(atmos_supeconductivity & direction))
-			. |= direction
-
-/turf/proc/neighbor_conduct_with_src(turf/open/other)
-	if(!other.blocks_air) //Open but neighbor is solid
-		other.temperature_share_open_to_solid(src)
-	else //Both tiles are solid
-		other.share_temperature_mutual_solid(src, thermal_conductivity)
-	temperature_expose(null, temperature, null)
-
-/turf/open/neighbor_conduct_with_src(turf/other)
-	if(blocks_air)
-		..()
-		return
-
-	if(!other.blocks_air) //Both tiles are open
-		var/turf/open/T = other
-		T.air.temperature_share(air, WINDOW_HEAT_TRANSFER_COEFFICIENT)
-	else //Solid but neighbor is open
-		temperature_share_open_to_solid(other)
-	SSair.add_to_active(src, 0)
-
-/turf/proc/super_conduct()
-	var/conductivity_directions = conductivity_directions()
-
-	if(conductivity_directions)
-		//Conduct with tiles around me
-		for(var/direction in GLOB.cardinals)
-			if(conductivity_directions & direction)
-				var/turf/neighbor = get_step(src,direction)
-
-				if(!neighbor.thermal_conductivity)
-					continue
-
-				if(neighbor.archived_cycle < SSair.times_fired)
-					neighbor.archive()
-
-				neighbor.neighbor_conduct_with_src(src)
-
-				neighbor.consider_superconductivity()
-
-	radiate_to_spess()
-
-	finish_superconduction()
-
-/turf/proc/finish_superconduction(temp = temperature)
-	//Make sure still hot enough to continue conducting heat
-	if(temp < MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION)
-		SSair.active_super_conductivity -= src
-		return FALSE
-
-/turf/open/finish_superconduction()
-	//Conduct with air on my tile if I have it
-	if(!blocks_air)
-		temperature = air.temperature_share(null, thermal_conductivity, temperature, heat_capacity)
-	..((blocks_air ? temperature : air.return_temperature()))
-
-/turf/proc/consider_superconductivity()
-	if(!thermal_conductivity)
-		return FALSE
-
-	SSair.active_super_conductivity |= src
-	return TRUE
-
-/turf/open/consider_superconductivity(starting)
-	if(air.return_temperature() < (starting?MINIMUM_TEMPERATURE_START_SUPERCONDUCTION:MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION))
-		return FALSE
-	if(air.heat_capacity() < M_CELL_WITH_RATIO) // Was: MOLES_CELLSTANDARD*0.1*0.05 Since there are no variables here we can make this a constant.
-		return FALSE
-	return ..()
-
-/turf/closed/consider_superconductivity(starting)
-	if(temperature < (starting?MINIMUM_TEMPERATURE_START_SUPERCONDUCTION:MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION))
-		return FALSE
-	return ..()
-
-/turf/proc/radiate_to_spess() //Radiate excess tile heat to space
-	if(temperature > T0C) //Considering 0 degC as te break even point for radiation in and out
-		var/delta_temperature = (temperature_archived - TCMB) //hardcoded space temperature
-		if((heat_capacity > 0) && (abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER))
-
-			var/heat = thermal_conductivity*delta_temperature* \
-				(heat_capacity*HEAT_CAPACITY_VACUUM/(heat_capacity+HEAT_CAPACITY_VACUUM))
-			temperature -= heat/heat_capacity
-
-/turf/open/proc/temperature_share_open_to_solid(turf/sharer)
-	sharer.temperature = air.temperature_share(null, sharer.thermal_conductivity, sharer.temperature, sharer.heat_capacity)
-
-/turf/proc/share_temperature_mutual_solid(turf/sharer, conduction_coefficient) //to be understood
-	var/delta_temperature = (temperature_archived - sharer.temperature_archived)
-	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER && heat_capacity && sharer.heat_capacity)
-
-		var/heat = conduction_coefficient*delta_temperature* \
-			(heat_capacity*sharer.heat_capacity/(heat_capacity+sharer.heat_capacity))
-
-		temperature -= heat/heat_capacity
-		sharer.temperature += heat/sharer.heat_capacity

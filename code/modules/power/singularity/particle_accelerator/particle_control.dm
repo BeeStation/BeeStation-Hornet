@@ -53,11 +53,13 @@
 			part.powered = FALSE
 			part.update_icon()
 		connected_parts.Cut()
+		ui_update()
 		return
 	if(!part_scan())
 		use_power = IDLE_POWER_USE
 		active = FALSE
 		connected_parts.Cut()
+		ui_update()
 
 /obj/machinery/particle_accelerator/control_box/update_icon()
 	if(active)
@@ -89,8 +91,7 @@
 		strength_change()
 
 		message_admins("PA Control Computer increased to [strength] by [ADMIN_LOOKUPFLW(usr)] in [ADMIN_VERBOSEJMP(src)]")
-		log_game("PA Control Computer increased to [strength] by [key_name(usr)] in [AREACOORD(src)]")
-		investigate_log("increased to <font color='red'>[strength]</font> by [key_name(usr)] at [AREACOORD(src)]", INVESTIGATE_SINGULO)
+		investigate_log("increased to <font color='red'>[strength]</font> by [key_name(usr)] at [AREACOORD(src)]", INVESTIGATE_ENGINES)
 
 /obj/machinery/particle_accelerator/control_box/proc/remove_strength(s)
 	if(assembled && (strength > 0))
@@ -98,8 +99,7 @@
 		strength_change()
 
 		message_admins("PA Control Computer decreased to [strength] by [ADMIN_LOOKUPFLW(usr)] in [ADMIN_VERBOSEJMP(src)]")
-		log_game("PA Control Computer decreased to [strength] by [key_name(usr)] in [AREACOORD(src)]")
-		investigate_log("decreased to <font color='green'>[strength]</font> by [key_name(usr)] at [AREACOORD(src)]", INVESTIGATE_SINGULO)
+		investigate_log("decreased to <font color='green'>[strength]</font> by [key_name(usr)] at [AREACOORD(src)]", INVESTIGATE_ENGINES)
 
 /obj/machinery/particle_accelerator/control_box/power_change()
 	..()
@@ -113,7 +113,7 @@
 	if(active)
 		//a part is missing!
 		if(connected_parts.len < 6)
-			investigate_log("lost a connected part; It <font color='red'>powered down</font>.", INVESTIGATE_SINGULO)
+			investigate_log("lost a connected part; It <font color='red'>powered down</font>.", INVESTIGATE_ENGINES)
 			toggle_power()
 			update_icon()
 			return
@@ -172,9 +172,8 @@
 
 /obj/machinery/particle_accelerator/control_box/proc/toggle_power()
 	active = !active
-	investigate_log("turned [active?"<font color='green'>ON</font>":"<font color='red'>OFF</font>"] by [usr ? key_name(usr) : "outside forces"] at [AREACOORD(src)]", INVESTIGATE_SINGULO)
+	investigate_log("turned [active?"<font color='green'>ON</font>":"<font color='red'>OFF</font>"] by [usr ? key_name(usr) : "outside forces"] at [AREACOORD(src)]", INVESTIGATE_ENGINES)
 	message_admins("PA Control Computer turned [active ?"ON":"OFF"] by [usr ? ADMIN_LOOKUPFLW(usr) : "outside forces"] in [ADMIN_VERBOSEJMP(src)]")
-	log_game("PA Control Computer turned [active ?"ON":"OFF"] by [usr ? "[key_name(usr)]" : "outside forces"] at [AREACOORD(src)]")
 	if(active)
 		use_power = ACTIVE_POWER_USE
 		for(var/CP in connected_parts)
@@ -239,6 +238,7 @@
 					"You close the access panel.")
 				construction_state = PA_CONSTRUCTION_COMPLETE
 				did_something = TRUE
+				ui_update()
 		if(PA_CONSTRUCTION_COMPLETE)
 			if(W.tool_behaviour == TOOL_SCREWDRIVER)
 				user.visible_message("[user.name] opens the [name]'s access panel.", \
@@ -318,7 +318,8 @@
 			remove_strength()
 			. = TRUE
 
-	update_icon()
+	if(.)
+		update_icon()
 
 #undef PA_CONSTRUCTION_UNSECURED
 #undef PA_CONSTRUCTION_UNWIRED

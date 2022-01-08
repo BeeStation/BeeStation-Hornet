@@ -9,6 +9,7 @@
 	var/working = TRUE
 	var/research_disabled = FALSE
 	var/server_id = 0
+	var/heat_gen = 1
 	// some notes on this number
 	// as of 4/29/2020, the techweb was set that fed a constant of 52.3 no matter how many servers there were
 	// A coeffecent of sqrt(100/<servercount>) is set up on a per some older code.  Since there are normaly 2 servers this comes out to
@@ -29,7 +30,7 @@
 	var/temp_tolerance_damage = T0C + 200		// Most CPUS get up to 200C they start breaking.  TODO: Start doing damage to the server?
 	var/temp_penalty_coefficient = 0.5	//1 = -1 points per degree above high tolerance. 0.5 = -0.5 points per degree above high tolerance.
 	var/current_temp = -1
-	req_access = list(ACCESS_RD) //ONLY THE R&D CAN CHANGE SERVER SETTINGS.
+	req_access = list(ACCESS_RD_SERVER) //ONLY THE R&D, AND WHO HAVE THE ACCESS TO CAN CHANGE SERVER SETTINGS.
 
 /obj/machinery/rnd/server/Initialize(mapload)
 	. = ..()
@@ -59,7 +60,7 @@
 	var/tot_rating = 0
 	for(var/obj/item/stock_parts/SP in src)
 		tot_rating += SP.rating
-	heating_power = heating_power / max(1, tot_rating)
+	heat_gen = initial(src.heat_gen) / max(1, tot_rating)
 
 /obj/machinery/rnd/server/update_icon()
 	if (panel_open)
@@ -89,20 +90,11 @@
 		// This is from the RD server code.  It works well enough but I need to move over the
 		// sspace heater code so we can caculate power used per tick as well and making this both
 		// exothermic and an endothermic component
-		if(env && env.return_temperature() < T20C + 80)
+		if(env)
+			var/perc = max((get_env_temp() - temp_tolerance_high), 0) * temp_penalty_coefficient / base_mining_income
 
-			var/transfer_moles = 0.25 * env.total_moles()
-
-			var/datum/gas_mixture/removed = env.remove(transfer_moles)
-
-			if(removed)
-				var/heat_capacity = removed.heat_capacity()
-				if(heat_capacity == 0 || heat_capacity == null)
-					heat_capacity = 1
-				removed.set_temperature(min((removed.return_temperature()*heat_capacity + heating_power)/heat_capacity, 1000))
-
-			current_temp = removed.return_temperature()
-			env.merge(removed)
+			env.adjust_heat(heating_power * perc * heat_gen)
+			air_update_turf()
 			src.air_update_turf()
 		else
 			current_temp = env ? env.return_temperature() : -1
@@ -177,7 +169,7 @@
 	desc = "Used to manage access to research and manufacturing databases."
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
-	req_access = list(ACCESS_RD)
+	req_access = list(ACCESS_RD_SERVER)
 	circuit = /obj/item/circuitboard/computer/rdservercontrol
 
 
@@ -191,6 +183,7 @@
 	if(!ui)
 		ui = new(user, src, "RDConsole")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/rdservercontrol/ui_data(mob/user)
 	var/list/data = list()

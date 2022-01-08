@@ -2,7 +2,7 @@
 	update_z(null)
 	if (client)
 		client.images -= (GLOB.ghost_images_default+GLOB.ghost_images_simple)
-		client.tgui_panel?.clear_dead_poup()
+		client.tgui_panel?.clear_dead_popup()
 
 	if(observetarget)
 		if(ismob(observetarget))

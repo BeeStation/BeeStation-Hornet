@@ -9,11 +9,17 @@
 	max_integrity = 200
 	integrity_failure = 100
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20, "stamina" = 0)
-	var/brightness_on = 2
+	light_system = STATIC_LIGHT
+	light_range = 2
+	light_power = 1
+	light_on = TRUE
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
 	var/clockwork = FALSE
 	var/time_to_scewdrive = 20
+
+	///Should the [icon_state]_broken overlay be shown as an emissive or regular overlay?
+	var/broken_overlay_emissive = FALSE
 
 /obj/machinery/computer/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
@@ -38,6 +44,7 @@
 		icon_screen = "ratvar[rand(1, 3)]"
 		icon_keyboard = "ratvar_key[rand(1, 2)]"
 		icon_state = "ratvarcomputer"
+		broken_overlay_emissive = TRUE
 		update_icon()
 
 /obj/machinery/computer/narsie_act()
@@ -46,6 +53,7 @@
 		icon_screen = initial(icon_screen)
 		icon_keyboard = initial(icon_keyboard)
 		icon_state = initial(icon_state)
+		broken_overlay_emissive = initial(broken_overlay_emissive)
 		update_icon()
 
 /obj/machinery/computer/update_icon()
@@ -57,19 +65,24 @@
 	add_overlay(icon_keyboard)
 
 	// This whole block lets screens ignore lighting and be visible even in the darkest room
-	// We can't do this for many things that emit light unfortunately because it layers over things that would be on top of it
 	var/overlay_state = icon_screen
 	if(stat & BROKEN)
-		overlay_state = "[icon_state]_broken"
-	SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, plane, dir)
-	SSvis_overlays.add_vis_overlay(src, icon, overlay_state, ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE, dir, alpha=128)
+		if(broken_overlay_emissive)
+			overlay_state = "[icon_state]_broken"
+		else
+			add_overlay("[icon_state]_broken")
+			overlay_state = null
+
+	if(overlay_state)
+		SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, plane, dir)
+		SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, EMISSIVE_PLANE, dir)
 
 /obj/machinery/computer/power_change()
 	..()
 	if(stat & NOPOWER)
-		set_light(0, 0)
+		set_light(FALSE)
 	else
-		set_light(brightness_on, 2)
+		set_light(TRUE)
 	update_icon()
 	return
 

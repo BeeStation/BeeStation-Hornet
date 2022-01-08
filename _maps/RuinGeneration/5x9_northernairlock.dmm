@@ -1,0 +1,89 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"q" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"s" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"E" = (
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"M" = (
+/turf/template_noop,
+/area/template_noop)
+"O" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"S" = (
+/obj/effect/abstract/open_area_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"T" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"V" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+M
+M
+M
+M
+M
+V
+V
+V
+V
+"}
+(2,1,1) = {"
+M
+M
+M
+q
+q
+q
+O
+O
+O
+"}
+(3,1,1) = {"
+M
+M
+M
+T
+E
+s
+O
+O
+S
+"}
+(4,1,1) = {"
+M
+M
+M
+q
+q
+q
+O
+O
+O
+"}
+(5,1,1) = {"
+M
+M
+M
+M
+M
+V
+V
+V
+V
+"}

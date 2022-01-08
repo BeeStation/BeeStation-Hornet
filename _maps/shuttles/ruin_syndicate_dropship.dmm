@@ -167,7 +167,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/caravan/syndicate3)
 "rz" = (
-/obj/machinery/computer/shuttle/caravan/syndicate3{
+/obj/machinery/computer/shuttle_flight/caravan/syndicate3{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red{
@@ -195,9 +195,6 @@
 /area/shuttle/caravan/syndicate3)
 "sb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/camera_advanced/shuttle_docker/caravan/syndicate3{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},

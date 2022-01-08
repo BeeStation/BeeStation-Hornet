@@ -2,7 +2,7 @@
 	set waitfor = FALSE
 	set invisibility = 0
 
-	if(digitalinvis) //AI unable to see mob
+	if(HAS_TRAIT(src,TRAIT_DIGINVIS)) //AI unable to see mob
 		if(!digitaldisguise)
 			src.digitaldisguise = image(loc = src)
 		src.digitaldisguise.override = 1
@@ -90,7 +90,7 @@
 		ExtinguishMob()
 		return TRUE //mob was put out, on_fire = FALSE via ExtinguishMob(), no need to update everything down the chain.
 	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
-	if(G.get_moles(/datum/gas/oxygen) < 1)
+	if(G.get_moles(GAS_O2) < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
 		return TRUE
 	var/turf/location = get_turf(src)
@@ -109,9 +109,11 @@
 			if(client && !eye_blind)
 				clear_alert("blind")
 				clear_fullscreen("blind")
+			//Prevents healing blurryness while blind from normal means
+			return
 		else
 			eye_blind = max(eye_blind-1,1)
-	else if(eye_blurry)			//blurry eyes heal slowly
+	if(eye_blurry)			//blurry eyes heal slowly
 		eye_blurry = max(eye_blurry-1, 0)
 		if(client)
 			update_eye_blur()

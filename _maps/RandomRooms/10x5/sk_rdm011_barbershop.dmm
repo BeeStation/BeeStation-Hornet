@@ -82,7 +82,7 @@
 	amount = 2
 	},
 /obj/item/stack/sheet/iron/ten,
-/obj/item/twohanded/required/chainsaw,
+/obj/item/chainsaw,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/item/clothing/head/wig/random,
 /obj/item/reagent_containers/medspray/spraytan,
@@ -155,7 +155,7 @@
 "v" = (
 /obj/structure/window/spawner/west,
 /obj/structure/table/wood,
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-18";
 	pixel_y = 10
 	},

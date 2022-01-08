@@ -12,9 +12,12 @@
 	if(!istype(C, /obj/item/organ/regenerative_core))
 		to_chat(user, "<span class='warning'>The stabilizer only works on certain types of monster organs, generally regenerative in nature.</span>")
 		return ..()
+	if(C.preserved)
+		to_chat(user, "<span class='notice'>[M] is already stabilised.")
+		return
 
 	C.preserved()
-	to_chat(user, "<span class='notice'>You inject the [M] with the stabilizer. It will no longer go inert.</span>")
+	to_chat(user, "<span class='notice'>You inject [M] with the stabilizer. It will no longer go inert.</span>")
 	qdel(src)
 
 /************************Hivelord core*******************/

@@ -15,12 +15,46 @@
 	var/reagent_id = /datum/reagent/water
 	var/reaction_volume = 200
 
+/obj/structure/showerframe
+	name = "shower frame"
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "shower_frame"
+	desc = "A shower frame, that needs 2 plastic sheets to finish construction."
+	anchored = FALSE
+
+/obj/structure/showerframe/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/stack/sheet/plastic))
+		balloon_alert(user, "You start constructing the shower")
+		if(do_after(user, 4 SECONDS, target = src))
+			I.use(1)
+			balloon_alert(user, "Shower created")
+			var/obj/machinery/shower/new_shower = new /obj/machinery/shower(loc)
+			new_shower.setDir(dir)
+			qdel(src)
+			return
+	return ..()
+
+/obj/structure/showerframe/Initialize()
+	. = ..()
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
+
+/obj/structure/showerframe/proc/can_be_rotated(mob/user, rotation_type)
+	if(anchored)
+		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
+	return !anchored
+
 /obj/machinery/shower/Initialize()
 	. = ..()
 	create_reagents(reaction_volume)
 	reagents.add_reagent(reagent_id, reaction_volume)
 
 	soundloop = new(list(src), FALSE)
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)
@@ -34,7 +68,7 @@
 	add_fingerprint(M)
 	if(on)
 		START_PROCESSING(SSmachines, src)
-		process()
+		process(SSMACHINES_DT)
 		soundloop.start()
 	else
 		soundloop.stop()
@@ -92,10 +126,11 @@
 		qdel(mist)
 
 
-/obj/machinery/shower/Crossed(atom/movable/AM)
-	..()
+/obj/machinery/shower/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
 	if(on)
-		wash_atom(AM)
+		INVOKE_ASYNC(src, .proc/wash_atom, AM)
 
 /obj/machinery/shower/proc/wash_atom(atom/A)
 	SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)

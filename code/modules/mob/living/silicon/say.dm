@@ -1,4 +1,7 @@
 /mob/living/proc/robot_talk(message)
+	//Cannot transmit wireless messages while jammed
+	if(is_jammed())
+		return
 	log_talk(message, LOG_SAY, tag="binary")
 	var/desig = "Default Cyborg" //ezmode for taters
 	if(issilicon(src))

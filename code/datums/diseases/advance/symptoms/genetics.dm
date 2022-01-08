@@ -21,25 +21,24 @@ Bonus
 	stealth = -2
 	resistance = -3
 	stage_speed = 0
-	transmittable = -3
-	level = 6
+	transmission = -3
+	level = 3
 	severity = 3
 	var/list/possible_mutations
 	var/archived_dna = null
 	base_message_chance = 50
 	symptom_delay_min = 60
 	symptom_delay_max = 120
+	prefixes = list("Genetic ", "Chromosomal ", "Mutagenic ", "Muta-")
+	bodies = list("Mutant")
 	var/no_reset = FALSE
 	threshold_desc = "<b>Resistance 8:</b> Causes two harmful mutations at once.<br>\
 					  <b>Stage Speed 10:</b> Increases mutation frequency.<br>\
-					  <b>Stage Speed 14:</b> Mutations will be beneficial.<br>\
 					  <b>Stealth 5:</b> The mutations persist even if the virus is cured."
 
 /datum/symptom/genetic_mutation/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["stage_rate"] >= 14)
-		severity = 0
-	else if(A.properties["resistance"] >= 8) 
+	if(A.resistance >= 8)
 		severity += 1
 
 /datum/symptom/genetic_mutation/Activate(datum/disease/advance/A)
@@ -59,17 +58,14 @@ Bonus
 /datum/symptom/genetic_mutation/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 5) //don't restore dna after curing
+	if(A.stealth >= 5) //don't restore dna after curing
 		no_reset = TRUE
-	if(A.properties["stage_rate"] >= 10) //mutate more often
+	if(A.stage_rate >= 10) //mutate more often
 		symptom_delay_min = 20
 		symptom_delay_max = 60
-	if(A.properties["resistance"] >= 8) //mutate twice
+	if(A.resistance >= 8) //mutate twice
 		power = 2
-	if(A.properties["stage_rate"] >= 14)
-		possible_mutations = (GLOB.good_mutations | GLOB.not_good_mutations) - GLOB.all_mutations[RACEMUT]
-	else
-		possible_mutations = (GLOB.bad_mutations | GLOB.not_good_mutations) - GLOB.all_mutations[RACEMUT]
+	possible_mutations = (GLOB.bad_mutations | GLOB.not_good_mutations) - GLOB.all_mutations[RACEMUT]
 	var/mob/living/carbon/M = A.affected_mob
 	if(M)
 		if(!M.has_dna())

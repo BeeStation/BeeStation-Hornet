@@ -1,0 +1,251 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/field/generator,
+/turf/open/floor/engine,
+/area/ruin/unpowered)
+"c" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"e" = (
+/obj/machinery/field/generator,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"f" = (
+/obj/item/scalpel,
+/obj/effect/decal/remains/human,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"h" = (
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/door/airlock/highsecurity,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"m" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"w" = (
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"G" = (
+/turf/open/floor/engine,
+/area/ruin/unpowered)
+"K" = (
+/obj/effect/spawner/structure/window,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"N" = (
+/turf/open/space/basic,
+/area/space)
+"P" = (
+/obj/machinery/power/supermatter_crystal/shard/hugbox,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"Q" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"T" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+c
+c
+c
+c
+N
+N
+N
+N
+N
+N
+N
+N
+N
+"}
+(2,1,1) = {"
+T
+T
+T
+c
+K
+K
+N
+N
+N
+N
+N
+N
+N
+"}
+(3,1,1) = {"
+m
+T
+T
+T
+T
+K
+K
+c
+N
+N
+N
+N
+N
+"}
+(4,1,1) = {"
+T
+T
+T
+T
+T
+T
+T
+c
+c
+c
+N
+N
+N
+"}
+(5,1,1) = {"
+c
+c
+T
+T
+T
+T
+T
+T
+T
+c
+N
+N
+N
+"}
+(6,1,1) = {"
+c
+c
+c
+c
+T
+T
+T
+T
+T
+c
+c
+N
+N
+"}
+(7,1,1) = {"
+c
+G
+G
+c
+c
+c
+T
+T
+T
+T
+K
+N
+N
+"}
+(8,1,1) = {"
+c
+G
+w
+G
+G
+c
+c
+T
+T
+T
+K
+K
+N
+"}
+(9,1,1) = {"
+c
+e
+w
+e
+G
+G
+h
+T
+T
+T
+T
+K
+N
+"}
+(10,1,1) = {"
+c
+w
+P
+f
+w
+G
+c
+c
+T
+T
+T
+c
+c
+"}
+(11,1,1) = {"
+c
+a
+w
+e
+G
+G
+G
+c
+T
+T
+T
+T
+c
+"}
+(12,1,1) = {"
+c
+G
+G
+G
+G
+w
+G
+c
+c
+T
+T
+T
+c
+"}
+(13,1,1) = {"
+c
+c
+c
+c
+c
+c
+c
+c
+c
+T
+Q
+T
+c
+"}

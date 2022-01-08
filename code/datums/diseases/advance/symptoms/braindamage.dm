@@ -4,11 +4,14 @@
 	stealth = 1
 	resistance = -2
 	stage_speed = -3
-	transmittable = -1
-	level = 8
+	transmission = -1
+	level = 7
 	severity = 3
 	symptom_delay_min = 15
 	symptom_delay_max = 60
+	prefixes = list("Idiot's ")
+	bodies = list("Idiot")
+	suffixes = list(" Memory Loss")
 	var/lethal = FALSE
 	var/moretrauma = FALSE
 	threshold_desc = "<b>transmission 12:</b> The disease's damage reaches lethal levels.<br>\
@@ -16,15 +19,15 @@
 
 /datum/symptom/braindamage/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["transmittable"] >= 12)
+	if(A.transmission >= 12)
 		severity += 1
 
 /datum/symptom/braindamage/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 12)
+	if(A.transmission >= 12)
 		lethal = TRUE
-	if(A.properties["stage_rate"] >= 9)
+	if(A.stage_rate >= 9)
 		moretrauma = TRUE
 
 /datum/symptom/braindamage/Activate(datum/disease/advance/A)
@@ -53,5 +56,5 @@
 /datum/symptom/braindamage/proc/givetrauma(datum/disease/advance/A, chance)
 	if(prob(chance))
 		if(ishuman(A.affected_mob))
-			var/mob/living/carbon/human/M = A.affected_mob 
+			var/mob/living/carbon/human/M = A.affected_mob
 			M?.gain_trauma(BRAIN_TRAUMA_MILD)

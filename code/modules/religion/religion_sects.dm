@@ -151,9 +151,9 @@
 
 	//first we determine if we can charge them
 	var/did_we_charge = FALSE
-	var/obj/item/organ/stomach/ethereal/eth_stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
-	if(istype(eth_stomach))
-		eth_stomach.adjust_charge(3)
+	var/obj/item/organ/stomach/battery/battery_stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+	if(istype(battery_stomach))
+		battery_stomach.adjust_charge(100)
 		did_we_charge = TRUE
 
 	//if we're not targetting a robot part we stop early

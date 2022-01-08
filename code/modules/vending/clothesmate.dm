@@ -99,6 +99,7 @@
 		            /obj/item/clothing/under/dress/redeveninggown = 1,
 		            /obj/item/clothing/under/dress/blacktango = 1,
 		            /obj/item/clothing/suit/ianshirt = 1,
+					/obj/item/clothing/suit/hooded/wintercoat/old = 3,
 		            /obj/item/clothing/shoes/laceup = 2,
 		            /obj/item/clothing/shoes/sandal = 2,
 		            /obj/item/clothing/suit/jacket/miljacket = 1,
@@ -122,8 +123,8 @@
 		           /obj/item/clothing/neck/necklace/dope = 3,
 		           /obj/item/clothing/suit/jacket/letterman_nanotrasen = 1)
 	refill_canister = /obj/item/vending_refill/clothing
-	default_price = 50
-	extra_price = 75
+	default_price = 40
+	extra_price = 60
 	payment_department = NO_FREEBIES
 
 /obj/item/vending_refill/clothing

@@ -4,11 +4,13 @@
 	stealth = 0
 	resistance = 2
 	stage_speed = 2
-	transmittable = -1
-	level = 7
+	transmission = -1
+	level = 6
 	severity = 0
 	symptom_delay_min = 1
 	symptom_delay_max = 1
+	prefixes = list("Nano-")
+	suffixes = list(" Silicophilia")
 	var/reverse_boost = FALSE
 	threshold_desc = "<b>Transmission 5:</b> Increases the virus' growth rate while nanites are present.<br>\
 					  <b>Stage Speed 7:</b> Increases the replication boost."
@@ -16,9 +18,9 @@
 /datum/symptom/nano_boost/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 5) //reverse boost
+	if(A.transmission >= 5) //reverse boost
 		reverse_boost = TRUE
-	if(A.properties["stage_rate"] >= 7) //more nanites
+	if(A.stage_rate >= 7) //more nanites
 		power = 2
 
 /datum/symptom/nano_boost/Activate(datum/disease/advance/A)
@@ -36,18 +38,20 @@
 				NP.software_error(rand(3, 4)) //activate, deactivate, or trigger the nanites
 	if(A.stage >= 4)
 		M.heal_overall_damage((0.5 * power), (0.5 * power), required_status = BODYPART_ROBOTIC)
-			
+
 /datum/symptom/nano_destroy
 	name = "Silicolysis"
 	desc = "The virus reacts to nanites in the host's bloodstream by attacking and consuming them. May also cause nanites to go haywire. Damages the host's mechanical limbs"
 	stealth = 0
 	resistance = 4
 	stage_speed = -1
-	transmittable = 1
-	level = 7
+	transmission = 1
+	level = 6
 	severity = 0
 	symptom_delay_min = 1
 	symptom_delay_max = 1
+	prefixes = list("Nano-")
+	suffixes = list(" Silicophobia")
 	var/reverse_boost = FALSE
 	threshold_desc = "<b>Stage Speed 5:</b> Increases the virus' growth rate while nanites are present.<br>\
 					  <b>Resistance 7:</b> Severely increases the rate at which the nanites are destroyed."
@@ -55,9 +59,9 @@
 /datum/symptom/nano_destroy/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_rate"] >= 5) //reverse boost
+	if(A.stage_rate >= 5) //reverse boost
 		reverse_boost = TRUE
-	if(A.properties["resistance"] >= 7) //more nanites
+	if(A.resistance >= 7) //more nanites
 		power = 3
 
 /datum/symptom/nano_destroy/Activate(datum/disease/advance/A)

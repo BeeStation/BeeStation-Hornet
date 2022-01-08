@@ -5,6 +5,7 @@ import { selectStatPanel } from './selectors';
 import { sendMessage } from 'tgui/backend';
 import { Divider, Grid, Table } from '../../tgui/components';
 import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_VERB } from './constants';
+import { sendLogEntry } from 'tgui-dev-server/link/client';
 
 export const StatText = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
@@ -17,9 +18,11 @@ export const StatText = (props, context) => {
       </Box>
     );
   }
-  let verbs = Object.keys(statPanelData)
-    .filter(element => !!statPanelData[element]
-      && statPanelData[element].type === STAT_VERB);
+  let verbs = {};
+  if (stat.verbData !== null)
+  {
+    verbs = stat.verbData[stat.selectedTab] || {};
+  }
   return (
     <div className="StatBorder">
       <Box>
@@ -36,23 +39,20 @@ export const StatText = (props, context) => {
                 params={statPanelData[key].params} />
               || statPanelData[key].type === STAT_ATOM && <StatTextAtom
                 atom_ref={key}
-                atom_name={statPanelData[key].text}
-                atom_icon={statPanelData[key].icon} />
+                atom_name={statPanelData[key].text} />
               || statPanelData[key].type === STAT_DIVIDER
               && <StatTextDivider />
               || null
             )
           ))
           : "No data"}
-        {!!verbs.length && (
-          verbs.map(verb => (
-            <StatTextVerb
-              key={verb}
-              title={verb}
-              action_id={statPanelData[verb].action}
-              params={statPanelData[verb].params} />
-          ))
-        )}
+        {Object.keys(verbs).map(verb => (
+          <StatTextVerb
+            key={verb}
+            title={verb}
+            action_id={verbs[verb].action}
+            params={verbs[verb].params} />
+        ))}
       </Box>
     </div>
   );
@@ -105,15 +105,60 @@ export const StatTextButton = (props, context) => {
   );
 };
 
+let janky_storage = null; // Because IE sucks
+const storeAtomRef = value => { janky_storage = value; };
+const retrieveAtomRef = () => janky_storage;
+
 export const StatTextAtom = (props, context) => {
   const {
     atom_name,
-    atom_icon,
     atom_ref,
   } = props;
+
+  storeAtomRef(null);
+
   return (
     <Flex.Item mt={1}>
       <Button
+        draggable
+        onDragStart={e => {
+          // e.dataTransfer.setData("text", atom_ref);
+          /*
+          Apparently can't use "text/plain" because IE, this took me way too
+          long to figure out.
+
+          Apparently, even if you do "text", IE will also put the stored data
+          into your clipboard, overriding whatever was there. Fuck this.
+          Leaving it here for reference, in case somebody smarter than me
+          knows a way to fix it
+          */
+          storeAtomRef(atom_ref);
+        }}
+        onDragOver={e => {
+          e.preventDefault();
+        }}
+        onDrop={e => {
+          // let other_atom_ref = e.dataTransfer.getData("text");
+          let other_atom_ref = retrieveAtomRef();
+          if (other_atom_ref)
+          {
+            e.preventDefault();
+            storeAtomRef(null);
+            sendMessage({
+              type: 'stat/pressed',
+              payload: {
+                action_id: 'atomDrop',
+                params: {
+                  ref: atom_ref,
+                  ref_other: other_atom_ref,
+                },
+              },
+            });
+          }
+        }}
+        onDragEnd={e => {
+          storeAtomRef(null);
+        }}
         onClick={e => sendMessage({
           type: 'stat/pressed',
           payload: {
@@ -124,19 +169,7 @@ export const StatTextAtom = (props, context) => {
           },
         })}
         color="transparent">
-        <Flex>
-          <Flex.Item>
-            <img
-              src={`data:image/jpeg;base64,${atom_icon}`}
-              style={{
-                'vertical-align': 'middle',
-                'horizontal-align': 'middle',
-              }} />
-          </Flex.Item>
-          <Flex.Item ml={1}>
-            {atom_name}
-          </Flex.Item>
-        </Flex>
+        {atom_name}
       </Button>
     </Flex.Item>
   );
@@ -189,9 +222,11 @@ export const HoboStatText = (props, context) => {
       </Box>
     );
   }
-  let verbs = Object.keys(statPanelData)
-    .filter(element => !!statPanelData[element]
-      && statPanelData[element].type === STAT_VERB);
+  let verbs = {};
+  if (stat.verbData !== null)
+  {
+    verbs = stat.verbData[stat.selectedTab] || {};
+  }
   return (
     <div className="StatBorder">
       <Section>
@@ -208,27 +243,24 @@ export const HoboStatText = (props, context) => {
                 params={statPanelData[key].params} />
               || statPanelData[key].type === STAT_ATOM && <HoboStatTextAtom
                 atom_ref={key}
-                atom_name={statPanelData[key].text}
-                atom_icon={statPanelData[key].icon} />
+                atom_name={statPanelData[key].text} />
               || statPanelData[key].type === STAT_DIVIDER
               && <StatTextDivider />
               || null
             )
           ))
           : "No data"}
-        {!!verbs.length && (
+        {Object.keys(verbs).map(verb => (
           <Box
             wrap="wrap"
+            key={verb}
             align="left">
-            {verbs.map(verb => (
-              <StatTextVerb
-                key={verb}
-                title={verb}
-                action_id={statPanelData[verb].action}
-                params={statPanelData[verb].params} />
-            ))}
+            <StatTextVerb
+              title={verb}
+              action_id={verbs[verb].action}
+              params={verbs[verb].params} />
           </Box>
-        )}
+        ))}
       </Section>
     </div>
   );

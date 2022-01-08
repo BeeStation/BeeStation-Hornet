@@ -6,6 +6,16 @@
 	item_color = "red_suit"
 	can_adjust = FALSE
 
+/obj/item/clothing/under/rank/civilian/curator/skirt
+	name = "sensible suitskirt"
+	desc = "It's very... sensible."
+	icon_state = "red_suit_skirt"
+	item_state = "red_suit"
+	item_color = "red_suit_skirt"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	fitted = FEMALE_UNIFORM_TOP
+
 /obj/item/clothing/under/rank/civilian/curator/treasure_hunter
 	name = "treasure hunter uniform"
 	desc = "A rugged uniform suitable for treasure hunting."

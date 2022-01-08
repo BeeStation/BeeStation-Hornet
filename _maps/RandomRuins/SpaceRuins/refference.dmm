@@ -1,0 +1,1010 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/open/space/basic,
+/area/space)
+"ab" = (
+/obj/item/reagent_containers/food/drinks/beer,
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"ad" = (
+/turf/closed/mineral/random/high_chance,
+/area/ruin/unpowered/no_grav)
+"al" = (
+/obj/item/toy/crayon/spraycan{
+	charges = 0
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"am" = (
+/obj/item/robot_suit/prebuilt{
+	name = "lost cyborg";
+	created_name = "Girder"
+	},
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"ap" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "s";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aq" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "w";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"ar" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "n";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "e";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"as" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "m";
+	pixel_x = -8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"at" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "i";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "t";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"au" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "m";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"av" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "a";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "y";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aw" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "c";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"ax" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "o";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "n";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"ay" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "c";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "e";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"az" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "r";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "n";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aB" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "i";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = ",";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aC" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "g";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "i";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aD" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "r";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "d";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aE" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "e";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "r";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aG" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "i";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "d";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aH" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "y";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aK" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "e";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "d";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aL" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "l";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "o";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aO" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "y";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "o";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aP" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "u";
+	pixel_x = -8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aQ" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "d";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "o";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aR" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "p";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "o";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aS" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "k";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aT" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "n";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "o";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aU" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "o";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "u";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aV" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "b";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "u";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aW" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "i";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "n";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aX" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "e";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "l";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aY" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "a";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "t";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"aZ" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "s";
+	pixel_x = -8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"ba" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "n";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "t";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"bb" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "t";
+	pixel_x = -8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"bc" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "t";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "h";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"bd" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "e";
+	pixel_x = -8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"be" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "n";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "g";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"bf" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "h";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"bg" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "t";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "o";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"bh" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "r";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "y";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"bj" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "h";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "o";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"bk" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "r";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "t";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"bl" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "w";
+	pixel_x = -8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"bn" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "i";
+	pixel_x = -8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"ji" = (
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"kV" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "m";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "e";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"oP" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "!";
+	pixel_x = -8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"qv" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = ",";
+	pixel_x = -8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"GA" = (
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = ",";
+	pixel_x = -8
+	},
+/obj/effect/decal/cleanable/crayon{
+	paint_colour = "#ff3000";
+	icon_state = "b";
+	pixel_x = 8
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+
+(1,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(2,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(3,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(4,1,1) = {"
+aa
+aa
+aa
+ad
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(5,1,1) = {"
+aa
+aa
+ad
+ad
+ad
+ji
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(6,1,1) = {"
+aa
+aa
+ji
+ad
+ji
+ji
+ji
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(7,1,1) = {"
+aa
+aa
+ji
+ji
+ji
+ji
+ji
+aB
+ji
+aV
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(8,1,1) = {"
+aa
+ji
+ad
+ji
+ji
+ji
+bg
+aC
+ji
+bb
+aL
+aa
+aa
+aa
+aa
+aa
+"}
+(9,1,1) = {"
+aa
+ad
+ad
+ad
+ji
+ji
+aq
+aD
+aO
+bc
+be
+aa
+aa
+aa
+aa
+aa
+"}
+(10,1,1) = {"
+aa
+ad
+ad
+ad
+ji
+ji
+bj
+aE
+aP
+aY
+ap
+bn
+aa
+aa
+aa
+aa
+"}
+(11,1,1) = {"
+aa
+ad
+ad
+ad
+ji
+ji
+as
+GA
+aQ
+aZ
+bg
+ar
+aa
+aa
+aa
+aa
+"}
+(12,1,1) = {"
+aa
+ji
+ad
+ji
+ji
+ji
+at
+aG
+ba
+aT
+bh
+aK
+ji
+aa
+aa
+aa
+"}
+(13,1,1) = {"
+aa
+aa
+ji
+ji
+ji
+ji
+au
+aH
+aS
+bb
+ap
+bf
+ji
+ji
+aa
+aa
+"}
+(14,1,1) = {"
+aa
+aa
+aa
+ji
+ji
+ji
+av
+aU
+aT
+bc
+bj
+aX
+ji
+ji
+aa
+aa
+"}
+(15,1,1) = {"
+aa
+aa
+ji
+ji
+ji
+ji
+aw
+bf
+bl
+bd
+bk
+ji
+al
+aa
+aa
+aa
+"}
+(16,1,1) = {"
+aa
+ji
+ji
+ji
+ji
+ji
+ax
+aX
+kV
+aR
+qv
+ji
+aa
+aa
+aa
+aa
+"}
+(17,1,1) = {"
+aa
+ji
+ji
+ji
+ab
+ji
+ay
+aL
+qv
+aW
+ji
+aa
+aa
+aa
+aa
+aa
+"}
+(18,1,1) = {"
+aa
+ji
+ji
+ad
+ad
+am
+az
+oP
+ji
+bb
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(19,1,1) = {"
+aa
+aa
+ad
+ad
+ad
+ad
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(20,1,1) = {"
+aa
+aa
+aa
+ad
+ad
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(21,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(22,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(23,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(24,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(25,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}

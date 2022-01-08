@@ -2,6 +2,7 @@
 	name = "Nar'Sie's Avatar"
 	desc = "Your mind begins to bubble and ooze as it tries to comprehend what it sees."
 	icon = 'icons/obj/magic_terror.dmi'
+	is_real = FALSE
 	pixel_x = -89
 	pixel_y = -85
 	density = FALSE
@@ -75,7 +76,7 @@
 	sleep(50)
 	priority_announce("An acausal dimensional event has been detected in your sector. Event has been flagged EXTINCTION-CLASS. Directing all available assets toward simulating solutions. SOLUTION ETA: 60 SECONDS.","Central Command Higher Dimensional Affairs", 'sound/misc/airraid.ogg')
 	sleep(500)
-	priority_announce("Simulations on acausal dimensional event complete. Deploying solution package now. Deployment ETA: ONE MINUTE. ","Central Command Higher Dimensional Affairs")
+	priority_announce("Simulations on acausal dimensional event complete. Deploying solution package now. Deployment ETA: ONE MINUTE. ", "Central Command Higher Dimensional Affairs", SSstation.announcer.get_rand_alert_sound())
 	sleep(50)
 	set_security_level("delta")
 	SSshuttle.registerHostileEnvironment(src)
@@ -103,7 +104,7 @@
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
 	makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, user, cultoverride = TRUE, loc_override = src.loc)
 
-/obj/singularity/narsie/process()
+/obj/singularity/narsie/process(delta_time)
 	eat()
 	if(clashing)
 		//Oh god what is it doing...
@@ -117,7 +118,7 @@
 				for(var/mob/living/M in GLOB.player_list)
 					shake_camera(M, 25, 6)
 					M.Knockdown(10)
-				if(prob(max(SSticker.mode?.cult.len/2, 15)))
+				if(DT_PROB(max(SSticker.mode?.cult.len/2, 15), delta_time))
 					SEND_SOUND(world, 'sound/magic/clockwork/anima_fragment_death.ogg')
 					SEND_SOUND(world, 'sound/effects/explosionfar.ogg')
 					to_chat(world, "<span class='narsie'>You really thought you could best me twice?</span>")
@@ -128,11 +129,11 @@
 				return
 		move()
 		return
-	if(!target || prob(5))
+	if(!target || DT_PROB(5, delta_time))
 		pickcultist()
 	else
 		move()
-	if(prob(25))
+	if(DT_PROB(25, delta_time))
 		mezzer()
 
 
@@ -170,7 +171,7 @@
 
 	for(var/mob/living/carbon/food in GLOB.alive_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
 		var/turf/pos = get_turf(food)
-		if(!pos || (pos.z != z))
+		if(!pos || (pos.get_virtual_z_level() != get_virtual_z_level()))
 			continue
 
 		if(iscultist(food))
@@ -191,7 +192,7 @@
 		if(!ghost.client)
 			continue
 		var/turf/pos = get_turf(ghost)
-		if(!pos || (pos.z != z))
+		if(!pos || (pos.get_virtual_z_level() != get_virtual_z_level()))
 			continue
 		cultists += ghost
 	if(cultists.len)

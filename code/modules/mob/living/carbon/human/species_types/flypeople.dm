@@ -1,6 +1,7 @@
 /datum/species/fly
 	name = "Flyperson"
-	id = "fly"
+	id = SPECIES_FLY
+	bodyflag = FLAG_FLY
 	say_mod = "buzzes"
 	species_traits = list(NOEYESPRITES, NO_UNDERWEAR, TRAIT_BEEFRIEND)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
@@ -21,7 +22,7 @@
 /datum/species/fly/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
+		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	if(istype(chem, /datum/reagent/consumable))
 		var/datum/reagent/consumable/nutri_check = chem
@@ -32,8 +33,7 @@
 			H.visible_message("<span class='danger'>[H] vomits on the floor!</span>", \
 						"<span class='userdanger'>You throw up on the floor!</span>")
 		return TRUE
-
-	..()
+	return ..()
 
 // Change body types
 /datum/species/fly/on_species_gain(mob/living/carbon/C)

@@ -1,0 +1,93 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"c" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"d" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"h" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"q" = (
+/obj/structure/chair/comfy{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"t" = (
+/obj/machinery/vending/snack/random,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"G" = (
+/obj/machinery/vending/cola/random,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"J" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Z" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+Z
+Z
+Z
+Z
+Z
+Z
+d
+Z
+Z
+"}
+(2,1,1) = {"
+Z
+c
+q
+q
+q
+h
+h
+t
+Z
+"}
+(3,1,1) = {"
+Z
+h
+h
+h
+h
+h
+h
+h
+Z
+"}
+(4,1,1) = {"
+Z
+h
+h
+h
+h
+h
+h
+G
+Z
+"}
+(5,1,1) = {"
+Z
+h
+J
+h
+Z
+Z
+Z
+Z
+Z
+"}

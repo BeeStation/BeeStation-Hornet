@@ -1,0 +1,634 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"al" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen,
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"cw" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"ef" = (
+/obj/effect/decal/cleanable/oil/streak,
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"er" = (
+/obj/machinery/power/smes{
+	charge = 5e+006
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"ew" = (
+/obj/structure/table/glass,
+/obj/item/stack/cable_coil/blue{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/effect/spawner/lootdrop/ruinloot/important,
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"eH" = (
+/obj/machinery/computer/upload/ai,
+/turf/open/floor/monofloor,
+/area/ruin/unpowered)
+"fm" = (
+/obj/structure/filingcabinet/chestdrawer,
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"gf" = (
+/obj/machinery/light,
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"hB" = (
+/obj/item/kirbyplants/photosynthetic{
+	pixel_y = 10
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"iT" = (
+/obj/structure/table/reinforced,
+/obj/item/paicard{
+	desc = "A real Nanotrasen success, these personal AIs provide all of the companionship of an AI without any law related red-tape.";
+	name = "Nanotrasen-brand personal AI device exhibit"
+	},
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"jp" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/item/ammo_casing/c9mm{
+	dir = 4;
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"lX" = (
+/obj/effect/decal/cleanable/robot_debris/old,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Telecomms - Server Room - Aft-Port";
+	dir = 6;
+	network = list("ss13","tcomms")
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"nN" = (
+/obj/item/kirbyplants/photosynthetic{
+	pixel_y = 10
+	},
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"py" = (
+/obj/structure/sign/warning/electricshock,
+/turf/closed/wall/r_wall,
+/area/space)
+"qg" = (
+/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"sx" = (
+/obj/effect/decal/cleanable/glass,
+/obj/structure/windoor_assembly,
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"sG" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"tj" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/robot_suit/prebuilt,
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"to" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"tA" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"tD" = (
+/obj/effect/abstract/doorway_marker,
+/obj/machinery/door/airlock/grunge{
+	name = "Artificial Intelligence research"
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"tJ" = (
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
+	},
+/turf/open/floor/monofloor,
+/area/ruin/unpowered)
+"tL" = (
+/obj/structure/showcase/cyborg/old{
+	pixel_y = 20
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"tO" = (
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"tV" = (
+/obj/effect/decal/cleanable/robot_debris/limb,
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"uw" = (
+/turf/template_noop,
+/area/template_noop)
+"vj" = (
+/obj/machinery/holopad,
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"vv" = (
+/obj/structure/AIcore{
+	name = "\broken AI core"
+	},
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"vA" = (
+/obj/machinery/camera{
+	c_tag = "Telecomms - Server Room - Aft-Port";
+	dir = 1;
+	network = list("ss13","tcomms")
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"vX" = (
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen,
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"za" = (
+/obj/item/kirbyplants/photosynthetic{
+	pixel_y = 10
+	},
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"AP" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/obj/machinery/flasher{
+	id = "AI";
+	pixel_y = 24
+	},
+/obj/effect/spawner/lootdrop/ruinloot/important,
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"BT" = (
+/obj/machinery/door/airlock/highsecurity,
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "AI Core shutters";
+	name = "AI core shutters"
+	},
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"CO" = (
+/obj/structure/table/reinforced,
+/obj/item/lighter,
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"Dy" = (
+/obj/item/ammo_casing/c9mm,
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"Fo" = (
+/obj/machinery/camera{
+	c_tag = "Telecomms - Server Room - Aft-Port";
+	dir = 9;
+	network = list("ss13","tcomms")
+	},
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"Fw" = (
+/turf/open/floor/circuit/red/anim,
+/area/ruin/unpowered)
+"Gh" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/obj/effect/turf_decal{
+	dir = 4
+	},
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"GZ" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/structure/sign/warning/nosmoking,
+/turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"Ib" = (
+/obj/machinery/porta_turret/syndicate/energy{
+	name = "AI Chamber Turret"
+	},
+/turf/open/floor/pod/dark,
+/area/ruin/unpowered)
+"JD" = (
+/obj/structure/table/reinforced,
+/obj/item/folder/white{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/item/folder/red{
+	pixel_x = 3
+	},
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"JG" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot_red,
+/mob/living/simple_animal/bot/floorbot,
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"JS" = (
+/turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"Kp" = (
+/obj/structure/table/glass,
+/obj/item/mmi/posibrain,
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"Kx" = (
+/obj/machinery/recharge_station,
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"KU" = (
+/obj/structure/sign/warning/securearea,
+/turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"Lx" = (
+/obj/effect/decal/cleanable/robot_debris/old,
+/obj/machinery/camera{
+	c_tag = "Telecomms - Server Room - Aft-Port";
+	dir = 9;
+	network = list("ss13","tcomms")
+	},
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/item/ammo_casing/c9mm{
+	dir = 8;
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"MV" = (
+/obj/structure/rack,
+/obj/machinery/light,
+/obj/item/storage/toolbox/emergency/old{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/toolbox/mechanical/old,
+/obj/effect/spawner/lootdrop/ruinloot/important,
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"NP" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 1
+	},
+/obj/effect/turf_decal,
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"Os" = (
+/obj/effect/turf_decal/bot_red,
+/obj/item/bot_assembly/medbot,
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"Pw" = (
+/obj/structure/table/glass,
+/obj/item/robot_module/borgi,
+/obj/item/aiModule/core/full/damaged{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/aicard{
+	pixel_x = -10
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"Qa" = (
+/obj/effect/spawner/lootdrop/ruinloot/important,
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"Qo" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/ruinloot/important,
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"RT" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"SV" = (
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"WV" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/door/window{
+	base_state = "rightsecure";
+	dir = 1;
+	icon_state = "rightsecure";
+	name = "Primary AI Core Access";
+	obj_integrity = 300;
+	req_access_txt = "16"
+	},
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"WX" = (
+/obj/machinery/door/airlock/grunge{
+	name = "AI research room"
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"Xd" = (
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal{
+	dir = 1
+	},
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"YE" = (
+/obj/machinery/camera{
+	c_tag = "Telecomms - Server Room - Aft-Port";
+	dir = 6;
+	network = list("ss13","tcomms")
+	},
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
+	},
+/turf/open/floor/monofloor,
+/area/ruin/unpowered)
+"Zy" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4;
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/ammo_casing/c9mm{
+	dir = 4;
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/obj/item/ammo_casing/c9mm,
+/obj/item/ammo_casing/c9mm{
+	dir = 8;
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"ZS" = (
+/obj/effect/turf_decal/bot_red,
+/mob/living/simple_animal/bot/secbot{
+	emagged = 1;
+	faction = list("silicon","turret");
+	name = "Officer Buzzsky"
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"ZY" = (
+/obj/machinery/camera{
+	c_tag = "Telecomms - Server Room - Aft-Port";
+	dir = 6;
+	network = list("ss13","tcomms")
+	},
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+JS
+JS
+JS
+py
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+"}
+(2,1,1) = {"
+JS
+eH
+tj
+er
+Kx
+MV
+JS
+hB
+ZS
+JG
+Os
+hB
+JS
+"}
+(3,1,1) = {"
+JS
+YE
+SV
+SV
+SV
+SV
+WX
+RT
+SV
+tV
+ef
+SV
+tD
+"}
+(4,1,1) = {"
+JS
+tJ
+SV
+Pw
+ew
+Kp
+GZ
+SV
+ef
+SV
+SV
+SV
+JS
+"}
+(5,1,1) = {"
+JS
+vX
+vX
+vX
+vX
+vX
+JS
+to
+SV
+vj
+SV
+vA
+JS
+"}
+(6,1,1) = {"
+JS
+Qa
+tO
+tO
+tO
+tO
+KU
+lX
+SV
+SV
+SV
+SV
+JS
+"}
+(7,1,1) = {"
+JS
+ZY
+Fw
+Gh
+Fw
+gf
+JS
+tL
+ef
+al
+JD
+CO
+JS
+"}
+(8,1,1) = {"
+JS
+sG
+NP
+Ib
+Xd
+tO
+BT
+qg
+SV
+iT
+jp
+fm
+JS
+"}
+(9,1,1) = {"
+JS
+AP
+Fw
+cw
+Fw
+gf
+JS
+tL
+SV
+Qo
+Zy
+Dy
+JS
+"}
+(10,1,1) = {"
+JS
+vv
+sx
+tA
+Fo
+tO
+KU
+za
+SV
+WV
+Lx
+nN
+JS
+"}
+(11,1,1) = {"
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+"}
+(12,1,1) = {"
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+"}
+(13,1,1) = {"
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+uw
+"}

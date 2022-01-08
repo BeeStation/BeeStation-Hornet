@@ -69,12 +69,14 @@
 
 			if(S.ignore_clothes || get_location_accessible(M, selected_zone))
 				var/datum/surgery/procedure = new S.type(M, selected_zone, affecting)
-				user.visible_message("[user] drapes [I] over [M]'s [parse_zone(selected_zone)] to prepare for surgery.", \
-					"<span class='notice'>You drape [I] over [M]'s [parse_zone(selected_zone)] to prepare for \an [procedure.name].</span>")
+				user.visible_message("[user] drapes [I] over [M]'s [parse_zone(selected_zone)] to prepare for surgery.",
+				"<span class='notice'>You drape [I] over [M]'s [parse_zone(selected_zone)] to prepare for \an [procedure.name].</span>")
+				I.balloon_alert(user, "You drape over [parse_zone(selected_zone)]")
 
 				log_combat(user, M, "operated on", null, "(OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
 			else
-				to_chat(user, "<span class='warning'>You need to expose [M]'s [parse_zone(selected_zone)] first!</span>")
+				I.balloon_alert(user, "[parse_zone(selected_zone)] is covered up")
+
 
 	else if(!current_surgery.step_in_progress)
 		attempt_cancel_surgery(current_surgery, I, M, user)
@@ -88,6 +90,7 @@
 		M.surgeries -= S
 		user.visible_message("[user] removes [I] from [M]'s [parse_zone(selected_zone)].", \
 			"<span class='notice'>You remove [I] from [M]'s [parse_zone(selected_zone)].</span>")
+		I.balloon_alert(user, "You remove [I] from [parse_zone(selected_zone)]")
 		qdel(S)
 		return
 

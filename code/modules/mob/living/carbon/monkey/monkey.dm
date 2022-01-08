@@ -13,10 +13,24 @@
 	type_of_meat = /obj/item/reagent_containers/food/snacks/meat/slab/monkey
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
 	unique_name = TRUE
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	bodyparts = list(/obj/item/bodypart/chest/monkey, /obj/item/bodypart/head/monkey, /obj/item/bodypart/l_arm/monkey,
 					 /obj/item/bodypart/r_arm/monkey, /obj/item/bodypart/r_leg/monkey, /obj/item/bodypart/l_leg/monkey)
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
+	ai_controller = /datum/ai_controller/monkey
+	faction = list("neutral", "monkey")
+
+GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
+	/datum/strippable_item/hand/left,
+	/datum/strippable_item/hand/right,
+	/datum/strippable_item/mob_item_slot/handcuffs,
+	/datum/strippable_item/mob_item_slot/legcuffs,
+	/datum/strippable_item/mob_item_slot/head,
+	/datum/strippable_item/mob_item_slot/back,
+	/datum/strippable_item/mob_item_slot/mask,
+	/datum/strippable_item/mob_item_slot/neck
+)))
 
 /mob/living/carbon/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
 	add_verb(/mob/living/proc/mob_sleep)
@@ -42,6 +56,7 @@
 
 	create_dna()
 	dna.initialize_dna(random_blood_type())
+	AddElement(/datum/element/strippable, GLOB.strippable_monkey_items)
 
 /mob/living/carbon/monkey/Destroy()
 	SSmobs.cubemonkeys -= src
@@ -170,7 +185,7 @@
 	return TRUE
 
 /mob/living/carbon/monkey/angry
-	aggressive = TRUE
+	ai_controller = /datum/ai_controller/monkey/angry
 
 /mob/living/carbon/monkey/angry/Initialize()
 	. = ..()
@@ -203,14 +218,42 @@
 	icon_state = null
 	butcher_results = list(/obj/effect/spawner/lootdrop/teratoma/minor = 5, /obj/effect/spawner/lootdrop/teratoma/major = 1)
 	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
-	aggressive = TRUE
 	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
 					 /obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
+	ai_controller = null
 
-/mob/living/carbon/monkey/tumor/Initialize()
+/datum/dna/tumor
+	species = new /datum/species/teratoma
+
+/datum/species/teratoma
+	name = "Teratoma"
+	id = "teratoma"
+	say_mod = "mumbles"
+	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
+	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
+	default_features = list("mcolor" = "FFF", "wings" = "None")
+	use_skintones = 1
+	skinned_type = /obj/item/stack/sheet/animalhide/monkey
+	liked_food = JUNKFOOD | FRIED | GROSS | RAW
+	changesource_flags = MIRROR_BADMIN
+	mutant_brain = /obj/item/organ/brain/tumor
+
+/obj/item/organ/brain/tumor
+	name = "teratoma brain"
+
+/obj/item/organ/brain/tumor/Remove(mob/living/carbon/C, special, no_id_transfer)
 	. = ..()
-	for(var/datum/mutation/M in dna.mutations)
-		if(istype(M,/datum/mutation/human/race))
-			var/datum/mutation/human/race/R = M
-			R.mutadone_proof = TRUE
-	dna.species.species_traits += NOTRANSSTING
+	//Removing it deletes it
+	qdel(src)
+
+/mob/living/carbon/monkey/tumor/handle_mutations_and_radiation()
+	return
+
+/mob/living/carbon/monkey/tumor/has_dna()
+	return FALSE
+
+/mob/living/carbon/monkey/tumor/create_dna()
+	dna = new /datum/dna/tumor(src)
+	//Give us the juicy mutant organs
+	dna.species.on_species_gain(src, null, FALSE)
+	dna.species.regenerate_organs(src, replace_current = TRUE)

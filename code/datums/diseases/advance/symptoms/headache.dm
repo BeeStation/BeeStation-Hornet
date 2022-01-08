@@ -23,31 +23,32 @@ BONUS
 	stealth = -1
 	resistance = 4
 	stage_speed = 2
-	transmittable = 0
+	transmission = 0
 	level = 1
 	severity = 0
 	base_message_chance = 100
 	symptom_delay_min = 15
 	symptom_delay_max = 30
+	bodies = list("Skull", "Migraine")
 	threshold_desc = "<b>Stage Speed 6:</b> Headaches will cause severe pain, that weakens the host.<br>\
 					  <b>Stage Speed 9:</b> Headaches become less frequent but far more intense, preventing any action from the host.<br>\
 					  <b>Stealth 4:</b> Reduces headache frequency until later stages."
 
 /datum/symptom/headache/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["stage_rate"] >= 6)
+	if(A.stage_rate >= 6)
 		severity += 1
-	if(A.properties["stage_rate"] >= 9)
-		severity += 1
+		if(A.stage_rate >= 9)
+			severity += 1
 
 /datum/symptom/headache/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 4)
+	if(A.stealth >= 4)
 		base_message_chance = 50
-	if(A.properties["stage_rate"] >= 6) //severe pain
-		power = 2
-	if(A.properties["stage_rate"] >= 9) //cluster headaches
+		if(A.stage_rate >= 6) //severe pain
+			power = 2
+	if(A.stage_rate >= 9) //cluster headaches
 		symptom_delay_min = 30
 		symptom_delay_max = 60
 		power = 3

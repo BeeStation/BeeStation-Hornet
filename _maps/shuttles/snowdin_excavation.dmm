@@ -1,26 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Elevator Access"
-	},
-/obj/docking_port/mobile/elevator{
-	dir = 4;
-	height = 6;
-	id = "snowdin_excavation";
-	name = "excavation elevator";
-	width = 6
-	},
-/turf/open/floor/plating,
-/area/shuttle/snowdin/elevator1)
 "b" = (
 /obj/structure/window/reinforced/fulltile/ice,
 /obj/structure/grille,
-/turf/open/floor/plating,
-/area/shuttle/snowdin/elevator1)
-"c" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Elevator Access"
-	},
 /turf/open/floor/plating,
 /area/shuttle/snowdin/elevator1)
 "d" = (
@@ -30,20 +11,33 @@
 /turf/open/floor/engine,
 /area/shuttle/snowdin/elevator1)
 "f" = (
-/obj/machinery/computer/shuttle/snowdin/mining{
-	dir = 2;
-	name = "Excavation Elevator Console";
-	possible_destinations = "snowdin_excavation_top;snowdin_excavation_down";
-	shuttleId = "snowdin_excavation"
+/obj/machinery/computer/turbolift{
+	shuttle_id = "snowdin_excavation";
+	time_between_stops = 50
 	},
 /turf/open/floor/engine,
+/area/shuttle/snowdin/elevator1)
+"N" = (
+/obj/docking_port/mobile/elevator{
+	dir = 4;
+	height = 6;
+	id = "snowdin_excavation";
+	name = "excavation elevator";
+	width = 6
+	},
+/obj/machinery/door/airlock/turbolift,
+/turf/open/floor/plating,
+/area/shuttle/snowdin/elevator1)
+"R" = (
+/obj/machinery/door/airlock/turbolift,
+/turf/open/floor/plating,
 /area/shuttle/snowdin/elevator1)
 
 (1,1,1) = {"
 d
 b
-c
-a
+R
+N
 b
 d
 "}
@@ -56,23 +50,23 @@ e
 b
 "}
 (3,1,1) = {"
-c
+R
 e
 e
 e
 e
-c
+R
 "}
 (4,1,1) = {"
-c
+R
 e
 e
 e
 e
-c
+R
 "}
 (5,1,1) = {"
-b
+d
 f
 e
 e
@@ -82,8 +76,8 @@ b
 (6,1,1) = {"
 d
 b
-c
-c
+R
+R
 b
 d
 "}

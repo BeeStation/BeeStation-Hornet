@@ -27,6 +27,7 @@
 	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 	slowdown = 0
 	blocks_shove_knockdown = FALSE
+	move_sound = null
 
 /obj/item/choice_beacon/holy
 	name = "armaments beacon"
@@ -132,6 +133,50 @@
 	icon_state = "witchhunterhat"
 	item_state = "witchhunterhat"
 	flags_cover = HEADCOVERSEYES
+
+/obj/item/storage/box/holy/graverobber
+	name = "Grave Robber Kit"
+
+/obj/item/storage/box/holy/graverobber/PopulateContents()
+	new /obj/item/clothing/suit/armor/riot/chaplain/graverobber_coat(src)
+	new /obj/item/clothing/under/rank/civilian/graverobber_under(src)
+	new /obj/item/clothing/head/chaplain/graverobber_hat(src)
+	new /obj/item/clothing/gloves/graverobber_gloves(src)
+
+/obj/item/clothing/suit/armor/riot/chaplain/graverobber_coat
+	name = "grave robber coat"
+	desc = "To those with a keen eye, gold gleams like a dagger's point."
+	icon_state = "graverobber_coat"
+	item_state = "graverobber_coat"
+	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+
+/obj/item/clothing/head/chaplain/graverobber_hat
+	name = "grave robber hat"
+	desc = "A tattered leather hat. It reeks of death."
+	icon_state = "graverobber_hat"
+	item_state = "graverobber_hat"
+	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/gloves/graverobber_gloves
+	name = "grave robber gloves"
+	desc = "A pair of leather gloves in poor condition."
+	icon_state = "graverobber-gloves"
+	item_state = "graverobber-gloves"
+	permeability_coefficient = 0.9
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	resistance_flags = NONE
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 20, "stamina" = 0)
+
+/obj/item/clothing/under/rank/civilian/graverobber_under
+	name = "grave robber uniform"
+	desc = "A shirt and some leather pants in poor condition."
+	icon_state = "graverobber_under"
+	item_state = "graverobber_under"
+	item_color = "graverobber_under"
+	can_adjust = FALSE
 
 /obj/item/storage/box/holy/adept
 	name = "Divine Adept Kit"
@@ -433,20 +478,6 @@
 	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 
-/obj/item/nullrod/Hypertool
-	icon = 'icons/obj/device.dmi'
-	icon_state = "hypertool"
-	item_state = "hypertool"
-	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	slot_flags = ITEM_SLOT_BELT
-	name = "hypertool"
-	desc = "A tool so powerful even you cannot perfectly use it."
-	armour_penetration = 35
-	damtype = BRAIN
-	attack_verb = list("pulsed", "mended", "cut")
-	hitsound = 'sound/effects/sparks4.ogg'
-
 /obj/item/nullrod/scythe/spellblade
 	icon_state = "spellblade"
 	item_state = "spellblade"
@@ -521,7 +552,6 @@
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.5 //faster than normal saw
 
-
 /obj/item/nullrod/hammmer
 	icon_state = "hammeron"
 	item_state = "hammeron"
@@ -549,7 +579,7 @@
 	tool_behaviour = TOOL_SAW
 	toolspeed = 2 //slower than a real saw
 	attack_weight = 2
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
+	block_upgrade_walk = 0
 
 
 /obj/item/nullrod/chainsaw/Initialize()
@@ -723,3 +753,32 @@
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("bashes", "smacks", "whacks")
+
+/obj/item/nullrod/hypertool
+	icon = 'icons/obj/device.dmi'
+	icon_state = "hypertool"
+	item_state = "hypertool"
+	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	slot_flags = ITEM_SLOT_BELT
+	name = "hypertool"
+	desc = "A tool so powerful even you cannot perfectly use it."
+	armour_penetration = 35
+	damtype = BRAIN
+	attack_verb = list("pulsed", "mended", "cut")
+	hitsound = 'sound/effects/sparks4.ogg'
+
+/obj/item/nullrod/spear
+	name = "ancient spear"
+	desc = "An ancient spear made of brass, I mean gold, I mean bronze. It looks highly mechanical."
+	icon_state = "ratvarian_spear"
+	item_state = "ratvarian_spear"
+	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
+	icon = 'icons/obj/clockwork_objects.dmi'
+	slot_flags = ITEM_SLOT_BELT
+	armour_penetration = 10
+	sharpness = IS_SHARP_ACCURATE
+	w_class = WEIGHT_CLASS_BULKY
+	attack_verb = list("stabbed", "poked", "slashed", "clocked")
+	hitsound = 'sound/weapons/bladeslice.ogg'

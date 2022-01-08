@@ -22,7 +22,7 @@
 /obj/machinery/stasis/Initialize()
 	. = ..()
 	for(var/direction in GLOB.cardinals)
-		op_computer = locate(/obj/machinery/computer/operating, get_step(src, direction))
+		op_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
 		if(op_computer)
 			op_computer.sbed = src
 			break
@@ -55,12 +55,12 @@
 		play_power_sound()
 		update_icon()
 
-/obj/machinery/stasis/Exited(atom/movable/AM, atom/newloc)
-	if(AM == occupant)
-		var/mob/living/L = AM
+/obj/machinery/stasis/Exited(atom/movable/gone, direction)
+	if(gone == occupant)
+		var/mob/living/L = gone
 		if(L.IsInStasis())
 			thaw_them(L)
-	. = ..()
+	return ..()
 
 /obj/machinery/stasis/proc/stasis_running()
 	return stasis_enabled && is_operational()
@@ -122,12 +122,6 @@
 	if(stasis_running() && check_nap_violations())
 		chill_out(L)
 	update_icon()
-
-/obj/machinery/stasis/proc/check_patient()
-	if(occupant)
-		return TRUE
-	else
-		return FALSE
 
 /obj/machinery/stasis/post_unbuckle_mob(mob/living/L)
 	thaw_them(L)

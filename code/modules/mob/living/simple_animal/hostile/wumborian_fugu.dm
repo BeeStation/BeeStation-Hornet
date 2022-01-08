@@ -82,7 +82,6 @@
 	F.icon_state = "Fugu1"
 	F.obj_damage = 60
 	F.melee_damage = 20
-	F.harm_intent_damage = 0
 	F.throw_message = "is absorbed by the girth of the"
 	F.retreat_distance = null
 	F.minimum_distance = 1
@@ -99,7 +98,6 @@
 		icon_state = "Fugu0"
 		obj_damage = 0
 		melee_damage = 0
-		harm_intent_damage = 6
 		throw_message = "is avoided by the"
 		retreat_distance = 9
 		minimum_distance = 9

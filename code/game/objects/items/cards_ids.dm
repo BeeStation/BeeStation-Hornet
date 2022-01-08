@@ -142,7 +142,7 @@
 	. = ..()
 	if(.)
 		switch(var_name)
-			if("assignment","registered_name")
+			if(NAMEOF(src, assignment),NAMEOF(src, registered_name))
 				update_label()
 
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
@@ -333,6 +333,22 @@ update_label("John Doe", "Clowny")
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 
+/obj/item/card/id/silver/spacepol
+	name = "space police access card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/silver/spacepol/bounty
+	name = "bounty hunter access card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/space_russian
+	name = "space russian card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/pirate
+	name = "pirate ship card"
+	access = list(ACCESS_PIRATES)
+
 /obj/item/card/id/syndicate
 	name = "agent card"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE)
@@ -466,6 +482,19 @@ update_label("John Doe", "Clowny")
 	assignment = "Syndicate Officer"
 	access = list(ACCESS_SYNDICATE)
 
+/obj/item/card/id/syndicate/debug
+	name = "\improper Debug ID"
+	desc = "A shimmering ID card with the ability to open anything."
+	icon_state = "centcom"
+	registered_name = "Central Command"
+	assignment = "Admiral"
+	anyone = TRUE
+
+/obj/item/card/id/syndicate/debug/Initialize()
+	access = get_every_access()
+	registered_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	. = ..()
+
 /obj/item/card/id/captains_spare
 	name = "captain's spare ID"
 	desc = "The spare ID of the High Lord himself."
@@ -545,6 +574,15 @@ update_label("John Doe", "Clowny")
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Janitor/Initialize()
+	access = get_all_accesses()
+	. = ..()
+
+/obj/item/card/id/ert/kudzu
+	registered_name = "Weed Whacker"
+	assignment = "Weed Whacker"
+	icon_state = "ert"
+
+/obj/item/card/id/ert/kudzu/Initialize()
 	access = get_all_accesses()
 	. = ..()
 
@@ -643,11 +681,12 @@ update_label("John Doe", "Clowny")
 ///Department Budget Cards///
 
 /obj/item/card/id/departmental_budget
-	name = "departmental card (FUCK)"
+	name = "departmental card (budget)"
 	desc = "Provides access to the departmental budget."
 	icon_state = "budget"
 	var/department_ID = ACCOUNT_CIV
 	var/department_name = ACCOUNT_CIV_NAME
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/item/card/id/departmental_budget/Initialize()
 	. = ..()
@@ -746,6 +785,9 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/miner
 	icon_state = "miner"
 
+/obj/item/card/id/job/exploration
+	icon_state = "exploration"
+
 /obj/item/card/id/job/cargo
 	icon_state = "cargo"
 
@@ -757,3 +799,26 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/job/lawyer
 	icon_state = "lawyer"
+
+/obj/item/card/id/pass
+	name = "promotion pass"
+	desc = "A card that, when swiped on your ID card, will grant you all the access. Should not substitute your actual ID card."
+	icon_state = "data_1"
+	registered_name = "Unregistered ID"
+	assignment = "Access Pass"
+
+/obj/item/card/id/pass/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	if (!proximity)
+		return .
+	var/obj/item/card/id/idcard = target
+	if(istype(idcard))
+		for(var/give_access in access)
+			idcard.access |= give_access
+		if(assignment!=initial(assignment))
+			idcard.assignment = assignment
+		if(name!=initial(name))
+			idcard.name = name
+		to_chat(user, "You upgrade your [idcard] with the [name].")
+		log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
+		qdel(src)

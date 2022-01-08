@@ -60,7 +60,7 @@
 		var/mob/living/carbon/human/tar = target
 		if(tar.check_shields(src,10, "the [tar.name]"))
 			return ..()
-		if(tar.anti_magic_check())
+		if(tar.anti_magic_check(holy = TRUE))
 			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
 			return ..()
 	var/datum/mind/M = user.mind
@@ -155,7 +155,7 @@
 	playsound(user, 'sound/magic/demon_attack1.ogg', 75, TRUE)
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
-		if(tar.anti_magic_check())
+		if(tar.anti_magic_check(holy = TRUE))
 			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
 			return ..()
 	var/mob/living/carbon/human/C2 = user
@@ -252,7 +252,7 @@
 		var/mob/living/carbon/human/target = X
 		if(target == user)
 			continue
-		if(target.anti_magic_check())
+		if(target.anti_magic_check(holy = TRUE))
 			to_chat(user, "<span class='warning'>The spell had no effect!</span>")
 			target.visible_message("<span class='danger'>[target]'s veins flash with fire, but their magic protection repulses the blaze!</span>", \
 							"<span class='danger'>Your veins flash with fire, but your magic protection repels the blaze!</span>")
@@ -324,7 +324,7 @@
 			break
 
 		for(var/mob/living/L in T.contents)
-			if(L.anti_magic_check())
+			if(L.anti_magic_check(holy = TRUE))
 				L.visible_message("<span class='danger'>Spell bounces off of [L]!</span>","<span class='danger'>The spell bounces off of you!</span>")
 				continue
 			if(L in hit_list || L == source)
@@ -430,13 +430,15 @@
 /obj/effect/proc_holder/spell/targeted/fire_sworn/proc/remove()
 	has_fire_ring = FALSE
 
-/obj/effect/proc_holder/spell/targeted/fire_sworn/process()
+/obj/effect/proc_holder/spell/targeted/fire_sworn/process(delta_time)
 	. = ..()
 	if(!has_fire_ring)
 		return
 	for(var/turf/open/T in RANGE_TURFS(1,current_user))
 		new /obj/effect/hotspot(T)
-		T.hotspot_expose(700,50,1)
+		T.hotspot_expose(700,250 * delta_time,1)
+		for(var/mob/living/livies in T.contents - current_user)
+			livies.adjustFireLoss(25 * delta_time)
 
 
 /obj/effect/proc_holder/spell/targeted/worm_contract
@@ -497,7 +499,7 @@
 		human_user.adjustBruteLoss(-10, FALSE)
 		human_user.adjustFireLoss(-10, FALSE)
 		human_user.adjustStaminaLoss(-10, FALSE)
-		human_user.adjustToxLoss(-10, FALSE)
+		human_user.adjustToxLoss(-10, FALSE, TRUE)
 		human_user.adjustOxyLoss(-10)
 
 /obj/effect/proc_holder/spell/targeted/shed_human_form

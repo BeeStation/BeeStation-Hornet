@@ -24,3 +24,4 @@
 #define LANGUAGE_VOICECHANGE	"voicechange"
 #define LANGUAGE_REAGENT    	"reagent"
 #define LANGUAGE_MULTILINGUAL	"multilingual"
+#define LANGUAGE_EMP			"emp"

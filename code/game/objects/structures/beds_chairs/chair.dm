@@ -65,6 +65,11 @@
 	W.setDir(dir)
 	qdel(src)
 
+/obj/structure/chair/ratvar_act()
+	var/obj/structure/chair/brass/B = new(get_turf(src))
+	B.setDir(dir)
+	qdel(src)
+
 /obj/structure/chair/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
 		W.play_tool_sound(src)
@@ -242,6 +247,16 @@
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
 
+/obj/structure/chair/stool/bamboo
+	name = "bamboo stool"
+	desc = "A makeshift bamboo stool with a rustic look."
+	icon_state = "bamboo_stool"
+	resistance_flags = FLAMMABLE
+	max_integrity = 60
+	buildstacktype = /obj/item/stack/sheet/mineral/bamboo
+	buildstackamount = 2
+	item_chair = /obj/item/chair/stool/bamboo
+
 /obj/item/chair
 	name = "chair"
 	desc = "Bar brawl essential."
@@ -328,6 +343,15 @@
 	item_state = "stool_bar"
 	origin_type = /obj/structure/chair/stool/bar
 
+/obj/item/chair/stool/bamboo
+	name = "bamboo stool"
+	icon_state = "bamboo_stool_toppled"
+	item_state = "stool_bamboo"
+	hitsound = 'sound/weapons/genhit1.ogg'
+	origin_type = /obj/structure/chair/stool/bamboo
+	materials = null
+	break_chance = 50	//Submissive and breakable unlike the chad iron stool
+
 /obj/item/chair/stool/narsie_act()
 	return //sturdy enough to ignore a god
 
@@ -340,7 +364,7 @@
 	hitsound = 'sound/weapons/genhit1.ogg'
 	origin_type = /obj/structure/chair/wood
 	materials = null
-	break_chance = 50
+	break_chance = 50 
 
 /obj/item/chair/wood/narsie_act()
 	return
@@ -384,6 +408,9 @@
 	setDir(direction)
 	playsound(src, 'sound/effects/servostep.ogg', 50, FALSE)
 	return FALSE
+
+/obj/structure/chair/brass/ratvar_act()
+	return
 
 /obj/structure/chair/brass/AltClick(mob/living/user)
 	turns = 0

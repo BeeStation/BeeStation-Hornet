@@ -42,12 +42,12 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 // Returns the chunk in the x, y, z.
 // If there is no chunk, it creates a new chunk and returns that.
-/datum/cameranet/proc/getCameraChunk(x, y, z)
+/datum/cameranet/proc/getCameraChunk(x, y, z, a)
 	x &= ~(CHUNK_SIZE - 1)
 	y &= ~(CHUNK_SIZE - 1)
 	var/key = "[x],[y],[z]"
 	. = chunks[key]
-	if(!.)
+	if(!. && !(istype(a, /area/ai_multicam_room)))
 		chunks[key] = . = new /datum/camerachunk(x, y, z)
 
 // Updates what the ai_eye can see. It is recommended you use this when the ai_eye moves or it's location is set.
@@ -169,7 +169,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 
 /datum/cameranet/proc/checkTurfVis(turf/position)
-	var/datum/camerachunk/chunk = getCameraChunk(position.x, position.y, position.z)
+	var/datum/camerachunk/chunk = getCameraChunk(position.x, position.y, position.z, get_area(position))
 	if(chunk)
 		if(chunk.changed)
 			chunk.hasChanged(1) // Update now, no matter if it's visible or not.

@@ -43,7 +43,7 @@
 	faction = list(ROLE_SYNDICATE)
 	check_friendly_fire = 1
 	status_flags = CANPUSH
-	del_on_death = 1
+	del_on_death = TRUE
 	dodging = TRUE
 	rapid_melee = 2
 	do_footstep = TRUE
@@ -296,7 +296,7 @@
 	speak_emote = list("states")
 	bubble_icon = "syndibot"
 	gold_core_spawnable = HOSTILE_SPAWN
-	del_on_death = 1
+	del_on_death = TRUE
 	deathmessage = "is smashed into pieces!"
 
 /mob/living/simple_animal/hostile/viscerator/Initialize()

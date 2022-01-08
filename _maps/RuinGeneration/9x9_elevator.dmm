@@ -1,0 +1,253 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/machinery/computer/turbolift,
+/turf/open/floor/carpet/red,
+/area/ruin/unpowered)
+"f" = (
+/obj/effect/mob_spawn/human/corpse/assistant,
+/turf/open/floor/carpet/red,
+/area/ruin/unpowered)
+"g" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"l" = (
+/turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"o" = (
+/obj/machinery/door/airlock/turbolift,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"q" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"s" = (
+/turf/open/floor/carpet/red,
+/area/ruin/unpowered)
+"t" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"C" = (
+/obj/effect/abstract/open_area_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"G" = (
+/obj/machinery/turbolift_button{
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"V" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"W" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Z" = (
+/obj/machinery/food_cart,
+/turf/open/floor/carpet/red,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+g
+g
+g
+g
+g
+t
+V
+t
+g
+g
+g
+g
+g
+"}
+(2,1,1) = {"
+g
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+g
+"}
+(3,1,1) = {"
+g
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+g
+"}
+(4,1,1) = {"
+g
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+g
+"}
+(5,1,1) = {"
+g
+t
+t
+t
+l
+l
+l
+l
+l
+G
+t
+t
+g
+"}
+(6,1,1) = {"
+t
+t
+t
+t
+l
+Z
+f
+s
+o
+t
+t
+t
+t
+"}
+(7,1,1) = {"
+W
+t
+t
+t
+l
+b
+s
+s
+o
+t
+t
+t
+C
+"}
+(8,1,1) = {"
+t
+t
+t
+t
+l
+s
+s
+s
+o
+t
+t
+t
+t
+"}
+(9,1,1) = {"
+g
+t
+t
+t
+l
+l
+l
+l
+l
+t
+t
+t
+g
+"}
+(10,1,1) = {"
+g
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+g
+"}
+(11,1,1) = {"
+g
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+g
+"}
+(12,1,1) = {"
+g
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+t
+g
+"}
+(13,1,1) = {"
+g
+g
+g
+g
+g
+t
+q
+t
+g
+g
+g
+g
+g
+"}

@@ -19,7 +19,6 @@
 	speed = 3
 	maxHealth = 300
 	health = 300
-	harm_intent_damage = 0
 	obj_damage = 100
 	melee_damage = 25
 	attacktext = "pulverizes"
@@ -35,6 +34,7 @@
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 
 	do_footstep = TRUE
+	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
 	. = ..()

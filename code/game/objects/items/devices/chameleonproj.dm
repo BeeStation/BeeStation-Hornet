@@ -15,6 +15,7 @@
 	var/can_use = 1
 	var/obj/effect/dummy/chameleon/active_dummy = null
 	var/saved_appearance = null
+	var/list/vis_overlay_data = list()
 
 /obj/item/chameleon/Initialize()
 	. = ..()
@@ -60,6 +61,14 @@
 	temp.plane = initial(target.plane)
 	saved_appearance = temp.appearance
 
+	if(istype(target, /atom/movable)) //Record vis_overlays data
+		var/atom/movable/M = target
+		var/count = 0
+		vis_overlay_data = list()
+		for(var/obj/effect/overlay/vis/overlay in M.vis_contents)
+			count++
+			vis_overlay_data["[count]"] = list("icon" = overlay.icon, "icon_state" = overlay.icon_state, "layer" = overlay.layer, "plane" = overlay.plane, "alpha" = overlay.alpha, "appearance_flags" = overlay.appearance_flags)
+
 /obj/item/chameleon/proc/check_sprite(atom/target)
 	if(target.icon_state in icon_states(target.icon))
 		return TRUE
@@ -78,6 +87,9 @@
 	else
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 		var/obj/effect/dummy/chameleon/C = new/obj/effect/dummy/chameleon(user.drop_location())
+		for(var/overlay_index in vis_overlay_data)
+			var/list/overlay_data = vis_overlay_data[overlay_index]
+			SSvis_overlays.add_vis_overlay(C, overlay_data["icon"], overlay_data["icon_state"], overlay_data["layer"], overlay_data["plane"], C.dir, alpha = overlay_data["alpha"], add_appearance_flags = overlay_data["appearance_flags"])
 		C.activate(user, saved_appearance, src)
 		to_chat(user, "<span class='notice'>You activate \the [src].</span>")
 		new /obj/effect/temp_visual/emp/pulse(get_turf(src))

@@ -78,7 +78,7 @@
 /turf/open/floor/plating,
 /area/shuttle/caravan/pirate)
 "fL" = (
-/obj/machinery/computer/shuttle/caravan/pirate{
+/obj/machinery/computer/shuttle_flight/caravan/pirate{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red{
@@ -349,7 +349,6 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/caravan/pirate)
 "oO" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/caravan/pirate,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},

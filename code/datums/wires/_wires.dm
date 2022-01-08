@@ -90,9 +90,11 @@
 /datum/wires/proc/shuffle_wires()
 	colors.Cut()
 	randomize()
+	ui_update()
 
 /datum/wires/proc/repair()
 	cut_wires.Cut()
+	ui_update()
 
 /datum/wires/proc/get_wire(color)
 	return colors[color]
@@ -135,29 +137,36 @@
 	else
 		cut_wires += wire
 		on_cut(wire, mend = FALSE)
+	ui_update()
 
 /datum/wires/proc/cut_color(color)
 	cut(get_wire(color))
+	ui_update()
 
 /datum/wires/proc/cut_random()
 	cut(wires[rand(1, wires.len)])
+	ui_update()
 
 /datum/wires/proc/cut_all()
 	for(var/wire in wires)
 		cut(wire)
+	ui_update()
 
 /datum/wires/proc/pulse(wire, user)
 	if(is_cut(wire))
 		return
 	on_pulse(wire, user)
+	ui_update()
 
 /datum/wires/proc/pulse_color(color, mob/living/user)
 	pulse(get_wire(color), user)
+	ui_update()
 
 /datum/wires/proc/pulse_assembly(obj/item/assembly/S)
 	for(var/color in assemblies)
 		if(S == assemblies[color])
 			pulse_color(color)
+			ui_update()
 			return TRUE
 
 /datum/wires/proc/attach_assembly(color, obj/item/assembly/S)
@@ -165,6 +174,7 @@
 		assemblies[color] = S
 		S.forceMove(holder)
 		S.connected = src
+		ui_update()
 		return S
 
 /datum/wires/proc/detach_assembly(color)
@@ -173,6 +183,7 @@
 		assemblies -= color
 		S.connected = null
 		S.forceMove(holder.drop_location())
+		ui_update()
 		return S
 
 /datum/wires/proc/emp_pulse()
@@ -185,6 +196,7 @@
 			remaining_pulses--
 			if(!remaining_pulses)
 				break
+	ui_update()
 
 // Overridable Procs
 /datum/wires/proc/interactable(mob/user)

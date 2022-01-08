@@ -107,26 +107,39 @@
 
 /obj/machinery/power/deck_relay/Initialize()
 	. = ..()
-	addtimer(CALLBACK(src, .proc/find_relays), 30)
-	addtimer(CALLBACK(src, .proc/refresh), 50) //Wait a bit so we can find the one below, then get powering
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/power/deck_relay/LateInitialize()
+	. = ..()
+	find_relays()
+	refresh()
 
 ///Handles re-acquiring + merging powernets found by find_relays()
-/obj/machinery/power/deck_relay/proc/refresh()
+/obj/machinery/power/deck_relay/proc/refresh(failures = 0)
 	if(above)
-		above.merge(src)
+		above.merge(src, failures)
 	if(below)
-		below.merge(src)
+		below.merge(src, failures)
 
 ///Merges the two powernets connected to the deck relays
-/obj/machinery/power/deck_relay/proc/merge(var/obj/machinery/power/deck_relay/DR)
+/obj/machinery/power/deck_relay/proc/merge(var/obj/machinery/power/deck_relay/DR, failures = 0)
 	if(!DR)
 		return
 	var/turf/merge_from = get_turf(DR)
 	var/turf/merge_to = get_turf(src)
+	if(failures > 5)
+		message_admins("Failed to merge powernet at [ADMIN_COORDJMP(merge_to)] after 5 attempts.")
+		return
 	var/obj/structure/cable/C = merge_from.get_cable_node()
 	var/obj/structure/cable/XR = merge_to.get_cable_node()
 	if(C && XR)
-		merge_powernets(XR.powernet,C.powernet)//Bridge the powernets.
+		if(!XR.powernet || !C.powernet)
+			//Try again in 10 seconds.
+			addtimer(CALLBACK(src, .proc/refresh, failures + 1), 10 SECONDS)
+			return
+		merge_powernets(XR.powernet,C.powernet)
+	else
+		stack_trace("Multi-z power adapter failed to merge powernets at [COORD(merge_to)] due to not being able to find a power node.")
 
 ///Locates relays that are above and below this object
 /obj/machinery/power/deck_relay/proc/find_relays()

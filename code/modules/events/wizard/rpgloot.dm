@@ -8,6 +8,8 @@
 /datum/round_event/wizard/rpgloot/start()
 	var/upgrade_scroll_chance = 0
 	for(var/obj/item/I in world)
+		CHECK_TICK
+
 		if(!(I.flags_1 & INITIALIZED_1))
 			continue
 

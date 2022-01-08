@@ -20,14 +20,17 @@ Bonus
 	name = "Spontaneous Combustion"
 	desc = "The virus turns fat into an extremely flammable compound, and raises the body's temperature, making the host burst into flames spontaneously."
 	stealth = 1
-	resistance = -2
-	stage_speed = -3
-	transmittable = -3
-	level = 6
+	resistance = -1
+	stage_speed = -2
+	transmission = -1
+	level = 7
 	severity = 4
 	base_message_chance = 20
 	symptom_delay_min = 20
 	symptom_delay_max = 75
+	prefixes = list("Burning ")
+	bodies = list("Combustion")
+	suffixes = list(" Combustion")
 	var/infective = FALSE
 	threshold_desc = "<b>Stage Speed 4:</b> Increases the intensity of the flames.<br>\
 					  <b>Stage Speed 8:</b> Further increases flame intensity.<br>\
@@ -37,13 +40,13 @@ Bonus
 /datum/symptom/fire/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_rate"] >= 4)
+	if(A.stage_rate >= 4)
 		power = 1.5
-	if(A.properties["stage_rate"] >= 8)
-		power = 2
-	if(A.properties["stealth"] >= 4)
+		if(A.stage_rate >= 8)
+			power = 2
+	if(A.stealth >= 4)
 		suppress_warning = TRUE
-	if(A.properties["transmittable"] >= 8) //burning skin spreads the virus through smoke
+	if(A.transmission >= 8) //burning skin spreads the virus through smoke
 		infective = TRUE
 
 /datum/symptom/fire/Activate(datum/disease/advance/A)
@@ -78,7 +81,7 @@ Bonus
 	else
 		M.adjust_fire_stacks(3 * power)
 	M.take_overall_damage(burn = 5 * power, required_status = BODYPART_ORGANIC)
-	if(infective)
+	if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
 		A.spread(4)
 	return 1
 
@@ -103,40 +106,43 @@ Bonus
 
 /datum/symptom/alkali
 
-	name = "Alkali perspiration"
+	name = "Alkali Perspiration"
 	desc = "The virus attaches to sudoriparous glands, synthesizing a chemical that bursts into flames when reacting with water, leading to self-immolation."
 	stealth = 2
 	resistance = -2
 	stage_speed = -2
-	transmittable = -2
+	transmission = -2
 	level = 9
 	severity = 5
 	base_message_chance = 100
 	symptom_delay_min = 30
 	symptom_delay_max = 90
+	prefixes = list("Explosive ")
+	bodies = list("Hellfire")
+	suffixes = list(" of the Damned")
 	var/chems = FALSE
 	var/explosion_power = 1
-	threshold_desc = "<b>Resistance 9:</b> Doubles the intensity of the effect, but reduces its frequency.<br>\
+	threshold_desc = "<b>Stealth 3:</b> Doubles the intensity of the effect, but reduces its frequency.<br>\
 					  <b>Stage Speed 8:</b> Increases explosion radius when the host is wet.<br>\
-					  <b>Transmission 8:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
+					  <b>Resistance 8:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
 
 /datum/symptom/alkali/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 9)
-		severity = 6
-	if(A.properties["stage_rate"] >= 10)
-		severity = 6
+	if(A.stealth >= 3)
+		severity += 1
+	if(A.stage_rate >= 8)
+		severity += 2 //if you can find a way to make this threshold work in a trifecta well enough to take advantage of this severity boost, i applaud you
 
 /datum/symptom/alkali/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 9) //intense but sporadic effect
+	if(A.stealth >= 3) //intense but sporadic effect
 		power = 2
 		symptom_delay_min = 50
 		symptom_delay_max = 140
-	if(A.properties["stage_rate"] >= 8) //serious boom when wet
+	if(A.stage_rate >= 8) //serious boom when wet
 		explosion_power = 2
-	if(A.properties["transmittable"] >= 8) //extra chemicals
+	if(A.resistance >= 8) //extra chemicals
 		chems = TRUE
 
 /datum/symptom/alkali/Activate(datum/disease/advance/A)

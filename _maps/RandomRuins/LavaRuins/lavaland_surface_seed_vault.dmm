@@ -1,9 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aa" = (
-/turf/closed/mineral/volcanic/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "ab" = (
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/template_noop,
 /area/lavaland/surface/outdoors)
 "ah" = (
 /turf/open/floor/plasteel/freezer,
@@ -22,9 +19,9 @@
 /area/ruin/powered/seedvault)
 "aj" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8
+	dir = 4
 	},
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/template_noop/open,
 /area/lavaland/surface/outdoors)
 "ak" = (
 /obj/structure/closet/crate,
@@ -266,6 +263,9 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
+"iO" = (
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "lp" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/disks_plantgene,
@@ -296,7 +296,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/on/layer3{
 	dir = 4
 	},
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/template_noop/open,
 /area/ruin/powered/seedvault)
 "of" = (
 /obj/structure/table/wood,
@@ -322,6 +322,9 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
+"vC" = (
+/turf/closed/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "vY" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
@@ -405,10 +408,19 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
+"FY" = (
+/turf/template_noop/closed,
+/area/lavaland/surface/outdoors)
 "Gr" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
+"GC" = (
+/turf/template_noop/open,
+/area/lavaland/surface/outdoors)
+"GK" = (
+/turf/template_noop,
+/area/template_noop)
 "Hw" = (
 /obj/machinery/plantgenes/seedvault{
 	pixel_y = 6
@@ -465,12 +477,12 @@
 /area/ruin/powered/seedvault)
 
 (1,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
+GK
+ab
+FY
+FY
+FY
+FY
 nH
 aQ
 aQ
@@ -478,18 +490,18 @@ aQ
 aQ
 aQ
 aQ
-aa
-aa
-aa
-aa
-aa
+FY
 ab
 ab
+GK
+GK
+GK
+GK
 "}
 (2,1,1) = {"
-aa
-aa
-aa
+ab
+ab
+FY
 aQ
 aQ
 aQ
@@ -500,18 +512,18 @@ at
 at
 at
 aQ
-aa
-aa
-aa
-aa
-aa
+FY
 ab
 ab
+ab
+GK
+GK
+GK
 "}
 (3,1,1) = {"
 ab
-aa
-aa
+ab
+FY
 aQ
 yk
 Jm
@@ -523,17 +535,17 @@ Gr
 Ag
 aQ
 aQ
-aa
-aa
-aa
+FY
 ab
-aa
 ab
+ab
+GK
+GK
 "}
 (4,1,1) = {"
 ab
-aa
-aa
+FY
+FY
 aQ
 aQ
 aQ
@@ -546,15 +558,15 @@ aQ
 aQ
 aQ
 aQ
-aa
-aa
-aa
-aa
-aa
+FY
+ab
+ab
+ab
+GK
 "}
 (5,1,1) = {"
-aa
-aa
+ab
+FY
 aQ
 aQ
 ak
@@ -568,15 +580,15 @@ au
 aR
 au
 aQ
-aa
-aa
-aa
-aa
-aa
+FY
+ab
+ab
+ab
+GK
 "}
 (6,1,1) = {"
-aa
-aa
+ab
+FY
 aQ
 of
 ah
@@ -590,15 +602,15 @@ Jy
 ah
 aG
 aQ
-aa
-aa
-aa
-aa
-aa
+FY
+ab
+ab
+ab
+GK
 "}
 (7,1,1) = {"
-aa
-aa
+ab
+FY
 aQ
 lp
 ah
@@ -612,15 +624,15 @@ ap
 ah
 aX
 aQ
-aa
-aa
-aa
-aa
-aa
+vC
+vC
+ab
+ab
+GK
 "}
 (8,1,1) = {"
 ab
-aa
+FY
 aQ
 tE
 gE
@@ -635,14 +647,14 @@ aF
 aF
 aV
 aL
-aa
-aa
-aa
-aa
+vC
+ab
+ab
+GK
 "}
 (9,1,1) = {"
 ab
-aa
+FY
 aQ
 Hw
 ah
@@ -657,14 +669,14 @@ ah
 ak
 aQ
 aM
-aa
-aa
-aa
-aa
+vC
+ab
+ab
+GK
 "}
 (10,1,1) = {"
-aa
-aa
+ab
+FY
 aQ
 zi
 ah
@@ -678,15 +690,15 @@ aD
 ah
 ap
 aQ
+iO
+vC
 ab
-aa
-aa
-aa
-aa
+ab
+GK
 "}
 (11,1,1) = {"
-aa
-aa
+ab
+FY
 aQ
 ah
 ah
@@ -700,15 +712,15 @@ aE
 ah
 aH
 aQ
-aa
-aa
-aa
-aa
-aa
+vC
+vC
+ab
+ab
+GK
 "}
 (12,1,1) = {"
 ab
-aa
+FY
 aQ
 aO
 ah
@@ -722,15 +734,15 @@ hG
 ah
 aX
 aQ
-aa
-aa
-aa
-aa
-aa
+FY
+FY
+ab
+ab
+GK
 "}
 (13,1,1) = {"
-aa
-aa
+ab
+FY
 aQ
 ai
 ah
@@ -744,15 +756,15 @@ ah
 ah
 aI
 aQ
-aa
-aa
-aa
-aa
-aa
+FY
+ab
+ab
+ab
+GK
 "}
 (14,1,1) = {"
-aa
-aa
+ab
+FY
 aQ
 aQ
 ai
@@ -766,16 +778,16 @@ ay
 aS
 aJ
 aQ
-aa
-aa
-aa
-aa
-aa
+FY
+ab
+ab
+GK
+GK
 "}
 (15,1,1) = {"
-aa
-aa
 ab
+ab
+FY
 aQ
 aQ
 aQ
@@ -788,16 +800,16 @@ aQ
 aQ
 aQ
 aQ
-aa
-aa
-aa
-aa
-aa
+FY
+ab
+ab
+GK
+GK
 "}
 (16,1,1) = {"
 ab
-aa
 ab
+FY
 aj
 aQ
 aj
@@ -810,38 +822,35 @@ aQ
 aj
 aQ
 aj
-aa
-aa
-aa
-aa
-aa
+ab
+ab
+ab
+GK
+GK
 "}
 (17,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aQ
 am
 am
 aQ
+GC
+GC
+GC
 ab
 ab
 ab
-aa
-aa
-aa
-ab
-ab
+GK
+GK
 "}
 (18,1,1) = {"
-aa
-aa
-aa
 ab
 ab
 ab
@@ -849,58 +858,61 @@ ab
 ab
 ab
 ab
+GC
+GC
+GC
+GC
+GC
+GC
+GC
+GC
 ab
 ab
 ab
-ab
-ab
-aa
-aa
-aa
-ab
-ab
+GK
+GK
 "}
 (19,1,1) = {"
-aa
-aa
-aa
-aa
-ab
-ab
-aa
+GK
 ab
 ab
 ab
 ab
 ab
 ab
+GC
+GC
+GC
+GC
+GC
+GC
+GC
 ab
-aa
-aa
-aa
 ab
 ab
-ab
+GK
+GK
+GK
 "}
 (20,1,1) = {"
-aa
-aa
-aa
-ab
-ab
-ab
-aa
+GK
+GK
 ab
 ab
 ab
 ab
 ab
+GC
+GC
+GC
+GC
+GC
+GC
+GC
 ab
 ab
-aa
-aa
-aa
 ab
-ab
-aa
+GK
+GK
+GK
 "}

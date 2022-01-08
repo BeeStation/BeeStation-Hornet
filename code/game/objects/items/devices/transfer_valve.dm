@@ -16,6 +16,10 @@
 	var/valve_open = FALSE
 	var/toggle = TRUE
 
+/obj/item/transfer_valve/Destroy()
+	attached_device = null
+	return ..()
+
 /obj/item/transfer_valve/IsAssemblyHolder()
 	return TRUE
 
@@ -54,6 +58,7 @@
 			return
 		attached_device = A
 		to_chat(user, "<span class='notice'>You attach the [item] to the valve controls and secure it.</span>")
+		A.on_attach()
 		A.holder = src
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
 		log_bomber(user, "attached a [item.name] to a ttv -", src, null, FALSE)
@@ -74,11 +79,6 @@
 /obj/item/transfer_valve/on_found(mob/finder)
 	if(attached_device)
 		attached_device.on_found(finder)
-
-/obj/item/transfer_valve/Crossed(atom/movable/AM as mob|obj)
-	. = ..()
-	if(attached_device)
-		attached_device.Crossed(AM)
 
 //Triggers mousetraps
 /obj/item/transfer_valve/attack_hand()
@@ -177,20 +177,15 @@
 		if(!target_self)
 			target.set_volume(target.return_volume() + tank_two.air_contents.return_volume())
 		target.set_volume(target.return_volume() + tank_one.air_contents.return_volume())
-	var/datum/gas_mixture/temp
-	temp = tank_one.air_contents.remove_ratio(1)
-	target.merge(temp)
+	tank_one.air_contents.transfer_ratio_to(target, 1)
 	if(!target_self)
-		temp = tank_two.air_contents.remove_ratio(1)
-		target.merge(temp)
+		tank_two.air_contents.transfer_ratio_to(target, 1)
 
 /obj/item/transfer_valve/proc/split_gases()
 	if (!valve_open || !tank_one || !tank_two)
 		return
 	var/ratio1 = tank_one.air_contents.return_volume()/tank_two.air_contents.return_volume()
-	var/datum/gas_mixture/temp
-	temp = tank_two.air_contents.remove_ratio(ratio1)
-	tank_one.air_contents.merge(temp)
+	tank_two.air_contents.transfer_ratio_to(tank_one.air_contents, ratio1)
 	tank_two.air_contents.set_volume(tank_two.air_contents.return_volume() - tank_one.air_contents.return_volume())
 
 	/*
@@ -292,4 +287,5 @@
 				attached_device = null
 				. = TRUE
 
+	ui_update()
 	update_icon()

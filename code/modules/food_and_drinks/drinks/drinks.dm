@@ -279,6 +279,15 @@
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 30)
 	foodtype = GRAIN | ALCOHOL
 
+/obj/item/reagent_containers/food/drinks/beer/almost_empty
+	var/amount
+	list_reagents = null
+
+/obj/item/reagent_containers/food/drinks/beer/almost_empty/Initialize()
+	. = ..()
+	amount = rand(1,4)
+	reagents.add_reagent(/datum/reagent/consumable/ethanol/beer, amount)
+
 /obj/item/reagent_containers/food/drinks/syndicatebeer
 	name = "syndicate beer"
 	desc = "Consumed only by the finest syndicate agents. There is a round warning label stating 'Don't drink more than one in quick succession!'"
@@ -367,6 +376,10 @@
 				name = "grape juice box"
 				desc = "Tasty grape juice in a fun little container. Non-alcoholic!"
 				foodtype = FRUIT
+			if(/datum/reagent/consumable/pineapplejuice)
+				icon_state = "pineapplebox"
+				name = "pineapple juice box"
+				desc = "Why would you even want this?"
 			if(/datum/reagent/consumable/milk/chocolate_milk)
 				icon_state = "chocolatebox"
 				name = "carton of chocolate milk"
