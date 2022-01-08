@@ -784,7 +784,7 @@
 	update_icon()
 
 /obj/item/storage/belt/sabre/fiber
-	name = "carbon-fiber saber sheath"
+	name = "carbon-fiber sabre sheath"
 	desc = "A military grade saber sheath. While once used widely by Nanotrasen space forces due to its reliability in space, the advancement in energy weapons have made them redundant."
 	icon_state = "sheath-fiber"
 	item_state = "sheath-fiber"
