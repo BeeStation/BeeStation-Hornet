@@ -33280,6 +33280,7 @@
 	pixel_y = 10
 	},
 /obj/item/pipe_dispenser,
+/obj/item/crowbar,
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
 "bFl" = (
@@ -34306,6 +34307,9 @@
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_x = 28
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
