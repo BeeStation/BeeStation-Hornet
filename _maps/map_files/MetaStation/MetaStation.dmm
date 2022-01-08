@@ -24511,6 +24511,10 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/ai_monitored/turret_protected/ai)
+"aWO" = (
+/obj/machinery/holopad,
+/turf/open/floor/plasteel/dark/telecomms,
+/area/ai_monitored/turret_protected/ai)
 "aWP" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -26084,7 +26088,6 @@
 /turf/open/floor/wood,
 /area/library)
 "aZR" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -26143,14 +26146,13 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/holopad,
+/obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/ai_monitored/turret_protected/ai)
 "aZY" = (
@@ -29480,6 +29482,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 1
 	},
+/obj/machinery/holopad,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/ai_monitored/turret_protected/ai)
 "bgk" = (
@@ -32342,9 +32345,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
-"blE" = (
-/turf/open/floor/plasteel/dark/telecomms,
-/area/ai_monitored/turret_protected/ai)
 "blF" = (
 /obj/structure/showcase/cyborg/old{
 	pixel_y = 20
@@ -39066,7 +39066,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "byx" = (
-/obj/machinery/holopad,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/ai_monitored/turret_protected/ai)
 "byy" = (
@@ -78493,12 +78492,6 @@
 /obj/machinery/light/small/broken,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"fuJ" = (
-/obj/machinery/porta_turret/ai{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark/telecomms,
-/area/ai_monitored/turret_protected/ai)
 "fwb" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -80162,6 +80155,15 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"ltU" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/status_display/ai{
+	pixel_x = 32
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/ai_monitored/turret_protected/ai)
 "lvJ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -82012,6 +82014,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
+"sEj" = (
+/obj/machinery/porta_turret/ai{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/ai_monitored/turret_protected/ai)
 "sEA" = (
 /obj/machinery/light,
 /turf/open/floor/plasteel/showroomfloor,
@@ -82124,12 +82132,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"sUb" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/status_display/ai{
-	pixel_x = 32
+"sXC" = (
+/obj/machinery/porta_turret/ai{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/ai_monitored/turret_protected/ai)
@@ -82816,12 +82821,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/science/misc_lab/range)
-"vVE" = (
-/obj/machinery/porta_turret/ai{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark/telecomms,
-/area/ai_monitored/turret_protected/ai)
 "vWK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -137671,7 +137670,7 @@ aYy
 aZR
 bbF
 bcP
-vVE
+sEj
 bgh
 bim
 bjQ
@@ -137923,9 +137922,9 @@ aRy
 aRy
 aTV
 aVq
-blE
-blE
-blE
+byx
+byx
+byx
 aWM
 bip
 bip
@@ -138180,12 +138179,12 @@ aRy
 aRy
 aTV
 aVn
-blE
+byx
 aZV
 aTV
 aTV
 brx
-blE
+byx
 bgk
 bio
 bjQ
@@ -138437,7 +138436,7 @@ aRy
 aRy
 aTW
 bjS
-byx
+aWO
 aYz
 aTV
 bvf
@@ -138699,9 +138698,9 @@ bqm
 aTV
 aTV
 oev
-blE
+byx
 bgk
-blE
+byx
 bjQ
 blH
 bnD
@@ -139212,8 +139211,8 @@ aWR
 aYB
 aZX
 bbH
-sUb
-fuJ
+ltU
+sXC
 bgm
 bis
 bjQ
