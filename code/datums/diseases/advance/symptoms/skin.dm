@@ -445,8 +445,7 @@ Thresholds
 		shoot = TRUE
 	if(A.transmission >= 6)
 		power += 1
-	if(iscarbon(A.affected_mob))
-		RegisterSignal(A.affected_mob, COMSIG_HUMAN_ATTACKED, .proc/pop_pustules)
+	RegisterSignal(A.affected_mob, COMSIG_HUMAN_ATTACKED, .proc/pop_pustules)
 
 
 /datum/symptom/pustule/Activate(datum/disease/advance/A)
@@ -476,7 +475,7 @@ Thresholds
 					if(A.spread_flags && DISEASE_SPREAD_CONTACT_FLUIDS)
 						pustule.diseases += D
 				pustule.pellets = popped
-				pustule.variance = 360
+				pustule.variance = rand(50, 200)
 				pustule.fire_casing(T, M, (get_turf(M)))
 				pustules -= popped
 				M.visible_message("<span class='warning'>[popped] pustules on [M]'s body burst open!</span>")
@@ -502,8 +501,7 @@ Thresholds
 		
 /datum/symptom/pustule/End(datum/disease/advance/A)
 	. = ..()
-	if(iscarbon(A.affected_mob))
-		UnregisterSignal(A.affected_mob, COMSIG_HUMAN_ATTACKED)
+	UnregisterSignal(A.affected_mob, COMSIG_HUMAN_ATTACKED)
 
 
 /obj/item/ammo_casing/caseless/pimple

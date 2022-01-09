@@ -141,7 +141,7 @@
 /datum/symptom/organ_restoration/Activate(datum/disease/advance/A)
 	if(!..())
 		return
-	var/mob/living/M = A.affected_mob
+	var/mob/living/carbon/M = A.affected_mob
 	var/status = ORGAN_ORGANIC
 	if(MOB_ROBOTIC in A.infectable_biotypes)
 		status = null //if the disease is capable of interfacing with robotics, it is allowed to heal mechanical organs
@@ -157,10 +157,8 @@
 			for(var/datum/disease/D in M.diseases)
 				if(istype(D, /datum/disease/appendicitis) || istype(D, /datum/disease/heart_failure))
 					D.cure()
-			if(iscarbon(M))
-				var/mob/living/carbon/H = M
-				if(H.undergoing_cardiac_arrest())
-					H.set_heartattack(FALSE)
+			if(M.undergoing_cardiac_arrest())
+				M.set_heartattack(FALSE)
 		if(regenorgans) //regenerate missing organs that this disease cures, other than the brain
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
