@@ -8,7 +8,7 @@ Reproductive extracts:
 	desc = "It pulses with a strange hunger."
 	icon_state = "reproductive"
 	effect = "reproductive"
-	effect_desc = "When fed monkey cubes it produces more extracts. Bio bag compatible as well."
+	effect_desc = "When fed monkey cubes it produces a baby slime. Bio bag compatible as well."
 	layer = LOW_ITEM_LAYER
 	var/last_produce = 0
 	var/cooldown = 60 SECONDS
