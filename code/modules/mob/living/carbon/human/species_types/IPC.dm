@@ -209,14 +209,15 @@
 	return
 
 /datum/species/ipc/spec_life(mob/living/carbon/human/H)
-	H.setOxyLoss(0)
-	H.losebreath = 0
-	if(H.health <= UNCONSCIOUS && H.stat != DEAD && !HAS_TRAIT(H, TRAIT_NOCRITDAMAGE)) // So they die eventually instead of being stuck in crit limbo.
+	if(HAS_TRAIT(H, TRAIT_NOBREATH)) //this is here because i'm overriding spec_life, and is default spec_life behaviour. 
+		H.setOxyLoss(0)
+		H.losebreath = 0
+	if(H.health <= H.crit_threshold && H.stat != DEAD && !HAS_TRAIT(H, TRAIT_NOCRITDAMAGE)) //this is how ipcs get their snowflake 2 burnloss crit damage
 		H.adjustFireLoss(2)
 		if(prob(5))
 			to_chat(H, "<span class='warning'>Alert: Internal temperature regulation systems offline; thermal damage sustained. Shutdown imminent.</span>")
 			H.visible_message("[H]'s cooling system fans stutter and stall. There is a faint, yet rapid beeping coming from inside their chassis.")
-	if(H.getorgan(/obj/item/organ/wings))
+	if(H.getorgan(/obj/item/organ/wings)) //this is also here due to the spec_life override
 		handle_flight(H)
 
 /datum/species/ipc/spec_revival(mob/living/carbon/human/H)
