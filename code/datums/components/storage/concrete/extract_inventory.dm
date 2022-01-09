@@ -24,6 +24,9 @@
 
 	if(length(parent_slime_extract.contents) >= max_items)
 		QDEL_LIST(parent_slime_extract.contents)
+		if(GLOB.total_slimes >= CONFIG_GET(number/max_slimes))
+			to_chat(user, "<i>The extract jiggles, and fails to produce a slime...</i>")
+			return
 		create_extracts(parent_slime_extract,user)
 
 /datum/component/storage/concrete/extract_inventory/proc/create_extracts(obj/item/slimecross/reproductive/parent_slime_extract, mob/user)
