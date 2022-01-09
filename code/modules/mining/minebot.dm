@@ -6,7 +6,7 @@
 
 /mob/living/simple_animal/hostile/mining_drone
 	name = "\improper Nanotrasen minebot"
-	desc = "A small robot used to support miners. It can be set to search and collect loose ore, or to help fend off wildlife. It is equipped with a mining drill and PKA, with mounting points for a plasma cutter."
+	desc = "A small robot used to support miners. It can be set to search and collect loose ore, mine any ore it detects, or help fend off wildlife. It is equipped with a mining drill and PKA, with mounting points for a plasma cutter."
 	gender = NEUTER
 	icon = 'icons/mob/aibots.dmi'
 	icon_state = "mining_drone"
