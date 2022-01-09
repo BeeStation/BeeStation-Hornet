@@ -1,0 +1,4 @@
+author: ArcaneMusic
+delete-after: true
+changes:
+  - bugfix: Cargo consoles can once again accept crewmember's purchase requests.
