@@ -27650,7 +27650,6 @@
 	},
 /obj/item/analyzer,
 /obj/item/pipe_dispenser,
-/obj/item/crowbar,
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
 "bGA" = (

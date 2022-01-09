@@ -91538,7 +91538,6 @@
 	},
 /obj/item/analyzer,
 /obj/item/pipe_dispenser,
-/obj/item/crowbar,
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "dFL" = (

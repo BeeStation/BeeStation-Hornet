@@ -64049,7 +64049,6 @@
 	dir = 8;
 	pixel_x = 26
 	},
-/obj/item/crowbar,
 /turf/open/floor/plasteel/techmaint,
 /area/science/mixing)
 "pkp" = (
