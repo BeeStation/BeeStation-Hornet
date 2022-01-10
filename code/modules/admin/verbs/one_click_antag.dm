@@ -371,8 +371,8 @@
 			ert_team.objectives += missionobj
 			ert_team.mission = missionobj
 
-			if(istype(ertemplate, /datum/ert/idpd))
-				return attemptMakeIDPD(candidates, ertemplate.teamsize, ertemplate, ert_team, missionobj)
+			if(istype(ertemplate, /datum/ert/erpd))
+				return attemptMakeERPD(candidates, ertemplate.teamsize, ertemplate, ert_team, missionobj)
 			var/list/spawnpoints = GLOB.emergencyresponseteamspawn
 			while(numagents && candidates.len)
 				if (numagents > spawnpoints.len)

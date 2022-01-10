@@ -110,12 +110,12 @@
 	polldesc = "an elite gardening team"
 	code = "Vine Green"
 
-/datum/ert/idpd
-	roles = list(/datum/antagonist/ert/idpd, /datum/antagonist/ert/idpd/titan, /datum/antagonist/ert/idpd/gazer)
-	leader_role = /datum/antagonist/ert/idpd/chief
+/datum/ert/erpd
+	roles = list(/datum/antagonist/ert/erpd, /datum/antagonist/ert/erpd/titan, /datum/antagonist/ert/erpd/gazer)
+	leader_role = /datum/antagonist/ert/erpd/chief
 	teamsize = 4
 	opendoors = TRUE
-	rename_team = "Inter-Dimensional Police Department"
+	rename_team = "Extra-Reality Police Department"
 	polldesc = "the keepers of reality"
 	mission = "Eliminate anyone tampering with the timeline."
 	code = "Epsilon"
