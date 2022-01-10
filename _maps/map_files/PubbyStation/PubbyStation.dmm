@@ -34307,6 +34307,9 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	pixel_x = 28
+	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "bHI" = (

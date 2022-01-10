@@ -91424,10 +91424,6 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/item/radio/intercom{
-	pixel_x = -26;
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -93447,6 +93443,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "dJL" = (
@@ -93770,12 +93769,8 @@
 	},
 /turf/open/floor/plating/airless,
 /area/science/test_area)
-"dKA" = (
-/obj/structure/sign/warning/vacuum,
-/turf/closed/wall,
-/area/science/misc_lab)
 "dKB" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/vacuum,
 /turf/closed/wall,
 /area/science/misc_lab)
 "dKC" = (
@@ -147420,7 +147415,7 @@ dFA
 dGZ
 dIk
 dJK
-dKA
+tCh
 dLK
 dLY
 dOc
