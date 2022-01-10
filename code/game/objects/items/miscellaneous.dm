@@ -381,3 +381,10 @@
 	name = "goat delivery beacon"
 	default_name = "Billy"
 	mob_choice = /mob/living/simple_animal/hostile/retaliate/goat
+
+/obj/item/choice_beacon/janicart
+	name = "janicart delivery beacon"
+	desc = "Summons a pod containing one (1) pimpin ride."
+
+/obj/item/choice_beacon/janicart/generate_display_names()
+	return list("janitor cart" = /obj/vehicle/ridden/janicart/upgraded/keyless)

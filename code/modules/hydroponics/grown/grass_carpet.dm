@@ -60,6 +60,7 @@
 	icon_state = "fairygrassclump"
 	filling_color = "#3399ff"
 	stacktype = /obj/item/stack/tile/fairygrass
+	discovery_points = 300
 
 /obj/item/reagent_containers/food/snacks/grown/grass/fairy/attack_self(mob/user)
 	var/datum/plant_gene/trait/glow/G = null
@@ -85,6 +86,8 @@
 				stacktype = /obj/item/stack/tile/fairygrass/purple
 			if(/datum/plant_gene/trait/glow/pink)
 				stacktype = /obj/item/stack/tile/fairygrass/pink
+			if(/datum/plant_gene/trait/glow/shadow)
+				stacktype = /obj/item/stack/tile/fairygrass/dark
 
 	. = ..()
 

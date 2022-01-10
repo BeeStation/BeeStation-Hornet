@@ -36,16 +36,16 @@
 /turf/open/lava/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/lava/Entered(atom/movable/AM)
+/turf/open/lava/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	if(burn_stuff(AM))
+	if(burn_stuff(arrived))
 		START_PROCESSING(SSobj, src)
 
-/turf/open/lava/Exited(atom/movable/Obj, atom/newloc)
+/turf/open/lava/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(isliving(Obj))
-		var/mob/living/L = Obj
-		if(!islava(newloc) && !L.on_fire)
+	if(isliving(gone))
+		var/mob/living/L = gone
+		if(!islava(get_step(src, direction)) && !L.on_fire)
 			L.update_fire()
 
 /turf/open/lava/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)

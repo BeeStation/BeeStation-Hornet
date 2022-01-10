@@ -59,4 +59,4 @@
 	flash_act()
 
 	if (client)
-		SSmedals.UnlockMedal(MEDAL_GET_CLUWNED,client)
+		client.give_award(/datum/award/achievement/misc/cluwne, src)

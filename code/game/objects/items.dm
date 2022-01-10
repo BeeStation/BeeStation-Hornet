@@ -288,8 +288,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return
 
 	var/turf/T = loc
-	loc = null
-	loc = T
+	abstract_move(null)
+	forceMove(T)
 
 /obj/item/examine(mob/user) //This might be spammy. Remove?
 	. = ..()
@@ -307,6 +307,35 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			. += "[src] is made of cold-resistant materials."
 		if(resistance_flags & FIRE_PROOF)
 			. += "[src] is made of fire-retardant materials."
+	if(block_level || block_upgrade_walk)
+		if(block_upgrade_walk == 1 && !block_level)
+			. += "While walking, [src] can block attacks in a <b>narrow</b> arc."
+		else 
+			switch(block_upgrade_walk + block_level)
+				if(1)
+					. += "[src] can block attacks in a <b>narrow</b> arc."
+				if(2)
+					. += "[src] can block attacks in a <b>wide</b> arc."
+				if(3)
+					. += "[src] can block attacks in a <b>very wide</b> arc."
+				if(4 to INFINITY)
+					. += "[src] can block attacks in a <b>nearly complete</b> arc."
+			if(block_upgrade_walk)
+				. += "[src] is <b>less</b> effective at blocking while the user is <b>running</b>."
+		switch(block_power)
+			if(-INFINITY to -1)
+				. += "[src] is weighted extremely poorly for blocking"
+			if(0 to 10)
+				. += "[src] is average at blocking"
+			if(10 to 30)
+				. += "[src] is well-weighted for blocking"
+			if(31 to 50)
+				. += "[src] is extremely well-weighted for blocking"
+			if(51 to INFINITY)
+				. += "[src] is as well weighted as possible for blocking"
+	if(force)
+		. += "Force: [force_string]"
+
 
 	if(!user.research_scanner)
 		return
@@ -474,7 +503,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/obj/item/bodypart/blockhand = null
 	if(owner.stat) //can't block if you're dead
 		return 0
-	if(HAS_TRAIT(owner, TRAIT_NOBLOCK) && istype(src, /obj/item/shield)) //shields can always block, because they break instead of using stamina damage
+	if(HAS_TRAIT(owner, TRAIT_NOBLOCK) && !istype(src, /obj/item/shield)) //shields can always block, because they break instead of using stamina damage
 		return 0
 	if(owner.get_active_held_item() == src) //copypaste of this code for an edgecase-nodrops
 		if(owner.active_hand_index == 1)
@@ -501,7 +530,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(isprojectile(hitby)) //fucking bitflags broke this when coded in other ways
 		var/obj/item/projectile/P = hitby
 		if(block_flags & BLOCKING_PROJECTILE)
-			if(P.movement_type & UNSTOPPABLE) //you can't block piercing rounds!
+			if(P.movement_type & PHASING) //you can't block piercing rounds!
 				return 0
 		else
 			return 0
@@ -577,6 +606,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	owner.apply_damage(attackforce, STAMINA, blockhand, block_power)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
 		owner.blockbreak()
+	if(attackforce)
+		owner.changeNext_move(CLICK_CD_MELEE) 
 	return TRUE
 
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language, list/message_mods)
@@ -589,7 +620,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(item_flags & DROPDEL)
 		qdel(src)
 	item_flags &= ~IN_INVENTORY
-	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
+	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
 	if(item_flags & SLOWS_WHILE_IN_HAND)
 		user.update_equipment_speed_mods()
 	remove_outline()

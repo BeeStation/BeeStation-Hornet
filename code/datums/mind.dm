@@ -297,6 +297,7 @@
 			P = inowhaveapen
 
 	var/obj/item/uplink_loc
+	var/implant = FALSE
 
 	if(traitor_mob.client?.prefs)
 		switch(traitor_mob.client.prefs.uplink_spawn_loc)
@@ -314,16 +315,13 @@
 					uplink_loc = P
 			if(UPLINK_PEN)
 				uplink_loc = P
-				if(!uplink_loc)
-					uplink_loc = PDA
-				if(!uplink_loc)
-					uplink_loc = R
+			if(UPLINK_IMPLANT)
+				implant = TRUE
 
-	if (!uplink_loc)
-		if(!silent)
-			to_chat(traitor_mob, "<span class='boldnotice'>Unfortunately, [employer] wasn't able to get you an Uplink.</span>")
-		. = 0
-	else
+	if(!uplink_loc) // We've looked everywhere, let's just implant you
+		implant = TRUE
+
+	if (!implant)
 		. = uplink_loc
 		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, gamemode, telecrystals)
 		if(!U)
@@ -341,6 +339,14 @@
 			uplink_owner.antag_memory += U.unlock_note + "<br>"
 		else
 			traitor_mob.mind.store_memory(U.unlock_note)
+	else
+		var/obj/item/implant/uplink/starting/I = new(traitor_mob)
+		I.implant(traitor_mob, null, silent = TRUE)
+		if(!silent)
+			to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly implanted you with a Syndicate Uplink (although uplink implants cost valuable TC, so you will have slightly less). Simply trigger the uplink to access it.</span>")
+		return I
+
+
 
 //Link a new mobs mind to the creator of said mob. They will join any team they are currently on, and will only switch teams when their creator does.
 
@@ -550,7 +556,7 @@
 		switch(href_list["common"])
 			if("undress")
 				for(var/obj/item/W in current)
-					current.dropItemToGround(W, TRUE) //The 1 forces all items to drop, since this is an admin undress.
+					current.dropItemToGround(W, TRUE) //The TRUE forces all items to drop, since this is an admin undress.
 			if("takeuplink")
 				take_uplink()
 				memory = null//Remove any memory they may have had.

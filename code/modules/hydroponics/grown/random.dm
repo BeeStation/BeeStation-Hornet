@@ -27,6 +27,7 @@
 	desc = "What could this even be?"
 	icon_state = "crunchy"
 	bitesize_mod = 2
+	discovery_points = 300
 
 /obj/item/reagent_containers/food/snacks/grown/random/Initialize()
 	. = ..()

@@ -21,6 +21,7 @@
 	production_animation = "circuit_imprinter_ani"
 	allowed_buildtypes = IMPRINTER
 	consoleless_interface = TRUE
+	requires_console = FALSE
 
 /obj/machinery/rnd/production/circuit_imprinter/disconnect_console()
 	linked_console.linked_imprinter = null

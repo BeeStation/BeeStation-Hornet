@@ -20,12 +20,21 @@
 	var/looping = FALSE			//TRUE if the affect repeatedly applied an affect to the thing above it
 	var/living_only = TRUE		//FALSE if the rune can affect non-living atoms
 
+/obj/structure/destructible/clockwork/sigil/Initialize()
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_EXITED = .proc/on_exited,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/structure/destructible/clockwork/sigil/attack_hand(mob/user)
 	. = ..()
 	dispell()
 
-/obj/structure/destructible/clockwork/sigil/Crossed(atom/movable/AM, oldloc)
-	. = ..()
+/obj/structure/destructible/clockwork/sigil/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
 	if(!isliving(AM) && living_only)
 		return
 	if(currently_affecting)
@@ -40,8 +49,9 @@
 	animate(src, color=invokation_color, alpha=SIGIL_INVOKATION_ALPHA, effect_stand_time)
 	active_timer = addtimer(CALLBACK(src, .proc/apply_effects, AM), effect_stand_time, TIMER_UNIQUE | TIMER_STOPPABLE)
 
-/obj/structure/destructible/clockwork/sigil/Uncrossed(atom/movable/AM)
-	. = ..()
+/obj/structure/destructible/clockwork/sigil/proc/on_exited(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
 	if(currently_affecting != AM)
 		return
 	currently_affecting = null
@@ -55,7 +65,7 @@
 	var/mob/living/M = AM
 	if(!istype(M))
 		return FALSE
-	var/amc = M.anti_magic_check()
+	var/amc = M.anti_magic_check(holy = TRUE)
 	if(amc)
 		return FALSE
 	return TRUE

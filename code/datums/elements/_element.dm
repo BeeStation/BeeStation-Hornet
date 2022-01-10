@@ -12,15 +12,14 @@
 		return ELEMENT_INCOMPATIBLE
 	SEND_SIGNAL(target, COMSIG_ELEMENT_ATTACH, src)
 	if(element_flags & ELEMENT_DETACH)
-		/** The override = TRUE here is to suppress runtimes happening because of the blood decal element
-		  * being applied multiple times to a same thing every time there is some bloody attacks,
-		  * which happens due to ludicrous use of check_blood() in forensics.dm,
-		  * and how elements system is design and coded; there isn't exactly a not-hacky
-		  * way to determine whether a datum has this particular element before adding it...
-		  */
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/Detach, override = TRUE)
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/OnTargetDelete, override = TRUE)
 
-/datum/element/proc/Detach(datum/source, force)
+/datum/element/proc/OnTargetDelete(datum/source, force)
+	SIGNAL_HANDLER
+	Detach(source)
+
+/// Deactivates the functionality defines by the element on the given datum
+/datum/element/proc/Detach(datum/source, ...)
 	SIGNAL_HANDLER
 
 	SEND_SIGNAL(source, COMSIG_ELEMENT_DETACH, src)
@@ -37,6 +36,8 @@
 
 /// Finds the singleton for the element type given and attaches it to src
 /datum/proc/_AddElement(list/arguments)
+	if(QDELING(src))
+		CRASH("We just tried to add an element to a qdeleted datum, something is fucked")
 	var/datum/element/ele = SSdcs.GetElement(arguments)
 	arguments[1] = src
 	if(ele.Attach(arglist(arguments)) == ELEMENT_INCOMPATIBLE)
@@ -48,4 +49,8 @@
   */
 /datum/proc/_RemoveElement(list/arguments)
 	var/datum/element/ele = SSdcs.GetElement(arguments)
-	ele.Detach(src)
+	if(ele.element_flags & ELEMENT_COMPLEX_DETACH)
+		arguments[1] = src
+		ele.Detach(arglist(arguments))
+	else
+		ele.Detach(src)

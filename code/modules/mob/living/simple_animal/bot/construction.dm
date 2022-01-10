@@ -52,6 +52,24 @@
 		qdel(W)
 		qdel(src)
 
+/obj/item/bot_assembly/roomba
+	name = "incomplete roomba frame"
+	desc = "It's a roomba with a sensor attached"
+	icon_state = "roomba_proxy"
+	throwforce = 5
+	created_name = "Roomba"
+
+/obj/item/bot_assembly/roomba/attackby(obj/item/W, mob/user, params)
+	..()
+	if(istype(W, /obj/item/bodypart/l_arm/robot) || istype(W, /obj/item/bodypart/r_arm/robot))
+		if(!can_finish_build(W, user))
+			return
+		var/mob/living/simple_animal/bot/cleanbot/roomba/A = new(drop_location())
+		A.name = created_name
+		A.robot_arm = W.type
+		to_chat(user, "<span class='notice'>You add [W] to [src]. Beep boop!</span>")
+		qdel(W)
+		qdel(src)
 
 //Edbot Assembly
 /obj/item/bot_assembly/ed209

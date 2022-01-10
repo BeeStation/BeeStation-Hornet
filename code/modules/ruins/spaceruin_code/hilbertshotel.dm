@@ -222,10 +222,10 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     explosion_block = INFINITY
     var/obj/item/hilbertshotel/parentSphere
 
-/turf/open/space/bluespace/Entered(atom/movable/A)
+/turf/open/space/bluespace/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
     . = ..()
-    A.forceMove(get_turf(parentSphere))
-    do_sparks(3, FALSE, get_turf(A))
+    arrived.forceMove(get_turf(parentSphere))
+    do_sparks(3, FALSE, get_turf(arrived))
 
 /turf/closed/indestructible/hoteldoor
     name = "Hotel Door"
@@ -327,11 +327,11 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     else
         return ..(T)
 
-/area/hilbertshotel/Entered(atom/movable/AM)
+/area/hilbertshotel/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
     . = ..()
-    if(istype(AM, /obj/item/hilbertshotel))
-        relocate(AM)
-    var/list/obj/item/hilbertshotel/hotels = AM.GetAllContents(/obj/item/hilbertshotel)
+    if(istype(arrived, /obj/item/hilbertshotel))
+        relocate(arrived)
+    var/list/obj/item/hilbertshotel/hotels = arrived.GetAllContents(/obj/item/hilbertshotel)
     for(var/obj/item/hilbertshotel/H in hotels)
         if(parentSphere == H)
             relocate(H)
@@ -354,10 +354,10 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
         to_chat(M, "<span class='danger'>[H] almost implodes in upon itself, but quickly rebounds, shooting off into a random point in space!</span>")
     H.forceMove(targetturf)
 
-/area/hilbertshotel/Exited(atom/movable/AM)
+/area/hilbertshotel/Exited(atom/movable/gone, direction)
     . = ..()
-    if(ismob(AM))
-        var/mob/M = AM
+    if(ismob(gone))
+        var/mob/M = gone
         if(M.mind)
             var/stillPopulated = FALSE
             var/list/currentLivingMobs = GetAllContents(/mob/living) //Got to catch anyone hiding in anything
@@ -406,16 +406,16 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     var/roomNumber
     var/obj/item/hilbertshotel/parentSphere
 
-/obj/item/abstracthotelstorage/Entered(atom/movable/AM, atom/oldLoc)
+/obj/item/abstracthotelstorage/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
     . = ..()
-    if(ismob(AM))
-        var/mob/M = AM
+    if(ismob(arrived))
+        var/mob/M = arrived
         M.notransform = TRUE
 
-/obj/item/abstracthotelstorage/Exited(atom/movable/AM, atom/newLoc)
+/obj/item/abstracthotelstorage/Exited(atom/movable/gone, direction)
     . = ..()
-    if(ismob(AM))
-        var/mob/M = AM
+    if(ismob(gone))
+        var/mob/M = gone
         M.notransform = FALSE
 
 //Space Ruin stuff

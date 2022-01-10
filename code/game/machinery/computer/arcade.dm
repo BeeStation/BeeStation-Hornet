@@ -94,7 +94,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	var/atom/movable/the_prize
 	if(prob(0.0001)) //1 in a million
 		the_prize = new /obj/item/gun/energy/pulse/prize(drop_location())
-		SSmedals.UnlockMedal(MEDAL_PULSE, user.client)
+		user.client.give_award(/datum/award/achievement/misc/pulse, user)
 	else
 		the_prize = new prizeselect(drop_location())
 

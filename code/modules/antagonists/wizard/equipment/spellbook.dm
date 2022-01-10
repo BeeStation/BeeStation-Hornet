@@ -265,6 +265,10 @@
 	category = "Defensive"
 	cost = 1
 
+/datum/spellbook_entry/bees
+	name = "Lesser Summon Bees"
+	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/creature/bee
+	category = "Defensive"
 
 /datum/spellbook_entry/item
 	name = "Buy Item"
@@ -438,7 +442,7 @@
 	cost = 1
 
 /// How much threat we need to let these rituals happen on dynamic
-#define MINIMUM_THREAT_FOR_RITUALS 100
+#define MINIMUM_THREAT_FOR_RITUALS 85
 
 /datum/spellbook_entry/summon
 	name = "Summon Stuff"
@@ -738,6 +742,7 @@
 					if(E.limit)
 						E.limit--
 					uses -= E.cost
+					log_game("[initial(E.name)] purchased by [H.ckey]/[H.name] the [H.job] for [E.cost] SP, [uses] SP remaining.")
 		else if(href_list["refund"])
 			E = entries[text2num(href_list["refund"])]
 			if(E?.refundable)

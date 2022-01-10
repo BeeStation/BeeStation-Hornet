@@ -61,26 +61,20 @@ STI KALY - blind
 			if(!istype(H.head, /obj/item/clothing/head/wizard))
 				if(!H.dropItemToGround(H.head))
 					qdel(H.head)
-				H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(H), ITEM_SLOT_HEAD)
+				H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/fake(H), ITEM_SLOT_HEAD)
 			return
 		if(prob(chance))
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
 				if(!H.dropItemToGround(H.wear_suit))
 					qdel(H.wear_suit)
-				H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(H), ITEM_SLOT_OCLOTHING)
+				H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/fake(H), ITEM_SLOT_OCLOTHING)
 			return
 		if(prob(chance))
-			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal/magic))
+			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
 				if(!H.dropItemToGround(H.shoes))
 					qdel(H.shoes)
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal/magic(H), ITEM_SLOT_FEET)
+			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), ITEM_SLOT_FEET)
 			return
-	else
-		var/mob/living/carbon/H = affected_mob
-		if(prob(chance))
-			var/obj/item/staff/S = new(H)
-			if(!H.put_in_hands(S))
-				qdel(S)
 
 
 /datum/disease/wizarditis/proc/teleport()

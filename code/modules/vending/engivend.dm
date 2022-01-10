@@ -8,7 +8,6 @@
 	products = list(/obj/item/clothing/glasses/meson/engine = 2,
 					/obj/item/clothing/glasses/welding = 3,
 					/obj/item/multitool = 4,
-					/obj/item/construction/rcd/loaded = 3,
 					/obj/item/grenade/chem_grenade/smart_metal_foam = 10,
 					/obj/item/geiger_counter = 5,
 					/obj/item/stock_parts/cell/high = 10,

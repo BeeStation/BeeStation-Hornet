@@ -664,6 +664,7 @@
 	name = "emergency space helmet"
 	icon_state = "syndicate-helm-orange"
 	item_state = "syndicate-helm-orange"
+	flash_protect = 0
 
 /obj/item/clothing/suit/space/orange
 	name = "emergency space suit"
