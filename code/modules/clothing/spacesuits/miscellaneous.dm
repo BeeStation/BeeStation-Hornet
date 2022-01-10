@@ -560,7 +560,7 @@ Contains:
 /obj/item/clothing/suit/space/hardsuit/ert/erpd
 	name = "grunt suit"
 	desc = "An iconic blue and silver hardsuit."
-	icon = 'icons/mob/erpd.dmi'
+	icon = 'icons/mob/idpd.dmi'
 	icon_state = "idpd_grunt_suit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/erpd
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
@@ -573,7 +573,7 @@ Contains:
 /obj/item/clothing/head/helmet/space/hardsuit/ert/erpd
 	name = "grunt helmet"
 	desc = "a standard-issue E.R.P.D helmet"
-	icon = 'icons/mob/erpd.dmi'
+	icon = 'icons/mob/idpd.dmi'
 	icon_state = "idpd_grunt_helmet"
 	armor = list("melee" = 50, "bullet" = 35, "laser" = 35, "energy" = 35, "bomb" = 35, "bio" = 100, "rad" = 100, "fire" = 65, "acid" = 65, "stamina" = 55)
 	strip_delay = 130
