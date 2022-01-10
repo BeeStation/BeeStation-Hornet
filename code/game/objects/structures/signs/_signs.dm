@@ -32,7 +32,9 @@
 				var/scaled = 100/(100+((size*0.25)*100))
 				M.Scale(scaled)
 				animate(src, transform = M, time = 5)
-				size++
+				size = min(size+1, 10)
+				spawn(2 MINUTES) //Slowly resets the size back to normal
+					size = max(size-1, 1)
 //MonkeStation Edit End
 
 /obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

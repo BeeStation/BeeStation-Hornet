@@ -32,7 +32,12 @@
 	/obj/structure/falsewall/reinforced,
 	/turf/closed/wall/rust,
 	/turf/closed/wall/r_wall/rust,
-	/turf/closed/wall/clockwork)
+	/turf/closed/wall/clockwork,
+	//MONKESTATION EDIT BEGIN - WINDOW AND WALL RESPRITE
+	/obj/structure/window/fulltile,
+	/obj/structure/window/plasma/fulltile,
+	/obj/structure/window/reinforced/fulltile)
+	//MONKESTATION EDIT END
 	smooth = SMOOTH_TRUE
 
 	var/list/dent_decals

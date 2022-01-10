@@ -3467,6 +3467,8 @@
 #include "monkestation\code\game\objects\effects\misc.dm"
 #include "monkestation\code\game\objects\items\stickables.dm"
 #include "monkestation\code\modules\admin\verbs\testdummy.dm"
+#include "monkestation\code\modules\aesthetics\obj\structures\windows.dm"
+#include "monkestation\code\modules\aesthetics\turf\walls\walls.dm"
 #include "monkestation\code\modules\cargo\packs.dm"
 #include "monkestation\code\modules\clothing\head\misc_special.dm"
 #include "monkestation\code\modules\clothing\masks\miscellaneous.dm"
