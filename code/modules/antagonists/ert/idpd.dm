@@ -137,7 +137,7 @@
 		chosen_one.orbit(erpd_portal)
 
 	priority_announce("FLÄSHYN, ÖHU!", "Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES)
-	playsound(spawnpoint, 'sound/misc/erpd_portal.ogg', 100, 1)
+	playsound(spawnpoint, 'sound/misc/idpd_portal.ogg', 100, 1)
 	addtimer(CALLBACK(src, .proc/spawnIDPD, chosen, ertemplate, erpd_portal, ert_team, missionobj), 20 SECONDS)
 	return TRUE
 
