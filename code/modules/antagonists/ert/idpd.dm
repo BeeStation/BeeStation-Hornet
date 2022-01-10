@@ -113,7 +113,7 @@
 
 /obj/effect/forcefield/erpd
 
-/obj/effect/forcefield/erpd/CanPass(atom/movable/mover, turf/target)
+/obj/effect/forcefield/erpd/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()
 	if(isliving(mover))
 		return FALSE //None shall pass
