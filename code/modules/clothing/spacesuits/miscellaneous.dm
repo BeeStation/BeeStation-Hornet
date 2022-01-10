@@ -577,7 +577,6 @@ Contains:
 	icon_state = "idpd_grunt_helmet"
 	armor = list("melee" = 50, "bullet" = 35, "laser" = 35, "energy" = 35, "bomb" = 35, "bio" = 100, "rad" = 100, "fire" = 65, "acid" = 65, "stamina" = 55)
 	strip_delay = 130
-	brightness_on = 7
 	resistance_flags = FIRE_PROOF
 
 ////Chief

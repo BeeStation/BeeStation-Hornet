@@ -114,7 +114,9 @@
 /obj/effect/forcefield/erpd
 
 /obj/effect/forcefield/erpd/CanPass(atom/movable/mover, turf/target)
-	return FALSE //None shall pass
+	. = ..()
+	if(isliving(mover))
+		return FALSE //None shall pass
 
 ////erpd Creation, handled by one_click_antag.dm
 /datum/admins/proc/attemptMakeERPD(var/list/mob/dead/observer/candidates, var/num_agents, var/datum/ert/ertemplate, var/datum/team/ert/ert_team, var/datum/objective/missionobj) //They don't start at centcom (fuck you linter)
@@ -129,18 +131,18 @@
 	var/turf/spawnpoint = get_turf(pick(GLOB.blobstart)) //Ensures the portal spawns on station... for the most part.
 	var/obj/effect/portal/erpd_portal = new(spawnpoint) //"Fake" portal spawns 20 seconds before the IDPD spawns in
 
-	message_admins("E.R.P.D portal spawned at [ADMIN_VERBOSEJMP(idpd_portal)]")
+	message_admins("E.R.P.D portal spawned at [ADMIN_VERBOSEJMP(erpd_portal)]")
 
 	for(var/mob/dead/observer/chosen_one in chosen)
-		chosen_one.orbit(idpd_portal)
+		chosen_one.orbit(erpd_portal)
 
 	priority_announce("FLÄSHYN, ÖHU!", "Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES)
 	playsound(spawnpoint, 'sound/misc/erpd_portal.ogg', 100, 1)
-	addtimer(CALLBACK(src, .proc/spawnIDPD, chosen, ertemplate, idpd_portal, ert_team, missionobj), 20 SECONDS)
+	addtimer(CALLBACK(src, .proc/spawnIDPD, chosen, ertemplate, erpd_portal, ert_team, missionobj), 20 SECONDS)
 	return TRUE
 
 /datum/admins/proc/spawnIDPD(var/list/mob/dead/observer/chosen, var/datum/ert/ertemplate, var/obj/effect/portal/erpd_portal, var/datum/team/ert/ert_team, var/datum/objective/missionobj)
-	var/spawnloc = idpd_portal.loc
+	var/spawnloc = erpd_portal.loc
 	while(chosen.len)
 		var/mob/dead/observer/newguy = pick_n_take(chosen)
 		if(!newguy.client)
@@ -170,4 +172,4 @@
 
 	message_admins("[ertemplate.polldesc] has spawned with the mission: [ertemplate.mission]")
 
-	qdel(idpd_portal)
+	qdel(erpd_portal)
