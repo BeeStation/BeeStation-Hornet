@@ -1,6 +1,0 @@
-author: Hardly
-delete-after: true
-changes:
-  - tweak: Pubbystation's launch room now has intercom.
-  - tweak: Moved Deltastation's intercom, it should be able to broadcast doppler results
-      now.
