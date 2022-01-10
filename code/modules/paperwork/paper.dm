@@ -401,8 +401,15 @@
 	// Handle stamping items.
 	if(writing_stats["interaction_mode"] == MODE_STAMPING)
 		to_chat(user, span_notice("You ready your stamp over the paper! "))
-		ui_interact(user)
-		return
+		if(!ui_interact(user))
+			//The paper window is 400x500
+			stamp(rand(0, 400), rand(0, 500), rand(0, 360), P.icon_state)
+			user.visible_message(span_notice("[user] blindly stamps [src] with \the [P.name]!"), span_notice("You stamp [src] with \the [P.name] the best you can!"))
+
+		return /// Normaly you just stamp, you don't need to read the thing
+	else
+		// cut paper?  the sky is the limit!
+		ui_interact(user) // The other ui will be created with just read mode outside of this
 
 	ui_interact(user)
 	return ..()
