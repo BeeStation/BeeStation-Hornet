@@ -2,11 +2,8 @@
 /datum/component/larryknife
     dupe_mode = COMPONENT_DUPE_ALLOWED
     var/knife_damage
-    var/cooldown
 
-    var/static/list/default_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/knife_crossed,
-	)
+    var/static/list/default_connections = list(COMSIG_ATOM_ENTERED = .proc/knife_crossed)
 
 /datum/component/larryknife/Initialize(damage = 0)
     knife_damage = damage
@@ -20,7 +17,7 @@
 		AddComponent(/datum/component/connect_loc_behalf, parent, default_connections)
 
 /datum/component/larryknife/proc/stab(mob/living/carbon/C)
-    if(istype(C) && cooldown <= world.time)
+    if(istype(C) && !TIMER_COOLDOWN_CHECK(src, COOLDOWN_LARRYKNIFE))
         var/atom/movable/P = parent
         var/leg
         if(prob(50))
@@ -30,7 +27,7 @@
         C.apply_damage(knife_damage, BRUTE, leg)
         P.visible_message("<span class='warning'>[C.name] is stabbed in the leg by [P.name].</span>")
         playsound(get_turf(P), 'sound/weapons/slice.ogg', 50, 1)
-        cooldown = (world.time + 8) //Knife cooldown is equal to default unarmed attack speed
+        TIMER_COOLDOWN_START(src, COOLDOWN_LARRYKNIFE, 2 SECONDS)
 
 /datum/component/larryknife/proc/knife_crossed(datum/source, atom/movable/M, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER

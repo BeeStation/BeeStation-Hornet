@@ -322,7 +322,7 @@
 	..()
 	icon_state = "larry[on]"
 	bot_core.updateUsrDialog()
-	
+
 /mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A)
 	if(istype(A, /obj/effect/decal/cleanable))
 		anchored = TRUE
@@ -382,15 +382,13 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/larry/attackby(obj/item/I, mob/living/user)
-	if(I) //Does the arg exist?
-		if(istype(I, /obj/item/kitchen/knife)) //Is it a knife?
-			if(!knife)
-				var/obj/item/kitchen/knife/newknife = I
-				knife = newknife
-				newknife.forceMove(src)
-				message_admins("[user] attached a [newknife.name] to [src]") //This should definitely be a notified thing.
-				src.AddComponent(/datum/component/larryknife, knife.force)
-				update_icons()
+	if(istype(I, /obj/item/kitchen/knife) && !knife) //Is it a knife?
+		var/obj/item/kitchen/knife/newknife = I
+		knife = newknife
+		newknife.forceMove(src)
+		message_admins("[user] attached a [newknife.name] to [src]") //This should definitely be a notified thing.
+		AddComponent(/datum/component/larryknife, knife.force)
+		update_icons()
 	else
 		return ..()
 
@@ -411,8 +409,7 @@
 
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
-	if(knife)
-		if(prob(50))
+	if(knife && prob(50))
 			new knife(Tsec)
 
 	do_sparks(3, TRUE, src)
