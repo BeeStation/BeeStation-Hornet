@@ -973,7 +973,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	prefixes = list("Gray ", "Amped ", "Nervous ")
 	var/clearcc = FALSE
 	threshold_desc = "<b>Resistance 8:</b>The virus causes an even greater rate of nutriment loss, able to cause starvation, but its energy gain greatly increases<br>\
-					<b>Stage Speed 8:</b>The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness." 
+					<b>Stage Speed 8:</b>The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness, but greater overall energy and the ability to shake off stuns faster." 
 
 /datum/symptom/jitters/severityset(datum/disease/advance/A)
 	. = ..()
