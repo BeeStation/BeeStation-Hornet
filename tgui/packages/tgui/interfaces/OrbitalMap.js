@@ -68,7 +68,7 @@ export const OrbitalMap = (props, context) => {
     <Window
       width={1136}
       height={770}>
-      <Window.Content>
+      <Window.Content fitted>
         <Flex height="100%">
           <Flex.Item class="OrbitalMap__radar" grow id="radar">
             {interdictionTime ? (
@@ -91,7 +91,7 @@ export const OrbitalMap = (props, context) => {
             )}
           </Flex.Item>
           <Flex.Item class="OrbitalMap__panel">
-            <ScrollableBox overflowY="scroll" height="100%">
+            <Section fill scrollable>
               <Section title="Orbital Body Tracking">
                 <Box bold>
                   Tracking
@@ -171,7 +171,7 @@ export const OrbitalMap = (props, context) => {
                       </NoticeBox>
                     ))}
               </Section>
-            </ScrollableBox>
+            </Section>
           </Flex.Item>
         </Flex>
       </Window.Content>
