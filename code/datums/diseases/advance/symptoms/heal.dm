@@ -674,7 +674,6 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	var/mob/living/carbon/human/H = A.affected_mob
 	switch(A.stage)
 		if(1 to 4)
 			if(prob(5))
@@ -694,9 +693,11 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				bloodpoints += max(0, grabbedblood)
 			for(var/I in 1 to power)//power doesnt increase efficiency, just usage. 
 				if(bloodpoints)
-					if(H.bleed_rate >= 2 && bruteheal && bloodpoints)
-						bloodpoints -= 1
-						H.bleed_rate = max(0, (H.bleed_rate - 2))
+					if(ishuman(M))
+						var/mob/living/carbon/human/H = M
+						if(H.bleed_rate >= 2 && bruteheal && bloodpoints)
+							bloodpoints -= 1
+							H.bleed_rate = max(0, (H.bleed_rate - 2))
 					if(M.blood_volume < BLOOD_VOLUME_NORMAL && M.get_blood_id() == /datum/reagent/blood) //bloodloss is prioritized over healing brute
 						bloodpoints -= 1
 						M.blood_volume = max((M.blood_volume + 3 * power), BLOOD_VOLUME_NORMAL) //bloodpoints are valued at 4 units of blood volume per point, so this is diminished
@@ -772,20 +773,20 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 								playsound(bloodbag.loc, 'sound/magic/exit_blood.ogg', 50, 1)
 								return 0 
 			else 
-				var/list/cantidates = list()
+				var/list/candidates = list()
 				for(var/mob/living/carbon/human/C in ohearers(min(bloodpoints/4, possibledist), H))
 					if(NOBLOOD in C.dna.species.species_traits)
 						continue
 					if(C.stat && C.blood_volume && C.get_blood_id() == H.get_blood_id())
-						cantidates += C
-				for(var/prospect in cantidates)
-					cantidates[prospect] = 1
+						candidates += C
+				for(var/prospect in candidates)
+					candidates[prospect] = 1
 					if(ishuman(prospect))
-						var/mob/living/carbon/human/cantidate = prospect
-						cantidates[prospect] += (cantidate.stat - 1)
-						cantidates[prospect] += (3 - get_dist(cantidate, H)) * 2
-						cantidates[prospect] += round(cantidate.blood_volume / 150)
-				bloodbag = pickweight(cantidates) //dont return here
+						var/mob/living/carbon/human/candidate = prospect
+						candidates[prospect] += (candidate.stat - 1)
+						candidates[prospect] += (3 - get_dist(candidate, H)) * 2
+						candidates[prospect] += round(candidate.blood_volume / 150)
+				bloodbag = pickweight(candidates) //dont return here
 	
 	if(bloodpoints >= maxbloodpoints)
 		return 0

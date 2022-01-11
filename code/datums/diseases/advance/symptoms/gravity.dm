@@ -92,6 +92,6 @@
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	if(power >= 6)
+	if(power >= 6 && M)
 		M.visible_message("<span class='userdanger'>[M]'s body contorts, compresses, and collapses in on itself, before exploding into a shower of gore!</span>")
 		M.gib()

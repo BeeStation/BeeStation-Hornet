@@ -35,6 +35,8 @@
 /datum/symptom/toxoplasmosis/Activate(datum/disease/advance/A)
 	if(!..())
 		return
+	if(!ishuman(A.affected_mob))
+		return
 	var/mob/living/carbon/human/M = A.affected_mob
 	if(A.stage >= 4)
 		if(uwu && prob(40))

@@ -381,9 +381,9 @@ Thresholds
 		power = 1.4  //the typical +100% is waaaay too strong here when the symptom is stacked. +40% is sufficient
 
 /datum/symptom/spiked/Activate(var/datum/disease/advance/A)
-	var/mob/living/carbon/human/H = A.affected_mob
 	if(!..())
 		return
+	var/mob/living/carbon/H = A.affected_mob
 	switch(A.stage)
 		if(1)
 			if(prob(base_message_chance))
