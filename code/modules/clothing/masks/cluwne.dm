@@ -51,11 +51,11 @@
     return SPEECH_MESSAGE
 
 /obj/item/clothing/mask/cluwne/equipped(mob/user, slot)
-    if(!ishuman(user))
+    if(!user.has_dna())
         return
     if(slot == ITEM_SLOT_MASK)
-        var/mob/living/carbon/human/H = user
-        H.dna.add_mutation(CLUWNEMUT)
+        var/mob/living/carbon/C = user
+        C.dna.add_mutation(CLUWNEMUT)
     return
 
 /obj/item/clothing/mask/cluwne/happy_cluwne

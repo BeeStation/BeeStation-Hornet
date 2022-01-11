@@ -56,7 +56,7 @@
 		copy_mutation(copymut)
 
 /datum/mutation/human/proc/on_acquiring(mob/living/carbon/H)
-	if(!H || !istype(H) || H.stat == DEAD || !has_dna(H) || (src in H.dna.mutations))
+	if(!H || !istype(H) || H.stat == DEAD || !H.has_dna() || (src in H.dna.mutations))
 		return TRUE
 	if(species_allowed.len && !species_allowed.Find(H.dna.species.id))
 		return TRUE
@@ -124,9 +124,8 @@
 	return 1
 
 /mob/living/carbon/proc/update_mutations_overlay()
-	return
-
-/mob/living/carbon/human/update_mutations_overlay()
+	if(!has_dna())
+		return
 	for(var/datum/mutation/human/CM in dna.mutations)
 		if(CM.species_allowed.len && !CM.species_allowed.Find(dna.species.id))
 			dna.force_lose(CM) //shouldn't have that mutation at all

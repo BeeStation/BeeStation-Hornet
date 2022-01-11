@@ -5,11 +5,10 @@
 	button_icon_state = "chameleon_skin"
 	dna_cost = 1
 	chemical_cost = 0
-	req_human = 1
 
 /datum/action/changeling/chameleon_skin/sting_action(mob/user)
-	var/mob/living/carbon/human/H = user //SHOULD always be human, because req_human = 1
-	if(!istype(H)) // req_human could be done in can_sting stuff.
+	var/mob/living/carbon/H = user
+	if(!H.has_dna())
 		return
 	..()
 	if(H.dna.get_mutation(CHAMELEON))

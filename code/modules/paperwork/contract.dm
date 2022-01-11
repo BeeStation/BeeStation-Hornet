@@ -268,7 +268,7 @@
 	update_text("your name", blood)
 
 /obj/item/paper/contract/infernal/power/fulfillContract(mob/living/carbon/human/user = target.current, blood = FALSE)
-	if(!user.dna)
+	if(!user.has_dna())
 		return -1
 	user.dna.add_mutation(HULK)
 	var/obj/item/organ/regenerative_core/organ = new /obj/item/organ/regenerative_core
