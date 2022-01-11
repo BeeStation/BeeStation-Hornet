@@ -12018,7 +12018,8 @@
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 9
 	},
-/obj/structure/closet/l3closet,
+/obj/vehicle/ridden/wheelchair,
+/obj/machinery/iv_drip,
 /turf/open/floor/plasteel/grid,
 /area/medical/medbay/aft)
 "cJw" = (
@@ -12792,8 +12793,6 @@
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 6
 	},
-/obj/structure/table,
-/obj/machinery/cell_charger,
 /turf/open/floor/plasteel/grid,
 /area/medical/medbay/aft)
 "cTa" = (
@@ -13604,7 +13603,8 @@
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 10
 	},
-/obj/machinery/iv_drip,
+/obj/structure/table,
+/obj/machinery/cell_charger,
 /turf/open/floor/plasteel/grid,
 /area/medical/medbay/aft)
 "dcs" = (
@@ -19961,6 +19961,9 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
+/obj/item/storage/pod{
+	pixel_x = 32
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
 "ewX" = (
@@ -44213,6 +44216,12 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison/asteroid/arrival)
+"kkN" = (
+/obj/item/stack/ore/slag{
+	desc = "Ssslag."
+	},
+/turf/open/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "kkO" = (
 /obj/machinery/camera{
 	c_tag = "Science - Fore bow";
@@ -55633,7 +55642,8 @@
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 1
 	},
-/obj/structure/closet/l3closet,
+/obj/vehicle/ridden/wheelchair,
+/obj/machinery/iv_drip,
 /turf/open/floor/plasteel/grid,
 /area/medical/medbay/aft)
 "mUP" = (
@@ -58305,6 +58315,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 9
+	},
+/obj/item/storage/pod{
+	pixel_x = 6;
+	pixel_y = -28
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
@@ -100077,6 +100091,9 @@
 /obj/effect/turf_decal/tile/brown/tile_marquee{
 	dir = 1
 	},
+/obj/item/storage/pod{
+	pixel_x = 32
+	},
 /turf/open/floor/plasteel/checker,
 /area/quartermaster/storage)
 "xIV" = (
@@ -125248,7 +125265,7 @@ csJ
 csJ
 csJ
 csJ
-gay
+gKH
 nnx
 nnx
 nnx
@@ -132209,7 +132226,7 @@ soQ
 soQ
 soQ
 soQ
-abN
+kkN
 dyJ
 abN
 nnx
