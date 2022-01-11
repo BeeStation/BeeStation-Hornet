@@ -400,7 +400,6 @@
 /mob/living/simple_animal/bot/cleanbot/larry/explode()
 	on = FALSE
 	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
-	SEND_SIGNAL(src, COMSIG_LARRY_DESTROY)
 	var/atom/Tsec = drop_location()
 
 	new /obj/item/larryframe(Tsec)
@@ -410,7 +409,7 @@
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
 	if(knife && prob(50))
-			new knife(Tsec)
+		new knife(Tsec)
 
 	do_sparks(3, TRUE, src)
 	qdel(src)
