@@ -23728,6 +23728,7 @@
 /obj/machinery/ai_slipper{
 	uses = 10
 	},
+/obj/effect/landmark/start/ai/secondary,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/ai_monitored/turret_protected/ai)
 "aVr" = (
@@ -34877,7 +34878,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "bqm" = (
-/obj/machinery/ai/data_core/primary,
+/mob/living/silicon/ai,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/ai_monitored/turret_protected/ai)
 "bqn" = (
@@ -78866,6 +78867,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start/ai/secondary,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/ai_monitored/turret_protected/ai)
 "gQZ" = (
@@ -80537,10 +80539,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
-"mHL" = (
-/obj/machinery/status_display/ai_core,
-/turf/open/floor/circuit/green/telecomms/mainframe,
-/area/ai_monitored/turret_protected/ai)
 "mIf" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -81501,12 +81499,6 @@
 /obj/item/stock_parts/micro_laser,
 /turf/open/floor/plasteel,
 /area/science/lab)
-"qfU" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark/telecomms,
-/area/ai_monitored/turret_protected/ai)
 "qhe" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -138183,9 +138175,9 @@ aTV
 aVn
 oev
 uAp
-bqm
-mHL
-qfU
+aZV
+bvf
+byx
 byx
 bgk
 bio
@@ -138439,8 +138431,8 @@ aRy
 aTW
 bjS
 aWO
-byx
-bvf
+uAp
+bqm
 bvf
 byx
 byx
@@ -138698,8 +138690,8 @@ aVp
 byx
 uAp
 aZV
-aZV
-qfU
+bvf
+byx
 byx
 oev
 byx
