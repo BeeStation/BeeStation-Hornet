@@ -5,7 +5,7 @@
 //	You do not need to raise this if you are adding new values that have sane defaults.
 //	Only raise this value when changing the meaning/format/name/layout of an existing value
 //	where you would want the updater procs below to run
-#define SAVEFILE_VERSION_MAX	35
+#define SAVEFILE_VERSION_MAX	36
 
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
@@ -69,6 +69,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		S.dir.Remove("overhead_chat")
 	if(current_version < 35)
 		see_balloon_alerts = BALLOON_ALERT_ALWAYS
+	if(current_version < 36)
+		key_bindings = S["key_bindings"]
+		//the keybindings are defined as "key" = list("action") in the savefile (for multiple actions -> 1 key)
+		//so im doing that
+		key_bindings += list("W" = list("move_north"), "A" = list("move_west"), "S" = list("move_south"), "D" = list("move_east"))
+		WRITE_FILE(S["key_bindings"], key_bindings)
 	return
 
 /datum/preferences/proc/update_character(current_version, savefile/S)
