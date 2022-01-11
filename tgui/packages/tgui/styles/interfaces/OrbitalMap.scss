@@ -8,6 +8,10 @@
   overflow-y: hidden;
 }
 
+.OrbitalMap__radar * {
+  overflow: hidden;
+}
+
 .OrbitalMap__panel {
   position: absolute;
   right: 0%;
