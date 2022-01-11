@@ -346,7 +346,7 @@
 
 // /datum/song signals
 #define COMSIG_SONG_START 	"song_start"						//sent to the instrument when a song starts playing
-#define COMSIG_SONG_END		"song_end"	
+#define COMSIG_SONG_END		"song_end"
 
 /*******Component Specific Signals*******/
 //Janitor
@@ -539,5 +539,3 @@
 ///Called when the movable tries to toggle its dynamic light LIGHTING_ON status, from base atom/movable/lighting_overlay_toggle_on(): (new_state)
 #define COMSIG_MOVABLE_LIGHT_OVERLAY_TOGGLE_ON "movable_light_overlay_toggle_on"
 
-//Larry_Destroy, for when a Larry explodes
-#define COMSIG_LARRY_DESTROY	 "larry_destroy"
