@@ -55,6 +55,10 @@
 		O.dna.mutation_index = dna.mutation_index
 		O.dna.default_mutation_genes = dna.default_mutation_genes
 		O.dna.set_se(1, GET_INITIALIZED_MUTATION(RACEMUT))
+		for(var/datum/mutation/human/HM as() in dna.mutations)
+			if(HM.type != RACEMUT)
+				O.dna.force_give(new HM.type(HM.class, copymut=HM))
+		O.domutcheck()
 
 	if(suiciding)
 		O.set_suicide(suiciding)
@@ -381,6 +385,9 @@
 		O.dna.mutation_index = dna.mutation_index
 		O.dna.default_mutation_genes = dna.default_mutation_genes
 		O.dna.set_se(0, GET_INITIALIZED_MUTATION(RACEMUT))
+		for(var/datum/mutation/human/HM as() in dna.mutations)
+			if(HM.type != RACEMUT)
+				O.dna.force_give(new HM.type(HM.class, copymut=HM))
 		O.domutcheck()
 
 	if(suiciding)
