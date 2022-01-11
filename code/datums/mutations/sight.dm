@@ -5,12 +5,12 @@
 	quality = MINOR_NEGATIVE
 	text_gain_indication = "<span class='danger'>You can't see very well.</span>"
 
-/datum/mutation/human/nearsight/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/human/nearsight/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	owner.become_nearsighted(GENETIC_MUTATION)
 
-/datum/mutation/human/nearsight/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/human/nearsight/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	owner.cure_nearsighted(GENETIC_MUTATION)
@@ -23,12 +23,12 @@
 	quality = NEGATIVE
 	text_gain_indication = "<span class='danger'>You can't seem to see anything.</span>"
 
-/datum/mutation/human/blind/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/human/blind/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	owner.become_blind(GENETIC_MUTATION)
 
-/datum/mutation/human/blind/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/human/blind/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	owner.cure_blind(GENETIC_MUTATION)
@@ -44,14 +44,14 @@
 	instability = 25
 	var/visionflag = TRAIT_THERMAL_VISION
 
-/datum/mutation/human/thermal/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/human/thermal/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 
 	ADD_TRAIT(owner, visionflag, GENETIC_MUTATION)
 	owner.update_sight()
 
-/datum/mutation/human/thermal/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/human/thermal/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	REMOVE_TRAIT(owner, visionflag, GENETIC_MUTATION)

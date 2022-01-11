@@ -9,7 +9,7 @@
 	time_coeff = 5
 	instability = 25
 
-/datum/mutation/human/chameleon/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/human/chameleon/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	owner.alpha = CHAMELEON_MUTATION_DEFAULT_TRANSPARENCY
@@ -25,7 +25,7 @@
 		owner.alpha = CHAMELEON_MUTATION_DEFAULT_TRANSPARENCY
 		return
 
-/datum/mutation/human/chameleon/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/human/chameleon/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	owner.alpha = 255

@@ -15,6 +15,9 @@
 			for(var/V in internal_organs)
 				var/obj/item/organ/O = V
 				O.on_life()
+			if(has_dna())
+				for(var/datum/mutation/human/HM in dna.mutations)
+					HM.on_life()
 		else
 			if(reagents && !reagents.has_reagent(/datum/reagent/toxin/formaldehyde, 1)) // No organ decay if the body contains formaldehyde.
 				for(var/V in internal_organs)

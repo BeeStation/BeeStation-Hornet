@@ -19,12 +19,12 @@
 	text_gain_indication = "<span class='sans'>You feel an off sensation in your voicebox.</span>"
 	text_lose_indication = "<span class='notice'>The off sensation passes.</span>"
 
-/datum/mutation/human/wacky/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/human/wacky/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
 
-/datum/mutation/human/wacky/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/human/wacky/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
@@ -41,12 +41,12 @@
 	text_gain_indication = "<span class='danger'>You feel unable to express yourself at all.</span>"
 	text_lose_indication = "<span class='danger'>You feel able to speak freely again.</span>"
 
-/datum/mutation/human/mute/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/human/mute/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	ADD_TRAIT(owner, TRAIT_MUTE, GENETIC_MUTATION)
 
-/datum/mutation/human/mute/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/human/mute/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	REMOVE_TRAIT(owner, TRAIT_MUTE, GENETIC_MUTATION)
@@ -59,12 +59,12 @@
 	text_gain_indication = "<span class='notice'>You feel so happy. Nothing can be wrong with anything. :)</span>"
 	text_lose_indication = "<span class='notice'>Everything is terrible again. :(</span>"
 
-/datum/mutation/human/smile/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/human/smile/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
 
-/datum/mutation/human/smile/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/human/smile/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
@@ -126,12 +126,12 @@
 	text_gain_indication = "<span class='danger'>You can't seem to form any coherent thoughts!</span>"
 	text_lose_indication = "<span class='danger'>Your mind feels more clear.</span>"
 
-/datum/mutation/human/unintelligible/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/human/unintelligible/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	ADD_TRAIT(owner, TRAIT_UNINTELLIGIBLE_SPEECH, GENETIC_MUTATION)
 
-/datum/mutation/human/unintelligible/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/human/unintelligible/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	REMOVE_TRAIT(owner, TRAIT_UNINTELLIGIBLE_SPEECH, GENETIC_MUTATION)
@@ -143,12 +143,12 @@
 	text_gain_indication = "<span class='notice'>You feel Swedish, however that works.</span>"
 	text_lose_indication = "<span class='notice'>The feeling of Swedishness passes.</span>"
 
-/datum/mutation/human/swedish/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/human/swedish/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
 
-/datum/mutation/human/swedish/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/human/swedish/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
@@ -174,12 +174,12 @@
 	text_gain_indication = "<span class='notice'>Ye feel like a reet prat like, innit?</span>"
 	text_lose_indication = "<span class='notice'>You no longer feel like being rude and sassy.</span>"
 
-/datum/mutation/human/chav/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/human/chav/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
 
-/datum/mutation/human/chav/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/human/chav/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
@@ -236,12 +236,12 @@
 			if(prob(15))
 				owner.visible_message("<b>[owner]</b> [pick("jiggles their hips", "rotates their hips", "gyrates their hips", "taps their foot", "dances to an imaginary song", "jiggles their legs", "snaps their fingers")]!")
 
-/datum/mutation/human/elvis/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/human/elvis/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
 
-/datum/mutation/human/elvis/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/human/elvis/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
@@ -272,12 +272,12 @@
 	text_gain_indication = "<span class='notice'>You feel...totally chill, man!</span>"
 	text_lose_indication = "<span class='notice'>You feel like you have a better sense of time.</span>"
 
-/datum/mutation/human/stoner/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/human/stoner/on_acquiring(mob/living/carbon/owner)
 	..()
 	owner.grant_language(/datum/language/beachbum, TRUE, TRUE, LANGUAGE_STONER)
 	owner.add_blocked_language(subtypesof(/datum/language) - /datum/language/beachbum, LANGUAGE_STONER)
 
-/datum/mutation/human/stoner/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/human/stoner/on_losing(mob/living/carbon/owner)
 	..()
 	owner.remove_language(/datum/language/beachbum, TRUE, TRUE, LANGUAGE_STONER)
 	owner.remove_blocked_language(subtypesof(/datum/language) - /datum/language/beachbum, LANGUAGE_STONER)

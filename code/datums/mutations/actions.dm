@@ -23,6 +23,8 @@
 	var/reek = 200
 
 /datum/mutation/human/olfaction/on_life()
+	if(!ishuman(owner))
+		return
 	var/hygiene_now = owner.hygiene
 
 	if(hygiene_now < 100 && prob(3))

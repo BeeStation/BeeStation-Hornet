@@ -16,13 +16,13 @@
 /datum/mutation/human/space_adaptation/get_visual_indicator()
 	return visual_indicators[type][1]
 
-/datum/mutation/human/space_adaptation/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/human/space_adaptation/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	ADD_TRAIT(owner, TRAIT_RESISTCOLD, "space_adaptation")
 	ADD_TRAIT(owner, TRAIT_RESISTLOWPRESSURE, "space_adaptation")
 
-/datum/mutation/human/space_adaptation/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/human/space_adaptation/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	REMOVE_TRAIT(owner, TRAIT_RESISTCOLD, "space_adaptation")
