@@ -2,7 +2,7 @@
 
 // Made by powerfulbacon
 
-import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, Fragment, ScrollableBox, OrbitalMapComponent, OrbitalMapSvg } from '../components';
+import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, ScrollableBox, OrbitalMapComponent, OrbitalMapSvg } from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
@@ -67,11 +67,9 @@ export const OrbitalMap = (props, context) => {
   return (
     <Window
       width={1136}
-      height={770}
-      resizable
-      overflowY="hidden">
-      <Window.Content overflowY="hidden">
-        <div class="OrbitalMap__radar" id="radar">
+      height={770}>
+      <Window.Content>
+        <Box class="OrbitalMap__radar" id="radar">
           {interdictionTime ? (
             <InterdictionDisplay
               xOffset={dynamicXOffset}
@@ -90,8 +88,8 @@ export const OrbitalMap = (props, context) => {
               setTrackedBody={setTrackedBody}
               ourObject={ourObject} />
           )}
-        </div>
-        <div class="OrbitalMap__panel">
+        </Box>
+        <Box class="OrbitalMap__panel">
           <ScrollableBox overflowY="scroll" height="100%">
             <Section title="Orbital Body Tracking">
               <Box bold>
@@ -173,7 +171,7 @@ export const OrbitalMap = (props, context) => {
                   ))}
             </Section>
           </ScrollableBox>
-        </div>
+        </Box>
       </Window.Content>
     </Window>
   );
@@ -206,7 +204,7 @@ export const InterdictionDisplay = (props, context) => {
   } = data;
 
   return (
-    <Fragment>
+    <>
       <NoticeBox
         position="absolute"
         color="red">
@@ -332,7 +330,7 @@ export const InterdictionDisplay = (props, context) => {
           </DraggableClickableControl>
         )}
       </DraggableClickableControl>
-    </Fragment>
+    </>
   );
 
 };
@@ -370,7 +368,7 @@ export const OrbitalMapDisplay = (props, context) => {
   } = data;
 
   return (
-    <Fragment>
+    <>
       <Button
         position="absolute"
         icon="search-plus"
@@ -469,7 +467,7 @@ export const OrbitalMapDisplay = (props, context) => {
           </OrbitalMapSvg>
         )}
       </OrbitalMapComponent>
-    </Fragment>
+    </>
   );
 
 };
