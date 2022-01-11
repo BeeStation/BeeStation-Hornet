@@ -1027,4 +1027,4 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						M.emote("scream")
 					M.hallucination = min(40, M.hallucination + (5 * power))
 					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "hyperactivity", /datum/mood_event/paranoid)
-				M.AdjustAllImmobility((rand(1, realpower) * 10),TRUE)
+				M.AdjustAllImmobility((realpower * 10),TRUE)
