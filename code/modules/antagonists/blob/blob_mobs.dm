@@ -211,7 +211,8 @@
 		add_overlay(blob_head_overlay)
 
 /mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, rally)
-	var/movement_steps = 0
+	var/list/path_list //cause we want access to all list var's
+	var/interrupted
 	if(rally)
 		in_movement = TRUE
 
@@ -220,18 +221,23 @@
 	else
 		approaching_target = FALSE
 
-	for(var/w in get_path_to(src, target, simulated_only = FALSE))
+	path_list = get_path_to(src, target, simulated_only = FALSE)
+	for(var/w in path_list)
 		if(in_movement && !rally) //incase the spore is already chasing something like a player but the rally command is called
 			return
-		movement_steps++
+		if(ismob(target) && w == path_list[list.len - 1])
+			break
 		step(src, get_dir(src, w))
 		sleep(delay)
+		if(get_turf(src) != w) //in case someone decides to push the spore or something else unexpectedly hinders it
+			interrupted = TRUE
+			break
 
-	if(!movement_steps) //pathfinding fallback in case we cannot find a valid path at the first attempt
+	if(!path_list.len) //pathfinding fallback in case we cannot find a valid path at the first attempt
 		var/ln = get_dist(src, target)
 		var/turf/target_new = target
 		var/found_blocker
-		while(!movement_steps && (ln > 0)) //will stop if we can find a valid path or if ln gets reduced to 0 or less
+		while(!path_list.len && (ln > 0)) //will stop if we can find a valid path or if ln gets reduced to 0 or less
 			find_target:
 				for(var/i in 1 to ln) //calling get_path_to every time is quite taxing lets see if we can find whatever blocks us
 					target_new = get_step(target_new,  get_dir(target_new, src)) //step towards the origin until we find the blocker then 1 further
@@ -246,13 +252,18 @@
 					if(found_blocker) //cursed but after we found the blocker we end the loop on the next illiteration
 						break find_target
 			found_blocker = FALSE
-			for(var/w in get_path_to(src, target_new, simulated_only = FALSE))
+			path_list = get_path_to(src, target_new, simulated_only = FALSE)
+			for(var/w in path_list)
 				if(in_movement && !rally)
 					return
-				movement_steps++
 				step(src, get_dir(src, w))
 				sleep(delay)
+				if(get_turf(src) != w)
+					interrupted = TRUE
+					break
 	in_movement = FALSE
+	if(interrupted)
+		Goto(target, delay, rally)
 
 /mob/living/simple_animal/hostile/blob/blobspore/weak
 	name = "fragile blob spore"
