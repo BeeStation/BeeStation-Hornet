@@ -1,0 +1,9 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - tweak: tweaked medbay a little, the First aid area no longer feels cluttered.
+  - tweak: CMO's office size have been reduced a little.
+  - tweak: Harmonized all the buttons to be at the same distance on the wall (or tables).
+  - bugfix: Fixed some unconnected cables.
+  - bugfix: Fixed a missing wall from science to toxins.
+  - bugfix: Fixed the disposal button not working for the Supply staff.
