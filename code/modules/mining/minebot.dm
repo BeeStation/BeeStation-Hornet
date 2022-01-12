@@ -171,8 +171,8 @@
 
 	// Handles Equipment
 	if(stored_cutter)
-		tab_data["Plasma cutter charge"] = GENERATE_STAT_TEXT("[round(stored_cutter.cell.percent())]%")
-	tab_data["Equipped drill"] = GENERATE_STAT_TEXT("[stored_drill]")
+		tab_data["Plasma Cutter Charge"] = GENERATE_STAT_TEXT("[round(stored_cutter.cell.percent())]%")
+	tab_data["Equipped Drill"] = GENERATE_STAT_TEXT("[stored_drill]")
 
 	// Handles Upgrades
 	if(LAZYLEN(installed_upgrades))
@@ -207,7 +207,13 @@
 // Installing new tools/upgrades and interacting with the minebot
 /mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I, mob/user, params)
 	if(user == src)
-		return TRUE // returning true prevents afterattacks from going off and whacking/shooting the minebot
+		return TRUE // Returning true in most cases prevents afterattacks from going off and whacking/shooting the minebot
+	if(user.a_intent == INTENT_HARM)
+		return ..() // For smacking
+	if(istype(I, /obj/item/minebot_upgrade))
+		var/obj/item/minebot_upgrade/M = I
+		M.upgrade_bot(src, user)
+		return TRUE
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner))
 		if(!do_after(user, 20, TRUE, src))
 			return TRUE
@@ -224,6 +230,8 @@
 		to_chat(user, "<span class='info'>You uninstall [src]'s upgrades.</span>")
 		return TRUE
 	if(istype(I, /obj/item/gun/energy/plasmacutter))
+		if(health != maxHealth)
+			return // For repairs
 		if(!do_after(user, 20, TRUE, src))
 			return TRUE
 		if(stored_cutter)
@@ -409,6 +417,8 @@
 	minimum_distance = 1
 	retreat_distance = null
 	icon_state = "mining_drone"
+	if(!client)
+		return
 	if(stored_cutter)
 		to_chat(src, "<span class='info'>You are set to mining mode. You will now fire your plasma cutter.</span>")
 		return
@@ -421,6 +431,8 @@
 	retreat_distance = 2
 	minimum_distance = 1
 	icon_state = "mining_drone_offense"
+	if(!client)
+		return
 	to_chat(src, "<span class='info'>You are set to attack mode. You will now fire your proto-kinetic accelerator at targets.</span>")
 
 /mob/living/simple_animal/hostile/mining_drone/proc/CollectOre(collect_range = 1)
@@ -428,12 +440,16 @@
 		O.forceMove(src)
 
 /mob/living/simple_animal/hostile/mining_drone/proc/DropOre()
-	if(!contents.len)
+	var/dumped_ore
+	for(var/obj/item/stack/ore/O in contents)
+		O.forceMove(drop_location())
+		dumped_ore = TRUE
+	if(!client)
+		return
+	if(!dumped_ore)
 		to_chat(src, "<span class='notice'>You attempt to dump your stored ore, but you have none.</span>")
 		return
 	to_chat(src, "<span class='notice'>You dump your stored ore.</span>")
-	for(var/obj/item/stack/ore/O in contents)
-		O.forceMove(drop_location())
 
 /mob/living/simple_animal/hostile/mining_drone/proc/toggle_mode()
 	if(mode == MODE_COMBAT)
@@ -496,7 +512,7 @@
 /datum/action/innate/minedrone/toggle_mode/Activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	user.toggle_mode()
-	button_icon_state = "mech_zoom_[user.mode == 1 ? "on" : "off"]"
+	button_icon_state = "mech_zoom_[user.mode == MODE_COMBAT ? "on" : "off"]"
 	UpdateButtonIcon()
 
 /// Allows a minebot to manually dump its own ore.
@@ -507,7 +523,6 @@
 /datum/action/innate/minedrone/dump_ore/Activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	user.DropOre()
-	to_chat(user, "<span class='notice'>You dump your stored ore on the ground.</span>")
 
 /datum/action/innate/minedrone/toggle_scanner
 	name = "Toggle Mining Scanner"
@@ -523,15 +538,6 @@
 /**********************Minebot Upgrades**********************/
 // Similar to PKA upgrades, except for minebots. Each upgrade can only be installed once and is stored in the minebot when installed.
 
-// Proc to get the minebot upgrades currently installed in a minebot
-/mob/living/simple_animal/hostile/mining_drone/proc/get_mods()
-	if(!LAZYLEN(installed_upgrades))
-		return FALSE
-	. = list()
-	for(var/M as anything in installed_upgrades)
-		var/obj/item/minebot_upgrade/upgrade = M
-		. += upgrade
-
 //Base
 
 /obj/item/minebot_upgrade
@@ -545,27 +551,20 @@
 	unequip()
 	return ..()
 
-/obj/item/minebot_upgrade/attack(mob/living/simple_animal/hostile/mining_drone/M, mob/user, proximity)
-	if(!proximity)
-		return
-	if(!istype(M))
-		return ..()
-	upgrade_bot(M, user)
-
 // Handles adding upgrades. This checks for any duplicate mods and links the mod to the minebot.
 /obj/item/minebot_upgrade/proc/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
-	if(M.get_mods() && is_type_in_list(src, M.get_mods()))
+	if(is_type_in_list(src, M.installed_upgrades))
 		M.balloon_alert(user, "A similar mod has already been installed.")
 		return FALSE
 	if(!user.transferItemToLoc(src, M))
 		return FALSE
 	linked_bot = M
 	LAZYADD(linked_bot.installed_upgrades, src)
-	to_chat(user, "<span class='notice'>You install the [src].</span>")
+	to_chat(user, "<span class='notice'>You install [src].</span>")
 	playsound(loc, 'sound/items/screwdriver.ogg', 100, 1)
 	return TRUE
 
-// Handles removing upgrades. This handles unlinking the minebot as well, so it should be called after any upgrade-specific stuff
+// Handles removing upgrades. This handles unlinking the minebot as well, so it should be called after any upgrade-specific unequip actions.
 /obj/item/minebot_upgrade/proc/unequip()
 	LAZYREMOVE(linked_bot.installed_upgrades, src)
 	forceMove(get_turf(linked_bot))
@@ -575,7 +574,7 @@
 /obj/item/minebot_upgrade/proc/onAltClick(atom/A)
 	return
 
-// Allows a minebot upgrade to put stat data into the minebot's stat panel. Should return a 2-entry list with the name and data to be inserted.
+// Allows a minebot upgrade to put stat data into the minebot's stat panel. This should return a 2-entry list with the data to be inserted into the statpanel.
 /obj/item/minebot_upgrade/proc/get_stat_data()
 	return
 
@@ -583,7 +582,7 @@
 
 /obj/item/minebot_upgrade/health
 	name = "minebot armor upgrade"
-	desc = "A minebot upgrade that improves armor."
+	desc = "A minebot upgrade that improves a minebot's armor, allowing them to sustain more damage before being disabled."
 	var/health_upgrade = 45
 
 /obj/item/minebot_upgrade/health/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
@@ -620,7 +619,7 @@
 
 /obj/item/minebot_upgrade/medical
 	name = "minebot medical upgrade"
-	desc = "Allows a sentient minebot to carry and administer a medipen. Comes equipped with an epinephrine medipen by default, but can accept other medipens as well."
+	desc = "Allows a sentient minebot to carry and administer a medipen."
 	var/obj/item/reagent_containers/hypospray/medipen/stored_medipen
 
 /obj/item/minebot_upgrade/medical/Initialize()
@@ -631,25 +630,43 @@
 	qdel(stored_medipen)
 	. = ..()
 
+/obj/item/minebot_upgrade/medical/examine(mob/user)
+	. = ..()
+	if(stored_medipen)
+		. += "<span class='notice'>[src] contains \a [stored_medipen].</span>"
+		return
+	. += "<span class='notice'>There's no medipen attached to [src].</span>"
+
 // Lets the minebot see what medipen they have loaded
 /obj/item/minebot_upgrade/medical/get_stat_data()
-	return list("Stored medipen", "[stored_medipen]")
+	if(stored_medipen)
+		return list("Stored Medipen", "[stored_medipen]")
+	return list("Stored Medipen", "None")
 
-// Manually loading medipens
+// Manually loading/unloading medipens
 /obj/item/minebot_upgrade/medical/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/reagent_containers/hypospray/medipen))
-		stored_medipen.forceMove(get_turf(src))
+		if(stored_medipen)
+			to_chat(user, "<span class='notice'>You replace [stored_medipen] with [I].</span>")
+			stored_medipen.forceMove(get_turf(src))
+		else
+			to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
 		I.forceMove(src)
 		stored_medipen = I
-		to_chat(user, "<span class='notice'>You replace [stored_medipen] with [I].</span>")
-		return
+		return TRUE
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+		stored_medipen.forceMove(get_turf(src))
+		stored_medipen = null
+		to_chat(user, "<span class='notice'>You remove [stored_medipen] from [src].</span>")
+		return TRUE
 	. = ..()
 
 /obj/item/minebot_upgrade/medical/onAltClick(atom/A)
 	if(!linked_bot.Adjacent(A))
 		return
 	if(istype(A, /mob/living/carbon))
-		stored_medipen.attack(A, linked_bot)
+		if(stored_medipen)
+			stored_medipen.attack(A, linked_bot)
 		return
 	if(istype(A, /obj/item/reagent_containers/hypospray/medipen))
 		var/obj/item/reagent_containers/hypospray/medipen/M = A
@@ -659,7 +676,7 @@
 			stored_medipen.forceMove(get_turf(linked_bot))
 		M.forceMove(src)
 		stored_medipen = A
-		to_chat(linked_bot, "<span class='notice'>Loaded [A] to onboard medical module.</span>")
+		to_chat(linked_bot, "<span class='notice'>Loaded \a [A] to onboard medical module.</span>")
 
 /obj/item/minebot_upgrade/antiweather
 	name = "minebot weatherproof chassis"
