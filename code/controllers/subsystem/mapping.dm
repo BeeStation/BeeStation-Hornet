@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(mapping)
 	var/list/shuttle_templates = list()
 	var/list/shelter_templates = list()
 
-	///Random rooms template list, gets initialized and filled when server starts then after rooms are created it gets cleared.
+	///Random rooms template list, gets initialized and filled when server starts.
 	var/list/random_room_templates = list()
 	var/list/holodeck_templates = list()
 
@@ -258,8 +258,6 @@ SUBSYSTEM_DEF(mapping)
 				R.template.spawned = TRUE
 			R.template.stationinitload(get_turf(R), centered = R.template.centerspawner)
 		qdel(R)
-	//We don't need those anymore
-	random_room_templates = null
 	INIT_ANNOUNCE("Loaded Random Rooms in [(REALTIMEOFDAY - start_time)/10]s!")
 
 /datum/controller/subsystem/mapping/proc/loadWorld()
