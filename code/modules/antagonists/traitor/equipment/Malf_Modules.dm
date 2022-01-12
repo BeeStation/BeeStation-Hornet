@@ -685,7 +685,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		C.images -= I
 
 /mob/living/silicon/ai/proc/can_place_transformer(datum/action/innate/ai/place_transformer/action)
-	if(!eyeobj || !isvalidAIloc(loc) || incapacitated() || !action)
+	if(!eyeobj || incapacitated() || !action)
 		return
 	var/turf/middle = get_turf(eyeobj)
 	var/list/turfs = list(middle, locate(middle.x - 1, middle.y, middle.z), locate(middle.x + 1, middle.y, middle.z))

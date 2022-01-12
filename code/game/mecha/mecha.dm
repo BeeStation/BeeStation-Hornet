@@ -786,6 +786,7 @@
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
 		if(AI_MECH_HACK) //Called by AIs on the mech
+			AI.linked_core = new /obj/structure/AIcore/deactivated(AI.loc)
 			if(AI.can_dominate_mechs)
 				if(occupant) //Oh, I am sorry, were you using that?
 					to_chat(AI, "<span class='warning'>Pilot detected! Forced ejection initiated!</span>")
@@ -1051,7 +1052,6 @@
 	if(!occupant)
 		return
 	var/atom/movable/mob_container
-	var/is_ai_user = FALSE
 	occupant.clear_alert("charge")
 	occupant.clear_alert("mech damage")
 	if(ishuman(occupant))
@@ -1070,23 +1070,23 @@
 			silicon_pilot = FALSE
 			return
 		else
-			to_chat(AI, "<span class = 'notice'>Attempting to return to core...</span>")
+			if(!AI.linked_core)
+				to_chat(AI, "<span class='userdanger'>Inactive core destroyed. Unable to return.</span>")
+				AI.linked_core = null
+				return
+			to_chat(AI, "<span class='notice'>Returning to core...</span>")
 			AI.controlled_mech = null
 			AI.remote_control = null
 			RemoveActions(occupant, 1)
 			mob_container = AI
-			newloc = GLOB.primary_data_core ? GLOB.primary_data_core : GLOB.data_cores[1]
-			if(!newloc)
-				to_chat(AI, "<span class = 'userdanger'>No cores available. Core code corrupted. Goodbye.</span>")
-				qdel(AI)
-				return
-			is_ai_user = TRUE
+			newloc = get_turf(AI.linked_core)
+			qdel(AI.linked_core)
 	else
 		return
 	var/mob/living/L = occupant
 	occupant = null //we need it null when forceMove calls Exited().
 	silicon_pilot = FALSE
-	if(mob_container.forceMove(newloc) && !is_ai_user)//ejecting mob container
+	if(mob_container.forceMove(newloc))//ejecting mob container
 		log_message("[mob_container] moved out.", LOG_MECHA)
 		L << browse(null, "window=exosuit")
 
@@ -1100,9 +1100,6 @@
 			L.mobility_flags = NONE
 		icon_state = initial(icon_state)+"-open"
 		setDir(dir_in)
-		if(is_ai_user)
-			var/mob/living/silicon/ai/AI = occupant
-			AI.relocate(TRUE)
 
 	if(L?.client)
 		L.update_mouse_pointer()

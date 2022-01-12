@@ -2,6 +2,14 @@
 //////////AI Module Disks//////////
 ///////////////////////////////////
 
+/datum/design/board/aicore
+	name = "AI Design (AI Core)"
+	desc = "Allows for the construction of circuit boards used to build new AI cores."
+	id = "aicore"
+	build_path = /obj/item/circuitboard/aicore
+	category = list("AI Modules")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 //AI CPU + RAM
 
 /datum/design/board/processing_card_1

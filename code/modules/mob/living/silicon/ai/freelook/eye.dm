@@ -70,7 +70,7 @@
 
 /mob/camera/ai_eye/proc/setLoc(destination, force_update = FALSE)
 	if(ai)
-		if(!(isturf(ai.loc) || istype(ai.loc, /obj/machinery/ai/data_core)))
+		if(!(isturf(ai.loc) || istype(ai.loc, /obj/machinery/ai)))
 			return
 		destination = get_turf(destination)
 		if(!force_update && (destination == get_turf(src)) )

@@ -34,7 +34,6 @@ GLOBAL_LIST_EMPTY(expansion_card_holders)
 	installed_cards = list()
 	GLOB.expansion_card_holders -= src
 	//Recalculate all the CPUs and RAM :)
-	GLOB.ai_os.update_hardware()
 	..()
 
 /obj/machinery/ai/expansion_card_holder/process()
@@ -53,7 +52,6 @@ GLOBAL_LIST_EMPTY(expansion_card_holders)
 	else if(was_valid_holder)
 		was_valid_holder = FALSE
 		cut_overlays()
-		GLOB.ai_os.update_hardware()
 
 /obj/machinery/ai/expansion_card_holder/valid_holder()
 	if(stat & (BROKEN|NOPOWER|EMPED))
@@ -89,7 +87,6 @@ GLOBAL_LIST_EMPTY(expansion_card_holders)
 		to_chat(user, "<span class = 'notice'>You install [W] into [src].</span>")
 		W.forceMove(src)
 		installed_cards += W
-		GLOB.ai_os.update_hardware()
 		if(istype(W, /obj/item/processing_card))
 			var/obj/item/processing_card/cpu_card = W
 			total_cpu += cpu_card.tier
@@ -105,7 +102,6 @@ GLOBAL_LIST_EMPTY(expansion_card_holders)
 			installed_cards.len = 0
 			total_cpu = 0
 			total_ram = 0
-			GLOB.ai_os.update_hardware()
 			to_chat(user, "<span class = 'notice'>You remove all the cards from [src]</span>")
 			return FALSE
 	return ..()

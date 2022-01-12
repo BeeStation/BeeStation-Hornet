@@ -40,8 +40,6 @@
 			qdel(lateJoinCore)
 	var/mob/living/silicon/ai/AI = H
 
-	AI.relocate(TRUE)
-
 	var/total_available_cpu = GLOB.ai_os.total_cpu - GLOB.ai_os.total_cpu_assigned()
 	var/total_available_ram = GLOB.ai_os.total_ram - GLOB.ai_os.total_ram_assigned()
 
@@ -49,6 +47,7 @@
 	GLOB.ai_os.add_ram(AI, total_available_ram)
 
 	AI.apply_pref_name("ai", M.client)			//If this runtimes oh well jobcode is fucked.
+	AI.set_core_display_icon(null, M.client)
 
 	//we may have been created after our borg
 	if(SSticker.current_state == GAME_STATE_SETTING_UP)

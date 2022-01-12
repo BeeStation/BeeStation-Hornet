@@ -1180,7 +1180,6 @@
 
 	if(!deployed || !mind || !mainframe)
 		return
-	remove_sensors()
 	mainframe.redeploy_action.Grant(mainframe)
 	mainframe.redeploy_action.last_used_shell = src
 	mind.transfer_to(mainframe)

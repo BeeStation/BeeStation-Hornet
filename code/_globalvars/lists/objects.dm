@@ -35,7 +35,6 @@ GLOBAL_LIST_EMPTY(wire_color_directory)
 GLOBAL_LIST_EMPTY(wire_name_directory)
 
 GLOBAL_LIST_EMPTY(ai_status_displays)
-GLOBAL_LIST_EMPTY(ai_core_displays)
 
 GLOBAL_LIST_EMPTY(mob_spawners) 		    // All mob_spawn objects
 GLOBAL_LIST_EMPTY(alert_consoles)			// Station alert consoles, /obj/machinery/computer/station_alert

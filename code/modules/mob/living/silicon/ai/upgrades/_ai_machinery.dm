@@ -1,12 +1,5 @@
 #define TEMP_LIMIT 290.15 //17C, much hotter than a normal server room for leniency :)
 
-/obj/machinery/ai
-	name = "You shouldn't see this!"
-	desc = "You shouldn't see this!"
-	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "RD-server-on"
-	density = TRUE
-
 /obj/machinery/ai/proc/valid_holder()
 	if(stat & (BROKEN|NOPOWER|EMPED))
 		return FALSE

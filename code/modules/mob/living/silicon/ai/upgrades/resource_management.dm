@@ -1,7 +1,7 @@
 GLOBAL_DATUM_INIT(ai_os, /datum/ai_os, new)
 
 /datum/ai_os
-	var/name = "Decentralized Resource Management System (DRMS)"
+	var/name = "Computational Resource Management System (CRMS)"
 
 	var/total_cpu = 0
 

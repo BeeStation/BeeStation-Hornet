@@ -970,16 +970,6 @@
 		/obj/item/stock_parts/manipulator = 2,
 		/obj/item/stack/sheet/glass = 2)
 
-/obj/item/circuitboard/machine/ai_data_core
-	name = "AI Data Core (Machine Board)"
-	icon_state = "science"
-	build_path = /obj/machinery/ai/data_core
-	req_components = list(
-		/obj/item/stock_parts/capacitor = 4,
-		/obj/item/stock_parts/matter_bin = 2,
-		/obj/item/stack/sheet/glass = 2,
-		/obj/item/stack/cable_coil = 2)
-
 //Security
 
 
