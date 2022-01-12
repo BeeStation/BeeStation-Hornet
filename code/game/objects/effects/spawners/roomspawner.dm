@@ -17,6 +17,8 @@ GLOBAL_LIST_EMPTY(room_spawners)
 
 /obj/effect/spawner/room/Initialize()
 	..()
+	if(!length(SSmapping.random_room_templates))
+		return INITIALIZE_HINT_QDEL
 	var/list/possibletemplates = list()
 	var/datum/map_template/random_room/cantidate = null
 	shuffle_inplace(SSmapping.random_room_templates)
