@@ -32,7 +32,17 @@
 //#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
 #endif //ifdef TESTING
 
-//#define UNIT_TESTS			//If this is uncommented, we do a single run though of the game setup and tear down process with unit tests in between
+/// If this is uncommented, we set up the ref tracker to be used in a live environment
+/// And to log events to [log_dir]/harddels.log
+//#define REFERENCE_DOING_IT_LIVE
+#ifdef REFERENCE_DOING_IT_LIVE
+// compile the backend
+#define REFERENCE_TRACKING
+// actually look for refs
+#define GC_FAILURE_HARD_LOOKUP
+#endif // REFERENCE_DOING_IT_LIVE
+
+//#define UNIT_TESTS //If this is uncommented, we do a single run though of the game setup and tear down process with unit tests in between
 
 #ifndef PRELOAD_RSC				//set to:
 #define PRELOAD_RSC	0			//	0 to allow using external resources or on-demand behaviour;
