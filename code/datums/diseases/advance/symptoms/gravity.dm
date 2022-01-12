@@ -92,6 +92,7 @@
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	if(power >= 6 && M)
+	if(power >= 6)
 		M.visible_message("<span class='userdanger'>[M]'s body contorts, compresses, and collapses in on itself, before exploding into a shower of gore!</span>")
-		M.gib()
+		playsound(M, 'sound/magic/demon_consume.ogg', 50, 1, -1)
+		addtimer(CALLBACK(M, /mob/proc/gib), 0.5 SECONDS)	//we can't gib mob while it's already dying
