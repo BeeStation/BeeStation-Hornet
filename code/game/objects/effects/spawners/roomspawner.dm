@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(room_spawners)
+
 //random room spawner. takes random rooms from their appropriate map file and places them. the room will spawn with the spawner in the bottom left corner
 
 /obj/effect/spawner/room
@@ -9,15 +11,12 @@
 	var/room_width = 0
 	var/room_height = 0
 
-/obj/effect/spawner/room/proc/LateSpawn()
-	template.load(get_turf(src), centered = template.centerspawner)
-	qdel(src)
+/obj/effect/spawner/room/New(loc, ...)
+	. = ..()
+	GLOB.room_spawners += src
 
 /obj/effect/spawner/room/Initialize()
 	..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/effect/spawner/room/LateInitialize()
 	var/list/possibletemplates = list()
 	var/datum/map_template/random_room/cantidate = null
 	shuffle_inplace(SSmapping.random_room_templates)
@@ -33,11 +32,11 @@
 		template.weight = (template.weight / 2)
 		if(template.stock <= 0)
 			template.spawned = TRUE
-		addtimer(CALLBACK(src, /obj/effect/spawner/room.proc/LateSpawn), 600)
-	else
-		template = null
-	if(!template)
-		qdel(src)
+		template.load(get_turf(src), centered = template.centerspawner)
+
+/obj/effect/spawner/room/Destroy(force)
+	GLOB.room_spawners -= src
+	. = ..()
 
 /obj/effect/spawner/room/fivexfour
 	name = "5x4 room spawner"

@@ -21,6 +21,7 @@ SUBSYSTEM_DEF(mapping)
 	var/list/shuttle_templates = list()
 	var/list/shelter_templates = list()
 
+	///Random rooms template list, gets initialized and filled when server starts then after rooms are created it gets cleared.
 	var/list/random_room_templates = list()
 	var/list/holodeck_templates = list()
 
@@ -228,14 +229,38 @@ SUBSYSTEM_DEF(mapping)
 		orbital_body.link_to_z(level)
 
 	// load the maps
-	for (var/P in parsed_maps)
-		var/datum/parsed_map/pm = P
-		if (!pm.load(1, 1, start_z + parsed_maps[P], no_changeturf = TRUE))
+	for(var/datum/parsed_map/pm as() in parsed_maps)
+		if(!pm.load(1, 1, start_z + parsed_maps[pm], no_changeturf = TRUE))
 			errorList |= pm.original_path
 
 	if(!silent)
 		INIT_ANNOUNCE("Loaded [name] in [(REALTIMEOFDAY - start_time)/10]s!")
 	return parsed_maps
+
+/datum/controller/subsystem/mapping/proc/LoadStationRooms()
+	var/start_time = REALTIMEOFDAY
+	for(var/obj/effect/spawner/room/R as() in GLOB.room_spawners)
+		var/list/possibletemplates = list()
+		var/datum/map_template/random_room/candidate = null
+		shuffle_inplace(random_room_templates)
+		for(var/ID in random_room_templates)
+			candidate = random_room_templates[ID]
+			if(!istype(candidate, /datum/map_template/random_room) || candidate.spawned || R.room_height != candidate.template_height || R.room_width != candidate.template_width)
+				candidate = null
+				continue
+			if(!candidate.spawned)
+				possibletemplates[candidate] = candidate.weight
+		if(possibletemplates.len)
+			R.template = pickweight(possibletemplates)
+			R.template.stock--
+			R.template.weight = (R.template.weight / 2)
+			if(R.template.stock <= 0)
+				R.template.spawned = TRUE
+			R.template.stationinitload(get_turf(R), centered = R.template.centerspawner)
+		qdel(R)
+	//We don't need those anymore
+	random_room_templates = list()
+	INIT_ANNOUNCE("Loaded Random Rooms in [(REALTIMEOFDAY - start_time)/10]s!")
 
 /datum/controller/subsystem/mapping/proc/loadWorld()
 	//if any of these fail, something has gone horribly, HORRIBLY, wrong
@@ -248,6 +273,9 @@ SUBSYSTEM_DEF(mapping)
 	station_start = world.maxz + 1
 	INIT_ANNOUNCE("Loading [config.map_name]...")
 	LoadGroup(FailedZs, "Station", config.map_path, config.map_file, config.traits, ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/station)
+
+	LoadStationRoomTemplates()
+	LoadStationRooms()
 
 	if(SSdbcore.Connect())
 		var/datum/DBQuery/query_round_map_name = SSdbcore.NewQuery({"
@@ -370,13 +398,13 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	preloadRuinTemplates()
 	preloadShuttleTemplates()
 	preloadShelterTemplates()
-	preloadRandomRoomTemplates()
 	preloadHolodeckTemplates()
 
-/datum/controller/subsystem/mapping/proc/preloadRandomRoomTemplates()
+/datum/controller/subsystem/mapping/proc/LoadStationRoomTemplates()
 	for(var/item in subtypesof(/datum/map_template/random_room))
 		var/datum/map_template/random_room/room_type = item
 		if(!(initial(room_type.mappath)))
+			message_admins("Template [initial(room_type.name)] found without mappath. Yell at coders")
 			continue
 		var/datum/map_template/random_room/R = new room_type()
 		random_room_templates[R.room_id] = R
