@@ -8,6 +8,8 @@
 	req_access = list( )
 	possible_destinations = "whiteship_home"
 
+	var/obj/item/shuttle_creator/designator = null
+
 	var/list/obj/machinery/shuttle/engine/shuttle_engines = list()
 	var/calculated_mass = 0
 	var/calculated_dforce = 0
@@ -42,7 +44,23 @@
 		data["damage_alert"] = "[calculated_non_operational_thrusters] thrusters offline."
 	else
 		data["thrust_alert"] = 0
+
+	data["designatorInserted"] = !!designator
+	data["designatorId"] = designator?.linkedShuttleId
+	data["shuttleId"] = shuttleId
+
 	return data
+
+/obj/machinery/computer/shuttle_flight/custom_shuttle/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
+
+	switch(action)
+		if("updateLinkedId")
+			var/newId = designator?.linkedShuttleId
+			if(newId)
+				linkShuttle(newId)
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/launch_shuttle()
 	calculateStats()
@@ -167,3 +185,19 @@
 /obj/machinery/computer/shuttle_flight/custom_shuttle/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	if(port && (shuttleId == initial(shuttleId) || override))
 		linkShuttle(port.id)
+
+/obj/machinery/computer/shuttle_flight/custom_shuttle/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/shuttle_creator) && !designator)
+		if(!user.transferItemToLoc(I,src))
+			return
+		designator = I
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+
+/obj/machinery/computer/shuttle_flight/custom_shuttle/AltClick(mob/user)
+	if(!designator)
+		return
+	if(!istype(user) || !Adjacent(user) || !user.put_in_active_hand(designator))
+		designator.forceMove(drop_location())
+	designator = null
+
+

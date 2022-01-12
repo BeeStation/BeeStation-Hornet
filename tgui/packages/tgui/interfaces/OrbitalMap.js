@@ -18,6 +18,9 @@ export const OrbitalMap = (props, context) => {
     shuttleName = "",
     update_index = -1,
     interdictionTime = 0,
+    designatorInserted = false,
+    designatorId = null,
+    shuttleId = null,
   } = data;
   const [
     zoomScale,
@@ -169,6 +172,23 @@ export const OrbitalMap = (props, context) => {
                     </NoticeBox>
                   ))}
             </Section>
+            {
+              (!designatorInserted) || (
+                <>
+                  <Divider />
+                  <Section title="Designator Linking" >
+                    <Button
+                      content="Download shuttle link from designator"
+                      disabled={!designatorId}
+                      onClick={() => act('updateLinkedId')} />
+                    <Button
+                      content="Upload shuttle link to designator"
+                      disabled={!shuttleId}
+                      onClick={() => act('updateDesignatorId')} />
+                  </Section>
+                </>
+              )
+            }
           </ScrollableBox>
         </div>
       </Window.Content>
