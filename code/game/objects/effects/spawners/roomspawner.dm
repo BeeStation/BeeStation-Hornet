@@ -34,7 +34,7 @@
 		if(template.stock <= 0)
 			template.spawned = TRUE
 		addtimer(CALLBACK(src, /obj/effect/spawner/room.proc/LateSpawn), 600)
-	else 
+	else
 		template = null
 	if(!template)
 		qdel(src)
@@ -68,3 +68,10 @@
 	name = "3x3 room spawner"
 	room_width = 3
 	room_height = 3
+
+/obj/effect/spawner/room/fland
+	name = "Special Room (5x11)"
+	icon_state = "random_room_alternative"
+	room_width = 5
+	room_height = 11
+

@@ -461,11 +461,7 @@
 			else
 				client.perspective = EYE_PERSPECTIVE
 				client.eye = loc
-		return 1
-
-/// Show the mob's inventory to another mob
-/mob/proc/show_inv(mob/user)
-	return
+		return TRUE
 
 /**
   * Examine a mob
@@ -744,11 +740,6 @@
 		unset_machine()
 		src << browse(null, t1)
 
-	if(href_list["refresh"])
-		if(machine && in_range(src, usr))
-			show_inv(machine)
-
-
 	if(href_list["item"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
 		var/slot = text2num(href_list["item"])
 		var/hand_index = text2num(href_list["hand_index"])
@@ -763,12 +754,6 @@
 				usr.stripPanelUnequip(what,src,slot)
 		else
 			usr.stripPanelEquip(what,src,slot)
-
-	if(usr.machine == src)
-		if(Adjacent(usr))
-			show_inv(usr)
-		else
-			usr << browse(null,"window=mob[REF(src)]")
 
 // The src mob is trying to strip an item from someone
 // Defined in living.dm
@@ -793,25 +778,10 @@
 		return
 	if(isAI(M))
 		return
-/**
-  * Handle the result of a click drag onto this mob
-  *
-  * For mobs this just shows the inventory
-  */
-/mob/MouseDrop_T(atom/dropping, atom/user)
-	. = ..()
-	if(ismob(dropping) && dropping != user && !isAI(dropping))
-		var/mob/M = dropping
-		if(ismob(user))
-			var/mob/U = user
-			if((!iscyborg(U) || U.a_intent == INTENT_HARM) && !isAI(U))
-				M.show_inv(U)
-		else
-			M.show_inv(user)
 
 ///Is the mob muzzled (default false)
 /mob/proc/is_muzzled()
-	return 0
+	return FALSE
 
 /**
   * Convert a list of spells into a displyable list for the statpanel

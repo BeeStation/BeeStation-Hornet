@@ -33,21 +33,10 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
-"ae" = (
-/obj/machinery/button/door{
-	id = "Interpolship";
-	pixel_y = 26
-	},
-/obj/effect/turf_decal/stripes{
-	icon_state = "warningline";
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/hunter)
 "af" = (
 /obj/effect/turf_decal/stripes{
-	icon_state = "warningline";
-	dir = 8
+	dir = 8;
+	icon_state = "warningline"
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
@@ -57,8 +46,8 @@
 /area/shuttle/hunter)
 "ah" = (
 /obj/effect/turf_decal/loading_area{
-	icon_state = "loadingarea";
-	dir = 4
+	dir = 4;
+	icon_state = "loadingarea"
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
@@ -69,23 +58,23 @@
 /area/shuttle/hunter)
 "ak" = (
 /obj/structure/chair/comfy/shuttle{
-	icon_state = "shuttle_chair";
-	dir = 1
+	dir = 1;
+	icon_state = "shuttle_chair"
 	},
 /obj/effect/mob_spawn/human/fugitive/spacepol{
-	icon_state = "sleeper";
-	dir = 1
+	dir = 1;
+	icon_state = "sleeper"
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "al" = (
 /obj/effect/turf_decal/stripes{
-	icon_state = "warningline";
-	dir = 8
+	dir = 8;
+	icon_state = "warningline"
 	},
 /obj/effect/turf_decal/caution{
-	icon_state = "caution";
-	dir = 4
+	dir = 4;
+	icon_state = "caution"
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
@@ -119,8 +108,16 @@
 /obj/machinery/fugitive_capture,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
-"rR" = (
-/obj/machinery/door/airlock/titanium,
+"qx" = (
+/obj/machinery/button/door{
+	id = "Interpolship";
+	pixel_y = 26;
+	req_access_txt = "181"
+	},
+/obj/effect/turf_decal/stripes{
+	dir = 8;
+	icon_state = "warningline"
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "te" = (
@@ -133,6 +130,12 @@
 "An" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
+/area/shuttle/hunter)
+"Fl" = (
+/obj/machinery/door/airlock/titanium{
+	req_access_txt = "181"
+	},
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "Pq" = (
 /turf/template_noop,
@@ -159,7 +162,7 @@ Pq
 (2,1,1) = {"
 Pq
 ku
-ae
+qx
 al
 af
 ku
@@ -223,7 +226,7 @@ Pq
 hB
 ku
 ku
-rR
+Fl
 ku
 ku
 hB
