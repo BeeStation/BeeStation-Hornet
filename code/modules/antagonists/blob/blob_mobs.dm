@@ -212,7 +212,6 @@
 
 /mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, rally)
 	var/movement_steps = 0
-	var/interrupted
 	if(rally)
 		in_movement = TRUE
 
@@ -231,8 +230,9 @@
 		step(src, get_dir(src, w))
 		sleep(delay)
 		if(get_turf(src) != w) //in case someone decides to push the spore or something else unexpectedly hinders it
-			interrupted = TRUE
-			break
+			in_movement = FALSE
+			Goto(target, delay, rally)
+			return
 
 	if(!movement_steps) //pathfinding fallback in case we cannot find a valid path at the first attempt
 		var/ln = get_dist(src, target)
@@ -260,11 +260,10 @@
 				step(src, get_dir(src, w))
 				sleep(delay)
 				if(get_turf(src) != w)
-					interrupted = TRUE
-					break
+					in_movement = FALSE
+					Goto(target, delay, rally)
+					return
 	in_movement = FALSE
-	if(interrupted)
-		Goto(target, delay, rally)
 
 /mob/living/simple_animal/hostile/blob/blobspore/weak
 	name = "fragile blob spore"
