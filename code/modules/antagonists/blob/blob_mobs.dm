@@ -259,7 +259,7 @@
 				movement_steps++
 				step(src, get_dir(src, w))
 				sleep(delay)
-				if(get_turf(src) != w) //in case someone decides to push the spore or something else unexpectedly hinders it
+				if(get_turf(src) != w)
 					interrupted = TRUE
 					break
 	in_movement = FALSE
