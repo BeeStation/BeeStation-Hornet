@@ -142,7 +142,7 @@
 	. = ..()
 	if(.)
 		switch(var_name)
-			if("assignment","registered_name")
+			if(NAMEOF(src, assignment),NAMEOF(src, registered_name))
 				update_label()
 
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
@@ -332,6 +332,22 @@ update_label("John Doe", "Clowny")
 	item_state = "gold_id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
+
+/obj/item/card/id/silver/spacepol
+	name = "space police access card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/silver/spacepol/bounty
+	name = "bounty hunter access card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/space_russian
+	name = "space russian card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/pirate
+	name = "pirate ship card"
+	access = list(ACCESS_PIRATES)
 
 /obj/item/card/id/syndicate
 	name = "agent card"

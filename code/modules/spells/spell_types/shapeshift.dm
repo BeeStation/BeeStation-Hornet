@@ -128,9 +128,9 @@
 	if(A == stored && !restoring)
 		restore()
 
-/obj/shapeshift_holder/Exited(atom/movable/AM)
+/obj/shapeshift_holder/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(AM == stored && !restoring)
+	if(stored == gone && !restoring)
 		restore()
 
 /obj/shapeshift_holder/proc/casterDeath()

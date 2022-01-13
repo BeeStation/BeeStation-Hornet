@@ -12,7 +12,7 @@
 	prefixes = list("Slippery ", "Lubricated ")
 	bodies = list("Foot", "Feet")
 	var/morelube = FALSE
-	var/clownshoes = TRUE
+	var/clownshoes = FALSE
 	threshold_desc = "<b>Transmission 10:</b> The host sweats even more profusely, lubing almost every tile they walk over<br>\
 					  <b>Resistance 14:</b> The host's feet turn into a pair of clown shoes."
 

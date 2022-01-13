@@ -8,8 +8,6 @@ SUBSYSTEM_DEF(traumas)
 	var/list/phobia_turfs
 	var/list/phobia_species
 
-#define PHOBIA_FILE "phobia.json"
-
 /datum/controller/subsystem/traumas/Initialize()
 	//phobia types is to pull from randomly for brain traumas, e.g. conspiracies is for special assignment only
 	phobia_types = sortList(list("spiders", "space", "security", "clowns", "greytide", "lizards",
@@ -162,5 +160,3 @@ SUBSYSTEM_DEF(traumas)
 						 )
 
 	return ..()
-
-#undef PHOBIA_FILE

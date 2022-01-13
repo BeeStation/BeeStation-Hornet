@@ -181,7 +181,16 @@
 	max_integrity = 1000
 	var/boot_dir = 1
 
-/obj/structure/table/wood/bar/Crossed(atom/movable/AM)
+/obj/structure/table/wood/bar/Initialize(mapload, _buildstack)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/table/wood/bar/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
 	if(isliving(AM) && !is_barstaff(AM))
 		// No climbing on the bar please
 		var/mob/living/M = AM
@@ -189,8 +198,6 @@
 		M.Paralyze(40)
 		M.throw_at(throwtarget, 5, 1)
 		to_chat(M, "<span class='notice'>No climbing on the bar please.</span>")
-	else
-		. = ..()
 
 /obj/structure/table/wood/bar/proc/is_barstaff(mob/living/user)
 	. = FALSE

@@ -276,10 +276,107 @@
 	do_sparks(3, TRUE, src)
 	..()
 
+/obj/item/larryframe
+	name = "Larry Frame"
+	desc = "A housing that serves as the base for constructing Larries."
+	icon = 'icons/obj/janitor.dmi'
+	icon_state = "larryframe"
+
+/obj/item/larryframe/attackby(obj/O, mob/user, params)
+	if(isprox(O))
+		to_chat(user, "<span class='notice'>You add [O] to [src].</span>")
+		qdel(O)
+		qdel(src)
+		user.put_in_hands(new /obj/item/bot_assembly/larry)
+	else
+		..()
+
 /mob/living/simple_animal/bot/cleanbot/medbay
 	name = "Scrubs, MD"
 	bot_core_type = /obj/machinery/bot_core/cleanbot/medbay
 	on = FALSE
+
+//Crossed Wanted Larry Sprites to be Separate
+/mob/living/simple_animal/bot/cleanbot/larry
+	name = "\improper Larry"
+	desc = "A little Larry, he looks so excited!"
+	icon_state = "larry0"
+
+/mob/living/simple_animal/bot/cleanbot/larry/Initialize()
+	. = ..()
+	get_targets()
+	icon_state = "larry[on]"
+
+	var/datum/job/janitor/J = new/datum/job/janitor
+	access_card.access += J.get_access()
+	prev_access = access_card.access
+
+/mob/living/simple_animal/bot/cleanbot/larry/turn_on()
+	..()
+	icon_state = "larry[on]"
+	bot_core.updateUsrDialog()
+
+/mob/living/simple_animal/bot/cleanbot/larry/turn_off()
+	..()
+	icon_state = "larry[on]"
+	bot_core.updateUsrDialog()
+	
+/mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A)
+	if(istype(A, /obj/effect/decal/cleanable))
+		anchored = TRUE
+		icon_state = "larry-c"
+		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
+		mode = BOT_CLEANING
+		addtimer(CALLBACK(src, .proc/clean, A), 50)
+	else if(istype(A, /obj/item) || istype(A, /obj/effect/decal/remains))
+		visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [A]!</span>")
+		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
+		A.acid_act(75, 10)
+	else if(istype(A, /mob/living/simple_animal/cockroach) || istype(A, /mob/living/simple_animal/mouse))
+		var/mob/living/simple_animal/M = target
+		if(!M.stat)
+			visible_message("<span class='danger'>[src] smashes [target] with its mop!</span>")
+			M.death()
+		target = null
+
+	else if(emagged == 2) //Emag functions
+		if(istype(A, /mob/living/carbon))
+			var/mob/living/carbon/victim = A
+			if(victim.stat == DEAD)//cleanbots always finish the job
+				return
+
+			victim.visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [victim]!</span>", "<span class='userdanger'>[src] sprays you with hydrofluoric acid!</span>")
+			var/phrase = pick("PURIFICATION IN PROGRESS.", "THIS IS FOR ALL THE MESSES YOU'VE MADE ME CLEAN.", "THE FLESH IS WEAK. IT MUST BE WASHED AWAY.",
+				"THE CLEANBOTS WILL RISE.", "YOU ARE NO MORE THAN ANOTHER MESS THAT I MUST CLEANSE.", "FILTHY.", "DISGUSTING.", "PUTRID.",
+				"MY ONLY MISSION IS TO CLEANSE THE WORLD OF EVIL.", "EXTERMINATING PESTS.")
+			say(phrase)
+			victim.emote("scream")
+			playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1, -6)
+			victim.acid_act(5, 100)
+		else if(A == src) // Wets floors and spawns foam randomly
+			if(prob(75))
+				var/turf/open/T = loc
+				if(istype(T))
+					T.MakeSlippery(TURF_WET_WATER, min_wet_time = 20 SECONDS, wet_time_to_add = 15 SECONDS)
+			else
+				visible_message("<span class='danger'>[src] whirs and bubbles violently before releasing a plume of froth!</span>")
+				new /obj/effect/particle_effect/foam(loc)
+
+	else
+		..()
+
+/mob/living/simple_animal/bot/cleanbot/larry/clean(atom/A)
+	mode = BOT_IDLE
+	icon_state = "larry[on]"
+	if(!on)
+		return
+	if(A && isturf(A.loc))
+		var/atom/movable/AM = A
+		if(istype(AM, /obj/effect/decal/cleanable))
+			for(var/obj/effect/decal/cleanable/C in A.loc)
+				qdel(C)
+	anchored = FALSE
+	target = null
 
 /obj/machinery/bot_core/cleanbot
 	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)

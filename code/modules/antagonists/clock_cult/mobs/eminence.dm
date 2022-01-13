@@ -163,7 +163,7 @@
 /obj/effect/proc_holder/spell/targeted/eminence/reebe/cast(mob/living/user)
 	var/obj/structure/destructible/clockwork/massive/celestial_gateway/G = GLOB.celestial_gateway
 	if(G)
-		user.forceMove(get_turf(G))
+		user.abstract_move(get_turf(G))
 		SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
 		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
 	else
@@ -177,7 +177,7 @@
 
 /obj/effect/proc_holder/spell/targeted/eminence/station/cast(mob/living/user)
 	if(!is_station_level(user.z))
-		user.forceMove(get_turf(pick(GLOB.generic_event_spawns)))
+		user.abstract_move(get_turf(pick(GLOB.generic_event_spawns)))
 		SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
 		flash_color(user, flash_color = "#AF0AAF", flash_time = 25)
 	else
@@ -191,17 +191,14 @@
 
 /obj/effect/proc_holder/spell/targeted/eminence/servant_warp/cast(list/targets, mob/user)
 	//Get a list of all servants
-	var/choice = input(user, "Select servant", "Warp to...", null) in GLOB.all_servants_of_ratvar
+	var/datum/mind/choice = input(user, "Select servant", "Warp to...", null) in GLOB.all_servants_of_ratvar
+	var/mob/living/M
 	if(!choice)
 		return
-	for(var/mob/living/L in GLOB.all_servants_of_ratvar)
-		if(L.name == choice)
-			choice = L
-			break
-	if(!isliving(choice))
+	M = choice.current
+	if(!isliving(M))
 		to_chat(user, "<span class='warning'>You cannot jump to them!</span>")
 		return
-	var/mob/living/M = choice
 	if(!is_servant_of_ratvar(M))
 		to_chat(user, "<span class='warning'>They are no longer a servant of Rat'var!</span>")
 		return
@@ -293,8 +290,6 @@
 		"Processor Overload",
 		"Radiation Storm"
 	)
-	if(!can_cast(user))
-		return
 	if(!picked_event)
 		revert_cast(user)
 		return

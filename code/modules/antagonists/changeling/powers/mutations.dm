@@ -156,9 +156,6 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
-	block_power = 20
-	block_level = 1
-	block_upgrade_walk = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")

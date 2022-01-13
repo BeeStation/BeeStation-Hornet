@@ -4,8 +4,6 @@
 	layer = MOB_LAYER
 	gender = NEUTER
 	mob_biotypes = list(MOB_ROBOTIC)
-	light_range = 3
-	stop_automated_movement = 1
 	wander = FALSE
 	healable = 0
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -24,6 +22,9 @@
 	speech_span = SPAN_ROBOT
 	faction = list("neutral", "silicon" , "turret")
 	hardattacks = TRUE
+	light_system = MOVABLE_LIGHT
+	light_range = 3
+	light_power = 0.9
 
 	mobchatspan = "mime"
 	discovery_points = 0
@@ -128,7 +129,7 @@
 		return FALSE
 	on = TRUE
 	update_mobility()
-	set_light(initial(light_range))
+	set_light_on(on)
 	update_icon()
 	diag_hud_set_botstat()
 	return TRUE
@@ -136,7 +137,7 @@
 /mob/living/simple_animal/bot/proc/turn_off()
 	on = FALSE
 	update_mobility()
-	set_light(0)
+	set_light_on(on)
 	bot_reset() //Resets an AI's call, should it exist.
 	update_icon()
 

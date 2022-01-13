@@ -92,7 +92,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/plasmaglass
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/plasma = 10)
 	tableVariant = /obj/structure/table/glass/plasma
-	
+
 /obj/item/stack/sheet/plasmaglass/fifty
 	amount = 50
 
@@ -275,6 +275,11 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 			pixel_y = rand(-5, 5)
 	if (icon_prefix)
 		icon_state = "[icon_prefix][icon_state]"
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/item/shard/afterattack(atom/A as mob|obj, mob/user, proximity)
 	. = ..()
@@ -316,13 +321,14 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 		qdel(src)
 	return TRUE
 
-/obj/item/shard/Crossed(mob/living/L)
+/obj/item/shard/proc/on_entered(datum/source, mob/living/L)
+	SIGNAL_HANDLER
+
 	if(istype(L) && has_gravity(loc))
 		if(HAS_TRAIT(L, TRAIT_LIGHT_STEP))
 			playsound(loc, 'sound/effects/glass_step.ogg', 30, 1)
 		else
 			playsound(loc, 'sound/effects/glass_step.ogg', 50, 1)
-	return ..()
 
 /obj/item/shard/plasma
 	name = "purple shard"

@@ -108,7 +108,7 @@ All ShuttleMove procs go here
 	if(loc != oldT) // This is for multi tile objects
 		return
 
-	loc = newT
+	abstract_move(newT)
 
 	return TRUE
 

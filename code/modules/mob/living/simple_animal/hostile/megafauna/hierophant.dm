@@ -58,8 +58,9 @@ Difficulty: Hard
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/hierophant, /obj/item/crusher_trophy/vortex_talisman)
 	wander = FALSE
 	gps_name = "Zealous Signal"
-	medal_type = BOSS_MEDAL_HIEROPHANT
-	score_type = HIEROPHANT_SCORE
+	achievement_type = /datum/award/achievement/boss/hierophant_kill
+	crusher_achievement_type = /datum/award/achievement/boss/hierophant_crusher
+	score_achievement_type = /datum/award/score/hierophant_score
 	del_on_death = TRUE
 	deathsound = 'sound/magic/repulse.ogg'
 	attack_action_types = list(/datum/action/innate/megafauna_attack/blink,
@@ -645,6 +646,10 @@ Difficulty: Hard
 		var/turf/closed/mineral/M = loc
 		M.gets_drilled(caster)
 	INVOKE_ASYNC(src, .proc/blast)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/temp_visual/hierophant/blast/proc/blast()
 	var/turf/T = get_turf(src)
@@ -657,8 +662,9 @@ Difficulty: Hard
 	sleep(1.3) //slightly forgiving; the burst animation is 1.5 deciseconds
 	bursting = FALSE //we no longer damage crossers
 
-/obj/effect/temp_visual/hierophant/blast/Crossed(atom/movable/AM)
-	..()
+/obj/effect/temp_visual/hierophant/blast/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
 	if(bursting)
 		do_damage(get_turf(src))
 
@@ -683,7 +689,7 @@ Difficulty: Hard
 					if(get_dist(H, caster) <= H.aggro_vision_range)
 						H.FindTarget(list(caster), 1)
 					else
-						H.Goto(get_turf(caster), H.move_to_delay, 3)
+						INVOKE_ASYNC(H, /mob/living/simple_animal/hostile/proc/Goto, get_turf(caster), H.move_to_delay, 3)
 		if(monster_damage_boost && (ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid)))
 			L.adjustBruteLoss(damage)
 		if(caster)

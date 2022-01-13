@@ -19,7 +19,6 @@
 	fire_sound = 'sound/weapons/beam_sniper.ogg'
 	slot_flags = ITEM_SLOT_BACK
 	force = 15
-	block_upgrade_walk = 1
 	materials = list()
 	recoil = 4
 	ammo_x_offset = 3

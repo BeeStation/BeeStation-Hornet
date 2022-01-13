@@ -19,7 +19,6 @@
 	can_bayonet = TRUE
 	knife_x_offset = 20
 	knife_y_offset = 12
-	block_upgrade_walk = 1
 
 	var/max_mod_capacity = 100
 	var/list/modkits = list()

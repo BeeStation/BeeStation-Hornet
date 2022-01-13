@@ -9,9 +9,11 @@
 	. = list("<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[src]</EM>!")
 	var/list/obscured = check_obscured_slots()
 
-	if (handcuffed)
-		. += "<span class='warning'>[t_He] [t_is] [icon2html(handcuffed, user)] handcuffed!</span>"
-	if (head)
+	if(handcuffed)
+		. += "<span class='warning'>[t_He] [t_is] handcuffed with [handcuffed]!</span>"
+	if(legcuffed)
+		. += "<span class='warning'>[t_He] [t_is] legcuffed with [legcuffed]!</span>"
+	if(head)
 		. += "[t_He] [t_is] wearing [head.get_examine_string(user)] on [t_his] head. "
 	if(wear_mask && !(ITEM_SLOT_MASK in obscured))
 		. += "[t_He] [t_is] wearing [wear_mask.get_examine_string(user)] on [t_his] face."
@@ -22,10 +24,10 @@
 		if(!(I.item_flags & ABSTRACT))
 			. += "[t_He] [t_is] holding [I.get_examine_string(user)] in [t_his] [get_held_index_name(get_held_index_of_item(I))]."
 
-	if (back)
+	if(back)
 		. += "[t_He] [t_has] [back.get_examine_string(user)] on [t_his] back."
 	var/appears_dead = 0
-	if (stat == DEAD)
+	if(stat == DEAD)
 		appears_dead = 1
 		if(getorgan(/obj/item/organ/brain))
 			. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive, with no signs of life.</span>"
@@ -85,7 +87,7 @@
 		if(temp)
 			if(temp < 25)
 				msg += "[t_He] [t_is] slightly deformed.\n"
-			else if (temp < 50)
+			else if(temp < 50)
 				msg += "[t_He] [t_is] <b>moderately</b> deformed!\n"
 			else
 				msg += "<b>[t_He] [t_is] severely deformed!</b>\n"
@@ -115,7 +117,7 @@
 			. += "[t_He] [t_is] moving [t_his] body in an unnatural and blatantly unsimian manner."
 
 	var/trait_exam = common_trait_examine()
-	if (!isnull(trait_exam))
+	if(!isnull(trait_exam))
 		. += trait_exam
 
 	var/datum/component/mood/mood = src.GetComponent(/datum/component/mood)

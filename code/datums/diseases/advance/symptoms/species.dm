@@ -5,7 +5,7 @@
 	resistance = 2
 	stage_speed = 2
 	transmission = 0
-	level = 5
+	level = 4
 	severity = 0
 	prefixes = list("Zombie ")
 
@@ -24,7 +24,7 @@
 	resistance = 4
 	stage_speed = -2
 	transmission = 3
-	level = 5
+	level = 4
 	severity = 0
 	prefixes = list("Crystalline ")
 

@@ -376,14 +376,6 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define STACK_CHECK_CARDINALS "cardinals" //! checks if there is an object of the result type in any of the cardinal directions
 #define STACK_CHECK_ADJACENT "adjacent" //! checks if there is an object of the result type within one tile
 
-//text files
-#define BRAIN_DAMAGE_FILE "traumas.json"
-#define ION_FILE "ion_laws.json"
-#define PIRATE_NAMES_FILE "pirates.json"
-#define REDPILL_FILE "redpill.json"
-#define WANTED_FILE "wanted_message.json"
-
-
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15
 #define FULLSCREEN_OVERLAY_RESOLUTION_Y 15

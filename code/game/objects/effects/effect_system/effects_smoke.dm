@@ -133,11 +133,6 @@
 		M.emote("cough")
 		return 1
 
-/obj/effect/particle_effect/smoke/bad/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(istype(AM, /obj/item/projectile/beam))
-		var/obj/item/projectile/beam/B = AM
-		B.damage = (B.damage/2)
 
 /datum/effect_system/smoke_spread/bad
 	effect_type = /obj/effect/particle_effect/smoke/bad

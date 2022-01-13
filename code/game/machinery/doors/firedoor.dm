@@ -27,7 +27,7 @@
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	air_tight = TRUE
 	open_speed = 2
-	req_access = list(ACCESS_ENGINE)
+	req_one_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 	processing_flags = START_PROCESSING_MANUALLY
 	var/emergency_close_timer = 0
 	var/nextstate = null
@@ -387,6 +387,15 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	assemblytype = /obj/structure/firelock_frame/border
 
+/obj/machinery/door/firedoor/border_only/Initialize()
+	. = ..()
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = .proc/on_exit,
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/machinery/door/firedoor/border_only/Destroy()
 	density = FALSE
 	air_update_turf(1)
@@ -453,10 +462,12 @@
 	if(!(get_dir(loc, target) == dir)) //Make sure looking at appropriate border
 		return TRUE
 
-/obj/machinery/door/firedoor/border_only/CheckExit(atom/movable/mover as mob|obj, turf/target)
-	if(get_dir(loc, target) == dir)
-		return !density
-	return TRUE
+/obj/machinery/door/firedoor/border_only/proc/on_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER
+
+	if(direction == dir && density)
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/T)
 	if(get_dir(loc, T) == dir)

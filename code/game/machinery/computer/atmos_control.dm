@@ -251,6 +251,13 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	sensors = list(ATMOS_GAS_MONITOR_SENSOR_SM = "Supermatter Core")
 	circuit = /obj/item/circuitboard/computer/atmos_control/tank/incinerator
 
+/obj/machinery/computer/atmos_control/tank/toxins_mixing_tank
+	name = "Toxin Chamber Air Monitor"
+	input_tag = ATMOS_GAS_MONITOR_INPUT_TOXINS_LAB
+	output_tag = ATMOS_GAS_MONITOR_OUTPUT_TOXINS_LAB
+	sensors = list(ATMOS_GAS_MONITOR_SENSOR_TOXINS_LAB = "Toxins Mixing Chamber")
+	circuit = /obj/item/circuitboard/computer/atmos_control/tank/incinerator
+
 // This hacky madness is the evidence of the fact that a lot of machines were never meant to be constructable, im so sorry you had to see this
 /obj/machinery/computer/atmos_control/tank/proc/reconnect(mob/user)
 	var/list/IO = list()

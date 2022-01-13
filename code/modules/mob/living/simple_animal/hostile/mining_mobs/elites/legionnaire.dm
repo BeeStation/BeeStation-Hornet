@@ -249,13 +249,23 @@
 	light_color = LIGHT_COLOR_RED
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/myowner = null
 
+/obj/structure/legionnaire_bonfire/Initialize()
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/structure/legionnaire_bonfire/Entered(atom/movable/mover, turf/target)
+/obj/structure/legionnaire_bonfire/proc/on_entered(datum/source, atom/movable/mover)
+	SIGNAL_HANDLER
+
+	if(isobj(mover))
+		var/obj/object = mover
+		object.fire_act(1000, 500)
 	if(isliving(mover))
 		var/mob/living/L = mover
 		L.adjust_fire_stacks(3)
 		L.IgniteMob()
-	. = ..()
 
 /obj/structure/legionnaire_bonfire/Destroy()
 	if(myowner != null)
