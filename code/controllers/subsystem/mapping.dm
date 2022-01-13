@@ -237,29 +237,6 @@ SUBSYSTEM_DEF(mapping)
 		INIT_ANNOUNCE("Loaded [name] in [(REALTIMEOFDAY - start_time)/10]s!")
 	return parsed_maps
 
-/datum/controller/subsystem/mapping/proc/LoadStationRooms()
-	var/start_time = REALTIMEOFDAY
-	for(var/obj/effect/spawner/room/R as() in GLOB.room_spawners)
-		var/list/possibletemplates = list()
-		var/datum/map_template/random_room/candidate = null
-		shuffle_inplace(random_room_templates)
-		for(var/ID in random_room_templates)
-			candidate = random_room_templates[ID]
-			if(!istype(candidate, /datum/map_template/random_room) || candidate.spawned || R.room_height != candidate.template_height || R.room_width != candidate.template_width)
-				candidate = null
-				continue
-			if(!candidate.spawned)
-				possibletemplates[candidate] = candidate.weight
-		if(possibletemplates.len)
-			R.template = pickweight(possibletemplates)
-			R.template.stock--
-			R.template.weight = (R.template.weight / 2)
-			if(R.template.stock <= 0)
-				R.template.spawned = TRUE
-			R.template.stationinitload(get_turf(R), centered = R.template.centerspawner)
-		qdel(R)
-	INIT_ANNOUNCE("Loaded Random Rooms in [(REALTIMEOFDAY - start_time)/10]s!")
-
 /datum/controller/subsystem/mapping/proc/loadWorld()
 	//if any of these fail, something has gone horribly, HORRIBLY, wrong
 	var/list/FailedZs = list()
@@ -273,7 +250,6 @@ SUBSYSTEM_DEF(mapping)
 	LoadGroup(FailedZs, "Station", config.map_path, config.map_file, config.traits, ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/station)
 
 	LoadStationRoomTemplates()
-	LoadStationRooms()
 
 	if(SSdbcore.Connect())
 		var/datum/DBQuery/query_round_map_name = SSdbcore.NewQuery({"
