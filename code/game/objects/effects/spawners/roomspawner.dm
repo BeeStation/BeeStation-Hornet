@@ -1,4 +1,6 @@
-//This effect spawns a random room. Make sure the ssmapping is initialized and the room is correct size.
+GLOBAL_LIST_EMPTY(room_spawners)
+
+//random room spawner. takes random rooms from their appropriate map file and places them. the room will spawn with the spawner in the bottom left corner
 
 /obj/effect/spawner/room
 	name = "random room spawner"
@@ -9,26 +11,23 @@
 	var/room_width = 0
 	var/room_height = 0
 
+/obj/effect/spawner/room/New(loc, ...)
+	. = ..()
+	GLOB.room_spawners += src
+
 /obj/effect/spawner/room/Initialize()
 	..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/effect/spawner/room/LateInitialize()
-	. = ..()
 	if(!length(SSmapping.random_room_templates))
-		message_admins("Room spawner created with no templates available. This shouldn't happen.")
-		qdel(src)
-		return
+		return INITIALIZE_HINT_QDEL
 	var/list/possibletemplates = list()
-	var/datum/map_template/random_room/candidate
+	var/datum/map_template/random_room/cantidate = null
 	shuffle_inplace(SSmapping.random_room_templates)
 	for(var/ID in SSmapping.random_room_templates)
-		candidate = SSmapping.random_room_templates[ID]
-		if(!istype(candidate, /datum/map_template/random_room) || candidate.spawned || room_height != candidate.template_height || room_width != candidate.template_width)
-			candidate = null
-			continue
-		if(!candidate.spawned)
-			possibletemplates[candidate] = candidate.weight
+		cantidate = SSmapping.random_room_templates[ID]
+		if(istype(cantidate, /datum/map_template/random_room) && room_height == cantidate.template_height && room_width == cantidate.template_width)
+			if(!cantidate.spawned)
+				possibletemplates[cantidate] = cantidate.weight
+		cantidate = null
 	if(possibletemplates.len)
 		template = pickweight(possibletemplates)
 		template.stock --
@@ -36,7 +35,10 @@
 		if(template.stock <= 0)
 			template.spawned = TRUE
 		template.load(get_turf(src), centered = template.centerspawner)
-	qdel(src)
+
+/obj/effect/spawner/room/Destroy(force)
+	GLOB.room_spawners -= src
+	. = ..()
 
 /obj/effect/spawner/room/fivexfour
 	name = "5x4 room spawner"
