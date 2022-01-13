@@ -231,8 +231,7 @@
 		sleep(delay)
 		if(get_turf(src) != w) //in case someone decides to push the spore or something else unexpectedly hinders it
 			in_movement = FALSE
-			Goto(target, delay, rally)
-			return
+			return Goto(target, delay, rally)
 
 	if(!movement_steps) //pathfinding fallback in case we cannot find a valid path at the first attempt
 		var/ln = get_dist(src, target)
@@ -261,8 +260,7 @@
 				sleep(delay)
 				if(get_turf(src) != w)
 					in_movement = FALSE
-					Goto(target, delay, rally)
-					return
+					return Goto(target, delay, rally)
 	in_movement = FALSE
 
 /mob/living/simple_animal/hostile/blob/blobspore/weak
