@@ -110,7 +110,7 @@
 		to_chat(C, "<span class='warning'>This shuttle is too large!</span>")
 		return
 	if(shuttle_creator.modify_shuttle_area(C))
-		to_chat(C, "<span class='warning'>This shuttle is too large!</span>")
+		to_chat(C, "<span class='notice'>Shuttle modifications have been finalized.</span>")
 		//Remove eye control
 	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = target
 	internal_console.remove_eye_control(owner)

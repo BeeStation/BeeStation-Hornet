@@ -27,19 +27,19 @@
 	var/image/I = image('icons/turf/overlays.dmi', T, "greenOverlay")
 	I.plane = ABOVE_LIGHTING_PLANE
 	images += I
-	holder.images += I
+	holder?.images += I
 	turfs += T
 
 /datum/shuttle_creator_overlay_holder/proc/remove_hightlight(turf/T)
 	if(!(T in turfs))
 		return
 	turfs -= T
-	holder.images -= images
+	holder?.images -= images
 	for(var/image/I in images)
 		if(get_turf(I) != T)
 			continue
 		images -= I
-	holder.images += images
+	holder?.images += images
 
 /datum/shuttle_creator_overlay_holder/proc/highlight_area(list/turfs)
 	for(var/turf/T in turfs)

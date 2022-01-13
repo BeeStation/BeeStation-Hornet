@@ -38,6 +38,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/datum/shuttle_creator_overlay_holder/overlay_holder
 	//After designation
 	var/linkedShuttleId
+	var/turf/recorded_origin
 
 /obj/item/shuttle_creator/examine(mob/user)
 	. = ..()
@@ -66,7 +67,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 /obj/item/shuttle_creator/ui_data(mob/user)
 	var/list/data = list()
 	data["shuttleId"] = linkedShuttleId
-	data["inFlight"] = FALSE
+	data["inFlight"] = FALSE //This is hardcoded for now, I will add this later
 
 	return data
 
@@ -82,6 +83,13 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 				to_chat(usr, "<span class='warning'>Too many shuttles have been created.</span>")
 				message_admins("[ADMIN_FLW(usr)] attempted to create a shuttle, however [CUSTOM_SHUTTLE_LIMIT] have already been created.")
 				return
+
+			var/obj/docking_port/mobile/port = SSshuttle.getShuttle(linkedShuttleId)
+			var/turf/new_origin = linkedShuttleId && port ? locate(port.x, port.y, port.z) : recorded_origin //If we have a shuttle, find its docking port turf, otherwise, set this var to recorded_origin so the if statement fails
+			if(recorded_origin != new_origin) //Has the shuttle moved? If so, reset the buffer
+				recorded_origin = new_origin
+				reset_saved_area(FALSE)
+
 			overlay_holder.add_client(usr.client)
 			internal_shuttle_creator.attack_hand(usr)
 			SStgui.close_uis(src)
@@ -207,6 +215,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	port.dir = 1	//Point away from space.
 	port.id = "custom_[GLOB.custom_shuttle_count]"
 	linkedShuttleId = port.id
+	recorded_origin = get_turf(target)
 	port.ignitionTime = 25
 	port.port_direction = 2
 	port.preferred_direction = EAST
@@ -461,13 +470,14 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	else
 		loggedTurfs |= T
 
-/obj/item/shuttle_creator/proc/reset_saved_area()
+/obj/item/shuttle_creator/proc/reset_saved_area(loud = TRUE)
 	overlay_holder.clear_highlights()
 	loggedTurfs.Cut()
 	for(var/turf/T in recorded_shuttle_area.contents)
 		loggedTurfs |= T
 		overlay_holder.highlight_turf(T)
-	to_chat(usr, "<span class='notice'>You reset the area buffer on the [src].</span>")
+	if(loud)
+		to_chat(usr, "<span class='notice'>You reset the area buffer on the [src].</span>")
 
 #undef CARDINAL_DIRECTIONS_X
 #undef CARDINAL_DIRECTIONS_Y
