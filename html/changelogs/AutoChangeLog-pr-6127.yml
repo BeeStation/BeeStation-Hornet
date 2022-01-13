@@ -1,0 +1,7 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Adds in a new assassination objective for supercruise.
+  - tweak: The dictator is no longer a VIP extraction target, but an assassination
+      target.
+  - bugfix: Alien artifact mission's defenses will now spawn correctly.
