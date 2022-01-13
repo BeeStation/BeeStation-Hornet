@@ -210,7 +210,7 @@
 		color = initial(color)//looks better.
 		add_overlay(blob_head_overlay)
 
-/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, rally)
+/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, minimum_distance, rally)
 	var/movement_steps = 0
 	if(rally)
 		in_movement = TRUE
