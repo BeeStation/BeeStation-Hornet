@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: EMPs now destroy energy bolas and free anyone trapped by an energy snare.
