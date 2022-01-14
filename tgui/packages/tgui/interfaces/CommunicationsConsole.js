@@ -13,7 +13,7 @@ const STATE_MESSAGES = "messages";
 const SWIPE_NEEDED = "SWIPE_NEEDED";
 
 const ILLEGAL_SHUTTLE_NOTICE
-  = "Warning: Safety features disabled. This shuttle is uncertified. Order at your own peril."
+  = "Warning: Safety features disabled. This shuttle is uncertified. Order at your own peril.";
 const sortShuttles = sortBy(
   shuttle => !shuttle.illegal,
   shuttle => shuttle.creditCost
