@@ -480,3 +480,12 @@
 	file_name = "13x13_listening_base"
 	weight = 2
 	loot_room = TRUE
+
+/datum/map_template/ruin_part/boxtoolstorage
+	file_name = "12x7_boxtoolstorage"
+	weight = 3
+
+/datum/map_template/ruin_part/shuttleconstructionbay
+	file_name = "24x20_shuttleconstructionbay"
+	weight = 5
+	max_occurances = 1 //Would be wacky if multiple of the same WIP shuttle showed up.

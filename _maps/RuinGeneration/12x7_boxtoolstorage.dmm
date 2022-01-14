@@ -1,0 +1,230 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"b" = (
+/obj/structure/closet/crate/bin,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"c" = (
+/obj/structure/table,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"d" = (
+/obj/structure/table,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"e" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"f" = (
+/obj/structure/table,
+/obj/item/assembly/igniter,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"g" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"l" = (
+/obj/structure/table,
+/obj/item/t_scanner,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"n" = (
+/obj/machinery/vending/tool,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"o" = (
+/obj/machinery/vending/modularpc,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"u" = (
+/obj/structure/table,
+/obj/item/analyzer,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"x" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"A" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"D" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"E" = (
+/obj/structure/table,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"F" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"H" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high/plus,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"M" = (
+/obj/item/wrench,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"N" = (
+/obj/structure/table,
+/obj/item/assembly/prox_sensor{
+	pixel_x = -8;
+	pixel_y = 4
+	},
+/obj/item/clothing/gloves/color/fyellow,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Q" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"U" = (
+/obj/structure/table,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"V" = (
+/obj/machinery/vending/assist,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"X" = (
+/obj/structure/chair/stool{
+	pixel_y = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Z" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+a
+a
+g
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+V
+e
+d
+U
+u
+a
+"}
+(3,1,1) = {"
+Q
+e
+e
+e
+e
+e
+A
+"}
+(4,1,1) = {"
+a
+U
+e
+e
+e
+e
+a
+"}
+(5,1,1) = {"
+a
+l
+e
+e
+e
+Z
+a
+"}
+(6,1,1) = {"
+a
+f
+e
+e
+e
+N
+a
+"}
+(7,1,1) = {"
+a
+U
+M
+e
+X
+U
+a
+"}
+(8,1,1) = {"
+a
+H
+e
+e
+e
+F
+a
+"}
+(9,1,1) = {"
+a
+U
+e
+e
+e
+D
+a
+"}
+(10,1,1) = {"
+a
+o
+e
+e
+e
+x
+A
+"}
+(11,1,1) = {"
+a
+n
+e
+E
+c
+b
+a
+"}
+(12,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+"}
