@@ -13,8 +13,7 @@ const STATE_MESSAGES = "messages";
 const SWIPE_NEEDED = "SWIPE_NEEDED";
 
 const ILLEGAL_SHUTTLE_NOTICE
-  = "This shuttle is deemed significantly dangerous to the crew, and is only supplied by the Syndicate.";
-
+  = "Warning: Safety features disabled. This shuttle is uncertified. Order at your own peril."
 const sortShuttles = sortBy(
   shuttle => !shuttle.illegal,
   shuttle => shuttle.creditCost
