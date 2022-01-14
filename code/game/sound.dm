@@ -288,6 +288,10 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 				soundin = pick('sound/weapons/revolverspin1.ogg', 'sound/weapons/revolverspin2.ogg', 'sound/weapons/revolverspin3.ogg')
 			if("law")
 				soundin = pick('sound/voice/beepsky/god.ogg', 'sound/voice/beepsky/iamthelaw.ogg', 'sound/voice/beepsky/secureday.ogg', 'sound/voice/beepsky/radio.ogg', 'sound/voice/beepsky/insult.ogg', 'sound/voice/beepsky/creep.ogg')
+			//Monkestation edit begin
+			if("pizzky")
+				soundin = pick('monkestation/sound/voice/pizzky/criminal.ogg','monkestation/sound/voice/pizzky/god.ogg','monkestation/sound/voice/pizzky/lmaoing.ogg','monkestation/sound/voice/pizzky/justice.ogg','monkestation/sound/voice/pizzky/secureday.ogg','monkestation/sound/voice/pizzky/radio.ogg','monkestation/sound/voice/pizzky/insult.ogg')
+			//Monkestation edit end
 			if("honkbot_e")
 				soundin = pick('sound/items/bikehorn.ogg', 'sound/items/AirHorn2.ogg', 'sound/misc/sadtrombone.ogg', 'sound/items/AirHorn.ogg', 'sound/effects/reee.ogg',  'sound/items/WEEOO1.ogg', 'sound/voice/beepsky/iamthelaw.ogg', 'sound/voice/beepsky/creep.ogg','sound/magic/Fireball.ogg' ,'sound/effects/pray.ogg', 'sound/voice/hiss1.ogg','sound/machines/buzz-sigh.ogg', 'sound/machines/ping.ogg', 'sound/weapons/flashbang.ogg', 'sound/weapons/bladeslice.ogg')
 			if("goose")

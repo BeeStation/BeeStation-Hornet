@@ -21,6 +21,11 @@
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 	path_image_color = "#FF0000"
 
+//monkestation edit begin
+	var/arrestsounds = "law"
+	var/chasesounds = list('sound/voice/beepsky/criminal.ogg', 'sound/voice/beepsky/justice.ogg', 'sound/voice/beepsky/freeze.ogg')
+	//monkestation edit end
+
 	var/noloot = FALSE
 	var/baton_type = /obj/item/melee/baton
 	var/mob/living/carbon/target
@@ -246,7 +251,7 @@ Auto Patrol: []"},
 	if(!C.handcuffed)
 		C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
 		C.update_handcuffed()
-		playsound(src, "law", 50, 0)
+		playsound(src, arrestsounds, 50, 0)//monkestation edit for custom arrest sounds
 		back_to_idle()
 
 /mob/living/simple_animal/bot/secbot/proc/stun_attack(mob/living/carbon/C)
@@ -398,7 +403,7 @@ Auto Patrol: []"},
 			target = C
 			oldtarget_name = C.name
 			speak("Level [threatlevel] infraction alert!")
-			playsound(loc, pick('sound/voice/beepsky/criminal.ogg', 'sound/voice/beepsky/justice.ogg', 'sound/voice/beepsky/freeze.ogg'), 50, FALSE)
+			playsound(loc, pick(chasesounds), 50, FALSE) //monkestation edit for custom chase sounds
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
 			INVOKE_ASYNC(src, .proc/handle_automated_action)
