@@ -82,11 +82,7 @@
 		qdel(action)
 
 	// Clear any equipment they might have
-	if(LAZYLEN(installed_upgrades))
-		for(var/obj/item/minebot_upgrade/U as anything in installed_upgrades)
-			U.unequip()
-			qdel(U)
-		QDEL_LIST(installed_upgrades)
+	QDEL_LIST(installed_upgrades)
 	QDEL_NULL(stored_pka)
 	QDEL_NULL(stored_cutter)
 	QDEL_NULL(stored_drill)
