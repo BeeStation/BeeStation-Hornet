@@ -11,7 +11,7 @@
 	pass_flags_self = PASSGLASS
 	var/tube_construction = /obj/structure/c_transit_tube
 	var/list/tube_dirs //list of directions this tube section can connect to.
-	var/exit_delay = 0
+	var/exit_delay = 0.25
 	var/enter_delay = 0
 
 /obj/structure/transit_tube/New(loc, newdirection)
