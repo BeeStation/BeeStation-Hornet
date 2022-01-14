@@ -315,6 +315,9 @@
 		remove_ripples()
 	. = ..()
 
+/obj/docking_port/mobile/is_in_shuttle_bounds(atom/A)
+	return !!shuttle_areas.Find(get_area(A))
+
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
 
