@@ -1,5 +1,3 @@
-GLOBAL_VAR_INIT(sent_crash_message, FALSE)
-
 /datum/ai_dashboard
 	var/mob/living/silicon/ai/owner
 

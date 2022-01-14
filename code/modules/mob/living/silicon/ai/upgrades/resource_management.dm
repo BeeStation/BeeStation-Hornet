@@ -54,79 +54,83 @@ GLOBAL_DATUM_INIT(ai_os, /datum/ai_os, new)
 	update_allocations()
 
 /datum/ai_os/proc/update_allocations()
+	//If we have the same amount of CPU & RAM as before, do nothing
 	if(total_cpu >= previous_cpu && total_ram >= previous_ram)
 		return
 
-	var/list/ram_removal = list()
-	var/list/cpu_removal = list()
+	//Find out how much is actually assigned. We can have more total_cpu than the sum of cpu_assigned. Same with RAM
+	var/total_assigned_cpu = total_cpu_assigned()
+	var/total_assigned_ram = total_ram_assigned()
+	//If we have less assigned cpu and ram than we have cpu and ram, just return, everything is fine.
+	if(total_assigned_cpu < total_cpu || total_assigned_ram < total_ram)
+		return
 
+	//Copy the lists of assigned resources so we don't manipulate the list prematurely
 	var/list/cpu_assigned_copy = cpu_assigned.Copy()
 	var/list/ram_assigned_copy = ram_assigned.Copy()
 
 	var/list/affected_AIs = list()
 
-	log_game("allocations running")
-
-	if(total_cpu < previous_cpu)
-		var/needed_amount = previous_cpu - total_cpu
+	//Less CPU than we have assigned, proceed to remove CPU
+	if(total_assigned_cpu > total_cpu)
+		//How much do we need to remove to break even?
+		var/needed_amount = total_assigned_cpu - total_cpu
 		for(var/A in cpu_assigned_copy)
 			var/mob/living/silicon/ai/AI = A
+			//If this AI has enough for us to break even, deduct that amount and break
 			if(cpu_assigned_copy[AI] >= needed_amount)
 				cpu_assigned_copy[AI] -= needed_amount
-				cpu_removal[AI] += needed_amount
-				previous_cpu -= needed_amount
+				affected_AIs |= AI
+				total_assigned_cpu -= needed_amount
 				break
-			else if(cpu_assigned_copy[AI])
+			else if(cpu_assigned_copy[AI]) //AI doesn't have enough so we deduct everything they have.
 				var/amount = cpu_assigned_copy[AI]
 				cpu_assigned_copy[AI] -= amount
-				cpu_removal[AI] += amount
-				previous_cpu -= amount
-				needed_amount -= amount
-				if(total_cpu >= previous_cpu)
+				affected_AIs |= AI
+				total_assigned_cpu -= amount
+				needed_amount -= amount //Decrease the amount needed to break even so if we go to the next AI we can do the previous if statement.
+				if(total_cpu >= total_assigned_cpu) //If this was enough we are done
 					break
-		//If that somehow didn't work which it sometimes doesn't we just clear everything
-		if(total_cpu < previous_cpu)
+
+//If that somehow didn't work we clear everything just in case. Technically not needed and needs to be removed when we're sure everything works
+		//TODO: Remove
+		if(total_cpu < total_assigned_cpu)
 			for(var/A in cpu_assigned_copy)
 				var/amount = cpu_assigned_copy[A]
 				cpu_assigned_copy[A] = 0
-				cpu_removal[A] += amount
-				previous_cpu -= amount
+				affected_AIs |= A
+				total_assigned_cpu -= amount
 
-	if(total_ram < previous_ram)
-		var/needed_amount = previous_ram - total_ram
+	if(total_assigned_ram > total_ram)
+		var/needed_amount = total_assigned_ram - total_ram
 		for(var/A in ram_assigned_copy)
 			var/mob/living/silicon/ai/AI = A
 			if(ram_assigned_copy[AI] >= needed_amount)
 				ram_assigned_copy[AI] -= needed_amount
-				ram_removal[AI] += needed_amount
-				previous_ram -= needed_amount
+				total_assigned_ram -= needed_amount
+				affected_AIs |= AI
 				break
 			else if(cpu_assigned_copy[AI])
 				var/amount = cpu_assigned_copy[AI]
 				ram_assigned_copy[AI] -= amount
-				ram_removal[AI] += amount
+				affected_AIs |= AI
 				needed_amount -= amount
-				previous_ram -= amount
-				if(total_ram >= previous_ram)
+				total_assigned_ram -= amount
+				if(total_ram >= total_assigned_ram)
 					break
-		//If that somehow didn't work which it sometimes doesn't we just clear everything
-		if(total_ram < previous_ram)
+
+		//If that somehow didn't work we clear everything just in case. Technically not needed and needs to be removed when we're sure everything works
+		if(total_ram < total_assigned_ram)
 			for(var/A in ram_assigned_copy)
 				var/amount = ram_assigned_copy[A]
 				ram_assigned_copy[A] = 0
-				ram_removal[A] += amount
-				previous_ram -= amount
+				affected_AIs |= A
+				total_assigned_ram -= amount
+	//Set the actual values of the assigned to our manipulated copies. Bypass helper procs as we assume we're correct.
+	ram_assigned = ram_assigned_copy
+	cpu_assigned = cpu_assigned_copy
 
-	for(var/A in ram_removal)
-		ram_assigned[A] = ram_assigned[A] - ram_removal[A]
-		affected_AIs |= A
-
-	for(var/A in cpu_removal)
-		cpu_assigned[A] = cpu_assigned[A] - cpu_removal[A]
-		affected_AIs |= A
-
-	to_chat(affected_AIs, "<span class = 'warning'>You have been deducted processing capabilities. Please contact your network administrator if you believe this to be an error.</span>")
-	log_game("allocations ending")
+	to_chat(affected_AIs, ("<span_class='warning'>You have been deducted processing capabilities. Please contact your network administrator if you believe this to be an error.</span>"))
 
 /datum/ai_os/proc/add_cpu(mob/living/silicon/ai/AI, amount)
 	if(!AI || !amount)
