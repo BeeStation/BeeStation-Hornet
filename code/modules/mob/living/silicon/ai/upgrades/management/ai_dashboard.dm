@@ -136,6 +136,9 @@
 	if(!project.canResearch())
 		return FALSE
 
+	if(amount < 0)
+		return FALSE
+
 	var/total_cpu_used = 0
 	for(var/I in cpu_usage)
 		if(I == project.name)
@@ -144,7 +147,7 @@
 
 
 	if((current_cpu - total_cpu_used) >= amount)
-		cpu_usage[project.name] += amount
+		cpu_usage[project.name] = amount
 		return TRUE
 	return FALSE
 
