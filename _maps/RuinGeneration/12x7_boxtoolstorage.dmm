@@ -14,13 +14,6 @@
 /obj/item/stack/packageWrap,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"d" = (
-/obj/structure/table,
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
 "e" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -63,13 +56,6 @@
 /area/ruin/unpowered)
 "D" = (
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"E" = (
-/obj/structure/table,
-/obj/machinery/light{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "F" = (
@@ -133,7 +119,7 @@ a
 a
 V
 e
-d
+U
 U
 u
 a
@@ -214,7 +200,7 @@ A
 a
 n
 e
-E
+U
 c
 b
 a
