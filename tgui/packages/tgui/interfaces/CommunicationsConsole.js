@@ -1,7 +1,7 @@
 import { sortBy } from "common/collections";
 import { capitalize } from "common/string";
 import { useBackend, useLocalState } from "../backend";
-import { Blink, Box, Button, Dimmer, Flex, Icon, Input, Modal, NoticeBox, Section, Stack, Tabs, TextArea } from "../components";
+import { Blink, Box, Button, Dimmer, Flex, Icon, Input, Modal, NoticeBox, Section, Stack, Tabs, TextArea, Tooltip } from "../components";
 import { Window } from "../layouts";
 import { sanitizeText } from "../sanitize";
 
@@ -668,6 +668,25 @@ const PageMessages = (props, context) => {
   );
 };
 
+const ConditionalTooltip = (props, context) => {
+  const {
+    condition,
+    children,
+    ...rest
+  } = props;
+
+  if (!condition)
+  {
+    return children;
+  }
+  
+  return (
+    <Tooltip {...rest}>
+      {children}
+    </Tooltip>
+  );
+};
+
 export const CommunicationsConsole = (props, context) => {
   const { act, data } = useBackend(context);
   const {
@@ -724,19 +743,18 @@ export const CommunicationsConsole = (props, context) => {
                       </Tabs.Tab>
 
                       {(canBuyShuttles !== 0) && (
-                        <Tabs.Tab fluid
-                          icon="shopping-cart"
-                          selected={page===STATE_BUYING_SHUTTLE}
-                          onClick={() => act("setState", 
-                            { state: STATE_BUYING_SHUTTLE }
-                          )}
-                          disabled={canBuyShuttles !== 1}
-                          tooltip={canBuyShuttles !== 1
-                            ? canBuyShuttles 
-                            : undefined}
-                          tooltipPosition="right">
-                          Purchase Shuttle
-                        </Tabs.Tab>
+                        <ConditionalTooltip
+                          condition={canBuyShuttles !== 1}
+                          content={canBuyShuttles}>
+                          <Tabs.Tab fluid
+                            icon="shopping-cart"
+                            selected={page===STATE_BUYING_SHUTTLE}
+                            onClick={() => act("setState", 
+                              { state: STATE_BUYING_SHUTTLE }
+                            )}>
+                            Purchase Shuttle
+                          </Tabs.Tab>
+                        </ConditionalTooltip>
                       )}
                     </Tabs>
                   </Section>
