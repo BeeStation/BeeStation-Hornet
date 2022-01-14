@@ -267,9 +267,10 @@
 				return
 			if (!(params["state"] in approved_states))
 				return
-			if (state == STATE_BUYING_SHUTTLE && can_buy_shuttles(usr) != TRUE)
+			var/newState = params["state"]
+			if (newState == STATE_BUYING_SHUTTLE && can_buy_shuttles(usr) != TRUE)
 				return
-			set_state(usr, params["state"])
+			set_state(usr, newState)
 			playsound(src, "terminal_type", 50, FALSE)
 			. = TRUE
 		if ("setStatusMessage")
