@@ -23,6 +23,8 @@ SUBSYSTEM_DEF(mapping)
 
 	///Random rooms template list, gets initialized and filled when server starts.
 	var/list/random_room_templates = list()
+	///Temporary list, where room spawners are kept roundstart. Not used later.
+	var/list/random_room_spawners = list()
 	var/list/holodeck_templates = list()
 
 	var/list/areas_in_z = list()
@@ -239,25 +241,26 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/proc/LoadStationRooms()
 	var/start_time = REALTIMEOFDAY
-	for(var/obj/effect/spawner/room/R as() in GLOB.room_spawners)
+	for(var/obj/effect/spawner/room/R as() in random_room_spawners)
 		var/list/possibletemplates = list()
-		var/datum/map_template/random_room/candidate = null
+		var/datum/map_template/random_room/candidate
 		shuffle_inplace(random_room_templates)
 		for(var/ID in random_room_templates)
 			candidate = random_room_templates[ID]
-			if(!istype(candidate, /datum/map_template/random_room) || candidate.spawned || R.room_height != candidate.template_height || R.room_width != candidate.template_width)
+			if(candidate.spawned || R.room_height != candidate.template_height || R.room_width != candidate.template_width)
 				candidate = null
 				continue
-			if(!candidate.spawned)
-				possibletemplates[candidate] = candidate.weight
+			possibletemplates[candidate] = candidate.weight
 		if(possibletemplates.len)
-			R.template = pickweight(possibletemplates)
-			R.template.stock--
-			R.template.weight = (R.template.weight / 2)
-			if(R.template.stock <= 0)
-				R.template.spawned = TRUE
-			R.template.stationinitload(get_turf(R), centered = R.template.centerspawner)
+			var/datum/map_template/random_room/template = pickweight(possibletemplates)
+			template.stock--
+			template.weight = (template.weight / 2)
+			if(template.stock <= 0)
+				template.spawned = TRUE
+			template.stationinitload(get_turf(R), centered = template.centerspawner)
+		SSmapping.random_room_spawners -= R
 		qdel(R)
+	random_room_spawners = null
 	INIT_ANNOUNCE("Loaded Random Rooms in [(REALTIMEOFDAY - start_time)/10]s!")
 
 /datum/controller/subsystem/mapping/proc/loadWorld()
@@ -387,10 +390,13 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	next_map_config = VM
 	return TRUE
 
-/datum/controller/subsystem/mapping/proc/preloadTemplates(path = "_maps/templates/") //see master controller setup
-	var/list/filelist = flist(path)
+/datum/controller/subsystem/mapping/proc/preloadTemplates() //see master controller setup
+	if(IsAdminAdvancedProcCall())
+		return
+
+	var/list/filelist = flist("[MAP_DIRECTORY]/templates/")
 	for(var/map in filelist)
-		var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
+		var/datum/map_template/T = new(path = "[MAP_DIRECTORY]/templates/[map]", rename = "[map]")
 		map_templates[T.name] = T
 
 	preloadRuinTemplates()

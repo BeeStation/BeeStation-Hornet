@@ -1,5 +1,3 @@
-GLOBAL_LIST_EMPTY(room_spawners)
-
 //random room spawner. takes random rooms from their appropriate map file and places them. the room will spawn with the spawner in the bottom left corner
 
 /obj/effect/spawner/room
@@ -7,38 +5,36 @@ GLOBAL_LIST_EMPTY(room_spawners)
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "random_room"
 	dir = NORTH
-	var/datum/map_template/random_room/template
 	var/room_width = 0
 	var/room_height = 0
 
 /obj/effect/spawner/room/New(loc, ...)
 	. = ..()
-	GLOB.room_spawners += src
+	if(!isnull(SSmapping.random_room_spawners))
+		SSmapping.random_room_spawners += src
 
 /obj/effect/spawner/room/Initialize()
 	..()
 	if(!length(SSmapping.random_room_templates))
+		message_admins("Room spawner created with no templates available. This shouldn't happen.")
 		return INITIALIZE_HINT_QDEL
 	var/list/possibletemplates = list()
-	var/datum/map_template/random_room/cantidate = null
+	var/datum/map_template/random_room/candidate
 	shuffle_inplace(SSmapping.random_room_templates)
 	for(var/ID in SSmapping.random_room_templates)
-		cantidate = SSmapping.random_room_templates[ID]
-		if(istype(cantidate, /datum/map_template/random_room) && room_height == cantidate.template_height && room_width == cantidate.template_width)
-			if(!cantidate.spawned)
-				possibletemplates[cantidate] = cantidate.weight
-		cantidate = null
+		candidate = SSmapping.random_room_templates[ID]
+		if(candidate.spawned || room_height != candidate.template_height || room_width != candidate.template_width)
+			candidate = null
+			continue
+		possibletemplates[candidate] = candidate.weight
 	if(possibletemplates.len)
-		template = pickweight(possibletemplates)
+		var/datum/map_template/random_room/template = pickweight(possibletemplates)
 		template.stock --
 		template.weight = (template.weight / 2)
 		if(template.stock <= 0)
 			template.spawned = TRUE
 		template.load(get_turf(src), centered = template.centerspawner)
-
-/obj/effect/spawner/room/Destroy(force)
-	GLOB.room_spawners -= src
-	. = ..()
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/room/fivexfour
 	name = "5x4 room spawner"
