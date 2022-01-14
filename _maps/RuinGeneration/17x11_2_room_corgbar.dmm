@@ -81,7 +81,7 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "k" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /obj/item/radio/intercom{
 	pixel_y = 24
 	},
@@ -132,7 +132,7 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "r" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -30
 	},
@@ -187,7 +187,7 @@
 /turf/open/floor/carpet/green,
 /area/ruin/unpowered)
 "B" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "C" = (

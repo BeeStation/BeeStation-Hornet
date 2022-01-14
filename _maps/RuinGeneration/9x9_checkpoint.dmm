@@ -140,18 +140,20 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "T" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
+/obj/effect/abstract/doorway_marker{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "U" = (
-/obj/effect/mapping_helpers/airlock/locked,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "V" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
+/obj/effect/abstract/doorway_marker{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)

@@ -193,7 +193,7 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "y" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -455,7 +455,7 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "X" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{

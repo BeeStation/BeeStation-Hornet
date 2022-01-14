@@ -575,7 +575,7 @@
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-25"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1210,7 +1210,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "nL" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-25"
 	},
 /obj/structure/cable/yellow{
@@ -1907,7 +1907,7 @@
 /area/ruin/unpowered)
 "wv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-25"
 	},
 /obj/machinery/light/small{
@@ -2776,7 +2776,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Gn" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-25"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2825,7 +2825,7 @@
 /area/ruin/unpowered)
 "GN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-25"
 	},
 /obj/machinery/light/small{
@@ -3576,7 +3576,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-25"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4132,7 +4132,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Uw" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-25"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4373,7 +4373,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "XQ" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-25"
 	},
 /obj/structure/cable/yellow{
