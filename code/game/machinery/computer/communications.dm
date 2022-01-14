@@ -194,6 +194,8 @@
 			var/datum/map_template/shuttle/shuttle = locate(params["shuttle"]) in shuttles
 			if (!istype(shuttle))
 				return
+			if (!can_purchase_this_shuttle(shuttle))
+				return
 			if (!shuttle.prerequisites_met())
 				to_chat(usr, "<span class='alert'>You have not met the requirements for purchasing this shuttle.</span>")
 				return
@@ -409,7 +411,7 @@
 					var/datum/map_template/shuttle/shuttle_template = SSmapping.shuttle_templates[shuttle_id]
 					if (shuttle_template.credit_cost == INFINITY)
 						continue
-					if (!shuttle_template.can_be_bought && !shuttle_template.illegal_shuttle)
+					if (!can_purchase_this_shuttle(shuttle_template))
 						continue
 					shuttles += list(list(
 						"name" = shuttle_template.name,
@@ -464,6 +466,19 @@
 		return "The shuttle is already in transit."
 	if (SSshuttle.shuttle_purchased)
 		return "A replacement shuttle has already been purchased."
+	return TRUE
+
+/// Returns whether we are authorized to buy this specific shuttle.
+/// Does not handle prerequisite checks, as those should still *show*.
+/obj/machinery/computer/communications/proc/can_purchase_this_shuttle(datum/map_template/shuttle/shuttle_template)
+	if(shuttle_template.credit_cost == INFINITY)
+		return FALSE
+	var/obj/item/circuitboard/computer/communications/CM = circuit
+	if(shuttle_template.illegal_shuttle && !((obj_flags & EMAGGED) || CM.insecure))
+		return FALSE
+	if(!shuttle_template.can_be_bought && !shuttle_template.illegal_shuttle)
+		return FALSE
+
 	return TRUE
 
 /obj/machinery/computer/communications/proc/can_send_messages_to_other_sectors(mob/user)
