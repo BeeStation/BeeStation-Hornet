@@ -28,13 +28,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"h" = (
+/obj/item/circuitboard/machine/vendor,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "l" = (
 /obj/structure/table,
 /obj/item/t_scanner,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "n" = (
-/obj/machinery/vending/tool,
+/obj/structure/frame/machine,
+/obj/item/stack/cable_coil/random/five,
+/obj/item/vending_refill/tool,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "o" = (
@@ -190,7 +196,7 @@ a
 (10,1,1) = {"
 a
 o
-e
+h
 e
 e
 x
