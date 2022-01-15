@@ -19,7 +19,7 @@ GLOBAL_LIST(admin_antag_list)
 	var/delay_roundend = TRUE
 	var/antag_memory = ""//These will be removed with antag datum
 	var/antag_moodlet //typepath of moodlet that the mob will gain with their status
-	
+
 	var/can_elimination_hijack = ELIMINATION_NEUTRAL //If these antags are alone when a shuttle elimination happens.
 	/// If above 0, this is the multiplier for the speed at which we hijack the shuttle. Do not directly read, use hijack_speed().
 	var/hijack_speed = 0
@@ -106,7 +106,7 @@ GLOBAL_LIST(admin_antag_list)
 	give_antag_moodies()
 	if(is_banned(owner.current) && replace_banned)
 		replace_banned_player()
-	else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.toggles & DEADMIN_ANTAGONIST))
+	else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.toggles & TOGGLE_DEADMIN_ANTAGONIST))
 		owner.current.client.holder.auto_deadmin()
 	if(owner.current.stat != DEAD)
 		owner.current.add_to_current_living_antags()

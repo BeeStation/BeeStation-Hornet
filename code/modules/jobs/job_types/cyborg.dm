@@ -1,7 +1,7 @@
 /datum/job/cyborg
 	title = "Cyborg"
 	flag = CYBORG
-	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
+	auto_deadmin_role_flags = TOGGLE_DEADMIN_POSITION_SILICON
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 0

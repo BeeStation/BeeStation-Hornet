@@ -105,8 +105,8 @@
 			B.moved = FALSE
 			if(B.id && usr.client)
 				usr.client.prefs.action_buttons_screen_locs["[B.name]_[B.id]"] = null
-			B.locked = usr.client.prefs.buttons_locked
-		locked = usr.client.prefs.buttons_locked
+			B.locked = usr.client.prefs.toggles & TOGGLE_BUTTON_LOCK
+		locked = usr.client.prefs.toggles & TOGGLE_BUTTON_LOCK
 		moved = FALSE
 		if(id && usr.client)
 			usr.client.prefs.action_buttons_screen_locs["[name]_[id]"] = null

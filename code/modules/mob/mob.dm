@@ -279,16 +279,16 @@
 
 ///Returns the client runechat visible messages preference according to the message type.
 /atom/proc/runechat_prefs_check(mob/target, list/visible_message_flags)
-	if(!target.client?.prefs.chat_on_map || !target.client.prefs.see_chat_non_mob)
+	if(!(target.client?.prefs.toggles & TOGGLE_RUNECHAT) || !(target.client.prefs.toggles & TOGGLE_NON_MOB_RUNECHAT))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.see_rc_emotes)
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !(target.client.prefs.toggles & TOGGLE_EMOTES_RUNECHAT))
 		return FALSE
 	return TRUE
 
 /mob/runechat_prefs_check(mob/target, list/visible_message_flags)
-	if(!target.client?.prefs.chat_on_map)
+	if(!(target.client?.prefs.toggles & TOGGLE_RUNECHAT))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.see_rc_emotes)
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !(target.client.prefs.toggles & TOGGLE_EMOTES_RUNECHAT))
 		return FALSE
 	return TRUE
 

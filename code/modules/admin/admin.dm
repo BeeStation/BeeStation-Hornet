@@ -866,7 +866,7 @@
 			message += jointext(S.laws.get_law_list(include_zeroth = TRUE), "<br>")
 
 		to_chat(usr, message)
-	
+
 	if(!ai_number)
 		to_chat(usr, "<b>No AIs located</b>" )
 
@@ -994,7 +994,7 @@
 		if(logout && CONFIG_GET(flag/announce_admin_logout))
 			string = pick(
 				"Admin logout: [key_name(src)]")
-		else if(!logout && CONFIG_GET(flag/announce_admin_login) && (prefs.toggles & ANNOUNCE_LOGIN))
+		else if(!logout && CONFIG_GET(flag/announce_admin_login) && (prefs.toggles & TOGGLE_ANNOUNCE_LOGIN))
 			string = pick(
 				"Admin login: [key_name(src)]")
 		if(string)

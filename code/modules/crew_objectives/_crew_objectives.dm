@@ -1,5 +1,5 @@
 /datum/controller/subsystem/ticker/proc/give_crew_objective(var/datum/mind/crewMind)
-	if(CONFIG_GET(flag/allow_crew_objectives) && crewMind?.current?.client.prefs.crew_objectives)
+	if(CONFIG_GET(flag/allow_crew_objectives) && (crewMind?.current?.client.prefs.toggles & TOGGLE_CREW_OBJECTIVES))
 		generate_individual_objectives(crewMind)
 	return
 

@@ -310,7 +310,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(block_level || block_upgrade_walk)
 		if(block_upgrade_walk == 1 && !block_level)
 			. += "While walking, [src] can block attacks in a <b>narrow</b> arc."
-		else 
+		else
 			switch(block_upgrade_walk + block_level)
 				if(1)
 					. += "[src] can block attacks in a <b>narrow</b> arc."
@@ -607,7 +607,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
 		owner.blockbreak()
 	if(attackforce)
-		owner.changeNext_move(CLICK_CD_MELEE) 
+		owner.changeNext_move(CLICK_CD_MELEE)
 	return TRUE
 
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language, list/message_mods)
@@ -955,7 +955,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!(item_flags & IN_INVENTORY || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
 		return
 	if(usr.client)
-		if(!usr.client.prefs.outline_enabled)
+		if(!(usr.client.prefs.toggles & TOGGLE_OBJECT_OUTLINE))
 			return
 	if(!colour)
 		if(usr.client)

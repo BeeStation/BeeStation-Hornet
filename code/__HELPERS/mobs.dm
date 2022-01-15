@@ -329,7 +329,7 @@ GLOBAL_LIST_EMPTY(species_list)
 				break
 	if (progress)
 		qdel(progbar)
-	
+
 	if(!QDELETED(target))
 		LAZYREMOVE(user.do_afters, target)
 		LAZYREMOVE(target.targeted_by, user)
@@ -473,10 +473,10 @@ GLOBAL_LIST_EMPTY(species_list)
 
 		switch(message_type)
 			if(DEADCHAT_DEATHRATTLE)
-				if(toggles & DISABLE_DEATHRATTLE)
+				if(toggles & TOGGLE_DISABLE_DEATHRATTLE)
 					continue
 			if(DEADCHAT_ARRIVALRATTLE)
-				if(toggles & DISABLE_ARRIVALRATTLE)
+				if(toggles & TOGGLE_DISABLE_ARRIVALRATTLE)
 					continue
 			if(DEADCHAT_LAWCHANGE)
 				if(!(chat_toggles & CHAT_GHOSTLAWS))

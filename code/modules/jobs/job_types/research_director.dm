@@ -1,7 +1,7 @@
 /datum/job/rd
 	title = "Research Director"
 	flag = RD_JF
-	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
+	auto_deadmin_role_flags = TOGGLE_DEADMIN_POSITION_HEAD
 	department_head = list("Captain")
 	department_flag = MEDSCI
 	head_announce = list("Science")

@@ -1,28 +1,78 @@
-
 //Preference toggles
-#define SOUND_ADMINHELP			(1<<0)
-#define SOUND_MIDI				(1<<1)
-#define SOUND_AMBIENCE			(1<<2)
-#define SOUND_LOBBY				(1<<3)
-#define MEMBER_PUBLIC			(1<<4)
-#define INTENT_STYLE			(1<<5)
-#define MIDROUND_ANTAG			(1<<6)
-#define SOUND_INSTRUMENTS		(1<<7)
-#define SOUND_SHIP_AMBIENCE		(1<<8)
-#define SOUND_PRAYERS			(1<<9)
-#define ANNOUNCE_LOGIN			(1<<10)
-#define SOUND_ANNOUNCEMENTS		(1<<11)
-#define DISABLE_DEATHRATTLE		(1<<12)
-#define DISABLE_ARRIVALRATTLE	(1<<13)
-#define COMBOHUD_LIGHTING		(1<<14)
+///Publicly display BYOND membership (OOC icon/colour)
+#define TOGGLE_MEMBER_PUBLIC				(1<<0)
+///Select or rotate intents
+#define TOGGLE_INTENT_STYLE				    (1<<1)
+///Midround antag (ghostrole) popups
+#define TOGGLE_MIDROUND_ANTAG				(1<<2)
+///Announce login to admins (if an admin)
+#define TOGGLE_ANNOUNCE_LOGIN				(1<<3)
+///Disable deadchat alerts for people dying
+#define TOGGLE_DISABLE_DEATHRATTLE			(1<<4)
+///Disable deadchat alerts for people joining station
+#define TOGGLE_DISABLE_ARRIVALRATTLE		(1<<5)
+///Toggles whether mobs should be made fullbright when admin combo hud on
+#define TOGGLE_COMBOHUD_LIGHTING			(1<<6)
+///Always de-admin when playing (IT'S NOT DEAD-MIN)
+#define TOGGLE_DEADMIN_ALWAYS				(1<<7)
+///De-admin when playing an antag role
+#define TOGGLE_DEADMIN_ANTAGONIST			(1<<8)
+///De-admin when playing a head role
+#define TOGGLE_DEADMIN_POSITION_HEAD		(1<<9)
+///De-admin when playing a sec role
+#define TOGGLE_DEADMIN_POSITION_SECURITY	(1<<10)
+///De-admin when playing a silicon role
+#define TOGGLE_DEADMIN_POSITION_SILICON	    (1<<11)
+///Enable outline for mouse hover on items
+#define TOGGLE_OBJECT_OUTLINE				(1<<12)
+///Lock action buttons (top left) in place
+#define TOGGLE_BUTTON_LOCK					(1<<13)
+///Enable hotkey mode
+#define TOGGLE_HOTKEYS						(1<<14)
+///Enable runechat (maptext chat messages)
+#define TOGGLE_RUNECHAT						(1<<15)
+///Enable runechat display for non-mob atoms (machinery)
+#define TOGGLE_NON_MOB_RUNECHAT				(1<<16)
+///Enable emote display with runechat
+#define TOGGLE_EMOTES_RUNECHAT				(1<<17)
+///Enable crew objectives
+#define TOGGLE_CREW_OBJECTIVES				(1<<18)
+///Enable window flashing for certain events (ahelps, ghost role prompts etc)
+#define TOGGLE_WINDOW_FLASH					(1<<19)
+///Enable fancy TGUI
+#define TOGGLE_FANCY_TGUI					(1<<20)
+///Enable TGUI lock for monitors
+#define TOGGLE_LOCK_TGUI					(1<<21)
+///Show credits at end of round
+#define TOGGLE_CREDITS						(1<<22)
+///Show HUD for ghosts
+#define TOGGLE_GHOST_HUD					(1<<23)
 
-#define DEADMIN_ALWAYS			(1<<15)
-#define DEADMIN_ANTAGONIST		(1<<16)
-#define DEADMIN_POSITION_HEAD	(1<<17)
-#define DEADMIN_POSITION_SECURITY	(1<<18)
-#define DEADMIN_POSITION_SILICON	(1<<19)
+///Default toggles settings
+#define TOGGLES_DEFAULT (TOGGLE_MEMBER_PUBLIC|TOGGLE_INTENT_STYLE|TOGGLE_MIDROUND_ANTAG|TOGGLE_OBJECT_OUTLINE|TOGGLE_RUNECHAT|TOGGLE_NON_MOB_RUNECHAT|TOGGLE_EMOTES_RUNECHAT|TOGGLE_CREW_OBJECTIVES|TOGGLE_WINDOW_FLASH|TOGGLE_FANCY_TGUI|TOGGLE_LOCK_TGUI|TOGGLE_CREDITS|TOGGLE_GHOST_HUD)
 
-#define TOGGLES_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|MEMBER_PUBLIC|INTENT_STYLE|MIDROUND_ANTAG|SOUND_INSTRUMENTS|SOUND_SHIP_AMBIENCE|SOUND_PRAYERS|SOUND_ANNOUNCEMENTS)
+//Secondary preference toggles
+///Examine everything clicked as a ghost
+#define TOGGLE_2_INQUISITIVE_GHOST			(1<<0)
+///Ambient occlusion (shadows)
+#define TOGGLE_2_AMBIENT_OCCLUSION			(1<<1)
+///Auto fit viewport
+#define TOGGLE_2_AUTOFIT_VIEWPORT			(1<<2)
+
+///Default toggles_2 settings
+#define TOGGLES_2_DEFAULT (TOGGLE_2_INQUISITIVE_GHOST|TOGGLE_2_AMBIENT_OCCLUSION|TOGGLE_2_AUTOFIT_VIEWPORT)
+
+// Sound toggles
+#define SOUND_ADMINHELP				(1<<0)
+#define SOUND_MIDI					(1<<1)
+#define SOUND_AMBIENCE				(1<<2)
+#define SOUND_LOBBY					(1<<3)
+#define SOUND_INSTRUMENTS			(1<<4)
+#define SOUND_SHIP_AMBIENCE			(1<<5)
+#define SOUND_PRAYERS				(1<<6)
+#define SOUND_ANNOUNCEMENTS			(1<<7)
+
+#define TOGGLES_DEFAULT_SOUND (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_INSTRUMENTS|SOUND_SHIP_AMBIENCE|SOUND_PRAYERS|SOUND_ANNOUNCEMENTS)
 
 //Chat toggles
 #define CHAT_OOC			(1<<0)
@@ -35,8 +85,8 @@
 #define CHAT_GHOSTWHISPER	(1<<7)
 #define CHAT_GHOSTPDA		(1<<8)
 #define CHAT_GHOSTRADIO 	(1<<9)
-#define CHAT_BANKCARD  (1<<10)
-#define CHAT_GHOSTLAWS	(1<<11)
+#define CHAT_BANKCARD  		(1<<10)
+#define CHAT_GHOSTLAWS		(1<<11)
 
 #define TOGGLES_DEFAULT_CHAT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_PULLR|CHAT_GHOSTWHISPER|CHAT_GHOSTPDA|CHAT_GHOSTRADIO|CHAT_BANKCARD|CHAT_GHOSTLAWS)
 

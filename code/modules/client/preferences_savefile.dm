@@ -5,7 +5,7 @@
 //	You do not need to raise this if you are adding new values that have sane defaults.
 //	Only raise this value when changing the meaning/format/name/layout of an existing value
 //	where you would want the updater procs below to run
-#define SAVEFILE_VERSION_MAX	36
+#define SAVEFILE_VERSION_MAX	37
 
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
@@ -43,10 +43,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 /datum/preferences/proc/update_preferences(current_version, savefile/S)
 	if(current_version < 30)
-		outline_enabled = TRUE
 		outline_color = COLOR_BLUE_GRAY
-	if(current_version < 31)
-		auto_fit_viewport = TRUE
 	if(current_version < 32)
 		//Okay this is gonna s u c k
 		var/list/legacy_purchases = purchased_gear.Copy()
@@ -62,10 +59,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 			if(n_gear)
 				purchased_gear += n_gear
 	if(current_version < 33)
-		chat_on_map = TRUE
+		toggles |= TOGGLE_RUNECHAT
 //		max_chat_length = CHAT_MESSAGE_MAX_LENGTH			> Depreciated as of 31/07/2021
-		see_chat_non_mob = TRUE
-		see_rc_emotes = TRUE
+		toggles |= TOGGLE_NON_MOB_RUNECHAT
+		toggles |= TOGGLE_EMOTES_RUNECHAT
 		S.dir.Remove("overhead_chat")
 	if(current_version < 35)
 		see_balloon_alerts = BALLOON_ALERT_ALWAYS
@@ -75,7 +72,58 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		//so im doing that
 		key_bindings += list("W" = list("move_north"), "A" = list("move_west"), "S" = list("move_south"), "D" = list("move_east"))
 		WRITE_FILE(S["key_bindings"], key_bindings)
-	return
+	if(current_version < 37)
+		// this is some horrible, HORRIBLE CBT to shuffle around all the bitflags
+		// first thing is to move the sound bitflags to the new variable
+		sound_toggles = 0 // clear the default flags, since we're overwriting with the incoming prefs
+		sound_toggles |= toggles & SOUND_ADMINHELP
+		sound_toggles |= toggles & SOUND_MIDI
+		sound_toggles |= toggles & SOUND_AMBIENCE
+		sound_toggles |= toggles & SOUND_LOBBY
+		// The rest of the sound flags are mixed up with general flags, so we need to sanitize them
+		// to make sure they are written to the correct flag location
+		// this is done by logically inverting twice to get 1 or 0 and then shifting by the required values
+		sound_toggles |= ((!(!(toggles & (1<<7)))) << 4) // instruments
+		sound_toggles |= ((!(!(toggles & (1<<8)))) << 5) // ambience
+		sound_toggles |= ((!(!(toggles & (1<<9)))) << 6) // prayers
+		sound_toggles |= ((!(!(toggles & (1<<11)))) << 7) // announcements
+
+		// Now we can do some bitflag *magic* and reorganize the remaining toggle values into a cohesive set of flags
+		// Shift right 4 bits to remove the first 4 former sound bits
+		toggles >>= 4
+		// New blank toggles var
+		var/new_toggles = TOGGLES_DEFAULT
+		new_toggles &= ~4095 // unset bottom 12 bits since those are getting copied
+		new_toggles |= toggles & 7 // mask for bottom three bits and copy
+		new_toggles |= (toggles & 64) >> 3 // move 7th bit 3 bits over
+		new_toggles |= (toggles & 65280) >> 4 // move bits 9 thru 16 4 bits over
+		toggles = new_toggles
+		// Previous bitflags have now been converted to the new format, and we can now convert the savefile vars
+		toggles &= ~16539648 // unset bit 14-15 and bit 19-24 since those are getting copied over
+		toggles |= sanitize_integer(S["buttons_locked"], FALSE, TRUE, FALSE) << 13
+		toggles |= sanitize_integer(S["hotkeys"], FALSE, TRUE, FALSE) << 14
+		toggles |= sanitize_integer(S["crew_objectives"], FALSE, TRUE, TRUE) << 18
+		toggles |= sanitize_integer(S["windowflash"], FALSE, TRUE, TRUE) << 19
+		toggles |= sanitize_integer(S["tgui_fancy"], FALSE, TRUE, TRUE) << 20
+		toggles |= sanitize_integer(S["tgui_lock"], FALSE, TRUE, TRUE) << 21
+		toggles |= sanitize_integer(S["show_credits"], FALSE, TRUE, TRUE) << 22
+		toggles |= sanitize_integer(S["ghost_hud"], FALSE, TRUE, TRUE) << 23
+		toggles_2 = TOGGLES_2_DEFAULT
+		toggles_2 &= ~3 // unset bits 1 and 2, since we're copying those
+		toggles_2 |= sanitize_integer(S["inquisitive_ghost"], FALSE, TRUE, TRUE) << 0
+		toggles_2 |= sanitize_integer(S["ambientocclusion"], FALSE, TRUE, TRUE) << 1
+		// Handle some newer vars that may or may not be present with older saves
+		if(current_version >= 30)
+			toggles &= ~4096 // unset 13th bit to prep for copy
+			toggles |= sanitize_integer(S["outline_enabled"], FALSE, TRUE, TRUE) << 12
+		if(current_version >= 31)
+			toggles_2 &= ~4 // unset 3rd bit
+			toggles_2 |= sanitize_integer(S["auto_fit_viewport"], FALSE, TRUE, TRUE) << 2
+		if(current_version >= 33)
+			toggles &= ~229376 // unset bits 16-18
+			toggles |= sanitize_integer(S["chat_on_map"], FALSE, TRUE, TRUE) << 15
+			toggles |= sanitize_integer(S["see_chat_non_mob"], FALSE, TRUE, TRUE) << 16
+			toggles |= sanitize_integer(S["see_rc_emotes"], FALSE, TRUE, TRUE) << 17
 
 /datum/preferences/proc/update_character(current_version, savefile/S)
 	if(current_version < 19)
@@ -174,21 +222,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["lastchangelog"], lastchangelog)
 	READ_FILE(S["UI_style"], UI_style)
 	READ_FILE(S["outline_color"], outline_color)
-	READ_FILE(S["outline_enabled"], outline_enabled)
-	READ_FILE(S["hotkeys"], hotkeys)
-	READ_FILE(S["chat_on_map"], chat_on_map)
-	READ_FILE(S["see_chat_non_mob"] , see_chat_non_mob)
-	READ_FILE(S["see_rc_emotes"] , see_rc_emotes)
 	READ_FILE(S["see_balloon_alerts"], see_balloon_alerts)
-	READ_FILE(S["tgui_fancy"], tgui_fancy)
-	READ_FILE(S["tgui_lock"], tgui_lock)
-	READ_FILE(S["buttons_locked"], buttons_locked)
-	READ_FILE(S["windowflash"], windowflashing)
 	READ_FILE(S["be_special"], be_special)
-
-	READ_FILE(S["crew_objectives"], crew_objectives)
-
-
 	READ_FILE(S["default_slot"], default_slot)
 	READ_FILE(S["chat_toggles"], chat_toggles)
 	READ_FILE(S["toggles"], toggles)
@@ -198,13 +233,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["ghost_others"], ghost_others)
 	READ_FILE(S["preferred_map"], preferred_map)
 	READ_FILE(S["ignoring"], ignoring)
-	READ_FILE(S["ghost_hud"], ghost_hud)
-	READ_FILE(S["inquisitive_ghost"], inquisitive_ghost)
 	READ_FILE(S["uses_glasses_colour"], uses_glasses_colour)
 	READ_FILE(S["clientfps"], clientfps)
 	READ_FILE(S["parallax"], parallax)
-	READ_FILE(S["ambientocclusion"], ambientocclusion)
-	READ_FILE(S["auto_fit_viewport"], auto_fit_viewport)
 	READ_FILE(S["pixel_size"], pixel_size)
 	READ_FILE(S["scaling_method"], scaling_method)
 	READ_FILE(S["menuoptions"], menuoptions)
@@ -212,10 +243,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["tip_delay"], tip_delay)
 	READ_FILE(S["pda_style"], pda_style)
 	READ_FILE(S["pda_color"], pda_color)
-	READ_FILE(S["show_credits"], show_credits)
-
 	READ_FILE(S["key_bindings"], key_bindings)
-
 	READ_FILE(S["purchased_gear"], purchased_gear)
 	READ_FILE(S["equipped_gear"], equipped_gear)
 
@@ -228,19 +256,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	ooccolor		= sanitize_ooccolor(sanitize_hexcolor(ooccolor, 6, TRUE, initial(ooccolor)))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	UI_style		= sanitize_inlist(UI_style, GLOB.available_ui_styles, GLOB.available_ui_styles[1])
-	hotkeys			= sanitize_integer(hotkeys, FALSE, TRUE, initial(hotkeys))
-	chat_on_map		= sanitize_integer(chat_on_map, FALSE, TRUE, initial(chat_on_map))
-	see_chat_non_mob	= sanitize_integer(see_chat_non_mob, FALSE, TRUE, initial(see_chat_non_mob))
-	tgui_fancy		= sanitize_integer(tgui_fancy, FALSE, TRUE, initial(tgui_fancy))
-	tgui_lock		= sanitize_integer(tgui_lock, FALSE, TRUE, initial(tgui_lock))
-	buttons_locked	= sanitize_integer(buttons_locked, FALSE, TRUE, initial(buttons_locked))
-	windowflashing		= sanitize_integer(windowflashing, FALSE, TRUE, initial(windowflashing))
 	default_slot	= sanitize_integer(default_slot, TRUE, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, FALSE, 65535, initial(toggles))
 	clientfps		= sanitize_integer(clientfps, FALSE, 1000, FALSE)
 	parallax		= sanitize_integer(parallax, PARALLAX_INSANE, PARALLAX_DISABLE, null)
-	ambientocclusion	= sanitize_integer(ambientocclusion, FALSE, TRUE, initial(ambientocclusion))
-	auto_fit_viewport	= sanitize_integer(auto_fit_viewport, FALSE, TRUE, initial(auto_fit_viewport))
 	pixel_size		= sanitize_integer(pixel_size, PIXEL_SCALING_AUTO, PIXEL_SCALING_3X, initial(pixel_size))
 	scaling_method  = sanitize_text(scaling_method, initial(scaling_method))
 	ghost_form		= sanitize_inlist(ghost_form, GLOB.ghost_forms, initial(ghost_form))
@@ -249,10 +268,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	ghost_others	= sanitize_inlist(ghost_others, GLOB.ghost_others_options, GHOST_OTHERS_DEFAULT_OPTION)
 	menuoptions		= SANITIZE_LIST(menuoptions)
 	be_special		= SANITIZE_LIST(be_special)
-	crew_objectives		= sanitize_integer(crew_objectives, FALSE, TRUE, initial(crew_objectives))
 	pda_style		= sanitize_inlist(pda_style, GLOB.pda_styles, initial(pda_style))
 	pda_color		= sanitize_hexcolor(pda_color, 6, TRUE, initial(pda_color))
-	show_credits		= sanitize_integer(show_credits, FALSE, TRUE, initial(show_credits))
 
 	key_bindings 	= sanitize_islist(key_bindings, deepCopyList(GLOB.keybinding_list_by_key))
 	if (!key_bindings)
@@ -280,21 +297,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["ooccolor"], ooccolor)
 	WRITE_FILE(S["lastchangelog"], lastchangelog)
 	WRITE_FILE(S["UI_style"], UI_style)
-	WRITE_FILE(S["outline_enabled"], outline_enabled)
 	WRITE_FILE(S["outline_color"], outline_color)
-	WRITE_FILE(S["hotkeys"], hotkeys)
-	WRITE_FILE(S["chat_on_map"], chat_on_map)
-	WRITE_FILE(S["see_chat_non_mob"], see_chat_non_mob)
-	WRITE_FILE(S["see_rc_emotes"], see_rc_emotes)
 	WRITE_FILE(S["see_balloon_alerts"], see_balloon_alerts)
-	WRITE_FILE(S["tgui_fancy"], tgui_fancy)
-	WRITE_FILE(S["tgui_lock"], tgui_lock)
-	WRITE_FILE(S["buttons_locked"], buttons_locked)
-	WRITE_FILE(S["windowflash"], windowflashing)
 	WRITE_FILE(S["be_special"], be_special)
-	WRITE_FILE(S["crew_objectives"], crew_objectives)
 	WRITE_FILE(S["default_slot"], default_slot)
 	WRITE_FILE(S["toggles"], toggles)
+	WRITE_FILE(S["toggles_2"], toggles_2)
 	WRITE_FILE(S["chat_toggles"], chat_toggles)
 	WRITE_FILE(S["ghost_form"], ghost_form)
 	WRITE_FILE(S["ghost_orbit"], ghost_orbit)
@@ -302,13 +310,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["ghost_others"], ghost_others)
 	WRITE_FILE(S["preferred_map"], preferred_map)
 	WRITE_FILE(S["ignoring"], ignoring)
-	WRITE_FILE(S["ghost_hud"], ghost_hud)
-	WRITE_FILE(S["inquisitive_ghost"], inquisitive_ghost)
 	WRITE_FILE(S["uses_glasses_colour"], uses_glasses_colour)
 	WRITE_FILE(S["clientfps"], clientfps)
 	WRITE_FILE(S["parallax"], parallax)
-	WRITE_FILE(S["ambientocclusion"], ambientocclusion)
-	WRITE_FILE(S["auto_fit_viewport"], auto_fit_viewport)
 	WRITE_FILE(S["pixel_size"], pixel_size)
 	WRITE_FILE(S["scaling_method"], scaling_method)
 	WRITE_FILE(S["menuoptions"], menuoptions)
@@ -316,7 +320,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["tip_delay"], tip_delay)
 	WRITE_FILE(S["pda_style"], pda_style)
 	WRITE_FILE(S["pda_color"], pda_color)
-	WRITE_FILE(S["show_credits"], show_credits)
 	WRITE_FILE(S["purchased_gear"], purchased_gear)
 	WRITE_FILE(S["equipped_gear"], equipped_gear)
 
