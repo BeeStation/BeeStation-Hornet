@@ -115,6 +115,10 @@
 	wing_type = "plain"
 	canopen = FALSE
 
+/obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special)
+	flight_level = initial(flight_level)
+	. = ..()
+
 /obj/item/organ/wings/moth/robust
 	desc = "A pair of moth wings. They look robust enough to fly in an atmosphere"
 	flight_level = WINGS_FLYING
@@ -155,6 +159,10 @@
 	actions_types = list(/datum/action/item_action/organ_action/use/bee_dash)
 	wing_type = "Bee"
 	var/jumpdist = 3
+
+/obj/item/organ/wings/bee/Remove(mob/living/carbon/human/H, special)
+	jumpdist = initial(jumpdist)
+	. = ..()
 
 /datum/action/item_action/organ_action/use/bee_dash
 	var/jumpspeed = 1

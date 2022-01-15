@@ -387,30 +387,30 @@
 /datum/mutation/human/strongwings/on_acquiring()
 	if(..())
 		return
-	if(locate(/obj/item/organ/wings/bee) in owner.internal_organs)
-		var/obj/item/organ/wings/bee/wings = locate(/obj/item/organ/wings/bee) in owner.internal_organs
-		wings.jumpdist += (6 * GET_MUTATION_POWER(src)) - 3
+	var/obj/item/organ/wings/bee/beewings = locate(/obj/item/organ/wings/bee) in owner.internal_organs
+	var/obj/item/organ/wings/moth/mothwings = locate(/obj/item/organ/wings/moth) in owner.internal_organs
+	if(beewings)
+		beewings.jumpdist += (6 * GET_MUTATION_POWER(src)) - 3
 		to_chat(owner, "<span class='notice'>Your wings feel stronger.</span>")
-	else if(locate(/obj/item/organ/wings/moth) in owner.internal_organs)
-		var/obj/item/organ/wings/moth/wings = locate(/obj/item/organ/wings/moth) in owner.internal_organs
-		wings.flight_level += 1
+	else if(mothwings)
+		mothwings.flight_level += 1
 		to_chat(owner, "<span class='notice'>Your wings feel stronger.</span>")
-		wings.Refresh(owner)
+		mothwings.Refresh(owner)
 	else
 		to_chat(owner, "<span class='warning'>You don't have wings to strengthen!")
 
 /datum/mutation/human/strongwings/on_losing()
 	if(..())
 		return
-	if(locate(/obj/item/organ/wings/bee) in owner.internal_organs)
-		var/obj/item/organ/wings/bee/wings = locate(/obj/item/organ/wings/bee) in owner.internal_organs
-		wings.jumpdist -= (6 * GET_MUTATION_POWER(src)) - 3
+	var/obj/item/organ/wings/bee/beewings = locate(/obj/item/organ/wings/bee) in owner.internal_organs
+	var/obj/item/organ/wings/moth/mothwings = locate(/obj/item/organ/wings/moth) in owner.internal_organs
+	if(beewings)
+		beewings.jumpdist -= (6 * GET_MUTATION_POWER(src)) - 3
 		to_chat(owner, "<span class='warning'>Your wings feel weak.</span>")
-	else if(locate(/obj/item/organ/wings/moth) in owner.internal_organs)
-		var/obj/item/organ/wings/moth/wings = locate(/obj/item/organ/wings/moth) in owner.internal_organs
-		wings.flight_level -= 1
+	else if(mothwings)
+		mothwings.flight_level -= 1
 		to_chat(owner, "<span class='warning'>Your wings feel weak.</span>")
-		wings.Refresh(owner)
+		mothwings.Refresh(owner)
 	else
 		to_chat(owner, "<span class='warning'>The stubs of your wings feel weak!")
 
