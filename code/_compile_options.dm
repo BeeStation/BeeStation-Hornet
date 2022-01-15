@@ -3,7 +3,7 @@
 
 //#define DATUMVAR_DEBUGGING_MODE	//Enables the ability to cache datum vars and retrieve later for debugging which vars changed.
 
-//#define DM_COMPILE // Uncomment to allow compiling with Dream Maker. NOT RECOMMENDED!!!
+//#define DM_COMPILE // Uncomment to allow compiling with Dream Maker. NOT RECOMMENDED!!! (Note you will need to compile TGUI manually)
 
 // Comment this out if you are debugging problems that might be obscured by custom error handling in world/Error
 #ifdef DEBUG
