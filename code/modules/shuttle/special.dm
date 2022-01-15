@@ -316,7 +316,7 @@
 
 /mob/living/simple_animal/hostile/bear/fightpit/Initialize()
 	. = ..()
-	var/multiplier = round(length(SSticker.mode.current_players[CURRENT_LIVING_PLAYERS]) / BASE_BEAR_DIVISOR, 0.1)
+	var/multiplier = max(round(length(SSticker.mode.current_players[CURRENT_LIVING_PLAYERS]) / BASE_BEAR_DIVISOR, 0.1), 1)
 	maxHealth *= multiplier
 	health *= multiplier
 	melee_damage *= multiplier
