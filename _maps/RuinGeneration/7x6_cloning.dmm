@@ -2,6 +2,10 @@
 "a" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
+"c" = (
+/obj/item/chair/stool,
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
 "f" = (
 /obj/structure/closet/wardrobe/mixed,
 /obj/effect/turf_decal/tile/blue{
@@ -10,10 +14,10 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "l" = (
-/obj/machinery/computer/cloning{
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/computer/cloning/prototype{
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
@@ -79,8 +83,9 @@
 /turf/open/floor/noslip/dark,
 /area/ruin/unpowered)
 "J" = (
-/obj/machinery/clonepod/prefilled,
 /obj/effect/turf_decal/stripes/corner,
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/clonepod/experimental,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "Q" = (
@@ -144,7 +149,7 @@ a
 a
 v
 A
-A
+c
 o
 a
 "}
