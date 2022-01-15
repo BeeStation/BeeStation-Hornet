@@ -48,6 +48,9 @@
 ///Show HUD for ghosts
 #define TOGGLE_GHOST_HUD					(1<<23)
 
+///Maximum decimal value with all toggles enabled. Make sure to update this if you add or remove toggles.
+#define TOGGLES_MAX							16777215 //hex: 0xFFFFFFF
+
 ///Default toggles settings
 #define TOGGLES_DEFAULT (TOGGLE_MEMBER_PUBLIC|TOGGLE_INTENT_STYLE|TOGGLE_MIDROUND_ANTAG|TOGGLE_OBJECT_OUTLINE|TOGGLE_RUNECHAT|TOGGLE_NON_MOB_RUNECHAT|TOGGLE_EMOTES_RUNECHAT|TOGGLE_CREW_OBJECTIVES|TOGGLE_WINDOW_FLASH|TOGGLE_FANCY_TGUI|TOGGLE_LOCK_TGUI|TOGGLE_CREDITS|TOGGLE_GHOST_HUD)
 
@@ -59,8 +62,20 @@
 ///Auto fit viewport
 #define TOGGLE_2_AUTOFIT_VIEWPORT			(1<<2)
 
+///Maximum decimal value with all toggles enabled for toggles_2
+#define TOGGLES_2_MAX						7 //hex: 0x7
+
 ///Default toggles_2 settings
 #define TOGGLES_2_DEFAULT (TOGGLE_2_INQUISITIVE_GHOST|TOGGLE_2_AMBIENT_OCCLUSION|TOGGLE_2_AUTOFIT_VIEWPORT)
+
+// Sanity checks
+#if TOGGLES_MAX > 16777215
+#error More than 24 flags used for toggles bitflag. Please use toggles_2.
+#endif
+
+#if TOGGLES_2_TOTAL > 16777215
+#error More than 24 flags used for toggles_2 bitflag. Please contact a maintainer.
+#endif
 
 // Sound toggles
 #define SOUND_ADMINHELP				(1<<0)

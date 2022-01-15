@@ -73,8 +73,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		key_bindings += list("W" = list("move_north"), "A" = list("move_west"), "S" = list("move_south"), "D" = list("move_east"))
 		WRITE_FILE(S["key_bindings"], key_bindings)
 	if(current_version < 37)
-		testing("starting savefile conversion")
-		testing("initial toggles value [toggles]")
 		// this is some horrible, HORRIBLE CBT to shuffle around all the bitflags
 		// first thing is to move the sound bitflags to the new variable
 		sound_toggles = 0 // clear the default flags, since we're overwriting with the incoming prefs
@@ -82,7 +80,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		sound_toggles |= toggles & SOUND_MIDI
 		sound_toggles |= toggles & SOUND_AMBIENCE
 		sound_toggles |= toggles & SOUND_LOBBY
-		testing("first four sound toggles copied. Value: [sound_toggles]")
 		// The rest of the sound flags are mixed up with general flags, so we need to sanitize them
 		// to make sure they are written to the correct flag location
 		// this is done by logically inverting twice to get 1 or 0 and then shifting by the required values
@@ -90,24 +87,19 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		sound_toggles |= ((!(!(toggles & (1<<8)))) << 5) // ambience
 		sound_toggles |= ((!(!(toggles & (1<<9)))) << 6) // prayers
 		sound_toggles |= ((!(!(toggles & (1<<11)))) << 7) // announcements
-		testing("remaining sound toggles copied. Value: [sound_toggles]")
 
 		// Now we can do some bitflag *magic* and reorganize the remaining toggle values into a cohesive set of flags
 		// Shift right 4 bits to remove the first 4 former sound bits
 		toggles >>= 4
-		testing("toggles shifted. Value [toggles]")
 		// New blank toggles var
 		var/new_toggles = TOGGLES_DEFAULT
 		new_toggles &= ~4095 // unset bottom 12 bits since those are getting copied
-		testing("new toggles created and unset. Value [new_toggles]")
 		new_toggles |= toggles & 7 // mask for bottom three bits and copy
 		new_toggles |= (toggles & 64) >> 3 // move 7th bit 3 bits over
 		new_toggles |= (toggles & 65280) >> 4 // move bits 9 thru 16 4 bits over
 		toggles = new_toggles
-		testing("copied new toggles values. Value [new_toggles]")
 		// Previous bitflags have now been converted to the new format, and we can now convert the savefile vars
 		toggles &= ~16539648 // unset bit 14-15 and bit 19-24 since those are getting copied over
-		testing("masked toggles. Value [toggles]")
 		toggles |= sanitize_integer(S["buttons_locked"], FALSE, TRUE, FALSE) << 13
 		toggles |= sanitize_integer(S["hotkeys"], FALSE, TRUE, FALSE) << 14
 		toggles |= sanitize_integer(S["crew_objectives"], FALSE, TRUE, TRUE) << 18
@@ -116,10 +108,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		toggles |= sanitize_integer(S["tgui_lock"], FALSE, TRUE, TRUE) << 21
 		toggles |= sanitize_integer(S["show_credits"], FALSE, TRUE, TRUE) << 22
 		toggles |= sanitize_integer(S["ghost_hud"], FALSE, TRUE, TRUE) << 23
-		testing("copied toggles. Value [toggles]")
 		toggles_2 = TOGGLES_2_DEFAULT
 		toggles_2 &= ~3 // unset bits 1 and 2, since we're copying those
-		testing("created and masked toggles_2. Value: [toggles_2]")
 		toggles_2 |= sanitize_integer(S["inquisitive_ghost"], FALSE, TRUE, TRUE) << 0
 		toggles_2 |= sanitize_integer(S["ambientocclusion"], FALSE, TRUE, TRUE) << 1
 		// Handle some newer vars that may or may not be present with older saves
@@ -134,8 +124,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 			toggles |= sanitize_integer(S["chat_on_map"], FALSE, TRUE, TRUE) << 15
 			toggles |= sanitize_integer(S["see_chat_non_mob"], FALSE, TRUE, TRUE) << 16
 			toggles |= sanitize_integer(S["see_rc_emotes"], FALSE, TRUE, TRUE) << 17
-		testing("final toggles value: [toggles]")
-		testing("final toggles_2 value: [toggles_2]")
 
 /datum/preferences/proc/update_character(current_version, savefile/S)
 	if(current_version < 19)
@@ -271,7 +259,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	UI_style		= sanitize_inlist(UI_style, GLOB.available_ui_styles, GLOB.available_ui_styles[1])
 	default_slot	= sanitize_integer(default_slot, TRUE, max_save_slots, initial(default_slot))
-	toggles			= sanitize_integer(toggles, FALSE, 65535, initial(toggles))
+	toggles			= sanitize_integer(toggles, FALSE, 16777215, initial(toggles))
+	toggles_2		= sanitize_integer(toggles_2, FALSE, 16777215, initial(toggles_2))
+	chat_toggles	= sanitize_integer(chat_toggles, FALSE, 16777215, initial(chat_toggles))
+	sound_toggles	= sanitize_integer(sound_toggles, FALSE, 16777215, initial(sound_toggles))
 	clientfps		= sanitize_integer(clientfps, FALSE, 1000, FALSE)
 	parallax		= sanitize_integer(parallax, PARALLAX_INSANE, PARALLAX_DISABLE, null)
 	pixel_size		= sanitize_integer(pixel_size, PIXEL_SCALING_AUTO, PIXEL_SCALING_3X, initial(pixel_size))
