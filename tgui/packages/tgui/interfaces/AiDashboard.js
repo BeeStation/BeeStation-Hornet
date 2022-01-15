@@ -132,7 +132,7 @@ export const AiDashboard = (props, context) => {
               )}>
                 <Box bold>Research Cost: {project.research_cost} THz</Box>
                 <Box bold>RAM Requirement: {project.ram_required} TB</Box>
-                <Box bold>Research Requirements: {project.research_requirements}</Box>
+                <Box bold>Research Requirements: &nbsp;{project.research_requirements}</Box>
                 <Box mb={1}>
                   {project.description}
                 </Box>
