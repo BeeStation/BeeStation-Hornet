@@ -149,6 +149,10 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		investigate_log("Order #[SO.id] ([SO.pack.name], placed by [key_name(SO.orderer_ckey)]), paid by [D.account_holder] has shipped.", INVESTIGATE_CARGO)
 		if(SO.pack.dangerous)
 			message_admins("\A [SO.pack.name] ordered by [ADMIN_LOOKUPFLW(SO.orderer_ckey)], paid by [D.account_holder] has shipped.")
+		if(istype(SO, /datum/supply_pack/misc/bicycle))
+			for(var/client/C in GLOB.clients)
+				if(C.mob.mind.assigned_role == "Quartermaster" || C.mob.mind.assigned_role == "Cargo Technician")
+					C.give_award(/datum/award/achievement/misc/bike, C.mob)
 		purchases++
 
 	for(var/I in miscboxes)
