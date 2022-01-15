@@ -258,8 +258,7 @@
 	if(!isethereal(user))
 		return
 
-	var/list/mob/targets = viewers(maxdist, get_turf(user))
-	targets -= user
+	var/list/mob/targets = oviewers(maxdist, get_turf(user))
 	visible_message("<span class='disarm'>[user] emits a blinding light!</span>")
 	for(var/mob/living/carbon/C in targets)
 		if(C.flash_act(1))
