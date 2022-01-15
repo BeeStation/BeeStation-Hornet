@@ -879,20 +879,27 @@
 /obj/item/light/Initialize()
 	. = ..()
 	update()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/light/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
 
-/obj/item/light/Crossed(mob/living/L)
-	. = ..()
-	if(istype(L) && has_gravity(loc))
-		if(HAS_TRAIT(L, TRAIT_LIGHT_STEP))
-			playsound(loc, 'sound/effects/glass_step.ogg', 30, 1)
-		else
-			playsound(loc, 'sound/effects/glass_step.ogg', 50, 1)
-		if(status == LIGHT_BURNED || status == LIGHT_OK)
-			shatter()
+/obj/item/light/proc/on_entered(datum/source, atom/movable/L)
+	SIGNAL_HANDLER
+
+	if(!istype(L, /mob/living) || !has_gravity(loc))
+		return
+	
+	if(HAS_TRAIT(L, TRAIT_LIGHT_STEP))
+		playsound(loc, 'sound/effects/glass_step.ogg', 30, 1)
+	else
+		playsound(loc, 'sound/effects/glass_step.ogg', 50, 1)
+	if(status == LIGHT_BURNED || status == LIGHT_OK)
+		shatter()
 
 // attack bulb/tube with object
 // if a syringe, can inject plasma to make it explode

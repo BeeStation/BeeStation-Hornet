@@ -86,6 +86,7 @@
 	grant_spell() //we do checks here so nothing about hulk getting magic
 	if(!modified)
 		addtimer(CALLBACK(src, .proc/modify, 5)) //gonna want children calling ..() to run first
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/on_move)
 
 /datum/mutation/human/proc/get_visual_indicator()
 	return
@@ -97,6 +98,7 @@
 	return
 
 /datum/mutation/human/proc/on_move(new_loc)
+	SIGNAL_HANDLER
 	return
 
 /datum/mutation/human/proc/on_life()
@@ -117,6 +119,7 @@
 		if(power)
 			owner.RemoveSpell(power)
 			qdel(src)
+		UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
 		return 0
 	return 1
 

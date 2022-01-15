@@ -127,7 +127,7 @@
 
 /datum/admins/proc/ban_panel(player_key, player_ip, player_cid, role, duration = 1440, applies_to_admins, reason, edit_id, page, admin_key, global_ban = TRUE)
 	var/suppressor
-	if(check_rights(R_SUPPRESS))
+	if(check_rights(R_SUPPRESS, FALSE))
 		suppressor = TRUE
 	var/panel_height = 620
 	if(edit_id)

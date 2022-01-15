@@ -258,7 +258,7 @@
 	..()
 
 	if (L.client)
-		SSmedals.UnlockMedal(MEDAL_APPLY_REAGENT_SOYMILK,L.client)
+		L.client.give_award(/datum/award/achievement/misc/soy, L)
 
 
 /datum/reagent/consumable/soymilk/on_mob_life(mob/living/carbon/M)

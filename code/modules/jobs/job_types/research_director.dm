@@ -38,6 +38,8 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/rd
 	)
+	biohazard = 20
+
 /datum/outfit/job/rd
 	name = "Research Director"
 	jobtype = /datum/job/rd

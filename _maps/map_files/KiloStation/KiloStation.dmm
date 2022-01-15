@@ -6022,7 +6022,7 @@
 	},
 /obj/machinery/button/door{
 	id = "sidearmory";
-	name = "Armoury Shutter Toggle";
+	name = "Armory Shutter Toggle";
 	pixel_x = -8;
 	pixel_y = 24;
 	req_access_txt = "3"
@@ -8846,7 +8846,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/machinery/camera/motion{
-	c_tag = "Armoury Internal";
+	c_tag = "Armory Internal";
 	dir = 8
 	},
 /obj/effect/turf_decal/box,
@@ -33342,7 +33342,7 @@
 /obj/item/folder/red,
 /obj/item/pen,
 /obj/machinery/door/window/brigdoor/westright{
-	name = "Armoury Desk";
+	name = "Armory Desk";
 	req_access_txt = "3"
 	},
 /turf/open/floor/plating,
@@ -77807,11 +77807,11 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/shutters{
 	id = "sidearmory";
-	name = "Side Armoury Shutter"
+	name = "Side Armory Shutter"
 	},
 /obj/machinery/button/door{
 	id = "sidearmory";
-	name = "Armoury Shutter Toggle";
+	name = "Armory Shutter Toggle";
 	pixel_y = -24;
 	req_access_txt = "3"
 	},
@@ -79183,16 +79183,16 @@
 "ckl" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Armoury";
+	name = "Armory";
 	req_access_txt = "58"
 	},
 /obj/machinery/door/poddoor/shutters{
 	id = "frontarmory";
-	name = "Front Armoury Shutter"
+	name = "Front Armory Shutter"
 	},
 /obj/machinery/button/door{
 	id = "frontarmory";
-	name = "Armoury Shutter Toggle";
+	name = "Armory Shutter Toggle";
 	pixel_y = 24;
 	req_access_txt = "58"
 	},
@@ -82139,7 +82139,7 @@
 "coR" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/airlock/security{
-	name = "Armoury";
+	name = "Armory";
 	req_access_txt = "3";
 	security_level = 6
 	},
@@ -86270,7 +86270,7 @@
 /obj/machinery/power/apc{
 	areastring = "/area/ai_monitored/security/armory";
 	dir = 2;
-	name = "Armoury APC";
+	name = "Armory APC";
 	pixel_y = -24
 	},
 /obj/structure/cable/yellow,
@@ -88195,7 +88195,7 @@
 /area/maintenance/port/fore)
 "cxE" = (
 /obj/machinery/camera/motion{
-	c_tag = "Armoury External";
+	c_tag = "Armory External";
 	dir = 2
 	},
 /obj/structure/lattice/catwalk,
@@ -99123,7 +99123,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock/security{
-	name = "Armoury";
+	name = "Armory";
 	req_access_txt = "3";
 	security_level = 6
 	},

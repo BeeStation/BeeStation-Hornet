@@ -11,7 +11,6 @@
 	item_state = "knife"
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
-	block_upgrade_walk = 1
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL

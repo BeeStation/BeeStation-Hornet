@@ -22,7 +22,7 @@ BONUS
 	resistance = 3
 	stage_speed = 3
 	transmission = 1
-	level = 4
+	level = 5
 	severity = 0
 	symptom_delay_min = 18
 	symptom_delay_max = 36

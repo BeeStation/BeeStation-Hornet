@@ -90,6 +90,7 @@ Class Procs:
 	verb_say = "beeps"
 	verb_yell = "blares"
 	pressure_resistance = 15
+	pass_flags_self = PASSMACHINE
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER //keeps shit coming out of the machine from ending up underneath it.
 	flags_ricochet = RICOCHET_HARD
@@ -562,9 +563,9 @@ Class Procs:
 		if(prob(40))
 			emp_act(EMP_LIGHT)
 
-/obj/machinery/Exited(atom/movable/AM, atom/newloc)
+/obj/machinery/Exited(atom/movable/gone, direction)
 	. = ..()
-	if (AM == occupant)
+	if (gone == occupant)
 		occupant = null
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8

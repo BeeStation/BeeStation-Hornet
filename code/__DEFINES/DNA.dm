@@ -40,7 +40,6 @@
 #define THERMAL		/datum/mutation/human/thermal
 #define ANTENNA		/datum/mutation/human/antenna
 #define PARANOIA	/datum/mutation/human/paranoia
-#define MINDREAD	/datum/mutation/human/mindreader
 #define INSULATED	/datum/mutation/human/insulated
 #define SHOCKTOUCH	/datum/mutation/human/shock
 #define OLFACTION	/datum/mutation/human/olfaction

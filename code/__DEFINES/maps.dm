@@ -38,6 +38,7 @@ require only minor tweaks.
 #define ZTRAIT_DYNAMIC_LEVEL "Dynamic Level"
 #define ZTRAIT_LAVA_RUINS "Lava Ruins"
 #define ZTRAIT_POCKETDIM "Pocket Dimension"
+#define ZTRAIT_ISOLATED_RUINS "Isolated Ruins" //Placing ruins on z levels with this trait will use turf reservation instead of usual placement.
 
 /// number - bombcap is multiplied by this before being applied to bombs
 #define ZTRAIT_BOMBCAP_MULTIPLIER "Bombcap Multiplier"
@@ -94,10 +95,11 @@ require only minor tweaks.
 #define PLACEMENT_TRIES 100 //! How many times we try to fit the ruin somewhere until giving up (really should just swap to some packing algo)
 
 #define PLACE_DEFAULT "random"
-#define PLACE_SAME_Z "same"
-#define PLACE_SPACE_RUIN "space"
-#define PLACE_LAVA_RUIN "lavaland"
-
+#define PLACE_SAME_Z "same" //On same z level as original ruin
+#define PLACE_SPACE_RUIN "space" //On space ruin z level(s)
+#define PLACE_LAVA_RUIN "lavaland" //On lavaland ruin z levels(s)
+#define PLACE_BELOW "below" //On z levl below - centered on same tile
+#define PLACE_ISOLATED "isolated" //On isolated ruin z level
 
 ///Map generation defines
 #define PERLIN_LAYER_HEIGHT "perlin_height"

@@ -28,6 +28,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/emergencyNoRecall = FALSE
 	var/adminEmergencyNoRecall = FALSE
 	var/list/hostileEnvironments = list() //Things blocking escape shuttle from leaving
+	var/hostileEnvTrackPlayed = FALSE
 	var/list/tradeBlockade = list() //Things blocking cargo from leaving.
 	var/supplyBlocked = FALSE
 
@@ -374,6 +375,10 @@ SUBSYSTEM_DEF(shuttle)
 		priority_announce("Hostile environment detected. \
 			Departure has been postponed indefinitely pending \
 			conflict resolution.", null, 'sound/misc/notice1.ogg', "Priority")
+		for(var/i in hostileEnvironments)
+			if(istype(i, /mob/living/carbon/alien/humanoid/royal/queen) && !hostileEnvTrackPlayed)
+				play_soundtrack_music(/datum/soundtrack_song/bee/mind_crawler, only_station = TRUE)
+				hostileEnvTrackPlayed = TRUE
 	if(!emergencyNoEscape && (emergency.mode == SHUTTLE_STRANDED))
 		emergency.mode = SHUTTLE_DOCKED
 		emergency.setTimer(emergencyDockTime)

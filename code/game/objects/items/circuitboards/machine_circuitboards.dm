@@ -804,6 +804,11 @@
 	icon_state = "science"
 	build_path = /obj/machinery/rnd/production/circuit_imprinter/department/science
 
+/obj/item/circuitboard/machine/circuit_imprinter/department/engineering
+	name = "departmental circuit imprinter - engineering (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/rnd/production/circuit_imprinter/department/engineering
+
 /obj/item/circuitboard/machine/cyborgrecharger
 	name = "cyborg recharger (Machine Board)"
 	icon_state = "science"

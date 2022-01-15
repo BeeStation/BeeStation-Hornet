@@ -15,7 +15,7 @@
 
 /client/proc/process_greentext()
 	inc_metabalance(METACOIN_GREENTEXT_REWARD, reason="Greentext!")
-	SSmedals.UnlockMedal(MEDAL_COMPLETE_ALL_OBJECTIVES,src)
+	src.give_award(/datum/award/achievement/misc/greentext, src.mob)
 
 /client/proc/process_ten_minute_living()
 	inc_metabalance(METACOIN_TENMINUTELIVING_REWARD, FALSE)

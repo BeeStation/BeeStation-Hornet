@@ -225,8 +225,9 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	if (LAZYLEN(message_loc.chat_messages))
 		var/idx = 1
 		var/combined_height = approx_lines
-		for(var/msg in message_loc.chat_messages)
-			var/datum/chatmessage/m = msg
+		for(var/datum/chatmessage/m as() in message_loc.chat_messages)
+			if(!m?.message)
+				continue
 			animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME)
 			combined_height += m.approx_lines
 

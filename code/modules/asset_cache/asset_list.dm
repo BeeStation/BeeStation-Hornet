@@ -225,6 +225,13 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/size_id = sprite[SPR_SIZE]
 	return {"[name][size_id] [sprite_name]"}
 
+/datum/asset/spritesheet/proc/icon_size_id(sprite_name)
+	var/sprite = sprites[sprite_name]
+	if (!sprite)
+		return null
+	var/size_id = sprite[SPR_SIZE]
+	return "[name][size_id]"
+
 #undef SPR_SIZE
 #undef SPR_IDX
 #undef SPRSZ_COUNT
@@ -260,7 +267,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 				continue
 			asset = fcopy_rsc(asset) //dedupe
 			var/prefix2 = (directions.len > 1) ? "[dir2text(direction)]." : ""
-			var/asset_name = sanitize_filename("[prefix].[prefix2][icon_state_name].png")
+			var/asset_name = SANITIZE_FILENAME("[prefix].[prefix2][icon_state_name].png")
 			if (generic_icon_names)
 				asset_name = "[generate_asset_name(asset)].png"
 

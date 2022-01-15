@@ -331,14 +331,6 @@
 	name = "\improper DNA injector (Anti-Paranoia)"
 	remove_mutations = list(PARANOIA)
 
-/obj/item/dnainjector/mindread
-	name = "\improper DNA injector (Mindread)"
-	add_mutations = list(MINDREAD)
-
-/obj/item/dnainjector/antimindread
-	name = "\improper DNA injector (Anti-Mindread)"
-	remove_mutations = list(MINDREAD)
-
 /obj/item/dnainjector/radioactive
 	name = "\improper DNA injector (Radioactive)"
 	add_mutations = list(RADIOACTIVE)

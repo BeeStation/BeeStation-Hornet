@@ -9,7 +9,6 @@
 	flags_1 = CONDUCT_1
 	force = 13
 	block_power = 20
-	block_upgrade_walk = 2
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	attack_weight = 2
 	var/force_on = 24
@@ -100,14 +99,20 @@
 	onsound = 'sound/weapons/echainsawon.ogg'
 	offsound = 'sound/weapons/echainsawoff.ogg'
 	on = FALSE
-	var/brightness_on = 3
+	light_system = MOVABLE_LIGHT
+	light_range = 3
+	light_power = 1
+	light_on = TRUE
 
 /obj/item/chainsaw/energy/attack_self(mob/user)
 	on = !on
 	to_chat(user, "As you pull the starting cord dangling from [src], [on ? "it begins to whirr intimidatingly." : "the plasma microblades stop moving."]")
 	force = on ? force_on : initial(force)
 	playsound(user, on ? onsound : offsound , 50, 1)
-	set_light(on ? brightness_on : 0)
+	if(on)
+		set_light(TRUE)
+	else
+		set_light(FALSE)
 	throwforce = on ? force_on : initial(force)
 	icon_state = "echainsaw_[on ? "on" : "off"]"
 
@@ -133,7 +138,7 @@
 	attack_weight = 3 //fear him
 	armour_penetration = 75
 	var/knockdown = 1
-	brightness_on = 6
+	light_range = 6
 
 /obj/item/chainsaw/energy/doom/attack(mob/living/target)
 	..()

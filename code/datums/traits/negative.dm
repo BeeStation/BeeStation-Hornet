@@ -7,6 +7,7 @@
 	mood_quirk = TRUE
 	gain_text = "<span class='danger'>Your back REALLY hurts!</span>"
 	lose_text = "<span class='notice'>Your back feels better.</span>"
+	process = TRUE
 
 /datum/quirk/badback/on_process()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -22,14 +23,14 @@
 	gain_text = "<span class='danger'>You feel your vigor slowly fading away.</span>"
 	lose_text = "<span class='notice'>You feel vigorous again.</span>"
 	medical_record_text = "Patient requires regular treatment for blood loss due to low production of blood."
+	process = TRUE
 
 /datum/quirk/blooddeficiency/on_process(delta_time)
 	var/mob/living/carbon/human/H = quirk_holder
 	if(NOBLOOD in H.dna.species.species_traits) //can't lose blood if your species doesn't have any
 		return
-	else
-		if (H.blood_volume > (BLOOD_VOLUME_SAFE - 25)) // just barely survivable without treatment
-			H.blood_volume -= 0.275 * delta_time
+	else if(H.blood_volume > (BLOOD_VOLUME_SAFE - 25)) // just barely survivable without treatment
+		H.blood_volume -= 0.275 * delta_time
 
 /datum/quirk/blindness
 	name = "Blind"
@@ -56,10 +57,11 @@
 	gain_text = "<span class='danger'>You feel smooth.</span>"
 	lose_text = "<span class='notice'>You feel wrinkled again.</span>"
 	medical_record_text = "Patient has a tumor in their brain that is slowly driving them to brain death."
+	process = TRUE
 	var/where = "at your feet"
 
-/datum/quirk/brainproblems/on_process()
-	quirk_holder.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2)
+/datum/quirk/brainproblems/on_process(delta_time)
+	quirk_holder.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2 * delta_time)
 
 /datum/quirk/brainproblems/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -95,6 +97,7 @@
 	lose_text = "<span class='notice'>You no longer feel depressed.</span>" //if only it were that easy!
 	medical_record_text = "Patient has a severe mood disorder causing them to experience sudden moments of sadness."
 	mood_quirk = TRUE
+	process = TRUE
 
 /datum/quirk/depression/on_process(delta_time)
 	if(DT_PROB(0.05, delta_time))
@@ -105,6 +108,7 @@
 	desc = "You are the current owner of an heirloom, passed down for generations. You have to keep it safe!"
 	value = -1
 	mood_quirk = TRUE
+	process = TRUE
 	var/obj/item/heirloom
 	var/where
 
@@ -279,10 +283,9 @@
 		mood.mood_modifier += 0.5
 
 /datum/quirk/hypersensitive/remove()
-	if(quirk_holder)
-		var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
-		if(mood)
-			mood.mood_modifier -= 0.5
+	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
+	if(mood)
+		mood.mood_modifier -= 0.5
 
 /datum/quirk/light_drinker
 	name = "Light Drinker"
@@ -314,6 +317,7 @@
 	name = "Nyctophobia"
 	desc = "As far as you can remember, you've always been afraid of the dark. While in the dark without a light source, you instinctually act careful, and constantly feel a sense of dread."
 	value = -1
+	process = TRUE
 
 /datum/quirk/nyctophobia/on_process()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -434,6 +438,7 @@
 	gain_text = "<span class='userdanger'>...</span>"
 	lose_text = "<span class='notice'>You feel in tune with the world again.</span>"
 	medical_record_text = "Patient suffers from acute Reality Dissociation Syndrome and experiences vivid hallucinations."
+	process = TRUE
 
 /datum/quirk/insanity/on_process(delta_time)
 	if(quirk_holder.reagents.has_reagent(/datum/reagent/toxin/mindbreaker, needs_metabolizing = TRUE))
@@ -485,7 +490,8 @@
 	gain_text = "<span class='danger'>You suddenly feel the craving for drugs.</span>"
 	lose_text = "<span class='notice'>You feel like you should kick your drug habit.</span>"
 	medical_record_text = "Patient has a history of hard drugs."
-	var/drug_list = list(/datum/reagent/drug/crank, /datum/reagent/drug/krokodil, /datum/reagent/medicine/morphine, /datum/reagent/drug/happiness, /datum/reagent/drug/methamphetamine, /datum/reagent/drug/ketamine) //List of possible IDs
+	process = TRUE
+	var/list/drug_list = list(/datum/reagent/drug/crank, /datum/reagent/drug/krokodil, /datum/reagent/medicine/morphine, /datum/reagent/drug/happiness, /datum/reagent/drug/methamphetamine, /datum/reagent/drug/ketamine) //List of possible IDs
 	var/datum/reagent/reagent_type //!If this is defined, reagent_id will be unused and the defined reagent type will be instead.
 	var/datum/reagent/reagent_instance //! actual instanced version of the reagent
 	var/where_drug //! Where the drug spawned
@@ -554,6 +560,7 @@
 	medical_record_text = "Patient is a current smoker."
 	reagent_type = /datum/reagent/drug/nicotine
 	accessory_type = /obj/item/lighter/greyscale
+	process = TRUE
 
 /datum/quirk/junkie/smoker/on_spawn()
 	drug_container_type = pick(/obj/item/storage/fancy/cigarettes,
@@ -586,6 +593,7 @@
 	gain_text = "<span class='danger'>You could really go for a drink right about now.</span>"
 	lose_text = "<span class='notice'>You feel like you should quit drinking.</span>"
 	medical_record_text = "Patient is an alcohol abuser."
+	process = TRUE
 	var/where_drink //Where the bottle spawned
 	var/drink_types = list(/obj/item/reagent_containers/food/drinks/bottle/ale,
 					/obj/item/reagent_containers/food/drinks/bottle/beer,
@@ -661,5 +669,5 @@
 	H.gain_trauma(T, TRAUMA_RESILIENCE_ABSOLUTE)
 
 /datum/quirk/phobia/remove()
-	var/mob/living/carbon/human/H = quirk_holder	
+	var/mob/living/carbon/human/H = quirk_holder
 	H.cure_trauma_type(/datum/brain_trauma/mild/phobia, TRAUMA_RESILIENCE_ABSOLUTE)

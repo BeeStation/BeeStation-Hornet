@@ -76,8 +76,10 @@
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place iron rods first.</span>")
 
-/turf/open/chasm/CanPass(atom/movable/mover, turf/target)
-	return 1
+/// Lets people walk into chasms.
+/turf/open/chasm/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	return TRUE
 
 // Chasms for Lavaland, with planetary atmos and lava glow
 /turf/open/chasm/lavaland

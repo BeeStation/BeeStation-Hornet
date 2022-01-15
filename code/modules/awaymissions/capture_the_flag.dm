@@ -411,9 +411,10 @@
 /obj/item/projectile/bullet/ctf
 	damage = 0
 
-/obj/item/projectile/bullet/ctf/prehit(atom/target)
+/obj/item/projectile/bullet/ctf/prehit_pierce(atom/target)
 	if(is_ctf_target(target))
 		damage = 60
+		return PROJECTILE_PIERCE_NONE	/// hey uhh don't hit anyone behind them
 	. = ..()
 
 /obj/item/gun/ballistic/automatic/laser/ctf
@@ -447,9 +448,10 @@
 	damage = 0
 	icon_state = "omnilaser"
 
-/obj/item/projectile/beam/ctf/prehit(atom/target)
+/obj/item/projectile/beam/ctf/prehit_pierce(atom/target)
 	if(is_ctf_target(target))
 		damage = 150
+		return PROJECTILE_PIERCE_NONE		/// hey uhhh don't hit anyone behind them
 	. = ..()
 
 /proc/is_ctf_target(atom/target)
@@ -622,9 +624,15 @@
 /obj/effect/ctf/ammo/Initialize(mapload)
 	..()
 	QDEL_IN(src, AMMO_DROP_LIFETIME)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/ctf/ammo/Crossed(atom/movable/AM)
-	reload(AM)
+/obj/effect/ctf/ammo/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, .proc/reload, AM)
 
 /obj/effect/ctf/ammo/Bump(atom/movable/AM)
 	reload(AM)

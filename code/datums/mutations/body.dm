@@ -204,7 +204,7 @@
 	if(!glowth)
 		return
 	var/power = GET_MUTATION_POWER(src)
-	glowth.set_light(range * power, glow * power, "#[dna.features["mcolor"]]")
+	glowth.set_light_range_power_color(range * power, glow * power, "#[dna.features["mcolor"]]")
 
 /datum/mutation/human/glow/on_losing(mob/living/carbon/human/owner)
 	. = ..()
@@ -397,7 +397,7 @@
 		to_chat(owner, "<span class='notice'>Your wings feel stronger.</span>")
 		mothwings.Refresh(owner)
 	else
-		to_chat(owner, "<span class='warning'>You don't have wings to strengthen!")
+		to_chat(owner, "<span class='warning'>You don't have wings to strengthen!</span>")
 
 /datum/mutation/human/strongwings/on_losing()
 	if(..())
@@ -412,7 +412,7 @@
 		to_chat(owner, "<span class='warning'>Your wings feel weak.</span>")
 		mothwings.Refresh(owner)
 	else
-		to_chat(owner, "<span class='warning'>The stubs of your wings feel weak!")
+		to_chat(owner, "<span class='warning'>The stubs of your wings feel weak!</span>")
 
 /datum/mutation/human/catclaws
 	name = "Cat Claws"
@@ -431,13 +431,13 @@
 	else
 		dmgadd = 6 * GET_MUTATION_POWER(src)
 	owner.dna.species.punchdamage += dmgadd
-	to_chat(owner, "<span class='notice'>Claws extend from your fingertips.")
+	to_chat(owner, "<span class='notice'>Claws extend from your fingertips.</span>")
 	owner.dna.species.attack_verb = "slash"
 
 /datum/mutation/human/catclaws/on_losing()
 	if(..())
 		return
 	owner.dna.species.punchdamage -= dmgadd
-	to_chat(owner, "<span class='warning'> Your claws retract into your hand.")
+	to_chat(owner, "<span class='warning'> Your claws retract into your hand.</span>")
 	owner.dna.species.attack_verb = initial(owner.dna.species.attack_verb)
 	

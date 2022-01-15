@@ -22,6 +22,13 @@
 		force_open_above()
 		build_signal_listener()
 	update_surrounding()
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = .proc/on_exit,
+	)
+
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 	return ..()
 
 /obj/structure/stairs/Destroy()
@@ -42,13 +49,13 @@
 		if(S)
 			S.update_icon()
 
-/obj/structure/stairs/Uncross(atom/movable/AM, turf/newloc)
-	if(!newloc || !AM)
-		return ..()
-	if(!isobserver(AM) && isTerminator() && (get_dir(src, newloc) == dir))
-		stair_ascend(AM)
-		return FALSE
-	return ..()
+/obj/structure/stairs/proc/on_exit(datum/source, atom/movable/leaving, direction)
+	SIGNAL_HANDLER
+
+	if(!isobserver(leaving) && isTerminator() && direction == dir)
+		INVOKE_ASYNC(src, .proc/stair_ascend, leaving)
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/stairs/Cross(atom/movable/AM)
 	if(isTerminator() && (get_dir(src, AM) == dir))

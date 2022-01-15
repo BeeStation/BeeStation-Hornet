@@ -233,7 +233,7 @@
 	if(!istype(M))
 		return
 	if(isoozeling(M))
-		M.blood_volume -= 30
+		M.blood_volume = max(M.blood_volume - 30, 0)
 		to_chat(M, "<span class='warning'>The water causes you to melt away!</span>")
 		return
 	if(method == TOUCH)
@@ -549,7 +549,6 @@
 						/datum/species/pod,
 						/datum/species/jelly,
 						/datum/species/abductor,
-						/datum/species/squid,
 						/datum/species/skeleton)
 	can_synth = TRUE
 
@@ -651,13 +650,6 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/ethereal
 	taste_description = "shocking"
-
-/datum/reagent/mutationtoxin/squid
-	name = "Squid Mutation Toxin"
-	description = "A salty toxin."
-	color = "#5EFF3B" //RGB: 94, 255, 59
-	race = /datum/species/squid
-	taste_description = "fish"
 
 /datum/reagent/mutationtoxin/oozeling
 	name = "Oozeling Mutation Toxin"

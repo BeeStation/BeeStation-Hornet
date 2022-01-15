@@ -52,12 +52,22 @@
 
 /obj/item/reagent_containers/syringe/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(!syringediseases.len)
-		return FALSE
+		return ..()
 	if(scan)
 		E.scan(src, syringediseases, user)
 	else
 		E.extrapolate(src, syringediseases, user)
 	return TRUE
+
+/obj/item/reagent_containers/syringe/proc/transfer_diseases(mob/living/L)
+	for(var/datum/disease/D in syringediseases)
+		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
+			continue
+		L.ForceContractDisease(D)
+	for(var/datum/disease/D in L.diseases)
+		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
+			continue
+		syringediseases += D
 
 /obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
 	. = ..()
@@ -104,6 +114,7 @@
 				else
 					to_chat(user, "<span class='warning'>You are unable to draw any blood from [L]!</span>")
 					balloon_alert(user, "Unable to take blood sample")
+				transfer_diseases(L)
 
 			else //if not mob
 				if(!target.reagents.total_volume)
@@ -173,6 +184,7 @@
 					log_combat(user, L, "injected", src, addition="which had [contained]")
 				else
 					L.log_message("injected themselves ([contained]) with [src.name]", LOG_ATTACK, color="orange")
+				transfer_diseases(L)
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 			reagents.reaction(L, INJECT, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
@@ -218,7 +230,7 @@
 /obj/item/reagent_containers/syringe/used/Initialize()
 	. = ..()
 	if(prob(75))
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), 9, rand(3,4), infected = src)
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), rand(6, 9), rand(3,4), infected = src)
 		syringediseases += R
 
 /obj/item/reagent_containers/syringe/epinephrine

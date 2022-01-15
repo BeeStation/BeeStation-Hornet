@@ -48,12 +48,8 @@
 		if("anchored")
 			setAnchored(vval)
 			return TRUE
-		if("obj_flags")
+		if(NAMEOF(src, obj_flags))
 			if ((obj_flags & DANGEROUS_POSSESSION) && !(vval & DANGEROUS_POSSESSION))
-				return FALSE
-		if("control_object")
-			var/obj/O = vval
-			if(istype(O) && (O.obj_flags & DANGEROUS_POSSESSION))
 				return FALSE
 	return ..()
 
@@ -260,6 +256,8 @@
  * * caller- The movable we're checking pass flags for, if we're making any such checks
  **/
 /obj/proc/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
+	if(istype(caller) && (caller.pass_flags & pass_flags_self))
+		return TRUE
 	. = !density
 
 /obj/proc/check_uplink_validity()

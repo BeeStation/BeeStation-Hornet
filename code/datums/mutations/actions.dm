@@ -317,7 +317,7 @@
 	if(!target || user.incapacitated())
 		return FALSE
 	if(H.blood_volume < 40)
-		to_chat(user, "<span class='warning'>You don't have enough blood to do that!")
+		to_chat(user, "<span class='warning'>You don't have enough blood to do that!</span>")
 		return FALSE
 	if(target.acid_act(75, 15))
 		user.visible_message("<span class='warning'>[user] rubs globs of vile stuff all over [target].</span>")
