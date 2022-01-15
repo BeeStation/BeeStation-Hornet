@@ -3,6 +3,8 @@
 
 //#define DATUMVAR_DEBUGGING_MODE	//Enables the ability to cache datum vars and retrieve later for debugging which vars changed.
 
+//#define DM_COMPILE // Uncomment to allow compiling with Dream Maker. NOT RECOMMENDED!!!
+
 // Comment this out if you are debugging problems that might be obscured by custom error handling in world/Error
 #ifdef DEBUG
 #define USE_CUSTOM_ERROR_HANDLER
@@ -81,10 +83,11 @@
 #define CBT
 #endif
 
-#if !defined(CBT) && !defined(SPACEMAN_DMM)
+#if !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(DM_COMPILE)
 #error Building with Dream Maker is no longer supported and will result in errors.
 #error In order to build, run BUILD.bat in the root directory.
 #error Consider switching to VSCode editor instead, where you can press Ctrl+Shift+B to build.
+#error If you still want to compile with Dream Maker uncomment the define DM_COMPILE in code/_compile_options.dm line 6 (NOT RECOMMENDED).
 #endif
 
 #define AUXMOS (world.system_type == MS_WINDOWS ? "auxtools/auxmos.dll" : __detect_auxmos())
