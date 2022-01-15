@@ -482,7 +482,7 @@
 	loot_room = TRUE
 
 /datum/map_template/ruin_part/boxtoolstorage
-	file_name = "12x7_boxtoolstorage"
+	file_name = "13x7_boxtoolstorage"
 	weight = 3
 
 /datum/map_template/ruin_part/shuttleconstructionbay

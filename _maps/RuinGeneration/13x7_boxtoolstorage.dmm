@@ -3,9 +3,8 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "b" = (
-/obj/structure/closet/crate/bin,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "c" = (
 /obj/structure/table,
 /obj/item/stack/packageWrap,
@@ -23,9 +22,8 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "g" = (
-/obj/effect/abstract/doorway_marker{
-	dir = 8
-	},
+/obj/structure/table,
+/obj/item/analyzer,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "h" = (
@@ -48,8 +46,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "u" = (
-/obj/structure/table,
-/obj/item/analyzer,
+/obj/machinery/vending/assist,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "x" = (
@@ -62,6 +59,7 @@
 /area/ruin/unpowered)
 "D" = (
 /obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate/bin,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "F" = (
@@ -89,16 +87,12 @@
 /area/ruin/unpowered)
 "Q" = (
 /obj/effect/abstract/doorway_marker{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "U" = (
 /obj/structure/table,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"V" = (
-/obj/machinery/vending/assist,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "X" = (
@@ -115,23 +109,23 @@
 (1,1,1) = {"
 a
 a
-g
 a
 a
+Q
 a
 a
 "}
 (2,1,1) = {"
 a
-V
+U
+U
+g
 e
-U
-U
 u
 a
 "}
 (3,1,1) = {"
-Q
+a
 e
 e
 e
@@ -200,7 +194,7 @@ h
 e
 e
 x
-A
+a
 "}
 (11,1,1) = {"
 a
@@ -208,8 +202,8 @@ n
 e
 U
 c
-b
-a
+e
+A
 "}
 (12,1,1) = {"
 a
@@ -219,4 +213,13 @@ a
 a
 a
 a
+"}
+(13,1,1) = {"
+b
+b
+b
+b
+b
+b
+b
 "}
