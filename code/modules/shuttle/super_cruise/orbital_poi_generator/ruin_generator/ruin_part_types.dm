@@ -498,3 +498,8 @@
 /datum/map_template/ruin_part/pubbybridgehall
 	file_name = "17x7_pubbybridgehall"
 	weight = 2
+
+/datum/map_template/ruin_part/cloning
+	file_name = "7x6_cloning"
+	weight = 3
+	max_occurances = 1
