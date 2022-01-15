@@ -1,0 +1,247 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"f" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"m" = (
+/obj/structure/lattice,
+/obj/structure/sign/logo{
+	icon_state = "nanotrasen_sign5";
+	pixel_y = 32
+	},
+/turf/open/space,
+/area/space)
+"q" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"r" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"s" = (
+/obj/item/kirbyplants/photosynthetic{
+	layer = 3.1
+	},
+/obj/structure/window/fulltile,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"w" = (
+/obj/effect/abstract/open_area_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"x" = (
+/obj/structure/lattice,
+/obj/structure/sign/logo{
+	icon_state = "nanotrasen_sign4";
+	pixel_y = 32
+	},
+/turf/open/space,
+/area/space)
+"G" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"I" = (
+/obj/structure/lattice,
+/obj/structure/sign/logo{
+	icon_state = "nanotrasen_sign2";
+	pixel_y = 32
+	},
+/turf/open/space,
+/area/space)
+"J" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"M" = (
+/obj/structure/lattice,
+/obj/structure/sign/logo{
+	pixel_y = 32
+	},
+/turf/open/space,
+/area/space)
+"P" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"R" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"X" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Y" = (
+/obj/structure/lattice,
+/obj/structure/sign/logo{
+	icon_state = "nanotrasen_sign3";
+	pixel_y = 32
+	},
+/turf/open/space,
+/area/space)
+
+(1,1,1) = {"
+a
+a
+a
+R
+G
+r
+a
+"}
+(2,1,1) = {"
+r
+r
+r
+f
+f
+f
+r
+"}
+(3,1,1) = {"
+P
+f
+f
+f
+f
+f
+w
+"}
+(4,1,1) = {"
+R
+R
+R
+f
+f
+f
+R
+"}
+(5,1,1) = {"
+a
+a
+a
+R
+f
+r
+a
+"}
+(6,1,1) = {"
+a
+s
+a
+R
+f
+r
+a
+"}
+(7,1,1) = {"
+a
+M
+J
+R
+f
+r
+a
+"}
+(8,1,1) = {"
+a
+I
+J
+R
+f
+r
+a
+"}
+(9,1,1) = {"
+a
+Y
+J
+R
+f
+r
+X
+"}
+(10,1,1) = {"
+a
+x
+J
+R
+f
+r
+a
+"}
+(11,1,1) = {"
+a
+m
+J
+R
+f
+r
+a
+"}
+(12,1,1) = {"
+a
+s
+a
+R
+f
+r
+a
+"}
+(13,1,1) = {"
+a
+a
+a
+R
+f
+r
+a
+"}
+(14,1,1) = {"
+r
+r
+r
+f
+f
+f
+r
+"}
+(15,1,1) = {"
+P
+f
+f
+f
+f
+f
+w
+"}
+(16,1,1) = {"
+R
+R
+R
+f
+f
+f
+R
+"}
+(17,1,1) = {"
+a
+a
+a
+R
+q
+r
+a
+"}

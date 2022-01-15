@@ -494,3 +494,7 @@
 	file_name = "9x12_vault"
 	weight = 2
 	max_occurances = 1
+
+/datum/map_template/ruin_part/pubbybridgehall
+	file_name = "17x7_pubbybridgehall"
+	weight = 2
