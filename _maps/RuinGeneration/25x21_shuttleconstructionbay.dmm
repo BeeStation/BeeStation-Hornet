@@ -106,10 +106,9 @@
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "tP" = (
-/obj/effect/abstract/open_area_marker{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/plating,
 /area/ruin/unpowered)
 "vJ" = (
 /obj/structure/closet/firecloset,
@@ -126,6 +125,9 @@
 /obj/machinery/vending/coffee,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -298,16 +300,17 @@
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "Tc" = (
-/obj/effect/abstract/doorway_marker{
-	dir = 4
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plating,
 /area/ruin/unpowered)
 "Th" = (
-/obj/structure/sign/poster/random{
-	pixel_x = -32
-	},
 /obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -328,6 +331,13 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
+"VW" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "Wh" = (
 /turf/closed/wall/mineral/titanium,
 /area/template_noop)
@@ -337,6 +347,12 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
+/area/ruin/unpowered)
+"XF" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "XY" = (
 /obj/item/shuttle_creator,
@@ -372,6 +388,7 @@ Hx
 Hx
 Hx
 Hx
+Hx
 es
 ts
 nT
@@ -389,6 +406,7 @@ Hx
 Hx
 "}
 (2,1,1) = {"
+Hx
 Hx
 Hx
 Hx
@@ -413,6 +431,7 @@ Hx
 (3,1,1) = {"
 Hx
 Hx
+Hx
 es
 es
 es
@@ -433,6 +452,7 @@ Hx
 Hx
 "}
 (4,1,1) = {"
+Hx
 Hx
 es
 es
@@ -456,6 +476,7 @@ Hx
 "}
 (5,1,1) = {"
 Hx
+Hx
 es
 Wh
 Wh
@@ -477,6 +498,7 @@ es
 Hx
 "}
 (6,1,1) = {"
+Hx
 es
 es
 Wh
@@ -499,6 +521,7 @@ es
 Hx
 "}
 (7,1,1) = {"
+Hx
 es
 Wh
 Wh
@@ -521,6 +544,7 @@ es
 es
 "}
 (8,1,1) = {"
+Hx
 es
 PH
 NC
@@ -543,6 +567,7 @@ ib
 es
 "}
 (9,1,1) = {"
+Hx
 es
 PH
 Yw
@@ -565,6 +590,7 @@ ib
 es
 "}
 (10,1,1) = {"
+Hx
 es
 PH
 Gb
@@ -587,6 +613,7 @@ ib
 es
 "}
 (11,1,1) = {"
+Hx
 es
 Wh
 Wh
@@ -609,6 +636,7 @@ es
 es
 "}
 (12,1,1) = {"
+Hx
 es
 es
 Wh
@@ -632,6 +660,7 @@ Hx
 "}
 (13,1,1) = {"
 Hx
+Hx
 es
 Wh
 Wh
@@ -653,6 +682,7 @@ es
 Hx
 "}
 (14,1,1) = {"
+Hx
 Hx
 es
 es
@@ -677,6 +707,7 @@ Hx
 (15,1,1) = {"
 Hx
 Hx
+Hx
 es
 es
 es
@@ -697,6 +728,7 @@ Hx
 Hx
 "}
 (16,1,1) = {"
+Hx
 Hx
 Hx
 Hx
@@ -724,6 +756,7 @@ Hx
 Hx
 Hx
 Hx
+Hx
 es
 Wh
 Ah
@@ -741,6 +774,7 @@ Hx
 Hx
 "}
 (18,1,1) = {"
+Hx
 Hx
 Hx
 Hx
@@ -765,6 +799,7 @@ Hx
 (19,1,1) = {"
 Hx
 Hx
+Hx
 hf
 KA
 KA
@@ -785,8 +820,9 @@ Hx
 Hx
 "}
 (20,1,1) = {"
-hf
-hf
+Hx
+Hx
+Hx
 hf
 zv
 vJ
@@ -807,10 +843,11 @@ hf
 hf
 "}
 (21,1,1) = {"
-HD
+Hx
+KA
+KA
+KA
 Th
-HD
-HD
 HD
 HD
 HD
@@ -829,10 +866,11 @@ HD
 HD
 "}
 (22,1,1) = {"
+Hx
 tP
-PY
-PY
-PY
+cY
+Tc
+XF
 PY
 PY
 PY
@@ -851,10 +889,11 @@ PY
 Qf
 "}
 (23,1,1) = {"
-eu
-eu
-eu
-eu
+Hx
+KA
+KA
+KA
+VW
 eu
 eu
 eu
@@ -873,14 +912,9 @@ eu
 eu
 "}
 (24,1,1) = {"
-hf
-hf
-hf
-hf
-Tc
-hf
-hf
-hf
+Hx
+Hx
+Hx
 hf
 hf
 hf
@@ -888,9 +922,38 @@ hf
 hf
 hf
 hf
-Tc
 hf
 hf
 hf
 hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+"}
+(25,1,1) = {"
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
 "}

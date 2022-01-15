@@ -486,7 +486,7 @@
 	weight = 3
 
 /datum/map_template/ruin_part/shuttleconstructionbay
-	file_name = "24x20_shuttleconstructionbay"
+	file_name = "25x21_shuttleconstructionbay"
 	weight = 5
 	max_occurances = 1 //Would be wacky if multiple of the same WIP shuttle showed up.
 
