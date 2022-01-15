@@ -3,23 +3,19 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "c" = (
-/obj/item/chair/stool,
+/obj/structure/closet/secure_closet/personal/patient,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "f" = (
-/obj/structure/closet/wardrobe/mixed,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
+/obj/effect/abstract/doorway_marker{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "l" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/computer/cloning/prototype{
-	dir = 4
-	},
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/clonepod/experimental,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "m" = (
@@ -27,28 +23,13 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "o" = (
-/obj/structure/table,
-/obj/effect/turf_decal/tile/blue,
+/obj/structure/closet/wardrobe/mixed,
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "p" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"t" = (
-/obj/structure/closet/secure_closet/personal/patient,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"v" = (
 /obj/machinery/vending/clothing,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -58,22 +39,53 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
-"A" = (
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"D" = (
-/obj/structure/table,
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"E" = (
+"t" = (
 /obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
+"v" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"A" = (
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"D" = (
+/obj/item/chair/stool,
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"E" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/computer/cloning/prototype{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
 "H" = (
+/obj/structure/table,
+/obj/effect/turf_decal/tile/blue,
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"J" = (
+/obj/structure/table,
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"Q" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"R" = (
 /obj/machinery/shower{
 	pixel_y = 16
 	},
@@ -82,31 +94,8 @@
 	},
 /turf/open/floor/noslip/dark,
 /area/ruin/unpowered)
-"J" = (
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/decal/cleanable/cobweb,
-/obj/machinery/clonepod/experimental,
-/turf/open/floor/plasteel/dark,
-/area/ruin/unpowered)
-"Q" = (
-/obj/effect/abstract/doorway_marker,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"R" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"T" = (
-/obj/effect/abstract/doorway_marker{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
 
 (1,1,1) = {"
-a
 a
 m
 m
@@ -115,7 +104,6 @@ a
 "}
 (2,1,1) = {"
 a
-J
 l
 E
 t
@@ -123,38 +111,47 @@ a
 "}
 (3,1,1) = {"
 a
-H
 R
+v
 A
-p
 a
 "}
 (4,1,1) = {"
-T
+a
+c
 A
+A
+a
+"}
+(5,1,1) = {"
+f
 A
 A
 A
 Q
 "}
-(5,1,1) = {"
-a
-f
-A
-A
-D
-a
-"}
 (6,1,1) = {"
 a
-v
 A
-c
-o
+A
+A
 a
 "}
 (7,1,1) = {"
 a
+o
+A
+H
+a
+"}
+(8,1,1) = {"
+a
+p
+D
+J
+a
+"}
+(9,1,1) = {"
 a
 m
 m

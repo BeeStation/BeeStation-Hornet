@@ -500,6 +500,7 @@
 	weight = 2
 
 /datum/map_template/ruin_part/cloning
-	file_name = "7x6_cloning"
+	file_name = "9x5_cloning"
 	weight = 3
 	max_occurances = 1
+	loot_room = TRUE //Experimental cloner :flushed:
