@@ -47,6 +47,21 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	. = ..()
 	SSorbits.open_orbital_maps -= SStgui.get_all_open_uis(src)
 	shuttleObject = null
+	//De-link the port
+	if(my_port)
+		my_port.delete_after = TRUE
+		my_port.id = null
+		my_port.name = "Old [my_port.name]"
+		my_port = null
+
+/obj/machinery/computer/shuttle_flight/examine(mob/user)
+	. = ..()
+	var/obj/item/circuitboard/computer/shuttle/circuit_board = circuit
+	if(istype(circuit_board))
+		if(circuit_board.hacked)
+			. += "It's access requirements have been disabled."
+		else
+			. += "It's access requirements could be disabled by disassembling the computer and using a multitool on the circuitboard."
 
 /obj/machinery/computer/shuttle_flight/process()
 	. = ..()
@@ -530,3 +545,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
 
+/obj/machinery/computer/shuttle_flight/allowed(mob/M)
+	var/obj/item/circuitboard/computer/shuttle/circuit_board = circuit
+	if(istype(circuit_board) && circuit_board.hacked)
+		return TRUE
+	return ..()
