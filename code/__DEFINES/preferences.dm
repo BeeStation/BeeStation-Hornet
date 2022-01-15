@@ -73,7 +73,7 @@
 #error More than 24 flags used for toggles bitflag. Please use toggles_2.
 #endif
 
-#if TOGGLES_2_TOTAL > 16777215
+#if TOGGLES_2_MAX > 16777215
 #error More than 24 flags used for toggles_2 bitflag. Please contact a maintainer.
 #endif
 
