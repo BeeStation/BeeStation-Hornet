@@ -636,6 +636,8 @@
 	..()
 
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/carbon/M)
+	if(prob(20) && iscarbon(M))
+		M.Jitter(10)
 	M.AdjustAllImmobility(-20, FALSE)
 	M.adjustStaminaLoss(-10*REM, FALSE)
 	..()
