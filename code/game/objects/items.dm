@@ -38,6 +38,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/icon/alternate_worn_icon = null
 	/// If this is set, update_icons() will force the on mob state (WORN, NOT INHANDS) onto this layer, instead of it's default
 	var/alternate_worn_layer = null
+	///The config type to use for greyscaled worn sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_worn
+	///The config type to use for greyscaled left inhand sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_inhand_left
+	///The config type to use for greyscaled right inhand sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_inhand_right
 
 	max_integrity = 200
 
@@ -274,6 +280,25 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/suicide_act(mob/user)
 	return
 
+/obj/item/set_greyscale(list/colors, new_config, new_worn_config, new_inhand_left, new_inhand_right)
+	if(new_worn_config)
+		greyscale_config_worn = new_worn_config
+	if(new_inhand_left)
+		greyscale_config_inhand_left = new_inhand_left
+	if(new_inhand_right)
+		greyscale_config_inhand_right = new_inhand_right
+	return ..()
+
+/// Checks if this atom uses the GAGS system and if so updates the worn and inhand icons
+/obj/item/update_greyscale()
+	. = ..()
+	if(!greyscale_colors)
+		return
+	if(greyscale_config_inhand_left)
+		lefthand_file = SSgreyscale.GetColoredIconByType(greyscale_config_inhand_left, greyscale_colors)
+	if(greyscale_config_inhand_right)
+		righthand_file = SSgreyscale.GetColoredIconByType(greyscale_config_inhand_right, greyscale_colors)
+
 /obj/item/verb/move_to_top()
 	set name = "Move To Top"
 	set category = "Object"
@@ -310,7 +335,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(block_level || block_upgrade_walk)
 		if(block_upgrade_walk == 1 && !block_level)
 			. += "While walking, [src] can block attacks in a <b>narrow</b> arc."
-		else 
+		else
 			switch(block_upgrade_walk + block_level)
 				if(1)
 					. += "[src] can block attacks in a <b>narrow</b> arc."
@@ -607,7 +632,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
 		owner.blockbreak()
 	if(attackforce)
-		owner.changeNext_move(CLICK_CD_MELEE) 
+		owner.changeNext_move(CLICK_CD_MELEE)
 	return TRUE
 
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language, list/message_mods)
