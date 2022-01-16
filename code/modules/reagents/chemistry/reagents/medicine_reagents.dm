@@ -1014,7 +1014,7 @@
 	..()
 
 
-//Pump-Up for Stimpack
+//Pump-Up for Pump-Up Stimpack
 /datum/reagent/medicine/pumpup
 	name = "Pump-Up"
 	description = "Makes you immune to damage slowdown, resistant to all other kinds of slowdown and gives a minor speed boost. Overdose causes weakness and toxin damage."
