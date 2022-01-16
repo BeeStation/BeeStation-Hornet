@@ -6111,6 +6111,21 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
 "ajG" = (
@@ -6220,6 +6235,10 @@
 	},
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
+/obj/item/trash/can{
+	pixel_x = 10;
+	pixel_y = 17
+	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/science)
 "ajP" = (
@@ -6417,6 +6436,9 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/quartermaster/exploration_prep)
 "akk" = (
@@ -6472,6 +6494,13 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/machinery/camera/autoname,
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
 "akp" = (
@@ -8818,11 +8847,11 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
-	pixel_x = -8;
-	pixel_y = 7
-	},
 /obj/effect/decal/cleanable/vomit/old,
+/obj/machinery/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
 "anO" = (
@@ -8831,8 +8860,7 @@
 	},
 /obj/structure/sign/directions/evac{
 	dir = 8;
-	icon_state = "direction_evac";
-	pixel_y = 24
+	pixel_y = 32
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -8845,6 +8873,33 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer1{
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/soda_cans/starkist{
+	pixel_x = 10;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/shamblers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game{
+	pixel_x = -4;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/cola{
+	pixel_x = 6;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/thirteenloko{
+	pixel_y = 20
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
@@ -8862,6 +8917,11 @@
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/holopad,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
 "anQ" = (
@@ -10297,6 +10357,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
 "aqc" = (
@@ -10332,6 +10398,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
 "aqf" = (
@@ -10358,6 +10427,12 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
@@ -16383,17 +16458,15 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/turf/open/floor/plasteel/showroomfloor,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/plasteel/dark,
 /area/maintenance/department/science)
 "ayY" = (
 /obj/structure/table,
@@ -91531,9 +91604,6 @@
 	},
 /area/maintenance/starboard/fore)
 "cFp" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high{
@@ -91542,7 +91612,14 @@
 	},
 /obj/item/stock_parts/cell/high,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/showroomfloor,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/plasteel/dark,
 /area/maintenance/department/science)
 "cFq" = (
 /obj/effect/turf_decal/tile/purple,
@@ -91558,6 +91635,15 @@
 /obj/effect/turf_decal/box,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
@@ -91752,17 +91838,29 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
 "cFG" = (
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
+/obj/item/kirbyplants{
+	icon_state = "plant-08"
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 24
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/dark,
 /area/maintenance/department/science)
 "cFH" = (
 /obj/effect/decal/cleanable/dirt,
@@ -91873,6 +91971,12 @@
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
@@ -99491,6 +99595,13 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
 "hDB" = (
@@ -99953,6 +100064,13 @@
 	pixel_y = 3
 	},
 /obj/item/reagent_containers/food/drinks/sillycup,
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	pixel_x = -8;
+	pixel_y = 7
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
 "ktS" = (
@@ -100226,6 +100344,16 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
 "ngu" = (
@@ -100367,9 +100495,6 @@
 	},
 /area/quartermaster/warehouse)
 "ofb" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -100379,7 +100504,7 @@
 /obj/structure/sign/poster/official/ue_no{
 	pixel_x = -32
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/dark,
 /area/maintenance/department/science)
 "ofT" = (
 /obj/machinery/door/airlock/external,
@@ -100425,6 +100550,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
@@ -100617,6 +100745,9 @@
 	icon_state = "scrub_map_on-1"
 	},
 /obj/effect/turf_decal/box,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
 "pjW" = (
@@ -100923,20 +101054,27 @@
 	},
 /area/quartermaster/warehouse)
 "qnw" = (
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-08"
+/obj/structure/table,
+/obj/item/clothing/gloves/color/latex{
+	pixel_x = 4;
+	pixel_y = 4
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/glasses/science{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/clothing/glasses/science,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
 /area/maintenance/department/science)
 "qoN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -101197,14 +101335,19 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "rfx" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/pen,
-/turf/open/floor/plasteel/showroomfloor,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -26
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/plasteel/dark,
 /area/maintenance/department/science)
 "riP" = (
 /obj/effect/decal/cleanable/dirt,
@@ -101428,6 +101571,9 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_dock)
 "sCg" = (
@@ -101581,7 +101727,13 @@
 	pixel_y = 32
 	},
 /obj/structure/chair{
-	dir = 8
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/machinery/camera/autoname{
+	dir = 6
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
@@ -102311,6 +102463,12 @@
 /obj/effect/decal/cleanable/greenglow/filled,
 /obj/machinery/light_switch{
 	pixel_y = -27
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
@@ -142043,7 +142201,7 @@ alB
 alB
 alB
 bwe
-alB
+bwe
 alB
 anO
 pio
