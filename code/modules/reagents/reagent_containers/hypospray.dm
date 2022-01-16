@@ -208,7 +208,7 @@
 	item_state = "tbpen"
 	volume = 50
 	amount_per_transfer_from_this = 50
-	list_reagents = list(/datum/reagent/medicine/stimulants = 50)
+	list_reagents = list(/datum/reagent/medicine/amphetamine = 50)
 
 /obj/item/reagent_containers/hypospray/medipen/morphine
 	name = "morphine medipen"
