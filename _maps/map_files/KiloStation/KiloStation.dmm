@@ -8917,8 +8917,6 @@
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/holopad,
-/obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
@@ -90780,7 +90778,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	luminosity = 2
 	},
 /area/maintenance/starboard)
 "cDC" = (
@@ -90817,7 +90815,7 @@
 "cDI" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
-	icon_state = "panelscorched"
+	icon_state = "platingdmg1"
 	},
 /area/maintenance/starboard)
 "cDJ" = (
@@ -99602,6 +99600,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/machinery/holopad,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
 "hDB" = (
@@ -100446,10 +100446,6 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/fore)
-"nOd" = (
-/obj/effect/turf_decal/stripes/corner,
-/turf/closed/wall,
-/area/maintenance/starboard)
 "nQB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -101868,12 +101864,6 @@
 /obj/structure/filingcabinet/chestdrawer,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/lab)
-"tII" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/maintenance/starboard)
 "tJf" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/asteroid/hivelord,
@@ -102738,7 +102728,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating{
-	icon_state = "platingdmg3"
+	icon_state = "platingdmg1"
 	},
 /area/maintenance/starboard)
 "yjK" = (
@@ -142703,7 +142693,7 @@ aeu
 aeu
 bkd
 iZp
-cDI
+cEH
 cDI
 abi
 cEH
@@ -142961,8 +142951,8 @@ bkd
 ava
 bkd
 yjA
-tII
-nOd
+cEH
+bkd
 agv
 agV
 ahi
