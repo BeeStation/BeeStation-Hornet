@@ -92427,6 +92427,12 @@
 /area/maintenance/starboard)
 "cHa" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/door/airlock/atmos{
+	name = "Atmospherics Connector";
+	req_access_txt = "0";
+	req_one_access_txt = "10;24;5"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/starboard)
 "cHb" = (
