@@ -79,6 +79,10 @@
 	///A dictionary of species IDs and a path to the outfit.
 	var/list/species_outfits = null
 
+	///RPG job names, for the memes
+	var/rpg_title
+
+
 /datum/job/New()
 	. = ..()
 	say_span = replacetext(lowertext(title), " ", "")
@@ -205,7 +209,7 @@
 	if(outfit_override || outfit)
 		H.equipOutfit(outfit_override ? outfit_override : outfit, visualsOnly)
 
-	H.dna.species.after_equip_job(src, H, visualsOnly)
+	H.dna.species.after_equip_job(src, H, visualsOnly, preference_source)
 
 	if(!visualsOnly && announce)
 		announce(H)
@@ -358,9 +362,9 @@
 /datum/job/proc/dormant_disease_check(mob/living/carbon/human/H)
 	var/datum/symptom/guaranteed
 	var/sickrisk = 1
-	var/unfunny = TRUE
+	var/unfunny = 4
 	if((flag == CLOWN) || (flag == MIME))
-		unfunny= FALSE
+		unfunny = 0
 	if(islizard(H) || iscatperson(H))
 		sickrisk += 0.5 //these races like eating diseased mice, ew
 	if(MOB_INORGANIC in H.mob_biotypes)
@@ -375,7 +379,7 @@
 	else if(!(MOB_ORGANIC in H.mob_biotypes))
 		return //this mob cant be given a disease
 	if(prob(biohazard * sickrisk))
-		var/datum/disease/advance/scandisease = new /datum/disease/advance/random(rand(1, 4), rand(1, 9), unfunny, guaranteed, infected = H)
+		var/datum/disease/advance/scandisease = new /datum/disease/advance/random(rand(1, 4), rand(7, 9), unfunny, guaranteed, infected = H)
 		scandisease.dormant = TRUE
 		scandisease.spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 		scandisease.spread_text = "None"

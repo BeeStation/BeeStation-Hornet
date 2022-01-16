@@ -576,7 +576,7 @@
 	category = list("initial", "Security")
 
 /datum/design/c38b
-	name = "Speed Loader (.38)"
+	name = "Speed Loader (.38 Rubber)"
 	id = "c38b"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 16000)
