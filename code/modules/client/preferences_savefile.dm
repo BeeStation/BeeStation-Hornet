@@ -362,6 +362,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	//Character
 	READ_FILE(S["real_name"], real_name)
+	READ_FILE(S["examine_text"], examine_text) //MONKESTATION EDIT - EXAMINE TEXT
 	READ_FILE(S["name_is_always_random"], be_random_name)
 	READ_FILE(S["body_is_always_random"], be_random_body)
 	READ_FILE(S["gender"], gender)
@@ -515,6 +516,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["feature_ipc_screen"], features["ipc_screen"])
 	WRITE_FILE(S["feature_ipc_antenna"], features["ipc_antenna"])
 	WRITE_FILE(S["real_name"]			, real_name)
+	WRITE_FILE(S["examine_text"]			, examine_text) //MONKESTATION EDIT - EXAMINE TEXT
 	WRITE_FILE(S["name_is_always_random"] , be_random_name)
 	WRITE_FILE(S["body_is_always_random"] , be_random_body)
 	WRITE_FILE(S["gender"]				, gender)

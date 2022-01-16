@@ -16,6 +16,13 @@
 
 	. = list("<span class='info'>*---------*\nThis is <EM>[!obscure_name ? name : "Unknown"]</EM>!")
 
+	//MONKESTATION EDIT START - EXAMINE TEXT
+	if(examine_text && !obscure_name && (real_name == name))
+		. += "[examine_text]\n*---------*"
+	else
+		. += "<span class='notice'>*---------*</span>"
+	//MONKESTATION EDIT END
+
 	var/list/obscured = check_obscured_slots()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
 

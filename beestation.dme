@@ -3470,6 +3470,7 @@
 #include "interface\interface.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
+#include "monkestation\code\_HELPERS\html_emphasis.dm"
 #include "monkestation\code\_HELPERS\unsorted.dm"
 #include "monkestation\code\_onclick\hud\new_player.dm"
 #include "monkestation\code\datums\diseases\advance\symptoms\fermentation.dm"
