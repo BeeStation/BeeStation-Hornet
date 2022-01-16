@@ -196,7 +196,7 @@
 
 	//Equip the rest of the gear
 	H.dna.species.before_equip_job(src, H, visualsOnly)
-	
+
 	if(src.species_outfits)
 		if(H.dna.species.id in src.species_outfits)
 			var/datum/outfit/O = species_outfits[H.dna.species.id]
@@ -221,6 +221,11 @@
 		. = src.minimal_access.Copy()
 	else
 		. = src.access.Copy()
+		//MonkeStation Edit: Lowpop Basic Access
+		. += list(	ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_RESEARCH,
+					ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_MEDICAL, ACCESS_CARGO, ACCESS_ROBOTICS,
+					ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
+		//MonkeStation Edit End
 
 	if(CONFIG_GET(flag/everyone_has_maint_access)) //Config has global maint access set
 		. |= list(ACCESS_MAINT_TUNNELS)
