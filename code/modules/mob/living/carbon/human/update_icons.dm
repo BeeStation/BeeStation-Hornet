@@ -60,7 +60,6 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/update_body()
 	remove_overlay(BODY_LAYER)
 	dna.species.handle_body(src)
-	//..() Handle Body calls update_body_parts
 
 /mob/living/carbon/human/update_fire()
 	..((fire_stacks > HUMAN_FIRE_STACK_ICON_NUM) ? "Standing" : "Generic_mob_burning")
@@ -775,7 +774,7 @@ generate/load female uniform sprites matching all previously decided variables
 	if (!istype(HD))
 		return
 
-	HD.update_limb(,,update_limb_data)
+	HD.update_limb(is_creating = update_limb_data)
 
 	add_overlay(HD.get_limb_icon())
 	update_damage_overlays()

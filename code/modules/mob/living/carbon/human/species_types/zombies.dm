@@ -103,7 +103,7 @@
 	mutanttongue = /obj/item/organ/tongue/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
-	examine_limb_id = "human"
+	examine_limb_id = SPECIES_HUMAN
 
 	species_chest = /obj/item/bodypart/chest/zombie
 	species_head = /obj/item/bodypart/head/zombie

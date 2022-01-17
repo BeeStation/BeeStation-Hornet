@@ -243,8 +243,9 @@
 	var/list/new_limbs = list()
 	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(BP in needs_update)
-			new_limbs += BP.get_limb_icon()
-			limb_icon_cache[icon_render_keys[BP.body_zone]] = BP.get_limb_icon()
+			var/bp_icon = BP.get_limb_icon()
+			new_limbs += bp_icon
+			limb_icon_cache[icon_render_keys[BP.body_zone]] = bp_icon
 		else
 			new_limbs += limb_icon_cache[icon_render_keys[BP.body_zone]]
 

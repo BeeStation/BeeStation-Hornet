@@ -220,7 +220,7 @@
 	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
 	default_features = list("mcolor" = "FFF", "wings" = "None")
-	use_skintones = 0
+	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	liked_food = JUNKFOOD | FRIED | GROSS | RAW
 	changesource_flags = MIRROR_BADMIN

@@ -37,4 +37,4 @@
 
 	H.update_body()
 	H.update_hair()
-	//H.update_body_parts(TRUE) Gets called in DNA set up
+

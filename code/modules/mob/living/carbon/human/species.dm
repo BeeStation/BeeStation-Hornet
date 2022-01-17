@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/examine_limb_id //This is used for children, felinids and ashwalkers namely
 
 	var/digitigrade_customization = DIGITIGRADE_NEVER //Never, Optional, or Forced digi legs?
-	var/use_skintones = 0	// does it use skintones or not? (spoiler alert this is only used by humans)
+	var/use_skintones = FALSE	// does it use skintones or not? (spoiler alert this is only used by humans)
 	var/exotic_blood = ""	// If your race wants to bleed something other than bog standard blood, change this to reagent id.
 	var/exotic_bloodtype = "" //If your race uses a non standard bloodtype (A+, O-, AB-, etc)
 	var/meat = /obj/item/reagent_containers/food/snacks/meat/slab/human //What the species drops on gibbing
@@ -301,7 +301,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		new_species.species_l_leg = /obj/item/bodypart/l_leg/digitigrade
 
 	for(var/obj/item/bodypart/old_part as() in C.bodyparts)
-		if(old_part.change_exempt_flags & CHANGE_SPECIES)
+		if(old_part.change_exempt_flags & BP_BLOCK_CHANGE_SPECIES)
 			continue
 
 		switch(old_part.body_zone)
@@ -349,8 +349,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		C.hud_used.update_locked_slots()
 
 	replace_body(C)
-
-
 
 	C.mob_biotypes = inherent_biotypes
 
@@ -751,7 +749,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	////END REAL-LIMB HANDLING
 	H.update_body_parts()
-
 
 
 	if(!bodyparts_to_add)

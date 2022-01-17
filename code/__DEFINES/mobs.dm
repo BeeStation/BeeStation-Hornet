@@ -80,12 +80,12 @@
 #define DEVIL_BODYPART "devil"
 
 //Bodypart change blocking flags
-#define CHANGE_SPECIES	(1<<0)
+#define BP_BLOCK_CHANGE_SPECIES	(1<<0)
 
 //Species gib types
-
 #define GIB_TYPE_HUMAN "human"
 #define GIB_TYPE_ROBOTIC "robotic"
+
 //Species ID defines
 #define SPECIES_HUMAN			"human"
 #define SPECIES_IPC 			"ipc"
@@ -94,10 +94,17 @@
 #define SPECIES_APID 			"apid"
 #define SPECIES_MOTH			"moth"
 #define SPECIES_LIZARD			"lizard"
+ #define SPECIES_ASHWALKER		"ashlizard"
 #define SPECIES_FELINID			"felinid"
 #define SPECIES_OOZELING		"oozeling"
 #define SPECIES_FLY 			"fly"
 #define SPECIES_MONKEY			"monkey"
+#define SPECIES_JELLYPERSON		"jelly"
+ #define SPECIES_SLIMEPERSON	"slime"
+ #define SPECIES_LUMINESCENT	"lum"
+ #define SPECIES_STARGAZER		"stargazer"
+#define SPECIES_ABDUCTOR		"abductor"
+#define SPECIES_SHADOWPERSON	"shadow"
 
 //Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
 #define FLAG_HUMAN			(1<<0)

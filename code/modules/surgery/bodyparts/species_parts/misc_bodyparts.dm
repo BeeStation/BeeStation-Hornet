@@ -23,22 +23,28 @@
 /obj/item/bodypart/head/abductor
 	limb_id = "abductor"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/abductor
 	limb_id = "abductor"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_arm/abductor
 	limb_id = "abductor"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm/abductor
 	limb_id = "abductor"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg/abductor
 	limb_id = "abductor"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg/abductor
 	limb_id = "abductor"
+	should_draw_greyscale = FALSE
 
 ///JELLY
 /obj/item/bodypart/head/jelly
@@ -86,22 +92,29 @@
 /obj/item/bodypart/head/zombie
 	limb_id = "zombie"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+
 
 /obj/item/bodypart/chest/zombie
 	limb_id = "zombie"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_arm/zombie
 	limb_id = "zombie"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm/zombie
 	limb_id = "zombie"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg/zombie
 	limb_id = "zombie"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg/zombie
 	limb_id = "zombie"
+	should_draw_greyscale = FALSE
 
 ///PODPEOPLE
 /obj/item/bodypart/head/pod
@@ -128,64 +141,88 @@
 /obj/item/bodypart/head/fly
 	limb_id = "fly"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+
 
 /obj/item/bodypart/chest/fly
 	limb_id = "fly"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
+
 
 /obj/item/bodypart/l_arm/fly
 	limb_id = "fly"
+	should_draw_greyscale = FALSE
+
 
 /obj/item/bodypart/r_arm/fly
 	limb_id = "fly"
+	should_draw_greyscale = FALSE
+
 
 /obj/item/bodypart/l_leg/fly
 	limb_id = "fly"
+	should_draw_greyscale = FALSE
+
 
 /obj/item/bodypart/r_leg/fly
 	limb_id = "fly"
+	should_draw_greyscale = FALSE
+
 
 ///SHADOW
 /obj/item/bodypart/head/shadow
 	limb_id = "shadow"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/shadow
 	limb_id = "shadow"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_arm/shadow
 	limb_id = "shadow"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm/shadow
 	limb_id = "shadow"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg/shadow
 	limb_id = "shadow"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg/shadow
 	limb_id = "shadow"
+	should_draw_greyscale = FALSE
 
 ///SKELETON
 /obj/item/bodypart/head/skeleton
 	limb_id = "skeleton"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/skeleton
 	limb_id = "skeleton"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_arm/skeleton
 	limb_id = "skeleton"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm/skeleton
 	limb_id = "skeleton"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg/skeleton
 	limb_id = "skeleton"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg/skeleton
 	limb_id = "skeleton"
+	should_draw_greyscale = FALSE
 
 ///MUSHROOM
 /obj/item/bodypart/head/mushroom
@@ -233,169 +270,217 @@
 /obj/item/bodypart/head/golem/alloy
 	limb_id = "a_golem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/golem/alloy
 	limb_id = "a_golem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_arm/golem/alloy
 	limb_id = "a_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm/golem/alloy
 	limb_id = "a_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg/golem/alloy
 	limb_id = "a_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg/golem/alloy
 	limb_id = "a_golem"
+	should_draw_greyscale = FALSE
 
 ///
 /obj/item/bodypart/head/golem/bananium
 	limb_id = "ba_golem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/golem/bananium
 	limb_id = "ba_golem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_arm/golem/bananium
 	limb_id = "ba_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm/golem/bananium
 	limb_id = "ba_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg/golem/bananium
 	limb_id = "ba_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg/golem/bananium
 	limb_id = "ba_golem"
+	should_draw_greyscale = FALSE
 
 ///
 /obj/item/bodypart/head/golem/cult
 	limb_id = "cultgolem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/golem/cult
 	limb_id = "cultgolem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_arm/golem/cult
 	limb_id = "cultgolem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm/golem/cult
 	limb_id = "cultgolem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg/golem/cult
 	limb_id = "cultgolem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg/golem/cult
 	limb_id = "cultgolem"
+	should_draw_greyscale = FALSE
 
 ///
 /obj/item/bodypart/head/golem/clock
 	limb_id = "clockgolem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/golem/clock
 	limb_id = "clockgolem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_arm/golem/clock
 	limb_id = "clockgolem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm/golem/clock
 	limb_id = "clockgolem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg/golem/clock
 	limb_id = "clockgolem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg/golem/clock
 	limb_id = "clockgolem"
+	should_draw_greyscale = FALSE
 
 ///
 /obj/item/bodypart/head/golem/cloth
 	limb_id = "clothgolem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/golem/cloth
 	limb_id = "clothgolem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_arm/golem/cloth
 	limb_id = "clothgolem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm/golem/cloth
 	limb_id = "clothgolem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg/golem/cloth
 	limb_id = "clothgolem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg/golem/cloth
 	limb_id = "clothgolem"
+	should_draw_greyscale = FALSE
 
 ///
 /obj/item/bodypart/head/golem/cardboard
 	limb_id = "c_golem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/golem/cardboard
 	limb_id = "c_golem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_arm/golem/cardboard
 	limb_id = "c_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm/golem/cardboard
 	limb_id = "c_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg/golem/cardboard
 	limb_id = "c_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg/golem/cardboard
 	limb_id = "c_golem"
+	should_draw_greyscale = FALSE
 
 ///
 /obj/item/bodypart/head/golem/durathread
 	limb_id = "d_golem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/golem/durathread
 	limb_id = "d_golem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_arm/golem/durathread
 	limb_id = "d_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm/golem/durathread
 	limb_id = "d_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg/golem/durathread
 	limb_id = "d_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg/golem/durathread
 	limb_id = "d_golem"
+	should_draw_greyscale = FALSE
 
 ///
 /obj/item/bodypart/head/golem/bone
 	limb_id = "b_golem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/chest/golem/bone
 	limb_id = "b_golem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_arm/golem/bone
 	limb_id = "b_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm/golem/bone
 	limb_id = "b_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg/golem/bone
 	limb_id = "b_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg/golem/bone
 	limb_id = "b_golem"
+	should_draw_greyscale = FALSE
 
 ///
 /obj/item/bodypart/head/golem/snow
@@ -405,15 +490,20 @@
 /obj/item/bodypart/chest/golem/snow
 	limb_id = "sn_golem"
 	is_dimorphic = FALSE
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_arm/golem/snow
 	limb_id = "sn_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_arm/golem/snow
 	limb_id = "sn_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/l_leg/golem/snow
 	limb_id = "sn_golem"
+	should_draw_greyscale = FALSE
 
 /obj/item/bodypart/r_leg/golem/snow
 	limb_id = "sn_golem"
+	should_draw_greyscale = FALSE
