@@ -13,8 +13,7 @@
 		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
 
 	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
-	for(var/X in bodyparts)
-		var/obj/item/bodypart/BP = X
+	for(var/obj/item/bodypart/BP as() in bodyparts)
 		armorval += checkarmor(BP, type)
 		organnum++
 	return (armorval/max(organnum, 1))
@@ -424,8 +423,7 @@
 			if(EXPLODE_DEVASTATE)
 				max_limb_loss = 4
 				probability = 50
-		for(var/X in bodyparts)
-			var/obj/item/bodypart/BP = X
+		for(var/obj/item/bodypart/BP as() in bodyparts)
 			if(prob(probability) && !prob(getarmor(BP, "bomb")) && BP.body_zone != BODY_ZONE_HEAD && BP.body_zone != BODY_ZONE_CHEST)
 				BP.brute_dam = BP.max_damage
 				BP.dismember()
@@ -701,8 +699,7 @@
 	var/bleed_msg = harm_descriptors["bleed"]
 
 	var/list/missing = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-	for(var/X in bodyparts)
-		var/obj/item/bodypart/LB = X
+	for(var/obj/item/bodypart/LB as() in bodyparts)
 		missing -= LB.body_zone
 		if(LB.is_pseudopart) //don't show injury text for fake bodyparts; ie chainsaw arms or synthetic armblades
 			continue

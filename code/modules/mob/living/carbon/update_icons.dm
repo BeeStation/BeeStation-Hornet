@@ -97,8 +97,7 @@
 	var/mutable_appearance/damage_overlay = mutable_appearance('icons/mob/dam_mob.dmi', "blank", -DAMAGE_LAYER)
 	overlays_standing[DAMAGE_LAYER] = damage_overlay
 
-	for(var/X in bodyparts)
-		var/obj/item/bodypart/BP = X
+	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(BP.dmg_overlay_type)
 			if(BP.brutestate)
 				damage_overlay.add_overlay("[BP.dmg_overlay_type]_[BP.body_zone]_[BP.brutestate]0")	//we're adding icon_states of the base image as overlays
@@ -255,7 +254,20 @@
 	apply_overlay(BODYPARTS_LAYER)
 
 
-///The Icon Render Key system. This generates and stores icons with keys to reduce the number of items bodypart icons are built.
+/////////////////////////
+// Limb Icon Cache 2.0 //
+/////////////////////////
+//Updated by Kapu#1178
+/*
+	Called from update_body_parts() these procs handle the limb icon cache.
+	the limb icon cache adds an icon_render_key to a human mob, it represents:
+	- Gender, if applicable
+	- The ID of the limb
+	- Draw color, if applicable
+	These procs only store limbs as to increase the number of matching icon_render_keys
+	This cache exists because drawing 6/7 icons for humans constantly is quite a waste
+	See RemieRichards on irc.rizon.net #coderbus (RIP remie :sob:)
+*/
 /mob/living/carbon/proc/generate_icon_key(obj/item/bodypart/BP)
 	if(BP.is_dimorphic && BP.should_draw_gender)
 		. += "[BP.limb_gender]-"
