@@ -34307,6 +34307,9 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	pixel_x = 28
+	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "bHI" = (
@@ -36996,7 +36999,7 @@
 	c_tag = "Tech Storage";
 	dir = 2
 	},
-/obj/item/circuitboard/computer/monastery_shuttle,
+/obj/item/circuitboard/computer/shuttle/monastery_shuttle,
 /obj/effect/spawner/lootdrop/techstorage/service,
 /obj/machinery/airalarm{
 	dir = 2;

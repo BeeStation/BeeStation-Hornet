@@ -276,18 +276,18 @@
 	do_sparks(3, TRUE, src)
 	..()
 
-/obj/item/roombaframe
-	name = "Roomba Frame"
-	desc = "A housing that serves as the base for constructing Roombas."
+/obj/item/larryframe
+	name = "Larry Frame"
+	desc = "A housing that serves as the base for constructing Larries."
 	icon = 'icons/obj/janitor.dmi'
-	icon_state = "roombaframe"
+	icon_state = "larryframe"
 
-/obj/item/roombaframe/attackby(obj/O, mob/user, params)
+/obj/item/larryframe/attackby(obj/O, mob/user, params)
 	if(isprox(O))
 		to_chat(user, "<span class='notice'>You add [O] to [src].</span>")
 		qdel(O)
 		qdel(src)
-		user.put_in_hands(new /obj/item/bot_assembly/roomba)
+		user.put_in_hands(new /obj/item/bot_assembly/larry)
 	else
 		..()
 
@@ -296,35 +296,35 @@
 	bot_core_type = /obj/machinery/bot_core/cleanbot/medbay
 	on = FALSE
 
-//Crossed Wanted Roomba Sprites to be Separate
-/mob/living/simple_animal/bot/cleanbot/roomba
-	name = "\improper Roomba"
-	desc = "A little Roomba, he looks so excited!"
-	icon_state = "roomba0"
+//Crossed Wanted Larry Sprites to be Separate
+/mob/living/simple_animal/bot/cleanbot/larry
+	name = "\improper Larry"
+	desc = "A little Larry, he looks so excited!"
+	icon_state = "larry0"
 
-/mob/living/simple_animal/bot/cleanbot/roomba/Initialize()
+/mob/living/simple_animal/bot/cleanbot/larry/Initialize()
 	. = ..()
 	get_targets()
-	icon_state = "roomba[on]"
+	icon_state = "larry[on]"
 
 	var/datum/job/janitor/J = new/datum/job/janitor
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-/mob/living/simple_animal/bot/cleanbot/roomba/turn_on()
+/mob/living/simple_animal/bot/cleanbot/larry/turn_on()
 	..()
-	icon_state = "roomba[on]"
+	icon_state = "larry[on]"
 	bot_core.updateUsrDialog()
 
-/mob/living/simple_animal/bot/cleanbot/roomba/turn_off()
+/mob/living/simple_animal/bot/cleanbot/larry/turn_off()
 	..()
-	icon_state = "roomba[on]"
+	icon_state = "larry[on]"
 	bot_core.updateUsrDialog()
 	
-/mob/living/simple_animal/bot/cleanbot/roomba/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A)
 	if(istype(A, /obj/effect/decal/cleanable))
 		anchored = TRUE
-		icon_state = "roomba-c"
+		icon_state = "larry-c"
 		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
 		mode = BOT_CLEANING
 		addtimer(CALLBACK(src, .proc/clean, A), 50)
@@ -365,9 +365,9 @@
 	else
 		..()
 
-/mob/living/simple_animal/bot/cleanbot/roomba/clean(atom/A)
+/mob/living/simple_animal/bot/cleanbot/larry/clean(atom/A)
 	mode = BOT_IDLE
-	icon_state = "roomba[on]"
+	icon_state = "larry[on]"
 	if(!on)
 		return
 	if(A && isturf(A.loc))

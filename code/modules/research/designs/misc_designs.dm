@@ -260,13 +260,13 @@
 ////////////Janitor Designs//////////////
 /////////////////////////////////////////
 
-/datum/design/roombaframe
-	name = "Roomba Frame"
-	desc = "A housing that serves as the base for constructing Roombas."
-	id = "roomba"
+/datum/design/larryframe
+	name = "Larry Frame"
+	desc = "A housing that serves as the base for constructing Larries."
+	id = "larry"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 200)
-	build_path = /obj/item/roombaframe
+	build_path = /obj/item/larryframe
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
