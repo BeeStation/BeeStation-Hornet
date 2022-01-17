@@ -1,8 +1,8 @@
 /**********************Mining drone**********************/
 
-#define MODE_COMBAT "Combat" // Combat mode for AI, PKA usage mode for players
-#define MODE_MINING "Mining" // Ore collection/mining mode for AI, plasma cutter usage mode for players
-#define MINEBOT_DAMAGE_PROB 30 // The probability that an upgrade applied to the minebot is destroyed on death
+#define MODE_COMBAT "Combat" /// Combat mode for AI, PKA usage mode for players
+#define MODE_MINING "Mining" /// Ore collection/mining mode for AI, plasma cutter usage mode for players
+#define MINEBOT_DAMAGE_PROB 30 /// The probability that an upgrade applied to the minebot is destroyed on death
 
 /mob/living/simple_animal/hostile/mining_drone
 	name = "\improper Nanotrasen minebot"
@@ -17,37 +17,45 @@
 	faction = list("neutral")
 	a_intent = INTENT_HARM
 	hud_type = /datum/hud/minebot
+	// Atmos
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	move_to_delay = 10
+	// Health/damage
 	health = 125
 	maxHealth = 125
 	melee_damage = 15
 	obj_damage = 10
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	check_friendly_fire = TRUE
-	stop_automated_movement_when_pulled = TRUE
-	attacktext = "drills"
-	attack_sound = 'sound/weapons/circsawhit.ogg'
-	sentience_type = SENTIENCE_MINEBOT
-	speak_emote = list("states")
-	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
-						  /obj/item/stack/ore/plasma, /obj/item/stack/ore/uranium, /obj/item/stack/ore/iron,
-						  /obj/item/stack/ore/bananium, /obj/item/stack/ore/titanium)
 	healable = 0
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	del_on_death = FALSE
+	deathmessage = "'s lights flicker, then go dark"
+	// AI stuff
+	check_friendly_fire = TRUE
+	ranged = TRUE
+	sentience_type = SENTIENCE_MINEBOT
+	stop_automated_movement_when_pulled = TRUE
+	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
+						  /obj/item/stack/ore/plasma, /obj/item/stack/ore/uranium, /obj/item/stack/ore/iron,
+						  /obj/item/stack/ore/bananium, /obj/item/stack/ore/titanium)
+	// Response verbs
+	response_help = "pets"
+	attacktext = "drills"
+	attack_sound = 'sound/weapons/circsawhit.ogg'
+	speak_emote = list("states")
+	// Light handling
 	light_system = MOVABLE_LIGHT
 	light_range = 6
 	light_on = FALSE
-	deathmessage = "'s lights flicker, then go dark"
-	var/mode = MODE_MINING
-	var/mining_enabled = FALSE // Whether or not the minebot will mine new ores while in mining mode.
-	var/list/installed_upgrades
-	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_pka
-	var/obj/item/gun/energy/plasmacutter/stored_cutter
-	var/obj/item/pickaxe/drill/stored_drill
-	var/obj/item/t_scanner/adv_mining_scanner/stored_scanner
+	// Minebot-specific verbs
+	var/mode = MODE_MINING /// What mode the minebot is in
+	var/mining_enabled = FALSE /// Whether or not the minebot will mine new ores while in mining mode.
+	var/list/installed_upgrades /// A list of all the minebot's installed upgrades
+	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_pka /// The minebot's stored PKA
+	var/obj/item/gun/energy/plasmacutter/stored_cutter /// The minebot's stored plasma cutter
+	var/obj/item/pickaxe/drill/stored_drill /// The minebot's stored drill
+	var/obj/item/t_scanner/adv_mining_scanner/stored_scanner /// The minebot's stored mining scanner
 
 /mob/living/simple_animal/hostile/mining_drone/Initialize(mapload)
 	. = ..()
@@ -89,11 +97,12 @@
 	QDEL_NULL(stored_scanner)
 	return ..()
 
+/// If the minebot dies, they have a chance of losing upgrades, determined by MINEBOT_DAMAGE_PROB
 /mob/living/simple_animal/hostile/mining_drone/death()
-	for(var/obj/item/borg/upgrade/modkit/M as anything in stored_pka.modkits)
+	for(var/obj/item/borg/upgrade/modkit/pka_modkit as anything in stored_pka.modkits)
 		if(prob(MINEBOT_DAMAGE_PROB))
-			M.uninstall(stored_pka)
-			qdel(M)
+			pka_modkit.uninstall(stored_pka)
+			qdel(pka_modkit)
 	if(stored_cutter && prob(MINEBOT_DAMAGE_PROB))
 		QDEL_NULL(stored_cutter)
 	if(LAZYLEN(installed_upgrades))
@@ -149,7 +158,7 @@
 	if(client)
 		. += "<span class='notice'>[t_He]s AI light is on.</span>"
 
-// Generates the stat tab for player-controlled minebots
+/// Generates the stat tab for player-controlled minebots
 /mob/living/simple_animal/hostile/mining_drone/get_stat_tab_status()
 	var/list/tab_data = ..()
 	tab_data["Mode"] = GENERATE_STAT_TEXT("[mode]")
@@ -167,14 +176,14 @@
 				tab_data[upgrade_data[1]] = GENERATE_STAT_TEXT(upgrade_data[2])
 	return tab_data
 
-// Repairing/reviving
-/mob/living/simple_animal/hostile/mining_drone/welder_act(mob/living/user, obj/item/I)
-	if(istype(I, /obj/item/gun/energy/plasmacutter) && maxHealth == health) // So we don't show the welding message while installing a plasma cutter
+/// Repairing/reviving minebots
+/mob/living/simple_animal/hostile/mining_drone/welder_act(mob/living/user, obj/item/welder)
+	if(istype(welder, /obj/item/gun/energy/plasmacutter) && maxHealth == health) // So we don't show the welding message while installing a plasma cutter
 		return
 	if(maxHealth == health)
 		to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
 		return
-	if(I.use_tool(src, user, 0, volume = 40))
+	if(welder.use_tool(src, user, 0, volume = 40))
 		if(stat == DEAD)
 			adjustBruteLoss(-25)
 			to_chat(user, "<span class='info'>You repair and restart [src].</span>")
@@ -184,59 +193,59 @@
 		to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
 		return TRUE
 
-// Sentient minebots can FF all they want
+/// Allows sentient minebots to FF
 /mob/living/simple_animal/hostile/mining_drone/sentience_act()
 	..()
 	check_friendly_fire = FALSE
 
-// Installing new tools/upgrades and interacting with the minebot
-/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I, mob/user, params)
+/// Handles installing new tools/upgrades and interacting with the minebot
+/mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/item, mob/user, params)
 	if(user == src)
 		return TRUE // Returning true in most cases prevents afterattacks from going off and whacking/shooting the minebot
 	if(user.a_intent == INTENT_HARM)
 		return ..() // For smacking
-	if(istype(I, /obj/item/minebot_upgrade))
-		var/obj/item/minebot_upgrade/M = I
+	if(istype(item, /obj/item/minebot_upgrade))
+		var/obj/item/minebot_upgrade/M = item
 		M.upgrade_bot(src, user)
 		return TRUE
-	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner))
+	if(istype(item, /obj/item/mining_scanner) || istype(item, /obj/item/t_scanner/adv_mining_scanner))
 		if(!do_after(user, 20, TRUE, src))
 			return TRUE
 		stored_scanner.forceMove(get_turf(src))
-		I.forceMove(src)
-		stored_scanner = I
-		to_chat(user, "<span class='info'>You install [I].</span>")
+		item.forceMove(src)
+		stored_scanner = item
+		to_chat(user, "<span class='info'>You install [item].</span>")
 		return TRUE
-	if(I.tool_behaviour == TOOL_CROWBAR || istype(I, /obj/item/borg/upgrade/modkit))
+	if(item.tool_behaviour == TOOL_CROWBAR || istype(item, /obj/item/borg/upgrade/modkit))
 		if(!do_after(user, 20, TRUE, src))
 			return TRUE
-		I.melee_attack_chain(user, stored_pka, params)
+		item.melee_attack_chain(user, stored_pka, params)
 		uninstall_upgrades()
 		to_chat(user, "<span class='info'>You uninstall [src]'s upgrades.</span>")
 		return TRUE
-	if(istype(I, /obj/item/gun/energy/plasmacutter))
+	if(istype(item, /obj/item/gun/energy/plasmacutter))
 		if(health != maxHealth)
 			return // For repairs
 		if(!do_after(user, 20, TRUE, src))
 			return TRUE
 		if(stored_cutter)
 			stored_cutter.forceMove(get_turf(src))
-		I.forceMove(src)
-		stored_cutter = I
-		to_chat(user, "<span class='info'>You install [I].</span>")
+		item.forceMove(src)
+		stored_cutter = item
+		to_chat(user, "<span class='info'>You install [item].</span>")
 		return TRUE
-	if(istype(I, /obj/item/pickaxe/drill))
+	if(istype(item, /obj/item/pickaxe/drill))
 		if(!do_after(user, 20, TRUE, src))
 			return TRUE
 		if(stored_drill)
 			stored_drill.forceMove(get_turf(src))
-		I.forceMove(src)
-		stored_drill = I
-		to_chat(user, "<span class='info'>You install [I].</span>")
+		item.forceMove(src)
+		stored_drill = item
+		to_chat(user, "<span class='info'>You install [item].</span>")
 		return TRUE
 	..()
 
-// EMPs
+/// EMPs act similar to how they do on borgs
 /mob/living/simple_animal/hostile/mining_drone/emp_act(severity)
 	. = ..()
 	switch(severity)
@@ -245,58 +254,56 @@
 		if(2)
 			Stun(60)
 
-// Toggling modes
-/mob/living/simple_animal/hostile/mining_drone/attack_hand(mob/living/carbon/human/M)
-	. = ..()
-	if(.)
-		return
-	if(client)
-		to_chat(M, "<span class='info'>[src]'s equipment is currently slaved to its onboard AI. Best not to touch it.</span>")
-	if(M.a_intent == INTENT_HELP)
-		if(mode == MODE_MINING && !mining_enabled)
-			mining_enabled = TRUE
-		else // Either we've got mining enabled and want to switch to combat, or we're switching to ore pickup
-			mining_enabled = FALSE
-			toggle_mode()
-		switch(mode)
-			if(MODE_MINING)
-				if(mining_enabled)
-					to_chat(M, "<span class='info'>[src] has been set to mine any detected ore.</span>")
-				else
-					to_chat(M, "<span class='info'>[src] has been set to search and store loose ore.</span>")
-			if(MODE_COMBAT)
-				to_chat(M, "<span class='info'>[src] has been set to attack hostile wildlife.</span>")
-		return
+/// Handles humans toggling minebot modes
+/mob/living/simple_animal/hostile/mining_drone/attack_hand(mob/living/carbon/human/user)
+	if(user.a_intent != INTENT_HELP) // Smacking/grabbing
+		return ..()
+	if(client) // No messing with the minebot while there's a player inside it.
+		to_chat(user, "<span class='info'>[src]'s equipment is currently slaved to its onboard AI. Best not to touch it.</span>")
+		return ..()
+	if(mode == MODE_MINING && !mining_enabled)
+		mining_enabled = TRUE
+	else // Either we've got mining enabled and want to switch to combat, or we're switching to ore pickup
+		mining_enabled = FALSE
+		toggle_mode()
+	switch(mode)
+		if(MODE_MINING)
+			if(mining_enabled)
+				to_chat(user, "<span class='info'>[src] has been set to mine any detected ore.</span>")
+				return
+			to_chat(user, "<span class='info'>[src] has been set to search and store loose ore.</span>")
+		if(MODE_COMBAT)
+			to_chat(user, "<span class='info'>[src] has been set to attack hostile wildlife.</span>")
 
-// Dropping ore
+/// Handles dropping ore
 /mob/living/simple_animal/hostile/mining_drone/AltClick(mob/user)
 	. = ..()
 	to_chat(user, "<span class='info'>You instruct [src] to drop any collected ore.</span>")
 	DropOre()
 
-// Acticating installed minebot mods
-/mob/living/simple_animal/hostile/mining_drone/AltClickOn(atom/A)
+/// Handles activating installed minebot mods
+/mob/living/simple_animal/hostile/mining_drone/AltClickOn(atom/target)
 	. = ..()
 	if(!LAZYLEN(installed_upgrades))
 		return
 	for(var/obj/item/minebot_upgrade/upgrade as anything in installed_upgrades)
-		upgrade.onAltClick(A)
+		upgrade.onAltClick(target)
 
-// Minebot Passthrough
-/mob/living/simple_animal/hostile/mining_drone/CanAllowThrough(atom/movable/O)
+/// Minebot passthrough handling (for the PKA upgrade and crushers)
+/mob/living/simple_animal/hostile/mining_drone/CanAllowThrough(atom/movable/moving_atom)
 	. = ..()
-	if(istype(O, /obj/item/projectile/kinetic))
-		var/obj/item/projectile/kinetic/K = O
-		if(K.kinetic_gun)
-			for(var/A as anything in K.kinetic_gun.get_modkits())
-				var/obj/item/borg/upgrade/modkit/M = A
-				if(istype(M, /obj/item/borg/upgrade/modkit/minebot_passthrough))
+	if(istype(moving_atom, /obj/item/projectile/kinetic))
+		var/obj/item/projectile/kinetic/kinetic_proj = moving_atom
+		if(kinetic_proj.kinetic_gun)
+			for(var/A as anything in kinetic_proj.kinetic_gun.get_modkits())
+				var/obj/item/borg/upgrade/modkit/modkit = A
+				if(istype(modkit, /obj/item/borg/upgrade/modkit/minebot_passthrough))
 					return TRUE
-	if(istype(O, /obj/item/projectile/destabilizer))
+	if(istype(moving_atom, /obj/item/projectile/destabilizer))
 		return TRUE
 
 /**********************Minebot Attack Handling**********************/
-// Melee
+/// Melee attack handling
 /mob/living/simple_animal/hostile/mining_drone/AttackingTarget()
 	if(stored_cutter && (istype(target, /obj/item/stack/ore/plasma) || istype(target, /obj/item/stack/sheet/mineral/plasma)) && mode == MODE_MINING) //Charging the on-board plasma cutter
 		stored_cutter.attackby(target, src)
@@ -311,35 +318,35 @@
 	if(stored_drill)
 		stored_drill.melee_attack_chain(src, target) // Use the drill if the target's adjacent
 
-// Ranged
-/mob/living/simple_animal/hostile/mining_drone/OpenFire(atom/A)
-	if(CheckFriendlyFire(A))
+/// Ranged attack handling (PKA/plasma cutter)
+/mob/living/simple_animal/hostile/mining_drone/OpenFire(atom/target)
+	if(CheckFriendlyFire(target))
 		return
-	if(!client && istype(A, /obj/item/stack/ore)) // Prevents the AI from shooting ore
+	if(!client && istype(target, /obj/item/stack/ore)) // Prevents the AI from shooting ore
 		return
 	// Either attack with the PKA or the cutter. The cutter takes priority in mining mode, but if we're out of ammo or don't have one, we use the PKA.
 	if(mode == MODE_COMBAT || !stored_cutter || !stored_cutter.can_shoot())
-		stored_pka.afterattack(A, src)
+		stored_pka.afterattack(target, src)
 	else
-		stored_cutter.afterattack(A, src)
+		stored_cutter.afterattack(target, src)
 
-// Being attacked
+/// Handles reacting to attacks, getting the minebot in combat mode if it was mining.
 /mob/living/simple_animal/hostile/mining_drone/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
-	if(!client && mode != MODE_COMBAT && amount > 0)
+	if(!client && mode != MODE_COMBAT && amount > 0) // We don't want to automatically switch it if a player's in control
 		SetOffenseBehavior()
 	update_health_hud()
 	. = ..()
 
 /**********************Minebot AI Handling**********************/
 
-// Allows the minebot to find ore through rocks, limited by the installed scanner's maximum range
+/// Allows the minebot to find ore through rocks, limited by the installed scanner's maximum range.
 /mob/living/simple_animal/hostile/mining_drone/ListTargets()
 	if(mode == MODE_MINING)
 		. = orange(stored_scanner.range, GET_TARGETS_FROM(src))
 	else
 		. = ..()
 
-// We only look for ore if we're in lazy mode
+/// We only look for ore if we're in lazy mode, as opposed to looking through everything in a given orange of the target.
 /mob/living/simple_animal/hostile/mining_drone/ListTargetsLazy(var/_Z)
 	var/search_objects = orange(stored_scanner.range, GET_TARGETS_FROM(src))
 	if(mode == MODE_MINING)
@@ -352,7 +359,7 @@
 	else
 		. = ..()
 
-// We always attack the nearest target if we're in mining mode, so we don't go wandering off or leave ore on the ground
+// We always attack the nearest target if we're in mining mode, so we don't go wandering off or leave ore on the ground.
 /mob/living/simple_animal/hostile/mining_drone/PickTarget(list/Targets)
 	if(mode == MODE_MINING)
 		var/atom/target_from = GET_TARGETS_FROM(src)
@@ -371,7 +378,7 @@
 	// No special targeting if we're in combat mode
 	. = ..()
 
-// Handles mining
+/// Handles mining, otherwise acts the same as simple_animal/hostile.
 /mob/living/simple_animal/hostile/mining_drone/CanAttack(atom/A)
 	if(mining_enabled && istype(A, /turf/closed/mineral)) // Normally CanAttack() skips over turfs, but we'll sometimes want to attack mineral turfs
 		var/turf/closed/mineral/T = A
@@ -384,13 +391,15 @@
 		return
 	. = ..()
 
+/// Prevents the minebot from dodging while mining, since otherwise it looks really silly and slows the bot down a bunch.
 /mob/living/simple_animal/hostile/mining_drone/dodge(moving_to,move_direction)
-	if(mode == MODE_MINING) // No dodging while mining
+	if(mode == MODE_MINING)
 		return
 	. = ..()
 
 /**********************Minebot Procs**********************/
 
+/// Sets the minebot's simplemob AI to focus on collecting ore.
 /mob/living/simple_animal/hostile/mining_drone/proc/SetCollectBehavior()
 	mode = MODE_MINING
 	vision_range = 9
@@ -399,35 +408,38 @@
 	minimum_distance = 1
 	retreat_distance = null
 	icon_state = "mining_drone"
-	if(!client)
+	if(!client) // No point showing messages if we don't have a client
 		return
 	if(stored_cutter)
 		to_chat(src, "<span class='info'>You are set to mining mode. You will now fire your plasma cutter.</span>")
 		return
 	to_chat(src, "<span class='info'>You are set to mining mode. No plasma cutter detected.</span>")
 
+/// Sets the minebot's simplemob AI to focus on attacking targets. Also makes sure the minebot keeps its distance.
 /mob/living/simple_animal/hostile/mining_drone/proc/SetOffenseBehavior()
 	mode = MODE_COMBAT
 	vision_range = 7
 	search_objects = 0
 	wander = FALSE
-	ranged = TRUE
 	retreat_distance = 2
 	minimum_distance = 1
 	icon_state = "mining_drone_offense"
-	if(!client)
+	if(!client) // No point showing messages if we don't have a client
 		return
 	to_chat(src, "<span class='info'>You are set to attack mode. You will now fire your proto-kinetic accelerator at targets.</span>")
 
+/// Collects the ore in collect_range radius around the minebot.
 /mob/living/simple_animal/hostile/mining_drone/proc/CollectOre(collect_range = 1)
-	for(var/obj/item/stack/ore/O in range(collect_range, src))
-		O.forceMove(src)
+	for(var/obj/item/stack/ore/orestack in range(collect_range, src))
+		orestack.forceMove(src)
 
+/// Drops the minebot's stored ore.
 /mob/living/simple_animal/hostile/mining_drone/proc/DropOre()
-	var/dumped_ore
-	for(var/obj/item/stack/ore/O in contents)
-		O.forceMove(drop_location())
-		dumped_ore = TRUE
+	var/dumped_ore = FALSE
+	for(var/obj/item/stack/ore/orestack in contents)
+		orestack.forceMove(drop_location())
+		if(!dumped_ore)
+			dumped_ore = TRUE
 	if(!client)
 		return
 	if(!dumped_ore)
@@ -435,29 +447,33 @@
 		return
 	to_chat(src, "<span class='notice'>You dump your stored ore.</span>")
 
+/// Toggles between collect/combat behavior.
 /mob/living/simple_animal/hostile/mining_drone/proc/toggle_mode()
 	if(mode == MODE_COMBAT)
 		SetCollectBehavior()
 		return
 	SetOffenseBehavior()
 
+/// Uninstalls the upgrades in a minebot.
 /mob/living/simple_animal/hostile/mining_drone/proc/uninstall_upgrades()
 	if(!LAZYLEN(installed_upgrades))
 		return
 	for(var/obj/item/minebot_upgrade/upgrade as anything in installed_upgrades)
 		upgrade.unequip()
 
-// Allowing tool use (for plasma cutters, etc.)
+/// Allows a minebot to use things like plasma cutters.
 /mob/living/simple_animal/hostile/mining_drone/IsAdvancedToolUser()
 	return TRUE // Allow
 
-// Actions for sentient minebots
+/**********************Minebot Actions**********************/
+// Used when a player's in control of a minebot.
 
 /datum/action/innate/minedrone
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
 	background_icon_state = "bg_default"
 
+/// Toggles a minebot's inbuilt meson scanners.
 /datum/action/innate/minedrone/toggle_meson_vision
 	name = "Toggle Meson Vision"
 	icon_icon = 'icons/obj/clothing/glasses.dmi'
@@ -477,6 +493,7 @@
 	to_chat(user, "<span class='notice'>You toggle your meson vision [(user.sight & SEE_TURFS) ? "on" : "off"].</span>")
 	UpdateButtonIcon()
 
+/// Toggles a minebot's inbuilt light.
 /datum/action/innate/minedrone/toggle_light
 	name = "Toggle Light"
 	button_icon_state = "mech_lights_off"
@@ -488,6 +505,7 @@
 	button_icon_state = "mech_lights_[user.light_on ? "on" : "off"]"
 	UpdateButtonIcon()
 
+/// Toggles the minebot's mode from combat to mining mode, effectively switching between the minebot's plasma cutter and PKA.
 /datum/action/innate/minedrone/toggle_mode
 	name = "Toggle Mode"
 	button_icon_state = "mech_zoom_off"
@@ -498,6 +516,7 @@
 	button_icon_state = "mech_zoom_[user.mode == MODE_COMBAT ? "on" : "off"]"
 	UpdateButtonIcon()
 
+/// Allows a minebot to manually dump its own ore.
 /datum/action/innate/minedrone/dump_ore
 	name = "Dump Ore"
 	button_icon_state = "mech_eject"
@@ -506,6 +525,7 @@
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	user.DropOre()
 
+/// Toggles a minebot's mining scanner on and off.
 /datum/action/innate/minedrone/toggle_scanner
 	name = "Toggle Mining Scanner"
 	button_icon_state = "mech_cycle_equip_off"
@@ -520,8 +540,8 @@
 /**********************Minebot Upgrades**********************/
 // Similar to PKA upgrades, except for minebots. Each upgrade can only be installed once and is stored in the minebot when installed.
 
-//Base
-
+// Base
+/// The abstract for minebot upgrades. This handles all the equipping/unequipping stuff so we don't have to repeat it for each upgrade.
 /obj/item/minebot_upgrade
 	name = "generic minebot upgrade"
 	desc = "A generic minebot upgrade. It doesn't seem to do anything."
@@ -533,45 +553,45 @@
 	unequip()
 	return ..()
 
-// Handles adding upgrades. This checks for any duplicate mods and links the mod to the minebot.
-/obj/item/minebot_upgrade/proc/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
-	if(is_type_in_list(src, M.installed_upgrades))
-		M.balloon_alert(user, "A similar mod has already been installed.")
+/// Handles adding upgrades. This checks for any duplicate mods and links the mod to the minebot. Returns FALSE if the upgrade fails, otherwise returns TRUE
+/obj/item/minebot_upgrade/proc/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/minebot, mob/user)
+	if(is_type_in_list(src, minebot.installed_upgrades))
+		minebot.balloon_alert(user, "A similar mod has already been installed.")
 		return FALSE
-	if(!user.transferItemToLoc(src, M))
+	if(!user.transferItemToLoc(src, minebot))
 		return FALSE
-	linked_bot = M
+	linked_bot = minebot
 	LAZYADD(linked_bot.installed_upgrades, src)
 	to_chat(user, "<span class='notice'>You install [src].</span>")
 	playsound(loc, 'sound/items/screwdriver.ogg', 100, 1)
 	return TRUE
 
-// Handles removing upgrades. This handles unlinking the minebot as well, so it should be called after any upgrade-specific unequip actions.
+/// Handles removing upgrades. This handles unlinking the minebot as well, so it should be called after any upgrade-specific unequip actions.
 /obj/item/minebot_upgrade/proc/unequip()
 	LAZYREMOVE(linked_bot.installed_upgrades, src)
 	forceMove(get_turf(linked_bot))
 	linked_bot = null
 
-// For handling special minebot actions (currently just for the medical upgrade)
+/// For handling special minebot actions (currently just for the medical upgrade)
 /obj/item/minebot_upgrade/proc/onAltClick(atom/A)
 	return
 
-// Allows a minebot upgrade to put stat data into the minebot's stat panel. This should return a 2-entry list with the data to be inserted into the statpanel.
+/// Allows a minebot upgrade to put stat data into the minebot's stat panel. This should return a 2-entry list with the data to be inserted into the statpanel.
 /obj/item/minebot_upgrade/proc/get_stat_data()
 	return
 
 // Health Bonus
-
+// Gives a health bonus to the minebot.
 /obj/item/minebot_upgrade/health
 	name = "minebot armor upgrade"
 	desc = "A minebot upgrade that improves a minebot's armor, allowing them to sustain more damage before being disabled."
 	var/health_upgrade = 45
 
-/obj/item/minebot_upgrade/health/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
+/obj/item/minebot_upgrade/health/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/minebot, mob/user)
 	if(!..())
 		return
-	M.maxHealth += health_upgrade
-	M.updatehealth()
+	minebot.maxHealth += health_upgrade
+	minebot.updatehealth()
 
 /obj/item/minebot_upgrade/health/unequip()
 	linked_bot.maxHealth -= health_upgrade
@@ -579,26 +599,27 @@
 	..()
 
 // Automatic Ore Pickup
-
+/// This allows a minebot to automatically pick up ore as they walk over it.
 /obj/item/minebot_upgrade/ore_pickup
 	name = "minebot ore scoop upgrade"
 	desc = "Allows a minebot to automatically pick up ores while moving."
 
-/obj/item/minebot_upgrade/ore_pickup/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
+/obj/item/minebot_upgrade/ore_pickup/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/minebot, mob/user)
 	if(!..())
 		return
-	RegisterSignal(M, COMSIG_MOVABLE_MOVED, .proc/automatic_pickup)
+	RegisterSignal(minebot, COMSIG_MOVABLE_MOVED, .proc/automatic_pickup)
 
 /obj/item/minebot_upgrade/ore_pickup/unequip()
 	UnregisterSignal(linked_bot, COMSIG_MOVABLE_MOVED)
 	..()
 
+/// This proc handles the actual collecting of ore on movement.
 /obj/item/minebot_upgrade/ore_pickup/proc/automatic_pickup()
 	SIGNAL_HANDLER
 	linked_bot.CollectOre(0) // No automatically picking up adjacent ore, otherwise the bot will infinitely pick up any ore that they drop when they try to move away.
 
 // Medical
-
+/// This allows a minebot to carry medipens and use them on other mobs (ideally dying miners).
 /obj/item/minebot_upgrade/medical
 	name = "minebot medical upgrade"
 	desc = "Allows a sentient minebot to carry and administer a medipen."
@@ -619,55 +640,58 @@
 		return
 	. += "<span class='notice'>There's no medipen attached to [src].</span>"
 
-// Lets the minebot see what medipen they have loaded
+// Lets the minebot see what medipen they have loaded.
 /obj/item/minebot_upgrade/medical/get_stat_data()
 	if(stored_medipen)
 		return list("Stored Medipen", "[stored_medipen]")
 	return list("Stored Medipen", "None")
 
-// Manually loading/unloading medipens
-/obj/item/minebot_upgrade/medical/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/reagent_containers/hypospray/medipen))
+// Handles manually loading/unloading medipens.
+/obj/item/minebot_upgrade/medical/attackby(obj/item/item, mob/living/user, params)
+	if(istype(item, /obj/item/reagent_containers/hypospray/medipen))
 		if(stored_medipen)
-			to_chat(user, "<span class='notice'>You replace [stored_medipen] with [I].</span>")
+			to_chat(user, "<span class='notice'>You replace [stored_medipen] with [item].</span>")
 			stored_medipen.forceMove(get_turf(src))
 		else
-			to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
-		I.forceMove(src)
-		stored_medipen = I
+			to_chat(user, "<span class='notice'>You attach [item] to [src].</span>")
+		item.forceMove(src)
+		stored_medipen = item
 		return TRUE
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+	if(item.tool_behaviour == TOOL_SCREWDRIVER)
 		stored_medipen.forceMove(get_turf(src))
 		stored_medipen = null
 		to_chat(user, "<span class='notice'>You remove [stored_medipen] from [src].</span>")
 		return TRUE
 	. = ..()
 
-/obj/item/minebot_upgrade/medical/onAltClick(atom/A)
-	if(!linked_bot.Adjacent(A))
+/// Handles using the medical upgrade. If the target's a mob, we use the medipen on that mob. If it's a medipen, we replace our medipen with that medipen.
+/obj/item/minebot_upgrade/medical/onAltClick(atom/target)
+	if(!linked_bot.Adjacent(target))
 		return
-	if(istype(A, /mob/living/carbon))
+	if(istype(target, /mob/living/carbon))
 		if(stored_medipen)
-			stored_medipen.attack(A, linked_bot)
+			stored_medipen.attack(target, linked_bot)
 		return
-	if(istype(A, /obj/item/reagent_containers/hypospray/medipen))
-		var/obj/item/reagent_containers/hypospray/medipen/M = A
+	if(istype(target, /obj/item/reagent_containers/hypospray/medipen))
+		var/obj/item/reagent_containers/hypospray/medipen/new_medipen = target
 		if(!stored_medipen.reagents.total_volume) // Deletes used medipens, otherwise drops the old medipen on the ground and loads a new one
 			qdel(stored_medipen)
 		else
 			stored_medipen.forceMove(get_turf(linked_bot))
-		M.forceMove(src)
-		stored_medipen = A
-		to_chat(linked_bot, "<span class='notice'>Loaded \a [A] to onboard medical module.</span>")
+		new_medipen.forceMove(src)
+		stored_medipen = target
+		to_chat(linked_bot, "<span class='notice'>Loaded \a [new_medipen] to onboard medical module.</span>")
 
+// Anti-Weather
+// This allows a minebot to survive lava and ash storms, when it otherwise wouldn't be able to.
 /obj/item/minebot_upgrade/antiweather
 	name = "minebot weatherproof chassis"
 	desc = "A chassis reinforcement kit that allows a minebot to withstand exposure to high winds and molten rock."
 
-/obj/item/minebot_upgrade/antiweather/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
+/obj/item/minebot_upgrade/antiweather/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/minebot, mob/user)
 	. = ..()
-	M.weather_immunities += "lava"
-	M.weather_immunities += "ash"
+	minebot.weather_immunities += "lava"
+	minebot.weather_immunities += "ash"
 
 /obj/item/minebot_upgrade/antiweather/unequip()
 	linked_bot.weather_immunities -= "lava"
