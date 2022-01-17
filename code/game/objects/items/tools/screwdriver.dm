@@ -70,6 +70,8 @@
 	item_state = "screwdriver_brass"
 	toolspeed = 0.5
 	random_color = FALSE
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
 
 /obj/item/screwdriver/abductor
 	name = "alien screwdriver"
