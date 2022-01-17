@@ -78,6 +78,8 @@
 /obj/item/bodypart/Initialize()
 	..()
 	name = "[limb_id] [parse_zone(body_zone)]"
+	if(is_dimorphic)
+		limb_gender = pick("m", "f")
 	update_icon_dropped()
 
 /obj/item/bodypart/forceMove(atom/destination) //Please. Never forcemove a limb if its's actually in use. This is only for borgs.
@@ -447,6 +449,9 @@
 		limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]"
 	else
 		limb.icon_state = "[limb_id]_[body_zone]"
+
+	if(!icon_exists(limb.icon, limb.icon_state))
+		stack_trace("Limb generated with nonexistant icon. File: [limb.icon] | State: [limb.icon_state]")
 
 	if(aux_zone) //Hand shit
 		aux = image(limb.icon, "[limb_id]_[aux_zone]", -aux_layer, image_dir)

@@ -1605,3 +1605,8 @@ config_setting should be one of the following:
 		if(-INFINITY to 0, 11 to INFINITY)
 			CRASH("Can't turn invalid directions!")
 	return turn(input_dir, 180)
+
+/proc/icon_exists(file, state)
+	var/list/states = icon_states(file)
+	if(states.Find(state))
+		return TRUE
