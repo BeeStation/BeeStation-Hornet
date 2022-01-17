@@ -617,6 +617,7 @@
 	if(greyscale_colors && greyscale_config)
 		icon = SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors)
 	update_atom_colour()
+	smooth_icon(src)
 
 /**
   * An atom we are buckled or is contained within us has tried to move
