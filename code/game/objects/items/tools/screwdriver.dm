@@ -80,6 +80,8 @@
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.1
 	random_color = FALSE
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
 
 /obj/item/screwdriver/abductor/get_belt_overlay()
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', "screwdriver_nuke")
