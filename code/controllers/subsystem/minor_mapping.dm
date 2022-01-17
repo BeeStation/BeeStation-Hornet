@@ -5,7 +5,6 @@ SUBSYSTEM_DEF(minor_mapping)
 
 /datum/controller/subsystem/minor_mapping/Initialize(timeofday)
 	trigger_migration(CONFIG_GET(number/mice_roundstart))
-	spawn_bees()//monkestation edit
 	place_satchels()
 	return ..()
 
@@ -24,24 +23,6 @@ SUBSYSTEM_DEF(minor_mapping)
 		if(M.environment_air_is_safe())
 			num_mice -= 1
 			M = null
-
-//Monkestation edit begin
-/datum/controller/subsystem/minor_mapping/proc/spawn_bees(num_bees=3)
-	var/list/exposed_wires = find_exposed_wires() // we just use the same method as mice
-
-	var/mob/living/simple_animal/hostile/poison/bees/friendly/B
-	var/turf/proposed_turf
-
-	while((num_bees > 0) && exposed_wires.len)
-		proposed_turf = pick_n_take(exposed_wires)
-		if(!B)
-			B = new(proposed_turf)
-		else
-			B.forceMove(proposed_turf)
-		if(B.environment_air_is_safe())
-			num_bees -= 1
-			B = null
-//Monkestation edit end
 
 /datum/controller/subsystem/minor_mapping/proc/place_satchels(amount=10)
 	var/list/turfs = find_satchel_suitable_turfs()
