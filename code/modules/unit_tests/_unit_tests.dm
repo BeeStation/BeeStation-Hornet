@@ -107,6 +107,7 @@
 #include "spawn_humans.dm"
 #include "species_whitelists.dm"
 #include "food_edibility_check.dm"
+#include "gas_transfer.dm"
 #include "greyscale_config.dm"
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
