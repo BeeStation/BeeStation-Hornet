@@ -14,12 +14,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/max_bodypart_count = 6 //The maximum number of bodyparts this species can have.
 	var/hair_color	// this allows races to have specific hair colors... if null, it uses the H's hair/facial hair colors. if "mutcolor", it uses the H's mutant_color
 	var/hair_alpha = 255	// the alpha used by the hair. 255 is completely solid, 0 is transparent.
-
-	//KAPU LIMBS OVERRIDES - Used for barely used species that dont deserve their own limb datums.
-	var/limb_icon_file //DO. NOT. USE.
-	var/use_generic_limbs = FALSE //Does this species have its own bodypart type, or does it use a reskinned human limb?
-	var/gen_limbs_are_colored = TRUE
-	var/limbs_id
 	var/examine_limb_id //This is used for children, felinids and ashwalkers namely
 
 	var/digitigrade_customization = DIGITIGRADE_NEVER //Never, Optional, or Forced digi legs?
@@ -114,12 +108,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 // PROCS //
 ///////////
 
-
-/datum/species/New()
-
-	if(!limbs_id)	//if we havent set a limbs id to use, just use our own id
-		limbs_id = id
-	..()
 
 /proc/generate_selectable_species()
 	for(var/I in subtypesof(/datum/species))
