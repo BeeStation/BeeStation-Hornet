@@ -9,9 +9,9 @@ import { InfernoNode } from 'inferno';
 import { Box, unit } from './Box';
 import { Divider } from './Divider';
 
- type LabeledListProps = {
-   children?: any;
- };
+type LabeledListProps = {
+  children?: any;
+};
 
 export const LabeledList = (props: LabeledListProps) => {
   const { children } = props;
@@ -24,18 +24,18 @@ export const LabeledList = (props: LabeledListProps) => {
 
 LabeledList.defaultHooks = pureComponentHooks;
 
- type LabeledListItemProps = {
-   className?: string | BooleanLike;
-   label?: string | InfernoNode | BooleanLike;
-   labelColor?: string | BooleanLike;
-   color?: string | BooleanLike;
-   textAlign?: string | BooleanLike;
-   buttons?: InfernoNode,
-   /** @deprecated */
-   content?: any,
-   children?: InfernoNode;
-   verticalAlign?: string;
- };
+type LabeledListItemProps = {
+  className?: string | BooleanLike;
+  label?: string | InfernoNode | BooleanLike;
+  labelColor?: string | BooleanLike;
+  color?: string | BooleanLike;
+  textAlign?: string | BooleanLike;
+  buttons?: InfernoNode,
+  /** @deprecated */
+  content?: any,
+  children?: InfernoNode;
+  verticalAlign?: string;
+};
 
 const LabeledListItem = (props: LabeledListItemProps) => {
   const {
@@ -89,9 +89,9 @@ const LabeledListItem = (props: LabeledListItemProps) => {
 
 LabeledListItem.defaultHooks = pureComponentHooks;
 
- type LabeledListDividerProps = {
-   size?: number;
- };
+type LabeledListDividerProps = {
+  size?: number;
+};
 
 const LabeledListDivider = (props: LabeledListDividerProps) => {
   const padding = props.size
