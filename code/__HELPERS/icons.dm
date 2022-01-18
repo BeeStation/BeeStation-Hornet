@@ -1273,3 +1273,9 @@ GLOBAL_DATUM_INIT(dummySave, /savefile, new("tmp/dummySave.sav")) //Cache of ico
 
 	var/icon/I = getFlatIcon(thing)
 	return icon2html(I, target)
+
+//Returns TRUE if the given iconstate is located in the given file, otherwise returns false.
+/proc/icon_exists(file, state)
+	var/list/states = icon_states(file)
+	if(states.Find(state))
+		return TRUE
