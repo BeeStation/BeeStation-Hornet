@@ -571,15 +571,15 @@
 	icon_state = "crossedplush"
 	squeak_override = list('sound/items/haunted/ghostitemattack.ogg'=1)
 
-/obj/item/toy/plush/kyes
-	name = "Wheelchair Cat plushie"
-	desc = "Something went wrong with this pluhsie, but it can feel the walls?"
-	icon_state = "kyesplush"
-	squeak_override = list('sound/effects/meow1.ogg'=1)
-
 /////////////////
 //DONATOR ITEMS//
 /////////////////
+
+/obj/item/toy/plush/blindtime
+	name = "blind runtime plushie"
+	desc = "Something went wrong with this pluhsie, but it can feel the walls?"
+	icon_state = "blindtimeplush"
+	squeak_override = list('sound/effects/meow1.ogg'=1)
 
 /obj/item/toy/plush/flushed
 	name = "flushed plushie"
