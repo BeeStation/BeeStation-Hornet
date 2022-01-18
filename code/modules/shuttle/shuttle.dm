@@ -418,10 +418,10 @@
 /obj/docking_port/mobile/proc/request(obj/docking_port/stationary/S)
 	if(!check_dock(S))
 		testing("check_dock failed on request for [src]")
-		return
+		return TRUE
 
 	if(mode == SHUTTLE_IGNITING && destination == S)
-		return
+		return TRUE
 
 	switch(mode)
 		if(SHUTTLE_CALL)
