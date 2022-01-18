@@ -521,26 +521,35 @@
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='warning'>You feel your body vibrating...</span>")
-			if(do_after(user, 25, target = user))
-				to_chat(user, "<span class='warning'>You teleport!</span>")
-				do_teleport(user, get_turf(user), 6, asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
-				return 300
+			if(!do_after(user, 25, target = user))
+				return
+			to_chat(user, "<span class='warning'>You teleport!</span>")
+			do_teleport(user, get_turf(user), 6, asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
+			return 100
 
 		if(SLIME_ACTIVATE_MAJOR)
 			if(!teleport_ready)
-				to_chat(user, "<span class='notice'>You feel yourself anchoring to this spot...</span>")
+				to_chat(user, "<span class='notice'>You feel yourself anchoring to this point...</span>")
+				if(!do_after(user, 25, target = user))
+					return
 				var/turf/T = get_turf(user)
 				teleport_x = T.x
 				teleport_y = T.y
 				teleport_z = T.z
 				teleport_ready = TRUE
+				to_chat(user, "<span class='notice'>You anchor yourself to this point!</span>")
 			else
+				to_chat(user, "<span class='notice'>You feel yourself being pulled back to your anchor point...</span>")
+				if(!do_after(user, 25, target = user))
+					to_chat(user, "<span class ='notice'>Your teleport was interrupted!</span>")
+					return
 				teleport_ready = FALSE
-				if(teleport_x && teleport_y && teleport_z)
-					var/turf/T = locate(teleport_x, teleport_y, teleport_z)
-					to_chat(user, "<span class='notice'>You snap back to your anchor point!</span>")
-					do_teleport(user, T,  asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
-					return 450
+				if(!(teleport_x && teleport_y && teleport_z))
+					CRASH("Bluespace extract teleport was somehow triggered without x,y,z coordinates!")
+				var/turf/T = locate(teleport_x, teleport_y, teleport_z)
+				to_chat(user, "<span class='notice'>You snap back to your anchor point!</span>")
+				do_teleport(user, T,  asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
+				return 450
 
 
 /obj/item/slime_extract/pyrite
