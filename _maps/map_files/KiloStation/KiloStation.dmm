@@ -15484,10 +15484,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/electronics/apc,
-/obj/item/electronics/apc,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
+/obj/item/rcl/pre_loaded,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "axR" = (
@@ -77444,6 +77441,9 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable/yellow,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/open/floor/circuit/red,
 /area/engine/engineering)
 "ciU" = (
@@ -85803,6 +85803,9 @@
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
 	},
 /turf/open/floor/circuit/red,
 /area/engine/engineering)
@@ -94233,6 +94236,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
 	},
 /turf/open/floor/circuit/red,
 /area/engine/engineering)
