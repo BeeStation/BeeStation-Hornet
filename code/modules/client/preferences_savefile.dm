@@ -125,6 +125,21 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 			toggles |= sanitize_integer(S["see_chat_non_mob"], FALSE, TRUE, TRUE) << 16
 			toggles |= sanitize_integer(S["see_rc_emotes"], FALSE, TRUE, TRUE) << 17
 
+		// Next stage of the update is migrating pAI saves into the main savefile (if they exist)
+		var/pai_path = "data/player_saves/[parent.ckey[1]]/[parent.ckey]/pai.sav"
+		if(fexists(pai_path))
+			var/savefile/P = new /savefile(pai_path)
+			if(P)
+				if(P["name"])
+					pai_name = copytext_char(P["name"], 1, MAX_NAME_LEN)
+				if(P["description"])
+					pai_description = copytext_char(P["description"], 1, MAX_MESSAGE_LEN)
+				if(P["role"])
+					pai_role = copytext_char(P["role"], 1, MAX_MESSAGE_LEN)
+				if(P["comments"])
+					pai_comments = copytext_char(P["comments"], 1, MAX_MESSAGE_LEN)
+			fdel(pai_path)
+
 /datum/preferences/proc/update_character(current_version, savefile/S)
 	if(current_version < 19)
 		pda_style = "mono"
@@ -248,6 +263,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["key_bindings"], key_bindings)
 	READ_FILE(S["purchased_gear"], purchased_gear)
 	READ_FILE(S["equipped_gear"], equipped_gear)
+	READ_FILE(S["pai_name"], pai_name)
+	READ_FILE(S["pai_description"], pai_description)
+	READ_FILE(S["pai_role"], pai_role)
+	READ_FILE(S["pai_comments"], pai_comments)
 
 	//try to fix any outdated data if necessary
 	if(needs_update >= 0)
@@ -275,6 +294,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	be_special		= SANITIZE_LIST(be_special)
 	pda_style		= sanitize_inlist(pda_style, GLOB.pda_styles, initial(pda_style))
 	pda_color		= sanitize_hexcolor(pda_color, 6, TRUE, initial(pda_color))
+	pai_name		= reject_bad_name(sanitize_text(pai_name, initial(pai_name)), TRUE)
+	pai_description	= sanitize_text(pai_description, initial(pai_description))
+	pai_role		= sanitize_text(pai_role, initial(pai_role))
+	pai_comments	= sanitize_text(pai_comments, initial(pai_comments))
 
 	key_bindings 	= sanitize_islist(key_bindings, deepCopyList(GLOB.keybinding_list_by_key))
 	if (!key_bindings)
@@ -328,6 +351,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["pda_color"], pda_color)
 	WRITE_FILE(S["purchased_gear"], purchased_gear)
 	WRITE_FILE(S["equipped_gear"], equipped_gear)
+	WRITE_FILE(S["pai_name"], pai_name)
+	WRITE_FILE(S["pai_description"], pai_description)
+	WRITE_FILE(S["pai_role"], pai_role)
+	WRITE_FILE(S["pai_comments"], pai_comments)
 
 	if (!key_bindings)
 		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)

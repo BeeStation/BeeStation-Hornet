@@ -52,6 +52,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	// Custom Keybindings
 	var/list/key_bindings = null
 
+	// pAI saved personality details
+	var/pai_name = null
+	var/pai_description = null
+	var/pai_role = null
+	var/pai_comments = null
 
 	var/uses_glasses_colour = 0
 
