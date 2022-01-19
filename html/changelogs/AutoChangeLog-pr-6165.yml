@@ -1,4 +1,0 @@
-author: DatBoiTim
-delete-after: true
-changes:
-  - tweak: Rad Particles no longer break objects so now fusion can actually be contained.
