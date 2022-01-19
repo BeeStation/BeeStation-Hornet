@@ -37169,10 +37169,6 @@
 /area/science/research)
 "bcX" = (
 /obj/structure/table/glass,
-/obj/machinery/smartfridge/disks{
-	pixel_x = 4;
-	pixel_y = 6
-	},
 /obj/item/seeds/random{
 	pixel_x = -6;
 	pixel_y = 6
@@ -44357,8 +44353,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/plantgenes{
-	pixel_y = 5
+/obj/machinery/smartfridge/disks{
+	pixel_x = 4;
+	pixel_y = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
