@@ -50254,6 +50254,7 @@
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/wrench,
 /obj/item/crowbar/red,
+/obj/item/stack/cable_coil,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "buS" = (
@@ -100863,6 +100864,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_dock)
+"qNC" = (
+/obj/structure/sign/warning/fire,
+/turf/closed/wall,
+/area/maintenance/disposal/incinerator)
 "qOl" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plating{
@@ -101601,10 +101606,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_dock)
-"utu" = (
-/obj/structure/sign/warning/fire,
-/turf/closed/wall,
-/area/maintenance/disposal/incinerator)
 "uus" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
@@ -129565,7 +129566,7 @@ cAI
 aFW
 aFJ
 aFI
-utu
+qNC
 aod
 aaa
 aaa
