@@ -442,11 +442,14 @@
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "Np" = (
-/obj/effect/turf_decal/delivery,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/turf/open/floor/plating,
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "NL" = (
 /obj/structure/lattice/catwalk,
