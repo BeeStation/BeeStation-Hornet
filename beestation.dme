@@ -3497,6 +3497,7 @@
 #include "monkestation\code\modules\mob\living\carbon\human\human.dm"
 #include "monkestation\code\modules\mob\living\carbon\human\species_emotes.dm"
 #include "monkestation\code\modules\mob\living\simple_animal\bot\secbot.dm"
+#include "monkestation\code\modules\mob\living\simple_animal\hostile\bees.dm"
 #include "monkestation\code\modules\reagents\chemistry\reagents\drink_reagents.dm"
 #include "monkestation\code\modules\reagents\chemistry\reagents\food_reagents.dm"
 #include "monkestation\code\modules\reagents\chemistry\reagents\other_reagents.dm"
