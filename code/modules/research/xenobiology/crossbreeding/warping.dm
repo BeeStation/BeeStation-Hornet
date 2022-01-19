@@ -849,7 +849,6 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 		if(!exit_turf)
 			if(GLOB.warped_room?.rainbow_runes.len)
 				var/obj/effect/warped_rune/WR = pick(GLOB.warped_room.rainbow_runes)
-				WR.rune_turf = get_turf(WR)
 				exit_turf = WR.rune_turf
 			else
 				exit_turf = find_safe_turf()
