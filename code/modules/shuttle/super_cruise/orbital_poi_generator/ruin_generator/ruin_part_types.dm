@@ -143,7 +143,7 @@
 	weight = 2
 
 /datum/map_template/ruin_part/solars
-	file_name = "21x19_solars"
+	file_name = "21x29_solars"
 	weight = 3
 	max_occurances = 2
 
