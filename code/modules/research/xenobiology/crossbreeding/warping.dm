@@ -138,6 +138,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 
 /obj/effect/warped_rune/attack_hand(mob/living/user)
 	. = ..()
+	rune_turf = get_turf(src)
 	do_effect(user)
 
 /obj/effect/warped_rune/proc/do_effect(mob/user)
@@ -149,7 +150,6 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 
 /obj/effect/warped_rune/proc/on_entered(datum/source, atom/movable/AM, oldloc)
 	SIGNAL_HANDLER
-
 	if(activated_on_step)
 		playsound(rune_turf, dir_sound, 20, TRUE)
 		visible_message("<span class='notice'>[src] fades.</span>")
@@ -845,6 +845,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 		if(!exit_turf)
 			if(GLOB.warped_room?.rainbow_runes.len)
 				var/obj/effect/warped_rune/WR = pick(GLOB.warped_room.rainbow_runes)
+				WR.rune_turf = get_turf(WR)
 				exit_turf = WR.rune_turf
 			else
 				exit_turf = find_safe_turf()
