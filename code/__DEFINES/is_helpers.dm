@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 	/turf/open/openspace
 	)))
 
-#define isgroundlessturf(A) (GLOB.turfs_without_ground[A.type])
+#define isgroundlessturf(A) (is_type_in_typecache(A, GLOB.turfs_without_ground))
 
 #define isopenturf(A) (istype(A, /turf/open))
 
@@ -204,13 +204,13 @@ GLOBAL_LIST_INIT(heavyfootmob, typecacheof(list(
 #define isaicamera(A) (istype(A, /mob/camera/ai_eye))
 
 //Footstep helpers
-#define isshoefoot(A) (GLOB.shoefootmob[A.type])
+#define isshoefoot(A) (is_type_in_typecache(A, GLOB.shoefootmob))
 
-#define isclawfoot(A) (GLOB.clawfootmob[A.type])
+#define isclawfoot(A) (is_type_in_typecache(A, GLOB.clawfootmob))
 
-#define isbarefoot(A) (GLOB.barefootmob[A.type])
+#define isbarefoot(A) (is_type_in_typecache(A, GLOB.barefootmob))
 
-#define isheavyfoot(A) (GLOB.heavyfootmob[A.type])
+#define isheavyfoot(A) (is_type_in_typecache(A, GLOB.heavyfootmob))
 
 //Objects
 #define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs
@@ -243,7 +243,7 @@ GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/reagent_containers/syringe,
 	/obj/item/kitchen/fork)))
 
-#define is_pointed(W) (GLOB.pointed_types[W.type])
+#define is_pointed(W) (is_type_in_typecache(W, GLOB.pointed_types))
 
 #define isbodypart(A) (istype(A, /obj/item/bodypart))
 
@@ -268,7 +268,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 	/obj/item/stack/sheet/titaniumglass,
 	/obj/item/stack/sheet/plastitaniumglass)))
 
-#define is_glass_sheet(O) (GLOB.glass_sheet_types[O.type])
+#define is_glass_sheet(O) (is_type_in_typecache(O, GLOB.glass_sheet_types))
 
 #define iseffect(O) (istype(O, /obj/effect))
 
@@ -285,7 +285,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isProbablyWallMounted(O) (O.pixel_x > 20 || O.pixel_x < -20 || O.pixel_y > 20 || O.pixel_y < -20)
 
-#define isbook(O) (GLOB.book_types[O.type])
+#define isbook(O) (is_type_in_typecache(O, GLOB.book_types))
 
 /// NaN isn't a number, damn it. Infinity is a problem too.
 #define isnum_safe(x) ( isnum((x)) && !isnan((x)) && !isinf((x)) )

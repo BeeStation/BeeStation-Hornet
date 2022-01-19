@@ -274,7 +274,7 @@
 	if(partner != Daddy)
 		return	FALSE //we do not have bastards in our toyshop
 
-	if(breeding_blacklist[Daddy.type])
+	if(is_type_in_typecache(Daddy, breeding_blacklist))
 		return FALSE // some love is forbidden
 
 	if(prob(50))	//it has my eyes

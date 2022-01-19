@@ -319,7 +319,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 /datum/antagonist/devil/proc/remove_spells()
 	for(var/X in owner.spell_list)
 		var/obj/effect/proc_holder/spell/S = X
-		if(devil_spells[S.type])
+		if(is_type_in_typecache(S, devil_spells))
 			owner.RemoveSpell(S)
 
 /datum/antagonist/devil/proc/give_summon_contract()
@@ -540,7 +540,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 /datum/antagonist/devil/remove_innate_effects(mob/living/mob_override)
 	for(var/X in owner.spell_list)
 		var/obj/effect/proc_holder/spell/S = X
-		if(devil_spells[S.type])
+		if(is_type_in_typecache(S, devil_spells))
 			owner.RemoveSpell(S)
 	owner.current.remove_all_languages(LANGUAGE_DEVIL)
 	.=..()

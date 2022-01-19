@@ -17,9 +17,9 @@
 	var/emote_type = EMOTE_VISIBLE //Whether the emote is visible or audible
 	var/restraint_check = FALSE //Checks if the mob is restrained before performing the emote
 	var/muzzle_ignore = FALSE //Will only work if the emote is EMOTE_AUDIBLE
-	var/list/mob_type_allowed_typecache = list(/mob) //Types that are allowed to use that emote
-	var/list/mob_type_blacklist_typecache = list()//Types that are NOT allowed to use that emote
-	var/list/mob_type_ignore_stat_typecache = list()
+	var/list/mob_type_allowed_typecache = /mob //Types that are allowed to use that emote
+	var/list/mob_type_blacklist_typecache //Types that are NOT allowed to use that emote
+	var/list/mob_type_ignore_stat_typecache
 	var/stat_allowed = CONSCIOUS
 	var/sound //Sound to play when emote is called
 	var/vary = FALSE	//used for the honk borg emote
@@ -119,11 +119,11 @@
 
 /datum/emote/proc/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE)
 	. = TRUE
-	if(!mob_type_allowed_typecache[user.type])
+	if(!is_type_in_typecache(user, mob_type_allowed_typecache))
 		return FALSE
-	if(mob_type_blacklist_typecache[user.type])
+	if(is_type_in_typecache(user, mob_type_blacklist_typecache))
 		return FALSE
-	if(status_check && !mob_type_ignore_stat_typecache[user.type])
+	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
 		if(user.stat > stat_allowed)
 			if(!intentional)
 				return FALSE

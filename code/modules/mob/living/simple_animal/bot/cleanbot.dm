@@ -89,7 +89,7 @@
 		var/mob/living/carbon/C = A
 		if(C.stat != DEAD && !(C.mobility_flags & MOBILITY_STAND))
 			return C
-	else if(target_types[A.type])
+	else if(is_type_in_typecache(A, target_types))
 		return A
 
 /mob/living/simple_animal/bot/cleanbot/handle_automated_action()

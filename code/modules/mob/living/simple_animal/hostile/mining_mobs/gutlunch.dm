@@ -63,7 +63,7 @@
 
 		return TRUE
 
-	if(isobj(the_target) && wanted_objects[the_target.type])
+	if(isobj(the_target) && is_type_in_typecache(the_target, wanted_objects))
 		return TRUE
 
 	return FALSE
@@ -86,7 +86,7 @@
 		..()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/AttackingTarget()
-	if(wanted_objects[target.type]) //we eats
+	if(is_type_in_typecache(target,wanted_objects)) //we eats
 		udder.generateMilk()
 		regenerate_icons()
 		visible_message("<span class='notice'>[src] slurps up [target].</span>")

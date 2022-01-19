@@ -53,7 +53,7 @@
 	if(iscyborg(hit_atom))
 		var/mob/living/silicon/robot/R = hit_atom
 		///hats in the borg's blacklist bounce off
-		if(R.blacklisted_hats[src.type])
+		if(is_type_in_typecache(src, R.blacklisted_hats))
 			R.visible_message("<span class='warning'>[src] bounces off [R]!</span>", "<span class='warning'>[src] bounces off you, falling to the floor.</span>")
 			return
 		else

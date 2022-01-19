@@ -190,20 +190,20 @@
 	if(last_corrupt <= world.time)
 		var/list/validturfs = list()
 		var/list/cultturfs = list()
-		var/static/list/blacklisted_pylon_turfs = typecacheof(list(
-			/turf/closed,
-			/turf/open/floor/engine/cult,
-			/turf/open/space,
-			/turf/open/lava,
-			/turf/open/chasm))
-		for(var/turf/T as() in circleviewturfs(src, 5))
+		for(var/T in circleviewturfs(src, 5))
 			if(istype(T, /turf/open/floor/engine/cult))
-				cultturfs += T
+				cultturfs |= T
 				continue
-			if(blacklisted_pylon_turfs[T.type])
+			var/static/list/blacklisted_pylon_turfs = typecacheof(list(
+				/turf/closed,
+				/turf/open/floor/engine/cult,
+				/turf/open/space,
+				/turf/open/lava,
+				/turf/open/chasm))
+			if(is_type_in_typecache(T, blacklisted_pylon_turfs))
 				continue
 			else
-				validturfs += T
+				validturfs |= T
 
 		last_corrupt = world.time + corrupt_delay
 

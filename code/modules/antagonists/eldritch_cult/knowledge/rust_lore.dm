@@ -191,8 +191,8 @@
 			removal_list += turfie
 		max_dist = max(max_dist,get_dist(turfie,centre)+1)
 	turfs -= removal_list
-	for(var/turf/turfie as() in spiral_range_turfs(max_dist,centre,FALSE))
-		if(turfie in turfs || blacklisted_turfs[turfie.type])
+	for(var/turfie in spiral_range_turfs(max_dist,centre,FALSE))
+		if(turfie in turfs || is_type_in_typecache(turfie,blacklisted_turfs))
 			continue
 		for(var/line_turfie_owo in getline(turfie,centre))
 			if(get_dist(turfie,line_turfie_owo) <= 1)

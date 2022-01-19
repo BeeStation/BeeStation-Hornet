@@ -19,7 +19,7 @@
 /datum/bounty/item/applies_to(obj/O)
 	if(!include_subtypes && !(O.type in wanted_types))
 		return FALSE
-	if(include_subtypes && (!wanted_types[O.type] || exclude_types[O.type]))
+	if(include_subtypes && (!is_type_in_typecache(O, wanted_types) || is_type_in_typecache(O, exclude_types)))
 		return FALSE
 	if(O.flags_1 & HOLOGRAM_1)
 		return FALSE

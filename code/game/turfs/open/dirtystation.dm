@@ -29,7 +29,7 @@
 														/area/mine/living_quarters,
 														/area/vacant_room/office,
 														/area/ruin/space))
-	if(high_dirt_areas[A.type])
+	if(is_type_in_typecache(A, high_dirt_areas))
 		new /obj/effect/decal/cleanable/dirt(src)	//vanilla, but it works
 		return
 
@@ -45,7 +45,7 @@
 														/area/construction,
 														/area/vacant_room/commissary,
 														/area/survivalpod))
-	if(engine_dirt_areas[A.type])
+	if(is_type_in_typecache(A, engine_dirt_areas))
 		if(prob(3))
 			new /obj/effect/decal/cleanable/blood/old(src)
 		else
@@ -61,7 +61,7 @@
 		//Bathrooms. Blood, vomit, and shavings in the sinks.
 	var/static/list/bathroom_dirt_areas = typecacheof(list(	/area/crew_quarters/toilet,
 															/area/awaymission/research/interior/bathroom))
-	if(bathroom_dirt_areas[A.type])
+	if(is_type_in_typecache(A, bathroom_dirt_areas))
 		if(prob(40))
 			if(prob(90))
 				new /obj/effect/decal/cleanable/vomit/old(src)
@@ -71,7 +71,7 @@
 
 		//Hangars and pods covered in oil.
 	var/static/list/oily_areas = typecacheof(/area/quartermaster)
-	if(oily_areas[A.type])
+	if(is_type_in_typecache(A, oily_areas))
 		if(prob(25))
 			new /obj/effect/decal/cleanable/oil(src)
 		return
@@ -84,7 +84,7 @@
 	var/static/list/gib_covered_areas = typecacheof(list(/area/ai_monitored/turret_protected,
 														/area/security,
 														/area/crew_quarters/heads/hos))
-	if(gib_covered_areas[A.type])
+	if(is_type_in_typecache(A, gib_covered_areas))
 		if(prob(20))
 			if(prob(5))
 				new /obj/effect/decal/cleanable/blood/gibs/old(src)
@@ -95,7 +95,7 @@
 		//Kitchen areas. Broken eggs, flour, spilled milk (no crying allowed.)
 	var/static/list/kitchen_dirt_areas = typecacheof(list(/area/crew_quarters/kitchen,
 														/area/crew_quarters/cafeteria))
-	if(kitchen_dirt_areas[A.type])
+	if(is_type_in_typecache(A, kitchen_dirt_areas))
 		if(prob(60))
 			if(prob(50))
 				new /obj/effect/decal/cleanable/food/egg_smudge(src)
@@ -106,7 +106,7 @@
 		//Medical areas. Mostly clean by space-OSHA standards, but has some blood and oil spread about.
 	var/static/list/medical_dirt_areas = typecacheof(list(/area/medical,
 														/area/crew_quarters/heads/cmo))
-	if(medical_dirt_areas[A.type])
+	if(is_type_in_typecache(A, medical_dirt_areas))
 		if(prob(66))
 			if(prob(5))
 				new /obj/effect/decal/cleanable/blood/gibs/old(src)
@@ -122,7 +122,7 @@
 		//Science messes. Mostly green glowy stuff -WHICH YOU SHOULD NOT INJEST-.
 	var/static/list/science_dirt_areas = typecacheof(list(/area/science,
 														/area/crew_quarters/heads/hor))
-	if(science_dirt_areas[A.type])
+	if(is_type_in_typecache(A, science_dirt_areas))
 		if(prob(20))
 			new /obj/effect/decal/cleanable/greenglow/filled(src)	//this cleans itself up but it might startle you when you see it.
 		return

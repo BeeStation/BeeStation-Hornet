@@ -17,16 +17,16 @@
 	var/affected = get_affected_turfs(deploy_location, centered=TRUE)
 	for(var/turf/T in affected)
 		var/area/A = get_area(T)
-		if(banned_areas[A.type])
+		if(is_type_in_typecache(A, banned_areas))
 			return SHELTER_DEPLOY_BAD_AREA
 
-		var/banned = blacklisted_turfs[T.type]
-		var/permitted = whitelisted_turfs[T.type]
+		var/banned = is_type_in_typecache(T, blacklisted_turfs)
+		var/permitted = is_type_in_typecache(T, whitelisted_turfs)
 		if(banned && !permitted)
 			return SHELTER_DEPLOY_BAD_TURFS
 
 		for(var/obj/O in T)
-			if((O.density && O.anchored) || banned_objects[O.type])
+			if((O.density && O.anchored) || is_type_in_typecache(O, banned_objects))
 				return SHELTER_DEPLOY_ANCHORED_OBJECTS
 	return SHELTER_DEPLOY_ALLOWED
 
@@ -72,7 +72,7 @@
 /datum/map_template/shelter/charlie/New()
 	. = ..()
 	whitelisted_turfs = typecacheof(/turf/closed/mineral)
-	banned_objects = typecacheof(/obj/structure/stone_tile)
+	banned_objects = typecacheof(/obj/structure/stone_tile) 
 
 /datum/map_template/shelter/delta
 	name = "Shelter Delta"
@@ -100,7 +100,7 @@
 	description = "A small, spaceworthy shelter with most of the \
 	amenities of a standard bluespace shelter."
 	mappath = "_maps/templates/shelter_6.dmm"
-
+	
 /datum/map_template/shelter/golf
 	name = "Capsule Barricade"
 	shelter_id = "capsule_barricade"

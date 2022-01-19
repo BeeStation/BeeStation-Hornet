@@ -183,9 +183,9 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 				break
 
 	//GENERAL CASES:
-	if(sharedIgnore[the_target.type]) //always ignore
+	if(is_type_in_typecache(the_target, sharedIgnore)) //always ignore
 		return FALSE
-	if(sharedWanted[the_target.type]) //always eat
+	if(is_type_in_typecache(the_target, sharedWanted)) //always eat
 		return TRUE
 
 	return ..()	//else, have a nibble, see if it's food
