@@ -656,10 +656,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		return
 	if(A.transmission >= 4)
 		bruteheal = TRUE
-	if(A.transmission >= 6)
+	if(A.stage_rate >= 8)
 		aggression = TRUE
 		maxbloodpoints += 50
-	if(A.stage_rate >= 8)
+	if(A.transmission >= 6)
 		power += 1
 	if((A.stealth >= 2) && (A.transmission >= 8) && A.process_dead) //this is low transmission for 2 reasons: transmission is hard to raise, especially with stealth, and i dont want this to be obligated to be transmittable
 		vampire = TRUE
@@ -830,7 +830,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				gainedpoints += 5
 				qdel(stain)
 			else if(istype(stain, /obj/effect/decal/cleanable/blood/footprints) || istype(stain, /obj/effect/decal/cleanable/blood/tracks) || istype(stain, /obj/effect/decal/cleanable/blood/drip))
-				qdel(stain)
+				qdel(stain)//these types of stain are generally very easy to make, we don't use these
 			else if(istype(stain, /obj/effect/decal/cleanable/blood))
 				gainedpoints += 2
 				qdel(stain)
