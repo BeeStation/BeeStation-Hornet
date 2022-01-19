@@ -19,7 +19,7 @@ GLOBAL_LIST(admin_antag_list)
 	var/delay_roundend = TRUE
 	var/antag_memory = ""//These will be removed with antag datum
 	var/antag_moodlet //typepath of moodlet that the mob will gain with their status
-	
+
 	var/can_elimination_hijack = ELIMINATION_NEUTRAL //If these antags are alone when a shuttle elimination happens.
 	/// If above 0, this is the multiplier for the speed at which we hijack the shuttle. Do not directly read, use hijack_speed().
 	var/hijack_speed = 0
@@ -62,7 +62,7 @@ GLOBAL_LIST(admin_antag_list)
 		return FALSE
 	for(var/i in tested.antag_datums)
 		var/datum/antagonist/A = i
-		if(is_type_in_typecache(src, A.typecache_datum_blacklist))
+		if(A.typecache_datum_blacklist[src.type])
 			return FALSE
 
 //This will be called in add_antag_datum before owner assignment.

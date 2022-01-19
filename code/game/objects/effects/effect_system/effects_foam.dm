@@ -176,7 +176,7 @@
 		if(foundfoam)
 			continue
 
-		if(is_type_in_typecache(T, blacklisted_turfs))
+		if(blacklisted_turfs[T.type])
 			continue
 
 		for(var/mob/living/L in T)

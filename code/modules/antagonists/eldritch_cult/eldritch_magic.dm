@@ -87,7 +87,7 @@
 /obj/item/melee/touch_attack/mansus_fist/attack_self(mob/user)
 
 	for(var/turf/T in range(1,user))
-		if(is_type_in_typecache(T, blacklisted_turfs))
+		if(blacklisted_turfs[T.type])
 			to_chat(user, "<span class='warning'>The targeted terrain doesn't support runes!</span>")
 			return
 	var/A = get_turf(user)

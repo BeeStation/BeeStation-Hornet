@@ -68,7 +68,7 @@
 		return FALSE
 	if(!isliving(AM) && !isobj(AM))
 		return FALSE
-	if(is_type_in_typecache(AM, forbidden_types) || AM.throwing || (AM.movement_type & FLOATING))
+	if(forbidden_types[AM.type] || AM.throwing || (AM.movement_type & FLOATING))
 		return FALSE
 	//Flies right over the chasm
 	if(ismob(AM))

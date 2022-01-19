@@ -53,7 +53,7 @@
 	. = ..()
 	if(!proximity)
 		return
-	if(!is_type_in_typecache(target, recycleable_circuits))
+	if(!recycleable_circuits[target.type])
 		return
 	circuits++
 	maptext = MAPTEXT("[circuits]")

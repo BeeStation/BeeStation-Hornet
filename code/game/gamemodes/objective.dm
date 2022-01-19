@@ -938,7 +938,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 			continue
 		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
 		for(var/obj/I in all_items) //Check for wanted items
-			if(is_type_in_typecache(I, wanted_items))
+			if(wanted_items[I.type])
 				stolen_count++
 	return stolen_count >= 5
 
@@ -968,7 +968,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 				var/obj/item/book/granter/spell/spellbook = I
 				if(!spellbook.used || !spellbook.oneuse) //if the book still has powers...
 					stolen_count++ //it counts. nice.
-			else if(is_type_in_typecache(I, wanted_items))
+			else if(wanted_items[I.type])
 				stolen_count++
 	return stolen_count >= 5
 

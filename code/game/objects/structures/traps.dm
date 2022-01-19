@@ -71,7 +71,7 @@
 	if(last_trigger + time_between_triggers > world.time)
 		return
 	// Don't want the traps triggered by sparks, ghosts or projectiles.
-	if(is_type_in_typecache(AM, ignore_typecache))
+	if(ignore_typecache[AM.type])
 		return
 	if(ismob(AM))
 		var/mob/M = AM

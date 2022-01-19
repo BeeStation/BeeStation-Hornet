@@ -61,7 +61,7 @@
 		G.play_tool_sound(src)
 		return
 
-	var/allowed = is_type_in_typecache(G, allowed_devices)
+	var/allowed = allowed_devices[G.type]
 
 	if(allowed)
 		if(anchored)

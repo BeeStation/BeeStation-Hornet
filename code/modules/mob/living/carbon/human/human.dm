@@ -985,7 +985,7 @@
 /mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, lying_buckle = FALSE, hands_needed = 0, target_hands_needed = 0)
 	if(!force)//humans are only meant to be ridden through piggybacking and special cases
 		return
-	if(!is_type_in_typecache(target, can_ride_typecache))
+	if(!can_ride_typecache[target.type])
 		target.visible_message("<span class='warning'>[target] really can't seem to mount [src].</span>")
 		return
 	buckle_lying = lying_buckle
@@ -1026,8 +1026,8 @@
 
 /mob/living/carbon/human/proc/clear_shove_slowdown()
 	remove_movespeed_modifier(MOVESPEED_ID_SHOVE)
-	var/active_item = get_active_held_item()
-	if(is_type_in_typecache(active_item, GLOB.shove_disarming_types))
+	var/atom/active_item = get_active_held_item()
+	if(GLOB.shove_disarming_types[active_item.type])
 		visible_message("<span class='warning'>[src.name] regains their grip on \the [active_item]!</span>", "<span class='warning'>You regain your grip on \the [active_item].</span>", null, COMBAT_MESSAGE_RANGE)
 
 /mob/living/carbon/human/updatehealth()

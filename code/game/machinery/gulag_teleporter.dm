@@ -136,7 +136,7 @@ The console is located at computer/gulag_teleporter.dm
 		linked_reclaimer.stored_items[occupant] = list()
 	var/mob/living/mob_occupant = occupant
 	for(var/obj/item/W in mob_occupant)
-		if(!is_type_in_typecache(W, telegulag_required_items))
+		if(!telegulag_required_items[W.type])
 			if(mob_occupant.temporarilyRemoveItemFromInventory(W))
 				if(istype(W, /obj/item/restraints/handcuffs))
 					W.forceMove(get_turf(src))

@@ -95,7 +95,7 @@
 
 
 /obj/machinery/iv_drip/attackby(obj/item/W, mob/user, params)
-	if(is_type_in_typecache(W, drip_containers))
+	if(drip_containers[W.type])
 		if(beaker)
 			to_chat(user, "<span class='warning'>There is already a reagent container loaded!</span>")
 			return
