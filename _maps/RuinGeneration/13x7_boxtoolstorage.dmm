@@ -3,14 +3,13 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "b" = (
-/turf/template_noop,
-/area/template_noop)
+/obj/structure/frame/machine,
+/obj/item/stack/cable_coil/random/five,
+/obj/item/vending_refill/tool,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "c" = (
-/obj/structure/table,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/circuitboard/machine/vendor,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "e" = (
@@ -27,7 +26,11 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "h" = (
-/obj/item/circuitboard/machine/vendor,
+/obj/structure/table,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "l" = (
@@ -36,12 +39,6 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "n" = (
-/obj/structure/frame/machine,
-/obj/item/stack/cable_coil/random/five,
-/obj/item/vending_refill/tool,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"o" = (
 /obj/machinery/vending/modularpc,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -189,8 +186,8 @@ a
 "}
 (10,1,1) = {"
 a
-o
-h
+e
+e
 e
 e
 x
@@ -199,27 +196,27 @@ a
 (11,1,1) = {"
 a
 n
-e
-U
 c
+e
+e
 e
 A
 "}
 (12,1,1) = {"
 a
-a
-a
-a
-a
-a
+b
+e
+U
+h
+e
 a
 "}
 (13,1,1) = {"
-b
-b
-b
-b
-b
-b
-b
+a
+a
+a
+a
+a
+a
+a
 "}

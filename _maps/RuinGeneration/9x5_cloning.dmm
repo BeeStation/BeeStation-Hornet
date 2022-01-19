@@ -24,18 +24,11 @@
 /area/ruin/unpowered)
 "o" = (
 /obj/structure/closet/wardrobe/mixed,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "p" = (
-/obj/machinery/vending/clothing,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
@@ -81,8 +74,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
-"Q" = (
+"O" = (
 /obj/effect/abstract/doorway_marker,
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"Q" = (
+/obj/machinery/vending/clothing,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "R" = (
@@ -114,7 +111,7 @@ a
 R
 v
 A
-a
+O
 "}
 (4,1,1) = {"
 a
@@ -124,22 +121,22 @@ A
 a
 "}
 (5,1,1) = {"
-f
+a
+o
 A
 A
-A
-Q
+a
 "}
 (6,1,1) = {"
 a
-A
+Q
 A
 A
 a
 "}
 (7,1,1) = {"
-a
-o
+f
+A
 A
 H
 a
