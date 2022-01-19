@@ -23144,8 +23144,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "aJg" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/space_heater,
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 2;
 	name = "External Waste Ports to Filter"
@@ -23153,8 +23151,6 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "aJh" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/space_heater,
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1;
 	name = "Air to External Air Ports"
@@ -57667,7 +57663,6 @@
 /area/crew_quarters/fitness/recreation)
 "bFx" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/portable_atmospherics/scrubber/huge,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 26
@@ -57678,11 +57673,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/space_heater,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "bFy" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/portable_atmospherics/scrubber/huge,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -57690,6 +57685,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/space_heater,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "bFz" = (
@@ -76289,13 +76285,8 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "cgG" = (
-/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/thermomachine/heater/on{
-	dir = 8;
-	icon_state = "heater_1"
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -76877,10 +76868,6 @@
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/machinery/portable_atmospherics/pump,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer1{
-	dir = 1;
-	icon_state = "connector_map-1"
-	},
 /obj/machinery/light,
 /obj/machinery/airalarm{
 	dir = 1;
@@ -76889,6 +76876,9 @@
 /obj/effect/turf_decal/box,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/components/unary/portables_connector/layer1{
+	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/engine/break_room)
@@ -77579,10 +77569,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/cyan/visible,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -26
+	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
+	dir = 9
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
@@ -81428,10 +81420,6 @@
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/machinery/portable_atmospherics/pump,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer1{
-	dir = 1;
-	icon_state = "connector_map-1"
-	},
 /obj/machinery/power/apc{
 	area = "/area/engine/break_room";
 	name = "Engineering Foyer APC";
@@ -81443,6 +81431,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/components/unary/portables_connector/layer1{
+	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/engine/break_room)
@@ -82457,10 +82448,6 @@
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer3{
-	dir = 1;
-	icon_state = "connector_map-3"
-	},
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -26
@@ -82468,6 +82455,9 @@
 /obj/effect/turf_decal/box,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/components/unary/portables_connector/layer1{
+	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/engine/break_room)
@@ -82515,13 +82505,12 @@
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer3{
-	dir = 1;
-	icon_state = "connector_map-3"
-	},
 /obj/effect/turf_decal/box,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/components/unary/portables_connector/layer1{
+	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/engine/break_room)
@@ -83782,14 +83771,14 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /obj/machinery/power/apc/highcap/ten_k{
 	areastring = "/area/engine/atmos";
 	dir = 1;
 	name = "Atmospherics APC";
 	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
