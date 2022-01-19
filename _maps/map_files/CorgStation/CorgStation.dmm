@@ -6667,7 +6667,7 @@
 	pixel_y = 32
 	},
 /obj/structure/bed/dogbed/walter,
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "bFC" = (
