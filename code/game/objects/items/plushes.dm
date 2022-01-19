@@ -571,9 +571,11 @@
 	icon_state = "crossedplush"
 	squeak_override = list('sound/items/haunted/ghostitemattack.ogg'=1)
 
-/////////////////
-//DONATOR ITEMS//
-/////////////////
+/obj/item/toy/plush/runtime
+	name = "Runtime plushie"
+	desc = "GPLUSH."
+	icon_state = "runtimeplush"
+	squeak_override = list('sound/effects/meow1.ogg'=1)
 
 /obj/item/toy/plush/blindtime
 	name = "blind runtime plushie"
@@ -581,16 +583,20 @@
 	icon_state = "blindtimeplush"
 	squeak_override = list('sound/effects/meow1.ogg'=1)
 
-/obj/item/toy/plush/flushed
-	name = "flushed plushie"
-	desc = "Hgrgrhrhg cute."
-	icon_state = "flushplush"
-
 /obj/item/toy/plush/gondola
 	name = "gondola plushie"
 	desc = "The silent walker, in plush form"
 	icon_state = "gondolaplush"
 	squeak_override = list('sound/misc/null.ogg'=1)
+
+/obj/item/toy/plush/flushed
+	name = "flushed plushie"
+	desc = "Hgrgrhrhg cute."
+	icon_state = "flushplush"
+
+/////////////////
+//DONATOR ITEMS//
+/////////////////
 
 /obj/item/toy/plush/ian
 	name = "ian plushie"
@@ -601,12 +607,6 @@
 	name = "lisa plushie"
 	desc = "Keep her by your side."
 	icon_state = "lisaplush"
-
-/obj/item/toy/plush/runtime
-	name = "Runtime plushie"
-	desc = "GPLUSH."
-	icon_state = "runtimeplush"
-	squeak_override = list('sound/effects/meow1.ogg'=1)
 
 /obj/item/toy/plush/renault
 	name = "renault plushie"
