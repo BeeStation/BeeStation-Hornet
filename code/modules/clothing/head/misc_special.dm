@@ -234,6 +234,7 @@
 	icon = 'icons/mob/human_face.dmi'	  // default icon for all hairs
 	icon_state = "hair_vlong"
 	item_state = "pwig"
+	slot_flags = ITEM_SLOT_HEAD | ITEM_SLOT_NECK //MonkeStation Edit: Wigs are now wearable in neck slots
 	flags_inv = HIDEHAIR
 	var/hair_style = "Very Long Hair"
 	var/hair_color = "#000"
@@ -266,8 +267,14 @@
 		. += M
 
 /obj/item/clothing/head/wig/attack_self(mob/user)
-	var/new_style = input(user, "Select a hair style", "Wig Styling")  as null|anything in (GLOB.hair_styles_list - "Bald")
+	var/new_style = input(user, "Select a hair style", "Wig Styling")  as null|anything in (GLOB.hair_styles_list + "Random")
 	if(!user.canUseTopic(src, BE_CLOSE))
+		return
+	if(new_style == "Random") //Monkestation Edit: Adds random option
+		hair_style = pick(GLOB.hair_styles_list)
+		if(adjustablecolor)
+			hair_color = "#[random_color()]"
+		update_icon()
 		return
 	if(new_style && new_style != hair_style)
 		hair_style = new_style
