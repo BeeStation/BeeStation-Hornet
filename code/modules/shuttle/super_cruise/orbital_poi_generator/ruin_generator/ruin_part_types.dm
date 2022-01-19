@@ -439,12 +439,6 @@
 	weight = 1
 	max_occurances = 1
 
-/datum/map_template/ruin_part/charliestation
-	file_name = "69x45_charliestation"
-	weight = 0.2
-	loot_room = TRUE
-	max_occurances = 1
-
 /datum/map_template/ruin_part/corgasteroid
 	file_name = "41x41_corgasteroid"
 	weight = 1
