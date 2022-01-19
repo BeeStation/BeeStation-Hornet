@@ -60244,8 +60244,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 4
+/obj/structure/disposalpipe/junction/flip{
+	dir = 8
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/xenobiology)
@@ -151679,8 +151679,8 @@ alm
 aeu
 aeu
 aeu
-aeU
-aap
+aeu
+aeu
 aeu
 aaa
 acm
@@ -151935,9 +151935,9 @@ aaa
 aeu
 aeu
 aeu
-aUz
-amq
-aeU
+aeu
+aeu
+aeu
 aeu
 aaa
 aeo
@@ -152192,9 +152192,9 @@ aeu
 aeu
 aeu
 aeu
-aap
 aeu
-aUz
+aeu
+aeu
 aeu
 aaa
 aeo
