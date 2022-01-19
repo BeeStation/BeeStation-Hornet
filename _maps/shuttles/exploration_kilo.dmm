@@ -442,12 +442,12 @@
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "Np" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
@@ -496,6 +496,7 @@
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "Qu" = (
