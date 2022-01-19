@@ -1,4 +1,0 @@
-author: TheFakeElon
-delete-after: true
-changes:
-  - code_imp: removed is_type_in_typecache
