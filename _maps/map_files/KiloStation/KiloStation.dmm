@@ -84879,9 +84879,20 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/ai_monitored/security/armory)
 "cui" = (
-/mob/living/simple_animal/hostile/asteroid/goliath,
-/turf/open/floor/plating/asteroid/airless,
-/area/space/nearstation)
+/obj/machinery/portable_atmospherics/canister,
+/obj/effect/turf_decal/delivery,
+/obj/structure/sign/warning/nosmoking{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/disposal/incinerator)
 "cuj" = (
 /mob/living/simple_animal/hostile/asteroid/hivelord,
 /turf/open/floor/plating/asteroid/airless,
@@ -86216,18 +86227,15 @@
 /turf/closed/wall,
 /area/gateway)
 "cwo" = (
-/obj/machinery/portable_atmospherics/canister,
+/obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/delivery,
-/obj/structure/sign/warning/nosmoking{
-	pixel_x = -32
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/disposal/incinerator)
 "cwp" = (
@@ -86585,15 +86593,13 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "cwR" = (
-/obj/structure/reagent_dispensers/watertank,
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/computer/security/telescreen/turbine{
 	dir = 1
 	},
+/obj/structure/table,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/disposal/incinerator)
 "cwS" = (
@@ -86638,14 +86644,9 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "cwX" = (
-/obj/machinery/computer/security/telescreen/turbine{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
+/turf/open/floor/plating,
 /area/maintenance/disposal/incinerator)
 "cwY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -86690,10 +86691,12 @@
 	},
 /area/maintenance/port)
 "cxc" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
-/turf/open/floor/plating,
-/area/maintenance/disposal/incinerator)
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/space/basic,
+/area/solar/starboard/aft)
 "cxd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random{
@@ -87521,12 +87524,13 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/break_room)
 "cyo" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "0-4"
+/obj/structure/lattice,
+/obj/machinery/atmospherics/components/binary/pump/on{
+	name = "Incinerator Output Pump";
+	target_pressure = 4500
 	},
-/turf/open/space/basic,
-/area/solar/starboard/aft)
+/turf/open/space,
+/area/maintenance/disposal/incinerator)
 "cyp" = (
 /obj/machinery/computer/station_alert,
 /obj/effect/turf_decal/tile/neutral,
@@ -87957,12 +87961,14 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "czg" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/components/binary/pump/on{
-	name = "Incinerator Output Pump";
-	target_pressure = 4500
+/obj/machinery/light/small{
+	dir = 4
 	},
-/turf/open/space,
+/obj/effect/turf_decal/stripes/box,
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
 /area/maintenance/disposal/incinerator)
 "czi" = (
 /obj/effect/turf_decal/stripes/line{
@@ -88019,14 +88025,12 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "czr" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/box,
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste{
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/public/glass/incinerator/atmos_exterior,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "czs" = (
 /obj/machinery/atmospherics/components/trinary/filter/flipped/critical{
@@ -88408,12 +88412,8 @@
 /turf/closed/wall/rust,
 /area/maintenance/port)
 "cAh" = (
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/public/glass/incinerator/atmos_exterior,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/turf/open/floor/engine,
+/obj/machinery/door/poddoor/incinerator_atmos_aux,
+/turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
 "cAi" = (
 /obj/effect/decal/cleanable/dirt,
@@ -89508,7 +89508,16 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "cCd" = (
-/obj/machinery/door/poddoor/incinerator_atmos_aux,
+/obj/machinery/power/compressor{
+	comp_id = "incineratorturbine";
+	dir = 1;
+	luminosity = 2
+	},
+/obj/machinery/camera{
+	c_tag = "Turbine Chamber";
+	dir = 4;
+	network = list("turbine")
+	},
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
 "cCe" = (
@@ -92257,15 +92266,8 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "cHH" = (
-/obj/machinery/power/compressor{
-	comp_id = "incineratorturbine";
-	dir = 1;
+/obj/machinery/power/turbine{
 	luminosity = 2
-	},
-/obj/machinery/camera{
-	c_tag = "Turbine Chamber";
-	dir = 4;
-	network = list("turbine")
 	},
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
@@ -95547,10 +95549,8 @@
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "cMl" = (
-/obj/machinery/power/turbine{
-	luminosity = 2
-	},
-/turf/open/floor/engine/vacuum,
+/obj/structure/sign/warning/fire,
+/turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "cMm" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -96680,10 +96680,6 @@
 "cNM" = (
 /obj/machinery/door/poddoor/incinerator_atmos_main,
 /turf/open/floor/engine/vacuum,
-/area/maintenance/disposal/incinerator)
-"cNN" = (
-/obj/structure/sign/warning/fire,
-/turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "cNO" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -111450,9 +111446,9 @@ aeu
 aeu
 aeu
 aeu
-aap
-aUz
-aeU
+aeu
+aeu
+aeu
 aeu
 aUz
 acm
@@ -111707,8 +111703,8 @@ aeu
 aeu
 aeu
 aeu
-aeU
-cui
+aeu
+aeu
 aeu
 aeu
 aeu
@@ -111965,7 +111961,7 @@ aeu
 aeu
 aeu
 aeu
-aap
+aeu
 aeu
 ckn
 acm
@@ -112734,7 +112730,7 @@ aaa
 aaa
 aeu
 aeu
-aap
+aeu
 aeu
 aeu
 aeU
@@ -112991,8 +112987,8 @@ aeo
 aeu
 aeu
 aeu
-amq
-aap
+aeu
+aeu
 aeu
 coy
 cmU
@@ -113248,7 +113244,7 @@ aeU
 coy
 aeu
 aeu
-aUz
+aeu
 aeu
 aeu
 aeU
@@ -117549,8 +117545,8 @@ aaa
 aeu
 aeu
 aeu
-aUz
-aap
+aeu
+aeu
 aeu
 aeu
 aeu
@@ -117805,9 +117801,9 @@ aaa
 aaa
 aeu
 aeu
-aeU
-aeU
-aeU
+aeu
+aeu
+aeu
 aeu
 aeu
 aeu
@@ -118062,8 +118058,8 @@ aaa
 aeu
 aeu
 aeu
-aUz
-aeU
+aeu
+aeu
 aeu
 aeu
 aeu
@@ -118319,9 +118315,9 @@ aeU
 aeu
 aeu
 aeu
-aap
-aeU
-aeU
+aeu
+aeu
+aeu
 aeu
 aeu
 aeu
@@ -118578,7 +118574,7 @@ aeu
 aeu
 aeu
 aeu
-aUz
+aeu
 aeu
 cwp
 cwq
@@ -128692,9 +128688,9 @@ bUY
 aDk
 aFI
 cjm
+cui
 cwo
 cwR
-cwX
 aFJ
 aaa
 acm
@@ -128952,9 +128948,9 @@ cyv
 bOq
 aFG
 aKs
-cxc
+cwX
+cyo
 czg
-czr
 aaa
 acm
 aaa
@@ -129212,7 +129208,7 @@ aMB
 aFH
 cnY
 aFI
-cCd
+cAh
 aFJ
 agw
 agw
@@ -129472,7 +129468,7 @@ cAI
 aFW
 aFJ
 aFI
-cNN
+cMl
 aod
 aaa
 aaa
@@ -129725,10 +129721,10 @@ byz
 aFU
 aFO
 cyP
-cAh
+czr
 coj
+cCd
 cHH
-cMl
 cNM
 aaa
 aaa
@@ -135531,7 +135527,7 @@ aaa
 aeU
 aeu
 aeu
-aap
+aeu
 aeu
 aeu
 aeu
@@ -135788,7 +135784,7 @@ aeU
 aUz
 aeu
 aeu
-aeU
+aeu
 aeu
 aeu
 aeu
@@ -136044,9 +136040,9 @@ aaa
 aeU
 aeu
 aeu
-aeU
-aeU
-aeU
+aeu
+aeu
+aeu
 aeu
 aeu
 cDC
@@ -136301,9 +136297,9 @@ aaa
 aaa
 aeu
 aeu
-aap
 aeu
-aUz
+aeu
+aeu
 aeu
 aeu
 cDD
@@ -146685,7 +146681,7 @@ czw
 czw
 czw
 czw
-cyo
+cxc
 czw
 czw
 czw
@@ -154577,7 +154573,7 @@ aeU
 aeu
 aeu
 aeu
-aeU
+aeu
 aeu
 aeu
 aeu
@@ -154834,8 +154830,8 @@ aeU
 aeU
 aeu
 aeu
-aUz
-aeU
+aeu
+aeu
 aeu
 aeu
 aeu
@@ -155092,7 +155088,7 @@ aeU
 aeu
 aeu
 aeu
-cuj
+aeu
 aeu
 aeu
 aeu
@@ -158692,7 +158688,7 @@ aeu
 aeu
 aeu
 aeu
-aUz
+aeu
 aeu
 aeu
 aeu
@@ -158949,7 +158945,7 @@ aeu
 aeu
 aeu
 aeu
-aeU
+aeu
 aeu
 aeu
 aeu
@@ -159206,7 +159202,7 @@ aeu
 aeu
 aeu
 aeu
-aeU
+aeu
 aeu
 aeu
 aeu
