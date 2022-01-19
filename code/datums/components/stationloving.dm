@@ -72,11 +72,11 @@
 	if(is_station_level(T.z))
 		return TRUE
 	if(is_centcom_level(T.z))
-		if (disallowed_centcom_areas[A.type])
+		if (is_type_in_typecache(A, disallowed_centcom_areas))
 			return FALSE
 		return TRUE
 	if(is_reserved_level(T.z))
-		if (allowed_shuttles[A.type])
+		if (is_type_in_typecache(A, allowed_shuttles))
 			return TRUE
 
 	return FALSE

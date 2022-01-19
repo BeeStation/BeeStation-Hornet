@@ -803,7 +803,7 @@
 	. = ..()
 	if (!on)
 		return
-	if (ovens[target.type])
+	if (is_type_in_typecache(target, ovens))
 		if (held_sausage && held_sausage.roasted)
 			to_chat("Your [held_sausage] has already been cooked.")
 			return

@@ -314,12 +314,12 @@
 		to_chat(user, "<span class='warning'>You've already put something new in this case!</span>")
 		return
 
-	if(GLOB.blacklisted_cargo_types[W.type])
+	if(is_type_in_typecache(W, GLOB.blacklisted_cargo_types))
 		to_chat(user, "<span class='warning'>The case rejects the [W]!</span>")
 		return
 
-	for(var/atom/A as() in W.GetAllContents())
-		if(GLOB.blacklisted_cargo_types[A.type])
+	for(var/a in W.GetAllContents())
+		if(is_type_in_typecache(a, GLOB.blacklisted_cargo_types))
 			to_chat(user, "<span class='warning'>The case rejects the [W]!</span>")
 			return
 

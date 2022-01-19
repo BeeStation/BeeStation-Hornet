@@ -24,7 +24,9 @@ SUBSYSTEM_DEF(research)
 	var/list/techweb_categories = list()		//category name = list(node.id = TRUE)
 	var/list/techweb_boost_items = list()		//associative double-layer path = list(id = list(point_type = point_discount))
 	var/list/techweb_nodes_hidden = list()		//Node ids that should be hidden by default.
-	var/list/techweb_point_items = list()		//path = list(point type = value)
+	var/list/techweb_point_items = list(		//path = list(point type = value)
+	/obj/item/assembly/signaler/anomaly = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	)
 	var/list/errored_datums = list()
 	var/list/point_types = list()				//typecache style type = TRUE list
 	//----------------------------------------------
@@ -55,9 +57,6 @@ SUBSYSTEM_DEF(research)
 	autosort_categories()
 	error_design = new
 	error_node = new
-	// If anyone plans on adding another item to this, just scrap this and make it an item lazylist variable
-	for(var/A in subtypesof(/obj/item/assembly/signaler/anomaly))
-		techweb_point_items[list(TECHWEB_POINT_TYPE_GENERIC = 10000)] = A
 	return ..()
 
 /datum/controller/subsystem/research/fire()

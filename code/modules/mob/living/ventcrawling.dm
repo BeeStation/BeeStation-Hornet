@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 
 	if(!vent_found)
 		for(var/obj/machinery/atmospherics/machine in range(1,src))
-			if(GLOB.ventcrawl_machinery[machine.type])
+			if(is_type_in_typecache(machine, GLOB.ventcrawl_machinery))
 				vent_found = machine
 
 			if(!vent_found.can_crawl_through())

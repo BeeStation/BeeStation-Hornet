@@ -206,7 +206,7 @@ Class Procs:
 	occupant = null
 
 /obj/machinery/proc/can_be_occupant(atom/movable/am)
-	return occupant_typecache ? occupant_typecache[am.type] : isliving(am)
+	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
 
 /obj/machinery/proc/close_machine(atom/movable/target = null)
 	SEND_SIGNAL(src, COMSIG_MACHINE_CLOSE, target)

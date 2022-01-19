@@ -1011,7 +1011,7 @@
 	if(timer > world.time)
 		return
 
-	if(banned_turfs[target.type])
+	if(is_type_in_typecache(target, banned_turfs))
 		return
 
 	if(user in viewers(user.client.view, get_turf(target)))

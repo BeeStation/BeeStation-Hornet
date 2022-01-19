@@ -58,7 +58,7 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 			continue
 		if((L in GLOB.player_list) || L.mind || (L.flags_1 & HOLOGRAM_1))
 			continue
-		if(GLOB.high_priority_sentience[L.type])
+		if(is_type_in_typecache(L, GLOB.high_priority_sentience))
 			hi_pri += L
 		else
 			low_pri += L
