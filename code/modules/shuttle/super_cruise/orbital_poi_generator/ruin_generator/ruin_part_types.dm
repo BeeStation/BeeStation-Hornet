@@ -504,3 +504,8 @@
 	weight = 3
 	max_occurances = 1
 	loot_room = TRUE //Experimental cloner :flushed:
+
+/datum/map_template/ruin_part/cafe
+	file_name = "13x13_cafe"
+	weight = 3
+
