@@ -3,7 +3,7 @@
 	id = SPECIES_FLY
 	bodyflag = FLAG_FLY
 	say_mod = "buzzes"
-	species_traits = list(NOEYESPRITES, NO_UNDERWEAR, TRAIT_BEEFRIEND)
+	species_traits = list(NOEYESPRITES, NO_UNDERWEAR, TRAIT_BEEFRIEND, TRAIT_ANTENNAE)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutanttongue = /obj/item/organ/tongue/fly
 	mutantliver = /obj/item/organ/liver/fly
