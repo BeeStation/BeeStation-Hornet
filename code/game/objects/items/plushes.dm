@@ -577,12 +577,6 @@
 	icon_state = "runtimeplush"
 	squeak_override = list('sound/effects/meow1.ogg'=1)
 
-/obj/item/toy/plush/blindtime
-	name = "blind runtime plushie"
-	desc = "Something went wrong with this pluhsie, but it can feel the walls?"
-	icon_state = "blindtimeplush"
-	squeak_override = list('sound/effects/meow1.ogg'=1)
-
 /obj/item/toy/plush/gondola
 	name = "gondola plushie"
 	desc = "The silent walker, in plush form"
