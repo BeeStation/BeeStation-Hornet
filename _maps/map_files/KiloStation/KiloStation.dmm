@@ -19377,7 +19377,6 @@
 	name = "atmospherics camera";
 	network = list("ss13","engine")
 	},
-/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "aDy" = (
@@ -24430,9 +24429,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 9
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
@@ -51219,14 +51215,7 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 6
 	},
-/obj/machinery/door/airlock/external{
-	name = "Atmospherics External Airlock";
-	req_access_txt = "24"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
+/turf/closed/wall/r_wall/rust,
 /area/engine/atmos)
 "bwx" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
@@ -75169,9 +75158,6 @@
 	name = "Engineering External Airlock";
 	req_access_txt = "10"
 	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "cfA" = (
@@ -75932,12 +75918,6 @@
 "cgG" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/structure/sign/warning/xeno_mining{
-	pixel_x = 32
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
@@ -77484,9 +77464,6 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable/yellow,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
 /turf/open/floor/circuit/red,
 /area/engine/engineering)
 "ciU" = (
@@ -85855,9 +85832,6 @@
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
 	},
 /turf/open/floor/circuit/red,
 /area/engine/engineering)
@@ -94297,9 +94271,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
 	},
 /turf/open/floor/circuit/red,
 /area/engine/engineering)
