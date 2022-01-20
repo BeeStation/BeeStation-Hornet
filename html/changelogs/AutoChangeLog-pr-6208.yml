@@ -1,4 +1,0 @@
-author: DatBoiTim
-delete-after: true
-changes:
-  - tweak: Warping runes now retrieve current turf whenever activated.
