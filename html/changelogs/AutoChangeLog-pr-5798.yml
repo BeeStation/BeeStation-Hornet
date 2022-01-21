@@ -1,0 +1,4 @@
+author: zeskorion
+delete-after: true
+changes:
+  - bugfix: you now enter stamcrit as soon as you take enough damage to do so
