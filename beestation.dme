@@ -3177,6 +3177,7 @@
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\loot\research_disks.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\loot\vortex_rifle.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\objective_types\alien_artifact.dm"
+#include "code\modules\shuttle\super_cruise\orbital_poi_generator\objective_types\assassination.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\objective_types\nuke_ruin.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\objective_types\recover_blackbox.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\objective_types\vip_extraction.dm"
