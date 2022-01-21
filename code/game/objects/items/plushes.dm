@@ -579,7 +579,7 @@
 
 /obj/item/toy/plush/gondola
 	name = "gondola plushie"
-	desc = "The silent walker, in plush form"
+	desc = "The silent walker, in plush form."
 	icon_state = "gondolaplush"
 	squeak_override = list('sound/misc/null.ogg'=1)
 
