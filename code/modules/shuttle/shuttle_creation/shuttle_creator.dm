@@ -1,7 +1,8 @@
 #define SHUTTLE_CREATOR_MAX_SIZE CONFIG_GET(number/max_shuttle_size)
 #define CUSTOM_SHUTTLE_LIMIT CONFIG_GET(number/max_shuttle_count)
-#define CARDINAL_DIRECTIONS_X list(1, 0, -1, 0)
-#define CARDINAL_DIRECTIONS_Y list(0, 1, 0, -1)
+//This must be in the order of the direction bitflags
+#define CARDINAL_DIRECTIONS_X list(0, 0, -1, 1)
+#define CARDINAL_DIRECTIONS_Y list(-1, 1, 0, 0)
 
 GLOBAL_VAR_INIT(custom_shuttle_count, 0)		//The amount of custom shuttles created to prevent creating hundreds
 GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (Heaters, engines)
@@ -38,7 +39,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/datum/shuttle_creator_overlay_holder/overlay_holder
 	//After designation
 	var/linkedShuttleId
-	var/turf/recorded_origin
+	var/turf/recorded_origin //The last remembered location of our airlock
+	var/turf/exit //Record the exterior turf next to the airlock to prevent modification designation
 
 /obj/item/shuttle_creator/examine(mob/user)
 	. = ..()
@@ -84,12 +86,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 				message_admins("[ADMIN_FLW(usr)] attempted to create a shuttle, however [CUSTOM_SHUTTLE_LIMIT] have already been created.")
 				return
 
-			var/obj/docking_port/mobile/port = SSshuttle.getShuttle(linkedShuttleId)
-			var/turf/new_origin = linkedShuttleId && port ? locate(port.x, port.y, port.z) : recorded_origin //If we have a shuttle, find its docking port turf, otherwise, set this var to recorded_origin so the if statement fails
-			if(recorded_origin != new_origin) //Has the shuttle moved? If so, reset the buffer
-				recorded_origin = new_origin
+			if(update_origin()) //Has the shuttle moved? If so, reset the buffer
 				reset_saved_area(FALSE)
-
 			overlay_holder.add_client(usr.client)
 			internal_shuttle_creator.attack_hand(usr)
 			SStgui.close_uis(src)
@@ -215,7 +213,6 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	port.dir = 1	//Point away from space.
 	port.id = "custom_[GLOB.custom_shuttle_count]"
 	linkedShuttleId = port.id
-	recorded_origin = get_turf(target)
 	port.ignitionTime = 25
 	port.port_direction = 2
 	port.preferred_direction = EAST
@@ -234,6 +231,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		return FALSE
 	port.dir = invertedDir
 	port.port_direction = portDirection
+	update_origin()
 
 	if(!calculate_bounds(port))
 		to_chat(usr, "<span class='warning'>Bluespace calculations failed, please select a new airlock.</span>")
@@ -273,11 +271,29 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	//Select shuttle fly direction.
 	select_preferred_direction(user)
 
-	//Clear highlights
+	//Redraw highlights
+	reset_saved_area()
 	GLOB.custom_shuttle_count ++
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a new shuttle with a [src] at [ADMIN_VERBOSEJMP(user)] with a name [recorded_shuttle_area.name] ([GLOB.custom_shuttle_count] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
 	log_game("[key_name(user)] created a new shuttle with a [src] at [AREACOORD(user)] with a name [recorded_shuttle_area.name] ([GLOB.custom_shuttle_count] custom shuttles, limit is [CUSTOM_SHUTTLE_LIMIT])")
 	return TRUE
+
+//When we've detected that we've moved, update the location of important turfs, return true if we've found a change
+/obj/item/shuttle_creator/proc/update_origin()
+	if(!linkedShuttleId)
+		return
+	var/obj/docking_port/mobile/port = SSshuttle.getShuttle(linkedShuttleId)
+	if(!port)
+		return
+	var/turf/new_origin = locate(port.x, port.y, port.z)
+	if(recorded_origin != new_origin)
+		recorded_origin = new_origin
+		. = TRUE
+	var/dir_hash = BitCount((port.dir - 1)^port.dir) //Some fun bitwise manipulation, dir for ports is expected to be in a cardinal direction, which is a power of two in the bitfield, so use the binary log + 1 as the key
+	var/turf/new_exit = get_offset_target_turf(recorded_origin, CARDINAL_DIRECTIONS_X[dir_hash], CARDINAL_DIRECTIONS_Y[dir_hash]) //Get the turf away from the airlock
+	if(exit != new_exit)
+		exit = new_exit
+		. = TRUE
 
 /obj/item/shuttle_creator/proc/create_shuttle_area(mob/user)
 	//Check to see if the user can make a new area to prevent spamming
@@ -383,6 +399,9 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	if(turfs.len + (addingTurfs ? loggedTurfs.len : 0) > SHUTTLE_CREATOR_MAX_SIZE)
 		to_chat(usr, "<span class='warning'>The [src]'s internal cooling system wizzes violently and a message appears on the screen, \"Caution, this device can only handle the creation of shuttles up to [SHUTTLE_CREATOR_MAX_SIZE] units in size. Please reduce your shuttle by [turfs.len-SHUTTLE_CREATOR_MAX_SIZE]. Sorry for the inconvinience\"</span>")
 		return FALSE
+	if(turfs.Find(exit))
+		to_chat(usr, "<span class='warning'>Do not block open space required for the exterior airlock to function.</span>")
+		return
 	//Check to see if it's a valid shuttle
 	for(var/i in 1 to turfs.len)
 		var/area/place = get_area(turfs[i])
@@ -416,7 +435,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 			return TRUE
 	return FALSE
 
-/obj/item/shuttle_creator/proc/are_turfs_connected(list/turf/loggedTurfs)
+//Checks if all the turfs in loggedTurfs are connected to each other
+/obj/item/shuttle_creator/proc/are_turfs_connected()
 	if(!loggedTurfs || !length(loggedTurfs))
 		return TRUE //It's fully connected I guess
 	var/queue_pointer = 1 //The end of the queue, new entries are put after this
@@ -462,11 +482,15 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 /obj/item/shuttle_creator/proc/remove_single_turf(turf/T)
 	if(!turf_in_list(T))
 		return
+	if(T == recorded_origin)
+		to_chat(usr, "<span class='warning'>You cannot undesignate the exterior airlock.</span>")
+		return
 	loggedTurfs -= T
-	if(are_turfs_connected(loggedTurfs))
+	if(are_turfs_connected())
 		loggedOldArea = get_area(T)
 		overlay_holder.unhighlight_turf(T)
 	else
+		to_chat(usr, "<span class='warning'>Caution, removing this turf would split the shuttle.</span>")
 		loggedTurfs |= T
 
 /obj/item/shuttle_creator/proc/reset_saved_area(loud = TRUE)
@@ -474,7 +498,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	loggedTurfs.Cut()
 	for(var/turf/T in recorded_shuttle_area.contents)
 		loggedTurfs |= T
-		overlay_holder.highlight_turf(T)
+		overlay_holder.create_hightlight(T, T == recorded_origin)
 	if(loud)
 		to_chat(usr, "<span class='notice'>You reset the area buffer on the [src].</span>")
 

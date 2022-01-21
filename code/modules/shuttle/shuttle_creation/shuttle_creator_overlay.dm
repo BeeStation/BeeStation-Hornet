@@ -21,10 +21,10 @@
 	images.Cut()
 	turfs.Cut()
 
-/datum/shuttle_creator_overlay_holder/proc/create_hightlight(turf/T)
+/datum/shuttle_creator_overlay_holder/proc/create_hightlight(turf/T, blue = FALSE)
 	if(T in turfs)
 		return
-	var/image/I = image('icons/turf/overlays.dmi', T, "greenOverlay")
+	var/image/I = image('icons/turf/overlays.dmi', T, blue ? "blueOverlay" : "greenOverlay")
 	I.plane = ABOVE_LIGHTING_PLANE
 	images += I
 	holder?.images += I
