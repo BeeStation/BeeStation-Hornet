@@ -25162,20 +25162,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"aMt" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/item/gun/ballistic/automatic/gyropistol,
-/turf/open/floor/plasteel,
-/area/hallway/primary/aft)
 "aMu" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -126964,7 +126950,7 @@ bBr
 cdj
 bEA
 bEG
-aMt
+bEA
 cLT
 cjZ
 cjp
