@@ -863,7 +863,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		return
 
 	var/damage = rand(1,2)
-	if(HAS_TRAIT(target, TRAIT_ANTENNAE))
+	if(HAS_TRAIT(target, TRAIT_ANTENNAE) || is_species(target, /datum/species/lizard))
 		damage += rand(1,3)
 
 	if(damage >= 2)
