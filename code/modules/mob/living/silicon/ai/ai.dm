@@ -102,7 +102,6 @@
 	var/datum/ai_dashboard/dashboard //override for the can_download, checked first in case we have other code in can_download
 	var/can_download = TRUE //Can we (simple) examine humans?
 	var/canExamineHumans = FALSE //Reduces/Increases download speed by this modifier
-	var/downloadSpeedModifier = 1
 
 	var/login_warned_temp = FALSE
 
