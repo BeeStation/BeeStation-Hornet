@@ -1676,6 +1676,6 @@
 
 /obj/item/rucy
 	name = "PCV Pipe"
-	desc = "Those PCV pipe were the staple of many stations for fluid transmission. You think you hear foreign rap..."
+	desc = "Those PCV pipes were the staple of many stations for fluid transmission. You think you hear foreign rap..."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "rucy"
