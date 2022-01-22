@@ -11,6 +11,7 @@
 	mutantlungs = /obj/item/organ/lungs/plasmaman
 	mutanttongue = /obj/item/organ/tongue/bone/plasmaman
 	mutantliver = /obj/item/organ/liver/plasmaman
+	mutant_butt = /obj/item/organ/butt/plasma //MonkeStation Edit
 	mutantstomach = /obj/item/organ/stomach/plasmaman
 	burnmod = 1.5
 	heatmod = 1.5

@@ -156,3 +156,28 @@
 
 //Virology chem end
 //End of botany chem balance
+
+/datum/reagent/flatulynt
+	name = "Flatulynt"
+	description = "A powerful food additive created by the Nanotrasen Organics Division, allows for easier passing of gas."
+	color = "#9c7012"
+	taste_description = "dietary fiber"
+	metabolization_rate = 0.5
+	overdose_threshold = 30
+
+
+/datum/reagent/flatulynt/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	if(!overdosed && ishuman(M) && prob(20))
+		var/mob/living/carbon/human/effected = M
+		effected.emote("fart")
+
+/datum/reagent/flatulynt/overdose_start(mob/living/M)
+	. = ..()
+	metabolization_rate = 2
+
+/datum/reagent/flatulynt/overdose_process(mob/living/M)
+	. = ..()
+	if(ishuman(M))
+		var/mob/living/carbon/human/effected = M
+		effected.emote("fart")

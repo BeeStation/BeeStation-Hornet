@@ -86,6 +86,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/organ/liver/mutantliver
 	var/obj/item/organ/stomach/mutantstomach
 	var/override_float = FALSE
+	//MonkeStation Edit: Butt Organ
+	var/obj/item/organ/butt/mutant_butt = /obj/item/organ/butt
 
 	//Bitflag that controls what in game ways can select this species as a spawnable source
 	//Think magic mirror and pride mirror, slime extract, ERT etc, see defines
@@ -165,6 +167,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/organ/stomach/stomach = C.getorganslot(ORGAN_SLOT_STOMACH)
 	var/obj/item/organ/tail/tail = C.getorganslot(ORGAN_SLOT_TAIL)
 	var/obj/item/organ/wings/wings = C.getorganslot(ORGAN_SLOT_WINGS)
+	//MonkeStation Edit: Butt Organ
+	var/obj/item/organ/butt/butt = C.getorganslot(ORGAN_SLOT_BUTT)
 
 	var/should_have_brain = TRUE
 	var/should_have_heart = !(NOBLOOD in species_traits)
@@ -177,6 +181,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/should_have_stomach = !(NOSTOMACH in species_traits)
 	var/should_have_tail = mutanttail
 	var/should_have_wings = mutantwings
+	//MonkeStation Edit: Butt Organ
+	var/should_have_butt = mutant_butt
 
 	if(heart && (!should_have_heart || replace_current))
 		heart.Remove(C,1)
@@ -221,6 +227,18 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(should_have_appendix && !appendix)
 		appendix = new()
 		appendix.Insert(C)
+
+	//MonkeStation Edit Start: Butt Organ
+	if(butt && (!should_have_butt || replace_current))
+		butt.Remove(C, 1)
+		QDEL_NULL(butt)
+	if(should_have_butt && !butt)
+		if(mutant_butt)
+			butt = new mutant_butt
+		else
+			butt = new()
+		butt.Insert(C)
+	//MonkeStation Edit End
 
 	if(tail && (!should_have_tail || replace_current))
 		tail.Remove(C,1)

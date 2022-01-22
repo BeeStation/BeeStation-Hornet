@@ -36,7 +36,7 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	density = FALSE
-	mob_size = MOB_SIZE_TINY
+	mob_size = MOB_SIZE_HUMAN
 	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
 	movement_type = FLYING
 	gold_core_spawnable = HOSTILE_SPAWN

@@ -666,7 +666,7 @@
 /area/shuttle/exploration)
 "GI" = (
 /obj/structure/closet/crate/science,
-/obj/item/circuitboard/computer/exploration_shuttle,
+/obj/item/circuitboard/computer/shuttle/exploration_shuttle,
 /obj/item/stack/sheet/mineral/plasma/five,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,

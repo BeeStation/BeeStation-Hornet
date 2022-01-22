@@ -9,7 +9,7 @@
 /datum/orbital_objective/artifact/generate_objective_stuff(turf/chosen_turf)
 	generated = TRUE
 	linked_artifact = new(chosen_turf)
-	var/list/turfs = RANGE_TURFS(30, chosen_turf)
+	var/list/turfs = RANGE_TURFS(30, linked_artifact)
 	var/list/valid_turfs = list()
 	for(var/turf/open/floor/F in turfs)
 		if(locate(/obj/structure) in F)
@@ -17,8 +17,8 @@
 		valid_turfs += F
 	//Shuffle the list
 	shuffle_inplace(valid_turfs)
-	for(var/i in rand(6, 15))
-		if(valid_turfs.len < i)
+	for(var/i in 1 to rand(6, 15))
+		if(i > valid_turfs.len)
 			message_admins("Ran out of valid turfs to create artifact defenses on.")
 			return
 		var/turf/selected_turf = valid_turfs[i]

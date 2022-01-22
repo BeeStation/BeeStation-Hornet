@@ -332,6 +332,10 @@
 /obj/item/restraints/legcuffs/beartrap/energy/cyborg
 	breakouttime = 20 // Cyborgs shouldn't have a strong restraint
 
+/obj/item/restraints/legcuffs/beartrap/energy/emp_act(severity)
+	do_sparks(1, TRUE, src)
+	qdel(src)
+
 /obj/item/restraints/legcuffs/bola
 	name = "bola"
 	desc = "A restraining device designed to be thrown at the target. Upon connecting with said target, it will wrap around their legs, making it difficult for them to move quickly."
@@ -401,6 +405,12 @@
 		B.spring_trap(null, hit_atom)
 		qdel(src)
 	. = ..()
+
+/obj/item/restraints/legcuffs/bola/energy/emp_act(severity)
+	if(prob(25 * severity))
+		return
+	do_sparks(1, TRUE, src)
+	qdel(src)
 
 /obj/item/restraints/legcuffs/bola/gonbola
 	name = "gonbola"

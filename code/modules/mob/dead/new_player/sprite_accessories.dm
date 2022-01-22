@@ -90,12 +90,8 @@
 	name = "Ahoge"
 	icon_state = "hair_antenna"
 
-/datum/sprite_accessory/hair/bald
+/datum/sprite_accessory/hair/bald //Monkestation edit: Removes bald, changes bald2 to bald. for Bald quirk
 	name = "Bald"
-	icon_state = null
-
-/datum/sprite_accessory/hair/bald2
-	name = "Bald 2"
 	icon_state = "hair_bald2"
 
 /datum/sprite_accessory/hair/balding

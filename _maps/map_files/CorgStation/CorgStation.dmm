@@ -61407,7 +61407,7 @@
 	pixel_x = -3;
 	pixel_y = 1
 	},
-/obj/item/circuitboard/computer/mining_shuttle{
+/obj/item/circuitboard/computer/shuttle/mining_shuttle{
 	pixel_x = -4;
 	pixel_y = -1
 	},

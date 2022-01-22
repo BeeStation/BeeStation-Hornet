@@ -4,6 +4,8 @@
 #define CATEGORY_HUMAN "HUMAN"
 #define CATEGORY_MISC "MISC"
 #define CATEGORY_ROBOT "ROBOT"
+//MonkeStation Edit: Emote Keybinds
+#define CATEGORY_EMOTE "QUICK EMOTES"
 
 #define WEIGHT_HIGHEST 0
 #define WEIGHT_CLIENT 10
