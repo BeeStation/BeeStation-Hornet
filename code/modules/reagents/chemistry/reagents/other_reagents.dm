@@ -302,7 +302,6 @@
 	holder.remove_reagent(type, 0.4)	//fixed consumption to prevent balancing going out of whack
 
 /datum/reagent/water/holywater/reaction_turf(turf/T, reac_volume)
-	..()
 	if(!istype(T))
 		return
 	if(reac_volume>=10)
@@ -1578,7 +1577,6 @@
 	if(isplatingturf(T) || istype(T, /turf/open/floor/plasteel))
 		var/turf/open/floor/F = T
 		F.PlaceOnTop(/turf/open/floor/carpet, flags = CHANGETURF_INHERIT_AIR)
-	..()
 
 /datum/reagent/bromine
 	name = "Bromine"
@@ -1640,7 +1638,6 @@
 /datum/reagent/colorful_reagent/reaction_turf(turf/T, reac_volume)
 	if(T)
 		T.add_atom_colour(pick(random_color_list), WASHABLE_COLOUR_PRIORITY)
-	..()
 
 /datum/reagent/hair_dye
 	name = "Quantum Hair Dye"
