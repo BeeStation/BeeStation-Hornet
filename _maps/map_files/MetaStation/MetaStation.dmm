@@ -79203,10 +79203,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
-"hoL" = (
-/obj/machinery/ai/expansion_card_holder/prefilled,
-/turf/open/floor/circuit/green/telecomms/mainframe,
-/area/tcommsat/server)
 "hqu" = (
 /obj/machinery/door/airlock/external{
 	name = "Supply Dock Airlock";
@@ -138148,7 +138144,7 @@ bzo
 bAV
 bCD
 bEh
-hoL
+bGd
 bGd
 bKL
 bNY
@@ -139176,7 +139172,7 @@ bzs
 bJi
 bCD
 bEj
-hoL
+bGd
 bGd
 bKP
 bOb
