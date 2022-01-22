@@ -5749,9 +5749,6 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/medbay/aft)
-"btt" = (
-/turf/open/floor/plating,
-/area/docking/arrival)
 "btv" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Gulag Cell 4";
@@ -10105,7 +10102,7 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 1
 	},
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plating,
 /area/security/prison/asteroid/service)
 "cnd" = (
 /mob/living/simple_animal/cockroach,
@@ -11233,11 +11230,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel/techmaint,
 /area/chapel/office)
-"czH" = (
-/turf/open/floor/plating/airless{
-	initial_gas_mix = null
-	},
-/area/docking/arrival)
 "czI" = (
 /obj/structure/chair/pew/left,
 /turf/open/floor/plasteel,
@@ -26193,7 +26185,7 @@
 	dir = 5
 	},
 /obj/structure/lattice/catwalk/over,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/security/prison/asteroid/service)
 "fXI" = (
 /obj/structure/closet/firecloset,
@@ -44353,7 +44345,7 @@
 	dir = 6
 	},
 /obj/structure/lattice/catwalk/over,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/security/prison/asteroid/service)
 "kjO" = (
 /obj/machinery/conveyor/inverted{
@@ -44858,7 +44850,7 @@
 	dir = 1;
 	pixel_y = -22
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/security/prison/asteroid/service)
 "kql" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -48409,7 +48401,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk/over,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/security/prison/asteroid/service)
 "leO" = (
 /obj/effect/decal/cleanable/dirt,
@@ -59895,7 +59887,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk/over,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/security/prison/asteroid/service)
 "nUo" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -60694,7 +60686,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/security/prison/asteroid/service)
 "ode" = (
 /obj/effect/turf_decal/stripes/line{
@@ -94058,7 +94050,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 8
 	},
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/security/prison/asteroid/service)
 "waG" = (
 /obj/structure/chair/wood/normal{
@@ -95359,7 +95351,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk/over,
-/turf/open/floor/plating/airless,
+/turf/open/floor/plating,
 /area/security/prison/asteroid/service)
 "wsQ" = (
 /obj/machinery/deepfryer,
@@ -101156,6 +101148,10 @@
 /obj/effect/turf_decal/guideline/guideline_in/blue,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"xQa" = (
+/obj/effect/turf_decal/sand/plating,
+/turf/open/space/basic,
+/area/asteroid/nearstation)
 "xQh" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/wood,
@@ -117153,7 +117149,7 @@ bbm
 bbm
 bbm
 bbm
-btt
+bbm
 bbm
 bbm
 bbm
@@ -117410,7 +117406,7 @@ bbm
 bbm
 bbm
 bbm
-czH
+bbm
 bbm
 bbm
 bbm
@@ -133648,7 +133644,7 @@ gnl
 kjX
 tsN
 srh
-srh
+xQa
 srh
 qru
 dyJ
