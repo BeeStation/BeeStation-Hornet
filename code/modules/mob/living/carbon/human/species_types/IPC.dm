@@ -11,6 +11,7 @@
 	mutanteyes = /obj/item/organ/eyes/robotic
 	mutanttongue = /obj/item/organ/tongue/robot
 	mutantliver = /obj/item/organ/liver/cybernetic/upgraded/ipc
+	mutant_butt = /obj/item/organ/butt/cyber //MonkeStation Edit
 	mutantstomach = /obj/item/organ/stomach/battery/ipc
 	mutantears = /obj/item/organ/ears/robot
 	mutant_heart = /obj/item/organ/heart/cybernetic/ipc

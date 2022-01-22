@@ -16,8 +16,16 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 /datum/controller/subsystem/processing/quirks/Initialize(timeofday)
 	if(!length(quirks))
 		SetupQuirks()
-
-	quirk_blacklist = list(list("Blind","Nearsighted"),list("Jolly","Depression","Apathetic","Hypersensitive"),list("Ageusia","Vegetarian","Deviant Tastes"),list("Ananas Affinity","Ananas Aversion"),list("Alcohol Tolerance","Light Drinker"),list(list("Neat","NEET")))
+	//MonkeStation Edit: Changes quirk combo blacklist for readablity
+	quirk_blacklist = list(
+							list("Blind","Nearsighted"),
+							list("Jolly","Depression","Apathetic","Hypersensitive"),
+							list("Ageusia","Vegetarian","Deviant Tastes"),
+							list("Ananas Affinity","Ananas Aversion"),
+							list("Alcohol Tolerance","Light Drinker"),
+							list(list("Neat","NEET")),
+							list("Stable Rear","Unstable Rear")
+							)
 	return ..()
 
 /datum/controller/subsystem/processing/quirks/proc/SetupQuirks()

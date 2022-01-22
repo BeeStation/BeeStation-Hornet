@@ -211,14 +211,18 @@
 /datum/emote/living/carbon/human/fart
 	key = "fart"
 	key_third_person = "farts"
-	message = "farts"
-	emote_type = EMOTE_AUDIBLE
-	vary = TRUE
 
-/datum/emote/living/carbon/human/fart/get_sound(mob/living/user)
-	if(!ishuman(user))
+//MonkeStation Edit Start
+//Butt-Based Farts
+/datum/emote/living/carbon/human/fart/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(!user.getorgan(/obj/item/organ/butt) || !ishuman(user))
+		to_chat(user, "<span class='warning'>You don't have a butt!</span>")
 		return
-	return 'sound/misc/fart1.ogg'
+	var/obj/item/organ/butt/booty = user.getorgan(/obj/item/organ/butt)
+	if(!booty.cooling_down)
+		booty.On_Fart(user)
+//MonkeStation Edit End
 
 //Ayy lmao
 

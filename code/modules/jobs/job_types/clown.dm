@@ -28,7 +28,14 @@
 /datum/job/clown/after_spawn(mob/living/carbon/human/H, mob/M)
 	. = ..()
 	H.apply_pref_name("clown", M.client)
-
+	//MonkeStation Edit Start: Clown Ass
+	var/obj/item/organ/butt/butt = H.getorganslot(ORGAN_SLOT_BUTT)
+	if(butt)
+		butt.Remove(H, 1)
+		QDEL_NULL(butt)
+		butt = new/obj/item/organ/butt/clown
+		butt.Insert(H)
+	//MonkeStation Edit End
 /datum/outfit/job/clown
 	name = "Clown"
 	jobtype = /datum/job/clown

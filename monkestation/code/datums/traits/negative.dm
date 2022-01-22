@@ -42,3 +42,9 @@
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.general)
 		qdel(R)
 		to_chat(H, "<span class='boldnotice'>You've awoken to find yourself inside [GLOB.station_name] without identification!</span>")
+
+/datum/quirk/unstable_ass
+	name = "Unstable Rear"
+	desc = "For reasons unknown, your posterior is unstable and will fall off more often."
+	value = -1
+	//All effects are handled directly in butts.dm
