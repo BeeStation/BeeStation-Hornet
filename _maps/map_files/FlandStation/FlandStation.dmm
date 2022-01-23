@@ -5981,6 +5981,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/red/warning,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel/dark,
 /area/security/execution/transfer)
 "bwR" = (
@@ -6120,6 +6122,15 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel/grid/steel,
 /area/bridge)
+"bxQ" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/execution/transfer)
 "bxS" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
@@ -11993,6 +12004,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Labour Shuttle airlock"
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plasteel/techmaint,
 /area/security/execution/transfer)
 "cIN" = (
@@ -13071,16 +13083,6 @@
 /obj/effect/turf_decal/tile/darkblue/tile_full,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
-"cVv" = (
-/obj/structure/lattice/catwalk/over,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plating/airless,
-/area/asteroid/nearstation)
 "cVH" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -19243,12 +19245,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"eoS" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
-	},
-/turf/closed/wall/r_wall,
-/area/security/execution/transfer)
 "epg" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/costume,
@@ -21320,7 +21316,7 @@
 	id = "telewindowshutter";
 	name = "Teleporter Shutter Control";
 	pixel_y = 24;
-	req_access_txt = "19"
+	req_one_access_txt = "17;19"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -22080,6 +22076,8 @@
 	name = "Labour Shuttle airlock";
 	req_access_txt = "63"
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel/techmaint,
 /area/security/execution/transfer)
 "eYn" = (
@@ -27846,7 +27844,7 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/techmaint,
-/area/security/prison/asteroid/arrival)
+/area/security/prison/asteroid/service)
 "grO" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
@@ -31863,7 +31861,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel/grid/steel,
-/area/teleporter)
+/area/maintenance/department/science)
 "hlX" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
 /obj/machinery/light{
@@ -43100,6 +43098,9 @@
 	pixel_x = -24;
 	pixel_y = -8
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
 "jSd" = (
@@ -47471,6 +47472,9 @@
 	pixel_y = 3
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison/asteroid/arrival)
 "kTR" = (
@@ -48223,7 +48227,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/techmaint,
-/area/vacant_room/office)
+/area/maintenance/starboard/central)
 "ldq" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -49561,7 +49565,7 @@
 	id = "teleshutter";
 	name = "Teleporter Shutter Control";
 	pixel_y = -24;
-	req_access_txt = "19"
+	req_one_access_txt = "17;19"
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/poddoor/shutters{
@@ -54344,6 +54348,7 @@
 /obj/effect/turf_decal/stripes/red/end{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plasteel/techmaint,
 /area/security/execution/transfer)
 "mCE" = (
@@ -64335,13 +64340,10 @@
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "pdd" = (
-/obj/structure/lattice/catwalk/over,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating/airless,
 /area/asteroid/nearstation)
 "pdh" = (
@@ -64801,9 +64803,6 @@
 /area/engine/atmos)
 "pit" = (
 /obj/machinery/advanced_airlock_controller/directional/east,
-/obj/machinery/atmospherics/components/binary/dp_vent_pump{
-	dir = 8
-	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -64815,6 +64814,8 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel/techmaint,
 /area/security/execution/transfer)
 "piz" = (
@@ -65924,18 +65925,17 @@
 /turf/open/floor/plating,
 /area/security/execution/transfer)
 "pyp" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/machinery/door/poddoor/preopen{
 	id = "brigdockwindow";
 	name = "Brig shuttle Blast door"
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/execution/transfer)
 "pyu" = (
@@ -67342,9 +67342,6 @@
 	pixel_y = -24;
 	req_access_txt = "2"
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
-	dir = 1
-	},
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 1
@@ -67825,7 +67822,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/techmaint,
-/area/security/prison/asteroid/arrival)
+/area/security/prison/asteroid/service)
 "pYf" = (
 /obj/effect/turf_decal/trimline/blue/line{
 	dir = 4
@@ -68454,7 +68451,9 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/transfer)
 "qfz" = (
@@ -69461,9 +69460,6 @@
 /area/hallway/secondary/service)
 "qqe" = (
 /obj/machinery/advanced_airlock_controller/directional/west,
-/obj/machinery/atmospherics/components/binary/dp_vent_pump{
-	dir = 4
-	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -69475,6 +69471,8 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel/techmaint,
 /area/security/execution/transfer)
 "qqv" = (
@@ -72009,7 +72007,6 @@
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/disposal)
 "qTa" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -74027,10 +74024,10 @@
 /turf/open/floor/plasteel/techmaint,
 /area/science/xenobiology)
 "rpK" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 6
 	},
 /turf/open/floor/plasteel/dark,
@@ -74147,7 +74144,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/transfer)
 "rrs" = (
@@ -74893,7 +74892,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/rucy{
+/obj/item/rury{
 	pixel_y = 10
 	},
 /obj/structure/table/wood,
@@ -74969,7 +74968,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/techmaint,
-/area/security/courtroom)
+/area/maintenance/starboard/central)
 "rCc" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -75766,6 +75765,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/transfer)
@@ -79365,7 +79367,7 @@
 	dir = 5
 	},
 /obj/machinery/camera{
-	c_tag = "Prison - Cell 1";
+	c_tag = "VIP Prison - Cell 1";
 	name = "prison camera";
 	network = list("ss13","prison")
 	},
@@ -82748,9 +82750,6 @@
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/department/science)
 "tsD" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 4
 	},
@@ -83676,6 +83675,9 @@
 /obj/item/folder/red,
 /obj/item/pen,
 /obj/effect/turf_decal/bot,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 1
 	},
@@ -85284,12 +85286,8 @@
 /turf/closed/wall/r_wall,
 /area/science/test_area)
 "tVO" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
 /turf/open/floor/plasteel/dark,
 /area/security/execution/transfer)
 "tVQ" = (
@@ -85654,18 +85652,15 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "uaC" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
 /obj/machinery/door/poddoor/preopen{
 	id = "brigdockwindow";
 	name = "Brig shuttle Blast door"
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/execution/transfer)
 "uaQ" = (
@@ -87351,10 +87346,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/library)
-"utL" = (
-/obj/machinery/atmospherics/pipe/layer_manifold,
-/turf/closed/wall/r_wall,
-/area/security/execution/transfer)
 "utW" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall,
@@ -88956,12 +88947,6 @@
 	},
 /turf/open/floor/plasteel/dark/side,
 /area/security/brig)
-"uNn" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 6
-	},
-/turf/closed/wall/r_wall,
-/area/security/execution/transfer)
 "uNt" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -88973,6 +88958,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/red/warning,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel/dark,
 /area/security/execution/transfer)
 "uNu" = (
@@ -91106,12 +91093,11 @@
 /turf/open/floor/plating,
 /area/security/execution/transfer)
 "vpu" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
 /turf/open/floor/plasteel/dark,
 /area/security/execution/transfer)
 "vpC" = (
@@ -91982,6 +91968,9 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "vyP" = (
@@ -95106,7 +95095,6 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "wpF" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -95969,7 +95957,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Prison - Holding Area";
+	c_tag = "VIP Prison - Holding Area";
 	dir = 10;
 	name = "prison camera";
 	network = list("ss13","prison")
@@ -97822,7 +97810,7 @@
 	dir = 9
 	},
 /obj/machinery/camera{
-	c_tag = "Prison - Cell 2";
+	c_tag = "VIP Prison - Cell 2";
 	dir = 6;
 	name = "prison camera";
 	network = list("ss13","prison")
@@ -100487,6 +100475,8 @@
 /obj/machinery/door/airlock/external{
 	name = "Labour Shuttle airlock"
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel/techmaint,
 /area/security/execution/transfer)
 "xIO" = (
@@ -138441,8 +138431,8 @@ aWv
 aWv
 aWv
 kXH
-uNn
-utL
+uNu
+uNu
 qTa
 rqT
 lZg
@@ -139469,7 +139459,7 @@ aWv
 aWv
 aWv
 aWv
-cVv
+pdd
 xsv
 qTs
 fkQ
@@ -139729,7 +139719,7 @@ cdd
 uaC
 fKa
 iRy
-fkQ
+bxQ
 rMf
 xFj
 xFj
@@ -140240,8 +140230,8 @@ aWv
 aWv
 aWv
 pdJ
-eoS
-utL
+uNu
+uNu
 wpF
 vrJ
 kBJ
