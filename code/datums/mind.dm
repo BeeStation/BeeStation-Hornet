@@ -402,7 +402,7 @@
 				output += "</ul>"
 	if(crew_objectives.len)
 		output += "<br><B>Optional Objectives:</B>"
-		for(var/datum/objective/objective in crew_objectives)
+		for(var/datum/objective/objective as() in crew_objectives)
 			output += "<br>[objective.explanation_text]"
 
 	if(window)
@@ -602,12 +602,12 @@
 	var/list/all_objectives = get_all_objectives()
 	if(all_objectives.len)
 		to_chat(current, "<span class='notice'>Your current objectives:</span>")
-		for(var/datum/objective/O in all_objectives)
+		for(var/datum/objective/O as() in all_objectives)
 			to_chat(current, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
 			obj_count++
 	if(crew_objectives.len)
 		to_chat(current, "<span class='notice'>Your optional objectives:</span>")
-		for(var/datum/objective/C in crew_objectives)
+		for(var/datum/objective/C as() in crew_objectives)
 			to_chat(current, "[C.explanation_text]")
 
 /datum/mind/proc/find_syndicate_uplink()

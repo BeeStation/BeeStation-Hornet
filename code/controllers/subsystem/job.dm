@@ -45,7 +45,7 @@ SUBSYSTEM_DEF(job)
 	for(var/datum/objective/crew/obj as() in crewobjlist) //taken from old Hippie's "job2obj" proc with adjustments.
 		var/list/availableto = splittext(initial(obj.jobs),",")
 		for(var/job in availableto)
-			crewobjjobs["[job]"] += list(obj)
+			crewobjjobs["[job]"] += obj
 
 	return ..()
 
