@@ -44,13 +44,6 @@
 	item_state = "blueshift"
 	custom_premium_price = 600
 
-/obj/item/clothing/suit/armor/vest/corporate
-	name = "corporate Jacket"
-	desc = "A Stylish Corporate Jacket which also provides Protection."
-	icon_state = "secjacket"
-	item_state = "secjacket"
-	body_parts_covered = CHEST|ARMS
-	armor = list("melee" = 25, "bullet" = 25, "laser" = 25, "energy" = 35, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 45, "acid" = 45, "stamina" = 30)
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored greatcoat"

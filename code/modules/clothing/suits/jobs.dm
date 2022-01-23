@@ -132,6 +132,15 @@
 	item_state = "officerbluejacket"
 	body_parts_covered = CHEST|ARMS
 
+/obj/item/clothing/suit/toggle/security/corporate
+	name = "corporate Jacket"
+	desc = "A stylish corporate jacket which also provides protection."
+	icon_state = "secjacket"
+	item_state = "secjacket"
+	body_parts_covered = CHEST|ARMS
+	togglename = "zipper"
+	armor = list("melee" = 25, "bullet" = 25, "laser" = 25, "energy" = 35, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 45, "acid" = 45, "stamina" = 30)
+
 /obj/item/clothing/suit/security/warden
 	name = "warden's jacket"
 	desc = "Perfectly suited for the warden that wants to leave an impression of style on those who visit the brig."
