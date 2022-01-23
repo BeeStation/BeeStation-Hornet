@@ -1,0 +1,4 @@
+author: unit0016
+delete-after: true
+changes:
+  - bugfix: The APC in Delta station's explorer's office is fixed.
