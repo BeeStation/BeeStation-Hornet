@@ -1,0 +1,11 @@
+author: KubeRoot, prodirus, Mothblocks, Frostahr
+delete-after: true
+changes:
+  - rscadd: Reintroduced the accidentally removed illegal shuttle restriction. Illegal
+      shuttles cannot be normally purchased, consoles need to be hacked or emagged
+      to purchase them. Emagging a console will additionally allow you to log into
+      console without access, while obscuring your real name.
+  - bugfix: The communications shuttle now supports HTML formatting in messages.
+  - bugfix: Fixes an embarrasing mistake where the communications console was hardcoded
+      to only list the first 6 shuttles for purchase.
+  - bugfix: Fixes minor issues with the communications console interface.
