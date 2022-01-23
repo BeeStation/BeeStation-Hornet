@@ -42174,19 +42174,13 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningoffice)
 "bjw" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/machinery/modular_fabricator/autolathe,
-/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bjx" = (
 /obj/effect/turf_decal/stripes/line{
@@ -51795,9 +51789,6 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
-	},
-/obj/item/kirbyplants{
-	icon_state = "plant-05"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
@@ -98752,6 +98743,20 @@
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},
 /area/quartermaster/exploration_dock)
+"dtz" = (
+/obj/machinery/modular_fabricator/autolathe,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/machinery/door/window/westleft{
+	dir = 4;
+	name = "Cargo Desk";
+	req_access_txt = "50"
+	},
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/office)
 "dxj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/caution/stand_clear{
@@ -140012,7 +140017,7 @@ bhX
 bhs
 biM
 bLG
-bhX
+dtz
 bsz
 blf
 bkm
