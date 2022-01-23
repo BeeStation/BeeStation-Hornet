@@ -443,6 +443,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			radiation_pulse(src, power * (1 + (tritiumcomp * TRITIUM_RADIOACTIVITY_MODIFIER) + ((pluoxiumcomp * PLUOXIUM_RADIOACTIVITY_MODIFIER) * pluoxiumbonus) * (power_transmission_bonus/(10-(bzcomp * BZ_RADIOACTIVITY_MODIFIER))))) // Rad Modifiers BZ(500%), Tritium(300%), and Pluoxium(-200%)
 		if(bzcomp >= 0.4 && prob(30 * bzcomp))
 			src.fire_nuclear_particle()		// Start to emit radballs at a maximum of 30% chance per tick
+	var/effective_temperature = min(removed.return_temperature(), 2500 * dynamic_heat_modifier)
+
+	//if there is more pluox and n2 then anything else, we receive no power increase from heat
+	if(power_changes)
+		power = max((effective_temperature * temp_factor / T0C) * gasmix_power_ratio + power, 0)
 
 
 		var/device_energy = power * REACTION_POWER_MODIFIER
@@ -455,6 +460,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		//Also keep in mind we are only adding this temperature to (efficiency)% of the one tile the rock
 		//is on. An increase of 4*C @ 25% efficiency here results in an increase of 1*C / (#tilesincore) overall.
 		removed.set_temperature(removed.return_temperature() + ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER))
+	var/max_temp_increase = effective_temperature + ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_CAP_MODIFIER)
+	//Calculate how much gas to release
+	//Varies based on power and gas content
+	removed.adjust_moles(GAS_PLASMA, max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0))
+	//Varies based on power, gas content, and heat
+	removed.adjust_moles(GAS_O2, max(((device_energy + effective_temperature * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
 
 		removed.set_temperature(max(0, min(removed.return_temperature(), 2500 * dynamic_heat_modifier)))
 
