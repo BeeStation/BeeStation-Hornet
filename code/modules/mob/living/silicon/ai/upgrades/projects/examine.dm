@@ -1,6 +1,6 @@
 /datum/ai_project/examine_humans
 	name = "Examination Upgrade"
-	description = "Using experimental image enhancing algorithms will allow you to examine humans, albeit you won't be able to point out every detail.."
+	description = "Using experimental image enhancing algorithms will allow you to examine humans, albeit you won't be able to point out every detail."
 	research_cost = 2500
 	ram_required = 3
 	research_requirements = "Advanced Security HUD & Advanced Medical & Diagnostic HUD"

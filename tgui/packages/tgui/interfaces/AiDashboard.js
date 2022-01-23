@@ -33,16 +33,12 @@ export const AiDashboard = (props, context) => {
               System Integrity
             </LabeledControls.Item>
             <LabeledControls.Item >
-
               <Box bold color="average">
                 {data.location_name}
                 <Box>
                   ({data.location_coords})
                 </Box>
-
               </Box>
-
-              Current Uplink Location
             </LabeledControls.Item>
             <LabeledControls.Item>
               <ProgressBar
@@ -54,7 +50,7 @@ export const AiDashboard = (props, context) => {
                 value={data.temperature}
                 maxValue={750}>{data.temperature}K
               </ProgressBar>
-              Uplink Temperature
+              Core Temperature
             </LabeledControls.Item>
           </LabeledControls>
           <Divider />
@@ -89,7 +85,6 @@ export const AiDashboard = (props, context) => {
         </Section>
         <Divider />
         <Tabs>
-
           <Tabs.Tab
             selected={tab === 1}
             onClick={(() => setTab(1))}>
@@ -99,11 +94,6 @@ export const AiDashboard = (props, context) => {
             selected={tab === 2}
             onClick={(() => setTab(2))}>
             Completed Projects
-          </Tabs.Tab>
-          <Tabs.Tab
-            selected={tab === 3}
-            onClick={(() => setTab(3))}>
-            Cloud Resources
           </Tabs.Tab>
         </Tabs>
         {tab === 1 && (
@@ -167,22 +157,6 @@ export const AiDashboard = (props, context) => {
                 </Box>
               </Section>
             ))}
-          </Section>
-        )}
-        {tab === 3 && (
-          <Section title="Computing Resources">
-            <Section title="CPU Resources">
-              <ProgressBar
-                value={data.current_cpu}
-                maxValue={data.max_cpu}>{data.current_cpu ? data.current_cpu : 0}/{data.max_cpu} THz
-              </ProgressBar>
-            </Section>
-            <Section title="RAM Resources">
-              <ProgressBar
-                value={data.current_ram}
-                maxValue={data.max_ram}>{data.current_ram ? data.current_ram : 0 }/{data.max_ram} TB
-              </ProgressBar>
-            </Section>
           </Section>
         )}
 
