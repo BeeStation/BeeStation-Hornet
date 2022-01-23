@@ -19,7 +19,7 @@
 					/obj/item/storage/backpack/duffelbag/sec = 3,
 					/obj/item/clothing/under/rank/security/officer = 3,
 					/obj/item/clothing/under/plasmaman/security = 3,
-					/obj/item/clothing/suit/toggle/security/corporate = 3,
+					/obj/item/clothing/suit/armor/toggle/security/corporate = 3,
 					/obj/item/clothing/under/rank/security/officer/corporate = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/security = 3,
 					/obj/item/clothing/head/beret/corpsec = 3,

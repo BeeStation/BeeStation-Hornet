@@ -132,14 +132,47 @@
 	item_state = "officerbluejacket"
 	body_parts_covered = CHEST|ARMS
 
-/obj/item/clothing/suit/toggle/security/corporate
+/obj/item/clothing/suit/armor/toggle/security/corporate
 	name = "corporate Jacket"
 	desc = "A stylish corporate jacket which also provides protection."
 	icon_state = "secjacket"
 	item_state = "secjacket"
-	body_parts_covered = CHEST|ARMS
+	body_parts_covered = CHEST|GROIN|ARMS
 	togglename = "zipper"
 	armor = list("melee" = 25, "bullet" = 25, "laser" = 25, "energy" = 35, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 45, "acid" = 45, "stamina" = 30)
+
+//Toggle the suits zipper
+
+/obj/item/clothing/suit/armor/toggle/security/corporate/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+		return
+	else
+		suit_toggle(user)
+
+/obj/item/clothing/suit/armor/toggle/security/corporate/ui_action_click()
+	suit_toggle()
+
+/obj/item/clothing/suit/armor/toggle/security/corporate/proc/suit_toggle()
+	set src in usr
+
+	if(!can_use(usr))
+		return 0
+
+	to_chat(usr, "<span class='notice'>You toggle [src]'s [togglename].</span>")
+	if(src.suittoggled)
+		src.icon_state = "[initial(icon_state)]"
+		src.suittoggled = FALSE
+	else if(!src.suittoggled)
+		src.icon_state = "[initial(icon_state)]_t"
+		src.suittoggled = TRUE
+	usr.update_inv_wear_suit()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
+/obj/item/clothing/suit/armor/toggle/security/corporate/examine(mob/user)
+	. = ..()
+	. += "Alt-click on [src] to toggle the [togglename]."
 
 /obj/item/clothing/suit/security/warden
 	name = "warden's jacket"
