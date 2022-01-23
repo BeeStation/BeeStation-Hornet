@@ -208,6 +208,3 @@ GLOBAL_LIST_INIT(ai_project_categories, list(
 	AI_PROJECT_CAMERAS,
 	AI_PROJECT_MISC
 ))
-
-///How much is the AI download progress increased by per tick? Multiplied by a modifer on the AI if they have upgraded. Need to reach 100 to be downloaded
-#define AI_DOWNLOAD_PER_PROCESS 0.6

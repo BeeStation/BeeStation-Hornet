@@ -12,8 +12,6 @@
 	var/obj/item/mmi/brain
 	var/can_deconstruct = TRUE
 
-	circuit = /obj/item/circuitboard/aicore
-
 /obj/structure/AIcore/Initialize()
 	. = ..()
 	laws = new
@@ -40,8 +38,8 @@
 	return ..()
 
 /obj/structure/AIcore/latejoin_inactive
-	name = "networked AI beacon"
-	desc = "This machine is connected by bluespace transmitters to NTNet, allowing for an AI personality to be downloaded to it on the fly mid-shift."
+	name = "networked AI core"
+	desc = "This AI core is connected by bluespace transmitters to NTNet, allowing for an AI personality to be downloaded to it on the fly mid-shift."
 	can_deconstruct = FALSE
 	icon_state = "ai-empty"
 	anchored = TRUE

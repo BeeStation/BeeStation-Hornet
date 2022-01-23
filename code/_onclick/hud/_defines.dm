@@ -124,8 +124,8 @@
 // AI
 
 #define ui_ai_core "SOUTH:6,WEST"
-#define ui_ai_camera_list "SOUTH:6,WEST+1"
 #define ui_ai_dashboard "SOUTH:5+1,WEST"
+#define ui_ai_camera_list "SOUTH:6,WEST+1"
 #define ui_ai_track_with_camera "SOUTH:6,WEST+2"
 #define ui_ai_camera_light "SOUTH:6,WEST+3"
 #define ui_ai_crew_monitor "SOUTH:6,WEST+4"
