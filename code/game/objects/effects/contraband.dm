@@ -662,4 +662,9 @@
 	desc = "A Syndicate-commissioned poster that uses Syndie Moth(TM?) to tell the viewer to keep the nuclear authentication disk unsecured. No, we aren't doing that. It's signed by 'AspEv'."
 	icon_state = "poster49"
 
+/obj/structure/sign/poster/contraband/turkiye // extremely essential to counteract the imperialist forces of the British mug which is also in the game
+	name = "Turkish Flag"
+	desc = "The flag of the former nationstate of Turkey. How did this get on the station?"
+	icon_state = "poster50"
+
 #undef PLACE_SPEED
