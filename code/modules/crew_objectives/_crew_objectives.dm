@@ -12,10 +12,10 @@
 		return
 	if(!crewMind.assigned_role)
 		return
-	var/list/validobjs = crewobjjobs["[ckey(crewMind.assigned_role)]"]
-	if(!validobjs || !validobjs.len)
+	var/list/valid_objs = crew_obj_jobs["[ckey(crewMind.assigned_role)]"]
+	if(!valid_objs || !valid_objs.len)
 		return
-	var/selectedObj = pick(validobjs)
+	var/selectedObj = pick(valid_objs)
 	var/datum/objective/crew/newObjective = new selectedObj
 	if(!newObjective)
 		return

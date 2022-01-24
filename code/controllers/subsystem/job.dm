@@ -27,8 +27,8 @@ SUBSYSTEM_DEF(job)
 		"Head of Security" = 6)
 
 	//Crew Objective stuff
-	var/list/crewobjlist = list()
-	var/list/crewobjjobs = list()
+	var/list/crew_obj_list = list()
+	var/list/crew_obj_jobs = list()
 
 /datum/controller/subsystem/job/Initialize(timeofday)
 	SSmapping.HACK_LoadMapConfig()
@@ -41,11 +41,11 @@ SUBSYSTEM_DEF(job)
 
 	spare_id_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
 
-	crewobjlist = subtypesof(/datum/objective/crew)
-	for(var/datum/objective/crew/obj as() in crewobjlist) //taken from old Hippie's "job2obj" proc with adjustments.
+	crew_obj_list = subtypesof(/datum/objective/crew)
+	for(var/datum/objective/crew/obj as() in crew_obj_list) //taken from old Hippie's "job2obj" proc with adjustments.
 		var/list/availableto = splittext(initial(obj.jobs),",")
 		for(var/job in availableto)
-			crewobjjobs["[job]"] += obj
+			crew_obj_jobs["[job]"] += list(obj)
 
 	return ..()
 
