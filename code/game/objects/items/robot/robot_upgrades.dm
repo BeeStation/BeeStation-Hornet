@@ -155,7 +155,7 @@
 			R.module.remove_module(D, TRUE)
 		for(var/obj/item/shovel/S in R.module)
 			R.module.remove_module(S, TRUE)
-			
+
 		var/obj/item/pickaxe/drill/cyborg/diamond/DD = new /obj/item/pickaxe/drill/cyborg/diamond(R.module)
 		R.module.basic_modules += DD
 		R.module.add_module(DD, FALSE, TRUE)
@@ -186,7 +186,7 @@
 	if(.)
 		for(var/obj/item/storage/bag/ore/cyborg/S in R.module)
 			R.module.remove_module(S, TRUE)
-			
+
 		var/obj/item/storage/bag/ore/holding/H = new /obj/item/storage/bag/ore/holding(R.module)
 		R.module.basic_modules += H
 		R.module.add_module(H, FALSE, TRUE)
