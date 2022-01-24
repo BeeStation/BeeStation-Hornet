@@ -262,7 +262,7 @@
 	if(.)
 		for(var/obj/item/mop/cyborg/M in R.module.modules)
 			R.module.remove_module(M, TRUE)
-		//Replace with M with advanced mop
+
 		var/obj/item/mop/advanced/cyborg/A = new /obj/item/mop/advanced/cyborg(R.module)
 		R.module.basic_modules += A
 		R.module.add_module(A, FALSE, TRUE)
