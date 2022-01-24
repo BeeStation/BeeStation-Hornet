@@ -6329,12 +6329,10 @@
 	},
 /area/maintenance/starboard)
 "aks" = (
-/obj/structure/plasticflaps/opaque,
-/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/turf/open/floor/plasteel/dark,
+/turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "akt" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
@@ -12165,11 +12163,10 @@
 	name = "deathsposal unit"
 	},
 /obj/structure/disposalpipe/trunk,
-/obj/structure/sign/warning/deathsposal{
-	layer = 4;
-	pixel_x = -32
-	},
 /obj/effect/turf_decal/bot,
+/obj/structure/sign/warning/deathsposal{
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "asX" = (
@@ -39677,6 +39674,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/computer/prisoner/gulag_teleporter_computer{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/processing)
 "bgd" = (
@@ -98988,10 +98988,6 @@
 	},
 /turf/closed/wall,
 /area/quartermaster/warehouse)
-"ewD" = (
-/obj/structure/sign/warning/securearea,
-/turf/closed/mineral/random/labormineral,
-/area/space/nearstation)
 "ewJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -142535,7 +142531,7 @@ aaa
 aaa
 aeu
 aeu
-ewD
+aeu
 aeu
 aeu
 alB
