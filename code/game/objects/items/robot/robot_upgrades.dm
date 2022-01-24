@@ -153,7 +153,7 @@
 	if(.)
 		for(var/obj/item/pickaxe/drill/cyborg/D in R.module)
 			R.module.remove_module(D, TRUE)
-		//Remove the Shovel too
+
 		for(var/obj/item/shovel/S in R.module)
 			R.module.remove_module(S, TRUE)
 		var/obj/item/pickaxe/drill/cyborg/diamond/DD = new /obj/item/pickaxe/drill/cyborg/diamond(R.module)
@@ -186,7 +186,6 @@
 	if(.)
 		for(var/obj/item/storage/bag/ore/cyborg/S in R.module)
 			R.module.remove_module(S, TRUE)
-		//Replace with Upgrade
 		var/obj/item/storage/bag/ore/holding/H = new /obj/item/storage/bag/ore/holding(R.module)
 		R.module.basic_modules += H
 		R.module.add_module(H, FALSE, TRUE)
@@ -234,7 +233,7 @@
 	if(.)
 		for(var/obj/item/storage/bag/trash/cyborg/TB in R.module.modules)
 			R.module.remove_module(TB, TRUE)
-		//Replace TB with
+
 		var/obj/item/storage/bag/trash/bluespace/cyborg/B = new /obj/item/storage/bag/trash/bluespace/cyborg(R.module)
 		R.module.basic_modules += B
 		R.module.add_module(B, FALSE, TRUE)
