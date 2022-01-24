@@ -3808,6 +3808,17 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
+"aWy" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/white/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/security/prison/asteroid)
 "aWD" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/disposalpipe/segment{
@@ -5183,6 +5194,7 @@
 	id = "QMLoading";
 	name = "Loading Ramp"
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "bmT" = (
@@ -11311,6 +11323,9 @@
 	name = "\improper ANTI-RAD SHELTER";
 	pixel_x = -32
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "n2=23;o2=14"
 	},
@@ -15638,6 +15653,12 @@
 "dAy" = (
 /turf/open/floor/vault,
 /area/medical/genetics)
+"dAV" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/security/prison/asteroid)
 "dBk" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
@@ -22464,6 +22485,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
+"fda" = (
+/obj/effect/turf_decal/trimline/white/line,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/security/prison/asteroid)
 "fdf" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
@@ -28345,6 +28372,17 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/research)
+"gxk" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/white/corner{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/security/prison/asteroid)
 "gxw" = (
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 8
@@ -32598,6 +32636,17 @@
 	dir = 4
 	},
 /area/hallway/primary/fore)
+"huO" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/security/prison/asteroid)
 "huQ" = (
 /obj/structure/sign/nanotrasen{
 	pixel_y = 32
@@ -35066,6 +35115,14 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
+"hYP" = (
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/security/prison/asteroid)
 "hYX" = (
 /obj/structure/disposalpipe/sorting/mail{
 	name = "Engineering Junction";
@@ -40569,6 +40626,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 6
+	},
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "n2=23;o2=14"
 	},
@@ -43898,6 +43958,7 @@
 	id = "QMLoadingDoor";
 	name = "Supply Dock Loading Door"
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "kcu" = (
@@ -46351,6 +46412,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
+"kGk" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/security/prison/asteroid)
 "kGp" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/vending/tool,
@@ -56564,6 +56633,7 @@
 	id = "QMLoading";
 	name = "Loading Ramp"
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "nfy" = (
@@ -56632,9 +56702,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
 "ngt" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -56643,6 +56710,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 5
 	},
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "n2=23;o2=14"
@@ -64545,6 +64615,9 @@
 	dir = 4;
 	pixel_x = -22
 	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/security/prison/asteroid)
 "peY" = (
@@ -65710,8 +65783,9 @@
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "pvW" = (
-/obj/structure/holohoop,
-/obj/effect/turf_decal/stripes/end,
+/obj/structure/holohoop{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "n2=23;o2=14"
 	},
@@ -86508,6 +86582,10 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/white/corner,
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "n2=23;o2=14"
 	},
@@ -86571,6 +86649,20 @@
 /obj/effect/turf_decal/tile/brown/tile_full,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"ukJ" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/white/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "n2=23;o2=14"
+	},
+/area/security/prison/asteroid)
 "ukK" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -92139,8 +92231,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/railing{
-	dir = 4
+/obj/effect/turf_decal/trimline/white/line{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "n2=23;o2=14"
@@ -92942,6 +93034,9 @@
 /obj/item/book/granter/crafting_recipe/cooking_sweets_101,
 /obj/item/storage/box/donkpockets,
 /obj/item/clothing/head/chefhat,
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/security/prison/asteroid)
 "vMt" = (
@@ -100324,9 +100419,6 @@
 /area/quartermaster/warehouse)
 "xGM" = (
 /obj/structure/holohoop{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark{
@@ -149572,13 +149664,13 @@ wUX
 fwI
 nJL
 qeb
-jkc
-ukv
-jkc
+huO
+ukJ
+kGk
 jlc
 cAH
 ukv
-jkc
+huO
 vvA
 vTN
 vdW
@@ -149830,11 +149922,11 @@ nFN
 vck
 qeb
 pvW
-jkc
+hYP
 jkc
 usV
 jkc
-jkc
+fda
 xGM
 vvA
 qeb
@@ -150087,11 +150179,11 @@ uuU
 qeb
 qeb
 vBa
-vBa
+gxk
 eGL
 ngt
 eGL
-vBa
+aWy
 vBa
 vvA
 vTN
@@ -150343,12 +150435,12 @@ qcG
 qvh
 wUV
 peW
-wUV
-wUV
+dAV
+dAV
 efu
 mzp
 wUV
-wUV
+dAV
 vMr
 vvA
 qeb
