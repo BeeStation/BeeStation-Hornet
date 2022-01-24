@@ -187,6 +187,7 @@
 		to_chat(user, "<span class='userdanger'>[src] malfunctions, spewing concentrated plasma onto you! It burns!</span>")
 		user.adjust_fire_stacks(4)
 		user.IgniteMob()
+		user.emote("scream")
 
 // Tool procs, in case plasma cutter is used as welder
 // Can we start welding?
