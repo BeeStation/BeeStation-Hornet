@@ -802,7 +802,7 @@ GENE SCANNER
 	var/ready = TRUE
 	var/cooldown = 200
 
-/obj/item/sequence_scanner/attack(mob/living/M, mob/living/carbon/human/user)
+/obj/item/sequence_scanner/attack(mob/living/M, mob/living/user)
 	add_fingerprint(user)
 	if(!HAS_TRAIT(M, TRAIT_RADIMMUNE) && !HAS_TRAIT(M, TRAIT_BADDNA)) //no scanning if its a husk or DNA-less Species
 		user.visible_message("<span class='notice'>[user] analyzes [M]'s genetic sequence.</span>", \
