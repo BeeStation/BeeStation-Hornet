@@ -177,6 +177,17 @@
 	else
 		..()
 
+/obj/item/gun/energy/plasmacutter/emp_act(severity)
+	if(!cell.charge)
+		return
+	cell.use(cell.charge/3)
+	if(isliving(loc))
+		var/mob/living/user = loc
+		user.visible_message("<span class='danger'>Concentrated plasma discharges from [src] onto [user], burning them!</span>")
+		to_chat(user, "<span class='userdanger'>[src] malfunctions, spewing concentrated plasma onto you! It burns!</span>")
+		user.adjust_fire_stacks(4)
+		user.IgniteMob()
+
 // Tool procs, in case plasma cutter is used as welder
 // Can we start welding?
 /obj/item/gun/energy/plasmacutter/tool_start_check(mob/living/user, amount)
