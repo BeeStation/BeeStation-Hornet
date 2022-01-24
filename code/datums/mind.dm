@@ -385,14 +385,14 @@
 	output += memory
 
 
-	var/list/all_objectives = get_all_objectives()
+	var/list/antag_objectives = get_all_antag_objectives()
 	for(var/datum/antagonist/A in antag_datums)
 		output += A.antag_memory
 
-	if(all_objectives.len)
+	if(antag_objectives.len)
 		output += "<br><B>Objectives:</B>"
 		var/obj_count = 1
-		for(var/datum/objective/objective in all_objectives)
+		for(var/datum/objective/objective in antag_objectives)
 			output += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
 			var/list/datum/mind/other_owners = objective.get_owners() - src
 			if(other_owners.len)
@@ -407,7 +407,7 @@
 
 	if(window)
 		recipient << browse(output,"window=memory")
-	else if(all_objectives.len || crew_objectives.len || memory)
+	else if(antag_objectives.len || crew_objectives.len || memory)
 		to_chat(recipient, "<i>[output]</i>")
 
 /datum/mind/Topic(href, href_list)
@@ -588,21 +588,24 @@
 	traitor_panel()
 
 
-/datum/mind/proc/get_all_objectives()
-	var/list/all_objectives = list()
+/datum/mind/proc/get_all_antag_objectives()
+	var/list/antag_objectives = list()
 	for(var/datum/antagonist/A in antag_datums)
-		all_objectives |= A.objectives
+		antag_objectives |= A.objectives
 		var/datum/team/team = A.get_team()
 		if(team)
-			all_objectives |= team.objectives
-	return all_objectives
+			antag_objectives |= team.objectives
+	return antag_objectives
+
+/datum/mind/proc/get_all_objectives()
+	return get_all_antag_objectives() | crew_objectives
 
 /datum/mind/proc/announce_objectives()
 	var/obj_count = 1
-	var/list/all_objectives = get_all_objectives()
-	if(all_objectives.len)
+	var/list/antag_objectives = get_all_antag_objectives()
+	if(antag_objectives.len)
 		to_chat(current, "<span class='notice'>Your current objectives:</span>")
-		for(var/datum/objective/O as() in all_objectives)
+		for(var/datum/objective/O as() in antag_objectives)
 			to_chat(current, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
 			obj_count++
 	if(crew_objectives.len)

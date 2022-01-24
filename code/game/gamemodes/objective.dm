@@ -85,7 +85,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		var/list/objectives_to_compare
 		if(istype(A,/datum/mind))
 			var/datum/mind/M = A
-			objectives_to_compare = M.get_all_objectives() + M.crew_objectives
+			objectives_to_compare = M.get_all_objectives()
 		else if(istype(A,/datum/antagonist))
 			var/datum/antagonist/G = A
 			objectives_to_compare = G.objectives
