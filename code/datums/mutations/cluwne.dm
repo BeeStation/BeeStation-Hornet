@@ -1,11 +1,11 @@
-/datum/mutation/human/cluwne
+/datum/mutation/cluwne
 	name = "Cluwne"
 	desc = "Turns a person into a Cluwne, a poor soul cursed to a short and miserable life by the honkmother."
 	quality = NEGATIVE
 	locked = TRUE
 	text_gain_indication = "<span class='danger'>You feel like your brain is tearing itself apart.</span>"
 
-/datum/mutation/human/cluwne/on_acquiring(mob/living/carbon/owner)
+/datum/mutation/cluwne/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	owner.dna.add_mutation(CLOWNMUT)
@@ -31,7 +31,7 @@
 		owner.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/white(owner), ITEM_SLOT_GLOVES) // this is purely for cosmetic purposes incase they aren't wearing anything in that slot
 	owner.equip_to_slot_or_del(new /obj/item/storage/backpack/clown(owner), ITEM_SLOT_BACK) // ditto
 
-/datum/mutation/human/cluwne/on_life()
+/datum/mutation/cluwne/on_life()
 	if(prob(15) && owner.IsUnconscious())
 		owner.setOrganLoss(ORGAN_SLOT_BRAIN, 199)
 		switch(rand(1, 6))
@@ -44,7 +44,7 @@
 				owner.Knockdown(20)
 				owner.Jitter(500)
 
-/datum/mutation/human/cluwne/on_losing(mob/living/carbon/owner)
+/datum/mutation/cluwne/on_losing(mob/living/carbon/owner)
 	owner.adjust_fire_stacks(1)
 	owner.IgniteMob()
 	owner.dna.add_mutation(CLUWNEMUT)
