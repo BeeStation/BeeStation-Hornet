@@ -9719,7 +9719,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "ass" = (
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
 /obj/structure/bed/dogbed/walter,
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -30
