@@ -21,6 +21,7 @@ export const Button = props => {
     icon,
     iconRotation,
     iconSpin,
+    iconPosition,
     color,
     disabled,
     selected,
