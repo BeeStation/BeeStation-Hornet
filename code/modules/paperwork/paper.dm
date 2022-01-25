@@ -259,20 +259,13 @@
 		data["pen_color"] = PEN.paint_color
 		data["edit_mode"] = MODE_WRITING
 		data["is_crayon"] = TRUE
-		data["stamp_class"] = "FAKE"
-		data["stamp_icon_state"] = "FAKE"
 	else if(istype(holding, /obj/item/pen))
 		var/obj/item/pen/PEN = holding
 		data["pen_font"] = PEN.font
 		data["pen_color"] = PEN.colour
 		data["edit_mode"] = MODE_WRITING
 		data["is_crayon"] = FALSE
-		data["stamp_class"] = "FAKE"
-		data["stamp_icon_state"] = "FAKE"
 	else if(istype(holding, /obj/item/stamp))
-		var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
-		data["stamp_icon_state"] = holding.icon_state
-		data["stamp_class"] = sheet.icon_class_name(holding.icon_state)
 		data["edit_mode"] = MODE_STAMPING
 		data["pen_font"] = "FAKE"
 		data["pen_color"] = "FAKE"
@@ -282,8 +275,6 @@
 		data["pen_font"] = "FAKE"
 		data["pen_color"] = "FAKE"
 		data["is_crayon"] = FALSE
-		data["stamp_icon_state"] = "FAKE"
-		data["stamp_class"] = "FAKE"
 	if(istype(loc, /obj/structure/noticeboard))
 		var/obj/structure/noticeboard/noticeboard = loc
 		if(!noticeboard.allowed(user))
@@ -298,32 +289,37 @@
 		return
 	switch(action)
 		if("stamp")
+		 	if(length(stamps) >= MAX_PAPER_STAMPS)
+			 	to_chat(usr, pick("You try to stamp but you miss!", "There is no where else you can stamp!"))
+				return TRUE
+
 			var/stamp_x = text2num(params["x"])
 			var/stamp_y = text2num(params["y"])
 			var/stamp_r = text2num(params["r"])	// rotation in degrees
-			var/stamp_icon_state = params["stamp_icon_state"]
-			var/stamp_class = params["stamp_class"]
+
+			var/real_stamp = istype(user.get_active_held_item(), /obj/item/stamp)
+			var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+			var/stamp_icon_state = real_stamp ? holding.icon_state : "FAKE"
+			var/stamp_class = real_stamp ? sheet.icon_class_name(holding.icon_state) : "FAKE"
+
 			if (isnull(stamps))
 				stamps = list()
-			if(stamps.len < MAX_PAPER_STAMPS)
-				// I hate byond when dealing with freaking lists
-				stamps[++stamps.len] = list(stamp_class, stamp_x, stamp_y, stamp_r)	/// WHHHHY
 
-				/// This does the overlay stuff
-				if (isnull(stamped))
-					stamped = list()
-				if(stamped.len < MAX_PAPER_STAMPS_OVERLAYS)
-					var/mutable_appearance/stampoverlay = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_[stamp_icon_state]")
-					stampoverlay.pixel_x = rand(-2, 2)
-					stampoverlay.pixel_y = rand(-3, 2)
-					add_overlay(stampoverlay)
-					LAZYADD(stamped, stamp_icon_state)
+			// I hate byond when dealing with freaking lists
+			stamps[++stamps.len] = list(stamp_class, stamp_x, stamp_y, stamp_r)	/// WHHHHY
 
-				update_static_data(usr,ui)
-				ui.user.visible_message("<span class='notice'>[ui.user] stamps [src] with [stamp_class]!</span>", "<span class='notice'>You stamp [src] with [stamp_class]!</span>")
-			else
-				to_chat(usr, pick("You try to stamp but you miss!", "There is no where else you can stamp!"))
-			. = TRUE
+			/// This does the overlay stuff
+			if (isnull(stamped))
+				stamped = list()
+			if(stamped.len < MAX_PAPER_STAMPS_OVERLAYS)
+				var/mutable_appearance/stampoverlay = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_[stamp_icon_state]")
+				stampoverlay.pixel_x = rand(-2, 2)
+				stampoverlay.pixel_y = rand(-3, 2)
+				add_overlay(stampoverlay)
+				LAZYADD(stamped, stamp_icon_state)
+
+			update_static_data(usr,ui)
+			ui.user.visible_message("<span class='notice'>[ui.user] stamps [src] with [stamp_class]!</span>", "<span class='notice'>You stamp [src] with [stamp_class]!</span>")
 
 		if("save")
 			var/in_paper = params["text"]
@@ -335,19 +331,20 @@
 				// the javascript was modified, somehow, outside of
 				// byond.  but right now we are logging it as
 				// the generated html might get beyond this limit
-				log_paper("[key_name(ui.user)] writing to paper [name], and overwrote it by [paper_len-MAX_PAPER_LENGTH]")
-			if(paper_len == 0)
+				log_paper("[key_name(ui.user)] writing to paper [name], and overwrote it by [paper_len - MAX_PAPER_LENGTH] characters")
+				in_paper = copytext(in_paper, 1, MAX_PAPER_LENGTH)
+				to_chat(ui.user, "You run out of room on the paper!")
+
+			else if(paper_len == 0)
 				to_chat(ui.user, pick("Writing block strikes again!", "You forgot to write anthing!"))
 			else
 				log_paper("[key_name(ui.user)] writing to paper [name]")
-				if(info != in_paper)
-					to_chat(ui.user, "You have added to your paper masterpiece!");
-					info = in_paper
-					update_static_data(usr,ui)
+				to_chat(ui.user, "You have added to your paper masterpiece!");
+				info = in_paper
+				update_static_data(usr,ui)
 
 
 			update_icon()
-			. = TRUE
 
 /obj/item/paper/ui_host(mob/user)
 	if(istype(loc, /obj/structure/noticeboard))
