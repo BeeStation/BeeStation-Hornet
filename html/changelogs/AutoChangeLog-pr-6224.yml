@@ -1,0 +1,5 @@
+author: ImSynthex
+delete-after: true
+changes:
+  - balance: Particle Accelerator, Tesla generator and Singularity generator crates
+      now have locks on them that need engineering access to open

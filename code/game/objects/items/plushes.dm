@@ -2,6 +2,8 @@
 	name = "plush"
 	desc = "This is the special coder plush, do not steal."
 	icon = 'icons/obj/plushes.dmi'
+	lefthand_file = 'icons/mob/inhands/plushes_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/plushes_righthand.dmi'
 	icon_state = "debug"
 	attack_verb = list("thumped", "whomped", "bumped")
 	w_class = WEIGHT_CLASS_SMALL
@@ -367,7 +369,6 @@
 	name = "space carp plushie"
 	desc = "An adorable stuffed toy that resembles a space carp."
 	icon_state = "carpplush"
-	item_state = "carp_plushie"
 	attack_verb = list("bitten", "eaten", "fin slapped")
 	squeak_override = list('sound/weapons/bite.ogg'=1)
 
@@ -487,32 +488,28 @@
 /obj/item/toy/plush/lizardplushie
 	name = "lizard plushie"
 	desc = "An adorable stuffed toy that resembles a lizardperson."
-	icon_state = "plushie_lizard"
-	item_state = "plushie_lizard"
+	icon_state = "lizardplush"
 	attack_verb = list("clawed", "hissed", "tail slapped")
 	squeak_override = list('sound/weapons/slash.ogg' = 1)
 
 /obj/item/toy/plush/snakeplushie
 	name = "snake plushie"
 	desc = "An adorable stuffed toy that resembles a snake. Not to be mistaken for the real thing."
-	icon_state = "plushie_snake"
-	item_state = "plushie_snake"
+	icon_state = "snakeplush"
 	attack_verb = list("bitten", "hissed", "tail slapped")
 	squeak_override = list('sound/weapons/bite.ogg' = 1)
 
 /obj/item/toy/plush/nukeplushie
 	name = "operative plushie"
 	desc = "A stuffed toy that resembles a syndicate nuclear operative. The tag claims operatives to be purely fictitious."
-	icon_state = "plushie_nuke"
-	item_state = "plushie_nuke"
+	icon_state = "nukeplush"
 	attack_verb = list("shot", "nuked", "detonated")
 	squeak_override = list('sound/effects/hit_punch.ogg' = 1)
 
 /obj/item/toy/plush/slimeplushie
 	name = "slime plushie"
 	desc = "An adorable stuffed toy that resembles a slime. It is practically just a hacky sack."
-	icon_state = "plushie_slime"
-	item_state = "plushie_slime"
+	icon_state = "slimeplush"
 	attack_verb = list("blorbled", "slimed", "absorbed")
 	squeak_override = list('sound/effects/blobattack.ogg' = 1)
 	gender = FEMALE	//given all the jokes and drawings, I'm not sure the xenobiologists would make a slimeboy
@@ -521,8 +518,7 @@
 /obj/item/toy/plush/awakenedplushie
 	name = "awakened plushie"
 	desc = "An ancient plushie that has grown enlightened to the true nature of reality."
-	icon_state = "plushie_awake"
-	item_state = "plushie_awake"
+	icon_state = "awakeplush"
 
 /obj/item/toy/plush/awakenedplushie/ComponentInitialize()
 	. = ..()
@@ -531,8 +527,7 @@
 /obj/item/toy/plush/beeplushie
 	name = "bee plushie"
 	desc = "A cute toy that resembles an even cuter bee."
-	icon_state = "plushie_h"
-	item_state = "plushie_h"
+	icon_state = "beeplush"
 	attack_verb = list("stung")
 	gender = FEMALE
 	squeak_override = list('sound/voice/moth/scream_moth.ogg'=1)
@@ -540,8 +535,7 @@
 /obj/item/toy/plush/rouny
 	name = "runner plushie"
 	desc = "A plushie depicting a xenomorph runner, made to commemorate the centenary of the Battle of LV-426. Much cuddlier than the real thing."
-	icon_state = "rouny"
-	icon_state = "rouny"
+	icon_state = "rounyplush"
 	attack_verb = list("slashes", "bites", "charges")
 	squeak_override = list('sound/weapons/bite.ogg' = 1)
 
@@ -549,7 +543,6 @@
 	name = "moth plushie"
 	desc = "An adorable mothperson plushy. It's a huggable bug!"
 	icon_state = "moffplush"
-	item_state = "moffplush"
 	attack_verb = list("fluttered", "flapped")
 	squeak_override = list('sound/voice/moth/scream_moth.ogg'=1)
 ///Used to track how many people killed themselves with item/toy/plush/moth
@@ -577,6 +570,23 @@
 	desc = "It reminds you of someone important, you just can't make out who."
 	icon_state = "crossedplush"
 	squeak_override = list('sound/items/haunted/ghostitemattack.ogg'=1)
+
+/obj/item/toy/plush/runtime
+	name = "Runtime plushie"
+	desc = "GPLUSH."
+	icon_state = "runtimeplush"
+	squeak_override = list('sound/effects/meow1.ogg'=1)
+
+/obj/item/toy/plush/gondola
+	name = "gondola plushie"
+	desc = "The silent walker, in plush form."
+	icon_state = "gondolaplush"
+	squeak_override = list('sound/misc/null.ogg'=1)
+
+/obj/item/toy/plush/flushed
+	name = "flushed plushie"
+	desc = "Hgrgrhrhg cute."
+	icon_state = "flushplush"
 
 /////////////////
 //DONATOR ITEMS//
