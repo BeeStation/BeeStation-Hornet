@@ -90,7 +90,7 @@
 /obj/structure/sign/logo{
 	pixel_y = 32
 	},
-/turf/open/space,
+/turf/template_noop,
 /area/space)
 "L" = (
 /obj/effect/turf_decal/tile/neutral/tile_marquee,
@@ -106,7 +106,7 @@
 	icon_state = "nanotrasen_sign2";
 	pixel_y = 32
 	},
-/turf/open/space,
+/turf/template_noop,
 /area/space)
 "O" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -118,7 +118,7 @@
 	icon_state = "nanotrasen_sign3";
 	pixel_y = 32
 	},
-/turf/open/space,
+/turf/template_noop,
 /area/space)
 "R" = (
 /obj/effect/turf_decal/tile/neutral/tile_marquee,
@@ -147,7 +147,7 @@
 	icon_state = "nanotrasen_sign4";
 	pixel_y = 32
 	},
-/turf/open/space,
+/turf/template_noop,
 /area/space)
 "Y" = (
 /obj/structure/lattice,
@@ -155,7 +155,7 @@
 	icon_state = "nanotrasen_sign5";
 	pixel_y = 32
 	},
-/turf/open/space,
+/turf/template_noop,
 /area/space)
 
 (1,1,1) = {"
