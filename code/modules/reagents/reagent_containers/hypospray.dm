@@ -201,6 +201,15 @@
 	amount_per_transfer_from_this = 50
 	list_reagents = list(/datum/reagent/medicine/pumpup = 50)
 
+/obj/item/reagent_containers/hypospray/medipen/stimulants
+	name = "stimulant medipen"
+	desc = "Contains a very large amount of an incredibly powerful stimulant, vastly increasing your movement speed and reducing stuns by a very large amount for around five minutes. Do not take if pregnant."
+	icon_state = "syndipen"
+	item_state = "tbpen"
+	volume = 50
+	amount_per_transfer_from_this = 50
+	list_reagents = list(/datum/reagent/medicine/amphetamine = 50)
+
 /obj/item/reagent_containers/hypospray/medipen/morphine
 	name = "morphine medipen"
 	desc = "A rapid way to get you out of a tight situation and fast! You'll feel rather drowsy, though."
