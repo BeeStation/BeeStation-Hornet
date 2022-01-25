@@ -241,8 +241,6 @@
 	.["paper_state"] = icon_state	/// TODO: show the sheet will bloodied or crinkling?
 	.["stamps"] = stamps
 
-
-
 /obj/item/paper/ui_data(mob/user)
 	var/list/data = list()
 	data["edit_usr"] = "[user]"
@@ -289,15 +287,16 @@
 		return
 	switch(action)
 		if("stamp")
-		 	if(length(stamps) >= MAX_PAPER_STAMPS)
-			 	to_chat(usr, pick("You try to stamp but you miss!", "There is no where else you can stamp!"))
-				return TRUE
+			if(length(stamps) >= MAX_PAPER_STAMPS)
+				to_chat(usr, pick("You try to stamp but you miss!", "There is no where else you can stamp!"))
+				return FALSE
 
 			var/stamp_x = text2num(params["x"])
 			var/stamp_y = text2num(params["y"])
 			var/stamp_r = text2num(params["r"])	// rotation in degrees
 
-			var/real_stamp = istype(user.get_active_held_item(), /obj/item/stamp)
+			var/obj/holding = ui.user.get_active_held_item()
+			var/real_stamp = istype(holding, /obj/item/stamp)
 			var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
 			var/stamp_icon_state = real_stamp ? holding.icon_state : "FAKE"
 			var/stamp_class = real_stamp ? sheet.icon_class_name(holding.icon_state) : "FAKE"
@@ -342,9 +341,7 @@
 				to_chat(ui.user, "You have added to your paper masterpiece!");
 				info = in_paper
 				update_static_data(usr,ui)
-
-
-			update_icon()
+				update_icon()
 
 /obj/item/paper/ui_host(mob/user)
 	if(istype(loc, /obj/structure/noticeboard))
