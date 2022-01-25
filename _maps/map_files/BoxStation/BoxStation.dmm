@@ -49365,6 +49365,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/machinery/power/apc/auto_name/east,
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "ktF" = (
