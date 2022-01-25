@@ -135,7 +135,7 @@
 	tab_data["Cogs Available"] = GENERATE_STAT_TEXT("[cogs] Cogs")
 	return tab_data
 
-/mob/living/simple_animal/revenant/update_health_hud()
+/mob/living/simple_animal/eminence/update_health_hud()
 	return
 
 //Eminence abilities
