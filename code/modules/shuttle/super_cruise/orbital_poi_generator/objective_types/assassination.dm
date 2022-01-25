@@ -47,17 +47,18 @@
 		if("dictator")
 			created_human.flavor_text = "It has been months since your regime fell. Once a hero, you're now just someone wishing that they will see the next sunrise. You know those \
 				Nanotrasen pigs are after you, and will stop at nothing to capture you. All you want at this point is to get out and survive, however it is likely you will never leave \
-				without being captured."
+				without being captured, or worse..."
 			created_human.equipOutfit(/datum/outfit/vip_dictator)
 		if("greytide")
-			created_human.flavor_text = "You are just an assistant on a lonely derelict station. You dream of going home, \
-				but a powerful corporation wants you dead. Stay alive."
-			created_human.equipOutfit(/datum/outfit/greytide)
+			created_human.flavor_text = "You are just an assistant on a lonely derelict station. You dream of going home, but you broke the wrong airlock - \
+			Now your former employer, Nanotrasen, is after you..."
+			created_human.equipOutfit(/datum/outfit/vip_target/greytide)
 		if("operative")
-			created_human.flavor_text = "You are a syndicate operative standed by your team aboard an ancient ruin. You know it won't take long for Nanotrasen \
-				to catch up and eliminate you, stay on your guard."
+			created_human.flavor_text = "You are a syndicate operative stranded by your [pick("strike team", "fellow nuclear operatives", "benefactors")] aboard an ancient ruin with \
+			barely enough to navigate it's corridors... yet despite your rigorous training to differentiate you from a stationside operative, you've got a chilling feeling hugging your \
+			spine..."
 			created_human.equipOutfit(/datum/outfit/vip_operative)
-	created_human.mind.store_memory("Someone is out to assassinate you... Stay alive.")
+	created_human.mind.store_memory("[created_human.flavor_text] - Someone is out to assassinate you... Stay alive.")
 	created_human.mind.add_antag_datum(/datum/antagonist/survivalist)
 	mob_to_kill = created_human
 	generated = TRUE
@@ -67,7 +68,7 @@
 //=====================
 
 /datum/outfit/vip_operative
-	name = "Operative VIP"
+	name = "Operative (VIP Target)"
 
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/armor/bulletproof
@@ -82,11 +83,11 @@
 	id = /obj/item/card/id/away/old
 
 //=====================
-// Matryr Dictator
+// Martyr Dictator
 //=====================
 
 /datum/outfit/vip_dictator
-	name = "Dictator VIP"
+	name = "Dictator (VIP Target)"
 
 	uniform = /obj/item/clothing/under/rank/security/head_of_security/white
 	suit = /obj/item/clothing/suit/armor/hos

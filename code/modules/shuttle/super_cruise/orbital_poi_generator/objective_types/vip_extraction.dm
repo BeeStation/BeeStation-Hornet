@@ -46,32 +46,47 @@
 		if("centcom_official")
 			created_human.flavor_text = "You are a CentCom official onboard a badly damaged station. Making your way back to Space Station 13 to uncover the secrets you hold is \
 				your top priority as far as Nanotrasen is concerned, but surviving just one more day is all you can ask for."
-			created_human.equipOutfit(/datum/outfit/centcom_official_vip)
+			created_human.equipOutfit(/datum/outfit/vip_target/centcom_official_vip)
 			antag_elligable = TRUE
 		if("greytide")
 			created_human.flavor_text = "You are just an assistant on a lonely derelict station. You dream of going home, \
 				but it would take another one of the miracles that kept you alive to get you home."
-			created_human.equipOutfit(/datum/outfit/greytide)
+			created_human.equipOutfit(/datum/outfit/vip_target/greytide)
 			antag_elligable = TRUE
 	created_human.mind.store_memory(created_human.flavor_text)
 	if(antag_elligable)
 		if(prob(7))
 			created_human.mind.make_Traitor()
+			created_human.flavor_text += " - That was, until you made a deal with your newfound Benefactors. You know Nanotrasen is sending a recovery team - \
+			And, hopefully, how to exploit your newfound position..." //Makes their special status a little more obvious upon entering the mob
 		else if(prob(8))
 			created_human.mind.make_Changeling()
+			created_human.flavor_text += " - Or so's the cover story we've curated to sway the hearts of the hapless souls who, one day, may stumble upon \
+			our miserable, eeked out existence here... And inadvertently begin the hunt anew." //Ditto
 	mob_to_recover = created_human
 	generated = TRUE
 
+//=====================
+// BASE VIP Outfit
+//=====================
+//Here to pre-emptively allow for post_equip in future expansions
+
+/datum/outfit/vip_target
+	name = "Base VIP Target"
+
+	uniform = /obj/item/clothing/under/color/random
+	shoes = /obj/item/clothing/shoes/sneakers/black
+	back = /obj/item/storage/backpack
+	r_hand = /obj/item/gps
 
 //=====================
-// Centcom Official
+// Centcom Official (VIP)
 //=====================
 
-/datum/outfit/centcom_official_vip
-	name = "Centcom VIP"
+/datum/outfit/vip_target/centcom_official_vip
+	name = "Centcom (VIP Target)"
 
 	uniform = /obj/item/clothing/under/rank/centcom/officer
-	shoes = /obj/item/clothing/shoes/sneakers/black
 	gloves = /obj/item/clothing/gloves/color/black
 	ears = /obj/item/radio/headset/headset_cent/empty
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
@@ -80,17 +95,15 @@
 	back = /obj/item/storage/backpack/satchel
 	r_pocket = /obj/item/pda/heads
 	l_hand = /obj/item/clipboard
-	r_hand = /obj/item/gps
 	id = /obj/item/card/id/away/old
 
 //=====================
-// Greytide
+// Greytide (VIP And Assassination)
 //=====================
 
-/datum/outfit/greytide
-	name = "Greytide"
+/datum/outfit/vip_target/greytide
+	name = "Greytide (VIP Target)"
 
-	uniform = /obj/item/clothing/under/color/random
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/yellow
@@ -100,4 +113,3 @@
 	id = /obj/item/card/id
 	head = /obj/item/clothing/head/helmet
 	l_hand = /obj/item/melee/baton/loaded
-	r_hand = /obj/item/gps
