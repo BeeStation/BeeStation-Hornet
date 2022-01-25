@@ -54,6 +54,12 @@
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"B" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "D" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate/bin,
@@ -122,7 +128,7 @@ u
 a
 "}
 (3,1,1) = {"
-a
+B
 e
 e
 e

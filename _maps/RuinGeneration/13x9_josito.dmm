@@ -43,7 +43,7 @@
 /area/ruin/unpowered)
 "p" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/techstorage/medical,
+/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
 /turf/open/floor/carpet/purple,
 /area/ruin/unpowered)
 "r" = (

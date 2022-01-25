@@ -90,7 +90,7 @@
 "py" = (
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall,
-/area/space)
+/area/ruin/unpowered)
 "qg" = (
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/effect/turf_decal/stripes/red/line{
