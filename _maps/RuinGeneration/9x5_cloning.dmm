@@ -18,10 +18,6 @@
 /obj/machinery/clonepod/experimental,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
-"m" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/ruin/unpowered)
 "o" = (
 /obj/structure/closet/wardrobe/mixed,
 /turf/open/floor/plasteel/white,
@@ -94,8 +90,8 @@
 
 (1,1,1) = {"
 a
-m
-m
+a
+a
 a
 a
 "}
@@ -150,8 +146,8 @@ a
 "}
 (9,1,1) = {"
 a
-m
-m
+a
+a
 a
 a
 "}
