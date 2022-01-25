@@ -96,9 +96,13 @@
 	. = ..()
 
 /obj/item/paper/Initialize()
-	. = ..()
+	..()
 	pixel_y = rand(-8, 8)
 	pixel_x = rand(-9, 9)
+	return INITIALIZE_HINT_LATELOAD
+
+// Everyone forgets to call update_icon() after changing the info
+/obj/item/paper/LateInitialize()
 	update_icon()
 
 /obj/item/paper/update_icon_state()
@@ -245,6 +249,9 @@
 	var/list/data = list()
 	data["edit_usr"] = "[user]"
 
+	data["stamp_class"] = "FAKE"
+	data["stamp_icon_state"] = "FAKE"
+
 	var/obj/holding = user.get_active_held_item()
 	// Use a clipboard's pen, if applicable
 	if(istype(loc, /obj/item/clipboard))
@@ -264,6 +271,9 @@
 		data["edit_mode"] = MODE_WRITING
 		data["is_crayon"] = FALSE
 	else if(istype(holding, /obj/item/stamp))
+		var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+		data["stamp_icon_state"] = holding.icon_state
+		data["stamp_class"] = sheet.icon_class_name(holding.icon_state)
 		data["edit_mode"] = MODE_STAMPING
 		data["pen_font"] = "FAKE"
 		data["pen_color"] = "FAKE"
@@ -318,30 +328,31 @@
 				LAZYADD(stamped, stamp_icon_state)
 
 			update_static_data(usr,ui)
-			ui.user.visible_message("<span class='notice'>[ui.user] stamps [src] with [stamp_class]!</span>", "<span class='notice'>You stamp [src] with [stamp_class]!</span>")
+			ui.user.visible_message("<span class='notice'>[ui.user] stamps [src] with [stamp_class]!</span>", "<span class='notice'>You stamp [src] with \the [holding.name]!</span>")
 
 		if("save")
 			var/in_paper = params["text"]
 			var/paper_len = length(in_paper)
 			field_counter = params["field_counter"] ? text2num(params["field_counter"]) : field_counter
 
+			if(paper_len == 0)
+				to_chat(ui.user, pick("Writing block strikes again!", "You forgot to write anthing!"))
+				return FALSE
+
 			if(paper_len > MAX_PAPER_LENGTH)
 				// Side note, the only way we should get here is if
 				// the javascript was modified, somehow, outside of
 				// byond.  but right now we are logging it as
 				// the generated html might get beyond this limit
-				log_paper("[key_name(ui.user)] writing to paper [name], and overwrote it by [paper_len - MAX_PAPER_LENGTH] characters")
+				log_paper("[key_name(ui.user)] writing to paper [name], and overwrote it by [paper_len - MAX_PAPER_LENGTH] characters (this may be due to internal HTML)")
 				in_paper = copytext(in_paper, 1, MAX_PAPER_LENGTH)
 				to_chat(ui.user, "You run out of room on the paper!")
-
-			else if(paper_len == 0)
-				to_chat(ui.user, pick("Writing block strikes again!", "You forgot to write anthing!"))
 			else
 				log_paper("[key_name(ui.user)] writing to paper [name]")
 				to_chat(ui.user, "You have added to your paper masterpiece!");
-				info = in_paper
-				update_static_data(usr,ui)
-				update_icon()
+			info = in_paper
+			update_static_data(usr,ui)
+			update_icon()
 
 /obj/item/paper/ui_host(mob/user)
 	if(istype(loc, /obj/structure/noticeboard))
