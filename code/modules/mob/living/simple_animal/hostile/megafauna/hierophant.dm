@@ -689,7 +689,7 @@ Difficulty: Hard
 					if(get_dist(H, caster) <= H.aggro_vision_range)
 						H.FindTarget(list(caster), 1)
 					else
-						H.Goto(get_turf(caster), H.move_to_delay, 3)
+						INVOKE_ASYNC(H, /mob/living/simple_animal/hostile/proc/Goto, get_turf(caster), H.move_to_delay, 3)
 		if(monster_damage_boost && (ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid)))
 			L.adjustBruteLoss(damage)
 		if(caster)

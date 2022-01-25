@@ -32,6 +32,7 @@
 	icon_state = "clown"
 	item_state = "clown"
 	item_color = "clown"
+	can_adjust = FALSE
 
 /obj/item/clothing/under/rank/civilian/clown/blue
 	name = "blue clown suit"

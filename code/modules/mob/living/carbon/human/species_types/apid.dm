@@ -66,7 +66,7 @@
 		return FALSE
 	return ..()
 
-/datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H) // For roundstart
+/datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null) // For roundstart
 	H.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)
 	return ..()
 
