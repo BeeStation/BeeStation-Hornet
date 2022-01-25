@@ -126,4 +126,4 @@
 	id = /obj/item/card/id/syndicate/anyone
 	neck = /obj/item/clothing/neck/cloak/chameleon
 	head = /obj/item/clothing/head/chameleon
-	backpack = /obj/item/storage/backpack/chameleon
+	back = /obj/item/storage/backpack/chameleon
