@@ -112,6 +112,10 @@
 /obj/machinery/cryopod,
 /turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
+"hq" = (
+/obj/effect/spawner/lootdrop/ruinloot/basic,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "hQ" = (
 /obj/item/gun/energy/kinetic_accelerator,
 /obj/structure/rack,
@@ -176,6 +180,7 @@
 /obj/item/storage/backpack/old,
 /obj/item/storage/backpack/old,
 /obj/item/crowbar,
+/obj/effect/spawner/lootdrop/ruinloot/science,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "na" = (
@@ -797,7 +802,7 @@ aW
 lV
 sU
 sU
-sU
+hq
 sU
 lf
 "}

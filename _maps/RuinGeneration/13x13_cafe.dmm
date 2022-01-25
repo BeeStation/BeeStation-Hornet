@@ -25,6 +25,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/effect/spawner/lootdrop/ruinloot/basic,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "e" = (
@@ -175,6 +176,7 @@
 	},
 /obj/effect/turf_decal/tile/red/tile_marquee,
 /obj/structure/closet/crate/wooden/toy,
+/obj/effect/spawner/lootdrop/ruinloot/security,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "M" = (

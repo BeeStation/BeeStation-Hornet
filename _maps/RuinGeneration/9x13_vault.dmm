@@ -12,6 +12,7 @@
 /obj/structure/closet/crate/goldcrate,
 /obj/effect/turf_decal/tile/neutral/tile_full,
 /obj/effect/turf_decal/bot_white/right,
+/obj/effect/spawner/lootdrop/ruinloot/important,
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "f" = (

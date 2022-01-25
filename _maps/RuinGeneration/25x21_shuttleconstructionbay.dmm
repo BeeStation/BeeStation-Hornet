@@ -119,6 +119,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/spawner/lootdrop/ruinloot/basic,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "tP" = (
