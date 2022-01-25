@@ -1,0 +1,4 @@
+author: DatBoiTim
+delete-after: true
+changes:
+  - bugfix: Fixed AdvMop upgrade working on any cyborg
