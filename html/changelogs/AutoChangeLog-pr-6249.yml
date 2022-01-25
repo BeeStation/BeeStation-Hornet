@@ -1,0 +1,4 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - bugfix: Fixed writing on paper
