@@ -61,9 +61,11 @@
 #define TOGGLE_2_AMBIENT_OCCLUSION			(1<<1)
 ///Auto fit viewport
 #define TOGGLE_2_AUTOFIT_VIEWPORT			(1<<2)
+///Enable item tooltips
+#define TOGGLE_2_ENABLE_TIPS				(1<<3)
 
 ///Maximum decimal value with all toggles enabled for toggles_2
-#define TOGGLES_2_MAX						7 //hex: 0x7
+#define TOGGLES_2_MAX						15 //hex: 0xF
 
 ///Default toggles_2 settings
 #define TOGGLES_2_DEFAULT (TOGGLE_2_INQUISITIVE_GHOST|TOGGLE_2_AMBIENT_OCCLUSION|TOGGLE_2_AUTOFIT_VIEWPORT)

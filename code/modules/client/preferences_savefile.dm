@@ -109,9 +109,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		toggles |= sanitize_integer(S["show_credits"], FALSE, TRUE, TRUE) << 22
 		toggles |= sanitize_integer(S["ghost_hud"], FALSE, TRUE, TRUE) << 23
 		toggles_2 = TOGGLES_2_DEFAULT
-		toggles_2 &= ~3 // unset bits 1 and 2, since we're copying those
+		toggles_2 &= ~11 // unset bits 1, 2 and 4, since we're copying those
 		toggles_2 |= sanitize_integer(S["inquisitive_ghost"], FALSE, TRUE, TRUE) << 0
 		toggles_2 |= sanitize_integer(S["ambientocclusion"], FALSE, TRUE, TRUE) << 1
+		toggles_2 |= sanitize_integer(S["enable_tips"], FALSE, TRUE, TRUE) << 3
 		// Handle some newer vars that may or may not be present with older saves
 		if(current_version >= 30)
 			toggles &= ~4096 // unset 13th bit to prep for copy
@@ -256,7 +257,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["pixel_size"], pixel_size)
 	READ_FILE(S["scaling_method"], scaling_method)
 	READ_FILE(S["menuoptions"], menuoptions)
-	READ_FILE(S["enable_tips"], enable_tips)
 	READ_FILE(S["tip_delay"], tip_delay)
 	READ_FILE(S["pda_style"], pda_style)
 	READ_FILE(S["pda_color"], pda_color)
@@ -345,7 +345,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["pixel_size"], pixel_size)
 	WRITE_FILE(S["scaling_method"], scaling_method)
 	WRITE_FILE(S["menuoptions"], menuoptions)
-	WRITE_FILE(S["enable_tips"], enable_tips)
 	WRITE_FILE(S["tip_delay"], tip_delay)
 	WRITE_FILE(S["pda_style"], pda_style)
 	WRITE_FILE(S["pda_color"], pda_color)
