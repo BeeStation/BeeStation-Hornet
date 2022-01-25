@@ -5927,12 +5927,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "marked@npm:2.0.3"
+"marked@npm:^4.0.10":
+  version: 4.0.10
+  resolution: "marked@npm:4.0.10"
   bin:
-    marked: bin/marked
-  checksum: 039b7c1a611cb3c3f7b41f7fa2639b54cd93eb2ffe2f3f2f6b047a5a2648c39dca55d6b4f67a9b53a102350709e5a4acddef2a5d79950c958a10fe44f4801c2b
+    marked: bin/marked.js
+  checksum: 46cd8ef1a7cfcf5e461727c7f3e16dd4244369ef58f60485e75d3f5df9d53a8249b9609e96a336521eaa5c88d9531cbd296509a148718056e9375e69609f4442
   languageName: node
   linkType: hard
 
@@ -8256,7 +8256,7 @@ resolve@^2.0.0-next.3:
     dompurify: ^2.2.7
     inferno: ^7.4.8
     inferno-vnode-flags: ^7.4.8
-    marked: ^2.0.3
+    marked: ^4.0.10
     tgui-dev-server: "workspace:*"
     tgui-polyfill: "workspace:*"
   languageName: unknown
