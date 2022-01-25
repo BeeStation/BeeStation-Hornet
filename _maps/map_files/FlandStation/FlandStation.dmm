@@ -56290,6 +56290,10 @@
 /obj/effect/turf_decal/tile/red/tile_marquee,
 /obj/structure/bed,
 /obj/item/bedsheet/dorms,
+/obj/item/toy/plush/flushed{
+	pixel_x = 4;
+	pixel_y = 2
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "mZR" = (
@@ -94248,6 +94252,10 @@
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22
+	},
+/obj/item/toy/plush/flushed{
+	pixel_x = 4;
+	pixel_y = 2
 	},
 /turf/open/floor/carpet/green,
 /area/crew_quarters/dorms)
