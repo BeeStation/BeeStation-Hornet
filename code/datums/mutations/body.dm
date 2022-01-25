@@ -387,9 +387,10 @@
 /datum/mutation/human/strongwings/on_acquiring()
 	if(..())
 		return
+	var/obj/item/organ/wings/moth/mothwings
 	var/obj/item/organ/wings/bee/beewings = locate(/obj/item/organ/wings/bee) in owner.internal_organs
 	if(!beewings)
-		var/obj/item/organ/wings/moth/mothwings = locate(/obj/item/organ/wings/moth) in owner.internal_organs
+		mothwings = locate(/obj/item/organ/wings/moth) in owner.internal_organs
 	if(beewings)
 		beewings.jumpdist += (6 * GET_MUTATION_POWER(src)) - 3
 		to_chat(owner, "<span class='notice'>Your wings feel stronger.</span>")
@@ -403,9 +404,10 @@
 /datum/mutation/human/strongwings/on_losing()
 	if(..())
 		return
+	var/obj/item/organ/wings/moth/mothwings
 	var/obj/item/organ/wings/bee/beewings = locate(/obj/item/organ/wings/bee) in owner.internal_organs
 	if(!beewings)
-		var/obj/item/organ/wings/moth/mothwings = locate(/obj/item/organ/wings/moth) in owner.internal_organs
+		mothwings = locate(/obj/item/organ/wings/moth) in owner.internal_organs
 	if(beewings)
 		beewings.jumpdist -= (6 * GET_MUTATION_POWER(src)) - 3
 		to_chat(owner, "<span class='warning'>Your wings feel weak.</span>")
