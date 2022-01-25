@@ -664,7 +664,7 @@
 
 /obj/structure/sign/poster/contraband/turkiye // extremely essential to counteract the imperialist forces of the British mug which is also in the game
 	name = "Turkish Flag"
-	desc = "The flag of the former nationstate of Turkey. How did this get on the station?"
+	desc = "When allah created world allah did give whole world to turkey but turkey frendly countrie so turkey gived land to other countrie"
 	icon_state = "poster50"
 
 #undef PLACE_SPEED
