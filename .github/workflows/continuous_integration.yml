@@ -99,7 +99,7 @@ jobs:
       - name: Compile and run tests
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/build/build --ci dm -DCIBUILDING
+          tools/build/build --ci dm tg-font -DCIBUILDING
           bash tools/ci/run_server.sh
   test_windows:
     runs-on: windows-latest
