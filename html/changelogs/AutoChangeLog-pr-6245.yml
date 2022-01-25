@@ -1,0 +1,5 @@
+author: Hardly
+delete-after: true
+changes:
+  - tweak: Medipens and Regenerative Cores can now be applied onto yourself by activating
+      them while in-hand
