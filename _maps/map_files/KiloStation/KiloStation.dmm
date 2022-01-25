@@ -92930,7 +92930,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/machinery/door/airlock/external{
 	req_access_txt = "13"
 	},
@@ -98659,6 +98658,11 @@
 	},
 /turf/open/space/basic,
 /area/solar/starboard/fore)
+"cXQ" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/open/space,
+/area/space/nearstation)
 "dbZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -100008,10 +100012,6 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
-"kmt" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "knX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -100495,6 +100495,10 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/solars/starboard/fore)
+"obN" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "ocb" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/emcloset,
@@ -101415,11 +101419,6 @@
 	icon_state = "platingdmg1"
 	},
 /area/quartermaster/warehouse)
-"rmD" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/space,
-/area/space/nearstation)
 "rnj" = (
 /obj/item/wallframe/light_fixture{
 	dir = 1;
@@ -101544,13 +101543,6 @@
 	icon_state = "platingdmg1"
 	},
 /area/quartermaster/exploration_dock)
-"sqj" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/on{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/box,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "swr" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -101588,6 +101580,13 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/quartermaster/exploration_prep)
+"sxj" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/box,
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "syE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/chair,
@@ -128516,9 +128515,9 @@ aDE
 aMY
 aMY
 szz
-rmD
-kmt
-sqj
+cXQ
+obN
+sxj
 acm
 aaa
 acm
