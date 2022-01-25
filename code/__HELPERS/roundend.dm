@@ -217,7 +217,7 @@
 			if(CONFIG_GET(flag/allow_crew_objectives))
 				var/mob/M = C?.mob
 				if(M?.mind?.current && LAZYLEN(M.mind.crew_objectives))
-					for(var/datum/objective/CO as() in M.mind.crew_objectives)
+					for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
 						if(!C) //Yes, the client can be null here. BYOND moment.
 							break
 						if(CO.check_completion())
@@ -405,7 +405,7 @@
 
 		if(CONFIG_GET(flag/allow_crew_objectives))
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
-				for(var/datum/objective/CO as() in M.mind.crew_objectives)
+				for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
 					if(CO.check_completion())
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='greentext'><B>Success!</B></span><br>"
 					else
