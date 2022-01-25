@@ -43,12 +43,16 @@
 		new /obj/item/tank/internals/oxygen(T)
 		new /obj/item/clothing/mask/gas(T)
 		new /obj/item/storage/belt/utility/full(T)
-	switch(pickweight(list("dictator" = 1, "operative" = 1, "greytide" = 3)))
+	switch(pickweight(list("secretagentman" = 1, "dictator" = 1, "operative" = 1, "greytide" = 3)))
+		if("secretagentman")
+			created_human.flavor_text = "On behalf of your Benefactors, you lead a life of danger - To everyone you meet, you stay a stranger. but you moved too much, took too many chances - \
+			Considering Nanotrasen's onto you, odds are you won't live to see tomorrow."
+			created_human.equipOutfit(/datum/outfit/vip_target/super_spy)
 		if("dictator")
 			created_human.flavor_text = "It has been months since your regime fell. Once a hero, you're now just someone wishing that they will see the next sunrise. You know those \
 				Nanotrasen pigs are after you, and will stop at nothing to capture you. All you want at this point is to get out and survive, however it is likely you will never leave \
 				without being captured, or worse..."
-			created_human.equipOutfit(/datum/outfit/vip_dictator)
+			created_human.equipOutfit(/datum/outfit/vip_target/vip_dictator)
 		if("greytide")
 			created_human.flavor_text = "You are just an assistant on a lonely derelict station. You dream of going home, but you broke the wrong airlock - \
 			Now your former employer, Nanotrasen, is after you..."
@@ -57,7 +61,7 @@
 			created_human.flavor_text = "You are a syndicate operative stranded by your [pick("strike team", "fellow nuclear operatives", "benefactors")] aboard an ancient ruin with \
 			barely enough to navigate it's corridors... yet despite your rigorous training to differentiate you from a stationside operative, you've got a chilling feeling hugging your \
 			spine..."
-			created_human.equipOutfit(/datum/outfit/vip_operative)
+			created_human.equipOutfit(/datum/outfit/vip_target/vip_operative)
 	created_human.mind.store_memory("[created_human.flavor_text] - Someone is out to assassinate you... Stay alive.")
 	created_human.mind.add_antag_datum(/datum/antagonist/survivalist)
 	mob_to_kill = created_human
@@ -67,7 +71,7 @@
 // Operative
 //=====================
 
-/datum/outfit/vip_operative
+/datum/outfit/vip_target/vip_operative
 	name = "Operative (VIP Target)"
 
 	uniform = /obj/item/clothing/under/syndicate
@@ -86,7 +90,7 @@
 // Martyr Dictator
 //=====================
 
-/datum/outfit/vip_dictator
+/datum/outfit/vip_target/vip_dictator
 	name = "Dictator (VIP Target)"
 
 	uniform = /obj/item/clothing/under/rank/security/head_of_security/white
@@ -102,3 +106,23 @@
 	id = /obj/item/card/id/away/old
 	neck = /obj/item/clothing/neck/crucifix
 	head = /obj/item/clothing/head/HoS/beret/syndicate
+
+//=====================
+// Super Spy
+//=====================
+
+/datum/outfit/vip_target/super_spy
+	name = "Super Spy (VIP Target)"
+
+	uniform = /obj/item/clothing/under/chameleon
+	suit = /obj/item/clothing/suit/chameleon
+	shoes = /obj/item/clothing/shoes/chameleon
+	gloves = /obj/item/clothing/gloves/chameleon
+	ears = /obj/item/radio/headset/chameleon
+	glasses = /obj/item/clothing/glasses/chameleon
+	belt = /obj/item/storage/belt/chameleon
+	l_pocket = /obj/item/stamp/chameleon
+	r_pocket = /obj/item/pda/chameleon
+	id = /obj/item/card/id/syndicate/anyone
+	neck = /obj/item/clothing/neck/cloak/chameleon
+	head = /obj/item/clothing/head/chameleon
