@@ -249,6 +249,7 @@
 	var/list/data = list()
 	data["edit_usr"] = "[user]"
 
+	// Even though we ignore this data, TGUI needs it for previewing the stamp icon in the UI
 	data["stamp_class"] = "FAKE"
 	data["stamp_icon_state"] = "FAKE"
 
