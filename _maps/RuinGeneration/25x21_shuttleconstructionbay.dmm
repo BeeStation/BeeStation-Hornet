@@ -33,6 +33,12 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
+"eq" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "es" = (
 /turf/template_noop/open,
 /area/template_noop)
@@ -943,6 +949,7 @@ hf
 hf
 hf
 hf
+eq
 hf
 hf
 hf
@@ -952,8 +959,7 @@ hf
 hf
 hf
 hf
-hf
-hf
+eq
 hf
 hf
 "}
