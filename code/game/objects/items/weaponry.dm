@@ -825,7 +825,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	var/affix_desc = ""
 	var/affix_desc_target = ""
 
-	if(HAS_TRAIT(target, TRAIT_ANTENNAE))
+	if(HAS_TRAIT(target, TRAIT_ANTENNAE) || is_species(user, /datum/species/lizard))
 		prefix_desc = "violent"
 		affix_desc = "on [target.p_their()] sensitive antennae"
 		affix_desc_target = "on your highly sensitive antennae"
@@ -863,7 +863,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		return
 
 	var/damage = rand(1,2)
-	if(HAS_TRAIT(target, TRAIT_ANTENNAE) || is_species(target, /datum/species/lizard))
+	if(HAS_TRAIT(target, TRAIT_ANTENNAE))
 		damage += rand(1,3)
 
 	if(damage >= 2)
