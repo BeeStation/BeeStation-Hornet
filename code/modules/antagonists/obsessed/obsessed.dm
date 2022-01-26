@@ -70,8 +70,8 @@
 			RegisterSignal(human_target, COMSIG_LIVING_REVIVE, .proc/OnTargetRevive)
 			STOP_PROCESSING(SSprocessing, src)
 		else if(!seen_alive)
-				to_chat(owner, "<span class='danger'>[human_target.real_name] is alive again!")
-				seen_alive = TRUE	//we saw them alive again
+			to_chat(owner, "<span class='danger'>[human_target.real_name] is alive again!")
+			seen_alive = TRUE	//we saw them alive again
 		total_time_stalking += SSprocessing.wait * delta_time
 		time_spent_away = 0
 	else if(seen_alive)		//we're near so we acumulate the time slower
