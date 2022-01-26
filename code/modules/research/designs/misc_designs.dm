@@ -13,16 +13,6 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
-/datum/design/health_hud_prescription
-	name = "Prescription Medical HUDglasses"
-	desc = "Prescription glasses with a built in medical heads-up display."
-	id = "health_hud_prescription"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 600, /datum/material/glass = 750, /datum/material/copper = 400)
-	build_path = /obj/item/clothing/glasses/hud/health/prescription
-	category = list("Equipment")
-	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
-
 /datum/design/health_hud_night
 	name = "Night Vision Health Scanner HUD"
 	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
@@ -270,6 +260,16 @@
 ////////////Janitor Designs//////////////
 /////////////////////////////////////////
 
+/datum/design/larryframe
+	name = "Larry Frame"
+	desc = "A housing that serves as the base for constructing Larries."
+	id = "larry"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 200)
+	build_path = /obj/item/larryframe
+	category = list("Electronics")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/advmop
 	name = "Advanced Mop"
 	desc = "An upgraded mop with a large internal capacity for holding water or other cleaning chemicals."
@@ -343,7 +343,6 @@
 	build_path = /obj/structure/holosign/barrier/wetsign
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
-
 
 /datum/design/holosignsec
 	name = "Security Holobarrier Projector"
@@ -472,7 +471,15 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
-
+/datum/design/glasses_prescription
+	name = "Prescription Glasses"
+	desc = "Made by Nerd. Co."
+	id = "glasses_prescription"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 500, /datum/material/glass = 2000)
+	build_path = /obj/item/clothing/glasses/regular
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /////////////////////////////////////////
 /////////////////Tape////////////////////

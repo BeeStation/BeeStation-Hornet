@@ -88,8 +88,26 @@
 /datum/design/component/index
 	name = "Index Component"
 	id = "comp_index"
-	build_path = /obj/item/circuit_component/index
+	build_path = /obj/item/circuit_component/indexer/index
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
+
+/datum/design/component/write
+	name = "Write Component"
+	id = "comp_write"
+	build_path = /obj/item/circuit_component/indexer/write
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
+
+/datum/design/component/append
+	name = "Append Component"
+	id = "comp_append"
+	build_path = /obj/item/circuit_component/append
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
+
+/datum/design/component/pop
+	name = "Pop Component"
+	id = "comp_pop"
+	build_path = /obj/item/circuit_component/pop
+	category = list(WIREMOD_CIRCUITRY,WIREMOD_LIST_COMPONENTS)
 
 /datum/design/component/length
 	name = "Length Component"
@@ -102,6 +120,18 @@
 	id = "comp_light"
 	build_path = /obj/item/circuit_component/light
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_OUTPUT_COMPONENTS)
+
+/datum/design/component/list_constructor
+	name = "List Constructor"
+	id = "comp_list_constructor"
+	build_path = /obj/item/circuit_component/arbitrary_input_amount/list_constructor
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
+
+/datum/design/component/list_length_constructor
+	name = "List Length Constructor"
+	id = "comp_list_length_constructor"
+	build_path = /obj/item/circuit_component/list_length_constructor
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
 
 /datum/design/component/not
 	name = "Not Component"
@@ -357,5 +387,17 @@
 		/datum/material/iron = 15000,
 	)
 	build_path = /obj/item/shell/airlock
+	build_type = PROTOLATHE | COMPONENT_PRINTER
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_SHELLS)
+
+/datum/design/assembly_shell
+	name = "Modular Assembly Shell"
+	desc = "A shell that functions as an assembly."
+	id = "assembly_shell"
+	materials = list(
+		/datum/material/glass = 2000,
+		/datum/material/iron = 5000,
+	)
+	build_path = /obj/item/assembly/modular
 	build_type = PROTOLATHE | COMPONENT_PRINTER
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_SHELLS)

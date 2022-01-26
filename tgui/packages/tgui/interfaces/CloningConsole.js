@@ -88,7 +88,9 @@ export const CloningConsole = (props, context) => {
                     <h2>Current Records: </h2>
                     {records.map(record => (
                       <Section backgroundColor="#191919" color="white" key={record}>
-                        <Collapsible title={record["name"]}>
+                        <Collapsible
+                          title={record["name"] + (record["body_only"] ? " (Body Only)" : "")}
+                          color={record["body_only"] ? "yellow" : "blue"}>
                           <div key={record["name"]} style={{
                             'word-break': 'break-all',
                           }}>
@@ -142,7 +144,6 @@ export const CloningConsole = (props, context) => {
                             {record["UE"]}<br />
                             Blood Type:<br />
                             {record["blood_type"]}<br />
-                            {record["body_only"] ? "This clone is empty" : null}
                           </div>
                         </Collapsible>
                       </Section>

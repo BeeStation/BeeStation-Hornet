@@ -139,6 +139,15 @@
 	. = ..()
 	. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
 
+/obj/item/disk/data/debug
+	name = "Debug genetic data disk"
+	desc = "A disk that contains all existing genetic mutations."
+	max_mutations = 100
+
+/obj/item/disk/data/debug/Initialize()
+	. = ..()
+	for(var/datum/mutation/human/HM as() in GLOB.all_mutations)
+		mutations += new HM
 
 //Clonepod
 

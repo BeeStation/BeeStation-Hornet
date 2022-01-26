@@ -333,6 +333,9 @@
 	else if(istype(W, /obj/item/borg/upgrade/ai))
 		var/obj/item/borg/upgrade/ai/M = W
 		if(check_completion())
+			if(!chest.cell)
+				to_chat(user, "<span class='warning'>The endoskeleton still needs a power cell!</span>")
+				return
 			if(!isturf(loc))
 				to_chat(user, "<span class='warning'>You cannot install[M], the frame has to be standing on the ground to be perfectly precise!</span>")
 				return

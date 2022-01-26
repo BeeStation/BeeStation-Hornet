@@ -25,7 +25,11 @@
 
 	display_order = JOB_DISPLAY_ORDER_DETECTIVE
 	departments = DEPARTMENT_SECURITY
+	rpg_title = "Thiefcatcher"
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/detective
+	)
 /datum/outfit/job/detective
 	name = "Detective"
 	jobtype = /datum/job/detective

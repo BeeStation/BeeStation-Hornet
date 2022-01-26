@@ -165,7 +165,7 @@ export const TicketChatWindow = (props, context) => {
         height="315px">
         <Table>
           {messages.map(message => (
-            <Section
+            <Section independent
               key={message.time}>
               <Table.Row>
                 <Table.Cell>

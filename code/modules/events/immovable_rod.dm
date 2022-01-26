@@ -78,17 +78,19 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		walk_towards(src, destination, 1)
 		previous_distance = get_dist(src, destination)
 
+/obj/effect/immovablerod/Destroy()
+	GLOB.poi_list -= src
+	. = ..()
+
 /obj/effect/immovablerod/Topic(href, href_list)
 	if(href_list["orbit"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
 			ghost.ManualFollow(src)
 
-/obj/effect/immovablerod/Destroy()
-	GLOB.poi_list -= src
-	. = ..()
-
 /obj/effect/immovablerod/Moved()
+	if(!loc)
+		return ..()
 	//Moved more than 10 tiles in 1 move.
 	var/cur_dist = get_dist(src, destination)
 	if((z != z_original) || (loc == destination) || (FLOOR(cur_dist - previous_distance, 1) > 10))
@@ -165,7 +167,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 				wizard.apply_damage(25, BRUTE)
 				qdel(src)
 			else
-				SSmedals.UnlockMedal(MEDAL_RODSUPLEX,U.client) //rod-form wizards would probably make this a lot easier to get so keep it to regular rods only
+				U.client.give_award(/datum/award/achievement/misc/feat_of_strength, U) //rod-form wizards would probably make this a lot easier to get so keep it to regular rods only
 				U.visible_message("<span class='boldwarning'>[U] suplexes [src] into the ground!</span>", "<span class='warning'>You suplex [src] into the ground!</span>")
 				new /obj/structure/festivus/anchored(drop_location())
 				new /obj/effect/anomaly/flux(drop_location())

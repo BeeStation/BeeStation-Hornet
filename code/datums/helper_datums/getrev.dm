@@ -30,7 +30,8 @@
 	for(var/line in testmerge)
 		var/datum/tgs_revision_information/test_merge/tm = line
 		msg += "Test merge active of PR #[tm.number] commit [tm.head_commit]"
-		SSblackbox.record_feedback("associative", "testmerged_prs", 1, list("number" = "[tm.number]", "commit" = "[tm.head_commit]", "title" = "[tm.title]", "author" = "[tm.author]"))
+		//If you want to support this field for feedback, uncomment this.
+		//SSblackbox.record_feedback("associative", "testmerged_prs", 1, list("number" = "[tm.number]", "commit" = "[tm.head_commit]", "title" = "[tm.title]", "author" = "[tm.author]"))
 
 	if(commit && commit != originmastercommit)
 		msg += "HEAD: [commit]"

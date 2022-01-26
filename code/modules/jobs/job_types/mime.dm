@@ -19,6 +19,11 @@
 
 	display_order = JOB_DISPLAY_ORDER_MIME
 	departments = DEPARTMENT_SERVICE
+	rpg_title = "Fool"
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/mime
+	)
 
 /datum/job/mime/after_spawn(mob/living/carbon/human/H, mob/M)
 	. = ..()

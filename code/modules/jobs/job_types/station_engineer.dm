@@ -24,6 +24,11 @@
 
 	display_order = JOB_DISPLAY_ORDER_STATION_ENGINEER
 	departments = DEPARTMENT_ENGINEERING
+	rpg_title = "Crystallomancer"
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/engineering
+	)
 
 /datum/outfit/job/engineer
 	name = "Station Engineer"

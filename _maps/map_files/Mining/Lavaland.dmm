@@ -609,7 +609,7 @@
 	id = "labor"
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply{
-	dir = 1
+	dir = 8
 	},
 /turf/closed/wall,
 /area/mine/laborcamp)
@@ -1083,11 +1083,12 @@
 "es" = (
 /obj/docking_port/stationary{
 	dir = 8;
-	dwidth = 2;
-	height = 5;
+	dwidth = 3;
+	height = 6;
 	id = "laborcamp_away";
 	name = "labor camp";
-	width = 9
+	roundstart_template = null;
+	width = 12
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
@@ -1386,17 +1387,13 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "fr" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/mine/science)
 "fs" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/mine/science)
 "fv" = (
@@ -3233,7 +3230,6 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass,
 /obj/item/reagent_containers/food/drinks/beer{
 	desc = "Whatever it is, it reeks of foul, putrid froth.";
-	icon_state = "beer";
 	list_reagents = list(/datum/reagent/consumable/ethanol/bacchus_blessing = 15);
 	name = "Delta-Down";
 	pixel_x = 5;
@@ -3733,6 +3729,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
+"tZ" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 10
+	},
+/turf/open/floor/plasteel,
+/area/mine/laborcamp)
 "up" = (
 /obj/item/radio/intercom{
 	dir = 8;
@@ -3844,6 +3846,10 @@
 	},
 /turf/open/floor/plating,
 /area/mine/production)
+"vq" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/open/floor/plasteel,
+/area/mine/laborcamp)
 "vs" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/carpet/royalblue,
@@ -5084,9 +5090,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/airlock/vault{
 	name = "Labor Camp Monitoring";
 	req_access_txt = "2"
@@ -5387,9 +5390,6 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Mining Station Maintenance";
 	req_access_txt = "48"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating,
@@ -8151,20 +8151,20 @@ aj
 ab
 aj
 aj
-aw
-aw
-ab
-aG
-ab
-aj
-aj
-aj
-aj
-aj
 aj
 aj
 ab
 ab
+ab
+aj
+aj
+aj
+aj
+aj
+aj
+aj
+ab
+ai
 aj
 aj
 aj
@@ -8407,8 +8407,8 @@ ab
 aj
 aj
 aj
-aw
-aw
+aj
+aj
 aj
 aj
 aj
@@ -8663,18 +8663,18 @@ ab
 aj
 aj
 aj
-aj
 aw
 aw
-aj
-aj
 aw
 aw
-aj
-aj
 aw
-aj
-ab
+aw
+aw
+aw
+aw
+aw
+aw
+aG
 aj
 aj
 aj
@@ -8919,21 +8919,21 @@ ab
 ab
 aj
 aj
-aj
 aw
 aw
 aw
 aw
+aG
+aG
 aw
 aw
 aw
 aw
+aG
 aw
+aG
 aw
-aw
-aw
-aw
-aj
+aG
 aj
 aj
 aj
@@ -9178,20 +9178,20 @@ aj
 aw
 aw
 aG
-aw
-aw
-aw
-aw
-aw
-aw
-aw
-aw
-aw
-aw
-aw
-aw
-aw
-ab
+aG
+aG
+aG
+aG
+aG
+aG
+aG
+aG
+aG
+aG
+aG
+aG
+aG
+aG
 aj
 aj
 aj
@@ -9432,25 +9432,25 @@ aj
 aj
 aj
 aj
+aw
+aw
+aw
+aG
+aG
+aG
+aG
+aG
+aG
+aG
+aG
+aG
+aG
+aG
+aG
+aw
+aw
 aj
-aw
-aw
-aw
-aG
-aw
-aw
-aw
-aw
-aw
-aG
-aw
-aw
-aG
-aw
-aw
-aw
 aj
-aw
 aj
 aj
 aj
@@ -9689,9 +9689,7 @@ aj
 aj
 aj
 aj
-ab
-aj
-aw
+aG
 aw
 aw
 aG
@@ -9703,9 +9701,11 @@ aG
 aG
 aG
 aG
+aG
+aG
+aG
 aw
-aj
-aj
+aw
 aj
 aj
 aj
@@ -9946,10 +9946,6 @@ aj
 aj
 aj
 aj
-aj
-aw
-aw
-aw
 aw
 aG
 aG
@@ -9960,9 +9956,13 @@ aG
 aG
 aG
 aG
+aG
+aG
+aG
+aG
+aG
 aw
-aw
-ab
+aG
 aj
 aj
 aj
@@ -10203,10 +10203,6 @@ ab
 aj
 aj
 aj
-aj
-aw
-aw
-aw
 aw
 aG
 aG
@@ -10217,7 +10213,11 @@ aG
 aG
 aG
 aG
-aw
+aG
+aG
+aG
+aG
+aG
 aw
 aw
 aj
@@ -10460,8 +10460,6 @@ aj
 aj
 aj
 aj
-aj
-aj
 aw
 aw
 aw
@@ -10474,9 +10472,11 @@ aG
 aG
 aG
 aG
-aw
-aj
-aj
+aG
+aG
+aG
+aG
+aG
 aj
 aj
 aj
@@ -10717,10 +10717,10 @@ aj
 aj
 aj
 aj
-aj
-aj
 aw
-aw
+aG
+aG
+aG
 aG
 aG
 aG
@@ -10732,8 +10732,8 @@ es
 aG
 aG
 aG
-aj
-aj
+aG
+aw
 aj
 aj
 aj
@@ -10974,23 +10974,23 @@ aj
 aj
 aj
 aj
-aj
-aj
+aG
 ba
 ba
 ba
 ba
 ba
 df
+df
 ba
 ba
 ba
 et
 ba
+aG
+aG
 aw
 aw
-aj
-aj
 aj
 aj
 aj
@@ -11231,14 +11231,14 @@ aj
 aj
 aj
 aj
-aj
-ab
+aw
 ba
 bH
 cc
 ct
 ci
 dg
+vq
 dr
 dB
 ea
@@ -11246,9 +11246,9 @@ eu
 fp
 aG
 pH
-aj
-aj
 aG
+aw
+ab
 aj
 ab
 ab
@@ -11488,13 +11488,13 @@ ab
 aj
 aj
 aj
-ab
-ab
+aG
 ba
 bL
 bw
 cw
 cl
+di
 di
 dt
 dC
@@ -11504,7 +11504,7 @@ cl
 pH
 pH
 pH
-aj
+aw
 aj
 aj
 ab
@@ -11748,10 +11748,10 @@ NZ
 NZ
 ba
 ba
-ba
 cd
 ba
 cl
+dj
 dj
 dv
 dD
@@ -12007,8 +12007,8 @@ ba
 bw
 bw
 bw
-bw
 cC
+bw
 bw
 bW
 dF
@@ -12264,7 +12264,7 @@ by
 bw
 bw
 bw
-bw
+tZ
 cG
 dk
 dw

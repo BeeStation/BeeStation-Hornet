@@ -17,7 +17,6 @@
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
 	w_class = WEIGHT_CLASS_SMALL
-	block_upgrade_walk = 1
 	block_power = 0
 	block_level = 0
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
@@ -44,7 +43,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	block_level = 1
 	block_upgrade_walk = 1
-	block_power = 30
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 30
 	throwforce = 10
@@ -94,6 +92,8 @@
 	throw_range = 3
 	sharpness = IS_SHARP
 	light_color = "#ff0000"
+	light_system = MOVABLE_LIGHT
+	light_range = 4
 	attack_verb = list("cleaved", "slashed", "tore", "hacked", "ripped", "diced", "carved")
 	icon_state = "cultbastard"
 	item_state = "cultbastard"
@@ -112,7 +112,6 @@
 
 /obj/item/cult_bastard/Initialize()
 	. = ..()
-	set_light(4)
 	jaunt = new(src)
 	linked_action = new(src)
 	AddComponent(/datum/component/butchering, 50, 80)
@@ -344,7 +343,7 @@
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75, "stamina" = 50)
-	brightness_on = 0
+	light_system = NO_LIGHT_SUPPORT
 	actions_types = list()
 	high_pressure_multiplier = 0.5
 
@@ -449,6 +448,7 @@
 	icon_state = "blindfold"
 	item_state = "blindfold"
 	flash_protect = 1
+	vision_correction = 1
 
 /obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/living/user, slot)
 	..()
@@ -578,7 +578,7 @@
 	name = "void torch"
 	desc = "Used by veteran cultists to instantly transport items to their needful brethren."
 	w_class = WEIGHT_CLASS_SMALL
-	brightness_on = 1
+	light_range = 1
 	icon_state = "torch"
 	item_state = "torch"
 	color = "#ff0000"
@@ -675,7 +675,7 @@
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
-			if(!L.anti_magic_check())
+			if(!L.anti_magic_check(holy = TRUE))
 				L.Knockdown(50)
 			break_spear(T)
 	else
@@ -946,7 +946,7 @@
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
-			if(!L.anti_magic_check())
+			if(!L.anti_magic_check(holy = TRUE))
 				L.Knockdown(30)
 				if(D?.thrower)
 					for(var/mob/living/Next in orange(2, T))

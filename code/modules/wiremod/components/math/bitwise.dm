@@ -9,7 +9,8 @@
 	display_desc = "A component that operates on the bits of integers. Any decimal values are ignored."
 
 	//The type of port to use
-	port_type = PORT_TYPE_NUMBER
+	input_port_type = PORT_TYPE_NUMBER
+	output_port_type = PORT_TYPE_NUMBER
 
 	/// The amount of input ports to have
 	input_port_amount =  2

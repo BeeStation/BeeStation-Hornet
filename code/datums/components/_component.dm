@@ -118,8 +118,6 @@
 		else // Many other things have registered here
 			lookup[sig_type][src] = TRUE
 
-	signal_enabled = TRUE
-
 /datum/proc/UnregisterSignal(datum/target, sig_type_or_types)
 	var/list/lookup = target.comp_lookup
 	if(!signal_procs || !signal_procs[target] || !lookup)
@@ -127,6 +125,10 @@
 	if(!islist(sig_type_or_types))
 		sig_type_or_types = list(sig_type_or_types)
 	for(var/sig in sig_type_or_types)
+		if(!signal_procs[target][sig])
+			if(!istext(sig))
+				stack_trace("We're unregistering with something that isn't a valid signal \[[sig]\], you fucked up")
+			continue
 		switch(length(lookup[sig]))
 			if(2)
 				lookup[sig] = (lookup[sig]-src)[1]
@@ -138,6 +140,8 @@
 						target.comp_lookup = null
 						break
 			if(0)
+				if(lookup[sig] != src)
+					continue
 				lookup -= sig
 				if(!length(lookup))
 					target.comp_lookup = null
@@ -173,18 +177,17 @@
 /datum/proc/_SendSignal(sigtype, list/arguments)
 	var/target = comp_lookup[sigtype]
 	if(!length(target))
-		var/datum/C = target
-		if(!C.signal_enabled)
-			return NONE
-		var/proctype = C.signal_procs[src][sigtype]
-		return NONE | call(C, proctype)(arglist(arguments))
+		var/datum/listening_datum = target
+		return NONE | call(listening_datum, listening_datum.signal_procs[src][sigtype])(arglist(arguments))
 	. = NONE
-	for(var/I in target)
-		var/datum/C = I
-		if(!C.signal_enabled)
-			continue
-		var/proctype = C.signal_procs[src][sigtype]
-		. |= call(C, proctype)(arglist(arguments))
+	// This exists so that even if one of the signal receivers unregisters the signal,
+	// all the objects that are receiving the signal get the signal this final time.
+	// AKA: No you can't cancel the signal reception of another object by doing an unregister in the same signal.
+	var/list/queued_calls = list()
+	for(var/datum/listening_datum as anything in target)
+		queued_calls[listening_datum] = listening_datum.signal_procs[src][sigtype]
+	for(var/datum/listening_datum as anything in queued_calls)
+		. |= call(listening_datum, queued_calls[listening_datum])(arglist(arguments))
 
 /datum/proc/GetComponent(datum/component/c_type)
 	RETURN_TYPE(c_type)
@@ -223,6 +226,10 @@
 /datum/proc/_AddComponent(list/raw_args)
 	var/new_type = raw_args[1]
 	var/datum/component/nt = new_type
+
+	if(QDELING(src))
+		CRASH("Attempted to add a new component of type \[[nt]\] to a qdeleting parent of type \[[type]\]!")
+
 	var/dm = initial(nt.dupe_mode)
 	var/dt = initial(nt.dupe_type)
 
@@ -238,7 +245,7 @@
 
 	raw_args[1] = src
 
-	if(dm != COMPONENT_DUPE_ALLOWED)
+	if(dm != COMPONENT_DUPE_ALLOWED && dm != COMPONENT_DUPE_SELECTIVE)
 		if(!dt)
 			old_comp = GetExactComponent(nt)
 		else
@@ -264,19 +271,19 @@
 						old_comp.InheritComponent(arglist(arguments))
 					else
 						old_comp.InheritComponent(new_comp, TRUE)
-				if(COMPONENT_DUPE_SELECTIVE)
-					var/list/arguments = raw_args.Copy()
-					arguments[1] = new_comp
-					var/make_new_component = TRUE
-					for(var/datum/component/C in GetComponents(new_type))
-						if(C.CheckDupeComponent(arglist(arguments)))
-							make_new_component = FALSE
-							QDEL_NULL(new_comp)
-							break
-					if(!new_comp && make_new_component)
-						new_comp = new nt(raw_args)
 		else if(!new_comp)
 			new_comp = new nt(raw_args) // There's a valid dupe mode but there's no old component, act like normal
+	else if(dm == COMPONENT_DUPE_SELECTIVE)
+		var/list/arguments = raw_args.Copy()
+		arguments[1] = new_comp
+		var/make_new_component = TRUE
+		for(var/datum/component/existing_component as anything in GetComponents(new_type))
+			if(existing_component.CheckDupeComponent(arglist(arguments)))
+				make_new_component = FALSE
+				QDEL_NULL(new_comp)
+				break
+		if(!new_comp && make_new_component)
+			new_comp = new nt(raw_args)
 	else if(!new_comp)
 		new_comp = new nt(raw_args) // Dupes are allowed, act like normal
 
@@ -285,10 +292,10 @@
 		return new_comp
 	return old_comp
 
-/datum/proc/LoadComponent(component_type, ...)
-	. = GetComponent(component_type)
+/datum/proc/_LoadComponent(list/arguments)
+	. = GetComponent(arguments[1])
 	if(!.)
-		return _AddComponent(args)
+		return _AddComponent(arguments)
 
 /datum/component/proc/RemoveComponent()
 	if(!parent)

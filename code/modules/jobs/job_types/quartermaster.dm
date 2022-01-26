@@ -22,6 +22,11 @@
 
 	display_order = JOB_DISPLAY_ORDER_QUARTERMASTER
 	departments = DEPARTMENT_CARGO
+	rpg_title = "Steward"
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cargo
+	)
 
 /datum/outfit/job/quartermaster
 	name = "Quartermaster"

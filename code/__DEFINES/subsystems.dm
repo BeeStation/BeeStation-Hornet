@@ -20,7 +20,7 @@
   *
   * make sure you add an update to the schema_version stable in the db changelog
   */
-#define DB_MINOR_VERSION 8
+#define DB_MINOR_VERSION 10
 
 
 //! ## Timing subsystem
@@ -113,6 +113,7 @@
 #define INIT_ORDER_SOUNDS			82
 #define INIT_ORDER_INSTRUMENTS		81
 #define INIT_ORDER_VIS				80
+#define INIT_ORDER_ACHIEVEMENTS 77
 #define INIT_ORDER_MATERIALS		76
 #define INIT_ORDER_RESEARCH			75
 #define INIT_ORDER_ORBITS			74 //Other things use the orbital map, so it needs to be made early on.
@@ -135,6 +136,7 @@
 #define INIT_ORDER_TIMER			1
 #define INIT_ORDER_DEFAULT			0
 #define INIT_ORDER_AIR				-1
+#define INIT_ORDER_PERSISTENCE		-2 //before assets because some assets take data from SSPersistence
 #define INIT_ORDER_ASSETS			-4
 #define INIT_ORDER_ICON_SMOOTHING	-5
 #define INIT_ORDER_OVERLAY			-6
@@ -146,7 +148,6 @@
 #define INIT_ORDER_MINOR_MAPPING	-40
 #define INIT_ORDER_PATH				-50
 #define INIT_ORDER_EXPLOSIONS		-69
-#define INIT_ORDER_PERSISTENCE		-100
 #define INIT_ORDER_CHAT				-150 //Should be last to ensure chat remains smooth during init.
 
 // Subsystem fire priority, from lowest to highest priority
@@ -186,6 +187,7 @@
 #define FIRE_PRIORITY_OVERLAYS		500
 #define FIRE_PRIORITY_CALLBACKS		600
 #define FIRE_PRIORITY_EXPLOSIONS	666
+#define FIRE_PRIORITY_TIMER			700
 #define FIRE_PRIORITY_SOUND_LOOPS	800
 #define FIRE_PRIORITY_INPUT			1000 // This must always always be the max highest priority. Player input must never be lost.
 

@@ -88,7 +88,6 @@
 #define SPECIES_FELINID			"felinid"
 #define SPECIES_OOZELING		"oozeling"
 #define SPECIES_FLY 			"fly"
-#define SPECIES_SQUID			"squid" //I forgot squids existed lmao
 
 //Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
 #define FLAG_HUMAN			(1<<0)
@@ -101,8 +100,7 @@
 #define FLAG_FELINID		(1<<7)
 #define FLAG_OOZELING		(1<<8)
 #define FLAG_FLY			(1<<9)
-#define FLAG_SQUID			(1<<10)
-#define FLAG_DEBUG_SPECIES	(1<<11)
+#define FLAG_DEBUG_SPECIES	(1<<10)
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
@@ -200,12 +198,6 @@
 #define SANITY_UNSTABLE 50
 #define SANITY_CRAZY 25
 #define SANITY_INSANE 0
-
-//Hygiene levels for humans
-#define HYGIENE_LEVEL_CLEAN 250
-#define HYGIENE_LEVEL_NORMAL 200
-#define HYGIENE_LEVEL_DIRTY 75
-#define HYGIENE_LEVEL_DISGUSTING 0
 
 //Nutrition levels for humans
 #define NUTRITION_LEVEL_FAT 600
@@ -348,11 +340,10 @@
 #define WIZARD_AGE_MIN		30	//! youngest a wizard can be
 #define APPRENTICE_AGE_MIN	29	//! youngest an apprentice can be
 #define SHOES_SLOWDOWN		0	//! How much shoes slow you down by default. Negative values speed you up
-#define POCKET_STRIP_DELAY			40	//! time taken (in deciseconds) to search somebody's pockets
+#define POCKET_STRIP_DELAY	(4 SECONDS)	//! time taken to search somebody's pockets
 #define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
 
 #define	HUNGER_FACTOR		0.1	//! factor at which mob nutrition decreases
-#define	HYGIENE_FACTOR  0.1	//! factor at which mob hygiene decreases
 #define	REAGENTS_METABOLISM 0.4	//! How many units of reagent are consumed per tick, by default.
 #define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)	//! By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
 
@@ -417,3 +408,4 @@
 
 ///Define for spawning megafauna instead of a mob for cave gen
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
+

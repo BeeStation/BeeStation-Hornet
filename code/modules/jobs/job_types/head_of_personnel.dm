@@ -38,6 +38,11 @@
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_PERSONNEL
 	departments = DEPARTMENT_COMMAND | DEPARTMENT_SERVICE
+	rpg_title = "Guild Questgiver"
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hop
+	)
 
 /datum/outfit/job/hop
 	name = "Head of Personnel"
@@ -49,7 +54,8 @@
 	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/hopcap
-	backpack_contents = list(/obj/item/storage/box/ids=1,\
-		/obj/item/melee/classic_baton/police/telescopic=1, /obj/item/modular_computer/tablet/preset/advanced = 1)
+	backpack_contents = list(/obj/item/storage/box/ids=1,
+		/obj/item/melee/classic_baton/police/telescopic=1,
+		/obj/item/modular_computer/tablet/preset/advanced/command=1)
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/hop)

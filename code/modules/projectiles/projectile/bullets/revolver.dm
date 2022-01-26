@@ -31,7 +31,7 @@
 	ricochet_decay_damage = 1
 
 /obj/item/projectile/bullet/c38/match/bouncy
-	name = ".38 Rubber bullet"
+	name = ".38 Bouncy Rubber bullet"
 	damage = 10
 	stamina = 30
 	armour_penetration = -30

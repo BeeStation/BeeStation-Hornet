@@ -259,54 +259,45 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 /obj/machinery/cryopod/proc/handle_objectives()
 	var/mob/living/mob_occupant = occupant
+	if(!mob_occupant.mind)
+		return
 	//Update any existing objectives involving this mob.
-	for(var/datum/objective/O in GLOB.objectives)
+	for(var/datum/objective/O as() in GLOB.objectives)
+		if(!O.target || O.target != mob_occupant.mind)
+			continue
 		// We don't want revs to get objectives that aren't for heads of staff. Letting
 		// them win or lose based on cryo is silly so we remove the objective.
-		if(istype(O,/datum/objective/mutiny) && O.target == mob_occupant.mind)
+		if(istype(O,/datum/objective/mutiny))
 			O.team.objectives -= O
-			qdel(O)
-			for(var/datum/mind/M in O.team.members)
+			for(var/datum/mind/M as() in O.team.members)
 				to_chat(M.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
 				M.announce_objectives()
-		else if(istype(O.target) && O.target == mob_occupant.mind)
-			if(istype(O, /datum/objective/contract))
-				var/datum/antagonist/traitor/affected_traitor = O.owner.has_antag_datum(/datum/antagonist/traitor)
-				for(var/datum/syndicate_contract/affected_contract as anything in affected_traitor.contractor_hub.assigned_contracts)
-					if(affected_contract.contract == O)
-						affected_contract.generate(affected_traitor.contractor_hub.assigned_targets)
-						affected_traitor.contractor_hub.assigned_targets.Add(affected_contract.contract.target)
-						to_chat(O.owner.current, "<BR><span class='userdanger'>Contract target out of reach. Contract rerolled.")
-						break
-			else
-				var/old_target = O.target
-				O.target = null
-				if(!O)
-					return
-				O.find_target()
-				if(!O.target && O.owner)
-					to_chat(O.owner.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
-					for(var/datum/antagonist/A in O.owner.antag_datums)
+			qdel(O)
+		else if(istype(O, /datum/objective/contract))
+			var/datum/antagonist/traitor/affected_traitor = O.owner.has_antag_datum(/datum/antagonist/traitor)
+			for(var/datum/syndicate_contract/affected_contract as anything in affected_traitor.contractor_hub.assigned_contracts)
+				if(affected_contract.contract == O)
+					affected_contract.generate(affected_traitor.contractor_hub.assigned_targets)
+					affected_traitor.contractor_hub.assigned_targets.Add(affected_contract.contract.target)
+					to_chat(O.owner.current, "<BR><span class='userdanger'>Contract target out of reach. Contract rerolled.")
+					break
+		else
+			O.target = null
+			O.find_target()
+			if(!O.target || O.target == mob_occupant.mind)
+				for(var/datum/mind/own as() in O.get_owners())
+					to_chat(own.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
+					for(var/datum/antagonist/A as() in own.antag_datums)
 						A.objectives -= O
-				if (!O.team)
-					O.update_explanation_text()
-					O.owner.announce_objectives()
-					to_chat(O.owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-				else
-					var/list/objectivestoupdate
-					for(var/datum/mind/own in O.get_owners())
-						to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-						for(var/datum/objective/ob in own.get_all_objectives())
-							LAZYADD(objectivestoupdate, ob)
-					objectivestoupdate += O.team.objectives
-					for(var/datum/objective/ob in objectivestoupdate)
-						if(ob.target != old_target || !istype(ob,O.type))
-							return
-						ob.target = O.target
-						ob.update_explanation_text()
-						to_chat(O.owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-						ob.owner.announce_objectives()
+					own.announce_objectives()
+				if(O.team)
+					O.team.objectives -= O
 				qdel(O)
+			else
+				O.update_explanation_text()
+				for(var/datum/mind/own as() in O.get_owners())
+					to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+					own.announce_objectives()
 
 // This function can not be undone; do not call this unless you are sure
 /obj/machinery/cryopod/proc/despawn_occupant()

@@ -12,6 +12,9 @@ GLOBAL_PROTECT(whitelist)
 			continue
 		GLOB.whitelist += ckey(line)
 
+	if(CONFIG_GET(flag/use_patrons_as_whitelist))
+		GLOB.whitelist |= GLOB.patrons
+
 	if(!GLOB.whitelist.len)
 		GLOB.whitelist = null
 

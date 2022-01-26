@@ -73,6 +73,15 @@
 	var/random_spawns_possible = TRUE
 	/// Should this job be allowed to be picked for the bureaucratic error event?
 	var/allow_bureaucratic_error = TRUE
+	///how at risk is this occupation at for being a carrier of a dormant disease
+	var/biohazard = 10
+
+	///A dictionary of species IDs and a path to the outfit.
+	var/list/species_outfits = null
+
+	///RPG job names, for the memes
+	var/rpg_title
+
 
 /datum/job/New()
 	. = ..()
@@ -192,13 +201,19 @@
 	//Equip the rest of the gear
 	H.dna.species.before_equip_job(src, H, visualsOnly)
 
+	if(src.species_outfits)
+		if(H.dna.species.id in src.species_outfits)
+			var/datum/outfit/O = species_outfits[H.dna.species.id]
+			H.equipOutfit(O, visualsOnly)
+
 	if(outfit_override || outfit)
 		H.equipOutfit(outfit_override ? outfit_override : outfit, visualsOnly)
 
-	H.dna.species.after_equip_job(src, H, visualsOnly)
+	H.dna.species.after_equip_job(src, H, visualsOnly, preference_source)
 
 	if(!visualsOnly && announce)
 		announce(H)
+	dormant_disease_check(H)
 
 /datum/job/proc/get_access()
 	if(!config)	//Needed for robots.
@@ -282,7 +297,7 @@
 			back = duffelbag //Department duffel bag
 		else
 			back = backpack //Department backpack
-			
+
 	//converts the uniform string into the path we'll wear, whether it's the skirt or regular variant
 	var/holder
 	if(H.jumpsuit_style == PREF_SKIRT)
@@ -336,3 +351,32 @@
 	if(CONFIG_GET(flag/security_has_maint_access))
 		return list(ACCESS_MAINT_TUNNELS)
 	return list()
+
+//why is this as part of a job? because it's something every human recieves at roundstart after all other initializations and factors job in. it fits best with the equipment proc
+//this gives a dormant disease for the virologist to check for. if this disease actually does something to the mob... call me, or your local coder
+/datum/job/proc/dormant_disease_check(mob/living/carbon/human/H)
+	var/datum/symptom/guaranteed
+	var/sickrisk = 1
+	var/unfunny = 4
+	if((flag == CLOWN) || (flag == MIME))
+		unfunny = 0
+	if(islizard(H) || iscatperson(H))
+		sickrisk += 0.5 //these races like eating diseased mice, ew
+	if(MOB_INORGANIC in H.mob_biotypes)
+		sickrisk -= 0.5
+		guaranteed = /datum/symptom/inorganic_adaptation
+	else if(MOB_ROBOTIC in H.mob_biotypes)
+		sickrisk -= 0.75
+		guaranteed = /datum/symptom/robotic_adaptation
+	else if(MOB_UNDEAD in H.mob_biotypes)//this doesnt matter if it's not halloween, but...
+		sickrisk -= 0.25
+		guaranteed = /datum/symptom/undead_adaptation
+	else if(!(MOB_ORGANIC in H.mob_biotypes))
+		return //this mob cant be given a disease
+	if(prob(biohazard * sickrisk))
+		var/datum/disease/advance/scandisease = new /datum/disease/advance/random(rand(1, 4), rand(7, 9), unfunny, guaranteed, infected = H)
+		scandisease.dormant = TRUE
+		scandisease.spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
+		scandisease.spread_text = "None"
+		scandisease.visibility_flags |= HIDDEN_SCANNER
+		H.ForceContractDisease(scandisease)

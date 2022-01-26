@@ -19,6 +19,12 @@
 
 	display_order = JOB_DISPLAY_ORDER_JANITOR
 	departments = DEPARTMENT_SERVICE
+	rpg_title = "Groundskeeper"
+	biohazard = 20//cleaning up hazardous messes puts janitors at extra risk
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/janitor
+	)
 
 /datum/outfit/job/janitor
 	name = "Janitor"

@@ -19,6 +19,12 @@
 
 	display_order = JOB_DISPLAY_ORDER_CARGO_TECHNICIAN
 	departments = DEPARTMENT_CARGO
+	rpg_title = "Merchantman"
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cargo
+	)
+	biohazard = 15
 
 /datum/outfit/job/cargo_tech
 	name = "Cargo Technician"

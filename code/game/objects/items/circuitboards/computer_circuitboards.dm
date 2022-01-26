@@ -49,7 +49,6 @@
 	icon_state = "command"
 	desc = "Can be modified using a screwdriver."
 	build_path = /obj/machinery/computer/communications
-	var/lastTimeUsed = 0
 	var/insecure = FALSE // Forbids shuttles that are set as illegal.
 
 /obj/item/circuitboard/computer/communications/attackby(obj/item/I, mob/user, params)
@@ -234,11 +233,6 @@
 	else
 		return ..()
 
-/obj/item/circuitboard/computer/monastery_shuttle
-	name = "monastery shuttle console (Computer Board)"
-	icon_state = "generic"
-	build_path = /obj/machinery/computer/shuttle_flight/monastery_shuttle
-
 /obj/item/circuitboard/computer/olddoor
 	name = "DoorMex (Computer Board)"
 	icon_state = "generic"
@@ -259,6 +253,7 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/pod/old/swf
 
+//Not inhereting the hackability from shuttle subtypes
 /obj/item/circuitboard/computer/syndicate_shuttle
 	name = "syndicate shuttle console (Computer Board)"
 	icon_state = "generic"
@@ -278,24 +273,6 @@
 	name = "ProComp Executive (Computer Board)"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/pod/old/syndicate
-
-/obj/item/circuitboard/computer/white_ship
-	name = "white ship control (Computer Board)"
-	icon_state = "generic"
-	build_path = /obj/machinery/computer/shuttle_flight/white_ship
-
-/obj/item/circuitboard/computer/white_ship/pod
-	name = "salvage pod control (Computer Board)"
-	build_path = /obj/machinery/computer/shuttle_flight/white_ship/pod
-
-/obj/item/circuitboard/computer/white_ship/pod/recall
-	name = "salvage pod recall control (Computer Board)"
-	build_path = /obj/machinery/computer/shuttle_flight/white_ship/pod/recall
-
-/obj/item/circuitboard/computer/shuttle/flight_control
-	name = "shuttle flight control (Computer Board)"
-	icon_state = "generic"
-	build_path = /obj/machinery/computer/shuttle_flight/custom_shuttle
 
 //Medical
 
@@ -414,16 +391,6 @@
 
 //Security
 
-
-/obj/item/circuitboard/computer/labor_shuttle
-	name = "labor shuttle console (Computer Board)"
-	icon_state = "security"
-	build_path = /obj/machinery/computer/shuttle_flight/labor
-
-/obj/item/circuitboard/computer/labor_shuttle/one_way
-	name = "prisoner shuttle console (Computer Board)"
-	build_path = /obj/machinery/computer/shuttle_flight/labor/one_way
-
 /obj/item/circuitboard/computer/gulag_teleporter_console
 	name = "labor camp teleporter console (Computer Board)"
 	icon_state = "security"
@@ -504,6 +471,53 @@
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/cargo/request
 
+/obj/item/circuitboard/computer/mining
+	name = "outpost status display (Computer Board)"
+	icon_state = "supply"
+	build_path = /obj/machinery/computer/security/mining
+
+//Shuttles
+
+/obj/item/circuitboard/computer/shuttle
+	var/hacked = FALSE
+
+/obj/item/circuitboard/computer/shuttle/attackby(obj/item/I, mob/user, params)
+	if(I.tool_behaviour == TOOL_MULTITOOL)
+		hacked = !hacked
+		if(hacked)
+			to_chat(user, "<span class='notice'>You disable the circuitboard's ID scanning protocols.</span>")
+		else
+			to_chat(user, "<span class='notice'>You reset the circuitboard's ID scanning protocols.</span>")
+		return
+	. = ..()
+
+/obj/item/circuitboard/computer/shuttle/white_ship
+	name = "white ship control (Computer Board)"
+	icon_state = "generic"
+	build_path = /obj/machinery/computer/shuttle_flight/white_ship
+
+/obj/item/circuitboard/computer/shuttle/white_ship/pod
+	name = "salvage pod control (Computer Board)"
+	build_path = /obj/machinery/computer/shuttle_flight/white_ship/pod
+
+/obj/item/circuitboard/computer/shuttle/white_ship/pod/recall
+	name = "salvage pod recall control (Computer Board)"
+	build_path = /obj/machinery/computer/shuttle_flight/white_ship/pod/recall
+
+/obj/item/circuitboard/computer/shuttle/flight_control
+	name = "shuttle flight control (Computer Board)"
+	icon_state = "generic"
+	build_path = /obj/machinery/computer/shuttle_flight/custom_shuttle
+
+/obj/item/circuitboard/computer/shuttle/labor_shuttle
+	name = "labor shuttle console (Computer Board)"
+	icon_state = "security"
+	build_path = /obj/machinery/computer/shuttle_flight/labor
+
+/obj/item/circuitboard/computer/shuttle/labor_shuttle/one_way
+	name = "prisoner shuttle console (Computer Board)"
+	build_path = /obj/machinery/computer/shuttle_flight/labor/one_way
+
 /obj/item/circuitboard/computer/ferry
 	name = "transport ferry control (Computer Board)"
 	icon_state = "supply"
@@ -513,20 +527,20 @@
 	name = "transport ferry console (Computer Board)"
 	build_path = /obj/machinery/computer/shuttle_flight/ferry/request
 
-/obj/item/circuitboard/computer/mining
-	name = "outpost status display (Computer Board)"
-	icon_state = "supply"
-	build_path = /obj/machinery/computer/security/mining
-
-/obj/item/circuitboard/computer/mining_shuttle
+/obj/item/circuitboard/computer/shuttle/mining_shuttle
 	name = "mining shuttle console (Computer Board)"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/shuttle_flight/mining
 
-/obj/item/circuitboard/computer/science_shuttle
+/obj/item/circuitboard/computer/shuttle/science_shuttle
 	name = "science shuttle console (Computer Board)"
 	build_path = /obj/machinery/computer/shuttle_flight/science
 
-/obj/item/circuitboard/computer/exploration_shuttle
+/obj/item/circuitboard/computer/shuttle/exploration_shuttle
 	name = "exploration shuttle console (Computer Board)"
 	build_path = /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration
+
+/obj/item/circuitboard/computer/shuttle/monastery_shuttle
+	name = "monastery shuttle console (Computer Board)"
+	icon_state = "generic"
+	build_path = /obj/machinery/computer/shuttle_flight/monastery_shuttle

@@ -1,0 +1,277 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall,
+/area/template_noop)
+"b" = (
+/turf/closed/wall/r_wall,
+/area/template_noop)
+"c" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"f" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"h" = (
+/obj/machinery/door/airlock/maintenance{
+	id_tag = "ScooterFront";
+	name = "Scooter Rental"
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"i" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"j" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"k" = (
+/obj/structure/rack,
+/obj/item/wrench,
+/obj/item/screwdriver,
+/obj/item/stack/cable_coil/random/five,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"m" = (
+/turf/open/floor/plasteel,
+/area/template_noop)
+"n" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"o" = (
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"q" = (
+/obj/structure/table,
+/obj/item/circuitboard/machine/paystand,
+/obj/item/stack/sheet/iron/five,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"r" = (
+/obj/machinery/newscaster{
+	pixel_x = -28;
+	pixel_y = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"s" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"t" = (
+/obj/structure/rack,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"u" = (
+/obj/machinery/button/door{
+	id = "ConvenienceBack";
+	name = "Convenience store backroom Door Lock";
+	normaldoorcontrol = 1;
+	pixel_x = -8;
+	pixel_y = -26;
+	specialfunctions = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"v" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 24
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"w" = (
+/obj/machinery/light_switch{
+	pixel_x = 22
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"z" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"B" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Convenience store Backroom"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/turf/open/floor/plasteel/grid/steel,
+/area/template_noop)
+"C" = (
+/obj/machinery/computer/security/telescreen/entertainment,
+/turf/closed/wall,
+/area/template_noop)
+"D" = (
+/obj/structure/rack,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"F" = (
+/obj/machinery/button/door{
+	id = "ConvenienceShutter";
+	name = "Convenience store Shutters";
+	normaldoorcontrol = 1;
+	pixel_x = -8;
+	pixel_y = -26;
+	specialfunctions = 4
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"G" = (
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"I" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"J" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Convenience store Maintenance";
+	req_access_txt = "12"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/turf/template_noop,
+/area/template_noop)
+"P" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"R" = (
+/obj/item/radio/intercom{
+	pixel_x = 29
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"S" = (
+/obj/structure/table,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"U" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "ConvenienceShutter";
+	name = "Convenience store Shutters"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"V" = (
+/obj/structure/chair/office/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"W" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "ConvenienceShutter";
+	name = "Convenience store Shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/plasteel/grid/steel,
+/area/template_noop)
+"Y" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+
+(1,1,1) = {"
+U
+r
+s
+z
+m
+S
+V
+a
+j
+f
+a
+"}
+(2,1,1) = {"
+W
+n
+t
+t
+c
+q
+Y
+B
+P
+I
+J
+"}
+(3,1,1) = {"
+W
+i
+D
+D
+m
+C
+F
+a
+G
+u
+a
+"}
+(4,1,1) = {"
+U
+R
+z
+m
+w
+h
+v
+a
+k
+o
+b
+"}
+(5,1,1) = {"
+a
+a
+U
+U
+a
+a
+a
+a
+a
+a
+b
+"}

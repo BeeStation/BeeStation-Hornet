@@ -951,9 +951,9 @@
 
 	if(!do_after(user, 50, target = L))
 		return
-	
+
 	to_chat(user, "<span class='notice'>You feed [L] the gender change potion!</span>")
-	
+
 	if(L.gender == MALE)
 		L.gender = FEMALE
 		L.visible_message("<span class='boldnotice'>[L] suddenly looks more feminine!</span>", "<span class='boldwarning'>You suddenly feel more feminine!</span>")
@@ -980,7 +980,7 @@
 
 	being_used = TRUE
 
-	to_chat(user, "<span class='notice'>You offer [src] to [user]...</span>")
+	to_chat(user, "<span class='notice'>You offer [src] to [M]...</span>")
 
 	var/new_name = stripped_input(M, "What would you like your name to be?", "Input a name", M.real_name, MAX_NAME_LEN)
 

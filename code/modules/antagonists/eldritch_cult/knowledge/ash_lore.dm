@@ -9,6 +9,14 @@
 	cost = 1
 	route = PATH_ASH
 
+/datum/eldritch_knowledge/base_ash/on_gain(mob/user)
+	. = ..()
+	ADD_TRAIT( user, TRAIT_NOFIRE, MAGIC_TRAIT)
+
+/datum/eldritch_knowledge/base_ash/on_lose(mob/user)
+	. = ..()
+	REMOVE_TRAIT( user, TRAIT_NOFIRE, MAGIC_TRAIT)
+
 /datum/eldritch_knowledge/spell/ashen_shift
 	name = "Ashen Shift"
 	gain_text = "The Nightwatcher was the first of them, his treason started it all."
@@ -108,7 +116,7 @@
 	required_atoms = list(/mob/living/carbon/human)
 	cost = 3
 	route = PATH_ASH
-	var/list/trait_list = list(TRAIT_RESISTHEAT,TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOFIRE,TRAIT_RADIMMUNE,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER)
+	var/list/trait_list = list(TRAIT_RESISTHEAT,TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_RADIMMUNE,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER)
 
 /datum/eldritch_knowledge/final/ash_final/on_finished_recipe(mob/living/user, list/atoms, loc)
 	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Fear the blaze, for the Ashlord, [user.real_name] has ascended! The flames shall consume all! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", ANNOUNCER_SPANOMALIES)

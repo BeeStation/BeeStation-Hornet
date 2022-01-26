@@ -21,6 +21,8 @@
 	var/wine_flavor //If NULL, this is automatically set to the fruit's flavor. Determines the flavor of the wine if distill_reagent is NULL.
 	var/wine_power = 10 //Determines the boozepwr of the wine if distill_reagent is NULL.
 
+	var/discovery_points = 0 //Amount of discovery points given for scanning
+
 /obj/item/reagent_containers/food/snacks/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
 	if(!tastes)
@@ -45,6 +47,9 @@
 		seed.prepare_result(src)
 		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 		add_juice()
+	
+	if(discovery_points)
+		AddComponent(/datum/component/discoverable, discovery_points)
 
 
 

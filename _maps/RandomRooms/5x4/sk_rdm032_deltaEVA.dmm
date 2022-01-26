@@ -106,7 +106,6 @@
 	name = "protective hat";
 	pixel_y = 9
 	},
-/obj/structure/closet/crate/internals,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -120,6 +119,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/closet/crate/internals,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "f" = (

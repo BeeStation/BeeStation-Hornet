@@ -48,6 +48,9 @@
 /// The value that is sent whenever a component is simply sending a signal. This can be anything.
 #define COMPONENT_SIGNAL 1
 
+/// The largest sized list a component can make
+#define COMPONENT_MAXIMUM_LIST_SIZE 256
+
 // Comparison defines
 #define COMP_COMPARISON_EQUAL "="
 #define COMP_COMPARISON_NOT_EQUAL "!="
@@ -104,6 +107,19 @@
 #define COMP_TRIG_HYPERBOLIC_SINE "SINH"
 #define COMP_TRIG_AHYPERBOLIC_COSINE "ACOSH"
 #define COMP_TRIG_AHYPERBOLIC_SINE "ASING"
+
+//Indexer defines
+#define COMP_INDEXER_NONE "None"
+#define COMP_INDEXER_INCREMENT "Increment"
+#define COMP_INDEXER_LOOP "Loop"
+#define COMP_INDEXER_BOTH "Both"
+
+#define COMP_INDEXER_FLAG_INCREMENT (1<<0)
+#define COMP_INDEXER_FLAG_LOOP (1<<1)
+
+//Pop defines
+#define COMP_POP_POP "Pop"
+#define COMP_POP_DEQUEUE "Dequeue"
 
 // Text defines
 #define COMP_TEXT_LOWER "To Lower"
@@ -190,5 +206,6 @@
 	WIREMOD_OUTPUT_COMPONENTS,\
 	WIREMOD_MATH_COMPONENTS,\
 	WIREMOD_TIME_COMPONENTS,\
-	WIREMOD_LOGIC_COMPONENTS\
+	WIREMOD_LOGIC_COMPONENTS,\
+	WIREMOD_LIST_COMPONENTS\
 	)

@@ -63,6 +63,7 @@
 	name = "custodial holobarrier projector"
 	desc = "A holographic projector that creates hard light wet floor barriers."
 	holosign_type = /obj/structure/holosign/barrier/wetsign
+	custom_price = 200
 	creation_time = 20
 	max_signs = 12
 

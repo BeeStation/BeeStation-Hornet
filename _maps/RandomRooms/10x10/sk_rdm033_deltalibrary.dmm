@@ -289,8 +289,8 @@
 "W" = (
 /obj/structure/easel,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/canvas/twentythreeXtwentythree,
-/obj/item/canvas/twentythreeXtwentythree,
+/obj/item/canvas/twentythree_twentythree,
+/obj/item/canvas/twentythree_twentythree,
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/template_noop)

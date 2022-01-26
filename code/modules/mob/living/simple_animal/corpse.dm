@@ -310,7 +310,7 @@
 
 /obj/effect/mob_spawn/human/corpse/facboss
 	name = "Factory boss"
-	mob_species = /datum/species/synth/military
+	mob_species = /datum/species/ipc
 	brute_damage = 800
 	burn_damage = 100
 	hair_style = "Crewcut"

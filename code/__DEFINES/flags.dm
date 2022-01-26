@@ -17,8 +17,8 @@
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
 
 // for /datum/var/datum_flags
-#define DF_USE_TAG		(1<<0)
-#define DF_VAR_EDITED	(1<<1)
+#define DF_USE_TAG (1<<0)
+#define DF_VAR_EDITED (1<<1)
 #define DF_ISPROCESSING (1<<2)
 
 //! ## FLAGS BITMASK
@@ -30,8 +30,9 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define HOLOGRAM_1					(1<<12)
 #define TESLA_IGNORE_1				(1<<13) 	//! TESLA_IGNORE grants immunity from being targeted by tesla-style electricity
 #define INITIALIZED_1				(1<<14)  	//! Whether /atom/Initialize() has already run for the object
-#define ADMIN_SPAWNED_1			(1<<15) 		//! was this spawned by an admin? used for stat tracking stuff.
+#define ADMIN_SPAWNED_1				(1<<15) 		//! was this spawned by an admin? used for stat tracking stuff.
 #define PREVENT_CONTENTS_EXPLOSION_1 (1<<16)
+#define UNPAINTABLE_1 				(1<<17)
 
 /// If the thing can reflect light (lasers/energy)
 #define RICOCHET_SHINY			(1<<0)
@@ -78,14 +79,19 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define PASSBLOB		(1<<3)
 #define PASSMOB			(1<<4)
 #define PASSCLOSEDTURF	(1<<5)
+/// Let thrown things past us. **ONLY MEANINGFUL ON pass_flags_self!**
 #define LETPASSTHROW	(1<<6)
+#define PASSMACHINE 	(1<<7)
+#define PASSSTRUCTURE 	(1<<8)
+#define PASSFLAPS 		(1<<9)
+#define PASSDOORS 		(1<<10)
 
 //! ## Movement Types
 #define GROUND			(1<<0)
 #define FLYING			(1<<1)
 #define VENTCRAWLING	(1<<2)
 #define FLOATING		(1<<3)
-#define UNSTOPPABLE		(1<<4)			//! When moving, will Bump()/Cross()/Uncross() everything, but won't be stopped.
+#define PHASING		(1<<4)			//! When moving, will Bump()/Cross() everything, but won't be stopped.
 #define THROWN			(1<<5) //! while an atom is being thrown
 
 //! ## Fire and Acid stuff, for resistance_flags

@@ -4,6 +4,12 @@
 /obj/effect/turf_decal/stripes/line
 	icon_state = "warningline"
 
+/obj/effect/turf_decal/stripes/closeup
+	icon_state = "warningline_closeup"
+
+/obj/effect/turf_decal/stripes/openup
+	icon_state = "warningline_openup"
+
 /obj/effect/turf_decal/stripes/end
 	icon_state = "warn_end"
 

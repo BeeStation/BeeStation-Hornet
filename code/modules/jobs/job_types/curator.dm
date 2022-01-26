@@ -19,6 +19,12 @@
 
 	display_order = JOB_DISPLAY_ORDER_CURATOR
 	departments = DEPARTMENT_SERVICE
+	rpg_title = "Veteran Adventurer"
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/curator
+	)
+	biohazard = 5 //he doesnt get out much
 
 /datum/outfit/job/curator
 	name = "Curator"

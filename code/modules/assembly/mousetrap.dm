@@ -7,6 +7,17 @@
 	attachable = TRUE
 	var/armed = FALSE
 
+	///if we are attached to an assembly holder, we attach a connect_loc element to ourselves that listens to this from the holder
+	var/static/list/holder_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+
+/obj/item/assembly/mousetrap/Initialize()
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/assembly/mousetrap/examine(mob/user)
 	. = ..()
@@ -31,6 +42,14 @@
 		icon_state = "mousetrap"
 	if(holder)
 		holder.update_icon()
+
+/obj/item/assembly/mousetrap/on_attach()
+	. = ..()
+	AddComponent(/datum/component/connect_loc_behalf, holder, holder_connections)
+
+/obj/item/assembly/mousetrap/on_detach()
+	. = ..()
+	qdel(GetComponent(/datum/component/connect_loc_behalf))
 
 /obj/item/assembly/mousetrap/proc/triggered(mob/target, type = "feet")
 	if(!armed)
@@ -98,7 +117,8 @@
 	return ..()
 
 
-/obj/item/assembly/mousetrap/Crossed(atom/movable/AM as mob|obj)
+/obj/item/assembly/mousetrap/proc/on_entered(datum/source, atom/movable/AM as mob|obj)
+	SIGNAL_HANDLER
 	if(armed)
 		if(ismob(AM))
 			var/mob/MM = AM
@@ -106,15 +126,13 @@
 				if(ishuman(AM))
 					var/mob/living/carbon/H = AM
 					if(H.m_intent == MOVE_INTENT_RUN)
-						triggered(H)
+						INVOKE_ASYNC(src, .proc/triggered, H)
 						H.visible_message("<span class='warning'>[H] accidentally steps on [src].</span>", \
 										  "<span class='warning'>You accidentally step on [src]</span>")
 				else if(ismouse(MM))
-					triggered(MM)
+					INVOKE_ASYNC(src, .proc/triggered, MM)
 		else if(AM.density) // For mousetrap grenades, set off by anything heavy
-			triggered(AM)
-	..()
-
+			INVOKE_ASYNC(src, .proc/triggered, AM)
 
 /obj/item/assembly/mousetrap/on_found(mob/finder)
 	if(armed)

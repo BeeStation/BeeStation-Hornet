@@ -1,7 +1,7 @@
 /datum/controller/configuration
 	name = "Configuration"
 
-	var/directory = "config"
+	var/directory = CONFIG_DIRECTORY
 
 	var/warned_deprecated_configs = FALSE
 	var/hiding_entries_by_type = TRUE	//Set for readability, admins can set this to FALSE if they want to debug it
@@ -303,7 +303,7 @@
 
 		switch (command)
 			if ("map")
-				currentmap = load_map_config("_maps/[data].json")
+				currentmap = load_map_config("[data]", MAP_DIRECTORY)
 				if(currentmap.defaulted)
 					log_config("Failed to load map config for [data]!")
 					currentmap = null

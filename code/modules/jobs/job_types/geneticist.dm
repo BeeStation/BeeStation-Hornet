@@ -21,6 +21,12 @@
 
 	display_order = JOB_DISPLAY_ORDER_GENETICIST
 	departments = DEPARTMENT_MEDICAL
+	rpg_title = "Genemancer"
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/genetics
+	)
+	biohazard = 15
 
 /datum/outfit/job/geneticist
 	name = "Geneticist"

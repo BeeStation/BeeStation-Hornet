@@ -233,7 +233,7 @@
 	if(!istype(M))
 		return
 	if(isoozeling(M))
-		M.blood_volume -= 30
+		M.blood_volume = max(M.blood_volume - 30, 0)
 		to_chat(M, "<span class='warning'>The water causes you to melt away!</span>")
 		return
 	if(method == TOUCH)
@@ -452,8 +452,7 @@
 				to_chat(M, "<span class='notice'>That tasted horrible.</span>")
 	..()
 
-
-/datum/reagent/spraytan/overdose_process(mob/living/M)
+/datum/reagent/spraytan/overdose_start(mob/living/M)
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 
 	if(ishuman(M))
@@ -469,15 +468,18 @@
 		else if(MUTCOLORS in N.dna.species.species_traits) //Aliens with custom colors simply get turned orange
 			N.dna.features["mcolor"] = "f80"
 		N.regenerate_icons()
+	..()
+
+/datum/reagent/spraytan/overdose_process(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/N = M
 		if(prob(7))
 			if(N.w_uniform)
 				M.visible_message(pick("<b>[M]</b>'s collar pops up without warning.</span>", "<b>[M]</b> flexes [M.p_their()] arms."))
 			else
 				M.visible_message("<b>[M]</b> flexes [M.p_their()] arms.")
-	if(prob(10))
-		M.say(pick("Shit was SO cash.", "You are everything bad in the world.", "What sports do you play, other than 'jack off to naked drawn Japanese people?'", "Don???t be a stranger. Just hit me with your best shot.", "My name is John and I hate every single one of you."), forced = /datum/reagent/spraytan)
-	..()
-	return
+		if(prob(10))
+			M.say(pick("Shit was SO cash.", "You are everything bad in the world.", "What sports do you play, other than 'jack off to naked drawn Japanese people?'", "Don???t be a stranger. Just hit me with your best shot.", "My name is John and I hate every single one of you."), forced = /datum/reagent/spraytan)
 
 #define MUT_MSG_IMMEDIATE 1
 #define MUT_MSG_EXTENDED 2
@@ -549,7 +551,6 @@
 						/datum/species/pod,
 						/datum/species/jelly,
 						/datum/species/abductor,
-						/datum/species/squid,
 						/datum/species/skeleton)
 	can_synth = TRUE
 
@@ -651,13 +652,6 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/ethereal
 	taste_description = "shocking"
-
-/datum/reagent/mutationtoxin/squid
-	name = "Squid Mutation Toxin"
-	description = "A salty toxin."
-	color = "#5EFF3B" //RGB: 94, 255, 59
-	race = /datum/species/squid
-	taste_description = "fish"
 
 /datum/reagent/mutationtoxin/oozeling
 	name = "Oozeling Mutation Toxin"
@@ -1135,7 +1129,6 @@
 			var/mob/living/carbon/C = M
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
-				H.adjust_hygiene((30 * reac_volume) / (3 + reac_volume))
 				if(H.lip_style)
 					H.lip_style = null
 					H.update_body()

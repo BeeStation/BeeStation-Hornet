@@ -166,7 +166,7 @@
 
 /obj/item/storage/firstaid/toxin/Initialize(mapload)
 	. = ..()
-	icon_state = pick("antitoxin","antitoxfirstaid","antitoxfirstaid2","antitoxfirstaid3")
+	icon_state = pick("antitoxin","antitoxin2")
 
 /obj/item/storage/firstaid/toxin/PopulateContents()
 	if(empty)
@@ -207,7 +207,7 @@
 /obj/item/storage/firstaid/o2
 	name = "oxygen deprivation treatment kit"
 	desc = "A box full of oxygen goodies."
-	icon_state = "o2"
+	icon_state = "o2firstaid"
 	item_state = "firstaid-o2"
 	damagetype_healed = OXY
 
@@ -249,8 +249,8 @@
 /obj/item/storage/firstaid/advanced
 	name = "advanced first aid kit"
 	desc = "An advanced kit to help deal with advanced wounds."
-	icon_state = "radfirstaid"
-	item_state = "firstaid-rad"
+	icon_state = "advfirstaid"
+	item_state = "firstaid-adv"
 	custom_premium_price = 600
 
 /obj/item/storage/firstaid/advanced/PopulateContents()
@@ -266,7 +266,11 @@
 /obj/item/storage/firstaid/tactical
 	name = "combat medical kit"
 	desc = "I hope you've got insurance."
-	icon_state = "bezerk"
+	item_state = "firstaid-combat"
+
+/obj/item/storage/firstaid/tactical/Initialize(mapload)
+	. = ..()
+	icon_state = pick("combatfirstaid","combatfirstaid2")
 
 /obj/item/storage/firstaid/tactical/ComponentInitialize()
 	. = ..()

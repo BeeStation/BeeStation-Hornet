@@ -2,11 +2,8 @@
 #define FONT_SIZE "5pt"
 #define FONT_COLOR "#09f"
 #define FONT_STYLE "Small Fonts"
-#define MAX_TIMER 15 MINUTES
 
-#define PRESET_SHORT 2 MINUTES
-#define PRESET_MEDIUM 3 MINUTES
-#define PRESET_LONG 5 MINUTES
+
 
 
 
@@ -167,7 +164,7 @@
 		. /= 10
 
 /obj/machinery/door_timer/proc/set_timer(value)
-	var/new_time = clamp(value,0,MAX_TIMER)
+	var/new_time = clamp(value,0,CONFIG_GET(number/brig_timer_max) MINUTES)
 	. = new_time == timer_duration //return 1 on no change
 	timer_duration = new_time
 
@@ -287,11 +284,11 @@
 			var/preset_time = time_left()
 			switch(preset)
 				if("short")
-					preset_time = PRESET_SHORT
+					preset_time = CONFIG_GET(number/brig_timer_preset_short) MINUTES
 				if("medium")
-					preset_time = PRESET_MEDIUM
+					preset_time = CONFIG_GET(number/brig_timer_preset_med) MINUTES
 				if("long")
-					preset_time = PRESET_LONG
+					preset_time = CONFIG_GET(number/brig_timer_preset_long) MINUTES
 			. = !set_timer(preset_time)
 			investigate_log("[key_name(usr)] set cell [id]'s timer to [preset_time/10] seconds", INVESTIGATE_RECORDS)
 			user.log_message("set cell [id]'s timer to [preset_time/10] seconds", LOG_ATTACK)
@@ -302,11 +299,7 @@
 
 
 
-#undef PRESET_SHORT
-#undef PRESET_MEDIUM
-#undef PRESET_LONG
 
-#undef MAX_TIMER
 #undef FONT_SIZE
 #undef FONT_COLOR
 #undef FONT_STYLE

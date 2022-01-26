@@ -148,7 +148,8 @@
 	set_zeroth_law("Only [user.real_name] and people [user.p_they()] designate[user.p_s()] as being such are Syndicate Agents.")
 	laws.associate(src)
 	update_icons()
-
+	//Get syndicate access.
+	create_access_card(get_all_syndicate_access())
 
 /mob/living/silicon/robot/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)

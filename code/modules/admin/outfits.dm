@@ -241,4 +241,3 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 
 	GLOB.custom_outfits.Add(O)
 	message_admins("[key_name(usr)] created \"[O.name]\" outfit!")
-	

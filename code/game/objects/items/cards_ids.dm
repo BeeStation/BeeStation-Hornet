@@ -142,7 +142,7 @@
 	. = ..()
 	if(.)
 		switch(var_name)
-			if("assignment","registered_name")
+			if(NAMEOF(src, assignment),NAMEOF(src, registered_name))
 				update_label()
 
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
@@ -333,6 +333,22 @@ update_label("John Doe", "Clowny")
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 
+/obj/item/card/id/silver/spacepol
+	name = "space police access card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/silver/spacepol/bounty
+	name = "bounty hunter access card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/space_russian
+	name = "space russian card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/pirate
+	name = "pirate ship card"
+	access = list(ACCESS_PIRATES)
+
 /obj/item/card/id/syndicate
 	name = "agent card"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE)
@@ -466,6 +482,19 @@ update_label("John Doe", "Clowny")
 	assignment = "Syndicate Officer"
 	access = list(ACCESS_SYNDICATE)
 
+/obj/item/card/id/syndicate/debug
+	name = "\improper Debug ID"
+	desc = "A shimmering ID card with the ability to open anything."
+	icon_state = "centcom"
+	registered_name = "Central Command"
+	assignment = "Admiral"
+	anyone = TRUE
+
+/obj/item/card/id/syndicate/debug/Initialize()
+	access = get_every_access()
+	registered_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	. = ..()
+
 /obj/item/card/id/captains_spare
 	name = "captain's spare ID"
 	desc = "The spare ID of the High Lord himself."
@@ -545,6 +574,15 @@ update_label("John Doe", "Clowny")
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Janitor/Initialize()
+	access = get_all_accesses()
+	. = ..()
+
+/obj/item/card/id/ert/kudzu
+	registered_name = "Weed Whacker"
+	assignment = "Weed Whacker"
+	icon_state = "ert"
+
+/obj/item/card/id/ert/kudzu/Initialize()
 	access = get_all_accesses()
 	. = ..()
 

@@ -105,16 +105,6 @@
 	icon_state = "justicepink"
 	item_state = "justicepink"
 
-/obj/item/clothing/head/rabbitears
-	name = "rabbit ears"
-	desc = "Wearing these makes you look useless, and only good for your sex appeal."
-	icon_state = "bunny"
-	clothing_flags = SNUG_FIT
-	dynamic_hair_suffix = ""
-
-	dog_fashion = /datum/dog_fashion/head/rabbit
-
-
 /obj/item/clothing/head/flatcap
 	name = "flat cap"
 	desc = "A working man's cap."
@@ -390,7 +380,7 @@
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"
-		var/list/french_words = strings("french_replacement.json", "french")
+		var/list/french_words = strings(FRENCH_TALK_FILE, "french")
 
 		for(var/key in french_words)
 			var/value = french_words[key]

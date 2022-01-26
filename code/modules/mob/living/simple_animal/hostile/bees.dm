@@ -25,9 +25,8 @@
 	response_help  = "shoos"
 	response_disarm = "swats away"
 	response_harm   = "squashes"
-	harm_intent_damage = 10 //you can swat bees in one hit
-	maxHealth = 10
-	health = 10
+	maxHealth = 6
+	health = 6
 	spacewalk = TRUE
 	faction = list("hostile")
 	move_to_delay = 0

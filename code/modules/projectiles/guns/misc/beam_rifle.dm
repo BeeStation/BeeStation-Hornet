@@ -19,7 +19,6 @@
 	fire_sound = 'sound/weapons/beam_sniper.ogg'
 	slot_flags = ITEM_SLOT_BACK
 	force = 15
-	block_upgrade_walk = 1
 	materials = list()
 	recoil = 4
 	ammo_x_offset = 3
@@ -438,19 +437,17 @@
 	var/aoe_mob_damage = 0
 	var/impact_structure_damage = 0
 	var/impact_direct_damage = 0
-	var/turf/cached
 	var/list/pierced = list()
 
 /obj/item/projectile/beam/beam_rifle/proc/AOE(turf/epicenter)
-	set waitfor = FALSE
 	if(!epicenter)
 		return
 	new /obj/effect/temp_visual/explosion/fast(epicenter)
 	for(var/mob/living/L in hearers(aoe_mob_range, epicenter))		//handle aoe mob damage
 		L.adjustFireLoss(aoe_mob_damage)
 		to_chat(L, "<span class='userdanger'>\The [src] sears you!</span>")
-	for(var/turf/open/T in RANGE_TURFS(aoe_fire_range, epicenter))		//handle aoe fire
-		if(prob(aoe_fire_chance) && can_see(epicenter, T, aoe_fire_range))
+	for(var/turf/T in RANGE_TURFS(aoe_fire_range, epicenter))		//handle aoe fire
+		if(prob(aoe_fire_chance))
 			new /obj/effect/hotspot(T)
 	for(var/obj/O in range(aoe_structure_range, epicenter))
 		if(!isitem(O))
@@ -458,31 +455,22 @@
 				continue
 			O.take_damage(aoe_structure_damage * get_damage_coeff(O), BURN, "laser", FALSE)
 
-/obj/item/projectile/beam/beam_rifle/proc/check_pierce(atom/target)
-	if(!do_pierce)
-		return FALSE
-	if(pierced[target])		//we already pierced them go away
-		return TRUE
-	if(isclosedturf(target))
-		if(wall_pierce++ < wall_pierce_amount)
-			if(prob(wall_devastate))
-				if(iswallturf(target))
-					var/turf/closed/wall/W = target
-					W.dismantle_wall(TRUE, TRUE)
-				else
-					SSexplosions.medturf += target
-			return TRUE
-	if(ismovableatom(target))
-		var/atom/movable/AM = target
-		if(AM.density && !AM.CanPass(src, get_turf(target)) && !ismob(AM))
-			if(structure_pierce < structure_pierce_amount)
-				if(isobj(AM))
-					var/obj/O = AM
-					O.take_damage((impact_structure_damage + aoe_structure_damage) * structure_bleed_coeff * get_damage_coeff(AM), BURN, "energy", FALSE)
-				pierced[AM] = TRUE
-				structure_pierce++
-				return TRUE
-	return FALSE
+/obj/item/projectile/beam/beam_rifle/prehit_pierce(atom/A)
+	if(isclosedturf(A) && (wall_pierce < wall_pierce_amount))
+		if(prob(wall_devastate))
+			if(iswallturf(A))
+				var/turf/closed/wall/W = A
+				W.dismantle_wall(TRUE, TRUE)
+			else
+				SSexplosions.medturf += A
+		++wall_pierce
+		return PROJECTILE_PIERCE_PHASE			// yeah this gun is a snowflakey piece of garbage
+	if(isobj(A) && (structure_pierce < structure_pierce_amount))
+		++structure_pierce
+		var/obj/O = A
+		O.take_damage((impact_structure_damage + aoe_structure_damage) * structure_bleed_coeff * get_damage_coeff(A), BURN, "energy", FALSE)
+		return PROJECTILE_PIERCE_PHASE			// ditto and this could be refactored to on_hit honestly
+	return ..()
 
 /obj/item/projectile/beam/beam_rifle/proc/get_damage_coeff(atom/target)
 	if(istype(target, /obj/machinery/door))
@@ -500,32 +488,18 @@
 		L.adjustFireLoss(impact_direct_damage)
 		L.emote("scream")
 
-/obj/item/projectile/beam/beam_rifle/proc/handle_hit(atom/target)
+/obj/item/projectile/beam/beam_rifle/proc/handle_hit(atom/target, piercing_hit = FALSE)
 	set waitfor = FALSE
-	if(!cached && !QDELETED(target))
-		cached = get_turf(target)
 	if(nodamage)
 		return FALSE
-	playsound(cached, 'sound/effects/explosion3.ogg', 100, 1)
-	AOE(cached)
+	playsound(src, 'sound/effects/explosion3.ogg', 100, TRUE)
+	if(!piercing_hit)
+		AOE(get_turf(target) || get_turf(src))
 	if(!QDELETED(target))
 		handle_impact(target)
 
-/obj/item/projectile/beam/beam_rifle/Bump(atom/target)
-	if(check_pierce(target))
-		permutated += target
-		trajectory_ignore_forcemove = TRUE
-		forceMove(target.loc)
-		trajectory_ignore_forcemove = FALSE
-		return FALSE
-	if(!QDELETED(target))
-		cached = get_turf(target)
-	return ..()
-
-/obj/item/projectile/beam/beam_rifle/on_hit(atom/target, blocked = FALSE)
-	if(!QDELETED(target))
-		cached = get_turf(target)
-	handle_hit(target)
+/obj/item/projectile/beam/beam_rifle/on_hit(atom/target, blocked = FALSE, piercing_hit = FALSE)
+	handle_hit(target, piercing_hit)
 	return ..()
 
 /obj/item/projectile/beam/beam_rifle/hitscan
@@ -563,10 +537,9 @@
 	hitscan_light_color_override = "#99ff99"
 	reflectable = REFLECT_FAKEPROJECTILE
 
-/obj/item/projectile/beam/beam_rifle/hitscan/aiming_beam/prehit(atom/target)
-	qdel(src)
-	return FALSE
+/obj/item/projectile/beam/beam_rifle/hitscan/aiming_beam/prehit_pierce(atom/target)
+	return PROJECTILE_DELETE_WITHOUT_HITTING
 
 /obj/item/projectile/beam/beam_rifle/hitscan/aiming_beam/on_hit()
 	qdel(src)
-	return BULLET_ACT_HIT
+	return BULLET_ACT_BLOCK

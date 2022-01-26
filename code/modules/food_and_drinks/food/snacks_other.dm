@@ -557,6 +557,7 @@
 	desc = "A sliced piece of juicy pineapple."
 	icon_state = "pineapple_slice"
 	filling_color = "#F6CB0B"
+	juice_results = list(/datum/reagent/consumable/pineapplejuice = 3)
 	tastes = list("pineapple" = 1)
 	foodtype = FRUIT | PINEAPPLE
 
@@ -656,4 +657,4 @@
 	list_reagents = list(/datum/reagent/consumable/beefbroth = 50)
 	filling_color = "#100800"
 	tastes = list("disgust" = 7, "tin" = 1)
-	foodtype = MEAT | GROSS | JUNKFOOD 
+	foodtype = MEAT | GROSS | JUNKFOOD

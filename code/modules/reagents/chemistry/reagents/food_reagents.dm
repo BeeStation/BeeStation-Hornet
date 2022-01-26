@@ -314,18 +314,6 @@
 		return
 	if(M.has_bane(BANE_SALT))
 		M.mind.disrupt_spells(-200)
-	if(method == INGEST && is_species(M, /datum/species/squid))
-		to_chat(M, "<span class='danger'>Your tongue shrivels as you taste the salt! It burns!</span>")
-		if(prob(25))
-			M.emote("scream")
-		M.adjustFireLoss(5, TRUE)
-	else if(method == TOUCH && is_species(M, /datum/species/squid))
-		if(M.incapacitated())
-			return
-		var/obj/item/I = M.get_active_held_item()
-		M.throw_item(get_ranged_target_turf(M, pick(GLOB.alldirs), rand(1, 3)))
-		to_chat(M, "<span class='warning'>The salt causes your arm to spasm!</span>")
-		M.log_message("threw [I] due to a Muscle Spasm", LOG_ATTACK)
 
 /datum/reagent/consumable/sodiumchloride/reaction_turf(turf/T, reac_volume) //Creates an umbra-blocking salt pile
 	if(!istype(T))
@@ -420,8 +408,6 @@
 			if(prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
 				H.heal_bodypart_damage(1,1, 0)
 				. = 1
-		else //chefs' robust space-Italian metabolism lets them eat garlic without producing allyl methyl sulfide
-			H.adjust_hygiene(-0.15 * volume)
 	..()
 
 /datum/reagent/consumable/sprinkles
@@ -456,7 +442,7 @@
 
 /datum/reagent/consumable/enzyme
 	name = "Universal Enzyme"
-	description = "A universal enzyme used in the preperation of certain chemicals and foods."
+	description = "A universal enzyme used in the preparation of certain chemicals and foods."
 	color = "#365E30" // rgb: 54, 94, 48
 	taste_description = "sweetness"
 
@@ -664,17 +650,37 @@
 		. = TRUE
 	..()
 
+
 /datum/reagent/consumable/tinlux
 	name = "Tinea Luxor"
 	description = "A stimulating ichor which causes luminescent fungi to grow on the skin. "
 	color = "#b5a213"
 	taste_description = "tingling mushroom"
+	//Lazy list of mobs affected by the luminosity of this reagent.
+	var/list/mobs_affected
 
-/datum/reagent/consumable/tinlux/on_mob_metabolize(mob/living/carbon/M)
-	M.set_light(2)
+/datum/reagent/consumable/tinlux/reaction_mob(mob/living/M)
+	add_reagent_light(M)
 
-/datum/reagent/consumable/tinlux/on_mob_end_metabolize(mob/living/carbon/M)
-	M.set_light(0)
+/datum/reagent/consumable/tinlux/on_mob_end_metabolize(mob/living/M)
+	remove_reagent_light(M)
+
+/datum/reagent/consumable/tinlux/proc/on_living_holder_deletion(mob/living/source)
+
+	remove_reagent_light(source)
+
+/datum/reagent/consumable/tinlux/proc/add_reagent_light(mob/living/living_holder)
+	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = living_holder.mob_light(2)
+	LAZYSET(mobs_affected, living_holder, mob_light_obj)
+	RegisterSignal(living_holder, COMSIG_PARENT_QDELETING, .proc/on_living_holder_deletion)
+
+/datum/reagent/consumable/tinlux/proc/remove_reagent_light(mob/living/living_holder)
+	UnregisterSignal(living_holder, COMSIG_PARENT_QDELETING)
+	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = LAZYACCESS(mobs_affected, living_holder)
+	LAZYREMOVE(mobs_affected, living_holder)
+	if(mob_light_obj)
+		qdel(mob_light_obj)
+
 
 /datum/reagent/consumable/vitfro
 	name = "Vitrium Froth"

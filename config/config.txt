@@ -1,9 +1,19 @@
+# This file controls basic or highly important, but not strictly gameplay related options.
+
+
 # You can use the "$include" directive to split your configs however you want
 
+# Core gameplay options
 $include game_options.txt
+# More opinionated gameplay tweaks
+$include gameplay_tweaks.txt
+# Database (SQL), Sensitive stuff
 $include dbconfig.txt
+# Cross-Server Communications
 $include comms.txt
+# Antag Reputation (Alternative weighting)
 $include antag_rep.txt
+# Asset Transport (TGUI)
 $include resources.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
@@ -238,6 +248,9 @@ CHECK_RANDOMIZER
 ## Set to prevent anyone but those ckeys listed in config/whitelist.txt and config/admins.txt from joining your server
 #USEWHITELIST
 
+## Use the patron list as a whitelist. 'USEWHITELIST' must also be enabled. The two lists will be joined together.
+#USE_PATRONS_AS_WHITELIST
+
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
 ## Don't set this to the same server, BYOND will automatically restart players to the server when it has restarted.
 SERVER  byond://sage.beestation13.com:7878
@@ -324,6 +337,9 @@ AUTOMUTE_ON
 
 ## Uncomment this to let players see their own notes (they can still be set by admins only)
 SEE_OWN_NOTES
+
+## Uncomment this to prevent the game from creating automatically expring notes, and to skip the prompt for admins to enter an expiry time for notes. They can still be added manually.
+MANUAL_NOTE_EXPIRY
 
 ### Comment these two out to prevent notes fading out over time for admins.
 ## Notes older then this will start fading out.

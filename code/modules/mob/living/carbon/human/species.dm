@@ -52,6 +52,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/deathsound //used to set the mobs deathsound on species change
 	var/list/special_step_sounds //Sounds to override barefeet walkng
 	var/grab_sound //Special sound for grabbing
+	var/blood_color //Blood color for decals
 	var/reagent_tag = PROCESS_ORGANIC //Used for metabolizing reagents. We're going to assume you're a meatbag unless you say otherwise.
 	var/species_gibs = GIB_TYPE_HUMAN //by default human gibs are used
 	var/allow_numbers_in_name // Can this species use numbers in its name?
@@ -105,7 +106,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		limbs_id = id
 	..()
 
-
 /proc/generate_selectable_species()
 	for(var/I in subtypesof(/datum/species))
 		var/datum/species/S = new I
@@ -117,6 +117,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/check_roundstart_eligible()
 	if(id in (CONFIG_GET(keyed_list/roundstart_races)))
+		return TRUE
+	return FALSE
+
+/datum/species/proc/check_no_hard_check()
+	if(id in (CONFIG_GET(keyed_list/roundstart_no_hard_check)))
 		return TRUE
 	return FALSE
 
@@ -1035,10 +1040,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	H.visible_message("<span class='notice'>[H] start putting on [I].</span>", "<span class='notice'>You start putting on [I].</span>")
 	return do_after(H, I.equip_delay_self, target = H)
 
-/datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H)
+/datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null)
 	return
 
-/datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+/datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null)
 	H.update_mutant_bodyparts()
 
 // Do species-specific reagent handling here
@@ -1603,9 +1608,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					H.add_splatter_floor(location)
 				if(get_dist(user, H) <= 1)	//people with TK won't get smeared with blood
 					user.add_mob_blood(H)
-					if(ishuman(user))
-						var/mob/living/carbon/human/dirtyboy = user
-						dirtyboy.adjust_hygiene(-10)
 
 		switch(hit_area)
 			if(BODY_ZONE_HEAD)

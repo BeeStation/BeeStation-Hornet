@@ -61,6 +61,9 @@ In all, this is a lot like the monkey code. /N
 		if("grab")
 			grabbedby(M)
 		if ("harm")
+			if(HAS_TRAIT(M, TRAIT_PACIFISM))
+				to_chat(M, "<span class='notice'>You don't want to hurt [src]!</span>")
+				return 0
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			return 1
 		if("disarm")
