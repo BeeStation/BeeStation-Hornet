@@ -34,6 +34,19 @@
 			"label": "dm: build - beestation.dme"
 		},
 		{
+			"type": "shell",
+			"command": "bin/test",
+			"windows": {
+				"command": ".\\bin\\test.cmd"
+			},
+			"problemMatcher": [
+				"$tsc",
+				"$eslint-stylish"
+			],
+			"group": "build",
+			"label": "Run all tests"
+		},
+		{
 			"command": "${command:dreammaker.reparse}",
 			"group": "build",
 			"label": "dm: reparse"
