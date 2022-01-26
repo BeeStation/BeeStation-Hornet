@@ -1,0 +1,6 @@
+author: PowerfulBacon, Kapu, nemvar, AnturK
+delete-after: true
+changes:
+  - refactor: Refactors digital invisibility to be faster
+  - refactor: All silicons are now affected by digital camoflague including Cyborgs
+      and pAIs.
