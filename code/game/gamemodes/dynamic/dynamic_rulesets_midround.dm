@@ -214,6 +214,65 @@
 	M.mind.add_antag_datum(newTraitor)
 	return TRUE
 
+//////////////////////////////////////////////
+//                                          //
+//           OBSESSED			            //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/obsessed
+	name = "Obsessed"
+	antag_datum = /datum/antagonist/obsessed
+	antag_flag = ROLE_OBSESSED
+	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
+	restricted_roles = list("Cyborg", "AI", "Positronic Brain")
+	required_candidates = 1
+	weight = 4
+	cost = 5
+	requirements = list(50,40,30,20,10,10,10,10,10,10)
+	repeatable = TRUE
+
+/datum/dynamic_ruleset/midround/obsessed/acceptable(population = 0, threat = 0)
+	..()
+	var/player_count = mode.current_players[CURRENT_LIVING_PLAYERS].len
+	var/antag_count = mode.current_players[CURRENT_LIVING_ANTAGS].len
+	var/max_obsessed= round(player_count / 15) + 1
+
+	// adding traitors if the antag population is getting low
+	var/too_little_antags = antag_count < max_obsessed
+	if (!too_little_antags)
+		log_game("DYNAMIC: Too many living antags compared to living players ([antag_count] living antags, [player_count] living players, [max_obsessed] max obsessed)")
+		return FALSE
+
+	if (!prob(mode.threat_level))
+		log_game("DYNAMIC: Random chance to roll obsessed failed, it was a [mode.threat_level]% chance.")
+		return FALSE
+
+	return ..()
+
+/datum/dynamic_ruleset/midround/obsessed/trim_candidates()
+	for(var/mob/living/player in living_players)
+		if(issilicon(player)) // Your assigned role doesn't change when you are turned into a silicon.
+			living_players -= player
+			continue
+		if(!is_station_level(player.z))
+			living_players -= player // We don't autotator people in CentCom
+			continue
+		if(player.mind && (player.mind.special_role || player.mind.antag_datums?.len > 0))
+			living_players -= player // We don't autotator people with roles already
+
+/datum/dynamic_ruleset/midround/obsessed/ready(forced = FALSE)
+	if (required_candidates > living_players.len)
+		return FALSE
+	return ..()
+
+/datum/dynamic_ruleset/midround/obsessed/execute()
+	var/mob/M = pick(living_players)
+	assigned += M
+	living_players -= M
+	var/datum/antagonist/obsessed/O = new
+	M.mind.add_antag_datum(O)
+	return TRUE
 
 //////////////////////////////////////////////
 //                                          //

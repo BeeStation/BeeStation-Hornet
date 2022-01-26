@@ -65,7 +65,7 @@
 			return
 		switch(href_list["makeAntag"])
 			if("traitors")
-				var/maxCount = input("Set number of Traitors","Set Traitor Count (max)",1) as num|null
+				var/maxCount = input("Set number of Traitors","Set Traitor Count (max)", 1) as num|null
 				if(src.makeTraitors(maxCount))
 					message_admins("[key_name_admin(usr)] created [maxCount] traitor(s).")
 					log_admin("[key_name(usr)] created [maxCount] traitor(s).")
@@ -73,15 +73,23 @@
 					message_admins("[key_name_admin(usr)] tried to create  [maxCount] traitor(s). Unfortunately, there were no candidates available.")
 					log_admin("[key_name(usr)] failed to create [maxCount] traitor(s).")
 			if("changelings")
-				var/maxCount = input("Set number of Changelings","Set Changeling Count (max)",1) as num|null
+				var/maxCount = input("Set number of Changelings","Set Changeling Count (max)", 1) as num|null
 				if(src.makeChangelings(maxCount))
 					message_admins("[key_name(usr)] created [maxCount] changelings.")
 					log_admin("[key_name(usr)] created [maxCount] changelings.")
 				else
 					message_admins("[key_name_admin(usr)] tried to create [maxCount] changelings. Unfortunately, there were no candidates available.")
 					log_admin("[key_name(usr)] failed to create [maxCount] changelings.")
+			if("obsessed")
+				var/maxCount = input("Set number of Obsessed","Set Obsessed Count (max)", 1) as num|null
+				if(src.makeObsessed(maxCount))
+					message_admins("[key_name_admin(usr)] created [maxCount] obsessed.")
+					log_admin("[key_name(usr)] created [maxCount] obsessed.")
+				else
+					message_admins("[key_name_admin(usr)] tried to create [maxCount] obsessed. Unfortunately, there were no candidates available.")
+					log_admin("[key_name(usr)] failed to create [maxCount] obsessed.")
 			if("revs")
-				var/maxCount = input("Set number of Revolutionaries","Set Revolutionaries Count (max)",1) as num|null
+				var/maxCount = input("Set number of Revolutionaries","Set Revolutionaries Count (max)", 1) as num|null
 				if(src.makeRevs(maxCount))
 					message_admins("[key_name(usr)] started a revolution with [maxCount] freedom fighters.")
 					log_admin("[key_name(usr)] started a [maxCount] freedom fighters.")
@@ -89,7 +97,7 @@
 					message_admins("[key_name_admin(usr)] tried to start a revolution with [maxCount] freedom fighters. Unfortunately, there were no candidates available.")
 					log_admin("[key_name(usr)] failed to start a revolution with [maxCount] freedom fighters.")
 			if("cult")
-				var/maxCount = input("Set number of Cultists","Set Cultist Count (max)",1) as num|null
+				var/maxCount = input("Set number of Cultists","Set Cultist Count (max)", 1) as num|null
 				if(src.makeCult(maxCount))
 					message_admins("[key_name(usr)] started a cult with [maxCount] cultists.")
 					log_admin("[key_name(usr)] started a cult with [maxCount] cultists.")
@@ -106,7 +114,7 @@
 					log_admin("[key_name(usr)] failed to create a wizard.")
 			if("nukeops")
 				message_admins("[key_name(usr)] is creating a nuke team...")
-				var/maxCount = input("Set number of Nuke OPs","Set Nuke OP Count (max)",5) as num|null
+				var/maxCount = input("Set number of Nuke OPs","Set Nuke OP Count (max)", 5) as num|null
 				if(src.makeNukeTeam(maxCount))
 					message_admins("[key_name(usr)] created a nuke team with [maxCount] operatives")
 					log_admin("[key_name(usr)] created a nuke team with [maxCount] operatives")
@@ -130,7 +138,7 @@
 					message_admins("[key_name_admin(usr)] tried to create a death squad. Unfortunately, there were not enough candidates available.")
 					log_admin("[key_name(usr)] failed to create a death squad.")
 			if("blob")
-				var/strength = input("Set Blob Resource Gain Rate","Set Resource Rate",1) as num|null
+				var/strength = input("Set Blob Resource Gain Rate","Set Resource Rate", 1) as num|null
 				if(!strength)
 					return
 				message_admins("[key_name(usr)] spawned a blob with base resource gain [strength].")

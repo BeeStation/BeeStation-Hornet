@@ -13,6 +13,7 @@
 	var/dat = {"
 		<a href='?src=[REF(src)];[HrefToken()];makeAntag=traitors'>Make Traitors</a><br>
 		<a href='?src=[REF(src)];[HrefToken()];makeAntag=changelings'>Make Changelings</a><br>
+		<a href='?src=[REF(src)];[HrefToken()];makeAntag=obsessed'>Make Obsessed</a><br>
 		<a href='?src=[REF(src)];[HrefToken()];makeAntag=revs'>Make Revs</a><br>
 		<a href='?src=[REF(src)];[HrefToken()];makeAntag=cult'>Make Cult</a><br>
 		<a href='?src=[REF(src)];[HrefToken()];makeAntag=blob'>Make Blob</a><br>
@@ -67,16 +68,37 @@
 	if(candidates.len)
 		var/numTraitors = min(candidates.len, maxCount)
 
-		for(var/i = 0, i<numTraitors, i++)
+		for(var/i in 1 to numTraitors)
 			H = pick(candidates)
 			H.mind.make_Traitor()
 			candidates.Remove(H)
 
 		return TRUE
-
-
 	return FALSE
 
+/datum/admins/proc/makeObsessed(maxCount = 3)
+	//We're using the same list as traitors
+	var/datum/game_mode/traitor/temp = new
+	var/list/mob/living/carbon/human/candidates = list()
+	var/mob/living/carbon/human/H = null
+
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(!isReadytoRumble(applicant, ROLE_OBSESSED))
+			continue
+		if(temp.age_check(applicant.client) || !(applicant.job in temp.restricted_jobs))
+			continue
+		candidates += applicant
+
+	if(candidates.len)
+		maxCount = min(candidates.len, maxCount)
+
+		for(var/i in 1 to maxCount)
+			H = pick(candidates)
+			H.mind.add_antag_datum(/datum/antagonist/obsessed)
+			candidates.Remove(H)
+
+		return TRUE
+	return FALSE
 
 /datum/admins/proc/makeChangelings(maxCount = 3)
 
@@ -102,7 +124,7 @@
 	if(candidates.len)
 		var/numChangelings = min(candidates.len, maxCount)
 
-		for(var/i = 0, i<numChangelings, i++)
+		for(var/i in 1 to numChangelings)
 			H = pick(candidates)
 			H.mind.make_Changeling()
 			candidates.Remove(H)
@@ -132,7 +154,7 @@
 	if(candidates.len)
 		var/numRevs = min(candidates.len, maxCount)
 
-		for(var/i = 0, i<numRevs, i++)
+		for(var/i in 1 to numRevs)
 			H = pick(candidates)
 			H.mind.make_Rev()
 			candidates.Remove(H)
@@ -174,7 +196,7 @@
 	if(candidates.len)
 		var/numCultists = min(candidates.len, maxCount)
 
-		for(var/i = 0, i<numCultists, i++)
+		for(var/i in 1 to numCultists)
 			H = pick(candidates)
 			H.mind.make_Cultist()
 			candidates.Remove(H)
@@ -195,7 +217,7 @@
 		var/numagents = maxCount
 		var/agentcount = 0
 
-		for(var/i = 0, i<numagents,i++)
+		for(var/i in 1 to numagents)
 			shuffle_inplace(candidates) //More shuffles means more randoms
 			for(var/mob/j in candidates)
 				if(!j || !j.client)
