@@ -269,7 +269,7 @@
 	See RemieRichards on irc.rizon.net #coderbus (RIP remie :sob:)
 */
 /mob/living/carbon/proc/generate_icon_key(obj/item/bodypart/BP)
-	if(BP.is_dimorphic && BP.should_draw_gender)
+	if(BP.is_dimorphic)
 		. += "[BP.limb_gender]-"
 	. += "[BP.limb_id]"
 	. += "-[BP.body_zone]"

@@ -51,7 +51,6 @@
 
 	//Coloring and proper item icon update
 	var/skin_tone = ""
-	var/should_draw_gender = FALSE
 	var/should_draw_greyscale = TRUE //Limbs need this information as a back-up incase they are generated outside of a carbon (limbgrower)
 	var/species_color = ""
 	var/mutation_color = ""
@@ -360,8 +359,7 @@
 		else
 			skin_tone = ""
 
-		should_draw_gender = S.sexes
-		if(should_draw_gender) //Assigns the limb a gender for rendering
+		if(is_dimorphic) //Assigns the limb a gender for rendering
 			limb_gender = (H.gender == MALE) ? "m" : "f"
 
 		if(((MUTCOLORS in S.species_traits) || (DYNCOLORS in S.species_traits)) && uses_mutcolor) //Ethereal code. Motherfuckers.
@@ -442,11 +440,13 @@
 		return
 
 	////This is the MEAT of limb icon code
-	limb.icon = icon
 	if(!should_draw_greyscale || !icon)
 		limb.icon = static_icon
+	else
+		limb.icon = icon
+
 	if(is_dimorphic) //Does this type of limb have sexual dimorphism?
-		limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]"
+		limb.icon_state = "[limb_id]_[body_zone][is_dimorphic ? "_[limb_gender]" : ""]"
 	else
 		limb.icon_state = "[limb_id]_[body_zone]"
 
