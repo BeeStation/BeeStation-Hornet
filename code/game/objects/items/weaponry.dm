@@ -825,10 +825,13 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	var/affix_desc = ""
 	var/affix_desc_target = ""
 
-	if(HAS_TRAIT(target, TRAIT_ANTENNAE) || is_species(user, /datum/species/lizard))
+	if(HAS_TRAIT(target, TRAIT_ANTENNAE))
 		prefix_desc = "violent"
 		affix_desc = "on [target.p_their()] sensitive antennae"
 		affix_desc_target = "on your highly sensitive antennae"
+		brutal_noogie = TRUE
+	if(is_species(user, /datum/species/lizard))
+		prefix_desc = "violent"
 		brutal_noogie = TRUE
 	if(user.dna?.check_mutation(HULK))
 		prefix_desc = "sickeningly brutal"
