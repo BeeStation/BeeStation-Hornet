@@ -897,10 +897,6 @@
 	name = "Short Fade Down"
 	icon_state = "short_fade_down"
 
-/datum/sprite_accessory/hair_gradient/wavy_spike
-	name = "Spiked Wavy"
-	icon_state = "wavy_spiked"
-
 /////////////////////////////
 // Facial Hair Definitions //
 /////////////////////////////
