@@ -333,6 +333,22 @@ update_label("John Doe", "Clowny")
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 
+/obj/item/card/id/silver/spacepol
+	name = "space police access card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/silver/spacepol/bounty
+	name = "bounty hunter access card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/space_russian
+	name = "space russian card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/pirate
+	name = "pirate ship card"
+	access = list(ACCESS_PIRATES)
+
 /obj/item/card/id/syndicate
 	name = "agent card"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE)

@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM beestation/byond:514.1571 as base
+FROM beestation/byond:514.1572 as base
 
 # Install the tools needed to compile our rust dependencies
 FROM base as rust-build

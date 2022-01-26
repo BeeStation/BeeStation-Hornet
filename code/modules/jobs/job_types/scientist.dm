@@ -23,6 +23,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_SCIENTIST
 	departments = DEPARTMENT_SCIENCE
+	rpg_title = "Thaumaturgist"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/science

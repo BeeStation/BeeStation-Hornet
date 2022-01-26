@@ -5,6 +5,13 @@
 	floor_tile = /obj/item/stack/tile/plasteel
 	tiled_dirt = FALSE
 
+/turf/open/floor/goonplaque/fland
+	name = "commemorative plaque"
+	icon_state = "plaque"
+	desc = "\"This plaque commemorates all the effort that has been put by the construction workers of this station, their department experts advisors, and the many roaming spacemans, that took the effort to walk around this station discovering anomalies that has been found during it's construction. This is a heartfelt thanks from the head developer of this station, hoping that the station will last for as long as possible.\" Beneath the text, you see engraved on the plaque a weird orb like being with a propeller on his head and a smile on it's face."
+	floor_tile = /obj/item/stack/tile/plasteel
+	tiled_dirt = FALSE
+
 /turf/open/floor/vault
 	icon_state = "rockvault"
 	floor_tile = /obj/item/stack/tile/plasteel
