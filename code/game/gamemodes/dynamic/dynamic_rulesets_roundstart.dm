@@ -124,6 +124,36 @@
 
 //////////////////////////////////////////////
 //                                          //
+//           OBSESSED                       //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/obsessed
+	name = "Obsessed"
+	persistent = FALSE
+	antag_flag = ROLE_OBSESSED
+	antag_datum = /datum/antagonist/obsessed
+	minimum_required_age = 0
+	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
+	restricted_roles = list("Cyborg")
+	required_candidates = 1
+	weight = 3
+	cost = 5
+	scaling_cost = 9
+	requirements = list(10,10,10,10,10,10,10,10,10,10)
+
+/datum/dynamic_ruleset/roundstart/obsessed/pre_execute(population)
+	. = ..()
+	var/num_obsessed = get_antag_cap(population) * (scaled_times + 1)
+	for (var/i = 1 to num_obsessed)
+		var/mob/M = pick_n_take(candidates)
+		assigned += M.mind
+		M.mind.special_role = ROLE_OBSESSED
+		M.mind.restricted_roles = restricted_roles
+	return TRUE
+
+//////////////////////////////////////////////
+//                                          //
 //              ELDRITCH CULT               //
 //                                          //
 //////////////////////////////////////////////

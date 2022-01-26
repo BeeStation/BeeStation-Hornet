@@ -69,6 +69,24 @@
 
 //////////////////////////////////////////////
 //                                          //
+//           OBSESSED			            //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/latejoin/obsessed
+	name = "Obsessed"
+	antag_datum = /datum/antagonist/obsessed
+	antag_flag = ROLE_OBSESSED
+	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel")
+	restricted_roles = list("AI","Cyborg")
+	required_candidates = 1
+	weight = 4
+	cost = 3
+	requirements = list(40,30,20,10,10,10,10,10,10,10)
+	repeatable = TRUE
+
+//////////////////////////////////////////////
+//                                          //
 //       REVOLUTIONARY PROVOCATEUR          //
 //                                          //
 //////////////////////////////////////////////
