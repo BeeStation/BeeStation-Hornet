@@ -1,0 +1,5 @@
+author: Ivniinvi, swissloaf, Ryll-Ryll
+delete-after: true
+changes:
+  - rscadd: You can now tip over medibots, and they will become increasingly more
+      distressed.
