@@ -67,9 +67,44 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		ui.open()
 
 /obj/item/shuttle_creator/ui_data(mob/user)
+
+	var/datum/orbital_object/shuttle/shuttle_object
+	var/obj/docking_port/mobile/port
+	if(linkedShuttleId)
+		shuttle_object = SSorbits.assoc_shuttles[linkedShuttleId]
+		port = SSshuttle.getShuttle(linkedShuttleId)
+
 	var/list/data = list()
+
+	//General data
 	data["shuttleId"] = linkedShuttleId
-	data["inFlight"] = FALSE //This is hardcoded for now, I will add this later
+	data["inFlight"] = !!shuttle_object
+
+	//Status data
+	data["buffered_mass"] = loggedTurfs.len
+	if(port)
+		data["name"] = port.name
+		data["shuttle_mass"] = port.calculate_mass()
+
+		var/list/areas = port.shuttle_areas
+		for(var/obj/machinery/shuttle/engine/E in GLOB.custom_shuttle_machines)
+			if(!(get_area(E) in areas))
+				continue
+			E.check_setup()
+			if(E.thruster_active)
+				data["current_capacity"] += E.thrust
+			data["ideal_capacity"] += E.thrust
+		data["ideal_capacity"] *= CUSTOM_SHUTTLE_ACCELERATION_SCALE/CUSTOM_SHUTTLE_MIN_THRUST_TO_WEIGHT
+		data["current_capacity"] *= CUSTOM_SHUTTLE_ACCELERATION_SCALE/CUSTOM_SHUTTLE_MIN_THRUST_TO_WEIGHT
+
+	//Designation data
+	data["max_size"] = SHUTTLE_CREATOR_MAX_SIZE
+
+	//Configuration data
+	if(port)
+		data["current_direction"] = capitalize(dir2text(angle2dir_cardinal(dir2angle(port.dir)+dir2angle(port.port_direction)+180)))
+		data["preferred_direction"] = capitalize(dir2text(port.preferred_direction))
+
 
 	return data
 
@@ -77,11 +112,21 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	if(..())
 		return
 
+	//Do we have a port?
+	var/obj/docking_port/mobile/port
+	if(linkedShuttleId)
+		port = SSshuttle.getShuttle(linkedShuttleId)
+		switch(action)
+			if("current_direction")
+				port.port_direction = angle2dir_cardinal(dir2angle(params["direction"]) - dir2angle(port.dir) + 180)
+			if("preferred_direction")
+				port.preferred_direction = text2dir(params["direction"])
+
 	switch(action)
 		if("designate")
 			if(!internal_shuttle_creator)
 				return
-			if(GLOB.custom_shuttle_count > CUSTOM_SHUTTLE_LIMIT && !override_max_shuttles)
+			if(!linkedShuttleId && GLOB.custom_shuttle_count > CUSTOM_SHUTTLE_LIMIT && !override_max_shuttles)
 				to_chat(usr, "<span class='warning'>Too many shuttles have been created.</span>")
 				message_admins("[ADMIN_FLW(usr)] attempted to create a shuttle, however [CUSTOM_SHUTTLE_LIMIT] have already been created.")
 				return
@@ -91,6 +136,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 			overlay_holder.add_client(usr.client)
 			internal_shuttle_creator.attack_hand(usr)
 			SStgui.close_uis(src)
+
 
 /*
 /obj/item/shuttle_creator/attack_self(mob/user)
@@ -397,7 +443,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		to_chat(usr, "<span class='warning'>Shuttles must be created in an airtight space, ensure that the shuttle is airtight, including corners.</span>")
 		return FALSE
 	if(turfs.len + (addingTurfs ? loggedTurfs.len : 0) > SHUTTLE_CREATOR_MAX_SIZE)
-		to_chat(usr, "<span class='warning'>The [src]'s internal cooling system wizzes violently and a message appears on the screen, \"Caution, this device can only handle the creation of shuttles up to [SHUTTLE_CREATOR_MAX_SIZE] units in size. Please reduce your shuttle by [turfs.len-SHUTTLE_CREATOR_MAX_SIZE]. Sorry for the inconvinience\"</span>")
+		to_chat(usr, "<span class='warning'>The [src]'s internal cooling system wizzes violently and a message appears on the screen, \"Caution, this device can only handle the creation of shuttles up to [SHUTTLE_CREATOR_MAX_SIZE] units in size. Please reduce your shuttle by [turfs.len + (addingTurfs ? loggedTurfs.len : 0) - SHUTTLE_CREATOR_MAX_SIZE]. Sorry for the inconvinience\"</span>")
 		return FALSE
 	if(turfs.Find(exit))
 		to_chat(usr, "<span class='warning'>Do not block open space required for the exterior airlock to function.</span>")
@@ -496,9 +542,10 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 /obj/item/shuttle_creator/proc/reset_saved_area(loud = TRUE)
 	overlay_holder.clear_highlights()
 	loggedTurfs.Cut()
-	for(var/turf/T in recorded_shuttle_area.contents)
-		loggedTurfs |= T
-		overlay_holder.create_hightlight(T, T == recorded_origin)
+	if(recorded_shuttle_area)
+		for(var/turf/T in recorded_shuttle_area.contents)
+			loggedTurfs |= T
+			overlay_holder.create_hightlight(T, T == recorded_origin)
 	if(loud)
 		to_chat(usr, "<span class='notice'>You reset the area buffer on the [src].</span>")
 

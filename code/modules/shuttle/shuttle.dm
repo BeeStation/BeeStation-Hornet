@@ -316,7 +316,13 @@
 	. = ..()
 
 /obj/docking_port/mobile/is_in_shuttle_bounds(atom/A)
-	return !!shuttle_areas.Find(get_area(A))
+	return shuttle_areas[get_area(A)]
+
+//A common proc used to find the amount of turfs in the shuttle
+/obj/docking_port/mobile/proc/calculate_mass()
+	for(var/shuttleArea in shuttle_areas)
+		for(var/turf/T in shuttleArea)
+			. += 1
 
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()

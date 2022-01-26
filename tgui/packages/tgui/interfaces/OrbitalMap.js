@@ -173,18 +173,24 @@ export const OrbitalMap = (props, context) => {
                   ))}
             </Section>
             {
-              (!designatorInserted) || (
+              !!designatorInserted
+              && (designatorId ? !shuttleId : shuttleId) && (
                 <>
                   <Divider />
                   <Section title="Designator Linking" >
-                    <Button
-                      content="Download shuttle link from designator"
-                      disabled={!designatorId}
-                      onClick={() => act('updateLinkedId')} />
-                    <Button
-                      content="Upload shuttle link to designator"
-                      disabled={!shuttleId}
-                      onClick={() => act('updateDesignatorId')} />
+                    {
+                      designatorId
+                        ? (
+                          <Button
+                            content="Download shuttle link from designator"
+                            onClick={() => act('updateLinkedId')} />
+                        )
+                        : (
+                          <Button
+                            content="Upload shuttle link to designator"
+                            onClick={() => act('updateDesignatorId')} />
+                        )
+                    }
                   </Section>
                 </>
               )
