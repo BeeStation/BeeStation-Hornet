@@ -44,7 +44,7 @@
 				"$eslint-stylish"
 			],
 			"group": "build",
-			"label": "Run all tests"
+			"label": "Run All Tests"
 		},
 		{
 			"command": "${command:dreammaker.reparse}",
