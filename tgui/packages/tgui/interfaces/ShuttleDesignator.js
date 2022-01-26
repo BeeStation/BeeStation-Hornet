@@ -1,5 +1,5 @@
-import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, Slider, ProgressBar, Fragment, ScrollableBox, OrbitalMapComponent } from '../components';
-import { useBackend, useLocalState } from '../backend';
+import { Button, Section, Dropdown, NoticeBox, ProgressBar } from '../components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 export const ShuttleDesignator = (props, context) => {
