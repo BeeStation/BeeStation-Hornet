@@ -42,7 +42,7 @@
 	e_cost = 30
 
 /obj/item/projectile/beam/laser/cutting
-	damage = 5
+	damage = 10
 	icon_state = "heavylaser"
 	tracer_type = /obj/effect/projectile/tracer/heavy_laser
 	muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
@@ -50,7 +50,7 @@
 
 /obj/item/projectile/beam/laser/cutting/on_hit(atom/target, blocked)
 	damage = initial(damage)
-	if(isobj(target))
+	if(isobj(target) && !istype(target, /obj/structure/blob))
 		damage = 70
 	else if(istype(target, /turf/closed/mineral))
 		var/turf/closed/mineral/T = target
