@@ -57,7 +57,7 @@ GLOBAL_LIST_INIT(huds, list(
 	GLOB.all_huds -= src
 	return ..()
 
-/datum/atom_hud/proc/hide_single_atomhud_from(hud_user,hidden_atom)
+/datum/atom_hud/proc/hide_single_atomhud_from(hud_user, hidden_atom)
 	if(hudusers[hud_user])
 		remove_from_single_hud(hud_user,hidden_atom)
 	if(!hud_exceptions[hud_user])
