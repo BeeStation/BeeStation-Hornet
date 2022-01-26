@@ -24,7 +24,7 @@
 	to_chat(owner, "<B>The Voices will retaliate if you fail to complete your tasks or spend too long away from your target.</B>")
 	to_chat(owner, "<span class='boldannounce'>This role does NOT enable you to otherwise surpass what's deemed creepy behavior per the rules.</span>")//ironic if you know the history of the antag
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Obsession",
-		"Stalk [target] and force them into a constant state of paranoia.")
+		"Stalk [human_target.real_name] and force them into a constant state of paranoia.")
 
 /datum/antagonist/obsessed/on_gain()
 	find_target()
@@ -61,14 +61,17 @@
 			else
 				SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/notcreeping)
 		return
+	//If running this every tick we're 7 tiles from target is too expensive, just assume we see him
 	if(human_target in oviewers(7, owner.current))	//we're in range and we can see our target
 		SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/creeping)
 		if(human_target.stat == DEAD)	//we saw them dead
 			seen_alive = FALSE
+			to_chat(owner, "<span class='danger'>[human_target.real_name] is dead!")
 			RegisterSignal(human_target, COMSIG_LIVING_REVIVE, .proc/OnTargetRevive)
 			STOP_PROCESSING(SSprocessing, src)
-		else
-			seen_alive = TRUE	//we saw them alive again
+		else if(!seen_alive)
+				to_chat(owner, "<span class='danger'>[human_target.real_name] is alive again!")
+				seen_alive = TRUE	//we saw them alive again
 		total_time_stalking += SSprocessing.wait * delta_time
 		time_spent_away = 0
 	else if(seen_alive)		//we're near so we acumulate the time slower
@@ -92,6 +95,8 @@
 	if(!seen_alive && human_target.stat != DEAD)
 		UnregisterSignal(human_target, COMSIG_LIVING_REVIVE)
 	human_target = null
+	seen_alive = FALSE
+	STOP_PROCESSING(SSprocessing, src)
 
 /datum/antagonist/obsessed/proc/add_objective(datum/objective/O)
 	O.owner = owner
@@ -115,7 +120,7 @@
 	var/list/objectives_left = list(OBJECTIVE_STALK, OBJECTIVE_PHOTOGRAPH, OBJECTIVE_JEALOUS)
 	var/datum/objective/assassinate/obsessed/kill = new
 
-	if(HAS_TRAIT(target, TRAIT_HEIRLOOOM))
+	if(HAS_TRAIT(human_target, TRAIT_HEIRLOOOM))
 		objectives_left += OBJECTIVE_STEAL	//we stealing their heirloom
 
 	for(var/i in 1 to 3)
@@ -133,11 +138,12 @@
 				add_objective(heirloom_thief)
 			if(OBJECTIVE_JEALOUS)
 				var/datum/objective/assassinate/jealous/jealous = new(target)
-				add_objective(jealous)
+				if(jealous)
+					add_objective(jealous)
 
 	add_objective(kill)
 	kill.target = target
-	for(var/datum/objective/O in objectives)
+	for(var/datum/objective/O as() in objectives)
 		O.update_explanation_text()
 
 	owner.announce_objectives()
@@ -279,13 +285,11 @@
 		explanation_text = "Escape with a photo of [target], taken while they're alive."
 
 /datum/objective/polaroid/check_completion()
-	if(completed)
+	if(..())
 		return TRUE
-	if(!isliving(owner.current) || owner.current.stat == DEAD)
-		return FALSE
 	var/list/all_items = owner.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
 	for(var/obj/item/photo/P in all_items)
-		if(P.picture && (target.current in P.picture.mobs_seen) && !(target.current in P.picture.dead_seen)) //TODO: fairly sure it doesn't work, so fix
+		if(P.picture && (target.current in P.picture.mobs_seen) && !(target.current in P.picture.dead_seen))
 			return TRUE
 	return FALSE
 
@@ -303,20 +307,19 @@
 		explanation_text = "Steal [target.name]'s family heirloom, [I] they cherish."
 
 /datum/objective/heirloom_thief/check_completion()
-	if(completed)
+	if(..())
 		return TRUE
 	var/obj/item/I = target_ref.resolve()
-	if(I && isliving(owner.current))
-		for(var/obj/item/item in owner.current.GetAllContents())
-			if(item == I)
-				return TRUE
+	if(I && isliving(owner?.current))
+		return (I in owner.current.GetAllContents())
+	return FALSE
 
-/datum/antagonist/obsessed/proc/update_obsession_icons_added(var/mob/living/carbon/human/obsessed)
+/datum/antagonist/obsessed/proc/update_obsession_icons_added(mob/living/carbon/human/obsessed)
 	var/datum/atom_hud/antag/creephud = GLOB.huds[ANTAG_HUD_OBSESSED]
 	creephud.join_hud(obsessed)
 	set_antag_hud(obsessed, "obsessed")
 
-/datum/antagonist/obsessed/proc/update_obsession_icons_removed(var/mob/living/carbon/human/obsessed)
+/datum/antagonist/obsessed/proc/update_obsession_icons_removed(mob/living/carbon/human/obsessed)
 	var/datum/atom_hud/antag/creephud = GLOB.huds[ANTAG_HUD_OBSESSED]
 	creephud.leave_hud(obsessed)
 	set_antag_hud(obsessed, null)
