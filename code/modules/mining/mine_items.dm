@@ -74,7 +74,7 @@
 /obj/machinery/computer/shuttle_flight/mining
 	name = "mining shuttle console"
 	desc = "Used to call and send the mining shuttle."
-	circuit = /obj/item/circuitboard/computer/mining_shuttle
+	circuit = /obj/item/circuitboard/computer/shuttle/mining_shuttle
 	shuttleId = "mining"
 	possible_destinations = "mining_home;mining_away;landing_zone_dock;mining_public"
 	req_access = list(ACCESS_MINING)
@@ -92,7 +92,7 @@
 /obj/machinery/computer/shuttle_flight/science
 	name = "science outpost shuttle console"
 	desc = "Used to call and send the science shuttle."
-	circuit = /obj/item/circuitboard/computer/science_shuttle
+	circuit = /obj/item/circuitboard/computer/shuttle/science_shuttle
 	shuttleId = "science"
 	possible_destinations = "science_station;science_outpost"
 
