@@ -1,9 +1,0 @@
-author: Ivniinvi
-delete-after: true
-changes:
-  - rscadd: Eminence now has a radio
-  - rscadd: Eminence can be given encryption keys by tapping them on the relay pylon
-  - bugfix: Eminence button act is now fixed
-  - bugfix: Stargazer's possession enchantment now actually works
-  - rscadd: Eminence can now see their cog count in the stat pane
-  - rscdel: Eminence can no longer trigger rad storm, good riddance

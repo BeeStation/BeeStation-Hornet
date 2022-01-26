@@ -1,7 +1,0 @@
-author: Kapu1178
-delete-after: true
-changes:
-  - rscadd: All mobs can now have a typing indicator
-  - imageadd: Typing Indicator is now animated
-  - tweak: say/me input boxes no longer wipe their contents if you press the hotkey
-      again with the window open but out of focus
