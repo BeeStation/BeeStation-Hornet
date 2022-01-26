@@ -8,17 +8,15 @@
 //Prevents AIs tracking you but makes you easily detectable to the human-eye.
 /datum/action/changeling/digitalcamo/sting_action(mob/user)
 	..()
-	if(HAS_TRAIT(user,TRAIT_DIGICAMO))
+	if(active)
 		to_chat(user, "<span class='notice'>We return to normal.</span>")
-		REMOVE_TRAIT(user, TRAIT_DIGICAMO, CHANGELING_TRAIT)
-		REMOVE_TRAIT(user, TRAIT_DIGINVIS, CHANGELING_TRAIT)
+		user.RemoveElement(/datum/element/digital_camo)
 	else
-		to_chat(user, "<span class='notice'>We distort our form to hide from the AI.</span>")		
-		ADD_TRAIT(user, TRAIT_DIGICAMO, CHANGELING_TRAIT)		
-		ADD_TRAIT(user, TRAIT_DIGINVIS, CHANGELING_TRAIT)
+		to_chat(user, "<span class='notice'> We distort our form to hide from the AI.</span>")
+		user.AddElement(/datum/element/digital_camo)
+	active = !active
 	return TRUE
 
 /datum/action/changeling/digitalcamo/Remove(mob/user)
-	REMOVE_TRAIT(user, TRAIT_DIGICAMO, CHANGELING_TRAIT)
-	REMOVE_TRAIT(user, TRAIT_DIGINVIS, CHANGELING_TRAIT)
+	user.RemoveElement(/datum/element/digital_camo)
 	..()
