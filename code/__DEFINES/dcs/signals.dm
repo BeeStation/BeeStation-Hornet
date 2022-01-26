@@ -232,6 +232,8 @@
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
 #define COMSIG_LIVING_TRY_SYRINGE "living_try_syringe"			///From post-can inject check of syringe after attack (mob/user)
 #define COMSIG_LIVING_START_PULL "living_start_pull"			///called on /living when someone starts pulling (atom/movable/pulled, state, force)
+#define COMSIG_LIVING_CAN_TRACK "mob_can_track"					///from base of /mob/living/can_track()
+	#define COMPONENT_CANT_TRACK 1
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
 #define COMSIG_LIVING_STATUS_STUN "living_stun"					//! from base of mob/living/Stun() (amount, update, ignore)
@@ -346,7 +348,7 @@
 
 // /datum/song signals
 #define COMSIG_SONG_START 	"song_start"						//sent to the instrument when a song starts playing
-#define COMSIG_SONG_END		"song_end"	
+#define COMSIG_SONG_END		"song_end"
 
 /*******Component Specific Signals*******/
 //Janitor
