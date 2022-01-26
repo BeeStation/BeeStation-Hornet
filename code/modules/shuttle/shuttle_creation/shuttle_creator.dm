@@ -138,42 +138,6 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 			SStgui.close_uis(src)
 
 
-/*
-/obj/item/shuttle_creator/attack_self(mob/user)
-	..()
-	if(linkedShuttleId)
-		select_preferred_direction(user)
-		return
-	if(GLOB.custom_shuttle_count > CUSTOM_SHUTTLE_LIMIT && !override_max_shuttles)
-		to_chat(user, "<span class='warning'>Too many shuttles have been created.</span>")
-		message_admins("[ADMIN_FLW(user)] attempted to create a shuttle, however [CUSTOM_SHUTTLE_LIMIT] have already been created.")
-		return
-	if(!internal_shuttle_creator)
-		return
-	overlay_holder.add_client(user.client)
-	internal_shuttle_creator.attack_hand(user)
-*/
-
-/*
-/obj/item/shuttle_creator/afterattack(atom/target, mob/user, proximity_flag)
-	. = ..()
-	if(!ready)
-		to_chat(user, "<span class='warning'>You need to define a shuttle area first.</span>")
-		return
-	if(!proximity_flag)
-		return
-	if(istype(target, /obj/machinery/computer/shuttle_flight/custom_shuttle))
-		if(!linkedShuttleId)
-			to_chat(user, "<span class='warning'>Error, no defined shuttle linked to device.</span>")
-			return
-		var/obj/machinery/computer/shuttle_flight/custom_shuttle/console = target
-		console.linkShuttle(linkedShuttleId)
-		to_chat(user, "<span class='notice'>Console linked successfully!</span>")
-		return
-	to_chat(user, "<span class='warning'>The [src] bleeps. Select an airlock to create a docking port, or a valid machine to link.</span>")
-	return
-*/
-
 //=========== shuttle designation actions ============
 /obj/item/shuttle_creator/proc/calculate_bounds(obj/docking_port/mobile/port)
 	if(!port || !istype(port, /obj/docking_port/mobile))
@@ -286,22 +250,11 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		linkedShuttleId = null
 		return FALSE
 
+	//Adds turfs and our area to the shuttle
 	port.shuttle_areas = list()
-	//var/list/all_turfs = port.return_ordered_turfs(port.x, port.y, port.z, port.dir)
-	var/list/all_turfs = loggedTurfs
-	for(var/i in 1 to all_turfs.len)
-		var/turf/curT = all_turfs[i]
-		var/area/cur_area = curT.loc
-		//Add the area to the shuttle <3
-		if(istype(cur_area, recorded_shuttle_area))
-			if(istype(curT, /turf/open/space))
-				continue
-			if(length(curT.baseturfs) < 2)
-				continue
-			//Add the shuttle base shit to the shuttle
-			curT.baseturfs.Insert(3, /turf/baseturf_skipover/shuttle)
-			port.shuttle_areas[cur_area] = TRUE
-
+	port.shuttle_areas[recorded_shuttle_area] = TRUE
+	for(var/turf/T in loggedTurfs)
+		port.add_turf(T, recorded_shuttle_area)
 	port.linkup(new_shuttle, stationary_port)
 
 	port.movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
@@ -406,19 +359,15 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		to_chat(usr, "<span class='warning'>Bluespace calculations failed, modification terminated.</span>")
 		return FALSE
 
-	for(var/i in 1 to loggedTurfs.len)
-		var/turf/turf_holder = loggedTurfs[i]
-		var/area/old_area = turf_holder.loc
-		if(old_area == recorded_shuttle_area)
+	//Remove turfs not in our buffer
+	for(var/turf/T in recorded_shuttle_area.contents)
+		if(T in loggedTurfs)
 			continue
-		if(istype(turf_holder, /turf/open/space))
-			continue
-		if(length(turf_holder.baseturfs) < 2)
-			continue
+		port.remove_turf(T)
 
-		recorded_shuttle_area.contents += turf_holder
-		turf_holder.change_area(old_area, recorded_shuttle_area)
-		turf_holder.baseturfs.Insert(3, /turf/baseturf_skipover/shuttle)
+	//Add turfs not in the area
+	for(var/turf/T in loggedTurfs)
+		port.add_turf(T, recorded_shuttle_area)
 
 	var/list/firedoors = loggedOldArea.firedoors
 	for(var/door in firedoors)

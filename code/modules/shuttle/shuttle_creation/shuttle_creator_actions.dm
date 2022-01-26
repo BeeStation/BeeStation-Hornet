@@ -12,6 +12,11 @@
 	remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = target
 	shuttle_creator = internal_console.owner_rsd
+	if(shuttle_creator.update_origin())
+		to_chat(usr, "<span class='warning'>Warning, the shuttle has moved during designation. Please wait for the shuttle to dock and try again.</warning>")
+		shuttle_creator.reset_saved_area(FALSE)
+		internal_console.remove_eye_control(owner)
+		return TRUE
 
 //Add an area
 /datum/action/innate/shuttle_creator/designate_area

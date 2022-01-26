@@ -22,7 +22,7 @@ export const ShuttleDesignator = (props, context) => {
   return (
     <Window
       width={500}
-      height={700}>
+      height={500}>
       <Window.Content />
       {shuttleId && (
         <Section title="Shuttle Information" >
