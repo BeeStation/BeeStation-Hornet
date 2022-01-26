@@ -43,7 +43,7 @@
 		new /obj/item/tank/internals/oxygen(T)
 		new /obj/item/clothing/mask/gas(T)
 		new /obj/item/storage/belt/utility/full(T)
-	switch(pickweight(list("secretagentman" = 1, "dictator" = 1, "operative" = 1, "greytide" = 3)))
+	switch(pickweight(list("secretagentman" = 1, "dictator" = 1, "operative" = 1, "greytide" = 3, "funnyman" = 2)))
 		if("secretagentman")
 			created_human.flavor_text = "On behalf of your Benefactors, you lead a life of danger - To everyone you meet, you stay a stranger. but you moved too much, took too many chances - \
 			Considering Nanotrasen's onto you, odds are you won't live to see tomorrow."
@@ -62,6 +62,10 @@
 			barely enough to navigate it's corridors... yet despite your rigorous training to differentiate you from a stationside operative, you've got a chilling feeling hugging your \
 			spine..."
 			created_human.equipOutfit(/datum/outfit/vip_target/vip_operative)
+		if("funnyman")
+			created_human.flavor_text = "Slip, slip, slip! Your PDA's brought a lot of laughs to this crew, but now that they're - and it's - gone, the Head Of Security's threats are \
+			echoing in your mind..."
+			created_human.equipOutfit(/datum/outfit/vip_target/clown)
 	created_human.mind.store_memory("[created_human.flavor_text] - Someone is out to assassinate you... Stay alive.")
 	created_human.mind.add_antag_datum(/datum/antagonist/survivalist)
 	mob_to_kill = created_human
@@ -127,3 +131,30 @@
 	neck = /obj/item/clothing/neck/cloak/chameleon
 	head = /obj/item/clothing/head/chameleon
 	back = /obj/item/storage/backpack/chameleon
+
+//=====================
+// Clown
+//=====================
+
+/datum/outfit/vip_target/clown
+	name = "Clown (VIP Target)"
+
+	id = /obj/item/card/id/job/clown
+	ears = /obj/item/radio/headset/headset_srv
+	uniform = /obj/item/clothing/under/rank/civilian/clown
+	shoes = /obj/item/clothing/shoes/clown_shoes
+	mask = /obj/item/clothing/mask/gas/clown_hat
+	l_pocket = /obj/item/bikehorn
+	back = /obj/item/storage/backpack/clown
+	backpack_contents = list(
+		/obj/item/stamp/clown = 1,
+		/obj/item/reagent_containers/spray/waterflower = 1,
+		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
+		/obj/item/instrument/bikehorn = 1,
+		)
+
+	implants = list(/obj/item/implant/sad_trombone)
+
+/datum/outfit/vip_target/clown/post_equip(mob/living/carbon/human/H)
+	H.fully_replace_character_name(H.real_name, pick(GLOB.clown_names))
+	H.dna.add_mutation(CLOWNMUT)
