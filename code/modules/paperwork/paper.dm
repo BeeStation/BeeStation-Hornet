@@ -299,7 +299,7 @@
 	switch(action)
 		if("stamp")
 			if(length(stamps) >= MAX_PAPER_STAMPS)
-				to_chat(usr, pick("You try to stamp but you miss!", "There is no where else you can stamp!"))
+				to_chat(usr, pick("You try to stamp but you miss!", "There is nowhere else you can stamp!"))
 				return FALSE
 
 			var/stamp_x = text2num(params["x"])
