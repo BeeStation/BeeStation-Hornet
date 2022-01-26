@@ -337,7 +337,7 @@
 			field_counter = params["field_counter"] ? text2num(params["field_counter"]) : field_counter
 
 			if(paper_len == 0)
-				to_chat(ui.user, pick("Writing block strikes again!", "You forgot to write anthing!"))
+				to_chat(ui.user, pick("Writing block strikes again!", "You forgot to write anything!"))
 				return FALSE
 
 			if(paper_len > MAX_PAPER_LENGTH)
