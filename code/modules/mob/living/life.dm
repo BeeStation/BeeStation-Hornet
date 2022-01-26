@@ -2,13 +2,6 @@
 	set waitfor = FALSE
 	set invisibility = 0
 
-	if(HAS_TRAIT(src,TRAIT_DIGINVIS)) //AI unable to see mob
-		if(!digitaldisguise)
-			src.digitaldisguise = image(loc = src)
-		src.digitaldisguise.override = 1
-		for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
-			AI.client?.images |= src.digitaldisguise
-
 	if((movement_type & FLYING) && !(movement_type & FLOATING))	//TODO: Better floating
 		float(on = TRUE)
 

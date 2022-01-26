@@ -1,0 +1,8 @@
+author: ike709 and various TG ports
+delete-after: true
+changes:
+  - server: Changed a lot of the VSCode extensions and settings. Contributors are
+      encouraged to install the recommended extensions.
+  - server: Added the ability to run unit tests locally in VSCode's Test Explorer.
+  - bugfix: Ported some internal changes to reagent metabolism and added a unit test
+  - bugfix: Fixed a runtime with blood droplet effects
