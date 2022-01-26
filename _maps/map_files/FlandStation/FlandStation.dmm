@@ -25653,13 +25653,13 @@
 /area/engine/gravity_generator)
 "fPG" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/toolbox/mechanical/old/clean,
 /obj/machinery/status_display/ai{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/tile/yellow/tile_side{
 	dir = 10
 	},
+/obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "fPR" = (
