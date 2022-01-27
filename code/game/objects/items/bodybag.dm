@@ -13,6 +13,12 @@
 	else
 		to_chat(user, "<span class='warning'>You cannot deploy [src] inside of something!</span>")
 
+//Allows deployment of a bodybag from your hand to a tile you are not standing on. NOT REDUNDANT
+/obj/item/bodybag/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	if(proximity)
+		if(isopenturf(target))
+			deploy_bodybag(user, target)
 
 /obj/item/bodybag/proc/deploy_bodybag(mob/user, atom/location)
 	var/obj/structure/closet/body_bag/R = new unfoldedbag_path(location)
