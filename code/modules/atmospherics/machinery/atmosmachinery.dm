@@ -221,7 +221,7 @@
 
 
 			if (user.client)
-				SSmedals.UnlockMedal(MEDAL_UNWRENCH_HIGH_PRESSURE,user.client)
+				user.client.give_award(/datum/award/achievement/misc/pressure, user)
 
 
 		deconstruct(TRUE)

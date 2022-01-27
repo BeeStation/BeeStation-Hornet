@@ -441,7 +441,7 @@
 
 		if(aiPlayer.law_change_counter >= 15)
 			if (aiPlayer.client)
-				SSmedals.UnlockMedal(MEDAL_15_AI_LAW_CHANGES,aiPlayer.client)
+				aiPlayer.client.give_award(/datum/award/achievement/misc/laws)
 
 
 		if (aiPlayer.connected_robots.len)

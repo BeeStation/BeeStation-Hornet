@@ -2,8 +2,8 @@
 	name = "VIP Recovery"
 	var/generated = FALSE
 	var/mob/mob_to_recover
-	min_payout = 100000
-	max_payout = 200000
+	min_payout = 10000
+	max_payout = 20000
 
 /datum/orbital_objective/vip_recovery/get_text()
 	return "Someone of particular interest to us is located at [station_name]. We require them to be extracted immediately. \
@@ -42,18 +42,12 @@
 		new /obj/item/clothing/mask/gas(T)
 		new /obj/item/storage/belt/utility/full(T)
 	var/antag_elligable = FALSE
-	switch(pickweight(list("centcom_official" = 4, "dictator" = 1, "greytide" = 3)))
+	switch(pickweight(list("centcom_official" = 4, "greytide" = 3)))
 		if("centcom_official")
 			created_human.flavor_text = "You are a CentCom official onboard a badly damaged station. Making your way back to Space Station 13 to uncover the secrets you hold is \
 				your top priority as far as Nanotrasen is concerned, but surviving just one more day is all you can ask for."
 			created_human.equipOutfit(/datum/outfit/centcom_official_vip)
 			antag_elligable = TRUE
-		if("dictator")
-			created_human.flavor_text = "It has been months since your regime fell. Once a hero, you're now just someone wishing that they will see the next sunrise. You know those \
-				Nanotrasen pigs are after you, and will stop at nothing to capture you. All you want at this point is to get out and survive, however it is likely you will never leave \
-				without being captured."
-			created_human.equipOutfit(/datum/outfit/vip_dictator)
-			created_human.mind.add_antag_datum(/datum/antagonist/vip_dictator)
 		if("greytide")
 			created_human.flavor_text = "You are just an assistant on a lonely derelict station. You dream of going home, \
 				but it would take another one of the miracles that kept you alive to get you home."
@@ -88,34 +82,6 @@
 	l_hand = /obj/item/clipboard
 	r_hand = /obj/item/gps
 	id = /obj/item/card/id/away/old
-
-//=====================
-// Matryr Dictator
-//=====================
-
-/datum/antagonist/vip_dictator
-	name = "Insane VIP"
-	show_in_antagpanel = TRUE
-	roundend_category = "Ruin VIPs"
-	antagpanel_category = "Other"
-
-/datum/outfit/vip_dictator
-	name = "Dictator VIP"
-
-	uniform = /obj/item/clothing/under/rank/security/head_of_security/white
-	suit = /obj/item/clothing/suit/armor/hos
-	suit_store = /obj/item/gun/ballistic/automatic/pistol/m1911
-	shoes = /obj/item/clothing/shoes/jackboots
-	gloves = /obj/item/clothing/gloves/combat
-	ears = /obj/item/radio/headset
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch
-	belt = /obj/item/storage/belt/sabre
-	l_pocket = /obj/item/ammo_box/magazine/m45
-	r_pocket = /obj/item/grenade/smokebomb
-	id = /obj/item/card/id/away/old
-	neck = /obj/item/clothing/neck/crucifix
-	head = /obj/item/clothing/head/HoS/beret/syndicate
-	r_hand = /obj/item/gps
 
 //=====================
 // Greytide

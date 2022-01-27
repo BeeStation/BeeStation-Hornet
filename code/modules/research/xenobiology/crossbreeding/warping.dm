@@ -44,6 +44,10 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+/obj/effect/warped_rune/Moved(atom/OldLoc, Dir)
+	. = ..()
+	rune_turf = get_turf(src)
+
 /obj/item/slimecross/warping/examine()
 	. = ..()
 	. += "It has [warp_charge] charge left"
