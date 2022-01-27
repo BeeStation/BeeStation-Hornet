@@ -5,6 +5,7 @@ GLOBAL_LIST_EMPTY(expansion_card_holders)
 	desc = "A simple rack of bPCIe slots for installing expansion cards."
 	icon = 'icons/obj/machines/telecomms.dmi'
 	icon_state = "processor"
+	density = TRUE
 
 	circuit = /obj/item/circuitboard/machine/expansion_card_holder
 
