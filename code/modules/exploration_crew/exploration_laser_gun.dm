@@ -42,7 +42,7 @@
 	e_cost = 30
 
 /obj/item/projectile/beam/laser/cutting
-	damage = 10
+	damage = 5
 	icon_state = "heavylaser"
 	tracer_type = /obj/effect/projectile/tracer/heavy_laser
 	muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
