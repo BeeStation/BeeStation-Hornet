@@ -102,7 +102,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 	//Configuration data
 	if(port)
-		data["current_direction"] = capitalize(dir2text(angle2dir_cardinal(dir2angle(port.dir)+dir2angle(port.port_direction)+180)))
+		data["current_direction"] = capitalize(dir2text(angle2dir_cardinal(dir2angle(port.dir)-dir2angle(port.port_direction)+180)))
 		data["preferred_direction"] = capitalize(dir2text(port.preferred_direction))
 
 
@@ -118,7 +118,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		port = SSshuttle.getShuttle(linkedShuttleId)
 		switch(action)
 			if("current_direction")
-				port.port_direction = angle2dir_cardinal(dir2angle(params["direction"]) - dir2angle(port.dir) + 180)
+				port.port_direction = angle2dir_cardinal(dir2angle(port.dir) + 180 - dir2angle(text2dir(params["direction"])))
 			if("preferred_direction")
 				port.preferred_direction = text2dir(params["direction"])
 
