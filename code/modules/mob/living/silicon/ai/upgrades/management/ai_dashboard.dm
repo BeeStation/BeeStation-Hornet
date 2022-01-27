@@ -210,8 +210,6 @@
 			reduction_of_resources = TRUE
 			if(total_ram_used <= current_ram)
 				break
-		if(total_ram_used > current_ram)
-			message_admins("this is still broken. dashboard-ram")
 
 	if(total_cpu_used > current_cpu)
 		var/amount_needed = total_cpu_used - current_cpu
@@ -229,8 +227,6 @@
 				reduction_of_resources = TRUE
 				if(total_cpu_used <= current_cpu)
 					break
-		if(total_cpu_used > current_cpu)
-			message_admins("this is still broken. dashboard-cpu")
 
 	if(reduction_of_resources)
 		to_chat(owner, "<span class = 'warning'>Lack of computational capacity. Some programs may have been stopped.</span>")
