@@ -1576,7 +1576,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/plasteel/grid,
 /area/science/xenobiology)
@@ -12669,6 +12672,13 @@
 /obj/item/storage/pill_bottle/dice,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
+"cQW" = (
+/obj/machinery/power/apc/auto_name/west,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/science/xenobiology)
 "cQZ" = (
 /obj/effect/turf_decal/trimline/green/filled/line,
 /obj/item/kirbyplants/random,
@@ -25472,6 +25482,14 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/vault,
 /area/engine/atmospherics_engine)
+"fNf" = (
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "old sink";
+	pixel_y = 28
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/science/xenobiology)
 "fNm" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -41804,15 +41822,12 @@
 /area/library/lounge)
 "jBb" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel/grid,
 /area/science/xenobiology)
@@ -45038,10 +45053,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
 "krs" = (
-/obj/machinery/power/apc/auto_name/west,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -141478,7 +141489,7 @@ iHh
 iHh
 jKS
 vku
-vfR
+fNf
 dir
 hPN
 jKS
@@ -141733,7 +141744,7 @@ cwz
 kMp
 vfR
 vfR
-vfR
+cQW
 krs
 vfR
 vfR
