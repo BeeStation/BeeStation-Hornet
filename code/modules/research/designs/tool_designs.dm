@@ -241,7 +241,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/researchdisklocator
-	name = "research disk locator"
+	name = "Research Disk Locator"
 	id = "researchdisk_locator"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 250, /datum/material/glass = 25)
