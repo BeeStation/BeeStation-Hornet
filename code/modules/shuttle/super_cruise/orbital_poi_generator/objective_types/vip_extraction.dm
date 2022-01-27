@@ -2,6 +2,10 @@
 	name = "VIP Recovery"
 	var/generated = FALSE
 	var/mob/mob_to_recover
+	var/suit_type = /obj/item/clothing/suit/space/hardsuit/ancient
+	var/tank_type = /obj/item/tank/internals/oxygen
+	var/mask_type = /obj/item/clothing/mask/gas
+	var/belt_type = /obj/item/storage/belt/utility/full
 	min_payout = 10000
 	max_payout = 20000
 
@@ -37,19 +41,13 @@
 	//Remove nearby dangers
 	for(var/mob/living/simple_animal/hostile/SA in range(10, created_human))
 		qdel(SA)
-	//Give them a space worthy suit
-	var/turf/open/T = locate() in shuffle(view(1, created_human))
-	if(T)
-		new /obj/item/clothing/suit/space/hardsuit/ancient(T)
-		new /obj/item/tank/internals/oxygen(T)
-		new /obj/item/clothing/mask/gas(T)
-		new /obj/item/storage/belt/utility/full(T)
 	var/antag_elligable = FALSE
 	switch(pickweight(list("centcom_official" = 4, "greytide" = 3)))
 		if("centcom_official")
 			created_human.flavor_text = "You are a CentCom official onboard a badly damaged station. Making your way back to Space Station 13 to uncover the secrets you hold is \
 				your top priority as far as Nanotrasen is concerned, but surviving just one more day is all you can ask for."
 			created_human.equipOutfit(/datum/outfit/vip_target/centcom_official_vip)
+			suit_type = /obj/item/clothing/suit/space/swat
 			antag_elligable = TRUE
 		if("greytide")
 			created_human.flavor_text = "You are just an assistant on a lonely derelict station. You dream of going home, \
@@ -67,6 +65,13 @@
 			created_human.flavor_text += " - Or so's the cover story we've curated to sway the hearts of the hapless souls who, one day, may stumble upon \
 			our miserable, eeked out existence here... And inadvertently begin the hunt anew." //Ditto
 	mob_to_recover = created_human
+	//Give them space-worthy suit and other equipment
+	var/turf/open/T = locate() in shuffle(view(1, created_human))
+	if(T)
+		new suit_type(T)
+		new tank_type(T)
+		new mask_type(T)
+		new belt_type(T)
 	generated = TRUE
 
 //=====================
@@ -97,7 +102,7 @@
 	l_pocket = /obj/item/pen
 	back = /obj/item/storage/backpack/satchel
 	r_pocket = /obj/item/pda/heads
-	l_hand = /obj/item/clipboard
+	l_hand = /obj/item/clothing/head/helmet/swat/nanotrasen
 	id = /obj/item/card/id/away/old
 
 //=====================

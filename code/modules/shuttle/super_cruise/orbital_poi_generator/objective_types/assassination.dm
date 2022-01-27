@@ -2,6 +2,10 @@
 	name = "Assassination"
 	var/generated = FALSE
 	var/mob/mob_to_kill
+	var/suit_type = /obj/item/clothing/suit/space/hardsuit/ancient
+	var/tank_type = /obj/item/tank/internals/oxygen
+	var/mask_type = /obj/item/clothing/mask/gas
+	var/belt_type = /obj/item/storage/belt/utility/full
 	min_payout = 15000
 	max_payout = 40000
 
@@ -36,13 +40,6 @@
 	//Remove nearby dangers
 	for(var/mob/living/simple_animal/hostile/SA in range(10, created_human))
 		qdel(SA)
-	//Give them a space worthy suit
-	var/turf/open/T = locate() in shuffle(view(1, created_human))
-	if(T)
-		new /obj/item/clothing/suit/space/hardsuit/ancient(T)
-		new /obj/item/tank/internals/oxygen(T)
-		new /obj/item/clothing/mask/gas(T)
-		new /obj/item/storage/belt/utility/full(T)
 	switch(pickweight(list("secretagentman" = 1, "dictator" = 1, "operative" = 1, "greytide" = 3, "funnyman" = 2)))
 		if("secretagentman")
 			created_human.flavor_text = "On behalf of your Benefactors, you lead a life of danger - To everyone you meet, you stay a stranger. but you moved too much, took too many chances - \
@@ -58,10 +55,11 @@
 			Now your former employer, Nanotrasen, is after you..."
 			created_human.equipOutfit(/datum/outfit/vip_target/greytide)
 		if("operative")
-			created_human.flavor_text = "You are a syndicate operative stranded by your [pick("strike team", "fellow nuclear operatives", "benefactors")] aboard an ancient ruin with \
-			barely enough to navigate it's corridors... yet despite your rigorous training to differentiate you from a stationside operative, you've got a chilling feeling hugging your \
-			spine..."
+			created_human.flavor_text = "You are a Syndicate operative employed by Cybersun Industries, currently scavenging for valuable resources in the wrecks of Nanotrasen Derelicts. \
+			However, upon being dropped off for your shift, the shuttle that flew you onboard was shot down by Nanotrasen's forces. You know it's only a matter of time before they find you..."
 			created_human.equipOutfit(/datum/outfit/vip_target/vip_operative)
+			suit_type = /obj/item/clothing/head/helmet/space/hardsuit/cybersun //On par with the explorer suit, nothing too wacky.
+			mask_type = /obj/item/clothing/mask/gas/syndicate
 		if("funnyman")
 			created_human.flavor_text = "Slip, slip, slip! Your PDA's brought a lot of laughs to this crew, but now that they're - and it's - gone, the Head Of Security's threats are \
 			echoing in your mind..."
@@ -69,6 +67,13 @@
 	created_human.mind.store_memory("[created_human.flavor_text] - Someone is out to assassinate you... Stay alive.")
 	created_human.mind.add_antag_datum(/datum/antagonist/survivalist)
 	mob_to_kill = created_human
+	//Give them space-worthy suit and other equipment
+	var/turf/open/T = locate() in shuffle(view(1, created_human))
+	if(T)
+		new suit_type(T)
+		new tank_type(T)
+		new mask_type(T)
+		new belt_type(T)
 	generated = TRUE
 
 //=====================
@@ -88,7 +93,7 @@
 	belt = /obj/item/storage/belt/military
 	l_pocket = /obj/item/ammo_box/magazine/m10mm
 	r_pocket = /obj/item/grenade/smokebomb
-	id = /obj/item/card/id/away/old
+	id = /obj/item/card/id/syndicate_command
 
 //=====================
 // Martyr Dictator
