@@ -11,7 +11,7 @@
 	if(isopenturf(user.loc))
 		deploy_bodybag(user, user.loc)
 	else
-		to_chat(user, "<span class='notice'>You cannot deploy [src] inside of something!</span>")
+		to_chat(user, "<span class='warning'>You cannot deploy [src] inside of something!</span>")
 
 
 /obj/item/bodybag/proc/deploy_bodybag(mob/user, atom/location)
