@@ -8,13 +8,11 @@
 	var/unfoldedbag_path = /obj/structure/closet/body_bag
 
 /obj/item/bodybag/attack_self(mob/user)
-	deploy_bodybag(user, user.loc)
+	if(isopenturf(user.loc))
+		deploy_bodybag(user, user.loc)
+	else
+		to_chat(user, "<span class='notice'>You cannot deploy a [src] inside of something!</span>")
 
-/obj/item/bodybag/afterattack(atom/target, mob/user, proximity)
-	. = ..()
-	if(proximity)
-		if(isopenturf(target))
-			deploy_bodybag(user, target)
 
 /obj/item/bodybag/proc/deploy_bodybag(mob/user, atom/location)
 	var/obj/structure/closet/body_bag/R = new unfoldedbag_path(location)
