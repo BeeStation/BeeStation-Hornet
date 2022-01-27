@@ -113,9 +113,13 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		return
 
 	//Do we have a port?
+	var/datum/orbital_object/shuttle/shuttle_object
 	var/obj/docking_port/mobile/port
 	if(linkedShuttleId)
+		shuttle_object = SSorbits.assoc_shuttles[linkedShuttleId]
 		port = SSshuttle.getShuttle(linkedShuttleId)
+		if(shuttle_object) //Not interaction while in transit
+			return
 		switch(action)
 			if("current_direction")
 				port.port_direction = angle2dir_cardinal(dir2angle(port.dir) + 180 - dir2angle(text2dir(params["direction"])))
@@ -130,7 +134,6 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 				to_chat(usr, "<span class='warning'>Too many shuttles have been created.</span>")
 				message_admins("[ADMIN_FLW(usr)] attempted to create a shuttle, however [CUSTOM_SHUTTLE_LIMIT] have already been created.")
 				return
-
 			if(update_origin()) //Has the shuttle moved? If so, reset the buffer
 				reset_saved_area(FALSE)
 			overlay_holder.add_client(usr.client)
