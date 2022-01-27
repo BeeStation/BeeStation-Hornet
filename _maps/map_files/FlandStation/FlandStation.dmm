@@ -25661,7 +25661,9 @@
 /obj/effect/turf_decal/tile/yellow/tile_side{
 	dir = 10
 	},
-/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/mechanical{
+	desc = "Danger. Very robust. Did someone change this?"
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "fPR" = (
