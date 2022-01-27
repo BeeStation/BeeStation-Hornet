@@ -25,7 +25,7 @@
 		if(is_station_level(mob_to_recover.z) && mob_to_recover.stat == CONSCIOUS)
 			complete_objective()
 		//Dead and no ckey
-		if(mob_to_recover.stat == DEAD && mob_to_recover.ckey != null)
+		if(mob_to_recover.stat == DEAD && mob_to_recover.ckey == null)
 			return TRUE
 	return FALSE
 
