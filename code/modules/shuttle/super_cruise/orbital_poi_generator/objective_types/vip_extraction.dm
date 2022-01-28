@@ -47,7 +47,7 @@
 			created_human.flavor_text = "You are a CentCom official onboard a badly damaged station. Making your way back to Space Station 13 to uncover the secrets you hold is \
 				your top priority as far as Nanotrasen is concerned, but surviving just one more day is all you can ask for."
 			created_human.equipOutfit(/datum/outfit/vip_target/centcom_official_vip)
-			suit_type = /obj/item/clothing/suit/space/swat
+			suit_type = /obj/item/clothing/suit/space/fragile //Riches To Rags
 			antag_elligable = TRUE
 		if("greytide")
 			created_human.flavor_text = "You are just an assistant on a lonely derelict station. You dream of going home, \
@@ -102,7 +102,7 @@
 	l_pocket = /obj/item/pen
 	back = /obj/item/storage/backpack/satchel
 	r_pocket = /obj/item/pda/heads
-	l_hand = /obj/item/clothing/head/helmet/swat/nanotrasen
+	l_hand = /obj/item/clothing/head/helmet/space/fragile
 	id = /obj/item/card/id/away/old
 
 //=====================
