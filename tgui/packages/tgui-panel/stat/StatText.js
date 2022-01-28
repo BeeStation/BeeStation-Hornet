@@ -4,7 +4,7 @@ import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { sendMessage } from 'tgui/backend';
 import { Divider, Grid, Table } from '../../tgui/components';
-import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_VERB } from './constants';
+import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_VERB, STAT_BLANK } from './constants';
 import { sendLogEntry } from 'tgui-dev-server/link/client.cjs';
 
 export const StatText = (props, context) => {
@@ -42,7 +42,8 @@ export const StatText = (props, context) => {
                 atom_name={statPanelData[key].text} />
               || statPanelData[key].type === STAT_DIVIDER
               && <StatTextDivider />
-              || null
+              || statPanelData[key].type === STAT_BLANK
+              && <br />
             )
           ))
           : "No data"}
@@ -246,6 +247,8 @@ export const HoboStatText = (props, context) => {
                 atom_name={statPanelData[key].text} />
               || statPanelData[key].type === STAT_DIVIDER
               && <StatTextDivider />
+              || statPanelData[key].type === STAT_BLANK
+              && <br />
               || null
             )
           ))
