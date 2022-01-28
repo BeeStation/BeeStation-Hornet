@@ -37927,9 +37927,6 @@
 	dir = 4;
 	pixel_x = 11
 	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -101616,6 +101613,10 @@
 	icon_state = "platingdmg1"
 	},
 /area/quartermaster/exploration_dock)
+"snO" = (
+/obj/machinery/smartfridge/organ,
+/turf/closed/wall/rust,
+/area/medical/surgery)
 "swr" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -122405,7 +122406,7 @@ bar
 aQI
 aQN
 aVl
-aQP
+snO
 aQN
 aTx
 arZ
