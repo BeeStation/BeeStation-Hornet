@@ -72,6 +72,7 @@ GLOBAL_LIST_INIT(ai_core_display_screens, sortList(list(
 	"Banned",
 	"Bliss",
 	"Blue",
+	"Cat",
 	"Clown",
 	"Database",
 	"Dorf",
@@ -119,27 +120,12 @@ GLOBAL_LIST_INIT(ai_core_display_screens, sortList(list(
 
 GLOBAL_LIST_INIT(security_depts_prefs, sortList(list(SEC_DEPT_RANDOM, SEC_DEPT_NONE, SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, SEC_DEPT_SCIENCE, SEC_DEPT_SUPPLY)))
 
-	//Backpacks
-#define GBACKPACK "Grey Backpack"
-#define GSATCHEL "Grey Satchel"
-#define GDUFFELBAG "Grey Duffel Bag"
-#define LSATCHEL "Leather Satchel"
-#define DBACKPACK "Department Backpack"
-#define DSATCHEL "Department Satchel"
-#define DDUFFELBAG "Department Duffel Bag"
+
 GLOBAL_LIST_INIT(backbaglist, list(DBACKPACK, DSATCHEL, DDUFFELBAG, GBACKPACK, GSATCHEL, GDUFFELBAG, LSATCHEL))
 
-	//Suit/Skirt
-#define PREF_SUIT "Jumpsuit"
-#define PREF_SKIRT "Jumpskirt"
+
 GLOBAL_LIST_INIT(jumpsuitlist, list(PREF_SUIT, PREF_SKIRT))
 
-//Uplink spawn loc
-#define UPLINK_PDA "PDA"
-#define UPLINK_RADIO "Radio"
-#define UPLINK_PEN "Pen" //like a real spy!
-#define UPLINK_IMPLANT "Implant"
-#define UPLINK_IMPLANT_WITH_PRICE "[UPLINK_IMPLANT] (-[UPLINK_IMPLANT_TELECRYSTAL_COST] TC)"
 // What we show to the user
 GLOBAL_LIST_INIT(uplink_spawn_loc_list, list(UPLINK_PDA, UPLINK_RADIO, UPLINK_PEN, UPLINK_IMPLANT_WITH_PRICE))
 // What is actually saved; if the uplink implant price changes, it won't affect save files then

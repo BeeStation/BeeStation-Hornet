@@ -421,6 +421,7 @@
 	mag_type = /obj/item/ammo_box/magazine/recharge/ctf
 	desc = "This looks like it could really hurt in melee."
 	force = 50
+	full_auto = TRUE //Rule of cool.
 
 /obj/item/gun/ballistic/automatic/laser/ctf/dropped()
 	. = ..()

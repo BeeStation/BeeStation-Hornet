@@ -193,7 +193,6 @@
 		if(9)
 			setSanity(sanity+0.6*delta_time, maximum=SANITY_MAXIMUM)
 	HandleNutrition(owner)
-	HandleHygiene(owner)
 
 /datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_GREAT)
 	var/mob/living/owner = parent
@@ -366,19 +365,6 @@
 			add_event(null, "nutrition", /datum/mood_event/lowpower)
 		if(0 to NUTRITION_LEVEL_STARVING)
 			add_event(null, "nutrition", /datum/mood_event/decharged)
-
-/datum/component/mood/proc/HandleHygiene(mob/living/carbon/human/H)
-	if(H.has_quirk(/datum/quirk/neet))
-		return //Neets don't care.
-	switch (H.hygiene)
-		if(HYGIENE_LEVEL_DISGUSTING to HYGIENE_LEVEL_DISGUSTING)//Believe it or not but this is actually the cleaner option.
-			add_event(null, "hygiene", /datum/mood_event/disgusting)
-		if(HYGIENE_LEVEL_DISGUSTING to HYGIENE_LEVEL_DIRTY)
-			add_event(null, "hygiene", /datum/mood_event/dirty)
-		if(HYGIENE_LEVEL_DIRTY to HYGIENE_LEVEL_NORMAL)
-			clear_event(null, "hygiene")
-		if(HYGIENE_LEVEL_NORMAL to HYGIENE_LEVEL_CLEAN)
-			add_event(null, "hygiene", /datum/mood_event/neat)
 
 /datum/component/mood/proc/check_area_mood(datum/source, var/area/A)
 	SIGNAL_HANDLER

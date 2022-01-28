@@ -236,7 +236,7 @@
 	name = "Traumatic Non-Violence"
 	desc = "Patient is extremely unwilling to harm others in violent ways."
 	scan_desc = "pacific syndrome"
-	gain_text = "<span class='notice'>You feel oddly peaceful.</span>"
+	gain_text = "<span class='userdanger'>You are no longer willing to harm others!</span>"
 	lose_text = "<span class='notice'>You no longer feel compelled to not harm.</span>"
 
 /datum/brain_trauma/severe/pacifism/on_gain()
