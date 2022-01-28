@@ -53,7 +53,7 @@
 	return ..()
 
 /datum/antagonist/obsessed/process(delta_time)
-	if(!human_target || get_dist(get_turf(owner.current), get_turf(human_target)) > 7)//we're simply out of range
+	if(get_dist(get_turf(owner.current), get_turf(human_target)) > 7)//we're simply out of range
 		if(seen_alive)	//we know our target lives
 			time_spent_away += SSprocessing.wait * delta_time
 			if(time_spent_away > 3 MINUTES)
@@ -87,6 +87,8 @@
 
 /datum/antagonist/obsessed/proc/OnTargetRevive()
 	SIGNAL_HANDLER
+	if(!owner.current.stat == DEAD)
+		return
 	START_PROCESSING(SSprocessing, src)
 	UnregisterSignal(human_target, COMSIG_LIVING_REVIVE)
 
@@ -98,9 +100,10 @@
 	seen_alive = FALSE
 	STOP_PROCESSING(SSprocessing, src)
 
-/datum/antagonist/obsessed/proc/add_objective(datum/objective/O)
+/datum/antagonist/obsessed/proc/add_objective(datum/objective/O, modify_target = TRUE)
 	O.owner = owner
-	O.target = target
+	if(modify_target)
+		O.target = target
 	objectives += O
 	log_objective(owner, O.explanation_text)
 
@@ -138,8 +141,10 @@
 				add_objective(heirloom_thief)
 			if(OBJECTIVE_JEALOUS)
 				var/datum/objective/assassinate/jealous/jealous = new(target)
-				if(jealous)
-					add_objective(jealous)
+				if(!jealous.target)
+					qdel(jealous)
+				else
+					add_objective(jealous, FALSE)
 
 	add_objective(kill)
 	kill.target = target
@@ -236,7 +241,7 @@
 		prefered_roles = GLOB.civilian_positions
 
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		if(!SSjob.GetJob(H.mind.assigned_role) || H.mind == oldmind|| H.mind.antag_datums.len)
+		if(!SSjob.GetJob(H.mind.assigned_role) || H.mind == oldmind || length(H.mind.antag_datums))
 			continue //the jealousy target has to have a job, and not be the obsession or obsessed.
 		if(H.mind.assigned_role in prefered_roles)
 			prefered_coworkers += H
@@ -252,7 +257,6 @@
 	if(H)
 		target = H.mind
 		return
-	qdel(src)
 
 /datum/objective/spendtime //spend some time around someone, handled by the obsessed trauma since that ticks
 	name = OBJECTIVE_STALK
