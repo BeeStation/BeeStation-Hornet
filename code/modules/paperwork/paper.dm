@@ -302,15 +302,19 @@
 				to_chat(usr, pick("You try to stamp but you miss!", "There is nowhere else you can stamp!"))
 				return FALSE
 
+			var/obj/item/stamp/holding = ui.user.get_active_held_item()
+
+			if(!istype(holding))
+				to_chat(usr, "That's not a stamp!")
+				return FALSE
+
 			var/stamp_x = text2num(params["x"])
 			var/stamp_y = text2num(params["y"])
 			var/stamp_r = text2num(params["r"])	// rotation in degrees
 
-			var/obj/holding = ui.user.get_active_held_item()
-			var/real_stamp = istype(holding, /obj/item/stamp)
 			var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
-			var/stamp_icon_state = real_stamp ? holding.icon_state : "FAKE"
-			var/stamp_class = real_stamp ? sheet.icon_class_name(holding.icon_state) : "FAKE"
+			var/stamp_icon_state = holding.icon_state
+			var/stamp_class = sheet.icon_class_name(holding.icon_state)
 
 			if (isnull(stamps))
 				stamps = list()
