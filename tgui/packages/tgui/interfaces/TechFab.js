@@ -3,7 +3,7 @@ import { Stack, Collapsible, Tooltip, Icon, Box, Button, LabeledList, Input, Sec
 import { Window } from '../layouts';
 import { Fragment } from 'inferno';
 import { capitalize, createSearch } from 'common/string';
-import { sendLogEntry } from 'tgui-dev-server/link/client';
+import { sendLogEntry } from 'tgui-dev-server/link/client.cjs';
 
 // Handles protolathes, circuit fabricators, and techfabs
 

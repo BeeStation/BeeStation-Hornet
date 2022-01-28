@@ -5,7 +5,7 @@ import { selectStatPanel } from './selectors';
 import { sendMessage } from 'tgui/backend';
 import { Divider, Grid, Table } from '../../tgui/components';
 import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_VERB } from './constants';
-import { sendLogEntry } from 'tgui-dev-server/link/client';
+import { sendLogEntry } from 'tgui-dev-server/link/client.cjs';
 
 export const StatText = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
