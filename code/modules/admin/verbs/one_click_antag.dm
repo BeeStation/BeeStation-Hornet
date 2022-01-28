@@ -85,7 +85,7 @@
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(!isReadytoRumble(applicant, ROLE_OBSESSED))
 			continue
-		if(temp.age_check(applicant.client) || !(applicant.job in temp.restricted_jobs))
+		if(temp.age_check(applicant.client) || (applicant.job in temp.restricted_jobs))
 			continue
 		candidates += applicant
 
