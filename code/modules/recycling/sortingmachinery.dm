@@ -8,6 +8,10 @@
 	var/giftwrapped = FALSE
 	var/sortTag = 0
 
+/obj/structure/bigDelivery/Initialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, .proc/disposal_handling)
+
 /obj/structure/bigDelivery/interact(mob/user)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	qdel(src)
@@ -79,6 +83,11 @@
 		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
 			to_chat(user, "<span class='warning'>You fail to remove [O]'s wrapping!</span>")
 
+
+/obj/structure/bigDelivery/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
+	SIGNAL_HANDLER
+	if(!hasmob)
+		disposal_holder.destinationTag = sortTag
 
 /obj/item/smallDelivery
 	name = "parcel"
@@ -153,6 +162,14 @@
 		else
 			to_chat(user, "<span class='warning'>You need more paper!</span>")
 
+/obj/item/smallDelivery/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, .proc/disposal_handling)
+
+/obj/item/smallDelivery/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
+	SIGNAL_HANDLER
+	if(!hasmob)
+		disposal_holder.destinationTag = sortTag
 
 /obj/item/destTagger
 	name = "destination tagger"

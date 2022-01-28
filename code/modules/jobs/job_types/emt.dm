@@ -25,6 +25,15 @@
 	departments = DEPARTMENT_MEDICAL
 	rpg_title = "Corpse Runner"
 
+	mail_goodies = list(
+		/obj/item/reagent_containers/hypospray/medipen = 20,
+		/obj/item/reagent_containers/medspray/silver_sulf = 10,
+		/obj/item/reagent_containers/medspray/styptic = 10,
+		/obj/item/reagent_containers/hypospray/medipen/survival = 5,
+		/obj/item/reagent_containers/hypospray/medipen/dexalin = 10,
+		/obj/item/reagent_containers/hypospray/medipen/pumpup = 1
+	)
+
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/emt
 	)

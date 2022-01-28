@@ -23,6 +23,13 @@
 	departments = DEPARTMENT_MEDICAL
 	rpg_title = "Alchemist"
 
+	mail_goodies = list(
+		/obj/item/reagent_containers/glass/bottle/flash_powder = 15,
+		/obj/item/reagent_containers/dropper = 10,
+		/obj/item/reagent_containers/glass/beaker/plastic = 10,
+		/obj/item/reagent_containers/glass/bottle/ketamine = 5
+	)
+
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chemist
 	)

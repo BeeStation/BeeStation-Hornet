@@ -29,6 +29,12 @@
 	departments = DEPARTMENT_COMMAND
 	rpg_title = "Star Duke"
 
+	mail_goodies = list(
+		/obj/item/clothing/mask/cigarette/cigar/havana = 20,
+		/obj/item/storage/fancy/cigarettes/cigars/havana = 15,
+		/obj/item/reagent_containers/food/drinks/bottle/champagne = 10
+	)
+
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/command
 	)

@@ -23,6 +23,12 @@
 	departments = DEPARTMENT_MEDICAL
 	rpg_title = "Genemancer"
 
+	mail_goodies = list(
+		/obj/item/reagent_containers/pill/mutadone = 10,
+		/obj/item/storage/box/monkeycubes = 10
+		//maybe random gene material?
+	)
+
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/genetics
 	)

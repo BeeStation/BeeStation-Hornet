@@ -23,6 +23,14 @@
 	departments = DEPARTMENT_MEDICAL
 	rpg_title = "Cleric"
 
+	mail_goodies = list(
+		/obj/item/healthanalyzer/advanced = 15,
+		/obj/effect/spawner/lootdrop/surgery_tool_advanced = 4,
+		/obj/item/reagent_containers/glass/bottle/formaldehyde = 6,
+		/obj/effect/spawner/lootdrop/teratoma/minor = 5,
+		/obj/effect/spawner/lootdrop/teratoma/major = 1
+	)
+
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/medical
 	)

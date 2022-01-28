@@ -30,6 +30,12 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/engineering
 	)
 
+	mail_goodies = list(
+		/obj/item/storage/box/lights/mixed = 20,
+		/obj/item/lightreplacer = 10,
+		/obj/item/holosign_creator/engineering = 8
+	)
+
 /datum/outfit/job/engineer
 	name = "Station Engineer"
 	jobtype = /datum/job/engineer

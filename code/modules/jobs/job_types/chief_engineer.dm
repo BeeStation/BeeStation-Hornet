@@ -34,9 +34,19 @@
 	departments = DEPARTMENT_ENGINEERING | DEPARTMENT_COMMAND
 	rpg_title = "High Crystallomancer"
 
+	mail_goodies = list(
+		/obj/item/reagent_containers/food/snacks/cracker = 25, //you know. for poly
+		/obj/item/stack/sheet/mineral/diamond = 15,
+		/obj/item/stack/sheet/mineral/uranium/five = 15,
+		/obj/item/stack/sheet/mineral/plasma/five = 15,
+		/obj/item/stack/sheet/mineral/gold/five = 15,
+		/obj/item/construction/rcd/arcd = 1 //if you got this, you hit the lottery
+	)
+
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/ce
 	)
+
 /datum/outfit/job/ce
 	name = "Chief Engineer"
 	jobtype = /datum/job/chief_engineer

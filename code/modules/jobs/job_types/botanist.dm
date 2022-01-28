@@ -20,9 +20,18 @@
 	departments = DEPARTMENT_SERVICE
 	rpg_title = "Gardener"
 
+	mail_goodies = list(
+		/datum/reagent/toxin/mutagen = 20,
+		/datum/reagent/saltpetre = 20,
+		/datum/reagent/diethylamine = 20,
+		/obj/item/gun/energy/floragun = 5,
+		/obj/item/seeds/random = 2,// These are strong, rare seeds, so use sparingly.
+	)
+
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/botany
 	)
+
 /datum/outfit/job/botanist
 	name = "Botanist"
 	jobtype = /datum/job/hydro

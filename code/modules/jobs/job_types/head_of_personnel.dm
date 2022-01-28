@@ -40,6 +40,19 @@
 	departments = DEPARTMENT_COMMAND | DEPARTMENT_SERVICE
 	rpg_title = "Guild Questgiver"
 
+	mail_goodies = list(
+		/obj/item/card/id/silver = 10,
+		/obj/item/stack/sheet/bone = 5
+	)
+
+//only pet worth reviving
+/datum/job/head_of_personnel/get_mail_goodies(mob/recipient)
+	. = ..()
+	// Strange Reagent if the pet is dead.
+	for(var/mob/living/simple_animal/pet/dog/corgi/Ian in GLOB.dead_mob_list)
+		. += list(/datum/reagent/medicine/strange_reagent = 20)//replace it with a lazarus
+		break
+
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hop
 	)

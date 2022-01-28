@@ -21,6 +21,14 @@
 	departments = DEPARTMENT_CARGO
 	rpg_title = "Merchantman"
 
+	mail_goodies = list(
+		/obj/item/pizzabox = 10,
+		/obj/item/stack/sheet/mineral/gold = 5,
+		/obj/item/stack/sheet/mineral/uranium = 4,
+		/obj/item/stack/sheet/mineral/diamond = 3,
+		/obj/item/gun/ballistic/rifle/boltaction = 1
+	)
+
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cargo
 	)

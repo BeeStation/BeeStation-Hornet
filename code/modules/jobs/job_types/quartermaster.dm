@@ -28,6 +28,10 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cargo
 	)
 
+	mail_goodies = list(
+		/obj/item/circuitboard/machine/emitter = 3 //if you want to watch the world burn, this is it.
+	)
+
 /datum/outfit/job/quartermaster
 	name = "Quartermaster"
 	jobtype = /datum/job/qm

@@ -11,6 +11,7 @@
  *		Sheet Snatcher
  *		Book Bag
  *      Biowaste Bag
+ * 		mail bag
  *
  *	-Sayu
  */
@@ -409,7 +410,7 @@
 	if(istype(A, /obj/item/slimecross/reproductive))
 		return TRUE
 	return ..()
-  
+
 /obj/item/storage/bag/construction
 	name = "construction bag"
 	icon = 'icons/obj/tools.dmi'
@@ -426,3 +427,23 @@
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 	STR.insert_preposition = "in"
 	STR.can_hold = typecacheof(list(/obj/item/stack/ore/bluespace_crystal, /obj/item/assembly, /obj/item/stock_parts, /obj/item/reagent_containers/glass/beaker, /obj/item/stack/cable_coil, /obj/item/circuitboard, /obj/item/electronics))
+
+// -----------------------------
+//           mail bag
+// -----------------------------
+
+/obj/item/storage/bag/mail
+	name = "mail bag"
+	desc = "A bag for letters, envelopes, and other postage."
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "mailbag"
+	resistance_flags = FLAMMABLE
+
+/obj/item/storage/bag/mail/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_combined_w_class = 42
+	STR.max_items = 21
+	STR.display_numerical_stacking = FALSE
+	STR.can_hold = typecacheof (list(/obj/item/mail,/obj/item/smallDelivery,/obj/item/paper))

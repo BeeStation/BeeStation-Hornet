@@ -25,6 +25,11 @@
 	departments = DEPARTMENT_SCIENCE
 	rpg_title = "Thaumaturgist"
 
+	mail_goodies = list(
+		/obj/item/disk/tech_disk/research/random  = 2,
+		/obj/item/camera_bug = 1 //ooo, free illegal research!
+	)
+
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/science
 	)
