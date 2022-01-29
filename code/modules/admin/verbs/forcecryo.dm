@@ -7,5 +7,4 @@
     C.invisibility = INVISIBILITY_MAXIMUM
     C.close_machine(target)
     C.despawn_occupant()
-    qdel(C)
-    
+    qdel(C)    
