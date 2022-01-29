@@ -68,21 +68,20 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 /obj/item/shuttle_creator/ui_data(mob/user)
 
-	var/datum/orbital_object/shuttle/shuttle_object
 	var/obj/docking_port/mobile/port
 	if(linkedShuttleId)
-		shuttle_object = SSorbits.assoc_shuttles[linkedShuttleId]
 		port = SSshuttle.getShuttle(linkedShuttleId)
 
 	var/list/data = list()
 
 	//General data
 	data["shuttleId"] = linkedShuttleId
-	data["inFlight"] = !!shuttle_object
+	data["inFlight"] = FALSE
 
 	//Status data
 	data["buffered_mass"] = loggedTurfs.len
 	if(port)
+		data["inFlight"] = istype(port.get_docked(), /obj/docking_port/stationary/transit)
 		data["name"] = port.name
 		data["shuttle_mass"] = port.calculate_mass()
 
@@ -113,12 +112,10 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		return
 
 	//Do we have a port?
-	var/datum/orbital_object/shuttle/shuttle_object
 	var/obj/docking_port/mobile/port
 	if(linkedShuttleId)
-		shuttle_object = SSorbits.assoc_shuttles[linkedShuttleId]
 		port = SSshuttle.getShuttle(linkedShuttleId)
-		if(shuttle_object) //Not interaction while in transit
+		if(istype(port.get_docked(), /obj/docking_port/stationary/transit)) //Not interaction while in transit
 			return
 		switch(action)
 			if("current_direction")
