@@ -8188,6 +8188,11 @@
 "ani" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/caution/stand_clear,
+/obj/machinery/door_timer{
+	id = "Cell 3";
+	name = "Cell 3";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "anj" = (
@@ -69355,13 +69360,16 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/aft)
 "bWI" = (
-/obj/machinery/door_timer{
-	id = "Cell 6";
-	name = "Cell 6";
-	pixel_x = -32
+/obj/effect/turf_decal/tile/red,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/window/brigdoor/security/cell{
+	dir = 1;
+	id = "Cell 1";
+	name = "Cell 1"
 	},
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/security/warden)
 "bWJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -69399,13 +69407,13 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/window/brigdoor/northright{
-	id = "Cell 6";
-	name = "Cell 6";
-	req_access_txt = "1"
-	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
+	},
+/obj/machinery/door/window/brigdoor/northright{
+	id = "Cell 5";
+	name = "Cell 5";
+	req_access_txt = "1"
 	},
 /turf/open/floor/plasteel,
 /area/security/warden)
@@ -69724,6 +69732,11 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer1,
+/obj/machinery/door_timer{
+	id = "Cell 1";
+	name = "Cell 1";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel,
 /area/security/warden)
 "bXn" = (
@@ -69761,6 +69774,11 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/machinery/door_timer{
+	id = "Cell 2";
+	name = "Cell 2";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel,
 /area/security/warden)
 "bXq" = (
@@ -69773,6 +69791,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/door_timer{
+	id = "Cell 4";
+	name = "Cell 4";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel,
 /area/security/warden)
 "bXr" = (
@@ -69783,6 +69806,11 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
+/obj/machinery/door_timer{
+	id = "Cell 5";
+	name = "Cell 5";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel,
 /area/security/warden)
 "bXs" = (
@@ -100018,6 +100046,18 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
+"ksh" = (
+/obj/effect/turf_decal/tile/red,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/window/brigdoor/northright{
+	id = "Cell 3";
+	name = "Cell 3";
+	req_access_txt = "1"
+	},
+/turf/open/floor/plasteel,
+/area/security/warden)
 "ktS" = (
 /obj/machinery/power/tracker,
 /obj/effect/turf_decal/box,
@@ -100622,6 +100662,18 @@
 	icon_state = "platingdmg1"
 	},
 /area/maintenance/starboard)
+"oDR" = (
+/obj/effect/turf_decal/tile/red,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/window/brigdoor/northright{
+	id = "Cell 4";
+	name = "Cell 4";
+	req_access_txt = "1"
+	},
+/turf/open/floor/plasteel,
+/area/security/warden)
 "oFO" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -102836,6 +102888,18 @@
 "xqW" = (
 /turf/closed/wall,
 /area/quartermaster/exploration_prep)
+"xrs" = (
+/obj/effect/turf_decal/tile/red,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/window/brigdoor/security/cell{
+	dir = 1;
+	id = "Cell 2";
+	name = "Cell 2"
+	},
+/turf/open/floor/plasteel,
+/area/security/warden)
 "xtk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer3{
@@ -120885,7 +120949,7 @@ bWQ
 aai
 aeI
 aJH
-bWI
+aaT
 ajZ
 bTp
 bVY
@@ -121142,7 +121206,7 @@ aef
 cwN
 bkT
 aiZ
-bWA
+bWI
 abO
 adn
 aej
@@ -121656,7 +121720,7 @@ cLV
 aai
 aeI
 aJH
-bWI
+aaT
 abY
 adp
 ael
@@ -121913,7 +121977,7 @@ cLV
 cwN
 bkT
 aiZ
-bWA
+xrs
 abO
 ady
 aeg
@@ -122427,7 +122491,7 @@ cLV
 aai
 aeI
 aJH
-bWI
+aaT
 abY
 aek
 aaT
@@ -123198,7 +123262,7 @@ cLV
 aai
 aeI
 aJH
-bWI
+aaT
 bSR
 byA
 cbs
@@ -123455,7 +123519,7 @@ cLV
 cwN
 bkT
 aiZ
-bWA
+ksh
 abO
 bYz
 cbv
@@ -123969,7 +124033,7 @@ cLV
 aai
 aeI
 aJH
-bWI
+aaT
 aft
 bYF
 cbv
@@ -124226,7 +124290,7 @@ cLV
 cwN
 bkT
 aiZ
-bWA
+oDR
 abO
 bYI
 aeg
@@ -124740,7 +124804,7 @@ cLV
 aai
 aeI
 aJH
-bWI
+aaT
 acf
 cah
 cbw
