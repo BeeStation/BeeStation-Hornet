@@ -519,7 +519,7 @@ MENU_SQUARE_VIEW
 
 ## Name your perpetual currency here
 ## This is used within the metashop and earned by playing the game.
-METACURRENCY_NAME BeeCoin
+METACURRENCY_NAME MonkeCoin
 
 ## Grant metacurrency
 ## Comment this out if you don't want players to earn metacurrency
