@@ -356,7 +356,7 @@
 
 /obj/item/reagent_containers/syringe/crude
 	name = "crude syringe"
-	desc = "A crudely made syringe. The flimsy wooden construction makes it hold a minimal amounts of reagents."
+	desc = "A crudely made syringe. The flimsy wooden construction makes it hold a minimal amount of reagents."
 	icon_state = "crude_0"
 	base_icon_state = "crude"
 	volume = 5
