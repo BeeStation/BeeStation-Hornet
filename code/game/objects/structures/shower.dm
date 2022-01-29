@@ -194,20 +194,17 @@
 		if(M.shoes && !(HIDESHOES in obscured) && wash_obj(M.shoes))
 			M.update_inv_shoes()
 
-		var/washgloves = FALSE
-		if(M.gloves && !(HIDEGLOVES in obscured))
-			washgloves = TRUE
+		if(M.gloves && !(HIDEGLOVES in obscured) && wash_obj(M.gloves))
+			M.update_inv_gloves()
 
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 
 			if(H.wear_suit && wash_obj(H.wear_suit))
 				H.update_inv_wear_suit()
+
 			else if(H.w_uniform && wash_obj(H.w_uniform))
 				H.update_inv_w_uniform()
-
-			if(washgloves)
-				SEND_SIGNAL(H, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
 
 			if(!H.is_mouth_covered())
 				H.lip_style = null
