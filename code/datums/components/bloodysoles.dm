@@ -67,6 +67,10 @@
 	bloody_shoes[last_blood_state] = new_our_bloodiness
 	pool.bloodiness = total_bloodiness - new_our_bloodiness // Give the pool the remaining blood incase we were limited
 
+	// If someone has the bloody feet quirk, they won't get bloody feet from a small splatter on the floor
+	if(HAS_TRAIT(parent_atom, TRAIT_LIGHT_STEP))
+		return TRUE
+
 	parent_atom.add_blood_DNA(pool.return_blood_DNA())
 	update_icon()
 

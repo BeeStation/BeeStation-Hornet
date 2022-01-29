@@ -6,6 +6,45 @@
 	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
 	blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
+	var/already_rotting = FALSE
+	var/dryname = "dried blood" // New name given to blood that dries up
+	var/drydesc = "Looks like it's been here for a while. Ew."
+	var/drytime = 0
+
+/obj/effect/decal/cleanable/blood/Initialize()
+	. = ..()
+	if(already_rotting)
+		return
+	if(bloodiness)
+		start_drying()
+	else
+		dry()
+
+/obj/effect/decal/cleanable/blood/process()
+	if(world.time > drytime)
+		dry()
+
+/obj/effect/decal/cleanable/blood/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/effect/decal/cleanable/blood/proc/get_timer()
+	drytime = world.time + 6 MINUTES
+
+/obj/effect/decal/cleanable/blood/proc/start_drying()
+	get_timer()
+	START_PROCESSING(SSobj, src)
+
+/obj/effect/decal/cleanable/blood/proc/dry()
+	if(bloodiness > 20)
+		bloodiness -= BLOOD_AMOUNT_PER_DECAL
+		get_timer()
+	else
+		name = dryname
+		desc = drydesc
+		bloodiness = 0
+		color =  COLOR_GRAY // Not all blood splatters have their own sprites... It still looks pretty nice
+		STOP_PROCESSING(SSobj, src)
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	C.add_blood_DNA(return_blood_DNA())
@@ -15,8 +54,6 @@
 	return ..()
 
 /obj/effect/decal/cleanable/blood/old
-	name = "dried blood"
-	desc = "Looks like it's been here a while.  Eew."
 	bloodiness = 0
 	icon_state = "floor1-old"
 	var/list/disease = list()
@@ -24,7 +61,6 @@
 /obj/effect/decal/cleanable/blood/old/Initialize(mapload, list/datum/disease/diseases)
 	add_blood_DNA(list("Non-human DNA" = random_blood_type())) // Needs to happen before ..()
 	. = ..()
-	icon_state = "[icon_state]-old" //change from the normal blood icon selected from random_icon_states in the parent's Initialize to the old dried up blood.
 	if(prob(75))
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 4), rand(7, 9), 4)
 		disease += R
@@ -47,6 +83,8 @@
 	desc = "They look like tracks left by wheels."
 	icon_state = "tracks"
 	random_icon_states = null
+	dryname = "dried tracks"
+	drydesc = "Old bloody tracks left by some wheels. Even space isn't safe from vehicular manslaughter."
 
 /obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
 	name = "blood"
@@ -66,21 +104,15 @@
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	mergeable_decal = FALSE
 	turf_loc_check = FALSE
-
-	var/already_rotting = FALSE
+	dryname = "rotting gibs"
+	drydesc = "Space Jesus, why didn't anyone clean this up? They smell terrible."
 
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/liquidgibs, 5)
-	if(already_rotting)
-		start_rotting(rename=FALSE)
-	else
-		addtimer(CALLBACK(src, .proc/start_rotting), 2 MINUTES)
 
-/obj/effect/decal/cleanable/blood/gibs/proc/start_rotting(rename=TRUE)
-	if(rename)
-		name = "rotting [initial(name)]"
-		desc += " They smell terrible."
+/obj/effect/decal/cleanable/blood/gibs/dry()
+	. = ..()
 	AddComponent(/datum/component/rot/gibs)
 
 /obj/effect/decal/cleanable/blood/gibs/replace_decal(obj/effect/decal/cleanable/C)
@@ -131,8 +163,9 @@
 	random_icon_states = list("gibmid1", "gibmid2", "gibmid3")
 
 /obj/effect/decal/cleanable/blood/gibs/old
-	name = "old rotting gibs"
+	name = "rotting gibs"
 	desc = "Space Jesus, why didn't anyone clean this up? They smell terrible."
+	icon_state = "gib1-old"
 	bloodiness = 0
 	already_rotting = TRUE
 	var/list/disease = list()
@@ -162,6 +195,8 @@
 	random_icon_states = list("drip1","drip2","drip3","drip4","drip5")
 	bloodiness = 0
 	var/drips = 1
+	dryname = "dried drips of blood"
+	drydesc = "It's red."
 
 /obj/effect/decal/cleanable/blood/drip/can_bloodcrawl_in()
 	return TRUE
@@ -170,9 +205,9 @@
 //BLOODY FOOTPRINTS
 /obj/effect/decal/cleanable/blood/footprints
 	name = "footprints"
+	desc = "Wonder who these belong to... oh wait!"
 	icon = 'icons/effects/footprints.dmi'
-	icon_state = "nothingwhatsoever"
-	desc = "WHOSE FOOTPRINTS ARE THESE?"
+//	icon_state = "nothingwhatsoever"
 	icon_state = "blood1"
 	random_icon_states = null
 	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
@@ -184,6 +219,9 @@
 
 	// List of species that have made footprints here.
 	var/list/species_types = list()
+
+	dryname = "dried footprints"
+	drydesc = "Wonder who these belong to... oh wait!"
 
 /obj/effect/decal/cleanable/blood/footprints/update_icon()
 	cut_overlays()
