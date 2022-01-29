@@ -21,6 +21,7 @@
 
 /mob/living/carbon/initialize_footstep()
 	AddComponent(/datum/component/footstep, 1, 2)
+	AddComponent(/datum/component/bloodysoles/feet)
 
 /mob/living/carbon/swap_hand(held_index)
 	. = ..()

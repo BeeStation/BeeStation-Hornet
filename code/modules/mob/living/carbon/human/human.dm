@@ -26,7 +26,7 @@
 	. = ..()
 
 	AddComponent(/datum/component/personal_crafting)
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_blood)
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, clean_blood())
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 	)

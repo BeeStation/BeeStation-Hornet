@@ -83,6 +83,10 @@
 	if(!not_handled)
 		I.equipped(src, slot)
 
+		// Send a signal for when we equip an item that used to cover our feet/shoes. Used for bloody feet
+		if((I.body_parts_covered & FEET) || (I.flags_inv | I.transparent_protection) & HIDESHOES)
+			SEND_SIGNAL(src, COMSIG_CARBON_EQUIP_SHOECOVER, I, slot)
+
 	return not_handled
 
 /mob/living/carbon/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE)
@@ -116,6 +120,10 @@
 		legcuffed = null
 		if(!QDELETED(src))
 			update_inv_legcuffed()
+
+	// Send a signal for when we unequip an item that used to cover our feet/shoes. Used for bloody feet
+	if((I.body_parts_covered & FEET) || (I.flags_inv | I.transparent_protection) & HIDESHOES)
+		SEND_SIGNAL(src, COMSIG_CARBON_UNEQUIP_SHOECOVER, I, force, newloc, no_move, invdrop, silent)
 
 //handle stuff to update when a mob equips/unequips a mask.
 /mob/living/proc/wear_mask_update(obj/item/I, toggle_off = 1)

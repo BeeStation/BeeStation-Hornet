@@ -56,6 +56,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 
 	create_dna()
 	dna.initialize_dna(random_blood_type())
+	AddComponent(/datum/component/bloodysoles/feet)
 	AddElement(/datum/element/strippable, GLOB.strippable_monkey_items)
 
 /mob/living/carbon/monkey/Destroy()
