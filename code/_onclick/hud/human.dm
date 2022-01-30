@@ -277,7 +277,6 @@
 	inv_box.name = "belt"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "belt"
-//	inv_box.icon_full = "template_small"
 	inv_box.screen_loc = ui_belt
 	inv_box.slot_id = ITEM_SLOT_BELT
 	inv_box.hud = src
