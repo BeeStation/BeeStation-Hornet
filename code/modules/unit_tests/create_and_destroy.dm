@@ -10,7 +10,7 @@
 		//Never meant to be created, errors out the ass for mobcode reasons
 		/mob/living/carbon,
 		//Nother template type, doesn't like being created with no seed
-		/obj/item/food/grown,
+		/obj/item/reagent_containers/food/snacks/grown,
 		//And another
 		/obj/item/slimecross/recurring,
 		//This should be obvious
@@ -44,11 +44,11 @@
 	//We can't pass a mind into this
 	ignore += typesof(/obj/item/phylactery)
 	//This expects a seed, we can't pass it
-	ignore += typesof(/obj/item/food/grown)
+	ignore += typesof(/obj/item/reagent_containers/food/snacks/grown)
 	//Nothing to hallucinate if there's nothing to hallicinate
 	ignore += typesof(/obj/effect/hallucination)
 	//These want fried food to take on the shape of, we can't pass that in
-	ignore += typesof(/obj/item/food/deepfryholder)
+	ignore += typesof(/obj/item/reagent_containers/food/snacks/deepfryholder)
 	//Can't pass in a thing to glow
 	ignore += typesof(/obj/effect/abstract/eye_lighting)
 	//It wants a lot more context then we have
@@ -77,7 +77,7 @@
 	//See above
 	ignore += typesof(/obj/effect/timestop)
 	//Invoke async in init, skippppp
-	ignore += typesof(/mob/living/silicon/robot/model)
+	ignore += typesof(/mob/living/silicon/robot/modules)
 	//This lad also sleeps
 	ignore += typesof(/obj/item/hilbertshotel)
 	//this boi spawns turf changing stuff, and it stacks and causes pain. Let's just not
@@ -91,7 +91,7 @@
 	//Asks for a shuttle that may not exist, let's leave it alone
 	ignore += typesof(/obj/item/pinpointer/shuttle)
 	//This spawns beams as a part of init, which can sleep past an async proc. This hangs a ref, and fucks us. It's only a problem here because the beam sleeps with CHECK_TICK
-	ignore += typesof(/obj/structure/alien/resin/flower_bud)
+	ignore += typesof(/obj/structure/alien/resin/flower_bud_enemy)
 	//Needs a linked mecha
 	ignore += typesof(/obj/effect/skyfall_landingzone)
 	//Leads to errors as a consequence of the logic behind moving back to a tile that's moving you somewhere else
