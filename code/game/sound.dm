@@ -218,11 +218,6 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 /mob/proc/stop_sound_channel(chan)
 	SEND_SOUND(src, sound(null, repeat = 0, wait = 0, channel = chan))
 
-/mob/proc/set_sound_channel_volume(channel, volume)
-	var/sound/S = sound(null, FALSE, FALSE, channel, volume)
-	S.status = SOUND_UPDATE
-	SEND_SOUND(src, S)
-
 /client/proc/playtitlemusic(vol = 85)
 	set waitfor = FALSE
 	UNTIL(SSticker.login_music) //wait for SSticker init to set the login music

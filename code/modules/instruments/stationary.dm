@@ -3,13 +3,12 @@
 	desc = "Something broke, contact coderbus."
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT | INTERACT_ATOM_REQUIRES_DEXTERITY
 	var/can_play_unanchored = FALSE
-	var/list/allowed_instrument_ids = list("r3grand","r3harpsi","crharpsi","crgrand1","crbright1", "crichugan", "crihamgan","piano")
 	var/datum/song/song
+	var/song_dir = "piano"
 
 /obj/structure/musician/Initialize(mapload)
 	. = ..()
-	song = new(src, allowed_instrument_ids)
-	allowed_instrument_ids = null
+	song = new(song_dir, src)
 
 /obj/structure/musician/Destroy()
 	QDEL_NULL(song)
@@ -20,10 +19,11 @@
 		return TRUE
 	if(!user)
 		return FALSE
-	return !user.canUseTopic(src, FALSE, TRUE, FALSE, FALSE)		//can play with TK and while resting because fun.
+	return !user.canUseTopic(src, FALSE, TRUE, FALSE)		//can play with TK and while resting because fun.
 
 /obj/structure/musician/ui_interact(mob/user)
 	. = ..()
+	user.set_machine(src)
 	song.ui_interact(user)
 
 /obj/structure/musician/wrench_act(mob/living/user, obj/item/I)
@@ -36,6 +36,7 @@
 	icon_state = "minimoog"
 	anchored = TRUE
 	density = TRUE
+	song_dir = "piano"
 
 /obj/structure/musician/piano/unanchored
 	anchored = FALSE
