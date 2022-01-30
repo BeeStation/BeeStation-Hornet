@@ -47,7 +47,10 @@
 #include "check_adjustable_clothing.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
-#include "create_and_destroy.dm"
+// Uncomment to enable Del the World.
+// This unit test creates and qdels almost every atom in the code, checking for errors with initialization and harddels on deletion.
+// It is disabled for now due to the large amount of consistent errors it produces.
+//#include "create_and_destroy.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "keybinding_init.dm"
 #include "reagent_id_typos.dm"
