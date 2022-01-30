@@ -39,8 +39,7 @@ jobs:
           find . -name "*.php" -print0 | xargs -0 -n1 php -l
           find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/json_verifier.py
           bash tools/ci/check_grep.sh
-          tgui/bin/tgui --lint
-          tgui/bin/tgui --test
+          tools/build/build --ci lint tgui-test
           tools/bootstrap/python -m dmi.test
           tools/bootstrap/python -m mapmerge2.dmm_test
           ~/dreamchecker
@@ -61,7 +60,7 @@ jobs:
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
           python3 tools/ci/template_dm_generator.py
-          tools/build/build dm -DCIBUILDING -DCITESTING -DALL_MAPS
+          tools/build/build --ci dm -DCIBUILDING -DCITESTING -DALL_MAPS
   run_all_tests:
     runs-on: ubuntu-latest
     services:
@@ -100,7 +99,7 @@ jobs:
       - name: Compile and run tests
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/build/build -DCIBUILDING
+          tools/build/build --ci build -DCIBUILDING
           bash tools/ci/run_server.sh
   test_windows:
     runs-on: windows-latest

@@ -6,7 +6,6 @@
 			rev.remove_revolutionary(TRUE)
 	..()
 
-
 /mob/living/silicon/auto_deadmin_on_login()
 	if(!client?.holder)
 		return TRUE

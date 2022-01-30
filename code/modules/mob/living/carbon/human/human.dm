@@ -105,8 +105,6 @@
 /mob/living/carbon/human/get_stat_tab_status()
 	var/list/tab_data = ..()
 
-	tab_data["Intent"] = GENERATE_STAT_TEXT("[a_intent]")
-	tab_data["Move Mode"] = GENERATE_STAT_TEXT("[m_intent]")
 	if (internal)
 		if (!internal.air_contents)
 			qdel(internal)
@@ -720,7 +718,6 @@
 	remove_all_embedded_objects()
 	set_heartattack(FALSE)
 	drunkenness = 0
-	set_hygiene(HYGIENE_LEVEL_NORMAL)
 	for(var/datum/mutation/human/HM in dna.mutations)
 		if(HM.quality != POSITIVE)
 			dna.remove_mutation(HM.name)

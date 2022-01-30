@@ -929,23 +929,23 @@
 	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
 	var/turf/T = get_turf(src)
 	if(!T)
-		return 0
+		return FALSE
 	if(is_centcom_level(T.z)) //dont detect mobs on centcom
-		return 0
+		return FALSE
 	if(is_away_level(T.z))
-		return 0
+		return FALSE
 	if(user != null && src == user)
-		return 0
+		return FALSE
 	if(invisibility || alpha == 0)//cloaked
-		return 0
-	if(HAS_TRAIT(src, TRAIT_DIGICAMO) || HAS_TRAIT(src, TRAIT_DIGINVIS))
-		return 0
+		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_LIVING_CAN_TRACK, args) & COMPONENT_CANT_TRACK)
+		return FALSE
 
 	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
 	if(!near_camera(src))
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
 
 //used in datum/reagents/reaction() proc
 /mob/living/proc/get_permeability_protection()
