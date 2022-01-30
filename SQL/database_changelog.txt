@@ -2,13 +2,56 @@ Any time you make a change to the schema files, remember to increment the databa
 
 The latest database version is 5.9; The query to update the schema revision table is:
 
-INSERT INTO `schema_revision` (`major`, `minor`) VALUES (5, 10);
+INSERT INTO `schema_revision` (`major`, `minor`) VALUES (6, 0);
 or
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 10);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (6, 0);
 
 In any query remember to add a prefix to the table names if you use one.
 
 -----------------------------------------------------
+
+Version 6.0, TBC 2022 by MCterra
+Update database for savefile migrations
+
+DROP TABLE IF EXISTS `SS13_preferences`;
+CREATE TABLE IF NOT EXISTS `SS13_preferences` (
+  `ckey` varchar(32) NOT NULL,
+  `asay_color` varchar(7) DEFAULT NULL,
+  `ooc_color` varchar(7) DEFAULT NULL,
+  `last_changelog` varchar(32) DEFAULT NULL,
+  `ui_style` varchar(32) DEFAULT NULL,
+  `outline_color` varchar(7) DEFAULT NULL,
+  `see_balloon_alerts` varchar(32) DEFAULT NULL,
+  `be_special` json DEFAULT NULL,
+  `default_slot` tinyint(3) unsigned DEFAULT NULL,
+  `chat_toggles` int(10) unsigned DEFAULT NULL,
+  `toggles` int(10) unsigned DEFAULT NULL,
+  `toggles_2` int(10) unsigned DEFAULT NULL,
+  `sound_toggles` int(10) unsigned DEFAULT NULL,
+  `ghost_form` varchar(32) DEFAULT NULL,
+  `ghost_orbit` varchar(32) DEFAULT NULL,
+  `ghost_accs` tinyint(4) unsigned DEFAULT NULL,
+  `ghost_others` tinyint(4) unsigned DEFAULT NULL,
+  `preferred_map` varchar(32) DEFAULT NULL,
+  `ignoring` json DEFAULT NULL,
+  `client_fps` tinyint(4) unsigned DEFAULT NULL,
+  `parallax` tinyint(4) unsigned DEFAULT NULL,
+  `pixel_size` float(24) DEFAULT NULL,
+  `scaling_method` varchar(32) DEFAULT NULL,
+  `tip_delay` smallint(5) unsigned DEFAULT NULL,
+  `pda_style` varchar(32) DEFAULT NULL,
+  `pda_color` varchar(7) DEFAULT NULL,
+  `purchased_gear` json DEFAULT NULL,
+  `equipped_gear` json DEFAULT NULL,
+  `pai_name` varchar(50) DEFAULT NULL,
+  `pai_description` varchar(1024) DEFAULT NULL,
+  `pai_role` varchar(255) DEFAULT NULL,
+  `pai_comments` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`ckey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-----------------------------------------------------
+
 Version 5.10, 28 December 2020 by Crossedfall
 Added the server_name column to the feedback table
 

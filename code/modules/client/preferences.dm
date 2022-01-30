@@ -114,7 +114,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/list/exp = list()
 	var/job_exempt = 0
-	var/list/menuoptions
 
 	//Loadout stuff
 	var/list/purchased_gear = list()
@@ -148,7 +147,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(!loaded_preferences_successfully)
 		save_preferences()
 	save_character()		//let's save this new random character so it doesn't keep generating new ones.
-	menuoptions = list()
 	return
 
 #define APPEARANCE_CATEGORY_COLUMN "<td valign='top' width='14%'>"
