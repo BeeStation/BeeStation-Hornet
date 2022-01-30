@@ -477,15 +477,14 @@
 /obj/item/clothing/glasses/AltClick(mob/user)
 	if(glass_colour_type && ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.client)
-			if(H.client.prefs)
-				if(src == H.glasses)
-					H.client.prefs.uses_glasses_colour = !H.client.prefs.uses_glasses_colour
-					if(H.client.prefs.uses_glasses_colour)
-						to_chat(H, "You will now see glasses colors.")
-					else
-						to_chat(H, "You will no longer see glasses colors.")
-					H.update_glasses_color(src, 1)
+		if(H?.client?.prefs)
+			if(src == H.glasses)
+				H.client.prefs.toggles_2 ^= TOGGLE_2_GLASSES_COLOR
+				if(H.client.prefs.toggles_2 & TOGGLE_2_GLASSES_COLOR)
+					to_chat(H, "You will now see glasses colors.")
+				else
+					to_chat(H, "You will no longer see glasses colors.")
+				H.update_glasses_color(src, 1)
 
 /obj/item/clothing/glasses/proc/change_glass_color(mob/living/carbon/human/H, datum/client_colour/glass_colour/new_color_type)
 	var/old_colour_type = glass_colour_type
@@ -499,7 +498,7 @@
 
 
 /mob/living/carbon/human/proc/update_glasses_color(obj/item/clothing/glasses/G, glasses_equipped)
-	if(client && client.prefs.uses_glasses_colour && glasses_equipped)
+	if(client && (client.prefs.toggles_2 & TOGGLE_2_GLASSES_COLOR) && glasses_equipped)
 		add_client_colour(G.glass_colour_type)
 	else
 		remove_client_colour(G.glass_colour_type)

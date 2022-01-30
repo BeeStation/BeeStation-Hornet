@@ -63,12 +63,14 @@
 #define TOGGLE_2_AUTOFIT_VIEWPORT			(1<<2)
 ///Enable item tooltips
 #define TOGGLE_2_ENABLE_TIPS				(1<<3)
+///Have vision tinted by glasses
+#define TOGGLE_2_GLASSES_COLOR				(1<<4)
 
 ///Maximum decimal value with all toggles enabled for toggles_2
-#define TOGGLES_2_MAX						15 //hex: 0xF
+#define TOGGLES_2_MAX						31 //hex: 0x1F
 
 ///Default toggles_2 settings
-#define TOGGLES_2_DEFAULT (TOGGLE_2_INQUISITIVE_GHOST|TOGGLE_2_AMBIENT_OCCLUSION|TOGGLE_2_AUTOFIT_VIEWPORT)
+#define TOGGLES_2_DEFAULT (TOGGLE_2_INQUISITIVE_GHOST|TOGGLE_2_AMBIENT_OCCLUSION|TOGGLE_2_AUTOFIT_VIEWPORT|TOGGLE_2_ENABLE_TIPS)
 
 // Sanity checks
 #if TOGGLES_MAX > 16777215

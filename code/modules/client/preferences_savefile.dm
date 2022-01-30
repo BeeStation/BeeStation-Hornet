@@ -109,10 +109,11 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		toggles |= sanitize_integer(S["show_credits"], FALSE, TRUE, TRUE) << 22
 		toggles |= sanitize_integer(S["ghost_hud"], FALSE, TRUE, TRUE) << 23
 		toggles_2 = TOGGLES_2_DEFAULT
-		toggles_2 &= ~11 // unset bits 1, 2 and 4, since we're copying those
+		toggles_2 &= ~27 // unset bits 1, 2, 4 and 5 since we're copying those
 		toggles_2 |= sanitize_integer(S["inquisitive_ghost"], FALSE, TRUE, TRUE) << 0
 		toggles_2 |= sanitize_integer(S["ambientocclusion"], FALSE, TRUE, TRUE) << 1
 		toggles_2 |= sanitize_integer(S["enable_tips"], FALSE, TRUE, TRUE) << 3
+		toggles_2 |= sanitize_integer(S["uses_glasses_colour"], FALSE, TRUE, FALSE) << 4
 		// Handle some newer vars that may or may not be present with older saves
 		if(current_version >= 30)
 			toggles &= ~4096 // unset 13th bit to prep for copy
@@ -251,7 +252,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["ghost_others"], ghost_others)
 	READ_FILE(S["preferred_map"], preferred_map)
 	READ_FILE(S["ignoring"], ignoring)
-	READ_FILE(S["uses_glasses_colour"], uses_glasses_colour)
 	READ_FILE(S["clientfps"], clientfps)
 	READ_FILE(S["parallax"], parallax)
 	READ_FILE(S["pixel_size"], pixel_size)
@@ -339,7 +339,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["ghost_others"], ghost_others)
 	WRITE_FILE(S["preferred_map"], preferred_map)
 	WRITE_FILE(S["ignoring"], ignoring)
-	WRITE_FILE(S["uses_glasses_colour"], uses_glasses_colour)
 	WRITE_FILE(S["clientfps"], clientfps)
 	WRITE_FILE(S["parallax"], parallax)
 	WRITE_FILE(S["pixel_size"], pixel_size)
