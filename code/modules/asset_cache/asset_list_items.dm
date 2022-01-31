@@ -355,7 +355,14 @@
 				if (machine)
 					item = machine
 
-			icon_file = initial(item.icon)
+			// Check for GAGS support where necessary
+			var/greyscale_config = initial(item.greyscale_config)
+			var/greyscale_colors = initial(item.greyscale_colors)
+			if (greyscale_config && greyscale_colors)
+				icon_file = SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors)
+			else
+				icon_file = initial(item.icon)
+
 			icon_state = initial(item.icon_state)
 
 			if(!(icon_state in icon_states(icon_file)))
