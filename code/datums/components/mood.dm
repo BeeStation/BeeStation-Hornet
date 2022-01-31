@@ -34,6 +34,13 @@
 /datum/component/mood/Destroy()
 	STOP_PROCESSING(SSmood, src)
 	unmodify_hud()
+	for(var/i in mood_events)
+		var/datum/mood_event/event = mood_events[i]
+		event.owner = null
+		if(event.timer)
+			deltimer(event.timer)
+		qdel(event)
+	mood_events.Cut()
 	return ..()
 
 /datum/component/mood/proc/print_mood(mob/user)
@@ -263,7 +270,7 @@
 			clear_event(null, category)
 		else
 			if(the_event.timeout)
-				addtimer(CALLBACK(src, .proc/clear_event, null, category), the_event.timeout, TIMER_UNIQUE|TIMER_OVERRIDE)
+				the_event.timer = addtimer(CALLBACK(src, .proc/clear_event, null, category), the_event.timeout, TIMER_STOPPABLE|TIMER_UNIQUE|TIMER_OVERRIDE)
 			return 0 //Don't have to update the event.
 	the_event = new type(src, param)
 
