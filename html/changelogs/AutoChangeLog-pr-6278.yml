@@ -1,7 +1,0 @@
-author: ike709
-delete-after: true
-changes:
-  - bugfix: Fixed beakers in chem grenades hard deleting
-  - bugfix: Fixed chem grenades hard deleting
-  - bugfix: Fixed mood events hard deleting
-  - code_imp: Improved assembly deletion when attached to a wire
