@@ -257,8 +257,9 @@
 	data["hard_popcap"] = CONFIG_GET(number/hard_popcap) || 0
 	data["extreme_popcap"] = CONFIG_GET(number/extreme_popcap) || 0
 	data["popcap"] = max(CONFIG_GET(number/soft_popcap), CONFIG_GET(number/hard_popcap), CONFIG_GET(number/extreme_popcap)) //generalized field for this concept for use across ss13 codebases
-	.["bunkered"] = CONFIG_GET(flag/panic_bunker) || FALSE
-	.["interviews"] = CONFIG_GET(flag/panic_bunker_interview) || FALSE
+	data["bunkered"] = CONFIG_GET(flag/panic_bunker) || 0
+	data["interviews"] = CONFIG_GET(flag/panic_bunker_interview) || 0
+
 	if(SSshuttle?.emergency)
 		data["shuttle_mode"] = SSshuttle.emergency.mode
 		// Shuttle status, see /__DEFINES/stat.dm
