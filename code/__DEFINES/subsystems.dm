@@ -109,11 +109,12 @@
 #define INIT_ORDER_BLACKBOX			94
 #define INIT_ORDER_SERVER_MAINT		93
 #define INIT_ORDER_INPUT			85
-#define INIT_ORDER_TOPIC			83
-#define INIT_ORDER_SOUNDS			82
-#define INIT_ORDER_INSTRUMENTS		81
+#define INIT_ORDER_TOPIC			84
+#define INIT_ORDER_SOUNDS			83
+#define INIT_ORDER_INSTRUMENTS		82
+#define INIT_ORDER_GREYSCALE 		81
 #define INIT_ORDER_VIS				80
-#define INIT_ORDER_ACHIEVEMENTS 77
+#define INIT_ORDER_ACHIEVEMENTS 	77
 #define INIT_ORDER_MATERIALS		76
 #define INIT_ORDER_RESEARCH			75
 #define INIT_ORDER_ORBITS			74 //Other things use the orbital map, so it needs to be made early on.
