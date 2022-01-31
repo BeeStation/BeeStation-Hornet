@@ -485,10 +485,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if("access_give_aa")
 			if(authenticated == 2)
-				var/tried = 0
+				var/tried = FALSE
 				for(var/each in get_all_accesses())
 					if(!(each in modify.access))
-						modify.access += each
+						modify.access |= each
 						tried = TRUE
 				if(tried)
 					log_id("[key_name(usr)] granted all access to [modify] using [scan] at [AREACOORD(usr)].")
