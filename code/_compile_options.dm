@@ -42,6 +42,11 @@
 #define GC_FAILURE_HARD_LOOKUP
 #endif // REFERENCE_DOING_IT_LIVE
 
+#ifdef REFERENCE_TRACKING_FAST
+#define REFERENCE_TRACKING
+#define REFERENCE_TRACKING_DEBUG
+#endif
+
 //#define UNIT_TESTS //If this is uncommented, we do a single run though of the game setup and tear down process with unit tests in between
 
 #ifndef PRELOAD_RSC				//set to:
