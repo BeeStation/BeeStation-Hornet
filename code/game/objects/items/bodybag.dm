@@ -13,7 +13,6 @@
 	else
 		to_chat(user, "<span class='warning'>You cannot deploy [src] inside of something!</span>")
 
-//Allows deployment of a bodybag from your hand to a tile you are not standing on. NOT REDUNDANT
 /obj/item/bodybag/afterattack(atom/target, mob/user, proximity)
 	. = ..()
 	if(proximity)
