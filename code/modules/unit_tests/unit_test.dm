@@ -131,8 +131,13 @@ GLOBAL_VAR(test_log)
 	file(file_name) << json_encode(test_results)
 
 	SSticker.force_ending = TRUE
-	//We have to call this manually because del_text can preceed us, and SSticker doesn't fire in the post game
-	SSticker.standard_reboot()
+	//Comment from tgstation: We have to call this manually because del_text can preceed us, and SSticker doesn't fire in the post game
+	//We don't actually need to call standard_reboot, but leaving it under a condition in case it becomes necessary in the future.
+	//To my understanding, something triggers a reboot when it's created/deleted, which could interrupt the tests and restart the server.
+	//To prevent this, create_and_destroy prevents the reboot from happening. However, this also prevents the reboot from ever happening naturally.
+	//Because of this, in case something does actually attempt to reboot prematurely, we need to manually initiate the reboot.
+	if(SSticker.ready_for_reboot)
+		SSticker.standard_reboot()
 
 /datum/map_template/unit_tests
 	name = "Unit Tests Zone"
