@@ -108,6 +108,3 @@
 #define DEPARTMENT_SCIENCE (1<<5)
 #define DEPARTMENT_MEDICAL (1<<6)
 #define DEPARTMENT_SILICON (1<<7)
-
-/// Whether the job is considered a regular crew member of the station. Equipment such as AI and cyborgs not included.
-#define JOB_CREW_MEMBER (1<<3)

@@ -21,12 +21,8 @@ SUBSYSTEM_DEF(economy)
 	///Multiplied as they go to all department accounts rather than just cargo.
 	var/bounty_modifier = 3
 
-	/// Total value of exported materials.
-	var/export_total = 0
-	/// Total value of imported goods.
-	var/import_total = 0
 	/// Number of mail items generated.
-	var/mail_waiting = 0
+	var/mail_waiting
 	/// Mail Holiday: AKA does mail arrive today? Always blocked on Sundays.
 	var/mail_blocked = FALSE
 
@@ -34,6 +30,7 @@ SUBSYSTEM_DEF(economy)
 	var/budget_to_hand_out = round(budget_pool / department_accounts.len)
 	for(var/A in department_accounts)
 		new /datum/bank_account/department(A, budget_to_hand_out)
+		mail_waiting = 0
 	return ..()
 
 /datum/controller/subsystem/economy/fire(resumed = 0)
@@ -41,7 +38,7 @@ SUBSYSTEM_DEF(economy)
 	for(var/A in bank_accounts)
 		var/datum/bank_account/B = A
 		B.payday(1)
-	var/effective_mailcount = round(living_player_count())
+	var/effective_mailcount = living_player_count()
 	mail_waiting += clamp(effective_mailcount, 1, MAX_MAIL_PER_MINUTE * delta_time)
 
 /datum/controller/subsystem/economy/proc/get_dep_account(dep_id)

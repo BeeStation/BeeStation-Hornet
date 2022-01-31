@@ -34,7 +34,8 @@
 		/obj/item/reagent_containers/food/snacks/pie/cream = 50,
 		/obj/item/clothing/shoes/clown_shoes/combat = 10,
 		/obj/item/reagent_containers/spray/waterflower/lube = 20, // lube
-		/obj/item/reagent_containers/spray/waterflower/superlube = 1 // Superlube, good lord.
+		/obj/item/reagent_containers/spray/waterflower/superlube = 1, // Superlube, good lord.
+		/mob/living/simple_animal/hostile/retaliate/clown = 0.1 //An entire fucking clown, an aggressive one, why? The station is a circus anyway...
 	)
 
 /datum/outfit/job/clown
