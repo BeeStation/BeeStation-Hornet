@@ -111,13 +111,12 @@
 /datum/outfit/pirate/space
 	suit = /obj/item/clothing/suit/space/pirate
 	head = /obj/item/clothing/head/helmet/space/pirate/bandana
-	mask = /obj/item/clothing/mask/breath
-	suit_store = /obj/item/tank/internals/oxygen
-	ears = /obj/item/radio/headset/syndicate
-	id = /obj/item/card/id
+	ears = /obj/item/radio/headset/syndicate/alt
+	id = /obj/item/card/id/pirate
 
 /datum/outfit/pirate/space/captain
 	head = /obj/item/clothing/head/helmet/space/pirate
+	ears = /obj/item/radio/headset/syndicate/alt/leader
 
 /datum/outfit/pirate/post_equip(mob/living/carbon/human/H)
 	H.faction |= "pirate"
@@ -393,6 +392,9 @@
 	W.update_label()
 
 /datum/outfit/plasmaman
+	var/list/helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2,
+									HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective)
+
 	name = "Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman

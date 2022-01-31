@@ -80,7 +80,8 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/fix_say,
 	/client/proc/stabilize_atmos,
 	/client/proc/openTicketManager,
-	/client/proc/battle_royale
+	/client/proc/battle_royale,
+	/client/proc/delete_book
 	)
 GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
 GLOBAL_PROTECT(admin_verbs_ban)
@@ -800,6 +801,41 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	for(var/obj/machinery/portable_atmospherics/canister/can in view())
 		can.valve_open = FALSE
 		can.update_icon()
+
+/client/proc/delete_book()
+	set category = "Admin"
+	set name = "Delete Book"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/bookid = input(usr, "What Book ID would you like to remove:", "Literally Fahrenheit 451") as null|num
+	if(!bookid)
+		return
+	
+	var/datum/DBQuery/query_library_print = SSdbcore.NewQuery(
+		"SELECT * FROM [format_table_name("library")] WHERE id=:id AND isnull(deleted)",
+		list("id" = bookid)
+	)
+	if(!query_library_print.Execute() || !query_library_print.NextRow())
+		to_chat(usr, "<span class='warning'>Failed to locate book [bookid].</span>")
+		qdel(query_library_print)
+		return
+	var/author = query_library_print.item[2]
+	var/title = query_library_print.item[3]
+	var/confirmation = alert(src,"Are you sure you want to delete the book with author [author] and title [title]?","Guy Montag Incarnate","Yes","No")
+	if(confirmation == "Yes")
+		var/datum/DBQuery/query_burn_book = SSdbcore.NewQuery(
+			"UPDATE [format_table_name("library")] SET deleted = 1 WHERE id=:id",
+			list("id" = bookid)
+		)
+		if(!query_library_print.Execute())
+			to_chat(usr, "<span class='warning'>Failed to delete book.</span>")
+		else
+			message_admins("[usr] deleted book number [bookid] with title [title]")
+			log_admin("[usr] deleted book number [bookid] with title [title]")
+		qdel(query_burn_book)
+		qdel(query_library_print)
 
 #ifdef SENDMAPS_PROFILE
 /client/proc/display_sendmaps()

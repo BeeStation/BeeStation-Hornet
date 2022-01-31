@@ -162,7 +162,7 @@
 
 	minor_announce(input["message"], "Incoming message from [input["message_sender"]]")
 	for(var/obj/machinery/computer/communications/CM in GLOB.machines)
-		CM.overrideCooldown()
+		CM.override_cooldown()
 	statuscode = 200
 	response = "Message received"
 
@@ -243,7 +243,7 @@
 	data["map_name"] = SSmapping.config?.map_name || "Loading..."
 
 	data["security_level"] = get_security_level()
-	data["round_duration"] = SSticker ? round((world.time-SSticker.round_start_time)/10) : 0
+	data["round_duration"] = SSticker ? round((world.timeofday - SSticker.round_start_timeofday)/10) : 0
 	// Amount of world's ticks in seconds, useful for calculating round duration
 
 	//Time dilation stats.
