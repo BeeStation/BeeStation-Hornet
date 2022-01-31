@@ -106,6 +106,10 @@
 
 /mob/proc/get_all_verbs()
 	var/list/all_verbs = new
+	
+	if(!client || client.interviewee)
+		return all_verbs
+
 	if(sorted_verbs)
 		all_verbs = deepCopyList(sorted_verbs)
 	//An annoying thing to mention:

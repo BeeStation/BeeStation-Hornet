@@ -12,6 +12,8 @@
 	stat = DEAD
 
 	var/mob/living/new_character	//for instant transfer once the round is set up
+	///Used to make sure someone doesn't get spammed with messages if they're ineligible for roles.
+	var/ineligible_for_roles = FALSE
 
 /mob/dead/new_player/Initialize()
 	if(client && SSticker.state == GAME_STATE_STARTUP)
@@ -345,7 +347,7 @@
 			give_magic(humanc)
 		if(GLOB.curse_of_madness_triggered)
 			give_madness(humanc, GLOB.curse_of_madness_triggered)
-			
+
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREWMEMBER_JOINED, humanc, rank)
 
 	GLOB.joined_player_list += character.ckey
@@ -519,14 +521,16 @@
 	// First we detain them by removing all the verbs they have on client
 	for (var/v in client.verbs)
 		var/procpath/verb_path = v
-		if (!(verb_path in GLOB.stat_panel_verbs))
-			remove_verb(client, verb_path)
+		//if (!(verb_path in GLOB.stat_panel_verbs))
+		remove_verb(client, verb_path)
 
 	// Then remove those on their mob as well
 	for (var/v in verbs)
 		var/procpath/verb_path = v
-		if (!(verb_path in GLOB.stat_panel_verbs))
-			remove_verb(src, verb_path)
+		//if (!(verb_path in GLOB.stat_panel_verbs))
+		remove_verb(src, verb_path)
+
+	client.tgui_panel.set_verb_infomation(client)
 
 	// Then we create the interview form and show it to the client
 	var/datum/interview/I = GLOB.interviews.interview_for_client(client)

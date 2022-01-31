@@ -439,8 +439,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
 
-	if (!interviewee)
-		initialize_menus()
+	//if (!interviewee)
+	//	initialize_menus()
 
 	view_size = new(src, getScreenSize(mob))
 	view_size.resetFormat()
@@ -524,9 +524,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	log_access("Logout: [key_name(src)]")
 	GLOB.ahelp_tickets.ClientLogout(src)
 	GLOB.interviews.client_logout(src)
-	SSserver_maint.UpdateHubStatus()
-	if(credits)
-		QDEL_LIST(credits)
+
 	if(holder)
 		adminGreet(1)
 		holder.owner = null
@@ -623,7 +621,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				var/reject_message = "Failed Login: [key] - [client_is_in_db ? "":"New "]Account attempting to connect during panic bunker, but\
 					[living_recs == -1 ? " was rejected due to no prior connections to game servers (no database entry)":" they do not have the required living time [minutes]/[living_recs]"]."
 				log_access(reject_message)
-				message_admins(span_adminnotice("[reject_message]"))
+				message_admins("<span class='adminnotice'>[reject_message]</span>")
 				var/message = CONFIG_GET(string/panic_bunker_message)
 				message = replacetext(message, "%minutes%", living_recs)
 				to_chat(src, message)
@@ -631,7 +629,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				var/list/panic_addr = CONFIG_GET(string/panic_server_address)
 				if(panic_addr && !connectiontopic_a["redirect"])
 					var/panic_name = CONFIG_GET(string/panic_server_name)
-					to_chat(src, span_notice("Sending you to [panic_name ? panic_name : panic_addr]."))
+					to_chat(src, "<span class='notice'>Sending you to [panic_name ? panic_name : panic_addr].</span>")
 					winset(src, null, "command=.options")
 					src << link("[panic_addr]?redirect=1")
 				qdel(query_client_in_db)
@@ -1123,7 +1121,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/proc/give_award(achievement_type, mob/user)
 	return	player_details.achievements.unlock(achievement_type, user)
-
+/*
 /**
   * Initializes dropdown menus on client
   */
@@ -1147,4 +1145,4 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	for (var/thing in prefs.menuoptions)
 		var/datum/verbs/menu/menuitem = GLOB.menulist[thing]
 		if (menuitem)
-			menuitem.Load_checked(src)
+			menuitem.Load_checked(src)*/

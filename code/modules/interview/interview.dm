@@ -64,7 +64,7 @@
 	if (owner)
 		SEND_SOUND(owner, sound('sound/effects/adminhelp.ogg'))
 		to_chat(owner, "<font color='red' size='4'><b>-- Interview Update --</b></font>" \
-			+ "\n<span class='adminsay'>Your interview was approved, you will now be reconnected in 5 seconds.</span>", confidential = TRUE)
+			+ "\n<span class='adminsay'>Your interview was approved, you will now be reconnected in 5 seconds.</span>")
 		addtimer(CALLBACK(src, .proc/reconnect_owner), 50)
 
 /**
@@ -85,7 +85,7 @@
 		SEND_SOUND(owner, sound('sound/effects/adminhelp.ogg'))
 		to_chat(owner, "<font color='red' size='4'><b>-- Interview Update --</b></font>" \
 			+ "\n<span class='adminsay'>Unfortunately your interview was denied. Please try submitting another questionnaire." \
-			+ " You may do this in three minutes.</span>", confidential = TRUE)
+			+ " You may do this in three minutes.</span>")
 
 /**
   * Forces client to reconnect, used in the callback from approval
@@ -107,8 +107,7 @@
 		if (I) // we can be returned nothing if the user is on cooldown
 			I.ui_interact(M)
 		else
-			to_chat(usr, "<span class='adminsay'>You are on cooldown for interviews. Please" \
-				+ " wait at least 3 minutes before starting a new questionnaire.</span>", confidential = TRUE)
+			to_chat(usr, "<span class='adminsay'>You are on cooldown for interviews. Please wait at least 3 minutes before starting a new questionnaire.</span>")
 
 /datum/interview/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
