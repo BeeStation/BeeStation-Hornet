@@ -145,7 +145,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	UI_style = GLOB.available_ui_styles[1]
 	if(istype(C))
-		if(!IsGuestKey(C.key))
+		if(!IS_GUEST_KEY(C.key, C.computer_id))
 			load_path(C.ckey)
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
@@ -815,7 +815,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	dat += "<hr><center>"
 
-	if(!IsGuestKey(user.key))
+	if(!IS_GUEST_KEY(user.key, user.computer_id))
 		dat += "<a href='?_src_=prefs;preference=load'>Undo</a> "
 		dat += "<a href='?_src_=prefs;preference=save'>Save Setup</a> "
 
