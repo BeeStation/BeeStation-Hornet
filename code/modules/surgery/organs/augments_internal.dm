@@ -151,13 +151,13 @@
 	actions_types = list(/datum/action/item_action/update_linkedsurgery)
 	var/list/advanced_surgeries = list()
 	var/static/datum/techweb/linked_techweb
-	var/updated
+	var/number_of_surgeries
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/Initialize()
 	. = ..()
 	if(isnull(linked_techweb))
 		linked_techweb = SSresearch.science_tech
-	updated = 0
+	number_of_surgeries = 0
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/proc/update_surgery()
 	for(var/i in linked_techweb.researched_designs)
@@ -166,10 +166,10 @@
 			continue
 		advanced_surgeries |= D.surgery
 
-/obj/item/organ/cyberimp/brain/linkedsurgery/proc/show_surgery_list()
-	if(updated<length(advanced_surgeries))
+/obj/item/organ/cyberimp/brain/linkedsurgery/proc/check_surgery_update()
+	if(number_of_surgeries<length(advanced_surgeries))
 		to_chat(usr, "Surgical Implant updated.")
-		updated = length(advanced_surgeries)
+		number_of_surgeries = length(advanced_surgeries)
 	else
 		to_chat(usr, "None of new surgical programs detected.")
 
@@ -180,7 +180,7 @@
 	if(istype(target, /obj/item/organ/cyberimp/brain/linkedsurgery))
 		var/obj/item/organ/cyberimp/brain/linkedsurgery/I = target
 		I.update_surgery()
-		I.show_surgery_list()
+		I.check_surgery_update()
 	..()
 
 //[[[[MOUTH]]]]
