@@ -11,7 +11,7 @@
 
 #define isweakref(D) (istype(D, /datum/weakref))
 
-// simple check whether or not a player is a guest using their key and computer_id as an input
+// simple check whether or not a player is a guest using their key and computer_id to build the key and then make a string comparison with the actual key
 #define IS_GUEST_KEY(key, computer_id)	("[key]" == "Guest-[computer_id]")
 
 //Turfs
