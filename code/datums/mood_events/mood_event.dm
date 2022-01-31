@@ -15,6 +15,9 @@
 
 /datum/mood_event/Destroy()
 	remove_effects()
+	owner = null
+	if(timer)
+		deltimer(timer)
 	return ..()
 
 /datum/mood_event/proc/add_effects(param)

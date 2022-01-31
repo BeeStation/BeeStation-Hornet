@@ -34,13 +34,7 @@
 /datum/component/mood/Destroy()
 	STOP_PROCESSING(SSmood, src)
 	unmodify_hud()
-	for(var/i in mood_events)
-		var/datum/mood_event/event = mood_events[i]
-		event.owner = null
-		if(event.timer)
-			deltimer(event.timer)
-		qdel(event)
-	mood_events.Cut()
+	QDEL_LIST_ASSOC_VAL(mood_events)
 	return ..()
 
 /datum/component/mood/proc/print_mood(mob/user)
