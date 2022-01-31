@@ -30,13 +30,13 @@
 		/obj/item/stack/spacecash/c1000 									= 1,
 	)
 	// Overlays (pure fluff), Does the letter have the postmark overlay?
-	var/postmarked = TRUE						/// Does the letter have a stamp overlay?
-	var/stamped = TRUE							/// List of all stamp overlays on the letter.
-	var/list/stamps = list()					/// Maximum number of stamps on the letter.
-	var/stamp_max = 1							/// Physical offset of stamps on the object. X direction.
-	var/stamp_offset_x = 0						/// Physical offset of stamps on the object. Y direction.
-	var/stamp_offset_y = 2						///mail will have the color of the department the recipient is in.
-	var/static/list/department_colors
+	var/postmarked = TRUE						/// Does the letter have postmarks?
+	var/stamped = TRUE							/// Does the letter have a stamp overlay?
+	var/list/stamps = list()					/// List of all stamp overlays on the letter.
+	var/stamp_max = 1							/// Maximum number of stamps on the letter.
+	var/stamp_offset_x = 0						/// Physical offset of stamps on the object. X direction.
+	var/stamp_offset_y = 2						/// Physical offset of stamps on the object. Y direction.
+	var/static/list/department_colors			/// Mail will have the color of the department the recipient is in.
 
 /obj/item/mail/envelope
 	name = "envelope"
@@ -45,9 +45,24 @@
 	stamp_max = 2
 	stamp_offset_y = 5
 
+/obj/item/mail/examine(mob/user)
+	. = ..()
+
+	var/datum/mind/recipient
+	if(recipient_ref)
+		recipient = recipient_ref.resolve()
+	var/msg = "<span class='notice'><i>You notice the postmarking on the front of the mail...</i></span>"
+	if(recipient)
+		msg += "\n<span class='info'>Certified NT mail for [recipient].</span>"
+	else
+		msg += "\n<span class='info'>Certified mail for [GLOB.station_name].</span>"
+	. += "\n[msg]"
+
+
 /obj/item/mail/Initialize()
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, .proc/disposal_handling)
+	AddElement(/datum/element/item_scaling, 0.75, 1)
 	if(isnull(department_colors))
 		department_colors = list(
 			ACCOUNT_CIV = COLOR_WHITE,
@@ -120,19 +135,6 @@
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	qdel(src)
 
-/obj/item/mail/examine(mob/user)
-	. = ..()
-
-	var/datum/mind/recipient
-	if(recipient_ref)
-		recipient = recipient_ref.resolve()
-	var/msg = "<span class='notice'><i>You notice the postmarking on the front of the mail...</i></span>"
-	if(recipient)
-		msg += "\n<span class='info'>Certified NT mail for [recipient].</span>"
-	else
-		msg += "\n<span class='info'>Certified mail for [GLOB.station_name].</span>"
-	. += "\n[msg]"
-
 /// Accepts a mind to initialize goodies for a piece of mail.
 /obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient)
 	switch(rand(1,5))
@@ -174,7 +176,7 @@
 		/obj/item/paper/pamphlet/gateway = "[initial(name)] for [pick(GLOB.adjectives)] adventurers",
 		/obj/item/paper/pamphlet/violent_video_games = "[initial(name)] for the truth about the arcade centcom doesn't want to hear",
 		/obj/item/paper/fluff/junkmail_redpill = "[initial(name)] for those feeling [pick(GLOB.adjectives)] working at Nanotrasen",
-		/obj/effect/decal/cleanable/ash = "[initial(name)] with INCREDIBLY IMPORTANT ARTIFACT- DELIVER TO SCIENCE DIVISION. HANDLE WITH CARE.",
+		/obj/item/toy/plush/flushed = "[initial(name)] with INCREDIBLY IMPORTANT ARTIFACT- DELIVER TO SCIENCE DIVISION. HANDLE WITH CARE.",
 	)
 
 	color = pick(department_colors) //eh, who gives a shit.
@@ -199,30 +201,35 @@
 	icon_state = "mail_crate"
 	door_anim_time = 0
 
+/* Fills this mail crate with N pieces of mail, where N is the lower of the amount var passed,
+** and the maximum capacity of this crate. If N is larger than the number of alive human players, the excess will be junkmail.*/
 /obj/structure/closet/crate/mail/proc/populate(amount)
-			/* Fills this mail crate with N pieces of mail, where N is the lower of the amount var passed,
-			** and the maximum capacity of this crate. If N is larger than the number of alive human players, the excess will be junkmail.*/
 	var/mail_count = min(amount, storage_capacity)
 	var/list/mail_recipients = list() //fills the crate for the recipients
 
 	for(var/mob/living/carbon/human/human in GLOB.player_list)
-		if(human.stat == DEAD || !human.mind)
-			continue
-		// Skip wizards, nuke ops, cyborgs; Centcom does not send them mail
-		if(!(human.mind.assigned_role == "Cyborg") || human.mind.special_role)
+		// Skip wizards, nuke ops, cyborgs and dead people; Centcom does not send them mail
+		if(human.stat == DEAD || !human.mind || human.mind.assigned_role == "Cyborg" || human.mind.special_role)
 			continue
 
 		mail_recipients += human.mind
+
+	if(mail_count < 15)
+		for(var/i in 1 to rand(3,8))
+			var/obj/item/mail/new_mail
+			if(prob(FULL_CRATE_LETTER_ODDS))
+				new_mail = new /obj/item/mail(src)
+			else
+				new_mail = new /obj/item/mail/envelope(src)
+			new_mail.junk_mail()
 
 	for(var/i in 1 to mail_count)
 		var/datum/mind/recipient = pick_n_take(mail_recipients)
 		var/obj/item/mail/new_mail
 		if(prob(FULL_CRATE_LETTER_ODDS))
 			new_mail = new /obj/item/mail(src)
-			new_mail.name = "[new_mail] - addressed to [recipient]"
 		else
 			new_mail = new /obj/item/mail/envelope(src)
-			new_mail.name = "[new_mail] - addressed to [recipient]"
 		if(recipient)
 			new_mail.initialize_for_recipient(recipient)
 		else
