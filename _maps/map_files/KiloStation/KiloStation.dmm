@@ -15803,6 +15803,10 @@
 	pixel_y = 5
 	},
 /obj/item/cautery,
+/obj/item/blood_filter{
+	pixel_x = -9;
+	pixel_y = 8
+	},
 /obj/machinery/light_switch{
 	pixel_y = 24
 	},
