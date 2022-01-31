@@ -47,10 +47,14 @@
 #include "check_adjustable_clothing.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
-// Uncomment to enable Del the World.
+
+// Del the World.
 // This unit test creates and qdels almost every atom in the code, checking for errors with initialization and harddels on deletion.
-// It is disabled for now due to the large amount of consistent errors it produces.
-//#include "create_and_destroy.dm"
+// It is disabled by default for now due to the large amount of consistent errors it produces. Run the "dm: find hard deletes" task to enable it.
+#ifdef REFERENCE_TRACKING_FAST
+#include "create_and_destroy.dm"
+#endif
+
 #include "dynamic_ruleset_sanity.dm"
 #include "keybinding_init.dm"
 #include "reagent_id_typos.dm"

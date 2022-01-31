@@ -74,18 +74,18 @@
 	SSgarbage.next_fire = world.time + world.tick_lag
 
 /datum/proc/DoSearchVar(potential_container, container_name, recursive_limit = 64, search_time = world.time)
-	var/found_blocking_ref = FALSE
+	. = FALSE
 	#ifdef REFERENCE_TRACKING_DEBUG
 	if(SSgarbage.should_save_refs && !found_refs)
 		found_refs = list()
 	#endif
 
 	if(usr?.client && !usr.client.running_find_references)
-		return found_blocking_ref
+		return
 
 	if(!recursive_limit)
 		log_reftracker("Recursion limit reached. [container_name]")
-		return found_blocking_ref
+		return
 
 	//Check each time you go down a layer. This makes it a bit slow, but it won't effect the rest of the game at all
 	#ifndef FIND_REF_NO_CHECK_TICK
@@ -95,7 +95,7 @@
 	if(istype(potential_container, /datum))
 		var/datum/datum_container = potential_container
 		if(datum_container.last_find_references == search_time)
-			return found_blocking_ref
+			return
 
 		datum_container.last_find_references = search_time
 		var/list/vars_list = datum_container.vars
@@ -113,12 +113,13 @@
 					found_refs[varname] = TRUE
 					continue //End early, don't want these logging
 				#endif
-				found_blocking_ref = TRUE
+				. = TRUE
 				log_reftracker("Found [type] \ref[src] in [datum_container.type]'s \ref[datum_container] [varname] var. [container_name]")
 				continue
 
 			if(islist(variable))
-				DoSearchVar(variable, "[container_name] \ref[datum_container] -> [varname] (list)", recursive_limit - 1, search_time)
+				if(DoSearchVar(variable, "[container_name] \ref[datum_container] -> [varname] (list)", recursive_limit - 1, search_time))
+					. = TRUE
 
 	else if(islist(potential_container))
 		var/normal = IS_NORMAL_LIST(potential_container)
@@ -134,7 +135,7 @@
 					found_refs[potential_cache] = TRUE
 					continue //End early, don't want these logging
 				#endif
-				found_blocking_ref = TRUE
+				. = TRUE
 				log_reftracker("Found [type] \ref[src] in list [container_name].")
 				continue
 
@@ -149,17 +150,18 @@
 					continue //End early, don't want these logging
 				#endif
 				log_reftracker("Found [type] \ref[src] in list [container_name]\[[element_in_list]\]")
-				found_blocking_ref = TRUE
+				. = TRUE
 				continue
 			//We need to run both of these checks, since our object could be hiding in either of them
 			//Check normal sublists
 			if(islist(element_in_list))
-				DoSearchVar(element_in_list, "[container_name] -> [element_in_list] (list)", recursive_limit - 1, search_time)
+				if(DoSearchVar(element_in_list, "[container_name] -> [element_in_list] (list)", recursive_limit - 1, search_time))
+					. = TRUE
 			//Check assoc sublists
 			if(islist(assoc_val))
-				DoSearchVar(potential_container[element_in_list], "[container_name]\[[element_in_list]\] -> [assoc_val] (list)", recursive_limit - 1, search_time)
+				if(DoSearchVar(potential_container[element_in_list], "[container_name]\[[element_in_list]\] -> [assoc_val] (list)", recursive_limit - 1, search_time))
+					. = TRUE
 
-	return found_blocking_ref
 
 /proc/qdel_and_find_ref_if_fail(datum/thing_to_del, force = FALSE)
 	thing_to_del.qdel_and_find_ref_if_fail(force)
