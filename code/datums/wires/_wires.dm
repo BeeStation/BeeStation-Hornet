@@ -52,7 +52,7 @@
 
 /datum/wires/Destroy()
 	holder = null
-	QDEL_LIST_ASSOC_VAL(assemblies)
+	assemblies.Cut()
 	return ..()
 
 /datum/wires/proc/add_duds(duds)
