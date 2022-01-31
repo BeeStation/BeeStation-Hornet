@@ -1,0 +1,5 @@
+author: 'ninjanomnom, Arkatos1 '
+delete-after: true
+changes:
+  - rscadd: Added GAGS system, for generating colored icons.
+  - rscadd: GAGS for canisters and screwdrivers.
