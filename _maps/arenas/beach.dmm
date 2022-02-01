@@ -11,7 +11,7 @@
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "c" = (
-/obj/item/reagent_containers/glass/beaker/instabitaluri{
+/obj/item/reagent_containers/glass/beaker{
 	list_reagents = list(/datum/reagent/consumable/cooking_oil = 50)
 	},
 /turf/open/floor/plating/beach/sand,
@@ -115,10 +115,6 @@
 /obj/item/clothing/head/collectable/paper,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
-"z" = (
-/obj/item/toy/seashell,
-/turf/open/floor/plating/beach/sand,
-/area/tdome/arena)
 "A" = (
 /turf/open/floor/plating/beach/coastline_t,
 /area/tdome/arena)
@@ -126,10 +122,6 @@
 /turf/open/floor/plating/beach/coastline_t/sandwater_inner{
 	dir = 8
 	},
-/area/tdome/arena)
-"C" = (
-/obj/structure/fluff/beach_umbrella,
-/turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "D" = (
 /obj/structure/chair/comfy/shuttle,
@@ -222,7 +214,7 @@ d
 d
 s
 d
-C
+d
 A
 L
 N
@@ -282,7 +274,7 @@ e
 m
 d
 d
-z
+d
 A
 L
 N
@@ -312,7 +304,7 @@ h
 d
 u
 d
-z
+d
 A
 L
 N
@@ -331,7 +323,7 @@ N
 j
 k
 d
-z
+d
 A
 J
 K

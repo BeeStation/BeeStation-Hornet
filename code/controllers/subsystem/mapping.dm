@@ -21,7 +21,10 @@ SUBSYSTEM_DEF(mapping)
 	var/list/shuttle_templates = list()
 	var/list/shelter_templates = list()
 
+	///Random rooms template list, gets initialized and filled when server starts.
 	var/list/random_room_templates = list()
+	///Temporary list, where room spawners are kept roundstart. Not used later.
+	var/list/random_room_spawners = list()
 	var/list/holodeck_templates = list()
 
 	var/list/areas_in_z = list()
@@ -228,14 +231,37 @@ SUBSYSTEM_DEF(mapping)
 		orbital_body.link_to_z(level)
 
 	// load the maps
-	for (var/P in parsed_maps)
-		var/datum/parsed_map/pm = P
-		if (!pm.load(1, 1, start_z + parsed_maps[P], no_changeturf = TRUE))
+	for(var/datum/parsed_map/pm as() in parsed_maps)
+		if(!pm.load(1, 1, start_z + parsed_maps[pm], no_changeturf = TRUE))
 			errorList |= pm.original_path
 
 	if(!silent)
 		INIT_ANNOUNCE("Loaded [name] in [(REALTIMEOFDAY - start_time)/10]s!")
 	return parsed_maps
+
+/datum/controller/subsystem/mapping/proc/LoadStationRooms()
+	var/start_time = REALTIMEOFDAY
+	for(var/obj/effect/spawner/room/R as() in random_room_spawners)
+		var/list/possibletemplates = list()
+		var/datum/map_template/random_room/candidate
+		shuffle_inplace(random_room_templates)
+		for(var/ID in random_room_templates)
+			candidate = random_room_templates[ID]
+			if(candidate.spawned || R.room_height != candidate.template_height || R.room_width != candidate.template_width)
+				candidate = null
+				continue
+			possibletemplates[candidate] = candidate.weight
+		if(possibletemplates.len)
+			var/datum/map_template/random_room/template = pickweight(possibletemplates)
+			template.stock--
+			template.weight = (template.weight / 2)
+			if(template.stock <= 0)
+				template.spawned = TRUE
+			template.stationinitload(get_turf(R), centered = template.centerspawner)
+		SSmapping.random_room_spawners -= R
+		qdel(R)
+	random_room_spawners = null
+	INIT_ANNOUNCE("Loaded Random Rooms in [(REALTIMEOFDAY - start_time)/10]s!")
 
 /datum/controller/subsystem/mapping/proc/loadWorld()
 	//if any of these fail, something has gone horribly, HORRIBLY, wrong
@@ -248,6 +274,9 @@ SUBSYSTEM_DEF(mapping)
 	station_start = world.maxz + 1
 	INIT_ANNOUNCE("Loading [config.map_name]...")
 	LoadGroup(FailedZs, "Station", config.map_path, config.map_file, config.traits, ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/station)
+
+	LoadStationRoomTemplates()
+	LoadStationRooms()
 
 	if(SSdbcore.Connect())
 		var/datum/DBQuery/query_round_map_name = SSdbcore.NewQuery({"
@@ -361,22 +390,25 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	next_map_config = VM
 	return TRUE
 
-/datum/controller/subsystem/mapping/proc/preloadTemplates(path = "_maps/templates/") //see master controller setup
-	var/list/filelist = flist(path)
+/datum/controller/subsystem/mapping/proc/preloadTemplates() //see master controller setup
+	if(IsAdminAdvancedProcCall())
+		return
+
+	var/list/filelist = flist("[MAP_DIRECTORY]/templates/")
 	for(var/map in filelist)
-		var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
+		var/datum/map_template/T = new(path = "[MAP_DIRECTORY]/templates/[map]", rename = "[map]")
 		map_templates[T.name] = T
 
 	preloadRuinTemplates()
 	preloadShuttleTemplates()
 	preloadShelterTemplates()
-	preloadRandomRoomTemplates()
 	preloadHolodeckTemplates()
 
-/datum/controller/subsystem/mapping/proc/preloadRandomRoomTemplates()
+/datum/controller/subsystem/mapping/proc/LoadStationRoomTemplates()
 	for(var/item in subtypesof(/datum/map_template/random_room))
 		var/datum/map_template/random_room/room_type = item
 		if(!(initial(room_type.mappath)))
+			message_admins("Template [initial(room_type.name)] found without mappath. Yell at coders")
 			continue
 		var/datum/map_template/random_room/R = new room_type()
 		random_room_templates[R.room_id] = R

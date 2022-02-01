@@ -33,7 +33,7 @@
 /obj/structure/alien_artifact/watcher/HasProximity(atom/movable/AM)
 	if(cooldown > world.time)
 		return
-	if (istype(AM, /obj/effect))
+	if (iseffect(AM) || isprojectile(AM))
 		return
 	cooldown = world.time + 50
 	//Trigger nearby protectors
