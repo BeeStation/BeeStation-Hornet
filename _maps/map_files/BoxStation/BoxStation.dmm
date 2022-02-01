@@ -20225,6 +20225,10 @@
 /area/medical/apothecary)
 "bhp" = (
 /obj/structure/table/glass,
+/obj/item/stack/ducts/fifty,
+/obj/item/stack/ducts/fifty,
+/obj/item/construction/plumbing,
+/obj/item/plunger,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -47461,6 +47465,10 @@
 /area/hallway/secondary/entry)
 "ied" = (
 /obj/structure/table/glass,
+/obj/item/stack/ducts/fifty,
+/obj/item/stack/ducts/fifty,
+/obj/item/construction/plumbing,
+/obj/item/plunger,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "ief" = (

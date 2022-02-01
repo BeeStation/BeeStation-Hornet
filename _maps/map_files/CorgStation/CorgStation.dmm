@@ -37157,6 +37157,7 @@
 	pixel_y = -2
 	},
 /obj/structure/rack,
+/obj/item/construction/plumbing,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "iEY" = (
@@ -39253,6 +39254,8 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
+/obj/item/book/manual/wiki/plumbing,
+/obj/item/construction/plumbing,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry/upper)
 "jgW" = (
