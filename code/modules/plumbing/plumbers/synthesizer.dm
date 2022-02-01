@@ -70,6 +70,7 @@
 
 /obj/machinery/plumbing/synthesizer/attackby(obj/item/O, mob/user, params)
 	if(volume_left == 200)
+		to_chat(user, "<span class='warning'>The chemical synthesizer is full!</span>")
 		return ..()
 	if(istype(O, /obj/item/rcd_ammo))
 		volume_left = 200
@@ -80,7 +81,7 @@
 
 /obj/machinery/plumbing/synthesizer/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>A display says it currently holds [volume_left] units of chemicals before requiring a refill.</span>"
+	. += "<span class='notice'>A display says it currently holds [volume_left] units of precursor before requiring a refill.</span>"
 
 /obj/machinery/plumbing/synthesizer/ui_state(mob/user)
 	return GLOB.default_state
