@@ -21,10 +21,20 @@
 	departments = DEPARTMENT_SERVICE
 	rpg_title = "Veteran Adventurer"
 
+	mail_goodies = list(
+		/obj/item/paper_bin/bundlenatural = 12,
+		/obj/item/camera_film = 10,
+		/obj/item/tape = 10,
+		/obj/item/pen/fountain = 5,
+		/obj/item/storage/pill_bottle/dice_cup = 5,
+		/obj/item/toy/plush/flushed = 5, //maybe better than a lame PAi after all
+		/obj/item/paicard = 2 //rare, but not that much...
+	)
+
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/curator
 	)
-	biohazard = 5 //he doesnt get out much
+	biohazard = 5 //they doesnt get out much
 
 /datum/outfit/job/curator
 	name = "Curator"

@@ -26,7 +26,7 @@
 	rpg_title = "Thaumaturgist"
 
 	mail_goodies = list(
-		/obj/item/disk/tech_disk/research/random  = 2,
+		/obj/item/disk/tech_disk/research/random  = 4,
 		/obj/item/camera_bug = 1 //ooo, free illegal research!
 	)
 

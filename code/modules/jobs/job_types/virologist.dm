@@ -33,6 +33,7 @@
 		/obj/item/reagent_containers/glass/bottle/random_virus = 15,
 		/obj/item/reagent_containers/glass/bottle/formaldehyde = 10,
 		/obj/item/reagent_containers/glass/bottle/synaptizine = 10,
+		/obj/item/reagent_containers/syringe/antiviral = 10,
 		/obj/item/stack/sheet/mineral/plasma = 10,
 		/obj/item/stack/sheet/mineral/uranium = 5,
 	)

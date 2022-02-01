@@ -23,6 +23,11 @@
 	departments = DEPARTMENT_SERVICE
 	rpg_title = "Magistrate"
 
+	mail_goodies = list(
+		/obj/item/gavelhammer = 10, //an emergency hammer is always nice!
+		/obj/item/book/manual/wiki/security_space_law = 5
+	)
+
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/lawyer
 	)

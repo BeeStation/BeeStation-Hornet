@@ -23,9 +23,17 @@
 	departments = DEPARTMENT_ENGINEERING
 	rpg_title = "Aeromancer"
 
+	mail_goodies = list(
+		/obj/item/tank/internals/emergency_oxygen/engi = 10,
+		/obj/item/clothing/mask/gas = 10,
+		/obj/effect/spawner/lootdrop/maintenance = 7,
+		/obj/item/crowbar/large = 3
+	)
+
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/atmospherics
 	)
+
 /datum/outfit/job/atmos
 	name = "Atmospheric Technician"
 	jobtype = /datum/job/atmos
