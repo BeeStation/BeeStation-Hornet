@@ -93533,10 +93533,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "vZA" = (
-/obj/item/stack/ducts/fifty,
-/obj/item/stack/ducts/fifty,
-/obj/item/construction/plumbing,
-/obj/item/plunger,
 /obj/effect/turf_decal/tile/yellow/tile_marquee,
 /obj/structure/table,
 /obj/machinery/camera{
@@ -98123,10 +98119,6 @@
 /turf/open/floor/plasteel/sepia,
 /area/maintenance/department/engine)
 "xic" = (
-/obj/item/stack/ducts/fifty,
-/obj/item/stack/ducts/fifty,
-/obj/item/construction/plumbing,
-/obj/item/plunger,
 /obj/effect/turf_decal/tile/yellow/tile_marquee,
 /obj/structure/table,
 /obj/machinery/requests_console{

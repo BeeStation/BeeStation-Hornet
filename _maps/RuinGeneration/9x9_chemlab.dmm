@@ -365,7 +365,6 @@
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/structure/rack,
-/obj/item/construction/plumbing,
 /turf/open/floor/plasteel/white,
 /area/ruin)
 "Y" = (

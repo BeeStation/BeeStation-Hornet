@@ -15,10 +15,7 @@
 		/obj/item/reagent_containers/glass/bottle/morphine = 2,
 		/obj/item/reagent_containers/glass/bottle/epinephrine= 3,
 		/obj/item/reagent_containers/glass/bottle/charcoal = 3,
-		/obj/item/storage/box/rxglasses = 1,
-		/obj/item/stack/ducts/fifty = 4,
-		/obj/item/construction/plumbing = 2,
-		/obj/item/plunger = 2)
+		/obj/item/storage/box/rxglasses = 1)
 	generate_items_inside(items_inside,src)
 
 /obj/structure/closet/secure_closet/medical2
@@ -130,14 +127,6 @@
 	new /obj/item/storage/box/pillbottles(src)
 	new /obj/item/storage/box/medsprays(src)
 	new /obj/item/storage/box/medsprays(src)
-	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/construction/plumbing(src)
-	new /obj/item/construction/plumbing(src)
-	new	/obj/item/plunger(src)
-	new	/obj/item/plunger(src)
 
 /obj/structure/closet/secure_closet/chemical/heisenberg //contains one of each beaker, syringe etc.
 	name = "advanced chemical closet"
@@ -149,11 +138,3 @@
 	new /obj/item/storage/box/syringes/variety(src)
 	new /obj/item/storage/box/beakers/variety(src)
 	new /obj/item/clothing/glasses/science(src)
-	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/stack/ducts/fifty(src)
-	new /obj/item/construction/plumbing(src)
-	new /obj/item/construction/plumbing(src)
-	new	/obj/item/plunger(src)
-	new	/obj/item/plunger(src)
