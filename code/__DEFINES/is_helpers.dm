@@ -11,8 +11,8 @@
 
 #define isweakref(D) (istype(D, /datum/weakref))
 
-// simple check whether or not a player is a guest using their key and computer_id to build the key and then make a string comparison with the actual key
-#define IS_GUEST_KEY(key, computer_id)	("[key]" == "Guest-[computer_id]")
+// simple check whether or not a player is a guest using their key
+#define IS_GUEST_KEY(key)	(copytext(key, 1, 7) == "Guest-")
 
 //Turfs
 //#define isturf(A) (istype(A, /turf)) This is actually a byond built-in. Added here for completeness sake.

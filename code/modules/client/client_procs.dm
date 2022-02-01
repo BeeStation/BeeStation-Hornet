@@ -557,7 +557,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	return QDEL_HINT_HARDDEL_NOW
 
 /client/proc/set_client_age_from_db(connectiontopic)
-	if (IS_GUEST_KEY(src.key, src.computer_id))
+	if (IS_GUEST_KEY(src.key))
 		return
 	if(!SSdbcore.Connect())
 		return
