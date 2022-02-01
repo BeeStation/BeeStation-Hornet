@@ -254,7 +254,7 @@
 		//the keybindings are defined as "key" = list("action") in the savefile (for multiple actions -> 1 key)
 		//so im doing that
 		key_bindings += list("W" = list("move_north"), "A" = list("move_west"), "S" = list("move_south"), "D" = list("move_east"))
-		WRITE_FILE(S["key_bindings"], key_bindings)
+		//WRITE_FILE(S["key_bindings"], key_bindings) - don't edit the savefile
 	if(current_version < 37)
 		// this is some horrible, HORRIBLE CBT to shuffle around all the bitflags
 		// first thing is to move the sound bitflags to the new variable
@@ -323,7 +323,7 @@
 					pai_role = copytext_char(P["role"], 1, MAX_MESSAGE_LEN)
 				if(P["comments"])
 					pai_comments = copytext_char(P["comments"], 1, MAX_MESSAGE_LEN)
-			fdel(pai_path)
+			//fdel(pai_path) - don't edit the savefiles
 
 //general stuff
 /// Return `number` if it is in the range `min to max`, otherwise `default`
