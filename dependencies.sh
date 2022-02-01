@@ -24,4 +24,4 @@ export SPACEMAN_DMM_VERSION=suite-1.7.1
 export AUXMOS_VERSION=0.2.4
 
 # Python version for mapmerge and other tools
-export PYTHON_VERSION=3.6.8
+export PYTHON_VERSION=3.9.10
