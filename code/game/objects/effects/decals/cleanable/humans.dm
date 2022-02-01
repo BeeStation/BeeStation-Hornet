@@ -207,10 +207,9 @@
 	name = "footprints"
 	desc = "Wonder who these belong to... oh wait!"
 	icon = 'icons/effects/footprints.dmi'
-//	icon_state = "nothingwhatsoever"
 	icon_state = "blood1"
 	random_icon_states = null
-	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
+	blood_state = BLOOD_STATE_HUMAN // The icon state to load images from
 	var/entered_dirs = 0
 	var/exited_dirs = 0
 
