@@ -32021,14 +32021,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
-"aVF" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/o2,
-/area/engine/atmos)
-"aVG" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/n2o,
-/area/engine/atmos)
 "aVH" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall,
@@ -40587,7 +40579,6 @@
 /turf/closed/wall,
 /area/science/xenobiology)
 "bho" = (
-/obj/effect/landmark/xeno_spawn,
 /obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner,
 /turf/open/floor/engine,
 /area/science/xenobiology)
@@ -48640,7 +48631,6 @@
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/neutral,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
-/obj/effect/landmark/xeno_spawn,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/security/courtroom)
@@ -128686,7 +128676,7 @@ aDz
 aFM
 bIU
 aDC
-aVF
+aDC
 aFM
 aDE
 aMY
@@ -133581,7 +133571,7 @@ ckE
 cBz
 aHj
 aNb
-aVG
+aFe
 aFM
 acm
 aaa
