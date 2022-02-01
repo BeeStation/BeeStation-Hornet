@@ -23,7 +23,7 @@
 	departments = DEPARTMENT_CARGO
 	rpg_title = "Adventurer"
 
-		mail_goodies = list(
+	mail_goodies = list(
 		/obj/item/reagent_containers/hypospray/medipen/survival = 10,
 		/obj/item/storage/pill_bottle/mining = 5,
 		/obj/item/storage/belt/mining/alt = 5,
