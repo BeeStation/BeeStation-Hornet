@@ -105,8 +105,6 @@
 /mob/living/carbon/human/get_stat_tab_status()
 	var/list/tab_data = ..()
 
-	tab_data["Intent"] = GENERATE_STAT_TEXT("[a_intent]")
-	tab_data["Move Mode"] = GENERATE_STAT_TEXT("[m_intent]")
 	if (internal)
 		if (!internal.air_contents)
 			qdel(internal)
