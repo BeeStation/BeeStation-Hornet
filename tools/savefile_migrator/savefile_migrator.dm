@@ -16,6 +16,8 @@ var/global/list/ghost_orbits = list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 var/global/list/ghost_accs_options = list(GHOST_ACCS_NONE, GHOST_ACCS_DIR, GHOST_ACCS_FULL)
 var/global/list/ghost_others_options = list(GHOST_OTHERS_SIMPLE, GHOST_OTHERS_DEFAULT_SPRITE, GHOST_OTHERS_THEIR_SETTING)
 var/global/list/pda_styles = list(MONO, VT, ORBITRON, SHARE)
+var/global/list/balloon_alerts = list(BALLOON_ALERT_ALWAYS, BALLOON_ALERT_NEVER, BALLOON_ALERT_WITH_CHAT)
+var/global/list/scaling_methods = list(SCALING_METHOD_NORMAL, SCALING_METHOD_BLUR, SCALING_METHOD_DISTORT)
 // Defaults dumped from a savefile
 var/global/list/keybinding_list_by_key = list(
 		"F3" = list("admin_say"),
