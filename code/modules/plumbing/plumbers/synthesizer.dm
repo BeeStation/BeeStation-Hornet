@@ -19,6 +19,8 @@
 	var/datum/reagent/reagent_id = null
 	///reagent overlay. its the colored pipe thingies. we track this because overlays.Cut() is bad
 	var/image/r_overlay
+	///The amount of reagent dispensable before requiring a refill from a compressed matter cartridge.
+	var/volume_left = 200
 	///straight up copied from chem dispenser. Being a subtype would be extremely tedious and making it global would restrict potential subtypes using different dispensable_reagents
 	var/list/dispensable_reagents = list(
 		/datum/reagent/aluminium,
@@ -61,8 +63,22 @@
 		return
 	if(reagents.total_volume >= amount*delta_time*0.5) //otherwise we get leftovers, and we need this to be precise
 		return
+	if(volume_left < amount || !volume_left)
+		return
 	reagents.add_reagent(reagent_id, amount*delta_time*0.5)
+	volume_left -= amount
 
+/obj/machinery/plumbing/synthesizer/attackby(obj/item/O, mob/user, params)
+	if(istype(O, /obj/item/rcd_ammo))
+		volume_left = 200
+		to_chat(user, "<span class='notice'>You refill the chemical synthesizer with the compressed matter cartridge.</span>")
+		qdel(O)
+	else
+		return ..()
+
+/obj/machinery/plumbing/synthesizer/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>A display says it currently holds [volume_left] units of chemicals before requiring a refill.</span>"
 
 /obj/machinery/plumbing/synthesizer/ui_state(mob/user)
 	return GLOB.default_state
