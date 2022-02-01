@@ -69,6 +69,8 @@
 	volume_left -= amount
 
 /obj/machinery/plumbing/synthesizer/attackby(obj/item/O, mob/user, params)
+	if(volume_left == 200)
+		return ..()
 	if(istype(O, /obj/item/rcd_ammo))
 		volume_left = 200
 		to_chat(user, "<span class='notice'>You refill the chemical synthesizer with the compressed matter cartridge.</span>")
