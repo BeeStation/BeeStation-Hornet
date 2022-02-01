@@ -26,6 +26,6 @@ jobs:
         env:
           #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} Use this instead if you have unprotected branches
           GITHUB_TOKEN: ${{ secrets.CL_TOKEN }}
-          GIT_EMAIL: "56381746+ss13-beebot@users.noreply.github.com"
-          GIT_NAME: "ss13-beebot"
+          GIT_EMAIL: "98856565+monke-station-bot@users.noreply.github.com"
+          GIT_NAME: "monke-station-bot"
         run: python tools/changelog/generate_cl.py
