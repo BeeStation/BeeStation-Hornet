@@ -218,16 +218,19 @@
 	target.icon_state = initial(picked_item.icon_state)
 	if(isitem(target))
 		var/obj/item/I = target
-		I.icon_state = initial(picked_item.icon_state)
-		I.item_state = initial(picked_item.item_state)
-		I.item_color = initial(picked_item.item_color)
+		I.worn_icon = initial(picked_item.worn_icon)
+		I.lefthand_file = initial(picked_item.lefthand_file)
+		I.righthand_file = initial(picked_item.righthand_file)
 		if(initial(picked_item.greyscale_colors))
+			I.greyscale_colors = initial(picked_item.greyscale_colors)
 			if(initial(picked_item.greyscale_config_worn))
-				I.alternate_worn_icon  = SSgreyscale.GetColoredIconByType(initial(picked_item.greyscale_config_worn), initial(picked_item.greyscale_colors))
+				I.worn_icon = SSgreyscale.GetColoredIconByType(initial(picked_item.greyscale_config_worn), initial(picked_item.greyscale_colors))
 			if(initial(picked_item.greyscale_config_inhand_left))
 				I.lefthand_file = SSgreyscale.GetColoredIconByType(initial(picked_item.greyscale_config_inhand_left), initial(picked_item.greyscale_colors))
 			if(initial(picked_item.greyscale_config_inhand_right))
 				I.righthand_file = SSgreyscale.GetColoredIconByType(initial(picked_item.greyscale_config_inhand_right), initial(picked_item.greyscale_colors))
+		I.worn_icon_state = initial(picked_item.worn_icon_state)
+		I.item_state = initial(picked_item.item_state)
 		if(isclothing(I) && isclothing(initial(picked_item)))
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
@@ -236,7 +239,6 @@
 			target.icon = SSgreyscale.GetColoredIconByType(initial(picked_item.greyscale_config), initial(picked_item.greyscale_colors))
 		else
 			target.icon = initial(picked_item.icon)
-	target.icon = initial(picked_item.icon)
 
 /datum/action/item_action/chameleon/change/Trigger()
 	if(!IsAvailable())
@@ -267,7 +269,6 @@
 	greyscale_config_inhand_left = /datum/greyscale_config/jumpsuit_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/jumpsuit_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/jumpsuit_worn
-	item_color = "black"
 	desc = "It's a plain jumpsuit. It has a small dial on the wrist."
 	sensor_mode = SENSOR_OFF //Hey who's this guy on the Syndicate Shuttle??
 	random_sensor = FALSE
@@ -285,6 +286,11 @@
 	item_color = "plasmaman"
 	resistance_flags = FIRE_PROOF
 	envirosealed = TRUE
+	greyscale_colors = null
+	greyscale_config = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_config_worn = null
 
 /obj/item/clothing/under/chameleon/ratvar
 	name = "ratvarian engineer's jumpsuit"
@@ -292,6 +298,11 @@
 	icon_state = "engine"
 	item_state = "engi_suit"
 	item_color = "engine"
+	greyscale_colors = null
+	greyscale_config = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_config_worn = null
 
 /obj/item/clothing/under/chameleon/envirosuit/ratvar
 	name = "ratvarian engineer's envirosuit"
@@ -700,24 +711,24 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
-/obj/item/clothing/neck/cloak/chameleon
+/obj/item/clothing/neck/chameleon
 	name = "black tie"
 	desc = "A neosilk clip-on tie."
 	icon_state = "blacktie"
 	resistance_flags = NONE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
 
-/obj/item/clothing/neck/cloak/chameleon
+/obj/item/clothing/neck/chameleon
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/clothing/neck/cloak/chameleon/Initialize()
+/obj/item/clothing/neck/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/neck
-	chameleon_action.chameleon_name = "Cloak"
+	chameleon_action.chameleon_name = "Neck Accessory"
 	chameleon_action.initialize_disguises()
 
-/obj/item/clothing/neck/cloak/chameleon/emp_act(severity)
+/obj/item/clothing/neck/chameleon/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return

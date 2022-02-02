@@ -4,7 +4,6 @@
 /obj/item/clothing/shoes/sneakers/mime
 	name = "mime shoes"
 	greyscale_colors = "#ffffff"
-	item_color = "mime"
 
 /obj/item/clothing/shoes/combat //basic syndicate combat boots for nuke ops and mob corpses
 	name = "combat boots"
@@ -35,9 +34,17 @@
 	permeability_coefficient = 0.9
 	strip_delay = 5
 
-/obj/item/clothing/shoes/sandal/marisa
+/obj/item/clothing/shoes/sneakers/marisa
 	desc = "A pair of magic black shoes."
 	name = "magic shoes"
+	worn_icon_state = "marisa"
+	greyscale_colors = "#545454#ffffff"
+	greyscale_config = /datum/greyscale_config/sneakers_marisa
+	greyscale_config_worn = null
+	item_color = null
+	strip_delay = 5
+	equip_delay_other = 50
+	permeability_coefficient = 0.9
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
 
 /obj/item/clothing/shoes/sandal/magic
@@ -273,6 +280,7 @@
 	greyscale_colors = "#545454#ffffff"
 	greyscale_config = /datum/greyscale_config/sneakers_wheelys
 	icon_state = "sneakers"
+	worn_icon_state = "wheelys"
 	actions_types = list(/datum/action/item_action/wheelys)
 	var/wheelToggle = FALSE //False means wheels are not popped out
 	var/obj/vehicle/ridden/scooter/wheelys/W
