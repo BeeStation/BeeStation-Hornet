@@ -318,7 +318,7 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(shoes)
-		var/icon_file = 'icons/mob/feet.dmi'
+		var/icon_file = 'icons/mob/clothing/feet.dmi'
 		if(istype(shoes, /obj/item/clothing/shoes))
 			var/obj/item/clothing/shoes/S = shoes
 			if(S.sprite_sheets & (dna?.species.bodyflag))
