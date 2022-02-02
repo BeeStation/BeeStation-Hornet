@@ -44,7 +44,3 @@
 
             for(var/mob/living/carbon/C in T.contents)
                 stab(C)
-
-
-/datum/component/larryknife/proc/larry_destroyed()
-    qdel(src) //No more!!
