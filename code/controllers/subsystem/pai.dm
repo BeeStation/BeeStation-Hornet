@@ -61,7 +61,10 @@ SUBSYSTEM_DEF(pai)
 
 			if("submit")
 				if(candidate)
-					candidate.ready = 1
+					if(!candidate.name || !candidate.description)
+						to_chat(usr, "<span class='danger'>You must at least specify a name and description before submitting!</span>")
+						return
+					candidate.ready = TRUE
 					for(var/obj/item/paicard/p in pai_card_list)
 						if(!p.pai)
 							p.alertUpdate()
