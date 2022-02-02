@@ -65,7 +65,7 @@
 		return
 	if(reagents.total_volume >= amount*delta_time*0.5) //otherwise we get leftovers, and we need this to be precise
 		return
-	if(volume_left < amount || !volume_left)
+	if(volume_left < amount) //Empty
 		return
 	reagents.add_reagent(reagent_id, amount*delta_time*0.5)
 	volume_left -= amount
