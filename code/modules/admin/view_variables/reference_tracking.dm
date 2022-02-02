@@ -56,7 +56,10 @@
 		log_reftracker("Skipped searching atoms (other ref(s) found)")
 	else
 		for(var/datum/thing in world) //atoms (don't beleive its lies)
-			found_ref = DoSearchVar(thing, "World -> [thing.type]", search_time = starting_time) || found_ref
+			found_ref = DoSearchVar(thing, "World -> [thing.type]", search_time = starting_time)
+			if(found_ref)
+				log_reftracker("Aborting atoms search (ref found)")
+				break
 		log_reftracker("Finished searching atoms")
 #else
 	for(var/datum/thing in world) //atoms (don't beleive its lies)
