@@ -20,6 +20,7 @@
 	var/is_position_sensitive = FALSE	//set to true if the device has different icons for each position.
 										//This will prevent things such as visible lasers from facing the incorrect direction when transformed by assembly_holder's update_icon()
 	var/secured = TRUE
+	var/securable = TRUE				//False for assemblies that are always unsecured
 	var/list/attached_overlays = null
 	var/obj/item/assembly_holder/holder = null
 	var/wire_type = WIRE_RECEIVE | WIRE_PULSE
@@ -29,10 +30,14 @@
 	var/next_activate = 0 //When we're next allowed to activate - for spam control
 	var/activate_delay = 30
 
+/obj/item/assembly/Initialize()
+	. = ..()
+	secured &&= securable
+
 /obj/item/assembly/Destroy()
 	holder = null
 	return ..()
-	
+
 /obj/item/assembly/get_part_rating()
 	return 1
 
@@ -83,14 +88,14 @@
 
 // What the device does when turned on
 /obj/item/assembly/proc/activate()
-	if(QDELETED(src) || !secured || (next_activate > world.time))
+	if(QDELETED(src) || (securable && !secured) || (next_activate > world.time))
 		return FALSE
 	next_activate = world.time + activate_delay
 	return TRUE
 
 
 /obj/item/assembly/proc/toggle_secure()
-	secured = !secured
+	secured = securable && !secured
 	update_icon()
 	return secured
 
@@ -110,6 +115,8 @@
 /obj/item/assembly/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
 		return TRUE
+	if(!securable)
+		return FALSE
 	if(toggle_secure())
 		to_chat(user, "<span class='notice'>\The [src] is ready!</span>")
 	else
