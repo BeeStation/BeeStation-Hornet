@@ -18,6 +18,7 @@
 
 /obj/item/clothing/under/color/random
 	icon_state = "random_jumpsuit"
+	can_adjust = FALSE
 
 /obj/item/clothing/under/color/random/Initialize()
 	..()
@@ -76,6 +77,7 @@
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
+	can_adjust = FALSE
 
 /obj/item/clothing/under/color/grey/glorf/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	owner.forcesay(GLOB.hit_appends)
