@@ -81,6 +81,7 @@
 	fire_rate = 2
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/rubber
 	obj_flags = UNIQUE_RENAME
+	pickup_sound = 'sound/items/handling/revolver_pickup.ogg'
 	unique_reskin = list("Default" = "detective",
 						"Fitz Special" = "detective_fitz",
 						"Police Positive Special" = "detective_police",
