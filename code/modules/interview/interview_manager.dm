@@ -27,6 +27,63 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
 	return ..()
 
 /**
+ * Returns the admin Interviews stat tab entry
+ */
+/datum/interview_manager/proc/stat_entry()
+	var/dc = 0
+	for (var/ckey in open_interviews)
+		var/datum/interview/I = open_interviews[ckey]
+		if (I && !I.owner)
+			dc++
+	var/dc_string = "([length(open_interviews) - dc] online / [dc] disconnected)"
+
+	var/list/tab_data = list()
+	tab_data["Interviews"] = list(
+		text = "Open Interview Browser",
+		type = STAT_BUTTON,
+		action = "browseinterviews",
+	)
+
+	tab_data["Active"] = list(
+		text = "[length(open_interviews)] [dc_string]",
+		type = STAT_BUTTON,
+		action = "browseinterviews",
+	)
+
+	tab_data["Queued"] = list(
+		text = "[length(interview_queue)]",
+		type = STAT_BUTTON,
+		action = "browseinterviews",
+	)
+
+	tab_data["Closed"] = list(
+		text = "[length(closed_interviews)]",
+		type = STAT_BUTTON,
+		action = "browseinterviews",
+	)
+
+	for(var/ckey in open_interviews)
+		var/datum/interview/I = open_interviews[ckey]
+		tab_data["#[I.id]. "] = list(
+					text = "[ckey]",
+					type = STAT_BUTTON,
+					action = "open_interview",
+					params = list("id" = I.id),
+				)
+	return tab_data
+
+/**
+ * Opens the interview manager UI
+ */
+
+/datum/interview_manager/proc/BrowseInterviews(mob/user)
+	var/client/C = user.client
+	if(!C || !C.holder)
+		return
+
+	GLOB.interviews.ui_interact(user)
+
+/**
   * Used in the new client pipeline to catch when clients are reconnecting and need to have their
   * reference re-assigned to the 'owner' variable of an interview
   *
