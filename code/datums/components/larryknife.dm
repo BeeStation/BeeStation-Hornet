@@ -9,7 +9,6 @@
     knife_damage = damage
     RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/knife_crossed)
     RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/knife_move)
-    RegisterSignal(parent, COMSIG_PARENT_QDELETING, .proc/larry_destroyed)
     add_connect_loc_behalf_to_parent()
 
 /datum/component/larryknife/proc/add_connect_loc_behalf_to_parent()
@@ -37,9 +36,8 @@
 		stab(C)
 
 /datum/component/larryknife/proc/knife_move()
-    var/atom/movable/A = parent
+	var/atom/movable/A = parent
 	if(isturf(A.loc))
 		var/turf/T = get_turf(A)
-
 		for(var/mob/living/carbon/C in T.contents)
 			stab(C)
