@@ -37,10 +37,9 @@
 		stab(C)
 
 /datum/component/larryknife/proc/knife_move()
-    if(istype(parent, /atom/movable))
-        var/atom/movable/A = parent
-        if(isturf(A.loc))
-            var/turf/T = get_turf(A)
+    var/atom/movable/A = parent
+	if(isturf(A.loc))
+		var/turf/T = get_turf(A)
 
-            for(var/mob/living/carbon/C in T.contents)
-                stab(C)
+		for(var/mob/living/carbon/C in T.contents)
+			stab(C)
