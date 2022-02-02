@@ -27,6 +27,7 @@
 	name = "\improper NASA jumpsuit"
 	desc = "It has a NASA logo on it and is made of space-proofed materials."
 	icon_state = "jumpsuit"
+	item_state = "jumpsuit"
 	worn_icon_state = "jumpsuit"
 	item_color = null
 	greyscale_colors = "#3f3f3f"
