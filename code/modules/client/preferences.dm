@@ -2,27 +2,52 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 /datum/preferences
 	var/client/parent
-	//doohickeys for savefiles
+
+	///Savefile path
 	var/path
-	var/default_slot = 1				//Holder so it doesn't default to slot 1, rather the last one used
-	var/max_save_slots = 3
 
 	//non-preference stuff
-	var/muted = 0
+	var/unlock_content = FALSE
+	var/muted = FALSE
+	var/max_save_slots = 3
 	var/last_ip
 	var/last_id
 	var/db_flags
+	// 0 = character settings, 1 = game preferences
+	var/current_tab = 0
+	var/gear_tab = "General"
+	var/action_buttons_screen_locs = list()
+	var/list/exp = list()
+	var/job_exempt = 0
+	var/updated_fps = 0
 
-	//game-preferences
-	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
+
+
+	/* ----------[GAME PREFERENCES]---------- */
+	// Note: values of these variables represent the *defaults*
+
+	///Git hash of the latest commit to decide if changelog display needed
+	var/lastchangelog = ""
+
+	///OOC colour for BYOND members and admins
 	var/ooccolor = "#c43b23"
-	var/asaycolor = "#ff4500"			//This won't change the color for current admins, only incoming ones.
-	var/tip_delay = 500 //tip delay in milliseconds
 
-	//Antag preferences
-	var/list/be_special = list()		//Special role selection
+	///ASAY colour for admins
+	var/asaycolor = "#ff4500"
 
+	///Number of milliseconds of cursor hover before tooltip is displayed
+	var/tip_delay = 500
+
+	///Default character slot selection
+	var/default_slot = 1
+
+	///Antag preferences
+	var/list/be_special = list()
+
+	///UI appearance themes
 	var/UI_style = null
+
+	///Color of item outline when hovered over
 	var/outline_color = COLOR_BLUE_GRAY
 
 	///Whether we want balloon alerts displayed alone, with chat or not displayed at all
@@ -30,31 +55,76 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	///Bitflag var for setting boolean preference values (see __DEFINES/preferences.dm)
 	var/toggles = TOGGLES_DEFAULT
+
 	///Additional toggles var, since each bitflag var can only store 24 flags
 	var/toggles_2 = TOGGLES_2_DEFAULT
+
 	///Toggles var to group together chat settings
 	var/chat_toggles = TOGGLES_DEFAULT_CHAT
+
 	///Toggles var to group together sound settings
 	var/sound_toggles = TOGGLES_DEFAULT_SOUND
 
+	///Special ghost appearances, for BYOND members
 	var/ghost_form = "ghost"
+
+	///Ghost orbit types (circle, triangle, square etc) for BYOND members
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
+
+	///Controls which ghost accessories are displayed
 	var/ghost_accs = GHOST_ACCS_DEFAULT_OPTION
+
+	///Whether you see ghost customizations selected by others
 	var/ghost_others = GHOST_OTHERS_DEFAULT_OPTION
+
+	///Preferred map used for default vote values
 	var/preferred_map = null
+
+	///PDA font
 	var/pda_style = MONO
+
+	///PDA background colour
 	var/pda_color = "#808000"
 
-	// Custom Keybindings
+	///Custom keybinding values (the default is set during pref saving, if required)
 	var/list/key_bindings = null
 
-	// pAI saved personality details
+	///pAI name
 	var/pai_name = null
+
+	///pAI description
 	var/pai_description = null
+
+	///pAI role
 	var/pai_role = null
+
+	///pAI comments
 	var/pai_comments = null
 
-	//character preferences
+	///What size should pixels be displayed as? 0 is strech to fit
+	var/pixel_size = 0
+
+	///What scaling method should we use?
+	var/scaling_method = "normal"
+
+	///FPS for client map display
+	var/clientfps = 40
+
+	///List of players ignored in OOC chat
+	var/list/ignoring = list()
+
+	///List of owned gear bought with metacoins
+	var/list/purchased_gear = list()
+
+	///List of gear currently equipped to character
+	var/list/equipped_gear = list()
+
+	///Parallax setting (fancy space)
+	var/parallax = PARALLAX_HIGH
+
+
+
+	/* ----------[CHARACTER PREFERENCES]---------- */
 	var/real_name						//our character's name
 	var/be_random_name = 0				//whether we'll have a random name every round
 	var/be_random_body = 0				//whether we'll have a random body every round
@@ -91,36 +161,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	//Job preferences 2.0 - indexed by job title , no key or value implies never
 	var/list/job_preferences = list()
 
-		// Want randomjob if preferences already filled - Donkie
+	// Want randomjob if preferences already filled - Donkie
 	var/joblessrole = BERANDOMJOB  //defaults to 1 for fewer assistants
 
-	// 0 = character settings, 1 = game preferences
-	var/current_tab = 0
-
-	var/unlock_content = 0
-
-	var/list/ignoring = list()
-
-	var/clientfps = 40
-	var/updated_fps = 0
-
-	var/parallax
-
-	///What size should pixels be displayed as? 0 is strech to fit
-	var/pixel_size = 0
-	///What scaling method should we use?
-	var/scaling_method = "normal"
 	var/uplink_spawn_loc = UPLINK_PDA
-
-	var/list/exp = list()
-	var/job_exempt = 0
-
-	//Loadout stuff
-	var/list/purchased_gear = list()
-	var/list/equipped_gear = list()
-	var/gear_tab = "General"
-
-	var/action_buttons_screen_locs = list()
 
 /datum/preferences/New(client/C)
 	parent = C
