@@ -20,7 +20,9 @@
 	///reagent overlay. its the colored pipe thingies. we track this because overlays.Cut() is bad
 	var/image/r_overlay
 	///The amount of reagent dispensable before requiring a refill from a compressed matter cartridge.
-	var/volume_left = 200
+	var/volume_left = 0
+	///The maximum amount of precursor in a synthesizer.
+	var/max_volume = 1000
 	///straight up copied from chem dispenser. Being a subtype would be extremely tedious and making it global would restrict potential subtypes using different dispensable_reagents
 	var/list/dispensable_reagents = list(
 		/datum/reagent/aluminium,
@@ -69,11 +71,12 @@
 	volume_left -= amount
 
 /obj/machinery/plumbing/synthesizer/attackby(obj/item/O, mob/user, params)
-	if(volume_left == 200)
-		to_chat(user, "<span class='warning'>The chemical synthesizer is full!</span>")
-		return ..()
 	if(istype(O, /obj/item/rcd_ammo))
-		volume_left = 200
+		var/obj/item/rcd_ammo/R = O
+		if(volume_left > max_volume-100) //no overfilling by more than 100 units
+			to_chat(user, "<span class='warning'>The chemical synthesizer is full!</span>")
+			return ..()
+		volume_left = min(volume_left+R.ammoamt*10, 1000) //400, you get 2x what I originally intended
 		to_chat(user, "<span class='notice'>You refill the chemical synthesizer with the compressed matter cartridge.</span>")
 		qdel(O)
 	else
