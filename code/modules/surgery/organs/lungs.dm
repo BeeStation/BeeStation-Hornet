@@ -43,7 +43,8 @@
 
 	var/SA_para_min = 1 //nitrous values
 	var/SA_sleep_min = 5
-	var/BZ_trip_balls_min = 1 //BZ gas
+	var/BZ_trip_balls_min = 0.1 //BZ gas
+	var/BZ_brain_damage_min = 1
 	var/gas_stimulation_min = 0.002 //Nitryl and Stimulum
 
 	var/cold_message = "your face freezing and an icicle forming"
@@ -82,13 +83,13 @@
 /obj/item/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
 //TODO: add lung damage = less oxygen gains
 	var/breathModifier = (5-(5*(damage/maxHealth)/2)) //range 2.5 - 5
-	if(H.status_flags & GODMODE)
+	if((H.status_flags & GODMODE))
 		return
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		return
 
 	if(!breath || (breath.total_moles() == 0))
-		if(H.reagents.has_reagent(crit_stabilizing_reagent, needs_metabolizing = TRUE))
+		if(H.reagents.has_reagent(crit_stabilizing_reagent))
 			return
 		if(H.health >= H.crit_threshold)
 			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
@@ -156,14 +157,13 @@
 			mole_adjustments[entry] = -required_moles
 			mole_adjustments[breath_results[entry]] = required_moles
 		if(required_pp < safe_min)
-			var/multiplier = 0
+			var/multiplier = handle_too_little_breath(H, required_pp, safe_min, required_moles)
 			if(required_moles > 0)
-				multiplier = handle_too_little_breath(H, required_pp, safe_min, required_moles) / required_moles
+				multiplier /= required_moles
 			for(var/adjustment in mole_adjustments)
 				mole_adjustments[adjustment] *= multiplier
 			if(alert_category)
 				H.throw_alert(alert_category, alert_type)
-			H.throw_alert(alert_category, alert_type)
 		else
 			H.failed_last_breath = FALSE
 			if(H.health >= H.crit_threshold)
@@ -179,12 +179,10 @@
 		var/alert_type = null
 		if(ispath(breathing_class))
 			breathing_class = breathing_classes[breathing_class]
-			var/list/gases = breathing_class.gases
 			alert_category = breathing_class.high_alert_category
 			alert_type = breathing_class.high_alert_datum
 			danger_reagent = breathing_class.danger_reagent
-			for(var/gas in gases)
-				found_pp += PP(breath, gas)
+			found_pp = breathing_class.get_effective_pp(breath)
 		else
 			danger_reagent = danger_reagents[entry]
 			if(entry in breath_alert_info)
@@ -206,14 +204,12 @@
 	for(var/gas in breath.get_gases())
 		if(gas in breath_reagents)
 			var/datum/reagent/R = breath_reagents[gas]
-			H.reagents.add_reagent(R, PP(breath,gas))
+			//H.reagents.add_reagent(R, breath.get_moles(gas) * R.molarity) // See next line
+			H.reagents.add_reagent(R, breath.get_moles(gas) * 2) // 2 represents molarity of O2, we don't have citadel molarity
 			mole_adjustments[gas] = (gas in mole_adjustments) ? mole_adjustments[gas] - breath.get_moles(gas) : -breath.get_moles(gas)
 
 	for(var/gas in mole_adjustments)
 		breath.adjust_moles(gas, mole_adjustments[gas])
-
-
-	//-- TRACES --//
 
 	if(breath)	// If there's some other shit in the air lets deal with it here.
 
@@ -231,17 +227,16 @@
 		else
 			SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "chemical_euphoria")
 
-
 	// BZ
 
 		var/bz_pp = PP(breath, GAS_BZ)
-		if(bz_pp > BZ_trip_balls_min)
+		if(bz_pp > BZ_brain_damage_min)
 			H.hallucination += 10
 			H.reagents.add_reagent(/datum/reagent/bz_metabolites,5)
 			if(prob(33))
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
 
-		else if(bz_pp > 0.01)
+		else if(bz_pp > BZ_trip_balls_min)
 			H.hallucination += 5
 			H.reagents.add_reagent(/datum/reagent/bz_metabolites,1)
 
@@ -267,51 +262,52 @@
 		gas_breathed = PP(breath,GAS_STIMULUM)
 		if (gas_breathed > gas_stimulation_min)
 			var/existing = H.reagents.get_reagent_amount(/datum/reagent/stimulum)
-			H.reagents.add_reagent(/datum/reagent/stimulum,max(0, 1 - existing))
+			H.reagents.add_reagent(/datum/reagent/stimulum, max(0, 5 - existing))
 		breath.adjust_moles(GAS_STIMULUM, -gas_breathed)
 
 	// Miasma
 		if (breath.get_moles(GAS_MIASMA))
 			var/miasma_pp = PP(breath,GAS_MIASMA)
+			if(miasma_pp > MINIMUM_MOLES_DELTA_TO_MOVE)
 
-			//Miasma sickness
-			if(prob(0.5 * miasma_pp))
-				var/datum/disease/advance/miasma_disease = new /datum/disease/advance/random(2,3, infected = src)
-				miasma_disease.name = "Unknown"
-				miasma_disease.try_infect(owner)
+				//Miasma sickness
+				if(prob(0.05 * miasma_pp))
+					var/datum/disease/advance/miasma_disease = new /datum/disease/advance/random(TRUE, 2,3)
+					miasma_disease.name = "Unknown"
+					miasma_disease.try_infect(owner)
 
-			// Miasma side effects
-			switch(miasma_pp)
-				if(0.25 to 5)
-					// At lower pp, give out a little warning
-					SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "smell")
-					if(prob(5))
-						to_chat(owner, "<span class='notice'>There is an unpleasant smell in the air.</span>")
-				if(5 to 15)
-					//At somewhat higher pp, warning becomes more obvious
-					if(prob(15))
-						to_chat(owner, "<span class='warning'>You smell something horribly decayed inside this room.</span>")
-						SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/bad_smell)
-				if(15 to 30)
-					//Small chance to vomit. By now, people have internals on anyway
-					if(prob(5))
-						to_chat(owner, "<span class='warning'>The stench of rotting carcasses is unbearable!</span>")
-						SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/nauseating_stench)
-						owner.vomit()
-				if(30 to INFINITY)
-					//Higher chance to vomit. Let the horror start
-					if(prob(15))
-						to_chat(owner, "<span class='warning'>The stench of rotting carcasses is unbearable!</span>")
-						SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/nauseating_stench)
-						owner.vomit()
-				else
-					SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "smell")
+				// Miasma side effects
+				switch(miasma_pp)
+					if(1 to 5)
+						// At lower pp, give out a little warning
+						SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "smell")
+						if(prob(5))
+							to_chat(owner, "<span class='notice'>There is an unpleasant smell in the air.</span>")
+					if(5 to 15)
+						//At somewhat higher pp, warning becomes more obvious
+						if(prob(15))
+							to_chat(owner, "<span class='warning'>You smell something horribly decayed inside this room.</span>")
+							SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/bad_smell)
+					if(15 to 30)
+						//Small chance to vomit. By now, people have internals on anyway
+						if(prob(5))
+							to_chat(owner, "<span class='warning'>The stench of rotting carcasses is unbearable!</span>")
+							SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/nauseating_stench)
+							owner.vomit()
+					if(30 to INFINITY)
+						//Higher chance to vomit. Let the horror start
+						if(prob(15))
+							to_chat(owner, "<span class='warning'>The stench of rotting carcasses is unbearable!</span>")
+							SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/nauseating_stench)
+							owner.vomit()
+					else
+						SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "smell")
 
-			// In a full miasma atmosphere with 101.34 pKa, about 10 disgust per breath, is pretty low compared to threshholds
-			// Then again, this is a purely hypothetical scenario and hardly reachable
-			owner.adjust_disgust(0.1 * miasma_pp)
+				// In a full miasma atmosphere with 101.34 pKa, about 10 disgust per breath, is pretty low compared to threshholds
+				// Then again, this is a purely hypothetical scenario and hardly reachable
+				owner.adjust_disgust(0.1 * miasma_pp)
 
-			breath.adjust_moles(GAS_MIASMA, -gas_breathed)
+				breath.adjust_moles(GAS_MIASMA, -gas_breathed)
 
 		// Clear out moods when no miasma at all
 		else
@@ -319,7 +315,6 @@
 
 		handle_breath_temperature(breath, H)
 	return TRUE
-
 
 /obj/item/organ/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)
 	. = 0
@@ -336,7 +331,6 @@
 	else
 		H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
 		H.failed_last_breath = TRUE
-
 
 /obj/item/organ/lungs/proc/handle_breath_temperature(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures
 	var/breath_temperature = breath.return_temperature()
