@@ -208,10 +208,10 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
 
 	// Decrement all interviews in queue past the interview being removed
 	var/found = FALSE
-	for (var/datum/interview/i in interview_queue)
+	for (var/datum/interview/I as() in interview_queue)
 		if (found)
-			i.pos_in_queue--
-		if (i == to_dequeue)
+			I.pos_in_queue--
+		if (I == to_dequeue)
 			found = TRUE
 
 	interview_queue -= to_dequeue
