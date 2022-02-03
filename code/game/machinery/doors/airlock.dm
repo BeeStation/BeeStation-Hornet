@@ -620,6 +620,8 @@
 					SSvis_overlays.add_vis_overlay(src, overlays_file, "lights_bolts", FLOAT_LAYER, FLOAT_PLANE, dir)
 				else if(emergency)
 					SSvis_overlays.add_vis_overlay(src, overlays_file, "lights_emergency", FLOAT_LAYER, FLOAT_PLANE, dir)
+				else
+					SSvis_overlays.add_vis_overlay(src, overlays_file, "lights_poweron", FLOAT_LAYER, FLOAT_PLANE, dir)
 			if(welded)
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "welded", FLOAT_LAYER, FLOAT_PLANE, dir)
 			if(obj_integrity <integrity_failure)
@@ -1200,7 +1202,8 @@
 		if(closeOther != null && istype(closeOther, /obj/machinery/door/airlock/) && !closeOther.density)
 			closeOther.close()
 	else
-		playsound(src, 'sound/machines/airlockforced.ogg', 30, TRUE)
+		//playsound(src, 'sound/machines/airlockforced.ogg', 30, TRUE) //ORIGINAL
+		playsound(src, forcedOpen, 30, TRUE) //MONKESTATION EDIT - AIRLOCK RESPRITE
 
 	if(autoclose)
 		autoclose_in(normalspeed ? 150 : 15)
@@ -1249,7 +1252,8 @@
 			use_power(50)
 		playsound(src, doorClose, 30, TRUE)
 	else
-		playsound(src, 'sound/machines/airlockforced.ogg', 30, TRUE)
+		//playsound(src, 'sound/machines/airlockforced.ogg', 30, TRUE) //ORIGINAL
+		playsound(src, forcedOpen, 30, TRUE) //MONKESTATION EDIT - AIRLOCK RESPRITE
 
 	var/obj/structure/window/killthis = (locate(/obj/structure/window) in get_turf(src))
 	if(killthis)
