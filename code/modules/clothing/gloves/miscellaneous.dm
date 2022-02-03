@@ -17,6 +17,7 @@
 	desc = "These leather gloves protect against thorns, barbs, prickles, spikes and other harmful objects of floral origin.  They're also quite warm."
 	icon_state = "leather"
 	item_state = "ggloves"
+	worn_icon_state = "ggloves"
 	permeability_coefficient = 0.9
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
@@ -30,6 +31,7 @@
 	desc = "These tactical gloves are fireproof and shock resistant."
 	icon_state = "cgloves"
 	item_state = "combatgloves"
+	worn_icon_state = "cgloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	strip_delay = 80

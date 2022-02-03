@@ -122,14 +122,6 @@ There are several things that need to be remembered:
 		else if(U.adjusted == DIGITIGRADE_STYLE)
 			target_overlay = "[target_overlay]_l"
 
-		/*var/t_color = U.item_color
-		if(!t_color)
-			t_color = U.icon_state
-		if(U.adjusted == ALT_STYLE)
-			t_color = "[t_color]_d"
-		else if(U.adjusted == DIGITIGRADE_STYLE)
-			t_color = "[t_color]_l"*/
-
 		var/mutable_appearance/uniform_overlay
 
 		if(dna?.species.sexes)

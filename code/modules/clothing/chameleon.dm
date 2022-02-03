@@ -398,6 +398,7 @@
 	name = "insulated gloves"
 	icon_state = "yellow"
 	item_state = "ygloves"
+	worn_icon_state = "ygloves"
 
 	resistance_flags = NONE
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 10)
@@ -427,6 +428,7 @@
 	desc = "These tactical gloves are fireproof and shock resistant."
 	icon_state = "cgloves"
 	item_state = "combatgloves"
+	worn_icon_state = "combatgloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	strip_delay = 80
