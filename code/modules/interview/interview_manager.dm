@@ -190,8 +190,8 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
 	interview_queue -= to_return
 
 	// Decrement any remaining interview queue positions
-	for(var/datum/interview/i in interview_queue)
-		i.pos_in_queue--
+	for(var/datum/interview/I as() in interview_queue)
+		I.pos_in_queue--
 
 	return to_return
 
