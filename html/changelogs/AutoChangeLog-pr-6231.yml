@@ -1,0 +1,7 @@
+author: Semoro, azizonkg, and Bizzonium. Ported by ike709
+delete-after: true
+changes:
+  - bugfix: Avoid timer scheduling too far events into short queue
+  - bugfix: Fix timers not removing from second queue on init
+  - bugfix: Ported fixes of SStimer subsystem from RU SS220 Paradise
+  - bugfix: fixed potential bucket corruption in timer reset_buckets
