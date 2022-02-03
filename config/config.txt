@@ -388,6 +388,10 @@ NOTIFY_NEW_PLAYER_ACCOUNT_AGE 1
 ## Note this requires the PANIC_BUNKER to be enabled to do anything.
 #PANIC_BUNKER_INTERVIEW
 
+## Uncomment to allow players to try interviewing again instead of being removed for the duration of the round
+## Note this requires the PANIC_BUNKER_INTERVIEW to be enabled to do anything.
+#PANIC_BUNKER_INTERVIEW_RETRIES
+
 ## If a player connects during a bunker with less then or this amount of living time (Minutes), we deny the connection
 #PANIC_BUNKER_LIVING 60
 

@@ -521,14 +521,12 @@
 	// First we detain them by removing all the verbs they have on client
 	for (var/v in client.verbs)
 		var/procpath/verb_path = v
-		//if (!(verb_path in GLOB.stat_panel_verbs))
-		remove_verb(client, verb_path)
+		client.remove_verb(verb_path, FALSE)
 
 	// Then remove those on their mob as well
 	for (var/v in verbs)
 		var/procpath/verb_path = v
-		//if (!(verb_path in GLOB.stat_panel_verbs))
-		remove_verb(src, verb_path)
+		remove_verb(verb_path, FALSE)
 
 	client.tgui_panel.set_verb_infomation(client)
 

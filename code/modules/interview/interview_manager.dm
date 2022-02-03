@@ -15,15 +15,16 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
 	var/list/closed_interviews = list()
 	/// Ckeys which are allowed to bypass the time-based allowlist
 	var/list/approved_ckeys = list()
-	/// Ckeys which are currently in the cooldown system, they will be unable to create new interviews
-	var/list/cooldown_ckeys = list()
+
+	/// Ckeys which will either be blocked from reconnecting or be allowed to re-interview after a cooldown. Depends on the "panic_bunker_interview_retries" config flag.
+	var/list/denied_ckeys = list()
 
 /datum/interview_manager/Destroy(force, ...)
 	QDEL_LIST(open_interviews)
 	QDEL_LIST(interview_queue)
 	QDEL_LIST(closed_interviews)
 	QDEL_LIST(approved_ckeys)
-	QDEL_LIST(cooldown_ckeys)
+	QDEL_LIST(denied_ckeys)
 	return ..()
 
 /**
@@ -58,6 +59,12 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
 
 	tab_data["Closed"] = list(
 		text = "[length(closed_interviews)]",
+		type = STAT_BUTTON,
+		action = "browseinterviews",
+	)
+
+	tab_data["Denied"] = list(
+		text = "[length(denied_ckeys)]",
 		type = STAT_BUTTON,
 		action = "browseinterviews",
 	)
@@ -121,7 +128,7 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
 		return
 	if (open_interviews[C.ckey])
 		return open_interviews[C.ckey]
-	else if (!(C.ckey in cooldown_ckeys))
+	else if (!(C.ckey in denied_ckeys))
 		log_admin_private("New interview created for [key_name(C)].")
 		open_interviews[C.ckey] = new /datum/interview(C)
 		return open_interviews[C.ckey]
@@ -175,7 +182,18 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
   * * ckey - The ckey to remove from the cooldown list
   */
 /datum/interview_manager/proc/release_from_cooldown(ckey)
-	cooldown_ckeys -= ckey
+	denied_ckeys -= ckey
+
+/**
+  * Removes a ckey from the server, used when an interview is denied and retries are disabled.
+  *
+  * Arguments:
+  * * ckey - The ckey to remove from the cooldown list
+  */
+/datum/interview_manager/proc/give_the_boot(ckey)
+	for(var/client/C as() in GLOB.clients)
+		if(C?.ckey == ckey)
+			qdel(C)
 
 /**
   * Dequeues the first interview from the interview queue, and updates the queue positions of any relevant

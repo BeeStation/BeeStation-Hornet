@@ -340,6 +340,9 @@
 /// Flag for requiring players who would otherwise be denied access by the panic bunker to complete a written interview
 /datum/config_entry/flag/panic_bunker_interview
 
+/// Flag to allow players to retry the interview if they're denied. (Otherwise removed for the round duration)
+/datum/config_entry/flag/panic_bunker_interview_retries
+
 /datum/config_entry/string/panic_bunker_message
 	config_entry_value = "Sorry but the server is currently not accepting connections from never before seen players."
 

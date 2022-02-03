@@ -56,6 +56,10 @@ GLOBAL_LIST_EMPTY(ckey_redirects)
 			log_access("Failed Login: [key] - Guests not allowed during panic bunker")
 			return list("reason"="guest", "desc"="\nReason: Sorry but the server is currently not accepting connections from never before seen players or guests. If you have played on this server with a byond account before, please log in to the byond account you have played from.")
 
+	if(CONFIG_GET(flag/panic_bunker) && CONFIG_GET(flag/panic_bunker_interview) && !CONFIG_GET(flag/panic_bunker_interview_retries) && GLOB.interviews.denied_ckeys[ckey])
+		log_access("Failed Login: [key] - Interview denied")
+		return list("reason"="interview", "desc"="\nReason: You failed an interview while the panic bunker is enabled. Try again during the next round or after the panic bunker is disabled.")
+
 	//Population Cap Checking
 	var/extreme_popcap = CONFIG_GET(number/extreme_popcap)
 	if(!real_bans_only && !C && extreme_popcap && !admin)
