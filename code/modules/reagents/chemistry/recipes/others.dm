@@ -688,12 +688,6 @@
 	results = list(/datum/reagent/mutationtoxin/lizard = 5)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/liquidgibs = 10)
 
-/datum/chemical_reaction/mutationtoxin/felinid
-	name = /datum/reagent/mutationtoxin/felinid
-	id = /datum/reagent/mutationtoxin/felinid
-	results = list(/datum/reagent/mutationtoxin/felinid = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/toxin/fentanyl = 10, /datum/reagent/impedrezene = 10)
-
 /datum/chemical_reaction/mutationtoxin/fly
 	name = /datum/reagent/mutationtoxin/fly
 	id = /datum/reagent/mutationtoxin/fly

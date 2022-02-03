@@ -13,3 +13,21 @@
 	H.equip_to_slot_if_possible(W, ITEM_SLOT_BACKPACK)
 	W.update_icon()
 	H.dna.species.go_bald(H)
+
+/datum/quirk/anime
+	name = "Anime"
+	desc = "You are an anime enjoyer! Show your enthusiasm with some fashionable attire."
+	mob_trait = TRAIT_ANIME
+	value = 0
+
+/datum/quirk/anime/on_spawn()
+	var/mob/living/carbon/human/H = quirk_holder
+	var/obj/item/choice_beacon/anime/B = new(get_turf(H))
+	var/list/slots = list (
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"hands" = ITEM_SLOT_HANDS,
+	)
+	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
+
+
+

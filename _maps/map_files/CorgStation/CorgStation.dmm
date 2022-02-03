@@ -89097,8 +89097,8 @@
 	dir = 1
 	},
 /obj/item/paper/fluff{
-	info = "Priority Command Notice:\nAfter several incident reports, all crew are advised to NOT put felinids in the pet containment cells. Unlike the animals some of them might have some form of cognitive ability, however this is just a hypothesis at this time.";
-	name = "Pet store notice"
+	info = "Priority Command Notice:\nAfter several incident reports, all crew are advised to NOT lock weeaboos in the shower stalls. They may seem normal but appear to be insoluble in water, however this is just a hypothesis at this time.";
+	name = "Dorm shower notice"
 	},
 /obj/item/clothing/neck/petcollar,
 /turf/open/floor/wood,

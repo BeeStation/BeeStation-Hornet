@@ -295,19 +295,13 @@
 	var/species_match = FALSE
 
 	if(species)
-		if(species == /datum/species/human)
-			if(ishumanbasic(host_mob) && !is_species(host_mob, /datum/species/human/felinid))
-				species_match = TRUE
-		else if(is_species(host_mob, species))
+		if(is_species(host_mob, species))
 			species_match = TRUE
 	else	//this is the check for the "Other" option
 		species_match = TRUE
 		for(var/name in allowed_species)
 			var/species_other = allowed_species[name]
-			if (species_other == /datum/species/human)
-				if(ishumanbasic(host_mob) && !is_species(host_mob, /datum/species/human/felinid))
-					species_match = FALSE
-			else if(is_species(host_mob, species_other))
+			if(is_species(host_mob, species_other))
 				species_match = FALSE
 				break
 

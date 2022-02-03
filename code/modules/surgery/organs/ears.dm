@@ -98,7 +98,6 @@
 /obj/item/organ/ears/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
 	..()
 	if(istype(H))
-		color = H.hair_color
 		H.dna.species.mutant_bodyparts |= "ears"
 		H.dna.features["ears"] = "Cat"
 		H.update_body()
@@ -106,7 +105,6 @@
 /obj/item/organ/ears/cat/Remove(mob/living/carbon/human/H,  special = 0)
 	..()
 	if(istype(H))
-		color = H.hair_color
 		H.dna.features["ears"] = "None"
 		H.dna.species.mutant_bodyparts -= "ears"
 		H.update_body()
