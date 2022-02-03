@@ -79,6 +79,9 @@ SUBSYSTEM_DEF(research)
 		for(var/i in bitcoins)
 			bitcoins[i] *= income_time_difference / 10
 		science_tech.add_point_list(bitcoins)
+		//MonkeStation Edit: Passive Discovery Research
+		science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, GLOB.passive_discovery_research)
+		//MonkeStation Edit End
 	last_income = world.time
 
 /datum/controller/subsystem/research/proc/calculate_server_coefficient()	//Diminishing returns.

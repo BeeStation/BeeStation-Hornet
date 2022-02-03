@@ -75,5 +75,7 @@
 	TECHWEB_POINT_TYPE_DISCOVERY = "Discovery Research",\
 	TECHWEB_POINT_TYPE_NANITES = "Nanite Research"\
 	)
-
+//MonkeStation Edit: Passive Discovery Research
+GLOBAL_VAR_INIT(passive_discovery_research, 16)
+//MonkeStation Edit End
 #define TECHWEB_BOMB_POINTCAP		50000 //! Adjust as needed; Stops toxins from nullifying RND progression mechanics. Current Value Cap Radius: 100
