@@ -139,7 +139,7 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
 		var/datum/interview/I = open_interviews[ckey]
 		if (I?.id == id)
 			return I
-	for (var/datum/interview/I in closed_interviews)
+	for (var/datum/interview/I as() in closed_interviews)
 		if (I.id == id)
 			return I
 
