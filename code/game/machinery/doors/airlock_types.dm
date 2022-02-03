@@ -357,9 +357,9 @@
 
 /obj/machinery/door/airlock/arrivals_external
 	name = "arrivals airlock"
-	icon = 'icons/obj/doors/airlocks/external/arrivals_external.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
-	note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
+	icon = 'icons/obj/doors/airlocks/external/arrivals_external.dmi' //MONKESTATION EDIT - OVERRIDEN IN MODULAR FILE
+	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi' //MONKESTATION EDIT - OVERRIDEN IN MODULAR FILE
+	note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi' //MONKESTATION EDIT - OVERRIDEN IN MODULAR FILE
 	protected_door = TRUE
 	anim_parts = "top=0,16;bottom=0,-16"
 	note_attachment = "bottom"
@@ -414,9 +414,12 @@
 	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_hatch
 	//anim_parts = "ul=-9,9;ur=9,9;dl=-9,-9;dr=9,-9"
-	anim_parts = "ul=-15,0,0,4,-90;ur=0,15,0,4,-90;dl=0,-15,0,4,-90;dr=15,0,0,4,-90"
-	note_attachment = "ul"
-	panel_attachment = "dr"
+	//anim_parts = "ul=-15,0,0,4,-90;ur=0,15,0,4,-90;dl=0,-15,0,4,-90;dr=15,0,0,4,-90" //MONKESTATION EDIT - AIRLOCK RESPRITE
+	anim_parts = "top=-16,16;bottom=16,-16"
+	//note_attachment = "ul" //ORIGINAL
+	note_attachment = "top" //MONKESTATION EDIT - AIRLOCK RESPRITE
+	//panel_attachment = "dr" //ORIGINAL
+	panel_attachment = "bottom" //MONKESTATION EDIT - AIRLOCK RESPRITE
 	allow_repaint = FALSE
 
 /obj/machinery/door/airlock/maintenance_hatch
@@ -426,9 +429,12 @@
 	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_mhatch
 	//anim_parts = "ul=-9,9;ur=9,9;dl=-9,-9;dr=9,-9"
-	anim_parts = "ul=-15,0,0,4,-90;ur=0,15,0,4,-90;dl=0,-15,0,4,-90;dr=15,0,0,4,-90"
-	note_attachment = "ul"
-	panel_attachment = "dr"
+	//anim_parts = "ul=-15,0,0,4,-90;ur=0,15,0,4,-90;dl=0,-15,0,4,-90;dr=15,0,0,4,-90" //MONKESTATION EDIT - AIRLOCK RESPRITE
+	anim_parts = "top=-16,16;bottom=16,-16"
+	//note_attachment = "ul" //ORIGINAL
+	note_attachment = "top" //MONKESTATION EDIT - AIRLOCK RESPRITE
+	//panel_attachment = "dr" //ORIGINAL
+	panel_attachment = "bottom" //MONKESTATION EDIT - AIRLOCK RESPRITE
 	allow_repaint = FALSE
 
 //////////////////////////////////
@@ -446,6 +452,7 @@
 	normal_integrity = 500
 	security_level = 1
 	damage_deflection = 30
+	anim_parts = "left=-14,0;right=13,0;top=0,10;bottom=0,-10" //MONKESTATION EDIT - AIRLOCK RESPRITE
 
 //////////////////////////////////
 /*
@@ -602,7 +609,8 @@
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	mask_file = 'icons/obj/doors/airlocks/mask_64x32_airlocks.dmi'
 	mask_x = 16 // byond is consistent and sane
-	anim_parts = "left=-21,0;right=21,0;top=0,29"
+	//anim_parts = "left=-21,0;right=21,0;top=0,29" //ORIGINAL
+	anim_parts = "left=-21,0;right=21,0" //MONKESTATION EDIT - AIRLOCK RESPRITE
 	opacity = 0
 	assemblytype = null
 	glass = TRUE

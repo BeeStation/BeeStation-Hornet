@@ -145,7 +145,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 
 //Largely a copypaste from shower.dm. Checks if the mob was stupid enough to enter a pool fully clothed. We allow masks as to not discriminate against clown and mime players.
 /turf/open/indestructible/sound/pool/proc/check_clothes(mob/living/carbon/human/H)
-	if(!istype(H) || iscatperson(H)) //Don't care about non humans.
+	if(!istype(H)) //Don't care about non humans.
 		return FALSE
 	if(H.wear_suit && (H.wear_suit.clothing_flags & SHOWEROKAY))
 		// Do not check underclothing if the over-suit is suitable.

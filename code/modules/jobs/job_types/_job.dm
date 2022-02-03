@@ -365,7 +365,7 @@
 	var/unfunny = 4
 	if((flag == CLOWN) || (flag == MIME))
 		unfunny = 0
-	if(islizard(H) || iscatperson(H))
+	if(islizard(H))
 		sickrisk += 0.5 //these races like eating diseased mice, ew
 	if(MOB_INORGANIC in H.mob_biotypes)
 		sickrisk -= 0.5

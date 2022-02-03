@@ -12,8 +12,8 @@ on:
 
 # Config
 env:
-  COMMIT_NAME: 'ss13-beebot'
-  COMMIT_EMAIL: '56381746+ss13-beebot@users.noreply.github.com'
+  COMMIT_NAME: 'monke-station-bot'
+  COMMIT_EMAIL: '98856565+monke-station-bot@users.noreply.github.com'
   DEFAULT_BRANCH: 'master'
   TOKEN: '${{ secrets.CL_TOKEN }}'
 

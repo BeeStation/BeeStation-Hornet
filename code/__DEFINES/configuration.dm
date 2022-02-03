@@ -24,7 +24,6 @@
 #define DSAY_NICKNAME_FILE "admin_nicknames.json"	//loaded from CONFIG_DIRECTORY
 #define PHOBIA_FILE "phobia.json"
 #define ION_LAWS_FILE "ion_laws.json"
-#define OWO_TALK_FILE "owo_talk.json"
 #define BRIISH_TALK_FILE "british_talk.json"
 #define CANADIAN_TALK_FILE "canadian_replacement.json"
 #define FRENCH_TALK_FILE "french_replacement.json"

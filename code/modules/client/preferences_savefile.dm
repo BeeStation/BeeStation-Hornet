@@ -395,12 +395,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["feature_ipc_antenna"], features["ipc_antenna"])
 	READ_FILE(S["feature_ipc_chassis"], features["ipc_chassis"])
 	READ_FILE(S["feature_insect_type"], features["insect_type"])
-	if(!CONFIG_GET(flag/join_with_mutant_humans) && !species_id != "felinid") // felinids arent mutant humans anymore i guess
-		features["tail_human"] = "none"
-		features["ears"] = "none"
-	else
-		READ_FILE(S["feature_human_tail"], features["tail_human"])
-		READ_FILE(S["feature_human_ears"], features["ears"])
 
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)

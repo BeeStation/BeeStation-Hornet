@@ -27,10 +27,6 @@ const TARGET_SPECIES_LIST = [
     value: 'fly',
   },
   {
-    name: 'Felinid',
-    value: 'felinid',
-  },
-  {
     name: 'Plasmaman',
     value: 'plasma',
   },

@@ -161,7 +161,7 @@
 	taste_description = "fish"
 
 /datum/reagent/toxin/carpotoxin/on_mob_metabolize(mob/living/carbon/L)
-	if(iscatperson(L))
+	if(HAS_TRAIT(L,TRAIT_ANIME))//25 years of cheap sushi have prepared them for this
 		toxpwr = 0
 	..()
 

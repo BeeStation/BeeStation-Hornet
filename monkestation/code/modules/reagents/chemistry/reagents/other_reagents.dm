@@ -6,9 +6,6 @@
 /datum/reagent/fuel/unholywater
 	can_synth = FALSE //Far too powerful for botany
 
-/datum/reagent/mutationtoxin/felinid
-	can_synth = TRUE //The following mutation toxins, excluding golem, are all possible to get through the already existing Unstable Mutation Toxin
-
 /datum/reagent/mutationtoxin/lizard
 	can_synth = TRUE
 

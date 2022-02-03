@@ -95282,7 +95282,7 @@
 /area/engine/atmos)
 "wzL" = (
 /obj/structure/bed/dogbed/walter,
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},

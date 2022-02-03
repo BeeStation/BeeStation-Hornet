@@ -5833,7 +5833,7 @@
 /turf/open/floor/plasteel,
 /area/security/processing)
 "amN" = (
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
 /obj/structure/bed/dogbed/walter,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
