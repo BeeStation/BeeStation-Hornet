@@ -407,8 +407,13 @@
 #include "code\controllers\configuration\entries\policies.dm"
 #include "code\controllers\configuration\entries\resources.dm"
 #include "code\controllers\subsystem\achievements.dm"
+<<<<<<< HEAD:beestation.dme
 #include "code\controllers\subsystem\acid.dm"
 #include "code\controllers\subsystem\adjacent_air.dm"
+=======
+#include "code\controllers\subsystem\addiction.dm"
+#include "code\controllers\subsystem\ai_controllers.dm"
+>>>>>>> 597902f7452 (Moves adjacent air into the main atmos subsystem (#64559)):tgstation.dme
 #include "code\controllers\subsystem\air.dm"
 #include "code\controllers\subsystem\ambience.dm"
 #include "code\controllers\subsystem\area_contents.dm"
