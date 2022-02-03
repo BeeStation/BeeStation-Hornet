@@ -1,0 +1,5 @@
+author: Pirill, UnokiAs, OrionTheFox
+delete-after: true
+changes:
+  - imageadd: added new sprites for all syringes and inhands
+  - imageadd: updated blowgun inhands to match the item sprite
