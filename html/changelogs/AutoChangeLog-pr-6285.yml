@@ -1,0 +1,4 @@
+author: Kryyto
+delete-after: true
+changes:
+  - bugfix: Change an error of typo in the use of a health analyser.
