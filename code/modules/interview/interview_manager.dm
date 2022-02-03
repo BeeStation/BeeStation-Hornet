@@ -182,7 +182,7 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
   * interviews that follow it.
   */
 /datum/interview_manager/proc/dequeue()
-	if (interview_queue.len == 0)
+	if (!length(interview_queue))
 		return
 
 	// Get the first interview off the front of the queue
