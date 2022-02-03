@@ -128,7 +128,7 @@
 	if (!VASProcCallGuard(str_val))
 		return FALSE
 	str_val = trim(str_val)
-	if (str_val != "")
+	if (length(str_val))
 		config_entry_value += str_val
 
 /datum/config_entry/number_list
