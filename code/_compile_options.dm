@@ -30,6 +30,9 @@
 //#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
 #endif //ifdef TESTING
 
+/// If this is uncommented, will profile mapload atom initializations
+// #define PROFILE_MAPLOAD_INIT_ATOM
+
 //#define UNIT_TESTS			//If this is uncommented, we do a single run though of the game setup and tear down process with unit tests in between
 
 #ifndef PRELOAD_RSC				//set to:

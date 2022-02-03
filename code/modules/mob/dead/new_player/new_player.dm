@@ -15,7 +15,7 @@
 
 /mob/dead/new_player/Initialize()
 	if(client && SSticker.state == GAME_STATE_STARTUP)
-		var/atom/movable/screen/splash/S = new(client, TRUE, TRUE)
+		var/atom/movable/screen/splash/S = new(null, client, TRUE, TRUE)
 		S.Fade(TRUE)
 
 	if(length(GLOB.newplayer_start))
@@ -310,7 +310,7 @@
 	if(job && !job.override_latejoin_spawn(character))
 		SSjob.SendToLateJoin(character)
 		if(!arrivals_docked)
-			var/atom/movable/screen/splash/Spl = new(character.client, TRUE)
+			var/atom/movable/screen/splash/Spl = new(null, character.client, TRUE)
 			Spl.Fade(TRUE)
 			character.playsound_local(get_turf(character), 'sound/voice/welcomeBee.ogg', 50)
 
@@ -339,7 +339,7 @@
 			give_magic(humanc)
 		if(GLOB.curse_of_madness_triggered)
 			give_madness(humanc, GLOB.curse_of_madness_triggered)
-			
+
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREWMEMBER_JOINED, humanc, rank)
 
 	GLOB.joined_player_list += character.ckey
