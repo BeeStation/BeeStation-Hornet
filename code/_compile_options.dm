@@ -11,26 +11,43 @@
 #ifdef TESTING
 #define DATUMVAR_DEBUGGING_MODE
 
-///Method of tracking references.
-//#define LEGACY_REFERENCE_TRACKING
-#ifdef LEGACY_REFERENCE_TRACKING
+///Used to find the sources of harddels, quite laggy, don't be surpised if it freezes your client for a good while
+//#define REFERENCE_TRACKING
+#ifdef REFERENCE_TRACKING
 
-///Should we be logging our findings or not
-#define REFERENCE_TRACKING_LOG
+///Used for doing dry runs of the reference finder, to test for feature completeness
+///Slightly slower, higher in memory. Just not optimal
+//#define REFERENCE_TRACKING_DEBUG
 
-///Use the legacy reference on things hard deleting by default.
+///Run a lookup on things hard deleting by default.
 //#define GC_FAILURE_HARD_LOOKUP
 #ifdef GC_FAILURE_HARD_LOOKUP
+///Don't stop when searching, go till you're totally done
 #define FIND_REF_NO_CHECK_TICK
 #endif //ifdef GC_FAILURE_HARD_LOOKUP
 
-#endif //ifdef LEGACY_REFERENCE_TRACKING
+#endif //ifdef REFERENCE_TRACKING
 
 
 //#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
 #endif //ifdef TESTING
 
-//#define UNIT_TESTS			//If this is uncommented, we do a single run though of the game setup and tear down process with unit tests in between
+/// If this is uncommented, we set up the ref tracker to be used in a live environment
+/// And to log events to [log_dir]/harddels.log
+//#define REFERENCE_DOING_IT_LIVE
+#ifdef REFERENCE_DOING_IT_LIVE
+// compile the backend
+#define REFERENCE_TRACKING
+// actually look for refs
+#define GC_FAILURE_HARD_LOOKUP
+#endif // REFERENCE_DOING_IT_LIVE
+
+#ifdef REFERENCE_TRACKING_FAST
+#define REFERENCE_TRACKING
+#define REFERENCE_TRACKING_DEBUG
+#endif
+
+//#define UNIT_TESTS //If this is uncommented, we do a single run though of the game setup and tear down process with unit tests in between
 
 #ifndef PRELOAD_RSC				//set to:
 #define PRELOAD_RSC	0			//	0 to allow using external resources or on-demand behaviour;
@@ -74,6 +91,14 @@
 
 #ifdef CITESTING
 #define TESTING
+#endif
+
+#if defined(UNIT_TESTS)
+//Hard del testing defines
+#define REFERENCE_TRACKING
+#define REFERENCE_TRACKING_DEBUG
+#define FIND_REF_NO_CHECK_TICK
+#define GC_FAILURE_HARD_LOOKUP
 #endif
 
 #ifdef TGS
