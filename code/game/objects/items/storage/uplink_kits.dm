@@ -589,4 +589,4 @@
 	new /obj/item/clothing/head/helmet/syndicate(src)
 	new /obj/item/clothing/suit/armor/syndicate(src)
 	new /obj/item/clothing/under/syndicate(src)
-	new var/obj/item/flashlight/seclite(src)
+	new /obj/item/flashlight/seclite(src)
