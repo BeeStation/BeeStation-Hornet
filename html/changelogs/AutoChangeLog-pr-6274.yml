@@ -1,5 +1,0 @@
-author: KubeRoot, ike709, LemonInTheDark, Mothblocks
-delete-after: true
-changes:
-  - server: Added support for define toggle live ref tracking. Consider using it if
-      you're hunting hard deletes
