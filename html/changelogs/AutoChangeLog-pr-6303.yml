@@ -1,5 +1,0 @@
-author: MNarath1
-delete-after: true
-changes:
-  - bugfix: fixes effects and other indistructable non items from generating zlevels
-      when falling out of a shuttle
