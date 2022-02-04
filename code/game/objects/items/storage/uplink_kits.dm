@@ -582,3 +582,11 @@
 	for(var/i in implants)
 		group.register(i)
 	desc += " The implants are registered to the \"[group.name]\" group."
+/obj/item/storage/box/syndie_kit/armor_kit
+	name = "armor kit"
+
+/obj/item/storage/box/syndie_kit/armor_kit/PopulateContents()
+	new /obj/item/clothing/head/helmet/syndicate(src)
+	new /obj/item/clothing/suit/armor/syndicate(src)
+	new /obj/item/clothing/under/syndicate(src)
+	new var/obj/item/flashlight/seclite(src)

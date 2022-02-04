@@ -25,6 +25,14 @@
 	blood_overlay_type = "armor"
 	dog_fashion = /datum/dog_fashion/back
 
+/obj/item/clothing/suit/armor/syndicate
+	name = "syndicate armor vest"
+	desc = "Modified Type I armor vest. Given a red paint job to help with identification and upweighted to provide some protection from being pushed over"
+	icon_state = "armor_syndicate"
+	item_state = "armor_syndicate"
+	blood_overlay_type = "armor"
+	blocks_shove_knockdown = TRUE
+
 /obj/item/clothing/suit/armor/vest/alt
 	desc = "An alternate style Type I-B armored vest that provides decent protection against most types of damage. They perform identically in the field."
 	icon_state = "armor"
