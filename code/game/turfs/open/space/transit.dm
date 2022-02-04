@@ -44,9 +44,9 @@
 	var/_z = 2
 
 	var/should_make_level = ismob(AM)
-	if(!should_make_level && isobj(AM))
+	if(!should_make_level && isitem(AM))
 		var/obj/O = AM
-		if(isitem(AM) && (O.resistance_flags & INDESTRUCTIBLE))	//incase there is an important item
+		if(O.resistance_flags & INDESTRUCTIBLE)	//incase there is an important item
 			should_make_level = TRUE
 
 	if(should_make_level)
