@@ -5,7 +5,7 @@
 [![Build Status](https://github.com/polygoblyn/Monkestation/workflows/Run%20tests/badge.svg)](https://github.com/polygoblyn/Monkestation/actions?query=workflow%3A%22Run+tests%22)
 ![Open Issues](https://isitmaintained.com/badge/open/polygoblyn/Monkestation.svg)
 
-**Website:** http://beestation13.com
+**Website:** http://monkestation.com/
 **Code:** https://github.com/polygoblyn/Monkestation
 **Wiki:** https://wiki.beestation13.com/view/Main_Page
 **Discord:** https://discord.com/invite/monkestation
