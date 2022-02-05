@@ -77,10 +77,9 @@
 /obj/item/clothing/head/helmet/syndicate
 	can_flashlight = TRUE
 	name = "syndicate helmet"
-	desc = "Standar issue security helmet. Painted red to help with identification,additionally fitted with flash protection and muffling"
+	desc = "Standard issue security helmet. Painted red to help with identification, additionally fitted with flash protection and muffling."
 	icon_state = "syndicate_helmet"
 	item_state = "syndicate_helmet"
-	can_flashlight = TRUE
 	flash_protect = 1
 
 /obj/item/clothing/head/helmet/sec/attackby(obj/item/I, mob/user, params)

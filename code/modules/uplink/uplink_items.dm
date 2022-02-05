@@ -1778,10 +1778,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/device_tools/syndie_armor_kit
 	name = "Syndicate Armor Kit"
 	desc = "Box of armor identical to used by nanotrasen security officers. Modified to protect from some additional threats and given a new red paint job. \
-			Comes with a free turtleneck"
+			Comes with a free turtleneck."
 	item = /obj/item/storage/box/syndie_kit/armor_kit
 	cost = 2
-	illegal_tech = FALSE
+
 // Implants
 /datum/uplink_item/implants
 	category = "Implants"

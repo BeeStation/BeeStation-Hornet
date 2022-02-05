@@ -27,7 +27,7 @@
 
 /obj/item/clothing/suit/armor/syndicate
 	name = "syndicate armor vest"
-	desc = "Modified Type I armor vest. Given a red paint job to help with identification and upweighted to provide some protection from being pushed over"
+	desc = "Modified Type I armor vest. Given a red paint job to help with identification and upweighted to provide some protection from being pushed over."
 	icon_state = "armor_syndicate"
 	item_state = "armor_syndicate"
 	blood_overlay_type = "armor"
