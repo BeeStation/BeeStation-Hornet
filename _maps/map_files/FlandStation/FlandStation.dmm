@@ -6229,6 +6229,14 @@
 	},
 /turf/open/floor/carpet/red,
 /area/library/lounge)
+"bzo" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "emmd";
+	name = "Emergency Medical Lockdown Shutters"
+	},
+/obj/effect/spawner/structure/window/reinforced/tinted,
+/turf/open/floor/plating,
+/area/medical/medbay/central)
 "bzw" = (
 /obj/machinery/door/airlock{
 	id_tag = "AuxShower";
@@ -60198,6 +60206,9 @@
 /area/hallway/primary/central)
 "nXD" = (
 /obj/effect/landmark/event_spawn,
+/obj/effect/turf_decal/tile/bar/tile_marquee{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "nXE" = (
@@ -68956,7 +68967,7 @@
 /obj/effect/turf_decal/tile/bar/tile_marquee{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "qjE" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -131373,7 +131384,7 @@ jYI
 ehr
 kvj
 kLN
-nuS
+bzo
 ppz
 qXf
 gQu
@@ -131630,7 +131641,7 @@ jZU
 crK
 mOu
 lBN
-nuS
+bzo
 lKh
 hxJ
 dVk
@@ -131887,7 +131898,7 @@ kav
 kvx
 jFI
 xOY
-nuS
+bzo
 ppz
 lPg
 mlF
