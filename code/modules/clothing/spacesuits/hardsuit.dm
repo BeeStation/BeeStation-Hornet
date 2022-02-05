@@ -316,7 +316,6 @@
 	item_state = "death_commando_mask"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/cybersun
 	jetpack = /obj/item/tank/jetpack/suit
-	item_flags = ILLEGAL //I HATE THE SYNDICATE I HATE THE SYNDICATE
 
 	//Syndicate hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi
