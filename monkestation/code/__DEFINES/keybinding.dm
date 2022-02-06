@@ -1,0 +1,1 @@
+#define COMSIG_KB_CARBON_HOLDTHROWMODE_DOWN "keybinding_carbon_holdthrowmode_down"
