@@ -1,0 +1,4 @@
+author: KoboldCommando
+delete-after: true
+changes:
+  - rscadd: You can now hold space to throw items!
