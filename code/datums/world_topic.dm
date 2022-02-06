@@ -401,7 +401,7 @@
 #undef TOPIC_VERSION_PATCH
 
 /datum/world_topic/whois
-	keyword = "whoIs"
+	key = "whoIs"
 
 /datum/world_topic/whois/Run(list/input)
 	. = list()
@@ -410,7 +410,7 @@
 	return list2params(.)
 
 /datum/world_topic/getadmins
-	keyword = "getAdmins"
+	key = "getAdmins"
 
 /datum/world_topic/getadmins/Run(list/input)
 	. = list()
