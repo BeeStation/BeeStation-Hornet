@@ -3472,6 +3472,7 @@
 #include "monkestation\code\_HELPERS\html_emphasis.dm"
 #include "monkestation\code\_HELPERS\unsorted.dm"
 #include "monkestation\code\_onclick\hud\new_player.dm"
+#include "monkestation\code\datums\ai_laws.dm"
 #include "monkestation\code\datums\components\crafting\recipes.dm"
 #include "monkestation\code\datums\diseases\advance\symptoms\fermentation.dm"
 #include "monkestation\code\datums\diseases\advance\symptoms\gateway.dm"
