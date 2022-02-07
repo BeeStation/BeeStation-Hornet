@@ -259,22 +259,33 @@ SUBSYSTEM_DEF(air)
 	currentpart = SSAIR_REBUILD_PIPENETS
 
 /datum/controller/subsystem/air/Recover()
-	excited_groups = SSair.excited_groups
-	active_turfs = SSair.active_turfs
+	thread_wait_ticks = SSair.thread_wait_ticks
+	cur_thread_wait_ticks = SSair.cur_thread_wait_ticks
+	low_pressure_turfs = SSair.low_pressure_turfs
+	high_pressure_turfs = SSair.high_pressure_turfs
+	num_group_turfs_processed = SSair.num_group_turfs_processed
+	num_equalize_processed = SSair.num_equalize_processed
 	hotspots = SSair.hotspots
 	networks = SSair.networks
-	rebuild_queue = SSair.rebuild_queue
-	expansion_queue = SSair.expansion_queue
+	pipenets_needing_rebuilt = SSair.pipenets_needing_rebuilt
+	deferred_airs = SSair.deferred_airs
+	max_deferred_airs = SSair.max_deferred_airs
 	atmos_machinery = SSair.atmos_machinery
+	atmos_air_machinery = SSair.atmos_air_machinery
 	pipe_init_dirs_cache = SSair.pipe_init_dirs_cache
 	gas_reactions = SSair.gas_reactions
-	atmos_gen = SSair.atmos_gen
-	planetary = SSair.planetary
-	active_super_conductivity = SSair.active_super_conductivity
 	high_pressure_delta = SSair.high_pressure_delta
-	atom_process = SSair.atom_process
 	currentrun = SSair.currentrun
-	queued_for_activation = SSair.queued_for_activation
+	currentpart = SSair.currentpart
+	map_loading = SSair.map_loading
+	log_explosive_decompression = SSair.log_explosive_decompression
+	equalize_turf_limit = SSair.equalize_turf_limit
+	equalize_hard_turf_limit = SSair.equalize_hard_turf_limit
+	equalize_enabled = SSair.equalize_enabled
+	heat_enabled = SSair.heat_enabled
+	share_max_steps = SSair.share_max_steps
+	excited_group_pressure_goal = SSair.excited_group_pressure_goal
+	paused_z_levels = SSair.paused_z_levels
 
 /datum/controller/subsystem/air/proc/process_pipenets(resumed = FALSE)
 	if (!resumed)
