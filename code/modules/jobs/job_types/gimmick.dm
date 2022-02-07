@@ -88,7 +88,7 @@
 	gimmick = TRUE
 	chat_color = "#929292"
 	departments = NONE		//being hobo is not a real job
-	biohazard = 50 //hobos are very likely to have diseases
+	biohazard = 50 //hobos are very likely to have diseases 
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hobo
