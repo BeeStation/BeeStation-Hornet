@@ -18,7 +18,7 @@
 	var/freshly_laundered = FALSE
 	var/dodgy_colours = FALSE
 
-/obj/item/clothing/under/worn_overlays(isinhands = FALSE)
+/obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
 	. = list()
 	if(!isinhands)
 		if(damaged_clothes)
