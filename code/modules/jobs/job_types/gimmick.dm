@@ -88,7 +88,7 @@
 	gimmick = TRUE
 	chat_color = "#929292"
 	departments = NONE		//being hobo is not a real job
-	biohazard = 50 //hobos are very likely to have diseases 
+	biohazard = 50 //hobos are very likely to have diseases
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hobo
@@ -113,8 +113,6 @@
 	var/chosen_drugs = pick(possible_drugs)
 	var/obj/item/storage/pill_bottle/I = new chosen_drugs(src)
 	H.equip_to_slot_or_del(I,ITEM_SLOT_BACKPACK)
-	var/datum/martial_art/psychotic_brawling/junkie = new //this fits well, but i'm unsure about it, cuz this martial art is so fucking rng dependent i swear...
-	junkie.teach(H)
 	ADD_TRAIT(H, TRAIT_APPRAISAL, JOB_TRAIT)
 
 
