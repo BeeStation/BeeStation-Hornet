@@ -542,5 +542,5 @@
 	to_chat(src, "<span class='boldannounce'>Panic Bunker Active - Interview Required</span>" \
 					+ "\n<span class='danger'>To prevent abuse, players with no/low playtime are required to complete an interview to gain access." \
 					+ "\nThis is only required once and only for the duration that the panic bunker is active.</span>" \
-					+ "\n<span class='boldwarning'>If the interview interface is not open, use the Open Interview verb in the top right.</span>"
+					+ "\n<span class='boldwarning'>If the interview interface is not open, use the Open Interview verb in the top right.</span>")
 
