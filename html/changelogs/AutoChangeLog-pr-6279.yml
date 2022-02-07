@@ -1,4 +1,0 @@
-author: MNarath1
-delete-after: true
-changes:
-  - refactor: Refactored guest player detection to be much simpler.
