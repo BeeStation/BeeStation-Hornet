@@ -1140,6 +1140,8 @@
 	name = "Particle Accelerator Crate"
 	desc = "A supermassive black hole or hyper-powered teslaball are the perfect way to spice up any party! This \"My First Apocalypse\" kit contains everything you need to build your own Particle Accelerator! Ages 10 and up."
 	cost = 2700
+	access = ACCESS_CE
+	access_budget = ACCESS_CE
 	contains = list(/obj/structure/particle_accelerator/fuel_chamber,
 					/obj/machinery/particle_accelerator/control_box,
 					/obj/structure/particle_accelerator/particle_emitter/center,
@@ -1164,6 +1166,8 @@
 	name = "Singularity Generator Crate"
 	desc = "The key to unlocking the power of Lord Singuloth. Particle Accelerator not included."
 	cost = 4700
+	access = ACCESS_CE
+	access_budget = ACCESS_CE
 	contains = list(/obj/machinery/the_singularitygen)
 	crate_name = "singularity generator crate"
 	crate_type = /obj/structure/closet/crate/secure/engineering
@@ -1226,6 +1230,8 @@
 	name = "Tesla Generator Crate"
 	desc = "The key to unlocking the power of the Tesla energy ball. Particle Accelerator not included."
 	cost = 5000
+	access = ACCESS_CE
+	access_budget = ACCESS_CE
 	contains = list(/obj/machinery/the_singularitygen/tesla)
 	crate_name = "tesla generator crate"
 	crate_type = /obj/structure/closet/crate/secure/engineering

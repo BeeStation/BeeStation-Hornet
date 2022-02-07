@@ -693,6 +693,12 @@
 	new_module = /obj/item/robot_module/security
 	module_flags = BORG_MODULE_SECURITY
 
+/obj/item/borg/upgrade/transform/borgi
+	name = "borg module picker (Borgi)"
+	desc = "Allows you to to turn a cyborg into a weapon to surpass Ian-gear."
+	icon_state = "cyborg_upgrade3"
+	new_module = /obj/item/robot_module/borgi
+
 /obj/item/borg/upgrade/transform/security/action(mob/living/silicon/robot/R, user = usr)
 	if(CONFIG_GET(flag/disable_secborg))
 		to_chat(user, "<span class='warning'>Nanotrasen policy disallows the use of weapons of mass destruction.</span>")
