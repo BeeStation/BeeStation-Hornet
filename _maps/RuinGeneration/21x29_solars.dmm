@@ -7,7 +7,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "f" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -25,14 +25,14 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/open/space,
+/turf/template_noop/open,
 /area/template_noop)
 "i" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "j" = (
 /turf/open/floor/plating,
@@ -42,7 +42,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "l" = (
 /obj/effect/abstract/doorway_marker,
@@ -50,7 +50,7 @@
 /area/ruin/unpowered)
 "m" = (
 /obj/structure/lattice/catwalk,
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "n" = (
 /obj/structure/lattice/catwalk,
@@ -60,12 +60,12 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/template_noop)
 "o" = (
 /obj/structure/lattice,
 /obj/structure/grille/broken,
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "p" = (
 /obj/machinery/power/terminal,
@@ -78,7 +78,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "q" = (
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "r" = (
 /obj/effect/spawner/room/threexthree,
@@ -92,7 +92,7 @@
 /area/ruin/unpowered)
 "t" = (
 /obj/item/stack/rods,
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "u" = (
 /turf/closed/wall,
@@ -108,7 +108,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/template_noop)
 "w" = (
 /obj/structure/cable/yellow{
@@ -123,11 +123,11 @@
 "x" = (
 /obj/structure/cable,
 /obj/structure/lattice/catwalk,
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "z" = (
 /obj/structure/lattice,
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "B" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -158,7 +158,7 @@
 "G" = (
 /obj/structure/lattice,
 /obj/item/stack/cable_coil/random,
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "I" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -181,7 +181,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/open/space,
+/turf/template_noop/open,
 /area/template_noop)
 "K" = (
 /obj/machinery/power/solar_control{
@@ -206,7 +206,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "O" = (
 /obj/structure/sign/warning/electricshock,
@@ -241,7 +241,7 @@
 "W" = (
 /obj/structure/grille,
 /obj/structure/lattice,
-/turf/template_noop,
+/turf/template_noop/open,
 /area/template_noop)
 "Z" = (
 /obj/structure/chair/stool{
@@ -681,8 +681,8 @@ z
 z
 z
 z
-b
-q
+z
+u
 "}
 (15,1,1) = {"
 q
@@ -712,8 +712,8 @@ z
 q
 q
 q
-b
 q
+u
 "}
 (16,1,1) = {"
 q
@@ -743,8 +743,8 @@ z
 q
 q
 q
-b
 q
+u
 "}
 (17,1,1) = {"
 q

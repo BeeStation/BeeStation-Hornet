@@ -13,10 +13,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "armorydoors";
-	name = "Blast Doors"
-	},
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
@@ -107,9 +103,6 @@
 /obj/effect/turf_decal/delivery,
 /obj/structure/sign/poster/official/ian{
 	pixel_y = 32
-	},
-/obj/machinery/camera/motion{
-	c_tag = "Armory Motion Sensor"
 	},
 /obj/item/rack_parts,
 /turf/open/floor/plasteel,
@@ -285,10 +278,6 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "armorydoors";
-	name = "Blast Doors"
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
