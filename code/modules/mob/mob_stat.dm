@@ -114,6 +114,9 @@
 	if(!client)
 		return all_verbs
 
+	if(client.interviewee)
+		return list("Interview" = list(/mob/dead/new_player/proc/open_interview))
+
 	if(sorted_verbs)
 		all_verbs = deepCopyList(sorted_verbs)
 	//An annoying thing to mention:
