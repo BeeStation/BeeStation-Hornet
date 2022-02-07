@@ -26,6 +26,7 @@
 	var/paused_tick_usage	//total tick_usage of all of our runs while pausing this run
 	var/ticks = 1			//how many ticks does this ss take to run on avg.
 	var/times_fired = 0		//number of times we have called fire()
+	var/postponed_fires = 0 /// How many fires have we been requested to postpone
 	var/queued_time = 0		//time we entered the queue, (for timing and priority reasons)
 	var/queued_priority 	//we keep a running total to make the math easier, if priority changes mid-fire that would break our running total, so we store it here
 	//linked list stuff for the queue
@@ -232,11 +233,10 @@
 		if (SS_IDLE)
 			. = "  "
 
-//could be used to postpone a costly subsystem for (default one) var/cycles, cycles
-//for instance, during cpu intensive operations like explosions
+/// Causes the next "cycle" fires to be missed. Effect is accumulative but can reset by calling update_nextfire(reset_time = TRUE)
 /datum/controller/subsystem/proc/postpone(cycles = 1)
-	if(next_fire - world.time < wait)
-		next_fire += (wait*cycles)
+	if (can_fire && cycles >= 1)
+		postponed_fires += cycles
 
 //usually called via datum/controller/subsystem/New() when replacing a subsystem (i.e. due to a recurring crash)
 //should attempt to salvage what it can from the old instance of subsystem
@@ -247,7 +247,7 @@
 		if (NAMEOF(src, can_fire))
 			//this is so the subsystem doesn't rapid fire to make up missed ticks causing more lag
 			if (var_value)
-				next_fire = world.time + wait
+				update_nextfire(reset_time = TRUE)
 		if (NAMEOF(src, queued_priority)) //editing this breaks things.
 			return FALSE
 	. = ..()
