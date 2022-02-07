@@ -125,10 +125,10 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 		master_iteration = 0
 		SSticker.Recover(); //Recover the ticket system so the Masters runlevel gets set
 		Master.Initialize(10, FALSE, TRUE) //Need to manually start the MC, normally world.new would do this
-		to_chat(GLOB.admins, span_adminnotice("Failsafe recovered MC while in emergency state [defcon_pretty()]"))
+		to_chat(GLOB.admins, "<span class='adminnotice'>Failsafe recovered MC while in emergency state [defcon_pretty()]</span>")
 	else
 		log_game("FailSafe: Failsafe in emergency state and was unable to recreate MC while in defcon state [defcon_pretty()].")
-		message_admins(span_boldannounce("Failsafe in emergency state and master down, trying to recreate MC while in defcon level [defcon_pretty()] failed."))
+		message_admins("<span class='boldannounce'>Failsafe in emergency state and master down, trying to recreate MC while in defcon level [defcon_pretty()] failed.</span>")
 
 ///Recreate all SSs which will still cause data survive due to Recover(), the new Master will then find and take them from global.vars
 /proc/recover_all_SS_and_recreate_master()
