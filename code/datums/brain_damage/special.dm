@@ -61,13 +61,13 @@
 			 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, owner, WEST),
 			 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, owner, EAST)), 120))
 	..()
-
+	
 /datum/brain_trauma/special/ghost_control/on_lose()
 	var/datum/component/deadchat_control/D = owner.GetComponent(/datum/component/deadchat_control)
 	if(D)
 		D.RemoveComponent()
 	..()
-
+	
 
 /datum/brain_trauma/special/bluespace_prophet
 	name = "Bluespace Prophecy"
