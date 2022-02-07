@@ -111,7 +111,7 @@
 /mob/proc/get_all_verbs()
 	var/list/all_verbs = new
 
-	if(!client || client.interviewee)
+	if(!client)
 		return all_verbs
 
 	if(sorted_verbs)

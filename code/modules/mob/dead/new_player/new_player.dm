@@ -539,8 +539,8 @@
 	UpdateMobStat(forced = TRUE)
 	set_stat_tab("Interview")
 
-	to_chat(src, "<span class='danger'>Panic Bunker Active - Interview Required</span>")
-	to_chat(src, "<span class='warning'>To prevent abuse, players with no/low playtime are required to complete an interview to gain access. \
+	to_chat(src, "<span class='boldannounce'>Panic Bunker Active - Interview Required</span>")
+	to_chat(src, "<span class='danger'>To prevent abuse, players with no/low playtime are required to complete an interview to gain access. \
 				This is only required once and only for the duration that the panic bunker is active.</span>")
 	to_chat(src, "<span class='boldwarning'>If the interview interface is not open, use the Open Interview verb in the top right.</span>")
 
