@@ -3,7 +3,7 @@ SUBSYSTEM_DEF(redbot)
 	flags = SS_NO_FIRE
 
 /datum/controller/subsystem/redbot/Initialize(timeofday)
-	var/comms_key = CONFIG_GET(string/comms_key)
+	var/comms_key = CONFIG_GET(string/bot_key)
 	var/bot_ip = CONFIG_GET(string/bot_ip)
 	var/round_id = GLOB.round_id
 	if(config && bot_ip)
@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(redbot)
 	if(priority_type && !.)
 		send_discord_message(channel, "@here - A new [priority_type] requires/might need attention, but there are no admins online.") //Backup message should redbot be unavailable
 	var/list/data = list()
-	data["key"] = CONFIG_GET(string/comms_key)
+	data["key"] = CONFIG_GET(string/bot_key)
 	data["announce_channel"] = channel
 	data["announce"] = message
 	world.Export("http://[bot_ip]/?[list2params(data)]")

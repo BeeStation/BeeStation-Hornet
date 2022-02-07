@@ -43,3 +43,11 @@
 
 ## Password for the hub page
 #MEDAL_HUB_PASSWORD defaultpass
+
+## Redbot configuration
+## The BOT_IP should be the IP of your Discord bot and the configured listening port of the status cog.
+## Verify the port with [p]setstatus current (where [p] is your bot's prefix)
+#BOT_IP 127.0.0.1:8081
+
+## Password/token used to verify packets to and from the Discord bot
+#BOT_KEY default_pw
