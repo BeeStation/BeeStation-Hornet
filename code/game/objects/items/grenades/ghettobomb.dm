@@ -52,6 +52,8 @@
 
 /obj/item/grenade/iedcasing/prime(mob/living/lanced_by) //Blowing that can up
 	. = ..()
+	if(!.)
+		return
 	update_mob()
 	explosion(src.loc,-1,-1,2, flame_range = 4)	// small explosion, plus a very large fireball.
 	qdel(src)

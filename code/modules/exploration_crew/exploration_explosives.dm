@@ -75,6 +75,8 @@
 
 /obj/item/grenade/exploration/prime(mob/living/lanced_by)
 	. = ..()
+	if(!.)
+		return
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
