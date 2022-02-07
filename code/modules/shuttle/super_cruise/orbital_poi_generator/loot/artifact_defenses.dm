@@ -88,7 +88,7 @@
 	hierophant_burst(null, T, 7)
 
 /datum/protector_effect/emp_stun/trigger(obj/source, turf/T, atom/movable/target)
-	playsound(TAIL_SWEEP_COMBO,'sound/machines/airlockopen.ogg', 200, 1)
+	playsound(T,'sound/machines/airlockopen.ogg', 200, 1)
 	T.visible_message("<span class='hierophant'>\"Svhivw vigmizih.\"</span>")
 	empulse(T, 2, 6)
 	if(isliving(target))
