@@ -50,8 +50,6 @@
 
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 /obj/item/multitool/ai_detect
-	var/track_cooldown = 0
-	var/track_delay = 10 //How often it checks for proximity
 	var/detect_state = PROXIMITY_NONE
 	var/rangealert = 8	//Glows red when inside
 	var/rangewarning = 20 //Glows yellow when inside
@@ -62,12 +60,12 @@
 
 /obj/item/multitool/ai_detect/Initialize()
 	. = ..()
-	START_PROCESSING(SSobj, src)
+	START_PROCESSING(SSfastprocess, src)
 	eye = new /mob/camera/ai_eye/remote/ai_detector()
 	toggle_action = new /datum/action/item_action/toggle_multitool(src)
 
 /obj/item/multitool/ai_detect/Destroy()
-	STOP_PROCESSING(SSobj, src)
+	STOP_PROCESSING(SSfastprocess, src)
 	if(hud_on && ismob(loc))
 		remove_hud(loc)
 	QDEL_NULL(toggle_action)
@@ -87,15 +85,16 @@
 	if(hud_on)
 		remove_hud(user)
 
+/obj/item/multitool/ai_detect/update_icon()
+	icon_state = "[initial(icon_state)][detect_state]"
+
 /obj/item/multitool/ai_detect/process()
-	if(track_cooldown > world.time)
-		return
-	detect_state = PROXIMITY_NONE
+	var/old_detect_state = detect_state
 	if(eye.eye_user)
 		eye.setLoc(get_turf(src))
 	multitool_detect()
-	update_icon()
-	track_cooldown = world.time + track_delay
+	if(detect_state != old_detect_state)
+		update_icon()
 
 /obj/item/multitool/ai_detect/proc/toggle_hud(mob/user)
 	hud_on = !hud_on
@@ -109,7 +108,7 @@
 /obj/item/multitool/ai_detect/proc/show_hud(mob/user)
 	if(user && hud_type)
 		var/atom/movable/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
-		PM.alpha = 150
+		PM.alpha = 64
 		var/datum/atom_hud/H = GLOB.huds[hud_type]
 		if(!H.hudusers[user])
 			H.add_hud_to(user)
@@ -128,31 +127,32 @@
 
 /obj/item/multitool/ai_detect/proc/multitool_detect()
 	var/turf/our_turf = get_turf(src)
-	for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
+	for(var/mob/living/silicon/ai/AI as anything in GLOB.ai_list)
 		if(AI.cameraFollow == src)
+			detect_state = PROXIMITY_ON_SCREEN
+			return
+
+	for(var/mob/camera/ai_eye/AI_eye as anything in GLOB.ai_eyes)
+		if(!AI_eye.ai_detector_visible)
+			continue
+
+		var/distance = get_dist(our_turf, get_turf(AI_eye))
+
+		if(distance == -1) //get_dist() returns -1 for distances greater than 127 (and for errors, so assume -1 is just max range)
+			continue
+
+		if(distance < rangealert) //ai should be able to see us
 			detect_state = PROXIMITY_ON_SCREEN
 			break
 
-	if(detect_state)
-		return
-	var/datum/camerachunk/chunk = GLOB.cameranet.chunkGenerated(our_turf.x, our_turf.y, our_turf.z)
-	if(chunk && chunk.seenby.len)
-		for(var/mob/camera/ai_eye/A in chunk.seenby)
-			if(!A.ai_detector_visible)
-				continue
-			var/turf/detect_turf = get_turf(A)
-			if(get_dist(our_turf, detect_turf) < rangealert)
-				detect_state = PROXIMITY_ON_SCREEN
-				break
-			if(get_dist(our_turf, detect_turf) < rangewarning)
-				detect_state = PROXIMITY_NEAR
-				break
+		if(distance < rangewarning) //ai cant see us but is close
+			detect_state = PROXIMITY_NEAR
 
 /mob/camera/ai_eye/remote/ai_detector
 	name = "AI detector eye"
 	ai_detector_visible = FALSE
-	use_static = USE_STATIC_TRANSPARENT
 	visible_icon = FALSE
+	use_static = FALSE
 
 /datum/action/item_action/toggle_multitool
 	name = "Toggle AI detector HUD"
@@ -160,11 +160,11 @@
 
 /datum/action/item_action/toggle_multitool/Trigger()
 	if(!..())
-		return 0
+		return FALSE
 	if(target)
 		var/obj/item/multitool/ai_detect/M = target
 		M.toggle_hud(owner)
-	return 1
+	return TRUE
 
 /obj/item/multitool/cyborg
 	name = "multitool"
