@@ -536,8 +536,9 @@
 	// Add verb for re-opening the interview panel, and re-init the verbs for the stat panel
 	add_verb(/mob/dead/new_player/proc/open_interview)
 
-	client.tgui_panel.set_verb_infomation(client)
+	UpdateMobStat(forced = TRUE)
 	set_stat_tab("Interview")
+
 	to_chat(src, "<span class='danger'>Panic Bunker Active - Interview Required</span>")
 	to_chat(src, "<span class='warning'>To prevent abuse, players with no/low playtime are required to complete an interview to gain access. \
 				This is only required once and only for the duration that the panic bunker is active.</span>")
