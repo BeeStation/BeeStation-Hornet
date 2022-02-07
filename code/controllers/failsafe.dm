@@ -155,7 +155,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 	if (. == 1) //We were able to create a new master
 		SSticker.Recover(); //Recover the ticket system so the Masters runlevel gets set
 		Master.Initialize(10, FALSE, TRUE) //Need to manually start the MC, normally world.new would do this
-		to_chat(GLOB.admins, <span class='adminnotice'>"MC successfully recreated after deleting and recreating all subsystems!</span>")
+		to_chat(GLOB.admins, "<span class='adminnotice'>MC successfully recreated after deleting and recreating all subsystems!</span>")
 	else
 		message_admins("<span class='boldannounce'>Failed to create new MC!</span>")
 
