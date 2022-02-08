@@ -51,7 +51,9 @@
 	M.RegisterSignal(M, COMSIG_MOB_SAY, /mob/living/carbon/.proc/handle_tongueless_speech)
 
 /obj/item/organ/tongue/could_speak_language(datum/language/dt)
-	return languages_possible[dt]
+	if(!length(languages_possible))
+		return FALSE
+	return ispath(languages_possible) ? languages_possible[dt] : languages_possible[dt.type] // Years of smellycode means we have to do this
 
 /obj/item/organ/tongue/lizard
 	name = "forked tongue"
