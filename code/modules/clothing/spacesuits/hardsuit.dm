@@ -293,6 +293,30 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/exploration
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 
+	//Cybersun Hardsuit
+	//A kind of side-grade to the explorer suit, sacrificing burn protection for brute. If you can kill the guy inside it, anyways.
+
+/obj/item/clothing/head/helmet/space/hardsuit/cybersun
+	name = "Cybersun hardsuit helmet"
+	desc = "A bulbous red helmet designed for scavenging in hazardous, low pressure environments. Has dual floodlights, and a 360 Degree view."
+	icon_state = "hardsuit0-cybersun"
+	item_state = "death_commando_mask"
+	item_color = "cybersun"
+	armor = list("melee" = 30, "bullet" = 35, "laser" = 15, "energy" = 15, "bomb" = 60, "bio" = 100, "rad" = 55, "fire" = 30, "acid" = 60, "stamina" = 15)
+	strip_delay = 600
+
+/obj/item/clothing/suit/space/hardsuit/cybersun
+	icon_state = "cybersun"
+	name = "Cybersun hardsuit"
+	desc = "A bulky, protective suit designed to protect against the perils facing Cybersun Employed Engineers, Researchers, and more as they head from the safety of \
+		more stable employment to the dangers of Nanotrasen Controlled Deep Space. Designed to get the job done despite on-site hazards in derelicts, laser armor was \
+		sacrificed in favor of more effective blunt armor plates and radiation shielding."
+	armor = list("melee" = 30, "bullet" = 35, "laser" = 15, "energy" = 15, "bomb" = 60, "bio" = 100, "rad" = 55, "fire" = 30, "acid" = 60, "stamina" = 15)
+	item_color = "cybersun"
+	item_state = "death_commando_mask"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/cybersun
+	jetpack = /obj/item/tank/jetpack/suit
+
 	//Syndicate hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	name = "blood-red hardsuit helmet"

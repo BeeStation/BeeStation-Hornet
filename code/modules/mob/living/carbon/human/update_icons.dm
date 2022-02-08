@@ -293,7 +293,7 @@ There are several things that need to be remembered:
 			if(hud_used.inventory_shown)			//if the inventory is open
 				client.screen += wear_neck					//add it to the client's screen
 		update_observer_view(wear_neck,1)
-		if(!(ITEM_SLOT_NECK in check_obscured_slots()))
+		if(!(check_obscured_slots() & ITEM_SLOT_NECK))
 			var/icon_file = 'icons/mob/neck.dmi'
 			if(istype(wear_neck, /obj/item))
 				var/obj/item/N = wear_neck

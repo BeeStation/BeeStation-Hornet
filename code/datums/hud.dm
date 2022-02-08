@@ -44,6 +44,7 @@ GLOBAL_LIST_INIT(huds, list(
 
 	var/list/next_time_allowed = list() //mobs associated with the next time this hud can be added to them
 	var/list/queued_to_see = list() //mobs that have triggered the cooldown and are queued to see the hud, but do not yet
+	var/hud_exceptions = list() // huduser = list(ofatomswiththeirhudhidden) - aka everyone hates targeted invisiblity
 
 /datum/atom_hud/New()
 	GLOB.all_huds += src
@@ -55,6 +56,21 @@ GLOBAL_LIST_INIT(huds, list(
 		remove_from_hud(v)
 	GLOB.all_huds -= src
 	return ..()
+
+/datum/atom_hud/proc/hide_single_atomhud_from(hud_user, hidden_atom)
+	if(hudusers[hud_user])
+		remove_from_single_hud(hud_user,hidden_atom)
+	if(!hud_exceptions[hud_user])
+		hud_exceptions[hud_user] = list(hidden_atom)
+	else
+		hud_exceptions[hud_user] += hidden_atom
+
+/datum/atom_hud/proc/unhide_single_atomhud_from(hud_user, hidden_atom)
+	if(!hud_exceptions[hud_user])
+		return
+	hud_exceptions[hud_user] -= hidden_atom
+	if(hudusers[hud_user])
+		add_to_single_hud(hud_user,hidden_atom)
 
 /datum/atom_hud/proc/remove_hud_from(mob/M, absolute = FALSE)
 	if(!M || !hudusers[M])
@@ -127,7 +143,7 @@ GLOBAL_LIST_INIT(huds, list(
 	if(!M || !M.client || !A)
 		return
 	for(var/i in hud_icons)
-		if(A.hud_list[i])
+		if(A.hud_list[i] && (!hud_exceptions[M] || !(A in hud_exceptions[M])))
 			M.client.images |= A.hud_list[i]
 
 //MOB PROCS
