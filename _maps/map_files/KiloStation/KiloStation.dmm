@@ -4792,7 +4792,7 @@
 "aid" = (
 /obj/machinery/door/airlock/mining{
 	name = "Auxiliary Base";
-	req_one_access_txt = "32;47;48"
+	req_one_access_txt = "32;47;48;37"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -5076,7 +5076,7 @@
 "aiw" = (
 /obj/machinery/door/airlock/maintenance/external{
 	name = "construction zone";
-	req_access_txt = "12"
+	req_access_txt = "12;37"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -90871,7 +90871,7 @@
 "cDQ" = (
 /obj/machinery/door/airlock/mining{
 	name = "Auxiliary Base";
-	req_one_access_txt = "32;47;48"
+	req_one_access_txt = "32;47;48;37"
 	},
 /turf/open/floor/plasteel/dark,
 /area/construction/mining/aux_base)
@@ -98806,6 +98806,16 @@
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall,
 /area/maintenance/starboard)
+"djC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/airlock/maintenance/external{
+	name = "construction zone";
+	req_access_txt = "12;37"
+	},
+/turf/open/floor/plasteel/dark,
+/area/construction/mining/aux_base)
 "dka" = (
 /obj/item/clothing/head/cone,
 /turf/open/floor/plating/asteroid/airless,
@@ -138167,7 +138177,7 @@ aiw
 cDR
 cDD
 cDR
-aiw
+djC
 cEx
 cDC
 cDD
