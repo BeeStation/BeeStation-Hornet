@@ -13,6 +13,9 @@
 
 #define isweakref(D) (istype(D, /datum/weakref))
 
+// simple check whether or not a player is a guest using their key
+#define IS_GUEST_KEY(key)	(findtextEx(key, "Guest-", 1, 7))
+
 //Turfs
 //#define isturf(A) (istype(A, /turf)) This is actually a byond built-in. Added here for completeness sake.
 
