@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		I.refundable = FALSE //THIS MAN USES ONE WEIRD TRICK TO GAIN FREE TC, CODERS HATES HIM!
 		A.refundable = FALSE
 		switch(rand(1, 5))
-			if(1 to 3 || A.cost == 1)
+			if(1 to 3, A.cost == 1)
 				if(A.cost <= 3)
 					//Bulk discount
 					var/count = rand(3,7)
