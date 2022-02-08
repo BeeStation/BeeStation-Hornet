@@ -44,7 +44,7 @@ endmap
 #Does not support fastmos
 
 map kilostation
-	maxplayers 60
+	maxplayers 40
 	votable
 endmap
 
