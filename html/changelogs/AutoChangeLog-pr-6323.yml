@@ -1,4 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - admin: Fixed logging for stripping
