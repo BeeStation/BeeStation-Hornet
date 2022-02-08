@@ -61,6 +61,11 @@
 	if(istype(I,/obj/item/assembly) && stage == GRENADE_WIRED)
 		wires.interact(user)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+		if(dud_flags & GRENADE_USED)
+			if (do_after(user, 2 SECONDS, src))
+				to_chat(user, "<span class='notice'>You reset the trigger</span>")
+				dud_flags &= ~GRENADE_USED
+		return
 		if(stage == GRENADE_WIRED)
 			if(beakers.len)
 				stage_change(GRENADE_READY)
@@ -157,9 +162,9 @@
 			continue
 		reagent_string += " ([exploded_beaker.name] [beaker_number++] : " + pretty_string_from_reagent_list(exploded_beaker.reagents.reagent_list) + ");"
 	if(landminemode)
-		log_bomber(user, "activated a proxy", src, "containing:[reagent_string]")
+		log_bomber(user, "activated a proxy", src, "containing:[reagent_string]", message_admins = !dud_flags)
 	else
-		log_bomber(user, "primed a", src, "containing:[reagent_string]")
+		log_bomber(user, "primed a", src, "containing:[reagent_string]", message_admins = !dud_flags)
 
 /obj/item/grenade/chem_grenade/preprime(mob/user, delayoverride, msg = TRUE, volume = 60)
 	var/turf/T = get_turf(src)
