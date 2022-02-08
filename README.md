@@ -30,7 +30,7 @@ docker run -d -p <your port>:1337 -v /path/to/your/config:/beestation/config -v 
 
 ## INSTALLATION
 
-You can **no** longer compile the codebase simply through **DreamMaker**.
+**You can no longer compile the codebase simply through Dream Maker**.
 
 You will find `BUILD.bat` in the root folder of Monkestation, double-clicking it will initiate the build. It consists of multiple steps and might take around 1-5 minutes to compile. Unix users can directly call ./tools/build/build.
 
@@ -38,10 +38,12 @@ You will find `BUILD.bat` in the root folder of Monkestation, double-clicking it
 
 **[How to compile in VSCode and other build options](tools/build/README.md).**
 
+### Building without VSCode
+You will find `BUILD.bat` in the root folder of BeeStation, double-clicking it will initiate the build. It consists of multiple steps and might take around 1-5 minutes to compile (particularly the first time). Unix users can directly call ./tools/build/build.
+
 If you see any errors or warnings, something has gone wrong - possibly a corrupt
 download or the files extracted wrong. If problems persist, ask for assistance
 in https://discord.gg/Vh8TJp9 or https://discord.gg/z9ttAvA
-
 
 Once that's done, open up the config folder. You'll want to edit config.txt to
 set the probabilities for different gamemodes in Secret and to set your server
@@ -76,6 +78,10 @@ and the server should start up and be ready to join. It is also recommended that
 you set up the SQL backend (see below).
 
 ## UPDATING
+
+Just use git, or see the following subsection.
+
+### Manual Update
 
 To update an existing installation, first back up your /config and /data folders
 as these store your server configuration, player preferences and banlist.

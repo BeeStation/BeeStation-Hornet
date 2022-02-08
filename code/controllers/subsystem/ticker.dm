@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(ticker)
 	var/start_immediately = FALSE
 	var/setup_done = FALSE //All game setup done including mode post setup and
 
-	var/hide_mode = 0
+	var/hide_mode = FALSE
 	var/datum/game_mode/mode = null
 
 	var/login_music							//music played in pregame lobby
@@ -54,6 +54,7 @@ SUBSYSTEM_DEF(ticker)
 	var/roundend_check_paused = FALSE
 
 	var/round_start_time = 0
+	var/round_start_timeofday = 0
 	var/list/round_start_events
 	var/list/round_end_events
 	var/mode_result = "undefined"
@@ -271,8 +272,8 @@ SUBSYSTEM_DEF(ticker)
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
 		runnable_modes = config.get_runnable_modes()
 
-		if(GLOB.master_mode == "secret")
-			hide_mode = 1
+		if(GLOB.master_mode == "secret" || GLOB.master_mode == "secret_extended")
+			hide_mode = TRUE
 			if(GLOB.secret_force_mode != "secret")
 				var/datum/game_mode/smode = config.pick_mode(GLOB.secret_force_mode)
 				if(!smode.can_start())
@@ -352,6 +353,7 @@ SUBSYSTEM_DEF(ticker)
 
 	log_world("Game start took [(world.timeofday - init_start)/10]s")
 	round_start_time = world.time
+	round_start_timeofday = world.timeofday
 	SSdbcore.SetRoundStart()
 
 	to_chat(world, "<span class='notice'><B>Welcome to [station_name()], enjoy your stay!</B></span>")
@@ -583,6 +585,7 @@ SUBSYSTEM_DEF(ticker)
 	queued_players = SSticker.queued_players
 	maprotatechecked = SSticker.maprotatechecked
 	round_start_time = SSticker.round_start_time
+	round_start_timeofday = SSticker.round_start_timeofday
 
 	queue_delay = SSticker.queue_delay
 	queued_players = SSticker.queued_players
