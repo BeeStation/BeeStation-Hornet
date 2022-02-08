@@ -9,7 +9,7 @@
 	var/t_es = p_es()
 	var/obscure_name
 
-	var/list/obscured = check_obscured_slots()
+	var/obscured = check_obscured_slots()
 	var/skipface = ((wear_mask?.flags_inv & HIDEFACE) || (head?.flags_inv & HIDEFACE))
 
 	if(isliving(user))
