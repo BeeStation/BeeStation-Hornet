@@ -31,6 +31,7 @@
 	)
 	// Overlays (pure fluff), Does the letter have the postmark overlay?
 	var/postmarked = TRUE						/// Does the letter have postmarks?
+	//var/postmark_type							/// Different postmark, hey maybe some syndie mail!
 	var/stamped = TRUE							/// Does the letter have a stamp overlay?
 	var/list/stamps = list()					/// List of all stamp overlays on the letter.
 	var/stamp_max = 1							/// Maximum number of stamps on the letter.
@@ -179,7 +180,7 @@
 		/obj/item/paper/pamphlet/gateway = "[initial(name)] for [pick(GLOB.adjectives)] adventurers",
 		/obj/item/paper/pamphlet/violent_video_games = "[initial(name)] for the truth about the arcade centcom doesn't want to hear",
 		/obj/item/paper/fluff/junkmail_redpill = "[initial(name)] for those feeling [pick(GLOB.adjectives)] working at Nanotrasen",
-		/obj/item/toy/plush/flushed = "[initial(name)] with INCREDIBLY IMPORTANT ARTIFACT- DELIVER TO SCIENCE DIVISION. HANDLE WITH CARE.",
+		/obj/item/paper/fluff/nice_argument = "[initial(name)] with INCREDIBLY IMPORTANT ARTIFACT- DELIVER TO SCIENCE DIVISION. HANDLE WITH CARE.",
 	)
 
 	color = pick(department_colors) //eh, who gives a shit.
@@ -259,6 +260,15 @@
 	name = "smudged paper"
 	icon_state = "scrap"
 	var/nuclear_option_odds = 0.1
+
+/obj/item/paper/fluff/nice_argument
+	name = "RE: Nice Argument..."
+	icon_state = "paper"
+
+/obj/item/paper/fluff/nice_argument/Initialize()
+	. = ..()
+	var/station_name = station_name()
+	info ="Nice argument, however there's a <i>small detail</i>...<br>IP: '[rand(0,10)].[rand(0,255)].[rand(0,255)].[rand(0,255)]'<br> Station name: '[station_name]'<br>"
 
 /obj/item/paper/fluff/junkmail_redpill/Initialize()
 	. = ..()
