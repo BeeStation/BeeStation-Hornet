@@ -995,6 +995,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	HTML += "<br><br>"
 	HTML += "<a href ='?_src_=prefs;preference=keybindings_done'>Close</a>"
 	HTML += "<a href ='?_src_=prefs;preference=keybindings_reset'>Reset to default</a>"
+	HTML += "<a href ='?_src_=prefs;preference=keybindings_goon_reset'>Reset to goon defaults</a>" //MONKESTATION CHANGE: added goon keybinds (#84)
 	HTML += "</body>"
 
 	winshow(user, "keybindings", TRUE)
@@ -1951,6 +1952,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("keybindings_reset")
 					key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+					save_preferences()
+					ShowKeybindings(user)
+					return
+				if("keybindings_goon_reset") //MONKESTATION CHANGE: added goon keybinds (#84)
+					key_bindings = deepCopyList(GLOB.goon_keybinding_list_by_key)
 					save_preferences()
 					ShowKeybindings(user)
 					return

@@ -14,6 +14,7 @@
 
 /datum/keybinding/emote/fart
 	key = "Shift-F"
+	goon_key = "F" //time to accidently fart on the bible oh no
 	name = "fart"
 	full_name = "Fart"
 	description = "GAS GAS GAS..."
@@ -28,6 +29,7 @@
 
 /datum/keybinding/emote/scream
 	key = "Shift-R"
+	goon_key = "Ctrl-S"
 	name = "scream"
 	full_name = "Scream"
 	description = "AAAAAAAAaaaaaaaaaAAAAAAAAAA"
@@ -57,6 +59,7 @@
 
 /datum/keybinding/emote/flip
 	key = "Unbound"
+	goon_key = "R"
 	name = "flip"
 	full_name = "Flip"
 	description = "Flip out"

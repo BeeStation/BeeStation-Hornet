@@ -8,6 +8,7 @@
 
 /datum/keybinding/living/resist
 	key = "B"
+	goon_key = "Z" //MONKESTATION CHANGE: added goon keybinds (#84)
 	name = "resist"
 	full_name = "Resist"
 	description = "Break free of your current state. Handcuffs, on fire, being trapped in an alien nest? Resist!"
@@ -25,6 +26,7 @@
 
 /datum/keybinding/living/rest
 	key = "V"
+	goon_key = "=" //MONKESTATION CHANGE: added goon keybinds (#84)
 	name = "rest"
 	full_name = "Rest"
 	description = "Lay down, or get up."

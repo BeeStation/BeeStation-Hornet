@@ -54,17 +54,27 @@
 	// Keybindings
 	for(var/KB in subtypesof(/datum/keybinding))
 		var/datum/keybinding/keybinding = KB
-		if(!initial(keybinding.key) || !initial(keybinding.keybind_signal))
+		if((!initial(keybinding.key) && !initial(keybinding.goon_key)) || !initial(keybinding.keybind_signal)) //MONKESTATION CHANGE: added goon keybinds (#84)
 			continue
 		var/datum/keybinding/instance = new keybinding
 		GLOB.keybindings_by_name[initial(instance.name)] = instance
+
 		if (!(initial(instance.key) in GLOB.keybinding_list_by_key))
-			GLOB.keybinding_list_by_key[initial(instance.key)] = list()
-		GLOB.keybinding_list_by_key[initial(instance.key)] += instance.name
+			GLOB.keybinding_list_by_key[instance.key] = list()
+
+		if (!(instance.goon_key in GLOB.goon_keybinding_list_by_key)) //MONKESTATION CHANGE: added goon keybinds (#84)
+			GLOB.goon_keybinding_list_by_key[instance.goon_key] = list()
+
+		GLOB.keybinding_list_by_key[instance.key] += instance?.name
+
+		if (instance.goon_key) //MONKESTATION CHANGE: added goon keybinds (#84)
+			GLOB.goon_keybinding_list_by_key[instance.goon_key] += instance.name
 	// Sort all the keybindings by their weight
 	for(var/key in GLOB.keybinding_list_by_key)
 		GLOB.keybinding_list_by_key[key] = sortList(GLOB.keybinding_list_by_key[key])
 
+	for(var/key in GLOB.goon_keybinding_list_by_key) //MONKESTATION CHANGE: added goon keybinds (#84)
+		GLOB.goon_keybinding_list_by_key[key] = sortList(GLOB.goon_keybinding_list_by_key[key])
 
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
 

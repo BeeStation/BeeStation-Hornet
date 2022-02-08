@@ -8,6 +8,7 @@
 
 /datum/keybinding/human/quick_equip
 	key = "E"
+	goon_key = "V" //MONKESTATION CHANGE: added goon keybinds (#84)
 	name = "quick_equip"
 	full_name = "Quick equip"
 	description = ""
