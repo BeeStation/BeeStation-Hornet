@@ -87,13 +87,6 @@
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
 
-/mob/living/carbon/alien/get_stat_tab_status()
-	var/list/tab_data = ..()
-
-	tab_data["Intent"] = GENERATE_STAT_TEXT("[a_intent]")
-
-	return tab_data
-
 /mob/living/carbon/alien/getTrail()
 	if(getBruteLoss() < 200)
 		return pick (list("xltrails_1", "xltrails2"))

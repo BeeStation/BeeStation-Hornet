@@ -108,6 +108,7 @@
 	desc = "A card used to provide ID and determine access across the station."
 	icon_state = "id"
 	item_state = "card-id"
+	worn_icon_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	slot_flags = ITEM_SLOT_ID
@@ -332,6 +333,22 @@ update_label("John Doe", "Clowny")
 	item_state = "gold_id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
+
+/obj/item/card/id/silver/spacepol
+	name = "space police access card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/silver/spacepol/bounty
+	name = "bounty hunter access card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/space_russian
+	name = "space russian card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/pirate
+	name = "pirate ship card"
+	access = list(ACCESS_PIRATES)
 
 /obj/item/card/id/syndicate
 	name = "agent card"

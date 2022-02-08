@@ -102,16 +102,16 @@
 	var/mob/living/carbon/human/H = L
 	for(var/X in H.bodyparts)
 		var/obj/item/bodypart/BP = X
-		if(BP.status == BODYPART_ROBOTIC)
+		if(BODYTYPE_ROBOTIC in BP.bodytype)
 			to_chat(user, "<span class='warning'>[GLOB.deity] refuses to heal this metallic taint!</span>")
 			return TRUE
 
 	var/heal_amt = 10
-	var/list/hurt_limbs = H.get_damaged_bodyparts(1, 1, null, BODYPART_ORGANIC)
+	var/list/hurt_limbs = H.get_damaged_bodyparts(1, 1, null, BODYTYPE_ORGANIC)
 
 	if(hurt_limbs.len)
 		for(var/obj/item/bodypart/affecting as() in hurt_limbs)
-			if(affecting.heal_damage(heal_amt, heal_amt, null, BODYPART_ORGANIC))
+			if(affecting.heal_damage(heal_amt, heal_amt, null, BODYTYPE_ORGANIC))
 				H.update_damage_overlays()
 		H.visible_message("<span class='notice'>[user] heals [H] with the power of [GLOB.deity]!</span>")
 		to_chat(H, "<span class='boldnotice'>May the power of [GLOB.deity] compels you to be healed!</span>")
@@ -158,7 +158,7 @@
 
 	//if we're not targetting a robot part we stop early
 	var/obj/item/bodypart/BP = H.get_bodypart(user.zone_selected)
-	if(BP.status != BODYPART_ROBOTIC)
+	if(IS_ORGANIC_LIMB(BP))
 		if(!did_we_charge)
 			to_chat(user, "<span class='warning'>[GLOB.deity] scoffs at the idea of healing such fleshy matter!</span>")
 		else
@@ -169,7 +169,7 @@
 		return TRUE
 
 	//charge(?) and go
-	if(BP.heal_damage(5,5,null,BODYPART_ROBOTIC))
+	if(BP.heal_damage(5,5,null,BODYTYPE_ROBOTIC))
 		H.update_damage_overlays()
 
 	H.visible_message("<span class='notice'>[user] [did_we_charge ? "repairs" : "repairs and charges"] [H] with the power of [GLOB.deity]!</span>")

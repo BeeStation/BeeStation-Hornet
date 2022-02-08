@@ -3,6 +3,7 @@
 	name = "insulated gloves"
 	icon_state = "yellow"
 	item_state = "ygloves"
+	worn_icon_state = "ygloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	item_color="yellow"
@@ -46,6 +47,7 @@
 	name = "budget insulated gloves"
 	icon_state = "yellow"
 	item_state = "ygloves"
+	worn_icon_state = "ygloves"
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in Initialize()
 	permeability_coefficient = 0.05
 	item_color = "yellow"
@@ -90,7 +92,7 @@
 	name = "black gloves"
 	icon_state = "black"
 	item_state = "blackgloves"
-	item_color="black"
+	worn_icon_state = "blackgloves"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
@@ -103,6 +105,7 @@
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "orange"
 	item_state = "orangegloves"
+	worn_icon_state = "orangegloves"
 	item_color="orange"
 
 /obj/item/clothing/gloves/color/red
@@ -110,8 +113,7 @@
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "red"
 	item_state = "redgloves"
-	item_color = "red"
-
+	worn_icon_state = "redgloves"
 
 /obj/item/clothing/gloves/color/red/insulated
 	name = "insulated gloves"
@@ -125,7 +127,7 @@
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "rainbow"
 	item_state = "rainbowgloves"
-	item_color = "rainbow"
+	worn_icon_state = "rainbowgloves"
 
 /obj/item/clothing/gloves/color/rainbow/clown
 	item_color = "clown"
@@ -135,28 +137,28 @@
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "blue"
 	item_state = "bluegloves"
-	item_color="blue"
+	worn_icon_state = "bluegloves"
 
 /obj/item/clothing/gloves/color/purple
 	name = "purple gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "purple"
 	item_state = "purplegloves"
-	item_color="purple"
+	worn_icon_state = "purplegloves"
 
 /obj/item/clothing/gloves/color/green
 	name = "green gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "green"
 	item_state = "greengloves"
-	item_color="green"
+	worn_icon_state = "greengloves"
 
 /obj/item/clothing/gloves/color/grey
 	name = "grey gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "gray"
 	item_state = "graygloves"
-	item_color="grey"
+	worn_icon_state = "graygloves"
 
 /obj/item/clothing/gloves/color/grey/rd
 	item_color = "director"			//Exists for washing machines. Is not different from gray gloves in any way.
@@ -169,14 +171,14 @@
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "lightbrown"
 	item_state = "lightbrowngloves"
-	item_color="light brown"
+	worn_icon_state = "lightbrowngloves"
 
 /obj/item/clothing/gloves/color/brown
 	name = "brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "brown"
 	item_state = "browngloves"
-	item_color="brown"
+	worn_icon_state = "browngloves"
 
 /obj/item/clothing/gloves/color/brown/cargo
 	item_color = "cargo"					//Exists for washing machines. Is not different from brown gloves in any way.
@@ -186,7 +188,7 @@
 	name = "captain's gloves"
 	icon_state = "captain"
 	item_state = "egloves"
-	item_color = "captain"
+	worn_icon_state = "egloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	cold_protection = HANDS
@@ -201,9 +203,9 @@
 	desc = "Cheap sterile gloves made from latex. Transfers minor paramedic knowledge to the user via budget nanochips."
 	icon_state = "latex"
 	item_state = "latex"
+	worn_icon_state = "latex"
 	siemens_coefficient = 0.3
 	permeability_coefficient = 0.01
-	item_color="mime"
 	transfer_prints = TRUE
 	resistance_flags = NONE
 	var/carrytrait = TRAIT_QUICK_CARRY
@@ -227,7 +229,7 @@
 	desc = "Pricy sterile gloves that are stronger than latex. Transfers intimate paramedic knowledge into the user via nanochips."
 	icon_state = "nitrile"
 	item_state = "nitrilegloves"
-	item_color = "cmo"
+	worn_icon_state = "nitrilegloves"
 	transfer_prints = FALSE
 	carrytrait = TRAIT_QUICKER_CARRY
 
@@ -236,7 +238,7 @@
 	desc = "These look pretty fancy."
 	icon_state = "white"
 	item_state = "wgloves"
-	item_color="white"
+	worn_icon_state = "wgloves"
 
 /obj/item/clothing/gloves/color/white/redcoat
 	item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.

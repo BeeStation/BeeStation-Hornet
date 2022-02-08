@@ -3,9 +3,10 @@
 	desc = "A syringe that can hold up to 15 units."
 	icon = 'icons/obj/syringe.dmi'
 	item_state = "syringe_0"
+	var/base_icon_state = "syringe"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	icon_state = "0"
+	icon_state = "syringe_0"
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list()
 	volume = 15
@@ -205,8 +206,8 @@
 		add_overlay(filling_overlay)
 	else
 		rounded_vol = 0
-	icon_state = "[rounded_vol]"
-	item_state = "syringe_[rounded_vol]"
+	icon_state = "[base_icon_state]_[rounded_vol]"
+	item_state = "[base_icon_state]_[rounded_vol]"
 	if(ismob(loc))
 		var/mob/M = loc
 		var/injoverlay
@@ -224,8 +225,7 @@
 
 /obj/item/reagent_containers/syringe/used
 	name = "used syringe"
-	desc = "A syringe that can hold up to 15 units. This one is old, and it's probably a bad idea to use it"
-
+	desc = "A syringe that can hold up to 15 units. This one is old, and it's probably a bad idea to use it."
 
 /obj/item/reagent_containers/syringe/used/Initialize()
 	. = ..()
@@ -308,6 +308,8 @@
 	name = "bluespace syringe"
 	desc = "An advanced syringe that can hold 60 units of chemicals."
 	amount_per_transfer_from_this = 20
+	icon_state = "bluespace_0"
+	base_icon_state = "bluespace"
 	volume = 60
 	units_per_tick = 2
 	initial_inject = 8
@@ -315,6 +317,8 @@
 /obj/item/reagent_containers/syringe/cryo
 	name = "cryo syringe"
 	desc = "An advanced syringe that freezes reagents close to absolute 0. It can hold up to 20 units."
+	icon_state = "cryo_0"
+	base_icon_state = "cryo"
 	volume = 20
 	var/processing = FALSE
 
@@ -343,6 +347,8 @@
 /obj/item/reagent_containers/syringe/piercing
 	name = "piercing syringe"
 	desc = "A diamond-tipped syringe that pierces armor. It can hold up to 10 units."
+	icon_state = "piercing_0"
+	base_icon_state = "piercing"
 	volume = 10
 	proj_piercing = 1
 	units_per_tick = 1
@@ -350,7 +356,9 @@
 
 /obj/item/reagent_containers/syringe/crude
 	name = "crude syringe"
-	desc = "A crudely made syringe. The flimsy wooden construction makes it hold up minimal amounts of reagents."
+	desc = "A crudely made syringe. The flimsy wooden construction makes it hold a minimal amount of reagents."
+	icon_state = "crude_0"
+	base_icon_state = "crude"
 	volume = 5
 
 /obj/item/reagent_containers/syringe/spider_extract
