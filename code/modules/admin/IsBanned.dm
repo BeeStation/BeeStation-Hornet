@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(ckey_redirects)
 				return list("reason"="whitelist", "desc" = "\nReason: You are not on the white list for this server")
 
 	//Guest Checking
-	if(!real_bans_only && !C && IsGuestKey(key))
+	if(!real_bans_only && !C && IS_GUEST_KEY(key))
 		if (CONFIG_GET(flag/guest_ban))
 			log_access("Failed Login: [key] - Guests not allowed")
 			return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a byond account.")

@@ -17,7 +17,7 @@
 		if(!affecting)
 			balloon_alert(user, "The limb is missing")
 			return
-		if(affecting.status != BODYPART_ORGANIC)
+		if(!IS_ORGANIC_LIMB(affecting))
 			balloon_alert(user, "It doesn't work on robotic limb")
 			return
 	..()
