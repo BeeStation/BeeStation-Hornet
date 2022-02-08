@@ -60,7 +60,6 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/update_body()
 	remove_overlay(BODY_LAYER)
 	dna.species.handle_body(src)
-	..()
 
 /mob/living/carbon/human/update_fire()
 	..((fire_stacks > HUMAN_FIRE_STACK_ICON_NUM) ? "Standing" : "Generic_mob_burning")
@@ -71,7 +70,6 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/regenerate_icons()
 
 	if(!..())
-		icon_render_key = null //invalidate bodyparts cache
 		update_body()
 		update_hair()
 		update_inv_w_uniform()
@@ -121,8 +119,6 @@ There are several things that need to be remembered:
 			t_color = U.icon_state
 		if(U.adjusted == ALT_STYLE)
 			t_color = "[t_color]_d"
-		else if(U.adjusted == DIGITIGRADE_STYLE)
-			t_color = "[t_color]_l"
 
 		var/mutable_appearance/uniform_overlay
 
@@ -136,6 +132,12 @@ There are several things that need to be remembered:
 		if(!uniform_overlay)
 			if(U.sprite_sheets & (dna?.species.bodyflag))
 				icon_file = dna.species.get_custom_icons("uniform")
+
+			//Kapu's autistic attempt at digitigrade handling
+			if(dna?.species.bodytype & BODYTYPE_DIGITIGRADE)
+				if(U.supports_variations & DIGITIGRADE_VARIATION)
+					icon_file = 'icons/mob/species/misc/digitigrade.dmi'
+
 			uniform_overlay = U.build_worn_icon(state = "[t_color]", default_layer = UNIFORM_LAYER, default_icon_file = icon_file, isinhands = FALSE)
 
 
@@ -323,6 +325,11 @@ There are several things that need to be remembered:
 			var/obj/item/clothing/shoes/S = shoes
 			if(S.sprite_sheets & (dna?.species.bodyflag))
 				icon_file = dna.species.get_custom_icons("shoes")
+
+			if(dna?.species.bodytype & BODYTYPE_DIGITIGRADE)
+				if(S.supports_variations & DIGITIGRADE_VARIATION)
+					icon_file = 'icons/mob/species/misc/digitigrade_shoes.dmi'
+
 		shoes.screen_loc = ui_shoes					//move the item to the appropriate screen loc
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open
@@ -435,6 +442,11 @@ There are several things that need to be remembered:
 		var/obj/item/clothing/suit/S = wear_suit
 		if(S.sprite_sheets & (dna?.species.bodyflag))
 			icon_file = dna.species.get_custom_icons("suit")
+
+		if(dna?.species.bodytype & BODYTYPE_DIGITIGRADE)
+			if(S.supports_variations & DIGITIGRADE_VARIATION)
+				icon_file = 'icons/mob/species/misc/digitigrade_suits.dmi'
+
 		wear_suit.screen_loc = ui_oclothing
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)
@@ -725,43 +737,6 @@ generate/load female uniform sprites matching all previously decided variables
 		else //No offsets or Unwritten number of hands
 			return list("x" = 0, "y" = 0)//Handle held offsets
 
-//produces a key based on the human's limbs
-/mob/living/carbon/human/generate_icon_render_key()
-	. = "[dna.species.limbs_id]"
-
-	if(dna.check_mutation(HULK))
-		. += "-coloured-hulk"
-	else if(dna.species.use_skintones)
-		. += "-coloured-[skin_tone]"
-	else if(dna.species.fixed_mut_color)
-		. += "-coloured-[dna.species.fixed_mut_color]"
-	else if(dna.features["mcolor"])
-		. += "-coloured-[dna.features["mcolor"]]"
-	else
-		. += "-not_coloured"
-
-	. += "-[gender]"
-
-	for(var/X in bodyparts)
-		var/obj/item/bodypart/BP = X
-		. += "-[BP.body_zone]"
-		if(BP.status == BODYPART_ORGANIC)
-			. += "-organic"
-		else
-			. += "-robotic"
-		if(BP.use_digitigrade)
-			. += "-digitigrade[BP.use_digitigrade]"
-		if(BP.dmg_overlay_type)
-			. += "-[BP.dmg_overlay_type]"
-
-	if(HAS_TRAIT(src, TRAIT_HUSK))
-		. += "-husk"
-
-/mob/living/carbon/human/load_limb_from_cache()
-	..()
-	update_hair()
-
-
 
 /mob/living/carbon/human/proc/update_observer_view(obj/item/I, inventory)
 	if(observers && observers.len)
@@ -779,7 +754,7 @@ generate/load female uniform sprites matching all previously decided variables
 					break
 
 // Only renders the head of the human
-/mob/living/carbon/human/proc/update_body_parts_head_only()
+/mob/living/carbon/human/proc/update_body_parts_head_only(var/update_limb_data)
 	if (!dna)
 		return
 
@@ -791,7 +766,7 @@ generate/load female uniform sprites matching all previously decided variables
 	if (!istype(HD))
 		return
 
-	HD.update_limb()
+	HD.update_limb(is_creating = update_limb_data)
 
 	add_overlay(HD.get_limb_icon())
 	update_damage_overlays()

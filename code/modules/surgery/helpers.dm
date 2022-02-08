@@ -26,7 +26,7 @@
 			if(affecting)
 				if(!S.requires_bodypart)
 					continue
-				if(S.requires_bodypart_type && affecting.status != S.requires_bodypart_type)
+				if(S.requires_bodypart_type && !(affecting.bodytype & S.requires_bodypart_type))
 					continue
 				if(S.requires_real_bodypart && affecting.is_pseudopart)
 					continue
@@ -58,7 +58,7 @@
 			if(affecting)
 				if(!S.requires_bodypart)
 					return
-				if(S.requires_bodypart_type && affecting.status != S.requires_bodypart_type)
+				if(S.requires_bodypart_type && !(affecting.bodytype & S.requires_bodypart_type))
 					return
 			else if(C && S.requires_bodypart)
 				return
@@ -97,7 +97,7 @@
 	if(S.can_cancel)
 		var/required_tool_type = TOOL_CAUTERY
 		var/obj/item/close_tool = user.get_inactive_held_item()
-		var/is_robotic = S.requires_bodypart_type == BODYPART_ROBOTIC
+		var/is_robotic = S.requires_bodypart_type == BODYTYPE_ROBOTIC
 
 		if(is_robotic)
 			required_tool_type = TOOL_SCREWDRIVER
