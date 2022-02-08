@@ -1,0 +1,9 @@
+author: celotajstg, actioninja, Arkatos1, YakumoChen, lordScrubling
+delete-after: true
+changes:
+  - tweak: alternate_worn_icon is now worn_icon
+  - rscadd: Added worn_icon_state
+  - tweak: skirt jumpsuit are now /obj/item/clothing/under/color/jumpskirt
+  - rscdel: removed instance of color spelled colour (britain stay losing)
+  - rscadd: added gags to jumpsuits, jumpskirts and shoes (sneakers)
+  - tweak: modified build_worn_icon to automatically detect item state
