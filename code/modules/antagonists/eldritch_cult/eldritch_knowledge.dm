@@ -319,7 +319,7 @@
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/stack/sheet/animalhide/human,/obj/item/storage/book/bible,/obj/item/pen)
 	result_atoms = list(/obj/item/forbidden_book/empty)
 	route = "Start"
-	
+
 //	---	CRAFTING ---
 
 /datum/eldritch_knowledge/ashen_eyes
@@ -356,7 +356,7 @@
 	cost = 1
 	required_atoms = list(/obj/structure/reagent_dispensers/watertank)
 	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
-	
+
 //	---	CURSES ---
 
 /datum/eldritch_knowledge/curse/alteration
@@ -374,9 +374,9 @@
 	var/list/extra_atoms = list()
 
 	//check variables
-	for(var/A in range(1, loc))	//this		
+	for(var/A in range(1, loc))	//this
 		var/obj/item/bodypart/selected_part = A
-		if (istype(selected_part) && selected_part.status == BODYPART_ORGANIC)
+		if (istype(selected_part) && (IS_ORGANIC_LIMB(selected_part)))
 			switch(selected_part.body_zone)
 				if(BODY_ZONE_R_LEG)
 					extra_atoms |= A
@@ -390,7 +390,7 @@
 				if(BODY_ZONE_L_ARM)
 					extra_atoms |= A
 					debuffs |= "l_arm"
-	
+
 		var/obj/item/organ/selected_organ = A
 		if (istype(selected_organ) && selected_organ.status == ORGAN_ORGANIC)
 			switch(selected_organ.slot)
@@ -416,7 +416,7 @@
 	var/mob/living/carbon/human/chosen_mortal = chosen_mob
 	if (!istype(chosen_mob))
 		return
-	
+
 	chosen_mortal.apply_status_effect(/datum/status_effect/corrosion_curse)	//the purpose of this debuff is to alert the victim they've been cursed
 	for(var/X in debuffs)
 		switch (X)
@@ -455,7 +455,7 @@
 	chosen_mortal.update_mobility()
 
 	return .
-	
+
 //	--- SPELLS ---
 
 /datum/eldritch_knowledge/spell/cleave
@@ -473,7 +473,7 @@
 	cost = 1
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/blood_siphon
 	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet,/datum/eldritch_knowledge/spell/area_conversion)
-	
+
 //	--- SUMMONS ---
 
 /datum/eldritch_knowledge/summon/ashy

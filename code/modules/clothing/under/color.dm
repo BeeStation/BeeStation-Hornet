@@ -9,8 +9,10 @@
 	item_state = "jumpsuit"
 	worn_icon_state = "jumpsuit"
 	worn_icon = 'icons/mob/uniform.dmi'
+	supports_variations = DIGITIGRADE_VARIATION
 
 /obj/item/clothing/under/color/jumpskirt
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON //Doesn't require a new icon.
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
