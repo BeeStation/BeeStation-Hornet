@@ -133,7 +133,7 @@
 	l_pocket = /obj/item/stamp/chameleon
 	r_pocket = /obj/item/pda/chameleon
 	id = /obj/item/card/id/syndicate/anyone
-	neck = /obj/item/clothing/neck/cloak/chameleon
+	neck = /obj/item/clothing/neck/chameleon
 	head = /obj/item/clothing/head/chameleon
 	back = /obj/item/storage/backpack/chameleon
 
