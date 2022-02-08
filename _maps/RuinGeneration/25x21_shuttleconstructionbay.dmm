@@ -1,0 +1,966 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"as" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"aS" = (
+/obj/structure/frame/computer,
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/airless,
+/area/template_noop)
+"aY" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"bf" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"cY" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"eq" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"es" = (
+/turf/template_noop/open,
+/area/template_noop)
+"eR" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/airless,
+/area/template_noop)
+"hf" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"ib" = (
+/obj/machinery/shuttle/engine/plasma{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"ig" = (
+/obj/structure/door_assembly/door_assembly_mhatch,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"iR" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"kv" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"mf" = (
+/obj/structure/closet/firecloset/full,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"nu" = (
+/turf/open/floor/mineral/titanium/airless,
+/area/template_noop)
+"nT" = (
+/obj/item/shuttle_creator,
+/obj/machinery/light/built{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_y = -27
+	},
+/turf/open/floor/mineral/titanium/airless,
+/area/template_noop)
+"ob" = (
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/portable_atmospherics/canister/toxins,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"oh" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"rJ" = (
+/obj/structure/door_assembly/door_assembly_com,
+/turf/open/floor/mineral/titanium/airless,
+/area/template_noop)
+"sH" = (
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner,
+/obj/machinery/door/window/northleft,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"ts" = (
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/ruinloot/basic,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"tP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/grille,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"vJ" = (
+/obj/item/stock_parts/cell/crap,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"wW" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"zv" = (
+/obj/machinery/light/built{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"Ah" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"AE" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"AI" = (
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"AT" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"Cc" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/grille/broken,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"CJ" = (
+/obj/item/wallframe/apc,
+/obj/item/electronics/apc,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"CZ" = (
+/obj/item/stack/sheet/glass/fifty,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"Dg" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"EO" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"Fw" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"Fx" = (
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner,
+/obj/machinery/door/window/northright,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"FW" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"Gb" = (
+/obj/machinery/computer/shuttle_flight/custom_shuttle,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/airless,
+/area/template_noop)
+"Gl" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"GG" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"Hx" = (
+/turf/template_noop,
+/area/template_noop)
+"HD" = (
+/obj/structure/closet/firecloset,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"KA" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"MD" = (
+/obj/structure/girder,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"NC" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/obj/structure/sign/nanotrasen{
+	pixel_x = 32
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"OB" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"Ps" = (
+/obj/item/kirbyplants/random,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"PH" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/template_noop)
+"PL" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"Qf" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Qz" = (
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"QN" = (
+/obj/item/stack/sheet/iron/ten,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"Sk" = (
+/obj/item/electronics/airlock,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"Sx" = (
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/west,
+/obj/machinery/door/window/northright,
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"Tc" = (
+/obj/structure/sign/poster/random{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Th" = (
+/obj/machinery/vending/coffee,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Tj" = (
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"TV" = (
+/obj/machinery/atmospherics/components/unary/plasma_refiner{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"Vz" = (
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"VW" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Wh" = (
+/turf/closed/wall/mineral/titanium,
+/area/template_noop)
+"WJ" = (
+/obj/effect/abstract/open_area_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"WT" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"XF" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"XY" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/template_noop)
+"Yw" = (
+/obj/structure/frame/computer,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/airless,
+/area/template_noop)
+"Zp" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+es
+es
+es
+es
+es
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+"}
+(2,1,1) = {"
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+es
+Dg
+wW
+EO
+es
+es
+es
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+"}
+(3,1,1) = {"
+Hx
+Hx
+Hx
+Hx
+Hx
+es
+es
+iR
+Tj
+AE
+wW
+EO
+es
+es
+es
+es
+Hx
+Hx
+Hx
+Hx
+Hx
+"}
+(4,1,1) = {"
+Hx
+Hx
+Hx
+es
+es
+es
+Wh
+tP
+tP
+Cc
+Wh
+Wh
+Wh
+Wh
+Wh
+es
+es
+es
+Hx
+Hx
+Hx
+"}
+(5,1,1) = {"
+Hx
+Hx
+es
+es
+Wh
+Wh
+Wh
+Tj
+Tj
+Tj
+Wh
+Tj
+Tj
+Tj
+Wh
+Wh
+Wh
+es
+es
+Hx
+Hx
+"}
+(6,1,1) = {"
+Hx
+Hx
+es
+Wh
+Wh
+mf
+Wh
+Tj
+Tj
+CZ
+MD
+Tj
+Tj
+Tj
+Wh
+TV
+Wh
+Wh
+es
+es
+Hx
+"}
+(7,1,1) = {"
+Hx
+es
+es
+Wh
+Tj
+Tj
+ig
+Tj
+zv
+Tj
+Tj
+Tj
+Tj
+Tj
+Wh
+GG
+PL
+sH
+ib
+es
+Hx
+"}
+(8,1,1) = {"
+Hx
+es
+Wh
+Wh
+bf
+Wh
+Wh
+Tj
+Wh
+Tj
+Wh
+Wh
+Tj
+Wh
+Wh
+XY
+Tj
+Wh
+Wh
+es
+es
+"}
+(9,1,1) = {"
+Hx
+es
+PH
+Yw
+nu
+nT
+Wh
+Tj
+Tj
+Tj
+Tj
+Tj
+Tj
+Qz
+Wh
+GG
+PL
+PL
+sH
+ib
+es
+"}
+(10,1,1) = {"
+Hx
+es
+PH
+Gb
+eR
+nu
+rJ
+Tj
+Tj
+Tj
+Tj
+Tj
+Tj
+Tj
+Sk
+GG
+PL
+PL
+Sx
+ib
+es
+"}
+(11,1,1) = {"
+Hx
+es
+PH
+aS
+nu
+nu
+Wh
+Tj
+AI
+Tj
+Tj
+Tj
+Tj
+Tj
+Tj
+GG
+PL
+PL
+Fx
+ib
+es
+"}
+(12,1,1) = {"
+Hx
+es
+Wh
+Wh
+ig
+Wh
+Wh
+Wh
+Tj
+Wh
+Wh
+Wh
+Tj
+QN
+Tj
+XY
+Tj
+Wh
+Wh
+es
+es
+"}
+(13,1,1) = {"
+Hx
+es
+es
+Wh
+Tj
+Tj
+bf
+CJ
+Tj
+Tj
+Tj
+Tj
+Tj
+Tj
+MD
+GG
+PL
+Fx
+ib
+es
+Hx
+"}
+(14,1,1) = {"
+Hx
+Hx
+es
+Wh
+Wh
+Tj
+Wh
+vJ
+Tj
+Tj
+Tj
+Tj
+Tj
+Tj
+MD
+ob
+Wh
+Wh
+es
+es
+Hx
+"}
+(15,1,1) = {"
+Hx
+Hx
+es
+es
+Wh
+Wh
+Wh
+Tj
+Tj
+Tj
+Tj
+Tj
+Tj
+Tj
+Wh
+Wh
+Wh
+es
+es
+Hx
+Hx
+"}
+(16,1,1) = {"
+Hx
+Hx
+Hx
+es
+es
+es
+Wh
+Wh
+Fw
+Wh
+Wh
+Wh
+Wh
+Wh
+Wh
+es
+es
+es
+Hx
+Hx
+Hx
+"}
+(17,1,1) = {"
+Hx
+Hx
+Hx
+Hx
+Hx
+es
+es
+Wh
+Ah
+Wh
+FW
+OB
+es
+es
+es
+es
+Hx
+Hx
+Hx
+Hx
+Hx
+"}
+(18,1,1) = {"
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+es
+Wh
+WT
+Wh
+es
+es
+es
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+"}
+(19,1,1) = {"
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+es
+KA
+cY
+KA
+es
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+"}
+(20,1,1) = {"
+Hx
+Hx
+Hx
+hf
+KA
+KA
+KA
+KA
+Vz
+KA
+KA
+KA
+KA
+hf
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+Hx
+"}
+(21,1,1) = {"
+Hx
+Hx
+Hx
+hf
+Th
+HD
+ts
+KA
+AT
+KA
+Gl
+Gl
+Ps
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+"}
+(22,1,1) = {"
+Hx
+KA
+KA
+KA
+XF
+Qf
+Qf
+Qf
+Qf
+Qf
+Qf
+Qf
+Qf
+Qf
+Qf
+Qf
+Qf
+Qf
+Qf
+Qf
+Qf
+"}
+(23,1,1) = {"
+Hx
+as
+Vz
+aY
+VW
+Zp
+Zp
+Zp
+Zp
+Zp
+Zp
+Zp
+Zp
+Zp
+Zp
+Zp
+Zp
+Zp
+Zp
+Zp
+WJ
+"}
+(24,1,1) = {"
+Hx
+KA
+KA
+KA
+kv
+oh
+oh
+oh
+oh
+oh
+NC
+oh
+oh
+oh
+Tc
+oh
+oh
+oh
+oh
+oh
+oh
+"}
+(25,1,1) = {"
+Hx
+Hx
+Hx
+hf
+hf
+hf
+eq
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+hf
+eq
+hf
+hf
+"}
