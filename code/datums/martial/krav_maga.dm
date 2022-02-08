@@ -180,6 +180,8 @@
 /obj/item/clothing/gloves/krav_maga
 	name = "krav maga gloves"
 	desc = "These gloves can teach you to perform Krav Maga using nanochips."
+	icon_state = "fightgloves"
+	item_state = "fightgloves"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
