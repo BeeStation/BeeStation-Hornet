@@ -1,11 +1,12 @@
 /datum/species/pod
 	// A mutation caused by a human being ressurected in a revival pod. These regain health in light, and begin to wither in darkness.
-	name = "Podperson"
+	name = "\improper Podperson"
 	id = "pod"
 	default_color = "59CE00"
 	species_traits = list(MUTCOLORS,EYECOLOR)
 	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE)
 	inherent_factions = list("plants", "vines")
+	fixed_mut_color = "59CE00"
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slice.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
@@ -16,6 +17,13 @@
 	liked_food = VEGETABLES | FRUIT | GRAIN
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/plant
+
+	species_chest = /obj/item/bodypart/chest/pod
+	species_head = /obj/item/bodypart/head/pod
+	species_l_arm = /obj/item/bodypart/l_arm/pod
+	species_r_arm = /obj/item/bodypart/r_arm/pod
+	species_l_leg = /obj/item/bodypart/l_leg/pod
+	species_r_leg = /obj/item/bodypart/r_leg/pod
 
 /datum/species/pod/spec_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
@@ -28,7 +36,7 @@
 		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2) //if there's enough light, heal
-			H.heal_overall_damage(1,1, 0, BODYPART_ORGANIC)
+			H.heal_overall_damage(1,1, 0, BODYTYPE_ORGANIC)
 			H.adjustToxLoss(-1)
 			H.adjustOxyLoss(-1)
 

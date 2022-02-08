@@ -236,7 +236,6 @@
 /datum/chemical_reaction/mix_virus
 	name = "Mix Virus"
 	id = "mixvirus"
-	results = list(/datum/reagent/blood = 1)
 	required_reagents = list(/datum/reagent/consumable/virus_food = 1)
 	required_catalysts = list(/datum/reagent/blood = 1)
 	var/level_min = 1
@@ -728,12 +727,6 @@
 	id = /datum/reagent/mutationtoxin/abductor
 	results = list(/datum/reagent/mutationtoxin/abductor = 5)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/medicine/morphine = 10, /datum/reagent/toxin/mutetoxin = 10)
-
-/datum/chemical_reaction/mutationtoxin/ipc
-	name = /datum/reagent/mutationtoxin/ipc
-	id = /datum/reagent/mutationtoxin/ipc
-	results = list(/datum/reagent/mutationtoxin/ipc = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/teslium = 20)
 
 /datum/chemical_reaction/mutationtoxin/ethereal
 	name = /datum/reagent/mutationtoxin/ethereal

@@ -94,6 +94,8 @@
 	fdel(outfile)
 	outfile << "BEGIN;"
 
+	var/list/giant_list_of_ckeys = list()
+
 	var/perpage = 100
 	var/requested_page = 1
 	var/hub_url = replacetext(hub_address,".","/")
@@ -123,9 +125,14 @@
 			if(!medal_data[key])
 				medal_data[key] = list()
 			medal_data[key][medal] = out_date.Join("/")
+			if(!(giant_list_of_ckeys.Find(key))) //this is probably really slow
+				giant_list_of_ckeys += key
 
-	var/list/giant_list_of_ckeys = params2list(world.GetScores(null,null,hub_address,hub_password))
-	world << "Found [giant_list_of_ckeys.len] as upper scores count."
+	for(var/listkey in params2list(world.GetScores(null,null,hub_address,hub_password)))
+		if(!(giant_list_of_ckeys.Find(listkey))) //this is probably really slow
+			giant_list_of_ckeys += listkey
+
+	world << "Found [giant_list_of_ckeys.len] as total entry count."
 
 	var/list/scores_data = list()
 	for(var/score in valid_scores)

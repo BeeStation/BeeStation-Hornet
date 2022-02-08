@@ -1,6 +1,6 @@
 
 /datum/species/ethereal
-	name = "Ethereal"
+	name = "\improper Ethereal"
 	id = "ethereal"
 	attack_verb = "burn"
 	attack_sound = 'sound/weapons/etherealhit.ogg'
@@ -22,6 +22,14 @@
 	hair_color = "fixedmutcolor"
 	hair_alpha = 140
 	swimming_component = /datum/component/swimming/ethereal
+
+	species_chest = /obj/item/bodypart/chest/ethereal
+	species_head = /obj/item/bodypart/head/ethereal
+	species_l_arm = /obj/item/bodypart/l_arm/ethereal
+	species_r_arm = /obj/item/bodypart/r_arm/ethereal
+	species_l_leg = /obj/item/bodypart/l_leg/ethereal
+	species_r_leg = /obj/item/bodypart/r_leg/ethereal
+
 	var/current_color
 	var/EMPeffect = FALSE
 	var/emageffect = FALSE
@@ -56,6 +64,12 @@
 	ethereal_light = ethereal.mob_light()
 	spec_updatehealth(ethereal)
 
+
+	//The following code is literally only to make admin-spawned ethereals not be black.
+	C.dna.features["mcolor"] = C.dna.features["ethcolor"] //Ethcolor and Mut color are both dogshit and will be replaced
+	for(var/obj/item/bodypart/BP as() in C.bodyparts)
+		if(BP.limb_id == SPECIES_ETHEREAL)
+			BP.update_limb(is_creating = TRUE)
 
 /datum/species/ethereal/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	UnregisterSignal(C, COMSIG_ATOM_EMAG_ACT)
@@ -110,10 +124,6 @@
 	H.visible_message("<span class='danger'>[H] starts flickering in an array of colors!</span>")
 	handle_emag(H)
 	addtimer(CALLBACK(src, .proc/stop_emag, H), 30 SECONDS) //Disco mode for 30 seconds! This doesn't affect the ethereal at all besides either annoying some players, or making someone look badass.
-
-/datum/species/ethereal/spec_life(mob/living/carbon/human/H)
-	.=..()
-	handle_charge(H)
 
 /datum/species/ethereal/proc/stop_emp(mob/living/carbon/human/H)
 	EMPeffect = FALSE

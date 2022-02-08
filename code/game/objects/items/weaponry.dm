@@ -238,6 +238,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "Woefully underpowered in D20."
 	icon_state = "katana"
 	item_state = "katana"
+	worn_icon_state = "katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1

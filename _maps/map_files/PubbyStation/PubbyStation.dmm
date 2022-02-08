@@ -25580,7 +25580,7 @@
 "bnU" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Server Room";
-	req_access_txt = "30"
+	req_one_access_txt = "30;70"
 	},
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -27887,7 +27887,7 @@
 "btf" = (
 /obj/machinery/door/airlock/command{
 	name = "Server Room";
-	req_access_txt = "30"
+	req_one_access_txt = "30;70"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -32168,12 +32168,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
-"bDg" = (
-/obj/machinery/atmospherics/components/unary/tank/air{
-	dir = 2
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/engine)
 "bDh" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/open/floor/plating,
@@ -34313,6 +34307,9 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	pixel_x = 28
+	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "bHI" = (
@@ -34642,12 +34639,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/storage)
-"bIK" = (
-/obj/machinery/atmospherics/pipe/simple/general/visible{
-	dir = 2
-	},
-/turf/closed/wall/r_wall,
-/area/science/mixing/chamber)
 "bIL" = (
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_interior,
@@ -37008,7 +36999,7 @@
 	c_tag = "Tech Storage";
 	dir = 2
 	},
-/obj/item/circuitboard/computer/monastery_shuttle,
+/obj/item/circuitboard/computer/shuttle/monastery_shuttle,
 /obj/effect/spawner/lootdrop/techstorage/service,
 /obj/machinery/airalarm{
 	dir = 2;
@@ -43602,13 +43593,6 @@
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/asteroid/nearstation/bomb_site)
-"clk" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/libraryscanner,
-/turf/open/floor/plasteel/dark,
-/area/library/lounge)
 "clm" = (
 /obj/structure/closet/crate/bin,
 /turf/open/floor/plasteel/dark,
@@ -47013,12 +46997,6 @@
 "czO" = (
 /obj/structure/table/wood,
 /obj/item/instrument/saxophone,
-/turf/open/floor/plasteel/dark,
-/area/library)
-"czP" = (
-/obj/structure/table/wood,
-/obj/item/stack/packageWrap,
-/obj/item/coin/gold,
 /turf/open/floor/plasteel/dark,
 /area/library)
 "czQ" = (
@@ -50902,6 +50880,15 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"hjk" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/item/stack/packageWrap,
+/obj/item/coin/gold,
+/turf/open/floor/plasteel/dark,
+/area/library/lounge)
 "hjz" = (
 /obj/effect/turf_decal/stripes/line,
 /mob/living/simple_animal/bot/cleanbot/medbay,
@@ -56906,6 +56893,12 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"pci" = (
+/obj/machinery/atmospherics/components/unary/tank/air{
+	dir = 2
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/engine)
 "pdF" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/general/visible,
@@ -59309,6 +59302,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
+"sgI" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 2
+	},
+/turf/closed/wall/r_wall,
+/area/science/mixing/chamber)
 "slE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -62971,6 +62970,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
+"xCy" = (
+/obj/machinery/libraryscanner,
+/turf/open/floor/plasteel/dark,
+/area/library)
 "xCE" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 6
@@ -80951,7 +80954,7 @@ ckl
 ckD
 ckS
 clg
-clk
+hjk
 cwe
 cwe
 cyB
@@ -82509,7 +82512,7 @@ ckH
 czp
 ckH
 ckH
-czP
+xCy
 ckH
 ckH
 cjp
@@ -84754,7 +84757,7 @@ bxY
 bzz
 bAK
 bBX
-bDg
+pci
 ljA
 bFF
 bva
@@ -85011,7 +85014,7 @@ bxZ
 bzA
 bAK
 bBX
-bDg
+pci
 bEk
 bDi
 bva
@@ -105832,9 +105835,9 @@ bEb
 bFn
 bGt
 bHz
-bIK
+sgI
 bJQ
-bIK
+sgI
 bMl
 bNp
 bOt

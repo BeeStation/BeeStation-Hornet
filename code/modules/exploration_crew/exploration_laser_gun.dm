@@ -29,11 +29,10 @@
 	muzzle_type = /obj/effect/projectile/muzzle/laser
 	impact_type = /obj/effect/projectile/impact/laser
 
-/obj/item/projectile/beam/laser/anti_creature/on_hit(atom/target, blocked)
-	damage = initial(damage)
-	if(!iscarbon(target) && !issilicon(target))
-		damage = 30
-	. = ..()
+/obj/item/projectile/beam/laser/anti_creature/prehit_pierce(atom/target)
+    if(!iscarbon(target) && !issilicon(target))
+        damage = 30
+    return ..()
 
 //Cutting projectile - Damage against objects
 
@@ -51,7 +50,7 @@
 
 /obj/item/projectile/beam/laser/cutting/on_hit(atom/target, blocked)
 	damage = initial(damage)
-	if(isobj(target))
+	if(isobj(target) && !istype(target, /obj/structure/blob))
 		damage = 70
 	else if(istype(target, /turf/closed/mineral))
 		var/turf/closed/mineral/T = target
@@ -97,7 +96,7 @@
 
 /obj/item/projectile/beam/laser/exploration_destroy/on_hit(atom/target, blocked)
 	damage = initial(damage)
-	if(isobj(target))
+	if(isobj(target) && !istype(target, /obj/structure/blob))
 		damage = 150
 	else if(istype(target, /turf/closed/mineral))
 		var/turf/closed/mineral/T = target

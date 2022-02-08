@@ -44,6 +44,7 @@
 	item_color = "secskirt"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE //you know now that i think of it if you adjust the skirt and the sprite disappears isn't that just like flashing everyone
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/under/rank/security/officer/blueshirt
 	name = "blue shirt and tie"
@@ -82,6 +83,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/under/rank/security/warden/white
 	name = "white security suit"
@@ -114,6 +116,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/under/rank/security/detective/grey
 	name = "noir suit"
@@ -132,6 +135,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /*
  * Head of Security
@@ -157,6 +161,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/under/rank/security/head_of_security/white
 	name = "head of security's white jumpsuit"
@@ -181,6 +186,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /*
  * Brig Physician
@@ -202,6 +208,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /*
  * Navy uniforms
@@ -247,8 +254,12 @@
 /obj/item/clothing/under/rank/prisoner
 	name = "prison jumpsuit"
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
-	icon_state = "prisoner"
-	item_state = "o_suit"
+	icon_state = "jumpsuit"
+	greyscale_colors = "#ff8300"
+	greyscale_config = /datum/greyscale_config/jumpsuit_prison
+	greyscale_config_inhand_left = /datum/greyscale_config/jumpsuit_prison_inhand_left
+	greyscale_config_inhand_right = /datum/greyscale_config/jumpsuit_prison_inhand_right
+	greyscale_config_worn = /datum/greyscale_config/jumpsuit_prison_worn
 	item_color = "prisoner"
 	has_sensor = LOCKED_SENSORS
 	sensor_mode = SENSOR_COORDS

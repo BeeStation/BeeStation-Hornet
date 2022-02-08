@@ -111,9 +111,13 @@
 	to_chat(usr, "<span class='notice'>You toggle [src]'s [togglename].</span>")
 	if(src.suittoggled)
 		src.icon_state = "[initial(icon_state)]"
+		if(src.worn_icon_state)
+			src.worn_icon_state = "[initial(icon_state)]"
 		src.suittoggled = FALSE
 	else if(!src.suittoggled)
 		src.icon_state = "[initial(icon_state)]_t"
+		if(src.worn_icon_state)
+			src.worn_icon_state = "[initial(icon_state)]_t"
 		src.suittoggled = TRUE
 	usr.update_inv_wear_suit()
 	for(var/X in actions)

@@ -184,6 +184,7 @@
 		to_chat(owner.current, "We lack the energy to evolve new abilities right now.")
 		return
 
+	log_game("[sting_name] purchased by [owner.current.ckey]/[owner.current.name] the [owner.current.job] for [thepower.dna_cost] GP, [geneticpoints] GP remaining.")
 	geneticpoints -= thepower.dna_cost
 	purchasedpowers += thepower
 	thepower.on_purchase(owner.current)//Grant() is ran in this proc, see changeling_powers.dm
@@ -200,6 +201,7 @@
 		reset_powers()
 		canrespec = 0
 		SSblackbox.record_feedback("tally", "changeling_power_purchase", 1, "Readapt")
+		log_game("Genetic powers refunded by [owner.current.ckey]/[owner.current.name] the [owner.current.job], [geneticpoints] GP remaining.")
 		return 1
 	else
 		to_chat(owner.current, "<span class='danger'>You lack the power to readapt your evolutions!</span>")
@@ -293,6 +295,10 @@
 			prof.flags_cover_list[slot] = I.flags_cover
 			prof.item_color_list[slot] = I.item_color
 			prof.item_state_list[slot] = I.item_state
+			prof.lefthand_file_list[slot] = I.lefthand_file
+			prof.righthand_file_list[slot] = I.righthand_file
+			prof.worn_icon_list[slot] = I.worn_icon
+			prof.worn_icon_state_list[slot] = I.worn_icon_state
 			prof.exists_list[slot] = 1
 		else
 			continue
@@ -506,6 +512,10 @@
 	var/list/exists_list = list()
 	var/list/item_color_list = list()
 	var/list/item_state_list = list()
+	var/list/lefthand_file_list = list()
+	var/list/righthand_file_list = list()
+	var/list/worn_icon_list = list()
+	var/list/worn_icon_state_list = list()
 
 	var/underwear
 	var/undershirt
@@ -529,6 +539,10 @@
 	newprofile.exists_list = exists_list.Copy()
 	newprofile.item_color_list = item_color_list.Copy()
 	newprofile.item_state_list = item_state_list.Copy()
+	newprofile.lefthand_file_list = lefthand_file_list.Copy()
+	newprofile.righthand_file_list = righthand_file_list.Copy()
+	newprofile.worn_icon_list = worn_icon_list.Copy()
+	newprofile.worn_icon_state_list = worn_icon_state_list.Copy()
 	newprofile.underwear = underwear
 	newprofile.undershirt = undershirt
 	newprofile.socks = socks

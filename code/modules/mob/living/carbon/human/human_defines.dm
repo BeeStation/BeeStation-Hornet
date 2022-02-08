@@ -7,24 +7,24 @@
 	buckle_lying = FALSE
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
-	//Hair colour and style
+	///Hair color
 	var/hair_color = "000"
+	///Hair style
 	var/hair_style = "Bald"
-
-	//Facial hair colour and style
+	///Colour used for the hair gradient.
+	var/gradient_color = "000"
+	///Style used for the hair gradient.
+	var/gradient_style
+	///Facial hair colour
 	var/facial_hair_color = "000"
+	///Facial hair style
 	var/facial_hair_style = "Shaved"
-
 	//Eye colour
 	var/eye_color = "000"
-
 	var/skin_tone = "caucasian1"	//Skin tone
-
 	var/lip_style = null	//no lipstick by default- arguably misleading, as it could be used for general makeup
 	var/lip_color = "white"
-
 	var/age = 30		//Player's age
-
 	var/underwear = "Nude"	//Which underwear the player wants
 	var/underwear_color = "000"
 	var/undershirt = "Nude" //Which undershirt the player wants
@@ -40,8 +40,6 @@
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
 	var/obj/item/s_store = null
-
-	var/hygiene = HYGIENE_LEVEL_NORMAL
 
 	var/special_voice = "" // For changing our voice. Used by a symptom.
 

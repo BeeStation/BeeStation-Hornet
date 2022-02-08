@@ -34,7 +34,7 @@
 
 /obj/structure/chair/sofa/corner
 	icon_state = "sofacorner"
-	
+
 // Original icon ported from Eris(?) and updated to work here.
 /obj/structure/chair/sofa/corp
 	name = "sofa"

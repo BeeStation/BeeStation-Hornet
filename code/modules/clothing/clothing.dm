@@ -243,13 +243,13 @@
 		to_chat(M, "<span class='warning'>Your [name] starts to fall apart!</span>")
 
 /obj/item/clothing/proc/update_clothes_damaged_state(damaging = TRUE)
-	var/index = "[REF(initial(icon))]-[initial(icon_state)]"
+	var/index = "[REF(icon)]-[icon_state]"
 	var/static/list/damaged_clothes_icons = list()
 	if(damaging)
 		damaged_clothes = 1
 		var/icon/damaged_clothes_icon = damaged_clothes_icons[index]
 		if(!damaged_clothes_icon)
-			damaged_clothes_icon = icon(initial(icon), initial(icon_state), , 1)	//we only want to apply damaged effect to the initial icon_state for each object
+			damaged_clothes_icon = icon(icon, icon_state, null, 1)
 			damaged_clothes_icon.Blend("#fff", ICON_ADD) 	//fills the icon_state with white (except where it's transparent)
 			damaged_clothes_icon.Blend(icon('icons/effects/item_damage.dmi', "itemdamaged"), ICON_MULTIPLY) //adds damage effect and the remaining white areas become transparant
 			damaged_clothes_icon = fcopy_rsc(damaged_clothes_icon)

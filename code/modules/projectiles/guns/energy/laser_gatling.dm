@@ -125,6 +125,7 @@
 	can_charge = FALSE
 	fire_sound = 'sound/weapons/laser.ogg'
 	item_flags = NEEDS_PERMIT | SLOWS_WHILE_IN_HAND
+	full_auto = TRUE
 	var/cooldown = 0
 	var/obj/item/minigunpack/ammo_pack
 
