@@ -116,7 +116,7 @@ There are several things that need to be remembered:
 
 		var/target_overlay = U.icon_state
 		if(U.adjusted == ALT_STYLE)
-			t_color = "[t_color]_d"
+			target_overlay = "[target_overlay]_d"
 
 		var/mutable_appearance/uniform_overlay
 
@@ -136,7 +136,7 @@ There are several things that need to be remembered:
 				if(U.supports_variations & DIGITIGRADE_VARIATION)
 					icon_file = 'icons/mob/species/misc/digitigrade.dmi'
 
-			uniform_overlay = U.build_worn_icon(state = "[t_color]", default_layer = UNIFORM_LAYER, default_icon_file = icon_file, isinhands = FALSE)
+			uniform_overlay = U.build_worn_icon(default_layer = UNIFORM_LAYER, default_icon_file = icon_file, isinhands = FALSE)
 
 		if(OFFSET_UNIFORM in dna.species.offset_features)
 			uniform_overlay.pixel_x += dna.species.offset_features[OFFSET_UNIFORM][1]
@@ -237,7 +237,7 @@ There are several things that need to be remembered:
 
 		if(!(head && (head.flags_inv & HIDEEYES)) && !(wear_mask && (wear_mask.flags_inv & HIDEEYES)))
 			overlays_standing[GLASSES_LAYER] = glasses.build_worn_icon(default_layer = GLASSES_LAYER, default_icon_file = icon_file)
-		
+
 		var/mutable_appearance/glasses_overlay = overlays_standing[GLASSES_LAYER]
 		if(glasses_overlay)
 			if(OFFSET_GLASSES in dna.species.offset_features)
