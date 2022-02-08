@@ -106,7 +106,7 @@
 				newletter += "[newletter]"
 			if(20)
 				newletter += "[newletter][newletter]"
-			else
+			else	//default clause intentionally left empty
 		. += "[newletter]"
 	return sanitize(.)
 
@@ -150,7 +150,7 @@
 				newletter = "nglu"
 			if(5)
 				newletter = "glor"
-			else
+			else	//default clause intentionally left empty
 		. += newletter
 	return sanitize(.)
 
@@ -193,7 +193,7 @@
 				newletter = "kth"
 			if(5)
 				newletter = "toc"
-			else
+			else	//default clause intentionally left empty
 		. += newletter
 	return sanitize(.)
 
