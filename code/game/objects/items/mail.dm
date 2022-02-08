@@ -126,7 +126,9 @@
 			to_chat(user, "<span class='notice'>You can't open somebody else's mail! That's <em>illegal</em>!</span>")
 			return
 
-	to_chat(user, "<span class='notice'>You start to unwrap the package...</span>")
+	user.visible_message("[user] start to unwrap the package...", \
+			"<span class='notice'>You start to unwrap the package...</span>", \
+			"<span class='italics'>You hear paper ripping.</span>")
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
@@ -167,6 +169,7 @@
 
 	var/obj/junk = /obj/item/paper/fluff/junkmail_generic
 	var/special_name = FALSE
+	add_overlay("[initial(icon_state)]-spam")
 
 	if(prob(25))
 		special_name = TRUE
