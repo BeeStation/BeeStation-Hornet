@@ -79,7 +79,7 @@
 		return ..()
 
 /obj/item/grown/log/proc/CheckAccepted(obj/item/I)
-	return is_type_in_typecache(I, accepted)
+	return accepted[I.type]
 
 /obj/item/grown/log/tree
 	seed = null

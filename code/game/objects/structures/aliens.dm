@@ -144,7 +144,7 @@
 
 /obj/structure/alien/weeds/proc/expand()
 	var/turf/U = get_turf(src)
-	if(is_type_in_typecache(U, blacklisted_turfs))
+	if(blacklisted_turfs[U.type])
 		qdel(src)
 		return FALSE
 
@@ -152,7 +152,7 @@
 		if((locate(/obj/structure/alien/weeds) in T))
 			continue
 
-		if(is_type_in_typecache(T, blacklisted_turfs))
+		if(blacklisted_turfs[T.type])
 			continue
 
 		new /obj/structure/alien/weeds(T)

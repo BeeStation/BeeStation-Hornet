@@ -22,8 +22,8 @@
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user,obj/item/spellbook/book) // Specific circumstances
 	if(book.uses<cost || limit == 0)
 		return FALSE
-	for(var/spell in user.mind.spell_list)
-		if(is_type_in_typecache(spell, no_coexistance_typecache))
+	for(var/datum/spell as() in user.mind.spell_list)
+		if(no_coexistance_typecache[spell.type])
 			return FALSE
 	return TRUE
 

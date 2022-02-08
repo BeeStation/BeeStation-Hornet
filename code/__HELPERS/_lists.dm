@@ -139,9 +139,6 @@
 			return TRUE
 	return FALSE
 
-/// Checks for specific types in specifically structured (Assoc "type" = TRUE) lists ('typecaches')
-#define is_type_in_typecache(A, L) (A && length(L) && L[(ispath(A) ? A : A:type)])
-
 /// returns a new list with only atoms that are in typecache L
 /proc/typecache_filter_list(list/atoms, list/typecache)
 	RETURN_TYPE(/list)

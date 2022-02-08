@@ -62,7 +62,7 @@ GLOBAL_LIST(admin_antag_list)
 		return FALSE
 	for(var/i in tested.antag_datums)
 		var/datum/antagonist/A = i
-		if(is_type_in_typecache(src, A.typecache_datum_blacklist))
+		if(A.typecache_datum_blacklist[src.type])
 			return FALSE
 
 //This will be called in add_antag_datum before owner assignment.

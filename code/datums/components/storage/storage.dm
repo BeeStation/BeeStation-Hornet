@@ -621,11 +621,11 @@
 			host.balloon_alert(M, "[host] is full")
 		return FALSE //Storage item is full
 	if(length(can_hold))
-		if(!is_type_in_typecache(I, can_hold))
+		if(!can_hold[I.type])
 			if(!stop_messages)
 				host.balloon_alert(M, "It doesn't fit")
 			return FALSE
-	if(is_type_in_typecache(I, cant_hold) || HAS_TRAIT(I, TRAIT_NO_STORAGE_INSERT) || (can_hold_trait && !HAS_TRAIT(I, can_hold_trait))) //Items which this container can't hold.
+	if(cant_hold[I.type] || HAS_TRAIT(I, TRAIT_NO_STORAGE_INSERT) || (can_hold_trait && !HAS_TRAIT(I, can_hold_trait))) //Items which this container can't hold.
 		if(!stop_messages)
 			host.balloon_alert(M, "It doesn't fit")
 		return FALSE
