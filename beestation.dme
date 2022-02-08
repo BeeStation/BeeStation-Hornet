@@ -1893,7 +1893,7 @@
 #include "code\modules\clothing\shoes\_shoes.dm"
 #include "code\modules\clothing\shoes\bananashoes.dm"
 #include "code\modules\clothing\shoes\cluwne.dm"
-#include "code\modules\clothing\shoes\colour.dm"
+#include "code\modules\clothing\shoes\color.dm"
 #include "code\modules\clothing\shoes\magboots.dm"
 #include "code\modules\clothing\shoes\miscellaneous.dm"
 #include "code\modules\clothing\shoes\taeclowndo.dm"

@@ -340,7 +340,7 @@
 	name = "Marisa Wizard"
 
 	suit = /obj/item/clothing/suit/wizrobe/marisa
-	shoes = /obj/item/clothing/shoes/sandal/marisa
+	shoes = /obj/item/clothing/shoes/sneakers/marisa
 	head = /obj/item/clothing/head/wizard/marisa
 
 /datum/outfit/soviet
