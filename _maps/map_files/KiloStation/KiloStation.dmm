@@ -16324,17 +16324,11 @@
 /area/maintenance/port/fore)
 "aze" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/structure/closet/crate,
-/obj/item/vending_refill/snack{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/vending_refill/cola,
-/obj/item/screwdriver,
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plating,
+/obj/structure/grille,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
 /area/maintenance/starboard)
 "azf" = (
 /obj/effect/decal/cleanable/dirt,
@@ -68201,19 +68195,14 @@
 /turf/closed/wall,
 /area/engine/atmos)
 "bUT" = (
-/obj/structure/tank_dispenser/oxygen,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 8
 	},
-/obj/machinery/light/small{
+/obj/effect/turf_decal/tile/purple{
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/shuttledock)
@@ -99026,7 +99015,7 @@
 /obj/structure/grille,
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/space)
+/area/space/nearstation)
 "dWK" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer3,
@@ -100649,6 +100638,20 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/shuttledock)
+"lDf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/structure/closet/crate,
+/obj/item/vending_refill/snack{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/vending_refill/cola,
+/obj/item/screwdriver,
+/obj/structure/grille/broken,
+/turf/open/floor/plating,
+/area/maintenance/starboard)
 "lGN" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
@@ -100784,18 +100787,8 @@
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
 "moq" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/airalarm{
-	pixel_y = 24
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/shuttledock)
@@ -101019,6 +101012,19 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
+"njb" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/machinery/airalarm{
+	pixel_y = 24
+	},
+/obj/machinery/space_heater,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel/dark,
+/area/science/shuttledock)
 "njV" = (
 /obj/structure/sign/warning/docking,
 /turf/closed/wall/r_wall,
@@ -102316,7 +102322,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_dock)
 "rwq" = (
-/obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet{
 	name = "exploration locker"
@@ -103077,7 +103082,7 @@
 /obj/structure/grille/broken,
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/space)
+/area/space/nearstation)
 "uIH" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
@@ -103345,6 +103350,18 @@
 	},
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
+"vNk" = (
+/obj/structure/tank_dispenser/oxygen,
+/obj/effect/turf_decal/bot,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/science/shuttledock)
 "vPh" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/corner{
@@ -103485,6 +103502,20 @@
 /obj/item/clothing/gloves/color/fyellow/old,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/warehouse)
+"wkO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/maintenance/starboard)
 "wmR" = (
 /obj/machinery/door/airlock/external{
 	name = "Solar Maintenance";
@@ -146889,7 +146920,7 @@ eWQ
 aCY
 aLn
 aNK
-aNK
+wkO
 bgd
 cHr
 bEq
@@ -147402,7 +147433,7 @@ atY
 ijF
 lTi
 atY
-bkd
+lDf
 aze
 bWk
 caN
@@ -147916,7 +147947,7 @@ nXx
 uSK
 nph
 atY
-ktS
+vNk
 bUT
 bXR
 cei
@@ -148173,7 +148204,7 @@ eft
 vPh
 ewJ
 atW
-cFE
+njb
 moq
 cbV
 ceT
@@ -155362,20 +155393,20 @@ aaa
 aaa
 aaa
 aaa
-cmJ
-cmJ
+acm
+acm
 ktS
 ktS
 ktS
-cmJ
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+acm
+acm
+acm
+acm
+acm
+acm
+acm
+acm
+acm
 acK
 bUG
 aaa
@@ -155621,10 +155652,10 @@ aaa
 aaa
 aeo
 aaa
-cmJ
+acm
 aaa
 aaa
-cmJ
+acm
 aaa
 aaa
 aeU
@@ -155886,7 +155917,7 @@ dUR
 aeu
 aeu
 aeU
-aeU
+ckn
 aeu
 aeu
 aeu
