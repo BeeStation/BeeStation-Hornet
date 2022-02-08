@@ -26,4 +26,3 @@
 		if(15 to 17)
 			L.emote("cry")
 		else
-			return
