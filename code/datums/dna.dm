@@ -277,12 +277,8 @@
 /datum/dna/proc/update_body_size()
 	if(!holder)
 		return
-	var/desired_size
-	var/list/feat2num = list("Normal" = BODY_SIZE_NORMAL, "Tall" = BODY_SIZE_TALL, "Short" = BODY_SIZE_SHORT)
-	if(!species.default_features["body_size"])
-		desired_size = BODY_SIZE_NORMAL
-	else
-		desired_size ||= feat2num[features["body_size"]]
+	var/static/list/feat2num = list("Normal" = BODY_SIZE_NORMAL, "Tall" = BODY_SIZE_TALL, "Short" = BODY_SIZE_SHORT)
+	var/desired_size = feat2num[features["body_size"]]
 
 	if(desired_size == current_body_size)
 		return
