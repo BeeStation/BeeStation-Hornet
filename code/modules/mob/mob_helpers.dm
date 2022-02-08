@@ -107,7 +107,7 @@
 			if(20)
 				newletter += "[newletter][newletter]"
 			else
-				newletter += ""
+				newletter = newletter
 		. += "[newletter]"
 	return sanitize(.)
 
@@ -152,7 +152,7 @@
 			if(5)
 				newletter = "glor"
 			else
-				newletter = ""
+				newletter = newletter
 		. += newletter
 	return sanitize(.)
 
@@ -196,7 +196,7 @@
 			if(5)
 				newletter = "toc"
 			else
-				newletter = ""
+				newletter = newletter
 		. += newletter
 	return sanitize(.)
 
