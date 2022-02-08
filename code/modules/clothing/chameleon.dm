@@ -220,7 +220,7 @@
 		var/obj/item/I = target
 		I.item_state = initial(picked_item.item_state)
 		I.item_color = initial(picked_item.item_color)
-		if(isclothing(I) && isclothing(initial(picked_item)))
+		if(isclothing(I) && isclothing(picked_item))
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)
