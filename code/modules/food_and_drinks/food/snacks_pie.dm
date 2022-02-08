@@ -44,7 +44,7 @@
 	if(ishuman(hit_atom))
 		var/mob/living/carbon/human/H = hit_atom
 		var/mutable_appearance/creamoverlay = mutable_appearance('icons/effects/creampie.dmi')
-		if(H.dna.species.limbs_id == "lizard")
+		if(istype(H.get_bodypart(BODY_ZONE_HEAD), /obj/item/bodypart/head/lizard))
 			creamoverlay.icon_state = "creampie_lizard"
 		else
 			creamoverlay.icon_state = "creampie_human"

@@ -47,6 +47,10 @@
 	var/interaction_range = 7			//wireless control range
 	var/obj/item/pda/aiPDA
 
+	//The internal ID card inside the AI.
+	var/list/default_access_list = list()
+	var/obj/item/card/id/internal_id_card
+
 	mobchatspan = "centcom"
 
 /mob/living/silicon/Initialize()
@@ -57,6 +61,14 @@
 		diag_hud.add_to_hud(src)
 	diag_hud_set_status()
 	diag_hud_set_health()
+	create_access_card(default_access_list)
+	default_access_list = null
+
+/mob/living/silicon/proc/create_access_card(list/access_list)
+	if(!internal_id_card)
+		internal_id_card = new()
+		internal_id_card.name = "[src] internal access"
+	internal_id_card.access |= access_list
 
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud
@@ -68,6 +80,7 @@
 	radio = null
 	aicamera = null
 	QDEL_NULL(builtInCamera)
+	QDEL_NULL(internal_id_card)
 	GLOB.silicon_mobs -= src
 	return ..()
 
