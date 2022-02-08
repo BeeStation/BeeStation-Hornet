@@ -4,7 +4,7 @@
 	name = "chief engineer's jumpsuit"
 	icon_state = "chiefengineer"
 	item_state = "gy_suit"	//TODO replace it
-	worn_icon_state = "chief"
+	worn_icon_state = "chiefengineer"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 80, "acid" = 40, "stamina" = 0)
 	resistance_flags = NONE
 
