@@ -2236,12 +2236,6 @@
 	id = "prisonblast";
 	name = "Prison Blast Door"
 	},
-/obj/machinery/button/door{
-	id = "prisonblast";
-	name = "Prison Lockdown";
-	pixel_y = 24;
-	req_one_access_txt = "2"
-	},
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
@@ -6110,12 +6104,14 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
 /obj/item/kirbyplants{
 	icon_state = "plant-02";
 	pixel_y = 3
+	},
+/obj/machinery/door_timer{
+	id = "Cell 1";
+	name = "Cell 1";
+	pixel_x = -33
 	},
 /turf/open/floor/plasteel,
 /area/security/warden)
@@ -8192,8 +8188,8 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door_timer{
-	id = "Cell 3";
-	name = "Cell 3";
+	id = "Cell 4";
+	name = "Cell 4";
 	pixel_y = 32
 	},
 /turf/open/floor/plasteel/dark,
@@ -65052,9 +65048,6 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/structure/sign/warning/securearea{
-	pixel_x = -32
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -69374,8 +69367,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/brigdoor/northright{
-	id = "Cell 6";
-	name = "Cell 6";
+	id = "Cell 3";
+	name = "Cell 3";
 	req_access_txt = "1"
 	},
 /turf/open/floor/plasteel,
@@ -69515,8 +69508,8 @@
 	pixel_x = 27
 	},
 /obj/machinery/door/window/brigdoor/northright{
-	id = "Cell 5";
-	name = "Cell 5";
+	id = "Cell 6";
+	name = "Cell 6";
 	req_access_txt = "1"
 	},
 /turf/open/floor/plasteel,
@@ -69842,8 +69835,8 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer1,
 /obj/machinery/door_timer{
-	id = "Cell 1";
-	name = "Cell 1";
+	id = "Cell 2";
+	name = "Cell 2";
 	pixel_y = 32
 	},
 /turf/open/floor/plasteel,
@@ -69884,8 +69877,8 @@
 	dir = 1
 	},
 /obj/machinery/door_timer{
-	id = "Cell 2";
-	name = "Cell 2";
+	id = "Cell 3";
+	name = "Cell 3";
 	pixel_y = 32
 	},
 /turf/open/floor/plasteel,
@@ -69901,8 +69894,8 @@
 	dir = 1
 	},
 /obj/machinery/door_timer{
-	id = "Cell 4";
-	name = "Cell 4";
+	id = "Cell 5";
+	name = "Cell 5";
 	pixel_y = 32
 	},
 /turf/open/floor/plasteel,
@@ -69916,8 +69909,8 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /obj/machinery/door_timer{
-	id = "Cell 5";
-	name = "Cell 5";
+	id = "Cell 6";
+	name = "Cell 6";
 	pixel_y = 32
 	},
 /turf/open/floor/plasteel,
@@ -71404,6 +71397,12 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/caution/stand_clear,
+/obj/machinery/button/door{
+	id = "prisonblast";
+	name = "Prison Lockdown";
+	pixel_y = -24;
+	req_one_access_txt = "2"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "bZp" = (
@@ -99889,6 +99888,21 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
+"hHw" = (
+/obj/structure/closet/secure_closet/brig{
+	id = "Cell 4";
+	name = "Cell 4 Locker"
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/security/warden)
 "hLa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -100461,8 +100475,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/brigdoor/northright{
-	id = "Cell 3";
-	name = "Cell 3";
+	id = "Cell 4";
+	name = "Cell 4";
 	req_access_txt = "1"
 	},
 /turf/open/floor/plasteel,
@@ -100481,6 +100495,21 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
+"kFI" = (
+/obj/structure/closet/secure_closet/brig{
+	id = "Cell 3";
+	name = "Cell 3 Locker"
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/security/warden)
 "kHf" = (
 /obj/machinery/power/tracker,
 /obj/effect/turf_decal/box,
@@ -101160,6 +101189,21 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/solars/starboard/fore)
+"nYp" = (
+/obj/structure/closet/secure_closet/brig{
+	id = "Cell 1";
+	name = "Cell 1 Locker"
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/security/warden)
 "ocb" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/emcloset,
@@ -101283,8 +101327,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/brigdoor/northright{
-	id = "Cell 4";
-	name = "Cell 4";
+	id = "Cell 5";
+	name = "Cell 5";
 	req_access_txt = "1"
 	},
 /turf/open/floor/plasteel,
@@ -102220,6 +102264,21 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
+"reu" = (
+/obj/structure/closet/secure_closet/brig{
+	id = "Cell 2";
+	name = "Cell 2 Locker"
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/security/warden)
 "rfr" = (
 /obj/structure/sign/warning/docking,
 /turf/closed/wall,
@@ -104054,6 +104113,21 @@
 	icon_state = "panelscorched"
 	},
 /area/quartermaster/warehouse)
+"xWu" = (
+/obj/structure/closet/secure_closet/brig{
+	id = "Cell 5";
+	name = "Cell 5 Locker"
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/security/warden)
 "xYt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
@@ -122041,7 +122115,7 @@ bDV
 bWQ
 aai
 aeI
-aJH
+nYp
 aaT
 ajZ
 bTp
@@ -122812,7 +122886,7 @@ bPt
 cLV
 aai
 aeI
-aJH
+reu
 aaT
 abY
 adp
@@ -123583,7 +123657,7 @@ bPt
 cLV
 aai
 aeI
-aJH
+kFI
 aaT
 abY
 aek
@@ -124354,7 +124428,7 @@ bPt
 cLV
 aai
 aeI
-aJH
+hHw
 aaT
 bSR
 byA
@@ -125125,7 +125199,7 @@ bPt
 cLV
 aai
 aeI
-aJH
+xWu
 aaT
 aft
 bYF
