@@ -65,7 +65,7 @@
 			if (do_after(user, 2 SECONDS, src))
 				to_chat(user, "<span class='notice'>You reset the trigger</span>")
 				dud_flags &= ~GRENADE_USED
-		return
+			return
 		if(stage == GRENADE_WIRED)
 			if(beakers.len)
 				stage_change(GRENADE_READY)
