@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Optimises get_hear and get_hearers_in_view to use dview instead of changing
-      the luminosity of the turf beneath it.
