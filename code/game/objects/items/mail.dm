@@ -17,7 +17,7 @@
 	var/datum/weakref/recipient_ref				/// How many goodies this mail contains.
 	var/goodie_count = 1						/// Goodies which can be given to anyone. The base weight for cash is 56. For there to be a 50/50 chance of getting a department item, they need 56 weight as well.
 	var/list/generic_goodies = list(
-		/obj/item/stack/spacecash/c10										= 20,
+		/obj/item/stack/spacecash/c10										= 22, //the lamest chance to get item, what do you expect really?
 		/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game			= 10,
 		/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy	= 10,
 		/obj/item/reagent_containers/food/snacks/cheesiehonkers 			= 10,
@@ -27,7 +27,7 @@
 		/obj/item/stack/spacecash/c100 										= 25,
 		/obj/item/stack/spacecash/c200 										= 15,
 		/obj/item/stack/spacecash/c500 										= 5,
-		/obj/item/stack/spacecash/c1000 									= 1,
+		/obj/item/stack/spacecash/c1000 									= 1
 	)
 	// Overlays (pure fluff), Does the letter have the postmark overlay?
 	var/postmarked = TRUE						/// Does the letter have postmarks?
@@ -139,7 +139,7 @@
 	qdel(src)
 
 /// Accepts a mind to initialize goodies for a piece of mail.
-/obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient)
+/obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient)//maybe add a weight system if the mail has "value"?
 	switch(rand(1,5))
 		if(1,2)
 			name = "[initial(name)] for [recipient.name] ([recipient.assigned_role])"
@@ -153,7 +153,6 @@
 	var/list/goodies = generic_goodies										//Load the generic list of goodies
 	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role]//Load the job the player have
 
-	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role]
 	if(this_job)
 		goodies += this_job.mail_goodies
 		if(this_job.paycheck_department && department_colors[this_job.paycheck_department])

@@ -33,11 +33,13 @@
 	rpg_title = "High Cleric"
 
 	mail_goodies = list(
-		/obj/effect/spawner/lootdrop/teratoma/minor = 10,
-		/obj/effect/spawner/lootdrop/teratoma/major = 6,
+		/obj/effect/spawner/lootdrop/teratoma/minor = 12,
+		/obj/effect/spawner/lootdrop/teratoma/major = 8,
+		/obj/item/sensor_device = 5,
 		/obj/effect/spawner/lootdrop/surgery_tool_advanced = 4,
 		/obj/effect/spawner/lootdrop/surgery_tool_alien = 1
 	)
+
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cmo
 	)

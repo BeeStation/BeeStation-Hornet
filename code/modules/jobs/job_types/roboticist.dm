@@ -30,9 +30,11 @@
 	)
 
 	mail_goodies = list(
-		/obj/item/storage/box/flashes = 20,
-		/obj/item/stack/sheet/iron/twenty = 15,
-		/obj/item/modular_computer/tablet/preset/advanced = 5
+		/obj/item/stack/sheet/iron/twenty = 15, //you'll always run out of iron regardless...
+		/obj/item/storage/box/flashes = 10,
+		/obj/item/clothing/glasses/hud/diagnostic/sunglasses = 7,//eh.
+		/obj/item/borg/upgrade/rename = 5,
+		/obj/item/modular_computer/tablet/preset/advanced = 5 //do anyone ever use this???
 	)
 
 /datum/outfit/job/roboticist

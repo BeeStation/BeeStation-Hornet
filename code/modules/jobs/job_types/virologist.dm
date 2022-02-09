@@ -30,12 +30,13 @@
 	biohazard = 50 //duh
 
 	mail_goodies = list(
-		/obj/item/reagent_containers/glass/bottle/random_virus = 15,
+		/obj/item/reagent_containers/syringe/used = 15,
+		/obj/item/reagent_containers/spray/cleaner = 15, //keep your workplace clean, please.
+		/obj/item/reagent_containers/food/snacks/monkeycube = 10,
 		/obj/item/reagent_containers/glass/bottle/formaldehyde = 10,
-		/obj/item/reagent_containers/glass/bottle/synaptizine = 10,
-		/obj/item/reagent_containers/syringe/antiviral = 10,
-		/obj/item/stack/sheet/mineral/plasma = 10,
-		/obj/item/stack/sheet/mineral/uranium = 5,
+		/obj/item/reagent_containers/glass/bottle/random_virus/minor = 10,
+		/obj/item/reagent_containers/glass/bottle/random_virus = 5,
+		/obj/item/stock_parts/scanning_module/phasic = 5
 	)
 
 /datum/outfit/job/virologist

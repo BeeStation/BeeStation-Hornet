@@ -24,9 +24,10 @@
 	rpg_title = "Cleric"
 
 	mail_goodies = list(
-		/obj/item/healthanalyzer/advanced = 15,
-		/obj/effect/spawner/lootdrop/surgery_tool_advanced = 4,
+		/obj/item/healthanalyzer/advanced = 10,
+		/obj/item/storage/pill_bottle/epinephrine = 8,
 		/obj/item/reagent_containers/glass/bottle/formaldehyde = 6,
+		/obj/effect/spawner/lootdrop/surgery_tool_advanced = 4,
 		/obj/effect/spawner/lootdrop/teratoma/minor = 5,
 		/obj/effect/spawner/lootdrop/teratoma/major = 1
 	)

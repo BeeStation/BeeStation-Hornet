@@ -35,11 +35,9 @@
 	rpg_title = "High Crystallomancer"
 
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/cracker = 25, //you know. for poly
-		/obj/item/stack/sheet/mineral/diamond = 15,
-		/obj/item/stack/sheet/mineral/uranium/five = 15,
-		/obj/item/stack/sheet/mineral/plasma/five = 15,
-		/obj/item/stack/sheet/mineral/gold/five = 15,
+		/obj/item/reagent_containers/food/snacks/cracker = 15, //you know. for poly
+		/obj/item/reagent_containers/food/drinks/soda_cans/thirteenloko = 15,
+		/obj/item/rcd_ammo = 10,
 		/obj/item/construction/rcd/arcd = 1 //if you got this, you hit the lottery
 	)
 

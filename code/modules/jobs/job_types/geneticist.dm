@@ -24,9 +24,10 @@
 	rpg_title = "Genemancer"
 
 	mail_goodies = list(
-		/obj/item/reagent_containers/pill/mutadone = 10,
-		/obj/item/storage/box/monkeycubes = 10
-		//maybe random gene material?
+		/obj/item/reagent_containers/pill/mutadone = 15,
+		/obj/item/storage/pill_bottle/mannitol = 10,
+		/obj/item/reagent_containers/food/snacks/monkeycube = 10,
+		/obj/effect/spawner/lootdrop/chromosome = 5
 	)
 
 	species_outfits = list(

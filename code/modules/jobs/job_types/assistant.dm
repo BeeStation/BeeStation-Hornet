@@ -27,7 +27,7 @@ Assistant
 		/obj/item/clothing/gloves/color/fyellow = 7,
 		/obj/item/choice_beacon/music = 5,
 		/obj/item/toy/crayon/spraycan = 3,
-		/obj/item/crowbar/large = 1
+		/obj/item/crowbar/large = 2
 	)
 
 	species_outfits = list(

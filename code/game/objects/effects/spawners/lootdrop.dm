@@ -581,3 +581,14 @@
 		/obj/item/reagent_containers/food/snacks/donut/bungo,
 		/obj/item/reagent_containers/food/snacks/donut/chaos
 	)
+
+/obj/effect/spawner/lootdrop/chromosome
+	name = "rare donut spawner"
+	loot = list( // Mail loot spawner. free genetic material, 'nuff said
+		/obj/item/chromosome/energy,
+		/obj/item/chromosome/power,
+		/obj/item/chromosome/reinforcer,
+		/obj/item/chromosome/stabilizer,
+		/obj/item/chromosome/synchronizer
+	)
+

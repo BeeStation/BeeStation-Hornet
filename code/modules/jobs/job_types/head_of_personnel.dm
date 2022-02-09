@@ -42,6 +42,8 @@
 
 	mail_goodies = list(
 		/obj/item/card/id/silver = 10,
+		/obj/item/assembly/flash/handheld = 5,
+		/obj/item/mining_voucher = 5,
 		/obj/item/stack/sheet/bone = 5
 	)
 

@@ -26,6 +26,7 @@
 		/obj/item/reagent_containers/food/snacks/store/cheesewheel = 10,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 10,
 		/obj/item/book/mimery = 1,
+		/obj/item/book/granter/spell/mimery_blockade = 0.5 //when you thought it could get worse...
 	)
 
 	species_outfits = list(

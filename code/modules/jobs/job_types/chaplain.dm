@@ -11,11 +11,12 @@
 	chat_color = "#8AB48C"
 
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/drinks/bottle/holywater = 30,
-		/obj/item/toy/plush/awakenedplushie = 10,
+		/obj/item/reagent_containers/food/drinks/bottle/holywater = 15,
+		/obj/item/storage/book/bible = 10,
 		/obj/item/grenade/chem_grenade/holy = 5,
+		/obj/item/toy/plush/awakenedplushie = 3,
 		/obj/item/toy/plush/narplush = 2,
-		/obj/item/toy/plush/plushvar = 1
+		/obj/item/toy/plush/plushvar = 2
 	)
 
 	outfit = /datum/outfit/job/chaplain

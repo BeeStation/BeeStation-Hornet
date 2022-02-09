@@ -31,9 +31,11 @@
 	)
 
 	mail_goodies = list(
-		/obj/item/storage/box/lights/mixed = 20,
+		/obj/item/storage/box/lights/mixed = 15,
+		/obj/item/reagent_containers/food/drinks/soda_cans/thirteenloko = 15,
 		/obj/item/lightreplacer = 10,
-		/obj/item/holosign_creator/engineering = 8
+		/obj/item/holosign_creator/engineering = 8,
+		/obj/item/clothing/gloves/color/yellow = 5 //An assistant can only dream of those...
 	)
 
 /datum/outfit/job/engineer

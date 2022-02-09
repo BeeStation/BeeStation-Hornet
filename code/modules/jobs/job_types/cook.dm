@@ -29,6 +29,7 @@
 		/obj/item/reagent_containers/food/condiment/enzyme = 15,
 		/obj/item/reagent_containers/food/condiment/soymilk = 15,
 		/obj/item/reagent_containers/food/condiment/milk = 15,
+		/obj/item/reagent_containers/food/snacks/mint = 12, //UR SO FAT!
 		/obj/item/storage/box/ingredients/wildcard = 10,
 		/obj/item/storage/box/monkeycubes = 5, //EEEEEEEK
 		/obj/item/kitchen/knife = 4,

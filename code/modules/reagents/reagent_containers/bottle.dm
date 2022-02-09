@@ -35,6 +35,11 @@
 	desc = "A small bottle of anti-toxin. Used to treat toxin damage."
 	list_reagents = list(/datum/reagent/medicine/antitoxin = 30)
 
+/obj/item/reagent_containers/glass/bottle/toxin/mutagen
+	name = "mutagen toxin bottle"
+	desc = "A small bottle of mutagen toxins. Do not drink, Might cause unpredictable mutations."
+	list_reagents = list(/datum/reagent/toxin/mutagen = 30)
+
 /obj/item/reagent_containers/glass/bottle/toxin
 	name = "toxin bottle"
 	desc = "A small bottle of toxins. Do not drink, it is poisonous."
@@ -229,6 +234,11 @@
 	name = "romerol bottle"
 	desc = "A small bottle of Romerol. The REAL zombie powder."
 	list_reagents = list(/datum/reagent/romerol = 30)
+
+/obj/item/reagent_containers/glass/bottle/random_virus/minor //for mail only...yet
+	name = "Minor experimental disease culture bottle"
+	desc = "A small bottle. Contains a weak version of an untested viral culture in synthblood medium."
+	spawned_disease = /datum/disease/advance/random/minor
 
 /obj/item/reagent_containers/glass/bottle/random_virus
 	name = "Experimental disease culture bottle"

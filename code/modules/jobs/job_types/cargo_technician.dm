@@ -22,11 +22,10 @@
 	rpg_title = "Merchantman"
 
 	mail_goodies = list(
+		/obj/effect/spawner/lootdrop/maintenance = 15,
 		/obj/item/pizzabox = 10,
-		/obj/item/stack/sheet/mineral/gold = 5,
-		/obj/item/stack/sheet/mineral/uranium = 4,
-		/obj/item/stack/sheet/mineral/diamond = 3,
-		/obj/item/gun/ballistic/rifle/boltaction = 1
+		/obj/item/ammo_box/a762 = 3,
+		/obj/item/gun/ballistic/rifle/boltaction = 1 //URAAAAHH
 	)
 
 	species_outfits = list(

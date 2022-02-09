@@ -30,12 +30,12 @@
 	H.apply_pref_name("clown", M.client)
 
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/grown/banana = 100,
-		/obj/item/reagent_containers/food/snacks/pie/cream = 50,
-		/obj/item/clothing/shoes/clown_shoes/combat = 10,
-		/obj/item/reagent_containers/spray/waterflower/lube = 20, // lube
-		/obj/item/reagent_containers/spray/waterflower/superlube = 1, // Superlube, good lord.
-		/mob/living/simple_animal/hostile/retaliate/clown = 0.1 //An entire fucking clown, an aggressive one, why? The station is a circus anyway...
+		/obj/item/reagent_containers/food/snacks/grown/banana = 20,
+		/obj/item/reagent_containers/food/snacks/pie/cream = 15,
+		/obj/item/clothing/shoes/clown_shoes/combat = 5,
+		/obj/item/reagent_containers/spray/waterflower/lube = 3, // lube
+		/obj/item/reagent_containers/spray/waterflower/superlube = 2, // Superlube, good lord.
+		/mob/living/simple_animal/hostile/retaliate/clown = 0.5 //An entire fucking clown, an aggressive one, why? The station is a circus anyway...
 	)
 
 /datum/outfit/job/clown

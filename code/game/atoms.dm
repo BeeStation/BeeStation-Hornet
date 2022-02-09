@@ -570,7 +570,6 @@
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
-
 /// Updates the icon of the atom
 /atom/proc/update_icon()
 	SIGNAL_HANDLER

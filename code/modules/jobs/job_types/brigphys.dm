@@ -25,10 +25,11 @@
 	rpg_title = "Battle Cleric"
 
 	mail_goodies = list(
-		/obj/item/reagent_containers/hypospray/medipen = 20,
+		/obj/item/reagent_containers/hypospray/medipen = 15,
 		/obj/item/reagent_containers/medspray/silver_sulf = 10,
 		/obj/item/reagent_containers/medspray/styptic = 10,
 		/obj/item/reagent_containers/hypospray/medipen/survival = 5,
+		/obj/item/clothing/glasses/hud/medsec = 2, //The ultimate validhunter tool
 		/obj/item/healthanalyzer/advanced = 2
 	)
 

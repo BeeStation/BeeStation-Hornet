@@ -22,10 +22,18 @@
 	copy_type = /datum/disease/advance
 	var/randomname = TRUE
 	var/datum/symptom/setsymptom = null
+	var/max_symptoms_override //this will determine later if the virus is the Original advanced random disease or, the mail version Minor Advanced random disease
+
+//Randomly generated Disease, for mail!
+/datum/disease/advance/random/minor
+	name = "Minor Experimental Disease"
+	max_symptoms_override = 4
 
 /datum/disease/advance/random/New(max_symptoms, max_level = 9, min_level = 1, var/datum/symptom/specialsymptom = setsymptom, var/atom/infected)
 	if(!max_symptoms)
 		max_symptoms = (2 + rand(1, (VIRUS_SYMPTOM_LIMIT-2)))
+	if(max_symptoms_override)
+		max_symptoms = (max_symptoms_override - rand(0, 2))
 	if(specialsymptom)
 		max_symptoms -= 1
 	var/list/datum/symptom/possible_symptoms = list()
