@@ -1,7 +1,7 @@
 /obj/item/organ/butt
 	name = "butt"
 	desc = "extremely treasured body part"
-	alternate_worn_icon = 'monkestation/icons/mob/head.dmi' //Wearable on the head
+	worn_icon = 'monkestation/icons/mob/head.dmi' //Wearable on the head
 	icon = 'monkestation/icons/obj/butts.dmi'
 	icon_state = "ass"
 	zone = BODY_ZONE_PRECISE_GROIN

@@ -113,7 +113,7 @@ For example, a new reagent would go into the `monkestation/code/modules/reagents
 
 If you are reworking a existing proc/verb, it is highly recommended to keep it where its at instead of moving it to the monkestation folder, incase someone on bee edits the very same proc/verb.
 
-In the case of implementing new clothes, you are required to use the `alternate_worn_icon` variable for the item in question.
+In the case of implementing new clothes, you are required to use the `worn_icon` variable for the item in question.
 
 As an example:
 
@@ -121,7 +121,7 @@ As an example:
 
 	desc = "The ultimate in clown shoe technology."
 	name = "boom boots"
-	alternate_worn_icon = 'monkestation/icons/mob/feet.dmi'```
+	worn_icon = 'monkestation/icons/mob/feet.dmi'```
 
 Any associated icons would then go in the monkestation modular folder.
 

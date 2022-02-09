@@ -1,7 +1,8 @@
 /obj/item/clothing/shoes/yes_slip
 	name = "Yes-Slip Shoes"
 	desc = "A pair of very slippery sneakers that even slide out of your view."
-	alternate_worn_icon = 'monkestation/icons/mob/feet.dmi'
+	icon = 'monkestation/icons/obj/clothing/shoes.dmi'
+	worn_icon = 'monkestation/icons/mob/feet.dmi'
 	icon_state = "yesslip"
 	var/next_slip
 
