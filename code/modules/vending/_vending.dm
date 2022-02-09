@@ -427,7 +427,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	else
 		. = ..()
 		if(tiltable && !tilted && I.force)
-			switch(prob(49) ? rand(1, 100) : 0)
+			switch(prob(56) ? rand(1, 100) : 0)
 				if(1)
 					freebie(user, 3)
 				if(2 to 3)
