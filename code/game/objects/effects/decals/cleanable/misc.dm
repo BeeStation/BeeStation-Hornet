@@ -210,7 +210,7 @@
 	desc = "A puddle of stabilized plasma."
 	icon_state = "flour"
 	icon = 'icons/effects/tomatodecal.dmi'
-	color = "#C8A5DC"
+	color = "#2D2D2D"
 
 /obj/effect/decal/cleanable/insectguts
 	name = "insect guts"
