@@ -1,0 +1,7 @@
+author: ike709
+delete-after: true
+changes:
+  - bugfix: Paper with pre-written text will now have the correct icon state
+  - bugfix: Fixed a theoretical paper exploit for injecting fake stamp data
+  - bugfix: Guarantee that paper inputs over the max length will be truncated
+  - refactor: Minor backend optimizations and improvements to paper

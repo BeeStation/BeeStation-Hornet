@@ -1,0 +1,4 @@
+author: DatBoiTim
+delete-after: true
+changes:
+  - bugfix: A weird bug regarding BS bodybags soft-duping

@@ -1,0 +1,4 @@
+author: ImSynthex
+delete-after: true
+changes:
+  - bugfix: The locks on PA, singulo generator and tesla generator crates now work

@@ -1,0 +1,4 @@
+author: DatBoiTim
+delete-after: true
+changes:
+  - code_imp: Makes two usages of the SECONDS define more consistent
