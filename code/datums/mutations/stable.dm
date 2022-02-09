@@ -1,5 +1,4 @@
-//mutations that don't fit into the other categories, but aren't complex enough for their own file.
-
+//Grants 20 stability, but 20 instability. You must use an activator or chromosome to get any effect.
 /datum/mutation/human/stable_genetics
 	name = "Stable Genetics"
 	desc = "The specimen's genome can handle more mutations before melting, reducing instability by 20 if activated."
