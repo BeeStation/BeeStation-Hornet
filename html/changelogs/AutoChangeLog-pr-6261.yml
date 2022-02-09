@@ -1,5 +1,0 @@
-author: PetMudstone
-delete-after: true
-changes:
-  - bugfix: Fixed bug where pill bottles in ChemMasters didn't receive pills created
-      by them.

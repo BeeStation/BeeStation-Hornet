@@ -1,6 +1,0 @@
-author: stylemistake,SplinterGP,mokulus
-delete-after: true
-changes:
-  - code_imp: Treat DreamMaker warnings as errors in CI
-  - refactor: Performance of core tgui components was improved (Button, Icon, Flex,
-      Stack). UI should feel a tiny bit faster.

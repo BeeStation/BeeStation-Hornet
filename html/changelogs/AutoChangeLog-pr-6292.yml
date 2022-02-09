@@ -1,4 +1,0 @@
-author: ike709
-delete-after: true
-changes:
-  - bugfix: Ling can only transform into a headspider on an open turf to prevent badness.
