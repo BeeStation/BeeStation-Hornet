@@ -1,7 +1,7 @@
 /obj/item/organ/butt
 	name = "butt"
 	desc = "extremely treasured body part"
-	worn_icon = 'monkestation/icons/mob/head.dmi' //Wearable on the head
+	worn_icon = 'monkestation/icons/obj/worn_butts.dmi' //Wearable on the head
 	icon = 'monkestation/icons/obj/butts.dmi'
 	icon_state = "ass"
 	zone = BODY_ZONE_PRECISE_GROIN
@@ -230,9 +230,7 @@
 	//GAS CREATION, ASS DETACHMENT & COOLDOWNS
 	if(!cooling_down)
 		cooling_down = TRUE
-		if(!Location.has_gravity())
-			var/atom/target = get_edge_target_turf(user, user.dir)
-			user.throw_at(target, 1, 0.25, spin = FALSE)
+		user.newtonian_move(user.dir)
 		Location.atmos_spawn_air(atmos_gas)
 		if(prob(true_instability))
 			user.visible_message("<span class='warning'>[user]'s butt goes flying off!</span>")
