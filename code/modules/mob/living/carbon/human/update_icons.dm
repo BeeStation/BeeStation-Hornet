@@ -865,14 +865,14 @@ generate/load female uniform sprites matching all previously decided variables
 				layer = SPECIAL_HANDS_LAYER //If facing left or up, the right hand's sprite will be rendered under the mob
 			else
 				layer = HANDS_LAYER
-			hand_overlay = I.build_worn_icon(state = t_state, default_layer = layer, default_icon_file = icon_file, isinhands = TRUE, direction = newdir)
+			hand_overlay = I.build_worn_icon(default_layer = layer, default_icon_file = icon_file, isinhands = TRUE, direction = newdir)
 
 		else
 			if(newdir == EAST || newdir == NORTH)
 				layer = SPECIAL_HANDS_LAYER //If facing right or up, the left hand's sprite will be rendered under the mob
 			else
 				layer = HANDS_LAYER
-			hand_overlay = I.build_worn_icon(state = t_state, default_layer = layer, default_icon_file = icon_file, isinhands = TRUE, direction = newdir)
+			hand_overlay = I.build_worn_icon(default_layer = layer, default_icon_file = icon_file, isinhands = TRUE, direction = newdir)
 
 		if(layer == HANDS_LAYER)
 			hands += hand_overlay

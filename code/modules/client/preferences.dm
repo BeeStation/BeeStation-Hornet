@@ -97,9 +97,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							"wings" = "None",
 							"frills" = "None",
 							"spines" = "None",
-							"body_markings" =
-							"None", "legs" =
-							"Normal Legs",
+							"body_markings" = "None",
+							"legs" ="Normal Legs",
 							"moth_wings" = "Plain",
 							"ipc_screen" = "Blue",
 							"ipc_antenna" = "None",
@@ -2071,15 +2070,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		pref_species = new /datum/species/human
 		save_character()
 
-
-	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE) //This happens before features are set because it causes problems otherwise.
 	character.dna.features = features.Copy()
-	character.dna.species.character_gen_autism(character, character.dna.features) //FUCK: DIGITIGRADE LEG CODE AND ETHEREAL CODE.
+	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
 	//Because of how set_species replaces all bodyparts with new ones, hair needs to be set AFTER species.
 	character.dna.real_name = character.real_name
 	character.hair_color = hair_color
 	character.facial_hair_color = facial_hair_color
-
 	character.hair_style = hair_style
 	character.facial_hair_style = facial_hair_style
 

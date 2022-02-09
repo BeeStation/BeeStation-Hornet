@@ -23,7 +23,6 @@
 	default_features = list("mcolor" = "#00FF00", "grod_crown" = "Crown")
 	mutant_bodyparts = list("grod_crown")
 	mutant_brain = /obj/item/organ/brain/grod
-	limbs_id = "grod"
 	brutemod = GROD_BRUTEMOD
 	burnmod = GROD_BURNMOD
 	heatmod = GROD_HEATMOD

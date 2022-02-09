@@ -737,7 +737,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			bodyparts_to_add -= "ipc_antenna"
 
 	if("grod_crown" in mutant_bodyparts)
-		if(!H.dna.features["grod_crown"] || (H.head?flags_inv & HIDEHAIR)) //Add shit here later, me
+		if(!H.dna.features["grod_crown"] || (H.head?.flags_inv & HIDEHAIR)) //Add shit here later, me
 			bodyparts_to_add -= "grod_crown"
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
@@ -2122,7 +2122,4 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	return
 
 /datum/species/proc/get_harm_descriptors() //Passes descriptor changes like "You are bleeding!" > "You are leaking!"
-	return
-
-/datum/species/proc/character_gen_autism(mob/living/carbon/human/H, list/features) //https://pastebin.com/CnEkJAb8
 	return
