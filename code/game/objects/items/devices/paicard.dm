@@ -95,11 +95,7 @@
 	switch(action)
 		if("download")
 			/// The individual candidate to download
-			var/datum/pai_candidate/candidate
-			for(var/datum/pai_candidate/checked_candidate as anything in SSpai.candidates)
-				if(params["key"] == checked_candidate.key)
-					candidate = checked_candidate
-					break
+			var/datum/pai_candidate/candidate = SSpai.candidates[params["key"]]
 			if(isnull(candidate))
 				return FALSE
 			if(src.pai)
@@ -205,13 +201,13 @@
 	var/list/candidates = list()
 	if(length(SSpai.candidates))
 		for(var/datum/pai_candidate/checked_candidate as anything in SSpai.candidates)
-			if(!checked_candidate.ready)
+			if(!SSpai.candidates[checked_candidate].ready)
 				continue
 			/// The object containing the candidate data.
 			var/list/candidate = list()
-			candidate["comments"] = checked_candidate.comments
-			candidate["description"] = checked_candidate.description
-			candidate["key"] = checked_candidate.key
-			candidate["name"] = checked_candidate.name
+			candidate["comments"] = SSpai.candidates[checked_candidate].comments
+			candidate["description"] = SSpai.candidates[checked_candidate].description
+			candidate["key"] = SSpai.candidates[checked_candidate].key
+			candidate["name"] = SSpai.candidates[checked_candidate].name
 			candidates += list(candidate)
 	return candidates
