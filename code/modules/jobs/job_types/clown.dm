@@ -35,7 +35,7 @@
 		/obj/item/clothing/shoes/clown_shoes/combat = 5,
 		/obj/item/reagent_containers/spray/waterflower/lube = 3, // lube
 		/obj/item/reagent_containers/spray/waterflower/superlube = 2, // Superlube, good lord.
-		/mob/living/simple_animal/hostile/retaliate/clown = 0.5 //An entire fucking clown, an aggressive one, why? The station is a circus anyway...
+		/mob/living/simple_animal/hostile/retaliate/clown = 1 //An entire fucking clown, an aggressive one, why? The station is a circus anyway...
 	)
 
 /datum/outfit/job/clown
