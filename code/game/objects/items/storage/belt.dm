@@ -179,6 +179,7 @@
 	icon_state = "medicalbelt"
 	item_state = "medical"
 	worn_icon_state = "medical"
+	content_overlays = TRUE
 
 /obj/item/storage/belt/medical/ComponentInitialize()
 	. = ..()
