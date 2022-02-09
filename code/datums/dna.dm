@@ -14,6 +14,7 @@
 	var/delete_species = TRUE //Set to FALSE when a body is scanned by a cloner to fix #38875
 	var/mutation_index[DNA_MUTATION_BLOCKS] //List of which mutations this carbon has and its assigned block
 	var/default_mutation_genes[DNA_MUTATION_BLOCKS] //List of the default genes from this mutation to allow DNA Scanner highlighting
+	var/base_stability = 100
 	var/stability = 100
 	var/scrambled = FALSE //Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
 
@@ -214,7 +215,7 @@
 	return 0
 
 /datum/dna/proc/update_instability(alert=TRUE)
-	stability = 100
+	stability = base_stability
 	for(var/datum/mutation/human/M in mutations)
 		if(M.class == MUT_EXTRA)
 			stability -= M.instability * GET_MUTATION_STABILIZER(M)
