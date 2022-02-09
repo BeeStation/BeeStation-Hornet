@@ -57,7 +57,7 @@
 	var/list/parts = list()
 	for(var/Zim in C.bodyparts)
 		var/obj/item/bodypart/BP = Zim
-		if(BP.body_part != HEAD && BP.body_part != CHEST && BP.is_organic_limb())
+		if(BP.body_part != HEAD && BP.body_part != CHEST && IS_ORGANIC_LIMB(BP))
 			if(BP.dismemberable)
 				parts += BP
 	if(!LAZYLEN(parts))

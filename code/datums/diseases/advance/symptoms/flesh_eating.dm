@@ -58,11 +58,11 @@ Bonus
 
 /datum/symptom/flesh_eating/proc/Flesheat(mob/living/M, datum/disease/advance/A)
 	if(damage)
-		M.take_overall_damage(brute = rand(15,25), required_status = BODYPART_ORGANIC)
+		M.take_overall_damage(brute = rand(15,25), required_status = BODYTYPE_ORGANIC)
 	if(!ishuman(M))
 		return
 	var/mob/living/carbon/human/H = M
-	H.bleed_rate += 2 * power //bleeding is quite strong. this is more than enough 
+	H.bleed_rate += 2 * power //bleeding is quite strong. this is more than enough
 	H.bleed(max(10*power, H.bleed_rate))//having power actually up the bleed rate on this puts it into a pretty dangerous territory. this should be more managable
 	H.add_splatter_floor(H.loc)
 	if(bleed) // this is really, really messy
@@ -165,7 +165,7 @@ Bonus
 			else if(prob(base_message_chance))
 				to_chat(M, "<span class='warning'>Your body slowly decays... luckily, you're already dead!</span>")
 		return //this symptom wont work on the undead.
-	M.take_overall_damage(brute = get_damage, required_status = BODYPART_ORGANIC)
+	M.take_overall_damage(brute = get_damage, required_status = BODYTYPE_ORGANIC)
 	if(chems)
 		M.reagents.add_reagent_list(list(/datum/reagent/toxin/heparin = 2, /datum/reagent/toxin/lipolicide = 2))
 	if(zombie)

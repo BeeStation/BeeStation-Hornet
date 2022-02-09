@@ -15,7 +15,8 @@
 		to_chat(src, "<span class='notice'>You're too exhausted to keep going.</span>")
 	stam_regen_start_time = world.time + STAMINA_CRIT_TIME
 	stam_paralyzed = TRUE
-
+	update_mobility()
+	
 /mob/living/carbon/adjust_drugginess(amount)
 	druggy = max(druggy+amount, 0)
 	if(druggy)
@@ -80,4 +81,3 @@
 	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
 		. = B.cure_all_traumas(resilience)
-

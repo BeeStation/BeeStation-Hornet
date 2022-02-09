@@ -36,10 +36,10 @@
 	del_on_death = TRUE
 	hardattacks = TRUE
 	dodging = TRUE
-	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
-	lose_patience_timeout = 50//very impatient, moves from target to target frequently
+	lose_patience_timeout = 200
+	rapid_melee = 2
 	var/list/victims = list()
 
 //heal himself when not in combat
@@ -102,7 +102,7 @@
 			maxHealth = (100 + (20 * LAZYLEN(victims)))
 		else
 			maxHealth = (300 + (5 * (LAZYLEN(victims)-10)))
-		switch(LAZYLEN(victims))
+		switch(LAZYLEN(victims))	
 			if(2)
 				projectiletype = /obj/item/projectile/bullet/dart/tranq/plus
 			if(4)//gain space adaptation to make cheesing harder
@@ -111,7 +111,7 @@
 				icon_living = "cat_butcher_fire"
 			if(6) //at this point, it's probably out in the hall attacking several people at once
 				ranged_cooldown_time = 20
-				rapid_melee = 2
+				rapid_melee = 3
 				transform *= 1.25
 			if(8)
 				projectiletype = /obj/item/projectile/bullet/dart/tranq/plusplus
@@ -119,7 +119,7 @@
 				ranged_cooldown_time = 10
 			if(15)//if he's gotten this powerful, someone has really fucked up
 				ranged_cooldown_time = 5
-				rapid_melee = 3
+				rapid_melee = 4
 				transform *= 1.25
 				icon_state = "cat_butcher_super"
 				icon_living = "cat_butcher_super"

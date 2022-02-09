@@ -206,6 +206,7 @@
 	volume = 125 //Gives enough room for the black powder at max potency
 	max_integrity = 40
 	wine_power = 80
+	discovery_points = 300
 
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb/attack_self(mob/living/user)
 	user.visible_message("<span class='warning'>[user] plucks the stem from [src]!</span>", "<span class='userdanger'>You pluck the stem from [src], which begins to hiss loudly!</span>")

@@ -384,6 +384,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "katana"
 	item_state = "katana"
+	worn_icon_state = "katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -840,6 +841,9 @@
 	if(href_list["pick"])
 		if (cardUser.is_holding(src))
 			var/choice = href_list["pick"]
+			if(!(choice in src.currenthand))
+				log_href_exploit(usr)
+				return
 			var/obj/item/toy/cards/singlecard/C = new/obj/item/toy/cards/singlecard(cardUser.loc)
 			src.currenthand -= choice
 			C.parentdeck = src.parentdeck
@@ -1127,6 +1131,7 @@
 	desc = "A stylish steampunk watch made out of thousands of tiny cogwheels."
 	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "dread_ipad"
+	worn_icon_state = "dread_ipad"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
