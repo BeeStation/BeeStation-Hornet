@@ -155,10 +155,12 @@
 	var/sequence = GET_SEQUENCE(mutation)
 	if(active)
 		return sequence
-	while(difficulty)
-		var/randnum = rand(1, length_char(sequence))
+	var/list/indexes = list()
+	for(var/i in 1 to length_char(sequence))
+		indexes += i
+	for(var/i in 1 to difficulty)
+		var/randnum = pick_n_take(indexes)
 		sequence = copytext_char(sequence, 1, randnum) + "X" + copytext_char(sequence, randnum + 1)
-		difficulty--
 	return sequence
 
 /datum/dna/proc/generate_unique_enzymes()
