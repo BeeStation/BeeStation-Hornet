@@ -99,14 +99,13 @@
 				newletter = "...huuuhhh..."
 			else if(newletter == ".")
 				newletter = " *BURP*."
-		switch(rand(1, 20))
+		switch(prob(15) ? rand(1, 3):0)
 			if(1)
 				newletter += "'"
-			if(10)
+			if(2)
 				newletter += "[newletter]"
-			if(20)
+			if(3)
 				newletter += "[newletter][newletter]"
-			else	//default clause intentionally left empty
 		. += "[newletter]"
 	return sanitize(.)
 
@@ -139,7 +138,7 @@
 			else if(newletter == "H")
 				newletter = " IT COMES... "
 
-		switch(rand(1, 15))
+		switch(prob(33) ? rand(1, 5):0)
 			if(1)
 				newletter = "'"
 			if(2)
@@ -150,7 +149,6 @@
 				newletter = "nglu"
 			if(5)
 				newletter = "glor"
-			else	//default clause intentionally left empty
 		. += newletter
 	return sanitize(.)
 
@@ -182,7 +180,7 @@
 			else if(newletter == "H")
 				newletter = " CLOCK TICKS... "
 
-		switch(rand(1, 15))
+		switch(prob(33) ? rand(1, 5):0)
 			if(1)
 				newletter = "'"
 			if(2)
@@ -193,7 +191,6 @@
 				newletter = "kth"
 			if(5)
 				newletter = "toc"
-			else	//default clause intentionally left empty
 		. += newletter
 	return sanitize(.)
 

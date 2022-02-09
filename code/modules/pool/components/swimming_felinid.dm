@@ -9,7 +9,7 @@
 	var/obj/item/pool/helditem = L.get_active_held_item()
 	if(istype(helditem) && ISWIELDED(helditem))
 		return
-	switch(rand(1, 100))
+	switch(prob(17) ? rand(1, 17):0)
 		if(1 to 4)
 			to_chat(parent, "<span class='userdanger'>You can't touch the bottom!</span>")
 			L.emote("scream")
@@ -25,4 +25,3 @@
 			to_chat(parent, "<span class='userdanger'>You feel like you are never going to get out...</span>")
 		if(15 to 17)
 			L.emote("cry")
-		else	//default clause intentionally left empty
