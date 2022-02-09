@@ -9,7 +9,7 @@
 	var/obj/item/pool/helditem = L.get_active_held_item()
 	if(istype(helditem) && ISWIELDED(helditem))
 		return
-	switch(prob(17) ? rand(1, 17):0)
+	switch(prob(17) ? rand(1, 17) : 0)
 		if(1 to 4)
 			to_chat(parent, "<span class='userdanger'>You can't touch the bottom!</span>")
 			L.emote("scream")

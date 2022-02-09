@@ -99,7 +99,7 @@
 				newletter = "...huuuhhh..."
 			else if(newletter == ".")
 				newletter = " *BURP*."
-		switch(prob(15) ? rand(1, 3):0)
+		switch(prob(15) ? rand(1, 3) : 0)
 			if(1)
 				newletter += "'"
 			if(2)
@@ -138,7 +138,7 @@
 			else if(newletter == "H")
 				newletter = " IT COMES... "
 
-		switch(prob(33) ? rand(1, 5):0)
+		switch(prob(33) ? rand(1, 5) : 0)
 			if(1)
 				newletter = "'"
 			if(2)
@@ -180,7 +180,7 @@
 			else if(newletter == "H")
 				newletter = " CLOCK TICKS... "
 
-		switch(prob(33) ? rand(1, 5):0)
+		switch(prob(33) ? rand(1, 5) : 0)
 			if(1)
 				newletter = "'"
 			if(2)
