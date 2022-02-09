@@ -344,7 +344,7 @@
 		add_atom_colour("#[user.eye_color]", FIXED_COLOUR_PRIORITY)
 		colored_before = TRUE
 
-/obj/item/clothing/glasses/blindfold/white/worn_overlays(isinhands = FALSE, file2use)
+/obj/item/clothing/glasses/blindfold/white/worn_overlays(mutable_appearance/standing, isinhands = FALSE, file2use)
 	. = list()
 	if(!isinhands && ishuman(loc) && !colored_before)
 		var/mob/living/carbon/human/H = loc

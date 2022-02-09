@@ -54,7 +54,7 @@
 		output += "<p><a href='byond://?src=[REF(src)];late_join=1'>Join Game!</a></p>"
 		output += "<p>[LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)]</p>"
 
-	if(!IsGuestKey(src.key))
+	if(!IS_GUEST_KEY(src.key))
 		if (SSdbcore.Connect())
 			var/isadmin = FALSE
 			if(client?.holder)
@@ -339,7 +339,7 @@
 			give_magic(humanc)
 		if(GLOB.curse_of_madness_triggered)
 			give_madness(humanc, GLOB.curse_of_madness_triggered)
-			
+
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREWMEMBER_JOINED, humanc, rank)
 
 	GLOB.joined_player_list += character.ckey
