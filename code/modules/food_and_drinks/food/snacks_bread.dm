@@ -191,6 +191,7 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "baguette"
 	item_state = "baguette"
+	worn_icon_state = "baguette"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	bitesize = 3
@@ -261,7 +262,7 @@
 	. = ..()
 
 /obj/item/reagent_containers/food/snacks/deepfryholder/On_Consume(mob/living/eater)
-	if(contents)
+	if(length(contents) && !reagents.total_volume)
 		for(var/atom/movable/A in contents)
 			A.forceMove(eater.loc)
 	..()

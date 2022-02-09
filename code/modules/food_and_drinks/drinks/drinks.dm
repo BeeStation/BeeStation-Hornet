@@ -376,6 +376,10 @@
 				name = "grape juice box"
 				desc = "Tasty grape juice in a fun little container. Non-alcoholic!"
 				foodtype = FRUIT
+			if(/datum/reagent/consumable/pineapplejuice)
+				icon_state = "pineapplebox"
+				name = "pineapple juice box"
+				desc = "Why would you even want this?"
 			if(/datum/reagent/consumable/milk/chocolate_milk)
 				icon_state = "chocolatebox"
 				name = "carton of chocolate milk"

@@ -14,6 +14,9 @@
 	else
 		camera_mode_on(user)
 
+/obj/item/camera/siliconcam/lighteater_act(obj/item/light_eater/light_eater)
+	return
+
 /obj/item/camera/siliconcam/proc/camera_mode_off(mob/user)
 	in_camera_mode = FALSE
 	to_chat(user, "<B>Camera Mode deactivated</B>")

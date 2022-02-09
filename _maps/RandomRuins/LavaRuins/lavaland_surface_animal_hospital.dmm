@@ -124,9 +124,14 @@
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "aw" = (
-/obj/structure/bed/roller,
+/obj/structure/table,
+/obj/item/retractor,
+/obj/item/hemostat,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/machinery/defibrillator_mount{
+	pixel_x = 32
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
@@ -182,12 +187,16 @@
 /area/ruin/powered/animal_hospital)
 "aC" = (
 /obj/structure/table/optable,
+/obj/item/paper{
+	info = "Doc - As a heads up, that matter bin we ordered forever ago for saving.. less alive pets' finally come in. Sad thing is I can't figure out how to work the smartfridge board back into organ storage, can you do it for me? The matter bin'll let it repair organs, we'll be way better going! -Ted";
+	pixel_y = -3
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "aD" = (
-/obj/structure/table,
-/obj/item/retractor,
-/obj/item/hemostat,
+/obj/structure/frame/machine,
+/obj/item/stack/cable_coil/random/five,
+/obj/item/circuitboard/machine/smartfridge,
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "aE" = (
@@ -268,7 +277,6 @@
 /area/ruin/powered/animal_hospital)
 "be" = (
 /obj/effect/decal/cleanable/oil,
-/obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "bh" = (
@@ -589,6 +597,10 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"cu" = (
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plasteel/white,
+/area/ruin/powered/animal_hospital)
 "cx" = (
 /obj/machinery/light{
 	dir = 4
@@ -964,6 +976,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 8
 	},
+/obj/structure/bed/roller,
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "wd" = (
@@ -1454,8 +1467,8 @@
 	},
 /area/ruin/powered/animal_hospital)
 "Zx" = (
-/obj/machinery/defibrillator_mount,
-/turf/closed/wall/mineral/titanium/nodiagonal,
+/obj/item/stock_parts/matter_bin/bluespace,
+/turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "ZX" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
@@ -1954,7 +1967,7 @@ ab
 cn
 ae
 Vg
-ao
+Zx
 aB
 ae
 oD
@@ -1984,7 +1997,7 @@ ab
 ac
 ae
 Fv
-ao
+cu
 aC
 ae
 hl
@@ -2044,7 +2057,7 @@ aa
 ab
 ae
 ae
-Zx
+ae
 ae
 ae
 ae

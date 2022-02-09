@@ -945,6 +945,10 @@
 	if(.)
 		return
 
+	if(!allowed(usr))
+		to_chat(usr, "<span class='warning'>Invalid access.</span>")
+		return
+
 	switch(action)
 		if("lock")
 			if(!usr.has_unlimited_silicon_privilege)

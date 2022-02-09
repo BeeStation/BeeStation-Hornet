@@ -185,6 +185,14 @@
 	time = 40
 	category = CAT_ROBOT
 
+/datum/crafting_recipe/cleanbot/larry
+	name = "Larry"
+	result = /mob/living/simple_animal/bot/cleanbot/larry
+	reqs = list(/obj/item/larryframe = 1,
+				/obj/item/assembly/prox_sensor = 1,
+				/obj/item/bodypart/r_arm/robot = 1)
+
+
 /datum/crafting_recipe/floorbot
 	name = "Floorbot"
 	result = /mob/living/simple_animal/bot/floorbot
@@ -264,6 +272,16 @@
 	result = /obj/item/gun/ballistic/bow/pipe
 	reqs = list(/obj/item/pipe = 5,
 				/obj/item/stack/sheet/plastic = 15,
+				/obj/item/weaponcrafting/silkstring = 4)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/woodenbow
+	name = "Wooden Bow"
+	result = /obj/item/gun/ballistic/bow
+	reqs = list(/obj/item/stack/sheet/mineral/wood = 8,
+				/obj/item/stack/sheet/iron = 2,
 				/obj/item/weaponcrafting/silkstring = 4)
 	time = 120
 	category = CAT_WEAPONRY

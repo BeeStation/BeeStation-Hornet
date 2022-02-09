@@ -325,6 +325,13 @@
 	credit_cost = 4000
 	description = "A smaller shuttle with area for cargo, medical and security personnel."
 
+/datum/map_template/shuttle/emergency/fland
+	suffix = "fland"
+	name = "Flandstation Wide shuttle"
+	description = "It's a fat shuttle for a rather unusual station... huh..."
+	admin_notes = "It's big to spawn, it may or may not collide with the surrounding stuff on other maps that don't have a massive emergency docking area."
+	credit_cost = 8000
+
 /datum/map_template/shuttle/emergency/mini
 	suffix = "mini"
 	name = "Ministation emergency shuttle"
@@ -673,3 +680,44 @@
 /datum/map_template/shuttle/tram/corg
 	suffix = "corg"
 	name = "corgstation transport shuttle"
+
+//---------cargo_fland.dmm
+/datum/map_template/shuttle/cargo/fland
+	suffix = "fland"
+	name = "supply shuttle (fland)"
+
+//---------labour_fland.dmm
+/datum/map_template/shuttle/cargo/fland
+	suffix = "fland"
+	name = "cargo ferry (Fland)"
+
+//---------mining_fland.dmm
+/datum/map_template/shuttle/mining/fland
+	suffix = "fland"
+	name = "mining shuttle (fland)"
+
+//---------labour_fland.dmm
+/datum/map_template/shuttle/labour/fland
+	suffix = "fland"
+	name = "labour shuttle (Fland)"
+
+//---------arrival_fland.dmm
+/datum/map_template/shuttle/arrival/fland
+	suffix = "fland"
+	name = "arrival shuttle (Fland)"
+
+//---------whiteship_fland.dmm
+/datum/map_template/shuttle/whiteship/fland
+	suffix = "fland"
+	name = "Eden Whiteship"
+
+//---------exploration_fland.dmm
+/datum/map_template/shuttle/exploration/fland
+	suffix = "fland"
+	name = "Fland exploration shuttle"
+
+//---------ferry_fland.dmm
+/datum/map_template/shuttle/ferry/fland
+	suffix = "fland"
+	name = "fland transport ferry"
+	description = "Standard issue CentCom Ferry for the fland station. Includes additional equipment and a recharger."

@@ -10,7 +10,7 @@
 	return "data/player_saves/[user.ckey[1]]/[user.ckey]/pai.sav"
 
 /datum/pai_candidate/proc/savefile_save(mob/user)
-	if(IsGuestKey(user.key))
+	if(IS_GUEST_KEY(user.key))
 		to_chat(usr, "<span class='warning'>You cannot save pAI information as a guest.</span>")
 		return 0
 
@@ -31,7 +31,7 @@
 // returns 0 if savefile did not exist
 
 /datum/pai_candidate/proc/savefile_load(mob/user, silent = TRUE)
-	if (IsGuestKey(user.key))
+	if (IS_GUEST_KEY(user.key))
 		return 0
 
 	var/path = savefile_path(user)
