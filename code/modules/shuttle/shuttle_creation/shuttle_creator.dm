@@ -42,10 +42,6 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/turf/recorded_origin //The last remembered location of our airlock
 	var/turf/exit //Record the exterior turf next to the airlock to prevent modification designation
 
-/obj/item/shuttle_creator/examine(mob/user)
-	. = ..()
-	. += linkedShuttleId ? "It is linked to the [recorded_shuttle_area.name]." : "It currently has [loggedTurfs.len/10] tons designated."
-
 /obj/item/shuttle_creator/Initialize()
 	. = ..()
 	internal_shuttle_creator = new()

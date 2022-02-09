@@ -102,7 +102,6 @@
 	//Remove eye control
 	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = target
 	internal_console.remove_eye_control(owner)
-	return
 
 /datum/action/innate/shuttle_creator/modify
 	name = "Confirm Shuttle Modifications"
@@ -119,4 +118,3 @@
 		//Remove eye control
 	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = target
 	internal_console.remove_eye_control(owner)
-	return

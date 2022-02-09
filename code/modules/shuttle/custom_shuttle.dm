@@ -11,7 +11,7 @@
 	req_access = list( )
 	possible_destinations = "whiteship_home"
 
-	var/obj/item/shuttle_creator/designator = null
+	var/datum/weakref/designator_ref = null
 
 	var/list/obj/machinery/shuttle/engine/shuttle_engines = list()
 	var/calculated_mass = 0
@@ -31,6 +31,7 @@
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/ui_data(mob/user)
 	var/list/data = ..()
+	var/obj/item/shuttle_creator/designator = designator_ref?.resolve()
 	data["fuel"] = get_fuel()
 	data["display_stats"] = list(
 		"Shuttle Mass" = "[calculated_mass/10] Tons",
@@ -59,6 +60,7 @@
 	if(.)
 		return
 
+	var/obj/item/shuttle_creator/designator = designator_ref?.resolve()
 	switch(action)
 		if("updateLinkedId")
 			var/newId = designator?.linkedShuttleId
@@ -200,17 +202,19 @@
 		linkShuttle(port.id)
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/shuttle_creator) && !designator)
+	. = ..()
+	if(istype(I, /obj/item/shuttle_creator) && !designator_ref)
 		if(!user.transferItemToLoc(I,src))
 			return
-		designator = I
+		designator_ref = WEAKREF(I)
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/AltClick(mob/user)
+	var/obj/item/shuttle_creator/designator = designator_ref?.resolve()
 	if(!designator)
 		return
 	if(!istype(user) || !Adjacent(user) || !user.put_in_active_hand(designator))
 		designator.forceMove(drop_location())
-	designator = null
+	designator_ref = null
 
 

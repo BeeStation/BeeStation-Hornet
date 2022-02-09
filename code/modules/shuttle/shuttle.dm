@@ -356,8 +356,8 @@
 //A common proc used to find the amount of turfs in the shuttle
 /obj/docking_port/mobile/proc/calculate_mass()
 	. = 0
-	for(var/shuttleArea in shuttle_areas)
-		for(var/turf/T in shuttleArea)
+	for(var/area/shuttleArea in shuttle_areas)
+		for(var/turf/T in shuttleArea.contents)
 			. += 1
 
 /obj/docking_port/mobile/Initialize(mapload)
