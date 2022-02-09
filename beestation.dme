@@ -3527,6 +3527,7 @@
 #include "monkestation\code\modules\mob\living\carbon\human\emote.dm"
 #include "monkestation\code\modules\mob\living\carbon\human\human.dm"
 #include "monkestation\code\modules\mob\living\carbon\human\species_emotes.dm"
+#include "monkestation\code\modules\mob\living\inventory.dm"
 #include "monkestation\code\modules\mob\living\simple_animal\bot\buttbot.dm"
 #include "monkestation\code\modules\mob\living\simple_animal\bot\secbot.dm"
 #include "monkestation\code\modules\mob\living\simple_animal\friendly\dog.dm"

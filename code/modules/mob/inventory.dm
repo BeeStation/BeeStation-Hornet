@@ -276,10 +276,10 @@
 		return FALSE
 	return TRUE
 
-/mob/proc/putItemFromInventoryInHandIfPossible(obj/item/I, hand_index, force_removal = FALSE)
+/mob/proc/putItemFromInventoryInHandIfPossible(obj/item/I, hand_index, force_removal = FALSE, invdrop = TRUE)//monkestation edit: make quickswapping uniforms not drop pockets
 	if(!can_put_in_hand(I, hand_index))
 		return FALSE
-	if(!temporarilyRemoveItemFromInventory(I, force_removal))
+	if(!temporarilyRemoveItemFromInventory(I, force_removal, invdrop))//monkestation edit: make quickswapping uniforms not drop pockets
 		return FALSE
 	I.remove_item_from_storage(src)
 	if(!put_in_hand(I, hand_index))
@@ -300,8 +300,9 @@
 
 //visibly unequips I but it is NOT MOVED AND REMAINS IN SRC
 //item MUST BE FORCEMOVE'D OR QDEL'D
-/mob/proc/temporarilyRemoveItemFromInventory(obj/item/I, force = FALSE, idrop = TRUE)
-	return doUnEquip(I, force, null, TRUE, idrop, silent = FALSE)
+
+/mob/proc/temporarilyRemoveItemFromInventory(obj/item/I, force = FALSE, invdrop = TRUE) //monkestation edit: add nodrop to quickswap
+	return doUnEquip(I, force, null, TRUE, invdrop)
 
 //DO NOT CALL THIS PROC
 //use one of the above 3 helper procs
