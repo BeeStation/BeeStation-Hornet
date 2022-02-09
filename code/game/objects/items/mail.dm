@@ -149,8 +149,9 @@
 			name = "[initial(name)] critical to [recipient.name]"
 	recipient_ref = WEAKREF(recipient)
 
-	var/mob/living/body = recipient.current
-	var/list/goodies = generic_goodies
+	var/mob/living/body = recipient.current									//Recipients
+	var/list/goodies = generic_goodies										//Load the generic list of goodies
+	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role]//Load the job the player have
 
 	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role]
 	if(this_job)
@@ -158,7 +159,8 @@
 		if(this_job.paycheck_department && department_colors[this_job.paycheck_department])
 			color = department_colors[this_job.paycheck_department]
 
-	for(var/iterator = 0, iterator < goodie_count, iterator++)
+	//for(var/iterator = 0, iterator < goodie_count, iterator++)
+	for(var/i in 1 to goodie_count)
 		var/target_good = pickweight(goodies)
 		var/atom/movable/target_atom = new target_good(src)
 		body.log_message("[key_name(body)] received [target_atom.name] in the mail ([target_good])", LOG_GAME)
