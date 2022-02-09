@@ -73,6 +73,7 @@ This might look a bit intimidating compared to the reactive part but it's not as
 You don't really need to know all this to understand how to use it, but I find it helps with understanding when things go wrong.
 
 Ractive conditionals can have an `else` as well
+
 ```ractive
 {{#if data.condition}}
   value
@@ -102,8 +103,7 @@ There's also our good old friend - the ternary:
 {data.condition ? 'value' : 'other value'}
 ```
 
-Keep in mind you can also use tags here like the conditional example,
-and you can mix string literals, values, and tags as well.
+Keep in mind you can also use tags here like the conditional example, and you can mix string literals, values, and tags as well.
 
 ```jsx
 {data.is_robot ? (
@@ -113,8 +113,7 @@ and you can mix string literals, values, and tags as well.
 
 ### Loops
 
-Ractive has loops for iterating over data and inserting something for each
-member of an array or object
+Ractive has loops for iterating over data and inserting something for each member of an array or object
 
 ```
 {{#each data.list_of_foo}}
@@ -126,7 +125,7 @@ This didn't care whether the data was an array or an object, and members of each
 
 The React equivalent to this is going to be `map`.
 
-_AN IMPORTANT DISTINCTION HERE IS THAT NOW WE CARE WHETHER THIS IS AN OBJECT OR AN ARRAY BEING ACTED ON._
+*AN IMPORTANT DISTINCTION HERE IS THAT NOW WE CARE WHETHER THIS IS AN OBJECT OR AN ARRAY BEING ACTED ON.*
 
 Objects are represented by `{}`, arrays by `[]`
 
@@ -135,6 +134,7 @@ Objects are represented by `{}`, arrays by `[]`
 `list("bla", "blo")` would become `["bla", "blo"]` and `list("foo" = 1, "bar" = 2)` would become `{"foo": 1, "bar": 2}`
 
 First things first, above the `return` of the function you're making the interface in, you're going to want to add something like this
+
 ```jsx
 const things = data.things || [];
 ```
@@ -142,6 +142,7 @@ const things = data.things || [];
 This ensures that you'll never be reading a null entry by mistake. Substitute `{}` for objects as appropriate.
 
 If it's an array, you'll want to do this in the template
+
 ```jsx
 {things.map(thing => (
   <Fragment>
@@ -170,8 +171,7 @@ Now for objects, there's a genuinely pretty gross syntax here. We apoligize, it'
 
 Again, sorry for this syntax. `fooObject` would be the object being iterated on, value would be the value of the iterated entry on the list, and key would be the key. the naming of value and key isn't important here, but knowing that it goes `value`, `key` in that order is important.
 
-It is sometimes better to preemptively convert an object to array before
-the big return statement, like this:
+It is sometimes better to preemptively convert an object to array before the big return statement, like this:
 
 ```jsx
 const fooArray = map((value, key) => {

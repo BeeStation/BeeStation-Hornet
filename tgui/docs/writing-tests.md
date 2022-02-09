@@ -1,4 +1,4 @@
-## Jest
+# Jest
 
 You can now write and run unit tests in tgui.
 
@@ -18,6 +18,6 @@ bin/tgui --test
 
 There is an example test in `packages/common/react.spec.ts`.
 
-You can read more about Jest here: https://jestjs.io/docs/en/getting-started
+You can read more about Jest here: <https://jestjs.io/docs/en/getting-started>.
 
 Note, that there is still no real solution to test UIs for now, even though a lot of the support is here (jest + jsdom). That will come later.

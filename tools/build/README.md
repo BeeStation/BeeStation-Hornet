@@ -25,7 +25,7 @@ tools/build/build --help
 
 - On Windows, `build.bat` will automatically install a private (vendored) copy of Node.
 - On Linux, install Node using your package manager or from <https://nodejs.org/en/download/>.
-- On Linux, unless using tgs4 or later you will need to compile rust-g on the server and obtain a .so file, for instructions see https://github.com/tgstation/rust-g
+- On Linux, unless using tgs4 or later you will need to compile rust-g on the server and obtain a .so file, for instructions see <https://github.com/tgstation/rust-g>.
 
 ## Why?
 

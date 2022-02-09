@@ -4,11 +4,14 @@
 
 tgui is a robust user interface framework of /tg/station.
 
-tgui is very different from most UIs you will encounter in BYOND programming. It is heavily reliant on Javascript and web technologies as opposed to DM. If you are familiar with NanoUI (a library which can be found on almost every other SS13 codebase), tgui should be fairly easy to pick up.
+tgui is very different from most UIs you will encounter in BYOND programming.
+It is heavily reliant on Javascript and web technologies as opposed to DM.
+If you are familiar with NanoUI (a library which can be found on almost every other SS13 codebase), tgui should be fairly easy to pick up.
 
 ## Learn tgui
 
-People come to tgui from different backgrounds and with different learning styles. Whether you prefer a more theoretical or a practical approach, we hope you’ll find this section helpful.
+People come to tgui from different backgrounds and with different learning styles.
+Whether you prefer a more theoretical or a practical approach, we hope you’ll find this section helpful.
 
 ### Practical Tutorial
 
@@ -29,8 +32,7 @@ If you are using the tooling provided in this repo, everything is included! Feel
 
 - [Node v12.18.3+](https://nodejs.org/en/download/)
 - [Yarn v1.22.4+](https://yarnpkg.com/en/docs/install) (optional)
-- [Git Bash](https://git-scm.com/downloads)
-  or [MSys2](https://www.msys2.org/) (optional)
+- [Git Bash](https://git-scm.com/downloads) or [MSys2](https://www.msys2.org/) (optional)
 
 - [Node v12.20+](https://nodejs.org/en/download/)
   - **DO NOT install Chocolatey if Node installer asks you to!**
@@ -66,7 +68,8 @@ If you are using the tooling provided in this repo, everything is included! Feel
 - `tools/build/build tgui-clean` - Clean up tgui folder.
 
 > With Juke Build, you can run multiple targets together, e.g.:
-> ```
+
+> ```text
 > tools/build/build tgui tgui-lint tgui-tsc tgui-test
 > ```
 
@@ -95,15 +98,18 @@ Remember to always run a full build of tgui before submitting a PR, because it c
 
 **Development server is crashing**
 
-Make sure path to your working directory does not contain spaces, special unicode characters, exclamation marks or any other special symbols. If so, move codebase to a location which does not contain these characters.
+Make sure path to your working directory does not contain spaces or special unicode characters.
+If so, move codebase to a location which does not contain spaces or unicode characters.
 
 This is a known issue with Yarn (and some other tools, like Webpack), and fix is going to happen eventually.
 
 **Development server doesn't find my BYOND cache!**
 
-This happens if your Documents folder in Windows has a custom location, for example in `E:\Libraries\Documents`. Development server tries its best to find this non-standard location (searches for a Windows Registry key), but it can fail. You have to run the dev server with an additional environmental variable, with a full path to BYOND cache.
+This happens if your Documents folder in Windows has a custom location, for example in `E:\Libraries\Documents`.
+Development server tries its best to find this non-standard location (searches for a Windows Registry key), but it can fail.
+You have to run the dev server with an additional environmental variable, with a full path to BYOND cache.
 
-```
+```text
 BYOND_CACHE="E:/Libraries/Documents/BYOND/cache"
 ```
 
@@ -111,7 +117,8 @@ BYOND_CACHE="E:/Libraries/Documents/BYOND/cache"
 
 > Example: `No template for dependency: PureExpressionDependency`
 
-Webpack stores its cache on disk since tgui 4.3, and it is very sensitive to build configuration. So if you update webpack, or share the same cache directory between development and production build, it will start hallucinating.
+Webpack stores its cache on disk since tgui 4.3, and it is very sensitive to build configuration.
+So if you update webpack, or share the same cache directory between development and production build, it will start hallucinating.
 
 To fix this kind of problem, run `bin/tgui --clean` and try again.
 
@@ -119,11 +126,16 @@ To fix this kind of problem, run `bin/tgui --clean` and try again.
 
 When developing with `tgui-dev-server`, you will have access to certain development only features.
 
-**Debug Logs**. When running server via `bin/tgui --dev --debug`, server will print debug logs and time spent on rendering. Use this information to optimize your code, and try to keep re-renders below 16ms.
+**Debug Logs.**
+When running server via `bin/tgui --dev --debug`, server will print debug logs and time spent on rendering.
+Use this information to optimize your code, and try to keep re-renders below 16ms.
 
-**Kitchen Sink**. Press `F12` to open the KitchenSink interface. This interface is a playground to test various tgui components.
+**Kitchen Sink.**
+Press `F12` to open the KitchenSink interface. This interface is a playground to test various tgui components.
 
-**Layout Debugger**. Press `F11` to toggle the *layout debugger*. It will show outlines of all tgui elements, which makes it easy to understand how everything comes together, and can reveal certain layout bugs which are not normally visible.
+**Layout Debugger.**
+Press `F11` to toggle the *layout debugger*.
+It will show outlines of all tgui elements, which makes it easy to understand how everything comes together, and can reveal certain layout bugs which are not normally visible.
 
 ## Project Structure
 
@@ -140,7 +152,7 @@ When developing with `tgui-dev-server`, you will have access to certain developm
 - `/packages/tgui/styles/components` - CSS classes which are used in UI components. These stylesheets closely follow the [BEM](https://en.bem.info/methodology/) methodology.
 - `/packages/tgui/styles/interfaces` - Custom stylesheets for your interfaces. Add stylesheets here if you really need a fine control over your UI styles.
 - `/packages/tgui/styles/layouts` - Layout-related styles.
-- `/packages/tgui/styles/themes` - Contains themes that you can use in tgui. Each theme must be registered in `/packages/tgui/index.js` file.
+- `/packages/tgui/styles/themes` - Contains themes that you can use in tgui. Each theme must be registered in the `/packages/tgui/index.js` file.
 
 ## Component Reference
 
@@ -150,6 +162,7 @@ See: [Component Reference](docs/component-reference.md).
 
 Source code is covered by /tg/station's parent license - **AGPL-3.0** (see the main [README](../README.md)), unless otherwise indicated.
 
-Some files are annotated with a copyright header, which explicitly states the copyright holder and license of the file. Most of the core tgui source code is available under the **MIT** license.
+Some files are annotated with a copyright header, which explicitly states the copyright holder and license of the file.
+Most of the core tgui source code is available under the **MIT** license.
 
 The Authors retain all copyright to their respective work here submitted.

@@ -1,7 +1,7 @@
 <!-- Write **BELOW** The Headers and **ABOVE** The comments else it may not be viewable. -->
 <!-- You can view Contributing.MD for a detailed description of the pull request process. -->
 
-## About The Pull Request
+# About The Pull Request
 
 <!-- Describe The Pull Request. Please be sure every change is documented or this can delay review and even discourage maintainers from merging your PR! -->
 
@@ -23,18 +23,14 @@ Pulls from Upstream are generally exempt from this.
 -->
 <details>
 
-
-
 <summary>Screenshots&Videos</summary>
 
-
-
 Put screenshots and Videos documenting testing and execution of intended behaviors here
-
 
 </details>
 
 ## Changelog
+
 :cl:
 add: Added new things
 add: Added more things
