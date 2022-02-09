@@ -1,0 +1,4 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - bugfix: You can now take pictures with cameras again!
