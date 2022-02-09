@@ -41,8 +41,7 @@
 // pipe is deleted
 // ensure if holder is present, it is expelled
 /obj/structure/disposalpipe/Destroy()
-	var/obj/structure/disposalholder/H = locate() in src
-	if(H)
+	for(var/obj/structure/disposalholder/H in src)
 		H.active = FALSE
 		expel(H, get_turf(src), 0)
 	return ..()
@@ -121,8 +120,7 @@
 
 // pipe affected by explosion
 /obj/structure/disposalpipe/contents_explosion(severity, target)
-	var/obj/structure/disposalholder/H = locate() in src
-	if(H)
+	for(var/obj/structure/disposalholder/H in src)
 		H.contents_explosion(severity, target)
 
 

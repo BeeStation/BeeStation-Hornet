@@ -5,7 +5,7 @@
 //	You do not need to raise this if you are adding new values that have sane defaults.
 //	Only raise this value when changing the meaning/format/name/layout of an existing value
 //	where you would want the updater procs below to run
-#define SAVEFILE_VERSION_MAX	35
+#define SAVEFILE_VERSION_MAX	36
 
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
@@ -69,6 +69,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		S.dir.Remove("overhead_chat")
 	if(current_version < 35)
 		see_balloon_alerts = BALLOON_ALERT_ALWAYS
+	if(current_version < 36)
+		key_bindings = S["key_bindings"]
+		//the keybindings are defined as "key" = list("action") in the savefile (for multiple actions -> 1 key)
+		//so im doing that
+		key_bindings += list("W" = list("move_north"), "A" = list("move_west"), "S" = list("move_south"), "D" = list("move_east"))
+		WRITE_FILE(S["key_bindings"], key_bindings)
 	return
 
 /datum/preferences/proc/update_character(current_version, savefile/S)
@@ -361,10 +367,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["gender"], gender)
 	READ_FILE(S["age"], age)
 	READ_FILE(S["hair_color"], hair_color)
+	READ_FILE(S["gradient_color"], gradient_color)
 	READ_FILE(S["facial_hair_color"], facial_hair_color)
 	READ_FILE(S["eye_color"], eye_color)
 	READ_FILE(S["skin_tone"], skin_tone)
 	READ_FILE(S["hair_style_name"], hair_style)
+	READ_FILE(S["gradient_style"], gradient_style)
 	READ_FILE(S["facial_style_name"], facial_hair_style)
 	READ_FILE(S["underwear"], underwear)
 	READ_FILE(S["underwear_color"], underwear_color)
@@ -375,6 +383,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["uplink_loc"], uplink_spawn_loc)
 	READ_FILE(S["feature_mcolor"], features["mcolor"])
 	READ_FILE(S["feature_ethcolor"], features["ethcolor"])
+	READ_FILE(S["helmet_style"], helmet_style)
 	READ_FILE(S["feature_lizard_tail"], features["tail_lizard"])
 	READ_FILE(S["feature_lizard_snout"], features["snout"])
 	READ_FILE(S["feature_lizard_horns"], features["horns"])
@@ -436,47 +445,53 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	if(!features["ethcolor"] || features["ethcolor"] == "#000")
 		features["ethcolor"] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
 
+	// Keep it updated
+	if(!helmet_style || !(helmet_style in list(HELMET_DEFAULT, HELMET_MK2, HELMET_PROTECTIVE)))
+		helmet_style = HELMET_DEFAULT
+
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
 	be_random_body	= sanitize_integer(be_random_body, 0, 1, initial(be_random_body))
 
 	if(gender == MALE)
-		hair_style			= sanitize_inlist(hair_style, GLOB.hair_styles_male_list)
-		facial_hair_style			= sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_male_list)
-		underwear		= sanitize_inlist(underwear, GLOB.underwear_m)
-		undershirt 		= sanitize_inlist(undershirt, GLOB.undershirt_m)
+		hair_style = sanitize_inlist(hair_style, GLOB.hair_styles_male_list)
+		facial_hair_style = sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_male_list)
+		underwear = sanitize_inlist(underwear, GLOB.underwear_m)
+		undershirt = sanitize_inlist(undershirt, GLOB.undershirt_m)
 	else
-		hair_style			= sanitize_inlist(hair_style, GLOB.hair_styles_female_list)
-		facial_hair_style			= sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_female_list)
-		underwear		= sanitize_inlist(underwear, GLOB.underwear_f)
-		undershirt		= sanitize_inlist(undershirt, GLOB.undershirt_f)
-	socks			= sanitize_inlist(socks, GLOB.socks_list)
-	age				= sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
-	hair_color			= sanitize_hexcolor(hair_color, 3, 0)
-	facial_hair_color			= sanitize_hexcolor(facial_hair_color, 3, 0)
-	underwear_color			= sanitize_hexcolor(underwear_color, 3, 0)
-	eye_color		= sanitize_hexcolor(eye_color, 3, 0)
-	skin_tone		= sanitize_inlist(skin_tone, GLOB.skin_tones)
-	backbag			= sanitize_inlist(backbag, GLOB.backbaglist, initial(backbag))
+		hair_style = sanitize_inlist(hair_style, GLOB.hair_styles_female_list)
+		facial_hair_style = sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_female_list)
+		underwear = sanitize_inlist(underwear, GLOB.underwear_f)
+		undershirt = sanitize_inlist(undershirt, GLOB.undershirt_f)
+	socks = sanitize_inlist(socks, GLOB.socks_list)
+	age = sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
+	hair_color = sanitize_hexcolor(hair_color, 3, 0)
+	facial_hair_color = sanitize_hexcolor(facial_hair_color, 3, 0)
+	gradient_style = sanitize_inlist(gradient_style, GLOB.hair_gradients_list, "None")
+	gradient_color = sanitize_hexcolor(gradient_color, 3, 0)
+	underwear_color	= sanitize_hexcolor(underwear_color, 3, 0)
+	eye_color = sanitize_hexcolor(eye_color, 3, 0)
+	skin_tone = sanitize_inlist(skin_tone, GLOB.skin_tones)
+	backbag	= sanitize_inlist(backbag, GLOB.backbaglist, initial(backbag))
 	jumpsuit_style = sanitize_inlist(jumpsuit_style, GLOB.jumpsuitlist, initial(jumpsuit_style))
-	uplink_spawn_loc = sanitize_inlist(uplink_spawn_loc, GLOB.uplink_spawn_loc_list, initial(uplink_spawn_loc))
+	uplink_spawn_loc = sanitize_inlist(uplink_spawn_loc, GLOB.uplink_spawn_loc_list_save, initial(uplink_spawn_loc))
 	features["mcolor"]	= sanitize_hexcolor(features["mcolor"], 3, 0)
 	features["ethcolor"]	= copytext_char(features["ethcolor"], 1, 7)
 	features["tail_lizard"]	= sanitize_inlist(features["tail_lizard"], GLOB.tails_list_lizard)
 	features["tail_human"] 	= sanitize_inlist(features["tail_human"], GLOB.tails_list_human, "None")
-	features["snout"]	= sanitize_inlist(features["snout"], GLOB.snouts_list)
-	features["horns"] 	= sanitize_inlist(features["horns"], GLOB.horns_list)
-	features["ears"]	= sanitize_inlist(features["ears"], GLOB.ears_list, "None")
-	features["frills"] 	= sanitize_inlist(features["frills"], GLOB.frills_list)
-	features["spines"] 	= sanitize_inlist(features["spines"], GLOB.spines_list)
-	features["body_markings"] 	= sanitize_inlist(features["body_markings"], GLOB.body_markings_list)
+	features["snout"] = sanitize_inlist(features["snout"], GLOB.snouts_list)
+	features["horns"] = sanitize_inlist(features["horns"], GLOB.horns_list)
+	features["ears"] = sanitize_inlist(features["ears"], GLOB.ears_list, "None")
+	features["frills"] = sanitize_inlist(features["frills"], GLOB.frills_list)
+	features["spines"] = sanitize_inlist(features["spines"], GLOB.spines_list)
+	features["body_markings"] = sanitize_inlist(features["body_markings"], GLOB.body_markings_list)
 	features["feature_lizard_legs"]	= sanitize_inlist(features["legs"], GLOB.legs_list, "Normal Legs")
 	features["moth_wings"] 	= sanitize_inlist(features["moth_wings"], GLOB.moth_wings_list, "Plain")
 	features["ipc_screen"]	= sanitize_inlist(features["ipc_screen"], GLOB.ipc_screens_list)
 	features["ipc_antenna"]	 = sanitize_inlist(features["ipc_antenna"], GLOB.ipc_antennas_list)
 	features["ipc_chassis"]	 = sanitize_inlist(features["ipc_chassis"], GLOB.ipc_chassis_list)
 	features["insect_type"]	 = sanitize_inlist(features["insect_type"], GLOB.insect_type_list)
-	features["grod_crown"]	= sanitize_inlist(features["grod_crown"], GLOB.grod_crowns_list)
-	features["grod_marks"]	= sanitize_inlist(features["grod_marks"], GLOB.grod_marks_list)
+	features["grod_crown"]	= sanitize_inlist(features["grod_crown"], GLOB.grod_crowns_list, "Crown")
+	features["grod_marks"]	= sanitize_inlist(features["grod_marks"], GLOB.grod_marks_list, "None")
 
 	//Validate species forced mutant parts
 	for(var/forced_part in pref_species.forced_features)
@@ -512,12 +527,14 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["name_is_always_random"] , be_random_name)
 	WRITE_FILE(S["body_is_always_random"] , be_random_body)
 	WRITE_FILE(S["gender"]				, gender)
-	WRITE_FILE(S["age"]				, age)
+	WRITE_FILE(S["age"]					, age)
 	WRITE_FILE(S["hair_color"]			, hair_color)
+	WRITE_FILE(S["gradient_color"]		, gradient_color)
 	WRITE_FILE(S["facial_hair_color"]	, facial_hair_color)
 	WRITE_FILE(S["eye_color"]			, eye_color)
 	WRITE_FILE(S["skin_tone"]			, skin_tone)
-	WRITE_FILE(S["hair_style_name"]	, hair_style)
+	WRITE_FILE(S["hair_style_name"]		, hair_style)
+	WRITE_FILE(S["gradient_style"]		, gradient_style)
 	WRITE_FILE(S["facial_style_name"]	, facial_hair_style)
 	WRITE_FILE(S["underwear"]			, underwear)
 	WRITE_FILE(S["underwear_color"]		, underwear_color)
@@ -529,6 +546,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["species"]			, pref_species.id)
 	WRITE_FILE(S["feature_mcolor"]					, features["mcolor"])
 	WRITE_FILE(S["feature_ethcolor"]					, features["ethcolor"])
+	WRITE_FILE(S["helmet_style"], 					helmet_style)
 	WRITE_FILE(S["feature_lizard_tail"]			, features["tail_lizard"])
 	WRITE_FILE(S["feature_human_tail"]				, features["tail_human"])
 	WRITE_FILE(S["feature_lizard_snout"]			, features["snout"])

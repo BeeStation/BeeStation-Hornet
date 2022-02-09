@@ -38,7 +38,7 @@ SUBSYSTEM_DEF(title)
 	. = ..()
 	if(.)
 		switch(var_name)
-			if("icon")
+			if(NAMEOF(src, icon))
 				if(splash_turf)
 					splash_turf.icon = icon
 

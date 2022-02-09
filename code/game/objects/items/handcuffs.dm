@@ -246,6 +246,10 @@
 /obj/item/restraints/legcuffs/beartrap/Initialize()
 	. = ..()
 	update_icon()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/spring_trap,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/restraints/legcuffs/beartrap/update_icon()
 	icon_state = "[initial(icon_state)][armed]"
@@ -267,7 +271,8 @@
 	update_icon()
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 
-/obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj)
+/obj/item/restraints/legcuffs/beartrap/proc/spring_trap(datum/source, AM as mob|obj)
+	SIGNAL_HANDLER
 	if(armed && isturf(loc))
 		if(isliving(AM))
 			var/mob/living/L = AM
@@ -277,7 +282,6 @@
 				if(!ridden_vehicle.are_legs_exposed) //close the trap without injuring/trapping the rider if their legs are inside the vehicle at all times.
 					close_trap()
 					ridden_vehicle.visible_message("<span class='danger'>[ridden_vehicle] triggers \the [src].</span>")
-					return ..()
 
 			if(L.movement_type & (FLYING|FLOATING)) //don't close the trap if they're flying/floating over it.
 				snap = FALSE
@@ -302,7 +306,6 @@
 				L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
 						"<span class='userdanger'>You trigger \the [src]!</span>")
 				L.apply_damage(trap_damage, BRUTE, def_zone)
-	..()
 
 /obj/item/restraints/legcuffs/beartrap/energy
 	name = "energy snare"
@@ -322,12 +325,16 @@
 		do_sparks(1, TRUE, src)
 		qdel(src)
 
-/obj/item/restraints/legcuffs/beartrap/energy/attack_hand(mob/user)
-	Crossed(user) //honk
+/obj/item/restraints/legcuffs/beartrap/energy/attack_hand(mob/user, list/modifiers)
+	spring_trap(null, user)
 	return ..()
 
 /obj/item/restraints/legcuffs/beartrap/energy/cyborg
 	breakouttime = 20 // Cyborgs shouldn't have a strong restraint
+
+/obj/item/restraints/legcuffs/beartrap/energy/emp_act(severity)
+	do_sparks(1, TRUE, src)
+	qdel(src)
 
 /obj/item/restraints/legcuffs/bola
 	name = "bola"
@@ -365,7 +372,7 @@
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		to_chat(C, "<span class='userdanger'>\The [src] ensnares you!</span>")
 		if(knockdown)
-			C.Paralyze(knockdown)	
+			C.Paralyze(knockdown)
 		playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 
 /obj/item/restraints/legcuffs/bola/tactical//traitor variant
@@ -392,9 +399,17 @@
 	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 60
 
-/obj/item/restraints/legcuffs/bola/energy/ensnare(mob/living/carbon/C)
-	var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(C))
-	B.Crossed(C)
+/obj/item/restraints/legcuffs/bola/energy/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(iscarbon(hit_atom))
+		var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(hit_atom))
+		B.spring_trap(null, hit_atom)
+		qdel(src)
+	. = ..()
+
+/obj/item/restraints/legcuffs/bola/energy/emp_act(severity)
+	if(prob(25 * severity))
+		return
+	do_sparks(1, TRUE, src)
 	qdel(src)
 
 /obj/item/restraints/legcuffs/bola/gonbola
@@ -406,9 +421,11 @@
 	slowdown = 0
 	var/datum/status_effect/gonbolaPacify/effectReference
 
-/obj/item/restraints/legcuffs/bola/gonbola/ensnare(mob/living/carbon/C)
+/obj/item/restraints/legcuffs/bola/gonbola/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	effectReference = C.apply_status_effect(STATUS_EFFECT_GONBOLAPACIFY)
+	if(iscarbon(hit_atom))
+		var/mob/living/carbon/C = hit_atom
+		effectReference = C.apply_status_effect(STATUS_EFFECT_GONBOLAPACIFY)
 
 /obj/item/restraints/legcuffs/bola/gonbola/dropped(mob/user)
 	. = ..()

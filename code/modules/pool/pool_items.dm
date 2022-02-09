@@ -6,11 +6,8 @@
 	damtype = STAMINA
 	w_class = WEIGHT_CLASS_BULKY
 	block_sound = 'sound/weapons/tap.ogg'
-	block_level = 1
-	block_upgrade_walk = 0
-	block_power = 0
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	attack_verb = list("wacked")
+
 
 /obj/item/pool/Initialize()
 	. = ..()

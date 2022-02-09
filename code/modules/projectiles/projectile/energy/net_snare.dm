@@ -83,8 +83,8 @@
 		new/obj/item/restraints/legcuffs/beartrap/energy(get_turf(loc))
 	else if(iscarbon(target))
 		var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy(get_turf(target))
-		B.Crossed(target)
-	..()
+		B.spring_trap(null, target)
+	. = ..()
 
 /obj/item/projectile/energy/trap/on_range()
 	new /obj/item/restraints/legcuffs/beartrap/energy(loc)
@@ -104,10 +104,14 @@
 		qdel(src)
 	if(iscarbon(target))
 		var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(target))
-		B.Crossed(target)
+		B.spring_trap(null, target)
 	QDEL_IN(src, 10)
-	..()
+	. = ..()
 
 /obj/item/projectile/energy/trap/cyborg/on_range()
+	do_sparks(1, TRUE, src)
+	qdel(src)
+
+/obj/item/projectile/energy/trap/cyborg/emp_act(severity)
 	do_sparks(1, TRUE, src)
 	qdel(src)

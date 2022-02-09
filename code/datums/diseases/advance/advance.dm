@@ -87,7 +87,9 @@
 			continue
 		if(dormant || P.dormant)//dormant diseases dont interfere with channels, not even with other dormant diseases if you manage to get two
 			continue
-		if((IsSame(P) || channel == otherchannel) && !P.sentient)
+		if(IsSame(P))
+			continue
+		if(channel == otherchannel && !P.sentient)
 			advance_diseases += P
 	var/replace_num = advance_diseases.len + 1 - DISEASE_LIMIT //amount of diseases that need to be removed to fit this one
 	if(replace_num > 0)
@@ -151,16 +153,17 @@
 	for(var/datum/symptom/S as() in symptoms)
 		A.symptoms += S.Copy()
 	A.dormant = dormant
+	A.mutable = mutable
+	A.initial = initial
+	A.faltered = faltered
 	A.resistance = resistance
 	A.stealth = stealth
 	A.stage_rate = stage_rate
 	A.transmission = transmission
 	A.severity = severity
 	A.speed = speed
-	A.id = id
 	A.keepid = keepid
-	A.mutable = mutable
-	A.faltered = faltered
+	A.id = id
 	//this is a new disease starting over at stage 1, so processing is not copied
 	return A
 
@@ -549,11 +552,11 @@
 	var/datum/disease/advance/A = make_copy ? Copy() : src
 	if(!initial && A.mutable && (spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
 		var/minimum = 1
-		if(prob(CLAMP(35-(A.resistance + A.stealth), 0, 50) * (A.mutability)))//stealthy/resistant diseases are less likely to mutate. this means diseases used to farm mutations should be easier to cure. hypothetically.
+		if(prob(CLAMP(35-(A.resistance + A.stealth - A.speed), 0, 50) * (A.mutability)))//stealthy/resistant diseases are less likely to mutate. this means diseases used to farm mutations should be easier to cure. hypothetically.
 			if(infectee.job == "clown" || infectee.job == "mime" || prob(1))//infecting a clown or mime can evolve l0 symptoms/. they can also appear very rarely
 				minimum = 0
 			else
-				minimum = CLAMP(A.severity - 3, 1, 6)
+				minimum = CLAMP(A.severity - 1, 1, 7)
 			A.Evolve(minimum, CLAMP(A.severity + 4, minimum, 9))
 			A.id = GetDiseaseID()
 			A.keepid = TRUE//this is really janky, but basically mutated diseases count as the original disease
@@ -563,7 +566,7 @@
 				//the immutability of resistant diseases discourages this with hard-to-cure diseases.
 				//if players intentionally grief/cant seem to get biohazard protocol down, this can be changed to not use severity. 
 	else
-		A.initial = FALSE //diseases *only* mutate when spreading. they wont mutate from any other kind of injection	*/	
+		A.initial = FALSE //diseases *only* mutate when spreading. they wont mutate from any other kind of injection
 	infectee.diseases += A
 	A.affected_mob = infectee
 	SSdisease.active_diseases += A //Add it to the active diseases list, now that it's actually in a mob and being processed.
@@ -578,7 +581,7 @@
 /datum/disease/advance/proc/random_disease_name(var/atom/diseasesource)//generates a name for a disease depending on its symptoms and where it comes from
 	var/list/prefixes = list("Spacer's ", "Space ", "Infectious ","Viral ", "The ", "[pick(GLOB.first_names)]'s ", "[pick(GLOB.last_names)]'s ", "Acute ")//prefixes that arent tacked to the body need spaces after the word
 	var/list/bodies = list(pick("[pick(GLOB.first_names)]", "[pick(GLOB.last_names)]"), "Space", "Disease", "Noun", "Cold", "Germ", "Virus")
-	var/list/suffixes = list("ism", "itis", "osis", "itosis", " #[rand(1,10000)]", "-[rand(1,100)]", "s", "y", " ovirus", " Bug", " Infection", " Disease", " Complex", " Syndrome", " Sickness") //suffixes that arent tacked directly on need spaces before the word
+	var/list/suffixes = list("ism", "itis", "osis", "itosis", " #[rand(1,10000)]", "-[rand(1,100)]", "s", "y", "ovirus", " Bug", " Infection", " Disease", " Complex", " Syndrome", " Sickness") //suffixes that arent tacked directly on need spaces before the word
 	if(stealth >=2)
 		prefixes += "Crypto "
 	switch(max(resistance - (symptoms.len / 2), 1))

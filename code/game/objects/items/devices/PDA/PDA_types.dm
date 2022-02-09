@@ -10,7 +10,7 @@
 
 /obj/item/pda/clown/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/slippery, 7SECONDS, NO_SLIP_WHEN_WALKING, CALLBACK(src, .proc/AfterSlip), 5SECONDS)
+	AddComponent(/datum/component/slippery, 7 SECONDS, NO_SLIP_WHEN_WALKING, CALLBACK(src, .proc/AfterSlip), 5 SECONDS)
 
 /obj/item/pda/clown/proc/AfterSlip(mob/living/carbon/human/M)
 	if (istype(M) && (M.real_name != owner))
@@ -45,7 +45,6 @@
 /obj/item/pda/ai
 	icon = null
 	ttone = "data"
-	fon = FALSE
 	detonatable = FALSE
 
 /obj/item/pda/ai/attack_self(mob/user)

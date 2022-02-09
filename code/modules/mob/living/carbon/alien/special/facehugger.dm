@@ -30,6 +30,13 @@
 
 	var/attached = 0
 
+/obj/item/clothing/mask/facehugger/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/clothing/mask/facehugger/lamarr
 	name = "Lamarr"
 	sterile = 1
@@ -87,7 +94,9 @@
 /obj/item/clothing/mask/facehugger/equipped(mob/M)
 	Attach(M)
 
-/obj/item/clothing/mask/facehugger/Crossed(atom/target)
+/obj/item/clothing/mask/facehugger/proc/on_entered(datum/source, atom/target)
+	SIGNAL_HANDLER
+
 	HasProximity(target)
 	return
 
@@ -209,7 +218,7 @@
 		icon_state = "[initial(icon_state)]_impregnated"
 
 		var/obj/item/bodypart/chest/LC = target.get_bodypart(BODY_ZONE_CHEST)
-		if((!LC || LC.status != BODYPART_ROBOTIC) && !target.getorgan(/obj/item/organ/body_egg/alien_embryo))
+		if((!LC || IS_ORGANIC_LIMB(LC)) && !target.getorgan(/obj/item/organ/body_egg/alien_embryo))
 			new /obj/item/organ/body_egg/alien_embryo(target)
 			var/turf/T = get_turf(target)
 			log_game("[key_name(target)] was impregnated by a facehugger at [loc_name(T)]")

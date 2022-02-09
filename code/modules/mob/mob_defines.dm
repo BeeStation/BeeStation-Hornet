@@ -222,3 +222,6 @@
 
 	///Does the mob require special hand overlays?
 	var/special_hands = FALSE
+
+	///Currently possesses a typing indicator icon
+	var/typing_indicator = FALSE

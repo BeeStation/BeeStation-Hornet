@@ -10,7 +10,10 @@
 #define UNIQUE_RENAME			(1<<6)  //! can you customize the description/name of the thing?
 #define USES_TGUI				(1<<7)  //! put on things that use tgui on ui_interact instead of custom/old UI.
 #define FROZEN					(1<<8)
-#define BLOCK_Z_FALL			(1<<9)  // Should this object block z falling?
+#define BLOCK_Z_OUT_DOWN		(1<<9)  // Should this object block z falling from loc?
+#define BLOCK_Z_OUT_UP			(1<<10) // Should this object block z uprise from loc?
+#define BLOCK_Z_IN_DOWN			(1<<11) // Should this object block z falling from above?
+#define BLOCK_Z_IN_UP			(1<<12) // Should this object block z uprise from below?
 
 // If you add new ones, be sure to add them to /obj/Initialize as well for complete mapping support
 
@@ -39,7 +42,6 @@
 #define THICKMATERIAL			(1<<5)	//! prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body.
 #define VOICEBOX_TOGGLABLE      (1<<6)  //! The voicebox in this clothing can be toggled.
 #define VOICEBOX_DISABLED       (1<<7)  //! The voicebox is currently turned off.
-#define SHOWEROKAY				(1<<8)	//! prevents you from being stupid if you shower in them
 #define SNUG_FIT                (1<<9)  //! prevents hat throwing from knocking this hat off
 #define EFFECT_HAT              (1<<10) //! For hats with an effect that shouldn't get knocked off ie finfoil
 #define SCAN_REAGENTS           (1<<11) //! Allows helmets and glasses to scan reagents.

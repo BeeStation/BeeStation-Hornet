@@ -1,5 +1,9 @@
 /obj/item/clothing/under/color
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
+	supports_variations = DIGITIGRADE_VARIATION
+
+/obj/item/clothing/under/skirt
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON //Doesn't require a new icon.
 
 /obj/item/clothing/under/skirt/color
 	body_parts_covered = CHEST|GROIN|ARMS
@@ -43,7 +47,7 @@
 	name = "black jumpskirt"
 	icon_state = "black_skirt"
 	item_state = "bl_suit"
-	item_color = "black_skirt"	
+	item_color = "black_skirt"
 
 /obj/item/clothing/under/color/black/ghost
 	item_flags = DROPDEL

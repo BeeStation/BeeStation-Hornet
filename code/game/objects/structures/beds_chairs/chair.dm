@@ -247,6 +247,16 @@
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
 
+/obj/structure/chair/stool/bamboo
+	name = "bamboo stool"
+	desc = "A makeshift bamboo stool with a rustic look."
+	icon_state = "bamboo_stool"
+	resistance_flags = FLAMMABLE
+	max_integrity = 60
+	buildstacktype = /obj/item/stack/sheet/mineral/bamboo
+	buildstackamount = 2
+	item_chair = /obj/item/chair/stool/bamboo
+
 /obj/item/chair
 	name = "chair"
 	desc = "Bar brawl essential."
@@ -333,6 +343,15 @@
 	item_state = "stool_bar"
 	origin_type = /obj/structure/chair/stool/bar
 
+/obj/item/chair/stool/bamboo
+	name = "bamboo stool"
+	icon_state = "bamboo_stool_toppled"
+	item_state = "stool_bamboo"
+	hitsound = 'sound/weapons/genhit1.ogg'
+	origin_type = /obj/structure/chair/stool/bamboo
+	materials = null
+	break_chance = 50	//Submissive and breakable unlike the chad iron stool
+
 /obj/item/chair/stool/narsie_act()
 	return //sturdy enough to ignore a god
 
@@ -345,7 +364,7 @@
 	hitsound = 'sound/weapons/genhit1.ogg'
 	origin_type = /obj/structure/chair/wood
 	materials = null
-	break_chance = 50
+	break_chance = 50 
 
 /obj/item/chair/wood/narsie_act()
 	return

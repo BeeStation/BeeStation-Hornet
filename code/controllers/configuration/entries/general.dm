@@ -87,6 +87,8 @@
 
 /datum/config_entry/flag/log_job_debug	// log roundstart divide occupations debug information to a file
 
+/datum/config_entry/flag/log_timers_on_bucket_reset // logs all timers in buckets on automatic bucket reset (Useful for timer debugging)
+
 /datum/config_entry/flag/allow_admin_ooccolor	// Allows admins with relevant permissions to have their own ooc colour
 
 /datum/config_entry/flag/allow_admin_asaycolor //Allows admins with relevant permissions to have a personalized asay color
@@ -177,7 +179,13 @@
 
 /datum/config_entry/flag/guest_jobban
 
+//These are locked because only a restart can really change them.
+
 /datum/config_entry/flag/usewhitelist
+	protection = CONFIG_ENTRY_LOCKED
+
+/datum/config_entry/flag/use_patrons_as_whitelist
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/flag/use_age_restriction_for_jobs	//Do jobs use account age restrictions? --requires database
 
@@ -291,6 +299,8 @@
 	config_entry_value = null
 	min_val = 0
 	integer = FALSE
+
+/datum/config_entry/flag/manual_note_expiry //Notes can only have expiration times added after creation, not during. Will also prevent automatic notes from expiring.
 
 /datum/config_entry/flag/maprotation
 

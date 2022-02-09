@@ -53,7 +53,7 @@
 	var/damtype_on = BURN
 	flags_inv = HIDEEARS|HIDEHAIR
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
-	brightness_on = 2 //luminosity when on
+	light_range = 2 //luminosity when on
 	flags_cover = HEADCOVERSEYES
 	heat = 999
 
@@ -99,7 +99,7 @@
 	hitsound_off = 'sound/weapons/tap.ogg'
 	damtype_on = BRUTE
 	force_on = 18 //same as epen (but much more obvious)
-	brightness_on = 3
+	light_range = 3 //ditto
 	heat = 0
 
 /obj/item/clothing/head/hardhat/cakehat/energycake/turn_on(mob/living/user)
@@ -149,7 +149,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = SNUG_FIT
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 10)
-	brightness_on = 2 //luminosity when on
+	light_range = 2 //luminosity when on
 	flags_cover = HEADCOVERSEYES
 
 /*
@@ -165,19 +165,12 @@
 
 	dog_fashion = /datum/dog_fashion/head/kitty
 
-/obj/item/clothing/head/kitty/equipped(mob/living/carbon/human/user, slot)
-	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
-		update_icon(user)
-		user.update_inv_head() //Color might have been changed by update_icon.
-	..()
-
-/obj/item/clothing/head/kitty/update_icon(mob/living/carbon/human/user)
-	if(ishuman(user))
-		add_atom_colour("#[user.hair_color]", FIXED_COLOUR_PRIORITY)
+/obj/item/clothing/head/kitty/Initialize()
+	. = ..()
+	AddComponent(/datum/component/haircolor_clothing)
 
 /obj/item/clothing/head/kitty/genuine
 	desc = "A pair of kitty ears. A tag on the inside says \"Hand made from real cats.\""
-
 
 /obj/item/clothing/head/hardhat/reindeer
 	name = "novelty reindeer hat"
@@ -188,10 +181,27 @@
 	item_color = "reindeer"
 	flags_inv = 0
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
-	brightness_on = 1 //luminosity when on
+	light_range = 1 //luminosity when on
 	dynamic_hair_suffix = ""
 
 	dog_fashion = /datum/dog_fashion/head/reindeer
+
+/*
+	Rabbit ears
+*/
+
+/obj/item/clothing/head/rabbitears
+	name = "rabbit ears"
+	desc = "Wearing these makes you look useless, and only good for your sex appeal."
+	icon_state = "bunny"
+	clothing_flags = SNUG_FIT
+	dynamic_hair_suffix = ""
+
+	dog_fashion = /datum/dog_fashion/head/rabbit
+
+/obj/item/clothing/head/rabbitears/Initialize()
+	. = ..()
+	AddComponent(/datum/component/haircolor_clothing)
 
 /obj/item/clothing/head/cardborg
 	name = "cardborg helmet"
@@ -349,10 +359,13 @@
 	icon_state = "tinfoil_envirohelm"
 	item_state = "tinfoil_envirohelm"
 	strip_delay = 150
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY | EFFECT_HAT | SNUG_FIT
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | EFFECT_HAT | SNUG_FIT
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 50)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
-	var/brightness_on = 4 //luminosity when the light is on
+	light_system = MOVABLE_LIGHT
+	light_range = 4
+	light_power = 1
+	light_on = TRUE
 	var/on = FALSE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	dynamic_hair_suffix = ""
@@ -371,9 +384,9 @@
 	user.update_inv_head() //So the mob overlay updates
 
 	if(on)
-		set_light(brightness_on)
+		set_light(TRUE)
 	else
-		set_light(0)
+		set_light(FALSE)
 
 	for(var/X in actions)
 		var/datum/action/A=X

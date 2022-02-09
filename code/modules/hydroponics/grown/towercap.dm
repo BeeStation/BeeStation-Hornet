@@ -36,7 +36,6 @@
 	desc = "It's better than bad, it's good!"
 	icon_state = "logs"
 	force = 5
-	block_upgrade_walk = 1
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 2
@@ -94,6 +93,7 @@
 	icon_state = "steellogs"
 	plank_type = /obj/item/stack/rods
 	plank_name = "rods"
+	discovery_points = 300
 
 /obj/item/grown/log/steel/CheckAccepted(obj/item/I)
 	return FALSE
@@ -110,7 +110,7 @@
 	production = 2
 	yield = 5
 	potency = 50
-	growthstages = 2
+	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing.dmi'
 	icon_dead = "bamboo-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
@@ -122,6 +122,7 @@
 	icon_state = "bamboo"
 	plank_type = /obj/item/stack/sheet/mineral/bamboo
 	plank_name = "bamboo sticks"
+	discovery_points = 300
 
 /obj/item/grown/log/bamboo/CheckAccepted(obj/item/I)
 	return FALSE
@@ -170,6 +171,20 @@
 /obj/structure/bonfire/prelit/Initialize()
 	. = ..()
 	StartBurning()
+
+/obj/structure/bonfire/CanPass(atom/movable/mover, turf/target)
+	if(istype(mover) && (mover.pass_flags & PASSTABLE))
+		return TRUE
+	if(mover.throwing)
+		return TRUE
+	return ..()
+
+/obj/structure/bonfire/Initialize()
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddComponent(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/rods) && !can_buckle && !grill)
@@ -244,7 +259,9 @@
 /obj/structure/bonfire/fire_act(exposed_temperature, exposed_volume)
 	StartBurning()
 
-/obj/structure/bonfire/Crossed(atom/movable/AM)
+/obj/structure/bonfire/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
 	if(burning & !grill)
 		Burn()
 

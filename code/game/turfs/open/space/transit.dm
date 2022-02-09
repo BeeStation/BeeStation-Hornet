@@ -26,14 +26,14 @@
 /turf/open/space/transit/east
 	dir = EAST
 
-/turf/open/space/transit/Entered(atom/movable/AM, atom/OldLoc)
-	..()
+/turf/open/space/transit/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
 	if(!locate(/obj/structure/lattice) in src)
-		throw_atom(AM, OldLoc)
+		throw_atom(arrived, old_loc)
 
 /turf/open/space/transit/proc/throw_atom(atom/movable/AM, atom/OldLoc)
 	set waitfor = FALSE
-	if(!AM || istype(AM, /obj/docking_port))
+	if(!AM || istype(AM, /obj/docking_port) || istype(AM, /obj/effect/abstract))
 		return
 	if(AM.loc != src) 	// Multi-tile objects are "in" multiple locs but its loc is it's true placement.
 		return			// Don't move multi tile objects if their origin isn't in transit
@@ -44,9 +44,9 @@
 	var/_z = 2
 
 	var/should_make_level = ismob(AM)
-	if(!should_make_level && isobj(AM))
-		var/obj/O = AM
-		if(O.resistance_flags & INDESTRUCTIBLE)
+	if(!should_make_level && isitem(AM))
+		var/obj/item/I = AM
+		if(I.resistance_flags & INDESTRUCTIBLE)	//incase there is an important item
 			should_make_level = TRUE
 
 	if(should_make_level)

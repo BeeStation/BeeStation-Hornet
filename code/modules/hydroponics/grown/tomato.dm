@@ -49,6 +49,7 @@
 	foodtype = FRUIT | GROSS
 	grind_results = list(/datum/reagent/consumable/ketchup = 0, /datum/reagent/blood = 0)
 	distill_reagent = /datum/reagent/consumable/ethanol/bloody_mary
+	discovery_points = 300
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/blood/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(istype(thrower) && thrower.ckey)
@@ -78,6 +79,7 @@
 	splat_type = /obj/effect/decal/cleanable/oil
 	filling_color = "#0000FF"
 	distill_reagent = /datum/reagent/consumable/laughter
+	discovery_points = 300
 
 // Bluespace Tomato
 /obj/item/seeds/tomato/blue/bluespace
@@ -100,6 +102,7 @@
 	icon_state = "bluespacetomato"
 	distill_reagent = null
 	wine_power = 80
+	discovery_points = 300
 
 // Killer Tomato
 /obj/item/seeds/tomato/killer
@@ -126,6 +129,7 @@
 	var/awakening = FALSE
 	filling_color = "#FF0000"
 	distill_reagent = /datum/reagent/consumable/ethanol/demonsblood
+	discovery_points = 300
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer/attack(mob/M, mob/user, def_zone)
 	if(awakening)

@@ -17,7 +17,9 @@
 
 ///Special throw_impact for hats to frisbee hats at people to place them on their heads/attempt to de-hat them.
 /obj/item/clothing/head/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
-	. = ..()
+	///if the thrown object is caught
+	if(..())
+		return
 	///if the thrown object's target zone isn't the head
 	if(thrownthing.target_zone != BODY_ZONE_HEAD)
 		return

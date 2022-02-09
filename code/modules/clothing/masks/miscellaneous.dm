@@ -43,14 +43,13 @@
 /obj/item/clothing/mask/fakemoustache/italian
 	name = "italian moustache"
 	desc = "Made from authentic Italian moustache hairs. Gives the wearer an irresistable urge to gesticulate wildly."
-	clothing_flags = SHOWEROKAY
 	modifies_speech = TRUE
 
 /obj/item/clothing/mask/fakemoustache/italian/handle_speech(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"
-		var/list/italian_words = strings("italian_replacement.json", "italian")
+		var/list/italian_words = strings(ITALIAN_TALK_FILE, "italian")
 
 		for(var/key in italian_words)
 			var/value = italian_words[key]
@@ -326,7 +325,7 @@
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"
-		var/list/spurdo_words = strings("spurdo_replacement.json", "spurdo")
+		var/list/spurdo_words = strings(GONGOLA_TALK_FILE, "spurdo")
 		for(var/key in spurdo_words)
 			var/value = spurdo_words[key]
 			if(islist(value))

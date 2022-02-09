@@ -155,6 +155,11 @@
 	. = ..()
 	decayedRange = range
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/item/projectile/proc/Range()
 	range--
 	if(range <= 0 && loc)
@@ -230,7 +235,7 @@
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			var/obj/item/bodypart/B = L.get_bodypart(def_zone)
 			if(B)
-				if(B.status == BODYPART_ROBOTIC) // So if you hit a robotic, it sparks instead of bloodspatters
+				if(!IS_ORGANIC_LIMB(B)) // So if you hit a robotic, it sparks instead of bloodspatters
 					do_sparks(2, FALSE, target.loc)
 					if(prob(25))
 						new /obj/effect/decal/cleanable/oil(target_loca)
@@ -521,13 +526,6 @@
 			if(can_hit_target(M, M == original, TRUE))
 				Impact(M)
 				break
-
-/**
- * Projectile crossed: When something enters a projectile's tile, make sure the projectile hits it if it should be hitting it.
- */
-/obj/item/projectile/Crossed(atom/movable/AM)
-	. = ..()
-	scan_crossed_hit(AM)
 
 /**
  * Projectile can pass through
@@ -855,6 +853,11 @@
 		var/oy = round(screenviewY/2) - user.client.pixel_y //"origin" y
 		angle = ATAN2(y - oy, x - ox)
 	return list(angle, p_x, p_y)
+
+/obj/item/projectile/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
+	scan_crossed_hit(AM)
 
 /obj/item/projectile/Destroy()
 	if(hitscan)

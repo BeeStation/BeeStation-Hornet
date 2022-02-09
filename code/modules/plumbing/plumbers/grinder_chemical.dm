@@ -13,6 +13,10 @@
 /obj/machinery/plumbing/grinder_chemical/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_supply, bolt)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/plumbing/grinder_chemical/setDir(newdir)
 	. = ..()
@@ -26,9 +30,10 @@
 	if(move_dir == eat_dir)
 		return TRUE
 
-/obj/machinery/plumbing/grinder_chemical/Crossed(atom/movable/AM)
-	. = ..()
-	grind(AM)
+/obj/machinery/plumbing/grinder_chemical/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, .proc/grind, AM)
 
 /obj/machinery/plumbing/grinder_chemical/proc/grind(atom/AM)
 	if(stat & NOPOWER)

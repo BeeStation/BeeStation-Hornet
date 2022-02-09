@@ -11,7 +11,7 @@
 	armor = spikearmor
 	id = diseaseid
 	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, .proc/prick_collide)
-	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/prick_crossed)
+	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/prick_crossed)
 	RegisterSignal(parent, COMSIG_DISEASE_END, .proc/checkdiseasecure)
 	if(ishuman(parent))
 		if(armor)

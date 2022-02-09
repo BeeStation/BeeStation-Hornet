@@ -28,12 +28,21 @@
 	del_on_death = TRUE
 	chat_color = "#BC7658"
 
+/mob/living/simple_animal/cockroach/Initialize()
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /mob/living/simple_animal/cockroach/death(gibbed)
 	if(SSticker.mode && SSticker.mode.station_was_nuked) //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
 		return
 	..()
 
-/mob/living/simple_animal/cockroach/Crossed(var/atom/movable/AM)
+/mob/living/simple_animal/cockroach/proc/on_entered(datum/source ,var/atom/movable/AM)
+	SIGNAL_HANDLER
+
 	if(ismob(AM))
 		if(isliving(AM))
 			var/mob/living/A = AM

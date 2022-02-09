@@ -54,7 +54,7 @@
 
 /datum/action/innate/heretic_shatter/Activate()
 	var/turf/safe_turf = find_safe_turf(zlevels = sword.z, extended_safety_checks = TRUE)
-	do_teleport(holder,safe_turf,forceMove = TRUE,channel = TELEPORT_CHANNEL_MAGIC)
+	do_teleport(holder,safe_turf,channel = TELEPORT_CHANNEL_MAGIC)
 	to_chat(holder,"<span class='warning'>You feel a gust of energy flow through your body... the Rusted Hills heard your call...</span>")
 	qdel(sword)
 
@@ -158,7 +158,17 @@
 	name = "guise of Istasha"
 	desc = "An odd amulet formed out of multiple floating parts, strung togethere by forces from another world."
 	icon_state = "eye_medalion"
-	trait = TRAIT_DIGINVIS
+
+/obj/item/clothing/neck/eldritch_amulet/guise/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_NECK)
+		user.AddElement(/datum/element/digital_camo)
+	else
+		user.RemoveElement(/datum/element/digital_camo)
+
+/obj/item/clothing/neck/eldritch_amulet/guise/dropped(mob/user)
+	. = ..()
+	user.RemoveElement(/datum/element/digital_camo)
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	name = "ominous hood"

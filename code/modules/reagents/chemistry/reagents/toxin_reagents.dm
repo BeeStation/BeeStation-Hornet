@@ -409,7 +409,7 @@
 
 /datum/reagent/toxin/histamine/overdose_process(mob/living/M)
 	M.adjustOxyLoss(2*REM, 0)
-	M.adjustBruteLoss(2*REM, FALSE, FALSE, BODYPART_ORGANIC)
+	M.adjustBruteLoss(2*REM, FALSE, FALSE, BODYTYPE_ORGANIC)
 	M.adjustToxLoss(2*REM, 0)
 	..()
 	. = 1
@@ -905,4 +905,21 @@
 		var/tox_message = pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")
 		to_chat(M, "<span class='notice'>[tox_message]</span>")
 	. = 1
+	..()
+
+//This reagent is intentionally not designed to give much fighting chance. Its only ever used when morph manages to trick somebody into interacting with its disguised form
+/datum/reagent/toxin/morphvenom
+	name = "Morph venom"
+	description = "Deadly venom of shapeshifting creature."
+	color = "#3cff00"
+	toxpwr = 2
+	taste_description = "salt"
+	can_synth = FALSE
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+
+/datum/reagent/toxin/morphvenom/on_mob_life(mob/living/carbon/M)
+	M.set_drugginess(5)
+	M.adjustStaminaLoss(30)
+	M.silent = max(M.silent, 3)
+	M.confused = max(M.confused, 3)
 	..()

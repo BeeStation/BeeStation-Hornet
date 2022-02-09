@@ -24,8 +24,12 @@ SUBSYSTEM_DEF(garbage)
 
 	//Queue
 	var/list/queues
-	#ifdef LEGACY_REFERENCE_TRACKING
+	#ifdef REFERENCE_TRACKING
 	var/list/reference_find_on_fail = list()
+	#ifdef REFERENCE_TRACKING_DEBUG
+	//Should we save found refs. Used for unit testing
+	var/should_save_refs = FALSE
+	#endif
 	#endif
 
 /datum/controller/subsystem/garbage/get_metrics()
@@ -152,7 +156,7 @@ SUBSYSTEM_DEF(garbage)
 			++gcedlasttick
 			++totalgcs
 			pass_counts[level]++
-			#ifdef LEGACY_REFERENCE_TRACKING
+			#ifdef REFERENCE_TRACKING
 			reference_find_on_fail -= refID	//It's deleted we don't care anymore.
 			#endif
 			if (MC_TICK_CHECK)
@@ -169,14 +173,12 @@ SUBSYSTEM_DEF(garbage)
 		switch (level)
 			if (GC_QUEUE_CHECK)
 				#ifdef REFERENCE_TRACKING
-				D.find_references()
-				#elif defined(LEGACY_REFERENCE_TRACKING)
 				if(reference_find_on_fail[refID])
-					INVOKE_ASYNC(D, /datum/proc/find_references_legacy)
+					INVOKE_ASYNC(D, /datum/proc/find_references)
 					ref_searching = TRUE
 				#ifdef GC_FAILURE_HARD_LOOKUP
 				else
-					INVOKE_ASYNC(D, /datum/proc/find_references_legacy)
+					INVOKE_ASYNC(D, /datum/proc/find_references)
 					ref_searching = TRUE
 				#endif
 				reference_find_on_fail -= refID
@@ -191,10 +193,6 @@ SUBSYSTEM_DEF(garbage)
 					if(!check_rights_for(admin, R_ADMIN))
 						continue
 					to_chat(admin, "## TESTING: GC: -- [ADMIN_VV(D)] | [type] was unable to be GC'd --")
-				#endif
-				#ifdef REFERENCE_TRACKING
-				GLOB.deletion_failures += D //It should no longer be bothered by the GC, manual deletion only.
-				continue
 				#endif
 				I.failures++
 			if (GC_QUEUE_HARDDELETE)
@@ -342,13 +340,13 @@ SUBSYSTEM_DEF(garbage)
 				SSgarbage.Queue(D, GC_QUEUE_HARDDELETE)
 			if (QDEL_HINT_HARDDEL_NOW)	//qdel should assume this object won't gc, and hard del it post haste.
 				SSgarbage.HardDelete(D)
-			#ifdef LEGACY_REFERENCE_TRACKING
-			if (QDEL_HINT_FINDREFERENCE) //qdel will, if LEGACY_REFERENCE_TRACKING is enabled, display all references to this object, then queue the object for deletion.
+			#ifdef REFERENCE_TRACKING
+			if (QDEL_HINT_FINDREFERENCE) //qdel will, if REFERENCE_TRACKING is enabled, display all references to this object, then queue the object for deletion.
 				SSgarbage.Queue(D)
-				D.find_references_legacy()
-			if (QDEL_HINT_IFFAIL_FINDREFERENCE)
+				D.find_references() //This breaks ci. Consider it insurance against somehow pring reftracking on accident
+			if (QDEL_HINT_IFFAIL_FINDREFERENCE) //qdel will, if REFERENCE_TRACKING is enabled and the object fails to collect, display all references to this object.
 				SSgarbage.Queue(D)
-				SSgarbage.reference_find_on_fail[REF(D)] = TRUE
+				SSgarbage.reference_find_on_fail["\ref[D]"] = TRUE
 			#endif
 			else
 				#ifdef TESTING
