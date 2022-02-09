@@ -62,8 +62,9 @@
 		wires.interact(user)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(dud_flags & GRENADE_USED)
+			to_chat(user, "<span class='notice'>You started to reset the trigger.</span>")
 			if (do_after(user, 2 SECONDS, src))
-				to_chat(user, "<span class='notice'>You reset the trigger</span>")
+				to_chat(user, "<span class='notice'>You reset the trigger.</span>")
 				dud_flags &= ~GRENADE_USED
 			return
 		if(stage == GRENADE_WIRED)
