@@ -1,8 +1,0 @@
-author: The-Black-Screen
-delete-after: true
-changes:
-  - rscadd: Two badges, Fueled by Potassium and AGPL.
-  - rscdel: Several spaces.
-  - imageadd: fueled-by-potassium.svg (See Screenshots & Videos)
-  - code_imp: Uses proper markdown, mostly, that should be compatible with how github
-      uses it.
