@@ -194,7 +194,7 @@
 	//This should really be accelleration, but its a 2d spessman game so who cares
 	if(calculated_mass == 0)
 		return FALSE
-	calculated_acceleration = calculated_dforce / calculated_mass * CUSTOM_SHUTTLE_ACCELERATION_SCALE
+	calculated_acceleration = (calculated_dforce / calculated_mass) * CUSTOM_SHUTTLE_ACCELERATION_SCALE
 	return TRUE
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
