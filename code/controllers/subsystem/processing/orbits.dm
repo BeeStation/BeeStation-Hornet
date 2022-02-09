@@ -120,7 +120,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	var/static/list/valid_objectives = list(
 		/datum/orbital_objective/recover_blackbox = 3,
 		/datum/orbital_objective/nuclear_bomb = 1,
-		/datum/orbital_objective/artifact = 1,
+		/datum/orbital_objective/assassination = 1,
+		/datum/orbital_objective/artifact = 2,
 		/datum/orbital_objective/vip_recovery = 1
 	)
 	if(!length(possible_objectives))

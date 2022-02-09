@@ -1,8 +1,9 @@
 import { sortBy } from "common/collections";
 import { capitalize } from "common/string";
 import { useBackend, useLocalState } from "../backend";
-import { Blink, Box, Button, Dimmer, Flex, Icon, Input, Modal, NoticeBox, Section, Stack, Tabs, TextArea } from "../components";
+import { Blink, Box, Button, Dimmer, Flex, Icon, Input, Modal, NoticeBox, Section, Stack, Tabs, TextArea, Tooltip } from "../components";
 import { Window } from "../layouts";
+import { sanitizeText } from "../sanitize";
 
 const STATE_BUYING_SHUTTLE = "buying_shuttle";
 const STATE_CHANGING_STATUS = "changing_status";
@@ -11,7 +12,12 @@ const STATE_MESSAGES = "messages";
 // Used for whether or not you need to swipe to confirm an alert level change
 const SWIPE_NEEDED = "SWIPE_NEEDED";
 
-const sortByCreditCost = sortBy(shuttle => shuttle.creditCost);
+const ILLEGAL_SHUTTLE_NOTICE
+  = "Warning: Safety features disabled. This shuttle is uncertified. Order at your own peril.";
+const sortShuttles = sortBy(
+  shuttle => !shuttle.illegal,
+  shuttle => shuttle.creditCost
+);
 
 const AlertButton = (props, context) => {
   const { act, data } = useBackend(context);
@@ -163,7 +169,7 @@ const PageBuyingShuttle = (props, context) => {
         <Stack.Item grow>
           <Section fill scrollable>
             <Stack vertical>
-              {sortByCreditCost(data.shuttles).slice(0, 6).map(shuttle => (
+              {sortShuttles(data.shuttles).map(shuttle => (
                 <Stack.Item key={shuttle.ref}>
                   <Section
                     title={(
@@ -180,6 +186,7 @@ const PageBuyingShuttle = (props, context) => {
                         content={
                           `${shuttle.creditCost.toLocaleString()} credits`
                         }
+                        color={shuttle.illegal ? "red" : "default"}
                         disabled={
                           !canBuyShuttles || data.budget < shuttle.creditCost
                         }
@@ -187,11 +194,12 @@ const PageBuyingShuttle = (props, context) => {
                           shuttle: shuttle.ref,
                         })}
                         tooltip={
-                          data.budget < shuttle.creditCost
-                            ? `You need ${
-                              shuttle.creditCost - data.budget
-                            } more credits.`
-                            : undefined
+                          data.budget < shuttle.creditCost ? (`You need ${
+                            shuttle.creditCost - data.budget
+                          } more credits.`
+                          ) : (shuttle.illegal 
+                            ? ILLEGAL_SHUTTLE_NOTICE 
+                            : undefined)
                         }
                         tooltipPosition="left"
                       />
@@ -629,6 +637,10 @@ const PageMessages = (props, context) => {
             );
           }
 
+          const textHtml = {
+            __html: sanitizeText(message.content),
+          };
+
           return (
             <Section
               title={message.title}
@@ -643,7 +655,8 @@ const PageMessages = (props, context) => {
                   })}
                 />
               )}>
-              <Box>{message.content}</Box>
+              <Box
+                dangerouslySetInnerHTML={textHtml} />
 
               {answers}
             </Section>
@@ -651,6 +664,25 @@ const PageMessages = (props, context) => {
         }).reverse()
       }
     </Section>
+  );
+};
+
+const ConditionalTooltip = (props, context) => {
+  const {
+    condition,
+    children,
+    ...rest
+  } = props;
+
+  if (!condition)
+  {
+    return children;
+  }
+  
+  return (
+    <Tooltip {...rest}>
+      {children}
+    </Tooltip>
   );
 };
 
@@ -710,19 +742,18 @@ export const CommunicationsConsole = (props, context) => {
                       </Tabs.Tab>
 
                       {(canBuyShuttles !== 0) && (
-                        <Tabs.Tab fluid
-                          icon="shopping-cart"
-                          selected={page===STATE_BUYING_SHUTTLE}
-                          onClick={() => act("setState", 
-                            { state: STATE_BUYING_SHUTTLE }
-                          )}
-                          disabled={canBuyShuttles !== 1}
-                          tooltip={canBuyShuttles !== 1
-                            ? canBuyShuttles 
-                            : undefined}
-                          tooltipPosition="right">
-                          Purchase Shuttle
-                        </Tabs.Tab>
+                        <ConditionalTooltip
+                          condition={canBuyShuttles !== 1}
+                          content={canBuyShuttles}>
+                          <Tabs.Tab fluid
+                            icon="shopping-cart"
+                            selected={page===STATE_BUYING_SHUTTLE}
+                            onClick={() => act("setState", 
+                              { state: STATE_BUYING_SHUTTLE }
+                            )}>
+                            Purchase Shuttle
+                          </Tabs.Tab>
+                        </ConditionalTooltip>
                       )}
                     </Tabs>
                   </Section>

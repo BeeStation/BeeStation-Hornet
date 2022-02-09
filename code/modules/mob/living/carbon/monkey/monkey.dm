@@ -103,8 +103,6 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 
 /mob/living/carbon/monkey/get_stat_tab_status()
 	var/list/tab_data = ..()
-	tab_data["Intent"] = GENERATE_STAT_TEXT("[a_intent]")
-	tab_data["Move Mode"] = GENERATE_STAT_TEXT("[m_intent]")
 	if(client && mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
@@ -232,11 +230,18 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
 	default_features = list("mcolor" = "FFF", "wings" = "None")
-	use_skintones = 1
+	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	liked_food = JUNKFOOD | FRIED | GROSS | RAW
 	changesource_flags = MIRROR_BADMIN
 	mutant_brain = /obj/item/organ/brain/tumor
+
+	species_chest = /obj/item/bodypart/chest/monkey/teratoma
+	species_head = /obj/item/bodypart/head/monkey/teratoma
+	species_l_arm = /obj/item/bodypart/l_arm/monkey/teratoma
+	species_r_arm = /obj/item/bodypart/r_arm/monkey/teratoma
+	species_l_leg = /obj/item/bodypart/l_leg/monkey/teratoma
+	species_r_leg = /obj/item/bodypart/r_leg/monkey/teratoma
 
 /obj/item/organ/brain/tumor
 	name = "teratoma brain"

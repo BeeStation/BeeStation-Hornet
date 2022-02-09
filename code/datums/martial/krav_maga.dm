@@ -178,6 +178,16 @@
 //Krav Maga Gloves
 
 /obj/item/clothing/gloves/krav_maga
+	name = "krav maga gloves"
+	desc = "These gloves can teach you to perform Krav Maga using nanochips."
+	icon_state = "fightgloves"
+	item_state = "fightgloves"
+	worn_icon_state = "fightgloves"
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	resistance_flags = NONE
 	var/datum/martial_art/krav_maga/style = new
 
 /obj/item/clothing/gloves/krav_maga/equipped(mob/user, slot)
@@ -194,28 +204,13 @@
 	if(H.get_item_by_slot(ITEM_SLOT_GLOVES) == src)
 		style.remove(H)
 
-/obj/item/clothing/gloves/krav_maga/sec//more obviously named, given to sec
-	name = "krav maga gloves"
-	desc = "These gloves can teach you to perform Krav Maga using nanochips."
-	icon_state = "fightgloves"
-	item_state = "fightgloves"
-	cold_protection = HANDS
-	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
-	heat_protection = HANDS
-	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
-	resistance_flags = NONE
-
 /obj/item/clothing/gloves/krav_maga/combatglovesplus
 	name = "combat gloves plus"
 	desc = "These tactical gloves are fireproof and shock resistant, and using nanochip technology it teaches you the powers of krav maga."
 	icon_state = "cgloves"
 	item_state = "combatgloves"
+	worn_icon_state = "combatgloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	strip_delay = 80
-	cold_protection = HANDS
-	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
-	heat_protection = HANDS
-	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
-	resistance_flags = NONE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50, "stamina" = 0)

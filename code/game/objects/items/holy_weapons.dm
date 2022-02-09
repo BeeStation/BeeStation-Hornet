@@ -86,7 +86,7 @@
 /obj/item/clothing/head/helmet/chaplain/cage
 	name = "cage"
 	desc = "A cage that restrains the will of the self, allowing one to see the profane world for what it is."
-	alternate_worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
+	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
 	icon_state = "cage"
 	item_state = "cage"
 	worn_x_dimension = 64
@@ -328,7 +328,7 @@
 	block_power = 20
 	var/shield_icon = "shield-red"
 
-/obj/item/nullrod/staff/worn_overlays(isinhands)
+/obj/item/nullrod/staff/worn_overlays(mutable_appearance/standing, isinhands)
 	. = list()
 	if(isinhands)
 		. += mutable_appearance('icons/effects/effects.dmi', shield_icon, MOB_LAYER + 0.01)
@@ -390,6 +390,7 @@
 	desc = "Capable of cutting clean through a holy claymore."
 	icon_state = "katana"
 	item_state = "katana"
+	worn_icon_state = "katana"
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	block_power = 0
