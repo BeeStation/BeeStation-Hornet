@@ -231,7 +231,7 @@
 				I.righthand_file = SSgreyscale.GetColoredIconByType(initial(picked_item.greyscale_config_inhand_right), initial(picked_item.greyscale_colors))
 		I.worn_icon_state = initial(picked_item.worn_icon_state)
 		I.item_state = initial(picked_item.item_state)
-		if(isclothing(I) && isclothing(initial(picked_item)))
+		if(isclothing(I) && ispath(picked_item, /obj/item/clothing))
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)
