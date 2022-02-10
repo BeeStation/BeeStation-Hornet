@@ -15,7 +15,7 @@
 /obj/machinery/door/airlock
 	doorOpen = 'monkestation/sound/machines/airlock/open.ogg'
 	doorClose = 'monkestation/sound/machines/airlock/close.ogg'
-	doorDeni = 'sound/machines/deniedbeep.ogg'
+	doorDeni = 'monkestation/sound/machines/airlock/access_denied.ogg'
 	boltUp = 'monkestation/sound/machines/airlock/bolts_up.ogg'
 	boltDown = 'monkestation/sound/machines/airlock/bolts_down.ogg'
 	var/forcedOpen = 'sound/machines/airlockforced.ogg'

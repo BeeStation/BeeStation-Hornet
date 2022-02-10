@@ -27,7 +27,7 @@
 		to_chat(X, mentor_msg)
 
 	to_chat(src, "<span class='mentornotice'><span class='mentorhelp'>>PM to-<b>Mentors</b>: [msg]</span></span>")
-	SSredbot.send_discord_message("mentor", "Mentor help request received: [msg]")
+	SSredbot.send_discord_message("mhelp", "Mentor help request received: [msg]")
 	return
 
 /proc/get_mentor_counts()
