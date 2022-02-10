@@ -1,0 +1,6 @@
+author: KoboldCommando
+delete-after: true
+changes:
+  - rscadd: you can now load a beaker of chemicals into flamethrowers, and also fire
+      them with or without the flame lit!
+  - bugfix: black powder grenades and similar explosive reactions work properly now!
