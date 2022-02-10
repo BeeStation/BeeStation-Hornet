@@ -75,6 +75,7 @@
 	/// Should the toggle helmet proc be called on the helmet during equip
 	var/toggle_helmet = TRUE
 
+
 	///ID of the slot containing a gas tank
 	var/internals_slot = null
 

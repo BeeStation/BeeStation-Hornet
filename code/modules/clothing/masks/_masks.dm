@@ -10,7 +10,7 @@
 	var/adjusted_flags = null
 
 /obj/item/clothing/mask/attack_self(mob/user)
-	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
+	if(CHECK_BITFIELD(clothing_flags , VOICEBOX_TOGGLABLE))
 		TOGGLE_BITFIELD(clothing_flags, VOICEBOX_DISABLED)
 		var/status = !CHECK_BITFIELD(clothing_flags, VOICEBOX_DISABLED)
 		to_chat(user, "<span class='notice'>You turn the voice box in [src] [status ? "on" : "off"].</span>")
