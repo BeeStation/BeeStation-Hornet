@@ -1,5 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - server: Added a bot_key entry to the communications config for RedBot
-  - bugfix: Removes the erroneous comms_key datum to resolve initialization runtimes
