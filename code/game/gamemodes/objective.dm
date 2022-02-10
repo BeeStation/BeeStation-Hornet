@@ -312,9 +312,10 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	team.objectives -= src
 	for(var/datum/mind/M as() in team.members)
 		var/datum/antagonist/rev/R = M.has_antag_datum(/datum/antagonist/rev)
-		R?.objectives -= src
-		to_chat(M.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
-		M.announce_objectives()
+		if(R)
+			R.objectives -= src
+			to_chat(M.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
+			M.announce_objectives()
 	qdel(src)
 
 /datum/objective/maroon
