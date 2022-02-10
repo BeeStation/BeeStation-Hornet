@@ -39,7 +39,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/atom/rod
 	if(prob(1))
 		rod = new /obj/effect/immovablerod(startT, endT, C.special_target, TRUE)
-		to_chat(world, "<span class='userdanger'>You feel a wave of dread wash over you.</span>")
 	else
 		rod = new /obj/effect/immovablerod(startT, endT, C.special_target)
 	announce_to_ghosts(rod)
