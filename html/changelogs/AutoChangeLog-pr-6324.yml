@@ -1,0 +1,5 @@
+author: ike709
+delete-after: true
+changes:
+  - code_imp: Removed a pointless proc call from chameleon changing.
+  - bugfix: Chameleon clothing now covers the correct slots of whatever it's mimicking.
