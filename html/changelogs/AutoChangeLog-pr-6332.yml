@@ -1,0 +1,5 @@
+author: ike709
+delete-after: true
+changes:
+  - tweak: When map rotation decides to rotate the map, it will no longer be able
+      to pick the same map.
