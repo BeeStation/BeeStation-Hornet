@@ -26,6 +26,10 @@ SUBSYSTEM_DEF(job)
 		"Chief Medical Officer" = 5,
 		"Head of Security" = 6)
 
+	//Crew Objective stuff
+	var/list/crew_obj_list = list()
+	var/list/crew_obj_jobs = list()
+
 /datum/controller/subsystem/job/Initialize(timeofday)
 	SSmapping.HACK_LoadMapConfig()
 	if(!occupations.len)
@@ -36,6 +40,12 @@ SUBSYSTEM_DEF(job)
 	set_overflow_role(CONFIG_GET(string/overflow_job))
 
 	spare_id_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
+
+	crew_obj_list = subtypesof(/datum/objective/crew)
+	for(var/datum/objective/crew/obj as() in crew_obj_list) //taken from old Hippie's "job2obj" proc with adjustments.
+		var/list/availableto = splittext(initial(obj.jobs),",")
+		for(var/job in availableto)
+			crew_obj_jobs["[job]"] += list(obj)
 
 	return ..()
 
@@ -502,10 +512,8 @@ SUBSYSTEM_DEF(job)
 	if(job && living_mob)
 		job.after_spawn(living_mob, M, joined_late) // note: this happens before the mob has a key! M will always have a client, living_mob might not.
 
-	var/tries = 5
-	while(M.mind && !M.mind.crew_objectives.len && tries)
-		SSticker.give_crew_objective(M.mind)
-		tries--
+	if(living_mob.mind && !living_mob.mind.crew_objectives.len)
+		give_crew_objective(living_mob.mind, M)
 
 	return living_mob
 

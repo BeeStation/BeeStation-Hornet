@@ -230,14 +230,15 @@
 			return TRUE
 	return FALSE
 
-/datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, var/verbose=1)
+/datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, verbose=TRUE)
 	var/mob/living/carbon/user = owner.current
-	if(isipc(target))
-		to_chat(user, "<span class='warning'>We cannot absorb mechanical entities!</span>")
-		return
 	if(!istype(user))
 		return
 	if(!target)
+		return
+	if(isipc(target))
+		if(verbose)
+			to_chat(user, "<span class='warning'>We cannot absorb mechanical entities!</span>")
 		return
 	if(NO_DNA_COPY in target.dna.species.species_traits)
 		if(verbose)
@@ -442,11 +443,14 @@
 			if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
 				var/datum/objective/escape/escape_with_identity/identity_theft = new
 				identity_theft.owner = owner
-				identity_theft.target = maroon_objective.target
-				identity_theft.update_explanation_text()
-				objectives += identity_theft
-				log_objective(owner, identity_theft.explanation_text)
-				escape_objective_possible = FALSE
+				if(identity_theft.is_valid_target(maroon_objective.target))
+					identity_theft.set_target(maroon_objective.target)
+					identity_theft.update_explanation_text()
+					objectives += identity_theft
+					log_objective(owner, identity_theft.explanation_text)
+					escape_objective_possible = FALSE
+				else
+					qdel(identity_theft)
 
 	if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
 		if(prob(50))
