@@ -36,7 +36,12 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/z = pick(SSmapping.levels_by_trait(ZTRAIT_STATION))
 	var/turf/startT = spaceDebrisStartLoc(startside, z)
 	var/turf/endT = spaceDebrisFinishLoc(startside, z)
-	var/atom/rod = new /obj/effect/immovablerod(startT, endT, C.special_target)
+	var/atom/rod
+	if(prob(1))
+		rod = new /obj/effect/immovablerod(startT, endT, C.special_target, TRUE)
+		to_chat(world, "<span class='userdanger'>You feel a wave of dread wash over you.</span>")
+	else
+		rod = new /obj/effect/immovablerod(startT, endT, C.special_target)
 	announce_to_ghosts(rod)
 
 /obj/effect/immovablerod
@@ -56,15 +61,19 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/previous_distance = 1000
 	var/destination
 	var/notify = TRUE
+	var/looping = FALSE
+	var/beginning
 	var/atom/special_target
 
-/obj/effect/immovablerod/New(atom/start, atom/end, aimed_at)
+/obj/effect/immovablerod/New(atom/start, atom/end, aimed_at, loops = FALSE)
 	..()
 	SSaugury.register_doom(src, 2000)
 	z_original = z
 	destination = end
 	special_target = aimed_at
 	GLOB.poi_list += src
+	beginning = start
+	looping = loops
 
 	var/special_target_valid = FALSE
 	if(special_target)
@@ -93,8 +102,14 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		return ..()
 	//Moved more than 10 tiles in 1 move.
 	var/cur_dist = get_dist(src, destination)
-	if((z != z_original) || (loc == destination) || (FLOOR(cur_dist - previous_distance, 1) > 10))
+	if(z != z_original)
 		qdel(src)
+	if(((loc == destination) || (FLOOR(cur_dist - previous_distance, 1) > 10)) && !looping)
+		qdel(src)
+	if(loc == destination && looping)
+		forceMove(beginning)
+		walk_towards(src, destination, 1)
+		previous_distance = get_dist(src, destination)
 	previous_distance = cur_dist
 	if(special_target && loc == get_turf(special_target))
 		complete_trajectory()
