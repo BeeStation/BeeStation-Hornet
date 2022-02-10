@@ -166,7 +166,6 @@ Contains:
 	desc = "The integrated helmet of an ERT hardsuit, this one has blue highlights."
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "hardsuit0-ert_commander"
-	item_color = "ert_commander"
 	armor = list("melee" = 65, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80, "stamina" = 70)
 	strip_delay = 130
 	light_range = 7
@@ -262,7 +261,6 @@ Contains:
 	desc = "The integrated helmet of an ERT hardsuit, this one has red highlights."
 	icon_state = "hardsuit0-ert_security"
 	item_state = "hardsuit0-ert_security"
-	item_color = "ert_security"
 	beacon_colour = "#ec4848"
 
 /obj/item/clothing/suit/space/hardsuit/ert/sec
@@ -279,7 +277,6 @@ Contains:
 	desc = "The integrated helmet of an ERT hardsuit, this one has orange highlights."
 	icon_state = "hardsuit0-ert_engineer"
 	item_state = "hardsuit0-ert_engineer"
-	item_color = "ert_engineer"
 	beacon_colour = "#ecaa48"
 
 /obj/item/clothing/suit/space/hardsuit/ert/engi
@@ -296,7 +293,6 @@ Contains:
 	desc = "The integrated helmet of an ERT hardsuit, this one has white highlights."
 	icon_state = "hardsuit0-ert_medical"
 	item_state = "hardsuit0-ert_medical"
-	item_color = "ert_medical"
 	beacon_colour = "#88ecec"
 
 /obj/item/clothing/suit/space/hardsuit/ert/med
@@ -313,7 +309,6 @@ Contains:
 	desc = "The integrated helmet of an ERT hardsuit, this one has purple highlights."
 	icon_state = "hardsuit0-ert_janitor"
 	item_state = "hardsuit0-ert_janitor"
-	item_color = "ert_janitor"
 	beacon_colour = "#be43ce"
 
 /obj/item/clothing/suit/space/hardsuit/ert/jani
@@ -401,7 +396,6 @@ Contains:
 	desc = "A helmet worn by those who deal with paranormal threats for a living."
 	icon_state = "hardsuit0-prt"
 	item_state = "hardsuit0-prt"
-	item_color = "knight_grey"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
 	resistance_flags = FIRE_PROOF
@@ -509,7 +503,7 @@ Contains:
 /obj/item/clothing/head/helmet/space/hardsuit/skinsuit
 	name = "skinsuit helmet"
 	icon = 'icons/obj/clothing/hats.dmi'
-	worn_icon = 'icons/mob/head.dmi'
+	worn_icon = 'icons/mob/clothing/head.dmi'
 	icon_state = "skinsuit_helmet"
 	item_state = "skinsuit_helmet"
 	max_integrity = 200
@@ -535,7 +529,7 @@ Contains:
 	name = "skinsuit"
 	desc = "A slim, compression-based spacesuit meant to protect the user during emergency situations. It's only a little warmer than your uniform."
 	icon = 'icons/obj/clothing/suits.dmi'
-	worn_icon = 'icons/mob/suit.dmi'
+	worn_icon = 'icons/mob/clothing/suit.dmi'
 	icon_state = "skinsuit"
 	item_state = "s_suit"
 	max_integrity = 200

@@ -3,7 +3,6 @@
 	desc = "Use this to communicate with your fellow blood brother(s)."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "headset"
-	item_color = "r"
 	var/implant_colour = "#ff0000"
 	var/list/linked_implants // All other implants that this communicates to
 

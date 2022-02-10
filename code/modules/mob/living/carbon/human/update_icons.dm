@@ -122,10 +122,10 @@ There are several things that need to be remembered:
 
 		if(dna?.species.sexes)
 			if(gender == FEMALE && U.fitted != NO_FEMALE_UNIFORM)
-				uniform_overlay = U.build_worn_icon(default_layer = UNIFORM_LAYER, default_icon_file = 'icons/mob/uniform.dmi', isinhands = FALSE, femaleuniform = U.fitted, override_state = target_overlay)
+				uniform_overlay = U.build_worn_icon(default_layer = UNIFORM_LAYER, default_icon_file = 'icons/mob/clothing/uniform.dmi', isinhands = FALSE, femaleuniform = U.fitted, override_state = target_overlay)
 
 		//Change check_adjustable_clothing.dm if you change this
-		var/icon_file = 'icons/mob/uniform.dmi'
+		var/icon_file = 'icons/mob/clothing/uniform.dmi'
 		if(!uniform_overlay)
 			if(U.sprite_sheets & (dna?.species.bodyflag))
 				icon_file = dna.species.get_custom_icons("uniform")
@@ -195,7 +195,7 @@ There are several things that need to be remembered:
 
 	var/mutable_appearance/gloves_overlay = overlays_standing[GLOVES_LAYER]
 	if(gloves)
-		var/icon_file = 'icons/mob/hands.dmi'
+		var/icon_file = 'icons/mob/clothing/hands.dmi'
 		if(istype(gloves, /obj/item/clothing/gloves))
 			var/obj/item/clothing/gloves/G = gloves
 			if(G.sprite_sheets & (dna?.species.bodyflag))
@@ -355,7 +355,7 @@ There are several things that need to be remembered:
 		var/t_state = s_store.item_state
 		if(!t_state)
 			t_state = s_store.icon_state
-		overlays_standing[SUIT_STORE_LAYER]	= mutable_appearance('icons/mob/belt_mirror.dmi', t_state, -SUIT_STORE_LAYER)
+		overlays_standing[SUIT_STORE_LAYER]	= mutable_appearance('icons/mob/clothing/belt_mirror.dmi', t_state, -SUIT_STORE_LAYER)
 		var/mutable_appearance/s_store_overlay = overlays_standing[SUIT_STORE_LAYER]
 		if(OFFSET_S_STORE in dna.species.offset_features)
 			s_store_overlay.pixel_x += dna.species.offset_features[OFFSET_S_STORE][1]
@@ -377,7 +377,7 @@ There are several things that need to be remembered:
 	update_mutant_bodyparts()
 	if(head)
 		update_hud_head(head)
-		var/icon_file = 'icons/mob/head.dmi'
+		var/icon_file = 'icons/mob/clothing/head.dmi'
 		if(istype(head, /obj/item/clothing/head))
 			var/obj/item/clothing/head/HE = head
 			if(HE.sprite_sheets & (dna?.species.bodyflag))
@@ -400,7 +400,7 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(belt)
-		var/icon_file = 'icons/mob/belt.dmi'
+		var/icon_file = 'icons/mob/clothing/belt.dmi'
 		if(istype(belt, /obj/item/storage/belt))
 			var/obj/item/storage/belt/B = belt
 			if(B.sprite_sheets & (dna?.species.bodyflag))
@@ -429,7 +429,7 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(istype(wear_suit, /obj/item/clothing/suit))
-		var/icon_file = 'icons/mob/suit.dmi'
+		var/icon_file = 'icons/mob/clothing/suit.dmi'
 		var/obj/item/clothing/suit/S = wear_suit
 		if(S.sprite_sheets & (dna?.species.bodyflag))
 			icon_file = dna.species.get_custom_icons("suit")
@@ -517,7 +517,7 @@ There are several things that need to be remembered:
 
 	if(back)
 		update_hud_back(back)
-		var/icon_file = 'icons/mob/back.dmi'
+		var/icon_file = 'icons/mob/clothing/back.dmi'
 		if(istype(back, /obj/item))
 			var/obj/item/I = back
 			if(I.sprite_sheets & dna?.species.bodyflag)

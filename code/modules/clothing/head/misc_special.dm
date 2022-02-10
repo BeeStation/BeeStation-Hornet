@@ -42,7 +42,7 @@
 	desc = "You put the cake on your head. Brilliant."
 	icon_state = "hardhat0_cakehat"
 	item_state = "hardhat0_cakehat"
-	item_color = "cakehat"
+	hat_type = "cakehat"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	hitsound = 'sound/weapons/tap.ogg'
@@ -93,7 +93,7 @@
 	desc = "You put the energy sword on your cake. Brilliant."
 	icon_state = "hardhat0_energycake"
 	item_state = "hardhat0_energycake"
-	item_color = "energycake"
+	hat_type = "energycake"
 	hitsound = 'sound/weapons/tap.ogg'
 	hitsound_on = 'sound/weapons/blade1.ogg'
 	hitsound_off = 'sound/weapons/tap.ogg'
@@ -145,7 +145,7 @@
 	desc = "A jack o' lantern! Believed to ward off evil spirits."
 	icon_state = "hardhat0_pumpkin"
 	item_state = "hardhat0_pumpkin"
-	item_color = "pumpkin"
+	hat_type = "pumpkin"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = SNUG_FIT
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 10)
@@ -178,7 +178,7 @@
 	clothing_flags = SNUG_FIT
 	icon_state = "hardhat0_reindeer"
 	item_state = "hardhat0_reindeer"
-	item_color = "reindeer"
+	hat_type = "reindeer"
 	flags_inv = 0
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	light_range = 1 //luminosity when on
