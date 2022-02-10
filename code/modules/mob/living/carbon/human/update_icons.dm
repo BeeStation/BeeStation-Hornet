@@ -132,11 +132,8 @@ There are several things that need to be remembered:
 			uniform_overlay = U.build_worn_icon(default_layer = UNIFORM_LAYER, default_icon_file = icon_file, isinhands = FALSE, override_state = target_overlay)
 
 			//Kapu's autistic attempt at digitigrade handling
-			if(dna?.species.bodytype & BODYTYPE_DIGITIGRADE)
-				if(U.supports_variations & DIGITIGRADE_VARIATION)
-					icon_file = 'icons/mob/species/misc/digitigrade.dmi'
-
-			uniform_overlay = U.build_worn_icon(default_layer = UNIFORM_LAYER, default_icon_file = icon_file, isinhands = FALSE)
+			if((dna?.species.bodytype & BODYTYPE_DIGITIGRADE) && (U.supports_variations & DIGITIGRADE_VARIATION))
+				icon_file = 'icons/mob/species/misc/digitigrade.dmi'
 
 		if(OFFSET_UNIFORM in dna.species.offset_features)
 			uniform_overlay.pixel_x += dna.species.offset_features[OFFSET_UNIFORM][1]
