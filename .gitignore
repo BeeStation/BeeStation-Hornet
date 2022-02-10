@@ -181,7 +181,7 @@ Temporary Items
 # Ignore custom music (amend as appropriate)
 /config/jukebox_music/sounds/*
 !/config/jukebox_music/sounds/exclude
-/config/title_music/sounds/*
+!/config/title_music/sounds/*
 !/config/title_music/sounds/exclude
 
 # Common build tooling, C B T
