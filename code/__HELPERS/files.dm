@@ -75,7 +75,7 @@
 /// Grabs md5 checksum from a file and rehashes it with config specified salt ( md5(md5(file) + salt) )
 /// Used because md5ing files stored in the rsc sometimes gives incorrect md5 results.
 /proc/md5asfile(hashtarget)
-	if(isAdminAdvancedProcCall())
+	if(IsAdminAdvancedProcCall())
 		CRASH("Admin proc calls are not allowed. Called by: [usr]")
 	if(!hashtarget)
 		CRASH("Invalid hash target")
