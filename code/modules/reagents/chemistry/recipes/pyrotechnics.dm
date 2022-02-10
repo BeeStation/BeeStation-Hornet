@@ -7,24 +7,38 @@
 /datum/chemical_reaction/reagent_explosion/on_reaction(datum/reagents/holder, created_volume)
 	explode(holder, created_volume)
 
-/datum/chemical_reaction/reagent_explosion/proc/explode(datum/reagents/holder, created_volume)
-	var/power = modifier + round(created_volume/strengthdiv, 1)
-	if(power > 0)
-		var/turf/T = get_turf(holder.my_atom)
+/datum/chemical_reaction/reagent_explosion/in_progress_explosion
+	var/datum/reagents/holder
+	var/turf/turf
+	var/power
+	var/lastkey
+
+/datum/chemical_reaction/reagent_explosion/in_progress_explosion/proc/move_explosion()
+	SIGNAL_HANDLER
+	if(src.holder.my_atom)
+		src.turf = get_turf(src.holder.my_atom)
+
+/datum/chemical_reaction/reagent_explosion/proc/explode(datum/reagents/holder, created_volume, delay = 0)
+	var/datum/chemical_reaction/reagent_explosion/in_progress_explosion/boom = new()
+	boom.power = modifier + round(created_volume/strengthdiv, 1)
+	boom.holder = holder
+	boom.turf = get_turf(holder.my_atom)
+	boom.lastkey = holder.my_atom?.fingerprintslast
+	if(boom.power > 0)
+		RegisterSignal(boom, COMSIG_MOVABLE_MOVED, .in_progress_explosion/proc/move_explosion)
+		sleep(delay)
 		var/inside_msg
-		if(ismob(holder.my_atom))
-			var/mob/M = holder.my_atom
-			inside_msg = " inside [ADMIN_LOOKUPFLW(M)]"
-		var/lastkey = holder.my_atom?.fingerprintslast
+		if(ismob(boom.holder.my_atom))
+			inside_msg = " inside [ADMIN_LOOKUPFLW(boom.holder.my_atom)]"
 		var/touch_msg = "N/A"
-		if(lastkey)
-			var/mob/toucher = get_mob_by_ckey(lastkey)
+		if(boom.lastkey)
+			var/mob/toucher = get_mob_by_ckey(boom.lastkey)
 			touch_msg = "[ADMIN_LOOKUPFLW(toucher)]"
-		if(!istype(holder.my_atom, /obj/machinery/plumbing)) //excludes standard plumbing equipment from spamming admins with this shit
-			message_admins("Reagent explosion reaction occurred at [ADMIN_VERBOSEJMP(T)][inside_msg]. Last Fingerprint: [touch_msg].")
-		log_game("Reagent explosion reaction occurred at [AREACOORD(T)]. Last Fingerprint: [lastkey ? lastkey : "N/A"]." )
+		if(!istype(boom.holder.my_atom, /obj/machinery/plumbing)) //excludes standard plumbing equipment from spamming admins with this shit
+			message_admins("Reagent explosion reaction occurred at [ADMIN_VERBOSEJMP(boom.turf)][inside_msg]. Last Fingerprint: [touch_msg].")
+		log_game("Reagent explosion reaction occurred at [AREACOORD(boom.turf)]. Last Fingerprint: [boom.lastkey ? boom.lastkey : "N/A"]." )
 		var/datum/effect_system/reagents_explosion/e = new()
-		e.set_up(power , T, 0, 0)
+		e.set_up(boom.power , boom.turf, 0, 0)
 		e.start()
 		holder.clear_reagents()
 
@@ -98,7 +112,7 @@
 	mix_message = "<span class='boldannounce'>Sparks start flying around the black powder!</span>"
 
 /datum/chemical_reaction/reagent_explosion/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
-	addtimer(CALLBACK(src, .proc/explode, holder, created_volume), rand(50,100))
+	INVOKE_ASYNC(src, /datum/chemical_reaction/reagent_explosion.proc/explode, holder, created_volume, rand(50, 100))
 
 /datum/chemical_reaction/thermite
 	name = "Thermite"
@@ -450,7 +464,7 @@
 		added_delay += 1.5 SECONDS
 	if(created_volume >= 10)			//10 units minimum for lightning, 40 units for secondary blast, 75 units for tertiary blast.
 		addtimer(CALLBACK(src, .proc/zappy_zappy, holder, T3), added_delay)
-	addtimer(CALLBACK(src, .proc/explode, holder, created_volume), added_delay)
+	INVOKE_ASYNC(src, /datum/chemical_reaction/reagent_explosion.proc/explode, holder, created_volume, added_delay)
 
 /datum/chemical_reaction/reagent_explosion/teslium_lightning/proc/zappy_zappy(datum/reagents/holder, power)
 	if(QDELETED(holder.my_atom))
