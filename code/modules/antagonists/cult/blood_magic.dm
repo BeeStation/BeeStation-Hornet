@@ -364,7 +364,7 @@
 /obj/item/melee/blood_magic/Destroy()
 	if(!QDELETED(source))
 		if(uses <= 0)
-			source.hand_magic = null
+			source?.hand_magic = null
 			qdel(source)
 			source = null
 		else

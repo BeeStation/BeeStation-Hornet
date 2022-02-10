@@ -70,7 +70,7 @@
 	dequeue()
 	can_fire = 0
 	flags |= SS_NO_FIRE
-	Master.subsystems -= src
+	Master?.subsystems -= src
 	return ..()
 
 //Queue it to run.

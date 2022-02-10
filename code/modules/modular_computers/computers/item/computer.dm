@@ -61,7 +61,7 @@
 	STOP_PROCESSING(SSobj, src)
 	for(var/H in all_components)
 		var/obj/item/computer_hardware/CH = all_components[H]
-		if(CH.holder == src)
+		if(CH?.holder == src)
 			CH.on_remove(src)
 			CH.holder = null
 			all_components.Remove(CH.device_type)

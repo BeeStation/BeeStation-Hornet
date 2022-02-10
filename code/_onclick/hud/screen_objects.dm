@@ -737,7 +737,7 @@
 
 /atom/movable/screen/splash/Destroy()
 	if(holder)
-		holder.screen -= src
+		holder?.screen?.Cut(src)
 		holder = null
 	return ..()
 

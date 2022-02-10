@@ -312,7 +312,7 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 
 /datum/DBQuery/Destroy()
 	Close()
-	SSdbcore.active_queries -= src
+	SSdbcore?.active_queries -= src
 	return ..()
 
 /datum/DBQuery/CanProcCall(proc_name)

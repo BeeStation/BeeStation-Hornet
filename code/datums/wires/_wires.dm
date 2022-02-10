@@ -52,7 +52,7 @@
 
 /datum/wires/Destroy()
 	holder = null
-	assemblies.Cut()
+	assemblies?.Cut()
 	return ..()
 
 /datum/wires/proc/add_duds(duds)

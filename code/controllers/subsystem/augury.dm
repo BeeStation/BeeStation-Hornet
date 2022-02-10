@@ -61,7 +61,7 @@ SUBSYSTEM_DEF(augury)
 
 /datum/action/innate/augury/Destroy()
 	if(owner)
-		SSaugury.watchers -= owner
+		SSaugury?.watchers -= owner
 	return ..()
 
 /datum/action/innate/augury/Activate()

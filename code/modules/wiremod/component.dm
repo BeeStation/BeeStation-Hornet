@@ -79,7 +79,7 @@
 		// Prevents a Destroy() recursion
 		var/obj/item/integrated_circuit/old_parent = parent
 		parent = null
-		old_parent.remove_component(src)
+		old_parent?.remove_component(src)
 
 	trigger_input = null
 	trigger_output = null

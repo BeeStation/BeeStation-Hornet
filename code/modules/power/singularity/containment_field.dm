@@ -25,8 +25,8 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/field/containment/Destroy()
-	FG1.fields -= src
-	FG2.fields -= src
+	FG1?.fields -= src
+	FG2?.fields -= src
 	return ..()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE

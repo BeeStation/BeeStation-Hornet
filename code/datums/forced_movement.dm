@@ -25,7 +25,7 @@
 		qdel(src)	//if you want to overwrite the current forced movement, call qdel(victim.force_moving) before creating this
 
 /datum/forced_movement/Destroy()
-	if(victim.force_moving == src)
+	if(victim?.force_moving == src)
 		victim.force_moving = null
 		if(moved_at_all)
 			victim.forceMove(victim.loc)	//get the side effects of moving here that require us to currently not be force_moving aka reslipping on ice

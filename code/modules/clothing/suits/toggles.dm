@@ -135,7 +135,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/Destroy()
 	if(!QDELETED(helmet))
-		helmet.suit = null
+		helmet?.suit = null
 		qdel(helmet)
 		helmet = null
 	QDEL_NULL(jetpack)
