@@ -1,0 +1,5 @@
+author: Cyberboss and Mothblocks, ported by ike709
+delete-after: true
+changes:
+  - refactor: Converted a bunch of New() to Initialize().
+  - rscadd: Added a tool to profile atom initialization.
