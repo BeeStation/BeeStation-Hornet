@@ -1,0 +1,7 @@
+author: Kylerace, ported by ike709
+delete-after: true
+changes:
+  - rscdel: For performance reasons, AI detectors no longer see AI static.
+  - bugfix: AI detectors now change appearance when AIs come closer.
+  - bugfix: Fixed AI static intermittently deciding to stop working.
+  - refactor: Generally cleaned up cameranet code and improved maptick significantly.
