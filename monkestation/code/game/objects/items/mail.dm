@@ -331,7 +331,7 @@
 
 /obj/item/paper/fluff/junkmail_redpill
 	name = "smudged paper"
-	icon_state = "scrap"
+	icon_state = "paper"
 	var/nuclear_option_odds = 0.1
 
 /obj/item/paper/fluff/junkmail_redpill/Initialize()
@@ -350,7 +350,7 @@
 
 /obj/item/paper/fluff/junkmail_generic
 	name = "important document"
-	icon_state = "paper_words"
+	icon_state = "paper"
 
 /obj/item/paper/fluff/junkmail_generic/Initialize()
 	. = ..()
