@@ -482,6 +482,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	if(!hair_hidden || dynamic_hair_suffix)
 		var/mutable_appearance/hair_overlay = mutable_appearance(layer = -HAIR_LAYER)
+		var/mutable_appearance/gradient_overlay = mutable_appearance(layer = -HAIR_LAYER)
 		if(!hair_hidden && !H.getorgan(/obj/item/organ/brain)) //Applies the debrained overlay if there is no brain
 			if(!(NOBLOOD in species_traits))
 				hair_overlay.icon = 'icons/mob/human_face.dmi'
@@ -520,14 +521,28 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 							hair_overlay.color = "#" + hair_color
 					else
 						hair_overlay.color = "#" + H.hair_color
+
+					//Gradients
+					var/gradient_style = H.gradient_style
+					var/gradient_color = H.gradient_color
+					if(gradient_style)
+						var/datum/sprite_accessory/gradient = GLOB.hair_gradients_list[gradient_style]
+						var/icon/temp = icon(gradient.icon, gradient.icon_state)
+						var/icon/temp_hair = icon(hair_file, hair_state)
+						temp.Blend(temp_hair, ICON_ADD)
+						gradient_overlay.icon = temp
+						gradient_overlay.color = "#" + gradient_color
+
 				else
 					hair_overlay.color = forced_colour
+
 				hair_overlay.alpha = hair_alpha
 				if(OFFSET_FACE in H.dna.species.offset_features)
 					hair_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
 					hair_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
 		if(hair_overlay.icon)
 			standing += hair_overlay
+			standing += gradient_overlay
 
 	if(standing.len)
 		H.overlays_standing[HAIR_LAYER] = standing
@@ -1832,29 +1847,29 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(H.on_fire)
 		//the fire tries to damage the exposed clothes and items
 		var/list/burning_items = list()
-		var/list/obscured = H.check_obscured_slots(TRUE)
+		var/obscured = H.check_obscured_slots(TRUE)
 		//HEAD//
 
-		if(H.glasses && !(ITEM_SLOT_EYES in obscured))
+		if(H.glasses && !(obscured & ITEM_SLOT_EYES))
 			burning_items += H.glasses
-		if(H.wear_mask && !(ITEM_SLOT_MASK in obscured))
+		if(H.wear_mask && !(obscured & ITEM_SLOT_MASK))
 			burning_items += H.wear_mask
-		if(H.wear_neck && !(ITEM_SLOT_NECK in obscured))
+		if(H.wear_neck && !(obscured & ITEM_SLOT_NECK))
 			burning_items += H.wear_neck
-		if(H.ears && !(ITEM_SLOT_EARS in obscured))
+		if(H.ears && !(obscured & ITEM_SLOT_EARS))
 			burning_items += H.ears
 		if(H.head)
 			burning_items += H.head
 
 		//CHEST//
-		if(H.w_uniform && !(ITEM_SLOT_ICLOTHING in obscured))
+		if(H.w_uniform && !(obscured & ITEM_SLOT_ICLOTHING))
 			burning_items += H.w_uniform
 		if(H.wear_suit)
 			burning_items += H.wear_suit
 
 		//ARMS & HANDS//
 		var/obj/item/clothing/arm_clothes = null
-		if(H.gloves && !(ITEM_SLOT_GLOVES in obscured))
+		if(H.gloves && !(obscured & ITEM_SLOT_GLOVES))
 			arm_clothes = H.gloves
 		else if(H.wear_suit && ((H.wear_suit.body_parts_covered & HANDS) || (H.wear_suit.body_parts_covered & ARMS)))
 			arm_clothes = H.wear_suit
@@ -1865,7 +1880,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		//LEGS & FEET//
 		var/obj/item/clothing/leg_clothes = null
-		if(H.shoes && !(ITEM_SLOT_FEET in obscured))
+		if(H.shoes && !(obscured & ITEM_SLOT_FEET))
 			leg_clothes = H.shoes
 		else if(H.wear_suit && ((H.wear_suit.body_parts_covered & FEET) || (H.wear_suit.body_parts_covered & LEGS)))
 			leg_clothes = H.wear_suit
@@ -1874,8 +1889,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(leg_clothes)
 			burning_items |= leg_clothes
 
-		for(var/X in burning_items)
-			var/obj/item/I = X
+		for(var/obj/item/I as() in burning_items)
 			I.fire_act((H.fire_stacks * 50)) //damage taken is reduced to 2% of this value by fire_act()
 
 		var/thermal_protection = H.get_thermal_protection()

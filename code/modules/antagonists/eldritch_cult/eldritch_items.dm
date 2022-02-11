@@ -158,7 +158,17 @@
 	name = "guise of Istasha"
 	desc = "An odd amulet formed out of multiple floating parts, strung togethere by forces from another world."
 	icon_state = "eye_medalion"
-	trait = TRAIT_DIGINVIS
+
+/obj/item/clothing/neck/eldritch_amulet/guise/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_NECK)
+		user.AddElement(/datum/element/digital_camo)
+	else
+		user.RemoveElement(/datum/element/digital_camo)
+
+/obj/item/clothing/neck/eldritch_amulet/guise/dropped(mob/user)
+	. = ..()
+	user.RemoveElement(/datum/element/digital_camo)
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	name = "ominous hood"

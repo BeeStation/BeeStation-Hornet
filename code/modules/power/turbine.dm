@@ -227,7 +227,7 @@
 	if(compressor.gas_contained.total_moles()>0)
 		var/oamount = min(compressor.gas_contained.total_moles(), (compressor.rpm+100)/35000*compressor.capacity)
 		if(destroy_output)
-			compressor.gas_contained.set_moles(compressor.gas_contained.get_moles() - oamount)
+			compressor.gas_contained.remove(oamount)
 		else
 			outturf.assume_air_moles(compressor.gas_contained, oamount)
 

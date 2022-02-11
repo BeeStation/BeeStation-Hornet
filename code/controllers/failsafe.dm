@@ -122,8 +122,9 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 			. = Recreate_MC()
 
 	if (. == 1) //We were able to create a new master
+		to_chat_immediate(world, "<span class='boldannounce'>Master Controller failure detected. Attempting recovery.</span>\n<span class='danger'>Things may freeze up for a minute or two (or break entirely).</span>")
 		master_iteration = 0
-		SSticker.Recover(); //Recover the ticket system so the Masters runlevel gets set
+		SSticker.Recover() //Recover the ticket system so the Masters runlevel gets set
 		Master.Initialize(10, FALSE, TRUE) //Need to manually start the MC, normally world.new would do this
 		to_chat(GLOB.admins, "<span class='adminnotice'>Failsafe recovered MC while in emergency state [defcon_pretty()]</span>")
 	else
@@ -139,7 +140,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 		new I
 	. = Recreate_MC()
 	if (. == 1) //We were able to create a new master
-		SSticker.Recover(); //Recover the ticket system so the Masters runlevel gets set
+		SSticker.Recover() //Recover the ticket system so the Masters runlevel gets set
 		Master.Initialize(10, FALSE, TRUE) //Need to manually start the MC, normally world.new would do this
 		to_chat(GLOB.admins, "<span class='adminnotice'>MC successfully recreated after recovering all subsystems!</span>")
 	else
@@ -153,7 +154,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 			del(global.vars[global_var])
 	. = Recreate_MC()
 	if (. == 1) //We were able to create a new master
-		SSticker.Recover(); //Recover the ticket system so the Masters runlevel gets set
+		SSticker.Recover() //Recover the ticket system so the Masters runlevel gets set
 		Master.Initialize(10, FALSE, TRUE) //Need to manually start the MC, normally world.new would do this
 		to_chat(GLOB.admins, "<span class='adminnotice'>MC successfully recreated after deleting and recreating all subsystems!</span>")
 	else
