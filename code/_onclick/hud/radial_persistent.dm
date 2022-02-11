@@ -41,7 +41,7 @@
 
 /datum/radial_menu/persistent/Destroy()
 	QDEL_NULL(select_proc_callback)
-	GLOB?.radial_menus -= uniqueid
+	GLOB.radial_menus -= uniqueid
 	Reset()
 	hide()
 	. = ..()

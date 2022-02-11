@@ -33,7 +33,7 @@
 		default = config_entry_value
 
 /datum/config_entry/Destroy()
-	config?.RemoveEntry(src)
+	config.RemoveEntry(src)
 	return ..()
 
 /datum/config_entry/can_vv_get(var_name)

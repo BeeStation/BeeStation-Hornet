@@ -37,7 +37,7 @@
 
 /mob/living/simple_animal/slime/Destroy()
 	for(var/obj/machinery/computer/camera_advanced/xenobio/X in GLOB.machines)
-		if(src in X?.stored_slimes)
+		if(src in X.stored_slimes)
 			X.stored_slimes -= src
 	if(stat != DEAD)
 		GLOB.total_slimes--

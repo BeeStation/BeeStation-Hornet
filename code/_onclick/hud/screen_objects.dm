@@ -738,8 +738,8 @@
 		QDEL_IN(src, 30)
 
 /atom/movable/screen/splash/Destroy()
-	if(holder && holder.screen)
-		holder.screen.Cut(src)
+	if(holder)
+		holder.screen -= src
 		holder = null
 	return ..()
 

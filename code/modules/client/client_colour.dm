@@ -37,7 +37,7 @@
 
 /datum/client_colour/Destroy()
 	if(!QDELETED(owner))
-		owner?.client_colours -= src
+		owner.client_colours -= src
 		if(fade_out)
 			owner.animate_client_colour(fade_out)
 		else

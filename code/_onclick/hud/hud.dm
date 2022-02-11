@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 
 /datum/hud/Destroy()
 	if(mymob?.hud_used == src)
-		mymob?.hud_used = null
+		mymob.hud_used = null
 
 	QDEL_NULL(hide_actions_toggle)
 	QDEL_NULL(module_store_icon)
