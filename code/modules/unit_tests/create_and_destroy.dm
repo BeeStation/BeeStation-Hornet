@@ -23,6 +23,9 @@
 		/mob/dview,
 		//Xenobio basetypes
 		/obj/item/slimecross/gentle,
+		//just no
+		/atom/movable/plane_master_controller
+
 
 	)
 	//This turf existing is an error in and of itself
