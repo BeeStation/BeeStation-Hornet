@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(augury)
 			if(!(O in observers_given_action))
 				var/datum/action/innate/augury/A = new
 				A.Grant(O)
-				observers_given_action[O]
+				observers_given_action += O
 	else
 		for(var/mob/dead/observer/O as() in observers_given_action)
 			for(var/datum/action/innate/augury/A in O.actions)
