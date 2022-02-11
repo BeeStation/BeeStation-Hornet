@@ -10,16 +10,15 @@
 
 /obj/item/slimecross/gentle/Initialize()
 	..()
-	if(extract_type)
-		extract = new extract_type(src.loc)
-		visible_message("<span class='notice'>[src] glows and pulsates softly.</span>")
-		extract.name = name
-		extract.desc = desc
-		extract.icon = icon
-		extract.icon_state = icon_state
-		extract.color = color
-		extract.forceMove(src)
-		START_PROCESSING(SSobj,src)
+	extract = new extract_type(src.loc)
+	visible_message("<span class='notice'>[src] glows and pulsates softly.</span>")
+	extract.name = name
+	extract.desc = desc
+	extract.icon = icon
+	extract.icon_state = icon_state
+	extract.color = color
+	extract.forceMove(src)
+	START_PROCESSING(SSobj,src)
 
 /obj/item/slimecross/gentle/process()
 	if(cooldown > 0)
