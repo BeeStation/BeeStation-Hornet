@@ -89,7 +89,6 @@
 		START_PROCESSING(SSobj, src)
 
 /datum/artifact_effect/Destroy()
-	. = ..()
 	if(requires_processing)
 		return PROCESS_KILL
 
