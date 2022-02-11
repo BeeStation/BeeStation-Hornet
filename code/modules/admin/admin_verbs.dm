@@ -191,7 +191,8 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/display_sendmaps,
 	#endif
 	/client/proc/toggle_cdn,
-	/client/proc/check_timer_sources
+	/client/proc/check_timer_sources,
+	/client/proc/test_dview_to_lum_changes
 	)
 
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, /proc/release))

@@ -228,11 +228,11 @@
 /datum/objective/experiment/check_completion()
 	for(var/obj/machinery/abductor/experiment/E in GLOB.machines)
 		if(!istype(team, /datum/team/abductor_team))
-			return FALSE
+			return ..()
 		var/datum/team/abductor_team/T = team
 		if(E.team_number == T.team_number)
-			return E.points >= target_amount
-	return FALSE
+			return (E.points >= target_amount) || ..()
+	return ..()
 
 /datum/antagonist/proc/update_abductor_icons_added(datum/mind/alien_mind,hud_type)
 	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_ABDUCTOR]

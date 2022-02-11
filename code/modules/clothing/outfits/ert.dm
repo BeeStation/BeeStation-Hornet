@@ -481,7 +481,6 @@
 	back = /obj/item/storage/backpack/hammerspace
 	l_pocket = /obj/item/kitchen/knife/combat
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/double
-	r_hand = /obj/item/reagent_containers/hypospray/combat/supersoldier
 	backpack_contents = list(/obj/item/storage/box/engineer=1,\
 		/obj/item/reagent_containers/hypospray/combat,\
 		/obj/item/radio=1,\

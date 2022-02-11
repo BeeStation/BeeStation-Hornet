@@ -174,28 +174,28 @@
 		if(M.back && wash_obj(M.back))
 			M.update_inv_back(0)
 
-		var/list/obscured = M.check_obscured_slots()
+		var/obscured = M.check_obscured_slots()
 
 		if(M.head && wash_obj(M.head))
 			M.update_inv_head()
 
-		if(M.glasses && !(ITEM_SLOT_EYES in obscured) && wash_obj(M.glasses))
+		if(M.glasses && !(obscured & ITEM_SLOT_EYES) && wash_obj(M.glasses))
 			M.update_inv_glasses()
 
-		if(M.wear_mask && !(ITEM_SLOT_MASK in obscured) && wash_obj(M.wear_mask))
+		if(M.wear_mask && !(obscured & ITEM_SLOT_MASK) && wash_obj(M.wear_mask))
 			M.update_inv_wear_mask()
 
-		if(M.ears && !(HIDEEARS in obscured) && wash_obj(M.ears))
+		if(M.ears && !(obscured & ITEM_SLOT_EARS) && wash_obj(M.ears))
 			M.update_inv_ears()
 
-		if(M.wear_neck && !(ITEM_SLOT_NECK in obscured) && wash_obj(M.wear_neck))
+		if(M.wear_neck && !(obscured & ITEM_SLOT_NECK) && wash_obj(M.wear_neck))
 			M.update_inv_neck()
 
-		if(M.shoes && !(HIDESHOES in obscured) && wash_obj(M.shoes))
+		if(M.shoes && !(obscured & ITEM_SLOT_FEET) && wash_obj(M.shoes))
 			M.update_inv_shoes()
 
 		var/washgloves = FALSE
-		if(M.gloves && !(HIDEGLOVES in obscured))
+		if(M.gloves && !(obscured & ITEM_SLOT_GLOVES))
 			washgloves = TRUE
 
 		if(ishuman(M))

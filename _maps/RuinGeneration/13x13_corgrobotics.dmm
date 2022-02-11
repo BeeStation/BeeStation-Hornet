@@ -98,20 +98,6 @@
 /obj/machinery/door/airlock/hatch,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"k" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/eastright{
-	dir = 1;
-	name = "Robotics Desk";
-	req_access_txt = "29"
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/item/paper_bin,
-/turf/open/floor/plating,
-/area/ruin/unpowered)
 "l" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/plating,
@@ -362,9 +348,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
-"U" = (
-/turf/closed/wall/r_wall,
-/area/ruin/unpowered)
 "V" = (
 /obj/structure/table,
 /obj/item/mmi,
@@ -406,22 +389,22 @@
 /area/ruin/unpowered)
 
 (1,1,1) = {"
-U
+A
 A
 J
 A
-U
-U
-U
-U
-U
-U
+A
+A
+A
+A
+A
+A
 A
 A
 A
 "}
 (2,1,1) = {"
-U
+A
 p
 x
 E
@@ -430,7 +413,7 @@ A
 Y
 W
 s
-U
+A
 x
 w
 x
@@ -445,13 +428,13 @@ X
 h
 m
 Z
-U
+A
 x
 x
 c
 "}
 (4,1,1) = {"
-z
+A
 x
 e
 x
@@ -460,13 +443,13 @@ X
 D
 P
 S
-U
+A
 x
 x
 x
 "}
 (5,1,1) = {"
-k
+A
 x
 x
 x
@@ -475,35 +458,35 @@ A
 a
 t
 V
-U
+A
 A
 r
 A
 "}
 (6,1,1) = {"
-U
+A
 Q
 q
 K
 T
 A
 A
-U
-U
-U
+A
+A
+A
 o
 R
 A
 "}
 (7,1,1) = {"
-U
+A
 g
 C
 h
 h
 h
 L
-U
+A
 o
 o
 o
@@ -511,14 +494,14 @@ o
 A
 "}
 (8,1,1) = {"
-U
+A
 H
 f
 y
 O
 y
 M
-U
+A
 o
 A
 A
@@ -526,7 +509,7 @@ A
 A
 "}
 (9,1,1) = {"
-U
+A
 b
 f
 O
@@ -541,14 +524,14 @@ A
 G
 "}
 (10,1,1) = {"
-U
+A
 v
 f
 y
 O
 y
 i
-U
+A
 o
 o
 o
@@ -556,14 +539,14 @@ A
 G
 "}
 (11,1,1) = {"
-U
+A
 j
 A
 z
 z
 z
 A
-U
+A
 l
 o
 o

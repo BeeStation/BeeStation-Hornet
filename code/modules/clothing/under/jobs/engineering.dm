@@ -3,8 +3,8 @@
 	desc = "It's a high visibility jumpsuit given to those engineers insane enough to achieve the rank of \"Chief Engineer\". It has minor radiation shielding."
 	name = "chief engineer's jumpsuit"
 	icon_state = "chiefengineer"
-	item_state = "gy_suit"
-	item_color = "chief"
+	item_state = "gy_suit"	//TODO replace it
+	worn_icon_state = "chiefengineer"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 80, "acid" = 40, "stamina" = 0)
 	resistance_flags = NONE
 

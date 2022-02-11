@@ -460,13 +460,13 @@
 
 /datum/objective/revenant/check_completion()
 	if(!isrevenant(owner.current))
-		return FALSE
+		return ..()
 	var/mob/living/simple_animal/revenant/R = owner.current
 	if(!R || R.stat == DEAD)
-		return FALSE
+		return ..()
 	var/essence_stolen = R.essence_accumulated
 	if(essence_stolen < targetAmount)
-		return FALSE
+		return ..()
 	return TRUE
 
 /datum/objective/revenantFluff

@@ -57,8 +57,14 @@
 #define ORGAN_ORGANIC   1
 #define ORGAN_ROBOTIC   2
 
-#define BODYPART_ORGANIC   1
-#define BODYPART_ROBOTIC   2
+
+//Bodytype defines for how things can be worn.
+#define BODYTYPE_ORGANIC		(1<<0)
+#define BODYTYPE_ROBOTIC		(1<<1)
+#define BODYTYPE_HUMANOID		(1<<2) //Everything that isnt Grod
+#define BODYTYPE_BOXHEAD		(1<<3) //TV Head
+#define BODYTYPE_DIGITIGRADE	(1<<4) //Cancer
+#define NUMBER_OF_BODYTYPES	5 //KEEP THIS UPDATED OR SHIT WILL BREAK
 
 #define BODYPART_NOT_DISABLED 0
 #define BODYPART_DISABLED_DAMAGE 1
@@ -73,10 +79,13 @@
 #define LARVA_BODYPART "larva"
 #define DEVIL_BODYPART "devil"
 
-//Species gib types
+//Bodypart change blocking flags
+#define BP_BLOCK_CHANGE_SPECIES	(1<<0)
 
+//Species gib types
 #define GIB_TYPE_HUMAN "human"
 #define GIB_TYPE_ROBOTIC "robotic"
+
 //Species ID defines
 #define SPECIES_HUMAN			"human"
 #define SPECIES_IPC 			"ipc"
@@ -85,9 +94,17 @@
 #define SPECIES_APID 			"apid"
 #define SPECIES_MOTH			"moth"
 #define SPECIES_LIZARD			"lizard"
+ #define SPECIES_ASHWALKER		"ashlizard"
 #define SPECIES_FELINID			"felinid"
 #define SPECIES_OOZELING		"oozeling"
 #define SPECIES_FLY 			"fly"
+#define SPECIES_MONKEY			"monkey"
+#define SPECIES_JELLYPERSON		"jelly"
+ #define SPECIES_SLIMEPERSON	"slime"
+ #define SPECIES_LUMINESCENT	"lum"
+ #define SPECIES_STARGAZER		"stargazer"
+#define SPECIES_ABDUCTOR		"abductor"
+#define SPECIES_SHADOWPERSON	"shadow"
 
 //Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
 #define FLAG_HUMAN			(1<<0)
@@ -101,6 +118,11 @@
 #define FLAG_OOZELING		(1<<8)
 #define FLAG_FLY			(1<<9)
 #define FLAG_DEBUG_SPECIES	(1<<10)
+#define FLAG_MONKEY (1<<11)
+
+#define DIGITIGRADE_NEVER 0
+#define DIGITIGRADE_OPTIONAL 1
+#define DIGITIGRADE_FORCED 2
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
