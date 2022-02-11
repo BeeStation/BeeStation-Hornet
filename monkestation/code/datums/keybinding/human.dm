@@ -68,15 +68,15 @@
 /datum/keybinding/emote/flip/down(client/user)
 	if(ishuman(user.mob) && user.mob.stat == CONSCIOUS)
 		var/mob/living/carbon/human/Player = user.mob
-		if(!Player.emote_cooling_down)
+		if(!Player.emote_cooling_down && !Player.IsStun())
 			Player.emote_cooling_down = TRUE
-		if(Player.IsStun())
-			return
-		if(Player.dizziness >= 20)
-			Player.vomit()
-			return
-		Player.dizziness++
-		..()
+			if(Player.dizziness >= 20)
+				Player.vomit()
+				spawn(10)
+					Player.emote_cooling_down = FALSE
+				return
+			Player.dizziness++
+			..()
 
 /datum/keybinding/emote/spin
 	key = "Unbound"
@@ -88,15 +88,15 @@
 /datum/keybinding/emote/spin/down(client/user)
 	if(ishuman(user.mob) && user.mob.stat == CONSCIOUS)
 		var/mob/living/carbon/human/Player = user.mob
-		if(!Player.emote_cooling_down)
+		if(!Player.emote_cooling_down && !Player.IsStun())
 			Player.emote_cooling_down = TRUE
-		if(Player.IsStun())
-			return
-		if(Player.dizziness >= 20)
-			Player.vomit()
-			return
-		Player.dizziness++
-		..()
+			if(Player.dizziness >= 20)
+				Player.vomit()
+				spawn(10)
+					Player.emote_cooling_down = FALSE
+				return
+			Player.dizziness++
+			..()
 
 /datum/keybinding/human/equip_swap
 	key = "Alt+E"
