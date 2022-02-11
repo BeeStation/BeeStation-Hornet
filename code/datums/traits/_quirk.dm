@@ -35,13 +35,7 @@
 /datum/quirk/Destroy()
 	if(process)
 		STOP_PROCESSING(SSquirks, src)
-	if(quirk_holder)
-		remove()
-		UnregisterSignal(quirk_holder, COMSIG_PARENT_QDELETING)
-		to_chat(quirk_holder, lose_text)
-		quirk_holder.roundstart_quirks -= src
-		if(mob_trait)
-			REMOVE_TRAIT(quirk_holder, mob_trait, ROUNDSTART_TRAIT)
+	clear_refs()
 	SSquirks.quirk_objects -= src
 	return ..()
 
@@ -64,9 +58,19 @@
 /datum/quirk/proc/clone_data() //return additional data that should be remembered by cloning
 /datum/quirk/proc/on_clone(data) //create the quirk from clone data
 
+/datum/quirk/proc/clear_refs()
+	if(quirk_holder)
+		remove()
+		UnregisterSignal(quirk_holder, COMSIG_PARENT_QDELETING)
+		to_chat(quirk_holder, lose_text)
+		quirk_holder.roundstart_quirks -= src
+		if(mob_trait)
+			REMOVE_TRAIT(quirk_holder, mob_trait, ROUNDSTART_TRAIT)
+		quirk_holder = null
+
 /datum/quirk/proc/handle_parent_del()
 	SIGNAL_HANDLER
-	quirk_holder = null
+	clear_refs()
 	qdel(src)
 
 /datum/quirk/process(delta_time)
