@@ -2674,10 +2674,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/maintenance/central)
-"aeE" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/hallway/secondary/command)
 "aeF" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -2997,7 +2993,7 @@
 /area/ai_monitored/turret_protected/aisat/foyer)
 "afh" = (
 /turf/open/space/basic,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "afi" = (
 /obj/structure/table/glass,
 /obj/machinery/computer/med_data/laptop,
@@ -9586,9 +9582,8 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "app" = (
-/obj/machinery/light,
 /turf/open/space,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "apq" = (
 /obj/structure/table,
 /obj/item/stack/packageWrap,
@@ -21859,19 +21854,6 @@
 /obj/machinery/atmospherics/components/trinary/mixer/airmix,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"aHK" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/space/basic,
-/area/hallway/secondary/command)
 "aHL" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -24792,7 +24774,7 @@
 	},
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/hallway/secondary/command)
+/area/maintenance/central)
 "aLX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/hatch{
@@ -26357,7 +26339,7 @@
 	},
 /obj/structure/lattice,
 /turf/open/space/basic,
-/area/hallway/secondary/command)
+/area/maintenance/central)
 "aOl" = (
 /obj/machinery/computer/scan_consolenew{
 	dir = 4
@@ -33985,13 +33967,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/mixing/chamber)
-"aYo" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/space/basic,
-/area/hallway/secondary/command)
 "aYp" = (
 /obj/structure/chair/office/light{
 	dir = 1;
@@ -34530,7 +34505,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/space/basic,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "aZa" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
@@ -35067,7 +35042,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating/airless,
-/area/ai_monitored/turret_protected/ai_upload)
+/area/space/nearstation)
 "aZQ" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -35633,7 +35608,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating/airless,
-/area/ai_monitored/turret_protected/ai_upload)
+/area/space/nearstation)
 "baC" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -36100,6 +36075,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/item/analyzer,
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
 "bbn" = (
@@ -38037,16 +38013,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/mixing)
-"bdW" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/space/basic,
-/area/hallway/secondary/command)
 "bdX" = (
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
@@ -38156,7 +38122,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating/airless,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "bee" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -38479,7 +38445,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating/airless,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "bew" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
@@ -39063,7 +39029,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/space/basic,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "bfl" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -40299,7 +40265,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/space/basic,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "bgQ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -40309,7 +40275,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/space/basic,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "bgR" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 1;
@@ -40821,11 +40787,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/open/space/basic,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "bhF" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -41039,7 +41002,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/space/basic,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "bhZ" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -42090,7 +42053,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/space/basic,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "bjn" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -42143,16 +42106,6 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/central)
-"bjs" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/space/basic,
-/area/hallway/secondary/command)
 "bjt" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -42162,7 +42115,7 @@
 	icon_state = "2-8"
 	},
 /turf/open/space/basic,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "bju" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/effect/turf_decal/delivery,
@@ -97300,7 +97253,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/space/basic,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "cNZ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -97333,19 +97286,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
-"cOb" = (
-/obj/structure/window/reinforced,
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/hallway/secondary/command)
 "cOc" = (
 /obj/structure/window/reinforced,
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "cOd" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -97355,7 +97300,7 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating/airless,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "cOe" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -97365,21 +97310,14 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating/airless,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "cOf" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/power/apc{
-	areastring = "/area/hallway/secondary/command";
-	dir = 8;
-	name = "Command Maintenance APC";
-	pixel_x = -24
-	},
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "1-2"
 	},
-/obj/structure/cable/yellow,
 /turf/open/space/basic,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "cOg" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
@@ -98079,7 +98017,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/space/basic,
-/area/hallway/secondary/command)
+/area/space/nearstation)
 "cPc" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -132645,12 +132583,12 @@ aox
 aeD
 apX
 aox
-aeE
+acm
 afh
 aLW
-aeE
+acm
 afh
-aeE
+acm
 aox
 bnE
 aox
@@ -132899,16 +132837,16 @@ cjj
 aOs
 aKe
 aSC
-aeE
-aeE
+acm
+acm
 bed
-aYo
-aYo
-aYo
-bdW
-aYo
+cOf
+cOf
+cOf
+cOf
+cOf
 bgP
-bjs
+cOf
 bjt
 cOf
 cOi
@@ -133413,7 +133351,7 @@ cFr
 aOw
 aKg
 aSC
-aeE
+acm
 arl
 arl
 boi
@@ -134955,7 +134893,7 @@ aRy
 aOT
 aLk
 aSC
-aeE
+acm
 arl
 arl
 byM
@@ -134963,7 +134901,7 @@ byL
 bzj
 cNT
 cNU
-aHK
+bhY
 cOi
 bnY
 bsi
@@ -135469,8 +135407,8 @@ cEU
 aOU
 aKe
 aSC
-aeE
-aeE
+acm
+acm
 bed
 aYZ
 aZP
@@ -135730,13 +135668,13 @@ aeD
 aox
 aox
 afh
-aeE
+acm
 aOk
 afh
-aeE
+acm
 afh
-aeE
-cOb
+acm
+cOc
 baa
 atT
 atT
@@ -135993,7 +135931,7 @@ apX
 apX
 aox
 aox
-cOb
+cOc
 bcq
 aem
 auw
@@ -136250,7 +136188,7 @@ bhc
 cNX
 aZR
 aeD
-cOb
+cOc
 bcv
 agQ
 agZ
