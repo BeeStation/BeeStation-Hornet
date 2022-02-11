@@ -74,9 +74,26 @@
 
 /obj/item/extinguisher/attack_self(mob/user)
 	safety = !safety
+	//MonkeStation Edit: Chemical Extinguishers
+	if(safety)
+		reagents.flags = AMOUNT_VISIBLE
+	else
+		reagents.flags = OPENCONTAINER
+	//MonkeStation Edit End
 	src.icon_state = "[sprite_name][!safety]"
 	to_chat(user, "The safety is [safety ? "on" : "off"].")
 	return
+
+//MonkeStation Edit: Chemical Extinguishers
+/obj/item/extinguisher/attacked_by(obj/item/I, mob/living/user)
+	if(istype(I, /obj/item/reagent_containers))
+		if(safety)
+			to_chat(user, "<span class='warning'>You need to take off the safety before you can refill the [src]!</span>")
+			return
+	else
+		..()
+//MonkeStation Edit End
+
 
 /obj/item/extinguisher/attack(mob/M, mob/user)
 	if(user.a_intent == INTENT_HELP && !safety) //If we're on help intent and going to spray people, don't bash them.
@@ -99,15 +116,15 @@
 		. += "<span class='notice'>Alt-click to empty it.</span>"
 
 /obj/item/extinguisher/proc/AttemptRefill(atom/target, mob/user)
-	if(istype(target, tanktype) && target.Adjacent(user))
+	if(istype(target, /obj/structure/reagent_dispensers) && target.Adjacent(user)) //MonkeStation Edit: All tanks usable
 		var/safety_save = safety
 		safety = TRUE
 		if(reagents.total_volume == reagents.maximum_volume)
 			to_chat(user, "<span class='warning'>\The [src] is already full!</span>")
 			safety = safety_save
 			return 1
-		var/obj/structure/reagent_dispensers/W = target //will it work?
-		var/transferred = W.reagents.trans_to(src, max_water, transfered_by = user)
+		var/obj/structure/reagent_dispensers/watertank/W = target //MonkeStation Edit: All tanks usable
+		var/transferred = W.reagents.trans_to(src, max_water) //MonkeStation Edit: All tanks usable
 		if(transferred > 0)
 			to_chat(user, "<span class='notice'>\The [src] has been refilled by [transferred] units.</span>")
 			playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
