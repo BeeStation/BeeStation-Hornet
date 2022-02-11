@@ -6,7 +6,18 @@
 	density = TRUE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/giftwrapped = FALSE
-	var/sortTag = 0
+	var/sort_tag = 0
+
+//MonkeStation Edit: Parcel Signal Handler
+/obj/structure/bigDelivery/Initialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, .proc/disposal_handling)
+
+/obj/structure/bigDelivery/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
+	SIGNAL_HANDLER
+	if(!hasmob)
+		disposal_holder.destinationTag = sort_tag
+//MonkeStation Edit End
 
 /obj/structure/bigDelivery/interact(mob/user)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
@@ -32,10 +43,10 @@
 	if(istype(W, /obj/item/destTagger))
 		var/obj/item/destTagger/O = W
 
-		if(sortTag != O.currTag)
+		if(sort_tag != O.currTag)
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
-			sortTag = O.currTag
+			sort_tag = O.currTag
 			playsound(loc, 'sound/machines/twobeep_high.ogg', 100, 1)
 
 	else if(istype(W, /obj/item/pen))
@@ -87,7 +98,18 @@
 	icon_state = "deliverypackage3"
 	item_state = "deliverypackage"
 	var/giftwrapped = 0
-	var/sortTag = 0
+	var/sort_tag = 0
+
+//MonkeStation Edit: Parcel Signal Handler
+/obj/item/smallDelivery/Initialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, .proc/disposal_handling)
+
+/obj/item/smallDelivery/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
+	SIGNAL_HANDLER
+	if(!hasmob)
+		disposal_holder.destinationTag = sort_tag
+//MonkeStation Edit End
 
 /obj/item/smallDelivery/contents_explosion(severity, target)
 	for(var/thing in contents)
@@ -125,10 +147,10 @@
 	if(istype(W, /obj/item/destTagger))
 		var/obj/item/destTagger/O = W
 
-		if(sortTag != O.currTag)
+		if(sort_tag != O.currTag)
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
-			sortTag = O.currTag
+			sort_tag = O.currTag
 			playsound(loc, 'sound/machines/twobeep_high.ogg', 100, 1)
 
 	else if(istype(W, /obj/item/pen))

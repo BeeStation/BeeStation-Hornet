@@ -1,5 +1,12 @@
 #define STARTING_PAYCHECKS 5
 
+//MonkeStation Edit: /tg/ Mail Port
+/// How much mail the Economy SS will create per payday
+#define MAX_MAIL_PER_MINUTE 5
+/// Probability of using letters of envelope sprites on all letters.
+#define FULL_CRATE_LETTER_ODDS 70
+//MonkeStation Edit End
+
 #define PAYCHECK_ASSISTANT 10
 #define PAYCHECK_MINIMAL 10
 #define PAYCHECK_EASY 15

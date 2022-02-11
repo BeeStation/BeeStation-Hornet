@@ -16,9 +16,9 @@
 	//Can this console approve purchase requests?
 	var/can_approve_requests = FALSE
 	//What do we say when the shuttle moves with living beings on it.
-	var/safety_warning = "For safety reasons, the automated supply shuttle \
+	var/safety_warning = "For safety and ethical reasons, the automated supply shuttle \
 		cannot transport live organisms, human remains, classified nuclear weaponry, \
-		homing beacons or machinery housing any form of artificial intelligence."
+		homing beacons, mail or machinery housing any form of artificial intelligence." //MonkeStation Edit: Can't return mail.
 	//If you're being raided by pirates, what do you tell the crew?
 	var/blockade_warning = "Bluespace instability detected. Shuttle movement impossible."
 
@@ -34,7 +34,7 @@
 		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 		id = card_slot?.GetID()
 	return id ? id : FALSE
-	
+
 /datum/computer_file/program/budgetorders/proc/is_visible_pack(mob/user, var/contraband)
 	if(issilicon(user)) //Borgs can't buy things.
 		return FALSE
