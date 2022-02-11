@@ -147,8 +147,6 @@
 	if(!desc)
 		desc = "It displays \"[name]\"."
 
-// Specific bar signs.
-
 /datum/barsign/maltesefalcon
 	name = "Maltese Falcon"
 	icon = "maltesefalcon"
@@ -288,6 +286,23 @@
 	name = "The Loose Goose"
 	icon = "goose"
 	desc = "Drink till you puke and/or break the laws of reality!"
+
+//monkestation edit begin//
+/datum/barsign/tipsyape
+	name = "The Tipsy Ape"
+	icon = "thetipsyape"
+	desc = "WHO GAVE THIS MONKEY LIQUOR I AM CALLING ANIMAL CONTROL."
+
+/datum/barsign/theswingingmonkey
+	name = "The Swinging Monkey"
+	icon = "theswingingmonkey"
+	desc = "It's a jungle in here!"
+
+/datum/barsign/potionshoppe
+	name = "Potion Shoppe"
+	icon = "potionshoppe"
+	desc = "You can't handle our strongest potions!"
+//monkestation edit end//
 
 /datum/barsign/hiddensigns
 	hidden = TRUE
