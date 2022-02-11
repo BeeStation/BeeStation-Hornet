@@ -53,6 +53,23 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Create the main orbital map.
 	orbital_maps[PRIMARY_ORBITAL_MAP] = new /datum/orbital_map()
 
+/datum/controller/subsystem/processing/orbits/Recover()
+	orbital_maps |= SSorbits.orbital_maps
+	possible_objectives |= SSorbits.possible_objectives
+	ruin_events |= SSorbits.ruin_events
+	runnable_events |= SSorbits.runnable_events
+	assoc_shuttles |= SSorbits.assoc_shuttles
+	interdicted_shuttles |= SSorbits.interdicted_shuttles
+	research_disks |= SSorbits.research_disks
+	open_orbital_maps |= SSorbits.open_orbital_maps
+
+	station_instance = SSorbits.station_instance
+	current_objective = SSorbits.current_objective
+	next_objective_time = SSorbits.next_objective_time
+	ruin_levels = SSorbits.ruin_levels
+	orbital_map_tgui = SSorbits.orbital_map_tgui
+	orbits_setup = TRUE
+
 /datum/controller/subsystem/processing/orbits/proc/setup_event_list()
 	runnable_events = list()
 	for(var/ruin_event in subtypesof(/datum/ruin_event))
