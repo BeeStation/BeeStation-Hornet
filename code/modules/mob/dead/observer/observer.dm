@@ -176,6 +176,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(beacon)
 		qdel(beacon)
 
+	SSaugury.observers_given_action -= src
+
 	return ..()
 
 /*

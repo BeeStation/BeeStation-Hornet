@@ -157,12 +157,11 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/proc/check_nuke_threats()
 	for(var/datum/d in nuke_threats)
-		if(!istype(d) || QDELETED(d))
+		if(QDELETED(d))
 			nuke_threats -= d
 
-	for(var/N in nuke_tiles)
-		var/turf/open/floor/circuit/C = N
-		C.update_icon()
+	for(var/turf/open/floor/circuit/C as() in nuke_tiles)
+		C?.update_icon()
 
 /datum/controller/subsystem/mapping/Recover()
 	flags |= SS_NO_INIT
@@ -371,7 +370,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 		if(pmv)
 			mapvotes[map] = mapvotes[map]*VM.voteweight
-		else if(VM.map_file == config.map_file) 
+		else if(VM.map_file == config.map_file)
 			// Don't force them to play the same map when MAPROTATION actually rolls to change the map
 			mapvotes.Remove(map)
 
