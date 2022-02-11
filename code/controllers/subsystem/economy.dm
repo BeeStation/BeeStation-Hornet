@@ -23,7 +23,7 @@ SUBSYSTEM_DEF(economy)
 
 	/// Number of mail items generated.
 	var/mail_waiting
-	/// Mail Holiday: AKA does mail arrive today? Always blocked on Sundays.
+	/// Mail Holiday: AKA does mail arrive today? Always blocked on Sundays, but not on bee, the mail is 24/7.
 	var/mail_blocked = FALSE
 
 /datum/controller/subsystem/economy/Initialize(timeofday)

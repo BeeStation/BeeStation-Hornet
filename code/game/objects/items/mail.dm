@@ -16,7 +16,7 @@
 	var/sort_tag = 0							/// Weak reference to who this mail is for and who can open it.
 	var/datum/weakref/recipient_ref				/// How many goodies this mail contains.
 	var/goodie_count = 1						/// Goodies which can be given to anyone. The base weight for cash is 56. For there to be a 50/50 chance of getting a department item, they need 56 weight as well.
-	var/list/generic_goodies = list(
+	var/static/list/generic_goodies = list(
 		/obj/item/stack/spacecash/c10										= 22, //the lamest chance to get item, what do you expect really?
 		/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game			= 10,
 		/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy	= 10,
@@ -29,6 +29,25 @@
 		/obj/item/stack/spacecash/c500 										= 5,
 		/obj/item/stack/spacecash/c1000 									= 1
 	)
+
+	var/static/list/hazard_goodies = list( //if the goodie is dangerous for the station, in this list it goes
+			/obj/item/gun/ballistic/rifle/boltaction,
+			/obj/item/construction/rcd/arcd,
+			/obj/item/reagent_containers/spray/waterflower/superlube,
+			/mob/living/simple_animal/hostile/retaliate/clown,
+			/obj/item/clothing/accessory/holster/detective,
+			/obj/item/reagent_containers/hypospray/medipen/pumpup,
+			/obj/item/firing_pin,
+			/obj/item/storage/lockbox/loyalty,
+			/obj/item/grenade/clusterbuster/cleaner,
+			/obj/item/book/granter/spell/mimery_blockade,
+			/obj/item/gun/ballistic/rifle/boltaction/enchanted,
+			/obj/item/melee/classic_baton/police/telescopic,
+			/obj/item/reagent_containers/glass/bottle/random_virus/minor,
+			/obj/item/reagent_containers/glass/bottle/random_virus,
+			/obj/item/gun/ballistic/revolver/nagant
+		)
+
 	// Overlays (pure fluff), Does the letter have the postmark overlay?
 	var/postmarked = TRUE						/// Does the letter have postmarks?
 	//var/postmark_type							/// Different postmark, hey maybe some syndie mail!
@@ -38,6 +57,8 @@
 	var/stamp_offset_x = 0						/// Physical offset of stamps on the object. X direction.
 	var/stamp_offset_y = 2						/// Physical offset of stamps on the object. Y direction.
 	var/static/list/department_colors			/// Mail will have the color of the department the recipient is in.
+
+	var/datum/round_event/mail_events/mail_events
 
 /obj/item/mail/envelope
 	name = "envelope"
@@ -151,6 +172,7 @@
 
 	var/mob/living/body = recipient.current									//Recipients
 	var/list/goodies = generic_goodies										//Load the generic list of goodies
+	var/list/danger_goodies = hazard_goodies								//Load the List of Dangerous goodies
 	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role]//Load the job the player have
 
 	if(this_job)
@@ -163,6 +185,8 @@
 		var/target_good = pickweight(goodies)
 		var/atom/movable/target_atom = new target_good(src)
 		body.log_message("[key_name(body)] received [target_atom.name] in the mail ([target_good])", LOG_GAME)
+		if(target_atom.type in danger_goodies)
+			to_chat(GLOB.admins, "<span class='adminnotice'><b><font color=orange>DANGEROUS ITEM RECIEVED:</font></b>[ADMIN_LOOKUPFLW(body)] received [target_atom.name] in the mail ([target_good]) as a [recipient.assigned_role]</span>")
 
 	return TRUE
 
