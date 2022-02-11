@@ -13,7 +13,7 @@
 	booty.cooling_down = TRUE
 	var/turf/Location
 
-	//BIBLEFART
+	//BIBLEFART/
 	//This goes above all else because it's an instagib.
 	for(var/obj/item/storage/book/bible/Holy in Location)
 		if(Holy)
