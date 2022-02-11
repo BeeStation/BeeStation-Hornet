@@ -353,7 +353,7 @@
 /datum/config_entry/flag/check_randomizer
 
 /datum/config_entry/string/md5_salt
-	protection = CONFIG_ENTRY_HIDDEN
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
 /datum/config_entry/string/md5_salt/ValidateAndSet(str_val)
 	if(str_val == "PLEASE_CHANGE_ME123")
