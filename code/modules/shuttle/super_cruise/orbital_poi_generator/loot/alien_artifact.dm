@@ -90,7 +90,9 @@
 
 /datum/artifact_effect/Destroy()
 	if(requires_processing)
-		return PROCESS_KILL
+		STOP_PROCESSING(SSobj, src)
+
+	return ..()
 
 //===================
 // Chaos Throw
