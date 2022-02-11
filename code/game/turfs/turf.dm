@@ -90,7 +90,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
-		
+
 	if (light_power && light_range)
 		update_light()
 
@@ -495,18 +495,12 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 /turf/proc/visibilityChanged()
 	GLOB.cameranet.updateVisibility(src)
-	// The cameranet usually handles this for us, but if we've just been
-	// recreated we should make sure we have the cameranet vis_contents.
-	var/datum/camerachunk/C = GLOB.cameranet.chunkGenerated(x, y, z)
-	if(C)
-		if(C.obscuredTurfs[src])
-			vis_contents += GLOB.cameranet.vis_contents_objects
-		else
-			vis_contents -= GLOB.cameranet.vis_contents_objects
 
 /turf/proc/burn_tile()
+	return
 
 /turf/proc/is_shielded()
+	return
 
 /turf/contents_explosion(severity, target)
 	var/affecting_level
