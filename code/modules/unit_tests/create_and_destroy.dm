@@ -25,6 +25,7 @@
 	//This turf existing is an error in and of itself
 	ignore += typesof(/turf/baseturf_skipover)
 	ignore += typesof(/turf/baseturf_bottom)
+	ignore += typesof(/turf/template_noop)
 	//This one demands a computer, ditto
 	ignore += typesof(/obj/item/modular_computer/processor)
 	//Needs special input, let's be nice
