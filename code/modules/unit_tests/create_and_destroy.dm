@@ -21,6 +21,9 @@
 		/obj/effect/mapping_helpers/component_injector,
 		//Singleton
 		/mob/dview,
+		//Xenobio basetypes
+		/obj/item/slimecross/gentle,
+
 	)
 	//This turf existing is an error in and of itself
 	ignore += typesof(/turf/baseturf_skipover)
