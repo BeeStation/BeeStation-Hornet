@@ -707,7 +707,9 @@
 
 /atom/movable/screen/splash/New(client/C, visible, use_previous_title) //TODO: Make this use INITIALIZE_IMMEDIATE, except its not easy
 	. = ..()
-
+	if(!istype(C,/client))
+		qdel(src)
+		return
 	holder = C
 
 	if(!visible)
@@ -736,8 +738,8 @@
 		QDEL_IN(src, 30)
 
 /atom/movable/screen/splash/Destroy()
-	if(holder)
-		holder?.screen?.Cut(src)
+	if(holder && holder.screen)
+		holder.screen.Cut(src)
 		holder = null
 	return ..()
 
