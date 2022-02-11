@@ -95,6 +95,9 @@
 
 /obj/structure/receiving_pad/New(loc, mob/living/simple_animal/hostile/guardian/G)
 	. = ..()
+	if(!istype(G))
+		qdel(src)
+		return
 	add_atom_colour(G.guardiancolor, FIXED_COLOUR_PRIORITY)
 
 /obj/structure/receiving_pad/proc/disappear()
