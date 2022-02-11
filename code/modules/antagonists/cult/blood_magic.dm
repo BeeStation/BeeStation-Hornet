@@ -356,7 +356,7 @@
 	var/datum/action/innate/cult/blood_spell/source
 
 /obj/item/melee/blood_magic/New(loc, spell)
-	if(!istype(source, /datum/action/innate/cult/blood_spell))
+	if(!istype(spell, /datum/action/innate/cult/blood_spell))
 		qdel(src)
 		return
 	source = spell
