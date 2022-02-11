@@ -97120,6 +97120,7 @@
 /obj/machinery/power/turbine{
 	luminosity = 2
 	},
+/obj/structure/cable,
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
 "cNN" = (
@@ -97134,6 +97135,9 @@
 	network = list("turbine")
 	},
 /obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
 "cNO" = (
