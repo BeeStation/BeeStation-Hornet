@@ -9,10 +9,11 @@
 
 /obj/item/clock_module/Initialize()
 	..()
-	var/datum/clockcult/scripture/S = new scripture_datum
-	name = S.name
-	desc = S.desc
-	icon_state = S.button_icon_state
+	if(scripture_datum)
+		var/datum/clockcult/scripture/S = new scripture_datum
+		name = S.name
+		desc = S.desc
+		icon_state = S.button_icon_state
 
 /obj/item/clock_module/attack_self(mob/user)
 	..()
