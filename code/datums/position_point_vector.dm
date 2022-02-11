@@ -207,8 +207,8 @@
 	var/paused = FALSE
 
 /datum/point/vector/processed/Destroy()
-	..()
-	return PROCESS_KILL
+	STOP_PROCESSING(SSprojectiles, src)
+	return ..()
 
 /datum/point/vector/processed/proc/start()
 	last_process = world.time
