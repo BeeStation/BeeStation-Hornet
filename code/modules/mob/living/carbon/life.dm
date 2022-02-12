@@ -450,6 +450,10 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 				if(C)
 					temp_x = amplitude * sin(saved_dizz  * world.time * 0.5)
 					temp_y = amplitude * cos(saved_dizz  * world.time * 2)
+					if(temp_x > 128) // add a cap to this shit
+						temp_x = 128
+					if(temp_y > 128)
+						temp_y = 128
 					animate(C, QUAD_EASING, pixel_x = temp_x)
 					sleep(3)
 					animate(C, QUAD_EASING, pixel_y = temp_y)
