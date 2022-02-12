@@ -617,7 +617,7 @@ SUBSYSTEM_DEF(timer)
 	timer_subsystem = timer_subsystem || SStimer
 	//id is string
 	var/datum/timedevent/timer = timer_subsystem.timer_id_dict[id]
-	if (timer && !timer.spent)
+	if (timer && (!timer.spent || timer.flags & TIMER_DELETE_ME))
 		qdel(timer)
 		return TRUE
 	return FALSE
@@ -639,9 +639,9 @@ SUBSYSTEM_DEF(timer)
 	timer_subsystem = timer_subsystem || SStimer
 	//id is string
 	var/datum/timedevent/timer = timer_subsystem.timer_id_dict[id]
-	if (timer && !timer.spent)
-		return timer.timeToRun - world.time
-	return null
+	if(!timer || timer.spent)
+		return null
+	return timer.timeToRun - (timer.flags & TIMER_CLIENT_TIME ? REALTIMEOFDAY : world.time)
 
 #undef BUCKET_LEN
 #undef BUCKET_POS
