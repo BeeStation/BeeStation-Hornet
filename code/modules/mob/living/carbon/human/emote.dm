@@ -216,12 +216,13 @@
 //Butt-Based Farts
 /datum/emote/living/carbon/human/fart/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(!user.getorgan(/obj/item/organ/butt) || !ishuman(user))
-		to_chat(user, "<span class='warning'>You don't have a butt!</span>")
-		return
-	var/obj/item/organ/butt/booty = user.getorgan(/obj/item/organ/butt)
-	if(!booty.cooling_down)
-		booty.On_Fart(user)
+	if(user.stat == CONSCIOUS)
+		if(!user.getorgan(/obj/item/organ/butt) || !ishuman(user))
+			to_chat(user, "<span class='warning'>You don't have a butt!</span>")
+			return
+		var/obj/item/organ/butt/booty = user.getorgan(/obj/item/organ/butt)
+		if(!booty.cooling_down)
+			booty.On_Fart(user)
 //MonkeStation Edit End
 
 //Ayy lmao
