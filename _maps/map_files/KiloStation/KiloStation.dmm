@@ -10365,6 +10365,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -68681,15 +68684,15 @@
 	},
 /area/maintenance/starboard)
 "bVH" = (
-/turf/closed/wall/r_wall/rust,
+/obj/item/beacon,
+/obj/effect/turf_decal/box,
+/turf/open/floor/engine/vacuum,
 /area/science/test_area)
 "bVI" = (
-/obj/structure/sign/warning/securearea{
-	desc = "A warning sign which reads 'BOMB RANGE";
-	name = "BOMB RANGE"
-	},
-/turf/closed/wall/r_wall/rust,
-/area/science/test_area)
+/obj/structure/grille/broken,
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/space)
 "bVJ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -68712,8 +68715,13 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/warehouse)
 "bVL" = (
-/obj/structure/sign/warning/explosives,
-/turf/closed/wall/r_wall/rust,
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/engine/vacuum,
 /area/science/test_area)
 "bVM" = (
 /obj/effect/turf_decal/tile/blue{
@@ -72652,8 +72660,10 @@
 	},
 /area/maintenance/port/aft)
 "caT" = (
-/turf/closed/wall/r_wall,
-/area/science/test_area)
+/obj/structure/lattice,
+/obj/structure/grille,
+/turf/open/space/basic,
+/area/space)
 "caU" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Emergency Storage"
@@ -73396,10 +73406,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "cbX" = (
-/obj/item/target/clown,
-/obj/structure/window/reinforced,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/engine/vacuum,
+/turf/closed/wall/r_wall/rust,
 /area/science/test_area)
 "cbY" = (
 /obj/effect/turf_decal/tile/yellow{
@@ -73568,14 +73575,12 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "cci" = (
-/obj/structure/sign/warning/explosives,
 /turf/closed/wall/r_wall,
 /area/science/test_area)
 "ccj" = (
-/obj/structure/chair,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
+/obj/item/target/clown,
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/engine/vacuum,
 /area/science/test_area)
 "cck" = (
@@ -73617,35 +73622,29 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "ccn" = (
+/obj/structure/sign/warning/explosives,
+/turf/closed/wall/r_wall,
+/area/science/test_area)
+"cco" = (
+/obj/structure/chair,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/engine/vacuum,
+/area/science/test_area)
+"ccp" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /turf/open/floor/engine/vacuum,
 /area/science/test_area)
-"cco" = (
+"ccq" = (
 /obj/structure/sign/warning/securearea{
 	desc = "A warning sign which reads 'BOMB RANGE";
 	name = "BOMB RANGE"
 	},
 /turf/closed/wall/r_wall,
-/area/science/test_area)
-"ccp" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/engine/vacuum,
-/area/science/test_area)
-"ccq" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/remains/human,
-/turf/open/floor/engine/vacuum,
 /area/science/test_area)
 "ccr" = (
 /obj/effect/turf_decal/stripes/line{
@@ -73731,6 +73730,11 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "ccx" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/remains/human,
 /turf/open/floor/engine/vacuum,
 /area/science/test_area)
 "ccy" = (
@@ -73745,6 +73749,15 @@
 /area/space/nearstation)
 "ccA" = (
 /obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/engine/vacuum,
+/area/science/test_area)
+"ccB" = (
+/obj/structure/chair{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -73752,38 +73765,11 @@
 	},
 /turf/open/floor/engine/vacuum,
 /area/science/test_area)
-"ccB" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
-	},
-/turf/open/floor/engine/vacuum,
-/area/science/test_area)
 "ccC" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/engine/vacuum,
-/area/science/test_area)
-"ccD" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/engine/vacuum,
-/area/science/test_area)
-"ccE" = (
-/obj/item/beacon,
-/obj/effect/turf_decal/box,
-/turf/open/floor/engine/vacuum,
-/area/science/test_area)
-"ccF" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/engine/vacuum,
 /area/science/test_area)
-"ccG" = (
+"ccD" = (
 /obj/item/target/clown,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -73793,8 +73779,30 @@
 	},
 /turf/open/floor/engine/vacuum,
 /area/science/test_area)
+"ccE" = (
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/turf/open/floor/engine/vacuum,
+/area/science/test_area)
+"ccF" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/engine/vacuum,
+/area/science/test_area)
+"ccG" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/engine/vacuum,
+/area/science/test_area)
 "ccH" = (
-/turf/closed/indestructible/opshuttle,
+/turf/open/floor/engine/vacuum,
 /area/science/test_area)
 "ccI" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -73811,13 +73819,7 @@
 	},
 /area/maintenance/starboard/aft)
 "ccJ" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/open/floor/engine/vacuum,
+/turf/closed/indestructible/opshuttle,
 /area/science/test_area)
 "ccK" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -73840,19 +73842,19 @@
 /area/science/test_area)
 "ccN" = (
 /obj/structure/chair{
-	dir = 8
+	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
+	dir = 10
 	},
 /turf/open/floor/engine/vacuum,
 /area/science/test_area)
 "ccO" = (
 /obj/structure/chair{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 6
 	},
 /turf/open/floor/engine/vacuum,
 /area/science/test_area)
@@ -77671,13 +77673,11 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "ciL" = (
-/obj/structure/chair{
-	dir = 1
+/obj/structure/sign/warning/securearea{
+	desc = "A warning sign which reads 'BOMB RANGE";
+	name = "BOMB RANGE"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/engine/vacuum,
+/turf/closed/wall/r_wall/rust,
 /area/science/test_area)
 "ciM" = (
 /obj/structure/sign/departments/engineering,
@@ -92921,11 +92921,12 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "cIb" = (
-/obj/item/target/clown,
-/obj/structure/window/reinforced{
+/obj/structure/chair{
 	dir = 1
 	},
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/open/floor/engine/vacuum,
 /area/science/test_area)
 "cIc" = (
@@ -100446,6 +100447,10 @@
 "ktS" = (
 /turf/closed/wall,
 /area/science/shuttledock)
+"kwP" = (
+/obj/structure/sign/warning/explosives,
+/turf/closed/wall/r_wall/rust,
+/area/science/test_area)
 "kxm" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -100772,6 +100777,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/research)
+"mfH" = (
+/obj/structure/lattice,
+/obj/structure/grille/broken,
+/turf/open/space/basic,
+/area/space)
 "mjb" = (
 /turf/closed/mineral/random/labormineral,
 /area/docking/arrival{
@@ -101815,6 +101825,14 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/shuttledock)
+"qjb" = (
+/obj/item/target/clown,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/engine/vacuum,
+/area/science/test_area)
 "qjJ" = (
 /obj/machinery/newscaster{
 	pixel_x = 30
@@ -103173,6 +103191,11 @@
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
+"uQV" = (
+/obj/structure/grille,
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/space)
 "uRL" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/cleanable/dirt,
@@ -159310,18 +159333,18 @@ aeu
 aeu
 aaa
 aeo
-aaa
-aaa
-aaa
-aaa
+bVI
+caT
+cmJ
+caT
 acK
 acm
 acK
 acm
 aeo
-aaa
-aaa
-aaa
+uQV
+mfH
+uQV
 aeU
 aUz
 aeU
@@ -159578,7 +159601,7 @@ aaa
 aaa
 aaa
 aaa
-aeu
+aaa
 aeu
 aeu
 aeu
@@ -159834,7 +159857,7 @@ acm
 aaa
 aaa
 aaa
-aeu
+aeU
 aeu
 aeu
 aeu
@@ -160081,17 +160104,17 @@ aeu
 aeu
 aeU
 coy
-ciQ
-acm
-aeo
-aaQ
+aaa
+aaa
+aaa
+aaa
 acm
 aaa
 acm
-acm
-aaQ
-aeo
-ciQ
+aaa
+aaa
+aaa
+aeU
 aeu
 aeu
 aeu
@@ -160338,18 +160361,18 @@ aeu
 aeu
 aeU
 aeu
-aeu
+aeU
+aaa
+aaa
+aaa
 acm
 aaa
 acm
-cbU
-ccB
-cbU
-aeu
-aeu
-aeu
-aeu
-aeu
+aaa
+aaa
+aaa
+aeU
+aeU
 aeu
 aeu
 coy
@@ -160595,19 +160618,19 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aUz
-aeu
-cci
-cbU
-ccC
-cbU
-bVI
-aeu
-aeu
-aeu
-aeu
-aeu
+aeU
+aaa
+aaa
+aaa
+acm
+aaa
+acm
+aaa
+aaa
+aeU
+aeU
+aeU
+aeU
 aUz
 aeU
 aaa
@@ -160852,17 +160875,17 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-cbU
-cbU
-ccp
-ccD
-ccJ
-cbU
-cbU
-aeu
-aeu
+aeU
+aaa
+aaa
+aaa
+acm
+aaa
+acm
+aaa
+aaa
+aeU
+aeU
 aeu
 aeu
 aeU
@@ -161109,17 +161132,17 @@ aeu
 aeu
 aeu
 aeu
-aeu
-bVH
-bVH
-ccj
-ccq
-ccx
-ccK
-ccO
-bVH
-caT
-aeu
+ciQ
+acm
+aeo
+aaQ
+acm
+aaa
+acm
+acm
+aaQ
+aeo
+ciQ
 aeu
 aeu
 aeu
@@ -161367,15 +161390,15 @@ aeu
 aeu
 aeu
 aeu
+acm
+aaa
+acm
 cbU
-cbX
-cck
-ccx
 ccE
-ccx
-ciz
-cIb
 cbU
+aeu
+aeu
+aeu
 aeu
 aeu
 aeu
@@ -161624,15 +161647,15 @@ aeu
 aeu
 aeu
 aeu
-caT
-bVH
+aUz
+aeu
 ccn
-ccy
+cbU
 ccF
-ccM
+cbU
 ciL
-caT
-bVH
+aeu
+aeu
 aeu
 aeu
 aeu
@@ -162138,15 +162161,15 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
+cbX
+cbX
 cco
-cbU
+ccx
 ccH
-cbU
+ccK
 bVL
-aeu
-aeu
+cbX
+cci
 aeu
 aeu
 aeu
@@ -162395,15 +162418,15 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
 cbU
+ccj
+cck
+ccH
 bVH
+ccH
+ciz
+qjb
 cbU
-aeu
-aeu
-aeu
 aeu
 aeu
 aeu
@@ -162652,15 +162675,15 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
+cci
+cbX
+ccp
+ccy
+ccC
+ccM
+cIb
+cci
+cbX
 aeu
 aeu
 aeu
@@ -162910,13 +162933,13 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
-aeu
+cbU
+cbU
+ccB
+ccD
+ccO
+cbU
+cbU
 aeu
 aeu
 aeu
@@ -163168,11 +163191,11 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
-aeu
-aeu
+ccq
+cbU
+ccJ
+cbU
+kwP
 aeu
 aeu
 aeu
@@ -163426,9 +163449,9 @@ aeu
 aeu
 aeu
 aeu
-aeu
-aeu
-aeu
+cbU
+cbX
+cbU
 aeu
 aeu
 aeu
