@@ -134,16 +134,16 @@
 		if ("update_answer")
 			if (!read_only)
 				responses[text2num(params["qidx"])] = copytext_char(params["answer"], 1, 501) // byond indexing moment
-				. = TRUE
+				return TRUE
 		if ("submit")
 			if (!read_only)
 				read_only = TRUE
 				GLOB.interviews.enqueue(src)
-				. = TRUE
+				return TRUE
 		if ("approve")
 			if (usr.client?.holder && status == INTERVIEW_PENDING)
 				src.approve(usr)
-				. = TRUE
+				return TRUE
 		if ("deny")
 			if (usr.client?.holder && status == INTERVIEW_PENDING)
 				src.deny(usr)
