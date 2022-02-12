@@ -119,3 +119,6 @@
 
 	//Tick when ghost roles are useable again
 	var/next_ghost_role_tick = 0
+
+	/// If the client is currently under the restrictions of the interview system
+	var/interviewee = FALSE
