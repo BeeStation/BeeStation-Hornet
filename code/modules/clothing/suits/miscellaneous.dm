@@ -801,7 +801,6 @@
 	desc = "The worst part of having a mental illness is people expect you to behave as if you don't."
 	icon_state = "joker"
 	item_state = "joker"
-	item_color = "joker"
 	can_adjust = FALSE
 
 /obj/item/clothing/suit/joker
@@ -809,7 +808,6 @@
 	desc = "I mean, don't you have to be funny to be a comedian?"
 	icon_state = "joker_coat"
 	item_state = "joker_coat"
-	item_color = "joker_coat"
 
 /obj/item/clothing/suit/toggle/softshell
 	name = "softshell jacket"

@@ -16,7 +16,7 @@
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	hitsound = "swing_hit"
 	armour_penetration = 35
-	item_color = "green"
+	var/saber_color = "green"
 	light_color = "#00ff00"//green
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_level = 2
@@ -40,8 +40,8 @@
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
 	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
 	if(LAZYLEN(possible_colors))
-		item_color = pick(possible_colors)
-		switch(item_color)
+		saber_color = pick(possible_colors)
+		switch(saber_color)
 			if("red")
 				light_color = LIGHT_COLOR_RED
 			if("green")
@@ -58,7 +58,7 @@
 /obj/item/dualsaber/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=force, force_wielded=twohand_force, block_power_unwielded=70, block_power_wielded=75, \
-					wieldsound='sound/weapons/saberon.ogg', unwieldsound='sound/weapons/saberoff.ogg', icon_wielded="dualsaber[item_color]1")
+					wieldsound='sound/weapons/saberon.ogg', unwieldsound='sound/weapons/saberoff.ogg', icon_wielded="dualsaber[saber_color]1")
 
 /// Triggered on wield of two handed item
 /// Specific hulk checks due to reflection chance for balance issues and switches hitsounds.
@@ -194,8 +194,8 @@
 		if(!hacked)
 			hacked = TRUE
 			to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")
-			item_color = "rainbow"
-			AddComponent(/datum/component/two_handed, icon_wielded="dualsaber[item_color]1")
+			saber_color = "rainbow"
+			AddComponent(/datum/component/two_handed, icon_wielded="dualsaber[saber_color]1")
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")

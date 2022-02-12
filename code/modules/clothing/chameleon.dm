@@ -217,7 +217,7 @@
 	target.desc = initial(picked_item.desc)
 	target.icon_state = initial(picked_item.icon_state)
 	if(isitem(target))
-		var/obj/item/I = target
+		var/obj/item/clothing/I = target
 		I.worn_icon = initial(picked_item.worn_icon)
 		I.lefthand_file = initial(picked_item.lefthand_file)
 		I.righthand_file = initial(picked_item.righthand_file)
@@ -283,7 +283,6 @@
 	desc = "A special containment suit that allows plasma-based lifeforms to exist safely in an oxygenated environment, and automatically extinguishes them in a crisis. Despite being airtight, it's not spaceworthy. It has a small dial on the wrist."
 	icon_state = "plasmaman"
 	item_state = "plasmaman"
-	item_color = "plasmaman"
 	resistance_flags = FIRE_PROOF
 	envirosealed = TRUE
 	greyscale_colors = null
@@ -297,7 +296,6 @@
 	desc = "A tough jumpsuit woven from alloy threads. It can take on the appearance of other jumpsuits."
 	icon_state = "engine"
 	item_state = "engi_suit"
-	item_color = "engine"
 	greyscale_colors = null
 	greyscale_config = null
 	greyscale_config_inhand_left = null
@@ -309,7 +307,6 @@
 	desc = "A tough envirosuit woven from alloy threads. It can take on the appearance of other jumpsuits."
 	icon_state = "engineer_envirosuit"
 	item_state = "engineer_envirosuit"
-	item_color = "engineer_envirosuit"
 
 /obj/item/clothing/under/chameleon/Initialize(mapload)
 	. = ..()
@@ -443,7 +440,6 @@
 	desc = "It's a baseball hat in a tasteful grey colour."
 	clothing_flags = SNUG_FIT
 	icon_state = "greysoft"
-	item_color = "grey"
 
 	resistance_flags = NONE
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 10)
