@@ -208,6 +208,12 @@
 	name = "maroon jumpskirt"
 	greyscale_colors = "#cc295f"
 
+/obj/item/clothing/under/color/durathread
+	name = "durathread jumpsuit"
+	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
+	greyscale_colors = "#8291a1"
+	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5, "stamina" = 30)
+
 /obj/item/clothing/under/color/rainbow
 	name = "rainbow jumpsuit"
 	desc = "A multi-colored jumpsuit!"
