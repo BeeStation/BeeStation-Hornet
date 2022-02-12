@@ -14,7 +14,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 		return
 	owner_hud = hud
 	if(istype(owner_hud))
-		QDEL(src)
+		qdel(src)
 		return	INITIALIZE_HINT_QDEL
 	var/assoc_controlled_planes = list()
 	for(var/i in controlled_planes)
