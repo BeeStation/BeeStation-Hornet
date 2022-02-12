@@ -17,7 +17,7 @@ Reproductive extracts:
 	var/datum/component/storage/concrete/extract_inventory/slime_storage
 	var/static/list/typecache_to_take
 
-/obj/item/slimecross/reproductive/Initialize()
+/obj/item/slimecross/reproductive/Initialize(mapload)
 	. = ..()
 	if(!typecache_to_take)
 		typecache_to_take = typecacheof(/obj/item/reagent_containers/food/snacks/monkeycube)

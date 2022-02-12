@@ -44,7 +44,7 @@
 	item_state = "balloon-empty"
 
 
-/obj/item/toy/balloon/Initialize()
+/obj/item/toy/balloon/Initialize(mapload)
 	. = ..()
 	create_reagents(10)
 
@@ -425,7 +425,7 @@
 	if(!..())
 		pop_burst()
 
-/obj/item/toy/snappop/Initialize()
+/obj/item/toy/snappop/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
@@ -448,7 +448,7 @@
 /obj/effect/decal/cleanable/ash/snappop_phoenix
 	var/respawn_time = 300
 
-/obj/effect/decal/cleanable/ash/snappop_phoenix/Initialize()
+/obj/effect/decal/cleanable/ash/snappop_phoenix/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/respawn), respawn_time)
 
@@ -684,7 +684,7 @@
 	var/list/cards = list()
 	var/original_size = 52
 
-/obj/item/toy/cards/deck/Initialize()
+/obj/item/toy/cards/deck/Initialize(mapload)
 	. = ..()
 	populate_deck()
 
@@ -1214,7 +1214,7 @@
 	var/toysay = "What the fuck did you do?"
 	var/toysound = 'sound/machines/click.ogg'
 
-/obj/item/toy/figure/Initialize()
+/obj/item/toy/figure/Initialize(mapload)
 	. = ..()
 	desc = "A \"Space Life\" brand [src]."
 
@@ -1650,7 +1650,7 @@
 
 /obj/item/storage/pill_bottle/dice_cup/cyborg
 	desc = "The house always wins..."
-/obj/item/storage/pill_bottle/dice_cup/cyborg/Initialize()
+/obj/item/storage/pill_bottle/dice_cup/cyborg/Initialize(mapload)
 	. = ..()
 	new /obj/item/dice/d6(src)
 	new /obj/item/dice/d6(src)
@@ -1667,7 +1667,7 @@
 	new /obj/item/paper/yatzy(src)
 	new /obj/item/paper/yatzy(src)
 
-/obj/item/storage/pill_bottle/dice_cup/yatzy/Initialize()
+/obj/item/storage/pill_bottle/dice_cup/yatzy/Initialize(mapload)
 	. = ..()
 	for(var/dice in 1 to 5)
 		new /obj/item/dice/d6(src)

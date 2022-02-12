@@ -10,7 +10,7 @@
 	var/footstep = 1
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes/clown
 
-/obj/item/clothing/shoes/cluwne/Initialize()
+/obj/item/clothing/shoes/cluwne/Initialize(mapload)
 	.=..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 

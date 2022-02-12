@@ -18,7 +18,7 @@
 	var/latches = "single_latch"
 	var/has_latches = TRUE
 
-/obj/item/storage/toolbox/Initialize()
+/obj/item/storage/toolbox/Initialize(mapload)
 	. = ..()
 	if(has_latches)
 		if(prob(10))

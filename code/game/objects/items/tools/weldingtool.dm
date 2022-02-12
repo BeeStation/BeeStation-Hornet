@@ -41,7 +41,7 @@
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 1
 
-/obj/item/weldingtool/Initialize()
+/obj/item/weldingtool/Initialize(mapload)
 	. = ..()
 	create_reagents(max_fuel)
 	reagents.add_reagent(/datum/reagent/fuel, max_fuel)

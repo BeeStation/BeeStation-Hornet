@@ -373,7 +373,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 		if(pmv)
 			mapvotes[map] = mapvotes[map]*VM.voteweight
-		else if(VM.map_file == config.map_file) 
+		else if(VM.map_file == config.map_file)
 			// Don't force them to play the same map when MAPROTATION actually rolls to change the map
 			mapvotes.Remove(map)
 
