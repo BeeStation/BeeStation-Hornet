@@ -288,7 +288,7 @@
 						if(prob(15))
 							to_chat(owner, "<span class='warning'>You smell something horribly decayed inside this room.</span>")
 							SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/bad_smell)
-					if(15 to 30)
+					if(16 to 30)
 						//Small chance to vomit. By now, people have internals on anyway
 						if(prob(5))
 							to_chat(owner, "<span class='warning'>The stench of rotting carcasses is unbearable!</span>")
