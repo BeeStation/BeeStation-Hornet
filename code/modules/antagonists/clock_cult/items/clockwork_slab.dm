@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	//For trap linkage
 	var/datum/component/clockwork_trap/buffer
 
-/obj/item/clockwork/clockwork_slab/Initialize()
+/obj/item/clockwork/clockwork_slab/Initialize(mapload)
 	if(!length(GLOB.clockcult_all_scriptures))
 		generate_clockcult_scriptures()
 	var/pos = 1

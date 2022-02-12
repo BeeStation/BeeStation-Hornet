@@ -185,7 +185,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 /mob/living/carbon/monkey/angry
 	ai_controller = /datum/ai_controller/monkey/angry
 
-/mob/living/carbon/monkey/angry/Initialize()
+/mob/living/carbon/monkey/angry/Initialize(mapload)
 	. = ..()
 	if(prob(10))
 		var/obj/item/clothing/head/helmet/justice/escape/helmet = new(src)
@@ -194,7 +194,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 
 
 //Special monkeycube subtype to track the number of them and prevent spam
-/mob/living/carbon/monkey/cube/Initialize()
+/mob/living/carbon/monkey/cube/Initialize(mapload)
 	. = ..()
 	GLOB.total_cube_monkeys++
 

@@ -2,7 +2,7 @@
 	icon_state = "xgibmid2"
 	var/list/alien_powers = list()
 
-/obj/item/organ/alien/Initialize()
+/obj/item/organ/alien/Initialize(mapload)
 	. = ..()
 	for(var/A in alien_powers)
 		if(ispath(A))

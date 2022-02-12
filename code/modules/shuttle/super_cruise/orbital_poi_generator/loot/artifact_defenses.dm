@@ -16,7 +16,7 @@
 	icon_state = "watcher"
 	var/cooldown = 0
 
-/obj/structure/alien_artifact/watcher/Initialize()
+/obj/structure/alien_artifact/watcher/Initialize(mapload)
 	. = ..()
 	proximity_monitor = new(src, rand(3, 6))
 	var/turf/T = get_turf(src)
@@ -49,7 +49,7 @@
 	var/active = FALSE
 	var/datum/protector_effect/effect
 
-/obj/structure/alien_artifact/protector/Initialize()
+/obj/structure/alien_artifact/protector/Initialize(mapload)
 	. = ..()
 	var/effect_type = pick(subtypesof(/datum/protector_effect))
 	effect = new effect_type()

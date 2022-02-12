@@ -79,7 +79,7 @@
 	var/atom/movable/focus = null
 	var/mob/living/carbon/tk_user = null
 
-/obj/item/tk_grab/Initialize()
+/obj/item/tk_grab/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSfastprocess, src)
 
@@ -135,7 +135,7 @@
 		target.attack_self_tk(user)
 		update_icon()
 		return
-	
+
 	if(focus.buckled_mobs)
 		to_chat(user, "<span class='notice'>This object is too heavy to move with something buckled to it!</span>")
 		return

@@ -27,7 +27,7 @@
 
 	addtimer(CALLBACK(src, .proc/move), 1)
 
-/obj/effect/accelerated_particle/Initialize()
+/obj/effect/accelerated_particle/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,

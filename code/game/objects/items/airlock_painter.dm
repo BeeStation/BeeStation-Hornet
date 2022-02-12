@@ -35,7 +35,7 @@
 		"Standard" = /obj/machinery/door/airlock
 	)
 
-/obj/item/airlock_painter/Initialize()
+/obj/item/airlock_painter/Initialize(mapload)
 	. = ..()
 	ink = new /obj/item/toner(src)
 

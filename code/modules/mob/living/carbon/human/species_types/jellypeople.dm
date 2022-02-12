@@ -484,7 +484,7 @@
 	light_system = MOVABLE_LIGHT
 	light_power = 2.5
 
-/obj/effect/dummy/luminescent_glow/Initialize()
+/obj/effect/dummy/luminescent_glow/Initialize(mapload)
 	. = ..()
 	if(!isliving(loc))
 		return INITIALIZE_HINT_QDEL

@@ -26,7 +26,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	clockwork = TRUE
 	circuit = /obj/item/circuitboard/computer/auxillary_base
 
-/obj/machinery/computer/auxillary_base/Initialize()
+/obj/machinery/computer/auxillary_base/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/gps, "NT_AUX")
 

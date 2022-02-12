@@ -18,7 +18,7 @@
 /obj/machinery/rnd/proc/reset_busy()
 	busy = FALSE
 
-/obj/machinery/rnd/Initialize()
+/obj/machinery/rnd/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/rnd(src)
 

@@ -355,14 +355,13 @@
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
 	var/datum/action/innate/cult/blood_spell/source
 
-/obj/item/melee/blood_magic/Initialize(loc, spell)
+	. = ..()
 	if(!istype(spell, /datum/action/innate/cult/blood_spell))
 		qdel(src)
 		return	INITIALIZE_HINT_QDEL
 	source = spell
 	uses = source.charges
 	health_cost = source.health_cost
-	..()
 
 /obj/item/melee/blood_magic/Destroy()
 	if(!QDELETED(source))

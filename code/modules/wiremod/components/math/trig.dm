@@ -22,7 +22,7 @@
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 
-/obj/item/circuit_component/trig/Initialize()
+/obj/item/circuit_component/trig/Initialize(mapload)
 	. = ..()
 	input = add_input_port("Input", PORT_TYPE_NUMBER)
 	output = add_output_port("Output", PORT_TYPE_NUMBER)

@@ -39,7 +39,7 @@
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 	always_noslip = TRUE
 
-/obj/item/clothing/shoes/clown_shoes/banana_shoes/combat/Initialize()
+/obj/item/clothing/shoes/clown_shoes/banana_shoes/combat/Initialize(mapload)
 	. = ..()
 	var/datum/component/material_container/bananium = GetComponent(/datum/component/material_container)
 	bananium.insert_amount_mat(BANANA_SHOES_MAX_CHARGE, /datum/material/bananium)
@@ -74,12 +74,12 @@
 	attack_verb_on = list("slipped")
 	clumsy_check = FALSE
 	sharpness = IS_BLUNT
-	item_color = "yellow"
+	sword_color = "yellow"
 	heat = 0
 	light_color = "#ffff00"
 	var/next_trombone_allowed = 0
 
-/obj/item/melee/transforming/energy/sword/bananium/Initialize()
+/obj/item/melee/transforming/energy/sword/bananium/Initialize(mapload)
 	. = ..()
 	adjust_slipperiness()
 
@@ -142,7 +142,7 @@
 	on_throwforce = 0
 	on_throw_speed = 1
 
-/obj/item/shield/energy/bananium/Initialize()
+/obj/item/shield/energy/bananium/Initialize(mapload)
 	. = ..()
 	adjust_slipperiness()
 
@@ -195,7 +195,7 @@
 	var/det_time = 50
 	var/obj/item/grenade/syndieminibomb/bomb
 
-/obj/item/grown/bananapeel/bombanana/Initialize()
+/obj/item/grown/bananapeel/bombanana/Initialize(mapload)
 	. = ..()
 	bomb = new /obj/item/grenade/syndieminibomb(src)
 	bomb.det_time = det_time
@@ -239,7 +239,7 @@
 /obj/item/clothing/mask/fakemoustache/sticky
 	var/unstick_time = 600
 
-/obj/item/clothing/mask/fakemoustache/sticky/Initialize()
+/obj/item/clothing/mask/fakemoustache/sticky/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, STICKY_MOUSTACHE_TRAIT)
 	addtimer(CALLBACK(src, .proc/unstick), unstick_time)
@@ -301,7 +301,7 @@
 		return
 	cell = new /obj/item/stock_parts/cell/hyper(src)
 
-/obj/mecha/combat/honker/dark/loaded/Initialize()
+/obj/mecha/combat/honker/dark/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/thrusters/ion(src)
 	ME.attach(src)
