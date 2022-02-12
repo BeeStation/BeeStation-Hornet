@@ -1,0 +1,5 @@
+author: tralezab & Ghilker, ported by ike709
+delete-after: true
+changes:
+  - refactor: Every Initialize() now passes the mapload var.
+  - bugfix: Fixed gasses being invisible.
