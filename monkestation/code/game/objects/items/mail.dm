@@ -320,14 +320,11 @@
 /obj/item/storage/bag/mail/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/storage = GetComponent(/datum/component/storage)
-	storage.max_w_class = WEIGHT_CLASS_NORMAL
-	storage.max_combined_w_class = 42
-	storage.max_items = 21
+	storage.max_w_class = WEIGHT_CLASS_SMALL
+	storage.max_combined_w_class = 30
+	storage.max_items = 30
 	storage.display_numerical_stacking = FALSE
-	storage.can_hold = list(
-		/obj/item/mail,
-		/obj/item/smallDelivery,
-		/obj/item/paper)
+	storage.can_hold = typecacheof(list(/obj/item/mail, /obj/item/smallDelivery, /obj/item/paper))
 
 /obj/item/paper/fluff/junkmail_redpill
 	name = "smudged paper"
