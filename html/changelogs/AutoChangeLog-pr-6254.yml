@@ -1,0 +1,8 @@
+author: Gamer025 and ike709
+delete-after: true
+changes:
+  - code_imp: Failsafe is more robust now and the game can actually recover from a
+      deleted MC
+  - code_imp: Albeit far from perfect, the game will be fairly playable if the Master
+      Controller dies. It beats the alternative by a lot if there's no admin online
+      to reboot the server.
