@@ -62,7 +62,7 @@
 	var/sends_input = FALSE
 	var/takes_input = FALSE
 
-/datum/component/clockwork_trap/Initialize(mapload)
+/datum/component/clockwork_trap/Initialize()
 	. = ..()
 	outputs = list()
 

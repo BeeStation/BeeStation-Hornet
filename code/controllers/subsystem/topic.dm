@@ -3,7 +3,7 @@ SUBSYSTEM_DEF(topic)
 	init_order = INIT_ORDER_TOPIC
 	flags = SS_NO_FIRE
 
-/datum/controller/subsystem/topic/Initialize(mapload, timeofday)
+/datum/controller/subsystem/topic/Initialize(timeofday)
 	// Initialize topic datums
 	var/list/anonymous_functions = list()
 	for(var/path in subtypesof(/datum/world_topic))

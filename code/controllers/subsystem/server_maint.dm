@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(server_maint)
 /datum/controller/subsystem/server_maint/PreInit()
 	world.hub_password = "" //quickly! before the hubbies see us.
 
-/datum/controller/subsystem/server_maint/Initialize(mapload, timeofday)
+/datum/controller/subsystem/server_maint/Initialize(timeofday)
 	if (CONFIG_GET(flag/hub))
 		world.update_hub_visibility(TRUE)
 	return ..()

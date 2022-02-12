@@ -48,10 +48,10 @@
 	quickdraw = TRUE
 	silent = TRUE
 
-/datum/component/storage/concrete/pockets/shoes/Initialize(mapload)
+/datum/component/storage/concrete/pockets/shoes/Initialize()
 	. = ..()
 
-/datum/component/storage/concrete/pockets/shoes/clown/Initialize(mapload)
+/datum/component/storage/concrete/pockets/shoes/clown/Initialize()
 	. = ..()
 
 
@@ -60,7 +60,7 @@
 	max_w_class = WEIGHT_CLASS_TINY
 	var/atom/original_parent
 
-/datum/component/storage/concrete/pockets/pocketprotector/Initialize(mapload)
+/datum/component/storage/concrete/pockets/pocketprotector/Initialize()
 	original_parent = parent
 	. = ..()
 	can_hold = typecacheof(list( //Same items as a PDA
@@ -79,7 +79,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	var/atom/original_parent
 
-/datum/component/storage/concrete/pockets/holster/Initialize(mapload)
+/datum/component/storage/concrete/pockets/holster/Initialize()
 	original_parent = parent
 	. = ..()
 	can_hold = typecacheof(list(
@@ -91,7 +91,7 @@
 	// if the component is reparented to a jumpsuit, the items still go in the protector
 	return original_parent
 
-/datum/component/storage/concrete/pockets/holster/detective/Initialize(mapload)
+/datum/component/storage/concrete/pockets/holster/detective/Initialize()
 	original_parent = parent
 	. = ..()
 	can_hold = typecacheof(list(
@@ -102,7 +102,7 @@
 	quickdraw = TRUE
 	max_combined_w_class = 6
 
-/datum/component/storage/concrete/pockets/helmet/Initialize(mapload)
+/datum/component/storage/concrete/pockets/helmet/Initialize()
 	. = ..()
 	can_hold = typecacheof(list(/obj/item/reagent_containers/food/drinks/bottle/vodka,
 					  /obj/item/reagent_containers/food/drinks/bottle/molotov,

@@ -83,7 +83,7 @@
 /datum/artifact_effect/proc/register_signals(source)
 	return
 
-/datum/artifact_effect/proc/Initialize(mapload, source)
+/datum/artifact_effect/proc/Initialize(source)
 	source_object = source
 	if(requires_processing)
 		START_PROCESSING(SSobj, src)
@@ -169,7 +169,7 @@
 	effect_act_descs = list("shot at")
 	var/atom/movable/proximity_monitor_holder/monitor_holder
 
-/datum/artifact_effect/projreflect/Initialize(mapload, source)
+/datum/artifact_effect/projreflect/Initialize(source)
 	. = ..()
 	if(monitor_holder)
 		QDEL_NULL(monitor_holder)
@@ -194,7 +194,7 @@
 	signal_types = list(COMSIG_MOVABLE_MOVED)
 	effect_act_descs = list("depressurised")
 
-/datum/artifact_effect/airfreeze/Initialize(mapload, atomm/source)
+/datum/artifact_effect/airfreeze/Initialize(atomm/source)
 	. = ..()
 	source.CanAtmosPass = ATMOS_PASS_NO
 
@@ -291,7 +291,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/cooldown = 0
 	var/list/contained_things = list()
 
-/datum/artifact_effect/reality_destabilizer/Initialize(mapload, source)
+/datum/artifact_effect/reality_destabilizer/Initialize(source)
 	. = ..()
 	GLOB.destabliization_exits += source
 
@@ -404,7 +404,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/datum/gas/input
 	var/datum/gas/output
 
-/datum/artifact_effect/gas_remove/Initialize(mapload, source)
+/datum/artifact_effect/gas_remove/Initialize(source)
 	. = ..()
 	input = pickweight(valid_inputs)
 	effect_act_descs = list("near gas")
@@ -468,7 +468,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	signal_types = list(COMSIG_ITEM_ATTACK_SELF)
 	effect_act_descs = list("used")
 
-/datum/artifact_effect/insanity_pulse/Initialize(mapload, source)
+/datum/artifact_effect/insanity_pulse/Initialize(source)
 	. = ..()
 	cooldown = rand(5 MINUTES, 15 MINUTES)
 

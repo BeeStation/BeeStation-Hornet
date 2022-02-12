@@ -5,7 +5,7 @@
 	var/datum/armor/added_armor = list("melee" = 10)
 	var/upgrade_name
 
-/datum/component/armor_plate/Initialize(mapload, _maxamount,obj/item/_upgrade_item,datum/armor/_added_armor)
+/datum/component/armor_plate/Initialize(_maxamount,obj/item/_upgrade_item,datum/armor/_added_armor)
 	if(!isobj(parent))
 		return COMPONENT_INCOMPATIBLE
 

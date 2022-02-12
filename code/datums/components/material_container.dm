@@ -23,7 +23,7 @@
 	var/datum/callback/after_insert
 
 /// Sets up the proper signals and fills the list of materials with the appropriate references.
-/datum/component/material_container/Initialize(mapload, list/mat_list, max_amt = 0, _show_on_examine = FALSE, list/allowed_types, datum/callback/_precondition, datum/callback/_after_insert, _disable_attackby)
+/datum/component/material_container/Initialize(list/mat_list, max_amt = 0, _show_on_examine = FALSE, list/allowed_types, datum/callback/_precondition, datum/callback/_after_insert, _disable_attackby)
 	materials = list()
 	max_amount = max(0, max_amt)
 	show_on_examine = _show_on_examine

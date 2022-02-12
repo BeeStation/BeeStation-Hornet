@@ -3,7 +3,7 @@
 	var/radius // shoots a projectile for every turf on this radius from the hit target
 	var/override_projectile_range
 
-/datum/component/mirv/Initialize(mapload, projectile_type, radius=1, override_projectile_range)
+/datum/component/mirv/Initialize(projectile_type, radius=1, override_projectile_range)
 	if(!isgun(parent) && !ismachinery(parent) && !isstructure(parent) && !isgrenade(parent))
 		return COMPONENT_INCOMPATIBLE
 

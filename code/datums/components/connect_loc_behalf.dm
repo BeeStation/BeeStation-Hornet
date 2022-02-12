@@ -12,7 +12,7 @@
 
 	var/atom/tracked_loc
 
-/datum/component/connect_loc_behalf/Initialize(mapload, atomm/movable/tracked, list/connections)
+/datum/component/connect_loc_behalf/Initialize(atomm/movable/tracked, list/connections)
 	. = ..()
 	if (!istype(tracked))
 		return COMPONENT_INCOMPATIBLE

@@ -82,7 +82,7 @@
 	if(requires_processing)
 		START_PROCESSING(SSfields, src)
 
-/datum/proximity_monitor/advanced/proc/Initialize(mapload)
+/datum/proximity_monitor/advanced/proc/Initialize()
 	setup_field()
 	post_setup_field()
 

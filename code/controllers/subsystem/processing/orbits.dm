@@ -47,7 +47,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Ruin level count
 	var/ruin_levels = 0
 
-/datum/controller/subsystem/processing/orbits/Initialize(mapload, start_timeofday)
+/datum/controller/subsystem/processing/orbits/Initialize(start_timeofday)
 	. = ..()
 	setup_event_list()
 	//Create the main orbital map.

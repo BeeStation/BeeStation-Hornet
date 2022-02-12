@@ -1,7 +1,7 @@
 /datum/component/spooky
 	var/too_spooky = TRUE //will it spawn a new instrument?
 
-/datum/component/spooky/Initialize(mapload)
+/datum/component/spooky/Initialize()
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/spectral_attack)
 
 /datum/component/spooky/proc/spectral_attack(datum/source, mob/living/carbon/C, mob/user)

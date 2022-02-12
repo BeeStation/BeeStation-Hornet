@@ -58,7 +58,7 @@
 	var/atom/movable/parent_attached_to
 
 
-/datum/component/overlay_lighting/Initialize(mapload, _range, _power, _color, starts_on)
+/datum/component/overlay_lighting/Initialize(_range, _power, _color, starts_on)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 

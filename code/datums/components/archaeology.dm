@@ -5,7 +5,7 @@
 	var/dug
 	var/datum/callback/callback
 
-/datum/component/archaeology/Initialize(mapload, list/_archdrops = list(), datum/callback/_callback)
+/datum/component/archaeology/Initialize(list/_archdrops = list(), datum/callback/_callback)
 	archdrops = _archdrops
 	for(var/i in archdrops)
 		if(isnull(archdrops[i][ARCH_MAXDROP]))

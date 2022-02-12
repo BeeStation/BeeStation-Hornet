@@ -2,7 +2,7 @@
 	var/datum/mind/owner
 	var/family_name
 
-/datum/component/heirloom/Initialize(mapload, new_owner, new_family_name)
+/datum/component/heirloom/Initialize(new_owner, new_family_name)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 

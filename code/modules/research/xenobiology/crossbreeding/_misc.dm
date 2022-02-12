@@ -71,7 +71,7 @@ Slimecrossing Items
 	var/z
 	var/rewinds_remaining
 
-/datum/component/dejavu/Initialize(mapload, rewinds = 1)
+/datum/component/dejavu/Initialize(rewinds = 1)
 	rewinds_remaining = rewinds
 	var/turf/T = get_turf(parent)
 	if(T)

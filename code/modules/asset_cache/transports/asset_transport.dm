@@ -17,7 +17,7 @@
 			addtimer(CALLBACK(src, .proc/send_assets_slow, C, preload), 1 SECONDS)
 
 /// Initialize - Called when SSassets initializes.
-/datum/asset_transport/proc/Initialize(mapload, list/assets)
+/datum/asset_transport/proc/Initialize(list/assets)
 	preload = assets.Copy()
 	if (!CONFIG_GET(flag/asset_simple_preload))
 		return

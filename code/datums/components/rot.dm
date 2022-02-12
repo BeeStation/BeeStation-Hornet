@@ -1,7 +1,7 @@
 /datum/component/rot
 	var/amount = 1
 
-/datum/component/rot/Initialize(mapload, new_amount)
+/datum/component/rot/Initialize(new_amount)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -30,7 +30,7 @@
 /datum/component/rot/corpse
 	amount = MIASMA_CORPSE_MOLES
 
-/datum/component/rot/corpse/Initialize(mapload)
+/datum/component/rot/corpse/Initialize()
 	if(!iscarbon(parent))
 		return COMPONENT_INCOMPATIBLE
 	. = ..()

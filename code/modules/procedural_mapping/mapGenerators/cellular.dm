@@ -28,7 +28,7 @@
 	//We assume 2D everywhere anyway
 	start = locate(min_x,min_y,Start.z)
 
-/datum/mapGenerator/ca/proc/Initialize(mapload)
+/datum/mapGenerator/ca/proc/Initialize()
 	old_state = new/list(width)
 	for(var/i = 1,i<=width,i++)
 		old_state[i] = new/list(height)

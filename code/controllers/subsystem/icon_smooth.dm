@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(icon_smooth)
 		else
 			can_fire = 0
 
-/datum/controller/subsystem/icon_smooth/Initialize(mapload)
+/datum/controller/subsystem/icon_smooth/Initialize()
 	smooth_zlevel(1,TRUE)
 	smooth_zlevel(2,TRUE)
 	var/queue = smooth_queue

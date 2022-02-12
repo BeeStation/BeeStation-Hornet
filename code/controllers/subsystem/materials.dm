@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(materials)
 	///Dictionary of category || list of material refs
 	var/list/materials_by_category = list()
 
-/datum/controller/subsystem/materials/Initialize(mapload, timeofday)
+/datum/controller/subsystem/materials/Initialize(timeofday)
 	InitializeMaterials()
 	return ..()
 

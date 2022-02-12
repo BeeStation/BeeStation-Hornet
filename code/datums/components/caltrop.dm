@@ -10,7 +10,7 @@
 	)
 
 
-/datum/component/caltrop/Initialize(mapload, _min_damage = 0, _max_damage = 0, _probability = 100,  _flags = NONE)
+/datum/component/caltrop/Initialize(_min_damage = 0, _max_damage = 0, _probability = 100,  _flags = NONE)
 	. = ..()
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE

@@ -21,7 +21,7 @@
 
 	var/del_on_unbuckle_all = FALSE
 
-/datum/component/riding/Initialize(mapload)
+/datum/component/riding/Initialize()
 	if(!ismovableatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_MOVABLE_BUCKLE, .proc/vehicle_mob_buckle)
@@ -205,7 +205,7 @@
 /datum/component/riding/human
 	del_on_unbuckle_all = TRUE
 
-/datum/component/riding/human/Initialize(mapload)
+/datum/component/riding/human/Initialize()
 	. = ..()
 	RegisterSignal(parent, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, .proc/on_host_unarmed_melee)
 

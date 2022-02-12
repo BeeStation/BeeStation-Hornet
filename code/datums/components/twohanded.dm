@@ -33,7 +33,7 @@
  * * force_unwielded (optional) The force setting when the item is unwielded, do not use with force_multiplier
  * * icon_wielded (optional) The icon to be used when wielded
  */
-/datum/component/two_handed/Initialize(mapload, require_twohands=FALSE, wieldsound=FALSE, unwieldsound=FALSE, attacksound=FALSE, \
+/datum/component/two_handed/Initialize(require_twohands=FALSE, wieldsound=FALSE, unwieldsound=FALSE, attacksound=FALSE, \
 										force_multiplier=0, force_wielded=0, force_unwielded=0, block_power_wielded=0, \
 										block_power_unwielded=0, icon_wielded=FALSE)
 	if(!isitem(parent))

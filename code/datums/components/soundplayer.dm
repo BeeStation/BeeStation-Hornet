@@ -12,7 +12,7 @@
 	var/list/sounds = list('sound/items/bikehorn.ogg')
 	var/amount_left = -1
 
-/datum/component/sound_player/Initialize(mapload, custom_volume, custom_sounds, amount, signal_or_sig_list)
+/datum/component/sound_player/Initialize(custom_volume, custom_sounds, amount, signal_or_sig_list)
 	if(!isnull(custom_volume))
 		volume = custom_volume
 

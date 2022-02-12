@@ -56,7 +56,7 @@
 /datum/component/proc/RegisterWithParent()
 	return
 
-/datum/component/proc/Initialize(mapload, ...)
+/datum/component/proc/Initialize(...)
 	return
 
 /datum/component/Destroy(force=FALSE, silent=FALSE)

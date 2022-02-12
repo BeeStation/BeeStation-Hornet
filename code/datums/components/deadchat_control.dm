@@ -11,7 +11,7 @@
 	var/deadchat_mode
 	var/input_cooldown
 
-/datum/component/deadchat_control/Initialize(mapload, _deadchat_mode, _inputs, _input_cooldown = 12 SECONDS)
+/datum/component/deadchat_control/Initialize(_deadchat_mode, _inputs, _input_cooldown = 12 SECONDS)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_ATOM_ORBIT_BEGIN, .proc/orbit_begin)

@@ -99,7 +99,7 @@ Stands have a lot of procs which mimic mob procs. Rather than inserting hooks fo
 1. `/datum/component/New(datum/parent, ...)` (private, final)
     * Runs internal setup for the component
     * Extra arguments are passed to `Initialize()`
-1. `/datum/component/Initialize(mapload, ...)` (abstract, no-sleep)
+1. `/datum/component/Initialize(...)` (abstract, no-sleep)
     * Called by `New()` with the same argments excluding `parent`
     * Component does not exist in `parent`'s `datum_components` list yet, although `parent` is set and may be used
     * Signals will not be received while this function is running

@@ -18,7 +18,7 @@
 		COMSIG_ATOM_ENTERED = .proc/play_squeak_crossed,
 	)
 
-/datum/component/squeak/Initialize(mapload, custom_sounds, volume_override, chance_override, step_delay_override, use_delay_override)
+/datum/component/squeak/Initialize(custom_sounds, volume_override, chance_override, step_delay_override, use_delay_override)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_BLOB_ACT, COMSIG_ATOM_HULK_ATTACK, COMSIG_PARENT_ATTACKBY), .proc/play_squeak)

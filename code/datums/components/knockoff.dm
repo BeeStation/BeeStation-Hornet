@@ -4,7 +4,7 @@
 	var/list/target_zones //Aiming for these zones will cause the knockoff, null means all zones allowed
 	var/list/slots_knockoffable //Can be only knocked off from these slots, null means all slots allowed
 
-/datum/component/knockoff/Initialize(mapload, knockoff_chance,zone_override,slots_knockoffable)
+/datum/component/knockoff/Initialize(knockoff_chance,zone_override,slots_knockoffable)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED,.proc/OnEquipped)

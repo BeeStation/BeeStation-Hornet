@@ -13,7 +13,7 @@
 	var/atom/movable/screen/mood/screen_obj
 	var/atom/movable/screen/sanity/screen_obj_sanity
 
-/datum/component/mood/Initialize(mapload)
+/datum/component/mood/Initialize()
 	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
 

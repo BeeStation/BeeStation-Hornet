@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	//The attached beacon: Ignore this one
 	var/datum/component/tracking_beacon/attached_beacon
 
-/datum/component/team_monitor/Initialize(mapload, frequency_key, frequency, _attached_beacon)
+/datum/component/team_monitor/Initialize(frequency_key, frequency, _attached_beacon)
 	var/obj/item/clothing/item = parent
 	if(!istype(item))
 		return COMPONENT_INCOMPATIBLE
@@ -360,7 +360,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	//Global signal?
 	var/global_signal = FALSE
 
-/datum/component/tracking_beacon/Initialize(mapload, _frequency_key, _frequency, _attached_monitor, _visible = TRUE, _colour = "#ffffff", _global = FALSE, _always_update = FALSE)
+/datum/component/tracking_beacon/Initialize(_frequency_key, _frequency, _attached_monitor, _visible = TRUE, _colour = "#ffffff", _global = FALSE, _always_update = FALSE)
 	. = ..()
 
 	//Set vars

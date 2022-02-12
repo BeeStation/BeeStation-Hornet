@@ -6,7 +6,7 @@
 	var/butchering_enabled = TRUE
 	var/can_be_blunt = FALSE
 
-/datum/component/butchering/Initialize(mapload, _speed, _effectiveness, _bonus_modifier, _butcher_sound, disabled, _can_be_blunt)
+/datum/component/butchering/Initialize(_speed, _effectiveness, _bonus_modifier, _butcher_sound, disabled, _can_be_blunt)
 	if(_speed)
 		speed = _speed
 	if(_effectiveness)

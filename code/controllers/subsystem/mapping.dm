@@ -58,7 +58,7 @@ SUBSYSTEM_DEF(mapping)
 		config = load_map_config(error_if_missing = FALSE)
 #endif
 
-/datum/controller/subsystem/mapping/Initialize(mapload, timeofday)
+/datum/controller/subsystem/mapping/Initialize(timeofday)
 	HACK_LoadMapConfig()
 	if(initialized)
 		return

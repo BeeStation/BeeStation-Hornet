@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(job)
 	var/list/crew_obj_list = list()
 	var/list/crew_obj_jobs = list()
 
-/datum/controller/subsystem/job/Initialize(mapload, timeofday)
+/datum/controller/subsystem/job/Initialize(timeofday)
 	SSmapping.HACK_LoadMapConfig()
 	if(!occupations.len)
 		SetupOccupations()

@@ -16,7 +16,7 @@
 	///if TRUE connects will spin with the parent object visually and codually, so you can have it work in any direction. FALSE if you want it to be static
 	var/turn_connects = TRUE
 
-/datum/component/plumbing/Initialize(mapload, start=TRUE, _turn_connects=TRUE) //turn_connects for wheter or not we spin with the object to change our pipes
+/datum/component/plumbing/Initialize(start=TRUE, _turn_connects=TRUE) //turn_connects for wheter or not we spin with the object to change our pipes
 	if(parent && !ismovableatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	var/atom/movable/AM = parent

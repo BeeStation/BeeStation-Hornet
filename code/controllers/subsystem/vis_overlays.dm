@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(vis_overlays)
 	var/list/unique_vis_overlays
 	var/list/currentrun
 
-/datum/controller/subsystem/vis_overlays/Initialize(mapload)
+/datum/controller/subsystem/vis_overlays/Initialize()
 	vis_overlay_cache = list()
 	unique_vis_overlays = list()
 	return ..()

@@ -1,7 +1,7 @@
 /datum/component/spraycan_paintable
 	var/current_paint
 
-/datum/component/spraycan_paintable/Initialize(mapload)
+/datum/component/spraycan_paintable/Initialize()
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/Repaint)
 
 /datum/component/spraycan_paintable/Destroy()
