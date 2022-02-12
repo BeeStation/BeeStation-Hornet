@@ -89,12 +89,12 @@
 				+ "\n<span class='adminsay'>Unfortunately your interview was denied. Please try submitting another questionnaire." \
 				+ " You may do this in three minutes.</span>")
 	else
-		addtimer(CALLBACK(GLOB.interviews, /datum/interview_manager.proc/give_the_boot, owner_ckey), 60 SECONDS)
+		addtimer(CALLBACK(GLOB.interviews, /datum/interview_manager.proc/give_the_boot, owner_ckey), 30 SECONDS)
 		if (owner)
 			SEND_SOUND(owner, sound('sound/effects/adminhelp.ogg'))
 			to_chat(owner, "<font color='red' size='4'><b>-- Interview Update --</b></font>" \
 				+ "\n<span class='adminsay'>Unfortunately your interview was denied. You will be removed for the round's duration." \
-				+ " You will be kicked in 60 seconds.</span>")
+				+ " You will be kicked in 30 seconds.</span>")
 
 /**
   * Forces client to reconnect, used in the callback from approval
