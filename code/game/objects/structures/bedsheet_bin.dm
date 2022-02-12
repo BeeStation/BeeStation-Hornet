@@ -282,7 +282,7 @@ LINEN BINS
 	name = "random bedsheet"
 	desc = "If you're reading this description ingame, something has gone wrong! Honk!"
 
-/obj/item/bedsheet/random/Initialize()
+/obj/item/bedsheet/random/Initialize(mapload)
 	..()
 	var/type = pick(typesof(/obj/item/bedsheet) - /obj/item/bedsheet/random)
 	new type(loc)
@@ -294,7 +294,7 @@ LINEN BINS
 	name = "random dorms bedsheet"
 	desc = "If you're reading this description ingame, something has gone wrong! Honk!"
 
-/obj/item/bedsheet/dorms/Initialize()
+/obj/item/bedsheet/dorms/Initialize(mapload)
 	..()
 	var/type = pickweight(list("Colors" = 80, "Special" = 20))
 	switch(type)

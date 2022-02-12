@@ -10,7 +10,7 @@
 	var/open = FALSE
 	var/speed_multiplier = 1 //How fast it distills. Defaults to 100% (1.0). Lower is better.
 
-/obj/structure/fermenting_barrel/Initialize()
+/obj/structure/fermenting_barrel/Initialize(mapload)
 	// Bluespace beakers, but without the portability or efficiency in circuits.
 	create_reagents(300, DRAINABLE | AMOUNT_VISIBLE)
 	. = ..()

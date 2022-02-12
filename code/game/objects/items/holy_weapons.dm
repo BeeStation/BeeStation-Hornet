@@ -1,10 +1,10 @@
 // CHAPLAIN CUSTOM ARMORS //
 
-/obj/item/clothing/suit/armor/riot/chaplain/Initialize()
+/obj/item/clothing/suit/armor/riot/chaplain/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
 
-/obj/item/clothing/suit/hooded/chaplain_hoodie/leader/Initialize()
+/obj/item/clothing/suit/hooded/chaplain_hoodie/leader/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE) //makes the leader hoodie immune without giving the follower hoodies immunity
 
@@ -86,7 +86,7 @@
 /obj/item/clothing/head/helmet/chaplain/cage
 	name = "cage"
 	desc = "A cage that restrains the will of the self, allowing one to see the profane world for what it is."
-	alternate_worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
+	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
 	icon_state = "cage"
 	item_state = "cage"
 	worn_x_dimension = 64
@@ -256,7 +256,7 @@
 	var/reskinned = FALSE
 	var/chaplain_spawnable = TRUE
 
-/obj/item/nullrod/Initialize()
+/obj/item/nullrod/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
 
@@ -309,7 +309,7 @@
 	attack_verb = list("punched", "cross countered", "pummeled")
 	block_upgrade_walk = 0
 
-/obj/item/nullrod/godhand/Initialize()
+/obj/item/nullrod/godhand/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
 
@@ -328,7 +328,7 @@
 	block_power = 20
 	var/shield_icon = "shield-red"
 
-/obj/item/nullrod/staff/worn_overlays(isinhands)
+/obj/item/nullrod/staff/worn_overlays(mutable_appearance/standing, isinhands)
 	. = list()
 	if(isinhands)
 		. += mutable_appearance('icons/effects/effects.dmi', shield_icon, MOB_LAYER + 0.01)
@@ -390,6 +390,7 @@
 	desc = "Capable of cutting clean through a holy claymore."
 	icon_state = "katana"
 	item_state = "katana"
+	worn_icon_state = "katana"
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	block_power = 0
@@ -464,7 +465,7 @@
 	sharpness = IS_SHARP
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 
-/obj/item/nullrod/scythe/Initialize()
+/obj/item/nullrod/scythe/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 70, 110) //the harvest gives a high bonus chance
 
@@ -582,7 +583,7 @@
 	block_upgrade_walk = 0
 
 
-/obj/item/nullrod/chainsaw/Initialize()
+/obj/item/nullrod/chainsaw/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
 	AddComponent(/datum/component/butchering, 30, 100, 0, hitsound)
@@ -656,7 +657,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = IS_SHARP
 
-/obj/item/nullrod/armblade/Initialize()
+/obj/item/nullrod/armblade/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
 	AddComponent(/datum/component/butchering, 80, 70)

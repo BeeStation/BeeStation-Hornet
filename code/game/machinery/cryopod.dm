@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	var/storage_name = "Cryogenic Oversight Control"
 	var/allow_items = TRUE
 
-/obj/machinery/computer/cryopod/Initialize()
+/obj/machinery/computer/cryopod/Initialize(mapload)
 	. = ..()
 	GLOB.cryopod_computers += src
 
@@ -177,12 +177,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		/obj/item/documents,
 		/obj/item/nuke_core_container
 	)
-	// These items will NOT be preserved
-	var/static/list/do_not_preserve_items = list (
-		/obj/item/mmi/posibrain
-	)
 
-/obj/machinery/cryopod/Initialize()
+/obj/machinery/cryopod/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD //Gotta populate the cryopod computer GLOB first
 
@@ -257,48 +253,6 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 			despawn_occupant()
 
-/obj/machinery/cryopod/proc/handle_objectives()
-	var/mob/living/mob_occupant = occupant
-	if(!mob_occupant.mind)
-		return
-	//Update any existing objectives involving this mob.
-	for(var/datum/objective/O as() in GLOB.objectives)
-		if(!O.target || O.target != mob_occupant.mind)
-			continue
-		// We don't want revs to get objectives that aren't for heads of staff. Letting
-		// them win or lose based on cryo is silly so we remove the objective.
-		if(istype(O,/datum/objective/mutiny))
-			O.team.objectives -= O
-			for(var/datum/mind/M as() in O.team.members)
-				to_chat(M.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
-				M.announce_objectives()
-			qdel(O)
-		else if(istype(O, /datum/objective/contract))
-			var/datum/antagonist/traitor/affected_traitor = O.owner.has_antag_datum(/datum/antagonist/traitor)
-			for(var/datum/syndicate_contract/affected_contract as anything in affected_traitor.contractor_hub.assigned_contracts)
-				if(affected_contract.contract == O)
-					affected_contract.generate(affected_traitor.contractor_hub.assigned_targets)
-					affected_traitor.contractor_hub.assigned_targets.Add(affected_contract.contract.target)
-					to_chat(O.owner.current, "<BR><span class='userdanger'>Contract target out of reach. Contract rerolled.")
-					break
-		else
-			O.target = null
-			O.find_target()
-			if(!O.target || O.target == mob_occupant.mind)
-				for(var/datum/mind/own as() in O.get_owners())
-					to_chat(own.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
-					for(var/datum/antagonist/A as() in own.antag_datums)
-						A.objectives -= O
-					own.announce_objectives()
-				if(O.team)
-					O.team.objectives -= O
-				qdel(O)
-			else
-				O.update_explanation_text()
-				for(var/datum/mind/own as() in O.get_owners())
-					to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-					own.announce_objectives()
-
 // This function can not be undone; do not call this unless you are sure
 /obj/machinery/cryopod/proc/despawn_occupant()
 	var/mob/living/mob_occupant = occupant
@@ -307,9 +261,6 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		//Handle job slot/tater cleanup.
 		var/job = mob_occupant.mind.assigned_role
 		SSjob.FreeRole(job)
-		if(LAZYLEN(mob_occupant.mind.objectives))
-			mob_occupant.mind.objectives.Cut()
-			mob_occupant.mind.special_role = null
 
 	// Delete them from datacore.
 
@@ -372,7 +323,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			mob_occupant.ghostize(FALSE,SENTIENCE_ERASE) // Players despawned too early may not re-enter the game
 		else
 			mob_occupant.ghostize(TRUE,SENTIENCE_ERASE)
-	handle_objectives()
+	if(mob_occupant.mind)
+		SEND_SIGNAL(mob_occupant.mind, COMSIG_MIND_CRYOED)
 	QDEL_NULL(occupant)
 	open_machine()
 	name = initial(name)

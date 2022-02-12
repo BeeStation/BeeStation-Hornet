@@ -18,7 +18,7 @@
 	/// List of all explosion records in the form of /datum/data/tachyon_record
 	var/list/records = list()
 
-/obj/machinery/doppler_array/Initialize()
+/obj/machinery/doppler_array/Initialize(mapload)
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, .proc/sense_explosion)
 	printer_ready = world.time + PRINTER_TIMEOUT
@@ -253,7 +253,7 @@
 		say("Data already captured. Aborting.")
 		return
 
-/obj/machinery/doppler_array/research/science/Initialize()
+/obj/machinery/doppler_array/research/science/Initialize(mapload)
 	. = ..()
 	linked_techweb = SSresearch.science_tech
 

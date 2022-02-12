@@ -34,7 +34,7 @@
 	loot = list(/obj/item/fugu_gland{layer = ABOVE_MOB_LAYER})
 	hardattacks = TRUE
 
-/mob/living/simple_animal/hostile/asteroid/fugu/Initialize()
+/mob/living/simple_animal/hostile/asteroid/fugu/Initialize(mapload)
 	. = ..()
 	E = new
 	E.Grant(src)

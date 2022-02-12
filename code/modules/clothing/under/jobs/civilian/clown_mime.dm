@@ -14,6 +14,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 
 /obj/item/clothing/under/rank/civilian/mime/sexy
@@ -106,6 +107,6 @@
 	item_color = "sexyclown"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/rank/civilian/clown/Initialize()
+/obj/item/clothing/under/rank/civilian/clown/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'=1), 50)

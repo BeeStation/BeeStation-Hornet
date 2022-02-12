@@ -230,14 +230,15 @@
 			return TRUE
 	return FALSE
 
-/datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, var/verbose=1)
+/datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, verbose=TRUE)
 	var/mob/living/carbon/user = owner.current
-	if(isipc(target))
-		to_chat(user, "<span class='warning'>We cannot absorb mechanical entities!</span>")
-		return
 	if(!istype(user))
 		return
 	if(!target)
+		return
+	if(isipc(target))
+		if(verbose)
+			to_chat(user, "<span class='warning'>We cannot absorb mechanical entities!</span>")
 		return
 	if(NO_DNA_COPY in target.dna.species.species_traits)
 		if(verbose)
@@ -294,6 +295,10 @@
 			prof.flags_cover_list[slot] = I.flags_cover
 			prof.item_color_list[slot] = I.item_color
 			prof.item_state_list[slot] = I.item_state
+			prof.lefthand_file_list[slot] = I.lefthand_file
+			prof.righthand_file_list[slot] = I.righthand_file
+			prof.worn_icon_list[slot] = I.worn_icon
+			prof.worn_icon_state_list[slot] = I.worn_icon_state
 			prof.exists_list[slot] = 1
 		else
 			continue
@@ -438,11 +443,14 @@
 			if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
 				var/datum/objective/escape/escape_with_identity/identity_theft = new
 				identity_theft.owner = owner
-				identity_theft.target = maroon_objective.target
-				identity_theft.update_explanation_text()
-				objectives += identity_theft
-				log_objective(owner, identity_theft.explanation_text)
-				escape_objective_possible = FALSE
+				if(identity_theft.is_valid_target(maroon_objective.target))
+					identity_theft.set_target(maroon_objective.target)
+					identity_theft.update_explanation_text()
+					objectives += identity_theft
+					log_objective(owner, identity_theft.explanation_text)
+					escape_objective_possible = FALSE
+				else
+					qdel(identity_theft)
 
 	if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
 		if(prob(50))
@@ -504,6 +512,10 @@
 	var/list/exists_list = list()
 	var/list/item_color_list = list()
 	var/list/item_state_list = list()
+	var/list/lefthand_file_list = list()
+	var/list/righthand_file_list = list()
+	var/list/worn_icon_list = list()
+	var/list/worn_icon_state_list = list()
 
 	var/underwear
 	var/undershirt
@@ -527,6 +539,10 @@
 	newprofile.exists_list = exists_list.Copy()
 	newprofile.item_color_list = item_color_list.Copy()
 	newprofile.item_state_list = item_state_list.Copy()
+	newprofile.lefthand_file_list = lefthand_file_list.Copy()
+	newprofile.righthand_file_list = righthand_file_list.Copy()
+	newprofile.worn_icon_list = worn_icon_list.Copy()
+	newprofile.worn_icon_state_list = worn_icon_state_list.Copy()
 	newprofile.underwear = underwear
 	newprofile.undershirt = undershirt
 	newprofile.socks = socks

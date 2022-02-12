@@ -178,7 +178,7 @@ Contains:
 	)
 	var/beacon_colour = "#4b48ec"
 
-/obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, LOCKED_HELMET_TRAIT)
 	//Link
@@ -372,7 +372,7 @@ Contains:
 	light_range = 0 //luminosity when on
 	actions_types = list()
 
-/obj/item/clothing/head/helmet/space/hardsuit/carp/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/carp/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, LOCKED_HELMET_TRAIT)
 
@@ -416,7 +416,7 @@ Contains:
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/suit/space/hardsuit/ert/paranormal/Initialize()
+/obj/item/clothing/suit/space/hardsuit/ert/paranormal/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE)
 
@@ -509,7 +509,7 @@ Contains:
 /obj/item/clothing/head/helmet/space/hardsuit/skinsuit
 	name = "skinsuit helmet"
 	icon = 'icons/obj/clothing/hats.dmi'
-	alternate_worn_icon = 'icons/mob/head.dmi'
+	worn_icon = 'icons/mob/head.dmi'
 	icon_state = "skinsuit_helmet"
 	item_state = "skinsuit_helmet"
 	max_integrity = 200
@@ -535,7 +535,7 @@ Contains:
 	name = "skinsuit"
 	desc = "A slim, compression-based spacesuit meant to protect the user during emergency situations. It's only a little warmer than your uniform."
 	icon = 'icons/obj/clothing/suits.dmi'
-	alternate_worn_icon = 'icons/mob/suit.dmi'
+	worn_icon = 'icons/mob/suit.dmi'
 	icon_state = "skinsuit"
 	item_state = "s_suit"
 	max_integrity = 200

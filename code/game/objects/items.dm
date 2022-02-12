@@ -19,6 +19,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// The icon for holding in hand icon states for the right hand.
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
+	var/supports_variations = null //This is a bitfield that defines what variations exist for bodyparts like Digi legs.
+
 	//Dimensions of the icon file used when this item is worn, eg: hats.dmi
 	//eg: 32x32 sprite, 64x64 sprite, etc.
 	//allows inhands/worn sprites to be of any size, but still centered on a mob properly
@@ -35,9 +37,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	//Not on /clothing because for some reason any /obj/item can technically be "worn" with enough fuckery.
 	/// If this is set, update_icons() will find on mob (WORN, NOT INHANDS) states in this file instead, primary use: badminnery/events
-	var/icon/alternate_worn_icon = null
+	var/icon/worn_icon = null
+	//Icon state for mob worn overlays. If not set falls back to item_state, then icon_state
+	var/worn_icon_state
 	/// If this is set, update_icons() will force the on mob state (WORN, NOT INHANDS) onto this layer, instead of it's default
-	var/alternate_worn_layer = null
+	var/alternate_worn_layer
 	///The config type to use for greyscaled worn sprites. Both this and greyscale_colors must be assigned to work.
 	var/greyscale_config_worn
 	///The config type to use for greyscaled left inhand sprites. Both this and greyscale_colors must be assigned to work.
@@ -201,7 +205,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/list/juice_results
 
 
-/obj/item/Initialize()
+/obj/item/Initialize(mapload)
 
 	materials =	typelist("materials", materials)
 
@@ -299,6 +303,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	. = ..()
 	if(!greyscale_colors)
 		return
+	if(greyscale_config_worn)
+		worn_icon = SSgreyscale.GetColoredIconByType(greyscale_config_worn, greyscale_colors)
 	if(greyscale_config_inhand_left)
 		lefthand_file = SSgreyscale.GetColoredIconByType(greyscale_config_inhand_left, greyscale_colors)
 	if(greyscale_config_inhand_right)

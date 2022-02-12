@@ -20,7 +20,7 @@
 	var/map_pad_id = "" as text //what's my name
 	var/map_pad_link_id = "" as text //who's my friend
 
-/obj/machinery/quantumpad/Initialize()
+/obj/machinery/quantumpad/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/quantum_pad(src)
 	if(map_pad_id)

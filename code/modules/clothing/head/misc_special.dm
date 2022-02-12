@@ -165,7 +165,7 @@
 
 	dog_fashion = /datum/dog_fashion/head/kitty
 
-/obj/item/clothing/head/kitty/Initialize()
+/obj/item/clothing/head/kitty/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/haircolor_clothing)
 
@@ -199,7 +199,7 @@
 
 	dog_fashion = /datum/dog_fashion/head/rabbit
 
-/obj/item/clothing/head/rabbitears/Initialize()
+/obj/item/clothing/head/rabbitears/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/haircolor_clothing)
 
@@ -254,7 +254,7 @@
 		M.color = hair_color
 		add_overlay(M)
 
-/obj/item/clothing/head/wig/worn_overlays(isinhands = FALSE, file2use)
+/obj/item/clothing/head/wig/worn_overlays(mutable_appearance/standing, isinhands = FALSE, file2use)
 	. = list()
 	if(!isinhands)
 		var/datum/sprite_accessory/S = GLOB.hair_styles_list[hair_style]
@@ -395,7 +395,7 @@
 /obj/item/clothing/head/speedwagon
 	name = "hat of ultimate masculinity"
 	desc = "Even the mere act of wearing this makes you want to pose menacingly."
-	alternate_worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
+	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
 	icon_state = "speedwagon"
 	item_state = "speedwagon"
 	worn_x_dimension = 64

@@ -66,7 +66,7 @@
 	icon = 'icons/mob/easter.dmi'
 	icon_state = "basket"
 
-/obj/item/storage/bag/easterbasket/Initialize()
+/obj/item/storage/bag/easterbasket/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/food/snacks/egg, /obj/item/reagent_containers/food/snacks/chocolateegg, /obj/item/reagent_containers/food/snacks/boiledegg))
@@ -109,7 +109,7 @@
 /obj/item/reagent_containers/food/snacks/egg/loaded
 	containsPrize = TRUE
 
-/obj/item/reagent_containers/food/snacks/egg/loaded/Initialize()
+/obj/item/reagent_containers/food/snacks/egg/loaded/Initialize(mapload)
 	. = ..()
 	var/eggcolor = pick("blue","green","mime","orange","purple","rainbow","red","yellow")
 	icon_state = "egg-[eggcolor]"

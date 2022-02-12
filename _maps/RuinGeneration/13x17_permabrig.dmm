@@ -494,7 +494,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Wr" = (

@@ -18,8 +18,8 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "i" = (
-/obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "200"
+/obj/effect/abstract/doorway_marker{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)

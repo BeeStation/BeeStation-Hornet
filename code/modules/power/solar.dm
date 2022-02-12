@@ -277,7 +277,7 @@
 	var/obj/machinery/power/tracker/connected_tracker = null
 	var/list/connected_panels = list()
 
-/obj/machinery/power/solar_control/Initialize()
+/obj/machinery/power/solar_control/Initialize(mapload)
 	. = ..()
 	if(powernet)
 		set_panels(currentdir)

@@ -6,7 +6,7 @@
 	strip_delay = 40
 	equip_delay_other = 40
 
-/obj/item/clothing/neck/worn_overlays(isinhands = FALSE)
+/obj/item/clothing/neck/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
 	. = list()
 	if(!isinhands)
 		if(body_parts_covered & HEAD)
@@ -218,7 +218,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/sourceBandanaType
 
-/obj/item/clothing/neck/neckerchief/worn_overlays(isinhands)
+/obj/item/clothing/neck/neckerchief/worn_overlays(mutable_appearance/standing, isinhands)
 	. = ..()
 	if(!isinhands)
 		var/mutable_appearance/realOverlay = mutable_appearance('icons/mob/mask.dmi', icon_state)

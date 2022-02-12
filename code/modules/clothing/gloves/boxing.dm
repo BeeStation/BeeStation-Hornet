@@ -25,6 +25,6 @@
 	item_state = "boxingyellow"
 	siemens_coefficient = 1	//Set to a default of 1, gets overridden in Initialize()
 
-/obj/item/clothing/gloves/boxing/yellow/insulated/Initialize()
+/obj/item/clothing/gloves/boxing/yellow/insulated/Initialize(mapload)
 	. = ..()
 	siemens_coefficient = pick(0,0,0,0,0.25,2)

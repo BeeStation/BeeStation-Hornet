@@ -14,7 +14,7 @@
 	var/recharge_speed
 	var/repairs
 
-/obj/machinery/recharge_station/Initialize()
+/obj/machinery/recharge_station/Initialize(mapload)
 	. = ..()
 	update_icon()
 

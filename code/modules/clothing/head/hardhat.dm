@@ -110,7 +110,7 @@
 	visor_flags_inv = HIDEEYES | HIDEFACE
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
-/obj/item/clothing/head/hardhat/weldhat/Initialize()
+/obj/item/clothing/head/hardhat/weldhat/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -126,7 +126,7 @@
 		playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
 	update_icon()
 
-/obj/item/clothing/head/hardhat/weldhat/worn_overlays(isinhands)
+/obj/item/clothing/head/hardhat/weldhat/worn_overlays(mutable_appearance/standing, isinhands)
 	. = ..()
 	if(!isinhands)
 		. += mutable_appearance('icons/mob/head.dmi', "weldhelmet")

@@ -17,7 +17,7 @@
 	var/datum/port/output/output
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-/obj/item/circuit_component/concat_list/Initialize()
+/obj/item/circuit_component/concat_list/Initialize(mapload)
 	. = ..()
 	list_port = add_input_port("List", PORT_TYPE_LIST)
 	separator = add_input_port("Seperator", PORT_TYPE_STRING)

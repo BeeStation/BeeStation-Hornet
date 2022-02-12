@@ -28,7 +28,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	discovery_points = 2000
 
 //No you can't go wielding guns like that.
-/mob/living/simple_animal/drone/cogscarab/Initialize()
+/mob/living/simple_animal/drone/cogscarab/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NOGUNS, "cogscarab")
 	GLOB.cogscarabs += src

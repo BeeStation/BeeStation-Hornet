@@ -123,7 +123,7 @@
 
 /obj/item/radio/mech //this has to go somewhere
 
-/obj/mecha/Initialize()
+/obj/mecha/Initialize(mapload)
 	. = ..()
 	events = new
 	icon_state += "-open"

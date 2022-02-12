@@ -19,7 +19,7 @@
 	var/list/front_nodes
 	var/list/back_nodes
 
-/obj/machinery/atmospherics/pipe/layer_manifold/Initialize()
+/obj/machinery/atmospherics/pipe/layer_manifold/Initialize(mapload)
 	volume = 350 // was previously 280 which was 8 ports but now this thing has 10
 	front_nodes = list()
 	back_nodes = list()

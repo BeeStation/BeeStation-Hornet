@@ -765,7 +765,7 @@ new /datum/stack_recipe("paper frame door", /obj/structure/mineral_door/paperfra
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/paperframes
 
-/obj/item/stack/sheet/paperframes/Initialize()
+/obj/item/stack/sheet/paperframes/Initialize(mapload)
 	recipes = GLOB.paperframe_recipes
 	. = ..()
 /obj/item/stack/sheet/paperframes/five

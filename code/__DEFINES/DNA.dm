@@ -110,22 +110,20 @@
 #define NOTRANSSTING	7
 #define MUTCOLORS_PARTSONLY	8	//! Used if we want the mutant colour to be only used by mutant bodyparts. Don't combine this with MUTCOLORS, or it will be useless.
 #define NOZOMBIE		9
-#define DIGITIGRADE		10	//! Uses weird leg sprites. Optional for Lizards, required for ashwalkers. Don't give it to other races unless you make sprites for this (see human_parts_greyscale.dmi)
-#define NO_UNDERWEAR	11
-#define NOLIVER			12
-#define NOSTOMACH		13
-#define NO_DNA_COPY     14
-#define DRINKSBLOOD		15
-#define NOFLASH			16
-#define DYNCOLORS		17 //! Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting
-#define AGENDER			18
-#define NOEYESPRITES	19 //! Do not draw eyes or eyeless overlay
-#define NOREAGENTS     20 //! DO NOT PROCESS REAGENTS
-#define REVIVESBYHEALING 21 // Will revive on heal when healing and total HP > 0.
-#define NOHUSK			22 // Can't be husked.
-#define ROBOTIC_LIMBS	23 //limbs start out as robotic; but also use organic icons. If you want to use the default ones, you'll have to use on_species_gain
-#define NOMOUTH			24
-#define NOSOCKS       25 // You cannot wear socks.
+#define NO_UNDERWEAR	10
+#define NOLIVER			11
+#define NOSTOMACH		12
+#define NO_DNA_COPY     13
+#define DRINKSBLOOD		14
+#define NOFLASH			15
+#define DYNCOLORS		16 //! Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting TRANSLATION: AWFUL.
+#define AGENDER			17
+#define NOEYESPRITES	18 //! Do not draw eyes or eyeless overlay
+#define NOREAGENTS     19 //! DO NOT PROCESS REAGENTS
+#define REVIVESBYHEALING 20 // Will revive on heal when healing and total HP > 0.
+#define NOHUSK			21 // Can't be husked.
+#define NOMOUTH			22
+#define NOSOCKS       23 // You cannot wear socks.
 
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"

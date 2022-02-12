@@ -26,12 +26,12 @@
 	armour_penetration = 50
 	var/active = 0
 
-/obj/item/holo/esword/green/Initialize()
+/obj/item/holo/esword/green/Initialize(mapload)
 	. = ..()
 	item_color = "green"
 
 
-/obj/item/holo/esword/red/Initialize()
+/obj/item/holo/esword/red/Initialize(mapload)
 	. = ..()
 	item_color = "red"
 
@@ -43,7 +43,7 @@
 /obj/item/holo/esword/attack(target as mob, mob/user as mob)
 	..()
 
-/obj/item/holo/esword/Initialize()
+/obj/item/holo/esword/Initialize(mapload)
 	. = ..()
 	item_color = pick("red","blue","green","purple")
 
