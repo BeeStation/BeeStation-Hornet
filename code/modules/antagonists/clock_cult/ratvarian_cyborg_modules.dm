@@ -5,15 +5,14 @@
 	icon_state = "Replicant"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_flags = NOBLUDGEON
-	var/scripture_datum
+	var/scripture_datum = /datum/clockcult/scripture
 
 /obj/item/clock_module/Initialize()
 	..()
-	if(scripture_datum)
-		var/datum/clockcult/scripture/S = new scripture_datum
-		name = S.name
-		desc = S.desc
-		icon_state = S.button_icon_state
+	var/datum/clockcult/scripture/S = new scripture_datum
+	name = S.name
+	desc = S.desc
+	icon_state = S.button_icon_state
 
 /obj/item/clock_module/attack_self(mob/user)
 	..()

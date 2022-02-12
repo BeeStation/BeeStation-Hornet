@@ -235,6 +235,9 @@
     src.briefcase = briefcase
 
 /obj/machinery/launchpad/briefcase/Destroy()
+	if(!QDELETED(briefcase))
+		qdel(briefcase)
+	briefcase = null
 	return ..()
 
 /obj/machinery/launchpad/briefcase/isAvailable()
