@@ -551,7 +551,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	)
 
 	// Register with the runechat SS to handle EOL and destruction
-	var/duration = CHAT_MESSAGE_LIFESPAN - CHAT_MESSAGE_EOL_FADE
+	var/duration = BALLOON_TEXT_TOTAL_LIFETIME(duration_mult)
 	fadertimer = addtimer(CALLBACK(src, .proc/end_of_life), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 
 
