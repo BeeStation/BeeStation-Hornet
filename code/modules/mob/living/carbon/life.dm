@@ -445,7 +445,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		var/temp_y
 		var/saved_dizz = dizziness
 		if(C)
-			var/amplitude = dizziness * world.time * 0.0035
+			var/amplitude = dizziness * world.time * 0.00035
 			spawn(0)
 				if(C)
 					temp_x = amplitude * sin(saved_dizz  * world.time * 0.5)
