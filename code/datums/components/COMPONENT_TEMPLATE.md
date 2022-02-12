@@ -9,7 +9,7 @@ See _component.dm for detailed explanations
 	//dupe_mode = COMPONENT_DUPE_ALLOWED    // code/__DEFINES/dcs/flags.dm
 	var/myvar
 
-/datum/component/mycomponent/Initialize(myargone, myargtwo)
+/datum/component/mycomponent/Initialize(mapload, myargone, myargtwo)
 	if(myargone)
 		myvar = myargone
 	if(myargtwo)

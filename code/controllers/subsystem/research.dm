@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(research)
 	//[88nodes * 5000points/node] / [1.5hr * 90min/hr * 60s/min]
 	//Around 450000 points max???
 
-/datum/controller/subsystem/research/Initialize()
+/datum/controller/subsystem/research/Initialize(mapload)
 	point_types = TECHWEB_POINT_TYPE_LIST_ASSOCIATIVE_NAMES
 	initialize_all_techweb_designs()
 	initialize_all_techweb_nodes()

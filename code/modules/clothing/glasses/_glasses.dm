@@ -385,7 +385,7 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/clothing/glasses/thermal/syndi/Initialize()
+/obj/item/clothing/glasses/thermal/syndi/Initialize(mapload)
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/glasses
@@ -456,7 +456,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
-/obj/item/clothing/glasses/godeye/Initialize()
+/obj/item/clothing/glasses/godeye/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, EYE_OF_GOD_TRAIT)
 

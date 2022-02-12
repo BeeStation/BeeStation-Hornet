@@ -10,7 +10,7 @@
 	/// Turns clockwise by default, or counterclockwise if the reverse argument is TRUE
 	var/turn_degrees = 90
 
-/datum/component/spinny/Initialize(steps = 12, reverse = FALSE)
+/datum/component/spinny/Initialize(mapload, steps = 12, reverse = FALSE)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 

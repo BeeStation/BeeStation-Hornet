@@ -24,7 +24,7 @@
 	var/grace = RAD_GEIGER_GRACE_PERIOD
 	var/datum/looping_sound/geiger/soundloop
 
-/obj/item/clothing/head/helmet/space/hardsuit/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload)
 	. = ..()
 	soundloop = new(list(), FALSE, TRUE)
 	soundloop.volume = 5
@@ -115,7 +115,7 @@
 	var/obj/item/tank/jetpack/suit/jetpack = null
 	pocket_storage_component_path = null
 
-/obj/item/clothing/suit/space/hardsuit/Initialize()
+/obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
 	if(jetpack && ispath(jetpack))
 		jetpack = new jetpack(src)
 	. = ..()
@@ -250,7 +250,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator)
 	high_pressure_multiplier = 0.6
 
-/obj/item/clothing/head/helmet/space/hardsuit/mining/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/mining/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
 
@@ -268,7 +268,7 @@
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	high_pressure_multiplier = 0.6
 
-/obj/item/clothing/suit/space/hardsuit/mining/Initialize()
+/obj/item/clothing/suit/space/hardsuit/mining/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
 
@@ -338,7 +338,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[item_color]"
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/Initialize(mapload)
 	. = ..()
 	//Link
 	if(istype(loc, /obj/item/clothing/suit/space/hardsuit/syndi))
@@ -581,7 +581,7 @@
 	jetpack = /obj/item/tank/jetpack/suit
 	slowdown = 0.3
 
-/obj/item/clothing/suit/space/hardsuit/wizard/Initialize()
+/obj/item/clothing/suit/space/hardsuit/wizard/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, FALSE, INFINITY, FALSE)
 
@@ -630,7 +630,7 @@
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_research_scanner)
 
-/obj/item/clothing/head/helmet/space/hardsuit/rd/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/rd/Initialize(mapload)
 	. = ..()
 	bomb_radar = new /obj/machinery/doppler_array/integrated(src)
 
@@ -680,7 +680,7 @@
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 30, "energy" = 40, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75, "stamina" = 50)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security
 
-/obj/item/clothing/suit/space/hardsuit/security/Initialize()
+/obj/item/clothing/suit/space/hardsuit/security/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_hardsuit_allowed
 
@@ -727,7 +727,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT //this needed to be added a long fucking time ago
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/swat
 
-/obj/item/clothing/suit/space/hardsuit/swat/Initialize()
+/obj/item/clothing/suit/space/hardsuit/swat/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_hardsuit_allowed
 
@@ -811,7 +811,7 @@
 	var/shield_state = "shield-old"
 	var/shield_on = "shield-old"
 
-/obj/item/clothing/suit/space/hardsuit/shielded/Initialize()
+/obj/item/clothing/suit/space/hardsuit/shielded/Initialize(mapload)
 	. = ..()
 	if(!allowed)
 		allowed = GLOB.advanced_hardsuit_allowed
@@ -997,7 +997,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light,\
 		/datum/action/item_action/toggle_beacon_hud)
 
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/Initialize(mapload)
 	. = ..()
 	if(istype(loc, /obj/item/clothing/suit/space/hardsuit/shielded/syndi))
 		var/obj/linkedsuit = loc

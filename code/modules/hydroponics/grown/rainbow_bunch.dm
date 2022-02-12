@@ -31,7 +31,7 @@
 	throw_range = 3
 	attack_verb = list("pompfed")
 
-/obj/item/reagent_containers/food/snacks/grown/rainbow_flower/Initialize()
+/obj/item/reagent_containers/food/snacks/grown/rainbow_flower/Initialize(mapload)
 	. = ..()
 	var/flower_color = rand(1,8)
 	switch(flower_color)

@@ -2,7 +2,7 @@
 	demand_connects = NORTH
 	supply_connects = SOUTH | EAST
 
-/datum/component/plumbing/splitter/Initialize()
+/datum/component/plumbing/splitter/Initialize(mapload)
 	. = ..()
 	if(. && !istype(parent, /obj/machinery/plumbing/splitter))
 		return FALSE

@@ -6,7 +6,7 @@
 	var/flash_range = 3
 	var/equipped_slot //For items, lets us determine where things should be hit.
 
-/datum/component/explodable/Initialize(devastation_range_override, heavy_impact_range_override, light_impact_range_override, flash_range_override)
+/datum/component/explodable/Initialize(mapload, devastation_range_override, heavy_impact_range_override, light_impact_range_override, flash_range_override)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 

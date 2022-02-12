@@ -23,7 +23,7 @@
 	. = ..()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
 
-/obj/item/alienartifact/Initialize()
+/obj/item/alienartifact/Initialize(mapload)
 	. = ..()
 	effects = list()
 	for(var/i in 1 to pick(1, 500; 2, 70; 3, 20; 1))
@@ -63,7 +63,7 @@
 	teleport_restriction = TELEPORT_ALLOW_NONE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
-/area/tear_in_reality/Initialize()
+/area/tear_in_reality/Initialize(mapload)
 	. = ..()
 	mood_message = "<span class='warning'>[scramble_message_replace_chars("###### ### #### ###### #######", 100)]!</span>"
 
@@ -83,7 +83,7 @@
 /datum/artifact_effect/proc/register_signals(source)
 	return
 
-/datum/artifact_effect/proc/Initialize(source)
+/datum/artifact_effect/proc/Initialize(mapload, source)
 	source_object = source
 	if(requires_processing)
 		START_PROCESSING(SSobj, src)
@@ -169,7 +169,7 @@
 	effect_act_descs = list("shot at")
 	var/atom/movable/proximity_monitor_holder/monitor_holder
 
-/datum/artifact_effect/projreflect/Initialize(source)
+/datum/artifact_effect/projreflect/Initialize(mapload, source)
 	. = ..()
 	if(monitor_holder)
 		QDEL_NULL(monitor_holder)
@@ -194,7 +194,7 @@
 	signal_types = list(COMSIG_MOVABLE_MOVED)
 	effect_act_descs = list("depressurised")
 
-/datum/artifact_effect/airfreeze/Initialize(atom/source)
+/datum/artifact_effect/airfreeze/Initialize(mapload, atomm/source)
 	. = ..()
 	source.CanAtmosPass = ATMOS_PASS_NO
 
@@ -280,7 +280,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 /obj/effect/landmark/destabilization_loc
 	name = "destabilization spawn"
 
-/obj/effect/landmark/destabilization_loc/Initialize()
+/obj/effect/landmark/destabilization_loc/Initialize(mapload)
 	..()
 	GLOB.destabilization_spawns += get_turf(src)
 	return INITIALIZE_HINT_QDEL
@@ -291,7 +291,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/cooldown = 0
 	var/list/contained_things = list()
 
-/datum/artifact_effect/reality_destabilizer/Initialize(source)
+/datum/artifact_effect/reality_destabilizer/Initialize(mapload, source)
 	. = ..()
 	GLOB.destabliization_exits += source
 
@@ -404,7 +404,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/datum/gas/input
 	var/datum/gas/output
 
-/datum/artifact_effect/gas_remove/Initialize(source)
+/datum/artifact_effect/gas_remove/Initialize(mapload, source)
 	. = ..()
 	input = pickweight(valid_inputs)
 	effect_act_descs = list("near gas")
@@ -468,7 +468,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	signal_types = list(COMSIG_ITEM_ATTACK_SELF)
 	effect_act_descs = list("used")
 
-/datum/artifact_effect/insanity_pulse/Initialize(source)
+/datum/artifact_effect/insanity_pulse/Initialize(mapload, source)
 	. = ..()
 	cooldown = rand(5 MINUTES, 15 MINUTES)
 

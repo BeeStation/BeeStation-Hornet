@@ -21,7 +21,7 @@
 		/turf/closed/wall/r_wall
 		)
 
-/datum/component/thermite/Initialize(_amount)
+/datum/component/thermite/Initialize(mapload, _amount)
 	if(!istype(parent, /turf) || blacklist[parent.type])
 		return COMPONENT_INCOMPATIBLE
 

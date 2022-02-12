@@ -2,7 +2,7 @@
 	demand_connects = WEST
 	supply_connects = EAST
 
-/datum/component/plumbing/reaction_chamber/Initialize(start=TRUE, _turn_connects=TRUE)
+/datum/component/plumbing/reaction_chamber/Initialize(mapload, start=TRUE, _turn_connects=TRUE)
 	. = ..()
 	if(!istype(parent, /obj/machinery/plumbing/reaction_chamber))
 		return COMPONENT_INCOMPATIBLE

@@ -205,7 +205,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/list/juice_results
 
 
-/obj/item/Initialize()
+/obj/item/Initialize(mapload)
 
 	materials =	typelist("materials", materials)
 

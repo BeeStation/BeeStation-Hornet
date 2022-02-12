@@ -45,7 +45,7 @@
 
 	var/harmful
 
-/datum/component/embedded/Initialize(obj/item/I,
+/datum/component/embedded/Initialize(mapload, obj/item/I,
 			datum/thrownthing/throwingdatum,
 			obj/item/bodypart/part,
 			embed_chance = EMBED_CHANCE,

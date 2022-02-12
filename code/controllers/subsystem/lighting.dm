@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(lighting)
 	cust["objects_queue"] = length(GLOB.lighting_update_objects)
 	.["custom"] = cust
 
-/datum/controller/subsystem/lighting/Initialize(timeofday)
+/datum/controller/subsystem/lighting/Initialize(mapload, timeofday)
 	if(!initialized)
 		if (CONFIG_GET(flag/starlight))
 			for(var/I in GLOB.sortedAreas)

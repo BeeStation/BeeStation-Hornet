@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(job)
 	var/list/crew_obj_list = list()
 	var/list/crew_obj_jobs = list()
 
-/datum/controller/subsystem/job/Initialize(timeofday)
+/datum/controller/subsystem/job/Initialize(mapload, timeofday)
 	SSmapping.HACK_LoadMapConfig()
 	if(!occupations.len)
 		SetupOccupations()
@@ -762,7 +762,7 @@ SUBSYSTEM_DEF(job)
 	name = "Nanotrasen-Approved Spare ID Safe Code"
 	desc = "Proof that you have been approved for Captaincy, with all its glory and all its horror."
 
-/obj/item/paper/fluff/spare_id_safe_code/Initialize()
+/obj/item/paper/fluff/spare_id_safe_code/Initialize(mapload)
 	. = ..()
 	var/id_safe_code = SSjob.spare_id_safe_code
 	info = "Captain's Spare ID safe code combination: [id_safe_code ? id_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe on the bridge."

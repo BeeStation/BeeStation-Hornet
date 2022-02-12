@@ -6,7 +6,7 @@
 	var/finalarmor = 0
 	var/cooldown = 0
 
-/datum/component/spikes/Initialize(damage = 0, spikearmor = 0, diseaseid = null)
+/datum/component/spikes/Initialize(mapload, damage = 0, spikearmor = 0, diseaseid = null)
 	spikedamage = damage
 	armor = spikearmor
 	id = diseaseid

@@ -11,7 +11,7 @@ PROCESSING_SUBSYSTEM_DEF(networks)
 	var/list/interfaces_by_id = list()				//hardware id = component interface
 	var/resolve_collisions = TRUE
 
-/datum/controller/subsystem/processing/networks/Initialize()
+/datum/controller/subsystem/processing/networks/Initialize(mapload)
 	station_network = new
 	station_network.register_map_supremecy()
 	. = ..()

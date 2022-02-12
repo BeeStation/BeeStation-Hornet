@@ -165,7 +165,7 @@
 
 	dog_fashion = /datum/dog_fashion/head/kitty
 
-/obj/item/clothing/head/kitty/Initialize()
+/obj/item/clothing/head/kitty/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/haircolor_clothing)
 
@@ -199,7 +199,7 @@
 
 	dog_fashion = /datum/dog_fashion/head/rabbit
 
-/obj/item/clothing/head/rabbitears/Initialize()
+/obj/item/clothing/head/rabbitears/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/haircolor_clothing)
 

@@ -16,7 +16,7 @@
 
 	var/locked = FALSE
 
-/datum/component/shell/Initialize(unremovable_circuit_components, capacity, shell_flags)
+/datum/component/shell/Initialize(mapload, unremovable_circuit_components, capacity, shell_flags)
 	. = ..()
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE

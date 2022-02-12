@@ -389,7 +389,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /obj/effect/sweatsplash
 	name = "Sweatsplash"
 
-/obj/effect/sweatsplash/Initialize()
+/obj/effect/sweatsplash/Initialize(mapload)
 	create_reagents(1000)
 	reagents.add_reagent(/datum/reagent/water, 10)
 
@@ -595,7 +595,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	flavour_text = "Spread misery and chaos upon the station."
 	important_info = "Avoid killing unprovoked, kill only in self defense!"
 
-/obj/effect/mob_spawn/teratomamonkey/Initialize()
+/obj/effect/mob_spawn/teratomamonkey/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
 	if(A)

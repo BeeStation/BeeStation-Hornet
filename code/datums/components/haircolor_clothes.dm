@@ -1,4 +1,4 @@
-/datum/component/haircolor_clothing/Initialize()
+/datum/component/haircolor_clothing/Initialize(mapload)
     RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/onEquip)
     RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, .proc/update_color)
 

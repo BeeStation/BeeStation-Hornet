@@ -30,7 +30,7 @@
 	usesound = 'sound/weapons/empty.ogg'
 	var/mode = 0
 
-/obj/item/multitool/Initialize()
+/obj/item/multitool/Initialize(mapload)
 	RegisterSignal(src, COMSIG_PARENT_EXAMINE, .proc/on_examine)
 	return ..()
 
@@ -58,7 +58,7 @@
 	var/mob/camera/ai_eye/remote/ai_detector/eye
 	var/datum/action/item_action/toggle_multitool/toggle_action
 
-/obj/item/multitool/ai_detect/Initialize()
+/obj/item/multitool/ai_detect/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSfastprocess, src)
 	eye = new /mob/camera/ai_eye/remote/ai_detector()

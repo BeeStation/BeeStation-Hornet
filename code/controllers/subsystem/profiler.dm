@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(profiler)
 	msg += "|W:[round(write_cost,1)]ms"
 	..(msg)
 
-/datum/controller/subsystem/profiler/Initialize()
+/datum/controller/subsystem/profiler/Initialize(mapload)
 	if(CONFIG_GET(flag/auto_profile))
 		StartProfiling()
 	else

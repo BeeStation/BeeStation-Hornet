@@ -15,7 +15,7 @@
 	/// The beam connecting the USB cable to the machine
 	var/datum/beam/usb_cable_beam
 
-/datum/component/usb_port/Initialize(list/circuit_component_types)
+/datum/component/usb_port/Initialize(mapload, list/circuit_component_types)
 	if (!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 

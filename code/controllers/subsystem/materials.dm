@@ -10,11 +10,11 @@ SUBSYSTEM_DEF(materials)
 	flags = SS_NO_FIRE
 	init_order = INIT_ORDER_MATERIALS
 	///Dictionary of material.type || material ref
-	var/list/materials = list() 
+	var/list/materials = list()
 	///Dictionary of category || list of material refs
-	var/list/materials_by_category = list() 
+	var/list/materials_by_category = list()
 
-/datum/controller/subsystem/materials/Initialize(timeofday)
+/datum/controller/subsystem/materials/Initialize(mapload, timeofday)
 	InitializeMaterials()
 	return ..()
 

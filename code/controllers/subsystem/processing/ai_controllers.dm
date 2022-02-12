@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(ai_controllers)
 	///List of all ai controllers currently running
 	var/list/active_ai_controllers = list()
 
-/datum/controller/subsystem/ai_controllers/Initialize(timeofday)
+/datum/controller/subsystem/ai_controllers/Initialize(mapload, timeofday)
 	setup_subtrees()
 	return ..()
 

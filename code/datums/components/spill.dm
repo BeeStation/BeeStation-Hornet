@@ -10,7 +10,7 @@
 
 // droptext is an arglist for visible_message
 // dropsound is a list of potential sounds that gets picked from
-/datum/component/spill/Initialize(list/_droptext, list/_dropsound)
+/datum/component/spill/Initialize(mapload, list/_droptext, list/_dropsound)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 

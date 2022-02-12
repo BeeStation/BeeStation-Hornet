@@ -45,7 +45,7 @@
 	if(has_sensor > NO_SENSORS)
 		has_sensor = BROKEN_SENSORS
 
-/obj/item/clothing/under/Initialize()
+/obj/item/clothing/under/Initialize(mapload)
 	. = ..()
 	if(random_sensor)
 		//make the sensor mode favor higher levels, except coords.

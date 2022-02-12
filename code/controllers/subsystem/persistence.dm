@@ -17,7 +17,7 @@ SUBSYSTEM_DEF(persistence)
 	var/list/obj/item/storage/photo_album/photo_albums
 	var/list/paintings = list()
 
-/datum/controller/subsystem/persistence/Initialize()
+/datum/controller/subsystem/persistence/Initialize(mapload)
 	LoadPoly()
 	LoadChiselMessages()
 	LoadTrophies()

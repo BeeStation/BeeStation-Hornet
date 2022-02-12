@@ -14,7 +14,7 @@
 		stack_trace("Incompatible [type] assigned to a [parent.type]! args: [json_encode(arguments)]")
 		qdel(src, TRUE, TRUE)
 		CRASH("Incompatible [type] assigned to a [parent.type]! args: [json_encode(arguments)]")
-	
+
 	_JoinParent(parent)
 
 /datum/component/proc/_JoinParent()
@@ -56,7 +56,7 @@
 /datum/component/proc/RegisterWithParent()
 	return
 
-/datum/component/proc/Initialize(...)
+/datum/component/proc/Initialize(mapload, ...)
 	return
 
 /datum/component/Destroy(force=FALSE, silent=FALSE)

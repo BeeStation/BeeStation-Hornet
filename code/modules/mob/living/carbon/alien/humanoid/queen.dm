@@ -41,7 +41,7 @@
 	icon_state = "alienq"
 	var/datum/action/small_sprite/smallsprite = new/datum/action/small_sprite/queen()
 
-/mob/living/carbon/alien/humanoid/royal/queen/Initialize()
+/mob/living/carbon/alien/humanoid/royal/queen/Initialize(mapload)
 	RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, .proc/check_hostile)
 	check_hostile() //still need to call this
 	//there should only be one queen
@@ -159,7 +159,7 @@
 	item_flags = ABSTRACT | DROPDEL
 	icon = 'icons/mob/alien.dmi'
 
-/obj/item/queenpromote/Initialize()
+/obj/item/queenpromote/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 

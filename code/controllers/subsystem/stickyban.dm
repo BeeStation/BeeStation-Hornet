@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(stickyban)
 	var/dbcacheexpire = 0
 
 
-/datum/controller/subsystem/stickyban/Initialize(timeofday)
+/datum/controller/subsystem/stickyban/Initialize(mapload, timeofday)
 	var/list/bannedkeys = sticky_banned_ckeys()
 	//sanitize the sticky ban list
 

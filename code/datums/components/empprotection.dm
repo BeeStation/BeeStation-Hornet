@@ -1,7 +1,7 @@
 /datum/component/empprotection
 	var/flags = NONE
 
-/datum/component/empprotection/Initialize(_flags)
+/datum/component/empprotection/Initialize(mapload, _flags)
 	if(!istype(parent, /atom))
 		return COMPONENT_INCOMPATIBLE
 	flags = _flags

@@ -66,7 +66,7 @@ SUBSYSTEM_DEF(ticker)
 	var/fail_counter
 	var/emergency_start = FALSE
 
-/datum/controller/subsystem/ticker/Initialize(timeofday)
+/datum/controller/subsystem/ticker/Initialize(mapload, timeofday)
 	load_mode()
 
 	var/list/byond_sound_formats = list(

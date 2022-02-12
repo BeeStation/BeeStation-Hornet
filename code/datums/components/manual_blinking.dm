@@ -21,7 +21,7 @@
 		return FALSE
 	owner.emote("blink")
 
-/datum/component/manual_blinking/Initialize()
+/datum/component/manual_blinking/Initialize(mapload)
 	if(!iscarbon(parent))
 		return COMPONENT_INCOMPATIBLE
 

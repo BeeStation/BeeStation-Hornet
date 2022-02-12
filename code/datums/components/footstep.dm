@@ -3,7 +3,7 @@
 	var/volume
 	var/e_range
 
-/datum/component/footstep/Initialize(volume_ = 0.5, e_range_ = -1)
+/datum/component/footstep/Initialize(mapload, volume_ = 0.5, e_range_ = -1)
 	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
 	volume = volume_

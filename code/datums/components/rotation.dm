@@ -13,7 +13,7 @@
 	var/rotation_flags = NONE
 	var/default_rotation_direction = ROTATION_CLOCKWISE
 
-/datum/component/simple_rotation/Initialize(rotation_flags = NONE ,can_user_rotate,can_be_rotated,after_rotation)
+/datum/component/simple_rotation/Initialize(mapload, rotation_flags = NONE ,can_user_rotate,can_be_rotated,after_rotation)
 	if(!ismovableatom(parent))
 		return COMPONENT_INCOMPATIBLE
 

@@ -37,7 +37,7 @@
 	trigger_guard = TRIGGER_GUARD_NORMAL
 
 
-/obj/item/pneumatic_cannon/Initialize()
+/obj/item/pneumatic_cannon/Initialize(mapload)
 	. = ..()
 	if(selfcharge)
 		init_charge()
@@ -278,7 +278,7 @@
 	clumsyCheck = FALSE
 	var/static/list/pie_typecache = typecacheof(/obj/item/reagent_containers/food/snacks/pie)
 
-/obj/item/pneumatic_cannon/pie/Initialize()
+/obj/item/pneumatic_cannon/pie/Initialize(mapload)
 	. = ..()
 	allowed_typecache = pie_typecache
 
@@ -318,7 +318,7 @@
 	spin_item = FALSE
 	var/static/list/magspear_typecache = typecacheof(list(/obj/item/throwing_star/magspear, /obj/item/spear, /obj/item/stack/rods/fifty, /obj/item/stack/rods, /obj/item/stack/rods/twentyfive, /obj/item/stack/rods/ten, /obj/item/katana, /obj/item/katana/cursed, /obj/item/toy/katana, /obj/item/spear/explosive, /obj/item/clockwork/weapon/brass_spear))
 
-/obj/item/pneumatic_cannon/speargun/Initialize()
+/obj/item/pneumatic_cannon/speargun/Initialize(mapload)
 	. = ..()
 	allowed_typecache = magspear_typecache
 

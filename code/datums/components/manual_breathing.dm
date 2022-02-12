@@ -32,7 +32,7 @@
 		button_icon_state = "remove"
 	UpdateButtonIcon()
 
-/datum/component/manual_breathing/Initialize()
+/datum/component/manual_breathing/Initialize(mapload)
 	if(!iscarbon(parent))
 		return COMPONENT_INCOMPATIBLE
 

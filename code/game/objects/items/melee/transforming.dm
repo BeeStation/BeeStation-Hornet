@@ -20,7 +20,7 @@
 	return 0
 
 
-/obj/item/melee/transforming/Initialize()
+/obj/item/melee/transforming/Initialize(mapload)
 	. = ..()
 	if(active)
 		if(attack_verb_on.len)

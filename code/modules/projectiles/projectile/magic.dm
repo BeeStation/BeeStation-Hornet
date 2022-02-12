@@ -425,7 +425,7 @@
 	var/magic_icon = "cursed"
 	var/weakened_icon = "decursed"
 
-/obj/structure/closet/decay/Initialize()
+/obj/structure/closet/decay/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/locker_magic_timer), 5)
 

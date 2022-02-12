@@ -17,7 +17,7 @@
 	var/force_catalyst_afterattack = FALSE
 	var/datum/callback/after_sect_select_cb
 
-/datum/component/religious_tool/Initialize(_flags = ALL, _force_catalyst_afterattack = FALSE, _after_sect_select_cb, override_catalyst_type)
+/datum/component/religious_tool/Initialize(mapload, _flags = ALL, _force_catalyst_afterattack = FALSE, _after_sect_select_cb, override_catalyst_type)
 	. = ..()
 	operation_flags = _flags
 	force_catalyst_afterattack = _force_catalyst_afterattack

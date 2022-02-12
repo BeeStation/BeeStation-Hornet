@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(input)
 	var/list/macro_sets
 	var/list/movement_keys
 
-/datum/controller/subsystem/input/Initialize()
+/datum/controller/subsystem/input/Initialize(mapload)
 	setup_default_macro_sets()
 
 	setup_default_movement_keys()

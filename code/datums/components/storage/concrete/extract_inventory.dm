@@ -13,7 +13,7 @@
 	silent = TRUE
 	var/obj/item/slimecross/reproductive/parent_slime_extract
 
-/datum/component/storage/concrete/extract_inventory/Initialize()
+/datum/component/storage/concrete/extract_inventory/Initialize(mapload)
 	. = ..()
 	if(!istype(parent, /obj/item/slimecross/reproductive))
 		return COMPONENT_INCOMPATIBLE

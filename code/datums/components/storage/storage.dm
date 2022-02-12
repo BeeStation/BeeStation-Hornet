@@ -58,7 +58,7 @@
 	var/screen_start_y = 2
 	//End
 
-/datum/component/storage/Initialize(datum/component/storage/concrete/master)
+/datum/component/storage/Initialize(mapload, datum/component/storage/concrete/master)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	if(master)

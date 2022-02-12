@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	var/tracking = TRUE
 	var/emped = FALSE
 
-/datum/component/gps/Initialize(_gpstag = "COM0")
+/datum/component/gps/Initialize(mapload, _gpstag = "COM0")
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	gpstag = _gpstag
@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	var/updating = TRUE //Automatic updating of GPS list. Can be set to manual by user.
 	var/global_mode = TRUE //If disabled, only GPS signals of the same Z level are shown
 
-/datum/component/gps/item/Initialize(_gpstag = "COM0", emp_proof = FALSE)
+/datum/component/gps/item/Initialize(mapload, _gpstag = "COM0", emp_proof = FALSE)
 	. = ..()
 	if(. == COMPONENT_INCOMPATIBLE || !isitem(parent))
 		return COMPONENT_INCOMPATIBLE

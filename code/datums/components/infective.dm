@@ -5,7 +5,7 @@
 	var/min_clean_strength = CLEAN_WEAK
 
 
-/datum/component/infective/Initialize(list/datum/disease/_diseases, expire_in)
+/datum/component/infective/Initialize(mapload, list/datum/disease/_diseases, expire_in)
 	if(islist(_diseases))
 		diseases = _diseases
 	else

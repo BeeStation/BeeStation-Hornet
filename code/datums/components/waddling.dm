@@ -1,7 +1,7 @@
 /datum/component/waddling
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 
-/datum/component/waddling/Initialize()
+/datum/component/waddling/Initialize(mapload)
 	. = ..()
 	if(!ismovableatom(parent))
 		return COMPONENT_INCOMPATIBLE

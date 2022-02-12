@@ -18,7 +18,7 @@
 	//If flopping animation was applied to parent, tracked to stop it on removal/destroy
 	var/flopping = FALSE
 
-/datum/component/aquarium_content/Initialize(property_type)
+/datum/component/aquarium_content/Initialize(mapload, property_type)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 	if(ispath(property_type, /datum/aquarium_behaviour))

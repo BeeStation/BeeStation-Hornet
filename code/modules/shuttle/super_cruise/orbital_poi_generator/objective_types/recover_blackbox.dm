@@ -48,7 +48,7 @@
 	var/recovered = FALSE
 	var/datum/orbital_objective/recover_blackbox/linked_obj
 
-/datum/component/recoverable/Initialize(_linked_obj)
+/datum/component/recoverable/Initialize(mapload, _linked_obj)
 	if(!ismovableatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	linked_obj = _linked_obj

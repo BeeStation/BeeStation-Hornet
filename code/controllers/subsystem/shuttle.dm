@@ -63,7 +63,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/datum/turf_reservation/preview_reservation
 
-/datum/controller/subsystem/shuttle/Initialize(timeofday)
+/datum/controller/subsystem/shuttle/Initialize(mapload, timeofday)
 	ordernum = rand(1, 9000)
 
 	for(var/pack in subtypesof(/datum/supply_pack))

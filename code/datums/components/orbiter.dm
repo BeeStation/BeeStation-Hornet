@@ -9,7 +9,7 @@
 //rotation_speed: how fast to rotate (how many ds should it take for a rotation to complete)
 //rotation_segments: the resolution of the orbit circle, less = a more block circle, this can be used to produce hexagons (6 segments) triangles (3 segments), and so on, 36 is the best default.
 //pre_rotation: Chooses to rotate src 90 degress towards the orbit dir (clockwise/anticlockwise), useful for things to go "head first" like ghosts
-/datum/component/orbiter/Initialize(atom/movable/orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
+/datum/component/orbiter/Initialize(mapload, atomm/movable/orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
 	if(!istype(orbiter) || !isatom(parent) || isarea(parent))
 		return COMPONENT_INCOMPATIBLE
 

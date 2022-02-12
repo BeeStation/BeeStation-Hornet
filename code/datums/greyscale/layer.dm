@@ -17,7 +17,7 @@
 	Initialize(icon_file)
 
 /// Override this to do initial set up
-/datum/greyscale_layer/proc/Initialize(icon_file)
+/datum/greyscale_layer/proc/Initialize(mapload, icon_file)
 	return
 
 /// Override this if you need to do something during a full config refresh from disk, return TRUE if something was changed
@@ -90,7 +90,7 @@
 	var/icon/icon
 	var/color_id
 
-/datum/greyscale_layer/icon_state/Initialize(icon_file)
+/datum/greyscale_layer/icon_state/Initialize(mapload, icon_file)
 	. = ..()
 	var/list/icon_states = icon_states(icon_file)
 	if(!(icon_state in icon_states))

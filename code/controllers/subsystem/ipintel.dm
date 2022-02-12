@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(ipintel)
 
 	var/list/cache = list()
 
-/datum/controller/subsystem/ipintel/Initialize(timeofday, zlevel)
+/datum/controller/subsystem/ipintel/Initialize(mapload, timeofday, zlevel)
 	enabled = 1
 	. = ..()
 

@@ -18,7 +18,7 @@
 /datum/component/clockwork_trap/pressure_sensor
 	sends_input = TRUE
 
-/datum/component/clockwork_trap/pressure_sensor/Initialize()
+/datum/component/clockwork_trap/pressure_sensor/Initialize(mapload)
 	. = ..()
 	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/on_entered)
 

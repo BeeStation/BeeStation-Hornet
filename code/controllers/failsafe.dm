@@ -30,7 +30,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 	Failsafe = src
 	Initialize()
 
-/datum/controller/failsafe/Initialize()
+/datum/$2)
 	set waitfor = 0
 	Failsafe.Loop()
 	if(!QDELETED(src))

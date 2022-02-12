@@ -171,7 +171,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 // Please don't stuff random bullshit here,
 // 	Make a subsystem, give it the SS_NO_FIRE flag, and do your work in it's Initialize()
-/datum/controller/master/Initialize(delay, init_sss, tgs_prime)
+/datum/controller/master\/Initialize\((mapload,((.)*\w)?)
 	set waitfor = 0
 
 	if(delay)

@@ -110,7 +110,7 @@
 	visor_flags_inv = HIDEEYES | HIDEFACE
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
-/obj/item/clothing/head/hardhat/weldhat/Initialize()
+/obj/item/clothing/head/hardhat/weldhat/Initialize(mapload)
 	. = ..()
 	update_icon()
 

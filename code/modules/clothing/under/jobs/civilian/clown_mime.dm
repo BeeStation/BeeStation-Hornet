@@ -107,6 +107,6 @@
 	item_color = "sexyclown"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/rank/civilian/clown/Initialize()
+/obj/item/clothing/under/rank/civilian/clown/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'=1), 50)

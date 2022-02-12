@@ -12,7 +12,7 @@
 	var/bob_height_max = 5
 	var/bob_tick = 0
 
-/datum/component/swimming/Initialize()
+/datum/component/swimming/Initialize(mapload)
 	. = ..()
 	if(!isliving(parent))
 		message_admins("Swimming component erroneously added to a non-living mob ([parent]).")

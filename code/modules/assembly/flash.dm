@@ -101,7 +101,7 @@
 /obj/item/assembly/flash/handheld/strong
 	bulb = /obj/item/flashbulb/recharging/revolution
 
-/obj/item/assembly/flash/Initialize()
+/obj/item/assembly/flash/Initialize(mapload)
 	. = ..()
 	bulb = new bulb
 

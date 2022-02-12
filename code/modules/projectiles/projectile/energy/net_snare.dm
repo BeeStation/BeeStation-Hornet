@@ -7,7 +7,7 @@
 	hitsound = 'sound/weapons/taserhit.ogg'
 	range = 10
 
-/obj/item/projectile/energy/net/Initialize()
+/obj/item/projectile/energy/net/Initialize(mapload)
 	. = ..()
 	SpinAnimation()
 
@@ -30,7 +30,7 @@
 	light_range = 3
 	anchored = TRUE
 
-/obj/effect/nettingportal/Initialize()
+/obj/effect/nettingportal/Initialize(mapload)
 	. = ..()
 	var/obj/item/beacon/teletarget = null
 

@@ -9,7 +9,7 @@
 	)
 
 
-/datum/component/swarming/Initialize(max_x = 24, max_y = 24)
+/datum/component/swarming/Initialize(mapload, max_x = 24, max_y = 24)
 	offset_x = rand(-max_x, max_x)
 	offset_y = rand(-max_y, max_y)
 

@@ -17,7 +17,7 @@
 	var/list/networks_connected_by_id = list()		//id = datum/ntnet
 	var/differentiate_broadcast = TRUE				//If false, broadcasts go to ntnet_receive. NOT RECOMMENDED.
 
-/datum/component/ntnet_interface/Initialize(force_name = "NTNet Device", autoconnect_station_network = TRUE)			//Don't force ID unless you know what you're doing!
+/datum/component/ntnet_interface/Initialize(mapload, force_name = "NTNet Device", autoconnect_station_network = TRUE)			//Don't force ID unless you know what you're doing!
 	hardware_id = "[SSnetworks.get_next_HID()]"
 	network_name = force_name
 	if(!SSnetworks.register_interface(src))

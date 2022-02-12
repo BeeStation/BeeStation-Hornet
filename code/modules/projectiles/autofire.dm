@@ -33,7 +33,7 @@ Everything else should be handled for you. Good luck soldier.
 			autofire_component?.default_fire_delay = (10 / var_value)
 			return
 
-/obj/item/gun/Initialize()
+/obj/item/gun/Initialize(mapload)
 	. = ..()
 	if(full_auto)
 		canMouseDown = TRUE
@@ -47,7 +47,7 @@ Everything else should be handled for you. Good luck soldier.
 	var/melee_attack_delay = 0.3 SECONDS //Time delay after you melee attack something at which you'll be allowed to start autofiring again. Also used as a cooldown to avoid magdumps.
 	var/next_process = 0
 
-/datum/component/full_auto/Initialize()
+/datum/component/full_auto/Initialize(mapload)
 	. = ..()
 	if(!istype(parent, /obj/item/gun)) //Needs at least this base prototype.
 		return COMPONENT_INCOMPATIBLE

@@ -44,7 +44,7 @@ SUBSYSTEM_DEF(time_track)
 	)
 #endif
 
-/datum/controller/subsystem/time_track/Initialize(start_timeofday)
+/datum/controller/subsystem/time_track/Initialize(mapload, start_timeofday)
 	. = ..()
 	GLOB.perf_log = "[GLOB.log_directory]/perf-[GLOB.round_id ? GLOB.round_id : "NULL"]-[SSmapping.config?.map_name].csv"
 #ifdef SENDMAPS_PROFILE

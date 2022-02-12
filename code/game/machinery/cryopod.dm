@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	var/storage_name = "Cryogenic Oversight Control"
 	var/allow_items = TRUE
 
-/obj/machinery/computer/cryopod/Initialize()
+/obj/machinery/computer/cryopod/Initialize(mapload)
 	. = ..()
 	GLOB.cryopod_computers += src
 
@@ -178,7 +178,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		/obj/item/nuke_core_container
 	)
 
-/obj/machinery/cryopod/Initialize()
+/obj/machinery/cryopod/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD //Gotta populate the cryopod computer GLOB first
 

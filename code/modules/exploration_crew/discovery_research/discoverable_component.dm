@@ -5,7 +5,7 @@
 	var/unique = FALSE
 	var/point_reward = 0
 
-/datum/component/discoverable/Initialize(_point_reward, _unique = FALSE)
+/datum/component/discoverable/Initialize(mapload, _point_reward, _unique = FALSE)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
