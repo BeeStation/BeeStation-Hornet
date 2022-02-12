@@ -1,0 +1,8 @@
+author: dog132
+delete-after: true
+changes:
+  - config: Kilo Station is part of the map rotation
+  - rscadd: Kilo Station comes with an exploration shuttle
+  - rscadd: Kilo Station comes with random maint
+  - rscadd: 4 random maint rooms from Kilo Station
+  - rscdel: Removed old maint rooms from Kilo Station
