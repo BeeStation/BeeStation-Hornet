@@ -194,7 +194,7 @@
 	signal_types = list(COMSIG_MOVABLE_MOVED)
 	effect_act_descs = list("depressurised")
 
-/datum/artifact_effect/airfreeze/Initialize(atomm/source)
+/datum/artifact_effect/airfreeze/Initialize(atom/source)
 	. = ..()
 	source.CanAtmosPass = ATMOS_PASS_NO
 
