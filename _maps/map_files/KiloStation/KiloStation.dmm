@@ -12707,9 +12707,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "atO" = (
@@ -92190,7 +92187,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/lootdrop/grille_or_trash,
-/obj/structure/cable/yellow,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
