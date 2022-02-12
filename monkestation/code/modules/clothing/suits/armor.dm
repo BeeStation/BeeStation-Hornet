@@ -5,7 +5,6 @@
 	icon = 'monkestation/icons/obj/clothing/suits.dmi'
 	icon_state = "cowboy_sec_default"
 	item_state = "cowboy_sec_default"
-	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/clothing/mask)
 	var/obj/item/clothing/mask/breath/sec_bandana/mask
 	var/obj/item/clothing/suit/armor/secduster/suit
 	var/mask_adjusted = 0
