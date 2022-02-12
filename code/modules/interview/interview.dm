@@ -147,7 +147,7 @@
 		if ("deny")
 			if (usr.client?.holder && status == INTERVIEW_PENDING)
 				src.deny(usr)
-				. = TRUE
+				return TRUE
 		if ("adminpm")
 			if (usr.client?.holder && owner)
 				usr.client.cmd_admin_pm(owner, null)
