@@ -7456,6 +7456,9 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/event_spawn,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "bLj" = (
@@ -8754,12 +8757,9 @@
 /turf/open/floor/wood,
 /area/hallway/secondary/exit/departure_lounge)
 "bYy" = (
-/obj/structure/disposalpipe/sorting/mail{
-	dir = 1;
-	sortType = 1
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
+/obj/machinery/light,
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "bYG" = (
 /obj/machinery/light_switch{
 	pixel_y = -24
@@ -8794,13 +8794,13 @@
 /obj/structure/disposaloutlet{
 	dir = 4
 	},
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/obj/structure/lattice/catwalk/over,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "bZk" = (
@@ -14457,15 +14457,12 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "dlx" = (
-/obj/structure/lattice/catwalk/over,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "dlB" = (
@@ -18506,6 +18503,9 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk/over,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "eek" = (
@@ -31844,10 +31844,6 @@
 	},
 /turf/open/floor/plating,
 /area/science/xenobiology)
-"hlt" = (
-/obj/machinery/light,
-/turf/open/floor/plasteel,
-/area/hallway/secondary/entry)
 "hlu" = (
 /obj/effect/turf_decal/guideline/guideline_in_T/red{
 	dir = 5
@@ -43013,6 +43009,9 @@
 /obj/effect/turf_decal/tile/brown/tile_side{
 	dir = 5
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal)
 "jQc" = (
@@ -47929,11 +47928,12 @@
 /turf/open/floor/plasteel/airless/solarpanel,
 /area/solar/port/aft)
 "kXE" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 1;
+	sortType = 1
 	},
-/turf/closed/wall,
-/area/maintenance/disposal)
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "kXG" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
@@ -50465,6 +50465,9 @@
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -57182,11 +57185,12 @@
 /turf/open/floor/plasteel,
 /area/security/checkpoint/supply)
 "nmd" = (
+/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/maintenance/starboard/aft)
+/area/maintenance/disposal)
 "nmm" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -63536,6 +63540,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
 "oQE" = (
@@ -73735,6 +73740,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/item/trash/cheesie,
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
 "rls" = (
@@ -100448,9 +100454,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/three,
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "xFD" = (
@@ -122446,7 +122449,7 @@ puu
 djY
 mzM
 obl
-hlt
+bYy
 uId
 ucR
 ucR
@@ -157399,8 +157402,8 @@ mzf
 mzf
 mzf
 mzf
+kXE
 mzf
-bYy
 mzf
 mfK
 mzf
@@ -157914,7 +157917,7 @@ cGp
 cGp
 cGp
 edM
-nmd
+yhB
 sIe
 hth
 vPF
@@ -158427,8 +158430,8 @@ shI
 oiJ
 hjh
 cGp
-vXT
-kXE
+nmd
+cGp
 cGp
 kHH
 kHH
