@@ -1,4 +1,0 @@
-author: Bizzonium, ported by ike709
-delete-after: true
-changes:
-  - refactor: Made SSrunechat be a subsystem of SStimer
