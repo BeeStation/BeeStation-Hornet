@@ -138,10 +138,7 @@
 /obj/item/clothing/under/color/durathread
 	name = "durathread jumpsuit"
 	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
-	icon_state = "jumpsuit"
-	item_state = "jumpsuit"
-	greyscale_colors = "#829A1"
-	can_adjust = FALSE
+	greyscale_colors = "#8291a1"
 	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5, "stamina" = 30)
 
 /////////////////
