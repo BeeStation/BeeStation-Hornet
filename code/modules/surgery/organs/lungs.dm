@@ -283,7 +283,7 @@
 						SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "smell")
 						if(prob(5))
 							to_chat(owner, "<span class='notice'>There is an unpleasant smell in the air.</span>")
-					if(5 to 15)
+					if(6 to 15)
 						//At somewhat higher pp, warning becomes more obvious
 						if(prob(15))
 							to_chat(owner, "<span class='warning'>You smell something horribly decayed inside this room.</span>")
