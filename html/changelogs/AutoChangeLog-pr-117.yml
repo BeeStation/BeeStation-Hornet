@@ -1,0 +1,5 @@
+author: nednaZ
+delete-after: true
+changes:
+  - bugfix: Nanotrasen has remembered to equip their security officers with disablers
+      once again.
