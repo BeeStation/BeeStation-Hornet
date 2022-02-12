@@ -194,6 +194,7 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
 	for(var/client/C as() in GLOB.clients)
 		if(C?.ckey == ckey)
 			qdel(C)
+			return
 
 /**
   * Dequeues the first interview from the interview queue, and updates the queue positions of any relevant
