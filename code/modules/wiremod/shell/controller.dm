@@ -14,7 +14,7 @@
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	light_range = FALSE
 
-/obj/item/controller/Initialize()
+/obj/item/controller/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/shell, list(
 		new /obj/item/circuit_component/controller()
@@ -29,7 +29,7 @@
 	var/datum/port/output/alt
 	var/datum/port/output/right
 
-/obj/item/circuit_component/controller/Initialize()
+/obj/item/circuit_component/controller/Initialize(mapload)
 	. = ..()
 	signal = add_output_port("Signal", PORT_TYPE_SIGNAL)
 	alt = add_output_port("Alternate Signal", PORT_TYPE_SIGNAL)

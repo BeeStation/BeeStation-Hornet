@@ -60,7 +60,7 @@
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	visor_flags_inv = HIDEEYES|HIDEFACE|HIDEFACIALHAIR
 
-/obj/item/clothing/head/helmet/space/plasmaman/Initialize()
+/obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
 	. = ..()
 	visor_toggling()
 	verbs -= /obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat
@@ -126,11 +126,11 @@
 	. = ..()
 	if(!isinhands)
 		if(smile)
-			var/mutable_appearance/M = mutable_appearance('icons/mob/head.dmi', smile_state)
+			var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/head.dmi', smile_state)
 			M.color = smile_color
 			. += M
 		if(!up)
-			. += mutable_appearance('icons/mob/head.dmi', visor_icon)
+			. += mutable_appearance('icons/mob/clothing/head.dmi', visor_icon)
 		if(attached_hat)
 			// replace icon_state with worn_icon_state when that comes cause for some reason this associated proc still requires you to insert the object's icon state as an argument 🍖
 			. += attached_hat.build_worn_icon(attached_hat.icon_state, default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/head.dmi')

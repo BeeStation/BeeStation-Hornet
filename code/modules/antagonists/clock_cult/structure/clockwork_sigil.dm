@@ -20,7 +20,7 @@
 	var/looping = FALSE			//TRUE if the affect repeatedly applied an affect to the thing above it
 	var/living_only = TRUE		//FALSE if the rune can affect non-living atoms
 
-/obj/structure/destructible/clockwork/sigil/Initialize()
+/obj/structure/destructible/clockwork/sigil/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,

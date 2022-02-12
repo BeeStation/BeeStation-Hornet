@@ -56,6 +56,79 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">12 February 2022</h2>
+			<h3 class="author">Bizzonium, ported by ike709 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Made SSrunechat be a subsystem of SStimer</li>
+			</ul>
+			<h3 class="author">Cyberboss and Mothblocks, ported by ike709 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Converted a bunch of New() to Initialize().</li>
+				<li class="rscadd">Added a tool to profile atom initialization.</li>
+			</ul>
+			<h3 class="author">Gamer025 and ike709 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Failsafe is more robust now and the game can actually recover from a deleted MC</li>
+				<li class="code_imp">Albeit far from perfect, the game will be fairly playable if the Master Controller dies. It beats the alternative by a lot if there's no admin online to reboot the server.</li>
+			</ul>
+			<h3 class="author">dog132 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="config">Kilo Station is part of the map rotation</li>
+				<li class="rscadd">Kilo Station comes with an exploration shuttle</li>
+				<li class="rscadd">Kilo Station comes with random maint</li>
+				<li class="rscadd">4 random maint rooms from Kilo Station</li>
+				<li class="rscdel">Removed old maint rooms from Kilo Station</li>
+			</ul>
+			<h3 class="author">ike709 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed plasmamen not actually needing to breathe plasma.</li>
+				<li class="tweak">Updated lung code</li>
+				<li class="tweak">Improved the antag rolling prevention.</li>
+				<li class="admin">Changed how the panic bunker works. Admins can now configure it to make first-time players interview to receive access instead of being blocked.</li>
+			</ul>
+			<h3 class="author">tralezab & Ghilker, ported by ike709 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Every Initialize() now passes the mapload var.</li>
+				<li class="bugfix">Fixed gasses being invisible.</li>
+			</ul>
+
+			<h2 class="date">11 February 2022</h2>
+			<h3 class="author">Kylerace, ported by ike709 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">For performance reasons, AI detectors no longer see AI static.</li>
+				<li class="bugfix">AI detectors now change appearance when AIs come closer.</li>
+				<li class="bugfix">Fixed AI static intermittently deciding to stop working.</li>
+				<li class="refactor">Generally cleaned up cameranet code and improved maptick significantly.</li>
+			</ul>
+			<h3 class="author">SapphoQueer updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds suspenders to autodrobe</li>
+			</ul>
+
+			<h2 class="date">10 February 2022</h2>
+			<h3 class="author">TheChaser212 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed crew objectives not being assigned at roundstart</li>
+				<li class="refactor">Cryopods use signals to handle objectives instead of looping through every objective</li>
+				<li class="code_imp">Many minor improvements to objectives</li>
+			</ul>
+			<h3 class="author">ike709 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">When map rotation decides to rotate the map, it will no longer be able to pick the same map.</li>
+				<li class="code_imp">Removed a pointless proc call from chameleon changing.</li>
+				<li class="bugfix">Chameleon clothing now covers the correct slots of whatever it's mimicking.</li>
+			</ul>
+
+			<h2 class="date">09 February 2022</h2>
+			<h3 class="author">ImSynthex updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="imageadd">Changed the medical belt sprite</li>
+			</ul>
+			<h3 class="author">KubeRoot updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">You can now take pictures with cameras again!</li>
+			</ul>
+
 			<h2 class="date">08 February 2022</h2>
 			<h3 class="author">Archanial updated:</h3>
 			<ul class="changes bgimages16">
@@ -860,62 +933,6 @@
 			<ul class="changes bgimages16">
 				<li class="rscadd">Adds a camera viewing app, SecurEye, available for download on laptops and modular consoles to those that have security access.</li>
 				<li class="tweak">Camera console UIs (including for SecurEye) now have the search field locked on screen, rather than scrolling up with the camera list.</li>
-			</ul>
-
-			<h2 class="date">11 December 2021</h2>
-			<h3 class="author">Ivniinvi updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Hours played as pAI are now tracked.</li>
-			</ul>
-			<h3 class="author">zeskorion updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">cyborg stun arms now check stamina armor</li>
-			</ul>
-
-			<h2 class="date">10 December 2021</h2>
-			<h3 class="author">Dejaku51 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed Security cameras not working properly with Overlay Lighting</li>
-				<li class="bugfix">Fixed Exosuits having really small light</li>
-			</ul>
-
-			<h2 class="date">09 December 2021</h2>
-			<h3 class="author">MNarath1 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixes golden core spawned mimic crate</li>
-			</ul>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed on all maps the access to the server room.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes an exploit allowing you to spawn whatever you want.</li>
-			</ul>
-
-			<h2 class="date">08 December 2021</h2>
-			<h3 class="author">Ivniinvi updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Medals Verb is gone, use the Check Achievements one in the OOC tab instead</li>
-				<li class="bugfix">HubMigrator script will now migrate your achievements even if you had never killed a lavaland boss.</li>
-			</ul>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a new Access code for the Research Servers, separating the server room access and the RD's office access, which on roundstart is available only to the Captain and the Research director.</li>
-				<li class="tweak">Adjusted all the maps to have the right access to the server room, where it's now needed either the RD's office access or the Server room access.</li>
-				<li class="rscdel">Removed the Apothecary access, as it was used nowhere and was conflicting with the Request console's announcement system.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes a href + html injection exploit with cards</li>
-			</ul>
-			<h3 class="author">desluOs updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Scanning a harvested mutated plant adds discovery points</li>
-			</ul>
-			<h3 class="author">ike709 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Check Achievements capitalization is now consistent with other verbs.</li>
 			</ul>
 		</div>
 

@@ -126,7 +126,7 @@
 			escaped_monkeys++
 	if(escaped_monkeys >= monkeys_to_win)
 		return TRUE
-	return FALSE
+	return ..()
 
 /datum/team/monkey
 	name = "Monkeys"

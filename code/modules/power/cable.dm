@@ -483,7 +483,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	max_amount = MAXCOIL
 	amount = MAXCOIL
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
-	item_color = "red"
+	var/cable_color = "red"
 	desc = "A coil of insulated power cable."
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
@@ -504,8 +504,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	cost = 1
 
 /obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
-	var/cable_color = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
-	item_color = cable_color
+	var/picked = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
+	cable_color = picked
 	update_icon()
 
 /obj/item/stack/cable_coil/suicide_act(mob/user)
@@ -519,9 +519,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	. = ..()
 
 	var/list/cable_colors = GLOB.cable_colors
-	item_color = param_color || item_color || pick(cable_colors)
-	if(cable_colors[item_color])
-		item_color = cable_colors[item_color]
+	cable_color = param_color || cable_color || pick(cable_colors)
+	if(cable_colors[cable_color])
+		cable_color = cable_colors[cable_color]
 
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
@@ -555,7 +555,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	icon_state = "[initial(item_state)][amount < 3 ? amount : ""]"
 	name = "cable [amount < 3 ? "piece" : "coil"]"
 	color = null
-	add_atom_colour(item_color, FIXED_COLOUR_PRIORITY)
+	add_atom_colour(cable_color, FIXED_COLOUR_PRIORITY)
 
 /obj/item/stack/cable_coil/attack_hand(mob/user)
 	. = ..()
@@ -563,7 +563,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		return
 	var/obj/item/stack/cable_coil/new_cable = ..()
 	if(istype(new_cable))
-		new_cable.item_color = item_color
+		new_cable.cable_color = cable_color
 		new_cable.update_icon()
 
 //add cables to the stack
@@ -582,7 +582,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 /obj/item/stack/cable_coil/proc/get_new_cable(location)
 	var/path = /obj/structure/cable
-	return new path(location, item_color)
+	return new path(location, cable_color)
 
 // called when cable_coil is clicked on a turf
 /obj/item/stack/cable_coil/proc/place_turf(turf/T, mob/user, dirnew)
@@ -769,38 +769,38 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 /////////////////////////////
 
 /obj/item/stack/cable_coil/red
-	item_color = "red"
+	cable_color = "red"
 	color = "#ff0000"
 
 /obj/item/stack/cable_coil/yellow
-	item_color = "yellow"
+	cable_color = "yellow"
 	color = "#ffff00"
 
 /obj/item/stack/cable_coil/blue
-	item_color = "blue"
+	cable_color = "blue"
 	color = "#1919c8"
 
 /obj/item/stack/cable_coil/green
-	item_color = "green"
+	cable_color = "green"
 	color = "#00aa00"
 
 /obj/item/stack/cable_coil/pink
-	item_color = "pink"
+	cable_color = "pink"
 	color = "#ff3ccd"
 
 /obj/item/stack/cable_coil/orange
-	item_color = "orange"
+	cable_color = "orange"
 	color = "#ff8000"
 
 /obj/item/stack/cable_coil/cyan
-	item_color = "cyan"
+	cable_color = "cyan"
 	color = "#00ffff"
 
 /obj/item/stack/cable_coil/white
-	item_color = "white"
+	cable_color = "white"
 
 /obj/item/stack/cable_coil/random
-	item_color = null
+	cable_color = null
 	color = "#ffffff"
 
 
@@ -820,36 +820,36 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	update_icon()
 
 /obj/item/stack/cable_coil/cut/red
-	item_color = "red"
+	cable_color = "red"
 	color = "#ff0000"
 
 /obj/item/stack/cable_coil/cut/yellow
-	item_color = "yellow"
+	cable_color = "yellow"
 	color = "#ffff00"
 
 /obj/item/stack/cable_coil/cut/blue
-	item_color = "blue"
+	cable_color = "blue"
 	color = "#1919c8"
 
 /obj/item/stack/cable_coil/cut/green
-	item_color = "green"
+	cable_color = "green"
 	color = "#00aa00"
 
 /obj/item/stack/cable_coil/cut/pink
-	item_color = "pink"
+	cable_color = "pink"
 	color = "#ff3ccd"
 
 /obj/item/stack/cable_coil/cut/orange
-	item_color = "orange"
+	cable_color = "orange"
 	color = "#ff8000"
 
 /obj/item/stack/cable_coil/cut/cyan
-	item_color = "cyan"
+	cable_color = "cyan"
 	color = "#00ffff"
 
 /obj/item/stack/cable_coil/cut/white
-	item_color = "white"
+	cable_color = "white"
 
 /obj/item/stack/cable_coil/cut/random
-	item_color = null
+	cable_color = null
 	color = "#ffffff"
