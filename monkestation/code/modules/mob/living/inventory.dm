@@ -5,7 +5,7 @@
 	if (I)
 		for(var/obj/item/inv in get_equipped_items(TRUE))
 			if(I.slot_flags == inv.slot_flags)
-				var/list/obj/item/possible = list(get_inactive_held_item(), get_item_by_slot(ITEM_SLOT_BACK), get_item_by_slot(ITEM_SLOT_DEX_STORAGE), get_item_by_slot(ITEM_SLOT_BACK))//we get all possible places it can fit
+				var/list/obj/item/possible = list(get_inactive_held_item(), get_item_by_slot(ITEM_SLOT_BELT), get_item_by_slot(ITEM_SLOT_DEX_STORAGE), get_item_by_slot(ITEM_SLOT_BACK))//we get all possible places it can fit
 				for(var/i in possible)
 					if(!i)
 						continue
