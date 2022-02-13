@@ -21,7 +21,7 @@
 	var/pick_style = PICK_STYLE_ORDERED
 	var/requirehuman = TRUE
 
-/obj/effect/trap/trigger/Initialize()
+/obj/effect/trap/trigger/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
@@ -172,7 +172,7 @@
 	reusable = TRUE
 	var/mob/living/simple_animal/hostile/spawned = /mob/living/simple_animal/hostile/retaliate/spaceman
 
-/obj/effect/trap/nexus/trickyspawner/Initialize()
+/obj/effect/trap/nexus/trickyspawner/Initialize(mapload)
 	. = ..()
 	crossattempts = rand(1, 10)
 

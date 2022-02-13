@@ -18,7 +18,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     var/ruinSpawned = FALSE
     var/mysteryRoom
 
-/obj/item/hilbertshotel/Initialize()
+/obj/item/hilbertshotel/Initialize(mapload)
     . = ..()
     //Load templates
     hotelRoomTemp = new()
@@ -469,7 +469,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 /obj/item/paper/crumpled/docslogs
 	name = "Research Logs"
 
-/obj/item/paper/crumpled/docslogs/Initialize()
+/obj/item/paper/crumpled/docslogs/Initialize(mapload)
 	. = ..()
 	GLOB.hhmysteryRoomNumber = rand(1, SHORT_REAL_LIMIT)
 	info = {"<h4><center>Research Logs</center></h4>

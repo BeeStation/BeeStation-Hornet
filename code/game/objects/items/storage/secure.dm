@@ -209,7 +209,7 @@ There appears to be a small amount of surface corrosion. It doesn't look like it
 	max_integrity = 300
 	color = "#ffdd33"
 
-/obj/item/storage/secure/safe/caps_spare/Initialize()
+/obj/item/storage/secure/safe/caps_spare/Initialize(mapload)
 	. = ..()
 	l_code = SSjob.spare_id_safe_code
 	l_set = TRUE

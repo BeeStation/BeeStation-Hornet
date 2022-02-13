@@ -100,7 +100,7 @@
 	item_state = "giftbag"
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/storage/backpack/santabag/Initialize()
+/obj/item/storage/backpack/santabag/Initialize(mapload)
 	. = ..()
 	regenerate_presents()
 
@@ -355,7 +355,7 @@
 	w_class = WEIGHT_CLASS_NORMAL //Can fit in backpacks itself.
 	level = 1
 
-/obj/item/storage/backpack/satchel/flat/Initialize()
+/obj/item/storage/backpack/satchel/flat/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_T_RAY_VISIBLE, TRAIT_GENERIC)
 

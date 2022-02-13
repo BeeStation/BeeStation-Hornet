@@ -55,7 +55,7 @@
 	var/recent_rack = 0
 	var/tac_reloads = TRUE //Snowflake mechanic no more.
 
-/obj/item/gun/ballistic/Initialize()
+/obj/item/gun/ballistic/Initialize(mapload)
 	. = ..()
 	if (!spawnwithmagazine)
 		bolt_locked = TRUE

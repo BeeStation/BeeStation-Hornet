@@ -1,6 +1,6 @@
 /datum/species/skeleton
 	// 2spooky
-	name = "Spooky Scary Skeleton"
+	name = "\improper Spooky Scary Skeleton"
 	id = "skeleton"
 	say_mod = "rattles"
 	sexes = 0
@@ -16,6 +16,13 @@
 	//They can technically be in an ERT
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 	species_language_holder = /datum/language_holder/skeleton
+
+	species_chest = /obj/item/bodypart/chest/skeleton
+	species_head = /obj/item/bodypart/head/skeleton
+	species_l_arm = /obj/item/bodypart/l_arm/skeleton
+	species_r_arm = /obj/item/bodypart/r_arm/skeleton
+	species_l_leg = /obj/item/bodypart/l_leg/skeleton
+	species_r_leg = /obj/item/bodypart/r_leg/skeleton
 
 /datum/species/skeleton/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])

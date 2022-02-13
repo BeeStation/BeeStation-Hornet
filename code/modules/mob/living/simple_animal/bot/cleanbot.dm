@@ -33,7 +33,7 @@
 	var/next_dest
 	var/next_dest_loc
 
-/mob/living/simple_animal/bot/cleanbot/Initialize()
+/mob/living/simple_animal/bot/cleanbot/Initialize(mapload)
 	. = ..()
 	get_targets()
 	icon_state = "cleanbot[on]"
@@ -302,7 +302,7 @@
 	desc = "A little Larry, he looks so excited!"
 	icon_state = "larry0"
 
-/mob/living/simple_animal/bot/cleanbot/larry/Initialize()
+/mob/living/simple_animal/bot/cleanbot/larry/Initialize(mapload)
 	. = ..()
 	get_targets()
 	icon_state = "larry[on]"
@@ -320,7 +320,7 @@
 	..()
 	icon_state = "larry[on]"
 	bot_core.updateUsrDialog()
-	
+
 /mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A)
 	if(istype(A, /obj/effect/decal/cleanable))
 		anchored = TRUE

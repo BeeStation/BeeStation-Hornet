@@ -12,10 +12,12 @@
 	stat = DEAD
 
 	var/mob/living/new_character	//for instant transfer once the round is set up
+	///Used to make sure someone doesn't get spammed with messages if they're ineligible for roles.
+	var/ineligible_for_roles = FALSE
 
-/mob/dead/new_player/Initialize()
+/mob/dead/new_player/Initialize(mapload)
 	if(client && SSticker.state == GAME_STATE_STARTUP)
-		var/atom/movable/screen/splash/S = new(client, TRUE, TRUE)
+		var/atom/movable/screen/splash/S = new(null, client, TRUE, TRUE)
 		S.Fade(TRUE)
 
 	if(length(GLOB.newplayer_start))
@@ -37,6 +39,9 @@
 	return
 
 /mob/dead/new_player/proc/new_player_panel()
+	if (client?.interviewee)
+		return
+
 	var/datum/asset/asset_datum = get_asset_datum(/datum/asset/simple/lobby)
 	asset_datum.send(client)
 	var/output = "<center><p><a href='byond://?src=[REF(src)];show_preferences=1'>Setup Character</a></p>"
@@ -54,7 +59,7 @@
 		output += "<p><a href='byond://?src=[REF(src)];late_join=1'>Join Game!</a></p>"
 		output += "<p>[LINKIFY_READY("Observe", PLAYER_READY_TO_OBSERVE)]</p>"
 
-	if(!IsGuestKey(src.key))
+	if(!IS_GUEST_KEY(src.key))
 		if (SSdbcore.Connect())
 			var/isadmin = FALSE
 			if(client?.holder)
@@ -100,6 +105,9 @@
 
 	if(!client)
 		return 0
+
+	if(client.interviewee)
+		return FALSE
 
 	//Determines Relevent Population Cap
 	var/relevant_cap
@@ -310,7 +318,7 @@
 	if(job && !job.override_latejoin_spawn(character))
 		SSjob.SendToLateJoin(character)
 		if(!arrivals_docked)
-			var/atom/movable/screen/splash/Spl = new(character.client, TRUE)
+			var/atom/movable/screen/splash/Spl = new(null, character.client, TRUE)
 			Spl.Fade(TRUE)
 			character.playsound_local(get_turf(character), 'sound/voice/welcomeBee.ogg', 50)
 
@@ -339,7 +347,7 @@
 			give_magic(humanc)
 		if(GLOB.curse_of_madness_triggered)
 			give_madness(humanc, GLOB.curse_of_madness_triggered)
-			
+
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREWMEMBER_JOINED, humanc, rank)
 
 	GLOB.joined_player_list += character.ckey
@@ -476,3 +484,63 @@
 	src << browse(null, "window=preferences") //closes job selection
 	src << browse(null, "window=mob_occupation")
 	src << browse(null, "window=latechoices") //closes late job selection
+
+// Used to make sure that a player has a valid job preference setup, used to knock players out of eligibility for anything if their prefs don't make sense.
+// A "valid job preference setup" in this situation means at least having one job set to low, or not having "return to lobby" enabled
+// Prevents "antag rolling" by setting antag prefs on, all jobs to never, and "return to lobby if preferences not available"
+// Doing so would previously allow you to roll for antag, then send you back to lobby if you didn't get an antag role
+// This also does some admin notification and logging as well, as well as some extra logic to make sure things don't go wrong
+/mob/dead/new_player/proc/check_preferences()
+	if(!client)
+		return FALSE //Not sure how this would get run without the mob having a client, but let's just be safe.
+	if(client.prefs.joblessrole != RETURNTOLOBBY)
+		return TRUE
+	// If they have antags enabled, they're potentially doing this on purpose instead of by accident. Notify admins if so.
+	var/has_antags = FALSE
+	if(client.prefs.be_special.len > 0)
+		has_antags = TRUE
+	if(client.prefs.job_preferences.len == 0)
+		if(!ineligible_for_roles)
+			to_chat(src, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
+		ineligible_for_roles = TRUE
+		ready = PLAYER_NOT_READY
+		if(has_antags)
+			log_admin("[src.ckey] just got booted back to lobby with no jobs, but antags enabled.")
+			message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")
+
+		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
+	return TRUE
+
+/**
+  * Prepares a client for the interview system, and provides them with a new interview
+  *
+  * This proc will both prepare the user by removing all verbs from them, as well as
+  * giving them the interview form and forcing it to appear.
+  */
+/mob/dead/new_player/proc/register_for_interview()
+	// First we detain them by removing all the verbs they have on client
+	for (var/v in client.verbs)
+		var/procpath/verb_path = v
+		client.remove_verb(verb_path, FALSE)
+
+	// Then remove those on their mob as well
+	for (var/v in verbs)
+		var/procpath/verb_path = v
+		remove_verb(verb_path, FALSE)
+
+	// Then we create the interview form and show it to the client
+	var/datum/interview/I = GLOB.interviews.interview_for_client(client)
+	if (I)
+		I.ui_interact(src)
+
+	// Add verb for re-opening the interview panel, and re-init the verbs for the stat panel
+	add_verb(/mob/dead/new_player/proc/open_interview)
+
+	UpdateMobStat(forced = TRUE)
+	set_stat_tab("Interview")
+
+	to_chat(src, "<span class='boldannounce'>Panic Bunker Active - Interview Required</span>" \
+					+ "\n<span class='danger'>To prevent abuse, players with no/low playtime are required to complete an interview to gain access." \
+					+ "\nThis is only required once and only for the duration that the panic bunker is active.</span>" \
+					+ "\n<span class='boldwarning'>If the interview interface is not open, use the Open Interview verb in the top right.</span>")
+
