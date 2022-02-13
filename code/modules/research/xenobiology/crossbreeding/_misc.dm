@@ -42,11 +42,10 @@ Slimecrossing Items
 		saved_part.old_part.heal_damage(INFINITY, INFINITY, INFINITY, null, FALSE)
 		saved_part.old_part.receive_damage(saved_part.brute_dam, saved_part.burn_dam, saved_part.stamina_dam)
 		dont_chop[zone] = TRUE
-	for(var/_part in bodyparts)
-		var/obj/item/bodypart/part = _part
-		if(dont_chop[part.body_zone])
+	for(var/obj/item/bodypart/BP as() in bodyparts)
+		if(dont_chop[BP.body_zone])
 			continue
-		part.drop_limb(TRUE)
+		BP.drop_limb(TRUE)
 
 /mob/living/carbon/proc/save_bodyparts()
 	var/list/datum/saved_bodypart/ret = list()
@@ -250,7 +249,7 @@ Slimecrossing Items
 	max_integrity = 100
 	armor = list("melee" = 30, "bullet" = 50, "laser" = -50, "energy" = -50, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = -80, "acid" = 30, "stamina" = 0)
 
-/obj/structure/ice_stasis/Initialize()
+/obj/structure/ice_stasis/Initialize(mapload)
 	. = ..()
 	playsound(src, 'sound/magic/ethereal_exit.ogg', 50, 1)
 

@@ -32,7 +32,7 @@ The console is located at computer/gulag_teleporter.dm
 		/obj/item/clothing/mask/breath,
 		/obj/item/clothing/mask/gas/old))	//makes more sense to give prisoners older models of masks
 
-/obj/machinery/gulag_teleporter/Initialize()
+/obj/machinery/gulag_teleporter/Initialize(mapload)
 	. = ..()
 	locate_reclaimer()
 

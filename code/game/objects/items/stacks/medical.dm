@@ -90,7 +90,7 @@
 			if(stop_bleeding)
 				if(!H.bleedsuppress) //so you can't stack bleed suppression
 					H.suppress_bloodloss(stop_bleeding)
-		if(affecting.status == BODYPART_ORGANIC) //Limb must be organic to be healed - RR
+		if(IS_ORGANIC_LIMB(affecting)) //Limb must be organic to be healed - RR
 			if(affecting.heal_damage(heal_brute, heal_burn))
 				C.update_damage_overlays()
 		else

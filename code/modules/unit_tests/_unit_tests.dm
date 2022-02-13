@@ -32,6 +32,14 @@
 /// Intended to be used in the manner of `TEST_FOCUS(/datum/unit_test/math)`
 #define TEST_FOCUS(test_path) ##test_path { focus = TRUE; }
 
+/// Constants indicating unit test completion status
+#define UNIT_TEST_PASSED 0
+#define UNIT_TEST_FAILED 1
+#define UNIT_TEST_SKIPPED 2
+
+#define TEST_DEFAULT 1
+#define TEST_DEL_WORLD INFINITY
+
 /// A trait source when adding traits through unit tests
 #define TRAIT_SOURCE_UNIT_TESTS "unit_tests"
 
@@ -39,12 +47,22 @@
 #include "check_adjustable_clothing.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
+
+// Del the World.
+// This unit test creates and qdels almost every atom in the code, checking for errors with initialization and harddels on deletion.
+// It is disabled by default for now due to the large amount of consistent errors it produces. Run the "dm: find hard deletes" task to enable it.
+#ifdef REFERENCE_TRACKING_FAST
+#include "create_and_destroy.dm"
+#endif
+
 #include "dynamic_ruleset_sanity.dm"
 #include "keybinding_init.dm"
 #include "reagent_id_typos.dm"
 #include "reagent_recipe_collisions.dm"
 #include "spawn_humans.dm"
 #include "species_whitelists.dm"
+#include "greyscale_config.dm"
+#include "metabolizing.dm"
 #include "projectiles.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
@@ -53,8 +71,12 @@
 #include "unit_test.dm"
 #include "random_ruin_mapsize.dm"
 
+#ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
+#include "find_reference_sanity.dm"
+#endif
+
 #undef TEST_ASSERT
 #undef TEST_ASSERT_EQUAL
 #undef TEST_ASSERT_NOTEQUAL
-#undef TEST_FOCUS
+//#undef TEST_FOCUS - This define is used by vscode unit test extension to pick specific unit tests to run and appended later so needs to be used out of scope here
 #endif

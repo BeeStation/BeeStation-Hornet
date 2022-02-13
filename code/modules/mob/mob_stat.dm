@@ -33,6 +33,10 @@
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
 			requires_holder = TRUE
 			tab_data = GLOB.ahelp_tickets.stat_entry()				//  ~ 0 CPU Time [1 CALL]
+		if("Interviews")
+			client.stat_update_mode = STAT_MEDIUM_UPDATE
+			requires_holder = TRUE
+			tab_data = GLOB.interviews.stat_entry()
 		// ===== SDQL2 =====
 		if("SDQL2")
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
@@ -106,6 +110,13 @@
 
 /mob/proc/get_all_verbs()
 	var/list/all_verbs = new
+
+	if(!client)
+		return all_verbs
+
+	if(client.interviewee)
+		return list("Interview" = list(/mob/dead/new_player/proc/open_interview))
+
 	if(sorted_verbs)
 		all_verbs = deepCopyList(sorted_verbs)
 	//An annoying thing to mention:
@@ -136,13 +147,23 @@
 		tab_data["Next Map"] = GENERATE_STAT_TEXT(cached.map_name)
 	tab_data["Round ID"] = GENERATE_STAT_TEXT("[GLOB.round_id ? GLOB.round_id : "Null"]")
 	tab_data["Server Time"] = GENERATE_STAT_TEXT(time2text(world.timeofday,"YYYY-MM-DD hh:mm:ss"))
-	if (SSticker.round_start_time)
-		tab_data["Round Time"] = GENERATE_STAT_TEXT(gameTimestamp("hh:mm:ss", (world.time - SSticker.round_start_time)))
-	else
-		tab_data["Lobby Time"] = GENERATE_STAT_TEXT(worldtime2text())
 	tab_data["Station Time"] = GENERATE_STAT_TEXT(station_time_timestamp())
+	tab_data["divider_1"] = GENERATE_STAT_BLANK
+
 	tab_data["Time Dilation"] = GENERATE_STAT_TEXT("[round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)")
-	tab_data["Players Connected"] = GENERATE_STAT_TEXT("[GLOB.clients.len]")
+	if (SSticker.round_start_time)
+		tab_data["Internal Round Timer"] = GENERATE_STAT_TEXT(time2text(world.time - SSticker.round_start_time, "hh:mm:ss", 0))
+		tab_data["Actual Round Timer"] = GENERATE_STAT_TEXT(time2text(world.timeofday - SSticker.round_start_timeofday, "hh:mm:ss", 0))
+	else
+		tab_data["Lobby Timer"] = GENERATE_STAT_TEXT(worldtime2text())
+	tab_data["divider_2"] = GENERATE_STAT_BLANK
+
+	if(!SSticker.HasRoundStarted())
+		tab_data["Players Ready/Connected"] = GENERATE_STAT_TEXT("[SSticker.totalPlayersReady]/[GLOB.clients.len]")
+	else
+		tab_data["Players Playing/Connected"] = GENERATE_STAT_TEXT("[get_active_player_count()]/[GLOB.clients.len]")
+	tab_data["divider_3"] = GENERATE_STAT_DIVIDER
+
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
@@ -169,7 +190,7 @@
 	else
 		tab_data["Failsafe Controller"] = GENERATE_STAT_TEXT("ERROR")
 	if(Master)
-		tab_data["divider_2"] = list(type=STAT_DIVIDER)
+		tab_data["divider_2"] = GENERATE_STAT_DIVIDER
 		for(var/datum/controller/subsystem/SS in Master.subsystems)
 			tab_data += SS.stat_entry()
 	tab_data += GLOB.cameranet.stat_entry()
@@ -205,8 +226,13 @@
 	if(client.holder)
 		tabs |= "MC"
 		tabs |= "Tickets"
+		if(CONFIG_GET(flag/panic_bunker_interview))
+			tabs |= "Interviews"
 		if(length(GLOB.sdql2_queries))
 			tabs |= "SDQL2"
+	else if(client.interviewee)
+		tabs |= "Interview"
+
 	var/list/additional_tabs = list()
 	//Performance increase from only adding keys is better than adding values too.
 	for(var/i in get_all_verbs())
@@ -227,6 +253,12 @@
 	switch(button_pressed)
 		if("browsetickets")
 			GLOB.ahelp_tickets.BrowseTickets(src)
+		if("browseinterviews")
+			GLOB.interviews.BrowseInterviews(src)
+		if("open_interview")
+			var/datum/interview/I = GLOB.interviews.interview_by_id(text2num(params["id"]))
+			if (I && client.holder)
+				I.ui_interact(src)
 		if("open_ticket")
 			var/ticket_id = text2num(params["id"])
 			var/datum/admin_help/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)

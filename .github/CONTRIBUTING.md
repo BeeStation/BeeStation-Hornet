@@ -38,12 +38,15 @@ You can of course, as always, ask for help on our discord.
 
 ## 3. Recommended Tools - Creating a Decent Dev Environment
 
-By default, the only thing BYOND provides people with is Dream Maker. It is hardly sufficient, and few (if any) contributors regularly use it. Instead, we have a variety of alternative tools for different purposes that make our lives a lot easier:
+**Important:** Using Dream Maker to write code is not supported and will cause problems. All coding needs to be done in VSCode with the recommended extension(s).
+
+In addition to VSCode, several other tools exist to make your life easier.
 
 * Git client - [GitKraken](https://www.gitkraken.com/)
 * Code editing - [VSCode](https://code.visualstudio.com/) (NOT THE SAME AS VISUAL STUDIO)
-* VSCode Extensions - [DM syntax highlighting](https://marketplace.visualstudio.com/items?itemName=gbasood.byond-dm-language-support), [DM language support](https://marketplace.visualstudio.com/items?itemName=platymuus.dm-langclient)
-* Map editing - [FastDMM2](https://fastdmm2.ss13.io/) or [StrongDMM](https://github.com/SpaiR/StrongDMM)
+* VSCode Extensions - You will be prompted to install this recommended extension automatically: [Goonstation Extension Pack](https://marketplace.visualstudio.com/items?itemName=Goonstation.goonstation-extpack)
+* Map editing - [StrongDMM](https://github.com/SpaiR/StrongDMM) or [FastDMM2](https://fastdmm2.ss13.io/). Dream Maker works but requires additional steps for SS13 that these automate.
+* Icon editing - Dream Maker or your image editor of choice. Any PNG can be imported into Dream Maker.
 
 ## 4. Code Standards
 There are a variety of ways you can write valid DM code. However, BeeStation is not as lenient. Maintaining good code standards is important for performance and readability reasons. You can find details about our code standards [here](https://github.com/BeeStation/BeeStation-Hornet/wiki/Code-Standards).

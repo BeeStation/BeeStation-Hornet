@@ -135,7 +135,7 @@ Class Procs:
 	//Maximum time an EMP will disable this machine for
 	var/emp_susceptibility = 2 MINUTES
 
-/obj/machinery/Initialize()
+/obj/machinery/Initialize(mapload)
 	if(!armor)
 		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
 	. = ..()

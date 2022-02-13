@@ -31,7 +31,7 @@
 	//This is used to optimize the map loader
 	return
 
-/turf/open/space/Initialize()
+/turf/open/space/Initialize(mapload)
 	icon_state = SPACE_ICON_STATE
 	if(!space_gas)
 		space_gas = new

@@ -60,7 +60,7 @@
 		// FIXME: These flags are now pointless and have no effect
 		handle_whitespace = TRUE,
 		trailing_newline = TRUE)
-	if(Master.current_runlevel == RUNLEVEL_INIT || !SSchat?.initialized)
+	if(isnull(Master) || Master.current_runlevel == RUNLEVEL_INIT || !SSchat?.initialized)
 		to_chat_immediate(target, html, type, text)
 		return
 	if(!target || (!html && !text))

@@ -12,7 +12,7 @@
 	var/growth_time = 1200
 
 
-/obj/structure/alien/resin/flower_bud_enemy/Initialize()
+/obj/structure/alien/resin/flower_bud_enemy/Initialize(mapload)
 	. = ..()
 	var/list/anchors = list()
 	anchors += locate(x-2,y+2,z)

@@ -9,7 +9,7 @@
 	tastes = list("leaves" = 1)
 	foodtype = VEGETABLES
 
-/obj/item/reagent_containers/food/snacks/salad/Initialize()
+/obj/item/reagent_containers/food/snacks/salad/Initialize(mapload)
 	. = ..()
 	eatverb = pick("devour","nibble","gnaw","gobble","chomp") //who the fuck gnaws and devours on a salad
 

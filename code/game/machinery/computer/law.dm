@@ -4,7 +4,7 @@
 	var/mob/living/silicon/current = null //The target of future law uploads
 	icon_screen = "command"
 
-/obj/machinery/computer/upload/Initialize()
+/obj/machinery/computer/upload/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/gps, "Encrypted Upload")
 

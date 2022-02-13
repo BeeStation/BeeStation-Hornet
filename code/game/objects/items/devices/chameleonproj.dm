@@ -17,7 +17,7 @@
 	var/saved_appearance = null
 	var/list/vis_overlay_data = list()
 
-/obj/item/chameleon/Initialize()
+/obj/item/chameleon/Initialize(mapload)
 	. = ..()
 	var/obj/item/cigbutt/butt = /obj/item/cigbutt
 	saved_appearance = initial(butt.appearance)
