@@ -645,7 +645,7 @@
 		return
 
 	if(is_capped)
-		if(istype(target, /obj/machinery/modular_fabricator/autolathe))
+		if(istype(target, /obj/machinery/modular_fabricator/autolathe) || istype(target, /obj/machinery/reagentgrinder))
 			return ..()
 		else
 			to_chat(user, "<span class='warning'>Take the cap off first!</span>")
