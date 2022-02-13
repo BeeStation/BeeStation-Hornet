@@ -94,6 +94,7 @@
 	power_coeff = 1
 
 /datum/mutation/human/firebreath/modify()
+	..()
 	if(power)
 		var/obj/effect/proc_holder/spell/aimed/firebreath/S = power
 		S.strength = GET_MUTATION_POWER(src)
