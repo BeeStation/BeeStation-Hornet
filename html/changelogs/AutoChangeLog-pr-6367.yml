@@ -1,0 +1,5 @@
+author: MNarath1
+delete-after: true
+changes:
+  - bugfix: fixes another infinite iron duplication exploit
+  - code_imp: removes a redundant list copy
