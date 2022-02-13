@@ -410,7 +410,7 @@
 					return
 				//monkestation edit
 				var/mob/living/simple_animal/bot/secbot/S
-				if(prob(1))
+				if(prob(80))//lol
 					to_chat(user, "<span class='notice'>You complete the Securitron! Beep boop.</span>")
 					S = new(Tsec)
 				else
