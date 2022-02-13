@@ -1,0 +1,5 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - bugfix: Fixed the murder door by the bar's maintenance on Fland
+  - bugfix: The tables in the bar are no longer doublestacked on Fland
