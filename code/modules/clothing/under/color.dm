@@ -8,8 +8,9 @@
 	icon_state = "jumpsuit"
 	item_state = "jumpsuit"
 	worn_icon_state = "jumpsuit"
-	worn_icon = 'icons/mob/uniform.dmi'
+	worn_icon = 'icons/mob/clothing/uniform.dmi'
 	supports_variations = DIGITIGRADE_VARIATION
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/color/jumpskirt
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON //Doesn't require a new icon.
@@ -206,6 +207,12 @@
 /obj/item/clothing/under/color/jumpskirt/maroon
 	name = "maroon jumpskirt"
 	greyscale_colors = "#cc295f"
+
+/obj/item/clothing/under/color/durathread
+	name = "durathread jumpsuit"
+	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
+	greyscale_colors = "#8291a1"
+	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5, "stamina" = 30)
 
 /obj/item/clothing/under/color/rainbow
 	name = "rainbow jumpsuit"
