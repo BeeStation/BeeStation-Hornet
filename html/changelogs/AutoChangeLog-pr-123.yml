@@ -1,0 +1,4 @@
+author: pitaden
+delete-after: true
+changes:
+  - bugfix: fixed the MKII assistant envirohelm sprite
