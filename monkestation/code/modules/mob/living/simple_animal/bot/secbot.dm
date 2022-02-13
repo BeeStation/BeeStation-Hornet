@@ -28,12 +28,12 @@
 
 /mob/living/simple_animal/bot/secbot/pizzky/New()
 	..()
+	last_grumble_speak = world.time //so he doesn't grumble on spawn
 	var/list/messagevoice = list("I AM NOW ALIVE AND I'M ABOUT TO MAKE IT EVERYONE ELSE'S PROBLEM!" = 'monkestation/sound/voice/pizzky/spawn1.ogg',
 								 "WHY THE FUCK WOULD YOU BUILD THIS? WHAT THE FUCK IS WRONG WITH YOU?!" = 'monkestation/sound/voice/pizzky/spawn2.ogg')
 	var/message = pick(messagevoice)
 	say(message)
 	playsound(src,messagevoice[message], 100, 0)
-	sleep(10 SECONDS)
 
 /mob/living/simple_animal/bot/secbot/pizzky/explode()
 	var/atom/Tsec = drop_location()
