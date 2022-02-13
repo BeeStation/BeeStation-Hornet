@@ -1,0 +1,4 @@
+author: MSO, ported by ike709
+delete-after: true
+changes:
+  - code_imp: SSgarbage should be able to clear most of its queue much faster.
