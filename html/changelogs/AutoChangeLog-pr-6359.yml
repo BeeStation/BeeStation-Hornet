@@ -1,0 +1,5 @@
+author: The-Moon-Itself
+delete-after: true
+changes:
+  - bugfix: Energetic chromosome now properly applies to active mutations and fire
+      breath.
