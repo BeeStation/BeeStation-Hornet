@@ -25,12 +25,6 @@
 	icon_state = "mailman"
 	item_state = "b_suit"
 
-/obj/item/clothing/under/misc/psyche
-	name = "psychedelic jumpsuit"
-	desc = "Groovy!"
-	icon_state = "psyche"
-	item_state = "p_suit"
-
 /obj/item/clothing/under/misc/vice_officer
 	name = "vice officer's jumpsuit"
 	desc = "It's the standard issue pretty-boy outfit, as seen on Holo-Vision."
@@ -130,14 +124,6 @@
 	desc = "A cartridge loaded with a compressed extinguisher mix, used to refill the automatic extinguisher on plasma envirosuits."
 	icon_state = "plasmarefill"
 	icon = 'icons/obj/device.dmi'
-
-/obj/item/clothing/under/misc/durathread
-	name = "durathread jumpsuit"
-	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
-	icon_state = "durathread"
-	item_state = "durathread"
-	can_adjust = FALSE
-	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5, "stamina" = 30)
 
 /////////////////
 //DONATOR ITEMS//

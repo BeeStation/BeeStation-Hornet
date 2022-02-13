@@ -157,7 +157,7 @@
 	icon_state = "black_suit_fem"
 	item_state = "bl_suit"
 
-/obj/item/clothing/under/lawyer/civilian/lawyer/female/skirt
+/obj/item/clothing/under/rank/civilian/lawyer/female/skirt
 	name = "female black suitskirt"
 	icon_state = "black_suit_fem_skirt"
 	item_state = "bl_suit"
@@ -215,7 +215,7 @@
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 
-/obj/item/clothing/under/lawyer/civilian/lawyer/purpsuit/skirt
+/obj/item/clothing/under/rank/civilian/lawyer/purpsuit/skirt
 	name = "purple suitskirt"
 	icon_state = "lawyer_purp_skirt"
 	item_state = "p_suit"

@@ -798,7 +798,7 @@
 
 /obj/item/clothing/under/costume/joker
 	name = "comedian suit"
-	desc = "The worst part of having a mental illness is people expect you to behave as if you don’t."
+	desc = "The worst part of having a mental illness is people expect you to behave as if you don't."
 	icon_state = "joker"
 	item_state = "joker"
 	can_adjust = FALSE
