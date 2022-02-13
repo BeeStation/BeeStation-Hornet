@@ -1,6 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - bugfix: fixed durathread jumpsuit not having icons
-  - bugfix: fixed a few lawyer skirts having wrong paths.
-  - rscdel: removed unused psyche jumpsuit
