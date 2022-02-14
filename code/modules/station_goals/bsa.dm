@@ -306,6 +306,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/middle)
 		options += GLOB.teleportlocs
 	var/V = input(user,"Select target", "Select target",null) in options|null
 	target = options[V]
+	log_game("[key_name(user)] has aimed the artillery strike at [target].")
 
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
