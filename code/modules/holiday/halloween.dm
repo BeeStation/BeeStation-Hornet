@@ -34,7 +34,7 @@
 	var/trapped = 0
 	var/mob/trapped_mob
 
-/obj/structure/closet/initialize()
+/obj/structure/closet/Initialize(mapload)
 	..()
 	if(prob(30))
 		set_spooky_trap()
@@ -129,7 +129,7 @@
 	layer = 4
 	var/timer = 0
 
-/mob/living/simple_animal/shade/howling_ghost/Initialize()
+/mob/living/simple_animal/shade/howling_ghost/Initialize(mapload)
 	. = ..()
 	icon_state = pick("ghost","ghostian","ghostian2","ghostking","ghost1","ghost2")
 	icon_living = icon_state
@@ -189,7 +189,7 @@
 	unsuitable_atmos_damage = 0
 	var/timer
 
-/mob/living/simple_animal/hostile/retaliate/clown/insane/Initialize()
+/mob/living/simple_animal/hostile/retaliate/clown/insane/Initialize(mapload)
 	. = ..()
 	timer = rand(5,15)
 	status_flags = (status_flags | GODMODE)

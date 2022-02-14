@@ -8,7 +8,7 @@ tgui is very different from most UIs you will encounter in BYOND programming. It
 
 ## Learn tgui
 
-People come to tgui from different backgrounds and with different learning styles. Whether you prefer a more theoretical or a practical approach, we hope you’ll find this section helpful.
+People come to tgui from different backgrounds and with different learning styles. Whether you prefer a more theoretical or a practical approach, we hope you'll find this section helpful.
 
 ### Practical Tutorial
 

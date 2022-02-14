@@ -28,9 +28,13 @@
 
 #endif //ifdef REFERENCE_TRACKING
 
-
 //#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
 #endif //ifdef TESTING
+
+/// If this is uncommented, will profile mapload atom initializations
+// #define PROFILE_MAPLOAD_INIT_ATOM
+
+//#define UNIT_TESTS			//If this is uncommented, we do a single run though of the game setup and tear down process with unit tests in between
 
 /// If this is uncommented, we set up the ref tracker to be used in a live environment
 /// And to log events to [log_dir]/harddels.log
@@ -46,8 +50,6 @@
 #define REFERENCE_TRACKING
 #define REFERENCE_TRACKING_DEBUG
 #endif
-
-//#define UNIT_TESTS //If this is uncommented, we do a single run though of the game setup and tear down process with unit tests in between
 
 #ifndef PRELOAD_RSC				//set to:
 #define PRELOAD_RSC	0			//	0 to allow using external resources or on-demand behaviour;

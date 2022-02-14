@@ -32,6 +32,10 @@ SUBSYSTEM_DEF(economy)
 		new /datum/bank_account/department(A, budget_to_hand_out)
 	return ..()
 
+/datum/controller/subsystem/economy/Recover()
+	generated_accounts = SSeconomy.generated_accounts
+	dep_cards = SSeconomy.dep_cards
+
 /datum/controller/subsystem/economy/fire(resumed = 0)
 	var/delta_time = wait / (5 MINUTES)
 	for(var/A in bank_accounts)
