@@ -84,7 +84,7 @@
 /obj/effect/spawner/hangover_spawn
 	name = "hangover spawner"
 
-/obj/effect/spawner/hangover_spawn/Initialize()
+/obj/effect/spawner/hangover_spawn/Initialize(mapload)
 	if(prob(60))
 		new /obj/effect/decal/cleanable/vomit(get_turf(src))
 	if(prob(70))

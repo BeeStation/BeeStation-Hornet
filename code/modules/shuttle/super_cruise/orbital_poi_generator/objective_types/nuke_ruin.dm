@@ -5,8 +5,8 @@
 	var/obj/machinery/nuclearbomb/decomission/nuclear_bomb
 	var/obj/item/disk/nuclear/decommission/nuclear_disk
 	//Relatively easy mission.
-	min_payout = 80000
-	max_payout = 400000
+	min_payout = 8000
+	max_payout = 40000
 
 /datum/orbital_objective/nuclear_bomb/generate_objective_stuff(turf/chosen_turf)
 	generated = TRUE
@@ -59,7 +59,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 	. = ..()
 	AddComponent(/datum/component/gps, "BOMB0", TRUE)
 
-/obj/machinery/nuclearbomb/decomission/Initialize()
+/obj/machinery/nuclearbomb/decomission/Initialize(mapload)
 	. = ..()
 	GLOB.decomission_bombs += src
 	r_code = "[rand(10000, 99999)]"

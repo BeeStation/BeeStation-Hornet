@@ -103,7 +103,12 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 
 	chosen_dna.transfer_identity(user, 1)
 	user.updateappearance(mutcolor_update=1)
-	user.update_body()
+
+	///Bodypart data hack. Will rewrite when I rewrite changelings soon-ish
+	for(var/obj/item/bodypart/BP as() in user.bodyparts)
+		if(IS_ORGANIC_LIMB(BP))
+			BP.update_limb(is_creating = TRUE)
+
 	user.domutcheck()
 
 	//vars hackery. not pretty, but better than the alternative.
@@ -131,7 +136,6 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 		C.appearance = chosen_prof.appearance_list[slot]
 		C.name = chosen_prof.name_list[slot]
 		C.flags_cover = chosen_prof.flags_cover_list[slot]
-		C.item_color = chosen_prof.item_color_list[slot]
 		C.item_state = chosen_prof.item_state_list[slot]
 
 		if(istype(C, /obj/item/changeling/id) && chosen_prof.id_icon)
