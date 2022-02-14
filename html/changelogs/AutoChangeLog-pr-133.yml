@@ -1,5 +1,0 @@
-author: nednaZ
-delete-after: true
-changes:
-  - bugfix: You no longer believe yourself to be another person while they are opening
-      their mail.
