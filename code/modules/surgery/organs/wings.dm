@@ -11,7 +11,7 @@
 	var/wingsound = null
 	var/datum/action/innate/flight/fly
 
-/obj/item/organ/wings/Initialize()
+/obj/item/organ/wings/Initialize(mapload)
 	. = ..()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner

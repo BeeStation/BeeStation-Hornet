@@ -13,7 +13,6 @@
 	name = "atmospheric technician's jumpsuit"
 	icon_state = "atmos"
 	item_state = "atmos_suit"
-	item_color = "atmos"
 	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/engineering/engineer
@@ -21,7 +20,6 @@
 	name = "engineer's jumpsuit"
 	icon_state = "engine"
 	item_state = "engi_suit"
-	item_color = "engine"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 60, "acid" = 20, "stamina" = 0)
 	resistance_flags = NONE
 
@@ -30,6 +28,5 @@
 	desc = "A high visibility jumpsuit made from heat and radiation resistant materials."
 	icon_state = "hazard"
 	item_state = "suit-orange"
-	item_color = "hazard"
 	alt_covers_chest = TRUE
 

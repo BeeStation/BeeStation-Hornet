@@ -8,7 +8,6 @@
 	item_state = "boomboot0"
 	magboot_state = "boomboot"
 	slowdown = SHOES_SLOWDOWN+1
-	item_color = "boomboots"
 	actions_types = list(/datum/action/item_action/toggle)
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes/clown
 	var/datum/component/waddle

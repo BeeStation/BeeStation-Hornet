@@ -40,7 +40,7 @@
 	var/sound/countdown_music = null
 	COOLDOWN_DECLARE(arm_cooldown)
 
-/obj/machinery/nuclearbomb/Initialize()
+/obj/machinery/nuclearbomb/Initialize(mapload)
 	. = ..()
 	countdown = new(src)
 	GLOB.nuke_list += src
@@ -539,7 +539,7 @@
 	proper_bomb = FALSE
 	var/obj/structure/reagent_dispensers/beerkeg/keg
 
-/obj/machinery/nuclearbomb/beer/Initialize()
+/obj/machinery/nuclearbomb/beer/Initialize(mapload)
 	. = ..()
 	keg = new(src)
 	QDEL_NULL(core)
@@ -654,7 +654,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	var/last_disk_move
 	var/process_tick = 0
 
-/obj/item/disk/nuclear/Initialize()
+/obj/item/disk/nuclear/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/bed_tuckable, 6, -6, 0)
 	if(!fake)

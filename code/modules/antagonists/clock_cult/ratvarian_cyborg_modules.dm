@@ -7,7 +7,7 @@
 	item_flags = NOBLUDGEON
 	var/scripture_datum
 
-/obj/item/clock_module/Initialize()
+/obj/item/clock_module/Initialize(mapload)
 	..()
 	var/datum/clockcult/scripture/S = new scripture_datum
 	name = S.name

@@ -33,7 +33,7 @@ Everything else should be handled for you. Good luck soldier.
 			autofire_component?.default_fire_delay = (10 / var_value)
 			return
 
-/obj/item/gun/Initialize()
+/obj/item/gun/Initialize(mapload)
 	. = ..()
 	if(full_auto)
 		canMouseDown = TRUE

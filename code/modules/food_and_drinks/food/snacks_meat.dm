@@ -25,7 +25,7 @@
 	tastes = list("fish" = 1)
 	foodtype = MEAT
 
-/obj/item/reagent_containers/food/snacks/carpmeat/Initialize()
+/obj/item/reagent_containers/food/snacks/carpmeat/Initialize(mapload)
 	. = ..()
 	eatverb = pick("bite","chew","gnaw","swallow","chomp")
 
@@ -127,7 +127,7 @@
 	foodtype = MEAT | BREAKFAST
 	var/roasted = FALSE
 
-/obj/item/reagent_containers/food/snacks/sausage/Initialize()
+/obj/item/reagent_containers/food/snacks/sausage/Initialize(mapload)
 	. = ..()
 	eatverb = pick("bite","chew","nibble","gobble","chomp")
 
@@ -210,7 +210,7 @@
 	tastes = list("soy" = 1, "vegetables" = 1)
 	foodtype = VEGETABLES
 
-/obj/item/reagent_containers/food/snacks/stewedsoymeat/Initialize()
+/obj/item/reagent_containers/food/snacks/stewedsoymeat/Initialize(mapload)
 	. = ..()
 	eatverb = pick("slurp","sip","inhale","drink")
 
@@ -255,7 +255,7 @@
 	tastes = list("\"chicken\"" = 1)
 	foodtype = MEAT
 
-/obj/item/reagent_containers/food/snacks/nugget/Initialize()
+/obj/item/reagent_containers/food/snacks/nugget/Initialize(mapload)
 	. = ..()
 	var/shape = pick("lump", "star", "lizard", "corgi")
 	desc = "A 'chicken' nugget vaguely shaped like a [shape]."
@@ -370,7 +370,7 @@
   tastes = list("fish" = 1,"cruelty" = 2)
   foodtype = MEAT
 
-/obj/item/reagent_containers/food/snacks/dolphinmeat/Initialize()
+/obj/item/reagent_containers/food/snacks/dolphinmeat/Initialize(mapload)
   . = ..()
   eatverb = pick("bite","chew","choke down","gnaw","swallow","chomp")
 

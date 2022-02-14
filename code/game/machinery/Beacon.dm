@@ -10,7 +10,7 @@
 	idle_power_usage = 0
 	var/obj/item/beacon/Beacon
 
-/obj/machinery/bluespace_beacon/Initialize()
+/obj/machinery/bluespace_beacon/Initialize(mapload)
 	. = ..()
 	var/turf/T = loc
 	Beacon = new(T)

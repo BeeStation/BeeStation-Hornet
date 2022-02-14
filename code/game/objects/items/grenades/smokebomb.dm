@@ -8,7 +8,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	var/datum/effect_system/smoke_spread/bad/smoke
 
-/obj/item/grenade/smokebomb/Initialize()
+/obj/item/grenade/smokebomb/Initialize(mapload)
 	. = ..()
 	smoke = new
 	smoke.attach(src)

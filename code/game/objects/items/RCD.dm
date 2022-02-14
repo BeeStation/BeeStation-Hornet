@@ -40,7 +40,7 @@ RLD
 	var/datum/component/remote_materials/silo_mats //remote connection to the silo
 	var/silo_link = FALSE //switch to use internal or remote storage
 
-/obj/item/construction/Initialize()
+/obj/item/construction/Initialize(mapload)
 	. = ..()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
@@ -422,7 +422,7 @@ RLD
 					return TRUE
 	qdel(rcd_effect)
 
-/obj/item/construction/rcd/Initialize()
+/obj/item/construction/rcd/Initialize(mapload)
 	. = ..()
 	airlock_electronics = new(src)
 	airlock_electronics.name = "Access Control"
@@ -528,7 +528,7 @@ RLD
 		cut_overlays()	//To prevent infinite stacking of overlays
 		add_overlay("[icon_state]_charge[ratio]")
 
-/obj/item/construction/rcd/Initialize()
+/obj/item/construction/rcd/Initialize(mapload)
 	. = ..()
 	update_icon()
 

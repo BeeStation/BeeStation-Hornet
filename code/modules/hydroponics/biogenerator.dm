@@ -22,7 +22,7 @@
 	/// Currently selected category in the UI
 	var/selected_cat
 
-/obj/machinery/biogenerator/Initialize()
+/obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
 	//MonkeStation Changes Start
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)

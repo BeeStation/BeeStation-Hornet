@@ -150,7 +150,7 @@ Regenerative extracts:
 	target.forceMove(T)
 	do_sparks(5,FALSE,target)
 
-/obj/item/slimecross/regenerative/bluespace/Initialize()
+/obj/item/slimecross/regenerative/bluespace/Initialize(mapload)
 	. = ..()
 	T = get_turf(src)
 

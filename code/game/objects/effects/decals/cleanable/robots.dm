@@ -50,7 +50,7 @@
 	blood_state = BLOOD_STATE_OIL
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 
-/obj/effect/decal/cleanable/oil/Initialize()
+/obj/effect/decal/cleanable/oil/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/oil, 30)
 

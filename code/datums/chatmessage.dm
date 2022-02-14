@@ -76,6 +76,10 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	var/static/current_z_idx = 0
 	/// Color of the message
 	var/tgt_color
+	/// Contains ID of assigned timer for end_of_life fading event
+	var/fadertimer = null
+	/// States if end_of_life is being executed
+	var/isFading = FALSE
 
 /**
   * Constructs a chat message overlay
@@ -105,7 +109,6 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	hearers = null
 	message_loc = null
 	message = null
-	leave_subsystem()
 	return ..()
 
 /**
@@ -232,11 +235,15 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			combined_height += m.approx_lines
 
 			// When choosing to update the remaining time we have to be careful not to update the
-			// scheduled time once the EOL completion time has been set.
-			var/sched_remaining = m.scheduled_destruction - world.time
-			if (!m.eol_complete)
+			// scheduled time once the EOL has been executed.
+			if (!m.isFading)
+				var/sched_remaining = timeleft(m.fadertimer, SSrunechat)
 				var/remaining_time = (sched_remaining) * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** CEILING(combined_height, 1))
-				m.enter_subsystem(world.time + remaining_time) // push updated time to runechat SS
+				if (remaining_time)
+					deltimer(m.fadertimer, SSrunechat)
+					m.fadertimer = addtimer(CALLBACK(m, .proc/end_of_life), remaining_time, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
+				else
+					m.end_of_life()
 
 	// Reset z index if relevant
 	if (current_z_idx >= CHAT_LAYER_MAX_Z)
@@ -269,8 +276,8 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	LAZYADD(message_loc.chat_messages, src)
 
 	// Register with the runechat SS to handle EOL and destruction
-	scheduled_destruction = world.time + (lifespan - CHAT_MESSAGE_EOL_FADE)
-	enter_subsystem()
+	var/duration = lifespan - CHAT_MESSAGE_EOL_FADE
+	fadertimer = addtimer(CALLBACK(src, .proc/end_of_life), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 
 /datum/chatmessage/proc/client_deleted(client/source)
 	SIGNAL_HANDLER
@@ -278,15 +285,15 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 /**
   * Applies final animations to overlay CHAT_MESSAGE_EOL_FADE deciseconds prior to message deletion,
-  * sets time for scheduling deletion and re-enters the runechat SS for qdeling
+  * sets timer for scheduling deletion
   *
   * Arguments:
   * * fadetime - The amount of time to animate the message's fadeout for
   */
 /datum/chatmessage/proc/end_of_life(fadetime = CHAT_MESSAGE_EOL_FADE)
-	eol_complete = scheduled_destruction + fadetime
+	isFading = TRUE
 	animate(message, alpha = 0, pixel_y = message.pixel_y + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
-	enter_subsystem(eol_complete) // re-enter the runechat SS with the EOL completion time to QDEL self
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), fadetime, TIMER_DELETE_ME, SSrunechat)
 
 /mob/proc/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote = FALSE, is_heard = FALSE)
 	if(!client)
@@ -544,8 +551,8 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	)
 
 	// Register with the runechat SS to handle EOL and destruction
-	scheduled_destruction = world.time + BALLOON_TEXT_TOTAL_LIFETIME(duration_mult)
-	enter_subsystem()
+	var/duration = BALLOON_TEXT_TOTAL_LIFETIME(duration_mult)
+	fadertimer = addtimer(CALLBACK(src, .proc/end_of_life), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 
 
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN

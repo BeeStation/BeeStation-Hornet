@@ -3,9 +3,9 @@
 	desc = "Track with this."
 	activated = FALSE
 	///for how many deciseconds after user death will the implant work?
-	var/lifespan_postmortem = 6000 
+	var/lifespan_postmortem = 6000
 	///will people implanted with this act as teleporter beacons?
-	var/allow_teleport = TRUE 
+	var/allow_teleport = TRUE
 	///The id of the timer that's qdeleting us
 	var/timerid
 
@@ -15,7 +15,7 @@
 	var/lifespan = 3000 //how many deciseconds does the implant last?
 	allow_teleport = FALSE
 
-/obj/item/implant/tracking/c38/Initialize()
+/obj/item/implant/tracking/c38/Initialize(mapload)
 	. = ..()
 	timerid = QDEL_IN(src, lifespan)
 

@@ -66,10 +66,6 @@ SUBSYSTEM_DEF(ticker)
 	var/fail_counter
 	var/emergency_start = FALSE
 
-	//Crew Objective stuff
-	var/list/crewobjlist = list()
-	var/list/crewobjjobs = list()
-
 /datum/controller/subsystem/ticker/Initialize(timeofday)
 	load_mode()
 
@@ -150,13 +146,6 @@ SUBSYSTEM_DEF(ticker)
 		gametime_offset = rand(0, 23) HOURS
 	else if(CONFIG_GET(flag/shift_time_realtime))
 		gametime_offset = world.timeofday
-
-	crewobjlist = typesof(/datum/objective/crew)
-	for(var/hooray in crewobjlist) //taken from old Hippie's "job2obj" proc with adjustments.
-		var/datum/objective/crew/obj = hooray
-		var/list/availableto = splittext(initial(obj.jobs),",")
-		for(var/job in availableto)
-			crewobjjobs["[job]"] += list(obj)
 
 	return ..()
 
@@ -479,7 +468,7 @@ SUBSYSTEM_DEF(ticker)
 			qdel(player)
 			living.notransform = TRUE
 			if(living.client)
-				var/atom/movable/screen/splash/S = new(living.client, TRUE)
+				var/atom/movable/screen/splash/S = new(null, living.client, TRUE)
 				S.Fade(TRUE)
 			livings += living
 	if(livings.len)

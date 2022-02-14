@@ -112,7 +112,7 @@
 
 	var/static/list/airlock_overlays = list()
 
-/obj/machinery/door/airlock/Initialize()
+/obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/airlock(src)
 	if(frequency)

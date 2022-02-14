@@ -10,8 +10,7 @@ If you are familiar with NanoUI (a library which can be found on almost every ot
 
 ## Learn tgui
 
-People come to tgui from different backgrounds and with different learning styles.
-Whether you prefer a more theoretical or a practical approach, we hope you’ll find this section helpful.
+People come to tgui from different backgrounds and with different learning styles. Whether you prefer a more theoretical or a practical approach, we hope you'll find this section helpful.
 
 ### Practical Tutorial
 

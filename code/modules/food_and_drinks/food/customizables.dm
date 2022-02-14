@@ -306,7 +306,7 @@
 	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "wishsoup"
 
-/obj/item/reagent_containers/food/snacks/customizable/soup/Initialize()
+/obj/item/reagent_containers/food/snacks/customizable/soup/Initialize(mapload)
 	. = ..()
 	eatverb = pick("slurp","sip","inhale","drink")
 
