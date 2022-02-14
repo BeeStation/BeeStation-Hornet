@@ -217,6 +217,12 @@
 	icon_state = "atmos_envirohelm"
 	item_state = "atmos_envirohelm"
 
+/obj/item/clothing/head/helmet/space/plasmaman/mailman
+	name = "mailman envirosuit helmet"
+	desc = "<i>'Right-on-time'</i> mail plasmamen service head wear."
+	icon_state = "mailman_envirohelm"
+	item_state = "mailman_envirohelm"
+
 /obj/item/clothing/head/helmet/space/plasmaman/cargo
 	name = "cargo envirosuit helmet"
 	desc = "An plasmaman envirohelmet designed for cargo techs and quartermasters."
@@ -567,6 +573,12 @@
 	item_state = "cargo_openvirohelm"
 	visor_icon = "openvisor"
 
+/obj/item/clothing/head/helmet/space/plasmaman/mailman/mark2
+	name = "mailman Mk.II envirosuit helmet"
+	desc = "<i>'Right-on-time'</i> a modernized mail plasmamen service head wear."
+	icon_state = "mailman_openvirohelm"
+	item_state = "mailman_openvirohelm"
+
 /obj/item/clothing/head/helmet/space/plasmaman/mining/mark2
 	name = "mining Mk.II envirosuit helmet"
 	desc = "A new styling of the classi khaki helmet given to plasmamen miners."
@@ -795,6 +807,12 @@
 	icon_state = "cargo_armouredenvirohelm"
 	item_state = "cargo_armouredenvirohelm"
 	visor_icon = "armouredenvisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/mailman/protective
+	name = "mailman Mk.II envirosuit helmet"
+	desc = "<i>'Right-on-time'</i> a braced mail plasmamen service head wear."
+	icon_state = "mailman_armouredenvirohelm"
+	item_state = "mailman_armouredenvirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/mining/protective
 	name = "mining Mk.II envirosuit helmet"
