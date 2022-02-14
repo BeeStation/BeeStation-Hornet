@@ -174,7 +174,7 @@
 			return
 
 	//EMOTE MESSAGE/MOB TARGETED FARTS
-	for(var/mob/Targeted in Location)
+	for(var/mob/living/Targeted in Location)
 		if(Targeted != user)
 			to_chat(user,"[user] [pick(
 										"farts in [Targeted]'s face!",
