@@ -109,6 +109,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 			previous_distance = get_dist(src, destination)
 		else if(FLOOR(cur_dist - previous_distance, 1) > 10)
 			qdel(src)
+			return ..()
 	previous_distance = cur_dist
 	if(special_target && loc == get_turf(special_target))
 		complete_trajectory()
@@ -169,7 +170,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/attack_hand(mob/living/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/U = user
-		if(U.job in list("Research Director"))
+		if(U.get_assignment() == "Research Director")
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			for(var/mob/M in urange(8, src))
 				if(!M.stat)
