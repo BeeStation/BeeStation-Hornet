@@ -52,6 +52,24 @@
 		qdel(W)
 		qdel(src)
 
+/obj/item/bot_assembly/larry
+	name = "incomplete larry frame"
+	desc = "It's a larry with a sensor attached"
+	icon_state = "larry_proxy"
+	throwforce = 5
+	created_name = "Larry"
+
+/obj/item/bot_assembly/larry/attackby(obj/item/W, mob/user, params)
+	..()
+	if(istype(W, /obj/item/bodypart/l_arm/robot) || istype(W, /obj/item/bodypart/r_arm/robot))
+		if(!can_finish_build(W, user))
+			return
+		var/mob/living/simple_animal/bot/cleanbot/larry/A = new(drop_location())
+		A.name = created_name
+		A.robot_arm = W.type
+		to_chat(user, "<span class='notice'>You add [W] to [src]. Beep boop!</span>")
+		qdel(W)
+		qdel(src)
 
 //Edbot Assembly
 /obj/item/bot_assembly/ed209
@@ -206,7 +224,7 @@
 	var/toolbox = /obj/item/storage/toolbox/mechanical
 	var/toolbox_color = "" //Blank for blue, r for red, y for yellow, etc.
 
-/obj/item/bot_assembly/floorbot/Initialize()
+/obj/item/bot_assembly/floorbot/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -258,7 +276,7 @@
 	var/healthanalyzer = /obj/item/healthanalyzer
 	var/firstaid = /obj/item/storage/firstaid
 
-/obj/item/bot_assembly/medbot/Initialize()
+/obj/item/bot_assembly/medbot/Initialize(mapload)
 	. = ..()
 	spawn(5)
 		if(skin)

@@ -25,7 +25,7 @@
 	if(is_servant_of_ratvar(M))
 		return FALSE
 	//Anti magic abilities
-	var/anti_magic_source = M.anti_magic_check()
+	var/anti_magic_source = M.anti_magic_check(holy = TRUE)
 	if(anti_magic_source)
 		M.mob_light(_color = LIGHT_COLOR_HOLY_MAGIC, _range = 2, _duration = 100)
 		var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)

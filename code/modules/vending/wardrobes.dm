@@ -166,6 +166,7 @@
 					/obj/item/clothing/under/rank/rnd/roboticist/skirt = 2,
 					/obj/item/clothing/under/plasmaman/robotics = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/robotics = 2,
+					/obj/item/clothing/under/rank/rnd/roboticist/retro =2,
 					/obj/item/clothing/suit/toggle/labcoat = 2,
 					/obj/item/clothing/shoes/sneakers/black = 2,
 					/obj/item/clothing/gloves/fingerless = 2,
@@ -174,7 +175,10 @@
 					/obj/item/clothing/head/beret/sci = 2)
 
 	contraband = list(/obj/item/clothing/suit/hooded/techpriest = 2,
-					/obj/item/organ/tongue/robot = 2)
+					/obj/item/organ/tongue/robot = 2,
+					/obj/item/clothing/under/costume/mech_suit = 2,
+					/obj/item/clothing/under/costume/mech_suit/white = 2,
+					/obj/item/clothing/under/costume/mech_suit/blue = 2,)
 	refill_canister = /obj/item/vending_refill/wardrobe/robo_wardrobe
 	extra_price = 300
 	payment_department = ACCOUNT_SCI
@@ -361,12 +365,12 @@
 					/obj/item/clothing/suit/toggle/lawyer = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/purpsuit = 1,
 					/obj/item/clothing/suit/toggle/lawyer/purple = 1,
-					/obj/item/clothing/under/lawyer/civilian/lawyer/purpsuit/skirt = 1,
+					/obj/item/clothing/under/rank/civilian/lawyer/purpsuit/skirt = 1,
 					/obj/item/clothing/under/suit/black = 1,
 					/obj/item/clothing/under/suit/black/skirt = 1,
 					/obj/item/clothing/suit/toggle/lawyer/black = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/female = 1,
-					/obj/item/clothing/under/lawyer/civilian/lawyer/female/skirt = 1,
+					/obj/item/clothing/under/rank/civilian/lawyer/female/skirt = 1,
 					/obj/item/clothing/under/suit/black_really = 1,
 					/obj/item/clothing/under/suit/black_really/skirt = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/blue = 1,

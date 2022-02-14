@@ -9,8 +9,9 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "l" = (
+/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/sign/warning/vacuum/external,
-/turf/closed/wall/r_wall,
+/turf/open/floor/plating,
 /area/ruin/unpowered)
 "o" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -33,7 +34,6 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "v" = (
-/obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "C" = (
@@ -243,8 +243,8 @@ Z
 Z
 Z
 l
-R
-R
+o
+o
 X
 e
 I
@@ -262,7 +262,7 @@ Z
 Z
 Z
 Z
-R
+o
 H
 C
 e

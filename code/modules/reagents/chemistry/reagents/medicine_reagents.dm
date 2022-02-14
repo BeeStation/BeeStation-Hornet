@@ -359,8 +359,8 @@
 		holder.add_reagent(/datum/reagent/consumable/sugar, 1)
 		holder.remove_reagent(/datum/reagent/medicine/salglu_solution, 0.5)
 	if(prob(33))
-		M.adjustBruteLoss(0.5*REM, FALSE, FALSE, BODYPART_ORGANIC)
-		M.adjustFireLoss(0.5*REM, FALSE, FALSE, BODYPART_ORGANIC)
+		M.adjustBruteLoss(0.5*REM, FALSE, FALSE, BODYTYPE_ORGANIC)
+		M.adjustFireLoss(0.5*REM, FALSE, FALSE, BODYTYPE_ORGANIC)
 		. = TRUE
 	..()
 
@@ -507,8 +507,8 @@
 /datum/reagent/medicine/omnizine/overdose_process(mob/living/M)
 	M.adjustToxLoss(1.5*REM, 0)
 	M.adjustOxyLoss(1.5*REM, 0)
-	M.adjustBruteLoss(1.5*REM, FALSE, FALSE, BODYPART_ORGANIC)
-	M.adjustFireLoss(1.5*REM, FALSE, FALSE, BODYPART_ORGANIC)
+	M.adjustBruteLoss(1.5*REM, FALSE, FALSE, BODYTYPE_ORGANIC)
+	M.adjustFireLoss(1.5*REM, FALSE, FALSE, BODYTYPE_ORGANIC)
 	..()
 	. = 1
 
@@ -1014,7 +1014,7 @@
 	..()
 
 
-//Pump-Up for Stimpack
+//Pump-Up for Pump-Up Stimpack
 /datum/reagent/medicine/pumpup
 	name = "Pump-Up"
 	description = "Makes you immune to damage slowdown, resistant to all other kinds of slowdown and gives a minor speed boost. Overdose causes weakness and toxin damage."
@@ -1187,6 +1187,34 @@
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
 	..()
 	. = 1
+
+/datum/reagent/medicine/meclizine
+	name = "Meclizine"
+	description = "A medicine which prevents vomiting."
+	reagent_state = LIQUID
+	color = "#cecece"
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+	overdose_threshold = 25
+
+/datum/reagent/medicine/meclizine/on_mob_life(mob/living/carbon/M)
+	if(prob(10))
+		M.adjustToxLoss(-1)
+	..()
+	. = TRUE //Some other poor sod can do the rest, I just make chems
+
+/datum/reagent/medicine/meclizine/overdose_process(mob/living/M)
+	M.adjustToxLoss(2)
+	M.adjustOrganLoss(ORGAN_SLOT_STOMACH, 2)
+	..()
+	. = TRUE
+
+/datum/reagent/medicine/meclizine/on_mob_metabolize(mob/living/M)
+	..()
+	ADD_TRAIT(M, TRAIT_NOVOMIT, type)
+
+/datum/reagent/medicine/meclizin/on_mob_end_metabolize(mob/living/M)
+	..()
+	REMOVE_TRAIT(M, TRAIT_NOVOMIT, type)
 
 /datum/reagent/medicine/hepanephrodaxon
 	name = "Hepanephrodaxon"
@@ -1362,8 +1390,8 @@
 	return TRUE
 
 /datum/reagent/medicine/lavaland_extract/overdose_process(mob/living/M)
-	M.adjustBruteLoss(3*REM, 0, FALSE, BODYPART_ORGANIC)
-	M.adjustFireLoss(3*REM, 0, FALSE, BODYPART_ORGANIC)
+	M.adjustBruteLoss(3*REM, 0, FALSE, BODYTYPE_ORGANIC)
+	M.adjustFireLoss(3*REM, 0, FALSE, BODYTYPE_ORGANIC)
 	M.adjustToxLoss(3*REM, 0)
 	..()
 	return TRUE

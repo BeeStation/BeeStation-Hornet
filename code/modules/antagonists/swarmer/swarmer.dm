@@ -29,7 +29,7 @@
 	3. Biological resources will be harvested at a later date; do not harm them.
 	"}
 
-/obj/effect/mob_spawn/swarmer/Initialize()
+/obj/effect/mob_spawn/swarmer/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
 	if(A)
@@ -96,7 +96,6 @@
 	loot = list(/obj/effect/decal/cleanable/robot_debris, /obj/item/stack/ore/bluespace_crystal)
 	del_on_death = TRUE
 	deathmessage = "explodes with a sharp pop!"
-	light_color = LIGHT_COLOR_CYAN
 	hud_type = /datum/hud/swarmer
 	speech_span = SPAN_ROBOT
 	hardattacks = TRUE
@@ -106,10 +105,10 @@
 	discovery_points = 1000
 	light_system = MOVABLE_LIGHT
 	light_range = 3
-	///Bitflags to store boolean conditions, such as whether the light is on or off.
-	var/swarmer_flags = NONE
+	light_on = TRUE
+	light_color = LIGHT_COLOR_CYAN
 
-/mob/living/simple_animal/hostile/swarmer/Initialize()
+/mob/living/simple_animal/hostile/swarmer/Initialize(mapload)
 	. = ..()
 	remove_verb(/mob/living/verb/pulled)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
@@ -540,7 +539,7 @@
 	icon_state = "disintegrate"
 	duration = 10
 
-/obj/effect/temp_visual/swarmer/disintegration/Initialize()
+/obj/effect/temp_visual/swarmer/disintegration/Initialize(mapload)
 	. = ..()
 	playsound(loc, "sparks", 100, 1)
 
@@ -638,6 +637,7 @@
 	icon_state = "barricade"
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	max_integrity = 50
+	density = TRUE
 
 /obj/structure/swarmer/blockade/CanAllowThrough(atom/movable/O)
 	. = ..()
@@ -679,10 +679,7 @@
 		to_chat(src, "<span class='info'>We successfully repaired ourselves.</span>")
 
 /mob/living/simple_animal/hostile/swarmer/proc/ToggleLight()
-	if(!light_range)
-		set_light_on(TRUE)
-	else
-		set_light_on(FALSE)
+	set_light_on(!light_on)
 
 /mob/living/simple_animal/hostile/swarmer/proc/swarmer_chat(msg)
 	var/rendered = "<B>Swarm communication - [src]</b> [say_quote(msg)]"

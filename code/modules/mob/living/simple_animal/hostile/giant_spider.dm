@@ -54,7 +54,7 @@
 	do_footstep = TRUE
 	discovery_points = 1000
 
-/mob/living/simple_animal/hostile/poison/giant_spider/Initialize()
+/mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)
 	. = ..()
 	lay_web = new
 	lay_web.Grant(src)
@@ -97,7 +97,7 @@
 	var/static/list/consumed_mobs = list() //the tags of mobs that have been consumed by nurse spiders to lay eggs
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize()
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize(mapload)
 	. = ..()
 	wrap = new
 	AddAbility(wrap)
@@ -123,7 +123,7 @@
 	health = 40
 	var/datum/action/innate/spider/comm/letmetalkpls
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/Initialize()
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/Initialize(mapload)
 	. = ..()
 	letmetalkpls = new
 	letmetalkpls.Grant(src)

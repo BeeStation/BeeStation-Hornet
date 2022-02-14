@@ -96,7 +96,7 @@
 	throwforce = 7
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 
-/obj/item/powertool/jaws_of_life/Initialize()
+/obj/item/powertool/jaws_of_life/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_DOOR_PRYER, TRAIT_JAWS_OF_LIFE)
 

@@ -59,7 +59,7 @@ Contents:
 /obj/item/clothing/suit/space/space_ninja/get_cell()
 	return cell
 
-/obj/item/clothing/suit/space/space_ninja/Initialize()
+/obj/item/clothing/suit/space/space_ninja/Initialize(mapload)
 	. = ..()
 
 	//Spark Init

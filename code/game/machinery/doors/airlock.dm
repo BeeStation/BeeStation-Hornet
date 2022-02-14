@@ -112,7 +112,7 @@
 
 	var/static/list/airlock_overlays = list()
 
-/obj/machinery/door/airlock/Initialize()
+/obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/airlock(src)
 	if(frequency)
@@ -1595,7 +1595,7 @@
 			. = TRUE
 
 /obj/machinery/door/airlock/proc/user_allowed(mob/user)
-	return (issilicon(user) && canAIControl(user)) || IsAdminGhost(user)
+	return (issilicon(user) && allowed(user) && canAIControl(user)) || IsAdminGhost(user)
 
 /obj/machinery/door/airlock/proc/shock_restore(mob/user)
 	if(!user_allowed(user))

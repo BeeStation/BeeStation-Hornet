@@ -1,5 +1,5 @@
 /datum/species/snail
-	name = "Snailperson"
+	name = "\improper Snailperson"
 	id = "snail"
 	offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,4), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
 	default_color = "336600" //vomit green
@@ -19,6 +19,13 @@
 	mutanteyes = /obj/item/organ/eyes/snail
 	mutanttongue = /obj/item/organ/tongue/snail
 	exotic_blood = /datum/reagent/lube
+
+	species_chest = /obj/item/bodypart/chest/snail
+	species_head = /obj/item/bodypart/head/snail
+	species_l_arm = /obj/item/bodypart/l_arm/snail
+	species_r_arm = /obj/item/bodypart/r_arm/snail
+	species_l_leg = /obj/item/bodypart/l_leg/snail
+	species_r_leg = /obj/item/bodypart/r_leg/snail
 
 /datum/species/snail/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(istype(chem,/datum/reagent/consumable/sodiumchloride))
@@ -57,6 +64,6 @@
 	max_integrity = 200
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/item/storage/backpack/snail/Initialize()
+/obj/item/storage/backpack/snail/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, "snailshell")

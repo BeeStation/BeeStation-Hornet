@@ -13,7 +13,7 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 1)
 	foodtype = GRAIN | MEAT
 
-/obj/item/reagent_containers/food/snacks/burger/plain/Initialize()
+/obj/item/reagent_containers/food/snacks/burger/plain/Initialize(mapload)
 	. = ..()
 	if(prob(1))
 		new/obj/effect/particle_effect/smoke(get_turf(src))
@@ -146,7 +146,7 @@
 	verb_say = "moans"
 	verb_yell = "wails"
 
-/obj/item/reagent_containers/food/snacks/burger/ghost/Initialize()
+/obj/item/reagent_containers/food/snacks/burger/ghost/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
@@ -378,7 +378,7 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1)
 	foodtype = GRAIN | MEAT | DAIRY
 
-/obj/item/reagent_containers/food/snacks/burger/cheese/Initialize()
+/obj/item/reagent_containers/food/snacks/burger/cheese/Initialize(mapload)
 	. = ..()
 	if(prob(33))
 		icon_state = "cheeseburgeralt"

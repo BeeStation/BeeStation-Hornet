@@ -19,6 +19,7 @@
 	paycheck_department = ACCOUNT_SRV
 	display_order = JOB_DISPLAY_ORDER_BARTENDER
 	departments = DEPARTMENT_SERVICE
+	rpg_title = "Tavernkeeper"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/bar
