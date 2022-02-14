@@ -1,0 +1,4 @@
+author: nednaZ
+delete-after: true
+changes:
+  - bugfix: Fixes the Radio Hotkey's text scrubbing.
