@@ -101,19 +101,19 @@
 
 /datum/award/achievement/misc/twokhours
 	name = "Seasoned Veteran"
-	desc = "Consider applying for Mentor"
+	desc = "You could have gotten a bachelor's degree with this time."
 	database_id = MEDAL_TWOKHRS
 	reward = 2500
 
 /datum/award/achievement/misc/threekhours
 	name = "Grilled Seasoned Veteran"
-	desc = "Three thousand hours, you could have one and a half bachelor's degrees"
+	desc = "Easy come, easy go."
 	database_id = MEDAL_THREEKHRS
 	reward = 5000
 
 /datum/award/achievement/misc/fourkhours
 	name = "Sous Vide Grilled Seasoned Veteran"
-	desc = "Good lord, you've spent half a year playing this game"
+	desc = "Good lord, you've spent half a year playing this game."
 	database_id = MEDAL_FOURKHRS
 	reward = 10000
 
@@ -136,3 +136,8 @@
 	name = "Let's Play GLOBAL THERMONUCLEAR WAR"
 	desc = "Wouldn't you rather play chess?"
 	database_id = MEDAL_WAROPS
+
+/datum/award/achievement/misc/drunk
+	name = "Little Chickadee"
+	desc = "No, well, ten beers"
+	database_id = MEDAL_DRUNK

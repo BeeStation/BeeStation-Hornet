@@ -27,6 +27,7 @@
 #define MEDAL_CHASMJAUNT              "Mind the Gap"
 #define MEDAL_BIKE                    "This Lousy Achievement"
 #define MEDAL_WAROPS                  "Let's Play GLOBAL THERMONUCLEAR WAR"
+#define MEDAL_DRUNK					  "Little Chickadee"
 
 //Boss medals
 

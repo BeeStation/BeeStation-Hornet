@@ -270,16 +270,16 @@
 	CHECK_TICK
 
 	//Process veteran achievements
-	for(var/client/C in GLOB.clients)
-		var/hours = round(C.get_exp_living()/60)
+	for(var/client/C as() in GLOB.clients)
+		var/hours = round(C?.get_exp_living()/60)
 		if(hours > 1000)
-			C.give_award(/datum/award/achievement/misc/onekhours, C.mob)
+			C?.give_award(/datum/award/achievement/misc/onekhours, C.mob)
 		if(hours > 2000)
-			C.give_award(/datum/award/achievement/misc/twokhours, C.mob)
+			C?.give_award(/datum/award/achievement/misc/twokhours, C.mob)
 		if(hours > 3000)
-			C.give_award(/datum/award/achievement/misc/threekhours, C.mob)
+			C?.give_award(/datum/award/achievement/misc/threekhours, C.mob)
 		if(hours > 4000)
-			C.give_award(/datum/award/achievement/misc/fourkhours, C.mob)
+			C?.give_award(/datum/award/achievement/misc/fourkhours, C.mob)
 
 	CHECK_TICK
 
