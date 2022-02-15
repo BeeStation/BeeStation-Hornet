@@ -50,9 +50,9 @@
 //only pet worth reviving
 /datum/job/head_of_personnel/get_mail_goodies(mob/recipient)
 	. = ..()
-	// Strange Reagent if the pet is dead.
+	// lazarus if Ian is kill
 	for(var/mob/living/simple_animal/pet/dog/corgi/Ian in GLOB.dead_mob_list)
-		. += list(/datum/reagent/medicine/strange_reagent = 20)//replace it with a lazarus
+		. += list(/obj/item/lazarus_injector)
 		break
 
 	species_outfits = list(
