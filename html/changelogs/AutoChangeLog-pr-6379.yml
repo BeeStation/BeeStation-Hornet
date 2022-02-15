@@ -1,4 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - server: Bumps ajv to 6.12.3
