@@ -237,7 +237,7 @@
 				return
 			else
 				return Goto(target, delay, minimum_distance, rally, current_tries + 1)
-		if(ismob(target) && !(get_turf(target) == goal_turf))
+		if(ismob(target) && !(get_turf(target) == goal_turf)) //Incase the target mob decides to move so we don't just run towards it's original location
 			if(get_dist(path_list[1], get_turf(target)) >= 20)
 				break
 			else
