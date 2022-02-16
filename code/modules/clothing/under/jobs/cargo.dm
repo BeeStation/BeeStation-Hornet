@@ -52,3 +52,19 @@
 	icon_state = "curator"
 	item_state = "curator"
 	can_adjust = FALSE
+
+/obj/item/clothing/under/misc/mailman
+	name = "mailman's jumpsuit"
+	desc = "<i>'Special delivery!'</i>"
+	icon_state = "mailman"
+	item_state = "b_suit"
+
+/obj/item/clothing/under/misc/mailman/skirt
+	name = "mailman's jumpskirt"
+	desc = "<i>'Special delivery!'</i> Beware of spacewind."
+	icon_state = "mailman_skirt"
+	item_state = "b_suit"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	fitted = FEMALE_UNIFORM_TOP
+	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
