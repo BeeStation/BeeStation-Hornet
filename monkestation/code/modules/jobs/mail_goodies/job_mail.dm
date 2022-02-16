@@ -381,6 +381,18 @@
 		/obj/item/melee/baton = 1
 	)
 
+//MAILMAN GIMMICK
+/datum/job/gimmick/mailman //
+	mail_goodies = list(
+		/obj/item/shovel = 4,
+		/obj/item/scythe = 4,
+		/obj/item/melee/baseball_bat = 4,
+		/mob/living/simple_animal/pet/cat = 4, //You all know what this means.
+		/obj/item/clipboard = 4, //Will you sign my petition?
+		/obj/item/toy/katana = 4,
+		/obj/item/toy/plush/moth = 4 //OH MY GOD IT'S KROTCHY THE MOTH
+	)
+
 //SHAFT MINER
 /datum/job/mining
 	mail_goodies = list(

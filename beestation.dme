@@ -3545,6 +3545,7 @@
 #include "monkestation\code\modules\food_and_drinks\food\snacks_meat.dm"
 #include "monkestation\code\modules\hydroponics\plant_genes.dm"
 #include "monkestation\code\modules\hydroponics\grown\berries.dm"
+#include "monkestation\code\modules\jobs\job_types\gimmick.dm"
 #include "monkestation\code\modules\jobs\mail_goodies\job_mail.dm"
 #include "monkestation\code\modules\language\sippins.dm"
 #include "monkestation\code\modules\language\zoomercant.dm"

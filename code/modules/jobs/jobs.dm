@@ -54,7 +54,8 @@ GLOBAL_LIST_INIT(gimmick_positions, list(
 	"Stage Magician",
 	"Debtor",
 	"Psychiatrist",
-	"VIP"))
+	"VIP",
+	"Mailman")) //MonkeStation Edit: Mailman Gimmick
 
 GLOBAL_LIST_INIT(security_positions, list(
 	"Head of Security",

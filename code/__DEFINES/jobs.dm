@@ -51,6 +51,7 @@
 #define HOBO            (1<<17)
 #define SHRINK          (1<<18)
 #define CELEBRITY       (1<<19)
+#define MAILMAN			(1<<20) //MonkeStation Edit: Mailman Gimmick
 
 #define JOB_AVAILABLE 0
 #define JOB_UNAVAILABLE_GENERIC 1
