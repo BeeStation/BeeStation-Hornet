@@ -470,8 +470,11 @@
 /obj/item/clothing/head/helmet/space/plasmaman/mark2
 	name = "Mk.II envirosuit helmet"
 	desc = "A sleek new plasmaman containment helmet, painted in classic Hazardous Orange."
-	icon_state = "openvirohelm"
-	item_state = "openvirohelm"
+	//monkestation start
+	icon = 'monkestation/icons/obj/clothing/hats.dmi'
+	icon_state = "assistant_openvirohelm"
+	item_state = "assistant_openvirohelm"
+	// monkestation end
 	visor_icon = "openvisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/mark2
