@@ -210,7 +210,7 @@
 		color = initial(color)//looks better.
 		add_overlay(blob_head_overlay)
 
-/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, minimum_distance, rally)
+/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, minimum_distance, rally, current_tries)
 	var/movement_steps = 0
 	if(rally)
 		in_movement = TRUE
@@ -219,19 +219,29 @@
 		approaching_target = TRUE
 	else
 		approaching_target = FALSE
-
-	var/list/path_list = get_path_to(src, target, simulated_only = FALSE) //we want access to the list
+	var/list/path_list = get_path_to(src, target) //we want access to the list
+	var/turf/goal_turf
+	if(length(path_list)) //appearantly the solution of using ? infront of the index only works for assoc lists
+		goal_turf = path_list[path_list.len]
 	for(var/w in path_list)
 		if(in_movement && !rally) //incase the spore is already chasing something like a player but the rally command is called
 			return
 		movement_steps++
-		if(ismob(target) && w == path_list[path_list.len]) //if we are infront of the mob lets not keep on pushing
+		if(ismob(target) && w == goal_turf) //if we are infront of the mob lets not keep on pushing
 			break
 		step(src, get_dir(src, w))
 		sleep(delay)
 		if(get_turf(src) != w) //in case someone decides to push the spore or something else unexpectedly hinders it
 			in_movement = FALSE
-			return Goto(target, delay, rally)
+			if(current_tries >= 20)	//In case we get catched in a endless loop for reasons
+				return
+			else
+				return Goto(target, delay, minimum_distance, rally, current_tries + 1)
+		if(ismob(target) && !(get_turf(target) == goal_turf))
+			if(get_dist(path_list[1], get_turf(target)) >= 20)
+				break
+			else
+				return Goto(target, delay, minimum_distance, rally)
 
 	if(!movement_steps) //pathfinding fallback in case we cannot find a valid path at the first attempt
 		var/ln = get_dist(src, target)
@@ -242,17 +252,17 @@
 				for(var/i in 1 to ln) //calling get_path_to every time is quite taxing lets see if we can find whatever blocks us
 					target_new = get_step(target_new,  get_dir(target_new, src)) //step towards the origin until we find the blocker then 1 further
 					ln--
-					if(istype(target_new, /turf/closed)) //we check for possible things that could block us
+					if(target_new.density && !(target_new.pass_flags_self & pass_flags)) //we check for possible tiles that could block us
 						found_blocker = TRUE
 						continue find_target //in case there is like a double wall
 					for(var/obj/o in target_new.contents)
-						if(istype(o, /obj/structure/grille) || istype(o, /obj/structure/window) || istype(o, /obj/machinery/door) || istype(o, /obj/structure/table) || istype(o, /obj/mecha)) //We check for possible blockers on the tile
+						if(o.density && !(o.pass_flags_self & pass_flags)) //We check for possible blockers on the tile
 							found_blocker = TRUE
 							continue find_target
 					if(found_blocker) //cursed but after we found the blocker we end the loop on the next illiteration
 						break find_target
 			found_blocker = FALSE
-			for(var/w in get_path_to(src, target_new, simulated_only = FALSE))
+			for(var/w in get_path_to(src, target_new))
 				if(in_movement && !rally)
 					return
 				movement_steps++
@@ -260,7 +270,10 @@
 				sleep(delay)
 				if(get_turf(src) != w)
 					in_movement = FALSE
-					return Goto(target, delay, rally)
+					if(current_tries >= 20)
+						return
+					else
+						return Goto(target, delay, rally, (current_tries + 1))
 	in_movement = FALSE
 
 /mob/living/simple_animal/hostile/blob/blobspore/weak
