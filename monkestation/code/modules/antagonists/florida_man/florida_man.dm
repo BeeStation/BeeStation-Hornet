@@ -8,18 +8,21 @@
 
 /datum/antagonist/florida_man/on_gain()
 	forge_objectives()
-	if(iscarbon(owner.current))
-		var/mob/living/carbon/floridan = owner.current
+	if(ishuman(owner.current))
+		var/mob/living/carbon/human/floridan = owner.current
 
 		//Abilities & Traits added here
 		ADD_TRAIT(floridan, TRAIT_MONKEYLIKE, SPECIES_TRAIT)
-		ADD_TRAIT(floridan, TRAIT_STUNIMMUNE, SPECIES_TRAIT)
+		ADD_TRAIT(floridan, TRAIT_CLUMSY, SPECIES_TRAIT)
+		ADD_TRAIT(floridan, TRAIT_DUMB, SPECIES_TRAIT)
 		ADD_TRAIT(floridan, TRAIT_STABLELIVER, SPECIES_TRAIT)
 		ADD_TRAIT(floridan, TRAIT_STABLEHEART, SPECIES_TRAIT)
 		ADD_TRAIT(floridan, TRAIT_TOXIMMUNE, SPECIES_TRAIT)
 		ADD_TRAIT(floridan, TRAIT_JAILBIRD, SPECIES_TRAIT)
 		ADD_TRAIT(floridan, TRAIT_IGNORESLOWDOWN, SPECIES_TRAIT)
 
+		floridan.physiology.stamina_mod = 0.25
+		floridan.physiology.stun_mod = 0.25
 		floridan.ventcrawler = 1
 		var/obj/effect/proc_holder/spell/targeted/florida_doorbuster/DB = new
 		var/obj/effect/proc_holder/spell/targeted/florida_cuff_break/CB = new

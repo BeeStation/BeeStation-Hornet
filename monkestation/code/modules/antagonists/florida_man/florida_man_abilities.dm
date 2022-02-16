@@ -32,7 +32,7 @@
 	name = "Break These Cuffs"
 	desc = "You CAN break those cuffs!"
 	charge_counter = 0
-	charge_max = 60 SECONDS
+	charge_max = 2 MINUTES
 	clothes_req = FALSE
 	range = -1
 	include_user = TRUE
@@ -64,7 +64,7 @@
 	name = "Sovereign Citizen"
 	desc = "Use the power of Florida to push your way through"
 	charge_counter = 0
-	charge_max = 20 SECONDS
+	charge_max = 1 MINUTES
 	clothes_req = FALSE
 	range = -1
 	include_user = TRUE
