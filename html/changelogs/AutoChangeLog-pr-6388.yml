@@ -1,0 +1,4 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - server: Clients using BYOND version 514.1575 will no longer see instability banner
