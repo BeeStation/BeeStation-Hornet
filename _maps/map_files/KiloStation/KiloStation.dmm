@@ -86966,7 +86966,7 @@
 	},
 /obj/effect/turf_decal/stripes/box,
 /turf/open/floor/plating/airless,
-/area/space/nearstation)
+/area/maintenance/disposal/incinerator)
 "cwS" = (
 /obj/structure/girder,
 /obj/effect/turf_decal/stripes/corner,
