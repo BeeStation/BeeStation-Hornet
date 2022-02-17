@@ -1,0 +1,5 @@
+author: Fresh341
+delete-after: true
+changes:
+  - tweak: Changed the required amount of adamantine to create a golem shell from
+      1 to 25
