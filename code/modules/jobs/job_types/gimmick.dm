@@ -32,6 +32,7 @@
 	outfit = /datum/outfit/job/gimmick/barber
 	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
+	total_positions = 1 //MonkeStation Edit: Gimmick Latejoin
 	gimmick = TRUE
 	chat_color = "#bd9e86"
 
@@ -57,6 +58,7 @@
 	outfit = /datum/outfit/job/gimmick/magician
 	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
+	total_positions = 1 //MonkeStation Edit: Gimmick Latejoin
 	gimmick = TRUE
 	chat_color = "#b898b3"
 
@@ -85,10 +87,11 @@
 	outfit = /datum/outfit/job/gimmick/hobo
 	access = list(ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
+	total_positions = 1 //MonkeStation Edit: Gimmick Latejoin
 	gimmick = TRUE
 	chat_color = "#929292"
 	departments = NONE		//being hobo is not a real job
-	biohazard = 50 //hobos are very likely to have diseases 
+	biohazard = 50 //hobos are very likely to have diseases
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hobo
@@ -103,6 +106,18 @@
 	uniform = /obj/item/clothing/under/pants/jeans
 	suit = /obj/item/clothing/suit/jacket
 	can_be_admin_equipped = TRUE
+
+//MonkeStation Edit: Hobos start as stowaways. This is copypasta as adding this trait post-start doesn't work.
+/datum/job/gimmick/hobo/after_spawn(mob/living/H, mob/M, latejoin)
+	. = ..()
+	H.add_quirk(/datum/quirk/stowaway)
+	var/mob/living/carbon/human/hobo = H
+	hobo.Sleeping(5 SECONDS, TRUE, TRUE) //This is both flavorful and gives time for the rest of the code to work.
+	var/obj/structure/closet/selected_closet = get_unlocked_closed_locker() //Find your new home
+	if(selected_closet)
+		hobo.forceMove(selected_closet) //Move in
+//MonkeStation Edit End
+
 
 /datum/outfit/job/gimmick/hobo/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -124,6 +139,7 @@
 	outfit = /datum/outfit/job/gimmick/shrink
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
+	total_positions = 1 //MonkeStation Edit: Gimmick Latejoin
 	paycheck = PAYCHECK_EASY
 	gimmick = TRUE
 	chat_color = "#a2dfdc"
@@ -150,6 +166,7 @@
 	outfit = /datum/outfit/job/gimmick/celebrity
 	access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
+	total_positions = 1 //MonkeStation Edit: Gimmick Latejoin
 	gimmick = TRUE
 	paycheck = PAYCHECK_VIP //our power is being fucking rich
 	chat_color = "#ebc96b"

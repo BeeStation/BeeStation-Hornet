@@ -4,6 +4,7 @@
 	outfit = /datum/outfit/job/gimmick/mailman
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO)
+	total_positions = 1
 	paycheck = PAYCHECK_EASY
 	gimmick = TRUE
 	chat_color = "#8ebee6"
