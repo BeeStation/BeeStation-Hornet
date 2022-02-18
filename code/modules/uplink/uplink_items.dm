@@ -531,7 +531,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Super Energy Chainsaw"
 	desc = "An incredibly deadly modified chainsaw with plasma-based energy blades instead of metal and a slick black-and-red finish. While it rips apart matter with extreme efficiency, it is heavy, large, and monstrously loud. It's blade has been enhanced to do even more damage and knock victims down briefly."
 	item = /obj/item/chainsaw/energy/doom
-	cost = 22
+	player_minimum = 50 //MonkeStation Edit: Jesus Christ this thing is OP.
+	cost = 60
 	purchasable_from = UPLINK_NUKE_OPS
 
 /datum/uplink_item/dangerous/doublesword
@@ -539,7 +540,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The double-bladed energy sword does slightly more damage than a standard energy sword and will deflect \
 			all energy projectiles, but requires two hands to wield."
 	item = /obj/item/dualsaber
-	player_minimum = 25
+	player_minimum = 35
 	cost = 18
 	purchasable_from = ~UPLINK_CLOWN_OPS
 
