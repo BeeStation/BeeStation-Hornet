@@ -135,12 +135,44 @@
 
 /obj/structure/chair/wood/normal //Kept for map compatibility
 
-
 /obj/structure/chair/wood/wings
 	icon_state = "wooden_chair_wings"
 	item_chair = /obj/item/chair/wood/wings
 
-/obj/structure/chair/comfy
+/obj/structure/chair/fancy //base for any chair with armrests
+	name = "fancy chair"
+	desc = "Giving you the feel of importance by just having armrests."
+	icon_state = "chair_fancy"
+	item_chair = /obj/item/chair/fancy
+	var/mutable_appearance/armrest
+
+/obj/structure/chair/fancy/proc/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "comfychair_armrest")
+
+/obj/structure/chair/fancy/Destroy()
+	QDEL_NULL(armrest)
+	return ..()
+
+/obj/structure/chair/fancy/post_buckle_mob(mob/living/M)
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/fancy/proc/update_armrest()
+	if(has_buckled_mobs())
+		add_overlay(armrest)
+	else
+		cut_overlay(armrest)
+
+/obj/structure/chair/fancy/post_unbuckle_mob()
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/fancy/Initialize(mapload)
+	armrest = GetArmrest()
+	armrest.layer = ABOVE_MOB_LAYER
+	return ..()
+
+/obj/structure/chair/fancy/comfy
 	name = "comfy chair"
 	desc = "It looks comfy."
 	icon_state = "comfychair"
@@ -149,63 +181,67 @@
 	max_integrity = 70
 	buildstackamount = 2
 	item_chair = null
-	var/mutable_appearance/armrest
 
-/obj/structure/chair/comfy/Initialize(mapload)
-	armrest = GetArmrest()
-	armrest.layer = ABOVE_MOB_LAYER
-	return ..()
+/obj/structure/chair/fancy/comfy/brown
+	color = rgb(135, 75, 25)
 
-/obj/structure/chair/comfy/proc/GetArmrest()
-	return mutable_appearance('icons/obj/chairs.dmi', "comfychair_armrest")
+/obj/structure/chair/fancy/comfy/beige
+	color = rgb(155, 125, 80)
 
-/obj/structure/chair/comfy/Destroy()
-	QDEL_NULL(armrest)
-	return ..()
+/obj/structure/chair/fancy/comfy/red
+	color = rgb(130, 50, 45)
 
-/obj/structure/chair/comfy/post_buckle_mob(mob/living/M)
-	. = ..()
-	update_armrest()
+/obj/structure/chair/fancy/comfy/grey
+	color = rgb(85, 85, 85)
 
-/obj/structure/chair/comfy/proc/update_armrest()
-	if(has_buckled_mobs())
-		add_overlay(armrest)
-	else
-		cut_overlay(armrest)
+/obj/structure/chair/fancy/comfy/black
+	color = rgb(35, 35, 35)
 
-/obj/structure/chair/comfy/post_unbuckle_mob()
-	. = ..()
-	update_armrest()
+/obj/structure/chair/fancy/comfy/yellow
+	color = rgb(150, 125, 25)
 
-/obj/structure/chair/comfy/brown
-	color = rgb(255,113,0)
+/obj/structure/chair/fancy/comfy/lime
+	color = rgb(115, 195, 25)
 
-/obj/structure/chair/comfy/beige
-	color = rgb(255,253,195)
+/obj/structure/chair/fancy/comfy/teal
+	color = rgb(20, 175, 175)
 
-/obj/structure/chair/comfy/teal
-	color = rgb(0,255,255)
-
-/obj/structure/chair/comfy/black
-	color = rgb(167,164,153)
-
-/obj/structure/chair/comfy/lime
-	color = rgb(255,251,0)
-
-/obj/structure/chair/comfy/shuttle
+/obj/structure/chair/fancy/comfy/shuttle
 	name = "shuttle seat"
 	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system for smoother flights."
 	icon_state = "shuttle_chair"
 
-/obj/structure/chair/comfy/shuttle/GetArmrest()
+/obj/structure/chair/fancy/comfy/shuttle/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
+
+/obj/structure/chair/fancy/plastic
+	name = "plastic chair"
+	desc = "If you want it, then you'll have to take it."
+	icon_state = "plastic_chair"
+	anchored = FALSE
+	resistance_flags = FLAMMABLE
+	max_integrity = 150
+	buildstacktype = /obj/item/stack/sheet/plastic
+	buildstackamount = 1
+	item_chair = /obj/item/chair/plastic
+
+/obj/structure/chair/fancy/plastic/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "plastic_chair_armrest")
+
+/obj/structure/chair/fancy/plastic/post_buckle_mob(mob/living/M) //you do not want to see an angry spaceman speeding while holding dearly onto it
+	. = ..()
+	anchored = TRUE
+
+/obj/structure/chair/fancy/plastic/post_unbuckle_mob()
+	. = ..()
+	handle_layer()
+	anchored = FALSE
 
 /obj/structure/chair/office
 	anchored = FALSE
 	buildstackamount = 5
 	item_chair = null
 	icon_state = "officechair_dark"
-
 
 /obj/structure/chair/office/Moved()
 	. = ..()
@@ -330,6 +366,15 @@
 		smash(user)
 
 
+/obj/item/chair/fancy
+	name = "chair"
+	desc = "Meeting brawl essential."
+	icon_state = "chair_fancy_toppled"
+	item_state = "chair_fancy"
+	hitsound = 'sound/items/trayhit2.ogg'
+	materials = list(/datum/material/iron = 3000)
+	origin_type = /obj/structure/chair/fancy
+
 /obj/item/chair/stool
 	name = "stool"
 	icon_state = "stool_toppled"
@@ -372,6 +417,24 @@
 /obj/item/chair/wood/wings
 	icon_state = "wooden_chair_wings_toppled"
 	origin_type = /obj/structure/chair/wood/wings
+
+/obj/item/chair/plastic
+	name = "plastic chair"
+	desc = "Be the reclaimer of your name." //bury the light deep withiiiiiiiiiiiiiiiiin
+	icon_state = "plastic_chair_toppled"
+	item_state = "plastic_chair"
+	force = 3//have you ever been hit by a plastic chair? those aren't as bad as a metal or a wood one!
+	throwforce = 6
+	block_upgrade_walk = 1
+	block_power = 10
+	throw_range = 4
+	origin_type = /obj/structure/chair/fancy/plastic
+	hitsound = 'sound/weapons/genhit1.ogg'
+	materials = list(/datum/material/plastic = 2000)//duh
+	break_chance = 15 //Submissive and breakable, but can handle an angry demon
+
+/obj/item/chair/plastic/narsie_act()
+	return
 
 /obj/structure/chair/old
 	name = "strange chair"
@@ -453,3 +516,4 @@
 
 /obj/structure/chair/mime/post_unbuckle_mob(mob/living/M)
 	M.pixel_y -= 5
+

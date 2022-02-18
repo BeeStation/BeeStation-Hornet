@@ -8,6 +8,7 @@
 
 /obj/structure/chair/e_chair/Initialize(mapload)
 	. = ..()
+	var/obj/item/assembly/shock_kit/stored_kit = new(contents)
 	add_overlay(mutable_appearance('icons/obj/chairs.dmi', "echair_over", MOB_LAYER + 1))
 
 /obj/structure/chair/e_chair/attackby(obj/item/W, mob/user, params)
@@ -15,10 +16,9 @@
 		var/obj/structure/chair/C = new /obj/structure/chair(loc)
 		W.play_tool_sound(src)
 		C.setDir(dir)
-		part.forceMove(loc)
-		part.master = null
-		part = null
 		qdel(src)
+		return
+	. = ..()
 
 /obj/structure/chair/e_chair/proc/shock()
 	if(last_time + 50 > world.time)

@@ -116,7 +116,7 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/comfy/brown{
 	dir = 8
 	},
 /turf/open/floor/plasteel/ameridiner,

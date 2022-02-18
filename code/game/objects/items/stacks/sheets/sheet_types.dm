@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("stool", /obj/structure/chair/stool, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("bar stool", /obj/structure/chair/stool/bar, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("chair", /obj/structure/chair, one_per_turf = TRUE, on_floor = TRUE), \
-	new/datum/stack_recipe("shuttle seat", /obj/structure/chair/comfy/shuttle, 2, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("shuttle seat", /obj/structure/chair/fancy/comfy/shuttle, 2, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("bed", /obj/structure/bed, 2, one_per_turf = TRUE, on_floor = TRUE), \
 	null, \
 	new/datum/stack_recipe_list("office chairs", list( \
@@ -28,11 +28,11 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 		new/datum/stack_recipe("light office chair", /obj/structure/chair/office/light, 5, one_per_turf = TRUE, on_floor = TRUE), \
 		)), \
 	new/datum/stack_recipe_list("comfy chairs", list( \
-		new/datum/stack_recipe("beige comfy chair", /obj/structure/chair/comfy/beige, 2, one_per_turf = TRUE, on_floor = TRUE), \
-		new/datum/stack_recipe("black comfy chair", /obj/structure/chair/comfy/black, 2, one_per_turf = TRUE, on_floor = TRUE), \
-		new/datum/stack_recipe("brown comfy chair", /obj/structure/chair/comfy/brown, 2, one_per_turf = TRUE, on_floor = TRUE), \
-		new/datum/stack_recipe("lime comfy chair", /obj/structure/chair/comfy/lime, 2, one_per_turf = TRUE, on_floor = TRUE), \
-		new/datum/stack_recipe("teal comfy chair", /obj/structure/chair/comfy/teal, 2, one_per_turf = TRUE, on_floor = TRUE), \
+		new/datum/stack_recipe("beige comfy chair", /obj/structure/chair/fancy/comfy/beige, 2, one_per_turf = TRUE, on_floor = TRUE), \
+		new/datum/stack_recipe("black comfy chair", /obj/structure/chair/fancy/comfy/black, 2, one_per_turf = TRUE, on_floor = TRUE), \
+		new/datum/stack_recipe("brown comfy chair", /obj/structure/chair/fancy/comfy/brown, 2, one_per_turf = TRUE, on_floor = TRUE), \
+		new/datum/stack_recipe("lime comfy chair", /obj/structure/chair/fancy/comfy/lime, 2, one_per_turf = TRUE, on_floor = TRUE), \
+		new/datum/stack_recipe("teal comfy chair", /obj/structure/chair/fancy/comfy/teal, 2, one_per_turf = TRUE, on_floor = TRUE), \
 		)), \
 	new/datum/stack_recipe_list("sofas", list(
 		new /datum/stack_recipe("sofa (middle)", /obj/structure/chair/sofa, 1, one_per_turf = TRUE, on_floor = TRUE),

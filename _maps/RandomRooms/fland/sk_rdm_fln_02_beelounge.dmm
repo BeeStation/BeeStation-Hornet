@@ -187,6 +187,9 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
 "X" = (
+/obj/machinery/door/airlock{
+	name = "Bee Lounge Bathroom"
+	},
 /turf/open/floor/noslip/standard,
 /area/template_noop)
 
