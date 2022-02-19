@@ -667,14 +667,12 @@
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "abo" = (
-/obj/structure/table/glass,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/folder/white,
-/obj/item/wrench/medical,
-/obj/item/toy/figure/cmo,
+/obj/machinery/computer/cargo/request,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/cmo)
 "abp" = (
@@ -5302,15 +5300,14 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
 "aiQ" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/machinery/computer/cargo/request,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
 "aiR" = (
@@ -27061,6 +27058,7 @@
 	pixel_y = 5
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/toy/figure/cmo,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/heads/cmo)
 "aPc" = (
@@ -34688,17 +34686,17 @@
 "aZp" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/stack/packageWrap{
-	pixel_x = -4;
-	pixel_y = 4
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
-/obj/item/storage/toolbox/mechanical,
-/obj/item/hand_labeler,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/clothing/glasses/welding,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 20
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "aZq" = (
@@ -48476,22 +48474,19 @@
 /turf/closed/wall,
 /area/maintenance/fore)
 "bsg" = (
-/obj/structure/table,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/clothing/glasses/welding,
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
-/obj/item/stack/sheet/mineral/copper{
-	amount = 20
+/obj/machinery/computer/cargo/request{
+	dir = 8
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "bsh" = (
@@ -71064,7 +71059,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "bYU" = (
-/obj/structure/table,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
@@ -71072,14 +71066,15 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/item/stack/rods/twentyfive,
-/obj/item/wrench,
-/obj/item/storage/box/lights/mixed,
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
 /obj/machinery/light,
 /obj/effect/turf_decal/stripes/corner,
+/obj/machinery/computer/cargo/request{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/engine/break_room)
 "bYV" = (
