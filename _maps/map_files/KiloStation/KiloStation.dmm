@@ -27301,19 +27301,15 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/heads/cmo)
 "aPr" = (
-/obj/structure/closet/wardrobe/pjs,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -26
 	},
-/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/bot,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "aPs" = (
