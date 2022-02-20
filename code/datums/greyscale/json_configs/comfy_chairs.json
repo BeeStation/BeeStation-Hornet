@@ -1,0 +1,15 @@
+{
+	"comfychair": [
+		{
+			"type": "icon_state",
+			"icon_state": "comfychair",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "comfychair_legs",
+			"blend_mode": "overlay"
+		}
+	]
+}

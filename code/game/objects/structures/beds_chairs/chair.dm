@@ -181,37 +181,47 @@
 	max_integrity = 70
 	buildstackamount = 2
 	item_chair = null
+	greyscale_config = /datum/greyscale_config/screwdriver
+	greyscale_colors = "#555555"
 
 /obj/structure/chair/fancy/comfy/brown
-	color = rgb(135, 75, 25)
+	name = "brown comfy chair"
+	greyscale_colors = rgb(135, 75, 25)
 
 /obj/structure/chair/fancy/comfy/beige
-	color = rgb(155, 125, 80)
+	name = "beige comfy chair"
+	greyscale_colors =  rgb(155, 125, 80)
 
 /obj/structure/chair/fancy/comfy/red
-	color = rgb(130, 50, 45)
+	name = "red comfy chair"
+	greyscale_colors =  rgb(130, 50, 45)
 
 /obj/structure/chair/fancy/comfy/grey
-	color = rgb(85, 85, 85)
+	name = "grey comfy chair"
+	greyscale_colors =  rgb(85, 85, 85)
 
 /obj/structure/chair/fancy/comfy/black
-	color = rgb(35, 35, 35)
+	name = "black comfy chair"
+	greyscale_colors =  rgb(45, 45, 45)
 
 /obj/structure/chair/fancy/comfy/yellow
-	color = rgb(150, 125, 25)
+	name = "yellow comfy chair"
+	greyscale_colors =  rgb(150, 125, 25)
 
 /obj/structure/chair/fancy/comfy/lime
-	color = rgb(115, 195, 25)
+	name = "lime comfy chair"
+	greyscale_colors =  rgb(115, 195, 25)
 
 /obj/structure/chair/fancy/comfy/teal
-	color = rgb(20, 175, 175)
+	name = "teal comfy chair"
+	greyscale_colors =  rgb(20, 175, 175)
 
-/obj/structure/chair/fancy/comfy/shuttle
+/obj/structure/chair/fancy/shuttle
 	name = "shuttle seat"
 	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system for smoother flights."
 	icon_state = "shuttle_chair"
 
-/obj/structure/chair/fancy/comfy/shuttle/GetArmrest()
+/obj/structure/chair/fancy/shuttle/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
 
 /obj/structure/chair/fancy/plastic

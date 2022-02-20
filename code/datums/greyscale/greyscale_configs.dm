@@ -117,3 +117,8 @@
 	name = "Sneakers marisa"
 	icon_file = 'icons/obj/clothing/shoes.dmi'
 	json_config = 'code/datums/greyscale/json_configs/sneakers_marisa.json'
+
+/datum/greyscale_config/comfy
+	name = "comfy chair"
+	icon_file = 'icons/obj/chairs.dmi'
+	json_config = 'code/datums/greyscale/json_configs/comfy_chairs.json'

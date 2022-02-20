@@ -2152,6 +2152,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
+"aDe" = (
+/obj/structure/chair/sofa/left{
+	color =  #82322d 
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "aDk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -3206,6 +3212,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"aOV" = (
+/obj/structure/chair/sofa/left{
+	color =  #82322d ;
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "aPd" = (
 /obj/effect/turf_decal/tile/brown/tile_side{
 	dir = 4
@@ -5847,6 +5860,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
+"buD" = (
+/obj/structure/chair/sofa/corner{
+	color =  #82322d ;
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "buK" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/seclite,
@@ -14203,6 +14223,13 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
+"dis" = (
+/obj/structure/chair/sofa{
+	color =  #82322d ;
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "diR" = (
 /obj/machinery/shower{
 	pixel_y = 12
@@ -14726,6 +14753,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
+"doX" = (
+/obj/structure/chair/sofa{
+	color =  #82322d ;
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "dpa" = (
 /turf/closed/wall/r_wall,
 /area/maintenance/department/medical)
@@ -25280,6 +25314,12 @@
 /obj/effect/turf_decal/trimline/green/filled/line,
 /turf/open/floor/plasteel/grid,
 /area/medical/virology)
+"fJa" = (
+/obj/structure/chair/sofa/corner{
+	color =  #82322d 
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "fJg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -29797,6 +29837,13 @@
 	},
 /turf/open/floor/vault,
 /area/engine/atmospherics_engine)
+"gMT" = (
+/obj/structure/chair/sofa/right{
+	color =  #82322d ;
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "gMV" = (
 /obj/structure/window/reinforced,
 /obj/structure/flora/ausbushes/grassybush,
@@ -31855,6 +31902,9 @@
 	},
 /obj/effect/turf_decal/guideline/guideline_mid/purple,
 /obj/effect/turf_decal/guideline/guideline_out/yellow,
+/obj/structure/chair/fancy/comfy/red{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "hlv" = (
@@ -35099,6 +35149,12 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
+"hYt" = (
+/obj/structure/chair/fancy/comfy/red{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "hYE" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -50928,6 +50984,12 @@
 /obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel/grid/steel,
 /area/hallway/primary/fore)
+"lMg" = (
+/obj/structure/chair/sofa/right{
+	color =  #82322d 
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "lMi" = (
 /obj/structure/dresser,
 /turf/open/floor/carpet/blue,
@@ -56792,6 +56854,13 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/grid/steel,
 /area/library)
+"ngF" = (
+/obj/structure/chair/sofa/right{
+	color =  #82322d ;
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "ngN" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/tile_marquee{
@@ -57565,6 +57634,12 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
+"npN" = (
+/obj/structure/chair/sofa{
+	color =  #82322d 
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "npV" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "telelab";
@@ -59357,6 +59432,9 @@
 "nLF" = (
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
+"nMa" = (
+/turf/open/floor/plasteel,
+/area/space)
 "nMg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
@@ -60012,6 +60090,10 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/chapel/main/monastery)
+"nUk" = (
+/obj/structure/chair/fancy/comfy/red,
+/turf/open/floor/plasteel,
+/area/space)
 "nUm" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
@@ -60745,6 +60827,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"ocf" = (
+/obj/structure/chair/sofa/corner{
+	color =  #82322d ;
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "ocz" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 4
@@ -64193,6 +64282,13 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/nanite)
+"oZO" = (
+/obj/structure/chair/sofa{
+	color =  #82322d ;
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "oZR" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -66364,6 +66460,13 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/captain)
+"pCg" = (
+/obj/structure/chair/sofa/left{
+	color =  #82322d ;
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "pCs" = (
 /obj/structure/table/reinforced,
 /obj/item/radio{
@@ -67572,6 +67675,13 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
+"pRO" = (
+/obj/structure/chair/sofa/corner{
+	color =  #82322d ;
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "pRV" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/red/line,
@@ -68313,6 +68423,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
+"qcg" = (
+/obj/structure/chair/sofa/left{
+	color =  #82322d ;
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "qcu" = (
 /obj/machinery/door/airlock/vault{
 	name = "Vault Door";
@@ -75350,6 +75467,13 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
+"rFB" = (
+/obj/structure/chair/sofa/right{
+	color =  #82322d ;
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "rFH" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 9
@@ -76170,6 +76294,13 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/medical/genetics)
+"rPQ" = (
+/obj/effect/turf_decal/guideline/guideline_in/red,
+/obj/effect/turf_decal/guideline/guideline_mid/purple,
+/obj/effect/turf_decal/guideline/guideline_out/yellow,
+/obj/structure/chair/fancy/comfy/red,
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "rPR" = (
 /obj/effect/turf_decal/tile/neutral/tile_side{
 	dir = 8
@@ -87464,6 +87595,12 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
+"uti" = (
+/obj/structure/chair/fancy/comfy/red{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "utp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -94765,6 +94902,12 @@
 /obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
+"wks" = (
+/obj/structure/chair/fancy/comfy/red{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "wkt" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -106540,15 +106683,15 @@ nnx
 nnx
 nnx
 nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
 nnx
 nnx
 nnx
@@ -106797,15 +106940,15 @@ nnx
 nnx
 nnx
 nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
+nMa
+nUk
+nMa
+wks
+nMa
+pCg
+dis
+rFB
+nMa
 nnx
 nnx
 nnx
@@ -107054,15 +107197,15 @@ nnx
 nnx
 nnx
 nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
 nnx
 nnx
 nnx
@@ -107311,15 +107454,15 @@ nnx
 nnx
 nnx
 nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
+nMa
+buD
+dis
+pRO
+nMa
+aOV
+nMa
+lMg
+nMa
 nnx
 nnx
 nnx
@@ -107568,15 +107711,15 @@ nnx
 nnx
 nnx
 nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
+nMa
+npN
+nMa
+oZO
+nMa
+oZO
+nMa
+npN
+nMa
 nnx
 nnx
 nnx
@@ -107825,15 +107968,15 @@ nnx
 nnx
 nnx
 nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
+nMa
+fJa
+doX
+ocf
+nMa
+gMT
+nMa
+aDe
+nMa
 nnx
 nnx
 nnx
@@ -108082,15 +108225,15 @@ nnx
 nnx
 nnx
 nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
 nnx
 nnx
 nnx
@@ -108339,15 +108482,15 @@ nnx
 nnx
 nnx
 nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
+nMa
+hYt
+nMa
+uti
+nMa
+ngF
+doX
+qcg
+nMa
 nnx
 nnx
 nnx
@@ -108596,15 +108739,15 @@ nnx
 nnx
 nnx
 nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
-nnx
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
+nMa
 nnx
 nnx
 nnx
@@ -128611,7 +128754,7 @@ rnQ
 rnQ
 wPE
 mVs
-pYk
+rPQ
 pzy
 xPG
 mOG
