@@ -39,7 +39,7 @@
 	flags_inv = 0
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 
-/obj/item/clothing/head/festive/Initialize()
+/obj/item/clothing/head/festive/Initialize(mapload)
 	//Merry christmas
 	if(CHRISTMAS in SSevents.holidays)
 		armor = list("melee" = 30, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 30, "acid" = 30, "stamina" = 30)
@@ -56,7 +56,7 @@
 	var/festive_tree = /obj/structure/flora/tree/pine/xmas
 	var/christmas_tree = /obj/structure/flora/tree/pine/xmas/presents
 
-/obj/effect/spawner/xmastree/Initialize()
+/obj/effect/spawner/xmastree/Initialize(mapload)
 	..()
 	if((CHRISTMAS in SSevents.holidays) && christmas_tree)
 		new christmas_tree(get_turf(src))

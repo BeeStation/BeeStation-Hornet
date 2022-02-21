@@ -20,7 +20,7 @@
 	var/obj/item/stack/digResult = /obj/item/stack/ore/glass/basalt
 	var/dug
 
-/turf/open/floor/plating/asteroid/Initialize()
+/turf/open/floor/plating/asteroid/Initialize(mapload)
 	var/proper_name = name
 	. = ..()
 	name = proper_name
@@ -99,7 +99,7 @@
 /turf/open/floor/plating/asteroid/basalt/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/floor/plating/asteroid/basalt/Initialize()
+/turf/open/floor/plating/asteroid/basalt/Initialize(mapload)
 	. = ..()
 	set_basalt_light(src)
 

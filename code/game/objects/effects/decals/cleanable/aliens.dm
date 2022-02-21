@@ -9,7 +9,7 @@
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	blood_state = BLOOD_STATE_XENO
 
-/obj/effect/decal/cleanable/xenoblood/Initialize()
+/obj/effect/decal/cleanable/xenoblood/Initialize(mapload)
 	. = ..()
 	add_blood_DNA(list("UNKNOWN DNA" = "X*"))
 
@@ -74,6 +74,6 @@
 	icon_state = "xtracks"
 	random_icon_states = null
 
-/obj/effect/decal/cleanable/blood/xtracks/Initialize()
+/obj/effect/decal/cleanable/blood/xtracks/Initialize(mapload)
 	. = ..()
 	add_blood_DNA(list("Unknown DNA" = "X*"))

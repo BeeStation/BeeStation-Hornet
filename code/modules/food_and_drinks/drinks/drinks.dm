@@ -283,7 +283,7 @@
 	var/amount
 	list_reagents = null
 
-/obj/item/reagent_containers/food/drinks/beer/almost_empty/Initialize()
+/obj/item/reagent_containers/food/drinks/beer/almost_empty/Initialize(mapload)
 	. = ..()
 	amount = rand(1,4)
 	reagents.add_reagent(/datum/reagent/consumable/ethanol/beer, amount)
@@ -376,6 +376,10 @@
 				name = "grape juice box"
 				desc = "Tasty grape juice in a fun little container. Non-alcoholic!"
 				foodtype = FRUIT
+			if(/datum/reagent/consumable/pineapplejuice)
+				icon_state = "pineapplebox"
+				name = "pineapple juice box"
+				desc = "Why would you even want this?"
 			if(/datum/reagent/consumable/milk/chocolate_milk)
 				icon_state = "chocolatebox"
 				name = "carton of chocolate milk"
@@ -540,7 +544,7 @@
 	list_reagents = list(/datum/reagent/consumable/lemon_lime = 30)
 	foodtype = FRUIT
 
-/obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime/Initialize()
+/obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime/Initialize(mapload)
 	. = ..()
 	name = "lemon-lime soda"
 

@@ -16,7 +16,7 @@
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo
 
 
-/obj/item/clothing/suit/worn_overlays(isinhands = FALSE)
+/obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
 	. = list()
 	if(!isinhands)
 		if(damaged_clothes)
@@ -68,7 +68,7 @@
 	listeningTo = user
 
 /obj/item/clothing/suit/dropped(mob/user)
-	. = ..()
+	..()
 	//Remove our listener
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)

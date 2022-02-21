@@ -10,7 +10,7 @@ import { classes } from 'common/react';
 import { vecScale, vecSubtract } from 'common/vector';
 import DOMPurify from 'dompurify';
 import { Component } from 'inferno';
-import marked from 'marked';
+import { marked } from 'marked';
 import { useBackend } from '../backend';
 import { Box, Flex, Tabs, TextArea, Table } from '../components';
 import { Window } from '../layouts';

@@ -279,7 +279,7 @@
 	var/datum/proximity_monitor/advanced/current = null
 	var/mob/listeningTo
 
-/obj/item/multitool/field_debug/Initialize()
+/obj/item/multitool/field_debug/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
@@ -307,7 +307,7 @@
 		QDEL_NULL(current)
 
 /obj/item/multitool/field_debug/dropped()
-	. = ..()
+	..()
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
 		listeningTo = null

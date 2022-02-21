@@ -42,7 +42,7 @@
 	var/datum/bank_account/current_insurance
 	fair_market_price = 5 // He nodded, because he knew I was right. Then he swiped his credit card to pay me for arresting him.
 	payment_department = ACCOUNT_MED
-/obj/machinery/clonepod/Initialize()
+/obj/machinery/clonepod/Initialize(mapload)
 	create_reagents(100, OPENCONTAINER)
 
 	. = ..()
@@ -126,7 +126,7 @@
 	var/read_only = FALSE //Well,it's still a floppy disk
 
 //Disk stuff.
-/obj/item/disk/data/Initialize()
+/obj/item/disk/data/Initialize(mapload)
 	. = ..()
 	icon_state = "datadisk[rand(0,6)]"
 	add_overlay("datadisk_gene")
@@ -144,7 +144,7 @@
 	desc = "A disk that contains all existing genetic mutations."
 	max_mutations = 100
 
-/obj/item/disk/data/debug/Initialize()
+/obj/item/disk/data/debug/Initialize(mapload)
 	. = ..()
 	for(var/datum/mutation/human/HM as() in GLOB.all_mutations)
 		mutations += new HM
@@ -602,7 +602,7 @@
 
 /obj/machinery/clonepod/prefilled
 
-/obj/machinery/clonepod/prefilled/Initialize()
+/obj/machinery/clonepod/prefilled/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/medicine/synthflesh, 100)
 

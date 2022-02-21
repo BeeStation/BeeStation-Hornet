@@ -36,6 +36,7 @@
 	idle_power_usage = 10
 	active_power_usage = 400
 	light_color = LIGHT_COLOR_BLUE
+	req_access = list(ACCESS_GENETICS)
 
 	var/datum/techweb/stored_research
 	var/max_storage = 6
@@ -157,6 +158,12 @@
 	else
 		return ..()
 
+/obj/machinery/computer/scan_consolenew/interact(mob/user, special_state)
+	if(!connected_scanner?.ignore_id && !allowed(user))
+		to_chat(user, "<span class='warning'>Missing required access!</span>")
+		return
+	..()
+
 /obj/machinery/computer/scan_consolenew/AltClick(mob/user)
 	// Make sure the user can interact with the machine.
 	if(!user.canUseTopic(src, !issilicon(user)))
@@ -197,7 +204,7 @@
 
 	connected_scanner = scanner
 
-/obj/machinery/computer/scan_consolenew/Initialize()
+/obj/machinery/computer/scan_consolenew/Initialize(mapload)
 	. = ..()
 
 	// Connect with a nearby DNA Scanner on init
@@ -225,7 +232,6 @@
 		can_use_scanner = TRUE
 	else
 		can_use_scanner = FALSE
-		connect_scanner(null)
 		is_viable_occupant = FALSE
 
 	// Check for a viable occupant in the scanner.
@@ -283,6 +289,7 @@
 	if(can_use_scanner)
 		data["scannerOpen"] = connected_scanner.state_open
 		data["scannerLocked"] = connected_scanner.locked
+		data["scannerBoltWireCut"] = connected_scanner.wires.is_cut(WIRE_BOLTS)
 		data["radStrength"] = radstrength
 		data["radDuration"] = radduration
 		data["stdDevStr"] = radstrength * RADIATION_STRENGTH_MULTIPLIER
@@ -390,8 +397,11 @@
 			// GUARD CHECK - Scanner still connected and operational?
 			if(!scanner_operational())
 				return
+			if(connected_scanner.wires.is_cut(WIRE_BOLTS))
+				return
 
 			connected_scanner.locked = !connected_scanner.locked
+			connected_scanner.update_icon()
 			return
 
 		// Scramble scanner occupant's DNA
@@ -622,7 +632,7 @@
 			// Activators are also called "research" injectors and are used to create
 			//  chromosomes by recycling at the DNA Console
 			if(is_activator)
-				I.name = "[HM.name] activator"
+				I.name = "DNA activator"
 				I.research = TRUE
 				// If there's an operational connected scanner, we can use its upgrades
 				//  to improve our injector's radiation generation
@@ -632,7 +642,8 @@
 				else
 					injectorready = world.time + INJECTOR_TIMEOUT
 			else
-				I.name = "[HM.name] mutator"
+				I.name = "DNA mutator"
+				I.desc = "Adds the current mutation on injection, at the cost of genetic stability."
 				I.doitanyway = TRUE
 				// If there's an operational connected scanner, we can use its upgrades
 				//  to improve our injector's radiation generation
@@ -643,6 +654,64 @@
 					injectorready = world.time + INJECTOR_TIMEOUT * 5
 
 			return
+
+		//Activate mutation already in a subject's genome
+		if("activate_mutation")
+			if(!can_modify_occupant())
+				return
+
+			var/path = GET_MUTATION_TYPE_FROM_ALIAS(params["alias"])
+			if(stored_research && stored_research.discovered_mutations[path])
+				var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(path)
+				// GUARD CHECK - This should not be possible. Unexpected result
+				if(!HM)
+					return
+
+				scanner_occupant.dna.activate_mutation(HM)
+				log_game("[key_name(usr)] activated [HM] in [key_name(scanner_occupant)] [loc_name(usr)]")
+
+				if(scanner_operational())
+					injectorready = world.time + INJECTOR_TIMEOUT * 0.1 * (1 - 0.1 * connected_scanner.precision_coeff)
+				else
+					injectorready = world.time + INJECTOR_TIMEOUT * 0.1
+
+				if(scanner_occupant.client)
+					var/c_typepath = generate_chromosome()
+					var/obj/item/chromosome/CM = new c_typepath (drop_location())
+					if(LAZYLEN(stored_chromosomes) < max_chromosomes)
+						CM.forceMove(src)
+						stored_chromosomes += CM
+						to_chat(usr,"<span class='notice'>[capitalize(CM.name)] added to storage.</span>")
+
+		//Creates a new MUT_EXTRA mutation in subject
+		if("add_mutation")
+			if(!can_modify_occupant())
+				return
+
+			var/search_flags = 0
+
+			switch(params["source"])
+				if("console")
+					search_flags |= SEARCH_STORED
+				if("disk")
+					search_flags |= SEARCH_DISKETTE
+
+			var/bref = params["mutref"]
+			var/datum/mutation/human/HM = get_mut_by_ref(bref, search_flags)
+
+			if(!HM)
+				return
+			if(scanner_occupant.dna.mutation_in_sequence(HM))
+				scanner_occupant.dna.activate_mutation(HM)
+			else
+				scanner_occupant.dna.add_mutation(HM, MUT_EXTRA)
+
+			if(scanner_operational())
+				injectorready = world.time + INJECTOR_TIMEOUT * 0.5 * (1 - 0.1 * connected_scanner.precision_coeff)
+			else
+				injectorready = world.time + INJECTOR_TIMEOUT * 0.5
+
+			log_game("[key_name(usr)] added [HM] to [key_name(scanner_occupant)] [loc_name(usr)]")
 
 		// Save a mutation to the console's storage buffer.
 		// ---------------------------------------------------------------------- //
@@ -854,11 +923,11 @@
 			// If it's already discovered, end here. Otherwise, add it to the list of
 			//  discovered mutations.
 			// We've already checked for stored_research earlier
-			if(result_path in stored_research.discovered_mutations)
+			if(stored_research.discovered_mutations[result_path])
 				return
 
 			var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(result_path)
-			stored_research.discovered_mutations += result_path
+			stored_research.discovered_mutations[result_path] = TRUE
 			say("Successfully mutated [HM.name].")
 			return
 
@@ -916,11 +985,11 @@
 			// If it's already discovered, end here. Otherwise, add it to the list of
 			//  discovered mutations
 			// We've already checked for stored_research earlier
-			if(result_path in stored_research.discovered_mutations)
+			if(stored_research.discovered_mutations[result_path])
 				return
 
 			var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(result_path)
-			stored_research.discovered_mutations += result_path
+			stored_research.discovered_mutations[result_path] = TRUE
 			say("Successfully mutated [HM.name].")
 			return
 
@@ -1491,7 +1560,7 @@
 	if(!connected_scanner)
 		return FALSE
 
-	return (connected_scanner && connected_scanner.is_operational())
+	return (connected_scanner && connected_scanner.is_operational() && !connected_scanner.wires.is_cut(WIRE_LIMIT))
 
 /**
   * Checks if there is a valid DNA Scanner occupant for genetic modification
@@ -1605,7 +1674,7 @@
 			var/list/mutation_data = list()
 			var/text_sequence = scanner_occupant.dna.mutation_index[mutation_type]
 			var/default_sequence = scanner_occupant.dna.default_mutation_genes[mutation_type]
-			var/discovered = (stored_research && (mutation_type in stored_research.discovered_mutations))
+			var/discovered = (stored_research && stored_research.discovered_mutations[mutation_type])
 
 			mutation_data["Alias"] = HM.alias
 			mutation_data["Sequence"] = text_sequence
@@ -1848,9 +1917,9 @@
 		return FALSE
 	if(M.scrambled)
 		return FALSE
-	if(stored_research && !(path in stored_research.discovered_mutations))
+	if(stored_research && !stored_research.discovered_mutations[path])
 		var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(path)
-		stored_research.discovered_mutations += path
+		stored_research.discovered_mutations[path] = TRUE
 		say("Successfully discovered [HM.name].")
 		return TRUE
 
@@ -1987,6 +2056,13 @@
 	if(!istype(user) || !Adjacent(user) || !user.put_in_active_hand(diskette))
 		diskette.forceMove(drop_location())
 	diskette = null
+
+/obj/machinery/computer/scan_consolenew/emag_act(mob/user)
+	obj_flags |= EMAGGED
+	if(req_access)
+		req_access = list()
+		to_chat(user, "<span class='warning'>You bypass [src]'s access requirements.</span>")
+
 /////////////////////////// DNA MACHINES
 #undef INJECTOR_TIMEOUT
 #undef NUMBER_OF_BUFFERS

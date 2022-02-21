@@ -39,7 +39,7 @@
 	var/reverse = FALSE //If true, signals if the scan returns false
 	var/detect_nutrition = NUTRITION_LEVEL_FAT
 
-/obj/machinery/scanner_gate/Initialize()
+/obj/machinery/scanner_gate/Initialize(mapload)
 	. = ..()
 	set_scanline("passive")
 	var/static/list/loc_connections = list(

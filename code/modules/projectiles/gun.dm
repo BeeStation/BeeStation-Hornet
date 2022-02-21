@@ -81,7 +81,7 @@
 	var/pb_knockback = 0
 	var/ranged_cooldown = 0
 
-/obj/item/gun/Initialize()
+/obj/item/gun/Initialize(mapload)
 	. = ..()
 	if(pin)
 		if(no_pin_required)
@@ -584,7 +584,7 @@
 		azoom.Grant(user)
 
 /obj/item/gun/dropped(mob/user)
-	. = ..()
+	..()
 	if(azoom)
 		azoom.Remove(user)
 	if(zoomed)

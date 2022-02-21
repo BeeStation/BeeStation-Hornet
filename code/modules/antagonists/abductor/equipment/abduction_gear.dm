@@ -30,7 +30,7 @@
 	var/stealth_armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 15, "rad" = 15, "fire" = 70, "acid" = 70, "stamina" = 30)
 	var/combat_armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 90, "acid" = 90, "stamina" = 60)
 
-/obj/item/clothing/suit/armor/abductor/vest/Initialize()
+/obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
 	. = ..()
 	stealth_armor = getArmor(arglist(stealth_armor))
 	combat_armor = getArmor(arglist(combat_armor))
@@ -609,12 +609,12 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_flags = DROPDEL
 
 /obj/item/restraints/handcuffs/energy/used/dropped(mob/user)
+	..()
 	user.visible_message("<span class='danger'>[user]'s [name] breaks in a discharge of energy!</span>", \
 							"<span class='userdanger'>[user]'s [name] breaks in a discharge of energy!</span>")
 	var/datum/effect_system/spark_spread/S = new
 	S.set_up(4,0,user.loc)
 	S.start()
-	. = ..()
 
 /obj/item/abductor/baton/examine(mob/user)
 	. = ..()
@@ -803,7 +803,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	var/static/list/injected_reagents = list(/datum/reagent/medicine/corazone)
 
-/obj/structure/table/optable/abductor/Initialize()
+/obj/structure/table/optable/abductor/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,

@@ -8,7 +8,7 @@
 	var/static/list/whitelisted_turfs
 	var/static/list/whitelisted_areas
 
-/obj/item/survivalcapsule/shuttle/Initialize()
+/obj/item/survivalcapsule/shuttle/Initialize(mapload)
 	. = ..()
 	if(!blacklisted_turfs)
 		whitelisted_areas = typecacheof(list(

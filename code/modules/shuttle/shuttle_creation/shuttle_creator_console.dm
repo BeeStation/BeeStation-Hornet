@@ -17,7 +17,7 @@
 /obj/machinery/computer/camera_advanced/shuttle_creator/CreateEye()
 	eyeobj = new /mob/camera/ai_eye/remote/shuttle_creation(get_turf(owner_rsd))
 	eyeobj.origin = src
-	eyeobj.use_static = USE_STATIC_NONE
+	eyeobj.use_static = FALSE
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/is_operational()
 	return TRUE

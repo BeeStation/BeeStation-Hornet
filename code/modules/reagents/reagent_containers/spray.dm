@@ -255,7 +255,7 @@
 	generate_amount = 1
 	generate_delay = 40		//deciseconds
 
-/obj/item/reagent_containers/spray/waterflower/cyborg/Initialize()
+/obj/item/reagent_containers/spray/waterflower/cyborg/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSfastprocess, src)
 
@@ -332,7 +332,7 @@
 	var/last_generate = 0
 	var/generate_delay = 10	//deciseconds
 
-/obj/item/reagent_containers/spray/chemsprayer/janitor/Initialize()
+/obj/item/reagent_containers/spray/chemsprayer/janitor/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSfastprocess, src)
 
@@ -372,7 +372,7 @@
 	var/recharge_time = 2 //Time it takes for 5u to recharge (in seconds)
 	var/datum/reagent/set_reagent
 
-/obj/item/reagent_containers/spray/cyborg/Initialize()
+/obj/item/reagent_containers/spray/cyborg/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(set_reagent, volume)
 	START_PROCESSING(SSobj, src)

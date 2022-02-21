@@ -8,7 +8,7 @@
 	var/engine_sound_length = 20 //Set this to the length of the engine sound
 	var/escape_time = 60 //Time it takes to break out of the car
 
-/obj/vehicle/sealed/car/Initialize()
+/obj/vehicle/sealed/car/Initialize(mapload)
 	. = ..()
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
 	D.vehicle_move_delay = movedelay

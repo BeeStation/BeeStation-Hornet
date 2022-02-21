@@ -97,7 +97,7 @@
 	var/disarm_time = 200
 	var/disarm_product = /obj/item/deployablemine // ie what drops when the mine is disarmed
 
-/obj/effect/mine/Initialize()
+/obj/effect/mine/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
@@ -284,7 +284,7 @@
 	density = FALSE
 	var/duration = 0
 
-/obj/effect/mine/pickup/Initialize()
+/obj/effect/mine/pickup/Initialize(mapload)
 	. = ..()
 	animate(src, pixel_y = 4, time = 20, loop = -1)
 

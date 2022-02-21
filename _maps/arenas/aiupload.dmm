@@ -10,7 +10,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "g" = (
-/obj/item/twohanded/required/kirbyplants/photosynthetic,
+/obj/item/kirbyplants/photosynthetic,
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "h" = (
