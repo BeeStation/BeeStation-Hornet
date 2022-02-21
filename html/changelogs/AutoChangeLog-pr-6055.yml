@@ -1,0 +1,5 @@
+author: MNarath1
+delete-after: true
+changes:
+  - bugfix: fixed blob spore pathing
+  - tweak: blob spores will keep hunting target mobs until those are out of range
