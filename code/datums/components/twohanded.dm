@@ -192,8 +192,14 @@
 	if(SEND_SIGNAL(parent, COMSIG_TWOHANDED_WIELD, user) & COMPONENT_TWOHANDED_BLOCK_WIELD)
 		return // blocked wield from item
 
+	//If wielder isn't null already, unreference the old wielder
+	if(wielder != null)
+		unreference_wielder()
+
 	wielder = user
 	wielded = TRUE
+
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, .proc/unreference_wielder)
 
 	if(!auto_wield)
 		RegisterSignal(user, COMSIG_MOB_SWAP_HANDS, .proc/on_swap_hands)
@@ -230,6 +236,10 @@
 		user.put_in_active_hand(offhand_item)
 	else
 		user.put_in_inactive_hand(offhand_item)
+
+/datum/component/two_handed/proc/unreference_wielder()
+	UnregisterSignal(wielder, COMSIG_PARENT_QDELETING)
+	wielder = null
 
 /**
  * Unwield the two handed item
