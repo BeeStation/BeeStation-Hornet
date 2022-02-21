@@ -402,7 +402,6 @@
 	var/atom/Tsec = drop_location()
 
 	new /obj/item/larryframe(Tsec)
-
 	new /obj/item/assembly/prox_sensor(Tsec)
 
 	if(prob(50))
@@ -412,7 +411,6 @@
 
 	do_sparks(3, TRUE, src)
 	qdel(src)
-
 
 /obj/machinery/bot_core/cleanbot
 	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
