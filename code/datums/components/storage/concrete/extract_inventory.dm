@@ -25,7 +25,7 @@
 	if(length(parent_slime_extract.contents) >= max_items)
 		QDEL_LIST(parent_slime_extract.contents)
 		if(GLOB.total_slimes >= CONFIG_GET(number/max_slimes))
-			to_chat(user, "<i>The extract jiggles, and fails to produce a slime...</i>")
+			to_chat(user, "<span class='warning'>The extract jiggles, and fails to produce a slime...</span>")
 			return
 		create_extracts(parent_slime_extract,user)
 
