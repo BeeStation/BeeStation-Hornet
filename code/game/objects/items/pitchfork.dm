@@ -30,7 +30,7 @@
 	force = 19
 	throwforce = 24
 
-/obj/item/pitchfork/demonic/Initialize()
+/obj/item/pitchfork/demonic/Initialize(mapload)
 	. = ..()
 	set_light(3,6,LIGHT_COLOR_RED)
 

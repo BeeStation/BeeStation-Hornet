@@ -21,7 +21,7 @@
 
 	anchored = TRUE
 
-/obj/structure/bluespace_beacon/Initialize()
+/obj/structure/bluespace_beacon/Initialize(mapload)
 	. = ..()
 	GLOB.zclear_blockers += src
 

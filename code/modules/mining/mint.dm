@@ -16,7 +16,7 @@
 	var/chosen = /datum/material/iron //which material will be used to make coins
 
 
-/obj/machinery/mineral/mint/Initialize()
+/obj/machinery/mineral/mint/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/material_container, list(
 		/datum/material/iron,

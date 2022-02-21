@@ -14,7 +14,7 @@
 	var/authenticated = 0
 	var/auth_id = "\[NULL\]"
 
-/obj/machinery/computer/apc_control/Initialize()
+/obj/machinery/computer/apc_control/Initialize(mapload)
 	. = ..()
 	result_filters = list("Name" = null, "Charge Above" = null, "Charge Below" = null, "Responsive" = null)
 

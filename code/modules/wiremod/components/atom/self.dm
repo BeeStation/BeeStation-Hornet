@@ -10,7 +10,7 @@
 	/// The shell this component is attached to.
 	var/datum/port/output/output
 
-/obj/item/circuit_component/self/Initialize()
+/obj/item/circuit_component/self/Initialize(mapload)
 	. = ..()
 	output = add_output_port("Self", PORT_TYPE_ATOM)
 

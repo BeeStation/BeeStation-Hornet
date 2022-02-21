@@ -1,0 +1,347 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"f" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"h" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"k" = (
+/obj/item/toy/plush/lizardplushie,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"m" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"o" = (
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"p" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"q" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 1
+	},
+/obj/item/kirbyplants/random,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"r" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"s" = (
+/obj/structure/closet/firecloset/full,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"u" = (
+/obj/structure/closet/emcloset,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"w" = (
+/obj/effect/abstract/open_area_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"x" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"C" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	req_access_txt = "12"
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"G" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"I" = (
+/obj/item/kirbyplants/photosynthetic{
+	layer = 3.1
+	},
+/obj/structure/window/fulltile,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"J" = (
+/obj/structure/lattice,
+/obj/structure/sign/logo{
+	pixel_y = 32
+	},
+/turf/template_noop,
+/area/space)
+"L" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/obj/machinery/vending/snack/random,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"M" = (
+/obj/structure/lattice,
+/obj/structure/sign/logo{
+	icon_state = "nanotrasen_sign2";
+	pixel_y = 32
+	},
+/turf/template_noop,
+/area/space)
+"O" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"P" = (
+/obj/structure/lattice,
+/obj/structure/sign/logo{
+	icon_state = "nanotrasen_sign3";
+	pixel_y = 32
+	},
+/turf/template_noop,
+/area/space)
+"R" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"U" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 1
+	},
+/obj/machinery/vending/coffee,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"W" = (
+/obj/structure/sign/poster/contraband/lizard{
+	pixel_y = 32
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"X" = (
+/obj/structure/lattice,
+/obj/structure/sign/logo{
+	icon_state = "nanotrasen_sign4";
+	pixel_y = 32
+	},
+/turf/template_noop,
+/area/space)
+"Y" = (
+/obj/structure/lattice,
+/obj/structure/sign/logo{
+	icon_state = "nanotrasen_sign5";
+	pixel_y = 32
+	},
+/turf/template_noop,
+/area/space)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+R
+G
+r
+a
+"}
+(2,1,1) = {"
+m
+q
+r
+f
+f
+f
+f
+f
+r
+"}
+(3,1,1) = {"
+m
+s
+f
+f
+f
+f
+f
+f
+w
+"}
+(4,1,1) = {"
+m
+x
+R
+f
+f
+f
+R
+R
+R
+"}
+(5,1,1) = {"
+a
+a
+a
+R
+f
+r
+a
+a
+a
+"}
+(6,1,1) = {"
+a
+I
+a
+R
+f
+r
+a
+O
+a
+"}
+(7,1,1) = {"
+a
+J
+m
+R
+f
+r
+C
+o
+p
+"}
+(8,1,1) = {"
+a
+M
+m
+R
+f
+r
+a
+o
+a
+"}
+(9,1,1) = {"
+a
+P
+m
+R
+f
+r
+a
+u
+a
+"}
+(10,1,1) = {"
+a
+X
+m
+R
+f
+r
+a
+a
+a
+"}
+(11,1,1) = {"
+a
+Y
+m
+R
+f
+r
+a
+W
+a
+"}
+(12,1,1) = {"
+a
+I
+a
+R
+f
+r
+a
+k
+a
+"}
+(13,1,1) = {"
+a
+a
+a
+R
+f
+r
+a
+a
+a
+"}
+(14,1,1) = {"
+m
+U
+r
+f
+f
+f
+r
+r
+r
+"}
+(15,1,1) = {"
+m
+h
+f
+f
+f
+f
+f
+f
+w
+"}
+(16,1,1) = {"
+m
+L
+R
+f
+f
+f
+f
+f
+R
+"}
+(17,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}

@@ -19,6 +19,7 @@ Assistant
 	paycheck_department = ACCOUNT_CIV
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 	departments = DEPARTMENT_SERVICE
+	rpg_title = "Lout"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
@@ -40,9 +41,9 @@ Assistant
 		if(H.jumpsuit_style == PREF_SUIT)
 			uniform = /obj/item/clothing/under/color/grey
 		else
-			uniform = /obj/item/clothing/under/skirt/color/grey
+			uniform = /obj/item/clothing/under/color/jumpskirt/grey
 	else
 		if(H.jumpsuit_style == PREF_SUIT)
 			uniform = /obj/item/clothing/under/color/random
 		else
-			uniform = /obj/item/clothing/under/skirt/color/random
+			uniform = /obj/item/clothing/under/color/jumpskirt/random

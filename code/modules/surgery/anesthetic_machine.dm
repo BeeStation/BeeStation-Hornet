@@ -9,7 +9,7 @@
 	var/obj/item/tank/attached_tank = null
 	var/mask_out = FALSE
 
-/obj/machinery/anesthetic_machine/Initialize()
+/obj/machinery/anesthetic_machine/Initialize(mapload)
 	. = ..()
 	attached_mask = new /obj/item/clothing/mask/breath/machine(src)
 	attached_mask.machine_attached = src
@@ -106,7 +106,7 @@
 	var/obj/machinery/anesthetic_machine/machine_attached
 	clothing_flags = MASKINTERNALS | MASKEXTENDRANGE
 
-/obj/item/clothing/mask/breath/machine/Initialize()
+/obj/item/clothing/mask/breath/machine/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 

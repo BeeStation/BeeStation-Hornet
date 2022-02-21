@@ -8,7 +8,7 @@
 	grav_pull = 10
 	consume_range = 12 //How many tiles out do we eat
 
-/obj/singularity/narsie/toddsie/Initialize()
+/obj/singularity/narsie/toddsie/Initialize(mapload)
 	. = ..()
 	send_to_playing_players("<span class='narsie'>TODD'SIE HAS RISEN. BUY. SKYRIM.</span>")
 	sound_to_playing_players('sound/creatures/narsie_rises.ogg')

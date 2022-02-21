@@ -619,9 +619,6 @@
 	dir = 1;
 	pixel_y = 26
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
@@ -642,9 +639,6 @@
 	},
 /obj/machinery/status_display/ai{
 	pixel_y = 32
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
@@ -726,12 +720,12 @@
 	pixel_x = 5;
 	pixel_y = -24
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/white,
 /area/ai_monitored/turret_protected/ai)
@@ -748,6 +742,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
 /turf/open/floor/plasteel/white,
 /area/ai_monitored/turret_protected/ai)
@@ -19894,7 +19891,7 @@
 "aYm" = (
 /obj/structure/closet/crate/wooden/toy,
 /obj/item/lipstick/random,
-/obj/item/clothing/gloves/color/rainbow/clown,
+/obj/item/clothing/gloves/color/rainbow,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -34307,6 +34304,9 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	pixel_x = 28
+	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "bHI" = (
@@ -36996,7 +36996,7 @@
 	c_tag = "Tech Storage";
 	dir = 2
 	},
-/obj/item/circuitboard/computer/monastery_shuttle,
+/obj/item/circuitboard/computer/shuttle/monastery_shuttle,
 /obj/effect/spawner/lootdrop/techstorage/service,
 /obj/machinery/airalarm{
 	dir = 2;
@@ -43590,13 +43590,6 @@
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/asteroid/nearstation/bomb_site)
-"clk" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/libraryscanner,
-/turf/open/floor/plasteel/dark,
-/area/library/lounge)
 "clm" = (
 /obj/structure/closet/crate/bin,
 /turf/open/floor/plasteel/dark,
@@ -47001,12 +46994,6 @@
 "czO" = (
 /obj/structure/table/wood,
 /obj/item/instrument/saxophone,
-/turf/open/floor/plasteel/dark,
-/area/library)
-"czP" = (
-/obj/structure/table/wood,
-/obj/item/stack/packageWrap,
-/obj/item/coin/gold,
 /turf/open/floor/plasteel/dark,
 /area/library)
 "czQ" = (
@@ -50890,6 +50877,15 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"hjk" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/item/stack/packageWrap,
+/obj/item/coin/gold,
+/turf/open/floor/plasteel/dark,
+/area/library/lounge)
 "hjz" = (
 /obj/effect/turf_decal/stripes/line,
 /mob/living/simple_animal/bot/cleanbot/medbay,
@@ -62971,6 +62967,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
+"xCy" = (
+/obj/machinery/libraryscanner,
+/turf/open/floor/plasteel/dark,
+/area/library)
 "xCE" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 6
@@ -80951,7 +80951,7 @@ ckl
 ckD
 ckS
 clg
-clk
+hjk
 cwe
 cwe
 cyB
@@ -82509,7 +82509,7 @@ ckH
 czp
 ckH
 ckH
-czP
+xCy
 ckH
 ckH
 cjp

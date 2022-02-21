@@ -30,6 +30,17 @@
 	if(target.stat == DEAD)
 		to_chat(user,"<span class='warning'>[target.real_name] is dead. Bring them to a transmutation rune!</span>")
 
+/obj/item/living_heart/proc/set_target(datum/mind/new_target)
+	if(target?.mind)
+		UnregisterSignal(target.mind, COMSIG_MIND_CRYOED)
+	target = new_target?.current
+	if(target?.mind)
+		RegisterSignal(target.mind, COMSIG_MIND_CRYOED, .proc/on_target_cryo)
+
+/obj/item/living_heart/proc/on_target_cryo()
+	SIGNAL_HANDLER
+	set_target(null)
+
 /datum/action/innate/heretic_shatter
 	name = "Shattering Offer"
 	desc = "By breaking your blade, you will be granted salvation from a dire situation. (Teleports you to a random safe turf on your current z level, but destroys your blade.)"
@@ -78,7 +89,7 @@
 	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
 	var/datum/action/innate/heretic_shatter/linked_action
 
-/obj/item/melee/sickly_blade/Initialize()
+/obj/item/melee/sickly_blade/Initialize(mapload)
 	. = ..()
 	linked_action = new(src)
 
@@ -158,7 +169,17 @@
 	name = "guise of Istasha"
 	desc = "An odd amulet formed out of multiple floating parts, strung togethere by forces from another world."
 	icon_state = "eye_medalion"
-	trait = TRAIT_DIGINVIS
+
+/obj/item/clothing/neck/eldritch_amulet/guise/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_NECK)
+		user.AddElement(/datum/element/digital_camo)
+	else
+		user.RemoveElement(/datum/element/digital_camo)
+
+/obj/item/clothing/neck/eldritch_amulet/guise/dropped(mob/user)
+	. = ..()
+	user.RemoveElement(/datum/element/digital_camo)
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	name = "ominous hood"

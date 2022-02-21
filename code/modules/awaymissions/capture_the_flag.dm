@@ -35,7 +35,7 @@
 	QDEL_NULL(reset)
 	return ..()
 
-/obj/item/ctf/Initialize()
+/obj/item/ctf/Initialize(mapload)
 	. = ..()
 	if(!reset)
 		reset = new reset_path(get_turf(src))
@@ -177,7 +177,7 @@
 	var/static/arena_reset = FALSE
 	var/static/list/people_who_want_to_play = list()
 
-/obj/machinery/capture_the_flag/Initialize()
+/obj/machinery/capture_the_flag/Initialize(mapload)
 	. = ..()
 	GLOB.poi_list |= src
 
@@ -420,6 +420,7 @@
 	mag_type = /obj/item/ammo_box/magazine/recharge/ctf
 	desc = "This looks like it could really hurt in melee."
 	force = 50
+	full_auto = TRUE //Rule of cool.
 
 /obj/item/gun/ballistic/automatic/laser/ctf/dropped()
 	..()
