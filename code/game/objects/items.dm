@@ -217,7 +217,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		item_flags |= IN_STORAGE
 
 	if(istype(loc, /obj/item/robot_module))
-		pickup()
+		var/obj/item/robot_module/parent_module = loc
+		var/mob/living/silicon/parent_robot = parent_module.loc
+		pickup(parent_robot)
 
 	if(!hitsound)
 		if(damtype == "fire")
