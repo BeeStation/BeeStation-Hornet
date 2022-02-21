@@ -696,6 +696,7 @@
 #include "code\datums\wires\airlock_cycle.dm"
 #include "code\datums\wires\apc.dm"
 #include "code\datums\wires\autolathe.dm"
+#include "code\datums\wires\dna_scanner.dm"
 #include "code\datums\wires\emitter.dm"
 #include "code\datums\wires\explosive.dm"
 #include "code\datums\wires\mass_driver.dm"
