@@ -118,7 +118,7 @@
 								COMSIG_ATOM_UPDATE_ICON,
 								COMSIG_MOVABLE_MOVED,
 								COMSIG_ITEM_SHARPEN_ACT,
-								COMSIG_ITEM_CHECK_WIELDED,))
+								COMSIG_ITEM_CHECK_WIELDED))
 
 /// Triggered on equip of the item containing the component
 /datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
