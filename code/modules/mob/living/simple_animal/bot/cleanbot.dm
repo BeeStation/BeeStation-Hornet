@@ -386,7 +386,7 @@
 		knife = newknife
 		newknife.forceMove(src)
 		message_admins("[user] attached a [newknife.name] to [src]") //This should definitely be a notified thing.
-		AddComponent(/datum/component/larryknife, knife.force)
+		AddComponent(/datum/component/knife_attached_to_movable, knife.force)
 		update_icons()
 	else
 		return ..()
