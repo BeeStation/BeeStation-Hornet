@@ -117,7 +117,7 @@
 
 /obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special)
 	flight_level = initial(flight_level)
-	. = ..()
+	return ..()
 
 /obj/item/organ/wings/moth/robust
 	desc = "A pair of moth wings. They look robust enough to fly in an atmosphere"
