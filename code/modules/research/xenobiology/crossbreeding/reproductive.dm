@@ -11,7 +11,7 @@ Reproductive extracts:
 	effect_desc = "When fed monkey cubes it produces a baby slime. Bio bag compatible as well."
 	layer = LOW_ITEM_LAYER
 	var/last_produce = 0
-	var/cooldown = 60 SECONDS
+	var/cooldown = 30 SECONDS
 	var/feed_amount = 3
 	var/datum/component/storage/concrete/extract_inventory/slime_storage
 	var/static/list/typecache_to_take
