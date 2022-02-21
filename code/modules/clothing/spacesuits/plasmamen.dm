@@ -63,7 +63,7 @@
 /obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
 	. = ..()
 	visor_toggling()
-	verbs -= /obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat
+	remove_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
 /obj/item/clothing/head/helmet/space/plasmaman/Destroy()
 	if (attached_hat)
@@ -120,7 +120,7 @@
 		attached_hat = hat
 		hat.forceMove(src)
 		update_icon()
-		verbs += /obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat
+		add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
 /obj/item/clothing/head/helmet/space/plasmaman/worn_overlays(mutable_appearance/standing, isinhands)
 	. = ..()
@@ -143,7 +143,7 @@
 	usr.put_in_hands(attached_hat)
 	attached_hat = null
 	update_icon()
-	verbs -= /obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat
+	remove_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
 /obj/item/clothing/head/helmet/space/plasmaman/ComponentInitialize()
 	. = ..()
