@@ -16,7 +16,7 @@
 	icon_state = "watcher"
 	var/cooldown = 0
 
-/obj/structure/alien_artifact/watcher/Initialize()
+/obj/structure/alien_artifact/watcher/Initialize(mapload)
 	. = ..()
 	proximity_monitor = new(src, rand(3, 6))
 	var/turf/T = get_turf(src)
@@ -49,7 +49,7 @@
 	var/active = FALSE
 	var/datum/protector_effect/effect
 
-/obj/structure/alien_artifact/protector/Initialize()
+/obj/structure/alien_artifact/protector/Initialize(mapload)
 	. = ..()
 	var/effect_type = pick(subtypesof(/datum/protector_effect))
 	effect = new effect_type()
@@ -88,7 +88,7 @@
 	hierophant_burst(null, T, 7)
 
 /datum/protector_effect/emp_stun/trigger(obj/source, turf/T, atom/movable/target)
-	playsound(TAIL_SWEEP_COMBO,'sound/machines/airlockopen.ogg', 200, 1)
+	playsound(T,'sound/machines/airlockopen.ogg', 200, 1)
 	T.visible_message("<span class='hierophant'>\"Svhivw vigmizih.\"</span>")
 	empulse(T, 2, 6)
 	if(isliving(target))

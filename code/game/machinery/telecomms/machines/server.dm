@@ -16,7 +16,7 @@
 	var/list/log_entries = list()
 	var/totaltraffic = 0 // gigabytes (if > 1024, divide by 1024 -> terrabytes)
 
-/obj/machinery/telecomms/server/Initialize()
+/obj/machinery/telecomms/server/Initialize(mapload)
 	. = ..()
 
 /obj/machinery/telecomms/server/receive_information(datum/signal/subspace/vocal/signal, obj/machinery/telecomms/machine_from)
@@ -68,7 +68,7 @@
 /obj/machinery/telecomms/server/presets
 	network = "tcommsat"
 
-/obj/machinery/telecomms/server/presets/Initialize()
+/obj/machinery/telecomms/server/presets/Initialize(mapload)
 	. = ..()
 	name = id
 
@@ -105,7 +105,7 @@
 	autolinkers = list("common")
 
 //Common and other radio frequencies for people to freely use
-/obj/machinery/telecomms/server/presets/common/Initialize()
+/obj/machinery/telecomms/server/presets/common/Initialize(mapload)
 	. = ..()
 	for(var/i = MIN_FREQ, i <= MAX_FREQ, i += 2)
 		freq_listening |= i
@@ -125,6 +125,6 @@
 	freq_listening = list(FREQ_SECURITY)
 	autolinkers = list("security")
 
-/obj/machinery/telecomms/server/presets/common/birdstation/Initialize()
+/obj/machinery/telecomms/server/presets/common/birdstation/Initialize(mapload)
 	. = ..()
 	freq_listening = list()

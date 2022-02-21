@@ -10,7 +10,7 @@
 	icon_state = "guideline_in"
 	layer = TURF_PLATING_DECAL_LAYER
 
-/obj/effect/turf_decal/guideline/guideline_in/Initialize()
+/obj/effect/turf_decal/guideline/guideline_in/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		color = "#[random_short_color()]"
 	. = ..()
@@ -57,7 +57,7 @@
 	name = "colorful in guideline"
 	color = "#E300FF" //bright pink as default for mapping
 
-/obj/effect/turf_decal/guideline/guideline_in/random/Initialize()
+/obj/effect/turf_decal/guideline/guideline_in/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
@@ -67,7 +67,7 @@
 	icon_state = "guideline_mid"
 	layer = TURF_PLATING_DECAL_LAYER
 
-/obj/effect/turf_decal/guideline/guideline_mid/Initialize()
+/obj/effect/turf_decal/guideline/guideline_mid/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		color = "#[random_short_color()]"
 	. = ..()
@@ -114,7 +114,7 @@
 	name = "colorful mid guideline"
 	color = "#E300FF" //bright pink as default for mapping
 
-/obj/effect/turf_decal/guideline/guideline_mid/random/Initialize()
+/obj/effect/turf_decal/guideline/guideline_mid/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
@@ -124,7 +124,7 @@
 	icon_state = "guideline_out"
 	layer = TURF_PLATING_DECAL_LAYER
 
-/obj/effect/turf_decal/guideline/guideline_out/Initialize()
+/obj/effect/turf_decal/guideline/guideline_out/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		color = "#[random_short_color()]"
 	. = ..()
@@ -171,7 +171,7 @@
 	name = "colorful out guideline"
 	color = "#E300FF" //bright pink as default for mapping
 
-/obj/effect/turf_decal/guideline/guideline_out/random/Initialize()
+/obj/effect/turf_decal/guideline/guideline_out/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
@@ -181,7 +181,7 @@
 	icon_state = "guideline_in_alt"
 	layer = TURF_PLATING_DECAL_LAYER
 
-/obj/effect/turf_decal/guideline/guideline_in_alt/Initialize()
+/obj/effect/turf_decal/guideline/guideline_in_alt/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		color = "#[random_short_color()]"
 	. = ..()
@@ -228,7 +228,7 @@
 	name = "colorful in alt guideline"
 	color = "#E300FF" //bright pink as default for mapping
 
-/obj/effect/turf_decal/guideline/guideline_in_alt/random/Initialize()
+/obj/effect/turf_decal/guideline/guideline_in_alt/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
@@ -238,7 +238,7 @@
 	icon_state = "guideline_mid_alt"
 	layer = TURF_PLATING_DECAL_LAYER
 
-/obj/effect/turf_decal/guideline/guideline_mid_alt/Initialize()
+/obj/effect/turf_decal/guideline/guideline_mid_alt/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		color = "#[random_short_color()]"
 	. = ..()
@@ -285,7 +285,7 @@
 	name = "colorful mid alt guideline"
 	color = "#E300FF" //bright pink as default for mapping
 
-/obj/effect/turf_decal/guideline/guideline_mid_alt/random/Initialize()
+/obj/effect/turf_decal/guideline/guideline_mid_alt/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
@@ -295,7 +295,7 @@
 	icon_state = "guideline_out_alt"
 	layer = TURF_PLATING_DECAL_LAYER
 
-/obj/effect/turf_decal/guideline/guideline_out_alt/Initialize()
+/obj/effect/turf_decal/guideline/guideline_out_alt/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		color = "#[random_short_color()]"
 	. = ..()
@@ -342,7 +342,7 @@
 	name = "colorful out alt guideline"
 	color = "#E300FF" //bright pink as default for mapping
 
-/obj/effect/turf_decal/guideline/guideline_out_alt/random/Initialize()
+/obj/effect/turf_decal/guideline/guideline_out_alt/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
@@ -352,7 +352,7 @@
 	icon_state = "guideline_in_T"
 	layer = TURF_PLATING_DECAL_LAYER
 
-/obj/effect/turf_decal/guideline/guideline_in_T/Initialize()
+/obj/effect/turf_decal/guideline/guideline_in_T/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		color = "#[random_short_color()]"
 	. = ..()
@@ -399,7 +399,7 @@
 	name = "colorful in T guideline"
 	color = "#E300FF" //bright pink as default for mapping
 
-/obj/effect/turf_decal/guideline/guideline_in_T/random/Initialize()
+/obj/effect/turf_decal/guideline/guideline_in_T/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
@@ -409,7 +409,7 @@
 	icon_state = "guideline_mid_T"
 	layer = TURF_PLATING_DECAL_LAYER
 
-/obj/effect/turf_decal/guideline/guideline_mid_T/Initialize()
+/obj/effect/turf_decal/guideline/guideline_mid_T/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		color = "#[random_short_color()]"
 	. = ..()
@@ -456,7 +456,7 @@
 	name = "colorful mid T guideline"
 	color = "#E300FF" //bright pink as default for mapping
 
-/obj/effect/turf_decal/guideline/guideline_out_T/random/Initialize()
+/obj/effect/turf_decal/guideline/guideline_out_T/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
@@ -466,7 +466,7 @@
 	icon_state = "guideline_out_T"
 	layer = TURF_PLATING_DECAL_LAYER
 
-/obj/effect/turf_decal/guideline/guideline_out_T/Initialize()
+/obj/effect/turf_decal/guideline/guideline_out_T/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		color = "#[random_short_color()]"
 	. = ..()
@@ -513,7 +513,7 @@
 	name = "colorful out T guideline"
 	color = "#E300FF" //bright pink as default for mapping
 
-/obj/effect/turf_decal/guideline/guideline_out_T/random/Initialize()
+/obj/effect/turf_decal/guideline/guideline_out_T/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
@@ -523,7 +523,7 @@
 	icon_state = "guideline_in_arrow"
 	layer = TURF_PLATING_DECAL_LAYER
 
-/obj/effect/turf_decal/guideline/guideline_in_arrow/Initialize()
+/obj/effect/turf_decal/guideline/guideline_in_arrow/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		color = "#[random_short_color()]"
 	. = ..()
@@ -570,7 +570,7 @@
 	name = "colorful in Arrow guideline"
 	color = "#E300FF" //bright pink as default for mapping
 
-/obj/effect/turf_decal/guideline/guideline_in_arrow/random/Initialize()
+/obj/effect/turf_decal/guideline/guideline_in_arrow/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
@@ -580,7 +580,7 @@
 	icon_state = "guideline_mid_arrow"
 	layer = TURF_PLATING_DECAL_LAYER
 
-/obj/effect/turf_decal/guideline/guideline_mid_arrow/Initialize()
+/obj/effect/turf_decal/guideline/guideline_mid_arrow/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		color = "#[random_short_color()]"
 	. = ..()
@@ -627,7 +627,7 @@
 	name = "colorful mid arrow guideline"
 	color = "#E300FF" //bright pink as default for mapping
 
-/obj/effect/turf_decal/guideline/guideline_mid_arrow/random/Initialize()
+/obj/effect/turf_decal/guideline/guideline_mid_arrow/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
@@ -637,7 +637,7 @@
 	icon_state = "guideline_out_arrow"
 	layer = TURF_PLATING_DECAL_LAYER
 
-/obj/effect/turf_decal/guideline/guideline_out_arrow/Initialize()
+/obj/effect/turf_decal/guideline/guideline_out_arrow/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		color = "#[random_short_color()]"
 	. = ..()
@@ -684,7 +684,7 @@
 	name = "colorful out arrow guideline"
 	color = "#E300FF" //bright pink as default for mapping
 
-/obj/effect/turf_decal/guideline/guideline_out_arrow/random/Initialize()
+/obj/effect/turf_decal/guideline/guideline_out_arrow/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
@@ -694,7 +694,7 @@
 	icon_state = "guideline_in_arrow_con"
 	layer = TURF_PLATING_DECAL_LAYER
 
-/obj/effect/turf_decal/guideline/guideline_in_arrow_con/Initialize()
+/obj/effect/turf_decal/guideline/guideline_in_arrow_con/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		color = "#[random_short_color()]"
 	. = ..()
@@ -741,7 +741,7 @@
 	name = "continuous colorful in Arrow guideline"
 	color = "#E300FF" //bright pink as default for mapping
 
-/obj/effect/turf_decal/guideline/guideline_in_arrow_con/random/Initialize()
+/obj/effect/turf_decal/guideline/guideline_in_arrow_con/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
@@ -751,7 +751,7 @@
 	icon_state = "guideline_mid_arrow_con"
 	layer = TURF_PLATING_DECAL_LAYER
 
-/obj/effect/turf_decal/guideline/guideline_mid_arrow_con/Initialize()
+/obj/effect/turf_decal/guideline/guideline_mid_arrow_con/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		color = "#[random_short_color()]"
 	. = ..()
@@ -798,7 +798,7 @@
 	name = "continuous colorful mid arrow guideline"
 	color = "#E300FF" //bright pink as default for mapping
 
-/obj/effect/turf_decal/guideline/guideline_mid_arrow_con/random/Initialize()
+/obj/effect/turf_decal/guideline/guideline_mid_arrow_con/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()
 
@@ -808,7 +808,7 @@
 	icon_state = "guideline_out_arrow_con"
 	layer = TURF_PLATING_DECAL_LAYER
 
-/obj/effect/turf_decal/guideline/guideline_out_arrow_con/Initialize()
+/obj/effect/turf_decal/guideline/guideline_out_arrow_con/Initialize(mapload)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		color = "#[random_short_color()]"
 	. = ..()
@@ -855,6 +855,6 @@
 	name = "colorful out arrow guideline"
 	color = "#E300FF" //bright pink as default for mapping
 
-/obj/effect/turf_decal/guideline/guideline_out_arrow_con/random/Initialize()
+/obj/effect/turf_decal/guideline/guideline_out_arrow_con/random/Initialize(mapload)
 	color = "#[random_short_color()]"
 	. = ..()

@@ -19,6 +19,10 @@
 			if(other_ling?.isabsorbing)
 				to_chat(user, "<span class='warning'>Our last resort is being disrupted by another changeling!</span>")
 				return
+	var/turf/T = user.loc
+	if(!isopenturf(T))
+		to_chat(user, "<span class='warning'>You need an open space to become a headslug!</span>")
+		return
 	if(alert("Are we sure we wish to kill ourself and create a headslug?",,"Yes", "No") == "No")
 		return
 	..()
@@ -41,13 +45,12 @@
 			var/mob/living/silicon/S = A
 			to_chat(S, "<span class='userdanger'>Your sensors are disabled by a shower of blood!</span>")
 			S.Paralyze(60)
-	var/turf = get_turf(user)
 	// Headcrab transformation is *very* unique; origin mob death happens *before* resulting mob's creation. Action removal should happen beforehand.
 	for(var/datum/action/cp in user.actions)
 		cp.Remove(user)
 	user.gib()
 	. = TRUE
-	var/mob/living/simple_animal/hostile/headcrab/crab = new(turf)
+	var/mob/living/simple_animal/hostile/headcrab/crab = new(T)
 	for(var/obj/item/organ/I in organs)
 		I.forceMove(crab)
 	crab.origin = M

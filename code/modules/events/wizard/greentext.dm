@@ -39,8 +39,8 @@
 	SSticker.OnRoundend(roundend_callback)
 
 /obj/item/greentext/equipped(mob/living/user as mob)
-	to_chat(user, "<font color='green'>So long as you leave this place with greentext in hand you know will be happy...</font>")
-	var/list/other_objectives = user.mind.get_all_objectives()
+	to_chat(user, "<font color='green'>So long as you leave this place with greentext in hand you know you will be happy...</font>")
+	var/list/other_objectives = user.mind.get_all_antag_objectives()
 	if(user.mind && other_objectives.len > 0)
 		to_chat(user, "<span class='warning'>... so long as you still perform your other objectives that is!</span>")
 	new_holder = user

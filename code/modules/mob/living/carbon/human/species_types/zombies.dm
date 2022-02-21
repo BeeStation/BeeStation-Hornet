@@ -2,7 +2,7 @@
 
 /datum/species/zombie
 	// 1spooky
-	name = "High-Functioning Zombie"
+	name = "\improper High-Functioning Zombie"
 	id = "zombie"
 	say_mod = "moans"
 	sexes = 0
@@ -17,15 +17,22 @@
 	liked_food = GROSS | MEAT | RAW
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 
+	species_chest = /obj/item/bodypart/chest/zombie
+	species_head = /obj/item/bodypart/head/zombie
+	species_l_arm = /obj/item/bodypart/l_arm/zombie
+	species_r_arm = /obj/item/bodypart/r_arm/zombie
+	species_l_leg = /obj/item/bodypart/l_leg/zombie
+	species_r_leg = /obj/item/bodypart/r_leg/zombie
+
 /datum/species/zombie/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
 	return ..()
 
 /datum/species/zombie/infectious
-	name = "Infectious Zombie"
+	name = "\improper Infectious Zombie"
 	id = "memezombies"
-	limbs_id = "zombie"
+	examine_limb_id = "zombie"
 	mutanthands = /obj/item/zombie_hand
 	armor = 20 // 120 damage to KO a zombie, which kills it
 	speedmod = 1.6
@@ -49,7 +56,7 @@
 /datum/species/zombie/infectious/spec_life(mob/living/carbon/C)
 	. = ..()
 	C.a_intent = INTENT_HARM // THE SUFFERING MUST FLOW
-	
+
 	//Zombies never actually die, they just fall down until they regenerate enough to rise back up.
 	//They must be restrained, beheaded or gibbed to stop being a threat.
 	if(regen_cooldown < world.time)
@@ -60,7 +67,7 @@
 		C.adjustToxLoss(-heal_amt)
 	if(!C.InCritical() && prob(4))
 		playsound(C, pick(spooks), 50, TRUE, 10)
-		
+
 //Congrats you somehow died so hard you stopped being a zombie
 /datum/species/zombie/infectious/spec_death(gibbed, mob/living/carbon/C)
 	. = ..()
@@ -82,21 +89,45 @@
 		infection.Insert(C)
 
 /datum/species/zombie/infectious/fast
-	name = "Fast Infectious Zombie"
+	name = "\improper Fast Infectious Zombie"
 	id = "memezombiesfast"
-	limbs_id = "fzombie"
 	armor = 0
 	speedmod = 0
 	mutanteyes = /obj/item/organ/eyes/night_vision/zombie
 
 // Your skin falls off
-/datum/species/krokodil_addict
-	name = "Human"
+/datum/species/human/krokodil_addict
+	name = "\improper Human"
 	id = "goofzombies"
-	limbs_id = "zombie" //They look like zombies
-	sexes = 0
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/zombie
 	mutanttongue = /obj/item/organ/tongue/zombie
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
+
+	examine_limb_id = SPECIES_HUMAN
+
+	species_chest = /obj/item/bodypart/chest/zombie
+	species_head = /obj/item/bodypart/head/zombie
+	species_l_arm = /obj/item/bodypart/l_arm/zombie
+	species_r_arm = /obj/item/bodypart/r_arm/zombie
+	species_l_leg = /obj/item/bodypart/l_leg/zombie
+	species_r_leg = /obj/item/bodypart/r_leg/zombie
+
+/datum/species/human/krokodil_addict/replace_body(mob/living/carbon/C, datum/species/new_species)
+	..()
+	var/skintone
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		skintone = H.skin_tone
+
+	for(var/obj/item/bodypart/BP as() in C.bodyparts)
+		if(IS_ORGANIC_LIMB(BP))
+			if(BP.body_zone == BODY_ZONE_HEAD || BP.body_zone == BODY_ZONE_CHEST)
+				BP.is_dimorphic = TRUE
+			BP.skin_tone ||= skintone
+			BP.limb_id = SPECIES_HUMAN
+			BP.should_draw_greyscale = TRUE
+			BP.name = "human [parse_zone(BP.body_zone)]"
+			BP.update_limb()
+
 
 #undef REGENERATION_DELAY

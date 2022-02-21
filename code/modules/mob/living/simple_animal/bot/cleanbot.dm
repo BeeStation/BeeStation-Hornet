@@ -33,7 +33,7 @@
 	var/next_dest
 	var/next_dest_loc
 
-/mob/living/simple_animal/bot/cleanbot/Initialize()
+/mob/living/simple_animal/bot/cleanbot/Initialize(mapload)
 	. = ..()
 	get_targets()
 	icon_state = "cleanbot[on]"
@@ -301,10 +301,9 @@
 	name = "\improper Larry"
 	desc = "A little Larry, he looks so excited!"
 	icon_state = "larry0"
-
 	var/obj/item/kitchen/knife/knife //You know exactly what this is about
 
-/mob/living/simple_animal/bot/cleanbot/larry/Initialize()
+/mob/living/simple_animal/bot/cleanbot/larry/Initialize(mapload)
 	. = ..()
 	get_targets()
 	icon_state = "larry[on]"

@@ -59,7 +59,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 	. = ..()
 	AddComponent(/datum/component/gps, "BOMB0", TRUE)
 
-/obj/machinery/nuclearbomb/decomission/Initialize()
+/obj/machinery/nuclearbomb/decomission/Initialize(mapload)
 	. = ..()
 	GLOB.decomission_bombs += src
 	r_code = "[rand(10000, 99999)]"

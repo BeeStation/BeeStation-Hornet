@@ -68,7 +68,7 @@
 	var/fading = FALSE
 	var/obj/effect/stargazer_light/sg_light
 
-/obj/structure/destructible/clockwork/gear_base/stargazer/Initialize()
+/obj/structure/destructible/clockwork/gear_base/stargazer/Initialize(mapload)
 	. = ..()
 	sg_light = new(get_turf(src))
 	START_PROCESSING(SSobj, src)
