@@ -16,7 +16,7 @@
 		AddComponent(/datum/component/connect_loc_behalf, parent, default_connections)
 
 /datum/component/knife_attached_to_movable/proc/stab(mob/living/carbon/C)
-    if(i!TIMER_COOLDOWN_CHECK(src, COOLDOWN_LARRYKNIFE))
+    if(!TIMER_COOLDOWN_CHECK(src, COOLDOWN_LARRYKNIFE))
         var/atom/movable/P = parent
         var/leg
         if(prob(50))
