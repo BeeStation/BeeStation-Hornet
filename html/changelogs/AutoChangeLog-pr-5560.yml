@@ -1,0 +1,8 @@
+author: TheChaser212
+delete-after: true
+changes:
+  - rscadd: Mutations can be activated/added through the DNA scanner
+  - rscadd: Added wires to the DNA scanner
+  - tweak: Using the DNA scanner requires genetics access (unless hacked or emagged)
+  - tweak: DNA injectors don't show their mutations
+  - code_imp: Discovered mutations are now an associative list
