@@ -2,7 +2,7 @@
 
 // Made by powerfulbacon
 
-import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, Fragment, ScrollableBox, OrbitalMapComponent, OrbitalMapSvg } from '../components';
+import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, ScrollableBox, Flex, OrbitalMapComponent, OrbitalMapSvg } from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
@@ -67,113 +67,113 @@ export const OrbitalMap = (props, context) => {
   return (
     <Window
       width={1136}
-      height={770}
-      resizable
-      overflowY="hidden">
-      <Window.Content overflowY="hidden">
-        <div class="OrbitalMap__radar" id="radar">
-          {interdictionTime ? (
-            <InterdictionDisplay
-              xOffset={dynamicXOffset}
-              yOffset={dynamicYOffset}
-              zoomScale={zoomScale}
-              setZoomScale={setZoomScale}
-              setXOffset={setXOffset}
-              setYOffset={setYOffset} />
-          ) : (
-            <OrbitalMapDisplay
-              dynamicXOffset={dynamicXOffset}
-              dynamicYOffset={dynamicYOffset}
-              isTracking={trackedBody !== map_objects[0].name}
-              zoomScale={zoomScale}
-              setZoomScale={setZoomScale}
-              setTrackedBody={setTrackedBody}
-              ourObject={ourObject} />
-          )}
-        </div>
-        <div class="OrbitalMap__panel">
-          <ScrollableBox overflowY="scroll" height="100%">
-            <Section title="Orbital Body Tracking">
-              <Box bold>
-                Tracking
-              </Box>
-              <Box mb={1}>
-                {trackedBody}
-              </Box>
-              <Box>
-                <b>
-                  X:&nbsp;
-                </b>
-                {trackedObject && trackedObject.position_x}
-              </Box>
-              <Box>
-                <b>
-                  Y:&nbsp;
-                </b>
-                {trackedObject && trackedObject.position_y}
-              </Box>
-              <Box>
-                <b>
-                  Velocity:&nbsp;
-                </b>
-                ({trackedObject && trackedObject.velocity_x}
-                , {trackedObject && trackedObject.velocity_y})
-              </Box>
-              <Box>
-                <b>
-                  Radius:&nbsp;
-                </b>
-                {trackedObject && trackedObject.radius} BSU
-              </Box>
+      height={770}>
+      <Window.Content fitted>
+        <Flex height="100%">
+          <Flex.Item class="OrbitalMap__radar" grow id="radar">
+            {interdictionTime ? (
+              <InterdictionDisplay
+                xOffset={dynamicXOffset}
+                yOffset={dynamicYOffset}
+                zoomScale={zoomScale}
+                setZoomScale={setZoomScale}
+                setXOffset={setXOffset}
+                setYOffset={setYOffset} />
+            ) : (
+              <OrbitalMapDisplay
+                dynamicXOffset={dynamicXOffset}
+                dynamicYOffset={dynamicYOffset}
+                isTracking={trackedBody !== map_objects[0].name}
+                zoomScale={zoomScale}
+                setZoomScale={setZoomScale}
+                setTrackedBody={setTrackedBody}
+                ourObject={ourObject} />
+            )}
+          </Flex.Item>
+          <Flex.Item class="OrbitalMap__panel">
+            <Section fill scrollable>
+              <Section title="Orbital Body Tracking">
+                <Box bold>
+                  Tracking
+                </Box>
+                <Box mb={1}>
+                  {trackedBody}
+                </Box>
+                <Box>
+                  <b>
+                    X:&nbsp;
+                  </b>
+                  {trackedObject && trackedObject.position_x}
+                </Box>
+                <Box>
+                  <b>
+                    Y:&nbsp;
+                  </b>
+                  {trackedObject && trackedObject.position_y}
+                </Box>
+                <Box>
+                  <b>
+                    Velocity:&nbsp;
+                  </b>
+                  ({trackedObject && trackedObject.velocity_x}
+                  , {trackedObject && trackedObject.velocity_y})
+                </Box>
+                <Box>
+                  <b>
+                    Radius:&nbsp;
+                  </b>
+                  {trackedObject && trackedObject.radius} BSU
+                </Box>
+                <Divider />
+                <Dropdown
+                  selected={trackedBody}
+                  width="100%"
+                  color="grey"
+                  options={map_objects.sort((first,
+                    second) => { return second.priority - first.priority; })
+                    .map(map_object => (map_object.name))}
+                  onSelected={value => setTrackedBody(value)} />
+              </Section>
               <Divider />
-              <Dropdown
-                selected={trackedBody}
-                width="100%"
-                color="grey"
-                options={map_objects.sort((first,
-                  second) => { return second.priority - first.priority; })
-                  .map(map_object => (map_object.name))}
-                onSelected={value => setTrackedBody(value)} />
-            </Section>
-            <Divider />
-            <Section title="Flight Controls">
-              {(!thrust_alert) || (
-                <NoticeBox color="red">
-                  {thrust_alert}
-                </NoticeBox>
-              )}
-              {(!damage_alert) || (
-                <NoticeBox color="red">
-                  {damage_alert}
-                </NoticeBox>
-              )}
-              {recall_docking_port_id !== ""
-                ? <RecallControl />
-                : linkedToShuttle
-                  ? <ShuttleControls />
-                  : (canLaunch ? (
-                    <>
-                      <NoticeBox>
-                        Currently docked, awaiting launch order.
+              <Section title="Flight Controls">
+                {(!thrust_alert) || (
+                  <NoticeBox color="red">
+                    {thrust_alert}
+                  </NoticeBox>
+                )}
+                {(!damage_alert) || (
+                  <NoticeBox color="red">
+                    {damage_alert}
+                  </NoticeBox>
+                )}
+                {recall_docking_port_id !== ""
+                  ? <RecallControl />
+                  : linkedToShuttle
+                    ? <ShuttleControls />
+                    : (canLaunch ? (
+                      <>
+                        <NoticeBox>
+                          Currently docked, awaiting launch order.
+                        </NoticeBox>
+                        <Button
+                          content="INITIATE LAUNCH"
+                          textAlign="center"
+                          fontSize="30px"
+                          icon="rocket"
+                          width="100%"
+                          height="50px"
+                          onClick={() => act('launch')} />
+                      </>
+                    ) : (
+                      <NoticeBox
+                        color="red">
+                        Not linked to a shuttle.
                       </NoticeBox>
-                      <Button
-                        content="INITIATE LAUNCH"
-                        textAlign="center"
-                        fontSize="30px"
-                        icon="rocket"
-                        width="100%"
-                        height="50px"
-                        onClick={() => act('launch')} />
-                    </>
-                  ) : (
-                    <NoticeBox
-                      color="red">
-                      Not linked to a shuttle.
-                    </NoticeBox>
-                  ))}
+                    ))}
+              </Section>
             </Section>
-          </ScrollableBox>
-        </div>
+          </Flex.Item>
+        </Flex>
       </Window.Content>
     </Window>
   );
@@ -206,7 +206,7 @@ export const InterdictionDisplay = (props, context) => {
   } = data;
 
   return (
-    <Fragment>
+    <>
       <NoticeBox
         position="absolute"
         color="red">
@@ -332,7 +332,7 @@ export const InterdictionDisplay = (props, context) => {
           </DraggableClickableControl>
         )}
       </DraggableClickableControl>
-    </Fragment>
+    </>
   );
 
 };
@@ -370,7 +370,7 @@ export const OrbitalMapDisplay = (props, context) => {
   } = data;
 
   return (
-    <Fragment>
+    <>
       <Button
         position="absolute"
         icon="search-plus"
@@ -469,7 +469,7 @@ export const OrbitalMapDisplay = (props, context) => {
           </OrbitalMapSvg>
         )}
       </OrbitalMapComponent>
-    </Fragment>
+    </>
   );
 
 };

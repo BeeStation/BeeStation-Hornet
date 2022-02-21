@@ -104,15 +104,18 @@ export class OrbitalMapSvg extends Component {
       lockedZoomScale,
     } = this.props;
 
+    const stripesAngle = 40;
+    const factorX = Math.cos(stripesAngle*Math.PI/180);
+    const factorY = Math.sin(stripesAngle*Math.PI/180);
+
     return (
       <>
         <defs>
           <pattern id="interdictionRange" width={50 * lockedZoomScale}
             height={100 * lockedZoomScale}
             patternUnits="userSpaceOnUse"
-            patternTransform="rotate(40)"
-            x={scaledXOffset}
-            y={scaledYOffset}>
+            patternTransform={`rotate(${stripesAngle})`}
+            x={scaledXOffset*factorX+scaledYOffset*factorY}>
             <rect width={25 * lockedZoomScale}
               height={100 * lockedZoomScale}
               fill="rgba(64, 194, 86, 0.05)" />
@@ -125,9 +128,8 @@ export class OrbitalMapSvg extends Component {
           <pattern id="planetfill" width={50 * lockedZoomScale}
             height={100 * lockedZoomScale}
             patternUnits="userSpaceOnUse"
-            patternTransform="rotate(40)"
-            x={scaledXOffset}
-            y={scaledYOffset}>
+            patternTransform={`rotate(${stripesAngle})`}
+            x={scaledXOffset*factorX+scaledYOffset*factorY}>
             <rect width={25 * lockedZoomScale}
               height={100 * lockedZoomScale}
               fill="rgba(252, 166, 53, 0.2)" />
