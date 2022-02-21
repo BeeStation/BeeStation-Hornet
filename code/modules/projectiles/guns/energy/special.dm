@@ -19,6 +19,7 @@
 	name = "ion carbine"
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
 	icon_state = "ioncarbine"
+	worn_icon_state = "ioncarbine"
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
 	pin = null
@@ -152,7 +153,7 @@
 	fire_rate = 3
 	automatic = 1
 
-/obj/item/gun/energy/plasmacutter/Initialize()
+/obj/item/gun/energy/plasmacutter/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 25, 105, 0, 'sound/weapons/plasma_cutter.ogg')
 

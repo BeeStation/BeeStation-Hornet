@@ -12,7 +12,7 @@
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	light_range = FALSE
 
-/obj/item/scanner/Initialize()
+/obj/item/scanner/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/shell, list(
 		new /obj/item/circuit_component/scanner()
@@ -27,7 +27,7 @@
 	/// Called when scanner is used.
 	var/datum/port/output/signal
 
-/obj/item/circuit_component/scanner/Initialize()
+/obj/item/circuit_component/scanner/Initialize(mapload)
 	. = ..()
 	scanned = add_output_port("Scanned", PORT_TYPE_ATOM)
 	signal = add_output_port("Signal", PORT_TYPE_SIGNAL)

@@ -10,7 +10,7 @@
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	var/static/list/typecache_to_take
 
-/obj/structure/ore_box/Initialize()
+/obj/structure/ore_box/Initialize(mapload)
 	. = ..()
 	if(!typecache_to_take)
 		typecache_to_take = typecacheof(/obj/item/stack/ore)

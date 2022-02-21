@@ -29,7 +29,7 @@
 	grav_pull = 10
 	consume_range = 12 //How many tiles out do we eat
 
-/obj/singularity/narsie/large/Initialize()
+/obj/singularity/narsie/large/Initialize(mapload)
 	. = ..()
 	send_to_playing_players("<span class='narsie'>NAR'SIE HAS RISEN</span>")
 	sound_to_playing_players('sound/creatures/narsie_rises.ogg')
@@ -39,7 +39,7 @@
 		var/mutable_appearance/alert_overlay = mutable_appearance('icons/effects/cult_effects.dmi', "ghostalertsie")
 		notify_ghosts("Nar'Sie has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action=NOTIFY_ATTACK)
 	INVOKE_ASYNC(src, .proc/narsie_spawn_animation)
-	UnregisterSignal(src, COMSIG_ATOM_BSA_BEAM) //set up in /singularity/Initialize()
+	UnregisterSignal(src, COMSIG_ATOM_BSA_BEAM) //set up in /singularity/Initialize(mapload)
 
 /obj/singularity/narsie/large/cult  // For the new cult ending, guaranteed to end the round within 3 minutes
 	var/list/souls_needed = list()
@@ -47,7 +47,7 @@
 	var/souls = 0
 	var/resolved = FALSE
 
-/obj/singularity/narsie/large/cult/Initialize()
+/obj/singularity/narsie/large/cult/Initialize(mapload)
 	. = ..()
 	GLOB.cult_narsie = src
 	var/list/all_cults = list()

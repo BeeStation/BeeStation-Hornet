@@ -10,3 +10,5 @@
 
 /// Flag for atoms, this flag ensures it isn't re-colored by materials. Useful for snowflake icons such as default toolboxes.
 #define MATERIAL_NO_COLOR (1<<0)
+/// Applies the material greyscale color to the atom's greyscale color.
+#define MATERIAL_GREYSCALE (1<<1)

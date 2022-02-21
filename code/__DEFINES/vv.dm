@@ -75,12 +75,10 @@
 #define VV_HK_MARK "mark"
 #define VV_HK_ADDCOMPONENT "addcomponent"
 #define VV_HK_MODIFY_TRAITS "modtraits"
-#ifdef REFERENCE_TRACKING
-#define VV_HK_VIEW_REFERENCES "viewreferences"
-#endif
 
 // /atom
 #define VV_HK_MODIFY_TRANSFORM "atom_transform"
+#define VV_HK_MODIFY_GREYSCALE "modify_greyscale"
 #define VV_HK_ADD_REAGENT "addreagent"
 #define VV_HK_TRIGGER_EMP "empulse"
 #define VV_HK_TRIGGER_EXPLOSION "explode"

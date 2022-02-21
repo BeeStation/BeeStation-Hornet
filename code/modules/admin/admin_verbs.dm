@@ -135,6 +135,7 @@ GLOBAL_PROTECT(admin_verbs_server)
 	/client/proc/forcerandomrotate,
 	/client/proc/adminchangemap,
 	/client/proc/panicbunker,
+	/client/proc/toggle_interviews,
 	/client/proc/toggle_hub,
 	/client/proc/toggle_cdn
 	)
@@ -191,7 +192,8 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/display_sendmaps,
 	#endif
 	/client/proc/toggle_cdn,
-	/client/proc/check_timer_sources
+	/client/proc/check_timer_sources,
+	/client/proc/test_dview_to_lum_changes
 	)
 
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, /proc/release))
@@ -260,6 +262,7 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/proc/release,
 	/client/proc/reload_admins,
 	/client/proc/panicbunker,
+	/client/proc/toggle_interviews,
 	/client/proc/admin_change_sec_level,
 	/client/proc/toggle_nuke,
 	/client/proc/cmd_display_del_log,

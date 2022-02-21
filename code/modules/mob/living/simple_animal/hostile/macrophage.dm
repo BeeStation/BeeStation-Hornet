@@ -90,7 +90,7 @@
 
 /mob/living/simple_animal/hostile/macrophage/aggro/vector
 
-/mob/living/simple_animal/hostile/macrophage/aggro/vector/Initialize()
+/mob/living/simple_animal/hostile/macrophage/aggro/vector/Initialize(mapload)
 	.=..()
 	var/datum/disease/advance/random/macrophage/D = new
 	health += D.resistance

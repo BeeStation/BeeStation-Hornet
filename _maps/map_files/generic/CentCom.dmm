@@ -9055,7 +9055,7 @@
 /turf/open/floor/engine/cult,
 /area/wizard_station)
 "zP" = (
-/obj/item/clothing/shoes/sandal/marisa,
+/obj/item/clothing/shoes/sneakers/marisa,
 /obj/item/clothing/suit/wizrobe/marisa,
 /obj/item/clothing/head/wizard/marisa,
 /obj/item/staff/broom,
@@ -14299,11 +14299,11 @@
 /area/centcom/evac)
 "KN" = (
 /obj/docking_port/stationary{
-	dwidth = 1;
-	height = 4;
+	dwidth = 2;
+	height = 7;
 	id = "pod_away";
 	name = "recovery ship";
-	width = 3
+	width = 5
 	},
 /turf/open/space/basic,
 /area/space)

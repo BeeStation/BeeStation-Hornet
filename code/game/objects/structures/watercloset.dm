@@ -11,7 +11,7 @@
 	var/mob/living/swirlie = null	//the mob being given a swirlie
 
 
-/obj/structure/toilet/Initialize()
+/obj/structure/toilet/Initialize(mapload)
 	. = ..()
 	open = round(rand(0, 1))
 	update_icon()
@@ -109,7 +109,7 @@
 /obj/structure/toilet/secret
 	var/secret_type = null
 
-/obj/structure/toilet/secret/Initialize()
+/obj/structure/toilet/secret/Initialize(mapload)
 	. = ..()
 	if (secret_type)
 		new secret_type(src)
@@ -124,7 +124,7 @@
 	var/exposed = 0 // can you currently put an item inside
 	var/obj/item/hiddenitem = null // what's in the urinal
 
-/obj/structure/urinal/Initialize()
+/obj/structure/urinal/Initialize(mapload)
 	. = ..()
 	hiddenitem = new /obj/item/reagent_containers/food/snacks/urinalcake
 
@@ -237,7 +237,7 @@
 			return
 	return ..()
 
-/obj/structure/sinkframe/Initialize()
+/obj/structure/sinkframe/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
 
@@ -283,13 +283,9 @@
 			H.lip_color = initial(H.lip_color)
 			H.wash_cream()
 			H.regenerate_icons()
-			H.adjust_hygiene(10)
 		user.drowsyness = max(user.drowsyness - rand(2,3), 0) //Washing your face wakes you up if you're falling asleep
 	else
 		SEND_SIGNAL(user, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
-		if(ishuman(user))
-			var/mob/living/carbon/human/dirtyboy = user
-			dirtyboy.adjust_hygiene(10)
 
 /obj/structure/sink/attackby(obj/item/O, mob/living/user, params)
 	if(busy)

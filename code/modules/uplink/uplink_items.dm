@@ -1701,7 +1701,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Stimpack"
 	desc = "Stimpacks, the tool for many great heroes, make you mostly immune to any form of slowdown (including damage slowdown) \
 			or stamina damage for about 5 minutes after injection."
-	item = /obj/item/reagent_containers/hypospray/medipen/pumpup
+	item = /obj/item/reagent_containers/hypospray/medipen/stimulants
 	cost = 5
 	surplus = 90
 

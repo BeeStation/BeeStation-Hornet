@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(ticker)
 	var/start_immediately = FALSE
 	var/setup_done = FALSE //All game setup done including mode post setup and
 
-	var/hide_mode = 0
+	var/hide_mode = FALSE
 	var/datum/game_mode/mode = null
 
 	var/login_music							//music played in pregame lobby
@@ -54,6 +54,7 @@ SUBSYSTEM_DEF(ticker)
 	var/roundend_check_paused = FALSE
 
 	var/round_start_time = 0
+	var/round_start_timeofday = 0
 	var/list/round_start_events
 	var/list/round_end_events
 	var/mode_result = "undefined"
@@ -64,10 +65,6 @@ SUBSYSTEM_DEF(ticker)
 	var/pre_setup_completed = FALSE
 	var/fail_counter
 	var/emergency_start = FALSE
-
-	//Crew Objective stuff
-	var/list/crewobjlist = list()
-	var/list/crewobjjobs = list()
 
 /datum/controller/subsystem/ticker/Initialize(timeofday)
 	load_mode()
@@ -149,13 +146,6 @@ SUBSYSTEM_DEF(ticker)
 		gametime_offset = rand(0, 23) HOURS
 	else if(CONFIG_GET(flag/shift_time_realtime))
 		gametime_offset = world.timeofday
-
-	crewobjlist = typesof(/datum/objective/crew)
-	for(var/hooray in crewobjlist) //taken from old Hippie's "job2obj" proc with adjustments.
-		var/datum/objective/crew/obj = hooray
-		var/list/availableto = splittext(initial(obj.jobs),",")
-		for(var/job in availableto)
-			crewobjjobs["[job]"] += list(obj)
 
 	return ..()
 
@@ -267,8 +257,8 @@ SUBSYSTEM_DEF(ticker)
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
 		runnable_modes = config.get_runnable_modes()
 
-		if(GLOB.master_mode == "secret")
-			hide_mode = 1
+		if(GLOB.master_mode == "secret" || GLOB.master_mode == "secret_extended")
+			hide_mode = TRUE
 			if(GLOB.secret_force_mode != "secret")
 				var/datum/game_mode/smode = config.pick_mode(GLOB.secret_force_mode)
 				if(!smode.can_start())
@@ -348,6 +338,7 @@ SUBSYSTEM_DEF(ticker)
 
 	log_world("Game start took [(world.timeofday - init_start)/10]s")
 	round_start_time = world.time
+	round_start_timeofday = world.timeofday
 	SSdbcore.SetRoundStart()
 
 	to_chat(world, "<span class='notice'><B>Welcome to [station_name()], enjoy your stay!</B></span>")
@@ -474,7 +465,7 @@ SUBSYSTEM_DEF(ticker)
 			qdel(player)
 			living.notransform = TRUE
 			if(living.client)
-				var/atom/movable/screen/splash/S = new(living.client, TRUE)
+				var/atom/movable/screen/splash/S = new(null, living.client, TRUE)
 				S.Fade(TRUE)
 			livings += living
 	if(livings.len)
@@ -580,18 +571,20 @@ SUBSYSTEM_DEF(ticker)
 	queued_players = SSticker.queued_players
 	maprotatechecked = SSticker.maprotatechecked
 	round_start_time = SSticker.round_start_time
+	round_start_timeofday = SSticker.round_start_timeofday
 
 	queue_delay = SSticker.queue_delay
 	queued_players = SSticker.queued_players
 	maprotatechecked = SSticker.maprotatechecked
 
-	switch (current_state)
-		if(GAME_STATE_SETTING_UP)
-			Master.SetRunLevel(RUNLEVEL_SETUP)
-		if(GAME_STATE_PLAYING)
-			Master.SetRunLevel(RUNLEVEL_GAME)
-		if(GAME_STATE_FINISHED)
-			Master.SetRunLevel(RUNLEVEL_POSTGAME)
+	if (Master) //Set Masters run level if it exists
+		switch (current_state)
+			if(GAME_STATE_SETTING_UP)
+				Master.SetRunLevel(RUNLEVEL_SETUP)
+			if(GAME_STATE_PLAYING)
+				Master.SetRunLevel(RUNLEVEL_GAME)
+			if(GAME_STATE_FINISHED)
+				Master.SetRunLevel(RUNLEVEL_POSTGAME)
 
 /datum/controller/subsystem/ticker/proc/send_news_report()
 	var/news_message

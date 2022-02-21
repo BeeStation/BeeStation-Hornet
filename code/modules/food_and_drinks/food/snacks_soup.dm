@@ -8,7 +8,7 @@
 	tastes = list("tasteless soup" = 1)
 	foodtype = VEGETABLES
 
-/obj/item/reagent_containers/food/snacks/soup/Initialize()
+/obj/item/reagent_containers/food/snacks/soup/Initialize(mapload)
 	. = ..()
 	eatverb = pick("slurp","sip","inhale","drink")
 
@@ -19,7 +19,7 @@
 	list_reagents = list(/datum/reagent/water = 10)
 	tastes = list("wishes" = 1)
 
-/obj/item/reagent_containers/food/snacks/soup/wish/Initialize()
+/obj/item/reagent_containers/food/snacks/soup/wish/Initialize(mapload)
 	. = ..()
 	var/wish_true = prob(25)
 	if(wish_true)
@@ -99,7 +99,7 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6)
 	tastes = list("chaos" = 1)
 
-/obj/item/reagent_containers/food/snacks/soup/mystery/Initialize()
+/obj/item/reagent_containers/food/snacks/soup/mystery/Initialize(mapload)
 	. = ..()
 	extra_reagent = pick(/datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/medicine/omnizine, /datum/reagent/consumable/banana, /datum/reagent/blood, /datum/reagent/toxin/slimejelly, /datum/reagent/toxin, /datum/reagent/consumable/banana, /datum/reagent/carbon, /datum/reagent/medicine/oculine)
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 6)
@@ -174,7 +174,7 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 5)
 	foodtype = VEGETABLES
 
-/obj/item/reagent_containers/food/snacks/soup/beet/Initialize()
+/obj/item/reagent_containers/food/snacks/soup/beet/Initialize(mapload)
 	. = ..()
 	name = pick("borsch","bortsch","borstch","borsh","borshch","borscht")
 	tastes = list(name = 1)
