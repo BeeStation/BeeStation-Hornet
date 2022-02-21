@@ -23,7 +23,7 @@
 		user.client.close_popup("spypopup")
 
 /obj/item/clothing/glasses/sunglasses/spy/dropped(mob/user)
-	. = ..()
+	..()
 	user.client.close_popup("spypopup")
 
 /obj/item/clothing/glasses/sunglasses/spy/ui_action_click(mob/user)
