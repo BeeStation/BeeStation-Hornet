@@ -284,7 +284,7 @@
 		return
 
 	var/change_multiplier = desired_size / current_body_size
-	var/translate = ((change_multiplier-1) * 32)/2
+	var/translate = ((change_multiplier-1) * 32) * 0.5
 	holder.transform = holder.transform.Scale(change_multiplier)
 	holder.transform = holder.transform.Translate(0, translate)
 	current_body_size = desired_size
