@@ -238,6 +238,7 @@
 		user.put_in_inactive_hand(offhand_item)
 
 /datum/component/two_handed/proc/unreference_wielder()
+	SIGNAL_HANDLER
 	UnregisterSignal(wielder, COMSIG_PARENT_QDELETING)
 	wielder = null
 
@@ -299,6 +300,8 @@
 	// Play sound if set
 	if(unwieldsound)
 		playsound(parent_item.loc, unwieldsound, 50, TRUE)
+
+	unreference_wielder()
 
 	// Remove the object in the offhand
 	if(offhand_item)
