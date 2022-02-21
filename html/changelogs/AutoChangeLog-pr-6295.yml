@@ -1,6 +1,0 @@
-author: Kryyto
-delete-after: true
-changes:
-  - bugfix: Fixed some genetics area on Delta called "Cryogenic Storage" instead of
-      their usual names.
-  - bugfix: Fixed Delta exploration shuttle's airlocks by adding airlocks helpers.
