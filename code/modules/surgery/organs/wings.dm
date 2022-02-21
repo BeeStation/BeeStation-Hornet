@@ -162,7 +162,7 @@
 
 /obj/item/organ/wings/bee/Remove(mob/living/carbon/human/H, special)
 	jumpdist = initial(jumpdist)
-	. = ..()
+	return ..()
 
 /datum/action/item_action/organ_action/use/bee_dash
 	var/jumpspeed = 1
