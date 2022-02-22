@@ -529,7 +529,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			cooldown = world.time + PRINTER_COOLDOWN
 		else
 			say("Printer currently unavailable, please wait a moment.")
-	if(href_list["printspacelaw"]) //NSV13
+	if(href_list["printspacelaw"])
 		if(cooldown < world.time)
 			new /obj/item/book/manual/wiki/security_space_law(src.loc)
 			cooldown = world.time + PRINTER_COOLDOWN
