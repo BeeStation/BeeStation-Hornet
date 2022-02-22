@@ -1,7 +1,7 @@
 /datum/round_event_control/florida_man
 	name = "Florida Man"
 	typepath = /datum/round_event/ghost_role/florida_man
-	weight = 5
+	weight = 14
 	max_occurrences = 3
 
 /datum/round_event/ghost_role/florida_man
