@@ -93,10 +93,9 @@
 	anchored = TRUE
 	layer = ABOVE_OPEN_TURF_LAYER
 
-/obj/structure/receiving_pad/Initialize(loc, mob/living/simple_animal/hostile/guardian/G)
+/obj/structure/receiving_pad/Initialize(mapload, mob/living/simple_animal/hostile/guardian/G)
 	. = ..()
 	if(!istype(G))
-		qdel(src)
 		return	INITIALIZE_HINT_QDEL
 	add_atom_colour(G.guardiancolor, FIXED_COLOUR_PRIORITY)
 

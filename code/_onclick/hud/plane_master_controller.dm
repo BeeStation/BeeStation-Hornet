@@ -14,7 +14,6 @@ INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 		return
 	owner_hud = hud
 	if(istype(owner_hud))
-		qdel(src)
 		return	INITIALIZE_HINT_QDEL
 	var/assoc_controlled_planes = list()
 	for(var/i in controlled_planes)
@@ -24,6 +23,11 @@ INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 			continue
 		assoc_controlled_planes["[i]"] = instance
 	controlled_planes = assoc_controlled_planes
+
+/atom/movable/plane_master_controller/Destroy()
+	owner_hud = null
+	controlled_planes.Cut()
+	. = ..()
 
 ///Full override so we can just use filterrific
 /atom/movable/plane_master_controller/add_filter(name, priority, list/params)

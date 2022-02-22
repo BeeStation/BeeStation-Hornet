@@ -90,10 +90,9 @@
 	name = "paper- infernal contract"
 	contractType = CONTRACT_UNWILLING
 
-/obj/item/paper/contract/infernal/Initialize(atom/loc, mob/living/nTarget, datum/mind/nOwner)
+/obj/item/paper/contract/infernal/Initialize(mapload, mob/living/nTarget, datum/mind/nOwner)
 	..()
 	if(!istype(nOwner))
-		qdel(src)
 		return	INITIALIZE_HINT_QDEL
 	owner = nOwner
 	devil_datum = owner.has_antag_datum(/datum/antagonist/devil)
