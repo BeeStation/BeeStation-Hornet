@@ -204,6 +204,11 @@
 	hangup_all_calls()
 	add_hiddenprint(usr)
 
+/obj/machinery/atmospherics/components/AICtrlClick(mob/living/silicon/ai/user)
+	if(!allowed(user))
+		return
+	CtrlClick(user)
+
 //
 // Override TurfAdjacent for AltClicking
 //
