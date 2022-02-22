@@ -168,10 +168,10 @@
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/proc/check_surgery_update()
 	if(number_of_surgeries<length(advanced_surgeries))
-		to_chat(usr, "Surgical Implant updated.")
+		to_chat(usr, "<span class='notice'>Surgical Implant updated.</span>")
 		number_of_surgeries = length(advanced_surgeries)
 	else
-		to_chat(usr, "None of new surgical programs detected.")
+		to_chat(usr, "<span class='notice'>None of new surgical programs detected.</span>")
 
 /datum/action/item_action/update_linkedsurgery
 	name = "Update Surgical Implant"

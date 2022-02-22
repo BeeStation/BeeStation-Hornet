@@ -86,7 +86,7 @@
 	name = "nanotrasen medical autosurgeon"
 	desc = "A single use autosurgeon that contains a medical heads-up display augment. A screwdriver can be used to remove it, but implants can't be placed back in."
 	uses = 1
-	starting_organ = list(/obj/item/organ/cyberimp/eyes/hud/medical, /obj/item/organ/cyberimp/brain/linkedsurgery)
+	starting_organ = /obj/item/organ/cyberimp/eyes/hud/medical
 
 /obj/item/autosurgeon/syndicate/laser_arm
 	name = "suspicious autosurgeon (arm-mounted laser implant)"
