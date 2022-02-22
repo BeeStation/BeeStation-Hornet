@@ -93,7 +93,7 @@
 /obj/item/paper/contract/infernal/Initialize(mapload, mob/living/nTarget, datum/mind/nOwner)
 	..()
 	if(!istype(nOwner))
-		return	INITIALIZE_HINT_QDEL
+		return INITIALIZE_HINT_QDEL
 	owner = nOwner
 	devil_datum = owner.has_antag_datum(/datum/antagonist/devil)
 	target = nTarget
