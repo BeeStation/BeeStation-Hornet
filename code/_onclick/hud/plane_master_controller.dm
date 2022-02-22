@@ -27,7 +27,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 /atom/movable/plane_master_controller/Destroy()
 	owner_hud = null
 	controlled_planes.Cut()
-	. = ..()
+	return ..()
 
 ///Full override so we can just use filterrific
 /atom/movable/plane_master_controller/add_filter(name, priority, list/params)
