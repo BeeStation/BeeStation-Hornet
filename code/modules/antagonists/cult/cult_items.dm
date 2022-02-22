@@ -140,7 +140,7 @@
 		to_chat(loc, "<span class='notice'>You lower [src] and prepare to swing it normally.</span>")
 
 /obj/item/cult_bastard/pickup(mob/living/user)
-	. = ..()
+	..()
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		force = 5
@@ -151,7 +151,7 @@
 	user.update_icons()
 
 /obj/item/cult_bastard/dropped(mob/user)
-	. = ..()
+	..()
 	linked_action.Remove(user)
 	jaunt.Remove(user)
 	user.update_icons()
@@ -743,7 +743,7 @@
 	guns_left = 24
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	fire_sound = 'sound/magic/wand_teleport.ogg'
-
+	requires_wielding = FALSE
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood

@@ -552,7 +552,7 @@
 				to_chat(user, wait_desc)
 
 /obj/item/melee/classic_baton/contractor_baton/pickup(mob/user)
-	. = ..()
+	..()
 	if(!owner_data)
 		var/datum/antagonist/traitor/traitor_data = user.mind.has_antag_datum(/datum/antagonist/traitor)
 		if(traitor_data)

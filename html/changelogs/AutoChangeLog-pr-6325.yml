@@ -1,0 +1,7 @@
+author: MNarath1
+delete-after: true
+changes:
+  - bugfix: Fixes non constant expressions in switch functions
+  - bugfix: Fixes missing trigger for possible input values in switch functions (added
+      else)
+  - bugfix: Replaces || inside if conditions for the switch functions with ,

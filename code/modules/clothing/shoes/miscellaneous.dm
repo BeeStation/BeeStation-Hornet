@@ -97,7 +97,7 @@
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "clownshoes", /datum/mood_event/clownshoes)
 
 /obj/item/clothing/shoes/clown_shoes/dropped(mob/user)
-	. = ..()
+	..()
 	QDEL_NULL(waddle)
 	if(user.mind && user.mind.assigned_role == "Clown")
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "clownshoes")
@@ -301,10 +301,10 @@
 	wheelToggle = TRUE
 
 /obj/item/clothing/shoes/wheelys/dropped(mob/user)
+	..()
 	if(wheelToggle)
 		W.unbuckle_mob(user)
 		wheelToggle = FALSE
-	..()
 
 /obj/item/clothing/shoes/wheelys/Destroy()
 	QDEL_NULL(W)

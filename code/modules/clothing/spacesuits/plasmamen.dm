@@ -53,6 +53,7 @@
 	var/smile_color = "#FF0000"
 	var/visor_icon = "envisor"
 	var/smile_state = "envirohelm_smile"
+	var/obj/item/clothing/head/attached_hat
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen/plasmaman)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
@@ -62,55 +63,87 @@
 /obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
 	. = ..()
 	visor_toggling()
-	update_icon()
-	cut_overlays()
+	remove_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
+
+/obj/item/clothing/head/helmet/space/plasmaman/Destroy()
+	if (attached_hat)
+		if (attached_hat.resistance_flags & INDESTRUCTIBLE)
+			attached_hat.forceMove(get_turf(src))
+		else
+			QDEL_NULL(attached_hat)
+	..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE))
 		toggle_welding_screen(user)
+
+/obj/item/clothing/head/helmet/space/plasmaman/examine(mob/user)
+	. = ..()
+	if(attached_hat)
+		. += "<span class='notice'>There's \a [attached_hat.name] on the helmet which can be removed through the context menu.</span>"
+	else
+		. += "<span class='notice'>A hat can be placed on the helmet.</span>"
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_welding_screen(mob/living/user)
 	if(weldingvisortoggle(user))
 		if(helmet_on)
 			to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
 			helmet_on = FALSE
-			playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-			update_icon()
-		else
-			playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-			update_icon()
+		playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
+		update_icon()
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon()
 	cut_overlays()
-	add_overlay(visor_icon)
+	if(!up)
+		add_overlay(visor_icon)
 	..()
-	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
-/obj/item/clothing/head/helmet/space/plasmaman/attackby(obj/item/C, mob/living/user)
+/obj/item/clothing/head/helmet/space/plasmaman/attackby(obj/item/item, mob/living/user)
 	. = ..()
-	if(istype(C, /obj/item/toy/crayon))
-		if(smile == FALSE)
-			var/obj/item/toy/crayon/CR = C
+	if(istype(item, /obj/item/toy/crayon))
+		if(smile)
+			to_chat(user, "<span class='notice'>Seems like someone already drew something on the helmet's visor.</span>")
+		else
+			var/obj/item/toy/crayon/CR = item
 			to_chat(user, "<span class='notice'>You start drawing a smiley face on the helmet's visor..</span>")
 			if(do_after(user, 25, target = src))
 				smile = TRUE
 				smile_color = CR.paint_color
 				to_chat(user, "You draw a smiley on the helmet visor.")
 				update_icon()
-				return
-		if(smile == TRUE)
-			to_chat(user, "<span class='notice'>Seems like someone already drew something on this helmet's visor.</span>")
+		return
+	if(istype(item, /obj/item/clothing/head) && !istype(item, /obj/item/clothing/head/helmet/space/plasmaman)) // i know someone is gonna do it after i thought about it
+		var/obj/item/clothing/head/hat = item
+		if(attached_hat)
+			to_chat(user, "<span class='notice'>There's already a hat on the helmet!</span>")
+			return
+		attached_hat = hat
+		hat.forceMove(src)
+		update_icon()
+		add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
 /obj/item/clothing/head/helmet/space/plasmaman/worn_overlays(mutable_appearance/standing, isinhands)
 	. = ..()
-	if(!isinhands && smile)
-		var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/head.dmi', smile_state)
-		M.color = smile_color
-		. += M
-	if(!isinhands && !up)
-		. += mutable_appearance('icons/mob/clothing/head.dmi', visor_icon)
-	else
-		cut_overlays()
+	if(!isinhands)
+		if(smile)
+			var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/head.dmi', smile_state)
+			M.color = smile_color
+			. += M
+		if(!up)
+			. += mutable_appearance('icons/mob/clothing/head.dmi', visor_icon)
+		if(attached_hat)
+			// replace icon_state with worn_icon_state when that comes cause for some reason this associated proc still requires you to insert the object's icon state as an argument 🍖
+			. += attached_hat.build_worn_icon(attached_hat.icon_state, default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head.dmi')
+
+/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat()
+	set name = "Remove Hat"
+	set category = "Object"
+	set src in usr
+
+	usr.put_in_hands(attached_hat)
+	attached_hat = null
+	update_icon()
+	remove_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
 /obj/item/clothing/head/helmet/space/plasmaman/ComponentInitialize()
 	. = ..()
