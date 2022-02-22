@@ -333,9 +333,9 @@
 //This is super weird but helps prevent hard dels in an easier way that doesn't require
 //repeating register signal code.
 /datum/orbital_object/proc/RegisterReference(datum/source_object)
-	source_object.RegisterSignal(src, COMSIG_PARENT_QDELETING, /datum/orbital_object.proc/UnregisterReference)
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, /datum/orbital_object.proc/UnregisterReference)
 	source_object.vars[source_object.vars["referencedOrbitalObjectVarName"]] = src
 
 /datum/orbital_object/proc/UnregisterReference(datum/source_object)
-	source_object.UnregisterSignal(src, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(src, COMSIG_PARENT_QDELETING)
 	source_object.vars[source_object.vars["referencedOrbitalObjectVarName"]] = null
