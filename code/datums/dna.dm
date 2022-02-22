@@ -16,7 +16,7 @@
 	var/default_mutation_genes[DNA_MUTATION_BLOCKS] //List of the default genes from this mutation to allow DNA Scanner highlighting
 	var/stability = 100
 	var/scrambled = FALSE //Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
-	var/current_body_size = BODY_SIZE_NORMAL
+	var/current_body_size = 1 //This is a size multiplier, it starts at "1".
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
@@ -277,8 +277,7 @@
 /datum/dna/proc/update_body_size()
 	if(!holder)
 		return
-	var/static/list/feat2num = list("Normal" = BODY_SIZE_NORMAL, "Tall" = BODY_SIZE_TALL, "Short" = BODY_SIZE_SHORT)
-	var/desired_size = feat2num[features["body_size"]]
+	var/desired_size = GLOB.body_sizes[features["body_size"]]
 
 	if(desired_size == current_body_size)
 		return

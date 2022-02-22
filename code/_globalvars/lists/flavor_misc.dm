@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(undershirt_f)	 //stores only undershirt name
 	//Socks
 GLOBAL_LIST_EMPTY(socks_list)		//stores /datum/sprite_accessory/socks indexed by name
 	//Body Sizes
-GLOBAL_LIST_INIT(body_sizes, list("Normal", "Short", "Tall"))
+GLOBAL_LIST_INIT(body_sizes, list("Normal" = 1, "Short" = 0.93, "Tall" = 1.03))
 	//Lizard Bits (all datum lists indexed by name)
 GLOBAL_LIST_EMPTY(body_markings_list)
 GLOBAL_LIST_EMPTY(tails_list_lizard)

@@ -163,8 +163,3 @@
 #define G_MALE 1
 #define G_FEMALE 2
 #define G_PLURAL 3
-
-//Body sizes
-#define BODY_SIZE_NORMAL 1
-#define BODY_SIZE_SHORT 0.93
-#define BODY_SIZE_TALL 1.03

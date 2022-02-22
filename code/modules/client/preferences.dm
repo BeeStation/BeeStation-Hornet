@@ -88,6 +88,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/eye_color = "000"				//Eye color
 	var/datum/species/pref_species = new /datum/species/human()	//Mutant race
 	var/list/features = list(
+							"body_size" = "Normal",
 							"mcolor" = "FFF",
 							"ethcolor" = "9c3030",
 							"tail_lizard" = "Smooth",
