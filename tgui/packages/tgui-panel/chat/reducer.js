@@ -35,8 +35,9 @@ export const chatReducer = (state = initialState, action) => {
       const filters = page.acceptedTypes;
       const defaultFilters = mainPage.acceptedTypes;
       for (let type of Object.keys(defaultFilters)) {
-        if (filters[type] === undefined)
+        if (filters[type] === undefined) {
           filters[type] = defaultFilters[type];
+        }
       }
     }
     // Reset page message counts
