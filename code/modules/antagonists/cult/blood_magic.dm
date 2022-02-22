@@ -357,7 +357,7 @@
 /obj/item/melee/blood_magic/Initialize(mapload, var/spell)
 	. = ..()
 	if(!istype(spell, /datum/action/innate/cult/blood_spell))
-		return	INITIALIZE_HINT_QDEL
+		return INITIALIZE_HINT_QDEL
 	source = spell
 	uses = source.charges
 	health_cost = source.health_cost
