@@ -277,6 +277,9 @@
 /datum/dna/proc/update_body_size()
 	if(!holder)
 		return
+	if(!features["body_size"]) //Preference code race condition
+		return
+
 	var/desired_size = GLOB.body_sizes[features["body_size"]]
 
 	if(desired_size == current_body_size)
