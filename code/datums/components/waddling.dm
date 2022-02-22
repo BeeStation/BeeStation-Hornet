@@ -21,6 +21,8 @@
 /datum/component/waddling/proc/Waddle()
 	SIGNAL_HANDLER
 
-	animate(parent, pixel_z = 4, time = 0)
-	animate(pixel_z = 0, transform = turn(matrix(), pick(-12, 0, 12)), time=2)
-	animate(pixel_z = 0, transform = matrix(), time = 0)
+	var/rot_degrees = pick(-12, 0, 12)
+	var/mob/living/L = parent
+	animate(L, pixel_z = 4, time = 0)
+	animate(pixel_z = 0, transform = turn(L.transform, rot_degrees), time=2)
+	animate(pixel_z = 0, transform = turn(L.transform, -rot_degrees), time = 0)
