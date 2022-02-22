@@ -6,8 +6,8 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "album"
 	item_state = "briefcase"
-	lefthand_file = 'icons/mob/inhands/equipment/briefcase_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/briefcase_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_SMALL
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
