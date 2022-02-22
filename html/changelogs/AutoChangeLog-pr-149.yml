@@ -1,0 +1,9 @@
+author: nednaZ
+delete-after: true
+changes:
+  - bugfix: Fixes double messages when farting on someone.
+  - bugfix: Fixes messages not appearing for players when farting.
+  - bugfix: Atomic Asses now reset properly upon detonation.
+  - bugfix: Superfarting on a bible will kill you properly.
+  - rscadd: Bluespace Asses may now be researched and built.
+  - rscadd: Xenomorphs can now be butchered for their ass.
