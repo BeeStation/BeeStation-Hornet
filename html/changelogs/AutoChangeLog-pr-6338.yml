@@ -1,0 +1,5 @@
+author: Kuberoot, Powerfulbacon
+delete-after: true
+changes:
+  - bugfix: Fixes a runtime in the crew monitoring console caused by crew monitoring
+      consoles being inside a virtual z-level.
