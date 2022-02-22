@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	//After designation
 	var/linkedShuttleId
 
-/obj/item/shuttle_creator/Initialize()
+/obj/item/shuttle_creator/Initialize(mapload)
 	. = ..()
 	internal_shuttle_creator = new()
 	internal_shuttle_creator.owner_rsd = src

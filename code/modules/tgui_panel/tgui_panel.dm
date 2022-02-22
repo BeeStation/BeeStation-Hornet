@@ -36,7 +36,7 @@
  *
  * Initializes tgui panel.
  */
-/datum/tgui_panel/proc/initialize(force = FALSE)
+/datum/tgui_panel/proc/Initialize(force = FALSE)
 	set waitfor = FALSE
 	// Minimal sleep to defer initialization to after client constructor
 	sleep(1)

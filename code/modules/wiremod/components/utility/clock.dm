@@ -17,7 +17,7 @@
 	. = ..()
 	. += create_ui_notice("Clock Interval: [DisplayTimeText(COMP_CLOCK_DELAY)]", "orange", "clock")
 
-/obj/item/circuit_component/clock/Initialize()
+/obj/item/circuit_component/clock/Initialize(mapload)
 	. = ..()
 	on = add_input_port("On", PORT_TYPE_NUMBER)
 

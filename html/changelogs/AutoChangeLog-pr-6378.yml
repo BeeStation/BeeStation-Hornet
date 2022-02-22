@@ -1,0 +1,5 @@
+author: Archanial
+delete-after: true
+changes:
+  - rscadd: Hangover spawners can now appear in bar and dorms
+  - refactor: refactored hangover a bit

@@ -42,7 +42,7 @@
 
 	var/obj/machinery/computer/secure_data/attached_console
 
-/obj/item/circuit_component/arrest_console_data/Initialize()
+/obj/item/circuit_component/arrest_console_data/Initialize(mapload)
 	. = ..()
 	records = add_output_port("Security Records", PORT_TYPE_TABLE)
 	on_fail = add_output_port("Failed", PORT_TYPE_SIGNAL)
@@ -146,7 +146,7 @@
 	)
 	options = component_options
 
-/obj/item/circuit_component/arrest_console_arrest/Initialize()
+/obj/item/circuit_component/arrest_console_arrest/Initialize(mapload)
 	. = ..()
 	targets = add_input_port("Targets", PORT_TYPE_TABLE)
 	new_status = add_input_port("New Status", PORT_TYPE_STRING)

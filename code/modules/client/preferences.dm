@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	UI_style = GLOB.available_ui_styles[1]
 	if(istype(C))
-		if(!IsGuestKey(C.key))
+		if(!IS_GUEST_KEY(C.key))
 			load_path(C.ckey)
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
@@ -823,7 +823,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	dat += "<hr><center>"
 
-	if(!IsGuestKey(user.key))
+	if(!IS_GUEST_KEY(user.key))
 		dat += "<a href='?_src_=prefs;preference=load'>Undo</a> "
 		dat += "<a href='?_src_=prefs;preference=save'>Save Setup</a> "
 
@@ -1412,7 +1412,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						hair_style = previous_list_item(hair_style, GLOB.hair_styles_male_list)
 					else
 						hair_style = previous_list_item(hair_style, GLOB.hair_styles_female_list)
-				
+
 				if("next_gradient_style")
 					gradient_style = next_list_item(gradient_style, GLOB.hair_gradients_list)
 
@@ -1977,7 +1977,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		random_character(gender)
 
 	if(roundstart_checks)
-		if(CONFIG_GET(flag/humans_need_surnames) && (pref_species.id == "human"))
+		if(CONFIG_GET(flag/humans_need_surnames) && (pref_species.id == SPECIES_HUMAN))
 			var/firstspace = findtext(real_name, " ")
 			var/name_length = length(real_name)
 			if(!firstspace)	//we need a surname
@@ -1997,13 +1997,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(!initial(organ_eyes.eye_color))
 			organ_eyes.eye_color = eye_color
 		organ_eyes.old_eye_color = eye_color
+
 	character.hair_color = hair_color
 	character.gradient_color = gradient_color
 	character.gradient_style = gradient_style
 	character.facial_hair_color = facial_hair_color
 	character.skin_tone = skin_tone
-	character.hair_style = hair_style
-	character.facial_hair_style = facial_hair_style
 	character.underwear = underwear
 	character.underwear_color = underwear_color
 	character.undershirt = undershirt
@@ -2023,7 +2022,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	character.dna.features = features.Copy()
 	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
+	//Because of how set_species replaces all bodyparts with new ones, hair needs to be set AFTER species.
 	character.dna.real_name = character.real_name
+	character.hair_color = hair_color
+	character.facial_hair_color = facial_hair_color
+
+	character.hair_style = hair_style
+	character.facial_hair_style = facial_hair_style
 
 	if("tail_lizard" in pref_species.default_features)
 		character.dna.species.mutant_bodyparts |= "tail_lizard"
@@ -2031,7 +2036,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(icon_updates)
 		character.update_body()
 		character.update_hair()
-		character.update_body_parts()
+		character.update_body_parts(TRUE)
 
 /datum/preferences/proc/get_default_name(name_id)
 	switch(name_id)

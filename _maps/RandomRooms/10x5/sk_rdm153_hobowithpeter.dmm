@@ -114,7 +114,6 @@
 	pixel_x = -9;
 	pixel_y = 6
 	},
-/obj/effect/landmark/start/randommaint/hobo,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "F" = (
