@@ -87,26 +87,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/skin_tone = "caucasian1"		//Skin color
 	var/eye_color = "000"				//Eye color
 	var/datum/species/pref_species = new /datum/species/human()	//Mutant race
-	var/list/features = list(
-							"body_size" = "Normal",
-							"mcolor" = "FFF",
-							"ethcolor" = "9c3030",
-							"tail_lizard" = "Smooth",
-							"tail_human" = "None",
-							"snout" = "Round",
-							"horns" = "None",
-							"ears" = "None",
-							"wings" = "None",
-							"frills" = "None",
-							"spines" = "None",
-							"body_markings" = "None",
-							"legs" = "Normal Legs",
-							"moth_wings" = "Plain",
-							"ipc_screen" = "Blue",
-							"ipc_antenna" = "None",
-							"ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)",
-							"insect_type" = "Common Fly"
-						)
+	var/list/features = list("mcolor" = "FFF", "ethcolor" = "9c3030", "tail_lizard" = "Smooth",
+							"tail_human" = "None", "snout" = "Round", "horns" = "None",
+							"ears" = "None", "wings" = "None", "frills" = "None", "spines" = "None",
+							"body_markings" = "None", "legs" = "Normal Legs", "moth_wings" = "Plain",
+							"ipc_screen" = "Blue", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)",
+							"insect_type" = "Common Fly")
+
 	var/list/custom_names = list()
 	var/preferred_ai_core_display = "Blue"
 	var/prefered_security_department = SEC_DEPT_RANDOM
@@ -535,19 +522,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<h3>Ears</h3>"
 
 				dat += "<a href='?_src_=prefs;preference=ears;task=input'>[features["ears"]]</a><BR>"
-
-				mutant_category++
-				if(mutant_category >= MAX_MUTANT_ROWS)
-					dat += "</td>"
-					mutant_category = 0
-
-			if("body_size" in pref_species.default_features)
-				if(!mutant_category)
-					dat += APPEARANCE_CATEGORY_COLUMN
-
-				dat += "<h3>Size</h3>"
-
-				dat += "<a href='?_src_=prefs;preference=body_size;task=input'>[features["body_size"]]</a><BR>"
 
 				mutant_category++
 				if(mutant_category >= MAX_MUTANT_ROWS)
@@ -1505,11 +1479,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_eyes)
 						eye_color = sanitize_hexcolor(new_eyes)
 
-				if("body_size")
-					var/new_size = input(user, "Choose your character's height:", "Character Preference") as null|anything in GLOB.body_sizes
-					if(new_size)
-						features["body_size"] = new_size
-
 				if("species")
 
 					var/result = input(user, "Select a species", "Species Selection") as null|anything in GLOB.roundstart_races
@@ -2068,8 +2037,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.update_body()
 		character.update_hair()
 		character.update_body_parts(TRUE)
-
-	character.dna.update_body_size()
 
 /datum/preferences/proc/get_default_name(name_id)
 	switch(name_id)
