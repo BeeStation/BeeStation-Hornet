@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Runechat now properly handles null languages.
