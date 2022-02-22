@@ -1,0 +1,4 @@
+author: MNarath1
+delete-after: true
+changes:
+  - balance: changes blob spore movement delay from 3 to 6
