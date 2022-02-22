@@ -15,7 +15,7 @@
 
 	if(ismob(A))
 		ai_actual_track(A)
-	else
+	else if(isturf(A))	//Getting the camera moved just because you double click on something to interact with it is annoying as hell
 		A.move_camera_by_click()
 
 /mob/living/silicon/ai/ClickOn(var/atom/A, params)
