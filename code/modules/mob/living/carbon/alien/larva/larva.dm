@@ -29,6 +29,7 @@
 
 /mob/living/carbon/alien/larva/create_internal_organs()
 	internal_organs += new /obj/item/organ/alien/plasmavessel/small/tiny
+	//If you came here looking for Larva ass, shame on you.
 	..()
 
 //This needs to be fixed

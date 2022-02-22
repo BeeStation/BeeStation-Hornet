@@ -3566,6 +3566,7 @@
 #include "monkestation\code\modules\reagents\reagent_containers\medspray.dm"
 #include "monkestation\code\modules\reagents\reagent_containers\spray.dm"
 #include "monkestation\code\modules\research\designs\biogenerator_designs.dm"
+#include "monkestation\code\modules\research\designs\medical_designs.dm"
 #include "monkestation\code\modules\research\techweb\_techweb.dm"
 #include "monkestation\code\modules\surgery\organs\butts.dm"
 #include "monkestation\code\modules\uplink\uplink_items.dm"

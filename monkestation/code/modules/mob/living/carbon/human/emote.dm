@@ -13,7 +13,7 @@
 	if(booty.cooling_down)
 		return
 	booty.cooling_down = TRUE
-	var/turf/Location
+	var/turf/Location = get_turf(ass_holder)
 
 	//BIBLEFART/
 	//This goes above all else because it's an instagib.

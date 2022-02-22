@@ -42,6 +42,7 @@
 			spawn(120)
 				Location = get_turf(user)
 				dyn_explosion(Location, 20,10)
+				cooling_down = FALSE
 		else
 			playsound(user, pick(sound_effect), 50, TRUE)
 			Location.atmos_spawn_air(atmos_gas)
@@ -162,21 +163,21 @@
 			var/turf/T = get_step(get_step(Person, NORTH), NORTH)
 			T.Beam(Person, icon_state="lightning[rand(1,12)]", time = 15)
 			Person.Paralyze(15)
-			to_chat(Person, "<span class='warning'>[Person] attempts to fart on the [Holy], uh oh.<span>")
+			Person.visible_message("<span class='warning'>[Person] attempts to fart on the [Holy], uh oh.<span>","<span class='ratvar'>What a grand and intoxicating innocence. Perish.</span>")
 			playsound(user,'sound/magic/lightningshock.ogg', 50, 1)
 			playsound(user,	'monkestation/sound/misc/dagothgod.ogg', 80)
 			Person.electrocution_animation(15)
 			spawn(15)
-				to_chat(Person,"<span class='ratvar'>What a grand and intoxicating innocence. Perish.</span>")
 				Person.gib()
 				dyn_explosion(Location, 1, 0)
 				cooling_down = FALSE
 			return
 
 	//EMOTE MESSAGE/MOB TARGETED FARTS
+	var/hit_target = FALSE
 	for(var/mob/living/Targeted in Location)
 		if(Targeted != user)
-			to_chat(user,"[user] [pick(
+			user.visible_message("[user] [pick(
 										"farts in [Targeted]'s face!",
 										"gives [Targeted] the silent but deadly treatment!",
 										"rips mad ass in [Targeted]'s mug!",
@@ -185,9 +186,10 @@
 										"poots, singing [Targeted]'s eyebrows!",
 										"humiliates [Targeted] like never before!",
 										"gets real close to [Targeted]'s face and cuts the cheese!")]")
+			hit_target = TRUE
 			break
-		else
-			user.audible_message("[pick(
+	if(!hit_target)
+		user.audible_message("[pick(
 								"rears up and lets loose a fart of tremendous magnitude!",
 								"farts!",
 								"toots.",

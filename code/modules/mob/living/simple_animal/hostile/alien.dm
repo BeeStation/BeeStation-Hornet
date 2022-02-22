@@ -12,7 +12,7 @@
 	response_harm = "hits"
 	speed = 0
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/xeno = 4,
-							/obj/item/stack/sheet/animalhide/xeno = 1)
+							/obj/item/stack/sheet/animalhide/xeno = 1, /obj/item/organ/butt/xeno = 1) //MonkeStation Edit: Xeno Ass
 	maxHealth = 125
 	health = 125
 	obj_damage = 60
@@ -85,7 +85,7 @@
 	minimum_distance = 5
 	move_to_delay = 4
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/xeno = 4,
-							/obj/item/stack/sheet/animalhide/xeno = 1)
+							/obj/item/stack/sheet/animalhide/xeno = 1, /obj/item/organ/butt/xeno = 1) //MonkeStation Edit: Xeno Ass
 	projectiletype = /obj/item/projectile/neurotox
 	projectilesound = 'sound/weapons/pierce.ogg'
 	status_flags = 0
@@ -135,7 +135,7 @@
 	maxHealth = 400
 	health = 400
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/xeno = 10,
-							/obj/item/stack/sheet/animalhide/xeno = 2)
+							/obj/item/stack/sheet/animalhide/xeno = 2, /obj/item/organ/butt/xeno = 1) //MonkeStation Edit: Xeno Ass
 	mob_size = MOB_SIZE_LARGE
 	gold_core_spawnable = NO_SPAWN
 
