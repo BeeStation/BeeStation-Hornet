@@ -313,9 +313,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		if(isAI(src) && !GLOB.cameranet.checkCameraVis(v.source))
 			return CHATMESSAGE_CANNOT_HEAR
 	var/datum/language/language_instance = GLOB.language_datum_instances[message_language]
-	if(!language_instance)
-		return CHATMESSAGE_HEAR
-	if(language_instance.display_icon(src))
+	if(language_instance?.display_icon(src))
 		return CHATMESSAGE_SHOW_LANGUAGE_ICON
 	return CHATMESSAGE_HEAR
 
