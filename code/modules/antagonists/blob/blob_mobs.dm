@@ -105,6 +105,7 @@
 	del_on_death = TRUE
 	deathmessage = "explodes into a cloud of gas!"
 	gold_core_spawnable = HOSTILE_SPAWN
+	move_to_delay = 6
 	var/death_cloud_size = 1 //size of cloud produced from a dying spore
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
@@ -229,8 +230,8 @@
 		movement_steps++
 		if(ismob(target) && w == goal_turf) //if we are infront of the mob lets not keep on pushing
 			break
-		step(src, get_dir(src, w))
 		sleep(delay)
+		step(src, get_dir(src, w))
 		if(get_turf(src) != w) //in case someone decides to push the spore or something else unexpectedly hinders it
 			in_movement = FALSE
 			if(current_tries >= 20)	//In case we get catched in a endless loop for reasons
@@ -266,8 +267,8 @@
 				if(in_movement && !rally)
 					return
 				movement_steps++
-				step(src, get_dir(src, w))
 				sleep(delay)
+				step(src, get_dir(src, w))
 				if(get_turf(src) != w)
 					in_movement = FALSE
 					if(current_tries >= 20)
