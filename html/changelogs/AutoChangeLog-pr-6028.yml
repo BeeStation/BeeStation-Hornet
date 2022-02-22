@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - rscadd: Adds in the gun wielding icon in your off-hand.
-  - bugfix: Magical wands, tentacle arms and cyborg guns no longer require wielding.
-  - bugfix: Fixes a bugged interaction between telekenisis and twohanded component
-      that allows you to drop the offhand object.
