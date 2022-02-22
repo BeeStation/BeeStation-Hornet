@@ -203,6 +203,7 @@
 		return
 	hangup_all_calls()
 	add_hiddenprint(usr)
+
 /* Atmos machines */
 /obj/machinery/atmospherics/components/AICtrlClick(mob/living/silicon/ai/user)
 	if(!allowed(user))
