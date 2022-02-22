@@ -271,7 +271,7 @@
 
 	//Process veteran achievements
 	for(var/client/C as() in GLOB.clients)
-		var/hours = round(C?.get_exp_living()/60)
+		var/hours = round(C?.get_exp_living(TRUE)/60)
 		if(hours > 1000)
 			C?.give_award(/datum/award/achievement/misc/onekhours, C.mob)
 		if(hours > 2000)
