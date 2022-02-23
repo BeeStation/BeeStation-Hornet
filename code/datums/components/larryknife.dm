@@ -1,6 +1,6 @@
 //Larry With Knives
 /datum/component/knife_attached_to_movable
-	dupe_mode = COMPONENT_DUPE_ALLOWED
+	dupe_mode = COMPONENT_DUPE_UNIQUE
 	var/knife_damage
 
 	var/static/list/default_connections = list(COMSIG_ATOM_ENTERED = .proc/knife_crossed)
