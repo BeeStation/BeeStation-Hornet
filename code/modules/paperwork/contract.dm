@@ -91,7 +91,7 @@
 	contractType = CONTRACT_UNWILLING
 
 /obj/item/paper/contract/infernal/Initialize(mapload, mob/living/nTarget, datum/mind/nOwner)
-	..()
+	. = ..()
 	if(!istype(nOwner))
 		return INITIALIZE_HINT_QDEL
 	owner = nOwner
