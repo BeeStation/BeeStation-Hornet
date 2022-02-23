@@ -67,6 +67,7 @@ Methods to alert the aimer about events, usually to signify that they're complyi
 
 // Cancels aiming if we can't see the target
 /datum/component/aiming/proc/on_move()
+	SIGNAL_HANDLER
 	if((target in view(user)))
 		return
 	user.balloon_alert(user, "You can't see [target] anymore!")
