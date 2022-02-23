@@ -381,7 +381,7 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/larry/attackby(obj/item/I, mob/living/user)
-	if(src.a_intent(INTENT_HELP))
+	if(user.a_intent(INTENT_HELP))
 		if(istype(I, /obj/item/kitchen/knife) && !knife) //Is it a knife?
 			var/obj/item/kitchen/knife/newknife = I
 			knife = newknife
