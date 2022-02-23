@@ -132,7 +132,6 @@
 	name = "kamishimo"
 	desc = "A traditional ancient Earth Japanese Kamishimo."
 	icon_state = "kamishimo"
-	item_color = "kamishimo"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 
