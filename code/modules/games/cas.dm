@@ -75,7 +75,6 @@
 	H.card_face = choice.card_icon
 	H.parentdeck = src
 	src.cards -= choice
-	H.pickup(user)
 	user.put_in_hands(H)
 	user.visible_message("[user] draws a card from the deck.", "<span class='notice'>You draw a card from the deck.</span>")
 	update_icon()

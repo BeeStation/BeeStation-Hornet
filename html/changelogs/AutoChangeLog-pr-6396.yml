@@ -1,7 +1,0 @@
-author: dog132
-delete-after: true
-changes:
-  - rscadd: Kilo Station - adds cryopod to Medbay
-  - rscadd: Kilo Station - adds supply request consoles to departments
-  - rscadd: Kilo Station - adds mining scanner and pickaxe to Kilo Exploration Shuttle
-  - bugfix: Kilo Station - the waste injector outside of Atmospherics is powered again

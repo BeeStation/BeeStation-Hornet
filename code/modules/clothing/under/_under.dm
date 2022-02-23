@@ -81,14 +81,13 @@
 			H.update_inv_wear_suit()
 
 /obj/item/clothing/under/dropped(mob/user)
+	..()
 	if(attached_accessory)
 		attached_accessory.on_uniform_dropped(src, user)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(attached_accessory.above_suit)
 				H.update_inv_wear_suit()
-
-	..()
 
 /obj/item/clothing/under/proc/attach_accessory(obj/item/I, mob/user, notifyAttach = 1)
 	. = FALSE
