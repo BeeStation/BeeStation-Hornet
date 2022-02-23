@@ -1,0 +1,5 @@
+author: nednaZ
+delete-after: true
+changes:
+  - bugfix: Surgeries that require only an open hand will actually succeed now.
+  - bugfix: The Alien Federation has started actually sterilizing their subjects.
