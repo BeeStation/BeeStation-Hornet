@@ -801,7 +801,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	/// Amount to inject per second
 	var/inject_am = 0.5
 
-	var/static/list/injected_reagents = list(/datum/reagent/medicine/corazone)
+	var/static/list/injected_reagents = list(/datum/reagent/medicine/corazone, /datum/reagent/space_cleaner/sterilizine, /datum/reagent/consumable/ethanol) //MonkeStation Edit: Sterilizing Abductors
 
 /obj/structure/table/optable/abductor/Initialize(mapload)
 	. = ..()
@@ -821,6 +821,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	. = PROCESS_KILL
 	for(var/mob/living/carbon/C in get_turf(src))
 		. = TRUE
+		C.drunkenness = 49 //MonkeStation Edit: UFOs don't exist, just smell the alcohol on his breath!
 		for(var/chemical in injected_reagents)
 			if(C.reagents.get_reagent_amount(chemical) < inject_am * delta_time)
 				C.reagents.add_reagent(chemical, inject_am * delta_time)

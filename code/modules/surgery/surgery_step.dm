@@ -108,7 +108,7 @@
 
 	if(do_after(user, modded_time, target = target))
 
-		if((prob(0 + success_prob) || iscyborg(user) || HAS_TRAIT(user, TRAIT_SURGEON)) && chem_check(target) && !try_to_fail)
+		if(accept_hand || (prob(0 + success_prob) || iscyborg(user) || HAS_TRAIT(user, TRAIT_SURGEON)) && chem_check(target) && !try_to_fail)
 
 			if(success(user, target, target_zone, tool, surgery))
 				advance = TRUE
