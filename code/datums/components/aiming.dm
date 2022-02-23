@@ -4,11 +4,12 @@
 	can_transfer = FALSE
 	var/mob/living/user = null
 	var/mob/living/target = null
-	COOLDOWN_DECLARE(aiming_cooldown) // 5 second cooldown so you can't spam aiming for faster bullets/spamming lines
+	var/datum/radial_menu/persistent/choice_menu // Radial menu for the user
+	var/datum/radial_menu/persistent/choice_menu_target // Radial menu for the target
+	COOLDOWN_DECLARE(aiming_cooldown) // 5 second cooldown so you can't spam aiming for faster bullets/spam commands
 	COOLDOWN_DECLARE(voiceline_cooldown)
 
 /datum/component/aiming/Initialize(source)
-	. = ..()
 	if(!istype(parent, /obj/item))
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/stop_aiming)
@@ -23,7 +24,8 @@
 	user.visible_message("<span class='warning'>[user] points [parent] at [target]!</span>")
 	to_chat(target, "<span class='userdanger'>[user] is pointing [parent] at you! If you equip or drop anything they will be notified! \n <b>You can use *surrender to give yourself up</b>.</span>")
 	to_chat(user, "<span class='notice'>You're now aiming at [target]. If they attempt to equip anything you'll be notified by a loud sound.</span>")
-	target.balloon_alert(target, "[user] is pointing [parent] at you!")
+	user.balloon_alert_to_viewers("[user] points [parent] at [target]!", ignored_mobs = list(user, target))
+	user.balloon_alert(target, "[user] points [parent] at you!")
 	playsound(target, 'sound/weapons/autoguninsert.ogg', 100, TRUE)
 	new /obj/effect/temp_visual/aiming(get_turf(target))
 
@@ -32,8 +34,12 @@
 	RegisterSignal(src.target, COMSIG_ITEM_EQUIPPED, .proc/on_equip)
 	RegisterSignal(src.target, COMSIG_LIVING_STATUS_PARALYZE, .proc/on_paralyze)
 
+	// Registers movement signals
+	RegisterSignal(src.user, COMSIG_MOVABLE_MOVED, .proc/on_move)
+	RegisterSignal(src.target, COMSIG_MOVABLE_MOVED, .proc/on_move)
+
 	// Shows the radials to the aimer and target
-	src.target.aim_react()
+	aim_react(src.target)
 	show_ui(user, target, stage="start")
 
 /*
@@ -45,16 +51,26 @@ Methods to alert the aimer about events, usually to signify that they're complyi
 /datum/component/aiming/proc/on_drop()
 	SIGNAL_HANDLER
 	to_chat(user, "<span class='nicegreen'>[target] has dropped something.</span>")
+	target.balloon_alert(user, "[target] dropped something!")
 
 /datum/component/aiming/proc/on_paralyze()
 	SIGNAL_HANDLER
 	to_chat(user, "<span class='nicegreen'>[target] appears to be surrendering!</span>")
+	target.balloon_alert(user, "[target] surrenders!")
 
 /datum/component/aiming/proc/on_equip()
 	SIGNAL_HANDLER
 	new /obj/effect/temp_visual/aiming/suspect_alert(get_turf(target))
 	to_chat(user, "<span class='userdanger'>[target] has equipped something!</span>")
+	target.balloon_alert(user, "[target] equipped something!")
 	SEND_SOUND(user, 'sound/machines/chime.ogg')
+
+// Cancels aiming if we can't see the target
+/datum/component/aiming/proc/on_move()
+	if((target in view(user)))
+		return
+	user.balloon_alert(user, "You can't see [target] anymore!")
+	stop_aiming()
 
 /**
 
@@ -75,7 +91,6 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			possible_actions += "drop_weapon"
 		if("raise_hands")
 			possible_actions += "drop_to_floor"
-			possible_actions += "face_wall"
 			possible_actions += "raise_hands"
 		if("drop_weapon")
 			possible_actions += "drop_to_floor"
@@ -83,15 +98,19 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			possible_actions += "raise_hands"
 		if("drop_to_floor")
 			possible_actions += "drop_to_floor"
-		if("face_wall")
-			possible_actions += "face_wall"
 	for(var/option in possible_actions)
 		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
-	var/choice = show_radial_menu(user, user, options, require_near = FALSE)
-	act(choice)
+	if(choice_menu)
+		choice_menu.change_choices(options)
+		return
+	choice_menu = show_radial_menu_persistent(user, user, options, select_proc = CALLBACK(src, .proc/act))
 
 /datum/component/aiming/proc/act(choice)
-	if(!user || !target) // If the aim was cancelled halfway through the process, and the radial didn't close by itself.
+	if(!user || !target) // We lost our user or target somehow, abort aiming
+		stop_aiming()
+		return
+	if(!choice)
+		stop_aiming()
 		return
 	if(choice != "cancel" && choice != "fire") // Handling voiceline cooldowns and mimes
 		if(!COOLDOWN_FINISHED(src, voiceline_cooldown))
@@ -103,6 +122,8 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			show_ui(user, target, choice)
 			COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
 			return
+	var/alert_message
+	var/alert_message_3p
 	switch(choice)
 		if("cancel") //first off, are they telling us to stop aiming?
 			stop_aiming()
@@ -111,23 +132,22 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			fire()
 			return
 		if("raise_hands")
-			user.say("PUT YOUR HANDS BEHIND YOUR HEAD!",  forced = "aiming")
+			alert_message = "raise your hands!"
+			alert_message_3p = "raise their hands!"
 		if("drop_weapon")
-			user.say("DROP YOUR WEAPON!",  forced = "aiming")
-		if("face_wall")
-			user.say("TURN AROUND AND FACE THE WALL. SLOWLY.",  forced = "aiming")
+			alert_message = "drop your weapon!"
+			alert_message_3p = "drop their weapon!"
 		if("drop_to_floor")
-			user.say("ON THE FLOOR, NOW!",  forced = "aiming")
+			alert_message = "lie down!"
+			alert_message_3p = "lie down!"
+	user.balloon_alert(target, "[user] orders you to [alert_message]")
+	user.balloon_alert_to_viewers("[user] orders [target] to [alert_message_3p]!", "You order [target] to [alert_message_3p]", ignored_mobs = target)
 	COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
 	show_ui(user, target, choice)
 
 /datum/component/aiming/proc/fire()
 	var/obj/item/held = user.get_active_held_item()
 	if(held != parent)
-		stop_aiming()
-		return FALSE
-	if(!(target in view(user))) // Check to make sure we can still see the target
-		to_chat(user, "<span class='warning'>You can't see [target] anymore!</span>")
 		stop_aiming()
 		return FALSE
 	if(istype(parent, /obj/item/gun)) // If we have a gun, fire it at the target
@@ -142,21 +162,31 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		stop_aiming()
 
 /datum/component/aiming/proc/stop_aiming()
+	// Clean up our signals
 	if(target)
 		UnregisterSignal(target, COMSIG_ITEM_DROPPED)
 		UnregisterSignal(target, COMSIG_ITEM_EQUIPPED)
 		UnregisterSignal(target, COMSIG_LIVING_STATUS_PARALYZE)
+		UnregisterSignal(src.target, COMSIG_MOVABLE_MOVED)
+	if(user)
+		UnregisterSignal(src.user, COMSIG_MOVABLE_MOVED)
+	// Clean up the menu if it's still open
+	QDEL_NULL(choice_menu)
+	QDEL_NULL(choice_menu_target)
 	user = null
 	target = null
 
-/mob/living/proc/aim_react()
+/datum/component/aiming/proc/aim_react(mob/target)
 	set waitfor = FALSE
 	var/list/options = list()
 	for(var/option in list("surrender", "ignore"))
 		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
-	var/choice = show_radial_menu(src, src, options)
+	choice_menu_target = show_radial_menu_persistent(target, target, options, select_proc = CALLBACK(src, .proc/aim_react_act))
+
+/datum/component/aiming/proc/aim_react_act(choice)
 	if(choice == "surrender")
-		emote("surrender")
+		target.emote("surrender")
+	QDEL_NULL(choice_menu_target)
 
 // Shows a crosshair effect when aiming at a target
 /obj/effect/temp_visual/aiming
