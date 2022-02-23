@@ -41,3 +41,4 @@
 		var/turf/T = get_turf(A)
 		for(var/mob/living/carbon/C in T.contents)
 			stab(C)
+			break
