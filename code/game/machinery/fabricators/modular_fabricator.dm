@@ -482,7 +482,7 @@
 	else
 		for(var/i=1, i<=multiplier, i++)
 			var/obj/item/new_item = new being_built.build_path(A)
-			new_item.materials = new_item.materials.Copy()
+			new_item.materials.Cut()	//appearantly the material datum gets initialized in a subsystem so there is no need to qdelete it but we still need to empty the list
 			for(var/mat in materials_used)
 				new_item.materials[mat] = materials_used[mat] / multiplier
 

@@ -23,7 +23,7 @@
 	)
 	options = component_options
 
-/obj/item/circuit_component/radio/Initialize()
+/obj/item/circuit_component/radio/Initialize(mapload)
 	. = ..()
 	freq = add_input_port("Frequency", PORT_TYPE_NUMBER, default = FREQ_SIGNALER)
 	code = add_input_port("Code", PORT_TYPE_NUMBER, default = DEFAULT_SIGNALER_CODE)

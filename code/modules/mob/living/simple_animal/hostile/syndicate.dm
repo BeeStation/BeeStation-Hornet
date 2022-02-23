@@ -62,7 +62,7 @@
 	speed = 1
 	spacewalk = TRUE
 
-/mob/living/simple_animal/hostile/syndicate/space/Initialize()
+/mob/living/simple_animal/hostile/syndicate/space/Initialize(mapload)
 	. = ..()
 	set_light(4)
 
@@ -97,7 +97,7 @@
 	projectile_deflect_chance = 50
 	hardattacks = TRUE
 
-/mob/living/simple_animal/hostile/syndicate/melee/space/Initialize()
+/mob/living/simple_animal/hostile/syndicate/melee/space/Initialize(mapload)
 	. = ..()
 	set_light(4)
 
@@ -120,7 +120,7 @@
 	status_flags = 0
 	var/obj/effect/light_emitter/red_energy_sword/sord
 
-/mob/living/simple_animal/hostile/syndicate/melee/sword/Initialize()
+/mob/living/simple_animal/hostile/syndicate/melee/sword/Initialize(mapload)
 	. = ..()
 	set_light(2)
 
@@ -139,7 +139,7 @@
 	speed = 1
 	spacewalk = TRUE
 
-/mob/living/simple_animal/hostile/syndicate/melee/sword/space/Initialize()
+/mob/living/simple_animal/hostile/syndicate/melee/sword/space/Initialize(mapload)
 	. = ..()
 	sord = new(src)
 	set_light(4)
@@ -184,7 +184,7 @@
 	speed = 1
 	spacewalk = TRUE
 
-/mob/living/simple_animal/hostile/syndicate/ranged/space/Initialize()
+/mob/living/simple_animal/hostile/syndicate/ranged/space/Initialize(mapload)
 	. = ..()
 	set_light(4)
 
@@ -217,7 +217,7 @@
 	speed = 1
 	spacewalk = TRUE
 
-/mob/living/simple_animal/hostile/syndicate/ranged/smg/space/Initialize()
+/mob/living/simple_animal/hostile/syndicate/ranged/smg/space/Initialize(mapload)
 	. = ..()
 	set_light(4)
 
@@ -247,7 +247,7 @@
 	speed = 1
 	spacewalk = TRUE
 
-/mob/living/simple_animal/hostile/syndicate/ranged/shotgun/space/Initialize()
+/mob/living/simple_animal/hostile/syndicate/ranged/shotgun/space/Initialize(mapload)
 	. = ..()
 	set_light(4)
 
@@ -299,6 +299,6 @@
 	del_on_death = TRUE
 	deathmessage = "is smashed into pieces!"
 
-/mob/living/simple_animal/hostile/viscerator/Initialize()
+/mob/living/simple_animal/hostile/viscerator/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/swarming)

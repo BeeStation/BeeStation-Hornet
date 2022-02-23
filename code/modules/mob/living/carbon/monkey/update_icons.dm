@@ -1,7 +1,7 @@
 
 /mob/living/carbon/monkey/regenerate_icons()
 	if(!..())
-		update_body_parts()
+		update_body_parts(TRUE)
 		update_hair()
 		update_inv_wear_mask()
 		update_inv_head()

@@ -20,7 +20,7 @@
 	var/can_attach_mob = FALSE
 	var/full_damage_on_mobs = FALSE
 
-/obj/item/grenade/plastic/Initialize()
+/obj/item/grenade/plastic/Initialize(mapload)
 	. = ..()
 	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
 	var/static/list/loc_connections = list(
@@ -188,7 +188,7 @@
 	var/open_panel = 0
 	can_attach_mob = TRUE
 
-/obj/item/grenade/plastic/c4/Initialize()
+/obj/item/grenade/plastic/c4/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/explosive/c4(src)
 

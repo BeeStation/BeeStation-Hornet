@@ -47,6 +47,19 @@
 			"label": "Run All Tests"
 		},
 		{
+			"type": "shell",
+			"command": "bin/temp-fast-test",
+			"windows": {
+				"command": ".\\bin\\temp-fast-test.cmd"
+			},
+			"problemMatcher": [
+				"$tsc",
+				"$eslint-stylish"
+			],
+			"group": "build",
+			"label": "dm: find hard deletes"
+		},
+		{
 			"command": "${command:dreammaker.reparse}",
 			"group": "build",
 			"label": "dm: reparse"

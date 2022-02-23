@@ -86,7 +86,7 @@
 		log_game("[key_name(usr)] attempted to edit their verbs.")
 		return
 	//If we lose an old verb while in someone's inventory, remove it frmo their panel.
-	if(item_flags & IN_INVENTORY)
+	if(item_flags & PICKED_UP)
 		var/mob/living/L = loc
 		if(istype(L) && L.client)
 			L.client.remove_verbs(new_verbs)
@@ -98,7 +98,7 @@
 		log_game("[key_name(usr)] attempted to edit their verbs.")
 		return
 	//If we get a new verb while in someone's inventory, add it to their panel.
-	if(item_flags & IN_INVENTORY)
+	if(item_flags & PICKED_UP)
 		var/mob/living/L = loc
 		if(istype(L) && L.client)
 			L.client.add_verbs(new_verbs)

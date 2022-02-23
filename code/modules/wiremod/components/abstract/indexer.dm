@@ -43,7 +43,7 @@
 		if(COMP_INDEXER_BOTH)
 			option_flags = COMP_INDEXER_FLAG_INCREMENT|COMP_INDEXER_FLAG_LOOP
 
-/obj/item/circuit_component/indexer/Initialize()
+/obj/item/circuit_component/indexer/Initialize(mapload)
 	. = ..()
 	list_port = add_input_port("List", PORT_TYPE_LIST)
 	index_port = add_input_port("Index", PORT_TYPE_NUMBER)
