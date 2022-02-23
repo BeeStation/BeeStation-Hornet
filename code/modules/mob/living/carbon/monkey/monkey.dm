@@ -249,7 +249,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 /obj/item/organ/brain/tumor/Remove(mob/living/carbon/C, special, no_id_transfer)
 	. = ..()
 	//Removing it deletes it
-	if(QDELETED(src))
+	if(!QDELETED(src))
 		qdel(src)
 
 /mob/living/carbon/monkey/tumor/handle_mutations_and_radiation()
