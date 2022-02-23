@@ -84,7 +84,7 @@
 		owner.overlays_standing[layer_used] = mut_overlay
 		owner.apply_overlay(layer_used)
 	grant_spell() //we do checks here so nothing about hulk getting magic
-	if(!modified)
+	if(!modified && can_chromosome == CHROMOSOME_USED)
 		addtimer(CALLBACK(src, .proc/modify, 5)) //gonna want children calling ..() to run first
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/on_move)
 

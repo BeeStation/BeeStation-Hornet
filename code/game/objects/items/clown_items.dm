@@ -102,13 +102,8 @@
 
 	else if(ishuman(target) && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		var/mob/living/carbon/human/H = user
-		if(user.zone_selected == "mouth")
-			user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [src.name]!</span>", "<span class='notice'>You wash \the [target]'s mouth out with [src.name]!</span>") //washes mouth out with soap sounds better than 'the soap' here
-			H.lip_style = null //removes lipstick
-			H.adjust_hygiene(5) //it kinda works i guess
-		else
-			user.visible_message("<span class='warning'>\the [user] washes \the [target] with [src.name]!</span>", "<span class='notice'>You wash \the [target] with [src.name]!</span>")
-			H.adjust_hygiene(20)
+		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [src.name]!</span>", "<span class='notice'>You wash \the [target]'s mouth out with [src.name]!</span>") //washes mouth out with soap sounds better than 'the soap' here			if(user.zone_selected == "mouth")
+		H.lip_style = null //removes lipstick
 		H.update_body()
 		decreaseUses(user)
 		return
@@ -161,7 +156,7 @@
 	///sound file given to the squeaky component we make in Initialize() so sub-types can specify their own sound
 	var/sound_file = 'sound/items/bikehorn.ogg'
 
-/obj/item/bikehorn/Initialize()
+/obj/item/bikehorn/Initialize(mapload)
 	. = ..()
 	var/list/sound_list = list()
 	sound_list[sound_file] = 1

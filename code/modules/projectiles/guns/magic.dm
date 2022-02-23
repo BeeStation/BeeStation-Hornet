@@ -20,6 +20,7 @@
 	clumsy_check = 0
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses magic instead
 	pin = /obj/item/firing_pin/magic
+	requires_wielding = FALSE	//Magic has no recoil, just hold with 1 hand
 
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi' //not really a gun and some toys use these inhands
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -51,7 +52,7 @@
 		charges--//... drain a charge
 		recharge_newshot()
 
-/obj/item/gun/magic/Initialize()
+/obj/item/gun/magic/Initialize(mapload)
 	. = ..()
 	charges = max_charges
 	chambered = new ammo_type(src)

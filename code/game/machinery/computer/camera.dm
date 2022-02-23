@@ -24,7 +24,7 @@
 	var/atom/movable/screen/plane_master/o_light_visual/visual_plane_master
 	var/atom/movable/screen/background/cam_background
 
-/obj/machinery/computer/security/Initialize()
+/obj/machinery/computer/security/Initialize(mapload)
 	. = ..()
 	// Map name has to start and end with an A-Z character,
 	// and definitely NOT with a square bracket or even a number.

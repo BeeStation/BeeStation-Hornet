@@ -164,7 +164,7 @@
 		return
 
 	for(var/obj/item/bodypart/L in parts)
-		if(L.heal_damage(heal_amt/parts.len, heal_amt/parts.len, null, BODYPART_ORGANIC))
+		if(L.heal_damage(heal_amt/parts.len, heal_amt/parts.len, null, BODYTYPE_ORGANIC))
 			M.update_damage_overlays()
 
 	if(active_coma && M.getBruteLoss() + M.getFireLoss() == 0)
@@ -206,12 +206,12 @@
 	var/healed = FALSE
 
 	if(M.getBruteLoss() && M.getBruteLoss() <= threshhold)
-		M.heal_overall_damage(power, required_status = BODYPART_ORGANIC)
+		M.heal_overall_damage(power, required_status = BODYTYPE_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
 	if(M.getFireLoss() && M.getFireLoss() <= threshhold)
-		M.heal_overall_damage(burn = power, required_status = BODYPART_ORGANIC)
+		M.heal_overall_damage(burn = power, required_status = BODYTYPE_ORGANIC)
 		healed = TRUE
 		scarcounter++
 
@@ -389,7 +389,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /obj/effect/sweatsplash
 	name = "Sweatsplash"
 
-/obj/effect/sweatsplash/Initialize()
+/obj/effect/sweatsplash/Initialize(mapload)
 	create_reagents(1000)
 	reagents.add_reagent(/datum/reagent/water, 10)
 
@@ -559,7 +559,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 									M.grab_ghost()
 								break
 			if(bruteheal)
-				M.heal_overall_damage(2 * power, required_status = BODYPART_ORGANIC)
+				M.heal_overall_damage(2 * power, required_status = BODYTYPE_ORGANIC)
 				if(prob(33) && tetsuo)
 					M.adjustCloneLoss(1)
 		else
@@ -595,7 +595,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	flavour_text = "Spread misery and chaos upon the station."
 	important_info = "Avoid killing unprovoked, kill only in self defense!"
 
-/obj/effect/mob_spawn/teratomamonkey/Initialize()
+/obj/effect/mob_spawn/teratomamonkey/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
 	if(A)

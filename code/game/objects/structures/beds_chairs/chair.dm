@@ -20,7 +20,7 @@
 	if(!has_buckled_mobs())
 		. += "<span class='notice'>Drag your sprite to sit in it.</span>"
 
-/obj/structure/chair/Initialize()
+/obj/structure/chair/Initialize(mapload)
 	. = ..()
 	if(!anchored)	//why would you put these on the shuttle?
 		addtimer(CALLBACK(src, .proc/RemoveFromLatejoin), 0)
@@ -151,7 +151,7 @@
 	item_chair = null
 	var/mutable_appearance/armrest
 
-/obj/structure/chair/comfy/Initialize()
+/obj/structure/chair/comfy/Initialize(mapload)
 	armrest = GetArmrest()
 	armrest.layer = ABOVE_MOB_LAYER
 	return ..()
@@ -364,7 +364,7 @@
 	hitsound = 'sound/weapons/genhit1.ogg'
 	origin_type = /obj/structure/chair/wood
 	materials = null
-	break_chance = 50 
+	break_chance = 50
 
 /obj/item/chair/wood/narsie_act()
 	return

@@ -225,3 +225,6 @@
 
 	///Is the mob actively shifting?
 	var/shifting
+
+	///Currently possesses a typing indicator icon
+	var/typing_indicator = FALSE

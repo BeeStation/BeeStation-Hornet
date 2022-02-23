@@ -22,25 +22,6 @@
 	synchronizer_coeff = 1
 	var/reek = 200
 
-/datum/mutation/human/olfaction/on_life()
-	var/hygiene_now = owner.hygiene
-
-	if(hygiene_now < 100 && prob(3))
-		owner.adjust_disgust(GET_MUTATION_SYNCHRONIZER(src) * (rand(3,5)))
-	if(hygiene_now < HYGIENE_LEVEL_DIRTY && prob(15))
-		to_chat(owner,"<span class='danger'>You get a whiff of your stench and feel sick!</span>")
-		owner.adjust_disgust(GET_MUTATION_SYNCHRONIZER(src) * rand(5,10))
-
-	if(hygiene_now < HYGIENE_LEVEL_NORMAL && reek >= HYGIENE_LEVEL_NORMAL)
-		to_chat(owner,"<span class='warning'>Your inhumanly strong nose picks up a faint odor. Maybe you should shower soon.</span>")
-	if(hygiene_now < 150 && reek >= 150)
-		to_chat(owner,"<span class='warning'>Your odor is getting bad, what with you having a super-nose and all.</span>")
-	if(hygiene_now < 100 && reek >= 100)
-		to_chat(owner,"<span class='danger'>Your odor begins to make you gag. You silently curse your godly nose. You should really get clean!</span>")
-	if(hygiene_now < HYGIENE_LEVEL_DIRTY && reek >= HYGIENE_LEVEL_DIRTY)
-		to_chat(owner,"<span class='userdanger'>Your super-nose is 100% fed up with your stench. You absolutely must get clean.</span>")
-	reek = hygiene_now
-
 /obj/effect/proc_holder/spell/targeted/olfaction
 	name = "Remember the Scent"
 	desc = "Get a scent off of the item you're currently holding to track it. With an empty hand, you'll track the scent you've remembered."
@@ -113,6 +94,7 @@
 	power_coeff = 1
 
 /datum/mutation/human/firebreath/modify()
+	..()
 	if(power)
 		var/obj/effect/proc_holder/spell/aimed/firebreath/S = power
 		S.strength = GET_MUTATION_POWER(src)
@@ -219,8 +201,7 @@
 		return
 
 	var/list/parts = list()
-	for(var/X in C.bodyparts)
-		var/obj/item/bodypart/BP = X
+	for(var/obj/item/bodypart/BP as() in C.bodyparts)
 		if(BP.body_part != HEAD && BP.body_part != CHEST)
 			if(BP.dismemberable)
 				parts += BP

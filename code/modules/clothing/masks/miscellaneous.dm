@@ -43,7 +43,6 @@
 /obj/item/clothing/mask/fakemoustache/italian
 	name = "italian moustache"
 	desc = "Made from authentic Italian moustache hairs. Gives the wearer an irresistable urge to gesticulate wildly."
-	clothing_flags = SHOWEROKAY
 	modifies_speech = TRUE
 
 /obj/item/clothing/mask/fakemoustache/italian/handle_speech(datum/source, list/speech_args)
@@ -90,7 +89,7 @@
 	flags_inv = HIDEFACIALHAIR
 	clothing_flags = NONE
 
-/obj/item/clothing/mask/pig/cursed/Initialize()
+/obj/item/clothing/mask/pig/cursed/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_MASK_TRAIT)
 	playsound(get_turf(src), 'sound/magic/pighead_curse.ogg', 50, 1)
@@ -116,7 +115,7 @@
 /obj/item/clothing/mask/frog/cursed
 	clothing_flags = NONE
 
-/obj/item/clothing/mask/frog/cursed/Initialize()
+/obj/item/clothing/mask/frog/cursed/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_MASK_TRAIT)
 
@@ -128,7 +127,6 @@
 
 /obj/item/clothing/mask/cowmask
 	name = "cow mask"
-	icon = 'icons/mob/mask.dmi'
 	icon_state = "cowmask"
 	item_state = "cowmask"
 	clothing_flags = VOICEBOX_TOGGLABLE
@@ -146,7 +144,7 @@
 	flags_inv = HIDEFACIALHAIR
 	clothing_flags = NONE
 
-/obj/item/clothing/mask/cowmask/cursed/Initialize()
+/obj/item/clothing/mask/cowmask/cursed/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_MASK_TRAIT)
 	playsound(get_turf(src), 'sound/magic/cowhead_curse.ogg', 50, 1)
@@ -171,7 +169,7 @@
 	clothing_flags = NONE
 	flags_inv = HIDEFACIALHAIR
 
-/obj/item/clothing/mask/horsehead/cursed/Initialize()
+/obj/item/clothing/mask/horsehead/cursed/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_MASK_TRAIT)
 	playsound(get_turf(src), 'sound/magic/horsehead_curse.ogg', 50, 1)

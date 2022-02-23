@@ -5,7 +5,7 @@
 	var/cooldown
 	var/last_used
 
-/obj/item/pen/gang/Initialize()
+/obj/item/pen/gang/Initialize(mapload)
 	..()
 	last_used = world.time
 

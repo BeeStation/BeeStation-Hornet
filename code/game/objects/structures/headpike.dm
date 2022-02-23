@@ -34,7 +34,7 @@
 	spear = locate(/obj/item/spear/bamboospear) in parts_list
 	..()
 
-/obj/structure/headpike/Initialize()
+/obj/structure/headpike/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-8, 8)
 

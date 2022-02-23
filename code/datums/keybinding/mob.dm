@@ -1,8 +1,104 @@
 /datum/keybinding/mob
 		category = CATEGORY_HUMAN
 		weight = WEIGHT_MOB
+		
+		
+/datum/keybinding/mob/move_north
+	key = "W"
+	name = "move_north"
+	full_name = "Move North"
+	description = ""
+	keybind_signal = COMSIG_KB_MOB_MOVENORTH_DOWN
 
+/datum/keybinding/mob/move_north/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.keyDown("North")
+	return TRUE
+	
+/datum/keybinding/mob/move_north/up(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.keyUp("North")
+	return TRUE
+	
+	
+/datum/keybinding/mob/move_east
+	key = "D"
+	name = "move_east"
+	full_name = "Move East"
+	description = ""
+	keybind_signal = COMSIG_KB_MOB_MOVEEAST_DOWN
 
+/datum/keybinding/mob/move_east/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.keyDown("East")
+	return TRUE
+	
+/datum/keybinding/mob/move_east/up(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.keyUp("East")
+	return TRUE
+	
+	
+/datum/keybinding/mob/move_south
+	key = "S"
+	name = "move_south"
+	full_name = "Move South"
+	description = ""
+	keybind_signal = COMSIG_KB_MOB_MOVESOUTH_DOWN
+
+/datum/keybinding/mob/move_south/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.keyDown("South")
+	return TRUE
+	
+/datum/keybinding/mob/move_south/up(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.keyUp("South")
+	return TRUE
+	
+
+/datum/keybinding/mob/move_west
+	key = "A"
+	name = "move_west"
+	full_name = "Move West"
+	description = ""
+	keybind_signal = COMSIG_KB_MOB_MOVEWEST_DOWN
+
+/datum/keybinding/mob/move_west/down(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.keyDown("West")
+	return TRUE
+
+/datum/keybinding/mob/move_west/up(client/user)
+	. = ..()
+	if(.)
+		return
+	if(!user.mob) return
+	user.keyUp("West")
+	return TRUE
+	
+	
 /datum/keybinding/mob/face_north
 	key = "Ctrl-W"
 	name = "face_north"

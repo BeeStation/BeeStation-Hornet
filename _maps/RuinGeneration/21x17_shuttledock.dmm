@@ -38,13 +38,21 @@
 "A" = (
 /turf/template_noop,
 /area/template_noop)
+"C" = (
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "F" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
 "W" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
@@ -194,7 +202,7 @@ A
 A
 A
 A
-W
+C
 k
 k
 k
@@ -213,7 +221,7 @@ A
 A
 A
 A
-W
+C
 k
 k
 k

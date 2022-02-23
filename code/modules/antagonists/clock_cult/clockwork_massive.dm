@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 
 	var/destroyed = FALSE
 
-/obj/structure/destructible/clockwork/massive/celestial_gateway/Initialize()
+/obj/structure/destructible/clockwork/massive/celestial_gateway/Initialize(mapload)
 	. = ..()
 	GLOB.celestial_gateway = src
 

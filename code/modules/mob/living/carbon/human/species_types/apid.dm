@@ -1,6 +1,6 @@
 /datum/species/apid
 	// Beepeople, god damn it. It's hip, and alive! - Fuck ubunutu edition
-	name = "Apids"
+	name = "\improper Apid"
 	id = SPECIES_APID
 	bodyflag = FLAG_APID
 	say_mod = "buzzes"
@@ -26,6 +26,13 @@
 	species_language_holder = /datum/language_holder/apid
 	inert_mutation = WAXSALIVA
 	var/cold_cycle = 0
+
+	species_chest = /obj/item/bodypart/chest/apid
+	species_head = /obj/item/bodypart/head/apid
+	species_l_arm = /obj/item/bodypart/l_arm/apid
+	species_r_arm = /obj/item/bodypart/r_arm/apid
+	species_l_leg = /obj/item/bodypart/l_leg/apid
+	species_r_leg = /obj/item/bodypart/r_leg/apid
 
 /datum/species/apid/spec_life(mob/living/carbon/human/H)
 	. = ..()

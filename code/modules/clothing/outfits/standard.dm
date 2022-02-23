@@ -111,13 +111,12 @@
 /datum/outfit/pirate/space
 	suit = /obj/item/clothing/suit/space/pirate
 	head = /obj/item/clothing/head/helmet/space/pirate/bandana
-	mask = /obj/item/clothing/mask/breath
-	suit_store = /obj/item/tank/internals/oxygen
-	ears = /obj/item/radio/headset/syndicate
+	ears = /obj/item/radio/headset/syndicate/alt
 	id = /obj/item/card/id/pirate
 
 /datum/outfit/pirate/space/captain
 	head = /obj/item/clothing/head/helmet/space/pirate
+	ears = /obj/item/radio/headset/syndicate/alt/leader
 
 /datum/outfit/pirate/post_equip(mob/living/carbon/human/H)
 	H.faction |= "pirate"
@@ -341,7 +340,7 @@
 	name = "Marisa Wizard"
 
 	suit = /obj/item/clothing/suit/wizrobe/marisa
-	shoes = /obj/item/clothing/shoes/sandal/marisa
+	shoes = /obj/item/clothing/shoes/sneakers/marisa
 	head = /obj/item/clothing/head/wizard/marisa
 
 /datum/outfit/soviet

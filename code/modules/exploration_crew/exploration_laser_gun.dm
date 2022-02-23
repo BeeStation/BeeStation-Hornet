@@ -50,7 +50,7 @@
 
 /obj/item/projectile/beam/laser/cutting/on_hit(atom/target, blocked)
 	damage = initial(damage)
-	if(isobj(target))
+	if(isobj(target) && !istype(target, /obj/structure/blob))
 		damage = 70
 	else if(istype(target, /turf/closed/mineral))
 		var/turf/closed/mineral/T = target
@@ -96,7 +96,7 @@
 
 /obj/item/projectile/beam/laser/exploration_destroy/on_hit(atom/target, blocked)
 	damage = initial(damage)
-	if(isobj(target))
+	if(isobj(target) && !istype(target, /obj/structure/blob))
 		damage = 150
 	else if(istype(target, /turf/closed/mineral))
 		var/turf/closed/mineral/T = target

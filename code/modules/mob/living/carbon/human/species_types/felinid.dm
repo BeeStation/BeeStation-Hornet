@@ -1,16 +1,17 @@
 //Subtype of human
 /datum/species/human/felinid
-	name = "Felinid"
+	name = "\improper Felinid"
 	id = SPECIES_FELINID
 	bodyflag = FLAG_FELINID
-	limbs_id = "human"
+	examine_limb_id = SPECIES_HUMAN
 	say_mod = "meows"
+
 
 	disliked_food = VEGETABLES | SUGAR
 	liked_food = DAIRY | MEAT
 
 	mutant_bodyparts = list("ears", "tail_human")
-	default_features = list("mcolor" = "FFF", "wings" = "None")
+	default_features = list("mcolor" = "FFF", "wings" = "None", "body_size" = "Normal")
 	forced_features = list("tail_human" = "Cat", "ears" = "Cat")
 
 	mutantears = /obj/item/organ/ears/cat
