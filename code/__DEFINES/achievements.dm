@@ -22,11 +22,11 @@
 #define MEDAL_ONEKHRS                 "Veteran"
 #define MEDAL_TWOKHRS                 "Seasoned Veteran"
 #define MEDAL_THREEKHRS               "Grilled Seasoned Veteran"
-#define MEDAL_FOURKHRS                "Sous Vide Grilled Seasoned Veteran"
+#define MEDAL_FOURKHRS                "Burnt Grilled Seasoned Veteran"
 #define MEDAL_MINTGIB                 "Best Meal of My Life"
 #define MEDAL_CHASMJAUNT              "Mind the Gap"
 #define MEDAL_BIKE                    "This Lousy Achievement"
-#define MEDAL_WAROPS                  "Let's Play GLOBAL THERMONUCLEAR WAR"
+#define MEDAL_WAROPS                  "Play GLOBAL THERMONUCLEAR WAR"
 #define MEDAL_DRUNK					  "Little Chickadee"
 
 //Boss medals
