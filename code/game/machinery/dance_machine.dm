@@ -351,7 +351,10 @@
 		sleep(20)
 
 /obj/machinery/jukebox/disco/proc/dance3(var/mob/living/M)
+	var/total_x = 0 //To reset after the dance is over
+	var/total_y = 0 //We can't just save the current matrix because its likely other dances are animating as well
 	var/matrix/initial_matrix = matrix(M.transform)
+	var/matrix/new_offsets //uses linear algebra to update the total_x and total_y variables if the dancer's matrix changes between iterations, see dance5 for the equation.
 	for (var/i in 1 to 75)
 		if (!M)
 			return
@@ -359,43 +362,65 @@
 			if (1 to 15)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(0,1)
+				total_y++
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 			if (16 to 30)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(1,-1)
+				total_x++
+				total_y--
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 			if (31 to 45)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(-1,-1)
+				total_x--
+				total_y--
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 			if (46 to 60)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(-1,1)
+				total_x--
+				total_y++
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 			if (61 to 75)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(1,0)
+				total_x++
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 		M.setDir(turn(M.dir, 90))
 		switch (M.dir)
 			if (NORTH)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(0,3)
+				total_y += 3
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 			if (SOUTH)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(0,-3)
+				total_y -= 3
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 			if (EAST)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(3,0)
+				total_x += 3
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 			if (WEST)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(-3,0)
+				total_x -= 3
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 		sleep(1)
-	M.lying_fix()
+		new_offsets = matrix(matrix(initial_matrix, MATRIX_INVERT), M.transform, MATRIX_MULTIPLY)
+		if(new_offsets.Translate(-new_offsets.c,-new_offsets.f) ~= matrix())
+			new_offsets = matrix(matrix(total_x,0,0,total_y,0,0), new_offsets, MATRIX_MULTIPLY)
+			total_x = new_offsets.a
+			total_y = new_offsets.d
+	initial_matrix.Translate(-total_x,-total_y)
+	animate(M, transform = initial_matrix, time = 1, loop = 0)
+
+//A good breakpoint for testing
+/proc/NOP()
+	return
 
 /obj/machinery/jukebox/disco/proc/dance4(var/mob/living/M)
 	var/speed = rand(1,3)
@@ -410,43 +435,61 @@
 		 time--
 
 /obj/machinery/jukebox/disco/proc/dance5(var/mob/living/M)
-	animate(M, transform = matrix(180, MATRIX_ROTATE), time = 1, loop = 0)
+	var/total_x = 0 //See dance3
+	var/total_y = 0
+	animate(M, transform = matrix(M.transform, 180, MATRIX_ROTATE), time = 1, loop = 0)
 	var/matrix/initial_matrix = matrix(M.transform)
+	var/matrix/new_offsets //[new_total_x; new_total_y; junk] = M.transform * inital_matrix^-1 * [total_x; total_y; 0]		see dance3 for explaination
 	for (var/i in 1 to 60)
 		if (!M)
 			return
 		if (i<31)
 			initial_matrix = matrix(M.transform)
 			initial_matrix.Translate(0,1)
+			total_y++
 			animate(M, transform = initial_matrix, time = 1, loop = 0)
 		if (i>30)
 			initial_matrix = matrix(M.transform)
 			initial_matrix.Translate(0,-1)
+			total_y--
 			animate(M, transform = initial_matrix, time = 1, loop = 0)
 		M.setDir(turn(M.dir, 90))
 		switch (M.dir)
 			if (NORTH)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(0,3)
+				total_y += 3
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 			if (SOUTH)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(0,-3)
+				total_y -= 3
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 			if (EAST)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(3,0)
+				total_x += 3
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 			if (WEST)
 				initial_matrix = matrix(M.transform)
 				initial_matrix.Translate(-3,0)
+				total_x -= 3
 				animate(M, transform = initial_matrix, time = 1, loop = 0)
 		sleep(1)
-	M.lying_fix()
+		new_offsets = matrix(matrix(initial_matrix, MATRIX_INVERT), M.transform, MATRIX_MULTIPLY)
+		if(new_offsets.Translate(-new_offsets.c,-new_offsets.f) ~= matrix())
+			new_offsets = matrix(matrix(total_x,0,0,total_y,0,0), new_offsets, MATRIX_MULTIPLY)
+			total_x = new_offsets.a
+			total_y = new_offsets.d
+	initial_matrix.Translate(-total_x,-total_y)
+	initial_matrix = matrix(initial_matrix, 180, MATRIX_ROTATE)
+	animate(M, transform = initial_matrix, time = 1, loop = 0) //dance end
 
+/* THIS IS VERY BAD, NO NOT DO THIS
 /mob/living/proc/lying_fix()
 	animate(src, transform = null, time = 1, loop = 0)
 	lying_prev = 0
+*/
 
 /obj/machinery/jukebox/proc/dance_over()
 	for(var/mob/living/L in rangers)
