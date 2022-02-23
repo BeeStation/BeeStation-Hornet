@@ -2,7 +2,7 @@
 
 //MonkeStation Edit: /tg/ Mail Port
 /// How much mail the Economy SS will create per payday
-#define MAX_MAIL_PER_MINUTE 5
+#define MAX_MAIL_PER_MINUTE 3
 /// Probability of using letters of envelope sprites on all letters.
 #define FULL_CRATE_LETTER_ODDS 70
 //MonkeStation Edit End

@@ -37,6 +37,10 @@
 
 /obj/item/clothing/head/mailman
 	name = "mailman's hat"
+	//MonkeStation Edit: PestoVerde322 Mailman Uniforms
+	icon = 'monkestation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'monkestation/icons/mob/head.dmi'
+	//MonkeStation Edit End
 	icon_state = "mailman"
 	desc = "<i>'Right-on-time'</i> mail service head wear."
 

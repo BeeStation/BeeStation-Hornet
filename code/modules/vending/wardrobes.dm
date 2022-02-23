@@ -150,7 +150,9 @@
 					/obj/item/radio/headset/headset_cargo = 3)//MonkeStation Edit: Mailman equipment
 	premium = list(	/obj/item/clothing/under/rank/cargo/miner = 3,
 					/obj/item/clothing/head/mailman = 1,
-					/obj/item/clothing/under/misc/mailman = 1)
+					/obj/item/clothing/under/misc/mailman = 1,
+					/obj/item/clothing/under/plasmaman/mailman = 1,
+					/obj/item/clothing/head/helmet/space/plasmaman/mailman = 1)
 	contraband = list(/obj/item/radio/headset/headset_quartermaster = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/cargo_wardrobe
 	payment_department = ACCOUNT_CAR

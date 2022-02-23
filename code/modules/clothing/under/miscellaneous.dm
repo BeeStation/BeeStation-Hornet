@@ -22,6 +22,10 @@
 /obj/item/clothing/under/misc/mailman
 	name = "mailman's jumpsuit"
 	desc = "<i>'Special delivery!'</i>"
+	//MonkeStation Edit: PestoVerde322 Mailman Uniforms
+	icon = 'monkestation/icons/obj/clothing/uniforms.dmi'
+	worn_icon = 'monkestation/icons/mob/uniform.dmi'
+	//MonkeStation Edit End
 	icon_state = "mailman"
 	item_state = "b_suit"
 

@@ -186,13 +186,13 @@
 		/obj/item/paper/fluff/junkmail_redpill = pick("[initial(name)] for those feeling [pick(GLOB.adjectives)] working at Nanotrasen","\[REDACTED\] [initial(name)]", "[initial(name)] postmarked from the future"),
 	)
 
-	color = pick(department_colors) //eh, who gives a shit.
-	switch(rand(1,20))
-		if(1,2,3,4,5,6,7,8,9,10,11,12,13)
+	color = "#[pick(random_color())]" //eh, who gives a shit.
+	switch(rand(1,10))
+		if(1,2,3)
 			name = special_name ? junk_names[junk] : "[pick("important","critical", "crucial", "serious", "vital")] [initial(name)]"
-		if(14,15)
+		if(4,5)
 			name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.alive_mob_list)]" //LETTER FOR IAN / BUBBLEGUM / MONKEY(420)
-		if(16) //False Flag, generates a random super antagonist name to scare the crew and make metagaming far harder
+		if(6,7) //False Flag, generates a random super antagonist name to scare the crew and make metagaming far harder
 			switch(pick("nuke", "ninja", "wizard", "nightmare", "ert", "clown", "devil", "xeno", "blob"))
 				if("nuke")
 					name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.first_names)] [syndicate_name()]"
@@ -212,11 +212,11 @@
 					name = special_name ? junk_names[junk] : "[initial(name)] for [pick("alien princess","alien hunter")] ([rand(1, 999)])"
 				if("blob")
 					name = special_name ? junk_names[junk] : "[initial(name)] for Blob Overmind ([rand(1, 999)])"
-		if(17)
+		if(8)
 			name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.player_list)]" //Letter for ANYONE, even that wizard rampaging through the station.
-		if(18)
+		if(9)
 			name = special_name ? junk_names[junk] : "DO NOT OPEN"
-		if(19,20)
+		if(10)
 			name = special_name ? junk_names[junk] : "[pick("important","critical", "crucial", "serious", "vital")] [initial(name)]" // ONE IN TEN TO GET STUFF FROM JUNK
 			if(!special_name)
 				junk = pick(generic_goodies)
@@ -259,7 +259,7 @@
 		mail_recipients += human.mind
 
 	if(mail_count < 15)
-		for(var/i in 1 to rand(3,8))
+		for(var/i in 1 to rand(1,3))
 			var/obj/item/mail/new_mail
 			if(prob(FULL_CRATE_LETTER_ODDS))
 				new_mail = new /obj/item/mail(src)
