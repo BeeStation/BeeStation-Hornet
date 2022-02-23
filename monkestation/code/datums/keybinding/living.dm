@@ -59,5 +59,6 @@
 				selected_channel = ".y "
 			if("Binary")
 				selected_channel = ".b "
-		L.say("[selected_channel][spoken_text]")
+		if(spoken_text)
+			L.say("[selected_channel][spoken_text]")
 
