@@ -1,6 +1,0 @@
-author: nednaZ
-delete-after: true
-changes:
-  - tweak: There is now less mail pouring into the station.
-  - bugfix: Junk Mail is randomly colored as intended.
-  - imageadd: Updates the Mailman's outfit [PestoVerde322]
