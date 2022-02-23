@@ -381,6 +381,7 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/larry/attackby(obj/item/I, mob/living/user)
+	if(INTENT_HARM)
 	if(istype(I, /obj/item/kitchen/knife) && !knife) //Is it a knife?
 		var/obj/item/kitchen/knife/newknife = I
 		knife = newknife
@@ -411,6 +412,11 @@
 
 	do_sparks(3, TRUE, src)
 	qdel(src)
+
+/mob/living/simple_animal/bot/cleanbot/larry/Destroy()
+	..()
+	if(knife)
+		QDEL_NULL(knife)
 
 /obj/machinery/bot_core/cleanbot
 	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
