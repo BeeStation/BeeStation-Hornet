@@ -37,7 +37,7 @@
 	if(..())
 		return
 	var/turf/T = get_turf(remote_eye)
-	if(istype(T, /turf/open/space))
+	if(GLOB.shuttle_turf_blacklist[T.type])
 		var/connectors_exist = FALSE
 		for(var/obj/structure/lattice/lattice in T)
 			connectors_exist = TRUE

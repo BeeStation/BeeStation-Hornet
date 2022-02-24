@@ -3,6 +3,12 @@
 #define DOCKING_PORT_HIGHLIGHT
 #endif
 
+GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
+	/turf/baseturf_bottom,
+	/turf/open/space,
+	/turf/open/lava,
+)))
+
 //NORTH default dir
 /obj/docking_port
 	invisibility = INVISIBILITY_ABSTRACT
@@ -318,18 +324,38 @@
 /obj/docking_port/mobile/is_in_shuttle_bounds(atom/A)
 	return shuttle_areas[get_area(A)]
 
+
 /obj/docking_port/mobile/proc/add_turf(var/turf/T, var/area/shuttle/A)
-	if(!shuttle_areas[A])
+	if(!shuttle_areas[A]) //Invalid area
 		return TRUE
-	if(istype(T, /turf/open/space))
-		return TRUE
-	if(length(T.baseturfs) < 2)
+
+	if(GLOB.shuttle_turf_blacklist[T.type]) //Check if the turf is valid
+		var/connectors_exist = FALSE
+		for(var/obj/structure/lattice/lattice in T)
+			connectors_exist = TRUE
+			break
+		if(!connectors_exist)
+			return TRUE
+
+	T.baseturfs = length(T.baseturfs) ? T.baseturfs : list(T.baseturfs) //We need this as a list for now
+	var/base_length = length(T.baseturfs)
+	var/skipover_index = 0
+
+	for(var/i in 0 to base_length-1) //Place the skipover after the first blacklisted baseturf from the top
+		if(GLOB.shuttle_turf_blacklist[T.baseturfs[base_length - i]])
+			skipover_index = base_length - i + 1
+			break
+
+	if(skipover_index == 0) //Something went VERY wrong
+		if(length(T.baseturfs) == 1)
+			T.baseturfs = T.baseturfs[1]
 		return TRUE
 
 	A.contents |= T
 	if(!(/turf/baseturf_skipover/shuttle in T.baseturfs))
-		T.baseturfs.Insert(3, /turf/baseturf_skipover/shuttle)
-
+		T.baseturfs.Insert(skipover_index, /turf/baseturf_skipover/shuttle)
+	if(length(T.baseturfs) == 1)
+		T.baseturfs = T.baseturfs[1] //Back to a single value. I wish this wasn't a thing but I fear everything would break if I left it as a list
 
 /obj/docking_port/mobile/proc/remove_turf(var/turf/T)
 
