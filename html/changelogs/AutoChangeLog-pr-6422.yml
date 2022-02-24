@@ -1,0 +1,4 @@
+author: DatBoiTim
+delete-after: true
+changes:
+  - bugfix: fixed an issue related to medibots being tipped over mid healing
