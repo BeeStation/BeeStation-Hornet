@@ -4,6 +4,7 @@
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "utilitybelt"
 	item_state = "utility"
+	worn_icon_state = "utility"
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
@@ -23,7 +24,7 @@
 			add_overlay(M)
 	..()
 
-/obj/item/storage/belt/Initialize()
+/obj/item/storage/belt/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -32,6 +33,7 @@
 	desc = "Holds tools."
 	icon_state = "utilitybelt"
 	item_state = "utility"
+	worn_icon_state = "utility"
 	content_overlays = TRUE
 	custom_price = 50
 
@@ -73,6 +75,7 @@
 	desc = "Holds tools, looks snazzy."
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
+	worn_icon_state = "utility_ce"
 
 /obj/item/storage/belt/utility/chief/full/PopulateContents()
 	new /obj/item/powertool/hand_drill(src)
@@ -175,6 +178,8 @@
 	desc = "Can hold various medical equipment."
 	icon_state = "medicalbelt"
 	item_state = "medical"
+	worn_icon_state = "medical"
+	content_overlays = TRUE
 
 /obj/item/storage/belt/medical/ComponentInitialize()
 	. = ..()
@@ -294,6 +299,7 @@
 	desc = "Unique and versatile chest rig, can hold security gear."
 	icon_state = "securitywebbing"
 	item_state = "securitywebbing"
+	worn_icon_state = "securitywebbing"
 	content_overlays = FALSE
 	custom_premium_price = 800
 
@@ -308,6 +314,7 @@
 	desc = "A versatile chest rig, cherished by miners and hunters alike."
 	icon_state = "explorer1"
 	item_state = "explorer1"
+	worn_icon_state = "explorer1"
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/belt/mining/ComponentInitialize()
@@ -371,12 +378,14 @@
 /obj/item/storage/belt/mining/alt
 	icon_state = "explorer2"
 	item_state = "explorer2"
+	worn_icon_state = "explorer2"
 
 /obj/item/storage/belt/mining/primitive
 	name = "hunter's belt"
 	desc = "A versatile belt, woven from sinew."
 	icon_state = "ebelt"
 	item_state = "ebelt"
+	worn_icon_state = "ebelt"
 
 /obj/item/storage/belt/mining/primitive/ComponentInitialize()
 	. = ..()
@@ -388,6 +397,7 @@
 	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away."
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
+	worn_icon_state = "soulstonebelt"
 
 /obj/item/storage/belt/soulstone/ComponentInitialize()
 	. = ..()
@@ -414,6 +424,7 @@
 	desc = "Proves to the world that you are the strongest!"
 	icon_state = "championbelt"
 	item_state = "champion"
+	worn_icon_state = "champion"
 	materials = list(/datum/material/gold=400)
 
 /obj/item/storage/belt/champion/ComponentInitialize()
@@ -429,6 +440,7 @@
 	desc = "A set of tactical webbing worn by Syndicate boarding parties."
 	icon_state = "militarywebbing"
 	item_state = "militarywebbing"
+	worn_icon_state = "militarywebbing"
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/belt/military/ComponentInitialize()
@@ -439,7 +451,7 @@
 /obj/item/storage/belt/military/snack
 	name = "tactical snack rig"
 
-/obj/item/storage/belt/military/snack/Initialize()
+/obj/item/storage/belt/military/snack/Initialize(mapload)
 	. = ..()
 	var/sponsor = pick("DonkCo", "Waffle Co.", "Roffle Co.", "Gorlax Marauders", "Tiger Cooperative")
 	desc = "A set of snack-tical webbing worn by athletes of the [sponsor] VR sports division."
@@ -489,6 +501,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "belt"
 	item_state = "security"
+	worn_icon_state = "security"
 
 /obj/item/storage/belt/military/abductor/full/PopulateContents()
 	new /obj/item/screwdriver/abductor(src)
@@ -504,12 +517,14 @@
 	desc = "A belt used by military forces."
 	icon_state = "grenadebeltold"
 	item_state = "security"
+	worn_icon_state = "security"
 
 /obj/item/storage/belt/military/assault
 	name = "assault belt"
 	desc = "A tactical assault belt."
 	icon_state = "assaultbelt"
 	item_state = "security"
+	worn_icon_state = "security"
 
 /obj/item/storage/belt/military/assault/ComponentInitialize()
 	. = ..()
@@ -521,6 +536,7 @@
 	desc = "A belt for holding grenades."
 	icon_state = "grenadebeltnew"
 	item_state = "security"
+	worn_icon_state = "security"
 
 /obj/item/storage/belt/grenade/ComponentInitialize()
 	. = ..()
@@ -560,12 +576,14 @@
 	desc = "A set of tactical webbing stocked full of grenades."
 	icon_state = "militarywebbing"
 	item_state = "militarywebbing"
+	worn_icon_state = "militarywebbing"
 
 /obj/item/storage/belt/wands
 	name = "wand belt"
 	desc = "A belt designed to hold various rods of power. A veritable fanny pack of exotic magic."
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
+	worn_icon_state = "soulstonebelt"
 
 /obj/item/storage/belt/wands/ComponentInitialize()
 	. = ..()
@@ -592,6 +610,7 @@
 	desc = "A belt used to hold most janitorial supplies."
 	icon_state = "janibelt"
 	item_state = "janibelt"
+	worn_icon_state = "janibelt"
 
 /obj/item/storage/belt/janitor/ComponentInitialize()
 	. = ..()
@@ -626,6 +645,7 @@
 	desc = "A bandolier for holding shotgun ammunition."
 	icon_state = "bandolier"
 	item_state = "bandolier"
+	worn_icon_state = "bandolier"
 
 /obj/item/storage/belt/bandolier/ComponentInitialize()
 	. = ..()
@@ -641,6 +661,7 @@
 	desc = "A quiver made from the hide of some animal. Used to hold arrows."
 	icon_state = "quiver"
 	item_state = "quiver"
+	worn_icon_state = "quiver"
 
 /obj/item/storage/belt/quiver/ComponentInitialize()
 	. = ..()
@@ -659,7 +680,8 @@
 	desc = "A dorky fannypack for keeping small items in."
 	icon_state = "fannypack_leather"
 	item_state = "fannypack_leather"
-	item_color = "fannypackleather"
+	worn_icon_state = "fannypack_leather"
+	dying_key = DYE_REGISTRY_FANNYPACK
 	custom_price = 15
 
 /obj/item/storage/belt/fannypack/ComponentInitialize()
@@ -672,74 +694,75 @@
 	name = "black fannypack"
 	icon_state = "fannypack_black"
 	item_state = "fannypack_black"
-	item_color = "black"
+	worn_icon_state = "fannypack_black"
 
 /obj/item/storage/belt/fannypack/red
 	name = "red fannypack"
 	icon_state = "fannypack_red"
 	item_state = "fannypack_red"
-	item_color = "red"
+	worn_icon_state = "fannypack_red"
 
 /obj/item/storage/belt/fannypack/purple
 	name = "purple fannypack"
 	icon_state = "fannypack_purple"
 	item_state = "fannypack_purple"
-	item_color = "purple"
+	worn_icon_state = "fannypack_purple"
 
 /obj/item/storage/belt/fannypack/blue
 	name = "blue fannypack"
 	icon_state = "fannypack_blue"
 	item_state = "fannypack_blue"
-	item_color = "blue"
+	worn_icon_state = "fannypack_blue"
 
 /obj/item/storage/belt/fannypack/orange
 	name = "orange fannypack"
 	icon_state = "fannypack_orange"
 	item_state = "fannypack_orange"
-	item_color = "orange"
+	worn_icon_state = "fannypack_orange"
 
 /obj/item/storage/belt/fannypack/white
 	name = "white fannypack"
 	icon_state = "fannypack_white"
 	item_state = "fannypack_white"
-	item_color = "white"
+	worn_icon_state = "fannypack_white"
 
 /obj/item/storage/belt/fannypack/green
 	name = "green fannypack"
 	icon_state = "fannypack_green"
 	item_state = "fannypack_green"
-	item_color = "green"
+	worn_icon_state = "fannypack_green"
 
 /obj/item/storage/belt/fannypack/pink
 	name = "pink fannypack"
 	icon_state = "fannypack_pink"
 	item_state = "fannypack_pink"
-	item_color = "pink"
+	worn_icon_state = "fannypack_pink"
 
 /obj/item/storage/belt/fannypack/cyan
 	name = "cyan fannypack"
 	icon_state = "fannypack_cyan"
 	item_state = "fannypack_cyan"
-	item_color = "cyan"
+	worn_icon_state = "fannypack_cyan"
 
 /obj/item/storage/belt/fannypack/yellow
 	name = "yellow fannypack"
 	icon_state = "fannypack_yellow"
 	item_state = "fannypack_yellow"
-	item_color = "yellow"
+	worn_icon_state = "fannypack_yellow"
 
 /obj/item/storage/belt/fannypack/bustin
 	name = "exterminator's belt"
 	desc = " "
 	icon_state = "bustinbelt"
 	item_state = "bustinbelt"
-	item_color = "bustinbelt"
+	worn_icon_state = "bustinbelt"
 
 /obj/item/storage/belt/sabre
 	name = "sabre sheath"
 	desc = "An ornate sheath designed to hold an officer's blade."
 	icon_state = "sheath"
 	item_state = "sheath"
+	worn_icon_state = "sheath"
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/belt/sabre/ComponentInitialize()
@@ -769,11 +792,13 @@
 		to_chat(user, "[src] is empty.")
 
 /obj/item/storage/belt/sabre/update_icon()
-	icon_state = "sheath"
-	item_state = "sheath"
+	icon_state = initial(icon_state)
+	item_state = initial(item_state)
+	worn_icon_state = initial(worn_icon_state)
 	if(contents.len)
 		icon_state += "-sabre"
 		item_state += "-sabre"
+		worn_icon_state += "-sabre"
 	if(loc && isliving(loc))
 		var/mob/living/L = loc
 		L.regenerate_icons()
@@ -789,6 +814,7 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "baguette"
 	item_state = "baguette"
+	worn_icon_state = "baguette"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 

@@ -2,8 +2,8 @@
 "aH" = (
 /obj/structure/transit_tube/diagonal,
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "bw" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -46,8 +46,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "cP" = (
 /obj/structure/window/reinforced/spawner{
 	dir = 8
@@ -127,8 +127,8 @@
 	dir = 1
 	},
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "hn" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/bot,
@@ -138,8 +138,8 @@
 "hp" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "ie" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable{
@@ -234,8 +234,8 @@
 /area/ruin/unpowered)
 "mE" = (
 /obj/structure/window/reinforced/spawner,
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "nz" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -359,8 +359,8 @@
 	},
 /obj/structure/transit_tube/curved,
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "vh" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -417,8 +417,8 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "vZ" = (
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "wg" = (
 /obj/machinery/door/airlock/external{
 	name = "Escape Airlock"
@@ -472,8 +472,8 @@
 "xY" = (
 /obj/structure/window/reinforced/spawner,
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "ym" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -515,8 +515,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6
 	},
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "As" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -569,8 +569,8 @@
 /obj/structure/window/reinforced/spawner{
 	dir = 8
 	},
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Cr" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 4
@@ -621,8 +621,8 @@
 "Dx" = (
 /obj/structure/window/reinforced/spawner,
 /obj/structure/transit_tube/diagonal,
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "DU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -647,8 +647,8 @@
 "EF" = (
 /obj/structure/transit_tube/diagonal/crossing,
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "EI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -679,8 +679,8 @@
 /area/ruin/unpowered)
 "FY" = (
 /obj/structure/transit_tube/diagonal,
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "GM" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -700,8 +700,8 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "If" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -816,8 +816,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9
 	},
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Ns" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6
@@ -862,8 +862,8 @@
 /area/ruin/unpowered)
 "Pk" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Pv" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
@@ -922,8 +922,8 @@
 /area/ruin/unpowered)
 "Ri" = (
 /obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Rq" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -933,8 +933,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
 	},
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "RP" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
@@ -1022,8 +1022,8 @@
 /area/ruin/unpowered)
 "Vd" = (
 /obj/structure/transit_tube,
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "Vn" = (
 /obj/structure/window/reinforced/spawner{
 	dir = 1
@@ -1077,8 +1077,8 @@
 "Xy" = (
 /obj/structure/transit_tube,
 /obj/structure/lattice,
-/turf/open/space/basic,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "XL" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5

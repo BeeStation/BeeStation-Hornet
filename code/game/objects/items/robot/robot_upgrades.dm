@@ -263,9 +263,9 @@
 		for(var/obj/item/mop/cyborg/M in R.module.modules)
 			R.module.remove_module(M, TRUE)
 
-	var/obj/item/mop/advanced/cyborg/A = new /obj/item/mop/advanced/cyborg(R.module)
-	R.module.basic_modules += A
-	R.module.add_module(A, FALSE, TRUE)
+		var/obj/item/mop/advanced/cyborg/A = new /obj/item/mop/advanced/cyborg(R.module)
+		R.module.basic_modules += A
+		R.module.add_module(A, FALSE, TRUE)
 
 /obj/item/borg/upgrade/amop/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
@@ -355,7 +355,7 @@
 		deactivate_sr()
 
 /obj/item/borg/upgrade/selfrepair/dropped()
-	. = ..()
+	..()
 	addtimer(CALLBACK(src, .proc/check_dropped), 1)
 
 /obj/item/borg/upgrade/selfrepair/proc/check_dropped()
@@ -692,6 +692,12 @@
 	icon_state = "cyborg_upgrade3"
 	new_module = /obj/item/robot_module/security
 	module_flags = BORG_MODULE_SECURITY
+
+/obj/item/borg/upgrade/transform/borgi
+	name = "borg module picker (Borgi)"
+	desc = "Allows you to to turn a cyborg into a weapon to surpass Ian-gear."
+	icon_state = "cyborg_upgrade3"
+	new_module = /obj/item/robot_module/borgi
 
 /obj/item/borg/upgrade/transform/security/action(mob/living/silicon/robot/R, user = usr)
 	if(CONFIG_GET(flag/disable_secborg))

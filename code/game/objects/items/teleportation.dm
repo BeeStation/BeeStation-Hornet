@@ -116,7 +116,7 @@
 	var/max_portal_pairs = 3
 	var/atmos_link_override
 
-/obj/item/hand_tele/Initialize()
+/obj/item/hand_tele/Initialize(mapload)
 	. = ..()
 	active_portal_pairs = list()
 

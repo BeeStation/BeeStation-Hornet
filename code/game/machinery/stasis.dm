@@ -19,7 +19,7 @@
 	var/obj/effect/overlay/vis/mattress_on
 	var/obj/machinery/computer/operating/op_computer
 
-/obj/machinery/stasis/Initialize()
+/obj/machinery/stasis/Initialize(mapload)
 	. = ..()
 	for(var/direction in GLOB.cardinals)
 		op_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)

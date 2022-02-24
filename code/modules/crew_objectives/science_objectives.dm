@@ -21,7 +21,7 @@
 	if(borgcount <= 0)
 		return TRUE
 	else
-		return FALSE
+		return ..()
 
 //TODO: make the research objective work with techwebs
 /*
@@ -44,5 +44,5 @@
 		if(S?.files?.known_designs)
 			if(targetdesign in S.files.known_designs)
 				return TRUE
-	return FALSE
+	return ..()
 */
