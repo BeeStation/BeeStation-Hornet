@@ -330,12 +330,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		return TRUE
 
 	if(GLOB.shuttle_turf_blacklist[T.type]) //Check if the turf is valid
-		var/connectors_exist = FALSE
-		for(var/obj/structure/lattice/lattice in T)
-			connectors_exist = TRUE
-			break
-		if(!connectors_exist)
-			return TRUE
+		return TRUE
 
 	T.baseturfs = length(T.baseturfs) ? T.baseturfs : list(T.baseturfs) //We need this as a list for now
 	var/base_length = length(T.baseturfs)
