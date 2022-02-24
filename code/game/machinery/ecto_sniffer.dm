@@ -50,10 +50,6 @@
 	else
 		icon_state = "[initial(icon_state)][(is_operational() && on) ? null : "-p"]"
 
-/obj/machinery/ecto_sniffer/update_overlays()
-	. = ..()
-	//if(is_operational() && on)
-		//. += emissive_appearance(icon, "[initial(icon_state)]-light-mask")  - not working until update_appearance is ported
 
 /obj/machinery/ecto_sniffer/wrench_act(mob/living/user, obj/item/tool)
 	tool.play_tool_sound(src, 15)
