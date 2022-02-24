@@ -334,17 +334,12 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 	T.baseturfs = length(T.baseturfs) ? T.baseturfs : list(T.baseturfs) //We need this as a list for now
 	var/base_length = length(T.baseturfs)
-	var/skipover_index = 0
+	var/skipover_index = 2 //We should always leave atleast something else below our skipover
 
 	for(var/i in 0 to base_length-1) //Place the skipover after the first blacklisted baseturf from the top
 		if(GLOB.shuttle_turf_blacklist[T.baseturfs[base_length - i]])
 			skipover_index = base_length - i + 1
 			break
-
-	if(skipover_index == 0) //Something went VERY wrong
-		if(length(T.baseturfs) == 1)
-			T.baseturfs = T.baseturfs[1]
-		return TRUE
 
 	A.contents |= T
 	if(!(/turf/baseturf_skipover/shuttle in T.baseturfs))
