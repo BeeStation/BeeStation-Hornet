@@ -1,7 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - tweak: Newly added chat filters will be enabled by default in all tabs. This will
-      mess up any custom tabs you have created, requiring you to configure the filters
-      again.
-  - code_imp: Newly created tabs have disabled filters set to false rather than omitted.
