@@ -1,6 +1,0 @@
-author: ike709
-delete-after: true
-changes:
-  - bugfix: Fixed the 4,000 playtime hours achievement
-  - bugfix: Fixed the war ops achievement
-  - code_imp: Added a unit test to make sure achievements conform to the DB schema

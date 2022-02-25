@@ -1,4 +1,0 @@
-author: Fresh341
-delete-after: true
-changes:
-  - rscadd: Added the F4 hotkey to the hotkey list in the interface.dm
