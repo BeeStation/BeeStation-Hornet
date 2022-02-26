@@ -10,7 +10,7 @@
 	canmove = TRUE
 	density = FALSE		//Thought I couldn't fix this one easily, phew
 	// Run speed delay is multiplied with this for vehicle move delay.
-	var/delay_multiplier = 6.7
+	var/delay_multiplier = 3 //MonkeStation Edit: Better Speed
 
 /obj/vehicle/ridden/wheelchair/Initialize(mapload)
 	. = ..()
@@ -110,5 +110,5 @@
 /obj/vehicle/ridden/wheelchair/the_whip/driver_move(mob/living/user, direction)
 	if(istype(user))
 		var/datum/component/riding/D = GetComponent(/datum/component/riding)
-		D.vehicle_move_delay = round(CONFIG_GET(number/movedelay/run_delay) * 6.7) / user.get_num_arms()
+		D.vehicle_move_delay = round(CONFIG_GET(number/movedelay/run_delay) * 3) / user.get_num_arms() //MonkeStation Edit: Better Speeds
 	return ..()

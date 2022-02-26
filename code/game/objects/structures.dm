@@ -51,7 +51,7 @@
 		return
 	if(user == O && iscarbon(O))
 		var/mob/living/carbon/C = O
-		if(C.mobility_flags & MOBILITY_MOVE)
+		if(isliving(C)) //MonkeStation Edit: Anyone can climb
 			climb_structure(user)
 			return
 	if(!istype(O, /obj/item) || user.get_active_held_item() != O)
