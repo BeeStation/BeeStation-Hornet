@@ -22,7 +22,7 @@
 	SIGNAL_HANDLER
 
 	var/rot_degrees = pick(-12, 0, 12)
-	var/atom/A = parent
-	animate(A, pixel_z = 4, time = 0)
-	animate(pixel_z = 0, transform = turn(A.transform, rot_degrees), time=2)
-	animate(pixel_z = 0, transform = turn(A.transform, -rot_degrees), time = 0)
+	var/atom/movable/AM = parent
+	animate(AM, pixel_z = 4, time = 0)
+	animate(pixel_z = 0, transform = turn(AM.transform, rot_degrees), time=2)
+	animate(pixel_z = 0, transform = turn(AM.transform, -rot_degrees), time = 0)
