@@ -3533,6 +3533,7 @@
 #include "monkestation\code\modules\cargo\packs.dm"
 #include "monkestation\code\modules\cargo\supplypod.dm"
 #include "monkestation\code\modules\clothing\head\helmet.dm"
+#include "monkestation\code\modules\clothing\head\misc.dm"
 #include "monkestation\code\modules\clothing\head\misc_special.dm"
 #include "monkestation\code\modules\clothing\masks\breath.dm"
 #include "monkestation\code\modules\clothing\masks\miscellaneous.dm"

@@ -14,6 +14,8 @@
 	if(ishuman(loc) && dynamic_hair_suffix)
 		var/mob/living/carbon/human/H = loc
 		H.update_hair()
+	remove_verb(/obj/item/clothing/head/verb/detach_stacked_hat)//MonkeStation Edit: Hat Stacking
+
 
 ///Special throw_impact for hats to frisbee hats at people to place them on their heads/attempt to de-hat them.
 /obj/item/clothing/head/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
@@ -67,6 +69,20 @@
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damagedhelmet")
 		if(HAS_BLOOD_DNA(src))
 			. += mutable_appearance('icons/effects/blood.dmi', "helmetblood")
+	//MonkeStation Edit: Hat Stacking
+	//This section handles the worn icon itself, not the item icon.
+		if(contents)
+			var/current_hat = 1
+			for(var/obj/item/clothing/head/selected_hat in contents)
+				var/head_icon = 'icons/mob/clothing/head.dmi'
+				if(selected_hat.worn_icon)
+					head_icon = selected_hat.icon
+				var/mutable_appearance/hat_adding = selected_hat.build_worn_icon(HEAD_LAYER, head_icon, FALSE, FALSE)
+				hat_adding.pixel_y = ((current_hat * 4) - 1)
+				hat_adding.pixel_x = (rand(-1, 1))
+				current_hat++
+				. += hat_adding
+	//MonkeStation Edit End
 
 /obj/item/clothing/head/update_clothes_damaged_state(damaging = TRUE)
 	..()

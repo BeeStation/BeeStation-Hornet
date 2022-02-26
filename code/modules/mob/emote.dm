@@ -34,6 +34,14 @@
 		user.SpinAnimation(7,1)
 		if(isliving(user) && intentional)
 			var/mob/living/L = user
+			//MonkeStation Edit: Hat Loss
+			if(iscarbon(L))
+				var/mob/living/carbon/hat_loser = user
+				if(hat_loser.head)
+					var/obj/item/clothing/head/worn_headwear = hat_loser.head
+					if(worn_headwear.contents.len)
+						worn_headwear.throw_hats(rand(2,3), get_turf(hat_loser), hat_loser)
+			//MonkeStation Edit End
 			L.confused += 2
 
 /datum/emote/spin
@@ -49,6 +57,14 @@
 		user.spin(20, 1)
 		if(isliving(user) && intentional)
 			var/mob/living/L = user
+			//MonkeStation Edit: Hat Loss
+			if(iscarbon(L))
+				var/mob/living/carbon/hat_loser = user
+				if(hat_loser.head)
+					var/obj/item/clothing/head/worn_headwear = hat_loser.head
+					if(worn_headwear.contents.len)
+						worn_headwear.throw_hats(rand(1,2), get_turf(hat_loser), hat_loser)
+			//MonkeStation Edit End
 			L.confused += 2
 		if(iscyborg(user) && user.has_buckled_mobs())
 			var/mob/living/silicon/robot/R = user
