@@ -163,6 +163,8 @@
 	dir = 1
 	},
 /obj/item/stack/sheet/mineral/plasma/twenty,
+/obj/item/mining_scanner,
+/obj/item/pickaxe,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "pK" = (

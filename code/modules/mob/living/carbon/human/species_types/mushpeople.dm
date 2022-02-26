@@ -2,7 +2,7 @@
 	name = "\improper Mushroomperson"
 	id = "mush"
 	mutant_bodyparts = list("caps")
-	default_features = list("caps" = "Round")
+	default_features = list("caps" = "Round", "body_size" = "Normal")
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
 	fixed_mut_color = "DBBF92"

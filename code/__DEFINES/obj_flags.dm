@@ -20,7 +20,7 @@
 // Flags for the item_flags var on /obj/item
 
 #define BEING_REMOVED			(1<<0)
-#define IN_INVENTORY			(1<<1)  //! is this item equipped into an inventory slot or hand of a mob? used for tooltips
+#define PICKED_UP				(1<<1)  //! Has this item been picked up by a mob and on their person? Handles pickup() behaviour, tooltips and outlining. Does not include backpack contents, that is covered by IN_STORAGE>
 #define FORCE_STRING_OVERRIDE	(1<<2)  //! used for tooltips
 #define NEEDS_PERMIT			(1<<3)  //! Used by security bots to determine if this item is safe for public use.
 #define SLOWS_WHILE_IN_HAND		(1<<4)

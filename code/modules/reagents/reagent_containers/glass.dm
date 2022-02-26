@@ -268,7 +268,7 @@
 		reagents.flags = NONE
 
 /obj/item/reagent_containers/glass/bucket/dropped(mob/user)
-	. = ..()
+	..()
 	reagents.flags = initial(reagent_flags)
 
 /obj/item/reagent_containers/glass/bucket/equip_to_best_slot(var/mob/M)
@@ -376,7 +376,7 @@
 			animate(src, transform = matrix(prob(50)? 90 : -90, MATRIX_ROTATE), time = 3, loop = 0)
 
 /obj/item/reagent_containers/glass/waterbottle/pickup(mob/user)
-	. = ..()
+	..()
 	animate(src, transform = null, time = 1, loop = 0)
 
 /obj/item/reagent_containers/glass/waterbottle/empty

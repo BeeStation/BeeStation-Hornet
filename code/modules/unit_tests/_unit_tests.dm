@@ -43,6 +43,7 @@
 /// A trait source when adding traits through unit tests
 #define TRAIT_SOURCE_UNIT_TESTS "unit_tests"
 
+#include "achievement_validation.dm"
 #include "anchored_mobs.dm"
 #include "check_adjustable_clothing.dm"
 #include "component_tests.dm"

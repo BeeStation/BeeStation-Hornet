@@ -320,6 +320,7 @@
 	use_cyborg_cell = TRUE
 	automatic = 1
 	fire_rate = 6
+	requires_wielding = FALSE
 
 /obj/item/gun/energy/printer/update_icon()
 	return

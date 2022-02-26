@@ -213,7 +213,7 @@
 		UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/clothing/head/warden/drill/dropped(mob/M)
-	. = ..()
+	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/clothing/head/warden/drill/proc/handle_speech(datum/source, mob/speech_args)

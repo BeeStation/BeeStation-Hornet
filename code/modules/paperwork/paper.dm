@@ -93,7 +93,7 @@
 		if(!istype(G) || G.transfer_prints)
 			H.reagents.add_reagent(contact_poison,contact_poison_volume)
 			contact_poison = null
-	. = ..()
+	..()
 
 /obj/item/paper/Initialize(mapload)
 	..()
