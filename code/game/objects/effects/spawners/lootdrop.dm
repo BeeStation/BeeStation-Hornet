@@ -524,3 +524,11 @@
 		/obj/item/stack/ore/titanium = 2,
 		/obj/item/stack/ore/uranium = 2,
 		/obj/item/stack/ore/diamond = 2)
+
+/obj/effect/spawner/lootdrop/Engines
+	name = "singulo or tesla spawner"
+	loot = list(
+				/obj/machinery/the_singularitygen = 25,
+				/obj/machinery/the_singularitygen/tesla = 75
+				)
+	lootcount = 1
