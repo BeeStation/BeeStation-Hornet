@@ -1,0 +1,77 @@
+{
+	"helmet": [
+		{
+			"type": "icon_state",
+			"icon_state": "enviro_base",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "enviro_stripe",
+			"blend_mode": "overlay",
+            "color_ids": [ 2 ]
+		},
+        {
+            "type": "icon_state",
+            "icon_state": "enviro_midstripe",
+            "blend_mode": "overlay",
+            "color_ids": [ 3 ]
+        },
+		{
+			"type": "icon_state",
+			"icon_state": "enviro_visor",
+			"blend_mode": "overlay"
+		}
+	],
+    "helmet-light": [
+		{
+			"type": "icon_state",
+			"icon_state": "enviro_base",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "enviro_stripe",
+			"blend_mode": "overlay",
+            "color_ids": [ 2 ]
+		},
+        {
+            "type": "icon_state",
+            "icon_state": "enviro_midstripe",
+            "blend_mode": "overlay",
+            "color_ids": [ 3 ]
+        },
+		{
+			"type": "icon_state",
+			"icon_state": "enviro_visor_light",
+			"blend_mode": "overlay"
+		}
+	],
+    "helmet-weld": [
+		{
+			"type": "icon_state",
+			"icon_state": "enviro_base",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "enviro_stripe",
+			"blend_mode": "overlay",
+            "color_ids": [ 2 ]
+		},
+        {
+            "type": "icon_state",
+            "icon_state": "enviro_midstripe",
+            "blend_mode": "overlay",
+            "color_ids": [ 3 ]
+        },
+		{
+			"type": "icon_state",
+			"icon_state": "enviro_visor_weld",
+			"blend_mode": "overlay"
+		}
+	]
+}

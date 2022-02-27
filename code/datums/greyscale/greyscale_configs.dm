@@ -117,3 +117,13 @@
 	name = "Sneakers marisa"
 	icon_file = 'icons/obj/clothing/shoes.dmi'
 	json_config = 'code/datums/greyscale/json_configs/sneakers_marisa.json'
+
+/datum/greyscale_config/plasmaman_helmet_default
+	name = "Default plasmaman helmet"
+	icon_file = 'icons/obj/clothing/hats.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_default.json'
+
+/datum/greyscale_config/plasmaman_helmet_default_worn
+	name = "Default plasmaman helmet"
+	icon_file = 'icons/mob/clothing/head.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_default_worn.json'
