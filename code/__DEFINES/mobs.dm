@@ -431,3 +431,7 @@
 ///Define for spawning megafauna instead of a mob for cave gen
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
 
+//Body sizes
+#define BODY_SIZE_NORMAL 1
+#define BODY_SIZE_SHORT 0.93
+#define BODY_SIZE_TALL 1.03

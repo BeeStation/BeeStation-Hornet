@@ -6,6 +6,7 @@
  */
 /datum/component/two_handed
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS 		// Only one of the component can exist on an item
+	var/mob/wielder = null							/// The mob that is wielding us
 	var/wielded = FALSE 							/// Are we holding the two handed item properly
 	var/force_multiplier = 0						/// The multiplier applied to force when wielded, does not work with force_wielded, and force_unwielded
 	var/force_wielded = 0	 						/// The force of the item when wielded
@@ -19,6 +20,9 @@
 	var/icon_wielded = FALSE						/// The icon that will be used when wielded
 	var/obj/item/offhand/offhand_item = null		/// Reference to the offhand created for the item
 	var/sharpened_increase = 0						/// The amount of increase recived from sharpening the item
+	var/unwield_on_swap								/// Allow swapping, unwield on swap
+	var/auto_wield									/// If true wielding will be performed when picked up
+	var/ignore_attack_self							/// If true will not unwield when attacking self.
 
 /**
  * Two Handed component
@@ -32,10 +36,13 @@
  * * force_wielded (optional) The force setting when the item is wielded, do not use with force_multiplier
  * * force_unwielded (optional) The force setting when the item is unwielded, do not use with force_multiplier
  * * icon_wielded (optional) The icon to be used when wielded
+ * * unwield_on_swap (optional) Allow swapping, unwield on swap
+ * * auto_wield (optional) If true wielding will be performed when picked up
  */
 /datum/component/two_handed/Initialize(require_twohands=FALSE, wieldsound=FALSE, unwieldsound=FALSE, attacksound=FALSE, \
-										force_multiplier=0, force_wielded=0, force_unwielded=0, block_power_wielded=0, \
-										block_power_unwielded=0, icon_wielded=FALSE)
+		force_multiplier=0, force_wielded=0, force_unwielded=0, block_power_wielded=0, \
+		block_power_unwielded=0, icon_wielded=FALSE, \
+		unwield_on_swap = FALSE, auto_wield = FALSE, ignore_attack_self = FALSE)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -49,6 +56,9 @@
 	src.block_power_wielded = block_power_wielded
 	src.block_power_unwielded = block_power_unwielded
 	src.icon_wielded = icon_wielded
+	src.unwield_on_swap = unwield_on_swap
+	src.auto_wield = auto_wield
+	src.ignore_attack_self = ignore_attack_self
 
 	if(require_twohands)
 		ADD_TRAIT(parent, TRAIT_NEEDS_TWO_HANDS, ABSTRACT_ITEM_TRAIT)
@@ -57,7 +67,8 @@
 #define ISWIELDED(O) (SEND_SIGNAL(O, COMSIG_ITEM_CHECK_WIELDED) & COMPONENT_IS_WIELDED)
 
 /datum/component/two_handed/InheritComponent(datum/component/two_handed/new_comp, original, require_twohands, wieldsound, unwieldsound, \
-											force_multiplier, force_wielded, force_unwielded, block_power_wielded, block_power_unwielded, icon_wielded)
+		force_multiplier, force_wielded, force_unwielded, block_power_wielded, block_power_unwielded, icon_wielded, \
+		unwield_on_swap, auto_wield, ignore_attack_self)
 	if(!original)
 		return
 	if(require_twohands)
@@ -80,6 +91,12 @@
 		src.block_power_unwielded = block_power_unwielded
 	if(icon_wielded)
 		src.icon_wielded = icon_wielded
+	if(unwield_on_swap)
+		src.unwield_on_swap = unwield_on_swap
+	if(auto_wield)
+		src.auto_wield = auto_wield
+	if(ignore_attack_self)
+		src.ignore_attack_self = ignore_attack_self
 
 // register signals withthe parent item
 /datum/component/two_handed/RegisterWithParent()
@@ -107,19 +124,26 @@
 /datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
 
-	if(require_twohands && slot == ITEM_SLOT_HANDS) // force equip the item
+	if(auto_wield)
+		if(slot == ITEM_SLOT_HANDS)
+			RegisterSignal(user, COMSIG_MOB_SWAP_HANDS, .proc/on_swap_hands)
+		else
+			UnregisterSignal(user, COMSIG_MOB_SWAP_HANDS)
+	if((auto_wield || require_twohands) && slot == ITEM_SLOT_HANDS) // force equip the item
 		wield(user)
 	if(!user.is_holding(parent) && wielded && !require_twohands)
-		unwield(user)
+		unwield()
 
 /// Triggered on drop of item containing the component
 /datum/component/two_handed/proc/on_drop(datum/source, mob/user)
 	SIGNAL_HANDLER
 
+	if(auto_wield)
+		UnregisterSignal(user, COMSIG_MOB_SWAP_HANDS)
 	if(require_twohands)
-		unwield(user, show_message=TRUE)
+		unwield(TRUE)
 	if(wielded)
-		unwield(user)
+		unwield()
 	if(source == offhand_item && !QDELETED(src))
 		qdel(src)
 
@@ -127,8 +151,11 @@
 /datum/component/two_handed/proc/on_attack_self(datum/source, mob/user)
 	SIGNAL_HANDLER
 
+	if(ignore_attack_self)
+		return
+
 	if(wielded)
-		unwield(user)
+		unwield()
 	else
 		wield(user)
 
@@ -138,13 +165,17 @@
  * vars:
  * * user The mob/living/carbon that is wielding the item
  */
-/datum/component/two_handed/proc/wield(mob/living/carbon/user)
+/datum/component/two_handed/proc/wield(mob/living/carbon/user, swap_hands = FALSE)
 	if(wielded)
+		return
+	var/atom/attached_atom = parent
+	if(attached_atom.loc != user)
+		to_chat(user, "<span class='warning'>You attempt to wield [parent] via the power of telekenisis, but it is too much for you to handle...</span>")
 		return
 	if(ismonkey(user))
 		to_chat(user, "<span class='warning'>It's too heavy for you to wield fully.</span>")
 		return
-	if(user.get_inactive_held_item())
+	if(swap_hands ? user.get_active_held_item() : user.get_inactive_held_item())
 		if(require_twohands)
 			to_chat(user, "<span class='notice'>[parent] is too cumbersome to carry in one hand!</span>")
 			user.dropItemToGround(parent, force=TRUE)
@@ -160,8 +191,18 @@
 	// wield update status
 	if(SEND_SIGNAL(parent, COMSIG_TWOHANDED_WIELD, user) & COMPONENT_TWOHANDED_BLOCK_WIELD)
 		return // blocked wield from item
+
+	//If wielder isn't null already, unreference the old wielder
+	if(wielder != null)
+		unreference_wielder()
+
+	wielder = user
 	wielded = TRUE
-	RegisterSignal(user, COMSIG_MOB_SWAP_HANDS, .proc/on_swap_hands)
+
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, .proc/unreference_wielder)
+
+	if(!auto_wield)
+		RegisterSignal(user, COMSIG_MOB_SWAP_HANDS, .proc/on_swap_hands)
 
 	// update item stats and name
 	var/obj/item/parent_item = parent
@@ -191,7 +232,15 @@
 	offhand_item.desc = "Your second grip on [parent_item]."
 	offhand_item.wielded = TRUE
 	RegisterSignal(offhand_item, COMSIG_ITEM_DROPPED, .proc/on_drop)
-	user.put_in_inactive_hand(offhand_item)
+	if(swap_hands)
+		user.put_in_active_hand(offhand_item)
+	else
+		user.put_in_inactive_hand(offhand_item)
+
+/datum/component/two_handed/proc/unreference_wielder()
+	SIGNAL_HANDLER
+	UnregisterSignal(wielder, COMSIG_PARENT_QDELETING)
+	wielder = null
 
 /**
  * Unwield the two handed item
@@ -200,14 +249,15 @@
  * * user The mob/living/carbon that is unwielding the item
  * * show_message (option) show a message to chat on unwield
  */
-/datum/component/two_handed/proc/unwield(mob/living/carbon/user, show_message=TRUE)
-	if(!wielded || !user)
+/datum/component/two_handed/proc/unwield(show_message=TRUE)
+	if(!wielded || !wielder)
 		return
 
 	// wield update status
 	wielded = FALSE
-	UnregisterSignal(user, COMSIG_MOB_SWAP_HANDS)
-	SEND_SIGNAL(parent, COMSIG_TWOHANDED_UNWIELD, user)
+	if(!auto_wield)
+		UnregisterSignal(wielder, COMSIG_MOB_SWAP_HANDS)
+	SEND_SIGNAL(parent, COMSIG_TWOHANDED_UNWIELD, wielder)
 
 	// update item stats
 	var/obj/item/parent_item = parent
@@ -229,27 +279,29 @@
 
 	// Update icons
 	parent_item.update_icon()
-	if(user.get_item_by_slot(ITEM_SLOT_BACK) == parent)
-		user.update_inv_back()
+	if(wielder.get_item_by_slot(ITEM_SLOT_BACK) == parent)
+		wielder.update_inv_back()
 	else
-		user.update_inv_hands()
+		wielder.update_inv_hands()
 
 	// if the item requires two handed drop the item on unwield
 	if(require_twohands)
-		user.dropItemToGround(parent, force=TRUE)
+		wielder.dropItemToGround(parent, force=TRUE)
 
 	// Show message if requested
 	if(show_message)
-		if(iscyborg(user))
-			to_chat(user, "<span class='notice'>You free up your module.</span>")
+		if(iscyborg(wielder))
+			to_chat(wielder, "<span class='notice'>You free up your module.</span>")
 		else if(require_twohands)
-			to_chat(user, "<span class='notice'>You drop [parent].</span>")
+			to_chat(wielder, "<span class='notice'>You drop [parent].</span>")
 		else
-			to_chat(user, "<span class='notice'>You are now carrying [parent] with one hand.</span>")
+			to_chat(wielder, "<span class='notice'>You are now carrying [parent] with one hand.</span>")
 
 	// Play sound if set
 	if(unwieldsound)
 		playsound(parent_item.loc, unwieldsound, 50, TRUE)
+
+	unreference_wielder()
 
 	// Remove the object in the offhand
 	if(offhand_item)
@@ -285,10 +337,12 @@
 /**
  * on_moved Triggers on item moved
  */
-/datum/component/two_handed/proc/on_moved(datum/source, mob/user, dir)
+/datum/component/two_handed/proc/on_moved(datum/source, atom/loc, dir)
 	SIGNAL_HANDLER
 
-	unwield(user)
+	var/atom/attached_object = parent
+	if(attached_object.loc != wielder)
+		unwield()
 
 /**
  * on_swap_hands Triggers on swapping hands, blocks swap if the other hand is busy
@@ -297,9 +351,15 @@
 	SIGNAL_HANDLER
 
 	if(!held_item)
+		//We are swapping to our two handed object.
+		if(auto_wield)
+			wield(user, TRUE)
 		return
 	if(held_item == parent)
-		return COMPONENT_BLOCK_SWAP
+		if(unwield_on_swap)
+			unwield(FALSE)
+		else
+			return COMPONENT_BLOCK_SWAP
 
 /**
  * on_sharpen Triggers on usage of a sharpening stone on the item
@@ -341,7 +401,7 @@
 	name = "offhand"
 	icon_state = "offhand"
 	w_class = WEIGHT_CLASS_HUGE
-	item_flags = ABSTRACT
+	item_flags = ABSTRACT | DROPDEL
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/wielded = FALSE // Off Hand tracking of wielded status
 

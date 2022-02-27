@@ -406,6 +406,6 @@
 		effectReference = C.apply_status_effect(STATUS_EFFECT_GONBOLAPACIFY)
 
 /obj/item/restraints/legcuffs/bola/gonbola/dropped(mob/user)
-	. = ..()
+	..()
 	if(effectReference)
 		QDEL_NULL(effectReference)
