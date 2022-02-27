@@ -3,6 +3,7 @@ This module allows user to convert MIDI melodies to SS13 sheet music ready
 for copy-and-paste
 """
 from functools import reduce
+import os
 import midi as mi
 import easygui as egui
 import pyperclip as pclip
@@ -98,18 +99,6 @@ def dur2mod(dur, bpm_mod=1.0):
 # END OF UTILITY FUNCTIONS
 
 # CONVERSION FUNCTIONS
-def obtain_midi_file():
-    """
-    Asks user to select MIDI and returns this file opened in binary mode for reading
-    """
-    file = egui.fileopenbox(msg='Choose MIDI file to convert',
-                            title='MIDI file selection',
-                            filetypes=[['*.mid', 'MID files']])
-    if not file:
-        return None
-    file = open(file, mode='rb').read()
-    return file
-
 def midi2score_without_ticks(midi_file):
     """
     Transforms aforementioned file into a score, truncates it and returns it
@@ -285,10 +274,22 @@ def main_cycle():
     """
     Activate the script
     """
-    while True:
-        midi_file = obtain_midi_file()
+    print("Converting all midi files in folder \"midis\"")
+    for filename in os.listdir("midis"):
+        root, extension = os.path.splitext(filename)
+        if not (extension == ".mid" or extension == ".midi"):
+            print(f"Non midi file \"{filename}\"")
+            continue
+        
+        data = None
+        with open(os.path.join("midis", filename), mode='rb') as f:
+            data = f.read()
+
+        midi_file = data
         if not midi_file:
             return # Cancel
+        
+        print(f"Processing midi file \"{filename}\"")
         score = midi2score_without_ticks(midi_file)
         score = filter_events_from_score(score)
         score = filter_start_time_and_note_num(score)
@@ -303,6 +304,7 @@ def main_cycle():
         split_music = explode_sheet_music(sheet_music)
         sheet_music = finalize_sheet_music(split_music, most_frequent_dur)
 
-        pclip.copy(sheet_music)
+        with open(os.path.join("midis", root + ".txt"), "w") as o:
+            o.write(sheet_music)
 
 main_cycle()
