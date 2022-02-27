@@ -1,5 +1,6 @@
 /datum/species/plasmaman
 	name = "\improper Plasmaman"
+	plural_form = "Plasmamen"
 	id = SPECIES_PLASMAMAN
 	bodyflag = FLAG_PLASMAMAN
 	sexes = 0
@@ -146,9 +147,66 @@
 /datum/species/plasmaman/get_sniff_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
 
-/datum/species/plasmaman/get_features()
-	var/list/features = ..()
+/datum/species/plasmaman/get_species_description()
+	return "Found on the Icemoon of Freyja, plasmamen consist of colonial \
+		fungal organisms which together form a sentient being. In human space, \
+		they're usually attached to skeletons to afford a human touch."
 
-	features += "helmet_style"
+/datum/species/plasmaman/get_species_lore()
+	return list(
+		"A confusing species, plasmamen are truly \"a fungus among us\". \
+		What appears to be a singular being is actually a colony of millions of organisms \
+		surrounding a found (or provided) skeletal structure.",
 
-	return features
+		"Originally discovered by NT when a researcher \
+		fell into an open tank of liquid plasma, the previously unnoticed fungal colony overtook the body creating \
+		the first \"true\" plasmaman. The process has since been streamlined via generous donations of convict corpses and plasmamen \
+		have been deployed en masse throughout NT to bolster the workforce.",
+
+		"New to the galactic stage, plasmamen are a blank slate. \
+		Their appearance, generally regarded as \"ghoulish\", inspires a lot of apprehension in their crewmates. \
+		It might be the whole \"flammable purple skeleton\" thing.",
+
+		"The colonids that make up plasmamen require the plasma-rich atmosphere they evolved in. \
+		Their psuedo-nervous system runs with externalized electrical impulses that immediately ignite their plasma-based bodies when oxygen is present.",
+	)
+
+/datum/species/plasmaman/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "user-shield",
+			SPECIES_PERK_NAME = "Protected",
+			SPECIES_PERK_DESC = "Plasmamen are immune to radiation, poisons, and most diseases.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "hard-hat",
+			SPECIES_PERK_NAME = "Protective Helmet",
+			SPECIES_PERK_DESC = "Plasmamen's helmets provide them shielding from the flashes of welding, as well as an inbuilt flashlight.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "fire",
+			SPECIES_PERK_NAME = "Living Torch",
+			SPECIES_PERK_DESC = "Plasmamen instantly ignite when their body makes contact with oxygen.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "wind",
+			SPECIES_PERK_NAME = "Plasma Breathing",
+			SPECIES_PERK_DESC = "Plasmamen must breathe plasma to survive. You receive a tank when you arrive.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "briefcase-medical",
+			SPECIES_PERK_NAME = "Complex Biology",
+			SPECIES_PERK_DESC = "Plasmamen take specialized medical knowledge to be \
+				treated. Do not expect speedy revival, if you are lucky enough to get \
+				one at all.",
+		),
+	)
+
+	return to_add

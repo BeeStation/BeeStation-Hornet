@@ -47,3 +47,35 @@
 	human.hair_style = "Business Hair"
 	human.hair_color = "b96" // brown
 	human.update_hair()
+
+/datum/species/human/get_species_description()
+	return "Humans are the dominant species in the known galaxy. \
+		Their kind extend from old Earth to the edges of known space."
+
+/datum/species/human/get_species_lore()
+	return list(
+		"These primate-descended creatures, originating from the mostly harmless Earth, \
+		have long-since outgrown their home and semi-benign designation. \
+		The space age has taken humans out of their solar system and into the galaxy-at-large."
+	)
+
+/datum/species/human/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(list(
+		SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+		SPECIES_PERK_ICON = "robot",
+		SPECIES_PERK_NAME = "Asimov Superiority",
+		SPECIES_PERK_DESC = "The AI and their cyborgs are often (but not always) subservient only \
+			to humans. As a human, silicons are required to both protect and obey you under the Asimov lawset.",
+	))
+
+	if(CONFIG_GET(flag/enforce_human_authority))
+		to_add += list(list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "bullhorn",
+			SPECIES_PERK_NAME = "Chain of Command",
+			SPECIES_PERK_DESC = "Nanotrasen only recognizes humans for command roles, such as Captain.",
+		))
+
+	return to_add

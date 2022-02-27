@@ -87,3 +87,35 @@
 /datum/species/apid/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	C.mind?.forget_crafting_recipe(/datum/crafting_recipe/honeycomb)
 	return ..()
+
+/datum/species/apid/get_species_description()
+	return "Beepeople, god damn it. It's hip, and alive! Buzz buzz!"
+
+/datum/species/apid/get_species_lore()
+	return null
+
+/datum/species/apid/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "hive",
+			SPECIES_PERK_NAME = "Hive-Friend",
+			SPECIES_PERK_DESC = "Apids are naturally friends with bees, and can make honeycombs!",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "icicles",
+			SPECIES_PERK_NAME = "Cold-Sensitive Biology",
+			SPECIES_PERK_DESC = "The cold makes Apids sleepy...",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "fist-raised",
+			SPECIES_PERK_NAME = "Insectoid Biology",
+			SPECIES_PERK_DESC = "Fly swatters will deal significantly higher amounts of damage to Apids.",
+		),
+	)
+
+	return to_add

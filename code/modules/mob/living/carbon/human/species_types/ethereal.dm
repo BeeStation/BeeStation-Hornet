@@ -191,3 +191,35 @@
 	features += "feature_ethcolor"
 
 	return features
+
+/datum/species/ethereal/get_species_description()
+	return "Ethereals are a unique species with liquid electricity for blood and a glowing body. They thrive on electricity, and are naturally agender."
+
+/datum/species/ethereal/get_species_lore()
+	return null
+
+/datum/species/ethereal/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "bolt",
+			SPECIES_PERK_NAME = "Shockingly Tasty",
+			SPECIES_PERK_DESC = "Ethereals can feed on electricity from APCs, powercells, and lights; and do not otherwise need to eat.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "lightbulb",
+			SPECIES_PERK_NAME = "Disco Ball",
+			SPECIES_PERK_DESC = "Ethereals passively generate their own light.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "biohazard",
+			SPECIES_PERK_NAME = "Starving Artist",
+			SPECIES_PERK_DESC = "Ethereals take toxin damage while starving.",
+		),
+	)
+
+	return to_add
