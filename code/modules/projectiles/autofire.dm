@@ -91,10 +91,11 @@ Everything else should be handled for you. Good luck soldier.
 		next_process = world.time + melee_attack_delay
 		if(isobj(autofire_target))
 			G.attack_obj(autofire_target, L)
-		else
+			return
+		else if(isliving(autofire_target) && L.a_intent == INTENT_HARM) // Prevents trying to attack turfs next to the shooter
 			G.attack(autofire_target, L)
-	else
-		G.afterattack(autofire_target,L)
+			return
+	G.afterattack(autofire_target,L)
 
 /datum/component/full_auto/RemoveComponent()
 	. = ..()
