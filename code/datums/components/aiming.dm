@@ -22,7 +22,7 @@
 	src.user = user
 	src.target = target
 	user.visible_message("<span class='warning'>[user] points [parent] at [target]!</span>")
-	to_chat(target, "<span class='userdanger'>[user] is pointing [parent] at you! If you equip or drop anything they will be notified! \n <b>You can use *surrender to give yourself up</b>.</span>")
+	to_chat(target, "<span class='userdanger'>[user] is pointing [parent] at you! If you equip or drop anything they will be notified! \n<b>You can use *surrender to give yourself up</b>.</span>")
 	to_chat(user, "<span class='notice'>You're now aiming at [target]. If they attempt to equip anything you'll be notified by a loud sound.</span>")
 	user.balloon_alert_to_viewers("[user] points [parent] at [target]!", ignored_mobs = list(user, target))
 	user.balloon_alert(target, "[user] points [parent] at you!")
@@ -40,7 +40,7 @@
 
 	// Shows the radials to the aimer and target
 	aim_react(src.target)
-	show_ui(user, target, stage="start")
+	show_ui(src.user, src.target, stage="start")
 
 /*
 
@@ -68,6 +68,9 @@ Methods to alert the aimer about events, usually to signify that they're complyi
 // Cancels aiming if we can't see the target
 /datum/component/aiming/proc/on_move()
 	SIGNAL_HANDLER
+	if(QDELETED(target) || QDELETED(user))
+		stop_aiming()
+		return
 	if(target in view(user))
 		return
 	user.balloon_alert(user, "You can't see [target] anymore!")
@@ -107,7 +110,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	choice_menu = show_radial_menu_persistent(user, user, options, select_proc = CALLBACK(src, .proc/act))
 
 /datum/component/aiming/proc/act(choice)
-	if(!user || !target) // We lost our user or target somehow, abort aiming
+	if(QDELETED(user) || QDELETED(target)) // We lost our user or target somehow, abort aiming
 		stop_aiming()
 		return
 	if(!choice)
@@ -153,7 +156,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		return FALSE
 	if(istype(parent, /obj/item/gun)) // If we have a gun, fire it at the target
 		var/obj/item/gun/G = parent
-		G.afterattack(target, user, null, null, TRUE)
+		G.afterattack(target, user, aimed = TRUE)
 		stop_aiming()
 		return TRUE
 	if(isitem(parent)) // Otherwise, just wave it at them
@@ -168,9 +171,9 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		UnregisterSignal(target, COMSIG_ITEM_DROPPED)
 		UnregisterSignal(target, COMSIG_ITEM_EQUIPPED)
 		UnregisterSignal(target, COMSIG_LIVING_STATUS_PARALYZE)
-		UnregisterSignal(src.target, COMSIG_MOVABLE_MOVED)
+		UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 	if(user)
-		UnregisterSignal(src.user, COMSIG_MOVABLE_MOVED)
+		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	// Clean up the menu if it's still open
 	QDEL_NULL(choice_menu)
 	QDEL_NULL(choice_menu_target)
@@ -202,11 +205,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	duration = 1 SECONDS
 	layer = ABOVE_MOB_LAYER
 
-// Initializes aiming component in guns and gun-shaped fruits
-/obj/item/gun/Initialize()
-	. = ..()
-	AddComponent(/datum/component/aiming)
-
-/obj/item/reagent_containers/food/snacks/grown/banana/Initialize()
+// Initializes aiming component in bananas
+/obj/item/reagent_containers/food/snacks/grown/banana/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/aiming)

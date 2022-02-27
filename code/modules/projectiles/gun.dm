@@ -107,6 +107,7 @@
 	//Smaller weapons are better when used in a single hand.
 	if(requires_wielding)
 		AddComponent(/datum/component/two_handed, unwield_on_swap = TRUE, auto_wield = TRUE, ignore_attack_self = TRUE, force_wielded = force, force_unwielded = force, block_power_wielded = block_power, block_power_unwielded = block_power)
+	AddComponent(/datum/component/aiming)
 
 /obj/item/gun/proc/wield()
 	is_wielded = TRUE
