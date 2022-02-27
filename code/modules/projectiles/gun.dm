@@ -640,9 +640,8 @@
 
 //Happens before the actual projectile creation
 /obj/item/gun/proc/before_firing(atom/target, mob/user, aimed)
-	if(aimed)
-		if(chambered?.BB)
-			chambered.BB.jitter = initial(chambered.BB.speed) *= 0.5 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
+	if(aimed && chambered?.BB)
+		chambered.BB.jitter = initial(chambered.BB.speed) *= 0.5 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
 
 /////////////
 // ZOOMING //
