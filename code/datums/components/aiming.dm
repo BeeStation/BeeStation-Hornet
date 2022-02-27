@@ -156,7 +156,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		return FALSE
 	if(istype(parent, /obj/item/gun)) // If we have a gun, fire it at the target
 		var/obj/item/gun/G = parent
-		G.afterattack(target, user, aimed = TRUE)
+		G.afterattack(target, user, null, null, TRUE)
 		stop_aiming()
 		return TRUE
 	if(isitem(parent)) // Otherwise, just wave it at them
