@@ -401,10 +401,6 @@
 		return FALSE
 	if(!..())
 		return FALSE
-	var/obj/item/held = get_active_held_item()
-	var/datum/component/aiming/aiming = held?.GetComponent(/datum/component/aiming)
-	if(aiming && isliving(A))
-		aiming.aim(src, A)
 	visible_message("<b>[src]</b> points at [A].", "<span class='notice'>You point at [A].</span>")
 	return TRUE
 

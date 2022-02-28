@@ -12,10 +12,10 @@
 /datum/component/aiming/Initialize(source)
 	if(!istype(parent, /obj/item))
 		return COMPONENT_INCOMPATIBLE
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/stop_aiming)
+	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/on_parent_equip)
+	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/on_parent_unequip)
 
 /datum/component/aiming/proc/aim(mob/user, mob/target)
-	set waitfor = FALSE // So we don't hold up the pointing animation.
 	if(!COOLDOWN_FINISHED(src, aiming_cooldown) || src.target || user == target) // No double-aiming
 		return
 	COOLDOWN_START(src, aiming_cooldown, 5 SECONDS)
@@ -41,6 +41,36 @@
 	// Shows the radials to the aimer and target
 	aim_react(src.target)
 	show_ui(src.user, src.target, stage="start")
+
+/*
+
+Handles equipping/unequipping and pointing with the parent weapon.
+
+*/
+
+/// Registers pointing signal and sets up our user. Used for picking up/unstowing a weapon.
+/datum/component/aiming/proc/on_parent_equip(datum/source, mob/equipper, slot)
+	SIGNAL_HANDLER
+	if(slot == ITEM_SLOT_HANDS)
+		RegisterSignal(equipper, COMSIG_MOB_POINTED, .proc/do_aim)
+		user = equipper
+	else // Putting a weapon into storage/direct storage equip by loadout
+		on_parent_unequip()
+
+/// Called when the holder of our parent points at something. Triggers aiming.
+/datum/component/aiming/proc/do_aim(user, mob/living/target)
+	SIGNAL_HANDLER
+	if(!istype(target)) // Target isn't valid, abort
+		return
+	INVOKE_ASYNC(src, .proc/aim, user, target) // Start aiming
+
+// Cleans up the user and stops aiming if we're aiming. Used for stowing/dropping a weapon
+/datum/component/aiming/proc/on_parent_unequip()
+	SIGNAL_HANDLER
+	if(user)
+		UnregisterSignal(user, COMSIG_MOB_POINTED)
+	stop_aiming()
+	user = null
 
 /*
 
@@ -177,7 +207,6 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	// Clean up the menu if it's still open
 	QDEL_NULL(choice_menu)
 	QDEL_NULL(choice_menu_target)
-	user = null
 	target = null
 
 /datum/component/aiming/proc/aim_react(mob/target)
