@@ -290,11 +290,11 @@
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 					if(!C.fields["body_only"])
 						records.Remove(C)
-					. = TRUE
+					return TRUE
 				if(CLONING_SUCCESS_EXPERIMENTAL)
 					temp = "Notice: [C.fields["name"]] => Experimental cloning cycle in progress..."
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-					. = TRUE
+					return TRUE
 				if(ERROR_NO_SYNTHFLESH)
 					temp = "Error [ERROR_NO_SYNTHFLESH]: Out of synthflesh."
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
