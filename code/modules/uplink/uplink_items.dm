@@ -562,11 +562,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Merely wielding this weapon grants incredible agility, but its taste for blood makes it hard to handle.\
 			After downing an opponent, sheathe it to prepare yourself for an opening strike. \
 			When primed and sheathed, click anywhere to dash forward, severely cutting up anyone in your way."
+			//need more concise, clearer, cooler & ediger desc.
 	item = /obj/item/storage/belt/weebstick
 	cost = 18
 	surplus = 5
 	exclude_modes = list(/datum/game_mode/nuclear/clown_ops)
-	player_minimum = 0 // debug
+	player_minimum = 0 // debug, normal will be 25.
 
 /datum/uplink_item/dangerous/sword
 	name = "Energy Sword"
@@ -714,7 +715,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12
 	include_modes = list(/datum/game_mode/nuclear)
 
--
+
 // Stealthy Weapons
 /datum/uplink_item/stealthy_weapons
 	category = "Stealthy Weapons"
