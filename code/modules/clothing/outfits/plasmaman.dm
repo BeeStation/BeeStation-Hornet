@@ -1,16 +1,16 @@
 /datum/outfit/plasmaman/bar
 	name = "Bartender Plasmaman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/white
+	head = /obj/item/clothing/head/helmet/space/plasmaman/bartender
 	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/white,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/white)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/bartender,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/bartender)
 
 /datum/outfit/plasmaman/magic
 	name = "Magician Plasmaman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/hat
+	head = /obj/item/clothing/head/helmet/space/plasmaman/bartender
 	uniform = /obj/item/clothing/under/plasmaman/tux
 
 	helmet_variants = list(HELMET_MK2 = null,

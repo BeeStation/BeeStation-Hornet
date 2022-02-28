@@ -262,16 +262,18 @@
 	desc = "A generic white envirohelm."
 	greyscale_colors = "#D2D2D2#743474#D2D2D2"
 
-/obj/item/clothing/head/helmet/space/plasmaman/hat
+/obj/item/clothing/head/helmet/space/plasmaman/bartender
 	name = "white envirosuit helmet with top hat"
 	desc = "A generic white envirohelm with a top-hat affixed to the top"
-	greyscale_colors = null
-	greyscale_config = null
-	greyscale_config_inhand_left = null
-	greyscale_config_inhand_right = null
-	greyscale_config_worn = null
-	icon_state = "hat_envirohelm"
-	item_state = "hat_envirohelm"
+	greyscale_colors = "#E6E6E6#A349A4#E6E6E6"
+
+/obj/item/clothing/head/helmet/space/plasmaman/bartender/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
+	attached_hat = hat
+	hat.forceMove(src)
+	update_icon()
+	add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
 /obj/item/clothing/head/helmet/space/plasmaman/gold
 	name = "designer envirosuit helmet"
@@ -533,6 +535,19 @@
 	desc = "A special containment helmet designed for CentCom Staff. You know, so any coffee spills don't kill the poor sod."
 	greyscale_colors = "#088756#313131"
 
+/obj/item/clothing/head/helmet/space/plasmaman/mark2/bartender
+	name = "white envirosuit helmet with top hat"
+	desc = "A new plasmaman envirohelmet designed for the bartenders, with a top-hat affixed to the top."
+	greyscale_colors = "#E6E6E6#A349A4"
+
+/obj/item/clothing/head/helmet/space/plasmaman/mark2/bartender/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
+	attached_hat = hat
+	hat.forceMove(src)
+	update_icon()
+	add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
+
 // The Protective helmet variants
 /obj/item/clothing/head/helmet/space/plasmaman/protective
 	name = "protective envirosuit helmet"
@@ -688,3 +703,16 @@
 	name = "CentCom intern protective envirosuit helmet"
 	desc = "A special containment helmet designed for CentCom Staff. You know, so any coffee spills don't kill the poor sod."
 	greyscale_colors = "#088756#313131"
+
+/obj/item/clothing/head/helmet/space/plasmaman/protective/bartender
+	name = "white envirosuit helmet with top hat"
+	desc = "A special containment helmet designed for the bartenders, with a top-hat affixed to the top."
+	greyscale_colors = "#E6E6E6#A349A4"
+
+/obj/item/clothing/head/helmet/space/plasmaman/protective/bartender/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
+	attached_hat = hat
+	hat.forceMove(src)
+	update_icon()
+	add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
