@@ -58,9 +58,11 @@ Handles equipping/unequipping and pointing with the parent weapon.
 		on_parent_unequip()
 
 /// Called when the holder of our parent points at something. Triggers aiming.
-/datum/component/aiming/proc/do_aim(user, mob/living/target)
+/datum/component/aiming/proc/do_aim(mob/living/user, mob/living/target)
 	SIGNAL_HANDLER
 	if(!istype(target)) // Target isn't valid, abort
+		return
+	if(user.get_active_held_item() != parent) // We don't have the gun selected, abort
 		return
 	INVOKE_ASYNC(src, .proc/aim, user, target) // Start aiming
 
