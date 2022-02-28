@@ -56,8 +56,6 @@
 	var/helmet_on = FALSE
 	var/smile = FALSE
 	var/smile_color = "#FF0000"
-	//This exist to support legacy plasmeme visors until someone remakes them to have dedicated icon states
-	var/visor_icon = null
 	var/smile_state = "envirohelm_smile"
 	var/obj/item/clothing/head/attached_hat
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen/plasmaman)
@@ -97,17 +95,11 @@
 		to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
 		helmet_on = FALSE
 	playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-	if(!visor_icon)
-		icon_state = "[initial(icon_state)][up ? "":"-weld"]"
-	else
-		icon_state = initial(icon_state)
+	icon_state = "[initial(icon_state)][up ? "":"-weld"]"
 	item_state = icon_state
 	update_icon()
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon()
-	cut_overlays()
-	if(!up)
-		add_overlay(visor_icon)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_head()
@@ -143,8 +135,6 @@
 			var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/head.dmi', smile_state)
 			M.color = smile_color
 			. += M
-		if(!up && visor_icon)
-			. += mutable_appearance('icons/mob/clothing/head.dmi', visor_icon)
 		if(attached_hat)
 			// replace icon_state with worn_icon_state when that comes cause for some reason this associated proc still requires you to insert the object's icon state as an argument 🍖
 			. += attached_hat.build_worn_icon(attached_hat.icon_state, default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head.dmi')
@@ -282,7 +272,6 @@
 	greyscale_config_worn = null
 	icon_state = "hat_envirohelm"
 	item_state = "hat_envirohelm"
-	visor_icon = "enviro_visor_weld"
 
 /obj/item/clothing/head/helmet/space/plasmaman/gold
 	name = "designer envirosuit helmet"
@@ -299,9 +288,7 @@
 	greyscale_config_worn = null
 	icon_state = "prototype_envirohelm"
 	item_state = "prototype_envirohelm"
-	actions_types = list(/datum/action/item_action/toggle_welding_screen/plasmaman)
 	smile_state = "prototype_smile"
-	visor_icon = "prototype_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/botany
 	name = "botany envirosuit helmet"
@@ -329,7 +316,6 @@
 	greyscale_config_worn = null
 	icon_state = "mime_envirohelm"
 	item_state = "mime_envirohelm"
-	visor_icon = "mime_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/honk
 	name = "clown's envirosuit helmet"
@@ -341,7 +327,6 @@
 	greyscale_config_worn = null
 	icon_state = "honk_envirohelm"
 	item_state = "honk_envirohelm"
-	visor_icon = "clown_envisor"
 	smile_state = "clown_smile"
 
 //command helms
