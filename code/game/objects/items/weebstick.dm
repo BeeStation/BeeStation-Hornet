@@ -1,9 +1,8 @@
 /obj/item/weebstick
-	name = "Nanoforged Katana" //need to remove all weebstick with "nanoforged katana", but weebstick is funny. depends on outside opinions.
+	name = "Nanoforged Katana"
 	desc = "Glorious space nippon steel, folded a million times, producing the finest blade known to mankind. \
 			After downing an opponent, sheathe it to prepare yourself for an opening strike. \
 			When primed and sheathed, click anywhere to dash forward, severely cutting up anyone in your way. "
-			//same as uplink desc. better desc needed
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "weeb_blade"
 	item_state = "weeb_blade"
@@ -23,21 +22,20 @@
 	armour_penetration = 40
 	block_level = 2
 	block_upgrade_walk = 0 // Base desword blocking, but no possible improvements.
-	block_power = 50 //lower block power tho.
-	block_sound = 'sound/weapons/egloves.ogg' //that's a terrible parry sound
+	block_power = 50 //lower block power.
+	block_sound = 'sound/weapons/egloves.ogg' //placeholder
 	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "diced", "cut")
 	var/primed = FALSE // necessary for anime bullshit, determines dash attack readiness
-	// it's cooler to put it back into the sheathe then pull it out into a dash *teleports behind u, for peak animuh
-	var/mob/living/owner // necessary to proc predash through on_enter_storage, which doesn't give the user. equipped doesn't work here.
+	var/mob/living/owner //defining an owner is, as far as I know, necessary to allow on_enter_storage to register COMSIG_CLICKON. Equipped would have done the job much better, but doesn't work when inserting into storage;
+	//There could be a way to go around that through finding out the turf the belt is on, but a owner link is easier & fits the theme, too.
 	var/dash_sound = 'sound/weapons/unsheathed_blade.ogg'
 	var/beam_effect = "blood_beam"
 	var/phasein = /obj/effect/temp_visual/dir_setting/cult/phase
 	var/phaseout = /obj/effect/temp_visual/dir_setting/cult/phase
-	COOLDOWN_DECLARE(katanalinking_cd)
 
 /obj/item/weebstick/Initialize()
 	. = ..()
@@ -53,19 +51,18 @@
 /obj/item/weebstick/attack(mob/living/victim)
 	if(iscarbon(victim))
 		var/prevstat = victim.stat //save original state
-		. = ..() // run attack
+		. = ..()
 		if(victim.mind && victim.stat == SOFT_CRIT && victim.stat != prevstat) //when they're in crit but they weren't before the attack, prime it
 			primed = TRUE
 	else
 		var/prevstat = victim.stat
 		. = ..()
-		if(victim.mind && victim.stat == DEAD && victim.stat != prevstat) //sadly silicons/simplemobs have to die.
+		if(victim.mind && victim.stat == DEAD && victim.stat != prevstat) //sadly silicons/simplemobs have to die for the weapon to be primed.
 			primed = TRUE
 
 /obj/item/weebstick/attack_self(mob/living/carbon/user)
 	. = ..()
 	if (user != owner)
-		COOLDOWN_START(src, katanalinking_cd, 5 SECONDS) // doesnt work ? no runtime/bug.
 		owner = user
 		var/opposite_active_arm = BODY_ZONE_R_ARM
 		if(!owner.active_hand_index % 2) // no direct function for getting the opposite body zone of the current active hand. Uses the hand index to be able to assign the correct zone;
@@ -73,9 +70,6 @@
 			opposite_active_arm = BODY_ZONE_L_ARM
 		owner.apply_damage(20, BRUTE, opposite_active_arm, FALSE, TRUE)
 		primed = TRUE //freebie
-		//add bleeding effect, too. dk how strong.
-		//log_combat()
-		//desc here
 	//Becoming the owner damages the user 20 damage and allows them to use the dash attack. anyone can become owner, but need sheathe for the dash.
 
 /obj/item/weebstick/on_exit_storage(datum/component/storage/concrete/S)
@@ -83,16 +77,13 @@
 	if(istype(B))
 		playsound(B, 'sound/items/unsheath.ogg', 25, TRUE)
 		B.update_icon()
-		//desc here
 
 /obj/item/weebstick/on_enter_storage(datum/component/storage/concrete/S)
 	var/obj/item/storage/belt/weebstick/weebbelt = S.real_location()
 	if(istype(weebbelt))
 		playsound(weebbelt, 'sound/items/sheath.ogg', 25, TRUE)
 		weebbelt.update_icon()
-		//desc here
-		if(primed) // if found on owner & primed, then allow for dash. else, no.
-			//it's a struggle to get the owner starting from the belt. todo. also check belt is on belt slot, so it doesnt activate in boh. not important tho
+		if(primed) // if found on owner & primed, then allow for dash. else, no. Missing owner check.
 			RegisterSignal(owner, COMSIG_MOB_CLICKON, .proc/predash)
 	return
 
@@ -100,8 +91,7 @@
 	SIGNAL_HANDLER
 
 	if(!(location in view(user.client.view,user)))
-		update_icon() //need to find a way to call the storage belt, can't figure out how to update without a signal otherwise.
-		return // shouldn't happen, but better to have this. probable if lag high, and someone clicks then moves too far before it gets processed? add desc for that
+		return //probable if lag high, and someone clicks then moves too far before it gets processed.
 	if(!user.put_in_active_hand(src))
 		to_chat(user,"<span class='warning'>Your active hand needs to be empty for you to dash!</span>")
 		return
@@ -110,7 +100,7 @@
 	primed = FALSE //reset primed
 	primed_attack(location, user, src)
 	if(CanReach(location))
-		melee_attack_chain(user, location, params) //normal sword slash on final target, for added oomph
+		melee_attack_chain(user, location, params) //normal sword slash on final target.
 	return COMSIG_MOB_CANCEL_CLICKON
 
 /obj/item/weebstick/proc/primed_attack(atom/target, mob/living/user, obj/item/weebstick/sword)
@@ -128,7 +118,6 @@
 				victim.take_bodypart_damage(45) // High damage, but no armor penetration.
 				if(victim.stat == SOFT_CRIT && victim.stat != Pdash)
 					primed = TRUE
-				//log_combat()
 		// Unlike actual ninjas, we stop noclip-dashing here.
 		if(isclosedturf(T))
 			halt = TRUE
@@ -143,16 +132,12 @@
 	 user.forceMove(end) // YEET
 	 playsound(start, dash_sound, 35, TRUE)
 	 var/obj/spot2 = new phasein(end, user.dir)
-	 spot1.Beam(spot2, beam_effect, time=20) //magical bullshit causing the graphical bug
-	 // When dashing, will draw a beam line from the start (spot1) to every tile the user goes through
-	 // yet it should only draw from start to end (spot2), as the "end" var doesn't change at all, and beam doesn't get called more than once
-	 // I genuinely don't understand this bug.
-	 // on the other hand, although i'd like the weird lines to go, i'd like the cult human outlines to stay, so as to show players what tiles they actually cut through, as it isn't clear on non straight lines.
+	 spot1.Beam(spot2, beam_effect, time=20) //doesn't produce intended results
 	 user.visible_message("<span class='warning'>In a flash of red, [user] draws [user.p_their()] blade!</span>", "<span class='notice'>You dash forward while drawing your weapon!</span>", "<span class='warning'>You hear a blade slice through the air at impossible speeds!</span>")
 
 /obj/item/storage/belt/weebstick
 	name = "nanoforged blade sheath"
-	desc = "It yearns to bathe in the blood of your enemies... but you hold it back!" //better desc
+	desc = "It yearns to bathe in the blood of your enemies... but you hold it back!"
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "weeb_sheath"
 	item_state = "sheath" // need sprite.
