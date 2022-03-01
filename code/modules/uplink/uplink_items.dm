@@ -554,10 +554,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			When primed and sheathed, click anywhere to dash forward, severely cutting up anyone in your way."
 			//need more concise, clearer, cooler & ediger desc.
 	item = /obj/item/storage/belt/weebstick
+	player_minimum = 0 // debug, normal will be 25.
 	cost = 18
 	surplus = 5
-	exclude_modes = list(/datum/game_mode/nuclear/clown_ops)
-	player_minimum = 0 // debug, normal will be 25.
+	purchasable_from = ~UPLINK_CLOWN_OPS
+
 
 /datum/uplink_item/dangerous/sword
 	name = "Energy Sword"

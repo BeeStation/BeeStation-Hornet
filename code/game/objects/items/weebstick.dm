@@ -65,11 +65,12 @@
 /obj/item/weebstick/attack_self(mob/living/carbon/user)
 	. = ..()
 	if (user != owner)
-		COOLDOWN_START(src, katanalinking_cd, 5 SECONDS) // doesnt work ? no runtime/bug
+		COOLDOWN_START(src, katanalinking_cd, 5 SECONDS) // doesnt work ? no runtime/bug.
 		owner = user
-		var/opposite_active_arm = BODY_ZONE_L_ARM
-		if(!owner.active_hand_index % 2)
-			opposite_active_arm = BODY_ZONE_R_ARM
+		var/opposite_active_arm = BODY_ZONE_R_ARM
+		if(!owner.active_hand_index % 2) // no direct function for getting the opposite body zone of the current active hand. Uses the hand index to be able to assign the correct zone;
+		// since you can have more than two hands, the modulo returns 0 or 1 depending if it's a right or left one.
+			opposite_active_arm = BODY_ZONE_L_ARM
 		owner.apply_damage(20, BRUTE, opposite_active_arm, FALSE, TRUE)
 		primed = TRUE //freebie
 		//add bleeding effect, too. dk how strong.
