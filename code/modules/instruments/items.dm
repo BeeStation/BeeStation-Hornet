@@ -13,7 +13,6 @@
 	var/list/allowed_instrument_ids
 	/// How far away our song datum can be heard.
 	var/instrument_range = 15
-	block_upgrade_walk = 1
 
 /obj/item/instrument/Initialize(mapload)
 	. = ..()
@@ -130,7 +129,7 @@
 	force = 0
 	attack_verb = list("played","jazzed","trumpeted","mourned","dooted","spooked")
 
-/obj/item/instrument/trumpet/spectral/Initialize()
+/obj/item/instrument/trumpet/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
@@ -154,7 +153,7 @@
 	force = 0
 	attack_verb = list("played","jazzed","saxxed","mourned","dooted","spooked")
 
-/obj/item/instrument/saxophone/spectral/Initialize()
+/obj/item/instrument/saxophone/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
@@ -177,7 +176,7 @@
 	force = 0
 	attack_verb = list("played","jazzed","tromboned","mourned","dooted","spooked")
 
-/obj/item/instrument/trombone/spectral/Initialize()
+/obj/item/instrument/trombone/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
@@ -216,7 +215,7 @@
 	RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
 
 /obj/item/instrument/harmonica/dropped(mob/M)
-	. = ..()
+	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/instrument/bikehorn

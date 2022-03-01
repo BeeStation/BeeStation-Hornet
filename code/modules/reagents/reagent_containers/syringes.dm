@@ -3,9 +3,10 @@
 	desc = "A syringe that can hold up to 15 units."
 	icon = 'icons/obj/syringe.dmi'
 	item_state = "syringe_0"
+	var/base_icon_state = "syringe"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	icon_state = "0"
+	icon_state = "syringe_0"
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list()
 	volume = 15
@@ -18,7 +19,7 @@
 	var/units_per_tick = 1.5
 	var/initial_inject = 5
 
-/obj/item/reagent_containers/syringe/Initialize()
+/obj/item/reagent_containers/syringe/Initialize(mapload)
 	. = ..()
 	if(list_reagents) //syringe starts in inject mode if its already got something inside
 		mode = SYRINGE_INJECT
@@ -52,12 +53,22 @@
 
 /obj/item/reagent_containers/syringe/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(!syringediseases.len)
-		return FALSE
+		return ..()
 	if(scan)
 		E.scan(src, syringediseases, user)
 	else
 		E.extrapolate(src, syringediseases, user)
 	return TRUE
+
+/obj/item/reagent_containers/syringe/proc/transfer_diseases(mob/living/L)
+	for(var/datum/disease/D in syringediseases)
+		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
+			continue
+		L.ForceContractDisease(D)
+	for(var/datum/disease/D in L.diseases)
+		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
+			continue
+		syringediseases += D
 
 /obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
 	. = ..()
@@ -104,6 +115,7 @@
 				else
 					to_chat(user, "<span class='warning'>You are unable to draw any blood from [L]!</span>")
 					balloon_alert(user, "Unable to take blood sample")
+				transfer_diseases(L)
 
 			else //if not mob
 				if(!target.reagents.total_volume)
@@ -173,6 +185,7 @@
 					log_combat(user, L, "injected", src, addition="which had [contained]")
 				else
 					L.log_message("injected themselves ([contained]) with [src.name]", LOG_ATTACK, color="orange")
+				transfer_diseases(L)
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 			reagents.reaction(L, INJECT, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
@@ -193,8 +206,8 @@
 		add_overlay(filling_overlay)
 	else
 		rounded_vol = 0
-	icon_state = "[rounded_vol]"
-	item_state = "syringe_[rounded_vol]"
+	icon_state = "[base_icon_state]_[rounded_vol]"
+	item_state = "[base_icon_state]_[rounded_vol]"
 	if(ismob(loc))
 		var/mob/M = loc
 		var/injoverlay
@@ -212,13 +225,12 @@
 
 /obj/item/reagent_containers/syringe/used
 	name = "used syringe"
-	desc = "A syringe that can hold up to 15 units. This one is old, and it's probably a bad idea to use it"
+	desc = "A syringe that can hold up to 15 units. This one is old, and it's probably a bad idea to use it."
 
-
-/obj/item/reagent_containers/syringe/used/Initialize()
+/obj/item/reagent_containers/syringe/used/Initialize(mapload)
 	. = ..()
 	if(prob(75))
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), 9, rand(3,4), infected = src)
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), rand(7, 9), rand(3,4), infected = src)
 		syringediseases += R
 
 /obj/item/reagent_containers/syringe/epinephrine
@@ -296,6 +308,8 @@
 	name = "bluespace syringe"
 	desc = "An advanced syringe that can hold 60 units of chemicals."
 	amount_per_transfer_from_this = 20
+	icon_state = "bluespace_0"
+	base_icon_state = "bluespace"
 	volume = 60
 	units_per_tick = 2
 	initial_inject = 8
@@ -303,6 +317,8 @@
 /obj/item/reagent_containers/syringe/cryo
 	name = "cryo syringe"
 	desc = "An advanced syringe that freezes reagents close to absolute 0. It can hold up to 20 units."
+	icon_state = "cryo_0"
+	base_icon_state = "cryo"
 	volume = 20
 	var/processing = FALSE
 
@@ -331,6 +347,8 @@
 /obj/item/reagent_containers/syringe/piercing
 	name = "piercing syringe"
 	desc = "A diamond-tipped syringe that pierces armor. It can hold up to 10 units."
+	icon_state = "piercing_0"
+	base_icon_state = "piercing"
 	volume = 10
 	proj_piercing = 1
 	units_per_tick = 1
@@ -338,7 +356,9 @@
 
 /obj/item/reagent_containers/syringe/crude
 	name = "crude syringe"
-	desc = "A crudely made syringe. The flimsy wooden construction makes it hold up minimal amounts of reagents."
+	desc = "A crudely made syringe. The flimsy wooden construction makes it hold a minimal amount of reagents."
+	icon_state = "crude_0"
+	base_icon_state = "crude"
 	volume = 5
 
 /obj/item/reagent_containers/syringe/spider_extract

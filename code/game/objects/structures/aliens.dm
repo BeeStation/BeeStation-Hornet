@@ -97,11 +97,6 @@
 /obj/structure/alien/resin/attack_paw(mob/user)
 	return attack_hand(user)
 
-
-/obj/structure/alien/resin/CanPass(atom/movable/mover, turf/target)
-	return !density
-
-
 /*
  * Weeds
  */
@@ -125,7 +120,7 @@
 	var/growth_cooldown_high = 200
 	var/static/list/blacklisted_turfs
 
-/obj/structure/alien/weeds/Initialize()
+/obj/structure/alien/weeds/Initialize(mapload)
 	pixel_x = -4
 	pixel_y = -4 //so the sprites line up right in the map editor
 	. = ..()
@@ -177,7 +172,7 @@
 	var/lon_range = 4
 	var/node_range = NODERANGE
 
-/obj/structure/alien/weeds/node/Initialize()
+/obj/structure/alien/weeds/node/Initialize(mapload)
 	icon = 'icons/obj/smooth_structures/alien/weednode.dmi'
 	. = ..()
 	set_light(lon_range)
@@ -204,6 +199,7 @@
  */
 
 //for the status var
+#define BURSTING "bursting"
 #define BURST "burst"
 #define GROWING "growing"
 #define GROWN "grown"
@@ -256,6 +252,9 @@
 		return
 	if(user.getorgan(/obj/item/organ/alien/plasmavessel))
 		switch(status)
+			if(BURSTING)
+				to_chat(user, "<span class='notice'>The egg is in process of hatching.</span>")
+				return
 			if(BURST)
 				to_chat(user, "<span class='notice'>You clear the hatched egg.</span>")
 				playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
@@ -282,12 +281,14 @@
 /obj/structure/alien/egg/proc/Burst(kill = TRUE)
 	if(status == GROWN || status == GROWING)
 		proximity_monitor.SetRange(0)
-		status = BURST
+		status = BURSTING
 		update_icon()
 		flick("egg_opening", src)
 		addtimer(CALLBACK(src, .proc/finish_bursting, kill), 15)
 
 /obj/structure/alien/egg/proc/finish_bursting(kill = TRUE)
+	status = BURST
+	update_icon()
 	if(child)
 		child.forceMove(get_turf(src))
 		// TECHNICALLY you could put non-facehuggers in the child var
@@ -335,6 +336,7 @@
 	qdel(child)
 	new /obj/item/paper/troll(get_turf(src))
 
+#undef BURSTING
 #undef BURST
 #undef GROWING
 #undef GROWN

@@ -122,26 +122,32 @@
 /* Questions: Instead of an Emag check on every function, can we not add to airlocks onclick if emag return? */
 
 /* Atom Procs */
-/atom/proc/AICtrlClick()
+/atom/proc/AICtrlClick(mob/living/silicon/ai/user)
 	return
 /atom/proc/AIAltClick(mob/living/silicon/ai/user)
 	AltClick(user)
 	return
-/atom/proc/AIShiftClick()
+/atom/proc/AIShiftClick(mob/living/silicon/ai/user)
 	return
-/atom/proc/AICtrlShiftClick()
+/atom/proc/AICtrlShiftClick(mob/living/silicon/ai/user)
 	return
 
 /* Airlocks */
-/obj/machinery/door/airlock/AICtrlClick() // Bolts doors
+/obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/ai/user) // Bolts doors
 	if(obj_flags & EMAGGED)
+		return
+
+	if(!allowed(user))
 		return
 
 	toggle_bolt(usr)
 	add_hiddenprint(usr)
 
-/obj/machinery/door/airlock/AIAltClick() // Eletrifies doors.
+/obj/machinery/door/airlock/AIAltClick(mob/living/silicon/ai/user) // Eletrifies doors.
 	if(obj_flags & EMAGGED)
+		return
+
+	if(!allowed(user))
 		return
 
 	if(!secondsElectrified)
@@ -149,38 +155,52 @@
 	else
 		shock_restore(usr)
 
-/obj/machinery/door/airlock/AIShiftClick()  // Opens and closes doors!
+/obj/machinery/door/airlock/AIShiftClick(mob/living/silicon/ai/user)  // Opens and closes doors!
 	if(obj_flags & EMAGGED)
+		return
+
+	if(!allowed(user))
 		return
 
 	user_toggle_open(usr)
 	add_hiddenprint(usr)
 
-/obj/machinery/door/airlock/AICtrlShiftClick()  // Sets/Unsets Emergency Access Override
+/obj/machinery/door/airlock/AICtrlShiftClick(mob/living/silicon/ai/user)  // Sets/Unsets Emergency Access Override
 	if(obj_flags & EMAGGED)
+		return
+
+	if(!allowed(user))
 		return
 
 	toggle_emergency(usr)
 	add_hiddenprint(usr)
 
 /* APC */
-/obj/machinery/power/apc/AICtrlClick() // turns off/on APCs.
+/obj/machinery/power/apc/AICtrlClick(mob/living/silicon/ai/user) // turns off/on APCs.
+	if(!allowed(user))
+		return
 	if(can_use(usr, 1))
 		toggle_breaker(usr)
 
 /* AI Turrets */
-/obj/machinery/turretid/AIAltClick() //toggles lethal on turrets
+/obj/machinery/turretid/AIAltClick(mob/living/silicon/ai/user) //toggles lethal on turrets
+	if(!allowed(user))
+		return
 	if(ailock)
 		return
 	toggle_lethal(usr)
 
-/obj/machinery/turretid/AICtrlClick() //turns off/on Turrets
+/obj/machinery/turretid/AICtrlClick(mob/living/silicon/ai/user) //turns off/on Turrets
+	if(!allowed(user))
+		return
 	if(ailock)
 		return
 	toggle_on(usr)
 
 /* Holopads */
 /obj/machinery/holopad/AIAltClick(mob/living/silicon/ai/user)
+	if(!allowed(user))
+		return
 	hangup_all_calls()
 	add_hiddenprint(usr)
 

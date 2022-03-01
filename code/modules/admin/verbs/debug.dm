@@ -838,17 +838,17 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 /client/proc/toggle_medal_disable()
 	set category = "Debug"
-	set name = "Toggle Medal Disable"
-	set desc = "Toggles the safety lock on trying to contact the medal hub."
+	set name = "Toggle Achievement Disable"
+	set desc = "Toggles the safety lock on trying to contact the achievement hub."
 
 	if(!check_rights(R_DEBUG))
 		return
 
-	SSmedals.hub_enabled = !SSmedals.hub_enabled
+	SSachievements.achievements_enabled = !SSachievements.achievements_enabled
 
-	message_admins("<span class='adminnotice'>[key_name_admin(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.</span>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Medal Disable") // If...
-	log_admin("[key_name(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
+	message_admins("<span class='adminnotice'>[key_name_admin(src)] [SSachievements.achievements_enabled ? "disabled" : "enabled"] the achievement hub lockout.</span>")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Achievement Disable") // If...
+	log_admin("[key_name(src)] [SSachievements.achievements_enabled ? "disabled" : "enabled"] the achievement hub lockout.")
 
 /client/proc/view_runtimes()
 	set category = "Debug"
@@ -1007,3 +1007,51 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 /proc/cmp_timer_data(list/a, list/b)
 	return b["count"] - a["count"]
+
+/*
+ * Test Luminosity Changes vs Dview
+ *
+ * A simple debug verb that rapidly changes you current turf's
+ * luminosity value and runs view() to test the performance
+ * compared to dview()
+*/
+/client/proc/test_dview_to_lum_changes()
+	set category = "Debug"
+	set name = "Test Lum Changes"
+	set desc = "Changes your current turf's luminosity repeatedly to test how long it takes"
+	//Check if the user running this verb has sufficient privellages
+	if (!check_rights(R_DEBUG))
+		return
+	//Get the turf of the user
+	var/turf/T = get_turf(usr)
+	//if the current turf is null, don't act
+	if(!T)
+		return
+
+	//Count the total of view
+	var/total_dview = 0
+	var/total_lum = 0
+
+	//Get the timer of the world
+	var/timer_dview = TICK_USAGE
+	//Run the DVIEW test
+	for(var/i in 1 to 10000)
+		var/list/L = dview(6, T)
+		total_dview += length(L)
+	//Get the results of the dview test
+	var/total_time_dview = TICK_USAGE_TO_MS(timer_dview)
+
+	//Get the timer of the world
+	var/timer_lum_changes = TICK_USAGE
+	//Run the LUM CHANGES test
+	for(var/i in 1 to 10000)
+		T.luminosity = 6
+		var/list/L = view(6, T)
+		total_lum += length(L)
+		T.luminosity = 1
+	//Get the result of the lum change test
+	var/total_time_lum = TICK_USAGE_TO_MS(timer_lum_changes)
+
+	//Print the results
+	to_chat(usr, "<span class='notice'>10000 dview calls resulted in a [total_time_dview]ms overhead. ([total_dview] items located)</span>")
+	to_chat(usr, "<span class='notice'>10000 lum changes resulted in a [total_time_lum]ms overhead. ([total_lum] items located)</span>")

@@ -32,7 +32,7 @@
 /obj/item/gun/energy/get_cell()
 	return cell
 
-/obj/item/gun/energy/Initialize()
+/obj/item/gun/energy/Initialize(mapload)
 	. = ..()
 	if(cell_type)
 		cell = new cell_type(src)
@@ -194,7 +194,7 @@
 
 /obj/item/gun/energy/vv_edit_var(var_name, var_value)
 	switch(var_name)
-		if("selfcharge")
+		if(NAMEOF(src, selfcharge))
 			if(var_value)
 				START_PROCESSING(SSobj, src)
 			else

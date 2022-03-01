@@ -258,7 +258,7 @@
 	..()
 
 	if (L.client)
-		SSmedals.UnlockMedal(MEDAL_APPLY_REAGENT_SOYMILK,L.client)
+		L.client.give_award(/datum/award/achievement/misc/soy, L)
 
 
 /datum/reagent/consumable/soymilk/on_mob_life(mob/living/carbon/M)
@@ -763,7 +763,7 @@
 /datum/reagent/consumable/triple_citrus
 	name = "Triple Citrus"
 	description = "A solution."
-	color = "#C8A5DC"
+	color = "#EEFF00"
 	quality = DRINK_NICE
 	taste_description = "extreme bitterness"
 	glass_icon_state = "triplecitrus" //needs own sprite mine are trash
@@ -823,6 +823,14 @@
 	color = "#E78108"
 	taste_description = "peaches"
 	glass_name = "glass of peach juice"
+
+/datum/reagent/consumable/pineapplejuice
+	name = "Pineapple Juice"
+	description = "Tart, tropical, and hotly debated."
+	color = "#F7D435"
+	taste_description = "pineapple"
+	glass_name = "glass of pineapple juice"
+	glass_desc = "Tart, tropical, and hotly debated."
 
 /datum/reagent/consumable/cream_soda
 	name = "Cream Soda"

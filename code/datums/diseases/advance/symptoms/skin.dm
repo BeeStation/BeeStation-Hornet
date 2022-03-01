@@ -208,7 +208,7 @@ BONUS
 	resistance = 1
 	stage_speed = 0
 	transmission = 2 //The symptom is in it of itself meant to spread
-	level = 9
+	level = 8
 	severity = -1
 	base_message_chance = 50
 	symptom_delay_min = 60

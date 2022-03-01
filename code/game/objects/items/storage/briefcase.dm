@@ -2,14 +2,13 @@
 	name = "briefcase"
 	desc = "It's made of AUTHENTIC faux-leather and has a price-tag still attached. Its owner must be a real professional."
 	icon_state = "briefcase"
-	lefthand_file = 'icons/mob/inhands/equipment/briefcase_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/briefcase_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
 	flags_1 = CONDUCT_1
 	force = 8
 	hitsound = "swing_hit"
 	throw_speed = 2
 	throw_range = 4
-	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 	resistance_flags = FLAMMABLE

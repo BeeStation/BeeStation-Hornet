@@ -355,7 +355,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	// check for and apply punctuation
 	var/end = copytext(message, length(message))
-	if(!(end in list("!", ".", "?", ":", "\"", "-")))
+	if(!(end in list("!", ".", "?", ":", "\"", "-", "~")))
 		message += "."
 
 	message = capitalize(message)

@@ -8,7 +8,7 @@
 /datum/antagonist/valentine/proc/forge_objectives()
 	var/datum/objective/protect/protect_objective = new /datum/objective/protect
 	protect_objective.owner = owner
-	protect_objective.target = date
+	protect_objective.set_target(date)
 	if(!ishuman(date.current))
 		protect_objective.human_check = FALSE
 	protect_objective.explanation_text = "Protect [date.name], your date."

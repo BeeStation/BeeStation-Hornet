@@ -385,8 +385,8 @@
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"
-		var/list/whole_words = strings("owo_talk.json", "wowds")
-		var/list/owo_sounds = strings("owo_talk.json", "sounds")
+		var/list/whole_words = strings(OWO_TALK_FILE, "wowds")
+		var/list/owo_sounds = strings(OWO_TALK_FILE, "sounds")
 
 		for(var/key in whole_words)
 			var/value = whole_words[key]

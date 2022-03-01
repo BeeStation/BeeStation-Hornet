@@ -15,7 +15,7 @@
 	var/self_delay = 0 //pills are instant, this is because patches inheret their aplication from pills
 	var/dissolvable = TRUE
 
-/obj/item/reagent_containers/pill/Initialize()
+/obj/item/reagent_containers/pill/Initialize(mapload)
 	. = ..()
 	if(!icon_state)
 		icon_state = "pill[rand(1,20)]"
@@ -275,7 +275,7 @@
 	prevent_grinding = TRUE
 	dissolvable = FALSE
 
-/obj/item/reagent_containers/pill/floorpill/Initialize()
+/obj/item/reagent_containers/pill/floorpill/Initialize(mapload)
 	list_reagents = list(get_unrestricted_random_reagent_id() = rand(10,50))
 	. = ..()
 	name = pick(names)

@@ -233,7 +233,7 @@
 	if(!istype(M))
 		return
 	if(isoozeling(M))
-		M.blood_volume -= 30
+		M.blood_volume = max(M.blood_volume - 30, 0)
 		to_chat(M, "<span class='warning'>The water causes you to melt away!</span>")
 		return
 	if(method == TOUCH)
@@ -392,7 +392,7 @@
 	if(ishuman(M))
 		if(method == PATCH || method == VAPOR)
 			var/mob/living/carbon/human/N = M
-			if(N.dna.species.id == "human")
+			if(N.dna.species.id == SPECIES_HUMAN)
 				switch(N.skin_tone)
 					if("african1")
 						N.skin_tone = "african2"
@@ -452,8 +452,7 @@
 				to_chat(M, "<span class='notice'>That tasted horrible.</span>")
 	..()
 
-
-/datum/reagent/spraytan/overdose_process(mob/living/M)
+/datum/reagent/spraytan/overdose_start(mob/living/M)
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 
 	if(ishuman(M))
@@ -469,15 +468,18 @@
 		else if(MUTCOLORS in N.dna.species.species_traits) //Aliens with custom colors simply get turned orange
 			N.dna.features["mcolor"] = "f80"
 		N.regenerate_icons()
+	..()
+
+/datum/reagent/spraytan/overdose_process(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/N = M
 		if(prob(7))
 			if(N.w_uniform)
 				M.visible_message(pick("<b>[M]</b>'s collar pops up without warning.</span>", "<b>[M]</b> flexes [M.p_their()] arms."))
 			else
 				M.visible_message("<b>[M]</b> flexes [M.p_their()] arms.")
-	if(prob(10))
-		M.say(pick("Shit was SO cash.", "You are everything bad in the world.", "What sports do you play, other than 'jack off to naked drawn Japanese people?'", "Don???t be a stranger. Just hit me with your best shot.", "My name is John and I hate every single one of you."), forced = /datum/reagent/spraytan)
-	..()
-	return
+		if(prob(10))
+			M.say(pick("Shit was SO cash.", "You are everything bad in the world.", "What sports do you play, other than 'jack off to naked drawn Japanese people?'", "Don???t be a stranger. Just hit me with your best shot.", "My name is John and I hate every single one of you."), forced = /datum/reagent/spraytan)
 
 #define MUT_MSG_IMMEDIATE 1
 #define MUT_MSG_EXTENDED 2
@@ -549,7 +551,6 @@
 						/datum/species/pod,
 						/datum/species/jelly,
 						/datum/species/abductor,
-						/datum/species/squid,
 						/datum/species/skeleton)
 	can_synth = TRUE
 
@@ -630,34 +631,12 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/abductor
 	taste_description = "something out of this world... no, universe!"
-
-/datum/reagent/mutationtoxin/android
-	name = "Android Mutation Toxin"
-	description = "A robotic toxin."
-	color = "#5EFF3B" //RGB: 94, 255, 59
-	race = /datum/species/android
-	taste_description = "circuitry and steel"
-
-/datum/reagent/mutationtoxin/ipc
-	name = "IPC Mutation Toxin"
-	description = "An integrated positronic toxin."
-	color = "#5EFF3B" //RGB: 94, 255, 59
-	race = /datum/species/ipc
-	taste_description = "silicon and copper"
-
 /datum/reagent/mutationtoxin/ethereal
 	name = "Ethereal Mutation Toxin"
 	description = "A positively electric toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/ethereal
 	taste_description = "shocking"
-
-/datum/reagent/mutationtoxin/squid
-	name = "Squid Mutation Toxin"
-	description = "A salty toxin."
-	color = "#5EFF3B" //RGB: 94, 255, 59
-	race = /datum/species/squid
-	taste_description = "fish"
 
 /datum/reagent/mutationtoxin/oozeling
 	name = "Oozeling Mutation Toxin"
@@ -685,7 +664,7 @@
 	name = "Zombie Mutation Toxin"
 	description = "An undead toxin... kinda..."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	race = /datum/species/krokodil_addict //Not the infectious kind. The days of xenobio zombie outbreaks are long past.
+	race = /datum/species/human/krokodil_addict //Not the infectious kind. The days of xenobio zombie outbreaks are long past.
 	taste_description = "krokodil"
 
 
@@ -695,16 +674,6 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/lizard/ashwalker
 	taste_description = "savagery"
-
-/datum/reagent/mutationtoxin/supersoldier
-	name = "Super Soldier Toxin"
-	description = "A flesh-sculpting toxin."
-	color = "#5EFF3B" //RGB: 94, 255, 59
-	race = /datum/species/human/supersoldier
-	taste_description = "adminbuse"
-	can_synth = FALSE
-	random_unrestricted = FALSE
-
 
 
 //DANGEROUS RACES
@@ -887,7 +856,7 @@
 	name = "Chlorine"
 	description = "A pale yellow gas that's well known as an oxidizer. While it forms many harmless molecules in its elemental form it is far from harmless."
 	reagent_state = GAS
-	color = "#808080" // rgb: 128, 128, 128
+	color = "#FFFB89" //pale yellow
 	taste_description = "chlorine"
 	random_unrestricted = FALSE
 
@@ -944,13 +913,13 @@
 /datum/reagent/glycerol
 	name = "Glycerol"
 	description = "Glycerol is a simple polyol compound. Glycerol is sweet-tasting and of low toxicity."
-	color = "#808080" // rgb: 128, 128, 128
+	color = "#D3B913"
 	taste_description = "sweetness"
 
 /datum/reagent/space_cleaner/sterilizine
 	name = "Sterilizine"
 	description = "Sterilizes wounds in preparation for surgery."
-	color = "#C8A5DC" // rgb: 200, 165, 220
+	color = "#D0EFEE" // space cleaner but lighter
 	taste_description = "bitterness"
 
 /datum/reagent/space_cleaner/sterilizine/reaction_mob(mob/living/carbon/C, method=TOUCH, reac_volume)
@@ -968,7 +937,7 @@
 	taste_description = "iron"
 	random_unrestricted = FALSE
 
-	color = "#C8A5DC" // rgb: 200, 165, 220
+	color = "#606060"
 
 /datum/reagent/iron/on_mob_life(mob/living/carbon/C)
 	if(C.blood_volume < BLOOD_VOLUME_NORMAL)
@@ -1006,7 +975,7 @@
 	name ="Uranium"
 	description = "A silvery-white metallic chemical element in the actinide series, weakly radioactive."
 	reagent_state = SOLID
-	color = "#B8B8C0" // rgb: 184, 184, 192
+	color = "#5E9964" //this used to be silver, but liquid uranium can still be green and it's more easily noticeable as uranium like this so why bother?
 	taste_description = "the inside of a reactor"
 	var/irradiation_level = 1
 	process_flags = ORGANIC | SYNTHETIC
@@ -1028,7 +997,7 @@
 	name = "Radium"
 	description = "Radium is an alkaline earth metal. It is extremely radioactive."
 	reagent_state = SOLID
-	color = "#C7C7C7" // rgb: 199,199,199
+	color = "#00CC00" // ditto
 	taste_description = "the colour blue and regret"
 	irradiation_level = 2*REM
 	process_flags = ORGANIC | SYNTHETIC
@@ -1135,7 +1104,6 @@
 			var/mob/living/carbon/C = M
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
-				H.adjust_hygiene((30 * reac_volume) / (3 + reac_volume))
 				if(H.lip_style)
 					H.lip_style = null
 					H.update_body()
@@ -1198,7 +1166,7 @@
 /datum/reagent/impedrezene
 	name = "Impedrezene"
 	description = "Impedrezene is a narcotic that impedes one's ability by slowing down the higher brain cell functions."
-	color = "#C8A5DC" // rgb: 200, 165, 220A
+	color = "#E07DDD" // pink = happy = dumb
 	taste_description = "numbness"
 
 /datum/reagent/impedrezene/on_mob_life(mob/living/carbon/M)
@@ -1557,7 +1525,7 @@
 	name = "Oil"
 	description = "Burns in a small smoky fire, mostly used to get Ash."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#2D2D2D"
 	taste_description = "oil"
 	process_flags = ORGANIC | SYNTHETIC
 	random_unrestricted = FALSE
@@ -1566,7 +1534,7 @@
 	name = "Stable Plasma"
 	description = "Non-flammable plasma locked into a liquid form that cannot ignite or become gaseous/solid."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#2D2D2D"
 	taste_description = "bitterness"
 	taste_mult = 1.5
 	process_flags = ORGANIC | SYNTHETIC
@@ -1580,7 +1548,7 @@
 	name = "Iodine"
 	description = "Commonly added to table salt as a nutrient. On its own it tastes far less pleasing."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#BC8A00"
 	taste_description = "metal"
 	random_unrestricted = FALSE
 
@@ -1588,7 +1556,7 @@
 	name = "Carpet"
 	description = "For those that need a more creative way to roll out a red carpet."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#771100"
 	taste_description = "carpet" // Your tounge feels furry.
 
 /datum/reagent/carpet/reaction_turf(turf/T, reac_volume)
@@ -1601,7 +1569,7 @@
 	name = "Bromine"
 	description = "A brownish liquid that's highly reactive. Useful for stopping free radicals, but not intended for human consumption."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#D35415"
 	taste_description = "chemicals"
 	random_unrestricted = FALSE
 
@@ -1609,7 +1577,7 @@
 	name = "Phenol"
 	description = "An aromatic ring of carbon with a hydroxyl group. A useful precursor to some medicines, but has no healing properties on its own."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#E7EA91"
 	taste_description = "acid"
 	random_unrestricted = FALSE
 
@@ -1617,7 +1585,7 @@
 	name = "Ash"
 	description = "Phoenixes supposedly rise from this, but you've never seen it."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#515151"
 	taste_description = "ash"
 	random_unrestricted = FALSE
 
@@ -1625,7 +1593,7 @@
 	name = "Acetone"
 	description = "A slick liquid with carcinogenic properties. Has a multitude of mundane uses in everyday life."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#AF14B7"
 	taste_description = "acid"
 	random_unrestricted = FALSE
 
@@ -1679,7 +1647,7 @@
 	name = "Barber's Aid"
 	description = "A solution to hair loss across the world."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#A86B45" //hair is brown
 	taste_description = "sourness"
 
 /datum/reagent/barbers_aid/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
@@ -1696,7 +1664,7 @@
 	name = "Concentrated Barber's Aid"
 	description = "A concentrated solution to hair loss across the world."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#7A4E33" //hair is dark brown
 	taste_description = "sourness"
 
 /datum/reagent/concentrated_barbers_aid/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
@@ -1760,13 +1728,13 @@
 
 /datum/reagent/toxin/plasma/plasmavirusfood
 	name = "Virus Plasma"
-	color = "#A69DA9" // rgb: 166,157,169
+	color = "#A270A8" // rgb: 162,112,168
 	taste_description = "bitterness"
 	taste_mult = 1.5
 
 /datum/reagent/toxin/plasma/plasmavirusfood/weak
 	name = "Weakened Virus Plasma"
-	color = "#CEC3C6" // rgb: 206,195,198
+	color = "#A28CA5" // rgb: 162,140,165
 	taste_description = "bitterness"
 	taste_mult = 1.5
 

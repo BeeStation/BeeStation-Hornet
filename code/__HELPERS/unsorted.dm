@@ -180,18 +180,6 @@ Turf and target are separate in case you want to teleport some distance from a t
 			line+=locate(px,py,M.z)
 	return line
 
-/// Returns whether or not a player is a guest using their ckey as an input
-/proc/IsGuestKey(key)
-	if (findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
-		return FALSE
-
-	var/i, ch, len = length(key)
-
-	for (i = 7, i <= len, ++i) //we know the first 6 chars are Guest-
-		ch = text2ascii(key, i)
-		if (ch < 48 || ch > 57) //0-9
-			return FALSE
-	return TRUE
 
 //// Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
 /mob/proc/apply_pref_name(role, client/C)
@@ -243,28 +231,27 @@ Turf and target are separate in case you want to teleport some distance from a t
 /// Returns a list of unslaved cyborgs
 /proc/active_free_borgs()
 	. = list()
-	for(var/mob/living/silicon/robot/R in GLOB.alive_mob_list)
-		if(R.connected_ai || R.shell)
+	for(var/mob/living/silicon/robot/borg in GLOB.silicon_mobs)
+		if(borg.connected_ai || borg.shell)
 			continue
-		if(R.stat == DEAD)
+		if(borg.stat == DEAD)
 			continue
-		if(R.emagged || R.scrambledcodes)
+		if(borg.emagged || borg.scrambledcodes)
 			continue
-		. += R
+		. += borg
 
 /// Returns a list of AI's
-/proc/active_ais(check_mind=0)
+/proc/active_ais(check_mind=FALSE)
 	. = list()
-	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
-		if(A.stat == DEAD)
+	for(var/mob/living/silicon/ai/ai as anything in GLOB.ai_list)
+		if(ai.stat == DEAD)
 			continue
-		if(A.control_disabled)
+		if(ai.control_disabled)
 			continue
 		if(check_mind)
-			if(!A.mind)
+			if(!ai.mind)
 				continue
-		. += A
-	return .
+		. += ai
 
 /// Find an active ai with the least borgs. VERBOSE PROCNAME HUH!
 /proc/select_active_ai_with_fewest_borgs()
@@ -390,12 +377,12 @@ Turf and target are separate in case you want to teleport some distance from a t
 //For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
 //Optional arg 'type' to stop once it reaches a specific type instead of a turf.
 /proc/get_atom_on_turf(atom/movable/M, stop_type)
-	var/atom/loc = M
-	while(loc && loc.loc && !isturf(loc.loc))
-		loc = loc.loc
-		if(stop_type && istype(loc, stop_type))
+	var/atom/turf_to_check = M
+	while(turf_to_check?.loc && !isturf(turf_to_check.loc))
+		turf_to_check = turf_to_check.loc
+		if(stop_type && istype(turf_to_check, stop_type))
 			break
-	return loc
+	return turf_to_check
 
 //Returns a list of all locations (except the area) the movable is within.
 /proc/get_nested_locs(atom/movable/AM, include_turf = FALSE)
@@ -1116,27 +1103,28 @@ eg2: `center_image(I, 96,96)`
 /proc/get_random_station_turf()
 	return safepick(get_area_turfs(pick(GLOB.the_station_areas)))
 
-///Gets random safe - which mean clear of dense objects and valid, turf from provided areas that are on station
-///Amount 1 makes it return turf, anything else a list of turfs
+///Returns a random turf or turf list on the station, excludes dense turfs (like walls) and areas with valid_territory set to FALSE
 /proc/get_safe_random_station_turfs(list/areas_to_pick_from = GLOB.the_station_areas, amount = 1)
 	var/list/picked_turfs = list()
-	var/list/L
+	var/list/turf_list = list()
 	for(var/area/A as() in areas_to_pick_from)
-		L += get_area_turfs(A)
-	while(L.len && length(picked_turfs) <= amount)
-		var/I = rand(1, length(L))
-		var/turf/T = L[I]
-		var/area/X = get_area(T)
-		if(!T.density && (X.area_flags & VALID_TERRITORY))
+		turf_list += get_area_turfs(A)
+	while(turf_list.len && length(picked_turfs) < amount)
+		var/I = rand(1, length(turf_list))
+		var/turf/checked_turf = turf_list[I]
+		var/area/turf_area = get_area(checked_turf)
+		if(!checked_turf.density && (turf_area.area_flags & VALID_TERRITORY) && !isgroundlessturf(checked_turf))
 			var/clear = TRUE
-			for(var/obj/O in T)
-				if(O.density)
+			for(var/obj/checked_object in checked_turf)
+				if(checked_object.density)
 					clear = FALSE
 					break
 			if(clear)
-				picked_turfs |= T
-			L.Cut(I,I+1)
+				picked_turfs |= checked_turf 
+			turf_list.Cut(I,I+1)
 		CHECK_TICK
+	if(!picked_turfs.len)
+		return null
 	if(amount == 1)
 		return picked_turfs[1]
 	return picked_turfs
@@ -1294,7 +1282,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	move_resist = INFINITY
 	var/ready_to_die = FALSE
 
-/mob/dview/Initialize() //Properly prevents this mob from gaining huds or joining any global lists
+/mob/dview/Initialize(mapload) //Properly prevents this mob from gaining huds or joining any global lists
 	return INITIALIZE_HINT_NORMAL
 
 /mob/dview/Destroy(force = FALSE)
@@ -1587,6 +1575,8 @@ config_setting should be one of the following:
 
 /proc/CallAsync(datum/source, proctype, list/arguments)
 	set waitfor = FALSE
+	if(IsAdminAdvancedProcCall())
+		return
 	return call(source, proctype)(arglist(arguments))
 
 #define TURF_FROM_COORDS_LIST(List) (locate(List[1], List[2], List[3]))

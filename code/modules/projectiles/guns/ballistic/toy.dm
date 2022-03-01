@@ -13,7 +13,6 @@
 	casing_ejector = FALSE
 	fire_rate = 3
 	weapon_weight = WEAPON_LIGHT
-	block_upgrade_walk = 1
 
 /obj/item/gun/ballistic/automatic/toy/update_icon()
 	. = ..()
@@ -38,7 +37,7 @@
 /obj/item/gun/ballistic/automatic/toy/pistol/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol/riot
 
-/obj/item/gun/ballistic/automatic/toy/pistol/riot/Initialize()
+/obj/item/gun/ballistic/automatic/toy/pistol/riot/Initialize(mapload)
 	magazine = new /obj/item/ammo_box/magazine/toy/pistol/riot(src)
 	return ..()
 

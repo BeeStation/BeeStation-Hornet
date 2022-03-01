@@ -354,10 +354,10 @@
 	var/dir2 = 0
 	var/dir3 = 0
 	switch(direction)
-		if(NORTH||SOUTH)
+		if(NORTH, SOUTH)
 			dir2 = 4
 			dir3 = 8
-		if(EAST||WEST)
+		if(EAST, WEST)
 			dir2 = 1
 			dir3 = 2
 	var/turf/T2 = T
@@ -467,4 +467,3 @@
 	 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, src, SOUTH),
 	 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, src, WEST),
 	 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, src, EAST)))
-	 

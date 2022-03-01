@@ -11,6 +11,7 @@
 	equip_delay_other = 70
 	resistance_flags = FIRE_PROOF
 
+
 /obj/item/clothing/shoes/magboots/verb/toggle()
 	set name = "Toggle Magboots"
 	set category = "Object"
@@ -109,5 +110,5 @@
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED,.proc/crush)
 
 /obj/item/clothing/shoes/magboots/crushing/dropped(mob/user)
-	. = ..()
+	..()
 	UnregisterSignal(user,COMSIG_MOVABLE_MOVED)

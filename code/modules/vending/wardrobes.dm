@@ -166,6 +166,7 @@
 					/obj/item/clothing/under/rank/rnd/roboticist/skirt = 2,
 					/obj/item/clothing/under/plasmaman/robotics = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/robotics = 2,
+					/obj/item/clothing/under/rank/rnd/roboticist/retro =2,
 					/obj/item/clothing/suit/toggle/labcoat = 2,
 					/obj/item/clothing/shoes/sneakers/black = 2,
 					/obj/item/clothing/gloves/fingerless = 2,
@@ -174,7 +175,10 @@
 					/obj/item/clothing/head/beret/sci = 2)
 
 	contraband = list(/obj/item/clothing/suit/hooded/techpriest = 2,
-					/obj/item/organ/tongue/robot = 2)
+					/obj/item/organ/tongue/robot = 2,
+					/obj/item/clothing/under/costume/mech_suit = 2,
+					/obj/item/clothing/under/costume/mech_suit/white = 2,
+					/obj/item/clothing/under/costume/mech_suit/blue = 2,)
 	refill_canister = /obj/item/vending_refill/wardrobe/robo_wardrobe
 	extra_price = 300
 	payment_department = ACCOUNT_SCI
@@ -334,14 +338,17 @@
 					/obj/item/paint/paint_remover = 2,
 					/obj/item/melee/flyswatter = 2,
 					/obj/item/flashlight = 2,
-					/obj/item/clothing/suit/caution = 6,
-					/obj/item/holosign_creator/janibarrier = 2,
+					/obj/item/clothing/suit/caution = 12, //The modern, good ones.
 					/obj/item/lightreplacer = 2,
 					/obj/item/soap/nanotrasen = 2,
 					/obj/item/storage/bag/trash = 2,
 					/obj/item/clothing/shoes/galoshes = 2,
 					/obj/item/watertank/janitor = 1,
 					/obj/item/storage/belt/janitor = 2)
+	contraband = list(
+					/obj/item/holosign_creator/janibarrier = 1,
+					/obj/item/caution = 3, //The really old crusty ones
+	)
 	refill_canister = /obj/item/vending_refill/wardrobe/jani_wardrobe
 	payment_department = ACCOUNT_SRV
 /obj/item/vending_refill/wardrobe/jani_wardrobe
@@ -358,12 +365,12 @@
 					/obj/item/clothing/suit/toggle/lawyer = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/purpsuit = 1,
 					/obj/item/clothing/suit/toggle/lawyer/purple = 1,
-					/obj/item/clothing/under/lawyer/civilian/lawyer/purpsuit/skirt = 1,
+					/obj/item/clothing/under/rank/civilian/lawyer/purpsuit/skirt = 1,
 					/obj/item/clothing/under/suit/black = 1,
 					/obj/item/clothing/under/suit/black/skirt = 1,
 					/obj/item/clothing/suit/toggle/lawyer/black = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/female = 1,
-					/obj/item/clothing/under/lawyer/civilian/lawyer/female/skirt = 1,
+					/obj/item/clothing/under/rank/civilian/lawyer/female/skirt = 1,
 					/obj/item/clothing/under/suit/black_really = 1,
 					/obj/item/clothing/under/suit/black_really/skirt = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/blue = 1,

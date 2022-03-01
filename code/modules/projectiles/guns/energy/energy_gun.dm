@@ -12,7 +12,6 @@
 	flight_y_offset = 10
 	weapon_weight = WEAPON_MEDIUM
 	dual_wield_spread = 60
-	block_upgrade_walk = 1
 
 /obj/item/gun/energy/e_gun/mini
 	name = "miniature energy gun"
@@ -26,8 +25,8 @@
 	can_flashlight = FALSE // Can't attach or detach the flashlight, and override it's icon update
 	weapon_weight = WEAPON_LIGHT
 
-/obj/item/gun/energy/e_gun/mini/Initialize()
-	gun_light = new /obj/item/flashlight/seclite(src)
+/obj/item/gun/energy/e_gun/mini/Initialize(mapload)
+	set_gun_light(new /obj/item/flashlight/seclite(src))
 	return ..()
 
 /obj/item/gun/energy/e_gun/mini/update_icon()

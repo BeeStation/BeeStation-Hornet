@@ -177,15 +177,15 @@
 			else if(prob(32))						//~26%
 				//Kill head
 				var/datum/objective/assassinate/killchosen = new
-				var/current_heads = SSjob.get_all_heads()
-				if(!current_heads)
+				var/list/current_heads = SSjob.get_all_heads()
+				if(!current_heads.len)
 					generate_traitor_kill_objective()
 					return
 				var/datum/mind/selected = pick(current_heads)
 				if(selected.special_role)
 					generate_traitor_kill_objective()
 					return
-				killchosen.target = selected
+				killchosen.set_target(selected)
 				add_objective(killchosen, FALSE)
 			else									//~50%
 				//Kill traitor
@@ -203,11 +203,11 @@
 
 /datum/team/incursion/proc/generate_traitor_kill_objective()
 	//Spawn someone as a traitor
-	var/list/datum/mind/people = SSticker.mode.get_alive_non_antagonsist_players_for_role(ROLE_TRAITOR)
+	var/list/datum/mind/people = SSticker.mode.get_alive_non_antagonsist_players_for_role(ROLE_EXCOMM)
 	if(!LAZYLEN(people))
 		log_game("Not enough players for incursion role. [LAZYLEN(people)]")
 		return
-	var/datum/mind/target = SSticker.mode.antag_pick(people, ROLE_TRAITOR)
+	var/datum/mind/target = SSticker.mode.antag_pick(people, ROLE_EXCOMM)
 	if(!target)
 		log_game("No mind selected.")
 		return
@@ -217,7 +217,7 @@
 	target.store_memory("You have been declared an ex-communicate of the syndicate and are being hunted down by a group of traitors. Be careful!")
 	//Create objective
 	var/datum/objective/assassinate/incursion/killchosen = new
-	killchosen.target = target
+	killchosen.set_target(target)
 	add_objective(killchosen, FALSE)
 
 /datum/team/incursion/antag_listing_name()

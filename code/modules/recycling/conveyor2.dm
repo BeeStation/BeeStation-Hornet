@@ -69,7 +69,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	. = ..()
 
 /obj/machinery/conveyor/vv_edit_var(var_name, var_value)
-	if (var_name == "id")
+	if (var_name == NAMEOF(src, id))
 		// if "id" is varedited, update our list membership
 		LAZYREMOVE(GLOB.conveyors_by_id[id], src)
 		. = ..()
@@ -265,7 +265,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	. = ..()
 
 /obj/machinery/conveyor_switch/vv_edit_var(var_name, var_value)
-	if (var_name == "id")
+	if (var_name == NAMEOF(src, id))
 		// if "id" is varedited, update our list membership
 		LAZYREMOVE(GLOB.conveyors_by_id[id], src)
 		. = ..()
@@ -347,7 +347,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	desc = "A conveyor control switch. It appears to only go in one direction."
 	oneway = TRUE
 
-/obj/machinery/conveyor_switch/oneway/Initialize()
+/obj/machinery/conveyor_switch/oneway/Initialize(mapload)
 	. = ..()
 	if((dir == NORTH) || (dir == WEST))
 		invert_icon = TRUE
@@ -360,7 +360,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	w_class = WEIGHT_CLASS_BULKY
 	var/id = "" //inherited by the switch
 
-/obj/item/conveyor_switch_construct/Initialize()
+/obj/item/conveyor_switch_construct/Initialize(mapload)
 	. = ..()
 	id = "[rand()]" //this couldn't possibly go wrong
 

@@ -121,6 +121,8 @@ SUBSYSTEM_DEF(throwing)
 		for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
 			if (obstacle == thrownthing || (obstacle == thrower && !ismob(thrownthing)))
 				continue
+			if(obstacle.pass_flags_self & LETPASSTHROW)
+				continue
 			if (obstacle == actual_target || (obstacle.density && !(obstacle.flags_1 & ON_BORDER_1)))
 				finalize(TRUE, obstacle)
 				return

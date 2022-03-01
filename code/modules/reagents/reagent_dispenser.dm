@@ -22,7 +22,7 @@
 	else
 		return ..()
 
-/obj/structure/reagent_dispensers/Initialize()
+/obj/structure/reagent_dispensers/Initialize(mapload)
 	create_reagents(tank_volume, DRAINABLE | AMOUNT_VISIBLE)
 	if(reagent_id)
 		reagents.add_reagent(reagent_id, tank_volume)
@@ -110,7 +110,7 @@
 			log_bomber(user, "detonated a", src, "via welding tool")
 
 			if (user.client)
-				SSmedals.UnlockMedal(MEDAL_DETONATE_WELDERBOMB,user.client)
+				user.client.give_award(/datum/award/achievement/misc/welderbomb, user)
 
 			boom()
 		return
@@ -126,7 +126,7 @@
 	layer = ABOVE_WINDOW_LAYER
 	reagent_id = /datum/reagent/consumable/condensedcapsaicin
 
-/obj/structure/reagent_dispensers/peppertank/Initialize()
+/obj/structure/reagent_dispensers/peppertank/Initialize(mapload)
 	. = ..()
 	if(prob(1))
 		desc = "IT'S PEPPER TIME, BITCH!"

@@ -100,7 +100,7 @@
 	if(isanimal(target) || is_type_in_typecache(target,non_simple_animals))
 		if(isanimal(target))
 			var/mob/living/simple_animal/A = target
-			if(!A.healable)//simple approximation of being animal not a robot or similar
+			if(!A.healable || (A.flags_1 & HOLOGRAM_1)) //simple approximation of being animal not a robot or similar. Also checking if holographic
 				to_chat(user, "<span class='warning'>No compatible DNA detected.</span>")
 				return
 		if(animals[target.type])
@@ -148,7 +148,7 @@
 
 	var/list/obj/structure/fillers = list()
 
-/obj/machinery/dna_vault/Initialize()
+/obj/machinery/dna_vault/Initialize(mapload)
 	//TODO: Replace this,bsa and gravgen with some big machinery datum
 	var/list/occupied = list()
 	for(var/direct in list(EAST,WEST,SOUTHEAST,SOUTHWEST))
