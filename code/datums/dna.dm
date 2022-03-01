@@ -275,8 +275,9 @@
 
 /////////////////////////// DNA MOB-PROCS //////////////////////
 /datum/dna/proc/update_body_size()
-	if(!holder)
+	if(!holder || !features["body_size"])
 		return
+
 	var/desired_size = GLOB.body_sizes[features["body_size"]]
 
 	if(desired_size == current_body_size)
