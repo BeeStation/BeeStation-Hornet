@@ -21,10 +21,17 @@
 		man_radio = locate(/obj/item/radio) in L.contents
 		if(!man_radio)
 			return
-		if(man_radio.channels)
-			channel_options += man_radio.channels
 		if(issilicon(L))
+			if(locate(/obj/item/radio/borg/syndicate) in contents)
+				channel_options -= "General"
+				channel_options += "Syndicate"
+			channel_options += man_radio.channels
 			channel_options += "Binary"
+		else
+			if(man_radio?.channels)
+				channel_options += man_radio.channels
+		for(var/obj/item/implant/radio/syndicate/syndi_comms in implants)
+			channel_options += "Syndicate"
 
 	else
 		return
