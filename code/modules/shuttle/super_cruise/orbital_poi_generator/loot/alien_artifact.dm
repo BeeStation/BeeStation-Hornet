@@ -396,7 +396,6 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/static/list/valid_outputs = list(
 		/datum/gas/bz = 3,
 		/datum/gas/hypernoblium = 1,
-		/datum/gas/miasma = 3,
 		/datum/gas/plasma = 3,
 		/datum/gas/tritium = 2,
 		/datum/gas/nitryl = 1
