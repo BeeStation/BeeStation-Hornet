@@ -546,13 +546,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous/doublesword/get_discount()
 	return pick(4;0.8,2;0.65,1;0.5)
 
-/datum/uplink_item/dangerous/weebstick
+/datum/uplink_item/dangerous/nanoforgedkatana
 	name = "Nanoforged Katana"
 	desc = "A tailor-made blade forged from one of the many ninja clans within the syndicate. \
 			Merely wielding this weapon grants incredible agility, but its taste for blood makes it hard to handle.\
 			After downing an opponent, sheathe it to prepare yourself for an opening strike. \
 			When primed and sheathed, click anywhere to dash forward, severely cutting up anyone in your way."
-	item = /obj/item/storage/belt/weebstick
+	item = /obj/item/storage/belt/nanoforgedkatana
 	player_minimum = 25
 	cost = 18
 	surplus = 5
