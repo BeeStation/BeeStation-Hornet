@@ -243,12 +243,13 @@
 
 /obj/item/extinguisher/proc/EmptyExtinguisher(var/mob/user)
 	if(loc == user && reagents.total_volume)
-		reagents.clear_reagents()
 
 		var/turf/T = get_turf(loc)
 		if(isopenturf(T))
-			var/turf/open/theturf = T
-			theturf.MakeSlippery(TURF_WET_WATER, min_wet_time = 10 SECONDS, wet_time_to_add = 5 SECONDS)
+			//MonkeStation Edit: Empties out the chemicals inside
+			reagents.reaction(T, TOUCH)
+		reagents.clear_reagents()
+		//MonkeStatuion Edit End
 
 		user.visible_message("[user] empties out \the [src] onto the floor using the release valve.", "<span class='info'>You quietly empty out \the [src] using its release valve.</span>")
 
