@@ -1,0 +1,5 @@
+author: nednaZ
+delete-after: true
+changes:
+  - bugfix: Syndicates now have better access to their channels when using the radio
+      hotkey
