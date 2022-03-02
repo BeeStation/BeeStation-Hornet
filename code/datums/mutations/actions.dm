@@ -252,22 +252,22 @@
 	human_req = FALSE
 	charge_max = 400
 	action_icon_state = "blind"
-	var/maxdist = 4
+	var/max_distance = 4
 
 /obj/effect/proc_holder/spell/self/overload/cast(mob/user = usr)
 	if(!isethereal(user))
 		return
 
-	var/list/mob/targets = oviewers(maxdist, get_turf(user))
+	var/list/mob/targets = oviewers(max_distance, get_turf(user))
 	visible_message("<span class='disarm'>[user] emits a blinding light!</span>")
 	for(var/mob/living/carbon/C in targets)
 		if(C.flash_act(1))
-			C.Paralyze(10 + (5*maxdist))
+			C.Paralyze(10 + (5*max_distance))
 
 /datum/mutation/human/overload/modify()
 	if(power)
 		var/obj/effect/proc_holder/spell/self/overload/S = power
-		S.maxdist = 4 * GET_MUTATION_POWER(src)
+		S.max_distance = 4 * GET_MUTATION_POWER(src)
 
 /datum/mutation/human/acidooze
 	name = "Acidic Hands"
