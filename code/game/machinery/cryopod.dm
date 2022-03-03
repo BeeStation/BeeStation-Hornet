@@ -430,7 +430,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	to_chat(target, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 	name = "[name] ([occupant.name])"
-	if((world.time - SSticker.round_start_time) < 3000)
+	if((world.time - SSticker.round_start_time) < 5 MINUTES)
 		message_admins("<span class='danger'>[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a></span>)")
 	else
 		message_admins("[key_name_admin(target)], the [target.job] entered a stasis pod. (<A HREF='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
