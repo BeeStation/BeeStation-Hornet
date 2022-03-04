@@ -28,27 +28,19 @@
 	. = ..()
 	STOP_PROCESSING(SSobj,src)
 
-/obj/item/slimecross/gentle/attack_self(mob/user)
-	if(cooldown > 0)
+/obj/item/slimecross/gentle/attack_self(mob/living/carbon/user)
+	if(cooldown > 0 || user.incapacitated())
 		return
-	var/datum/species/species
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		species = H.dna.species
-	var/newcooldown = extract.activate(user,species,SLIME_ACTIVATE_MINOR)
+	var/newcooldown = extract.activate(user, user.dna.species, SLIME_ACTIVATE_MINOR)
 	if(newcooldown)
-		cooldown = newcooldown/10 //activate gives cooldown in deciseconds
+		cooldown = newcooldown / 10 //activate gives cooldown in deciseconds
 
 /obj/item/slimecross/gentle/AltClick(mob/living/carbon/user, obj/item/I)
-	if(cooldown > 0)
+	if(cooldown > 0 || user.incapacitated())
 		return
-	var/datum/species/species
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		species = H.dna.species
-	var/newcooldown = extract.activate(user,species,SLIME_ACTIVATE_MAJOR)
+	var/newcooldown = extract.activate(user, user.dna.species, SLIME_ACTIVATE_MAJOR)
 	if(newcooldown)
-		cooldown = newcooldown/10
+		cooldown = newcooldown / 10
 
 /obj/item/slimecross/gentle/grey
 	extract_type = /obj/item/slime_extract/grey
