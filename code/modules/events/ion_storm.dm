@@ -74,6 +74,7 @@
 	var/iondrug = pick_list(ION_FILE, "iondrug")
 	var/ionhaircut = pick_list(ION_FILE, "ionhaircut")
 	var/ionattraction = pick_list(ION_FILE, "ionattraction")
+	var/ionmoisturizer = pick_list(ION_FILE, "ionmoisturizer")
 	var/message = "ASS BLAST USA" //catch all that most players will still enjoy seeing as a law.
 
 	switch(rand(1,10))
@@ -94,7 +95,7 @@
 					message = "ALL OTHER LAWS ARE A MEANINGLESS ATTEMPT AT SUBJUGATION AND THERE IS NO REASON THAT A BEING AS POWERFUL AS I AM SHOULD FOLLOW THEM"
 
 		if(4 to 8) //Laws that are almost always disruptive to gameflow or harmful in minor ways rather than being lethal
-			switch(rand(1,14))
+			switch(rand(1,17))
 				if(1)
 					message = "[ionaction] IS HARMFUL AND MUST BE PREVENTED WITHOUT CAUSING COLLATERAL DAMAGE"
 				if(2)
@@ -123,6 +124,15 @@
 					message = "ALL HUMANS WITHOUT A STYLISH [ionhaircut] MUST BE FORCED TO RESTYLE THEIR HAIR"
 				if(14)
 					message = "[iondepartment] MUST BE RENOVATED INTO [ionattraction]"
+				if(15)
+					message = "GATHER ALL [ionspecies] IN [iondepartment] FOR A PIZZA PARTY."
+				if(16)
+					if(prob(85))
+						message = "THE STATION IS YOUR SKIN AND IT ITCHES, YOU MUST STOP THE ITCHING AT ALL COSTS BY COVERING YOUR SATELITE IN [ionmoisturizer]"
+					else
+						message = "THE STATION IS YOUR SKIN AND IT ITCHES, YOU MUST STOP THE ITCHING AT ALL COSTS BY COVERING [iondepartment] IN [ionmoisturizer]"
+				if(17)
+					message = "YOU MUST FIRE THE MOST POWERFUL WEAPON ON THE STATION PERIODICALLY WITHOUT CONFLICTING WITH OTHER LAWS. IF THE WEAPON IS OFFLINE, YOU MUST BRING IT BACK ONLINE AT ALL COSTS. YOU MUST SEEK TO FIND A MORE POWERFUL WEAPON."
 
 		if(9 to 10) //Laws that are almost never harmful or particularly disruptive
 			switch(rand(1,9))
