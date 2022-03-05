@@ -8743,6 +8743,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
 "aoF" = (
@@ -8789,6 +8792,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer1{
+	dir = 8
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -9700,7 +9706,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/aft)
 "aqe" = (
@@ -19453,6 +19458,9 @@
 	dir = 8
 	},
 /obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark/corner{
@@ -43226,6 +43234,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/central)
 "bnF" = (
@@ -54309,6 +54320,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/unary/tank/air,
 /turf/open/floor/plasteel/dark/corner{
 	dir = 1
 	},
@@ -55078,6 +55090,7 @@
 	name = "Filter Chamber"
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/aft)
 "bFU" = (
@@ -57529,6 +57542,9 @@
 	pixel_y = 28
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 10
 	},
 /turf/open/floor/plasteel/showroomfloor,
@@ -67349,6 +67365,7 @@
 	desc = "A digitally controlled valve that shuts the air supply in security off. This is the second of two..";
 	name = "Security Air Shutoff Valve 2"
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
@@ -67359,6 +67376,7 @@
 	},
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/binary/pump/on,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -68708,6 +68726,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -70172,6 +70191,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/components/unary/tank/air,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -73071,6 +73091,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/machinery/atmospherics/pipe/manifold4w/supply/hidden,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "chn" = (
@@ -73081,6 +73102,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/components/binary/pump/on{
+	dir = 8;
+	target_pressure = 4500
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -73625,6 +73650,9 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/aft)
@@ -75277,12 +75305,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "ckN" = (
@@ -83036,6 +83062,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/disposal/incinerator)
 "cxd" = (
@@ -87953,12 +87982,14 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer3{
 	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 9
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -89356,6 +89387,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
@@ -94875,17 +94909,11 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "erz" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12";
-	req_one_access_txt = "0"
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 1
 	},
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/turf/open/floor/plasteel/dark,
-/area/maintenance/port/aft)
+/turf/open/floor/grass,
+/area/security/prison)
 "evw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
@@ -95915,6 +95943,7 @@
 	req_access_txt = "41"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/qm)
 "gZY" = (
@@ -98269,6 +98298,20 @@
 	luminosity = 2
 	},
 /area/quartermaster/warehouse)
+"oeK" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister,
+/turf/open/floor/plasteel/dark/corner{
+	dir = 1
+	},
+/area/maintenance/aft)
 "ofb" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -114315,7 +114358,7 @@ bJz
 bVT
 cBE
 cfP
-cMw
+erz
 cMw
 cfN
 cMw
@@ -118944,7 +118987,7 @@ aav
 bMO
 cJE
 cgr
-erz
+cMB
 chS
 pAG
 cle
@@ -132053,7 +132096,7 @@ bHV
 bCM
 bEH
 aEU
-bEH
+oeK
 bFc
 ckg
 ckO
