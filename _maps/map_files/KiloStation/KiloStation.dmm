@@ -637,14 +637,11 @@
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "abo" = (
-/obj/structure/table/glass,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/folder/white,
-/obj/item/wrench/medical,
-/obj/item/toy/figure/cmo,
+/obj/machinery/computer/cargo/request,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/cmo)
 "abp" = (
@@ -5073,15 +5070,13 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
 "aiQ" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/machinery/computer/cargo/request,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
 "aiR" = (
@@ -6237,14 +6232,16 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/item/storage/toolbox/emergency,
-/obj/item/wrench,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /obj/item/radio/intercom{
 	pixel_y = 24
 	},
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/item/storage/toolbox/emergency,
+/obj/item/wrench,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
 "akK" = (
@@ -16392,6 +16389,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/item/folder/white,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/cmo)
 "aAa" = (
@@ -17011,6 +17009,9 @@
 	dir = 2;
 	name = "medical camera";
 	network = list("ss13","medical")
+	},
+/obj/machinery/computer/cryopod{
+	pixel_y = 25
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
@@ -26159,7 +26160,6 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/heads/cmo)
 "aPr" = (
-/obj/structure/closet/wardrobe/pjs,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
@@ -26172,6 +26172,10 @@
 	pixel_y = -26
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/machinery/cryopod{
+	dir = 4;
+	icon_state = "cryopod-open"
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "aPs" = (
@@ -26264,6 +26268,7 @@
 /obj/machinery/status_display/evac{
 	pixel_x = -32
 	},
+/obj/item/wrench/medical,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/cmo)
 "aPC" = (
@@ -26999,6 +27004,7 @@
 	name = "Chief Medical Officer RC";
 	pixel_y = 28
 	},
+/obj/item/toy/figure/cmo,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/cmo)
 "aQB" = (
@@ -33194,6 +33200,12 @@
 	},
 /obj/item/storage/toolbox/mechanical,
 /obj/item/hand_labeler,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 20
+	},
+/obj/item/clothing/glasses/welding,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "aZq" = (
@@ -46411,21 +46423,17 @@
 /turf/closed/wall,
 /area/maintenance/fore)
 "bsg" = (
-/obj/structure/table,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/clothing/glasses/welding,
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
-/obj/item/stack/sheet/mineral/copper{
-	amount = 20
+/obj/machinery/computer/cargo/request{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
@@ -67716,7 +67724,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "bYU" = (
-/obj/structure/table,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
@@ -67724,14 +67731,14 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/item/stack/rods/twentyfive,
-/obj/item/wrench,
-/obj/item/storage/box/lights/mixed,
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
 /obj/machinery/light,
 /obj/effect/turf_decal/stripes/corner,
+/obj/machinery/computer/cargo/request{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/break_room)
 "bYV" = (
@@ -69341,6 +69348,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/item/storage/box/lights/mixed,
+/obj/item/wrench,
+/obj/item/stack/rods/twentyfive,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "caZ" = (
