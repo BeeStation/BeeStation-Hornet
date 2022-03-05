@@ -393,15 +393,15 @@
 	return (OXYLOSS)
 
 /obj/item/shockpaddles/dropped(mob/user)
+	..()
 	if(!req_defib)
-		return ..()
+		return
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
 	if(user)
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 		if(!ismob(loc))
 			snap_back()
-	return
 
 /obj/item/shockpaddles/proc/snap_back(cause=SNAP_DROP, silent=FALSE)
 	if(!defib)
