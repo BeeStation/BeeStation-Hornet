@@ -24432,7 +24432,6 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/visible,
 /obj/item/paper_bin{
 	pixel_x = -4;
 	pixel_y = 4
@@ -55052,11 +55051,11 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/toilet/restrooms)
 "bFP" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/on,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 1
 	},
-/area/engine/atmos)
+/turf/open/floor/grass,
+/area/security/prison)
 "bFQ" = (
 /obj/structure/sign/warning/docking,
 /turf/closed/wall,
@@ -57463,21 +57462,12 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/prison)
 "bJA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/external{
-	name = "Atmospherics External Airlock";
-	req_access_txt = "24"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
 /area/engine/atmos)
 "bJB" = (
 /obj/machinery/door/airlock/security/glass{
@@ -64867,9 +64857,19 @@
 	lighting_colour_tube = "#ffce99"
 	})
 "bUK" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister,
+/turf/open/floor/plasteel/dark/corner{
+	dir = 1
+	},
+/area/maintenance/aft)
 "bUL" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
@@ -82989,9 +82989,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "cwX" = (
-/obj/machinery/atmospherics/components/unary/tank/toxins{
-	dir = 4
-	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/power/apc{
 	areastring = "/area/maintenance/disposal/incinerator";
@@ -83006,6 +83003,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/machinery/atmospherics/components/unary/tank/toxins,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/disposal/incinerator)
 "cwY" = (
@@ -94909,11 +94907,11 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "erz" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
-	dir = 1
+/obj/machinery/atmospherics/components/unary/outlet_injector/on,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
 	},
-/turf/open/floor/grass,
-/area/security/prison)
+/area/engine/atmos)
 "evw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
@@ -98200,6 +98198,10 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/aft)
+"nNZ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/airless,
+/area/space/nearstation)
 "nOl" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/purple{
@@ -98298,20 +98300,6 @@
 	luminosity = 2
 	},
 /area/quartermaster/warehouse)
-"oeK" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 1
-	},
-/obj/machinery/portable_atmospherics/canister,
-/turf/open/floor/plasteel/dark/corner{
-	dir = 1
-	},
-/area/maintenance/aft)
 "ofb" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -100349,6 +100337,13 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
+"sYL" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
+	dir = 5
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "tbI" = (
 /obj/item/radio/intercom,
 /turf/closed/wall/rust,
@@ -101493,12 +101488,22 @@
 	},
 /area/maintenance/starboard)
 "wly" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 5
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/turf/open/space/basic,
-/area/space/nearstation)
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/external{
+	name = "Atmospherics External Airlock";
+	req_access_txt = "24"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/engine/atmos)
 "wmR" = (
 /obj/machinery/door/airlock/external{
 	name = "Solar Maintenance";
@@ -114358,7 +114363,7 @@ bJz
 bVT
 cBE
 cfP
-erz
+bFP
 cMw
 cfN
 cMw
@@ -128260,9 +128265,9 @@ aMY
 aMY
 aMY
 aFM
-cko
-bHB
-cko
+erz
+sYL
+nNZ
 aFJ
 acm
 aaa
@@ -128517,9 +128522,9 @@ aHa
 aHb
 aHc
 aIG
-bFP
+aDk
 wly
-bUK
+aDk
 aFI
 aFI
 aFJ
@@ -132096,7 +132101,7 @@ bHV
 bCM
 bEH
 aEU
-oeK
+bUK
 bFc
 ckg
 ckO
