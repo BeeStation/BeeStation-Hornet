@@ -1,8 +1,0 @@
-author: nednaZ
-delete-after: true
-changes:
-  - refactor: Miasma interactions should run a bit smoother
-  - balance: Reduces the value of miasma
-  - code_imp: Rot component no longer makes up to 120 unneeded checks, instead uses
-      a callback
-  - code_imp: Rot component uses a single proc rather than four to spawn in gas
