@@ -396,9 +396,18 @@
 	add_fingerprint(user)
 
 //Contractor Baton
+//MonkeStation Edit Start: Reworked Contractor Baton
+#define CONTRACTOR_KNOCKDOWN_TIME_CARBON 2 SECONDS // Knockdown length for carbons.
+#define CONTRACTOR_STAMINA_DAMAGE_NON_TARGET 50
+#define CONTRACTOR_STAMINA_DAMAGE_TARGET 130
+#define CONTRACTOR_TARGET_CONFUSION 4 SECONDS
+#define CONTRACTOR_BATON_CHARGE_RATE 10 SECONDS
+//My personal thoughts on this system:
+//This allows for escape and evasion from a crowd that is after you, but not a full combat with them
+//MonkeStation Edit End
 /obj/item/melee/classic_baton/contractor_baton
 	name = "contractor baton"
-	desc = "A compact, specialised baton assigned to Syndicate contractors. Applies light electric shocks that can resonate with a specific targets brain frequency causing significant stunning effects."
+	desc = "A compact, self-charging, specialised baton bio-locked to Syndicate contractors. Applies light electric shocks that can resonate with a specific targets brain frequency causing significant stunning effects." //MonkeStation Edit: Self-Charging desc
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "contractor_baton_0"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
@@ -410,12 +419,13 @@
 	item_flags = NONE
 	force = 5
 	on = FALSE
-	var/knockdown_time_carbon = (1.5 SECONDS) // Knockdown length for carbons.
-	var/stamina_damage_non_target = 55
-	var/stamina_damage_target = 85
-	var/target_confusion = 4 SECONDS
 
-	stamina_damage = 85
+//MonkeStation Edit Start: Reworked Contractor Baton
+	cooldown = CLICK_CD_MELEE
+	var/charges = 3
+	stamina_damage = 5
+//MonkeStation Edit End
+
 	affect_silicon = TRUE
 	on_sound = 'sound/weapons/contractorbatonextend.ogg'
 	on_stun_sound = 'sound/effects/contractorbatonhit.ogg'
@@ -424,14 +434,18 @@
 	on_icon_state = "contractor_baton_1"
 	off_icon_state = "contractor_baton_0"
 	on_item_state = "contractor_baton"
-	force_on = 10
+	force_on = 7
 	force_off = 5
 	weight_class_on = WEIGHT_CLASS_NORMAL
 
 	var/datum/antagonist/traitor/owner_data = null
 
-/obj/item/melee/classic_baton/contractor_baton/get_wait_description()
-	return "<span class='danger'>The baton is still charging!</span>"
+//MonkeStation Edit Start: Contractor Baton Recharge
+/obj/item/melee/classic_baton/contractor_baton/proc/recharge_baton()
+	if(charges <= 3)
+		charges++
+		playsound(src,'sound/weapons/kenetic_reload.ogg',33)
+//MonkeStation Edit End
 
 /obj/item/melee/classic_baton/contractor_baton/additional_effects_carbon(mob/living/target, mob/living/user)
 	target.Jitter(20)
@@ -461,11 +475,20 @@
 	add_fingerprint(user)
 
 /obj/item/melee/classic_baton/contractor_baton/attack(mob/living/target, mob/living/user)
+
 	if(!on)
 		return ..()
 
-	if(!owner_data || owner_data?.owner?.current != user)
+//MonkeStation Edit Start: Contractor Baton Charges
+	if(!charges)
+		to_chat(user, "<span class='danger'>The baton is still charging!</span>")
 		return ..()
+	charges--
+	addtimer(CALLBACK(src, .proc/recharge_baton), CONTRACTOR_BATON_CHARGE_RATE)
+//MonkeStation Edit End
+
+	var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
+	var/armor_block = target.run_armor_check(affecting, "stamina")
 
 	var/is_target = owner_data.contractor_hub?.current_contract?.contract?.target == target.mind
 
@@ -473,8 +496,11 @@
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		to_chat(user, "<span class ='danger'>You hit yourself over the head.</span>")
 
-		user.Paralyze(knockdown_time_carbon * force)
-		user.adjustStaminaLoss(stamina_damage)
+//MonkeStation Edit Start: Contractor Baton Rework
+		user.Paralyze(CONTRACTOR_KNOCKDOWN_TIME_CARBON * force)
+		user.apply_damage(CONTRACTOR_STAMINA_DAMAGE_TARGET, STAMINA, affecting, armor_block)
+		user.apply_effect(EFFECT_STUTTER, (CONTRACTOR_STAMINA_DAMAGE_TARGET / 10))
+//MonkeStation Edit End
 
 		additional_effects_carbon(user) // user is the target here
 		if(ishuman(user))
@@ -525,15 +551,19 @@
 				user.do_attack_animation(target)
 
 			playsound(get_turf(src), on_stun_sound, 75, 1, -1)
+//MonkeStation Edit Start: Contractor Baton Rework
 			if(is_target)
-				target.Knockdown(knockdown_time_carbon)
+				target.Knockdown(CONTRACTOR_KNOCKDOWN_TIME_CARBON)
 				target.drop_all_held_items()
-				target.adjustStaminaLoss(stamina_damage)
+				target.apply_damage(CONTRACTOR_STAMINA_DAMAGE_TARGET, STAMINA, affecting, armor_block)
+				target.apply_effect(EFFECT_STUTTER, (CONTRACTOR_STAMINA_DAMAGE_TARGET / 10))
 				if(target.confused < 6 SECONDS)
-					target.confused = min(target.confused + target_confusion, 6 SECONDS)
+					target.confused = min(target.confused + CONTRACTOR_TARGET_CONFUSION, 6 SECONDS)
 			else
-				target.Knockdown(knockdown_time_carbon)
-				target.adjustStaminaLoss(stamina_damage_non_target)
+				target.Knockdown(CONTRACTOR_KNOCKDOWN_TIME_CARBON)
+				target.apply_damage(CONTRACTOR_STAMINA_DAMAGE_NON_TARGET, STAMINA, affecting, armor_block)
+				target.apply_effect(EFFECT_STUTTER, (CONTRACTOR_STAMINA_DAMAGE_NON_TARGET / 10))
+//MonkeStation Edit End
 			additional_effects_carbon(target, user)
 
 			log_combat(user, target, "stunned", src)
@@ -547,9 +577,7 @@
 				target.LAssailant = user
 			cooldown_check = world.time + cooldown
 		else
-			var/wait_desc = get_wait_description()
-			if (wait_desc)
-				to_chat(user, wait_desc)
+			to_chat(user, "<span class='danger'>The baton is still charging!</span>") //MonkeStation Edit: Contractor Baton Rework
 
 /obj/item/melee/classic_baton/contractor_baton/pickup(mob/user)
 	. = ..()
@@ -557,7 +585,29 @@
 		var/datum/antagonist/traitor/traitor_data = user.mind.has_antag_datum(/datum/antagonist/traitor)
 		if(traitor_data)
 			owner_data = traitor_data
-			to_chat(user, "<span class='notice'>[src] scans your genetic data as you pick it up, creating an uplink with the syndicate database. Attacking your current target will stun and mute them, however the baton is weak against non-targets.</span>")
+//MonkeStation Edit Start: Contractor Baton Rework
+			to_chat(user, "<span class='notice'>[src] scans your genetic data as you pick it up, creating an uplink with the syndicate database. Attacking your current target will stun and confuse them, however the baton is weaker against non-targets.</span>")
+	if(owner_data?.owner?.current != user)
+		to_chat(user, "<span class='userdanger'>The bio-coded baton shocks you as you attempt to wield it!</span>")
+		user.dropItemToGround(src, TRUE)
+		var/mob/living/carbon/C = user
+		C.Paralyze(10)
+		if(ishuman(C))
+			var/mob/living/carbon/human/H = C
+			H.electrocution_animation(20)
+		return
+
+/obj/item/melee/classic_baton/contractor_baton/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>It has [charges] charges ready.</span>"
+
+
+#undef CONTRACTOR_KNOCKDOWN_TIME_CARBON
+#undef CONTRACTOR_STAMINA_DAMAGE_NON_TARGET
+#undef CONTRACTOR_STAMINA_DAMAGE_TARGET
+#undef CONTRACTOR_TARGET_CONFUSION
+#undef CONTRACTOR_BATON_CHARGE_RATE
+//MonkeStation Edit End
 
 // Supermatter Sword
 /obj/item/melee/supermatter_sword

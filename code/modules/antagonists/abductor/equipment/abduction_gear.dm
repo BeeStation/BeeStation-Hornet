@@ -427,10 +427,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 #define BATON_CUFF 2
 #define BATON_PROBE 3
 #define BATON_MODES 4
+#define BATON_CHARGE_RATE 5 SECONDS //MonkeStation Edit: Baton Charges
 
 /obj/item/abductor/baton
 	name = "advanced baton"
-	desc = "A quad-mode baton used for incapacitation and restraining of specimens."
+	desc = "A self-charging quad-mode baton used for incapacitation and restraining of specimens." //MonkeStation Edit: Baton Charges
 	var/mode = BATON_STUN
 	icon_state = "wonderprodStun"
 	item_state = "wonderprod"
@@ -438,6 +439,20 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	force = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/toggle_mode)
+	var/charges = 3 //MonkeStation Edit: Baton Charges
+
+//MonkeStation Edit: Baton Charges
+/obj/item/abductor/baton/proc/recharge_baton()
+	if(charges <= 3)
+		charges++
+		playsound(src,'sound/effects/empulse.ogg',33)
+
+//Currently, with the existing charge rate, an abductor may stun and sleep one target rapidly without concern
+//At two targets, the second target will have enough time to call out for help before the abductor can actually sleep them.
+//At three targets, the first one will be able to get up before the first can be slept.
+//At four targets, there aren't enough charges to keep them all down, nor slept.
+//Update this if you ever change the recharge rate!
+//MonkeStation Edit End
 
 /obj/item/abductor/baton/proc/toggle(mob/living/user=usr)
 	mode = (mode+1)%BATON_MODES
@@ -474,6 +489,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(!AbductorCheck(user))
 		return
 
+	if(!charges)
+		to_chat(user, "<span class='notice'>The baton is recharging!</span>")
+		..()
+		return
+
 	if(iscyborg(target))
 		..()
 		return
@@ -490,6 +510,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 			playsound(H, 'sound/weapons/genhit.ogg', 50, TRUE)
 			return FALSE
+
+//MonkeStation Edit Start: Baton Charges
+	charges--
+	addtimer(CALLBACK(src, .proc/recharge_baton), BATON_CHARGE_RATE)
+//MonkeStation Edit End
 
 	switch (mode)
 		if(BATON_STUN)
@@ -513,7 +538,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		L.visible_message("<span class='danger'>[user] tried to stun [L] with [src], but [L.p_their()] headgear protected [L.p_them()]!</span>", \
 								"<span class='userdanger'>You feel a slight tickle where [src] touches you!</span>")
 		return
-	L.Paralyze(140)
+	L.Paralyze(5 SECONDS)  //MonkeStation Edit: Reduction of abductor stuns.
 	L.apply_effect(EFFECT_STUTTER, 7)
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK)
 
@@ -538,7 +563,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		L.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
 		playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
-		L.Sleeping(1200)
+		L.Sleeping(30 SECONDS) //MonkeStation Edit: Reduction of abductor sleeps
 		log_combat(user, L, "put to sleep")
 	else
 		if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
@@ -627,6 +652,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			. += "<span class='warning'>The baton is in restraining mode.</span>"
 		if(BATON_PROBE)
 			. += "<span class='warning'>The baton is in probing mode.</span>"
+	. += "<span class='warning'>It has [charges] charges ready.</span>" //MonkeStation Edit: Charges on Examination
 
 /obj/item/radio/headset/abductor
 	name = "alien headset"
@@ -855,3 +881,5 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "bl_suit"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 10, rad = 0, fire = 0, acid = 0, stamina = 0)
 	can_adjust = 0
+
+#undef BATON_CHARGE_RATE //MonkeStation Edit: Baton Charges
