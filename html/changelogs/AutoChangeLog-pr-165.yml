@@ -1,0 +1,5 @@
+author: poobfarder
+delete-after: true
+changes:
+  - tweak: changed /obj/item/tank/internals/emergency_oxygen to /obj/item/tank/internals,
+      making it so any internal tank can be stored in suit storage.
