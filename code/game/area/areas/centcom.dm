@@ -133,6 +133,7 @@
 	area_flags = VALID_TERRITORY | UNIQUE_AREA
 	has_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
+	ambientsounds = list('monkestation/sound/ambience/ayyambi0.ogg','monkestation/sound/ambience/ayyambi1.ogg','monkestation/sound/ambience/ayyambi2.ogg','monkestation/sound/ambience/ayyambi3.ogg') //MonkeStation Edit: ayylmao
 
 //Syndicates
 /area/syndicate_mothership

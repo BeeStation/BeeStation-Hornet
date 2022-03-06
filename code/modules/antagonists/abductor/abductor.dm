@@ -71,6 +71,7 @@
 	to_chat(owner.current, "<span class='notice'>There are two of you! One can monitor cameras while the other infiltrates the station.</span>")
 	to_chat(owner.current, "<span class='notice'>Choose a worthy disguise and plan your targets carefully! Humans will kill you on sight.</span>")
 	to_chat(owner.current, "<span class='notice'>[greet_text]</span>")
+	owner.current.playsound_local(get_turf(owner.current), 'monkestation/sound/ambience/antag/abductor.ogg',100,0, use_reverb = FALSE) //MonkeStation Edit: ayylmao
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Abductor",
 		"Capture and experiment on members of the crew, without being spotted.")
