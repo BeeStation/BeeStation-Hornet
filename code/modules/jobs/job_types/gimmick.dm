@@ -87,7 +87,7 @@
 	outfit = /datum/outfit/job/gimmick/hobo
 	access = list(ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
-	total_positions = 1 //MonkeStation Edit: Gimmick Latejoin
+	total_positions = 2 //MonkeStation Edit: Gimmick Latejoin
 	gimmick = TRUE
 	chat_color = "#929292"
 	departments = NONE		//being hobo is not a real job
