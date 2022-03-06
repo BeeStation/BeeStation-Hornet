@@ -1181,12 +1181,6 @@
 /mob/living/carbon/human/species/golem/clockwork/no_scrap
 	race = /datum/species/golem/clockwork/no_scrap
 
-/mob/living/carbon/human/species/golem/capitalist
-	race = /datum/species/golem/capitalist
-
-/mob/living/carbon/human/species/golem/soviet
-	race = /datum/species/golem/soviet
-
 /mob/living/carbon/human/species/ipc
 	race = /datum/species/ipc
 
