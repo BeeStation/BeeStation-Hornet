@@ -336,12 +336,12 @@
 
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		H.hair_color = hair_color
-		H.hair_style = hair_style
-		H.facial_hair_color = facial_hair_color
-		H.facial_hair_style = facial_hair_style
-		H.lip_style = lip_style
-		H.lip_color = lip_color
+		hair_color = H.hair_color
+		hair_style = H.hair_style
+		facial_hair_color = H.facial_hair_color
+		facial_hair_style = H.facial_hair_style
+		lip_style = H.lip_style
+		lip_color = H.lip_color
 	if(real_name)
 		C.real_name = real_name
 	real_name = ""
