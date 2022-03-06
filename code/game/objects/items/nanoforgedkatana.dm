@@ -1,16 +1,15 @@
 /obj/item/nanoforgedkatana
 	name = "Nanoforged Katana"
 	desc = "Glorious space nippon steel, folded a million times, producing the finest blade known to mankind. \
-			After downing an opponent, sheathe it to prepare yourself for an opening strike. \
-			When primed and sheathed, click anywhere to dash forward, severely cutting up anyone in your way. "
+			This blade seems to transmit knowledge of how to use its powers directly to its owner."
 	icon = 'icons/obj/items_and_weapons.dmi'
-	icon_state = "nanoforgedkatana" // change name
+	icon_state = "nanoforgedkatana"
 	item_state = "nanoforgedkatana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
 	obj_flags = UNIQUE_RENAME
-	w_class = WEIGHT_CLASS_BULKY//modify so can't enter boh.
+	w_class = WEIGHT_CLASS_BULKY
 	force = 30
 	throwforce = 70
 	throw_speed = 3
@@ -29,8 +28,8 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "diced", "cut")
-	var/linking = FALSE
-	var/linking_time = 50
+	var/linking_time = 40
+	var/feeding_time = 100
 	var/primed = FALSE // necessary for anime bullshit, determines dash attack readiness
 	var/mob/living/owner //defining an owner is, as far as I know, necessary to allow on_enter_storage to register COMSIG_CLICKON. Equipped would have done the job much better, but doesn't work when inserting into storage.
 	var/obj/item/storage/belt/nanoforgedkatana/current_sheathe //needed to prevent wacky shit happening by removing the blade after it is primed.
@@ -38,6 +37,7 @@
 	var/beam_effect = "blood_beam"
 	var/phasein = /obj/effect/temp_visual/dir_setting/cult/phase
 	var/phaseout = /obj/effect/temp_visual/dir_setting/cult/phase
+	actions_types = list(/datum/action/item_action/nanoforgedkatana)
 
 /obj/item/nanoforgedkatana/Initialize()
 	. = ..()
@@ -56,6 +56,7 @@
 		. = ..()
 		if(victim.mind && victim.stat == SOFT_CRIT && victim.stat != prevstat) //when they're in crit but they weren't before the attack, prime it
 			primed = TRUE
+		//if(prob(1)) , owner says "show me a good time, [victim]"
 	else
 		var/prevstat = victim.stat
 		. = ..()
@@ -64,17 +65,25 @@
 
 /obj/item/nanoforgedkatana/attack_self(mob/living/carbon/user)
 	. = ..()
-	if (user != owner)
-		linking = TRUE
-		if(do_after(user, linking_time, needhand=TRUE, target = user, progress = TRUE))
+	var/opposite_active_arm = BODY_ZONE_R_ARM
+	if(!(user.active_hand_index % 2)) // no direct function for getting the opposite body zone of the current active hand. Uses the hand index to be able to assign the correct zone;
+		// since you can have more than two hands, the modulo returns 0 or 1 depending if it's a right or left one.
+		opposite_active_arm = BODY_ZONE_L_ARM
+	if (user != owner) // linking = true? needed?
+		if (do_after(user, linking_time, needhand=TRUE, target = user, progress = TRUE))
 			owner = user
-			var/opposite_active_arm = BODY_ZONE_R_ARM
-			if(!(owner.active_hand_index % 2)) // no direct function for getting the opposite body zone of the current active hand. Uses the hand index to be able to assign the correct zone;
-				// since you can have more than two hands, the modulo returns 0 or 1 depending if it's a right or left one.
-				opposite_active_arm = BODY_ZONE_L_ARM
-			owner.apply_damage(20, BRUTE, opposite_active_arm, FALSE, TRUE)
-			primed = TRUE //freebie
-		linking = FALSE
+			owner.apply_damage(10, BRUTE, opposite_active_arm, FALSE, TRUE)
+			primed = TRUE
+			user.bleed(30)//about 4%
+			//desc
+			return
+	if (user == owner)
+		if (do_after(user, feeding_time, needhand = TRUE, target = user, progress = TRUE))
+			user.apply_damage(20, BRUTE, opposite_active_arm, FALSE, TRUE)
+			primed = TRUE
+			user.bleed(50)//about 9%
+			//desc
+			return
 	//anyone can become owner, but need sheathe for the dash.
 
 /obj/item/nanoforgedkatana/on_exit_storage(datum/component/storage/concrete/S)
@@ -90,7 +99,7 @@
 		playsound(nanobelt, 'sound/items/sheath.ogg', 25, TRUE)
 		nanobelt.update_icon()
 		update_icon()
-		if(primed) // if found on owner & primed, then allow for dash. else, no. Feels a bit hacky.
+		if(primed) // if primed, then allow dash.
 			current_sheathe = nanobelt
 			RegisterSignal(owner, COMSIG_MOB_CLICKON, .proc/predash)
 	return
@@ -99,7 +108,7 @@
 	SIGNAL_HANDLER
 
 	if((!length(current_sheathe.contents)) || current_sheathe.current_wearer != owner)
-		to_chat(user,"<span class='warning'>The blade needs to be in its sheathe, on your body, for you to dash !")
+		to_chat(user,"<span class='warning'>The blade needs to be in its sheathe, on its owner's body, in order to dash !")
 		UnregisterSignal(owner, COMSIG_MOB_CLICKON)
 		return // with enough fuckery, the blade can be taken out before the dash. Which is bad.
 	if(!(location in view(user)))
@@ -112,7 +121,7 @@
 	update_icon()
 	UnregisterSignal(owner, COMSIG_MOB_CLICKON)
 	primed = FALSE //reset primed
-	primed_attack(location, user, src) //for the purpose of update_icon, primed attack doesn't proc it. Hence the need for current_sheathe.
+	primed_attack(location, user, src)
 	if(CanReach(location))
 		melee_attack_chain(user, location, params) //normal sword slash on final target.
 	return COMSIG_MOB_CANCEL_CLICKON
@@ -155,6 +164,12 @@
 	spot1.Beam(spot2, beam_effect, time=20)
 	user.visible_message("<span class='warning'>In a flash of red, [user] draws [user.p_their()] blade!</span>", "<span class='notice'>You dash forward while drawing your weapon!</span>", "<span class='warning'>You hear a blade slice through the air at impossible speeds!</span>")
 
+/obj/item/nanoforgedkatana/ui_action_click(mob/user, actiontype)
+	//checks done before, so
+	var/attack_dir = user.dir
+	to_chat(user, "test complete!")
+	//depending on attack dir, create a way with getstep to get a box that's 3x2 large in such a direction, and make a sprite appear in each of those + attack.
+
 /obj/item/storage/belt/nanoforgedkatana
 	name = "nanoforged blade sheath"
 	desc = "It yearns to bathe in the blood of your enemies... but you hold it back!"
@@ -195,9 +210,10 @@
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 
 /obj/item/storage/belt/nanoforgedkatana/equipped(mob/living/user)
-	. = ..()
-	current_wearer = user // could equip, then unequip and manually use the katana while in hand -
-	//but adding a check for that would be useless, as it wouldn't break gameplay and would just make things harder for no reason, while still fitting the theme
+	current_wearer = user
+	. = ..()// could equip, then unequip and manually use the katana while in hand -
+	//then give it to someone else without it touching the ground and them putting it in belt/boh
+	//but that's so contrived when you could just change owner.
 
 /obj/item/storage/belt/nanoforgedkatana/on_enter_storage()
 	current_wearer = null

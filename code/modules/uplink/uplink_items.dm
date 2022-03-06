@@ -548,10 +548,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/dangerous/nanoforgedkatana
 	name = "Nanoforged Katana"
-	desc = "A tailor-made blade forged from one of the many ninja clans within the syndicate. \
-			Merely wielding this weapon grants incredible agility, but its taste for blood makes it hard to handle.\
-			After downing an opponent, sheathe it to prepare yourself for an opening strike. \
-			When primed and sheathed, click anywhere to dash forward, severely cutting up anyone in your way."
+	desc = "A tailor-made blade forged by one of the many ninja clans within the syndicate. \
+			Merely wielding this weapon grants incredible agility, yet its taste for blood makes it hard to handle.\
+			Feed the Katana your blood to become its owner, and unlock its capabilities - for it teaches you everything you need to know.\
+			Do note, however, that anyone can claim ownership of the blade, even if already owned."
 	item = /obj/item/storage/belt/nanoforgedkatana
 	player_minimum = 25
 	cost = 18

@@ -552,6 +552,23 @@
 	owner.forceMove(box)
 	owner.playsound_local(box, 'sound/misc/box_deploy.ogg', 50, TRUE)
 
+/datum/action/item_action/nanoforgedkatana
+	name = "Blood cleaver"
+	desc = "Swing your blade in a wide arc, hitting all enemies in a 3x2 rectangle in the click direction"
+	//icon here
+	background_icon_state = "bg_agent"
+	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUN|AB_CHECK_CONSCIOUS
+	COOLDOWN_DECLARE(cleaver_cooldown)
+
+/datum/action/item_action/nanoforgedkatana/Trigger()
+	if(!isturf(owner.loc))
+		to_chat(owner, "<span class = 'notice'>You cannot execute such a wide slash in such a small space!</span>")
+		return
+	if(!COOLDOWN_FINISHED(src, cleaver_cooldown))
+		return
+	COOLDOWN_START(src, cleaver_cooldown, 50 SECONDS)
+	.=..()
+
 //Preset for spells
 /datum/action/spell_action
 	check_flags = NONE
