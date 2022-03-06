@@ -1,0 +1,9 @@
+author: nednaZ
+delete-after: true
+changes:
+  - balance: Abductor and Contractor Batons now have a limited number of charges that
+      self-recharge every ten seconds.
+  - balance: Contractor batons are more effective against non-targets
+  - balance: Contractor batons may only be used by their contractor
+  - code_imp: Removes unneeded variables from the Contractor Baton
+  - code_imp: Improves the damage procs in the Contractor Baton
