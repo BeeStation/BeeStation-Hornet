@@ -3553,6 +3553,7 @@
 #include "monkestation\code\modules\language\sippins.dm"
 #include "monkestation\code\modules\language\zoomercant.dm"
 #include "monkestation\code\modules\mob\living\inventory.dm"
+#include "monkestation\code\modules\mob\living\carbon\death.dm"
 #include "monkestation\code\modules\mob\living\carbon\human\emote.dm"
 #include "monkestation\code\modules\mob\living\carbon\human\human.dm"
 #include "monkestation\code\modules\mob\living\carbon\human\species_emotes.dm"

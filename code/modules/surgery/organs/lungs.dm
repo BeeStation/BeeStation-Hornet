@@ -269,9 +269,9 @@
 		if (breath.get_moles(GAS_MIASMA))
 			var/miasma_pp = PP(breath,GAS_MIASMA)
 			if(miasma_pp > MINIMUM_MOLES_DELTA_TO_MOVE)
-
+				//MonkeStation Edit: Miasma Rework Issue#183
 				//Miasma sickness
-				if(prob(0.05 * miasma_pp))
+				if(prob(0.5 * miasma_pp))
 					var/datum/disease/advance/miasma_disease = new /datum/disease/advance/random(TRUE, 2, 3)
 					miasma_disease.name = "Unknown"
 					miasma_disease.try_infect(owner)
@@ -281,24 +281,22 @@
 					if(1 to 5)
 						// At lower pp, give out a little warning
 						SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "smell")
-						if(prob(5))
-							to_chat(owner, "<span class='notice'>There is an unpleasant smell in the air.</span>")
+						to_chat(owner, "<span class='notice'>There is an unpleasant smell in the air.</span>")
 					if(6 to 15)
 						//At somewhat higher pp, warning becomes more obvious
-						if(prob(15))
-							to_chat(owner, "<span class='warning'>You smell something horribly decayed inside this room.</span>")
-							SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/bad_smell)
+						to_chat(owner, "<span class='warning'>You smell something horribly decayed inside this room.</span>")
+						SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/bad_smell)
 					if(16 to 30)
 						//Small chance to vomit. By now, people have internals on anyway
+						to_chat(owner, "<span class='warning'>The stench of rotting carcasses is unbearable!</span>")
+						SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/nauseating_stench)
 						if(prob(5))
-							to_chat(owner, "<span class='warning'>The stench of rotting carcasses is unbearable!</span>")
-							SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/nauseating_stench)
 							owner.vomit()
 					if(31 to INFINITY)
 						//Higher chance to vomit. Let the horror start
+						to_chat(owner, "<span class='warning'>The stench of rotting carcasses is unbearable!</span>")
+						SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/nauseating_stench)
 						if(prob(15))
-							to_chat(owner, "<span class='warning'>The stench of rotting carcasses is unbearable!</span>")
-							SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/nauseating_stench)
 							owner.vomit()
 					else
 						SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "smell")

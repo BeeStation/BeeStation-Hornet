@@ -7,7 +7,7 @@
 
 	if(!gibbed)
 		INVOKE_ASYNC(src, .proc/emote, "deathgasp")
-
+		addtimer(CALLBACK(src, .proc/start_rotting), 2 MINUTES) //MonkeStation Edit: Delay before miasma Issue#183
 	. = ..()
 
 	for(var/T in get_traumas())
