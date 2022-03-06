@@ -19,6 +19,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid
+	inert_mutation = CATCLAWS
 
 /datum/species/human/felinid/qualifies_for_rank(rank, list/features)
 	return TRUE
