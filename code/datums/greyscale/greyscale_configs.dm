@@ -129,21 +129,51 @@
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_default_worn.json'
 
 /datum/greyscale_config/plasmaman_helmet_mark2
-	name = "Default plasmaman helmet"
+	name = "Mark II plasmaman helmet"
 	icon_file = 'icons/obj/clothing/hats.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_mk2.json'
 
 /datum/greyscale_config/plasmaman_helmet_mark2_worn
-	name = "Default plasmaman helmet"
+	name = "Mark II plasmaman helmet"
 	icon_file = 'icons/mob/clothing/head.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_mk2_worn.json'
 
 /datum/greyscale_config/plasmaman_helmet_protective
-	name = "Default plasmaman helmet"
+	name = "Protective plasmaman helmet"
 	icon_file = 'icons/obj/clothing/hats.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_protective.json'
 
 /datum/greyscale_config/plasmaman_helmet_protective_worn
-	name = "Default plasmaman helmet"
+	name = "Protective plasmaman helmet"
 	icon_file = 'icons/mob/clothing/head.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_protective_worn.json'
+
+/datum/greyscale_config/plasmaman_helmet_default_inhand_left
+	name = "Held Default plasmam helmet, left"
+	icon_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_default_inhand.json'
+
+/datum/greyscale_config/plasmaman_helmet_default_inhand_right
+	name = "Held Default plasmam helmet, right"
+	icon_file = 'icons/mob/inhands/clothing_righthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_default_inhand.json'
+
+/datum/greyscale_config/plasmaman_helmet_protective_inhand_left
+	name = "Held Protective plasmam helmet, left"
+	icon_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_protective_inhand.json'
+
+/datum/greyscale_config/plasmaman_helmet_protective_inhand_right
+	name = "Held Protective plasmam helmet, right"
+	icon_file = 'icons/mob/inhands/clothing_righthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_protective_inhand.json'
+
+/datum/greyscale_config/plasmaman_helmet_mark2_inhand_left
+	name = "Held Mark II plasmam helmet, left"
+	icon_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_mk2_inhand.json'
+
+/datum/greyscale_config/plasmaman_helmet_mark2_inhand_right
+	name = "Held Mark II plasmam helmet, right"
+	icon_file = 'icons/mob/inhands/clothing_righthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_mk2_inhand.json'

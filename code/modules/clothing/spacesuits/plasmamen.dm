@@ -42,8 +42,8 @@
 	item_state = "helmet"
 	greyscale_colors = "#DF5900#A349A4#DF5900"
 	greyscale_config = /datum/greyscale_config/plasmaman_helmet_default
-	//greyscale_config_inhand_left = /datum/greyscale_config/jumpsuit_inhand_left
-	//greyscale_config_inhand_right = /datum/greyscale_config/jumpsuit_inhand_right
+	greyscale_config_inhand_left = /datum/greyscale_config/plasmaman_helmet_default_inhand_left
+	greyscale_config_inhand_right = /datum/greyscale_config/plasmaman_helmet_default_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/plasmaman_helmet_default_worn
 	strip_delay = 80
 	flash_protect = 2
@@ -96,7 +96,6 @@
 		helmet_on = FALSE
 	playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
 	icon_state = "[initial(icon_state)][up ? "":"-weld"]"
-	item_state = icon_state
 	update_icon()
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon()
@@ -163,18 +162,19 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
 	helmet_on = !helmet_on
-	icon_state = "[initial(icon_state)][helmet_on ? "-light":""]"
-	item_state = icon_state
-	user.update_inv_head() //So the mob overlay updates
 
 	if(helmet_on)
 		if(!up)
 			to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
-			set_light_on(FALSE)
+			helmet_on = FALSE
+			return
 		else
 			set_light_on(TRUE)
 	else
 		set_light_on(FALSE)
+
+	icon_state = "[initial(icon_state)][helmet_on ? "-light":""]"
+	user.update_inv_head() //So the mob overlay updates
 
 	for(var/X in actions)
 		var/datum/action/A=X
@@ -384,8 +384,8 @@
 	desc = "A sleek new plasmaman containment helmet, painted in classic Hazardous Orange."
 	greyscale_colors = "#DF5900#A349A4"
 	greyscale_config = /datum/greyscale_config/plasmaman_helmet_mark2
-	//greyscale_config_inhand_left = /datum/greyscale_config/jumpsuit_inhand_left
-	//greyscale_config_inhand_right = /datum/greyscale_config/jumpsuit_inhand_right
+	greyscale_config_inhand_left = /datum/greyscale_config/plasmaman_helmet_mark2_inhand_left
+	greyscale_config_inhand_right = /datum/greyscale_config/plasmaman_helmet_mark2_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/plasmaman_helmet_mark2_worn
 
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/security
@@ -554,8 +554,8 @@
 	desc = "This helmet was originally designed for engineering crews on the more ramshackle plasma mining colonies. Now, after several design improvements and class-action lawsuits, this helmet has been distributed once more as a fun cosmetic choice for NTs plasmafolk."
 	greyscale_colors = "#DF5900#A349A4"
 	greyscale_config = /datum/greyscale_config/plasmaman_helmet_protective
-	//greyscale_config_inhand_left = /datum/greyscale_config/jumpsuit_inhand_left
-	//greyscale_config_inhand_right = /datum/greyscale_config/jumpsuit_inhand_right
+	greyscale_config_inhand_left = /datum/greyscale_config/plasmaman_helmet_protective_inhand_left
+	greyscale_config_inhand_right = /datum/greyscale_config/plasmaman_helmet_protective_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/plasmaman_helmet_protective_worn
 
 /obj/item/clothing/head/helmet/space/plasmaman/protective/security
