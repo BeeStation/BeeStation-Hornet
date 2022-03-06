@@ -245,7 +245,7 @@
 /obj/item/book/manual/wiki
 	var/page_link = ""
 
-/obj/item/book/manual/wiki/Initialize()
+/obj/item/book/manual/wiki/Initialize(mapload)
 	. = ..()
 
 /obj/item/book/manual/wiki/attack_self(mob/user)

@@ -8,7 +8,7 @@
 */
 
 /datum/paiCandidate/proc/prefs_save(mob/user)
-	if(IsGuestKey(user.key))
+	if(IS_GUEST_KEY(user.key))
 		return FALSE
 
 	var/datum/preferences/prefs = user?.client?.prefs
@@ -23,7 +23,7 @@
 	return prefs.save_preferences()
 
 /datum/paiCandidate/proc/prefs_load(mob/user, silent = TRUE)
-	if (IsGuestKey(user.key))
+	if (IS_GUEST_KEY(user.key))
 		return FALSE
 
 	var/datum/preferences/prefs = user?.client?.prefs

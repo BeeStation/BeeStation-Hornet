@@ -8,14 +8,14 @@
 	name = "dog treat"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1,/datum/reagent/corgium = 10)
 
-/mob/living/simple_animal/pet/dog/corgi/chef/Initialize()
+/mob/living/simple_animal/pet/dog/corgi/chef/Initialize(mapload)
 	..()
 	var/obj/item/clothing/head/chefhat/hat = new (src)
 	inventory_head = hat
 	update_corgi_fluff()
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/dog/corgi/seccie/Initialize()
+/mob/living/simple_animal/pet/dog/corgi/seccie/Initialize(mapload)
 	..()
 	var/obj/item/clothing/head/helmet/hat = new (src)
 	inventory_head = hat

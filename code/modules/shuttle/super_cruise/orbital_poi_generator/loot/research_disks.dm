@@ -2,7 +2,7 @@
 	desc = "A research disk that will unlock a research node when uploaded into a research console."
 	var/node_id
 
-/obj/item/disk/tech_disk/research/Initialize()
+/obj/item/disk/tech_disk/research/Initialize(mapload)
 	. = ..()
 	SSorbits.research_disks += src
 	if(node_id)
@@ -14,7 +14,7 @@
 	SSorbits.research_disks -= src
 	. = ..()
 
-/obj/item/disk/tech_disk/research/random/Initialize()
+/obj/item/disk/tech_disk/research/random/Initialize(mapload)
 	var/list/valid_nodes = list()
 	for(var/obj/item/disk/tech_disk/research/disk as() in subtypesof(/obj/item/disk/tech_disk/research))
 		if(!initial(disk.node_id))

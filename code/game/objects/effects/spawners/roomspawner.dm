@@ -13,7 +13,7 @@
 	if(!isnull(SSmapping.random_room_spawners))
 		SSmapping.random_room_spawners += src
 
-/obj/effect/spawner/room/Initialize()
+/obj/effect/spawner/room/Initialize(mapload)
 	..()
 	if(!length(SSmapping.random_room_templates))
 		message_admins("Room spawner created with no templates available. This shouldn't happen.")

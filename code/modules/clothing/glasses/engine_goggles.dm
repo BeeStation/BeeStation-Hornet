@@ -21,7 +21,7 @@
 	var/mode = MODE_NONE
 	var/range = 1
 
-/obj/item/clothing/glasses/meson/engine/Initialize()
+/obj/item/clothing/glasses/meson/engine/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 	update_icon()
