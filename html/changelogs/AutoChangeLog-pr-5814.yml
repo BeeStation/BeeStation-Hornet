@@ -1,6 +1,0 @@
-author: Ivniinvi
-delete-after: true
-changes:
-  - rscadd: New species specific mutations that can only be discovered within each
-      roundstart species.
-  - tweak: Fireball can now only be applied to lizards.
