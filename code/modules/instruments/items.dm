@@ -215,7 +215,7 @@
 	RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
 
 /obj/item/instrument/harmonica/dropped(mob/M)
-	. = ..()
+	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/instrument/bikehorn

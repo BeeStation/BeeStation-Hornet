@@ -580,7 +580,7 @@
 			to_chat(user, "<span class='danger'>The baton is still charging!</span>") //MonkeStation Edit: Contractor Baton Rework
 
 /obj/item/melee/classic_baton/contractor_baton/pickup(mob/user)
-	. = ..()
+	..()
 	if(!owner_data)
 		var/datum/antagonist/traitor/traitor_data = user.mind.has_antag_datum(/datum/antagonist/traitor)
 		if(traitor_data)

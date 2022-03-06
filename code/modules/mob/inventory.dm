@@ -178,6 +178,8 @@
 			return FALSE
 		if(get_item_for_held_index(hand_index) != null)
 			dropItemToGround(get_item_for_held_index(hand_index), force = TRUE)
+		if(!(I.item_flags & PICKED_UP))
+			I.pickup(src)
 		I.forceMove(src)
 		held_items[hand_index] = I
 		I.layer = ABOVE_HUD_LAYER

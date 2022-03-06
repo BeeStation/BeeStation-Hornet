@@ -7,7 +7,7 @@
 	species_traits = list(LIPS, NOEYESPRITES)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutant_bodyparts = list("moth_wings")
-	default_features = list("moth_wings" = "Plain")
+	default_features = list("moth_wings" = "Plain", "body_size" = "Normal")
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
