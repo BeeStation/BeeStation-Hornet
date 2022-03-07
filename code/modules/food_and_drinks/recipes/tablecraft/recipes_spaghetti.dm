@@ -69,8 +69,8 @@
 	result = /obj/item/reagent_containers/food/snacks/spaghetti/butternoodles
 	subcategory = CAT_SPAGHETTI
 
-/datum/crafting_recipe/food/fettucini
-	name = "Fettuccini"
+/datum/crafting_recipe/food/fettuccine
+	name = "Fettuccine"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/spaghetti/boiledspaghetti = 1,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 1,
