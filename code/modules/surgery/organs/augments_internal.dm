@@ -182,7 +182,7 @@
 		var/obj/item/organ/cyberimp/brain/linkedsurgery/I = target
 		I.update_surgery()
 		I.check_surgery_update()
-	..()
+	return ..()
 
 //[[[[MOUTH]]]]
 /obj/item/organ/cyberimp/mouth
