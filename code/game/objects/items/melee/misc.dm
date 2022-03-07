@@ -400,7 +400,7 @@
 #define CONTRACTOR_KNOCKDOWN_TIME_CARBON 2 SECONDS // Knockdown length for carbons.
 #define CONTRACTOR_STAMINA_DAMAGE_NON_TARGET 50
 #define CONTRACTOR_STAMINA_DAMAGE_TARGET 130
-#define CONTRACTOR_TARGET_CONFUSION 4 SECONDS
+#define CONTRACTOR_TARGET_CONFUSION 4
 #define CONTRACTOR_BATON_CHARGE_RATE 10 SECONDS
 //My personal thoughts on this system:
 //This allows for escape and evasion from a crowd that is after you, but not a full combat with them
@@ -448,8 +448,9 @@
 //MonkeStation Edit End
 
 /obj/item/melee/classic_baton/contractor_baton/additional_effects_carbon(mob/living/target, mob/living/user)
-	target.Jitter(20)
-	target.stuttering += 20
+	if(target.stuttering < 20)
+		target.Jitter(20)
+		target.stuttering += 10
 
 /obj/item/melee/classic_baton/contractor_baton/attack_self(mob/user)
 	on = !on
@@ -499,7 +500,6 @@
 //MonkeStation Edit Start: Contractor Baton Rework
 		user.Paralyze(CONTRACTOR_KNOCKDOWN_TIME_CARBON * force)
 		user.apply_damage(CONTRACTOR_STAMINA_DAMAGE_TARGET, STAMINA, affecting, armor_block)
-		user.apply_effect(EFFECT_STUTTER, (CONTRACTOR_STAMINA_DAMAGE_TARGET / 10))
 //MonkeStation Edit End
 
 		additional_effects_carbon(user) // user is the target here
@@ -556,13 +556,11 @@
 				target.Knockdown(CONTRACTOR_KNOCKDOWN_TIME_CARBON)
 				target.drop_all_held_items()
 				target.apply_damage(CONTRACTOR_STAMINA_DAMAGE_TARGET, STAMINA, affecting, armor_block)
-				target.apply_effect(EFFECT_STUTTER, (CONTRACTOR_STAMINA_DAMAGE_TARGET / 10))
-				if(target.confused < 6 SECONDS)
-					target.confused = min(target.confused + CONTRACTOR_TARGET_CONFUSION, 6 SECONDS)
+				user.apply_effect(10, EFFECT_STUTTER)
 			else
 				target.Knockdown(CONTRACTOR_KNOCKDOWN_TIME_CARBON)
 				target.apply_damage(CONTRACTOR_STAMINA_DAMAGE_NON_TARGET, STAMINA, affecting, armor_block)
-				target.apply_effect(EFFECT_STUTTER, (CONTRACTOR_STAMINA_DAMAGE_NON_TARGET / 10))
+
 //MonkeStation Edit End
 			additional_effects_carbon(target, user)
 
@@ -589,9 +587,10 @@
 			to_chat(user, "<span class='notice'>[src] scans your genetic data as you pick it up, creating an uplink with the syndicate database. Attacking your current target will stun and confuse them, however the baton is weaker against non-targets.</span>")
 	if(owner_data?.owner?.current != user)
 		to_chat(user, "<span class='userdanger'>The bio-coded baton shocks you as you attempt to wield it!</span>")
-		user.dropItemToGround(src, TRUE)
 		var/mob/living/carbon/C = user
-		C.Paralyze(10)
+		C.Paralyze(1.5 SECONDS)
+		spawn(5)
+			user.dropItemToGround(src, TRUE)
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
 			H.electrocution_animation(20)

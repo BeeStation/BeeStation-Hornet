@@ -215,23 +215,6 @@
 	transfer_prints = FALSE
 	carrytrait = TRAIT_QUICKER_CARRY
 
-//MonkeStation Edit Start
-//Surgeon Trait for CMO gloves
-/obj/item/clothing/gloves/color/latex/nitrile/equipped(mob/user, slot)
-	..()
-	if(slot == ITEM_SLOT_GLOVES)
-		ADD_TRAIT(user, TRAIT_SURGEON, CLOTHING_TRAIT)
-
-/obj/item/clothing/gloves/color/latex/nitrile/dropped(mob/user)
-	..()
-	REMOVE_TRAIT(user, TRAIT_SURGEON, CLOTHING_TRAIT)
-
-/obj/item/clothing/gloves/color/latex/nitrile/obj_break()
-	..()
-	if(ishuman(loc))
-		REMOVE_TRAIT(loc, TRAIT_SURGEON, CLOTHING_TRAIT)
-//MonkeStation Edit End
-
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"
 	desc = "These look pretty fancy."

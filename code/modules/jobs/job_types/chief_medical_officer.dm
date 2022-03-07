@@ -16,6 +16,7 @@
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_MEDICAL
 	exp_type_department = EXP_TYPE_MEDICAL
+	mind_traits = list(TRAIT_SURGEON) //MonkeStation Edit: CMO Surgeon Trait
 
 	outfit = /datum/outfit/job/cmo
 
