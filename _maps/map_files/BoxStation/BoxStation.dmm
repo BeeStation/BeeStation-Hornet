@@ -40320,6 +40320,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 8
 	},
+/obj/machinery/firealarm/directional/west,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "czU" = (
@@ -52496,6 +52497,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 4
 	},
+/obj/machinery/firealarm/directional/east,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "nKD" = (
