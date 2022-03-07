@@ -160,11 +160,12 @@
 	number_of_surgeries = 0
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/proc/update_surgery()
+	advanced_surgeries.Cut()
 	for(var/i in linked_techweb.researched_designs)
 		var/datum/design/surgery/D = SSresearch.techweb_design_by_id(i)
 		if(!istype(D))
 			continue
-		advanced_surgeries |= D.surgery
+		advanced_surgeries += D.surgery
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/proc/check_surgery_update()
 	if(number_of_surgeries<length(advanced_surgeries))
