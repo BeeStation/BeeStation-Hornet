@@ -75,7 +75,7 @@
 		/obj/item/reagent_containers/food/snacks/spaghetti/boiledspaghetti = 1,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 1,
 	)
-	result = /obj/item/reagent_containers/food/snacks/spaghetti/fettucine
+	result = /obj/item/reagent_containers/food/snacks/spaghetti/fettuccine
 	subcategory = CAT_SPAGHETTI
 
 
