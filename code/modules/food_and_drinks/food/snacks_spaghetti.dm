@@ -105,8 +105,8 @@
 	tastes = list("noodle" = 1, "butter" = 1)
 	foodtype = GRAIN | DAIRY
 
-/obj/item/reagent_containers/food/snacks/spaghetti/fettucini
-	name = "Fettucini"
+/obj/item/reagent_containers/food/snacks/spaghetti/fettuccine
+	name = "Fettuccine"
 	desc = "Creamy alfredo noodles."
 	icon_state = "fettucini"
 	trash = /obj/item/trash/plate
