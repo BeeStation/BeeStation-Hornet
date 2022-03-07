@@ -391,7 +391,7 @@
 
 /datum/design/cyberimp_linkedsurgery
 	name = "Surgical Serverlink Brain Implant"
-	desc = "A brain implant with a bluespace technology that lets you to perform an advanced surgery through your station research server."
+	desc = "A brain implant with a bluespace technology that lets you perform an advanced surgery through your station research server."
 	id = "ci-linkedsurgery"
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60
