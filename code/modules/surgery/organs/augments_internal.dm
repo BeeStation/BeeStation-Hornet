@@ -146,7 +146,7 @@
 
 /obj/item/organ/cyberimp/brain/linkedsurgery
 	name = "surgical serverlink brain implant"
-	desc = "A brain implant with a bluespace technology that lets you to perform an advanced surgery through your station research server."
+	desc = "A brain implant with a bluespace technology that lets you perform an advanced surgery through your station research server."
 	slot = ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT
 	actions_types = list(/datum/action/item_action/update_linkedsurgery)
 	var/list/advanced_surgeries = list()
