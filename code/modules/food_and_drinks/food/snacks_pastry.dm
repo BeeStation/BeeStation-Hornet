@@ -679,7 +679,7 @@
 	desc = "A small cookie with a large religious presence."
 	icon_state = "communioncookie"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/water/holywater = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/water/holywater = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("dry" = 1, "cookie" = 1, "righteous" = 1)
 	foodtype = GRAIN
 
