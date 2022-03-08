@@ -1,5 +1,11 @@
 GLOBAL_LIST_EMPTY(preferences_datums)
 
+///Current version of player saves
+#define PREFERENCES_VERSION 1
+
+///Player saves with a version below this value will be reset
+#define PREFERENCES_VERSION_MIN 1
+
 /datum/preferences
 	var/client/parent
 
@@ -23,13 +29,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 
 
-	/* ----------[VERSION]---------- */
-	///Preferences version, always update when making changes to save code
-	var/version = 1
-
-
-
 	/* ----------[CHARACTERS]---------- */
+	// See "character.dm" for character-specific variables! DO NOT add them here!
+
 	///List that stores a player's characters
 	var/list/datum/character/characters = list()
 
@@ -167,6 +169,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 // Handles conversion of player preferences to a saveable format, either for DB or .json file
 /datum/preferences/serialize_list(list/options)
 	. = list()
+	.["version"] = PREFERENCES_VERSION
 	// Main preferences
 	.["lastchangelog"] = lastchangelog
 	.["ooccolor"] = ooccolor
