@@ -243,6 +243,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	chat_toggles = json["chat_toggles"]
 	sound_toggles = json["sound_toggles"]
 
+	for(var/list/char in json["characters"])
+		var/datum/character/new_char = new
+		new_char.deserialize_list(char)
+		characters += new_char
+	// Set the character variable to the currently chosen slot
+	character = characters[default_slot]
+
 #define APPEARANCE_CATEGORY_COLUMN "<td valign='top' width='14%'>"
 #define MAX_MUTANT_ROWS 4
 

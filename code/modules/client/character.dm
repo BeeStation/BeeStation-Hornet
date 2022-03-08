@@ -61,7 +61,7 @@
 	///Character eye color
 	var/eye_color = "000"
 
-	///Species choice (id value is stored)
+	///Species choice (id value is stored in saves, rather than the whole datum)
 	var/datum/species/pref_species = new /datum/species/human()
 
 	///Species features
@@ -142,3 +142,38 @@
 	.["job_preferences"] = job_preferences
 	.["joblessrole"] = joblessrole
 	.["uplink_spawn_loc"] = uplink_spawn_loc
+
+/datum/character/deserialize_list(json, list/options)
+	real_name = json["real_name"]
+	be_random_name = json["be_random_name"]
+	be_random_body = json["be_random_body"]
+	gender = json["gender"]
+	age = json["age"]
+	underwear = json["underwear"]
+	underwear_color = json["underwear_color"]
+	undershirt = json["undershirt"]
+	socks = json["socks"]
+	helmet_style = json["helmet_style"]
+	backbag = json["backbag"]
+	jumpsuit_style = json["jumpsuit_style"]
+	hair_style = json["hair_style"]
+	hair_color = json["hair_color"]
+	gradient_style = json["gradient_style"]
+	gradient_color = json["gradient_color"]
+	facial_hair_style = json["facial_hair_style"]
+	facial_hair_color = json["facial_hair_color"]
+	skin_tone = json["skin_tone"]
+	eye_color = json["eye_color"]
+	features = json["features"]
+	custom_names = json["custom_names"]
+	preferred_ai_core_display = json["preferred_ai_core_display"]
+	prefered_security_department = json["prefered_security_department"]
+	all_quirks = json["all_quirks"]
+	job_preferences = json["job_preferences"]
+	joblessrole = json["joblessrole"]
+	uplink_spawn_loc = json["uplink_spawn_loc"]
+	var/species_id = json["pref_species"]
+	if(species_id)
+		var/newtype = GLOB.species_list[species_id]
+		if(newtype)
+			character.pref_species = new newtype
