@@ -176,4 +176,4 @@
 	if(species_id)
 		var/newtype = GLOB.species_list[species_id]
 		if(newtype)
-			character.pref_species = new newtype
+			pref_species = new newtype
