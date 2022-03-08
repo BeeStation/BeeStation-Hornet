@@ -22,7 +22,12 @@
 
 /datum/status_effect/freon/tick()
 	owner.update_mobility()
-	if(can_melt && owner.bodytemperature >= BODYTEMP_NORMAL)
+	var/temp = HUMAN_BODYTEMP_NORMAL
+	if(iscarbon(owner))
+		var/mob/living/carbon/C = owner
+		temp = C.dna.species.bodytemp_normal
+
+	if(can_melt && owner.bodytemperature >= temp)
 		qdel(src)
 
 /datum/status_effect/freon/proc/owner_resist()

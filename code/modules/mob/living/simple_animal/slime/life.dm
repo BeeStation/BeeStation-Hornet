@@ -75,7 +75,7 @@
 
 	var/loc_temp = get_temperature(environment)
 
-	adjust_bodytemperature(adjust_body_temperature(bodytemperature, loc_temp, 1))
+	adjust_bodytemperature(adjust_bodytemp(bodytemperature, loc_temp, 1))
 
 	//Account for massive pressure differences
 
@@ -115,7 +115,7 @@
 
 	return //TODO: DEFERRED
 
-/mob/living/simple_animal/slime/proc/adjust_body_temperature(current, loc_temp, boost)
+/mob/living/simple_animal/slime/proc/adjust_bodytemp(current, loc_temp, boost)
 	var/temperature = current
 	var/difference = abs(current-loc_temp)	//get difference
 	var/increments// = difference/10			//find how many increments apart they are

@@ -59,13 +59,21 @@ Bonus
 		to_chat(M, "<span class='warning'>[pick("You feel hot.", "You feel like you're burning.")]</span>")
 	else
 		to_chat(M, "<span class='userdanger'>[pick("You feel too hot.", "You feel like your blood is boiling.")]</span>")
-	if(M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || unsafe)
+
+	if(M.bodytemperature < M.dna.species.bodytemp_heat_damage_limit || unsafe)
 		Heat(M, A)
 
 /datum/symptom/fever/proc/Heat(mob/living/M, datum/disease/advance/A)
 	var/get_heat = 6 * power
+	var/damage_limit = 0
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		damage_limit = C.dna.species.bodytemp_heat_damage_limit
+
+	damage_limit ||= HUMAN_BODYTEMP_HEAT_DAMAGE_LIMIT
+
 	if(!unsafe)
-		M.adjust_bodytemperature(get_heat * A.stage, 0, BODYTEMP_HEAT_DAMAGE_LIMIT - 1)
+		M.adjust_bodytemperature(get_heat * A.stage, 0, damage_limit - 1)
 	else
 		M.adjust_bodytemperature(get_heat * A.stage)
 	return 1

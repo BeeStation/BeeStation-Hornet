@@ -36,7 +36,13 @@
 	M.blood_volume = BLOOD_VOLUME_NORMAL
 	M.reagents.remove_reagent(/datum/reagent/water/holywater, INFINITY)
 	M.set_nutrition(NUTRITION_LEVEL_FULL)
-	M.bodytemperature = BODYTEMP_NORMAL
+
+	var/temp = HUMAN_BODYTEMP_NORMAL
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		temp = C.dna.species.bodytemp_normal
+	M.bodytemperature = temp
+
 	M.set_blindness(0)
 	M.set_blurriness(0)
 	M.set_dizziness(0)

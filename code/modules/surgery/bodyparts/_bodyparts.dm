@@ -107,14 +107,16 @@
 		var/mob/living/carbon/human/H = C
 		if(HAS_TRAIT(C, TRAIT_LIMBATTACHMENT))
 			if(!H.get_bodypart(body_zone) && !animal_origin)
+				user.temporarilyRemoveItemFromInventory(src, TRUE)
+				if(!attach_limb(C))
+					to_chat(user, "<span class='warning'>[H]'s body rejects [src]!</span>")
+					forceMove(H.loc)
 				if(H == user)
 					H.visible_message("<span class='warning'>[H] jams [src] into [H.p_their()] empty socket!</span>",\
 					"<span class='notice'>You force [src] into your empty socket, and it locks into place!</span>")
 				else
 					H.visible_message("<span class='warning'>[user] jams [src] into [H]'s empty socket!</span>",\
 					"<span class='notice'>[user] forces [src] into your empty socket, and it locks into place!</span>")
-				user.temporarilyRemoveItemFromInventory(src, TRUE)
-				attach_limb(C)
 				return
 	..()
 
@@ -147,18 +149,12 @@
 	for(var/obj/item/I in src)
 		I.forceMove(T)
 
-/obj/item/bodypart/proc/consider_processing()
-	if(stamina_dam > DAMAGE_PRECISION)
-		. = TRUE
-	//else if.. else if.. so on.
-	else
-		. = FALSE
-	needs_processing = .
-
 //Return TRUE to get whatever mob this is in to update health.
-/obj/item/bodypart/proc/on_life(stam_regen)
-	if(stamina_dam > DAMAGE_PRECISION && stam_regen)					//DO NOT update health here, it'll be done in the carbon's life.
-		heal_damage(0, 0, stam_regen, null, FALSE)
+/obj/item/bodypart/proc/on_life()
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(stamina_dam > DAMAGE_PRECISION && owner.stam_regen_start_time <= world.time)//DO NOT update health here, it'll be done in the carbon's life.
+		heal_damage(0, 0, INFINITY, null, FALSE)
 		. |= BODYPART_LIFE_UPDATE_HEALTH
 
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
@@ -202,10 +198,8 @@
 	burn_dam += burn
 
 	//We've dealt the physical damages, if there's room lets apply the stamina damage.
-	var/current_damage = get_damage(TRUE)		//This time around, count stamina loss too.
-	var/available_damage = max_damage - current_damage
-	var/applied_damage = min(max_stamina_damage - stamina_dam, available_damage)
-	stamina_dam += round(CLAMP(stamina, 0, applied_damage), DAMAGE_PRECISION)
+	if(stamina)
+		set_stamina_dam(stamina_dam + round(clamp(stamina, 0, max_stamina_damage - stamina_dam), DAMAGE_PRECISION))
 
 
 	if(owner && updating_health)
@@ -213,30 +207,57 @@
 		if(stamina > DAMAGE_PRECISION)
 			owner.update_stamina(TRUE)
 			owner.stam_regen_start_time = max(owner.stam_regen_start_time, world.time + STAMINA_REGEN_BLOCK_TIME)
-	consider_processing()
+			. = TRUE
+
 	update_disabled()
-	return update_bodypart_damage_state()
+	return update_bodypart_damage_state() || .
 
 //Heals brute and burn damage for the organ. Returns 1 if the damage-icon states changed at all.
 //Damage cannot go below zero.
 //Cannot remove negative damage (i.e. apply damage)
 /obj/item/bodypart/proc/heal_damage(brute, burn, stamina, required_status, updating_health = TRUE)
-
 	if(required_status && !(bodytype & required_status)) //So we can only heal certain kinds of limbs, ie robotic vs organic.
 		return
 
-	brute_dam	= round(max(brute_dam - brute, 0), DAMAGE_PRECISION)
-	burn_dam	= round(max(burn_dam - burn, 0), DAMAGE_PRECISION)
-	stamina_dam = round(max(stamina_dam - stamina, 0), DAMAGE_PRECISION)
-	if(owner && updating_health)
-		owner.updatehealth()
-	if(owner.dna && owner.dna.species && (REVIVESBYHEALING in owner.dna.species.species_traits))
-		if(owner.health > 0 && !owner.hellbound)
-			owner.revive(0)
-			owner.cure_husk(0) // If it has REVIVESBYHEALING, it probably can't be cloned. No husk cure.
-	consider_processing()
+	if(brute)
+		set_brute_dam(round(max(brute_dam - brute, 0), DAMAGE_PRECISION))
+	if(burn)
+		set_burn_dam(round(max(burn_dam - burn, 0), DAMAGE_PRECISION))
+	if(stamina)
+		set_stamina_dam(round(max(stamina_dam - stamina, 0), DAMAGE_PRECISION))
+
+	if(owner)
+		if(updating_health)
+			owner.updatehealth()
+		if(owner.dna?.species && (REVIVESBYHEALING in owner.dna.species.species_traits))
+			if(owner.health > 0 && !owner.hellbound)
+				owner.revive(FALSE)
+				owner.cure_husk() // If it has REVIVESBYHEALING, it probably can't be cloned. No husk cure.
 	update_disabled()
 	return update_bodypart_damage_state()
+
+///Proc to hook behavior associated to the change of the brute_dam variable's value.
+/obj/item/bodypart/proc/set_brute_dam(new_value)
+	if(brute_dam == new_value)
+		return
+	. = brute_dam
+	brute_dam = new_value
+
+
+///Proc to hook behavior associated to the change of the burn_dam variable's value.
+/obj/item/bodypart/proc/set_burn_dam(new_value)
+	if(burn_dam == new_value)
+		return
+	. = burn_dam
+	burn_dam = new_value
+
+
+///Proc to hook behavior associated to the change of the stamina_dam variable's value.
+/obj/item/bodypart/proc/set_stamina_dam(new_value)
+	if(stamina_dam == new_value)
+		return
+	. = stamina_dam
+	stamina_dam = new_value
 
 //Returns total damage.
 /obj/item/bodypart/proc/get_damage(include_stamina = FALSE)
@@ -461,65 +482,6 @@
 /obj/item/bodypart/deconstruct(disassembled = TRUE)
 	drop_organs()
 	qdel(src)
-
-/obj/item/bodypart/chest
-	name = BODY_ZONE_CHEST
-	desc = "It's impolite to stare at a person's chest."
-	icon_state = "default_human_chest"
-	max_damage = 200
-	body_zone = BODY_ZONE_CHEST
-	body_part = CHEST
-	px_x = 0
-	px_y = 0
-	stam_damage_coeff = 1
-	max_stamina_damage = 120
-	is_dimorphic = TRUE
-	var/obj/item/cavity_item
-
-/obj/item/bodypart/chest/can_dismember(obj/item/I)
-	if(!((owner.stat == DEAD) || owner.InFullCritical()))
-		return FALSE
-	return ..()
-
-/obj/item/bodypart/chest/Destroy()
-	QDEL_NULL(cavity_item)
-	return ..()
-
-/obj/item/bodypart/chest/drop_organs(mob/user, violent_removal)
-	if(cavity_item)
-		cavity_item.forceMove(drop_location())
-		cavity_item = null
-	..()
-
-/obj/item/bodypart/chest/monkey
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "default_monkey_chest"
-	limb_id = SPECIES_MONKEY
-	animal_origin = MONKEY_BODYPART
-
-/obj/item/bodypart/chest/monkey/teratoma
-	icon_state = "teratoma_chest"
-	limb_id = "teratoma"
-	animal_origin = TERATOMA_BODYPART
-
-/obj/item/bodypart/chest/alien
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "alien_chest"
-	dismemberable = 0
-	max_damage = 500
-	animal_origin = ALIEN_BODYPART
-
-/obj/item/bodypart/chest/devil
-	dismemberable = 0
-	max_damage = 5000
-	animal_origin = DEVIL_BODYPART
-
-/obj/item/bodypart/chest/larva
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "larva_chest"
-	dismemberable = 0
-	max_damage = 50
-	animal_origin = LARVA_BODYPART
 
 /obj/item/bodypart/l_arm
 	name = "left arm"

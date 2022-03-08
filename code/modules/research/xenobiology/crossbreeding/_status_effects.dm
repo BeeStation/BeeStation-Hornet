@@ -476,8 +476,12 @@
 	colour = "orange"
 
 /datum/status_effect/stabilized/orange/tick()
-	var/body_temperature_difference = BODYTEMP_NORMAL - owner.bodytemperature
-	owner.adjust_bodytemperature(min(5,body_temperature_difference))
+	var/temp = HUMAN_BODYTEMP_NORMAL
+	if(iscarbon(owner))
+		var/mob/living/carbon/C = owner
+		temp = C.dna.species.bodytemp_normal
+	var/bodytemp_difference = temp - owner.bodytemperature
+	owner.adjust_bodytemperature(min(5,bodytemp_difference))
 	return ..()
 
 /datum/status_effect/stabilized/purple

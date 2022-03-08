@@ -442,7 +442,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(burnheal)
 				M.heal_overall_damage(0, 1.5 * power) //no required_status checks here, this does all bodyparts equally
 
-			if(COOLDOWN_FINISHED(src, teleport_cooldown) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
+			if(COOLDOWN_FINISHED(src, teleport_cooldown) && (M.bodytemperature < M.dna.species.bodytemp_heat_damage_limit || M.bodytemperature > M.dna.species.bodytemp_cold_damage_limit))
 				location_return = get_turf(M)	//sets up return point
 				to_chat(M, "<span class='warning'>The lukewarm temperature makes you feel strange!</span>")
 				COOLDOWN_START(src, teleport_cooldown, (TELEPORT_COOLDOWN * 5) + (rand(1, 300) * 10))
@@ -450,7 +450,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				if(location_return.z != M.loc.z)
 					location_return = null
 					COOLDOWN_RESET(src, teleport_cooldown)
-				else if(((M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT + telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTHEAT)) || (M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT - telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTCOLD)) || (burnheal && M.getFireLoss() > 60 + telethreshold)))
+				else if(((M.bodytemperature > M.dna.species.bodytemp_heat_damage_limit + telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTHEAT)) || (M.bodytemperature < M.dna.species.bodytemp_cold_damage_limit - telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTCOLD)) || (burnheal && M.getFireLoss() > 60 + telethreshold)))
 					do_sparks(5, FALSE, M)
 					to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spatial state!</span>")
 					do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home

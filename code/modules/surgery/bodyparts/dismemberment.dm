@@ -263,21 +263,22 @@
 		return
 	var/obj/item/bodypart/O = C.get_bodypart(body_zone)
 	if(O)
-		O.drop_limb(1)
-	attach_limb(C, special, is_creating)
+		O.drop_limb(TRUE)
+	. = attach_limb(C, special, is_creating)
+	if(!.) //If it failed to replace, just ignore.
+		O.attach_limb(C, TRUE)
 
 /obj/item/bodypart/head/replace_limb(mob/living/carbon/C, special, is_creating = FALSE)
-	if(!istype(C))
+	if(!special)
 		return
-	var/obj/item/bodypart/head/O = C.get_bodypart(body_zone)
-	if(O)
-		if(!special)
-			return
-		else
-			O.drop_limb(1)
-	attach_limb(C, special, is_creating)
+
+	return ..()
 
 /obj/item/bodypart/proc/attach_limb(mob/living/carbon/C, special, is_creating = FALSE)
+	var/obj/item/bodypart/chest/mob_chest = C.get_bodypart(BODY_ZONE_CHEST)
+	if(mob_chest && !(mob_chest.acceptable_bodytype & bodytype))
+		return FALSE
+
 	moveToNullspace()
 	owner = C
 	C.bodyparts += src
@@ -315,6 +316,7 @@
 	C.update_hair()
 	C.update_mobility()
 
+	return TRUE
 
 /obj/item/bodypart/head/attach_limb(mob/living/carbon/C, special)
 	//Transfer some head appearance vars over

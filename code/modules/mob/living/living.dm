@@ -590,7 +590,7 @@
 	SetSleeping(0, FALSE)
 	radiation = 0
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
-	bodytemperature = BODYTEMP_NORMAL
+	bodytemperature = HUMAN_BODYTEMP_NORMAL
 	set_blindness(0)
 	set_blurriness(0)
 	set_dizziness(0)
@@ -1378,3 +1378,52 @@
 	if(is_servant_of_ratvar(src) && !iseminence(src))
 		eminence.selected_mob = src
 		to_chat(eminence, "<span class='brass'>You select [src].</span>")
+
+/**
+ * add_bodytemp_change Adds modifications to the body temperature
+ *
+ * This collects all body temperature changes that the mob is experiencing to the list bodytemp_changes
+ * the aggrogate result is used to derive the new body temperature for the mob
+ *
+ * arguments:
+ * * key_name (str) The unique key for this change, if it already exist it will be overridden
+ * * amount (int) The amount of change from the base body temperature
+ */
+/mob/living/proc/add_bodytemp_change(key_name, amount)
+	bodytemp_changes["[key_name]"] = amount
+
+/**
+ * remove_bodytemp_change Removes the modifications to the body temperature
+ *
+ * This removes the recorded change to body temperature from the bodytemp_changes list
+ *
+ * arguments:
+ * * key_name (str) The unique key for this change that will be removed
+ */
+/mob/living/proc/remove_bodytemp_change(key_name)
+	bodytemp_changes -= key_name
+
+/**
+ * get_bodytemp_normal_change Returns the aggregate change to body temperature
+ *
+ * This aggregates all the changes in the bodytemp_changes list and returns the result
+ */
+/mob/living/proc/get_bodytemp_normal_change()
+	var/total_change = 0
+	if(bodytemp_changes.len)
+		for(var/change in bodytemp_changes)
+			total_change += bodytemp_changes["[change]"]
+	return total_change
+
+/**
+ * get_bodytemp_normal Returns the mobs normal body temperature with any modifications applied
+ *
+ * This applies the result from proc/get_bodytemp_normal_change() against the HUMAN_BODYTEMP_NORMAL and returns the result
+ *
+ * arguments:
+ * * apply_change (optional) Default True This applies the changes to body temperature normal
+ */
+/mob/living/proc/get_bodytemp_normal(apply_change=TRUE)
+	if(!apply_change)
+		return HUMAN_BODYTEMP_NORMAL
+	return HUMAN_BODYTEMP_NORMAL + get_bodytemp_normal_change()

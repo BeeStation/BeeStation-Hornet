@@ -476,7 +476,11 @@
 	owner.set_blindness(0)
 	owner.set_blurriness(0)
 	owner.restore_blood()
-	owner.bodytemperature = BODYTEMP_NORMAL
+	var/temp = HUMAN_BODYTEMP_NORMAL
+	if(iscarbon(owner))
+		var/mob/living/carbon/C = owner
+		temp = C.dna.species.bodytemp_normal
+	owner.bodytemperature = temp
 	owner.restoreEars()
 	duration = rand(150, 450) * power
 	return TRUE

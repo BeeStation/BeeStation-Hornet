@@ -23,7 +23,7 @@
 
 	var/datum/gas_mixture/stank = new
 	stank.set_moles(GAS_MIASMA, amount * delta_time)
-	stank.set_temperature(BODYTEMP_NORMAL) // otherwise we have gas below 2.7K which will break our lag generator
+	stank.set_temperature(HUMAN_BODYTEMP_NORMAL) // otherwise we have gas below 2.7K which will break our lag generator
 	T.assume_air(stank)
 	T.air_update_turf()
 

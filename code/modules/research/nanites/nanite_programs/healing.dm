@@ -36,15 +36,24 @@
 	rogue_types = list(/datum/nanite_program/skin_decay)
 
 /datum/nanite_program/temperature/check_conditions()
-	if(host_mob.bodytemperature > (BODYTEMP_NORMAL - 30) && host_mob.bodytemperature < (BODYTEMP_NORMAL + 30))
+	var/temp = HUMAN_BODYTEMP_NORMAL
+	if(iscarbon(host_mob))
+		var/mob/living/carbon/C = host_mob
+		temp = C.dna.species.bodytemp_normal
+	if(host_mob.bodytemperature > (temp - 30) && host_mob.bodytemperature < (temp + 30))
 		return FALSE
 	return ..()
 
 /datum/nanite_program/temperature/active_effect()
-	if(host_mob.bodytemperature > BODYTEMP_NORMAL)
-		host_mob.adjust_bodytemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
-	else if(host_mob.bodytemperature < (BODYTEMP_NORMAL + 1))
-		host_mob.adjust_bodytemperature(40 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, BODYTEMP_NORMAL)
+	var/temp = HUMAN_BODYTEMP_NORMAL
+	if(iscarbon(host_mob))
+		var/mob/living/carbon/C = host_mob
+		temp = C.dna.species.bodytemp_normal
+
+	if(host_mob.bodytemperature > temp)
+		host_mob.adjust_bodytemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT, temp)
+	else if(host_mob.bodytemperature < (temp + 1))
+		host_mob.adjust_bodytemperature(40 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, temp)
 
 /datum/nanite_program/purging
 	name = "Blood Purification"
