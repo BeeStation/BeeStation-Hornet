@@ -84,7 +84,7 @@ Contents:
 /proc/create_space_ninja(spawn_loc)
 	var/mob/living/carbon/human/new_ninja = new(spawn_loc)
 	var/datum/preferences/A = new()//Randomize appearance for the ninja.
-	A.real_name = "[pick(GLOB.ninja_titles)] [pick(GLOB.ninja_names)]"
+	A.character.real_name = "[pick(GLOB.ninja_titles)] [pick(GLOB.ninja_names)]"
 	A.copy_to(new_ninja)
 	new_ninja.dna.update_dna_identity()
 	return new_ninja

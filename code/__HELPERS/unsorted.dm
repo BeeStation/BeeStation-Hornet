@@ -193,8 +193,8 @@ Turf and target are separate in case you want to teleport some distance from a t
 	var/banned = C ? is_banned_from(C.ckey, "Appearance") : null
 
 	while(loop && safety < 5)
-		if(C && C.prefs.custom_names[role] && !safety && !banned)
-			newname = C.prefs.custom_names[role]
+		if(C && C.prefs.character.custom_names[role] && !safety && !banned)
+			newname = C.prefs.character.custom_names[role]
 		else
 			switch(role)
 				if("human")
@@ -1120,7 +1120,7 @@ eg2: `center_image(I, 96,96)`
 					clear = FALSE
 					break
 			if(clear)
-				picked_turfs |= checked_turf 
+				picked_turfs |= checked_turf
 			turf_list.Cut(I,I+1)
 		CHECK_TICK
 	if(!picked_turfs.len)

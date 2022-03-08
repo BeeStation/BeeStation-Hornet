@@ -1835,6 +1835,7 @@
 #include "code\modules\cargo\exports\xenobio.dm"
 #include "code\modules\chatter\chatter.dm"
 #include "code\modules\client\antag_tokens.dm"
+#include "code\modules\client\character.dm"
 #include "code\modules\client\client_colour.dm"
 #include "code\modules\client\client_defines.dm"
 #include "code\modules\client\client_procs.dm"

@@ -757,26 +757,26 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	set_ghost_appearance()
 	if(client?.prefs)
-		deadchat_name = client.prefs.real_name
+		deadchat_name = client.prefs.character.real_name
 		if(mind)
-			mind.ghostname = client.prefs.real_name
-		name = client.prefs.real_name
+			mind.ghostname = client.prefs.character.real_name
+		name = client.prefs.character.real_name
 
 /mob/dead/observer/proc/set_ghost_appearance()
 	if((!client) || (!client.prefs))
 		return
 
-	if(client.prefs.be_random_name)
-		client.prefs.real_name = random_unique_name(gender)
-	if(client.prefs.be_random_body)
+	if(client.prefs.character.be_random_name)
+		client.prefs.character.real_name = random_unique_name(gender)
+	if(client.prefs.character.be_random_body)
 		client.prefs.random_character(gender)
 
-	if(HAIR in client.prefs.pref_species.species_traits)
-		hair_style = client.prefs.hair_style
-		hair_color = brighten_color(client.prefs.hair_color)
-	if(FACEHAIR in client.prefs.pref_species.species_traits)
-		facial_hair_style = client.prefs.facial_hair_style
-		facial_hair_color = brighten_color(client.prefs.facial_hair_color)
+	if(HAIR in client.prefs.character.pref_species.species_traits)
+		hair_style = client.prefs.character.hair_style
+		hair_color = brighten_color(client.prefs.character.hair_color)
+	if(FACEHAIR in client.prefs.character.pref_species.species_traits)
+		facial_hair_style = client.prefs.character.facial_hair_style
+		facial_hair_color = brighten_color(client.prefs.character.facial_hair_color)
 
 	update_icon()
 

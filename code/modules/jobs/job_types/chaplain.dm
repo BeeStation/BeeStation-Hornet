@@ -47,12 +47,12 @@
 	H.mind?.holy_role = HOLY_ROLE_HIGHPRIEST
 
 	var/new_religion = DEFAULT_RELIGION
-	if(M.client && M.client.prefs.custom_names["religion"])
-		new_religion = M.client.prefs.custom_names["religion"]
+	if(M.client && M.client.prefs.character.custom_names["religion"])
+		new_religion = M.client.prefs.character.custom_names["religion"]
 
 	var/new_deity = DEFAULT_DEITY
-	if(M.client && M.client.prefs.custom_names["deity"])
-		new_deity = M.client.prefs.custom_names["deity"]
+	if(M.client && M.client.prefs.character.custom_names["deity"])
+		new_deity = M.client.prefs.character.custom_names["deity"]
 
 	B.deity_name = new_deity
 

@@ -76,9 +76,9 @@
 	var/path = J.species_outfits[SPECIES_PLASMAMAN]
 	var/datum/outfit/plasmaman/O = new path
 	var/datum/preferences/prefs = preference_source.prefs
-	if(prefs.helmet_style != HELMET_DEFAULT)
-		if(O.helmet_variants[prefs.helmet_style])
-			var/helmet = O.helmet_variants[prefs.helmet_style]
+	if(prefs.character.helmet_style != HELMET_DEFAULT)
+		if(O.helmet_variants[prefs.character.helmet_style])
+			var/helmet = O.helmet_variants[prefs.character.helmet_style]
 			qdel(H.head)
 			H.equip_to_slot(new helmet, ITEM_SLOT_HEAD)
 
