@@ -407,7 +407,6 @@ DEFAULT_LAWS 2
 ## standard-ish laws. These are fairly ok to run
 RANDOM_LAWS asimov
 RANDOM_LAWS asimovpp
-RANDOM_LAWS crewsimov
 RANDOM_LAWS corporate
 RANDOM_LAWS maintain
 
