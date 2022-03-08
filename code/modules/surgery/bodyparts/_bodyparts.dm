@@ -149,11 +149,11 @@
 		I.forceMove(T)
 
 //Return TRUE to get whatever mob this is in to update health.
-/obj/item/bodypart/proc/on_life()
+/obj/item/bodypart/proc/on_life(stam_regen)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(stamina_dam > DAMAGE_PRECISION && owner.stam_regen_start_time <= world.time)//DO NOT update health here, it'll be done in the carbon's life.
-		heal_damage(0, 0, INFINITY, null, FALSE)
+	if(stamina_dam > DAMAGE_PRECISION && stam_regen)//DO NOT update health here, it'll be done in the carbon's life.
+		heal_damage(0, 0, stam_regen, null, FALSE)
 		. |= BODYPART_LIFE_UPDATE_HEALTH
 
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
