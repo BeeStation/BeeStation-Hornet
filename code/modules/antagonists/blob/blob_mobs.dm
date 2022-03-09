@@ -211,12 +211,11 @@
 		color = initial(color)//looks better.
 		add_overlay(blob_head_overlay)
 
-/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, minimum_distance, rally, current_tries)
+/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, minimum_distance, current_tries)
 	set waitfor = FALSE
 	var/movement_steps = 0
 	in_movement++
 	var/in_movement_current = in_movement //so we remember the position of the proccall
-
 	if(target == src.target)
 		approaching_target = TRUE
 	else
@@ -237,12 +236,12 @@
 			if(current_tries >= 20)	//In case we get catched in a endless loop for reasons
 				break
 			else
-				return Goto(target, delay, minimum_distance, rally, current_tries + 1)
+				return Goto(target, delay, minimum_distance, current_tries + 1)
 		if(ismob(target) && !(get_turf(target) == goal_turf)) //Incase the target mob decides to move so we don't just run towards it's original location
 			if(get_dist(path_list[1], get_turf(target)) >= 20)
 				break
 			else
-				return Goto(target, delay, minimum_distance, rally)
+				return Goto(target, delay, minimum_distance)
 
 	if(!movement_steps) //pathfinding fallback in case we cannot find a valid path at the first attempt
 		var/ln = get_dist(src, target)
@@ -273,7 +272,7 @@
 					if(current_tries >= 20)
 						break
 					else
-						return Goto(target, delay, rally, (current_tries + 1))
+						return Goto(target, delay, (current_tries + 1))
 	in_movement = 0 // We only null this if its an actual death end not if the proc gets canceled by another proc call of the same proc
 
 /mob/living/simple_animal/hostile/blob/blobspore/weak
