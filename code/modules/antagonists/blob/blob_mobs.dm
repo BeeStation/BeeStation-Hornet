@@ -111,7 +111,7 @@
 	var/is_zombie = FALSE
 	var/list/disease = list()
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
-	var/in_movement //only for rally command so blob spores will stop chasing after that one guy and get to the rally point
+	var/in_movement //keeps track of the proccals of goto so we know when the blob is moving
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
