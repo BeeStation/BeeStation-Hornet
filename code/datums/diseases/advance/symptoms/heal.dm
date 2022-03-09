@@ -735,7 +735,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				bloodpoints -= 200
 				return 0
 			else if(bloodbag && bloodbag.blood_volume && (bloodbag.stat || bloodbag.bleed_rate))
-				if(get_dist(bloodbag, H) <= 1)
+				if(get_dist(bloodbag, H) <= 1 && bloodbag.z == H.z)
 					var/amt = ((bloodbag.stat * 2) + 5) * power
 					var/excess = max(((min(amt, bloodbag.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 2), 0)
 					H.blood_volume = min(H.blood_volume + min(amt, bloodbag.blood_volume), BLOOD_VOLUME_NORMAL)
