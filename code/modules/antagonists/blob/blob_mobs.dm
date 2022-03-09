@@ -212,9 +212,10 @@
 		add_overlay(blob_head_overlay)
 
 /mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, minimum_distance, rally, current_tries)
+	set waitfor = FALSE
 	var/movement_steps = 0
-	if(rally)
-		in_movement = TRUE
+	in_movement++
+	var/in_movement_current = in_movement //so we remember the position of the proccall
 
 	if(target == src.target)
 		approaching_target = TRUE
@@ -225,7 +226,7 @@
 	if(length(path_list)) //appearantly the solution of using ? infront of the index only works for assoc lists
 		goal_turf = path_list[path_list.len]
 	for(var/w in path_list)
-		if(in_movement && !rally) //incase the spore is already chasing something like a player but the rally command is called
+		if(in_movement > in_movement_current) //incase the spore is already chasing something but something else calls the proc again
 			return
 		movement_steps++
 		if(ismob(target) && w == goal_turf) //if we are infront of the mob lets not keep on pushing
@@ -233,9 +234,8 @@
 		sleep(delay)
 		step(src, get_dir(src, w))
 		if(get_turf(src) != w) //in case someone decides to push the spore or something else unexpectedly hinders it
-			in_movement = FALSE
 			if(current_tries >= 20)	//In case we get catched in a endless loop for reasons
-				return
+				break
 			else
 				return Goto(target, delay, minimum_distance, rally, current_tries + 1)
 		if(ismob(target) && !(get_turf(target) == goal_turf)) //Incase the target mob decides to move so we don't just run towards it's original location
@@ -264,18 +264,17 @@
 						break find_target
 			found_blocker = FALSE
 			for(var/w in get_path_to(src, target_new))
-				if(in_movement && !rally)
+				if(in_movement > in_movement_current)
 					return
 				movement_steps++
 				sleep(delay)
 				step(src, get_dir(src, w))
 				if(get_turf(src) != w)
-					in_movement = FALSE
 					if(current_tries >= 20)
-						return
+						break
 					else
 						return Goto(target, delay, rally, (current_tries + 1))
-	in_movement = FALSE
+	in_movement = 0 // We only null this if its an actual death end not if the proc gets canceled by another proc call of the same proc
 
 /mob/living/simple_animal/hostile/blob/blobspore/weak
 	name = "fragile blob spore"
