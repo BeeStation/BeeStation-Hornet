@@ -1,0 +1,4 @@
+author: nednaZ
+delete-after: true
+changes:
+  - bugfix: Examining an object will now show it's Force value properly.
