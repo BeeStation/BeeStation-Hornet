@@ -398,6 +398,7 @@
 		if(W.use_tool(src, user, 20, volume=50, amount=1))
 			obj_integrity = max_integrity
 			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
+			update_icon()
 		return
 
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
