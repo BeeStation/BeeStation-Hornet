@@ -16,7 +16,6 @@
 	template_width = 3
 	weight = 2
 
-
 /datum/map_template/random_room/sk_rdm002
 	name = "Maintenance Shrine"
 	room_id = "sk_rdm002_shrine"
