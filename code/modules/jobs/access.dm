@@ -380,7 +380,9 @@
 				// Medical
 				"Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist", "Paramedic", "Psychiatrist",
 				// Security
-				"Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Deputy")
+				"Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Deputy",
+				//MonkeStation Edit: Gimmick Jobs
+				"Barber", "Stage Magician", "Debtor", "Psychiatrist", "VIP", "Mailman")
 				// Each job is supposed to be in their department due to the HoP console.
 
 /proc/get_all_job_icons() //We need their HUD icons, but we don't want to give these jobs to people from the job list of HoP console.

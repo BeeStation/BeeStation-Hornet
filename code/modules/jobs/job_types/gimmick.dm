@@ -20,7 +20,7 @@
 	departments = DEPARTMENT_SERVICE
 	rpg_title = "Peasant"
 
-	allow_bureaucratic_error = FALSE
+	//MonkeStation Edit: Gimmick Overflow
 	outfit = /datum/outfit/job/gimmick
 
 /datum/outfit/job/gimmick
