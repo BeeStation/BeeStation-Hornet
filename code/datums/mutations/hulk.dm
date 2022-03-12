@@ -12,7 +12,7 @@
 	locked = TRUE
 
 /datum/mutation/hulk/on_acquiring(mob/living/carbon/human/owner)
-	if(..())
+	if(!istype(owner) || ..())
 		return
 	ADD_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_HULK)
 	ADD_TRAIT(owner, TRAIT_PUSHIMMUNE, TRAIT_HULK)

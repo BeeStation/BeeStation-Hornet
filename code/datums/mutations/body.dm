@@ -173,7 +173,7 @@
 	locked = TRUE //Species specific, keep out of actual gene pool
 
 /datum/mutation/race/on_acquiring(mob/living/carbon/human/owner)
-	if(..())
+	if(!istype(owner) || ..())
 		return
 	. = owner.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI)
 
