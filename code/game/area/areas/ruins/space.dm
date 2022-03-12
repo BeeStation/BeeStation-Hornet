@@ -371,7 +371,7 @@
 /area/ruin/space/abandoned_tele
 	name = "Abandoned Teleporter"
 	icon_state = "teleporter"
-	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
+	ambientsounds = list('sound/ambience/signal.ogg')
 
 //OLD AI SAT
 

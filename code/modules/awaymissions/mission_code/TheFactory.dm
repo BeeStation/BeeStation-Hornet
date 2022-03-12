@@ -182,7 +182,7 @@
 /area/awaymission/factory/transition
 	name = "Beyond the time"
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-	ambientsounds = list('sound/ambience/shipambience.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/antag/malf.ogg','sound/ambience/signal.ogg','sound/ambience/ambimalf.ogg')
+	ambientsounds = list('sound/ambience/shipambience.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/antag/malf.ogg','sound/ambience/signal.ogg')
 
 //ITEMS//
 
