@@ -12,7 +12,7 @@
 
 /datum/chemical_reaction/slime/proc/delete_extract(datum/reagents/holder)
 	var/obj/item/slime_extract/M = holder.my_atom
-	if(M.Uses <= 0 && !results.len) //if the slime doesn't output chemicals
+	if(M?.Uses <= 0 && !results.len) //if the slime doesn't output chemicals //monkestation edit, M may not exist!
 		qdel(M)
 
 //Grey
