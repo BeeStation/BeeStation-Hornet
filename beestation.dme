@@ -3546,6 +3546,7 @@
 #include "monkestation\code\modules\clothing\suits\labcoat.dm"
 #include "monkestation\code\modules\clothing\suits\toggles.dm"
 #include "monkestation\code\modules\clothing\under\costume.dm"
+#include "monkestation\code\modules\clothing\under\miscellaneous.dm"
 #include "monkestation\code\modules\clothing\under\jobs\plasmaman\civilian_service.dm"
 #include "monkestation\code\modules\food_and_drinks\food\snacks_meat.dm"
 #include "monkestation\code\modules\food_and_drinks\recipes\drinks_recipes.dm"

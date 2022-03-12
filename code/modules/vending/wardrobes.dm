@@ -71,6 +71,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/medical = 4,
 					/obj/item/clothing/suit/toggle/labcoat = 4,
 					/obj/item/clothing/suit/toggle/labcoat/emt = 4,
+					/obj/item/clothing/under/misc/medical_gown = 4, //monkestation edit
 					/obj/item/clothing/shoes/sneakers/white = 4,
 					/obj/item/clothing/head/soft/emt = 4,
 					/obj/item/clothing/suit/apron/surgical = 4,
