@@ -1,0 +1,5 @@
+author: WonderPsycho
+delete-after: true
+changes:
+  - rscadd: Added new random rooms
+  - code_imp: Added blank room templates
