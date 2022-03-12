@@ -1,0 +1,4 @@
+author: KoboldCommando
+delete-after: true
+changes:
+  - rscadd: Medical gowns can now be found in patient lockers and medidrobes!
