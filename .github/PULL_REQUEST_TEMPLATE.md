@@ -11,7 +11,7 @@
 -->
 
 ## Testing Photographs and Procedure
-<!-- Include any screenshots/videos of the modified code functioning successfully ideally including edge cases. -->
+<!-- Include any screenshots/videos/debugging steps of the modified code functioning successfully, ideally including edge cases. -->
 <details>
 <summary>Screenshots&Videos</summary>
 
