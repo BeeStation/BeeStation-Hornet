@@ -154,8 +154,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				max_save_slots = 8
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
-		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
-			max_save_slots += 1
 		if(load_character())
 			return
 	//we couldn't load character data so just randomize the character appearance + name
@@ -252,12 +250,18 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	chat_toggles = sanitize_integer(json["chat_toggles"], 0, 16777215, initial(chat_toggles))
 	sound_toggles = sanitize_integer(json["sound_toggles"], 0, 16777215, initial(sound_toggles))
 
+	if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
+			max_save_slots += 1
+
 	for(var/list/char in json["characters"])
 		var/datum/character/new_char = new(src)
 		new_char.deserialize_list(char)
 		characters += new_char
+		// This stuff needs to be handled in case say, their BYOND membership lapses
+		if(length(characters) > max_save_slots)
+			break
 	// Set the character variable to the currently chosen slot
-	character = characters[default_slot]
+	character = characters[min(default_slot, max_save_slots)]
 
 #define APPEARANCE_CATEGORY_COLUMN "<td valign='top' width='14%'>"
 #define MAX_MUTANT_ROWS 4
