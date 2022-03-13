@@ -333,7 +333,7 @@
 	return parts.Join("<br>")
 
 /datum/antagonist/wizard/check_mastery()
-	if(owner.spell_list.len>0)
+	if(length(owner.spell_list))
 		return
 	owner.current.client.give_award(/datum/award/achievement/antagmastery/wizard, owner.current)
 
