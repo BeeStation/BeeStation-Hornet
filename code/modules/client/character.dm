@@ -144,36 +144,87 @@
 	.["uplink_spawn_loc"] = uplink_spawn_loc
 
 /datum/character/deserialize_list(json, list/options)
-	real_name = json["real_name"]
-	be_random_name = json["be_random_name"]
-	be_random_body = json["be_random_body"]
-	gender = json["gender"]
-	age = json["age"]
-	underwear = json["underwear"]
-	underwear_color = json["underwear_color"]
-	undershirt = json["undershirt"]
-	socks = json["socks"]
-	helmet_style = json["helmet_style"]
-	backbag = json["backbag"]
-	jumpsuit_style = json["jumpsuit_style"]
-	hair_style = json["hair_style"]
-	hair_color = json["hair_color"]
-	gradient_style = json["gradient_style"]
-	gradient_color = json["gradient_color"]
-	facial_hair_style = json["facial_hair_style"]
-	facial_hair_color = json["facial_hair_color"]
-	skin_tone = json["skin_tone"]
-	eye_color = json["eye_color"]
-	features = json["features"]
-	custom_names = json["custom_names"]
-	preferred_ai_core_display = json["preferred_ai_core_display"]
-	prefered_security_department = json["prefered_security_department"]
-	all_quirks = json["all_quirks"]
-	job_preferences = json["job_preferences"]
-	joblessrole = json["joblessrole"]
-	uplink_spawn_loc = json["uplink_spawn_loc"]
 	var/species_id = json["pref_species"]
 	if(species_id)
 		var/newtype = GLOB.species_list[species_id]
 		if(newtype)
 			pref_species = new newtype
+
+	be_random_name = sanitize_integer(json["be_random_name"], FALSE, TRUE, initial(be_random_name))
+	be_random_body = sanitize_integer(json["be_random_body"], FALSE, TRUE, initial(be_random_body))
+	gender = sanitize_gender(json["gender"])
+
+	real_name = reject_bad_name(json["real_name"], pref_species.allow_numbers_in_name)
+	if(!real_name)
+		real_name = random_unique_name(gender)
+
+	age = sanitize_integer(json["age"], AGE_MIN, AGE_MAX, initial(age))
+
+	if(gender == MALE)
+		hair_style = sanitize_inlist(json["hair_style"], GLOB.hair_styles_male_list)
+		facial_hair_style = sanitize_inlist(json["facial_hair_style"], GLOB.facial_hair_styles_male_list)
+		underwear = sanitize_inlist(json["underwear"], GLOB.underwear_m)
+		undershirt = sanitize_inlist(json["undershirt"], GLOB.undershirt_m)
+	else
+		hair_style = sanitize_inlist(json["hair_style"], GLOB.hair_styles_female_list)
+		facial_hair_style = sanitize_inlist(json["facial_hair_style"], GLOB.facial_hair_styles_female_list)
+		underwear = sanitize_inlist(json["underwear"], GLOB.underwear_f)
+		undershirt = sanitize_inlist(json["undershirt"], GLOB.undershirt_f)
+
+	socks = sanitize_inlist(json["socks"], GLOB.socks_list)
+	helmet_style = sanitize_inlist(json["helmet_style"], GLOB.helmetstylelist, initial(helmet_style))
+	backbag = sanitize_inlist(json["backbag"], GLOB.backbaglist, initial(backbag))
+	jumpsuit_style = sanitize_inlist(json["jumpsuit_style"], GLOB.jumpsuitlist, initial(jumpsuit_style))
+	underwear_color = sanitize_hexcolor(json["underwear_color"], 3, 0)
+	hair_color = sanitize_hexcolor(json["hair_color"], 3, 0)
+	gradient_style = sanitize_inlist(json["gradient_style"], GLOB.hair_gradients_list, initial(gradient_style))
+	gradient_color = sanitize_hexcolor(json["gradient_color"], 3, 0)
+	facial_hair_color = sanitize_hexcolor(json["facial_hair_color"], 3, 0)
+	skin_tone = sanitize_inlist(json["skin_tone"], GLOB.skin_tones, initial(skin_tone))
+	eye_color = sanitize_hexcolor(json["eye_color"], 3, 0)
+	preferred_ai_core_display = sanitize_inlist(json["preferred_ai_core_display"], GLOB.ai_core_display_screens, initial(preferred_ai_core_display))
+	prefered_security_department = sanitize_inlist(json["prefered_security_department"], GLOB.security_depts_prefs, initial(prefered_security_department))
+	all_quirks = SANITIZE_LIST(json["all_quirks"])
+	joblessrole = sanitize_integer(json["joblessrole"], 1, 3, initial(joblessrole))
+	uplink_spawn_loc = sanitize_inlist(json["uplink_spawn_loc"], GLOB.uplink_spawn_loc_list_save, initial(uplink_spawn_loc))
+
+	job_preferences = json["job_preferences"]
+	for(var/j in job_preferences)
+		if(job_preferences[j] != JP_LOW && job_preferences[j] != JP_MEDIUM && job_preferences[j] != JP_HIGH)
+			job_preferences -= j
+
+	custom_names = json["custom_names"]
+	for(var/custom_name_id in GLOB.preferences_custom_names)
+		var/namedata = GLOB.preferences_custom_names[custom_name_id]
+		custom_names[custom_name_id] = reject_bad_name(custom_names[custom_name_id],namedata["allow_numbers"])
+		if(!custom_names[custom_name_id])
+			custom_names[custom_name_id] = get_default_name(custom_name_id)
+
+	// Mutant features crap
+	features = json["features"]
+	features["body_size"] = sanitize_inlist(features["body_size"], GLOB.body_sizes, "Normal")
+	if(!features["mcolor"] || features["mcolor"] == "000")
+		features["mcolor"] = pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F") // don't worry these get formatted on the next line
+	features["mcolor"]	= sanitize_hexcolor(features["mcolor"], 3, 0, "FFF")
+	if(!features["ethcolor"] || features["ethcolor"] == "000000")
+		features["ethcolor"] = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]
+	features["ethcolor"]	= sanitize_hexcolor(features["ethcolor"], 6, 0, "9c3030")
+	features["tail_lizard"]	= sanitize_inlist(features["tail_lizard"], GLOB.tails_list_lizard, "Smooth")
+	features["tail_human"] 	= sanitize_inlist(features["tail_human"], GLOB.tails_list_human, "None")
+	features["snout"] = sanitize_inlist(features["snout"], GLOB.snouts_list, "Round")
+	features["horns"] = sanitize_inlist(features["horns"], GLOB.horns_list, "None")
+	features["ears"] = sanitize_inlist(features["ears"], GLOB.ears_list, "None")
+	features["frills"] = sanitize_inlist(features["frills"], GLOB.frills_list, "None")
+	features["spines"] = sanitize_inlist(features["spines"], GLOB.spines_list, "None")
+	features["body_markings"] = sanitize_inlist(features["body_markings"], GLOB.body_markings_list, "None")
+	features["feature_lizard_legs"]	= sanitize_inlist(features["legs"], GLOB.legs_list, "Normal Legs")
+	features["moth_wings"] = sanitize_inlist(features["moth_wings"], GLOB.moth_wings_list, "Plain")
+	features["ipc_screen"] = sanitize_inlist(features["ipc_screen"], GLOB.ipc_screens_list, "Blue")
+	features["ipc_antenna"]	= sanitize_inlist(features["ipc_antenna"], GLOB.ipc_antennas_list, "None")
+	features["ipc_chassis"]	= sanitize_inlist(features["ipc_chassis"], GLOB.ipc_chassis_list, "Morpheus Cyberkinetics(Greyscale)")
+	features["insect_type"]	= sanitize_inlist(features["insect_type"], GLOB.insect_type_list, "Common Fly")
+
+	//Validate species forced mutant parts
+	for(var/forced_part in pref_species.forced_features)
+		var/forced_type = pref_species.forced_features[forced_part]
+		features[forced_part] = forced_type

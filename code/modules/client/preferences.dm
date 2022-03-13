@@ -212,42 +212,48 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	.["characters"] = serial_characters
 
 /datum/preferences/deserialize_list(json, list/options)
-	// Main preferences
-	lastchangelog = json["lastchangelog"]
-	ooccolor = json["ooccolor"]
-	asaycolor = json["asaycolor"]
-	tip_delay = json["tip_delay"]
-	default_slot = json["default_slot"]
-	be_special = json["be_special"]
-	UI_style = json["UI_style"]
-	outline_color = json["outline_color"]
-	see_balloon_alerts = json["see_balloon_alerts"]
-	ghost_form = json["ghost_form"]
-	ghost_orbit = json["ghost_orbit"]
-	ghost_accs = json["ghost_accs"]
-	ghost_others = json["ghost_others"]
-	preferred_map = json["preferred_map"]
-	pda_style = json["pda_style"]
-	pda_color = json["pda_color"]
-	key_bindings = json["key_bindings"]
-	pai_name = json["pai_name"]
-	pai_description = json["pai_description"]
-	pai_role = json["pai_role"]
-	pai_comments = json["pai_comments"]
-	pixel_size = json["pixel_size"]
-	scaling_method = json["scaling_method"]
-	clientfps = json["clientfps"]
-	ignoring = json["ignoring"]
-	purchased_gear = json["purchased_gear"]
-	equipped_gear = json["equipped_gear"]
-	parallax = json["parallax"]
-	toggles = json["toggles"]
-	toggles_2 = json["toggles_2"]
-	chat_toggles = json["chat_toggles"]
-	sound_toggles = json["sound_toggles"]
+	// Main preferences, with sanititization
+	/*
+		TODO: Improve sanititization for the following:
+		see_balloon_alerts, pai_description, pai_role, pai_comments (need filtering), preferred_map
+	*/
+	lastchangelog = sanitize_text(json["lastchangelog"], initial(lastchangelog))
+	ooccolor = sanitize_ooccolor(sanitize_hexcolor(json["ooccolor"], 6, TRUE, initial(ooccolor)))
+	asaycolor = sanitize_ooccolor(sanitize_hexcolor(json["asaycolor"], 6, TRUE, initial(asaycolor)))
+	tip_delay = sanitize_integer(json["tip_delay"], 1, 10000, initial(tip_delay))
+	default_slot = sanitize_integer(json["default_slot"], 1, max_save_slots, initial(default_slot))
+	be_special = SANITIZE_LIST(json["be_special"])
+	UI_style = sanitize_inlist(json["UI_style"], GLOB.available_ui_styles, GLOB.available_ui_styles[1])
+	outline_color = sanitize_ooccolor(sanitize_hexcolor(json["outline_color"], 6, TRUE, initial(outline_color)))
+	see_balloon_alerts = sanitize_text(json["see_balloon_alerts"], initial(see_balloon_alerts))
+	ghost_form = sanitize_inlist(json["ghost_form"], GLOB.ghost_forms, initial(ghost_form))
+	ghost_orbit = sanitize_inlist(json["ghost_orbit"], GLOB.ghost_orbits, initial(ghost_orbit))
+	ghost_accs = sanitize_inlist(json["ghost_accs"], GLOB.ghost_accs_options, GHOST_ACCS_DEFAULT_OPTION)
+	ghost_others = sanitize_inlist(json["ghost_others"], GLOB.ghost_others_options, GHOST_OTHERS_DEFAULT_OPTION)
+	preferred_map = sanitize_text(json["preferred_map"])
+	pda_style = sanitize_inlist(json["pda_style"], GLOB.pda_styles, initial(pda_style))
+	pda_color = sanitize_hexcolor(json["pda_color"], 6, TRUE, initial(pda_color))
+	key_bindings = sanitize_islist(json["key_bindings"], deepCopyList(GLOB.keybinding_list_by_key))
+	if (!length(key_bindings)) // check if it's empty, as they are gonna have no binds otherwise
+		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+	pai_name = reject_bad_name(sanitize_text(json["pai_name"], null), TRUE)
+	pai_description = sanitize_text(json["pai_description"], null)
+	pai_role = sanitize_text(json["pai_role"], null)
+	pai_comments = sanitize_text(json["pai_comments"], null)
+	pixel_size = sanitize_integer(json["pixel_size"], PIXEL_SCALING_AUTO, PIXEL_SCALING_3X, initial(pixel_size))
+	scaling_method = sanitize_text(json["scaling_method"], initial(scaling_method))
+	clientfps = sanitize_integer(json["clientfps"], 0, 1000, FALSE)
+	ignoring = sanitize_islist(json["ignoring"], initial(ignoring))
+	purchased_gear = sanitize_islist(json["purchased_gear"], initial(purchased_gear))
+	equipped_gear = sanitize_islist(json["equipped_gear"], initial(equipped_gear))
+	parallax = sanitize_integer(json["parallax"], PARALLAX_INSANE, PARALLAX_DISABLE, null)
+	toggles = sanitize_integer(json["toggles"], 0, TOGGLES_MAX, initial(toggles))
+	toggles_2 = sanitize_integer(json["toggles_2"], 0, TOGGLES_2_MAX, initial(toggles_2))
+	chat_toggles = sanitize_integer(json["chat_toggles"], 0, 16777215, initial(chat_toggles))
+	sound_toggles = sanitize_integer(json["sound_toggles"], 0, 16777215, initial(sound_toggles))
 
 	for(var/list/char in json["characters"])
-		var/datum/character/new_char = new
+		var/datum/character/new_char = new(src)
 		new_char.deserialize_list(char)
 		characters += new_char
 	// Set the character variable to the currently chosen slot
@@ -2144,24 +2150,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	H.dna.update_body_size()
 
-/datum/preferences/proc/get_default_name(name_id)
-	switch(name_id)
-		if("human")
-			return random_unique_name()
-		if("ai")
-			return pick(GLOB.ai_names)
-		if("cyborg")
-			return DEFAULT_CYBORG_NAME
-		if("clown")
-			return pick(GLOB.clown_names)
-		if("mime")
-			return pick(GLOB.mime_names)
-		if("religion")
-			return DEFAULT_RELIGION
-		if("deity")
-			return DEFAULT_DEITY
-	return random_unique_name()
-
 /datum/preferences/proc/ask_for_custom_name(mob/user,name_id)
 	var/namedata = GLOB.preferences_custom_names[name_id]
 	if(!namedata)
@@ -2200,3 +2188,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			equipped_gear -= RG.id
 			purchased_gear -= RG.id
 		save_preferences()
+
+///Current version of player saves
+#undef PREFERENCES_VERSION
+
+///Player saves with a version below this value will be reset
+#undef PREFERENCES_VERSION_MIN
