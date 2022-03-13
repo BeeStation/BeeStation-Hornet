@@ -38,9 +38,9 @@
 	. = ..()
 
 /datum/antagonist/space_dragon/check_mastery()
+	if(owner.current.stat == DEAD)
+		return
 	for(var/datum/mind/M in SSjob.get_all_heads())
 		if(M.current.stat != DEAD)
 			return
-	if(owner.current.stat == DEAD)
-		return
 	owner.current.client.give_award(/datum/award/achievement/antagmastery/space_dragon, owner.current)

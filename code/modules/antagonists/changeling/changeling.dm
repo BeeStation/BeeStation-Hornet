@@ -34,6 +34,7 @@
 	var/mimicing = ""
 	var/canrespec = FALSE//set to TRUE in absorb.dm
 	var/changeling_speak = 0
+	var/purchasedanypowers = FALSE
 	var/datum/dna/chosen_dna
 	var/datum/action/changeling/sting/chosen_sting
 	var/datum/cellular_emporium/cellular_emporium
@@ -587,5 +588,5 @@
 	return ..() + "(Xenobio)"
 
 /datum/antagonist/changeling/check_mastery()
-	if(purchasedpowers == list())
+	if(!purchasedanypowers)
 		owner.current.client?.give_award(/datum/award/achievement/antagmastery/changeling, owner.current)

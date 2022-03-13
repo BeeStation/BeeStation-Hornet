@@ -33,4 +33,6 @@
 		for(var/datum/objective/O in A.objectives)
 			if(!O.check_completion())
 				return
+	else
+		return
 	owner.current.client?.give_award(/datum/award/achievement/antagmastery/guardian, owner.current)
