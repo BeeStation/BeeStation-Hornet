@@ -170,6 +170,6 @@
 	set_antag_hud(ninja, null)
 
 /datum/antagonist/ninja/check_mastery()
-	if(owner.current.z != 1)
+	if(!is_centcom_level(owner.current.z))
 		return
 	owner.current.client.give_award(/datum/award/achievement/antagmastery/ninja, owner.current)

@@ -108,7 +108,7 @@
 
 /datum/antagonist/incursion/check_mastery()
 	for(var/datum/mind/M in team.members)
-		if(M.current.stat == DEAD || M.current.z != 1)
+		if(M.current.stat == DEAD || !is_centcom_level(M.current.z))
 			return
 	owner.current.client?.give_award(/datum/award/achievement/antagmastery/incursion, owner.current)
 
