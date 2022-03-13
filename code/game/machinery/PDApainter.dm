@@ -67,8 +67,6 @@
 		"Virologist" = "viro",
 		"Chemist" = "chemist",
 		"Geneticist" = "gene",
-		"Golden" = "gold",
-		"Silver" = "silver",
 		"Brig Physician" = "brigphys",
 		"Deputy" = "deputy",
 		"Roboticist" = "roboticist",
