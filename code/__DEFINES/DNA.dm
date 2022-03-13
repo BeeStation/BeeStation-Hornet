@@ -51,6 +51,10 @@
 #define CRYOKINESIS /datum/mutation/human/cryokinesis
 #define CLUWNEMUT   /datum/mutation/human/cluwne
 #define WAXSALIVA   /datum/mutation/human/wax_saliva
+#define STRONGWINGS /datum/mutation/human/strongwings
+#define CATCLAWS    /datum/mutation/human/catclaws
+#define OVERLOAD    /datum/mutation/human/overload
+#define ACIDOOZE    /datum/mutation/human/acidooze
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"

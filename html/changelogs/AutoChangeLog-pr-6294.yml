@@ -1,5 +1,0 @@
-author: Pirill, PestoVerde322
-delete-after: true
-changes:
-  - imageadd: New sprites and inhands for briefcases, lockboxes and medalboxes.
-  - refactor: Minor code changes for lockbox sprites and pathing.

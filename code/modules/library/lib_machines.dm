@@ -334,6 +334,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			dat += "<h3>NTGanda(tm) Universal Printing Module</h3>"
 			dat += "What would you like to print?<BR>"
 			dat += "<A href='?src=[REF(src)];printbible=1'>\[Bible\]</A><BR>"
+			dat += "<A href='?src=[REF(src)];printspacelaw=1'>\[Space Law\]</A><BR>"
 			dat += "<A href='?src=[REF(src)];printposter=1'>\[Poster\]</A><BR>"
 			dat += "<A href='?src=[REF(src)];switchscreen=0'>(Return to main menu)</A><BR>"
 		if(8)
@@ -525,6 +526,12 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 				B.item_state = GLOB.bible_item_state
 				B.name = GLOB.bible_name
 				B.deity_name = GLOB.deity
+			cooldown = world.time + PRINTER_COOLDOWN
+		else
+			say("Printer currently unavailable, please wait a moment.")
+	if(href_list["printspacelaw"])
+		if(cooldown < world.time)
+			new /obj/item/book/manual/wiki/security_space_law(src.loc)
 			cooldown = world.time + PRINTER_COOLDOWN
 		else
 			say("Printer currently unavailable, please wait a moment.")

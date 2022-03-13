@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - code_imp: Overlay light sources can be set to not count towards get_lumcount calculations
-  - code_imp: Lasers and sparks no longer count towards get_lumcount calculations.
-  - balance: Nightmares will now dodge lasers

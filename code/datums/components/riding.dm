@@ -361,8 +361,8 @@
 	var/selfdeleting = FALSE
 
 /obj/item/riding_offhand/dropped()
-	..()
 	selfdeleting = TRUE
+	..()
 
 /obj/item/riding_offhand/equipped()
 	if(loc != rider && loc != parent)

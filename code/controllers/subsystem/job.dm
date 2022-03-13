@@ -106,7 +106,7 @@ SUBSYSTEM_DEF(job)
 		var/datum/job/job = GetJob(rank)
 		if(!job)
 			return FALSE
-		if(is_banned_from(player.ckey, rank) || QDELETED(player))
+		if(QDELETED(player) || is_banned_from(player.ckey, rank))
 			return FALSE
 		if(!job.player_old_enough(player.client))
 			return FALSE
@@ -136,7 +136,7 @@ SUBSYSTEM_DEF(job)
 	JobDebug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
 	for(var/mob/dead/new_player/player in unassigned)
-		if(is_banned_from(player.ckey, job.title) || QDELETED(player))
+		if(QDELETED(player) || is_banned_from(player.ckey, job.title))
 			JobDebug("FOC isbanned failed, Player: [player]")
 			continue
 		if(!job.player_old_enough(player.client))
@@ -169,10 +169,11 @@ SUBSYSTEM_DEF(job)
 		if(job.title in GLOB.command_positions) //If you want a command position, select it!
 			continue
 
-		if(is_banned_from(player.ckey, job.title) || QDELETED(player))
-			if(QDELETED(player))
-				JobDebug("GRJ isbanned failed, Player deleted")
-				break
+		if(QDELETED(player))
+			JobDebug("GRJ isbanned failed, Player deleted")
+			break
+
+		if(is_banned_from(player.ckey, job.title))
 			JobDebug("GRJ isbanned failed, Player: [player], Job: [job.title]")
 			continue
 
