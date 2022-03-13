@@ -134,6 +134,16 @@
 		else
 			H.equipOutfit(/datum/outfit/abductor/scientist)
 
+/datum/antagonist/abductor/check_mastery()
+	for(var/obj/machinery/abductor/experiment/E in GLOB.machines)
+		if(!istype(team, /datum/team/abductor_team))
+			return FALSE
+		var/datum/team/abductor_team/T = team
+		if(E.team_number == T.team_number && E.points > 12)
+			owner.current.client?.give_award(/datum/award/achievement/antagmastery/abductor, owner.current)
+			return TRUE
+	return FALSE
+
 /datum/team/abductor_team
 	member_name = "abductor"
 	var/team_number

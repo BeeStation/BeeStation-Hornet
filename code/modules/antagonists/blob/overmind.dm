@@ -42,6 +42,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	var/announcement_size = 75
 	var/announcement_time
 	var/has_announced = FALSE
+	var/has_rerolled = FALSE
 
 	/// The list of strains the blob can reroll for.
 	var/list/strain_choices
@@ -128,6 +129,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	if(!has_announced && (world.time >= announcement_time || blobs_legit.len >= announcement_size))
 		priority_announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", ANNOUNCER_OUTBREAK5)
 		has_announced = TRUE
+
 /mob/camera/blob/proc/victory()
 	sound_to_playing_players('sound/machines/alarm.ogg')
 	sleep(100)

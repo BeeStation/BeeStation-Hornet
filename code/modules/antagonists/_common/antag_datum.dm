@@ -264,6 +264,9 @@ GLOBAL_LIST(admin_antag_list)
 	var/datum/objective/hijack/H = locate() in objectives
 	return H?.hijack_speed_override || hijack_speed
 
+/datum/antagonist/proc/check_mastery() //Will only fire if they greentext
+	return
+
 //This one is created by admin tools for custom objectives
 /datum/antagonist/custom
 	antagpanel_category = "Custom"

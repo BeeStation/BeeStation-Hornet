@@ -20,6 +20,29 @@
 #define MEDAL_CLOWNCARKING            "Round and Full"
 #define MEDAL_THANKSALOT              "The Best Driver"
 
+
+//Antag Mastery Medals
+#define MASTERY_ABDUCTOR 			"Abductor Mastery"
+#define MASTERY_BLOB 				"Blob Mastery"
+#define MASTERY_BROTHER 			"Blood Brother Mastery"
+#define MASTERY_CHANGELING 			"Changeling Mastery"
+#define MASTERY_CLOCKCULT 			"Clock Cult Mastery"
+#define MASTERY_CULT 				"Cult Mastery"
+#define MASTERY_HERETIC 			"Heretic Mastery"
+#define MASTERY_GUARDIAN 			"Guardian Mastery"
+#define MASTERY_INCURSION 			"Incursion Mastery"
+#define MASTERY_NINJA 				"Ninja Mastery"
+#define MASTERY_NUKEOP 				"Nuke Op Mastery"
+#define MASTERY_PIRATE 				"Pirate Mastery"
+#define MASTERY_REVENANT 			"Revenant Mastery"
+#define MASTERY_REVOLUTION 			"Revolution Mastery"
+#define MASTERY_DRAGON 				"Space Dragon Mastery"
+#define MASTERY_TRAITOR 			"Traitor Mastery"
+#define MASTERY_LONEOP 				"Lone Op Mastery"
+#define MASTERY_WIZARD 				"Wizard Mastery"
+#define MASTERY_XENOMORPH 			"Xenomorph Mastery"
+#define MASTERY_ALLANTAGS			"Syndie Supreme"
+
 //Boss medals
 
 // Medal hub IDs for boss medals (Pre-fixes)

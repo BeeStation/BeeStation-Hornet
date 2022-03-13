@@ -384,6 +384,7 @@
 		var/datum/blobstrain/other_strain = _other_strain
 		if (initial(other_strain.name) == strain_result)
 			set_strain(other_strain)
+			has_rerolled = TRUE
 
 			if (free_strain_rerolls)
 				free_strain_rerolls -= 1

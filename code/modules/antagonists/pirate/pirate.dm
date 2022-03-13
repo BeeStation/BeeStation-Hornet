@@ -37,6 +37,12 @@
 		objectives |= crew.objectives
 	. = ..()
 
+/datum/antagonist/pirate/check_mastery()
+	for(var/obj/machinery/computer/piratepad_control/P in GLOB.machines)
+		if(P.points >= 200000 && owner.current.stat != DEAD)
+			owner.current.client?.give_award(/datum/award/achievement/antagmastery/pirate, owner.current)
+			return
+
 /datum/team/pirate
 	name = "Pirate crew"
 

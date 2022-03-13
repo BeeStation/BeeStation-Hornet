@@ -46,6 +46,13 @@
 			pop_action = new
 		pop_action.Grant(owner.current)
 
+/datum/antagonist/blob/check_mastery()
+	if(isovermind(owner.current))
+		var/mob/camera/blob/overmind = owner.current
+		if(!overmind.has_rerolled)
+			owner.current.client?.give_award(/datum/award/achievement/antagmastery/blob, owner.current)
+
+
 /datum/objective/blob_takeover
 	explanation_text = "Reach critical mass!"
 

@@ -119,6 +119,8 @@
 	for(var/X in trait_list)
 		ADD_TRAIT(user,X,MAGIC_TRAIT)
 	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Fear the decay, for the Rustbringer, [user.real_name] has ascended! None shall escape the corrosion! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", ANNOUNCER_SPANOMALIES)
+	if(world.time <= 1 HOURS)
+		H.client?.give_award(/datum/award/achievement/antagmastery/heretic, H)
 	new /datum/rust_spread(loc)
 	return ..()
 

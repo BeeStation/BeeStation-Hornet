@@ -286,6 +286,15 @@
 		S.Insert(H, special = FALSE, drop_if_replaced = FALSE)
 		to_chat(H, "Your eyes have been implanted with a cybernetic security HUD which will help you keep track of who is mindshield-implanted, and therefore unable to be recruited.")
 
+/datum/antagonist/rev/head/check_mastery()
+	for(var/datum/mind/M in SSjob.get_all_heads())
+		if(M.current.stat == DEAD)
+			return
+	for(var/datum/mind/M in rev_team.members)
+		if(M.has_antag_datum(/datum/antagonist/rev/head) && M.current.stat == DEAD)
+			return
+	owner.current.client?.give_award(/datum/award/achievement/antagmastery/revolution, owner.current)
+
 /// "Enemy of the Revolutionary", given to heads and security when the revolution wins
 /datum/antagonist/revolution_enemy
 	name = "Enemy of the Revolution"

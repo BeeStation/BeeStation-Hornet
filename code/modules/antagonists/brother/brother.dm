@@ -96,6 +96,12 @@
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] and [key_name_admin(bro)] into blood brothers.")
 	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(bro)] into blood brothers.")
 
+/datum/antagonist/brother/check_mastery()
+	for(var/datum/mind/M in team.members)
+		if(M.current.stat == DEAD || M.current.z != 1)
+			return
+	owner.current.client?.give_award(/datum/award/achievement/antagmastery/brother, owner.current)
+
 /datum/team/brother_team
 	name = "brotherhood"
 	member_name = "blood brother"

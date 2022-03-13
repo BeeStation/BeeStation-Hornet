@@ -332,6 +332,11 @@
 
 	return parts.Join("<br>")
 
+/datum/antagonist/wizard/check_mastery()
+	if(owner.spell_list.len>0)
+		return
+	owner.current.client.give_award(/datum/award/achievement/antagmastery/wizard, owner.current)
+
 //Wizard with apprentices report
 /datum/team/wizard/roundend_report()
 	var/list/parts = list()

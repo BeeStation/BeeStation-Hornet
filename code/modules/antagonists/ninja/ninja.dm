@@ -168,3 +168,8 @@
 	var/datum/atom_hud/antag/ninjahud = GLOB.huds[ANTAG_HUD_NINJA]
 	ninjahud.leave_hud(ninja)
 	set_antag_hud(ninja, null)
+
+/datum/antagonist/ninja/check_mastery()
+	if(owner.current.z != 1)
+		return
+	owner.current.client.give_award(/datum/award/achievement/antagmastery/ninja, owner.current)

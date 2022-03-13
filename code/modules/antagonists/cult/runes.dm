@@ -508,6 +508,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 		gateway.open_gateway()
 	else
 		new /obj/singularity/narsie/large/cult(T) //Causes Nar'Sie to spawn even if the rune has been removed
+		if(world.time <= 1 HOURS)
+			var/datum/antagonist/cult/C = user.mind.has_antag_datum(/datum/antagonist/cult)
+			for(var/mob/M in C.cult_team.members)
+				M.client?.give_award(/datum/award/achievement/antagmastery/cult, M)
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))

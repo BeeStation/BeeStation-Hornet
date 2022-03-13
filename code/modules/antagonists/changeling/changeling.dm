@@ -585,3 +585,7 @@
 
 /datum/antagonist/changeling/xenobio/antag_listing_name()
 	return ..() + "(Xenobio)"
+
+/datum/antagonist/changeling/check_mastery()
+	if(purchasedpowers == list())
+		owner.current.client?.give_award(/datum/award/achievement/antagmastery/changeling, owner.current)

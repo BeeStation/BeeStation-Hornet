@@ -33,6 +33,10 @@
 /datum/antagonist/xeno/get_team()
 	return xeno_team
 
+/datum/antagonist/xeno/check_mastery()
+	if(SSshuttle.emergency.is_hijacked_by_xenos() && owner.current.stat != DEAD && SSshuttle.emergency.shuttle_areas[get_area(owner.current)])
+		owner.current.client.give_award(/datum/award/achievement/antagmastery/xeno, owner.current)
+
 //XENO
 /mob/living/carbon/alien/mind_initialize()
 	..()

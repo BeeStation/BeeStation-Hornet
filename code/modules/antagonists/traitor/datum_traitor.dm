@@ -425,3 +425,8 @@
 
 /datum/antagonist/traitor/is_gamemode_hero()
 	return SSticker.mode.name == "traitor"
+
+/datum/antagonist/traitor/check_mastery()
+	var/datum/uplink_purchase_log/H = GLOB.uplink_purchase_logs_by_key[owner.key]
+	if(H.total_spent == 0)
+		owner.current.client?.give_award(/datum/award/achievement/antagmastery/traitor, owner.current)

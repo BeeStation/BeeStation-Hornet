@@ -213,6 +213,8 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
+	if(world.time <= 1 HOURS)
+		H.client?.give_award(/datum/award/achievement/antagmastery/heretic, H)
 	H.physiology.brute_mod *= 0.5
 	H.physiology.burn_mod *= 0.5
 	var/datum/antagonist/heretic/heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)

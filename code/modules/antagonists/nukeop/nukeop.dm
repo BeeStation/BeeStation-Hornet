@@ -233,6 +233,12 @@
 
 	return capitalize(newname)
 
+/datum/antagonist/nukeop/check_mastery()
+	for(var/datum/mind/M in nuke_team.members)
+		if(M.current.stat == DEAD || M.current.z == 2)
+			return
+	owner.current.client?.give_award(/datum/award/achievement/antagmastery/nukeop, owner.current)
+
 /datum/antagonist/nukeop/lone
 	name = "Lone Operative"
 	always_new_team = TRUE
@@ -252,6 +258,11 @@
 		else
 			stack_trace("Station self-destruct not found during lone op team creation.")
 			nuke_team.memorized_code = null
+
+/datum/antagonist/nukeop/lone/check_mastery()
+	var/datum/uplink_purchase_log/H = GLOB.uplink_purchase_logs_by_key[owner.key]
+	if(H.total_spent == 0)
+		owner.current.client?.give_award(/datum/award/achievement/antagmastery/loneop, owner.current)
 
 /datum/antagonist/nukeop/reinforcement
 	send_to_spawnpoint = FALSE

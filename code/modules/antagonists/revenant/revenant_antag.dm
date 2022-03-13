@@ -22,3 +22,9 @@
 /datum/antagonist/revenant/on_gain()
 	forge_objectives()
 	. = ..()
+
+/datum/antagonist/revenant/check_mastery()
+	if(istype(owner.current, /mob/living/simple_animal/revenant))
+		var/mob/living/simple_animal/revenant/R = owner.current
+		if(R.essence_accumulated >= 1000)
+			R.client?.give_award(/datum/award/achievement/antagmastery/revenant, R)

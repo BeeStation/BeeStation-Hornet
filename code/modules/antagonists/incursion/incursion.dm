@@ -106,6 +106,12 @@
 	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
 	syndio.implant(owner.current)
 
+/datum/antagonist/incursion/check_mastery()
+	for(var/datum/mind/M in team.members)
+		if(M.current.stat == DEAD || M.current.z != 1)
+			return
+	owner.current.client?.give_award(/datum/award/achievement/antagmastery/incursion, owner.current)
+
 /datum/team/incursion
 	name = "syndicate incursion force"
 	member_name = "incursion member"

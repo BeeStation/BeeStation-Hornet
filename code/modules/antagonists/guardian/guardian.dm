@@ -26,3 +26,11 @@
 /datum/antagonist/guardian/antag_panel_data()
 	var/mob/living/simple_animal/hostile/guardian/G = owner.current
 	return "<B>Summoner: [G.summoner.name]/([ckey(G.summoner.key)])</B>"
+
+/datum/antagonist/guardian/check_mastery()
+	var/datum/antagonist/A = summoner.has_antag_datum(/datum/antagonist, TRUE)
+	if(A.objectives.len)
+		for(var/datum/objective/O in A.objectives)
+			if(!O.check_completion())
+				return
+	owner.current.client?.give_award(/datum/award/achievement/antagmastery/guardian, owner.current)

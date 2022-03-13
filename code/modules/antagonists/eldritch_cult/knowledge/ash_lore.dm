@@ -123,6 +123,8 @@
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/fire_cascade/big)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/fire_sworn)
 	var/mob/living/carbon/human/H = user
+	if(world.time <= 1 HOURS)
+		H.client?.give_award(/datum/award/achievement/antagmastery/heretic, H)
 	H.physiology.brute_mod *= 0.5
 	H.physiology.burn_mod *= 0.5
 	for(var/X in trait_list)

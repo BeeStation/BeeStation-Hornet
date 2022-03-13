@@ -147,6 +147,7 @@
 					var/client/C = GLOB.directory[ckey(A.owner.key)]
 					if (C)
 						greentexters |= C
+					A.check_mastery()
 
 	for (var/client/C in greentexters)
 		C.process_greentext()
