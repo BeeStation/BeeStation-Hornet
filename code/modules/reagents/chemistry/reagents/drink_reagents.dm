@@ -434,7 +434,7 @@
 	M.drowsyness = 0
 	M.AdjustSleeping(-40, FALSE)
 	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
-	M.radiation += min(M.radiation, 4)
+	M.radiation += 4
 	..()
 	. = 1
 
