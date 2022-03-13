@@ -251,7 +251,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	sound_toggles = sanitize_integer(json["sound_toggles"], 0, 16777215, initial(sound_toggles))
 
 	if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
-			max_save_slots += 1
+		max_save_slots += 1
 
 	for(var/list/char in json["characters"])
 		var/datum/character/new_char = new(src)
