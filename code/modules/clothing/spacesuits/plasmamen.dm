@@ -57,6 +57,7 @@
 	var/smile = FALSE
 	var/smile_color = "#FF0000"
 	var/smile_state = "envirohelm_smile"
+	var/visor_state = "enviro_visor"
 	var/obj/item/clothing/head/attached_hat
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen/plasmaman)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
@@ -95,10 +96,11 @@
 		to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
 		helmet_on = FALSE
 	playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-	icon_state = "[initial(icon_state)][up ? "":"-weld"]"
 	update_icon()
+	update_button_icons(user)
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon()
+	update_overlays()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_head()
@@ -116,6 +118,7 @@
 				smile_color = CR.paint_color
 				to_chat(user, "You draw a smiley on the helmet visor.")
 				update_icon()
+				update_button_icons(user)
 		return
 	if(istype(item, /obj/item/clothing/head) && !istype(item, /obj/item/clothing/head/helmet/space/plasmaman)) // i know someone is gonna do it after i thought about it
 		var/obj/item/clothing/head/hat = item
@@ -125,7 +128,17 @@
 		attached_hat = hat
 		hat.forceMove(src)
 		update_icon()
+		update_button_icons(user)
 		add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
+
+/obj/item/clothing/head/helmet/space/plasmaman/proc/update_button_icons(mob/user)
+	if(!user)
+		return
+	
+	//The icon's may look differently due to overlays being applied asynchronously
+	for(var/X in actions)
+		var/datum/action/A=X
+		A.UpdateButtonIcon()
 
 /obj/item/clothing/head/helmet/space/plasmaman/worn_overlays(mutable_appearance/standing, isinhands)
 	. = ..()
@@ -134,8 +147,11 @@
 			var/mutable_appearance/M = mutable_appearance('icons/mob/clothing/head.dmi', smile_state)
 			M.color = smile_color
 			. += M
+		if(helmet_on)
+			. += mutable_appearance('icons/mob/clothing/head.dmi', visor_state + "_light")
+		if(!up)
+			. += mutable_appearance('icons/mob/clothing/head.dmi', visor_state + "_weld")
 		if(attached_hat)
-			// replace icon_state with worn_icon_state when that comes cause for some reason this associated proc still requires you to insert the object's icon state as an argument 🍖
 			. += attached_hat.build_worn_icon(attached_hat.icon_state, default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head.dmi')
 
 /obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat()
@@ -159,6 +175,7 @@
 	if(smile)
 		smile = FALSE
 		cut_overlays()
+		update_icon()
 
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
 	helmet_on = !helmet_on
@@ -173,12 +190,19 @@
 	else
 		set_light_on(FALSE)
 
-	icon_state = "[initial(icon_state)][helmet_on ? "-light":""]"
+	update_icon()
 	user.update_inv_head() //So the mob overlay updates
+	update_button_icons(user)
+	
+/obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
+	cut_overlays()
 
-	for(var/X in actions)
-		var/datum/action/A=X
-		A.UpdateButtonIcon()
+	if(!up)
+		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_weld"))
+	else if(helmet_on)
+		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_light"))
+	
+	return ..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/security
 	name = "security envirosuit helmet"
@@ -318,6 +342,7 @@
 	greyscale_config_worn = null
 	icon_state = "mime_envirohelm"
 	item_state = "mime_envirohelm"
+	visor_state = "mime_visor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/honk
 	name = "clown's envirosuit helmet"
@@ -330,6 +355,7 @@
 	icon_state = "honk_envirohelm"
 	item_state = "honk_envirohelm"
 	smile_state = "clown_smile"
+	visor_state = "clown_visor"
 
 //command helms
 /obj/item/clothing/head/helmet/space/plasmaman/command
@@ -387,6 +413,7 @@
 	greyscale_config_inhand_left = /datum/greyscale_config/plasmaman_helmet_mark2_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/plasmaman_helmet_mark2_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/plasmaman_helmet_mark2_worn
+	visor_state = "mark2_visor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/security
 	name = "security Mk.II envirosuit helmet"
@@ -540,6 +567,30 @@
 	desc = "A new plasmaman envirohelmet designed for the bartenders, with a top-hat affixed to the top."
 	greyscale_colors = "#E6E6E6#A349A4"
 
+/obj/item/clothing/head/helmet/space/plasmaman/mark2/mime
+	name = "mime's envirosuit helmet"
+	desc = "A new plasmaman envirohelmet designed for the mimes."
+	greyscale_colors = null
+	greyscale_config = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_config_worn = null
+	icon_state = "mime_mark2"
+	item_state = "mime_mark2"
+	visor_state = "mime_visor_mk2"
+
+/obj/item/clothing/head/helmet/space/plasmaman/mark2/clown
+	name = "clown's envirosuit helmet"
+	desc = "A new plasmaman envirohelmet designed for the clowns."
+	greyscale_colors = null
+	greyscale_config = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_config_worn = null
+	icon_state = "clown_mark2"
+	item_state = "clown_mark2"
+	visor_state = "clown_visor_mk2"
+
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/bartender/Initialize(mapload)
 	. = ..()
 	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
@@ -557,6 +608,7 @@
 	greyscale_config_inhand_left = /datum/greyscale_config/plasmaman_helmet_protective_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/plasmaman_helmet_protective_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/plasmaman_helmet_protective_worn
+	visor_state = "protective_visor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/protective/security
 	name = "security protective envirosuit helmet"

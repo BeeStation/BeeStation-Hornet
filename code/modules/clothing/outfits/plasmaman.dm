@@ -13,8 +13,8 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/bartender
 	uniform = /obj/item/clothing/under/plasmaman/tux
 
-	helmet_variants = list(HELMET_MK2 = null,
-							HELMET_PROTECTIVE = null)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/bartender,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/bartender)
 
 /datum/outfit/plasmaman/vip
 	name = "VIP Plasmaman"
@@ -289,7 +289,7 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/mime
 	uniform = /obj/item/clothing/under/plasmaman/mime
 
-	helmet_variants = list(HELMET_MK2 = null,
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/mime,
 							HELMET_PROTECTIVE = null)
 
 /datum/outfit/plasmaman/honk
@@ -298,7 +298,7 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/honk
 	uniform = /obj/item/clothing/under/plasmaman/honk
 
-	helmet_variants = list(HELMET_MK2 = null,
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/clown,
 							HELMET_PROTECTIVE = null)
 
 /datum/outfit/plasmaman/official
