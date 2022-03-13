@@ -306,7 +306,8 @@
 	// Remove the object in the offhand
 	if(offhand_item)
 		UnregisterSignal(offhand_item, COMSIG_ITEM_DROPPED)
-		qdel(offhand_item)
+		if(!QDELETED(offhand_item))
+			qdel(offhand_item)
 	// Clear any old refrence to an item that should be gone now
 	offhand_item = null
 
