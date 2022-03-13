@@ -15,7 +15,7 @@
 <details>
 <summary>Screenshots&Videos</summary>
 
-Put screenshots and Videos documenting testing and execution of intended behaviors here
+Put screenshots and videos here with an empty line between the screenshots and the `<details>` tags.
 
 </details>
 
