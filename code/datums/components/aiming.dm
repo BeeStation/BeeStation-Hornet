@@ -1,5 +1,15 @@
 // Aiming component, ported from NSV
 
+// Defines for stages and radial choices
+#define START "start"
+#define RAISE_HANDS "raise_hands"
+#define DROP_WEAPON "drop_weapon"
+#define DROP_TO_FLOOR "drop_to_floor"
+#define CANCEL "cancel"
+#define FIRE "fire"
+#define SURRENDER "surrender"
+#define IGNORE "ignore"
+
 /datum/component/aiming
 	can_transfer = FALSE
 	var/mob/living/user = null
@@ -16,6 +26,8 @@
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/on_parent_unequip)
 
 /datum/component/aiming/proc/aim(mob/user, mob/target)
+	if(QDELETED(user) || QDELETED(target)) // We lost the user or target somehow
+		return
 	if(!COOLDOWN_FINISHED(src, aiming_cooldown) || src.target || user == target) // No double-aiming
 		return
 	COOLDOWN_START(src, aiming_cooldown, 5 SECONDS)
@@ -120,20 +132,21 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 
 /datum/component/aiming/proc/show_ui(mob/user, mob/target, stage)
 	var/list/options = list()
-	var/list/possible_actions = list("cancel", "fire")
+	var/list/possible_actions = list(CANCEL, FIRE)
 	switch(stage)
-		if("start")
-			possible_actions += "raise_hands"
-			possible_actions += "drop_weapon"
-		if("raise_hands")
-			possible_actions += "drop_to_floor"
-			possible_actions += "raise_hands"
-		if("drop_weapon")
-			possible_actions += "drop_to_floor"
-			possible_actions += "drop_weapon"
-			possible_actions += "raise_hands"
-		if("drop_to_floor")
-			possible_actions += "drop_to_floor"
+		if(START)
+			possible_actions += RAISE_HANDS
+			possible_actions += DROP_WEAPON
+		if(RAISE_HANDS)
+			possible_actions += DROP_TO_FLOOR
+			possible_actions += RAISE_HANDS
+		if(DROP_WEAPON)
+			possible_actions += DROP_TO_FLOOR
+			possible_actions += DROP_WEAPON
+			possible_actions += RAISE_HANDS
+		if(DROP_TO_FLOOR)
+			possible_actions += DROP_TO_FLOOR
+			possible_actions += DROP_WEAPON
 	for(var/option in possible_actions)
 		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
 	if(choice_menu)
@@ -148,7 +161,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	if(!choice)
 		stop_aiming()
 		return
-	if(choice != "cancel" && choice != "fire") // Handling voiceline cooldowns and mimes
+	if(choice != CANCEL && choice != FIRE) // Handling voiceline cooldowns and mimes
 		if(!COOLDOWN_FINISHED(src, voiceline_cooldown))
 			to_chat(user, "<span class = 'warning'>You've already given a command recently!</span>")
 			show_ui(user, target, choice)
@@ -161,23 +174,24 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 	var/alert_message
 	var/alert_message_3p
 	switch(choice)
-		if("cancel") //first off, are they telling us to stop aiming?
+		if(CANCEL) //first off, are they telling us to stop aiming?
 			stop_aiming()
 			return
-		if("fire")
+		if(FIRE)
 			fire()
 			return
-		if("raise_hands")
+		if(RAISE_HANDS)
 			alert_message = "raise your hands!"
 			alert_message_3p = "raise their hands!"
-		if("drop_weapon")
+		if(DROP_WEAPON)
 			alert_message = "drop your weapon!"
 			alert_message_3p = "drop their weapon!"
-		if("drop_to_floor")
+		if(DROP_TO_FLOOR)
 			alert_message = "lie down!"
 			alert_message_3p = "lie down!"
 	user.balloon_alert(target, "[user] orders you to [alert_message]")
 	user.balloon_alert_to_viewers("[user] orders [target] to [alert_message_3p]!", "You order [target] to [alert_message_3p]", ignored_mobs = target)
+	aim_react(target)
 	COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
 	show_ui(user, target, choice)
 
@@ -213,14 +227,16 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 
 /datum/component/aiming/proc/aim_react(mob/target)
 	set waitfor = FALSE
+	if(QDELETED(target) || choice_menu_target) // We lost our target, or they already have a menu up
+		return
 	var/list/options = list()
-	for(var/option in list("surrender", "ignore"))
+	for(var/option in list(SURRENDER, IGNORE))
 		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
 	choice_menu_target = show_radial_menu_persistent(target, target, options, select_proc = CALLBACK(src, .proc/aim_react_act))
 
 /datum/component/aiming/proc/aim_react_act(choice)
-	if(choice == "surrender")
-		target.emote("surrender")
+	if(choice == SURRENDER)
+		target.emote(SURRENDER)
 	QDEL_NULL(choice_menu_target)
 
 // Shows a crosshair effect when aiming at a target
@@ -240,3 +256,12 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 /obj/item/reagent_containers/food/snacks/grown/banana/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/aiming)
+
+#undef START
+#undef RAISE_HANDS
+#undef DROP_WEAPON
+#undef DROP_TO_FLOOR
+#undef CANCEL
+#undef FIRE
+#undef SURRENDER
+#undef IGNORE
