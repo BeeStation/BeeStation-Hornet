@@ -1,0 +1,5 @@
+author: Froststahr
+delete-after: true
+changes:
+  - rscadd: Lights have new overlay sprites for emergency and night modes
+  - bugfix: Light overlays are now functional
