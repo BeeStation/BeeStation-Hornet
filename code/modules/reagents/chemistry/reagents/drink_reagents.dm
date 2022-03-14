@@ -487,7 +487,7 @@
 	taste_description = "cherry soda" // FALSE ADVERTISING
 	glass_icon_state = "dr_gibb_glass"
 	glass_name = "glass of Dr. Gibb"
-	glass_desc = "Dr. Gibb. Not as dangerous as the glass_name might imply."
+	glass_desc = "Dr. Gibb. Not as dangerous as the name might imply."
 
 /datum/reagent/consumable/dr_gibb/on_mob_life(mob/living/carbon/M)
 	M.drowsyness = max(0,M.drowsyness-6)
