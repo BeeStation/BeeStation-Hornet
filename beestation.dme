@@ -2800,7 +2800,6 @@
 #include "code\modules\pool\components\swimming.dm"
 #include "code\modules\pool\components\swimming_dissolve.dm"
 #include "code\modules\pool\components\swimming_ethereal.dm"
-#include "code\modules\pool\components\swimming_felinid.dm"
 #include "code\modules\pool\components\swimming_golem.dm"
 #include "code\modules\power\apc.dm"
 #include "code\modules\power\cable.dm"
