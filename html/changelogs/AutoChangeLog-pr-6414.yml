@@ -1,0 +1,6 @@
+author: MNarath1
+delete-after: true
+changes:
+  - tweak: adds a check for double clicking for ai so the ai camera won't jump if
+      you click a machine
+  - bugfix: fixes AI Atmos machines Cntrl click
