@@ -95,7 +95,6 @@
 #define SPECIES_MOTH			"moth"
 #define SPECIES_LIZARD			"lizard"
  #define SPECIES_ASHWALKER		"ashlizard"
-#define SPECIES_FELINID			"felinid"
 #define SPECIES_OOZELING		"oozeling"
 #define SPECIES_FLY 			"fly"
 #define SPECIES_MONKEY			"monkey"
@@ -114,7 +113,6 @@
 #define	FLAG_APID			(1<<4)
 #define FLAG_MOTH			(1<<5)
 #define FLAG_LIZARD			(1<<6)
-#define FLAG_FELINID		(1<<7)
 #define FLAG_OOZELING		(1<<8)
 #define FLAG_FLY			(1<<9)
 #define FLAG_DEBUG_SPECIES	(1<<10)
