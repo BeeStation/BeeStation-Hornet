@@ -9,7 +9,6 @@
 
 #define SCANGATE_HUMAN			"human"
 #define SCANGATE_LIZARD			"lizard"
-#define SCANGATE_FELINID		"felinid"
 #define SCANGATE_FLY			"fly"
 #define SCANGATE_PLASMAMAN		"plasma"
 #define SCANGATE_MOTH			"moth"
