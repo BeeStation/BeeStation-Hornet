@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 /atom/movable/screen/radial/proc/handle_parent_del()
 	SIGNAL_HANDLER
-	set_parent(null)
+	qdel(src) // No reason for us to exist if our parent menu's gone and we don't have a new one
 
 /atom/movable/screen/radial/slice
 	icon_state = "radial_slice"
