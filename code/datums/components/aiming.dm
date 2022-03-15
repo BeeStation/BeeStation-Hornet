@@ -14,10 +14,12 @@
 	can_transfer = FALSE
 	var/mob/living/user = null
 	var/mob/living/target = null
+	var/obj/item/target_held = null
 	var/datum/radial_menu/persistent/choice_menu // Radial menu for the user
 	var/datum/radial_menu/persistent/choice_menu_target // Radial menu for the target
-	COOLDOWN_DECLARE(aiming_cooldown) // 5 second cooldown so you can't spam aiming for faster bullets/spam commands
-	COOLDOWN_DECLARE(voiceline_cooldown)
+	COOLDOWN_DECLARE(aiming_cooldown) // 5 second cooldown so you can't spam aiming for faster bullets
+	COOLDOWN_DECLARE(voiceline_cooldown) // 2 seconds, prevents spamming commands
+	COOLDOWN_DECLARE(notification_cooldown) // 5 seconds, prevents spamming the equip notification/sound
 
 /datum/component/aiming/Initialize(source)
 	if(!istype(parent, /obj/item))
@@ -42,8 +44,8 @@
 	new /obj/effect/temp_visual/aiming(get_turf(target))
 
 	// Register signals to alert our user if the target does something shifty.
-	RegisterSignal(src.target, COMSIG_ITEM_DROPPED, .proc/on_drop)
-	RegisterSignal(src.target, COMSIG_ITEM_EQUIPPED, .proc/on_equip)
+	RegisterSignal(target, COMSIG_MOB_EQUIPPED_ITEM, .proc/on_equip)
+	RegisterSignal(target, COMSIG_MOB_DROPPED_ITEM, .proc/on_drop)
 	RegisterSignal(src.target, COMSIG_LIVING_STATUS_PARALYZE, .proc/on_paralyze)
 
 	// Registers movement signals
@@ -88,26 +90,35 @@ Handles equipping/unequipping and pointing with the parent weapon.
 
 /*
 
-Methods to alert the aimer about events, usually to signify that they're complying or trying to pull something.
+Methods to alert the aimer about events (Surrendering/equipping an item/dropping an item)
 
 */
 
-/datum/component/aiming/proc/on_drop()
+// Called when the target mob equips something
+/datum/component/aiming/proc/on_equip(mob/M, obj/item/I, slot)
 	SIGNAL_HANDLER
-	to_chat(user, "<span class='nicegreen'>[target] has dropped something.</span>")
-	target.balloon_alert(user, "[target] dropped something!")
+	if(I != target.get_active_held_item() || !COOLDOWN_FINISHED(src, notification_cooldown)) // Checks to make sure the item was actually equipped to the target's hands
+		return
+	if(istype(I, /obj/item/gun))
+		target.balloon_alert(user, "[target] equipped a gun!")
+	else
+		target.balloon_alert(user, "[target] equipped something!")
+	SEND_SOUND(user, 'sound/machines/chime.ogg')
+	new /obj/effect/temp_visual/aiming/suspect_alert(get_turf(target))
+	COOLDOWN_START(src, notification_cooldown, 5 SECONDS)
 
+// Called when the target mob drops something
+/datum/component/aiming/proc/on_drop(mob/M, obj/item/I, loc)
+	SIGNAL_HANDLER
+	if(!istype(loc, /turf)) // Checks to make sure the item was actually dropped to the ground
+		return
+	target.balloon_alert(user, "[target] dropped what they were holding!")
+
+// Called when the target mob gets paralyzed (happens if they surrender or are otherwise disabled)
 /datum/component/aiming/proc/on_paralyze()
 	SIGNAL_HANDLER
 	to_chat(user, "<span class='nicegreen'>[target] appears to be surrendering!</span>")
 	target.balloon_alert(user, "[target] surrenders!")
-
-/datum/component/aiming/proc/on_equip()
-	SIGNAL_HANDLER
-	new /obj/effect/temp_visual/aiming/suspect_alert(get_turf(target))
-	to_chat(user, "<span class='userdanger'>[target] has equipped something!</span>")
-	target.balloon_alert(user, "[target] equipped something!")
-	SEND_SOUND(user, 'sound/machines/chime.ogg')
 
 // Cancels aiming if we can't see the target
 /datum/component/aiming/proc/on_move()
@@ -214,8 +225,8 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 /datum/component/aiming/proc/stop_aiming()
 	// Clean up our signals
 	if(target)
-		UnregisterSignal(target, COMSIG_ITEM_DROPPED)
-		UnregisterSignal(target, COMSIG_ITEM_EQUIPPED)
+		UnregisterSignal(target, COMSIG_MOB_EQUIPPED_ITEM)
+		UnregisterSignal(target, COMSIG_MOB_DROPPED_ITEM)
 		UnregisterSignal(target, COMSIG_LIVING_STATUS_PARALYZE)
 		UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 	if(user)
