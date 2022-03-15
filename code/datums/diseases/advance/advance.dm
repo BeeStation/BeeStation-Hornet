@@ -36,7 +36,6 @@
 	var/processing = FALSE
 	var/mutable = TRUE //set to FALSE to prevent most in-game methods of altering the disease via virology
 	var/oldres
-	var/sentient = FALSE //used to classify if a disease is sentient
 	var/faltered = FALSE //used if a disease has been made non-contagious
 	// The order goes from easy to cure to hard to cure.
 	var/mutability = 1
