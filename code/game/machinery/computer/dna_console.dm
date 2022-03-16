@@ -507,7 +507,7 @@
 			var/sequence = GET_GENE_STRING(path, scanner_occupant.dna)
 
 			var/newgene = params["gene"]
-			if(!(newgene in genecodes))
+			if(length(newgene) > 1 || !(newgene in genecodes))
 				CRASH("Invalid genecode sent via topic: [newgene].")
 			var/genepos = text2num(params["pos"])
 
