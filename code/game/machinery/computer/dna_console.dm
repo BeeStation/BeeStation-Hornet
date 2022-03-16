@@ -116,7 +116,7 @@
 	var/list/list/tgui_view_state = list()
 
 	/// List of all valid genecodes that can be sent via topic/tgui, used for sanitization.
-	var/static/list/genecodes = list("A", "T", "C", "G", "J")
+	var/static/list/genecodes = list("A", "T", "C", "G", "J", "X", "Y")
 
 /obj/machinery/computer/scan_consolenew/process()
 	. = ..()
