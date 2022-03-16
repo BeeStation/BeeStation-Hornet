@@ -665,8 +665,6 @@
 	set category = "AI Commands"
 	set name = "Jump To Network"
 	unset_machine()
-	if(ai_tracking_target)
-		ai_stop_tracking()
 	var/cameralist[0]
 
 	if(incapacitated())
@@ -687,7 +685,8 @@
 				cameralist[i] = i
 	var/old_network = network
 	network = input(U, "Which network would you like to view?") as null|anything in sortList(cameralist)
-
+	if(ai_tracking_target)
+		ai_stop_tracking()
 	if(!U.eyeobj)
 		U.view_core()
 		return
