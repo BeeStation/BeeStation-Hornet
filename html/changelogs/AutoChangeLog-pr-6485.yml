@@ -1,0 +1,4 @@
+author: Jeff-3
+delete-after: true
+changes:
+  - refactor: Brig timers are more accurate and no longer lengthened by lag
