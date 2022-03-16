@@ -32,7 +32,7 @@
 		C.adjustBruteLoss(-5)
 		C.adjustFireLoss(-5)
 		C.adjustOxyLoss(-5)
-		if (!isjellyperson(target))
+		if (!HAS_TRAIT(target, TRAIT_TOXINLOVER))
 			C.adjustToxLoss(-5, FALSE, TRUE)
 		else
 			C.adjustToxLoss(5, FALSE, TRUE)
