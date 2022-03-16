@@ -140,7 +140,7 @@
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
 		if(AI.eyeobj && (AI.multicam_on || (AI.client.eye == AI.eyeobj)) && (AI.eyeobj.get_virtual_z_level() == get_virtual_z_level()))
-			AI.cameraFollow = null
+			AI.ai_tracking_target = null
 			if (isturf(loc) || isturf(src))
 				AI.eyeobj.setLoc(src)
 
@@ -166,8 +166,8 @@
 	else
 		user.sprint = initial
 
-	if(!user.tracking)
-		user.cameraFollow = null
+	if(user.ai_tracking_target && !user.reacquire_timer)
+		user.ai_stop_tracking()
 
 // Return to the Core.
 /mob/living/silicon/ai/proc/view_core()
@@ -176,7 +176,7 @@
 		H.clear_holo(src)
 	else
 		current = null
-	cameraFollow = null
+	ai_tracking_target = null
 	unset_machine()
 
 	if(isturf(loc) && (QDELETED(eyeobj) || !eyeobj.loc))

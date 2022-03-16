@@ -14,7 +14,7 @@
 		return
 
 	if(ismob(A))
-		ai_actual_track(A)
+		ai_tracking_setup(A)
 	else if(!ismachinery(A))	//Getting the camera moved just because you double click on something to interact with it is annoying as hell
 		A.move_camera_by_click()
 
