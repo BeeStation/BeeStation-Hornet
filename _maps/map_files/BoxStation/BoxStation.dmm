@@ -49651,7 +49651,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/science{
-	name = "exploration preperation room";
+	name = "exploration  room";
 	req_access_txt = "49"
 	},
 /turf/open/floor/plasteel/white,
