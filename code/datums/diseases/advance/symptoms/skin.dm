@@ -433,9 +433,9 @@ Thresholds
 /datum/symptom/pustule/severityset(datum/disease/advance/A)
 	. = ..()
 	if(A.transmission >= 6)
-		severity += 1
+		severity = 4
 	if(A.transmission >= 4)
-		severity += 1
+		severity = 4
 		prefixes = list("Ballistic ", "Pestilent ", "Bubonic ")
 
 /datum/symptom/pustule/Start(datum/disease/advance/A)
