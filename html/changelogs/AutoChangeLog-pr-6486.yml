@@ -1,0 +1,4 @@
+author: LemonInTheDark, ported by ike709
+delete-after: true
+changes:
+  - bugfix: Fixed an issue with DNA console sanitization.
