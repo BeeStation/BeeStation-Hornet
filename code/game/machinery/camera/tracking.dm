@@ -86,8 +86,8 @@
 	UnregisterSignal(ai_tracking_target, COMSIG_MOVABLE_MOVED)
 	ai_tracking_target = null
 	if(reacquire_failed) //checks if the reaquire timer ran out before we could find the target again
-		to_chat(src, "<span class='warning'>Unable to reacquire, cancelling track...</span>")
 		reacquire_timer = null
+		to_chat(src, "<span class='warning'>Unable to reacquire, cancelling track...</span>")
 
 /mob/living/silicon/ai/proc/ai_actual_track() //proc that gets called by the moved signal of the target
 	SIGNAL_HANDLER
