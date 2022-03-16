@@ -136,13 +136,12 @@
 		QDEL_LIST(L)
 	return ..()
 
-/atom/proc/move_camera_by_click()
-	if(isAI(usr))
-		var/mob/living/silicon/ai/AI = usr
-		if(AI.eyeobj && (AI.multicam_on || (AI.client.eye == AI.eyeobj)) && (AI.eyeobj.get_virtual_z_level() == get_virtual_z_level()))
-			AI.ai_tracking_target = null
-			if (isturf(loc) || isturf(src))
-				AI.eyeobj.setLoc(src)
+/mob/camera/ai_eye/proc/move_camera_by_click(var/atom/target)
+	if((ai.multicam_on || (ai.client.eye == src)) && (get_virtual_z_level() == target.get_virtual_z_level()))
+		if(ai.ai_tracking_target)
+			ai.ai_stop_tracking()
+		if (isturf(target.loc) || isturf(target))
+			setLoc(target)
 
 // This will move the ai_eye. It will also cause lights near the eye to light up, if toggled.
 // This is handled in the proc below this one.
