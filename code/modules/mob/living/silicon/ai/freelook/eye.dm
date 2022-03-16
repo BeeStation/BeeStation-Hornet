@@ -176,7 +176,8 @@
 		H.clear_holo(src)
 	else
 		current = null
-	ai_tracking_target = null
+	if(ai_tracking_target)
+		ai_stop_tracking()
 	unset_machine()
 
 	if(isturf(loc) && (QDELETED(eyeobj) || !eyeobj.loc))
