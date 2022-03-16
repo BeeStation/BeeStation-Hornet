@@ -1,4 +1,0 @@
-author: TheFakeElon
-delete-after: true
-changes:
-  - bugfix: fixes more href vulnerabilities in dna_console.dm
