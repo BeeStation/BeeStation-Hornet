@@ -640,8 +640,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/vampire = FALSE
 	var/mob/living/carbon/human/bloodbag
 	threshold_desc = "<b>Transmission 4:</b> The virus recycles excess absorbed blood into restorative biomass, healing brute damage.<br>\
-					<b>Stage Speed 6:</b> The virus aggressively assimilates blood, resulting in contiguous blood pools being absorbed by the virus, as well as sucking blood out of open wounds of subjects in physical contact with the host.<br>\
-					<b>Transmission 8:</b> The virus grows more aggressive, assimilating blood at a faster rate"
+					<b>Stage Speed 6:</b> The virus grows more aggressive, assimilating blood and healing at a faster rate, but also draining the host's blood quicker<br>\
+					<b>Transmission 8:</b> The virus aggressively assimilates blood, resulting in contiguous blood pools being absorbed by the virus, as well as sucking blood out of open wounds of subjects in physical contact with the host."
 
 /datum/symptom/vampirism/severityset(datum/disease/advance/A)
 	. = ..()
@@ -656,10 +656,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		return
 	if(A.transmission >= 4)
 		bruteheal = TRUE
-	if(A.stage_rate >= 8)
+	if(A.transmission >= 8)
 		aggression = TRUE
 		maxbloodpoints += 50
-	if(A.transmission >= 6)
+	if(A.stage_rate >= 6)
 		power += 1
 	if((A.stealth >= 2) && (A.transmission >= 8) && A.process_dead) //this is low transmission for 2 reasons: transmission is hard to raise, especially with stealth, and i dont want this to be obligated to be transmittable
 		vampire = TRUE
