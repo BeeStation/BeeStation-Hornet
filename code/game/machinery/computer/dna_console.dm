@@ -508,7 +508,8 @@
 
 			var/newgene = params["gene"]
 			if(length(newgene) > 1 || !(newgene in genecodes))
-				CRASH("Invalid genecode sent via topic: [newgene].")
+				log_href_exploit(usr)
+				return
 			var/genepos = text2num(params["pos"])
 
 			// If the new gene is J, this means we're dealing with a JOKER
