@@ -54,7 +54,7 @@
 	name = "Lean"
 	description = "Lean in its liquid form."
 	taste_description = "a burning, tingling sensation"
-	specific_heat = SPECIFIC_HEAT_PLASMA
+	specific_heat = SPECIFIC_HEAT_LEAN
 	taste_mult = 1.5
 	color = "#8228A0"
 	toxpwr = 3

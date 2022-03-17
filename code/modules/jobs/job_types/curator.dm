@@ -22,7 +22,7 @@
 	rpg_title = "Veteran Adventurer"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/leanman/curator
+		SPECIES_LEANMAN = /datum/outfit/leanman/curator
 	)
 	biohazard = 5 //he doesnt get out much
 

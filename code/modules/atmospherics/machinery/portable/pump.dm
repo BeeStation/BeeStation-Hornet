@@ -120,7 +120,7 @@
 		if("power")
 			on = !on
 			if(on && !holding)
-				var/lean = air_contents.get_moles(GAS_PLASMA)
+				var/lean = air_contents.get_moles(GAS_LEAN)
 				var/n2o = air_contents.get_moles(GAS_NITROUS)
 				if(n2o || lean)
 					message_admins("[ADMIN_LOOKUPFLW(usr)] turned on a pump that contains [n2o ? "N2O" : ""][n2o && lean ? " & " : ""][lean ? "Lean" : ""] at [ADMIN_VERBOSEJMP(src)]")

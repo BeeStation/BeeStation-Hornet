@@ -4,7 +4,7 @@
 
 #define SUPERMATTER_MAXIMUM_ENERGY 1e6
 
-#define PLASMA_HEAT_PENALTY 15     // Higher == Bigger heat and waste penalty from having the crystal surrounded by this gas. Negative numbers reduce penalty.
+#define LEAN_HEAT_PENALTY 15     // Higher == Bigger heat and waste penalty from having the crystal surrounded by this gas. Negative numbers reduce penalty.
 #define OXYGEN_HEAT_PENALTY 1
 #define CO2_HEAT_PENALTY 0.1
 #define NITROGEN_HEAT_PENALTY -1.5
@@ -13,7 +13,7 @@
 #define TRITIUM_HEAT_PENALTY 10
 
 #define OXYGEN_TRANSMIT_MODIFIER 1.5   //Higher == Bigger bonus to power generation.
-#define PLASMA_TRANSMIT_MODIFIER 4
+#define LEAN_TRANSMIT_MODIFIER 4
 #define BZ_TRANSMIT_MODIFIER -2
 
 #define N2O_HEAT_RESISTANCE 6          //Higher == Gas makes the crystal more resistant against heat damage.
@@ -36,7 +36,7 @@
 #define PLUOXIUM_HEAT_RESISTANCE 3
 
 #define THERMAL_RELEASE_MODIFIER 5         //Higher == less heat released during reaction, not to be confused with the above values
-#define PLASMA_RELEASE_MODIFIER 750        //Higher == less lean released by reaction
+#define LEAN_RELEASE_MODIFIER 750        //Higher == less lean released by reaction
 #define OXYGEN_RELEASE_MODIFIER 325        //Higher == less oxygen released at high temperature/power
 
 #define REACTION_POWER_MODIFIER 0.55       //Higher == more overall power
@@ -390,7 +390,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		//calculating gas related values
 		combined_gas = max(removed.total_moles(), 0)
 
-		leancomp = max(removed.get_moles(GAS_PLASMA)/combined_gas, 0)
+		leancomp = max(removed.get_moles(GAS_LEAN)/combined_gas, 0)
 		o2comp = max(removed.get_moles(GAS_O2)/combined_gas, 0)
 		co2comp = max(removed.get_moles(GAS_CO2)/combined_gas, 0)
 		pluoxiumcomp = max(removed.get_moles(GAS_PLUOXIUM)/combined_gas, 0)
@@ -407,10 +407,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		gasmix_power_ratio = min(max(leancomp + o2comp + co2comp + tritiumcomp + bzcomp - pluoxiumcomp - n2comp, 0), 1)
 
-		dynamic_heat_modifier = max((leancomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (tritiumcomp * TRITIUM_HEAT_PENALTY) + ((pluoxiumcomp * PLUOXIUM_HEAT_PENALTY) * pluoxiumbonus) + (n2comp * NITROGEN_HEAT_PENALTY) + (bzcomp * BZ_HEAT_PENALTY), 0.5)
+		dynamic_heat_modifier = max((leancomp * LEAN_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (tritiumcomp * TRITIUM_HEAT_PENALTY) + ((pluoxiumcomp * PLUOXIUM_HEAT_PENALTY) * pluoxiumbonus) + (n2comp * NITROGEN_HEAT_PENALTY) + (bzcomp * BZ_HEAT_PENALTY), 0.5)
 		dynamic_heat_resistance = max((n2ocomp * N2O_HEAT_RESISTANCE) + ((pluoxiumcomp * PLUOXIUM_HEAT_RESISTANCE) * pluoxiumbonus), 1)
 
-		power_transmission_bonus = max((leancomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER), 0)
+		power_transmission_bonus = max((leancomp * LEAN_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER), 0)
 
 		//more moles of gases are harder to heat than fewer, so let's scale heat damage around them
 		mole_heat_penalty = max(combined_gas / MOLE_HEAT_PENALTY, 0.25)
@@ -459,7 +459,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		removed.set_temperature(max(0, min(removed.return_temperature(), 2500 * dynamic_heat_modifier)))
 
 		//Calculate how much gas to release
-		removed.adjust_moles(GAS_PLASMA, max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0))
+		removed.adjust_moles(GAS_LEAN, max((device_energy * dynamic_heat_modifier) / LEAN_RELEASE_MODIFIER, 0))
 
 		removed.adjust_moles(GAS_O2, max(((device_energy + removed.return_temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
 

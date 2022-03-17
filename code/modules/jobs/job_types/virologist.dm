@@ -25,7 +25,7 @@
 	rpg_title = "Plague Doctor"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/leanman/viro
+		SPECIES_LEANMAN = /datum/outfit/leanman/viro
 	)
 	biohazard = 50 //duh
 

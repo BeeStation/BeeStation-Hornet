@@ -24,7 +24,7 @@
 	rpg_title = "Genemancer"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/leanman/genetics
+		SPECIES_LEANMAN = /datum/outfit/leanman/genetics
 	)
 	biohazard = 15
 

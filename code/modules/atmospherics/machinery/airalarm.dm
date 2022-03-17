@@ -93,7 +93,7 @@
 		GAS_N2			= new/datum/tlv(-1, -1, 1000, 1000),
 		GAS_CO2	= new/datum/tlv(-1, -1, 5, 10),
 		GAS_MIASMA			= new/datum/tlv/(-1, -1, 15, 30),
-		GAS_PLASMA			= new/datum/tlv/dangerous,
+		GAS_LEAN			= new/datum/tlv/dangerous,
 		GAS_NITROUS	= new/datum/tlv/dangerous,
 		GAS_BZ				= new/datum/tlv/dangerous,
 		GAS_HYPERNOB		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
@@ -112,7 +112,7 @@
 		GAS_N2			= new/datum/tlv/no_checks,
 		GAS_CO2	= new/datum/tlv/no_checks,
 		GAS_MIASMA			= new/datum/tlv/no_checks,
-		GAS_PLASMA			= new/datum/tlv/no_checks,
+		GAS_LEAN			= new/datum/tlv/no_checks,
 		GAS_NITROUS	= new/datum/tlv/no_checks,
 		GAS_BZ				= new/datum/tlv/no_checks,
 		GAS_HYPERNOB		= new/datum/tlv/no_checks,
@@ -131,7 +131,7 @@
 		GAS_N2			= new/datum/tlv(-1, -1, 1000, 1000),
 		GAS_CO2	= new/datum/tlv(-1, -1, 5, 10),
 		GAS_MIASMA			= new/datum/tlv/(-1, -1, 2, 5),
-		GAS_PLASMA			= new/datum/tlv/dangerous,
+		GAS_LEAN			= new/datum/tlv/dangerous,
 		GAS_NITROUS	= new/datum/tlv/dangerous,
 		GAS_BZ				= new/datum/tlv/dangerous,
 		GAS_HYPERNOB		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
@@ -209,7 +209,7 @@
 		name = "[get_area_name(src)] Air Alarm"
 
 	update_icon()
-	
+
 	set_frequency(frequency)
 	GLOB.zclear_atoms += src
 
@@ -529,7 +529,7 @@
 					"set_filters" = list(
 						GAS_CO2,
 						GAS_MIASMA,
-						GAS_PLASMA,
+						GAS_LEAN,
 						GAS_H2O,
 						GAS_HYPERNOB,
 						GAS_NITROUS,

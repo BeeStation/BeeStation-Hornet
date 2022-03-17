@@ -1,7 +1,7 @@
 /datum/species/leanman
 	name = "\improper Leanman"
-	id = SPECIES_PLASMAMAN
-	bodyflag = FLAG_PLASMAMAN
+	id = SPECIES_LEANMAN
+	bodyflag = FLAG_LEANMAN
 	say_mod = "rattles"
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/lean
@@ -73,7 +73,7 @@
 
 	if(!preference_source)
 		return
-	var/path = J.species_outfits[SPECIES_PLASMAMAN]
+	var/path = J.species_outfits[SPECIES_LEANMAN]
 	var/datum/outfit/leanman/O = new path
 	var/datum/preferences/prefs = preference_source.prefs
 	if(prefs.helmet_style != HELMET_DEFAULT)

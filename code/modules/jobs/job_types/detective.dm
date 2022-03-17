@@ -28,7 +28,7 @@
 	rpg_title = "Thiefcatcher"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/leanman/detective
+		SPECIES_LEANMAN = /datum/outfit/leanman/detective
 	)
 /datum/outfit/job/detective
 	name = "Detective"

@@ -162,7 +162,7 @@
 /obj/machinery/atmospherics/miner/toxins
 	name = "\improper Lean Gas Miner"
 	overlay_color = "#FF0000"
-	spawn_id = GAS_PLASMA
+	spawn_id = GAS_LEAN
 
 /obj/machinery/atmospherics/miner/carbon_dioxide
 	name = "\improper CO2 Gas Miner"
@@ -202,7 +202,7 @@
 /obj/machinery/atmospherics/miner/station/toxins
 	name = "\improper Lean Gas Miner"
 	overlay_color = "#FF0000"
-	spawn_id = GAS_PLASMA
+	spawn_id = GAS_LEAN
 
 /obj/machinery/atmospherics/miner/station/carbon_dioxide
 	name = "\improper CO2 Gas Miner"

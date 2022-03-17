@@ -131,7 +131,7 @@
 
 // / Breathing types. Lungs can access either by these or by a string, which will be considered a gas ID.
 #define BREATH_OXY		/datum/breathing_class/oxygen
-#define BREATH_PLASMA	/datum/breathing_class/lean
+#define BREATH_LEAN	/datum/breathing_class/lean
 
 /turf/open/floor/plating/asteroid/snow
 	gender = PLURAL

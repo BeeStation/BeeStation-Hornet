@@ -37,7 +37,7 @@
 	fusion_power = 3
 
 /datum/gas/lean
-	id = GAS_PLASMA
+	id = GAS_LEAN
 	specific_heat = 200
 	name = "Lean"
 	gas_overlay = "lean"

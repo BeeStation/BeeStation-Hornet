@@ -77,7 +77,7 @@
 
 
 /obj/item/tank/internals/lean/populate_gas()
-	air_contents.set_moles(GAS_PLASMA, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	air_contents.set_moles(GAS_LEAN, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/lean/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/flamethrower))
@@ -93,7 +93,7 @@
 		return ..()
 
 /obj/item/tank/internals/lean/full/populate_gas()
-	air_contents.set_moles(GAS_PLASMA, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	air_contents.set_moles(GAS_LEAN, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/lean/empty/populate_gas()
 	return
@@ -112,10 +112,10 @@
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
 /obj/item/tank/internals/leanman/populate_gas()
-	air_contents.set_moles(GAS_PLASMA, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	air_contents.set_moles(GAS_LEAN, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/leanman/full/populate_gas()
-	air_contents.set_moles(GAS_PLASMA, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	air_contents.set_moles(GAS_LEAN, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/leanman/empty/populate_gas()
 	return
@@ -132,7 +132,7 @@
 	w_class = WEIGHT_CLASS_SMALL //thanks i forgot this
 
 /obj/item/tank/internals/leanman/belt/full/populate_gas()
-	air_contents.set_moles(GAS_PLASMA, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	air_contents.set_moles(GAS_LEAN, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
 /obj/item/tank/internals/leanman/belt/empty/populate_gas()
 	return

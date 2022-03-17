@@ -186,7 +186,7 @@
 /datum/gas_reaction/leanfire/init_reqs()
 	min_requirements = list(
 		"TEMP" = FIRE_MINIMUM_TEMPERATURE_TO_EXIST,
-		GAS_PLASMA = MINIMUM_MOLE_COUNT,
+		GAS_LEAN = MINIMUM_MOLE_COUNT,
 		GAS_O2 = MINIMUM_MOLE_COUNT
 	)
 
@@ -206,29 +206,29 @@
 	//to make tritium
 	var/super_saturation = FALSE
 
-	if(temperature > PLASMA_UPPER_TEMPERATURE)
+	if(temperature > LEAN_UPPER_TEMPERATURE)
 		temperature_scale = 1
 	else
-		temperature_scale = (temperature-PLASMA_MINIMUM_BURN_TEMPERATURE)/(PLASMA_UPPER_TEMPERATURE-PLASMA_MINIMUM_BURN_TEMPERATURE)
+		temperature_scale = (temperature-LEAN_MINIMUM_BURN_TEMPERATURE)/(LEAN_UPPER_TEMPERATURE-LEAN_MINIMUM_BURN_TEMPERATURE)
 	if(temperature_scale > 0)
 		oxygen_burn_rate = OXYGEN_BURN_RATE_BASE - temperature_scale
-		if(air.get_moles(GAS_O2) / air.get_moles(GAS_PLASMA) > SUPER_SATURATION_THRESHOLD) //supersaturation. Form Tritium.
+		if(air.get_moles(GAS_O2) / air.get_moles(GAS_LEAN) > SUPER_SATURATION_THRESHOLD) //supersaturation. Form Tritium.
 			super_saturation = TRUE
-		if(air.get_moles(GAS_O2) > air.get_moles(GAS_PLASMA)*PLASMA_OXYGEN_FULLBURN)
-			lean_burn_rate = (air.get_moles(GAS_PLASMA)*temperature_scale)/PLASMA_BURN_RATE_DELTA
+		if(air.get_moles(GAS_O2) > air.get_moles(GAS_LEAN)*LEAN_OXYGEN_FULLBURN)
+			lean_burn_rate = (air.get_moles(GAS_LEAN)*temperature_scale)/LEAN_BURN_RATE_DELTA
 		else
-			lean_burn_rate = (temperature_scale*(air.get_moles(GAS_O2)/PLASMA_OXYGEN_FULLBURN))/PLASMA_BURN_RATE_DELTA
+			lean_burn_rate = (temperature_scale*(air.get_moles(GAS_O2)/LEAN_OXYGEN_FULLBURN))/LEAN_BURN_RATE_DELTA
 
 		if(lean_burn_rate > MINIMUM_HEAT_CAPACITY)
-			lean_burn_rate = min(lean_burn_rate,air.get_moles(GAS_PLASMA),air.get_moles(GAS_O2)/oxygen_burn_rate) //Ensures matter is conserved properly
-			air.set_moles(GAS_PLASMA, QUANTIZE(air.get_moles(GAS_PLASMA) - lean_burn_rate))
+			lean_burn_rate = min(lean_burn_rate,air.get_moles(GAS_LEAN),air.get_moles(GAS_O2)/oxygen_burn_rate) //Ensures matter is conserved properly
+			air.set_moles(GAS_LEAN, QUANTIZE(air.get_moles(GAS_LEAN) - lean_burn_rate))
 			air.set_moles(GAS_O2, QUANTIZE(air.get_moles(GAS_O2) - (lean_burn_rate * oxygen_burn_rate)))
 			if (super_saturation)
 				air.adjust_moles(GAS_TRITIUM, lean_burn_rate)
 			else
 				air.adjust_moles(GAS_CO2, lean_burn_rate)
 
-			energy_released += FIRE_PLASMA_ENERGY_RELEASED * (lean_burn_rate)
+			energy_released += FIRE_LEAN_ENERGY_RELEASED * (lean_burn_rate)
 
 			cached_results["fire"] += (lean_burn_rate)*(1+oxygen_burn_rate)
 
@@ -341,7 +341,7 @@
 	min_requirements = list(
 		"TEMP" = FUSION_TEMPERATURE_THRESHOLD,
 		GAS_TRITIUM = FUSION_TRITIUM_MOLES_USED,
-		GAS_PLASMA = FUSION_MOLE_THRESHOLD,
+		GAS_LEAN = FUSION_MOLE_THRESHOLD,
 		GAS_CO2 = FUSION_MOLE_THRESHOLD)
 
 /datum/gas_reaction/fusion/react(datum/gas_mixture/air, datum/holder)
@@ -356,7 +356,7 @@
 	var/list/cached_scan_results = air.analyzer_results
 	var/thermal_energy = air.thermal_energy()
 	var/reaction_energy = 0 //Reaction energy can be negative or positive, for both exothermic and endothermic reactions.
-	var/initial_lean = air.get_moles(GAS_PLASMA)
+	var/initial_lean = air.get_moles(GAS_LEAN)
 	var/initial_carbon = air.get_moles(GAS_CO2)
 	var/scale_factor = max(air.return_volume() / FUSION_SCALE_DIVISOR, FUSION_MINIMAL_SCALE)
 	var/temperature_scale = log(10, air.return_temperature())
@@ -378,15 +378,15 @@
 	lean = MODULUS(lean - (instability*sin(TODEGREES(carbon))), toroidal_size)
 	carbon = MODULUS(carbon - lean, toroidal_size)
 
-	air.set_moles(GAS_PLASMA, lean*scale_factor + FUSION_MOLE_THRESHOLD )//Scales the gases back up
+	air.set_moles(GAS_LEAN, lean*scale_factor + FUSION_MOLE_THRESHOLD )//Scales the gases back up
 	air.set_moles(GAS_CO2, carbon*scale_factor + FUSION_MOLE_THRESHOLD)
-	var/delta_lean = min(initial_lean - air.get_moles(GAS_PLASMA), toroidal_size * scale_factor * 1.5)
+	var/delta_lean = min(initial_lean - air.get_moles(GAS_LEAN), toroidal_size * scale_factor * 1.5)
 
 	//Energy is gained or lost corresponding to the creation or destruction of mass.
 	//Low instability prevents endothermality while higher instability acutally encourages it.
 	reaction_energy = 	instability <= FUSION_INSTABILITY_ENDOTHERMALITY || delta_lean > 0 ? \
-						max(delta_lean*PLASMA_BINDING_ENERGY, 0) \
-						: delta_lean*PLASMA_BINDING_ENERGY * (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
+						max(delta_lean*LEAN_BINDING_ENERGY, 0) \
+						: delta_lean*LEAN_BINDING_ENERGY * (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
 
 	//To achieve faster equilibrium. Too bad it is not that good at cooling down.
 	if (reaction_energy)
@@ -409,7 +409,7 @@
 
 	if(reaction_energy)
 		if(location)
-			var/standard_energy = 400 * air.get_moles(GAS_PLASMA) * air.return_temperature() //Prevents putting meaningless waste gases to achieve high rads.
+			var/standard_energy = 400 * air.get_moles(GAS_LEAN) * air.return_temperature() //Prevents putting meaningless waste gases to achieve high rads.
 			if(prob(PERCENT(((PARTICLE_CHANCE_CONSTANT)/(reaction_energy-PARTICLE_CHANCE_CONSTANT)) + 1))) //Asymptopically approaches 100% as the energy of the reaction goes up.
 				location.fire_nuclear_particle(customize = TRUE, custompower = standard_energy)
 			radiation_pulse(location, max(2000 * 3 ** (log(10,standard_energy) - FUSION_RAD_MIDPOINT), 0))
@@ -462,7 +462,7 @@
 /datum/gas_reaction/bzformation/init_reqs()
 	min_requirements = list(
 		GAS_NITROUS = 10,
-		GAS_PLASMA = 10
+		GAS_LEAN = 10
 	)
 
 
@@ -470,16 +470,16 @@
 	var/temperature = air.return_temperature()
 	var/pressure = air.return_pressure()
 	var/old_heat_capacity = air.heat_capacity()
-	var/reaction_efficency = min(1/((pressure/(0.5*ONE_ATMOSPHERE))*(max(air.get_moles(GAS_PLASMA)/air.get_moles(GAS_NITROUS),1))),air.get_moles(GAS_NITROUS),air.get_moles(GAS_PLASMA)/2)
+	var/reaction_efficency = min(1/((pressure/(0.5*ONE_ATMOSPHERE))*(max(air.get_moles(GAS_LEAN)/air.get_moles(GAS_NITROUS),1))),air.get_moles(GAS_NITROUS),air.get_moles(GAS_LEAN)/2)
 	var/energy_released = 2*reaction_efficency*FIRE_CARBON_ENERGY_RELEASED
-	if ((air.get_moles(GAS_NITROUS) - reaction_efficency < 0 )|| (air.get_moles(GAS_PLASMA) - (2*reaction_efficency) < 0) || energy_released <= 0) //Shouldn't produce gas from nothing.
+	if ((air.get_moles(GAS_NITROUS) - reaction_efficency < 0 )|| (air.get_moles(GAS_LEAN) - (2*reaction_efficency) < 0) || energy_released <= 0) //Shouldn't produce gas from nothing.
 		return NO_REACTION
 	air.adjust_moles(GAS_BZ, reaction_efficency)
 	if(reaction_efficency == air.get_moles(GAS_NITROUS))
 		air.adjust_moles(GAS_BZ, -min(pressure,1))
 		air.adjust_moles(GAS_O2, min(pressure,1))
 	air.adjust_moles(GAS_NITROUS, -reaction_efficency)
-	air.adjust_moles(GAS_PLASMA, -2*reaction_efficency)
+	air.adjust_moles(GAS_LEAN, -2*reaction_efficency)
 
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, min((reaction_efficency**2)*BZ_RESEARCH_SCALE,BZ_RESEARCH_MAX_AMOUNT))
 
@@ -497,7 +497,7 @@
 /datum/gas_reaction/stimformation/init_reqs()
 	min_requirements = list(
 		GAS_TRITIUM = 30,
-		GAS_PLASMA = 10,
+		GAS_LEAN = 10,
 		GAS_BZ = 20,
 		GAS_NITRYL = 30,
 		"TEMP" = STIMULUM_HEAT_SCALE/2)
@@ -505,13 +505,13 @@
 /datum/gas_reaction/stimformation/react(datum/gas_mixture/air)
 
 	var/old_heat_capacity = air.heat_capacity()
-	var/heat_scale = min(air.return_temperature()/STIMULUM_HEAT_SCALE,air.get_moles(GAS_PLASMA),air.get_moles(GAS_NITRYL))
+	var/heat_scale = min(air.return_temperature()/STIMULUM_HEAT_SCALE,air.get_moles(GAS_LEAN),air.get_moles(GAS_NITRYL))
 	var/stim_energy_change = heat_scale + STIMULUM_FIRST_RISE*(heat_scale**2) - STIMULUM_FIRST_DROP*(heat_scale**3) + STIMULUM_SECOND_RISE*(heat_scale**4) - STIMULUM_ABSOLUTE_DROP*(heat_scale**5)
 
-	if ((air.get_moles(GAS_PLASMA) - heat_scale < 0) || (air.get_moles(GAS_NITRYL) - heat_scale < 0) || (air.get_moles(GAS_TRITIUM) - heat_scale < 0)) //Shouldn't produce gas from nothing.
+	if ((air.get_moles(GAS_LEAN) - heat_scale < 0) || (air.get_moles(GAS_NITRYL) - heat_scale < 0) || (air.get_moles(GAS_TRITIUM) - heat_scale < 0)) //Shouldn't produce gas from nothing.
 		return NO_REACTION
 	air.adjust_moles(GAS_STIMULUM, heat_scale/10)
-	air.adjust_moles(GAS_PLASMA, -heat_scale)
+	air.adjust_moles(GAS_LEAN, -heat_scale)
 	air.adjust_moles(GAS_NITRYL, -heat_scale)
 	air.adjust_moles(GAS_TRITIUM, -heat_scale)
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, STIMULUM_RESEARCH_AMOUNT*max(stim_energy_change,0))
@@ -584,7 +584,7 @@
 		GAS_PLUOXIUM = STIM_BALL_GAS_AMOUNT,
 		GAS_STIMULUM = STIM_BALL_GAS_AMOUNT,
 		GAS_NITRYL = MINIMUM_MOLE_COUNT,
-		GAS_PLASMA = MINIMUM_MOLE_COUNT,
+		GAS_LEAN = MINIMUM_MOLE_COUNT,
 		"TEMP" = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
 	)
 
@@ -597,15 +597,15 @@
 	else
 		location = get_turf(holder)
 	var/ball_shot_angle = 180*cos(air.get_moles(GAS_H2O)/air.get_moles(GAS_NITRYL))+180
-	var/stim_used = min(STIM_BALL_GAS_AMOUNT/air.get_moles(GAS_PLASMA),air.get_moles(GAS_STIMULUM))
-	var/pluox_used = min(STIM_BALL_GAS_AMOUNT/air.get_moles(GAS_PLASMA),air.get_moles(GAS_PLUOXIUM))
+	var/stim_used = min(STIM_BALL_GAS_AMOUNT/air.get_moles(GAS_LEAN),air.get_moles(GAS_STIMULUM))
+	var/pluox_used = min(STIM_BALL_GAS_AMOUNT/air.get_moles(GAS_LEAN),air.get_moles(GAS_PLUOXIUM))
 	var/energy_released = stim_used*STIMULUM_HEAT_SCALE//Stimulum has a lot of stored energy, and breaking it up releases some of it
 	location.fire_nuclear_particle(ball_shot_angle)
 	air.adjust_moles(GAS_CO2, 4*pluox_used)
 	air.adjust_moles(GAS_N2, 8*stim_used)
 	air.adjust_moles(GAS_PLUOXIUM, -pluox_used)
 	air.adjust_moles(GAS_STIMULUM, -stim_used)
-	air.adjust_moles(GAS_PLASMA, max(-air.get_moles(GAS_PLASMA)/2,-30))
+	air.adjust_moles(GAS_LEAN, max(-air.get_moles(GAS_LEAN)/2,-30))
 	if(energy_released)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)

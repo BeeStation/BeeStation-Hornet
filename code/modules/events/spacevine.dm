@@ -247,7 +247,7 @@
 	var/turf/open/floor/T = holder.loc
 	if(istype(T))
 		var/datum/gas_mixture/GM = T.air
-		GM.set_moles(GAS_PLASMA, max(GM.get_moles(GAS_PLASMA) - severity * holder.energy, 0))
+		GM.set_moles(GAS_LEAN, max(GM.get_moles(GAS_LEAN) - severity * holder.energy, 0))
 
 /datum/spacevine_mutation/thorns
 	name = "thorny"

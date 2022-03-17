@@ -1,7 +1,7 @@
 #define CELSIUS_TO_KELVIN(T_K)	((T_K) + T0C)
 
-#define OPTIMAL_TEMP_K_PLA_BURN_SCALE(PRESSURE_P,PRESSURE_O,TEMP_O)	(((PRESSURE_P) * GLOB.gas_data.specific_heats[GAS_PLASMA]) / (((PRESSURE_P) * GLOB.gas_data.specific_heats[GAS_PLASMA] + (PRESSURE_O) * GLOB.gas_data.specific_heats[GAS_O2]) / PLASMA_UPPER_TEMPERATURE - (PRESSURE_O) * GLOB.gas_data.specific_heats[GAS_O2] / CELSIUS_TO_KELVIN(TEMP_O)))
-#define OPTIMAL_TEMP_K_PLA_BURN_RATIO(PRESSURE_P,PRESSURE_O,TEMP_O)	(CELSIUS_TO_KELVIN(TEMP_O) * PLASMA_OXYGEN_FULLBURN * (PRESSURE_P) / (PRESSURE_O))
+#define OPTIMAL_TEMP_K_PLA_BURN_SCALE(PRESSURE_P,PRESSURE_O,TEMP_O)	(((PRESSURE_P) * GLOB.gas_data.specific_heats[GAS_LEAN]) / (((PRESSURE_P) * GLOB.gas_data.specific_heats[GAS_LEAN] + (PRESSURE_O) * GLOB.gas_data.specific_heats[GAS_O2]) / LEAN_UPPER_TEMPERATURE - (PRESSURE_O) * GLOB.gas_data.specific_heats[GAS_O2] / CELSIUS_TO_KELVIN(TEMP_O)))
+#define OPTIMAL_TEMP_K_PLA_BURN_RATIO(PRESSURE_P,PRESSURE_O,TEMP_O)	(CELSIUS_TO_KELVIN(TEMP_O) * LEAN_OXYGEN_FULLBURN * (PRESSURE_P) / (PRESSURE_O))
 
 /obj/effect/spawner/newbomb
 	name = "bomb"
@@ -19,7 +19,7 @@
 	var/obj/item/tank/internals/lean/PT = new(V)
 	var/obj/item/tank/internals/oxygen/OT = new(V)
 
-	PT.air_contents.set_moles(GAS_PLASMA, pressure_p*PT.volume/(R_IDEAL_GAS_EQUATION*CELSIUS_TO_KELVIN(temp_p)))
+	PT.air_contents.set_moles(GAS_LEAN, pressure_p*PT.volume/(R_IDEAL_GAS_EQUATION*CELSIUS_TO_KELVIN(temp_p)))
 	PT.air_contents.set_temperature(CELSIUS_TO_KELVIN(temp_p))
 
 	OT.air_contents.set_moles(GAS_O2, pressure_o*OT.volume/(R_IDEAL_GAS_EQUATION*CELSIUS_TO_KELVIN(temp_o)))

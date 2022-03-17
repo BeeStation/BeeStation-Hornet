@@ -92,8 +92,8 @@
 		var/stasis = (bz_percentage >= 0.05 && bodytemperature < (T0C + 100)) || force_stasis
 		if(transformeffects & SLIME_EFFECT_DARK_PURPLE)
 			var/amt = is_adult ? 30 : 15
-			var/plas_amt = min(amt,environment.get_moles(GAS_PLASMA))
-			environment.adjust_moles(GAS_PLASMA, -plas_amt)
+			var/plas_amt = min(amt,environment.get_moles(GAS_LEAN))
+			environment.adjust_moles(GAS_LEAN, -plas_amt)
 			environment.adjust_moles(GAS_O2, plas_amt)
 			adjustBruteLoss(plas_amt ? -2 : 0)
 

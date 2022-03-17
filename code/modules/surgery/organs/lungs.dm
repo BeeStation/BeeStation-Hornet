@@ -26,7 +26,7 @@
 	var/list/gas_min = list()
 	var/list/gas_max = list(
 		GAS_CO2 = 30, // Yes it's an arbitrary value who cares?
-		GAS_PLASMA = MOLES_GAS_VISIBLE
+		GAS_LEAN = MOLES_GAS_VISIBLE
 	)
 	var/list/gas_damage = list(
 		"default" = list(
@@ -34,7 +34,7 @@
 			max = MAX_TOXIC_GAS_DAMAGE,
 			damage_type = OXY
 		),
-		GAS_PLASMA = list(
+		GAS_LEAN = list(
 			min = MIN_TOXIC_GAS_DAMAGE,
 			max = MAX_TOXIC_GAS_DAMAGE,
 			damage_type = TOX
@@ -379,11 +379,11 @@
 	desc = "A spongy rib-shaped mass for filtering lean from the air."
 	icon_state = "lungs-lean"
 
-	breathing_class = BREATH_PLASMA
+	breathing_class = BREATH_LEAN
 
 /obj/item/organ/lungs/leanman/populate_gas_info()
 	..()
-	gas_max -= GAS_PLASMA
+	gas_max -= GAS_LEAN
 
 /obj/item/organ/lungs/oozeling
 	name = "oozeling vacuole"
@@ -398,7 +398,7 @@
 	if (breath)
 		var/total_moles = breath.total_moles()
 		var/pressure = breath.return_pressure()
-		var/lean_pp = PP(breath, GAS_PLASMA)
+		var/lean_pp = PP(breath, GAS_LEAN)
 		owner.blood_volume += (0.2 * lean_pp) // 10/s when breathing literally nothing but lean, which will suffocate you.
 
 /obj/item/organ/lungs/cybernetic
@@ -425,7 +425,7 @@
 	safe_breath_min = 4
 	safe_breath_max = 250
 	gas_max = list(
-		GAS_PLASMA = 30,
+		GAS_LEAN = 30,
 		GAS_CO2 = 30
 	)
 	maxHealth = 2 * STANDARD_ORGAN_THRESHOLD

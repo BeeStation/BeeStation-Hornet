@@ -93,7 +93,7 @@
 				H.blood_volume -= 15
 				if(prob(50))
 					to_chat(H, "<span class='danger'>Your ooze melts away rapidly in the water vapor!</span>")
-			if(H.blood_volume <= 672 && environment.get_moles(GAS_PLASMA) >= 1)
+			if(H.blood_volume <= 672 && environment.get_moles(GAS_LEAN) >= 1)
 				H.blood_volume += 15
 	if(H.blood_volume < BLOOD_VOLUME_OKAY && prob(5))
 		to_chat(H, "<span class='danger'>You feel drained!</span>")

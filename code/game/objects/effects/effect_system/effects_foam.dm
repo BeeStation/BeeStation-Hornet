@@ -39,8 +39,8 @@
 	if(hotspot && istype(T) && T.air)
 		qdel(hotspot)
 		var/datum/gas_mixture/G = T.air
-		var/plas_amt = min(30,G.get_moles(GAS_PLASMA)) //Absorb some lean
-		G.adjust_moles(GAS_PLASMA, -plas_amt)
+		var/plas_amt = min(30,G.get_moles(GAS_LEAN)) //Absorb some lean
+		G.adjust_moles(GAS_LEAN, -plas_amt)
 		absorbed_lean += plas_amt
 		if(G.return_temperature() > T20C)
 			G.set_temperature(max(G.return_temperature()/2,T20C))

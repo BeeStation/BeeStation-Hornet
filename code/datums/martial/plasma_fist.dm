@@ -1,10 +1,10 @@
 #define TORNADO_COMBO "HHD"
 #define THROWBACK_COMBO "DHD"
-#define PLASMA_COMBO "HDDDH"
+#define LEAN_COMBO "HDDDH"
 
 /datum/martial_art/lean_fist
 	name = "Lean Fist"
-	id = MARTIALART_PLASMAFIST
+	id = MARTIALART_LEANFIST
 	help_verb = /mob/living/carbon/human/proc/lean_fist_help
 
 
@@ -17,7 +17,7 @@
 		streak = ""
 		Throwback(A,D)
 		return 1
-	if(findtext(streak,PLASMA_COMBO))
+	if(findtext(streak,LEAN_COMBO))
 		streak = ""
 		Lean(A,D)
 		return 1
@@ -53,9 +53,9 @@
 /datum/martial_art/lean_fist/proc/Lean(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
-	A.say("PLASMA FIST!", forced="lean fist")
-	D.visible_message("<span class='danger'>[A] hits [D] with THE PLASMA FIST TECHNIQUE!</span>", \
-								"<span class='userdanger'>[A] hits you with THE PLASMA FIST TECHNIQUE!</span>")
+	A.say("LEAN FIST!", forced="lean fist")
+	D.visible_message("<span class='danger'>[A] hits [D] with THE LEAN FIST TECHNIQUE!</span>", \
+								"<span class='userdanger'>[A] hits you with THE LEAN FIST TECHNIQUE!</span>")
 	D.gib()
 	log_combat(A, D, "gibbed (Lean Fist)")
 	return

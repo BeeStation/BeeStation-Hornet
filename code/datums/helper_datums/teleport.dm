@@ -129,7 +129,7 @@
 			continue
 		if(A.get_moles(GAS_O2) < 16)
 			continue
-		if(A.get_moles(GAS_PLASMA))
+		if(A.get_moles(GAS_LEAN))
 			continue
 		if(A.get_moles(GAS_CO2) >= 10)
 			continue

@@ -33,7 +33,7 @@
 	rpg_title = "High Cleric"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/leanman/cmo
+		SPECIES_LEANMAN = /datum/outfit/leanman/cmo
 	)
 	biohazard = 20
 

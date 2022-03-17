@@ -22,7 +22,7 @@ Assistant
 	rpg_title = "Lout"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/leanman
+		SPECIES_LEANMAN = /datum/outfit/leanman
 	)
 /datum/job/assistant/get_access()
 	if(CONFIG_GET(flag/assistants_have_maint_access) || !CONFIG_GET(flag/jobs_have_minimal_access)) //Config has assistant maint access set

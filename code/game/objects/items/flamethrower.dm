@@ -215,7 +215,7 @@
 	//TODO: DEFERRED Consider checking to make sure tank pressure is high enough before doing this...
 	//Transfer 5% of current tank air contents to turf
 	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(release_amount)
-	air_transfer.set_moles(GAS_PLASMA, air_transfer.get_moles(GAS_PLASMA) * 5)
+	air_transfer.set_moles(GAS_LEAN, air_transfer.get_moles(GAS_LEAN) * 5)
 	target.assume_air(air_transfer)
 	//Burn it based on transfered gas
 	target.hotspot_expose((ptank.air_contents.return_temperature()*2) + 380,500)

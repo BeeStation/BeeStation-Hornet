@@ -31,7 +31,7 @@
 		if( !(icon_state in icons) )
 			icon_state = initial(icon_state)
 
-//PLASMA
+//LEAN
 
 /turf/open/floor/mineral/lean
 	name = "lean floor"

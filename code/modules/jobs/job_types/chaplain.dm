@@ -23,7 +23,7 @@
 	rpg_title = "Paladin"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/leanman/chaplain
+		SPECIES_LEANMAN = /datum/outfit/leanman/chaplain
 	)
 
 /datum/job/chaplain/after_spawn(mob/living/H, mob/M)

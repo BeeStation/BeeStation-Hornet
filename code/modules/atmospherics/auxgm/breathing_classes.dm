@@ -32,7 +32,7 @@
 
 /datum/breathing_class/lean
 	gases = list(
-		GAS_PLASMA = 1
+		GAS_LEAN = 1
 	)
 	products = list(
 		GAS_CO2 = 1

@@ -49,15 +49,15 @@
 	if(!loaded_tank)
 		return
 	if(!bitcoinmining)
-		if(loaded_tank.air_contents.get_moles(GAS_PLASMA) < 0.0001)
+		if(loaded_tank.air_contents.get_moles(GAS_LEAN) < 0.0001)
 			investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_ENGINES)
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
 			var/msg = "Lean depleted, recommend replacing tank."
 			radio.talk_into(src, msg, RADIO_CHANNEL_ENGINEERING)
 			eject()
 		else
-			var/gasdrained = min(powerproduction_drain*drainratio*delta_time,loaded_tank.air_contents.get_moles(GAS_PLASMA))
-			loaded_tank.air_contents.adjust_moles(GAS_PLASMA, -gasdrained)
+			var/gasdrained = min(powerproduction_drain*drainratio*delta_time,loaded_tank.air_contents.get_moles(GAS_LEAN))
+			loaded_tank.air_contents.adjust_moles(GAS_LEAN, -gasdrained)
 			loaded_tank.air_contents.adjust_moles(GAS_TRITIUM, gasdrained)
 			var/power_produced = RAD_COLLECTOR_OUTPUT
 			add_avail(power_produced)
@@ -84,7 +84,7 @@
 			toggle_power()
 			user.visible_message("[user.name] turns the [src.name] [active? "on":"off"].", \
 			"<span class='notice'>You turn the [src.name] [active? "on":"off"].</span>")
-			var/fuel = loaded_tank?.air_contents.get_moles(GAS_PLASMA)
+			var/fuel = loaded_tank?.air_contents.get_moles(GAS_LEAN)
 			investigate_log("turned [active?"<font color='green'>on</font>":"<font color='red'>off</font>"] by [key_name(user)]. [loaded_tank?"Fuel: [round(fuel/0.29)]%":"<font color='red'>It is empty</font>"].", INVESTIGATE_ENGINES)
 			return
 		else

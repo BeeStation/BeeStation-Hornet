@@ -22,7 +22,7 @@
 	rpg_title = "Fool"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/leanman/mime
+		SPECIES_LEANMAN = /datum/outfit/leanman/mime
 	)
 
 /datum/job/mime/after_spawn(mob/living/carbon/human/H, mob/M)

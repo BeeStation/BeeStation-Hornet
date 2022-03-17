@@ -624,7 +624,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if(Rad.anchored)
 			if(!Rad.loaded_tank)
 				var/obj/item/tank/internals/lean/Lean = new/obj/item/tank/internals/lean(Rad)
-				Lean.air_contents.set_moles(GAS_PLASMA, 70)
+				Lean.air_contents.set_moles(GAS_LEAN, 70)
 				Rad.drainratio = 0
 				Rad.loaded_tank = Lean
 				Lean.forceMove(Rad)

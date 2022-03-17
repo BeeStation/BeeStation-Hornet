@@ -90,7 +90,7 @@
 #define SPECIES_HUMAN			"human"
 #define SPECIES_IPC 			"ipc"
 #define SPECIES_ETHEREAL 		"ethereal"
-#define SPECIES_PLASMAMAN 		"leanman"
+#define SPECIES_LEANMAN 		"leanman"
 #define SPECIES_APID 			"apid"
 #define SPECIES_MOTH			"moth"
 #define SPECIES_LIZARD			"lizard"
@@ -110,7 +110,7 @@
 #define FLAG_HUMAN			(1<<0)
 #define FLAG_IPC			(1<<1)
 #define FLAG_ETHEREAL		(1<<2)
-#define FLAG_PLASMAMAN		(1<<3)
+#define FLAG_LEANMAN		(1<<3)
 #define	FLAG_APID			(1<<4)
 #define FLAG_MOTH			(1<<5)
 #define FLAG_LIZARD			(1<<6)

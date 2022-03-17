@@ -40,7 +40,7 @@
 
 /obj/machinery/atmospherics/components/unary/tank/toxins
 	icon_state = "orange"
-	gas_type = GAS_PLASMA
+	gas_type = GAS_LEAN
 
 /obj/machinery/atmospherics/components/unary/tank/oxygen
 	icon_state = "blue"

@@ -26,7 +26,7 @@
 	rpg_title = "Corpse Runner"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/leanman/emt
+		SPECIES_LEANMAN = /datum/outfit/leanman/emt
 	)
 	biohazard = 25//deal with sick like MDS, but also muck around in maint and get into the thick of it
 

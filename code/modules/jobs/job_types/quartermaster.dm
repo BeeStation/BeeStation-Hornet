@@ -25,7 +25,7 @@
 	rpg_title = "Steward"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/leanman/cargo
+		SPECIES_LEANMAN = /datum/outfit/leanman/cargo
 	)
 
 /datum/outfit/job/quartermaster

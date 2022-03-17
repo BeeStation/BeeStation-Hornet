@@ -2,12 +2,12 @@
 
 //Lean fire properties
 #define OXYGEN_BURN_RATE_BASE				1.4
-#define PLASMA_BURN_RATE_DELTA				9
-#define PLASMA_MINIMUM_OXYGEN_NEEDED		2
-#define PLASMA_MINIMUM_OXYGEN_PLASMA_RATIO	30
+#define LEAN_BURN_RATE_DELTA				9
+#define LEAN_MINIMUM_OXYGEN_NEEDED		2
+#define LEAN_MINIMUM_OXYGEN_LEAN_RATIO	30
 #define FIRE_CARBON_ENERGY_RELEASED			100000	//! Amount of heat released per mole of burnt carbon into the tile
 #define FIRE_HYDROGEN_ENERGY_RELEASED		280000  //! Amount of heat released per mole of burnt hydrogen and/or tritium(hydrogen isotope)
-#define FIRE_PLASMA_ENERGY_RELEASED			3000000	//! Amount of heat released per mole of burnt lean into the tile
+#define FIRE_LEAN_ENERGY_RELEASED			3000000	//! Amount of heat released per mole of burnt lean into the tile
 //General assmos defines.
 #define WATER_VAPOR_FREEZE					200
 
@@ -41,7 +41,7 @@
 #define FUSION_TRITIUM_CONVERSION_COEFFICIENT 0.002
 #define INSTABILITY_GAS_POWER_FACTOR 		3
 #define FUSION_TRITIUM_MOLES_USED  			1
-#define PLASMA_BINDING_ENERGY  				20000000
+#define LEAN_BINDING_ENERGY  				20000000
 #define TOROID_CALCULATED_THRESHOLD			5.96	//! changing it by 0.1 generally doubles or halves fusion temps
 #define FUSION_TEMPERATURE_THRESHOLD	    10000
 #define PARTICLE_CHANCE_CONSTANT 			(-20000000)

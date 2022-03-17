@@ -28,7 +28,7 @@
 	rpg_title = "Jailor"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/leanman/warden
+		SPECIES_LEANMAN = /datum/outfit/leanman/warden
 	)
 
 /datum/job/warden/get_access()

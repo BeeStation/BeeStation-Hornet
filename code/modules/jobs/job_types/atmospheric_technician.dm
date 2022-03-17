@@ -24,7 +24,7 @@
 	rpg_title = "Aeromancer"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/leanman/atmospherics
+		SPECIES_LEANMAN = /datum/outfit/leanman/atmospherics
 	)
 /datum/outfit/job/atmos
 	name = "Atmospheric Technician"

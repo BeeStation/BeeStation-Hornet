@@ -261,7 +261,7 @@
 			to_chat(H, "<span class='notice'>You feel resistant to airborne toxins.</span>")
 			if(locate(/obj/item/organ/lungs) in H.internal_organs)
 				var/obj/item/organ/lungs/L = H.internal_organs_slot[ORGAN_SLOT_LUNGS]
-				L.gas_max -= GAS_PLASMA
+				L.gas_max -= GAS_LEAN
 			ADD_TRAIT(H, TRAIT_VIRUSIMMUNE, "dna_vault")
 		if(VAULT_NOBREATH)
 			to_chat(H, "<span class='notice'>Your lungs feel great.</span>")

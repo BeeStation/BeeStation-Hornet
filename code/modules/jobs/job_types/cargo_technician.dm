@@ -22,7 +22,7 @@
 	rpg_title = "Merchantman"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/leanman/cargo
+		SPECIES_LEANMAN = /datum/outfit/leanman/cargo
 	)
 	biohazard = 15
 

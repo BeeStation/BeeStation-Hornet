@@ -288,10 +288,10 @@
 	icon_state = "scrub_map_on-3"
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/lavaland
-	filter_types = list(GAS_CO2, GAS_PLASMA, GAS_H2O, GAS_BZ)
+	filter_types = list(GAS_CO2, GAS_LEAN, GAS_H2O, GAS_BZ)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland
-	filter_types = list(GAS_CO2, GAS_PLASMA, GAS_H2O, GAS_BZ)
+	filter_types = list(GAS_CO2, GAS_LEAN, GAS_H2O, GAS_BZ)
 
 #undef SIPHONING
 #undef SCRUBBING

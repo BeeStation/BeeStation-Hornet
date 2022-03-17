@@ -123,7 +123,7 @@
 
 /turf/open/floor/engine/lean
 	name = "lean floor"
-	initial_gas_mix = ATMOS_TANK_PLASMA
+	initial_gas_mix = ATMOS_TANK_LEAN
 
 /turf/open/floor/engine/lean/light
 	icon_state = "engine_light"

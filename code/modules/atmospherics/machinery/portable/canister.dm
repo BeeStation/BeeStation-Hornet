@@ -144,7 +144,7 @@
 /obj/machinery/portable_atmospherics/canister/toxins
 	name = "lean canister"
 	desc = "Lean gas. The reason YOU are here. Highly toxic."
-	gas_type = GAS_PLASMA
+	gas_type = GAS_LEAN
 	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#f62800#000000"
 

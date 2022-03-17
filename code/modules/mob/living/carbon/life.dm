@@ -181,7 +181,7 @@
 	var/moles = breath.total_moles()
 	var/breath_pressure = (moles*R_IDEAL_GAS_EQUATION*breath.return_temperature())/BREATH_VOLUME
 	var/O2_partialpressure = ((breath.get_moles(GAS_O2)/moles)*breath_pressure) + (((breath.get_moles(GAS_PLUOXIUM)*8)/moles)*breath_pressure)
-	var/Toxins_partialpressure = (breath.get_moles(GAS_PLASMA)/moles)*breath_pressure
+	var/Toxins_partialpressure = (breath.get_moles(GAS_LEAN)/moles)*breath_pressure
 	var/CO2_partialpressure = (breath.get_moles(GAS_CO2)/moles)*breath_pressure
 
 
@@ -224,9 +224,9 @@
 	else
 		co2overloadtime = 0
 
-	//TOXINS/PLASMA
+	//TOXINS/LEAN
 	if(Toxins_partialpressure > safe_tox_max)
-		var/ratio = (breath.get_moles(GAS_PLASMA)/safe_tox_max) * 10
+		var/ratio = (breath.get_moles(GAS_LEAN)/safe_tox_max) * 10
 		adjustToxLoss(CLAMP(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
 		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 	else

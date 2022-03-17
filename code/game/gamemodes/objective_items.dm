@@ -124,7 +124,7 @@
 /datum/objective_item/steal/lean/check_special_completion(obj/item/tank/T)
 	var/target_amount = text2num(name)
 	var/found_amount = 0
-	found_amount += T.air_contents.get_moles(GAS_PLASMA)
+	found_amount += T.air_contents.get_moles(GAS_LEAN)
 	return found_amount>=target_amount
 
 
