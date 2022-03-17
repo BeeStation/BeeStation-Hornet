@@ -248,7 +248,7 @@
 				msg += "[t_He] [t_is][stun_absorption[i]["examine_message"]]\n"
 
 	if(just_sleeping)
-		msg += "[t_He] [t_is]n't responding to anything around [t_him] and seem[p_s()] to be asleep.\n"
+		msg += "[user.p_they(TRUE)] isn't responding to anything around [user.p_them()] and seems to be asleep.\n"
 
 	if(drunkenness && !skipface && !appears_dead) //Drunkenness
 		switch(drunkenness)
