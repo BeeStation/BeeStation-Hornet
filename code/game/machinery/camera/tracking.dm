@@ -79,7 +79,7 @@
 	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/ai_stop_tracking)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/ai_actual_track)
 	ai_tracking_target = target
-	eyeobj.setLoc(get_turf(target)) //on the first call of this we obviously need to jump to the target ourselfs else we will go there only after they moved once
+	eyeobj.setLoc(get_turf(target)) //on the first call of this we obviously need to jump to the target ourselfs else we would go there only after they moved once
 	to_chat(src, "<span class='notice'>Now tracking [target.get_visible_name()] on camera.</span>")
 
 /mob/living/silicon/ai/proc/ai_stop_tracking(var/reacquire_failed = FALSE) //stops ai tracking
