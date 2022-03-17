@@ -118,7 +118,9 @@
 		RestrainedClickOn(A)
 		return
 
-	if(in_throw_mode && throw_item(A))
+	if(throw_mode)
+		changeNext_move(CLICK_CD_THROW)
+		throw_item(A)
 		return
 
 	var/obj/item/W = get_active_held_item()
