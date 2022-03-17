@@ -74,6 +74,8 @@
 	if(!target || !target.can_track(src))
 		to_chat(src, "<span class='warning'>Target is not near any active cameras.</span>")
 		return
+	if(ai_tracking_target) //if there is already a tracking going when this gets called makes sure the old tracking gets stopped before we register the new signals
+		ai_stop_tracking()
 	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/ai_stop_tracking)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/ai_actual_track)
 	ai_tracking_target = target
@@ -85,9 +87,12 @@
 	UnregisterSignal(ai_tracking_target, COMSIG_PARENT_QDELETING)
 	UnregisterSignal(ai_tracking_target, COMSIG_MOVABLE_MOVED)
 	ai_tracking_target = null
-	if(reacquire_failed) //checks if the reaquire timer ran out before we could find the target again
+	if(reacquire_timer)
+		if(reacquire_failed) //edge case when someone might jump to another camera while the reacquire timer is running
+			to_chat(src, "<span class='warning'>Unable to reacquire, cancelling track...</span>")
+		else
+			deltimer(reacquire_timer)
 		reacquire_timer = null
-		to_chat(src, "<span class='warning'>Unable to reacquire, cancelling track...</span>")
 
 /mob/living/silicon/ai/proc/ai_actual_track() //proc that gets called by the moved signal of the target
 	SIGNAL_HANDLER
