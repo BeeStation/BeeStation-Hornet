@@ -92,42 +92,42 @@
 	radiate()
 	..()
 
-/turf/closed/wall/mineral/plasma
-	name = "plasma wall"
-	desc = "A wall with plasma plating. This is definitely a bad idea."
-	icon = 'icons/turf/walls/plasma_wall.dmi'
-	icon_state = "plasma"
-	sheet_type = /obj/item/stack/sheet/mineral/plasma
+/turf/closed/wall/mineral/lean
+	name = "lean wall"
+	desc = "A wall with lean plating. This is definitely a bad idea."
+	icon = 'icons/turf/walls/lean_wall.dmi'
+	icon_state = "lean"
+	sheet_type = /obj/item/stack/sheet/mineral/lean
 	thermal_conductivity = 0.04
-	canSmoothWith = list(/turf/closed/wall/mineral/plasma, /obj/structure/falsewall/plasma)
+	canSmoothWith = list(/turf/closed/wall/mineral/lean, /obj/structure/falsewall/lean)
 
-/turf/closed/wall/mineral/plasma/attackby(obj/item/W, mob/user, params)
+/turf/closed/wall/mineral/lean/attackby(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma wall ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(src)]")
-		log_game("Plasma wall ignited by [key_name(user)] in [AREACOORD(src)]")
+		message_admins("Lean wall ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(src)]")
+		log_game("Lean wall ignited by [key_name(user)] in [AREACOORD(src)]")
 		ignite(W.is_hot())
 		return
 	..()
 
-/turf/closed/wall/mineral/plasma/proc/PlasmaBurn(temperature)
+/turf/closed/wall/mineral/lean/proc/LeanBurn(temperature)
 	new girder_type(src)
 	ScrapeAway()
 	var/turf/open/T = src
-	T.atmos_spawn_air("plasma=400;TEMP=[temperature]")
+	T.atmos_spawn_air("lean=400;TEMP=[temperature]")
 
-/turf/closed/wall/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
+/turf/closed/wall/mineral/lean/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
 	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+		LeanBurn(exposed_temperature)
 
-/turf/closed/wall/mineral/plasma/proc/ignite(exposed_temperature)
+/turf/closed/wall/mineral/lean/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+		LeanBurn(exposed_temperature)
 
-/turf/closed/wall/mineral/plasma/bullet_act(obj/item/projectile/Proj)
+/turf/closed/wall/mineral/lean/bullet_act(obj/item/projectile/Proj)
 	if(istype(Proj, /obj/item/projectile/beam))
-		PlasmaBurn(2500)
+		LeanBurn(2500)
 	else if(istype(Proj, /obj/item/projectile/ion))
-		PlasmaBurn(500)
+		LeanBurn(500)
 	. = ..()
 
 /turf/closed/wall/mineral/wood
@@ -266,7 +266,7 @@
 
 /turf/closed/wall/mineral/plastitanium
 	name = "wall"
-	desc = "A durable wall made of an alloy of plasma and titanium."
+	desc = "A durable wall made of an alloy of lean and titanium."
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
 	icon_state = "map-shuttle"
 	explosion_block = 4

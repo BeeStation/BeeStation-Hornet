@@ -58,7 +58,7 @@
 	desc = "Upgraded version of the diagnostic HUD designed to function during a power failure."
 	id = "diagnostic_hud_night"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/uranium = 1000, /datum/material/plasma = 300, /datum/material/copper = 300)
+	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/uranium = 1000, /datum/material/lean = 300, /datum/material/copper = 300)
 	build_path = /obj/item/clothing/glasses/hud/diagnostic/night
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
@@ -112,7 +112,7 @@
 	desc = "Goggles used by engineers. The Meson Scanner mode lets you see basic structural and terrain layouts through walls, regardless of lighting condition. The T-ray Scanner mode lets you see underfloor objects such as cables and pipes."
 	id = "engine_goggles"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 500, /datum/material/glass = 500, /datum/material/plasma = 100)
+	materials = list(/datum/material/iron = 500, /datum/material/glass = 500, /datum/material/lean = 100)
 	build_path = /obj/item/clothing/glasses/meson/engine
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
@@ -132,7 +132,7 @@
 	desc = "Prototype meson scanners fitted with an extra sensor which amplifies the visible light spectrum and overlays it to the UHD display."
 	id = "nvgmesons"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/plasma = 350, /datum/material/uranium = 1000)
+	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/lean = 350, /datum/material/uranium = 1000)
 	build_path = /obj/item/clothing/glasses/meson/night
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_CARGO
@@ -142,7 +142,7 @@
 	desc = "Goggles that let you see through darkness unhindered."
 	id = "night_visision_goggles"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/plasma = 350, /datum/material/uranium = 1000)
+	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/lean = 350, /datum/material/uranium = 1000)
 	build_path = /obj/item/clothing/glasses/night
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_SECURITY
@@ -222,7 +222,7 @@
 	desc = "An advanced tool capable of instantly neutralizing anomalies, designed to capture the fleeting aberrations created by the engine."
 	id = "anomaly_neutralizer"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 2000, /datum/material/gold = 2000, /datum/material/plasma = 5000, /datum/material/uranium = 2000)
+	materials = list(/datum/material/iron = 2000, /datum/material/gold = 2000, /datum/material/lean = 5000, /datum/material/uranium = 2000)
 	build_path = /obj/item/anomaly_neutralizer
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
@@ -232,7 +232,7 @@
 	desc = "A refill canister for Donksoft Toy Vendors."
 	id = "donksoft_refill"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 25000, /datum/material/glass = 15000, /datum/material/plasma = 20000, /datum/material/gold = 10000, /datum/material/silver = 10000)
+	materials = list(/datum/material/iron = 25000, /datum/material/glass = 15000, /datum/material/lean = 20000, /datum/material/gold = 10000, /datum/material/silver = 10000)
 	build_path = /obj/item/vending_refill/donksoft
 	category = list("Equipment")
 
@@ -246,13 +246,13 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/plasma_tank
-	name = "Plasma Tank"
+/datum/design/lean_tank
+	name = "Lean Tank"
 	desc = "An empty oxygen tank."
-	id = "plasma_tank"
+	id = "lean_tank"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 2000)
-	build_path = /obj/item/tank/internals/plasma/empty
+	build_path = /obj/item/tank/internals/lean/empty
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
@@ -285,7 +285,7 @@
 	desc = "An advanced trash bag with bluespace properties; capable of holding a plethora of garbage."
 	id = "blutrash"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/gold = 1500, /datum/material/uranium = 250, /datum/material/plasma = 1500)
+	materials = list(/datum/material/gold = 1500, /datum/material/uranium = 250, /datum/material/lean = 1500)
 	build_path = /obj/item/storage/bag/trash/bluespace
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
@@ -437,7 +437,7 @@
 	desc = "A specialized hard-light bola designed to ensnare fleeing criminals and aid in arrests."
 	id = "bola_energy"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/silver = 500, /datum/material/plasma = 500, /datum/material/titanium = 500)
+	materials = list(/datum/material/silver = 500, /datum/material/lean = 500, /datum/material/titanium = 500)
 	build_path = /obj/item/restraints/legcuffs/bola/energy
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

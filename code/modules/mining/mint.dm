@@ -20,7 +20,7 @@
 	. = ..()
 	AddComponent(/datum/component/material_container, list(
 		/datum/material/iron,
-		/datum/material/plasma,
+		/datum/material/lean,
 		/datum/material/silver,
 		/datum/material/gold,
 		/datum/material/uranium,

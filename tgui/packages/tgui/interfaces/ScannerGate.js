@@ -31,8 +31,8 @@ const TARGET_SPECIES_LIST = [
     value: 'felinid',
   },
   {
-    name: 'Plasmaman',
-    value: 'plasma',
+    name: 'Leanman',
+    value: 'lean',
   },
   {
     name: 'Mothperson',

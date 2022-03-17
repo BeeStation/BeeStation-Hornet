@@ -62,7 +62,7 @@ handles linking back and forth.
 		/datum/material/silver,
 		/datum/material/gold,
 		/datum/material/diamond,
-		/datum/material/plasma,
+		/datum/material/lean,
 		/datum/material/uranium,
 		/datum/material/bananium,
 		/datum/material/titanium,

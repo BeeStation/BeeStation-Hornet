@@ -153,12 +153,12 @@
 #define TCOMMS_ATMOS				"n2=100;TEMP=80" //-193,15°C telecommunications. also used for xenobiology slime killrooms
 #define AIRLESS_ATMOS				"TEMP=2.7" //space
 #define FROZEN_ATMOS				"o2=22;n2=82;TEMP=180" //-93.15°C snow and ice turfs
-#define BURNMIX_ATMOS				"o2=100;plasma=200;TEMP=370" //used in the holodeck burn test program
+#define BURNMIX_ATMOS				"o2=100;lean=200;TEMP=370" //used in the holodeck burn test program
 
 //ATMOSPHERICS DEPARTMENT GAS TANK TURFS
 #define ATMOS_TANK_N2O				"n2o=6000;TEMP=293.15"
 #define ATMOS_TANK_CO2				"co2=50000;TEMP=293.15"
-#define ATMOS_TANK_PLASMA			"plasma=70000;TEMP=293.15"
+#define ATMOS_TANK_PLASMA			"lean=70000;TEMP=293.15"
 #define ATMOS_TANK_O2				"o2=100000;TEMP=293.15"
 #define ATMOS_TANK_N2				"n2=100000;TEMP=293.15"
 #define ATMOS_TANK_AIRMIX			"o2=2644;n2=10580;TEMP=293.15"
@@ -266,7 +266,7 @@
 #define GAS_O2					"o2"
 #define GAS_N2					"n2"
 #define GAS_CO2					"co2"
-#define GAS_PLASMA				"plasma"
+#define GAS_PLASMA				"lean"
 #define GAS_H2O					"water_vapor"
 #define GAS_HYPERNOB			"nob"
 #define GAS_NITROUS				"n2o"

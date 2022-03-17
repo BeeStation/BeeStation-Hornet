@@ -90,7 +90,7 @@
 #define SPECIES_HUMAN			"human"
 #define SPECIES_IPC 			"ipc"
 #define SPECIES_ETHEREAL 		"ethereal"
-#define SPECIES_PLASMAMAN 		"plasmaman"
+#define SPECIES_PLASMAMAN 		"leanman"
 #define SPECIES_APID 			"apid"
 #define SPECIES_MOTH			"moth"
 #define SPECIES_LIZARD			"lizard"

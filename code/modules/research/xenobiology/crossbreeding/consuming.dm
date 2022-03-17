@@ -176,7 +176,7 @@ Consuming extracts:
 
 /obj/item/slime_cookie/darkpurple
 	name = "toxic cookie"
-	desc = "A dark purple cookie, stinking of plasma."
+	desc = "A dark purple cookie, stinking of lean."
 	icon_state = "darkpurple"
 	taste = "slime jelly and toxins"
 

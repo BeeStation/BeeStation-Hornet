@@ -29,7 +29,7 @@
 	desc = "A bluespace beaker, powered by experimental bluespace technology and Element Cuban combined with the Compound Pete. Can hold up to 300 units."
 	id = "bluespacebeaker"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/glass = 5000, /datum/material/plasma = 3000, /datum/material/diamond = 1000, /datum/material/bluespace = 1000)
+	materials = list(/datum/material/glass = 5000, /datum/material/lean = 3000, /datum/material/diamond = 1000, /datum/material/bluespace = 1000)
 	build_path = /obj/item/reagent_containers/glass/beaker/bluespace
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
@@ -67,7 +67,7 @@
 	desc = "An advanced syringe that can hold 60 units of chemicals"
 	id = "bluespacesyringe"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/glass = 2000, /datum/material/plasma = 1000, /datum/material/diamond = 1000, /datum/material/bluespace = 500)
+	materials = list(/datum/material/glass = 2000, /datum/material/lean = 1000, /datum/material/diamond = 1000, /datum/material/bluespace = 500)
 	build_path = /obj/item/reagent_containers/syringe/bluespace
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
@@ -107,17 +107,17 @@
 	desc = "A bluespace body bag, powered by experimental bluespace technology. It can hold loads of bodies and the largest of creatures."
 	id = "bluespacebodybag"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 3000, /datum/material/plasma = 2000, /datum/material/diamond = 500, /datum/material/bluespace = 500)
+	materials = list(/datum/material/iron = 3000, /datum/material/lean = 2000, /datum/material/diamond = 500, /datum/material/bluespace = 500)
 	build_path = /obj/item/bodybag/bluespace
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/plasmarefiller
-	name = "Plasma-Man Jumpsuit Refill"
-	desc = "A refill pack for the auto-extinguisher on Plasma-man suits."
-	id = "plasmarefiller" //Why did this have no plasmatech
+/datum/design/leanrefiller
+	name = "Lean-Man Jumpsuit Refill"
+	desc = "A refill pack for the auto-extinguisher on Lean-man suits."
+	id = "leanrefiller" //Why did this have no leantech
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 4000, /datum/material/plasma = 1000)
+	materials = list(/datum/material/iron = 4000, /datum/material/lean = 1000)
 	build_path = /obj/item/extinguisher_refill
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ALL
@@ -227,7 +227,7 @@
 	id = "searingtool"
 	build_path = /obj/item/surgicaldrill/advanced
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 4000, /datum/material/glass = 2000, /datum/material/plasma = 2000, /datum/material/uranium = 3000, /datum/material/titanium = 3000)
+	materials = list(/datum/material/iron = 4000, /datum/material/glass = 2000, /datum/material/lean = 2000, /datum/material/uranium = 3000, /datum/material/titanium = 3000)
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
 
@@ -351,7 +351,7 @@
 	id = "ci-xray"
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60
-	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/silver = 600, /datum/material/gold = 600, /datum/material/plasma = 1000, /datum/material/uranium = 1000, /datum/material/diamond = 1000, /datum/material/bluespace = 1000, /datum/material/copper = 200)
+	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/silver = 600, /datum/material/gold = 600, /datum/material/lean = 1000, /datum/material/uranium = 1000, /datum/material/diamond = 1000, /datum/material/bluespace = 1000, /datum/material/copper = 200)
 	build_path = /obj/item/organ/eyes/robotic/xray
 	category = list("Implants", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
@@ -362,7 +362,7 @@
 	id = "ci-thermals"
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 60
-	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/silver = 600, /datum/material/gold = 600, /datum/material/plasma = 1000, /datum/material/diamond = 2000, /datum/material/copper = 200)
+	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/silver = 600, /datum/material/gold = 600, /datum/material/lean = 1000, /datum/material/diamond = 2000, /datum/material/copper = 200)
 	build_path = /obj/item/organ/eyes/robotic/thermals
 	category = list("Implants", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
@@ -439,7 +439,7 @@
 	id = "hydraulic_blade"
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 250
-	materials = list(/datum/material/iron = 5000, /datum/material/glass = 5000, /datum/material/silver = 10000, /datum/material/diamond = 3000, /datum/material/titanium = 8000, /datum/material/bluespace = 2000, /datum/material/plasma = 5000)
+	materials = list(/datum/material/iron = 5000, /datum/material/glass = 5000, /datum/material/silver = 10000, /datum/material/diamond = 3000, /datum/material/titanium = 8000, /datum/material/bluespace = 2000, /datum/material/lean = 5000)
 	build_path = /obj/item/organ/cyberimp/arm/hydraulic_blade
 	category = list("Cybernetics", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
@@ -572,7 +572,7 @@
 	id = "wingpack"
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 500
-	materials = list(/datum/material/iron = 10000, /datum/material/glass = 1000, /datum/material/uranium = 4000, /datum/material/silver = 100, /datum/material/titanium = 8000, /datum/material/plasma = 10000)
+	materials = list(/datum/material/iron = 10000, /datum/material/glass = 1000, /datum/material/uranium = 4000, /datum/material/silver = 100, /datum/material/titanium = 8000, /datum/material/lean = 10000)
 	build_path = /obj/item/organ/wings/cybernetic
 	category = list("Cybernetics", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
@@ -583,7 +583,7 @@
 	id = "wingpack_ayy"
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 1000
-	materials = list(/datum/material/iron = 10000, /datum/material/glass = 1000, /datum/material/uranium = 500, /datum/material/silver = 100, /datum/material/titanium = 8000, /datum/material/bluespace = 2000, /datum/material/plasma = 5000)
+	materials = list(/datum/material/iron = 10000, /datum/material/glass = 1000, /datum/material/uranium = 500, /datum/material/silver = 100, /datum/material/titanium = 8000, /datum/material/bluespace = 2000, /datum/material/lean = 5000)
 	build_path = /obj/item/organ/wings/cybernetic/ayy
 	category = list("Cybernetics", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL

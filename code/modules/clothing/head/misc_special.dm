@@ -353,7 +353,7 @@
 			return
 	..()
 
-/obj/item/clothing/head/foilhat/plasmaman
+/obj/item/clothing/head/foilhat/leanman
 	name = "tinfoil envirosuit helmet"
 	desc = "The Syndicate is a hoax! Dogs are fake! Space Station 13 is just a money laundering operation! See the truth!"
 	icon_state = "tinfoil_envirohelm"
@@ -372,12 +372,12 @@
 	dynamic_fhair_suffix = ""
 	flash_protect = 2
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	bang_protect = 1 //make this consistent with other plasmaman helmets
+	bang_protect = 1 //make this consistent with other leanman helmets
 	resistance_flags = NONE
 	dog_fashion = null
 
 
-/obj/item/clothing/head/foilhat/plasmaman/attack_self(mob/user)
+/obj/item/clothing/head/foilhat/leanman/attack_self(mob/user)
 	on = !on
 	icon_state = "[initial(icon_state)][on ? "-light":""]"
 	item_state = icon_state

@@ -36,7 +36,7 @@
 	chat_color = "#bd9e86"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
+		SPECIES_PLASMAMAN = /datum/outfit/leanman
 	)
 
 /datum/outfit/job/gimmick/barber
@@ -61,7 +61,7 @@
 	chat_color = "#b898b3"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/magic
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/magic
 	)
 
 /datum/outfit/job/gimmick/magician
@@ -91,7 +91,7 @@
 	departments = DEPARTMENT_MEDICAL
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
+		SPECIES_PLASMAMAN = /datum/outfit/leanman
 	)
 
 /datum/outfit/job/gimmick/shrink //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
@@ -116,7 +116,7 @@
 	chat_color = "#ebc96b"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/vip
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/vip
 	)
 
 /datum/outfit/job/gimmick/celebrity

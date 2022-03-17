@@ -2,7 +2,7 @@
 	name = "Accessory"
 	desc = "Something has gone wrong!"
 	icon = 'icons/obj/clothing/accessories.dmi'
-	icon_state = "plasma"
+	icon_state = "lean"
 	item_state = ""	//no inhands
 	slot_flags = 0
 	w_class = WEIGHT_CLASS_SMALL
@@ -221,23 +221,23 @@
 	name = "medal of exceptional heroism"
 	desc = "An extremely rare golden medal awarded only by CentCom. To receive such a medal is the highest honor and as such, very few exist. This medal is almost never awarded to anybody but commanders."
 
-/obj/item/clothing/accessory/medal/plasma
-	name = "plasma medal"
-	desc = "An eccentric medal made of plasma."
-	icon_state = "plasma"
-	medaltype = "medal-plasma"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = -10, "acid" = 0, "stamina" = 0) //It's made of plasma. Of course it's flammable.
-	materials = list(/datum/material/plasma=1000)
+/obj/item/clothing/accessory/medal/lean
+	name = "lean medal"
+	desc = "An eccentric medal made of lean."
+	icon_state = "lean"
+	medaltype = "medal-lean"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = -10, "acid" = 0, "stamina" = 0) //It's made of lean. Of course it's flammable.
+	materials = list(/datum/material/lean=1000)
 
-/obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/item/clothing/accessory/medal/lean/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
-		atmos_spawn_air("plasma=20;TEMP=[exposed_temperature]")
+		atmos_spawn_air("lean=20;TEMP=[exposed_temperature]")
 		visible_message("<span class='danger'> \The [src] bursts into flame!</span>","<span class='userdanger'>Your [src] bursts into flame!</span>")
 		qdel(src)
 
-/obj/item/clothing/accessory/medal/plasma/nobel_science
+/obj/item/clothing/accessory/medal/lean/nobel_science
 	name = "nobel sciences award"
-	desc = "A plasma medal which represents significant contributions to the field of science or engineering."
+	desc = "A lean medal which represents significant contributions to the field of science or engineering."
 
 
 

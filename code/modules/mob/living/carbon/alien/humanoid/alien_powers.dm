@@ -9,7 +9,7 @@ Doesn't work on other aliens/AI.*/
 /obj/effect/proc_holder/alien
 	name = "Alien Power"
 	panel = "Alien"
-	var/plasma_cost = 0
+	var/lean_cost = 0
 	var/check_turf = FALSE
 	has_action = TRUE
 	base_action = /datum/action/spell_action/alien
@@ -23,7 +23,7 @@ Doesn't work on other aliens/AI.*/
 	var/mob/living/carbon/user = usr
 	if(cost_check(check_turf,user))
 		if(fire(user) && user) // Second check to prevent runtimes when evolving
-			user.adjustPlasma(-plasma_cost)
+			user.adjustLean(-lean_cost)
 	return 1
 
 /obj/effect/proc_holder/alien/on_gain(mob/living/carbon/user)
@@ -37,17 +37,17 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/get_panel_text()
 	. = ..()
-	if(plasma_cost > 0)
-		return "[plasma_cost]"
+	if(lean_cost > 0)
+		return "[lean_cost]"
 
 /obj/effect/proc_holder/alien/proc/cost_check(check_turf = FALSE, mob/living/carbon/user, silent = FALSE)
 	if(user.stat)
 		if(!silent)
 			to_chat(user, "<span class='noticealien'>You must be conscious to do this.</span>")
 		return FALSE
-	if(user.getPlasma() < plasma_cost)
+	if(user.getLean() < lean_cost)
 		if(!silent)
-			to_chat(user, "<span class='noticealien'>Not enough plasma stored.</span>")
+			to_chat(user, "<span class='noticealien'>Not enough lean stored.</span>")
 		return FALSE
 	if(check_turf && (!isturf(user.loc) || isspaceturf(user.loc)))
 		if(!silent)
@@ -65,8 +65,8 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/plant
 	name = "Plant Weeds"
-	desc = "Alien weeds spread resin which heals any alien. Costs 50 Plasma."
-	plasma_cost = 50
+	desc = "Alien weeds spread resin which heals any alien. Costs 50 Lean."
+	lean_cost = 50
 	check_turf = TRUE
 	action_icon_state = "alien_plant"
 
@@ -80,8 +80,8 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/whisper
 	name = "Whisper"
-	desc = "Whisper to someone through the hivemind. Costs 10 Plasma."
-	plasma_cost = 10
+	desc = "Whisper to someone through the hivemind. Costs 10 Lean."
+	lean_cost = 10
 	action_icon_state = "alien_whisper"
 
 /obj/effect/proc_holder/alien/whisper/fire(mob/living/carbon/user)
@@ -107,35 +107,35 @@ Doesn't work on other aliens/AI.*/
 	return 1
 
 /obj/effect/proc_holder/alien/transfer
-	name = "Transfer Plasma"
-	desc = "Transfer Plasma to another alien."
-	plasma_cost = 0
+	name = "Transfer Lean"
+	desc = "Transfer Lean to another alien."
+	lean_cost = 0
 	action_icon_state = "alien_transfer"
 
 /obj/effect/proc_holder/alien/transfer/fire(mob/living/carbon/user)
 	var/list/mob/living/carbon/aliens_around = list()
 	for(var/mob/living/carbon/A  in oview(user))
-		if(A.getorgan(/obj/item/organ/alien/plasmavessel))
+		if(A.getorgan(/obj/item/organ/alien/leanvessel))
 			aliens_around.Add(A)
-	var/mob/living/carbon/M = input("Select who to transfer to:","Transfer plasma to?",null) as mob in sortNames(aliens_around)
+	var/mob/living/carbon/M = input("Select who to transfer to:","Transfer lean to?",null) as mob in sortNames(aliens_around)
 	if(!M)
 		return 0
-	var/amount = input("Amount:", "Transfer Plasma to [M]") as num
+	var/amount = input("Amount:", "Transfer Lean to [M]") as num
 	if (amount)
-		amount = min(abs(round(amount)), user.getPlasma())
+		amount = min(abs(round(amount)), user.getLean())
 		if (get_dist(user,M) <= 1)
-			M.adjustPlasma(amount)
-			user.adjustPlasma(-amount)
-			to_chat(M, "<span class='noticealien'>[user] has transferred [amount] plasma to you.</span>")
-			to_chat(user, "<span class='noticealien'>You transfer [amount] plasma to [M]</span>")
+			M.adjustLean(amount)
+			user.adjustLean(-amount)
+			to_chat(M, "<span class='noticealien'>[user] has transferred [amount] lean to you.</span>")
+			to_chat(user, "<span class='noticealien'>You transfer [amount] lean to [M]</span>")
 		else
 			to_chat(user, "<span class='noticealien'>You need to be closer!</span>")
 	return
 
 /obj/effect/proc_holder/alien/acid
 	name = "Corrosive Acid"
-	desc = "Drench an object in acid, destroying it over time. Costs 200 Plasma."
-	plasma_cost = 200
+	desc = "Drench an object in acid, destroying it over time. Costs 200 Lean."
+	lean_cost = 200
 	action_icon_state = "alien_acid"
 
 /obj/effect/proc_holder/alien/acid/on_gain(mob/living/carbon/user)
@@ -175,12 +175,12 @@ Doesn't work on other aliens/AI.*/
 	var/obj/effect/proc_holder/alien/acid/A = locate() in user.abilities
 	if(!A)
 		return
-	if(user.getPlasma() > A.plasma_cost && A.corrode(O))
-		user.adjustPlasma(-A.plasma_cost)
+	if(user.getLean() > A.lean_cost && A.corrode(O))
+		user.adjustLean(-A.lean_cost)
 
 /obj/effect/proc_holder/alien/neurotoxin
 	name = "Spit Neurotoxin"
-	desc = "Activates your Neurotoxin glands. You can shoot paralyzing shots. Each shot costs 50 Plasma."
+	desc = "Activates your Neurotoxin glands. You can shoot paralyzing shots. Each shot costs 50 Lean."
 	action_icon_state = "alien_neurotoxin_0"
 	active = FALSE
 
@@ -207,8 +207,8 @@ Doesn't work on other aliens/AI.*/
 
 	var/mob/living/carbon/user = ranged_ability_user
 
-	if(user.getPlasma() < p_cost)
-		to_chat(user, "<span class='warning'>You need at least [p_cost] plasma to spit.</span>")
+	if(user.getLean() < p_cost)
+		to_chat(user, "<span class='warning'>You need at least [p_cost] lean to spit.</span>")
 		remove_ranged_ability()
 		return
 
@@ -223,7 +223,7 @@ Doesn't work on other aliens/AI.*/
 	A.firer = user
 	A.fire()
 	user.newtonian_move(get_dir(U, T))
-	user.adjustPlasma(-p_cost)
+	user.adjustLean(-p_cost)
 
 	return TRUE
 
@@ -246,8 +246,8 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/resin
 	name = "Secrete Resin"
-	desc = "Secrete tough malleable resin. Costs 55 Plasma."
-	plasma_cost = 55
+	desc = "Secrete tough malleable resin. Costs 55 Lean."
+	lean_cost = 55
 	check_turf = TRUE
 	var/list/structures = list(
 		"resin wall" = /obj/structure/alien/resin/wall,
@@ -296,32 +296,32 @@ Doesn't work on other aliens/AI.*/
 		to_chat(user, "<span class='noticealien'>You reveal yourself!</span>")
 
 
-/mob/living/carbon/proc/getPlasma()
-	var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
+/mob/living/carbon/proc/getLean()
+	var/obj/item/organ/alien/leanvessel/vessel = getorgan(/obj/item/organ/alien/leanvessel)
 	if(!vessel)
 		return 0
-	return vessel.storedPlasma
+	return vessel.storedLean
 
 
-/mob/living/carbon/proc/adjustPlasma(amount)
-	var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
+/mob/living/carbon/proc/adjustLean(amount)
+	var/obj/item/organ/alien/leanvessel/vessel = getorgan(/obj/item/organ/alien/leanvessel)
 	if(!vessel)
 		return 0
-	vessel.storedPlasma = max(vessel.storedPlasma + amount,0)
-	vessel.storedPlasma = min(vessel.storedPlasma, vessel.max_plasma) //upper limit of max_plasma, lower limit of 0
+	vessel.storedLean = max(vessel.storedLean + amount,0)
+	vessel.storedLean = min(vessel.storedLean, vessel.max_lean) //upper limit of max_lean, lower limit of 0
 	for(var/X in abilities)
 		var/obj/effect/proc_holder/alien/APH = X
 		if(APH.has_action)
 			APH.action.UpdateButtonIcon()
 	return 1
 
-/mob/living/carbon/alien/adjustPlasma(amount)
+/mob/living/carbon/alien/adjustLean(amount)
 	. = ..()
-	updatePlasmaDisplay()
+	updateLeanDisplay()
 
-/mob/living/carbon/proc/usePlasma(amount)
-	if(getPlasma() >= amount)
-		adjustPlasma(-amount)
+/mob/living/carbon/proc/useLean(amount)
+	if(getLean() >= amount)
+		adjustLean(-amount)
 		return 1
 
 	return 0

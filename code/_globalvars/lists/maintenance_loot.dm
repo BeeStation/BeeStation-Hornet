@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/stack/rods/fifty = 1,
 	/obj/item/stack/sheet/cardboard = 2,
 	/obj/item/stack/sheet/iron/twenty = 1,
-	/obj/item/stack/sheet/mineral/plasma = 1,
+	/obj/item/stack/sheet/mineral/lean = 1,
 	/obj/item/stack/sheet/rglass = 1,
 	/obj/item/book/manual/wiki/engineering_construction = 1,
 	/obj/item/book/manual/wiki/engineering_hacking = 1,

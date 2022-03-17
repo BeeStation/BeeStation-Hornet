@@ -22,7 +22,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 		/datum/material/silver,
 		/datum/material/gold,
 		/datum/material/diamond,
-		/datum/material/plasma,
+		/datum/material/lean,
 		/datum/material/uranium,
 		/datum/material/bananium,
 		/datum/material/titanium,

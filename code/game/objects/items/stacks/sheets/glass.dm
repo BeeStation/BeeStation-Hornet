@@ -76,37 +76,37 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 
 
 GLOBAL_LIST_INIT(pglass_recipes, list ( \
-	new/datum/stack_recipe("directional window", /obj/structure/window/plasma/unanchored, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("fulltile window", /obj/structure/window/plasma/fulltile/unanchored, 2, time = 0, on_floor = TRUE, window_checks = TRUE) \
+	new/datum/stack_recipe("directional window", /obj/structure/window/lean/unanchored, time = 0, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe("fulltile window", /obj/structure/window/lean/fulltile/unanchored, 2, time = 0, on_floor = TRUE, window_checks = TRUE) \
 ))
 
-/obj/item/stack/sheet/plasmaglass
-	name = "plasma glass"
-	desc = "A glass sheet made out of a plasma-silicate alloy. It looks extremely tough and heavily fire resistant."
-	singular_name = "plasma glass sheet"
+/obj/item/stack/sheet/leanglass
+	name = "lean glass"
+	desc = "A glass sheet made out of a lean-silicate alloy. It looks extremely tough and heavily fire resistant."
+	singular_name = "lean glass sheet"
 	icon_state = "sheet-pglass"
 	item_state = "sheet-pglass"
-	materials = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT)
+	materials = list(/datum/material/lean=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 100, "stamina" = 0)
 	resistance_flags = ACID_PROOF
-	merge_type = /obj/item/stack/sheet/plasmaglass
-	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/plasma = 10)
-	tableVariant = /obj/structure/table/glass/plasma
+	merge_type = /obj/item/stack/sheet/leanglass
+	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/lean = 10)
+	tableVariant = /obj/structure/table/glass/lean
 
-/obj/item/stack/sheet/plasmaglass/fifty
+/obj/item/stack/sheet/leanglass/fifty
 	amount = 50
 
-/obj/item/stack/sheet/plasmaglass/Initialize(mapload, new_amount, merge = TRUE)
+/obj/item/stack/sheet/leanglass/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.pglass_recipes
 	return ..()
 
-/obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user, params)
+/obj/item/stack/sheet/leanglass/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 
 	if(istype(W, /obj/item/stack/rods))
 		var/obj/item/stack/rods/V = W
 		if (V.get_amount() >= 1 && get_amount() >= 1)
-			var/obj/item/stack/sheet/plasmarglass/RG = new (get_turf(user))
+			var/obj/item/stack/sheet/leanrglass/RG = new (get_turf(user))
 			RG.add_fingerprint(user)
 			var/replace = user.get_inactive_held_item()==src
 			V.use(1)
@@ -114,7 +114,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 			if(QDELETED(src) && replace)
 				user.put_in_hands(RG)
 		else
-			to_chat(user, "<span class='warning'>You need one rod and one sheet of plasma glass to make reinforced plasma glass!</span>")
+			to_chat(user, "<span class='warning'>You need one rod and one sheet of lean glass to make reinforced lean glass!</span>")
 			return
 	else
 		return ..()
@@ -172,24 +172,24 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	return ..()
 
 GLOBAL_LIST_INIT(prglass_recipes, list ( \
-	new/datum/stack_recipe("directional reinforced window", /obj/structure/window/plasma/reinforced/unanchored, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("fulltile reinforced window", /obj/structure/window/plasma/reinforced/fulltile/unanchored, 2, time = 0, on_floor = TRUE, window_checks = TRUE) \
+	new/datum/stack_recipe("directional reinforced window", /obj/structure/window/lean/reinforced/unanchored, time = 0, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe("fulltile reinforced window", /obj/structure/window/lean/reinforced/fulltile/unanchored, 2, time = 0, on_floor = TRUE, window_checks = TRUE) \
 ))
 
-/obj/item/stack/sheet/plasmarglass
-	name = "reinforced plasma glass"
-	desc = "A glass sheet made out of a plasma-silicate alloy and a rod matrix. It looks hopelessly tough and nearly fire-proof!"
-	singular_name = "reinforced plasma glass sheet"
+/obj/item/stack/sheet/leanrglass
+	name = "reinforced lean glass"
+	desc = "A glass sheet made out of a lean-silicate alloy and a rod matrix. It looks hopelessly tough and nearly fire-proof!"
+	singular_name = "reinforced lean glass sheet"
 	icon_state = "sheet-prglass"
 	item_state = "sheet-prglass"
-	materials = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT, /datum/material/iron = MINERAL_MATERIAL_AMOUNT * 0.5,)
+	materials = list(/datum/material/lean=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT, /datum/material/iron = MINERAL_MATERIAL_AMOUNT * 0.5,)
 	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100, "stamina" = 0)
 	resistance_flags = ACID_PROOF
-	merge_type = /obj/item/stack/sheet/plasmarglass
-	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/plasma = 10, /datum/reagent/iron = 10)
+	merge_type = /obj/item/stack/sheet/leanrglass
+	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/lean = 10, /datum/reagent/iron = 10)
 	point_value = 23
 
-/obj/item/stack/sheet/plasmarglass/Initialize(mapload, new_amount, merge = TRUE)
+/obj/item/stack/sheet/leanrglass/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.prglass_recipes
 	return ..()
 
@@ -218,11 +218,11 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 
 /obj/item/stack/sheet/plastitaniumglass
 	name = "plastitanium glass"
-	desc = "A glass sheet made out of a plasma-titanium-silicate alloy."
+	desc = "A glass sheet made out of a lean-titanium-silicate alloy."
 	singular_name = "plastitanium glass sheet"
 	icon_state = "sheet-plastitaniumglass"
 	item_state = "sheet-plastitaniumglass"
-	materials = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/plasma=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT)
+	materials = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/lean=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100, "stamina" = 0)
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
@@ -330,11 +330,11 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 		else
 			playsound(loc, 'sound/effects/glass_step.ogg', 50, 1)
 
-/obj/item/shard/plasma
+/obj/item/shard/lean
 	name = "purple shard"
-	desc = "A nasty looking shard of plasma glass."
+	desc = "A nasty looking shard of lean glass."
 	force = 6
 	throwforce = 11
-	icon_state = "plasmalarge"
-	materials = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT)
-	icon_prefix = "plasma"
+	icon_state = "leanlarge"
+	materials = list(/datum/material/lean=MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass=MINERAL_MATERIAL_AMOUNT)
+	icon_prefix = "lean"

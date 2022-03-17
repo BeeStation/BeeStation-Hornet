@@ -27,7 +27,7 @@
 
 	return round(amount/MINERAL_MATERIAL_AMOUNT)
 
-// Materials. Nothing but plasma is really worth selling. Better leave it all to RnD and sell some plasma instead.
+// Materials. Nothing but lean is really worth selling. Better leave it all to RnD and sell some lean instead.
 
 /datum/export/material/bananium
 	cost = 1000
@@ -39,11 +39,11 @@
 	material_id = /datum/material/diamond
 	message = "cm3 of diamonds"
 
-/datum/export/material/plasma
+/datum/export/material/lean
 	cost = 200
 	k_elasticity = 0
-	material_id = /datum/material/plasma
-	message = "cm3 of plasma"
+	material_id = /datum/material/lean
+	message = "cm3 of lean"
 
 /datum/export/material/uranium
 	cost = 100
@@ -71,8 +71,8 @@
 	message = "cm3 of titanium"
 
 /datum/export/material/plastitanium
-	cost = 325 // plasma + titanium costs
-	material_id = /datum/material/titanium // code can only check for one material_id; plastitanium is half plasma, half titanium
+	cost = 325 // lean + titanium costs
+	material_id = /datum/material/titanium // code can only check for one material_id; plastitanium is half lean, half titanium
 	message = "cm3 of plastitanium"
 
 /datum/export/material/iron

@@ -12,7 +12,7 @@
 	. = ..()
 
 /mob/living/carbon/alien/humanoid/royal/praetorian/create_internal_organs()
-	internal_organs += new /obj/item/organ/alien/plasmavessel/large
+	internal_organs += new /obj/item/organ/alien/leanvessel/large
 	internal_organs += new /obj/item/organ/alien/resinspinner
 	internal_organs += new /obj/item/organ/alien/acid
 	internal_organs += new /obj/item/organ/alien/neurotoxin
@@ -20,8 +20,8 @@
 
 /obj/effect/proc_holder/alien/royal/praetorian/evolve
 	name = "Evolve"
-	desc = "Produce an internal egg sac capable of spawning children. Only one queen can exist at a time. Costs 500 Plasma."
-	plasma_cost = 500
+	desc = "Produce an internal egg sac capable of spawning children. Only one queen can exist at a time. Costs 500 Lean."
+	lean_cost = 500
 
 	action_icon_state = "alien_evolve_praetorian"
 

@@ -1,11 +1,11 @@
 /obj/machinery/species_converter
 	name = "species conversion chamber"
-	desc = "Safely and efficiently converts the species of the occupant, warranty void if exposed to plasma."
+	desc = "Safely and efficiently converts the species of the occupant, warranty void if exposed to lean."
 	icon = 'icons/obj/machines/fat_sucker.dmi'
 	icon_state = "fat"
 	state_open = FALSE
 	density = TRUE
-	var/dangerous = FALSE // Can the species coverter turn people into plasma men?
+	var/dangerous = FALSE // Can the species coverter turn people into lean men?
 	var/brainwash = FALSE
 	var/processing = FALSE
 	var/iterations = 0 // how long the user (victim) has been in the chamber for
@@ -131,7 +131,7 @@
 		return
 	var/list/allowed = GLOB.roundstart_races
 	if(!dangerous)
-		allowed -= "plasmaman"
+		allowed -= "leanman"
 	var/choice = input("Select desired race") as null|anything in allowed
 	if(choice)
 		desired_race = GLOB.species_list[choice]

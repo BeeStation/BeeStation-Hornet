@@ -12,7 +12,7 @@
 	obj_integrity = 250
 	max_integrity = 250
 	icon = 'icons/turf/shuttle.dmi'
-	icon_state = "burst_plasma"
+	icon_state = "burst_lean"
 	idle_power_usage = 150
 	circuit = /obj/item/circuitboard/machine/shuttle/engine
 	var/thrust = 0
@@ -23,14 +23,14 @@
 	var/needs_heater = TRUE
 	var/datum/weakref/attached_heater
 
-/obj/machinery/shuttle/engine/plasma
-	name = "plasma thruster"
-	desc = "A thruster that burns plasma stored in an adjacent plasma thruster heater."
-	icon_state = "burst_plasma"
-	icon_state_off = "burst_plasma_off"
+/obj/machinery/shuttle/engine/lean
+	name = "lean thruster"
+	desc = "A thruster that burns lean stored in an adjacent lean thruster heater."
+	icon_state = "burst_lean"
+	icon_state_off = "burst_lean_off"
 
 	idle_power_usage = 0
-	circuit = /obj/item/circuitboard/machine/shuttle/engine/plasma
+	circuit = /obj/item/circuitboard/machine/shuttle/engine/lean
 	thrust = 25
 	fuel_use = 0.24
 	bluespace_capable = FALSE

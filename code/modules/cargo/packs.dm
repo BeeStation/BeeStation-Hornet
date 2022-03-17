@@ -193,31 +193,31 @@
 	contains = list(/obj/item/storage/box/metalfoam)
 	crate_name = "metal foam grenade crate"
 
-/datum/supply_pack/emergency/plasma_spacesuit
-	name = "Plasmaman Space Envirosuits"
-	desc = "Contains two space-worthy envirosuits for Plasmamen. Order now and we'll throw in two free helmets! Requires EVA access to open."
+/datum/supply_pack/emergency/lean_spacesuit
+	name = "Leanman Space Envirosuits"
+	desc = "Contains two space-worthy envirosuits for Leanmen. Order now and we'll throw in two free helmets! Requires EVA access to open."
 	cost = 1400 // 500 per suit, equal to normal space suits.
-	contains = list(/obj/item/clothing/suit/space/eva/plasmaman,
-					/obj/item/clothing/suit/space/eva/plasmaman,
-					/obj/item/clothing/head/helmet/space/plasmaman,
-					/obj/item/clothing/head/helmet/space/plasmaman)
-	crate_name = "plasmaman EVA crate"
+	contains = list(/obj/item/clothing/suit/space/eva/leanman,
+					/obj/item/clothing/suit/space/eva/leanman,
+					/obj/item/clothing/head/helmet/space/leanman,
+					/obj/item/clothing/head/helmet/space/leanman)
+	crate_name = "leanman EVA crate"
 	crate_type = /obj/structure/closet/crate/secure
 
-/datum/supply_pack/emergency/plasmaman
-	name = "Plasmaman Supply Kit"
-	desc = "Keep those Plasmamen alive with three sets of Plasmaman outfits. Each set contains a plasmaman jumpsuit, internals tank, and helmet."
+/datum/supply_pack/emergency/leanman
+	name = "Leanman Supply Kit"
+	desc = "Keep those Leanmen alive with three sets of Leanman outfits. Each set contains a leanman jumpsuit, internals tank, and helmet."
 	cost = 700 //50 credits per suit.
-	contains = list(/obj/item/clothing/under/plasmaman,
-					/obj/item/clothing/under/plasmaman,
-					/obj/item/clothing/under/plasmaman,
-					/obj/item/tank/internals/plasmaman/belt/full,
-					/obj/item/tank/internals/plasmaman/belt/full,
-					/obj/item/tank/internals/plasmaman/belt/full,
-					/obj/item/clothing/head/helmet/space/plasmaman,
-					/obj/item/clothing/head/helmet/space/plasmaman,
-					/obj/item/clothing/head/helmet/space/plasmaman)
-	crate_name = "plasmaman supply kit"
+	contains = list(/obj/item/clothing/under/leanman,
+					/obj/item/clothing/under/leanman,
+					/obj/item/clothing/under/leanman,
+					/obj/item/tank/internals/leanman/belt/full,
+					/obj/item/tank/internals/leanman/belt/full,
+					/obj/item/tank/internals/leanman/belt/full,
+					/obj/item/clothing/head/helmet/space/leanman,
+					/obj/item/clothing/head/helmet/space/leanman,
+					/obj/item/clothing/head/helmet/space/leanman)
+	crate_name = "leanman supply kit"
 
 /datum/supply_pack/emergency/radiation
 	name = "Radiation Protection Crate"
@@ -615,7 +615,7 @@
 					/obj/item/gun/energy/e_gun,
 					/obj/item/gun/energy/e_gun)
 	crate_name = "bulk energy guns crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	crate_type = /obj/structure/closet/crate/secure/lean
 
 /datum/supply_pack/security/armory/exileimp
 	name = "Exile Implants Crate"
@@ -626,18 +626,18 @@
 
 /datum/supply_pack/security/armory/fire
 	name = "Incendiary Weapons Crate"
-	desc = "Burn, baby burn. Contains three incendiary grenades, three plasma canisters, and a flamethrower. Requires Armory access to open."
+	desc = "Burn, baby burn. Contains three incendiary grenades, three lean canisters, and a flamethrower. Requires Armory access to open."
 	cost = 1200
 	access = ACCESS_HEADS
 	contains = list(/obj/item/flamethrower/full,
-					/obj/item/tank/internals/plasma,
-					/obj/item/tank/internals/plasma,
-					/obj/item/tank/internals/plasma,
+					/obj/item/tank/internals/lean,
+					/obj/item/tank/internals/lean,
+					/obj/item/tank/internals/lean,
 					/obj/item/grenade/chem_grenade/incendiary,
 					/obj/item/grenade/chem_grenade/incendiary,
 					/obj/item/grenade/chem_grenade/incendiary)
 	crate_name = "incendiary weapons crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	crate_type = /obj/structure/closet/crate/secure/lean
 	dangerous = TRUE
 
 /datum/supply_pack/security/armory/securitybarriersxl
@@ -674,7 +674,7 @@
 	contains = list(/obj/item/clothing/suit/armor/laserproof,
 					/obj/item/clothing/suit/armor/laserproof)
 	crate_name = "reflector vest crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	crate_type = /obj/structure/closet/crate/secure/lean
 
 /datum/supply_pack/security/armory/riotarmor
 	name = "Riot Armor Crate"
@@ -907,7 +907,7 @@
 
 /datum/supply_pack/engineering/pacman
 	name = "P.A.C.M.A.N Generator Crate"
-	desc = "Engineers can't set up the engine? Not an issue for you, once you get your hands on this P.A.C.M.A.N. Generator! Takes in plasma and spits out sweet sweet energy."
+	desc = "Engineers can't set up the engine? Not an issue for you, once you get your hands on this P.A.C.M.A.N. Generator! Takes in lean and spits out sweet sweet energy."
 	cost = 1000
 	contains = list(/obj/machinery/power/port_gen/pacman)
 	crate_name = "PACMAN generator crate"
@@ -1036,8 +1036,8 @@
 		/obj/item/storage/toolbox/mechanical,
 		/obj/item/storage/toolbox/electrical,
 		/obj/item/circuitboard/computer/shuttle/flight_control,
-		/obj/item/circuitboard/machine/shuttle/engine/plasma,
-		/obj/item/circuitboard/machine/shuttle/engine/plasma,
+		/obj/item/circuitboard/machine/shuttle/engine/lean,
+		/obj/item/circuitboard/machine/shuttle/engine/lean,
 		/obj/item/circuitboard/machine/shuttle/heater,
 		/obj/item/circuitboard/machine/shuttle/heater
 		)
@@ -1057,7 +1057,7 @@
 
 /datum/supply_pack/engineering/portable_scrubbers
 	name = "Portable Scrubbers"
-	desc = "A set of spare portable scrubbers. Perfect for when plasma 'accidentally' gets into the air supply."
+	desc = "A set of spare portable scrubbers. Perfect for when lean 'accidentally' gets into the air supply."
 	cost = 1500
 	contains = list(
 		/obj/machinery/portable_atmospherics/scrubber,
@@ -1358,7 +1358,7 @@
 
 /datum/supply_pack/materials/foamtank
 	name = "Firefighting Foam Tank Crate"
-	desc = "Contains a tank of firefighting foam. Also known as \"plasmaman's bane\"."
+	desc = "Contains a tank of firefighting foam. Also known as \"leanman's bane\"."
 	cost = 1500
 	contains = list(/obj/structure/reagent_dispensers/foamtank)
 	crate_name = "foam tank crate"
@@ -1610,7 +1610,7 @@
 					/obj/item/reagent_containers/glass/bottle/random_virus,
 					/obj/item/reagent_containers/glass/bottle/random_virus)
 	crate_name = "virus sample crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	crate_type = /obj/structure/closet/crate/secure/lean
 	dangerous = TRUE
 
 /datum/supply_pack/medical/virology
@@ -1650,7 +1650,7 @@
 					/obj/item/reagent_containers/glass/bottle/anxiety,
 					/obj/item/reagent_containers/glass/bottle/beesease)
 	crate_name = "virus crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	crate_type = /obj/structure/closet/crate/secure/lean
 	dangerous = TRUE
 
 /datum/supply_pack/medical/extrapolator
@@ -1660,7 +1660,7 @@
 	access = ACCESS_VIROLOGY
 	contains = list(/obj/item/extrapolator, /obj/item/extrapolator, /obj/item/extrapolator)
 	crate_name = "Extrapolator Crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	crate_type = /obj/structure/closet/crate/secure/lean
 	dangerous = TRUE
 
 /datum/supply_pack/medical/pandemic
@@ -1680,15 +1680,15 @@
 	access_budget = ACCESS_RESEARCH
 	crate_type = /obj/structure/closet/crate/science
 
-/datum/supply_pack/science/plasma
-	name = "Plasma Assembly Crate"
-	desc = "Everything you need to burn something to the ground, this contains three plasma assembly sets. Each set contains a plasma tank, igniter, proximity sensor, and timer! Warranty void if exposed to high temperatures. Requires Toxins access to open."
+/datum/supply_pack/science/lean
+	name = "Lean Assembly Crate"
+	desc = "Everything you need to burn something to the ground, this contains three lean assembly sets. Each set contains a lean tank, igniter, proximity sensor, and timer! Warranty void if exposed to high temperatures. Requires Toxins access to open."
 	cost = 800
 	access = ACCESS_TOX_STORAGE
 	access_budget = ACCESS_TOX_STORAGE
-	contains = list(/obj/item/tank/internals/plasma,
-					/obj/item/tank/internals/plasma,
-					/obj/item/tank/internals/plasma,
+	contains = list(/obj/item/tank/internals/lean,
+					/obj/item/tank/internals/lean,
+					/obj/item/tank/internals/lean,
 					/obj/item/assembly/igniter,
 					/obj/item/assembly/igniter,
 					/obj/item/assembly/igniter,
@@ -1698,8 +1698,8 @@
 					/obj/item/assembly/timer,
 					/obj/item/assembly/timer,
 					/obj/item/assembly/timer)
-	crate_name = "plasma assembly crate"
-	crate_type = /obj/structure/closet/crate/secure/plasma
+	crate_name = "lean assembly crate"
+	crate_type = /obj/structure/closet/crate/secure/lean
 
 /datum/supply_pack/science/robotics
 	name = "Robotics Assembly Crate"
@@ -1779,13 +1779,13 @@
 
 /datum/supply_pack/science/xenobio
 	name = "Xenobiology Lab Crate"
-	desc = "In case a freak accident has rendered the xenobiology lab non-functional! Contains two grey slime extracts, some plasma, and the required circuit boards to set up your xenobiology lab up and running! Requires Xenobiology access to open."
+	desc = "In case a freak accident has rendered the xenobiology lab non-functional! Contains two grey slime extracts, some lean, and the required circuit boards to set up your xenobiology lab up and running! Requires Xenobiology access to open."
 	cost = 10000
 	access = ACCESS_XENOBIOLOGY
 	access_budget = ACCESS_XENOBIOLOGY
 	contains = list(/obj/item/slime_extract/grey,
 					/obj/item/slime_extract/grey,
-					/obj/item/reagent_containers/syringe/plasma,
+					/obj/item/reagent_containers/syringe/lean,
 					/obj/item/circuitboard/computer/xenobiology,
 					/obj/item/circuitboard/machine/monkey_recycler,
 					/obj/item/circuitboard/machine/processor/slime)

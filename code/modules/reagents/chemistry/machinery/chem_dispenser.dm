@@ -56,7 +56,7 @@
 		/datum/reagent/silicon,
 		/datum/reagent/silver,
 		/datum/reagent/sodium,
-		/datum/reagent/stable_plasma,
+		/datum/reagent/stable_lean,
 		/datum/reagent/consumable/sugar,
 		/datum/reagent/sulfur,
 		/datum/reagent/toxin/acid,
@@ -549,7 +549,7 @@
 	desc = "Creates and dispenses mutagen."
 	dispensable_reagents = list(/datum/reagent/toxin/mutagen)
 	upgrade_reagents = null
-	emagged_reagents = list(/datum/reagent/toxin/plasma)
+	emagged_reagents = list(/datum/reagent/toxin/lean)
 
 
 /obj/machinery/chem_dispenser/mutagensaltpeter
@@ -638,7 +638,7 @@
 		/datum/reagent/silicon,
 		/datum/reagent/silver,
 		/datum/reagent/sodium,
-		/datum/reagent/stable_plasma,
+		/datum/reagent/stable_lean,
 		/datum/reagent/consumable/sugar,
 		/datum/reagent/sulfur,
 		/datum/reagent/toxin/acid,
@@ -654,7 +654,7 @@
 		/datum/reagent/medicine/morphine,
 		/datum/reagent/drug/space_drugs,
 		/datum/reagent/toxin,
-		/datum/reagent/toxin/plasma,
+		/datum/reagent/toxin/lean,
 		/datum/reagent/uranium,
 		/datum/reagent/toxin/carpotoxin,
 		/datum/reagent/medicine/rezadone,

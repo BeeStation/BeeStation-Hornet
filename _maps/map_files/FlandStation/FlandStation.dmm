@@ -986,7 +986,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "anA" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/engine,
 /area/engine/atmospherics_engine)
@@ -4322,7 +4322,7 @@
 	dir = 4;
 	state = 2
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
@@ -4653,7 +4653,7 @@
 	dir = 4;
 	state = 2
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
@@ -5240,7 +5240,7 @@
 	},
 /obj/effect/turf_decal/stripes/red/line,
 /obj/structure/cable,
-/obj/structure/window/plasma/reinforced,
+/obj/structure/window/lean/reinforced,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "bns" = (
@@ -5310,7 +5310,7 @@
 /turf/open/floor/plating/rust,
 /area/chapel/office)
 "bod" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/engine,
 /area/engine/atmospherics_engine)
 "boe" = (
@@ -7782,7 +7782,7 @@
 "bOn" = (
 /obj/structure/bonfire,
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice{
-	desc = "For the weary spacemen on their quest to rekindle the first plasma fire.";
+	desc = "For the weary spacemen on their quest to rekindle the first lean fire.";
 	name = "Carton of Estus"
 	},
 /obj/effect/decal/remains/human,
@@ -13805,7 +13805,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/vending/plasmaresearch,
+/obj/machinery/vending/leanresearch,
 /turf/open/floor/plasteel/techmaint,
 /area/science/storage)
 "ddR" = (
@@ -14270,7 +14270,7 @@
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "djn" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "aicorewindow";
 	name = "AI Core Shutters"
@@ -17139,7 +17139,7 @@
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/theatre)
 "dQd" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/storage)
 "dQh" = (
@@ -17222,7 +17222,7 @@
 	dir = 4;
 	state = 2
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -17956,7 +17956,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "dXK" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 6
 	},
@@ -17993,7 +17993,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 1
 	},
 /turf/open/floor/engine,
@@ -22141,7 +22141,7 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
-/obj/item/coin/plasma,
+/obj/item/coin/lean,
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
@@ -22892,7 +22892,7 @@
 /turf/open/floor/carpet/grimy,
 /area/crew_quarters/locker)
 "fhj" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
 	},
@@ -22954,7 +22954,7 @@
 	charge = 100;
 	maxcharge = 15000
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 30
 	},
 /obj/item/gps,
@@ -25616,7 +25616,7 @@
 "fOu" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
-	name = "Plasma to Pure"
+	name = "Lean to Pure"
 	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
@@ -28917,7 +28917,7 @@
 	},
 /obj/effect/turf_decal/stripes/red/line,
 /obj/structure/cable,
-/obj/structure/window/plasma/reinforced,
+/obj/structure/window/lean/reinforced,
 /obj/machinery/camera{
 	c_tag = "Supermatter Chamber";
 	dir = 4;
@@ -32601,7 +32601,7 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/space/nearstation)
 "huv" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "huz" = (
@@ -32905,7 +32905,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
 "hwQ" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/engine,
 /area/engine/atmos)
 "hwZ" = (
@@ -33127,11 +33127,11 @@
 	pixel_x = 6
 	},
 /obj/item/reagent_containers/dropper,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/lean,
 /obj/item/toy/figure/chemist{
 	pixel_x = 4;
 	pixel_y = -4
@@ -34713,7 +34713,7 @@
 /turf/open/floor/vault,
 /area/engine/atmospherics_engine)
 "hUw" = (
-/obj/machinery/atmospherics/components/trinary/filter/atmos/plasma{
+/obj/machinery/atmospherics/components/trinary/filter/atmos/lean{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -37885,7 +37885,7 @@
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
 "iEu" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "iEE" = (
@@ -38185,7 +38185,7 @@
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 20
 	},
 /obj/machinery/camera{
@@ -44828,7 +44828,7 @@
 /obj/machinery/atmospherics/miner/toxins,
 /obj/machinery/light/floor,
 /obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/plasma/light,
+/turf/open/floor/engine/lean/light,
 /area/engine/atmos)
 "kph" = (
 /obj/machinery/requests_console{
@@ -47252,7 +47252,7 @@
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "kPv" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 5
 	},
@@ -49163,7 +49163,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/cafeteria)
 "low" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/manifold4w/scrubbers/visible,
 /turf/open/floor/plating,
 /area/engine/atmospherics_engine)
@@ -49376,7 +49376,7 @@
 "lrO" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/white,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 5
 	},
 /obj/item/reagent_containers/glass/beaker/large,
@@ -49762,7 +49762,7 @@
 "lwa" = (
 /obj/machinery/atmospherics/components/trinary/mixer{
 	dir = 1;
-	name = "plasma mixer"
+	name = "lean mixer"
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -52196,7 +52196,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
 	},
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
@@ -53575,7 +53575,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
 	},
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "mpp" = (
@@ -57020,7 +57020,7 @@
 	},
 /obj/effect/turf_decal/stripes/red/line,
 /obj/structure/cable,
-/obj/structure/window/plasma/reinforced,
+/obj/structure/window/lean/reinforced,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "njj" = (
@@ -57259,12 +57259,12 @@
 /obj/effect/turf_decal/trimline/green/filled/line{
 	dir = 4
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 5;
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 5
 	},
 /turf/open/floor/plasteel/grid,
@@ -61001,7 +61001,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxin_input{
 	dir = 8
 	},
-/turf/open/floor/engine/plasma/light,
+/turf/open/floor/engine/lean/light,
 /area/engine/atmos)
 "ogB" = (
 /obj/structure/cable/yellow{
@@ -62355,8 +62355,8 @@
 /area/maintenance/department/engine)
 "oyN" = (
 /obj/structure/table/reinforced,
-/obj/item/tank/internals/plasma,
-/obj/item/tank/internals/plasma,
+/obj/item/tank/internals/lean,
+/obj/item/tank/internals/lean,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/yellow/tile_full,
 /turf/open/floor/vault,
@@ -64221,7 +64221,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "pao" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "mixwindows";
 	name = "Toxin Mix Chamber Blast door"
@@ -77242,11 +77242,11 @@
 /area/crew_quarters/heads/chief)
 "sej" = (
 /obj/machinery/camera{
-	c_tag = "Atmospherics - Plasma Cell";
+	c_tag = "Atmospherics - Lean Cell";
 	dir = 8;
 	name = "atmospherics camera"
 	},
-/turf/open/floor/engine/plasma/light,
+/turf/open/floor/engine/lean/light,
 /area/engine/atmos)
 "seo" = (
 /obj/effect/turf_decal/stripes/line{
@@ -82242,7 +82242,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxin_output{
 	dir = 8
 	},
-/turf/open/floor/engine/plasma/light,
+/turf/open/floor/engine/lean/light,
 /area/engine/atmos)
 "tjo" = (
 /obj/machinery/disposal/bin,
@@ -82452,7 +82452,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "tmH" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmospherics_engine)
 "tmJ" = (
@@ -82940,7 +82940,7 @@
 /area/vacant_room/commissary/commissaryRandom)
 "ttx" = (
 /obj/machinery/air_sensor/atmos/toxin_tank,
-/turf/open/floor/engine/plasma/light,
+/turf/open/floor/engine/lean/light,
 /area/engine/atmos)
 "ttD" = (
 /obj/structure/closet/emcloset,
@@ -84584,7 +84584,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "tMP" = (
-/turf/open/floor/engine/plasma/light,
+/turf/open/floor/engine/lean/light,
 /area/engine/atmos)
 "tMW" = (
 /obj/effect/decal/cleanable/dirt,
@@ -93132,7 +93132,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 1
 	},
 /turf/open/floor/engine,
@@ -93781,7 +93781,7 @@
 	dir = 4;
 	state = 2
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -96843,7 +96843,7 @@
 /obj/item/hand_labeler,
 /obj/item/stack/packageWrap,
 /obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/lean,
 /obj/item/stack/sheet/iron/fifty,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/explab)
@@ -97208,7 +97208,7 @@
 /turf/open/floor/plating,
 /area/crew_quarters/heads/chief)
 "wPi" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id = "mixwindows";
 	name = "Toxin Mix Chamber Blast door"
@@ -97435,7 +97435,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "wSj" = (
@@ -100347,7 +100347,7 @@
 "xDV" = (
 /obj/structure/lattice/catwalk/over,
 /obj/structure/table/reinforced,
-/obj/item/tank/internals/plasma,
+/obj/item/tank/internals/lean,
 /obj/structure/noticeboard{
 	dir = 4;
 	pixel_x = -26

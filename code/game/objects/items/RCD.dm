@@ -31,7 +31,7 @@ RLD
 	var/max_matter = 100
 	var/sheetmultiplier	= 4 //Controls the amount of matter added for each glass/iron sheet, triple for plasteel
 	var/plasteelmultiplier = 3 //Plasteel is worth 3 times more than glass or iron
-	var/plasmarglassmultiplier = 2 //50% less plasma than in plasteel
+	var/leanrglassmultiplier = 2 //50% less lean than in plasteel
 	var/rglassmultiplier = 1.5 //One iron sheet, half a glass sheet
 	var/no_ammo_message = "<span class='warning'>The \'Low Ammo\' light on the device blinks yellow.</span>"
 	var/has_ammobar = FALSE	//controls whether or not does update_icon apply ammo indicator overlays
@@ -81,8 +81,8 @@ RLD
 		loaded = loadwithsheets(W, sheetmultiplier, user)
 	else if(istype(W, /obj/item/stack/sheet/plasteel))
 		loaded = loadwithsheets(W, plasteelmultiplier*sheetmultiplier, user) //12 matter for 1 plasteel sheet
-	else if(istype(W, /obj/item/stack/sheet/plasmarglass))
-		loaded = loadwithsheets(W, plasmarglassmultiplier*sheetmultiplier, user) //8 matter for one plasma rglass sheet
+	else if(istype(W, /obj/item/stack/sheet/leanrglass))
+		loaded = loadwithsheets(W, leanrglassmultiplier*sheetmultiplier, user) //8 matter for one lean rglass sheet
 	else if(istype(W, /obj/item/stack/sheet/rglass))
 		loaded = loadwithsheets(W, rglassmultiplier*sheetmultiplier, user) //6 matter for one rglass sheet
 	else if(istype(W, /obj/item/stack/rods))

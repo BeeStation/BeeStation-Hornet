@@ -95,7 +95,7 @@
 	build_path = /obj/machinery/computer/atmos_control/tank/oxygen_tank
 
 /obj/item/circuitboard/computer/atmos_control/tank/toxin_tank
-	name = "plasma supply control (Computer Board)"
+	name = "lean supply control (Computer Board)"
 	build_path = /obj/machinery/computer/atmos_control/tank/toxin_tank
 
 /obj/item/circuitboard/computer/atmos_control/tank/air_tank

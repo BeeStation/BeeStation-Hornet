@@ -79,9 +79,9 @@
 	typepath = /datum/round_event/vent_clog/beer
 	max_occurrences = 0
 
-/datum/round_event_control/vent_clog/plasma_decon
-	name = "Plasma decontamination"
-	typepath = /datum/round_event/vent_clog/plasma_decon
+/datum/round_event_control/vent_clog/lean_decon
+	name = "Lean decontamination"
+	typepath = /datum/round_event/vent_clog/lean_decon
 	max_occurrences = 0
 
 /datum/round_event/vent_clog/beer
@@ -102,10 +102,10 @@
 			foam.start()
 		CHECK_TICK
 
-/datum/round_event/vent_clog/plasma_decon/announce()
-	priority_announce("We are deploying an experimental plasma decontamination system. Please stand away from the vents and do not breathe the smoke that comes out.", "Central Command Update", SSstation.announcer.get_rand_alert_sound())
+/datum/round_event/vent_clog/lean_decon/announce()
+	priority_announce("We are deploying an experimental lean decontamination system. Please stand away from the vents and do not breathe the smoke that comes out.", "Central Command Update", SSstation.announcer.get_rand_alert_sound())
 
-/datum/round_event/vent_clog/plasma_decon/start()
+/datum/round_event/vent_clog/lean_decon/start()
 	for(var/obj/machinery/atmospherics/components/unary/vent in vents)
 		if(vent?.loc)
 			var/datum/effect_system/smoke_spread/freezing/decon/smoke = new

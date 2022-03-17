@@ -277,7 +277,7 @@
 	req_components = list(
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stack/sheet/plasmarglass = 2,
+		/obj/item/stack/sheet/leanrglass = 2,
 		/obj/item/stock_parts/capacitor = 1,
 		/obj/item/stock_parts/manipulator = 1)
 	needs_anchored = FALSE
@@ -299,7 +299,7 @@
 		/obj/item/stock_parts/capacitor = 1,
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stack/sheet/mineral/uranium = 10,
-		/obj/item/stack/sheet/mineral/plasma = 5)
+		/obj/item/stack/sheet/mineral/lean = 5)
 
 /obj/item/circuitboard/machine/shuttle/engine
 	name = "thruster (Machine Board)"
@@ -307,9 +307,9 @@
 	build_path = /obj/machinery/shuttle/engine
 	req_components = list()
 
-/obj/item/circuitboard/machine/shuttle/engine/plasma
-	name = "plasma thruster (Machine Board)"
-	build_path = /obj/machinery/shuttle/engine/plasma
+/obj/item/circuitboard/machine/shuttle/engine/lean
+	name = "lean thruster (Machine Board)"
+	build_path = /obj/machinery/shuttle/engine/lean
 	req_components = list(/obj/item/stock_parts/capacitor = 2,
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/micro_laser = 1)
@@ -327,9 +327,9 @@
 	req_components = list(/obj/item/stock_parts/micro_laser = 2,
 		/obj/item/stock_parts/matter_bin = 1)
 
-/obj/item/circuitboard/machine/plasma_refiner
-	name = "plasma refinery (Machine Board)"
-	build_path = /obj/machinery/atmospherics/components/unary/plasma_refiner
+/obj/item/circuitboard/machine/lean_refiner
+	name = "lean refinery (Machine Board)"
+	build_path = /obj/machinery/atmospherics/components/unary/lean_refiner
 	req_components = list(
 		/obj/item/stock_parts/micro_laser = 2,
 		/obj/item/stack/sheet/glass = 1,

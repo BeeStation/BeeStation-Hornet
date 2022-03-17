@@ -469,10 +469,10 @@
 	new /obj/item/handmirror(src)
 	new /obj/item/clothing/head/wig(src)
 
-/obj/item/storage/box/syndie_kit/plasmachameleon
-	name = "plasmaman chameleon kit"
+/obj/item/storage/box/syndie_kit/leanchameleon
+	name = "leanman chameleon kit"
 
-/obj/item/storage/box/syndie_kit/plasmachameleon/PopulateContents()
+/obj/item/storage/box/syndie_kit/leanchameleon/PopulateContents()
 	new /obj/item/clothing/under/chameleon/envirosuit(src)
 	new /obj/item/clothing/suit/chameleon(src)
 	new /obj/item/clothing/gloves/chameleon(src)

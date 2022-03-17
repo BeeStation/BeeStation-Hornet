@@ -145,9 +145,9 @@
 		if(!findname(.))
 			break
 
-/proc/random_unique_plasmaman_name(attempts_to_find_unique_name=10)
+/proc/random_unique_leanman_name(attempts_to_find_unique_name=10)
 	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(plasmaman_name())
+		. = capitalize(leanman_name())
 
 		if(!findname(.))
 			break

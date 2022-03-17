@@ -29,7 +29,7 @@
 	desc = "Designed to quickly reload revolvers. Hot Shot bullets contain an incendiary payload."
 	id = "c38_hotshot"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 20000, /datum/material/plasma = 5000)
+	materials = list(/datum/material/iron = 20000, /datum/material/lean = 5000)
 	build_path = /obj/item/ammo_box/c38/hotshot
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -39,7 +39,7 @@
 	desc = "Designed to quickly reload revolvers. Iceblox bullets contain a cryogenic payload."
 	id = "c38_iceblox"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 20000, /datum/material/plasma = 5000)
+	materials = list(/datum/material/iron = 20000, /datum/material/lean = 5000)
 	build_path = /obj/item/ammo_box/c38/iceblox
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
@@ -266,7 +266,7 @@
 	desc = "An advanced grenade that is able to self ignite its mixture."
 	id = "pyro_Grenade"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 2000, /datum/material/plasma = 500)
+	materials = list(/datum/material/iron = 2000, /datum/material/lean = 500)
 	build_path = /obj/item/grenade/chem_grenade/pyro
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_MEDICAL

@@ -1096,7 +1096,7 @@
 "cZ" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/ore/bluespace_crystal,
-/obj/item/coin/plasma,
+/obj/item/coin/lean,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/onehalf/bridge)
 "da" = (

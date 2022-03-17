@@ -227,9 +227,9 @@
 /obj/machinery/atmospherics/components/trinary/filter/atmos/n2o
 	name = "nitrous oxide filter"
 	filter_type = "n2o"
-/obj/machinery/atmospherics/components/trinary/filter/atmos/plasma
-	name = "plasma filter"
-	filter_type = "plasma"
+/obj/machinery/atmospherics/components/trinary/filter/atmos/lean
+	name = "lean filter"
+	filter_type = "lean"
 
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped //This feels wrong, I know
 	icon_state = "filter_on_f"
@@ -246,9 +246,9 @@
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/n2o
 	name = "nitrous oxide filter"
 	filter_type = "n2o"
-/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/plasma
-	name = "plasma filter"
-	filter_type = "plasma"
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/lean
+	name = "lean filter"
+	filter_type = "lean"
 
 // These two filter types have critical_machine flagged to on and thus causes the area they are in to be exempt from the Grid Check event.
 

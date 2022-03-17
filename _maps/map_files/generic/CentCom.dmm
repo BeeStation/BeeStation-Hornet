@@ -31,10 +31,10 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
 "bG" = (
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 4
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -7591,18 +7591,18 @@
 "wf" = (
 /obj/structure/closet{
 	anchored = 1;
-	name = "Plasmaman suits"
+	name = "Leanman suits"
 	},
-/obj/item/clothing/under/plasmaman,
-/obj/item/clothing/under/plasmaman,
-/obj/item/clothing/under/plasmaman,
-/obj/item/clothing/under/plasmaman,
-/obj/item/clothing/under/plasmaman,
-/obj/item/clothing/head/helmet/space/plasmaman,
-/obj/item/clothing/head/helmet/space/plasmaman,
-/obj/item/clothing/head/helmet/space/plasmaman,
-/obj/item/clothing/head/helmet/space/plasmaman,
-/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/under/leanman,
+/obj/item/clothing/under/leanman,
+/obj/item/clothing/under/leanman,
+/obj/item/clothing/under/leanman,
+/obj/item/clothing/under/leanman,
+/obj/item/clothing/head/helmet/space/leanman,
+/obj/item/clothing/head/helmet/space/leanman,
+/obj/item/clothing/head/helmet/space/leanman,
+/obj/item/clothing/head/helmet/space/leanman,
+/obj/item/clothing/head/helmet/space/leanman,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "wg" = (
@@ -8558,7 +8558,7 @@
 "yL" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable/yellow,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 30
 	},
 /obj/item/wrench,
@@ -8616,20 +8616,20 @@
 "yV" = (
 /obj/structure/closet{
 	anchored = 1;
-	desc = "A storage unit for plasmaman internals, courtesy of the Spider Clan.";
+	desc = "A storage unit for leanman internals, courtesy of the Spider Clan.";
 	icon_state = "emergency";
-	name = "Plasmaman emergency closet"
+	name = "Leanman emergency closet"
 	},
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
-/obj/item/tank/internals/plasmaman/belt/full,
-/obj/item/tank/internals/plasmaman/belt/full,
-/obj/item/tank/internals/plasmaman/belt/full,
-/obj/item/tank/internals/plasmaman/belt/full,
-/obj/item/tank/internals/plasmaman/belt/full,
+/obj/item/tank/internals/leanman/belt/full,
+/obj/item/tank/internals/leanman/belt/full,
+/obj/item/tank/internals/leanman/belt/full,
+/obj/item/tank/internals/leanman/belt/full,
+/obj/item/tank/internals/leanman/belt/full,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "yX" = (
@@ -16411,7 +16411,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
 "Xq" = (
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/yellow,
@@ -16793,7 +16793,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/four)
 "ZR" = (
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,

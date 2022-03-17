@@ -216,10 +216,10 @@
 		if("papyrus")
 			speech_args[SPEECH_SPANS] |= SPAN_PAPYRUS
 
-/obj/item/organ/tongue/bone/plasmaman
-	name = "plasma bone \"tongue\""
-	desc = "Like animated skeletons, Plasmamen vibrate their teeth in order to produce speech."
-	icon_state = "tongueplasma"
+/obj/item/organ/tongue/bone/leanman
+	name = "lean bone \"tongue\""
+	desc = "Like animated skeletons, Leanmen vibrate their teeth in order to produce speech."
+	icon_state = "tonguelean"
 	modifies_speech = FALSE
 
 /obj/item/organ/tongue/robot

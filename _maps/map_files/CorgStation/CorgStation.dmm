@@ -3940,11 +3940,11 @@
 /area/engine/atmos)
 "aXZ" = (
 /obj/structure/table/reinforced,
-/obj/item/circuitboard/machine/shuttle/engine/plasma{
+/obj/item/circuitboard/machine/shuttle/engine/lean{
 	pixel_x = -4;
 	pixel_y = 7
 	},
-/obj/item/circuitboard/machine/shuttle/engine/plasma{
+/obj/item/circuitboard/machine/shuttle/engine/lean{
 	pixel_x = -5;
 	pixel_y = 5
 	},
@@ -4572,7 +4572,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/lean,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -5622,7 +5622,7 @@
 /turf/open/floor/plating,
 /area/maintenance/upper/fore)
 "btm" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/open/floor/plating,
 /area/engine/engine_room)
@@ -15215,7 +15215,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "dCJ" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmospherics_engine)
 "dDe" = (
@@ -18766,8 +18766,8 @@
 	dir = 1
 	},
 /obj/structure/closet/crate,
-/obj/item/stack/ore/plasma,
-/obj/item/stack/ore/plasma,
+/obj/item/stack/ore/lean,
+/obj/item/stack/ore/lean,
 /obj/item/pickaxe,
 /obj/item/pickaxe,
 /turf/open/floor/plasteel/dark,
@@ -27326,7 +27326,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_room)
 "gnx" = (
-/obj/structure/window/plasma/reinforced,
+/obj/structure/window/lean/reinforced,
 /obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 1
@@ -27641,7 +27641,7 @@
 /turf/open/floor/plasteel/recharge_floor,
 /area/science/robotics)
 "gqH" = (
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 1
 	},
 /obj/machinery/power/rad_collector/anchored,
@@ -28341,7 +28341,7 @@
 "gzq" = (
 /obj/machinery/atmospherics/components/trinary/mixer{
 	dir = 8;
-	name = "plasma mixer"
+	name = "lean mixer"
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -29953,7 +29953,7 @@
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "gRK" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "gRL" = (
@@ -36544,7 +36544,7 @@
 /obj/item/electronics/apc,
 /obj/item/stock_parts/cell/high,
 /obj/item/circuitboard/machine/shuttle/heater,
-/obj/item/circuitboard/machine/shuttle/engine/plasma,
+/obj/item/circuitboard/machine/shuttle/engine/lean,
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
 "ivG" = (
@@ -37579,7 +37579,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/upper/secondary/exit/departure_lounge)
 "iJY" = (
-/obj/item/circuitboard/machine/shuttle/engine/plasma,
+/obj/item/circuitboard/machine/shuttle/engine/lean,
 /obj/structure/lattice,
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -38715,7 +38715,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "iYZ" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
@@ -39557,7 +39557,7 @@
 /turf/open/floor/carpet,
 /area/security/prison)
 "jkc" = (
-/obj/structure/window/plasma/reinforced,
+/obj/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 1
 	},
@@ -39650,7 +39650,7 @@
 /area/crew_quarters/park)
 "jlh" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxin_output,
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "jlK" = (
 /obj/effect/landmark/start/research_director,
@@ -43322,7 +43322,7 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "kds" = (
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "kdM" = (
 /obj/effect/turf_decal/tile/brown{
@@ -51535,7 +51535,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/structure/rack,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_y = 4
 	},
 /obj/structure/window/reinforced/spawner{
@@ -53198,7 +53198,7 @@
 /area/medical/medbay/aft)
 "muC" = (
 /obj/machinery/atmospherics/miner/toxins,
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "muG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
@@ -59804,7 +59804,7 @@
 /turf/open/floor/engine,
 /area/science/explab)
 "obF" = (
-/obj/item/circuitboard/machine/shuttle/engine/plasma,
+/obj/item/circuitboard/machine/shuttle/engine/lean,
 /turf/open/space/basic,
 /area/space/nearstation)
 "obI" = (
@@ -61021,7 +61021,7 @@
 /area/hallway/primary/fore)
 "orK" = (
 /obj/machinery/atmospherics/components/binary/pump{
-	name = "Plasma to Pure"
+	name = "Lean to Pure"
 	},
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
@@ -62079,7 +62079,7 @@
 /turf/open/floor/circuit,
 /area/science/server)
 "oEY" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "oFe" = (
@@ -64698,7 +64698,7 @@
 /area/chapel/main/monastery)
 "plh" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxin_input,
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "pln" = (
 /obj/effect/turf_decal/tile/green{
@@ -67072,7 +67072,7 @@
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "pPk" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/engine_room)
 "pPr" = (
@@ -69158,7 +69158,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 5
 	},
 /turf/open/floor/plasteel/white,
@@ -76293,7 +76293,7 @@
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/table/glass,
 /obj/machinery/reagentgrinder,
-/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/lean,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry/upper)
 "rZh" = (
@@ -77241,7 +77241,7 @@
 /obj/structure/table,
 /obj/item/shuttle_creator,
 /obj/item/circuitboard/machine/shuttle/heater,
-/obj/item/circuitboard/machine/shuttle/engine/plasma,
+/obj/item/circuitboard/machine/shuttle/engine/lean,
 /obj/item/circuitboard/computer/shuttle/flight_control,
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/plasteel,
@@ -78299,7 +78299,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
 "sBd" = (
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/general/visible,
@@ -81425,7 +81425,7 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "tlN" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
 	},
@@ -89202,7 +89202,7 @@
 	dir = 1
 	},
 /obj/structure/table/reinforced,
-/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/lean/full,
 /obj/item/analyzer,
 /turf/open/floor/plasteel,
 /area/science/mixing)
@@ -89932,7 +89932,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/upper/secondary/exit/departure_lounge)
 "vhK" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 4
 	},
@@ -91979,7 +91979,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "vLi" = (
-/obj/machinery/atmospherics/components/trinary/filter/atmos/plasma{
+/obj/machinery/atmospherics/components/trinary/filter/atmos/lean{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow{
@@ -92991,7 +92991,7 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/caution/stand_clear,
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "vWC" = (
@@ -94346,7 +94346,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "wmH" = (
-/obj/structure/window/plasma/reinforced,
+/obj/structure/window/lean/reinforced,
 /obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 6
@@ -99243,7 +99243,7 @@
 /turf/open/floor/grass,
 /area/hydroponics/garden/abandoned)
 "xuH" = (
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 1
 	},
 /obj/machinery/power/rad_collector/anchored,

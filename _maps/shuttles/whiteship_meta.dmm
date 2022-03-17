@@ -2812,7 +2812,7 @@
 /obj/item/stack/sheet/glass{
 	amount = 10
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 10
 	},
 /obj/effect/turf_decal/bot,

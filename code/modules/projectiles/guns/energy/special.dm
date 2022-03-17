@@ -129,12 +129,12 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/radbolt)
 	overheat_time = 250
 
-/obj/item/gun/energy/plasmacutter
-	name = "plasma cutter"
-	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off xenos! Or, you know, mine stuff."
-	icon_state = "plasmacutter"
-	item_state = "plasmacutter"
-	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
+/obj/item/gun/energy/leancutter
+	name = "lean cutter"
+	desc = "A mining tool capable of expelling concentrated lean bursts. You could use it to cut limbs off xenos! Or, you know, mine stuff."
+	icon_state = "leancutter"
+	item_state = "leancutter"
+	ammo_type = list(/obj/item/ammo_casing/energy/lean)
 	flags_1 = CONDUCT_1
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
@@ -145,7 +145,7 @@
 	heat = 3800
 	usesound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')
 	tool_behaviour = TOOL_WELDER
-	toolspeed = 0.7 //plasmacutters can be used as welders, and are faster than standard welders
+	toolspeed = 0.7 //leancutters can be used as welders, and are faster than standard welders
 	var/progress_flash_divisor = 10  //copypasta is best pasta
 	var/light_intensity = 1
 	var/charge_weld = 25 //amount of charge used up to start action (multiplied by amount) and per progress_flash_divisor ticks of welding
@@ -153,20 +153,20 @@
 	fire_rate = 3
 	automatic = 1
 
-/obj/item/gun/energy/plasmacutter/Initialize(mapload)
+/obj/item/gun/energy/leancutter/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/butchering, 25, 105, 0, 'sound/weapons/plasma_cutter.ogg')
+	AddComponent(/datum/component/butchering, 25, 105, 0, 'sound/weapons/lean_cutter.ogg')
 
-/obj/item/gun/energy/plasmacutter/examine(mob/user)
+/obj/item/gun/energy/leancutter/examine(mob/user)
 	. = ..()
 	if(cell)
 		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
 
-/obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user)
+/obj/item/gun/energy/leancutter/attackby(obj/item/I, mob/user)
 	var/charge_multiplier = 0 //2 = Refined stack, 1 = Ore
-	if(istype(I, /obj/item/stack/sheet/mineral/plasma))
+	if(istype(I, /obj/item/stack/sheet/mineral/lean))
 		charge_multiplier = 2
-	if(istype(I, /obj/item/stack/ore/plasma))
+	if(istype(I, /obj/item/stack/ore/lean))
 		charge_multiplier = 1
 	if(charge_multiplier)
 		if(cell.charge == cell.maxcharge)
@@ -178,16 +178,16 @@
 	else
 		..()
 
-// Tool procs, in case plasma cutter is used as welder
+// Tool procs, in case lean cutter is used as welder
 // Can we start welding?
-/obj/item/gun/energy/plasmacutter/tool_start_check(mob/living/user, amount)
+/obj/item/gun/energy/leancutter/tool_start_check(mob/living/user, amount)
 	. = tool_use_check(user, amount)
 	if(. && user)
 		user.flash_act(light_intensity)
 
-// Can we weld? Plasma cutter does not use charge continuously.
+// Can we weld? Lean cutter does not use charge continuously.
 // Amount cannot be defaulted to 1: most of the code specifies 0 in the call.
-/obj/item/gun/energy/plasmacutter/tool_use_check(mob/living/user, amount)
+/obj/item/gun/energy/leancutter/tool_use_check(mob/living/user, amount)
 	if(QDELETED(cell))
 		to_chat(user, "<span class='warning'>[src] does not have a cell, and cannot be used!</span>")
 		return FALSE
@@ -200,12 +200,12 @@
 
 	return TRUE
 
-/obj/item/gun/energy/plasmacutter/use(amount)
+/obj/item/gun/energy/leancutter/use(amount)
 	return (!QDELETED(cell) && cell.use(amount ? amount * charge_weld : charge_weld))
 
 // This only gets called by use_tool(delay > 0)
 // It's also supposed to not get overridden in the first place.
-/obj/item/gun/energy/plasmacutter/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
+/obj/item/gun/energy/leancutter/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
 	. = ..() //return tool_use_check(user, amount) && (!extra_checks || extra_checks.Invoke())
 	if(. && user)
 		if (progress_flash_divisor == 0)
@@ -214,26 +214,26 @@
 		else
 			progress_flash_divisor--
 
-/obj/item/gun/energy/plasmacutter/use_tool(atom/target, mob/living/user, delay, amount=1, volume=0, datum/callback/extra_checks)
+/obj/item/gun/energy/leancutter/use_tool(atom/target, mob/living/user, delay, amount=1, volume=0, datum/callback/extra_checks)
 	if(amount)
 		. = ..()
 	else
 		. = ..(amount=1)
 
 
-/obj/item/gun/energy/plasmacutter/update_icon()
+/obj/item/gun/energy/leancutter/update_icon()
 	return
 
-/obj/item/gun/energy/plasmacutter/adv
-	name = "advanced plasma cutter"
-	icon_state = "adv_plasmacutter"
-	item_state = "adv_plasmacutter"
+/obj/item/gun/energy/leancutter/adv
+	name = "advanced lean cutter"
+	icon_state = "adv_leancutter"
+	item_state = "adv_leancutter"
 	force = 15
-	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
+	ammo_type = list(/obj/item/ammo_casing/energy/lean/adv)
 
-/obj/item/gun/energy/plasmacutter/cyborg
-	name = "cyborg plasma cutter"
-	desc = "An integrated plasma cutter."
+/obj/item/gun/energy/leancutter/cyborg
+	name = "cyborg lean cutter"
+	desc = "An integrated lean cutter."
 	dead_cell = FALSE
 	can_charge = FALSE
 	use_cyborg_cell = TRUE

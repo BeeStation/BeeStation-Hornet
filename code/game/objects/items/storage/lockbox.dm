@@ -111,8 +111,8 @@
 	new /obj/item/clothing/accessory/medal/silver/valor(src)
 	new /obj/item/clothing/accessory/medal/silver/security(src)
 	new /obj/item/clothing/accessory/medal/bronze_heart(src)
-	new /obj/item/clothing/accessory/medal/plasma/nobel_science(src)
-	new /obj/item/clothing/accessory/medal/plasma/nobel_science(src)
+	new /obj/item/clothing/accessory/medal/lean/nobel_science(src)
+	new /obj/item/clothing/accessory/medal/lean/nobel_science(src)
 	for(var/i in 1 to 3)
 		new /obj/item/clothing/accessory/medal/conduct(src)
 
@@ -174,4 +174,4 @@
 
 /obj/item/storage/lockbox/medal/sci/PopulateContents()
 	for(var/i in 1 to 3)
-		new /obj/item/clothing/accessory/medal/plasma/nobel_science(src)
+		new /obj/item/clothing/accessory/medal/lean/nobel_science(src)

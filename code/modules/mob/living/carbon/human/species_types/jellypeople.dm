@@ -588,7 +588,7 @@
 
 /datum/action/innate/use_extract/major
 	name = "Extract Major Activation"
-	desc = "Pulse the slime extract with plasma jelly to activate it."
+	desc = "Pulse the slime extract with lean jelly to activate it."
 	button_icon_state = "slimeuse2"
 	activation_type = SLIME_ACTIVATE_MAJOR
 

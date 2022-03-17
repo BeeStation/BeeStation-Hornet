@@ -755,10 +755,10 @@
 
 /obj/machinery/porta_turret/aux_base
 	name = "perimeter defense turret"
-	desc = "A plasma beam turret calibrated to defend outposts against non-humanoid fauna. It is more effective when exposed to the environment."
+	desc = "A lean beam turret calibrated to defend outposts against non-humanoid fauna. It is more effective when exposed to the environment."
 	installation = null
-	lethal_projectile = /obj/item/projectile/plasma/turret
-	lethal_projectile_sound = 'sound/weapons/plasma_cutter.ogg'
+	lethal_projectile = /obj/item/projectile/lean/turret
+	lethal_projectile_sound = 'sound/weapons/lean_cutter.ogg'
 	mode = TURRET_LETHAL //It would be useless in stun mode anyway
 	faction = list("neutral","silicon","turret") //Minebots, medibots, etc that should not be shot.
 
@@ -785,8 +785,8 @@
 	scan_range = 9
 	stun_projectile = /obj/item/projectile/beam/laser
 	lethal_projectile = /obj/item/projectile/beam/laser
-	lethal_projectile_sound = 'sound/weapons/plasma_cutter.ogg'
-	stun_projectile_sound = 'sound/weapons/plasma_cutter.ogg'
+	lethal_projectile_sound = 'sound/weapons/lean_cutter.ogg'
+	stun_projectile_sound = 'sound/weapons/lean_cutter.ogg'
 	icon_state = "syndie_off"
 	base_icon_state = "syndie"
 	faction = list("neutral","silicon","turret")

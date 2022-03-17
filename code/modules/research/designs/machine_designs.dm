@@ -2,11 +2,11 @@
 //////////////MISC Boards///////////////
 ////////////////////////////////////////
 
-/datum/design/board/shuttle/engine/plasma
-	name = "Machine Design (Plasma Thruster Board)"
-	desc = "The circuit board for a plasma thruster."
-	id = "engine_plasma"
-	build_path = /obj/item/circuitboard/machine/shuttle/engine/plasma
+/datum/design/board/shuttle/engine/lean
+	name = "Machine Design (Lean Thruster Board)"
+	desc = "The circuit board for a lean thruster."
+	id = "engine_lean"
+	build_path = /obj/item/circuitboard/machine/shuttle/engine/lean
 	category = list ("Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
@@ -26,11 +26,11 @@
 	category = list ("Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/board/plasma_refiner
-	name = "Machine Design (Plasma Refiner Board)"
-	desc = "The circuit board for a plasma refiner."
-	id = "plasma_refiner"
-	build_path = /obj/item/circuitboard/machine/plasma_refiner
+/datum/design/board/lean_refiner
+	name = "Machine Design (Lean Refiner Board)"
+	desc = "The circuit board for a lean refiner."
+	id = "lean_refiner"
+	build_path = /obj/item/circuitboard/machine/lean_refiner
 	category = list ("Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 

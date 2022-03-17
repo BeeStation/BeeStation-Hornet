@@ -1,6 +1,6 @@
 /* In this file:
  *
- * Plasma floor
+ * Lean floor
  * Gold floor
  * Silver floor
  * Copper floor
@@ -33,31 +33,31 @@
 
 //PLASMA
 
-/turf/open/floor/mineral/plasma
-	name = "plasma floor"
-	icon_state = "plasma"
-	floor_tile = /obj/item/stack/tile/mineral/plasma
-	icons = list("plasma","plasma_dam")
+/turf/open/floor/mineral/lean
+	name = "lean floor"
+	icon_state = "lean"
+	floor_tile = /obj/item/stack/tile/mineral/lean
+	icons = list("lean","lean_dam")
 
-/turf/open/floor/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/turf/open/floor/mineral/lean/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+		LeanBurn(exposed_temperature)
 
-/turf/open/floor/mineral/plasma/attackby(obj/item/W, mob/user, params)
+/turf/open/floor/mineral/lean/attackby(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma flooring was ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(src)]")
-		log_game("Plasma flooring was ignited by [key_name(user)] in [AREACOORD(src)]")
+		message_admins("Lean flooring was ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(src)]")
+		log_game("Lean flooring was ignited by [key_name(user)] in [AREACOORD(src)]")
 		ignite(W.is_hot())
 		return
 	..()
 
-/turf/open/floor/mineral/plasma/proc/PlasmaBurn(temperature)
+/turf/open/floor/mineral/lean/proc/LeanBurn(temperature)
 	make_plating()
-	atmos_spawn_air("plasma=20;TEMP=[temperature]")
+	atmos_spawn_air("lean=20;TEMP=[temperature]")
 
-/turf/open/floor/mineral/plasma/proc/ignite(exposed_temperature)
+/turf/open/floor/mineral/lean/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+		LeanBurn(exposed_temperature)
 
 
 //GOLD

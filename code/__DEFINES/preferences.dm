@@ -116,7 +116,7 @@
 #define UPLINK_IMPLANT "Implant"
 #define UPLINK_IMPLANT_WITH_PRICE "[UPLINK_IMPLANT] (-[UPLINK_IMPLANT_TELECRYSTAL_COST] TC)"
 
-//Plasmamen helmet styles, when you edit those remember to edit list in preferences.dm
+//Leanmen helmet styles, when you edit those remember to edit list in preferences.dm
 #define HELMET_DEFAULT "Default"
 #define HELMET_MK2 "Mark II"
 #define HELMET_PROTECTIVE "Protective"

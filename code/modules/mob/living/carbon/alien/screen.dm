@@ -1,9 +1,9 @@
 
-/mob/living/carbon/alien/proc/updatePlasmaDisplay()
+/mob/living/carbon/alien/proc/updateLeanDisplay()
 	if(hud_used) //clientless aliens
-		hud_used.alien_plasma_display.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='magenta'>[round(getPlasma())]</font></div>")
+		hud_used.alien_lean_display.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='magenta'>[round(getLean())]</font></div>")
 
-/mob/living/carbon/alien/larva/updatePlasmaDisplay()
+/mob/living/carbon/alien/larva/updateLeanDisplay()
 	return
 
 /mob/living/carbon/alien/proc/findQueen()

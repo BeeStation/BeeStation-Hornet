@@ -306,7 +306,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				dat += "<span style='border: 1px solid #161616; background-color: #[features["ethcolor"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=color_ethereal;task=input'>Change</a><BR>"
 
-			if(istype(pref_species, /datum/species/plasmaman))
+			if(istype(pref_species, /datum/species/leanman))
 
 				if(!use_skintones)
 					dat += APPEARANCE_CATEGORY_COLUMN

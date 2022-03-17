@@ -65,8 +65,8 @@
 	sprite_height = 5
 	stable_population = 6
 
-/datum/aquarium_behaviour/fish/plasmatetra
-	name = "plasma tetra"
+/datum/aquarium_behaviour/fish/leantetra
+	name = "lean tetra"
 	desc = "Due to their small size, tetras are prey to many predators in their watery world, including eels, crustaceans, and invertebrates."
 	icon_state = "plastetra"
 	dedicated_in_aquarium_icon_state = "fish_greyscale"

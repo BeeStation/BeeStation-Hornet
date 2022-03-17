@@ -2353,7 +2353,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 5
 	},
 /turf/open/floor/plasteel/white,
@@ -7431,7 +7431,7 @@
 /turf/open/space,
 /area/solar/port/fore)
 "asl" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmospherics_engine)
 "asm" = (
@@ -9149,7 +9149,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
 	},
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmospherics_engine)
 "avl" = (
@@ -9561,7 +9561,7 @@
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
 "awh" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "awi" = (
@@ -10132,7 +10132,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 4
 	},
 /turf/open/floor/circuit/green,
@@ -10160,7 +10160,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 8
 	},
 /turf/open/floor/circuit/green,
@@ -10763,7 +10763,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 4
 	},
 /turf/open/floor/circuit/green,
@@ -10780,7 +10780,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 8
 	},
 /turf/open/floor/circuit/green,
@@ -11340,7 +11340,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 4
 	},
 /turf/open/floor/circuit/green,
@@ -11353,7 +11353,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 8
 	},
 /turf/open/floor/circuit/green,
@@ -13789,7 +13789,7 @@
 /area/maintenance/disposal/incinerator)
 "aFt" = (
 /obj/structure/table/reinforced,
-/obj/item/tank/internals/plasma,
+/obj/item/tank/internals/lean,
 /obj/machinery/light/small,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -15597,7 +15597,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmospherics_engine)
 "aIE" = (
@@ -15627,7 +15627,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmospherics_engine)
 "aIG" = (
@@ -22195,7 +22195,7 @@
 /turf/open/floor/plasteel/white/corner,
 /area/engine/atmos)
 "aUY" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "aUZ" = (
@@ -26785,20 +26785,20 @@
 	},
 /area/security/prison)
 "bcX" = (
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bcY" = (
 /obj/machinery/camera{
-	c_tag = "Atmospherics - Plasma Cell";
+	c_tag = "Atmospherics - Lean Cell";
 	name = "atmospherics camera"
 	},
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bcZ" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxin_output{
 	dir = 4
 	},
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bda" = (
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
@@ -26836,7 +26836,7 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible,
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 4;
-	name = "Plasma to Pure"
+	name = "Lean to Pure"
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -26855,7 +26855,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/trinary/mixer{
-	name = "plasma mixer"
+	name = "lean mixer"
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -27581,15 +27581,15 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bev" = (
 /obj/machinery/atmospherics/miner/station/toxins,
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bew" = (
 /obj/machinery/air_sensor/atmos/toxin_tank,
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bex" = (
 /obj/machinery/computer/atmos_control/tank/toxin_tank{
@@ -28327,7 +28327,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxin_input{
 	dir = 4
 	},
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bfU" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible{
@@ -28360,7 +28360,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/obj/machinery/atmospherics/components/trinary/filter/atmos/plasma,
+/obj/machinery/atmospherics/components/trinary/filter/atmos/lean,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
@@ -38693,7 +38693,7 @@
 "bzm" = (
 /obj/structure/bonfire,
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice{
-	desc = "For the weary spacemen on their quest to rekindle the first plasma fire.";
+	desc = "For the weary spacemen on their quest to rekindle the first lean fire.";
 	name = "Carton of Estus"
 	},
 /obj/item/nullrod/claymore/glowing{
@@ -54510,7 +54510,7 @@
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 20
 	},
 /obj/structure/extinguisher_cabinet{
@@ -61985,7 +61985,7 @@
 	dir = 8
 	},
 /obj/item/crowbar/red,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 20
 	},
 /obj/item/gps/engineering{
@@ -64439,7 +64439,7 @@
 /area/engine/engineering)
 "cuV" = (
 /obj/structure/table/reinforced,
-/obj/item/tank/internals/plasma,
+/obj/item/tank/internals/lean,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
@@ -76537,7 +76537,7 @@
 "cVT" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/white,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 5
 	},
 /obj/item/reagent_containers/glass/beaker/large,
@@ -81057,9 +81057,9 @@
 /area/medical/chemistry)
 "dfz" = (
 /obj/structure/table/glass,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/lean,
+/obj/item/stack/sheet/mineral/lean,
+/obj/item/stack/sheet/mineral/lean,
 /obj/item/reagent_containers/glass/bottle/charcoal{
 	pixel_x = 6
 	},
@@ -83009,7 +83009,7 @@
 /obj/item/taperecorder,
 /obj/item/folder/white,
 /obj/effect/turf_decal/bot,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 5
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -98187,7 +98187,7 @@
 	},
 /obj/item/folder/white,
 /obj/item/pen/red,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 5
 	},
 /obj/effect/turf_decal/stripes/line,

@@ -1,11 +1,11 @@
-/obj/item/ammo_casing/energy/plasma
-	projectile_type = /obj/item/projectile/plasma
-	select_name = "plasma burst"
-	fire_sound = 'sound/weapons/plasma_cutter.ogg'
+/obj/item/ammo_casing/energy/lean
+	projectile_type = /obj/item/projectile/lean
+	select_name = "lean burst"
+	fire_sound = 'sound/weapons/lean_cutter.ogg'
 	delay = 20
 	e_cost = 25
 
-/obj/item/ammo_casing/energy/plasma/adv
-	projectile_type = /obj/item/projectile/plasma/adv
+/obj/item/ammo_casing/energy/lean/adv
+	projectile_type = /obj/item/projectile/lean/adv
 	delay = 15
 	e_cost = 10

@@ -281,21 +281,21 @@
 	category = list("hacked","Misc","Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_CARGO
 
-/datum/design/plasmaman_tank
-	name = "Extended-Capacity Plasmaman Tank"
-	id = "plasmaman_tank"
+/datum/design/leanman_tank
+	name = "Extended-Capacity Leanman Tank"
+	id = "leanman_tank"
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 3200)
-	build_path = /obj/item/tank/internals/plasmaman/empty
+	build_path = /obj/item/tank/internals/leanman/empty
 	category = list("hacked","Misc","Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_CARGO
 
-/datum/design/plasmaman_tank_belt
-	name = "Plasmaman Belt Tank"
-	id = "plasmaman_tank_belt"
+/datum/design/leanman_tank_belt
+	name = "Leanman Belt Tank"
+	id = "leanman_tank_belt"
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 800)
-	build_path = /obj/item/tank/internals/plasmaman/belt/empty
+	build_path = /obj/item/tank/internals/leanman/belt/empty
 	category = list("hacked","Misc","Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_CARGO
 

@@ -5,7 +5,7 @@
 "aab" = (
 /obj/machinery/atmospherics/components/trinary/mixer{
 	dir = 1;
-	name = "plasma mixer"
+	name = "lean mixer"
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -2298,7 +2298,7 @@
 /area/solar/starboard/fore)
 "aeG" = (
 /obj/machinery/atmospherics/miner/station/toxins,
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "aeH" = (
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
@@ -10828,7 +10828,7 @@
 	},
 /area/maintenance/port/fore)
 "auH" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
@@ -14895,7 +14895,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "aCZ" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "aDa" = (
@@ -17319,7 +17319,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aIc" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -19680,7 +19680,7 @@
 	charge = 100;
 	maxcharge = 15000
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 30
 	},
 /obj/item/gps,
@@ -35405,7 +35405,7 @@
 	dir = 8
 	},
 /obj/item/paper/fluff/gateway,
-/obj/item/coin/plasma,
+/obj/item/coin/lean,
 /obj/item/melee/chainofcommand,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
@@ -39461,7 +39461,7 @@
 	pixel_y = -24
 	},
 /obj/structure/cable/yellow,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 35
 	},
 /turf/open/floor/plasteel/dark,
@@ -46961,7 +46961,7 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible,
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
-	name = "Plasma to Pure"
+	name = "Lean to Pure"
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -46986,14 +46986,14 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxin_output{
 	dir = 8
 	},
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bPy" = (
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bPz" = (
 /obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bPC" = (
 /obj/structure/cable/yellow{
@@ -47465,13 +47465,13 @@
 /area/engine/atmos)
 "bQX" = (
 /obj/machinery/air_sensor/atmos/toxin_tank,
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bQZ" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bRc" = (
 /obj/structure/cable/yellow{
@@ -48073,7 +48073,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bSj" = (
-/obj/machinery/atmospherics/components/trinary/filter/atmos/plasma{
+/obj/machinery/atmospherics/components/trinary/filter/atmos/lean{
 	dir = 1
 	},
 /obj/structure/window/reinforced{
@@ -48096,14 +48096,14 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxin_input{
 	dir = 8
 	},
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bSl" = (
 /obj/machinery/camera{
 	c_tag = "Atmospherics Tank - Toxins";
 	dir = 8
 	},
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bSn" = (
 /obj/structure/cable/yellow{
@@ -55981,8 +55981,8 @@
 /turf/open/floor/noslip/white,
 /area/medical/medbay/central)
 "cjS" = (
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/lean,
+/obj/item/stack/sheet/mineral/lean,
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/bottle/epinephrine,
 /obj/item/reagent_containers/glass/bottle/charcoal{
@@ -57810,7 +57810,7 @@
 	pixel_x = 4;
 	pixel_y = -3
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_y = 4
 	},
 /turf/open/floor/plasteel/white,
@@ -65962,9 +65962,9 @@
 	pixel_x = 29;
 	receive_ore_updates = 1
 	},
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/lean,
+/obj/item/stack/sheet/mineral/lean,
+/obj/item/stack/sheet/mineral/lean,
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
@@ -73671,7 +73671,7 @@
 	},
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable,
-/obj/structure/window/plasma/reinforced,
+/obj/structure/window/lean/reinforced,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "dbb" = (
@@ -74064,16 +74064,16 @@
 /area/science/xenobiology)
 "dcc" = (
 /obj/structure/table/glass,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_y = 4
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_y = 4
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_y = 4
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_y = 4
 	},
 /obj/item/reagent_containers/glass/beaker{
@@ -75054,7 +75054,7 @@
 /obj/structure/cable/white{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "dei" = (
@@ -75339,7 +75339,7 @@
 	},
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable,
-/obj/structure/window/plasma/reinforced,
+/obj/structure/window/lean/reinforced,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "deU" = (
@@ -75450,7 +75450,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 1
 	},
 /turf/open/floor/engine,
@@ -75463,7 +75463,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 1
 	},
 /turf/open/floor/engine,
@@ -76913,7 +76913,7 @@
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
 "dlN" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "dlV" = (
@@ -79089,7 +79089,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "gJs" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmos)
 "gJZ" = (

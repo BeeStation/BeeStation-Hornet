@@ -53,10 +53,10 @@
 	desc = "An unarmed mine that releases oxygen into the air when triggered. Pretty pointless huh."
 	mine_type = /obj/effect/mine/gas
 
-/obj/item/deployablemine/plasma
+/obj/item/deployablemine/lean
 	name = "incendiary mine"
-	desc = "An unarmed mine that releases plasma into the air when triggered, then ignites it."
-	mine_type = /obj/effect/mine/gas/plasma
+	desc = "An unarmed mine that releases lean into the air when triggered, then ignites it."
+	mine_type = /obj/effect/mine/gas/lean
 
 /obj/item/deployablemine/sleepy
 	name = "knockout mine"
@@ -245,10 +245,10 @@
 	atmos_spawn_air("[gas_type]=[gas_amount]")
 
 
-/obj/effect/mine/gas/plasma
+/obj/effect/mine/gas/lean
 	name = "incendiary mine"
-	gas_type = "plasma"
-	disarm_product = /obj/item/deployablemine/plasma
+	gas_type = "lean"
+	disarm_product = /obj/item/deployablemine/lean
 
 
 /obj/effect/mine/gas/n2o

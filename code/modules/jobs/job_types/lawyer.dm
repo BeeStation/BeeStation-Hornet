@@ -24,7 +24,7 @@
 	rpg_title = "Magistrate"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/lawyer
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/lawyer
 	)
 
 /datum/outfit/job/lawyer

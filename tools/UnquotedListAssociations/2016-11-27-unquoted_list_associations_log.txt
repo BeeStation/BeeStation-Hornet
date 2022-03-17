@@ -2212,7 +2212,7 @@ list(rad = 75)
 list(fire = 60)
 list(acid = 75)
 Total Unquoted List Associations: 120
-..code\modules\clothing\spacesuits\plasmamen.dm 
+..code\modules\clothing\spacesuits\leanmen.dm 
 list(bullet = 0)
 list(laser = 0)
 list(energy = 0)

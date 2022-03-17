@@ -1,17 +1,17 @@
-/datum/species/plasmaman
-	name = "\improper Plasmaman"
+/datum/species/leanman
+	name = "\improper Leanman"
 	id = SPECIES_PLASMAMAN
 	bodyflag = FLAG_PLASMAMAN
 	say_mod = "rattles"
 	sexes = 0
-	meat = /obj/item/stack/sheet/mineral/plasma
+	meat = /obj/item/stack/sheet/mineral/lean
 	species_traits = list(NOBLOOD,NOTRANSSTING)
 	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_RADIMMUNE,TRAIT_NOHUNGER,TRAIT_ALWAYS_CLEAN)
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
-	mutantlungs = /obj/item/organ/lungs/plasmaman
-	mutanttongue = /obj/item/organ/tongue/bone/plasmaman
-	mutantliver = /obj/item/organ/liver/plasmaman
-	mutantstomach = /obj/item/organ/stomach/plasmaman
+	mutantlungs = /obj/item/organ/lungs/leanman
+	mutanttongue = /obj/item/organ/tongue/bone/leanman
+	mutantliver = /obj/item/organ/liver/leanman
+	mutantstomach = /obj/item/organ/stomach/leanman
 	burnmod = 1.5
 	heatmod = 1.5
 	brutemod = 1.5
@@ -21,17 +21,17 @@
 	disliked_food = FRUIT
 	liked_food = VEGETABLES
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
-	outfit_important_for_life = /datum/outfit/plasmaman
+	outfit_important_for_life = /datum/outfit/leanman
 	species_language_holder = /datum/language_holder/skeleton
 
-	species_chest = /obj/item/bodypart/chest/plasmaman
-	species_head = /obj/item/bodypart/head/plasmaman
-	species_l_arm = /obj/item/bodypart/l_arm/plasmaman
-	species_r_arm = /obj/item/bodypart/r_arm/plasmaman
-	species_l_leg = /obj/item/bodypart/l_leg/plasmaman
-	species_r_leg = /obj/item/bodypart/r_leg/plasmaman
+	species_chest = /obj/item/bodypart/chest/leanman
+	species_head = /obj/item/bodypart/head/leanman
+	species_l_arm = /obj/item/bodypart/l_arm/leanman
+	species_r_arm = /obj/item/bodypart/r_arm/leanman
+	species_l_leg = /obj/item/bodypart/l_leg/leanman
+	species_r_leg = /obj/item/bodypart/r_leg/leanman
 
-/datum/species/plasmaman/spec_life(mob/living/carbon/human/H)
+/datum/species/leanman/spec_life(mob/living/carbon/human/H)
 	var/atmos_sealed = FALSE
 	if (H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 		var/obj/item/clothing/CS = H.wear_suit
@@ -43,7 +43,7 @@
 		var/obj/item/clothing/CH = H.head
 		if (CU.envirosealed && (CH.clothing_flags & STOPSPRESSUREDAMAGE))
 			atmos_sealed = TRUE
-	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) || !istype(H.gloves, /obj/item/clothing/gloves)))
+	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/leanman) || !istype(H.head, /obj/item/clothing/head/helmet/space/leanman) || !istype(H.gloves, /obj/item/clothing/gloves)))
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment)
 			if(environment.total_moles())
@@ -54,7 +54,7 @@
 					H.IgniteMob()
 					internal_fire = TRUE
 	else if(H.fire_stacks)
-		var/obj/item/clothing/under/plasmaman/P = H.w_uniform
+		var/obj/item/clothing/under/leanman/P = H.w_uniform
 		if(istype(P))
 			P.Extinguish(H)
 			internal_fire = FALSE
@@ -62,19 +62,19 @@
 		internal_fire = FALSE
 	H.update_fire()
 
-/datum/species/plasmaman/handle_fire(mob/living/carbon/human/H, no_protection)
+/datum/species/leanman/handle_fire(mob/living/carbon/human/H, no_protection)
 	if(internal_fire)
 		no_protection = TRUE
 	. = ..()
 
-/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source = null)
+/datum/species/leanman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source = null)
 	H.internal = H.get_item_for_held_index(2)
 	H.update_internals_hud_icon(1)
 
 	if(!preference_source)
 		return
 	var/path = J.species_outfits[SPECIES_PLASMAMAN]
-	var/datum/outfit/plasmaman/O = new path
+	var/datum/outfit/leanman/O = new path
 	var/datum/preferences/prefs = preference_source.prefs
 	if(prefs.helmet_style != HELMET_DEFAULT)
 		if(O.helmet_variants[prefs.helmet_style])
@@ -82,25 +82,25 @@
 			qdel(H.head)
 			H.equip_to_slot(new helmet, ITEM_SLOT_HEAD)
 
-/datum/species/plasmaman/qualifies_for_rank(rank, list/features)
+/datum/species/leanman/qualifies_for_rank(rank, list/features)
 	if(rank in GLOB.security_positions)
 		return 0
 	if(rank == "Clown" || rank == "Mime")//No funny bussiness
 		return 0
 	return ..()
 
-/datum/species/plasmaman/random_name(gender,unique,lastname)
+/datum/species/leanman/random_name(gender,unique,lastname)
 	if(unique)
-		return random_unique_plasmaman_name()
+		return random_unique_leanman_name()
 
-	var/randname = plasmaman_name()
+	var/randname = leanman_name()
 
 	if(lastname)
 		randname += " [lastname]"
 
 	return randname
 
-/datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+/datum/species/leanman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/consumable/milk)
 		if(chem.volume > 10)
 			H.reagents.remove_reagent(chem.type, chem.volume - 10)

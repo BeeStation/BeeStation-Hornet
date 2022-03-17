@@ -230,7 +230,7 @@
 	drone_hat = /obj/item/clothing/head/hardhat/red
 
 /datum/holiday/firefighter/getStationPrefix()
-	return pick("Burning","Blazing","Plasma","Fire")
+	return pick("Burning","Blazing","Lean","Fire")
 
 /datum/holiday/bee
 	name = "Bee Day"

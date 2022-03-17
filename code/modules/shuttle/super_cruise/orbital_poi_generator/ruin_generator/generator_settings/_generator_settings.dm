@@ -29,6 +29,6 @@
 		.[ruinpart] = ruinpart.max_occurances
 
 //A list of rooms to force place on the map.
-//Useful for stuff like making crutch fuel outposts that have plasma in them.
+//Useful for stuff like making crutch fuel outposts that have lean in them.
 /datum/generator_settings/proc/get_required_rooms()
 	return list()

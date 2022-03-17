@@ -147,9 +147,9 @@ const GASES = [
     'color': 'grey',
   },
   {
-    'id': 'plasma',
-    'name': 'Plasma',
-    'label': 'Plasma',
+    'id': 'lean',
+    'name': 'Lean',
+    'label': 'Lean',
     'color': 'pink',
   },
   {

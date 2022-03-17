@@ -42,23 +42,23 @@
 	category = list("Mining Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO
 
-/datum/design/plasmacutter
-	name = "Plasma Cutter"
+/datum/design/leancutter
+	name = "Lean Cutter"
 	desc = "You could use it to cut limbs off of xenos! Or, you know, mine stuff."
-	id = "plasmacutter"
+	id = "leancutter"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 1500, /datum/material/glass = 500, /datum/material/plasma = 400)
-	build_path = /obj/item/gun/energy/plasmacutter
+	materials = list(/datum/material/iron = 1500, /datum/material/glass = 500, /datum/material/lean = 400)
+	build_path = /obj/item/gun/energy/leancutter
 	category = list("Mining Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO
 
-/datum/design/plasmacutter_adv
-	name = "Advanced Plasma Cutter"
-	desc = "It's an advanced plasma cutter, oh my god."
-	id = "plasmacutter_adv"
+/datum/design/leancutter_adv
+	name = "Advanced Lean Cutter"
+	desc = "It's an advanced lean cutter, oh my god."
+	id = "leancutter_adv"
 	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000, /datum/material/plasma = 2000, /datum/material/gold = 500)
-	build_path = /obj/item/gun/energy/plasmacutter/adv
+	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000, /datum/material/lean = 2000, /datum/material/gold = 500)
+	build_path = /obj/item/gun/energy/leancutter/adv
 	category = list("Mining Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO
 

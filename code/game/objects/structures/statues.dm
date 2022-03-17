@@ -94,55 +94,55 @@
 			return
 	return
 
-////////////////////////////plasma///////////////////////////////////////////////////////////////////////
+////////////////////////////lean///////////////////////////////////////////////////////////////////////
 
-/obj/structure/statue/plasma
+/obj/structure/statue/lean
 	max_integrity = 200
-	material_drop_type = /obj/item/stack/sheet/mineral/plasma
-	desc = "This statue is suitably made from plasma."
+	material_drop_type = /obj/item/stack/sheet/mineral/lean
+	desc = "This statue is suitably made from lean."
 
-/obj/structure/statue/plasma/scientist
+/obj/structure/statue/lean/scientist
 	name = "statue of a scientist"
 	icon_state = "sci"
 
-/obj/structure/statue/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/statue/lean/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+		LeanBurn(exposed_temperature)
 
 
-/obj/structure/statue/plasma/bullet_act(obj/item/projectile/Proj)
+/obj/structure/statue/lean/bullet_act(obj/item/projectile/Proj)
 	var/burn = FALSE
 	if(!(Proj.nodamage) && Proj.damage_type == BURN && !QDELETED(src))
 		burn = TRUE
 	if(burn)
 		var/turf/T = get_turf(src)
 		if(Proj.firer)
-			message_admins("Plasma statue ignited by [ADMIN_LOOKUPFLW(Proj.firer)] in [ADMIN_VERBOSEJMP(T)]")
-			log_game("Plasma statue ignited by [key_name(Proj.firer)] in [AREACOORD(T)]")
+			message_admins("Lean statue ignited by [ADMIN_LOOKUPFLW(Proj.firer)] in [ADMIN_VERBOSEJMP(T)]")
+			log_game("Lean statue ignited by [key_name(Proj.firer)] in [AREACOORD(T)]")
 		else
-			message_admins("Plasma statue ignited by [Proj]. No known firer, in [ADMIN_VERBOSEJMP(T)]")
-			log_game("Plasma statue ignited by [Proj] in [AREACOORD(T)]. No known firer.")
-		PlasmaBurn(2500)
+			message_admins("Lean statue ignited by [Proj]. No known firer, in [ADMIN_VERBOSEJMP(T)]")
+			log_game("Lean statue ignited by [Proj] in [AREACOORD(T)]. No known firer.")
+		LeanBurn(2500)
 	. = ..()
 
-/obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
+/obj/structure/statue/lean/attackby(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300 && !QDELETED(src))//If the temperature of the object is over 300, then ignite
 		var/turf/T = get_turf(src)
-		message_admins("Plasma statue ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
-		log_game("Plasma statue ignited by [key_name(user)] in [AREACOORD(T)]")
+		message_admins("Lean statue ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
+		log_game("Lean statue ignited by [key_name(user)] in [AREACOORD(T)]")
 		ignite(W.is_hot())
 	else
 		return ..()
 
-/obj/structure/statue/plasma/proc/PlasmaBurn(exposed_temperature)
+/obj/structure/statue/lean/proc/LeanBurn(exposed_temperature)
 	if(QDELETED(src))
 		return
-	atmos_spawn_air("plasma=[oreAmount*10];TEMP=[exposed_temperature]")
+	atmos_spawn_air("lean=[oreAmount*10];TEMP=[exposed_temperature]")
 	deconstruct(FALSE)
 
-/obj/structure/statue/plasma/proc/ignite(exposed_temperature)
+/obj/structure/statue/lean/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+		LeanBurn(exposed_temperature)
 
 //////////////////////gold///////////////////////////////////////
 

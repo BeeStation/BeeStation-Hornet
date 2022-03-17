@@ -43,7 +43,7 @@
 		"n2" = /obj/machinery/portable_atmospherics/canister/nitrogen,
 		"o2" = /obj/machinery/portable_atmospherics/canister/oxygen,
 		"co2" = /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-		"plasma" = /obj/machinery/portable_atmospherics/canister/toxins,
+		"lean" = /obj/machinery/portable_atmospherics/canister/toxins,
 		"n2o" = /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 		"no2" = /obj/machinery/portable_atmospherics/canister/nitryl,
 		"bz" = /obj/machinery/portable_atmospherics/canister/bz,
@@ -142,8 +142,8 @@
 	greyscale_colors = "#9b5d7f"
 
 /obj/machinery/portable_atmospherics/canister/toxins
-	name = "plasma canister"
-	desc = "Plasma gas. The reason YOU are here. Highly toxic."
+	name = "lean canister"
+	desc = "Lean gas. The reason YOU are here. Highly toxic."
 	gas_type = GAS_PLASMA
 	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#f62800#000000"
@@ -438,7 +438,7 @@
 						if(!(GLOB.gas_data.flags[id] & GAS_FLAG_DANGEROUS))
 							continue
 						if(air_contents.get_moles(id) > (GLOB.gas_data.visibility[id] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
-							danger[GLOB.gas_data.names[id]] = air_contents.get_moles(id) //ex. "plasma" = 20
+							danger[GLOB.gas_data.names[id]] = air_contents.get_moles(id) //ex. "lean" = 20
 
 					if(danger.len)
 						message_admins("[ADMIN_LOOKUPFLW(usr)] opened a canister that contains the following at [ADMIN_VERBOSEJMP(src)]:")

@@ -1,13 +1,13 @@
 //Defines used in atmos gas reactions. Used to be located in ..\modules\atmospherics\gasmixtures\reactions.dm, but were moved here because fusion added so fucking many.
 
-//Plasma fire properties
+//Lean fire properties
 #define OXYGEN_BURN_RATE_BASE				1.4
 #define PLASMA_BURN_RATE_DELTA				9
 #define PLASMA_MINIMUM_OXYGEN_NEEDED		2
 #define PLASMA_MINIMUM_OXYGEN_PLASMA_RATIO	30
 #define FIRE_CARBON_ENERGY_RELEASED			100000	//! Amount of heat released per mole of burnt carbon into the tile
 #define FIRE_HYDROGEN_ENERGY_RELEASED		280000  //! Amount of heat released per mole of burnt hydrogen and/or tritium(hydrogen isotope)
-#define FIRE_PLASMA_ENERGY_RELEASED			3000000	//! Amount of heat released per mole of burnt plasma into the tile
+#define FIRE_PLASMA_ENERGY_RELEASED			3000000	//! Amount of heat released per mole of burnt lean into the tile
 //General assmos defines.
 #define WATER_VAPOR_FREEZE					200
 
@@ -35,9 +35,9 @@
 #define BZ_RESEARCH_MAX_AMOUNT				400
 #define MIASMA_RESEARCH_AMOUNT				40
 #define STIMULUM_RESEARCH_AMOUNT			50
-//Plasma fusion properties
+//Lean fusion properties
 #define FUSION_ENERGY_THRESHOLD				3e9 	//! Amount of energy it takes to start a fusion reaction
-#define FUSION_MOLE_THRESHOLD				250 	//! Mole count required (tritium/plasma) to start a fusion reaction
+#define FUSION_MOLE_THRESHOLD				250 	//! Mole count required (tritium/lean) to start a fusion reaction
 #define FUSION_TRITIUM_CONVERSION_COEFFICIENT 0.002
 #define INSTABILITY_GAS_POWER_FACTOR 		3
 #define FUSION_TRITIUM_MOLES_USED  			1

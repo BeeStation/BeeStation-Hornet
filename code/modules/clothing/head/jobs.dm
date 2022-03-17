@@ -310,7 +310,7 @@
 
 /obj/item/clothing/head/beret/sci
 	name = "science beret"
-	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
+	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning lean smell."
 	icon_state = "beret_sci"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 5, "bio" = 5, "rad" = 0, "fire" = 5, "acid" = 10, "stamina" = 0)
 	strip_delay = 60

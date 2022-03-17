@@ -29,7 +29,7 @@
 	lifetime = 20 //doesn't last as long as normal foam
 	amount = 0 //no spread
 	slippery_foam = FALSE
-	var/absorbed_plasma = 0
+	var/absorbed_lean = 0
 
 /obj/effect/particle_effect/foam/firefighting/process()
 	..()
@@ -39,9 +39,9 @@
 	if(hotspot && istype(T) && T.air)
 		qdel(hotspot)
 		var/datum/gas_mixture/G = T.air
-		var/plas_amt = min(30,G.get_moles(GAS_PLASMA)) //Absorb some plasma
+		var/plas_amt = min(30,G.get_moles(GAS_PLASMA)) //Absorb some lean
 		G.adjust_moles(GAS_PLASMA, -plas_amt)
-		absorbed_plasma += plas_amt
+		absorbed_lean += plas_amt
 		if(G.return_temperature() > T20C)
 			G.set_temperature(max(G.return_temperature()/2,T20C))
 		T.air_update_turf()
@@ -49,11 +49,11 @@
 /obj/effect/particle_effect/foam/firefighting/kill_foam()
 	STOP_PROCESSING(SSfastprocess, src)
 
-	if(absorbed_plasma)
-		var/obj/effect/decal/cleanable/plasma/P = (locate(/obj/effect/decal/cleanable/plasma) in get_turf(src))
+	if(absorbed_lean)
+		var/obj/effect/decal/cleanable/lean/P = (locate(/obj/effect/decal/cleanable/lean) in get_turf(src))
 		if(!P)
 			P = new(loc)
-		P.reagents.add_reagent(/datum/reagent/stable_plasma, absorbed_plasma)
+		P.reagents.add_reagent(/datum/reagent/stable_lean, absorbed_lean)
 
 	flick("[icon_state]-disolve", src)
 	QDEL_IN(src, 5)

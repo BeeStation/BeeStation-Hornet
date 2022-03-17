@@ -87,21 +87,21 @@
 	..()
 
 //The suicide bombers of golemkind
-/datum/species/golem/plasma
-	name = "Plasma Golem"
-	id = "plasma_golem"
+/datum/species/golem/lean
+	name = "Lean Golem"
+	id = "lean_golem"
 	fixed_mut_color = "a3d"
-	meat = /obj/item/stack/ore/plasma
+	meat = /obj/item/stack/ore/lean
 	//Can burn and takes damage from heat
 	inherent_traits = list(TRAIT_NOBREATH, TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOGUNS,TRAIT_RADIMMUNE,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER) //no RESISTHEAT, NOFIRE
-	info_text = "As a <span class='danger'>Plasma Golem</span>, you burn easily. Be careful, if you get hot enough while burning, you'll blow up!"
+	info_text = "As a <span class='danger'>Lean Golem</span>, you burn easily. Be careful, if you get hot enough while burning, you'll blow up!"
 	heatmod = 0 //fine until they blow up
-	prefix = "Plasma"
+	prefix = "Lean"
 	special_names = list("Flood","Fire","Bar","Man")
 	var/boom_warning = FALSE
 	var/datum/action/innate/ignite/ignite
 
-/datum/species/golem/plasma/spec_life(mob/living/carbon/human/H)
+/datum/species/golem/lean/spec_life(mob/living/carbon/human/H)
 	if(H.bodytemperature > 750)
 		if(!boom_warning && H.on_fire)
 			to_chat(H, "<span class='userdanger'>You feel like you could blow up at any moment!</span>")
@@ -119,13 +119,13 @@
 		H.adjust_fire_stacks(1)
 	..()
 
-/datum/species/golem/plasma/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/golem/lean/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
 	if(ishuman(C))
 		ignite = new
 		ignite.Grant(C)
 
-/datum/species/golem/plasma/on_species_loss(mob/living/carbon/C)
+/datum/species/golem/lean/on_species_loss(mob/living/carbon/C)
 	if(ignite)
 		ignite.Remove(C)
 	..()

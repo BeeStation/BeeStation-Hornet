@@ -403,18 +403,18 @@
 		to_chat(user, "<span class='warning'>You try to read the scroll but can't comprehend any of it.</span>")
 		return TRUE
 
-/obj/item/book/granter/martial/plasma_fist
-	martial = /datum/martial_art/plasma_fist
+/obj/item/book/granter/martial/lean_fist
+	martial = /datum/martial_art/lean_fist
 	name = "frayed scroll"
-	martialname = "plasma fist"
+	martialname = "lean fist"
 	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
-	greet = "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist. Your combos are extremely hard to pull off, but include some of the most deadly moves ever seen including \
-	the plasma fist, which when pulled off will make someone violently explode.</span>"
+	greet = "<span class='boldannounce'>You have learned the ancient martial art of Lean Fist. Your combos are extremely hard to pull off, but include some of the most deadly moves ever seen including \
+	the lean fist, which when pulled off will make someone violently explode.</span>"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
 	remarks = list("Balance...", "Power...", "Control...", "Mastery...", "Vigilance...", "Skill...")
 
-/obj/item/book/granter/martial/plasma_fist/onlearned(mob/living/carbon/user)
+/obj/item/book/granter/martial/lean_fist/onlearned(mob/living/carbon/user)
 	..()
 	if(oneuse == TRUE)
 		desc = "It's completely blank."

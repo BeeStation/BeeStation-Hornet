@@ -24,7 +24,7 @@
 	rpg_title = "Adventurer"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/mining
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/mining
 	)
 
 /datum/outfit/job/miner

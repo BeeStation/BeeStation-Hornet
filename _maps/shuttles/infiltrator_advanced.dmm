@@ -998,7 +998,7 @@
 	},
 /obj/item/storage/box/lights/bulbs,
 /obj/item/storage/toolbox/mechanical,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 20
 	},
 /obj/effect/turf_decal/delivery,

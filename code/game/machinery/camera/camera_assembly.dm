@@ -22,7 +22,7 @@
 	var/malf_xray_firmware_active //used to keep from revealing malf AI upgrades for user facing isXRay() checks when they use Upgrade Camera Network ability
 								//will be false if the camera is upgraded with the proper parts.
 	var/malf_xray_firmware_present //so the malf upgrade is restored when the normal upgrade part is removed.
-	var/obj/item/stack/sheet/mineral/plasma/emp_module
+	var/obj/item/stack/sheet/mineral/lean/emp_module
 	var/malf_emp_firmware_active //used to keep from revealing malf AI upgrades for user facing isEmp() checks after they use Upgrade Camera Network ability
 								//will be false if the camera is upgraded with the proper parts.
 	var/malf_emp_firmware_present //so the malf upgrade is restored when the normal upgrade part is removed.
@@ -37,7 +37,7 @@
 		. += "It has electromagnetic interference shielding installed."
 		has_upgrades = TRUE
 	else if(state == STATE_WIRED)
-		. += "<span class='info'>It can be shielded against electromagnetic interference with some <b>plasma</b>.</span>"
+		. += "<span class='info'>It can be shielded against electromagnetic interference with some <b>lean</b>.</span>"
 	if(xray_module)
 		. += "It has an X-ray photodiode installed."
 		has_upgrades = TRUE
@@ -150,7 +150,7 @@
 				return
 
 		if(STATE_WIRED)	// Upgrades!
-			if(istype(W, /obj/item/stack/sheet/mineral/plasma)) //emp upgrade
+			if(istype(W, /obj/item/stack/sheet/mineral/lean)) //emp upgrade
 				if(emp_module)
 					to_chat(user, "<span class='warning'>[src] already contains a [emp_module]!</span>")
 					return

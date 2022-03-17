@@ -31,7 +31,7 @@ Nanotrasen
 the Syndicate
 the Wizard Federation
 %ADJECTIVE% blood
-%ADJECTIVE% plasma
+%ADJECTIVE% lean
 %ADJECTIVE% wind
 %ADJECTIVE% darkness
 %ADJECTIVE% light

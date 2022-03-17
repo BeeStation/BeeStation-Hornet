@@ -284,7 +284,7 @@
 
 /datum/crafting_recipe/foilenvirohelm
 	name = "Ghetto Envirosuit Helmet"
-	result = /obj/item/clothing/head/foilhat/plasmaman
+	result = /obj/item/clothing/head/foilhat/leanman
 	time = 40
 	tools = list(TOOL_CROWBAR, TOOL_WIRECUTTER, TOOL_SCREWDRIVER)
 	reqs = list(/obj/item/clothing/head/foilhat = 1,

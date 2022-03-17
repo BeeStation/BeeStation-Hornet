@@ -8,7 +8,7 @@
 
 /obj/machinery/power/rad_collector
 	name = "Radiation Collector Array"
-	desc = "A device which uses Hawking Radiation and plasma to produce power."
+	desc = "A device which uses Hawking Radiation and lean to produce power."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "ca"
 	anchored = FALSE
@@ -19,7 +19,7 @@
 	integrity_failure = 80
 	circuit = /obj/item/circuitboard/machine/rad_collector
 	rad_insulation = RAD_EXTREME_INSULATION
-	var/obj/item/tank/internals/plasma/loaded_tank = null
+	var/obj/item/tank/internals/lean/loaded_tank = null
 	var/stored_energy = 0
 	var/active = 0
 	var/locked = FALSE
@@ -52,7 +52,7 @@
 		if(loaded_tank.air_contents.get_moles(GAS_PLASMA) < 0.0001)
 			investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_ENGINES)
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
-			var/msg = "Plasma depleted, recommend replacing tank."
+			var/msg = "Lean depleted, recommend replacing tank."
 			radio.talk_into(src, msg, RADIO_CHANNEL_ENGINEERING)
 			eject()
 		else
@@ -94,7 +94,7 @@
 /obj/machinery/power/rad_collector/can_be_unfasten_wrench(mob/user, silent)
 	if(loaded_tank)
 		if(!silent)
-			to_chat(user, "<span class='warning'>Remove the plasma tank first!</span>")
+			to_chat(user, "<span class='warning'>Remove the lean tank first!</span>")
 		return FAILED_UNFASTEN
 	return ..()
 
@@ -107,12 +107,12 @@
 			disconnect_from_network()
 
 /obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/tank/internals/plasma))
+	if(istype(W, /obj/item/tank/internals/lean))
 		if(!anchored)
 			to_chat(user, "<span class='warning'>[src] needs to be secured to the floor first!</span>")
 			return TRUE
 		if(loaded_tank)
-			to_chat(user, "<span class='warning'>There's already a plasma tank loaded!</span>")
+			to_chat(user, "<span class='warning'>There's already a lean tank loaded!</span>")
 			return TRUE
 		if(panel_open)
 			to_chat(user, "<span class='warning'>Close the maintenance panel first!</span>")
@@ -142,7 +142,7 @@
 	if(..())
 		return TRUE
 	if(loaded_tank)
-		to_chat(user, "<span class='warning'>Remove the plasma tank first!</span>")
+		to_chat(user, "<span class='warning'>Remove the lean tank first!</span>")
 	else
 		default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 	return TRUE
@@ -192,7 +192,7 @@
 			. += "<span class='notice'>[src]'s display states that it has stored a total of <b>[stored_energy*RAD_COLLECTOR_MINING_CONVERSION_RATE]</b>, and is producing [RAD_COLLECTOR_OUTPUT*RAD_COLLECTOR_MINING_CONVERSION_RATE] research points per minute.</span>"
 	else
 		if(!bitcoinmining)
-			. += "<span class='notice'><b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>. Use a multitool to change production modes.\"</span>"
+			. += "<span class='notice'><b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Lean</b>. Use a multitool to change production modes.\"</span>"
 		else
 			. += "<span class='notice'><b>[src]'s display displays the words:</b> \"Research point production mode. Please insert <b>Tritium</b> and <b>Oxygen</b>. Use a multitool to change production modes.\"</span>"
 
@@ -203,7 +203,7 @@
 
 /obj/machinery/power/rad_collector/proc/eject()
 	locked = FALSE
-	var/obj/item/tank/internals/plasma/Z = src.loaded_tank
+	var/obj/item/tank/internals/lean/Z = src.loaded_tank
 	if (!Z)
 		return
 	Z.forceMove(drop_location())

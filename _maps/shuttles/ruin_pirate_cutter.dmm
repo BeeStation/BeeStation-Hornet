@@ -782,7 +782,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 20
 	},
 /obj/effect/turf_decal/stripes/line{

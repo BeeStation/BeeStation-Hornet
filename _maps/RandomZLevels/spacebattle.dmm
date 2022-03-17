@@ -1952,7 +1952,7 @@
 /area/awaymission/spacebattle/syndicate4)
 "he" = (
 /obj/item/pickaxe,
-/obj/item/gun/energy/plasmacutter,
+/obj/item/gun/energy/leancutter,
 /obj/structure/closet/crate,
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
@@ -2008,7 +2008,7 @@
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "ho" = (
-/obj/structure/closet/crate/secure/plasma,
+/obj/structure/closet/crate/secure/lean,
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "hp" = (
@@ -2427,14 +2427,14 @@
 /turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "jl" = (
-/turf/closed/wall/mineral/plasma,
+/turf/closed/wall/mineral/lean,
 /area/awaymission/spacebattle/secret)
 "jm" = (
 /turf/open/floor/plasteel/rockvault/alien,
 /area/awaymission/spacebattle/secret)
 "jn" = (
-/obj/machinery/door/airlock/plasma,
-/turf/closed/wall/mineral/plasma,
+/obj/machinery/door/airlock/lean,
+/turf/closed/wall/mineral/lean,
 /area/awaymission/spacebattle/secret)
 "jo" = (
 /obj/item/clothing/suit/space/hardsuit/wizard,

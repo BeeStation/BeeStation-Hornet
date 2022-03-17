@@ -114,7 +114,7 @@
 	if(isEmpProof(TRUE)) //don't reveal it's upgraded if was done via MALF AI Upgrade Camera Network ability
 		. += "It has electromagnetic interference shielding installed."
 	else
-		. += "<span class='info'>It can be shielded against electromagnetic interference with some <b>plasma</b>.</span>"
+		. += "<span class='info'>It can be shielded against electromagnetic interference with some <b>lean</b>.</span>"
 	if(isXRay(TRUE)) //don't reveal it's upgraded if was done via MALF AI Upgrade Camera Network ability
 		. += "It has an X-ray photodiode installed."
 	else
@@ -243,7 +243,7 @@
 				to_chat(user, "<span class='notice'>[src] already has that upgrade!</span>")
 			return
 
-		else if(istype(I, /obj/item/stack/sheet/mineral/plasma))
+		else if(istype(I, /obj/item/stack/sheet/mineral/lean))
 			if(!isEmpProof(TRUE)) //don't reveal it was already upgraded if was done via MALF AI Upgrade Camera Network ability
 				if(I.use_tool(src, user, 0, amount=1))
 					upgradeEmpProof(FALSE, TRUE)

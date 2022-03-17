@@ -28,7 +28,7 @@
 	. = ..()
 
 /mob/living/carbon/alien/larva/create_internal_organs()
-	internal_organs += new /obj/item/organ/alien/plasmavessel/small/tiny
+	internal_organs += new /obj/item/organ/alien/leanvessel/small/tiny
 	..()
 
 //This needs to be fixed
@@ -37,7 +37,7 @@
 	tab_data["Progress"] = GENERATE_STAT_TEXT("[amount_grown]/[max_grown]")
 	return tab_data
 
-/mob/living/carbon/alien/larva/adjustPlasma(amount)
+/mob/living/carbon/alien/larva/adjustLean(amount)
 	if(stat != DEAD && amount > 0)
 		amount_grown = min(amount_grown + 1, max_grown)
 	..(amount)

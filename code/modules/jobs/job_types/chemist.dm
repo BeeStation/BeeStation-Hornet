@@ -24,7 +24,7 @@
 	rpg_title = "Alchemist"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chemist
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/chemist
 	)
 	biohazard = 15
 

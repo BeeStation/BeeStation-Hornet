@@ -121,11 +121,11 @@
 /turf/open/floor/engine/co2/light
 	icon_state = "engine_light"
 
-/turf/open/floor/engine/plasma
-	name = "plasma floor"
+/turf/open/floor/engine/lean
+	name = "lean floor"
 	initial_gas_mix = ATMOS_TANK_PLASMA
 
-/turf/open/floor/engine/plasma/light
+/turf/open/floor/engine/lean/light
 	icon_state = "engine_light"
 
 /turf/open/floor/engine/o2

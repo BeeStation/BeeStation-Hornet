@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/alien/hide
 	name = "Hide"
 	desc = "Allows aliens to hide beneath tables or certain items. Toggled on or off."
-	plasma_cost = 0
+	lean_cost = 0
 
 	action_icon_state = "alien_hide"
 
@@ -23,7 +23,7 @@
 /obj/effect/proc_holder/alien/larva_evolve
 	name = "Evolve"
 	desc = "Evolve into a higher alien caste."
-	plasma_cost = 0
+	lean_cost = 0
 
 	action_icon_state = "alien_evolve_larva"
 

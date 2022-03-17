@@ -91,7 +91,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/science)
 "z" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "A" = (

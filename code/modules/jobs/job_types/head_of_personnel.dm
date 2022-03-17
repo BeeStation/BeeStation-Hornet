@@ -41,7 +41,7 @@
 	rpg_title = "Guild Questgiver"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hop
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/hop
 	)
 
 /datum/outfit/job/hop

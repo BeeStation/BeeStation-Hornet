@@ -76,10 +76,10 @@
 	desc = "A mutant liver designed to handle the unique diet of a flyperson."
 	alcohol_tolerance = 0.007 //flies eat vomit, so a lower alcohol tolerance is perfect!
 
-/obj/item/organ/liver/plasmaman
+/obj/item/organ/liver/leanman
 	name = "reagent processing crystal"
 	icon_state = "liver-p"
-	desc = "A large crystal that is somehow capable of metabolizing chemicals, these are found in plasmamen."
+	desc = "A large crystal that is somehow capable of metabolizing chemicals, these are found in leanmen."
 
 /obj/item/organ/liver/alien
 	name = "alien liver" // doesnt matter for actual aliens because they dont take toxin damage

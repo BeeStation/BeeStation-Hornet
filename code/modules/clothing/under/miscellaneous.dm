@@ -72,11 +72,11 @@
 	item_state = "gy_suit"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/plasmaman
-	name = "plasma envirosuit"
-	desc = "A special containment suit that allows plasma-based lifeforms to exist safely in an oxygenated environment, and automatically extinguishes them in a crisis. Despite being airtight, it's not spaceworthy."
-	icon_state = "plasmaman"
-	item_state = "plasmaman"
+/obj/item/clothing/under/leanman
+	name = "lean envirosuit"
+	desc = "A special containment suit that allows lean-based lifeforms to exist safely in an oxygenated environment, and automatically extinguishes them in a crisis. Despite being airtight, it's not spaceworthy."
+	icon_state = "leanman"
+	item_state = "leanman"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 95, "acid" = 95, "stamina" = 0)
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	can_adjust = FALSE
@@ -88,11 +88,11 @@
 	envirosealed = TRUE
 
 
-/obj/item/clothing/under/plasmaman/examine(mob/user)
+/obj/item/clothing/under/leanman/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>There are [extinguishes_left] extinguisher charges left in this suit.</span>"
 
-/obj/item/clothing/under/plasmaman/proc/Extinguish(mob/living/carbon/human/H)
+/obj/item/clothing/under/leanman/proc/Extinguish(mob/living/carbon/human/H)
 	if(!istype(H))
 		return
 
@@ -107,7 +107,7 @@
 			new /obj/effect/particle_effect/water(get_turf(H))
 	return 0
 
-/obj/item/clothing/under/plasmaman/attackby(obj/item/E, mob/user, params)
+/obj/item/clothing/under/leanman/attackby(obj/item/E, mob/user, params)
 	..()
 	if (istype(E, /obj/item/extinguisher_refill))
 		if (extinguishes_left == 5)
@@ -121,8 +121,8 @@
 
 /obj/item/extinguisher_refill
 	name = "envirosuit extinguisher cartridge"
-	desc = "A cartridge loaded with a compressed extinguisher mix, used to refill the automatic extinguisher on plasma envirosuits."
-	icon_state = "plasmarefill"
+	desc = "A cartridge loaded with a compressed extinguisher mix, used to refill the automatic extinguisher on lean envirosuits."
+	icon_state = "leanrefill"
 	icon = 'icons/obj/device.dmi'
 
 /////////////////

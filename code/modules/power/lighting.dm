@@ -904,7 +904,7 @@
 		shatter()
 
 // attack bulb/tube with object
-// if a syringe, can inject plasma to make it explode
+// if a syringe, can inject lean to make it explode
 /obj/item/light/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/reagent_containers/syringe))
@@ -912,7 +912,7 @@
 
 		to_chat(user, "<span class='notice'>You inject the solution into \the [src].</span>")
 
-		if(S.reagents.has_reagent(/datum/reagent/toxin/plasma, 5))
+		if(S.reagents.has_reagent(/datum/reagent/toxin/lean, 5))
 
 			rigged = TRUE
 
@@ -936,7 +936,7 @@
 		force = 5
 		playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
 		if(rigged)
-			atmos_spawn_air("plasma=5") //5u of plasma are required to rig a light bulb/tube
+			atmos_spawn_air("lean=5") //5u of lean are required to rig a light bulb/tube
 		update()
 
 

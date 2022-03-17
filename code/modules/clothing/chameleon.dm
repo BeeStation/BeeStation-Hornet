@@ -279,10 +279,10 @@
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/clothing/under/chameleon/envirosuit
-	name = "plasma envirosuit"
-	desc = "A special containment suit that allows plasma-based lifeforms to exist safely in an oxygenated environment, and automatically extinguishes them in a crisis. Despite being airtight, it's not spaceworthy. It has a small dial on the wrist."
-	icon_state = "plasmaman"
-	item_state = "plasmaman"
+	name = "lean envirosuit"
+	desc = "A special containment suit that allows lean-based lifeforms to exist safely in an oxygenated environment, and automatically extinguishes them in a crisis. Despite being airtight, it's not spaceworthy. It has a small dial on the wrist."
+	icon_state = "leanman"
+	item_state = "leanman"
 	resistance_flags = FIRE_PROOF
 	envirosealed = TRUE
 	greyscale_colors = null
@@ -465,10 +465,10 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/clothing/head/chameleon/envirohelm
-	name = "plasma envirosuit helmet"
-	desc = "A special containment helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment. It is space-worthy, and may be worn in tandem with other EVA gear."
-	icon_state = "plasmaman-helm"
-	item_state = "plasmaman-helm"
+	name = "lean envirosuit helmet"
+	desc = "A special containment helmet that allows lean-based lifeforms to exist safely in an oxygenated environment. It is space-worthy, and may be worn in tandem with other EVA gear."
+	icon_state = "leanman-helm"
+	item_state = "leanman-helm"
 	resistance_flags = FIRE_PROOF
 	strip_delay = 80
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT

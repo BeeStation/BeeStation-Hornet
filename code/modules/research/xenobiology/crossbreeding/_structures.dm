@@ -238,10 +238,10 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 	if(air.get_moles(GAS_PLASMA) > 15)
 		air.adjust_moles(GAS_PLASMA, -15)
-		new /obj/item/stack/sheet/mineral/plasma(open_turf)
+		new /obj/item/stack/sheet/mineral/lean(open_turf)
 
 /obj/structure/slime_crystal/darkpurple/Destroy()
-	atmos_spawn_air("plasma=[20];TEMP=[500]")
+	atmos_spawn_air("lean=[20];TEMP=[500]")
 	return ..()
 
 /obj/structure/slime_crystal/darkblue

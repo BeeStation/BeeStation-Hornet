@@ -898,7 +898,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/lean,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},

@@ -103,7 +103,7 @@
 	return (FIRELOSS)
 
 /obj/item/stock_parts/cell/on_reagent_change(changetype)
-	rigged = !isnull(reagents.has_reagent(/datum/reagent/toxin/plasma, 5)) //has_reagent returns the reagent datum
+	rigged = !isnull(reagents.has_reagent(/datum/reagent/toxin/lean, 5)) //has_reagent returns the reagent datum
 	..()
 
 
@@ -207,7 +207,7 @@
 
 /obj/item/stock_parts/cell/crap
 	name = "\improper Nanotrasen brand rechargeable AA battery"
-	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
+	desc = "You can't top the lean top." //TOTALLY TRADEMARK INFRINGEMENT
 	maxcharge = 500
 	materials = list(/datum/material/glass=40)
 
@@ -342,7 +342,7 @@
 
 /obj/item/stock_parts/cell/high/slime
 	name = "charged slime core"
-	desc = "A yellow slime core infused with plasma, it crackles with power."
+	desc = "A yellow slime core infused with lean, it crackles with power."
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "yellow slime extract"
 	materials = list()

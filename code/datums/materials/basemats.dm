@@ -77,23 +77,23 @@
 
 
 ///Adds firestacks on hit (Still needs support to turn into gas on destruction)
-/datum/material/plasma
-	name = "plasma"
-	id = "plasma"
-	desc = "Isn't plasma a state of matter? Oh whatever."
+/datum/material/lean
+	name = "lean"
+	id = "lean"
+	desc = "Isn't lean a state of matter? Oh whatever."
 	color = "#c716b8"
 	greyscale_colors = "#c716b8"
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
-	sheet_type = /obj/item/stack/sheet/mineral/plasma
-	coin_type = /obj/item/coin/plasma
+	sheet_type = /obj/item/stack/sheet/mineral/lean
+	coin_type = /obj/item/coin/lean
 
-/datum/material/plasma/on_applied(atom/source, amount, material_flags)
+/datum/material/lean/on_applied(atom/source, amount, material_flags)
 	. = ..()
 	if(ismovableatom(source))
 		source.AddElement(/datum/element/firestacker, amount=1)
 		source.AddComponent(/datum/component/explodable, 0, 0, amount / 1000, amount / 500)
 
-/datum/material/plasma/on_removed(atom/source, material_flags)
+/datum/material/lean/on_removed(atom/source, material_flags)
 	. = ..()
 	source.RemoveElement(/datum/element/firestacker, amount=1)
 	qdel(source.GetComponent(/datum/component/explodable))

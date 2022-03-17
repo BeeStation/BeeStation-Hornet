@@ -217,7 +217,7 @@ we use a hook instead
 	//Gets how much oxidation this gas can do, optionally at a given temperature.
 
 /datum/gas_mixture/proc/get_fuel_amount(temp)
-	//Gets how much fuel for fires (not counting trit/plasma!) this gas has, optionally at a given temperature.
+	//Gets how much fuel for fires (not counting trit/lean!) this gas has, optionally at a given temperature.
 
 /proc/equalize_all_gases_in_list(list/L)
 	//Makes every gas in the given list have the same pressure, temperature and gas proportions.

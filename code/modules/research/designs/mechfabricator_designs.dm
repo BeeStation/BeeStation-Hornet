@@ -416,7 +416,7 @@
 	id = "phazon_torso"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_torso
-	materials = list(/datum/material/iron=35000,/datum/material/glass = 10000,/datum/material/plasma=20000)
+	materials = list(/datum/material/iron=35000,/datum/material/glass = 10000,/datum/material/lean=20000)
 	construction_time = 300
 	category = list("Phazon")
 
@@ -425,7 +425,7 @@
 	id = "phazon_head"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_head
-	materials = list(/datum/material/iron=15000,/datum/material/glass = 5000,/datum/material/plasma=10000)
+	materials = list(/datum/material/iron=15000,/datum/material/glass = 5000,/datum/material/lean=10000)
 	construction_time = 200
 	category = list("Phazon")
 
@@ -434,7 +434,7 @@
 	id = "phazon_left_arm"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_left_arm
-	materials = list(/datum/material/iron=20000,/datum/material/plasma=10000)
+	materials = list(/datum/material/iron=20000,/datum/material/lean=10000)
 	construction_time = 200
 	category = list("Phazon")
 
@@ -443,7 +443,7 @@
 	id = "phazon_right_arm"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_right_arm
-	materials = list(/datum/material/iron=20000,/datum/material/plasma=10000)
+	materials = list(/datum/material/iron=20000,/datum/material/lean=10000)
 	construction_time = 200
 	category = list("Phazon")
 
@@ -452,7 +452,7 @@
 	id = "phazon_left_leg"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_left_leg
-	materials = list(/datum/material/iron=20000,/datum/material/plasma=10000)
+	materials = list(/datum/material/iron=20000,/datum/material/lean=10000)
 	construction_time = 200
 	category = list("Phazon")
 
@@ -461,7 +461,7 @@
 	id = "phazon_right_leg"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_right_leg
-	materials = list(/datum/material/iron=20000,/datum/material/plasma=10000)
+	materials = list(/datum/material/iron=20000,/datum/material/lean=10000)
 	construction_time = 200
 	category = list("Phazon")
 
@@ -470,7 +470,7 @@
 	id = "phazon_armor"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/part/phazon_armor
-	materials = list(/datum/material/iron=25000,/datum/material/plasma=20000,/datum/material/titanium=20000)
+	materials = list(/datum/material/iron=25000,/datum/material/lean=20000,/datum/material/titanium=20000)
 	construction_time = 300
 	category = list("Phazon")
 
@@ -480,7 +480,7 @@
 	id = "ripleyupgrade"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/ripleyupgrade
-	materials = list(/datum/material/iron=10000,/datum/material/plasma=10000)
+	materials = list(/datum/material/iron=10000,/datum/material/lean=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
@@ -521,11 +521,11 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_generator
-	name = "Exosuit Module (Plasma Generator)"
+	name = "Exosuit Module (Lean Generator)"
 	id = "mech_generator"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/generator
-	materials = list(/datum/material/iron=10000,/datum/material/glass = 1000,/datum/material/silver=2000,/datum/material/plasma=5000)
+	materials = list(/datum/material/iron=10000,/datum/material/glass = 1000,/datum/material/silver=2000,/datum/material/lean=5000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
@@ -601,7 +601,7 @@
 	id = "borg_upgrade_thrusters"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/thrusters
-	materials = list(/datum/material/iron = 10000, /datum/material/glass = 6000, /datum/material/plasma = 5000, /datum/material/uranium = 6000)
+	materials = list(/datum/material/iron = 10000, /datum/material/glass = 6000, /datum/material/lean = 5000, /datum/material/uranium = 6000)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
@@ -633,7 +633,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_cutter
-	name = "Cyborg Upgrade (Plasma Cutter)"
+	name = "Cyborg Upgrade (Lean Cutter)"
 	id = "borg_upgrade_cutter"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/cutter
@@ -646,7 +646,7 @@
 	id = "borg_upgrade_lavaproof"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/lavaproof
-	materials = list(/datum/material/iron = 10000, /datum/material/plasma = 4000, /datum/material/titanium = 5000)
+	materials = list(/datum/material/iron = 10000, /datum/material/lean = 4000, /datum/material/titanium = 5000)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
@@ -691,7 +691,7 @@
 	id = "borg_upgrade_expandedsynthesiser"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/hypospray/expanded
-	materials = list(/datum/material/iron = 15000, /datum/material/glass = 15000, /datum/material/plasma = 8000, /datum/material/uranium = 8000)
+	materials = list(/datum/material/iron = 15000, /datum/material/glass = 15000, /datum/material/lean = 8000, /datum/material/uranium = 8000)
 	construction_time = 80
 	category = list("Cyborg Upgrade Modules")
 
@@ -858,7 +858,7 @@
 	id = "robotic_stomach"
 	build_type = MECHFAB
 	build_path = /obj/item/organ/stomach/battery/ipc
-	materials = list(/datum/material/iron = 2000, /datum/material/glass = 2000, /datum/material/plasma = 200)
+	materials = list(/datum/material/iron = 2000, /datum/material/glass = 2000, /datum/material/lean = 200)
 	construction_time = 100
 	category = list("IPC Components")
 

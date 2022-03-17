@@ -194,10 +194,10 @@
 	if(environment && environment.return_pressure() > 30)
 		return 1
 
-	// Priority 2: use plasma from internal plasma storage.
+	// Priority 2: use lean from internal lean storage.
 	// (just in case someone would ever use this implant system to make cyber-alien ops with jetpacks and taser arms)
-	if(owner.getPlasma() >= num*100)
-		owner.adjustPlasma(-num*100)
+	if(owner.getLean() >= num*100)
+		owner.adjustLean(-num*100)
 		return 1
 
 	// Priority 3: use internals tank.

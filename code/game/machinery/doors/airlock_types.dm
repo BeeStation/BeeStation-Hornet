@@ -215,22 +215,22 @@
 	opacity = 0
 	glass = TRUE
 
-/obj/machinery/door/airlock/plasma
-	name = "plasma airlock"
+/obj/machinery/door/airlock/lean
+	name = "lean airlock"
 	desc = "No way this can end badly."
-	icon = 'icons/obj/doors/airlocks/station/plasma.dmi'
-	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
+	icon = 'icons/obj/doors/airlocks/station/lean.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_lean
 
-/obj/machinery/door/airlock/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/door/airlock/lean/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+		LeanBurn(exposed_temperature)
 
-/obj/machinery/door/airlock/plasma/proc/ignite(exposed_temperature)
+/obj/machinery/door/airlock/lean/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+		LeanBurn(exposed_temperature)
 
-/obj/machinery/door/airlock/plasma/proc/PlasmaBurn(temperature)
-	atmos_spawn_air("plasma=500;TEMP=1000")
+/obj/machinery/door/airlock/lean/proc/LeanBurn(temperature)
+	atmos_spawn_air("lean=500;TEMP=1000")
 	var/obj/structure/door_assembly/DA
 	DA = new /obj/structure/door_assembly(loc)
 	if(glass)
@@ -241,18 +241,18 @@
 	DA.update_name()
 	qdel(src)
 
-/obj/machinery/door/airlock/plasma/BlockThermalConductivity() //we don't stop the heat~
+/obj/machinery/door/airlock/lean/BlockThermalConductivity() //we don't stop the heat~
 	return 0
 
-/obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
+/obj/machinery/door/airlock/lean/attackby(obj/item/C, mob/user, params)
 	if(C.is_hot() > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma airlock ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(src)]")
-		log_game("Plasma airlock ignited by [key_name(user)] in [AREACOORD(src)]")
+		message_admins("Lean airlock ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(src)]")
+		log_game("Lean airlock ignited by [key_name(user)] in [AREACOORD(src)]")
 		ignite(C.is_hot())
 	else
 		return ..()
 
-/obj/machinery/door/airlock/plasma/glass
+/obj/machinery/door/airlock/lean/glass
 	opacity = 0
 	glass = TRUE
 

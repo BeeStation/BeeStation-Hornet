@@ -16,7 +16,7 @@
 /obj/effect/spawner/newbomb/Initialize(mapload)
 	. = ..()
 	var/obj/item/transfer_valve/V = new(src.loc)
-	var/obj/item/tank/internals/plasma/PT = new(V)
+	var/obj/item/tank/internals/lean/PT = new(V)
 	var/obj/item/tank/internals/oxygen/OT = new(V)
 
 	PT.air_contents.set_moles(GAS_PLASMA, pressure_p*PT.volume/(R_IDEAL_GAS_EQUATION*CELSIUS_TO_KELVIN(temp_p)))

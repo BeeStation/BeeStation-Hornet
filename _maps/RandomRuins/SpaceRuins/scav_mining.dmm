@@ -30,7 +30,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
 "g" = (
-/obj/item/stack/ore/plasma{
+/obj/item/stack/ore/lean{
 	amount = 5;
 	pixel_x = -15;
 	pixel_y = -10
@@ -46,7 +46,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
 "h" = (
-/obj/item/stack/ore/plasma{
+/obj/item/stack/ore/lean{
 	amount = 10;
 	pixel_x = -10;
 	pixel_y = -10

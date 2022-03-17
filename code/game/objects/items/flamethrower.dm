@@ -24,7 +24,7 @@
 	var/operating = FALSE//cooldown
 	var/obj/item/weldingtool/weldtool = null
 	var/obj/item/assembly/igniter/igniter = null
-	var/obj/item/tank/internals/plasma/ptank = null
+	var/obj/item/tank/internals/lean/ptank = null
 	var/warned_admins = FALSE //for the message_admins() when lit
 	//variables for prebuilt flamethrowers
 	var/create_full = FALSE
@@ -118,12 +118,12 @@
 		update_icon()
 		return
 
-	else if(istype(W, /obj/item/tank/internals/plasma))
+	else if(istype(W, /obj/item/tank/internals/lean))
 		if(ptank)
 			if(user.transferItemToLoc(W,src))
 				ptank.forceMove(get_turf(src))
 				ptank = W
-				to_chat(user, "<span class='notice'>You swap the plasma tank in [src]!</span>")
+				to_chat(user, "<span class='notice'>You swap the lean tank in [src]!</span>")
 			return
 		if(!user.transferItemToLoc(W, src))
 			return
@@ -147,7 +147,7 @@
 	if(ptank && isliving(user) && user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		user.put_in_hands(ptank)
 		ptank = null
-		to_chat(user, "<span class='notice'>You remove the plasma tank from [src]!</span>")
+		to_chat(user, "<span class='notice'>You remove the lean tank from [src]!</span>")
 		update_icon()
 
 /obj/item/flamethrower/examine(mob/user)
@@ -157,7 +157,7 @@
 
 /obj/item/flamethrower/proc/toggle_igniter(mob/user)
 	if(!ptank)
-		to_chat(user, "<span class='notice'>Attach a plasma tank first!</span>")
+		to_chat(user, "<span class='notice'>Attach a lean tank first!</span>")
 		return
 	if(!status)
 		to_chat(user, "<span class='notice'>Secure the igniter first!</span>")
@@ -233,7 +233,7 @@
 		igniter.secured = FALSE
 		status = TRUE
 		if(create_with_tank)
-			ptank = new /obj/item/tank/internals/plasma/full(src)
+			ptank = new /obj/item/tank/internals/lean/full(src)
 		update_icon()
 
 /obj/item/flamethrower/full

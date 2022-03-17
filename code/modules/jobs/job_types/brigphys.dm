@@ -25,7 +25,7 @@
 	rpg_title = "Battle Cleric"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/secmed
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/secmed
 	)
 	biohazard = 15 //still deals with the sick and injured, just less than a medical doctor
 

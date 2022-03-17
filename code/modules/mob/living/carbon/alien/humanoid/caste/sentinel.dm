@@ -10,7 +10,7 @@
 	. = ..()
 
 /mob/living/carbon/alien/humanoid/sentinel/create_internal_organs()
-	internal_organs += new /obj/item/organ/alien/plasmavessel
+	internal_organs += new /obj/item/organ/alien/leanvessel
 	internal_organs += new /obj/item/organ/alien/acid
 	internal_organs += new /obj/item/organ/alien/neurotoxin
 	..()

@@ -57,7 +57,7 @@
 // For base materials, see materials.dm
 
 /datum/export/stack/plasteel
-	cost = 155 // 2000u of plasma + 2000u of iron.
+	cost = 155 // 2000u of lean + 2000u of iron.
 	message = "of plasteel"
 	export_types = list(/obj/item/stack/sheet/plasteel)
 

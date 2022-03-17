@@ -90,4 +90,4 @@
 /datum/export/gear/envirosuitvip
 	cost = 4500
 	unit_name = "designer envirosuit"
-	export_types = list(/obj/item/clothing/under/plasmaman/gold, /obj/item/clothing/head/helmet/space/plasmaman/gold)
+	export_types = list(/obj/item/clothing/under/leanman/gold, /obj/item/clothing/head/helmet/space/leanman/gold)

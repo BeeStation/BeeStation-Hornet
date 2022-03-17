@@ -180,10 +180,10 @@
 				for(var/obj/structure/window/WINDOW in loc) //Another window already installed on grille
 					return
 				var/obj/structure/window/WD
-				if(istype(W, /obj/item/stack/sheet/plasmarglass))
-					WD = new/obj/structure/window/plasma/reinforced/fulltile(drop_location()) //reinforced plasma window
-				else if(istype(W, /obj/item/stack/sheet/plasmaglass))
-					WD = new/obj/structure/window/plasma/fulltile(drop_location()) //plasma window
+				if(istype(W, /obj/item/stack/sheet/leanrglass))
+					WD = new/obj/structure/window/lean/reinforced/fulltile(drop_location()) //reinforced lean window
+				else if(istype(W, /obj/item/stack/sheet/leanglass))
+					WD = new/obj/structure/window/lean/fulltile(drop_location()) //lean window
 				else if(istype(W, /obj/item/stack/sheet/rglass))
 					WD = new/obj/structure/window/reinforced/fulltile(drop_location()) //reinforced window
 				else if(istype(W, /obj/item/stack/sheet/titaniumglass))

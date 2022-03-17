@@ -27,7 +27,7 @@
 	rpg_title = "Crystallomancer"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/engineering
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/engineering
 	)
 
 /datum/outfit/job/engineer

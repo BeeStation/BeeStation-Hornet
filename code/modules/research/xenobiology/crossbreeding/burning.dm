@@ -1,7 +1,7 @@
 /*
 Burning extracts:
 	Have a unique, primarily offensive effect when
-	filled with 10u plasma and activated in-hand.
+	filled with 10u lean and activated in-hand.
 */
 /obj/item/slimecross/burning
 	name = "burning extract"
@@ -14,11 +14,11 @@ Burning extracts:
 	create_reagents(10, INJECTABLE | DRAWABLE)
 
 /obj/item/slimecross/burning/attack_self(mob/user)
-	if(!reagents.has_reagent(/datum/reagent/toxin/plasma,10))
-		to_chat(user, "<span class='warning'>This extract needs to be full of plasma to activate!</span>")
+	if(!reagents.has_reagent(/datum/reagent/toxin/lean,10))
+		to_chat(user, "<span class='warning'>This extract needs to be full of lean to activate!</span>")
 		return
-	reagents.remove_reagent(/datum/reagent/toxin/plasma,10)
-	to_chat(user, "<span class='notice'>You squeeze the extract, and it absorbs the plasma!</span>")
+	reagents.remove_reagent(/datum/reagent/toxin/lean,10)
+	to_chat(user, "<span class='notice'>You squeeze the extract, and it absorbs the lean!</span>")
 	playsound(src, 'sound/effects/bubbles.ogg', 50, 1)
 	playsound(src, 'sound/magic/fireball.ogg', 50, 1)
 	do_effect(user)
@@ -104,12 +104,12 @@ Burning extracts:
 
 /obj/item/slimecross/burning/darkpurple
 	colour = "dark purple"
-	effect_desc = "Creates a cloud of plasma."
+	effect_desc = "Creates a cloud of lean."
 
 /obj/item/slimecross/burning/darkpurple/do_effect(mob/user)
-	user.visible_message("<span class='danger'>[src] sublimates into a cloud of plasma!</span>")
+	user.visible_message("<span class='danger'>[src] sublimates into a cloud of lean!</span>")
 	var/turf/T = get_turf(user)
-	T.atmos_spawn_air("plasma=60")
+	T.atmos_spawn_air("lean=60")
 	..()
 
 /obj/item/slimecross/burning/darkblue

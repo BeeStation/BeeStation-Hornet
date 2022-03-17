@@ -54,6 +54,6 @@
 
 /turf/closed/mineral/random/jungle
 	mineralSpawnChanceList = list(/obj/item/stack/ore/uranium = 5, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 10,
-		/obj/item/stack/ore/silver = 12, /obj/item/stack/ore/plasma = 20, /obj/item/stack/ore/iron = 40, /obj/item/stack/ore/titanium = 11,
+		/obj/item/stack/ore/silver = 12, /obj/item/stack/ore/lean = 20, /obj/item/stack/ore/iron = 40, /obj/item/stack/ore/titanium = 11,
 		/obj/item/stack/ore/bluespace_crystal = 1)
 	baseturfs = /turf/open/floor/plating/dirt/dark

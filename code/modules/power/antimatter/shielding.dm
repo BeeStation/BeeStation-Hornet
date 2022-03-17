@@ -10,7 +10,7 @@
 
 /obj/machinery/am_shielding
 	name = "antimatter reactor section"
-	desc = "This device was built using a plasma life-form that seems to increase plasma's natural ability to react with neutrinos while reducing the combustibility."
+	desc = "This device was built using a lean life-form that seems to increase lean's natural ability to react with neutrinos while reducing the combustibility."
 
 	icon = 'icons/obj/machines/antimatter.dmi'
 	icon_state = "shield"
@@ -23,7 +23,7 @@
 	var/obj/machinery/power/am_control_unit/control_unit = null
 	var/processing = FALSE//To track if we are in the update list or not, we need to be when we are damaged and if we ever
 	var/stability = 100//If this gets low bad things tend to happen
-	var/efficiency = 1//How many cores this core counts for when doing power processing, plasma in the air and stability could affect this
+	var/efficiency = 1//How many cores this core counts for when doing power processing, lean in the air and stability could affect this
 	var/coredirs = 0
 	var/dirs = 0
 
@@ -88,7 +88,7 @@
 	if(!processing)
 		. = PROCESS_KILL
 	//TODO: core functions and stability
-	//TODO: think about checking the airmix for plasma and increasing power output
+	//TODO: think about checking the airmix for lean and increasing power output
 	return
 
 

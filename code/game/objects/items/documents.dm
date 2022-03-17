@@ -30,7 +30,7 @@
 	icon_state = "docs_blue"
 
 /obj/item/documents/syndicate/mining
-	desc = "\"Top Secret\" documents detailing Syndicate plasma mining operations."
+	desc = "\"Top Secret\" documents detailing Syndicate lean mining operations."
 
 /obj/item/documents/photocopy
 	desc = "A copy of some top-secret documents. Nobody will notice they aren't the originals... right?"

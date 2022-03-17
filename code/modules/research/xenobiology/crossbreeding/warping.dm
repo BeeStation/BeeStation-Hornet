@@ -335,7 +335,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 /obj/item/slimecross/warping/darkpurple
 	colour = "dark purple"
 	runepath = /obj/effect/warped_rune/darkpurplespace
-	effect_desc = "Draw a rune that can transmute plasma into any other material."
+	effect_desc = "Draw a rune that can transmute lean into any other material."
 
 /obj/effect/warped_rune/darkpurplespace
 	icon = 'icons/obj/slimecrossing.dmi'
@@ -347,16 +347,16 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 									/obj/item/stack/sheet/bluespace_crystal)
 
 /obj/effect/warped_rune/darkpurplespace/do_effect(mob/user)
-	if(locate(/obj/item/stack/sheet/mineral/plasma) in rune_turf)
+	if(locate(/obj/item/stack/sheet/mineral/lean) in rune_turf)
 		var/amt = 0
-		for(var/obj/item/stack/sheet/mineral/plasma/P in rune_turf)
+		for(var/obj/item/stack/sheet/mineral/lean/P in rune_turf)
 			amt += P.amount
 			qdel(P)
 		var/path_material = pick(materials)
 		new path_material(rune_turf, amt)
 		return ..()
 	else
-		to_chat(user, "<span class='warning'>Requires plasma!</span>")
+		to_chat(user, "<span class='warning'>Requires lean!</span>")
 
 /obj/item/slimecross/warping/silver
 	colour = "silver"

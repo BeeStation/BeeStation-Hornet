@@ -237,13 +237,13 @@
 		var/datum/gas_mixture/GM = T.air
 		GM.set_moles(GAS_CO2, max(GM.get_moles(GAS_CO2) - severity * holder.energy, 0))
 
-/datum/spacevine_mutation/plasma_eater
+/datum/spacevine_mutation/lean_eater
 	name = "toxins consuming"
 	hue = "#ffbbff"
 	severity = 3
 	quality = POSITIVE
 
-/datum/spacevine_mutation/plasma_eater/process_mutation(obj/structure/spacevine/holder)
+/datum/spacevine_mutation/lean_eater/process_mutation(obj/structure/spacevine/holder)
 	var/turf/open/floor/T = holder.loc
 	if(istype(T))
 		var/datum/gas_mixture/GM = T.air

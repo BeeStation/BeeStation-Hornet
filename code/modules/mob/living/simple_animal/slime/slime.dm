@@ -364,10 +364,10 @@
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user,user.a_intent))
 					return 1
-	if(istype(W, /obj/item/stack/sheet/mineral/plasma) && !stat) //Let's you feed slimes plasma.
+	if(istype(W, /obj/item/stack/sheet/mineral/lean) && !stat) //Let's you feed slimes lean.
 		add_friendship(user, 1)
-		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
-		var/obj/item/stack/sheet/mineral/plasma/S = W
+		to_chat(user, "<span class='notice'>You feed the slime the lean. It chirps happily.</span>")
+		var/obj/item/stack/sheet/mineral/lean/S = W
 		S.use(1)
 		return
 	if(W.force > 0)

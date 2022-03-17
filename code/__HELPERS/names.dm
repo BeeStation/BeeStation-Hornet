@@ -16,8 +16,8 @@
 		tempname += random_capital_letter()
 	return tempname
 
-/proc/plasmaman_name()
-	return "[pick(GLOB.plasmaman_names)] \Roman[rand(1,99)]"
+/proc/leanman_name()
+	return "[pick(GLOB.leanman_names)] \Roman[rand(1,99)]"
 
 /proc/ipc_name()
 	return "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"

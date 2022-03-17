@@ -47,10 +47,10 @@
 	icon_door = null
 	icon_door_override = FALSE
 
-/obj/structure/closet/crate/secure/plasma
-	desc = "A secure plasma crate."
-	name = "plasma crate"
-	icon_state = "plasma_crate"
+/obj/structure/closet/crate/secure/lean
+	desc = "A secure lean crate."
+	name = "lean crate"
+	icon_state = "lean_crate"
 	icon_door = null
 	icon_door_override = FALSE
 

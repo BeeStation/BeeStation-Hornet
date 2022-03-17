@@ -579,7 +579,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/box/lights/bulbs,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 30
 	},
 /obj/item/stock_parts/cell/high/plus,

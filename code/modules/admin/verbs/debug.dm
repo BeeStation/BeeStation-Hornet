@@ -521,8 +521,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] changed the equipment of [ADMIN_LOOKUPFLW(H)] to [dresscode].</span>")
 
 /client/proc/robust_dress_shop()
-	var/list/outfits = list("Naked","Custom","As Job...","As Job(Plasmaman)...", "Debug")
-	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job) - typesof(/datum/outfit/plasmaman) - typesof(/datum/outfit/debug)
+	var/list/outfits = list("Naked","Custom","As Job...","As Job(Leanman)...", "Debug")
+	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job) - typesof(/datum/outfit/leanman) - typesof(/datum/outfit/debug)
 	for(var/path in paths)
 		var/datum/outfit/O = path //not much to initalize here but whatever
 		if(initial(O.can_be_admin_equipped))
@@ -550,15 +550,15 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if(isnull(dresscode))
 			return
 
-	if(dresscode == "As Job(Plasmaman)...")
-		var/list/job_paths = subtypesof(/datum/outfit/plasmaman)
+	if(dresscode == "As Job(Leanman)...")
+		var/list/job_paths = subtypesof(/datum/outfit/leanman)
 		var/list/job_outfits = list()
 		for(var/path in job_paths)
 			var/datum/outfit/O = path
 			if(initial(O.can_be_admin_equipped))
 				job_outfits[initial(O.name)] = path
 
-		dresscode = input("Select plasmaman equipment", "Robust quick dress shop") as null|anything in sortList(job_outfits)
+		dresscode = input("Select leanman equipment", "Robust quick dress shop") as null|anything in sortList(job_outfits)
 		dresscode = job_outfits[dresscode]
 		if(isnull(dresscode))
 			return
@@ -623,11 +623,11 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	for(var/obj/machinery/power/rad_collector/Rad in GLOB.machines)
 		if(Rad.anchored)
 			if(!Rad.loaded_tank)
-				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
-				Plasma.air_contents.set_moles(GAS_PLASMA, 70)
+				var/obj/item/tank/internals/lean/Lean = new/obj/item/tank/internals/lean(Rad)
+				Lean.air_contents.set_moles(GAS_PLASMA, 70)
 				Rad.drainratio = 0
-				Rad.loaded_tank = Plasma
-				Plasma.forceMove(Rad)
+				Rad.loaded_tank = Lean
+				Lean.forceMove(Rad)
 
 			if(!Rad.active)
 				Rad.toggle_power()

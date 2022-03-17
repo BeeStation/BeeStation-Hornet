@@ -6,7 +6,7 @@ Mineral Sheets
 		- Diamond
 		- Snow
 		- Uranium
-		- Plasma
+		- Lean
 		- Gold
 		- Silver
 		- Copper
@@ -166,55 +166,55 @@ GLOBAL_LIST_INIT(uranium_recipes, list ( \
 	amount = 5
 
 /*
- * Plasma
+ * Lean
  */
-/obj/item/stack/sheet/mineral/plasma
-	name = "solid plasma"
-	icon_state = "sheet-plasma"
-	item_state = "sheet-plasma"
-	singular_name = "plasma sheet"
-	sheettype = "plasma"
+/obj/item/stack/sheet/mineral/lean
+	name = "solid lean"
+	icon_state = "sheet-lean"
+	item_state = "sheet-lean"
+	singular_name = "lean sheet"
+	sheettype = "lean"
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
-	materials = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
-	grind_results = list(/datum/reagent/toxin/plasma = 20)
+	materials = list(/datum/material/lean=MINERAL_MATERIAL_AMOUNT)
+	grind_results = list(/datum/reagent/toxin/lean = 20)
 	point_value = 20
-	merge_type = /obj/item/stack/sheet/mineral/plasma
+	merge_type = /obj/item/stack/sheet/mineral/lean
 
-/obj/item/stack/sheet/mineral/plasma/suicide_act(mob/living/carbon/user)
+/obj/item/stack/sheet/mineral/lean/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return TOXLOSS//dont you kids know that stuff is toxic?
 
-GLOBAL_LIST_INIT(plasma_recipes, list ( \
-	new/datum/stack_recipe("plasma door", /obj/structure/mineral_door/transparent/plasma, 10, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("plasma tile", /obj/item/stack/tile/mineral/plasma, 1, 4, 20), \
-	new/datum/stack_recipe("Scientist Statue", /obj/structure/statue/plasma/scientist, 5, one_per_turf = 1, on_floor = 1), \
+GLOBAL_LIST_INIT(lean_recipes, list ( \
+	new/datum/stack_recipe("lean door", /obj/structure/mineral_door/transparent/lean, 10, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("lean tile", /obj/item/stack/tile/mineral/lean, 1, 4, 20), \
+	new/datum/stack_recipe("Scientist Statue", /obj/structure/statue/lean/scientist, 5, one_per_turf = 1, on_floor = 1), \
 	))
 
-/obj/item/stack/sheet/mineral/plasma/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.plasma_recipes
+/obj/item/stack/sheet/mineral/lean/Initialize(mapload, new_amount, merge = TRUE)
+	recipes = GLOB.lean_recipes
 	. = ..()
 
-/obj/item/stack/sheet/mineral/plasma/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/stack/sheet/mineral/lean/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
 		var/turf/T = get_turf(src)
-		message_admins("Plasma sheets ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
-		log_game("Plasma sheets ignited by [key_name(user)] in [AREACOORD(T)]")
+		message_admins("Lean sheets ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
+		log_game("Lean sheets ignited by [key_name(user)] in [AREACOORD(T)]")
 		fire_act(W.is_hot())
 	else
 		return ..()
 
-/obj/item/stack/sheet/mineral/plasma/fire_act(exposed_temperature, exposed_volume)
-	atmos_spawn_air("plasma=[amount*10];TEMP=[exposed_temperature]")
+/obj/item/stack/sheet/mineral/lean/fire_act(exposed_temperature, exposed_volume)
+	atmos_spawn_air("lean=[amount*10];TEMP=[exposed_temperature]")
 	qdel(src)
 
-/obj/item/stack/sheet/mineral/plasma/fifty
+/obj/item/stack/sheet/mineral/lean/fifty
 	amount = 50
 
-/obj/item/stack/sheet/mineral/plasma/twenty
+/obj/item/stack/sheet/mineral/lean/twenty
 	amount = 20
 
-/obj/item/stack/sheet/mineral/plasma/five
+/obj/item/stack/sheet/mineral/lean/five
 	amount = 5
 
 /*
@@ -403,7 +403,7 @@ GLOBAL_LIST_INIT(titanium_recipes, list ( \
 	throw_speed = 1
 	throw_range = 3
 	sheettype = "plastitanium"
-	materials = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT, /datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
+	materials = list(/datum/material/titanium=MINERAL_MATERIAL_AMOUNT, /datum/material/lean=MINERAL_MATERIAL_AMOUNT)
 	point_value = 45
 	merge_type = /obj/item/stack/sheet/mineral/plastitanium
 

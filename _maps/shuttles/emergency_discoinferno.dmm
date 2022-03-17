@@ -6,7 +6,7 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "c" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plasteel/elevatorshaft,
 /area/shuttle/escape)
@@ -81,14 +81,14 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape)
 "q" = (
-/obj/structure/statue/plasma/scientist{
+/obj/structure/statue/lean/scientist{
 	anchored = 1;
 	oreAmount = 50
 	},
 /turf/open/floor/light/colour_cycle,
 /area/shuttle/escape)
 "r" = (
-/turf/open/floor/mineral/plasma,
+/turf/open/floor/mineral/lean,
 /area/shuttle/escape)
 "s" = (
 /turf/open/floor/mineral/silver,
@@ -160,8 +160,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/coin/plasma,
-/obj/item/coin/plasma,
+/obj/item/coin/lean,
+/obj/item/coin/lean,
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "I" = (
@@ -188,7 +188,7 @@
 /area/shuttle/escape)
 "M" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
@@ -210,7 +210,7 @@
 	resistance_flags = 2
 	},
 /obj/structure/fans/tiny,
-/turf/open/floor/mineral/plasma,
+/turf/open/floor/mineral/lean,
 /area/shuttle/escape)
 "V" = (
 /obj/machinery/door/airlock/gold{

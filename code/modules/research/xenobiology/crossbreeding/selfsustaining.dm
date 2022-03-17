@@ -40,9 +40,9 @@ Self-sustaining extracts:
 		return
 	if(!reagentselect)
 		return
-	if(reagentselect == "lesser plasma")
+	if(reagentselect == "lesser lean")
 		amount = 4
-		reagentselect = /datum/reagent/toxin/plasma
+		reagentselect = /datum/reagent/toxin/lean
 	if(reagentselect == "holy water and uranium")
 		reagentselect = /datum/reagent/water/holywater
 		secondary = /datum/reagent/uranium

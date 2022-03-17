@@ -213,7 +213,7 @@
 	name = "Liquid Dark Matter"
 	id = /datum/reagent/liquid_dark_matter
 	results = list(/datum/reagent/liquid_dark_matter = 3)
-	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/carbon = 1)
+	required_reagents = list(/datum/reagent/stable_lean = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/carbon = 1)
 
 /datum/chemical_reaction/liquid_dark_matter/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent(/datum/reagent/stabilizing_agent))
@@ -348,14 +348,14 @@
 	name = /datum/reagent/phlogiston
 	id = /datum/reagent/phlogiston
 	results = list(/datum/reagent/phlogiston = 3)
-	required_reagents = list(/datum/reagent/phosphorus = 1, /datum/reagent/toxin/acid = 1, /datum/reagent/stable_plasma = 1)
+	required_reagents = list(/datum/reagent/phosphorus = 1, /datum/reagent/toxin/acid = 1, /datum/reagent/stable_lean = 1)
 
 /datum/chemical_reaction/phlogiston/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent(/datum/reagent/stabilizing_agent))
 		return
 	var/turf/open/T = get_turf(holder.my_atom)
 	if(istype(T))
-		T.atmos_spawn_air("plasma=[created_volume];TEMP=1000")
+		T.atmos_spawn_air("lean=[created_volume];TEMP=1000")
 	holder.clear_reagents()
 	return
 
@@ -369,7 +369,7 @@
 	name = /datum/reagent/cryostylane
 	id = /datum/reagent/cryostylane
 	results = list(/datum/reagent/cryostylane = 3)
-	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/stable_plasma = 1, /datum/reagent/nitrogen = 1)
+	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/stable_lean = 1, /datum/reagent/nitrogen = 1)
 
 /datum/chemical_reaction/cryostylane/on_reaction(datum/reagents/holder, created_volume)
 	holder.chem_temp = 20 // cools the fuck down
@@ -399,7 +399,7 @@
 	name = /datum/reagent/pyrosium
 	id = /datum/reagent/pyrosium
 	results = list(/datum/reagent/pyrosium = 3)
-	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/phosphorus = 1)
+	required_reagents = list(/datum/reagent/stable_lean = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/phosphorus = 1)
 
 /datum/chemical_reaction/pyrosium/on_reaction(datum/reagents/holder, created_volume)
 	holder.chem_temp = 20 // also cools the fuck down
@@ -409,7 +409,7 @@
 	name = "Teslium"
 	id = /datum/reagent/teslium
 	results = list(/datum/reagent/teslium = 3)
-	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/silver = 1, /datum/reagent/blackpowder = 1)
+	required_reagents = list(/datum/reagent/stable_lean = 1, /datum/reagent/silver = 1, /datum/reagent/blackpowder = 1)
 	mix_message = "<span class='danger'>A jet of sparks flies from the mixture as it merges into a flickering slurry.</span>"
 	required_temp = 400
 

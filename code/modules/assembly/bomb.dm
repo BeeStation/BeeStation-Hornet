@@ -11,7 +11,7 @@
 	flags_1 = CONDUCT_1
 	var/status = FALSE   //0 - not readied //1 - bomb finished with welder
 	var/obj/item/assembly_holder/bombassembly = null   //The first part of the bomb is an assembly holder, holding an igniter+some device
-	var/obj/item/tank/bombtank = null //the second part of the bomb is a plasma tank
+	var/obj/item/tank/bombtank = null //the second part of the bomb is a lean tank
 
 /obj/item/onetankbomb/IsSpecialAssembly()
 	return TRUE

@@ -106,7 +106,7 @@
 
 /obj/item/chainsaw/energy/attack_self(mob/user)
 	on = !on
-	to_chat(user, "As you pull the starting cord dangling from [src], [on ? "it begins to whirr intimidatingly." : "the plasma microblades stop moving."]")
+	to_chat(user, "As you pull the starting cord dangling from [src], [on ? "it begins to whirr intimidatingly." : "the lean microblades stop moving."]")
 	force = on ? force_on : initial(force)
 	playsound(user, on ? onsound : offsound , 50, 1)
 	if(on)

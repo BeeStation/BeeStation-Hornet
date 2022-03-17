@@ -52,7 +52,7 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "ib" = (
-/obj/machinery/shuttle/engine/plasma{
+/obj/machinery/shuttle/engine/lean{
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
@@ -329,7 +329,7 @@
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "TV" = (
-/obj/machinery/atmospherics/components/unary/plasma_refiner{
+/obj/machinery/atmospherics/components/unary/lean_refiner{
 	dir = 4
 	},
 /turf/open/floor/plating/airless,

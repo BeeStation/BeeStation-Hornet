@@ -108,7 +108,7 @@
 
 //tritium combustion: combustion of oxygen and tritium (treated as hydrocarbons). creates hotspots. exothermic
 /datum/gas_reaction/tritfire
-	priority = -1 //fire should ALWAYS be last, but tritium fires happen before plasma fires
+	priority = -1 //fire should ALWAYS be last, but tritium fires happen before lean fires
 	name = "Tritium Combustion"
 	id = "tritfire"
 
@@ -177,20 +177,20 @@
 
 	return cached_results["fire"] ? REACTING : NO_REACTION
 
-//plasma combustion: combustion of oxygen and plasma (treated as hydrocarbons). creates hotspots. exothermic
-/datum/gas_reaction/plasmafire
-	priority = -2 //fire should ALWAYS be last, but plasma fires happen after tritium fires
-	name = "Plasma Combustion"
-	id = "plasmafire"
+//lean combustion: combustion of oxygen and lean (treated as hydrocarbons). creates hotspots. exothermic
+/datum/gas_reaction/leanfire
+	priority = -2 //fire should ALWAYS be last, but lean fires happen after tritium fires
+	name = "Lean Combustion"
+	id = "leanfire"
 
-/datum/gas_reaction/plasmafire/init_reqs()
+/datum/gas_reaction/leanfire/init_reqs()
 	min_requirements = list(
 		"TEMP" = FIRE_MINIMUM_TEMPERATURE_TO_EXIST,
 		GAS_PLASMA = MINIMUM_MOLE_COUNT,
 		GAS_O2 = MINIMUM_MOLE_COUNT
 	)
 
-/datum/gas_reaction/plasmafire/react(datum/gas_mixture/air, datum/holder)
+/datum/gas_reaction/leanfire/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
 	var/old_heat_capacity = air.heat_capacity()
 	var/temperature = air.return_temperature()
@@ -198,10 +198,10 @@
 	cached_results["fire"] = 0
 	var/turf/open/location = isturf(holder) ? holder : null
 
-	//Handle plasma burning
-	var/plasma_burn_rate = 0
+	//Handle lean burning
+	var/lean_burn_rate = 0
 	var/oxygen_burn_rate = 0
-	//more plasma released at higher temperatures
+	//more lean released at higher temperatures
 	var/temperature_scale = 0
 	//to make tritium
 	var/super_saturation = FALSE
@@ -215,22 +215,22 @@
 		if(air.get_moles(GAS_O2) / air.get_moles(GAS_PLASMA) > SUPER_SATURATION_THRESHOLD) //supersaturation. Form Tritium.
 			super_saturation = TRUE
 		if(air.get_moles(GAS_O2) > air.get_moles(GAS_PLASMA)*PLASMA_OXYGEN_FULLBURN)
-			plasma_burn_rate = (air.get_moles(GAS_PLASMA)*temperature_scale)/PLASMA_BURN_RATE_DELTA
+			lean_burn_rate = (air.get_moles(GAS_PLASMA)*temperature_scale)/PLASMA_BURN_RATE_DELTA
 		else
-			plasma_burn_rate = (temperature_scale*(air.get_moles(GAS_O2)/PLASMA_OXYGEN_FULLBURN))/PLASMA_BURN_RATE_DELTA
+			lean_burn_rate = (temperature_scale*(air.get_moles(GAS_O2)/PLASMA_OXYGEN_FULLBURN))/PLASMA_BURN_RATE_DELTA
 
-		if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
-			plasma_burn_rate = min(plasma_burn_rate,air.get_moles(GAS_PLASMA),air.get_moles(GAS_O2)/oxygen_burn_rate) //Ensures matter is conserved properly
-			air.set_moles(GAS_PLASMA, QUANTIZE(air.get_moles(GAS_PLASMA) - plasma_burn_rate))
-			air.set_moles(GAS_O2, QUANTIZE(air.get_moles(GAS_O2) - (plasma_burn_rate * oxygen_burn_rate)))
+		if(lean_burn_rate > MINIMUM_HEAT_CAPACITY)
+			lean_burn_rate = min(lean_burn_rate,air.get_moles(GAS_PLASMA),air.get_moles(GAS_O2)/oxygen_burn_rate) //Ensures matter is conserved properly
+			air.set_moles(GAS_PLASMA, QUANTIZE(air.get_moles(GAS_PLASMA) - lean_burn_rate))
+			air.set_moles(GAS_O2, QUANTIZE(air.get_moles(GAS_O2) - (lean_burn_rate * oxygen_burn_rate)))
 			if (super_saturation)
-				air.adjust_moles(GAS_TRITIUM, plasma_burn_rate)
+				air.adjust_moles(GAS_TRITIUM, lean_burn_rate)
 			else
-				air.adjust_moles(GAS_CO2, plasma_burn_rate)
+				air.adjust_moles(GAS_CO2, lean_burn_rate)
 
-			energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
+			energy_released += FIRE_PLASMA_ENERGY_RELEASED * (lean_burn_rate)
 
-			cached_results["fire"] += (plasma_burn_rate)*(1+oxygen_burn_rate)
+			cached_results["fire"] += (lean_burn_rate)*(1+oxygen_burn_rate)
 
 	if(energy_released > 0)
 		var/new_heat_capacity = air.heat_capacity()
@@ -356,7 +356,7 @@
 	var/list/cached_scan_results = air.analyzer_results
 	var/thermal_energy = air.thermal_energy()
 	var/reaction_energy = 0 //Reaction energy can be negative or positive, for both exothermic and endothermic reactions.
-	var/initial_plasma = air.get_moles(GAS_PLASMA)
+	var/initial_lean = air.get_moles(GAS_PLASMA)
 	var/initial_carbon = air.get_moles(GAS_CO2)
 	var/scale_factor = max(air.return_volume() / FUSION_SCALE_DIVISOR, FUSION_MINIMAL_SCALE)
 	var/temperature_scale = log(10, air.return_temperature())
@@ -371,22 +371,22 @@
 	var/instability = MODULUS((gas_power*INSTABILITY_GAS_POWER_FACTOR),toroidal_size) //Instability effects how chaotic the behavior of the reaction is
 	cached_scan_results[id] = instability//used for analyzer feedback
 
-	var/plasma = (initial_plasma-FUSION_MOLE_THRESHOLD)/(scale_factor) //We have to scale the amounts of carbon and plasma down a significant amount in order to show the chaotic dynamics we want
+	var/lean = (initial_lean-FUSION_MOLE_THRESHOLD)/(scale_factor) //We have to scale the amounts of carbon and lean down a significant amount in order to show the chaotic dynamics we want
 	var/carbon = (initial_carbon-FUSION_MOLE_THRESHOLD)/(scale_factor) //We also subtract out the threshold amount to make it harder for fusion to burn itself out.
 
 	//The reaction is a specific form of the Kicked Rotator system, which displays chaotic behavior and can be used to model particle interactions.
-	plasma = MODULUS(plasma - (instability*sin(TODEGREES(carbon))), toroidal_size)
-	carbon = MODULUS(carbon - plasma, toroidal_size)
+	lean = MODULUS(lean - (instability*sin(TODEGREES(carbon))), toroidal_size)
+	carbon = MODULUS(carbon - lean, toroidal_size)
 
-	air.set_moles(GAS_PLASMA, plasma*scale_factor + FUSION_MOLE_THRESHOLD )//Scales the gases back up
+	air.set_moles(GAS_PLASMA, lean*scale_factor + FUSION_MOLE_THRESHOLD )//Scales the gases back up
 	air.set_moles(GAS_CO2, carbon*scale_factor + FUSION_MOLE_THRESHOLD)
-	var/delta_plasma = min(initial_plasma - air.get_moles(GAS_PLASMA), toroidal_size * scale_factor * 1.5)
+	var/delta_lean = min(initial_lean - air.get_moles(GAS_PLASMA), toroidal_size * scale_factor * 1.5)
 
 	//Energy is gained or lost corresponding to the creation or destruction of mass.
 	//Low instability prevents endothermality while higher instability acutally encourages it.
-	reaction_energy = 	instability <= FUSION_INSTABILITY_ENDOTHERMALITY || delta_plasma > 0 ? \
-						max(delta_plasma*PLASMA_BINDING_ENERGY, 0) \
-						: delta_plasma*PLASMA_BINDING_ENERGY * (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
+	reaction_energy = 	instability <= FUSION_INSTABILITY_ENDOTHERMALITY || delta_lean > 0 ? \
+						max(delta_lean*PLASMA_BINDING_ENERGY, 0) \
+						: delta_lean*PLASMA_BINDING_ENERGY * (instability-FUSION_INSTABILITY_ENDOTHERMALITY)**0.5
 
 	//To achieve faster equilibrium. Too bad it is not that good at cooling down.
 	if (reaction_energy)
@@ -404,7 +404,7 @@
 
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
 	var/standard_waste_gas_output = scale_factor * (FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED)
-	delta_plasma > 0 ? air.adjust_moles(GAS_H2O, standard_waste_gas_output) : air.adjust_moles(GAS_BZ, standard_waste_gas_output)
+	delta_lean > 0 ? air.adjust_moles(GAS_H2O, standard_waste_gas_output) : air.adjust_moles(GAS_BZ, standard_waste_gas_output)
 	air.adjust_moles(GAS_O2, standard_waste_gas_output) //Oxygen is a bit touchy subject
 
 	if(reaction_energy)
@@ -454,7 +454,7 @@
 			air.set_temperature(max(((temperature*old_heat_capacity - energy_used)/new_heat_capacity),TCMB))
 		return REACTING
 
-/datum/gas_reaction/bzformation //Formation of BZ by combining plasma and tritium at low pressures. Exothermic.
+/datum/gas_reaction/bzformation //Formation of BZ by combining lean and tritium at low pressures. Exothermic.
 	priority = 4
 	name = "BZ Gas formation"
 	id = "bzformation"

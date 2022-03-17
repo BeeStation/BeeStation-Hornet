@@ -12,7 +12,7 @@
 	design_ids = list("basic_matter_bin", "basic_cell", "basic_scanning", "basic_capacitor", "basic_micro_laser", "micro_mani", "desttagger", "handlabel", "larry", "packagewrap",
 	"destructive_analyzer", "circuit_imprinter", "experimentor", "rdconsole", "design_disk", "tech_disk", "rdserver", "rdservercontrol", "mechfab", "paystand",
 	"space_heater", "beaker", "large_beaker", "bucket", "xlarge_beaker", "sec_rshot", "sec_beanbag_slug", "sec_bshot", "sec_slug", "sec_Islug", "sec_Brslug", "sec_dart", "sec_38", "sec_38b",
-	"rglass","plasteel","plastitanium","plasmaglass","plasmareinforcedglass","titaniumglass","plastitaniumglass","plumbing_rcd", "antivirus", "glasses_prescription")
+	"rglass","plasteel","plastitanium","leanglass","leanreinforcedglass","titaniumglass","plastitaniumglass","plumbing_rcd", "antivirus", "glasses_prescription")
 
 /datum/techweb_node/mmi
 	id = "mmi"
@@ -84,7 +84,7 @@
 	display_name = "Advanced Biotechnology"
 	description = "Advanced Biotechnology"
 	prereq_ids = list("biotech")
-	design_ids = list("piercesyringe", "crewpinpointer", "smoke_machine", "plasmarefiller", "limbgrower", "meta_beaker", "healthanalyzer_advanced", "harvester", "holobarrier_med", "detective_scanner", "defibrillator_compact")
+	design_ids = list("piercesyringe", "crewpinpointer", "smoke_machine", "leanrefiller", "limbgrower", "meta_beaker", "healthanalyzer_advanced", "harvester", "holobarrier_med", "detective_scanner", "defibrillator_compact")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -160,7 +160,7 @@
 	design_ids = list("solarcontrol", "recharger", "powermonitor", "rped", "pacman", "adv_capacitor", "adv_scanning", "emitter", "high_cell", "adv_matter_bin", "scanner_gate",
 	"atmosalerts", "atmos_control", "recycler", "autolathe", "high_micro_laser", "nano_mani", "mesons", "thermomachine", "rad_collector", "machine_igniter", "mass_driver", "tesla_coil", "grounding_rod",
 	"apc_control", "cell_charger", "power control", "airlock_board", "firelock_board", "aac_electronics", "airalarm_electronics", "firealarm_electronics", "cell_charger", "stack_console", "stack_machine",
-	"oxygen_tank", "plasma_tank", "emergency_oxygen", "emergency_oxygen_engi", "plasmaman_tank_belt", "plasmaman_tank", "antivirus2", "researchdisk_locator")
+	"oxygen_tank", "lean_tank", "emergency_oxygen", "emergency_oxygen_engi", "leanman_tank_belt", "leanman_tank", "antivirus2", "researchdisk_locator")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)
 	export_price = 5000
 
@@ -299,24 +299,24 @@
 	export_price = 2500
 
 
-/////////////////////////plasma tech/////////////////////////
-/datum/techweb_node/basic_plasma
-	id = "basic_plasma"
+/////////////////////////lean tech/////////////////////////
+/datum/techweb_node/basic_lean
+	id = "basic_lean"
 	tech_tier = 1
-	display_name = "Basic Plasma Research"
-	description = "Research into the mysterious and dangerous substance, plasma."
+	display_name = "Basic Lean Research"
+	description = "Research into the mysterious and dangerous substance, lean."
 	prereq_ids = list("engineering")
 	design_ids = list("mech_generator")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
-/datum/techweb_node/adv_plasma
-	id = "adv_plasma"
+/datum/techweb_node/adv_lean
+	id = "adv_lean"
 	tech_tier = 2
-	display_name = "Advanced Plasma Research"
-	description = "Research on how to fully exploit the power of plasma."
-	prereq_ids = list("basic_plasma")
-	design_ids = list("mech_plasma_cutter")
+	display_name = "Advanced Lean Research"
+	description = "Research on how to fully exploit the power of lean."
+	prereq_ids = list("basic_lean")
+	design_ids = list("mech_lean_cutter")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -327,7 +327,7 @@
 	display_name = "Basic Shuttle Research"
 	description = "Research the technology required to create and use basic shuttles."
 	prereq_ids = list("bluespace_travel", "adv_engi")
-	design_ids = list("shuttle_creator", "engine_plasma", "engine_heater", "shuttle_control", "wingpack")
+	design_ids = list("shuttle_creator", "engine_lean", "engine_heater", "shuttle_control", "wingpack")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 
@@ -340,13 +340,13 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 12500)
 	export_price = 5000
 
-/datum/techweb_node/plasma_refiner
-	id = "plasmarefiner"
+/datum/techweb_node/lean_refiner
+	id = "leanrefiner"
 	tech_tier = 4
-	display_name = "Plasma Refining"
-	description = "Development of a machine capable of safely and efficently converting plasma from a solid state to a gaseous state."
+	display_name = "Lean Refining"
+	description = "Development of a machine capable of safely and efficently converting lean from a solid state to a gaseous state."
 	prereq_ids = list("basic_shuttle")
-	design_ids = list("plasma_refiner")
+	design_ids = list("lean_refiner")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 	hidden = TRUE
@@ -730,8 +730,8 @@
 	tech_tier = 1
 	display_name = "Mining Technology"
 	description = "Better than Efficiency V."
-	prereq_ids = list("engineering", "basic_plasma")
-	design_ids = list("drill", "superresonator", "triggermod", "damagemod", "cooldownmod", "rangemod", "ore_redemption", "mining_equipment_vendor", "exploration_equipment_vendor", "cargoexpress", "plasmacutter")//e a r l y    g a  m e)
+	prereq_ids = list("engineering", "basic_lean")
+	design_ids = list("drill", "superresonator", "triggermod", "damagemod", "cooldownmod", "rangemod", "ore_redemption", "mining_equipment_vendor", "exploration_equipment_vendor", "cargoexpress", "leancutter")//e a r l y    g a  m e)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -740,8 +740,8 @@
 	tech_tier = 3
 	display_name = "Advanced Mining Technology"
 	description = "Efficiency Level 127"	//dumb mc references
-	prereq_ids = list("basic_mining", "adv_engi", "adv_power", "adv_plasma")
-	design_ids = list("drill_diamond", "jackhammer", "hypermod", "plasmacutter_adv", "borg_upgrade_cutter")
+	prereq_ids = list("basic_mining", "adv_engi", "adv_power", "adv_lean")
+	design_ids = list("drill_diamond", "jackhammer", "hypermod", "leancutter_adv", "borg_upgrade_cutter")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 

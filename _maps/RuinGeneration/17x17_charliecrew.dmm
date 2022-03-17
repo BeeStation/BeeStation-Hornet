@@ -51,7 +51,7 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "eh" = (
-/obj/structure/table/glass/plasma,
+/obj/structure/table/glass/lean,
 /obj/item/storage/box/firingpins{
 	pixel_y = 9
 	},
@@ -96,7 +96,7 @@
 /obj/item/stack/cable_coil,
 /obj/item/stock_parts/micro_laser,
 /obj/item/circuitboard/machine/ore_silo,
-/obj/structure/table/glass/plasma,
+/obj/structure/table/glass/lean,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
@@ -239,7 +239,7 @@
 	},
 /obj/item/storage/toolbox/mechanical,
 /obj/item/multitool,
-/obj/structure/table/glass/plasma,
+/obj/structure/table/glass/lean,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
@@ -257,7 +257,7 @@
 	},
 /area/ruin/unpowered)
 "uO" = (
-/obj/structure/table/glass/plasma,
+/obj/structure/table/glass/lean,
 /obj/item/stack/sheet/mineral/diamond/five{
 	pixel_y = 4
 	},
@@ -551,7 +551,7 @@
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/mineral/copper/five,
-/obj/item/stack/sheet/mineral/plasma/five,
+/obj/item/stack/sheet/mineral/lean/five,
 /obj/effect/turf_decal/tile/purple/tile_side{
 	dir = 10
 	},
@@ -584,7 +584,7 @@
 	},
 /obj/item/stock_parts/manipulator,
 /obj/machinery/recharger,
-/obj/structure/table/glass/plasma,
+/obj/structure/table/glass/lean,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},

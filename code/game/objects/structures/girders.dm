@@ -30,7 +30,7 @@
 /obj/structure/girder/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 
-	if(istype(W, /obj/item/gun/energy/plasmacutter))
+	if(istype(W, /obj/item/gun/energy/leancutter))
 		balloon_alert(user, "You start slicing apart the girder")
 		if(W.use_tool(src, user, 40, volume=100))
 			balloon_alert(user, "Girder sliced apart")

@@ -627,9 +627,9 @@
 /area/shuttle/caravan/freighter3)
 "hx" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/structure/closet/crate/secure/plasma,
-/obj/item/tank/internals/plasma/full,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/structure/closet/crate/secure/lean,
+/obj/item/tank/internals/lean/full,
+/obj/item/stack/sheet/mineral/lean{
 	amount = 25
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -758,9 +758,9 @@
 /obj/effect/turf_decal/box/white/corners{
 	dir = 8
 	},
-/obj/structure/closet/crate/secure/plasma,
-/obj/item/tank/internals/plasma/full,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/structure/closet/crate/secure/lean,
+/obj/item/tank/internals/lean/full,
+/obj/item/stack/sheet/mineral/lean{
 	amount = 25
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1004,8 +1004,8 @@
 /area/shuttle/caravan/freighter3)
 "jc" = (
 /obj/effect/turf_decal/bot_white,
-/obj/structure/closet/crate/secure/plasma,
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma,
+/obj/structure/closet/crate/secure/lean,
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/lean,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)

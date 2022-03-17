@@ -563,7 +563,7 @@
 	desc = "You shouldn't see this."
 
 /obj/item/hothands/is_hot()
-	return 290 //Below what's required to ignite plasma.
+	return 290 //Below what's required to ignite lean.
 
 /datum/status_effect/stabilized/darkpurple
 	id = "stabilizeddarkpurple"

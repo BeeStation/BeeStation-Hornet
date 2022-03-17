@@ -77,10 +77,10 @@
 	desc = "A small bottle of unstable mutagen. Randomly changes the DNA structure of whoever comes in contact."
 	list_reagents = list(/datum/reagent/toxin/mutagen = 30)
 
-/obj/item/reagent_containers/glass/bottle/plasma
-	name = "liquid plasma bottle"
-	desc = "A small bottle of liquid plasma. Extremely toxic and reacts with micro-organisms inside blood."
-	list_reagents = list(/datum/reagent/toxin/plasma = 30)
+/obj/item/reagent_containers/glass/bottle/lean
+	name = "liquid lean bottle"
+	desc = "A small bottle of liquid lean. Extremely toxic and reacts with micro-organisms inside blood."
+	list_reagents = list(/datum/reagent/toxin/lean = 30)
 
 /obj/item/reagent_containers/glass/bottle/synaptizine
 	name = "synaptizine bottle"
@@ -315,7 +315,7 @@
 
 /obj/item/reagent_containers/glass/bottle/felinid
 	name = "Nano-Feline Assimilative Toxoplasmosis culture bottle"
-	desc = "A small bottle. Contains a sample of nano-feline toxoplasma in synthblood medium."
+	desc = "A small bottle. Contains a sample of nano-feline toxolean in synthblood medium."
 	spawned_disease = /datum/disease/transformation/felinid/contagious
 
 //Oldstation.dmm chemical storage bottles

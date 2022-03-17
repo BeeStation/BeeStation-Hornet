@@ -236,31 +236,31 @@
 	canSmoothWith = list(/obj/structure/falsewall/diamond, /turf/closed/wall/mineral/diamond)
 	max_integrity = 800
 
-/obj/structure/falsewall/plasma
-	name = "plasma wall"
-	desc = "A wall with plasma plating. This is definitely a bad idea."
-	icon = 'icons/turf/walls/plasma_wall.dmi'
-	icon_state = "plasma"
-	mineral = /obj/item/stack/sheet/mineral/plasma
-	walltype = /turf/closed/wall/mineral/plasma
-	canSmoothWith = list(/obj/structure/falsewall/plasma, /turf/closed/wall/mineral/plasma)
+/obj/structure/falsewall/lean
+	name = "lean wall"
+	desc = "A wall with lean plating. This is definitely a bad idea."
+	icon = 'icons/turf/walls/lean_wall.dmi'
+	icon_state = "lean"
+	mineral = /obj/item/stack/sheet/mineral/lean
+	walltype = /turf/closed/wall/mineral/lean
+	canSmoothWith = list(/obj/structure/falsewall/lean, /turf/closed/wall/mineral/lean)
 
-/obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
+/obj/structure/falsewall/lean/attackby(obj/item/W, mob/user, params)
 	if(W.is_hot() > 300)
 		var/turf/T = get_turf(src)
-		message_admins("Plasma falsewall ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
-		log_game("Plasma falsewall ignited by [key_name(user)] in [AREACOORD(T)]")
+		message_admins("Lean falsewall ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
+		log_game("Lean falsewall ignited by [key_name(user)] in [AREACOORD(T)]")
 		burnbabyburn()
 	else
 		return ..()
 
-/obj/structure/falsewall/plasma/proc/burnbabyburn(user)
+/obj/structure/falsewall/lean/proc/burnbabyburn(user)
 	playsound(src, 'sound/items/welder.ogg', 100, 1)
-	atmos_spawn_air("plasma=400;TEMP=1000")
+	atmos_spawn_air("lean=400;TEMP=1000")
 	new /obj/structure/girder/displaced(loc)
 	qdel(src)
 
-/obj/structure/falsewall/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/falsewall/lean/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
 		burnbabyburn()
 
@@ -332,7 +332,7 @@
 
 /obj/structure/falsewall/plastitanium
 	name = "wall"
-	desc = "An evil wall of plasma and titanium."
+	desc = "An evil wall of lean and titanium."
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
 	icon_state = "shuttle"
 	mineral = /obj/item/stack/sheet/mineral/plastitanium

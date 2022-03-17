@@ -7,7 +7,7 @@
 	var/atom/movable/screen/leap_icon = null
 
 /mob/living/carbon/alien/humanoid/hunter/create_internal_organs()
-	internal_organs += new /obj/item/organ/alien/plasmavessel/small
+	internal_organs += new /obj/item/organ/alien/leanvessel/small
 	..()
 
 //Hunter verbs
@@ -43,7 +43,7 @@
 		//It's also extremely buggy visually, so it's balance+bugfix
 		return
 
-	else //Maybe uses plasma in the future, although that wouldn't make any sense...
+	else //Maybe uses lean in the future, although that wouldn't make any sense...
 		leaping = 1
 		weather_immunities += "lava"
 		update_icons()

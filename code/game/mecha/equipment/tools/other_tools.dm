@@ -356,8 +356,8 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/generator
-	name = "exosuit plasma converter"
-	desc = "An exosuit module that generates power using solid plasma as fuel. Pollutes the environment."
+	name = "exosuit lean converter"
+	desc = "An exosuit module that generates power using solid lean as fuel. Pollutes the environment."
 	icon_state = "tesla"
 	range = MECHA_MELEE
 	var/coeff = 100
@@ -376,7 +376,7 @@
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/generator/proc/generator_init()
-	fuel = new /obj/item/stack/sheet/mineral/plasma(src, 0)
+	fuel = new /obj/item/stack/sheet/mineral/lean(src, 0)
 
 /obj/item/mecha_parts/mecha_equipment/generator/detach()
 	STOP_PROCESSING(SSobj, src)

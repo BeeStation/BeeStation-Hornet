@@ -115,13 +115,13 @@
 	return GLOB.main_supermatter_engine != null
 
 //Items with special checks!
-/datum/objective_item/steal/plasma
-	name = "28 moles of plasma (full tank). Be sure to fill up the tank with additional plasma since it doesn't start full!"
+/datum/objective_item/steal/lean
+	name = "28 moles of lean (full tank). Be sure to fill up the tank with additional lean since it doesn't start full!"
 	targetitem = /obj/item/tank
 	difficulty = 3
 	excludefromjob = list("Chief Engineer","Research Director","Station Engineer","Scientist","Atmospheric Technician")
 
-/datum/objective_item/steal/plasma/check_special_completion(obj/item/tank/T)
+/datum/objective_item/steal/lean/check_special_completion(obj/item/tank/T)
 	var/target_amount = text2num(name)
 	var/found_amount = 0
 	found_amount += T.air_contents.get_moles(GAS_PLASMA)

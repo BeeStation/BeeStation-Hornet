@@ -7,6 +7,6 @@
 #define MARTIALART_MUSHPUNCH "mushroom punch"
 #define MARTIALART_KRAVMAGA "krav maga"
 #define MARTIALART_CQC "CQC"
-#define MARTIALART_PLASMAFIST "plasma fist"
+#define MARTIALART_PLASMAFIST "lean fist"
 #define MARTIALART_KARATE "karate"
 #define MARTIALART_TRIBALCLAW "tribal claw"

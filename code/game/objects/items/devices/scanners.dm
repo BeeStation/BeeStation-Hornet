@@ -605,7 +605,7 @@ GENE SCANNER
 		var/o2_concentration = environment.get_moles(GAS_O2)/total_moles
 		var/n2_concentration = environment.get_moles(GAS_N2)/total_moles
 		var/co2_concentration = environment.get_moles(GAS_CO2)/total_moles
-		var/plasma_concentration = environment.get_moles(GAS_PLASMA)/total_moles
+		var/lean_concentration = environment.get_moles(GAS_PLASMA)/total_moles
 
 		if(abs(n2_concentration - N2STANDARD) < 20)
 			to_chat(user, "<span class='info'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_N2), 0.01)] mol)</span>")
@@ -622,10 +622,10 @@ GENE SCANNER
 		else
 			to_chat(user, "<span class='info'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_CO2), 0.01)] mol)</span>")
 
-		if(plasma_concentration > 0.005)
-			to_chat(user, "<span class='alert'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_PLASMA), 0.01)] mol)</span>")
+		if(lean_concentration > 0.005)
+			to_chat(user, "<span class='alert'>Lean: [round(lean_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_PLASMA), 0.01)] mol)</span>")
 		else
-			to_chat(user, "<span class='info'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_PLASMA), 0.01)] mol)</span>")
+			to_chat(user, "<span class='info'>Lean: [round(lean_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_PLASMA), 0.01)] mol)</span>")
 
 		for(var/id in environment.get_gases())
 			if(id in GLOB.hardcoded_gases)

@@ -25,7 +25,7 @@
 
 /obj/machinery/jukebox/disco/indestructible
 	name = "radiant dance machine mark V"
-	desc = "Now redesigned with data gathered from the extensive disco and plasma research."
+	desc = "Now redesigned with data gathered from the extensive disco and lean research."
 	req_access = null
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

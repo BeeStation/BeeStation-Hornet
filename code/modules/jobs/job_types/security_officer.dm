@@ -30,7 +30,7 @@
 	rpg_title = "Guard"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/security
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/security
 	)
 	biohazard = 15 //clean your baton, man
 

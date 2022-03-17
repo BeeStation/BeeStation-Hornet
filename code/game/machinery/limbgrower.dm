@@ -28,7 +28,7 @@
 							"lizard",
 							"fly",
 							"moth",
-							"plasmaman",
+							"leanman",
 							"other"
 							)
 

@@ -278,7 +278,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 2;
 	layer = 3
 	},
@@ -467,7 +467,7 @@
 /obj/structure/table/glass,
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/gloves/color/latex,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 2;
 	layer = 3
 	},
@@ -496,7 +496,7 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 9
 	},
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "engsm";
 	name = "Radiation Chamber Shutters"
@@ -8120,7 +8120,7 @@
 /obj/structure/safe,
 /obj/item/bikehorn/golden,
 /obj/item/ammo_box/a357,
-/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/lean/full,
 /obj/item/disk/nuclear/fake,
 /obj/item/stack/ore/diamond,
 /obj/item/gun/energy/disabler,
@@ -26672,10 +26672,10 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_y = 4
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/tile/purple{
@@ -30691,7 +30691,7 @@
 /area/medical/chemistry)
 "bAh" = (
 /obj/structure/table/glass,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 2;
 	layer = 2.9
 	},
@@ -35721,7 +35721,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bMi" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating/airless,
 /area/engine/atmos)
 "bMj" = (
@@ -37789,7 +37789,7 @@
 	},
 /obj/machinery/atmospherics/components/trinary/mixer{
 	dir = 1;
-	name = "plasma mixer"
+	name = "lean mixer"
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -37800,7 +37800,7 @@
 	},
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
-	name = "Plasma Outlet Pump"
+	name = "Lean Outlet Pump"
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
@@ -37812,14 +37812,14 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxin_output{
 	dir = 8
 	},
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bSk" = (
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bSl" = (
 /obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bSm" = (
 /obj/structure/flora/ausbushes,
@@ -38047,17 +38047,17 @@
 /area/engine/atmos)
 "bSW" = (
 /obj/machinery/air_sensor/atmos/toxin_tank,
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bSX" = (
 /obj/machinery/atmospherics/miner/station/toxins,
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bSY" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bTa" = (
 /obj/structure/disposalpipe/segment{
@@ -38502,7 +38502,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bTU" = (
-/obj/machinery/atmospherics/components/trinary/filter/atmos/plasma{
+/obj/machinery/atmospherics/components/trinary/filter/atmos/lean{
 	dir = 1;
 	on = 1
 	},
@@ -38512,7 +38512,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxin_input{
 	dir = 8
 	},
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bTW" = (
 /obj/structure/disposalpipe/segment,
@@ -41943,7 +41943,7 @@
 /obj/item/electronics/airlock,
 /obj/item/electronics/airlock,
 /obj/item/stock_parts/cell/high/plus,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 30
 	},
 /obj/item/gps/engineering,
@@ -47250,7 +47250,7 @@
 /turf/open/floor/plating,
 /area/chapel/office)
 "cBT" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating/airless,
 /area/maintenance/disposal/incinerator)
 "cBU" = (
@@ -47388,7 +47388,7 @@
 	name = "Radiation Chamber Shutters"
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/orange/visible,
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "cHS" = (
@@ -47725,7 +47725,7 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "dfr" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 9
 	},
@@ -48257,7 +48257,7 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 4
 	},
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "dOU" = (
@@ -48356,7 +48356,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "dYQ" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/open/floor/plating,
 /area/engine/supermatter)
@@ -48689,7 +48689,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "evB" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "ewl" = (
@@ -51955,7 +51955,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "iyJ" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "SupermatterExternal";
 	name = "radiation shutters"
@@ -52297,7 +52297,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "iYO" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 4
 	},
@@ -53918,7 +53918,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
 "llI" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 9
 	},
@@ -54509,7 +54509,7 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "lYf" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "engsm";
 	name = "Radiation Chamber Shutters"
@@ -54521,7 +54521,7 @@
 	id = "SupermatterExternal";
 	name = "radiation shutters"
 	},
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -56513,7 +56513,7 @@
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
 "oFa" = (
-/obj/machinery/atmospherics/components/trinary/filter/atmos/plasma{
+/obj/machinery/atmospherics/components/trinary/filter/atmos/lean{
 	dir = 1;
 	on = 1
 	},
@@ -56924,7 +56924,7 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 10
 	},
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "pex" = (
@@ -57780,7 +57780,7 @@
 	id = "SupermatterExternal";
 	name = "radiation shutters"
 	},
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -58121,7 +58121,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "qFu" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "SupermatterExternal";
 	name = "radiation shutters"
@@ -58328,7 +58328,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "qVj" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/manifold/orange/visible{
 	dir = 8
 	},
@@ -59074,7 +59074,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 4
 	},
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "rMd" = (
@@ -59136,7 +59136,7 @@
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "rSD" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "SupermatterExternal";
 	name = "radiation shutters"
@@ -61776,16 +61776,16 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "wdK" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "wfs" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/latex,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_y = 4
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_y = 4
 	},
 /obj/machinery/light{
@@ -62326,7 +62326,7 @@
 /area/crew_quarters/dorms)
 "wNl" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "engsm";
 	name = "Radiation Chamber Shutters"

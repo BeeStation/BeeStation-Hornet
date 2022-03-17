@@ -62,7 +62,7 @@
 	return ..()
 
 /mob/living/carbon/alien/humanoid/royal/queen/create_internal_organs()
-	internal_organs += new /obj/item/organ/alien/plasmavessel/large/queen
+	internal_organs += new /obj/item/organ/alien/leanvessel/large/queen
 	internal_organs += new /obj/item/organ/alien/resinspinner
 	internal_organs += new /obj/item/organ/alien/acid
 	internal_organs += new /obj/item/organ/alien/neurotoxin
@@ -108,8 +108,8 @@
 //Queen verbs
 /obj/effect/proc_holder/alien/lay_egg
 	name = "Lay Egg"
-	desc = "Lay an egg to produce huggers to impregnate prey with. Costs 75 Plasma."
-	plasma_cost = 75
+	desc = "Lay an egg to produce huggers to impregnate prey with. Costs 75 Lean."
+	lean_cost = 75
 	check_turf = TRUE
 	action_icon_state = "alien_egg"
 
@@ -128,8 +128,8 @@
 //Button to let queen choose her praetorian.
 /obj/effect/proc_holder/alien/royal/queen/promote
 	name = "Create Royal Parasite"
-	desc = "Produce a royal parasite to grant one of your children the honor of being your Praetorian. Costs 500 Plasma."
-	plasma_cost = 500 //Plasma cost used on promotion, not spawning the parasite.
+	desc = "Produce a royal parasite to grant one of your children the honor of being your Praetorian. Costs 500 Lean."
+	lean_cost = 500 //Lean cost used on promotion, not spawning the parasite.
 
 	action_icon_state = "alien_queen_promote"
 
@@ -173,8 +173,8 @@
 
 	var/mob/living/carbon/alien/humanoid/A = M
 	if(A.stat == CONSCIOUS && A.mind && A.key)
-		if(!user.usePlasma(500))
-			to_chat(user, "<span class='noticealien'>You must have 500 plasma stored to use this!</span>")
+		if(!user.useLean(500))
+			to_chat(user, "<span class='noticealien'>You must have 500 lean stored to use this!</span>")
 			return
 
 		to_chat(A, "<span class='noticealien'>The queen has granted you a promotion to Praetorian!</span>")

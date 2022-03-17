@@ -3190,7 +3190,7 @@
 /area/awaymission/cabin/snowforest/sovietsurface)
 "ia" = (
 /obj/effect/decal/cleanable/blood,
-/obj/item/shard/plasma,
+/obj/item/shard/lean,
 /turf/open/floor/plating/snowed/temperatre,
 /area/awaymission/cabin/snowforest/sovietsurface)
 "ib" = (
@@ -4573,7 +4573,7 @@
 	desc = "It looks like fancy glitter to me.";
 	name = "icy wind"
 	},
-/obj/effect/decal/cleanable/plasma,
+/obj/effect/decal/cleanable/lean,
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
 "ly" = (

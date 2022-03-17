@@ -4,7 +4,7 @@
 	id = /datum/reagent/medicine/leporazine
 	results = list(/datum/reagent/medicine/leporazine = 2)
 	required_reagents = list(/datum/reagent/silicon = 1, /datum/reagent/copper = 1)
-	required_catalysts = list(/datum/reagent/toxin/plasma = 5)
+	required_catalysts = list(/datum/reagent/toxin/lean = 5)
 
 /datum/chemical_reaction/rezadone
 	name = "Rezadone"
@@ -60,7 +60,7 @@
 	name = "Miner's Salve"
 	id = /datum/reagent/medicine/mine_salve
 	results = list(/datum/reagent/medicine/mine_salve = 15)
-	required_reagents = list(/datum/reagent/toxin/plasma = 5, /datum/reagent/iron = 5, /datum/reagent/consumable/sugar = 1) // A sheet of plasma, a twinkie and a sheet of metal makes four of these
+	required_reagents = list(/datum/reagent/toxin/lean = 5, /datum/reagent/iron = 5, /datum/reagent/consumable/sugar = 1) // A sheet of lean, a twinkie and a sheet of metal makes four of these
 
 /datum/chemical_reaction/synthflesh
 	name = "Synthflesh"
@@ -188,7 +188,7 @@
 	name = "Cryoxadone"
 	id = /datum/reagent/medicine/cryoxadone
 	results = list(/datum/reagent/medicine/cryoxadone = 3)
-	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/acetone = 1, /datum/reagent/toxin/mutagen = 1)
+	required_reagents = list(/datum/reagent/stable_lean = 1, /datum/reagent/acetone = 1, /datum/reagent/toxin/mutagen = 1)
 
 /datum/chemical_reaction/pyroxadone
 	name = "Pyroxadone"
@@ -201,7 +201,7 @@
 	id = /datum/reagent/medicine/clonexadone
 	results = list(/datum/reagent/medicine/clonexadone = 2)
 	required_reagents = list(/datum/reagent/medicine/cryoxadone = 1, /datum/reagent/sodium = 1)
-	required_catalysts = list(/datum/reagent/toxin/plasma = 5)
+	required_catalysts = list(/datum/reagent/toxin/lean = 5)
 
 /datum/chemical_reaction/haloperidol
 	name = "Haloperidol"
@@ -220,7 +220,7 @@
 	id = "dexalin"
 	results = list(/datum/reagent/medicine/dexalin = 5)
 	required_reagents = list(/datum/reagent/oxygen = 5, /datum/reagent/nitrogen = 5)
-	required_catalysts = list(/datum/reagent/toxin/plasma = 5)
+	required_catalysts = list(/datum/reagent/toxin/lean = 5)
 
 /datum/chemical_reaction/dexalinp
 	name = "Dexalin Plus"
@@ -303,7 +303,7 @@
 	id = "carthatoline"
 	results = list(/datum/reagent/medicine/carthatoline = 3)
 	required_reagents = list(/datum/reagent/medicine/antitoxin = 1, /datum/reagent/carbon = 2)
-	required_catalysts = list(/datum/reagent/toxin/plasma = 1)
+	required_catalysts = list(/datum/reagent/toxin/lean = 1)
 
 /datum/chemical_reaction/meclizine
 	name = "Meclizine"
@@ -316,11 +316,11 @@
 	id = "hepanephrodaxon"
 	results = list(/datum/reagent/medicine/hepanephrodaxon = 5)
 	required_reagents = list(/datum/reagent/medicine/carthatoline = 2, /datum/reagent/carbon = 2, /datum/reagent/lithium = 1)
-	required_catalysts = list(/datum/reagent/toxin/plasma = 5)
+	required_catalysts = list(/datum/reagent/toxin/lean = 5)
 
 /datum/chemical_reaction/liquidelectricity
 	name = "Liquid Electricity"
 	id = /datum/reagent/consumable/liquidelectricity
 	results = list(/datum/reagent/consumable/liquidelectricity = 3)
-	required_reagents = list(/datum/reagent/consumable/ethanol = 3, /datum/reagent/consumable/liquidelectricity = 1, /datum/reagent/toxin/plasma = 1)
+	required_reagents = list(/datum/reagent/consumable/ethanol = 3, /datum/reagent/consumable/liquidelectricity = 1, /datum/reagent/toxin/lean = 1)
 	mix_message = "The mixture sparks and then subsides."

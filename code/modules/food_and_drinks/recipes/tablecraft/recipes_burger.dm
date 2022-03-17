@@ -302,7 +302,7 @@
 /datum/crafting_recipe/food/empoweredburger
 	name = "Empowered Burger"
 	reqs = list(
-			/obj/item/stack/sheet/mineral/plasma = 2,
+			/obj/item/stack/sheet/mineral/lean = 2,
 			/obj/item/reagent_containers/food/snacks/bun = 1
 	)
 

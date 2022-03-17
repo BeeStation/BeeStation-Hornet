@@ -228,7 +228,7 @@
 	name = "engine outlet injector"
 	id = ATMOS_GAS_MONITOR_WASTE_ENGINE
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxin_input
-	name = "plasma tank input injector"
+	name = "lean tank input injector"
 	id = ATMOS_GAS_MONITOR_INPUT_TOX
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/oxygen_input
 	name = "oxygen tank input injector"

@@ -78,7 +78,7 @@
 /turf/template_noop/open,
 /area/template_noop)
 "R" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/ruin)
 "S" = (

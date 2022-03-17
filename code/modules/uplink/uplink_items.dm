@@ -420,7 +420,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Every syndicate team needs their own shuttle. It's a shame you weren't supplied with one, but thats not a problem\
 			if you can spare some TC! The all new shuttle creation kit (produced by the syndicate) contains everything you need\
 			to get flying! All syndicate agents are advised to ignore the Nanotrasen labels on products. Space proof suits not included."
-	cost = 15	//There are multiple uses for the RCD and plasma canister, but both are easilly accessible for items that cost less than all of their TC.
+	cost = 15	//There are multiple uses for the RCD and lean canister, but both are easilly accessible for items that cost less than all of their TC.
 	contents = list(
 		/obj/machinery/portable_atmospherics/canister/toxins = 1,
 		/obj/item/construction/rcd/combat = 1,
@@ -430,7 +430,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		/obj/item/storage/toolbox/syndicate = 2,
 		/obj/item/storage/toolbox/electrical = 1,
 		/obj/item/circuitboard/computer/shuttle/flight_control = 1,
-		/obj/item/circuitboard/machine/shuttle/engine/plasma = 2,
+		/obj/item/circuitboard/machine/shuttle/engine/lean = 2,
 		/obj/item/circuitboard/machine/shuttle/heater = 2,
 		/obj/item/storage/part_replacer/cargo = 1,
 		/obj/item/electronics/apc = 1,
@@ -529,7 +529,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/dangerous/superechainsaw
 	name = "Super Energy Chainsaw"
-	desc = "An incredibly deadly modified chainsaw with plasma-based energy blades instead of metal and a slick black-and-red finish. While it rips apart matter with extreme efficiency, it is heavy, large, and monstrously loud. It's blade has been enhanced to do even more damage and knock victims down briefly."
+	desc = "An incredibly deadly modified chainsaw with lean-based energy blades instead of metal and a slick black-and-red finish. While it rips apart matter with extreme efficiency, it is heavy, large, and monstrously loud. It's blade has been enhanced to do even more damage and knock victims down briefly."
 	item = /obj/item/chainsaw/energy/doom
 	cost = 22
 	purchasable_from = UPLINK_NUKE_OPS
@@ -1544,7 +1544,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Need a mobile base of operations? Those pesky exploration crews keep flying off? Want to do a hit and run on security? Then this \
 			product is for you! The all new bluespace shuttle capsule contains an ENTIRE shuttle withing a capsule you can hold in your hand! \
 			The shuttle provided is a state-of-the-art ship complete with a hacked autolathe, syndicate toolbox, playing cards for those long journeys, \
-			an in-built shuttle interdictor and a single canister of plasma to fuel your adventures! \
+			an in-built shuttle interdictor and a single canister of lean to fuel your adventures! \
 			This innovative shuttle can seat up to 4 passengers, willing or not! Shuttle must be deployed in space or on lavaland, space suits not included."
 	item = /obj/item/survivalcapsule/shuttle/traitor
 	cost = 8
@@ -1907,13 +1907,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/discogrenade
 	restricted_species = list("ethereal")
 
-/datum/uplink_item/race_restricted/plasmachameleon
-	name = "Plasmaman Chameleon Kit"
+/datum/uplink_item/race_restricted/leanchameleon
+	name = "Leanman Chameleon Kit"
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
-			Due to budget cuts, the shoes don't provide protection against slipping. The normal bells and whistles of a plasmaman's jumpsuit and helmet are gutted to make room for the chameleon machinery."
-	item = /obj/item/storage/box/syndie_kit/plasmachameleon
+			Due to budget cuts, the shoes don't provide protection against slipping. The normal bells and whistles of a leanman's jumpsuit and helmet are gutted to make room for the chameleon machinery."
+	item = /obj/item/storage/box/syndie_kit/leanchameleon
 	cost = 2
-	restricted_species = list("plasmaman")
+	restricted_species = list("leanman")
 
 /datum/uplink_item/race_restricted/tribal_claw
 	name = "Old Tribal Scroll"
@@ -2181,7 +2181,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/role_restricted/echainsaw
 	name = "Energy Chainsaw"
-	desc = "An incredibly deadly modified chainsaw with plasma-based energy blades instead of metal and a slick black-and-red finish. While it rips apart matter with extreme efficiency, it is heavy, large, and monstrously loud."
+	desc = "An incredibly deadly modified chainsaw with lean-based energy blades instead of metal and a slick black-and-red finish. While it rips apart matter with extreme efficiency, it is heavy, large, and monstrously loud."
 	item = /obj/item/chainsaw/energy
 	cost = 10
 	player_minimum = 25

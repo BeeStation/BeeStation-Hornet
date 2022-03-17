@@ -10,11 +10,11 @@
 		var/mob/living/carbon/alien/humanoid/hunter/AH = usr
 		AH.toggle_leap()
 
-/atom/movable/screen/alien/plasma_display
+/atom/movable/screen/alien/lean_display
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "power_display2"
-	name = "plasma stored"
-	screen_loc = ui_alienplasmadisplay
+	name = "lean stored"
+	screen_loc = ui_alienleandisplay
 
 
 /atom/movable/screen/alien/alien_queen_finder
@@ -101,9 +101,9 @@
 	healths.hud = src
 	infodisplay += healths
 
-	alien_plasma_display = new /atom/movable/screen/alien/plasma_display()
-	alien_plasma_display.hud = src
-	infodisplay += alien_plasma_display
+	alien_lean_display = new /atom/movable/screen/alien/lean_display()
+	alien_lean_display.hud = src
+	infodisplay += alien_lean_display
 
 	if(!isalienqueen(mymob))
 		alien_queen_finder = new /atom/movable/screen/alien/alien_queen_finder

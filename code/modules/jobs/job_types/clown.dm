@@ -22,7 +22,7 @@
 	rpg_title = "Jester"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/honk
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/honk
 	)
 
 /datum/job/clown/after_spawn(mob/living/carbon/human/H, mob/M)

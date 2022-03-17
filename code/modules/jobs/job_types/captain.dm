@@ -30,7 +30,7 @@
 	rpg_title = "Star Duke"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/command
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/command
 	)
 /datum/job/captain/get_access()
 	return get_all_accesses()

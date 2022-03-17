@@ -261,7 +261,7 @@
 	id = "mech_rcd"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/rcd
-	materials = list(/datum/material/iron=30000,/datum/material/gold=20000,/datum/material/plasma=25000,/datum/material/silver=20000)
+	materials = list(/datum/material/iron=30000,/datum/material/gold=20000,/datum/material/lean=25000,/datum/material/silver=20000)
 	construction_time = 1200
 	category = list("Exosuit Equipment")
 
@@ -345,13 +345,13 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_plasma_cutter
-	name = "Exosuit Mining (217-D Heavy Plasma Cutter)"
-	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demolishing solid obstacles."
-	id = "mech_plasma_cutter"
+/datum/design/mech_lean_cutter
+	name = "Exosuit Mining (217-D Heavy Lean Cutter)"
+	desc = "A device that shoots resonant lean bursts at extreme velocity. The blasts are capable of crushing rock and demolishing solid obstacles."
+	id = "mech_lean_cutter"
 	build_type = MECHFAB
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
-	materials = list(/datum/material/iron = 8000, /datum/material/glass = 1000, /datum/material/plasma = 2000)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/lean
+	materials = list(/datum/material/iron = 8000, /datum/material/glass = 1000, /datum/material/lean = 2000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
@@ -391,7 +391,7 @@
 	desc = "Equipment for medical exosuits. A mounted medical nanite projector which will treat patients with a focused beam."
 	id = "mech_medi_beam"
 	build_type = MECHFAB
-	materials = list(/datum/material/iron = 15000, /datum/material/glass = 8000, /datum/material/plasma = 3000, /datum/material/gold = 8000, /datum/material/diamond = 2000)
+	materials = list(/datum/material/iron = 15000, /datum/material/glass = 8000, /datum/material/lean = 3000, /datum/material/gold = 8000, /datum/material/diamond = 2000)
 	construction_time = 250
 	build_path = /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam
 	category = list("Exosuit Equipment")

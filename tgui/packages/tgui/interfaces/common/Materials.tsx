@@ -12,7 +12,7 @@ export const MATERIAL_KEYS = {
   "silver": "sheet-silver_3",
   "gold": "sheet-gold_3",
   "diamond": "sheet-diamond",
-  "plasma": "sheet-plasma_3",
+  "lean": "sheet-lean_3",
   "uranium": "sheet-uranium",
   "bananium": "sheet-bananium",
   "titanium": "sheet-titanium_3",

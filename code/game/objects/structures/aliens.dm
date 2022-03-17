@@ -250,7 +250,7 @@
 	. = ..()
 	if(.)
 		return
-	if(user.getorgan(/obj/item/organ/alien/plasmavessel))
+	if(user.getorgan(/obj/item/organ/alien/leanvessel))
 		switch(status)
 			if(BURSTING)
 				to_chat(user, "<span class='notice'>The egg is in process of hatching.</span>")

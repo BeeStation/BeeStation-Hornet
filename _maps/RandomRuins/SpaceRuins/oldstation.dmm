@@ -465,7 +465,7 @@
 /area/ruin/space/has_grav/ancientstation/comm)
 "bp" = (
 /obj/structure/closet/crate,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 25
 	},
 /obj/item/stack/sheet/mineral/uranium{
@@ -4777,7 +4777,7 @@
 /turf/template_noop,
 /area/template_noop)
 "lh" = (
-/turf/closed/mineral/plasma,
+/turf/closed/mineral/lean,
 /area/ruin/unpowered)
 "li" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end{
@@ -5088,12 +5088,12 @@
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "KR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/tank/internals/plasma/full,
-/obj/item/tank/internals/plasma/full,
-/obj/item/tank/internals/plasma/full,
-/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/lean/full,
+/obj/item/tank/internals/lean/full,
+/obj/item/tank/internals/lean/full,
+/obj/item/tank/internals/lean/full,
 /obj/structure/closet/crate/secure/engineering{
-	name = "plasma tank crate";
+	name = "lean tank crate";
 	req_access_txt = "204"
 	},
 /turf/open/floor/plating,

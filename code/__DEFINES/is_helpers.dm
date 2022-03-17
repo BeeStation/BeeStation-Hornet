@@ -68,7 +68,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
 #define islizard(A) (is_species(A, /datum/species/lizard))
-#define isplasmaman(A) (is_species(A, /datum/species/plasmaman))
+#define isleanman(A) (is_species(A, /datum/species/leanman))
 #define ispodperson(A) (is_species(A, /datum/species/pod))
 #define isflyperson(A) (is_species(A, /datum/species/fly))
 #define isjellyperson(A) (is_species(A, /datum/species/jelly))
@@ -268,8 +268,8 @@ GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 	/obj/item/stack/sheet/glass,
 	/obj/item/stack/sheet/rglass,
-	/obj/item/stack/sheet/plasmaglass,
-	/obj/item/stack/sheet/plasmarglass,
+	/obj/item/stack/sheet/leanglass,
+	/obj/item/stack/sheet/leanrglass,
 	/obj/item/stack/sheet/titaniumglass,
 	/obj/item/stack/sheet/plastitaniumglass)))
 

@@ -1,12 +1,12 @@
-/obj/item/stack/tile/mineral/plasma
-	name = "plasma tile"
-	singular_name = "plasma floor tile"
-	desc = "A tile made out of highly flammable plasma. This can only end well."
-	icon_state = "tile_plasma"
-	item_state = "tile-plasma"
-	turf_type = /turf/open/floor/mineral/plasma
-	mineralType = "plasma"
-	materials = list(/datum/material/plasma=500)
+/obj/item/stack/tile/mineral/lean
+	name = "lean tile"
+	singular_name = "lean floor tile"
+	desc = "A tile made out of highly flammable lean. This can only end well."
+	icon_state = "tile_lean"
+	item_state = "tile-lean"
+	turf_type = /turf/open/floor/mineral/lean
+	mineralType = "lean"
+	materials = list(/datum/material/lean=500)
 
 /obj/item/stack/tile/mineral/uranium
 	name = "uranium tile"
@@ -95,7 +95,7 @@
 	item_state = "tile-darkshuttle"
 	turf_type = /turf/open/floor/mineral/plastitanium
 	mineralType = "plastitanium"
-	materials = list(/datum/material/titanium=250, /datum/material/plasma=250)
+	materials = list(/datum/material/titanium=250, /datum/material/lean=250)
 
 /obj/item/stack/tile/mineral/snow
 	name = "snow tile"

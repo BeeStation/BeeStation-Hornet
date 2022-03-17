@@ -2,7 +2,7 @@
 	subtype_path = /datum/gear/hat
 	slot = ITEM_SLOT_HEAD
 	sort_category = "Headwear"
-	species_blacklist = list("plasmaman") //Their helmet takes up the head slot
+	species_blacklist = list("leanman") //Their helmet takes up the head slot
 	cost = 2000
 
 //HARDHATS

@@ -8,7 +8,7 @@
 GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	"Midnight" = 'icons/mob/screen_midnight.dmi',
 	"Retro" = 'icons/mob/screen_retro.dmi',
-	"Plasmafire" = 'icons/mob/screen_plasmafire.dmi',
+	"Leanfire" = 'icons/mob/screen_leanfire.dmi',
 	"Slimecore" = 'icons/mob/screen_slimecore.dmi',
 	"Operative" = 'icons/mob/screen_operative.dmi',
 	"Clockwork" = 'icons/mob/screen_clockwork.dmi'
@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 
 	var/atom/movable/screen/blobpwrdisplay
 
-	var/atom/movable/screen/alien_plasma_display
+	var/atom/movable/screen/alien_lean_display
 	var/atom/movable/screen/alien_queen_finder
 
 	var/atom/movable/screen/devil/soul_counter/devilsouldisplay
@@ -45,7 +45,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	var/list/static_inventory = list() //the screen objects which are static
 	var/list/toggleable_inventory = list() //the screen objects which can be hidden
 	var/list/atom/movable/screen/hotkeybuttons = list() //the buttons that can be used via hotkeys
-	var/list/infodisplay = list() //the screen objects that display mob info (health, alien plasma, etc...)
+	var/list/infodisplay = list() //the screen objects that display mob info (health, alien lean, etc...)
 	var/list/screenoverlays = list() //the screen objects used as whole screen overlays (flash, damageoverlay, etc...)
 	var/list/inv_slots[SLOTS_AMT] // /atom/movable/screen/inventory objects, ordered by their slot ID.
 	var/list/hand_slots // /atom/movable/screen/inventory/hand objects, assoc list of "[held_index]" = object
@@ -114,7 +114,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	devilsouldisplay = null
 	lingstingdisplay = null
 	blobpwrdisplay = null
-	alien_plasma_display = null
+	alien_lean_display = null
 	alien_queen_finder = null
 
 	QDEL_LIST_ASSOC_VAL(plane_masters)

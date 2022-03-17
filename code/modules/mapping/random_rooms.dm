@@ -28,8 +28,8 @@
 
 /datum/map_template/random_room/sk_rdm003
 	name = "Maintenance"
-	room_id = "sk_rdm003_plasma"
-	mappath = "_maps/RandomRooms/3x3/sk_rdm003_plasma.dmm"
+	room_id = "sk_rdm003_lean"
+	mappath = "_maps/RandomRooms/3x3/sk_rdm003_lean.dmm"
 	centerspawner = FALSE
 	template_height = 3
 	template_width = 3

@@ -103,8 +103,8 @@
 
 /obj/item/weldingtool/proc/explode()
 	var/turf/T = get_turf(loc)
-	var/plasmaAmount = reagents.get_reagent_amount(/datum/reagent/toxin/plasma)
-	dyn_explosion(T, plasmaAmount/5)//20 plasma in a standard welder has a 4 power explosion. no breaches, but enough to kill/dismember holder
+	var/leanAmount = reagents.get_reagent_amount(/datum/reagent/toxin/lean)
+	dyn_explosion(T, leanAmount/5)//20 lean in a standard welder has a 4 power explosion. no breaches, but enough to kill/dismember holder
 	qdel(src)
 
 /obj/item/weldingtool/attack(mob/living/carbon/human/H, mob/user)
@@ -148,7 +148,7 @@
 
 
 /obj/item/weldingtool/attack_self(mob/user)
-	if(src.reagents.has_reagent(/datum/reagent/toxin/plasma))
+	if(src.reagents.has_reagent(/datum/reagent/toxin/lean))
 		message_admins("[ADMIN_LOOKUPFLW(user)] activated a rigged welder at [AREACOORD(user)].")
 		explode()
 	switched_on(user)

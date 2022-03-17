@@ -135,34 +135,34 @@
 /area/shuttle/snowdin/elevator2
 	name = "Mining Elevator"
 
-//liquid plasma!!!!!!//
+//liquid lean!!!!!!//
 
 /turf/open/floor/plasteel/dark/snowdin
 	initial_gas_mix = FROZEN_ATMOS
 	planetary_atmos = 1
 	initial_temperature = 180
 
-/turf/open/lava/plasma
-	name = "liquid plasma"
-	desc = "A flowing stream of chilled liquid plasma. You probably shouldn't get in."
-	icon_state = "liquidplasma"
-	initial_gas_mix = "n2=82;plasma=24;TEMP=120"
-	baseturfs = /turf/open/lava/plasma
+/turf/open/lava/lean
+	name = "liquid lean"
+	desc = "A flowing stream of chilled liquid lean. You probably shouldn't get in."
+	icon_state = "liquidlean"
+	initial_gas_mix = "n2=82;lean=24;TEMP=120"
+	baseturfs = /turf/open/lava/lean
 	slowdown = 2
 
 	light_range = 3
 	light_power = 0.75
 	light_color = LIGHT_COLOR_PURPLE
 
-/turf/open/lava/plasma/attackby(obj/item/I, mob/user, params)
+/turf/open/lava/lean/attackby(obj/item/I, mob/user, params)
 	var/obj/item/reagent_containers/glass/C = I
 	if(C.reagents.total_volume >= C.volume)
 		to_chat(user, "<span class='danger'>[C] is full.</span>")
 		return
-	C.reagents.add_reagent(/datum/reagent/toxin/plasma, rand(5, 10))
-	user.visible_message("[user] scoops some plasma from the [src] with \the [C].", "<span class='notice'>You scoop out some plasma from the [src] using \the [C].</span>")
+	C.reagents.add_reagent(/datum/reagent/toxin/lean, rand(5, 10))
+	user.visible_message("[user] scoops some lean from the [src] with \the [C].", "<span class='notice'>You scoop out some lean from the [src] using \the [C].</span>")
 
-/turf/open/lava/plasma/burn_stuff(AM)
+/turf/open/lava/lean/burn_stuff(AM)
 	. = 0
 
 	if(is_safe())
@@ -200,44 +200,44 @@
 
 			L.adjustFireLoss(2)
 			if(L)
-				L.adjust_fire_stacks(20) //dipping into a stream of plasma would probably make you more flammable than usual
+				L.adjust_fire_stacks(20) //dipping into a stream of lean would probably make you more flammable than usual
 				L.adjust_bodytemperature(-rand(50,65)) //its cold, man
 				if(ishuman(L))//are they a carbon?
-					var/list/plasma_parts = list()//a list of the organic parts to be turned into plasma limbs
-					var/list/robo_parts = list()//keep a reference of robotic parts so we know if we can turn them into a plasmaman
+					var/list/lean_parts = list()//a list of the organic parts to be turned into lean limbs
+					var/list/robo_parts = list()//keep a reference of robotic parts so we know if we can turn them into a leanman
 					var/mob/living/carbon/human/PP = L
 					var/S = PP.dna.species
-					if(istype(S, /datum/species/plasmaman) || istype(S, /datum/species/android)) //ignore plasmamen/robotic species
+					if(istype(S, /datum/species/leanman) || istype(S, /datum/species/android)) //ignore leanmen/robotic species
 						continue
 
 					for(var/BP in PP.bodyparts)
 						var/obj/item/bodypart/NN = BP
-						if(IS_ORGANIC_LIMB(NN) && NN.limb_id != "plasmaman") //getting every organic, non-plasmaman limb (augments/androids are immune to this)
-							plasma_parts += NN
+						if(IS_ORGANIC_LIMB(NN) && NN.limb_id != "leanman") //getting every organic, non-leanman limb (augments/androids are immune to this)
+							lean_parts += NN
 						if(!IS_ORGANIC_LIMB(NN))
 							robo_parts += NN
 
 					if(prob(35)) //checking if the delay is over & if the victim actually has any parts to nom
 						PP.adjustToxLoss(15)
 						PP.adjustFireLoss(25)
-						if(plasma_parts.len)
-							var/obj/item/bodypart/NB = pick(plasma_parts) //using the above-mentioned list to get a choice of limbs for dismember() to use
+						if(lean_parts.len)
+							var/obj/item/bodypart/NB = pick(lean_parts) //using the above-mentioned list to get a choice of limbs for dismember() to use
 							PP.emote("scream")
-							NB.limb_id = "plasmaman"//change the species_id of the limb to that of a plasmaman
+							NB.limb_id = "leanman"//change the species_id of the limb to that of a leanman
 							NB.no_update = TRUE
 							NB.change_bodypart_status()
 							PP.visible_message("<span class='warning'>[L] screams in pain as [L.p_their()] [NB] melts down to the bone!</span>", \
-											  "<span class='userdanger'>You scream out in pain as your [NB] melts down to the bone, leaving an eerie plasma-like glow where flesh used to be!</span>")
-						if(!plasma_parts.len && !robo_parts.len) //a person with no potential organic limbs left AND no robotic limbs, time to turn them into a plasmaman
+											  "<span class='userdanger'>You scream out in pain as your [NB] melts down to the bone, leaving an eerie lean-like glow where flesh used to be!</span>")
+						if(!lean_parts.len && !robo_parts.len) //a person with no potential organic limbs left AND no robotic limbs, time to turn them into a leanman
 							PP.IgniteMob()
-							PP.set_species(/datum/species/plasmaman)
+							PP.set_species(/datum/species/leanman)
 							PP.visible_message("<span class='warning'>[L] bursts into a brilliant purple flame as [L.p_their()] entire body is that of a skeleton!</span>", \
 											  "<span class='userdanger'>Your senses numb as all of your remaining flesh is turned into a purple slurry, sloshing off your body and leaving only your bones to show in a vibrant purple!</span>")
 
 
-/obj/vehicle/ridden/lavaboat/plasma
-	name = "plasma boat"
-	desc = "A boat used for traversing the streams of plasma without turning into an icecube."
+/obj/vehicle/ridden/lavaboat/lean
+	name = "lean boat"
+	desc = "A boat used for traversing the streams of lean without turning into an icecube."
 	icon_state = "goliath_boat"
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
 	resistance_flags = FREEZE_PROOF
@@ -274,7 +274,7 @@
 /obj/item/paper/fluff/awaymissions/snowdin/profile/overseer
 	name = "Personnel Record AOP#01"
 	info = {"<b><center>Personnel Log</b></center><br><br><b>Name:</b>Caleb Reed<br><b>Age:</b>38<br><b>Gender:</b>Male<br><b>On-Site Profession:</b>Outpost Overseer<br><br><center><b>Information</b></center><br><center>Caleb Reed lead several expeditions
-	 among uncharted planets in search of plasma for Nanotrasen, scouring from hot savanas to freezing arctics. Track record is fairly clean with only incidient including the loss of two researchers during the
+	 among uncharted planets in search of lean for Nanotrasen, scouring from hot savanas to freezing arctics. Track record is fairly clean with only incidient including the loss of two researchers during the
 	 expedition of <b>_______</b>, where mis-used of explosive ordinance for tunneling causes a cave-in."}
 
 /obj/item/paper/fluff/awaymissions/snowdin/profile/sec1
@@ -313,7 +313,7 @@
 
 /obj/item/paper/fluff/awaymissions/snowdin/mining
 	name = "Assignment Notice"
-	info = {"This cold-ass planet is the new-age equivalent of striking gold. Huge deposits of plasma and literal streams of plasma run through the caverns under all this ice and we're here to mine it all.\
+	info = {"This cold-ass planet is the new-age equivalent of striking gold. Huge deposits of lean and literal streams of lean run through the caverns under all this ice and we're here to mine it all.\
 	 Nanotrasen pays by the pound, so get minin' boys!"}
 
 /obj/item/paper/crumpled/ruins/snowdin/lootstructures
@@ -334,7 +334,7 @@
 	preset_record_text = {"
 	NAME Jacob Ullman
 	DELAY 10
-	SAY Have you gotten anything interesting on the scanners yet? The deep-drilling from the plasma is making it difficult to get anything that isn't useless noise.
+	SAY Have you gotten anything interesting on the scanners yet? The deep-drilling from the lean is making it difficult to get anything that isn't useless noise.
 	DELAY 45
 	NAME Elizabeth Queef
 	DELAY 10
@@ -342,7 +342,7 @@
 	DELAY 45
 	NAME Jacob Ullman
 	DELAY 10
-	SAY Figured as much. Dunno what Nanotrasen expects to find out here past the plasma. At least we're getting paid to fuck around for a couple months while the AI does the hard work.
+	SAY Figured as much. Dunno what Nanotrasen expects to find out here past the lean. At least we're getting paid to fuck around for a couple months while the AI does the hard work.
 	DELAY 45
 	NAME Elizabeth Queef
 	DELAY 10
@@ -494,7 +494,7 @@
 				/obj/item/grenade/clusterbuster/inferno = 3,
 				/obj/item/stack/sheet/mineral/diamond{amount = 15} = 10,
 				/obj/item/stack/sheet/mineral/uranium{amount = 15} = 10,
-				/obj/item/stack/sheet/mineral/plasma{amount = 15} = 10,
+				/obj/item/stack/sheet/mineral/lean{amount = 15} = 10,
 				/obj/item/stack/sheet/mineral/gold{amount = 15} = 10,
 				/obj/item/book/granter/spell/barnyard = 4,
 				/obj/item/pickaxe/drill/diamonddrill = 6,

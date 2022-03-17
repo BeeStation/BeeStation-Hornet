@@ -624,7 +624,7 @@
 
 /obj/structure/sign/poster/official/moth4
 	name = "Safety Moth - Smokey?"
-	desc = "This informational poster uses Safety Moth(TM) to promote safe handling of plasma, or promoting crew to combat plasmafires. We can't tell. It's signed by 'AspEv'."
+	desc = "This informational poster uses Safety Moth(TM) to promote safe handling of lean, or promoting crew to combat leanfires. We can't tell. It's signed by 'AspEv'."
 	icon_state = "poster39_legit"
 
 /obj/structure/sign/poster/official/moth5

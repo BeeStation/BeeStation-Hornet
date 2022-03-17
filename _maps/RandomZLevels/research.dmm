@@ -6341,23 +6341,23 @@
 /turf/open/floor/plating,
 /area/awaymission/research/interior/escapepods)
 "na" = (
-/turf/closed/wall/mineral/plasma,
+/turf/closed/wall/mineral/lean,
 /area/space/nearstation)
 "nb" = (
 /obj/structure/table/wood,
 /obj/item/book/granter/spell/random,
-/turf/open/floor/mineral/plasma,
+/turf/open/floor/mineral/lean,
 /area/space/nearstation)
 "nc" = (
 /mob/living/simple_animal/hostile/netherworld,
-/turf/open/floor/mineral/plasma,
+/turf/open/floor/mineral/lean,
 /area/space/nearstation)
 "nd" = (
 /obj/structure/healingfountain,
-/turf/open/floor/mineral/plasma,
+/turf/open/floor/mineral/lean,
 /area/space/nearstation)
 "ne" = (
-/turf/open/floor/mineral/plasma,
+/turf/open/floor/mineral/lean,
 /area/space/nearstation)
 "nf" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,

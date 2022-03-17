@@ -374,14 +374,14 @@
 	S.reagents.add_reagent(/datum/reagent/medicine/salbutamol, 5)
 	return S
 
-/obj/item/organ/lungs/plasmaman
-	name = "plasma filter"
-	desc = "A spongy rib-shaped mass for filtering plasma from the air."
-	icon_state = "lungs-plasma"
+/obj/item/organ/lungs/leanman
+	name = "lean filter"
+	desc = "A spongy rib-shaped mass for filtering lean from the air."
+	icon_state = "lungs-lean"
 
 	breathing_class = BREATH_PLASMA
 
-/obj/item/organ/lungs/plasmaman/populate_gas_info()
+/obj/item/organ/lungs/leanman/populate_gas_info()
 	..()
 	gas_max -= GAS_PLASMA
 
@@ -398,8 +398,8 @@
 	if (breath)
 		var/total_moles = breath.total_moles()
 		var/pressure = breath.return_pressure()
-		var/plasma_pp = PP(breath, GAS_PLASMA)
-		owner.blood_volume += (0.2 * plasma_pp) // 10/s when breathing literally nothing but plasma, which will suffocate you.
+		var/lean_pp = PP(breath, GAS_PLASMA)
+		owner.blood_volume += (0.2 * lean_pp) // 10/s when breathing literally nothing but lean, which will suffocate you.
 
 /obj/item/organ/lungs/cybernetic
 	name = "cybernetic lungs"

@@ -2589,7 +2589,7 @@
 /area/awaymission/moonoutpost19/research)
 "fg" = (
 /obj/structure/table,
-/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/lean,
 /obj/machinery/light/small/broken{
 	dir = 1
 	},

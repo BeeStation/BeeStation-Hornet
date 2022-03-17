@@ -39,9 +39,9 @@
 /obj/item/spear/CheckParts(list/parts_list)
 	var/obj/item/shard/tip = locate() in parts_list
 	if(tip)
-		if (istype(tip, /obj/item/shard/plasma))
+		if (istype(tip, /obj/item/shard/lean))
 			throwforce = 21
-			icon_prefix = "spearplasma"
+			icon_prefix = "spearlean"
 			AddComponent(/datum/component/two_handed, force_unwielded=11, force_wielded=19, icon_wielded="[icon_prefix]1")
 		update_icon()
 		parts_list -= tip

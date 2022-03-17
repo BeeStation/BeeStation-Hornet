@@ -28,7 +28,7 @@
 	rpg_title = "Thiefcatcher"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/detective
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/detective
 	)
 /datum/outfit/job/detective
 	name = "Detective"
@@ -55,7 +55,7 @@
 /datum/outfit/job/detective/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	var/obj/item/clothing/mask/cigarette/cig = H.wear_mask
-	if(istype(cig)) //Some species specfic changes can mess this up (plasmamen)
+	if(istype(cig)) //Some species specfic changes can mess this up (leanmen)
 		cig.light("")
 
 	if(visualsOnly)

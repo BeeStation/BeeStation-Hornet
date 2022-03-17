@@ -138,7 +138,7 @@
 
 /turf/closed/mineral/random
 	var/list/mineralSpawnChanceList = list(/obj/item/stack/ore/uranium = 5, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 10,
-		/obj/item/stack/ore/silver = 12, /obj/item/stack/ore/plasma = 20, /obj/item/stack/ore/iron = 40, /obj/item/stack/ore/titanium = 11,
+		/obj/item/stack/ore/silver = 12, /obj/item/stack/ore/lean = 20, /obj/item/stack/ore/iron = 40, /obj/item/stack/ore/titanium = 11,
 		/turf/closed/mineral/gibtonite = 4, /obj/item/stack/ore/bluespace_crystal = 1,
 		/obj/item/stack/ore/copper = 15)
 		//Currently, Adamantine won't spawn as it has no uses. -Durandan
@@ -175,7 +175,7 @@
 	mineralChance = 25
 	mineralSpawnChanceList = list(
 		/obj/item/stack/ore/uranium = 35, /obj/item/stack/ore/diamond = 30, /obj/item/stack/ore/gold = 45, /obj/item/stack/ore/titanium = 45,
-		/obj/item/stack/ore/silver = 50, /obj/item/stack/ore/copper = 50, /obj/item/stack/ore/plasma = 50, /obj/item/stack/ore/bluespace_crystal = 20)
+		/obj/item/stack/ore/silver = 50, /obj/item/stack/ore/copper = 50, /obj/item/stack/ore/lean = 50, /obj/item/stack/ore/bluespace_crystal = 20)
 
 /turf/closed/mineral/random/high_chance/volcanic
 	environment_type = "basalt"
@@ -185,7 +185,7 @@
 	defer_change = 1
 	mineralSpawnChanceList = list(
 		/obj/item/stack/ore/uranium = 35, /obj/item/stack/ore/diamond = 30, /obj/item/stack/ore/gold = 45, /obj/item/stack/ore/titanium = 45,
-		/obj/item/stack/ore/silver = 50, /obj/item/stack/ore/copper = 50, /obj/item/stack/ore/plasma = 50, /obj/item/stack/ore/bluespace_crystal)
+		/obj/item/stack/ore/silver = 50, /obj/item/stack/ore/copper = 50, /obj/item/stack/ore/lean = 50, /obj/item/stack/ore/bluespace_crystal)
 
 
 /turf/closed/mineral/random/low_chance
@@ -193,7 +193,7 @@
 	mineralChance = 6
 	mineralSpawnChanceList = list(
 		/obj/item/stack/ore/uranium = 2, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 4, /obj/item/stack/ore/titanium = 4,
-		/obj/item/stack/ore/silver = 6, /obj/item/stack/ore/copper = 6, /obj/item/stack/ore/plasma = 15, /obj/item/stack/ore/iron = 40,
+		/obj/item/stack/ore/silver = 6, /obj/item/stack/ore/copper = 6, /obj/item/stack/ore/lean = 15, /obj/item/stack/ore/iron = 40,
 		/turf/closed/mineral/gibtonite = 2, /obj/item/stack/ore/bluespace_crystal = 1)
 
 
@@ -207,14 +207,14 @@
 	mineralChance = 10
 	mineralSpawnChanceList = list(
 		/obj/item/stack/ore/uranium = 5, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 10, /obj/item/stack/ore/titanium = 11,
-		/obj/item/stack/ore/silver = 12, /obj/item/stack/ore/copper = 12, /obj/item/stack/ore/plasma = 20, /obj/item/stack/ore/iron = 40,
+		/obj/item/stack/ore/silver = 12, /obj/item/stack/ore/copper = 12, /obj/item/stack/ore/lean = 20, /obj/item/stack/ore/iron = 40,
 		/turf/closed/mineral/gibtonite/volcanic = 4, /obj/item/stack/ore/bluespace_crystal = 1)
 
 
 /turf/closed/mineral/random/labormineral
 	mineralSpawnChanceList = list(
 		/obj/item/stack/ore/uranium = 3, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 8, /obj/item/stack/ore/titanium = 8,
-		/obj/item/stack/ore/silver = 20, /obj/item/stack/ore/copper = 20, /obj/item/stack/ore/plasma = 30, /obj/item/stack/ore/iron = 95,
+		/obj/item/stack/ore/silver = 20, /obj/item/stack/ore/copper = 20, /obj/item/stack/ore/lean = 30, /obj/item/stack/ore/iron = 95,
 		/turf/closed/mineral/gibtonite = 2)
 	icon_state = "rock_labor"
 
@@ -227,7 +227,7 @@
 	defer_change = 1
 	mineralSpawnChanceList = list(
 		/obj/item/stack/ore/uranium = 3, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 8, /obj/item/stack/ore/titanium = 8,
-		/obj/item/stack/ore/silver = 20, /obj/item/stack/ore/copper = 20, /obj/item/stack/ore/plasma = 30, /obj/item/stack/ore/bluespace_crystal = 1, /turf/closed/mineral/gibtonite/volcanic = 2,
+		/obj/item/stack/ore/silver = 20, /obj/item/stack/ore/copper = 20, /obj/item/stack/ore/lean = 30, /obj/item/stack/ore/bluespace_crystal = 1, /turf/closed/mineral/gibtonite/volcanic = 2,
 		/obj/item/stack/ore/iron = 95)
 
 // Subtypes for mappers placing ores manually.
@@ -323,20 +323,20 @@
 	defer_change = 1
 
 
-/turf/closed/mineral/plasma
-	mineralType = /obj/item/stack/ore/plasma
-	scan_state = "rock_Plasma"
+/turf/closed/mineral/lean
+	mineralType = /obj/item/stack/ore/lean
+	scan_state = "rock_Lean"
 
-/turf/closed/mineral/plasma/volcanic
+/turf/closed/mineral/lean/volcanic
 	environment_type = "basalt"
 	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 	baseturfs = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	defer_change = 1
 
-/turf/closed/mineral/plasma/ice
+/turf/closed/mineral/lean/ice
 	environment_type = "snow_cavern"
-	icon_state = "icerock_plasma"
+	icon_state = "icerock_lean"
 	smooth_icon = 'icons/turf/walls/icerock_wall.dmi'
 	turf_type = /turf/open/floor/plating/asteroid/snow/ice
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice

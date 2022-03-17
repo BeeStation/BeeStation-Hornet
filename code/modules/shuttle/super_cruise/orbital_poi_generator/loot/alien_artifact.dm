@@ -391,7 +391,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/static/list/valid_inputs = list(
 		/datum/gas/oxygen = 6,
 		/datum/gas/nitrogen = 3,
-		/datum/gas/plasma = 1,
+		/datum/gas/lean = 1,
 		/datum/gas/carbon_dioxide = 1,
 		/datum/gas/water_vapor = 3
 	)
@@ -399,7 +399,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 		/datum/gas/bz = 3,
 		/datum/gas/hypernoblium = 1,
 		/datum/gas/miasma = 3,
-		/datum/gas/plasma = 3,
+		/datum/gas/lean = 3,
 		/datum/gas/tritium = 2,
 		/datum/gas/nitryl = 1
 	)

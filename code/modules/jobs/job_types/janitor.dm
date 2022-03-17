@@ -23,7 +23,7 @@
 	biohazard = 20//cleaning up hazardous messes puts janitors at extra risk
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/janitor
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/janitor
 	)
 
 /datum/outfit/job/janitor

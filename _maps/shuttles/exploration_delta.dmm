@@ -49,7 +49,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "hl" = (
-/obj/machinery/shuttle/engine/plasma{
+/obj/machinery/shuttle/engine/lean{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -234,7 +234,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "CU" = (
-/obj/machinery/atmospherics/components/unary/plasma_refiner{
+/obj/machinery/atmospherics/components/unary/lean_refiner{
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -308,7 +308,7 @@
 	},
 /obj/machinery/power/port_gen/pacman,
 /obj/item/wrench,
-/obj/item/stack/sheet/mineral/plasma/fifty,
+/obj/item/stack/sheet/mineral/lean/fifty,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "Nc" = (
@@ -420,7 +420,7 @@
 "Yi" = (
 /obj/structure/closet/crate,
 /obj/item/circuitboard/computer/shuttle/exploration_shuttle,
-/obj/item/stack/sheet/mineral/plasma/five,
+/obj/item/stack/sheet/mineral/lean/five,
 /obj/item/pickaxe,
 /obj/item/mining_scanner,
 /obj/item/radio/headset/headset_exploration,

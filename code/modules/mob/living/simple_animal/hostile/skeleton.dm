@@ -88,34 +88,34 @@
 	color = rgb(114,228,250)
 	loot = list(/obj/effect/decal/remains/human{color = rgb(114,228,250)})
 
-/mob/living/simple_animal/hostile/skeleton/plasmaminer
+/mob/living/simple_animal/hostile/skeleton/leanminer
 	name = "shambling miner"
-	desc = "A plasma-soaked miner, their exposed limbs turned into a grossly incandescent bone seemingly made of plasma."
-	icon_state = "plasma_miner"
-	icon_living = "plasma_miner"
-	icon_dead = "plasma_miner"
+	desc = "A lean-soaked miner, their exposed limbs turned into a grossly incandescent bone seemingly made of lean."
+	icon_state = "lean_miner"
+	icon_living = "lean_miner"
+	icon_dead = "lean_miner"
 	maxHealth = 150
 	health = 150
 	melee_damage = 17
 	light_color = LIGHT_COLOR_PURPLE
 	attacktext = "slashes"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
-	deathmessage = "collapses into a pile of bones, their suit dissolving among the plasma!"
-	loot = list(/obj/effect/decal/remains/plasma)
+	deathmessage = "collapses into a pile of bones, their suit dissolving among the lean!"
+	loot = list(/obj/effect/decal/remains/lean)
 
-/mob/living/simple_animal/hostile/skeleton/plasmaminer/jackhammer
-	desc = "A plasma-soaked miner, their exposed limbs turned into a grossly incandescent bone seemingly made of plasma. They seem to still have their mining tool in their hand, gripping tightly."
-	icon_state = "plasma_miner_tool"
-	icon_living = "plasma_miner_tool"
-	icon_dead = "plasma_miner_tool"
+/mob/living/simple_animal/hostile/skeleton/leanminer/jackhammer
+	desc = "A lean-soaked miner, their exposed limbs turned into a grossly incandescent bone seemingly made of lean. They seem to still have their mining tool in their hand, gripping tightly."
+	icon_state = "lean_miner_tool"
+	icon_living = "lean_miner_tool"
+	icon_dead = "lean_miner_tool"
 	maxHealth = 185
 	health = 185
 	melee_damage = 22
 	attacktext = "blasts"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	environment_smash = ENVIRONMENT_SMASH_WALLS
-	loot = list(/obj/effect/decal/remains/plasma, /obj/item/pickaxe/drill/jackhammer)
+	loot = list(/obj/effect/decal/remains/lean, /obj/item/pickaxe/drill/jackhammer)
 
-/mob/living/simple_animal/hostile/skeleton/plasmaminer/Initialize(mapload)
+/mob/living/simple_animal/hostile/skeleton/leanminer/Initialize(mapload)
 	. = ..()
 	set_light(2)

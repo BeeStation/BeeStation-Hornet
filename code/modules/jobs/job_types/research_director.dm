@@ -37,7 +37,7 @@
 	rpg_title = "Archmagister"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/rd
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/rd
 	)
 	biohazard = 20
 

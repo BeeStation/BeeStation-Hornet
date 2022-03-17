@@ -2,7 +2,7 @@
  * Contains:
  *		Tables
  *		Glass Tables
- *		Plasmaglass Tables
+ *		Leanglass Tables
  *		Wooden Tables
  *		Reinforced Tables
  *		Racks
@@ -324,22 +324,22 @@
 		S.color = NARSIE_WINDOW_COLOUR
 
 /*
- * Plasmaglass tables
+ * Leanglass tables
  */
-/obj/structure/table/glass/plasma
-    name = "plasmaglass table"
-    desc = "A glass table, but it's pink and more sturdy. What will Nanotrasen design next with plasma?"
-    icon = 'icons/obj/smooth_structures/plasmaglass_table.dmi'
-    icon_state = "plasmaglass_table"
-    buildstack = /obj/item/stack/sheet/plasmaglass
+/obj/structure/table/glass/lean
+    name = "leanglass table"
+    desc = "A glass table, but it's pink and more sturdy. What will Nanotrasen design next with lean?"
+    icon = 'icons/obj/smooth_structures/leanglass_table.dmi'
+    icon_state = "leanglass_table"
+    buildstack = /obj/item/stack/sheet/leanglass
     max_integrity = 270
     armor = list("melee" = 10, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 
-/obj/structure/table/glass/plasma/Initialize(mapload)
+/obj/structure/table/glass/lean/Initialize(mapload)
     . = ..()
-    debris += new /obj/item/shard/plasma
+    debris += new /obj/item/shard/lean
 
-/obj/structure/table/glass/plasma/check_break(mob/living/M)
+/obj/structure/table/glass/lean/check_break(mob/living/M)
     return
 
 /*

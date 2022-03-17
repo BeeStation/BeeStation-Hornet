@@ -309,16 +309,16 @@
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "dE" = (
 /obj/structure/table/glass,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 5;
 	pixel_x = -2;
 	pixel_y = 6
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 5;
 	pixel_y = 2
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 5;
 	pixel_x = 2;
 	pixel_y = -2
@@ -2355,7 +2355,7 @@
 "hu" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 5
 	},
 /obj/item/stack/sheet/mineral/uranium{

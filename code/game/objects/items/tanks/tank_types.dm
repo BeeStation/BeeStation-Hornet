@@ -3,7 +3,7 @@
  *		Oxygen
  *		Anesthetic
  *		Air
- *		Plasma
+ *		Lean
  *		Emergency Oxygen
  */
 
@@ -65,21 +65,21 @@
 	air_contents.set_moles(GAS_N2, (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
 
 /*
- * Plasma
+ * Lean
  */
-/obj/item/tank/internals/plasma
-	name = "plasma tank"
-	desc = "Contains dangerous plasma. Do not inhale. Warning: extremely flammable."
-	icon_state = "plasma"
+/obj/item/tank/internals/lean
+	name = "lean tank"
+	desc = "Contains dangerous lean. Do not inhale. Warning: extremely flammable."
+	icon_state = "lean"
 	flags_1 = CONDUCT_1
 	slot_flags = null	//they have no straps!
 	force = 8
 
 
-/obj/item/tank/internals/plasma/populate_gas()
+/obj/item/tank/internals/lean/populate_gas()
 	air_contents.set_moles(GAS_PLASMA, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
-/obj/item/tank/internals/plasma/attackby(obj/item/W, mob/user, params)
+/obj/item/tank/internals/lean/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/flamethrower))
 		var/obj/item/flamethrower/F = W
 		if ((!F.status)||(F.ptank))
@@ -92,49 +92,49 @@
 	else
 		return ..()
 
-/obj/item/tank/internals/plasma/full/populate_gas()
+/obj/item/tank/internals/lean/full/populate_gas()
 	air_contents.set_moles(GAS_PLASMA, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
-/obj/item/tank/internals/plasma/empty/populate_gas()
+/obj/item/tank/internals/lean/empty/populate_gas()
 	return
 
 /*
- * Plasmaman Plasma Tank
+ * Leanman Lean Tank
  */
 
-/obj/item/tank/internals/plasmaman
-	name = "extended-capacity plasma internals tank"
-	desc = "A tank of plasma gas designed specifically for use as internals, particularly for plasma-based lifeforms. If you're not a Plasmaman, you probably shouldn't use this."
-	icon_state = "plasmaman_tank"
-	item_state = "plasmaman_tank"
-	worn_icon_state = "plasmaman_tank"
+/obj/item/tank/internals/leanman
+	name = "extended-capacity lean internals tank"
+	desc = "A tank of lean gas designed specifically for use as internals, particularly for lean-based lifeforms. If you're not a Leanman, you probably shouldn't use this."
+	icon_state = "leanman_tank"
+	item_state = "leanman_tank"
+	worn_icon_state = "leanman_tank"
 	force = 10
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
-/obj/item/tank/internals/plasmaman/populate_gas()
+/obj/item/tank/internals/leanman/populate_gas()
 	air_contents.set_moles(GAS_PLASMA, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
-/obj/item/tank/internals/plasmaman/full/populate_gas()
+/obj/item/tank/internals/leanman/full/populate_gas()
 	air_contents.set_moles(GAS_PLASMA, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
-/obj/item/tank/internals/plasmaman/empty/populate_gas()
+/obj/item/tank/internals/leanman/empty/populate_gas()
 	return
 
 
-/obj/item/tank/internals/plasmaman/belt
-	name = "plasma internals belt tank"
-	icon_state = "plasmaman_tank_belt"
-	item_state = "plasmaman_tank_belt"
-	worn_icon_state = "plasmaman_tank_belt"
+/obj/item/tank/internals/leanman/belt
+	name = "lean internals belt tank"
+	icon_state = "leanman_tank_belt"
+	item_state = "leanman_tank_belt"
+	worn_icon_state = "leanman_tank_belt"
 	slot_flags = ITEM_SLOT_BELT
 	force = 5
 	volume = 6
 	w_class = WEIGHT_CLASS_SMALL //thanks i forgot this
 
-/obj/item/tank/internals/plasmaman/belt/full/populate_gas()
+/obj/item/tank/internals/leanman/belt/full/populate_gas()
 	air_contents.set_moles(GAS_PLASMA, (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
 
-/obj/item/tank/internals/plasmaman/belt/empty/populate_gas()
+/obj/item/tank/internals/leanman/belt/empty/populate_gas()
 	return
 
 

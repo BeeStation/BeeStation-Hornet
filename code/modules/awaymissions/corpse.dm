@@ -378,9 +378,9 @@
 	outfit = /datum/outfit/job/miner/equipped
 
 
-/obj/effect/mob_spawn/human/plasmaman
-	mob_species = /datum/species/plasmaman
-	outfit = /datum/outfit/plasmaman
+/obj/effect/mob_spawn/human/leanman
+	mob_species = /datum/species/leanman
+	outfit = /datum/outfit/leanman
 
 
 /obj/effect/mob_spawn/human/bartender

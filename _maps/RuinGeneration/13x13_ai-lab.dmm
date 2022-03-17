@@ -172,7 +172,7 @@
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "vX" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen,
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)

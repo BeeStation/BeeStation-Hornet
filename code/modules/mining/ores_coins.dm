@@ -130,18 +130,18 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "volcanic_sand"
 	singular_name = "volcanic ash pile"
 
-/obj/item/stack/ore/plasma
-	name = "plasma ore"
-	icon_state = "Plasma ore"
-	item_state = "Plasma ore"
-	singular_name = "plasma ore chunk"
+/obj/item/stack/ore/lean
+	name = "lean ore"
+	icon_state = "Lean ore"
+	item_state = "Lean ore"
+	singular_name = "lean ore chunk"
 	points = 15
-	materials = list(/datum/material/plasma=MINERAL_MATERIAL_AMOUNT)
-	refined_type = /obj/item/stack/sheet/mineral/plasma
-	scan_state = "rock_Plasma"
+	materials = list(/datum/material/lean=MINERAL_MATERIAL_AMOUNT)
+	refined_type = /obj/item/stack/sheet/mineral/lean
+	scan_state = "rock_Lean"
 	spreadChance = 8
 
-/obj/item/stack/ore/plasma/welder_act(mob/living/user, obj/item/I)
+/obj/item/stack/ore/lean/welder_act(mob/living/user, obj/item/I)
 	to_chat(user, "<span class='warning'>You can't hit a high enough temperature to smelt [src] properly!</span>")
 	return TRUE
 
@@ -409,13 +409,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	materials = list(/datum/material/iron = MINERAL_MATERIAL_AMOUNT*0.2)
 	grind_results = list(/datum/reagent/iron = 4)
 
-/obj/item/coin/plasma
-	name = "plasma coin"
-	cmineral = "plasma"
-	icon_state = "coin_plasma_heads"
+/obj/item/coin/lean
+	name = "lean coin"
+	cmineral = "lean"
+	icon_state = "coin_lean_heads"
 	value = 40
-	materials = list(/datum/material/plasma = MINERAL_MATERIAL_AMOUNT*0.2)
-	grind_results = list(/datum/reagent/toxin/plasma = 4)
+	materials = list(/datum/material/lean = MINERAL_MATERIAL_AMOUNT*0.2)
+	grind_results = list(/datum/reagent/toxin/lean = 4)
 
 /obj/item/coin/uranium
 	name = "uranium coin"

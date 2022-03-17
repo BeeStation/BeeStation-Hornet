@@ -141,13 +141,13 @@
 	icon_state = "too_much_co2"
 
 /atom/movable/screen/alert/not_enough_tox
-	name = "Choking (No Plasma)"
-	desc = "You're not getting enough plasma. Find some good air before you pass out!"
+	name = "Choking (No Lean)"
+	desc = "You're not getting enough lean. Find some good air before you pass out!"
 	icon_state = "not_enough_tox"
 
 /atom/movable/screen/alert/too_much_tox
-	name = "Choking (Plasma)"
-	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
+	name = "Choking (Lean)"
+	desc = "There's highly flammable, toxic lean in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
 	icon_state = "too_much_tox"
 //End gas alerts
 
@@ -329,8 +329,8 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 //ALIENS
 
 /atom/movable/screen/alert/alien_tox
-	name = "Plasma"
-	desc = "There's flammable plasma in the air. If it lights up, you'll be toast."
+	name = "Lean"
+	desc = "There's flammable lean in the air. If it lights up, you'll be toast."
 	icon_state = "alien_tox"
 	alerttooltipstyle = "alien"
 

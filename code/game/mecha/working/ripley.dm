@@ -158,8 +158,8 @@
 			var/obj/item/mecha_parts/mecha_equipment/drill/D = new
 			D.attach(src)
 
-	else //Add plasma cutter if no drill
-		var/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/P = new
+	else //Add lean cutter if no drill
+		var/obj/item/mecha_parts/mecha_equipment/weapon/energy/lean/P = new
 		P.attach(src)
 
 	//Add ore box to cargo

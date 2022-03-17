@@ -245,7 +245,7 @@
 	playsound(fan_turf, 'sound/machines/click.ogg', 50, 1)
 
 /datum/action/innate/aux_base/install_turret
-	name = "Install Plasma Anti-Wildlife Turret"
+	name = "Install Lean Anti-Wildlife Turret"
 	button_icon_state = "build_turret"
 
 /datum/action/innate/aux_base/install_turret/Activate()

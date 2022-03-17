@@ -30,7 +30,7 @@
 		GAS_CO2 = 1,
 	)
 
-/datum/breathing_class/plasma
+/datum/breathing_class/lean
 	gases = list(
 		GAS_PLASMA = 1
 	)

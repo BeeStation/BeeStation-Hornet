@@ -258,7 +258,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	hits = 5
 	heavy = 1
 	meteorsound = 'sound/effects/bamf.ogg'
-	meteordrop = list(/obj/item/stack/ore/plasma)
+	meteordrop = list(/obj/item/stack/ore/lean)
 	threat = 20
 
 /obj/effect/meteor/flaming/meteor_effect()
@@ -340,7 +340,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	hitpwr = 1
 	heavy = 1
 	meteorsound = 'sound/effects/bamf.ogg'
-	meteordrop = list(/obj/item/stack/ore/plasma)
+	meteordrop = list(/obj/item/stack/ore/lean)
 	threat = 50
 
 /obj/effect/meteor/tunguska/Move()

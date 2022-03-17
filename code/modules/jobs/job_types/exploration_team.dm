@@ -25,7 +25,7 @@
 	rpg_title = "Sailor"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/exploration
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/exploration
 	)
 	biohazard = 20//who knows what you'll find out there that could have nasties on it...
 

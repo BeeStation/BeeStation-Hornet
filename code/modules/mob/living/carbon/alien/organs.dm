@@ -30,78 +30,78 @@
 	return S
 
 
-/obj/item/organ/alien/plasmavessel
-	name = "plasma vessel"
-	icon_state = "plasma"
+/obj/item/organ/alien/leanvessel
+	name = "lean vessel"
+	icon_state = "lean"
 	w_class = WEIGHT_CLASS_NORMAL
 	zone = BODY_ZONE_CHEST
-	slot = "plasmavessel"
+	slot = "leanvessel"
 	alien_powers = list(/obj/effect/proc_holder/alien/plant, /obj/effect/proc_holder/alien/transfer)
 
-	var/storedPlasma = 100
-	var/max_plasma = 250
+	var/storedLean = 100
+	var/max_lean = 250
 	var/heal_rate = 5
-	var/plasma_rate = 10
+	var/lean_rate = 10
 
-/obj/item/organ/alien/plasmavessel/prepare_eat()
+/obj/item/organ/alien/leanvessel/prepare_eat()
 	var/obj/S = ..()
-	S.reagents.add_reagent(/datum/reagent/toxin/plasma, storedPlasma/10)
+	S.reagents.add_reagent(/datum/reagent/toxin/lean, storedLean/10)
 	return S
 
-/obj/item/organ/alien/plasmavessel/large
-	name = "large plasma vessel"
-	icon_state = "plasma_large"
+/obj/item/organ/alien/leanvessel/large
+	name = "large lean vessel"
+	icon_state = "lean_large"
 	w_class = WEIGHT_CLASS_BULKY
-	storedPlasma = 200
-	max_plasma = 500
-	plasma_rate = 15
+	storedLean = 200
+	max_lean = 500
+	lean_rate = 15
 
-/obj/item/organ/alien/plasmavessel/large/queen
-	plasma_rate = 20
+/obj/item/organ/alien/leanvessel/large/queen
+	lean_rate = 20
 
-/obj/item/organ/alien/plasmavessel/small
-	name = "small plasma vessel"
-	icon_state = "plasma_small"
+/obj/item/organ/alien/leanvessel/small
+	name = "small lean vessel"
+	icon_state = "lean_small"
 	w_class = WEIGHT_CLASS_SMALL
-	storedPlasma = 100
-	max_plasma = 150
-	plasma_rate = 5
+	storedLean = 100
+	max_lean = 150
+	lean_rate = 5
 
-/obj/item/organ/alien/plasmavessel/small/tiny
-	name = "tiny plasma vessel"
-	icon_state = "plasma_tiny"
+/obj/item/organ/alien/leanvessel/small/tiny
+	name = "tiny lean vessel"
+	icon_state = "lean_tiny"
 	w_class = WEIGHT_CLASS_TINY
-	max_plasma = 100
+	max_lean = 100
 	alien_powers = list(/obj/effect/proc_holder/alien/transfer)
 
-/obj/item/organ/alien/plasmavessel/on_life()
-	//If there are alien weeds on the ground then heal if needed or give some plasma
+/obj/item/organ/alien/leanvessel/on_life()
+	//If there are alien weeds on the ground then heal if needed or give some lean
 	if(locate(/obj/structure/alien/weeds) in owner.loc)
 		if(owner.health >= owner.maxHealth)
-			owner.adjustPlasma(plasma_rate)
+			owner.adjustLean(lean_rate)
 		else
 			var/heal_amt = heal_rate
 			if(!isalien(owner))
 				heal_amt *= 0.2
-			owner.adjustPlasma(plasma_rate*0.5)
+			owner.adjustLean(lean_rate*0.5)
 			owner.adjustBruteLoss(-heal_amt)
 			owner.adjustFireLoss(-heal_amt)
 			owner.adjustOxyLoss(-heal_amt)
 			owner.adjustCloneLoss(-heal_amt)
 	else
-		owner.adjustPlasma(plasma_rate * 0.1)
+		owner.adjustLean(lean_rate * 0.1)
 
-/obj/item/organ/alien/plasmavessel/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/alien/leanvessel/Insert(mob/living/carbon/M, special = 0)
 	..()
 	if(isalien(M))
 		var/mob/living/carbon/alien/A = M
-		A.updatePlasmaDisplay()
+		A.updateLeanDisplay()
 
-/obj/item/organ/alien/plasmavessel/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/alien/leanvessel/Remove(mob/living/carbon/M, special = 0)
 	..()
 	if(isalien(M))
 		var/mob/living/carbon/alien/A = M
-		A.updatePlasmaDisplay()
+		A.updateLeanDisplay()
 
 #define QUEEN_DEATH_DEBUFF_DURATION 2400
 

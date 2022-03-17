@@ -162,7 +162,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/obj/item/stack/sheet/mineral/plasma/twenty,
+/obj/item/stack/sheet/mineral/lean/twenty,
 /obj/item/mining_scanner,
 /obj/item/pickaxe,
 /turf/open/floor/mineral/titanium/yellow,
@@ -292,7 +292,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration)
 "wH" = (
-/obj/machinery/atmospherics/components/unary/plasma_refiner{
+/obj/machinery/atmospherics/components/unary/lean_refiner{
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
@@ -484,7 +484,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/exploration)
 "PK" = (
-/obj/machinery/shuttle/engine/plasma{
+/obj/machinery/shuttle/engine/lean{
 	dir = 1
 	},
 /turf/open/floor/plating,

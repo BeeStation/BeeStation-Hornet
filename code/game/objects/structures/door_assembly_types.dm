@@ -207,13 +207,13 @@
 	mineral = "uranium"
 	glass_type = /obj/machinery/door/airlock/uranium/glass
 
-/obj/structure/door_assembly/door_assembly_plasma
-	name = "plasma airlock assembly"
-	icon = 'icons/obj/doors/airlocks/station/plasma.dmi'
-	base_name = "plasma airlock"
-	airlock_type = /obj/machinery/door/airlock/plasma
-	mineral = "plasma"
-	glass_type = /obj/machinery/door/airlock/plasma/glass
+/obj/structure/door_assembly/door_assembly_lean
+	name = "lean airlock assembly"
+	icon = 'icons/obj/doors/airlocks/station/lean.dmi'
+	base_name = "lean airlock"
+	airlock_type = /obj/machinery/door/airlock/lean
+	mineral = "lean"
+	glass_type = /obj/machinery/door/airlock/lean/glass
 
 /obj/structure/door_assembly/door_assembly_bananium
 	name = "bananium airlock assembly"

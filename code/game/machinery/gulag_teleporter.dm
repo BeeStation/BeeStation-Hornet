@@ -25,9 +25,9 @@ The console is located at computer/gulag_teleporter.dm
 	var/obj/machinery/gulag_item_reclaimer/linked_reclaimer
 	var/static/list/telegulag_required_items = typecacheof(list(
 		/obj/item/implant,
-		/obj/item/clothing/suit/space/eva/plasmaman,
-		/obj/item/clothing/under/plasmaman,
-		/obj/item/clothing/head/helmet/space/plasmaman,
+		/obj/item/clothing/suit/space/eva/leanman,
+		/obj/item/clothing/under/leanman,
+		/obj/item/clothing/head/helmet/space/leanman,
 		/obj/item/tank/internals,
 		/obj/item/clothing/mask/breath,
 		/obj/item/clothing/mask/gas/old))	//makes more sense to give prisoners older models of masks
@@ -155,7 +155,7 @@ The console is located at computer/gulag_teleporter.dm
 		return
 	strip_occupant()
 	var/mob/living/carbon/human/prisoner = occupant
-	if(!isplasmaman(prisoner) && jumpsuit_type)
+	if(!isleanman(prisoner) && jumpsuit_type)
 		prisoner.equip_to_appropriate_slot(new jumpsuit_type)
 	if(shoes_type)
 		prisoner.equip_to_appropriate_slot(new shoes_type)

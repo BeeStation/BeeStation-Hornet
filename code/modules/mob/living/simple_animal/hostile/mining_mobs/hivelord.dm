@@ -266,11 +266,11 @@
 	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,"Clown" = 10, pick(list("Shadow", "YeOlde","Operative", "Cultist")) = 4))
 	switch(type)
 		if("Miner")
-			mob_species = pickweight(list(/datum/species/human = 70, /datum/species/lizard = 26, /datum/species/fly = 2, /datum/species/plasmaman = 2))
-			if(mob_species == /datum/species/plasmaman)
-				uniform = /obj/item/clothing/under/plasmaman
-				head = /obj/item/clothing/head/helmet/space/plasmaman
-				belt = /obj/item/tank/internals/plasmaman/belt
+			mob_species = pickweight(list(/datum/species/human = 70, /datum/species/lizard = 26, /datum/species/fly = 2, /datum/species/leanman = 2))
+			if(mob_species == /datum/species/leanman)
+				uniform = /obj/item/clothing/under/leanman
+				head = /obj/item/clothing/head/helmet/space/leanman
+				belt = /obj/item/tank/internals/leanman/belt
 			else
 				uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
 				if (prob(4))
@@ -320,7 +320,7 @@
 			if(prob(10))
 				r_pocket = /obj/item/implanter/sad_trombone
 		if("Golem")
-			mob_species = pick(list(/datum/species/golem/adamantine, /datum/species/golem/plasma, /datum/species/golem/diamond, /datum/species/golem/gold, /datum/species/golem/silver, /datum/species/golem/plasteel, /datum/species/golem/titanium, /datum/species/golem/plastitanium))
+			mob_species = pick(list(/datum/species/golem/adamantine, /datum/species/golem/lean, /datum/species/golem/diamond, /datum/species/golem/gold, /datum/species/golem/silver, /datum/species/golem/plasteel, /datum/species/golem/titanium, /datum/species/golem/plastitanium))
 			if(prob(30))
 				glasses = pickweight(list(/obj/item/clothing/glasses/meson = 2, /obj/item/clothing/glasses/hud/health = 2, /obj/item/clothing/glasses/hud/diagnostic =2, /obj/item/clothing/glasses/science = 2, /obj/item/clothing/glasses/welding = 2, /obj/item/clothing/glasses/night = 1))
 			if(prob(10))
@@ -346,7 +346,7 @@
 		if("Shadow")
 			mob_species = /datum/species/shadow
 			r_pocket = /obj/item/reagent_containers/pill/shadowtoxin
-			neck = /obj/item/clothing/accessory/medal/plasma/nobel_science
+			neck = /obj/item/clothing/accessory/medal/lean/nobel_science
 			uniform = /obj/item/clothing/under/color/black
 			shoes = /obj/item/clothing/shoes/sneakers/black
 			suit = /obj/item/clothing/suit/toggle/labcoat

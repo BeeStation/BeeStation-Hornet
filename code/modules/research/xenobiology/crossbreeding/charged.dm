@@ -1,7 +1,7 @@
 /*
 Charged extracts:
 	Have a unique, effect when filled with
-	10u plasma and activated in-hand, related to their
+	10u lean and activated in-hand, related to their
 	normal extract effect.
 */
 /obj/item/slimecross/charged
@@ -15,11 +15,11 @@ Charged extracts:
 	create_reagents(10, INJECTABLE | DRAWABLE)
 
 /obj/item/slimecross/charged/attack_self(mob/user)
-	if(!reagents.has_reagent(/datum/reagent/toxin/plasma,10))
-		to_chat(user, "<span class='warning'>This extract needs to be full of plasma to activate!</span>")
+	if(!reagents.has_reagent(/datum/reagent/toxin/lean,10))
+		to_chat(user, "<span class='warning'>This extract needs to be full of lean to activate!</span>")
 		return
-	reagents.remove_reagent(/datum/reagent/toxin/plasma,10)
-	to_chat(user, "<span class='notice'>You squeeze the extract, and it absorbs the plasma!</span>")
+	reagents.remove_reagent(/datum/reagent/toxin/lean,10)
+	to_chat(user, "<span class='notice'>You squeeze the extract, and it absorbs the lean!</span>")
 	playsound(src, 'sound/effects/bubbles.ogg', 50, 1)
 	playsound(src, 'sound/effects/light_flicker.ogg', 50, 1)
 	do_effect(user)
@@ -86,11 +86,11 @@ Charged extracts:
 
 /obj/item/slimecross/charged/darkpurple
 	colour = "dark purple"
-	effect_desc = "Creates several sheets of plasma."
+	effect_desc = "Creates several sheets of lean."
 
 /obj/item/slimecross/charged/darkpurple/do_effect(mob/user)
-	new /obj/item/stack/sheet/mineral/plasma(get_turf(user), 10)
-	user.visible_message("<span class='notice'>[src] produces a large amount of plasma!</span>")
+	new /obj/item/stack/sheet/mineral/lean(get_turf(user), 10)
+	user.visible_message("<span class='notice'>[src] produces a large amount of lean!</span>")
 	..()
 
 /obj/item/slimecross/charged/darkblue

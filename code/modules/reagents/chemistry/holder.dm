@@ -17,7 +17,7 @@
 	//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
 	// It is filtered into multiple lists within a list.
 	// For example:
-	// chemical_reaction_list[/datum/reagent/toxin/plasma] is a list of all reactions relating to plasma
+	// chemical_reaction_list[/datum/reagent/toxin/lean] is a list of all reactions relating to lean
 
 	if(GLOB.chemical_reactions_list)
 		return
@@ -165,7 +165,7 @@
 
 /datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE, mob/transfered_by, remove_blacklisted = FALSE, method = null, show_message = TRUE, round_robin = FALSE)
 	//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
-	//if round_robin=TRUE, so transfer 5 from 15 water, 15 sugar and 15 plasma becomes 10, 15, 15 instead of 13.3333, 13.3333 13.3333. Good if you hate floating point errors
+	//if round_robin=TRUE, so transfer 5 from 15 water, 15 sugar and 15 lean becomes 10, 15, 15 instead of 13.3333, 13.3333 13.3333. Good if you hate floating point errors
 	var/list/cached_reagents = reagent_list
 	if(!target || !total_volume)
 		return

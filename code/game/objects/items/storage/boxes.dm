@@ -126,10 +126,10 @@
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
-	if(!isplasmaman(loc))
+	if(!isleanman(loc))
 		new /obj/item/tank/internals/emergency_oxygen(src)
 	else
-		new /obj/item/tank/internals/plasmaman/belt(src)
+		new /obj/item/tank/internals/leanman/belt(src)
 
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
 		new /obj/item/flashlight/flare(src)
@@ -145,20 +145,20 @@
 	new /obj/item/crowbar/red(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
-	if(!isplasmaman(loc))
+	if(!isleanman(loc))
 		new /obj/item/tank/internals/emergency_oxygen(src)
 	else
-		new /obj/item/tank/internals/plasmaman/belt(src)
+		new /obj/item/tank/internals/leanman/belt(src)
 
 // Engineer survival box
 /obj/item/storage/box/engineer/PopulateContents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
-	if(!isplasmaman(loc))
+	if(!isleanman(loc))
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	else
-		new /obj/item/tank/internals/plasmaman/belt(src)
+		new /obj/item/tank/internals/leanman/belt(src)
 
 /obj/item/storage/box/engineer/radio/PopulateContents()
 	..() // we want the regular items too.
@@ -168,20 +168,20 @@
 /obj/item/storage/box/syndie/PopulateContents()
 	new /obj/item/clothing/mask/gas/syndicate(src)
 
-	if(!isplasmaman(loc))
+	if(!isleanman(loc))
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	else
-		new /obj/item/tank/internals/plasmaman/belt(src)
+		new /obj/item/tank/internals/leanman/belt(src)
 
 // Security survival box
 /obj/item/storage/box/security/PopulateContents()
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
-	if(!isplasmaman(loc))
+	if(!isleanman(loc))
 		new /obj/item/tank/internals/emergency_oxygen(src)
 	else
-		new /obj/item/tank/internals/plasmaman/belt(src)
+		new /obj/item/tank/internals/leanman/belt(src)
 
 /obj/item/storage/box/security/radio/PopulateContents()
 	..() // we want the regular stuff too
@@ -715,7 +715,7 @@
 
 /obj/item/storage/box/matches
 	name = "matchbox"
-	desc = "A small box of Almost But Not Quite Plasma Premium Matches."
+	desc = "A small box of Almost But Not Quite Lean Premium Matches."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
 	item_state = "zippo"
@@ -843,10 +843,10 @@
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
-	if(!isplasmaman(loc))
+	if(!isleanman(loc))
 		new /obj/item/tank/internals/emergency_oxygen/clown(src)
 	else
-		new /obj/item/tank/internals/plasmaman/belt(src)
+		new /obj/item/tank/internals/leanman/belt(src)
 
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
 		new /obj/item/flashlight/flare(src)
@@ -1218,8 +1218,8 @@
 		/obj/item/stack/sheet/glass/fifty=1,\
 		/obj/item/stack/sheet/rglass=50,\
 		/obj/item/stack/sheet/mineral/copper/fifty=1,\
-		/obj/item/stack/sheet/plasmaglass=50,\
-		/obj/item/stack/sheet/plasmarglass=50,\
+		/obj/item/stack/sheet/leanglass=50,\
+		/obj/item/stack/sheet/leanrglass=50,\
 		/obj/item/stack/sheet/titaniumglass=50,\
 		/obj/item/stack/sheet/plastitaniumglass=50,\
 		/obj/item/stack/sheet/plasteel=50,\
@@ -1228,7 +1228,7 @@
 		/obj/item/stack/sheet/mineral/gold=50,\
 		/obj/item/stack/sheet/mineral/silver=50,\
 		/obj/item/stack/sheet/mineral/uranium=50,\
-		/obj/item/stack/sheet/mineral/plasma=50,\
+		/obj/item/stack/sheet/mineral/lean=50,\
 		/obj/item/stack/sheet/mineral/diamond=50,\
 		/obj/item/stack/sheet/bluespace_crystal=50,\
 		/obj/item/stack/sheet/mineral/bananium=50,\

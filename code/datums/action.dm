@@ -273,11 +273,11 @@
 	if(istype(H))
 		H.toggle_welding_screen(owner)
 
-/datum/action/item_action/toggle_welding_screen/plasmaman
+/datum/action/item_action/toggle_welding_screen/leanman
 	name = "Toggle Welding Screen"
 
-/datum/action/item_action/toggle_welding_screen/plasmaman/Trigger()
-	var/obj/item/clothing/head/helmet/space/plasmaman/H = target
+/datum/action/item_action/toggle_welding_screen/leanman/Trigger()
+	var/obj/item/clothing/head/helmet/space/leanman/H = target
 	if(istype(H))
 		H.toggle_welding_screen(owner)
 

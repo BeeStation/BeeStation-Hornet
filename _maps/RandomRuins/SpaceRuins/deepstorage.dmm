@@ -1199,7 +1199,7 @@
 /obj/machinery/shower{
 	dir = 4
 	},
-/obj/structure/window/plasma/reinforced,
+/obj/structure/window/lean/reinforced,
 /turf/open/floor/plasteel/freezer,
 /area/ruin/space/has_grav/deepstorage)
 "cN" = (

@@ -196,7 +196,7 @@
 		"Alert",
 		"Fire",
 		"Shock",
-		"Plasma Flood",
+		"Lean Flood",
 		"Random"
 	)
 	extra_settings[NES_HALLUCINATION_TYPE] = new /datum/nanite_extra_setting/type("Message", options)
@@ -247,7 +247,7 @@
 				new /datum/hallucination/fire(C, TRUE)
 			if("Shock")
 				new /datum/hallucination/shock(C, TRUE)
-			if("Plasma Flood")
+			if("Lean Flood")
 				new /datum/hallucination/fake_flood(C, TRUE)
 
 /datum/nanite_program/comm/hallucination/set_extra_setting(setting, value)

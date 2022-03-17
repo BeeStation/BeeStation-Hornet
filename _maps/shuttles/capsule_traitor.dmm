@@ -152,7 +152,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/pod_shuttle)
 "A" = (
-/obj/machinery/shuttle/engine/plasma{
+/obj/machinery/shuttle/engine/lean{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -164,7 +164,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/item/stack/sheet/mineral/plasma/five,
+/obj/item/stack/sheet/mineral/lean/five,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
 "C" = (
@@ -222,7 +222,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/plasma_refiner{
+/obj/machinery/atmospherics/components/unary/lean_refiner{
 	dir = 4
 	},
 /turf/open/floor/plating,

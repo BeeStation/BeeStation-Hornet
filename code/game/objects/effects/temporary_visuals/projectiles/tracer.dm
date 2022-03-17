@@ -43,9 +43,9 @@
 	name = "pulse laser"
 	icon_state = "u_laser"
 
-/obj/effect/projectile/tracer/plasma_cutter
-	name = "plasma blast"
-	icon_state = "plasmacutter"
+/obj/effect/projectile/tracer/lean_cutter
+	name = "lean blast"
+	icon_state = "leancutter"
 
 /obj/effect/projectile/tracer/stun
 	name = "stun beam"

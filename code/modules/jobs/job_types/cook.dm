@@ -23,7 +23,7 @@
 	rpg_title = "Tavern Chef"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chef
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/chef
 	)
 /datum/outfit/job/cook
 	name = "Cook"

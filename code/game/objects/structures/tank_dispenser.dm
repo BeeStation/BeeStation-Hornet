@@ -2,27 +2,27 @@
 
 /obj/structure/tank_dispenser
 	name = "tank dispenser"
-	desc = "A simple yet bulky storage device for gas tanks. Holds up to 10 oxygen tanks and 10 plasma tanks."
+	desc = "A simple yet bulky storage device for gas tanks. Holds up to 10 oxygen tanks and 10 lean tanks."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "dispenser"
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 300
 	var/oxygentanks = TANK_DISPENSER_CAPACITY
-	var/plasmatanks = TANK_DISPENSER_CAPACITY
+	var/leantanks = TANK_DISPENSER_CAPACITY
 
 /obj/structure/tank_dispenser/oxygen
-	plasmatanks = 0
+	leantanks = 0
 
-/obj/structure/tank_dispenser/plasma
+/obj/structure/tank_dispenser/lean
 	oxygentanks = 0
 
 /obj/structure/tank_dispenser/Initialize(mapload)
 	. = ..()
 	for(var/i in 1 to oxygentanks)
 		new /obj/item/tank/internals/oxygen(src)
-	for(var/i in 1 to plasmatanks)
-		new /obj/item/tank/internals/plasma(src)
+	for(var/i in 1 to leantanks)
+		new /obj/item/tank/internals/lean(src)
 	update_icon()
 
 /obj/structure/tank_dispenser/update_icon()
@@ -32,17 +32,17 @@
 			add_overlay("oxygen-[oxygentanks]")
 		if(4 to TANK_DISPENSER_CAPACITY)
 			add_overlay("oxygen-4")
-	switch(plasmatanks)
+	switch(leantanks)
 		if(1 to 4)
-			add_overlay("plasma-[plasmatanks]")
+			add_overlay("lean-[leantanks]")
 		if(5 to TANK_DISPENSER_CAPACITY)
-			add_overlay("plasma-5")
+			add_overlay("lean-5")
 
 /obj/structure/tank_dispenser/attackby(obj/item/I, mob/user, params)
 	var/full
-	if(istype(I, /obj/item/tank/internals/plasma))
-		if(plasmatanks < TANK_DISPENSER_CAPACITY)
-			plasmatanks++
+	if(istype(I, /obj/item/tank/internals/lean))
+		if(leantanks < TANK_DISPENSER_CAPACITY)
+			leantanks++
 		else
 			full = TRUE
 	else if(istype(I, /obj/item/tank/internals/oxygen))
@@ -63,8 +63,8 @@
 		return
 
 	if(!user.transferItemToLoc(I, src))
-		if(istype(I, /obj/item/tank/internals/plasma))
-			plasmatanks--
+		if(istype(I, /obj/item/tank/internals/lean))
+			leantanks--
 		else if(istype(I, /obj/item/tank/internals/oxygen))
 			oxygentanks--
 		return
@@ -85,7 +85,7 @@
 /obj/structure/tank_dispenser/ui_data(mob/user)
 	var/list/data = list()
 	data["oxygen"] = oxygentanks
-	data["plasma"] = plasmatanks
+	data["lean"] = leantanks
 
 	return data
 
@@ -93,11 +93,11 @@
 	if(..())
 		return
 	switch(action)
-		if("plasma")
-			var/obj/item/tank/internals/plasma/tank = locate() in src
+		if("lean")
+			var/obj/item/tank/internals/lean/tank = locate() in src
 			if(tank && Adjacent(usr) && isliving(usr))
 				usr.put_in_hands(tank)
-				plasmatanks--
+				leantanks--
 			. = TRUE
 		if("oxygen")
 			var/obj/item/tank/internals/oxygen/tank = locate() in src

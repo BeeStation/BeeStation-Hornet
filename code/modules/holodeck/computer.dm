@@ -219,7 +219,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 		holo_effect.deactivate(src)
 
 	//makes sure that any time a holoturf is inside a baseturf list (e.g. if someone put a wall over it) its set to the OFFLINE turf
-	//so that you cant bring turfs from previous programs into other ones (like putting the plasma burn turf into lounge for example)
+	//so that you cant bring turfs from previous programs into other ones (like putting the lean burn turf into lounge for example)
 	for(var/turf/closed/holo_turf in linked)
 		for(var/baseturf in holo_turf.baseturfs)
 			if(ispath(baseturf, /turf/open/floor/holofloor))

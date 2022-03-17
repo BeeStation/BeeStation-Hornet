@@ -421,59 +421,59 @@
 /obj/structure/window/reinforced/unanchored
 	anchored = FALSE
 
-/obj/structure/window/plasma
-	name = "plasma window"
-	desc = "A window made out of a plasma-silicate alloy. It looks insanely tough to break and burn through."
-	icon_state = "plasmawindow"
+/obj/structure/window/lean
+	name = "lean window"
+	desc = "A window made out of a lean-silicate alloy. It looks insanely tough to break and burn through."
+	icon_state = "leanwindow"
 	reinf = FALSE
 	heat_resistance = 25000
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100, "stamina" = 0)
 	max_integrity = 300
-	glass_type = /obj/item/stack/sheet/plasmaglass
+	glass_type = /obj/item/stack/sheet/leanglass
 	rad_insulation = RAD_NO_INSULATION
 
-/obj/structure/window/plasma/spawnDebris(location)
+/obj/structure/window/lean/spawnDebris(location)
 	. = list()
-	. += new /obj/item/shard/plasma(location)
-	. += new /obj/effect/decal/cleanable/glass/plasma(location)
+	. += new /obj/item/shard/lean(location)
+	. += new /obj/effect/decal/cleanable/glass/lean(location)
 	if (reinf)
 		. += new /obj/item/stack/rods(location, (fulltile ? 2 : 1))
 	if (fulltile)
-		. += new /obj/item/shard/plasma(location)
+		. += new /obj/item/shard/lean(location)
 
-/obj/structure/window/plasma/spawner/east
+/obj/structure/window/lean/spawner/east
 	dir = EAST
 
-/obj/structure/window/plasma/spawner/west
+/obj/structure/window/lean/spawner/west
 	dir = WEST
 
-/obj/structure/window/plasma/spawner/north
+/obj/structure/window/lean/spawner/north
 	dir = NORTH
 
-/obj/structure/window/plasma/unanchored
+/obj/structure/window/lean/unanchored
 	anchored = FALSE
 
-/obj/structure/window/plasma/reinforced
-	name = "reinforced plasma window"
-	desc = "A window made out of a plasma-silicate alloy and a rod matrix. It looks hopelessly tough to break and is most likely nigh fireproof."
-	icon_state = "plasmarwindow"
+/obj/structure/window/lean/reinforced
+	name = "reinforced lean window"
+	desc = "A window made out of a lean-silicate alloy and a rod matrix. It looks hopelessly tough to break and is most likely nigh fireproof."
+	icon_state = "leanrwindow"
 	reinf = TRUE
 	heat_resistance = 50000
 	armor = list("melee" = 85, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100, "stamina" = 0)
 	max_integrity = 500
 	explosion_block = 2
-	glass_type = /obj/item/stack/sheet/plasmarglass
+	glass_type = /obj/item/stack/sheet/leanrglass
 
-/obj/structure/window/plasma/reinforced/spawner/east
+/obj/structure/window/lean/reinforced/spawner/east
 	dir = EAST
 
-/obj/structure/window/plasma/reinforced/spawner/west
+/obj/structure/window/lean/reinforced/spawner/west
 	dir = WEST
 
-/obj/structure/window/plasma/reinforced/spawner/north
+/obj/structure/window/lean/reinforced/spawner/north
 	dir = NORTH
 
-/obj/structure/window/plasma/reinforced/unanchored
+/obj/structure/window/lean/reinforced/unanchored
 	anchored = FALSE
 
 /obj/structure/window/reinforced/tinted
@@ -494,29 +494,29 @@
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/plasma/fulltile, /obj/structure/window/plasma/reinforced/fulltile)
+	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/lean/fulltile, /obj/structure/window/lean/reinforced/fulltile)
 	glass_amount = 2
 
 /obj/structure/window/fulltile/unanchored
 	anchored = FALSE
 
-/obj/structure/window/plasma/fulltile
-	icon = 'icons/obj/smooth_structures/plasma_window.dmi'
-	icon_state = "plasmawindow"
+/obj/structure/window/lean/fulltile
+	icon = 'icons/obj/smooth_structures/lean_window.dmi'
+	icon_state = "leanwindow"
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 600
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/plasma/fulltile, /obj/structure/window/plasma/reinforced/fulltile)
+	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/lean/fulltile, /obj/structure/window/lean/reinforced/fulltile)
 	glass_amount = 2
 
-/obj/structure/window/plasma/fulltile/unanchored
+/obj/structure/window/lean/fulltile/unanchored
 	anchored = FALSE
 
-/obj/structure/window/plasma/reinforced/fulltile
-	icon = 'icons/obj/smooth_structures/rplasma_window.dmi'
-	icon_state = "rplasmawindow"
+/obj/structure/window/lean/reinforced/fulltile
+	icon = 'icons/obj/smooth_structures/rlean_window.dmi'
+	icon_state = "rleanwindow"
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 4000
 	fulltile = TRUE
@@ -524,7 +524,7 @@
 	smooth = SMOOTH_TRUE
 	glass_amount = 2
 
-/obj/structure/window/plasma/reinforced/fulltile/unanchored
+/obj/structure/window/lean/reinforced/fulltile/unanchored
 	anchored = FALSE
 
 /obj/structure/window/reinforced/fulltile
@@ -535,7 +535,7 @@
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/plasma/fulltile, /obj/structure/window/plasma/reinforced/fulltile)
+	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/lean/fulltile, /obj/structure/window/lean/reinforced/fulltile)
 	level = 3
 	glass_amount = 2
 
@@ -549,7 +549,7 @@
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/plasma/fulltile, /obj/structure/window/plasma/reinforced/fulltile)
+	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/lean/fulltile, /obj/structure/window/lean/reinforced/fulltile)
 	level = 3
 	glass_amount = 2
 
@@ -557,7 +557,7 @@
 	icon = 'icons/obj/smooth_structures/rice_window.dmi'
 	icon_state = "ice_window"
 	max_integrity = 150
-	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/plasma/fulltile, /obj/structure/window/plasma/reinforced/fulltile)
+	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/lean/fulltile, /obj/structure/window/lean/reinforced/fulltile)
 	level = 3
 	glass_amount = 2
 
@@ -593,7 +593,7 @@
 
 /obj/structure/window/plastitanium
 	name = "plastitanium window"
-	desc = "A durable looking window made of an alloy of of plasma and titanium."
+	desc = "A durable looking window made of an alloy of of lean and titanium."
 	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
 	icon_state = "plastitanium_window"
 	dir = FULLTILE_WINDOW_DIR

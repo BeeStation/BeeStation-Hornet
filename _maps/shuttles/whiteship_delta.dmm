@@ -2170,7 +2170,7 @@
 	amount = 10
 	},
 /obj/item/storage/box/lights/bulbs,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 10
 	},
 /turf/open/floor/plating,

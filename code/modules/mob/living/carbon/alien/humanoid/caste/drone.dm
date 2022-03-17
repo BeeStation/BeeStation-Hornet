@@ -10,7 +10,7 @@
 	. = ..()
 
 /mob/living/carbon/alien/humanoid/drone/create_internal_organs()
-	internal_organs += new /obj/item/organ/alien/plasmavessel/large
+	internal_organs += new /obj/item/organ/alien/leanvessel/large
 	internal_organs += new /obj/item/organ/alien/resinspinner
 	internal_organs += new /obj/item/organ/alien/acid
 	..()
@@ -18,7 +18,7 @@
 /obj/effect/proc_holder/alien/evolve
 	name = "Evolve to Praetorian"
 	desc = "Praetorian"
-	plasma_cost = 500
+	lean_cost = 500
 
 	action_icon_state = "alien_evolve_drone"
 

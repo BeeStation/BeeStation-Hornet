@@ -1,349 +1,349 @@
-/datum/outfit/plasmaman/bar
-	name = "Bartender Plasmaman"
+/datum/outfit/leanman/bar
+	name = "Bartender Leanman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/white
-	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
+	head = /obj/item/clothing/head/helmet/space/leanman/white
+	uniform = /obj/item/clothing/under/leanman/enviroslacks
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/white/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/white/protective)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/white/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/white/protective)
 
-/datum/outfit/plasmaman/magic
-	name = "Magician Plasmaman"
+/datum/outfit/leanman/magic
+	name = "Magician Leanman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/hat
-	uniform = /obj/item/clothing/under/plasmaman/tux
-
-	helmet_variants = list(HELMET_MK2 = null,
-							HELMET_PROTECTIVE = null)
-
-/datum/outfit/plasmaman/vip
-	name = "VIP Plasmaman"
-	head = /obj/item/clothing/head/helmet/space/plasmaman/gold
-	uniform = /obj/item/clothing/under/plasmaman/gold
+	head = /obj/item/clothing/head/helmet/space/leanman/hat
+	uniform = /obj/item/clothing/under/leanman/tux
 
 	helmet_variants = list(HELMET_MK2 = null,
 							HELMET_PROTECTIVE = null)
 
-/datum/outfit/plasmaman/chef
-	name = "Chef Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/white
-	uniform = /obj/item/clothing/under/plasmaman/chef
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/white/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/white/protective)
-
-/datum/outfit/plasmaman/botany
-	name = "Botany Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/botany
-	uniform = /obj/item/clothing/under/plasmaman/botany
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/botany/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/botany/protective)
-
-/datum/outfit/plasmaman/curator
-	name = "Curator Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/curator
-	uniform = /obj/item/clothing/under/plasmaman/curator
+/datum/outfit/leanman/vip
+	name = "VIP Leanman"
+	head = /obj/item/clothing/head/helmet/space/leanman/gold
+	uniform = /obj/item/clothing/under/leanman/gold
 
 	helmet_variants = list(HELMET_MK2 = null,
 							HELMET_PROTECTIVE = null)
 
-/datum/outfit/plasmaman/chaplain
-	name = "Chaplain Plasmaman"
+/datum/outfit/leanman/chef
+	name = "Chef Leanman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/chaplain
-	uniform = /obj/item/clothing/under/plasmaman/chaplain
+	head = /obj/item/clothing/head/helmet/space/leanman/white
+	uniform = /obj/item/clothing/under/leanman/chef
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/chaplain/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/chaplain/protective)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/white/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/white/protective)
 
-/datum/outfit/plasmaman/janitor
-	name = "Janitor Plasmaman"
+/datum/outfit/leanman/botany
+	name = "Botany Leanman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/janitor
-	uniform = /obj/item/clothing/under/plasmaman/janitor
+	head = /obj/item/clothing/head/helmet/space/leanman/botany
+	uniform = /obj/item/clothing/under/leanman/botany
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/janitor/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/janitor/protective)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/botany/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/botany/protective)
 
-/datum/outfit/plasmaman/lawyer
-	name = "Lawyer Plasmaman"
+/datum/outfit/leanman/curator
+	name = "Curator Leanman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/white
-	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
+	head = /obj/item/clothing/head/helmet/space/leanman/curator
+	uniform = /obj/item/clothing/under/leanman/curator
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/white/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/white/protective)
+	helmet_variants = list(HELMET_MK2 = null,
+							HELMET_PROTECTIVE = null)
 
-/datum/outfit/plasmaman/security
-	name = "Security Plasmaman"
+/datum/outfit/leanman/chaplain
+	name = "Chaplain Leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/chaplain
+	uniform = /obj/item/clothing/under/leanman/chaplain
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/chaplain/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/chaplain/protective)
+
+/datum/outfit/leanman/janitor
+	name = "Janitor Leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/janitor
+	uniform = /obj/item/clothing/under/leanman/janitor
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/janitor/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/janitor/protective)
+
+/datum/outfit/leanman/lawyer
+	name = "Lawyer Leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/white
+	uniform = /obj/item/clothing/under/leanman/enviroslacks
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/white/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/white/protective)
+
+/datum/outfit/leanman/security
+	name = "Security Leanman"
 
 	mask = /obj/item/clothing/mask/gas/sechailer
-	head = /obj/item/clothing/head/helmet/space/plasmaman/security
-	uniform = /obj/item/clothing/under/plasmaman/security
+	head = /obj/item/clothing/head/helmet/space/leanman/security
+	uniform = /obj/item/clothing/under/leanman/security
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/security/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/security/protective)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/security/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/security/protective)
 
-/datum/outfit/plasmaman/detective
-	name = "Detective Plasmaman"
+/datum/outfit/leanman/detective
+	name = "Detective Leanman"
 
 	mask = /obj/item/clothing/mask/gas/sechailer
-	head = /obj/item/clothing/head/helmet/space/plasmaman/white
-	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
+	head = /obj/item/clothing/head/helmet/space/leanman/white
+	uniform = /obj/item/clothing/under/leanman/enviroslacks
 	ears = /obj/item/radio/headset/headset_sec
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/white/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/white/protective)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/white/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/white/protective)
 
-/datum/outfit/plasmaman/warden
-	name = "Warden Plasmaman"
-
-	mask = /obj/item/clothing/mask/gas/sechailer
-	head = /obj/item/clothing/head/helmet/space/plasmaman/security/warden
-	uniform = /obj/item/clothing/under/plasmaman/security/warden
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/security/warden/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/security/warden/protective)
-
-/datum/outfit/plasmaman/secmed
-	name = "Brig Physician Plasmaman"
+/datum/outfit/leanman/warden
+	name = "Warden Leanman"
 
 	mask = /obj/item/clothing/mask/gas/sechailer
-	head = /obj/item/clothing/head/helmet/space/plasmaman/security/secmed
-	uniform = /obj/item/clothing/under/plasmaman/security/secmed
+	head = /obj/item/clothing/head/helmet/space/leanman/security/warden
+	uniform = /obj/item/clothing/under/leanman/security/warden
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/security/secmed/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/security/secmed/protective)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/security/warden/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/security/warden/protective)
 
-/datum/outfit/plasmaman/cargo
-	name = "Cargo Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/cargo
-	uniform = /obj/item/clothing/under/plasmaman/cargo
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/cargo/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/cargo/protective)
-
-/datum/outfit/plasmaman/mining
-	name = "Mining Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/mining
-	uniform = /obj/item/clothing/under/plasmaman/mining
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mining/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/mining/protective)
-
-/datum/outfit/plasmaman/medical
-	name = "Medical Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/medical
-	uniform = /obj/item/clothing/under/plasmaman/medical
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/medical/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/medical/protective)
-
-/datum/outfit/plasmaman/viro
-	name = "Virology Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/viro
-	uniform = /obj/item/clothing/under/plasmaman/viro
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/viro/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/viro/protective)
-
-/datum/outfit/plasmaman/chemist
-	name = "Chemist Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/chemist
-	uniform = /obj/item/clothing/under/plasmaman/chemist
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/chemist/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/chemist/protective)
-
-/datum/outfit/plasmaman/genetics
-	name = "Genetics Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/genetics
-	uniform = /obj/item/clothing/under/plasmaman/genetics
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/genetics/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/genetics/protective)
-
-/datum/outfit/plasmaman/science
-	name = "Science Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/science
-	uniform = /obj/item/clothing/under/plasmaman/science
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/science/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/science/protective)
-
-/datum/outfit/plasmaman/emt
-	name = "Paramedic Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/emt
-	uniform = /obj/item/clothing/under/plasmaman/emt
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/emt/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/emt/protective)
-
-/datum/outfit/plasmaman/robotics
-	name = "Robotics Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/robotics
-	uniform = /obj/item/clothing/under/plasmaman/robotics
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/robotics/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/robotics/protective)
-
-/datum/outfit/plasmaman/engineering
-	name = "Engineering Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/engineering
-	uniform = /obj/item/clothing/under/plasmaman/engineering
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/engineering/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/engineering/protective)
-
-/datum/outfit/plasmaman/atmospherics
-	name = "Atmospherics Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics
-	uniform = /obj/item/clothing/under/plasmaman/engineering/atmospherics
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics/protective)
-
-/datum/outfit/plasmaman/exploration
-	name = "Exploration crew plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/exploration
-	uniform = /obj/item/clothing/under/plasmaman/exploration
-
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/exploration/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/exploration/protective)
-
-/datum/outfit/plasmaman/command
-	name = "Command Plasmaman"
+/datum/outfit/leanman/secmed
+	name = "Brig Physician Leanman"
 
 	mask = /obj/item/clothing/mask/gas/sechailer
-	head = /obj/item/clothing/head/helmet/space/plasmaman/command
-	uniform = /obj/item/clothing/under/plasmaman/command
+	head = /obj/item/clothing/head/helmet/space/leanman/security/secmed
+	uniform = /obj/item/clothing/under/leanman/security/secmed
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/command/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/command/protective)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/security/secmed/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/security/secmed/protective)
 
-/datum/outfit/plasmaman/ce
-	name = "CE plasmaman"
+/datum/outfit/leanman/cargo
+	name = "Cargo Leanman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce
-	uniform = /obj/item/clothing/under/plasmaman/engineering/ce
+	head = /obj/item/clothing/head/helmet/space/leanman/cargo
+	uniform = /obj/item/clothing/under/leanman/cargo
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce/protective)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/cargo/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/cargo/protective)
 
-/datum/outfit/plasmaman/cmo
-	name = "CMO plasmaman"
+/datum/outfit/leanman/mining
+	name = "Mining Leanman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/cmo
-	uniform = /obj/item/clothing/under/plasmaman/cmo
+	head = /obj/item/clothing/head/helmet/space/leanman/mining
+	uniform = /obj/item/clothing/under/leanman/mining
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/cmo/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/cmo/protective)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/mining/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/mining/protective)
 
-/datum/outfit/plasmaman/hos
-	name = "HoS plasmaman"
+/datum/outfit/leanman/medical
+	name = "Medical Leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/medical
+	uniform = /obj/item/clothing/under/leanman/medical
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/medical/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/medical/protective)
+
+/datum/outfit/leanman/viro
+	name = "Virology Leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/viro
+	uniform = /obj/item/clothing/under/leanman/viro
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/viro/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/viro/protective)
+
+/datum/outfit/leanman/chemist
+	name = "Chemist Leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/chemist
+	uniform = /obj/item/clothing/under/leanman/chemist
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/chemist/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/chemist/protective)
+
+/datum/outfit/leanman/genetics
+	name = "Genetics Leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/genetics
+	uniform = /obj/item/clothing/under/leanman/genetics
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/genetics/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/genetics/protective)
+
+/datum/outfit/leanman/science
+	name = "Science Leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/science
+	uniform = /obj/item/clothing/under/leanman/science
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/science/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/science/protective)
+
+/datum/outfit/leanman/emt
+	name = "Paramedic Leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/emt
+	uniform = /obj/item/clothing/under/leanman/emt
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/emt/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/emt/protective)
+
+/datum/outfit/leanman/robotics
+	name = "Robotics Leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/robotics
+	uniform = /obj/item/clothing/under/leanman/robotics
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/robotics/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/robotics/protective)
+
+/datum/outfit/leanman/engineering
+	name = "Engineering Leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/engineering
+	uniform = /obj/item/clothing/under/leanman/engineering
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/engineering/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/engineering/protective)
+
+/datum/outfit/leanman/atmospherics
+	name = "Atmospherics Leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/engineering/atmospherics
+	uniform = /obj/item/clothing/under/leanman/engineering/atmospherics
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/engineering/atmospherics/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/engineering/atmospherics/protective)
+
+/datum/outfit/leanman/exploration
+	name = "Exploration crew leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/exploration
+	uniform = /obj/item/clothing/under/leanman/exploration
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/exploration/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/exploration/protective)
+
+/datum/outfit/leanman/command
+	name = "Command Leanman"
 
 	mask = /obj/item/clothing/mask/gas/sechailer
-	head = /obj/item/clothing/head/helmet/space/plasmaman/security/hos
-	uniform = /obj/item/clothing/under/plasmaman/security/hos
+	head = /obj/item/clothing/head/helmet/space/leanman/command
+	uniform = /obj/item/clothing/under/leanman/command
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/security/hos/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/security/hos/protective)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/command/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/command/protective)
 
-/datum/outfit/plasmaman/rd
-	name = "RD plasmaman"
+/datum/outfit/leanman/ce
+	name = "CE leanman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/rd
-	uniform = /obj/item/clothing/under/plasmaman/rd
+	head = /obj/item/clothing/head/helmet/space/leanman/engineering/ce
+	uniform = /obj/item/clothing/under/leanman/engineering/ce
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/rd/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/rd/protective)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/engineering/ce/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/engineering/ce/protective)
 
-/datum/outfit/plasmaman/hop
-	name = "Hop plasmaman"
+/datum/outfit/leanman/cmo
+	name = "CMO leanman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/hop
-	uniform = /obj/item/clothing/under/plasmaman/hop
+	head = /obj/item/clothing/head/helmet/space/leanman/cmo
+	uniform = /obj/item/clothing/under/leanman/cmo
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/hop/mark2,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/hop/protective)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/cmo/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/cmo/protective)
 
-/datum/outfit/plasmaman/mime
-	name = "Mime plasmaman"
+/datum/outfit/leanman/hos
+	name = "HoS leanman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/mime
-	uniform = /obj/item/clothing/under/plasmaman/mime
+	mask = /obj/item/clothing/mask/gas/sechailer
+	head = /obj/item/clothing/head/helmet/space/leanman/security/hos
+	uniform = /obj/item/clothing/under/leanman/security/hos
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/security/hos/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/security/hos/protective)
+
+/datum/outfit/leanman/rd
+	name = "RD leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/rd
+	uniform = /obj/item/clothing/under/leanman/rd
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/rd/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/rd/protective)
+
+/datum/outfit/leanman/hop
+	name = "Hop leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/hop
+	uniform = /obj/item/clothing/under/leanman/hop
+
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/hop/mark2,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/hop/protective)
+
+/datum/outfit/leanman/mime
+	name = "Mime leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/mime
+	uniform = /obj/item/clothing/under/leanman/mime
 
 	helmet_variants = list(HELMET_MK2 = null,
 							HELMET_PROTECTIVE = null)
 
-/datum/outfit/plasmaman/honk
-	name = "Clown plasmaman"
+/datum/outfit/leanman/honk
+	name = "Clown leanman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/honk
-	uniform = /obj/item/clothing/under/plasmaman/honk
-
-	helmet_variants = list(HELMET_MK2 = null,
-							HELMET_PROTECTIVE = null)
-
-/datum/outfit/plasmaman/official
-	name = "CentCom Official Plasmaman"
-
-	head = /obj/item/clothing/head/helmet/space/plasmaman/official
-	uniform = /obj/item/clothing/under/plasmaman/official
+	head = /obj/item/clothing/head/helmet/space/leanman/honk
+	uniform = /obj/item/clothing/under/leanman/honk
 
 	helmet_variants = list(HELMET_MK2 = null,
 							HELMET_PROTECTIVE = null)
 
-/datum/outfit/plasmaman/intern
-	name = "CentCom Intern Plasmaman"
+/datum/outfit/leanman/official
+	name = "CentCom Official Leanman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/intern
-	uniform = /obj/item/clothing/under/plasmaman/intern
+	head = /obj/item/clothing/head/helmet/space/leanman/official
+	uniform = /obj/item/clothing/under/leanman/official
 
 	helmet_variants = list(HELMET_MK2 = null,
 							HELMET_PROTECTIVE = null)
 
-/datum/outfit/plasmaman/ert
-	name = "ERT Common Plasmaman"
+/datum/outfit/leanman/intern
+	name = "CentCom Intern Leanman"
+
+	head = /obj/item/clothing/head/helmet/space/leanman/intern
+	uniform = /obj/item/clothing/under/leanman/intern
+
+	helmet_variants = list(HELMET_MK2 = null,
+							HELMET_PROTECTIVE = null)
+
+/datum/outfit/leanman/ert
+	name = "ERT Common Leanman"
 
 	head = null
-	uniform = /obj/item/clothing/under/plasmaman/official
+	uniform = /obj/item/clothing/under/leanman/official
 	mask = null
 
 	helmet_variants = list(HELMET_MK2 = null,
 							HELMET_PROTECTIVE = null)
 
-/datum/outfit/plasmaman/death_commando
-	name = "Death Commando Plasmaman"
+/datum/outfit/leanman/death_commando
+	name = "Death Commando Leanman"
 
 	head = null
-	uniform = /obj/item/clothing/under/plasmaman/commander
+	uniform = /obj/item/clothing/under/leanman/commander
 	mask = null
 
 	helmet_variants = list(HELMET_MK2 = null,
 							HELMET_PROTECTIVE = null)
 
-/datum/outfit/plasmaman/honk_squad
-	name = "HONK Squad Plasmaman"
+/datum/outfit/leanman/honk_squad
+	name = "HONK Squad Leanman"
 
 	head = null
-	uniform = /obj/item/clothing/under/plasmaman/honk
+	uniform = /obj/item/clothing/under/leanman/honk
 
 	helmet_variants = list(HELMET_MK2 = null,
 							HELMET_PROTECTIVE = null)

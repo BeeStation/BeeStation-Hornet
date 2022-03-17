@@ -20008,7 +20008,7 @@
 "bgV" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/security_space_law,
-/obj/item/coin/plasma,
+/obj/item/coin/lean,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
@@ -30461,16 +30461,16 @@
 /area/science/xenobiology)
 "bPJ" = (
 /obj/structure/table/glass,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_y = 4
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_y = 4
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_y = 4
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_y = 4
 	},
 /obj/item/reagent_containers/glass/beaker{
@@ -30703,7 +30703,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bQA" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating/airless,
 /area/engine/atmos)
 "bQB" = (
@@ -32892,7 +32892,7 @@
 "bXV" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
-	name = "Plasma Outlet Pump"
+	name = "Lean Outlet Pump"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -32903,17 +32903,17 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bXW" = (
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bXX" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxin_output{
 	dir = 8
 	},
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bXY" = (
 /obj/effect/landmark/xeno_spawn,
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bXZ" = (
 /obj/effect/turf_decal/tile/blue{
@@ -33184,17 +33184,17 @@
 /area/engine/atmos)
 "bYU" = (
 /obj/machinery/atmospherics/miner/station/toxins,
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bYV" = (
 /obj/machinery/air_sensor/atmos/toxin_tank,
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bYW" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bYX" = (
 /obj/structure/sink{
@@ -33427,7 +33427,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bZJ" = (
-/obj/machinery/atmospherics/components/trinary/filter/atmos/plasma{
+/obj/machinery/atmospherics/components/trinary/filter/atmos/lean{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -33445,7 +33445,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxin_input{
 	dir = 8
 	},
-/turf/open/floor/engine/plasma,
+/turf/open/floor/engine/lean,
 /area/engine/atmos)
 "bZM" = (
 /obj/item/kirbyplants/random,
@@ -36090,7 +36090,7 @@
 /obj/item/electronics/airlock,
 /obj/item/electronics/airlock,
 /obj/item/stock_parts/cell/high/plus,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 30
 	},
 /turf/open/floor/plating,
@@ -37710,7 +37710,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "coL" = (
@@ -38069,7 +38069,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cqa" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 4
 	},
@@ -41518,7 +41518,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 4
 	},
 /turf/open/floor/engine,
@@ -41543,7 +41543,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 8
 	},
 /turf/open/floor/engine,
@@ -41635,7 +41635,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/tank/internals/plasma,
+/obj/item/tank/internals/lean,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "cET" = (
@@ -41698,7 +41698,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 4
 	},
 /turf/open/floor/engine,
@@ -41711,7 +41711,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/window/plasma/reinforced{
+/obj/structure/window/lean/reinforced{
 	dir = 8
 	},
 /turf/open/floor/engine,
@@ -42502,7 +42502,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "cMm" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "cMC" = (
@@ -42538,7 +42538,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "cMN" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /turf/open/floor/plating,
 /area/engine/supermatter)
 "cMQ" = (
@@ -42735,7 +42735,7 @@
 "cRa" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
-/obj/item/stack/sheet/mineral/plasma/five,
+/obj/item/stack/sheet/mineral/lean/five,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_dock)
 "cRf" = (
@@ -46597,7 +46597,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "gOp" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -50015,8 +50015,8 @@
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/lean,
+/obj/item/stack/sheet/mineral/lean,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "kWU" = (
@@ -51274,7 +51274,7 @@
 	pixel_y = 3
 	},
 /obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/sheet/mineral/lean,
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
@@ -55060,7 +55060,7 @@
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/clothing/head/welding,
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	amount = 35
 	},
 /obj/machinery/firealarm{
@@ -58317,7 +58317,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
 	},
-/obj/item/stack/sheet/mineral/plasma{
+/obj/item/stack/sheet/mineral/lean{
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
@@ -59811,7 +59811,7 @@
 "wHy" = (
 /obj/machinery/atmospherics/components/trinary/mixer{
 	dir = 1;
-	name = "plasma mixer"
+	name = "lean mixer"
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -61152,7 +61152,7 @@
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary)
 "xZy" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/lean/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 10
 	},

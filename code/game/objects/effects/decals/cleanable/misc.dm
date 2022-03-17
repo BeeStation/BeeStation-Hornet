@@ -42,8 +42,8 @@
 /obj/effect/decal/cleanable/glass/ex_act()
 	qdel(src)
 
-/obj/effect/decal/cleanable/glass/plasma
-	icon_state = "plasmatiny"
+/obj/effect/decal/cleanable/glass/lean
+	icon_state = "leantiny"
 
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
@@ -189,13 +189,13 @@
 	name = "generic glitter pile"
 	desc = "The herpes of arts and crafts."
 	icon = 'icons/effects/atmospherics.dmi'
-	icon_state = "plasma_old"
+	icon_state = "lean_old"
 	gender = NEUTER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/effect/decal/cleanable/glitter/pink
 	name = "pink glitter"
-	icon_state = "plasma"
+	icon_state = "lean"
 
 /obj/effect/decal/cleanable/glitter/white
 	name = "white glitter"
@@ -205,9 +205,9 @@
 	name = "blue glitter"
 	icon_state = "freon"
 
-/obj/effect/decal/cleanable/plasma
-	name = "stabilized plasma"
-	desc = "A puddle of stabilized plasma."
+/obj/effect/decal/cleanable/lean
+	name = "stabilized lean"
+	desc = "A puddle of stabilized lean."
 	icon_state = "flour"
 	icon = 'icons/effects/tomatodecal.dmi'
 	color = "#2D2D2D"

@@ -3,7 +3,7 @@
 	subtype_path = /datum/gear/uniform
 	slot = ITEM_SLOT_ICLOTHING
 	sort_category = "Uniforms and Casual Dress"
-	species_blacklist = list("plasmaman") //Envirosuit moment
+	species_blacklist = list("leanman") //Envirosuit moment
 	cost = 1000
 
 //STANDARD UNIFORM COLORS
@@ -299,7 +299,7 @@
 
 /datum/gear/uniform/rank/cargo/mining_classic
 	display_name = "miner's overalls, asteroid purple"
-	description = "Purple jumpsuit, dirty overalls. Standard Nanotrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for plasma."
+	description = "Purple jumpsuit, dirty overalls. Standard Nanotrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for lean."
 	path = /obj/item/clothing/under/rank/cargo/miner
 	allowed_roles = list ("Shaft Miner")
 

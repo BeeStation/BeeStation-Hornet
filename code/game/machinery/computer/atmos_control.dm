@@ -15,7 +15,7 @@
 	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/air_sensor/atmos/toxin_tank
-	name = "plasma tank gas sensor"
+	name = "lean tank gas sensor"
 	id_tag = ATMOS_GAS_MONITOR_SENSOR_TOX
 /obj/machinery/air_sensor/atmos/toxins_mixing_tank
 	name = "toxins mixing gas sensor"
@@ -103,7 +103,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 		ATMOS_GAS_MONITOR_SENSOR_N2 = "Nitrogen Tank",
 		ATMOS_GAS_MONITOR_SENSOR_O2 = "Oxygen Tank",
 		ATMOS_GAS_MONITOR_SENSOR_CO2 = "Carbon Dioxide Tank",
-		ATMOS_GAS_MONITOR_SENSOR_TOX = "Plasma Tank",
+		ATMOS_GAS_MONITOR_SENSOR_TOX = "Lean Tank",
 		ATMOS_GAS_MONITOR_SENSOR_N2O = "Nitrous Oxide Tank",
 		ATMOS_GAS_MONITOR_SENSOR_AIR = "Mixed Air Tank",
 		ATMOS_GAS_MONITOR_SENSOR_MIX = "Mix Tank",
@@ -196,10 +196,10 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	circuit = /obj/item/circuitboard/computer/atmos_control/tank/oxygen_tank
 
 /obj/machinery/computer/atmos_control/tank/toxin_tank
-	name = "Plasma Supply Control"
+	name = "Lean Supply Control"
 	input_tag = ATMOS_GAS_MONITOR_INPUT_TOX
 	output_tag = ATMOS_GAS_MONITOR_OUTPUT_TOX
-	sensors = list(ATMOS_GAS_MONITOR_SENSOR_TOX = "Plasma Tank")
+	sensors = list(ATMOS_GAS_MONITOR_SENSOR_TOX = "Lean Tank")
 	circuit = /obj/item/circuitboard/computer/atmos_control/tank/toxin_tank
 
 /obj/machinery/computer/atmos_control/tank/air_tank

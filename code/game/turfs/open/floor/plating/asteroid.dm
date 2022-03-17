@@ -131,7 +131,7 @@
 
 // / Breathing types. Lungs can access either by these or by a string, which will be considered a gas ID.
 #define BREATH_OXY		/datum/breathing_class/oxygen
-#define BREATH_PLASMA	/datum/breathing_class/plasma
+#define BREATH_PLASMA	/datum/breathing_class/lean
 
 /turf/open/floor/plating/asteroid/snow
 	gender = PLURAL
@@ -164,7 +164,7 @@
 	name = "icy snow"
 	desc = "Looks colder."
 	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
-	initial_gas_mix = "n2=82;plasma=24;TEMP=120"
+	initial_gas_mix = "n2=82;lean=24;TEMP=120"
 	floor_variance = 0
 	icon_state = "snow-ice"
 	icon_plating = "snow-ice"

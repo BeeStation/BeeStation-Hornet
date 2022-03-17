@@ -238,18 +238,18 @@
 	back = /obj/item/storage/backpack/satchel/leather
 	id = /obj/item/card/id
 
-/datum/outfit/centcom/commander/plasmaman
-	name = "CentCom Commander Plasmaman"
+/datum/outfit/centcom/commander/leanman
+	name = "CentCom Commander Leanman"
 
 	mask = /obj/item/clothing/mask/gas/sechailer
-	head = /obj/item/clothing/head/helmet/space/plasmaman/commander
-	uniform = /obj/item/clothing/under/plasmaman/commander
+	head = /obj/item/clothing/head/helmet/space/leanman/commander
+	uniform = /obj/item/clothing/under/leanman/commander
 
 /datum/outfit/centcom/commander/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 
-	if(isplasmaman(H))
+	if(isleanman(H))
 		H.internal = H.get_item_for_held_index(2)
 		H.update_internals_hud_icon(1)
 	var/obj/item/card/id/W = H.wear_id
@@ -391,15 +391,15 @@
 	W.registered_name = H.real_name
 	W.update_label()
 
-/datum/outfit/plasmaman
-	var/list/helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2,
-									HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective)
+/datum/outfit/leanman
+	var/list/helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/leanman/mark2,
+									HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/leanman/protective)
 
-	name = "Plasmaman"
+	name = "Leanman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman
-	uniform = /obj/item/clothing/under/plasmaman
-	r_hand= /obj/item/tank/internals/plasmaman/belt/full
+	head = /obj/item/clothing/head/helmet/space/leanman
+	uniform = /obj/item/clothing/under/leanman
+	r_hand= /obj/item/tank/internals/leanman/belt/full
 	mask = /obj/item/clothing/mask/breath
 
 /datum/outfit/chrono_agent

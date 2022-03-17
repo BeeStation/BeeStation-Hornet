@@ -292,7 +292,7 @@
 	foodtype = GRAIN | MEAT
 
 /obj/item/reagent_containers/food/snacks/fuegoburrito
-	name = "fuego plasma burrito"
+	name = "fuego lean burrito"
 	desc = "A super spicy burrito."
 	icon_state = "fuegoburrito"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 3)

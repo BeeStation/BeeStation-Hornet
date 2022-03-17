@@ -289,7 +289,7 @@ proc name: get fuel (/obj/item/weapon/weldingtool/proc/get_fuel)
 
 /obj/machinery/camera/emp_proof - 3 time(s).
 
-/obj/item/weapon/tank/internals/plasma - 3 time(s).
+/obj/item/weapon/tank/internals/lean - 3 time(s).
 
 /obj/machinery/camera_assembly - 3 time(s).
 
@@ -381,7 +381,7 @@ proc name: get fuel (/obj/item/weapon/weldingtool/proc/get_fuel)
 
 /obj/item/device/pda/ai/pai - 1 time(s).
 
-/obj/item/stack/sheet/mineral/plasma - 1 time(s).
+/obj/item/stack/sheet/mineral/lean - 1 time(s).
 
 /obj/machinery/chem_dispenser/drinks/beer - 1 time(s).
 

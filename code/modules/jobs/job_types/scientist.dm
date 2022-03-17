@@ -26,7 +26,7 @@
 	rpg_title = "Thaumaturgist"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/science
+		SPECIES_PLASMAMAN = /datum/outfit/leanman/science
 	)
 	biohazard = 15
 

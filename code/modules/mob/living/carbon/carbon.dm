@@ -378,9 +378,9 @@
 
 /mob/living/carbon/get_stat_tab_status()
 	var/list/tab_data = ..()
-	var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
+	var/obj/item/organ/alien/leanvessel/vessel = getorgan(/obj/item/organ/alien/leanvessel)
 	if(vessel)
-		tab_data["Plasma Stored"] = GENERATE_STAT_TEXT("[vessel.storedPlasma]/[vessel.max_plasma]")
+		tab_data["Lean Stored"] = GENERATE_STAT_TEXT("[vessel.storedLean]/[vessel.max_lean]")
 	if(locate(/obj/item/assembly/health) in src)
 		tab_data["Health"] = GENERATE_STAT_TEXT("[health]")
 	return tab_data

@@ -531,7 +531,7 @@
 		return
 	..()
 
-/datum/reagent/mutationtoxin/classic //The one from plasma on green slimes
+/datum/reagent/mutationtoxin/classic //The one from lean on green slimes
 	name = "Mutation Toxin"
 	description = "A corruptive toxin."
 	color = "#13BC5E" // rgb: 19, 188, 94
@@ -684,12 +684,12 @@
 	race = /datum/species/shadow
 	taste_description = "the night"
 
-/datum/reagent/mutationtoxin/plasma
-	name = "Plasma Mutation Toxin"
-	description = "A plasma-based toxin."
+/datum/reagent/mutationtoxin/lean
+	name = "Lean Mutation Toxin"
+	description = "A lean-based toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	race = /datum/species/plasmaman
-	taste_description = "plasma"
+	race = /datum/species/leanman
+	taste_description = "lean"
 
 #undef MUT_MSG_IMMEDIATE
 #undef MUT_MSG_EXTENDED
@@ -1530,9 +1530,9 @@
 	process_flags = ORGANIC | SYNTHETIC
 	random_unrestricted = FALSE
 
-/datum/reagent/stable_plasma
-	name = "Stable Plasma"
-	description = "Non-flammable plasma locked into a liquid form that cannot ignite or become gaseous/solid."
+/datum/reagent/stable_lean
+	name = "Stable Lean"
+	description = "Non-flammable lean locked into a liquid form that cannot ignite or become gaseous/solid."
 	reagent_state = LIQUID
 	color = "#2D2D2D"
 	taste_description = "bitterness"
@@ -1540,8 +1540,8 @@
 	process_flags = ORGANIC | SYNTHETIC
 	random_unrestricted = FALSE
 
-/datum/reagent/stable_plasma/on_mob_life(mob/living/carbon/C)
-	C.adjustPlasma(10)
+/datum/reagent/stable_lean/on_mob_life(mob/living/carbon/C)
+	C.adjustLean(10)
 	..()
 
 /datum/reagent/iodine
@@ -1726,14 +1726,14 @@
 	color = "#D18AA5" // rgb: 209,138,165
 	taste_description = "bitterness"
 
-/datum/reagent/toxin/plasma/plasmavirusfood
-	name = "Virus Plasma"
+/datum/reagent/toxin/lean/leanvirusfood
+	name = "Virus Lean"
 	color = "#A270A8" // rgb: 162,112,168
 	taste_description = "bitterness"
 	taste_mult = 1.5
 
-/datum/reagent/toxin/plasma/plasmavirusfood/weak
-	name = "Weakened Virus Plasma"
+/datum/reagent/toxin/lean/leanvirusfood/weak
+	name = "Weakened Virus Lean"
 	color = "#A28CA5" // rgb: 162,140,165
 	taste_description = "bitterness"
 	taste_mult = 1.5

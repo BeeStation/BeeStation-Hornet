@@ -10,7 +10,7 @@
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "d" = (
-/obj/structure/window/plasma/fulltile,
+/obj/structure/window/lean/fulltile,
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "e" = (

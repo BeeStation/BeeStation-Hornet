@@ -148,7 +148,7 @@
 	name = "Toxins Special"
 	id = /datum/chemical_reaction/toxins_special
 	results = list(/datum/reagent/consumable/ethanol/toxins_special = 5)
-	required_reagents = list(/datum/reagent/consumable/ethanol/rum = 2, /datum/reagent/consumable/ethanol/vermouth = 1, /datum/reagent/toxin/plasma = 2)
+	required_reagents = list(/datum/reagent/consumable/ethanol/rum = 2, /datum/reagent/consumable/ethanol/vermouth = 1, /datum/reagent/toxin/lean = 2)
 
 /datum/chemical_reaction/beepsky_smash
 	name = "Beepksy Smash"
@@ -323,7 +323,7 @@
 	name = "Faster-Than-Liver"
 	id = /datum/reagent/consumable/ethanol/ftliver
 	results = list(/datum/reagent/consumable/ethanol/ftliver = 3)
-	required_reagents = list(/datum/reagent/consumable/ethanol/vodka = 1, /datum/reagent/stable_plasma = 1, /datum/reagent/consumable/ethanol/screwdrivercocktail = 1)
+	required_reagents = list(/datum/reagent/consumable/ethanol/vodka = 1, /datum/reagent/stable_lean = 1, /datum/reagent/consumable/ethanol/screwdrivercocktail = 1)
 
 
 ////DRINKS THAT REQUIRED IMPROVED SPRITES BELOW:: -Agouri/////
@@ -812,11 +812,11 @@
 	results = list(/datum/reagent/consumable/ethanol/mauna_loa = 5)
 	required_reagents = list(/datum/reagent/consumable/capsaicin = 2, /datum/reagent/consumable/ethanol/kahlua = 1, /datum/reagent/consumable/ethanol/bahama_mama = 2)
 
-/datum/chemical_reaction/plasmaflood
-	name = "Plasma Flood"
-	id = /datum/reagent/consumable/ethanol/plasmaflood
-	results = list(/datum/reagent/consumable/ethanol/plasmaflood = 4)
-	required_reagents = list(/datum/reagent/toxin/plasma = 1, /datum/reagent/napalm = 1, /datum/reagent/consumable/ethanol/tequila = 1, /datum/reagent/consumable/ethanol/demonsblood = 1)
+/datum/chemical_reaction/leanflood
+	name = "Lean Flood"
+	id = /datum/reagent/consumable/ethanol/leanflood
+	results = list(/datum/reagent/consumable/ethanol/leanflood = 4)
+	required_reagents = list(/datum/reagent/toxin/lean = 1, /datum/reagent/napalm = 1, /datum/reagent/consumable/ethanol/tequila = 1, /datum/reagent/consumable/ethanol/demonsblood = 1)
 
 /datum/chemical_reaction/fourthwall
 	name = "Fourth Wall"

@@ -93,7 +93,7 @@
 		D.preparePixelProjectile(target, user, clickparams)
 		D.firer = user
 		D.hammer_synced = src
-		playsound(user, 'sound/weapons/plasma_cutter.ogg', 100, 1)
+		playsound(user, 'sound/weapons/lean_cutter.ogg', 100, 1)
 		D.fire()
 		charged = FALSE
 		update_icon()

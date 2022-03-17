@@ -32,10 +32,10 @@
 			return
 
 		if(W.use_tool(src, user, 0, volume=40))
-			if(mineralType == "plasma")
-				atmos_spawn_air("plasma=5;TEMP=1000")
-				user.visible_message("<span class='warning'>[user.name] sets the plasma tiles on fire!</span>", \
-									"<span class='warning'>You set the plasma tiles on fire!</span>")
+			if(mineralType == "lean")
+				atmos_spawn_air("lean=5;TEMP=1000")
+				user.visible_message("<span class='warning'>[user.name] sets the lean tiles on fire!</span>", \
+									"<span class='warning'>You set the lean tiles on fire!</span>")
 				qdel(src)
 				return
 

@@ -55,16 +55,16 @@
 	results = list(/datum/reagent/consumable/sodiumchloride = 3)
 	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/sodium = 1, /datum/reagent/chlorine = 1)
 
-/datum/chemical_reaction/plasmasolidification
-	name = "Solid Plasma"
-	id = "solidplasma"
-	required_reagents = list(/datum/reagent/iron = 5, /datum/reagent/consumable/frostoil = 5, /datum/reagent/toxin/plasma = 20)
+/datum/chemical_reaction/leansolidification
+	name = "Solid Lean"
+	id = "solidlean"
+	required_reagents = list(/datum/reagent/iron = 5, /datum/reagent/consumable/frostoil = 5, /datum/reagent/toxin/lean = 20)
 	mob_react = FALSE
 
-/datum/chemical_reaction/plasmasolidification/on_reaction(datum/reagents/holder, created_volume)
+/datum/chemical_reaction/leansolidification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= created_volume, i++)
-		new /obj/item/stack/sheet/mineral/plasma(location)
+		new /obj/item/stack/sheet/mineral/lean(location)
 
 /datum/chemical_reaction/goldsolidification
 	name = "Solid Gold"
@@ -171,17 +171,17 @@
 	results = list(/datum/reagent/medicine/synaptizine/synaptizinevirusfood = 1)
 	required_reagents = list(/datum/reagent/medicine/synaptizine = 1, /datum/reagent/consumable/virus_food = 1)
 
-/datum/chemical_reaction/virus_food_plasma
-	name = "virus plasma"
-	id = /datum/reagent/toxin/plasma/plasmavirusfood
-	results = list(/datum/reagent/toxin/plasma/plasmavirusfood = 1)
-	required_reagents = list(/datum/reagent/toxin/plasma = 1, /datum/reagent/consumable/virus_food = 1)
+/datum/chemical_reaction/virus_food_lean
+	name = "virus lean"
+	id = /datum/reagent/toxin/lean/leanvirusfood
+	results = list(/datum/reagent/toxin/lean/leanvirusfood = 1)
+	required_reagents = list(/datum/reagent/toxin/lean = 1, /datum/reagent/consumable/virus_food = 1)
 
-/datum/chemical_reaction/virus_food_plasma_synaptizine
-	name = "weakened virus plasma"
-	id = /datum/reagent/toxin/plasma/plasmavirusfood/weak
-	results = list(/datum/reagent/toxin/plasma/plasmavirusfood/weak = 2)
-	required_reagents = list(/datum/reagent/medicine/synaptizine = 1, /datum/reagent/toxin/plasma/plasmavirusfood = 1)
+/datum/chemical_reaction/virus_food_lean_synaptizine
+	name = "weakened virus lean"
+	id = /datum/reagent/toxin/lean/leanvirusfood/weak
+	results = list(/datum/reagent/toxin/lean/leanvirusfood/weak = 2)
+	required_reagents = list(/datum/reagent/medicine/synaptizine = 1, /datum/reagent/toxin/lean/leanvirusfood = 1)
 
 /datum/chemical_reaction/virus_food_mutagen_sugar
 	name = "sucrose agar"
@@ -201,23 +201,23 @@
 	results = list(/datum/reagent/uranium/uraniumvirusfood = 1)
 	required_reagents = list(/datum/reagent/uranium = 1, /datum/reagent/consumable/virus_food = 1)
 
-/datum/chemical_reaction/virus_food_uranium_plasma
+/datum/chemical_reaction/virus_food_uranium_lean
 	name = "Unstable uranium gel"
-	id = "uraniumvirusfood_plasma"
+	id = "uraniumvirusfood_lean"
 	results = list(/datum/reagent/uranium/uraniumvirusfood/unstable = 1)
-	required_reagents = list(/datum/reagent/uranium = 2, /datum/reagent/toxin/plasma/plasmavirusfood = 1)
+	required_reagents = list(/datum/reagent/uranium = 2, /datum/reagent/toxin/lean/leanvirusfood = 1)
 
-/datum/chemical_reaction/virus_food_uranium_plasma_gold
+/datum/chemical_reaction/virus_food_uranium_lean_gold
 	name = "Stable uranium gel"
 	id = "uraniumvirusfood_gold"
 	results = list(/datum/reagent/uranium/uraniumvirusfood/stable = 1)
-	required_reagents = list(/datum/reagent/uranium = 5, /datum/reagent/gold = 5, /datum/reagent/toxin/plasma = 5)
+	required_reagents = list(/datum/reagent/uranium = 5, /datum/reagent/gold = 5, /datum/reagent/toxin/lean = 5)
 
-/datum/chemical_reaction/virus_food_uranium_plasma_silver
+/datum/chemical_reaction/virus_food_uranium_lean_silver
 	name = "Stable uranium gel"
 	id = "uraniumvirusfood_silver"
 	results = list(/datum/reagent/uranium/uraniumvirusfood/stable = 1)
-	required_reagents = list(/datum/reagent/uranium = 5, /datum/reagent/silver = 5, /datum/reagent/toxin/plasma = 5)
+	required_reagents = list(/datum/reagent/uranium = 5, /datum/reagent/silver = 5, /datum/reagent/toxin/lean = 5)
 
 /datum/chemical_reaction/virus_food_laughter
 	name = "Anomolous virus food"
@@ -260,7 +260,7 @@
 /datum/chemical_reaction/mix_virus/mix_virus_3
 	name = "Mix Virus 3"
 	id = "mixvirus3"
-	required_reagents = list(/datum/reagent/toxin/plasma = 1)
+	required_reagents = list(/datum/reagent/toxin/lean = 1)
 	level_min = 4
 	level_max = 6
 
@@ -288,14 +288,14 @@
 /datum/chemical_reaction/mix_virus/mix_virus_7
 	name = "Mix Virus 7"
 	id = "mixvirus7"
-	required_reagents = list(/datum/reagent/toxin/plasma/plasmavirusfood/weak = 1)
+	required_reagents = list(/datum/reagent/toxin/lean/leanvirusfood/weak = 1)
 	level_min = 5
 	level_max = 5
 
 /datum/chemical_reaction/mix_virus/mix_virus_8
 	name = "Mix Virus 8"
 	id = "mixvirus8"
-	required_reagents = list(/datum/reagent/toxin/plasma/plasmavirusfood = 1)
+	required_reagents = list(/datum/reagent/toxin/lean/leanvirusfood = 1)
 	level_min = 6
 	level_max = 6
 
@@ -532,7 +532,7 @@
 	name = "Drying agent"
 	id = /datum/reagent/drying_agent
 	results = list(/datum/reagent/drying_agent = 3)
-	required_reagents = list(/datum/reagent/stable_plasma = 2, /datum/reagent/consumable/ethanol = 1, /datum/reagent/sodium = 1)
+	required_reagents = list(/datum/reagent/stable_lean = 2, /datum/reagent/consumable/ethanol = 1, /datum/reagent/sodium = 1)
 
 //////////////////////////////////// Other goon stuff ///////////////////////////////////////////
 
@@ -571,7 +571,7 @@
 	name = /datum/reagent/colorful_reagent
 	id = /datum/reagent/colorful_reagent
 	results = list(/datum/reagent/colorful_reagent = 5)
-	required_reagents = list(/datum/reagent/stable_plasma = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/drug/space_drugs = 1, /datum/reagent/medicine/cryoxadone = 1, /datum/reagent/consumable/triple_citrus = 1)
+	required_reagents = list(/datum/reagent/stable_lean = 1, /datum/reagent/uranium/radium = 1, /datum/reagent/drug/space_drugs = 1, /datum/reagent/medicine/cryoxadone = 1, /datum/reagent/consumable/triple_citrus = 1)
 
 /datum/chemical_reaction/life
 	name = "Life"
@@ -738,7 +738,7 @@
 	name = /datum/reagent/mutationtoxin/oozeling
 	id = /datum/reagent/mutationtoxin/oozeling
 	results = list(/datum/reagent/mutationtoxin/oozeling = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/medicine/calomel = 10, /datum/reagent/toxin/bad_food = 30, /datum/reagent/stable_plasma = 5)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/medicine/calomel = 10, /datum/reagent/toxin/bad_food = 30, /datum/reagent/stable_lean = 5)
 
 //////////////Mutation toxins made out of advanced toxin/////////////
 
@@ -772,8 +772,8 @@
 	results = list(/datum/reagent/mutationtoxin/shadow = 5)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/liquid_dark_matter = 30, /datum/reagent/water/holywater = 10) //You need a tiny bit of thinking how to mix it
 
-/datum/chemical_reaction/mutationtoxin/plasma
-	name = /datum/reagent/mutationtoxin/plasma
-	id = /datum/reagent/mutationtoxin/plasma
-	results = list(/datum/reagent/mutationtoxin/plasma = 5)
-	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/plasma = 60, /datum/reagent/uranium = 20)
+/datum/chemical_reaction/mutationtoxin/lean
+	name = /datum/reagent/mutationtoxin/lean
+	id = /datum/reagent/mutationtoxin/lean
+	results = list(/datum/reagent/mutationtoxin/lean = 5)
+	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/lean = 60, /datum/reagent/uranium = 20)

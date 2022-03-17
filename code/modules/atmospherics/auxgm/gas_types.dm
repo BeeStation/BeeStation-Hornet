@@ -36,11 +36,11 @@
 	)
 	fusion_power = 3
 
-/datum/gas/plasma
+/datum/gas/lean
 	id = GAS_PLASMA
 	specific_heat = 200
-	name = "Plasma"
-	gas_overlay = "plasma"
+	name = "Lean"
+	gas_overlay = "lean"
 	moles_visible = MOLES_GAS_VISIBLE
 	flags = GAS_FLAG_DANGEROUS
 	// no fire info cause it has its own bespoke reaction for trit generation reasons

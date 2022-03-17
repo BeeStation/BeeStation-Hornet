@@ -239,32 +239,32 @@
 	..()
 	set_opacity(FALSE)
 
-/obj/structure/mineral_door/transparent/plasma
-	name = "plasma door"
-	icon_state = "plasma"
-	sheetType = /obj/item/stack/sheet/mineral/plasma
+/obj/structure/mineral_door/transparent/lean
+	name = "lean door"
+	icon_state = "lean"
+	sheetType = /obj/item/stack/sheet/mineral/lean
 
-/obj/structure/mineral_door/transparent/plasma/ComponentInitialize()
+/obj/structure/mineral_door/transparent/lean/ComponentInitialize()
 	return
 
-/obj/structure/mineral_door/transparent/plasma/welder_act(mob/living/user, obj/item/I)
+/obj/structure/mineral_door/transparent/lean/welder_act(mob/living/user, obj/item/I)
 	return
 
-/obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user, params)
+/obj/structure/mineral_door/transparent/lean/attackby(obj/item/W, mob/user, params)
 	if(W.is_hot())
 		var/turf/T = get_turf(src)
-		message_admins("Plasma mineral door ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
-		log_game("Plasma mineral door ignited by [key_name(user)] in [AREACOORD(T)]")
+		message_admins("Lean mineral door ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
+		log_game("Lean mineral door ignited by [key_name(user)] in [AREACOORD(T)]")
 		TemperatureAct()
 	else
 		return ..()
 
-/obj/structure/mineral_door/transparent/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/mineral_door/transparent/lean/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
 		TemperatureAct()
 
-/obj/structure/mineral_door/transparent/plasma/proc/TemperatureAct()
-	atmos_spawn_air("plasma=500;TEMP=1000")
+/obj/structure/mineral_door/transparent/lean/proc/TemperatureAct()
+	atmos_spawn_air("lean=500;TEMP=1000")
 	deconstruct(FALSE)
 
 /obj/structure/mineral_door/transparent/diamond

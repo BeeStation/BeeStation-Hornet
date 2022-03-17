@@ -24,9 +24,9 @@
 	var/static/datum/outfit/clockcult/armaments/sword/armaments_sword = new
 	var/static/datum/outfit/clockcult/armaments/bow/armaments_bow = new
 	var/static/datum/outfit/clockcult/default = new
-	var/static/datum/outfit/clockcult_plasmaman/plasmaman = new
-	if(is_species(M, /datum/species/plasmaman))
-		plasmaman.equip(M)
+	var/static/datum/outfit/clockcult_leanman/leanman = new
+	if(is_species(M, /datum/species/leanman))
+		leanman.equip(M)
 	switch(choice)
 		if("Brass Spear")
 			armaments_spear.equip(M)

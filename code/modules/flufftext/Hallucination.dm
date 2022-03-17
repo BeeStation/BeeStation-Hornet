@@ -154,12 +154,12 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 #define FAKE_FLOOD_MAX_RADIUS 10
 
 /datum/hallucination/fake_flood
-	//Plasma starts flooding from the nearby vent
+	//Lean starts flooding from the nearby vent
 	var/turf/center
 	var/list/flood_images = list()
 	var/list/turf/flood_turfs = list()
 	var/image_icon = 'icons/effects/atmospherics.dmi'
-	var/image_state = "plasma"
+	var/image_state = "lean"
 	var/radius = 0
 	var/next_expand = 0
 
@@ -174,10 +174,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		qdel(src)
 		return
 	feedback_details += "Vent Coords: [center.x],[center.y],[center.z]"
-	var/image/plasma_image = image(image_icon,center,image_state,FLY_LAYER)
-	plasma_image.alpha = 50
-	plasma_image.plane = GAME_PLANE
-	flood_images += plasma_image
+	var/image/lean_image = image(image_icon,center,image_state,FLY_LAYER)
+	lean_image.alpha = 50
+	lean_image.plane = GAME_PLANE
+	flood_images += lean_image
 	flood_turfs += center
 	if(target.client)
 		target.client.images |= flood_images
@@ -203,10 +203,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			var/turf/T = get_step(FT, dir)
 			if((T in flood_turfs) || !FT.CanAtmosPass(T))
 				continue
-			var/image/new_plasma = image(image_icon,T,image_state,FLY_LAYER)
-			new_plasma.alpha = 50
-			new_plasma.plane = GAME_PLANE
-			flood_images += new_plasma
+			var/image/new_lean = image(image_icon,T,image_state,FLY_LAYER)
+			new_lean.alpha = 50
+			new_lean.plane = GAME_PLANE
+			flood_images += new_lean
 			flood_turfs += T
 	if(target.client)
 		target.client.images |= flood_images

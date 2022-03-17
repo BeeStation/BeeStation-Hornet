@@ -50,9 +50,9 @@
 	C.apply_effect(5,EFFECT_IRRADIATE,0)
 	return ..()
 
-/datum/reagent/toxin/plasma
-	name = "Plasma"
-	description = "Plasma in its liquid form."
+/datum/reagent/toxin/lean
+	name = "Lean"
+	description = "Lean in its liquid form."
 	taste_description = "a burning, tingling sensation"
 	specific_heat = SPECIFIC_HEAT_PLASMA
 	taste_mult = 1.5
@@ -60,25 +60,25 @@
 	toxpwr = 3
 	process_flags = ORGANIC | SYNTHETIC
 
-/datum/reagent/toxin/plasma/on_mob_life(mob/living/carbon/C)
+/datum/reagent/toxin/lean/on_mob_life(mob/living/carbon/C)
 	if(holder.has_reagent(/datum/reagent/medicine/epinephrine))
 		holder.remove_reagent(/datum/reagent/medicine/epinephrine, 2*REM)
-	C.adjustPlasma(20)
+	C.adjustLean(20)
 	return ..()
 
-/datum/reagent/toxin/plasma/reaction_obj(obj/O, reac_volume)
+/datum/reagent/toxin/lean/reaction_obj(obj/O, reac_volume)
 	if((!O) || (!reac_volume))
 		return 0
 	var/temp = holder ? holder.chem_temp : T20C
-	O.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
+	O.atmos_spawn_air("lean=[reac_volume];TEMP=[temp]")
 
-/datum/reagent/toxin/plasma/reaction_turf(turf/open/T, reac_volume)
+/datum/reagent/toxin/lean/reaction_turf(turf/open/T, reac_volume)
 	if(istype(T))
 		var/temp = holder ? holder.chem_temp : T20C
-		T.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
+		T.atmos_spawn_air("lean=[reac_volume];TEMP=[temp]")
 	return
 
-/datum/reagent/toxin/plasma/reaction_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
+/datum/reagent/toxin/lean/reaction_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with lean is stronger than fuel!
 	if(method == TOUCH || method == VAPOR)
 		M.adjust_fire_stacks(reac_volume / 5)
 		return
@@ -869,7 +869,7 @@
 			if(4)
 				selected_part = BODY_ZONE_R_LEG
 		var/obj/item/bodypart/bp = M.get_bodypart(selected_part)
-		if(M.dna.species.type != /datum/species/skeleton && M.dna.species.type != /datum/species/plasmaman) //We're so sorry skeletons, you're so misunderstood
+		if(M.dna.species.type != /datum/species/skeleton && M.dna.species.type != /datum/species/leanman) //We're so sorry skeletons, you're so misunderstood
 			if(bp)
 				bp.receive_damage(0, 0, 200)
 				playsound(M, get_sfx("desecration"), 50, TRUE, -1)
