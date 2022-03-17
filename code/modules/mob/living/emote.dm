@@ -116,7 +116,7 @@
 	key_third_person = "flaps"
 	message = "flaps their wings"
 	restraint_check = TRUE
-	var/wing_time = 20
+	var/wing_time = 10
 
 /datum/emote/living/flap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -130,7 +130,7 @@
 	key_third_person = "aflaps"
 	message = "flaps their wings aggressively"
 	restraint_check = TRUE
-	wing_time = 10
+	wing_time = 5
 
 /datum/emote/living/frown
 	key = "frown"
