@@ -47,8 +47,8 @@
 	name = "Aptotic Culling"
 	desc = "The virus causes infected cells to die off when exposed to radiation, causing open wounds to appear on the host's flesh. The end result of this process is the removal of radioactive contamination from the host."
 	stealth = 1
-	resistance = 2
-	stage_speed = -1
+	resistance = 1
+	stage_speed = 1
 	transmission = -2
 	level = 8
 	severity = 0 //this is, at base level, somewhat negative. low levels of radiation will become brute damage and a danger to a host, where otherwise they'd have no effect

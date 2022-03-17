@@ -418,8 +418,8 @@ Thresholds
 	desc = "The virus causes festering infections in the host's lymph nodes, leading to festering buboes that deal toxin damage."
 	stealth = -1
 	resistance = -2
-	stage_speed = 2
-	transmission = 1
+	stage_speed = 3
+	transmission = 2
 	level = 6
 	severity = 3
 	symptom_delay_min = 20

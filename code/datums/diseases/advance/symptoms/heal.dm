@@ -623,8 +623,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	name = "Hemetophagy"
 	desc = "The host absorbs blood from external sources, and seemlessly reintegrates it into their own bloodstream, regardless of its bloodtype or how it was ingested. However, the virus also slowly consumes the host's blood"
 	stealth = 1
-	resistance = -2
-	stage_speed = -1
+	resistance = -3
+	stage_speed = 1
 	transmission = 2
 	level = 9
 	severity = 0

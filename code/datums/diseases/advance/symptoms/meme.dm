@@ -1,9 +1,9 @@
 /datum/symptom/meme
 	name = "Hysteria"
 	desc = "The virus causes mass hysteria involving a random concept."
-	stealth = 0
-	resistance = -2
-	stage_speed = -2
+	stealth = 1
+	resistance = 1
+	stage_speed = -1
 	transmission = 3
 	level = 9
 	severity = 0
