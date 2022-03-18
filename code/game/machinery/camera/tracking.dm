@@ -68,10 +68,10 @@
 		trackable_mobs()
 
 	var/datum/weakref/target = (isnull(track.humans[target_name]) ? track.others[target_name] : track.humans[target_name])
-	ai_tracking_setup(target.resolve())
+	ai_start_tracking(target.resolve())
 
-/mob/living/silicon/ai/proc/ai_tracking_setup(mob/living/target) //sets up ai tracking signals
-	if(!target || !target.can_track(src))
+/mob/living/silicon/ai/proc/ai_start_tracking(mob/living/target) //starts ai tracking
+	if(!eyeobj || !target || !target.can_track(src))
 		to_chat(src, "<span class='warning'>Target is not near any active cameras.</span>")
 		return
 	if(ai_tracking_target) //if there is already a tracking going when this gets called makes sure the old tracking gets stopped before we register the new signals

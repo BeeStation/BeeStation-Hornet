@@ -467,7 +467,7 @@
 		if(name == string)
 			target += src
 		if(target.len)
-			ai_tracking_setup(pick(target))
+			ai_start_tracking(pick(target))
 		else
 			to_chat(src, "Target is not on or near any active cameras on the station.")
 		return
