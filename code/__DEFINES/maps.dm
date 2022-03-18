@@ -40,6 +40,11 @@ require only minor tweaks.
 #define ZTRAIT_POCKETDIM "Pocket Dimension"
 #define ZTRAIT_ISOLATED_RUINS "Isolated Ruins" //Placing ruins on z levels with this trait will use turf reservation instead of usual placement.
 
+#define ZTRAIT_SNOWSTORM "Weather_Snowstorm"
+#define ZTRAIT_ASHSTORM "Weather_Ashstorm"
+#define ZTRAIT_ACIDRAIN "Weather_Acidrain"
+#define ZTRAIT_VOIDSTORM "Weather_Voidstorm"
+
 /// number - bombcap is multiplied by this before being applied to bombs
 #define ZTRAIT_BOMBCAP_MULTIPLIER "Bombcap Multiplier"
 
@@ -70,6 +75,7 @@ require only minor tweaks.
     ZTRAIT_MINING = TRUE, \
     ZTRAIT_LAVA_RUINS = TRUE, \
     ZTRAIT_BOMBCAP_MULTIPLIER = 2, \
+	ZTRAIT_ASHSTORM = TRUE, \
     ZTRAIT_BASETURF = /turf/open/lava/smooth/lava_land_surface)
 #define ZTRAITS_REEBE list(ZTRAIT_REEBE = TRUE, ZTRAIT_BOMBCAP_MULTIPLIER = 0.5)
 #define DL_NAME "name"

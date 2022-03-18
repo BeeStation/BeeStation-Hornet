@@ -65,6 +65,14 @@
 	return TRUE
 
 /**
+  * A proc that handles the code when the mob dies
+  *
+  * This proc is primarily used to end any soundloops when the heretic dies
+  */
+/datum/eldritch_knowledge/proc/on_death(mob/user)
+	return
+
+/**
  * What happens once the recipe is succesfully finished
  *
  * By default this proc creates atoms from result_atoms list. Override this is you want something else to happen.
@@ -242,7 +250,7 @@
 	name = "Break of dawn"
 	desc = "You can sacrifice specific targets by placing their dead bodies and the living heart on a transmutation rune, and performing a transmutation ritual."
 	gain_text = "Gates of mansus open up to your mind."
-	next_knowledge = list(/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_flesh)
+	next_knowledge = list(/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_flesh,/datum/eldritch_knowledge/base_void)
 	cost = 0
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
 	required_atoms = list(/obj/item/living_heart)
@@ -345,7 +353,7 @@
 	desc = "You can now create eldritch armor using a table and a gas mask."
 	gain_text = "For I am the heir to the throne of doom."
 	cost = 1
-	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/flesh_ghoul)
+	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/cold_snap)
 	required_atoms = list(/obj/structure/table,/obj/item/clothing/mask/gas)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch)
 
@@ -354,7 +362,7 @@
 	desc = "You can now transmute a tank of water and a glass shard into a bottle of eldritch water."
 	gain_text = "This is an old recipe. The Owl whispered it to me."
 	cost = 1
-	required_atoms = list(/obj/structure/reagent_dispensers/watertank)
+	required_atoms = list(/obj/structure/reagent_dispensers/watertank,/obj/item/shard)
 	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
 
 //	---	CURSES ---
@@ -472,7 +480,7 @@
 	desc = "You gain a spell that drains health from your enemies to restores your own."
 	cost = 1
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/blood_siphon
-	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet,/datum/eldritch_knowledge/spell/area_conversion)
+	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/voidpull)
 
 //	--- SUMMONS ---
 
@@ -483,7 +491,7 @@
 	cost = 1
 	required_atoms = list(/obj/effect/decal/cleanable/ash,/obj/item/bodypart/head,/obj/item/book)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/ash_spirit
-	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/rust_wave)
+	next_knowledge = list(/datum/eldritch_knowledge/spell/voidpull,/datum/eldritch_knowledge/spell/rust_wave)
 
 /datum/eldritch_knowledge/summon/rusty
 	name = "Rusted Ritual"

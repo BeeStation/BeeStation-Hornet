@@ -6,7 +6,7 @@
 	name = "Principle of Hunger"
 	desc = "Opens up the Path of Flesh to you. Allows you to transmute a pool of blood with a kitchen knife, or its derivatives, into a Flesh Blade."
 	gain_text = "Hundreds of us starved, but not me... I found strength in my greed."
-	banned_knowledge = list(/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/final/ash_final,/datum/eldritch_knowledge/final/rust_final)
+	banned_knowledge = list(/datum/eldritch_knowledge/base_ash,/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/final/ash_final,/datum/eldritch_knowledge/final/rust_final,/datum/eldritch_knowledge/final/void_final,/datum/eldritch_knowledge/base_void)
 	next_knowledge = list(/datum/eldritch_knowledge/flesh_grasp)
 	required_atoms = list(/obj/item/kitchen/knife,/obj/effect/decal/cleanable/blood)
 	result_atoms = list(/obj/item/melee/sickly_blade/flesh)
@@ -19,7 +19,7 @@
 	gain_text = "I found notes of a dark ritual, unfinished... yet still, I pushed forward."
 	cost = 1
 	required_atoms = list(/mob/living/carbon/human,/obj/item/reagent_containers/food/snacks/grown/poppy)
-	next_knowledge = list(/datum/eldritch_knowledge/flesh_mark,/datum/eldritch_knowledge/armor,/datum/eldritch_knowledge/ashen_eyes)
+	next_knowledge = list(/datum/eldritch_knowledge/flesh_mark,/datum/eldritch_knowledge/void_cloak,/datum/eldritch_knowledge/ashen_eyes)
 	route = PATH_FLESH
 	var/max_amt = 2
 	var/current_amt = 0
@@ -144,7 +144,7 @@
 	if(!ishuman(target))
 		return
 	var/mob/living/carbon/C = target
-	var/datum/status_effect/eldritch/E = C.has_status_effect(/datum/status_effect/eldritch/rust) || C.has_status_effect(/datum/status_effect/eldritch/ash) || C.has_status_effect(/datum/status_effect/eldritch/flesh)
+	var/datum/status_effect/eldritch/E = C.has_status_effect(/datum/status_effect/eldritch/rust) || C.has_status_effect(/datum/status_effect/eldritch/ash) || C.has_status_effect(/datum/status_effect/eldritch/flesh  || C.has_status_effect(/datum/status_effect/eldritch/void))
 	if(E)
 		E.on_effect()
 
@@ -185,7 +185,7 @@
 	cost = 1
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/bodypart/l_arm,/obj/item/bodypart/r_arm,/obj/effect/decal/cleanable/blood)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/raw_prophet
-	next_knowledge = list(/datum/eldritch_knowledge/flesh_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/alteration)
+	next_knowledge = list(/datum/eldritch_knowledge/flesh_blade_upgrade,/datum/eldritch_knowledge/rune_carver,/datum/eldritch_knowledge/curse/alteration)
 	route = PATH_FLESH
 
 /datum/eldritch_knowledge/summon/stalker

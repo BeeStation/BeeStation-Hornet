@@ -944,3 +944,13 @@
 	name = "Electro-Magnetic Pulse"
 	desc = "You've been hit with an EMP! You're malfunctioning!"
 	icon_state = "hypnosis"
+
+/datum/status_effect/eldritch/void
+	id = "void_mark"
+	effect_sprite = "emark4"
+
+/datum/status_effect/eldritch/void/on_effect()
+	var/turf/open/turfie = get_turf(owner)
+	turfie.TakeTemperature(-40)
+	owner.adjust_bodytemperature(-20)
+	return ..()

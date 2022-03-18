@@ -515,3 +515,52 @@
 /datum/status_effect/antimagic/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
 	owner.visible_message("<span class='warning'>[owner]'s dull aura fades away...</span>")
+
+/datum/status_effect/crucible_soul
+	id = "Blessing of Crucible Soul"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 15 SECONDS
+	examine_text = "<span class='notice'>They don't seem to be all here.</span>"
+	alert_type = /atom/movable/screen/alert/status_effect/crucible_soul
+	var/turf/location
+
+/datum/status_effect/crucible_soul/on_apply()
+	. = ..()
+	to_chat(owner,"<span class='notice'>You phase through reality, nothing is out of bounds!</span>")
+	owner.alpha = 180
+	owner.pass_flags |= PASSCLOSEDTURF | PASSGLASS | PASSGRILLE | PASSMACHINE | PASSSTRUCTURE | PASSTABLE | PASSMOB
+	location = get_turf(owner)
+
+/datum/status_effect/crucible_soul/on_remove()
+	to_chat(owner,"<span class='notice'>You regain your physicality, returning you to your original location...</span>")
+	owner.alpha = initial(owner.alpha)
+	owner.pass_flags &= ~(PASSCLOSEDTURF | PASSGLASS | PASSGRILLE | PASSMACHINE | PASSSTRUCTURE | PASSTABLE | PASSMOB)
+	owner.forceMove(location)
+	location = null
+	return ..()
+
+/datum/status_effect/duskndawn
+	id = "Blessing of Dusk and Dawn"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 60 SECONDS
+	alert_type =/atom/movable/screen/alert/status_effect/duskndawn
+
+/datum/status_effect/duskndawn/on_apply()
+	. = ..()
+	ADD_TRAIT(owner,TRAIT_XRAY_VISION,type)
+	owner.update_sight()
+
+/datum/status_effect/duskndawn/on_remove()
+	REMOVE_TRAIT(owner,TRAIT_XRAY_VISION,type)
+	owner.update_sight()
+	return ..()
+
+/atom/movable/screen/alert/status_effect/crucible_soul
+	name = "Blessing of Crucible Soul"
+	desc = "You phased through the reality, you are halfway to your final destination..."
+	icon_state = "crucible"
+
+/atom/movable/screen/alert/status_effect/duskndawn
+	name = "Blessing of Dusk and Dawn"
+	desc = "Many things hide beyond the horizon, with Owl's help i managed to slip past sun's guard and moon's watch."
+	icon_state = "duskndawn"
