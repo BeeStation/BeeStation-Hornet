@@ -166,7 +166,7 @@
 				if(!M.getorgan(/obj/item/organ/appendix) && !((TRAIT_NOHUNGER in S.inherent_traits) || (TRAIT_POWERHUNGRY in S.inherent_traits)))
 					var/obj/item/organ/appendix/O = new()
 					O.Insert(M)
-					M.adjustOrganLoss(ORGAN_SLOT_APPENDIX, 199, 199) //don't make it fail, or the host will start taking massive damage
+					M.adjustOrganLoss(ORGAN_SLOT_APPENDIX, 99, 99) //don't make it fail, or the host will start taking massive damage
 					return
 				if(!M.getorgan(/obj/item/organ/stomach) && !(NOSTOMACH in S.species_traits))
 					var/obj/item/organ/stomach/O
@@ -175,7 +175,7 @@
 					else
 						O = new()
 					O.Insert(M, drop_if_replaced = FALSE)
-					M.adjustOrganLoss(ORGAN_SLOT_STOMACH, 300)
+					M.adjustOrganLoss(ORGAN_SLOT_STOMACH, 200)
 					return
 				if(!M.getorgan(/obj/item/organ/lungs) && !(TRAIT_NOBREATH in S.inherent_traits))
 					var/obj/item/organ/lungs/O
@@ -184,12 +184,12 @@
 					else
 						O = new()
 					O.Insert(M, drop_if_replaced = FALSE)
-					M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 300)
+					M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 200)
 					return
 				if(!M.getorgan(/obj/item/organ/heart) && !(NOBLOOD in S.species_traits))
 					var/obj/item/organ/heart/O = new()
 					O.Insert(M, drop_if_replaced = FALSE)
-					M.adjustOrganLoss(ORGAN_SLOT_HEART, 300)
+					M.adjustOrganLoss(ORGAN_SLOT_HEART, 200)
 					return
 				if(!M.getorgan(/obj/item/organ/liver) && !(TRAIT_NOMETABOLISM in S.inherent_traits))
 					var/obj/item/organ/liver/O
@@ -198,13 +198,13 @@
 					else
 						O = new()
 					O.Insert(M, drop_if_replaced = FALSE)
-					M.adjustOrganLoss(ORGAN_SLOT_LIVER, 300)
+					M.adjustOrganLoss(ORGAN_SLOT_LIVER, 200)
 					return
 				if(!M.getorgan(/obj/item/organ/tail))
 					if(S.mutanttail)
 						var/obj/item/organ/tail/O = new S.mutanttail()
 						O.Insert(M, drop_if_replaced = FALSE)
-						M.adjustOrganLoss(ORGAN_SLOT_TAIL, 300)
+						M.adjustOrganLoss(ORGAN_SLOT_TAIL, 200)
 						M.visible_message("<span class='notice'>[M] sprouts a new tail!", "<span_class='userdanger'>You sprout a new tail!.</span>")
 						playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
 						M.add_splatter_floor(get_turf(M))
@@ -213,7 +213,7 @@
 					if(S.mutantwings)
 						var/obj/item/organ/wings/O = new S.mutantwings()
 						O.Insert(M, drop_if_replaced = FALSE)
-						M.adjustOrganLoss(ORGAN_SLOT_WINGS, 300)
+						M.adjustOrganLoss(ORGAN_SLOT_WINGS, 200)
 						M.visible_message("<span class='notice'>[M] sprouts a new pair of wings!", "<span_class='userdanger'>You sprout a new pair of wings!.</span>")
 						playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
 						M.add_splatter_floor(get_turf(M))
