@@ -1,0 +1,4 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - bugfix: Genetics will no longer be stuck with impossible to solve mutations.
