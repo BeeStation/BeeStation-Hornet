@@ -7484,7 +7484,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve";
 	dir = 4
 	},
 /turf/open/floor/plating{
@@ -14375,7 +14376,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve";
 	dir = 4
 	},
 /turf/open/floor/plating{
@@ -20141,7 +20143,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve"
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -29883,8 +29887,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve"
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -30332,9 +30338,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 8
+	},
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -37426,10 +37434,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve";
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -41888,8 +41897,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve"
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -51614,10 +51625,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve";
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -51950,10 +51962,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve";
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -53476,7 +53489,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve"
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -56704,7 +56719,9 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve"
+	},
 /turf/open/floor/plating,
 /area/maintenance/central)
 "bIw" = (
@@ -57753,8 +57770,8 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -60803,10 +60820,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve";
 	dir = 4
 	},
 /turf/open/floor/plating{
@@ -60935,10 +60953,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve";
 	dir = 4
 	},
 /turf/open/floor/plating{
@@ -65957,8 +65976,10 @@
 /area/security/execution/education)
 "bWq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve"
+	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
 "bWr" = (
@@ -72990,10 +73011,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve";
 	dir = 4
 	},
 /turf/open/floor/plating{
@@ -91403,7 +91425,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Junction Cutoff";
 	dir = 4
 	},
 /turf/open/floor/plating{
@@ -92020,10 +92043,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve";
 	dir = 4
 	},
 /turf/open/floor/plating{
@@ -96034,6 +96058,19 @@
 	icon_state = "platingdmg1"
 	},
 /area/maintenance/solars/starboard/fore)
+"hkS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve"
+	},
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/maintenance/fore)
 "hnI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -96868,6 +96905,22 @@
 	icon_state = "platingdmg3"
 	},
 /area/quartermaster/warehouse)
+"jDR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
+	},
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/maintenance/starboard/aft)
 "jGK" = (
 /obj/effect/spawner/room/threexthree,
 /obj/effect/decal/cleanable/dirt,
@@ -97742,6 +97795,26 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"msN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
+	},
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/maintenance/port/fore)
 "msV" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -98151,6 +98224,22 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"nuo" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "nvP" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/tile/neutral{
@@ -98208,6 +98297,17 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/aft)
+"nIz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve"
+	},
+/turf/open/floor/plating,
+/area/maintenance/central)
 "nNZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/airless,
@@ -123313,7 +123413,7 @@ cwq
 cwp
 cwp
 cyI
-aQu
+msN
 aiN
 cAf
 aVY
@@ -128977,7 +129077,7 @@ cHt
 cIK
 cKb
 cHs
-auO
+hkS
 cKl
 cKm
 cHw
@@ -129030,7 +129130,7 @@ cie
 cka
 cya
 bFa
-clH
+nuo
 bGU
 bET
 aJk
@@ -134383,7 +134483,7 @@ aOJ
 aPP
 bVl
 aSJ
-pFr
+nIz
 pFr
 aYv
 aZb
@@ -138018,7 +138118,7 @@ bOa
 bNY
 bNK
 coZ
-azy
+jDR
 awX
 awX
 awX
