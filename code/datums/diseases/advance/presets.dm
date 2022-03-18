@@ -35,25 +35,6 @@
 		S.neutered = TRUE
 	..()
 
-/datum/disease/advance/feline_mania
-	name = "Rabid Felinid Disorder"
-	desc = "An extremely dangerous bioweapon, designed to incapacitate entire crews."
-	copy_type = /datum/disease/advance
-	mutable = FALSE
-
-/datum/disease/advance/feline_hysteria/New()
-	name = "Feline Hysteria"
-	desc = "A very dangerous disease engineered by the Animal Rights Coalition. Causes mass feline hysteria."
-	mutable = FALSE
-	symptoms = list(new/datum/symptom/toxoplasmosis, new/datum/symptom/heal/chem, new/datum/symptom/meme, new/datum/symptom/revitiligo, new/datum/symptom/inorganic_adaptation, new/datum/symptom/organ_restoration)
-	for(var/datum/symptom/S as() in (symptoms))
-		if(istype(S, /datum/symptom/toxoplasmosis))
-			continue
-		if(istype(S, /datum/symptom/organ_restoration))
-			continue
-		S.neutered = TRUE
-	..()
-
 //Randomly generated Disease, for virus crates and events
 /datum/disease/advance/random
 	name = "Experimental Disease"

@@ -623,7 +623,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	name = "Hemetophagy"
 	desc = "The host absorbs blood from external sources, and seemlessly reintegrates it into their own bloodstream, regardless of its bloodtype or how it was ingested. However, the virus also slowly consumes the host's blood"
 	stealth = 1
-	resistance = -3
+	resistance = -2
 	stage_speed = 1
 	transmission = 2
 	level = 9
@@ -729,6 +729,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		if(M.get_blood_id() != /datum/reagent/blood)
 			possibledist = 1
 		if(!(NOBLOOD in H.dna.species.species_traits)) //if you dont have blood, well... sucks to be you
+			H.setOxyLoss(0,0) //this is so a crit person still revives if suffocated
 			if(bloodpoints >= 200 && H.health > 0 && H.blood_volume >= BLOOD_VOLUME_NORMAL) //note that you need to actually need to heal, so a maxed out virus won't be bringing you back instantly in most cases. *even so*, if this needs to be nerfed ill do it in a heartbeat
 				H.revive(0)
 				H.visible_message("<span class='warning'>[H.name]'s skin takes on a rosy hue as they begin moving. They live again!</span>", "<span class='userdanger'>As your body fills with fresh blood, you feel your limbs once more, accompanied by an insatiable thirst for blood.</span>")
