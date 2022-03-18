@@ -217,6 +217,7 @@
 	name = "Overload"
 	desc = "Allows an Ethereal to overload their skin to cause a bright flash."
 	quality = POSITIVE
+	locked = TRUE
 	text_gain_indication = "<span class='notice'>Your skin feels more crackly.</span>"
 	instability = 30
 	power = /obj/effect/proc_holder/spell/self/overload
@@ -250,6 +251,7 @@
 	name = "Acidic Hands"
 	desc = "Allows an Oozeling to metabolize some of their blood into acid, concentrated on their hands."
 	quality = POSITIVE
+	locked = TRUE
 	text_gain_indication = "<span class='notice'>Your hands feel sore.</span>"
 	instability = 30
 	power = /obj/effect/proc_holder/spell/targeted/touch/acidooze
