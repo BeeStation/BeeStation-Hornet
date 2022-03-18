@@ -24,7 +24,7 @@
 	RegisterSignal(parent, COMSIG_ENTER_AREA, .proc/check_area_mood)
 
 	RegisterSignal(parent, COMSIG_MOB_HUD_CREATED, .proc/modify_hud)
-	RegisterSignal(parent, COMSIG_HUMAN_VOID_MASK_ACT, .proc/direct_sanity_drain)
+	RegisterSignal(parent, COMSIG_HERETIC_MASK_ACT, .proc/direct_sanity_drain)
 	var/mob/living/owner = parent
 	if(owner.hud_used)
 		modify_hud()

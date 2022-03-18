@@ -235,6 +235,7 @@
 #define COMSIG_LIVING_START_PULL "living_start_pull"			///called on /living when someone starts pulling (atom/movable/pulled, state, force)
 #define COMSIG_LIVING_CAN_TRACK "mob_can_track"					///from base of /mob/living/can_track()
 	#define COMPONENT_CANT_TRACK 1
+#define COMSIG_LIVING_LIFE "living_life"
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
 #define COMSIG_LIVING_STATUS_STUN "living_stun"					//! from base of mob/living/Stun() (amount, update, ignore)
@@ -307,6 +308,7 @@
   #define COMPONENT_IS_WIELDED 1
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"			///from [/obj/item/proc/disableEmbedding]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"						///from [/obj/effect/mine/proc/triggermine]:
+#define COMSIG_ITEM_ATTACK_EFFECT "item_effect_attacked"
 
 // /obj/item/clothing signals
 #define COMSIG_SHOES_STEP_ACTION "shoes_step_action"			//! from base of obj/item/clothing/shoes/proc/step_action(): ()
@@ -440,7 +442,24 @@
 #define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"
 
 //Heretics stuff
-#define COMSIG_HUMAN_VOID_MASK_ACT "void_mask_act"
+#define COMSIG_HERETIC_MASK_ACT "void_mask_act"
+/// From /obj/item/melee/touch_attack/mansus_fist/on_mob_hit : (mob/living/source, mob/living/target)
+#define COMSIG_HERETIC_MANSUS_GRASP_ATTACK "mansus_grasp_attack"
+	/// Default behavior is to use a charge, so return this to blocks the mansus fist from being consumed after use.
+	#define COMPONENT_BLOCK_CHARGE_USE (1<<0)
+/// From /obj/item/melee/touch_attack/mansus_fist/afterattack_secondary : (mob/living/source, atom/target)
+#define COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY "mansus_grasp_attack_secondary"
+	/// Default behavior is to continue attack chain and do nothing else, so return this to use up a charge after use.
+	#define COMPONENT_USE_CHARGE (1<<0)
+
+/// From /obj/item/melee/sickly_blade/afterattack (with proximity) : (mob/living/source, mob/living/target)
+#define COMSIG_HERETIC_BLADE_ATTACK "blade_attack"
+/// From /obj/item/melee/sickly_blade/afterattack (without proximity) : (mob/living/source, mob/living/target)
+#define COMSIG_HERETIC_RANGED_BLADE_ATTACK "ranged_blade_attack"
+///called from /obj/effect/proc_holder/spell/cast_check (src)
+#define COMSIG_MOB_PRE_CAST_SPELL "mob_cast_spell"
+	/// Return to cancel the cast from beginning.
+	#define COMPONENT_CANCEL_SPELL (1<<0)
 
 // Component signals
 /// From /datum/port/output/set_output: (output_value)
@@ -547,4 +566,3 @@
 #define COMSIG_MOVABLE_LIGHT_OVERLAY_TOGGLE_ON "movable_light_overlay_toggle_on"
 
 #define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
-

@@ -23,7 +23,7 @@
 	perpetual = TRUE
 
 /datum/weather/void_storm/weather_act(mob/living/L)
-	if(IS_HERETIC(L) || IS_HERETIC_MONSTER(L))
+	if(IS_HERETIC_OR_MONSTER(L))
 		return
 	L.adjustOxyLoss(rand(1,3))
 	L.adjustFireLoss(rand(1,3))

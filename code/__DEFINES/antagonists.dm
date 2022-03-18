@@ -75,16 +75,26 @@
 #define SPAWNTYPE_MIDROUND "midround"
 #define SPAWNTYPE_EITHER "either"
 
+/// Checks if the given mob is a blood cultist
+#define IS_CULTIST(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/cult))
+
 ///It is faster as a macro than a proc
 #define IS_HERETIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic))
 #define IS_HERETIC_MONSTER(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
+/// Checks if the given mob is either a heretic or a heretic monster.
+#define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
 
-#define PATH_SIDE "Side"
+/// Define for the heretic faction applied to heretics and heretic mobs.
+#define FACTION_HERETIC "heretics"
 
-#define PATH_ASH "Ash"
-#define PATH_RUST "Rust"
-#define PATH_FLESH "Flesh"
-#define PATH_VOID "Void"
+// Heretic path defines.
+#define PATH_START "Start Path"
+#define PATH_SIDE "Side Path"
+#define PATH_ASH "Ash Path"
+#define PATH_RUST "Rust Path"
+#define PATH_FLESH "Flesh Path"
+#define PATH_VOID "Void Path"
+
 
 /// How much does it cost to reroll strains?
 #define BLOB_REROLL_COST 40

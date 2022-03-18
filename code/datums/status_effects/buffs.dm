@@ -525,11 +525,11 @@
 	var/turf/location
 
 /datum/status_effect/crucible_soul/on_apply()
-	. = ..()
 	to_chat(owner,"<span class='notice'>You phase through reality, nothing is out of bounds!</span>")
 	owner.alpha = 180
 	owner.pass_flags |= PASSCLOSEDTURF | PASSGLASS | PASSGRILLE | PASSMACHINE | PASSSTRUCTURE | PASSTABLE | PASSMOB
 	location = get_turf(owner)
+	return TRUE
 
 /datum/status_effect/crucible_soul/on_remove()
 	to_chat(owner,"<span class='notice'>You regain your physicality, returning you to your original location...</span>")
@@ -537,7 +537,6 @@
 	owner.pass_flags &= ~(PASSCLOSEDTURF | PASSGLASS | PASSGRILLE | PASSMACHINE | PASSSTRUCTURE | PASSTABLE | PASSMOB)
 	owner.forceMove(location)
 	location = null
-	return ..()
 
 /datum/status_effect/duskndawn
 	id = "Blessing of Dusk and Dawn"
@@ -546,21 +545,20 @@
 	alert_type =/atom/movable/screen/alert/status_effect/duskndawn
 
 /datum/status_effect/duskndawn/on_apply()
-	. = ..()
 	ADD_TRAIT(owner,TRAIT_XRAY_VISION,type)
 	owner.update_sight()
+	return TRUE
 
 /datum/status_effect/duskndawn/on_remove()
 	REMOVE_TRAIT(owner,TRAIT_XRAY_VISION,type)
 	owner.update_sight()
-	return ..()
 
 /atom/movable/screen/alert/status_effect/crucible_soul
 	name = "Blessing of Crucible Soul"
-	desc = "You phased through the reality, you are halfway to your final destination..."
+	desc = "You phased through reality. You are halfway to your final destination..."
 	icon_state = "crucible"
 
 /atom/movable/screen/alert/status_effect/duskndawn
 	name = "Blessing of Dusk and Dawn"
-	desc = "Many things hide beyond the horizon, with Owl's help i managed to slip past sun's guard and moon's watch."
+	desc = "Many things hide beyond the horizon. With Owl's help I managed to slip past Sun's guard and Moon's watch."
 	icon_state = "duskndawn"

@@ -219,8 +219,12 @@
 /datum/species/ipc/spec_revival(mob/living/carbon/human/H)
 	H.notify_ghost_cloning("You have been repaired!")
 	H.grab_ghost()
-	H.dna.features["ipc_screen"] = "BSOD"
+	INVOKE_ASYNC(src, .proc/declare_revival, H)
+	H.dna.features["ipc_screen"] = saved_screen
 	H.update_body()
+	return
+
+/datum/species/ipc/proc/declare_revival(mob/living/carbon/human/H)
 	H.say("Reactivating [pick("core systems", "central subroutines", "key functions")]...")
 	sleep(3 SECONDS)
 	if(H.stat == DEAD)
@@ -234,9 +238,6 @@
 	if(H.stat == DEAD)
 		return
 	H.say("Unit [H.real_name] is fully functional. Have a nice day.")
-	H.dna.features["ipc_screen"] = saved_screen
-	H.update_body()
-	return
 
 /datum/species/ipc/get_harm_descriptors()
 	return list("bleed" = "leaking", "brute" = "denting", "burn" = "burns")

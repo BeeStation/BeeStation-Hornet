@@ -63,6 +63,8 @@
 #include "spawn_humans.dm"
 #include "species_whitelists.dm"
 #include "greyscale_config.dm"
+#include "heretic_knowledge.dm"
+#include "heretic_rituals.dm"
 #include "metabolizing.dm"
 #include "projectiles.dm"
 #include "subsystem_init.dm"
