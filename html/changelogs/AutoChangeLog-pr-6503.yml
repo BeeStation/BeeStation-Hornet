@@ -1,0 +1,6 @@
+author: Hardly
+delete-after: true
+changes:
+  - rscadd: Mentor Chat can now be filtered from the chat
+  - tweak: Improved msay hotkey window
+  - rscdel: Unused modchat stuff from TGUI
