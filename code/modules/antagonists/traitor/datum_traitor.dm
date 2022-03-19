@@ -98,7 +98,7 @@
 	var/datum/objective/gimmick/gimmick_objective = new
 	gimmick_objective.owner = owner
 	gimmick_objective.find_target()
-	gimmick_objective.update_explanation_text() //Call the generate objective proc
+	gimmick_objective.update_explanation_text()
 	add_objective(gimmick_objective) //Does not count towards the number of objectives, to allow hijacking as well
 
 	if(is_hijacker && objective_count <= toa) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount

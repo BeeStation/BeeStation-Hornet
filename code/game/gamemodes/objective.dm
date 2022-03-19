@@ -427,37 +427,42 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/gimmick/update_explanation_text()
 	var/selected_department = pick(list( //Select a department for department-based objectives
-		"Science",
-		"Engineering",
-		"Botany",
-		"Security",
-		"Medical",
-		"Service",
-		"Cargo",
-		"Command"
+		"science",
+		"engineering",
+		"security",
+		"medical",
+		"service",
+		"cargo",
+		"command"
 	))
-	var/list/gimmick_list = list(
-		"Pickpocket unsuspecting peoples' IDs, and later impersonate them.",
-		"Whenever someone is arrested, break them free. The Syndicate looks out for its own.",
-		"Whenever someone is arrested, kill them. The Syndicate does not tolerate failure.",
+	var/list/gimmick_list = list( //This list is ONLY for objectives that depend on a random selection
 		"Get everyone to hate [selected_department], through misdirection, slander, and sabotage.",
-		"Promote hostilities and tensions between different alien species. Pit those filthy xenos against each other!",
-		"Kidnap a station pet and hold them for ransom!",
 		"Incite a strike in [selected_department].",
-		"Single out a single species and make the rest of the crew hate them as much as possible.",
-		"We've been taking notes from the British. Get as many people on the station addicted to drugs as possible!"
+		"You are a bully. Be a real jerk to those nerds at [selected_department] whenever possible. NEEERDS!",
+		"Keep power cut in [selected_department].",
+		"Disguise yourself as a member of [selected_department] and sabotage them from within.",
+		"Vandalize [selected_department] as much as possible.",
+		"Destroy [selected_department] utterly and entirely.", //Teeeeechnically, there is a 1/50 chance of getting any specific gimmick objective, making this one rarer than hijack
+		"Keep all cameras cut in [selected_department].",
+		"Attempt to kidnap a member of [selected_department] to take with you on an escape pod or a shuttle, for questioning at Syndicate HQ.",
+		"Hack all doors in [selected_department] to be shocked, bolted, or inaccessible by the AI"
 	)
-	if(target && target.current)
+	if(target && target.current) //Only add these objectives to the pool if there are targets on the station
 		gimmick_list.Add(
 			"Construct an elaborate trap for [target.name].",
-			"Ensure [target.name] is demoted from their position."
+			"Ensure [target.name] is demoted from their position.",
+			"Get [target.name] arrested for a crime they haven't committed.",
+			"Top-secret Syndicate intelligence suggests that [target.name] is responsible for scratching the paint on one of our CEOs' private cruisers. Make their life as miserable as possible without killing them.",
+			"Kidnap [target.name] and hold them for ransom!",
+			"Erase any legal and medical evidence of [target.name]'s existence (including their ID and records).",
+			"Pin the blame on [target.name] for any and all crimes you commit, and try to convince security and the crew that it was them all along.",
+			"Attempt to kidnap [target.name] to take with you on an escape pod or shuttle, for questioning at Syndicate HQ.",
+			"Frame [target.name] for murdering you.",
+			"[target.name] knows corporate secrets. Interrogate them. Use force if they pretend to not know."
 		)
-
+	gimmick_list.Add(world.file2list("strings/gimmick_objectives.txt")) //gimmick_objectives.txt is for objectives without a specific target/department/etc
 	var/selected_gimmick = pick(gimmick_list)
 	explanation_text = "[selected_gimmick]"
-
-/datum/objective/assassinate/admin_edit(mob/admin)
-	update_explanation_text()
 
 /datum/objective/gimmick/check_completion()
 	return TRUE
