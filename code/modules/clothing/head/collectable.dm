@@ -3,32 +3,31 @@
 
 /* 
 
-Contents: 
+	Contents: 
 
-Pete's collectible hat
-Collectable slime cap
-Collectable xenomorph helmet
-Collectable chef's hat
-Collectable paper hat
-Collectable top hat
-Collectable captain's hat
-Collectable polic officer's hat
-Collectable beret
-Collectable welding helmet
-Collectable slime hat
-Collectable flat cap
-Collectable pirate hat
-Collectable kitty ears
-Collectable rabbit ears
-Collectable wizard's hat
-Collectable hard hat
-Collectable HoS hat
-Collectable HoP hat
-Collectable thunderdome helmet
-Collectable SWAT helmet
+		Pete's collectible hat
+		Collectable slime cap
+		Collectable xenomorph helmet
+		Collectable chef's hat
+		Collectable paper hat
+		Collectable top hat
+		Collectable captain's hat
+		Collectable polic officer's hat
+		Collectable beret
+		Collectable welding helmet
+		Collectable slime hat
+		Collectable flat cap
+		Collectable pirate hat
+		Collectable kitty ears
+		Collectable rabbit ears
+		Collectable wizard's hat
+		Collectable hard hat
+		Collectable HoS hat
+		Collectable HoP hat
+		Collectable thunderdome helmet
+		Collectable SWAT helmet
 
 */
-
 
 /obj/item/clothing/head/collectable
 	name = "collectable hat"
