@@ -432,24 +432,25 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		"Botany",
 		"Security",
 		"Medical",
-		"Service"
-	))
-	var/selected_item = pick(list(
-		"medical kits",
-		"food"
+		"Service",
+		"Cargo",
+		"Command"
 	))
 	var/list/gimmick_list = list(
-		"Create a shortage of [selected_item].",
+		"Pickpocket unsuspecting peoples' IDs, and later impersonate them.",
 		"Whenever someone is arrested, break them free. The Syndicate looks out for its own.",
 		"Whenever someone is arrested, kill them. The Syndicate does not tolerate failure.",
-		"Get everyone to hate [selected_department], through misdirection, slander, and sabotage."
+		"Get everyone to hate [selected_department], through misdirection, slander, and sabotage.",
+		"Promote hostilities and tensions between different alien species. Pit those filthy xenos against each other!",
+		"Kidnap a station pet and hold them for ransom!",
+		"Incite a strike in [selected_department].",
+		"Single out a single species and make the rest of the crew hate them as much as possible.",
+		"We've been taking notes from the British. Get as many people on the station addicted to drugs as possible!"
 	)
 	if(target && target.current)
 		gimmick_list.Add(
 			"Construct an elaborate trap for [target.name].",
-			"Ensure [target.name] is demoted from their position.",
-			"Subtly mess with [target.name]. Try not to get your cover blown.",
-			"[target.name] is your rival. Try to one-up them whenever possible!"
+			"Ensure [target.name] is demoted from their position."
 		)
 
 	var/selected_gimmick = pick(gimmick_list)
