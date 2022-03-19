@@ -421,6 +421,46 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			return ..()
 	return SSshuttle.emergency.is_hijacked() || ..()
 
+/datum/objective/gimmick
+	name = "gimmick"
+	martyr_compatible = 1
+
+/datum/objective/gimmick/update_explanation_text()
+	var/selected_department = pick(list( //Select a department for department-based objectives
+		"Science",
+		"Engineering",
+		"Botany",
+		"Security",
+		"Medical",
+		"Service"
+	))
+	var/selected_item = pick(list(
+		"medical kits",
+		"food"
+	))
+	var/list/gimmick_list = list(
+		"Create a shortage of [selected_item].",
+		"Whenever someone is arrested, break them free. The Syndicate looks out for its own.",
+		"Whenever someone is arrested, kill them. The Syndicate does not tolerate failure.",
+		"Get everyone to hate [selected_department], through misdirection, slander, and sabotage."
+	)
+	if(target && target.current)
+		gimmick_list.Add(
+			"Construct an elaborate trap for [target.name].",
+			"Ensure [target.name] is demoted from their position.",
+			"Subtly mess with [target.name]. Try not to get your cover blown.",
+			"[target.name] is your rival. Try to one-up them whenever possible!"
+		)
+
+	var/selected_gimmick = pick(gimmick_list)
+	explanation_text = "[selected_gimmick]"
+
+/datum/objective/assassinate/admin_edit(mob/admin)
+	update_explanation_text()
+
+/datum/objective/gimmick/check_completion()
+	return TRUE
+
 /datum/objective/elimination
 	name = "elimination"
 	explanation_text = "Slaughter all loyalist crew aboard the shuttle. You, and any likeminded individuals, must be the only remaining people on the shuttle."
@@ -1015,6 +1055,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		/datum/objective/protect,
 		/datum/objective/destroy,
 		/datum/objective/hijack,
+		/datum/objective/gimmick,
 		/datum/objective/escape,
 		/datum/objective/survive,
 		/datum/objective/martyr,
