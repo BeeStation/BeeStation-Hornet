@@ -1,0 +1,4 @@
+author: Jeff-3
+delete-after: true
+changes:
+  - bugfix: Microwaves no longer get stuck cooking forever
