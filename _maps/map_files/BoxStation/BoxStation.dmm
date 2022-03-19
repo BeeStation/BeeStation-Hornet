@@ -20967,8 +20967,8 @@
 /area/quartermaster/storage)
 "bjn" = (
 /obj/structure/table,
-/obj/item/clothing/head/soft,
-/obj/item/clothing/head/soft,
+/obj/item/clothing/head/soft/cargo,
+/obj/item/clothing/head/soft/cargo,
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},
