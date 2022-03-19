@@ -75,8 +75,12 @@
 	if(istype(I, /obj/item/flashlight/seclite))
 		var/obj/item/flashlight/seclite/S = I
 		if(can_flashlight && !attached_light)
+			if(up)
+				to_chat(user, "<span class='notice'>You need to pull the visor down before attaching \the [S].</span>")
+				return
 			if(!user.transferItemToLoc(S, src))
 				return
+			
 			to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 			set_attached_light(S)
 			update_icon()
@@ -179,31 +183,49 @@
 	item_state = "helmet"
 	toggle_message = "You pull the visor down on"
 	alt_toggle_message = "You push the visor up on"
-	can_toggle = TRUE
+	can_flashlight = TRUE
 	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 15, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80, "stamina" = 50)
 	flags_inv = HIDEEARS|HIDEFACE
 	strip_delay = 80
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEFACE
-	toggle_cooldown = 0
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
-/obj/item/clothing/head/helmet/riot/attack_self(mob/user)
-	if(can_toggle && !user.incapacitated())
-		if(world.time > cooldown + toggle_cooldown)
-			cooldown = world.time
-			up = !up
-			flags_1 ^= visor_flags
-			flags_inv ^= visor_flags_inv
-			flags_cover ^= visor_flags_cover
-			icon_state = "[initial(icon_state)][up ? "up" : ""]"
-			to_chat(user, "[up ? alt_toggle_message : toggle_message] \the [src]")
+/obj/item/clothing/head/helmet/riot/update_icon()
+	icon_state = "[initial(icon_state)][up ? "up" : ""]"
+	return ..(FALSE)
 
-			user.update_inv_head()
-			if(iscarbon(user))
-				var/mob/living/carbon/C = user
-				C.head_update(src, forced = 1)
+/obj/item/clothing/head/helmet/riot/attack_self(mob/user)
+	if(user.incapacitated())
+		return
+
+	if(!up && attached_light)
+		to_chat(user, "<span class='notice'>You need to deattach the seclite before you can lift the visor up!</span>")
+		return
+
+	up = !up
+
+	flags_1 ^= visor_flags
+	flags_inv ^= visor_flags_inv
+	flags_cover ^= visor_flags_cover
+	update_icon()
+	to_chat(user, "<span class='notice'>[up ? alt_toggle_message : toggle_message] \the [src].</span>")
+
+	user.update_inv_head()
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		C.head_update(src, forced = TRUE)
+
+/obj/item/clothing/head/helmet/riot/AltClick(mob/user)
+	toggle_helmlight(user)
+
+/obj/item/clothing/head/helmet/riot/ui_action_click(mob/user, datum/actiontype)
+	switch(actiontype.type)
+		if(/datum/action/item_action/toggle_helmet_flashlight)
+			AltClick(user)
+		if(/datum/action/item_action/toggle)
+			attack_self(user)
 
 /obj/item/clothing/head/helmet/justice
 	name = "helmet of justice"
@@ -212,18 +234,13 @@
 	toggle_message = "You turn off the lights on"
 	alt_toggle_message = "You turn on the lights on"
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
-	can_toggle = TRUE
-	toggle_cooldown = 20
 	active_sound = 'sound/items/weeoo1.ogg'
 
 	///Is the helmet on?
 	var/on = FALSE
 
 /obj/item/clothing/head/helmet/justice/update_icon()
-	if(on)
-		icon_state = "[initial(icon_state)]up"
-	else
-		icon_state = initial(icon_state)
+	icon_state = "[initial(icon_state)][on ? "on" : ""]"
 
 	return ..(FALSE)
 

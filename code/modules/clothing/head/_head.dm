@@ -8,8 +8,6 @@
 	dynamic_hair_suffix = "+generic"
 	///Is the person wearing this trackable by the AI?
 	var/blockTracking = FALSE
-	///Can this hat be toggled?
-	var/can_toggle = FALSE
 
 /obj/item/clothing/head/Initialize(mapload)
 	. = ..()

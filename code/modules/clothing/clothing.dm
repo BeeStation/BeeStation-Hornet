@@ -25,7 +25,6 @@
 	var/toggle_message = null
 	var/alt_toggle_message = null
 	var/active_sound = null
-	var/toggle_cooldown = null
 	var/cooldown = 0
 	var/envirosealed = FALSE //is it safe for plasmamen
 
@@ -405,7 +404,7 @@ BLIND     // can't see anything
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		C.head_update(src, forced = 1)
+		C.head_update(src, forced = TRUE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
