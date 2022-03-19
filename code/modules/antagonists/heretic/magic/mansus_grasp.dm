@@ -3,6 +3,7 @@
 	desc = "A touch spell that lets you channel the power of the Old Gods through your grip."
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
 	charge_max = 100
+	heretical = TRUE
 	clothes_req = FALSE
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "mansus_grasp"
@@ -11,8 +12,8 @@
 /obj/item/melee/touch_attack/mansus_fist
 	name = "Mansus Grasp"
 	desc = "A sinister looking aura that distorts the flow of reality around it. Causes knockdown and major stamina damage in addition to some brute. It gains additional beneficial effects as you expand your knowledge of the Mansus."
-	icon_state = "mansus"
-	item_state = "mansus"
+	icon_state = "mansus_grasp"
+	item_state = "mansus_grasp"
 	catchphrase = "R'CH T'H TR'TH!"
 	on_use_sound = 'sound/items/welder.ogg'
 

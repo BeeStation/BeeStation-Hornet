@@ -2096,7 +2096,7 @@ Then I attempt to calculate the how many hands to created based off the current 
 I take the 2s interval period and divide it by the number of hands I want to make (i.e. the current delta_time) and I keep track of how many hands I'm creating (since I always create one on a tick, then I start at 1 hand). For each hand I then use this time value multiplied by the number of hands. Since we're spawning one now, and it checks to see if hands is less than, but not less than or equal to, delta_time, no hands will be created on the next expected tick.
 Basically, we fill the time between now and 2s from now with hands based off the current lag.
 */
-/datum/reagent/helgrasp/on_mob_life(mob/living/carbon/owner, delta_time, times_fired)
+/datum/reagent/helgrasp/on_mob_life(mob/living/carbon/owner, delta_time = 2, times_fired)
 	spawn_hands(owner)
 	lag_remainder += delta_time - FLOOR(delta_time, 1)
 	delta_time = FLOOR(delta_time, 1)

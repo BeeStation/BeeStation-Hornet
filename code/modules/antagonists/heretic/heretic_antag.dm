@@ -41,6 +41,8 @@
 	var/static/list/scribing_tools = typecacheof(list(/obj/item/pen, /obj/item/toy/crayon))
 	/// A blacklist of turfs we cannot scribe on.
 	var/static/list/blacklisted_rune_turfs = typecacheof(list(/turf/open/space, /turf/open/openspace, /turf/open/lava, /turf/open/chasm))
+	var/datum/action/innate/hereticmenu/menu
+	ui_name = "AntagInfoHeretic"
 
 /datum/antagonist/heretic/ui_data(mob/user)
 	var/list/data = list()
@@ -131,9 +133,9 @@
 	to_chat(owner, "<span class='cult'>The book whispers, the forbidden knowledge walks once again!<br>\
 	Your book allows you to research abilities, read it very carefully! You cannot undo what has been done!<br>\
 	You gain charges by either collecting influences or sacrificing people tracked by the living heart<br> \
-	You can find a basic guide at : https://wiki.beestation13.com/view/Heretics </span>")
+	You can find a basic guide at: https://wiki.beestation13.com/view/Heretics </span>")
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Heretic",
-		"Collect influences or sacrafice targets to expand your forbidden knowledge.")
+		"Collect influences or sacrifice targets to expand your forbidden knowledge.")
 
 /datum/antagonist/heretic/farewell()
 	if(!silent)
@@ -149,6 +151,7 @@
 	for(var/starting_knowledge in GLOB.heretic_start_knowledge)
 		gain_knowledge(starting_knowledge)
 
+	addtimer(CALLBACK(src, .proc/add_menu_action), 1)
 	GLOB.reality_smash_track.add_tracked_mind(owner)
 	addtimer(CALLBACK(src, .proc/passive_influence_gain), passive_gain_timer) // Gain +1 knowledge every 20 minutes.
 	return ..()
@@ -161,6 +164,7 @@
 
 	GLOB.reality_smash_track.remove_tracked_mind(owner)
 	QDEL_LIST_ASSOC_VAL(researched_knowledge)
+	QDEL_NULL(menu)
 	return ..()
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
@@ -281,7 +285,7 @@
 	drawing_rune = TRUE
 
 	target_turf.balloon_alert(user, "drawing rune...")
-	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks))
+	if(!do_after(user, drawing_time, target = target_turf, extra_checks = additional_checks))
 		target_turf.balloon_alert(user, "interrupted!")
 		drawing_rune = FALSE
 		return
@@ -357,6 +361,10 @@
 	if(owner.current.stat <= SOFT_CRIT)
 		to_chat(owner.current, "<span class='hear'>You hear a whisper...</span> <span class = 'hypnophrase'>[pick(strings(HERETIC_INFLUENCE_FILE, "drain_message"))]</span>")
 	addtimer(CALLBACK(src, .proc/passive_influence_gain), passive_gain_timer)
+
+/datum/antagonist/heretic/proc/add_menu_action()
+	menu = new /datum/action/innate/hereticmenu(src)
+	menu.Grant(owner.current)
 
 /datum/antagonist/heretic/roundend_report()
 	var/list/parts = list()
@@ -647,3 +655,18 @@
 	var/obj/item/clothing/suit/hooded/hooded = locate() in equipper
 	hooded.MakeHood() // This is usually created on Initialize, but we run before atoms
 	hooded.ToggleHood()
+
+/datum/action/innate/hereticmenu
+	name = "Forbidden Knowledge"
+	icon_icon = 'icons/obj/eldritch.dmi'
+	button_icon_state = "book_open"
+	background_icon_state = "bg_ecult"
+	var/datum/antagonist/heretic/ownerantag
+
+/datum/action/innate/hereticmenu/New(datum/H)
+	. = ..()
+	button.name = name
+	ownerantag = H
+
+/datum/action/innate/hereticmenu/Activate()
+	ownerantag.ui_interact(owner)

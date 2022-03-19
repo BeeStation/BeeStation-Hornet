@@ -19,7 +19,7 @@
 	RegisterSignal(target, COMSIG_PARENT_EXAMINE, .proc/handle_examine)
 	RegisterSignal(target, list(COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), COMSIG_ATOM_TOOL_ACT(TOOL_RUSTSCRAPER)), .proc/secondary_tool_act)
 	// Unfortunately registering with parent sometimes doesn't cause an overlay update
-	target.update_overlays()
+	target.update_icon()
 
 /datum/element/rust/Detach(atom/source)
 	. = ..()
@@ -27,7 +27,7 @@
 	UnregisterSignal(source, COMSIG_PARENT_EXAMINE)
 	UnregisterSignal(source, list(COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), COMSIG_ATOM_TOOL_ACT(TOOL_RUSTSCRAPER)))
 	REMOVE_TRAIT(source, TRAIT_RUSTY, src)
-	source.update_overlays()
+	source.update_icon()
 
 /datum/element/rust/proc/handle_examine(datum/source, mob/user, list/examine_text)
 	SIGNAL_HANDLER
@@ -49,15 +49,15 @@
 		if(TOOL_WELDER)
 			if(item.use(5))
 				user.balloon_alert(user, "burning off rust...")
-				if(!do_after(user, 5 SECONDS * item.toolspeed, source))
+				if(!do_after(user, 5 SECONDS * item.toolspeed, target = source))
 					return
 				user.balloon_alert(user, "burned off rust")
-				Detach(src)
+				Detach(source)
 				return
 		if(TOOL_RUSTSCRAPER)
 			user.balloon_alert(user, "scraping off rust...")
-			if(!do_after(user, 2 SECONDS * item.toolspeed, source))
+			if(!do_after(user, 2 SECONDS * item.toolspeed, target = source))
 				return
 			user.balloon_alert(user, "scraped off rust")
-			Detach(src)
+			Detach(source)
 			return

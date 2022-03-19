@@ -5,6 +5,7 @@
 		Staring at the vile extract within fills your mind with terrible ideas."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "crucible"
+	var/base_icon = "crucible"
 	break_sound = 'sound/hallucinations/wail.ogg'
 	light_power = 1
 	anchored = TRUE
@@ -158,6 +159,7 @@
 	balloon_alert(user, "potion created")
 
 	current_mass = 0
+	update_icon_state()
 
 /*
  * "Bites the hand that feeds it", except more literally.
@@ -193,10 +195,11 @@
 	if(feeder)
 		balloon_alert(feeder, "crubile fed ([current_mass] / [max_mass])")
 
+	update_icon_state()
 	qdel(consumed)
 
 /obj/structure/destructible/eldritch_crucible/update_icon_state()
-	icon_state = "[icon_state][(current_mass == max_mass) ? null : "_empty"]"
+	icon_state = "[base_icon][(current_mass == max_mass) ? null : "_empty"]"
 	return ..()
 
 // Potions created by the mawed crucible.
