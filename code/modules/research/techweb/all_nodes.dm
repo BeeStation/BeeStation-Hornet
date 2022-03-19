@@ -723,6 +723,17 @@
 	export_price = 10000
 	hidden = TRUE
 
+/datum/techweb_node/linkedsurgery_implant
+	id = "linkedsurgery_implant"
+	tech_tier = 5
+	display_name = "Surgical Serverlink Brain Implant"
+	description = "A bluespace implant which a holder can read surgical programs from their server with."
+	prereq_ids = list("exp_surgery", "micro_bluespace")
+	design_ids = list("ci-linkedsurgery")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	export_price = 10000
+	hidden = TRUE
+
 ////////////////////////Tools////////////////////////
 
 /datum/techweb_node/basic_mining
