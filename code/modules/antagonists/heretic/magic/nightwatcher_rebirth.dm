@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/targeted/fiery_rebirth
 	name = "Nightwatcher's Rebirth"
-	desc = "A spell that extinguishes you drains nearby heathens engulfed in flames of their life force, \
+	desc = "A spell that extinguishes you and drains nearby heathens engulfed in flames of their life force, \
 		healing you for each victim drained. Those in critical condition will have the last of their vitality drained, killing them."
 	invocation = "GL'RY T' TH' N'GHT'W'TCH'ER"
 	invocation_type = INVOCATION_WHISPER

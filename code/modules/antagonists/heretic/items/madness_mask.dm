@@ -1,7 +1,7 @@
 // The spooky "void" / "abyssal" / "madness" mask for heretics.
 /obj/item/clothing/mask/madness_mask
 	name = "Abyssal Mask"
-	desc = "A mask created from the suffering of existance. Looking down it's eyes, you notice something gazing back at you."
+	desc = "A mask created from the suffering of existence. Looking down its eyes, you notice something gazing back at you."
 	icon_state = "mad_mask"
 	item_state = "mad_mask"
 	w_class = WEIGHT_CLASS_SMALL
@@ -21,7 +21,7 @@
 		. += "<span class='notice'>Actively drains the sanity and stamina of nearby non-heretics when worn.</span>"
 		. += "<span class='notice'>If forced onto the face of a non-heretic, they will be unable to remove it willingly.</span>"
 	else
-		. += "<span class='danger'>The eyes fill you with dread... You best avoid it.</span>"
+		. += "<span class='danger'>The eyes fill you with dread... You'd best avoid it.</span>"
 
 /obj/item/clothing/mask/madness_mask/equipped(mob/user, slot)
 	. = ..()

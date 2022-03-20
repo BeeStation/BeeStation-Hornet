@@ -30,7 +30,7 @@
 		Allows you to transmute a knife in sub-zero temperatures into a Void Blade. \
 		You can only create two at a time."
 	gain_text = "I feel a shimmer in the air, the air around me gets colder. \
-		I start to realize the emptiness of existance. Something's watching me."
+		I start to realize the emptiness of existence. Something's watching me."
 	next_knowledge = list(/datum/heretic_knowledge/void_grasp)
 	banned_knowledge = list(
 		/datum/heretic_knowledge/limited_amount/base_ash,
@@ -63,7 +63,7 @@
 
 /datum/heretic_knowledge/void_grasp
 	name = "Grasp of Void"
-	desc = "Your Masus Grasp will temporarily mute and chill the victim."
+	desc = "Your Mansus Grasp will temporarily mute and chill the victim."
 	gain_text = "I saw the cold watcher who observes me. The chill mounts within me. \
 		They are quiet. This isn't the end of the mystery."
 	next_knowledge = list(/datum/heretic_knowledge/cold_snap)
@@ -90,7 +90,7 @@
 
 /datum/heretic_knowledge/cold_snap
 	name = "Aristocrat's Way"
-	desc = "Grants you immunity to cold temperatures, and removing your need breathe. \
+	desc = "Grants you immunity to cold temperatures, and removes your need to breathe. \
 		You can still take damage due to lack of pressure."
 	gain_text = "I found a thread of cold breath. It lead me to a strange shrine, all made of crystals. \
 		Translucent and white, a depiction of a nobleman stood before me."
@@ -116,7 +116,7 @@
 	desc = "Your Mansus Grasp now applies the Mark of Void. The mark is triggered from an attack with your Void Blade. \
 		When triggered, silences the victim and lowers their body temperature significantly."
 	gain_text = "A gust of wind? A shimmer in the air? The presence is overwhelming, \
-		my senses began to betray me. My mind is my own enemy."
+		my senses begin to betray me. My mind is my own enemy."
 	next_knowledge = list(/datum/heretic_knowledge/knowledge_ritual/void)
 	banned_knowledge = list(
 		/datum/heretic_knowledge/rust_mark,
@@ -159,7 +159,7 @@
 /datum/heretic_knowledge/spell/void_phase
 	name = "Void Phase"
 	desc = "Grants you Void Phase, a long range targeted teleport spell. \
-		Additionally causes damage to heathens around your original and target destination."
+		Additionally causes damage to heathens around your original location and target destination."
 	gain_text = "The entity calls themself the Aristocrat. They effortlessly walk through air like\
 		nothing leaving a harsh, cold breeze in their wake. They disappear, and I am left in the snow."
 	next_knowledge = list(
@@ -224,7 +224,7 @@
 /datum/heretic_knowledge/final/void_final
 	name = "Waltz at the End of Time"
 	desc = "The ascension ritual of the Path of Void. \
-		Bring 3 corpses to a transumation rune in sub-zero temperatures to complete the ritual. \
+		Bring three corpses to a transumation rune in sub-zero temperatures to complete the ritual. \
 		When completed, causes a violent storm of void snow \
 		to assault the station, freezing and damaging heathens. Those nearby will be silenced and frozen even quicker. \
 		Additionally, you will become immune to the effects of space."
@@ -249,7 +249,7 @@
 
 /datum/heretic_knowledge/final/void_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	priority_announce("[generate_heretic_text()] The nobleman of void [user.real_name] has arrived, step along the Waltz that ends worlds! [generate_heretic_text()]","[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
+	priority_announce("[generate_heretic_text()] The nobleman of void [user.real_name] has arrived, step along to the Waltz that ends worlds! [generate_heretic_text()]","[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
 	ADD_TRAIT(user, TRAIT_RESISTLOWPRESSURE, MAGIC_TRAIT)
 
 	// Let's get this show on the road!

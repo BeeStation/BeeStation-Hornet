@@ -25,7 +25,7 @@
 	allowed = list(/obj/item/melee/sickly_blade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	// Slightly better than normal cult robes
-	armor = list(MELEE = 50, BULLET = 50, LASER = 50,ENERGY = 50, BOMB = 35, BIO = 20, FIRE = 20, ACID = 20)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 20, "fire" = 20, "acid" = 20, "stamina" = 50)
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/examine(mob/user)
 	. = ..()
@@ -40,26 +40,26 @@
 	icon_state = "void_cloak"
 	flags_inv = NONE
 	flags_cover = NONE
-	desc = "Black like tar, doesn't reflect any light. Runic symbols line the outside, with each flash you loose comprehension of what you are seeing."
+	desc = "Black like tar and doesn't reflect any light. Runic symbols line the outside, with each flash you lose comprehension of what you are seeing."
 	item_flags = EXAMINE_SKIP
-	armor = list(MELEE = 30, BULLET = 30, LASER = 30,ENERGY = 30, BOMB = 15, BIO = 0, FIRE = 0, ACID = 0)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 30)
 
 /obj/item/clothing/suit/hooded/cultrobes/void
 	name = "void cloak"
-	desc = "Black like tar, doesn't reflect any light. Runic symbols line the outside, with each flash you loose comprehension of what you are seeing."
+	desc = "Black like tar and doesn't reflect any light. Runic symbols line the outside, with each flash you lose comprehension of what you are seeing."
 	icon_state = "void_cloak"
 	item_state = "void_cloak"
 	allowed = list(/obj/item/melee/sickly_blade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/void
 	flags_inv = NONE
 	// slightly worse than normal cult robes
-	armor = list(MELEE = 30, BULLET = 30, LASER = 30,ENERGY = 30, BOMB = 15, BIO = 0, FIRE = 0, ACID = 0)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 30)
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/void_cloak
 	alternative_mode = TRUE
 
 /obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
 	var/mob/living/carbon/carbon_user = loc
-	to_chat(carbon_user, "<span class='notice'>The kaleidoscope of colours collapses around you, as the cloak shifts to visibility!</span>")
+	to_chat(carbon_user, "<span class='notice'>The kaleidoscope of colors collapses around you, as the cloak shifts to visibility!</span>")
 	item_flags &= ~EXAMINE_SKIP
 	return ..()
 

@@ -69,7 +69,7 @@
 	name = "Grasp of Flesh"
 	desc = "Your Mansus Grasp gains the ability to create a single ghoul out of corpse with a soul. \
 		Ghouls have only 25 health and look like husks to the heathens' eyes, but can use Bloody Blades effectively."
-	gain_text = "My new found desires drove me to greater and greater heights."
+	gain_text = "My newfound desires drove me to greater and greater heights."
 	next_knowledge = list(/datum/heretic_knowledge/limited_amount/flesh_ghoul)
 	limit = 1
 	cost = 1
@@ -89,24 +89,24 @@
 
 	// Skeletons can't become husks, and monkeys are monkeys.
 	if(!ishuman(target) || isskeleton(target) || ismonkey(target))
-		target.balloon_alert(source, "invalid body!")
+		target.balloon_alert(source, "Invalid body")
 		return COMPONENT_BLOCK_CHARGE_USE
 
 	var/mob/living/carbon/human/human_target = target
 	human_target.grab_ghost()
 	if(!human_target.mind || !human_target.client)
-		target.balloon_alert(source, "no soul!")
+		target.balloon_alert(source, "No soul")
 		return COMPONENT_BLOCK_CHARGE_USE
 	if(HAS_TRAIT(human_target, TRAIT_HUSK))
-		target.balloon_alert(source, "husked!")
+		target.balloon_alert(source, "Husked")
 		return COMPONENT_BLOCK_CHARGE_USE
 	if(LAZYLEN(created_items) >= limit)
-		target.balloon_alert(source, "at ghoul limit!")
+		target.balloon_alert(source, "At ghoul limit")
 		return COMPONENT_BLOCK_CHARGE_USE
 
 	LAZYADD(created_items, WEAKREF(human_target))
 	log_game("[key_name(source)] created a ghoul, controlled by [key_name(human_target)].")
-	message_admins("[ADMIN_LOOKUPFLW(source)] created a ghuol, [ADMIN_LOOKUPFLW(human_target)].")
+	message_admins("[ADMIN_LOOKUPFLW(source)] created a ghoul, [ADMIN_LOOKUPFLW(human_target)].")
 
 	RegisterSignal(human_target, COMSIG_MOB_DEATH, .proc/remove_ghoul)
 	human_target.revive(full_heal = TRUE, admin_revive = TRUE)
@@ -171,7 +171,7 @@
 		message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
 		var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?", ROLE_HERETIC, null, ROLE_HERETIC, 5 SECONDS, soon_to_be_ghoul)
 		if(!LAZYLEN(candidates))
-			loc.balloon_alert(user, "ritual failed, no ghosts!")
+			loc.balloon_alert(user, "Ritual failed, no ghosts")
 			return FALSE
 
 		var/mob/dead/observer/chosen_candidate = pick(candidates)
@@ -188,6 +188,7 @@
 	soon_to_be_ghoul.become_husk()
 	soon_to_be_ghoul.faction |= FACTION_HERETIC
 	soon_to_be_ghoul.apply_status_effect(/datum/status_effect/ghoul)
+	soon_to_be_ghoul.invisibility = 0
 
 	var/datum/antagonist/heretic_monster/heretic_monster = soon_to_be_ghoul.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 	heretic_monster.set_owner(user.mind)
@@ -328,7 +329,7 @@
 /datum/heretic_knowledge/final/flesh_final
 	name = "Priest's Final Hymn"
 	desc = "The ascension ritual of the Path of Flesh. \
-		Bring 4 corpses to a transumation rune to complete the ritual. \
+		Bring four corpses to a transumation rune to complete the ritual. \
 		When completed, you gain the ability to shed your human form \
 		and become the Lord of the Night, a supremely powerful creature. \
 		Just the act of transforming causes nearby heathens great fear and trauma. \
@@ -343,7 +344,7 @@
 
 /datum/heretic_knowledge/final/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	priority_announce("[generate_heretic_text()] Ever coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, [user.real_name] has ascended! Fear the ever twisting hand! [generate_heretic_text()]", "[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
+	priority_announce("[generate_heretic_text()] Ever-coiling vortex. Reality unfolded. ARMS OUTREACHED, THE LORD OF THE NIGHT, [user.real_name] has ascended! Fear the ever-twisting hand! [generate_heretic_text()]", "[generate_heretic_text()]", ANNOUNCER_SPANOMALIES)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shed_human_form)
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)

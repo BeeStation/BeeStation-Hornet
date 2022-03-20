@@ -15,7 +15,7 @@
 /obj/effect/proc_holder/spell/pointed/touch/mad_touch/can_target(atom/target, mob/user, silent)
 	if(!ishuman(target))
 		if(!silent)
-			target.balloon_alert(user, "invalid target!")
+			target.balloon_alert(user, "Invalid target")
 		return FALSE
 	return TRUE
 

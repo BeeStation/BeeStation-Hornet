@@ -155,7 +155,7 @@
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 
 	if(!silent)
-		to_chat(user, "<span class='danger'>Your targets have been determined. Your Living Heart will allow you to track their position. Go and sacrifice them!</span>")
+		to_chat(user, "<span class='danger'>Your targets have been determined. Your Living Heart will allow you to track their position. Go forth, and sacrifice them!</span>")
 
 	for(var/datum/mind/chosen_mind as anything in final_targets)
 		heretic_datum.add_sacrifice_target(chosen_mind.current)
@@ -185,7 +185,7 @@
 		LAZYADD(target_blacklist, sacrifice.mind)
 	LAZYREMOVE(heretic_datum.sac_targets, WEAKREF(sacrifice))
 
-	to_chat(user, "<span class='hypnophrase'>Your patrons accepts your offer.</span>")
+	to_chat(user, "<span class='hypnophrase'>Your patron accepts your offer.</span>")
 
 	if(sacrifice.mind?.assigned_role in list("Captain", "Head of Personnel", "Chief Engineer", "Head of Security", "Research Director", "Chief Medical Officer"))
 		heretic_datum.knowledge_points++
@@ -279,7 +279,7 @@
 		disembowel_target(sac_target)
 		return
 
-	to_chat(sac_target, "<span class='big'><span class='hypnophrase'>Unnatural forces begin to claw at your every being from beyond the veil.</span></span>")
+	to_chat(sac_target, "<span class='big'><span class='hypnophrase'>Unnatural forces begin to claw at your very being from beyond the veil.</span></span>")
 
 	sac_target.apply_status_effect(/datum/status_effect/unholy_determination, SACRIFICE_REALM_DURATION)
 	addtimer(CALLBACK(src, .proc/after_target_wakes, sac_target), SACRIFICE_SLEEP_DURATION * 0.5) // Begin the minigame
@@ -315,7 +315,7 @@
 	sac_target.hallucination += 12
 	sac_target.emote("scream")
 
-	to_chat(sac_target, "<span class='reallybig'><span class='hypnophrase'>The grasp of the Mansus reveal themselves to you!</span></span>")
+	to_chat(sac_target, "<span class='reallybig'><span class='hypnophrase'>The grasping hands of the Mansus reveal themselves to you!</span></span>")
 	to_chat(sac_target, "<span class='hypnophrase'>You feel invigorated! Fight to survive!</span>")
 	// When it runs out, let them know they're almost home free
 	addtimer(CALLBACK(src, .proc/after_helgrasp_ends, sac_target), helgrasp_time)
@@ -462,7 +462,7 @@
 
 /**
  * "Fuck you" proc that gets called if the chain is interrupted at some points.
- * Disembowels the [sac_target] and brutilizes their body. Throws some gibs around for good measure.
+ * Disembowels the [sac_target] and brutalizes their body. Throws some gibs around for good measure.
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/disembowel_target(mob/living/carbon/human/sac_target)
 	if(heretic_mind)

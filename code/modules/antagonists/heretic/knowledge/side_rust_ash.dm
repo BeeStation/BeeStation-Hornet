@@ -22,7 +22,7 @@
 	name = "Curse of Corrosion"
 	desc = "Allows you to transmute wirecutters, a pool of vomit, a heart, \
 		and an item containing fingerprints to cast a curse of plague \
-		on one of the fingerprint's owners for two minutes. While cursed, \
+		on one of the fingerprints' owners for two minutes. While cursed, \
 		the victim will repeatedly vomit while their organs will take constant damage."
 	gain_text = "The body of humanity is temporary. Their weaknesses cannot be stopped, like iron falling to rust. Show them all."
 	next_knowledge = list(

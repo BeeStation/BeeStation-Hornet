@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/pointed/void_phase
 	name = "Void Phase"
-	desc = "Let's you blink to your pointed destination, causes 3x3 aoe damage bubble around your pointed destination and your current location. It has a minimum range of 3 tiles and a maximum range of 9 tiles."
+	desc = "Lets you blink to your pointed destination, causes 3x3 AoE damage bubble around your destination and your current location. It has a minimum range of 3 tiles and a maximum range of 9 tiles."
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "voidblink"
 	action_background_icon_state = "bg_ecult"
@@ -15,7 +15,7 @@
 /obj/effect/proc_holder/spell/pointed/void_phase/can_target(atom/target, mob/user, silent)
 	. = ..()
 	if(get_dist(get_turf(user), get_turf(target)) < 3 )
-		user.balloon_alert(user, "too close!")
+		user.balloon_alert(user, "Too close")
 		return FALSE
 
 /obj/effect/proc_holder/spell/pointed/void_phase/cast(list/targets, mob/user)

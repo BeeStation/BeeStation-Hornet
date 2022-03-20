@@ -1,7 +1,7 @@
 // The rune carver, a heretic knife that can draw rune traps.
 /obj/item/melee/rune_carver
 	name = "carving knife"
-	desc = "A small knife made of cold steel, pure and perfect. Its sharpness can carve into titanium itself - \
+	desc = "A small knife made of cold steel, pure and perfect. Its sharpness can carve into plastitanium itself - \
 		but only few can evoke the dangers that lurk beneath reality."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "rune_carver"
@@ -26,7 +26,7 @@
 	/// Whether we're currently drawing a rune
 	var/drawing = FALSE
 	/// Max amount of runes that can be drawn
-	var/max_rune_amt = 3
+	var/max_rune_amt = 10
 	/// A list of weakrefs to all of ourc urrent runes
 	var/list/datum/weakref/current_runes = list()
 	/// Turfs that you cannot draw carvings on
@@ -64,11 +64,11 @@
  */
 /obj/item/melee/rune_carver/proc/try_carve_rune(turf/open/target_turf, mob/user)
 	if(drawing)
-		target_turf.balloon_alert(user, "already carving!")
+		target_turf.balloon_alert(user, "Already carving")
 		return
 
 	if(locate(/obj/structure/trap/eldritch) in range(1, target_turf))
-		target_turf.balloon_alert(user, "to close to another carving!")
+		target_turf.balloon_alert(user, "Too close to another carving")
 		return
 
 	for(var/datum/weakref/rune_ref as anything in current_runes)
@@ -76,7 +76,7 @@
 			current_runes -= rune_ref
 
 	if(length(current_runes) >= max_rune_amt)
-		target_turf.balloon_alert(user, "too many carvings!")
+		target_turf.balloon_alert(user, "Too many carvings")
 		return
 
 	drawing = TRUE
@@ -111,10 +111,10 @@
 	if(!ispath(to_make, /obj/structure/trap/eldritch))
 		CRASH("[type] attempted to create a rune of incorrect type! (got: [to_make])")
 
-	target_turf.balloon_alert(user, "carving [picked_choice]...")
+	target_turf.balloon_alert(user, "You begin carving the [picked_choice]")
 	user.playsound_local(target_turf, 'sound/items/sheath.ogg', 50, TRUE)
 	if(!do_after(user, 5 SECONDS, target = target_turf))
-		target_turf.balloon_alert(user, "interrupted!")
+		target_turf.balloon_alert(user, "Interrupted")
 		return
 
 	target_turf.balloon_alert(user, "[picked_choice] carved")
@@ -164,7 +164,7 @@
 // The actual rune traps the knife draws.
 /obj/structure/trap/eldritch
 	name = "elder carving"
-	desc = "Collection of unknown symbols, they remind you of days long gone..."
+	desc = "A collection of unknown symbols, they remind you of days long gone..."
 	icon = 'icons/obj/eldritch.dmi'
 	/// A tip displayed to heretics who examine the rune carver. Explains what the rune does.
 	var/carver_tip
@@ -188,7 +188,7 @@
 
 /obj/structure/trap/eldritch/attacked_by(obj/item/weapon, mob/living/user)
 	if(istype(weapon, /obj/item/melee/rune_carver) || istype(weapon, /obj/item/nullrod))
-		loc.balloon_alert(user, "carving dispelled")
+		loc.balloon_alert(user, "Carving dispelled")
 		playsound(src, 'sound/items/sheath.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, ignore_walls = FALSE)
 		qdel(src)
 
@@ -200,12 +200,12 @@
 	alpha = 10
 	time_between_triggers = 5 SECONDS
 	sparks = FALSE
-	carver_tip = "A nearly invisible rune that, when stepped on, alerts the carver who triggered it and where."
+	carver_tip = "A nearly invisible rune that, when stepped on, alerts the carver as to who triggered it and where."
 
 /obj/structure/trap/eldritch/alert/trap_effect(mob/living/victim)
 	var/mob/living/real_owner = owner?.resolve()
 	if(real_owner)
-		to_chat(real_owner, "<span class='userdanger'>[victim.real_name] has stepped foot on the alert rune in [get_area(src)]!</span>")
+		to_chat(real_owner, "<span class='userdanger'>[victim.real_name] has stepped on the alert rune in [get_area(src)]!</span>")
 		real_owner.playsound_local(get_turf(real_owner), 'sound/magic/curse.ogg', 50, TRUE)
 
 /obj/structure/trap/eldritch/tentacle
@@ -213,7 +213,7 @@
 	icon_state = "tentacle_rune"
 	time_between_triggers = 45 SECONDS
 	charges = 1
-	carver_tip = "When stepped on, causes heavy damage leg damage and stuns the victim for 5 seconds. Has 1 charge."
+	carver_tip = "When stepped on, causes heavy leg damage and stuns the victim for 5 seconds. Has 1 charge."
 
 /obj/structure/trap/eldritch/tentacle/trap_effect(mob/living/victim)
 	if(!iscarbon(victim))
@@ -229,7 +229,7 @@
 	icon_state = "madness_rune"
 	time_between_triggers = 20 SECONDS
 	charges = 2
-	carver_tip = "When stepped on, causes heavy stamina damage, blindness, and a variety of ailments to the victim. Has 2 charges."
+	carver_tip = "When stepped on, adds heavy stamina damage, blindness, and a variety of ailments to the victim. Has 2 charges."
 
 /obj/structure/trap/eldritch/mad/trap_effect(mob/living/victim)
 	if(!iscarbon(victim))

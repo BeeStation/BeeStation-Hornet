@@ -141,10 +141,10 @@
 		for(var/atom/to_appear as anything in selected_atoms)
 			to_appear.invisibility = initial(to_appear.invisibility)
 
-		loc.balloon_alert(user, "ritual complete")
+		loc.balloon_alert(user, "Ritual complete")
 		return TRUE
 
-	loc.balloon_alert(user, "ritual failed!")
+	loc.balloon_alert(user, "Ritual failed")
 	return FALSE
 
 /obj/effect/heretic_rune/big

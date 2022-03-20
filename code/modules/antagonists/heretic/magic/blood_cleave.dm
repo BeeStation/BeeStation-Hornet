@@ -13,7 +13,7 @@
 
 /obj/effect/proc_holder/spell/pointed/cleave/cast(list/targets, mob/user)
 	if(!targets.len)
-		user.balloon_alert(user, "no targets!")
+		user.balloon_alert(user, "No targets")
 		return FALSE
 	if(!can_target(targets[1], user))
 		return FALSE
@@ -26,8 +26,8 @@
 			continue
 		if(victim.anti_magic_check())
 			victim.visible_message(
-				"<span class='danger'>[victim]'s flashes in a firey glow, but repels the blaze!</span>",
-				"<span class='danger'>Your body begins to flash a firey glow, but you are protected!!</span>"
+				"<span class='danger'>[victim]'s body flashes in a fiery glow, but repels the blaze!</span>",
+				"<span class='danger'>Your body begins to flash in a fiery glow, but you are protected!</span>"
 			)
 			continue
 
@@ -46,7 +46,7 @@
 /obj/effect/proc_holder/spell/pointed/cleave/can_target(atom/target, mob/user, silent)
 	if(!ishuman(target))
 		if(!silent)
-			target.balloon_alert(user, "invalid target!")
+			target.balloon_alert(user, "Invalid target")
 		return FALSE
 	return TRUE
 

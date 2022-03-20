@@ -1,6 +1,6 @@
 /obj/item/clothing/neck/crucifix
 	name = "crucifix"
-	desc = "In the eventuality that one of those you falsely accused is, in fact, a real witch, this will ward you against their curses."
+	desc = "In the event that one of those you falsely accused is, in fact, a real witch, this will ward you against their curses."
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "crucifix"

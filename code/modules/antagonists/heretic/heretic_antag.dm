@@ -131,7 +131,7 @@
 	<B>The old ones gave you these tasks to fulfill:</B>")
 	owner.announce_objectives()
 	to_chat(owner, "<span class='cult'>The book whispers, the forbidden knowledge walks once again!<br>\
-	Your book allows you to research abilities, read it very carefully! You cannot undo what has been done!<br>\
+	The Forbidden Knowledge panel allows you to research abilities, read it very carefully! You cannot undo what has been done!<br>\
 	You gain charges by either collecting influences or sacrificing people tracked by the living heart<br> \
 	You can find a basic guide at: https://wiki.beestation13.com/view/Heretics </span>")
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Heretic",
@@ -139,7 +139,7 @@
 
 /datum/antagonist/heretic/farewell()
 	if(!silent)
-		to_chat(owner.current, "<span class='userdanger'>Your mind begins to flare as the otherwordly knowledge escapes your grasp!</span>")
+		to_chat(owner.current, "<span class='userdanger'>Your mind begins to flare as the otherworldly knowledge escapes your grasp!</span>")
 	return ..()
 
 /datum/antagonist/heretic/on_gain()
@@ -222,7 +222,7 @@
 		return
 
 	// We shouldn't be able to cast this! Cancel it.
-	source.balloon_alert(source, "you need a focus!")
+	source.balloon_alert(source, "You need a focus")
 	return COMPONENT_CANCEL_SPELL
 
 /*
@@ -259,15 +259,15 @@
 /datum/antagonist/heretic/proc/try_draw_rune(mob/living/user, turf/target_turf, drawing_time = 30 SECONDS, additional_checks)
 	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, target_turf))
 		if(!isopenturf(nearby_turf) || is_type_in_typecache(nearby_turf, blacklisted_rune_turfs))
-			target_turf.balloon_alert(user, "invalid placement for rune!")
+			target_turf.balloon_alert(user, "Invalid placement for rune")
 			return
 
 	if(locate(/obj/effect/heretic_rune) in range(3, target_turf))
-		target_turf.balloon_alert(user, "to close to another rune!")
+		target_turf.balloon_alert(user, "Too close to another rune")
 		return
 
 	if(drawing_rune)
-		target_turf.balloon_alert(user, "already drawing a rune!")
+		target_turf.balloon_alert(user, "Already drawing a rune")
 		return
 
 	INVOKE_ASYNC(src, .proc/draw_rune, user, target_turf, drawing_time, additional_checks)
@@ -284,13 +284,13 @@
 /datum/antagonist/heretic/proc/draw_rune(mob/living/user, turf/target_turf, drawing_time = 30 SECONDS, additional_checks)
 	drawing_rune = TRUE
 
-	target_turf.balloon_alert(user, "drawing rune...")
+	target_turf.balloon_alert(user, "You start drawing a rune")
 	if(!do_after(user, drawing_time, target = target_turf, extra_checks = additional_checks))
-		target_turf.balloon_alert(user, "interrupted!")
+		target_turf.balloon_alert(user, "Interrupted")
 		drawing_rune = FALSE
 		return
 
-	target_turf.balloon_alert(user, "rune created")
+	target_turf.balloon_alert(user, "Rune created")
 	new /obj/effect/heretic_rune/big(target_turf)
 	drawing_rune = FALSE
 
@@ -492,6 +492,7 @@
 	if(!change_num || QDELETED(src))
 		return
 	knowledge_points += change_num
+	message_admins("[admin] modified [src]'s knowledge points by [change_num].")
 
 /datum/antagonist/heretic/antag_panel_data()
 	var/list/string_of_knowledge = list()
@@ -515,7 +516,7 @@
 			var/mob/living/carbon/human/actual_target = ref.resolve()
 			if(QDELETED(actual_target))
 				continue
-			. += " - <b>[actual_target.real_name]</b>, the [actual_target.mind?.assigned_role || "human"].<br>"
+			. += " - <b>[actual_target.real_name]</b>, the [actual_target.mind?.assigned_role || "Unknown"].<br>"
 	else
 		. += "<i>None!</i><br>"
 	. += "<br>"
@@ -658,6 +659,7 @@
 
 /datum/action/innate/hereticmenu
 	name = "Forbidden Knowledge"
+	desc = "Utilize your connection to the beyond to unlock new eldritch abilities"
 	icon_icon = 'icons/obj/eldritch.dmi'
 	button_icon_state = "book_open"
 	background_icon_state = "bg_ecult"

@@ -41,7 +41,7 @@
 		return ..()
 
 	if(!on_mob_hit(target, user))
-		if(SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, target) & COMPONENT_USE_CHARGE)
+		if(SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, target))
 			use_charge(user)
 		return
 

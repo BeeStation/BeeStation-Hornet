@@ -69,7 +69,7 @@
  */
 /datum/action/item_action/organ_action/track_target
 	name = "Living Heartbeat"
-	desc = "LMB: Chose one of your sacrifice targets to track. RMB: Repeats last target you chose to track."
+	desc = "Track a Sacrifice Target"
 	check_flags = AB_CHECK_CONSCIOUS
 	background_icon_state = "bg_ecult"
 	/// The real name of the last mob we tracked
@@ -108,7 +108,7 @@
 
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(owner)
 	if(!LAZYLEN(heretic_datum.sac_targets))
-		owner.balloon_alert(owner, "no targets, visit a rune!")
+		owner.balloon_alert(owner, "No targets, visit a rune")
 		return TRUE
 
 	var/list/targets_to_choose = list()
@@ -121,19 +121,17 @@
 		human_targets[real_target.real_name] = real_target
 		targets_to_choose[real_target.real_name] = heretic_datum.sac_targets[target_ref]
 
-	// If we don't have a last tracked name, open a radial to set one.
-	if(isnull(last_tracked_name))
-		radial_open = TRUE
-		last_tracked_name = show_radial_menu(
-			owner,
-			owner,
-			targets_to_choose,
-			custom_check = CALLBACK(src, .proc/check_menu),
-			radius = 40,
-			require_near = TRUE,
-			tooltips = TRUE,
-		)
-		radial_open = FALSE
+	radial_open = TRUE
+	last_tracked_name = show_radial_menu(
+		owner,
+		owner,
+		targets_to_choose,
+		custom_check = CALLBACK(src, .proc/check_menu),
+		radius = 40,
+		require_near = TRUE,
+		tooltips = TRUE,
+	)
+	radial_open = FALSE
 
 	// If our last tracked name is still null, skip the trigger
 	if(isnull(last_tracked_name))
@@ -145,27 +143,27 @@
 		return FALSE
 
 	COOLDOWN_START(src, track_cooldown, track_cooldown_lenth)
-	var/balloon_message = "error text!"
+	var/balloon_message = "Your target is "
 
 	playsound(owner, 'sound/effects/singlebeat.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 	if(isturf(tracked_mob.loc) && owner.z != tracked_mob.z)
-		balloon_message = "on another plane!"
+		balloon_message += "on another plane"
 	else
 		var/dist = get_dist(get_turf(owner), get_turf(tracked_mob))
 		var/dir = get_dir(get_turf(owner), get_turf(tracked_mob))
 
 		switch(dist)
 			if(0 to 15)
-				balloon_message = "very near, [dir2text(dir)]!"
+				balloon_message += "very near, [dir2text(dir)]"
 			if(16 to 31)
-				balloon_message = "near, [dir2text(dir)]!"
+				balloon_message += "near, [dir2text(dir)]"
 			if(32 to 127)
-				balloon_message = "far, [dir2text(dir)]!"
+				balloon_message += "far, [dir2text(dir)]"
 			else
-				balloon_message = "very far!"
+				balloon_message += "very far"
 
 	if(tracked_mob.stat == DEAD)
-		balloon_message = "they're dead, " + balloon_message
+		balloon_message += "dead, they're " + balloon_message
 
 	owner.balloon_alert(owner, balloon_message)
 	return TRUE

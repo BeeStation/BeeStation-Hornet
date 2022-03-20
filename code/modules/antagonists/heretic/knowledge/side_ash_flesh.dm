@@ -21,7 +21,7 @@
 	name = "Curse of Paralysis"
 	desc = "Allows you to transmute a hatchet, a left and right leg, \
 		and an item containing fingerprints to cast a curse of immobility \
-		on one of the fingerprint's owners for five minutes. While cursed, \
+		on one of the fingerprints' owners for five minutes. While cursed, \
 		the victim will be unable to walk."
 	gain_text = "The flesh of humanity is weak. Make them bleed. Show them their fragility."
 	next_knowledge = list(

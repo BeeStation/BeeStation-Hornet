@@ -8,7 +8,7 @@
 	var/base_icon = "crucible"
 	break_sound = 'sound/hallucinations/wail.ogg'
 	light_power = 1
-	anchored = TRUE
+	anchored = FALSE
 	density = TRUE
 	///How much mass this currently holds
 	var/current_mass = 5
@@ -47,7 +47,7 @@
 	else
 		. += "<span class='boldnotice'>[src] is bubbling to the brim with viscous liquid, and is ready to use.</span>"
 
-	. += "<span class='notice'>You can <b>[anchored ? "unanchor and move":"anchor in place"]</b> [src] with a <b>Codex Cicatrix</b> or <b>Mansus Grasp</b>.</span>"
+	. += "<span class='notice'>It can be <b>[anchored ? "unanchored and moved":"anchored in place"]</b> [src] with a <b>Codex Cicatrix</b> or <b>Mansus Grasp</b>.</span>"
 	. += "<span class='info'>The following potions can be brewed:</span>"
 	for(var/obj/item/eldritch_potion/potion as anything in subtypesof(/obj/item/eldritch_potion))
 		var/potion_string = "<span class='info'>\tThe " + initial(potion.name) + " - " + initial(potion.crucible_tip) + "</span>"
@@ -79,10 +79,10 @@
 	if(istype(weapon, /obj/item/organ))
 		var/obj/item/organ/consumed = weapon
 		if(consumed.status != ORGAN_ORGANIC)
-			balloon_alert(user, "not organic!")
+			balloon_alert(user, "Not organic")
 			return
 		if(consumed.organ_flags & ORGAN_VITAL) // Basically, don't eat organs like brains
-			balloon_alert(user, "invalid organ!")
+			balloon_alert(user, "Invalid organ")
 			return
 
 		consume_fuel(user, consumed)
@@ -104,11 +104,11 @@
 		return TRUE
 
 	if(in_use)
-		balloon_alert(user, "in use!")
+		balloon_alert(user, "In use")
 		return TRUE
 
 	if(current_mass < max_mass)
-		balloon_alert(user, "not full enough!")
+		balloon_alert(user, "Not full enough")
 		return TRUE
 
 	INVOKE_ASYNC(src, .proc/show_radial, user)
@@ -156,7 +156,7 @@
 
 	playsound(src, 'sound/misc/desecration-02.ogg', 75, TRUE)
 	visible_message("<span class='notice'>[src]'s shining liquid drains into a flask, creating a [spawned_pot.name]!</span>")
-	balloon_alert(user, "potion created")
+	balloon_alert(user, "Potion created")
 
 	current_mass = 0
 	update_icon_state()
@@ -185,7 +185,7 @@
 /obj/structure/destructible/eldritch_crucible/proc/consume_fuel(mob/living/feeder, obj/item/consumed)
 	if(current_mass >= max_mass)
 		if(feeder)
-			balloon_alert(feeder, "crucible full!")
+			balloon_alert(feeder, "Crucible full")
 		return
 
 	current_mass++
@@ -193,7 +193,7 @@
 	visible_message("<span class='notice'>[src] devours [consumed] and fills itself with a little bit of liquid!</span>")
 
 	if(feeder)
-		balloon_alert(feeder, "crubile fed ([current_mass] / [max_mass])")
+		balloon_alert(feeder, "Crucible fed ([current_mass] / [max_mass])")
 
 	update_icon_state()
 	qdel(consumed)
@@ -204,7 +204,7 @@
 
 // Potions created by the mawed crucible.
 /obj/item/eldritch_potion
-	name = "brew of day and night"
+	name = "brew of open a github issue"
 	desc = "You should never see this"
 	icon = 'icons/obj/eldritch.dmi'
 	/// When a heretic examines a mawed crucible, shows a list of possible potions by name + includes this tip to explain what it does.
@@ -252,14 +252,14 @@
 
 /obj/item/eldritch_potion/crucible_soul
 	name = "brew of the crucible soul"
-	desc = "A glass bottle contianing a bright orange, translucent liquid."
+	desc = "A glass bottle containing a bright orange, translucent liquid."
 	icon_state = "crucible_soul"
 	status_effect = /datum/status_effect/crucible_soul
 	crucible_tip = "Allows you to walk through walls. After expiring, you are teleported to your original location. Lasts 15 seconds."
 
 /obj/item/eldritch_potion/duskndawn
 	name = "brew of dusk and dawn"
-	desc = "A glass bottle contianing a dull yellow liquid. It seems to fade in and out with regularity."
+	desc = "A glass bottle containing a dull yellow liquid. It seems to fade in and out with regularity."
 	icon_state = "clarity"
 	status_effect = /datum/status_effect/duskndawn
 	crucible_tip = "Allows you to see through walls and objects. Lasts 60 seconds."

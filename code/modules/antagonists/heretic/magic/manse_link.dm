@@ -50,7 +50,7 @@
 	if(!originator?.linked_mobs[living_owner])
 		CRASH("Uh oh, a Mansus Link ([type]) got somehow called Activate() [isnull(originator) ? "without an originator Raw Prophet" : "without being in the originator's linked_mobs list"].")
 
-	var/message = sanitize(input(living_owner, "Enter your message", "Telepathy from the Manse"))
+	var/message = sanitize(input(living_owner, "Enter your message", "Telepathy from the Mansus"))
 	if(!message)
 		return
 

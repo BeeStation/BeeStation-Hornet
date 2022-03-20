@@ -17,7 +17,7 @@
  *   Curse of Paralysis
  *
  * Fiery Blade
- * Nightwater's Rebirth
+ * Nightwatcher's Rebirth
  * > Sidepaths:
  *   Ashen Ritual
  *   Blood Cleave
@@ -101,7 +101,7 @@
 		When triggered, the victim takes additional stamina and burn damage, and the mark is transferred to any nearby heathens. \
 		Damage dealt is decreased with each transfer."
 	gain_text = "He was a very particular man, always watching in the dead of night. \
-		But in spite of his duty, he regularly tranced through the Manse with his blazing lantern held high. \
+		But in spite of his duty, he regularly passed through the Mansus with his blazing lantern held high. \
 		He shone brightly in the darkness, until the blaze begin to die."
 	next_knowledge = list(/datum/heretic_knowledge/knowledge_ritual/ash)
 	banned_knowledge = list(
@@ -151,7 +151,7 @@
 	desc = "Allows you to transmute any mask, four candles, a stun baton, and a liver to create a Mask of Madness. \
 		The mask instills fear into heathens who witness it, causing stamina damage, hallucinations, and insanity. \
 		It can also be forced onto a heathen, to make them unable to take it off..."
-	gain_text = "The Nightwater was lost. That's what the Watch believed. Yet he walked the world, unnoticed by the masses."
+	gain_text = "The Nightwatcher was lost. That's what the Watch believed. Yet he walked the world, unnoticed by the masses."
 	next_knowledge = list(
 		/datum/heretic_knowledge/ash_blade_upgrade,
 		/datum/heretic_knowledge/reroll_targets,
@@ -200,12 +200,12 @@
 	target.IgniteMob()
 
 /datum/heretic_knowledge/spell/flame_birth
-	name = "Nightwater's Rebirth"
-	desc = "Grants you Nightwater's Rebirth, a spell that extinguishes you and \
+	name = "Nightwatcher's Rebirth"
+	desc = "Grants you Nightwatcher's Rebirth, a spell that extinguishes you and \
 		burns all nearby heathens who are currently on fire, healing you for every victim afflicted. \
 		If any victims afflicted are in critical condition, they will also instantly die."
 	gain_text = "The fire was inescapable, and yet, life remained in his charred body. \
-		The Nightwater was a particular man, always watching."
+		The Nightwatcher was a particular man, always watching."
 	next_knowledge = list(
 		/datum/heretic_knowledge/final/ash_final,
 		/datum/heretic_knowledge/summon/ashy,
@@ -218,13 +218,13 @@
 /datum/heretic_knowledge/final/ash_final
 	name = "Ashlord's Rite"
 	desc = "The ascension ritual of the Path of Ash. \
-		Bring 3 burning or husked corpses to a transumation rune to complete the ritual. \
+		Bring three burning or husked corpses to a transumation rune to complete the ritual. \
 		When completed, you become a harbinger of flames, gaining two abilites. \
 		Cascade, which causes a massive, growing ring of fire around you, \
 		and Oath of Flame, causing you to passively create a ring of flames as you walk. \
 		You will also become immune to flames, space, and similar environmental hazards."
 	gain_text = "The Watch is dead, the Nightwatcher burned with it. Yet his fire burns evermore, \
-		for the Nightwater brought forth the rite to mankind! His gaze continues, as now I am one with the flames, \
+		for the Nightwatcher brought forth the rite to mankind! His gaze continues, as now I am one with the flames, \
 		WITNESS MY ASCENSION, THE ASHY LANTERN BLAZES ONCE MORE!"
 	route = PATH_ASH
 	/// A static list of all traits we apply on ascension.

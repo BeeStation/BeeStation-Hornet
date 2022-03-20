@@ -74,7 +74,7 @@
 	if(!issilicon(target) && !(target.mob_biotypes & MOB_ROBOTIC))
 		if(source.a_intent == INTENT_DISARM)
 			target.rust_heretic_act()
-			return COMPONENT_USE_CHARGE
+			return
 		return
 
 	target.rust_heretic_act()
@@ -138,7 +138,7 @@
 	name = "Mark of Rust"
 	desc = "Your Mansus Grasp now applies the Mark of Rust. The mark is triggered from an attack with your Rusty Blade. \
 		When triggered, the victim's organs and equipment will have a 75% chance to sustain damage and may be destroyed."
-	gain_text = "The Blacksmith looks away. To a place lost long ago. \"Rusted Hills help those in dire need... at a cost.\""
+	gain_text = "The Blacksmith looks away. To a place lost long ago. \"The Rusted Hills help those in dire need... at a cost.\""
 	next_knowledge = list(/datum/heretic_knowledge/knowledge_ritual/rust)
 	banned_knowledge = list(
 		/datum/heretic_knowledge/ash_mark,
@@ -182,7 +182,7 @@
 	name = "Aggressive Spread"
 	desc = "Grants you Aggressive Spread, a spell that spreads rust to nearby surfaces. \
 		Already rusted surfaces are destroyed."
-	gain_text = "All wise men know well not to visit the Rusted Hills... Yet the Blacksmith's tale was inspiring."
+	gain_text = "All wise men know not to visit the Rusted Hills... Yet the Blacksmith's tale was inspiring."
 	next_knowledge = list(
 		/datum/heretic_knowledge/rust_blade_upgrade,
 		/datum/heretic_knowledge/reroll_targets,
@@ -197,7 +197,7 @@
 	name = "Toxic Blade"
 	desc = "Your Rusty Blade now poisons enemies on attack."
 	gain_text = "The Blacksmith hands you their blade. \"The Blade will guide you through the flesh, should you let it.\" \
-		The heavy rust weights it down. You stare deeply into it. The Rusted Hills call for you, now."
+		The heavy rust weighs it down. You stare deeply into it. The Rusted Hills call for you, now."
 	next_knowledge = list(/datum/heretic_knowledge/spell/entropic_plume)
 	banned_knowledge = list(
 		/datum/heretic_knowledge/ash_blade_upgrade,
@@ -238,7 +238,7 @@
 /datum/heretic_knowledge/final/rust_final
 	name = "Rustbringer's Oath"
 	desc = "The ascension ritual of the Path of Rust. \
-		Bring 3 corpses to a transumation rune on the bridge of the station to complete the ritual. \
+		Bring three corpses to a transumation rune on the bridge of the station to complete the ritual. \
 		When completed, the ritual site will endlessly spread rust onto any surface, stopping for nothing. \
 		Additionally, you will become extremely resilient on rust, healing at triple the rate \
 		and becoming immune to many effects and dangers."

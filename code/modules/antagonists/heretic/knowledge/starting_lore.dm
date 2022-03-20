@@ -100,7 +100,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	if(our_heart in selected_atoms)
 		selected_atoms -= our_heart
 	our_heart.AddComponent(/datum/component/living_heart)
-	to_chat(user, "<span class='warning'>You feel your [our_heart.name] begin pulse faster and faster as it awakens!</span>")
+	to_chat(user, "<span class='warning'>You feel your [our_heart.name] begin to pulse faster and faster as it awakens!</span>")
 	playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
 	return TRUE
 

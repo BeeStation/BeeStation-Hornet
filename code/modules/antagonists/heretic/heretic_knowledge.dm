@@ -208,7 +208,7 @@
 			compiled_list[human_to_check.real_name] = human_to_check
 
 	if(!length(compiled_list))
-		loc.balloon_alert(user, "no fingerprints!")
+		loc.balloon_alert(user, "No fingerprints found")
 		return FALSE
 
 	var/chosen_mob = input(user, "Select the person you wish to curse", "Eldritch Curse") as null|anything in sortNames(compiled_list)
@@ -217,7 +217,7 @@
 
 	var/mob/living/carbon/human/to_curse = compiled_list[chosen_mob]
 	if(QDELETED(to_curse))
-		loc.balloon_alert(user, "invalid choice!")
+		loc.balloon_alert(user, "Invalid choice")
 		return FALSE
 
 	log_combat(user, to_curse, "cursed via heretic ritual", addition = "([name])")
@@ -254,7 +254,7 @@
 	message_admins("A [summoned.name] is being summoned by [ADMIN_LOOKUPFLW(user)] in [ADMIN_COORDJMP(summoned)].")
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [summoned.real_name]?", ROLE_HERETIC, null, FALSE, 10 SECONDS, summoned)
 	if(!LAZYLEN(candidates))
-		loc.balloon_alert(user, "ritual failed, no ghosts!")
+		loc.balloon_alert(user, "Ritual failed, no ghosts")
 		animate(summoned, 0.5 SECONDS, alpha = 0)
 		QDEL_IN(summoned, 0.6 SECONDS)
 		return FALSE

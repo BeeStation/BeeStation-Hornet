@@ -48,16 +48,16 @@
 	switch(item.tool_behaviour)
 		if(TOOL_WELDER)
 			if(item.use(5))
-				user.balloon_alert(user, "burning off rust...")
+				user.balloon_alert(user, "You start burning off rust")
 				if(!do_after(user, 5 SECONDS * item.toolspeed, target = source))
 					return
-				user.balloon_alert(user, "burned off rust")
+				user.balloon_alert(user, "Burned off rust")
 				Detach(source)
 				return
 		if(TOOL_RUSTSCRAPER)
-			user.balloon_alert(user, "scraping off rust...")
+			user.balloon_alert(user, "You start scraping off rust")
 			if(!do_after(user, 2 SECONDS * item.toolspeed, target = source))
 				return
-			user.balloon_alert(user, "scraped off rust")
+			user.balloon_alert(user, "Scraped off rust")
 			Detach(source)
 			return
