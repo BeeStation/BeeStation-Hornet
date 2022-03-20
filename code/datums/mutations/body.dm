@@ -157,6 +157,7 @@
 	if(..())
 		return
 	ADD_TRAIT(owner, TRAIT_DEAF, GENETIC_MUTATION)
+	SEND_SOUND(owner, sound(null))
 
 /datum/mutation/human/deaf/on_losing(mob/living/carbon/human/owner)
 	if(..())
