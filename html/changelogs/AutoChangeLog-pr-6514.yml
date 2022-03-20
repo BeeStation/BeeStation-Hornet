@@ -1,0 +1,4 @@
+author: covertcorvid
+delete-after: true
+changes:
+  - bugfix: Fixed automatic conveyors not moving items
