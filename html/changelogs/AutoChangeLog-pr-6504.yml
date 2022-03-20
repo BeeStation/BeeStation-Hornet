@@ -1,4 +1,0 @@
-author: covertcorvid
-delete-after: true
-changes:
-  - tweak: Deafness now immediately silences sounds instead of letting them finish
