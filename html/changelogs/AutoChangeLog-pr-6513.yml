@@ -1,4 +1,0 @@
-author: covertcorvid
-delete-after: true
-changes:
-  - bugfix: Makes magic SMES always appear full and not do undefined math
