@@ -4,11 +4,13 @@
 #define ALL (~0) //For convenience.
 #define NONE 0
 
-//for convenience
-#define ENABLE_BITFIELD(variable, flag) (variable |= (flag))
-#define DISABLE_BITFIELD(variable, flag) (variable &= ~(flag))
-#define CHECK_BITFIELD(variable, flag) (variable & (flag))
-#define TOGGLE_BITFIELD(variable, flag) (variable ^= (flag))
+// For reference
+
+// ENABLE_BITFIELD = (variable |= flag)
+// DISABLE_BITFIELD = (variable &= ~flag)
+// CHECK_BITFIELD = (variable & flag)
+// TOGGLE_BITFIELD = (variable ^= flag)
+// COMBINE_BITFIELDS = (flag1 | flag2 | flag3)
 
 
 //check if all bitflags specified are present

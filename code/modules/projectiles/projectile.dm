@@ -489,7 +489,7 @@
 			return FALSE
 		if(!L.lying)
 			return TRUE
-		var/stunned = !CHECK_BITFIELD(L.mobility_flags, MOBILITY_USE | MOBILITY_STAND | MOBILITY_MOVE)
+		var/stunned = !(L.mobility_flags & (MOBILITY_USE | MOBILITY_STAND | MOBILITY_MOVE))
 		return !stunned || hit_stunned_targets
 	return TRUE
 
