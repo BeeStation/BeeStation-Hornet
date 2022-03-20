@@ -37,3 +37,4 @@
 #define REVENANT_NAME_FILE "revenant_names.json"
 #define ITALIAN_TALK_FILE "italian_replacement.json"
 #define VALENTINE_FILE "valentines.json"
+#define GIMMICK_OBJ_FILE "gimmick_objectives.txt"

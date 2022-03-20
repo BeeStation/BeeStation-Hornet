@@ -1,5 +1,3 @@
-#define GIMMICK_OBJ_LIST "strings/gimmick_objectives.txt"
-
 GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective
@@ -462,7 +460,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			"Frame [target.name] for murdering you.",
 			"[target.name] knows corporate secrets. Interrogate them. Use force if they pretend to not know."
 		)
-	gimmick_list.Add(world.file2list(GIMMICK_OBJ_LIST)) //gimmick_objectives.txt is for objectives without a specific target/department/etc
+	gimmick_list.Add(world.file2list(GIMMICK_OBJ_FILE)) //gimmick_objectives.txt is for objectives without a specific target/department/etc
 	var/selected_gimmick = pick(gimmick_list)
 	explanation_text = "[selected_gimmick]"
 
@@ -1114,5 +1112,3 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	var/area/target_area = get_area(target)
 
 	return (istype(user_area, dropoff) && istype(target_area, dropoff))
-
-#undef GIMMICK_OBJ_LIST
