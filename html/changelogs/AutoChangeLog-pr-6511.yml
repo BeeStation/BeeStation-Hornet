@@ -1,0 +1,4 @@
+author: covertcorvid
+delete-after: true
+changes:
+  - bugfix: Fixed the atmosbot UI not having any gas names on it
