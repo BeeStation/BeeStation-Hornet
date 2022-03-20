@@ -425,7 +425,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/gimmick
 	name = "gimmick"
-	martyr_compatible = 1
+	martyr_compatible = TRUE
 
 /datum/objective/gimmick/update_explanation_text()
 	var/selected_department = pick(list( //Select a department for department-based objectives

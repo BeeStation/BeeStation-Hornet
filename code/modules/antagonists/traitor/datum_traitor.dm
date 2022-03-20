@@ -91,7 +91,7 @@
 			assign_exchange_role(SSticker.mode.exchange_blue)
 		objective_count += 1					//Exchange counts towards number of objectives
 	var/toa = CONFIG_GET(number/traitor_objectives_amount)
-	for(var/i = objective_count, i < toa-1, i++) //Fill in all objective slots except one, to make way for the gimmick objective
+	for(var/i in objective_count to toa-1)
 		forge_single_objective()
 
 	//Add a gimmick objective
