@@ -520,8 +520,9 @@
 /obj/item/slime_extract/bluespace/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			to_chat(user, "<span class='warning'>You feel your body vibrating...</span>")
+			to_chat(user, "<span class='notice'>You feel your body vibrating...</span>")
 			if(!do_after(user, 25, target = user))
+				to_chat(user, "<span class='warning'>You need to hold still to teleport!</span>")
 				return
 			to_chat(user, "<span class='warning'>You teleport!</span>")
 			do_teleport(user, get_turf(user), 6, asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
@@ -531,6 +532,7 @@
 			if(!teleport_ready)
 				to_chat(user, "<span class='notice'>You feel yourself anchoring to this point...</span>")
 				if(!do_after(user, 25, target = user))
+					to_chat(user, "<span class='notice'>You need to hold still to finish anchoring yourself!</span>")
 					return
 				var/turf/T = get_turf(user)
 				teleport_x = T.x
@@ -541,10 +543,11 @@
 			else
 				to_chat(user, "<span class='notice'>You feel yourself being pulled back to your anchor point...</span>")
 				if(!do_after(user, 25, target = user))
-					to_chat(user, "<span class ='notice'>Your teleport was interrupted!</span>")
+					to_chat(user, "<span class ='warning'>Your teleport was interrupted!</span>")
 					return
 				teleport_ready = FALSE
 				if(!(teleport_x && teleport_y && teleport_z))
+					to_chat(user, "<span class ='warning'>Somehow you managed to trigger this without setting an anchor point. Good job.</span>")
 					CRASH("Bluespace extract teleport was somehow triggered without x,y,z coordinates!")
 				var/turf/T = locate(teleport_x, teleport_y, teleport_z)
 				to_chat(user, "<span class='notice'>You snap back to your anchor point!</span>")

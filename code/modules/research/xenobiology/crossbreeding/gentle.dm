@@ -29,14 +29,14 @@
 	STOP_PROCESSING(SSobj,src)
 
 /obj/item/slimecross/gentle/attack_self(mob/living/carbon/user)
-	if(cooldown > 0 || user.incapacitated())
+	if(cooldown > 0 || user.incapacitated() || !iscarbon(user))
 		return
 	var/newcooldown = extract.activate(user, user.dna.species, SLIME_ACTIVATE_MINOR)
 	if(newcooldown)
 		cooldown = newcooldown / 10 //activate gives cooldown in deciseconds
 
 /obj/item/slimecross/gentle/AltClick(mob/living/carbon/user, obj/item/I)
-	if(cooldown > 0 || user.incapacitated())
+	if(cooldown > 0 || user.incapacitated() || !iscarbon(user))
 		return
 	var/newcooldown = extract.activate(user, user.dna.species, SLIME_ACTIVATE_MAJOR)
 	if(newcooldown)
