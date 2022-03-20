@@ -44,7 +44,7 @@
 	item_state = "balloon-empty"
 
 
-/obj/item/toy/balloon/Initialize()
+/obj/item/toy/balloon/Initialize(mapload)
 	. = ..()
 	create_reagents(10)
 
@@ -125,14 +125,14 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/toy/syndicateballoon/pickup(mob/user)
-	. = ..()
+	..()
 	if(user?.mind && user.mind.has_antag_datum(/datum/antagonist, TRUE))
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "badass_antag", /datum/mood_event/badass_antag)
 
 /obj/item/toy/syndicateballoon/dropped(mob/user)
+	..()
 	if(user)
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "badass_antag", /datum/mood_event/badass_antag)
-	. = ..()
 
 
 /obj/item/toy/syndicateballoon/Destroy()
@@ -244,6 +244,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "struck", "hit")
 	var/hacked = FALSE
+	var/saber_color
 
 /obj/item/toy/sword/attack_self(mob/user)
 	active = !( active )
@@ -276,13 +277,13 @@
 			var/obj/item/dualsaber/toy/newSaber = new /obj/item/dualsaber/toy(user.loc)
 			if(hacked) // That's right, we'll only check the "original" "sword".
 				newSaber.hacked = TRUE
-				newSaber.item_color = "rainbow"
+				newSaber.saber_color = "rainbow"
 			qdel(W)
 			qdel(src)
 	else if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(!hacked)
 			hacked = TRUE
-			item_color = "rainbow"
+			saber_color = "rainbow"
 			to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
 
 			if(active)
@@ -425,7 +426,7 @@
 	if(!..())
 		pop_burst()
 
-/obj/item/toy/snappop/Initialize()
+/obj/item/toy/snappop/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
@@ -448,7 +449,7 @@
 /obj/effect/decal/cleanable/ash/snappop_phoenix
 	var/respawn_time = 300
 
-/obj/effect/decal/cleanable/ash/snappop_phoenix/Initialize()
+/obj/effect/decal/cleanable/ash/snappop_phoenix/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/respawn), respawn_time)
 
@@ -684,7 +685,7 @@
 	var/list/cards = list()
 	var/original_size = 52
 
-/obj/item/toy/cards/deck/Initialize()
+/obj/item/toy/cards/deck/Initialize(mapload)
 	. = ..()
 	populate_deck()
 
@@ -735,7 +736,6 @@
 	var/O = src
 	H.apply_card_vars(H,O)
 	cards.Cut(1,2) //Removes the top card from the list
-	H.pickup(user)
 	user.put_in_hands(H)
 	user.visible_message("<span class='notice'>[user] draws a card from the deck.</span>", "<span class='notice'>You draw a card from the deck.</span>")
 	update_icon()
@@ -849,7 +849,6 @@
 			C.parentdeck = src.parentdeck
 			C.cardname = choice
 			C.apply_card_vars(C,O)
-			C.pickup(cardUser)
 			cardUser.put_in_hands(C)
 			cardUser.visible_message("<span class='notice'>[cardUser] draws a card from [cardUser.p_their()] hand.</span>", "<span class='notice'>You take the [C.cardname] from your hand.</span>")
 
@@ -861,7 +860,6 @@
 				N.cardname = src.currenthand[1]
 				N.apply_card_vars(N,O)
 				qdel(src)
-				N.pickup(cardUser)
 				cardUser.put_in_hands(N)
 				to_chat(cardUser, "<span class='notice'>You also take [currenthand[1]] and hold it.</span>")
 				cardUser << browse(null, "window=cardhand")
@@ -961,7 +959,6 @@
 			to_chat(user, "<span class='notice'>You combine the [C.cardname] and the [src.cardname] into a hand.</span>")
 			qdel(C)
 			qdel(src)
-			H.pickup(user)
 			user.put_in_active_hand(H)
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
@@ -1214,7 +1211,7 @@
 	var/toysay = "What the fuck did you do?"
 	var/toysound = 'sound/machines/click.ogg'
 
-/obj/item/toy/figure/Initialize()
+/obj/item/toy/figure/Initialize(mapload)
 	. = ..()
 	desc = "A \"Space Life\" brand [src]."
 
@@ -1650,7 +1647,7 @@
 
 /obj/item/storage/pill_bottle/dice_cup/cyborg
 	desc = "The house always wins..."
-/obj/item/storage/pill_bottle/dice_cup/cyborg/Initialize()
+/obj/item/storage/pill_bottle/dice_cup/cyborg/Initialize(mapload)
 	. = ..()
 	new /obj/item/dice/d6(src)
 	new /obj/item/dice/d6(src)
@@ -1667,7 +1664,7 @@
 	new /obj/item/paper/yatzy(src)
 	new /obj/item/paper/yatzy(src)
 
-/obj/item/storage/pill_bottle/dice_cup/yatzy/Initialize()
+/obj/item/storage/pill_bottle/dice_cup/yatzy/Initialize(mapload)
 	. = ..()
 	for(var/dice in 1 to 5)
 		new /obj/item/dice/d6(src)

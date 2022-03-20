@@ -877,7 +877,7 @@ GENE SCANNER
 	var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(mutation)
 	if(!HM)
 		return "ERROR"
-	if(mutation in discovered)
+	if(discovered[mutation])
 		return  "[HM.name] ([HM.alias])"
 	else
 		return HM.alias
@@ -894,7 +894,7 @@ GENE SCANNER
 	var/cooldown
 	var/obj/item/stock_parts/scanning_module/scanner //used for upgrading!
 
-/obj/item/extrapolator/Initialize()
+/obj/item/extrapolator/Initialize(mapload)
 	. = ..()
 	scanner = new(src)
 

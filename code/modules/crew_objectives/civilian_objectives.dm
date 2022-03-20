@@ -31,7 +31,7 @@
 	if(pillcount <= 0)
 		return TRUE
 	else
-		return FALSE
+		return ..()
 
 /datum/objective/crew/foodhoard
 	var/datum/crafting_recipe/food/targetfood
@@ -56,7 +56,7 @@
 	if(owner.current && owner.current.check_contents_for(foodpath) && SSshuttle.emergency.shuttle_areas[get_area(owner.current)])
 		return TRUE
 	else
-		return FALSE
+		return ..()
 
 /datum/objective/crew/responsibility
 	explanation_text = "Make sure nobody dies with alcohol poisoning."
@@ -66,7 +66,7 @@
 	for(var/mob/living/carbon/human/H in GLOB.mob_list)
 		if(H.stat == DEAD && H.drunkenness >= 80)
 			if((H.z in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(H)])
-				return FALSE
+				return ..()
 	return TRUE
 
 /datum/objective/crew/clean //ported from old Hippie
@@ -107,7 +107,7 @@
 /datum/objective/crew/clean/check_completion()
 	for(var/area/A in areas)
 		for(var/obj/effect/decal/cleanable/C in A.contents)
-			return FALSE
+			return ..()
 	return TRUE
 
 /datum/objective/crew/exterminator
@@ -130,7 +130,7 @@
 			num_mice++
 	if(num_mice <= target_amount)
 		return TRUE
-	return FALSE
+	return ..()
 
 /datum/objective/crew/lostkeys
 	explanation_text = "Don't lose the janicart keys. Have them with you when the shift ends."
@@ -139,7 +139,7 @@
 /datum/objective/crew/lostkeys/check_completion()
 	if(owner && owner.current && owner.current.check_contents_for(/obj/item/key/janitor))
 		return TRUE
-	return FALSE
+	return ..()
 
 /datum/objective/crew/slipster //ported from old Hippie with adjustments
 	explanation_text = "Slip at least (Yell on GitHub if you see this) different people with your PDA, and have it on you at the end of the shift."
@@ -163,7 +163,7 @@
 	if(uniqueslips.len >= target_amount)
 		return TRUE
 	else
-		return FALSE
+		return ..()
 
 /datum/objective/crew/shoethief
 	explanation_text = "Steal at least (Yell on github, this objective broke) pairs of shoes, and have them in your bag at the end of the shift. Bonus points if they are stolen from crewmembers instead of ClothesMates."
@@ -186,7 +186,7 @@
 				shoes |= S
 	if(shoes.len >= target_amount)
 		return TRUE
-	return FALSE
+	return ..()
 
 /datum/objective/crew/vow //ported from old Hippie
 	explanation_text = "Never break your vow of silence."
@@ -196,7 +196,7 @@
 	if(owner?.current)
 		var/list/say_log = owner.current.logging[INDIVIDUAL_SAY_LOG]
 		if(say_log.len > 0)
-			return FALSE
+			return ..()
 	return TRUE
 
 /datum/objective/crew/nothingreallymatterstome
@@ -206,7 +206,7 @@
 /datum/objective/crew/nothingreallymatterstome/check_completion()
 	if(owner && owner.current && owner.current.check_contents_for(/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing))
 		return TRUE
-	return FALSE
+	return ..()
 
 /datum/objective/crew/nullrod
 	explanation_text = "Don't lose your nullrod. You can still transform it into another item."
@@ -217,7 +217,7 @@
 		for(var/nullrodtypes in typesof(/obj/item/nullrod))
 			if(owner.current.check_contents_for(nullrodtypes))
 				return TRUE
-	return FALSE
+	return ..()
 
 /datum/objective/crew/reporter //ported from old hippie
 	var/charcount = 100
@@ -245,7 +245,7 @@
 	if(target_amount <= 0)
 		return TRUE
 	else
-		return FALSE
+		return ..()
 
 /datum/objective/crew/pwrgame //ported from Goon with adjustments
 	var/obj/item/clothing/targettidegarb
@@ -269,8 +269,7 @@
 		for(var/tidegarbtypes in typesof(targettidegarb))
 			if(owner.current.check_contents_for(tidegarbtypes))
 				return TRUE
-
-	return FALSE
+	return ..()
 
 /datum/objective/crew/promotion //ported from Goon
 	explanation_text = "Have a non-assistant ID registered to you at the end of the shift."
@@ -283,7 +282,7 @@
 		if(istype(theID))
 			if(!(H.get_assignment() == "Assistant") && !(H.get_assignment() == "No id") && !(H.get_assignment() == "No job"))
 				return TRUE
-	return FALSE
+	return ..()
 
 /datum/objective/crew/justicecrew
 	explanation_text = "Ensure there are no members of security in the prison wing when the shift ends."
@@ -294,5 +293,5 @@
 		for(var/datum/mind/M in SSticker.minds)
 			if(M.current && isliving(M.current))
 				if(!M.special_role && !(M.assigned_role == "Security Officer") && !(M.assigned_role == "Detective") && !(M.assigned_role == "Head of Security") && !(M.assigned_role == "Internal Affairs Agent") && !(M.assigned_role == "Warden") && get_area(M.current) != typesof(/area/security/prison))
-					return FALSE
+					return ..()
 		return TRUE

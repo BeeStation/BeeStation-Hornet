@@ -168,7 +168,7 @@
 /obj/structure/bonfire/dense/askwalker
 	needs_oxygen = FALSE
 
-/obj/structure/bonfire/prelit/Initialize()
+/obj/structure/bonfire/prelit/Initialize(mapload)
 	. = ..()
 	StartBurning()
 
@@ -179,7 +179,7 @@
 		return TRUE
 	return ..()
 
-/obj/structure/bonfire/Initialize()
+/obj/structure/bonfire/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,

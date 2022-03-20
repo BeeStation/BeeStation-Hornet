@@ -193,8 +193,8 @@
 	var/list/air_vent_info = list()
 	var/list/air_scrub_info = list()
 
-/obj/machinery/airalarm/New(loc, ndir, nbuild)
-	..()
+/obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
+	. = ..()
 	wires = new /datum/wires/airalarm(src)
 	if(ndir)
 		setDir(ndir)
@@ -209,6 +209,9 @@
 		name = "[get_area_name(src)] Air Alarm"
 
 	update_icon()
+	
+	set_frequency(frequency)
+	GLOB.zclear_atoms += src
 
 /obj/machinery/airalarm/Destroy()
 	SSradio.remove_object(src, frequency)
@@ -218,11 +221,6 @@
 	ourarea.atmosalert(FALSE, src)
 	GLOB.zclear_atoms -= src
 	return ..()
-
-/obj/machinery/airalarm/Initialize(mapload)
-	. = ..()
-	set_frequency(frequency)
-	GLOB.zclear_atoms += src
 
 /obj/machinery/airalarm/examine(mob/user)
 	. = ..()

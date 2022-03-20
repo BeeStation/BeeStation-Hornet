@@ -18,7 +18,7 @@
 	var/ghosts = list()
 	var/old_loc
 
-/obj/singularity/boh_tear/Initialize()
+/obj/singularity/boh_tear/Initialize(mapload)
 	. = ..()
 	old_loc = get_turf(src)
 	addtimer(CALLBACK(src, /atom/movable.proc/moveToNullspace), 5 SECONDS) // vanishes after 5 seconds

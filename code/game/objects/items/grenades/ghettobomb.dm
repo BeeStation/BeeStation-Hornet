@@ -19,7 +19,7 @@
 	var/range = 3
 	var/list/times
 
-/obj/item/grenade/iedcasing/Initialize()
+/obj/item/grenade/iedcasing/Initialize(mapload)
 	. = ..()
 	add_overlay("improvised_grenade_filled")
 	add_overlay("improvised_grenade_wired")

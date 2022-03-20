@@ -103,15 +103,17 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 /datum/crewmonitor/ui_data(mob/user)
 	var/z = user.get_virtual_z_level()
+	var/turf/T = get_turf(user)
 	if(!z)
-		var/turf/T = get_turf(user)
 		z = T.get_virtual_z_level()
-	var/list/zdata = update_data(z)
+	var/list/zdata = update_data(z, T.z)
 	. = list()
 	.["sensors"] = zdata
 	.["link_allowed"] = isAI(user)
 
-/datum/crewmonitor/proc/update_data(z)
+//Z represents the virtual z-level the user is on
+//zlevel represents the physical z-level the mob is at.
+/datum/crewmonitor/proc/update_data(z, zlevel)
 	if(data_by_z["[z]"] && last_update["[z]"] && world.time <= last_update["[z]"] + SENSORS_UPDATE_PERIOD)
 		return data_by_z["[z]"]
 
@@ -137,7 +139,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			nanite_sensors = TRUE
 		// Check if their z-level is correct and if they are wearing a uniform.
 		// Accept H.z==0 as well in case the mob is inside an object.
-		if ((H.z == 0 || H.get_virtual_z_level() == z || (is_station_level(H.z) && is_station_level(z))) && (istype(H.w_uniform, /obj/item/clothing/under) || nanite_sensors))
+		if ((H.z == 0 || H.get_virtual_z_level() == z || (is_station_level(H.z) && is_station_level(zlevel))) && (istype(H.w_uniform, /obj/item/clothing/under) || nanite_sensors))
 			U = H.w_uniform
 
 			//Radio transmitters are jammed
@@ -149,7 +151,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 				pos = H.z == 0 || (nanite_sensors || U.sensor_mode == SENSOR_COORDS) ? get_turf(H) : null
 
 				// Special case: If the mob is inside an object confirm the z-level on turf level.
-				if (H.z == 0 && (!pos || (pos.get_virtual_z_level() != z) && !(is_station_level(pos.z) && is_station_level(z))))
+				if (H.z == 0 && (!pos || (pos.get_virtual_z_level() != z) && !(is_station_level(pos.z) && is_station_level(zlevel))))
 					continue
 
 				I = H.wear_id ? H.wear_id.GetID() : null

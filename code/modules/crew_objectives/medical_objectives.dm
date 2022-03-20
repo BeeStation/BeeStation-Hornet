@@ -12,6 +12,8 @@
 		var/area/A = get_area(H)
 		if(H.stat == DEAD && is_station_level(H.z) && medical_areas[A.type]) // If person is dead and corpse is in one of these areas
 			return FALSE
+		if(H.stat == DEAD && is_station_level(H.z) && medical_areas[A.type]) // If person is dead and corpse is in one of these areas
+			return ..()
 	return TRUE
 
 /datum/objective/crew/emtmorgue
@@ -25,7 +27,7 @@
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
 		var/area/A = get_area(H)
 		if(H.stat == DEAD && is_station_level(H.z) && !medical_areas_morgue[A.type]) // If person is dead and corpse is NOT in one of these areas
-			return FALSE
+			return ..()
 	return TRUE
 
 /datum/objective/crew/chems //Ported from old Hippie
@@ -53,8 +55,7 @@
 		if(!owner.current.stat == DEAD && owner.current.reagents)
 			if(owner.current.reagents.has_reagent(targetchem))
 				return TRUE
-	else
-		return FALSE
+	return ..()
 
 /datum/objective/crew/druglordchem //ported from old Hippie with adjustments
 	var/targetchem = "none"
@@ -88,7 +89,7 @@
 	if(pillcount <= 0)
 		return TRUE
 	else
-		return FALSE
+		return ..()
 
 /datum/objective/crew/noinfections
 	explanation_text = "Make sure there are no crew members with harmful diseases at the end of the shift."
@@ -99,5 +100,5 @@
 		if(!H.stat == DEAD)
 			if((H.z in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(H)])
 				if(H.check_virus() == 2) //Harmful viruses only
-					return FALSE
+					return ..()
 	return TRUE

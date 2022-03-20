@@ -20,7 +20,7 @@
 	var/list/initial_contents
 	var/visible_contents = TRUE
 
-/obj/machinery/smartfridge/Initialize()
+/obj/machinery/smartfridge/Initialize(mapload)
 	. = ..()
 	create_reagents(100, NO_REACT)
 
@@ -274,7 +274,7 @@
 	visible_contents = FALSE
 	var/drying = FALSE
 
-/obj/machinery/smartfridge/drying_rack/Initialize()
+/obj/machinery/smartfridge/drying_rack/Initialize(mapload)
 	. = ..()
 	if(component_parts?.len)
 		component_parts.Cut()
@@ -507,7 +507,7 @@
 	name = "debug virus storage"
 	desc = "Oh boy, badmin at it again with the Toxoplasmosis!"
 
-/obj/machinery/smartfridge/chemistry/virology/preloaded/debug/Initialize()
+/obj/machinery/smartfridge/chemistry/virology/preloaded/debug/Initialize(mapload)
 	. = ..()
 	for(var/symptom in subtypesof(/datum/symptom))
 		var/datum/symptom/S = new symptom
