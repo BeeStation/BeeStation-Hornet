@@ -35,12 +35,17 @@
 	use_charge(user)
 
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	if(!proximity_flag || !isliving(target) || !IS_HERETIC(user) || target == user)
+	if(!proximity_flag || !IS_HERETIC(user) || target == user)
 		return
 	if(ishuman(target) && antimagic_check(target, user))
 		return ..()
 
-	if(!on_mob_hit(target, user))
+	if(isliving(target))
+		if(!on_mob_hit(target, user))
+			if(SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, target))
+				use_charge(user)
+			return
+	else
 		if(SEND_SIGNAL(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, target))
 			use_charge(user)
 		return
