@@ -48,7 +48,7 @@
 		return new type(phobia_type)
 
 /datum/brain_trauma/mild/phobia/on_gain()
-	if(is_type_in_typecache(owner.dna.species, trigger_species))
+	if(trigger_species[owner.dna.species.type])
 		trigger_species -= owner.dna.species.type
 
 /datum/brain_trauma/mild/phobia/on_life()
