@@ -1,0 +1,4 @@
+author: covertcorvid
+delete-after: true
+changes:
+  - bugfix: Fixed the pre-loaded defib wallmount overlay not appearing
