@@ -442,6 +442,10 @@
 	charge = INFINITY
 	..()
 
+//don't divide by infinity or zero, just display max
+/obj/machinery/power/smes/magical/chargedisplay()
+	return 5
+
 
 #undef SMESRATE
 
