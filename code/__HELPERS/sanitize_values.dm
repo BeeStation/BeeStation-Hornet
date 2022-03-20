@@ -15,8 +15,6 @@
 			return number
 	return default
 
-
-
 /// Return `text` if it is text, otherwise `default`
 /proc/sanitize_text(text, default="")
 	if(istext(text))
