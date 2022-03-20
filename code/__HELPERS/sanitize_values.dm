@@ -8,8 +8,8 @@
 	return default
 
 /// Return `float` if it is in the range `min to max`, otherwise `default`
-/proc/sanitize_float(number, min=0, max=1, accuracy=1, default=0)
-	if(isnum(number))
+/proc/sanitize_float(number, min=0, max=1, accuracy=0.1, default=0)
+	if(isnum_safe(number))
 		number = round(number, accuracy)
 		if(min <= number && number <= max)
 			return number
