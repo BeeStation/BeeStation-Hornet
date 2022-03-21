@@ -439,12 +439,12 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		"Get everyone to hate [selected_department], through misdirection, slander, and sabotage.",
 		"Incite a strike in [selected_department].",
 		"You are a bully. Be a real jerk to those nerds at [selected_department] whenever possible. NEEERDS!",
-		"Keep power cut in [selected_department].",
+		"Keep power & cameras cut in [selected_department].",
 		"Disguise yourself as a member of [selected_department] and sabotage them from within.",
 		"Vandalize [selected_department] as much as possible.",
 		"Destroy [selected_department] utterly and entirely.", //Teeeeechnically, there is a 1/50 chance of getting any specific gimmick objective, making this one rarer than hijack
-		"Keep all cameras cut in [selected_department].",
-		"Attempt to kidnap a member of [selected_department] to take with you on an escape pod or a shuttle, for questioning at Syndicate HQ.",
+		"Steal equipment critical for [selected_department] to function.",
+		"Attempt to kidnap a member of [selected_department] to take with you alive on an escape pod or a shuttle, for questioning at Syndicate HQ.",
 		"Hack all doors in [selected_department] to be shocked, bolted, or inaccessible by the AI"
 	)
 	if(target && target.current) //Only add these objectives to the pool if there are targets on the station
@@ -454,9 +454,9 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			"Get [target.name] arrested for a crime they haven't committed.",
 			"Top-secret Syndicate intelligence suggests that [target.name] is responsible for scratching the paint on one of our CEOs' private cruisers. Make their life as miserable as possible without killing them.",
 			"Kidnap [target.name] and hold them for ransom!",
-			"Erase any legal and medical evidence of [target.name]'s existence (including their ID and records).",
+			"Replace [target.name] completely.",
 			"Pin the blame on [target.name] for any and all crimes you commit, and try to convince security and the crew that it was them all along.",
-			"Attempt to kidnap [target.name] to take with you on an escape pod or shuttle, for questioning at Syndicate HQ.",
+			"Attempt to kidnap [target.name] to take with you alive on an escape pod or shuttle, for questioning at Syndicate HQ.",
 			"Frame [target.name] for murdering you.",
 			"[target.name] knows corporate secrets. Interrogate them. Use force if they pretend to not know."
 		)
