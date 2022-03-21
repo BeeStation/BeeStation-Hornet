@@ -419,7 +419,7 @@
 		needs_power = TRUE
 		setDir(get_dir(gen_primary, gen_secondary))
 	for(var/mob/living/L in get_turf(src))
-		visible_message("<span class='danger'>\The [src] zaps through \The [L]!</span>")
+		visible_message("<span class='danger'>\The [src] zaps through [L]!</span>")
 		L.electrocute_act(30, src)
 
 /obj/machinery/shieldwall/Destroy()
