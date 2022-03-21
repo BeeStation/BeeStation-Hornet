@@ -111,7 +111,7 @@
 	var/is_zombie = FALSE
 	var/list/disease = list()
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
-	var/movement_proc_query //keeps track of the proccals of goto so we what proc got called last
+	var/movement_proc_query //keeps track of the proccals of goto so we know what proc instance got called last
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
