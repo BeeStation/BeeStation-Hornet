@@ -383,7 +383,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				. += "[src] is as well weighted as possible for blocking"
 	if(force)
 		if(!force_string)
-			set_force_string() //MonkeStation Edit: Fixes force_string
+			set_force_string()
 		. += "Force: [force_string]"
 
 

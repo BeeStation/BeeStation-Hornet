@@ -157,11 +157,10 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/proc/check_nuke_threats()
 	for(var/datum/d in nuke_threats)
-		if(!istype(d) || QDELETED(d))
+		if(QDELETED(d))
 			nuke_threats -= d
 
-	for(var/N in nuke_tiles)
-		var/turf/open/floor/circuit/C = N
+	for(var/turf/open/floor/circuit/C as() in nuke_tiles)
 		C.update_icon()
 
 /datum/controller/subsystem/mapping/Recover()
