@@ -1,0 +1,5 @@
+author: TheFakeElon
+delete-after: true
+changes:
+  - bugfix: Adds missing bitshift values to the global bitflag list
+  - code_imp: adds brackets for some multi-bitfield defines
