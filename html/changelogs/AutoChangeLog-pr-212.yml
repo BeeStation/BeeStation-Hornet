@@ -1,0 +1,7 @@
+author: nednaZ
+delete-after: true
+changes:
+  - tweak: Anime autosurgeons now prompt you to change your hair color on usage
+  - rscadd: Tails can be wagged by any species
+  - rscadd: Felinid Weebs can eat rats without vomiting.
+  - code_imp: Throws out the old tail wagging code and makes it Better(tm)
