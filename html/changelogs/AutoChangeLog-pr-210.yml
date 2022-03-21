@@ -1,0 +1,6 @@
+author: KoboldCommando
+delete-after: true
+changes:
+  - code_imp: hold space to throw should work better now!
+  - tweak: a few items which forced you to change throw stance should be less likely
+      to annoy you
