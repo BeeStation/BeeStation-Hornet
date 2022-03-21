@@ -440,3 +440,10 @@
 #define BODY_SIZE_NORMAL 1
 #define BODY_SIZE_SHORT 0.93
 #define BODY_SIZE_TALL 1.03
+
+//monkestation edit begin
+/// Throw modes, defines whether or not to turn off throw mode after
+#define THROW_MODE_DISABLED 0
+#define THROW_MODE_TOGGLE 1
+#define THROW_MODE_HOLD 2
+ //monkestation edit end

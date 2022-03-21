@@ -465,7 +465,7 @@
 	else if((findtext(message, throwmode_words)))
 		cooldown = COOLDOWN_MEME
 		for(var/mob/living/carbon/C in listeners)
-			C.throw_mode_on()
+			C.throw_mode_on(THROW_MODE_TOGGLE) //monkestation edit
 
 	//FLIP
 	else if((findtext(message, flip_words)))

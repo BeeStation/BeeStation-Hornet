@@ -90,6 +90,30 @@
 	user.mob?.a_intent_change(INTENT_HARM)
 	return TRUE
 
+ //monkestation edit begin
+/datum/keybinding/carbon/hold_throw_mode
+	key = "Space"
+	name = "hold_throw_mode"
+	full_name = "Hold throw mode"
+	description = "Hold this to turn on throw mode, and release it to turn off throw mode"
+	category = CATEGORY_CARBON
+	keybind_signal = COMSIG_KB_CARBON_HOLDTHROWMODE_DOWN
+
+/datum/keybinding/carbon/hold_throw_mode/down(client/user)
+	. = ..()
+	if(.)
+		return
+	var/mob/living/carbon/carbon_user = user.mob
+	carbon_user.throw_mode_on(THROW_MODE_HOLD)
+
+/datum/keybinding/carbon/hold_throw_mode/up(client/user)
+	. = ..()
+	if(.)
+		return
+	var/mob/living/carbon/carbon_user = user.mob
+	carbon_user.throw_mode_off(THROW_MODE_HOLD)
+ //monkestation edit end
+
 /datum/keybinding/carbon/give
 	key = "G"
 	name = "Give_Item"
@@ -102,6 +126,6 @@
 	. = ..()
 	if(.)
 		return
-	var/mob/living/carbon/C = user.mob
-	C.give()
+	var/mob/living/carbon/carbon_user = user.mob //monkestation edit
+	carbon_user.give() //monkestation edit
 	return TRUE

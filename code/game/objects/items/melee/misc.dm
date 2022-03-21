@@ -752,7 +752,7 @@
 			to_chat(user, "<span class='notice'>You yank [I] towards yourself.</span>")
 			log_combat(user, target, "disarmed", src)
 			if(!user.get_inactive_held_item())
-				user.throw_mode_on()
+				user.throw_mode_on(THROW_MODE_TOGGLE) //monkestation edit
 				user.swap_hand()
 				I.throw_at(user, 10, 2)
 

@@ -75,3 +75,4 @@
 	if(avoid_highlighting) message["avoidHighlighting"] = avoid_highlighting
 	if(allow_linkify) message["allowLinkify"] = allow_linkify
 	SSchat.queue(target, message)
+d

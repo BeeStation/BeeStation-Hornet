@@ -80,8 +80,8 @@
 				visible_message("<span class='danger'>[victim] catches [src]!</span>",\
 					"<span class='userdanger'>[victim] catches you!</span>")
 				grabbedby(victim, TRUE)
-				victim.throw_mode_off()
-				log_combat(victim, src, "caught (thrown mob)")
+				victim.throw_mode_off(THROW_MODE_TOGGLE) //monkestation edit
+				log_combat(victim, src, "caught [src]") //monkestation edit
 				return
 			if(hurt)
 				victim.take_bodypart_damage(10,check_armor = TRUE)
@@ -109,20 +109,22 @@
 /mob/living/carbon/proc/toggle_throw_mode()
 	if(stat)
 		return
-	if(in_throw_mode)
-		throw_mode_off()
+ //monkestation edit begin
+	if(throw_mode)
+		throw_mode_off(THROW_MODE_TOGGLE)
 	else
-		throw_mode_on()
+		throw_mode_on(THROW_MODE_TOGGLE)
 
-
-/mob/living/carbon/proc/throw_mode_off()
-	in_throw_mode = 0
+/mob/living/carbon/proc/throw_mode_off(method)
+	if(throw_mode > method) //A toggle doesnt affect a hold
+		return
+	throw_mode = THROW_MODE_DISABLED
 	if(client && hud_used)
 		hud_used.throw_icon.icon_state = "act_throw_off"
 
-
-/mob/living/carbon/proc/throw_mode_on()
-	in_throw_mode = 1
+/mob/living/carbon/proc/throw_mode_on(mode = THROW_MODE_TOGGLE)
+	throw_mode = mode
+ //monkestation edit end
 	if(client && hud_used)
 		hud_used.throw_icon.icon_state = "act_throw_on"
 
@@ -133,7 +135,7 @@
 
 /mob/living/carbon/throw_item(atom/target)
 	. = ..()
-	throw_mode_off()
+	throw_mode_off(THROW_MODE_TOGGLE) //monkestation edit
 	if(!target || !isturf(loc))
 		return FALSE
 	if(istype(target, /atom/movable/screen))

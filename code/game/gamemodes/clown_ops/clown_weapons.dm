@@ -163,7 +163,7 @@
 	if(active)
 		if(iscarbon(thrower))
 			var/mob/living/carbon/C = thrower
-			C.throw_mode_on() //so they can catch it on the return.
+			C.throw_mode_on(THROW_MODE_TOGGLE) //so they can catch it on the return. //so they can catch it on the return.
 	return ..()
 
 /obj/item/shield/energy/bananium/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -202,7 +202,7 @@
 	if(iscarbon(loc))
 		to_chat(loc, "[src] begins to beep.")
 		var/mob/living/carbon/C = loc
-		C.throw_mode_on()
+		C.throw_mode_on(THROW_MODE_TOGGLE)
 	bomb.preprime(loc, null, FALSE)
 
 /obj/item/grown/bananapeel/bombanana/ComponentInitialize()
