@@ -32,7 +32,7 @@
 	name = "Geneticist"
 	jobtype = /datum/job/geneticist
 
-	id = /obj/item/card/id/job/med
+	id = /obj/item/card/id/job/gene
 	belt = /obj/item/pda/geneticist
 	ears = /obj/item/radio/headset/headset_medsci
 	uniform = /obj/item/clothing/under/rank/medical/geneticist
