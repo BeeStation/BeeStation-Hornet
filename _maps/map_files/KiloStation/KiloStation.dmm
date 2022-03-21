@@ -2863,8 +2863,6 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "afi" = (
-/obj/structure/table/glass,
-/obj/machinery/computer/med_data/laptop,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -2881,6 +2879,10 @@
 	},
 /obj/machinery/vending/wallmed/pubby{
 	pixel_x = 24
+	},
+/obj/structure/closet/secure_closet/brig_phys,
+/obj/item/storage/backpack/duffelbag/sec/surgery{
+	pixel_y = 5
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
@@ -3469,12 +3471,12 @@
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "agd" = (
-/obj/structure/bodycontainer/morgue,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/delivery,
+/obj/structure/table/optable,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "age" = (
@@ -12899,7 +12901,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Prison Wing";
-	req_access_txt = "2"
+	req_access_txt = "2;34"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -13149,7 +13151,10 @@
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
-/obj/structure/closet/secure_closet/brig_phys,
+/obj/machinery/computer/operating{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "avu" = (
@@ -17500,7 +17505,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Interrogation";
-	req_access_txt = "63"
+	req_access_txt = "1;4"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
@@ -22455,7 +22460,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "63"
+	req_access_txt = "63;34"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
@@ -23389,9 +23394,8 @@
 "aKZ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
-	name = "Brig";
-	req_access_txt = "63"
+	name = "Gear Room";
+	req_one_access_txt = "1;4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
@@ -30021,7 +30025,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Prison Wing";
-	req_access_txt = "2"
+	req_access_txt = "2;34"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
@@ -30203,6 +30207,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
 	},
+/obj/effect/landmark/start/virologist,
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "aVd" = (
@@ -30269,21 +30274,19 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
 "aVh" = (
-/obj/structure/bed,
-/obj/item/bedsheet/medical,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
+	},
+/obj/machinery/light/small,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 9
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/machinery/light/small,
-/obj/machinery/iv_drip,
-/obj/effect/turf_decal/bot_white/right,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 9
-	},
+/obj/structure/table/glass,
+/obj/item/healthanalyzer,
+/obj/item/clothing/glasses/hud/health,
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "aVj" = (
@@ -30607,7 +30610,14 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green,
+/turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
 "aVH" = (
 /obj/machinery/status_display/evac,
@@ -39631,21 +39641,19 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
 "biz" = (
@@ -39695,21 +39703,11 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port)
 "biF" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/landmark/start/virologist,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 1
@@ -39717,6 +39715,10 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
 "biG" = (
@@ -39962,9 +39964,6 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -39980,6 +39979,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
 "biW" = (
@@ -42080,7 +42083,6 @@
 /area/quartermaster/sorting)
 "blV" = (
 /obj/structure/chair/office/light,
-/obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
@@ -42088,6 +42090,13 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
 "blW" = (
@@ -44457,9 +44466,6 @@
 /turf/closed/wall,
 /area/maintenance/central)
 "bpr" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -44472,6 +44478,12 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 9
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
@@ -45274,18 +45286,6 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port)
 "bqA" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/structure/table/glass,
 /obj/machinery/reagentgrinder{
 	desc = "Used to grind things up into raw materials and liquids.";
@@ -45293,6 +45293,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
 "bqB" = (
@@ -49716,6 +49720,13 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
 "bxL" = (
@@ -49809,11 +49820,6 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "bxV" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/virology/glass{
-	name = "Isolation B";
-	req_access_txt = "39"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -49823,7 +49829,15 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green,
+/turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
 "bxW" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -53369,7 +53383,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "63"
+	req_access_txt = "63;34"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -67965,7 +67979,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Prison Wing";
-	req_access_txt = "2"
+	req_access_txt = "2;34"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -68644,10 +68658,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
-/obj/machinery/door/airlock/security{
-	name = "Prison Wing";
-	req_access_txt = "2"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -68656,6 +68666,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
+	},
+/obj/machinery/door/airlock/security{
+	name = "Prison Wing";
+	req_access_txt = "2;34"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -75277,14 +75291,13 @@
 /area/maintenance/port/aft)
 "ckG" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	id_tag = null;
-	name = "Brig";
-	req_access_txt = "63"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/door/airlock/security/glass{
+	name = "Gear Room";
+	req_one_access_txt = "1;4"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "ckH" = (
@@ -80436,7 +80449,6 @@
 	},
 /area/maintenance/port/aft)
 "csO" = (
-/obj/structure/table,
 /obj/item/folder/white,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -80453,12 +80465,20 @@
 	pixel_x = -6;
 	pixel_y = 8
 	},
-/obj/item/restraints/handcuffs,
-/obj/item/pen,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
+/obj/item/storage/box/beakers{
+	pixel_y = 2
+	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/structure/table/glass,
+/obj/item/reagent_containers/dropper,
+/obj/item/storage/box/syringes{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/syringe/antiviral,
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "csP" = (
@@ -95121,6 +95141,14 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port)
+"ePG" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/machinery/smartfridge/chemistry/virology/preloaded,
+/turf/open/floor/plasteel/showroomfloor,
+/area/medical/virology)
 "eRI" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -95240,13 +95268,12 @@
 /area/quartermaster/exploration_prep)
 "feT" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	id_tag = null;
-	name = "Brig";
-	req_access_txt = "63"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/door/airlock/security/glass{
+	name = "Gear Room";
+	req_one_access_txt = "1;4"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "fhr" = (
@@ -97724,6 +97751,13 @@
 	lighting_colour_bulb = "#ffdbb4";
 	lighting_colour_tube = "#ffce99"
 	})
+"mjj" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green,
+/turf/open/floor/plasteel/showroomfloor,
+/area/medical/virology)
 "mkf" = (
 /obj/item/pickaxe,
 /turf/open/floor/plating/asteroid/airless,
@@ -98825,6 +98859,17 @@
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
+"phD" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/machinery/computer/pandemic,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/dark,
+/area/medical/virology)
 "pio" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/purple,
@@ -122673,7 +122718,7 @@ aUB
 aTx
 asW
 aVE
-aoV
+mjj
 bxK
 aVh
 aoH
@@ -122930,9 +122975,9 @@ aRJ
 aTx
 aTy
 biy
-aoV
+ePG
 bxV
-aoV
+phD
 afe
 bIV
 bzZ
