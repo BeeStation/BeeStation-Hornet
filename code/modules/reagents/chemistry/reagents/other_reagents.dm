@@ -1622,7 +1622,7 @@
 			var/mob/living/carbon/human/H = M
 			H.hair_color = pick(potential_colors)
 			H.facial_hair_color = pick(potential_colors)
-			H.update_hair()
+			H.update_body() //MonkeStation Edit: Body Update
 
 /datum/reagent/barbers_aid
 	name = "Barber's Aid"

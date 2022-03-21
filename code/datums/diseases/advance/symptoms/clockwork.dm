@@ -336,20 +336,7 @@
 	icon_state = "clocktail"
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
-
-/obj/item/organ/tail/clockwork/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
-	..()
-	if(istype(H))
-		if(!("tail_human" in H.dna.species.mutant_bodyparts))
-			H.dna.features["tail_human"] = tail_type
-			H.dna.species.mutant_bodyparts |= "tail_human"
-		H.update_body()
-
-/obj/item/organ/tail/clockwork/Remove(mob/living/carbon/human/H,  special = 0)
-	..()
-	if(istype(H))
-		H.dna.species.mutant_bodyparts -= "tail_human"
-		H.update_body()
+	mutant_bodypart_name = "tail_human" //MonkeStation Edit: Tail Overhaul
 
 /obj/item/bodypart/l_arm/robot/clockwork
 	name = "clockwork left arm"

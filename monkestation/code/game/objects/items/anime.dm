@@ -7,31 +7,41 @@
 	icon_state = "coder"
 	var/obj/item/organ/ears/ears = null
 	var/obj/item/organ/tail/tail = null
+	var/food_likes
+	var/food_dislikes
+	var/list/weeb_screams
+	var/list/weeb_laughs
 
-/obj/item/anime/examine(mob/user)
-	. = ..()
-	. += "Ctrl+Click to adjust the color."
+/obj/item/anime/attack_self(mob/living/carbon/user)
+	if(ishuman(user))
+		var/mob/living/carbon/human/weeb = user
+		var/new_color = input(user, "Choose a new hair color:", "Anime Color","#"+ears.color) as color|null
+		if(new_color) //If they DON'T pick a color, then it just defaults to their original hair color.
+			src.color = new_color
+			weeb.hair_color = sanitize_hexcolor(src.color) //I guess I have to do this fuck living code
 
-/obj/item/anime/attack_self(mob/living/carbon/human/user)
-	var/old_hair_color = user.hair_color
-	user.hair_color = sanitize_hexcolor(src.color) //I guess I have to do this fuck living code
-	if(ears)
-		ears.Insert(user)
-	if(tail)
-		tail.Insert(user)
-	user.hair_color = old_hair_color
-	var/turf/location = get_turf(user)
-	user.add_splatter_floor(location)
-	var/msg = "<span class=danger>You feel the power of God and Anime flow through you! </span>"
-	to_chat(user, msg)
-	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 50, 1)
-	qdel(src)
+		if(ears)
+			ears.Insert(weeb)
+		if(tail)
+			tail.Insert(weeb)
+		if(weeb_screams)
+			weeb.alternative_screams += weeb_screams
+		if(weeb_laughs)
+			weeb.alternative_laughs += weeb_laughs
+		if(food_likes)
+			weeb.dna.species.liked_food = food_likes
+		if(food_dislikes)
+			weeb.dna.species.disliked_food = food_dislikes
+			weeb.dna.species.toxic_food = food_dislikes
 
-/obj/item/anime/CtrlClick(mob/living/carbon/human/user)
-	var/new_color = input(user, "Choose your anime color:", "Anime Color","#"+ears.color) as color|null
-	if(new_color)
-		src.color = new_color
-	. = ..()
+		var/turf/location = get_turf(weeb)
+		weeb.add_splatter_floor(location)
+		var/msg = "<span class=danger>You feel the power of God and Anime flow through you! </span>"
+		to_chat(weeb, msg)
+		playsound(location, 'sound/weapons/circsawhit.ogg', 50, 1)
+		weeb.update_body()
+		weeb.update_hair()
+		qdel(src)
 
 //DERMAL IMPLANT SETS//
 /obj/item/anime/cat
@@ -40,6 +50,10 @@
 	icon_state = "cat"
 	ears = new /obj/item/organ/ears/cat
 	tail = new /obj/item/organ/tail/cat
+	food_likes = DAIRY | MEAT
+	food_dislikes = FRUIT | VEGETABLES | SUGAR
+	weeb_screams = list('monkestation/sound/voice/screams/felinid/hiss.ogg','monkestation/sound/voice/screams/felinid/merowr.ogg','monkestation/sound/voice/screams/felinid/scream_cat.ogg')
+	weeb_laughs = list('monkestation/sound/voice/laugh/felinid/cat_laugh0.ogg','monkestation/sound/voice/laugh/felinid/cat_laugh1.ogg','monkestation/sound/voice/laugh/felinid/cat_laugh2.ogg','monkestation/sound/voice/laugh/felinid/cat_laugh3.ogg')
 
 
 //ANIME TRAIT SPAWNER//

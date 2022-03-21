@@ -7,30 +7,43 @@
 	zone = BODY_ZONE_PRECISE_GROIN
 	slot = ORGAN_SLOT_TAIL
 	var/tail_type = "None"
-
-/obj/item/organ/tail/Remove(mob/living/carbon/human/H,  special = 0)
-	..()
-	if(H?.dna?.species)
-		H.dna.species.stop_wagging_tail(H)
+//MonkeStation Edit Start: Tail Overhaul
+	var/wagging = FALSE
+	var/list/mutant_bodypart_name = list() //The organ that goes under H.dna.species.mutant_bodyparts
+	var/list/wagging_mutant_name //The WAGGING state for the organ that goes under H.dna.species.mutant_bodyparts
+	//All new tails need to be added to the switch in handle_mutant_bodyparts() under species.dm
+//MonkeStation Edit End
 
 /obj/item/organ/tail/cat
 	name = "cat tail"
 	desc = "A severed cat tail. Who's wagging now?"
 	tail_type = "Cat"
+	//MonkeStation Edit Start: Tail Overhaul
+	mutant_bodypart_name = list("tail_human")
+	wagging_mutant_name = list("waggingtail_human")
+	//MonkeStation Edit End
 
-/obj/item/organ/tail/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
+//MonkeStation Edit Start: Tail Overhaul
+/obj/item/organ/tail/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
 	..()
 	if(istype(H))
-		if(!("tail_human" in H.dna.species.mutant_bodyparts))
-			H.dna.species.mutant_bodyparts |= "tail_human"
+		if(!(mutant_bodypart_name in H.dna.species.mutant_bodyparts))
+			H.dna.species.mutant_bodyparts |= mutant_bodypart_name
+//MonkeStation Edit End
 			H.dna.features["tail_human"] = tail_type
 			H.update_body()
 
-/obj/item/organ/tail/cat/Remove(mob/living/carbon/human/H,  special = 0)
+/obj/item/organ/tail/Remove(mob/living/carbon/human/H,  special = 0)
 	..()
 	if(istype(H))
 		H.dna.features["tail_human"] = "None"
-		H.dna.species.mutant_bodyparts -= "tail_human"
+//MonkeStation Edit Start: Tail Overhaul
+		if(wagging)
+			H.dna.species.mutant_bodyparts -= wagging_mutant_name
+			wagging = FALSE
+		else
+			H.dna.species.mutant_bodyparts -= mutant_bodypart_name
+//MonkeStation Edit End
 		H.update_body()
 
 /obj/item/organ/tail/lizard
@@ -39,15 +52,15 @@
 	color = "#116611"
 	tail_type = "Smooth"
 	var/spines = "None"
+	//MonkeStation Edit Start: Tail Overhaul
+	mutant_bodypart_name = list("tail_lizard", "spines")
+	wagging_mutant_name = list("waggingtail_lizard", "waggingspines")
+	//MonkeStation Edit End
 
 /obj/item/organ/tail/lizard/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
 	..()
 	if(istype(H))
 		// Checks here are necessary so it wouldn't overwrite the tail of a lizard it spawned in
-		if(!("tail_lizard" in H.dna.species.mutant_bodyparts))
-			H.dna.features["tail_lizard"] = tail_type
-			H.dna.species.mutant_bodyparts |= "tail_lizard"
-
 		if(!("spines" in H.dna.species.mutant_bodyparts))
 			H.dna.features["spines"] = spines
 			H.dna.species.mutant_bodyparts |= "spines"
@@ -56,7 +69,6 @@
 /obj/item/organ/tail/lizard/Remove(mob/living/carbon/human/H,  special = 0)
 	..()
 	if(istype(H))
-		H.dna.species.mutant_bodyparts -= "tail_lizard"
 		H.dna.species.mutant_bodyparts -= "spines"
 		color = "#" + H.dna.features["mcolor"]
 		tail_type = H.dna.features["tail_lizard"]

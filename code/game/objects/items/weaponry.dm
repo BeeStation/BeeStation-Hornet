@@ -789,10 +789,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	hitsound = 'sound/effects/snap.ogg'
 
 /obj/item/slapper/attack(mob/M, mob/living/carbon/human/user)
-	if(ishuman(M))
-		var/mob/living/carbon/human/L = M
-		if(L?.dna?.species)
-			L.dna.species.stop_wagging_tail(M)
 	user.do_attack_animation(M)
 	playsound(M, 'sound/weapons/slap.ogg', 50, 1, -1)
 	user.visible_message("<span class='danger'>[user] slaps [M]!</span>",
