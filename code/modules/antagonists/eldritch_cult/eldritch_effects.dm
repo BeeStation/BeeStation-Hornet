@@ -27,11 +27,6 @@
 	if(!is_in_use)
 		INVOKE_ASYNC(src, .proc/activate , user)
 
-/obj/effect/eldritch/attacked_by(obj/item/I, mob/living/user)
-	. = ..()
-	if(istype(I,/obj/item/nullrod))
-		qdel(src)
-
 /obj/effect/eldritch/proc/activate(mob/living/user)
 	is_in_use = TRUE
 	// Have fun trying to read this proc.
