@@ -470,7 +470,7 @@ Thresholds
 				var/T = get_step(get_turf(M), pusdir)
 				var/obj/item/ammo_casing/caseless/pimple/pustule = new(get_turf(M))
 				for(var/datum/disease/advance/D in M.diseases) //spreads all diseases in the host, but only if they have fluid spread or higher
-					if(A.spread_flags && DISEASE_SPREAD_CONTACT_FLUIDS)
+					if(A.spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS)
 						pustule.diseases += D
 				pustule.pellets = popped
 				pustule.variance = rand(50, 200)
