@@ -1,4 +1,0 @@
-author: Hardly
-delete-after: true
-changes:
-  - bugfix: Pixel Perfect 1.5x should properly save now
