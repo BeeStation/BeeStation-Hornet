@@ -1,0 +1,7 @@
+author: Vasily2013
+delete-after: true
+changes:
+  - refactor: Kilo pipes are standardized. Distro on layer 1, Scrubbers on layer 3.
+  - rscadd: 'Kilo: The airlock in the engine room now serves as a non-public passage
+      between atmos and the rest of engineering.'
+  - tweak: A few Kilo airlocks are now larger, so things may be dragged through them.
