@@ -119,7 +119,7 @@
 	severity = -1
 	symptom_delay_min = 1
 	symptom_delay_max = 1
-	prefixes = list("Organ 9")
+	prefixes = list("Organ ")
 	var/curing = FALSE
 	var/regenorgans = FALSE 
 	threshold_desc = "<b>Stealth 4:</b> The host will regenerate missing organs over a long period of time.<br>\
