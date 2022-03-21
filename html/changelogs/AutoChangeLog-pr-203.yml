@@ -1,0 +1,6 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - rscadd: Added an additional lifeform stasis unit to Medical Exam Room where medicine
+      cabinet was
+  - rscdel: Deleted one morgue container to fit the new position of cryogenic freezer
