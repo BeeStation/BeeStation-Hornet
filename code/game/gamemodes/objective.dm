@@ -427,13 +427,13 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/gimmick/update_explanation_text()
 	var/selected_department = pick(list( //Select a department for department-based objectives
-		"Research & Development",
-		"Engineering",
-		"Security",
-		"Medical",
-		"Service",
-		"Cargo",
-		"Command"
+		DEPT_SCIENCE,
+		DEPT_ENGINEERING,
+		DEPT_SECURITY,
+		DEPT_MEDICAL,
+		DEPT_SERVICE,
+		DEPT_SUPPLY,
+		DEPT_COMMAND
 	))
 	var/list/gimmick_list = list( //This list is ONLY for objectives that depend on a random selection
 		"Get everyone to hate [selected_department], through misdirection, slander, and sabotage.",
