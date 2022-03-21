@@ -262,7 +262,7 @@
 	success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
 	success_forcesay = "BEGONE FOUL MAGIKS!!", \
 	on_clear_callback = CALLBACK(src, .proc/on_cult_rune_removed), \
-	effects_we_clear = list(/obj/effect/rune, /obj/effect/heretic_rune))
+	effects_we_clear = list(/obj/effect/rune, /obj/effect/eldritch))
 
 /obj/item/nullrod/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
