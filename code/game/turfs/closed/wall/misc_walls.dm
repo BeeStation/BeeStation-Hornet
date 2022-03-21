@@ -54,10 +54,17 @@
 	bullet_sizzle = TRUE
 
 /turf/closed/wall/rust
-	name = "rusted wall"
-	desc = "A rusted metal wall."
-	icon = 'icons/turf/walls/rusty_wall.dmi'
-	hardness = 45
+	//SDMM supports colors, this is simply for easier mapping
+	//and should be removed on initialize
+	color = COLOR_ORANGE
+
+/turf/closed/wall/rust/Initialize(mapload)
+	. = ..()
+	color = null
+
+/turf/closed/wall/rust/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rust)
 
 /turf/closed/wall/rust/rust_heretic_act()
 	if(prob(70))
@@ -65,10 +72,17 @@
 	ScrapeAway()
 
 /turf/closed/wall/r_wall/rust
-	name = "rusted reinforced wall"
-	desc = "A huge chunk of rusted reinforced metal."
-	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
-	hardness = 15
+	//SDMM supports colors, this is simply for easier mapping
+	//and should be removed on initialize
+	color = COLOR_ORANGE
+
+/turf/closed/wall/r_wall/Initialize(mapload)
+	. = ..()
+	color = null
+
+/turf/closed/wall/r_wall/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rust)
 
 /turf/closed/wall/r_wall/rust/rust_heretic_act()
 	if(prob(50))
