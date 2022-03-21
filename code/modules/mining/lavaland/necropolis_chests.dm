@@ -652,6 +652,7 @@
 	description = "Strange mutagenic compound of unknown origins."
 	reagent_state = LIQUID
 	process_flags = ORGANIC | SYNTHETIC
+	can_synth = FALSE
 	color = "#FFEBEB"
 
 /datum/reagent/flightpotion/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
