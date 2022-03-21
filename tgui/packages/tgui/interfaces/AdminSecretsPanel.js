@@ -10,7 +10,6 @@ const possTitles = [
   "Oh, this is gonna be fun.",
   "ADMIN, HE'S DOING IT SIDEWAYS!",
   "What flavor of admemes are we having today?",
-  "Mass Purrbation. You know you want to.",
   "What does this button do?",
   "NOO YOU CANT JUST ABUSE YOUR POWERS LIKE THAT",
   "haha admin machine go bwoink",

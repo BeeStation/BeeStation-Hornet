@@ -87,8 +87,6 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Set each movement direction manually", "custommovement"),
 			list("Reset movement directions to default", "resetmovement"),
 			list("Change bomb cap", "changebombcap"),
-			list("Mass Purrbation", "masspurrbation"),
-			list("Mass Remove Purrbation", "massremovepurrbation"),
 			list("Fully Immerse Everyone", "massimmerse"),
 			list("Un-Fully Immerse Everyone", "unmassimmerse"),
 			list("Make All Animals Playable", "animalsentience")
