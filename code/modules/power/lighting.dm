@@ -271,7 +271,7 @@
 	icon_state = "tube-empty"
 	start_with_cell = FALSE
 
-/obj/machinery/light/built/Initialize()
+/obj/machinery/light/built/Initialize(mapload)
 	. = ..()
 	status = LIGHT_EMPTY
 	update(0)
@@ -280,7 +280,7 @@
 	icon_state = "bulb-empty"
 	start_with_cell = FALSE
 
-/obj/machinery/light/small/built/Initialize()
+/obj/machinery/light/small/built/Initialize(mapload)
 	. = ..()
 	status = LIGHT_EMPTY
 	update(0)
@@ -351,16 +351,17 @@
 
 /obj/machinery/light/update_overlays()
 	. = ..()
-	if(on || emergency_mode)
-		if(!lighting_overlays)
-			lighting_overlays = list()
-		var/mutable_appearance/LO = lighting_overlays["[base_state]-[light_power]-[light_color]"]
-		if(!LO)
-			LO = mutable_appearance(overlayicon, base_state, layer, EMISSIVE_PLANE)
-			LO.color = light_color
-			LO.alpha = clamp(light_power*255, 30, 200)
-			lighting_overlays["[base_state]-[light_power]-[light_color]"] = LO
-		. += LO
+	if(!on || status != LIGHT_OK)
+		return
+
+	var/area/local_area = get_area(src)
+	if(emergency_mode || (local_area?.fire))
+		. += mutable_appearance(overlayicon, "[base_state]_emergency")
+		return
+	if(nightshift_enabled)
+		. += mutable_appearance(overlayicon, "[base_state]_nightshift")
+		return
+	. += mutable_appearance(overlayicon, base_state)
 
 // update the icon_state and luminosity of the light depending on its state
 /obj/machinery/light/proc/update(trigger = TRUE)
@@ -877,7 +878,7 @@
 			icon_state = "[base_state]-broken"
 			desc = "A broken [name]."
 
-/obj/item/light/Initialize()
+/obj/item/light/Initialize(mapload)
 	. = ..()
 	update()
 	var/static/list/loc_connections = list(

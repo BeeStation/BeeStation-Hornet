@@ -42,7 +42,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/turf/recorded_origin //The last remembered location of our airlock
 	var/turf/exit //Record the exterior turf next to the airlock to prevent modification designation
 
-/obj/item/shuttle_creator/Initialize()
+/obj/item/shuttle_creator/Initialize(mapload)
 	. = ..()
 	internal_shuttle_creator = new()
 	internal_shuttle_creator.owner_rsd = src

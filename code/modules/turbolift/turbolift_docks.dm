@@ -10,7 +10,7 @@
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
 	var/datum/weakref/turbolift_computer
 
-/obj/docking_port/mobile/turbolift/Initialize()
+/obj/docking_port/mobile/turbolift/Initialize(mapload)
 	register()
 	..()
 	return INITIALIZE_HINT_LATELOAD
@@ -46,7 +46,7 @@
 
 	turbolift_dock.locate_floors(src)
 
-/obj/docking_port/stationary/turbolift/Initialize()
+/obj/docking_port/stationary/turbolift/Initialize(mapload)
 	. = ..()
 	id = "[id]_[src.z]"
 	var/lower_dock = (locate(/obj/docking_port/stationary/turbolift) in SSmapping.get_turf_below(get_turf(src)))

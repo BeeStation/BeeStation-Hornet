@@ -7,7 +7,7 @@
 	var/relic_mask
 	var/memory_saved = FALSE
 
-/mob/living/carbon/monkey/punpun/Initialize()
+/mob/living/carbon/monkey/punpun/Initialize(mapload)
 	Read_Memory()
 	if(ancestor_name)
 		name = ancestor_name
