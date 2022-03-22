@@ -33,7 +33,7 @@
 	name = "Virologist"
 	jobtype = /datum/job/virologist
 
-	id = /obj/item/card/id/job/med
+	id = /obj/item/card/id/job/viro
 	belt = /obj/item/extrapolator
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/virologist

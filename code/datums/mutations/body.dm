@@ -157,6 +157,7 @@
 	if(..())
 		return
 	ADD_TRAIT(owner, TRAIT_DEAF, GENETIC_MUTATION)
+	SEND_SOUND(owner, sound(null))
 
 /datum/mutation/human/deaf/on_losing(mob/living/carbon/human/owner)
 	if(..())
@@ -380,6 +381,7 @@
 	name = "Strengthened Wings"
 	desc = "Subject's wing muscle volume rapidly increases."
 	quality = POSITIVE
+	locked = TRUE
 	difficulty = 12
 	instability = 15
 	species_allowed = list(SPECIES_APID, SPECIES_MOTH)
@@ -423,6 +425,7 @@
 	name = "Cat Claws"
 	desc = "Subject's hands grow sharpened claws."
 	quality = POSITIVE
+	locked = TRUE
 	difficulty = 12
 	instability = 25
 	species_allowed = list(SPECIES_FELINID)

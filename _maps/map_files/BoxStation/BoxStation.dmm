@@ -49651,7 +49651,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/science{
-	name = "exploration preperation room";
+	name = "exploration preparation room";
 	req_access_txt = "49"
 	},
 /turf/open/floor/plasteel/white,
@@ -55020,7 +55020,7 @@
 /area/quartermaster/office)
 "qKG" = (
 /obj/machinery/door/airlock/science{
-	name = "exploration preperation room";
+	name = "exploration preparation room";
 	req_access_txt = "49"
 	},
 /obj/machinery/door/firedoor,

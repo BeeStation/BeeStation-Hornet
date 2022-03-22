@@ -104554,7 +104554,7 @@
 /area/hallway/primary/central)
 "gFA" = (
 /obj/machinery/door/airlock/science{
-	name = "exploration preperation room";
+	name = "exploration preparation room";
 	req_access_txt = "49"
 	},
 /obj/machinery/door/firedoor,
