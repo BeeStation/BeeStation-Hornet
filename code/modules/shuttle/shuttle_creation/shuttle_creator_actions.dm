@@ -95,8 +95,6 @@
 		if(!shuttle_creator.getNonShuttleDirection(T))
 			to_chat(C, "<span class='warning'>Docking port must be on an external wall, with only 1 side exposed to space.</span>")
 			return
-		if(!shuttle_creator.create_shuttle_area(C))
-			return
 		if(shuttle_creator.shuttle_create_docking_port(A, C))
 			to_chat(C, "<span class='notice'>Shuttle created!</span>")
 	//Remove eye control

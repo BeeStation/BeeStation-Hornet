@@ -204,6 +204,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 /obj/item/shuttle_creator/proc/shuttle_create_docking_port(atom/target, mob/user)
 
+	if(!create_shuttle_area(user))
+		return FALSE
 	if(loggedTurfs.len == 0 || !recorded_shuttle_area)
 		to_chat(user, "<span class='warning'>Invalid shuttle, restarting bluespace systems...</span>")
 		return FALSE
@@ -299,7 +301,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		user.create_area_cooldown = world.time + 10
 	if(!loggedTurfs)
 		return FALSE
-	if(!check_area(loggedTurfs, FALSE))	//Makes sure nothing (Shuttles) has moved into the area during creation
+	if(!check_area(loggedTurfs, FALSE))	//Makes sure nothing (Shuttles) has moved into the area during creation or if designated turfs have been deconstructed
+		to_chat(user, "<span class='warning'>the [src] blares \"Structural verification has failed, please double check all designated turfs.\"</span>")
 		return FALSE
 	//Create the new area
 	var/area/shuttle/custom/powered/newS
@@ -365,7 +368,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	for(var/turf/T in loggedTurfs)
 		port.add_turf(T, recorded_shuttle_area)
 
-	var/list/firedoors = loggedOldArea.firedoors
+	var/list/firedoors = recorded_shuttle_area.firedoors
 	for(var/door in firedoors)
 		var/obj/machinery/door/firedoor/FD = door
 		FD.CalculateAffectingAreas()
@@ -398,12 +401,15 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		return
 	//Check to see if it's a valid shuttle
 	for(var/i in 1 to turfs.len)
-		var/area/place = get_area(turfs[i])
+		var/turf/t = turfs[i]
+		var/area/place = get_area(t)
 		//If any of the turfs are on station / not in space, a shuttle cannot be forced there
 		if(!place)
 			to_chat(usr, "<span class='warning'>You can't seem to overpower the bluespace harmonics in this location, try somewhere else.</span>")
 			return FALSE
-		if(istype(place, /area/space))
+		if( (istype(t,/turf/open/floor/dock/drydock) || (/turf/open/floor/dock/drydock in t.baseturfs)) && !(/turf/baseturf_skipover/shuttle in t.baseturfs)) //TODO: Find a better, non-disgusting way to do this
+			overwritten_area = place.type
+		else if(istype(place, /area/space))
 			overwritten_area = /area/space
 		else if(istype(place, /area/lavaland/surface/outdoors))
 			overwritten_area = /area/lavaland/surface/outdoors

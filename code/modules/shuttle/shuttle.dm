@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	/turf/baseturf_bottom,
 	/turf/open/space,
 	/turf/open/lava,
+	/turf/open/floor/dock/drydock
 )))
 
 //NORTH default dir

@@ -558,3 +558,17 @@
 	icon_state = "tile_tech_maint"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/techmaint
+
+/obj/item/stack/tile/dock
+	name = "dock tile"
+	singular_name = "dock tile"
+	desc = "A bulky chunk of flooring capable of holding the weight of a shuttle."
+	icon_state = "tile_poddark" //THIS NEEDS ITS OWN SPRITE
+	turf_type = /turf/open/floor/dock
+
+/obj/item/stack/tile/drydock
+	name = "dry dock tile"
+	singular_name = "dry dock tile"
+	desc = "A bulky chunk of flooring capable of supporting construction of a shuttle."
+	icon_state = "tile_poddark" //THIS NEEDS ITS OWN SPRITE
+	turf_type = /turf/open/floor/dock/drydock
