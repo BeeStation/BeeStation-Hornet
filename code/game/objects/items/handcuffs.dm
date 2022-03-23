@@ -328,7 +328,7 @@
 /obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, quickstart = TRUE)
 	if(!..())
 		return
-	playsound(src.loc,'sound/weapons/bolathrow.ogg', 75, 1)
+	playsound(loc,'sound/weapons/bolathrow.ogg', 75, 1)
 
 /obj/item/restraints/legcuffs/bola/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(..() || !iscarbon(hit_atom))//if it gets caught or the target can't be cuffed,
@@ -377,12 +377,10 @@
 	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 60
 
-/obj/item/restraints/legcuffs/bola/energy/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(iscarbon(hit_atom))
-		var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(hit_atom))
-		B.spring_trap(null, hit_atom)
-		qdel(src)
-	. = ..()
+/obj/item/restraints/legcuffs/bola/energy/ensnare(mob/living/carbon/C)
+	var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(C))
+	B.spring_trap(null, C)
+	qdel(src)
 
 /obj/item/restraints/legcuffs/bola/energy/emp_act(severity)
 	if(prob(25 * severity))
