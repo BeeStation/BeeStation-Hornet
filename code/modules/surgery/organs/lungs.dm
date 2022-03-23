@@ -315,7 +315,7 @@
 			if(prob(0.5 * miasma_pp))
 				var/datum/disease/advance/miasma_disease = new /datum/disease/advance/random(2,3, infected = src)
 				miasma_disease.name = "Unknown"
-				owner.ForceContractDisease(miasma_disease)
+				owner.AirborneContractDisease(miasma_disease)
 
 			// Miasma side effects
 			switch(miasma_pp)
