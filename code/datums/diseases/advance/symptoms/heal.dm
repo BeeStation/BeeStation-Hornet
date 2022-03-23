@@ -659,7 +659,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	if(A.transmission >= 6)
 		aggression = TRUE
 		maxbloodpoints += 50
-	if(A.stage_rate >= 6)
+	if(A.stage_rate >= 7)
 		power += 1
 	if((A.stealth >= 2) && (A.transmission >= 6) && A.process_dead) //this is low transmission for 2 reasons: transmission is hard to raise, especially with stealth, and i dont want this to be obligated to be transmittable
 		vampire = TRUE
