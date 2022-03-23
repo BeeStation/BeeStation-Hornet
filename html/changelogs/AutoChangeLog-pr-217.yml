@@ -1,5 +1,0 @@
-author: pitaden
-delete-after: true
-changes:
-  - bugfix: security plasmamen now keep their envirohelm, and no longer burn to death
-      after spawning
