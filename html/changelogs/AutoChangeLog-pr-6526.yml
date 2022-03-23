@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - rscadd: Ghosts now get alerted about explosions happening around the station
