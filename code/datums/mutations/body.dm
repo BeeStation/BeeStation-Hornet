@@ -435,6 +435,7 @@
 	if(..())
 		return
 	added_damage = min(17, 6 * GET_MUTATION_POWER(src) + owner.dna.species.punchdamage)
+	added_damage -= owner.dna.species.punchdamage
 	owner.dna.species.punchdamage += added_damage
 	to_chat(owner, "<span class='notice'>Claws extend from your fingertips.</span>")
 	owner.dna.species.attack_verb = "slash"
