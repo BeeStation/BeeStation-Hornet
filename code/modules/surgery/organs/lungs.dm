@@ -268,7 +268,6 @@
 	// Miasma
 		if (breath.get_moles(GAS_MIASMA))
 			var/miasma_pp = PP(breath,GAS_MIASMA)
-<<<<<<< refs/remotes/BeeStation/master
 			if(miasma_pp > MINIMUM_MOLES_DELTA_TO_MOVE)
 
 				//Miasma sickness
@@ -309,47 +308,6 @@
 				owner.adjust_disgust(0.1 * miasma_pp)
 
 				breath.adjust_moles(GAS_MIASMA, -gas_breathed)
-=======
-
-			//Miasma sickness
-			if(prob(0.5 * miasma_pp))
-				var/datum/disease/advance/miasma_disease = new /datum/disease/advance/random(2,3, infected = src)
-				miasma_disease.name = "Unknown"
-				owner.AirborneContractDisease(miasma_disease)
-
-			// Miasma side effects
-			switch(miasma_pp)
-				if(0.25 to 5)
-					// At lower pp, give out a little warning
-					SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "smell")
-					if(prob(5))
-						to_chat(owner, "<span class='notice'>There is an unpleasant smell in the air.</span>")
-				if(5 to 15)
-					//At somewhat higher pp, warning becomes more obvious
-					if(prob(15))
-						to_chat(owner, "<span class='warning'>You smell something horribly decayed inside this room.</span>")
-						SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/bad_smell)
-				if(15 to 30)
-					//Small chance to vomit. By now, people have internals on anyway
-					if(prob(5))
-						to_chat(owner, "<span class='warning'>The stench of rotting carcasses is unbearable!</span>")
-						SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/nauseating_stench)
-						owner.vomit()
-				if(30 to INFINITY)
-					//Higher chance to vomit. Let the horror start
-					if(prob(15))
-						to_chat(owner, "<span class='warning'>The stench of rotting carcasses is unbearable!</span>")
-						SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "smell", /datum/mood_event/disgust/nauseating_stench)
-						owner.vomit()
-				else
-					SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "smell")
-
-			// In a full miasma atmosphere with 101.34 pKa, about 10 disgust per breath, is pretty low compared to threshholds
-			// Then again, this is a purely hypothetical scenario and hardly reachable
-			owner.adjust_disgust(0.1 * miasma_pp)
-
-			breath.adjust_moles(GAS_MIASMA, -gas_breathed)
->>>>>>> removes uses of try_infect
 
 		// Clear out moods when no miasma at all
 		else
