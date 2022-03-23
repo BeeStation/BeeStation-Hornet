@@ -707,7 +707,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					if(prob(20) && !M.stat) 
 						bloodpoints -- //you cant just accumulate blood and keep it as a battery of healing. the quicker the symptom is, the faster your bloodpoints decay
 				else if(prob(60) && M.blood_volume >= BLOOD_VOLUME_BAD)//the virus continues to extract blood if you dont have any stored up. higher probability due to BP value
-					M.blood_volume = (M.blood_volume -= 1)
+					M.blood_volume = (M.blood_volume - 1)
 
 			if(!bloodpoints && prob(3))
 				to_chat(M, "<span class='warning'>[pick("You feel a pang of thirst.", "No food can sate your hunger", "Blood...")]</span>")
