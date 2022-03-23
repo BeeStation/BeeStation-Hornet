@@ -1872,8 +1872,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/atmospherics/pipe/multiz/layer2,
-/obj/machinery/atmospherics/pipe/multiz/layer4,
+/obj/machinery/atmospherics/pipe/simple/multiz/layer2,
+/obj/machinery/atmospherics/pipe/simple/multiz/layer4,
 /turf/open/openspace,
 /area/maintenance/starboard/fore)
 "aAO" = (
@@ -13491,7 +13491,7 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "djz" = (
-/obj/machinery/atmospherics/pipe/multiz/layer2,
+/obj/machinery/atmospherics/pipe/simple/multiz/layer2,
 /obj/structure/lattice/catwalk,
 /turf/open/openspace/airless,
 /area/space/nearstation)
@@ -18571,7 +18571,7 @@
 /area/hallway/primary/starboard)
 "esT" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/multiz/layer4,
+/obj/machinery/atmospherics/pipe/simple/multiz/layer4,
 /turf/open/space/basic,
 /area/space/nearstation)
 "esU" = (
@@ -22469,7 +22469,7 @@
 /area/science/shuttle)
 "fkb" = (
 /obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/multiz/layer2,
+/obj/machinery/atmospherics/pipe/simple/multiz/layer2,
 /turf/open/space/basic,
 /area/space/nearstation)
 "fkh" = (
@@ -26968,7 +26968,7 @@
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "giB" = (
-/obj/machinery/atmospherics/pipe/multiz/layer4,
+/obj/machinery/atmospherics/pipe/simple/multiz/layer4,
 /obj/structure/lattice/catwalk,
 /turf/open/openspace/airless,
 /area/space/nearstation)
@@ -36704,8 +36704,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/atmospherics/pipe/multiz/layer2,
-/obj/machinery/atmospherics/pipe/multiz/layer4,
+/obj/machinery/atmospherics/pipe/simple/multiz/layer2,
+/obj/machinery/atmospherics/pipe/simple/multiz/layer4,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "iyi" = (
@@ -57379,8 +57379,8 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "nxX" = (
-/obj/machinery/atmospherics/pipe/multiz/layer2,
-/obj/machinery/atmospherics/pipe/multiz/layer4,
+/obj/machinery/atmospherics/pipe/simple/multiz/layer2,
+/obj/machinery/atmospherics/pipe/simple/multiz/layer4,
 /obj/structure/disposalpipe/trunk/multiz/down,
 /turf/open/openspace,
 /area/maintenance/upper/fore)
@@ -70650,7 +70650,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/multiz,
+/obj/machinery/atmospherics/pipe/simple/multiz,
 /turf/open/floor/engine,
 /area/engine/engine_room)
 "qDC" = (
@@ -77206,8 +77206,8 @@
 /area/maintenance/solars/port/fore)
 "skv" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
-/obj/machinery/atmospherics/pipe/multiz/layer2,
-/obj/machinery/atmospherics/pipe/multiz/layer4,
+/obj/machinery/atmospherics/pipe/simple/multiz/layer2,
+/obj/machinery/atmospherics/pipe/simple/multiz/layer4,
 /obj/structure/disposalpipe/trunk/multiz,
 /turf/open/floor/plating,
 /area/maintenance/fore)
@@ -94599,7 +94599,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/upper/secondary/service)
 "woT" = (
-/obj/machinery/atmospherics/pipe/multiz,
+/obj/machinery/atmospherics/pipe/simple/multiz,
 /turf/open/openspace,
 /area/engine/engine_room)
 "woW" = (
