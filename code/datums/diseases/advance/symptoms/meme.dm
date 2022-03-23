@@ -46,5 +46,5 @@
 					if(D.GetDiseaseID() == A.GetDiseaseID())
 						C.emote(emote)
 				if(A.spread_flags & DISEASE_SPREAD_AIRBORNE)
-					if(A.try_infect(C))
+					if(C.ForceContractDisease(A))
 						C.emote(emote)

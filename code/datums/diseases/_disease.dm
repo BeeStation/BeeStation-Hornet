@@ -47,6 +47,7 @@
 	return TRUE
 
 //add the disease with no checks
+//don't call this proc, use ForceContractDisease instead, unless you KNOW WHAT YOU'RE DOING
 /datum/disease/proc/infect(var/mob/living/infectee, make_copy = TRUE)
 	var/datum/disease/D = make_copy ? Copy() : src	
 	infectee.diseases += D
