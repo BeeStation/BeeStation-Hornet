@@ -68,7 +68,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			spawn_point = locate(/obj/effect/landmark/start/depsec/supply) in GLOB.department_security_spawns
 			accessory = /obj/item/clothing/accessory/armband/cargo
 			suit = /obj/item/clothing/suit/armor/secduster/cargo //monkestation edit: add departmental sec outfits
-			head = /obj/item/clothing/head/helmet/hat/cowboy/cargo//monkestation edit: add departmental sec outfits
+			head = /obj/item/clothing/head/helmet/hat/cowboy/cargo //monkestation edit: add departmental sec outfits
 		if(SEC_DEPT_ENGINEERING)
 			ears = /obj/item/radio/headset/headset_sec/alt/department/engi
 			dep_access = list(ACCESS_CONSTRUCTION, ACCESS_ENGINE, ACCESS_ATMOSPHERICS, ACCESS_AUX_BASE)
@@ -91,8 +91,8 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			destination = /area/security/checkpoint/science
 			spawn_point = locate(/obj/effect/landmark/start/depsec/science) in GLOB.department_security_spawns
 			accessory = /obj/item/clothing/accessory/armband/science
-			suit = /obj/item/clothing/suit/armor/secduster/science//monkestation edit: add departmental sec outfits
-			head = /obj/item/clothing/head/helmet/hat/cowboy/science//monkestation edit: add departmental sec outfits
+			suit = /obj/item/clothing/suit/armor/secduster/science //monkestation edit: add departmental sec outfits
+			head = /obj/item/clothing/head/helmet/hat/cowboy/science //monkestation edit: add departmental sec outfits
 	if(accessory)
 		var/obj/item/clothing/under/U = H.w_uniform
 		U.attach_accessory(new accessory)
@@ -108,9 +108,12 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 			H.equip_to_slot_or_del(new suit(H),ITEM_SLOT_OCLOTHING)
 			H.equip_to_slot_or_del(stored,ITEM_SLOT_SUITSTORE)
 	if(head)
-		if(H.head)
-			qdel(H.head)
-		H.equip_to_slot_or_del(new head(H),ITEM_SLOT_HEAD)
+		if(H.dna.species.id == SPECIES_PLASMAMAN) // we REALLY don't want to delete plasmamen's helmets
+			H.equip_to_slot_or_del(new head(H),ITEM_SLOT_BACKPACK, TRUE) // also don't want to just delete the new hat, so we put the hat in their backpack instead
+		else
+			if(H.head)
+				qdel(H.head)
+			H.equip_to_slot_or_del(new head(H),ITEM_SLOT_HEAD)
 	//monkestation edit end
 	var/obj/item/card/id/W = H.wear_id
 	W.access |= dep_access
