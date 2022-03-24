@@ -140,7 +140,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 		var/turf/pos = get_turf(H)
 		// Check if their z-level is correct
-		if (pos.z != z)
+		if (pos.z != z && H.get_virtual_z_level() != z)
 			continue
 
 		// Determine if this person is using nanites for sensors,
