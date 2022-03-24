@@ -6299,7 +6299,7 @@
 /obj/machinery/holopad,
 /obj/item/beacon,
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat_interior)
+/area/ai_monitored/turret_protected/aisat/foyer)
 "cbY" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 8
@@ -17319,7 +17319,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat_interior)
+/area/ai_monitored/turret_protected/aisat/foyer)
 "fxw" = (
 /obj/machinery/vending/snack/random,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -17401,7 +17401,7 @@
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=4.2-BLmaint3";
-	location = "4-BLmaint";
+	location = "4-BLmaint"
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
@@ -24598,7 +24598,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat_interior)
+/area/ai_monitored/turret_protected/aisat/foyer)
 "hKM" = (
 /obj/effect/landmark/start/clown,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
@@ -29395,7 +29395,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat_interior)
+/area/ai_monitored/turret_protected/aisat/foyer)
 "jgV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
@@ -32630,7 +32630,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat_interior)
+/area/ai_monitored/turret_protected/aisat/foyer)
 "kcC" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 10
@@ -36962,7 +36962,7 @@
 	pixel_x = -22
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat_interior)
+/area/ai_monitored/turret_protected/aisat/foyer)
 "ltJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -47774,7 +47774,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat_interior)
+/area/ai_monitored/turret_protected/aisat/foyer)
 "oMu" = (
 /obj/machinery/rnd/production/techfab/department/security,
 /obj/effect/turf_decal/trimline/red/filled/line{
@@ -49911,7 +49911,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat_interior)
+/area/ai_monitored/turret_protected/aisat/foyer)
 "pwU" = (
 /obj/structure/chair{
 	pixel_y = -2
@@ -56830,7 +56830,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat_interior)
+/area/ai_monitored/turret_protected/aisat/foyer)
 "rPl" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -57453,7 +57453,7 @@
 	dir = 4
 	},
 /obj/machinery/power/apc{
-	areastring = "/area/security/checkpoint";
+	areastring = "/area/security/checkpoint/customs";
 	dir = 4;
 	name = "Security Checkpoint APC";
 	pixel_x = 24
@@ -57718,6 +57718,9 @@
 	},
 /turf/open/floor/plating,
 /area/security/prison)
+"sgB" = (
+/turf/closed/wall/r_wall,
+/area/ai_monitored/turret_protected/aisat/foyer)
 "sgE" = (
 /obj/structure/grille,
 /obj/structure/grille,
@@ -58812,7 +58815,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat_interior)
+/area/ai_monitored/turret_protected/aisat/foyer)
 "sAr" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/machinery/airalarm{
@@ -59928,7 +59931,7 @@
 	dir = 10
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat_interior)
+/area/ai_monitored/turret_protected/aisat/foyer)
 "sVr" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -59944,7 +59947,7 @@
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=3-exitincivmaint";
-	location = "2.3-gointhrucivmaint";
+	location = "2.3-gointhrucivmaint"
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -61470,7 +61473,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat_interior)
+/area/ai_monitored/turret_protected/aisat/foyer)
 "tvP" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
@@ -64771,7 +64774,7 @@
 	dir = 8
 	},
 /turf/closed/wall/r_wall,
-/area/ai_monitored/turret_protected/aisat_interior)
+/area/ai_monitored/turret_protected/aisat/foyer)
 "uBW" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
@@ -64980,8 +64983,7 @@
 /area/engine/engineering)
 "uFt" = (
 /obj/machinery/power/apc/highcap/ten_k{
-	areastring = "/area/crew_quarters/heads/captain";
-	dir = 2;
+	areastring = "/area/crew_quarters/heads/captain/private";
 	name = "Captain's Office APC";
 	pixel_y = -24
 	},
@@ -72458,7 +72460,7 @@
 	dir = 9
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat_interior)
+/area/ai_monitored/turret_protected/aisat/foyer)
 "xlo" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 8
@@ -133712,12 +133714,12 @@ vei
 hkg
 xOC
 msm
-kDq
-kDq
-kDq
+sgB
+sgB
+sgB
 sAn
 uBT
-kDq
+sgB
 mxF
 msm
 qBv
@@ -133969,12 +133971,12 @@ tTa
 tTa
 msm
 hWh
-kDq
+sgB
 kcr
 ltx
 jgN
 oMq
-kDq
+sgB
 mxF
 rdz
 tkj
@@ -134226,12 +134228,12 @@ hWh
 hWh
 hWh
 hWh
-kDq
+sgB
 xuc
 hKH
 cbV
 pwQ
-kDq
+sgB
 kDq
 rdz
 tJj
@@ -134483,12 +134485,12 @@ pZH
 hWh
 hWh
 hWh
-kDq
+sgB
 fxp
 sVp
 rPc
 xla
-kDq
+sgB
 kDq
 ttb
 ttb
@@ -134740,12 +134742,12 @@ pZH
 pZH
 pZH
 pZH
-kDq
-kDq
-kDq
+sgB
+sgB
+sgB
 tvH
-kDq
-kDq
+sgB
+sgB
 kDq
 pAS
 rvw
