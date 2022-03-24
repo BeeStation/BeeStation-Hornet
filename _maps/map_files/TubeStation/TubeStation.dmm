@@ -4959,11 +4959,8 @@
 /turf/closed/wall,
 /area/maintenance/port)
 "bEk" = (
-/obj/machinery/computer/shuttle_flight/custom_shuttle/bluespace_pod{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/science/shuttledock)
+/turf/closed/wall/r_wall,
+/area/ai_monitored/turret_protected/aisat/foyer)
 "bEt" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/coffee,
@@ -57718,9 +57715,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/prison)
-"sgB" = (
-/turf/closed/wall/r_wall,
-/area/ai_monitored/turret_protected/aisat/foyer)
 "sgE" = (
 /obj/structure/grille,
 /obj/structure/grille,
@@ -92177,7 +92171,7 @@ grS
 wAe
 cMn
 mPe
-bEk
+dCX
 wTH
 wTH
 wTH
@@ -133714,12 +133708,12 @@ vei
 hkg
 xOC
 msm
-sgB
-sgB
-sgB
+bEk
+bEk
+bEk
 sAn
 uBT
-sgB
+bEk
 mxF
 msm
 qBv
@@ -133971,12 +133965,12 @@ tTa
 tTa
 msm
 hWh
-sgB
+bEk
 kcr
 ltx
 jgN
 oMq
-sgB
+bEk
 mxF
 rdz
 tkj
@@ -134228,12 +134222,12 @@ hWh
 hWh
 hWh
 hWh
-sgB
+bEk
 xuc
 hKH
 cbV
 pwQ
-sgB
+bEk
 kDq
 rdz
 tJj
@@ -134485,12 +134479,12 @@ pZH
 hWh
 hWh
 hWh
-sgB
+bEk
 fxp
 sVp
 rPc
 xla
-sgB
+bEk
 kDq
 ttb
 ttb
@@ -134742,12 +134736,12 @@ pZH
 pZH
 pZH
 pZH
-sgB
-sgB
-sgB
+bEk
+bEk
+bEk
 tvH
-sgB
-sgB
+bEk
+bEk
 kDq
 pAS
 rvw
