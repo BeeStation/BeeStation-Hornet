@@ -136,15 +136,11 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 	var/list/results = list()
 
-	var/obj/item/card/id/I
-	var/turf/pos
-
 	for(var/mob/living/carbon/human/H in GLOB.carbon_list)
 
-		pos = get_turf(H)
+		var/turf/pos = get_turf(H)
 		// Check if their z-level is correct
-		// Accept H.z==0 as well in case the mob is inside an object.
-		if (pos.z != z)//(H.z == 0 || H.get_virtual_z_level() == z) && (istype(H.w_uniform, /obj/item/clothing/under) || nanite_sensors))
+		if (pos.z != z)
 			continue
 
 		// Determine if this person is using nanites for sensors,
@@ -169,11 +165,11 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		var/list/entry = list(
 			"ref" = REF(H),
 			"name" = "Unknown",
-			"ijob" = UNKNOWN_JOB_ID
+			"ijob" = UNKNOWN_JOB_ID,
 		)
 
 
-		I = H.wear_id ? H.wear_id.GetID() : null
+		var/obj/item/card/id/I = H.wear_id ? H.wear_id.GetID() : null
 
 		if (I)
 			entry["name"] = I.registered_name
@@ -187,13 +183,12 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 		// Damage
 		if (nanite_sensors || uniform.sensor_mode >= SENSOR_VITALS)
-			entry += list(
-				"oxydam" = round(H.getOxyLoss(), 1),
-				"toxdam" = round(H.getToxLoss(), 1),
-				"burndam" = round(H.getFireLoss(), 1),
-				"brutedam" = round(H.getBruteLoss(), 1)
-			)
+			entry["oxydam"] = round(H.getOxyLoss(), 1)
+			entry["toxdam"] = round(H.getToxLoss(), 1)
+			entry["burndam"] = round(H.getFireLoss(), 1)
+			entry["brutedam"] = round(H.getBruteLoss(), 1)
 
+		// Area
 		if (pos && (nanite_sensors || uniform.sensor_mode >= SENSOR_COORDS))
 			entry["area"] = get_area_name(H, TRUE)
 
@@ -204,13 +199,10 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		results[++results.len] = entry
 
 
-	data_by_z["[z]"] = sortTim(results,/proc/sensor_compare)
+	data_by_z["[z]"] = results
 	last_update["[z]"] = world.time
 
 	return results
-
-/proc/sensor_compare(list/a,list/b)
-	return a["ijob"] - b["ijob"]
 
 /datum/crewmonitor/ui_act(action,params)
 
