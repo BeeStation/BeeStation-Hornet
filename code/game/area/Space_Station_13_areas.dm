@@ -381,6 +381,22 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Service Hallway"
 	icon_state = "hall_service"
 
+/area/hallway/secondary/civilian
+	name = "Civilian Hallway"
+	icon_state = "hall_service"
+
+/area/hallway/secondary/sci
+	name = "Science Hallway"
+	icon_state = "hall_service"
+
+/area/hallway/secondary/engie
+	name = "Engineering Hallway"
+	icon_state = "engine"
+
+/area/hallway/secondary/cargo
+	name = "Cargo Hallway"
+	icon_state = "hall_service"
+
 /area/hallway/secondary/law
 	name = "Law Hallway"
 	icon_state = "security"
