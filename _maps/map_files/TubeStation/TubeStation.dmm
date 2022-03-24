@@ -31823,7 +31823,9 @@
 /obj/structure/transit_tube/station{
 	dir = 8
 	},
-/obj/structure/transit_tube_pod,
+/obj/structure/transit_tube_pod{
+	dir = 1
+	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
