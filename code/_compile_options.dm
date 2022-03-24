@@ -111,7 +111,6 @@
 #if !defined(CBT) && !defined(SPACEMAN_DMM)
 #error Building with Dream Maker is no longer supported and will result in errors.
 #error Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.
-#error And don't forget to add the recommended VSCode extensions. You'll be prompted when you first open the codebase in VSCode.
 #endif
 
 #define AUXMOS (world.system_type == MS_WINDOWS ? "auxtools/auxmos.dll" : __detect_auxmos())
