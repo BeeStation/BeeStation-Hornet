@@ -127,7 +127,7 @@
 		host_mob.investigate_log("'s [name] nanite program was messaged by [comm_source] with comm code [signal_comm_code] and message '[comm_message]'.", INVESTIGATE_NANITES)
 		trigger(comm_message)
 
-/* /datum/nanite_program/comm/speech
+/datum/nanite_program/comm/speech
 	name = "Forced Speech"
 	desc = "The nanites force the host to say a pre-programmed sentence when triggered."
 	unique = FALSE
@@ -175,7 +175,7 @@
 	if(host_mob.stat == DEAD)
 		return
 	to_chat(host_mob, "<i>You hear a strange, robotic voice in your head...</i> \"<span class='robot'>[html_encode(sent_message)]</span>\"")
- */
+
 /datum/nanite_program/comm/hallucination
 	name = "Hallucination"
 	desc = "The nanites make the host hallucinate something when triggered."

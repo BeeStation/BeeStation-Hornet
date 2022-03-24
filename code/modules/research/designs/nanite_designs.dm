@@ -453,7 +453,7 @@
 	id = "mute_nanites"
 	program_type = /datum/nanite_program/mute
 	category = list("Suppression Nanites")
-/*
+
 /datum/design/nanites/voice
 	name = "Skull Echo"
 	desc = "The nanites echo a synthesized message inside the host's skull."
@@ -467,7 +467,7 @@
 	id = "speech_nanites"
 	program_type = /datum/nanite_program/comm/speech
 	category = list("Suppression Nanites")
- */
+
 /datum/design/nanites/hallucination
 	name = "Hallucination"
 	desc = "The nanites make the host see and hear things that aren't real."
