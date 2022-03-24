@@ -17402,7 +17402,6 @@
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=4.2-BLmaint3";
 	location = "4-BLmaint";
-	next_patrol=4.1 = BL maint2"; location = "4 - BL maint
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
@@ -59947,7 +59946,6 @@
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=3-exitincivmaint";
 	location = "2.3-gointhrucivmaint";
-	next_patrol=3 = exitin civ maint
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
