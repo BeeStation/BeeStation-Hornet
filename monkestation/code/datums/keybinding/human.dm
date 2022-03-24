@@ -102,7 +102,7 @@
 	key = "Alt-E"
 	name = "equip_swap"
 	full_name = "Quick-Swap Equipment"
-	description = "Directly swaps held equippable item with its equipped counterpart, if possible."
+	description = "Directly swaps held equippable item with its equipped counterpart, if possible.  Requires a free hand!"
 	keybind_signal = COMSIG_KB_HUMAN_EQUIPSWAP_DOWN
 
 /datum/keybinding/human/equip_swap/down(client/user)

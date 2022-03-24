@@ -29,6 +29,8 @@
 	var/cooldown = 0
 	var/envirosealed = FALSE //is it safe for plasmamen
 	//MonkeStation Edit Start
+	//quickswap items var
+	var/nodrop_message = "You are unable to remove that!" //message sent to user if they cannot drop the item
 	//Alternative Scream/Laugh Vars
 	var/list/alternative_screams = list()
 	var/list/alternative_laughs = list()
@@ -67,15 +69,25 @@
 
 /obj/item/clothing/MouseDrop(atom/over_object)
 	. = ..()
-	var/mob/M = usr
-
-	if(ismecha(M.loc)) // stops inventory actions in a mech
+	var/mob/living/M = usr
+	if(src.clothing_flags & NOTDROPPABLE && (src in M.get_equipped_items(TRUE)))
+		to_chat(M, "<span class='userdanger'>[nodrop_message]</span>")
+		return
+	if(ismecha(M.loc))
 		return
 
 	if(!M.incapacitated() && loc == M && istype(over_object, /atom/movable/screen/inventory/hand))
 		var/atom/movable/screen/inventory/hand/H = over_object
 		if(M.putItemFromInventoryInHandIfPossible(src, H.held_index))
 			add_fingerprint(usr)
+
+/obj/item/clothing/attack_hand(mob/user)
+	var/mob/living/M = usr
+	if(src.clothing_flags & NOTDROPPABLE && (src in M.get_equipped_items(TRUE)))
+		to_chat(user, "<span class='userdanger'>[nodrop_message]</span>")
+		return
+	..()
+
 
 /obj/item/reagent_containers/food/snacks/clothing
 	name = "temporary moth clothing snack item"

@@ -10,6 +10,7 @@
 	slowdown = SHOES_SLOWDOWN+1
 	actions_types = list(/datum/action/item_action/toggle)
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes/clown
+	nodrop_message = "The boomboots anti-tamper system doesn't allow you to remove them while on!"
 	var/datum/component/waddle
 	var/enabled_waddle = TRUE
 
@@ -29,22 +30,6 @@
 	if(slot == ITEM_SLOT_FEET)
 		return 1
 
-/obj/item/clothing/shoes/magboots/boomboots/MouseDrop(atom/over_object)
-	if(usr)
-		var/mob/living/carbon/C = usr
-		if(src == C.shoes && magpulse)
-			to_chat(usr, "<span class='userdanger'>The boomboots anti-tamper system doesn't allow you to remove them while on!</span>")
-			return
-	..()
-
-/obj/item/clothing/shoes/magboots/boomboots/attack_hand(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		if(src == C.shoes && magpulse)
-			to_chat(user, "<span class='userdanger'>The boomboots anti-tamper system doesn't allow you to remove them while on!</span>")
-			return
-	..()
-
 /obj/item/clothing/shoes/magboots/boomboots/dropped(mob/user)
 	. = ..()
 	QDEL_NULL(waddle)
@@ -59,9 +44,11 @@
 		if(src == C.shoes)
 			if(magpulse)
 				ENABLE_BITFIELD(clothing_flags, NOSLIP)
+				DISABLE_BITFIELD(clothing_flags, NOTDROPPABLE) //dont ask why these are opposite, it works, dont question it. It works.
 				strip_delay = 100
 			else
 				DISABLE_BITFIELD(clothing_flags, NOSLIP)
+				ENABLE_BITFIELD(clothing_flags, NOTDROPPABLE)
 			magpulse = !magpulse
 			icon_state = "[magboot_state][magpulse]"
 			to_chat(user, "<span class='notice'>You [magpulse ? "enable" : "disable"] the anti-tamper system.</span>")
