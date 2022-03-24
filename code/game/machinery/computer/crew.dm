@@ -125,12 +125,13 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 	if(!z)
 		z = T.get_virtual_z_level()
 	. = list(
-		"sensors" = update_data(z),
+		"sensors" = update_data(z, T.z),
 		"link_allowed" = isAI(user)
 	)
 
-/// Z represents the virtual z-level the user is on
-/datum/crewmonitor/proc/update_data(z)
+/// z represents the virtual z-level the user is on
+/// zlevel represents the physical z-level the mob is at.
+/datum/crewmonitor/proc/update_data(z, zlevel)
 	if(data_by_z["[z]"] && last_update["[z]"] && world.time <= last_update["[z]"] + SENSORS_UPDATE_PERIOD)
 		return data_by_z["[z]"]
 
@@ -139,8 +140,12 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 	for(var/mob/living/carbon/human/H in GLOB.carbon_list)
 
 		var/turf/pos = get_turf(H)
-		// Check if their z-level is correct
-		if (pos.z != z && H.get_virtual_z_level() != z)
+
+		var/virtual_z_level = H.get_virtual_z_level()
+
+		// Check if their virtual z-level is correct or in case it isn't
+		// check if they are on station's 'real' z-level
+		if (virtual_z_level != z && !(is_station_level(pos.z) && is_station_level(zlevel)))
 			continue
 
 		// Determine if this person is using nanites for sensors,
