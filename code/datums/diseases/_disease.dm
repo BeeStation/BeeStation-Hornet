@@ -51,6 +51,7 @@
 * Don't use this proc. use ForceContractDisease on mob/living/carbon instead
 */
 /datum/disease/proc/infect(var/mob/living/infectee, make_copy = TRUE)
+	PROTECTED_PROC(TRUE)
 	var/datum/disease/D = make_copy ? Copy() : src	
 	infectee.diseases += D
 	D.affected_mob = infectee
