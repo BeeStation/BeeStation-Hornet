@@ -110,7 +110,7 @@
 
 #if !defined(CBT) && !defined(SPACEMAN_DMM)
 #error Building with Dream Maker is no longer supported and will result in errors.
-#error Switch to the VSCode text editor instead, where you can press Ctrl+Shift+B to build.
+#error Switch to the VSCode text editor instead, where you can press Ctrl+Shift+B to build (or VSCode's other build buttons).
 #endif
 
 #define AUXMOS (world.system_type == MS_WINDOWS ? "auxtools/auxmos.dll" : __detect_auxmos())
