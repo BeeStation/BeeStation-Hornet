@@ -4959,8 +4959,15 @@
 /turf/closed/wall,
 /area/maintenance/port)
 "bEk" = (
-/turf/closed/wall/r_wall,
-/area/ai_monitored/turret_protected/aisat/foyer)
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/effect/landmark/observer_start,
+/turf/open/floor/plasteel,
+/area/hallway/secondary/command)
 "bEt" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/coffee,
@@ -13393,6 +13400,9 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"eoD" = (
+/turf/closed/wall/r_wall,
+/area/ai_monitored/turret_protected/aisat/foyer)
 "eoG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -109271,7 +109281,7 @@ qnR
 lle
 dNo
 ajB
-rew
+bEk
 pzg
 wxU
 xeg
@@ -133699,12 +133709,12 @@ vei
 hkg
 xOC
 msm
-bEk
-bEk
-bEk
+eoD
+eoD
+eoD
 sAn
 uBT
-bEk
+eoD
 mxF
 msm
 qBv
@@ -133956,12 +133966,12 @@ tTa
 tTa
 msm
 hWh
-bEk
+eoD
 kcr
 ltx
 jgN
 oMq
-bEk
+eoD
 mxF
 rdz
 tkj
@@ -134213,12 +134223,12 @@ hWh
 hWh
 hWh
 hWh
-bEk
+eoD
 xuc
 hKH
 cbV
 pwQ
-bEk
+eoD
 kDq
 rdz
 tJj
@@ -134470,12 +134480,12 @@ pZH
 hWh
 hWh
 hWh
-bEk
+eoD
 fxp
 sVp
 rPc
 xla
-bEk
+eoD
 kDq
 ttb
 ttb
@@ -134727,12 +134737,12 @@ pZH
 pZH
 pZH
 pZH
-bEk
-bEk
-bEk
+eoD
+eoD
+eoD
 tvH
-bEk
-bEk
+eoD
+eoD
 kDq
 pAS
 rvw
