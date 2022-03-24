@@ -2250,16 +2250,6 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"aHX" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 5
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=14.5-Recreation";
-	location = "14.3-Lockers-Dorms"
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/fitness/recreation)
 "aHY" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -2434,8 +2424,8 @@
 	dir = 9
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=4 - BL maint";
-	location = "3.5 - end of civ"
+	codes_txt = "patrol;next_patrol=4-BLmaint";
+	location = "3.5-endofciv"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
@@ -2955,7 +2945,7 @@
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=1-Arrivals";
-	location = "15.4 - TR maint4"
+	location = "15.4-TRmaint4"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
@@ -6199,8 +6189,8 @@
 	dir = 8
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=8.5 - maint bm5";
-	location = "8.4 - maint bm4"
+	codes_txt = "patrol;next_patrol=8.5-maintbm5";
+	location = "8.4-maintbm4"
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -7292,12 +7282,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/bar/tile_marquee,
-/obj/machinery/navbeacon{
-	codes_txt = "delivery;dir=1";
-	dir = 8;
-	freq = 1400;
-	location = "Bar"
-	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "ctU" = (
@@ -9924,8 +9908,8 @@
 /area/storage/primary)
 "dmL" = (
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=3.4 - mid of civ 2";
-	location = "3.3 - Escape"
+	codes_txt = "patrol;next_patrol=3.4-midofciv2";
+	location = "3.3-Escape"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
@@ -9957,8 +9941,8 @@
 	dir = 4
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=3.3 - Escape";
-	location = "3.2 - mid of civ 1"
+	codes_txt = "patrol;next_patrol=3.3-Escape";
+	location = "3.2-midofciv1"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
@@ -10523,8 +10507,8 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=13.1 - maint2cargo2";
-	location = "13 - maint2cargo"
+	codes_txt = "patrol;next_patrol=13.1-maint2cargo2";
+	location = "13-maint2cargo"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
@@ -11393,8 +11377,8 @@
 	dir = 10
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=3.5 - end of civ";
-	location = "3.4 - mid of civ 2"
+	codes_txt = "patrol;next_patrol=3.5-endofciv";
+	location = "3.4-midofciv2"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
@@ -11573,8 +11557,8 @@
 	dir = 1
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=14 - cargo";
-	location = "13.1 - maint2cargo2"
+	codes_txt = "patrol;next_patrol=14-cargo";
+	location = "13.1-maint2cargo2"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
@@ -12244,8 +12228,8 @@
 	dir = 4
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=11 - Command 1";
-	location = "10.1 - maint2brdg2"
+	codes_txt = "patrol;next_patrol=11-Command1";
+	location = "10.1-maint2brdg2"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
@@ -12283,8 +12267,8 @@
 	dir = 4
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=13 - maint2cargo";
-	location = "12 - engihallway"
+	codes_txt = "patrol;next_patrol=13-maint2cargo";
+	location = "12-engihallway"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/engie)
@@ -12423,8 +12407,8 @@
 	dir = 5
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=12 - engihallway";
-	location = "11.2 - Command 3"
+	codes_txt = "patrol;next_patrol=12-engihallway";
+	location = "11.2-Command3"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
@@ -17408,7 +17392,8 @@
 	dir = 4
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;
+	codes_txt = "patrol;next_patrol=4.2-BLmaint3";
+	location = "4-BLmaint";
 	next_patrol=4.1 = BL maint2"; location = "4 - BL maint
 	},
 /turf/open/floor/plating,
@@ -21786,8 +21771,8 @@
 "gQt" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=10.1 - maint2brdg2";
-	location = "10 - maint2brdg"
+	codes_txt = "patrol;next_patrol=10.1-maint2brdg2";
+	location = "10-maint2brdg"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
@@ -21926,8 +21911,8 @@
 "gRN" = (
 /obj/structure/grille/broken,
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=4.4 - BL maint4";
-	location = "4.2 - BL maint3"
+	codes_txt = "patrol;next_patrol=4.4-BLmaint4";
+	location = "4.2-BLmaint3"
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
@@ -22058,8 +22043,8 @@
 	dir = 4
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=7 - Sec 1";
-	location = "6 - BM maint"
+	codes_txt = "patrol;next_patrol=7-Sec";
+	location = "6-BMmaint"
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
@@ -22193,25 +22178,6 @@
 /obj/machinery/computer/slot_machine,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/abandoned_gambling_den)
-"gVQ" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=7.1 - Sec 2";
-	location = "7 - Sec 1"
-	},
-/turf/open/floor/plasteel,
-/area/hallway/secondary/law)
 "gWf" = (
 /obj/structure/sign/directions/medical{
 	dir = 1;
@@ -22695,8 +22661,8 @@
 /area/quartermaster/qm)
 "hdN" = (
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=8.1 - maint bm2";
-	location = "8 - maint bm"
+	codes_txt = "patrol;next_patrol=8.1-maintbm2";
+	location = "8-maintbm"
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
@@ -22972,8 +22938,8 @@
 	dir = 2
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=10 - maint2brdg";
-	location = "9.1 - medbay2"
+	codes_txt = "patrol;next_patrol=10-maint2brdg";
+	location = "9.1-medbay2"
 	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
@@ -27433,8 +27399,8 @@
 	dir = 4
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=6 - BM maint";
-	location = "5 - Sci"
+	codes_txt = "patrol;next_patrol=6-BMmaint";
+	location = "5-Sci"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/sci)
@@ -30016,8 +29982,8 @@
 	dir = 2
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=14 - cargo2";
-	location = "14 - cargo"
+	codes_txt = "patrol;next_patrol=15.2-TRmaint2";
+	location = "14-cargo"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/cargo)
@@ -30966,8 +30932,8 @@
 	dir = 2
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=3.2 - mid of civ 1";
-	location = "3.1 - Poolbar"
+	codes_txt = "patrol;next_patrol=3.2-midofciv1";
+	location = "3.1-Poolbar"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
@@ -31935,8 +31901,8 @@
 /area/crew_quarters/fitness/recreation)
 "jSx" = (
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=7.3- Sec 3";
-	location = "7.1 - Sec 2"
+	codes_txt = "patrol;next_patrol=8-maintbm";
+	location = "7-Sec"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/law)
@@ -37920,8 +37886,8 @@
 	dir = 1
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=9.1 - medbay2";
-	location = "9 - medbay"
+	codes_txt = "patrol;next_patrol=9.1-medbay2";
+	location = "9-medbay"
 	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
@@ -43062,8 +43028,8 @@
 	dir = 5
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=5 - Sci";
-	location = "4.4 - BL maint4"
+	codes_txt = "patrol;next_patrol=5-Sci";
+	location = "4.4-BLmaint4"
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
@@ -45042,8 +45008,8 @@
 	dir = 8
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=8.4 - maint bm4";
-	location = "8.2 - maint bm3"
+	codes_txt = "patrol;next_patrol=8.4-maintbm4";
+	location = "8.2-maintbm3"
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
@@ -45059,8 +45025,8 @@
 	dir = 8
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=11.1 - Command 2";
-	location = "11 - Command 1"
+	codes_txt = "patrol;next_patrol=11.1-Command2";
+	location = "11-Command1"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
@@ -45204,8 +45170,8 @@
 	dir = 2
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=9 - medbay";
-	location = "8.5 - maint bm5"
+	codes_txt = "patrol;next_patrol=9-medbay";
+	location = "8.5-maintbm5"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -45341,8 +45307,8 @@
 /area/security/main)
 "nZw" = (
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=8.2 - maint bm3";
-	location = "8.1 - maint bm2"
+	codes_txt = "patrol;next_patrol=8.2-maintbm3";
+	location = "8.1-maintbm2"
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
@@ -52364,10 +52330,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=15.2 - TR maint2";
-	location = "15 - TR maint"
-	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "qnP" = (
@@ -54055,10 +54017,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 2
 	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=8 - maint bm";
-	location = "7.3- Sec 3"
-	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/law)
 "qQC" = (
@@ -55187,10 +55145,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 2
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=15 - TR maint";
-	location = "14 - cargo2"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/cargo)
@@ -59986,8 +59940,8 @@
 	dir = 4
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=3 - exitin civ maint";
-	location = "2.3 - goin thru civ maint";
+	codes_txt = "patrol;next_patrol=3-exitincivmaint";
+	location = "2.3-gointhrucivmaint";
 	next_patrol=3 = exitin civ maint
 	},
 /turf/open/floor/plating{
@@ -60923,8 +60877,8 @@
 	dir = 4
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=15.4 - TR maint4";
-	location = "15.3 - TR maint3"
+	codes_txt = "patrol;next_patrol=15.4-TRmaint4";
+	location = "15.3-TRmaint3"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
@@ -61366,8 +61320,8 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=3.1 - Poolbar";
-	location = "3 - exitin civ maint"
+	codes_txt = "patrol;next_patrol=3.1-Poolbar";
+	location = "3-exitincivmaint"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -67210,8 +67164,8 @@
 	dir = 10
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=15.3 - TR maint3";
-	location = "15.2 - TR maint2"
+	codes_txt = "patrol;next_patrol=15.3-TR maint3";
+	location = "15.2-TRmaint2"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
@@ -69887,8 +69841,8 @@
 	dir = 4
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=11.2 - Command 3";
-	location = "11.1 - Command 2"
+	codes_txt = "patrol;next_patrol=11.2-Command3";
+	location = "11.1-Command2"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
@@ -94895,7 +94849,7 @@ mml
 mSa
 lxM
 cwP
-aHX
+oXy
 ssa
 nKE
 qNO
@@ -112478,7 +112432,7 @@ aYr
 hBp
 hBp
 eqW
-gVQ
+wRy
 qQy
 eDm
 hhz
