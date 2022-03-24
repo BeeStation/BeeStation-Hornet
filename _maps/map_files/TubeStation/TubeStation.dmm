@@ -4428,9 +4428,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgespace";
 	name = "bridge external shutters"
@@ -4993,6 +4990,9 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -26
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/hydroponics)
@@ -6742,9 +6742,15 @@
 /area/quartermaster/qm)
 "cjI" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "bridgespace";
+	name = "bridge external shutters"
+	},
 /turf/open/floor/plating,
-/area/maintenance/solars/starboard/fore)
+/area/bridge)
 "cjW" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -11660,9 +11666,6 @@
 	dir = 1;
 	pixel_y = -22
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/button/door{
 	id = "bridgespace";
 	name = "Bridge Lockdown";
@@ -11675,6 +11678,9 @@
 	},
 /obj/effect/turf_decal/trimline/darkblue/filled/line{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
@@ -11759,7 +11765,7 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 1
+	dir = 6
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
@@ -11783,8 +11789,11 @@
 	dir = 4;
 	pixel_x = -24
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
@@ -14605,12 +14614,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
-"eHa" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/closed/wall/r_wall,
-/area/bridge)
 "eHl" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
@@ -18364,6 +18367,12 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 9
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
@@ -22585,18 +22594,15 @@
 /area/maintenance/port/aft)
 "hcf" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridgespace";
 	name = "bridge external shutters"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
 /turf/open/floor/plating,
 /area/bridge)
@@ -26361,6 +26367,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "ioh" = (
@@ -27418,10 +27427,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"iAS" = (
-/obj/effect/spawner/room/fivexfour,
-/turf/closed/wall/r_wall,
-/area/science/explab)
 "iBd" = (
 /obj/item/broken_bottle,
 /obj/effect/turf_decal/bot,
@@ -33301,7 +33306,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/turf/closed/wall,
+/turf/open/floor/plating,
 /area/maintenance/fore)
 "knK" = (
 /obj/machinery/suit_storage_unit/security,
@@ -35932,24 +35937,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
-"lbR" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
 "lca" = (
 /obj/machinery/atmospherics/pipe/manifold4w/general/visible,
 /obj/machinery/light/floor,
@@ -40148,6 +40135,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "muJ" = (
@@ -42153,13 +42143,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
-"mZY" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
-	},
-/turf/open/floor/plating,
-/area/maintenance/solars/starboard/fore)
 "nao" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -42338,11 +42321,6 @@
 /obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel,
 /area/security/brig)
-"ncZ" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/engine/engineering)
 "ndb" = (
 /obj/structure/chair{
 	dir = 4
@@ -46685,12 +46663,6 @@
 /obj/item/reagent_containers/food/snacks/breadslice/banana,
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"otC" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 6
-	},
-/turf/closed/wall,
-/area/maintenance/solars/starboard/fore)
 "otS" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
@@ -46985,12 +46957,6 @@
 /obj/item/trash/can/food/peaches/maint,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"oya" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/turf/closed/wall,
-/area/maintenance/port/fore)
 "oyd" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/airalarm/directional/east,
@@ -56086,6 +56052,7 @@
 	req_access_txt = "10; 13"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
 "rDW" = (
@@ -62884,6 +62851,10 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
 "tUY" = (
@@ -64936,11 +64907,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
-"uED" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/layer_manifold,
-/turf/open/floor/plating,
-/area/maintenance/solars/starboard/fore)
 "uEF" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -69250,7 +69216,9 @@
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 10
+	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
 "wgV" = (
@@ -93544,7 +93512,7 @@ osV
 cPg
 ibZ
 ibZ
-oya
+eRp
 ibZ
 ibZ
 lLa
@@ -96512,7 +96480,7 @@ mmr
 mmr
 mmr
 mmr
-iAS
+kKj
 kKj
 kKj
 kKj
@@ -106212,7 +106180,7 @@ dwO
 eqn
 uUn
 dLk
-eHa
+cVF
 mxF
 mxF
 mxF
@@ -112380,7 +112348,7 @@ pAI
 pMI
 wkJ
 lxl
-hnw
+cjI
 mxF
 mxF
 mxF
@@ -125246,7 +125214,7 @@ jei
 bnc
 pnk
 pBr
-ncZ
+pnk
 mxF
 mxF
 vIN
@@ -125416,8 +125384,8 @@ mxF
 mxF
 mxF
 xIL
-otC
-uED
+vVQ
+xIL
 dMq
 tfK
 fcX
@@ -125809,7 +125777,7 @@ jfU
 bdv
 hvx
 rNV
-lbR
+iRu
 vqZ
 pvb
 yeg
@@ -125930,8 +125898,8 @@ vZa
 mxF
 mxF
 xIL
-mZY
-cjI
+xIL
+xIL
 wgy
 uXF
 jNy
