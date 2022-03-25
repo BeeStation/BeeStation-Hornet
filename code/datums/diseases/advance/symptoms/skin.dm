@@ -420,7 +420,7 @@ Thresholds
 	resistance = -2
 	stage_speed = 3
 	transmission = 2
-	level = 6
+	level = 7
 	severity = 3
 	symptom_delay_min = 20
 	symptom_delay_max = 60
