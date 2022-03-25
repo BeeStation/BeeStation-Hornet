@@ -62,6 +62,7 @@
 	damage = 15
 	irradiate = 300
 	range = 15
+	armour_penetration = 100
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
 
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
