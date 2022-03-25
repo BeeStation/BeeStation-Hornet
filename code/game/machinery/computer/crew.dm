@@ -79,9 +79,9 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		"Mime" = 67,
 		"Janitor" = 68,
 		"Lawyer" = 69,
-		"Barber" = 70,
-		"Stage Magician" = 71,
-		"VIP" = 72,
+		"Barber" = 71,
+		"Stage Magician" = 72,
+		"VIP" = 73,
 		// ANYTHING ELSE = UNKNOWN_JOB_ID, Unknowns/custom jobs will appear after civilians, and before assistants
 		"Assistant" = 999,
 
@@ -152,7 +152,6 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		// in which case the sensors are always set to full detail
 		var/nanite_sensors = (H in SSnanites.nanite_monitored_mobs)
 
-
 		// Check for a uniform if not using nanites
 		var/obj/item/clothing/under/uniform = H.w_uniform
 		if(!nanite_sensors && !uniform)
@@ -172,7 +171,6 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			"name" = "Unknown",
 			"ijob" = UNKNOWN_JOB_ID,
 		)
-
 
 		var/obj/item/card/id/I = H.wear_id ? H.wear_id.GetID() : null
 
@@ -197,12 +195,10 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		if (pos && (nanite_sensors || uniform.sensor_mode >= SENSOR_COORDS))
 			entry["area"] = get_area_name(H, TRUE)
 
-
 		// Trackability
 		entry["can_track"] = H.can_track()
 
 		results[++results.len] = entry
-
 
 	data_by_z["[z]"] = results
 	last_update["[z]"] = world.time
