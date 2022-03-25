@@ -37,7 +37,7 @@
 	spawn(8)
 		Location = get_turf(user)
 		switch(rand(1000))
-			if(1) //Ass Rod
+			if(0) //Ass Rod
 				var/butt_end
 				var/butt_x
 				var/butt_y
@@ -61,7 +61,7 @@
 				qdel(booty)
 				new /obj/effect/immovablerod/butt(Location, butt_end)
 				return
-			if(2 to 11) 	//explosive fart
+			if(1 to 11) 	//explosive fart
 				user.visible_message("<span class='warning'>[ass_holder]'s ass explodes violently!</span>")
 				dyn_explosion(Location, 5, 5)
 				return
