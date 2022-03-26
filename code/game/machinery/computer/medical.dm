@@ -55,6 +55,47 @@
 <BR><A href='?src=[REF(src)];logout=1'>{Log Out}</A><BR>
 "}
 				if(2)
+					dat += "<body onload='selectTextField(); updateSearch();' onkeyup='updateSearch();'>"
+					dat += {"
+					<script src="[SSassets.transport.get_asset_url("jquery.min.js")]"></script>
+					<script type='text/javascript'>
+
+						function updateSearch(){
+							var filter_text = document.getElementById('filter');
+							var filter = filter_text.value.toLowerCase();
+
+							if(complete_list != null && complete_list != ""){
+								var mtbl = document.getElementById("maintable_data_archive");
+								mtbl.innerHTML = complete_list;
+							}
+
+							if(filter.value == ""){
+								return;
+							}else{
+								$("#maintable_data").children("tbody").children("tr").children("td").children("input").filter(function(index)
+								{
+									return $(this)\[0\].value.toLowerCase().indexOf(filter) == -1
+								}).parent("td").parent("tr").hide()
+							}
+						}
+
+						function selectTextField(){
+							var filter_text = document.getElementById('filter');
+							filter_text.focus();
+							filter_text.select();
+						}
+
+					</script>
+					"}
+					dat += {"
+						<table width='560' align='center' cellspacing='0' cellpadding='5' id='maintable'>
+							<tr id='search_tr'>
+								<td align='center'>
+									<b>Search:</b> <input type='text' id='filter' value='' style='width:300px;'>
+								</td>
+							</tr>
+						</table>
+					"}
 					dat += {"
 </p>
 <table style="text-align:center;" cellspacing="0" width="100%">
@@ -62,7 +103,8 @@
 <th>Records:</th>
 </tr>
 </table>
-<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+<span id='maintable_data_archive'>
+<table id='maintable_data' style="text-align:center;" border="1" cellspacing="0" width="100%">
 <tr>
 <th><A href='?src=[REF(src)];choice=Sorting;sort=name'>Name</A></th>
 <th><A href='?src=[REF(src)];choice=Sorting;sort=id'>ID</A></th>
@@ -92,13 +134,23 @@
 							else
 								background = "'background-color:#4F7529;'"
 
-							dat += text("<tr style=[]><td><A href='?src=[REF(src)];d_rec=[]'>[]</a></td>", background, R.fields["id"], R.fields["name"])
+							dat += text("<tr style=[]>", background)
+
+							dat += text("<td><input type='hidden' value='[] [] [] []'></input><A href='?src=[REF(src)];d_rec=[]'>[]</a></td>",
+										R.fields["name"], R.fields["id"], b_dna, R.fields["fingerprint"], R.fields["id"], R.fields["name"])
+
 							dat += text("<td>[]</td>", R.fields["id"])
 							dat += text("<td><b>F:</b> []<BR><b>D:</b> []</td>", R.fields["fingerprint"], b_dna)
 							dat += text("<td>[]</td>", blood_type)
 							dat += text("<td>[]</td>", R.fields["p_stat"])
 							dat += text("<td>[]</td></tr>", R.fields["m_stat"])
-					dat += "</table><hr width='75%' />"
+					dat += {"
+						</table></span>
+						<script type='text/javascript'>
+							var maintable = document.getElementById("maintable_data_archive");
+							var complete_list = maintable.innerHTML;
+						</script>
+						<hr width='75%' />"}
 					dat += "<HR><A href='?src=[REF(src)];screen=1'>Back</A>"
 				if(3)
 					dat += "<B>Records Maintenance</B><HR>\n<A href='?src=[REF(src)];back=1'>Backup To Disk</A><BR>\n<A href='?src=[REF(src)];u_load=1'>Upload From Disk</A><BR>\n<A href='?src=[REF(src)];del_all=1'>Delete All Records</A><BR>\n<BR>\n<A href='?src=[REF(src)];screen=1'>Back</A>"
