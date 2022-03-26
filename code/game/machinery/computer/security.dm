@@ -456,7 +456,7 @@
 				else
 		else
 			dat += "<A href='?src=[REF(src)];choice=Log In'>{Log In}</A>"
-	var/datum/browser/popup = new(user, "secure_rec", "Security Records Console", 600, 400)
+	var/datum/browser/popup = new(user, "secure_rec", "Security Records Console", 700, 500)
 	popup.set_content(dat)
 	popup.open()
 	return

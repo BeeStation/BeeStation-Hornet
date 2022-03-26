@@ -45,8 +45,7 @@
 			switch(src.screen)
 				if(1)
 					dat += {"
-<A href='?src=[REF(src)];search=1'>Search Records</A>
-<BR><A href='?src=[REF(src)];screen=2'>List Records</A>
+<A href='?src=[REF(src)];screen=2'>List Records</A>
 <BR>
 <BR><A href='?src=[REF(src)];screen=5'>Virus Database</A>
 <BR><A href='?src=[REF(src)];screen=6'>Medbot Tracking</A>
@@ -110,6 +109,7 @@
 <th><A href='?src=[REF(src)];choice=Sorting;sort=id'>ID</A></th>
 <th>Fingerprints (F) | DNA (D)</th>
 <th><A href='?src=[REF(src)];choice=Sorting;sort=bloodtype'>Blood Type</A></th>
+<th><A href='?src=[REF(src)];choice=Sorting;sort=species'> Species</A></th>
 <th>Physical Status</th>
 <th>Mental Status</th>
 </tr>"}
@@ -136,12 +136,13 @@
 
 							dat += text("<tr style=[]>", background)
 
-							dat += text("<td><input type='hidden' value='[] [] [] []'></input><A href='?src=[REF(src)];d_rec=[]'>[]</a></td>",
-										R.fields["name"], R.fields["id"], b_dna, R.fields["fingerprint"], R.fields["id"], R.fields["name"])
+							dat += text("<td><input type='hidden' value='[] [] [] [] []'></input><A href='?src=[REF(src)];d_rec=[]'>[]</a></td>",
+										R.fields["name"], R.fields["id"], b_dna, R.fields["fingerprint"], R.fields["species"], R.fields["id"], R.fields["name"])
 
 							dat += text("<td>[]</td>", R.fields["id"])
 							dat += text("<td><b>F:</b> []<BR><b>D:</b> []</td>", R.fields["fingerprint"], b_dna)
 							dat += text("<td>[]</td>", blood_type)
+							dat += text("<td>[]</td>", R.fields["species"])
 							dat += text("<td>[]</td>", R.fields["p_stat"])
 							dat += text("<td>[]</td></tr>", R.fields["m_stat"])
 					dat += {"
@@ -152,6 +153,7 @@
 						</script>
 						<hr width='75%' />"}
 					dat += "<HR><A href='?src=[REF(src)];screen=1'>Back</A>"
+					dat += "</body>"
 				if(3)
 					dat += "<B>Records Maintenance</B><HR>\n<A href='?src=[REF(src)];back=1'>Backup To Disk</A><BR>\n<A href='?src=[REF(src)];u_load=1'>Upload From Disk</A><BR>\n<A href='?src=[REF(src)];del_all=1'>Delete All Records</A><BR>\n<BR>\n<A href='?src=[REF(src)];screen=1'>Back</A>"
 				if(4)
@@ -234,7 +236,7 @@
 				else
 		else
 			dat += "<A href='?src=[REF(src)];login=1'>{Log In}</A>"
-	var/datum/browser/popup = new(user, "med_rec", "Medical Records Console", 600, 400)
+	var/datum/browser/popup = new(user, "med_rec", "Medical Records Console", 1000, 500)
 	popup.set_content(dat)
 	popup.open()
 
@@ -541,28 +543,6 @@
 			else if(href_list["del_c"])
 				if((istype(src.active2, /datum/data/record) && src.active2.fields[text("com_[]", href_list["del_c"])]))
 					src.active2.fields[text("com_[]", href_list["del_c"])] = "<B>Deleted</B>"
-
-			else if(href_list["search"])
-				var/t1 = stripped_input(usr, "Search String: (Name, DNA, or ID)", "Med. records")
-				if(!canUseMedicalRecordsConsole(usr, t1))
-					return
-				src.active1 = null
-				src.active2 = null
-				t1 = lowertext(t1)
-				for(var/datum/data/record/R in GLOB.data_core.medical)
-					if((lowertext(R.fields["name"]) == t1 || t1 == lowertext(R.fields["id"]) || t1 == lowertext(R.fields["b_dna"])))
-						src.active2 = R
-					else
-						//Foreach continue //goto(3229)
-				if(!( src.active2 ))
-					src.temp = text("Could not locate record [].", sanitize(t1))
-				else
-					for(var/datum/data/record/E in GLOB.data_core.general)
-						if((E.fields["name"] == src.active2.fields["name"] || E.fields["id"] == src.active2.fields["id"]))
-							src.active1 = E
-						else
-							//Foreach continue //goto(3334)
-					src.screen = 4
 
 			else if(href_list["print_p"])
 				if(!( src.printing ))
