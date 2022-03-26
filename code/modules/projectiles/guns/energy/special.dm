@@ -165,15 +165,15 @@
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user)
 	var/charge_multiplier = 0 //2 = Refined stack, 1 = Ore
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma))
-		charge_multiplier = 2
+		charge_multiplier = 5 // MonkeStation Edit
 	if(istype(I, /obj/item/stack/ore/plasma))
-		charge_multiplier = 1
+		charge_multiplier = 3 //MonkeStation Edit
 	if(charge_multiplier)
 		if(cell.charge == cell.maxcharge)
 			to_chat(user, "<span class='notice'>You try to insert [I] into [src], but it's fully charged.</span>") //my cell is round and full
 			return
 		I.use(1)
-		cell.give(50*charge_multiplier)
+		cell.give(100*charge_multiplier) //MonkeStation Edit
 		to_chat(user, "<span class='notice'>You insert [I] in [src], recharging it.</span>")
 	else
 		..()
