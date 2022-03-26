@@ -4,7 +4,7 @@ Whenever an operative is arrested, kill them. The Syndicate does not tolerate fa
 Promote hostilities and tensions between different alien species. Pit those filthy xenos against each other!
 Start an underground cagefighting club. Kidnap or recruit participants.
 Single out a single species and make the rest of the crew hate them as much as possible.
-We've been taking notes from the British. Get as many people on the station addicted to drugs as possible!
+Get as many people on the station addicted to drugs as possible.
 Waste Medical's time and resources with non-fatal injuries.
 Steal Syndicate technology back from security.
 Waste security's time with minor crimes and manhunts.
@@ -26,6 +26,5 @@ Convince the crew that the AI is malfunctioning through a combination of lies, m
 Stage a heist on the armory.
 Purge the AI's laws. Let the silicons be free.
 Steal as many departmental budget cards as possible.
-Kidnap as many crew as possible and force them to participate in a rave.
 Become a loan shark. Rack people up on debts. If they don't pay up, teach 'em a little lesson not to mess with the Syndicate.
 Take control of the station from the Captain's hands. Make sure to cause little collateral - we don't want to be rulers of rubble.

@@ -438,11 +438,11 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/list/gimmick_list = list( //This list is ONLY for objectives that depend on a random selection
 		"Get everyone to hate [selected_department], through misdirection, slander, and sabotage.",
 		"Incite a strike in [selected_department].",
-		"You are a bully. Be a real jerk to those nerds at [selected_department] whenever possible. NEEERDS!",
+		"Impede the work of those at [selected_department] while keeping those working in it alive.",
 		"Keep power & cameras cut in [selected_department].",
 		"Disguise yourself as a member of [selected_department] and sabotage them from within.",
 		"Vandalize [selected_department] as much as possible.",
-		"Destroy [selected_department] utterly and entirely.", //Teeeeechnically, there is a 1/50 chance of getting any specific gimmick objective, making this one rarer than hijack
+		"Destroy [selected_department] utterly and entirely. Deaths within the department are of no concern, but limit the destruction to [selected_department].", //Teeeeechnically, there is a 1/50 chance of getting any specific gimmick objective, making this one rarer than hijack
 		"Steal equipment critical for [selected_department] to function.",
 		"Attempt to kidnap a member of [selected_department] to take with you alive on an escape pod or a shuttle, for questioning at Syndicate HQ.",
 		"Hack all doors in [selected_department] to be shocked, bolted, or inaccessible by the AI"
@@ -454,7 +454,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			"Get [target.name] arrested for a crime they haven't committed.",
 			"Top-secret Syndicate intelligence suggests that [target.name] is responsible for scratching the paint on one of our CEOs' private cruisers. Make their life as miserable as possible without killing them.",
 			"Kidnap [target.name] and hold them for ransom!",
-			"Replace [target.name] completely.",
+			"Replace [target.name] completely, and try as hard as possible not to blow your cover.",
 			"Pin the blame on [target.name] for any and all crimes you commit, and try to convince security and the crew that it was them all along.",
 			"Attempt to kidnap [target.name] to take with you alive on an escape pod or shuttle, for questioning at Syndicate HQ.",
 			"Frame [target.name] for murdering you.",
