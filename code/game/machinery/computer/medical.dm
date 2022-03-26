@@ -1,5 +1,3 @@
-
-
 /obj/machinery/computer/med_data//TODO:SANITY
 	name = "medical records console"
 	desc = "This can be used to check medical records."
@@ -54,7 +52,7 @@
 <BR><A href='?src=[REF(src)];logout=1'>{Log Out}</A><BR>
 "}
 				if(2)
-					dat += "<body onload='selectTextField(); updateSearch();' onkeyup='updateSearch();'>"
+					// JS scripts for the filter
 					dat += {"
 					<script src="[SSassets.transport.get_asset_url("jquery.min.js")]"></script>
 					<script type='text/javascript'>
@@ -86,6 +84,9 @@
 
 					</script>
 					"}
+					dat += "<body onload='selectTextField(); updateSearch();' onkeyup='updateSearch();'>"
+
+					// Filter
 					dat += {"
 						<table width='560' align='center' cellspacing='0' cellpadding='5' id='maintable'>
 							<tr id='search_tr'>
@@ -95,6 +96,7 @@
 							</tr>
 						</table>
 					"}
+
 					dat += {"
 </p>
 <table style="text-align:center;" cellspacing="0" width="100%">
@@ -216,7 +218,7 @@
 						if(!Dis.desc)
 							continue
 						dat += "<br><a href='?src=[REF(src)];vir=[Dt]'>[Dis.name]</a>"
-					dat += "<br><a href='?src=[REF(src)];screen=1'>Back</a>"
+					dat += "<br><br><a href='?src=[REF(src)];screen=1'>Back</a>"
 				if(6)
 					dat += "<center><b>Medical Robot Monitor</b></center>"
 					dat += "<a href='?src=[REF(src)];screen=1'>Back</a>"
@@ -236,6 +238,7 @@
 				else
 		else
 			dat += "<A href='?src=[REF(src)];login=1'>{Log In}</A>"
+
 	var/datum/browser/popup = new(user, "med_rec", "Medical Records Console", 1000, 500)
 	popup.set_content(dat)
 	popup.open()
