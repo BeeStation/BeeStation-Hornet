@@ -1,8 +1,0 @@
-author: Mat05usz
-delete-after: true
-changes:
-  - rscadd: Some decals across Delta brig to make it more consistent and possibly
-      a tiny bit 'prettier'.
-  - tweak: Power monitor console in Delta Station's SM room replaced with Engineering
-      console
-  - bugfix: Delta brig cells are now properly ordered
