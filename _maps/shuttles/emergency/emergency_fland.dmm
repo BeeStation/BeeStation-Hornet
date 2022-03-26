@@ -497,7 +497,7 @@
 /area/shuttle/escape)
 "tF" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 32
 	},
 /obj/structure/table/reinforced,

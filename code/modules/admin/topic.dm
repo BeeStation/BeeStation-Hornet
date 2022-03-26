@@ -1551,7 +1551,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/check = 0
-		for(var/datum/newscaster/feed_channel/FC in GLOB.news_network.network_channels)
+		for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
 			if(FC.channel_name == src.admincaster_feed_channel.channel_name)
 				check = 1
 				break
@@ -1560,7 +1560,7 @@
 		else
 			var/choice = alert("Please confirm Feed channel creation.","Network Channel Handler","Confirm","Cancel")
 			if(choice=="Confirm")
-				GLOB.news_network.CreateFeedChannel(src.admincaster_feed_channel.channel_name, src.admin_signature, src.admincaster_feed_channel.locked, 1)
+				GLOB.news_network.create_feed_channel(src.admincaster_feed_channel.channel_name, src.admin_signature, "New information from on high." , src.admincaster_feed_channel.locked, 1)
 				SSblackbox.record_feedback("tally", "newscaster_channels", 1, src.admincaster_feed_channel.channel_name)
 				log_admin("[key_name(usr)] created command feed channel: [src.admincaster_feed_channel.channel_name]!")
 				src.admincaster_screen=5
@@ -1570,7 +1570,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/list/available_channels = list()
-		for(var/datum/newscaster/feed_channel/F in GLOB.news_network.network_channels)
+		for(var/datum/feed_channel/F in GLOB.news_network.network_channels)
 			available_channels += F.channel_name
 		src.admincaster_feed_channel.channel_name = adminscrub(input(usr, "Choose receiving Feed Channel.", "Network Channel Handler") in sortList(available_channels) )
 		src.access_news_network()
@@ -1584,15 +1584,15 @@
 	else if(href_list["ac_submit_new_message"])
 		if(!check_rights(R_ADMIN))
 			return
-		if(src.admincaster_feed_message.returnBody(-1) =="" || src.admincaster_feed_message.returnBody(-1) =="\[REDACTED\]" || src.admincaster_feed_channel.channel_name == "" )
+		if(src.admincaster_feed_message.return_body(-1) =="" || src.admincaster_feed_message.return_body(-1) =="\[REDACTED\]" || src.admincaster_feed_channel.channel_name == "" )
 			src.admincaster_screen = 6
 		else
-			GLOB.news_network.SubmitArticle(src.admincaster_feed_message.returnBody(-1), src.admin_signature, src.admincaster_feed_channel.channel_name, null, 1)
+			GLOB.news_network.submit_article(src.admincaster_feed_message.return_body(-1), src.admin_signature, src.admincaster_feed_channel.channel_name, null, 1)
 			SSblackbox.record_feedback("amount", "newscaster_stories", 1)
 			src.admincaster_screen=4
 
 		for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allCasters)
-			NEWSCASTER.newsAlert(src.admincaster_feed_channel.channel_name)
+			NEWSCASTER.news_alert(src.admincaster_feed_channel.channel_name)
 
 		log_admin("[key_name(usr)] submitted a feed story to channel: [src.admincaster_feed_channel.channel_name]!")
 		src.access_news_network()
@@ -1656,10 +1656,10 @@
 			var/choice = alert("Please confirm Wanted Issue [(input_param==1) ? ("creation.") : ("edit.")]","Network Security Handler","Confirm","Cancel")
 			if(choice=="Confirm")
 				if(input_param==1)          //If input_param == 1 we're submitting a new wanted issue. At 2 we're just editing an existing one. See the else below
-					GLOB.news_network.submitWanted(admincaster_wanted_message.criminal, admincaster_wanted_message.body, admin_signature, null, 1, 1)
+					GLOB.news_network.submit_wanted(admincaster_wanted_message.criminal, admincaster_wanted_message.body, admin_signature, null, 1, 1)
 					src.admincaster_screen = 15
 				else
-					GLOB.news_network.submitWanted(admincaster_wanted_message.criminal, admincaster_wanted_message.body, admin_signature)
+					GLOB.news_network.submit_wanted(admincaster_wanted_message.criminal, admincaster_wanted_message.body, admin_signature)
 					src.admincaster_screen = 19
 				log_admin("[key_name(usr)] issued a Station-wide Wanted Notification for [src.admincaster_wanted_message.criminal]!")
 		src.access_news_network()
@@ -1669,35 +1669,35 @@
 			return
 		var/choice = alert("Please confirm Wanted Issue removal.","Network Security Handler","Confirm","Cancel")
 		if(choice=="Confirm")
-			GLOB.news_network.deleteWanted()
+			GLOB.news_network.delete_wanted()
 			src.admincaster_screen=17
 		src.access_news_network()
 
 	else if(href_list["ac_censor_channel_author"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/datum/newscaster/feed_channel/FC = locate(href_list["ac_censor_channel_author"])
-		FC.toggleCensorAuthor()
+		var/datum/feed_channel/FC = locate(href_list["ac_censor_channel_author"])
+		FC.toggle_censor_author()
 		src.access_news_network()
 
 	else if(href_list["ac_censor_channel_story_author"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/datum/newscaster/feed_message/MSG = locate(href_list["ac_censor_channel_story_author"])
-		MSG.toggleCensorAuthor()
+		var/datum/feed_message/MSG = locate(href_list["ac_censor_channel_story_author"])
+		MSG.toggle_censor_author()
 		src.access_news_network()
 
 	else if(href_list["ac_censor_channel_story_body"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/datum/newscaster/feed_message/MSG = locate(href_list["ac_censor_channel_story_body"])
-		MSG.toggleCensorBody()
+		var/datum/feed_message/MSG = locate(href_list["ac_censor_channel_story_body"])
+		MSG.toggle_censor_body()
 		src.access_news_network()
 
 	else if(href_list["ac_pick_d_notice"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/datum/newscaster/feed_channel/FC = locate(href_list["ac_pick_d_notice"])
+		var/datum/feed_channel/FC = locate(href_list["ac_pick_d_notice"])
 		src.admincaster_feed_channel = FC
 		src.admincaster_screen=13
 		src.access_news_network()
@@ -1705,8 +1705,8 @@
 	else if(href_list["ac_toggle_d_notice"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/datum/newscaster/feed_channel/FC = locate(href_list["ac_toggle_d_notice"])
-		FC.toggleCensorDclass()
+		var/datum/feed_channel/FC = locate(href_list["ac_toggle_d_notice"])
+		FC.toggle_censor_D_class()
 		src.access_news_network()
 
 	else if(href_list["ac_view"])
@@ -1721,17 +1721,17 @@
 		src.admincaster_screen = text2num(href_list["ac_setScreen"])
 		if (src.admincaster_screen == 0)
 			if(src.admincaster_feed_channel)
-				src.admincaster_feed_channel = new /datum/newscaster/feed_channel
+				src.admincaster_feed_channel = new /datum/feed_channel
 			if(src.admincaster_feed_message)
-				src.admincaster_feed_message = new /datum/newscaster/feed_message
+				src.admincaster_feed_message = new /datum/feed_message
 			if(admincaster_wanted_message)
-				admincaster_wanted_message = new /datum/newscaster/wanted_message
+				admincaster_wanted_message = new /datum/wanted_message
 		src.access_news_network()
 
 	else if(href_list["ac_show_channel"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/datum/newscaster/feed_channel/FC = locate(href_list["ac_show_channel"])
+		var/datum/feed_channel/FC = locate(href_list["ac_show_channel"])
 		src.admincaster_feed_channel = FC
 		src.admincaster_screen = 9
 		src.access_news_network()
@@ -1739,7 +1739,7 @@
 	else if(href_list["ac_pick_censor_channel"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/datum/newscaster/feed_channel/FC = locate(href_list["ac_pick_censor_channel"])
+		var/datum/feed_channel/FC = locate(href_list["ac_pick_censor_channel"])
 		src.admincaster_feed_channel = FC
 		src.admincaster_screen = 12
 		src.access_news_network()
@@ -1758,8 +1758,8 @@
 	else if(href_list["ac_del_comment"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/datum/newscaster/feed_comment/FC = locate(href_list["ac_del_comment"])
-		var/datum/newscaster/feed_message/FM = locate(href_list["ac_del_comment_msg"])
+		var/datum/feed_comment/FC = locate(href_list["ac_del_comment"])
+		var/datum/feed_message/FM = locate(href_list["ac_del_comment_msg"])
 		FM.comments -= FC
 		qdel(FC)
 		src.access_news_network()
@@ -1767,7 +1767,7 @@
 	else if(href_list["ac_lock_comment"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/datum/newscaster/feed_message/FM = locate(href_list["ac_lock_comment"])
+		var/datum/feed_message/FM = locate(href_list["ac_lock_comment"])
 		FM.locked ^= 1
 		src.access_news_network()
 

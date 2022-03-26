@@ -959,7 +959,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 30
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -1258,7 +1258,7 @@
 /area/space/nearstation)
 "acz" = (
 /obj/machinery/computer/med_data,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 30
 	},
 /obj/effect/turf_decal/stripes/corner{
@@ -3176,7 +3176,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -13352,7 +13352,7 @@
 /obj/machinery/computer/secure_data{
 	dir = 4
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -26
 	},
 /obj/machinery/camera{
@@ -17839,7 +17839,7 @@
 	},
 /obj/item/pen,
 /obj/effect/turf_decal/tile/neutral,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -30
 	},
 /turf/open/floor/plasteel/dark,
@@ -29769,7 +29769,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/storage/photo_album/Captain,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 28
 	},
 /obj/item/camera,
@@ -35991,7 +35991,7 @@
 	name = "Research Monitor";
 	network = list("rd")
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = -30
 	},
 /turf/open/floor/plasteel/dark,
@@ -37369,7 +37369,7 @@
 "bfC" = (
 /obj/structure/table,
 /obj/machinery/recharger,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -30
 	},
 /obj/effect/turf_decal/tile/neutral,
@@ -40715,7 +40715,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -30
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -50850,7 +50850,7 @@
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
 "bzD" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -28
 	},
 /obj/machinery/computer/prisoner/management{
@@ -52119,7 +52119,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 30
 	},
 /obj/machinery/light{
@@ -56182,7 +56182,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 30
 	},
 /turf/open/floor/plasteel,
@@ -88725,7 +88725,7 @@
 /obj/item/toy/figure/ian{
 	pixel_x = 8
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -28
 	},
 /turf/open/floor/carpet/blue,
@@ -89685,7 +89685,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = -28
 	},
 /obj/machinery/recharger,

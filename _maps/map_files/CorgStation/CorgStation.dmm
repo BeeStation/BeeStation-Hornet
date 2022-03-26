@@ -11226,7 +11226,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -24737,7 +24737,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
 "gNj" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/tile/red{
@@ -29699,7 +29699,7 @@
 /obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 32
 	},
 /turf/open/floor/plasteel,
@@ -36980,7 +36980,7 @@
 /area/hallway/primary/central)
 "klr" = (
 /obj/effect/turf_decal/tile/red,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 32
 	},
 /turf/open/floor/plasteel,
@@ -37648,7 +37648,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "kwP" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/red{
@@ -46142,7 +46142,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/tile/red{
@@ -47878,7 +47878,7 @@
 /obj/machinery/computer/security{
 	dir = 8
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 32
 	},
 /turf/open/floor/carpet/red,
@@ -51632,7 +51632,7 @@
 /obj/machinery/recharger{
 	pixel_y = 3
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 32
 	},
 /turf/open/floor/plasteel/dark,
@@ -52786,7 +52786,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 32
 	},
 /turf/open/floor/plasteel/dark,
@@ -68102,7 +68102,7 @@
 	pixel_y = 28
 	},
 /obj/structure/closet/secure_closet/security/med,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -72020,7 +72020,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 32
 	},
 /turf/open/floor/plasteel/dark,

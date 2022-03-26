@@ -535,7 +535,7 @@
 	pixel_x = 27;
 	pixel_y = -9
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -28;
 	pixel_y = -28
 	},
@@ -2258,7 +2258,7 @@
 	pixel_y = 2
 	},
 /obj/item/storage/box/deputy,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 32
 	},
 /turf/open/floor/plasteel/dark,
@@ -22740,7 +22740,7 @@
 "bHb" = (
 /obj/structure/closet/crate/freezer/surplus_limbs,
 /obj/item/reagent_containers/glass/beaker/synthflesh,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 32
 	},
 /turf/open/floor/plasteel/freezer,

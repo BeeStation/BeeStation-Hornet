@@ -900,7 +900,7 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "acs" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -30
 	},
 /obj/machinery/recharger{
@@ -14696,7 +14696,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bnO" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 32
 	},
 /obj/structure/filingcabinet/chestdrawer,
@@ -34160,7 +34160,7 @@
 	pixel_x = 5
 	},
 /obj/item/storage/box/evidence,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -30
 	},
 /turf/open/floor/plasteel/grimy,
@@ -52510,7 +52510,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "rDZ" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/machinery/keycard_auth{
@@ -59936,7 +59936,7 @@
 	pixel_x = 27;
 	pixel_y = -9
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -28;
 	pixel_y = -28
 	},

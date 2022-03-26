@@ -1665,7 +1665,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "aet" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 32
 	},
 /obj/machinery/keycard_auth{
@@ -2112,7 +2112,7 @@
 /area/security/prison)
 "afH" = (
 /obj/machinery/light,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = -30
 	},
 /obj/effect/turf_decal/tile/red{
@@ -5830,7 +5830,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "ark" = (
-/obj/machinery/newscaster/security_unit,
+/obj/machinery/newscaster,
 /turf/closed/wall,
 /area/security/warden)
 "arl" = (
@@ -6033,7 +6033,7 @@
 "ass" = (
 /mob/living/simple_animal/pet/dog/bullterrier/walter,
 /obj/structure/bed/dogbed/walter,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = -30
 	},
 /turf/open/floor/plasteel/showroomfloor,
@@ -9338,7 +9338,7 @@
 /obj/machinery/computer/security{
 	dir = 1
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = -30
 	},
 /turf/open/floor/plasteel/dark,
@@ -9919,7 +9919,7 @@
 /obj/structure/table,
 /obj/item/folder/red,
 /obj/item/restraints/handcuffs,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = -30
 	},
 /obj/structure/cable/yellow{
@@ -14992,7 +14992,7 @@
 	pixel_y = 5
 	},
 /obj/item/pen,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 30
 	},
 /obj/effect/turf_decal/tile/red{
@@ -16219,7 +16219,7 @@
 /area/security/checkpoint/customs)
 "bdb" = (
 /obj/machinery/computer/secure_data,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 30
 	},
 /obj/effect/turf_decal/tile/red{
@@ -17156,7 +17156,7 @@
 /area/bridge)
 "bfy" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -30;
 	pixel_y = 1
 	},
@@ -19855,7 +19855,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "boo" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 32
 	},
 /obj/machinery/computer/security/mining{
@@ -20247,7 +20247,7 @@
 	obj_integrity = 300;
 	req_access_txt = "16"
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 4;
 	pixel_y = 33
 	},
@@ -30445,7 +30445,7 @@
 	pixel_x = 3;
 	pixel_y = 4
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 32
 	},
 /obj/item/screwdriver{
@@ -30930,7 +30930,7 @@
 	pixel_x = -27;
 	pixel_y = 6
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/red{
@@ -43264,7 +43264,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "cOz" = (
 /obj/structure/table,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 29;
 	pixel_y = 1
 	},
