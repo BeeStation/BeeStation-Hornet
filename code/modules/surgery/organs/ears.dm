@@ -80,6 +80,8 @@
 	var/obj/item/organ/ears/ears = getorgan(/obj/item/organ/ears)
 	if(ears)
 		ears.adjustEarDamage(ddmg, ddeaf)
+		if(ears.deaf)
+			SEND_SOUND(src, sound(null))
 
 /mob/proc/minimumDeafTicks()
 

@@ -59,3 +59,6 @@
 
 /obj/item/disk/tech_disk/research/phazon
 	node_id = "mecha_phazon"
+
+/obj/item/disk/tech_disk/research/linkedsurgery_implant
+	node_id = "linkedsurgery_implant"

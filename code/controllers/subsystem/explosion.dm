@@ -216,6 +216,8 @@ SUBSYSTEM_DEF(explosions)
 	if(adminlog)
 		message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [ADMIN_VERBOSEJMP(epicenter)]")
 		log_game("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [loc_name(epicenter)]")
+		if(is_station_level(epicenter.z))
+			deadchat_broadcast("<span class='ghostalert'>Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range], [flame_range]) in [get_area(epicenter)]!</span>", turf_target = epicenter)
 
 	var/x0 = epicenter.x
 	var/y0 = epicenter.y

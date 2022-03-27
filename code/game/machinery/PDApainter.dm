@@ -38,19 +38,20 @@
 		"Security Officer" = "pda-security",
 		"Shaft Miner" = "pda-miner",
 		"Virologist" = "pda-virology",
-		"Warden" = "pda-warden")
+		"Warden" = "pda-warden"
+		)
 	var/id_icons = list(
 		"Assistant" = "id",
 		"Atmospheric Technician" = "atmos",
-		"Captain" = "gold",
 		"Cargo" = "cargo",
 		"Chaplain" = "chap",
+		"Captain" = "captain",
 		"Chief Engineer" = "ce",
 		"Chief Medical Officer" = "cmo",
 		"Clown" = "clown",
 		"Detective" = "detective",
 		"Engineering" = "engi",
-		"Head of Personnel" = "silver",
+		"Head of Personnel" = "hop",
 		"Head of Security" = "hos",
 		"Lawyer" = "lawyer",
 		"Medical" = "med",
@@ -61,7 +62,16 @@
 		"Security" = "sec",
 		"Service" = "serv",
 		"Shaft Miner" = "miner",
-		"Warden" = "warden")
+		"Warden" = "warden",
+		"Paramedic" = "paramed",
+		"Virologist" = "viro",
+		"Chemist" = "chemist",
+		"Geneticist" = "gene",
+		"Brig Physician" = "brigphys",
+		"Deputy" = "deputy",
+		"Roboticist" = "roboticist",
+		"Janitor" = "janitor"
+		)
 	max_integrity = 200
 	var/list/colorlist = list()
 

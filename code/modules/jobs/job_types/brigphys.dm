@@ -33,6 +33,7 @@
 	name = "Brig Physician"
 	jobtype = /datum/job/brig_phys
 
+	id = /obj/item/card/id/job/brigphys
 	belt = /obj/item/pda/security
 	ears = /obj/item/radio/headset/headset_medsec
 	uniform = /obj/item/clothing/under/rank/brig_phys

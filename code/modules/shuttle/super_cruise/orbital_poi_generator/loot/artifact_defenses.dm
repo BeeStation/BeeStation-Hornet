@@ -1,7 +1,7 @@
 /obj/structure/alien_artifact
 	name = "alien artifact structure"
 	icon = 'icons/obj/artifact.dmi'
-	max_integrity = 100 //MonkeStation Edit: Artifact Enemy Nerf
+	max_integrity = 100
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE
 
@@ -20,7 +20,7 @@
 	. = ..()
 	proximity_monitor = new(src, rand(3, 6))
 	var/turf/T = get_turf(src)
-	var/list/turfs = RANGE_TURFS(2, T) //MonkeStation Edit: Shorter range for artifact spawn
+	var/list/turfs = RANGE_TURFS(2, T)
 	var/list/valid_turfs = list()
 	for(var/turf/open/floor/F in turfs)
 		if(locate(/obj/structure) in F)
@@ -45,7 +45,7 @@
 	name = "protector"
 	desc = "A strange artifact developed centuries ago by beings that are now beyond us."
 	icon_state = "protector"
-	max_integrity = 200 //MonkeStation Edit: Artifact Enemy Nerf
+	max_integrity = 200
 	var/active = FALSE
 	var/datum/protector_effect/effect
 
@@ -59,7 +59,6 @@
 		return
 	active = TRUE
 	flick("protector_pulse", src)
-	//MonkeStation Edit Start: Increase of cooldowns & callback improvement
 	var/turf/target_location = get_turf(target)
 	addtimer(CALLBACK(effect, .proc/trigger, src, get_turf(src), target, target_location), 1 SECONDS)
 	addtimer(CALLBACK(src, .proc/reset_cooldown), 1.5 SECONDS)
@@ -70,7 +69,7 @@
 
 //Protector effects
 
-/datum/protector_effect/proc/trigger(obj/source, turf/source_location, atom/movable/target, turf/target_location) //MonkeStation Edit: Proc Variable Changes
+/datum/protector_effect/proc/trigger(obj/source, turf/source_location, atom/movable/target, turf/target_location)
 	return
 
 /datum/protector_effect/hierophant_chasers/trigger(obj/source, turf/source_location, atom/movable/target, turf/target_location)
@@ -79,7 +78,7 @@
 	var/obj/effect/temp_visual/hierophant/chaser/C = new(source_location, source, target, 3, FALSE)
 	C.moving = 3
 	C.moving_dir = pick(GLOB.cardinals)
-	C.damage = 10 //MonkeStation Edit: Damage Reduction
+	C.damage = 10
 
 /datum/protector_effect/hierophant_burst/trigger(obj/source, turf/source_location, atom/movable/target, turf/target_location)
 	playsound(source_location,'sound/machines/airlockopen.ogg', 200, 1)
@@ -91,15 +90,11 @@
 	source.visible_message("<span class='hierophant'>\"Yrorsar irxmxc hixigxih.\"</span>")
 	INVOKE_ASYNC(src, .proc/protector_burst, null, source_location, 2)
 
-//MonkeStation Edit Start: EMP stun removal & dodgeablity...is that a word? You can dodge the attack now.
 /datum/protector_effect/emp_attack/trigger(obj/source, turf/source_location, atom/movable/target, turf/target_location)
 	playsound(source_location,'sound/machines/airlockopen.ogg', 200, 1)
 	source_location.visible_message("<span class='hierophant'>\"Svhivw vigmizih.\"</span>")
 	new /obj/effect/temp_visual/hierophant/blast/defenders/emp(target_location, src, FALSE)
 
-//MonkeStation Edit End
-
-//MonkeStation Edit Start: Unique, weaker, version of the burst.
 //expanding square designed for the artifact defenders
 /datum/protector_effect/proc/protector_burst(mob/caster, turf/original, burst_range)
 	playsound(original,'sound/machines/airlockopen.ogg', 200, 1)
@@ -112,8 +107,8 @@
 			last_dist = dist
 			sleep(1 + min(burst_range - last_dist, 12)) //gets faster as it gets further out
 		new /obj/effect/temp_visual/hierophant/blast/defenders(T, caster, FALSE)
-//MonkeStation Edit End
 
+//Weakened Blasts for artifacts.
 /obj/effect/temp_visual/hierophant/blast/defenders
 	damage = 7
 	duration = 1.2 SECONDS
