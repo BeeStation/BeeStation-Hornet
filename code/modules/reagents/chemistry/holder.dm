@@ -903,7 +903,7 @@
 	if(!random_reagents.len)
 		for(var/thing  in subtypesof(/datum/reagent))
 			var/datum/reagent/R = thing
-			if(initial(R.chem_flags) & flag_check)) // if a reagent has CHEMICAL_RNG_GENERAL flag, it will be added to the random list.
+			if(initial(R.chem_flags) & flag_check) // if a reagent has CHEMICAL_RNG_GENERAL flag, it will be added to the random list.
 				random_reagents += R
 	var/picked_reagent = pick(random_reagents)
 	return picked_reagent

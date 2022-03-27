@@ -179,7 +179,7 @@
 	glass_desc = "The father of all refreshments."
 	shot_glass_icon_state = "shotglassclear"
 	process_flags = ORGANIC | SYNTHETIC
-	random_unrestricted = FALSE
+
 
 /*
  *	Water reaction to turf
@@ -781,7 +781,7 @@
 	color = "#808080" // rgb: 128, 128, 128
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_mult = 0 // oderless and tasteless
-	random_unrestricted = FALSE
+
 
 /datum/reagent/oxygen/reaction_obj(obj/O, reac_volume)
 	if((!O) || (!reac_volume))
@@ -802,7 +802,7 @@
 	color = "#6E3B08" // rgb: 110, 59, 8
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "metal"
-	random_unrestricted = FALSE
+
 
 /datum/reagent/copper/reaction_obj(obj/O, reac_volume)
 	if(istype(O, /obj/item/stack/sheet/iron))
@@ -818,7 +818,7 @@
 	color = "#808080" // rgb: 128, 128, 128
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_mult = 0
-	random_unrestricted = FALSE
+
 
 /datum/reagent/nitrogen/reaction_obj(obj/O, reac_volume)
 	if((!O) || (!reac_volume))
@@ -839,7 +839,7 @@
 	color = "#808080" // rgb: 128, 128, 128
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_mult = 0
-	random_unrestricted = FALSE
+
 
 /datum/reagent/potassium
 	name = "Potassium"
@@ -848,7 +848,7 @@
 	color = "#A0A0A0" // rgb: 160, 160, 160
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "sweetness"
-	random_unrestricted = FALSE
+
 
 /datum/reagent/mercury
 	name = "Mercury"
@@ -1040,7 +1040,7 @@
 	taste_description = "the colour blue and regret"
 	irradiation_level = 2*REM
 	process_flags = ORGANIC | SYNTHETIC
-	random_unrestricted = FALSE
+
 
 /datum/reagent/bluespace
 	name = "Bluespace Dust"
@@ -1074,7 +1074,7 @@
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "metal"
-	random_unrestricted = FALSE
+
 
 /datum/reagent/silicon
 	name = "Silicon"
@@ -1083,7 +1083,7 @@
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_mult = 0
-	random_unrestricted = FALSE
+
 
 /datum/reagent/fuel
 	name = "Welding Fuel"
@@ -1095,7 +1095,7 @@
 	glass_name = "glass of welder fuel"
 	glass_desc = "Unless you're an industrial tool, this is probably not safe for consumption."
 	process_flags = ORGANIC | SYNTHETIC
-	random_unrestricted = FALSE
+
 
 /datum/reagent/fuel/reaction_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with welding fuel to make them easy to ignite!
 	if(method == TOUCH || method == VAPOR)
@@ -1254,7 +1254,7 @@
 	color = "#92D17D" // rgb: 146, 209, 125
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 	taste_description = "slime"
-	random_unrestricted = FALSE
+
 
 /datum/reagent/fungalspores/reaction_mob(mob/living/L, method=TOUCH, reac_volume, show_message = 1, touch_protection = 0)
 	if(method==PATCH || method==INGEST || method==INJECT || (method == VAPOR && prob(min(reac_volume,100)*(1 - touch_protection))))
@@ -1584,7 +1584,7 @@
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "oil"
 	process_flags = ORGANIC | SYNTHETIC
-	random_unrestricted = FALSE
+
 
 /datum/reagent/stable_plasma
 	name = "Stable Plasma"
@@ -1595,7 +1595,7 @@
 	taste_description = "bitterness"
 	taste_mult = 1.5
 	process_flags = ORGANIC | SYNTHETIC
-	random_unrestricted = FALSE
+
 
 /datum/reagent/stable_plasma/on_mob_life(mob/living/carbon/C)
 	C.adjustPlasma(10)
@@ -1608,7 +1608,7 @@
 	color = "#C8A5DC"
 	chem_flags = CHEMICAL_BASIC_ELEMENT
 	taste_description = "metal"
-	random_unrestricted = FALSE
+
 
 /datum/reagent/carpet
 	name = "Carpet"
@@ -1745,7 +1745,7 @@
 	color = "#60A584" // rgb: 96, 165, 132
 	chem_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "cool salt"
-	random_unrestricted = FALSE
+
 
 /datum/reagent/lye
 	name = "Lye"
@@ -1754,7 +1754,7 @@
 	chem_flags = NONE
 	color = "#FFFFD6" // very very light yellow
 	taste_description = "acid"
-	random_unrestricted = FALSE
+
 
 /datum/reagent/drying_agent
 	name = "Drying agent"
@@ -1763,7 +1763,7 @@
 	color = "#A70FFF"
 	chem_flags = NONE
 	taste_description = "dryness"
-	random_unrestricted = FALSE
+
 
 /datum/reagent/drying_agent/reaction_turf(turf/open/T, reac_volume)
 	if(istype(T))
