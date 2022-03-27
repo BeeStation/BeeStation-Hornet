@@ -82,6 +82,13 @@
 	else
 		ExtinguishMob()
 		return TRUE //mob was put out, on_fire = FALSE via ExtinguishMob(), no need to update everything down the chain.
+	//MonkeStation Edit Start: Fire removes Stickers
+	for(var/obj/item/stickable/dummy_holder/dummy_stickable in vis_contents)
+		visible_message("<span class='notice'>[name]'s stickers burn up!</span>")
+		for(var/obj/item/stickable/dropping in dummy_stickable.contents)
+			qdel(dropping)
+		vis_contents -= dummy_stickable
+	//MonkeStation Edit End
 	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
 	if(G.get_moles(GAS_O2) < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
