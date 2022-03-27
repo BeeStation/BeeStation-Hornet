@@ -1,5 +1,0 @@
-author: Mat05usz
-delete-after: true
-changes:
-  - tweak: Autotransfer vote is now using real time instead of time-dilated timer,
-      making it trigger consistently at 90 minutes.
