@@ -1,0 +1,5 @@
+author: nednaZ
+delete-after: true
+changes:
+  - balance: Reduced Larry's damage to 5, down from 10-20
+  - bugfix: Larry no longer leaves invisible corpses that can still stab you.
