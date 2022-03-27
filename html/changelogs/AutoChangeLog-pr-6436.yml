@@ -1,9 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - rscadd: GAGS to enviro helmets, protective helmets and mk.2 helmets.
-  - rscadd: Some more mk.2 and protective helmets (for vip, CC roles and bartender).
-  - rscdel: Removed enviro replacement helmet variants.
-  - bugfix: fixed some description in protective helmets.
-  - tweak: tweaked sprite of curator's envirohelm to actually have a visor (and light!)
-  - tweak: plasmaman bartender starts with tophat attached to his actual hat
