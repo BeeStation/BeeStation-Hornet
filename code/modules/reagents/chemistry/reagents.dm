@@ -1,5 +1,23 @@
 #define REM REAGENTS_EFFECT_MULTIPLIER
 
+// synthesizable part - can this reagent be synthesized? (for example: odysseus syringe gun)
+#define CHEMICAL_NOT_DEFINED   (1<<0)  // identical to CHEMICAL_NOT_SYNTH, but it is good to label when you are not sure which flag you should set on it, or something that shouldn't exist in the game. - i.e) medicine parent type
+#define CHEMICAL_NOT_SYNTH     (1<<0)  // no it can't.
+
+// RNG part - having this flag will allow the RNG system to put in.
+// if a reagent hasn't a relevant flag, it wouldn't come out from RNG theme - i.e.) maint pill
+#define CHEMICAL_BASIC_ELEMENT (1<<1)  // basic chemicals in chemistry - currently used in botany RNG (not yet - refactored for prepration)
+#define CHEMICAL_BASIC_DRINK   (1<<2)  // basic chemicals in bartending - currently used in botany RNG (not yet - refactored for prepration)
+#define CHEMICAL_RNG_GENERAL   (1<<3)  // it spawns in general stuff - i.e.) vent, abductor gland
+#define CHEMICAL_RNG_FUN       (1<<4)  // it spawns in maint pill or something else nasty. This usually has a dramatically interesting list including admin stuff minus some lame ones.
+#define CHEMICAL_RNG_BOTANY    (1<<5)  // it spawns in botany strange seeds
+
+// crew objective part - having this flag will allow an objective having a reagent
+#define CHEMICAL_GOAL_CHEMIST_DRUG         (1<<6)  // chemist objective - i.e.) make 24 pills of 12u meth
+#define CHEMICAL_GOAL_CHEMIST_BLOODSTREAM  (1<<7)  // chemist objective - i.e.) eat meth in your bloodstream
+#define CHEMICAL_GOAL_BOTANIST_HARVEST     (1<<8)  // botanist objective - i.e.) make 12 crops of 10u omnizine
+#define CHEMICAL_GOAL_BARTENDER_SERVING    (1<<9) // !NOTE: not implemented, but refactored for preparation - i.e.) serve Bacchus' blessing to 10 crews
+
 GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 /proc/build_name2reagent()
@@ -19,7 +37,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/description = ""
 	var/specific_heat = SPECIFIC_HEAT_DEFAULT		//J/(K*mol)
 	var/taste_description = "metaphorical salt"
-	var/taste_mult = 1 //how this taste compares to others. Higher values means it is more noticable
+	var/taste_mult = 1  //how this taste compares to others. Higher values means it is more noticable
 	var/glass_name = "glass of ...what?" // use for specialty drinks.
 	var/glass_desc = "You can't really tell what this is."
 	var/glass_icon_state = null // Otherwise just sets the icon to a normal glass with the mixture of the reagents in the glass.
@@ -28,15 +46,14 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/reagent_state = LIQUID
 	var/list/data
 	var/current_cycle = 0
-	var/volume = 0									//pretend this is moles
+	var/volume = 0 //pretend this is moles
 	var/color = "#000000" // rgb: 0, 0, 0
-	var/can_synth = TRUE // can this reagent be synthesized? (for example: odysseus syringe gun)
+	var/chem_flags = CHEMICAL_NOT_DEFINED   // default = I am not sure this shit + CHEMICAL_NOT_SYNTH
 	var/metabolization_rate = REAGENTS_METABOLISM //how fast the reagent is metabolized by the mob
 	var/overrides_metab = 0
 	var/overdose_threshold = 0
 	var/addiction_threshold = 0
 	var/addiction_stage = 0
-	var/random_unrestricted = TRUE
 	var/process_flags = ORGANIC // What can process this? ORGANIC, SYNTHETIC, or ORGANIC | SYNTHETIC?. We'll assume by default that it affects organics.
 	var/overdosed = 0 // You fucked up and this is now triggering its overdose effects, purge that shit quick.
 	var/self_consuming = FALSE

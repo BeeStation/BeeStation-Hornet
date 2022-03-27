@@ -194,7 +194,7 @@
 		var/part = amount / src.total_volume
 		for(var/reagent in cached_reagents)
 			var/datum/reagent/T = reagent
-			if(remove_blacklisted && !T.can_synth)
+			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
 				continue
 			var/transfer_amount = T.volume * part
 			if(preserve_data)
@@ -211,7 +211,7 @@
 			if(!to_transfer)
 				break
 			var/datum/reagent/T = reagent
-			if(remove_blacklisted && !T.can_synth)
+			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
 				continue
 			if(preserve_data)
 				trans_data = copy_data(T)
@@ -898,22 +898,12 @@
 	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
 
-/proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents and most foods and drinks
+/proc/get_random_reagent_id(var/flag_check = CHEMICAL_RNG_GENERAL)	// Returns a random reagent ID based on flag_check of each chemicals
 	var/static/list/random_reagents = list()
 	if(!random_reagents.len)
 		for(var/thing  in subtypesof(/datum/reagent))
 			var/datum/reagent/R = thing
-			if(initial(R.can_synth) && initial(R.random_unrestricted))
-				random_reagents += R
-	var/picked_reagent = pick(random_reagents)
-	return picked_reagent
-
-/proc/get_unrestricted_random_reagent_id()	// Returns a random reagent ID minus most foods and drinks
-	var/static/list/random_reagents = list()
-	if(!random_reagents.len)
-		for(var/thing  in subtypesof(/datum/reagent))
-			var/datum/reagent/R = thing
-			if(initial(R.random_unrestricted))
+			if(initial(R.chem_flags) & flag_check)) // if a reagent has CHEMICAL_RNG_GENERAL flag, it will be added to the random list.
 				random_reagents += R
 	var/picked_reagent = pick(random_reagents)
 	return picked_reagent
