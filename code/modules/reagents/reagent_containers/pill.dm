@@ -276,7 +276,7 @@
 	dissolvable = FALSE
 
 /obj/item/reagent_containers/pill/floorpill/Initialize(mapload)
-	list_reagents = list(get_unrestricted_random_reagent_id() = rand(10,50))
+	list_reagents = list(get_random_reagent_id(CHEMICAL_RNG_FUN) = rand(10,50))
 	. = ..()
 	name = pick(names)
 

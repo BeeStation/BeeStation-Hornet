@@ -36,7 +36,7 @@
 			var/datum/reagents/R = new/datum/reagents(1000)
 			R.my_atom = vent
 			if (prob(randomProbability))
-				R.add_reagent(get_random_reagent_id(), reagentsAmount)
+				R.add_reagent(get_random_reagent_id(CHEMICAL_RNG_GENERAL), reagentsAmount)
 			else
 				R.add_reagent(pick(saferChems), reagentsAmount)
 

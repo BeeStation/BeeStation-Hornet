@@ -194,7 +194,7 @@
 		var/part = amount / src.total_volume
 		for(var/reagent in cached_reagents)
 			var/datum/reagent/T = reagent
-			if(remove_blacklisted && !T.can_synth)
+			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
 				continue
 			var/transfer_amount = T.volume * part
 			if(preserve_data)
@@ -211,7 +211,7 @@
 			if(!to_transfer)
 				break
 			var/datum/reagent/T = reagent
-			if(remove_blacklisted && !T.can_synth)
+			if(remove_blacklisted && (T.chem_flags & CHEMICAL_NOT_SYNTH))
 				continue
 			if(preserve_data)
 				trans_data = copy_data(T)
@@ -898,24 +898,85 @@
 	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
 
-/proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents and most foods and drinks
-	var/static/list/random_reagents = list()
-	if(!random_reagents.len)
-		for(var/thing  in subtypesof(/datum/reagent))
-			var/datum/reagent/R = thing
-			if(initial(R.can_synth) && initial(R.random_unrestricted))
-				random_reagents += R
-	var/picked_reagent = pick(random_reagents)
-	return picked_reagent
+/proc/get_random_reagent_id(var/flag_check)	// Returns a random reagent ID based on flag_check of each chemicals
+	var/picked_reagent = null
 
-/proc/get_unrestricted_random_reagent_id()	// Returns a random reagent ID minus most foods and drinks
-	var/static/list/random_reagents = list()
-	if(!random_reagents.len)
-		for(var/thing  in subtypesof(/datum/reagent))
-			var/datum/reagent/R = thing
-			if(initial(R.random_unrestricted))
-				random_reagents += R
-	var/picked_reagent = pick(random_reagents)
+	switch(flag_check) // We check flag first. check 'code\__DEFINES\reagents.dm' for the flags.
+		if(CHEMICAL_RNG_GENERAL) // this is general rng flag stuff
+			var/static/list/random_reagents_a = list() // static list (variable names should be different for each flag)
+			if(!random_reagents_a.len) // if static list has nothing
+				for(var/each in subtypesof(/datum/reagent)) // get all reagents
+					var/datum/reagent/R = each
+					if(initial(R.chem_flags) & flag_check) // check if a reagent has the flag
+						random_reagents_a += R
+			picked_reagent = pick(random_reagents_a) // and pick one
+		// now we repeat the same code for each flag.
+
+		if(CHEMICAL_RNG_FUN)
+			var/static/list/random_reagents_b = list()
+			if(!random_reagents_b.len)
+				for(var/each in subtypesof(/datum/reagent))
+					var/datum/reagent/R = each
+					if(initial(R.chem_flags) & flag_check)
+						random_reagents_b += R
+			picked_reagent = pick(random_reagents_b)
+		if(CHEMICAL_RNG_BOTANY)
+			var/static/list/random_reagents_c = list()
+			if(!random_reagents_c.len)
+				for(var/each in subtypesof(/datum/reagent))
+					var/datum/reagent/R = each
+					if(initial(R.chem_flags) & flag_check)
+						random_reagents_c += R
+			picked_reagent = pick(random_reagents_c)
+		if(CHEMICAL_GOAL_CHEMIST_DRUG)
+			var/static/list/random_reagents_d = list()
+			if(!random_reagents_d.len)
+				for(var/each in subtypesof(/datum/reagent))
+					var/datum/reagent/R = each
+					if(initial(R.chem_flags) & flag_check)
+						random_reagents_d += R
+			picked_reagent = pick(random_reagents_d)
+		if(CHEMICAL_GOAL_CHEMIST_BLOODSTREAM)
+			var/static/list/random_reagents_e = list()
+			if(!random_reagents_e.len)
+				for(var/each in subtypesof(/datum/reagent))
+					var/datum/reagent/R = each
+					if(initial(R.chem_flags) & flag_check)
+						random_reagents_e += R
+			picked_reagent = pick(random_reagents_e)
+		if(CHEMICAL_GOAL_BOTANIST_HARVEST)
+			var/static/list/random_reagents_f = list()
+			if(!random_reagents_f.len)
+				for(var/each in subtypesof(/datum/reagent))
+					var/datum/reagent/R = each
+					if(initial(R.chem_flags) & flag_check)
+						random_reagents_f += R
+			picked_reagent = pick(random_reagents_f)
+		if(CHEMICAL_GOAL_BARTENDER_SERVING)
+			var/static/list/random_reagents_g = list()
+			if(!random_reagents_g.len)
+				for(var/each in subtypesof(/datum/reagent))
+					var/datum/reagent/R = each
+					if(initial(R.chem_flags) & flag_check)
+						random_reagents_g += R
+			picked_reagent = pick(random_reagents_g)
+		if(CHEMICAL_BASIC_ELEMENT)
+			var/static/list/random_reagents_h = list()
+			if(!random_reagents_h.len)
+				for(var/each in subtypesof(/datum/reagent))
+					var/datum/reagent/R = each
+					if(initial(R.chem_flags) & flag_check)
+						random_reagents_h += R
+			picked_reagent = pick(random_reagents_h)
+		if(CHEMICAL_BASIC_DRINK)
+			var/static/list/random_reagents_i = list()
+			if(!random_reagents_i.len)
+				for(var/each in subtypesof(/datum/reagent))
+					var/datum/reagent/R = each
+					if(initial(R.chem_flags) & flag_check)
+						random_reagents_i += R
+			picked_reagent = pick(random_reagents_i)
+
 	return picked_reagent
 
 /proc/get_chem_id(chem_name)
