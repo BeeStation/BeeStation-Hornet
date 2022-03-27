@@ -302,6 +302,7 @@
 	desc = "A little Larry, he looks so excited!"
 	icon_state = "larry0"
 	var/obj/item/kitchen/knife/knife //You know exactly what this is about
+	var/datum/component/knife_attached_to_movable/larry_knife //MonkeStation Edit
 
 /mob/living/simple_animal/bot/cleanbot/larry/Initialize(mapload)
 	. = ..()
@@ -387,7 +388,7 @@
 			knife = newknife
 			newknife.forceMove(src)
 			message_admins("[user] attached a [newknife.name] to [src]") //This should definitely be a notified thing.
-			AddComponent(/datum/component/knife_attached_to_movable, knife.force)
+			larry_knife = AddComponent(/datum/component/knife_attached_to_movable, knife.force) //MonkeStation Edit
 			update_icons()
 		else
 			return ..()
@@ -409,8 +410,10 @@
 
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
-	if(knife && prob(50))
-		new knife(Tsec)
+	//MonkeStation Edit Start: Larry Fixes
+	if(knife)
+		qdel(larry_knife)
+	//MonkeStation Edit End
 
 	do_sparks(3, TRUE, src)
 	qdel(src)

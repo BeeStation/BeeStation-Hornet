@@ -6,7 +6,7 @@
 	var/static/list/default_connections = list(COMSIG_ATOM_ENTERED = .proc/knife_crossed)
 
 /datum/component/knife_attached_to_movable/Initialize(damage = 0)
-	knife_damage = damage
+	knife_damage = min(5, damage) //MonkeStation Edit: 5 damage a hit max
 	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/knife_crossed)
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/knife_move)
 	add_connect_loc_behalf_to_parent()
