@@ -94,8 +94,8 @@
 				to_chat(M, "<span class='userdanger'>A tear opens in your flesh!</span>")
 				M.add_splatter_floor()
 		if(M.getCloneLoss() && cellheal)
-			M.adjustCloneLoss(-0.5)
-			M.take_overall_damage(burn = 1) //this uses burn, so as not to make it so you can heal brute to heal all the damage types this deals, and it isn't a no-brainer to use with Pituitary
+			M.adjustCloneLoss(-1)
+			M.take_overall_damage(burn = 2) //this uses burn, so as not to make it so you can heal brute to heal all the damage types this deals, and it isn't a no-brainer to use with Pituitary
 			if(prob(5))
 				to_chat(M, "<span class='userdanger'>A nasty rash appears on your skin!</span>")
 	else if(prob(2) && ((M.getCloneLoss() && cellheal) || (M.getToxLoss() && toxheal) || M.radiation))
