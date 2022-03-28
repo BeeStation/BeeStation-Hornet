@@ -176,7 +176,7 @@
 	var/dat = "<b>Smelter control console</b><br><br>"
 
 	//On or off
-	dat += "Machine is currently [ on ? "<A href='?src=[REF(CONSOLE)];set_on=off'>On</A>" : "<A href='?src=[REF(CONSOLE)];set_on=on'>Off</A>"
+	dat += "Machine is currently [ on ? "<A href='?src=[REF(CONSOLE)];set_on=off'>On</A>" : "<A href='?src=[REF(CONSOLE)];set_on=on'>Off</A>"]"
 
 	//Points
 	dat += "<br><br>"
