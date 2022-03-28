@@ -70,12 +70,13 @@
 		else
 			return INITIALIZE_HINT_QDEL
 
+// Only called if mappers set ID
 /obj/machinery/mineral/processing_unit_console/LateInitialize()
-	if(link_id) //If mappers set an ID)
-		for(var/obj/machinery/mineral/processing_unit/PU in GLOB.machines)
-			if(PU.link_id == link_id)
-				machine = PU
-				machine.CONSOLE = src
+	for(var/obj/machinery/mineral/processing_unit/PU in GLOB.machines)
+		if(PU.link_id == link_id)
+			machine = PU
+			machine.CONSOLE = src
+			return
 
 /obj/machinery/mineral/processing_unit_console/ui_interact(mob/user)
 	. = ..()
@@ -111,13 +112,14 @@
 	if(href_list["redeem"])
 		var/mob/M = usr
 		var/obj/item/card/id/I = M.get_idcard(TRUE)
-		if(machine.points)
-			if(I?.mining_points += machine.points)
-				machine.points = 0
-			else
-				to_chat(usr, "<span class='warning'>No ID detected.</span>")
-		else
+		if(!I)
+			to_chat(usr, "<span class='warning'>No ID detected.</span>")
+			return
+		if(!machine.points)
 			to_chat(usr, "<span class='warning'>No points to claim.</span>")
+			return
+		I.mining_points += machine.points
+		machine.points = 0
 
 	updateUsrDialog()
 	return
@@ -174,11 +176,7 @@
 	var/dat = "<b>Smelter control console</b><br><br>"
 
 	//On or off
-	dat += "Machine is currently "
-	if (on)
-		dat += "<A href='?src=[REF(CONSOLE)];set_on=off'>On</A> "
-	else
-		dat += "<A href='?src=[REF(CONSOLE)];set_on=on'>Off</A> "
+	dat += "Machine is currently [ on ? "<A href='?src=[REF(CONSOLE)];set_on=off'>On</A>" : "<A href='?src=[REF(CONSOLE)];set_on=on'>Off</A>"
 
 	//Points
 	dat += "<br><br>"

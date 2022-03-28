@@ -20,12 +20,13 @@
 		if (machine)
 			machine.console = src
 
+// Only called if mappers set an ID
 /obj/machinery/mineral/stacking_unit_console/LateInitialize()
-	if(link_id) //If mappers set an ID)
-		for(var/obj/machinery/mineral/stacking_machine/SM in GLOB.machines)
-			if(SM.link_id == link_id)
-				machine = SM
-				machine.console = src
+	for(var/obj/machinery/mineral/stacking_machine/SM in GLOB.machines)
+		if(SM.link_id == link_id)
+			machine = SM
+			machine.console = src
+			return
 
 /obj/machinery/mineral/stacking_unit_console/Destroy()
 	if(machine)
