@@ -134,7 +134,7 @@
 /obj/item/clothing/head/helmet/space/plasmaman/proc/update_button_icons(mob/user)
 	if(!user)
 		return
-	
+
 	//The icon's may look differently due to overlays being applied asynchronously
 	for(var/X in actions)
 		var/datum/action/A=X
@@ -193,7 +193,7 @@
 	update_icon()
 	user.update_inv_head() //So the mob overlay updates
 	update_button_icons(user)
-	
+
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
 	cut_overlays()
 
@@ -201,7 +201,7 @@
 		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_weld"))
 	else if(helmet_on)
 		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_light"))
-	
+
 	return ..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/security
@@ -269,8 +269,7 @@
 /obj/item/clothing/head/helmet/space/plasmaman/mailman
 	name = "mailman envirosuit helmet"
 	desc = "<i>'Right-on-time'</i> mail plasmamen service head wear."
-	icon_state = "mailman_envirohelm"
-	item_state = "mailman_envirohelm"
+	greyscale_colors = "#091544#e6c447#091544"
 
 /obj/item/clothing/head/helmet/space/plasmaman/cargo
 	name = "cargo envirosuit helmet"
@@ -491,8 +490,8 @@
 /obj/item/clothing/head/helmet/space/plasmaman/mailman/mark2
 	name = "mailman Mk.II envirosuit helmet"
 	desc = "<i>'Right-on-time'</i> a modernized mail plasmamen service head wear."
-	icon_state = "mailman_openvirohelm"
-	item_state = "mailman_openvirohelm"
+	greyscale_colors = "#091544#e6c447#091544"
+
 
 /obj/item/clothing/head/helmet/space/plasmaman/mining/mark2
 	name = "mining Mk.II envirosuit helmet"
@@ -691,8 +690,7 @@
 /obj/item/clothing/head/helmet/space/plasmaman/mailman/protective
 	name = "mailman Mk.II envirosuit helmet"
 	desc = "<i>'Right-on-time'</i> a braced mail plasmamen service head wear."
-	icon_state = "mailman_armouredenvirohelm"
-	item_state = "mailman_armouredenvirohelm"
+	greyscale_colors = "#091544#e6c447#091544"
 
 /obj/item/clothing/head/helmet/space/plasmaman/mining/protective
 	name = "mining Mk.II envirosuit helmet"
