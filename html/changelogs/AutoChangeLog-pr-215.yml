@@ -1,6 +1,0 @@
-author: KoboldCommando
-delete-after: true
-changes:
-  - code_imp: Fills out the Mailman job datum
-  - rscadd: Mailmen now spawn with PDAs and Crew Pinpointers!  For finding their delivery
-      targets, definitely not for stalking people.
