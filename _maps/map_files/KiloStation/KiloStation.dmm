@@ -38969,6 +38969,7 @@
 /obj/item/assembly/flash/handheld/weak,
 /obj/item/assembly/flash/handheld/weak,
 /obj/item/assembly/flash/handheld/weak,
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "bhC" = (

@@ -88647,6 +88647,7 @@
 	pixel_y = 38
 	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "dzL" = (
