@@ -20,7 +20,7 @@
 
 /obj/machinery/ecto_sniffer/attack_ghost(mob/user)
 	. = ..()
-	if(!is_operational() || !on || !sensor_enabled)
+	if(!on || !sensor_enabled || !is_operational())
 		return
 
 	if(ectoplasmic_residues[user.ckey])
