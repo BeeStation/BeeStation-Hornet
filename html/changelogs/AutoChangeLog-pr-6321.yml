@@ -1,5 +1,0 @@
-author: Dejaku51
-delete-after: true
-changes:
-  - rscadd: Used grenades now look used when examined.
-  - bugfix: It should no longer be possible to DC admins by spamming grenades.
