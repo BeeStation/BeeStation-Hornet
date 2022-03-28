@@ -424,3 +424,14 @@
 		return TRUE
 	else
 		return FALSE
+
+/mob/living/proc/sethellbound()
+	if(mind)
+		mind.hellbound = TRUE
+		return TRUE
+	return FALSE 
+
+/mob/living/proc/hellbound()
+	if(mind && mind.hellbound)
+		return TRUE
+	return FALSE
