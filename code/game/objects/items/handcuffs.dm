@@ -350,7 +350,7 @@
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		to_chat(C, "<span class='userdanger'>\The [src] ensnares you!</span>")
 		if(knockdown)
-			C.Paralyze(knockdown)
+			C.Knockdown(knockdown)
 		playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 
 /obj/item/restraints/legcuffs/bola/tactical//traitor variant
@@ -406,6 +406,6 @@
 		effectReference = C.apply_status_effect(STATUS_EFFECT_GONBOLAPACIFY)
 
 /obj/item/restraints/legcuffs/bola/gonbola/dropped(mob/user)
-	. = ..()
+	..()
 	if(effectReference)
 		QDEL_NULL(effectReference)

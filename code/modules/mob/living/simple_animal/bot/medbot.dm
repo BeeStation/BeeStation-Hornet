@@ -48,6 +48,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/declare_crit = 1 //If active, the bot will transmit a critical patient alert to MedHUD users.
 	var/declare_cooldown = 0 //Prevents spam of critical patient alerts.
 	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
+	//Are we tipped over? Used to stop the mode from being conflicted.
+	var/tipped = FALSE
 	///How panicked we are about being tipped over (why would you do this?)
 	var/tipped_status = MEDBOT_PANIC_NONE
 	///The name we got when we were tipped
@@ -248,7 +250,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	mobility_flags &= ~MOBILITY_MOVE
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
 	user.visible_message("<span class='danger'>[user] tips over [src]!</span>", "<span class='danger'>You tip [src] over!</span>")
-	mode = BOT_TIPPED
+	tipped = TRUE
 	var/matrix/mat = transform
 	transform = mat.Turn(180)
 	tipper_name = user.name
@@ -274,7 +276,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		speak(message)
 		playsound(src, messagevoice[message], 70)
 	tipped_status = MEDBOT_PANIC_NONE
-	mode = BOT_IDLE
+	tipped = FALSE
 	transform = matrix()
 
 /// if someone tipped us over, check whether we should ask for help or just right ourselves eventually
@@ -329,7 +331,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(!..())
 		return
 
-	if(mode == BOT_TIPPED)
+	if(tipped)
 		handle_panic()
 		return
 
@@ -450,7 +452,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		return TRUE
 
 /mob/living/simple_animal/bot/medbot/attack_hand(mob/living/carbon/human/H)	
-	if(H.a_intent == INTENT_DISARM && mode != BOT_TIPPED)
+	if(H.a_intent == INTENT_DISARM && !tipped)
 		H.visible_message("<span class='danger'>[H] begins tipping over [src].</span>", "<span class='warning'>You begin tipping over [src]...</span>")
 
 		if(world.time > last_tipping_action_voice + 15 SECONDS)
@@ -463,7 +465,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		if(do_after(H, 3 SECONDS, target=src))
 			tip_over(H)
 
-	else if(H.a_intent == INTENT_HELP && mode == BOT_TIPPED)
+	else if(H.a_intent == INTENT_HELP && tipped)
 		H.visible_message("<span class='notice'>[H] begins righting [src].</span>", "<span class='notice'>You begin righting [src]...</span>")
 		if(do_after(H, 3 SECONDS, target=src))
 			set_right(H)
@@ -504,6 +506,10 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 	var/tending = TRUE
 	while(tending)
+		if(tipped)
+			soft_reset()
+			break
+
 		var/treatment_method = null
 
 		if(C.getBruteLoss() >= heal_threshold)

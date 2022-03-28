@@ -100,6 +100,7 @@
 /atom/movable/update_overlays()
 	. = ..()
 	. += update_emissive_block()
+
 /atom/movable/proc/can_zFall(turf/source, levels = 1, turf/target, direction)
 	if(!direction)
 		direction = DOWN

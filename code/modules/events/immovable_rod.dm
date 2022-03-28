@@ -80,6 +80,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /obj/effect/immovablerod/Destroy()
 	GLOB.poi_list -= src
+	SSaugury.unregister_doom(src)
 	. = ..()
 
 /obj/effect/immovablerod/Topic(href, href_list)

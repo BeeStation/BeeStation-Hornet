@@ -27255,6 +27255,7 @@
 	},
 /obj/item/crowbar,
 /obj/structure/table,
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "brz" = (

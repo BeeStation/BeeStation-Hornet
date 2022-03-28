@@ -382,6 +382,8 @@
 
 /mob/dead/new_player/proc/LateChoices()
 	var/list/dat = list("<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>")
+	if(SSjob.prioritized_jobs.len > 0)
+		dat+="<div class='priority' style='text-align:center'>Jobs in Green have been prioritized by the Head of Personnel.<br>Please consider joining the game as that role.</div>"
 	if(SSshuttle.emergency)
 		switch(SSshuttle.emergency.mode)
 			if(SHUTTLE_ESCAPE)
