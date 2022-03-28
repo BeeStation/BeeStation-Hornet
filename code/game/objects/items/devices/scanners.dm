@@ -1008,15 +1008,12 @@ GENE SCANNER
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
 		using = TRUE
 		if(do_after(user, (600 / (scanner.rating + 1)), target = AM))
-			using = FALSE
 			create_culture(symptomholder, user, AM)
-		using = FALSE
 	else 
 		using = TRUE
 		if(do_after(user, (timer / (scanner.rating + 1)), target = AM))
-			create_culture(A, user, AM)
-			using = FALSE 
-		using = FALSE
+			create_culture(A, user, AM)	
+	using = FALSE
 
 /obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)
 	if(cooldown > world.time - (10))
