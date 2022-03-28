@@ -68244,6 +68244,7 @@
 	},
 /obj/item/borg/upgrade/rename,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "cIO" = (
