@@ -279,7 +279,7 @@
 			to_chat(AI, "<font color = red><b>Network Alert: Brute-force security override in progress. Unable to pinpoint location.</b></font>")
 	hacking = TRUE
 	if(!hackbar)
-		hackbar = new(src, HACK_COMPLETE, hacking_cable.machine)
+		hackbar = new(src, 100, hacking_cable.machine)
 /**
  * Proc that switches whether a pAI can refresh
  * the records window again.

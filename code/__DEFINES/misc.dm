@@ -467,7 +467,3 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define ALIGNMENT_GOOD "good"
 #define ALIGNMENT_NEUT "neutral"
 #define ALIGNMENT_EVIL "evil"
-
-// pAI
-
-#define HACK_COMPLETE 100 // Total percent required to hack a door.
