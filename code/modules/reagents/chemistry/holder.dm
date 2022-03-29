@@ -955,15 +955,15 @@
 				if(initial(R.chem_flags) & each_define)
 					random_reagent[i] += R
 
-	var/possible = null
+	var/list/possible = list()
 	var/j = 0
 	for(var/each_define in chem_defines)
 		j += 1
 		if(each_define & flag_check)
 			possible |= random_reagent[j]
 
-	if(isnull(possible))
-		return /datum/reagent/medicine/bicaridine // better than null
+	if(!possible.len)
+		return /datum/reagent/medicine/bicaridine // better than nothing
 	return pick(possible)
 
 /proc/get_chem_id(chem_name)
