@@ -931,6 +931,8 @@
 
 	var/bitflag_target = round(log(flag_check)*1.443)  // 1,2,4,8,16,32,64,128 -> 1,2,3,4,5,6,7,8 (this is helpful to grab a category by bitflag.)
 	// WARN: This will be malfunctional if you give a union-bitflag value. (i.e. 1+2+4 value) That's not what this was coded for.
+	if(bitflag_target <= 0) // error check. please don't give a shit bitflag
+		return /datum/reagent/medicine/bicaridine
 
 	if(!random_reagent[bitflag_target].len)
 		for(var/each in subtypesof(/datum/reagent)) // get all reagents
