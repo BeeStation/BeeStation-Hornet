@@ -198,16 +198,16 @@
  */
 /obj/item/paicard/proc/pool_candidates()
 	/// Array of pAI candidates
-	var/list/candidates = list()
+	var/list/ready_candidates = list()
 	if(length(SSpai.candidates))
 		for(var/datum/pai_candidate/checked_candidate as anything in SSpai.candidates)
-			if(!SSpai.candidates[checked_candidate].ready)
+			if(!checked_candidate.ready)
 				continue
 			/// The object containing the candidate data.
 			var/list/candidate = list()
-			candidate["comments"] = SSpai.candidates[checked_candidate].comments
-			candidate["description"] = SSpai.candidates[checked_candidate].description
-			candidate["key"] = SSpai.candidates[checked_candidate].key
-			candidate["name"] = SSpai.candidates[checked_candidate].name
-			candidates += list(candidate)
-	return candidates
+			candidate["comments"] = checked_candidate.comments
+			candidate["description"] = checked_candidate.description
+			candidate["key"] = checked_candidate.key
+			candidate["name"] = checked_candidate.name
+			ready_candidates += list(candidate)
+	return ready_candidates
