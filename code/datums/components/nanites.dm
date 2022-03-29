@@ -16,6 +16,7 @@
 	var/start_time = 0 ///Timestamp to when the nanites were first inserted in the host
 	var/stealth = FALSE //if TRUE, does not appear on HUDs and health scans
 	var/diagnostics = TRUE //if TRUE, displays program list when scanned by nanite scanners
+	COOLDOWN_DECLARE(malfunction_cooldown)
 
 /datum/component/nanites/Initialize(amount = 100, cloud = 0)
 	if(!isliving(parent) && !istype(parent, /datum/nanite_cloud_backup))
@@ -32,6 +33,7 @@
 			return COMPONENT_INCOMPATIBLE
 
 		start_time = world.time
+		COOLDOWN_START(src, malfunction_cooldown, 300)
 
 		host_mob.hud_set_nanite_indicator()
 		START_PROCESSING(SSnanites, src)
@@ -117,6 +119,19 @@
 		if(cloud_id && cloud_active && world.time > next_sync)
 			cloud_sync()
 			next_sync = world.time + NANITE_SYNC_DELAY
+		if(COOLDOWN_FINISHED(src, malfunction_cooldown) && iscarbon(host_mob))
+			var/mob/living/carbon/C = host_mob
+			var/datum/nanite_program/malfunction = pick(programs)
+			switch(C.dna.update_instability(FALSE))
+				if(1 to 30)
+					malfunction.software_error(rand(1, 5))
+				if(31 to 50)
+					malfunction.software_error(rand(1, 4))
+				if(51 to 65)
+					malfunction.software_error(rand(2, 4))
+				if(66 to 80)
+					malfunction.software_error(rand(3, 4))
+			COOLDOWN_START(src, malfunction_cooldown, rand(300, 900))
 	set_nanite_bar()
 
 

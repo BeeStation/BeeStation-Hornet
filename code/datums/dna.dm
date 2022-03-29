@@ -217,6 +217,11 @@
 
 /datum/dna/proc/update_instability(alert=TRUE)
 	stability = 100
+	if(holder)
+		for(var/datum/disease/advance/A as() in holder.diseases)
+			for(var/datum/symptom/S as() in A.symptoms)
+				if(S.severity < 0)
+					stability = max(20, stability - (S.severity * 20))
 	for(var/datum/mutation/human/M in mutations)
 		if(M.class == MUT_EXTRA)
 			stability -= M.instability * GET_MUTATION_STABILIZER(M)
@@ -240,6 +245,7 @@
 			holder.apply_status_effect(STATUS_EFFECT_DNA_MELT)
 		if(message)
 			to_chat(holder, message)
+		return stability 
 
 //used to update dna UI, UE, and dna.real_name.
 /datum/dna/proc/update_dna_identity()
