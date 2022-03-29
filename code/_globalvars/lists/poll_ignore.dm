@@ -45,7 +45,7 @@ GLOBAL_LIST_INIT(poll_ignore_desc, list(
 	POLL_IGNORE_IMAGINARYFRIEND = "Imaginary Friend",
 	POLL_IGNORE_SPLITPERSONALITY = "Split Personality",
 	POLL_IGNORE_CONTRACTOR_SUPPORT = "Contractor Support Unit",
-	POLL_IGNORE_PAI = "Personal AI"
+	POLL_IGNORE_PAI = "Personal AI",
 	POLL_IGNORE_EXPERIMENTAL_CLONE = "Experimental clone"
 ))
 GLOBAL_LIST_INIT(poll_ignore, init_poll_ignore())
