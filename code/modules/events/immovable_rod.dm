@@ -42,7 +42,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	// The second part is a sanity check with a limit of 20 iterations
 	// The third part ensures that the rod's path is at least 50 tiles
 	// The fourth part ensures that an admin has not set a special target
-	while(istype(locate((startT.x + endT.x)/2, (startT.y + endT.y)/2, z), /turf/open/space) && regensanity < 20 && sqrt((startT.x - endT.x) ** 2 + (startT.y - endT.y) ** 2) > 50 && !special_target)
+	while(istype(locate((startT.x + endT.x)/2, (startT.y + endT.y)/2, z), /turf/open/space) && regensanity < 20 && sqrt((startT.x - endT.x) ** 2 + (startT.y - endT.y) ** 2) > 50 && !C.special_target)
 		regensanity++
 		startT = spaceDebrisStartLoc(startside, z)
 		endT = spaceDebrisFinishLoc(startside, z)
