@@ -899,85 +899,45 @@
 	reagents.my_atom = src
 
 /proc/get_random_reagent_id(var/flag_check)	// Returns a random reagent ID based on flag_check of each chemicals
-	var/picked_reagent = null
+	var/static/list/random_reagents_a = list()  // CHEMICAL_NOT_SYNTH
+	var/static/list/random_reagents_b = list()  // CHEMICAL_BASIC_ELEMENT
+	var/static/list/random_reagents_c = list()  // CHEMICAL_BASIC_DRINK
+	var/static/list/random_reagents_d = list()  // CHEMICAL_RNG_GENERAL
+	var/static/list/random_reagents_e = list()  // CHEMICAL_RNG_FUN
+	var/static/list/random_reagents_f = list()  // CHEMICAL_RNG_BOTANY
+	var/static/list/random_reagents_g = list()  // CHEMICAL_GOAL_CHEMIST_DRUG
+	var/static/list/random_reagents_h = list()  // CHEMICAL_GOAL_CHEMIST_BLOODSTREAM
+	var/static/list/random_reagents_i = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
+	var/static/list/random_reagents_j = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
+	var/static/list/random_reagent = list(
+		random_reagents_a,
+		random_reagents_b,
+		random_reagents_c,
+		random_reagents_d,
+		random_reagents_e,
+		random_reagents_f,
+		random_reagents_g,
+		random_reagents_h,
+		random_reagents_i,
+		random_reagents_j)
+	/***** How to add a new random reagent category ******
+	  1. add a new flag at 'code\__DEFINES\reagents.dm'
+			i.e.) `#define CHEMICAL_SOMETHING_NEW (1<10)`
+	  2. add a new static variable which is corresponding to the new flag.
+	  		i.e.) `var/static/list/random_reagents_xx = list() // CHEMICAL_SOMETHING_NEW`
+	  3. add the new static variable to the 'random_reagent' list
+	        then done! (of course, don't forget to turn on the new flag at each desired reagent)
+	*/
 
-	switch(flag_check) // We check flag first. check 'code\__DEFINES\reagents.dm' for the flags.
-		if(CHEMICAL_RNG_GENERAL) // this is general rng flag stuff
-			var/static/list/random_reagents_a = list() // static list (variable names should be different for each flag)
-			if(!random_reagents_a.len) // if static list has nothing
-				for(var/each in subtypesof(/datum/reagent)) // get all reagents
-					var/datum/reagent/R = each
-					if(initial(R.chem_flags) & flag_check) // check if a reagent has the flag
-						random_reagents_a += R
-			picked_reagent = pick(random_reagents_a) // and pick one
-		// now we repeat the same code for each flag.
+	var/bitflag_target = round(log(flag_check)*1.443)  // 1,2,4,8,16,32,64,128 -> 1,2,3,4,5,6,7,8 (this is helpful to grab a category by bitflag.)
+	// WARN: This will be malfunctional if you give a union-bitflag value. (i.e. 1+2+4 value) That's not what this was coded for.
 
-		if(CHEMICAL_RNG_FUN)
-			var/static/list/random_reagents_b = list()
-			if(!random_reagents_b.len)
-				for(var/each in subtypesof(/datum/reagent))
-					var/datum/reagent/R = each
-					if(initial(R.chem_flags) & flag_check)
-						random_reagents_b += R
-			picked_reagent = pick(random_reagents_b)
-		if(CHEMICAL_RNG_BOTANY)
-			var/static/list/random_reagents_c = list()
-			if(!random_reagents_c.len)
-				for(var/each in subtypesof(/datum/reagent))
-					var/datum/reagent/R = each
-					if(initial(R.chem_flags) & flag_check)
-						random_reagents_c += R
-			picked_reagent = pick(random_reagents_c)
-		if(CHEMICAL_GOAL_CHEMIST_DRUG)
-			var/static/list/random_reagents_d = list()
-			if(!random_reagents_d.len)
-				for(var/each in subtypesof(/datum/reagent))
-					var/datum/reagent/R = each
-					if(initial(R.chem_flags) & flag_check)
-						random_reagents_d += R
-			picked_reagent = pick(random_reagents_d)
-		if(CHEMICAL_GOAL_CHEMIST_BLOODSTREAM)
-			var/static/list/random_reagents_e = list()
-			if(!random_reagents_e.len)
-				for(var/each in subtypesof(/datum/reagent))
-					var/datum/reagent/R = each
-					if(initial(R.chem_flags) & flag_check)
-						random_reagents_e += R
-			picked_reagent = pick(random_reagents_e)
-		if(CHEMICAL_GOAL_BOTANIST_HARVEST)
-			var/static/list/random_reagents_f = list()
-			if(!random_reagents_f.len)
-				for(var/each in subtypesof(/datum/reagent))
-					var/datum/reagent/R = each
-					if(initial(R.chem_flags) & flag_check)
-						random_reagents_f += R
-			picked_reagent = pick(random_reagents_f)
-		if(CHEMICAL_GOAL_BARTENDER_SERVING)
-			var/static/list/random_reagents_g = list()
-			if(!random_reagents_g.len)
-				for(var/each in subtypesof(/datum/reagent))
-					var/datum/reagent/R = each
-					if(initial(R.chem_flags) & flag_check)
-						random_reagents_g += R
-			picked_reagent = pick(random_reagents_g)
-		if(CHEMICAL_BASIC_ELEMENT)
-			var/static/list/random_reagents_h = list()
-			if(!random_reagents_h.len)
-				for(var/each in subtypesof(/datum/reagent))
-					var/datum/reagent/R = each
-					if(initial(R.chem_flags) & flag_check)
-						random_reagents_h += R
-			picked_reagent = pick(random_reagents_h)
-		if(CHEMICAL_BASIC_DRINK)
-			var/static/list/random_reagents_i = list()
-			if(!random_reagents_i.len)
-				for(var/each in subtypesof(/datum/reagent))
-					var/datum/reagent/R = each
-					if(initial(R.chem_flags) & flag_check)
-						random_reagents_i += R
-			picked_reagent = pick(random_reagents_i)
-
-	return picked_reagent
+	if(!random_reagent[bitflag_target].len)
+		for(var/each in subtypesof(/datum/reagent)) // get all reagents
+			var/datum/reagent/R = each
+			if(initial(R.chem_flags) & flag_check) // check if a reagent matches the flag
+				random_reagent[bitflag_target] += R // then add
+	return pick(random_reagent[bitflag_target])
 
 /proc/get_chem_id(chem_name)
 	for(var/X in GLOB.chemical_reagents_list)
