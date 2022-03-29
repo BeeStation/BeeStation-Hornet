@@ -898,7 +898,13 @@
 	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
 
-/proc/get_random_reagent_id(var/flag_check)	// Returns a random reagent ID based on flag_check of each chemicals
+/proc/get_random_reagent_id(var/flag_check)
+	// This proc returns a random reagent ID based on given 'flag_check' which is used to check bitflag for each reagent.
+	//
+	// *---How to use this proc---*
+	// i.e) get_random_reagent_id(CHEMICAL_RNG_GENERAL) - when you want a single category
+	// i.e2) get_random_reagent_id(CHEMICAL_BASIC_ELEMENT|CHEMICAL_BASIC_DRINK|CHEMICAL_RNG_GENERAL|CHEMICAL_RNG_FUN) - when you want multiple category
+
 	var/list/chem_defines = list( // check `code/__DEFINES/reagents.dm` and be careful of the order.
 		CHEMICAL_NOT_SYNTH,  // (1<<0)
 		CHEMICAL_BASIC_ELEMENT, // (1<<1)
@@ -941,20 +947,20 @@
 	*/
 
 	if(!random_reagent_a.len) // initialize random reagent static lists
+		var/i = 0
 		for(var/each_define in chem_defines)
-			var/static/i = 1
+			i += 1
 			for(var/thing in subtypesof(/datum/reagent))
 				var/datum/reagent/R = thing
 				if(initial(R.chem_flags) & each_define)
 					random_reagent[i] += R
-			i += 1
 
 	var/possible = null
+	var/j = 0
 	for(var/each_define in chem_defines)
-		var/j = 1
+		j += 1
 		if(each_define & flag_check)
 			possible |= random_reagent[j]
-		j += 1
 
 	if(isnull(possible))
 		return /datum/reagent/medicine/bicaridine // better than null
