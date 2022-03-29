@@ -1433,7 +1433,7 @@
 	// Heart attack code will not do damage if corazone is present
 	// because it's SPACE MAGIC ASPIRIN
 	name = "Corazone"
-	description = "A medication used to assist in healing the heart and to stabalize the heart and liver."
+	description = "A medication used to assist in healing the heart and to stabilize the heart and liver."
 	color = "#F49797"
 	overdose_threshold = 20
 	self_consuming = TRUE
