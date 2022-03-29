@@ -1112,7 +1112,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/selected = plist[choice]
 
 	if(aicamera.stored.len)
-		var/add_photo = input(user,"Do you want to attach a photo?","Photo","No") as null|anything in list("Yes","No") /// Change to TGUI List once ported
+		var/add_photo = input(user,"Do you want to attach a photo?","Photo","No") as null|anything in list("Yes","No")
 		if(add_photo == "Yes")
 			var/datum/picture/Pic = aicamera.selectpicture(user)
 			aiPDA.picture = Pic
