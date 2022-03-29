@@ -899,16 +899,16 @@
 	reagents.my_atom = src
 
 /proc/get_random_reagent_id(var/flag_check)	// Returns a random reagent ID based on flag_check of each chemicals
-	var/static/list/random_reagents_a = list()  // CHEMICAL_BASIC_ELEMENT
-	var/static/list/random_reagents_b = list()  // CHEMICAL_BASIC_DRINK
-	var/static/list/random_reagents_c = list()  // CHEMICAL_RNG_GENERAL
-	var/static/list/random_reagents_d = list()  // CHEMICAL_RNG_FUN
-	var/static/list/random_reagents_e = list()  // CHEMICAL_RNG_BOTANY
-	var/static/list/random_reagents_f = list()  // CHEMICAL_GOAL_CHEMIST_DRUG
-	var/static/list/random_reagents_g = list()  // CHEMICAL_GOAL_CHEMIST_BLOODSTREAM
-	var/static/list/random_reagents_h = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
-	var/static/list/random_reagents_i = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
-	// Note: CHEMICAL_NOT_SYNTH(1) doesn't count.
+	var/static/list/random_reagents_a = list()  // CHEMICAL_BASIC_ELEMENT  2 -> 1
+	var/static/list/random_reagents_b = list()  // CHEMICAL_BASIC_DRINK    4 -> 2
+	var/static/list/random_reagents_c = list()  // CHEMICAL_RNG_GENERAL    8 -> 3
+	var/static/list/random_reagents_d = list()  // CHEMICAL_RNG_FUN       16 -> 4
+	var/static/list/random_reagents_e = list()  // CHEMICAL_RNG_BOTANY    32 -> 5
+	var/static/list/random_reagents_f = list()  // CHEMICAL_GOAL_CHEMIST_DRUG          64 -> 6
+	var/static/list/random_reagents_g = list()  // CHEMICAL_GOAL_CHEMIST_BLOODSTREAM  128 -> 7
+	var/static/list/random_reagents_h = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST     256 -> 8
+	var/static/list/random_reagents_i = list()  // CHEMICAL_GOAL_BARTENDER_SERVING    512 -> 9
+	// Note: CHEMICAL_NOT_SYNTH(1) doesn't count, because of '1 -> 0' at 'bitflag_target' var.
 	var/static/list/random_reagent = list(
 		random_reagents_a,
 		random_reagents_b,
