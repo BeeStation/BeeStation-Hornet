@@ -899,16 +899,27 @@
 	reagents.my_atom = src
 
 /proc/get_random_reagent_id(var/flag_check)	// Returns a random reagent ID based on flag_check of each chemicals
-	var/static/list/random_reagents_a = list()  // CHEMICAL_BASIC_ELEMENT  2 -> 1
-	var/static/list/random_reagents_b = list()  // CHEMICAL_BASIC_DRINK    4 -> 2
-	var/static/list/random_reagents_c = list()  // CHEMICAL_RNG_GENERAL    8 -> 3
-	var/static/list/random_reagents_d = list()  // CHEMICAL_RNG_FUN       16 -> 4
-	var/static/list/random_reagents_e = list()  // CHEMICAL_RNG_BOTANY    32 -> 5
-	var/static/list/random_reagents_f = list()  // CHEMICAL_GOAL_CHEMIST_DRUG          64 -> 6
-	var/static/list/random_reagents_g = list()  // CHEMICAL_GOAL_CHEMIST_BLOODSTREAM  128 -> 7
-	var/static/list/random_reagents_h = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST     256 -> 8
-	var/static/list/random_reagents_i = list()  // CHEMICAL_GOAL_BARTENDER_SERVING    512 -> 9
-	// Note: CHEMICAL_NOT_SYNTH(1) doesn't count, because of '1 -> 0' at 'bitflag_target' var.
+	var/list/chem_defines = list( // check `code/__DEFINES/reagents.dm` and be careful of the order.
+		CHEMICAL_NOT_SYNTH,  // (1<<0)
+		CHEMICAL_BASIC_ELEMENT, // (1<<1)
+		CHEMICAL_BASIC_DRINK, // (1<<2)
+		CHEMICAL_RNG_GENERAL, // (1<<3)
+		CHEMICAL_RNG_FUN, // (1<<4)
+		CHEMICAL_RNG_BOTANY, // (1<<5)
+		CHEMICAL_GOAL_CHEMIST_DRUG, // (1<<20) - goal_define starts at 20.
+		CHEMICAL_GOAL_CHEMIST_BLOODSTREAM, // (1<<21)
+		CHEMICAL_GOAL_BOTANIST_HARVEST, // (1<<22)
+		CHEMICAL_GOAL_BARTENDER_SERVING) // (1<<23)
+	var/static/list/random_reagents_a = list()  // CHEMICAL_NOT_SYNTH
+	var/static/list/random_reagents_b = list()  // CHEMICAL_BASIC_ELEMENT
+	var/static/list/random_reagents_c = list()  // CHEMICAL_BASIC_DRINK
+	var/static/list/random_reagents_d = list()  // CHEMICAL_RNG_GENERAL
+	var/static/list/random_reagents_e = list()  // CHEMICAL_RNG_FUN
+	var/static/list/random_reagents_f = list()  // CHEMICAL_RNG_BOTANY
+	var/static/list/random_reagents_g = list()  // CHEMICAL_GOAL_CHEMIST_DRUG
+	var/static/list/random_reagents_h = list()  // CHEMICAL_GOAL_CHEMIST_BLOODSTREAM
+	var/static/list/random_reagents_i = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
+	var/static/list/random_reagents_j = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
 	var/static/list/random_reagent = list(
 		random_reagents_a,
 		random_reagents_b,
@@ -918,9 +929,10 @@
 		random_reagents_f,
 		random_reagents_g,
 		random_reagents_h,
-		random_reagents_i)
+		random_reagents_i,
+		random_reagents_j)
 	/***** How to add a new random reagent category ******
-	  1. add a new flag at 'code\__DEFINES\reagents.dm'
+	  1. add a new flag at 'code\__DEFINES\reagents.dm' and `var/list/chem_defines` above
 			i.e.) `#define CHEMICAL_SOMETHING_NEW (1<10)`
 	  2. add a new static variable which is corresponding to the new flag.
 	  		i.e.) `var/static/list/random_reagents_xx = list() // CHEMICAL_SOMETHING_NEW`
@@ -928,17 +940,25 @@
 	        then done! (of course, don't forget to turn on the new flag at each desired reagent)
 	*/
 
-	var/bitflag_target = round(log(flag_check)*1.443)  // 1,2,4,8,16,32,64,128 -> 0,1,2,3,4,5,6,7 (this is helpful to grab a category by bitflag.)
-	// WARN: This will be malfunctional if you give a union-bitflag value. (i.e. 1+2+4 value) That's not what this was coded for.
-	if(bitflag_target <= 0) // error check. please don't give a shit bitflag
-		return /datum/reagent/medicine/bicaridine
+	if(!random_reagent_a.len) // initialize random reagent static lists
+		for(var/each_define in chem_defines)
+			var/static/i = 1
+			for(var/thing in subtypesof(/datum/reagent))
+				var/datum/reagent/R = thing
+				if(initial(R.chem_flags) & each_define)
+					random_reagent[i] += R
+			i += 1
 
-	if(!random_reagent[bitflag_target].len)
-		for(var/each in subtypesof(/datum/reagent)) // get all reagents
-			var/datum/reagent/R = each
-			if(initial(R.chem_flags) & flag_check) // check if a reagent matches the flag
-				random_reagent[bitflag_target] += R // then add
-	return pick(random_reagent[bitflag_target])
+	var/possible = null
+	for(var/each_define in chem_defines)
+		var/j = 1
+		if(each_define & flag_check)
+			possible |= random_reagent[j]
+		j += 1
+
+	if(isnull(possible))
+		return /datum/reagent/medicine/bicaridine // better than null
+	return pick(possible)
 
 /proc/get_chem_id(chem_name)
 	for(var/X in GLOB.chemical_reagents_list)
