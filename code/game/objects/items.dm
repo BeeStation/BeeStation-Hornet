@@ -97,9 +97,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// Flags for clicking the item with your hand. See _DEFINES/interaction_flags.dm
 	var/interaction_flags_item = INTERACT_ITEM_ATTACK_HAND_PICKUP
 
-	/// Used in picking icon_states based on the string color here. Also used for cables or something. This could probably do with being deprecated.
-	var/item_color = null
-
 	///Icon state for the belt overlay, if null the normal icon_state will be used.
 	var/belt_icon_state
 
@@ -198,6 +195,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// Seemingly used only for guns so I'm not sure why it's here. Basically used to see whether you are able to pull the gun trigger. See _DEFINES/combat.dm
 	var/trigger_guard = TRIGGER_GUARD_NONE
 
+	///Used as the dye color source in the washing machine only (at the moment). Can be a hex color or a key corresponding to a registry entry, see washing_machine.dm
+	var/dye_color
+	///Whether the item is unaffected by standard dying.
+	var/undyeable = FALSE
+	///What dye registry should be looked at when dying this item; see washing_machine.dm
+	var/dying_key
+
 	//Grinder vars
 	/// A reagent list containing the reagents this item produces when ground up in a grinder - this can be an empty list to allow for reagent transferring only
 	var/list/grind_results
@@ -205,7 +209,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/list/juice_results
 
 
-/obj/item/Initialize()
+/obj/item/Initialize(mapload)
 
 	materials =	typelist("materials", materials)
 
@@ -232,7 +236,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		item_flags |= IN_STORAGE
 
 	if(istype(loc, /obj/item/robot_module))
-		item_flags |= IN_INVENTORY
+		var/obj/item/robot_module/parent_module = loc
+		var/mob/living/silicon/parent_robot = parent_module.loc
+		pickup(parent_robot)
 
 	if(!hitsound)
 		if(damtype == "fire")
@@ -370,6 +376,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			if(51 to INFINITY)
 				. += "[src] is as well weighted as possible for blocking"
 	if(force)
+		if(!force_string)
+			set_force_string()
 		. += "Force: [force_string]"
 
 
@@ -480,7 +488,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return
 
 	remove_outline()
-	pickup(user)
 	add_fingerprint(user)
 	if(!user.put_in_active_hand(src, FALSE, FALSE))
 		user.dropItemToGround(src)
@@ -502,7 +509,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!user.temporarilyRemoveItemFromInventory(src))
 			return
 
-	pickup(user)
 	add_fingerprint(user)
 	if(!user.put_in_active_hand(src, FALSE, FALSE))
 		user.dropItemToGround(src)
@@ -650,12 +656,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return ITALICS | REDUCE_RANGE
 
 /obj/item/proc/dropped(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(user)
 	if(item_flags & DROPDEL)
 		qdel(src)
-	item_flags &= ~IN_INVENTORY
+	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
 	if(item_flags & SLOWS_WHILE_IN_HAND)
 		user.update_equipment_speed_mods()
@@ -665,8 +672,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
-	item_flags |= IN_INVENTORY
+	item_flags |= PICKED_UP
 	if(verbs && user.client)
 		user.client.add_verbs(verbs)
 
@@ -687,7 +695,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			A.Grant(user)
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
-	item_flags |= IN_INVENTORY
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
 /obj/item/proc/item_action_slot_check(slot, mob/user)
@@ -821,7 +828,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/after_throw(datum/callback/callback)
 	if (callback) //call the original callback
 		. = callback.Invoke()
-	item_flags &= ~IN_INVENTORY
+	item_flags &= ~PICKED_UP
 
 /obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
@@ -972,7 +979,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		openToolTip(user,src,params,title = name,content = "[desc]<br><b>Force:</b> [force_string]",theme = "")
 
 /obj/item/MouseEntered(location, control, params)
-	if((item_flags & IN_INVENTORY || item_flags & IN_STORAGE) && usr.client.prefs.enable_tips && !QDELETED(src))
+	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && usr.client.prefs.enable_tips && !QDELETED(src))
 		var/timedelay = usr.client.prefs.tip_delay/100
 		var/user = usr
 		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
@@ -992,7 +999,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	remove_outline()
 
 /obj/item/proc/apply_outline(colour = null)
-	if(!(item_flags & IN_INVENTORY || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
+	if(!(item_flags & PICKED_UP || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
 		return
 	if(usr.client)
 		if(!usr.client.prefs.outline_enabled)

@@ -323,7 +323,7 @@
 	for(var/mob/living/simple_animal/hostile/blob/blobspore/BS in blob_mobs)
 		if(!BS.key && isturf(BS.loc) && get_dist(BS, T) <= 35)
 			BS.LoseTarget()
-			INVOKE_ASYNC(BS, /mob/living/simple_animal/hostile/proc/Goto, pick(surrounding_turfs), BS.move_to_delay)
+			INVOKE_ASYNC(BS, /mob/living/simple_animal/hostile/proc/Goto, pick(surrounding_turfs), BS.move_to_delay, 0, TRUE)
 
 /mob/camera/blob/verb/blob_broadcast()
 	set category = "Blob"

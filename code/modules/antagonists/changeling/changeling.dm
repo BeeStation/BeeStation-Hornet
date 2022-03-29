@@ -230,14 +230,15 @@
 			return TRUE
 	return FALSE
 
-/datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, var/verbose=1)
+/datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, verbose=TRUE)
 	var/mob/living/carbon/user = owner.current
-	if(isipc(target))
-		to_chat(user, "<span class='warning'>We cannot absorb mechanical entities!</span>")
-		return
 	if(!istype(user))
 		return
 	if(!target)
+		return
+	if(isipc(target))
+		if(verbose)
+			to_chat(user, "<span class='warning'>We cannot absorb mechanical entities!</span>")
 		return
 	if(NO_DNA_COPY in target.dna.species.species_traits)
 		if(verbose)
@@ -286,13 +287,12 @@
 	var/list/slots = list("head", "wear_mask", "back", "wear_suit", "w_uniform", "shoes", "belt", "gloves", "glasses", "ears", "wear_id", "s_store")
 	for(var/slot in slots)
 		if(slot in H.vars)
-			var/obj/item/I = H.vars[slot]
+			var/obj/item/clothing/I = H.vars[slot]
 			if(!I)
 				continue
 			prof.name_list[slot] = I.name
 			prof.appearance_list[slot] = I.appearance
 			prof.flags_cover_list[slot] = I.flags_cover
-			prof.item_color_list[slot] = I.item_color
 			prof.item_state_list[slot] = I.item_state
 			prof.lefthand_file_list[slot] = I.lefthand_file
 			prof.righthand_file_list[slot] = I.righthand_file
@@ -442,11 +442,14 @@
 			if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
 				var/datum/objective/escape/escape_with_identity/identity_theft = new
 				identity_theft.owner = owner
-				identity_theft.target = maroon_objective.target
-				identity_theft.update_explanation_text()
-				objectives += identity_theft
-				log_objective(owner, identity_theft.explanation_text)
-				escape_objective_possible = FALSE
+				if(identity_theft.is_valid_target(maroon_objective.target))
+					identity_theft.set_target(maroon_objective.target)
+					identity_theft.update_explanation_text()
+					objectives += identity_theft
+					log_objective(owner, identity_theft.explanation_text)
+					escape_objective_possible = FALSE
+				else
+					qdel(identity_theft)
 
 	if (!(locate(/datum/objective/escape) in objectives) && escape_objective_possible)
 		if(prob(50))
@@ -506,7 +509,6 @@
 	var/list/appearance_list = list()
 	var/list/flags_cover_list = list()
 	var/list/exists_list = list()
-	var/list/item_color_list = list()
 	var/list/item_state_list = list()
 	var/list/lefthand_file_list = list()
 	var/list/righthand_file_list = list()
@@ -533,7 +535,6 @@
 	newprofile.appearance_list = appearance_list.Copy()
 	newprofile.flags_cover_list = flags_cover_list.Copy()
 	newprofile.exists_list = exists_list.Copy()
-	newprofile.item_color_list = item_color_list.Copy()
 	newprofile.item_state_list = item_state_list.Copy()
 	newprofile.lefthand_file_list = lefthand_file_list.Copy()
 	newprofile.righthand_file_list = righthand_file_list.Copy()

@@ -34,7 +34,7 @@
 	custom_price = 20
 	bang_protect = 1 //these only work if on your ears due to how bang_protect is calculated, so it's as balanced as earmuffs
 
-/obj/item/clothing/ears/headphones/Initialize()
+/obj/item/clothing/ears/headphones/Initialize(mapload)
 	. = ..()
 	update_icon()
 

@@ -102,9 +102,9 @@
 	if(istype(user))
 		if(isAI(user) && !GLOB.cameranet.checkTurfVis(T))
 			return FALSE
-		else if(user.client && !(get_turf(target) in get_hear(user.client.view, user)))
+		else if(user.client && !(T in get_hear(user.client.view, get_turf(user))))
 			return FALSE
-		else if(!(get_turf(target) in get_hear(world.view, user)))
+		else if(!(T in get_hear(world.view, get_turf(user))))
 			return FALSE
 	else					//user is an atom
 		if(!(user in viewers(world.view, get_turf(target))))
@@ -171,7 +171,7 @@
 	var/list/viewlist = (user && user.client)? getviewsize(user.client.view) : getviewsize(world.view)
 	var/viewr = max(viewlist[1], viewlist[2]) + max(size_x, size_y)
 	var/viewc = user.client? user.client.eye : target
-	seen = get_hear(viewr, viewc)
+	seen = get_hear(viewr, get_turf(viewc))
 	var/list/turfs = list()
 	var/list/mobs = list()
 	var/blueprints = FALSE

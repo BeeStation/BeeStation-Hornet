@@ -18,7 +18,7 @@
 	points = 0
 	refined_type = null
 
-/obj/item/stack/ore/bluespace_crystal/Initialize()
+/obj/item/stack/ore/bluespace_crystal/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)

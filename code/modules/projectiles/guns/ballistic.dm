@@ -55,7 +55,7 @@
 	var/recent_rack = 0
 	var/tac_reloads = TRUE //Snowflake mechanic no more.
 
-/obj/item/gun/ballistic/Initialize()
+/obj/item/gun/ballistic/Initialize(mapload)
 	. = ..()
 	if (!spawnwithmagazine)
 		bolt_locked = TRUE
@@ -139,7 +139,7 @@
 				return
 			bolt_locked = FALSE
 		if(BOLT_TYPE_PUMP)
-			if(user?.get_inactive_held_item())
+			if(!is_wielded)
 				to_chat(user, "<span class='warning'>You require your other hand to be free to rack the [bolt_wording] of \the [src]!</span>")
 				return
 	if(user)

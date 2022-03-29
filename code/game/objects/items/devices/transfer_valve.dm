@@ -72,7 +72,7 @@
 		attached_device.holder_movement()
 
 /obj/item/transfer_valve/dropped()
-	. = ..()
+	..()
 	if(attached_device)
 		attached_device.dropped()
 

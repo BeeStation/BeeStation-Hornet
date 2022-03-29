@@ -1,7 +1,7 @@
 /mob/living/carbon
 	blood_volume = BLOOD_VOLUME_NORMAL
 
-/mob/living/carbon/Initialize()
+/mob/living/carbon/Initialize(mapload)
 	. = ..()
 	create_reagents(1000)
 	update_body_parts() //to update the carbon's new bodyparts appearance
@@ -554,6 +554,9 @@
 	if(HAS_TRAIT(src, TRAIT_XRAY_VISION))
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		see_in_dark = max(see_in_dark, 8)
+
+	if(HAS_TRAIT(src, TRAIT_BLIND))// The blind should not be able to perceive changes in light ie. a lit room or dark hallway TODO: go through and disable all sprites/effects not associated with the alpha plane
+		lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 
 	if(see_override)
 		see_invisible = see_override

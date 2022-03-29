@@ -153,7 +153,7 @@
 	fire_rate = 3
 	automatic = 1
 
-/obj/item/gun/energy/plasmacutter/Initialize()
+/obj/item/gun/energy/plasmacutter/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 25, 105, 0, 'sound/weapons/plasma_cutter.ogg')
 
@@ -320,6 +320,7 @@
 	use_cyborg_cell = TRUE
 	automatic = 1
 	fire_rate = 6
+	requires_wielding = FALSE
 
 /obj/item/gun/energy/printer/update_icon()
 	return

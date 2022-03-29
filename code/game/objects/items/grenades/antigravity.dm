@@ -9,6 +9,8 @@
 
 /obj/item/grenade/antigravity/prime(mob/living/lanced_by)
 	. = ..()
+	if(!.)
+		return
 	update_mob()
 
 	for(var/turf/T in view(range,src))
