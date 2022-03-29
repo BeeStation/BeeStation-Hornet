@@ -1,0 +1,5 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - bugfix: Eminence can no longer teleport to Servants of Rat'Var on the CentCom
+      Z Level
