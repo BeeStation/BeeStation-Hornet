@@ -899,16 +899,16 @@
 	reagents.my_atom = src
 
 /proc/get_random_reagent_id(var/flag_check)	// Returns a random reagent ID based on flag_check of each chemicals
-	var/static/list/random_reagents_a = list()  // CHEMICAL_NOT_SYNTH
-	var/static/list/random_reagents_b = list()  // CHEMICAL_BASIC_ELEMENT
-	var/static/list/random_reagents_c = list()  // CHEMICAL_BASIC_DRINK
-	var/static/list/random_reagents_d = list()  // CHEMICAL_RNG_GENERAL
-	var/static/list/random_reagents_e = list()  // CHEMICAL_RNG_FUN
-	var/static/list/random_reagents_f = list()  // CHEMICAL_RNG_BOTANY
-	var/static/list/random_reagents_g = list()  // CHEMICAL_GOAL_CHEMIST_DRUG
-	var/static/list/random_reagents_h = list()  // CHEMICAL_GOAL_CHEMIST_BLOODSTREAM
-	var/static/list/random_reagents_i = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
-	var/static/list/random_reagents_j = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
+	var/static/list/random_reagents_a = list()  // CHEMICAL_BASIC_ELEMENT
+	var/static/list/random_reagents_b = list()  // CHEMICAL_BASIC_DRINK
+	var/static/list/random_reagents_c = list()  // CHEMICAL_RNG_GENERAL
+	var/static/list/random_reagents_d = list()  // CHEMICAL_RNG_FUN
+	var/static/list/random_reagents_e = list()  // CHEMICAL_RNG_BOTANY
+	var/static/list/random_reagents_f = list()  // CHEMICAL_GOAL_CHEMIST_DRUG
+	var/static/list/random_reagents_g = list()  // CHEMICAL_GOAL_CHEMIST_BLOODSTREAM
+	var/static/list/random_reagents_h = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
+	var/static/list/random_reagents_i = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
+	// Note: CHEMICAL_NOT_SYNTH(1) doesn't count.
 	var/static/list/random_reagent = list(
 		random_reagents_a,
 		random_reagents_b,
@@ -918,8 +918,7 @@
 		random_reagents_f,
 		random_reagents_g,
 		random_reagents_h,
-		random_reagents_i,
-		random_reagents_j)
+		random_reagents_i)
 	/***** How to add a new random reagent category ******
 	  1. add a new flag at 'code\__DEFINES\reagents.dm'
 			i.e.) `#define CHEMICAL_SOMETHING_NEW (1<10)`
@@ -929,7 +928,7 @@
 	        then done! (of course, don't forget to turn on the new flag at each desired reagent)
 	*/
 
-	var/bitflag_target = round(log(flag_check)*1.443)  // 1,2,4,8,16,32,64,128 -> 1,2,3,4,5,6,7,8 (this is helpful to grab a category by bitflag.)
+	var/bitflag_target = round(log(flag_check)*1.443)  // 1,2,4,8,16,32,64,128 -> 0,1,2,3,4,5,6,7 (this is helpful to grab a category by bitflag.)
 	// WARN: This will be malfunctional if you give a union-bitflag value. (i.e. 1+2+4 value) That's not what this was coded for.
 	if(bitflag_target <= 0) // error check. please don't give a shit bitflag
 		return /datum/reagent/medicine/bicaridine
