@@ -11,7 +11,7 @@
 	var/obj/docking_port/stationary/my_port //the custom docking port placed by this console
 	var/obj/docking_port/mobile/shuttle_port //the mobile docking port of the connected shuttle
 	var/view_range = 0
-	var/list/whitelist_turfs = list(/turf/open/space, /turf/open/floor/plating/lavaland, /turf/open/floor/plating/asteroid, /turf/open/lava)
+	var/list/whitelist_turfs = list(/turf/open/space, /turf/open/floor/plating/lavaland, /turf/open/floor/plating/asteroid, /turf/open/lava, /turf/open/floor/dock)
 	var/designate_time = 50
 	var/turf/designating_target_loc
 	var/datum/action/innate/camera_jump/shuttle_docker/docker_action = new
@@ -177,6 +177,7 @@
 		my_port.dheight = shuttle_port.dheight
 		my_port.dwidth = shuttle_port.dwidth
 		my_port.hidden = shuttle_port.hidden
+		my_port.delete_after = TRUE
 	my_port.setDir(the_eye.dir)
 	my_port.forceMove(locate(eyeobj.x, eyeobj.y, eyeobj.z))
 
@@ -279,8 +280,10 @@
 
 	// Checking for overlapping dock boundaries
 	for(var/i in 1 to overlappers.len)
-		var/obj/docking_port/port = overlappers[i]
+		var/obj/docking_port/stationary/port = overlappers[i]
 		if(port == my_port)
+			continue
+		if(port.delete_after) //Don't worry about it, we're landing on another ship, no ship will land on us.
 			continue
 		var/port_hidden = !shuttleObject.stealth && port.hidden
 		var/list/overlap = overlappers[port]

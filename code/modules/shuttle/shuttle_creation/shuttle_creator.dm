@@ -248,12 +248,19 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		linkedShuttleId = null
 		return FALSE
 
-	//Adds turfs and our area to the shuttle
+	//Adds turfs and our area to the shuttle, register the new area in the z level
 	port.shuttle_areas = list()
 	port.shuttle_areas[recorded_shuttle_area] = TRUE
 	for(var/turf/T in loggedTurfs)
 		port.add_turf(T, recorded_shuttle_area)
+	recorded_shuttle_area.reg_in_areas_in_z()
 	port.linkup(new_shuttle, stationary_port)
+
+	//Update doors
+	var/list/firedoors = loggedOldArea.firedoors
+	for(var/door in firedoors)
+		var/obj/machinery/door/firedoor/FD = door
+		FD.CalculateAffectingAreas()
 
 	port.movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
 	port.initiate_docking(stationary_port)
@@ -306,7 +313,6 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		return FALSE
 	//Create the new area
 	var/area/shuttle/custom/powered/newS
-	var/area/oldA = loggedOldArea
 	var/str = stripped_input(user, "Shuttle Name:", "Blueprint Editing", "", MAX_NAME_LEN)
 	if(!str || !length(str))
 		return FALSE
@@ -325,18 +331,6 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	//Record the area for use when creating the docking port
 	recorded_shuttle_area = newS
 
-	for(var/i in 1 to loggedTurfs.len)
-		var/turf/turf_holder = loggedTurfs[i]
-		var/area/old_area = turf_holder.loc
-		newS.contents += turf_holder
-		turf_holder.change_area(old_area, newS)
-
-	newS.reg_in_areas_in_z()
-
-	var/list/firedoors = oldA.firedoors
-	for(var/door in firedoors)
-		var/obj/machinery/door/firedoor/FD = door
-		FD.CalculateAffectingAreas()
 	return TRUE
 
 /obj/item/shuttle_creator/proc/modify_shuttle_area(mob/user)
@@ -366,9 +360,11 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 	//Add turfs not in the area
 	for(var/turf/T in loggedTurfs)
+		if(T in recorded_shuttle_area.contents)
+			continue
 		port.add_turf(T, recorded_shuttle_area)
 
-	var/list/firedoors = recorded_shuttle_area.firedoors
+	var/list/firedoors = loggedOldArea.firedoors
 	for(var/door in firedoors)
 		var/obj/machinery/door/firedoor/FD = door
 		FD.CalculateAffectingAreas()

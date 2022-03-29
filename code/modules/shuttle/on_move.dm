@@ -46,15 +46,21 @@ All ShuttleMove procs go here
 				qdel(thing)
 
 // Called on the old turf to move the turf data
-/turf/proc/onShuttleMove(turf/newT, list/movement_force, move_dir)
+/turf/proc/onShuttleMove(turf/newT, list/movement_force, move_dir, shuttle_layers)
 	if(newT == src) // In case of in place shuttle rotation shenanigans.
 		return
 	//Destination turf changes
 	//Baseturfs is definitely a list or this proc wouldnt be called
-	var/shuttle_boundary = baseturfs.Find(/turf/baseturf_skipover/shuttle)
-	if(!shuttle_boundary)
+	var/depth = 0
+	for(var/k in 0 to baseturfs.len-2)
+		if(baseturfs[baseturfs.len-k] != /turf/baseturf_skipover/shuttle)
+			continue
+		shuttle_layers--
+		if(!shuttle_layers)
+			depth = k + 1
+			break
+	if(!depth)
 		CRASH("A turf queued to move via shuttle somehow had no skipover in baseturfs. [src]([type]):[loc]")
-	var/depth = baseturfs.len - shuttle_boundary + 1
 
 	newT.CopyOnTop(src, 1, depth, TRUE)
 

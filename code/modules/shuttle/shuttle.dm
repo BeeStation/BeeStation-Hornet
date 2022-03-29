@@ -158,6 +158,14 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(P)
 		return P.id
 
+//Returns the underlying area, the area that is expected to be underneath the shuttle. Set create_if_null to TRUE create a new area if it doesn't exist, otherwise this can potentially return null.
+/obj/docking_port/proc/get_underlying_area(create_if_null = FALSE)
+	var/a_type = area_type ? area_type : SHUTTLE_DEFAULT_UNDERLYING_AREA
+	. = GLOB.areas_by_type[a_type]
+	if(!. && create_if_null)
+		return new a_type(null)
+
+
 /obj/docking_port/proc/is_in_shuttle_bounds(atom/A)
 	var/turf/T = get_turf(A)
 	if(T.z != z)
@@ -304,6 +312,8 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	var/can_move_docking_ports = FALSE
 	var/list/hidden_turfs = list()
 
+	var/list/underlying_turf_area = list()
+
 	//The virtual Z-Value of the shuttle
 	var/virtual_z
 
@@ -345,7 +355,17 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			skipover_index = base_length - i + 1
 			break
 
-	A.contents |= T
+	var/area/current_area = T.loc
+
+	//add to underlying_turf_area
+	var/obj/docking_port/stationary/dock = get_docked()
+	var/area/old_area = dock?.get_underlying_area()
+	if(T.loc != old_area)
+		underlying_turf_area[T] = current_area
+
+	current_area.contents -= T
+	A.contents += T
+	T.change_area(current_area, A)
 	if(!(/turf/baseturf_skipover/shuttle in T.baseturfs))
 		T.baseturfs.Insert(skipover_index, /turf/baseturf_skipover/shuttle)
 	if(length(T.baseturfs) == 1)
@@ -359,14 +379,8 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 	//Get the new area type of our dock
 	var/obj/docking_port/stationary/dock = get_docked()
-	var/area_type = dock?.area_type
-	if(!area_type)
-		area_type = SHUTTLE_DEFAULT_UNDERLYING_AREA
-
-	//The new area (shamelessly taken from initiate_docking())
-	var/area/new_area = GLOB.areas_by_type[area_type]
-	if(!new_area)
-		new_area = new area_type(null)
+	var/area/new_area = underlying_turf_area[T] ? underlying_turf_area[T] : SHUTTLE_UNDERLYING_AREA(dock)
+	underlying_turf_area -= T
 
 	A.contents -= T
 	new_area.contents += T
@@ -542,17 +556,12 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	// Not in a fancy way, it just ceases.
 	var/obj/docking_port/stationary/current_dock = get_docked()
 
-	var/underlying_area_type = SHUTTLE_DEFAULT_UNDERLYING_AREA
-	// If the shuttle is docked to a stationary port, restore its normal
-	// "empty" area and turf
-	if(current_dock && current_dock.area_type)
-		underlying_area_type = current_dock.area_type
-
 	var/list/old_turfs = return_ordered_turfs(x, y, z, dir)
 
-	var/area/underlying_area = GLOB.areas_by_type[underlying_area_type]
-	if(!underlying_area)
-		underlying_area = new underlying_area_type(null)
+	// If the shuttle is docked to a stationary port, restore its normal
+	// "empty" area and turf
+
+	var/area/underlying_area = SHUTTLE_UNDERLYING_AREA(current_dock)
 
 	for(var/i in 1 to old_turfs.len)
 		var/turf/oldT = old_turfs[i]

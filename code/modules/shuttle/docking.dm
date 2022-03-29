@@ -15,12 +15,6 @@
 
 	var/obj/docking_port/stationary/old_dock = get_docked()
 
-	// The area that gets placed under where the shuttle moved from
-	var/underlying_area_type = SHUTTLE_DEFAULT_UNDERLYING_AREA
-
-	if(old_dock) //Dock overwrites
-		underlying_area_type = old_dock.area_type
-
 	/**************************************************************************************************************
 		Both lists are associative with a turf:bitflag structure. (new_turfs bitflag space unused currently)
 		The bitflag contains the data for what inhabitants of that coordinate should be moved to the new location
@@ -33,9 +27,9 @@
 
 	// The underlying old area is the area assumed to be under the shuttle's starting location
 	// If it no longer/has never existed it will be created
-	var/area/underlying_old_area = GLOB.areas_by_type[underlying_area_type]
-	if(!underlying_old_area)
-		underlying_old_area = new underlying_area_type(null)
+
+	// The area that gets placed under where the shuttle moved from
+	var/area/underlying_old_area = SHUTTLE_UNDERLYING_AREA(old_dock)
 
 	var/rotation = 0
 	if(new_dock.dir != dir) //Even when the dirs are the same rotation is coming out as not 0 for some reason
@@ -79,7 +73,7 @@
 	// Moving to the new location will trample the ripples there at the exact
 	// same time any mobs there are trampled, to avoid any discrepancy where
 	// the ripples go away before it is safe.
-	takeoff(old_turfs, new_turfs, moved_atoms, rotation, movement_direction, old_dock, underlying_old_area)
+	takeoff(new_dock, old_turfs, new_turfs, moved_atoms, rotation, movement_direction, old_dock, underlying_old_area)
 
 	CHECK_TICK
 
@@ -130,7 +124,8 @@
 
 		old_turfs[oldT] = move_mode
 
-/obj/docking_port/mobile/proc/takeoff(list/old_turfs, list/new_turfs, list/moved_atoms, rotation, movement_direction, old_dock, area/underlying_old_area)
+/obj/docking_port/mobile/proc/takeoff(obj/docking_port/stationary/new_dock, list/old_turfs, list/new_turfs, list/moved_atoms, rotation, movement_direction, old_dock, area/underlying_old_area)
+	var/area/new_dock_underlying_area = new_dock.get_underlying_area() //If there's no area, we're relying completely on the assoc list
 	for(var/i in 1 to old_turfs.len)
 		var/turf/oldT = old_turfs[i]
 		var/turf/newT = new_turfs[i]
@@ -140,15 +135,28 @@
 				var/atom/movable/moving_atom = k
 				if(moving_atom.loc != oldT) //fix for multi-tile objects
 					continue
-				moving_atom.onShuttleMove(newT, oldT, movement_force, movement_direction, old_dock, src)	//atoms
+				moving_atom.onShuttleMove(newT, oldT, movement_force, movement_direction, old_dock, src)							//atoms
 				moved_atoms[moving_atom] = oldT
 
 		if(move_mode & MOVE_TURF)
-			oldT.onShuttleMove(newT, movement_force, movement_direction)									//turfs
+			var/shuttle_layers = 1
+			var/area/shuttle/A = oldT.loc
+			var/obj/docking_port/mobile/M = A.mobile_port
+			while(M && M != src) //We found a shuttle and its not ourselves
+				shuttle_layers++
+				A = M.underlying_turf_area[oldT]
+				if(!A || istype(A)) //Area is no longer a shuttle area (This assumes there will never be a value for GLOB.areas_by_type[/area/shuttle])
+					break
+				M = A.mobile_port
+			oldT.onShuttleMove(newT, movement_force, movement_direction, shuttle_layers)											//turfs
 
 		if(move_mode & MOVE_AREA)
 			var/area/shuttle_area = oldT.loc
-			shuttle_area.onShuttleMove(oldT, newT, underlying_old_area)										//areas
+			var/area/target_area = newT.loc
+			shuttle_area.onShuttleMove(oldT, newT, underlying_turf_area[oldT] ? underlying_turf_area[oldT] : underlying_old_area)	//areas
+			underlying_turf_area -= oldT
+			underlying_turf_area[newT] = new_dock_underlying_area == target_area ? null : target_area
+
 
 /obj/docking_port/mobile/proc/cleanup_runway(obj/docking_port/stationary/new_dock, list/old_turfs, list/new_turfs, list/areas_to_move, list/moved_atoms, rotation, movement_direction, area/underlying_old_area)
 	underlying_old_area.afterShuttleMove()
