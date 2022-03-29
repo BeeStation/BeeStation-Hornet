@@ -564,8 +564,11 @@
 		A.initial = FALSE //diseases *only* mutate when spreading. they wont mutate from any other kind of injection
 	infectee.diseases += A
 	A.affected_mob = infectee
+	if(iscarbon(infectee))
+		var/mob/living/carbon/C = infectee
+		C.dna.update_instability(FALSE)
 	SSdisease.active_diseases += A //Add it to the active diseases list, now that it's actually in a mob and being processed.
-
+	
 	A.after_add()
 	infectee.med_hud_set_status()
 
