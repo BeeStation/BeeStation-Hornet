@@ -95,7 +95,7 @@
 	switch(action)
 		if("download")
 			/// The individual candidate to download
-			var/datum/pai_candidate/candidate = SSpai.candidates[params["key"]]
+			var/datum/pai_candidate/candidate = SSpai.candidates[params["ckey"]]
 			if(isnull(candidate))
 				return FALSE
 			if(src.pai)
@@ -106,7 +106,7 @@
 			var/mob/living/silicon/pai/pai = new(src)
 			pai.name = candidate.name || pick(GLOB.ninja_names)
 			pai.real_name = pai.name
-			pai.key = candidate.key
+			pai.ckey = candidate.ckey
 			src.setPersonality(pai)
 			SSpai.candidates -= candidate
 		if("fix_speech")
@@ -207,7 +207,7 @@
 			var/list/candidate = list()
 			candidate["comments"] = checked_candidate.comments
 			candidate["description"] = checked_candidate.description
-			candidate["key"] = checked_candidate.key
+			candidate["ckey"] = checked_candidate.ckey
 			candidate["name"] = checked_candidate.name
 			ready_candidates += list(candidate)
 	return ready_candidates

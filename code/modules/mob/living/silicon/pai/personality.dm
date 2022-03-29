@@ -1,6 +1,6 @@
 /*
 		name
-		key
+		ckey
 		description
 		comments
 		ready = 0
