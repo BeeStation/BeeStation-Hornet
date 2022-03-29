@@ -946,7 +946,7 @@
 	        then done! (of course, don't forget to turn on the new flag at each desired reagent)
 	*/
 
-	if(!random_reagent_a.len) // initialize random reagent static lists
+	if(!random_reagents_a.len) // initialize random reagent static lists
 		var/i = 0
 		for(var/each_define in chem_defines)
 			i += 1
