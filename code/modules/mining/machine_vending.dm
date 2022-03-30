@@ -145,7 +145,7 @@
 		new /datum/data/vendor_equipment("Advanced Ore Scanner",		/obj/item/t_scanner/adv_mining_scanner,								800),
 		new /datum/data/vendor_equipment("Explorer's Webbing",			/obj/item/storage/belt/mining,										500),
 		new /datum/data/vendor_equipment("Jump Boots",					/obj/item/clothing/shoes/bhop,										2000),
-		new /datum/data/vendor_equipment("Proto-Kinetic Crusher",		/obj/item/kinetic_crusher,								800),
+		new /datum/data/vendor_equipment("Proto-Kinetic Crusher",		/obj/item/kinetic_crusher,											800),
 		new /datum/data/vendor_equipment("Proto-Kinetic Accelerator",	/obj/item/gun/energy/kinetic_accelerator,							500),
 		new /datum/data/vendor_equipment("Resonator",					/obj/item/resonator,												750),
 		new /datum/data/vendor_equipment("Upgraded Resonator",			/obj/item/resonator/upgraded,										1500),
@@ -177,7 +177,7 @@
 		new /datum/data/vendor_equipment("Luxury Bar Capsule",			/obj/item/survivalcapsule/luxuryelite,								10000),
 		new /datum/data/vendor_equipment("Lazarus Injector",			/obj/item/lazarus_injector,											1000),
 		new /datum/data/vendor_equipment("1000 Space Cash",				/obj/item/stack/spacecash/c1000,									2000),
-		new /datum/data/vendor_equipment("Pizza",						/obj/item/pizzabox/margherita,										200),
+		new /datum/data/vendor_equipment("Pizza",						/obj/item/pizzabox/margherita,										2000), //MonkeStation Edit: More Spendy Pizza
 		new /datum/data/vendor_equipment("Whiskey",						/obj/item/reagent_containers/food/drinks/bottle/whiskey,			100),
 		new /datum/data/vendor_equipment("Absinthe",					/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,	100),
 		new /datum/data/vendor_equipment("Cigar",						/obj/item/clothing/mask/cigarette/cigar/havana,						150),

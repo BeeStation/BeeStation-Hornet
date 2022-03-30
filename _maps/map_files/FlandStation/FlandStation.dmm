@@ -1260,10 +1260,6 @@
 /area/space/nearstation)
 "arf" = (
 /obj/structure/table,
-/obj/machinery/microwave{
-	pixel_x = -2;
-	pixel_y = 5
-	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/light/small{
 	dir = 8
@@ -6771,9 +6767,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red/tile_marquee,
-/obj/machinery/microwave{
-	pixel_y = 5
-	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/aft)
 "bEg" = (
@@ -6787,7 +6780,6 @@
 /area/security/checkpoint/escape)
 "bEr" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/donkpockets,
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
@@ -22580,7 +22572,6 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
@@ -27061,11 +27052,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint)
-"ghp" = (
-/obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
-/turf/open/floor/carpet/green,
-/area/crew_quarters/dorms)
 "ghy" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -30419,7 +30405,6 @@
 /area/hallway/primary/central)
 "gVn" = (
 /obj/structure/table,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
@@ -35756,14 +35741,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/aft)
-"igC" = (
-/obj/structure/table,
-/obj/item/storage/box/donkpockets/donkpocketpizza,
-/obj/effect/turf_decal/trimline/brown/filled/line{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/quartermaster/miningdock)
 "igE" = (
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/south{
@@ -43939,17 +43916,6 @@
 	dir = 1
 	},
 /area/teleporter)
-"kbS" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/table/wood,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
-	},
-/obj/item/storage/fancy/donut_box,
-/turf/open/floor/carpet/royalblue,
-/area/bridge/meeting_room/council)
 "kbT" = (
 /obj/machinery/light/small,
 /obj/machinery/light_switch{
@@ -55668,7 +55634,6 @@
 /area/science/robotics/lab)
 "mQG" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/plasteel/sepia,
 /area/engine/break_room)
 "mQK" = (
@@ -57127,7 +57092,6 @@
 /area/engine/atmospherics_engine)
 "nly" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -59496,7 +59460,6 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_y = 31
 	},
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "nNz" = (
@@ -63256,10 +63219,6 @@
 /area/maintenance/port/central)
 "oLk" = (
 /obj/structure/table/reinforced,
-/obj/machinery/microwave{
-	pixel_x = -2;
-	pixel_y = 5
-	},
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
@@ -65208,7 +65167,6 @@
 /area/hallway/secondary/exit/departure_lounge)
 "pmi" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
@@ -71918,16 +71876,6 @@
 /obj/structure/chair/stool,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
-"qRp" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchencounter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/techmaint,
-/area/crew_quarters/kitchen)
 "qRr" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
@@ -74085,7 +74033,6 @@
 /area/bridge/showroom/corporate)
 "rpl" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "rpn" = (
@@ -79214,7 +79161,6 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
-/obj/effect/spawner/lootdrop/donkpocketsfinlandia,
 /turf/open/floor/plasteel/dark,
 /area/science/research)
 "sCR" = (
@@ -79264,11 +79210,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/machinery/microwave{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /turf/open/floor/plasteel/dark,
 /area/science/research)
 "sDz" = (
@@ -80326,9 +80267,6 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = -30
-	},
-/obj/machinery/microwave{
-	pixel_y = 5
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
@@ -81673,7 +81611,6 @@
 /area/crew_quarters/locker)
 "tcL" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/donkpockets,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/red/tile_full,
 /turf/open/floor/plasteel/dark,
@@ -88369,11 +88306,6 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/carpet/royalblack,
 /area/bridge/showroom/corporate)
-"uFj" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/chips,
-/turf/open/floor/plasteel/dark,
-/area/crew_quarters/bar)
 "uFn" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
@@ -92436,7 +92368,6 @@
 /area/crew_quarters/theatre/backstage)
 "vDI" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "vDT" = (
@@ -93080,7 +93011,6 @@
 	pixel_x = -4
 	},
 /obj/item/book/granter/crafting_recipe/cooking_sweets_101,
-/obj/item/storage/box/donkpockets,
 /obj/item/clothing/head/chefhat,
 /obj/structure/railing{
 	dir = 8
@@ -93880,10 +93810,6 @@
 /obj/structure/table,
 /obj/effect/turf_decal/trimline/brown/filled/line{
 	dir = 4
-	},
-/obj/machinery/microwave{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_y = 5
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
@@ -95870,10 +95796,7 @@
 /area/hallway/secondary/entry)
 "wzL" = (
 /obj/structure/bed/dogbed/walter,
-/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
 	},
@@ -96908,10 +96831,6 @@
 /area/science/research)
 "wLK" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/cheesiehonkers{
-	pixel_x = -4;
-	pixel_y = 4
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -98270,13 +98189,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"xcA" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/red/tile_full,
-/turf/open/floor/plasteel/dark,
-/area/security/main)
 "xcZ" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering locker room";
@@ -101585,7 +101497,6 @@
 /area/science/storage)
 "xTQ" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/donkpockets,
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
@@ -125001,7 +124912,7 @@ sRt
 cQU
 wPM
 ucD
-uFj
+vLs
 klM
 vJu
 wKy
@@ -126277,7 +126188,7 @@ dfs
 dfs
 qjG
 qBy
-qRp
+sSd
 vFy
 ufT
 sgs
@@ -132749,7 +132660,7 @@ uId
 uId
 xMs
 vXA
-igC
+vXA
 fKP
 wZH
 nBQ
@@ -135269,7 +135180,7 @@ oPO
 cpE
 kNC
 tcL
-xcA
+tcL
 pIQ
 qFU
 kNC
@@ -143717,7 +143628,7 @@ xsj
 cYr
 dgw
 dvr
-kbS
+dHj
 uIA
 xsj
 ekC
@@ -149413,7 +149324,7 @@ wtw
 wtw
 gEZ
 teQ
-ghp
+tAK
 tYd
 uvd
 wtw

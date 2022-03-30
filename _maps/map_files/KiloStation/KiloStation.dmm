@@ -4968,7 +4968,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel,
 /area/security/main)
 "aiJ" = (
@@ -5004,7 +5003,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/item/reagent_containers/food/snacks/donut,
 /turf/open/floor/plasteel,
 /area/security/main)
 "aiL" = (
@@ -8253,10 +8251,6 @@
 	},
 /obj/structure/table,
 /obj/effect/decal/cleanable/vomit/old,
-/obj/machinery/microwave{
-	pixel_x = -3;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
 "anO" = (
@@ -9501,7 +9495,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "apQ" = (
@@ -16055,7 +16048,6 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "azC" = (
-/obj/item/storage/fancy/donut_box,
 /obj/structure/table/wood,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
@@ -23467,9 +23459,6 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/machinery/microwave{
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -26407,10 +26396,6 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "aPL" = (
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 5
-	},
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -26592,9 +26577,6 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/heads/cmo)
 "aPW" = (
-/obj/machinery/microwave{
-	pixel_y = 5
-	},
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -27159,9 +27141,6 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/storage/box/donkpockets{
-	pixel_y = 5
-	},
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
@@ -30229,7 +30208,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/item/storage/fancy/donut_box,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
@@ -43918,14 +43896,6 @@
 	pixel_x = -8;
 	pixel_y = 12
 	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 8;
-	pixel_y = 8
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 6;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/kitchen)
 "boB" = (
@@ -44347,7 +44317,6 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/item/storage/fancy/donut_box,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "kitchen_2";
 	name = "Hallway Hatch"
@@ -47233,7 +47202,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/item/storage/fancy/donut_box,
 /obj/machinery/newscaster{
 	pixel_y = -30
 	},
@@ -61508,7 +61476,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/storage/fancy/donut_box,
 /obj/structure/table,
 /obj/machinery/camera{
 	c_tag = "Courtroom Jury";
@@ -63698,9 +63665,6 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
-	},
-/obj/machinery/microwave{
-	pixel_y = 5
 	},
 /obj/structure/table,
 /obj/machinery/firealarm{
@@ -89253,7 +89217,6 @@
 	name = "Security Desk";
 	req_one_access_txt = "63"
 	},
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
 "cIV" = (

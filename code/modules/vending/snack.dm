@@ -4,20 +4,22 @@
 	product_slogans = "Try our new nougat bar!;Twice the calories for half the price!"
 	product_ads = "The healthiest!;Award-winning chocolate bars!;Mmm! So good!;Oh my god it's so juicy!;Have a snack.;Snacks are good for you!;Have some more Getmore!;Best quality snacks straight from mars.;We love chocolate!;Try our new jerky!"
 	icon_state = "snack"
-	products = list(/obj/item/reagent_containers/food/snacks/spacetwinkie = 6,
-					/obj/item/reagent_containers/food/snacks/cheesiehonkers = 6,
-					/obj/item/reagent_containers/food/snacks/candy = 6,
-		            /obj/item/reagent_containers/food/snacks/chips = 6,
-		            /obj/item/reagent_containers/food/snacks/sosjerky = 6,
-					/obj/item/reagent_containers/food/snacks/no_raisin = 6,
-					/obj/item/reagent_containers/food/drinks/dry_ramen = 3,
+	//MonkeStation Edit Start: Reduction of Junk Food
+	products = list(/obj/item/reagent_containers/food/snacks/spacetwinkie = 2,
+					/obj/item/reagent_containers/food/snacks/cheesiehonkers = 2,
+					/obj/item/reagent_containers/food/snacks/candy = 2,
+		            /obj/item/reagent_containers/food/snacks/chips = 2,
+		            /obj/item/reagent_containers/food/snacks/sosjerky = 2,
+					/obj/item/reagent_containers/food/snacks/no_raisin = 2,
+					/obj/item/reagent_containers/food/drinks/dry_ramen = 2,
 					/obj/item/reagent_containers/food/snacks/energybar = 6)
-	contraband = list(/obj/item/reagent_containers/food/snacks/syndicake = 6)
+	contraband = list(/obj/item/reagent_containers/food/snacks/syndicake = 2)
+	//MonkeStation Edit End
 	refill_canister = /obj/item/vending_refill/snack
 	var/chef_compartment_access = "28" //ACCESS_KITCHEN
-	default_price = 20
+	default_price = 50 //MonkeStation Edit: Reduction of junk food
 	extra_price = 30
-	payment_department = ACCOUNT_SRV
+	payment_department = NO_FREEBIES //MonkeStation Edit: NO FREE LUNCH
 
 /obj/item/vending_refill/snack
 	machine_name = "Getmore Chocolate Corp"

@@ -5131,7 +5131,6 @@
 /area/hallway/secondary/entry)
 "ams" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/grimy,
 /area/hallway/secondary/entry)
 "amu" = (
@@ -18881,7 +18880,6 @@
 "aPh" = (
 /obj/structure/table,
 /obj/item/book/manual/chef_recipes,
-/obj/item/storage/box/donkpockets,
 /obj/item/clothing/head/chefhat,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -19810,10 +19808,6 @@
 /area/security/prison)
 "aQZ" = (
 /obj/structure/table,
-/obj/machinery/microwave{
-	pixel_x = -2;
-	pixel_y = 5
-	},
 /turf/open/floor/plating,
 /area/security/prison)
 "aRb" = (
@@ -20528,26 +20522,6 @@
 /area/quartermaster/storage)
 "aSp" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/box/donkpockets,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/storage)
-"aSq" = (
-/obj/structure/table/reinforced,
-/obj/machinery/microwave{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -26363,7 +26337,6 @@
 	id = "kitchencounter";
 	name = "Kitchen Counter Shutters"
 	},
-/obj/item/storage/fancy/donut_box,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
@@ -26532,18 +26505,12 @@
 /area/quartermaster/miningoffice)
 "bcE" = (
 /obj/structure/table,
-/obj/machinery/microwave{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/quartermaster/miningoffice)
 "bcF" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/quartermaster/miningoffice)
@@ -31588,7 +31555,6 @@
 /area/security/main)
 "bmo" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -36246,7 +36212,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -38602,7 +38567,6 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "bzo" = (
@@ -44329,7 +44293,6 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/grimy,
 /area/bridge)
 "bIP" = (
@@ -46755,7 +46718,6 @@
 /area/crew_quarters/heads/captain)
 "bMM" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "bMN" = (
@@ -47810,7 +47772,6 @@
 /area/bridge/meeting_room/council)
 "bOC" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/carpet/royalblue,
 /area/bridge/meeting_room/council)
 "bOF" = (
@@ -50114,11 +50075,6 @@
 /area/bridge/meeting_room/council)
 "bSD" = (
 /obj/structure/table/wood,
-/obj/machinery/microwave{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -50133,7 +50089,6 @@
 /area/tcommsat/computer)
 "bSE" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/donkpockets,
 /turf/open/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bSF" = (
@@ -54736,7 +54691,6 @@
 /area/engine/engineering)
 "cav" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -57054,10 +57008,6 @@
 /area/crew_quarters/heads/captain/private)
 "ceM" = (
 /obj/structure/table,
-/obj/machinery/microwave{
-	pixel_x = -2;
-	pixel_y = 5
-	},
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
@@ -57917,7 +57867,6 @@
 /obj/machinery/status_display/ai{
 	pixel_x = -32
 	},
-/obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -61318,7 +61267,6 @@
 /area/library)
 "cnS" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/grimy,
 /area/library)
 "cnT" = (
@@ -62665,7 +62613,6 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -64053,7 +64000,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -68246,7 +68192,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/carpet/blue,
 /area/bridge/showroom/corporate)
 "cDa" = (
@@ -77569,19 +77514,6 @@
 /area/medical/storage)
 "cYa" = (
 /obj/structure/table/wood,
-/obj/machinery/microwave{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/medical/medbay/central)
-"cYb" = (
-/obj/structure/table/wood,
-/obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -77674,8 +77606,6 @@
 /area/maintenance/starboard/aft)
 "cYn" = (
 /obj/structure/closet/crate,
-/obj/item/storage/box/donkpockets,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -94400,11 +94330,6 @@
 /area/science/research)
 "dMc" = (
 /obj/structure/table/wood,
-/obj/machinery/microwave{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
@@ -94421,7 +94346,6 @@
 /area/science/research)
 "dMd" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/donkpockets,
 /obj/structure/sign/poster/official/report_crimes{
 	pixel_y = 32
 	},
@@ -101447,7 +101371,6 @@
 /area/chapel/office)
 "eeF" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
 /obj/machinery/status_display/ai{
 	pixel_x = 32
 	},
@@ -101527,7 +101450,6 @@
 /area/security/checkpoint/escape)
 "eeL" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -104078,7 +104000,6 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "gfA" = (
@@ -112237,8 +112158,6 @@
 "qer" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/donkpockets,
-/obj/item/storage/box/donkpockets,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "qeD" = (
@@ -163067,7 +162986,7 @@ azC
 aAG
 aOW
 axk
-aSq
+aSp
 aUf
 aVO
 azy
@@ -166988,7 +166907,7 @@ cIW
 cPy
 cUQ
 cPy
-cYb
+cYa
 cZN
 cZN
 ddi

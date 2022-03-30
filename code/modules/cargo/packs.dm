@@ -446,7 +446,7 @@
 /datum/supply_pack/security/vending/security
 	name = "SecTech Supply Crate"
 	desc = "Officer Paul bought all the donuts? Then refill the security vendor with ths crate."
-	cost = 1200
+	cost = 2400 //MonkeStation Edit: Junk food vending cost increase
 	contains = list(/obj/item/vending_refill/security)
 	crate_name = "SecTech supply crate"
 
@@ -2012,7 +2012,7 @@
 /datum/supply_pack/service/vending/snack
 	name = "Snack Supply Crate"
 	desc = "One vending machine refill of cavity-bringin' goodness! The number one dentist recommended order!"
-	cost = 800
+	cost = 1500 //MonkeStation Edit: Junk food vending cost increase
 	contains = list(/obj/item/vending_refill/snack)
 	crate_name = "snacks supply crate"
 
@@ -2079,7 +2079,7 @@
 /datum/supply_pack/organic/randomized/chef
 	name = "Excellent Meat Crate"
 	desc = "The best cuts in the whole galaxy."
-	cost = 1700
+	cost = 1200 //MonkeStation Edit: Reduction in raw food costs
 	access_budget = ACCESS_KITCHEN
 	contains = list(/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime,
 					/obj/item/reagent_containers/food/snacks/meat/slab/killertomato,
@@ -2124,7 +2124,7 @@
 /datum/supply_pack/organic/food
 	name = "Food Crate"
 	desc = "Get things cooking with this crate full of useful ingredients! Contains a dozen eggs, three bananas, and some flour, rice, milk, soymilk, salt, pepper, enzyme, sugar, and monkeymeat."
-	cost = 1000
+	cost = 800 //MonkeStation Edit: Decrease of raw food crate costs
 	access_budget = ACCESS_KITCHEN
 	contains = list(/obj/item/reagent_containers/food/condiment/flour,
 					/obj/item/reagent_containers/food/condiment/rice,
@@ -2144,7 +2144,7 @@
 /datum/supply_pack/organic/randomized/chef/fruits
 	name = "Fruit Crate"
 	desc = "Rich of vitamins, may contain oranges."
-	cost = 1200
+	cost = 800 //MonkeStation Edit: Decrease of raw food crate costs
 	access_budget = ACCESS_KITCHEN
 	contains = list(/obj/item/reagent_containers/food/snacks/grown/citrus/lime,
 					/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
@@ -2207,7 +2207,7 @@
 	. = ..()
 	if(!anomalous_box_provided)
 		for(var/obj/item/pizzabox/P in C)
-			if(prob(1)) //1% chance for each box, so 4% total chance per order
+			if(prob(0.20)) //0.20% chance for each box, so 1% total chance per order//MonkeStation Edit: Reduced odds
 				var/obj/item/pizzabox/infinite/fourfiveeight = new(C)
 				fourfiveeight.boxtag = P.boxtag
 				qdel(P)
@@ -2261,7 +2261,7 @@
 /datum/supply_pack/organic/randomized/chef/vegetables
 	name = "Vegetables Crate"
 	desc = "Grown in vats."
-	cost = 1000
+	cost = 600 //MonkeStation Edit: Decrease of raw food crate costs
 	access_budget = ACCESS_KITCHEN
 	contains = list(/obj/item/reagent_containers/food/snacks/grown/chili,
 					/obj/item/reagent_containers/food/snacks/grown/corn,
@@ -2489,7 +2489,7 @@
 
 /datum/supply_pack/critter/snake
 	name = "Snake Crate"
-	desc = "Tired of these MOTHER FUCKING snakes on this MOTHER FUCKING space station? Then this isn't the crate for you. Contains three poisonous snakes."
+	desc = "Tired of these MOTHER FUCKING snakes on this MOTHER FUCKING space station? Then this isn't the crate for you. Contains three poisonous snakes." //aren't they technically venomous?
 	cost = 3000
 	access_budget = ACCESS_SECURITY
 	contains = list(/mob/living/simple_animal/hostile/retaliate/poison/snake,

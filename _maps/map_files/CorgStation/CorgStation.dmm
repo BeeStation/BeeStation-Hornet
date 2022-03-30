@@ -6667,8 +6667,7 @@
 	pixel_y = 32
 	},
 /obj/structure/bed/dogbed/walter,
-/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
-/turf/open/floor/plasteel/dark,
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,
 /area/security/warden)
 "bFC" = (
 /obj/structure/table/glass,
@@ -8584,7 +8583,6 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "cbQ" = (
@@ -10578,7 +10576,6 @@
 /area/hallway/upper/primary/fore)
 "czL" = (
 /obj/structure/rack,
-/obj/item/storage/fancy/donut_box,
 /obj/item/key/security,
 /obj/item/key/security,
 /obj/effect/turf_decal/delivery,
@@ -23541,7 +23538,6 @@
 /area/quartermaster/storage)
 "fyl" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "fym" = (
@@ -30593,8 +30589,6 @@
 /area/security/brig)
 "haF" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/donkpockets,
-/obj/effect/spawner/lootdrop/donkpockets,
 /obj/machinery/light/small,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -57524,7 +57518,6 @@
 /area/hallway/primary/starboard)
 "nzO" = (
 /obj/structure/table/glass,
-/obj/item/storage/box/donkpockets,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -99048,7 +99041,6 @@
 /area/science/xenobiology)
 "xsL" = (
 /obj/structure/table,
-/obj/item/storage/fancy/donut_box,
 /obj/item/taperecorder,
 /obj/effect/turf_decal/tile/red{
 	dir = 1

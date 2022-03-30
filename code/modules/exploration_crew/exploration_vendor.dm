@@ -23,7 +23,7 @@ GLOBAL_VAR_INIT(exploration_points, 0)
 		new /datum/data/vendor_equipment("Multi-Purpose Energy Gun",	/obj/item/gun/energy/e_gun/mini/exploration,						20000),
 		new /datum/data/vendor_equipment("Expanded E. Oxygen Tank",		/obj/item/tank/internals/emergency_oxygen/engi,						1000),
 		new /datum/data/vendor_equipment("Survival Knife",				/obj/item/kitchen/knife/combat/survival,							1000),
-		new /datum/data/vendor_equipment("Pizza",						/obj/item/pizzabox/margherita,										200),
+		new /datum/data/vendor_equipment("Pizza",						/obj/item/pizzabox/margherita,										2000), //MonkeStation Edit: More spendy pizza
 		new /datum/data/vendor_equipment("Whiskey",						/obj/item/reagent_containers/food/drinks/bottle/whiskey,			1000),
 		new /datum/data/vendor_equipment("Absinthe",					/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,	1000),
 		new /datum/data/vendor_equipment("Cigar",						/obj/item/clothing/mask/cigarette/cigar/havana,						1500),

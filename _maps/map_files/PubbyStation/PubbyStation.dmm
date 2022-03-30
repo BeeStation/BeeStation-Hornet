@@ -3633,9 +3633,6 @@
 /area/security/main)
 "ajm" = (
 /obj/structure/table,
-/obj/item/storage/fancy/donut_box{
-	pixel_y = 2
-	},
 /obj/structure/noticeboard{
 	pixel_y = 32
 	},
@@ -20613,22 +20610,6 @@
 	dir = 10
 	},
 /turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
-"bad" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchenshutters";
-	name = "kitchen shutters"
-	},
-/obj/item/storage/fancy/donut_box,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/dark,
 /area/crew_quarters/kitchen)
 "bae" = (
 /obj/structure/chair/stool/bar,
@@ -48754,9 +48735,6 @@
 /area/bridge)
 "eCa" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets{
-	pixel_y = 5
-	},
 /obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -50192,10 +50170,6 @@
 /area/chapel/main/monastery)
 "gmn" = (
 /obj/structure/table,
-/obj/machinery/microwave{
-	pixel_x = -3;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "gmp" = (
@@ -93980,7 +93954,7 @@ aWe
 pJx
 aRN
 aYX
-bad
+bbl
 bbl
 bbl
 bbl

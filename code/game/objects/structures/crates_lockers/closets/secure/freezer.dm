@@ -35,10 +35,16 @@
 
 /obj/structure/closet/secure_closet/freezer/kitchen/PopulateContents()
 	..()
-	for(var/i = 0, i < 3, i++)
+	//MonkeStation Edit Start: Increased Roundstart Supplies
+	for(var/i = 0, i < 4, i++)
 		new /obj/item/reagent_containers/food/condiment/flour(src)
-	new /obj/item/reagent_containers/food/condiment/rice(src)
+		new /obj/item/reagent_containers/food/condiment/rice(src)
+	for(var/i = 0, i < 3, i++)
+		new /obj/item/reagent_containers/food/snacks/grown/potato(src)
+		new /obj/item/reagent_containers/food/snacks/grown/tomato(src)
 	new /obj/item/reagent_containers/food/condiment/sugar(src)
+	new /obj/item/storage/box/ingredients/wildcard(src)
+	//MonkeStation Edit End
 
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance
 	name = "maintenance refrigerator"
@@ -46,13 +52,8 @@
 	req_access = list()
 
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance/PopulateContents()
-	..()
 	for(var/i = 0, i < 5, i++)
-		new /obj/item/reagent_containers/food/condiment/milk(src)
-	for(var/i = 0, i < 5, i++)
-		new /obj/item/reagent_containers/food/condiment/soymilk(src)
-	for(var/i = 0, i < 2, i++)
-		new /obj/item/storage/fancy/egg_box(src)
+		new /obj/item/reagent_containers/food/condiment/soymilk(src) //MonkeStation Edit: Soy Milk for maint
 
 /obj/structure/closet/secure_closet/freezer/kitchen/mining
 	req_access = list()
@@ -63,7 +64,7 @@
 
 /obj/structure/closet/secure_closet/freezer/meat/PopulateContents()
 	..()
-	for(var/i = 0, i < 4, i++)
+	for(var/i = 0, i < 8, i++) //MonkeStation Edit: Doubled Meat
 		new /obj/item/reagent_containers/food/snacks/meat/slab/monkey(src)
 
 /obj/structure/closet/secure_closet/freezer/meat/open
@@ -77,11 +78,10 @@
 
 /obj/structure/closet/secure_closet/freezer/fridge/PopulateContents()
 	..()
-	for(var/i = 0, i < 5, i++)
+	for(var/i = 0, i < 4, i++) //MonkeStation Edit: Less Milk
 		new /obj/item/reagent_containers/food/condiment/milk(src)
-	for(var/i = 0, i < 5, i++)
 		new /obj/item/reagent_containers/food/condiment/soymilk(src)
-	for(var/i = 0, i < 2, i++)
+	for(var/i = 0, i < 3, i++) //MonkeStation Edit: More eggs!
 		new /obj/item/storage/fancy/egg_box(src)
 
 /obj/structure/closet/secure_closet/freezer/fridge/open

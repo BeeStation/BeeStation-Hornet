@@ -3090,7 +3090,6 @@
 /area/security/warden)
 "agY" = (
 /obj/structure/table,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -5833,8 +5832,7 @@
 /turf/open/floor/plasteel,
 /area/security/processing)
 "amN" = (
-/mob/living/simple_animal/pet/dog/australianshepherd/captain,//monkestation edit
-/obj/structure/bed/dogbed/walter,
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "amQ" = (
@@ -15540,7 +15538,6 @@
 /area/bridge)
 "aSE" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel,
 /area/bridge)
 "aSF" = (
@@ -16493,7 +16490,6 @@
 /area/crew_quarters/kitchen)
 "aVA" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/pie/cream,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "aVB" = (
@@ -16516,10 +16512,6 @@
 /area/crew_quarters/kitchen)
 "aVE" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /obj/item/reagent_containers/glass/beaker{
 	pixel_x = 5
 	},
@@ -18150,11 +18142,6 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet/locker)
-"baP" = (
-/obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
-/turf/open/floor/carpet/royalblue,
-/area/crew_quarters/heads/captain)
 "baQ" = (
 /obj/structure/chair/comfy/brown{
 	dir = 4
@@ -19092,7 +19079,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "bdX" = (
-/obj/item/storage/fancy/donut_box,
 /obj/structure/table,
 /turf/open/floor/wood,
 /area/bridge/meeting_room)
@@ -28991,11 +28977,6 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/machinery/microwave{
-	desc = "Cooks and boils stuff, somehow.";
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bLg" = (
@@ -39762,11 +39743,6 @@
 /area/medical/genetics)
 "cvN" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cvO" = (
@@ -48282,10 +48258,6 @@
 /area/hydroponics/garden)
 "jac" = (
 /obj/structure/table,
-/obj/machinery/microwave{
-	pixel_x = -3;
-	pixel_y = 6
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "jbf" = (
@@ -50008,10 +49980,6 @@
 /area/crew_quarters/kitchen)
 "kWa" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
@@ -54689,7 +54657,6 @@
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
-/obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -57900,9 +57867,6 @@
 /area/science/misc_lab)
 "uCC" = (
 /obj/structure/table,
-/obj/machinery/microwave{
-	pixel_y = 4
-	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -24
@@ -58233,11 +58197,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
-"vbg" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/donkpockets,
-/turf/open/floor/plasteel,
-/area/quartermaster/warehouse)
 "vbZ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -58348,16 +58307,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/science/xenobiology)
-"vkT" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchen";
-	name = "kitchen shutters"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "vnK" = (
 /obj/structure/table/glass,
 /obj/item/clothing/gloves/color/latex,
@@ -82604,7 +82553,7 @@ baS
 bbP
 baS
 bcE
-vbg
+baS
 bex
 gjl
 bgu
@@ -92881,7 +92830,7 @@ vrY
 wwp
 aZV
 bao
-baP
+bbZ
 bbZ
 bcP
 cBo
@@ -99561,7 +99510,7 @@ aTM
 aVB
 aVz
 aVz
-vkT
+kVI
 bbz
 aYV
 aYV
