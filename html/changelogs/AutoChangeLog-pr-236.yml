@@ -1,5 +1,0 @@
-author: nednaZ
-delete-after: true
-changes:
-  - bugfix: Pride's Mirror now drops you onto the station, rather than the endless
-      void.
