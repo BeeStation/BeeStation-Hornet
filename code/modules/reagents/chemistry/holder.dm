@@ -898,24 +898,44 @@
 	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
 
-/proc/get_random_reagent_id(var/flag_check)
-	// This proc returns a random reagent ID based on given 'flag_check' which is used to check bitflag for each reagent.
-	//
-	// *---How to use this proc---*
-	// i.e) get_random_reagent_id(CHEMICAL_RNG_GENERAL) - when you want a single category
-	// i.e2) get_random_reagent_id(CHEMICAL_BASIC_ELEMENT|CHEMICAL_BASIC_DRINK|CHEMICAL_RNG_GENERAL|CHEMICAL_RNG_FUN) - when you want multiple category
+/proc/get_random_reagent_id(var/flag_check, var/blacklist_flag = NONE, var/union = TRUE)
+	/* This proc returns a random reagent ID based on given 'flag_check' which is used to check bitflag for each reagent.
+	 *--- arguments ---*
+		* flag_check
+			the method will return a random reagent id which has this flag.
+			if you want a single category - get_random_reagent_id(CHEMICAL_BASIC_ELEMENT)
+			if you want a multiple category - get_random_reagent_id(CHEMICAL_BASIC_ELEMENT|CHEMICAL_BASIC_DRINK|CHEMICAL_RNG_GENERAL)
+			(check defines at `code\__DEFINES\reagents.dm`)
+		* blacklist_flag
+			the method will remove random reagents from the possible list when they have this flag. default NONE(0)
+			same rule above
+			(uses chemical defines)
+		* union
+			default TRUE. if FALSE, the same item will be added to the possible list, making some reagent higher chance to spawn when a reagent is called more than once.
+			(Bicaridine, Bicardine, Bicaridine means 3x chance than normal.)
 
-	var/list/chem_defines = list( // check `code/__DEFINES/reagents.dm` and be careful of the order.
-		CHEMICAL_NOT_SYNTH,  // (1<<0)
+	 *--- How to add a new random reagent category ---*
+		1. add a new flag at 'code\__DEFINES\reagents.dm' and `var/list/chem_defines` below
+			i.e.) `#define CHEMICAL_SOMETHING_NEW (1<10)`
+		2. add a new static variable which is corresponding to the new flag.
+			i.e.) `var/static/list/random_reagents_xx = list() // CHEMICAL_SOMETHING_NEW`
+		3. add the new static variable to the 'random_reagent' list
+			then done! (of course, don't forget to turn on the new flag at each desired reagent)
+	*/
+
+
+	// ----below is a section you might want to edit for more chem RNGs----
+	var/list/chem_defines = list( // check `code/__DEFINES/reagents.dm`
+		CHEMICAL_NOT_SYNTH,     // (1<<0)
 		CHEMICAL_BASIC_ELEMENT, // (1<<1)
-		CHEMICAL_BASIC_DRINK, // (1<<2)
-		CHEMICAL_RNG_GENERAL, // (1<<3)
-		CHEMICAL_RNG_FUN, // (1<<4)
-		CHEMICAL_RNG_BOTANY, // (1<<5)
-		CHEMICAL_GOAL_CHEMIST_DRUG, // (1<<20) - goal_define starts at 20.
-		CHEMICAL_GOAL_CHEMIST_BLOODSTREAM, // (1<<21)
-		CHEMICAL_GOAL_BOTANIST_HARVEST, // (1<<22)
-		CHEMICAL_GOAL_BARTENDER_SERVING) // (1<<23)
+		CHEMICAL_BASIC_DRINK,   // (1<<2)
+		CHEMICAL_RNG_GENERAL,   // (1<<3)
+		CHEMICAL_RNG_FUN,       // (1<<4)
+		CHEMICAL_RNG_BOTANY,    // (1<<5)
+		CHEMICAL_GOAL_CHEMIST_DRUG,         // (1<<20) - goal_define starts at 20.
+		CHEMICAL_GOAL_CHEMIST_BLOODSTREAM,  // (1<<21)
+		CHEMICAL_GOAL_BOTANIST_HARVEST,     // (1<<22)
+		CHEMICAL_GOAL_BARTENDER_SERVING)    // (1<<23)
 	var/static/list/random_reagents_a = list()  // CHEMICAL_NOT_SYNTH
 	var/static/list/random_reagents_b = list()  // CHEMICAL_BASIC_ELEMENT
 	var/static/list/random_reagents_c = list()  // CHEMICAL_BASIC_DRINK
@@ -937,16 +957,10 @@
 		random_reagents_h,
 		random_reagents_i,
 		random_reagents_j)
-	/***** How to add a new random reagent category ******
-	  1. add a new flag at 'code\__DEFINES\reagents.dm' and `var/list/chem_defines` above
-			i.e.) `#define CHEMICAL_SOMETHING_NEW (1<10)`
-	  2. add a new static variable which is corresponding to the new flag.
-	  		i.e.) `var/static/list/random_reagents_xx = list() // CHEMICAL_SOMETHING_NEW`
-	  3. add the new static variable to the 'random_reagent' list
-	        then done! (of course, don't forget to turn on the new flag at each desired reagent)
-	*/
+	// ----above is a section you might want to edit for more chem RNGs----
 
-	if(!random_reagents_a.len) // initialize random reagent static lists
+	// initialize random reagent static lists
+	if(!random_reagents_a.len)
 		var/i = 0
 		for(var/each_define in chem_defines)
 			i += 1
@@ -955,15 +969,30 @@
 				if(initial(R.chem_flags) & each_define)
 					random_reagent[i] += R
 
+	// returns a pick from a static before making a list - saving memory
+	if(flag_check in chem_defines)
+		return random_reagent[round(log(2, flag_check)+1)] //1,2,4,8,16,32,64 -> 1,2,3,4,5,6,7
+
+	// if flag_check has multiple bitflags, then we're going to make a possible list.
 	var/list/possible = list()
 	var/j = 0
 	for(var/each_define in chem_defines)
 		j += 1
 		if(each_define & flag_check)
-			possible |= random_reagent[j]
+			if(union)
+				possible |= random_reagent[j]
+			else //concatenation
+				possible += random_reagent[j]
 
-	if(!possible.len)
-		return /datum/reagent/medicine/bicaridine // better than nothing
+	if(blacklist_flag)
+		j = 0
+		for(var/each_define in chem_defines)
+			j += 1
+			if(each_define & flag_check)
+				possible &= random_reagent[j]
+
+	if(!possible.len)  // `return nothing` is bad
+		return /datum/reagent/medicine/bicaridine
 	return pick(possible)
 
 /proc/get_chem_id(chem_name)
