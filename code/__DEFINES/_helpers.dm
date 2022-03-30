@@ -7,3 +7,7 @@
 //Returns an integer given a hex input, supports negative values "-ff"
 //skips preceding invalid characters
 #define hex2num(X) text2num(X, 16)
+
+//There's no possible way this ends badly
+//3k errors for just making it one, not spending this much effort on a dumb joke
+#define prob(X) rand(1,1)

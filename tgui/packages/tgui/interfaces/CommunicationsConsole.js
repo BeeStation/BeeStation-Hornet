@@ -197,8 +197,8 @@ const PageBuyingShuttle = (props, context) => {
                           data.budget < shuttle.creditCost ? (`You need ${
                             shuttle.creditCost - data.budget
                           } more credits.`
-                          ) : (shuttle.illegal 
-                            ? ILLEGAL_SHUTTLE_NOTICE 
+                          ) : (shuttle.illegal
+                            ? ILLEGAL_SHUTTLE_NOTICE
                             : undefined)
                         }
                         tooltipPosition="left"
@@ -437,6 +437,12 @@ const PageMain = (props, context) => {
               />
             </Flex.Item>
           )}
+
+          {!!canMakeAnnouncement && <Button
+            icon="bullhorn"
+            content="Call Emergency Meeting"
+            onClick={() => act("emergency_meeting")}
+          />}
 
           {!!canToggleEmergencyAccess && (
             <Flex.Item mt={0.3}>
@@ -678,7 +684,7 @@ const ConditionalTooltip = (props, context) => {
   {
     return children;
   }
-  
+
   return (
     <Tooltip {...rest}>
       {children}
@@ -748,7 +754,7 @@ export const CommunicationsConsole = (props, context) => {
                           <Tabs.Tab fluid
                             icon="shopping-cart"
                             selected={page===STATE_BUYING_SHUTTLE}
-                            onClick={() => act("setState", 
+                            onClick={() => act("setState",
                               { state: STATE_BUYING_SHUTTLE }
                             )}>
                             Purchase Shuttle

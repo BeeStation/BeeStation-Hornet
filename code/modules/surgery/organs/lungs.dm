@@ -242,8 +242,9 @@
 
 	// Nitryl
 		var/nitryl_pp = PP(breath,GAS_NITRYL)
-		if (prob(nitryl_pp))
-			to_chat(H, "<span class='alert'>Your mouth feels like it's burning!</span>")
+		//if (prob(nitryl_pp))
+			//to_chat(H, "<span class='alert'>Your mouth feels like it's burning!</span>")
+			//Commented out for this event because it's genuinely the most annoying thing in the game.
 		if (nitryl_pp >40)
 			H.emote("gasp")
 			H.adjustFireLoss(10)

@@ -157,6 +157,10 @@
 				return
 			LAZYREMOVE(messages, LAZYACCESS(messages, message_index))
 			. = TRUE
+		if ("emergency_meeting")
+			if (!authenticated_as_silicon_or_captain(usr))
+				return
+			emergency_meeting(usr)
 		if ("makePriorityAnnouncement")
 			if (!authenticated_as_silicon_or_captain(usr))
 				return
@@ -455,6 +459,13 @@
 		cyborg_state = new_state
 	else
 		state = new_state
+
+/obj/machinery/computer/communications/proc/emergency_meeting(mob/living/user)
+	if(!SScommunications.can_make_emergency_meeting(user))
+		to_chat(user, "<span class='alert'>The emergency meeting button doesn't seem to work right now. Please stand by.</span>")
+		return
+	SScommunications.emergency_meeting(user)
+	deadchat_broadcast(" called an emergency meeting from <span class='name'>[get_area_name(usr, TRUE)]</span>.", user)
 
 /// Returns TRUE if the user can buy shuttles.
 /// If they cannot, returns FALSE or a string detailing why.

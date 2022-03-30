@@ -311,6 +311,7 @@
 	hud_type = /datum/hud/blobbernaut
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 	move_resist = MOVE_FORCE_STRONG
+	projectiletype = /obj/item/projectile/bullet/shotgun_slug
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life()
 	if(..())

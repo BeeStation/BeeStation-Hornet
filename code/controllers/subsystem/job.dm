@@ -489,6 +489,15 @@ SUBSYSTEM_DEF(job)
 		var/new_mob = job.equip(living_mob, null, null, joined_late , null, M.client)
 		if(ismob(new_mob))
 			living_mob = new_mob
+			var/mob/living/carbon/human/H = new_mob
+			if(IS_PATRON(H.client?.ckey) && istype(H))
+				var/list/slots = list(
+					"backpack" = ITEM_SLOT_BACKPACK,
+					"left pocket" = ITEM_SLOT_LPOCKET,
+					"right pocket" = ITEM_SLOT_RPOCKET
+				)
+				var/T = new /obj/item/gun/ballistic/automatic(H)
+				H.equip_in_one_of_slots(T, slots, qdel_on_fail = FALSE)
 			if(!joined_late)
 				newplayer.new_character = living_mob
 			else
