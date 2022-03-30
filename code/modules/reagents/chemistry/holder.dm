@@ -926,7 +926,7 @@
 
 
 	// ----below is a section you might want to edit for more chem RNGs----
-	var/list/chem_defines = list( // check `code/__DEFINES/reagents.dm`
+	var/static/list/chem_defines = list( // check `code/__DEFINES/reagents.dm`
 		CHEMICAL_NOT_SYNTH,     // (1<<0)
 		CHEMICAL_BASIC_ELEMENT, // (1<<1)
 		CHEMICAL_BASIC_DRINK,   // (1<<2)
@@ -943,10 +943,10 @@
 	var/static/list/random_reagents_d = list()  // CHEMICAL_RNG_GENERAL
 	var/static/list/random_reagents_e = list()  // CHEMICAL_RNG_FUN
 	var/static/list/random_reagents_f = list()  // CHEMICAL_RNG_BOTANY
-	var/static/list/random_reagents_g = list()  // CHEMICAL_GOAL_CHEMIST_DRUG
-	var/static/list/random_reagents_h = list()  // CHEMICAL_GOAL_CHEMIST_BLOODSTREAM
-	var/static/list/random_reagents_i = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
-	var/static/list/random_reagents_j = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
+	var/static/list/random_reagents_goal_a = list()  // CHEMICAL_GOAL_CHEMIST_DRUG
+	var/static/list/random_reagents_goal_b = list()  // CHEMICAL_GOAL_CHEMIST_BLOODSTREAM
+	var/static/list/random_reagents_goal_c = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
+	var/static/list/random_reagents_goal_d = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
 	var/static/list/random_reagent = list(
 		random_reagents_a,
 		random_reagents_b,
@@ -954,10 +954,10 @@
 		random_reagents_d,
 		random_reagents_e,
 		random_reagents_f,
-		random_reagents_g,
-		random_reagents_h,
-		random_reagents_i,
-		random_reagents_j)
+		random_reagents_goal_a,
+		random_reagents_goal_b,
+		random_reagents_goal_c,
+		random_reagents_goal_d)
 	// ----above is a section you might want to edit for more chem RNGs----
 
 	// initialize random reagent static lists
@@ -993,7 +993,7 @@
 		for(var/each_define in chem_defines)
 			j += 1
 			if(each_define & flag_check)
-				possible &= random_reagent[j]
+				possible -= random_reagent[j]
 
 	if(!possible.len)  // `return nothing` is bad
 		return /datum/reagent/medicine/bicaridine
