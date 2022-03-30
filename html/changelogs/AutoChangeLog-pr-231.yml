@@ -1,0 +1,29 @@
+author: nednaZ
+delete-after: true
+changes:
+  - rscdel: Removed ALL default donut boxes from stations
+  - rscdel: Removed ALL default Donk Pocket boxes from stations
+  - balance: Universally Reduces the amount of junk food in vending machines to 2
+      each, down from 6 each. This excludes "High Power Energy Bars" as they are one
+      of the only foods Ethereals can eat.
+  - balance: Increases the cost of SecTech Supply Crates to 2400, up from 1200.
+  - balance: Increases the cost of Snack Supply Crates to 1500, up from 1500.
+  - balance: Decreases Excellent Meat Crate costs to 1200, down from 1700.
+  - balance: Decreases Food Crate costs to 800, down from 1000.
+  - balance: Decreases Fruit Crate costs to 800, down from 1200.
+  - balance: Decreases Vegetables Crate costs to 600, down from 1000.
+  - balance: Removes Donut Boxes from SecTec vendors.
+  - balance: Reduces the count of donuts in SecTec vendors to 4, down from 12.
+  - balance: Increases the base cost of junk food to 50.
+  - balance: Junk food vending machines now have NO_FREEBIES as a tag, no free lunches
+      for anyone.
+  - balance: Infinite Pizza Boxes odds are now at 1% per crate ordered, down from
+      5%
+  - balance: Exploration & Mining Pizza costs 2,000 points, up from 200
+  - tweak: Roundstart Flour & Rice in the kitchen increased to 4 (From 3 & 1)
+  - rscadd: 3 Potatoes and 3 Tomatoes added to the kitchen freezer.
+  - rscadd: One Wildcard box of ingredients added to the freezer.
+  - rscdel: Maintenance freezer only gets Soy Milk.
+  - tweak: Roundstart Monkey Meat increased to 8 pieces in the kitchen, from 4.
+  - tweak: Kitchen Milk & Soy Milk decreased to 4 each, from 5.
+  - tweak: Egg Boxes increased to 3, from 2.
