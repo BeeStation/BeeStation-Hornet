@@ -17,7 +17,7 @@
 	var/uplink_type = /obj/item/uplink/nuclear
 
 /obj/item/nuclear_challenge/attack_self(mob/living/user)
-	if(!check_allowed(user))
+	if(!check_allowed(user) && !HAS_TRAIT(user, TRAIT_CAN_USE_NUKE))
 		return
 
 	declaring_war = TRUE

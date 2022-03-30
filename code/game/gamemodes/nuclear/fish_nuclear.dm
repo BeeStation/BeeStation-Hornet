@@ -1,12 +1,14 @@
-/datum/game_mode/nuclear
-	name = "nuclear emergency"
-	config_tag = "nuclear"
-	report_type = "nuclear"
+#define FLUKEOPS_TIME_DELAY 12000 // 20 minutes, how long before the credits stop calling the nukies flukeops
+
+/datum/game_mode/nuclear/fishy
+	name = "fishy nuclear emergency"
+	config_tag = "fish_nuclear"
+	report_type = "fish_nuclear"
 	false_report_weight = 10
-	required_players = 30 // 30 players - 3 players to be the nuke ops = 27 players remaining
-	required_enemies = 2
+	required_players = 30 // 30 players - 7 players to be the nuke ops = 23 players remaining
+	required_enemies = 8
 	recommended_enemies = 5
-	antag_flag = ROLE_OPERATIVE
+	antag_flag = ROLE_OPERATIVE //same as normal nuclear ops
 	enemy_minimum_age = 14
 
 	announce_span = "danger"
@@ -16,52 +18,47 @@
 
 	title_icon = "nukeops"
 
-	var/const/agents_possible = 5 //If we ever need more syndicate agents.
-	var/nukes_left = 1 // Call 3714-PRAY right now and order more nukes! Limited offer!
-	var/list/pre_nukeops = list()
+	//var/operative_antag_datum_type = /datum/antagonist/nukeop
+	//var/leader_antag_datum_type = /datum/antagonist/nukeop/leader
 
-	var/datum/team/nuclear/nuke_team
-
-	var/operative_antag_datum_type = /datum/antagonist/nukeop
-	var/leader_antag_datum_type = /datum/antagonist/nukeop/leader
-
-/datum/game_mode/nuclear/pre_setup()
+/datum/game_mode/nuclear/fishy/pre_setup()
 	var/n_agents = min(round(num_players() / 10), antag_candidates.len, agents_possible)
 	if(n_agents >= required_enemies)
 		for(var/i = 0, i < n_agents, ++i)
 			var/datum/mind/new_op = pick_n_take(antag_candidates)
 			pre_nukeops += new_op
-			new_op.assigned_role = "Nuclear Operative"
-			new_op.special_role = "Nuclear Operative"
-			log_game("[key_name(new_op)] has been selected as a nuclear operative")
+			new_op.assigned_role = "A very fishy Nuclear Operative"
+			new_op.special_role = "A very fishy Nuclear Operative"
+			log_game("[key_name(new_op)] has been selected as a fishy nuclear operative")
 		return TRUE
 	else
-		setup_error = "Not enough nuke op candidates"
+		setup_error = "Not enough fishy candidates"
 		return FALSE
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
 
-/datum/game_mode/nuclear/post_setup()
+/datum/game_mode/nuclear/fishy/post_setup()
 	//Assign leader
 	var/datum/mind/leader_mind = pre_nukeops[1]
 	var/datum/antagonist/nukeop/L = leader_mind.add_antag_datum(leader_antag_datum_type)
 	nuke_team = L.nuke_team
+	return ..()
 	//Assign the remaining operatives
 	for(var/i = 2 to pre_nukeops.len)
 		var/datum/mind/nuke_mind = pre_nukeops[i]
 		nuke_mind.add_antag_datum(operative_antag_datum_type)
 	return ..()
 
-/datum/game_mode/nuclear/OnNukeExplosion(off_station)
+/datum/game_mode/nuclear/fishy/OnNukeExplosion(off_station)
 	..()
 	nukes_left--
 
-/datum/game_mode/nuclear/check_win()
+/datum/game_mode/nuclear/fishy/check_win()
 	if (nukes_left == 0)
 		return TRUE
 	return ..()
 
-/datum/game_mode/nuclear/check_finished()
+/datum/game_mode/nuclear/fishy/check_finished()
 	//Keep the round going if ops are dead but bomb is ticking.
 	if(nuke_team.operatives_dead())
 		for(var/obj/machinery/nuclearbomb/N in GLOB.nuke_list)
@@ -69,7 +66,7 @@
 				return FALSE
 	return ..()
 
-/datum/game_mode/nuclear/set_round_result()
+/datum/game_mode/nuclear/fishy/set_round_result()
 	..()
 	var result = nuke_team.get_result()
 	switch(result)
@@ -104,79 +101,43 @@
 			SSticker.mode_result = "halfwin - interrupted"
 			SSticker.news_report = OPERATIVE_SKIRMISH
 
-/datum/game_mode/nuclear/generate_report()
+/datum/game_mode/nuclear/fishy/generate_report()
 	return "One of Central Command's trading routes was recently disrupted by a raid carried out by the Gorlex Marauders. They seemed to only be after one ship - a highly-sensitive \
 			transport containing a nuclear fission explosive, although it is useless without the proper code and authorization disk. While the code was likely found in minutes, the only disk that \
 			can activate this explosive is on your station. Ensure that it is protected at all times, and remain alert for possible intruders."
 
-/proc/is_nuclear_operative(mob/M)
-	return M?.mind?.has_antag_datum(/datum/antagonist/nukeop)
+/datum/outfit/fishop
+	name = "fish operative outfit"
 
-/datum/outfit/syndicate
-	name = "Syndicate Operative - Basic"
+/datum/outfit/fishop/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/mob/living/simple_animal/hostile/carp/cayenne/fishy_operator/fish = new(H.loc)
+	H.mind.transfer_to(fish)
+	if(H.key)
+		fish.key = H.key
+	qdel(H)
+    //TO DO add radio implant
+	//var/obj/item/radio/R = H.ears
+	//R.set_frequency(FREQ_SYNDICATE)
+	//R.freqlock = TRUE
+	//if(command_radio)sawdwad
+	//	R.command = TRUE
 
-	uniform = /obj/item/clothing/under/syndicate
-	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
-	back = /obj/item/storage/backpack/fireproof
-	ears = /obj/item/radio/headset/syndicate/alt
-	l_pocket = /obj/item/modular_computer/tablet/nukeops
-	id = /obj/item/card/id/syndicate
-	belt = /obj/item/gun/ballistic/automatic/pistol
-	backpack_contents = list(/obj/item/storage/box/syndie=1,\
-		/obj/item/kitchen/knife/combat/survival)
+	var/obj/item/implant/explosive/E = new /obj/item/implant/explosive(fish)
+	E.implant(fish)
+	var/obj/item/implant/weapons_auth/W = new /obj/item/implant/weapons_auth(fish)
+	W.implant(fish)
+	fish.faction |= ROLE_SYNDICATE
+	fish.update_icons()
 
-	var/tc = 25
-	var/command_radio = FALSE
-	var/uplink_type = /obj/item/uplink/nuclear
+/datum/outfit/fishop/leader
+	name = "leader fish operative outfit"
 
+/datum/outfit/fishop/leader/post_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	new /obj/item/nuclear_challenge(H.loc)
 
-/datum/outfit/syndicate/leader
-	name = "Syndicate Leader - Basic"
-	id = /obj/item/card/id/syndicate/nuke_leader
-	gloves = /obj/item/clothing/gloves/krav_maga/combatglovesplus
-	r_hand = /obj/item/nuclear_challenge
-	command_radio = TRUE
-
-/datum/outfit/syndicate/no_crystals
-	name = "Syndicate Operative - Reinforcement"
-	tc = 0
-
-/datum/outfit/syndicate/post_equip(mob/living/carbon/human/H)
-	var/obj/item/radio/R = H.ears
-	R.set_frequency(FREQ_SYNDICATE)
-	R.freqlock = TRUE
-	if(command_radio)
-		R.command = TRUE
-
-	if(ispath(uplink_type, /obj/item/uplink/nuclear) || tc) // /obj/item/uplink/nuclear understands 0 tc
-		var/obj/item/U = new uplink_type(H, H.key, tc)
-		H.equip_to_slot_or_del(U, ITEM_SLOT_BACKPACK)
-
-	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(H)
-	E.implant(H)
-	var/obj/item/implant/weapons_auth/W = new/obj/item/implant/weapons_auth(H)
-	W.implant(H)
-	H.faction |= ROLE_SYNDICATE
-	H.update_icons()
-
-/datum/outfit/syndicate/full
-	name = "Syndicate Operative - Full Kit"
-
-	glasses = /obj/item/clothing/glasses/night
-	mask = /obj/item/clothing/mask/gas/syndicate
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
-	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
-	internals_slot = ITEM_SLOT_RPOCKET
-	belt = /obj/item/storage/belt/military
-	r_hand = /obj/item/gun/ballistic/shotgun/bulldog
-	backpack_contents = list(/obj/item/storage/box/syndie=1,\
-		/obj/item/tank/jetpack/oxygen/harness=1,\
-		/obj/item/gun/ballistic/automatic/pistol=1,\
-		/obj/item/kitchen/knife/combat/survival)
-
-
-/datum/game_mode/nuclear/generate_credit_text()
+/datum/game_mode/nuclear/fishy/generate_credit_text()
 	var/list/round_credits = list()
 	var/len_before_addition
 

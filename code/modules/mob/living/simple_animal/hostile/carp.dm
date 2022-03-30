@@ -229,4 +229,16 @@
 	maxHealth = 200
 	random_color = FALSE
 
+/mob/living/simple_animal/hostile/carp/cayenne/fishy_operator
+	desc = "Something about this operative seems fishy."	
+	maxHealth = 300
+	speed = 5
+	var/static/list/possible_names = list("alpha", "beta", "gamma", "delta", "epsilon", "zeta", "eta", "theta", "iota", "kappa", "lambda", "mu", "nu", "xi", "omicron", "pi", "rho", "sigma", "tau", "upsilon", "phi", "chi", "psi", "omega")
+
+/mob/living/simple_animal/hostile/carp/cayenne/fishy_operator/Initialize(mapload)
+	. = ..()
+	name = "Syndicate operative"
+	if(possible_names.len)
+		name += " " + pick_n_take(possible_names)
+
 #undef REGENERATION_DELAY
