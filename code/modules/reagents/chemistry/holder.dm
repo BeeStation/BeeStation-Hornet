@@ -975,7 +975,7 @@
 	for(var/each_define in chem_defines)
 		j += 1
 		if(each_define == flag_check)
-			return random_reagent[j]
+			return pick(random_reagent[j])
 
 	// if flag_check has multiple bitflags, then we're going to make a possible list.
 	var/list/possible = list()
