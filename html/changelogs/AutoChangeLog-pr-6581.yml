@@ -1,0 +1,7 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - rscdel: reverted changes to blindness
+  - bugfix: fixed not being able to insert eyes during organ manipulation surgery
+  - bugfix: fixed species change removing organs, etc.
+  - bugfix: other misc eye-related fixes
