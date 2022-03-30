@@ -177,3 +177,10 @@
 	name = "Held Mark II plasmam helmet, right"
 	icon_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_mk2_inhand.json'
+
+/datum/greyscale_config/carp
+	icon_file = 'icons/mob/carp.dmi'
+	//json_config = 'code/datums/greyscale/json_configs/carp.json'
+
+/datum/greyscale_config/carp/disk_mouth
+	//json_config = 'code/datums/greyscale/json_configs/carp_disk_mouth.json'
