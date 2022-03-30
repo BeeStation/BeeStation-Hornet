@@ -1,0 +1,6 @@
+author: Arkatos1, JohnFulpWillard, Fikou
+delete-after: true
+changes:
+  - rscadd: Carps now support GAGS.
+  - rscadd: Cayenne can carry nuke disk!
+  - rscadd: Achievement for picking up a nuke disk as Cayenne!
