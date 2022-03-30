@@ -912,6 +912,7 @@
 			(uses chemical defines)
 		* union
 			default TRUE. if FALSE, the same item will be added to the possible list, making some reagent higher chance to spawn when a reagent is called more than once.
+			you will hardly use this though.
 			(Bicaridine, Bicardine, Bicaridine means 3x chance than normal.)
 
 	 *--- How to add a new random reagent category ---*
@@ -970,12 +971,15 @@
 					random_reagent[i] += R
 
 	// returns a pick from a static before making a list - saving memory
-	if(flag_check in chem_defines)
-		return random_reagent[round(log(2, flag_check)+1)] //1,2,4,8,16,32,64 -> 1,2,3,4,5,6,7
+	var/j = 0
+	for(var/each_define in chem_defines)
+		j += 1
+		if(each_define == flag_check)
+			return random_reagent[j]
 
 	// if flag_check has multiple bitflags, then we're going to make a possible list.
 	var/list/possible = list()
-	var/j = 0
+	j = 0
 	for(var/each_define in chem_defines)
 		j += 1
 		if(each_define & flag_check)
