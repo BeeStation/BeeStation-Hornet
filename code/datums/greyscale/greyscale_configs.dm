@@ -179,8 +179,10 @@
 	json_config = 'code/datums/greyscale/json_configs/plasmaman_helmet_mk2_inhand.json'
 
 /datum/greyscale_config/carp
+	name = "Space Carp"
 	icon_file = 'icons/mob/carp.dmi'
-	//json_config = 'code/datums/greyscale/json_configs/carp.json'
+	json_config = 'code/datums/greyscale/json_configs/carp.json'
 
 /datum/greyscale_config/carp/disk_mouth
-	//json_config = 'code/datums/greyscale/json_configs/carp_disk_mouth.json'
+	name = "Space Carp Disk in Mouth"
+	json_config = 'code/datums/greyscale/json_configs/carp_disk_mouth.json'
