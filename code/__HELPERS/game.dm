@@ -82,13 +82,13 @@
 			if(client_check && !A_tmp.client)
 				passed=0
 
-			if(sight_check && !isInSight(A_tmp, O))
+			if(sight_check && !is_in_sight(A_tmp, O))
 				passed=0
 
 		else if(include_radio && istype(A, /obj/item/radio))
 			passed=1
 
-			if(sight_check && !isInSight(A, O))
+			if(sight_check && !is_in_sight(A, O))
 				passed=0
 
 		if(passed)

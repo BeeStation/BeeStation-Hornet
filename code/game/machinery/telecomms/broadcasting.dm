@@ -169,7 +169,7 @@
 					radios += R
 
 	// From the list of radios, find all mobs who can hear those.
-	var/list/receive = get_mobs_in_radio_ranges(radios)
+	var/list/receive = get_hearers_in_radio_ranges(radios)
 
 	// Cut out mobs with clients who are admins and have radio chatter disabled.
 	for(var/mob/R in receive)
