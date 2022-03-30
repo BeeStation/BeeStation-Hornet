@@ -114,10 +114,10 @@
 	"<span class='notice'>Perfect. Much better! Now <i>nobody</i> will be able to resist yo-</span>")
 
 	var/turf/T = get_turf(user)
-	var/list/levels = SSmapping.levels_by_trait(ZTRAIT_DYNAMIC_LEVEL)
+	var/list/levels = SSmapping.levels_by_trait(ZTRAIT_STATION)
 	var/turf/dest
 	if (levels.len)
-		dest = locate(T.x, T.y, pick(levels))
+		dest = find_safe_turf(zlevels=levels)
 
 	T.ChangeTurf(/turf/open/chasm, flags = CHANGETURF_INHERIT_AIR)
 	var/turf/open/chasm/C = T
