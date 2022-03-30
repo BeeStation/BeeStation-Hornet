@@ -28,6 +28,7 @@
 #define MEDAL_BIKE                    "This Lousy Achievement"
 #define MEDAL_WAROPS                  "Play GLOBAL THERMONUCLEAR WAR"
 #define MEDAL_DRUNK					  "Little Chickadee"
+#define MEDAL_CAYENNE_DISK			  "Very Important Piscis"
 
 //Boss medals
 
