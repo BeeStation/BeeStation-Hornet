@@ -147,3 +147,4 @@
 	desc = "You can rest well now."
 	database_id = MEDAL_CAYENNE_DISK
 	icon = "cayenne_disk"
+	reward = 2500
