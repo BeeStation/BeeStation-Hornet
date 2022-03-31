@@ -4,8 +4,8 @@
 	report_type = "fish_nuclear"
 	false_report_weight = 10
 	required_players = 30 // 30 players - 7 players to be the nuke ops = 23 players remaining
-	required_enemies = 8
-	recommended_enemies = 5
+	required_enemies = 4
+	recommended_enemies = 8
 	antag_flag = ROLE_OPERATIVE //same as normal nuclear ops
 	enemy_minimum_age = 14
 
