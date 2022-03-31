@@ -2,10 +2,10 @@
 /obj/item/projectile/energy/nuclear_particle
 	name = "nuclear particle"
 	icon_state = "nuclear_particle"
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSDOORS | PASSCLOSEDTURF | PASSFLAPS
 	damage = 10
 	damage_type = TOX
-	irradiate = 2500 //enough to knockdown and induce vomiting
+	irradiate = INFINITY //:)
 	speed = 0.4
 	hitsound = 'sound/weapons/emitter2.ogg'
 	impact_type = /obj/effect/projectile/impact/xray
@@ -25,7 +25,7 @@
 	set_light(4, 3, particle_colors[our_color]) //Range of 4, brightness of 3 - Same range as a flashlight
 
 /obj/item/projectile/energy/nuclear_particle/proc/customize(custompower)
-	irradiate = max(3000 * 3 ** (log(10,custompower)-FUSION_RAD_MIDPOINT),10)
+	irradiate = INFINITY // trolle!!
 	var/custom_color = HSVtoRGB(hsv(clamp(log(10,custompower)-12,0,5)*256,rand(191,255),rand(191,255),255))
 	add_atom_colour(custom_color, FIXED_COLOUR_PRIORITY)
 	set_light(4, 3, custom_color)
@@ -52,7 +52,7 @@
 			name = "impossibly strong nuclear particle"
 			damage = 30
 
-/atom/proc/fire_nuclear_particle(angle = rand(0,360), customize = FALSE, custompower = 1e12) //used by fusion to fire random nuclear particles. Fires one particle in a random direction.
+/atom/proc/fire_nuclear_particle(angle = rand(0,360), customize = FALSE, custompower = INFINITY) //used by fusion to fire random nuclear particles. Fires one particle in a random direction.
 	var/obj/item/projectile/energy/nuclear_particle/P = new /obj/item/projectile/energy/nuclear_particle(src)
 	if(customize)
 		P.customize(custompower)

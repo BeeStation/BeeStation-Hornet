@@ -44,13 +44,13 @@
 #define PLASMA_BINDING_ENERGY  				20000000
 #define TOROID_CALCULATED_THRESHOLD			5.96	//! changing it by 0.1 generally doubles or halves fusion temps
 #define FUSION_TEMPERATURE_THRESHOLD	    10000
-#define PARTICLE_CHANCE_CONSTANT 			(-20000000)
+#define PARTICLE_CHANCE_CONSTANT 			(-10) // trole
 #define FUSION_INSTABILITY_ENDOTHERMALITY   2
 #define FUSION_SCALE_DIVISOR				10		//! Used to be Pi
 #define FUSION_MINIMAL_SCALE				50
 #define FUSION_SLOPE_DIVISOR				1250	//! This number is probably the safest number to change
-#define FUSION_ENERGY_TRANSLATION_EXPONENT	1.25	//! This number is probably the most dangerous number to change
+#define FUSION_ENERGY_TRANSLATION_EXPONENT	5	//! This number is probably the most dangerous number to change
 #define FUSION_BASE_TEMPSCALE				6       //! This number is responsible for orchestrating fusion temperatures
-#define FUSION_RAD_MIDPOINT					15		//! If you decrease this by one, the fusion rads will *triple* and vice versa
+#define FUSION_RAD_MIDPOINT					14		//! If you decrease this by one, the fusion rads will *triple* and vice versa
 #define FUSION_MIDDLE_ENERGY_REFERENCE		1e6		//! This number is deceptively dangerous; sort of tied to TOROID_CALCULATED_THRESHOLD
 #define FUSION_BUFFER_DIVISOR				1		//! Increase this to cull unrobust fusions faster
