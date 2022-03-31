@@ -175,6 +175,16 @@
 				START_PROCESSING(SSobj, core)
 			return TRUE
 
+/obj/machinery/nuclearbomb/can_interact(mob/user)
+	if(HAS_TRAIT(user, TRAIT_CAN_USE_NUKE))
+		return TRUE
+	return ..()
+
+/obj/machinery/nuclearbomb/ui_state(mob/user)
+	if(HAS_TRAIT(user, TRAIT_CAN_USE_NUKE))
+		return GLOB.conscious_state
+	return ..()
+
 /obj/machinery/nuclearbomb/proc/get_nuke_state()
 	if(exploding)
 		return NUKE_ON_EXPLODING

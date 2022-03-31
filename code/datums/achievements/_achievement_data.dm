@@ -64,6 +64,8 @@
 ///Unlocks an achievement of a specific type.
 /datum/achievement_data/proc/unlock(achievement_type, mob/user)
 	var/datum/award/A = SSachievements.awards[achievement_type]
+	if(!A)	//SSachievements wasn't initialized or we don't have those enabled
+		return FALSE
 	get_data(achievement_type) //Get the current status first if necessary
 	if(istype(A, /datum/award/achievement) && !data[achievement_type])
 		data[achievement_type] = TRUE
