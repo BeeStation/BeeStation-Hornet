@@ -17,7 +17,7 @@ GLOBAL_VAR_INIT(tinted_weldhelh, TRUE)
 
 
 // Debug2 is used in conjunction with a lot of admin verbs and therefore is actually legit.
-GLOBAL_VAR_INIT(Debug2, TRUE) //Debug used to exist. It doesn't anymore. Renaming this takes effort. -Franc
+GLOBAL_VAR_INIT(Debug2, FALSE) //Debug used to exist. It doesn't anymore. Renaming this takes effort. -Franc
 
 //This was a define, but I changed it to a variable so it can be changed in-game.(kept the all-caps definition because... code...) -Errorage
 //Protecting these because the proper way to edit them is with the config/secrets
