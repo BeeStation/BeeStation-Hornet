@@ -12,19 +12,27 @@
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "p" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "t" = (
-/obj/item/twohanded/required/kirbyplants/random,
-/obj/structure/lattice,
+/obj/item/twohanded/required/kirbyplants/random{
+	dir = 1
+	},
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "C" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "D" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "F" = (
@@ -42,33 +50,24 @@ F
 C
 a
 C
+F"}(2,1,1) = {"
 F
-"}
-(2,1,1) = {"
-m
-D
-d
 C
-F
-"}
-(3,1,1) = {"
-m
-m
-D
 d
+D
+m"}(3,1,1) = {"
 p
-"}
-(4,1,1) = {"
-m
-t
 d
-C
+D
+m
+m"}(4,1,1) = {"
 F
-"}
-(5,1,1) = {"
+C
+d
+t
+m"}(5,1,1) = {"
 F
 F
 V
 F
-F
-"}
+F"}

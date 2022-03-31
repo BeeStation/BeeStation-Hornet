@@ -3,15 +3,21 @@
 /turf/template_noop,
 /area/template_noop)
 "ab" = (
-/obj/structure/girder/displaced,
+/obj/structure/girder/displaced{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "ac" = (
-/obj/item/stack/sheet/mineral/plastitanium,
+/obj/item/stack/sheet/mineral/plastitanium{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "ad" = (
-/obj/item/wallframe/camera,
+/obj/item/wallframe/camera{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "ae" = (
@@ -22,34 +28,46 @@
 /turf/template_noop,
 /area/template_noop)
 "af" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "ag" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/closet/crate/secure/weapon,
-/obj/item/gun/energy/e_gun/mini,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
+/obj/structure/closet/crate/secure/weapon{
+	dir = 1
+	},
+/obj/item/gun/energy/e_gun/mini{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "ah" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /mob/living/simple_animal/hostile/pirate/ranged/space{
 	environment_smash = 0
 	},
 /turf/template_noop,
 /area/template_noop)
 "ai" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /obj/structure/fluff/broken_flooring{
-	dir = 2;
+	dir = 1;
 	icon_state = "plating"
 	},
 /turf/template_noop,
 /area/template_noop)
 "aj" = (
 /obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 14;
+	dir = 1;
+	dwidth = 7;
 	height = 13;
 	id = "caravanpirate_ambush";
 	name = "Trade Route";
@@ -64,7 +82,9 @@
 	},
 /area/shuttle/caravan/freighter3)
 "an" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /obj/structure/fluff/broken_flooring{
 	icon_state = "plating";
 	dir = 4
@@ -72,11 +92,15 @@
 /turf/template_noop,
 /area/template_noop)
 "ao" = (
-/obj/item/stack/sheet/mineral/titanium,
+/obj/item/stack/sheet/mineral/titanium{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "ap" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /obj/structure/fluff/broken_flooring{
 	icon_state = "pile";
 	dir = 8
@@ -91,9 +115,11 @@
 /turf/template_noop,
 /area/template_noop)
 "av" = (
-/obj/effect/turf_decal/bot_white/right,
+/obj/effect/turf_decal/bot_white/right{
+	dir = 4
+	},
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "0-1"
 	},
 /obj/machinery/power/apc{
 	dir = 8;
@@ -105,30 +131,47 @@
 /obj/machinery/button/door{
 	id = "caravantrade3_cargo_port";
 	name = "Cargo Blast Door Control";
-	pixel_y = 24
-	},
-/obj/machinery/light/small{
+	pixel_y = -24;
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
 "aw" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/flashlight,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/blue,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	dir = 1
+	},
+/obj/item/flashlight{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
 	},
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "TEMP=2.7"
 	},
 /area/shuttle/caravan/freighter3)
 "aD" = (
-/obj/item/stack/rods,
+/obj/item/stack/rods{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "aE" = (
@@ -139,7 +182,40 @@
 /turf/template_noop,
 /area/template_noop)
 "aG" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "TEMP=2.7"
+	},
+/area/shuttle/caravan/freighter3)
+"aI" = (
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/frame/computer{
+	dir = 8
+	},
+/obj/item/shard{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "TEMP=2.7"
+	},
+/area/shuttle/caravan/freighter3)
+"aM" = (
+/obj/effect/decal/cleanable/blood{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -147,32 +223,13 @@
 	initial_gas_mix = "TEMP=2.7"
 	},
 /area/shuttle/caravan/freighter3)
-"aI" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/frame/computer{
-	dir = 8
-	},
-/obj/item/shard,
-/obj/effect/turf_decal/tile/blue{
+"aN" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
 	},
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "TEMP=2.7"
-	},
-/area/shuttle/caravan/freighter3)
-"aM" = (
-/obj/effect/decal/cleanable/blood,
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/dark{
-	initial_gas_mix = "TEMP=2.7"
-	},
-/area/shuttle/caravan/freighter3)
-"aN" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter3)
 "aO" = (
@@ -180,36 +237,56 @@
 	dir = 4;
 	pixel_x = -24
 	},
-/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood{
+	dir = 4
+	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
 "aP" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 1
+	},
 /mob/living/simple_animal/hostile/pirate/ranged/space{
 	environment_smash = 0
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter2)
 "aQ" = (
-/obj/structure/rack,
-/obj/item/tank/jetpack/carbondioxide,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/clothing/mask/gas,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/blue,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/tank/jetpack/carbondioxide{
+	dir = 1
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	dir = 4
+	},
+/obj/item/clothing/mask/gas{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
 	},
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "TEMP=2.7"
 	},
 /area/shuttle/caravan/freighter3)
 "aR" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
@@ -217,29 +294,41 @@
 /area/shuttle/caravan/freighter3)
 "aT" = (
 /obj/structure/fluff/broken_flooring{
-	icon_state = "singular"
+	icon_state = "singular";
+	dir = 1
 	},
 /turf/template_noop,
 /area/template_noop)
 "aW" = (
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/structure/door_assembly/door_assembly_com{
 	anchored = 1;
 	density = 0;
-	name = "broken airlock"
+	name = "broken airlock";
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
 "aY" = (
-/obj/effect/turf_decal/bot_white/right,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot_white/right{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "0-1"
 	},
 /obj/machinery/power/apc{
 	dir = 8;
@@ -251,23 +340,29 @@
 /obj/machinery/button/door{
 	id = "caravantrade2_cargo_port";
 	name = "Cargo Blast Door Control";
-	pixel_y = 24
+	pixel_y = -24;
+	dir = 1
 	},
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
 "aZ" = (
-/obj/machinery/door/firedoor,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
 /obj/structure/door_assembly/door_assembly_com{
 	anchored = 1;
 	density = 0;
-	name = "broken airlock"
+	name = "broken airlock";
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
@@ -277,13 +372,15 @@
 	},
 /area/shuttle/caravan/freighter3)
 "bg" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/airalarm/all_access{
 	dir = 4;
 	pixel_x = -24
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
@@ -291,13 +388,17 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/gibspawner/human,
+/obj/effect/gibspawner/human{
+	dir = 1
+	},
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg3"
 	},
 /area/shuttle/caravan/freighter2)
 "bi" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
@@ -310,11 +411,15 @@
 /turf/template_noop,
 /area/template_noop)
 "br" = (
-/obj/item/stack/sheet/iron,
+/obj/item/stack/sheet/iron{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "bs" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "bt" = (
@@ -324,7 +429,9 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered)
 "dc" = (
-/obj/item/shard,
+/obj/item/shard{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "dD" = (
@@ -334,17 +441,28 @@
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered)
 "dF" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/frame/computer,
-/obj/item/shard,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/frame/computer{
+	dir = 1
+	},
+/obj/item/shard{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium/airless,
 /area/ruin/unpowered)
 "dL" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/structure/door_assembly/door_assembly_hatch{
 	density = 0;
-	name = "broken airlock"
+	name = "broken airlock";
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered)
@@ -352,17 +470,27 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium/airless,
 /area/ruin/unpowered)
 "ew" = (
-/obj/effect/gibspawner/human,
+/obj/effect/gibspawner/human{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "ex" = (
-/obj/item/stack/sheet/iron,
+/obj/item/stack/sheet/iron{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "eG" = (
@@ -382,29 +510,44 @@
 "gb" = (
 /obj/machinery/door/poddoor{
 	id = "caravantrade3_cargo_port";
-	name = "Cargo Blast Door"
+	name = "Cargo Blast Door";
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter3)
 "gc" = (
 /obj/machinery/door/airlock/external{
-	req_access_txt = "13"
+	req_access_txt = "13";
+	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter3)
 "gd" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/caravan/freighter3)
 "gk" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/fluff/broken_flooring{
-	icon_state = "singular"
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
 	},
-/obj/effect/decal/cleanable/blood,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/fluff/broken_flooring{
+	icon_state = "singular";
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered)
 "gq" = (
@@ -414,38 +557,71 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter3)
 "gs" = (
-/obj/effect/turf_decal/bot_white,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
 "gt" = (
-/obj/effect/turf_decal/bot_white,
-/obj/structure/closet/crate/secure/weapon,
-/obj/item/gun/ballistic/revolver/grenadelauncher/unrestricted,
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/structure/closet/crate/secure/weapon{
+	dir = 1
+	},
+/obj/item/gun/ballistic/revolver/grenadelauncher/unrestricted{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
 "gv" = (
-/obj/effect/turf_decal/bot_white,
-/obj/structure/closet/crate/secure/engineering,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/toolbox/electrical,
-/obj/item/storage/toolbox/electrical,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/multitool,
-/obj/item/multitool,
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/structure/closet/crate/secure/engineering{
+	dir = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	dir = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	dir = 1
+	},
+/obj/item/storage/toolbox/electrical{
+	dir = 1
+	},
+/obj/item/storage/toolbox/electrical{
+	dir = 1
+	},
+/obj/item/clothing/gloves/color/yellow{
+	dir = 1
+	},
+/obj/item/clothing/gloves/color/yellow{
+	dir = 1
+	},
+/obj/item/multitool{
+	dir = 1
+	},
+/obj/item/multitool{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
 "gw" = (
-/obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/button/door{
 	id = "caravantrade3_cargo_port";
 	name = "Cargo Blast Door Control";
-	pixel_y = 24
+	pixel_y = -24;
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
@@ -455,9 +631,12 @@
 	},
 /obj/structure/sign/warning/vacuum{
 	pixel_x = -32;
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
 "gP" = (
@@ -477,34 +656,49 @@
 /area/shuttle/caravan/freighter3)
 "gR" = (
 /obj/machinery/power/smes{
-	charge = 0
+	charge = 0;
+	dir = 1
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter3)
 "gT" = (
 /mob/living/simple_animal/hostile/syndicate/ranged/smg/space,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter3)
 "gU" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 6
+	dir = 5
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter3)
 "gV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless{
 	icon_state = "floorscorched1"
 	},
@@ -513,9 +707,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
 	},
 /turf/open/floor/plasteel{
 	initial_gas_mix = "TEMP=2.7"
@@ -523,26 +719,33 @@
 /area/shuttle/caravan/freighter3)
 "gY" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
+	dir = 9
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
 "ha" = (
-/obj/structure/table/reinforced,
-/obj/item/folder/yellow,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/folder/yellow{
+	dir = 1
+	},
 /obj/item/pen{
 	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/effect/turf_decal/tile/blue{
+	pixel_y = -6;
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "TEMP=2.7"
@@ -555,27 +758,34 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/caravan/freighter2)
 "ho" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/door/poddoor/preopen{
 	id = "caravantrade2_cargo_port";
-	name = "Cargo Blast Door"
+	name = "Cargo Blast Door";
+	dir = 1
 	},
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg3"
 	},
 /area/shuttle/caravan/freighter2)
 "hp" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/door/poddoor/preopen{
 	id = "caravantrade2_cargo_port";
-	name = "Cargo Blast Door"
+	name = "Cargo Blast Door";
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
 "hq" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "caravantrade2_cargo_port";
-	name = "Cargo Blast Door"
+	name = "Cargo Blast Door";
+	dir = 1
 	},
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg3"
@@ -584,60 +794,85 @@
 "hr" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "caravantrade2_cargo_port";
-	name = "Cargo Blast Door"
+	name = "Cargo Blast Door";
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
 "hs" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/external{
-	req_access_txt = "13"
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/machinery/door/airlock/external{
+	req_access_txt = "13";
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
 "ht" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/caravan/freighter2)
 "hu" = (
-/obj/machinery/space_heater,
-/obj/machinery/power/terminal{
+/obj/machinery/space_heater{
 	dir = 1
 	},
+/obj/machinery/power/terminal{
+	dir = 2
+	},
 /obj/structure/cable{
-	icon_state = "0-2"
+	icon_state = "0-1"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter3)
 "hv" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter3)
 "hw" = (
 /obj/effect/turf_decal/box/white/corners{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
 "hx" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/structure/closet/crate/secure/plasma,
-/obj/item/tank/internals/plasma/full,
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 25
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/plasma{
+	dir = 1
+	},
+/obj/item/tank/internals/plasma/full{
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 25;
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
 "hy" = (
 /obj/effect/turf_decal/box/white/corners{
-	dir = 4
+	dir = 2
 	},
 /mob/living/simple_animal/hostile/syndicate/ranged/shotgun/space/stormtrooper,
 /turf/open/floor/plasteel/airless/dark,
@@ -648,7 +883,7 @@
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel{
 	initial_gas_mix = "TEMP=2.7"
@@ -666,116 +901,192 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
 "hS" = (
-/obj/effect/turf_decal/bot_white,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless{
 	icon_state = "damaged5"
 	},
 /area/shuttle/caravan/freighter2)
 "hT" = (
-/obj/effect/turf_decal/bot_white,
-/obj/structure/closet/crate/secure/gear,
-/obj/item/ammo_casing/shotgun/ion,
-/obj/item/ammo_casing/shotgun/pulseslug,
-/obj/item/ammo_casing/shotgun/dragonsbreath,
-/obj/item/ammo_casing/shotgun/stunslug,
-/obj/item/ammo_casing/shotgun/stunslug,
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/structure/closet/crate/secure/gear{
+	dir = 1
+	},
+/obj/item/ammo_casing/shotgun/ion{
+	dir = 1
+	},
+/obj/item/ammo_casing/shotgun/pulseslug{
+	dir = 1
+	},
+/obj/item/ammo_casing/shotgun/dragonsbreath{
+	dir = 1
+	},
+/obj/item/ammo_casing/shotgun/stunslug{
+	dir = 1
+	},
+/obj/item/ammo_casing/shotgun/stunslug{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
 "hU" = (
-/obj/effect/turf_decal/bot_white,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless{
 	icon_state = "damaged2"
 	},
 /area/shuttle/caravan/freighter2)
 "hV" = (
-/obj/effect/turf_decal/bot_white,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/gear,
-/obj/item/storage/box/rubbershot,
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/closet/crate/secure/gear{
+	dir = 1
+	},
+/obj/item/storage/box/rubbershot{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
 "hW" = (
-/obj/effect/turf_decal/bot_white,
-/obj/structure/closet/crate/secure/gear,
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/structure/closet/crate/secure/gear{
+	dir = 1
+	},
 /obj/machinery/button/door{
 	id = "caravantrade2_cargo_port";
 	name = "Cargo Blast Door Control";
-	pixel_y = 24
+	pixel_y = -24;
+	dir = 1
 	},
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /obj/item/ammo_box/magazine/m10mm{
 	pixel_x = -3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
-/obj/item/ammo_box/magazine/m10mm,
+/obj/item/ammo_box/magazine/m10mm{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
 "hX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/structure/sign/warning/vacuum{
 	pixel_x = -32;
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
 "hY" = (
-/obj/structure/rack,
-/obj/item/weldingtool,
-/obj/item/crowbar,
-/obj/item/wirecutters,
-/obj/item/wrench,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/weldingtool{
+	dir = 1
+	},
+/obj/item/crowbar{
+	dir = 1
+	},
+/obj/item/wirecutters{
+	dir = 1
+	},
+/obj/item/wrench{
+	dir = 1
+	},
 /obj/item/screwdriver{
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
 "hZ" = (
 /obj/machinery/power/port_gen/pacman{
-	anchored = 1
+	anchored = 1;
+	dir = 1
 	},
-/obj/item/wrench,
-/obj/structure/cable,
+/obj/item/wrench{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter3)
 "ia" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plasteel/airless{
 	icon_state = "damaged2"
 	},
 /area/shuttle/caravan/freighter3)
 "ib" = (
 /obj/effect/turf_decal/box/white/corners{
-	dir = 8
+	dir = 1
 	},
-/obj/structure/closet/crate/secure/plasma,
-/obj/item/tank/internals/plasma/full,
+/obj/structure/closet/crate/secure/plasma{
+	dir = 1
+	},
+/obj/item/tank/internals/plasma/full{
+	dir = 1
+	},
 /obj/item/stack/sheet/mineral/plasma{
-	amount = 25
+	amount = 25;
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter3)
 "ic" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless{
 	icon_state = "damaged5"
 	},
 /area/shuttle/caravan/freighter3)
 "id" = (
-/obj/effect/turf_decal/box/white/corners,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/box/white/corners{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
 "ie" = (
@@ -783,8 +1094,12 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter3)
 "if" = (
@@ -792,24 +1107,36 @@
 	dir = 8;
 	pixel_x = -26
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
 "ig" = (
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/mob_spawn/human/corpse/cargo_tech,
-/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/corpse/cargo_tech{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
 "ih" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/structure/frame/computer{
 	dir = 8
 	},
-/obj/item/shard,
+/obj/item/shard{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless{
 	icon_state = "damaged3"
 	},
@@ -831,11 +1158,14 @@
 /area/shuttle/caravan/freighter2)
 "iq" = (
 /obj/machinery/power/smes{
-	charge = 0
+	charge = 0;
+	dir = 1
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
@@ -845,9 +1175,11 @@
 	},
 /area/shuttle/caravan/freighter2)
 "it" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter2)
@@ -860,13 +1192,17 @@
 	},
 /area/shuttle/caravan/freighter2)
 "iv" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
 	},
 /turf/open/floor/plasteel{
 	initial_gas_mix = "TEMP=2.7"
@@ -874,30 +1210,39 @@
 /area/shuttle/caravan/freighter2)
 "ix" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plasteel/airless{
 	icon_state = "floorscorched1"
 	},
 /area/shuttle/caravan/freighter2)
 "iy" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/structure/fluff/broken_flooring{
-	icon_state = "pile"
+	icon_state = "pile";
+	dir = 1
 	},
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg1"
 	},
 /area/shuttle/caravan/freighter2)
 "iz" = (
-/obj/item/shard,
+/obj/item/shard{
+	dir = 1
+	},
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg3"
 	},
 /area/shuttle/caravan/freighter3)
 "iA" = (
-/obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
+/obj/machinery/meter{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg1"
 	},
@@ -906,12 +1251,18 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter3)
 "iC" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless{
 	icon_state = "floorscorched1"
 	},
@@ -921,30 +1272,176 @@
 	dir = 4
 	},
 /mob/living/simple_animal/hostile/syndicate/ranged/smg/space,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter3)
 "iF" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
 "iH" = (
-/obj/structure/table/reinforced,
-/obj/machinery/cell_charger,
-/obj/effect/turf_decal/tile/blue{
+/obj/structure/table/reinforced{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/blue,
+/obj/machinery/cell_charger{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "TEMP=2.7"
 	},
 /area/shuttle/caravan/freighter3)
 "iT" = (
-/obj/machinery/space_heater,
+/obj/machinery/space_heater{
+	dir = 1
+	},
 /obj/machinery/power/terminal{
+	dir = 2
+	},
+/obj/structure/cable{
+	icon_state = "0-1"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/caravan/freighter2)
+"iU" = (
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
+/turf/open/floor/plasteel/airless,
+/area/shuttle/caravan/freighter2)
+"iV" = (
+/obj/effect/turf_decal/box/white/corners{
+	dir = 8
+	},
+/obj/structure/closet/crate/secure/weapon{
+	dir = 1
+	},
+/obj/item/gun/ballistic/shotgun/sc_pump{
+	dir = 1
+	},
+/turf/open/floor/plasteel/airless/dark,
+/area/shuttle/caravan/freighter2)
+"iX" = (
+/obj/effect/turf_decal/box/white/corners{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/turf/open/floor/plasteel/airless/dark,
+/area/shuttle/caravan/freighter2)
+"iY" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 24
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
+/turf/open/floor/plasteel{
+	initial_gas_mix = "TEMP=2.7"
+	},
+/area/shuttle/caravan/freighter2)
+"ja" = (
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/structure/closet/crate/secure/engineering{
+	dir = 1
+	},
+/obj/item/organ/cyberimp/arm/toolset{
+	dir = 1
+	},
+/obj/item/organ/cyberimp/eyes/hud/medical{
+	dir = 1
+	},
+/obj/item/organ/cyberimp/brain/anti_stun{
+	dir = 1
+	},
+/turf/open/floor/plasteel/airless/dark,
+/area/shuttle/caravan/freighter3)
+"jb" = (
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/turf/open/floor/plasteel/airless{
+	icon_state = "damaged3"
+	},
+/area/shuttle/caravan/freighter3)
+"jc" = (
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/structure/closet/crate/secure/plasma{
+	dir = 1
+	},
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/turf/open/floor/plasteel/airless/dark,
+/area/shuttle/caravan/freighter3)
+"jd" = (
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/button/door{
+	id = "caravantrade3_cargo_starboard";
+	name = "Cargo Blast Door Control";
+	pixel_y = 24;
+	dir = 1
+	},
+/turf/open/floor/plasteel/airless/dark,
+/area/shuttle/caravan/freighter3)
+"je" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/sign/warning/vacuum{
+	pixel_x = -32;
+	pixel_y = 32;
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/turf/open/floor/plasteel/airless/dark,
+/area/shuttle/caravan/freighter3)
+"jp" = (
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/machinery/power/port_gen/pacman{
+	anchored = 1;
+	dir = 1
+	},
+/obj/item/wrench{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -955,120 +1452,55 @@
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
-"iU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plasteel/airless,
-/area/shuttle/caravan/freighter2)
-"iV" = (
-/obj/effect/turf_decal/box/white/corners{
-	dir = 1
-	},
-/obj/structure/closet/crate/secure/weapon,
-/obj/item/gun/ballistic/shotgun/sc_pump,
-/turf/open/floor/plasteel/airless/dark,
-/area/shuttle/caravan/freighter2)
-"iX" = (
-/obj/effect/turf_decal/box/white/corners{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/airless/dark,
-/area/shuttle/caravan/freighter2)
-"iY" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel{
-	initial_gas_mix = "TEMP=2.7"
-	},
-/area/shuttle/caravan/freighter2)
-"ja" = (
-/obj/effect/turf_decal/bot_white,
-/obj/structure/closet/crate/secure/engineering,
-/obj/item/organ/cyberimp/arm/toolset,
-/obj/item/organ/cyberimp/eyes/hud/medical,
-/obj/item/organ/cyberimp/brain/anti_stun,
-/turf/open/floor/plasteel/airless/dark,
-/area/shuttle/caravan/freighter3)
-"jb" = (
-/obj/effect/turf_decal/bot_white,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/airless{
-	icon_state = "damaged3"
-	},
-/area/shuttle/caravan/freighter3)
-"jc" = (
-/obj/effect/turf_decal/bot_white,
-/obj/structure/closet/crate/secure/plasma,
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/airless/dark,
-/area/shuttle/caravan/freighter3)
-"jd" = (
-/obj/effect/turf_decal/bot_white,
-/obj/machinery/light/small,
-/obj/machinery/button/door{
-	id = "caravantrade3_cargo_starboard";
-	name = "Cargo Blast Door Control";
-	pixel_y = -24
-	},
-/turf/open/floor/plasteel/airless/dark,
-/area/shuttle/caravan/freighter3)
-"je" = (
-/obj/machinery/light/small{
+"jq" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 8
 	},
-/obj/structure/sign/warning/vacuum{
-	pixel_x = -32;
-	pixel_y = -32
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/airless/dark,
-/area/shuttle/caravan/freighter3)
-"jp" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/port_gen/pacman{
-	anchored = 1
-	},
-/obj/item/wrench,
-/obj/structure/cable,
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/decal/cleanable/dirt{
 	dir = 4
 	},
-/turf/open/floor/plating/airless,
-/area/shuttle/caravan/freighter2)
-"jq" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter2)
 "jr" = (
 /obj/effect/turf_decal/box/white/corners{
-	dir = 8
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/weapon,
-/obj/item/gun/ballistic/automatic/pistol/APS,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/closet/crate/secure/weapon{
+	dir = 1
+	},
+/obj/item/gun/ballistic/automatic/pistol/APS{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
 "js" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
 "jt" = (
-/obj/effect/turf_decal/box/white/corners,
-/obj/structure/closet/crate/secure/weapon,
-/obj/item/gun/energy/e_gun/mini,
+/obj/effect/turf_decal/box/white/corners{
+	dir = 4
+	},
+/obj/structure/closet/crate/secure/weapon{
+	dir = 1
+	},
+/obj/item/gun/energy/e_gun/mini{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
 "ju" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/airalarm/all_access{
 	dir = 8;
 	pixel_x = 24
@@ -1076,7 +1508,9 @@
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter2)
 "jv" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -26
@@ -1086,18 +1520,33 @@
 "jy" = (
 /obj/machinery/door/poddoor{
 	id = "caravantrade3_cargo_starboard";
-	name = "Cargo Blast Door"
+	name = "Cargo Blast Door";
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter3)
 "jA" = (
-/obj/effect/turf_decal/bot_white,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/engineering,
-/obj/item/wrench/caravan,
-/obj/item/wirecutters/caravan,
-/obj/item/crowbar/red/caravan,
-/obj/item/screwdriver/caravan,
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/closet/crate/secure/engineering{
+	dir = 1
+	},
+/obj/item/wrench/caravan{
+	dir = 1
+	},
+/obj/item/wirecutters/caravan{
+	dir = 1
+	},
+/obj/item/crowbar/red/caravan{
+	dir = 1
+	},
+/obj/item/screwdriver/caravan{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter3)
 "jH" = (
@@ -1105,25 +1554,35 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
 "jI" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/meter,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/machinery/meter{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter2)
 "jJ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter2)
 "jK" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plasteel/airless{
 	icon_state = "floorscorched1"
 	},
@@ -1135,7 +1594,9 @@
 /mob/living/simple_animal/hostile/pirate/ranged/space{
 	environment_smash = 0
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter2)
 "jN" = (
@@ -1144,26 +1605,37 @@
 	},
 /area/shuttle/caravan/freighter2)
 "jO" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /mob/living/simple_animal/hostile/pirate/ranged/space{
 	environment_smash = 0
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
 "jP" = (
-/obj/structure/table/reinforced,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/item/paper_bin{
 	pixel_x = 6;
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
 /obj/item/pen{
 	pixel_x = 6;
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
 /obj/item/folder/yellow{
-	pixel_x = -6
+	pixel_x = -6;
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
@@ -1174,90 +1646,139 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
 "jW" = (
-/obj/effect/turf_decal/bot_white/left,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot_white/left{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/button/door{
 	id = "caravantrade2_cargo_starboard";
 	name = "Cargo Blast Door Control";
-	pixel_y = -24
+	pixel_y = 24;
+	dir = 1
 	},
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
 "jX" = (
-/obj/effect/turf_decal/bot_white,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
 "jY" = (
-/obj/effect/turf_decal/bot_white,
-/obj/structure/closet/crate/secure/gear,
-/obj/item/storage/belt/bandolier,
-/obj/item/clothing/accessory/holster,
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/structure/closet/crate/secure/gear{
+	dir = 1
+	},
+/obj/item/storage/belt/bandolier{
+	dir = 1
+	},
+/obj/item/clothing/accessory/holster{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
 "jZ" = (
-/obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
 "ka" = (
-/obj/effect/turf_decal/bot_white,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/button/door{
 	id = "caravantrade2_cargo_starboard";
 	name = "Cargo Blast Door Control";
-	pixel_y = -24
+	pixel_y = 24;
+	dir = 1
 	},
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
 "kb" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/structure/sign/warning/vacuum{
 	pixel_x = -32;
-	pixel_y = -32
+	pixel_y = 32;
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
 "kc" = (
-/obj/structure/rack,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/tank/internals/oxygen,
-/obj/item/radio,
-/obj/item/clothing/mask/gas,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/tank/internals/oxygen{
+	dir = 1
+	},
+/obj/item/radio{
+	dir = 1
+	},
+/obj/item/clothing/mask/gas{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless{
 	icon_state = "damaged5"
 	},
 /area/shuttle/caravan/freighter2)
 "kd" = (
-/obj/structure/grille/broken,
+/obj/structure/grille/broken{
+	dir = 1
+	},
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg2"
 	},
 /area/shuttle/caravan/freighter2)
 "ke" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/door/poddoor{
 	id = "caravantrade2_cargo_starboard";
-	name = "Cargo Blast Door"
+	name = "Cargo Blast Door";
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
 "kf" = (
 /obj/machinery/door/poddoor{
 	id = "caravantrade2_cargo_starboard";
-	name = "Cargo Blast Door"
+	name = "Cargo Blast Door";
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
 "kr" = (
 /obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 6;
+	dir = 1;
+	dwidth = 8;
 	height = 7;
 	id = "caravansyndicate3_ambush";
 	name = "Trade Route";
@@ -1280,8 +1801,8 @@
 /area/template_noop)
 "kU" = (
 /obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 11;
+	dir = 1;
+	dwidth = 15;
 	height = 11;
 	id = "caravantrade1_ambush";
 	name = "Trade Route";
@@ -1294,7 +1815,9 @@
 /turf/closed/mineral/random/high_chance,
 /area/ruin/unpowered)
 "lD" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg1"
 	},
@@ -1307,20 +1830,24 @@
 /area/ruin/unpowered)
 "vE" = (
 /obj/machinery/door/airlock/external{
-	req_access_txt = "13"
+	req_access_txt = "13";
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter3)
 "GL" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/door/airlock/external{
-	req_access_txt = "13"
+	req_access_txt = "13";
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/freighter2)
@@ -1341,43 +1868,8 @@ aa
 aa
 aa
 aa
-bt
-bt
-bt
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(2,1,1) = {"
 aa
 aa
 aa
@@ -1396,7 +1888,21 @@ aa
 bt
 bt
 bt
-bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(2,1,1) = {"
 aa
 aa
 aa
@@ -1414,22 +1920,6 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(3,1,1) = {"
 aa
 aa
 aa
@@ -1446,8 +1936,6 @@ aa
 aa
 bt
 bt
-lB
-lB
 bt
 bt
 aa
@@ -1464,6 +1952,7 @@ aa
 aa
 aa
 aa
+aa"}(3,1,1) = {"
 aa
 aa
 aa
@@ -1480,8 +1969,6 @@ aa
 aa
 aa
 aa
-"}
-(4,1,1) = {"
 aa
 aa
 aa
@@ -1515,6 +2002,7 @@ aa
 aa
 aa
 aa
+aa"}(4,1,1) = {"
 aa
 aa
 aa
@@ -1532,8 +2020,6 @@ aa
 aa
 aa
 aa
-"}
-(5,1,1) = {"
 aa
 aa
 aa
@@ -1541,6 +2027,68 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
+bt
+lB
+lB
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(5,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
+bt
+lB
+lB
+bt
+bt
 aa
 aa
 aa
@@ -1548,64 +2096,63 @@ bl
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(6,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 bt
-bt
-lB
-lB
-bt
-bt
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(6,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 bt
 bt
 lB
 bt
 bt
-bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(7,1,1) = {"
 aa
 aa
 aa
@@ -1622,22 +2169,6 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(7,1,1) = {"
 aa
 aa
 aa
@@ -1671,50 +2202,7 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(8,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+aa"}(8,1,1) = {"
 aa
 aa
 aa
@@ -1740,8 +2228,6 @@ aa
 aa
 aa
 aa
-"}
-(9,1,1) = {"
 aa
 aa
 aa
@@ -1766,6 +2252,7 @@ aa
 aa
 aa
 aa
+aa"}(9,1,1) = {"
 aa
 aa
 aa
@@ -1792,8 +2279,6 @@ aa
 aa
 aa
 aa
-"}
-(10,1,1) = {"
 aa
 aa
 aa
@@ -1806,9 +2291,6 @@ aa
 aa
 aa
 aa
-lB
-lB
-lB
 aa
 aa
 aa
@@ -1820,6 +2302,7 @@ aa
 aa
 aa
 aa
+aa"}(10,1,1) = {"
 aa
 aa
 aa
@@ -1842,62 +2325,6 @@ aa
 aa
 aa
 aa
-aa
-aa
-"}
-(11,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-lB
-lB
-lB
-lB
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(12,1,1) = {"
 aa
 aa
 aa
@@ -1925,6 +2352,7 @@ aa
 aa
 aa
 aa
+aa"}(11,1,1) = {"
 aa
 aa
 aa
@@ -1948,8 +2376,122 @@ aa
 aa
 aa
 aa
-"}
-(13,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+lB
+lB
+lB
+lB
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(12,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+lB
+lB
+lB
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(13,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -1960,6 +2502,7 @@ aa
 aa
 aa
 aa
+aa"}(14,1,1) = {"
 aa
 aa
 aa
@@ -2000,8 +2543,6 @@ aa
 aa
 aa
 aa
-"}
-(14,1,1) = {"
 aa
 aa
 aa
@@ -2011,6 +2552,7 @@ aa
 aa
 aa
 aa
+aa"}(15,1,1) = {"
 aa
 aa
 aa
@@ -2052,8 +2594,6 @@ aa
 aa
 aa
 aa
-"}
-(15,1,1) = {"
 aa
 aa
 aa
@@ -2062,102 +2602,84 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(16,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+aa"}(16,1,1) = {"
 aa
 aa
 bt
 bt
 aa
 aa
-"}
-(17,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(17,1,1) = {"
+aa
+bt
+bt
+bt
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -2180,6 +2702,20 @@ aa
 aa
 aa
 aa
+aa"}(18,1,1) = {"
+aa
+bt
+bt
+lB
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -2203,18 +2739,6 @@ aa
 aa
 aa
 bt
-bt
-bt
-bt
-bt
-aa
-"}
-(18,1,1) = {"
-aa
-aa
-aa
-aa
-aa
 aa
 aa
 aa
@@ -2224,170 +2748,118 @@ aa
 aa
 aa
 aa
-bt
 aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+aa"}(19,1,1) = {"
 aa
 bt
 bt
 lB
+lB
 bt
 bt
 aa
-"}
-(19,1,1) = {"
 aa
 aa
 aa
 aa
 aa
-tH
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bJ
 dE
 dL
 dE
-bJ
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-bt
-bt
-lB
-lB
-bt
-bt
-aa
-"}
-(20,1,1) = {"
-aa
-aa
-aa
-aa
 tH
-dE
-dF
-eu
+aa
+aa
+aa
+aa
+aa"}(20,1,1) = {"
+aa
+aa
+bt
+lB
+lB
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
+aa
+bJ
+bJ
 eG
-bJ
-bJ
-aa
-bt
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-bt
-bt
-lB
-lB
-bt
-aa
-aa
-"}
-(21,1,1) = {"
-aa
-aa
-aa
-bJ
+eu
+dF
 dE
-dE
-dE
-gk
-lD
-bs
-bJ
+tH
+aa
+aa
+aa
+aa"}(21,1,1) = {"
+aa
 aa
 bt
 bt
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+bt
+bt
+bt
 aa
 aa
 aa
@@ -2409,40 +2881,78 @@ aa
 aa
 aa
 aa
-bt
-bt
-bt
-bt
-bt
-aa
-aa
-"}
-(22,1,1) = {"
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+aa
+bt
+bt
+aa
+bJ
+bs
+lD
+gk
+dE
+dE
 dE
 bJ
 aa
-bJ
-bs
-bs
+aa
+aa"}(22,1,1) = {"
+aa
+aa
+aa
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
+aa
+aa
+aa
 aa
 ae
 aa
+bs
+bs
+bJ
+aa
+bJ
+dE
 aa
 aa
-aa
-bt
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+aa"}(23,1,1) = {"
 aa
 aa
 aa
@@ -2463,66 +2973,56 @@ aa
 aa
 aa
 aa
-bt
-bt
 aa
 aa
 aa
-"}
-(23,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aD
+ac
+bs
+aa
+ab
 aa
 aa
 aa
 bJ
 aa
 aa
+aa"}(24,1,1) = {"
 aa
-ab
 aa
-bs
-ac
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aD
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(24,1,1) = {"
-aa
 aa
 br
 aa
@@ -2530,21 +3030,21 @@ aa
 aa
 aa
 aa
-ac
 aa
-dD
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
+bt
 ex
-bt
-bt
+dD
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ac
 aa
 aa
 aa
@@ -2552,40 +3052,12 @@ aa
 aa
 br
 aa
-aD
+aa"}(25,1,1) = {"
 aa
 aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(25,1,1) = {"
-aa
-aa
-bt
-bt
-aa
-aa
-aa
-aa
-ad
-bt
-dD
-bt
 bt
 bt
 bt
@@ -2598,15 +3070,15 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aE
 aa
 ao
 aa
+aE
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -2618,30 +3090,44 @@ aa
 bt
 bt
 bt
-bt
-aa
-aa
-aa
-aa
-aa
-"}
-(26,1,1) = {"
-aa
-bt
-bt
-bt
-aa
-aa
-aa
-ew
 bt
 bt
 dD
 bt
+ad
+aa
+aa
+aa
+aa
+bt
+bt
+aa
+aa"}(26,1,1) = {"
+aa
+aa
+aa
+aa
 bt
 bt
 bt
 bt
+bt
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -2651,36 +3137,22 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+bt
+bt
+bt
+bt
+bt
+dD
+bt
+bt
+ew
 aa
 aa
 aa
 bt
 bt
 bt
-bt
-bt
-bt
-bt
-aa
-aa
-aa
-aa
-"}
-(27,1,1) = {"
-aa
-aa
-aa
+aa"}(27,1,1) = {"
 aa
 aa
 aa
@@ -2693,29 +3165,29 @@ bt
 bt
 bt
 bt
-bt
-bt
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 as
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
+bt
 bt
 bt
 bt
@@ -2728,14 +3200,45 @@ aa
 aa
 aa
 aa
-"}
-(28,1,1) = {"
+aa
+aa
+aa"}(28,1,1) = {"
+aa
+aa
 bt
-aa
-aa
-aa
+bt
+bt
+bt
 dD
 dD
+dD
+dD
+bt
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
+bt
+bt
 bt
 bt
 bt
@@ -2744,79 +3247,12 @@ lB
 bt
 bt
 bt
-bt
-bt
-bt
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-bt
-bt
-bt
 dD
 dD
-dD
-dD
-bt
-bt
-bt
-bt
-aa
-aa
-"}
-(29,1,1) = {"
 aa
 aa
 aa
-dD
-bt
-bt
-bt
-bt
-lB
-lB
-lB
-lB
-bt
-bt
-bt
-bt
-bt
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+bt"}(29,1,1) = {"
 aa
 aa
 bt
@@ -2832,11 +3268,25 @@ bt
 bt
 aa
 aa
-"}
-(30,1,1) = {"
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
 bt
 bt
 bt
@@ -2845,50 +3295,49 @@ lB
 lB
 lB
 lB
-lB
 bt
 bt
 bt
 bt
+dD
 aa
 aa
+aa"}(30,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+bt
+bt
+bt
+dD
+bt
+bt
+bt
+dD
+dD
+bt
+bt
 br
-bt
-bt
-dD
-dD
-bt
-bt
-bt
-dD
-bt
-bt
-bt
-aa
-aa
-"}
-(31,1,1) = {"
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
 bt
 bt
 bt
@@ -2903,26 +3352,9 @@ bt
 bt
 aa
 aa
+aa"}(31,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-bt
 bt
 bt
 dD
@@ -2934,13 +3366,79 @@ dD
 dD
 bt
 bt
-aa
-aa
-"}
-(32,1,1) = {"
+bt
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
+bt
+bt
+bt
+lB
+lB
+lB
+lB
+lB
+bt
+bt
+bt
+aa
+aa
+aa"}(32,1,1) = {"
+aa
+bt
+bt
+bt
+dD
+bt
+bt
+bt
+bt
+dD
+bt
+bt
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
 bt
 bt
 bt
@@ -2952,32 +3450,13 @@ bt
 bt
 bt
 bt
-bt
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+aa"}(33,1,1) = {"
 aa
 bt
-bt
-bt
-bt
+dD
+dD
 dD
 bt
 bt
@@ -2988,24 +3467,6 @@ bt
 bt
 bt
 aa
-"}
-(33,1,1) = {"
-aa
-aa
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-aa
 aa
 aa
 aa
@@ -3030,55 +3491,23 @@ aa
 bt
 bt
 bt
-dD
 bt
 bt
 bt
 bt
+bt
+bt
+bt
+bt
+bt
+bt
+aa
+aa"}(34,1,1) = {"
+aa
 dD
 dD
 dD
 bt
-aa
-"}
-(34,1,1) = {"
-aa
-aa
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 bt
 bt
 bt
@@ -3087,28 +3516,6 @@ dD
 bt
 bt
 bt
-bt
-dD
-dD
-dD
-aa
-"}
-(35,1,1) = {"
-aa
-aa
-aa
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-aa
-aa
 aa
 aa
 aa
@@ -3134,8 +3541,6 @@ aa
 aa
 bt
 bt
-dD
-dD
 bt
 bt
 bt
@@ -3143,172 +3548,71 @@ bt
 bt
 bt
 bt
-aa
-"}
-(36,1,1) = {"
-aa
-aa
-aa
-aa
 bt
 bt
 bt
 aa
+aa"}(35,1,1) = {"
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+bt
+bt
+bt
+bt
+bt
+bt
+bt
 dD
 dD
 bt
 bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
+bt
+bt
+bt
+bt
 bt
 bt
 bt
 bt
 bt
 aa
-"}
-(37,1,1) = {"
 aa
+aa"}(36,1,1) = {"
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+bt
+bt
+bt
+bt
+bt
+bt
+bt
 dD
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-aa
-"}
-(38,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-bt
-aa
-"}
-(39,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+dD
 aa
 aa
 aa
@@ -3345,71 +3649,20 @@ aa
 bt
 bt
 bt
-bt
-bt
-bt
-bt
-bt
-aa
-aa
-"}
-(40,1,1) = {"
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+aa"}(37,1,1) = {"
 aa
 bt
 bt
 bt
 bt
-aa
-aa
-aa
-"}
-(41,1,1) = {"
-aa
-aa
-aa
-aa
+bt
+bt
+bt
+bt
+dD
 aa
 aa
 aa
@@ -3446,6 +3699,160 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
+aa"}(38,1,1) = {"
+aa
+bt
+bt
+bt
+bt
+bt
+bt
+bt
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(39,1,1) = {"
+aa
+aa
+bt
+bt
+bt
+bt
+bt
+bt
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(40,1,1) = {"
+aa
+aa
+aa
+bt
+bt
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(41,1,1) = {"
 aa
 aa
 aa
@@ -3456,14 +3863,46 @@ aa
 aa
 aa
 aa
-"}
-(42,1,1) = {"
 aa
 aa
 aa
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(42,1,1) = {"
 aa
 aa
 aa
@@ -3483,12 +3922,12 @@ aa
 aa
 aa
 hm
-hQ
-io
-io
-io
-io
 jV
+io
+io
+io
+io
+hQ
 hm
 aa
 aa
@@ -3508,14 +3947,12 @@ aa
 aa
 aa
 aa
-"}
-(43,1,1) = {"
 aa
 aa
 aa
 aa
 aa
-aa
+aa"}(43,1,1) = {"
 aa
 aa
 aa
@@ -3560,47 +3997,12 @@ aa
 aa
 aa
 aa
-"}
-(44,1,1) = {"
 aa
 aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-hn
-aY
-iq
-iT
-jp
-jH
-jW
-hn
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+aa"}(44,1,1) = {"
 aa
 aa
 aa
@@ -3612,8 +4014,21 @@ aa
 aa
 aa
 aa
-"}
-(45,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+hn
+jW
+jH
+jp
+iT
+iq
+aY
+hn
 aa
 aa
 aa
@@ -3637,15 +4052,33 @@ aa
 aa
 aa
 aa
+aa"}(45,1,1) = {"
 aa
-ho
-hS
-aP
-iU
-jq
-jI
-jX
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 ke
+jX
+jI
+jq
+iU
+aP
+hS
+ho
 aa
 aa
 aa
@@ -3664,8 +4097,12 @@ aa
 aa
 aa
 aa
-"}
-(46,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa"}(46,1,1) = {"
 aa
 aa
 aa
@@ -3682,22 +4119,40 @@ aa
 aa
 aa
 aa
-bs
-bs
-bs
-bs
-bs
-bs
-bs
-bs
-hp
-hT
-is
-iV
-jr
-jJ
-jY
+aa
+aa
 kf
+jY
+jJ
+jr
+iV
+is
+hT
+hp
+bs
+bs
+bs
+bs
+bs
+bs
+bs
+bs
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(47,1,1) = {"
 aa
 aa
 aa
@@ -3716,40 +4171,38 @@ aa
 aa
 aa
 aa
-"}
-(47,1,1) = {"
+ke
+jZ
+jK
+js
+js
+it
+hU
+hq
+af
+af
+af
+ah
+ag
+af
+af
+af
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
 aj
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-af
-af
-af
-ag
-ah
-af
-af
-af
-hq
-hU
-it
-js
-js
-jK
-jZ
-ke
+aa"}(48,1,1) = {"
 aa
 aa
 aa
@@ -3768,40 +4221,22 @@ aa
 aa
 aa
 aa
-"}
-(48,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-bs
-bs
-bs
-bs
-bs
-bs
-bs
-bs
-hr
-hV
-iu
-iX
-jt
-jL
-jX
 kf
+jX
+jL
+jt
+iX
+iu
+hV
+hr
+bs
+bs
+bs
+bs
+bs
+bs
+bs
+bs
 aa
 aa
 aa
@@ -3817,17 +4252,7 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-"}
-(49,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
+aa"}(49,1,1) = {"
 aa
 aa
 aa
@@ -3847,12 +4272,12 @@ aa
 aa
 aa
 hn
-hW
-iv
-iY
-ju
-bi
 ka
+bi
+ju
+iY
+iv
+hW
 hn
 aa
 aa
@@ -3872,8 +4297,12 @@ aa
 aa
 aa
 aa
-"}
-(50,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa"}(50,1,1) = {"
 aa
 aa
 aa
@@ -3892,40 +4321,14 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
+hn
+hn
+hn
 hn
 hn
 aZ
 hn
 hn
-hn
-hn
-hn
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(51,1,1) = {"
 aa
 aa
 aa
@@ -3949,41 +4352,57 @@ aa
 aa
 aa
 aa
-aa
-hs
-hX
-ix
-bg
-jv
-jN
-kb
-GL
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+aa"}(51,1,1) = {"
 aa
 bl
 aa
-"}
-(52,1,1) = {"
 aa
 aa
 aa
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+GL
+kb
+jN
+jv
+bg
+ix
+hX
+hs
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(52,1,1) = {"
 aa
 aa
 aa
@@ -4003,12 +4422,12 @@ aa
 aa
 aa
 ht
-hY
-iy
-bs
-bh
-jO
 kc
+jO
+bh
+bs
+iy
+hY
 ht
 aa
 aa
@@ -4028,8 +4447,37 @@ aa
 aa
 aa
 aa
-"}
-(53,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa"}(53,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ht
+ht
+jP
+an
+aa
+dc
+bs
 aa
 aa
 aa
@@ -4054,14 +4502,33 @@ aa
 aa
 aa
 aa
+aa"}(54,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+kd
+bs
 aa
 bs
-dc
 aa
-an
-jP
-ht
-ht
+aa
+aD
 aa
 aa
 aa
@@ -4080,11 +4547,12 @@ aa
 aa
 aa
 aa
-"}
-(54,1,1) = {"
 aa
 aa
 aa
+aa
+aa
+aa"}(55,1,1) = {"
 aa
 aa
 aa
@@ -4107,62 +4575,9 @@ aa
 aa
 aa
 aD
-aa
-aa
-bs
-aa
-bs
-kd
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(55,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 aa
 aT
 aa
-aD
 aa
 aa
 aa
@@ -4184,15 +4599,10 @@ aa
 aa
 aa
 aa
-"}
-(56,1,1) = {"
 aa
 aa
 aa
-aa
-aa
-aa
-aa
+aa"}(56,1,1) = {"
 aa
 aa
 aa
@@ -4236,9 +4646,13 @@ aa
 aa
 aa
 aa
-"}
-(57,1,1) = {"
 aa
+aa
+aa
+aa
+aa
+aa
+aa"}(57,1,1) = {"
 aa
 aa
 aa
@@ -4288,8 +4702,7 @@ aa
 aa
 aa
 aa
-"}
-(58,1,1) = {"
+aa"}(58,1,1) = {"
 aa
 aa
 aa
@@ -4339,9 +4752,8 @@ aa
 aa
 aa
 aa
+aa"}(59,1,1) = {"
 aa
-"}
-(59,1,1) = {"
 aa
 aa
 aa
@@ -4390,10 +4802,9 @@ aa
 aa
 aa
 aa
+aa"}(60,1,1) = {"
 aa
 aa
-"}
-(60,1,1) = {"
 aa
 aa
 aa
@@ -4441,11 +4852,10 @@ aa
 aa
 aa
 aa
+aa"}(61,1,1) = {"
 aa
 aa
 aa
-"}
-(61,1,1) = {"
 aa
 aa
 aa
@@ -4492,12 +4902,11 @@ aa
 aa
 aa
 aa
+aa"}(62,1,1) = {"
 aa
 aa
 aa
 aa
-"}
-(62,1,1) = {"
 aa
 aa
 aa
@@ -4543,13 +4952,12 @@ aa
 aa
 aa
 aa
+aa"}(63,1,1) = {"
 aa
 aa
 aa
 aa
 aa
-"}
-(63,1,1) = {"
 aa
 aa
 aa
@@ -4594,14 +5002,13 @@ aa
 aa
 aa
 aa
+aa"}(64,1,1) = {"
 aa
 aa
 aa
 aa
 aa
 aa
-"}
-(64,1,1) = {"
 aa
 aa
 aa
@@ -4645,6 +5052,7 @@ aa
 aa
 aa
 aa
+aa"}(65,1,1) = {"
 aa
 aa
 aa
@@ -4652,8 +5060,6 @@ aa
 aa
 aa
 aa
-"}
-(65,1,1) = {"
 aa
 aa
 aa
@@ -4696,6 +5102,7 @@ aa
 aa
 aa
 aa
+aa"}(66,1,1) = {"
 aa
 aa
 aa
@@ -4704,8 +5111,6 @@ aa
 aa
 aa
 aa
-"}
-(66,1,1) = {"
 aa
 aa
 aa
@@ -4747,6 +5152,7 @@ aa
 aa
 aa
 aa
+aa"}(67,1,1) = {"
 aa
 aa
 aa
@@ -4756,8 +5162,6 @@ aa
 aa
 aa
 aa
-"}
-(67,1,1) = {"
 aa
 aa
 aa
@@ -4798,61 +5202,7 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(68,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+aa"}(68,1,1) = {"
 aa
 aa
 bt
@@ -4860,13 +5210,52 @@ bt
 bt
 aa
 aa
-"}
-(69,1,1) = {"
 aa
 aa
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(69,1,1) = {"
+aa
+bt
+bt
 bt
 bt
 bt
@@ -4909,71 +5298,17 @@ aa
 bt
 bt
 bt
-bt
-bt
-aa
-"}
-(70,1,1) = {"
 aa
 aa
 aa
 aa
-bt
-bt
-bt
-bt
-bt
+aa"}(70,1,1) = {"
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-bt
 bt
 bt
 lB
 bt
 bt
-aa
-"}
-(71,1,1) = {"
-aa
-aa
-aa
-aa
-bt
-bt
-bt
-bt
 bt
 aa
 aa
@@ -5009,6 +5344,15 @@ aa
 aa
 aa
 aa
+bt
+bt
+bt
+bt
+bt
+aa
+aa
+aa
+aa"}(71,1,1) = {"
 bt
 bt
 lB
@@ -5016,34 +5360,56 @@ lB
 lB
 bt
 bt
-"}
-(72,1,1) = {"
 aa
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
+bt
+bt
+bt
+bt
+aa
+aa
+aa
+aa"}(72,1,1) = {"
 bt
 bt
 lB
 lB
+lB
 bt
 bt
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 aa
 aa
 aa
@@ -5061,15 +5427,18 @@ aa
 aa
 aa
 aa
-bt
-bt
-lB
-lB
-lB
-bt
-bt
-"}
-(73,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -5083,7 +5452,14 @@ bt
 aa
 aa
 aa
-aa
+aa"}(73,1,1) = {"
+bt
+bt
+lB
+lB
+bt
+bt
+bt
 aa
 aa
 aa
@@ -5113,16 +5489,6 @@ aa
 aa
 aa
 aa
-bt
-bt
-bt
-lB
-lB
-bt
-bt
-"}
-(74,1,1) = {"
-aa
 aa
 aa
 aa
@@ -5132,13 +5498,17 @@ bt
 lB
 lB
 bt
+bt
 aa
 aa
 aa
+aa"}(74,1,1) = {"
 aa
-aa
-aa
-aa
+bt
+bt
+bt
+bt
+bt
 aa
 aa
 aa
@@ -5166,20 +5536,13 @@ aa
 aa
 aa
 aa
-bt
-bt
-bt
-bt
-bt
-aa
-"}
-(75,1,1) = {"
 aa
 aa
 aa
 aa
 aa
-bt
+aa
+aa
 bt
 lB
 lB
@@ -5189,147 +5552,138 @@ aa
 aa
 aa
 aa
+aa"}(75,1,1) = {"
+aa
+bt
+bt
+bt
 aa
 aa
 aa
 aa
 aa
 aa
-fZ
-gq
-gP
-gP
-gP
-bs
-ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aE
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-bt
-bt
-bt
-aa
-"}
-(76,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-bt
-bt
-bt
-bt
-bt
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ga
-ga
-gQ
-gQ
-gQ
-iz
+ab
 bs
+gP
+gP
+gP
+gq
+fZ
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
+bt
+lB
+lB
+bt
+bt
+aa
+aa
+aa
+aa
+aa"}(76,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aD
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(77,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-bt
-bt
-bt
-bt
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+bs
+iz
+gQ
+gQ
+gQ
 ga
-av
-gR
-hu
-hZ
-ai
+ga
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
+bt
+bt
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa"}(77,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aT
+ai
+hZ
+hu
+gR
+av
+ga
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(78,1,1) = {"
 aa
 aa
 aa
@@ -5340,6 +5694,15 @@ aa
 aa
 bt
 bt
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(78,1,1) = {"
 aa
 aa
 aa
@@ -5351,170 +5714,174 @@ aa
 aa
 aa
 aa
-gb
-gs
-aN
-hv
-ia
-iA
-ak
-ap
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 br
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(79,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ap
+ak
+iA
+ia
+hv
+aN
+gs
 gb
-jA
-gT
-hw
-ib
-iB
-ja
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(79,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 bd
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(80,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-lB
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+ja
+iB
+ib
+hw
+gT
+jA
 gb
-gt
-gU
-hx
-ic
-iC
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(80,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+jy
 jb
-jy
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(81,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-lB
-lB
-lB
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+iC
+ic
+hx
+gU
+gt
 gb
-gv
-gV
-hy
-id
-iD
-jc
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+lB
+aa
+aa
+aa
+aa
+aa
+aa"}(81,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 jy
+jc
+iD
+id
+hy
+gV
+gv
+gb
 aa
 aa
 aa
@@ -5522,22 +5889,6 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(82,1,1) = {"
 aa
 aa
 aa
@@ -5547,6 +5898,20 @@ aa
 lB
 lB
 lB
+aa
+aa
+aa
+aa
+aa"}(82,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -5560,12 +5925,12 @@ aa
 aa
 aa
 ga
-gw
-gW
-hz
-ie
-aR
 jd
+aR
+ie
+hz
+gW
+gw
 ga
 aa
 aa
@@ -5579,23 +5944,7 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(83,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
+lB
 lB
 lB
 aa
@@ -5603,6 +5952,7 @@ aa
 aa
 aa
 aa
+aa"}(83,1,1) = {"
 aa
 aa
 aa
@@ -5611,14 +5961,48 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ga
+ga
+ga
 ga
 ga
 aW
 ga
 ga
-ga
-ga
-ga
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+lB
+lB
+aa
+aa
+aa
+aa
+aa
+aa"}(84,1,1) = {"
 aa
 aa
 aa
@@ -5640,37 +6024,14 @@ aa
 aa
 aa
 aa
-"}
-(84,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-gc
-gy
-gY
-aO
-if
-iF
-je
 vE
+je
+iF
+if
+aO
+gY
+gy
+gc
 aa
 aa
 aa
@@ -5691,9 +6052,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(85,1,1) = {"
+aa"}(85,1,1) = {"
 aa
 aa
 aa
@@ -5716,12 +6075,12 @@ aa
 aa
 aa
 gd
-aw
-aG
-hB
-ig
-aM
 aQ
+aM
+ig
+hB
+aG
+aw
 gd
 aa
 aa
@@ -5743,9 +6102,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(86,1,1) = {"
+aa"}(86,1,1) = {"
 aa
 aa
 aa
@@ -5757,10 +6114,10 @@ aa
 aa
 aa
 aa
-bt
-bt
-bt
-bt
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -5769,10 +6126,10 @@ aa
 aa
 gd
 gd
-ha
-aI
-ih
 iH
+ih
+aI
+ha
 gd
 gd
 aa
@@ -5781,41 +6138,39 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(87,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 bt
 bt
 bt
 bt
-bt
-bt
-bt
-bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(87,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -5830,35 +6185,6 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(88,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 bt
 bt
 bt
@@ -5867,8 +6193,66 @@ bt
 bt
 bt
 bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(88,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 dD
 dD
+bt
+bt
+bt
+bt
+bt
+bt
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(89,1,1) = {"
 aa
 aa
 aa
@@ -5900,19 +6284,106 @@ aa
 aa
 aa
 aa
-"}
-(89,1,1) = {"
+dD
+dD
+dD
+dD
+bt
+bt
+bt
+bt
+bt
+bt
+aa
+aa
 aa
 aa
 aa
 bl
 aa
 aa
+aa"}(90,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
 bt
 bt
+dD
+dD
+dD
+dD
+bt
+bt
+bt
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(91,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 bt
 bt
 bt
@@ -5931,6 +6402,7 @@ aa
 aa
 aa
 aa
+aa"}(92,1,1) = {"
 aa
 aa
 aa
@@ -5950,114 +6422,6 @@ aa
 aa
 aa
 aa
-aa
-aa
-"}
-(90,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-bt
-bt
-bt
-dD
-dD
-dD
-dD
-bt
-bt
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(91,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-dD
-dD
-dD
-dD
-bt
-bt
-bt
-bt
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(92,1,1) = {"
 aa
 aa
 aa
@@ -6088,6 +6452,7 @@ aa
 aa
 aa
 aa
+aa"}(93,1,1) = {"
 aa
 aa
 aa
@@ -6108,8 +6473,6 @@ aa
 aa
 aa
 aa
-"}
-(93,1,1) = {"
 aa
 aa
 aa
@@ -6139,6 +6502,7 @@ aa
 aa
 aa
 aa
+aa"}(94,1,1) = {"
 aa
 aa
 aa
@@ -6159,9 +6523,6 @@ aa
 aa
 aa
 aa
-aa
-"}
-(94,1,1) = {"
 aa
 aa
 aa
@@ -6191,6 +6552,7 @@ aa
 aa
 aa
 aa
+aa"}(95,1,1) = {"
 aa
 aa
 aa
@@ -6211,9 +6573,6 @@ aa
 aa
 aa
 aa
-aa
-"}
-(95,1,1) = {"
 aa
 aa
 aa
@@ -6243,6 +6602,7 @@ aa
 aa
 aa
 aa
+aa"}(96,1,1) = {"
 aa
 aa
 aa
@@ -6264,8 +6624,6 @@ aa
 aa
 aa
 aa
-"}
-(96,1,1) = {"
 aa
 aa
 aa
@@ -6294,6 +6652,7 @@ aa
 aa
 aa
 aa
+aa"}(97,1,1) = {"
 aa
 aa
 aa
@@ -6315,9 +6674,6 @@ aa
 aa
 aa
 aa
-aa
-"}
-(97,1,1) = {"
 aa
 aa
 aa
@@ -6346,26 +6702,4 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
+aa"}

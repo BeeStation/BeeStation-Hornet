@@ -6,7 +6,9 @@
 /turf/closed/wall/mineral/titanium,
 /area/ruin/unpowered)
 "c" = (
-/obj/structure/shuttle/engine/propulsion/burst/right,
+/obj/structure/shuttle/engine/propulsion/burst/right{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/overspace,
 /area/ruin/unpowered)
 "d" = (
@@ -14,27 +16,37 @@
 	dir = 8
 	},
 /obj/item/gps{
-	gpstag = "SOS"
+	gpstag = "SOS";
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/unpowered)
 "e" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod Airlock";
+	dir = 1
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/unpowered)
 "f" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/unpowered)
 "g" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/item/storage/pill_bottle/floorpill/full,
-/obj/effect/mob_spawn/human/corpse/assistant,
+/obj/item/storage/pill_bottle/floorpill/full{
+	dir = 1
+	},
+/obj/effect/mob_spawn/human/corpse/assistant{
+	dir = 1
+	},
  /obj/item/storage/secure/briefcase/syndie,
  /obj/item/storage/pod{
 	pixel_y = -30
@@ -50,9 +62,7 @@ a
 a
 a
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 a
 a
@@ -60,9 +70,7 @@ a
 a
 a
 a
-a
-"}
-(3,1,1) = {"
+a"}(3,1,1) = {"
 a
 a
 a
@@ -70,9 +78,7 @@ a
 a
 a
 a
-a
-"}
-(4,1,1) = {"
+a"}(4,1,1) = {"
 a
 a
 a
@@ -80,9 +86,7 @@ a
 a
 a
 a
-a
-"}
-(5,1,1) = {"
+a"}(5,1,1) = {"
 a
 a
 a
@@ -90,10 +94,7 @@ a
 a
 a
 a
-a
-"}
-(6,1,1) = {"
-a
+a"}(6,1,1) = {"
 a
 a
 b
@@ -101,9 +102,7 @@ f
 b
 a
 a
-"}
-(7,1,1) = {"
-a
+a"}(7,1,1) = {"
 a
 a
 b
@@ -111,9 +110,7 @@ d
 b
 a
 a
-"}
-(8,1,1) = {"
-a
+a"}(8,1,1) = {"
 a
 a
 b
@@ -121,9 +118,7 @@ g
 b
 a
 a
-"}
-(9,1,1) = {"
-a
+a"}(9,1,1) = {"
 a
 a
 c
@@ -131,8 +126,7 @@ e
 c
 a
 a
-"}
-(10,1,1) = {"
+a"}(10,1,1) = {"
 a
 a
 a
@@ -140,9 +134,7 @@ a
 a
 a
 a
-a
-"}
-(11,1,1) = {"
+a"}(11,1,1) = {"
 a
 a
 a
@@ -150,9 +142,7 @@ a
 a
 a
 a
-a
-"}
-(12,1,1) = {"
+a"}(12,1,1) = {"
 a
 a
 a
@@ -160,5 +150,4 @@ a
 a
 a
 a
-a
-"}
+a"}

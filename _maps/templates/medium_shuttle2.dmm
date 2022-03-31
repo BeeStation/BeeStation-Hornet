@@ -36,101 +36,129 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/powered/shuttle/medium_2)
 "l" = (
-/obj/machinery/door/airlock/external/glass,
+/obj/machinery/door/airlock/external/glass{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/powered/shuttle/medium_2)
 "m" = (
 /turf/open/floor/plasteel,
 /area/ruin/powered/shuttle/medium_2)
 "n" = (
-/obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/airlock/public/glass{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/powered/shuttle/medium_2)
 "o" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/powered/shuttle/medium_2)
 "p" = (
 /obj/effect/turf_decal/tile/yellow{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/powered/shuttle/medium_2)
 "r" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/shuttle/medium_2)
 "s" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/regular,
-/obj/effect/turf_decal/tile/blue{
+/obj/structure/table{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/blue,
+/obj/item/storage/firstaid/regular{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/powered/shuttle/medium_2)
 "t" = (
 /obj/machinery/sleeper{
-	dir = 1
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/powered/shuttle/medium_2)
 "u" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/yellow{
+/obj/structure/table/reinforced{
 	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/powered/shuttle/medium_2)
 "v" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/powered/shuttle/medium_2)
 "w" = (
-/obj/machinery/power/smes/magical,
+/obj/machinery/power/smes/magical{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/powered/shuttle/medium_2)
 "x" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/powered/shuttle/medium_2)
 "y" = (
@@ -138,14 +166,16 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/powered/shuttle/medium_2)
@@ -157,18 +187,16 @@
 a
 a
 a
-b
 f
-a
-a
-a
 b
+a
+a
+a
 f
+b
 a
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 a
 a
@@ -181,9 +209,7 @@ c
 c
 a
 a
-a
-"}
-(3,1,1) = {"
+a"}(3,1,1) = {"
 a
 a
 a
@@ -196,11 +222,9 @@ d
 d
 a
 a
-a
-"}
-(4,1,1) = {"
-b
+a"}(4,1,1) = {"
 f
+b
 d
 d
 d
@@ -210,10 +234,8 @@ d
 d
 d
 d
-b
 f
-"}
-(5,1,1) = {"
+b"}(5,1,1) = {"
 c
 c
 d
@@ -226,9 +248,7 @@ g
 d
 d
 c
-c
-"}
-(6,1,1) = {"
+c"}(6,1,1) = {"
 d
 d
 g
@@ -241,9 +261,7 @@ g
 g
 g
 d
-d
-"}
-(7,1,1) = {"
+d"}(7,1,1) = {"
 d
 d
 g
@@ -256,9 +274,7 @@ m
 m
 g
 d
-d
-"}
-(8,1,1) = {"
+d"}(8,1,1) = {"
 d
 g
 g
@@ -271,9 +287,7 @@ g
 n
 g
 g
-d
-"}
-(9,1,1) = {"
+d"}(9,1,1) = {"
 d
 g
 k
@@ -286,9 +300,7 @@ g
 k
 k
 g
-d
-"}
-(10,1,1) = {"
+d"}(10,1,1) = {"
 d
 g
 k
@@ -301,9 +313,7 @@ g
 k
 k
 g
-d
-"}
-(11,1,1) = {"
+d"}(11,1,1) = {"
 a
 i
 g
@@ -316,9 +326,7 @@ g
 n
 g
 i
-a
-"}
-(12,1,1) = {"
+a"}(12,1,1) = {"
 a
 a
 g
@@ -331,9 +339,7 @@ k
 k
 g
 a
-a
-"}
-(13,1,1) = {"
+a"}(13,1,1) = {"
 a
 a
 g
@@ -346,9 +352,7 @@ k
 k
 g
 a
-a
-"}
-(14,1,1) = {"
+a"}(14,1,1) = {"
 a
 a
 g
@@ -361,9 +365,7 @@ n
 g
 g
 a
-a
-"}
-(15,1,1) = {"
+a"}(15,1,1) = {"
 a
 a
 l
@@ -376,9 +378,7 @@ k
 k
 l
 a
-a
-"}
-(16,1,1) = {"
+a"}(16,1,1) = {"
 a
 a
 i
@@ -391,9 +391,7 @@ n
 g
 i
 a
-a
-"}
-(17,1,1) = {"
+a"}(17,1,1) = {"
 a
 a
 a
@@ -406,9 +404,7 @@ k
 g
 a
 a
-a
-"}
-(18,1,1) = {"
+a"}(18,1,1) = {"
 a
 a
 a
@@ -421,39 +417,33 @@ n
 g
 a
 a
-a
-"}
-(19,1,1) = {"
+a"}(19,1,1) = {"
 a
 a
 a
 g
-o
+k
+k
+x
 s
-x
-k
-k
-g
-a
-a
-a
-"}
-(20,1,1) = {"
-a
-a
-a
-g
 o
+g
+a
+a
+a"}(20,1,1) = {"
+a
+a
+a
+g
+k
+k
+x
 t
-x
-k
-k
+o
 g
 a
 a
-a
-"}
-(21,1,1) = {"
+a"}(21,1,1) = {"
 a
 a
 a
@@ -466,24 +456,7 @@ n
 g
 a
 a
-a
-"}
-(22,1,1) = {"
-a
-a
-a
-g
-k
-k
-x
-k
-k
-g
-a
-a
-a
-"}
-(23,1,1) = {"
+a"}(22,1,1) = {"
 a
 a
 a
@@ -496,9 +469,20 @@ k
 g
 a
 a
+a"}(23,1,1) = {"
 a
-"}
-(24,1,1) = {"
+a
+a
+g
+k
+k
+x
+k
+k
+g
+a
+a
+a"}(24,1,1) = {"
 a
 a
 a
@@ -511,9 +495,7 @@ n
 g
 a
 a
-a
-"}
-(25,1,1) = {"
+a"}(25,1,1) = {"
 a
 a
 a
@@ -526,9 +508,7 @@ p
 g
 a
 a
-a
-"}
-(26,1,1) = {"
+a"}(26,1,1) = {"
 a
 a
 a
@@ -541,9 +521,7 @@ p
 g
 a
 a
-a
-"}
-(27,1,1) = {"
+a"}(27,1,1) = {"
 a
 a
 a
@@ -556,9 +534,7 @@ g
 i
 a
 a
-a
-"}
-(28,1,1) = {"
+a"}(28,1,1) = {"
 a
 a
 a
@@ -571,5 +547,4 @@ i
 a
 a
 a
-a
-"}
+a"}

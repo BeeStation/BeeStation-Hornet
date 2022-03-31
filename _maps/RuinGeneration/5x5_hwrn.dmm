@@ -3,21 +3,27 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "j" = (
-/obj/structure/closet/emcloset,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"o" = (
-/obj/item/twohanded/required/kirbyplants/random,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"q" = (
-/obj/effect/abstract/doorway_marker{
+/obj/structure/closet/emcloset{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"o" = (
+/obj/item/twohanded/required/kirbyplants/random{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"q" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 2
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "x" = (
-/obj/structure/closet/firecloset,
+/obj/structure/closet/firecloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "N" = (
@@ -35,33 +41,24 @@ N
 h
 W
 h
-N
-"}
-(2,1,1) = {"
+N"}(2,1,1) = {"
 N
 h
 h
 h
+N"}(3,1,1) = {"
 N
-"}
-(3,1,1) = {"
-q
 h
 h
 h
+q"}(4,1,1) = {"
 N
-"}
-(4,1,1) = {"
-N
-x
-o
 j
-N
-"}
-(5,1,1) = {"
-N
-N
+o
+x
+N"}(5,1,1) = {"
 N
 N
 N
-"}
+N
+N"}

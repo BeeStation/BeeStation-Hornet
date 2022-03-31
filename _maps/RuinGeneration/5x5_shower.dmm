@@ -3,7 +3,9 @@
 /obj/machinery/shower{
 	dir = 4
 	},
-/obj/item/soap/nanotrasen,
+/obj/item/soap/nanotrasen{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/unpowered)
 "o" = (
@@ -36,33 +38,24 @@ G
 G
 G
 G
+G"}(2,1,1) = {"
 G
-"}
-(2,1,1) = {"
-G
-o
-o
 h
-G
-"}
-(3,1,1) = {"
+o
+o
+G"}(3,1,1) = {"
 G
 V
 V
 V
-G
-"}
-(4,1,1) = {"
+G"}(4,1,1) = {"
 G
 U
 V
 U
-G
-"}
-(5,1,1) = {"
+G"}(5,1,1) = {"
 G
 G
 A
 G
-G
-"}
+G"}

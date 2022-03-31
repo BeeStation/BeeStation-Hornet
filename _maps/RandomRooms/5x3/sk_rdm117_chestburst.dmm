@@ -1,22 +1,28 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/blood/tracks{
 	icon_state = "tracks";
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	icon_state = "tracks";
-	dir = 8
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
@@ -25,96 +31,127 @@
 	dir = 5
 	},
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/structure/table,
-/obj/item/storage/box/beakers{
-	pixel_y = 5
+/obj/structure/table{
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box/beakers{
+	pixel_y = -5;
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/blood/tracks{
 	icon_state = "tracks";
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/effect/decal/cleanable/blood/gibs/down,
+/obj/effect/decal/cleanable/blood/gibs/down{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/structure/table,
-/obj/item/storage/belt/medical,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/retractor,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/belt/medical{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/retractor{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
 /obj/vehicle/ridden/wheelchair{
 	icon_state = "wheelchair";
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
-/obj/effect/decal/cleanable/blood,
-/obj/effect/decal/remains/xeno/larva,
-/obj/effect/spawner/lootdrop/trap,
-/obj/effect/trap/nexus/trickyspawner/xeno,
+/obj/effect/decal/cleanable/blood{
+	dir = 4
+	},
+/obj/effect/decal/remains/xeno/larva{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/trap{
+	dir = 1
+	},
+/obj/effect/trap/nexus/trickyspawner/xeno{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
-/obj/structure/table,
-/obj/item/storage/firstaid,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/firstaid{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "m" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/encryptionkey/headset_med{
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/broken,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/machinery/light/small/broken{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-b
-g
 j
-"}
-(2,1,1) = {"
-f
-l
+g
+b"}(2,1,1) = {"
 n
-"}
-(3,1,1) = {"
-c
+l
+f"}(3,1,1) = {"
+a
 h
-a
-"}
-(4,1,1) = {"
-d
-i
+c"}(4,1,1) = {"
 k
-"}
-(5,1,1) = {"
-e
-a
+i
+d"}(5,1,1) = {"
 m
-"}
+a
+e"}

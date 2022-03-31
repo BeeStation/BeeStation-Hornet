@@ -6,30 +6,40 @@
 /turf/closed/indestructible/riveted/uranium,
 /area/shuttle/escape/luxury)
 "ac" = (
-/obj/machinery/door/airlock/external,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken2"
 	},
 /area/shuttle/escape/luxury)
 "ad" = (
-/obj/machinery/door/airlock/gold,
+/obj/machinery/door/airlock/gold{
+	dir = 1
+	},
 /obj/effect/forcefield/luxury_shuttle{
-	name = "Ticket Booth"
+	name = "Ticket Booth";
+	dir = 1
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "ae" = (
 /obj/docking_port/mobile/emergency{
-	dir = 2;
-	dwidth = 5;
+	dir = 1;
+	dwidth = 19;
 	height = 14;
 	name = "Luxury emergency shuttle";
 	width = 25
 	},
-/obj/machinery/door/airlock/gold,
+/obj/machinery/door/airlock/gold{
+	dir = 1
+	},
 /obj/effect/forcefield/luxury_shuttle{
-	name = "Ticket Booth"
+	name = "Ticket Booth";
+	dir = 1
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
@@ -56,13 +66,15 @@
 /area/shuttle/escape/luxury)
 "ak" = (
 /obj/item/kirbyplants{
-	icon_state = "plant-10"
+	icon_state = "plant-10";
+	dir = 1
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "al" = (
 /obj/structure/mirror{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
@@ -72,13 +84,17 @@
 	},
 /area/shuttle/escape/luxury)
 "an" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken2"
 	},
 /area/shuttle/escape/luxury)
 "ao" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken6"
 	},
@@ -90,7 +106,9 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "aq" = (
-/obj/machinery/door/airlock/gold,
+/obj/machinery/door/airlock/gold{
+	dir = 1
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "ar" = (
@@ -112,7 +130,9 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "au" = (
-/obj/structure/chair/comfy,
+/obj/structure/chair/comfy{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "av" = (
@@ -128,78 +148,138 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "ax" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/spaghetti/meatballspaghetti,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/spaghetti/meatballspaghetti{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "ay" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/notasandwich,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/notasandwich{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "az" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/spaghetti/pastatomato,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/spaghetti/pastatomato{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aA" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/kebab/tofu,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/kebab/tofu{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aB" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/honkdae,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/honkdae{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aC" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/enchiladas,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/enchiladas{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aD" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/candiedapple,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/candiedapple{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aE" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/burger/baconburger,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/burger/baconburger{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aF" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/benedict,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/benedict{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aG" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/cakeslice/chocolate,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/cakeslice/chocolate{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aH" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/spaghetti/chowmein,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/spaghetti/chowmein{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aI" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/dulcedebatataslice,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/dulcedebatataslice{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aJ" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/salad/validsalad,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/salad/validsalad{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aK" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/carneburrito,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/carneburrito{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aL" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/chawanmushi,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/chawanmushi{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aM" = (
@@ -209,89 +289,149 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "aN" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/melonfruitbowl,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/melonfruitbowl{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aO" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/khachapuri,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/khachapuri{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aP" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/grilledcheese,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/grilledcheese{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aQ" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/jelliedtoast/cherry,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/jelliedtoast/cherry{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aR" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/honeybun,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/honeybun{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aS" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/eggplantparm,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/eggplantparm{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aT" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/spaghetti/copypasta,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/spaghetti/copypasta{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aU" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/bearsteak,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/bearsteak{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aV" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/spaghetti/boiledspaghetti,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/spaghetti/boiledspaghetti{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aW" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/cherrycupcake,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/cherrycupcake{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aX" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/customizable/pizza,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/customizable/pizza{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aY" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/hotdog,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/hotdog{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "aZ" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/pie/grapetart,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/pie/grapetart{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "ba" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/burger/superbite,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/burger/superbite{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "bb" = (
-/obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/cakeslice/slimecake,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/cakeslice/slimecake{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "bc" = (
 /obj/machinery/computer/station_alert{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "bd" = (
 /obj/structure/chair/comfy{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
@@ -302,11 +442,15 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "bf" = (
-/obj/machinery/stasis,
+/obj/machinery/stasis{
+	dir = 1
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "bi" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "bj" = (
@@ -323,7 +467,8 @@
 /area/shuttle/escape/luxury)
 "bl" = (
 /obj/item/kirbyplants{
-	icon_state = "plant-10"
+	icon_state = "plant-10";
+	dir = 1
 	},
 /obj/machinery/light{
 	dir = 8
@@ -334,31 +479,41 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/effect/turf_decal/pool{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "hA" = (
-/obj/structure/table/optable,
-/obj/item/surgical_drapes,
+/obj/structure/table/optable{
+	dir = 1
+	},
+/obj/item/surgical_drapes{
+	dir = 1
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "nZ" = (
-/obj/item/pool/pool_noodle,
+/obj/item/pool/pool_noodle{
+	dir = 1
+	},
 /turf/open/indestructible/sound/pool,
 /area/shuttle/escape/luxury)
 "vB" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/effect/turf_decal/pool{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
@@ -366,38 +521,63 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/pool{
+	dir = 2
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"zg" = (
+/obj/machinery/vending/wallmed{
+	dir = 1
+	},
+/turf/closed/indestructible/riveted/uranium,
+/area/shuttle/escape/luxury)
+"CU" = (
+/obj/effect/turf_decal/pool/corner{
+	dir = 4
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"Jr" = (
 /obj/effect/turf_decal/pool{
 	dir = 4
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"zg" = (
-/obj/machinery/vending/wallmed,
-/turf/closed/indestructible/riveted/uranium,
-/area/shuttle/escape/luxury)
-"CU" = (
-/obj/effect/turf_decal/pool/corner,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
-"Jr" = (
-/obj/effect/turf_decal/pool,
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
 "OL" = (
-/obj/item/surgicaldrill,
-/obj/item/scalpel,
-/obj/item/retractor,
-/obj/item/cautery,
-/obj/item/hemostat,
-/obj/item/circular_saw,
-/obj/structure/table/wood/fancy,
+/obj/item/surgicaldrill{
+	dir = 1
+	},
+/obj/item/scalpel{
+	dir = 1
+	},
+/obj/item/retractor{
+	dir = 1
+	},
+/obj/item/cautery{
+	dir = 1
+	},
+/obj/item/hemostat{
+	dir = 1
+	},
+/obj/item/circular_saw{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "Ui" = (
-/obj/item/pool/rubber_ring,
+/obj/item/pool/rubber_ring{
+	dir = 1
+	},
 /turf/open/indestructible/sound/pool,
 /area/shuttle/escape/luxury)
 "Vf" = (
@@ -405,7 +585,7 @@
 /area/shuttle/escape/luxury)
 "Vm" = (
 /obj/effect/turf_decal/pool/corner{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
@@ -413,10 +593,11 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/effect/turf_decal/pool{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
@@ -435,377 +616,329 @@ ab
 ab
 ab
 ab
-aa
-"}
-(2,1,1) = {"
+aa"}(2,1,1) = {"
+ab
+ab
+hA
+bf
+ab
+as
+as
+as
+as
 ab
 ab
 am
 ab
+ab"}(3,1,1) = {"
 ab
-as
-as
-as
-as
-ab
-bf
-hA
+zg
+aj
+aj
+zg
 ab
 ab
-"}
-(3,1,1) = {"
 ab
+ab
+ab
+ab
+ag
 af
-ag
+ab"}(4,1,1) = {"
 ab
-ab
-ab
-ab
-ab
-ab
-zg
-aj
-aj
-zg
-ab
-"}
-(4,1,1) = {"
-ab
-ag
-an
-ab
-bl
-aj
-aj
-aj
-aj
-bj
-aj
-aj
 OL
-ab
-"}
-(5,1,1) = {"
-ab
-ag
-ag
-ab
-aj
-at
-at
-at
-at
-aj
-aj
-aj
-aj
-ab
-"}
-(6,1,1) = {"
-ab
-ag
-ag
-ab
-aj
-au
-ax
-aN
-bd
-aj
-CU
-cu
-wf
-ab
-"}
-(7,1,1) = {"
-ab
-ah
-ag
-ab
-aj
-au
-ay
-aO
-bd
-aj
-Jr
-Vf
-Vf
-ab
-"}
-(8,1,1) = {"
-ab
-ag
-ag
-ab
-aj
-au
-az
-aP
-bd
-aj
-Jr
-nZ
-Vf
-ab
-"}
-(9,1,1) = {"
-ab
-ag
-ag
-ab
-aj
-au
-aA
-aQ
-bd
-aj
-Jr
-Vf
-Vf
-ab
-"}
-(10,1,1) = {"
-ab
-ai
-ao
-ab
-aj
-au
-aB
-aR
-bd
-aj
-Jr
-Vf
-Ui
-ab
-"}
-(11,1,1) = {"
-ab
-ag
-ag
-ab
-aj
-au
-aC
-aS
-bd
-aj
-Jr
-Vf
-Vf
-ab
-"}
-(12,1,1) = {"
-ac
-ag
-af
-ab
-aj
-au
-aD
-aT
-bd
-aj
-Jr
-Vf
-Vf
-ab
-"}
-(13,1,1) = {"
-ab
-ab
-ab
-ab
-aj
-au
-aE
-aU
-bd
-aj
-Jr
-Vf
-Vf
-ab
-"}
-(14,1,1) = {"
-ad
 aj
 aj
 bj
 aj
-au
-aF
-aV
-bd
 aj
+aj
+aj
+bl
+ab
+an
+ag
+ab"}(5,1,1) = {"
+ab
+aj
+aj
+aj
+aj
+at
+at
+at
+at
+aj
+ab
+ag
+ag
+ab"}(6,1,1) = {"
+ab
+wf
+cu
+CU
+aj
+bd
+aN
+ax
+au
+aj
+ab
+ag
+ag
+ab"}(7,1,1) = {"
+ab
+Vf
+Vf
 Jr
+aj
+bd
+aO
+ay
+au
+aj
+ab
+ag
+ah
+ab"}(8,1,1) = {"
+ab
+Vf
 nZ
-Vf
-ab
-"}
-(15,1,1) = {"
-ab
-aj
-aj
-aj
-aj
-au
-aG
-aW
-bd
-aj
 Jr
-Vf
-Vf
-ab
-"}
-(16,1,1) = {"
-ab
 aj
-aj
-aj
-aj
-au
-aH
-aX
 bd
-aj
-Jr
-Vf
-Vf
-ab
-"}
-(17,1,1) = {"
-ab
-aj
-aj
-aj
-aj
+aP
+az
 au
-aI
-aY
-bd
 aj
+ab
+ag
+ag
+ab"}(9,1,1) = {"
+ab
+Vf
+Vf
 Jr
-Vf
-Vf
-ab
-"}
-(18,1,1) = {"
-ab
 aj
-aj
-aj
-aj
+bd
+aQ
+aA
 au
-aJ
-aZ
-bd
 aj
-Jr
+ab
+ag
+ag
+ab"}(10,1,1) = {"
+ab
 Ui
 Vf
-ab
-"}
-(19,1,1) = {"
-ab
-aj
-aj
-aj
-aj
-au
-aK
-ba
-bd
-aj
 Jr
-Vf
-Vf
-ab
-"}
-(20,1,1) = {"
-ae
 aj
-aj
-bk
-aj
-au
-aL
-bb
 bd
+aR
+aB
+au
 aj
-Vm
-Vq
+ab
+ao
+ai
+ab"}(11,1,1) = {"
+ab
+Vf
+Vf
+Jr
+aj
+bd
+aS
+aC
+au
+aj
+ab
+ag
+ag
+ab"}(12,1,1) = {"
+ab
+Vf
+Vf
+Jr
+aj
+bd
+aT
+aD
+au
+aj
+ab
+af
+ag
+ac"}(13,1,1) = {"
+ab
+Vf
+Vf
+Jr
+aj
+bd
+aU
+aE
+au
+aj
+ab
+ab
+ab
+ab"}(14,1,1) = {"
+ab
+Vf
+nZ
+Jr
+aj
+bd
+aV
+aF
+au
+aj
+bj
+aj
+aj
+ad"}(15,1,1) = {"
+ab
+Vf
+Vf
+Jr
+aj
+bd
+aW
+aG
+au
+aj
+aj
+aj
+aj
+ab"}(16,1,1) = {"
+ab
+Vf
+Vf
+Jr
+aj
+bd
+aX
+aH
+au
+aj
+aj
+aj
+aj
+ab"}(17,1,1) = {"
+ab
+Vf
+Vf
+Jr
+aj
+bd
+aY
+aI
+au
+aj
+aj
+aj
+aj
+ab"}(18,1,1) = {"
+ab
+Vf
+Ui
+Jr
+aj
+bd
+aZ
+aJ
+au
+aj
+aj
+aj
+aj
+ab"}(19,1,1) = {"
+ab
+Vf
+Vf
+Jr
+aj
+bd
+ba
+aK
+au
+aj
+aj
+aj
+aj
+ab"}(20,1,1) = {"
+ab
 vB
+Vq
+Vm
+aj
+bd
+bb
+aL
+au
+aj
+bk
+aj
+aj
+ae"}(21,1,1) = {"
 ab
-"}
-(21,1,1) = {"
-ab
-ab
-ab
-ab
+aj
+aj
+aj
 aj
 at
 at
 at
 at
 aj
+ab
+ab
+ab
+ab"}(22,1,1) = {"
+ab
+aj
+aj
+aj
+aj
+aj
+aj
 aj
 aj
 aj
 ab
-"}
-(22,1,1) = {"
-ab
-ak
 ap
-ab
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-ab
-"}
-(23,1,1) = {"
-ab
-aj
-bi
-ab
-aj
-av
-av
-av
-av
-aj
-aj
-aj
-aj
-ab
-"}
-(24,1,1) = {"
-ab
-al
-aj
-aq
-bk
-aw
-aM
-bc
-be
-bk
-aj
-aj
 ak
+ab"}(23,1,1) = {"
 ab
-"}
-(25,1,1) = {"
+aj
+aj
+aj
+aj
+av
+av
+av
+av
+aj
+ab
+bi
+aj
+ab"}(24,1,1) = {"
+ab
+ak
+aj
+aj
+bk
+be
+bc
+aM
+aw
+bk
+aq
+aj
+al
+ab"}(25,1,1) = {"
 ab
 ab
 ab
@@ -819,5 +952,4 @@ ab
 ab
 ab
 ab
-ab
-"}
+ab"}

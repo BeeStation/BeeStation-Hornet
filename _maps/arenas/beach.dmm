@@ -1,6 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/machinery/deepfryer,
+/obj/machinery/deepfryer{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "b" = (
@@ -12,7 +14,8 @@
 /area/tdome/arena)
 "c" = (
 /obj/item/reagent_containers/glass/beaker{
-	list_reagents = list(/datum/reagent/consumable/cooking_oil = 50)
+	list_reagents = list(/datum/reagent/consumable/cooking_oil = 50);
+	dir = 1
 	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
@@ -22,7 +25,8 @@
 "e" = (
 /obj/structure/mineral_door/wood{
 	name = "bar";
-	opacity = 0
+	opacity = 0;
+	dir = 1
 	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
@@ -30,16 +34,22 @@
 /turf/open/floor/wood,
 /area/tdome/arena)
 "g" = (
-/obj/structure/chair/wood,
+/obj/structure/chair/wood{
+	dir = 1
+	},
 /mob/living/simple_animal/parrot,
 /turf/open/floor/wood,
 /area/tdome/arena)
 "h" = (
-/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy,
+/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "i" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /mob/living/simple_animal/crab{
 	desc = "He just wants to grill for God's sake!";
 	name = "boomer crab"
@@ -47,15 +57,21 @@
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "j" = (
-/obj/machinery/grill,
+/obj/machinery/grill{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "k" = (
-/obj/item/reagent_containers/food/snacks/meat/crab,
+/obj/item/reagent_containers/food/snacks/meat/crab{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "l" = (
-/obj/item/reagent_containers/food/snacks/burger/crab,
+/obj/item/reagent_containers/food/snacks/burger/crab{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "m" = (
@@ -64,55 +80,87 @@
 	},
 /area/tdome/arena)
 "n" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/bottle/rum{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/tdome/arena)
 "o" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/tdome/arena)
 "p" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/tequila,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/bottle/tequila{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/tdome/arena)
 "q" = (
-/obj/item/reagent_containers/food/snacks/crab_rangoon,
+/obj/item/reagent_containers/food/snacks/crab_rangoon{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "r" = (
-/obj/effect/overlay/coconut,
+/obj/effect/overlay/coconut{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "s" = (
-/obj/structure/flora/tree/palm,
+/obj/structure/flora/tree/palm{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "t" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "u" = (
-/obj/structure/flora/tree/palm,
-/obj/effect/overlay/coconut,
+/obj/structure/flora/tree/palm{
+	dir = 1
+	},
+/obj/effect/overlay/coconut{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "v" = (
-/obj/item/clothing/mask/gas/tiki_mask,
+/obj/item/clothing/mask/gas/tiki_mask{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "w" = (
-/obj/structure/bonfire,
+/obj/structure/bonfire{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "x" = (
-/obj/item/flashlight/flare/torch,
+/obj/item/flashlight/flare/torch{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "y" = (
-/obj/item/clothing/head/collectable/paper,
+/obj/item/clothing/head/collectable/paper{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "A" = (
@@ -124,12 +172,16 @@
 	},
 /area/tdome/arena)
 "D" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
 /mob/living/simple_animal/crab,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "E" = (
-/obj/item/toy/beach_ball,
+/obj/item/toy/beach_ball{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "F" = (
@@ -167,11 +219,13 @@
 "M" = (
 /obj/structure/flora/rock{
 	desc = "A volcanic rock.";
-	name = "coastal rock"
+	name = "coastal rock";
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/stalkybush{
 	desc = "It can't be smoked.";
-	name = "sea weed"
+	name = "sea weed";
+	dir = 1
 	},
 /turf/open/floor/plating/beach/water,
 /area/tdome/arena)
@@ -180,152 +234,123 @@
 /area/tdome/arena)
 
 (1,1,1) = {"
-a
-k
-d
-d
-A
-G
-K
 M
-"}
-(2,1,1) = {"
-b
-l
+K
+G
+A
 d
 d
-B
-H
-L
+k
+a"}(2,1,1) = {"
 N
-"}
-(3,1,1) = {"
-c
+L
+H
+B
+d
+d
+l
+b"}(3,1,1) = {"
+N
+L
+A
+d
 d
 r
 d
-d
-A
-L
+c"}(4,1,1) = {"
 N
-"}
-(4,1,1) = {"
+L
+A
 d
 d
 s
 d
-d
-A
-L
+d"}(5,1,1) = {"
 N
-"}
-(5,1,1) = {"
-d
-d
-d
-d
+L
+A
 D
-A
-L
+d
+d
+d
+d"}(6,1,1) = {"
 N
-"}
-(6,1,1) = {"
-e
-m
-d
-d
+L
+A
 E
-A
-L
-N
-"}
-(7,1,1) = {"
-f
-n
-t
-v
 d
-A
-L
-N
-"}
-(8,1,1) = {"
-g
-o
-t
-w
 d
-A
-L
-N
-"}
-(9,1,1) = {"
-f
-p
-t
-x
-d
-A
-L
-N
-"}
-(10,1,1) = {"
-e
 m
-d
-d
-d
-A
-L
+e"}(7,1,1) = {"
 N
-"}
-(11,1,1) = {"
-d
-d
-d
-d
-d
-A
 L
+A
+d
+v
+t
+n
+f"}(8,1,1) = {"
 N
-"}
-(12,1,1) = {"
+L
+A
+d
+w
+t
+o
+g"}(9,1,1) = {"
+N
+L
+A
+d
+x
+t
+p
+f"}(10,1,1) = {"
+N
+L
+A
 d
 d
+d
+m
+e"}(11,1,1) = {"
+N
+L
+A
+d
+d
+d
+d
+d"}(12,1,1) = {"
+N
+L
+A
 d
 y
 d
-A
-L
+d
+d"}(13,1,1) = {"
 N
-"}
-(13,1,1) = {"
-h
+L
+A
+d
 d
 u
 d
-d
-A
-L
+h"}(14,1,1) = {"
 N
-"}
-(14,1,1) = {"
-i
-q
-d
-d
-F
+L
 I
-L
-N
-"}
-(15,1,1) = {"
-j
-k
+F
 d
 d
-A
-J
-K
+q
+i"}(15,1,1) = {"
 M
-"}
+K
+J
+A
+d
+d
+k
+j"}

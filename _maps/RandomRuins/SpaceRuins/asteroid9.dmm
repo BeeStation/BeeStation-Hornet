@@ -12,11 +12,15 @@
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "e" = (
-/obj/effect/decal/remains/xeno,
+/obj/effect/decal/remains/xeno{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "f" = (
-/obj/effect/decal/remains/robot,
+/obj/effect/decal/remains/robot{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 
@@ -39,9 +43,7 @@ a
 a
 a
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 a
 a
@@ -60,18 +62,7 @@ a
 a
 a
 a
-a
-"}
-(3,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
+a"}(3,1,1) = {"
 a
 a
 b
@@ -82,146 +73,129 @@ b
 b
 a
 a
-"}
-(4,1,1) = {"
 a
 a
 a
 a
 a
 a
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
+a
+a
+a"}(4,1,1) = {"
 c
 c
-"}
-(5,1,1) = {"
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
 a
 a
 a
-b
-b
-b
-b
-b
-b
-b
-b
-d
-b
-d
-d
-d
-b
-c
-c
-"}
-(6,1,1) = {"
 a
 a
-b
-b
-b
-b
-d
-b
-d
-d
-d
-d
-d
-d
-d
-d
-b
+a"}(5,1,1) = {"
 c
 c
-"}
-(7,1,1) = {"
+b
+d
+d
+d
+b
+d
+b
+b
+b
+b
+b
+b
+b
+b
 a
-b
-b
-c
-c
-d
-d
-d
-d
-d
-d
-d
-b
-d
-d
-d
-b
-c
-c
-"}
-(8,1,1) = {"
 a
-b
-b
+a"}(6,1,1) = {"
 c
 c
+b
+d
+d
+d
+d
+d
+d
+d
+d
+b
+d
+b
+b
+b
+b
+a
+a"}(7,1,1) = {"
+c
+c
+b
+d
+d
+d
+b
+d
+d
+d
+d
+d
+d
+d
+c
+c
+b
+b
+a"}(8,1,1) = {"
+c
+c
+b
+b
+d
+c
+c
+c
+d
+d
+d
+d
+d
 f
-d
-d
-d
-d
-d
 c
 c
-c
-d
 b
 b
+a"}(9,1,1) = {"
 c
 c
-"}
-(9,1,1) = {"
-a
+b
+d
+d
+c
+c
+c
+c
+c
+c
+c
+d
+d
+c
+c
 b
 b
-c
-c
-d
-d
-c
-c
-c
-c
-c
-c
-c
-d
-d
-b
-c
-c
-"}
-(10,1,1) = {"
-a
-b
-b
-c
-c
-d
-d
-c
-c
-c
-c
-c
+a"}(10,1,1) = {"
 c
 c
 b
@@ -229,17 +203,6 @@ b
 b
 c
 c
-"}
-(11,1,1) = {"
-a
-b
-b
-c
-c
-d
-d
-c
-c
 c
 c
 c
@@ -247,37 +210,53 @@ c
 c
 d
 d
-b
 c
 c
-"}
-(12,1,1) = {"
-a
 b
 b
-c
-c
-d
-d
-b
-d
-d
-d
-c
+a"}(11,1,1) = {"
 c
 c
 b
 d
+d
+c
+c
+c
+c
+c
+c
+c
+d
+d
+c
+c
+b
+b
+a"}(12,1,1) = {"
+c
+c
+b
+d
 b
 c
 c
-"}
-(13,1,1) = {"
-a
+c
+d
+d
+d
 b
-b
+d
+d
 c
 c
+b
+b
+a"}(13,1,1) = {"
+c
+c
+b
+d
 d
 d
 b
@@ -288,60 +267,51 @@ d
 b
 d
 d
-d
-b
 c
 c
-"}
-(14,1,1) = {"
-a
-a
 b
 b
-b
-b
-d
-b
-d
-d
-d
-d
+a"}(14,1,1) = {"
+c
+c
 b
 d
 e
 d
 b
-c
-c
-"}
-(15,1,1) = {"
-a
-a
-a
-b
-b
-b
-b
-b
-b
-b
+d
+d
+d
+d
 b
 d
+b
+b
+b
+b
+a
+a"}(15,1,1) = {"
+c
+c
 b
 d
 d
 d
 b
+d
+b
+b
+b
+b
+b
+b
+b
+b
+a
+a
+a"}(16,1,1) = {"
 c
 c
-"}
-(16,1,1) = {"
-a
-a
-a
-a
-a
-a
 b
 b
 b
@@ -353,19 +323,12 @@ b
 b
 b
 b
-c
-c
-"}
-(17,1,1) = {"
 a
 a
 a
 a
 a
-a
-a
-a
-a
+a"}(17,1,1) = {"
 a
 a
 b
@@ -376,8 +339,15 @@ b
 b
 a
 a
-"}
-(18,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a"}(18,1,1) = {"
 a
 a
 a
@@ -396,9 +366,7 @@ a
 a
 a
 a
-a
-"}
-(19,1,1) = {"
+a"}(19,1,1) = {"
 a
 a
 a
@@ -417,5 +385,4 @@ a
 a
 a
 a
-a
-"}
+a"}

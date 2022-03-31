@@ -19,7 +19,7 @@
 /area/ruin/unpowered)
 "T" = (
 /obj/effect/abstract/doorway_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -29,33 +29,24 @@ C
 K
 b
 K
-C
-"}
-(2,1,1) = {"
+C"}(2,1,1) = {"
 C
 K
 K
 K
-C
-"}
-(3,1,1) = {"
-T
-K
-K
-K
-C
-"}
-(4,1,1) = {"
+C"}(3,1,1) = {"
 C
 K
 K
 K
+T"}(4,1,1) = {"
 C
-"}
-(5,1,1) = {"
+K
+K
+K
+C"}(5,1,1) = {"
 C
 K
 a
 K
-C
-"}
+C"}

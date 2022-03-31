@@ -3,56 +3,72 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/tdome/arena)
 "b" = (
-/obj/effect/spawner/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/plastitanium{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/tdome/arena)
 "c" = (
-/obj/structure/closet/lasertag/red,
+/obj/structure/closet/lasertag/red{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/tdome/arena)
 "d" = (
 /turf/open/floor/mineral/plastitanium/red,
 /area/tdome/arena)
 "e" = (
-/obj/item/crowbar,
+/obj/item/crowbar{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/tdome/arena)
 "f" = (
-/obj/effect/spawner/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/plastitanium{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/tdome/arena)
 "g" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/tdome/arena)
 "i" = (
-/obj/item/crowbar,
+/obj/item/crowbar{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/tdome/arena)
 "j" = (
-/obj/structure/closet/lasertag/blue,
+/obj/structure/closet/lasertag/blue{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/tdome/arena)
 "o" = (
-/obj/item/banner/security,
+/obj/item/banner/security{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/tdome/arena)
 "x" = (
-/obj/item/banner/command,
+/obj/item/banner/command{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/tdome/arena)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
 i
-"}
-(2,1,1) = {"
+a
+a
+a
+a
+a
+a
+a"}(2,1,1) = {"
 a
 a
 a
@@ -60,9 +76,7 @@ a
 a
 a
 a
-a
-"}
-(3,1,1) = {"
+a"}(3,1,1) = {"
 a
 a
 a
@@ -70,9 +84,7 @@ a
 a
 a
 a
-a
-"}
-(4,1,1) = {"
+a"}(4,1,1) = {"
 x
 a
 a
@@ -80,9 +92,7 @@ a
 a
 a
 a
-x
-"}
-(5,1,1) = {"
+x"}(5,1,1) = {"
 a
 a
 a
@@ -90,9 +100,7 @@ a
 a
 a
 a
-a
-"}
-(6,1,1) = {"
+a"}(6,1,1) = {"
 a
 a
 a
@@ -100,20 +108,15 @@ a
 a
 a
 a
-a
-"}
-(7,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
+a"}(7,1,1) = {"
 j
-"}
-(8,1,1) = {"
-f
+a
+a
+a
+a
+a
+a
+a"}(8,1,1) = {"
 b
 f
 b
@@ -121,9 +124,7 @@ g
 b
 f
 b
-"}
-(9,1,1) = {"
-c
+f"}(9,1,1) = {"
 d
 d
 d
@@ -131,8 +132,7 @@ d
 d
 d
 d
-"}
-(10,1,1) = {"
+c"}(10,1,1) = {"
 d
 d
 d
@@ -140,9 +140,7 @@ d
 d
 d
 d
-d
-"}
-(11,1,1) = {"
+d"}(11,1,1) = {"
 d
 d
 d
@@ -150,9 +148,7 @@ d
 d
 d
 d
-d
-"}
-(12,1,1) = {"
+d"}(12,1,1) = {"
 o
 d
 d
@@ -160,9 +156,7 @@ d
 d
 d
 d
-o
-"}
-(13,1,1) = {"
+o"}(13,1,1) = {"
 d
 d
 d
@@ -170,9 +164,7 @@ d
 d
 d
 d
-d
-"}
-(14,1,1) = {"
+d"}(14,1,1) = {"
 d
 d
 d
@@ -180,10 +172,7 @@ d
 d
 d
 d
-d
-"}
-(15,1,1) = {"
-e
+d"}(15,1,1) = {"
 d
 d
 d
@@ -191,4 +180,4 @@ d
 d
 d
 d
-"}
+e"}

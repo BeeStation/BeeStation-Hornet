@@ -1,38 +1,45 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/item/stack/sheet/cardboard,
+/obj/item/stack/sheet/cardboard{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/structure/closet/cardboard,
+/obj/structure/closet/cardboard{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-a
+c
 d
-c
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 b
 b
-b
-"}
-(3,1,1) = {"
-c
-b
+b"}(3,1,1) = {"
 f
-"}
+b
+c"}

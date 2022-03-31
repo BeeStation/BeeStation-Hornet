@@ -8,56 +8,74 @@
 "cn" = (
 /obj/item/clothing/suit/hazardvest{
 	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
+	name = "emergency lifejacket";
+	dir = 1
 	},
 /obj/item/clothing/suit/hazardvest{
 	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
+	name = "emergency lifejacket";
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
+	pixel_x = 3;
+	dir = 4
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
+	pixel_x = 3;
+	dir = 4
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
-	pixel_y = 9
+	pixel_y = -9;
+	dir = 1
 	},
 /obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
-	pixel_y = 9
+	pixel_y = -9;
+	dir = 1
 	},
-/obj/structure/closet/crate/internals,
-/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate/internals{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "eA" = (
-/obj/structure/closet/wardrobe/grey,
+/obj/structure/closet/wardrobe/grey{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "eC" = (
-/obj/machinery/light,
-/obj/item/kirbyplants/random,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "eM" = (
 /obj/effect/turf_decal/arrows{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/arrival)
@@ -74,21 +92,30 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "ha" = (
-/obj/structure/table/reinforced,
-/obj/machinery/cell_charger,
-/obj/effect/turf_decal/bot,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/machinery/cell_charger{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "jd" = (
 /obj/machinery/requests_console{
 	department = "Arrival shuttle";
 	name = "Arrivals Shuttle console";
-	pixel_y = 30
-	},
-/obj/machinery/light{
+	pixel_y = -30;
 	dir = 1
 	},
-/obj/item/kirbyplants/random,
+/obj/machinery/light{
+	dir = 2
+	},
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "jh" = (
@@ -107,28 +134,38 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "kO" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "kR" = (
-/obj/structure/window/shuttle,
-/obj/structure/grille,
+/obj/structure/window/shuttle{
+	dir = 1
+	},
+/obj/structure/grille{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "ld" = (
 /obj/effect/turf_decal/arrows{
-	dir = 1
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/arrival)
 "lF" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
@@ -139,86 +176,121 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "mg" = (
-/obj/structure/closet/wardrobe/black,
+/obj/structure/closet/wardrobe/black{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "nj" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 24
+	pixel_x = 24;
+	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "nn" = (
 /obj/machinery/requests_console{
 	department = "Arrival shuttle";
-	name = "Arrivals Shuttle console"
+	name = "Arrivals Shuttle console";
+	dir = 1
 	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/arrival)
 "nE" = (
-/obj/structure/closet/wardrobe/yellow,
+/obj/structure/closet/wardrobe/yellow{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "oe" = (
-/obj/effect/turf_decal/arrows,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
+/obj/effect/turf_decal/arrows{
+	dir = 4
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/arrival)
 "qD" = (
-/obj/structure/shuttle/engine/router,
+/obj/structure/shuttle/engine/router{
+	dir = 1
+	},
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "qF" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "qJ" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral{
+/obj/structure/rack{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/bot{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 2
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/flashlight,
 /obj/item/flashlight{
-	pixel_y = 8
+	dir = 1
+	},
+/obj/item/flashlight{
+	pixel_y = -8;
+	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "rt" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	dir = 1
+	},
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/arrival)
 "vU" = (
-/obj/structure/flora/ausbushes/grassybush,
-/obj/structure/flora/ausbushes/lavendergrass,
-/obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/flora/ausbushes/sunnybush,
-/obj/structure/window/shuttle,
+/obj/structure/flora/ausbushes/grassybush{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/lavendergrass{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/ppflowers{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/sunnybush{
+	dir = 1
+	},
+/obj/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/arrival)
 "ws" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/arrival)
 "xa" = (
@@ -226,103 +298,134 @@
 	dir = 4
 	},
 /obj/docking_port/mobile/arrivals{
-	name = "fland arrivals shuttle"
+	name = "fland arrivals shuttle";
+	dir = 8
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "xG" = (
-/obj/effect/turf_decal/arrows,
+/obj/effect/turf_decal/arrows{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/arrival)
 "yd" = (
 /obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/arrival)
 "BF" = (
 /obj/item/clothing/suit/hazardvest{
 	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
+	name = "emergency lifejacket";
+	dir = 1
 	},
 /obj/item/clothing/suit/hazardvest{
 	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
+	name = "emergency lifejacket";
+	dir = 1
 	},
 /obj/item/clothing/suit/hazardvest{
 	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
+	name = "emergency lifejacket";
+	dir = 1
 	},
 /obj/item/clothing/suit/hazardvest{
 	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
+	name = "emergency lifejacket";
+	dir = 1
 	},
 /obj/item/clothing/suit/hazardvest{
 	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
+	name = "emergency lifejacket";
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
+	pixel_x = 3;
+	dir = 4
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
+	pixel_x = 3;
+	dir = 4
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
+	pixel_x = 3;
+	dir = 4
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
+	pixel_x = 3;
+	dir = 4
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
+	pixel_x = 3;
+	dir = 4
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
-	pixel_y = 9
+	pixel_y = -9;
+	dir = 1
 	},
 /obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
-	pixel_y = 9
+	pixel_y = -9;
+	dir = 1
 	},
 /obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
-	pixel_y = 9
+	pixel_y = -9;
+	dir = 1
 	},
 /obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
-	pixel_y = 9
+	pixel_y = -9;
+	dir = 1
 	},
 /obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
-	pixel_y = 9
+	pixel_y = -9;
+	dir = 1
 	},
-/obj/structure/closet/crate/internals,
-/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/internals{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -330,47 +433,63 @@
 /area/shuttle/arrival)
 "CK" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Arrivals Shuttle Airlock"
-	},
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/line{
+	name = "Arrivals Shuttle Airlock";
 	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/arrival)
 "Er" = (
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
-	pixel_y = -29
+	pixel_y = 29;
+	dir = 1
 	},
-/obj/machinery/light,
-/obj/item/kirbyplants/random,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "GA" = (
 /obj/machinery/computer{
-	dir = 1;
+	dir = 2;
 	name = "Shuttle computer"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "GO" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
+	dir = 2
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "GW" = (
-/obj/item/kirbyplants/random,
-/obj/machinery/light{
+/obj/item/kirbyplants/random{
 	dir = 1
+	},
+/obj/machinery/light{
+	dir = 2
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "GX" = (
-/obj/structure/chair/comfy/shuttle,
-/obj/effect/turf_decal/bot,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Hw" = (
@@ -383,57 +502,78 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/arrival)
 "IY" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /obj/item/storage/firstaid/regular{
 	pixel_x = 3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
-/obj/item/storage/firstaid/regular,
-/obj/effect/turf_decal/bot,
+/obj/item/storage/firstaid/regular{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Jz" = (
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/arrival)
 "JJ" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/airlock/shuttle{
-	name = "Arrival Shuttle Airlock"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/delivery,
+/obj/machinery/door/airlock/shuttle{
+	name = "Arrival Shuttle Airlock";
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Lf" = (
-/obj/structure/sign/warning/fire,
+/obj/structure/sign/warning/fire{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/arrival)
 "Nm" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes/corner{
+/obj/structure/table/reinforced{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /obj/item/radio/intercom{
-	pixel_x = -25
+	pixel_x = -25;
+	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Nv" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	use_power = 0
+	use_power = 0;
+	dir = 1
 	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/arrival)
@@ -453,7 +593,9 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/arrival)
 "QK" = (
-/obj/structure/sign/nanotrasen,
+/obj/structure/sign/nanotrasen{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/arrival)
 "Rd" = (
@@ -461,10 +603,15 @@
 /area/shuttle/arrival)
 "Ri" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Arrivals Shuttle Airlock"
+	name = "Arrivals Shuttle Airlock";
+	dir = 1
 	},
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/line,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/arrival)
 "RI" = (
@@ -474,24 +621,31 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "RU" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral{
+/obj/structure/rack{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/bot{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 2
 	},
 /obj/item/radio{
 	pixel_x = -6;
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
 /obj/item/radio{
 	pixel_x = 6;
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
 /obj/item/radio{
-	pixel_y = 4
+	pixel_y = -4;
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -499,7 +653,9 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "SK" = (
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -515,13 +671,21 @@
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/arrival)
 "UY" = (
-/obj/structure/shuttle/engine/router,
+/obj/structure/shuttle/engine/router{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "VL" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/emergency,
-/obj/item/crowbar/red,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/storage/toolbox/emergency{
+	dir = 4
+	},
+/obj/item/crowbar/red{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "Yb" = (
@@ -537,31 +701,25 @@ kR
 kR
 jl
 PO
-PO
-"}
-(2,1,1) = {"
+PO"}(2,1,1) = {"
 PO
 PO
 ak
-ha
-ws
 GA
+ws
+ha
 ak
 PO
-PO
-"}
-(3,1,1) = {"
+PO"}(3,1,1) = {"
 PO
 jl
 jl
-IY
-Ub
 BF
+Ub
+IY
 jl
 jl
-PO
-"}
-(4,1,1) = {"
+PO"}(4,1,1) = {"
 jl
 jl
 jl
@@ -570,130 +728,106 @@ JJ
 kR
 jl
 jl
-jl
-"}
-(5,1,1) = {"
+jl"}(5,1,1) = {"
 QK
 cn
-lF
-qJ
-NO
-RU
 Nm
+RU
+NO
+qJ
+lF
 cn
-QK
-"}
-(6,1,1) = {"
-CK
+QK"}(6,1,1) = {"
+Ri
 Jz
-ld
+xG
 Qh
 Hw
 Qh
-xG
+ld
 Jz
-Ri
-"}
-(7,1,1) = {"
+CK"}(7,1,1) = {"
 Yb
-GW
-yd
-GO
-nn
-GX
-yd
 eC
-Yb
-"}
-(8,1,1) = {"
-Yb
-GX
 yd
+GX
+nn
 GO
+yd
+GW
+Yb"}(8,1,1) = {"
+Yb
+GO
+yd
+GX
 vU
-GX
-yd
 GO
-Yb
-"}
-(9,1,1) = {"
+yd
+GX
+Yb"}(9,1,1) = {"
 kR
-GX
-yd
 GO
+yd
+GX
 vU
-GX
-yd
 GO
-kR
-"}
-(10,1,1) = {"
-kR
-GX
 yd
+GX
+kR"}(10,1,1) = {"
+kR
 GO
+yd
+GX
 vU
-GX
-yd
 GO
-kR
-"}
-(11,1,1) = {"
-kR
-GX
 yd
+GX
+kR"}(11,1,1) = {"
+kR
 GO
+yd
+GX
 vU
-GX
-yd
 GO
-kR
-"}
-(12,1,1) = {"
+yd
+GX
+kR"}(12,1,1) = {"
 Yb
-GX
-yd
 GO
+yd
+GX
 vU
-GX
-yd
 GO
-Yb
-"}
-(13,1,1) = {"
-Yb
-jd
 yd
-GO
-Nv
 GX
-yd
+Yb"}(13,1,1) = {"
+Yb
 Er
-Yb
-"}
-(14,1,1) = {"
-CK
+yd
+GX
+Nv
+GO
+yd
+jd
+Yb"}(14,1,1) = {"
+Ri
 SK
-eM
+oe
 jh
 rt
 jh
-oe
+eM
 SK
-Ri
-"}
-(15,1,1) = {"
+CK"}(15,1,1) = {"
 jl
-mg
-eA
-nE
-nj
-eA
-VL
 qF
-jl
-"}
-(16,1,1) = {"
+VL
+eA
+nj
+nE
+eA
+mg
+jl"}(16,1,1) = {"
 ak
 jl
 Lf
@@ -702,9 +836,7 @@ ak
 kO
 Lf
 jl
-ak
-"}
-(17,1,1) = {"
+ak"}(17,1,1) = {"
 Rd
 lT
 lT
@@ -713,16 +845,13 @@ qD
 UY
 lT
 lT
-Rd
-"}
-(18,1,1) = {"
+Rd"}(18,1,1) = {"
 bm
-gB
+gQ
 RI
 jI
 xa
 jI
 RI
-gQ
-bm
-"}
+gB
+bm"}

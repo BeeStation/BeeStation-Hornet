@@ -4,7 +4,7 @@
 /area/survivalpod)
 "b" = (
 /obj/structure/sign/mining/survival{
-	dir = 1
+	dir = 2
 	},
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
@@ -13,7 +13,7 @@
 /area/survivalpod)
 "d" = (
 /obj/structure/sign/mining/survival{
-	dir = 1
+	dir = 2
 	},
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/survivalpod)
@@ -24,55 +24,91 @@
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/survivalpod)
 "f" = (
-/obj/structure/table/wood/fancy/black,
-/obj/machinery/chem_dispenser/drinks,
+/obj/structure/table/wood/fancy/black{
+	dir = 1
+	},
+/obj/machinery/chem_dispenser/drinks{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "g" = (
-/obj/structure/table/wood/fancy/black,
-/obj/machinery/chem_dispenser/drinks/beer,
-/obj/machinery/light{
+/obj/structure/table/wood/fancy/black{
 	dir = 1
+	},
+/obj/machinery/chem_dispenser/drinks/beer{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 2
 	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "h" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/vending/boozeomat{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "i" = (
-/obj/item/book/manual/wiki/barman_recipes,
-/obj/item/reagent_containers/food/drinks/shaker,
-/obj/item/reagent_containers/glass/rag,
-/obj/structure/table/wood/fancy/black,
+/obj/item/book/manual/wiki/barman_recipes{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/shaker{
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/rag{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/black{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "j" = (
-/obj/structure/table/wood/fancy/black,
-/obj/item/clipboard,
-/obj/item/toy/figure/bartender,
+/obj/structure/table/wood/fancy/black{
+	dir = 1
+	},
+/obj/item/clipboard{
+	dir = 1
+	},
+/obj/item/toy/figure/bartender{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "k" = (
-/obj/structure/table/wood/fancy/black,
-/obj/item/storage/fancy/cigarettes/cigars,
+/obj/structure/table/wood/fancy/black{
+	dir = 1
+	},
+/obj/item/storage/fancy/cigarettes/cigars{
+	dir = 1
+	},
 /obj/item/storage/fancy/cigarettes/cigars/cohiba{
-	pixel_y = 4
+	pixel_y = -4;
+	dir = 1
 	},
 /obj/item/storage/fancy/cigarettes/cigars/havana{
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "l" = (
-/obj/structure/table/wood/fancy/black,
-/obj/structure/reagent_dispensers/beerkeg,
+/obj/structure/table/wood/fancy/black{
+	dir = 1
+	},
+/obj/structure/reagent_dispensers/beerkeg{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "m" = (
-/obj/structure/closet/secure_closet/bar,
-/obj/machinery/light{
+/obj/structure/closet/secure_closet/bar{
 	dir = 1
+	},
+/obj/machinery/light{
+	dir = 2
 	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
@@ -80,56 +116,74 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/machinery/disposal/bin,
+/obj/machinery/disposal/bin{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "o" = (
 /obj/structure/sign/mining/survival{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction{
+/obj/structure/disposalpipe/junction/flip{
 	dir = 4
 	},
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
 "p" = (
 /obj/machinery/door/airlock/survival_pod/glass{
-	req_access_txt = "25"
+	req_access_txt = "25";
+	dir = 1
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "q" = (
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "r" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/survivalpod)
 "s" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
 /obj/item/lighter{
 	pixel_x = -4;
-	pixel_y = 4
+	pixel_y = -4;
+	dir = 1
 	},
-/obj/item/lighter,
+/obj/item/lighter{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "t" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "u" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
 /obj/item/storage/box/matches{
 	pixel_x = -4;
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "v" = (
 /obj/machinery/door/window/survival_pod{
-	req_access_txt = "25"
+	req_access_txt = "25";
+	dir = 1
 	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
@@ -137,25 +191,33 @@
 /obj/structure/sign/mining/survival{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/survivalpod)
 "x" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "y" = (
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "z" = (
-/obj/machinery/vending/cigarette/beach,
+/obj/machinery/vending/cigarette/beach{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "A" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/machinery/disposal/bin,
+/obj/machinery/disposal/bin{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "B" = (
@@ -163,7 +225,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 9
+	dir = 10
 	},
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/survivalpod)
@@ -175,35 +237,48 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced/survival_pod{
+	dir = 2
+	},
+/obj/structure/window/reinforced/survival_pod{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod,
-/obj/structure/grille,
+/obj/structure/grille{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "D" = (
-/obj/structure/chair/comfy/black,
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "E" = (
-/obj/machinery/door/airlock/survival_pod,
+/obj/machinery/door/airlock/survival_pod{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "F" = (
-/obj/structure/table/wood/fancy,
+/obj/structure/table/wood/fancy{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = -4;
-	pixel_y = 12
+	pixel_y = -12;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = 4;
-	pixel_y = 4
+	pixel_y = -4;
+	dir = 1
 	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "G" = (
 /obj/structure/urinal{
-	pixel_y = 24
+	pixel_y = -24;
+	dir = 1
 	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
@@ -228,16 +303,20 @@
 /area/survivalpod)
 "K" = (
 /obj/structure/chair/comfy/black{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "L" = (
-/obj/machinery/vending/snack/random,
+/obj/machinery/vending/snack/random{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "M" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "N" = (
@@ -256,159 +335,146 @@
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
 "P" = (
-/obj/structure/sign/mining/survival,
+/obj/structure/sign/mining/survival{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
 "Q" = (
-/obj/structure/sign/mining/survival,
+/obj/structure/sign/mining/survival{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/survivalpod)
 "R" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 
 (1,1,1) = {"
 a
 e
+C
+e
+C
+e
+c
+e
 p
 e
-c
-e
-C
-e
-C
-e
-a
-"}
-(2,1,1) = {"
-b
-f
-q
-s
-x
-y
-D
-F
-K
-L
+a"}(2,1,1) = {"
 P
-"}
-(3,1,1) = {"
-c
-g
-q
-t
+L
+K
+F
+D
+y
 x
-y
-y
-y
-y
+s
+q
+f
+b"}(3,1,1) = {"
+c
 M
-c
-"}
-(4,1,1) = {"
-d
+y
+y
+y
+y
+x
+t
+q
+g
+c"}(4,1,1) = {"
+Q
+y
+K
+F
+D
+y
+x
+t
+q
 h
-q
-t
-x
-y
-D
-F
-K
-y
-Q
-"}
-(5,1,1) = {"
+d"}(5,1,1) = {"
 c
-i
-q
+y
+K
+F
+D
+y
+x
 u
-x
-y
-D
-F
-K
-y
-c
-"}
-(6,1,1) = {"
-d
-j
 q
-t
-x
-y
-y
-y
-y
-y
+i
+c"}(6,1,1) = {"
 R
-"}
-(7,1,1) = {"
+y
+y
+y
+y
+y
+x
+t
+q
+j
+d"}(7,1,1) = {"
 c
+c
+c
+c
+c
+y
+x
+t
+q
 k
-q
-t
-x
-y
-c
-c
-c
-c
-c
-"}
-(8,1,1) = {"
-d
-l
-q
-t
-x
-y
-c
-G
-H
-H
+c"}(8,1,1) = {"
 Q
-"}
-(9,1,1) = {"
-c
-m
-q
-v
-y
-y
-E
 H
+H
+G
+c
+y
+x
+t
+q
+l
+d"}(9,1,1) = {"
 c
 E
 c
-"}
-(10,1,1) = {"
-b
-n
+H
+E
+y
+y
+v
 q
-t
-z
-A
+m
+c"}(10,1,1) = {"
+P
+N
 c
 I
 c
-N
-P
-"}
-(11,1,1) = {"
+A
+z
+t
+q
+n
+b"}(11,1,1) = {"
 a
-o
-r
-w
-r
-B
+O
 c
 J
 c
-O
-a
-"}
+B
+r
+w
+r
+o
+a"}

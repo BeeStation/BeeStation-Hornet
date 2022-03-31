@@ -3,10 +3,18 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/machinery/portable_atmospherics/canister,
-/obj/machinery/atmospherics/components/unary/portables_connector,
-/obj/item/wrench,
-/obj/effect/turf_decal/stripes/box,
+/obj/machinery/portable_atmospherics/canister{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/item/wrench{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/box{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
@@ -14,7 +22,9 @@
 	icon_state = "pipe11-2";
 	dir = 8
 	},
-/obj/machinery/meter,
+/obj/machinery/meter{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
@@ -28,29 +38,26 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/machinery/atmospherics/components/binary/valve,
+/obj/machinery/atmospherics/components/binary/valve{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
 /obj/machinery/atmospherics/pipe/simple/general{
 	icon_state = "pipe11-2";
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-b
-e
 f
-"}
-(2,1,1) = {"
-a
-a
+e
+b"}(2,1,1) = {"
 c
-"}
-(3,1,1) = {"
 a
-a
+a"}(3,1,1) = {"
 d
-"}
+a
+a"}

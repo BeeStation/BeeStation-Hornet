@@ -10,13 +10,15 @@
 /area/lavaland/surface/outdoors)
 "e" = (
 /obj/structure/mirror{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /turf/open/floor/mineral/silver,
 /area/ruin/powered/pride)
 "f" = (
 /obj/structure/mirror{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /turf/open/floor/mineral/silver,
 /area/ruin/powered/pride)
@@ -25,25 +27,28 @@
 /area/ruin/powered/pride)
 "j" = (
 /obj/structure/mirror{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/mineral/silver,
 /area/ruin/powered/pride)
 "k" = (
 /obj/structure/mirror{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/mineral/silver,
 /area/ruin/powered/pride)
 "l" = (
 /obj/structure/mirror{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /obj/machinery/light/small{
 	brightness = 3;
@@ -53,7 +58,8 @@
 /area/ruin/powered/pride)
 "m" = (
 /obj/structure/mirror{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -61,18 +67,24 @@
 /turf/open/floor/mineral/silver,
 /area/ruin/powered/pride)
 "r" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/mineral/silver,
 /area/ruin/powered/pride)
 "G" = (
 /turf/closed/wall/mineral/diamond,
 /area/ruin/powered/pride)
 "O" = (
-/obj/structure/mirror/magic/pride,
+/obj/structure/mirror/magic/pride{
+	dir = 1
+	},
 /turf/closed/wall/mineral/diamond,
 /area/ruin/powered/pride)
 "Y" = (
-/obj/machinery/door/airlock/diamond,
+/obj/machinery/door/airlock/diamond{
+	dir = 1
+	},
 /turf/open/floor/mineral/silver{
 	blocks_air = 1
 	},
@@ -98,10 +110,7 @@ a
 a
 a
 a
-a
-"}
-(2,1,1) = {"
-a
+a"}(2,1,1) = {"
 a
 c
 c
@@ -121,142 +130,128 @@ c
 c
 c
 a
-"}
-(3,1,1) = {"
-b
-c
-c
-G
-G
-G
-G
-G
-G
-G
-G
-G
-G
-G
-G
-G
-G
-G
-c
+a"}(3,1,1) = {"
 a
-"}
-(4,1,1) = {"
-c
 c
 G
 G
 G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+c
+c
+b"}(4,1,1) = {"
+a
+c
+G
+e
+e
+l
+e
+e
+l
+e
+e
+l
+e
+e
 j
-e
-e
-l
-e
-e
-l
-e
-e
-l
-e
-e
+G
+G
 G
 c
+c"}(5,1,1) = {"
 a
-"}
-(5,1,1) = {"
-c
+a
 G
-G
-G
-G
-G
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
 r
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
 G
+G
+G
+G
+G
+c"}(6,1,1) = {"
 a
 a
-"}
-(6,1,1) = {"
-c
-G
-G
-G
-G
-G
-O
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
 Y
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+O
+G
+G
+G
+G
+G
+c"}(7,1,1) = {"
 a
-a
-"}
-(7,1,1) = {"
 c
 G
-G
-G
-G
-G
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
 r
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
 G
-c
+G
+G
+G
+G
+c"}(8,1,1) = {"
 a
-"}
-(8,1,1) = {"
-c
 c
 G
-G
-G
+f
+f
+m
+f
+f
+m
+f
+f
+m
+f
+f
 k
-f
-f
-m
-f
-f
-m
-f
-f
-m
-f
-f
+G
+G
 G
 c
+c"}(9,1,1) = {"
 a
-"}
-(9,1,1) = {"
-b
-c
 c
 G
 G
@@ -274,27 +269,25 @@ G
 G
 G
 c
+c
+b"}(10,1,1) = {"
 a
-"}
-(10,1,1) = {"
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
 b
-b
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-a
-"}
+b"}

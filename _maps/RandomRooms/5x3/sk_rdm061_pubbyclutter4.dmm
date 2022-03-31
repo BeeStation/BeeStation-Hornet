@@ -1,14 +1,20 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/item/broken_bottle,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/broken_bottle{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/effect/decal/cleanable/ash,
+/obj/effect/decal/cleanable/ash{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
@@ -17,67 +23,88 @@
 	},
 /area/template_noop)
 "e" = (
-/obj/structure/closet,
-/obj/item/restraints/handcuffs/cable,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/item/restraints/handcuffs/cable{
+	icon_state = "0-2"
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/item/picket_sign,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/picket_sign{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/structure/bonfire,
+/obj/structure/bonfire{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/structure/closet,
-/obj/item/cigbutt/cigarbutt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/item/cigbutt/cigarbutt{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/structure/grille/broken,
-/obj/structure/musician/piano,
+/obj/structure/grille/broken{
+	dir = 1
+	},
+/obj/structure/musician/piano{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
-/obj/item/reagent_containers/food/snacks/canned/beans,
+/obj/item/reagent_containers/food/snacks/canned/beans{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
-/obj/structure/closet,
-/obj/item/shard,
-/obj/item/stack/spacecash/c10,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/item/shard{
+	dir = 1
+	},
+/obj/item/stack/spacecash/c10{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-f
 j
-"}
-(2,1,1) = {"
-i
-g
+f
+a"}(2,1,1) = {"
 b
-"}
-(3,1,1) = {"
-c
+g
+i"}(3,1,1) = {"
+b
 h
-b
-"}
-(4,1,1) = {"
-d
-g
+c"}(4,1,1) = {"
 k
-"}
-(5,1,1) = {"
-e
-b
+g
+d"}(5,1,1) = {"
 l
-"}
+b
+e"}

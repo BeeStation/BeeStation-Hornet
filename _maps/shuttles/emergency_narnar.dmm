@@ -6,31 +6,44 @@
 /turf/closed/wall/mineral/cult,
 /area/shuttle/escape)
 "c" = (
-/obj/effect/forcefield/cult,
+/obj/effect/forcefield/cult{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "d" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/fire,
-/turf/open/floor/plasteel/cult,
-/area/shuttle/escape)
-"e" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/firstaid/fire{
 	dir = 1
 	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
+"e" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 2
+	},
+/turf/open/floor/plasteel/cult,
+/area/shuttle/escape)
 "f" = (
-/obj/machinery/computer/emergency_shuttle,
+/obj/machinery/computer/emergency_shuttle{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "g" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/storage/firstaid/regular{
 	pixel_x = 2;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
-/obj/item/crowbar,
+/obj/item/crowbar{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "h" = (
@@ -71,14 +84,16 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -30
+	pixel_y = 30;
+	dir = 1
 	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "o" = (
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
-	pixel_y = -29
+	pixel_y = 29;
+	dir = 1
 	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
@@ -89,34 +104,53 @@
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "q" = (
-/obj/item/stack/sheet/iron,
-/obj/effect/decal/remains/human,
+/obj/item/stack/sheet/iron{
+	dir = 1
+	},
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "r" = (
-/obj/machinery/door/airlock/cult/unruned/glass/friendly,
+/obj/machinery/door/airlock/cult/unruned/glass/friendly{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "s" = (
-/obj/machinery/status_display/evac,
+/obj/machinery/status_display/evac{
+	dir = 1
+	},
 /turf/closed/wall/mineral/cult,
 /area/shuttle/escape)
 "t" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "u" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/fire,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/firstaid/fire{
+	dir = 1
+	},
 /obj/item/storage/firstaid/regular{
 	pixel_x = 2;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
-/obj/item/crowbar,
+/obj/item/crowbar{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "v" = (
-/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "w" = (
@@ -124,27 +158,45 @@
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "x" = (
-/obj/machinery/door/airlock/cult/friendly,
+/obj/machinery/door/airlock/cult/friendly{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "y" = (
-/obj/effect/decal/cleanable/blood/gibs/up,
-/obj/item/candle/infinite,
+/obj/effect/decal/cleanable/blood/gibs/up{
+	dir = 4
+	},
+/obj/item/candle/infinite{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "z" = (
-/obj/effect/rune/raise_dead,
+/obj/effect/rune/raise_dead{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "A" = (
-/obj/item/candle/infinite,
+/obj/item/candle/infinite{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "B" = (
-/obj/effect/rune/convert,
-/obj/effect/decal/remains/human,
-/obj/effect/decal/cleanable/blood/gibs/body,
-/obj/effect/decal/cleanable/blood/gibs/core,
+/obj/effect/rune/convert{
+	dir = 1
+	},
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/gibs/body{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/gibs/core{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "C" = (
@@ -152,27 +204,38 @@
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "D" = (
-/obj/effect/rune/convert,
-/obj/effect/decal/remains/human,
+/obj/effect/rune/convert{
+	dir = 1
+	},
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "E" = (
-/obj/machinery/door/airlock/cult/friendly,
+/obj/machinery/door/airlock/cult/friendly{
+	dir = 1
+	},
 /obj/docking_port/mobile/emergency{
-	name = "shuttle 667"
+	name = "shuttle 667";
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "F" = (
-/obj/effect/decal/cleanable/blood/gibs/down,
+/obj/effect/decal/cleanable/blood/gibs/down{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "G" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 27
+	pixel_x = 27;
+	dir = 1
 	},
 /obj/item/extinguisher{
-	safety = 0
+	safety = 0;
+	dir = 1
 	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
@@ -181,10 +244,13 @@
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "I" = (
-/obj/effect/rune/narsie,
+/obj/effect/rune/narsie{
+	dir = 1
+	},
 /obj/effect/fun_balloon/sentience/emergency_shuttle{
 	effect_range = 5;
-	group_name = "horrible monsters on Shuttle 667"
+	group_name = "horrible monsters on Shuttle 667";
+	dir = 4
 	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
@@ -203,122 +269,150 @@
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "L" = (
-/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood/drip{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "M" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 27
+	pixel_x = 27;
+	dir = 1
 	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "N" = (
-/obj/machinery/door/airlock/cult/glass/friendly,
+/obj/machinery/door/airlock/cult/glass/friendly{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "O" = (
-/obj/structure/dresser,
+/obj/structure/dresser{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "P" = (
-/obj/structure/showcase/horrific_experiment,
+/obj/structure/showcase/horrific_experiment{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "Q" = (
-/obj/item/storage/firstaid/fire,
+/obj/item/storage/firstaid/fire{
+	dir = 1
+	},
 /obj/item/storage/firstaid/regular{
 	pixel_x = 2;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
-/obj/item/crowbar,
+/obj/item/crowbar{
+	dir = 1
+	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 27
+	pixel_x = 27;
+	dir = 1
 	},
-/obj/item/stack/sheet/iron,
+/obj/item/stack/sheet/iron{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "R" = (
-/obj/item/stack/sheet/iron,
+/obj/item/stack/sheet/iron{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "S" = (
-/obj/structure/table/wood,
-/obj/item/tome,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/tome{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "T" = (
-/obj/structure/bed,
-/obj/item/bedsheet/cult,
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/cult{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "U" = (
 /obj/structure/window/reinforced{
+	dir = 2
+	},
+/obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
-/obj/structure/shuttle/engine/heater,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "V" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 
 (1,1,1) = {"
 a
-a
-a
-a
 b
 b
 b
 x
+b
+x
+b
+c
+c
+c
 b
 E
 b
-c
-c
-c
-b
-x
-b
 x
 b
 b
 b
 a
-"}
-(2,1,1) = {"
 a
+a
+a"}(2,1,1) = {"
 b
 b
-b
-b
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-b
-j
-j
 R
-b
-b
-"}
-(3,1,1) = {"
-b
-b
-h
-m
+j
+j
 b
 j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+b
+b
+b
+b
+a"}(3,1,1) = {"
+V
+U
+R
+j
+j
+q
 v
+j
 j
 A
 j
@@ -326,69 +420,63 @@ z
 j
 A
 j
-j
 v
-q
 j
-j
-R
-U
-V
-"}
-(4,1,1) = {"
-c
-d
-i
-n
 b
-j
-j
-y
-B
-F
-H
-j
-D
-A
+m
+h
+b
+b"}(4,1,1) = {"
+V
+U
+S
 j
 j
 N
 j
 j
-S
-U
-V
-"}
-(5,1,1) = {"
-c
-e
+A
+D
 j
-o
+H
+F
+B
+y
+j
+j
 b
+n
+i
+d
+c"}(5,1,1) = {"
+V
+U
+T
+M
+O
+b
+L
+J
+j
+j
+j
+j
+j
+j
 j
 w
 j
-j
-j
-j
-j
-j
-j
-J
-L
 b
-O
-M
-T
-U
+o
+j
+e
+c"}(6,1,1) = {"
 V
-"}
-(6,1,1) = {"
-c
-f
-j
-j
-q
+U
+b
+b
+b
+s
 j
 j
 z
@@ -400,45 +488,41 @@ C
 z
 j
 j
-s
-b
-b
-b
-U
+q
+j
+j
+f
+c"}(7,1,1) = {"
 V
-"}
-(7,1,1) = {"
+U
+t
+j
+t
 c
-e
+L
+K
 j
 j
-r
+j
+j
+j
+j
 j
 w
 j
+r
 j
 j
-j
-j
-j
-j
-K
-L
-c
-t
-j
-t
-U
+e
+c"}(8,1,1) = {"
 V
-"}
-(8,1,1) = {"
-c
-g
-k
-k
-s
+U
 j
 j
+L
+r
+j
+v
 A
 D
 j
@@ -446,29 +530,15 @@ H
 j
 D
 A
-v
-j
-r
-L
 j
 j
-U
+s
+k
+k
+g
+c"}(9,1,1) = {"
 V
-"}
-(9,1,1) = {"
-b
-b
-l
-p
-b
-t
-j
-v
-A
-j
-z
-j
-A
+U
 j
 j
 j
@@ -476,16 +546,28 @@ c
 j
 j
 j
-U
-V
-"}
-(10,1,1) = {"
-a
+A
+j
+z
+j
+A
+v
+j
+t
+b
+p
+l
+b
+b"}(10,1,1) = {"
 b
 b
-b
-b
-u
+P
+Q
+P
+c
+M
+j
+j
 j
 j
 j
@@ -493,20 +575,12 @@ G
 j
 j
 j
-j
-j
-M
-c
-P
-Q
-P
+u
 b
 b
-"}
-(11,1,1) = {"
-a
-a
-a
+b
+b
+a"}(11,1,1) = {"
 a
 b
 c
@@ -526,4 +600,6 @@ b
 c
 b
 a
-"}
+a
+a
+a"}

@@ -1,48 +1,80 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"d" = (
-/obj/machinery/portable_atmospherics/scrubber/huge,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"e" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
-/obj/machinery/light,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"i" = (
-/obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"d" = (
+/obj/machinery/portable_atmospherics/scrubber/huge{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"e" = (
+/obj/machinery/portable_atmospherics/canister/oxygen{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"i" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 2
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "k" = (
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "l" = (
-/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "p" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/oxygen{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "q" = (
-/obj/machinery/portable_atmospherics/scrubber/huge,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/scrubber/huge{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "r" = (
@@ -52,48 +84,81 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "t" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "v" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/pump,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
+/obj/machinery/portable_atmospherics/pump{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "z" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/oxygen{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "C" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
-/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/toxins{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "D" = (
-/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "F" = (
-/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
-/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "I" = (
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "K" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
-/obj/effect/turf_decal/bot,
-/obj/machinery/light,
+/obj/machinery/portable_atmospherics/canister/toxins{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "N" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /obj/machinery/portable_atmospherics/pump{
-	name = "Lil Pump"
+	name = "Lil Pump";
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -107,21 +172,33 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "R" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "T" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/toxins{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "U" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "V" = (
@@ -137,93 +214,76 @@ V
 V
 V
 V
+V"}(2,1,1) = {"
 V
-"}
-(2,1,1) = {"
-V
-k
-I
-N
-U
-z
-z
 e
-V
-"}
-(3,1,1) = {"
-i
-k
-t
-v
+z
+z
 U
-z
-z
-p
-V
-"}
-(4,1,1) = {"
-V
-a
-O
-O
-O
-O
-O
-O
-V
-"}
-(5,1,1) = {"
-V
-Q
-Q
-Q
-Q
-Q
-Q
-Q
-V
-"}
-(6,1,1) = {"
-V
-D
-R
-r
-r
-r
-R
-R
-V
-"}
-(7,1,1) = {"
-V
-k
-t
-d
-F
-C
-T
-T
-V
-"}
-(8,1,1) = {"
-V
-k
+N
 I
-q
-l
+k
+V"}(3,1,1) = {"
+V
+p
+z
+z
+U
+v
+t
+k
+i"}(4,1,1) = {"
+V
+O
+O
+O
+O
+O
+O
+a
+V"}(5,1,1) = {"
+V
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+V"}(6,1,1) = {"
+V
+R
+R
+r
+r
+r
+R
+D
+V"}(7,1,1) = {"
+V
+T
+T
 C
-C
+F
+d
+t
+k
+V"}(8,1,1) = {"
+V
 K
-V
-"}
-(9,1,1) = {"
-V
-V
-V
-V
-V
-V
+C
+C
+l
+q
+I
+k
+V"}(9,1,1) = {"
 V
 V
 V
-"}
+V
+V
+V
+V
+V
+V"}

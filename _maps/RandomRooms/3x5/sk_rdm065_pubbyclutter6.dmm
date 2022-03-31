@@ -1,22 +1,32 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/item/target/clown,
+/obj/item/target/clown{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/structure/chair,
+/obj/structure/chair{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/item/target/alien,
+/obj/item/target/alien{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/structure/table,
-/obj/item/clothing/head/beret,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/clothing/head/beret{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
@@ -25,11 +35,15 @@
 	},
 /area/template_noop)
 "g" = (
-/obj/item/chair,
+/obj/item/chair{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/structure/barricade/wooden,
+/obj/structure/barricade/wooden{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
@@ -38,40 +52,41 @@
 	},
 /area/template_noop)
 "j" = (
-/obj/structure/girder,
+/obj/structure/girder{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "k" = (
-/obj/structure/girder,
+/obj/structure/girder{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
 
 (1,1,1) = {"
-a
-d
-f
-h
 k
-"}
-(2,1,1) = {"
-b
-b
+h
 f
-i
+d
+a"}(2,1,1) = {"
 l
-"}
-(3,1,1) = {"
-c
-e
-g
-j
 i
-"}
+f
+b
+b"}(3,1,1) = {"
+i
+j
+g
+e
+c"}

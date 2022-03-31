@@ -3,16 +3,20 @@
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "c" = (
-/obj/machinery/vending/wallmed/survival_pod,
+/obj/machinery/vending/wallmed/survival_pod{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "d" = (
-/obj/machinery/stasis/survival_pod,
+/obj/machinery/stasis/survival_pod{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grid,
 /area/survivalpod)
 "e" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/grid,
 /area/survivalpod)
@@ -23,101 +27,114 @@
 /turf/open/floor/plasteel/grid,
 /area/survivalpod)
 "h" = (
-/obj/structure/table,
-/obj/item/storage/firstaid,
-/obj/item/holosign_creator/medical,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/firstaid{
+	dir = 1
+	},
+/obj/item/holosign_creator/medical{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grid,
 /area/survivalpod)
 "i" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grid,
 /area/survivalpod)
 "j" = (
-/obj/machinery/chem_master,
+/obj/machinery/chem_master{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grid,
 /area/survivalpod)
 "k" = (
-/obj/machinery/sleeper/survival_pod,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
+/obj/machinery/sleeper/survival_pod{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/grid,
-/area/survivalpod)
-"l" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel/grid,
+/area/survivalpod)
+"l" = (
+/obj/effect/turf_decal/tile/blue{
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
 	},
 /turf/open/floor/plasteel/grid,
 /area/survivalpod)
 "F" = (
-/obj/structure/sign/departments/medbay/alt,
+/obj/structure/sign/departments/medbay/alt{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "N" = (
-/obj/structure/sign/departments/medbay/alt,
-/obj/structure/sign/departments/minsky/medical/medical2,
-/obj/structure/sign/departments/medbay/alt2,
+/obj/structure/sign/departments/medbay/alt{
+	dir = 1
+	},
+/obj/structure/sign/departments/minsky/medical/medical2{
+	dir = 1
+	},
+/obj/structure/sign/departments/medbay/alt2{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "U" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 
 (1,1,1) = {"
 a
-a
-U
 F
+U
 a
-"}
-(2,1,1) = {"
-N
-d
-f
+a"}(2,1,1) = {"
+a
 k
-a
-"}
-(3,1,1) = {"
-a
-e
 f
+d
+N"}(3,1,1) = {"
+a
 l
+f
+e
+a"}(4,1,1) = {"
+U
+f
+f
+f
+U"}(5,1,1) = {"
 a
-"}
-(4,1,1) = {"
-U
-f
-f
-f
-U
-"}
-(5,1,1) = {"
-c
-g
-f
 i
-a
-"}
-(6,1,1) = {"
-a
-h
 f
-j
+g
+c"}(6,1,1) = {"
 N
-"}
-(7,1,1) = {"
+j
+f
+h
+a"}(7,1,1) = {"
 a
-F
+a
 U
-a
-a
-"}
+F
+a"}

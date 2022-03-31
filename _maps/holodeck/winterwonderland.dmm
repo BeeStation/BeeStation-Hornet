@@ -1,135 +1,169 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/flora/grass/both,
+/obj/structure/flora/grass/both{
+	dir = 1
+	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "c" = (
 /obj/structure/flora/bush{
 	pixel_x = -2;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "d" = (
-/obj/structure/flora/tree/pine,
+/obj/structure/flora/tree/pine{
+	dir = 1
+	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "h" = (
 /obj/structure/flora/tree/pine{
-	pixel_y = -6
+	pixel_y = 6;
+	dir = 1
 	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "l" = (
 /obj/structure/flora/tree/pine{
-	pixel_x = -21
+	pixel_x = -21;
+	dir = 1
 	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "m" = (
-/obj/effect/holodeck_effect/mobspawner/penguin,
+/obj/effect/holodeck_effect/mobspawner/penguin{
+	dir = 1
+	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "n" = (
 /obj/item/stack/sheet/mineral/coal{
 	pixel_x = -8;
-	pixel_y = -4
+	pixel_y = 4;
+	dir = 1
 	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "q" = (
-/obj/structure/flora/grass/brown,
+/obj/structure/flora/grass/brown{
+	dir = 1
+	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "s" = (
-/obj/structure/flora/tree/pine/xmas,
+/obj/structure/flora/tree/pine/xmas{
+	dir = 1
+	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "u" = (
 /obj/item/clothing/gloves/color/green{
 	pixel_x = -7;
-	pixel_y = -7
+	pixel_y = 7;
+	dir = 1
 	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "w" = (
-/obj/item/clothing/suit/hooded/wintercoat,
+/obj/item/clothing/suit/hooded/wintercoat{
+	dir = 1
+	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "A" = (
-/obj/structure/flora/bush,
+/obj/structure/flora/bush{
+	dir = 1
+	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "D" = (
 /obj/structure/statue/snow/snowman{
-	anchored = 1
+	anchored = 1;
+	dir = 1
 	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "E" = (
-/obj/effect/holodeck_effect/mobspawner/penguin_baby,
+/obj/effect/holodeck_effect/mobspawner/penguin_baby{
+	dir = 1
+	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "G" = (
 /obj/item/clothing/head/ushanka{
 	pixel_x = -5;
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "H" = (
 /obj/item/clothing/neck/stripedredscarf{
 	pixel_x = -3;
-	pixel_y = -5
+	pixel_y = 5;
+	dir = 1
 	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "L" = (
-/obj/structure/flora/grass/green,
+/obj/structure/flora/grass/green{
+	dir = 1
+	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "O" = (
 /obj/structure/flora/bush{
 	pixel_x = 5;
-	pixel_y = 7
+	pixel_y = -7;
+	dir = 1
 	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "P" = (
 /obj/item/clothing/head/collectable/tophat{
 	pixel_x = 9;
-	pixel_y = 7
+	pixel_y = -7;
+	dir = 1
 	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "Q" = (
 /obj/item/clothing/shoes/winterboots{
-	pixel_y = 12
+	pixel_y = -12;
+	dir = 1
 	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "R" = (
 /obj/structure/flora/tree/pine{
-	pixel_x = -10
+	pixel_x = -10;
+	dir = 1
 	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "S" = (
 /obj/item/hatchet{
 	pixel_x = 7;
-	pixel_y = -8
+	pixel_y = 8;
+	dir = 1
 	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "U" = (
 /obj/item/toy/snowball{
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
 /obj/item/toy/snowball{
-	pixel_x = 5
+	pixel_x = 5;
+	dir = 1
 	},
 /obj/item/toy/snowball{
-	pixel_x = -4
+	pixel_x = -4;
+	dir = 1
 	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
@@ -138,104 +172,87 @@
 /area/template_noop)
 
 (1,1,1) = {"
-L
-S
+a
+Z
+Z
 Z
 Z
 A
 Z
 Z
-Z
-Z
-a
-"}
-(2,1,1) = {"
-Z
-h
-Z
-Z
-Z
-Z
-Z
+S
+L"}(2,1,1) = {"
 Z
 l
 Z
-"}
-(3,1,1) = {"
-Z
-P
-U
 Z
 Z
 Z
 Z
 Z
-Z
+h
+Z"}(3,1,1) = {"
 c
-"}
-(4,1,1) = {"
-H
-D
 Z
 Z
-Z
-Z
-Z
-Z
-m
-Z
-"}
-(5,1,1) = {"
-A
-n
-Z
-Z
-Z
-s
-E
-Z
-w
-Q
-"}
-(6,1,1) = {"
-Z
-Z
-m
 Z
 Z
 Z
 Z
 U
-u
+P
+Z"}(4,1,1) = {"
+Z
+m
+Z
+Z
+Z
+Z
+Z
+Z
+D
+H"}(5,1,1) = {"
+Q
+w
+Z
+E
+s
+Z
+Z
+Z
+n
+A"}(6,1,1) = {"
 G
-"}
-(7,1,1) = {"
+u
+U
 Z
 Z
-d
+Z
+Z
+m
+Z
+Z"}(7,1,1) = {"
+Z
+Z
+Z
+Z
+Z
+Z
 O
+d
 Z
-Z
-Z
-Z
-Z
-Z
-"}
-(8,1,1) = {"
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
+Z"}(8,1,1) = {"
 R
-"}
-(9,1,1) = {"
 Z
-a
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z"}(9,1,1) = {"
+q
 Z
 Z
 Z
@@ -243,5 +260,5 @@ L
 Z
 Z
 Z
-q
-"}
+a
+Z"}

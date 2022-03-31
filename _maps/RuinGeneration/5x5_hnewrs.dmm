@@ -1,12 +1,14 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "e" = (
 /obj/effect/abstract/open_area_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "f" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "H" = (
@@ -33,33 +35,24 @@ H
 Y
 I
 Y
+H"}(2,1,1) = {"
 H
-"}
-(2,1,1) = {"
 Y
 Y
 Y
-Y
-H
-"}
-(3,1,1) = {"
-e
-Y
-Y
-Y
+Y"}(3,1,1) = {"
 f
-"}
-(4,1,1) = {"
 Y
 Y
 Y
-Y
+e"}(4,1,1) = {"
 H
-"}
-(5,1,1) = {"
+Y
+Y
+Y
+Y"}(5,1,1) = {"
 H
 Y
 V
 Y
-H
-"}
+H"}

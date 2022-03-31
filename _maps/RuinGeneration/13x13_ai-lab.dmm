@@ -1,64 +1,86 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "al" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
 /obj/item/paper_bin{
 	pixel_x = -3;
-	pixel_y = 7
+	pixel_y = -7;
+	dir = 1
 	},
-/obj/item/pen,
+/obj/item/pen{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "cw" = (
 /obj/effect/turf_decal/caution/stand_clear{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "ef" = (
-/obj/effect/decal/cleanable/oil/streak,
+/obj/effect/decal/cleanable/oil/streak{
+	dir = 4
+	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "er" = (
 /obj/machinery/power/smes{
-	charge = 5e+006
+	charge = 5e+006;
+	dir = 1
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "ew" = (
-/obj/structure/table/glass,
+/obj/structure/table/glass{
+	dir = 1
+	},
 /obj/item/stack/cable_coil/blue{
 	pixel_x = 3;
-	pixel_y = 3
+	pixel_y = -3
 	},
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/lootdrop/ruinloot/important{
+	dir = 1
+	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "eH" = (
-/obj/machinery/computer/upload/ai,
+/obj/machinery/computer/upload/ai{
+	dir = 1
+	},
 /turf/open/floor/monofloor,
 /area/ruin/unpowered)
 "fm" = (
-/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/filingcabinet/chestdrawer{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "gf" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "hB" = (
 /obj/item/kirbyplants/photosynthetic{
-	pixel_y = 10
+	pixel_y = -10;
+	dir = 1
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "iT" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
 /obj/item/paicard{
 	desc = "A real Nanotrasen success, these personal AIs provide all of the companionship of an AI without any law related red-tape.";
-	name = "Nanotrasen-brand personal AI device exhibit"
+	name = "Nanotrasen-brand personal AI device exhibit";
+	dir = 1
 	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
@@ -66,46 +88,59 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood{
+	dir = 4
+	},
 /obj/item/ammo_casing/c9mm{
 	dir = 4;
 	pixel_x = 3;
-	pixel_y = 2
+	pixel_y = -2
 	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "lX" = (
-/obj/effect/decal/cleanable/robot_debris/old,
+/obj/effect/decal/cleanable/robot_debris/old{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/red/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "nN" = (
 /obj/item/kirbyplants/photosynthetic{
-	pixel_y = 10
+	pixel_y = -10;
+	dir = 1
 	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "py" = (
-/obj/structure/sign/warning/electricshock,
+/obj/structure/sign/warning/electricshock{
+	dir = 1
+	},
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "qg" = (
-/obj/effect/decal/cleanable/oil/slippery,
+/obj/effect/decal/cleanable/oil/slippery{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/red/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "sx" = (
-/obj/effect/decal/cleanable/glass,
-/obj/structure/windoor_assembly,
+/obj/effect/decal/cleanable/glass{
+	dir = 4
+	},
+/obj/structure/windoor_assembly{
+	dir = 1
+	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "sG" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
@@ -113,12 +148,14 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/robot_suit/prebuilt,
+/obj/item/robot_suit/prebuilt{
+	dir = 1
+	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "to" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
@@ -129,25 +166,30 @@
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "tD" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /obj/machinery/door/airlock/grunge{
-	name = "Artificial Intelligence research"
+	name = "Artificial Intelligence research";
+	dir = 1
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "tJ" = (
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
-	name = "Broken Computer"
+	name = "Broken Computer";
+	dir = 1
 	},
 /turf/open/floor/monofloor,
 /area/ruin/unpowered)
 "tL" = (
 /obj/structure/showcase/cyborg/old{
-	pixel_y = 20
+	pixel_y = -20;
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
@@ -155,33 +197,43 @@
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "tV" = (
-/obj/effect/decal/cleanable/robot_debris/limb,
+/obj/effect/decal/cleanable/robot_debris/limb{
+	dir = 4
+	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "uw" = (
 /turf/template_noop,
 /area/template_noop)
 "vj" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	dir = 1
+	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "vv" = (
 /obj/structure/AIcore{
-	name = "\broken AI core"
+	name = "\broken AI core";
+	dir = 1
 	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "vX" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen,
+/obj/effect/spawner/structure/window/plasma/reinforced{
+	dir = 1
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1
+	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "za" = (
 /obj/item/kirbyplants/photosynthetic{
-	pixel_y = 10
+	pixel_y = -10;
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
@@ -191,33 +243,160 @@
 	},
 /obj/machinery/flasher{
 	id = "AI";
-	pixel_y = 24
+	pixel_y = -24;
+	dir = 1
 	},
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/lootdrop/ruinloot/important{
+	dir = 1
+	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "BT" = (
-/obj/machinery/door/airlock/highsecurity,
-/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/highsecurity{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/locked{
+	dir = 1
+	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "AI Core shutters";
-	name = "AI core shutters"
+	name = "AI core shutters";
+	dir = 1
 	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "CO" = (
-/obj/structure/table/reinforced,
-/obj/item/lighter,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/lighter{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "Dy" = (
-/obj/item/ammo_casing/c9mm,
+/obj/item/ammo_casing/c9mm{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "Fw" = (
 /turf/open/floor/circuit/red/anim,
 /area/ruin/unpowered)
 "Gh" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 1
+	},
+/obj/effect/turf_decal{
+	dir = 2
+	},
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
+"GZ" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/structure/sign/warning/nosmoking{
+	dir = 1
+	},
+/turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"Ib" = (
+/obj/machinery/porta_turret/syndicate/energy{
+	name = "AI Chamber Turret";
+	dir = 1
+	},
+/turf/open/floor/pod/dark,
+/area/ruin/unpowered)
+"JD" = (
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/folder/white{
+	pixel_x = -4;
+	pixel_y = -2;
+	dir = 1
+	},
+/obj/item/folder/red{
+	pixel_x = 3;
+	dir = 1
+	},
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"JG" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot_red{
+	dir = 4
+	},
+/mob/living/simple_animal/bot/floorbot,
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"JS" = (
+/turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"Kp" = (
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/mmi/posibrain{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"Kx" = (
+/obj/machinery/recharge_station{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"KU" = (
+/obj/structure/sign/warning/securearea{
+	dir = 1
+	},
+/turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"Lx" = (
+/obj/effect/decal/cleanable/robot_debris/old{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Telecomms - Server Room - Aft-Port";
+	dir = 10;
+	network = list("ss13","tcomms")
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/item/ammo_casing/c9mm{
+	dir = 8;
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/open/floor/carpet/black,
+/area/ruin/unpowered)
+"MV" = (
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/storage/toolbox/emergency/old{
+	pixel_x = 3;
+	pixel_y = -3;
+	dir = 4
+	},
+/obj/item/storage/toolbox/mechanical/old{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/important{
+	dir = 1
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/ruin/unpowered)
+"NP" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
 	},
@@ -226,113 +405,52 @@
 	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
-"GZ" = (
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/structure/sign/warning/nosmoking,
-/turf/closed/wall/r_wall,
-/area/ruin/unpowered)
-"Ib" = (
-/obj/machinery/porta_turret/syndicate/energy{
-	name = "AI Chamber Turret"
+"Os" = (
+/obj/effect/turf_decal/bot_red{
+	dir = 4
 	},
-/turf/open/floor/pod/dark,
-/area/ruin/unpowered)
-"JD" = (
-/obj/structure/table/reinforced,
-/obj/item/folder/white{
-	pixel_x = -4;
-	pixel_y = 2
-	},
-/obj/item/folder/red{
-	pixel_x = 3
-	},
-/turf/open/floor/carpet/black,
-/area/ruin/unpowered)
-"JG" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot_red,
-/mob/living/simple_animal/bot/floorbot,
-/turf/open/floor/plasteel/tech/grid,
-/area/ruin/unpowered)
-"JS" = (
-/turf/closed/wall/r_wall,
-/area/ruin/unpowered)
-"Kp" = (
-/obj/structure/table/glass,
-/obj/item/mmi/posibrain,
-/turf/open/floor/plasteel/tech/grid,
-/area/ruin/unpowered)
-"Kx" = (
-/obj/machinery/recharge_station,
-/turf/open/floor/plasteel/tech/grid,
-/area/ruin/unpowered)
-"KU" = (
-/obj/structure/sign/warning/securearea,
-/turf/closed/wall/r_wall,
-/area/ruin/unpowered)
-"Lx" = (
-/obj/effect/decal/cleanable/robot_debris/old,
-/obj/machinery/camera{
-	c_tag = "Telecomms - Server Room - Aft-Port";
-	dir = 9;
-	network = list("ss13","tcomms")
-	},
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/item/ammo_casing/c9mm{
-	dir = 8;
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/turf/open/floor/carpet/black,
-/area/ruin/unpowered)
-"MV" = (
-/obj/structure/rack,
-/obj/machinery/light,
-/obj/item/storage/toolbox/emergency/old{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/toolbox/mechanical/old,
-/obj/effect/spawner/lootdrop/ruinloot/important,
-/turf/open/floor/plasteel/tech/grid,
-/area/ruin/unpowered)
-"NP" = (
-/obj/effect/turf_decal/caution/stand_clear{
+/obj/item/bot_assembly/medbot{
 	dir = 1
 	},
-/obj/effect/turf_decal,
-/turf/open/floor/circuit/red,
-/area/ruin/unpowered)
-"Os" = (
-/obj/effect/turf_decal/bot_red,
-/obj/item/bot_assembly/medbot,
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "Pw" = (
-/obj/structure/table/glass,
+/obj/structure/table/glass{
+	dir = 1
+	},
 /obj/item/aiModule/core/full/damaged{
 	pixel_x = 5;
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /obj/item/aicard{
-	pixel_x = -10
+	pixel_x = -10;
+	dir = 1
 	},
-/obj/item/borg/upgrade/transform/borgi,
+/obj/item/borg/upgrade/transform/borgi{
+	dir = 1
+	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "Qa" = (
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/spawner/lootdrop/ruinloot/important{
+	dir = 1
+	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "Qo" = (
-/obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/important{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "RT" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "SV" = (
@@ -344,50 +462,61 @@
 	},
 /obj/machinery/door/window{
 	base_state = "rightsecure";
-	dir = 1;
+	dir = 2;
 	icon_state = "rightsecure";
 	name = "Primary AI Core Access";
 	obj_integrity = 300;
 	req_access_txt = "16"
 	},
-/obj/effect/decal/cleanable/blood/tracks,
-/obj/effect/mob_spawn/human/corpse/nanotrasensoldier,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/corpse/nanotrasensoldier{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "WX" = (
 /obj/machinery/door/airlock/grunge{
-	name = "AI research room"
+	name = "AI research room";
+	dir = 1
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "Xd" = (
-/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
 /obj/effect/turf_decal{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "Zy" = (
 /obj/effect/decal/cleanable/blood/tracks{
-	dir = 4;
+	dir = 2;
 	pixel_x = 6;
-	pixel_y = 4
+	pixel_y = -4
 	},
 /obj/item/ammo_casing/c9mm{
 	dir = 4;
 	pixel_x = 3;
-	pixel_y = 2
+	pixel_y = -2
 	},
-/obj/item/ammo_casing/c9mm,
+/obj/item/ammo_casing/c9mm{
+	dir = 1
+	},
 /obj/item/ammo_casing/c9mm{
 	dir = 8;
 	pixel_x = 3;
-	pixel_y = 3
+	pixel_y = -3
 	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "ZS" = (
-/obj/effect/turf_decal/bot_red,
+/obj/effect/turf_decal/bot_red{
+	dir = 4
+	},
 /mob/living/simple_animal/bot/secbot{
 	emagged = 1;
 	faction = list("silicon","turret");
@@ -400,168 +529,146 @@
 JS
 JS
 JS
+JS
+JS
+JS
+JS
+JS
+JS
 py
 JS
 JS
-JS
-JS
-JS
-JS
-JS
-JS
-JS
-"}
-(2,1,1) = {"
-JS
-eH
-tj
-er
-Kx
-MV
+JS"}(2,1,1) = {"
 JS
 hB
-ZS
-JG
 Os
+JG
+ZS
 hB
 JS
-"}
-(3,1,1) = {"
-JS
-tJ
-SV
-SV
-SV
-SV
-WX
-RT
-SV
-tV
-ef
-SV
+MV
+Kx
+er
+tj
+eH
+JS"}(3,1,1) = {"
 tD
-"}
-(4,1,1) = {"
-JS
-tJ
 SV
-Pw
-ew
-Kp
-GZ
+ef
+tV
+SV
+RT
+WX
+SV
+SV
+SV
+SV
+tJ
+JS"}(4,1,1) = {"
+JS
+SV
+SV
 SV
 ef
 SV
+GZ
+Kp
+ew
+Pw
 SV
+tJ
+JS"}(5,1,1) = {"
+JS
 SV
-JS
-"}
-(5,1,1) = {"
-JS
-vX
-vX
-vX
-vX
-vX
-JS
-to
 SV
 vj
 SV
+to
+JS
+vX
+vX
+vX
+vX
+vX
+JS"}(6,1,1) = {"
+JS
 SV
-JS
-"}
-(6,1,1) = {"
-JS
-Qa
-tO
-tO
-tO
-tO
-KU
+SV
+SV
+SV
 lX
-SV
-SV
-SV
-SV
-JS
-"}
-(7,1,1) = {"
-JS
+KU
 tO
+tO
+tO
+tO
+Qa
+JS"}(7,1,1) = {"
+JS
+CO
+JD
+al
+ef
+tL
+JS
+gf
 Fw
 Gh
 Fw
-gf
-JS
-tL
-ef
-al
-JD
-CO
-JS
-"}
-(8,1,1) = {"
-JS
-sG
-NP
-Ib
-Xd
 tO
-BT
-qg
-SV
-iT
-jp
+JS"}(8,1,1) = {"
+JS
 fm
+jp
+iT
+SV
+qg
+BT
+tO
+Xd
+Ib
+NP
+sG
+JS"}(9,1,1) = {"
 JS
-"}
-(9,1,1) = {"
+Dy
+Zy
+Qo
+SV
+tL
 JS
-AP
+gf
 Fw
 cw
 Fw
-gf
+AP
+JS"}(10,1,1) = {"
 JS
-tL
-SV
-Qo
-Zy
-Dy
-JS
-"}
-(10,1,1) = {"
-JS
-vv
-sx
-tA
-tO
-tO
-KU
-za
-SV
-WV
-Lx
 nN
-JS
-"}
-(11,1,1) = {"
-JS
-JS
-JS
-JS
-JS
-JS
-JS
-JS
-JS
-JS
+Lx
+WV
+SV
+za
+KU
+tO
+tO
+tA
+sx
+vv
+JS"}(11,1,1) = {"
 JS
 JS
 JS
-"}
-(12,1,1) = {"
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS
+JS"}(12,1,1) = {"
 uw
 uw
 uw
@@ -574,9 +681,7 @@ uw
 uw
 uw
 uw
-uw
-"}
-(13,1,1) = {"
+uw"}(13,1,1) = {"
 uw
 uw
 uw
@@ -589,5 +694,4 @@ uw
 uw
 uw
 uw
-uw
-"}
+uw"}

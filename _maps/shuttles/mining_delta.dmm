@@ -4,15 +4,19 @@
 /area/shuttle/mining)
 "b" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "c" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/emergency,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/storage/toolbox/emergency{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -20,22 +24,38 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "d" = (
-/obj/machinery/computer/shuttle_flight/mining,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/computer/shuttle_flight/mining{
 	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "e" = (
-/obj/structure/table/reinforced,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/crowbar/red,
-/obj/item/wrench,
-/obj/item/tank/internals/emergency_oxygen,
-/obj/item/clothing/mask/gas,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/crowbar/red{
+	dir = 1
+	},
+/obj/item/wrench{
+	dir = 1
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	dir = 4
+	},
+/obj/item/clothing/mask/gas{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -50,23 +70,29 @@
 /area/shuttle/mining)
 "g" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "h" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -91,12 +117,18 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/mining)
 "j" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -104,14 +136,16 @@
 /area/shuttle/mining)
 "k" = (
 /obj/effect/turf_decal/tile/neutral{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
@@ -131,159 +165,213 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/mining)
 "n" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
+	dir = 2
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/end{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "o" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "p" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
+	dir = 2
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/end{
+/obj/effect/decal/cleanable/dirt{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 2
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "q" = (
 /obj/item/clothing/suit/hazardvest{
 	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
+	name = "emergency lifejacket";
+	dir = 1
 	},
 /obj/item/clothing/suit/hazardvest{
 	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
+	name = "emergency lifejacket";
+	dir = 1
 	},
 /obj/item/clothing/suit/hazardvest{
 	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
+	name = "emergency lifejacket";
+	dir = 1
 	},
 /obj/item/clothing/suit/hazardvest{
 	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
+	name = "emergency lifejacket";
+	dir = 1
 	},
 /obj/item/clothing/suit/hazardvest{
 	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
+	name = "emergency lifejacket";
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
+	pixel_x = 3;
+	dir = 4
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
+	pixel_x = 3;
+	dir = 4
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
+	pixel_x = 3;
+	dir = 4
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
+	pixel_x = 3;
+	dir = 4
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
+	pixel_x = 3;
+	dir = 4
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
-	pixel_y = 9
+	pixel_y = -9;
+	dir = 1
 	},
 /obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
-	pixel_y = 9
+	pixel_y = -9;
+	dir = 1
 	},
 /obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
-	pixel_y = 9
+	pixel_y = -9;
+	dir = 1
 	},
 /obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
-	pixel_y = 9
+	pixel_y = -9;
+	dir = 1
 	},
 /obj/item/clothing/head/hardhat/orange{
 	name = "protective hat";
-	pixel_y = 9
+	pixel_y = -9;
+	dir = 1
 	},
-/obj/structure/closet/crate/internals,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/pickaxe/emergency,
-/obj/item/pickaxe/emergency,
-/obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate/internals{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/pickaxe/emergency{
+	dir = 4
+	},
+/obj/item/pickaxe/emergency{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "r" = (
-/obj/structure/shuttle/engine/heater,
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1
+	dir = 2
 	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/mining)
 "s" = (
-/obj/structure/ore_box,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
+/obj/structure/ore_box{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "t" = (
-/obj/structure/shuttle/engine/propulsion/burst,
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 1
+	},
 /obj/structure/window/reinforced{
-	dir = 1;
+	dir = 2;
 	layer = 2.9
 	},
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/mining)
 "J" = (
@@ -309,41 +397,32 @@ Q
 i
 Q
 S
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 S
-c
-f
-j
-n
 q
-S
-"}
-(3,1,1) = {"
-b
-d
-g
-k
-o
-r
+n
+j
+f
+c
+S"}(3,1,1) = {"
 t
-"}
-(4,1,1) = {"
+r
+o
+k
+g
+d
+b"}(4,1,1) = {"
 S
-e
-h
-l
-p
 s
-S
-"}
-(5,1,1) = {"
+p
+l
+h
+e
+S"}(5,1,1) = {"
 a
 S
 J
 m
 J
 S
-a
-"}
+a"}

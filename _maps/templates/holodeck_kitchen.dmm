@@ -9,33 +9,46 @@
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "c" = (
-/obj/structure/table/reinforced,
-/obj/item/trash/plate,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/trash/plate{
+	dir = 1
+	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "d" = (
+/obj/machinery/door/window{
+	dir = 2
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"e" = (
 /obj/machinery/door/window{
 	dir = 1
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"e" = (
-/obj/machinery/door/window,
-/turf/open/floor/holofloor/white,
-/area/template_noop)
 "f" = (
-/obj/structure/table/reinforced,
-/obj/structure/window{
+/obj/structure/table/reinforced{
 	dir = 1
 	},
+/obj/structure/window{
+	dir = 2
+	},
 /obj/item/reagent_containers/food/condiment/saltshaker{
-	list_reagents = list()
+	list_reagents = list();
+	dir = 1
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "g" = (
-/obj/structure/table/reinforced,
-/obj/structure/window,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/structure/window{
+	dir = 1
+	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "h" = (
@@ -48,11 +61,15 @@
 	},
 /area/template_noop)
 "i" = (
-/obj/structure/table/reinforced,
-/obj/structure/window{
+/obj/structure/table/reinforced{
 	dir = 1
 	},
-/obj/machinery/microwave,
+/obj/structure/window{
+	dir = 2
+	},
+/obj/machinery/microwave{
+	dir = 1
+	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "j" = (
@@ -65,42 +82,72 @@
 	},
 /area/template_noop)
 "k" = (
-/obj/structure/table/wood,
-/obj/item/trash/plate,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/trash/plate{
+	dir = 1
+	},
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
 	},
 /area/template_noop)
 "l" = (
-/obj/machinery/chem_master/condimaster,
+/obj/machinery/chem_master/condimaster{
+	dir = 1
+	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "m" = (
-/obj/structure/table,
-/obj/machinery/reagentgrinder,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/machinery/reagentgrinder{
+	dir = 1
+	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "n" = (
-/obj/structure/window,
-/obj/structure/closet/crate/freezer,
+/obj/structure/window{
+	dir = 1
+	},
+/obj/structure/closet/crate/freezer{
+	dir = 1
+	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "o" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/holofloor{
 	dir = 9;
 	icon_state = "wood"
 	},
 /area/template_noop)
 "p" = (
-/obj/structure/window,
-/obj/structure/rack,
-/obj/item/clothing/head/chefhat,
-/obj/item/clothing/head/chefhat,
-/obj/item/clothing/suit/apron/chef,
-/obj/item/clothing/suit/apron/chef,
-/obj/item/storage/bag/tray,
+/obj/structure/window{
+	dir = 1
+	},
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/clothing/head/chefhat{
+	dir = 1
+	},
+/obj/item/clothing/head/chefhat{
+	dir = 1
+	},
+/obj/item/clothing/suit/apron/chef{
+	dir = 1
+	},
+/obj/item/clothing/suit/apron/chef{
+	dir = 1
+	},
+/obj/item/storage/bag/tray{
+	dir = 1
+	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 
@@ -114,9 +161,7 @@ a
 a
 a
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 h
 a
 a
@@ -126,69 +171,57 @@ o
 o
 a
 a
-h
-"}
-(3,1,1) = {"
+h"}(3,1,1) = {"
 k
 a
-f
-c
-c
-c
-c
 g
+c
+c
+c
+c
+f
 a
-k
-"}
-(4,1,1) = {"
+k"}(4,1,1) = {"
 j
 a
-i
-b
-b
-b
-b
 n
-a
-j
-"}
-(5,1,1) = {"
-a
-a
-d
 b
-l
-m
 b
-e
-a
-a
-"}
-(6,1,1) = {"
-h
-a
+b
+b
 i
-b
-b
-b
-b
-p
 a
+j"}(5,1,1) = {"
+a
+a
+e
+b
+m
+l
+b
+d
+a
+a"}(6,1,1) = {"
 h
-"}
-(7,1,1) = {"
+a
+p
+b
+b
+b
+b
+i
+a
+h"}(7,1,1) = {"
 k
 a
-f
-c
-c
-c
-c
 g
+c
+c
+c
+c
+f
 a
-k
-"}
-(8,1,1) = {"
+k"}(8,1,1) = {"
 j
 a
 a
@@ -198,9 +231,7 @@ o
 o
 a
 a
-j
-"}
-(9,1,1) = {"
+j"}(9,1,1) = {"
 a
 a
 a
@@ -210,5 +241,4 @@ a
 a
 a
 a
-a
-"}
+a"}

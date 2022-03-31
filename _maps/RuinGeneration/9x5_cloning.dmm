@@ -3,35 +3,47 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "c" = (
-/obj/structure/closet/secure_closet/personal/patient,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"f" = (
-/obj/effect/abstract/doorway_marker{
+/obj/structure/closet/secure_closet/personal/patient{
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
+"f" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 2
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
 "l" = (
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/decal/cleanable/cobweb,
-/obj/machinery/clonepod/experimental,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/cobweb{
+	dir = 4
+	},
+/obj/machinery/clonepod/experimental{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "o" = (
-/obj/structure/closet/wardrobe/mixed,
+/obj/structure/closet/wardrobe/mixed{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "p" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "t" = (
-/obj/machinery/dna_scannernew,
+/obj/machinery/dna_scannernew{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
@@ -45,7 +57,9 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "D" = (
-/obj/item/chair/stool,
+/obj/item/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "E" = (
@@ -58,32 +72,45 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "H" = (
-/obj/structure/table,
-/obj/effect/turf_decal/tile/blue,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "J" = (
-/obj/structure/table,
-/obj/effect/turf_decal/tile/blue,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "O" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "Q" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothing{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "R" = (
 /obj/machinery/shower{
-	pixel_y = 16
+	pixel_y = -16;
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/noslip/dark,
 /area/ruin/unpowered)
@@ -93,61 +120,44 @@ a
 a
 a
 a
+a"}(2,1,1) = {"
 a
-"}
-(2,1,1) = {"
-a
-l
-E
 t
-a
-"}
-(3,1,1) = {"
-a
-R
-v
-A
+E
+l
+a"}(3,1,1) = {"
 O
-"}
-(4,1,1) = {"
+A
+v
+R
+a"}(4,1,1) = {"
 a
+A
+A
 c
+a"}(5,1,1) = {"
+a
 A
 A
-a
-"}
-(5,1,1) = {"
-a
 o
+a"}(6,1,1) = {"
+a
 A
 A
-a
-"}
-(6,1,1) = {"
-a
 Q
-A
-A
+a"}(7,1,1) = {"
 a
-"}
-(7,1,1) = {"
-f
-A
-A
 H
+A
+A
+f"}(8,1,1) = {"
 a
-"}
-(8,1,1) = {"
-a
-p
-D
 J
-a
-"}
-(9,1,1) = {"
-a
-a
+D
+p
+a"}(9,1,1) = {"
 a
 a
 a
-"}
+a
+a"}

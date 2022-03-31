@@ -3,7 +3,9 @@
 /turf/template_noop,
 /area/lavaland/surface/outdoors)
 "b" = (
-/obj/structure/elite_tumor,
+/obj/structure/elite_tumor{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "c" = (
@@ -19,9 +21,7 @@ a
 a
 a
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 a
 a
@@ -30,9 +30,7 @@ a
 a
 a
 a
-a
-"}
-(3,1,1) = {"
+a"}(3,1,1) = {"
 a
 a
 a
@@ -41,9 +39,7 @@ a
 a
 a
 a
-a
-"}
-(4,1,1) = {"
+a"}(4,1,1) = {"
 a
 a
 a
@@ -52,9 +48,7 @@ c
 c
 a
 a
-a
-"}
-(5,1,1) = {"
+a"}(5,1,1) = {"
 a
 a
 a
@@ -63,9 +57,7 @@ b
 c
 a
 a
-a
-"}
-(6,1,1) = {"
+a"}(6,1,1) = {"
 a
 a
 a
@@ -74,9 +66,7 @@ c
 c
 a
 a
-a
-"}
-(7,1,1) = {"
+a"}(7,1,1) = {"
 a
 a
 a
@@ -85,9 +75,7 @@ a
 a
 a
 a
-a
-"}
-(8,1,1) = {"
+a"}(8,1,1) = {"
 a
 a
 a
@@ -96,9 +84,7 @@ a
 a
 a
 a
-a
-"}
-(9,1,1) = {"
+a"}(9,1,1) = {"
 a
 a
 a
@@ -107,5 +93,4 @@ a
 a
 a
 a
-a
-"}
+a"}

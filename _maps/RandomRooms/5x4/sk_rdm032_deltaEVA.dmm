@@ -1,168 +1,240 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/table/reinforced,
-/obj/item/stack/cable_coil/white,
-/obj/item/stack/cable_coil/white,
-/obj/item/multitool,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral{
+/obj/structure/table/reinforced{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
+/obj/item/stack/cable_coil/white,
+/obj/item/stack/cable_coil/white,
+/obj/item/multitool{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "b" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "d" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "e" = (
 /obj/item/clothing/suit/hazardvest{
 	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
-	},
-/obj/item/clothing/suit/hazardvest{
-	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
-	},
-/obj/item/clothing/suit/hazardvest{
-	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
-	},
-/obj/item/clothing/suit/hazardvest{
-	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
-	},
-/obj/item/clothing/suit/hazardvest{
-	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
-	name = "emergency lifejacket"
-	},
-/obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
-	},
-/obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
-	},
-/obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
-	},
-/obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
-	},
-/obj/item/tank/internals/emergency_oxygen{
-	pixel_x = 3
-	},
-/obj/item/clothing/mask/breath{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/clothing/mask/breath{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/clothing/mask/breath{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/clothing/mask/breath{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/clothing/mask/breath{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/clothing/head/hardhat/orange{
-	name = "protective hat";
-	pixel_y = 9
-	},
-/obj/item/clothing/head/hardhat/orange{
-	name = "protective hat";
-	pixel_y = 9
-	},
-/obj/item/clothing/head/hardhat/orange{
-	name = "protective hat";
-	pixel_y = 9
-	},
-/obj/item/clothing/head/hardhat/orange{
-	name = "protective hat";
-	pixel_y = 9
-	},
-/obj/item/clothing/head/hardhat/orange{
-	name = "protective hat";
-	pixel_y = 9
-	},
-/obj/effect/turf_decal/tile/neutral{
+	name = "emergency lifejacket";
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket";
+	dir = 1
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket";
+	dir = 1
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket";
+	dir = 1
+	},
+/obj/item/clothing/suit/hazardvest{
+	desc = "A high-visibility lifejacket complete with whistle and slot for oxygen tanks.";
+	name = "emergency lifejacket";
+	dir = 1
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3;
 	dir = 4
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3;
+	dir = 4
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3;
+	dir = 4
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3;
+	dir = 4
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = 3;
+	dir = 4
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = 3;
+	dir = 1
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = 3;
+	dir = 1
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = 3;
+	dir = 1
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = 3;
+	dir = 1
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = 3;
+	dir = 1
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = -9;
+	dir = 1
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = -9;
+	dir = 1
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = -9;
+	dir = 1
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = -9;
+	dir = 1
+	},
+/obj/item/clothing/head/hardhat/orange{
+	name = "protective hat";
+	pixel_y = -9;
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/structure/closet/crate/internals,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/structure/closet/crate/internals{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "f" = (
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "g" = (
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/structure/rack,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/tank/internals/oxygen,
-/obj/item/radio,
-/obj/item/clothing/mask/breath,
-/obj/effect/turf_decal/stripes/line,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/tank/internals/oxygen{
+	dir = 1
+	},
+/obj/item/radio{
+	dir = 1
+	},
+/obj/item/clothing/mask/breath{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "i" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/suit_storage_unit/standard_unit,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/machinery/suit_storage_unit/standard_unit{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "j" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "k" = (
-/obj/structure/rack,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/tank/internals/oxygen,
-/obj/item/radio,
-/obj/item/clothing/mask/breath,
-/obj/effect/turf_decal/bot,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/tank/internals/oxygen{
+	dir = 1
+	},
+/obj/item/radio{
+	dir = 1
+	},
+/obj/item/clothing/mask/breath{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "l" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/suit_storage_unit,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/machinery/suit_storage_unit{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "m" = (
@@ -172,44 +244,39 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "n" = (
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "o" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-f
+l
 i
-l
-"}
-(2,1,1) = {"
-b
-g
-j
+f
+a"}(2,1,1) = {"
 m
-"}
-(3,1,1) = {"
+j
 g
-h
-k
+b"}(3,1,1) = {"
 n
-"}
-(4,1,1) = {"
-d
-f
-g
+k
+h
+g"}(4,1,1) = {"
 o
-"}
-(5,1,1) = {"
-e
+g
 f
+d"}(5,1,1) = {"
 l
 l
-"}
+f
+e"}

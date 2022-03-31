@@ -15,8 +15,12 @@
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "e" = (
-/obj/structure/table/wood,
-/obj/item/clothing/head/festive,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/clothing/head/festive{
+	dir = 1
+	},
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "f" = (
@@ -26,258 +30,303 @@
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "g" = (
-/obj/machinery/light/small,
-/turf/open/floor/carpet/orange,
-/area/template_noop)
-"h" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/open/floor/carpet/orange,
 /area/template_noop)
+"h" = (
+/obj/machinery/light/small{
+	dir = 2
+	},
+/turf/open/floor/carpet/orange,
+/area/template_noop)
 "i" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/rook,
+/obj/item/cardboard_cutout/adaptive/chess/black/rook{
+	dir = 1
+	},
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "j" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/knight,
+/obj/item/cardboard_cutout/adaptive/chess/black/knight{
+	dir = 1
+	},
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "k" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
+/obj/item/cardboard_cutout/adaptive/chess/black/bishop{
+	dir = 1
+	},
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "l" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/queen,
+/obj/item/cardboard_cutout/adaptive/chess/black/queen{
+	dir = 1
+	},
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "m" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/king,
+/obj/item/cardboard_cutout/adaptive/chess/black/king{
+	dir = 1
+	},
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "n" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
+/obj/item/cardboard_cutout/adaptive/chess/black/bishop{
+	dir = 1
+	},
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "o" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/knight,
+/obj/item/cardboard_cutout/adaptive/chess/black/knight{
+	dir = 1
+	},
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "p" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/rook,
+/obj/item/cardboard_cutout/adaptive/chess/black/rook{
+	dir = 1
+	},
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "q" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+/obj/item/cardboard_cutout/adaptive/chess/black/pawn{
+	dir = 1
+	},
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "r" = (
-/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+/obj/item/cardboard_cutout/adaptive/chess/black/pawn{
+	dir = 1
+	},
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "s" = (
-/obj/item/cardboard_cutout/adaptive/chess/pawn,
+/obj/item/cardboard_cutout/adaptive/chess/pawn{
+	dir = 1
+	},
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "t" = (
-/obj/item/cardboard_cutout/adaptive/chess/pawn,
+/obj/item/cardboard_cutout/adaptive/chess/pawn{
+	dir = 1
+	},
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "u" = (
-/obj/item/cardboard_cutout/adaptive/chess/rook,
+/obj/item/cardboard_cutout/adaptive/chess/rook{
+	dir = 1
+	},
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "v" = (
-/obj/item/cardboard_cutout/adaptive/chess/knight,
+/obj/item/cardboard_cutout/adaptive/chess/knight{
+	dir = 1
+	},
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "w" = (
-/obj/item/cardboard_cutout/adaptive/chess/bishop,
+/obj/item/cardboard_cutout/adaptive/chess/bishop{
+	dir = 1
+	},
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "x" = (
-/obj/item/cardboard_cutout/adaptive/chess/queen,
+/obj/item/cardboard_cutout/adaptive/chess/queen{
+	dir = 1
+	},
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "y" = (
-/obj/item/cardboard_cutout/adaptive/chess/king,
+/obj/item/cardboard_cutout/adaptive/chess/king{
+	dir = 1
+	},
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "z" = (
-/obj/item/cardboard_cutout/adaptive/chess/bishop,
+/obj/item/cardboard_cutout/adaptive/chess/bishop{
+	dir = 1
+	},
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "A" = (
-/obj/item/cardboard_cutout/adaptive/chess/knight,
+/obj/item/cardboard_cutout/adaptive/chess/knight{
+	dir = 1
+	},
 /turf/open/floor/monotile/dark,
 /area/template_noop)
 "B" = (
-/obj/item/cardboard_cutout/adaptive/chess/rook,
+/obj/item/cardboard_cutout/adaptive/chess/rook{
+	dir = 1
+	},
 /turf/open/floor/monotile/light,
 /area/template_noop)
 "C" = (
-/obj/structure/table/wood,
-/obj/item/storage/crayons,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/storage/crayons{
+	dir = 1
+	},
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "D" = (
-/obj/structure/table/wood,
-/obj/item/stack/sheet/cardboard/fifty,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/stack/sheet/cardboard/fifty{
+	dir = 1
+	},
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "E" = (
-/obj/structure/table/wood,
-/obj/item/storage/toolbox/mechanical,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	dir = 1
+	},
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "F" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/drinks/soda_cans/tonic{
 	pixel_x = -3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/drinks/soda_cans/tonic{
 	pixel_x = 3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/drinks/soda_cans/tonic{
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 "G" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/snacks/nachos{
 	pixel_x = -3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/nachos{
 	pixel_x = 3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/nachos{
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /turf/open/floor/carpet/orange,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-a
-d
-a
-a
-a
-a
-d
-C
 D
-"}
-(2,1,1) = {"
+C
+d
 a
-i
-q
-b
-c
-b
-c
-s
-u
+a
+a
+a
+d
+a
+a"}(2,1,1) = {"
 E
-"}
-(3,1,1) = {"
-h
-j
-r
+u
+s
 c
 b
 c
 b
-t
+q
+i
+a"}(3,1,1) = {"
+g
 v
-g
-"}
-(4,1,1) = {"
+t
+b
+c
+b
+c
+r
+j
+h"}(4,1,1) = {"
 a
-k
-q
-b
-c
-b
-c
-s
 w
-a
-"}
-(5,1,1) = {"
-a
-l
-r
+s
 c
 b
 c
 b
-t
+q
+k
+a"}(5,1,1) = {"
+a
 x
-a
-"}
-(6,1,1) = {"
-a
-m
-q
+t
 b
 c
 b
 c
-s
+r
+l
+a"}(6,1,1) = {"
+a
 y
-a
-"}
-(7,1,1) = {"
-a
-n
-r
-c
-b
-c
-b
-t
-z
-a
-"}
-(8,1,1) = {"
-h
-o
-q
-b
-c
-b
-c
 s
-A
-g
-"}
-(9,1,1) = {"
-e
-p
-r
 c
 b
 c
 b
+q
+m
+a"}(7,1,1) = {"
+a
+z
 t
+b
+c
+b
+c
+r
+n
+a"}(8,1,1) = {"
+g
+A
+s
+c
+b
+c
+b
+q
+o
+h"}(9,1,1) = {"
+a
 B
+t
+b
+c
+b
+c
+r
+p
+e"}(10,1,1) = {"
 a
-"}
-(10,1,1) = {"
-F
+a
+f
+a
+a
+a
+a
+f
 G
-f
-a
-a
-a
-a
-f
-a
-a
-"}
+F"}

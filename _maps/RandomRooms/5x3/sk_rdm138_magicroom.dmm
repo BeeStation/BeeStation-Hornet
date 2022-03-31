@@ -1,10 +1,14 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/dresser,
+/obj/structure/dresser{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/template_noop)
 "c" = (
-/obj/effect/landmark/start/randommaint/magician,
+/obj/effect/landmark/start/randommaint/magician{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/template_noop)
 "g" = (
@@ -13,83 +17,99 @@
 "m" = (
 /obj/structure/mirror{
 	pixel_x = 15;
-	pixel_y = 30
-	},
-/obj/machinery/light/small{
+	pixel_y = -30;
 	dir = 1
 	},
-/obj/structure/table/wood,
+/obj/machinery/light/small{
+	dir = 2
+	},
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/item/lipstick/random{
 	pixel_x = 2;
-	pixel_y = 2
+	pixel_y = -2;
+	dir = 1
 	},
-/obj/item/lipstick/random,
+/obj/item/lipstick/random{
+	dir = 1
+	},
 /obj/item/lipstick/random{
 	pixel_x = -2;
-	pixel_y = -2
+	pixel_y = 2;
+	dir = 1
 	},
 /turf/open/floor/carpet/black,
 /area/template_noop)
 "o" = (
-/obj/machinery/vending/autodrobe,
+/obj/machinery/vending/autodrobe{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/template_noop)
 "B" = (
 /obj/machinery/iv_drip{
-	name = "clothes rack"
+	name = "clothes rack";
+	dir = 1
 	},
-/obj/effect/spawner/lootdrop/costume,
-/obj/effect/spawner/lootdrop/costume,
+/obj/effect/spawner/lootdrop/costume{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/costume{
+	dir = 1
+	},
 /turf/open/floor/circuit,
 /area/template_noop)
 "D" = (
-/obj/structure/curtain/bounty,
+/obj/structure/curtain/bounty{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/template_noop)
 "F" = (
 /obj/machinery/light/small{
+	dir = 2
+	},
+/obj/structure/table/wood{
 	dir = 1
 	},
-/obj/structure/table/wood,
 /obj/item/reagent_containers/medspray/barber{
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/item/reagent_containers/medspray/dye{
-	pixel_x = -3
+	pixel_x = -3;
+	dir = 1
 	},
 /turf/open/floor/carpet/black,
 /area/template_noop)
 "O" = (
 /obj/machinery/iv_drip{
-	name = "clothes rack"
+	name = "clothes rack";
+	dir = 1
 	},
-/obj/effect/spawner/lootdrop/costume,
-/obj/effect/spawner/lootdrop/costume,
+/obj/effect/spawner/lootdrop/costume{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/costume{
+	dir = 1
+	},
 /turf/open/floor/circuit/red,
 /area/template_noop)
 
 (1,1,1) = {"
-m
-g
 a
-"}
-(2,1,1) = {"
-F
-c
+g
+m"}(2,1,1) = {"
 o
-"}
-(3,1,1) = {"
+c
+F"}(3,1,1) = {"
 D
 D
-D
-"}
-(4,1,1) = {"
-B
-g
+D"}(4,1,1) = {"
 O
-"}
-(5,1,1) = {"
-B
 g
+B"}(5,1,1) = {"
 O
-"}
+g
+B"}

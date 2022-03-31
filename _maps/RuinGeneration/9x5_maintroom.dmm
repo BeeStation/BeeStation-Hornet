@@ -3,14 +3,18 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "w" = (
-/obj/machinery/door/airlock/maintenance_hatch,
+/obj/machinery/door/airlock/maintenance_hatch{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "y" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "L" = (
-/obj/effect/spawner/room/fivexthree,
+/obj/effect/spawner/room/fivexthree{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Q" = (
@@ -34,61 +38,44 @@ Z
 a
 Q
 a
-Z
-"}
-(2,1,1) = {"
+Z"}(2,1,1) = {"
 Z
 Z
 w
 Z
+Z"}(3,1,1) = {"
 Z
-"}
-(3,1,1) = {"
-Z
-y
-y
 L
-Z
-"}
-(4,1,1) = {"
-Z
 y
 y
-y
-Z
-"}
-(5,1,1) = {"
+Z"}(4,1,1) = {"
 Z
 y
 y
 y
-Z
-"}
-(6,1,1) = {"
+Z"}(5,1,1) = {"
 Z
 y
 y
 y
-Z
-"}
-(7,1,1) = {"
+Z"}(6,1,1) = {"
 Z
 y
 y
 y
+Z"}(7,1,1) = {"
 Z
-"}
-(8,1,1) = {"
+y
+y
+y
+Z"}(8,1,1) = {"
 Z
 Z
 w
 Z
-Z
-"}
-(9,1,1) = {"
+Z"}(9,1,1) = {"
 Z
 a
 S
 a
-Z
-"}
+Z"}

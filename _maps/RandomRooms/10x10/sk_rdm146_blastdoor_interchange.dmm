@@ -1,47 +1,70 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aC" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/four{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "aT" = (
-/obj/structure/grille/broken,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/structure/grille/broken{
+	dir = 1
+	},
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/four{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "bd" = (
-/obj/machinery/door/airlock/maintenance/external/glass,
+/obj/machinery/door/airlock/maintenance/external/glass{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "bH" = (
 /obj/machinery/button/door{
 	id = "maint2";
 	name = "Blast Door Control B";
-	pixel_y = -24
-	},
-/turf/open/floor/plating,
-/area/template_noop)
-"cU" = (
-/obj/structure/grille/broken,
-/turf/open/floor/plating,
-/area/template_noop)
-"di" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/six,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"dF" = (
-/obj/structure/grille/broken,
-/obj/effect/turf_decal/stripes{
+	pixel_y = 24;
 	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"cU" = (
+/obj/structure/grille/broken{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"di" = (
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/six{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"dF" = (
+/obj/structure/grille/broken{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
 "eb" = (
-/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/reagent_dispensers/fueltank{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "ec" = (
@@ -55,15 +78,18 @@
 	},
 /area/template_noop)
 "eQ" = (
-/obj/effect/turf_decal/delivery/red,
+/obj/effect/turf_decal/delivery/red{
+	dir = 4
+	},
 /obj/machinery/door/poddoor/preopen{
-	id = "maint2"
+	id = "maint2";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "fn" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
@@ -73,7 +99,9 @@
 	},
 /area/template_noop)
 "hh" = (
-/obj/structure/falsewall,
+/obj/structure/falsewall{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "hk" = (
@@ -86,7 +114,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "iv" = (
-/obj/structure/grille,
+/obj/structure/grille{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "iA" = (
@@ -99,15 +129,18 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/turf_decal/delivery/red,
+/obj/effect/turf_decal/delivery/red{
+	dir = 4
+	},
 /obj/machinery/door/poddoor/preopen{
-	id = "maint2"
+	id = "maint2";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "jc" = (
 /obj/effect/turf_decal/stripes/red/line{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plating,
 /area/template_noop)
@@ -115,53 +148,73 @@
 /obj/machinery/button/door{
 	id = "maint2";
 	name = "Blast Door Control B";
-	pixel_y = 24
+	pixel_y = -24;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "lm" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/gloves,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/gloves{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "lq" = (
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/lootdrop/glowstick{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "nf" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/eight{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "oB" = (
 /obj/effect/turf_decal/stripes/red/line{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "oE" = (
-/obj/effect/turf_decal/delivery/red,
+/obj/effect/turf_decal/delivery/red{
+	dir = 4
+	},
 /obj/machinery/door/poddoor/preopen{
-	id = "maint2"
+	id = "maint2";
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "rm" = (
-/obj/effect/landmark/blobstart,
+/obj/effect/landmark/blobstart{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "rP" = (
 /obj/item/storage/pod{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "sD" = (
-/obj/effect/turf_decal/delivery/red,
+/obj/effect/turf_decal/delivery/red{
+	dir = 4
+	},
 /obj/machinery/door/poddoor/preopen{
-	id = "maint1"
+	id = "maint1";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
@@ -169,35 +222,54 @@
 /obj/machinery/button/door{
 	id = "maint1";
 	name = "Blast Door Control A";
-	pixel_x = 24
+	pixel_x = 24;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "vl" = (
-/obj/structure/sign/warning/securearea,
+/obj/structure/sign/warning/securearea{
+	dir = 1
+	},
 /turf/closed/wall,
 /area/template_noop)
 "vq" = (
-/obj/structure/reagent_dispensers/watertank,
+/obj/structure/reagent_dispensers/watertank{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "wd" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/emergency,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/storage/toolbox/emergency{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/lootdrop/maintenance/two{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "wg" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/armor/vest/alt,
-/obj/item/clothing/head/helmet/justice/escape,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/clothing/suit/armor/vest/alt{
+	dir = 1
+	},
+/obj/item/clothing/head/helmet/justice/escape{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "wy" = (
-/obj/structure/barricade/security/ctf,
+/obj/structure/barricade/security/ctf{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "wS" = (
@@ -208,67 +280,83 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "xg" = (
-/obj/item/storage/toolbox/emergency,
-/obj/structure/rack,
-/obj/effect/turf_decal/stripes{
+/obj/item/storage/toolbox/emergency{
 	dir = 4
+	},
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "xu" = (
 /obj/effect/turf_decal/stripes/red/line{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "xF" = (
-/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
-	dir = 1
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "xK" = (
 /obj/effect/turf_decal/stripes{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "yb" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "zk" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset/full{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "zD" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
-/obj/effect/turf_decal/stripes,
+/obj/effect/spawner/lootdrop/grille_or_trash{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "Bi" = (
 /obj/effect/turf_decal/tile/red{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/red{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "Cq" = (
-/obj/effect/landmark/event_spawn,
+/obj/effect/landmark/event_spawn{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "IK" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "Le" = (
@@ -278,206 +366,213 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "LZ" = (
-/obj/machinery/vending/cigarette,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
+/obj/machinery/vending/cigarette{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/red{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "Nt" = (
 /obj/effect/turf_decal/stripes{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/red{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/red{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "Nx" = (
 /obj/effect/turf_decal/stripes/red/line{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "QE" = (
-/obj/effect/spawner/lootdrop/gambling,
-/obj/structure/rack,
+/obj/effect/spawner/lootdrop/gambling{
+	dir = 1
+	},
+/obj/structure/rack{
+	dir = 1
+	},
 /obj/machinery/button/door{
 	id = "maint1";
 	name = "Blast Door Control A";
-	pixel_x = -24
+	pixel_x = -24;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "Rn" = (
-/obj/structure/grille/broken,
+/obj/structure/grille/broken{
+	dir = 1
+	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 24
+	pixel_x = 24;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "Sc" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/lootdrop/grille_or_trash{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "Sg" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "Sn" = (
-/obj/structure/barricade/security/ctf,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
+/obj/structure/barricade/security/ctf{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "Va" = (
-/obj/structure/closet/toolcloset,
+/obj/structure/closet/toolcloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "WK" = (
-/obj/machinery/door/airlock/maintenance/external/glass,
-/obj/structure/barricade/wooden,
+/obj/machinery/door/airlock/maintenance/external/glass{
+	dir = 1
+	},
+/obj/structure/barricade/wooden{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "XK" = (
-/obj/effect/turf_decal/stripes,
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 
 (1,1,1) = {"
-vq
-hk
-Va
-hM
-fn
-hZ
-hM
-LZ
-Bi
 wg
-"}
-(2,1,1) = {"
-eb
-Cq
-IK
+Bi
+LZ
 hM
-iv
-zD
-hh
-Nt
 hZ
-wy
-"}
-(3,1,1) = {"
-xg
-hZ
-hZ
-bd
-go
-bH
+fn
 hM
-xF
-wd
-Sn
-"}
-(4,1,1) = {"
-hh
-hM
-hM
-vl
-sD
-sD
-vl
-WK
-hM
-hM
-"}
-(5,1,1) = {"
-xK
-iv
-QE
-eQ
-xu
-oB
-iM
-eD
-cU
-iA
-"}
-(6,1,1) = {"
-Le
-Rn
-hZ
-eQ
-Nx
-jc
-oE
-ve
-Sc
-rP
-"}
-(7,1,1) = {"
-hM
-hM
-bd
-vl
-sD
-sD
-vl
-hM
-hh
-hM
-"}
-(8,1,1) = {"
-zk
-wS
-hZ
-hM
-kf
-hZ
-WK
+Va
 hk
-xK
-lm
-"}
-(9,1,1) = {"
-zk
-lq
-XK
+vq"}(2,1,1) = {"
+wy
+hZ
+Nt
 hh
-dF
+zD
+iv
+hM
+IK
+Cq
+eb"}(3,1,1) = {"
+Sn
+wd
+xF
+hM
+bH
+go
+bd
+hZ
+hZ
+xg"}(4,1,1) = {"
+hM
+hM
+WK
+vl
+sD
+sD
+vl
+hM
+hM
+hh"}(5,1,1) = {"
+iA
 cU
+eD
+iM
+oB
+xu
+eQ
+QE
+iv
+xK"}(6,1,1) = {"
+rP
+Sc
+ve
+oE
+jc
+Nx
+eQ
+hZ
+Rn
+Le"}(7,1,1) = {"
 hM
-yb
-rm
+hh
+hM
+vl
+sD
+sD
+vl
+bd
+hM
+hM"}(8,1,1) = {"
+lm
+xK
+hk
+WK
+hZ
+kf
+hM
+hZ
+wS
+zk"}(9,1,1) = {"
 nf
-"}
-(10,1,1) = {"
-iv
-iv
-aT
+rm
+yb
 hM
-ec
-Sg
-hM
-aC
+cU
+dF
+hh
+XK
+lq
+zk"}(10,1,1) = {"
+iv
 di
+aC
+hM
+Sg
+ec
+hM
+aT
 iv
-"}
+iv"}

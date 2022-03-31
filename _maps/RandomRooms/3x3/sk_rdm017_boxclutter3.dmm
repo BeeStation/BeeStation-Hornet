@@ -3,18 +3,30 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/structure/closet/crate,
-/obj/item/clothing/under/color/lightpurple,
-/obj/item/stack/spacecash/c200,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/clothing/under/color/lightpurple{
+	dir = 1
+	},
+/obj/item/stack/spacecash/c200{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/structure/table,
-/obj/item/flashlight/lamp,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/flashlight/lamp{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
@@ -23,33 +35,39 @@
 	},
 /area/template_noop)
 "f" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/paper_bin{
 	pixel_x = -2;
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/structure/table,
-/obj/item/folder/white,
-/obj/item/folder/white,
-/obj/item/pen,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/folder/white{
+	dir = 1
+	},
+/obj/item/folder/white{
+	dir = 1
+	},
+/obj/item/pen{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-c
-e
 f
-"}
-(2,1,1) = {"
+e
+c"}(2,1,1) = {"
 a
 d
-a
-"}
-(3,1,1) = {"
-b
-e
+a"}(3,1,1) = {"
 g
-"}
+e
+b"}

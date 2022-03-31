@@ -7,14 +7,16 @@
 /area/shuttle/auxillary_base)
 "e" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
-/obj/structure/ore_box,
+/obj/structure/ore_box{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/auxillary_base)
 "i" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plating,
 /area/shuttle/auxillary_base)
@@ -29,19 +31,23 @@
 /area/shuttle/auxillary_base)
 "v" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/shuttle/auxillary_base)
 "w" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/portable_atmospherics/canister/air{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plating,
 /area/shuttle/auxillary_base)
 "x" = (
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/auxillary_base)
 "z" = (
@@ -52,20 +58,26 @@
 /area/shuttle/auxillary_base)
 "P" = (
 /obj/docking_port/mobile/auxillary_base{
-	dheight = 4;
-	dir = 2;
+	dheight = -4;
+	dir = 1;
 	dwidth = 4;
 	height = 9;
 	width = 9
 	},
-/obj/machinery/bluespace_beacon,
-/obj/machinery/computer/auxillary_base,
+/obj/machinery/bluespace_beacon{
+	dir = 1
+	},
+/obj/machinery/computer/auxillary_base{
+	dir = 1
+	},
 /turf/closed/wall,
 /area/shuttle/auxillary_base)
 "U" = (
-/obj/structure/closet/secure_closet/miner/unlocked,
+/obj/structure/closet/secure_closet/miner/unlocked{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plating,
 /area/shuttle/auxillary_base)
@@ -77,37 +89,26 @@
 /area/shuttle/auxillary_base)
 "X" = (
 /obj/machinery/camera{
-	dir = 1;
+	dir = 2;
 	network = list("auxbase")
 	},
-/obj/structure/mining_shuttle_beacon,
+/obj/structure/mining_shuttle_beacon{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/auxillary_base)
 
 (1,1,1) = {"
-e
-b
-b
-b
-b
-b
-b
-b
 w
-"}
-(2,1,1) = {"
-v
-k
-k
-k
-k
-k
-k
-k
+b
+b
+b
+b
+b
+b
+b
+e"}(2,1,1) = {"
 x
-"}
-(3,1,1) = {"
-v
 k
 k
 k
@@ -115,10 +116,17 @@ k
 k
 k
 k
+v"}(3,1,1) = {"
 x
-"}
-(4,1,1) = {"
-v
+k
+k
+k
+k
+k
+k
+k
+v"}(4,1,1) = {"
+x
 k
 k
 k
@@ -126,21 +134,17 @@ W
 k
 k
 k
+v"}(5,1,1) = {"
 x
-"}
-(5,1,1) = {"
-v
 k
 k
-X
+k
 P
+X
 k
 k
-k
+v"}(6,1,1) = {"
 x
-"}
-(6,1,1) = {"
-v
 k
 k
 k
@@ -148,10 +152,8 @@ z
 k
 k
 k
+v"}(7,1,1) = {"
 x
-"}
-(7,1,1) = {"
-v
 k
 k
 k
@@ -159,10 +161,8 @@ k
 k
 k
 k
+v"}(8,1,1) = {"
 x
-"}
-(8,1,1) = {"
-v
 k
 k
 k
@@ -170,16 +170,13 @@ k
 k
 k
 k
-x
-"}
-(9,1,1) = {"
-i
-t
-t
-t
-t
-t
-t
-t
+v"}(9,1,1) = {"
 U
-"}
+t
+t
+t
+t
+t
+t
+t
+i"}

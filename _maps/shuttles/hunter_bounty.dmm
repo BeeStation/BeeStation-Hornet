@@ -7,7 +7,7 @@
 /area/shuttle/hunter)
 "d" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/shuttle/hunter)
@@ -25,23 +25,33 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/hunter)
 "g" = (
-/obj/structure/sign/warning/vacuum/external,
+/obj/structure/sign/warning/vacuum/external{
+	dir = 1
+	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/hunter)
 "h" = (
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "i" = (
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
+/obj/structure/grille{
+	dir = 1
+	},
+/obj/structure/window/plastitanium{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "j" = (
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "k" = (
-/obj/structure/sign/poster/contraband/bountyhunters,
+/obj/structure/sign/poster/contraband/bountyhunters{
+	dir = 1
+	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/hunter)
 "m" = (
@@ -51,7 +61,9 @@
 /turf/open/floor/pod/light,
 /area/shuttle/hunter)
 "n" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/hunter)
 "o" = (
@@ -61,7 +73,9 @@
 /turf/open/floor/pod/light,
 /area/shuttle/hunter)
 "p" = (
-/obj/effect/mob_spawn/human/fugitive/bounty/hook,
+/obj/effect/mob_spawn/human/fugitive/bounty/hook{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/hunter)
 "q" = (
@@ -85,12 +99,14 @@
 /area/shuttle/hunter)
 "t" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "u" = (
-/obj/structure/curtain/bounty,
+/obj/structure/curtain/bounty{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "v" = (
@@ -100,12 +116,18 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "w" = (
-/obj/structure/table,
-/obj/item/phone,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/phone{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "x" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "y" = (
@@ -128,11 +150,15 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "B" = (
-/obj/machinery/launchpad,
+/obj/machinery/launchpad{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "C" = (
-/obj/item/multitool,
+/obj/item/multitool{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "D" = (
@@ -142,21 +168,29 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "E" = (
-/obj/structure/table,
-/obj/item/binoculars,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/binoculars{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "F" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/smes{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "G" = (
-/obj/machinery/fugitive_capture,
+/obj/machinery/fugitive_capture{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "H" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
@@ -164,71 +198,84 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "J" = (
-/obj/machinery/suit_storage_unit/standard_unit,
+/obj/machinery/suit_storage_unit/standard_unit{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/hunter)
 "K" = (
-/obj/machinery/suit_storage_unit/open,
+/obj/machinery/suit_storage_unit/open{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/hunter)
 "M" = (
 /obj/effect/mob_spawn/human/fugitive/bounty/armor{
-	dir = 1;
+	dir = 2;
 	icon_state = "sleeper"
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/hunter)
 "O" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/door/airlock/external{
-	req_access_txt = "181"
+	req_access_txt = "181";
+	dir = 1
 	},
 /obj/docking_port/stationary{
-	dwidth = 11;
+	dwidth = 5;
 	height = 16;
 	id = "pirateship_home";
 	name = "Deep Space";
-	width = 17
+	width = 17;
+	dir = 2
 	},
 /obj/docking_port/mobile{
-	dheight = 3;
-	dwidth = 3;
+	dheight = -3;
+	dwidth = 11;
 	height = 13;
 	id = "huntership";
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
 	name = "hunter shuttle";
 	rechargeTime = 1800;
-	width = 15
+	width = 15;
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "P" = (
 /obj/structure/fluff/empty_sleeper{
-	dir = 1;
+	dir = 2;
 	icon_state = "sleeper-open"
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/hunter)
 "R" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/door/airlock/external{
-	req_access_txt = "181"
+	req_access_txt = "181";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "V" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /obj/machinery/door/airlock/external{
-	req_access_txt = "181"
+	req_access_txt = "181";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "Z" = (
-/obj/effect/mob_spawn/human/fugitive/bounty/synth,
+/obj/effect/mob_spawn/human/fugitive/bounty/synth{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/hunter)
 
@@ -245,9 +292,7 @@ a
 b
 a
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 a
 a
@@ -260,9 +305,7 @@ a
 b
 a
 a
-a
-"}
-(3,1,1) = {"
+a"}(3,1,1) = {"
 b
 a
 a
@@ -275,9 +318,7 @@ a
 b
 a
 a
-b
-"}
-(4,1,1) = {"
+b"}(4,1,1) = {"
 b
 a
 e
@@ -290,54 +331,46 @@ b
 b
 e
 a
-b
-"}
-(5,1,1) = {"
+b"}(5,1,1) = {"
 b
 b
 f
 b
 b
-r
-B
 F
+B
+r
 b
 b
 f
 b
-b
-"}
-(6,1,1) = {"
+b"}(6,1,1) = {"
 b
 b
 g
 b
 b
-s
-C
 G
+C
+s
 b
 b
 g
 b
-b
-"}
-(7,1,1) = {"
-V
-d
-h
-j
-R
-t
-D
-H
-V
-d
-h
-j
+b"}(7,1,1) = {"
 O
-"}
-(8,1,1) = {"
+j
+h
+d
+V
+H
+D
+t
+R
+j
+h
+d
+V"}(8,1,1) = {"
 b
 b
 i
@@ -350,129 +383,111 @@ b
 b
 i
 b
-b
-"}
-(9,1,1) = {"
+b"}(9,1,1) = {"
 a
 b
 i
 b
-m
+J
+s
+s
 v
-s
-s
+m
+b
+i
+b
+a"}(10,1,1) = {"
+a
+a
+i
+b
 J
-b
-i
-b
-a
-"}
-(10,1,1) = {"
-a
-a
-i
-k
-n
+s
+x
 w
-x
-s
-J
-b
+n
+k
 i
 a
-a
-"}
-(11,1,1) = {"
+a"}(11,1,1) = {"
 a
 a
 a
 b
-n
-x
-E
-s
 K
-b
-a
-a
-a
-"}
-(12,1,1) = {"
-a
-a
-a
-b
-o
-y
 s
-s
-J
-b
-a
-a
-a
-"}
-(13,1,1) = {"
-a
-a
-a
-i
-b
-u
-u
-u
-b
-i
-a
-a
-a
-"}
-(14,1,1) = {"
-a
-a
-a
-i
-p
-s
-s
-s
-P
-i
-a
-a
-a
-"}
-(15,1,1) = {"
-a
-a
-a
-i
-Z
-z
-s
-z
-M
-i
-a
-a
-a
-"}
-(16,1,1) = {"
-a
-a
-a
-b
-i
-A
+E
+x
 n
+b
+a
+a
+a"}(12,1,1) = {"
+a
+a
+a
+b
+J
+s
+s
+y
+o
+b
+a
+a
+a"}(13,1,1) = {"
+a
+a
+a
+i
+b
+u
+u
+u
+b
+i
+a
+a
+a"}(14,1,1) = {"
+a
+a
+a
+i
+P
+s
+s
+s
+p
+i
+a
+a
+a"}(15,1,1) = {"
+a
+a
+a
+i
+M
+z
+s
+z
+Z
+i
+a
+a
+a"}(16,1,1) = {"
+a
+a
+a
+b
+i
 I
+n
+A
 i
 b
 a
 a
-a
-"}
-(17,1,1) = {"
+a"}(17,1,1) = {"
 a
 a
 a
@@ -485,5 +500,4 @@ i
 a
 a
 a
-a
-"}
+a"}

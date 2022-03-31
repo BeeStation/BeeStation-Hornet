@@ -7,12 +7,14 @@
 /area/ruin/unpowered)
 "g" = (
 /obj/effect/abstract/doorway_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "h" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "l" = (
@@ -39,33 +41,24 @@ y
 y
 J
 y
+y"}(2,1,1) = {"
 y
-"}
-(2,1,1) = {"
-y
-a
-h
 e
+h
+a
+y"}(3,1,1) = {"
 y
-"}
-(3,1,1) = {"
-g
 h
 o
 h
-y
-"}
-(4,1,1) = {"
+g"}(4,1,1) = {"
 y
 a
 h
 a
-y
-"}
-(5,1,1) = {"
+y"}(5,1,1) = {"
 y
 e
 l
 e
-y
-"}
+y"}

@@ -12,67 +12,93 @@
 /turf/open/lava/smooth,
 /area/ruin/powered/gluttony)
 "f" = (
-/obj/item/reagent_containers/syringe/gluttony,
+/obj/item/reagent_containers/syringe/gluttony{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "g" = (
-/obj/effect/gluttony,
+/obj/effect/gluttony{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "h" = (
-/obj/item/veilrender/vealrender,
+/obj/item/veilrender/vealrender{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "i" = (
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "j" = (
-/obj/item/trash/plate,
+/obj/item/trash/plate{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "l" = (
-/obj/item/trash/candy,
+/obj/item/trash/candy{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "m" = (
-/obj/item/trash/raisins,
+/obj/item/trash/raisins{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "n" = (
-/obj/item/trash/pistachios,
+/obj/item/trash/pistachios{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "o" = (
-/obj/item/trash/popcorn,
+/obj/item/trash/popcorn{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "p" = (
-/obj/item/trash/semki,
+/obj/item/trash/semki{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "q" = (
-/obj/item/trash/syndi_cakes,
+/obj/item/trash/syndi_cakes{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "r" = (
-/obj/effect/gluttony,
-/obj/machinery/light/small{
+/obj/effect/gluttony{
 	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 2
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "t" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "v" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "z" = (
-/obj/item/trash/plate,
+/obj/item/trash/plate{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -88,8 +114,12 @@
 /turf/closed/indestructible/riveted/uranium,
 /area/ruin/powered/gluttony)
 "S" = (
-/obj/machinery/door/airlock/uranium,
-/obj/structure/fans/tiny/invisible,
+/obj/machinery/door/airlock/uranium{
+	dir = 1
+	},
+/obj/structure/fans/tiny/invisible{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 
@@ -97,11 +127,6 @@
 a
 a
 a
-b
-b
-a
-a
-b
 a
 b
 b
@@ -111,38 +136,38 @@ b
 b
 b
 a
+b
 a
 a
-a
-"}
-(2,1,1) = {"
-a
-a
-a
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
 b
 b
 a
 a
+a"}(2,1,1) = {"
 a
-a
-"}
-(3,1,1) = {"
-b
 a
 a
 a
 b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+a
+a
+a"}(3,1,1) = {"
+a
+a
+a
+a
 b
 b
 c
@@ -154,18 +179,16 @@ c
 c
 b
 b
-a
-a
-a
-a
-"}
-(4,1,1) = {"
 b
 a
 a
 a
-b
-b
+b"}(4,1,1) = {"
+a
+a
+a
+a
+a
 b
 c
 R
@@ -175,59 +198,53 @@ R
 R
 c
 b
-a
-a
-a
-a
-a
-"}
-(5,1,1) = {"
 b
 b
 a
 a
 a
-b
+b"}(5,1,1) = {"
+a
+a
+a
+a
+a
 b
 c
 R
-h
-i
 o
+i
+h
 R
 c
 b
+b
 a
 a
 a
+b
+b"}(6,1,1) = {"
 a
-a
-"}
-(6,1,1) = {"
-a
-a
-a
-a
-a
+b
+b
+b
 b
 b
 c
 R
-i
-i
 v
+i
+i
 R
 c
 b
 b
-b
-b
-b
 a
-"}
-(7,1,1) = {"
 a
-b
+a
+a
+a"}(7,1,1) = {"
+a
 b
 b
 b
@@ -245,10 +262,8 @@ b
 b
 b
 b
-a
-"}
-(8,1,1) = {"
-a
+b
+a"}(8,1,1) = {"
 b
 c
 c
@@ -257,9 +272,9 @@ c
 c
 c
 R
-t
+m
 i
-m
+t
 R
 c
 c
@@ -268,9 +283,7 @@ c
 c
 c
 b
-"}
-(9,1,1) = {"
-b
+a"}(9,1,1) = {"
 b
 c
 R
@@ -279,9 +292,9 @@ R
 R
 R
 R
-g
-m
 v
+m
+g
 R
 R
 R
@@ -290,108 +303,98 @@ R
 R
 c
 b
-"}
-(10,1,1) = {"
-a
+b"}(10,1,1) = {"
 b
 c
 R
-e
-R
-r
-g
-g
-g
-g
+i
+l
+z
 i
 p
 i
-z
-l
-i
-R
-c
-b
-"}
-(11,1,1) = {"
-a
-b
-c
-R
-f
 g
 g
 g
 g
-g
-n
-i
-i
-i
-i
-i
-i
-S
-b
-b
-"}
-(12,1,1) = {"
-a
-b
-c
+r
 R
 e
 R
-r
-g
-g
-g
+c
+b
+a"}(11,1,1) = {"
+b
+b
+S
 i
+i
+i
+i
+i
+i
+n
 g
-i
-l
-A
-i
+g
+g
+g
+g
+f
+R
+c
+b
+a"}(12,1,1) = {"
+b
+c
+R
 q
-R
-c
-b
-"}
-(13,1,1) = {"
-a
-b
-c
-R
-R
-R
-R
-R
-R
+i
+A
+l
+i
 g
 i
-v
-R
-R
-R
-R
-R
-R
-c
-b
-"}
-(14,1,1) = {"
-a
-b
-c
-c
-c
-c
-c
-c
-R
+g
+g
+g
 r
+R
+e
+R
+c
+b
+a"}(13,1,1) = {"
+b
+c
+R
+R
+R
+R
+R
+R
+v
+i
+g
+R
+R
+R
+R
+R
+R
+c
+b
+a"}(14,1,1) = {"
+b
+c
+c
+c
+c
+c
+c
+R
 i
 i
+r
 R
 c
 c
@@ -400,9 +403,7 @@ c
 c
 c
 b
-"}
-(15,1,1) = {"
-a
+a"}(15,1,1) = {"
 b
 b
 b
@@ -422,33 +423,29 @@ b
 b
 b
 b
-"}
-(16,1,1) = {"
-b
-b
-b
+a"}(16,1,1) = {"
+a
+a
 a
 b
 b
 b
 c
 R
-j
-i
 v
+i
+j
 R
 c
 b
 b
 b
 a
+b
+b
+b"}(17,1,1) = {"
 a
 a
-"}
-(17,1,1) = {"
-b
-b
-b
 a
 b
 b
@@ -464,11 +461,9 @@ b
 b
 b
 a
-a
-a
-"}
-(18,1,1) = {"
-a
+b
+b
+b"}(18,1,1) = {"
 a
 a
 a
@@ -488,15 +483,13 @@ b
 a
 a
 a
-"}
-(19,1,1) = {"
+a"}(19,1,1) = {"
 a
 a
 a
 a
-a
-a
-a
+b
+b
 c
 c
 c
@@ -504,19 +497,17 @@ b
 c
 c
 c
+a
+a
+a
+a
+a
+a
+a"}(20,1,1) = {"
+a
+a
+a
 b
-b
-a
-a
-a
-a
-"}
-(20,1,1) = {"
-a
-a
-a
-a
-a
 a
 a
 b
@@ -528,8 +519,8 @@ b
 b
 a
 a
-b
 a
 a
 a
-"}
+a
+a"}

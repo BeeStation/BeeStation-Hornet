@@ -4,41 +4,49 @@
 /area/shuttle/pod_1)
 "G" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/status_display/evac{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /obj/machinery/computer/shuttle_flight/pod{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "N" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod Airlock";
+	dir = 1
 	},
 /obj/docking_port/mobile/pod{
 	port_direction = 2;
 	dwidth = 1;
 	width = 3;
-	height = 4
+	height = 4;
+	dir = 2
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "Q" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/pod_1)
 "U" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
+	dir = 2
 	},
 /obj/item/radio/intercom{
-	pixel_x = 25
+	pixel_x = 25;
+	dir = 1
 	},
 /obj/item/storage/pod{
-	pixel_x = -26
+	pixel_x = -26;
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -46,25 +54,22 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "Z" = (
-/obj/structure/shuttle/engine/propulsion/burst,
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/pod_1)
 
 (1,1,1) = {"
-B
-B
-B
 Z
-"}
-(2,1,1) = {"
-Q
-G
-U
+B
+B
+B"}(2,1,1) = {"
 N
-"}
-(3,1,1) = {"
-B
-B
-B
+U
+G
+Q"}(3,1,1) = {"
 Z
-"}
+B
+B
+B"}

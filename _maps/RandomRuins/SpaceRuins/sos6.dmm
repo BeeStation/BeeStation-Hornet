@@ -6,26 +6,36 @@
 /turf/closed/wall/r_wall/rust,
 /area/ruin/unpowered)
 "c" = (
-/obj/structure/window/reinforced/fulltile,
+/obj/structure/window/reinforced/fulltile{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
 "d" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/mob_spawn/human/corpse/russian,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/effect/mob_spawn/human/corpse/russian{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
 "e" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "f" = (
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
 "g" = (
-/obj/machinery/computer,
+/obj/machinery/computer{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
 "h" = (
@@ -36,15 +46,20 @@
 /area/ruin/unpowered)
 "i" = (
 /obj/structure/chair/comfy/shuttle{
+	dir = 2
+	},
+/obj/effect/mob_spawn/human/corpse/russian/ranged{
 	dir = 1
 	},
-/obj/effect/mob_spawn/human/corpse/russian/ranged,
-/obj/item/gun/ballistic/rifle/boltaction,
+/obj/item/gun/ballistic/rifle/boltaction{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
 "j" = (
 /obj/item/gps{
-	gpstag = "SOS"
+	gpstag = "SOS";
+	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
@@ -59,16 +74,20 @@
 	dir = 4
 	},
 /obj/item/storage/pod{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
 "m" = (
 /obj/machinery/door/airlock/vault{
 	name = "secured door";
-	req_access = 207
+	req_access = 207;
+	dir = 1
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
 "n" = (
@@ -76,7 +95,8 @@
 	dir = 8
 	},
 /obj/item/storage/pod{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/ruin/unpowered)
@@ -93,93 +113,67 @@ a
 a
 a
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 a
-a
-a
-b
-b
-b
-b
-b
 e
-a
-a
-"}
-(3,1,1) = {"
-a
-a
-a
-a
-c
-h
-d
-d
-l
+b
+b
+b
+b
 b
 a
 a
-"}
-(4,1,1) = {"
+a
+a"}(3,1,1) = {"
 a
 a
-a
-a
+b
+l
+d
+d
+h
 c
-f
+a
+a
+a
+a"}(4,1,1) = {"
+a
+a
+m
 f
 j
 f
-m
-a
-a
-"}
-(5,1,1) = {"
-a
-a
-a
-a
+f
 c
-g
-i
-k
+a
+a
+a
+a"}(5,1,1) = {"
+a
+a
+b
 n
-b
-a
-a
-"}
-(6,1,1) = {"
-a
+k
+i
+g
+c
 a
 a
 a
-b
-b
-b
-b
-b
+a"}(6,1,1) = {"
+a
+a
 e
-a
-a
-"}
-(7,1,1) = {"
-a
-a
-a
-a
+b
+b
+b
+b
+b
 a
 a
 a
-a
-a
-a
-a
-a
-"}
-(8,1,1) = {"
+a"}(7,1,1) = {"
 a
 a
 a
@@ -191,5 +185,16 @@ a
 a
 a
 a
+a"}(8,1,1) = {"
 a
-"}
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a"}

@@ -7,7 +7,7 @@
 /area/shuttle/escape)
 "e" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
@@ -18,36 +18,54 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "g" = (
-/obj/structure/window/reinforced,
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/regular,
-/obj/item/book/manual/random,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/storage/firstaid/regular{
+	dir = 1
+	},
+/obj/item/book/manual/random{
+	dir = 1
+	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -30
+	pixel_x = -30;
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "h" = (
-/obj/machinery/door/window/southleft,
+/obj/machinery/door/window/northleft,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "i" = (
-/obj/structure/table/reinforced,
-/obj/structure/window/reinforced,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/item/gps{
-	gpstag = "STV5"
+	gpstag = "STV5";
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "j" = (
-/obj/machinery/status_display/evac,
+/obj/machinery/status_display/evac{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "l" = (
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "m" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "n" = (
@@ -57,23 +75,38 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "o" = (
-/obj/structure/closet/crate,
+/obj/structure/closet/crate{
+	dir = 1
+	},
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 8;
-	name = "8maintenance loot spawner"
+	name = "8maintenance loot spawner";
+	dir = 1
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "p" = (
-/obj/structure/closet/crate/secure/loot,
-/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/secure/loot{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "r" = (
-/obj/structure/closet/crate/secure/weapon,
-/obj/effect/spawner/lootdrop/armory_contraband,
-/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/secure/weapon{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/armory_contraband{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -84,144 +117,160 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -30
+	pixel_x = -30;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "t" = (
 /obj/structure/window/reinforced{
+	dir = 2
+	},
+/obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
-/obj/structure/shuttle/engine/heater,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "u" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "v" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "w" = (
-/obj/structure/closet/crate/secure/weapon,
-/obj/effect/spawner/lootdrop/armory_contraband,
-/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate/secure/weapon{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/armory_contraband{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "B" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
+	req_access_txt = "2";
+	dir = 1
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "C" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
+	name = "Emergency Shuttle Airlock";
+	dir = 1
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "E" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
+	name = "Emergency Shuttle Airlock";
+	dir = 1
 	},
 /obj/docking_port/mobile/emergency{
-	dwidth = 3;
+	dwidth = 10;
 	height = 5;
 	name = "Secure Transport Vessel 5";
-	width = 14
+	width = 14;
+	dir = 4
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Q" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 
 (1,1,1) = {"
 a
-B
+a
+C
+a
+C
+a
+Q
+Q
+Q
 a
 E
 a
-Q
-Q
-Q
-a
-C
-a
-C
-a
-a
-"}
-(2,1,1) = {"
-Q
-d
-g
-l
-n
-n
-n
-n
-n
+B
+a"}(2,1,1) = {"
+u
+t
 l
 s
 l
-t
+n
+n
+n
+n
+n
+l
+g
+d
+Q"}(3,1,1) = {"
 u
-"}
-(3,1,1) = {"
-Q
-e
+t
+l
+l
+l
+l
+l
+l
+l
+l
+l
 h
-l
-l
-l
-l
-l
-l
-l
-l
-l
-t
+e
+Q"}(4,1,1) = {"
 u
-"}
-(4,1,1) = {"
-Q
-f
-i
-v
-o
-o
-o
-p
-p
-r
-w
+t
 m
-t
-u
-"}
-(5,1,1) = {"
+w
+r
+p
+p
+o
+o
+o
+v
+i
+f
+Q"}(5,1,1) = {"
+a
+a
+a
+a
+a
+a
+Q
+Q
+Q
 a
 a
 j
 a
-a
-Q
-Q
-Q
-a
-a
-a
-a
-a
-a
-"}
+a"}

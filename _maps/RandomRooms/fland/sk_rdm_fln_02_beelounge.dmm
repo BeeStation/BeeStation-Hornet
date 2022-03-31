@@ -3,12 +3,20 @@
 /turf/closed/wall,
 /area/template_noop)
 "d" = (
-/obj/structure/flora/grass/jungle/b,
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/window/reinforced,
+/obj/structure/flora/grass/jungle/b{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/fullgrass{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/brflowers{
+	dir = 1
+	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 2
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -22,14 +30,18 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/table/wood/fancy/orange,
+/obj/structure/table/wood/fancy/orange{
+	dir = 1
+	},
 /obj/machinery/chem_dispenser/drinks{
 	dir = 4
 	},
 /turf/open/floor/wax,
 /area/template_noop)
 "k" = (
-/obj/structure/closet,
+/obj/structure/closet{
+	dir = 1
+	},
 /turf/open/floor/wax,
 /area/template_noop)
 "o" = (
@@ -39,41 +51,58 @@
 	},
 /obj/machinery/newscaster{
 	pixel_x = 28;
-	pixel_y = 1
+	pixel_y = -1;
+	dir = 1
 	},
 /turf/open/floor/wax,
 /area/template_noop)
 "p" = (
-/obj/structure/closet,
+/obj/structure/closet{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/wax,
 /area/template_noop)
 "s" = (
-/obj/machinery/jukebox,
+/obj/machinery/jukebox{
+	dir = 1
+	},
 /obj/item/radio/intercom{
-	pixel_x = 29
+	pixel_x = 29;
+	dir = 1
 	},
 /turf/open/floor/wax,
 /area/template_noop)
 "t" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/wax,
 /area/template_noop)
 "v" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 24
+	pixel_x = 24;
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/wax,
 /area/template_noop)
 "x" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/wax,
 /area/template_noop)
@@ -85,18 +114,31 @@
 /turf/open/floor/wax,
 /area/template_noop)
 "D" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/public/glass{
-	name = "Bee Lounge Backroom"
+/obj/machinery/door/firedoor{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 4
+	},
+/obj/machinery/door/airlock/public/glass{
+	name = "Bee Lounge Backroom";
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
 "E" = (
-/obj/structure/table/wood/fancy/orange,
-/obj/item/toy/plush/beeplushie,
+/obj/structure/table/wood/fancy/orange{
+	dir = 1
+	},
+/obj/item/toy/plush/beeplushie{
+	dir = 1
+	},
 /turf/open/floor/wax,
 /area/template_noop)
 "F" = (
@@ -104,37 +146,50 @@
 	dir = 8
 	},
 /obj/structure/sink{
-	pixel_y = 30
+	pixel_y = -30;
+	dir = 1
 	},
 /turf/open/floor/noslip/standard,
 /area/template_noop)
 "G" = (
 /obj/structure/chair/sofa/corp/right{
 	color = "#ffd966";
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/light_switch{
 	pixel_x = -4;
-	pixel_y = -32
+	pixel_y = 32;
+	dir = 1
 	},
-/obj/item/toy/plush/beeplushie,
+/obj/item/toy/plush/beeplushie{
+	dir = 1
+	},
 /turf/open/floor/wax,
 /area/template_noop)
 "H" = (
-/obj/item/toy/plush/beeplushie,
+/obj/item/toy/plush/beeplushie{
+	dir = 1
+	},
 /turf/open/floor/wax,
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Bee Lounge Maintenance";
-	req_access_txt = "12"
+	req_access_txt = "12";
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /turf/template_noop,
 /area/template_noop)
 "K" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /turf/open/floor/wax,
 /area/template_noop)
 "M" = (
@@ -153,7 +208,9 @@
 /turf/open/floor/noslip/standard,
 /area/template_noop)
 "P" = (
-/obj/structure/beebox,
+/obj/structure/beebox{
+	dir = 1
+	},
 /turf/open/floor/wax,
 /area/template_noop)
 "Q" = (
@@ -167,22 +224,29 @@
 /area/template_noop)
 "S" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/wax,
 /area/template_noop)
 "U" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "V" = (
 /turf/open/floor/wax,
 /area/template_noop)
 "W" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 4
+	},
 /obj/structure/mineral_door/wood{
-	name = "Bee Lounge"
+	name = "Bee Lounge";
+	dir = 1
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
@@ -191,67 +255,58 @@
 /area/template_noop)
 
 (1,1,1) = {"
-U
-V
-V
-E
-e
-V
-P
 a
-p
 k
+p
 a
-"}
-(2,1,1) = {"
-W
+P
 V
-S
-K
-K
-x
+e
+E
+V
+V
+U"}(2,1,1) = {"
+J
+v
 t
 D
 t
-v
-J
-"}
-(3,1,1) = {"
-W
+x
+K
+K
+S
 V
-Q
-V
-V
-M
-G
+W"}(3,1,1) = {"
+a
 a
 X
 a
-a
-"}
-(4,1,1) = {"
-U
-s
-H
+G
+M
 V
-d
-o
-C
-a
-F
+V
+Q
+V
+W"}(4,1,1) = {"
+R
 O
+F
+a
+C
+o
+d
+V
+H
+s
+U"}(5,1,1) = {"
 R
-"}
-(5,1,1) = {"
+a
+a
+a
+a
 a
 a
 U
 U
 a
-a
-a
-a
-a
-a
-R
-"}
+a"}

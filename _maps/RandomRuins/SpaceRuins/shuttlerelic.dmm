@@ -29,13 +29,14 @@
 "i" = (
 /obj/structure/closet{
 	icon_state = "oldcloset";
-	name = "strange closet"
+	name = "strange closet";
+	dir = 1
 	},
 /turf/open/floor/oldshuttle,
 /area/ruin/powered)
 "j" = (
 /obj/structure/shuttle/engine/propulsion/burst{
-	dir = 1
+	dir = 2
 	},
 /turf/template_noop,
 /area/ruin/powered)
@@ -50,209 +51,212 @@
 /area/ruin/powered)
 "m" = (
 /obj/structure/chair/old{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/oldshuttle,
 /area/ruin/powered)
 "n" = (
 /obj/structure/chair/old{
-	dir = 1
+	dir = 2
 	},
 /obj/item/crowbar/large{
 	desc = "It's a big crowbar. It doesn't fit in your pockets, because it's big. It feels oddly heavy..";
 	force = 20;
-	name = "heavy crowbar"
+	name = "heavy crowbar";
+	dir = 1
 	},
 /turf/open/floor/oldshuttle,
 /area/ruin/powered)
 "o" = (
 /obj/structure/chair/old{
-	dir = 1
+	dir = 2
 	},
 /mob/living/simple_animal/hostile/retaliate/spaceman,
 /turf/open/floor/oldshuttle,
 /area/ruin/powered)
 "t" = (
-/obj/machinery/power/generator,
+/obj/machinery/power/generator{
+	dir = 1
+	},
 /turf/open/floor/oldshuttle,
 /area/ruin/powered)
 "u" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/smes{
+	dir = 1
+	},
 /turf/open/floor/oldshuttle,
 /area/ruin/powered)
 "v" = (
-/obj/structure/shuttle/engine/propulsion/burst/left,
+/obj/structure/shuttle/engine/propulsion/burst/left{
+	dir = 1
+	},
 /turf/template_noop,
 /area/ruin/powered)
 "w" = (
-/obj/structure/shuttle/engine/propulsion/burst/right,
+/obj/structure/shuttle/engine/propulsion/burst/right{
+	dir = 1
+	},
 /turf/template_noop,
 /area/ruin/powered)
 "x" = (
-/obj/structure/shuttle/engine/propulsion/burst,
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 1
+	},
 /turf/template_noop,
 /area/ruin/powered)
 "J" = (
-/obj/machinery/door/airlock/public/glass,
-/obj/structure/fans/tiny/invisible,
+/obj/machinery/door/airlock/public/glass{
+	dir = 1
+	},
+/obj/structure/fans/tiny/invisible{
+	dir = 1
+	},
 /turf/open/floor/oldshuttle,
 /area/ruin/powered)
 
 (1,1,1) = {"
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-c
-l
 v
-a
-"}
-(2,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
+l
+c
 b
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a"}(2,1,1) = {"
+x
+l
+l
+g
+f
 c
 c
-f
-g
-l
-l
-x
-"}
-(3,1,1) = {"
-a
-a
-a
-a
-a
 b
-J
-f
-g
-g
-g
-g
-l
-l
+a
+a
+a
+a
+a
+a
+a"}(3,1,1) = {"
 x
-"}
-(4,1,1) = {"
-a
-a
-a
-a
-j
+l
 l
 g
 g
 g
 g
-b
+f
 J
-l
+b
+a
+a
+a
+a
+a"}(4,1,1) = {"
+a
 w
-a
-"}
-(5,1,1) = {"
-a
-a
-a
-a
+l
+J
 b
-c
 g
 g
 g
-b
+g
+l
+j
+a
+a
+a
+a"}(5,1,1) = {"
+a
+a
+a
+a
 f
-a
-a
-a
-a
-"}
-(6,1,1) = {"
-a
-a
 b
+g
+g
+g
 c
-c
-c
-c
-c
-c
-c
-c
-c
-c
+b
+a
+a
+a
+a"}(6,1,1) = {"
+a
 h
-a
-"}
-(7,1,1) = {"
-a
-b
-f
-i
 c
-i
-i
-i
-i
-i
-i
+c
+c
+c
+c
+c
+c
+c
+c
+c
+b
+a
+a"}(7,1,1) = {"
+h
 c
 u
 c
-h
-"}
-(8,1,1) = {"
-b
-f
+i
+i
+i
+i
 i
 i
 c
-m
+i
+f
+b
+a"}(8,1,1) = {"
+c
+e
+g
+c
 m
 m
 o
 m
 m
+m
+c
+i
+i
+f
+b"}(9,1,1) = {"
 c
 g
-e
+g
 c
-"}
-(9,1,1) = {"
-c
-g
-g
-g
-g
-m
-m
-m
-m
-m
 b
-c
+m
+m
+m
+m
+m
 g
 g
-c
-"}
-(10,1,1) = {"
+g
+g
+c"}(10,1,1) = {"
 J
+g
+g
+t
+c
+g
+g
 g
 g
 g
@@ -260,164 +264,139 @@ k
 g
 g
 g
-g
-g
-c
-t
-g
-g
-J
-"}
-(11,1,1) = {"
+J"}(11,1,1) = {"
 c
 g
 g
-g
-g
-m
-m
-m
-m
-m
+c
 e
-c
+m
+m
+m
+m
+m
 g
 g
+g
+g
+c"}(12,1,1) = {"
 c
-"}
-(12,1,1) = {"
-e
-h
-i
-i
+b
+g
 c
-n
 m
 m
 o
 m
 m
+n
 c
-g
-b
-c
-"}
-(13,1,1) = {"
-a
-e
+i
+i
 h
-i
-c
-i
-i
-i
-i
-i
-i
+e"}(13,1,1) = {"
+f
 c
 u
 c
-f
-"}
-(14,1,1) = {"
-a
-a
-e
+i
+i
+i
+i
+i
+i
 c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-f
-a
-"}
-(15,1,1) = {"
-a
-a
-a
-a
-e
-c
-g
-g
-g
-e
+i
 h
-a
-a
-a
-a
-"}
-(16,1,1) = {"
-a
-a
-a
-a
-j
-l
-g
-g
-g
-g
 e
-J
-l
+a"}(14,1,1) = {"
+a
+f
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+e
+a
+a"}(15,1,1) = {"
+a
+a
+a
+a
+h
+e
+g
+g
+g
+c
+e
+a
+a
+a
+a"}(16,1,1) = {"
+a
 v
-a
-"}
-(17,1,1) = {"
-a
-a
-a
-a
-a
-e
+l
 J
-h
-g
-g
-g
-g
-l
-l
-x
-"}
-(18,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
 e
-c
-c
-h
+g
+g
+g
 g
 l
-l
+j
+a
+a
+a
+a"}(17,1,1) = {"
 x
-"}
-(19,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-e
-c
 l
+l
+g
+g
+g
+g
+h
+J
+e
+a
+a
+a
+a
+a"}(18,1,1) = {"
+x
+l
+l
+g
+h
+c
+c
+e
+a
+a
+a
+a
+a
+a
+a"}(19,1,1) = {"
+a
 w
+l
+c
+e
 a
-"}
+a
+a
+a
+a
+a
+a
+a
+a
+a"}

@@ -1,7 +1,11 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/bed/pod,
-/obj/item/bedsheet/black,
+/obj/structure/bed/pod{
+	dir = 1
+	},
+/obj/item/bedsheet/black{
+	dir = 1
+	},
 /turf/open/floor/pod,
 /area/tdome/arena)
 "b" = (
@@ -12,7 +16,8 @@
 	alert = 0;
 	desc = "A display case containing an expensive forgery, probably.";
 	req_access_txt = "48";
-	start_showpiece_type = /obj/item/fakeartefact
+	start_showpiece_type = /obj/item/fakeartefact;
+	dir = 1
 	},
 /turf/open/floor/pod/light,
 /area/tdome/arena)
@@ -23,7 +28,7 @@
 /area/tdome/arena)
 "e" = (
 /obj/structure/sign/mining/survival{
-	dir = 1
+	dir = 2
 	},
 /turf/closed/wall/mineral/titanium/survival/pod{
 	opacity = 0
@@ -36,15 +41,21 @@
 /turf/open/floor/pod,
 /area/tdome/arena)
 "h" = (
-/obj/structure/fans,
+/obj/structure/fans{
+	dir = 1
+	},
 /turf/open/floor/pod,
 /area/tdome/arena)
 "i" = (
-/obj/machinery/smartfridge/survival_pod,
+/obj/machinery/smartfridge/survival_pod{
+	dir = 1
+	},
 /turf/open/floor/pod,
 /area/tdome/arena)
 "j" = (
-/obj/item/gps/computer,
+/obj/item/gps/computer{
+	dir = 1
+	},
 /turf/open/floor/pod,
 /area/tdome/arena)
 "k" = (
@@ -59,24 +70,33 @@
 	},
 /area/tdome/arena)
 "m" = (
-/obj/structure/table/wood/fancy/black,
+/obj/structure/table/wood/fancy/black{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = 7;
-	pixel_y = 2
+	pixel_y = -2;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/drinks/bottle/wine{
 	pixel_x = -6;
-	pixel_y = 10
+	pixel_y = -10;
+	dir = 1
 	},
 /turf/open/floor/carpet/black,
 /area/tdome/arena)
 "n" = (
-/obj/structure/bed/pod,
-/obj/item/bedsheet/black,
+/obj/structure/bed/pod{
+	dir = 1
+	},
+/obj/item/bedsheet/black{
+	dir = 1
+	},
 /obj/item/cardboard_cutout{
 	desc = "A cardboard cutout of a xenomorph maid.";
 	icon_state = "cutout_lusty";
-	name = "lusty xenomorph maid"
+	name = "lusty xenomorph maid";
+	dir = 1
 	},
 /turf/open/floor/pod,
 /area/tdome/arena)
@@ -89,29 +109,41 @@
 	},
 /area/tdome/arena)
 "p" = (
-/obj/structure/table/survival_pod,
+/obj/structure/table/survival_pod{
+	dir = 1
+	},
 /turf/open/floor/pod,
 /area/tdome/arena)
 "q" = (
-/obj/structure/tubes,
+/obj/structure/tubes{
+	dir = 1
+	},
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
 /turf/open/floor/pod,
 /area/tdome/arena)
 "r" = (
-/obj/structure/sign/mining/survival,
+/obj/structure/sign/mining/survival{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival/pod{
 	opacity = 0
 	},
 /area/tdome/arena)
 "s" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 1
+	},
 /turf/open/floor/pod,
 /area/tdome/arena)
 "t" = (
-/obj/structure/sign/mining,
+/obj/structure/sign/mining{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival/pod{
 	opacity = 0
 	},
@@ -123,12 +155,17 @@
 /turf/open/floor/pod,
 /area/tdome/arena)
 "v" = (
-/obj/structure/table/wood/fancy/black,
+/obj/structure/table/wood/fancy/black{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = 7;
-	pixel_y = 2
+	pixel_y = -2;
+	dir = 1
 	},
-/obj/effect/spawner/lootdrop/three_course_meal,
+/obj/effect/spawner/lootdrop/three_course_meal{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/tdome/arena)
 "w" = (
@@ -138,7 +175,9 @@
 /turf/open/floor/pod,
 /area/tdome/arena)
 "x" = (
-/obj/structure/table/wood/fancy/black,
+/obj/structure/table/wood/fancy/black{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/tdome/arena)
 
@@ -150,9 +189,7 @@ f
 f
 f
 f
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 b
 b
 f
@@ -160,9 +197,7 @@ f
 f
 f
 b
-b
-"}
-(3,1,1) = {"
+b"}(3,1,1) = {"
 b
 g
 g
@@ -170,9 +205,7 @@ g
 g
 g
 g
-b
-"}
-(4,1,1) = {"
+b"}(4,1,1) = {"
 b
 g
 k
@@ -180,79 +213,63 @@ k
 k
 k
 g
+b"}(5,1,1) = {"
 b
-"}
-(5,1,1) = {"
-c
 g
 k
 g
 g
 k
 g
+c"}(6,1,1) = {"
 b
-"}
-(6,1,1) = {"
+u
+k
 d
 d
 l
 d
-d
-k
-u
-b
-"}
-(7,1,1) = {"
-d
-h
-m
-p
+d"}(7,1,1) = {"
+x
+v
+f
 r
+p
+m
+h
+d"}(8,1,1) = {"
 f
-v
-x
-"}
-(8,1,1) = {"
-e
-i
-g
-g
+f
+f
 s
-f
-f
-f
-"}
-(9,1,1) = {"
-d
-j
-n
-q
-t
-f
-v
+g
+g
+i
+e"}(9,1,1) = {"
 x
-"}
-(10,1,1) = {"
+v
+f
+t
+q
+n
+j
+d"}(10,1,1) = {"
+b
+w
+k
 d
 d
 o
 d
-d
-k
-w
+d"}(11,1,1) = {"
 b
-"}
-(11,1,1) = {"
-c
 g
 k
 g
 g
 k
 g
-b
-"}
-(12,1,1) = {"
+c"}(12,1,1) = {"
 b
 g
 k
@@ -260,9 +277,7 @@ k
 k
 k
 g
-b
-"}
-(13,1,1) = {"
+b"}(13,1,1) = {"
 b
 g
 g
@@ -270,9 +285,7 @@ g
 g
 g
 g
-b
-"}
-(14,1,1) = {"
+b"}(14,1,1) = {"
 b
 b
 f
@@ -280,9 +293,7 @@ f
 f
 f
 b
-b
-"}
-(15,1,1) = {"
+b"}(15,1,1) = {"
 a
 f
 f
@@ -290,5 +301,4 @@ f
 f
 f
 f
-a
-"}
+a"}

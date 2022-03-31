@@ -9,16 +9,24 @@
 /turf/closed/wall/mineral/titanium,
 /area/ruin/unpowered)
 "d" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "e" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "f" = (
-/obj/machinery/door/airlock/shuttle,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "g" = (
@@ -28,7 +36,9 @@
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "h" = (
-/obj/machinery/computer,
+/obj/machinery/computer{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "i" = (
@@ -41,7 +51,9 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/mob_spawn/human/corpse/assistant,
+/obj/effect/mob_spawn/human/corpse/assistant{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "k" = (
@@ -49,7 +61,8 @@
 	dir = 4
 	},
 /obj/item/storage/pod{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
@@ -58,21 +71,25 @@
 	dir = 8
 	},
 /obj/item/storage/pod{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "m" = (
 /obj/item/gps{
-	gpstag = "SOS"
+	gpstag = "SOS";
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "n" = (
 /obj/structure/chair/comfy/shuttle{
+	dir = 2
+	},
+/obj/effect/mob_spawn/human/corpse/cargo_tech{
 	dir = 1
 	},
-/obj/effect/mob_spawn/human/corpse/cargo_tech,
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 
@@ -88,93 +105,67 @@ a
 a
 a
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 a
-a
-a
-c
-c
-c
-c
-c
 e
-a
-a
-"}
-(3,1,1) = {"
-a
-a
-a
-a
-d
-i
-j
-j
-k
+c
+c
+c
+c
 c
 a
 a
-"}
-(4,1,1) = {"
+a
+a"}(3,1,1) = {"
 a
 a
-a
-a
+c
+k
+j
+j
+i
 d
-b
+a
+a
+a
+a"}(4,1,1) = {"
+a
+a
+f
 b
 m
 b
-f
-a
-a
-"}
-(5,1,1) = {"
-a
-a
-a
-a
+b
 d
-h
-n
-g
+a
+a
+a
+a"}(5,1,1) = {"
+a
+a
+c
 l
-c
-a
-a
-"}
-(6,1,1) = {"
-a
+g
+n
+h
+d
 a
 a
 a
-c
-c
-c
-c
-c
+a"}(6,1,1) = {"
+a
+a
 e
-a
-a
-"}
-(7,1,1) = {"
-a
-a
-a
-a
+c
+c
+c
+c
+c
 a
 a
 a
-a
-a
-a
-a
-a
-"}
-(8,1,1) = {"
+a"}(7,1,1) = {"
 a
 a
 a
@@ -186,5 +177,16 @@ a
 a
 a
 a
+a"}(8,1,1) = {"
 a
-"}
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a"}

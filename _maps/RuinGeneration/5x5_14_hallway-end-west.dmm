@@ -6,7 +6,9 @@
 /turf/template_noop,
 /area/template_noop)
 "z" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "O" = (
@@ -19,8 +21,12 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "V" = (
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 
@@ -29,33 +35,24 @@ y
 y
 y
 y
-y
-"}
-(2,1,1) = {"
+y"}(2,1,1) = {"
 y
 z
 y
 z
-y
-"}
-(3,1,1) = {"
+y"}(3,1,1) = {"
 g
 V
 V
 V
-g
-"}
-(4,1,1) = {"
+g"}(4,1,1) = {"
 g
 P
 P
 P
-g
-"}
-(5,1,1) = {"
+g"}(5,1,1) = {"
 g
 P
 O
 P
-g
-"}
+g"}

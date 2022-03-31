@@ -3,15 +3,21 @@
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "b" = (
-/obj/structure/chair/comfy/brown,
+/obj/structure/chair/comfy/brown{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "c" = (
 /turf/open/floor/plasteel/stairs/old,
 /area/template_noop)
 "d" = (
-/obj/structure/chair/comfy/brown,
-/obj/structure/chair/comfy/brown,
+/obj/structure/chair/comfy/brown{
+	dir = 1
+	},
+/obj/structure/chair/comfy/brown{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "e" = (
@@ -21,14 +27,18 @@
 /turf/closed/wall,
 /area/template_noop)
 "g" = (
-/obj/effect/landmark/start/randommaint/magician,
+/obj/effect/landmark/start/randommaint/magician{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "h" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/mechanical{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "i" = (
@@ -39,182 +49,200 @@
 /area/template_noop)
 "j" = (
 /obj/machinery/light_switch{
-	pixel_x = 27
+	pixel_x = 27;
+	dir = 1
 	},
-/obj/structure/curtain/bounty,
+/obj/structure/curtain/bounty{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "k" = (
-/obj/structure/curtain/bounty,
+/obj/structure/curtain/bounty{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "l" = (
-/obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb,
+/obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb{
+	dir = 1
+	},
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "m" = (
-/obj/item/trash/candy,
+/obj/item/trash/candy{
+	dir = 1
+	},
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "n" = (
-/obj/structure/chair/comfy/brown,
-/obj/item/reagent_containers/food/snacks/popcorn,
+/obj/structure/chair/comfy/brown{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/popcorn{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "o" = (
-/obj/structure/chair/comfy/brown,
-/obj/item/reagent_containers/food/snacks/popcorn,
-/obj/item/reagent_containers/food/drinks/soda_cans/shamblers,
+/obj/structure/chair/comfy/brown{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/popcorn{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/shamblers{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "p" = (
-/obj/item/reagent_containers/food/snacks/popcorn,
+/obj/item/reagent_containers/food/snacks/popcorn{
+	dir = 1
+	},
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "q" = (
-/obj/item/reagent_containers/food/drinks/soda_cans/cola,
+/obj/item/reagent_containers/food/drinks/soda_cans/cola{
+	dir = 1
+	},
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "r" = (
-/obj/item/trash/cheesie,
+/obj/item/trash/cheesie{
+	dir = 1
+	},
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "s" = (
-/obj/structure/chair/comfy/brown,
-/obj/item/trash/popcorn,
+/obj/structure/chair/comfy/brown{
+	dir = 1
+	},
+/obj/item/trash/popcorn{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "t" = (
-/obj/structure/chair/comfy/brown,
-/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind,
+/obj/structure/chair/comfy/brown{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "u" = (
-/obj/item/trash/can/food/beans,
+/obj/item/trash/can/food/beans{
+	dir = 1
+	},
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "v" = (
-/obj/item/trash/popcorn,
+/obj/item/trash/popcorn{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 
 (1,1,1) = {"
+e
+j
+h
+f
 a
+u
 b
 p
 b
-u
-a
-f
-h
-j
+a"}(2,1,1) = {"
 e
-"}
-(2,1,1) = {"
+f
+e
+f
+a
 a
 b
 q
 b
-a
-a
-f
+a"}(3,1,1) = {"
 e
 f
 e
-"}
-(3,1,1) = {"
+e
+e
 a
 c
 a
 c
-a
-e
-e
+a"}(4,1,1) = {"
 e
 f
 e
-"}
-(4,1,1) = {"
-l
-n
-m
-n
-a
+e
 v
-e
-e
-f
-e
-"}
-(5,1,1) = {"
+a
+n
 m
-b
-a
-b
-a
-e
-e
+n
+l"}(5,1,1) = {"
 e
 f
 e
-"}
-(6,1,1) = {"
+e
+e
+a
+b
+a
+b
+m"}(6,1,1) = {"
+e
+f
+e
+g
+e
 a
 b
 r
 b
-a
-e
-g
+a"}(7,1,1) = {"
 e
 f
 e
-"}
-(7,1,1) = {"
-a
-b
+e
+e
 a
 s
 a
-e
-e
+b
+a"}(8,1,1) = {"
 e
 f
 e
-"}
-(8,1,1) = {"
+e
+e
 a
 c
 a
 c
-a
-e
-e
+a"}(9,1,1) = {"
 e
 f
 e
-"}
-(9,1,1) = {"
+f
 a
-o
 a
 b
 a
-a
-f
+o
+a"}(10,1,1) = {"
 e
+k
+i
 f
-e
-"}
-(10,1,1) = {"
 a
-d
 a
 t
 a
-a
-f
-i
-k
-e
-"}
+d
+a"}

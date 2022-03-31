@@ -1,50 +1,74 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal{
+	dir = 1
+	},
 /turf/open/floor/carpet/blue,
 /area/ruin/unpowered)
 "d" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal{
+	dir = 1
+	},
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
 "e" = (
-/obj/effect/abstract/open_area_marker,
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "f" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
 "h" = (
-/obj/structure/bed,
-/obj/item/bedsheet/dorms,
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/dorms{
+	dir = 1
+	},
 /turf/open/floor/carpet/blue,
 /area/ruin/unpowered)
 "j" = (
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
 "l" = (
-/obj/structure/bed,
-/obj/item/bedsheet/dorms,
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/dorms{
+	dir = 1
+	},
 /turf/open/floor/carpet/cyan,
 /area/ruin/unpowered)
 "m" = (
-/obj/structure/bed,
-/obj/item/bedsheet/dorms,
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/dorms{
+	dir = 1
+	},
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
 "n" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/carpet/purple,
 /area/ruin/unpowered)
 "p" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -55,50 +79,63 @@
 /area/ruin/unpowered)
 "u" = (
 /obj/structure/chair/stool{
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
 "v" = (
 /obj/machinery/door/airlock{
 	id_tag = "Dorm4";
-	name = "Dorm 4"
+	name = "Dorm 4";
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "w" = (
 /obj/machinery/door/airlock{
 	id_tag = "Dorm1";
-	name = "Dorm 1"
+	name = "Dorm 1";
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "z" = (
 /obj/machinery/door/airlock{
 	id_tag = "Dorm3";
-	name = "Dorm 3"
+	name = "Dorm 3";
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "A" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/open/floor/carpet/cyan,
 /area/ruin/unpowered)
 "B" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal{
+	dir = 1
+	},
 /turf/open/floor/carpet/purple,
 /area/ruin/unpowered)
 "D" = (
-/obj/structure/bed,
-/obj/item/bedsheet/dorms,
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/dorms{
+	dir = 1
+	},
 /turf/open/floor/carpet/purple,
 /area/ruin/unpowered)
 "E" = (
 /obj/structure/chair/stool{
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
 /turf/open/floor/carpet/purple,
 /area/ruin/unpowered)
@@ -110,14 +147,16 @@
 /area/ruin/unpowered)
 "O" = (
 /obj/structure/chair/stool{
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
 /turf/open/floor/carpet/blue,
 /area/ruin/unpowered)
 "P" = (
 /obj/machinery/door/airlock{
 	id_tag = "Dorm2";
-	name = "Dorm 2"
+	name = "Dorm 2";
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -125,7 +164,9 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "R" = (
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/closet/secure_closet/personal{
+	dir = 1
+	},
 /turf/open/floor/carpet/cyan,
 /area/ruin/unpowered)
 "U" = (
@@ -133,13 +174,14 @@
 /area/ruin/unpowered)
 "V" = (
 /obj/structure/chair/stool{
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
 /turf/open/floor/carpet/cyan,
 /area/ruin/unpowered)
 "Y" = (
 /obj/effect/abstract/open_area_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -157,69 +199,59 @@ Q
 Q
 Q
 Q
+Q"}(2,1,1) = {"
 Q
-"}
-(2,1,1) = {"
-Q
-A
-V
-Q
-f
-u
-Q
-n
-E
-Q
-p
 O
+p
 Q
-"}
-(3,1,1) = {"
+E
+n
 Q
-R
-L
+u
+f
 Q
-d
-j
+V
+A
+Q"}(3,1,1) = {"
 Q
-B
-U
-Q
+I
 b
-I
 Q
-"}
-(4,1,1) = {"
-Q
-l
-L
-Q
-m
-j
-Q
-D
 U
+B
 Q
-h
+j
+d
+Q
+L
+R
+Q"}(4,1,1) = {"
+Q
 I
+h
 Q
-"}
-(5,1,1) = {"
+U
+D
 Q
+j
+m
 Q
-v
+L
+l
+Q"}(5,1,1) = {"
 Q
-Q
-z
+w
 Q
 Q
 P
 Q
 Q
-w
+z
 Q
-"}
-(6,1,1) = {"
+Q
+v
+Q
+Q"}(6,1,1) = {"
 s
 s
 s
@@ -232,24 +264,20 @@ s
 s
 s
 s
-s
-"}
-(7,1,1) = {"
-Y
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
+s"}(7,1,1) = {"
 e
-"}
-(8,1,1) = {"
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+Y"}(8,1,1) = {"
 s
 s
 s
@@ -262,9 +290,7 @@ s
 s
 s
 s
-s
-"}
-(9,1,1) = {"
+s"}(9,1,1) = {"
 Q
 Q
 Q
@@ -277,5 +303,4 @@ Q
 Q
 Q
 Q
-Q
-"}
+Q"}

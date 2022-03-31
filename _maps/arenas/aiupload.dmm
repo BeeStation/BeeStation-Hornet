@@ -3,29 +3,51 @@
 /turf/open/floor/circuit/green,
 /area/space)
 "e" = (
-/obj/structure/table/reinforced,
-/obj/item/aicard,
-/obj/item/aiModule/core/freeformcore,
-/obj/machinery/door/window/brigdoor/southright,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/aicard{
+	dir = 1
+	},
+/obj/item/aiModule/core/freeformcore{
+	dir = 1
+	},
+/obj/machinery/door/window/brigdoor/northright,
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "g" = (
-/obj/item/kirbyplants/photosynthetic,
+/obj/item/kirbyplants/photosynthetic{
+	dir = 1
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "h" = (
 /turf/open/floor/monotile/steel,
 /area/space)
 "i" = (
-/obj/structure/table/reinforced,
-/obj/item/aiModule/core/full/antimov,
-/obj/item/aiModule/core/full/hulkamania,
-/obj/item/aiModule/core/full/tyrant,
-/obj/effect/temp_visual/ratvar/window/single,
-/obj/effect/temp_visual/ratvar/window/single,
-/obj/effect/temp_visual/ratvar/window/single,
-/obj/structure/window/reinforced{
+/obj/structure/table/reinforced{
 	dir = 1
+	},
+/obj/item/aiModule/core/full/antimov{
+	dir = 1
+	},
+/obj/item/aiModule/core/full/hulkamania{
+	dir = 1
+	},
+/obj/item/aiModule/core/full/tyrant{
+	dir = 1
+	},
+/obj/effect/temp_visual/ratvar/window/single{
+	dir = 1
+	},
+/obj/effect/temp_visual/ratvar/window/single{
+	dir = 1
+	},
+/obj/effect/temp_visual/ratvar/window/single{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 2
 	},
 /obj/structure/window/reinforced{
 	CanAtmosPass = 3;
@@ -35,33 +57,51 @@
 /area/space)
 "m" = (
 /obj/machinery/computer{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/circuit/green,
 /area/space)
 "o" = (
-/obj/structure/table/reinforced,
-/obj/item/aicard,
-/obj/effect/temp_visual/ratvar/door/window,
-/obj/effect/temp_visual/ratvar/door/window,
-/obj/effect/temp_visual/ratvar/door,
-/obj/machinery/door/window/brigdoor/northright,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/aicard{
+	dir = 1
+	},
+/obj/effect/temp_visual/ratvar/door/window{
+	dir = 1
+	},
+/obj/effect/temp_visual/ratvar/door/window{
+	dir = 1
+	},
+/obj/effect/temp_visual/ratvar/door{
+	dir = 1
+	},
+/obj/machinery/door/window/brigdoor/southright,
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "q" = (
-/obj/machinery/computer,
+/obj/machinery/computer{
+	dir = 1
+	},
 /turf/open/floor/circuit/green,
 /area/space)
 "v" = (
 /obj/effect/turf_decal/tile/green{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/green,
-/obj/structure/AIcore/deactivated,
+/obj/structure/AIcore/deactivated{
+	dir = 1
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "w" = (
-/obj/effect/temp_visual/ratvar/door/window,
+/obj/effect/temp_visual/ratvar/door/window{
+	dir = 1
+	},
 /turf/open/floor/circuit/green,
 /area/space)
 "x" = (
@@ -69,65 +109,93 @@
 /area/space)
 "y" = (
 /obj/machinery/porta_turret/ai{
-	on = 0
+	on = 0;
+	dir = 1
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "z" = (
-/obj/machinery/camera,
+/obj/machinery/camera{
+	dir = 1
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "A" = (
 /obj/effect/turf_decal/tile/green{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "B" = (
-/obj/structure/table/reinforced,
-/obj/item/aiModule/core/full/asimovpp,
-/obj/item/aiModule/core/full/custom,
-/obj/item/aiModule/reset/purge,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/aiModule/core/full/asimovpp{
+	dir = 1
+	},
+/obj/item/aiModule/core/full/custom{
+	dir = 1
+	},
+/obj/item/aiModule/reset/purge{
+	dir = 1
+	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "C" = (
 /obj/machinery/camera{
-	pixel_x = 20
+	pixel_x = 20;
+	dir = 1
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "J" = (
 /obj/effect/turf_decal/tile/red{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/red{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "O" = (
 /obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/structure/AIcore/deactivated,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/structure/AIcore/deactivated{
+	dir = 1
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "R" = (
-/obj/structure/table/reinforced,
-/obj/item/aiModule/ion,
-/obj/item/aiModule/core/full/damaged,
-/obj/item/aiModule/core/full/overthrow,
-/obj/item/aiModule/core/full/peacekeeper,
-/obj/structure/window/reinforced{
+/obj/structure/table/reinforced{
 	dir = 1
+	},
+/obj/item/aiModule/ion{
+	dir = 1
+	},
+/obj/item/aiModule/core/full/damaged{
+	dir = 1
+	},
+/obj/item/aiModule/core/full/overthrow{
+	dir = 1
+	},
+/obj/item/aiModule/core/full/peacekeeper{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 2
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -136,64 +204,88 @@
 /area/space)
 "S" = (
 /obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/structure/AIcore/deactivated,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/structure/AIcore/deactivated{
+	dir = 1
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "T" = (
-/obj/machinery/holopad,
+/obj/machinery/holopad{
+	dir = 1
+	},
 /turf/open/floor/circuit/green,
 /area/space)
 "W" = (
-/obj/structure/table/reinforced,
-/obj/item/aiModule/core/full/asimov,
-/obj/item/aiModule/core/full/balance,
-/obj/item/aiModule/reset,
-/obj/item/aiModule/supplied/protectStation,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/aiModule/core/full/asimov{
+	dir = 1
+	},
+/obj/item/aiModule/core/full/balance{
+	dir = 1
+	},
+/obj/item/aiModule/reset{
+	dir = 1
+	},
+/obj/item/aiModule/supplied/protectStation{
+	dir = 1
+	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 "X" = (
-/obj/machinery/ai_slipper,
+/obj/machinery/ai_slipper{
+	dir = 1
+	},
 /turf/open/floor/monotile/steel,
 /area/space)
 "Z" = (
-/obj/effect/temp_visual/ratvar/window/single,
-/obj/effect/temp_visual/ratvar/window/single,
-/obj/effect/temp_visual/ratvar/window/single,
-/obj/effect/temp_visual/ratvar/window/single,
-/obj/effect/temp_visual/ratvar/window/single,
+/obj/effect/temp_visual/ratvar/window/single{
+	dir = 1
+	},
+/obj/effect/temp_visual/ratvar/window/single{
+	dir = 1
+	},
+/obj/effect/temp_visual/ratvar/window/single{
+	dir = 1
+	},
+/obj/effect/temp_visual/ratvar/window/single{
+	dir = 1
+	},
+/obj/effect/temp_visual/ratvar/window/single{
+	dir = 1
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 
 (1,1,1) = {"
-O
-J
-J
-J
-J
-J
-J
 S
-"}
-(2,1,1) = {"
-z
-h
-h
-h
-h
-h
-h
+J
+J
+J
+J
+J
+J
+O"}(2,1,1) = {"
 x
-"}
-(3,1,1) = {"
+h
+h
+h
+h
+h
+h
+z"}(3,1,1) = {"
 g
 h
 h
@@ -201,9 +293,7 @@ h
 h
 h
 h
-g
-"}
-(4,1,1) = {"
+g"}(4,1,1) = {"
 x
 h
 X
@@ -211,9 +301,7 @@ h
 h
 X
 h
-x
-"}
-(5,1,1) = {"
+x"}(5,1,1) = {"
 y
 h
 h
@@ -221,9 +309,7 @@ h
 h
 h
 h
-y
-"}
-(6,1,1) = {"
+y"}(6,1,1) = {"
 x
 a
 a
@@ -231,49 +317,39 @@ a
 a
 a
 a
-x
-"}
-(7,1,1) = {"
-W
-a
-a
-a
-a
-a
-a
+x"}(7,1,1) = {"
 R
-"}
-(8,1,1) = {"
-e
 a
-T
-m
-q
-T
-w
+a
+a
+a
+a
+a
+W"}(8,1,1) = {"
 o
-"}
-(9,1,1) = {"
-B
+w
+T
+q
+m
+T
 a
-a
-a
-a
-a
-a
+e"}(9,1,1) = {"
 i
-"}
-(10,1,1) = {"
-x
 a
 a
 a
 a
 a
 a
+B"}(10,1,1) = {"
 Z
-"}
-(11,1,1) = {"
+a
+a
+a
+a
+a
+a
+x"}(11,1,1) = {"
 y
 h
 h
@@ -281,9 +357,7 @@ h
 h
 h
 h
-y
-"}
-(12,1,1) = {"
+y"}(12,1,1) = {"
 x
 h
 X
@@ -291,9 +365,7 @@ h
 h
 X
 h
-x
-"}
-(13,1,1) = {"
+x"}(13,1,1) = {"
 g
 h
 h
@@ -301,19 +373,15 @@ h
 h
 h
 h
-g
-"}
-(14,1,1) = {"
-C
-h
-h
-h
-h
-h
-h
+g"}(14,1,1) = {"
 x
-"}
-(15,1,1) = {"
+h
+h
+h
+h
+h
+h
+C"}(15,1,1) = {"
 v
 A
 A
@@ -321,5 +389,4 @@ A
 A
 A
 A
-v
-"}
+v"}

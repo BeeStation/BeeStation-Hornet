@@ -1,13 +1,19 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/table/glass,
-/obj/item/stock_parts/matter_bin/bluespace,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/stock_parts/matter_bin/bluespace{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "b" = (
-/obj/structure/table/glass,
+/obj/structure/table/glass{
+	dir = 1
+	},
 /obj/item/stack/cable_coil/blue,
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
@@ -21,7 +27,7 @@
 /area/ruin/unpowered)
 "k" = (
 /obj/effect/abstract/doorway_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
@@ -35,20 +41,26 @@
 	desc = "A ballistic machine gun auto-turret that fires bluespace bullets.";
 	lethal_projectile = /obj/item/projectile/magic/teleport;
 	name = "displacement turret";
-	stun_projectile = /obj/item/projectile/magic/teleport
+	stun_projectile = /obj/item/projectile/magic/teleport;
+	dir = 1
 	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "s" = (
-/obj/item/paper/crumpled/docslogs,
-/obj/item/pen,
+/obj/item/paper/crumpled/docslogs{
+	dir = 1
+	},
+/obj/item/pen{
+	dir = 1
+	},
 /turf/open/floor/plasteel/vaporwave,
 /area/ruin/unpowered)
 "t" = (
 /obj/structure/displaycase{
-	start_showpiece_type = /obj/item/hilbertshotel
+	start_showpiece_type = /obj/item/hilbertshotel;
+	dir = 1
 	},
 /turf/open/floor/plasteel/vaporwave,
 /area/ruin/unpowered)
@@ -58,8 +70,12 @@
 	},
 /area/ruin/unpowered)
 "y" = (
-/obj/structure/table/glass,
-/obj/item/stock_parts/subspace/amplifier,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/stock_parts/subspace/amplifier{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
@@ -68,15 +84,23 @@
 /turf/open/floor/plasteel/stairs/medium,
 /area/ruin/unpowered)
 "B" = (
-/obj/structure/table/glass,
-/obj/item/assembly/signaler,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/assembly/signaler{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "D" = (
-/obj/structure/table/glass,
-/obj/item/storage/backpack/holding,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/storage/backpack/holding{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
@@ -85,43 +109,67 @@
 /turf/open/floor/plasteel/stairs/left,
 /area/ruin/unpowered)
 "I" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/syringe/bluespace,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/reagent_containers/syringe/bluespace{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "K" = (
-/obj/structure/table/glass,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/important{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "L" = (
-/obj/structure/table/glass,
+/obj/structure/table/glass{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "O" = (
-/obj/structure/table/glass,
-/obj/item/stock_parts/subspace/crystal,
-/obj/item/stock_parts/subspace/transmitter,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/stock_parts/subspace/crystal{
+	dir = 1
+	},
+/obj/item/stock_parts/subspace/transmitter{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "S" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/bluespace,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/beaker/bluespace{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "T" = (
-/obj/structure/table/glass,
-/obj/item/analyzer,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/analyzer{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
@@ -129,16 +177,23 @@
 "V" = (
 /obj/machinery/door/airlock/vault{
 	name = "secured door";
-	req_access = 207
+	req_access = 207;
+	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/locked,
+/obj/effect/mapping_helpers/airlock/locked{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
 "W" = (
-/obj/structure/table/glass,
-/obj/item/slimecross/industrial/bluespace,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/slimecross/industrial/bluespace{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
@@ -157,24 +212,20 @@ q
 q
 q
 q
-q
-"}
-(2,1,1) = {"
+q"}(2,1,1) = {"
 q
 r
 u
 u
 L
-I
-S
 K
+S
+I
 L
 u
 u
 r
-q
-"}
-(3,1,1) = {"
+q"}(3,1,1) = {"
 q
 u
 u
@@ -187,9 +238,7 @@ u
 u
 u
 u
-q
-"}
-(4,1,1) = {"
+q"}(4,1,1) = {"
 q
 u
 u
@@ -202,26 +251,20 @@ u
 u
 u
 u
-q
-"}
-(5,1,1) = {"
+q"}(5,1,1) = {"
 q
 u
 u
 u
-u
-u
-a
-O
 y
+O
+a
 u
 u
 u
-q
-"}
-(6,1,1) = {"
-q
-q
+u
+u
+q"}(6,1,1) = {"
 q
 u
 u
@@ -233,11 +276,9 @@ E
 u
 u
 q
-"}
-(7,1,1) = {"
-k
-u
-V
+q
+q"}(7,1,1) = {"
+q
 u
 u
 A
@@ -247,54 +288,35 @@ e
 A
 u
 u
-q
-"}
-(8,1,1) = {"
-q
-q
+V
+u
+k"}(8,1,1) = {"
 q
 u
 u
 j
-e
-e
 s
+e
+e
 j
 u
 u
 q
-"}
-(9,1,1) = {"
+q
+q"}(9,1,1) = {"
 q
 u
 u
 u
-u
-u
-b
-T
 B
-u
-u
-u
-q
-"}
-(10,1,1) = {"
-q
+T
+b
 u
 u
 u
 u
 u
-u
-u
-u
-u
-u
-u
-q
-"}
-(11,1,1) = {"
+q"}(10,1,1) = {"
 q
 u
 u
@@ -307,24 +329,33 @@ u
 u
 u
 u
+q"}(11,1,1) = {"
 q
-"}
-(12,1,1) = {"
+u
+u
+u
+u
+u
+u
+u
+u
+u
+u
+u
+q"}(12,1,1) = {"
 q
 r
 u
 u
 K
-D
-L
 W
+L
+D
 K
 u
 u
 r
-q
-"}
-(13,1,1) = {"
+q"}(13,1,1) = {"
 q
 q
 q
@@ -337,5 +368,4 @@ q
 q
 q
 q
-q
-"}
+q"}

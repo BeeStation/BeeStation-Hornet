@@ -3,30 +3,42 @@
 /turf/open/floor/holofloor/beach/water,
 /area/template_noop)
 "f" = (
-/obj/item/shovel/spade,
+/obj/item/shovel/spade{
+	dir = 1
+	},
 /turf/open/floor/holofloor/beach/coast_t,
 /area/template_noop)
 "g" = (
-/obj/item/toy/beach_ball,
+/obj/item/toy/beach_ball{
+	dir = 1
+	},
 /turf/open/floor/holofloor/beach,
 /area/template_noop)
 "h" = (
-/obj/item/clothing/under/color/rainbow,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/clothing/under/color/rainbow{
+	dir = 1
+	},
+/obj/item/clothing/glasses/sunglasses{
+	dir = 1
+	},
 /turf/open/floor/holofloor/beach,
 /area/template_noop)
 "k" = (
 /turf/open/floor/holofloor/beach/coast_b,
 /area/template_noop)
 "q" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bucket{
+	dir = 1
+	},
 /turf/open/floor/holofloor/beach/coast_t,
 /area/template_noop)
 "t" = (
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "H" = (
-/obj/effect/holodeck_effect/mobspawner/monkey,
+/obj/effect/holodeck_effect/mobspawner/monkey{
+	dir = 1
+	},
 /turf/open/floor/holofloor/beach,
 /area/template_noop)
 "J" = (
@@ -42,124 +54,115 @@
 /turf/open/floor/holofloor/beach,
 /area/template_noop)
 "T" = (
-/obj/effect/overlay/palmtree_l,
-/obj/effect/overlay/coconut,
+/obj/effect/overlay/palmtree_l{
+	dir = 1
+	},
+/obj/effect/overlay/coconut{
+	dir = 1
+	},
 /turf/open/floor/holofloor/beach,
 /area/template_noop)
 "W" = (
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	dir = 1
+	},
 /turf/open/floor/holofloor/beach,
 /area/template_noop)
 "X" = (
-/obj/effect/overlay/palmtree_r,
+/obj/effect/overlay/palmtree_r{
+	dir = 1
+	},
 /turf/open/floor/holofloor/beach,
 /area/template_noop)
 
 (1,1,1) = {"
-R
-R
-R
-R
-R
-R
-R
-J
-k
 a
-"}
-(2,1,1) = {"
+k
+J
 R
 R
 R
-X
 R
 R
 R
+R"}(2,1,1) = {"
+a
+k
 Q
-k
-a
-"}
-(3,1,1) = {"
+R
+R
+R
 X
-H
 R
 R
-R
-t
-t
-J
-k
+R"}(3,1,1) = {"
 a
-"}
-(4,1,1) = {"
+k
+J
+t
+t
 R
 R
+R
+H
+X"}(4,1,1) = {"
+a
+k
+J
 R
 R
 h
 R
 R
-J
-k
+R
+R"}(5,1,1) = {"
 a
-"}
-(5,1,1) = {"
+k
+J
+t
+t
 R
 R
 W
 R
-R
-t
-t
-J
-k
+R"}(6,1,1) = {"
 a
-"}
-(6,1,1) = {"
-R
-R
-R
-R
-X
-g
-R
+k
 q
-k
+R
+g
+X
+R
+R
+R
+R"}(7,1,1) = {"
 a
-"}
-(7,1,1) = {"
-R
-T
-H
-R
-R
-R
-R
+k
 f
-k
-a
-"}
-(8,1,1) = {"
-W
 R
+R
+R
+R
+H
+T
+R"}(8,1,1) = {"
+a
+k
+J
 R
 R
 H
 R
 R
-J
-k
+R
+W"}(9,1,1) = {"
 a
-"}
-(9,1,1) = {"
-R
-R
-R
-R
-R
-R
-R
-J
 k
-a
-"}
+J
+R
+R
+R
+R
+R
+R
+R"}

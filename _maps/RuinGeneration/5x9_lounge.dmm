@@ -1,6 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "c" = (
-/obj/item/kirbyplants/random,
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "d" = (
@@ -19,11 +21,15 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "t" = (
-/obj/machinery/vending/snack/random,
+/obj/machinery/vending/snack/random{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "G" = (
-/obj/machinery/vending/cola/random,
+/obj/machinery/vending/cola/random{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "J" = (
@@ -39,37 +45,22 @@
 (1,1,1) = {"
 Z
 Z
-Z
-Z
-Z
-Z
 d
 Z
 Z
-"}
-(2,1,1) = {"
 Z
-c
-q
-q
-q
-h
-h
+Z
+Z
+Z"}(2,1,1) = {"
+Z
 t
-Z
-"}
-(3,1,1) = {"
-Z
 h
 h
-h
-h
-h
-h
-h
-Z
-"}
-(4,1,1) = {"
+q
+q
+q
+c
+Z"}(3,1,1) = {"
 Z
 h
 h
@@ -77,17 +68,23 @@ h
 h
 h
 h
+h
+Z"}(4,1,1) = {"
+Z
 G
+h
+h
+h
+h
+h
+h
+Z"}(5,1,1) = {"
 Z
-"}
-(5,1,1) = {"
+Z
+Z
+Z
 Z
 h
 J
 h
-Z
-Z
-Z
-Z
-Z
-"}
+Z"}

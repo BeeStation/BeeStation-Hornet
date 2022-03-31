@@ -1,17 +1,23 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "e" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "f" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "g" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "q" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "v" = (
@@ -22,12 +28,14 @@
 /area/ruin/unpowered)
 "F" = (
 /obj/effect/abstract/doorway_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "R" = (
-/obj/structure/closet/firecloset,
+/obj/structure/closet/firecloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "U" = (
@@ -39,33 +47,24 @@ U
 U
 U
 U
+U"}(2,1,1) = {"
 U
-"}
-(2,1,1) = {"
-U
-R
-e
 q
-U
-"}
-(3,1,1) = {"
-F
-f
-f
-f
+e
+R
+U"}(3,1,1) = {"
 g
-"}
-(4,1,1) = {"
+f
+f
+f
+F"}(4,1,1) = {"
 U
 f
 f
 f
-U
-"}
-(5,1,1) = {"
+U"}(5,1,1) = {"
 U
 f
 v
 f
-U
-"}
+U"}

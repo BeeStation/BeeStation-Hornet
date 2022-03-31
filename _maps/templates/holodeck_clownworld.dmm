@@ -8,7 +8,9 @@
 	},
 /area/template_noop)
 "c" = (
-/obj/effect/holodeck_effect/mobspawner/clown,
+/obj/effect/holodeck_effect/mobspawner/clown{
+	dir = 1
+	},
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "d" = (
@@ -18,7 +20,9 @@
 /turf/open/floor/holofloor/clown,
 /area/template_noop)
 "f" = (
-/obj/effect/holodeck_effect/mobspawner/clown,
+/obj/effect/holodeck_effect/mobspawner/clown{
+	dir = 1
+	},
 /turf/open/floor/holofloor/clown,
 /area/template_noop)
 "g" = (
@@ -34,109 +38,92 @@
 
 (1,1,1) = {"
 a
-b
-b
-a
-a
-a
-a
-a
 h
 a
-"}
-(2,1,1) = {"
-b
-b
-b
-b
 a
 a
-d
-d
-d
+a
+a
+b
+b
+a"}(2,1,1) = {"
 h
-"}
-(3,1,1) = {"
+d
+d
+d
+a
+a
 b
+b
+b
+b"}(3,1,1) = {"
+d
 c
+g
 d
-d
-e
 f
+e
+d
+d
+c
+b"}(4,1,1) = {"
+d
+g
+d
+e
+h
+h
+g
+d
+d
+a"}(5,1,1) = {"
 d
 g
 c
-d
-"}
-(4,1,1) = {"
-a
-d
-d
-g
-h
-h
 e
-d
-g
-d
-"}
-(5,1,1) = {"
-a
+h
+h
 e
 f
 e
-h
-h
+a"}(6,1,1) = {"
+d
+g
+d
 e
+h
+h
+g
+d
+d
+a"}(7,1,1) = {"
+d
 c
 g
 d
-"}
-(6,1,1) = {"
-a
-d
-d
-g
-h
-h
-e
-d
-g
-d
-"}
-(7,1,1) = {"
-b
-c
-d
-d
-e
 f
+e
 d
-g
+d
 c
-d
-"}
-(8,1,1) = {"
-b
-b
-b
-b
-a
-a
-d
-d
-d
+b"}(8,1,1) = {"
 h
-"}
-(9,1,1) = {"
+d
+d
+d
+a
 a
 b
 b
-a
-a
-a
-a
+b
+b"}(9,1,1) = {"
 a
 h
 a
-"}
+a
+a
+a
+a
+b
+b
+a"}

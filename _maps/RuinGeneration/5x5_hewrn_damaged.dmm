@@ -13,7 +13,7 @@
 /area/ruin/unpowered)
 "v" = (
 /obj/effect/abstract/doorway_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -27,7 +27,9 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "W" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "Z" = (
@@ -36,36 +38,27 @@
 
 (1,1,1) = {"
 Q
-G
+Z
 g
-Z
-Q
-"}
-(2,1,1) = {"
-Q
 G
-Z
+Q"}(2,1,1) = {"
+A
 W
-A
-"}
-(3,1,1) = {"
-v
-G
 Z
+G
+Q"}(3,1,1) = {"
+A
 W
-A
-"}
-(4,1,1) = {"
-Q
-G
-G
 Z
+G
+v"}(4,1,1) = {"
 A
-"}
-(5,1,1) = {"
+Z
+G
+G
+Q"}(5,1,1) = {"
 Q
 G
 j
 G
-Q
-"}
+Q"}

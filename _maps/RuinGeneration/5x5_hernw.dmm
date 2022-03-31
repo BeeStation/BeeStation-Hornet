@@ -3,7 +3,9 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "q" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "u" = (
@@ -20,7 +22,7 @@
 /area/ruin/unpowered)
 "M" = (
 /obj/effect/abstract/doorway_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -33,33 +35,24 @@ U
 U
 G
 U
+U"}(2,1,1) = {"
 U
-"}
-(2,1,1) = {"
-U
-o
-o
 q
-U
-"}
-(3,1,1) = {"
-M
 o
 o
-o
-U
-"}
-(4,1,1) = {"
+U"}(3,1,1) = {"
 U
 o
 o
 o
+M"}(4,1,1) = {"
 U
-"}
-(5,1,1) = {"
+o
+o
+o
+U"}(5,1,1) = {"
 U
 o
 u
 o
-U
-"}
+U"}

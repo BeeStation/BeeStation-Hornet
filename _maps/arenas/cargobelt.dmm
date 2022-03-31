@@ -1,18 +1,22 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "d" = (
-/obj/machinery/conveyor/auto,
-/obj/machinery/conveyor/auto,
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
 /turf/open/indestructible,
 /area/tdome/arena)
 "e" = (
 /obj/effect/turf_decal/stripes{
-	dir = 4
+	dir = 2
 	},
 /turf/open/indestructible,
 /area/tdome/arena)
 "f" = (
 /obj/effect/turf_decal/loading_area{
-	dir = 4
+	dir = 2
 	},
 /turf/open/indestructible,
 /area/tdome/arena)
@@ -21,7 +25,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/loading_area{
-	dir = 8
+	dir = 1
 	},
 /turf/open/indestructible,
 /area/tdome/arena)
@@ -33,36 +37,42 @@
 /area/tdome/arena)
 "n" = (
 /obj/effect/turf_decal/loading_area{
-	dir = 8
+	dir = 1
 	},
 /turf/open/indestructible,
 /area/tdome/arena)
 "r" = (
 /obj/effect/turf_decal/stripes{
-	dir = 8
+	dir = 1
 	},
 /turf/open/indestructible,
 /area/tdome/arena)
 "t" = (
-/obj/machinery/conveyor/auto,
-/obj/structure/closet/crate/large{
-	move_resist = 999999;
-	name = "very heavy crate"
-	},
-/turf/open/indestructible,
-/area/tdome/arena)
-"v" = (
 /obj/machinery/conveyor/auto{
 	dir = 1
 	},
 /obj/structure/closet/crate/large{
 	move_resist = 999999;
-	name = "very heavy crate"
+	name = "very heavy crate";
+	dir = 1
+	},
+/turf/open/indestructible,
+/area/tdome/arena)
+"v" = (
+/obj/machinery/conveyor/auto{
+	dir = 2
+	},
+/obj/structure/closet/crate/large{
+	move_resist = 999999;
+	name = "very heavy crate";
+	dir = 1
 	},
 /turf/open/indestructible,
 /area/tdome/arena)
 "x" = (
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/indestructible,
 /area/tdome/arena)
 "z" = (
@@ -75,16 +85,20 @@
 /turf/open/indestructible,
 /area/tdome/arena)
 "L" = (
-/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
 /turf/open/indestructible,
 /area/tdome/arena)
 "R" = (
-/obj/machinery/conveyor/auto,
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
 /turf/open/indestructible,
 /area/tdome/arena)
 "V" = (
 /obj/machinery/conveyor/auto{
-	dir = 1
+	dir = 2
 	},
 /turf/open/indestructible,
 /area/tdome/arena)
@@ -97,9 +111,7 @@ f
 f
 f
 f
-f
-"}
-(2,1,1) = {"
+f"}(2,1,1) = {"
 D
 D
 D
@@ -107,9 +119,7 @@ D
 D
 D
 D
-D
-"}
-(3,1,1) = {"
+D"}(3,1,1) = {"
 e
 e
 e
@@ -117,99 +127,79 @@ e
 e
 e
 e
-e
-"}
-(4,1,1) = {"
-d
+e"}(4,1,1) = {"
+j
 R
 t
 t
 t
 t
 R
+d"}(5,1,1) = {"
 j
-"}
-(5,1,1) = {"
-z
 L
 D
 D
 D
 D
 L
-j
-"}
-(6,1,1) = {"
-z
-D
-x
-x
-x
-x
-D
+z"}(6,1,1) = {"
 g
-"}
-(7,1,1) = {"
-z
 D
 x
 x
 x
 x
 D
+z"}(7,1,1) = {"
 j
-"}
-(8,1,1) = {"
-z
 D
 x
 x
 x
 x
 D
+z"}(8,1,1) = {"
 j
-"}
-(9,1,1) = {"
-z
 D
 x
 x
 x
 x
 D
+z"}(9,1,1) = {"
 j
-"}
-(10,1,1) = {"
-z
 D
 x
 x
 x
 x
 D
+z"}(10,1,1) = {"
 j
-"}
-(11,1,1) = {"
-z
+D
+x
+x
+x
+x
+D
+z"}(11,1,1) = {"
+j
 L
 D
 D
 D
 D
 L
-j
-"}
-(12,1,1) = {"
-z
+z"}(12,1,1) = {"
+V
 V
 v
 v
 v
 v
 V
-V
-"}
-(13,1,1) = {"
+z"}(13,1,1) = {"
 r
 r
 r
@@ -217,9 +207,7 @@ r
 r
 r
 r
-r
-"}
-(14,1,1) = {"
+r"}(14,1,1) = {"
 D
 D
 D
@@ -227,9 +215,7 @@ D
 D
 D
 D
-D
-"}
-(15,1,1) = {"
+D"}(15,1,1) = {"
 n
 n
 n
@@ -237,5 +223,4 @@ n
 n
 n
 n
-n
-"}
+n"}

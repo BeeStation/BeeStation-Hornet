@@ -1,92 +1,134 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "bL" = (
 /obj/effect/turf_decal/loading_area{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/barricade/wooden/crude,
-/obj/machinery/door/window/northleft{
+/obj/structure/barricade/wooden/crude{
+	dir = 1
+	},
+/obj/machinery/door/window/southleft{
 	name = "cage door"
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "ck" = (
 /obj/machinery/newscaster{
-	pixel_y = 30
+	pixel_y = -30;
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "cm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/machinery/cell_charger,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/table{
+	dir = 1
+	},
+/obj/machinery/cell_charger{
+	dir = 1
+	},
 /obj/item/stock_parts/cell/high{
 	pixel_x = 4;
-	pixel_y = 4
+	pixel_y = -4;
+	dir = 1
 	},
-/obj/item/stock_parts/cell/high,
-/obj/effect/decal/cleanable/cobweb,
+/obj/item/stock_parts/cell/high{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/cobweb{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "dc" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -26
+	pixel_x = -26;
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/wood,
 /area/template_noop)
 "ek" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/wood,
 /area/template_noop)
 "eK" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "eV" = (
-/obj/effect/turf_decal/loading_area,
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/structure/barricade/wooden/crude{
 	dir = 1
 	},
-/obj/structure/barricade/wooden/crude,
-/obj/machinery/door/window/southleft{
+/obj/machinery/door/window/northleft{
 	name = "cage door"
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "ix" = (
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/corner{
 	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/gibs/limb{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"iG" = (
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/blood/gibs/limb,
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"iG" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner,
 /obj/structure/sign/warning/electricshock{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/template_noop)
@@ -96,13 +138,21 @@
 	},
 /area/template_noop)
 "ke" = (
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "kl" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "kt" = (
@@ -126,8 +176,12 @@
 	},
 /area/template_noop)
 "np" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken3"
 	},
@@ -153,55 +207,83 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/trash/popcorn,
-/obj/effect/decal/cleanable/blood/old,
+/obj/item/trash/popcorn{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "pp" = (
-/obj/effect/spawner/structure/window/hollow/reinforced/directional,
+/obj/effect/spawner/structure/window/hollow/reinforced/directional{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "pP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/effect/turf_decal/bot_white,
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/rack{
 	dir = 1
+	},
+/obj/effect/turf_decal/bot_white{
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/bodybag{
-	pixel_y = 5
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
-/obj/item/shovel,
+/obj/item/bodybag{
+	pixel_y = -5;
+	dir = 1
+	},
+/obj/item/shovel{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "qz" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/book/manual/wiki/engineering_hacking{
 	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
+	pixel_y = -4;
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/pen,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/item/pen{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "rt" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "rz" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/directional{
-	dir = 9;
+	dir = 10;
 	icon_state = "hrwindow_spawner_directional"
 	},
 /turf/open/floor/plating,
@@ -210,63 +292,89 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/item/trash/chips,
+/obj/item/trash/chips{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "st" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/structure/sign/poster/contraband/random{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "sN" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/item/clipboard{
-	pixel_x = 4
+	pixel_x = 4;
+	dir = 1
 	},
 /obj/item/stack/spacecash/c50{
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
-/obj/item/stack/spacecash/c50,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
+/obj/item/stack/spacecash/c50{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
-	dir = 8
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "uh" = (
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/rack,
-/obj/item/storage/toolbox/emergency{
-	pixel_y = 5
+/obj/structure/rack{
+	dir = 1
 	},
-/obj/item/clothing/under/color/grey,
-/obj/effect/decal/cleanable/cobweb,
+/obj/item/storage/toolbox/emergency{
+	pixel_y = -5;
+	dir = 4
+	},
+/obj/item/clothing/under/color/grey{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/cobweb{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "uF" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken3"
@@ -274,49 +382,61 @@
 /area/template_noop)
 "vT" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/wood,
 /area/template_noop)
 "vZ" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/wood,
 /area/template_noop)
 "wv" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/box/corners,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/box/corners{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "wO" = (
 /obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "xP" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/wood,
 /area/template_noop)
 "yh" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/directional{
-	dir = 10;
+	dir = 9;
 	icon_state = "hrwindow_spawner_directional"
 	},
 /turf/open/floor/plating,
@@ -335,28 +455,36 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "As" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "AK" = (
 /obj/effect/turf_decal/tile/neutral{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/blood/old{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/box/corners{
-	dir = 4;
+	dir = 2;
 	icon_state = "box_corners"
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "BB" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -365,37 +493,50 @@
 	},
 /area/template_noop)
 "BL" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood,
-/obj/effect/turf_decal/tile/neutral,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/neutral{
-	dir = 8
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
 /obj/item/paper_bin{
 	pixel_x = -4;
-	pixel_y = 4
+	pixel_y = -4;
+	dir = 1
 	},
 /obj/item/coin/twoheaded{
 	pixel_x = 8;
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
 /obj/structure/sign/poster/contraband/rebels_unite{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "CG" = (
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
-	dir = 8
+	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "Ga" = (
@@ -405,65 +546,93 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "GQ" = (
 /obj/effect/turf_decal/tile/neutral{
-	dir = 4
+	dir = 2
 	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
-	dir = 8
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/remains/human,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "It" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "IO" = (
-/obj/machinery/computer/slot_machine,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
+/obj/machinery/computer/slot_machine{
+	dir = 1
 	},
-/obj/effect/turf_decal/bot_white,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "Jo" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken3"
 	},
 /area/template_noop)
 "Jx" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/directional{
-	dir = 5;
+	dir = 6;
 	icon_state = "hrwindow_spawner_directional"
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "JF" = (
 /obj/effect/turf_decal/tile/neutral{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "JV" = (
@@ -477,18 +646,26 @@
 /area/template_noop)
 "Kh" = (
 /obj/effect/turf_decal/tile/neutral{
-	dir = 4
+	dir = 2
 	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
-	dir = 8
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/blood/gibs/old,
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/gibs/old{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
@@ -497,12 +674,20 @@
 /area/template_noop)
 "MA" = (
 /obj/effect/turf_decal/tile/neutral{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/decal/cleanable/blood/gibs/limb,
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/gibs/limb{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -514,58 +699,76 @@
 /area/template_noop)
 "MH" = (
 /obj/effect/turf_decal/tile/neutral{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/box/corners{
-	dir = 8;
+	dir = 1;
 	icon_state = "box_corners"
 	},
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "MU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/assist,
-/obj/effect/turf_decal/bot_white,
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/machinery/vending/assist{
 	dir = 1
+	},
+/obj/effect/turf_decal/bot_white{
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
 /obj/structure/sign/poster/contraband/punch_shit{
-	pixel_x = 30
+	pixel_x = 30;
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "NW" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "Oo" = (
 /obj/structure/sign/poster/contraband/random{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "OG" = (
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "Pr" = (
-/obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken3"
@@ -580,24 +783,32 @@
 	},
 /area/template_noop)
 "QX" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/closed/wall,
 /area/template_noop)
 "Rf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "Ri" = (
 /obj/effect/turf_decal/tile/neutral{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -605,10 +816,14 @@
 /area/template_noop)
 "Ry" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "SR" = (
@@ -619,241 +834,262 @@
 /area/template_noop)
 "TG" = (
 /obj/effect/turf_decal/tile/neutral{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/gibs/old,
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/gibs/old{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "Ud" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/directional{
-	dir = 6;
+	dir = 5;
 	icon_state = "hrwindow_spawner_directional"
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "UK" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/directional{
-	dir = 1;
+	dir = 2;
 	icon_state = "hrwindow_spawner_directional"
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "UT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette,
-/obj/effect/turf_decal/bot_white,
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/machinery/vending/cigarette{
 	dir = 1
+	},
+/obj/effect/turf_decal/bot_white{
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32;
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "UX" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/closet/cabinet,
-/obj/item/stack/sheet/glass{
-	amount = 10
-	},
-/obj/item/stack/rods/ten,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/effect/turf_decal/tile/neutral{
+/obj/structure/closet/cabinet{
 	dir = 1
+	},
+/obj/item/stack/sheet/glass{
+	amount = 10;
+	dir = 1
+	},
+/obj/item/stack/rods/ten{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2{
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "VY" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "Xz" = (
 /obj/effect/turf_decal/tile/neutral{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "Yr" = (
 /obj/effect/turf_decal/tile/neutral{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
+	dir = 5
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/box/corners{
-	dir = 1;
+	dir = 8;
 	icon_state = "box_corners"
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "Zq" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken4"
 	},
 /area/template_noop)
 "ZI" = (
 /obj/effect/turf_decal/tile/neutral{
-	dir = 4
+	dir = 2
 	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
-	dir = 8
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 
 (1,1,1) = {"
-ol
-ol
-uh
-st
-OG
-Mr
-VY
-OG
-ol
 QX
-"}
-(2,1,1) = {"
 ol
-iG
-Rf
-kt
+OG
+VY
+Mr
+OG
+st
+uh
+ol
+ol"}(2,1,1) = {"
+ol
+dc
+SR
 kt
 nH
 kt
-SR
-dc
-ol
-"}
-(3,1,1) = {"
-cm
-kl
-rz
-yi
-yi
-yi
-yi
-yh
-vT
+kt
+Rf
+iG
+ol"}(3,1,1) = {"
 Oo
-"}
-(4,1,1) = {"
-jx
-np
-UK
-wv
-Ri
-MA
-AK
-pp
-xP
-ek
-"}
-(5,1,1) = {"
-IO
-ke
-Jx
-CG
-Kh
-ZI
-JF
-Ud
-It
-NW
-"}
-(6,1,1) = {"
-BL
-Pr
-eV
-ix
-ZI
-GQ
-wO
-bL
-As
-uF
-"}
-(7,1,1) = {"
-IO
-ke
-rz
-MH
-Xz
-TG
-Yr
+vT
 yh
-BB
-eK
-"}
-(8,1,1) = {"
-rt
-Zq
-Jx
-yZ
-yZ
-yZ
-yZ
+yi
+yi
+yi
+yi
+rz
+kl
+cm"}(4,1,1) = {"
+ek
+xP
+pp
+AK
+MA
+Ri
+wv
+UK
+np
+jx"}(5,1,1) = {"
+NW
+It
 Ud
+JF
+ZI
+Kh
+CG
+Jx
+ke
+IO"}(6,1,1) = {"
+uF
+As
+bL
+wO
+GQ
+ZI
+ix
+eV
+Pr
+BL"}(7,1,1) = {"
+eK
+BB
+yh
+Yr
+TG
+Xz
+MH
+rz
+ke
+IO"}(8,1,1) = {"
+Mr
 Ry
-Mr
-"}
-(9,1,1) = {"
+Ud
+yZ
+yZ
+yZ
+yZ
+Jx
+Zq
+rt"}(9,1,1) = {"
 ol
-ck
-rM
-nl
-Ga
-oq
-JV
-Qy
 vZ
+Qy
+JV
+oq
+Ga
+nl
+rM
+ck
+ol"}(10,1,1) = {"
 ol
-"}
-(10,1,1) = {"
-ol
-UX
-pP
-MU
-Mr
-Jo
-UT
-qz
 sN
-ol
-"}
+qz
+UT
+Jo
+Mr
+MU
+pP
+UX
+ol"}

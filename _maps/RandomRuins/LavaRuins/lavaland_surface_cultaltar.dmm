@@ -14,43 +14,65 @@
 /turf/closed/wall/mineral/cult,
 /area/ruin/unpowered)
 "e" = (
-/obj/effect/decal/remains/human,
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "f" = (
-/obj/structure/destructible/cult/pylon,
+/obj/structure/destructible/cult/pylon{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered)
 "g" = (
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "i" = (
-/obj/effect/decal/remains/human,
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "k" = (
-/obj/effect/decal/remains/human,
-/obj/item/melee/cultblade,
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
+/obj/item/melee/cultblade{
+	dir = 1
+	},
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "l" = (
-/obj/effect/decal/remains/human,
-/obj/item/clothing/shoes/cult,
-/obj/item/clothing/suit/cultrobes,
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
+/obj/item/clothing/shoes/cult{
+	dir = 1
+	},
+/obj/item/clothing/suit/cultrobes{
+	dir = 1
+	},
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "m" = (
-/obj/effect/decal/remains/human,
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -58,30 +80,47 @@
 "o" = (
 /obj/effect/rune/narsie{
 	color = "#ff0000";
-	used = 1
+	used = 1;
+	dir = 1
 	},
-/obj/item/cult_shift,
-/obj/effect/decal/remains/human,
-/obj/item/melee/cultblade/dagger,
+/obj/item/cult_shift{
+	dir = 1
+	},
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
+/obj/item/melee/cultblade/dagger{
+	dir = 1
+	},
 /obj/effect/step_trigger/sound_effect{
 	happens_once = 1;
 	name = "a grave mistake";
 	sound = 'sound/hallucinations/i_see_you1.ogg';
-	triggerer_only = 1
+	triggerer_only = 1;
+	dir = 1
 	},
 /obj/effect/step_trigger/message{
 	message = "<span class='cult italic'><b><span class='big'>You've made a grave mistake, haven't you?</span></b></span>";
-	name = "ohfuck"
+	name = "ohfuck";
+	dir = 1
 	},
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "q" = (
-/obj/effect/decal/remains/human,
-/obj/item/clothing/shoes/cult,
-/obj/item/clothing/suit/cultrobes,
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
+/obj/item/clothing/shoes/cult{
+	dir = 1
+	},
+/obj/item/clothing/suit/cultrobes{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -105,30 +144,26 @@ a
 a
 a
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 d
+s
+c
+s
+c
+b
+b
+b
+c
+s
+c
 e
-c
-s
-c
-b
-b
-b
-c
-s
-c
-s
 d
+a"}(3,1,1) = {"
 a
-"}
-(3,1,1) = {"
-a
-e
+s
 f
-s
+e
 d
 c
 c
@@ -136,29 +171,25 @@ g
 c
 c
 d
-e
+s
 f
-s
+e
+a"}(4,1,1) = {"
 a
-"}
-(4,1,1) = {"
-a
-c
-s
-c
-c
-c
-c
-b
-c
-c
-c
 c
 e
 c
-a
-"}
-(5,1,1) = {"
+c
+c
+c
+b
+c
+c
+c
+c
+s
+c
+a"}(5,1,1) = {"
 a
 s
 d
@@ -173,43 +204,37 @@ c
 c
 d
 s
-a
-"}
-(6,1,1) = {"
+a"}(6,1,1) = {"
 a
 c
 c
 c
 b
 b
-l
-d
 k
+d
+l
 b
 b
 c
 c
 c
-a
-"}
-(7,1,1) = {"
+a"}(7,1,1) = {"
 b
 b
 c
 c
-g
-i
-b
-b
 b
 l
 b
+b
+b
+i
+g
 c
 c
 b
-b
-"}
-(8,1,1) = {"
+b"}(8,1,1) = {"
 c
 b
 g
@@ -224,43 +249,37 @@ b
 b
 g
 b
-c
-"}
-(9,1,1) = {"
+c"}(9,1,1) = {"
 b
 b
 c
 c
+b
+m
+b
+b
 b
 k
 b
-b
-b
-m
-b
 c
 c
 b
-b
-"}
-(10,1,1) = {"
+b"}(10,1,1) = {"
 a
 c
 c
 c
-g
 b
-m
-d
+b
 q
+d
+m
 b
-b
+g
 c
 c
 c
-a
-"}
-(11,1,1) = {"
+a"}(11,1,1) = {"
 a
 s
 d
@@ -275,12 +294,10 @@ c
 c
 d
 s
-a
-"}
-(12,1,1) = {"
+a"}(12,1,1) = {"
 a
 c
-s
+e
 c
 c
 c
@@ -290,15 +307,13 @@ c
 c
 c
 c
-e
+s
 c
+a"}(13,1,1) = {"
 a
-"}
-(13,1,1) = {"
-a
-e
+s
 f
-s
+e
 d
 c
 c
@@ -306,29 +321,25 @@ g
 c
 c
 d
-e
+s
 f
-s
-a
-"}
-(14,1,1) = {"
-a
-d
 e
-c
-s
-c
-b
-b
-b
-c
-s
-c
-s
+a"}(14,1,1) = {"
+a
 d
-a
-"}
-(15,1,1) = {"
+s
+c
+s
+c
+b
+b
+b
+c
+s
+c
+e
+d
+a"}(15,1,1) = {"
 a
 a
 a
@@ -343,5 +354,4 @@ a
 a
 a
 a
-a
-"}
+a"}

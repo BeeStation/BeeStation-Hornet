@@ -6,11 +6,15 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "c" = (
-/obj/item/clockwork/alloy_shards/small,
+/obj/item/clockwork/alloy_shards/small{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "e" = (
-/obj/item/stack/tile/brass,
+/obj/item/stack/tile/brass{
+	dir = 1
+	},
 /turf/open/floor/clockwork{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -19,7 +23,9 @@
 /turf/closed/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "g" = (
-/obj/item/clockwork/alloy_shards/medium/gear_bit,
+/obj/item/clockwork/alloy_shards/medium/gear_bit{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "h" = (
@@ -28,14 +34,18 @@
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "i" = (
-/obj/structure/grille/ratvar/broken,
+/obj/structure/grille/ratvar/broken{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "j" = (
 /turf/closed/wall/clockwork,
 /area/lavaland/surface/outdoors/unexplored)
 "k" = (
-/obj/item/clockwork/alloy_shards/small,
+/obj/item/clockwork/alloy_shards/small{
+	dir = 1
+	},
 /turf/open/floor/clockwork{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -44,66 +54,94 @@
 /turf/open/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "m" = (
-/obj/item/clockwork/alloy_shards/medium,
+/obj/item/clockwork/alloy_shards/medium{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "n" = (
-/obj/item/clockwork/component/belligerent_eye/blind_eye,
+/obj/item/clockwork/component/belligerent_eye/blind_eye{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "o" = (
-/obj/item/clockwork/alloy_shards/large,
+/obj/item/clockwork/alloy_shards/large{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "p" = (
-/obj/item/clockwork/alloy_shards/medium,
+/obj/item/clockwork/alloy_shards/medium{
+	dir = 1
+	},
 /turf/open/floor/clockwork{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "q" = (
-/obj/structure/lattice/catwalk/clockwork,
+/obj/structure/lattice/catwalk/clockwork{
+	dir = 1
+	},
 /turf/open/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "r" = (
-/obj/structure/lattice/clockwork,
+/obj/structure/lattice/clockwork{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "s" = (
-/obj/item/clockwork/alloy_shards/large,
+/obj/item/clockwork/alloy_shards/large{
+	dir = 1
+	},
 /turf/open/floor/clockwork{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "t" = (
-/obj/item/stack/tile/brass,
+/obj/item/stack/tile/brass{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "u" = (
-/obj/structure/grille/ratvar,
+/obj/structure/grille/ratvar{
+	dir = 1
+	},
 /turf/open/floor/clockwork{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "v" = (
-/obj/item/clockwork/alloy_shards/medium,
-/obj/structure/lattice/clockwork,
+/obj/item/clockwork/alloy_shards/medium{
+	dir = 1
+	},
+/obj/structure/lattice/clockwork{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "w" = (
-/obj/structure/grille/ratvar/broken,
+/obj/structure/grille/ratvar/broken{
+	dir = 1
+	},
 /turf/open/floor/clockwork{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "x" = (
-/obj/item/stack/tile/brass,
+/obj/item/stack/tile/brass{
+	dir = 1
+	},
 /turf/open/floor/clockwork{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "y" = (
-/obj/item/clockwork/component/geis_capacitor/fallen_armor,
+/obj/item/clockwork/component/geis_capacitor/fallen_armor{
+	dir = 1
+	},
 /turf/open/floor/clockwork{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -114,39 +152,53 @@
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "A" = (
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/alloy_shards/clockgolem_remains{
+	dir = 1
+	},
 /turf/open/floor/clockwork{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "B" = (
-/obj/item/clockwork/weapon/brass_spear,
+/obj/item/clockwork/weapon/brass_spear{
+	dir = 1
+	},
 /turf/open/floor/clockwork{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "C" = (
-/obj/item/clockwork/alloy_shards/medium/gear_bit,
+/obj/item/clockwork/alloy_shards/medium/gear_bit{
+	dir = 1
+	},
 /turf/open/floor/clockwork{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "D" = (
-/obj/structure/grille/ratvar,
+/obj/structure/grille/ratvar{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "E" = (
-/obj/item/clockwork/alloy_shards/clockgolem_remains,
+/obj/item/clockwork/alloy_shards/clockgolem_remains{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "F" = (
-/obj/structure/dead_ratvar,
+/obj/structure/dead_ratvar{
+	dir = 1
+	},
 /turf/open/floor/clockwork{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "G" = (
-/obj/item/stack/tile/brass/fifty,
+/obj/item/stack/tile/brass/fifty{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 
@@ -158,15 +210,9 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
 b
+h
 s
-h
 b
 a
 a
@@ -175,123 +221,114 @@ a
 a
 a
 a
-"}
-(2,1,1) = {"
 a
 a
 a
 a
 a
+a"}(2,1,1) = {"
 a
 a
-o
-b
 a
-h
-b
-r
-c
-j
-e
-b
-b
+a
+a
 g
+b
+b
+e
+j
+c
+r
+b
+h
+a
+b
+o
 a
 a
 a
 a
 a
-"}
-(3,1,1) = {"
+a
+a"}(3,1,1) = {"
 a
 a
 a
 a
-a
-a
-f
+b
 b
 l
+c
+j
+j
+w
+p
 b
 v
 b
-p
-w
-j
-j
-c
 l
 b
-b
-a
-a
-a
-a
-"}
-(4,1,1) = {"
-a
-a
-a
-a
-a
-a
 f
-l
-l
+a
+a
+a
+a
+a
+a"}(4,1,1) = {"
+a
+a
 r
-b
-b
-l
-j
-j
-j
-p
-l
-b
-h
 c
-r
-a
-a
-"}
-(5,1,1) = {"
-a
-a
-a
-a
-a
+h
 b
-l
 l
 p
-h
-c
-l
-l
-l
+j
+j
 j
 l
 b
+b
+r
 l
 l
+f
+a
+a
+a
+a
+a
+a"}(5,1,1) = {"
+a
+a
+r
+h
 D
-h
-r
-a
-a
-"}
-(6,1,1) = {"
-a
-a
-a
-h
+l
+l
+b
+l
+j
+l
+l
+l
 c
 h
+p
+l
+l
+b
+a
+a
+a
+a
+a"}(6,1,1) = {"
+a
+a
+f
+h
+c
 m
-l
-l
-c
-l
 l
 l
 l
@@ -299,681 +336,569 @@ w
 l
 l
 l
+l
+c
+l
+l
 m
+h
 c
 h
+a
+a
+a"}(7,1,1) = {"
+a
+b
 f
-a
-a
-"}
-(7,1,1) = {"
-a
-a
-b
-b
-b
-l
-l
-l
-l
-h
-b
-l
-l
-l
-l
-l
-l
-l
-l
+f
 c
-f
-f
+l
+l
+l
+l
+l
+l
+l
+l
+b
+h
+l
+l
+l
+l
+b
+b
 b
 a
-"}
-(8,1,1) = {"
+a"}(8,1,1) = {"
 a
-h
-h
-g
-c
+a
+b
+f
+l
+l
+l
+l
 b
 l
 l
-l
-l
+r
+h
 n
+l
+l
+l
+l
+b
+c
+g
 h
-r
-l
-l
+h
+a"}(9,1,1) = {"
+a
+b
+b
+b
 b
 l
 l
-l
-l
-f
+g
 b
-a
-a
-"}
-(9,1,1) = {"
-a
+p
+w
+h
+b
+h
+t
+l
+l
+l
+l
+b
 b
 c
 b
-b
-l
-l
-l
-l
-t
-h
-b
-h
-w
-p
-b
-g
-l
-l
-b
-b
-b
-b
+a"}(10,1,1) = {"
 a
-"}
-(10,1,1) = {"
-b
-h
 l
 l
-l
+m
 l
 l
 l
 b
-b
-p
-r
-F
-b
-h
 A
+h
+b
+F
+r
+p
+b
 b
 l
 l
 l
-m
 l
 l
+l
+h
+b"}(11,1,1) = {"
 a
-"}
-(11,1,1) = {"
-c
+b
+l
+l
+l
+l
+l
+l
+r
+h
+h
+h
+k
+h
+b
+l
+l
+l
+l
+l
+j
+j
 i
-j
-j
-l
-l
-l
-l
-l
-b
-h
-k
-h
-h
-h
-r
-l
-l
-l
-l
-l
-l
-b
+c"}(12,1,1) = {"
 a
-"}
-(12,1,1) = {"
-b
-j
-j
-j
-h
-l
-l
-b
-l
-q
-r
-h
-h
-h
-c
-q
-l
-b
-l
-l
-b
-h
 o
-a
-"}
-(13,1,1) = {"
-e
-k
+h
 b
 l
 l
-l
 b
-p
-s
-r
-h
-h
-h
-h
-h
-h
-h
 l
-l
-l
-l
-b
-b
-a
-"}
-(14,1,1) = {"
-b
-b
-b
-m
-l
-l
-l
-b
-h
-h
-k
-h
-h
-h
-h
-h
+q
 c
-b
-l
-l
-b
-b
 h
-b
-"}
-(15,1,1) = {"
-b
-b
-b
+h
+h
+r
+q
 l
-l
+b
 l
 l
 h
+j
+j
+j
+b"}(13,1,1) = {"
+a
+b
+b
+l
+l
+l
+l
 h
+h
+h
+h
+h
+h
+h
+r
+s
+p
+b
+l
+l
+l
+b
+k
+e"}(14,1,1) = {"
+b
+h
+b
+b
+l
+l
+b
+c
 h
 h
 h
 h
 h
 k
+h
+h
+b
+l
+l
+l
+m
+b
+b
+b"}(15,1,1) = {"
+a
+b
+b
+l
+l
+l
+l
+h
 B
-h
-l
-l
-l
-l
-b
-b
-a
-"}
-(16,1,1) = {"
-f
-l
-l
-l
-l
-l
-l
-q
-b
-h
-h
-h
-h
-h
-h
-s
-b
-l
-l
-l
-l
-f
-f
-a
-"}
-(17,1,1) = {"
-b
-b
-b
-l
-l
-l
-b
-l
-q
-r
-h
-h
-h
-h
-h
-b
-s
-r
-l
-r
-l
-l
-b
-a
-"}
-(18,1,1) = {"
-b
-h
-l
-l
-l
-b
-b
-h
-b
-h
-h
-h
-h
-h
-r
 k
+h
+h
+h
+h
+h
+h
+h
+l
+l
+l
+l
 b
+b
+b"}(16,1,1) = {"
+a
+f
+f
+l
+l
+l
+l
+b
+s
+h
+h
+h
+h
+h
+h
+b
+q
+l
+l
+l
+l
+l
+l
+f"}(17,1,1) = {"
+a
+b
+l
+l
+r
+l
+r
+s
+b
+h
+h
+h
+h
+h
+r
+q
+l
+b
+l
+l
+l
+b
+b
+b"}(18,1,1) = {"
+b
+m
+b
+b
+h
+r
 C
+b
+k
 r
 h
+h
+h
+h
+h
 b
-b
-m
-b
-"}
-(19,1,1) = {"
+h
 b
 b
 l
 l
 l
-l
 h
+b"}(19,1,1) = {"
 b
-h
-h
-h
-h
-h
-h
+b
 h
 r
+h
+c
+h
 j
-h
-c
-h
 r
 h
-b
-b
-"}
-(20,1,1) = {"
-b
-l
-l
-l
-l
-b
-b
-p
 h
-c
+h
+h
+h
+h
+h
+b
+h
+l
+l
+l
+l
+b
+b"}(20,1,1) = {"
+o
+G
+r
+E
+b
+l
+l
+l
+b
+o
+h
 h
 k
 h
+c
 h
-o
+p
 b
-l
-l
-l
-b
-E
-r
-G
-o
-"}
-(21,1,1) = {"
-g
 b
 l
 l
 l
 l
+b"}(21,1,1) = {"
+r
+j
+j
 l
-r
-h
-r
-h
-h
-h
-h
+l
+l
+l
+l
+l
 y
-l
-l
-l
-l
-l
-l
-j
-j
+h
+h
+h
+h
 r
-"}
-(22,1,1) = {"
-c
-c
-b
+h
+r
 l
 l
+l
+l
+l
 b
+g"}(22,1,1) = {"
+j
+j
+j
+h
+l
+l
+l
+b
+m
 h
 h
+h
+h
+h
+b
 t
-b
 h
 h
-h
-h
-h
-m
 b
 l
 l
-l
-h
-j
-j
-j
-"}
-(23,1,1) = {"
 b
-h
-m
-n
+c
+c"}(23,1,1) = {"
 b
-h
-l
-o
-j
-u
 r
-p
-h
-r
-h
-b
-l
-l
-l
-b
-b
 w
+b
+b
+l
+l
+l
+b
+h
 r
-b
-"}
-(24,1,1) = {"
-a
-a
-b
-b
-l
-l
-l
-j
-j
-q
+h
 p
-h
-m
-e
-h
-j
-j
-l
-l
-c
-l
-l
-b
-a
-"}
-(25,1,1) = {"
-a
-a
-a
-l
-l
-l
-l
-j
-l
-l
-b
-h
 r
-e
-h
-l
-l
-l
-l
-l
-l
-a
-a
-a
-"}
-(26,1,1) = {"
-a
-a
-a
-c
-b
-l
-l
-l
-l
-l
-l
-g
-q
-b
-h
-l
-l
-l
-c
-m
-b
-a
-a
-a
-"}
-(27,1,1) = {"
-a
-a
-a
-b
-h
-b
-l
-l
-l
-l
-l
-l
-l
-l
-l
-l
-l
-l
-l
-b
-a
-a
-a
-a
-"}
-(28,1,1) = {"
-a
-a
-a
-a
-c
-b
-l
-b
-l
-l
-l
-l
-l
-l
-l
-l
-b
-l
-f
-a
-a
-a
-a
-a
-"}
-(29,1,1) = {"
-a
-a
-a
-a
-b
-b
-f
-c
-b
-l
-c
-l
-l
-l
-l
-c
+u
+j
 o
 l
+h
 b
+n
+m
+h
+b"}(24,1,1) = {"
 a
-a
-a
-a
-a
-"}
-(30,1,1) = {"
-a
-a
-a
-a
-a
-g
+b
+l
+l
 c
+l
+l
+j
+j
+h
+e
+m
+h
+p
+q
+j
+j
+l
+l
+l
+b
+b
+a
+a"}(25,1,1) = {"
+a
+a
+a
+l
+l
+l
+l
+l
+l
+h
+e
+r
+h
 b
 l
 l
+j
+l
+l
+l
+l
+a
+a
+a"}(26,1,1) = {"
+a
+a
+a
 b
 m
-l
-b
-l
-f
-b
-a
-a
-a
-a
-a
-a
-a
-"}
-(31,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-b
-l
-b
-a
-b
-l
 c
-f
-f
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(32,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+l
+l
+l
+h
+b
+q
+g
+l
+l
+l
+l
+l
+l
+b
 c
 a
 a
+a"}(27,1,1) = {"
+a
+a
+a
+a
+b
+l
+l
+l
+l
+l
+l
+l
+l
+l
+l
+l
+l
+l
+b
+h
+b
+a
+a
+a"}(28,1,1) = {"
+a
+a
+a
+a
+a
+f
+l
+b
+l
+l
+l
+l
+l
+l
+l
+l
+b
+l
+b
+c
+a
+a
+a
+a"}(29,1,1) = {"
+a
+a
+a
+a
+a
+b
+l
+o
+c
+l
+l
+l
+l
+c
+l
+b
+c
+f
+b
+b
+a
+a
+a
+a"}(30,1,1) = {"
 a
 a
 a
@@ -981,4 +906,68 @@ a
 a
 a
 a
-"}
+b
+f
+l
+b
+l
+m
+b
+l
+l
+b
+c
+g
+a
+a
+a
+a
+a"}(31,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+f
+f
+c
+l
+b
+a
+b
+l
+b
+a
+a
+a
+a
+a
+a
+a"}(32,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+c
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a"}

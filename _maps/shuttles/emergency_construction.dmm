@@ -4,10 +4,10 @@
 /area/template_noop)
 "b" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 1
+	dir = 2
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
@@ -15,12 +15,14 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "d" = (
-/obj/structure/window/reinforced,
-/obj/structure/shuttle/engine/heater{
+/obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/structure/shuttle/engine/heater{
+	dir = 2
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
@@ -31,121 +33,165 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "g" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/stack/sheet/glass/fifty{
 	pixel_x = 3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/item/stack/sheet/titaniumglass{
 	amount = 50;
 	pixel_x = -2;
-	pixel_y = -2
+	pixel_y = 2;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "j" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = 3;
-	pixel_y = 10
+/obj/structure/table{
+	dir = 1
 	},
 /obj/item/storage/toolbox/mechanical{
-	pixel_y = 4
+	pixel_x = 3;
+	pixel_y = -10;
+	dir = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = -4;
+	dir = 1
 	},
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -3;
-	pixel_y = -2
+	pixel_y = 2;
+	dir = 1
 	},
-/obj/item/airlock_painter,
+/obj/item/airlock_painter{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "k" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/electrical,
-/obj/item/clothing/gloves/color/yellow{
-	pixel_y = 8
+/obj/structure/table{
+	dir = 1
 	},
-/obj/item/storage/toolbox/electrical,
+/obj/item/storage/toolbox/electrical{
+	dir = 1
+	},
+/obj/item/clothing/gloves/color/yellow{
+	pixel_y = -8;
+	dir = 1
+	},
+/obj/item/storage/toolbox/electrical{
+	dir = 1
+	},
 /obj/item/multitool{
 	pixel_x = 2;
-	pixel_y = -4
+	pixel_y = 4;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "l" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/storage/box/lights/mixed{
 	pixel_x = -4;
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
 /obj/item/electronics/airalarm{
-	pixel_x = 8
+	pixel_x = 8;
+	dir = 1
 	},
 /obj/item/electronics/airalarm{
-	pixel_x = 8
+	pixel_x = 8;
+	dir = 1
 	},
 /obj/item/electronics/airalarm{
-	pixel_x = 8
+	pixel_x = 8;
+	dir = 1
 	},
 /obj/item/electronics/airalarm{
-	pixel_x = 8
+	pixel_x = 8;
+	dir = 1
 	},
 /obj/item/electronics/airlock{
 	pixel_x = -6;
-	pixel_y = -6
+	pixel_y = 6;
+	dir = 1
 	},
 /obj/item/electronics/airlock{
 	pixel_x = -6;
-	pixel_y = -6
+	pixel_y = 6;
+	dir = 1
 	},
 /obj/item/electronics/airlock{
 	pixel_x = -6;
-	pixel_y = -6
+	pixel_y = 6;
+	dir = 1
 	},
 /obj/item/electronics/airlock{
 	pixel_x = -6;
-	pixel_y = -6
+	pixel_y = 6;
+	dir = 1
 	},
 /obj/item/electronics/airlock{
 	pixel_x = -6;
-	pixel_y = -6
+	pixel_y = 6;
+	dir = 1
 	},
 /obj/item/electronics/airlock{
 	pixel_x = -6;
-	pixel_y = -6
+	pixel_y = 6;
+	dir = 1
 	},
 /obj/item/electronics/airlock{
 	pixel_x = -6;
-	pixel_y = -6
+	pixel_y = 6;
+	dir = 1
 	},
 /obj/item/electronics/airlock{
 	pixel_x = -6;
-	pixel_y = -6
+	pixel_y = 6;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "m" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/stack/sheet/iron/fifty{
 	pixel_x = 3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/item/stack/sheet/iron/fifty{
 	pixel_x = -2;
-	pixel_y = -2
+	pixel_y = 2;
+	dir = 1
 	},
-/obj/item/stack/rods/fifty,
+/obj/item/stack/rods/fifty{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "n" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/stack/sheet/mineral/titanium/fifty{
 	pixel_x = 3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/item/stack/sheet/mineral/titanium/fifty{
 	pixel_x = -2;
-	pixel_y = -2
+	pixel_y = 2;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -154,140 +200,99 @@
 /area/shuttle/escape)
 "B" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
+	name = "Emergency Shuttle Airlock";
+	dir = 1
 	},
-/obj/structure/fans/tiny,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"J" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
-	},
-/obj/docking_port/mobile/emergency/shuttle_build{
-	dwidth = 6;
-	height = 15;
-	name = "Shuttle Under Construction";
-	port_direction = 4;
-	preferred_direction = 2;
-	width = 23
-	},
-/obj/structure/fans/tiny,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"S" = (
-/obj/machinery/computer/emergency_shuttle{
+/obj/structure/fans/tiny{
 	dir = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"J" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Emergency Shuttle Airlock";
+	dir = 1
+	},
+/obj/docking_port/mobile/emergency/shuttle_build{
+	dwidth = 16;
+	height = 15;
+	name = "Shuttle Under Construction";
+	port_direction = 4;
+	preferred_direction = 2;
+	width = 23;
+	dir = 4
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"S" = (
+/obj/machinery/computer/emergency_shuttle{
+	dir = 2
+	},
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "U" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 
 (1,1,1) = {"
 a
-c
-e
+a
+a
+a
+a
+a
+p
 e
 B
+e
+B
+e
+e
+e
+e
 e
 J
 e
-e
-e
-e
-e
 B
 e
-B
 e
-p
-a
-a
-a
-a
-a
-a
-"}
-(2,1,1) = {"
-b
-d
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-e
-p
-a
-a
-a
-a
-a
-"}
-(3,1,1) = {"
-b
-d
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-e
-a
-a
-a
-a
-a
-"}
-(4,1,1) = {"
 c
-c
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-e
-e
-U
-U
-U
+a"}(2,1,1) = {"
 a
-"}
-(5,1,1) = {"
-b
+a
+a
+a
+a
+p
+e
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
 d
+b"}(3,1,1) = {"
+a
+a
+a
+a
+a
+e
 f
 f
 f
@@ -303,260 +308,281 @@ f
 f
 f
 f
-f
-f
-f
-f
+d
+b"}(4,1,1) = {"
+a
 U
 U
-"}
-(6,1,1) = {"
-b
-d
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
 U
-"}
-(7,1,1) = {"
-b
+e
+e
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+c
+c"}(5,1,1) = {"
+U
+U
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
 d
+b"}(6,1,1) = {"
+U
 f
 f
 f
 f
 f
 f
-j
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+d
+b"}(7,1,1) = {"
+U
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
 f
 m
 f
+j
 f
 f
 f
 f
 f
 f
-f
-f
-f
-f
+d
+b"}(8,1,1) = {"
 U
-"}
-(8,1,1) = {"
-c
-c
+S
 f
 f
 f
 f
 f
 f
-k
+f
+f
+f
 f
 n
 f
+k
 f
 f
 f
 f
 f
 f
-f
-f
-f
-S
+c
+c"}(9,1,1) = {"
 U
-"}
-(9,1,1) = {"
-b
-d
 f
 f
 f
 f
 f
 f
-l
+f
+f
+f
+f
 f
 g
 f
+l
 f
 f
 f
 f
 f
 f
-f
-f
-f
-f
-U
-"}
-(10,1,1) = {"
-b
 d
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
+b"}(10,1,1) = {"
 U
-"}
-(11,1,1) = {"
-b
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
 d
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
+b"}(11,1,1) = {"
 U
 U
-"}
-(12,1,1) = {"
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+d
+b"}(12,1,1) = {"
+a
+U
+U
+U
+e
+e
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
 c
-c
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-e
-e
-U
-U
-U
+c"}(13,1,1) = {"
 a
-"}
-(13,1,1) = {"
-b
+a
+a
+a
+a
+e
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
 d
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-e
+b"}(14,1,1) = {"
 a
 a
 a
 a
 a
-"}
-(14,1,1) = {"
-b
-d
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-e
 p
+e
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+f
+d
+b"}(15,1,1) = {"
 a
 a
 a
 a
 a
-"}
-(15,1,1) = {"
 a
-c
-e
-e
-U
-e
-e
-e
-e
-U
-e
-e
-e
-e
-U
-e
 p
-a
-a
-a
-a
-a
-a
-"}
+e
+U
+e
+e
+e
+e
+U
+e
+e
+e
+e
+U
+e
+e
+c
+a"}

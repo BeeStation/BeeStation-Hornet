@@ -9,13 +9,21 @@
 /turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "g" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/flashlight/lamp{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "j" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "k" = (
@@ -25,7 +33,9 @@
 /turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "l" = (
-/obj/item/kirbyplants/random,
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 8
 	},
@@ -35,83 +45,131 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "p" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/paper_bin{
+	dir = 1
+	},
+/obj/item/pen{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2{
+	dir = 4
+	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken2"
 	},
 /area/template_noop)
 "t" = (
-/obj/structure/bookcase,
-/turf/open/floor/wood,
-/area/template_noop)
-"w" = (
-/obj/structure/table/wood,
-/turf/open/floor/plasteel/grimy,
-/area/template_noop)
-"y" = (
-/obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/wood,
-/area/template_noop)
-"z" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/turf/open/floor/plasteel/grimy,
-/area/template_noop)
-"B" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/wood,
-/area/template_noop)
-"C" = (
-/obj/structure/table/wood,
-/obj/item/clipboard,
-/obj/item/folder/red,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/grimy,
-/area/template_noop)
-"D" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood,
-/turf/open/floor/wood,
-/area/template_noop)
-"E" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 10
-	},
-/turf/open/floor/plasteel/grimy,
-/area/template_noop)
-"F" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/office{
+/obj/structure/bookcase{
 	dir = 1
 	},
 /turf/open/floor/wood,
 /area/template_noop)
+"w" = (
+/obj/structure/table/wood{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"y" = (
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/two{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"z" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"B" = (
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"C" = (
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/clipboard{
+	dir = 1
+	},
+/obj/item/folder/red{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"D" = (
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/table/wood{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"E" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 9
+	},
+/turf/open/floor/plasteel/grimy,
+/area/template_noop)
+"F" = (
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/chair/office{
+	dir = 2
+	},
+/turf/open/floor/wood,
+/area/template_noop)
 "G" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "J" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/door/airlock/maintenance{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /turf/template_noop,
 /area/template_noop)
 "K" = (
 /turf/closed/wall/r_wall,
 /area/template_noop)
 "L" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "O" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/kirbyplants/random,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 4
 	},
@@ -120,112 +178,134 @@
 	},
 /area/template_noop)
 "P" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/bookcase/random/fiction,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/bookcase/random/fiction{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "Q" = (
-/obj/structure/bookcase/random/nonfiction,
+/obj/structure/bookcase/random/nonfiction{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "S" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/table/wood{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "T" = (
-/obj/structure/chair/office,
+/obj/structure/chair/office{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "U" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "V" = (
 /turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "W" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 4
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
 "X" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /turf/open/floor/plasteel/grimy,
 /area/template_noop)
 "Y" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/item/toy/cards/deck/cas{
 	pixel_x = -5;
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /obj/item/toy/cards/deck/cas/black{
 	pixel_x = 5;
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/template_noop)
 "Z" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/bookcase/random/reference,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/bookcase/random/reference{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 
 (1,1,1) = {"
-U
-O
-P
-Q
-Z
-P
-t
-L
-D
+a
 y
-a
-"}
-(2,1,1) = {"
-W
-E
-j
-X
-X
-j
-X
-j
-j
-z
-J
-"}
-(3,1,1) = {"
-W
-G
-V
-w
-k
-C
-G
-S
-V
-e
-a
-"}
-(4,1,1) = {"
-U
-p
-o
-Y
-B
-g
-T
 D
-F
+L
+t
+P
+Z
+Q
+P
+O
+U"}(2,1,1) = {"
+J
+z
+j
+j
+X
+j
+X
+X
+j
+E
+W"}(3,1,1) = {"
+a
+e
+V
+S
+G
+C
+k
+w
+V
+G
+W"}(4,1,1) = {"
+K
 l
+F
+D
+T
+g
+B
+Y
+o
+p
+U"}(5,1,1) = {"
 K
-"}
-(5,1,1) = {"
-a
 a
 a
 U
@@ -235,5 +315,4 @@ U
 U
 a
 a
-K
-"}
+a"}

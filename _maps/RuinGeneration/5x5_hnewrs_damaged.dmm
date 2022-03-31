@@ -12,7 +12,9 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "K" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "M" = (
@@ -20,12 +22,14 @@
 /area/ruin/unpowered)
 "P" = (
 /obj/effect/abstract/open_area_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "X" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "Z" = (
@@ -40,33 +44,24 @@ M
 J
 Z
 J
+M"}(2,1,1) = {"
 M
-"}
-(2,1,1) = {"
-J
 J
 u
 J
-M
-"}
-(3,1,1) = {"
-P
+J"}(3,1,1) = {"
+K
 u
 X
 u
-K
-"}
-(4,1,1) = {"
-J
-u
-u
-J
+P"}(4,1,1) = {"
 M
-"}
-(5,1,1) = {"
+J
+u
+u
+J"}(5,1,1) = {"
 M
 J
 i
 J
-M
-"}
+M"}

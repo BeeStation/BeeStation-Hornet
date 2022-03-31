@@ -1,18 +1,26 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/item/storage/pill_bottle/happiness{
 	pixel_x = 8;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/item/paper_bin{
-	pixel_x = -4
+	pixel_x = -4;
+	dir = 1
 	},
-/obj/item/pen,
+/obj/item/pen{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/template_noop)
 "p" = (
-/obj/structure/reagent_dispensers/water_cooler,
+/obj/structure/reagent_dispensers/water_cooler{
+	dir = 1
+	},
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "s" = (
@@ -22,15 +30,21 @@
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "t" = (
-/obj/structure/chair/office,
-/obj/effect/landmark/start/randommaint/shrink,
+/obj/structure/chair/office{
+	dir = 1
+	},
+/obj/effect/landmark/start/randommaint/shrink{
+	dir = 1
+	},
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "v" = (
 /turf/closed/wall,
 /area/template_noop)
 "x" = (
-/obj/item/chair,
+/obj/item/chair{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/template_noop)
 "z" = (
@@ -46,63 +60,100 @@
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "T" = (
-/obj/machinery/door/airlock/wood,
+/obj/machinery/door/airlock/wood{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/template_noop)
 "W" = (
-/obj/item/electropack,
+/obj/item/electropack{
+	dir = 1
+	},
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = 2;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
-/obj/structure/closet,
-/obj/item/storage/pill_bottle/mannitol,
-/obj/item/reagent_containers/glass/bottle/morphine,
-/obj/item/reagent_containers/glass/bottle/morphine,
-/obj/item/gun/syringe,
-/obj/item/storage/box/syringes,
-/obj/item/restraints/handcuffs,
-/obj/item/clothing/suit/straight_jacket,
-/obj/item/clothing/mask/muzzle,
-/obj/item/clothing/glasses/blindfold,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/item/storage/pill_bottle/mannitol{
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/bottle/morphine{
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/bottle/morphine{
+	dir = 1
+	},
+/obj/item/gun/syringe{
+	dir = 1
+	},
+/obj/item/storage/box/syringes{
+	dir = 1
+	},
+/obj/item/restraints/handcuffs{
+	dir = 1
+	},
+/obj/item/clothing/suit/straight_jacket{
+	dir = 1
+	},
+/obj/item/clothing/mask/muzzle{
+	dir = 1
+	},
+/obj/item/clothing/glasses/blindfold{
+	dir = 1
+	},
 /obj/item/clothing/head/helmet{
 	desc = "A special helmet, to prevent a psychotic individual from injuring their head.";
-	name = "safety helmet"
+	name = "safety helmet";
+	dir = 1
 	},
-/obj/item/tape/random,
-/obj/item/tape/random,
-/obj/item/tape/random,
-/obj/item/camera,
-/obj/item/camera_film,
+/obj/item/tape/random{
+	dir = 1
+	},
+/obj/item/tape/random{
+	dir = 1
+	},
+/obj/item/tape/random{
+	dir = 1
+	},
+/obj/item/camera{
+	dir = 1
+	},
+/obj/item/camera_film{
+	dir = 1
+	},
 /obj/item/storage/pill_bottle/happiness{
-	pixel_x = -7
+	pixel_x = -7;
+	dir = 1
 	},
 /obj/item/storage/pill_bottle/happiness{
-	pixel_x = -7
+	pixel_x = -7;
+	dir = 1
 	},
-/obj/item/storage/pill_bottle/mannitol,
-/obj/item/clothing/glasses/hud/health,
+/obj/item/storage/pill_bottle/mannitol{
+	dir = 1
+	},
+/obj/item/clothing/glasses/hud/health{
+	dir = 1
+	},
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 
 (1,1,1) = {"
-s
-I
-z
-v
 a
-"}
-(2,1,1) = {"
+v
+z
+I
+s"}(2,1,1) = {"
+x
+v
 z
 t
-z
-v
-x
-"}
-(3,1,1) = {"
-W
-p
-z
-T
+z"}(3,1,1) = {"
 F
-"}
+T
+z
+p
+W"}

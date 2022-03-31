@@ -1,75 +1,102 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/eight{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "b" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "c" = (
 /turf/open/floor/plasteel,
 /area/template_noop)
 "d" = (
-/obj/structure/table,
-/obj/item/stack/sheet/cardboard/fifty,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/stack/sheet/cardboard/fifty{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "e" = (
-/obj/structure/table,
-/obj/item/lightreplacer,
-/obj/machinery/light/small,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/lightreplacer{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "f" = (
-/obj/structure/rack,
-/obj/item/extinguisher,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/extinguisher{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "g" = (
-/obj/structure/reagent_dispensers/watertank,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/watertank{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "h" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/trap/nexus/trickyspawner,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
+/obj/effect/trap/nexus/trickyspawner{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "i" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/trap{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "r" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-c
 d
-"}
-(2,1,1) = {"
-a
-h
-e
-"}
-(3,1,1) = {"
-r
-i
 c
-"}
-(4,1,1) = {"
-a
-b
+a"}(2,1,1) = {"
+e
+h
+a"}(3,1,1) = {"
+c
+i
+r"}(4,1,1) = {"
 f
-"}
-(5,1,1) = {"
-a
-r
+b
+a"}(5,1,1) = {"
 g
-"}
+r
+a"}

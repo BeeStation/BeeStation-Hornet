@@ -6,9 +6,11 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "b" = (
-/obj/machinery/door/poddoor/shutters/preopen,
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
@@ -38,40 +40,52 @@
 /area/ruin/unpowered)
 "i" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "l" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/crate_spawner{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "n" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "r" = (
-/obj/structure/rack,
+/obj/structure/rack{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/ruin/unpowered)
 "s" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/lootdrop/crate_spawner{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/ruin/unpowered)
 "t" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "u" = (
 /obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/brown{
-	dir = 4
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
@@ -82,12 +96,18 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered)
 "w" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/lootdrop/crate_spawner{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "y" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/glowstick/lit{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "B" = (
@@ -95,12 +115,14 @@
 /area/ruin/unpowered)
 "C" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "D" = (
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "E" = (
@@ -108,35 +130,49 @@
 /area/ruin/unpowered)
 "F" = (
 /obj/effect/turf_decal/tile/brown{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/brown,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "G" = (
-/obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/crate_spawner{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "H" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/crate_spawner{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "I" = (
-/obj/machinery/door/airlock/mining,
+/obj/machinery/door/airlock/mining{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "J" = (
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "K" = (
 /obj/effect/turf_decal/tile/brown{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/brown{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
@@ -145,12 +181,14 @@
 /area/ruin/unpowered)
 "N" = (
 /obj/effect/turf_decal/tile/brown{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/brown{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "P" = (
@@ -179,16 +217,20 @@
 /area/ruin/unpowered)
 "W" = (
 /obj/effect/turf_decal/tile/brown{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/brown{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "X" = (
-/obj/machinery/door/poddoor/shutters/preopen,
-/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/ruin/unpowered)
 "Y" = (
@@ -197,20 +239,18 @@
 
 (1,1,1) = {"
 M
+M
+M
+M
+M
+M
+M
+M
+M
 h
 a
 h
-M
-M
-M
-M
-M
-M
-M
-M
-M
-"}
-(2,1,1) = {"
+M"}(2,1,1) = {"
 M
 h
 h
@@ -223,223 +263,189 @@ h
 h
 h
 h
-M
-"}
-(3,1,1) = {"
+M"}(3,1,1) = {"
 M
 h
-h
-h
-h
-h
-h
-h
-J
-J
 H
-h
-M
-"}
-(4,1,1) = {"
-M
-h
-h
-h
-h
-h
-h
-h
-h
-h
-h
-h
-M
-"}
-(5,1,1) = {"
-M
-h
-h
-h
-h
-h
-h
-h
-G
-y
-n
-h
-M
-"}
-(6,1,1) = {"
-M
-h
-h
-h
-h
-h
-h
-h
-h
-h
-h
-h
-M
-"}
-(7,1,1) = {"
-M
-Q
-Q
-Q
-Q
-Q
-Q
-i
 J
-G
+J
+h
+h
+h
+h
+h
+h
+h
+M"}(4,1,1) = {"
+M
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+M"}(5,1,1) = {"
+M
+h
 n
+y
+G
 h
+h
+h
+h
+h
+h
+h
+M"}(6,1,1) = {"
 M
-"}
-(8,1,1) = {"
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+h
+M"}(7,1,1) = {"
 M
-S
-S
-S
-S
-S
-S
+h
+n
+G
+J
+i
+Q
+Q
+Q
+Q
+Q
+Q
+M"}(8,1,1) = {"
+M
+h
+h
+h
+h
 C
-h
-h
-h
-h
+S
+S
+S
+S
+S
+S
+M"}(9,1,1) = {"
 M
-"}
-(9,1,1) = {"
-M
+h
+h
+h
+h
+C
 S
 Y
 t
 t
 Y
 S
-C
-h
-h
-h
-h
+M"}(10,1,1) = {"
 M
-"}
-(10,1,1) = {"
-M
-Y
-Y
-g
-g
-Y
-Y
 M
 M
 I
 M
 M
-M
-"}
-(11,1,1) = {"
-M
 Y
-s
-P
-P
-r
 Y
+g
+g
+Y
+Y
+M"}(11,1,1) = {"
 M
+W
+W
+W
 u
-W
-W
-W
-M
-"}
-(12,1,1) = {"
 M
 Y
-E
-E
-E
-E
-X
-b
-K
-l
-l
+r
+P
+P
+s
+Y
+M"}(12,1,1) = {"
+M
 V
-M
-"}
-(13,1,1) = {"
-M
+l
+l
+K
+b
+X
+E
+E
+E
+E
 Y
+M"}(13,1,1) = {"
+M
+V
+V
+V
+K
+b
+X
+E
 E
 s
 E
-E
-X
-b
-K
-V
-V
-V
-M
-"}
-(14,1,1) = {"
-M
 Y
-s
-E
-E
-E
-X
-b
-K
+M"}(14,1,1) = {"
+M
+V
+V
 w
-V
-V
-M
-"}
-(15,1,1) = {"
-M
-B
-B
-c
-c
-B
-B
-M
 K
-D
-l
+b
+X
+E
+E
+E
+s
+Y
+M"}(15,1,1) = {"
+M
 V
+l
+D
+K
 M
-"}
-(16,1,1) = {"
+B
+B
+c
+c
+B
+B
+M"}(16,1,1) = {"
 M
-S
-f
-T
-T
-v
-S
-M
+F
+F
+F
 N
-F
-F
-F
 M
-"}
-(17,1,1) = {"
-M
-M
-M
-M
+S
+v
+T
+T
+f
+S
+M"}(17,1,1) = {"
 M
 M
 M
@@ -449,4 +455,7 @@ M
 M
 M
 M
-"}
+M
+M
+M
+M"}

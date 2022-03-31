@@ -6,7 +6,9 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "ac" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/survivalpod)
 "ad" = (
@@ -19,14 +21,18 @@
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
 "af" = (
-/obj/structure/sink,
+/obj/structure/sink{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
 "ag" = (
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "ah" = (
-/obj/item/gps/computer,
+/obj/item/gps/computer{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/survivalpod)
 "ai" = (
@@ -42,7 +48,9 @@
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "al" = (
-/obj/structure/toilet/secret,
+/obj/structure/toilet/secret{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "am" = (
@@ -52,92 +60,156 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "an" = (
-/obj/structure/fence/door,
+/obj/structure/fence/door{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "ao" = (
-/obj/structure/closet/crate,
-/obj/effect/decal/cleanable/cobweb,
-/obj/item/mecha_parts/mecha_equipment/drill,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/cobweb{
+	dir = 4
+	},
+/obj/item/mecha_parts/mecha_equipment/drill{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "ap" = (
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "aq" = (
-/obj/machinery/vendor/mining,
+/obj/machinery/vendor/mining{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "ar" = (
-/obj/structure/sign/poster/official/random,
+/obj/structure/sign/poster/official/random{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
 "as" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "at" = (
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "au" = (
-/obj/machinery/door/airlock/survival_pod,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "av" = (
-/obj/structure/barricade/sandbags,
+/obj/structure/barricade/sandbags{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "aw" = (
-/obj/structure/closet/crate,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/stack/sheet/iron/ten,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	dir = 1
+	},
+/obj/item/stack/sheet/iron/ten{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "ax" = (
-/obj/structure/extinguisher_cabinet,
+/obj/structure/extinguisher_cabinet{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "ay" = (
-/obj/structure/mirror,
+/obj/structure/mirror{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
 "az" = (
-/obj/effect/turf_decal/box,
-/obj/structure/safe/floor,
+/obj/effect/turf_decal/box{
+	dir = 4
+	},
+/obj/structure/safe/floor{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "aA" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "aB" = (
-/obj/structure/rack,
-/obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
-/obj/machinery/light/small,
-/obj/item/paper/fluff/itemnotice,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/mop{
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/bucket{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/paper/fluff/itemnotice{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "aC" = (
-/obj/structure/fence,
+/obj/structure/fence{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "aD" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "aE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/survival_pod,
-/obj/structure/fans/tiny,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/machinery/door/airlock/survival_pod{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "aF" = (
-/obj/structure/table,
-/obj/item/storage/bag/tray,
-/obj/item/kitchen/fork,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/bag/tray{
+	dir = 1
+	},
+/obj/item/kitchen/fork{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "aG" = (
@@ -147,21 +219,33 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "aH" = (
-/obj/structure/bonfire,
+/obj/structure/bonfire{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "aI" = (
-/obj/structure/table,
-/obj/item/trash/coal,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/trash/coal{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "aJ" = (
-/obj/structure/sign/poster/official/random,
+/obj/structure/sign/poster/official/random{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "aK" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aL" = (
@@ -171,9 +255,15 @@
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aM" = (
-/obj/structure/table,
-/obj/item/lighter/greyscale,
-/obj/item/toy/cards/deck/cas,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/lighter/greyscale{
+	dir = 1
+	},
+/obj/item/toy/cards/deck/cas{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aN" = (
@@ -183,15 +273,21 @@
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "aO" = (
-/obj/structure/fans,
+/obj/structure/fans{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aP" = (
-/obj/machinery/suit_storage_unit,
+/obj/machinery/suit_storage_unit{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aQ" = (
-/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/generic{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "aS" = (
@@ -201,97 +297,157 @@
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "aT" = (
-/obj/structure/closet,
-/obj/item/clothing/shoes/workboots/mining,
-/obj/item/clothing/gloves/fingerless,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/item/clothing/shoes/workboots/mining{
+	dir = 1
+	},
+/obj/item/clothing/gloves/fingerless{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/beer{
+	dir = 1
+	},
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/pickaxe/mini,
-/obj/item/clothing/under/rank/cargo/miner/lavaland,
+/obj/item/pickaxe/mini{
+	dir = 1
+	},
+/obj/item/clothing/under/rank/cargo/miner/lavaland{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aU" = (
-/obj/structure/bed/pod,
+/obj/structure/bed/pod{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aV" = (
-/obj/structure/closet/crate/bin,
+/obj/structure/closet/crate/bin{
+	dir = 1
+	},
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aW" = (
-/obj/machinery/vending/mining,
+/obj/machinery/vending/mining{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aX" = (
-/obj/structure/closet,
-/obj/item/clothing/shoes/workboots/mining,
-/obj/item/clothing/gloves/fingerless,
-/obj/item/reagent_containers/food/drinks/beer,
-/obj/item/pickaxe/mini,
-/obj/item/clothing/under/rank/cargo/miner/lavaland,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/item/clothing/shoes/workboots/mining{
+	dir = 1
+	},
+/obj/item/clothing/gloves/fingerless{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/beer{
+	dir = 1
+	},
+/obj/item/pickaxe/mini{
+	dir = 1
+	},
+/obj/item/clothing/under/rank/cargo/miner/lavaland{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "aY" = (
-/obj/structure/ore_box,
+/obj/structure/ore_box{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "aZ" = (
-/obj/structure/sign/mining,
+/obj/structure/sign/mining{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "ba" = (
-/obj/machinery/vending/wallmed/survival_pod,
+/obj/machinery/vending/wallmed/survival_pod{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "bb" = (
-/obj/structure/table,
-/obj/item/healthanalyzer,
-/obj/item/gps/mining,
-/obj/item/paper/fluff/encampmentwelcome,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/healthanalyzer{
+	dir = 1
+	},
+/obj/item/gps/mining{
+	dir = 1
+	},
+/obj/item/paper/fluff/encampmentwelcome{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "bc" = (
-/obj/item/trash/raisins,
+/obj/item/trash/raisins{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "bd" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "be" = (
-/obj/machinery/sleeper/survival_pod,
+/obj/machinery/sleeper/survival_pod{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "bf" = (
 /obj/structure/noticeboard{
-	dir = 1;
-	pixel_y = -32
+	dir = 2;
+	pixel_y = 32
 	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "bg" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/bedsheetbin,
+/obj/structure/bedsheetbin{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "bh" = (
-/obj/structure/fence/corner,
+/obj/structure/fence/corner{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "bi" = (
-/obj/item/clothing/head/kitty/genuine,
+/obj/item/clothing/head/kitty/genuine{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "bj" = (
-/obj/effect/decal/cleanable/ash,
+/obj/effect/decal/cleanable/ash{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "bk" = (
@@ -301,26 +457,32 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/survivalpod)
 "bl" = (
-/obj/item/trash/sosjerky,
+/obj/item/trash/sosjerky{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/template_noop)
 "bm" = (
-/obj/machinery/light/floor,
-/turf/open/floor/plating/asteroid/basalt,
-/area/survivalpod)
-"bn" = (
-/obj/machinery/light{
+/obj/machinery/light/floor{
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/survivalpod)
+"bn" = (
+/obj/machinery/light{
+	dir = 2
+	},
+/turf/open/floor/plating/asteroid/basalt,
+/area/survivalpod)
 "bo" = (
-/obj/item/roller,
+/obj/item/roller{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "bp" = (
 /obj/structure/chair{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
@@ -328,238 +490,219 @@
 (1,1,1) = {"
 aa
 aa
-ad
-aa
-aa
-aa
-ab
-ab
-aa
-aa
-aa
 aa
 ad
 aa
 aa
 aa
-"}
-(2,1,1) = {"
 aa
-ae
-aj
-ar
-ae
 ab
 ab
-bm
+aa
+aa
+aa
+ad
+aa
+aa"}(2,1,1) = {"
+aa
+ag
+ag
 ag
 ag
 aS
 ag
 ag
-ag
-ag
-aa
-"}
-(3,1,1) = {"
-aa
-af
-ak
-as
+bm
+ab
+ab
 ae
+ar
+aj
+ae
+aa"}(3,1,1) = {"
+aa
+ag
+be
+ba
+aX
+aT
+aO
+ag
 aC
 aG
 aC
-ag
-aO
-aT
-aX
-ba
-be
-ag
-aa
-"}
-(4,1,1) = {"
-aa
 ae
-al
-at
-ay
-aF
-ab
-ab
-aK
+as
 ak
-ak
-ak
-ak
+af
+aa"}(4,1,1) = {"
+aa
+ag
 bf
-ag
-aa
-"}
-(5,1,1) = {"
-aa
+ak
+ak
+ak
+ak
+aK
+ab
+ab
+aF
+ay
+at
+al
 ae
+aa"}(5,1,1) = {"
+bn
+aZ
+bg
+bb
+aU
+aU
+aP
+ag
+ab
+ab
+aI
 ae
 au
 ae
-aI
-ab
+ae
+aa"}(6,1,1) = {"
 ab
 ag
-aP
-aU
-aU
-bb
-bg
-aZ
-bn
-"}
-(6,1,1) = {"
-aa
+ag
+ag
+ag
+ag
+ag
+ag
+ab
+aD
+ab
+ab
 ab
 am
 ab
+aa"}(7,1,1) = {"
 ab
 ab
-aD
-ab
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ab
-"}
-(7,1,1) = {"
+am
+aY
+aY
 ab
 ab
-an
 ab
 ab
-aD
 aH
+aD
 ab
 ab
+an
 ab
-ab
-aY
-aY
-am
-ab
-ab
-"}
-(8,1,1) = {"
-ab
-ab
-am
-av
-av
-ab
-ab
-ab
-ab
-ab
-ab
+ab"}(8,1,1) = {"
 ab
 ab
 an
 ab
 ab
-"}
-(9,1,1) = {"
-aa
-ag
-ag
-ag
-ag
-ag
 ab
+ab
+ab
+ab
+ab
+ab
+av
+av
+am
+ab
+ab"}(9,1,1) = {"
+ab
+ab
+am
+av
 ab
 ab
 aQ
 ab
 ab
-av
+ab
+ag
+ag
+ag
+ag
+ag
+aa"}(10,1,1) = {"
+ab
+ab
 am
-ab
-ab
-"}
-(10,1,1) = {"
-ac
-ag
-ao
-aw
-bo
-ag
-ab
+av
 ag
 ag
 aK
 ag
 ag
-av
-am
 ab
-ab
-"}
-(11,1,1) = {"
-aa
-ah
-ap
-ap
-aA
-aE
-ab
-aJ
-aL
-ak
-aV
 ag
-aC
+bo
+aw
+ao
+ag
+ac"}(11,1,1) = {"
+ab
+ab
 bh
+aC
+ag
+aV
+ak
+aL
+aJ
 ab
+aE
+aA
+ap
+ap
+ah
+aa"}(12,1,1) = {"
 ab
-"}
-(12,1,1) = {"
-aa
-ai
-aq
-az
-aB
+bj
+bd
+bc
+ag
+aW
+bp
+aM
 ag
 aC
 ag
-aM
-bp
-aW
-ag
-bc
-bd
-bj
+aB
+az
+aq
+ai
+aa"}(13,1,1) = {"
 ab
-"}
-(13,1,1) = {"
-aa
+ab
+ab
+bd
+aZ
+ag
+ag
+aN
+ag
+ab
 ag
 ag
 ax
 ag
 ag
-ab
-ag
-aN
-ag
-ag
-aZ
+aa"}(14,1,1) = {"
+bl
 bd
-ab
-ab
-ab
-"}
-(14,1,1) = {"
+bi
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -568,12 +711,4 @@ bk
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-bi
-bd
-bl
-"}
+aa"}

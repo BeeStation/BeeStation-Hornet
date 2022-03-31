@@ -12,7 +12,7 @@
 /area/template_noop)
 "i" = (
 /obj/machinery/conveyor_switch/oneway{
-	dir = 1;
+	dir = 2;
 	id = "punji_conveyor";
 	name = "punji conveyor switch"
 	},
@@ -22,19 +22,29 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (
-/obj/structure/punji_sticks,
-/obj/item/restraints/handcuffs/cable,
-/obj/effect/decal/cleanable/blood/old,
+/obj/structure/punji_sticks{
+	dir = 1
+	},
+/obj/item/restraints/handcuffs/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "r" = (
-/obj/item/wirerod,
+/obj/item/wirerod{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "s" = (
-/obj/structure/grille/broken,
+/obj/structure/grille/broken{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "t" = (
@@ -44,25 +54,34 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "w" = (
-/obj/structure/grille,
+/obj/structure/grille{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (
-/obj/item/trash/can/food/beans,
+/obj/item/trash/can/food/beans{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "z" = (
-/obj/item/stack/sheet/animalhide,
+/obj/item/stack/sheet/animalhide{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "B" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/lootdrop/grille_or_trash{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "H" = (
 /obj/item/trash/can{
 	pixel_x = -9;
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
@@ -81,15 +100,19 @@
 "P" = (
 /obj/item/trash/sosjerky{
 	pixel_x = -10;
-	pixel_y = 2
+	pixel_y = -2;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "Z" = (
 /obj/structure/closet{
-	name = "beekeeping wardrobe"
+	name = "beekeeping wardrobe";
+	dir = 1
 	},
-/obj/item/bedsheet/random,
+/obj/item/bedsheet/random{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -101,68 +124,49 @@ a
 B
 m
 B
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 m
 w
 w
 w
-m
-"}
-(3,1,1) = {"
-P
-s
+m"}(3,1,1) = {"
+d
+w
 n
-w
+s
+P"}(4,1,1) = {"
 d
-"}
-(4,1,1) = {"
-m
+w
+I
 i
-I
-w
-d
-"}
-(5,1,1) = {"
-z
-s
-I
-w
-m
-"}
-(6,1,1) = {"
+m"}(5,1,1) = {"
 m
 w
 I
 s
+z"}(6,1,1) = {"
 x
-"}
-(7,1,1) = {"
-M
+s
+I
+w
+m"}(7,1,1) = {"
+d
 s
 I
 s
-d
-"}
-(8,1,1) = {"
+M"}(8,1,1) = {"
 m
 s
 w
 s
+m"}(9,1,1) = {"
 m
-"}
-(9,1,1) = {"
-m
-H
-M
 r
-m
-"}
-(10,1,1) = {"
-Z
-B
-m
-B
+M
+H
+m"}(10,1,1) = {"
 t
-"}
+B
+m
+B
+Z"}

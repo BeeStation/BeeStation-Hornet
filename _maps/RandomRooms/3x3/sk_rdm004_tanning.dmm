@@ -6,29 +6,37 @@
 	},
 /obj/machinery/light{
 	icon_state = "tube";
+	dir = 2
+	},
+/obj/item/cigbutt{
 	dir = 1
 	},
-/obj/item/cigbutt,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/item/reagent_containers/spray/spraytan,
+/obj/item/reagent_containers/spray/spraytan{
+	dir = 1
+	},
 /obj/machinery/light{
 	icon_state = "tube";
 	dir = 4
 	},
 /obj/machinery/light{
 	icon_state = "tube";
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/structure/bed,
-/obj/item/clothing/glasses/sunglasses/advanced/big,
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/clothing/glasses/sunglasses/advanced/big{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
@@ -36,11 +44,15 @@
 	icon_state = "tube";
 	dir = 8
 	},
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/machinery/light{
 	icon_state = "tube";
 	dir = 4
@@ -49,17 +61,12 @@
 /area/template_noop)
 
 (1,1,1) = {"
-a
-b
 e
-"}
-(2,1,1) = {"
+b
+a"}(2,1,1) = {"
 b
 d
-b
-"}
-(3,1,1) = {"
-c
-b
+b"}(3,1,1) = {"
 f
-"}
+b
+c"}

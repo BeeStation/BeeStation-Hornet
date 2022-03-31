@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "n" = (
 /obj/effect/abstract/doorway_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -12,18 +12,24 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "D" = (
-/obj/structure/closet/firecloset,
+/obj/structure/closet/firecloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "H" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "J" = (
-/obj/item/kirbyplants/random,
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "R" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "W" = (
@@ -35,33 +41,24 @@ W
 W
 W
 W
+W"}(2,1,1) = {"
 W
-"}
-(2,1,1) = {"
-W
-D
-J
 R
-W
-"}
-(3,1,1) = {"
-n
-H
-H
-H
-W
-"}
-(4,1,1) = {"
+J
+D
+W"}(3,1,1) = {"
 W
 H
 H
 H
+n"}(4,1,1) = {"
 W
-"}
-(5,1,1) = {"
+H
+H
+H
+W"}(5,1,1) = {"
 W
 H
 w
 H
-W
-"}
+W"}

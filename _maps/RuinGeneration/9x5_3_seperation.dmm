@@ -3,7 +3,9 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "f" = (
-/obj/effect/spawner/structure/window,
+/obj/effect/spawner/structure/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "j" = (
@@ -13,7 +15,9 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "s" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "t" = (
@@ -37,61 +41,44 @@ t
 b
 L
 b
-t
-"}
-(2,1,1) = {"
+t"}(2,1,1) = {"
 t
 b
 b
 b
-t
-"}
-(3,1,1) = {"
+t"}(3,1,1) = {"
 t
 f
 f
 f
-t
-"}
-(4,1,1) = {"
+t"}(4,1,1) = {"
 Y
 s
 Y
 s
-Y
-"}
-(5,1,1) = {"
+Y"}(5,1,1) = {"
 Y
 s
 Y
 s
-Y
-"}
-(6,1,1) = {"
+Y"}(6,1,1) = {"
 Y
 s
 Y
 s
-Y
-"}
-(7,1,1) = {"
+Y"}(7,1,1) = {"
 t
 f
 f
 f
-t
-"}
-(8,1,1) = {"
+t"}(8,1,1) = {"
 t
 E
 E
 E
-t
-"}
-(9,1,1) = {"
+t"}(9,1,1) = {"
 t
 t
 j
 t
-t
-"}
+t"}

@@ -1,7 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "c" = (
 /obj/structure/urinal{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -11,13 +12,15 @@
 	pixel_x = -14
 	},
 /obj/structure/mirror{
-	pixel_x = -28
+	pixel_x = -28;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "l" = (
 /obj/structure/sign/poster/random{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -41,7 +44,9 @@
 /obj/structure/toilet{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
@@ -50,33 +55,24 @@ q
 q
 K
 q
+q"}(2,1,1) = {"
 q
-"}
-(2,1,1) = {"
-q
-c
-p
 g
-q
-"}
-(3,1,1) = {"
-q
-l
 p
-M
-q
-"}
-(4,1,1) = {"
-q
 c
+q"}(3,1,1) = {"
+q
+M
 p
+l
+q"}(4,1,1) = {"
+q
 X
-q
-"}
-(5,1,1) = {"
-q
-q
+p
+c
+q"}(5,1,1) = {"
 q
 q
 q
-"}
+q
+q"}

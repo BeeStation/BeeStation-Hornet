@@ -1,27 +1,38 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "bM" = (
-/obj/structure/closet,
-/obj/item/picket_sign,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/item/picket_sign{
+	dir = 1
+	},
 /obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "bY" = (
-/obj/structure/closet,
-/obj/item/reagent_containers/food/snacks/popcorn,
-/obj/machinery/light{
+/obj/structure/closet{
 	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/popcorn{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 2
 	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "ce" = (
-/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/glass{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "dn" = (
 /obj/machinery/shower{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -29,26 +40,34 @@
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "dC" = (
-/obj/structure/rack,
+/obj/structure/rack{
+	dir = 1
+	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "eF" = (
 /obj/machinery/shower{
-	dir = 1
+	dir = 2
 	},
 /obj/structure/sign/poster/contraband/random{
-	pixel_y = -32
+	pixel_y = 32;
+	dir = 1
 	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "fb" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "fy" = (
-/obj/machinery/shower,
+/obj/machinery/shower{
+	dir = 1
+	},
 /obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -56,61 +75,95 @@
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "hp" = (
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /obj/item/radio/intercom{
-	pixel_y = 26
+	pixel_y = -26;
+	dir = 1
 	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "iC" = (
-/obj/structure/closet,
-/obj/structure/window/reinforced/tinted/frosted,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/structure/window/reinforced/tinted/frosted{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "kn" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "lo" = (
-/obj/structure/reagent_dispensers/water_cooler,
+/obj/structure/reagent_dispensers/water_cooler{
+	dir = 1
+	},
 /obj/structure/sign/poster/contraband/random{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "mb" = (
-/obj/item/reagent_containers/spray/cleaner,
-/obj/structure/rack,
+/obj/item/reagent_containers/spray/cleaner{
+	dir = 1
+	},
+/obj/structure/rack{
+	dir = 1
+	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "mv" = (
-/obj/structure/closet,
-/obj/item/clipboard,
-/obj/item/storage/box,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/item/clipboard{
+	dir = 1
+	},
+/obj/item/storage/box{
+	dir = 1
+	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "mQ" = (
-/obj/item/toy/beach_ball,
+/obj/item/toy/beach_ball{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "nv" = (
-/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/glass{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "nI" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "nT" = (
-/obj/effect/landmark/event_spawn,
+/obj/effect/landmark/event_spawn{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "os" = (
-/obj/effect/decal/cleanable/vomit/old,
+/obj/effect/decal/cleanable/vomit/old{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "oZ" = (
@@ -121,16 +174,22 @@
 /area/template_noop)
 "qz" = (
 /obj/effect/decal/cleanable/oil{
-	icon_state = "floor5"
+	icon_state = "floor5";
+	dir = 4
 	},
-/obj/structure/curtain,
+/obj/structure/curtain{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "qP" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind{
 	pixel_x = 4;
-	pixel_y = 7
+	pixel_y = -7;
+	dir = 1
 	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
@@ -146,22 +205,30 @@
 	},
 /area/template_noop)
 "sZ" = (
-/obj/structure/curtain,
+/obj/structure/curtain{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "th" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "xe" = (
-/obj/effect/landmark/blobstart,
+/obj/effect/landmark/blobstart{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "xL" = (
 /turf/closed/wall,
 /area/template_noop)
 "yL" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -173,10 +240,13 @@
 	},
 /area/template_noop)
 "AU" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb{
 	pixel_x = -4;
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -184,43 +254,65 @@
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "Bg" = (
-/obj/machinery/shower,
+/obj/machinery/shower{
+	dir = 1
+	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "Ee" = (
-/obj/item/trash/popcorn,
+/obj/item/trash/popcorn{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "GN" = (
-/obj/structure/closet,
-/obj/item/storage/pill_bottle/floorpill,
-/obj/structure/window/reinforced/tinted/frosted,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/item/storage/pill_bottle/floorpill{
+	dir = 1
+	},
+/obj/structure/window/reinforced/tinted/frosted{
+	dir = 1
+	},
 /obj/structure/window/reinforced/tinted/frosted{
 	dir = 4
 	},
-/obj/item/clothing/under/costume/jabroni,
-/obj/item/stack/spacecash/c20,
+/obj/item/clothing/under/costume/jabroni{
+	dir = 1
+	},
+/obj/item/stack/spacecash/c20{
+	dir = 1
+	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "HZ" = (
-/obj/item/chair/stool,
+/obj/item/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "Jb" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "Jg" = (
-/obj/structure/reagent_dispensers/watertank,
+/obj/structure/reagent_dispensers/watertank{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "JJ" = (
 /turf/open/floor/plasteel,
 /area/template_noop)
 "Mj" = (
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "NQ" = (
@@ -230,39 +322,62 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "NR" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "Pf" = (
-/obj/machinery/door/airlock/maintenance,
+/obj/machinery/door/airlock/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "Pg" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "Qx" = (
-/obj/structure/closet,
-/obj/structure/window/reinforced/tinted/frosted,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/structure/window/reinforced/tinted/frosted{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/drinks/bottle/tequila{
 	pixel_x = -6;
-	pixel_y = 4
+	pixel_y = -4;
+	dir = 1
 	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "QK" = (
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/spawner/lootdrop/glowstick{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "TC" = (
-/obj/structure/closet,
-/obj/structure/window/reinforced/tinted/frosted,
-/obj/item/storage/box,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/structure/window/reinforced/tinted/frosted{
+	dir = 1
+	},
+/obj/item/storage/box{
+	dir = 1
+	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "TI" = (
-/obj/item/trash/cheesie,
+/obj/item/trash/cheesie{
+	dir = 1
+	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -271,178 +386,188 @@
 	},
 /area/template_noop)
 "Uy" = (
-/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/glass{
+	dir = 4
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "UJ" = (
-/obj/structure/closet,
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
+/obj/structure/closet{
+	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/monotile/steel,
-/area/template_noop)
-"UQ" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/emergency,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/turf/open/floor/monotile/steel,
-/area/template_noop)
-"Vd" = (
-/obj/item/cigbutt/roach,
-/turf/open/floor/plating,
-/area/template_noop)
-"VX" = (
-/obj/machinery/shower{
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32;
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/two{
 	dir = 1
 	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
+"UQ" = (
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/storage/toolbox/emergency{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/maintenance/three{
+	dir = 1
+	},
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"Vd" = (
+/obj/item/cigbutt/roach{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"VX" = (
+/obj/machinery/shower{
+	dir = 2
+	},
+/turf/open/floor/monotile/steel,
+/area/template_noop)
 "Wc" = (
-/obj/structure/curtain,
+/obj/structure/curtain{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "Xz" = (
-/obj/item/cigbutt/roach,
+/obj/item/cigbutt/roach{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "Yy" = (
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "YL" = (
-/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood/drip{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "YW" = (
-/obj/item/stack/spacecash/c20,
+/obj/item/stack/spacecash/c20{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "Zs" = (
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset/full{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-NR
-JJ
-yL
-ce
-re
-Uy
-JJ
-JJ
-JJ
 eF
-"}
-(2,1,1) = {"
-bM
 JJ
 JJ
-Xz
-Qx
-Bg
 JJ
+Uy
+re
+ce
+yL
 JJ
-Mj
+NR"}(2,1,1) = {"
 VX
-"}
-(3,1,1) = {"
-bY
+Mj
+JJ
+JJ
+Bg
+Qx
+Xz
+JJ
+JJ
+bM"}(3,1,1) = {"
+dn
+mQ
+JJ
+nv
+fy
+iC
 JJ
 Pg
 JJ
-iC
-fy
-nv
-JJ
-mQ
-dn
-"}
-(4,1,1) = {"
-UJ
-JJ
-Vd
-YW
-TC
+bY"}(4,1,1) = {"
 xL
-sZ
-qz
 Wc
+qz
+sZ
 xL
-"}
-(5,1,1) = {"
+TC
+YW
+Vd
+JJ
+UJ"}(5,1,1) = {"
+oZ
+sw
+JJ
+JJ
+AU
+GN
+Ee
+HZ
+rx
+re"}(6,1,1) = {"
 re
+rx
+rx
+rx
+mv
+qP
+JJ
+JJ
+rx
+re"}(7,1,1) = {"
+re
+th
 rx
 HZ
-Ee
-GN
-AU
+zY
 JJ
 JJ
-sw
-oZ
-"}
-(6,1,1) = {"
-re
-rx
-JJ
-JJ
-qP
-mv
-rx
-rx
-rx
-re
-"}
-(7,1,1) = {"
-mb
-rx
 TI
-JJ
+rx
+mb"}(8,1,1) = {"
+UQ
 JJ
 zY
-HZ
-rx
-th
-re
-"}
-(8,1,1) = {"
+JJ
+xe
+YL
+kn
 xL
 nI
-xL
-kn
-YL
-xe
-JJ
-zY
-JJ
-UQ
-"}
-(9,1,1) = {"
-NQ
-nT
-Pf
-JJ
-JJ
-fb
-rx
-os
-QK
+xL"}(9,1,1) = {"
 dC
-"}
-(10,1,1) = {"
-Zs
-Jg
-xL
-hp
-re
+QK
+os
 rx
-lo
+fb
+JJ
+JJ
+Pf
+nT
+NQ"}(10,1,1) = {"
+Jb
+Jb
 Yy
-Jb
-Jb
-"}
+lo
+rx
+re
+hp
+xL
+Jg
+Zs"}

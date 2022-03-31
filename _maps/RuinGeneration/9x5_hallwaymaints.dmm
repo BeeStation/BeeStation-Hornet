@@ -3,40 +3,50 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "c" = (
-/obj/structure/closet/firecloset/full,
-/obj/effect/turf_decal/tile/green,
+/obj/structure/closet/firecloset/full{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/green{
-	dir = 8
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "d" = (
 /obj/effect/abstract/open_area_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "e" = (
-/obj/machinery/space_heater,
+/obj/machinery/space_heater{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "v" = (
-/obj/structure/reagent_dispensers/plumbed,
+/obj/structure/reagent_dispensers/plumbed{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "y" = (
-/obj/structure/closet/emcloset,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
+/obj/structure/closet/emcloset{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/green{
-	dir = 4
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -45,16 +55,16 @@
 /area/ruin/unpowered)
 "I" = (
 /obj/effect/abstract/doorway_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "K" = (
 /obj/effect/turf_decal/tile/green{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/green{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -62,15 +72,21 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "R" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "S" = (
-/obj/effect/abstract/open_area_marker,
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "W" = (
-/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/reagent_dispensers/fueltank{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 
@@ -79,61 +95,44 @@ B
 B
 B
 B
+B"}(2,1,1) = {"
 B
-"}
-(2,1,1) = {"
-B
-W
-e
 v
-B
-"}
-(3,1,1) = {"
-I
-a
-a
-a
+e
+W
+B"}(3,1,1) = {"
 R
-"}
-(4,1,1) = {"
+a
+a
+a
+I"}(4,1,1) = {"
 B
 B
 B
 B
+B"}(5,1,1) = {"
 B
-"}
-(5,1,1) = {"
-B
-y
-K
 c
-B
-"}
-(6,1,1) = {"
+K
+y
+B"}(6,1,1) = {"
 P
 P
 P
 P
-P
-"}
-(7,1,1) = {"
-d
-P
-P
-P
+P"}(7,1,1) = {"
 S
-"}
-(8,1,1) = {"
+P
+P
+P
+d"}(8,1,1) = {"
 P
 P
 P
 P
-P
-"}
-(9,1,1) = {"
+P"}(9,1,1) = {"
 B
 B
 B
 B
-B
-"}
+B"}

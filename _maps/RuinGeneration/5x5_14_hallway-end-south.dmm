@@ -1,6 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "c" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "g" = (
@@ -10,8 +12,12 @@
 /turf/template_noop,
 /area/template_noop)
 "C" = (
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "P" = (
@@ -19,43 +25,34 @@
 /area/ruin/unpowered)
 "Q" = (
 /obj/effect/abstract/open_area_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
-g
-g
-g
 j
 j
-"}
-(2,1,1) = {"
-P
-P
-C
+g
+g
+g"}(2,1,1) = {"
+j
 c
-j
-"}
-(3,1,1) = {"
-Q
-P
 C
+P
+P"}(3,1,1) = {"
 j
 j
-"}
-(4,1,1) = {"
-P
-P
 C
+P
+Q"}(4,1,1) = {"
+j
 c
-j
-"}
-(5,1,1) = {"
-g
-g
-g
+C
+P
+P"}(5,1,1) = {"
 j
 j
-"}
+g
+g
+g"}

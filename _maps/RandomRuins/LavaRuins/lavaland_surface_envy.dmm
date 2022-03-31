@@ -16,10 +16,15 @@
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
 	pixel_x = -28;
-	broken = 1
+	broken = 1;
+	dir = 1
 	},
-/obj/item/clothing/suit/hooded/bloated_human,
-/obj/effect/decal/cleanable/blood,
+/obj/item/clothing/suit/hooded/bloated_human{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "f" = (
@@ -27,41 +32,52 @@
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
 	pixel_x = 28;
-	broken = 1
+	broken = 1;
+	dir = 1
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/ruin/unpowered)
 "g" = (
-/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
 /obj/structure/mirror{
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
 	pixel_x = -28;
-	broken = 1
+	broken = 1;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "h" = (
-/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "i" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "j" = (
-/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/decal/cleanable/blood/splatter{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "k" = (
 /obj/structure/mirror{
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
-	pixel_y = 28;
-	broken = 1
+	pixel_y = -28;
+	broken = 1;
+	dir = 1
 	},
-/obj/item/kitchen/knife/envy,
+/obj/item/kitchen/knife/envy{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "l" = (
@@ -69,7 +85,8 @@
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
 	pixel_x = 28;
-	broken = 1
+	broken = 1;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -78,7 +95,8 @@
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
 	pixel_x = -28;
-	broken = 1
+	broken = 1;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -92,18 +110,23 @@
 	desc = "This mirror has been shattered. It looks like the bad luck energies spilling from it are taking immediate effect on your surroundings!";
 	icon_state = "mirror_broke";
 	pixel_x = -28;
-	broken = 1
+	broken = 1;
+	dir = 1
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
 /area/ruin/unpowered)
 "p" = (
-/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/airlock/hatch{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "A" = (
-/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 
@@ -127,10 +150,7 @@ a
 a
 a
 a
-a
-"}
-(2,1,1) = {"
-a
+a"}(2,1,1) = {"
 a
 c
 c
@@ -150,142 +170,128 @@ c
 c
 c
 a
-"}
-(3,1,1) = {"
-b
-c
-c
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-d
-c
+a"}(3,1,1) = {"
 a
-"}
-(4,1,1) = {"
-c
 c
 d
 d
 d
-e
-g
-g
-g
-m
-m
-m
-m
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+c
+c
+b"}(4,1,1) = {"
+a
+c
+d
+j
 m
 o
 m
-j
+m
+m
+m
+m
+g
+g
+g
+e
+d
+d
 d
 c
+c"}(5,1,1) = {"
 a
-"}
-(5,1,1) = {"
-c
-d
-d
-d
-d
-d
-h
-h
-i
-i
-i
-i
-i
-h
-i
-i
-i
-d
 A
+d
+i
+i
+i
+h
+i
+i
+i
+i
+i
+h
+h
+d
+d
+d
+d
+d
+c"}(6,1,1) = {"
 a
-"}
-(6,1,1) = {"
-c
-d
-d
-d
-d
-d
-d
-k
-i
-i
-i
-i
-i
-i
-i
-i
-i
+A
 p
-A
+i
+i
+i
+i
+i
+i
+i
+i
+i
+k
+d
+d
+d
+d
+d
+d
+c"}(7,1,1) = {"
 a
-"}
-(7,1,1) = {"
 c
 d
-d
-d
-d
-d
 i
 i
 i
-j
+i
 i
 n
 i
-i
+j
 i
 i
 i
 d
-c
+d
+d
+d
+d
+c"}(8,1,1) = {"
 a
-"}
-(8,1,1) = {"
-c
 c
 d
-d
-d
+j
+l
+l
+l
+l
+l
+l
+l
+l
+l
+j
 f
-j
-l
-l
-l
-l
-l
-l
-l
-l
-l
-j
+d
+d
 d
 c
+c"}(9,1,1) = {"
 a
-"}
-(9,1,1) = {"
-b
-c
 c
 d
 d
@@ -303,27 +309,25 @@ d
 d
 d
 c
+c
+b"}(10,1,1) = {"
 a
-"}
-(10,1,1) = {"
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
 b
-b
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-a
-"}
+b"}

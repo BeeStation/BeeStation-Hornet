@@ -1,18 +1,25 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/rack,
+/obj/structure/rack{
+	dir = 1
+	},
 /obj/structure/sign/poster/contraband/random{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /obj/item/extinguisher{
 	pixel_x = -4;
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
 /obj/item/tank/internals/oxygen/red{
 	pixel_x = 4;
-	pixel_y = 2
+	pixel_y = -2;
+	dir = 1
 	},
-/obj/item/clothing/mask/gas,
+/obj/item/clothing/mask/gas{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -22,72 +29,109 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/item/clothing/under/misc/mailman,
-/obj/item/clothing/head/mailman,
-/obj/structure/closet,
-/obj/effect/landmark/blobstart,
+/obj/item/clothing/under/misc/mailman{
+	dir = 1
+	},
+/obj/item/clothing/head/mailman{
+	dir = 1
+	},
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/effect/landmark/blobstart{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/structure/closet/wardrobe/mixed,
-/obj/item/clothing/shoes/jackboots,
+/obj/structure/closet/wardrobe/mixed{
+	dir = 1
+	},
+/obj/item/clothing/shoes/jackboots{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/portable_atmospherics/canister/air{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/item/stack/sheet/mineral/copper,
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/copper{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/structure/bookcase/random/adult,
+/obj/structure/bookcase/random/adult{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/structure/reagent_dispensers/watertank,
+/obj/structure/reagent_dispensers/watertank{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/obj/item/stack/sheet/mineral/copper,
-/obj/item/stack/sheet/mineral/copper,
-/obj/item/stack/sheet/mineral/copper,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/two{
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/copper{
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/copper{
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/copper{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/electrical,
-/obj/item/clothing/gloves/color/yellow,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/storage/toolbox/electrical{
+	dir = 1
+	},
+/obj/item/clothing/gloves/color/yellow{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/two{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-d
-f
-g
 j
-"}
-(2,1,1) = {"
-b
-b
+g
+f
+d
+a"}(2,1,1) = {"
 b
 h
 b
-"}
-(3,1,1) = {"
-c
-e
 b
-i
+b"}(3,1,1) = {"
 k
-"}
+i
+b
+e
+c"}

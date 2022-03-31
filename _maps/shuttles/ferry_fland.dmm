@@ -21,26 +21,38 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
 "m" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Cockpit"
+	name = "Cockpit";
+	dir = 1
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/transport)
 "n" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
 /obj/item/storage/firstaid/o2{
 	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/storage/firstaid/regular,
-/obj/item/crowbar,
-/obj/effect/turf_decal/bot,
-/obj/machinery/light{
+	pixel_y = -4;
 	dir = 1
+	},
+/obj/item/storage/firstaid/regular{
+	dir = 1
+	},
+/obj/item/crowbar{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 2
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
@@ -52,12 +64,14 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 "t" = (
@@ -70,12 +84,15 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 "u" = (
-/obj/structure/sign/warning/fire,
+/obj/structure/sign/warning/fire{
+	dir = 1
+	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/transport)
 "w" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Ferry Shuttle Airlock"
+	name = "Ferry Shuttle Airlock";
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -83,7 +100,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 2;
@@ -105,45 +124,65 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 "z" = (
-/obj/structure/grille,
+/obj/structure/grille{
+	dir = 1
+	},
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/effect/spawner/structure/window/plastitanium,
+/obj/effect/spawner/structure/window/plastitanium{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/transport)
 "B" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_y = 28;
-	use_power = 0
+	pixel_y = -28;
+	use_power = 0;
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/transport)
+"D" = (
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/machinery/recharger{
+	dir = 1
+	},
+/obj/item/radio{
+	pixel_x = 6;
+	pixel_y = -6;
+	dir = 1
+	},
+/obj/item/radio{
+	pixel_y = -4;
+	dir = 1
+	},
+/obj/item/radio{
+	pixel_x = -6;
+	pixel_y = -6;
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
 	},
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/transport)
-"D" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger,
-/obj/item/radio{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/radio{
-	pixel_y = 4
-	},
-/obj/item/radio{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/light,
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
 "E" = (
@@ -154,7 +193,7 @@
 	dir = 8
 	},
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
@@ -165,11 +204,15 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 "J" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/transport)
 "L" = (
@@ -182,27 +225,39 @@
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
 "M" = (
-/obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 "O" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
+/obj/machinery/door/airlock/external{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
 "S" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 "W" = (
@@ -210,107 +265,94 @@
 	dir = 4
 	},
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
 "X" = (
 /obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 "Y" = (
-/obj/structure/sign/nanotrasen,
+/obj/structure/sign/nanotrasen{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/transport)
 "Z" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 9
 	},
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 
 (1,1,1) = {"
 a
-t
-t
 x
-a
-"}
-(2,1,1) = {"
+t
+t
+a"}(2,1,1) = {"
 g
 z
 u
 z
-g
-"}
-(3,1,1) = {"
+g"}(3,1,1) = {"
 o
-W
-m
 Z
-o
-"}
-(4,1,1) = {"
+m
+W
+o"}(4,1,1) = {"
 J
-h
-o
 B
-J
-"}
-(5,1,1) = {"
 o
-J
-e
+h
+J"}(5,1,1) = {"
+o
 S
-o
-"}
-(6,1,1) = {"
+e
+J
+o"}(6,1,1) = {"
 O
-I
-M
 r
-O
-"}
-(7,1,1) = {"
+M
+I
+O"}(7,1,1) = {"
 Y
-E
-X
 i
-Y
-"}
-(8,1,1) = {"
+X
+E
+Y"}(8,1,1) = {"
 J
 L
 X
 L
-J
-"}
-(9,1,1) = {"
+J"}(9,1,1) = {"
 J
 L
 X
 L
-J
-"}
-(10,1,1) = {"
+J"}(10,1,1) = {"
 o
-n
-X
 D
-o
-"}
-(11,1,1) = {"
+X
+n
+o"}(11,1,1) = {"
 o
 Y
 w
 Y
-o
-"}
+o"}

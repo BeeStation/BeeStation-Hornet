@@ -6,32 +6,47 @@
 /turf/closed/wall/mineral/titanium/overspace,
 /area/ruin/space/has_grav/powered/mechtransport)
 "c" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/mechtransport)
 "d" = (
 /turf/closed/wall/mineral/titanium,
 /area/ruin/space/has_grav/powered/mechtransport)
 "f" = (
-/obj/structure/closet/crate/secure/loot,
-/obj/effect/decal/cleanable/cobweb,
+/obj/structure/closet/crate/secure/loot{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/cobweb{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/mechtransport)
 "g" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/structure/closet/crate/secure/loot{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/mechtransport)
 "h" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/machinery/button/door{
 	id = "mechaship1";
-	name = "Mecha Cargo Ship Doors"
+	name = "Mecha Cargo Ship Doors";
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/mechtransport)
 "i" = (
-/obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/mechtransport)
 "j" = (
@@ -41,103 +56,140 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/mechtransport)
 "k" = (
-/obj/effect/decal/cleanable/vomit/old,
+/obj/effect/decal/cleanable/vomit/old{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/mechtransport)
 "l" = (
-/obj/effect/decal/remains/human,
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/mechtransport)
 "m" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/mechtransport)
 "n" = (
 /obj/structure/chair/office{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/mechtransport)
 "p" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Cockpit";
-	req_access_txt = "101"
+	req_access_txt = "101";
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/mechtransport)
 "r" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/cobweb{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "s" = (
 /turf/open/floor/mineral/titanium/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "t" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "u" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/decal/cleanable/cobweb/cobweb2{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "v" = (
-/obj/structure/mecha_wreckage/phazon,
+/obj/structure/mecha_wreckage/phazon{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "w" = (
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "x" = (
-/obj/structure/mecha_wreckage/ripley/firefighter,
+/obj/structure/mecha_wreckage/ripley/firefighter{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "y" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "z" = (
-/obj/structure/mecha_wreckage/ripley,
+/obj/structure/mecha_wreckage/ripley{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "A" = (
 /obj/mecha/working/ripley{
-	ruin_mecha = 1
+	ruin_mecha = 1;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "B" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "C" = (
-/obj/effect/decal/cleanable/robot_debris/up,
+/obj/effect/decal/cleanable/robot_debris/up{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "D" = (
 /obj/machinery/door/poddoor{
 	id = "mechaship1";
-	name = "Cargo Bay Door"
+	name = "Cargo Bay Door";
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "E" = (
-/obj/effect/decal/cleanable/robot_debris,
+/obj/effect/decal/cleanable/robot_debris{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "F" = (
-/obj/structure/mecha_wreckage/durand,
+/obj/structure/mecha_wreckage/durand{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "G" = (
-/obj/item/stack/tile/plasteel,
+/obj/item/stack/tile/plasteel{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "H" = (
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "I" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/ruin/space/has_grav/powered/mechtransport)
 "J" = (
@@ -147,12 +199,18 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/mechtransport)
 "K" = (
-/obj/effect/decal/cleanable/robot_debris/gib,
+/obj/effect/decal/cleanable/robot_debris/gib{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "L" = (
-/obj/effect/decal/cleanable/robot_debris,
-/obj/item/stack/tile/plasteel,
+/obj/effect/decal/cleanable/robot_debris{
+	dir = 4
+	},
+/obj/item/stack/tile/plasteel{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "M" = (
@@ -166,15 +224,21 @@
 	},
 /area/ruin/space/has_grav/powered/mechtransport)
 "O" = (
-/obj/structure/mecha_wreckage/odysseus,
+/obj/structure/mecha_wreckage/odysseus{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "P" = (
-/obj/item/stack/sheet/iron,
+/obj/item/stack/sheet/iron{
+	dir = 1
+	},
 /turf/template_noop,
 /area/ruin/space/has_grav/powered/mechtransport)
 "Q" = (
-/obj/structure/mecha_wreckage/gygax,
+/obj/structure/mecha_wreckage/gygax{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "R" = (
@@ -183,171 +247,160 @@
 	},
 /area/ruin/space/has_grav/powered/mechtransport)
 "S" = (
-/obj/item/stack/rods,
+/obj/item/stack/rods{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "T" = (
 /turf/template_noop,
 /area/ruin/space/has_grav/powered/mechtransport)
 "V" = (
-/obj/item/stack/rods,
+/obj/item/stack/rods{
+	dir = 1
+	},
 /turf/template_noop,
 /area/ruin/space/has_grav/powered/mechtransport)
 "X" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
 /turf/template_noop,
 /area/ruin/space/has_grav/powered/mechtransport)
 
 (1,1,1) = {"
-a
-a
-a
-b
-d
-d
-d
-d
-G
-I
+T
+T
+T
+P
 M
-P
-T
-T
-T
-"}
-(2,1,1) = {"
-b
-d
-d
-d
-r
-v
-B
-E
-H
-S
-H
 I
-R
+G
+d
+d
+d
+d
+b
+a
+a
+a"}(2,1,1) = {"
+T
 V
-T
-"}
-(3,1,1) = {"
-c
-f
-k
-p
-s
-w
-w
-F
-w
-H
-N
+R
 I
-I
-T
-T
-"}
-(4,1,1) = {"
-c
-g
-l
-d
-t
-w
-C
-G
-F
-w
-G
 H
-P
-T
-T
-"}
-(5,1,1) = {"
-c
-h
-m
-d
-s
-x
-w
-w
-y
-K
-O
-s
 S
-I
-T
-"}
-(6,1,1) = {"
-c
-i
-n
-d
-t
-y
-z
-w
 H
-L
-O
-H
-H
-T
-T
-"}
-(7,1,1) = {"
-c
-j
-J
-d
-t
-z
-w
-w
-y
-w
-w
-Q
-d
-b
-X
-"}
-(8,1,1) = {"
-b
-d
-d
-d
-u
-A
-y
-w
-w
+E
 B
+v
+r
+d
+d
+d
+b"}(3,1,1) = {"
+T
+T
+I
+I
+N
+H
+w
+F
+w
+w
+s
+p
+k
+f
+c"}(4,1,1) = {"
+T
+T
+P
+H
+G
+w
+F
+G
+C
+w
+t
+d
+l
+g
+c"}(5,1,1) = {"
+T
+I
+S
+s
+O
+K
 y
+w
+w
+x
 s
 d
+m
+h
+c"}(6,1,1) = {"
+T
+T
+H
+H
+O
+L
+H
+w
+z
+y
+t
 d
+n
+i
+c"}(7,1,1) = {"
 X
-"}
-(9,1,1) = {"
-a
-a
-a
 b
 d
+Q
+w
+w
+y
+w
+w
+z
+t
 d
-D
-D
-D
-D
-D
-d
-b
-b
+J
+j
+c"}(8,1,1) = {"
 X
-"}
+d
+d
+s
+y
+B
+w
+w
+y
+A
+u
+d
+d
+d
+b"}(9,1,1) = {"
+X
+b
+b
+d
+D
+D
+D
+D
+D
+d
+d
+b
+a
+a
+a"}

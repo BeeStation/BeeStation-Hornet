@@ -6,7 +6,9 @@
 /turf/closed/wall/mineral/titanium/overspace,
 /area/space)
 "c" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/space)
 "d" = (
@@ -17,12 +19,14 @@
 /area/space)
 "g" = (
 /obj/structure/chair{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/space)
 "j" = (
-/obj/machinery/door/unpowered/shuttle,
+/obj/machinery/door/unpowered/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/space)
 "l" = (
@@ -38,26 +42,31 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/space)
 "n" = (
-/obj/structure/shuttle/engine/heater,
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/space)
 "p" = (
-/obj/structure/shuttle/engine/propulsion/left,
+/obj/structure/shuttle/engine/propulsion/left{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/space)
 "q" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/space)
 "r" = (
-/obj/structure/shuttle/engine/propulsion/right,
+/obj/structure/shuttle/engine/propulsion/right{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/space)
 
 (1,1,1) = {"
-a
-a
-a
 b
 d
 d
@@ -66,76 +75,64 @@ j
 d
 d
 b
-"}
-(2,1,1) = {"
-b
-d
-d
-d
-l
-l
-f
-f
-f
-n
+a
+a
+a"}(2,1,1) = {"
 p
-"}
-(3,1,1) = {"
-c
+n
+f
+f
+f
+l
+l
+d
+d
+d
+b"}(3,1,1) = {"
+q
+n
+f
+f
+f
 f
 f
 d
 f
 f
-f
-f
-f
-n
+c"}(4,1,1) = {"
 q
-"}
-(4,1,1) = {"
-c
+n
+f
+f
+f
+f
+f
+j
+f
 g
-f
-j
-f
-f
-f
-f
-f
-n
+c"}(5,1,1) = {"
 q
-"}
-(5,1,1) = {"
-c
-f
-f
-d
-f
-f
-f
-f
-f
 n
-q
-"}
-(6,1,1) = {"
-b
-d
-d
-d
-m
-m
 f
 f
 f
-n
+f
+f
+d
+f
+f
+c"}(6,1,1) = {"
 r
-"}
-(7,1,1) = {"
-a
-a
-a
+n
+f
+f
+f
+m
+m
+d
+d
+d
+b"}(7,1,1) = {"
 b
 d
 d
@@ -144,4 +141,6 @@ j
 d
 d
 b
-"}
+a
+a
+a"}

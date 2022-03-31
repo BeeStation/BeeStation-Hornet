@@ -1,28 +1,40 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/machinery/field/generator,
+/obj/machinery/field/generator{
+	dir = 1
+	},
 /turf/open/floor/engine,
 /area/ruin/unpowered)
 "c" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
 "e" = (
-/obj/machinery/field/generator,
+/obj/machinery/field/generator{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "f" = (
-/obj/item/scalpel,
-/obj/effect/decal/remains/human,
+/obj/item/scalpel{
+	dir = 1
+	},
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "h" = (
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/machinery/door/airlock/highsecurity,
+/obj/effect/mapping_helpers/airlock/abandoned{
+	dir = 1
+	},
+/obj/machinery/door/airlock/highsecurity{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "m" = (
 /obj/effect/abstract/open_area_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -33,15 +45,21 @@
 /turf/open/floor/engine,
 /area/ruin/unpowered)
 "K" = (
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "N" = (
 /turf/template_noop/open,
 /area/template_noop)
 "P" = (
-/obj/machinery/power/supermatter_crystal/shard/hugbox,
+/obj/machinery/power/supermatter_crystal/shard/hugbox{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Q" = (
@@ -55,10 +73,19 @@
 /area/ruin/unpowered)
 
 (1,1,1) = {"
+N
+N
+N
+N
+N
+N
+N
+N
+N
 c
 c
 c
-c
+c"}(2,1,1) = {"
 N
 N
 N
@@ -66,71 +93,28 @@ N
 N
 N
 N
-N
-N
-"}
-(2,1,1) = {"
-T
-T
-T
-c
-K
-K
-N
-N
-N
-N
-N
-N
-N
-"}
-(3,1,1) = {"
-m
-T
-T
-T
-T
 K
 K
 c
+T
+T
+T"}(3,1,1) = {"
 N
 N
 N
 N
 N
-"}
-(4,1,1) = {"
-T
-T
-T
-T
-T
-T
-T
 c
-c
-c
+K
+K
+T
+T
+T
+T
+m"}(4,1,1) = {"
 N
 N
 N
-"}
-(5,1,1) = {"
-c
-c
-T
-T
-T
-T
-T
-T
-T
-c
-N
-N
-N
-"}
-(6,1,1) = {"
-c
 c
 c
 c
@@ -139,113 +123,122 @@ T
 T
 T
 T
-c
-c
+T
+T"}(5,1,1) = {"
 N
 N
-"}
-(7,1,1) = {"
+N
+c
+T
+T
+T
+T
+T
+T
+T
+c
+c"}(6,1,1) = {"
+N
+N
+c
+c
+T
+T
+T
+T
+T
+c
+c
+c
+c"}(7,1,1) = {"
+N
+N
+K
+T
+T
+T
+T
+c
+c
 c
 G
 G
-c
-c
-c
-T
-T
-T
-T
+c"}(8,1,1) = {"
+N
 K
-N
-N
-"}
-(8,1,1) = {"
+K
+T
+T
+T
 c
+c
+G
 G
 w
 G
-G
-c
-c
-T
-T
-T
-K
-K
+c"}(9,1,1) = {"
 N
-"}
-(9,1,1) = {"
-c
-e
-w
-e
-G
-G
+K
+T
+T
+T
+T
 h
-T
-T
-T
-T
-K
-N
-"}
-(10,1,1) = {"
-c
-w
-P
-f
-w
 G
-c
-c
-T
-T
-T
-c
-c
-"}
-(11,1,1) = {"
-c
-a
+G
+e
 w
 e
+c"}(10,1,1) = {"
+c
+c
+T
+T
+T
+c
+c
 G
-G
-G
+w
+f
+P
+w
+c"}(11,1,1) = {"
 c
 T
 T
 T
 T
 c
-"}
-(12,1,1) = {"
+G
+G
+G
+e
+w
+a
+c"}(12,1,1) = {"
 c
-G
-G
-G
+T
+T
+T
+c
+c
 G
 w
 G
-c
-c
-T
-T
-T
-c
-"}
-(13,1,1) = {"
-c
-c
-c
-c
-c
-c
-c
-c
+G
+G
+G
+c"}(13,1,1) = {"
 c
 T
 Q
 T
 c
-"}
+c
+c
+c
+c
+c
+c
+c
+c"}

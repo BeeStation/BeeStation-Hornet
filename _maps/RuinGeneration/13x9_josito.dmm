@@ -1,19 +1,29 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/bookcase/random,
+/obj/structure/bookcase/random{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "c" = (
-/obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/snowdin/dungeonlite,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/snowdin/dungeonlite{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "h" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "i" = (
-/obj/structure/bed/dogbed,
+/obj/structure/bed/dogbed{
+	dir = 1
+	},
 /mob/living/simple_animal/pet/cat{
 	name = "Josito";
 	real_name = "Josito";
@@ -22,38 +32,60 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "j" = (
-/obj/structure/chair/wood,
+/obj/structure/chair/wood{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "k" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/grown/poppy{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "m" = (
-/obj/item/kirbyplants/random,
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "n" = (
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "o" = (
-/obj/machinery/door/airlock/maintenance_hatch,
+/obj/machinery/door/airlock/maintenance_hatch{
+	dir = 1
+	},
 /turf/open/floor/carpet/purple,
 /area/ruin/unpowered)
 "p" = (
-/obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears{
+	dir = 1
+	},
 /turf/open/floor/carpet/purple,
 /area/ruin/unpowered)
 "r" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/three{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears{
+	dir = 1
+	},
 /turf/open/floor/carpet/purple,
 /area/ruin/unpowered)
 "s" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "t" = (
@@ -63,13 +95,21 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "x" = (
-/obj/structure/table/wood,
-/obj/item/candle,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/candle{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "y" = (
-/obj/structure/table/wood,
-/obj/item/storage/box/matches,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/storage/box/matches{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "A" = (
@@ -80,17 +120,19 @@
 /area/ruin/unpowered)
 "B" = (
 /obj/structure/chair/wood{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "D" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/sofa/left{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "E" = (
 /obj/effect/abstract/doorway_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/carpet/purple,
 /area/ruin/unpowered)
@@ -101,7 +143,9 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "J" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/right{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "L" = (
@@ -111,7 +155,9 @@
 /turf/open/floor/carpet/purple,
 /area/ruin/unpowered)
 "O" = (
-/obj/effect/spawner/room/threexthree,
+/obj/effect/spawner/room/threexthree{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Q" = (
@@ -127,137 +173,112 @@ u
 u
 u
 u
-u
-"}
-(2,1,1) = {"
+u"}(2,1,1) = {"
 u
 a
 n
-j
-x
 B
+x
+j
 n
 a
+u"}(3,1,1) = {"
 u
-"}
-(3,1,1) = {"
-u
-i
+a
 n
-j
+B
 y
-B
+j
 n
-a
+i
+u"}(4,1,1) = {"
 u
-"}
-(4,1,1) = {"
-u
+m
+n
+n
+n
+n
+n
 J
-n
-n
-n
-n
-n
-m
+u"}(5,1,1) = {"
 u
-"}
-(5,1,1) = {"
-u
+n
+n
+n
+n
+n
+n
 D
-n
-n
-n
-n
-n
-n
+u"}(6,1,1) = {"
 u
-"}
-(6,1,1) = {"
-u
-a
 n
-j
+n
+B
 x
-B
-n
-n
-u
-"}
-(7,1,1) = {"
-u
-c
-n
 j
-k
-B
 n
-n
-s
-"}
-(8,1,1) = {"
-u
 a
+u"}(7,1,1) = {"
+s
 n
 n
+B
+k
+j
 n
-n
-n
+c
+u"}(8,1,1) = {"
+u
 m
+n
+n
+n
+n
+n
+a
+u"}(9,1,1) = {"
 u
-"}
-(9,1,1) = {"
+u
+u
+u
 u
 u
 o
 u
+u"}(10,1,1) = {"
 u
-u
-u
-u
-u
-"}
-(10,1,1) = {"
-u
-r
-t
-t
-u
-Q
-Q
 O
+Q
+Q
 u
-"}
-(11,1,1) = {"
-E
 t
 t
-t
-o
-Q
-Q
-Q
+r
+u"}(11,1,1) = {"
 h
-"}
-(12,1,1) = {"
+Q
+Q
+Q
+o
+t
+t
+t
+E"}(12,1,1) = {"
 u
-p
-L
+Q
+Q
+Q
+u
 A
-u
-Q
-Q
-Q
-u
-"}
-(13,1,1) = {"
-u
-u
-u
-u
+L
+p
+u"}(13,1,1) = {"
 u
 u
 I
 u
 u
-"}
+u
+u
+u
+u"}

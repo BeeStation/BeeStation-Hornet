@@ -3,7 +3,9 @@
 /turf/template_noop,
 /area/template_noop)
 "ab" = (
-/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ac" = (
@@ -12,7 +14,9 @@
 	},
 /area/lavaland/surface/outdoors)
 "ad" = (
-/obj/structure/flora/ausbushes/brflowers,
+/obj/structure/flora/ausbushes/brflowers{
+	dir = 1
+	},
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -21,43 +25,59 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/ruin/powered/animal_hospital)
 "af" = (
-/obj/effect/spawner/structure/window,
+/obj/effect/spawner/structure/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "ag" = (
-/obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
-	dir = 1
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "ah" = (
-/obj/structure/toilet,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
+/obj/structure/toilet{
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "ak" = (
-/obj/structure/table/wood,
-/obj/item/taperecorder,
-/obj/item/pen/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/taperecorder{
+	dir = 1
+	},
+/obj/item/pen/blue{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "am" = (
-/obj/machinery/vending/snack,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
+/obj/machinery/vending/snack{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
@@ -74,29 +94,35 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "ar" = (
-/obj/structure/table,
-/obj/item/surgical_drapes,
-/obj/item/razor,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/surgical_drapes{
+	dir = 1
+	},
+/obj/item/razor{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "as" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "at" = (
 /obj/structure/chair/office{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
 	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
@@ -105,43 +131,66 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "av" = (
-/obj/item/reagent_containers/glass/rag,
-/obj/item/reagent_containers/spray/cleaner,
-/obj/effect/turf_decal/tile/blue{
+/obj/item/reagent_containers/glass/rag{
+	dir = 1
+	},
+/obj/item/reagent_containers/spray/cleaner{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "aw" = (
-/obj/structure/table,
-/obj/item/retractor,
-/obj/item/hemostat,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/retractor{
+	dir = 1
+	},
+/obj/item/hemostat{
+	dir = 1
+	},
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/machinery/defibrillator_mount{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "ax" = (
-/obj/structure/closet/crate/trashcart,
-/obj/item/storage/bag/trash,
-/obj/item/trash/cheesie,
-/obj/item/reagent_containers/syringe/antiviral,
-/obj/item/bodybag,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/structure/closet/crate/trashcart{
+	dir = 1
+	},
+/obj/item/storage/bag/trash{
+	dir = 1
+	},
+/obj/item/trash/cheesie{
+	dir = 1
+	},
+/obj/item/reagent_containers/syringe/antiviral{
+	dir = 1
+	},
+/obj/item/bodybag{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	dir = 1
+	},
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -150,33 +199,40 @@
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -12;
-	pixel_y = 2
+	pixel_y = -2
 	},
 /obj/structure/mirror{
-	pixel_x = -28
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
+	pixel_x = -28;
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "az" = (
 /obj/structure/noticeboard{
-	dir = 1;
-	pixel_y = -27
+	dir = 2;
+	pixel_y = 27
 	},
-/obj/item/paper/fluff/stations/lavaland/surface/henderson_report,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
+/obj/item/paper/fluff/stations/lavaland/surface/henderson_report{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "aA" = (
-/obj/structure/closet/secure_closet/medical2,
+/obj/structure/closet/secure_closet/medical2{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "aB" = (
@@ -186,35 +242,49 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "aC" = (
-/obj/structure/table/optable,
+/obj/structure/table/optable{
+	dir = 1
+	},
 /obj/item/paper{
 	info = "Doc - As a heads up, that matter bin we ordered forever ago for saving.. less alive pets' finally come in. Sad thing is I can't figure out how to work the smartfridge board back into organ storage, can you do it for me? The matter bin'll let it repair organs, we'll be way better going! -Ted";
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "aD" = (
-/obj/structure/frame/machine,
+/obj/structure/frame/machine{
+	dir = 1
+	},
 /obj/item/stack/cable_coil/random/five,
-/obj/item/circuitboard/machine/smartfridge,
+/obj/item/circuitboard/machine/smartfridge{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "aE" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Restroom"
+	name = "Restroom";
+	dir = 1
 	},
-/obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
-	dir = 1
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/effect/turf_decal/tile/bar{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "aG" = (
-/obj/structure/extinguisher_cabinet,
+/obj/structure/extinguisher_cabinet{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/ruin/powered/animal_hospital)
 "aJ" = (
@@ -227,48 +297,56 @@
 /area/ruin/powered/animal_hospital)
 "aL" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "aP" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "aQ" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "aR" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "aS" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "aV" = (
-/obj/structure/closet/secure_closet/medical1,
+/obj/structure/closet/secure_closet/medical1{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "aW" = (
-/obj/machinery/chem_heater,
+/obj/machinery/chem_heater{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "aY" = (
@@ -276,57 +354,83 @@
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "be" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "bh" = (
-/obj/structure/table/glass,
-/obj/item/storage/firstaid/brute,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/storage/firstaid/brute{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "bi" = (
-/obj/item/toy/cattoy,
+/obj/item/toy/cattoy{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "bj" = (
-/obj/machinery/chem_master,
+/obj/machinery/chem_master{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "bk" = (
-/obj/structure/reagent_dispensers/fueltank,
-/obj/item/flashlight/glowstick/blue,
-/obj/item/flashlight/glowstick/blue,
-/obj/item/flashlight/glowstick/blue,
+/obj/structure/reagent_dispensers/fueltank{
+	dir = 1
+	},
+/obj/item/flashlight/glowstick/blue{
+	dir = 1
+	},
+/obj/item/flashlight/glowstick/blue{
+	dir = 1
+	},
+/obj/item/flashlight/glowstick/blue{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "bl" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/cookie{
-	name = "doggie biscuit"
+/obj/structure/table{
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/cookie{
-	name = "doggie biscuit"
+	name = "doggie biscuit";
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/cookie{
-	name = "doggie biscuit"
+	name = "doggie biscuit";
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/cookie{
-	name = "doggie biscuit"
+	name = "doggie biscuit";
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/cookie{
-	name = "doggie biscuit"
+	name = "doggie biscuit";
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/cookie{
-	name = "doggie biscuit"
+	name = "doggie biscuit";
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/cookie{
+	name = "doggie biscuit";
+	dir = 1
 	},
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
@@ -335,10 +439,10 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
@@ -350,16 +454,20 @@
 /area/ruin/powered/animal_hospital)
 "bo" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "bq" = (
-/obj/structure/filingcabinet/chestdrawer/wheeled,
+/obj/structure/filingcabinet/chestdrawer/wheeled{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "br" = (
-/obj/structure/chair/office,
+/obj/structure/chair/office{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bs" = (
@@ -369,16 +477,20 @@
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bt" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bu" = (
 /obj/structure/chair/comfy/teal{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
@@ -390,17 +502,20 @@
 /area/ruin/powered/animal_hospital)
 "bx" = (
 /obj/machinery/door/airlock/medical{
-	name = "Rejuvenation Pods"
+	name = "Rejuvenation Pods";
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "bF" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
@@ -408,26 +523,32 @@
 /obj/structure/chair/comfy/teal{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bI" = (
 /obj/structure/sign/departments/medbay/alt{
-	name = "animal hospital"
+	name = "animal hospital";
+	dir = 1
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/ruin/powered/animal_hospital)
 "bJ" = (
 /obj/machinery/door/airlock/glass_large{
-	name = "Ian's Pet Care"
+	name = "Ian's Pet Care";
+	dir = 1
 	},
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny/invisible{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bL" = (
@@ -439,83 +560,134 @@
 	},
 /area/lavaland/surface/outdoors)
 "bM" = (
-/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/sunnybush{
+	dir = 1
+	},
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors)
 "bO" = (
-/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/ppflowers{
+	dir = 1
+	},
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors)
 "bP" = (
-/obj/structure/table/glass,
-/obj/item/storage/firstaid/fire,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/storage/firstaid/fire{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "bQ" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "bR" = (
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/melee/baton/cattleprod{
-	desc = "On-the-fly rabies treatment.";
-	name = "cattle prod"
-	},
-/obj/item/stock_parts/cell/high,
-/obj/effect/turf_decal/tile/blue{
+/obj/structure/table{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/blue,
+/obj/machinery/cell_charger{
+	dir = 1
+	},
+/obj/item/melee/baton/cattleprod{
+	desc = "On-the-fly rabies treatment.";
+	name = "cattle prod";
+	dir = 1
+	},
+/obj/item/stock_parts/cell/high{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
-/area/ruin/powered/animal_hospital)
-"bS" = (
-/obj/structure/closet,
-/obj/item/defibrillator/loaded,
-/obj/item/storage/belt/medical,
-/obj/item/clothing/glasses/hud/health,
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
-/obj/item/defibrillator/loaded,
-/obj/item/storage/box/masks,
-/obj/item/storage/box/gloves,
+/turf/open/floor/plasteel,
+/area/ruin/powered/animal_hospital)
+"bS" = (
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/item/defibrillator/loaded{
+	dir = 1
+	},
+/obj/item/storage/belt/medical{
+	dir = 1
+	},
+/obj/item/clothing/glasses/hud/health{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/item/defibrillator/loaded{
+	dir = 1
+	},
+/obj/item/storage/box/masks{
+	dir = 1
+	},
+/obj/item/storage/box/gloves{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bT" = (
-/obj/item/pickaxe,
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/mapping_helpers/no_lava,
+/obj/item/pickaxe{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "bU" = (
-/obj/effect/decal/remains/human,
-/obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "bV" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "bW" = (
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny/invisible{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bX" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
@@ -523,7 +695,7 @@
 /area/lavaland/surface/outdoors)
 "bY" = (
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
@@ -531,7 +703,7 @@
 /area/lavaland/surface/outdoors)
 "bZ" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
@@ -539,53 +711,65 @@
 /area/lavaland/surface/outdoors)
 "ca" = (
 /obj/machinery/atmospherics/components/unary/tank/air{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors)
 "cb" = (
-/obj/machinery/atmospherics/components/binary/valve,
+/obj/machinery/atmospherics/components/binary/valve{
+	dir = 1
+	},
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors)
 "ch" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "ci" = (
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny/invisible{
+	dir = 1
+	},
 /obj/machinery/door/airlock/shuttle{
 	desc = "There's a smudged note wedged into it that says something about pizza dropoffs.";
-	name = "Staff Entrance"
+	name = "Staff Entrance";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "ck" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Medical Supplies"
+	name = "Medical Supplies";
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "cl" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Chemistry"
+	name = "Chemistry";
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "cm" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Storage"
+	name = "Storage";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "cn" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -594,11 +778,15 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "cu" = (
-/obj/item/storage/toolbox/mechanical,
+/obj/item/storage/toolbox/mechanical{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "cx" = (
@@ -613,36 +801,40 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "cz" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "cC" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/lavaland/surface/outdoors)
 "cD" = (
-/obj/structure/flora/ausbushes/sunnybush,
-/obj/machinery/light{
+/obj/structure/flora/ausbushes/sunnybush{
 	dir = 1
+	},
+/obj/machinery/light{
+	dir = 2
 	},
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
@@ -650,23 +842,33 @@
 /area/lavaland/surface/outdoors)
 "cE" = (
 /obj/machinery/light{
+	dir = 2
+	},
+/obj/effect/mapping_helpers/no_lava{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "cH" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /mob/living/simple_animal/bot/cleanbot,
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "cI" = (
-/obj/structure/table/glass,
-/obj/item/storage/firstaid/toxin,
-/obj/item/storage/firstaid/regular,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/storage/firstaid/toxin{
+	dir = 1
+	},
+/obj/item/storage/firstaid/regular{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "cJ" = (
@@ -679,7 +881,9 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "dC" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 4
 	},
@@ -689,40 +893,63 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "ep" = (
-/obj/structure/closet/crate/bin,
-/obj/item/trash/pistachios,
-/obj/item/lipstick/random,
-/obj/item/seeds/apple,
-/obj/effect/turf_decal/tile/blue{
+/obj/structure/closet/crate/bin{
+	dir = 1
+	},
+/obj/item/trash/pistachios{
+	dir = 1
+	},
+/obj/item/lipstick/random{
+	dir = 1
+	},
+/obj/item/seeds/apple{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "eH" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "fY" = (
 /obj/machinery/door/airlock/medical{
-	name = "Rejuvenation Pods"
+	name = "Rejuvenation Pods";
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -733,13 +960,17 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "gg" = (
-/obj/structure/table/wood,
-/obj/item/toy/plush/carpplushie,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/toy/plush/carpplushie{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
 	dir = 4
@@ -747,13 +978,17 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "gY" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/flashlight/lamp{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 8
@@ -764,30 +999,44 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "hl" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/blood/random,
-/obj/item/reagent_containers/blood/random,
-/obj/item/reagent_containers/blood/random,
-/obj/item/reagent_containers/blood/random,
+/obj/structure/closet/crate/freezer{
+	dir = 1
+	},
+/obj/item/reagent_containers/blood/random{
+	dir = 1
+	},
+/obj/item/reagent_containers/blood/random{
+	dir = 1
+	},
+/obj/item/reagent_containers/blood/random{
+	dir = 1
+	},
+/obj/item/reagent_containers/blood/random{
+	dir = 1
+	},
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
@@ -799,13 +1048,13 @@
 /area/ruin/powered/animal_hospital)
 "ho" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
@@ -813,18 +1062,26 @@
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "id" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "kH" = (
-/obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
-	dir = 1
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/effect/turf_decal/tile/bar{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
@@ -832,33 +1089,47 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "nI" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/hug,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/storage/box/hug{
+	dir = 1
+	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "nJ" = (
-/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/ruin/powered/animal_hospital)
 "oj" = (
-/obj/effect/decal/cleanable/ash,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/effect/decal/cleanable/ash{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "oD" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
@@ -872,9 +1143,11 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
-	dir = 1
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 8
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 4
@@ -883,10 +1156,10 @@
 /area/ruin/powered/animal_hospital)
 "rK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 6
+	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
@@ -895,37 +1168,54 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "tD" = (
-/obj/machinery/light/small,
-/obj/effect/turf_decal/tile/blue,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "tW" = (
-/obj/structure/closet,
-/obj/effect/decal/cleanable/cobweb,
-/obj/item/ammo_casing/shotgun/dart,
-/obj/item/ammo_casing/shotgun/dart,
-/obj/item/gun/ballistic/shotgun/doublebarrel{
-	desc = "For putting critters out to pasture."
+/obj/structure/closet{
+	dir = 1
 	},
-/obj/item/ammo_casing/shotgun/buckshot,
-/obj/item/storage/box/bodybags,
+/obj/effect/decal/cleanable/cobweb{
+	dir = 4
+	},
+/obj/item/ammo_casing/shotgun/dart{
+	dir = 1
+	},
+/obj/item/ammo_casing/shotgun/dart{
+	dir = 1
+	},
+/obj/item/gun/ballistic/shotgun/doublebarrel{
+	desc = "For putting critters out to pasture.";
+	dir = 1
+	},
+/obj/item/ammo_casing/shotgun/buckshot{
+	dir = 1
+	},
+/obj/item/storage/box/bodybags{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -935,8 +1225,12 @@
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "um" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/glasses/regular,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/clothing/glasses/regular{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
@@ -947,22 +1241,28 @@
 /area/ruin/powered/animal_hospital)
 "vm" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "vJ" = (
-/obj/structure/table,
-/obj/item/tank/internals/oxygen,
-/obj/item/tank/internals/oxygen,
-/obj/effect/turf_decal/tile/blue{
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/tank/internals/oxygen{
+	dir = 1
+	},
+/obj/item/tank/internals/oxygen{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
 	dir = 4
@@ -976,61 +1276,72 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 8
 	},
-/obj/structure/bed/roller,
+/obj/structure/bed/roller{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "wd" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "wL" = (
-/obj/machinery/vending/coffee,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
+/obj/machinery/vending/coffee{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "wX" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "xa" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Medical Supplies"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	name = "Medical Supplies";
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "yx" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 9
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 4
@@ -1039,56 +1350,75 @@
 /area/ruin/powered/animal_hospital)
 "yB" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 1
+	dir = 2
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "yU" = (
-/obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
-	dir = 1
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 10
+	dir = 9
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "zw" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "zK" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Morgue"
+	name = "Morgue";
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "AZ" = (
-/obj/structure/table,
-/obj/item/storage/fancy/cigarettes/dromedaryco,
-/obj/item/storage/box/matches,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/fancy/cigarettes/dromedaryco{
+	dir = 1
+	},
+/obj/item/storage/box/matches{
+	dir = 1
+	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "BG" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
@@ -1105,7 +1435,7 @@
 /area/ruin/powered/animal_hospital)
 "Dn" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
@@ -1114,38 +1444,45 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "Fn" = (
-/obj/machinery/iv_drip,
-/obj/effect/turf_decal/tile/blue{
+/obj/machinery/iv_drip{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 10
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "Fv" = (
-/obj/structure/table,
-/obj/item/cautery{
-	pixel_x = 4
+/obj/structure/table{
+	dir = 1
 	},
-/obj/item/surgicaldrill,
+/obj/item/cautery{
+	pixel_x = 4;
+	dir = 1
+	},
+/obj/item/surgicaldrill{
+	dir = 1
+	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
 	dir = 8
 	},
@@ -1153,18 +1490,21 @@
 /area/ruin/powered/animal_hospital)
 "FD" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Operating Theatre"
+	name = "Operating Theatre";
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "Hg" = (
-/obj/structure/closet/l3closet,
+/obj/structure/closet/l3closet{
+	dir = 1
+	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 4
 	},
@@ -1181,19 +1521,19 @@
 /area/ruin/powered/animal_hospital)
 "II" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
@@ -1205,49 +1545,59 @@
 /area/ruin/powered/animal_hospital)
 "KK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 6
+	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "Mf" = (
 /mob/living/simple_animal/cockroach,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "Ms" = (
-/obj/machinery/smartfridge/chemistry/preloaded,
+/obj/machinery/smartfridge/chemistry/preloaded{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "Nl" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "Nt" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "Oy" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
@@ -1260,18 +1610,29 @@
 "QW" = (
 /obj/item/stack/cable_coil/random,
 /obj/item/stack/sheet/mineral/titanium{
-	amount = 30
+	amount = 30;
+	dir = 1
 	},
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/iron/twenty,
+/obj/item/stack/sheet/mineral/plasma{
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	dir = 1
+	},
+/obj/item/stack/sheet/iron/twenty{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/powered/animal_hospital)
 "Rp" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
@@ -1282,15 +1643,17 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "Sx" = (
-/obj/machinery/chem_dispenser,
+/obj/machinery/chem_dispenser{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "SB" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 4
@@ -1300,67 +1663,87 @@
 "SC" = (
 /obj/machinery/door/airlock/shuttle{
 	desc = "There's a smudged note wedged into it that says something about pizza dropoffs.";
-	name = "Staff Entrance"
+	name = "Staff Entrance";
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "SK" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "TA" = (
-/obj/structure/table/reinforced,
-/obj/item/flashlight/lamp,
-/obj/effect/turf_decal/tile/blue{
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/flashlight/lamp{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 5
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "TT" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "Uf" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "Vg" = (
-/obj/structure/table,
-/obj/item/circular_saw,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/circular_saw{
+	dir = 1
+	},
 /obj/item/scalpel{
-	pixel_y = 12
+	pixel_y = -12;
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
@@ -1373,33 +1756,46 @@
 	heal_threshold = 40;
 	name = "emergency Medibot"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "Vt" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Break Room"
+	name = "Break Room";
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "Vv" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/clothing/mask/surgical,
-/obj/item/clothing/suit/apron/surgical,
-/obj/item/storage/box/monkeycubes,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/clothing/gloves/color/latex{
+	dir = 1
+	},
+/obj/item/clothing/mask/surgical{
+	dir = 1
+	},
+/obj/item/clothing/suit/apron/surgical{
+	dir = 1
+	},
+/obj/item/storage/box/monkeycubes{
+	dir = 1
+	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 4
 	},
@@ -1407,75 +1803,116 @@
 /area/ruin/powered/animal_hospital)
 "Wh" = (
 /obj/machinery/door/airlock/shuttle{
-	name = "Chemistry"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/turf/open/floor/plasteel/white,
-/area/ruin/powered/animal_hospital)
-"Xl" = (
-/obj/structure/table/reinforced,
-/obj/machinery/reagentgrinder,
-/turf/open/floor/plasteel/white,
-/area/ruin/powered/animal_hospital)
-"XY" = (
-/obj/item/gps{
-	gpstag = "HOSPITAL0"
-	},
-/obj/item/gps{
-	gpstag = "HOSPITAL0"
-	},
-/obj/item/gps{
-	gpstag = "HOSPITAL0"
-	},
-/obj/item/gps{
-	gpstag = "HOSPITAL0"
-	},
-/obj/item/pinpointer/crew,
-/obj/item/sensor_device,
-/obj/item/pickaxe,
-/obj/item/clothing/glasses/meson,
-/obj/item/sensor_device,
-/obj/item/pinpointer/crew,
-/obj/item/pickaxe,
-/obj/item/clothing/glasses/meson,
-/obj/structure/table/reinforced,
-/obj/machinery/light{
-	dir = 4
+	name = "Chemistry";
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 9
+	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
+"Xl" = (
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/machinery/reagentgrinder{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/powered/animal_hospital)
+"XY" = (
+/obj/item/gps{
+	gpstag = "HOSPITAL0";
+	dir = 1
+	},
+/obj/item/gps{
+	gpstag = "HOSPITAL0";
+	dir = 1
+	},
+/obj/item/gps{
+	gpstag = "HOSPITAL0";
+	dir = 1
+	},
+/obj/item/gps{
+	gpstag = "HOSPITAL0";
+	dir = 1
+	},
+/obj/item/pinpointer/crew{
+	dir = 1
+	},
+/obj/item/sensor_device{
+	dir = 1
+	},
+/obj/item/pickaxe{
+	dir = 1
+	},
+/obj/item/clothing/glasses/meson{
+	dir = 1
+	},
+/obj/item/sensor_device{
+	dir = 1
+	},
+/obj/item/pinpointer/crew{
+	dir = 1
+	},
+/obj/item/pickaxe{
+	dir = 1
+	},
+/obj/item/clothing/glasses/meson{
+	dir = 1
+	},
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 10
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+	dir = 2
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/powered/animal_hospital)
 "Yj" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen/fourcolor,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/paper_bin{
+	dir = 1
+	},
+/obj/item/pen/fourcolor{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "Zg" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/on,
+/obj/machinery/atmospherics/components/unary/outlet_injector/on{
+	dir = 1
+	},
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/powered/animal_hospital)
 "Zx" = (
-/obj/item/stock_parts/matter_bin/bluespace,
+/obj/item/stock_parts/matter_bin/bluespace{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "ZX" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 5
+	dir = 6
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
@@ -1489,28 +1926,6 @@ aa
 aa
 aa
 aa
-ab
-ab
-ab
-aa
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(2,1,1) = {"
 aa
 aa
 aa
@@ -1519,9 +1934,20 @@ aa
 aa
 aa
 ab
+aa
 ab
 ab
 ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(2,1,1) = {"
+aa
+aa
 ab
 ab
 ab
@@ -1537,60 +1963,46 @@ aa
 ab
 ab
 ab
-aa
-aa
-"}
-(3,1,1) = {"
-aa
-aa
-aa
-aa
-aa
 ab
 ab
 ab
 ab
-aJ
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(3,1,1) = {"
 ab
+ab
+bV
+bU
+ab
+ab
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 ab
 cx
 ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 ab
-ab
-ab
-bU
-bV
-ab
-ab
-"}
-(4,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-ab
-cp
-ax
-ac
 aJ
-ac
-ae
-ae
-ae
-ae
-ae
+ab
+ab
+ab
+ab
 aa
 aa
 aa
 aa
+aa"}(4,1,1) = {"
+ab
 ab
 ab
 ab
@@ -1598,485 +2010,471 @@ bT
 ab
 ab
 ab
+aa
+aa
+aa
+aa
+ae
+ae
+ae
+ae
+ae
+ac
+aJ
+ac
+ax
+cp
 ab
-"}
-(5,1,1) = {"
 aa
 aa
 aa
 aa
+aa"}(5,1,1) = {"
+ab
+ab
+ab
+ab
+ab
+ab
+ac
 ae
 ae
 ae
+ae
+ae
+ae
+AZ
+aY
+tW
 ae
 ae
 ci
 ae
 ae
-tW
-aY
-AZ
 ae
 ae
 ae
-ae
-ae
-ae
+aa
+aa
+aa
+aa"}(6,1,1) = {"
+ab
+ab
+ab
+ab
+ab
 ac
-ab
-ab
-ab
-ab
-ab
-ab
-"}
-(6,1,1) = {"
-aa
-aa
-aa
-ab
-ae
-ag
-qP
-ay
-ae
-rK
-Nl
-zK
-dC
-oj
-Mf
-zK
-Nl
-ep
-TA
-bF
-ae
 cC
+ae
+bF
+TA
+ep
+Nl
+zK
+Mf
+oj
+dC
+zK
+Nl
+rK
+ae
+ay
+qP
+ag
+ae
+ab
+aa
+aa
+aa"}(7,1,1) = {"
+ac
 ac
 ab
 ab
-ab
-ab
-ab
-"}
-(7,1,1) = {"
-aa
-ab
-ab
-ab
-ae
-ah
-yU
-kH
-aE
-Uf
-aK
-ae
-ae
-ae
-ae
-ae
-cz
-bq
-um
-aP
-af
+ac
+ac
 ad
-ac
-ac
-ab
-ab
-ac
-ac
-"}
-(8,1,1) = {"
-aa
-ab
-ab
-cn
-ae
-ae
-ae
-ae
-aG
-ho
-tD
-ae
-aV
-Hg
-cI
-aG
-aL
-br
-Yj
-aP
 af
+aP
+um
+bq
+cz
+ae
+ae
+ae
+ae
+ae
+aK
+Uf
+aE
+kH
+yU
+ah
+ae
+ab
+ab
+ab
+aa"}(8,1,1) = {"
+ab
+ab
+ab
+ac
+ac
+ac
 bL
-ac
-ac
-ac
-ab
-ab
-ab
-"}
-(9,1,1) = {"
-ab
-ab
-ac
-ac
-ae
-wL
-Fd
-wd
-Vt
-BG
+af
 aP
-ae
-ao
-JK
-bi
-ae
+Yj
+br
 aL
-bs
-nI
-aP
-bI
+aG
+cI
+Hg
+aV
+ae
+tD
+ho
+aG
+ae
+ae
+ae
+ae
+cn
+ab
+ab
+aa"}(9,1,1) = {"
+ab
+ab
+ab
+ab
+ab
+ac
 bM
-ac
-ab
-ab
-ab
-ab
-ab
-"}
-(10,1,1) = {"
-ab
-ab
-ab
-ac
-af
-gY
-at
-as
-ae
-zw
-ch
-xa
-yB
-XY
-ao
-ck
-aK
-aK
-aK
-aK
-bJ
-aJ
-aJ
-aJ
-ab
-ab
-ab
-ab
-"}
-(11,1,1) = {"
-ab
-ac
-ac
-ac
-af
-ak
-as
-az
-ae
-Oy
+bI
 aP
+nI
+bs
+aL
 ae
+bi
+JK
+ao
 ae
+aP
+BG
+Vt
+wd
+Fd
+wL
+ae
+ac
+ac
+ab
+ab"}(10,1,1) = {"
+ab
+ab
+ab
+ab
+aJ
+aJ
+aJ
+bJ
+aK
+aK
+aK
+aK
+ck
+ao
+XY
+yB
+xa
+ch
+zw
+ae
+as
+at
+gY
+af
+ac
+ab
+ab
+ab"}(11,1,1) = {"
+ab
+ab
+ac
+ab
+ab
+aJ
+aJ
+bW
+aK
+aK
+bt
+bl
 ae
 Ms
 ae
-bl
-bt
-aK
-aK
-bW
-aJ
-aJ
-ab
-ab
-ac
-ab
-ab
-"}
-(12,1,1) = {"
-ab
-ac
-ac
-ad
-af
-gg
-au
-as
 ae
-zw
-Nl
-Wh
-id
-ZX
-ao
-cl
-aK
-aK
-aK
+ae
 aP
+Oy
 ae
+az
+as
+ak
+af
+ac
+ac
+ac
+ab"}(12,1,1) = {"
+ab
+ab
+ab
+ab
+ac
+ac
 cD
+ae
+aP
+aK
+aK
+aK
+cl
+ao
+ZX
+id
+Wh
+Nl
+zw
+ae
+as
+au
+gg
+af
+ad
 ac
 ac
+ab"}(13,1,1) = {"
 ab
 ab
 ab
 ab
-"}
-(13,1,1) = {"
-ab
-ab
-ac
-Zg
-nJ
-am
-ti
-SK
-SC
-nc
-cH
-ae
-aW
-RQ
-Xl
-ae
-bm
-bu
-bu
-bG
-ae
 ac
 bO
 ac
-ab
-ab
-ab
-ab
-"}
-(14,1,1) = {"
-ab
-ac
-bX
-ca
 ae
+bG
+bu
+bu
+bm
 ae
+Xl
+RQ
+aW
 ae
-ae
-aG
-oD
-aP
-ae
-Sx
-Cv
-bj
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ab
-ab
-aa
-aa
-"}
-(15,1,1) = {"
-ab
-ab
-bY
-ca
-ae
-Vv
-an
-aA
-ae
-II
-wX
-ae
-ae
-ae
-ae
-ae
-bh
-bv
-bv
-cJ
-bn
-bv
-bP
-ae
-cE
-ab
-aa
-aa
-"}
-(16,1,1) = {"
-aa
-ab
-bZ
-cb
+cH
+nc
+SC
+SK
+ti
+am
 nJ
-vZ
-vm
-vm
-FD
-Uf
-aK
-cm
-QW
-be
-bk
-ae
-bo
-KK
-Vj
-Dn
-Rp
-ao
-bQ
-ae
+Zg
+ac
 ab
+ab"}(14,1,1) = {"
 aa
-aa
-aa
-"}
-(17,1,1) = {"
 aa
 ab
 ab
-cn
 ae
-Vg
-Zx
-aB
 ae
-oD
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+bj
+Cv
+Sx
+ae
 aP
+oD
+aG
+ae
+ae
+ae
+ae
+ca
+bX
+ac
+ab"}(15,1,1) = {"
+aa
+aa
+ab
+cE
+ae
+bP
+bv
+bn
+cJ
+bv
+bv
+bh
 ae
 ae
 ae
 ae
 ae
-af
-fY
-af
+wX
+II
+ae
+aA
+an
+Vv
+ae
+ca
+bY
+ab
+ab"}(16,1,1) = {"
+aa
+aa
+aa
+ab
+ae
+bQ
+ao
+Rp
+Dn
+Vj
+KK
+bo
+ae
+bk
+be
+QW
+cm
+aK
+Uf
+FD
+vm
+vm
+vZ
+nJ
+cb
+bZ
+ab
+aa"}(17,1,1) = {"
+aa
+aa
+aa
+aa
 ae
 af
 bx
 af
 ae
-aa
-aa
-aa
-aa
-"}
-(18,1,1) = {"
-aa
-aa
+af
+fY
+af
+ae
+ae
+ae
+ae
+ae
+aP
+oD
+ae
+aB
+Zx
+Vg
+ae
+cn
 ab
-ac
+ab
+aa"}(18,1,1) = {"
+aa
+aa
+aa
+aa
 ae
-Fv
-cu
-aC
-ae
-hl
-aQ
-aS
-SB
-aS
-aS
-aS
-av
-HP
+bR
+aK
 aS
 vJ
 aS
-aK
-bR
+HP
+av
+aS
+aS
+aS
+SB
+aS
+aQ
+hl
 ae
-aa
-aa
-aa
-aa
-"}
-(19,1,1) = {"
-aa
-aa
+aC
+cu
+Fv
+ae
+ac
 ab
-ab
+aa
+aa"}(19,1,1) = {"
+aa
+aa
+aa
+aa
 ae
-ar
-aw
-aD
-ae
-Fn
+bS
+aR
+cy
+Nt
+eH
+yx
+dG
+TT
 TT
 TT
 hh
 TT
 TT
-TT
-dG
-yx
-eH
-Nt
-cy
-aR
-bS
+Fn
 ae
-aa
-aa
-aa
-aa
-"}
-(20,1,1) = {"
-aa
-aa
-aa
+aD
+aw
+ar
+ae
 ab
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
+ab
+aa
+aa"}(20,1,1) = {"
 aa
 aa
 aa
 aa
-"}
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ab
+aa
+aa
+aa"}

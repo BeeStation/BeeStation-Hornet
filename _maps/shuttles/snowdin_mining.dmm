@@ -1,7 +1,11 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/snowdin/elevator2)
 "d" = (
@@ -11,7 +15,9 @@
 /turf/open/floor/engine,
 /area/shuttle/snowdin/elevator2)
 "i" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/engine,
 /area/shuttle/snowdin/elevator2)
 "j" = (
@@ -19,11 +25,12 @@
 /area/shuttle/snowdin/elevator2)
 "I" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/computer/turbolift{
 	shuttle_id = "snowdin_mining";
-	time_between_stops = 50
+	time_between_stops = 50;
+	dir = 1
 	},
 /turf/open/floor/engine,
 /area/shuttle/snowdin/elevator2)
@@ -36,46 +43,41 @@
 	name = "mining elevator";
 	width = 5
 	},
-/obj/machinery/door/airlock/turbolift,
+/obj/machinery/door/airlock/turbolift{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/snowdin/elevator2)
 "R" = (
-/obj/machinery/door/airlock/turbolift,
+/obj/machinery/door/airlock/turbolift{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/snowdin/elevator2)
 
 (1,1,1) = {"
-j
+d
 b
 J
 b
-d
-"}
-(2,1,1) = {"
+j"}(2,1,1) = {"
 b
-f
-f
 i
+f
+f
+b"}(3,1,1) = {"
+R
+f
+f
+f
+R"}(4,1,1) = {"
 b
-"}
-(3,1,1) = {"
-R
 f
 f
-f
-R
-"}
-(4,1,1) = {"
-d
 I
-f
-f
-b
-"}
-(5,1,1) = {"
-d
+d"}(5,1,1) = {"
+j
 b
 R
 b
-j
-"}
+d"}

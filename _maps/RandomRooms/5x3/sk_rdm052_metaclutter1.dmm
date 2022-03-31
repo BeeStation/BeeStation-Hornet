@@ -35,17 +35,22 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/item/cigbutt,
+/obj/item/cigbutt{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
 /obj/item/bot_assembly/floorbot{
-	build_step = 1
+	build_step = 1;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/item/vending_refill/cigarette,
+/obj/item/vending_refill/cigarette{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -60,25 +65,16 @@
 (1,1,1) = {"
 a
 d
-a
-"}
-(2,1,1) = {"
-b
-b
+a"}(2,1,1) = {"
 g
-"}
-(3,1,1) = {"
 b
-e
+b"}(3,1,1) = {"
 h
-"}
-(4,1,1) = {"
-b
-b
+e
+b"}(4,1,1) = {"
 i
-"}
-(5,1,1) = {"
-c
-f
+b
+b"}(5,1,1) = {"
 j
-"}
+f
+c"}

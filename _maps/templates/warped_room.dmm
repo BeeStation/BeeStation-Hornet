@@ -6,32 +6,46 @@
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "c" = (
-/obj/structure/table/wood,
-/turf/open/indestructible/hotelwood,
-/area/warped_room)
-"d" = (
-/obj/machinery/door/window/northleft,
-/turf/open/indestructible/hotelwood,
-/area/warped_room)
-"e" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp,
-/turf/open/indestructible/hotelwood,
-/area/warped_room)
-"f" = (
-/obj/structure/bed,
-/obj/item/bedsheet/random,
-/turf/open/indestructible/hotelwood,
-/area/warped_room)
-"g" = (
-/obj/machinery/light{
+/obj/structure/table/wood{
 	dir = 1
 	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
+"d" = (
+/obj/machinery/door/window/southleft,
+/turf/open/indestructible/hotelwood,
+/area/warped_room)
+"e" = (
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/flashlight/lamp{
+	dir = 1
+	},
+/turf/open/indestructible/hotelwood,
+/area/warped_room)
+"f" = (
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/random{
+	dir = 1
+	},
+/turf/open/indestructible/hotelwood,
+/area/warped_room)
+"g" = (
+/obj/machinery/light{
+	dir = 2
+	},
+/turf/open/indestructible/hotelwood,
+/area/warped_room)
 "h" = (
-/obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/three_course_meal,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/three_course_meal{
+	dir = 1
+	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "i" = (
@@ -47,62 +61,92 @@
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "k" = (
-/obj/structure/closet/cabinet,
-/obj/item/clothing/under/color/random,
+/obj/structure/closet/cabinet{
+	dir = 1
+	},
+/obj/item/clothing/under/color/random{
+	dir = 1
+	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "l" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "m" = (
+/obj/structure/chair/wood{
+	dir = 2
+	},
+/turf/open/indestructible/hotelwood,
+/area/warped_room)
+"n" = (
+/obj/machinery/computer/arcade/orion_trail{
+	dir = 1
+	},
+/turf/open/indestructible/hotelwood,
+/area/warped_room)
+"o" = (
 /obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
-"n" = (
-/obj/machinery/computer/arcade/orion_trail,
-/turf/open/indestructible/hotelwood,
-/area/warped_room)
-"o" = (
-/obj/structure/chair/wood,
-/turf/open/indestructible/hotelwood,
-/area/warped_room)
 "p" = (
-/obj/structure/table/wood,
-/obj/machinery/microwave,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/machinery/microwave{
+	dir = 1
+	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "q" = (
 /obj/structure/sink{
 	dir = 4;
 	pixel_x = -12;
-	pixel_y = 2
+	pixel_y = -2
 	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "r" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle,
-/turf/open/indestructible/hotelwood,
-/area/warped_room)
-"s" = (
-/obj/machinery/processor,
-/turf/open/indestructible/hotelwood,
-/area/warped_room)
-"t" = (
-/obj/structure/table/wood,
-/obj/machinery/chem_dispenser/drinks/beer{
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/bottle{
 	dir = 1
 	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
+"s" = (
+/obj/machinery/processor{
+	dir = 1
+	},
+/turf/open/indestructible/hotelwood,
+/area/warped_room)
+"t" = (
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/machinery/chem_dispenser/drinks/beer{
+	dir = 2
+	},
+/turf/open/indestructible/hotelwood,
+/area/warped_room)
 "u" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/soda_cans/cola,
-/obj/item/kitchen/knife,
-/obj/item/kitchen/rollingpin,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/cola{
+	dir = 1
+	},
+/obj/item/kitchen/knife{
+	dir = 1
+	},
+/obj/item/kitchen/rollingpin{
+	dir = 1
+	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "v" = (
@@ -112,44 +156,72 @@
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "w" = (
-/obj/structure/table/wood,
-/obj/item/toy/plush/narplush,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/toy/plush/narplush{
+	dir = 1
+	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "x" = (
-/obj/structure/table/wood,
-/obj/item/toy/plush/plushvar,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/toy/plush/plushvar{
+	dir = 1
+	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "y" = (
-/obj/structure/table/wood,
-/obj/item/paper,
-/obj/item/pen,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/paper{
+	dir = 1
+	},
+/obj/item/pen{
+	dir = 1
+	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "z" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/paper_bin{
+	dir = 1
+	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "A" = (
-/obj/machinery/vending/cola/random,
+/obj/machinery/vending/cola/random{
+	dir = 1
+	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "B" = (
-/obj/machinery/vending/snack/random,
+/obj/machinery/vending/snack/random{
+	dir = 1
+	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "C" = (
-/obj/machinery/computer/arcade/battle,
+/obj/machinery/computer/arcade/battle{
+	dir = 1
+	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "D" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "E" = (
-/obj/machinery/door/airlock/wood,
+/obj/machinery/door/airlock/wood{
+	dir = 1
+	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "F" = (
@@ -162,22 +234,31 @@
 /turf/open/indestructible/hoteltile,
 /area/warped_room)
 "G" = (
-/obj/machinery/door/airlock/wood,
+/obj/machinery/door/airlock/wood{
+	dir = 1
+	},
 /turf/open/indestructible/hoteltile,
 /area/warped_room)
 "H" = (
 /obj/structure/closet/secure_closet/freezer/kitchen{
-	locked = 0
+	locked = 0;
+	dir = 1
 	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "I" = (
-/obj/structure/table/wood,
-/obj/item/storage/pill_bottle/dice,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/storage/pill_bottle/dice{
+	dir = 1
+	},
 /turf/open/indestructible/hotelwood,
 /area/warped_room)
 "K" = (
-/obj/structure/sign/departments/restroom,
+/obj/structure/sign/departments/restroom{
+	dir = 1
+	},
 /turf/closed/indestructible/hotelwall,
 /area/warped_room)
 
@@ -191,72 +272,57 @@ a
 a
 a
 a
+a"}(2,1,1) = {"
 a
-"}
-(2,1,1) = {"
-a
-w
-m
+H
+q
+h
 b
 j
 b
-h
-q
-H
+m
+w
+a"}(3,1,1) = {"
 a
-"}
-(3,1,1) = {"
-a
-e
-b
-b
-b
+s
 b
 p
 b
-s
+b
+b
+b
+e
+a"}(4,1,1) = {"
 a
-"}
-(4,1,1) = {"
-a
-b
-b
-b
-b
+t
 b
 d
 b
-t
+b
+b
+b
+b
+a"}(5,1,1) = {"
 a
-"}
-(5,1,1) = {"
-a
-g
-b
-b
-b
-b
-z
-r
 u
+r
+z
+b
+b
+b
+b
+g
+a"}(6,1,1) = {"
 a
-"}
-(6,1,1) = {"
-a
+l
+b
+b
+b
+b
 a
 E
 a
-b
-b
-b
-b
-l
-a
-"}
-(7,1,1) = {"
-a
-b
-b
+a"}(7,1,1) = {"
 a
 b
 b
@@ -264,35 +330,29 @@ b
 b
 b
 a
-"}
-(8,1,1) = {"
-a
-g
 b
-a
 b
-o
-y
+a"}(8,1,1) = {"
+a
+m
 x
+y
+o
+b
+a
+b
+g
+a"}(9,1,1) = {"
+a
 m
+c
+c
+o
+b
 a
-"}
-(9,1,1) = {"
-a
-k
 f
-a
-b
-o
-c
-c
-m
-a
-"}
-(10,1,1) = {"
-a
-a
-a
+k
+a"}(10,1,1) = {"
 a
 b
 b
@@ -300,56 +360,49 @@ b
 b
 b
 a
-"}
-(11,1,1) = {"
 a
-n
-D
-b
-b
-b
-b
-b
+a
+a"}(11,1,1) = {"
+a
 l
-a
-"}
-(12,1,1) = {"
-a
-A
 b
 b
 b
 b
 b
-b
-b
-a
-"}
-(13,1,1) = {"
-a
-B
-b
-b
-b
-b
-i
-K
-G
-a
-"}
-(14,1,1) = {"
-a
-C
 D
+n
+a"}(12,1,1) = {"
+a
 b
-v
-o
-I
+b
+b
+b
+b
+b
+b
+A
+a"}(13,1,1) = {"
+a
+G
+K
+i
+b
+b
+b
+b
+B
+a"}(14,1,1) = {"
 a
 F
 a
-"}
-(15,1,1) = {"
+I
+o
+v
+b
+D
+C
+a"}(15,1,1) = {"
 a
 a
 a
@@ -359,5 +412,4 @@ a
 a
 a
 a
-a
-"}
+a"}

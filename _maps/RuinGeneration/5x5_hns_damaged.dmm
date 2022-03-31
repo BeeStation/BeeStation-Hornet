@@ -12,52 +12,47 @@
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "D" = (
-/obj/effect/abstract/open_area_marker,
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "F" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "J" = (
 /obj/effect/abstract/open_area_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
 r
-z
-z
 r
-r
-"}
-(2,1,1) = {"
-n
 z
 z
-F
+r"}(2,1,1) = {"
 n
-"}
-(3,1,1) = {"
-J
 F
 z
-d
+z
+n"}(3,1,1) = {"
 D
-"}
-(4,1,1) = {"
-n
 d
 z
-z
+F
+J"}(4,1,1) = {"
 n
-"}
-(5,1,1) = {"
-r
+z
+z
 d
-z
-z
+n"}(5,1,1) = {"
 r
-"}
+z
+z
+d
+r"}

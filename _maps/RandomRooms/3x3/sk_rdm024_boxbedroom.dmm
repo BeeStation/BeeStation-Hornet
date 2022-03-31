@@ -3,7 +3,7 @@
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -12;
-	pixel_y = 2
+	pixel_y = -2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
@@ -11,34 +11,43 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/structure/bed,
-/obj/item/bedsheet/dorms,
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/dorms{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/item/trash/sosjerky,
+/obj/item/trash/sosjerky{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/item/electronics/airalarm,
-/obj/item/circuitboard/machine/seed_extractor,
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/item/electronics/airalarm{
+	dir = 1
+	},
+/obj/item/circuitboard/machine/seed_extractor{
+	dir = 1
+	},
+/obj/structure/table{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/four{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-a
+b
 d
-b
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 b
 b
-b
-"}
-(3,1,1) = {"
-c
-b
+b"}(3,1,1) = {"
 e
-"}
+b
+c"}

@@ -3,9 +3,15 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "f" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "i" = (
@@ -13,31 +19,41 @@
 /area/ruin/unpowered)
 "j" = (
 /obj/effect/abstract/doorway_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "k" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "z" = (
-/obj/effect/decal/cleanable/oil/streak,
+/obj/effect/decal/cleanable/oil/streak{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "G" = (
-/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood/drip{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "W" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "X" = (
-/obj/vehicle/ridden/atv,
+/obj/vehicle/ridden/atv{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Y" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/structure/closet/crate/secure/loot{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
@@ -46,33 +62,24 @@ e
 e
 e
 e
+e"}(2,1,1) = {"
 e
-"}
-(2,1,1) = {"
-e
-X
-G
 Y
+G
+X
+e"}(3,1,1) = {"
 e
-"}
-(3,1,1) = {"
-j
-k
-i
 W
-e
-"}
-(4,1,1) = {"
-e
-f
 i
+k
+j"}(4,1,1) = {"
+e
 z
-e
-"}
-(5,1,1) = {"
-e
-e
+i
+f
+e"}(5,1,1) = {"
 e
 e
 e
-"}
+e
+e"}

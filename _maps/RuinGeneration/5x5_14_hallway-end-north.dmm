@@ -3,19 +3,27 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "N" = (
-/obj/effect/abstract/open_area_marker,
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "O" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "R" = (
 /turf/template_noop,
 /area/template_noop)
 "T" = (
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "X" = (
@@ -23,37 +31,28 @@
 /area/ruin/unpowered)
 
 (1,1,1) = {"
-R
-R
 X
 X
 X
-"}
-(2,1,1) = {"
 R
+R"}(2,1,1) = {"
+f
+f
+T
 O
-T
-f
-f
-"}
-(3,1,1) = {"
-R
-R
-T
-f
+R"}(3,1,1) = {"
 N
-"}
-(4,1,1) = {"
-R
-O
+f
 T
+R
+R"}(4,1,1) = {"
 f
 f
-"}
-(5,1,1) = {"
+T
+O
+R"}(5,1,1) = {"
+X
+X
+X
 R
-R
-X
-X
-X
-"}
+R"}

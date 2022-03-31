@@ -3,11 +3,15 @@
 /turf/template_noop,
 /area/template_noop)
 "ac" = (
-/obj/structure/sign/warning/radiation,
+/obj/structure/sign/warning/radiation{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "ad" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ae" = (
@@ -15,13 +19,18 @@
 /area/shuttle/escape)
 "ag" = (
 /obj/structure/closet/radiation{
-	anchored = 1
+	anchored = 1;
+	dir = 1
 	},
-/obj/item/clothing/glasses/meson/engine,
+/obj/item/clothing/glasses/meson/engine{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "ah" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "ai" = (
@@ -29,7 +38,7 @@
 /area/shuttle/escape)
 "aj" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
@@ -41,7 +50,7 @@
 /area/shuttle/escape)
 "am" = (
 /obj/structure/reflector/single/mapping{
-	dir = 6
+	dir = 5
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -49,12 +58,14 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "an" = (
-/obj/structure/reflector/box/mapping,
+/obj/structure/reflector/box/mapping{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ao" = (
 /obj/structure/reflector/single/mapping{
-	dir = 10
+	dir = 9
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -98,25 +109,38 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "aB" = (
-/obj/machinery/power/supermatter_crystal/shard/hugbox/fakecrystal,
+/obj/machinery/power/supermatter_crystal/shard/hugbox/fakecrystal{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "aD" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/toxin,
-/obj/item/crowbar/red,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/storage/firstaid/toxin{
+	dir = 1
+	},
+/obj/item/crowbar/red{
+	dir = 1
+	},
 /obj/item/storage/box/snappops{
 	pixel_x = 4;
-	pixel_y = -4
+	pixel_y = 4;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "aE" = (
-/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/reagent_dispensers/fueltank{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "aI" = (
-/obj/structure/sign/warning/radiation,
+/obj/structure/sign/warning/radiation{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "aM" = (
@@ -124,43 +148,43 @@
 /area/shuttle/escape)
 "aN" = (
 /obj/structure/reflector/single/mapping{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "aO" = (
 /obj/structure/reflector/double/mapping{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "aP" = (
 /obj/structure/reflector/double/mapping{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "aQ" = (
 /obj/structure/reflector/single/mapping{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "aR" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "aS" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "aT" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
@@ -171,7 +195,9 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "aV" = (
-/obj/machinery/power/supermatter_crystal/shard/hugbox,
+/obj/machinery/power/supermatter_crystal/shard/hugbox{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "aW" = (
@@ -182,62 +208,74 @@
 /area/shuttle/escape)
 "aX" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "aY" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 2
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "aZ" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "ba" = (
 /obj/machinery/power/emitter/energycannon{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "bb" = (
-/obj/structure/chair/comfy/shuttle,
-/obj/effect/turf_decal/stripes/line{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "bc" = (
-/obj/structure/shuttle/engine/heater,
-/turf/open/floor/plating/airless,
-/area/shuttle/escape)
-"bd" = (
-/obj/machinery/computer/emergency_shuttle{
+/obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
+"bd" = (
+/obj/machinery/computer/emergency_shuttle{
+	dir = 2
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/escape)
 "be" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "bf" = (
-/obj/structure/grille,
+/obj/structure/grille{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "bg" = (
-/obj/structure/grille,
+/obj/structure/grille{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "bh" = (
-/obj/structure/grille,
+/obj/structure/grille{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -245,9 +283,12 @@
 /area/shuttle/escape)
 "bi" = (
 /obj/structure/closet/radiation{
-	anchored = 1
+	anchored = 1;
+	dir = 1
 	},
-/obj/item/clothing/glasses/meson/engine,
+/obj/item/clothing/glasses/meson/engine{
+	dir = 1
+	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -255,9 +296,12 @@
 /area/shuttle/escape)
 "bj" = (
 /obj/structure/closet/radiation{
-	anchored = 1
+	anchored = 1;
+	dir = 1
 	},
-/obj/item/clothing/glasses/meson/engine,
+/obj/item/clothing/glasses/meson/engine{
+	dir = 1
+	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -282,62 +326,87 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "hD" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /turf/open/space,
 /area/shuttle/escape)
 "lT" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "my" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
+	name = "Emergency Shuttle Airlock";
+	dir = 1
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "pb" = (
 /obj/structure/closet/radiation{
-	anchored = 1
+	anchored = 1;
+	dir = 1
 	},
-/obj/item/clothing/glasses/meson/engine,
+/obj/item/clothing/glasses/meson/engine{
+	dir = 1
+	},
 /obj/machinery/status_display/evac{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "yn" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
+	name = "Emergency Shuttle Airlock";
+	dir = 1
 	},
 /obj/docking_port/mobile/emergency{
-	name = "Hyperfractal Gigashuttle"
+	name = "Hyperfractal Gigashuttle";
+	dir = 4
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Bi" = (
 /obj/structure/closet/radiation{
-	anchored = 1
+	anchored = 1;
+	dir = 1
 	},
-/obj/item/clothing/glasses/meson/engine,
+/obj/item/clothing/glasses/meson/engine{
+	dir = 1
+	},
 /obj/machinery/status_display/evac{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "Jo" = (
 /obj/machinery/door/airlock/external{
 	name = "Emergency Launch Catwalk";
-	req_access_txt = "10;13"
+	req_access_txt = "10;13";
+	dir = 1
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "UA" = (
 /obj/machinery/status_display/evac{
-	pixel_y = -32
+	pixel_y = 32;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
@@ -349,124 +418,121 @@ aa
 aa
 aa
 aa
+aa
+aa
+aa
+aa
+aa
 aw
-my
-ac
 yn
-aw
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(2,1,1) = {"
-aw
-ae
-lT
 ac
-ae
-lT
+my
 aw
-ai
-aD
-UA
-ae
 aa
 aa
-aN
+aa
+aa
+aa
+aa"}(2,1,1) = {"
+be
+bc
+ba
 aM
-aR
-aU
 aX
+aU
+aR
 aM
-ba
-bc
-be
-"}
-(3,1,1) = {"
-ac
-ag
-ag
-bi
-Bi
-ag
-ag
-ai
-ai
-ai
-ad
+aN
 aa
 aa
-aM
-aa
-aS
-aV
-aY
-aM
-ba
-bc
-be
-"}
-(4,1,1) = {"
-lT
-ah
+ae
+UA
+aD
 ai
-al
-ar
-ar
-ar
-ar
-ar
-ar
-aI
 aw
+lT
+ae
+ac
+lT
+ae
+aw"}(3,1,1) = {"
+be
+bc
+ba
+aM
+aY
+aV
+aS
 aa
 aM
 aa
-aT
-aW
+aa
+ad
+ai
+ai
+ai
+ag
+ag
+Bi
+bi
+ag
+ag
+ac"}(4,1,1) = {"
+aa
+aa
+hD
+aa
 aZ
+aW
+aT
+aa
+aM
+aa
+aw
+aI
+ar
+ar
+ar
+ar
+ar
+ar
+al
+ai
+ah
+lT"}(5,1,1) = {"
+aX
+aU
+aR
+aa
 aa
 hD
 aa
 aa
-"}
-(5,1,1) = {"
-lT
-ag
-aj
-am
-as
+aO
+aM
+ad
+bk
 as
 as
 bg
 as
 as
-bk
-ad
-aM
-aO
-aa
-aa
-hD
-aa
-aa
-aR
-aU
-aX
-"}
-(6,1,1) = {"
-lT
-ag
+as
+am
 aj
-an
+ag
+lT"}(6,1,1) = {"
+aY
+bd
+bb
+hD
+hD
+hD
+hD
+hD
+aM
+aM
+Jo
 at
 at
 bf
@@ -474,115 +540,103 @@ aB
 bf
 at
 at
-Jo
-aM
-aM
-hD
-hD
-hD
-hD
-hD
-bb
-bd
-aY
-"}
-(7,1,1) = {"
-lT
-ag
+an
 aj
-ao
-au
+ag
+lT"}(7,1,1) = {"
+aZ
+aW
+aT
+aa
+aa
+hD
+aa
+aa
+aP
+aM
+ad
+bl
 au
 au
 bh
 au
 au
-bl
-ad
-aM
-aP
+au
+ao
+aj
+ag
+lT"}(8,1,1) = {"
 aa
 aa
 hD
 aa
-aa
-aT
-aW
-aZ
-"}
-(8,1,1) = {"
-lT
-ah
-ai
-ap
-av
-av
-av
-av
-av
-av
-aI
-aw
-aa
-aM
-aa
-aR
-aU
 aX
-aa
-hD
-aa
-aa
-"}
-(9,1,1) = {"
-ac
-ag
-ag
-bj
-pb
-ag
-ag
-ai
-ai
-ai
-ad
-aa
+aU
+aR
 aa
 aM
 aa
-aS
-aV
+aw
+aI
+av
+av
+av
+av
+av
+av
+ap
+ai
+ah
+lT"}(9,1,1) = {"
+be
+bc
+ba
+aM
 aY
+aV
+aS
+aa
 aM
-ba
-bc
-be
-"}
-(10,1,1) = {"
-aw
-ae
-lT
-ac
-ae
-lT
-aw
+aa
+aa
+ad
 ai
-aE
-UA
-ae
-aa
-aa
-aQ
-aM
-aT
-aW
-aZ
-aM
-ba
-bc
+ai
+ai
+ag
+ag
+pb
+bj
+ag
+ag
+ac"}(10,1,1) = {"
 be
-"}
-(11,1,1) = {"
+bc
+ba
+aM
+aZ
+aW
+aT
+aM
+aQ
+aa
+aa
+ae
+UA
+aE
+ai
+aw
+lT
+ae
+ac
+lT
+ae
+aw"}(11,1,1) = {"
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -599,10 +653,4 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
+aa"}

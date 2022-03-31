@@ -15,38 +15,51 @@
 /turf/closed/wall/mineral/titanium,
 /area/ruin/unpowered)
 "e" = (
-/obj/structure/window/shuttle,
+/obj/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "f" = (
 /turf/closed/mineral/random/low_chance,
 /area/ruin/unpowered)
 "g" = (
-/obj/item/pickaxe/drill,
+/obj/item/pickaxe/drill{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "h" = (
-/obj/machinery/computer,
+/obj/machinery/computer{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "i" = (
-/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/decal/cleanable/blood/splatter{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "j" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
+	dir = 2
 	},
-/obj/effect/decal/remains/human,
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "k" = (
-/obj/structure/girder,
+/obj/structure/girder{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "l" = (
 /obj/item/gps{
-	gpstag = "SOS"
+	gpstag = "SOS";
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
@@ -61,7 +74,8 @@
 	dir = 4
 	},
 /obj/item/storage/pod{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
@@ -69,7 +83,9 @@
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "p" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "q" = (
@@ -77,16 +93,21 @@
 	dir = 8
 	},
 /obj/item/storage/pod{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "r" = (
-/obj/structure/grille,
+/obj/structure/grille{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/ruin/unpowered)
 "s" = (
-/obj/machinery/door/airlock/shuttle,
+/obj/machinery/door/airlock/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "t" = (
@@ -113,9 +134,7 @@ a
 a
 a
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 a
 a
@@ -135,31 +154,13 @@ a
 a
 a
 a
-a
-"}
-(3,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+a"}(3,1,1) = {"
 a
 a
 t
 t
 a
 a
-"}
-(4,1,1) = {"
 a
 a
 a
@@ -173,15 +174,34 @@ a
 a
 a
 a
-a
-a
-a
+a"}(4,1,1) = {"
 a
 t
 t
 a
-"}
-(5,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a"}(5,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
 a
 a
 a
@@ -194,129 +214,96 @@ a
 a
 a
 a
+a"}(6,1,1) = {"
 a
 a
 a
 a
 a
-a
-a
-a
-"}
-(6,1,1) = {"
-a
-a
-a
-a
-f
-f
-f
-f
-f
-d
-d
-d
-d
-d
 p
-a
-a
-a
-a
-a
-"}
-(7,1,1) = {"
-a
-a
-a
-a
+d
+d
+d
+d
+d
 f
 f
-c
-c
 f
-e
-b
-b
-b
+f
+f
+a
+a
+a
+a"}(7,1,1) = {"
+a
+a
+a
+a
+a
+d
 n
-d
-a
-a
-a
-a
-a
-"}
-(8,1,1) = {"
-a
-a
-a
-a
-f
+b
+b
+b
+e
 f
 c
 c
 f
-r
-g
-i
-l
-o
+f
+a
+a
+a
+a"}(8,1,1) = {"
+a
+a
+a
+a
+a
 s
-a
-a
-a
-a
-a
-"}
-(9,1,1) = {"
-a
-a
-a
-a
-f
-f
-c
-c
-f
+o
+l
+i
+g
 r
-h
-j
-m
+f
+c
+c
+f
+f
+a
+a
+a
+a"}(9,1,1) = {"
+a
+t
+a
+a
+a
+d
 q
-d
-a
-a
-a
-t
-a
-"}
-(10,1,1) = {"
-a
-a
-a
+m
+j
+h
+r
 f
-f
-c
-c
 c
 c
 f
 f
-k
-d
-d
+a
+a
+a
+a"}(10,1,1) = {"
+a
+a
+a
+a
+a
 p
-a
-a
-a
-a
-a
-"}
-(11,1,1) = {"
-a
-a
-a
+d
+d
+k
 f
 f
 c
@@ -325,19 +312,17 @@ c
 c
 f
 f
-f
+a
+a
+a"}(11,1,1) = {"
+a
+a
+a
+a
+a
+a
 t
 t
-a
-a
-a
-a
-a
-a
-"}
-(12,1,1) = {"
-a
-a
 f
 f
 f
@@ -345,22 +330,19 @@ c
 c
 c
 c
-c
 f
 f
 a
 a
+a"}(12,1,1) = {"
 a
 a
 a
 a
 a
 a
-"}
-(13,1,1) = {"
 a
 a
-f
 f
 f
 c
@@ -370,20 +352,17 @@ c
 c
 f
 f
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(14,1,1) = {"
-a
-a
-a
 f
+a
+a"}(13,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
 f
 f
 c
@@ -392,6 +371,10 @@ c
 c
 c
 f
+f
+f
+a
+a"}(14,1,1) = {"
 a
 a
 a
@@ -400,52 +383,61 @@ t
 a
 a
 a
-"}
-(15,1,1) = {"
-a
-a
-a
+f
+c
+c
+c
+c
+c
 f
 f
 f
+a
+a
+a"}(15,1,1) = {"
+a
+a
+a
+t
+t
+t
+a
+a
 f
 c
 c
 c
 c
 f
-a
-a
-t
-t
-t
-a
-a
-a
-"}
-(16,1,1) = {"
-a
-a
-a
-a
-a
 f
 f
 f
-f
-f
-f
-f
+a
+a
+a"}(16,1,1) = {"
+a
+a
 a
 a
 t
 t
 a
 a
+f
+f
+f
+f
+f
+f
+f
 a
 a
-"}
-(17,1,1) = {"
+a
+a
+a"}(17,1,1) = {"
+a
+a
+a
 a
 a
 a
@@ -462,12 +454,11 @@ a
 a
 a
 a
+a"}(18,1,1) = {"
 a
 a
 a
 a
-"}
-(18,1,1) = {"
 a
 a
 a
@@ -483,13 +474,12 @@ a
 a
 a
 a
+a"}(19,1,1) = {"
 a
 a
 a
 a
 a
-"}
-(19,1,1) = {"
 a
 a
 a
@@ -504,14 +494,13 @@ a
 a
 a
 a
+a"}(20,1,1) = {"
 a
 a
 a
 a
 a
 a
-"}
-(20,1,1) = {"
 a
 a
 a
@@ -525,11 +514,4 @@ a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
-"}
+a"}

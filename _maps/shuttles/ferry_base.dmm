@@ -12,12 +12,18 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/transport)
 "d" = (
-/obj/structure/window/shuttle,
-/obj/structure/grille,
+/obj/structure/window/shuttle{
+	dir = 1
+	},
+/obj/structure/grille{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/transport)
 "e" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/transport)
 "g" = (
@@ -36,20 +42,30 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "j" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "k" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
+/obj/machinery/door/airlock/titanium{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "l" = (
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "m" = (
-/obj/machinery/door/airlock/titanium,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 2;
@@ -62,12 +78,14 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "p" = (
-/obj/structure/closet/crate,
+/obj/structure/closet/crate{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "q" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
@@ -77,82 +95,59 @@ a
 b
 k
 b
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 b
 g
 l
 g
-b
-"}
-(3,1,1) = {"
+b"}(3,1,1) = {"
 c
+p
+l
 h
-l
+c"}(4,1,1) = {"
+c
 p
-c
-"}
-(4,1,1) = {"
-c
+l
 i
-l
-p
-c
-"}
-(5,1,1) = {"
+c"}(5,1,1) = {"
 d
-j
-l
 q
-d
-"}
-(6,1,1) = {"
-c
-j
 l
-q
-c
-"}
-(7,1,1) = {"
-c
 j
-l
+d"}(6,1,1) = {"
+c
 q
-c
-"}
-(8,1,1) = {"
-c
+l
 j
-l
-q
+c"}(7,1,1) = {"
 c
-"}
-(9,1,1) = {"
+q
+l
+j
+c"}(8,1,1) = {"
+c
+q
+l
+j
+c"}(9,1,1) = {"
 e
-j
-l
 q
-e
-"}
-(10,1,1) = {"
-c
-j
 l
-q
-c
-"}
-(11,1,1) = {"
-c
 j
-l
-q
+e"}(10,1,1) = {"
 c
-"}
-(12,1,1) = {"
+q
+l
+j
+c"}(11,1,1) = {"
+c
+q
+l
+j
+c"}(12,1,1) = {"
 c
 d
 m
 d
-c
-"}
+c"}

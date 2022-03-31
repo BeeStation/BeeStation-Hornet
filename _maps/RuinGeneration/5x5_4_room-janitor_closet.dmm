@@ -1,51 +1,73 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "l" = (
-/obj/structure/mopbucket,
-/obj/item/mop/cyborg,
-/obj/effect/turf_decal/delivery,
+/obj/structure/mopbucket{
+	dir = 1
+	},
+/obj/item/mop/cyborg{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "n" = (
-/obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/green{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "x" = (
 /obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/green,
-/obj/structure/reagent_dispensers/watertank,
-/obj/item/reagent_containers/glass/bucket,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"y" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/delivery,
-/obj/item/soap/nanotrasen,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"E" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
+/obj/structure/reagent_dispensers/watertank{
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/bucket{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"y" = (
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/item/soap/nanotrasen{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"E" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -54,11 +76,13 @@
 /area/ruin/unpowered)
 "P" = (
 /obj/effect/turf_decal/tile/green{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 2
 	},
 /obj/structure/sink{
 	dir = 4;
@@ -68,13 +92,14 @@
 /area/ruin/unpowered)
 "V" = (
 /obj/effect/turf_decal/tile/green{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/green{
-	dir = 4
+	dir = 2
 	},
 /obj/structure/sign/poster/contraband/lusty_xenomorph{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -87,33 +112,24 @@ M
 M
 M
 M
+M"}(2,1,1) = {"
 M
-"}
-(2,1,1) = {"
-M
-y
-E
 x
-M
-"}
-(3,1,1) = {"
-M
-V
-W
-W
+E
+y
+M"}(3,1,1) = {"
 b
-"}
-(4,1,1) = {"
+W
+W
+V
+M"}(4,1,1) = {"
 M
-l
-P
 n
-M
-"}
-(5,1,1) = {"
-M
-M
+P
+l
+M"}(5,1,1) = {"
 M
 M
 M
-"}
+M
+M"}
