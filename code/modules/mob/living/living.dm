@@ -303,6 +303,10 @@
 				M.visible_message("<span class ='warning'>[src] grabs [L] by [L.p_their()] tail!</span>",\
 								"<span class='warning'> [src] grabs you by the tail!</span>", null, null, src) //Message sent to area, Message sent to grabbee
 				to_chat(src, "<span class='notice'>You grab [L] by [L.p_their()] tail!</span>")  //Message sent to grabber
+				if(rand(1,20) == 1)
+					M.visible_message("<span class ='warning'>[L] is ripped apart at the seams!</span>",\
+								"<span class='warning'> [src] rips you apart at the seams!</span>", null, null, src)
+					L.gib()
 			else
 				M.visible_message("<span class='warning'>[src] grabs [M] [(zone_selected == BODY_ZONE_L_ARM || zone_selected == BODY_ZONE_R_ARM)? "by their hands":"passively"]!</span>", \
 								"<span class='warning'>[src] grabs you [(zone_selected == BODY_ZONE_L_ARM || zone_selected == BODY_ZONE_R_ARM)? "by your hands":"passively"]!</span>", null, null, src) //Message sent to area, Message sent to grabbee
