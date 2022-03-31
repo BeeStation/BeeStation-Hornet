@@ -444,6 +444,7 @@
 		"sting_extract.png" = 'html/img/sting_extract.png',
 		"wizard.png" = 'html/img/wizard.png',
 		"nukie.png" = 'html/img/nukie.png',
+		"fishe.png" = 'html/img/fishe.png',
 		"ayylmao.png" = 'html/img/ayylmao.png',
 		"headset.png" = 'html/img/headset.png',
 		"pen.png" = 'html/img/pen.png',

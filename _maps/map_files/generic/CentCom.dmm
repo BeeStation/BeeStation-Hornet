@@ -5094,11 +5094,11 @@
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
 "rf" = (
-/obj/structure/chair/stool,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/obj/effect/landmark/start/nukeop,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
 "rg" = (
@@ -5677,6 +5677,7 @@
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/obj/effect/landmark/start/nukeop,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
 "sf" = (
@@ -6918,6 +6919,7 @@
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/obj/effect/landmark/start/nukeop,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
 "uO" = (
@@ -34215,8 +34217,8 @@ ng
 qJ
 pZ
 se
-pZ
-pZ
+rf
+rf
 uL
 vu
 wl
@@ -34470,11 +34472,11 @@ kt
 nz
 So
 pZ
-pZ
-oV
-oV
-pZ
 rf
+oV
+oV
+rf
+oV
 CT
 wm
 si
@@ -34727,11 +34729,11 @@ kt
 nz
 pZ
 RA
-rf
+oV
 sf
 te
-pZ
 rf
+oV
 vw
 wn
 wV
@@ -34984,11 +34986,11 @@ ku
 ku
 pZ
 pZ
-rf
+oV
 sg
 tf
-pZ
 rf
+oV
 vv
 wn
 wW
@@ -35244,8 +35246,8 @@ pZ
 rg
 oV
 oV
-pZ
-pZ
+rf
+rf
 vx
 wo
 wX
@@ -35499,10 +35501,10 @@ ku
 ku
 qK
 pZ
-pZ
-pZ
-pZ
-pZ
+rf
+rf
+rf
+rf
 pZ
 pZ
 ku
@@ -35756,10 +35758,10 @@ kt
 ku
 qL
 pZ
-pZ
-pZ
-pZ
-pZ
+rf
+rf
+rf
+rf
 pZ
 pZ
 wY

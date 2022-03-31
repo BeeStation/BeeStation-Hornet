@@ -239,7 +239,7 @@
 	desc = "Something about this operative seems fishy."
 	maxHealth = 300
 	health = 300
-	melee_damage = 30
+	melee_damage = 35
 	rarechance = 100
 	var/static/list/possible_names = list("alpha", "beta", "gamma", "delta", "epsilon", "zeta", "eta", "theta", "iota", "kappa", "lambda", "mu", "nu", "xi", "omicron", "pi", "rho", "sigma", "tau", "upsilon", "phi", "chi", "psi", "omega")
 

@@ -34,11 +34,14 @@
 		return FALSE
 
 /datum/game_mode/nuclear/fishy/post_setup()
+	addtimer(CALLBACK(src, .proc/spawn_stuff), 7 SECONDS)
+	return ..()
+
+/datum/game_mode/nuclear/fishy/proc/spawn_stuff()
 	var/datum/mind/leader_mind = pre_nukeops[1]
 	new /obj/item/nuclear_challenge(leader_mind.current.loc)
 	for(var/datum/mind/M as() in pre_nukeops)
 		new /obj/item/pinpointer/nuke/syndicate(M.current.loc)
-	return ..()
 
 /datum/outfit/fishop
 	name = "fish operative outfit"
@@ -56,6 +59,9 @@
 	R.radio.syndie = TRUE
 	R.implant(fish)
 
+	ADD_TRAIT(fish, TRAIT_MEDICAL_HUD, INNATE_TRAIT)
+	var/datum/atom_hud/Hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	Hud.add_hud_to(fish)
 	var/obj/item/implant/explosive/E = new /obj/item/implant/explosive(fish)
 	E.implant(fish)
 	var/obj/item/implant/weapons_auth/W = new /obj/item/implant/weapons_auth(fish)
@@ -68,9 +74,6 @@
 
 /datum/outfit/fishop/leader
 	name = "leader fish operative outfit"
-
-/datum/outfit/fishop/leader/equip(mob/living/carbon/human/H, visualsOnly)
-	..()
 
 /datum/game_mode/nuclear/fishy/generate_credit_text()
 	var/list/round_credits = list()
