@@ -2,7 +2,7 @@
 /obj/item/projectile/energy/nuclear_particle
 	name = "nuclear particle"
 	icon_state = "nuclear_particle"
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSDOORS | PASSCLOSEDTURF | PASSFLAPS
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSDOORS | PASSCLOSEDTURF | PASSFLAPS | PASSMACHINE
 	damage = 10
 	damage_type = TOX
 	irradiate = INFINITY //:)
