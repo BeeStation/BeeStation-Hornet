@@ -100,7 +100,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 /proc/aimbotDebrisFinishLoc(startSide, Z)
 	var/endy
 	var/endx
-	var/generator/G = generator("num", TRANSITIONEDGE + 1, world.maxx - (TRANSITIONEDGE + 1), "NORMAL_RAND")
+	var/generator/G = generator("num", TRANSITIONEDGE + 1, world.maxx - (TRANSITIONEDGE + 1), NORMAL_RAND)
 	switch(startSide)
 		if(NORTH)
 			endy = (TRANSITIONEDGE+1)
