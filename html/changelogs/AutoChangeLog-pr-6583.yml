@@ -1,0 +1,4 @@
+author: nednaZ (EvilDragonfiend substituted to post the PR)
+delete-after: true
+changes:
+  - bugfix: Autosurgeons work again
