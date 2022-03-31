@@ -1216,6 +1216,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Xenobiology Lab"
 	icon_state = "toxlab"
 
+/area/science/xenobiology/Initialize(mapload) // blame someone else for this abomination
+	. = ..()
+	for(var/atom/A in contents)
+		qdel(A)
+
 /area/science/shuttle
 	name = "Shuttle Construction"
 	lighting_colour_tube = "#ffe3cc"
