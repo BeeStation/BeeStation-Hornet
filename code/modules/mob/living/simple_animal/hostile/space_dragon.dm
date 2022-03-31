@@ -89,6 +89,8 @@
 	var/datum/action/innate/gust_attack/gust
 	/// The innate ability to summon rifts
 	var/datum/action/innate/summon_rift/rift
+	/// The ability to make your sprite smaller
+	var/datum/action/small_sprite/space_dragon/small_sprite
 	/// The color of the space dragon.
 	var/chosen_color
 
@@ -98,6 +100,9 @@
 	gust.Grant(src)
 	rift = new
 	rift.Grant(src)
+	small_sprite = new
+	small_sprite.Grant(src)
+	RegisterSignal(small_sprite, COMSIG_ACTION_TRIGGER, .proc/add_dragon_overlay)
 
 /mob/living/simple_animal/hostile/space_dragon/Login()
 	. = ..()
@@ -186,10 +191,12 @@
 		destroy_rifts()
 	..()
 	add_dragon_overlay()
+	UnregisterSignal(small_sprite, COMSIG_ACTION_TRIGGER)
 
 /mob/living/simple_animal/hostile/space_dragon/revive(full_heal, admin_revive)
 	. = ..()
 	add_dragon_overlay()
+	RegisterSignal(small_sprite, COMSIG_ACTION_TRIGGER, .proc/add_dragon_overlay)
 
 /mob/living/simple_animal/hostile/space_dragon/wabbajack_act(mob/living/new_mob)
 	empty_contents()
@@ -237,6 +244,8 @@
   */
 /mob/living/simple_animal/hostile/space_dragon/proc/add_dragon_overlay()
 	cut_overlays()
+	if(!small_sprite.small)
+		return
 	if(stat == DEAD)
 		var/mutable_appearance/overlay = mutable_appearance(icon, "overlay_dead")
 		overlay.appearance_flags = RESET_COLOR
