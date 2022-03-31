@@ -39,7 +39,8 @@
 
 /datum/game_mode/nuclear/fishy/proc/spawn_stuff()
 	var/datum/mind/leader_mind = pre_nukeops[1]
-	new /obj/item/nuclear_challenge(leader_mind.current.loc)
+	if(leader_mind)
+		new /obj/item/nuclear_challenge(leader_mind.current.loc)
 	for(var/datum/mind/M as() in pre_nukeops)
 		new /obj/item/pinpointer/nuke/syndicate(M.current.loc)
 

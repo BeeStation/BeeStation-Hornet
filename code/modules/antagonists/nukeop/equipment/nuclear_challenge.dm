@@ -67,9 +67,12 @@
 		if (iscyborg(M.current))
 			continue
 		if (istype(M.current, /mob/living/simple_animal/hostile/carp/cayenne/fishy_operator))
-			M.current.maxHealth += 100
-			M.current.health += 100
-			M.current.melee_damage += 10
+			var/mob/living/simple_animal/hostile/carp/cayenne/fishy_operator/F = M.current
+			F.maxHealth += 200
+			F.health += 200
+			F.melee_damage += 10
+			F.armour_penetration += 25
+			F.heal += F.maxHealth
 			to_chat(src, "<span class='notice'>You feel stronger.</span>")
 		M.current.client?.give_award(/datum/award/achievement/misc/warops, M.current)
 		var/datum/component/uplink/uplink = M.find_syndicate_uplink()

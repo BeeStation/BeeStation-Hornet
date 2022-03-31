@@ -242,6 +242,8 @@
 	melee_damage = 35
 	rarechance = 100
 	var/static/list/possible_names
+	var/heal = 100
+	armour_penetration = 50
 
 /mob/living/simple_animal/hostile/carp/cayenne/fishy_operator/Initialize(mapload)
 	. = ..()
@@ -272,7 +274,10 @@
 				for(var/player in GLOB.player_list)
 					to_chat(player, "<span class='userdanger'>The [L.real_name] just got fished! What a [pick("disgrace", "failure", "looser")]!</span>")
 				L.gib(TRUE)
-				health = max(maxHealth, health + 50)
+				health = min(maxHealth, health + heal)
+				bruteloss -= heal
+				fireloss -= heal
+				updatehealth()
 				return
 	else
 		for(var/obj/item/disk/nuclear/N in target.contents)
@@ -280,8 +285,11 @@
 				N.forceMove(loc)
 				to_chat(src, "<span class='notice'>You recover the nuke disk.</span>")
 				return
-
-
+	if(istype(target, /obj/item/grenade))
+		to_chat(src, "<span class='warning'>You start activating the bomb.")
+		var/obj/item/grenade/syndieminibomb/S = target
+		S.attack_self(src)
+		return
 	if(istype(target, /obj/machinery/computer))
 		var/obj/machinery/computer/C = target
 		C.ui_interact(src)
