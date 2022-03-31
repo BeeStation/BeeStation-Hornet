@@ -1,5 +1,3 @@
-#define FLUKEOPS_TIME_DELAY 12000 // 20 minutes, how long before the credits stop calling the nukies flukeops
-
 /datum/game_mode/nuclear/fishy
 	name = "fishy nuclear emergency"
 	config_tag = "fish_nuclear"
@@ -17,12 +15,12 @@
 	<span class='notice'>Crew</span>: Defend the nuclear authentication disk and ensure that it leaves with you on the emergency shuttle."
 
 	title_icon = "nukeops"
-
-	//var/operative_antag_datum_type = /datum/antagonist/nukeop
-	//var/leader_antag_datum_type = /datum/antagonist/nukeop/leader
+	operative_antag_datum_type = /datum/antagonist/nukeop/fishop
+	leader_antag_datum_type = /datum/antagonist/nukeop/fishop/leader
+	nuke_team = new /datum/team/nuclear/fish()
 
 /datum/game_mode/nuclear/fishy/pre_setup()
-	var/n_agents = min(round(num_players() / 10), antag_candidates.len, agents_possible)
+	var/n_agents = min(round(num_players() / 5), antag_candidates.len, agents_possible)
 	if(n_agents >= required_enemies)
 		for(var/i = 0, i < n_agents, ++i)
 			var/datum/mind/new_op = pick_n_take(antag_candidates)
@@ -34,123 +32,109 @@
 	else
 		setup_error = "Not enough fishy candidates"
 		return FALSE
-////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/game_mode/nuclear/fishy/post_setup()
-	//Assign leader
 	var/datum/mind/leader_mind = pre_nukeops[1]
-	var/datum/antagonist/nukeop/L = leader_mind.add_antag_datum(leader_antag_datum_type)
-	nuke_team = L.nuke_team
+	new /obj/item/nuclear_challenge(leader_mind.current.loc)
+	for(var/datum/mind/M as() in pre_nukeops)
+		new /obj/item/pinpointer/nuke/syndicate(M.current.loc)
 	return ..()
-	//Assign the remaining operatives
-	for(var/i = 2 to pre_nukeops.len)
-		var/datum/mind/nuke_mind = pre_nukeops[i]
-		nuke_mind.add_antag_datum(operative_antag_datum_type)
-	return ..()
-
-/datum/game_mode/nuclear/fishy/OnNukeExplosion(off_station)
-	..()
-	nukes_left--
-
-/datum/game_mode/nuclear/fishy/check_win()
-	if (nukes_left == 0)
-		return TRUE
-	return ..()
-
-/datum/game_mode/nuclear/fishy/check_finished()
-	//Keep the round going if ops are dead but bomb is ticking.
-	if(nuke_team.operatives_dead())
-		for(var/obj/machinery/nuclearbomb/N in GLOB.nuke_list)
-			if(N.proper_bomb && (N.timing || N.exploding))
-				return FALSE
-	return ..()
-
-/datum/game_mode/nuclear/fishy/set_round_result()
-	..()
-	var result = nuke_team.get_result()
-	switch(result)
-		if(NUKE_RESULT_FLUKE)
-			SSticker.mode_result = "loss - syndicate nuked - disk secured"
-			SSticker.news_report = NUKE_SYNDICATE_BASE
-		if(NUKE_RESULT_NUKE_WIN)
-			SSticker.mode_result = "win - syndicate nuke"
-			SSticker.news_report = STATION_NUKED
-		if(NUKE_RESULT_NOSURVIVORS)
-			SSticker.mode_result = "halfwin - syndicate nuke - did not evacuate in time"
-			SSticker.news_report = STATION_NUKED
-		if(NUKE_RESULT_WRONG_STATION)
-			SSticker.mode_result = "halfwin - blew wrong station"
-			SSticker.news_report = NUKE_MISS
-		if(NUKE_RESULT_WRONG_STATION_DEAD)
-			SSticker.mode_result = "halfwin - blew wrong station - did not evacuate in time"
-			SSticker.news_report = NUKE_MISS
-		if(NUKE_RESULT_CREW_WIN_SYNDIES_DEAD)
-			SSticker.mode_result = "loss - evacuation - disk secured - syndi team dead"
-			SSticker.news_report = OPERATIVES_KILLED
-		if(NUKE_RESULT_CREW_WIN)
-			SSticker.mode_result = "loss - evacuation - disk secured"
-			SSticker.news_report = OPERATIVES_KILLED
-		if(NUKE_RESULT_DISK_LOST)
-			SSticker.mode_result = "halfwin - evacuation - disk not secured"
-			SSticker.news_report = OPERATIVE_SKIRMISH
-		if(NUKE_RESULT_DISK_STOLEN)
-			SSticker.mode_result = "halfwin - detonation averted"
-			SSticker.news_report = OPERATIVE_SKIRMISH
-		else
-			SSticker.mode_result = "halfwin - interrupted"
-			SSticker.news_report = OPERATIVE_SKIRMISH
-
-/datum/game_mode/nuclear/fishy/generate_report()
-	return "One of Central Command's trading routes was recently disrupted by a raid carried out by the Gorlex Marauders. They seemed to only be after one ship - a highly-sensitive \
-			transport containing a nuclear fission explosive, although it is useless without the proper code and authorization disk. While the code was likely found in minutes, the only disk that \
-			can activate this explosive is on your station. Ensure that it is protected at all times, and remain alert for possible intruders."
 
 /datum/outfit/fishop
 	name = "fish operative outfit"
 
-/datum/outfit/fishop/post_equip(mob/living/carbon/human/H, visualsOnly)
-	. = ..()
+/datum/outfit/fishop/equip(mob/living/carbon/human/H, visualsOnly)
 	var/mob/living/simple_animal/hostile/carp/cayenne/fishy_operator/fish = new(H.loc)
 	H.mind.transfer_to(fish)
 	if(H.key)
 		fish.key = H.key
 	qdel(H)
-    //TO DO add radio implant
-	//var/obj/item/radio/R = H.ears
-	//R.set_frequency(FREQ_SYNDICATE)
-	//R.freqlock = TRUE
-	//if(command_radio)sawdwad
-	//	R.command = TRUE
+
+	var/obj/item/implant/radio/R = new(fish)
+	R.radio.command = TRUE
+	R.radio.set_frequency(FREQ_SYNDICATE)
+	R.radio.syndie = TRUE
+	R.implant(fish)
 
 	var/obj/item/implant/explosive/E = new /obj/item/implant/explosive(fish)
 	E.implant(fish)
 	var/obj/item/implant/weapons_auth/W = new /obj/item/implant/weapons_auth(fish)
 	W.implant(fish)
+
+	fish.access_card = new /obj/item/card/id/syndicate/nuke_leader(fish)
+
 	fish.faction |= ROLE_SYNDICATE
 	fish.update_icons()
 
 /datum/outfit/fishop/leader
 	name = "leader fish operative outfit"
 
-/datum/outfit/fishop/leader/post_equip(mob/living/carbon/human/H, visualsOnly)
-	. = ..()
-	new /obj/item/nuclear_challenge(H.loc)
+/datum/outfit/fishop/leader/equip(mob/living/carbon/human/H, visualsOnly)
+	..()
 
 /datum/game_mode/nuclear/fishy/generate_credit_text()
 	var/list/round_credits = list()
-	var/len_before_addition
 
-	if((world.time-SSticker.round_start_time) < (FLUKEOPS_TIME_DELAY)) // If the nukies died super early, they're basically a massive disappointment
-		title_icon = "flukeops"
-
-	round_credits += "<center><h1>The [syndicate_name()] Operatives:</h1>"
-	len_before_addition = round_credits.len
-	for(var/datum/mind/operative in nuke_team.members)
-		round_credits += "<center><h2>[operative.name] as a nuclear operative</h2>"
-	if(len_before_addition == round_credits.len)
-		round_credits += list("<center><h2>The operatives blew themselves up!</h2>", "<center><h2>Their remains could not be identified!</h2>")
-		round_credits += "<br>"
+	round_credits += "<center><h1>Get fished</h1>"
 
 	round_credits += ..()
 	return round_credits
+
+/datum/team/nuclear/fish/roundend_report()
+	var/list/parts = list()
+	parts += "<span class='header'>Fishy Operatives:</span>"
+
+	var/fished = FALSE
+	switch(get_result())
+		if(NUKE_RESULT_FLUKE)
+			parts += "<span class='redtext big'>Humiliating Fish Defeat</span>"
+			parts += "<B>The crew of [station_name()] gave fishy operatives back their bomb! The syndicate base was destroyed!</B> Next time, don't lose the nuke!"
+		if(NUKE_RESULT_NUKE_WIN)
+			parts += "<span class='greentext big'>Syndicate Fish Victory!</span>"
+			parts += "<B>fishy operatives have destroyed [station_name()]!</B>"
+			fished = TRUE
+		if(NUKE_RESULT_NOSURVIVORS)
+			parts += "<span class='neutraltext big'>Total Fish Annihilation</span>"
+			parts +=  "<B>fishy operatives destroyed [station_name()] but did not leave the area in time and got caught in the explosion.</B> Next time, don't lose the disk!"
+			fished = TRUE
+		if(NUKE_RESULT_WRONG_STATION)
+			parts += "<span class='redtext big'>Crew Minor Victory</span>"
+			parts += "<B>Fish operatives secured the authentication disk but blew up something that wasn't [station_name()].</B> Next time, don't do that!"
+		if(NUKE_RESULT_WRONG_STATION_DEAD)
+			parts += "<span class='redtext big'>Fish operatives have earned Darwin Award!</span>"
+			parts += "<B>Fish operatives blew up something that wasn't [station_name()] and got caught in the explosion.</B> Next time, don't do that!"
+		if(NUKE_RESULT_CREW_WIN_SYNDIES_DEAD)
+			parts += "<span class='redtext big'>Crew Major Victory!</span>"
+			parts += "<B>The Research Staff has saved the disk and killed the Fish Operatives</B>"
+		if(NUKE_RESULT_CREW_WIN)
+			parts += "<span class='redtext big'>Crew Major Victory</span>"
+			parts += "<B>The Research Staff has saved the disk and stopped the Fish Operatives!</B>"
+		if(NUKE_RESULT_DISK_LOST)
+			parts += "<span class='neutraltext big'>Neutral Victory!</span>"
+			parts += "<B>The Research Staff failed to secure the authentication disk but did manage to kill most of the Fish Operatives!</B>"
+		if(NUKE_RESULT_DISK_STOLEN)
+			parts += "<span class='greentext big'>Fish Minor Victory!</span>"
+			parts += "<B>Fish operatives survived the assault but did not achieve the destruction of [station_name()].</B> Next time, don't lose the disk!"
+			fished = TRUE
+		else
+			parts += "<span class='neutraltext big'>Neutral Victory</span>"
+			parts += "<B>Mission aborted!</B>"
+
+	if(fished)
+		parts += "<h1>The crew got fished!</h1>"
+
+	var/text = "<br><span class='header'>The syndicate operatives were:</span>"
+	var/purchases = ""
+	var/TC_uses = 0
+	LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
+	for(var/I in members)
+		var/datum/mind/syndicate = I
+		var/datum/uplink_purchase_log/H = GLOB.uplink_purchase_logs_by_key[syndicate.key]
+		if(H)
+			TC_uses += H.total_spent
+			purchases += H.generate_render(show_key = FALSE)
+	text += printplayerlist(members)
+
+	parts += text
+
+	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"

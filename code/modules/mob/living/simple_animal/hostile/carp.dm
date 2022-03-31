@@ -63,7 +63,13 @@
 
 	/// List of rare carp colors
 	var/static/list/carp_colors_rare = list(
-		"silver" = "#fdfbf3"
+		"silver" = "#fdfbf3",
+		"bloodred" = "#cc2828",
+		"5" = "#e61919ff",
+		"4" = "#ec4816ff",
+		"3" = "#eb7412ff",
+		"2" = "#0a34f0ff",
+		"1" = "#740303ff"
 	)
 
 /mob/living/simple_animal/hostile/carp/Initialize(mapload)
@@ -230,9 +236,11 @@
 	random_color = FALSE
 
 /mob/living/simple_animal/hostile/carp/cayenne/fishy_operator
-	desc = "Something about this operative seems fishy."	
+	desc = "Something about this operative seems fishy."
 	maxHealth = 300
-	speed = 5
+	health = 300
+	melee_damage = 30
+	rarechance = 100
 	var/static/list/possible_names = list("alpha", "beta", "gamma", "delta", "epsilon", "zeta", "eta", "theta", "iota", "kappa", "lambda", "mu", "nu", "xi", "omicron", "pi", "rho", "sigma", "tau", "upsilon", "phi", "chi", "psi", "omega")
 
 /mob/living/simple_animal/hostile/carp/cayenne/fishy_operator/Initialize(mapload)
@@ -240,5 +248,53 @@
 	name = "Syndicate operative"
 	if(possible_names.len)
 		name += " " + pick_n_take(possible_names)
+	add_movespeed_modifier(MOVESPEED_ID_FISHE, update=TRUE, priority=100, multiplicative_slowdown=-1.5)
+
+/mob/living/simple_animal/hostile/carp/cayenne/fishy_operator/AttackingTarget()
+	if(istype(target, /obj/item/nuclear_challenge))
+		var/obj/item/nuclear_challenge/N = target
+		N.attack_self(src)
+		return
+	if(istype(target, /obj/item/card))
+		access_card.afterattack(target, src, 1)
+		return
+	if(istype(target, /obj/machinery/button))
+		var/obj/machinery/button/B = target
+		B.attack_hand(src)
+		return
+	if(istype(target, /mob/living/carbon))
+		var/mob/living/carbon/L = target
+		if(L.stat == DEAD)
+			to_chat(src, "<span class='warning'>You start consuming the body to replenish your strenght.</span>")
+			if(do_after(src, 3 SECONDS, FALSE, target))
+				for(var/player in GLOB.player_list)
+					to_chat(player, "<span class='userdanger'>The [L.real_name] just got fished! What a [pick("disgrace", "failure", "looser")]!</span>")
+				L.gib(TRUE)
+				health = max(maxHealth, health + 50)
+				return
+	else
+		for(var/obj/item/disk/nuclear/N in target.contents)
+			if(do_after(src, 5 SECONDS, FALSE, target))
+				N.forceMove(loc)
+				to_chat(src, "<span class='notice'>You recover the nuke disk.</span>")
+				return
+
+
+	if(istype(target, /obj/machinery/computer))
+		var/obj/machinery/computer/C = target
+		C.ui_interact(src)
+		return
+	if(istype(target, /obj/item/pinpointer))
+		var/obj/item/pinpointer/P = target
+		P.attack_self(src)
+		return
+	if(istype(target, /obj/machinery/door/airlock))
+		var/obj/machinery/door/airlock/A = target
+		to_chat(src, "<span class='notice'>You start biting into the cables!</span>")
+		if(do_after(src, 3 SECONDS, FALSE, target))
+			A.emag_act(src)
+			return
+
+	return ..()
 
 #undef REGENERATION_DELAY

@@ -1,3 +1,5 @@
+#define FLUKEOPS_TIME_DELAY 12000 // 20 minutes, how long before the credits stop calling the nukies flukeops
+
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
 	config_tag = "nuclear"

@@ -17,7 +17,7 @@
 	var/uplink_type = /obj/item/uplink/nuclear
 
 /obj/item/nuclear_challenge/attack_self(mob/living/user)
-	if(!check_allowed(user) && !HAS_TRAIT(user, TRAIT_CAN_USE_NUKE))
+	if(!check_allowed(user))
 		return
 
 	declaring_war = TRUE
@@ -100,6 +100,8 @@
 	qdel(src)
 
 /obj/item/nuclear_challenge/proc/check_allowed(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_CAN_USE_NUKE))	//fish edit
+		return TRUE
 	if(declaring_war)
 		to_chat(user, "You are already in the process of declaring war! Make your mind up.")
 		return FALSE

@@ -433,6 +433,8 @@
 	if(be_close && !in_range(M, src))
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
 		return FALSE
+	if(HAS_TRAIT(src, TRAIT_CAN_USE_NUKE))
+		return TRUE
 	if(!(no_dextery || dextrous))
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return FALSE

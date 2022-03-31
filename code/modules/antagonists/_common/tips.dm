@@ -4,6 +4,9 @@
 /datum/antagonist/nukeop
 	tips = "nukie"
 
+/datum/antagonist/nukeop/fishop
+	tips = "le_fishe"
+
 /datum/antagonist/abductor
 	tips = "abductor"
 
