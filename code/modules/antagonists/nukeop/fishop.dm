@@ -14,5 +14,5 @@
 /datum/antagonist/nukeop/fishop/admin_add(datum/mind/new_owner,mob/admin)
 	new_owner.assigned_role = "Fish Operative"
 	new_owner.add_antag_datum(src)
-	message_admins("[key_name_admin(admin)] has clown op'ed [key_name_admin(new_owner)].")
-	log_admin("[key_name(admin)] has clown op'ed [key_name(new_owner)].")
+	message_admins("[key_name_admin(admin)] has fish op'ed [key_name_admin(new_owner)].")
+	log_admin("[key_name(admin)] has fish op'ed [key_name(new_owner)].")
