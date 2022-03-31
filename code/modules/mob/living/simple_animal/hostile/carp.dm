@@ -275,8 +275,8 @@
 					to_chat(player, "<span class='userdanger'>The [L.real_name] just got fished! What a [pick("disgrace", "failure", "looser")]!</span>")
 				L.gib(TRUE)
 				health = min(maxHealth, health + heal)
-				bruteloss -= heal
-				fireloss -= heal
+				bruteloss = min(0, bruteloss  - heal)
+				fireloss = min(0, fireloss - heal)
 				updatehealth()
 				return
 	else
