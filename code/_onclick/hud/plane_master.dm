@@ -23,6 +23,7 @@
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_MULTIPLY
 	alpha = 255
+	transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /atom/movable/screen/plane_master/openspace/backdrop(mob/mymob)
 	filters = list()
@@ -42,6 +43,7 @@
 	plane = FLOOR_PLANE
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
+	transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /atom/movable/screen/plane_master/floor/backdrop(mob/mymob)
 	clear_filters()
@@ -54,6 +56,7 @@
 	plane = GAME_PLANE
 	appearance_flags = PLANE_MASTER //should use client color
 	blend_mode = BLEND_OVERLAY
+	transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /atom/movable/screen/plane_master/game_world/backdrop(mob/mymob)
 	clear_filters()
@@ -62,6 +65,12 @@
 	if(istype(mymob) && mymob.eye_blurry)
 		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
 
+/atom/movable/screen/plane_master/blackness
+	name = "blackness plane master"
+	plane = WEATHER_PLANE
+	blend_mode = BLEND_OVERLAY
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	transform = matrix(-1, 0, 0, 0, 1, 0)
 
 ///Contains all lighting objects
 /atom/movable/screen/plane_master/lighting
@@ -69,6 +78,7 @@
 	plane = LIGHTING_PLANE
 	blend_mode = BLEND_MULTIPLY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /atom/movable/screen/plane_master/lighting/Initialize(mapload)
 	. = ..()
@@ -84,6 +94,7 @@
 	plane = EMISSIVE_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	render_target = EMISSIVE_RENDER_TARGET
+	transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /atom/movable/screen/plane_master/emissive/Initialize(mapload)
 	. = ..()
@@ -119,10 +130,12 @@
 	plane = PLANE_SPACE_PARALLAX
 	blend_mode = BLEND_MULTIPLY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /atom/movable/screen/plane_master/parallax_white
 	name = "parallax whitifier plane master"
 	plane = PLANE_SPACE
+	transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /atom/movable/screen/plane_master/lighting/backdrop(mob/mymob)
 	mymob.overlay_fullscreen("lighting_backdrop_lit", /atom/movable/screen/fullscreen/lighting_backdrop/lit)
@@ -133,12 +146,14 @@
 	plane = CAMERA_STATIC_PLANE
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
+	transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /atom/movable/screen/plane_master/runechat
 	name = "runechat plane master"
 	plane = RUNECHAT_PLANE
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
+	transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /atom/movable/screen/plane_master/runechat/backdrop(mob/mymob)
 	filters = list()
@@ -152,3 +167,4 @@
 	render_target = O_LIGHTING_VISUAL_RENDER_TARGET
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	blend_mode = BLEND_MULTIPLY
+	transform = matrix(-1, 0, 0, 0, 1, 0)

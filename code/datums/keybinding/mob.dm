@@ -1,8 +1,8 @@
 /datum/keybinding/mob
 		category = CATEGORY_HUMAN
 		weight = WEIGHT_MOB
-		
-		
+
+
 /datum/keybinding/mob/move_north
 	key = "W"
 	name = "move_north"
@@ -17,7 +17,7 @@
 	if(!user.mob) return
 	user.keyDown("North")
 	return TRUE
-	
+
 /datum/keybinding/mob/move_north/up(client/user)
 	. = ..()
 	if(.)
@@ -25,8 +25,8 @@
 	if(!user.mob) return
 	user.keyUp("North")
 	return TRUE
-	
-	
+
+
 /datum/keybinding/mob/move_east
 	key = "D"
 	name = "move_east"
@@ -39,18 +39,18 @@
 	if(.)
 		return
 	if(!user.mob) return
-	user.keyDown("East")
+	user.keyDown("West")
 	return TRUE
-	
+
 /datum/keybinding/mob/move_east/up(client/user)
 	. = ..()
 	if(.)
 		return
 	if(!user.mob) return
-	user.keyUp("East")
+	user.keyUp("West")
 	return TRUE
-	
-	
+
+
 /datum/keybinding/mob/move_south
 	key = "S"
 	name = "move_south"
@@ -65,7 +65,7 @@
 	if(!user.mob) return
 	user.keyDown("South")
 	return TRUE
-	
+
 /datum/keybinding/mob/move_south/up(client/user)
 	. = ..()
 	if(.)
@@ -73,7 +73,7 @@
 	if(!user.mob) return
 	user.keyUp("South")
 	return TRUE
-	
+
 
 /datum/keybinding/mob/move_west
 	key = "A"
@@ -87,7 +87,7 @@
 	if(.)
 		return
 	if(!user.mob) return
-	user.keyDown("West")
+	user.keyDown("East")
 	return TRUE
 
 /datum/keybinding/mob/move_west/up(client/user)
@@ -95,10 +95,10 @@
 	if(.)
 		return
 	if(!user.mob) return
-	user.keyUp("West")
+	user.keyUp("East")
 	return TRUE
-	
-	
+
+
 /datum/keybinding/mob/face_north
 	key = "Ctrl-W"
 	name = "face_north"
@@ -129,7 +129,7 @@
 		return
 	if(!user.mob) return
 	var/mob/M = user.mob
-	M.eastface()
+	M.westface()
 	return TRUE
 
 
@@ -162,7 +162,7 @@
 		return
 	if(!user.mob) return
 	var/mob/M = user.mob
-	M.westface()
+	M.eastface()
 	return TRUE
 
 /datum/keybinding/mob/stop_pulling
