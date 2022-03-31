@@ -65,13 +65,6 @@
 	if(istype(mymob) && mymob.eye_blurry)
 		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
 
-/atom/movable/screen/plane_master/blackness
-	name = "blackness plane master"
-	plane = WEATHER_PLANE
-	blend_mode = BLEND_OVERLAY
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	transform = matrix(-1, 0, 0, 0, 1, 0)
-
 ///Contains all lighting objects
 /atom/movable/screen/plane_master/lighting
 	name = "lighting plane master"

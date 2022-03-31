@@ -264,6 +264,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	message.maptext_width = CHAT_MESSAGE_WIDTH
 	message.maptext_height = mheight
 	message.maptext_x = (CHAT_MESSAGE_WIDTH - bound_width) * -0.5
+	message.transform = matrix(-1, 0, 0, 0, 1, 0)
 	if(extra_classes.Find("italics"))
 		message.color = "#CCCCCC"
 	message.maptext = MAPTEXT(complete_text)
