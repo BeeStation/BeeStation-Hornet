@@ -167,6 +167,17 @@
 		user.gib(1)
 		qdel(src)
 
+/obj/item/implant/radio/syndicate/selfdestruct/metagang
+	name = "hacked discord channel token"
+
+/obj/item/implant/radio/syndicate/selfdestruct/metagang/on_implanted(mob/living/user)
+	if(!user.mind.has_antag_datum(/datum/antagonist/metaganger))
+		user.visible_message("<span class='warning'>[imp_in] starts beeping ominously!</span>", "<span class='userdanger'>You have a sudden feeling of dread. The implant is rigged to explode!</span>")
+		playsound(user, 'sound/items/timer.ogg', 30, 0)
+		explosion(src,0,0,2,2, flame_range = 2)
+		user.gib(1)
+		qdel(src)
+
 /obj/item/implanter/radio
 	name = "implanter (internal radio)"
 	imp_type = /obj/item/implant/radio

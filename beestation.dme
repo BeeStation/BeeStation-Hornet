@@ -1627,6 +1627,7 @@
 #include "code\modules\antagonists\hivemind\vessel.dm"
 #include "code\modules\antagonists\incursion\incursion.dm"
 #include "code\modules\antagonists\magic_servant\servant.dm"
+#include "code\modules\antagonists\metagang\metagang_team.dm"
 #include "code\modules\antagonists\monkey\monkey.dm"
 #include "code\modules\antagonists\morph\morph.dm"
 #include "code\modules\antagonists\morph\morph_antag.dm"

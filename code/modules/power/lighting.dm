@@ -315,12 +315,12 @@
 		switch(fitting)
 			if("tube")
 				brightness = A.lighting_brightness_tube
-				if(prob(2))
-					break_light_tube(1)
+				//if(prob(2))
+				//	break_light_tube(1)
 			if("bulb")
 				brightness = A.lighting_brightness_bulb
-				if(prob(5))
-					break_light_tube(1)
+				//if(prob(5))
+				//	break_light_tube(1)
 		spawn(1)
 			update(0)
 
@@ -392,9 +392,9 @@
 			if(rigged)
 				if(status == LIGHT_OK && trigger)
 					explode()
-			else if( prob( min(60, (switchcount**2)*0.01) ) )
-				if(trigger)
-					burn_out()
+			// else if( prob( min(60, (switchcount**2)*0.01) ) )
+			// 	if(trigger)
+			// 		burn_out()
 			else
 				use_power = ACTIVE_POWER_USE
 				set_light(BR, PO, CO)
@@ -792,8 +792,8 @@
 // called when on fire
 
 /obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
-		break_light_tube()
+//	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
+//		break_light_tube()
 
 // explode the light
 

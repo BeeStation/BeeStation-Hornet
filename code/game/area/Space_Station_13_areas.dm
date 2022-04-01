@@ -1219,7 +1219,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/science/xenobiology/Initialize(mapload) // blame someone else for this abomination
 	. = ..()
 	for(var/atom/A in contents)
-		qdel(A)
+		if(istype(A, /turf))
+			var/turf/T = A
+			T.ChangeTurf(/turf/open/space)
+		else
+			qdel(A)
 
 /area/science/shuttle
 	name = "Shuttle Construction"

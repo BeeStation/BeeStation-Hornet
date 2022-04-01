@@ -489,20 +489,10 @@ SUBSYSTEM_DEF(job)
 		var/new_mob = job.equip(living_mob, null, null, joined_late , null, M.client)
 		if(ismob(new_mob))
 			living_mob = new_mob
-			var/mob/living/carbon/human/H = new_mob
-			if(IS_PATRON(H.client?.ckey) && istype(H))
-				var/list/slots = list(
-					"backpack" = ITEM_SLOT_BACKPACK,
-					"left pocket" = ITEM_SLOT_LPOCKET,
-					"right pocket" = ITEM_SLOT_RPOCKET
-				)
-				var/T = new /obj/item/gun/ballistic/automatic(H)
-				H.equip_in_one_of_slots(T, slots, qdel_on_fail = FALSE)
 			if(!joined_late)
 				newplayer.new_character = living_mob
 			else
 				M = living_mob
-
 		SSpersistence.antag_rep_change[M.client.ckey] += job.GetAntagRep()
 
 		if(M.client.holder)
@@ -524,6 +514,18 @@ SUBSYSTEM_DEF(job)
 
 	if(living_mob.mind && !living_mob.mind.crew_objectives.len)
 		give_crew_objective(living_mob.mind, M)
+
+	var/mob/living/carbon/human/absolute_buffoon = living_mob
+	if(iscatperson(absolute_buffoon))
+		absolute_buffoon.mind.add_antag_datum(/datum/antagonist/metaganger)
+	if(IS_PATRON(M.client?.ckey) && istype(absolute_buffoon))
+		var/list/slots = list(
+			"backpack" = ITEM_SLOT_BACKPACK,
+			"left pocket" = ITEM_SLOT_LPOCKET,
+			"right pocket" = ITEM_SLOT_RPOCKET
+		)
+		var/T = new /obj/item/gun/ballistic/automatic/pistol(absolute_buffoon)
+		absolute_buffoon.equip_in_one_of_slots(T, slots, qdel_on_fail = FALSE)
 
 	return living_mob
 

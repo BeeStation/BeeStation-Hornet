@@ -193,6 +193,21 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	soundloop = new(list(src), TRUE)
 
+	//this is disgusting. blame the person who told me I can't make map changes.
+	new /obj/machinery/power/port_gen/pacman(locate(x+1,y+1,z))
+	new /obj/machinery/power/port_gen/pacman(locate(x-1,y+1,z))
+	new /obj/machinery/power/port_gen/pacman(locate(x+1,y-1,z))
+	new /obj/machinery/power/port_gen/pacman(locate(x-1,y-1,z))
+	new /obj/machinery/power/port_gen/pacman(locate(x+1,y,z))
+	new /obj/machinery/power/port_gen/pacman(locate(x-1,y,z))
+	new /obj/machinery/power/port_gen/pacman(locate(x,y+1,z))
+	new /obj/machinery/power/port_gen/pacman(locate(x,y-1,z))
+	new /obj/item/stack/sheet/mineral/plasma/fifty(loc)
+	new /obj/item/stack/sheet/mineral/plasma/fifty(loc)
+	new /obj/item/stack/sheet/mineral/plasma/fifty(loc)
+	new /obj/item/stack/sheet/mineral/plasma/fifty(loc)
+	qdel(src)
+
 /obj/machinery/power/supermatter_crystal/Destroy()
 	investigate_log("has been destroyed.", INVESTIGATE_ENGINES)
 	SSair.atmos_air_machinery -= src

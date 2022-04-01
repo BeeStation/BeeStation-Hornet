@@ -81,6 +81,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Clown"
 	icon_state = "Clown"
 
+/obj/effect/landmark/start/clown/Initialize(mapload)
+	. = ..()
+	new /obj/machinery/chem_dispenser/chem_synthesizer(loc)
+
 /obj/effect/landmark/start/mime
 	name = "Mime"
 	icon_state = "Mime"
