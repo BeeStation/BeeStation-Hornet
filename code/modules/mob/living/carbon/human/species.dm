@@ -1719,20 +1719,26 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	switch(damage)
 		if(1 to 2)
 			diesides = 2
+			damage = 0
 		if(2 to 4)
 			diesides = 4
+			damage = 0
 		if(5 to 6)
 			diesides = 6
+			damage = 0
 		if(7 to 8)
 			diesides = 8
+			damage = 0
 		if(9 to 10)
 			diesides = 10
+			damage = 0
 		if(11 to 12)
 			diesides = 12
+			damage = 0
 		if(13 to INFINITY)
 			diesides = 6
 			dice = round(damage/6, 6)
-	damage = 0
+			damage = 0
 
 	if(attackroll == 20)
 		H.visible_message("<span class='userdanger'>CRITICAL HIT ON [H]!</span>")
