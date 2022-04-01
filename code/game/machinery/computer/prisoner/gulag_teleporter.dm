@@ -150,7 +150,10 @@
 	playsound(src, 'sound/weapons/emitter.ogg', 50, TRUE)
 	var/client/C = prisoner.client
 	if(C)
-		C << link("byond://acacia.beestation13.com:7979")
+		if(CONFIG_GET(string/servername) == "BeeStation Acacia - Roleplay 2")
+			C << link("byond://game.austation.net:2337")
+		else
+			C << link("byond://acacia.beestation13.com:7979")
 		qdel(prisoner)
 	if(teleporter.locked)
 		teleporter.locked = FALSE
