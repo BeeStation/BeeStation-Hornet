@@ -6,17 +6,27 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape/backup)
 "f" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/random,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/book/manual/random{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape/backup)
 "g" = (
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape/backup)
 "i" = (
-/obj/machinery/door/airlock/titanium,
-/obj/docking_port/mobile/emergency/backup,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium{
+	dir = 1
+	},
+/obj/docking_port/mobile/emergency/backup{
+	dir = 4
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape/backup)
 "m" = (
@@ -26,7 +36,9 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape/backup)
 "q" = (
-/obj/machinery/status_display/evac,
+/obj/machinery/status_display/evac{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape/backup)
 "u" = (
@@ -42,8 +54,12 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape/backup)
 "F" = (
-/obj/structure/table/wood,
-/obj/item/paper/fluff/stations/centcom/broken_evac,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/paper/fluff/stations/centcom/broken_evac{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape/backup)
 "P" = (
@@ -56,24 +72,20 @@
 (1,1,1) = {"
 m
 m
+m
+m
+m
 i
 m
-m
-m
-m
-m
-"}
-(2,1,1) = {"
+m"}(2,1,1) = {"
 q
-g
 g
 g
 x
 g
 g
-q
-"}
-(3,1,1) = {"
+g
+q"}(3,1,1) = {"
 m
 g
 g
@@ -81,49 +93,39 @@ g
 g
 g
 g
+m"}(4,1,1) = {"
 m
-"}
-(4,1,1) = {"
-m
-p
-p
-p
 p
 g
 p
+p
+p
+p
+m"}(5,1,1) = {"
 m
-"}
-(5,1,1) = {"
-m
-p
-p
-p
 p
 g
 p
+p
+p
+p
+m"}(6,1,1) = {"
 m
-"}
-(6,1,1) = {"
-m
+g
+g
+g
 g
 u
 g
-g
-g
-g
-m
-"}
-(7,1,1) = {"
+m"}(7,1,1) = {"
 q
-a
-F
-f
+g
+g
 P
-g
-g
-q
-"}
-(8,1,1) = {"
+f
+F
+a
+q"}(8,1,1) = {"
 m
 m
 m
@@ -131,5 +133,4 @@ m
 m
 m
 m
-m
-"}
+m"}

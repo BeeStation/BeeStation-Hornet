@@ -1,49 +1,66 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/two{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/beer,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/beer{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/structure/chair/stool,
-/obj/effect/decal/cleanable/blood/old,
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/grille_or_trash{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/eight{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-b
-d
 f
-"}
-(2,1,1) = {"
 d
-e
+b"}(2,1,1) = {"
 g
-"}
-(3,1,1) = {"
-c
-d
+e
+d"}(3,1,1) = {"
 h
-"}
+d
+c"}

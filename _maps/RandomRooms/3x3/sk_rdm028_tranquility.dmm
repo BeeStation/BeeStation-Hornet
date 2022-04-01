@@ -1,13 +1,17 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/jungle/small{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/template_noop)
 "b" = (
 /turf/open/floor/grass,
 /area/template_noop)
 "c" = (
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/template_noop)
 "d" = (
@@ -15,22 +19,19 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "e" = (
-/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/sunnybush{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/template_noop)
 
 (1,1,1) = {"
-a
 b
 b
-"}
-(2,1,1) = {"
-b
-b
+a"}(2,1,1) = {"
 d
-"}
-(3,1,1) = {"
 b
-c
+b"}(3,1,1) = {"
 e
-"}
+c
+b"}

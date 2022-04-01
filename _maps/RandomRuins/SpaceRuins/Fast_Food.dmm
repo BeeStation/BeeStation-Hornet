@@ -12,7 +12,9 @@
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "af" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/unary/tank/air{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "ag" = (
@@ -20,126 +22,180 @@
 /area/ruin/space/has_grav/powered/macspace)
 "ah" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "ai" = (
-/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aj" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "ak" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "al" = (
-/obj/machinery/door/airlock/silver,
+/obj/machinery/door/airlock/silver{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "am" = (
-/obj/machinery/space_heater,
-/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/space_heater{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/cobweb{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "an" = (
-/obj/item/toy/figure/curator,
-/obj/structure/chair/wood/wings,
+/obj/item/toy/figure/curator{
+	dir = 1
+	},
+/obj/structure/chair/wood/wings{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "ao" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "ap" = (
-/obj/machinery/jukebox,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/machinery/jukebox{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aq" = (
-/obj/structure/closet/secure/loot,
-/obj/effect/decal/cleanable/cobweb,
+/obj/structure/closet/secure/loot{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/cobweb{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "ar" = (
 /obj/structure/sink/kitchen{
-	pixel_y = 20
+	pixel_y = -20;
+	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "as" = (
-/obj/machinery/processor,
+/obj/machinery/processor{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "at" = (
 /obj/machinery/reagentgrinder{
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "au" = (
 /obj/machinery/microwave{
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "av" = (
-/obj/machinery/deepfryer,
+/obj/machinery/deepfryer{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aw" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/machinery/vending/dinnerware,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
+/obj/machinery/vending/dinnerware{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "ax" = (
-/obj/machinery/vending/donksofttoyvendor,
+/obj/machinery/vending/donksofttoyvendor{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "ay" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/decal/cleanable/cobweb/cobweb2{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "az" = (
 /obj/structure/closet/secure_closet/freezer/kitchen{
 	locked = 0;
-	req_access = null
+	req_access = null;
+	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aA" = (
 /obj/structure/closet/secure_closet/freezer/kitchen{
-	req_access = null
+	req_access = null;
+	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aB" = (
-/obj/machinery/vending/cola,
+/obj/machinery/vending/cola{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aC" = (
-/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/cobweb{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aD" = (
 /obj/structure/closet/secure_closet/freezer/meat{
-	req_access = null
+	req_access = null;
+	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aE" = (
-/obj/machinery/vending/wardrobe/chef_wardrobe,
+/obj/machinery/vending/wardrobe/chef_wardrobe{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aF" = (
-/obj/item/toy/figure/chaplain,
+/obj/item/toy/figure/chaplain{
+	dir = 1
+	},
 /obj/structure/chair/wood/wings{
 	dir = 4
 	},
@@ -148,20 +204,27 @@
 "aG" = (
 /obj/item/reagent_containers/food/snacks/burger/empoweredburger{
 	pixel_x = 5;
-	pixel_y = -6
+	pixel_y = 6;
+	dir = 1
 	},
-/obj/structure/table/wood/fancy/blue,
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aH" = (
-/obj/item/toy/figure/assistant,
+/obj/item/toy/figure/assistant{
+	dir = 1
+	},
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aI" = (
-/obj/structure/table/wood/fancy/blue,
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aJ" = (
@@ -171,80 +234,123 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aK" = (
-/obj/machinery/light,
-/obj/item/kitchen/knife/butcher,
-/turf/open/floor/plasteel/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
-"aL" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/plasteel/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
-"aM" = (
-/obj/machinery/light,
-/turf/open/floor/plasteel/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
-"aN" = (
-/obj/effect/decal/cleanable/food/flour,
-/turf/open/floor/plasteel/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
-"aO" = (
-/obj/machinery/door/airlock/freezer,
-/turf/open/floor/plasteel/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
-"aP" = (
-/obj/effect/decal/cleanable/food/egg_smudge,
-/turf/open/floor/plasteel/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
-"aQ" = (
-/obj/structure/closet/crate/freezer/blood,
-/turf/open/floor/plasteel/cafeteria,
-/area/ruin/space/has_grav/powered/macspace)
-"aR" = (
-/obj/structure/chair/wood/wings{
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/kitchen/knife/butcher{
 	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
+"aL" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
+"aM" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
+"aN" = (
+/obj/effect/decal/cleanable/food/flour{
+	dir = 4
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
+"aO" = (
+/obj/machinery/door/airlock/freezer{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
+"aP" = (
+/obj/effect/decal/cleanable/food/egg_smudge{
+	dir = 4
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
+"aQ" = (
+/obj/structure/closet/crate/freezer/blood{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
+"aR" = (
+/obj/structure/chair/wood/wings{
+	dir = 2
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/space/has_grav/powered/macspace)
 "aS" = (
-/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/generic{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aT" = (
-/obj/machinery/door/airlock/gold/glass,
+/obj/machinery/door/airlock/gold/glass{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aU" = (
-/obj/machinery/smartfridge/food,
+/obj/machinery/smartfridge/food{
+	dir = 1
+	},
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "aV" = (
-/obj/item/bedsheet/patriot,
-/obj/item/bedsheet/patriot,
-/obj/item/bedsheet/patriot,
-/obj/machinery/vending/wardrobe/bar_wardrobe,
+/obj/item/bedsheet/patriot{
+	dir = 1
+	},
+/obj/item/bedsheet/patriot{
+	dir = 1
+	},
+/obj/item/bedsheet/patriot{
+	dir = 1
+	},
+/obj/machinery/vending/wardrobe/bar_wardrobe{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aW" = (
-/obj/machinery/vending/boozeomat/all_access,
+/obj/machinery/vending/boozeomat/all_access{
+	dir = 1
+	},
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "aX" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/reagent_dispensers/beerkeg,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/reagent_dispensers/beerkeg{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aY" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/food/egg_smudge,
-/obj/effect/decal/cleanable/food/flour,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/food/egg_smudge{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/food/flour{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "aZ" = (
 /obj/structure/closet/secure_closet/bar{
-	req_access = null
+	req_access = null;
+	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
@@ -252,8 +358,12 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/toy/prize/honk,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/toy/prize/honk{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bb" = (
@@ -263,61 +373,88 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bc" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bd" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "be" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 6
+	dir = 5
 	},
-/obj/effect/decal/cleanable/food/egg_smudge,
+/obj/effect/decal/cleanable/food/egg_smudge{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bf" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bh" = (
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bi" = (
 /obj/item/gps{
-	gpstag = "MacSpace"
+	gpstag = "MacSpace";
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bj" = (
-/obj/item/toy/figure/clown,
-/obj/effect/decal/cleanable/food/tomato_smudge,
+/obj/item/toy/figure/clown{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/food/tomato_smudge{
+	dir = 4
+	},
 /obj/structure/chair/wood/wings{
 	dir = 4
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bk" = (
-/obj/item/reagent_containers/food/snacks/burger/clown,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/burger/clown{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bl" = (
-/obj/item/reagent_containers/food/snacks/burger/mime,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/burger/mime{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bm" = (
-/obj/item/toy/figure/mime,
-/obj/effect/decal/cleanable/food/salt,
+/obj/item/toy/figure/mime{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/food/salt{
+	dir = 4
+	},
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
@@ -325,46 +462,69 @@
 /area/ruin/space/has_grav/powered/macspace)
 "bn" = (
 /obj/structure/closet/secure_closet/freezer/meat{
-	req_access = null
+	req_access = null;
+	dir = 1
 	},
-/obj/item/aicard/aitater,
+/obj/item/aicard/aitater{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bo" = (
-/obj/structure/table/wood/fancy/red,
+/obj/structure/table/wood/fancy/red{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bp" = (
-/obj/item/toy/figure/bartender,
+/obj/item/toy/figure/bartender{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bq" = (
-/obj/item/toy/figure/chef,
+/obj/item/toy/figure/chef{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "br" = (
-/obj/item/toy/figure/chef,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/item/toy/figure/chef{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bs" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
+	dir = 2
 	},
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bt" = (
-/obj/item/toy/figure/chef,
-/obj/effect/decal/cleanable/food/flour,
+/obj/item/toy/figure/chef{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/food/flour{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bu" = (
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/cooking_oil{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bv" = (
-/obj/machinery/gibber,
+/obj/machinery/gibber{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bw" = (
@@ -374,13 +534,21 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bx" = (
-/obj/item/reagent_containers/food/snacks/omelette,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/omelette{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "by" = (
-/obj/item/reagent_containers/food/snacks/cubancarp,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/cubancarp{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bz" = (
@@ -390,53 +558,93 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bA" = (
-/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/generic{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bB" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bC" = (
-/obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/snacks/burger/fish,
+/obj/structure/table/wood/fancy/red{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/burger/fish{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bD" = (
-/obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/snacks/fishfingers,
+/obj/structure/table/wood/fancy/red{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/fishfingers{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bE" = (
-/obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/snacks/burger/superbite,
+/obj/structure/table/wood/fancy/red{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/burger/superbite{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bG" = (
-/obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/snacks/carrotfries,
+/obj/structure/table/wood/fancy/red{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/carrotfries{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bH" = (
-/obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/snacks/burger/superbite,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/structure/table/wood/fancy/red{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/burger/superbite{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bI" = (
-/obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/snacks/friedegg,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/table/wood/fancy/red{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/friedegg{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bJ" = (
-/obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/snacks/fries,
+/obj/structure/table/wood/fancy/red{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/fries{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bK" = (
-/obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/snacks/butter/on_a_stick,
+/obj/structure/table/wood/fancy/red{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/butter/on_a_stick{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bL" = (
@@ -449,395 +657,687 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bN" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bO" = (
-/obj/structure/chair/stool/bar,
-/obj/item/toy/figure/atmos,
-/obj/effect/decal/cleanable/vomit/old,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/item/toy/figure/atmos{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/vomit/old{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bP" = (
-/obj/structure/chair/stool/bar,
-/obj/item/toy/figure/ce,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/item/toy/figure/ce{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bQ" = (
-/obj/structure/chair/stool/bar,
-/obj/item/toy/figure/captain,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/item/toy/figure/captain{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bR" = (
-/obj/structure/chair/stool/bar,
-/obj/item/toy/figure/assistant,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/decal/cleanable/food/tomato_smudge,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/item/toy/figure/assistant{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/food/tomato_smudge{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bS" = (
-/obj/structure/chair/stool/bar,
-/obj/item/toy/figure/assistant,
-/obj/effect/decal/cleanable/food/tomato_smudge,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/item/toy/figure/assistant{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/food/tomato_smudge{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bT" = (
-/obj/structure/chair/stool/bar,
-/obj/item/toy/figure/hop,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/item/toy/figure/hop{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bU" = (
-/obj/structure/chair/stool/bar,
-/obj/item/toy/figure/ian,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/item/toy/figure/ian{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bV" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/decal/cleanable/cobweb/cobweb2{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "bW" = (
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bY" = (
-/obj/item/reagent_containers/food/snacks/burger/xeno,
-/obj/structure/table/wood/fancy/royalblue,
+/obj/item/reagent_containers/food/snacks/burger/xeno{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/royalblue{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "bZ" = (
-/obj/structure/table/wood/fancy/royalblue,
+/obj/structure/table/wood/fancy/royalblue{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "ca" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
 	},
-/obj/item/toy/figure/geneticist,
+/obj/item/toy/figure/geneticist{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cb" = (
-/obj/item/reagent_containers/food/snacks/burger/baconburger,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/burger/baconburger{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cc" = (
-/obj/item/reagent_containers/food/snacks/honkdae,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/honkdae{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cd" = (
-/obj/item/reagent_containers/food/snacks/toastedsandwich,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/toastedsandwich{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "ce" = (
-/obj/item/toy/figure/janitor,
+/obj/item/toy/figure/janitor{
+	dir = 1
+	},
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizardplushie{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cf" = (
-/obj/item/toy/figure/qm,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/toy/figure/qm{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /obj/structure/chair/wood/wings{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/food/salt,
+/obj/effect/decal/cleanable/food/salt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cg" = (
 /obj/item/reagent_containers/food/snacks/burger/spell{
 	pixel_x = -5;
-	pixel_y = 2
+	pixel_y = -2;
+	dir = 1
 	},
-/obj/structure/table/wood/fancy/blue,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "ch" = (
-/obj/item/reagent_containers/food/snacks/grilledcheese,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/grilledcheese{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "ci" = (
-/obj/machinery/light/floor,
+/obj/machinery/light/floor{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "ck" = (
-/obj/machinery/light/floor,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light/floor{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/water/air,
 /area/ruin/space/has_grav/powered/macspace)
 "cl" = (
-/obj/structure/table/wood/fancy/royalblue,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/table/wood/fancy/royalblue{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cm" = (
-/obj/item/gun/ballistic/shotgun,
+/obj/item/gun/ballistic/shotgun{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cn" = (
-/obj/item/reagent_containers/food/snacks/kebab/human,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/kebab/human{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "co" = (
-/obj/item/reagent_containers/food/snacks/pie/grapetart,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/pie/grapetart{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cp" = (
-/obj/item/toy/figure/botanist,
+/obj/item/toy/figure/botanist{
+	dir = 1
+	},
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cq" = (
-/obj/item/reagent_containers/food/snacks/bearsteak,
-/obj/structure/table/wood/fancy/blue,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/reagent_containers/food/snacks/bearsteak{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cr" = (
-/obj/item/reagent_containers/food/snacks/crab_rangoon,
-/obj/structure/table/wood/fancy/blue,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/reagent_containers/food/snacks/crab_rangoon{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cs" = (
-/obj/item/toy/figure/wizard,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/food/pie_smudge,
+/obj/item/toy/figure/wizard{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/food/pie_smudge{
+	dir = 4
+	},
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "ct" = (
-/obj/machinery/light/floor,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/floor{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cu" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cv" = (
-/obj/item/reagent_containers/food/snacks/burger/baseball,
-/obj/structure/table/wood/fancy/royalblue,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/reagent_containers/food/snacks/burger/baseball{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/royalblue{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cx" = (
-/obj/item/reagent_containers/food/snacks/burger/human,
-/obj/structure/table/wood/fancy/royalblue,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/reagent_containers/food/snacks/burger/human{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/royalblue{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cy" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/food/egg_smudge,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/food/egg_smudge{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cz" = (
-/obj/item/reagent_containers/food/snacks/kebab/tail,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/kebab/tail{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cA" = (
-/obj/item/reagent_containers/food/snacks/pie/appletart,
-/obj/structure/table/wood/fancy/blue,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/reagent_containers/food/snacks/pie/appletart{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cB" = (
-/obj/item/toy/figure/warden,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/food/salt,
-/obj/structure/chair/wood/wings,
+/obj/item/toy/figure/warden{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/food/salt{
+	dir = 4
+	},
+/obj/structure/chair/wood/wings{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cC" = (
-/obj/item/toy/figure/hos,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/food/salt,
-/obj/structure/chair/wood/wings,
+/obj/item/toy/figure/hos{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/food/salt{
+	dir = 4
+	},
+/obj/structure/chair/wood/wings{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cD" = (
-/obj/item/toy/figure/detective,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/food/salt,
-/obj/structure/chair/wood/wings,
+/obj/item/toy/figure/detective{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/food/salt{
+	dir = 4
+	},
+/obj/structure/chair/wood/wings{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cE" = (
-/obj/structure/chair/wood/wings,
+/obj/structure/chair/wood/wings{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cF" = (
-/obj/item/toy/figure/miner,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/wood/wings,
-/obj/item/toy/plush/bubbleplush,
+/obj/item/toy/figure/miner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/chair/wood/wings{
+	dir = 1
+	},
+/obj/item/toy/plush/bubbleplush{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cG" = (
-/obj/structure/chair/wood/wings,
+/obj/structure/chair/wood/wings{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cH" = (
-/obj/item/reagent_containers/food/snacks/kebab/rat/double,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/kebab/rat/double{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cI" = (
-/obj/item/reagent_containers/food/snacks/salad/validsalad,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/salad/validsalad{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cJ" = (
-/obj/item/reagent_containers/food/snacks/burger/rat,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/burger/rat{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cK" = (
-/obj/item/reagent_containers/food/snacks/burrito,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/burrito{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cM" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/food/egg_smudge,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/food/egg_smudge{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cN" = (
-/obj/item/reagent_containers/food/snacks/fishfingers,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/fishfingers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cO" = (
-/obj/item/reagent_containers/food/snacks/carneburrito,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/carneburrito{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cP" = (
-/obj/item/reagent_containers/food/snacks/fishandchips,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/fishandchips{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cQ" = (
-/obj/item/reagent_containers/food/snacks/pizza/donkpocket,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/pizza/donkpocket{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cR" = (
-/obj/item/reagent_containers/food/snacks/pizza/dank,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/pizza/dank{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cS" = (
 /obj/item/reagent_containers/food/snacks/pizza/mushroom{
-	pixel_x = -5
+	pixel_x = -5;
+	dir = 1
 	},
-/obj/structure/table/wood/fancy/blue,
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cT" = (
-/obj/item/reagent_containers/food/snacks/pizza/sassysage,
-/obj/structure/table/wood/fancy/blue,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/reagent_containers/food/snacks/pizza/sassysage{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cU" = (
-/obj/item/reagent_containers/food/snacks/pizza/meat,
-/obj/structure/table/wood/fancy/blue,
+/obj/item/reagent_containers/food/snacks/pizza/meat{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cV" = (
-/obj/item/reagent_containers/food/snacks/pizza/pineapple,
-/obj/structure/table/wood/fancy/blue,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/reagent_containers/food/snacks/pizza/pineapple{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cW" = (
-/obj/item/toy/figure/lawyer,
-/obj/structure/chair/wood/wings{
+/obj/item/toy/figure/lawyer{
 	dir = 1
+	},
+/obj/structure/chair/wood/wings{
+	dir = 2
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cX" = (
-/obj/item/toy/figure/secofficer,
-/obj/structure/chair/wood/wings{
+/obj/item/toy/figure/secofficer{
 	dir = 1
+	},
+/obj/structure/chair/wood/wings{
+	dir = 2
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cY" = (
-/obj/machinery/light,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cZ" = (
-/obj/item/toy/figure/cargotech,
-/obj/structure/chair/wood/wings{
+/obj/item/toy/figure/cargotech{
 	dir = 1
+	},
+/obj/structure/chair/wood/wings{
+	dir = 2
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "da" = (
-/obj/item/toy/figure/syndie,
-/obj/item/gun/ballistic/automatic/toy/pistol,
-/obj/item/toy/syndicateballoon,
-/obj/item/toy/sword,
-/obj/effect/decal/cleanable/food/tomato_smudge,
-/obj/structure/chair/wood/wings{
+/obj/item/toy/figure/syndie{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/food/salt,
+/obj/item/gun/ballistic/automatic/toy/pistol{
+	dir = 1
+	},
+/obj/item/toy/syndicateballoon{
+	dir = 1
+	},
+/obj/item/toy/sword{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/food/tomato_smudge{
+	dir = 4
+	},
+/obj/structure/chair/wood/wings{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/food/salt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "db" = (
-/obj/structure/sign/poster/contraband/eat,
+/obj/structure/sign/poster/contraband/eat{
+	dir = 1
+	},
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "dc" = (
-/obj/machinery/door/airlock/silver,
+/obj/machinery/door/airlock/silver{
+	dir = 1
+	},
 /turf/open/floor/mineral/gold,
 /area/ruin/space/has_grav/powered/macspace)
 "dd" = (
-/obj/structure/sign/poster/contraband/eat,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/structure/sign/poster/contraband/eat{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "de" = (
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "df" = (
-/obj/structure/statue/silver/sec,
+/obj/structure/statue/silver/sec{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "dg" = (
 /turf/open/floor/plasteel/stairs,
 /area/ruin/space/has_grav/powered/macspace)
 "dh" = (
-/obj/machinery/mech_bay_recharge_port,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/mech_bay_recharge_port{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "di" = (
@@ -845,174 +1345,248 @@
 /area/ruin/space/has_grav/powered/macspace)
 "dj" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 6
+	dir = 5
 	},
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "dk" = (
-/obj/machinery/atmospherics/components/unary/tank/oxygen,
+/obj/machinery/atmospherics/components/unary/tank/oxygen{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "dl" = (
-/obj/structure/tank_dispenser,
+/obj/structure/tank_dispenser{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "dm" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "dn" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "do" = (
-/obj/machinery/atmospherics/pipe/manifold4w,
+/obj/machinery/atmospherics/pipe/manifold4w{
+	dir = 1
+	},
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "dp" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 2
+	},
+/obj/machinery/portable_atmospherics/pump{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/pump,
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "dq" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 5
+	dir = 6
 	},
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/macspace)
 "dr" = (
-/obj/machinery/door/airlock/silver,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/silver{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "ds" = (
-/obj/vehicle/ridden/atv,
+/obj/vehicle/ridden/atv{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "dt" = (
-/obj/vehicle/ridden/janicart/upgraded,
+/obj/vehicle/ridden/janicart/upgraded{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/ruin/space/has_grav/powered/macspace)
 "dx" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
 	},
-/obj/item/toy/toy_xeno,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/item/toy/toy_xeno{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dy" = (
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
-/obj/item/toy/plush/slimeplushie,
-/obj/item/toy/figure/rd,
+/obj/item/toy/plush/slimeplushie{
+	dir = 1
+	},
+/obj/item/toy/figure/rd{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dz" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
 	},
-/obj/item/toy/figure/scientist,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/item/toy/figure/scientist{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dA" = (
-/obj/structure/table/wood/fancy/blue,
-/obj/item/reagent_containers/food/snacks/pizza/margherita,
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/pizza/margherita{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dB" = (
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
-/obj/item/toy/talking/AI,
+/obj/item/toy/talking/AI{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dC" = (
-/obj/item/toy/figure/botanist,
+/obj/item/toy/figure/botanist{
+	dir = 1
+	},
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
-/obj/item/toy/plush/beeplushie,
+/obj/item/toy/plush/beeplushie{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "dD" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
 	},
-/obj/item/toy/figure/roboticist,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/item/toy/figure/roboticist{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dE" = (
-/obj/structure/table/wood/fancy/blue,
-/obj/item/reagent_containers/food/snacks/burger/jelly/slime,
+/obj/structure/table/wood/fancy/blue{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/burger/jelly/slime{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dF" = (
 /obj/structure/chair/wood/wings{
+	dir = 2
+	},
+/obj/item/toy/plush/nukeplushie{
 	dir = 1
 	},
-/obj/item/toy/plush/nukeplushie,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "dG" = (
-/obj/effect/decal/cleanable/food/flour,
+/obj/effect/decal/cleanable/food/flour{
+	dir = 4
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "dH" = (
-/obj/structure/chair/wood/wings,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/structure/chair/wood/wings{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "ea" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
 	},
-/obj/item/toy/figure/cmo,
+/obj/item/toy/figure/cmo{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "iO" = (
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
-/obj/item/toy/figure/md,
+/obj/item/toy/figure/md{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "mo" = (
-/obj/structure/chair/stool/bar,
-/obj/item/toy/figure/engineer,
-/obj/item/toy/plush/carpplushie,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/item/toy/figure/engineer{
+	dir = 1
+	},
+/obj/item/toy/plush/carpplushie{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "rA" = (
 /obj/structure/chair/wood/wings{
 	dir = 4
 	},
-/obj/item/toy/figure/chemist,
+/obj/item/toy/figure/chemist{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "uO" = (
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
-/obj/item/toy/figure/virologist,
+/obj/item/toy/figure/virologist{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "Av" = (
-/obj/item/toy/plush/snakeplushie,
+/obj/item/toy/plush/snakeplushie{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "KA" = (
-/obj/structure/chair/stool/bar,
-/obj/item/toy/figure/engineer,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/item/toy/figure/engineer{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "Xp" = (
@@ -1023,16 +1597,7 @@
 aa
 aa
 aa
-ac
-ac
-ac
-ac
 aa
-aa
-aa
-aa
-ac
-ac
 aa
 aa
 aa
@@ -1042,12 +1607,9 @@ aa
 aa
 aa
 aa
+ac
+ac
 aa
-aa
-aa
-aa
-"}
-(2,1,1) = {"
 aa
 aa
 aa
@@ -1055,6 +1617,12 @@ ac
 ac
 ac
 ac
+aa
+aa
+aa"}(2,1,1) = {"
+aa
+aa
+aa
 aa
 aa
 ac
@@ -1071,14 +1639,21 @@ ac
 ac
 aa
 aa
+ac
+ac
+ac
+ac
+aa
+aa
+aa"}(3,1,1) = {"
 aa
 aa
 aa
-"}
-(3,1,1) = {"
 aa
-aa
-aa
+ac
+ac
+ac
+ac
 ac
 ac
 ac
@@ -1094,783 +1669,717 @@ ac
 ac
 ac
 ac
+aa
+aa
+aa"}(4,1,1) = {"
+aa
+aa
+aa
+aa
 ac
 ac
 ac
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
 ac
-aa
-aa
-aa
-aa
-"}
-(4,1,1) = {"
-aa
+ac
 Xp
-ac
-ac
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ac
-ac
-ac
+aa"}(5,1,1) = {"
 aa
 aa
 aa
-aa
-"}
-(5,1,1) = {"
-aa
-Xp
+ac
+ac
 ac
 ac
 ae
-am
-aF
 ag
-ba
-bj
-bw
+ag
 bL
-ag
+bw
 cf
-bw
+ag
 bL
+bw
+bj
+ba
 ag
-ag
+aF
+am
 ae
 ac
-ac
-ac
-ac
-aa
-aa
-aa
-"}
-(6,1,1) = {"
-aa
 ac
 Xp
+aa"}(6,1,1) = {"
+aa
+aa
+aa
+ac
+ac
+ac
 ac
 ae
-an
-aG
-aR
-ao
-bk
-bx
-ag
-aP
-cg
-cq
-cB
-cH
 cW
+cH
+cB
+cq
+cg
+aP
+ag
+bx
+bk
+ao
+aR
+aG
+an
 ae
-ac
-ac
-ac
-ac
-aa
-aa
-aa
-"}
-(7,1,1) = {"
-aa
 ac
 Xp
 ac
+aa"}(7,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ad
 ae
-Av
-aH
-aS
-ag
-bl
-by
-bM
-bW
-ch
-cr
-cC
+cX
 cI
-cX
+cC
+cr
+ch
+bW
+bM
+by
+bl
+ag
+aS
+aH
+Av
 ae
-ad
-ac
-ac
-ac
-ac
-ac
-aa
-"}
-(8,1,1) = {"
-aa
-ac
 ac
 Xp
-ae
-ao
-ao
-ao
-ao
-bm
-bz
-bN
-bX
-bz
-cs
-cD
-cJ
-cX
-ae
+ac
+aa"}(8,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ac
 ad
-ac
-ac
-ac
-ac
-ac
-ac
-"}
-(9,1,1) = {"
-aa
-ac
-ac
-ac
 ae
-ag
-aI
-aI
-ag
-ag
-bA
+cX
+cJ
+cD
+cs
+bz
+bX
 bN
+bz
+bm
+ao
+ao
+ao
+ao
+ae
+Xp
+ac
+ac
+aa"}(9,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ae
+aM
+aP
+bM
 bN
 ci
 bN
-bM
-aP
-aM
-ae
-ad
-ad
-ac
-ac
-ac
-ac
-ac
-"}
-(10,1,1) = {"
-ac
-ac
-ac
-Xp
-ae
-ap
-aJ
-aJ
-bb
-bc
-mo
-bB
-bM
 bN
-bN
-cE
-cK
-aR
-ae
-ae
-ae
-ae
-ae
-de
-de
-ac
-"}
-(11,1,1) = {"
-ac
-ac
-ac
-Xp
-ae
-ae
-ae
-ae
-ae
-bo
-bC
-bO
 bA
-bN
-cu
-cE
+ag
+ag
 aI
-aR
-ae
-de
-dl
-dl
-ae
-ds
-de
-ac
-"}
-(12,1,1) = {"
-ac
-ac
-ac
-ac
-ae
-aq
+aI
 ag
 ae
-aZ
-bp
-bo
-bB
-bM
-bW
-cy
-cE
+ac
+ac
+ac
+aa"}(10,1,1) = {"
+ac
+de
+de
+ae
+ae
+ae
+ae
+ae
+aR
 cK
-aR
-db
-de
-de
-de
-db
-de
-de
-aa
-"}
-(13,1,1) = {"
-ac
-ac
-ac
-ac
-ae
-ar
-ag
-ae
-aZ
-bq
-bD
-KA
-bY
-cl
-cv
+cE
+bN
+bN
 bM
-ag
-aM
+bB
+mo
+bc
+bb
+aJ
+aJ
+ap
 ae
-df
+Xp
+ac
+ac
+ac"}(11,1,1) = {"
+ac
 de
-de
-ae
 ds
-de
-aa
-"}
-(14,1,1) = {"
-ac
-ac
-ac
-ad
 ae
-as
+dl
+dl
+de
+ae
+aR
+aI
+cE
+cu
+bN
+bA
+bO
+bC
+bo
+ae
+ae
+ae
+ae
+ae
+Xp
+ac
+ac
+ac"}(12,1,1) = {"
+aa
+de
+de
+db
+de
+de
+de
+db
+aR
+cK
+cE
+cy
+bW
+bM
+bB
+bo
+bp
+aZ
+ae
+ag
+aq
+ae
+ac
+ac
+ac
+ac"}(13,1,1) = {"
+aa
+de
+ds
+ae
+de
+de
+df
+ae
+aM
+ag
+bM
+cv
+cl
+bY
+KA
+bD
+bq
+aZ
+ae
+ag
+ar
+ae
+ac
+ac
+ac
+ac"}(14,1,1) = {"
+aa
+de
+de
+dr
+de
+de
+dg
+dc
+ag
+ao
+bM
+cl
+ck
+bZ
+bP
+bE
+aP
 ag
 aT
 ag
-aP
-bE
-bP
-bZ
-ck
-cl
-bM
-ao
-ag
-dc
-dg
-de
-de
-dr
-de
-de
-aa
-"}
-(15,1,1) = {"
-ac
-ac
-ac
+as
+ae
 ad
-ae
-at
-aK
-ae
-bd
-ag
-bo
-bQ
-bY
-cl
-cx
-bM
-cM
-ao
-dc
-dg
+ac
+ac
+ac"}(15,1,1) = {"
+aa
 de
 de
 dr
 de
 de
-aa
-"}
-(16,1,1) = {"
+dg
+dc
+ao
+cM
+bM
+cx
+cl
+bY
+bQ
+bo
+ag
+bd
+ae
+aK
+at
+ae
+ad
 ac
+ac
+ac"}(16,1,1) = {"
+aa
+de
+de
 ae
+de
+de
+df
 ae
-ae
-ae
-au
+cY
+ag
+bM
+bN
+bN
+bM
+bB
+bG
+ag
 ag
 aU
 ag
-ag
-bG
-bB
-bM
-bN
-bN
-bM
-ag
-cY
+au
 ae
-df
-de
-de
 ae
-de
-de
+ae
+ae
+ac"}(17,1,1) = {"
 aa
-"}
-(17,1,1) = {"
-ac
-ae
-af
-ah
-ae
-av
-ag
-ae
-be
-br
-bH
-bR
-dx
-dz
-dD
-dH
-cN
-aR
-dd
-dh
-dm
+de
 de
 db
 de
-de
-aa
-"}
-(18,1,1) = {"
-ac
-ae
-af
-ai
-ak
-aw
-aL
-ak
-bf
-bs
-bI
-bB
-cb
-dA
-dE
-cE
-cO
+dm
+dh
+dd
 aR
+cN
+dH
+dD
+dz
+dx
+bR
+bH
+br
+be
 ae
-di
-dn
-dp
+ag
+av
 ae
-ds
-de
-aa
-"}
-(19,1,1) = {"
-ad
-ae
+ah
 af
-aj
-al
+ae
+ac"}(18,1,1) = {"
+aa
+de
+ds
+ae
+dp
+dn
+di
+ae
+aR
+cO
+cE
+dE
+dA
+cb
+bB
+bI
+bs
+bf
+ak
+aL
+aw
+ak
+ai
+af
+ae
+ac"}(19,1,1) = {"
+aa
+de
+ds
+ae
+dq
+do
+dj
+ae
+aR
+cP
+cE
+dB
+dB
+dy
+bS
+bJ
 ag
 ag
 aW
 ag
 ag
-bJ
-bS
-dy
-dB
-dB
-cE
-cP
-aR
+al
+aj
+af
 ae
-dj
-do
-dq
-ae
-ds
+ad"}(20,1,1) = {"
+ac
 de
-aa
-"}
-(20,1,1) = {"
-ad
+de
 ae
-aE
-ag
+dk
+dk
+dk
 ae
-ag
 aM
-ae
 ag
-bt
-bE
-bS
-bM
-bM
-bM
 bW
+bM
+bM
+bM
+bS
+bE
+bt
 ag
+ae
 aM
+ag
 ae
-dk
-dk
-dk
+ag
+aE
 ae
-de
-de
+ad"}(21,1,1) = {"
 ac
-"}
-(21,1,1) = {"
-ac
+dt
+de
 ae
-aV
-ag
 ae
-ag
-aN
 ae
-ag
-aN
-bo
-bT
+ae
+ae
+cZ
+cQ
+cE
 bN
 ct
 bN
-cE
-cQ
+bT
+bo
+aN
+ag
+ae
+aN
+ag
+ae
+ag
+aV
+ae
+ac"}(22,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ae
 cZ
-ae
-ae
-ae
-ae
-ae
-de
-dt
-ac
-"}
-(22,1,1) = {"
-ac
-ae
-ae
-ae
-ae
+cR
+cE
+dG
+bM
+bM
+bU
+bK
 ag
 ag
 aT
 ag
 ag
-bK
-bU
-bM
-bM
-dG
-cE
-cR
+ae
+ae
+ae
+ae
+ac"}(23,1,1) = {"
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ae
 cZ
-ae
-ad
-ac
-ac
-ac
-ac
-ac
-ac
-"}
-(23,1,1) = {"
-ac
-ad
-ad
-ad
-ae
-ax
-ag
-ae
-ag
-ag
-bo
-bB
-ca
-ea
-rA
-cF
 cS
-cZ
-ae
-ac
-ac
-ac
-ac
-ac
-ac
-ac
-"}
-(24,1,1) = {"
-ac
-ac
-ac
-ad
-ae
-aB
-ag
-ae
-ay
-bb
-ag
+cF
+rA
+ea
+ca
 bB
-cc
-cn
-cz
-bM
+bo
 ag
-aM
+ag
 ae
-ac
-ac
-ac
-ac
-ac
-ac
-aa
-"}
-(25,1,1) = {"
+ag
+ax
+ae
+ad
+ad
+ad
+ac"}(24,1,1) = {"
 aa
 ac
 ac
 ac
+ac
+ac
+ac
+ae
+aM
+ag
+bM
+cz
+cn
+cc
+bB
+ag
+bb
+ay
+ae
+ag
+aB
+ae
+ad
+ac
+ac
+ac"}(25,1,1) = {"
+aa
+aa
+ac
+aa
+ac
+ac
+ac
+ae
+aR
+cT
+cG
+uO
+iO
+aJ
+ag
+ae
+ae
 ae
 ae
 aO
 ae
 ae
-ae
-ae
-ag
-aJ
-iO
-uO
-cG
-cT
-aR
-ae
 ac
 ac
+ac
+aa"}(26,1,1) = {"
+aa
+aa
 ac
 aa
 ac
-aa
-aa
-"}
-(26,1,1) = {"
-ac
-ac
 ac
 ac
 ae
-aC
-aN
-aX
-ag
-cm
-ae
-ag
-ag
-bh
-ag
-cG
-cU
 dF
-ae
-ac
-ac
-ac
-aa
-ac
-aa
-aa
-"}
-(27,1,1) = {"
-aa
-ac
-ac
-ac
-ae
-az
-aN
-aY
-bi
-bu
-ae
-ag
-bw
-bw
-bw
+cU
 cG
-cV
+ag
+bh
+ag
+ag
+ae
+cm
+ag
+aX
+aN
+aC
+ae
+ac
+ac
+ac
+ac"}(27,1,1) = {"
+aa
+aa
+ac
+ac
+ac
+ac
+ac
+ae
 da
+cV
+cG
+bw
+bw
+bw
+ag
+ae
+bu
+bi
+aY
+aN
+az
 ae
 ac
 ac
 ac
-ac
-ac
+aa"}(28,1,1) = {"
 aa
 aa
-"}
-(28,1,1) = {"
+aa
 ac
 ac
 ac
 ac
 ae
-aA
-aP
-ag
-ag
-ag
-ae
-ag
-cd
-co
-cA
-bh
-bh
 aM
-ae
-ac
-ac
-ac
-ac
-aa
-aa
-aa
-"}
-(29,1,1) = {"
-aa
-ac
-ac
-ad
+bh
+bh
+cA
+co
+cd
+ag
 ae
 ag
-aQ
-aD
-bn
-bv
+ag
+ag
+aP
+aA
 ae
-bV
-ce
-dC
-cp
+ac
+ac
+ac
+ac"}(29,1,1) = {"
+aa
+aa
+aa
+ac
+ac
+ac
+ac
+ae
+ag
+ag
 bb
+cp
+dC
+ce
+bV
+ae
+bv
+bn
+aD
+aQ
 ag
-ag
 ae
-ac
-ac
-ac
-ac
-aa
-aa
-aa
-"}
-(30,1,1) = {"
-aa
-ac
-ad
-ad
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ae
-ac
-ac
-aa
-aa
-aa
-aa
-aa
-"}
-(31,1,1) = {"
-aa
-aa
-ac
-ac
-ad
-ad
 ad
 ac
 ac
+aa"}(30,1,1) = {"
+aa
+aa
+aa
+aa
+aa
 ac
+ac
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
 ad
+ad
+ac
+aa"}(31,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
 ac
 ac
 ad
@@ -1880,22 +2389,28 @@ ad
 ad
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(32,1,1) = {"
-aa
-aa
-aa
-ac
 ad
 ac
 ac
 ac
+ad
+ad
+ad
+ac
+ac
+aa
+aa"}(32,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ac
+ac
 ac
 aa
 aa
@@ -1905,13 +2420,9 @@ aa
 ac
 ac
 ac
+ac
+ad
+ac
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
+aa"}

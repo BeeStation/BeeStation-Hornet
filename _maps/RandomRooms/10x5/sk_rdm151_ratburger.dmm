@@ -3,68 +3,115 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/structure/window/reinforced/spawner/north,
-/obj/structure/rack,
-/obj/item/storage/box/ingredients/carnivore,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
-/obj/item/reagent_containers/food/snacks/bun,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/storage/box/ingredients/carnivore{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/bun{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/bun{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/bun{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/bun{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/bun{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/bun{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/bun{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/template_noop)
 "c" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/lootdrop/grille_or_trash{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/structure/window/reinforced/spawner/north,
-/obj/machinery/deepfryer,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
+/obj/machinery/deepfryer{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
 "g" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/north,
 /mob/living/simple_animal/mouse/gray,
 /turf/open/floor/grass,
 /area/template_noop)
 "h" = (
-/obj/machinery/door/window,
-/obj/effect/decal/cleanable/blood/old,
+/obj/machinery/door/window{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
 "i" = (
 /turf/closed/wall,
 /area/template_noop)
 "l" = (
-/obj/machinery/microwave,
-/obj/structure/window/reinforced/spawner,
-/obj/structure/table,
+/obj/machinery/microwave{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/table{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
 "n" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/snacks/burger/rat{
 	pixel_x = 4;
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/burger/rat,
-/obj/structure/window/reinforced/spawner,
+/obj/item/reagent_containers/food/snacks/burger/rat{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "o" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/landmark/event_spawn,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
+/obj/effect/landmark/event_spawn{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "p" = (
-/obj/structure/sign/nanotrasen,
+/obj/structure/sign/nanotrasen{
+	dir = 1
+	},
 /turf/closed/wall,
 /area/template_noop)
 "r" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/window/reinforced/spawner/east,
 /mob/living/simple_animal/mouse/brown,
 /turf/open/floor/grass,
@@ -75,11 +122,17 @@
 	},
 /area/template_noop)
 "w" = (
-/obj/structure/rack,
+/obj/structure/rack{
+	dir = 1
+	},
 /obj/item/stack/cable_coil/blue,
 /obj/item/stack/cable_coil/blue,
-/obj/item/kitchen/knife/butcher,
-/obj/item/clothing/suit/hooded/wintercoat/security,
+/obj/item/kitchen/knife/butcher{
+	dir = 1
+	},
+/obj/item/clothing/suit/hooded/wintercoat/security{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
@@ -89,8 +142,12 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "A" = (
-/obj/structure/window/reinforced/spawner/north,
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
+/obj/structure/reagent_dispensers/cooking_oil{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
 "B" = (
@@ -98,49 +155,67 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "C" = (
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /obj/structure/window/reinforced/spawner/east,
 /mob/living/simple_animal/mouse/gray,
 /turf/open/floor/grass,
 /area/template_noop)
 "D" = (
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /obj/structure/window/reinforced/spawner/east,
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/drinks/beer{
 	pixel_x = -7;
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/drinks/beer{
 	pixel_x = 6;
-	pixel_y = 4
+	pixel_y = -4;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/drinks/beer{
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/drinks/beer{
-	pixel_x = -1
+	pixel_x = -1;
+	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
 "F" = (
-/obj/structure/table,
-/obj/machinery/light/small{
+/obj/structure/table{
 	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 2
 	},
 /obj/item/reagent_containers/food/snacks/burger/rat{
 	pixel_x = 7;
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/burger/rat{
 	pixel_x = -4;
-	pixel_y = 4
+	pixel_y = -4;
+	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/burger/rat,
+/obj/item/reagent_containers/food/snacks/burger/rat{
+	dir = 1
+	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "G" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "H" = (
@@ -150,8 +225,12 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "I" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/landmark/blobstart,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/effect/landmark/blobstart{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -163,8 +242,12 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "K" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/item/reagent_containers/food/snacks/bun,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/snacks/bun{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
 "L" = (
@@ -174,12 +257,14 @@
 /area/template_noop)
 "M" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "N" = (
-/obj/item/trash/popcorn,
+/obj/item/trash/popcorn{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "O" = (
@@ -192,25 +277,32 @@
 /area/template_noop)
 "R" = (
 /obj/machinery/light/small{
+	dir = 2
+	},
+/obj/effect/spawner/lootdrop/grille_or_trash{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
 /area/template_noop)
 "S" = (
 /obj/structure/sign/barsign{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "T" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "V" = (
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /mob/living/simple_animal/mouse/white,
 /turf/open/floor/grass,
 /area/template_noop)
@@ -222,71 +314,52 @@
 
 (1,1,1) = {"
 a
-a
-Y
 H
+Y
 a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 c
 i
 p
 i
-c
-"}
-(3,1,1) = {"
-M
-b
+c"}(3,1,1) = {"
+G
+g
 B
+b
+M"}(4,1,1) = {"
+a
 g
-G
-"}
-(4,1,1) = {"
-v
-V
 z
-g
-a
-"}
-(5,1,1) = {"
-O
-C
-L
-r
+V
+v"}(5,1,1) = {"
 Y
-"}
-(6,1,1) = {"
-S
-d
-K
+r
+L
+C
+O"}(6,1,1) = {"
+a
 l
+K
+d
+S"}(7,1,1) = {"
 a
-"}
-(7,1,1) = {"
-a
-A
-Q
 h
-a
-"}
-(8,1,1) = {"
-R
-D
-F
-n
+Q
+A
+a"}(8,1,1) = {"
 G
-"}
-(9,1,1) = {"
-a
-w
-o
-I
+n
+F
+D
+R"}(9,1,1) = {"
 N
-"}
-(10,1,1) = {"
+I
+o
+w
+a"}(10,1,1) = {"
 a
-J
-v
 T
-a
-"}
+v
+J
+a"}

@@ -8,15 +8,23 @@
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "c" = (
-/obj/item/paper/crumpled,
+/obj/item/paper/crumpled{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless{
 	icon_state = "damaged2"
 	},
 /area/template_noop)
 "d" = (
-/obj/item/airlock_painter,
-/obj/structure/lattice,
-/obj/structure/closet,
+/obj/item/airlock_painter{
+	dir = 1
+	},
+/obj/structure/lattice{
+	dir = 1
+	},
+/obj/structure/closet{
+	dir = 1
+	},
 /turf/open/space,
 /area/template_noop)
 "e" = (
@@ -25,22 +33,19 @@
 	},
 /area/template_noop)
 "f" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-b
 e
-"}
-(2,1,1) = {"
 b
-d
+a"}(2,1,1) = {"
 f
-"}
-(3,1,1) = {"
-c
-a
+d
+b"}(3,1,1) = {"
 e
-"}
+a
+c"}

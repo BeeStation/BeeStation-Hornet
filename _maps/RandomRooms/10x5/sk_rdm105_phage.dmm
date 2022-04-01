@@ -4,40 +4,55 @@
 /area/template_noop)
 "b" = (
 /obj/effect/decal/cleanable/blood/tracks{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
 /obj/item/caution{
 	desc = "CAUTION! BIOHAZARD QUARANTINE!";
-	name = "biohazard warning sign"
+	name = "biohazard warning sign";
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating,
-/area/template_noop)
-"i" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"j" = (
-/obj/machinery/door/airlock/maintenance_hatch,
-/obj/effect/decal/cleanable/blood/tracks{
+/obj/effect/decal/cleanable/dirt/dust{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"i" = (
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"j" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 2
+	},
+/turf/open/floor/plating,
+/area/template_noop)
 "n" = (
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "o" = (
-/obj/machinery/door/airlock/maintenance_hatch,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/door/airlock/maintenance_hatch{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "r" = (
-/obj/structure/sign/warning/biohazard,
+/obj/structure/sign/warning/biohazard{
+	dir = 1
+	},
 /turf/closed/wall,
 /area/template_noop)
 "t" = (
@@ -45,174 +60,218 @@
 /area/template_noop)
 "u" = (
 /mob/living/simple_animal/hostile/macrophage/aggro/vector,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/clothing/gloves/color/yellow,
-/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/item/clothing/gloves/color/yellow{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/gibs/old{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (
 /obj/effect/decal/cleanable/blood/tracks{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/dirt/dust{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/mob_spawn/human/clown/corpse,
-/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/mob_spawn/human/clown/corpse{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/gibs/old{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "y" = (
 /obj/item/caution{
 	desc = "CAUTION! BIOHAZARD QUARANTINE!";
-	name = "biohazard warning sign"
+	name = "biohazard warning sign";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "A" = (
 /obj/item/caution{
 	desc = "CAUTION! BIOHAZARD QUARANTINE!";
-	name = "biohazard warning sign"
+	name = "biohazard warning sign";
+	dir = 1
 	},
 /obj/effect/decal/cleanable/blood/tracks{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/dirt/dust{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/template_noop)
 "C" = (
 /obj/effect/decal/cleanable/blood/tracks{
-	dir = 4
+	dir = 2
 	},
-/obj/item/ammo_casing/spent,
+/obj/item/ammo_casing/spent{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "D" = (
-/obj/effect/mob_spawn/human/corpse/assistant,
-/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/corpse/assistant{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "H" = (
-/obj/item/ammo_casing/spent,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/ammo_casing/spent{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "I" = (
-/obj/machinery/power/floodlight,
+/obj/machinery/power/floodlight{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "K" = (
-/obj/structure/barricade/sandbags,
-/obj/effect/decal/cleanable/blood/gibs/old,
-/obj/effect/decal/cleanable/blood/old,
+/obj/structure/barricade/sandbags{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/gibs/old{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "L" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "N" = (
 /turf/open/floor/plating,
 /area/template_noop)
 "O" = (
-/obj/structure/barricade/sandbags,
+/obj/structure/barricade/sandbags{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "Q" = (
-/obj/item/ammo_casing/spent,
 /obj/item/ammo_casing/spent{
-	pixel_y = 4
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/ammo_casing/spent{
+	pixel_y = -4;
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "S" = (
-/obj/machinery/door/airlock/maintenance_hatch,
+/obj/machinery/door/airlock/maintenance_hatch{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "U" = (
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "W" = (
-/obj/structure/barricade/sandbags,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/structure/barricade/sandbags{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/gibs/old{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "Y" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/two{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-Y
-r
-U
+a
 h
-a
-"}
-(2,1,1) = {"
-L
+U
+r
+Y"}(2,1,1) = {"
+i
 t
 r
 t
-i
-"}
-(3,1,1) = {"
-a
+L"}(3,1,1) = {"
+n
 t
 u
 t
-n
-"}
-(4,1,1) = {"
+a"}(4,1,1) = {"
 y
-t
-x
 r
-y
-"}
-(5,1,1) = {"
-i
+x
 t
-A
-o
+y"}(5,1,1) = {"
 N
-"}
-(6,1,1) = {"
+o
+A
+t
+i"}(6,1,1) = {"
 U
 t
 b
 t
-U
-"}
-(7,1,1) = {"
-S
-r
+U"}(7,1,1) = {"
+t
+t
 j
-t
-t
-"}
-(8,1,1) = {"
-D
-a
-C
+r
+S"}(8,1,1) = {"
+U
 H
+C
+a
+D"}(9,1,1) = {"
 U
-"}
-(9,1,1) = {"
-i
-W
-K
 I
-U
-"}
-(10,1,1) = {"
+K
+W
+i"}(10,1,1) = {"
 N
-O
-Q
 y
-N
-"}
+Q
+O
+N"}

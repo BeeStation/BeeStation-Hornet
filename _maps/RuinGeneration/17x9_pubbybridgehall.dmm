@@ -6,69 +6,90 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "h" = (
-/obj/machinery/vending/cigarette,
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/vending/cigarette{
 	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "k" = (
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizardplushie{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "m" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "o" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "p" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "q" = (
 /obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 2
+	},
+/obj/item/kirbyplants/random{
 	dir = 1
 	},
-/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "r" = (
 /obj/effect/turf_decal/tile/neutral/tile_marquee{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "s" = (
-/obj/structure/closet/firecloset/full,
-/obj/effect/turf_decal/stripes/line{
+/obj/structure/closet/firecloset/full{
 	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "u" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "w" = (
-/obj/effect/abstract/open_area_marker,
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "x" = (
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
-/obj/structure/closet/emcloset,
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
 	dir = 1
+	},
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "C" = (
 /obj/machinery/door/airlock/maintenance_hatch{
-	req_access_txt = "12"
+	req_access_txt = "12";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -80,261 +101,260 @@
 /area/ruin/unpowered)
 "I" = (
 /obj/item/kirbyplants/photosynthetic{
-	layer = 3.1
+	layer = 3.1;
+	dir = 1
 	},
-/obj/structure/window/fulltile,
+/obj/structure/window/fulltile{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "J" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /obj/structure/sign/logo{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/template_noop,
 /area/space)
 "L" = (
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
-/obj/machinery/vending/snack/random,
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
 	dir = 1
+	},
+/obj/machinery/vending/snack/random{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "M" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /obj/structure/sign/logo{
 	icon_state = "nanotrasen_sign2";
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/template_noop,
 /area/space)
 "O" = (
-/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/reagent_dispensers/fueltank{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "P" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /obj/structure/sign/logo{
 	icon_state = "nanotrasen_sign3";
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/template_noop,
 /area/space)
 "R" = (
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "U" = (
 /obj/effect/turf_decal/tile/neutral/tile_marquee{
+	dir = 2
+	},
+/obj/machinery/vending/coffee{
 	dir = 1
 	},
-/obj/machinery/vending/coffee,
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "W" = (
 /obj/structure/sign/poster/contraband/lizard{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "X" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /obj/structure/sign/logo{
 	icon_state = "nanotrasen_sign4";
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/template_noop,
 /area/space)
 "Y" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /obj/structure/sign/logo{
 	icon_state = "nanotrasen_sign5";
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/template_noop,
 /area/space)
 
 (1,1,1) = {"
 a
-a
-a
-a
-a
-R
+r
 G
-r
+R
 a
-"}
-(2,1,1) = {"
-m
+a
+a
+a
+a"}(2,1,1) = {"
+r
+f
+f
+f
+f
+f
+r
 q
-r
-f
-f
-f
-f
-f
-r
-"}
-(3,1,1) = {"
-m
-s
-f
-f
-f
-f
-f
-f
+m"}(3,1,1) = {"
 w
-"}
-(4,1,1) = {"
-m
+f
+f
+f
+f
+f
+f
+s
+m"}(4,1,1) = {"
+R
+R
+R
+f
+f
+f
+R
 x
-R
-f
-f
-f
-R
-R
-R
-"}
-(5,1,1) = {"
+m"}(5,1,1) = {"
 a
 a
 a
-R
-f
 r
-a
-a
-a
-"}
-(6,1,1) = {"
-a
-I
-a
-R
 f
-r
+R
+a
+a
+a"}(6,1,1) = {"
 a
 O
 a
-"}
-(7,1,1) = {"
-a
-J
-m
-R
-f
 r
-C
-o
+f
+R
+a
+I
+a"}(7,1,1) = {"
 p
-"}
-(8,1,1) = {"
-a
-M
-m
-R
-f
+o
+C
 r
+f
+R
+m
+J
+a"}(8,1,1) = {"
 a
 o
 a
-"}
-(9,1,1) = {"
-a
-P
-m
-R
-f
 r
+f
+R
+m
+M
+a"}(9,1,1) = {"
 a
 u
 a
-"}
-(10,1,1) = {"
+r
+f
+R
+m
+P
+a"}(10,1,1) = {"
 a
+a
+a
+r
+f
+R
+m
 X
-m
-R
-f
-r
-a
-a
-a
-"}
-(11,1,1) = {"
-a
-Y
-m
-R
-f
-r
+a"}(11,1,1) = {"
 a
 W
 a
-"}
-(12,1,1) = {"
-a
-I
-a
-R
-f
 r
+f
+R
+m
+Y
+a"}(12,1,1) = {"
 a
 k
 a
-"}
-(13,1,1) = {"
-a
-a
-a
+r
+f
 R
+a
+I
+a"}(13,1,1) = {"
+a
+a
+a
+r
+f
+R
+a
+a
+a"}(14,1,1) = {"
+r
+r
+r
+f
+f
 f
 r
-a
-a
-a
-"}
-(14,1,1) = {"
-m
 U
-r
-f
-f
-f
-r
-r
-r
-"}
-(15,1,1) = {"
-m
-h
-f
-f
-f
-f
-f
-f
+m"}(15,1,1) = {"
 w
-"}
-(16,1,1) = {"
-m
+f
+f
+f
+f
+f
+f
+h
+m"}(16,1,1) = {"
+R
+f
+f
+f
+f
+f
+R
 L
-R
-f
-f
-f
-f
-f
-R
-"}
-(17,1,1) = {"
+m"}(17,1,1) = {"
 a
 a
 a
@@ -343,5 +363,4 @@ a
 a
 a
 a
-a
-"}
+a"}

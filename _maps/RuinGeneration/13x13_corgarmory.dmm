@@ -1,52 +1,75 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/delivery,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/lootdrop/ruinloot/armory{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "b" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/abstract/doorway_marker,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "d" = (
-/obj/structure/rack,
+/obj/structure/rack{
+	dir = 1
+	},
 /obj/item/grenade/barrier{
 	pixel_x = -3;
-	pixel_y = 1
+	pixel_y = -1;
+	dir = 1
 	},
 /obj/item/grenade/barrier{
 	pixel_x = 3;
-	pixel_y = -1
+	pixel_y = 1;
+	dir = 1
 	},
-/obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/ruinloot/security{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "e" = (
 /obj/structure/sign/warning/securearea{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /turf/template_noop,
 /area/template_noop)
 "f" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "i" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
+/obj/structure/rack{
 	dir = 1
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -54,64 +77,88 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/armory{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "j" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 9
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "k" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/delivery,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "l" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/secure_closet,
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
+/obj/structure/closet/secure_closet{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/armory{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "m" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "o" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "p" = (
 /obj/structure/sign/warning/securearea{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/template_noop,
 /area/template_noop)
 "r" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/sign/poster/official/ian{
-	pixel_y = 32
+/obj/effect/turf_decal/delivery{
+	dir = 4
 	},
-/obj/item/rack_parts,
+/obj/structure/sign/poster/official/ian{
+	pixel_y = -32;
+	dir = 1
+	},
+/obj/item/rack_parts{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "s" = (
-/obj/effect/turf_decal/box,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
+/obj/effect/turf_decal/box{
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -119,10 +166,18 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "t" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "u" = (
@@ -149,23 +204,36 @@
 "z" = (
 /obj/structure/closet/secure_closet{
 	name = "contraband locker";
-	req_access_txt = "3"
+	req_access_txt = "3";
+	dir = 1
 	},
-/obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/ruinloot/armory{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "A" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
-/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "B" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/ruinloot/armory{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "E" = (
@@ -178,23 +246,30 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "I" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/ruinloot/security{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "K" = (
 /obj/structure/sign/warning/securearea{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /turf/template_noop,
 /area/template_noop)
 "L" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
+	dir = 5
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
@@ -202,70 +277,97 @@
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "N" = (
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/rack_parts,
+/obj/item/rack_parts{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "O" = (
-/obj/vehicle/ridden/secway,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
+/obj/vehicle/ridden/secway{
 	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "Q" = (
 /obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "T" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
+/obj/structure/rack{
 	dir = 1
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "U" = (
-/obj/structure/rack,
+/obj/structure/rack{
+	dir = 1
+	},
 /obj/item/storage/box/teargas{
 	pixel_x = 1;
-	pixel_y = -2
+	pixel_y = 2;
+	dir = 1
 	},
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "V" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
+/obj/effect/turf_decal/bot{
+	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
@@ -273,11 +375,14 @@
 /obj/machinery/door/airlock/security{
 	name = "Armory";
 	req_access_txt = "3";
-	security_level = 6
+	security_level = 6;
+	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
@@ -295,24 +400,20 @@ M
 M
 M
 M
+M"}(2,1,1) = {"
 M
-"}
-(2,1,1) = {"
-M
-x
 x
 e
+x
 x
 t
 x
 t
 x
-x
 e
 x
-M
-"}
-(3,1,1) = {"
+x
+M"}(3,1,1) = {"
 M
 x
 x
@@ -325,114 +426,98 @@ M
 x
 x
 x
+M"}(4,1,1) = {"
 M
-"}
-(4,1,1) = {"
-M
-x
-x
+t
+t
 M
 M
-B
-N
 U
-M
-M
-t
-t
-M
-"}
-(5,1,1) = {"
-M
-t
-t
-M
-d
-A
-E
-E
-j
-M
-p
-x
-M
-"}
-(6,1,1) = {"
-M
-x
-x
-M
-z
-Q
-V
-i
-m
-M
-f
-f
-M
-"}
-(7,1,1) = {"
-M
-x
-x
-M
-r
-Q
-s
-T
-m
-W
-v
-v
-b
-"}
-(8,1,1) = {"
-M
-x
-x
-M
-l
-Q
-O
-T
-m
-M
-f
-f
-M
-"}
-(9,1,1) = {"
-M
-t
-t
-M
+N
 B
-o
-u
-u
-L
 M
+M
+x
+x
+M"}(5,1,1) = {"
+M
+x
 p
+M
+j
+E
+E
+A
+d
+M
+t
+t
+M"}(6,1,1) = {"
+M
+f
+f
+M
+m
+i
+V
+Q
+z
+M
 x
-M
-"}
-(10,1,1) = {"
+x
+M"}(7,1,1) = {"
+b
+v
+v
+W
+m
+T
+s
+Q
+r
 M
 x
 x
+M"}(8,1,1) = {"
+M
+f
+f
+M
+m
+T
+O
+Q
+l
+M
+x
+x
+M"}(9,1,1) = {"
+M
+x
+p
+M
+L
+u
+u
+o
+B
+M
+t
+t
+M"}(10,1,1) = {"
+M
+t
+t
 M
 M
-k
-a
 I
+a
+k
 M
 M
-t
-t
-M
-"}
-(11,1,1) = {"
+x
+x
+M"}(11,1,1) = {"
 M
 x
 x
@@ -445,25 +530,20 @@ M
 x
 x
 x
+M"}(12,1,1) = {"
 M
-"}
-(12,1,1) = {"
-M
-x
 x
 K
 x
-t
 x
 t
 x
+t
 x
 K
 x
-M
-"}
-(13,1,1) = {"
-M
+x
+M"}(13,1,1) = {"
 M
 M
 M
@@ -476,4 +556,4 @@ M
 M
 M
 M
-"}
+M"}

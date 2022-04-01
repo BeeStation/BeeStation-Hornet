@@ -11,7 +11,9 @@
 	},
 /area/space)
 "D" = (
-/obj/structure/barricade/sandbags,
+/obj/structure/barricade/sandbags{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/space)
 "S" = (
@@ -32,9 +34,7 @@ S
 S
 S
 S
-S
-"}
-(2,1,1) = {"
+S"}(2,1,1) = {"
 S
 S
 S
@@ -42,9 +42,7 @@ S
 S
 S
 S
-S
-"}
-(3,1,1) = {"
+S"}(3,1,1) = {"
 D
 D
 f
@@ -52,99 +50,79 @@ n
 n
 f
 D
-D
-"}
-(4,1,1) = {"
+D"}(4,1,1) = {"
 V
 V
 V
-q
 U
-V
-V
-V
-"}
-(5,1,1) = {"
-V
-V
-V
 q
+V
+V
+V"}(5,1,1) = {"
+V
+V
+V
 U
-V
-V
-V
-"}
-(6,1,1) = {"
-V
-V
-V
 q
+V
+V
+V"}(6,1,1) = {"
+V
+V
+V
 U
-V
-V
-V
-"}
-(7,1,1) = {"
-V
-V
-V
 q
+V
+V
+V"}(7,1,1) = {"
+V
+V
+V
 U
-V
-V
-V
-"}
-(8,1,1) = {"
-V
-V
-V
 q
+V
+V
+V"}(8,1,1) = {"
+V
+V
+V
 U
-V
-V
-V
-"}
-(9,1,1) = {"
-V
-V
-V
 q
+V
+V
+V"}(9,1,1) = {"
+V
+V
+V
 U
-V
-V
-V
-"}
-(10,1,1) = {"
-V
-V
-V
 q
+V
+V
+V"}(10,1,1) = {"
+V
+V
+V
 U
-V
-V
-V
-"}
-(11,1,1) = {"
-V
-V
-V
 q
+V
+V
+V"}(11,1,1) = {"
+V
+V
+V
 U
-V
-V
-V
-"}
-(12,1,1) = {"
-V
-V
-V
 q
+V
+V
+V"}(12,1,1) = {"
+V
+V
+V
 U
+q
 V
 V
-V
-"}
-(13,1,1) = {"
+V"}(13,1,1) = {"
 D
 D
 f
@@ -152,9 +130,7 @@ n
 n
 f
 D
-D
-"}
-(14,1,1) = {"
+D"}(14,1,1) = {"
 S
 S
 S
@@ -162,9 +138,7 @@ S
 S
 S
 S
-S
-"}
-(15,1,1) = {"
+S"}(15,1,1) = {"
 S
 S
 S
@@ -172,5 +146,4 @@ S
 S
 S
 S
-S
-"}
+S"}

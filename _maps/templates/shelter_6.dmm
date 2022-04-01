@@ -3,22 +3,30 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "c" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "d" = (
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "e" = (
-/obj/item/gps/computer,
+/obj/item/gps/computer{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "g" = (
-/obj/machinery/smartfridge/survival_pod,
+/obj/machinery/smartfridge/survival_pod{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 "h" = (
@@ -28,13 +36,21 @@
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "j" = (
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/survivalpod)
 "k" = (
-/obj/structure/table/survival_pod,
-/obj/item/storage/firstaid,
+/obj/structure/table/survival_pod{
+	dir = 1
+	},
+/obj/item/storage/firstaid{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "l" = (
@@ -44,18 +60,24 @@
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "m" = (
-/obj/machinery/power/solar,
+/obj/machinery/power/solar{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/solarpanel,
 /area/template_noop)
 "n" = (
-/obj/structure/bed/pod,
+/obj/structure/bed/pod{
+	dir = 1
+	},
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "D" = (
-/obj/structure/sign/mining/survival,
+/obj/structure/sign/mining/survival{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival,
 /area/survivalpod)
 
@@ -68,75 +90,61 @@ b
 a
 a
 a
+a"}(2,1,1) = {"
 a
-"}
-(2,1,1) = {"
 a
-m
-m
+a
 c
 b
 c
-a
-a
-a
-"}
-(3,1,1) = {"
-a
 m
+m
+a"}(3,1,1) = {"
+a
+a
 d
-d
-j
 D
+j
 d
-a
-a
-"}
-(4,1,1) = {"
+d
+m
+a"}(4,1,1) = {"
 a
 c
-e
-l
-i
+d
 k
+i
+l
+e
+c
+a"}(5,1,1) = {"
+b
+b
+j
+i
+i
+i
+j
+b
+b"}(6,1,1) = {"
+a
+c
 d
-c
-a
-"}
-(5,1,1) = {"
-b
-b
-j
-i
-i
-i
-j
-b
-b
-"}
-(6,1,1) = {"
-a
-c
-g
-h
-i
 n
-d
+i
+h
+g
 c
-a
-"}
-(7,1,1) = {"
+a"}(7,1,1) = {"
 a
 a
 d
-D
+d
 j
-d
+D
 d
 a
-a
-"}
-(8,1,1) = {"
+a"}(8,1,1) = {"
 a
 a
 a
@@ -145,9 +153,7 @@ b
 c
 a
 a
-a
-"}
-(9,1,1) = {"
+a"}(9,1,1) = {"
 a
 a
 a
@@ -156,5 +162,4 @@ b
 a
 a
 a
-a
-"}
+a"}

@@ -1,21 +1,29 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "h" = (
-/obj/structure/closet/firecloset,
+/obj/structure/closet/firecloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "u" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "F" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
 "G" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "I" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "U" = (
@@ -33,33 +41,24 @@ F
 U
 Z
 U
-F
-"}
-(2,1,1) = {"
+F"}(2,1,1) = {"
 F
 U
 U
 U
-F
-"}
-(3,1,1) = {"
-F
-U
-U
-U
+F"}(3,1,1) = {"
 I
-"}
-(4,1,1) = {"
+U
+U
+U
+F"}(4,1,1) = {"
 F
-h
-G
 u
-F
-"}
-(5,1,1) = {"
-F
-F
+G
+h
+F"}(5,1,1) = {"
 F
 F
 F
-"}
+F
+F"}

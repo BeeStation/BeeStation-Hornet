@@ -3,64 +3,90 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/structure/closet/l3closet/scientist,
-/obj/item/book/manual/wiki/chemistry,
-/obj/machinery/light/small{
+/obj/structure/closet/l3closet/scientist{
 	dir = 1
+	},
+/obj/item/book/manual/wiki/chemistry{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/structure/closet,
-/obj/item/canvas/twentythree_nineteen,
-/obj/item/canvas/nineteen_nineteen,
-/obj/item/canvas/twentythree_twentythree,
-/obj/item/storage/crayons,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/item/canvas/twentythree_nineteen{
+	dir = 1
+	},
+/obj/item/canvas/nineteen_nineteen{
+	dir = 1
+	},
+/obj/item/canvas/twentythree_twentythree{
+	dir = 1
+	},
+/obj/item/storage/crayons{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/decal/cleanable/blood/gibs/old{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/stack/cable_coil,
 /obj/item/stack/cable_coil,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/item/storage/box/matches,
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
+/obj/item/storage/box/matches{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/stack/sheet/iron{
-	amount = 10
+	amount = 10;
+	dir = 1
 	},
 /obj/item/stack/rods{
-	amount = 25
+	amount = 25;
+	dir = 1
 	},
 /obj/item/shard{
-	icon_state = "small"
+	icon_state = "small";
+	dir = 1
 	},
-/obj/item/light/bulb,
+/obj/item/light/bulb{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-b
-d
 f
-"}
-(2,1,1) = {"
+d
+b"}(2,1,1) = {"
 a
 a
-a
-"}
-(3,1,1) = {"
-c
-e
+a"}(3,1,1) = {"
 h
-"}
+e
+c"}

@@ -12,19 +12,27 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "v" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "w" = (
-/obj/structure/closet/firecloset,
+/obj/structure/closet/firecloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "A" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "W" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
@@ -33,33 +41,24 @@ r
 r
 r
 r
+r"}(2,1,1) = {"
 r
-"}
-(2,1,1) = {"
-r
-w
-A
 v
-r
-"}
-(3,1,1) = {"
-r
-o
-o
-o
+A
+w
+r"}(3,1,1) = {"
 W
-"}
-(4,1,1) = {"
+o
+o
+o
+r"}(4,1,1) = {"
 r
 o
 o
 o
-r
-"}
-(5,1,1) = {"
+r"}(5,1,1) = {"
 r
 o
 k
 o
-r
-"}
+r"}

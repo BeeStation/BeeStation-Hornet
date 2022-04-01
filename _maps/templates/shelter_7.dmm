@@ -18,27 +18,39 @@
 /turf/template_noop,
 /area/template_noop)
 "h" = (
-/obj/machinery/jukebox/disco,
-/obj/machinery/light/floor,
+/obj/machinery/jukebox/disco{
+	dir = 1
+	},
+/obj/machinery/light/floor{
+	dir = 1
+	},
 /turf/open/floor/light/colour_cycle/dancefloor_b,
 /area/template_noop)
 "l" = (
-/obj/structure/table/wood/poker,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "n" = (
-/obj/structure/table/wood/bar,
+/obj/structure/table/wood/bar{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "y" = (
-/obj/structure/table/wood/bar,
+/obj/structure/table/wood/bar{
+	dir = 1
+	},
 /turf/open/floor/plasteel/vaporwave,
 /area/template_noop)
 "O" = (
 /turf/open/floor/light/colour_cycle/dancefloor_b,
 /area/template_noop)
 "Q" = (
-/obj/structure/chair/wood,
+/obj/structure/chair/wood{
+	dir = 1
+	},
 /turf/open/floor/plasteel/vaporwave,
 /area/template_noop)
 "Y" = (
@@ -46,65 +58,52 @@
 /area/template_noop)
 
 (1,1,1) = {"
-a
-Y
-Y
-Y
-Y
-Q
 l
-"}
-(2,1,1) = {"
-y
+Q
 Y
-O
-O
-O
 Y
+Y
+Y
+a"}(2,1,1) = {"
 b
-"}
-(3,1,1) = {"
-b
+Y
 O
-e
-e
-e
+O
 O
 Y
-"}
-(4,1,1) = {"
+y"}(3,1,1) = {"
+Y
+O
+e
+e
+e
+O
+b"}(4,1,1) = {"
 Y
 O
 e
 h
 e
 O
-Y
-"}
-(5,1,1) = {"
-Y
+Y"}(5,1,1) = {"
+y
 O
 e
 e
 e
 O
+Y"}(6,1,1) = {"
 y
-"}
-(6,1,1) = {"
-Y
 Y
 O
 O
 O
 Y
-y
-"}
-(7,1,1) = {"
-g
-Y
-Y
-Y
-Y
-y
+Y"}(7,1,1) = {"
 n
-"}
+y
+Y
+Y
+Y
+Y
+g"}

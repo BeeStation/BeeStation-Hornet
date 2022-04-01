@@ -3,7 +3,9 @@
 /turf/open/space/basic,
 /area/space)
 "ab" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space,
 /area/space)
 "ac" = (
@@ -13,22 +15,30 @@
 /turf/closed/wall/r_wall,
 /area/maintenance/department/bridge)
 "ae" = (
-/obj/structure/lattice,
-/obj/structure/grille,
+/obj/structure/lattice{
+	dir = 1
+	},
+/obj/structure/grille{
+	dir = 1
+	},
 /turf/open/space,
 /area/space/nearstation)
 "af" = (
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "ag" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space,
 /area/space/nearstation)
 "ah" = (
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "ai" = (
-/obj/machinery/power/rtg/advanced,
+/obj/machinery/power/rtg/advanced{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "aj" = (
@@ -41,29 +51,38 @@
 /obj/machinery/airalarm{
 	frequency = 1439;
 	locked = 0;
-	pixel_y = 23
+	pixel_y = -23;
+	dir = 1
 	},
-/obj/structure/closet/secure_closet/atmospherics,
+/obj/structure/closet/secure_closet/atmospherics{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/atmos)
 "am" = (
-/obj/machinery/atmospherics/components/unary/tank/air,
+/obj/machinery/atmospherics/components/unary/tank/air{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/atmos)
 "an" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /obj/structure/cable{
-	icon_state = "1-4"
+	icon_state = "2-4"
 	},
 /turf/open/space,
 /area/space/nearstation)
 "ao" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "2-8"
+	icon_state = "1-8"
 	},
 /turf/open/space,
 /area/space/nearstation)
@@ -71,60 +90,69 @@
 /obj/machinery/airalarm{
 	frequency = 1439;
 	locked = 0;
-	pixel_y = 23
+	pixel_y = -23;
+	dir = 1
 	},
 /obj/machinery/power/apc{
 	dir = 8;
 	pixel_x = -25
 	},
-/obj/structure/closet/secure_closet/engineering_electrical,
+/obj/structure/closet/secure_closet/engineering_electrical{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aq" = (
-/obj/machinery/computer/monitor,
+/obj/machinery/computer/monitor{
+	dir = 1
+	},
 /obj/structure/cable{
-	icon_state = "2-8"
+	icon_state = "1-8"
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "ar" = (
-/obj/structure/closet/secure_closet/engineering_welding,
+/obj/structure/closet/secure_closet/engineering_welding{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "as" = (
 /obj/machinery/power/smes{
-	charge = 5e+006
+	charge = 5e+006;
+	dir = 1
 	},
 /obj/machinery/airalarm{
 	frequency = 1439;
 	locked = 0;
-	pixel_y = 23
+	pixel_y = -23;
+	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
 "at" = (
 /obj/machinery/power/apc{
-	dir = 1;
+	dir = 2;
 	name = "Gravity Generator APC";
-	pixel_y = 23
+	pixel_y = -23
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
-	icon_state = "0-2"
+	icon_state = "0-1"
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
@@ -136,50 +164,62 @@
 /area/engine/atmos)
 "ax" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
 "ay" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/engine/atmos)
 "az" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/meter{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/atmos)
 "aA" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "1-4"
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	icon_state = "2-4"
+	icon_state = "1-4"
 	},
 /turf/open/space,
 /area/space/nearstation)
 "aB" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/space,
 /area/space/nearstation)
 "aC" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/openspace,
 /area/security)
 "aD" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aE" = (
@@ -187,13 +227,13 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "2-8"
+	icon_state = "1-8"
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aG" = (
 /obj/machinery/power/terminal{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/light{
 	dir = 8
@@ -213,7 +253,9 @@
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
 "aI" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/gravity_generator)
 "aJ" = (
@@ -232,16 +274,20 @@
 	},
 /area/engine/gravity_generator)
 "aM" = (
-/obj/machinery/suit_storage_unit/ce,
+/obj/machinery/suit_storage_unit/ce{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/atmos)
 "aN" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/nitrous_oxide,
+/obj/machinery/portable_atmospherics/canister/nitrous_oxide{
+	dir = 1
+	},
 /obj/effect/turf_decal/bot{
-	dir = 2
+	dir = 4
 	},
 /turf/open/floor/plasteel{
 	dir = 2
@@ -261,16 +307,20 @@
 /turf/open/floor/plating,
 /area/engine/atmos)
 "aQ" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /obj/structure/cable{
-	icon_state = "2-4"
+	icon_state = "1-4"
 	},
 /turf/open/space,
 /area/space/nearstation)
 "aR" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -278,11 +328,16 @@
 /turf/open/space,
 /area/space/nearstation)
 "aS" = (
-/obj/structure/table,
-/obj/item/flashlight{
-	pixel_y = 5
+/obj/structure/table{
+	dir = 1
 	},
-/obj/item/airlock_painter,
+/obj/item/flashlight{
+	pixel_y = -5;
+	dir = 1
+	},
+/obj/item/airlock_painter{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/engineering)
 "aT" = (
@@ -290,7 +345,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "2-4"
+	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -311,7 +366,7 @@
 /area/engine/gravity_generator)
 "aW" = (
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -319,7 +374,9 @@
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
 "aX" = (
-/obj/machinery/gravity_generator/main/station,
+/obj/machinery/gravity_generator/main/station{
+	dir = 1
+	},
 /turf/open/openspace,
 /area/security)
 "aY" = (
@@ -330,21 +387,26 @@
 /area/engine/gravity_generator)
 "aZ" = (
 /obj/structure/tank_dispenser{
-	pixel_x = -1
+	pixel_x = -1;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
 "ba" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/atmos)
 "bb" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/portable_atmospherics/canister{
+	dir = 1
+	},
 /obj/effect/turf_decal/bot{
-	dir = 2
+	dir = 4
 	},
 /turf/open/floor/plasteel{
 	dir = 2
@@ -358,8 +420,12 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bd" = (
-/obj/structure/table,
-/obj/item/weldingtool/experimental,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/weldingtool/experimental{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/engineering)
 "be" = (
@@ -369,7 +435,9 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "bf" = (
-/obj/structure/closet/secure_closet/engineering_chief,
+/obj/structure/closet/secure_closet/engineering_chief{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/engineering)
 "bg" = (
@@ -385,7 +453,9 @@
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
 "bi" = (
-/obj/machinery/gravity_generator/main/station,
+/obj/machinery/gravity_generator/main/station{
+	dir = 1
+	},
 /turf/open/floor/plasteel{
 	dir = 8
 	},
@@ -396,12 +466,20 @@
 	pixel_x = -25
 	},
 /obj/structure/cable{
-	icon_state = "0-2"
+	icon_state = "0-1"
 	},
-/obj/machinery/light,
-/obj/structure/table,
-/obj/item/analyzer,
-/obj/item/wrench,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/analyzer{
+	dir = 1
+	},
+/obj/item/wrench{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/atmos)
 "bk" = (
@@ -414,7 +492,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/machinery/meter,
+/obj/machinery/meter{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/atmos)
 "bm" = (
@@ -425,34 +505,52 @@
 /area/engine/atmos)
 "bn" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 9
+	dir = 10
 	},
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/atmos)
 "bo" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
-/obj/structure/table,
-/obj/item/powertool/hand_drill,
-/obj/item/powertool/jaws_of_life,
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/powertool/hand_drill{
+	dir = 1
+	},
+/obj/item/powertool/jaws_of_life{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/engineering)
 "bp" = (
-/obj/machinery/light,
-/obj/item/storage/box/lights/mixed,
-/obj/item/lightreplacer,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/storage/box/lights/mixed{
+	dir = 1
+	},
+/obj/item/lightreplacer{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/engineering)
 "bq" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
 "br" = (
-/obj/structure/closet/radiation,
+/obj/structure/closet/radiation{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
@@ -463,23 +561,33 @@
 /turf/closed/wall/r_wall,
 /area/hallway/primary/central)
 "bt" = (
-/obj/machinery/door/airlock,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/door/airlock{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bu" = (
 /turf/closed/wall/r_wall,
 /area/bridge)
 "bv" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/bridge)
 "bw" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
 "bx" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -502,16 +610,21 @@
 	dir = 8;
 	pixel_x = -25
 	},
-/obj/structure/cable,
 /obj/structure/cable{
 	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	icon_state = "0-1"
 	},
 /obj/machinery/airalarm{
 	frequency = 1439;
 	locked = 0;
-	pixel_y = 23
+	pixel_y = -23;
+	dir = 1
 	},
-/obj/structure/closet/jcloset,
+/obj/structure/closet/jcloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bC" = (
@@ -530,63 +643,98 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bF" = (
-/obj/structure/closet/secure_closet/CMO,
+/obj/structure/closet/secure_closet/CMO{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bG" = (
 /obj/machinery/airalarm{
 	frequency = 1439;
 	locked = 0;
-	pixel_y = 23
+	pixel_y = -23;
+	dir = 1
 	},
 /obj/machinery/power/apc{
 	dir = 8;
 	pixel_x = -25
 	},
 /obj/structure/cable{
-	icon_state = "0-2"
+	icon_state = "0-1"
 	},
-/obj/structure/closet/secure_closet/captains,
+/obj/structure/closet/secure_closet/captains{
+	dir = 1
+	},
 /turf/open/floor/plasteel{
 	dir = 8
 	},
 /area/bridge)
 "bH" = (
-/obj/structure/table,
-/obj/item/ammo_box/c10mm,
-/obj/item/gun/ballistic,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/ammo_box/c10mm{
+	dir = 1
+	},
+/obj/item/gun/ballistic{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "bI" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "bJ" = (
-/obj/structure/table,
-/obj/item/card/id/captains_spare,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/card/id/captains_spare{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "bK" = (
-/obj/structure/table,
-/obj/item/storage/backpack/holding,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/backpack/holding{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "bL" = (
-/obj/structure/table,
-/obj/item/rcd_ammo/large,
-/obj/item/rcd_ammo/large,
-/obj/item/rcd_ammo/large,
-/obj/item/construction/rcd,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/rcd_ammo/large{
+	dir = 1
+	},
+/obj/item/rcd_ammo/large{
+	dir = 1
+	},
+/obj/item/rcd_ammo/large{
+	dir = 1
+	},
+/obj/item/construction/rcd{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "bM" = (
-/obj/structure/closet/secure_closet/hop,
+/obj/structure/closet/secure_closet/hop{
+	dir = 1
+	},
 /turf/open/floor/plasteel{
 	dir = 4
 	},
 /area/bridge)
 "bN" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bO" = (
@@ -596,78 +744,101 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bP" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/vending/cigarette{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bQ" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/vending/coffee{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bR" = (
-/obj/machinery/vending/cola,
+/obj/machinery/vending/cola{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bS" = (
-/obj/machinery/vending/snack,
+/obj/machinery/vending/snack{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bT" = (
-/obj/machinery/computer/arcade,
+/obj/machinery/computer/arcade{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bU" = (
 /obj/machinery/airalarm{
 	frequency = 1439;
 	locked = 0;
-	pixel_y = 23
+	pixel_y = -23;
+	dir = 1
 	},
 /obj/machinery/power/apc{
 	dir = 8;
 	pixel_x = -25
 	},
 /obj/structure/cable{
-	icon_state = "0-2"
+	icon_state = "0-1"
 	},
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset/full{
+	dir = 1
+	},
 /turf/open/floor/plasteel{
 	dir = 9
 	},
 /area/hallway/secondary/entry)
 "bV" = (
 /obj/machinery/light{
+	dir = 2
+	},
+/obj/structure/closet/emcloset{
 	dir = 1
 	},
-/obj/structure/closet/emcloset,
 /turf/open/floor/plasteel{
 	dir = 1
 	},
 /area/hallway/secondary/entry)
 "bW" = (
-/obj/structure/closet/secure_closet/hos,
+/obj/structure/closet/secure_closet/hos{
+	dir = 1
+	},
 /turf/open/floor/plasteel{
 	dir = 1
 	},
 /area/hallway/secondary/entry)
 "bX" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel{
 	dir = 1
 	},
 /area/hallway/secondary/entry)
 "bY" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "bZ" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "ca" = (
 /obj/structure/cable{
-	icon_state = "1-4"
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	icon_state = "2-4"
+	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -675,7 +846,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "cc" = (
@@ -685,7 +858,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "cd" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -696,7 +871,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "1-4"
+	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel{
 	dir = 8
@@ -717,17 +892,21 @@
 	},
 /area/bridge)
 "ch" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4"
+	icon_state = "1-4"
 	},
 /turf/open/floor/plating,
 /area/bridge)
 "ci" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -738,7 +917,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "2-8"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -750,14 +929,16 @@
 /area/hallway/secondary/entry)
 "cl" = (
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "2-8"
 	},
 /turf/open/floor/plasteel{
 	dir = 8
 	},
 /area/hallway/secondary/entry)
 "cn" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
 "co" = (
@@ -767,14 +948,20 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "cp" = (
-/obj/machinery/light,
-/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 1
+	},
 /turf/open/floor/plasteel{
 	dir = 10
 	},
 /area/bridge)
 "cr" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel{
 	dir = 6
 	},
@@ -786,22 +973,30 @@
 /turf/closed/wall/r_wall,
 /area/bridge)
 "ct" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "cv" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /turf/closed/wall/r_wall,
 /area/bridge)
 "cw" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/bridge)
 "cx" = (
-/obj/machinery/door/airlock/glass,
+/obj/machinery/door/airlock/glass{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "cy" = (
@@ -823,14 +1018,16 @@
 	dir = 4
 	},
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel{
 	dir = 4
 	},
 /area/hallway/primary/central)
 "cC" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plasteel{
 	dir = 1
 	},
@@ -851,14 +1048,16 @@
 	dir = 4
 	},
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel{
 	dir = 1
 	},
 /area/hallway/primary/central)
 "cF" = (
-/obj/machinery/atmospherics/pipe/manifold4w/supply/hidden,
+/obj/machinery/atmospherics/pipe/manifold4w/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "cG" = (
@@ -876,39 +1075,66 @@
 	},
 /area/hallway/secondary/entry)
 "cI" = (
-/obj/structure/table,
-/obj/item/storage/fancy/donut_box,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/fancy/donut_box{
+	dir = 1
+	},
 /turf/open/floor/plasteel{
 	dir = 8
 	},
 /area/hallway/secondary/entry)
 "cJ" = (
-/obj/structure/table,
-/obj/item/storage/fancy/donut_box,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/fancy/donut_box{
+	dir = 1
+	},
 /turf/open/floor/plasteel{
 	dir = 10
 	},
 /area/hallway/secondary/entry)
 "cK" = (
-/obj/structure/table,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/rods/fifty,
-/obj/machinery/light,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/stack/sheet/glass/fifty{
+	dir = 1
+	},
+/obj/item/stack/rods/fifty{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "cL" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/paper_bin{
 	pixel_x = -3;
-	pixel_y = 7
+	pixel_y = -7;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "cM" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/regular,
-/obj/item/storage/firstaid/regular,
-/obj/item/healthanalyzer,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/firstaid/regular{
+	dir = 1
+	},
+/obj/item/storage/firstaid/regular{
+	dir = 1
+	},
+/obj/item/healthanalyzer{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "cN" = (
@@ -921,15 +1147,21 @@
 /turf/closed/wall/r_wall,
 /area/construction)
 "cP" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /turf/closed/wall/r_wall,
 /area/construction)
 "cQ" = (
-/obj/machinery/door/airlock/glass,
+/obj/machinery/door/airlock/glass{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/construction)
 "cR" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/construction)
 "cS" = (
@@ -942,56 +1174,74 @@
 /turf/closed/wall/r_wall,
 /area/storage/primary)
 "cU" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /turf/closed/wall/r_wall,
 /area/storage/primary)
 "cV" = (
-/obj/machinery/door/airlock/glass,
+/obj/machinery/door/airlock/glass{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "cW" = (
 /obj/machinery/airalarm{
 	frequency = 1439;
 	locked = 0;
-	pixel_y = 23
+	pixel_y = -23;
+	dir = 1
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /obj/machinery/power/apc{
 	dir = 8;
 	pixel_x = -25
 	},
-/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/construction)
 "cX" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/construction)
 "cY" = (
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/construction)
 "cZ" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
-/obj/structure/ladder,
+/obj/structure/ladder{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/construction)
 "da" = (
 /obj/machinery/airalarm{
 	frequency = 1439;
 	locked = 0;
-	pixel_y = 23
+	pixel_y = -23;
+	dir = 1
 	},
 /obj/machinery/power/apc{
 	dir = 8;
 	pixel_x = -25
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -999,7 +1249,7 @@
 /area/storage/primary)
 "db" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
@@ -1016,7 +1266,7 @@
 /area/storage/primary)
 "de" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
@@ -1131,41 +1381,43 @@
 /area/construction)
 "dA" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/open/floor/plasteel,
-/area/storage/primary)
-"dB" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel,
-/area/storage/primary)
-"dC" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/plasteel,
-/area/storage/primary)
-"dD" = (
-/obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
-"dE" = (
+"dB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
-"dF" = (
+"dC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
+"dD" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plasteel,
+/area/storage/primary)
+"dE" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/open/floor/plasteel,
+/area/storage/primary)
+"dF" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "dG" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
+	dir = 2
 	},
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1176,11 +1428,15 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "dH" = (
-/obj/effect/landmark/start,
+/obj/effect/landmark/start{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "dI" = (
-/obj/effect/landmark/latejoin,
+/obj/effect/landmark/latejoin{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "dJ" = (
@@ -1188,43 +1444,68 @@
 /area/storage/primary)
 "dL" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/construction)
 "dM" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/construction)
 "dN" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "dO" = (
-/obj/structure/table,
-/obj/machinery/light,
-/obj/item/fireaxe,
-/obj/item/extinguisher,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/fireaxe{
+	dir = 1
+	},
+/obj/item/extinguisher{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "dP" = (
-/obj/structure/table,
-/obj/item/lightreplacer,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/lightreplacer{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "dQ" = (
-/obj/structure/table,
-/obj/item/storage/box/lights/mixed,
-/obj/item/storage/box/lights/tubes,
-/obj/machinery/light,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/box/lights/mixed{
+	dir = 1
+	},
+/obj/item/storage/box/lights/tubes{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "dR" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/flashlight{
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
@@ -1255,7 +1536,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/external/glass,
+/obj/machinery/door/airlock/external/glass{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
@@ -1278,7 +1561,9 @@
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "ee" = (
@@ -1348,7 +1633,9 @@
 	},
 /area/storage/primary)
 "es" = (
-/obj/effect/turf_decal/stripes/asteroid/corner,
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/construction)
 "et" = (
@@ -1358,7 +1645,9 @@
 /turf/open/floor/plasteel,
 /area/construction)
 "eu" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/construction)
 "ev" = (
@@ -1374,11 +1663,15 @@
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "ex" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/storage/primary)
 "ey" = (
-/obj/structure/ladder,
+/obj/structure/ladder{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/construction)
 "ez" = (
@@ -1396,7 +1689,9 @@
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
 	},
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "eE" = (
@@ -1406,11 +1701,15 @@
 /turf/open/floor/plating,
 /area/engine/atmos)
 "eF" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/atmos)
 "eG" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/engine/engineering)
 "eI" = (
@@ -1427,13 +1726,13 @@
 /area/construction)
 "eL" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/construction)
 "eM" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/construction)
@@ -1445,9 +1744,11 @@
 /area/engine/engineering)
 "eO" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 2
+	},
+/obj/effect/spawner/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plasteel,
 /area/bridge)
 "eP" = (
@@ -1455,25 +1756,25 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "eQ" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "eR" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "eS" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
+	dir = 2
 	},
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -1493,22 +1794,30 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "eV" = (
-/obj/structure/ladder,
+/obj/structure/ladder{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "eW" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "eX" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "eY" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
@@ -1524,17 +1833,27 @@
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external/glass,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "og" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/ladder,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/ladder{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/construction)
 "oh" = (
-/obj/machinery/door/airlock/external/glass,
+/obj/machinery/door/airlock/external/glass{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
@@ -1556,7 +1875,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "oJ" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "qS" = (
@@ -1564,22 +1885,27 @@
 /area/shuttle/turbolift/shaft)
 "rS" = (
 /obj/machinery/turbolift_button{
-	pixel_y = -23;
-	shuttle_id = "turbolift_primary"
+	pixel_y = 23;
+	shuttle_id = "turbolift_primary";
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/construction)
 "sG" = (
-/obj/machinery/door/airlock/turbolift,
+/obj/machinery/door/airlock/turbolift{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/construction)
 "ux" = (
-/obj/structure/ladder,
+/obj/structure/ladder{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security)
 "vF" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/construction)
@@ -1597,7 +1923,8 @@
 	dwidth = 2;
 	height = 4;
 	id = "turbolift_primary";
-	width = 5
+	width = 5;
+	dir = 2
 	},
 /turf/open/openspace,
 /area/shuttle/turbolift/shaft)
@@ -1614,7 +1941,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/external/glass,
+/obj/machinery/door/airlock/external/glass{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
@@ -1622,7 +1951,7 @@
 /area/engine/engineering)
 "Dm" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
@@ -1633,35 +1962,45 @@
 /turf/open/openspace,
 /area/construction)
 "Eq" = (
-/obj/machinery/door/airlock/turbolift,
+/obj/machinery/door/airlock/turbolift{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/construction)
 "Fz" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/asteroid/line,
-/turf/open/floor/plasteel,
-/area/security)
-"Hn" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
-/obj/structure/ladder,
-/turf/open/floor/plasteel,
-/area/construction)
-"HN" = (
-/obj/effect/turf_decal/stripes/asteroid/corner{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/construction)
-"Jz" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security)
+"Hn" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/structure/ladder{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/construction)
+"HN" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/construction)
+"Jz" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 2
+	},
+/turf/open/floor/plasteel,
+/area/security)
 "Kd" = (
-/obj/machinery/door/airlock/external/glass,
+/obj/machinery/door/airlock/external/glass{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
@@ -1672,7 +2011,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/security)
@@ -1681,7 +2020,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/security)
@@ -1695,17 +2034,22 @@
 /turf/open/floor/plasteel,
 /area/security)
 "LW" = (
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
 "ME" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "OJ" = (
 /obj/machinery/turbolift_button{
-	pixel_y = -23;
-	shuttle_id = "turbolift_primary"
+	pixel_y = 23;
+	shuttle_id = "turbolift_primary";
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/security)
@@ -1713,30 +2057,38 @@
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security)
 "PB" = (
 /obj/docking_port/stationary/turbolift{
-	id = "turbolift_primary"
+	id = "turbolift_primary";
+	dir = 2
 	},
 /turf/open/openspace,
 /area/shuttle/turbolift/shaft)
 "RP" = (
-/obj/machinery/door/airlock/turbolift,
+/obj/machinery/door/airlock/turbolift{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security)
 "SE" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
 "Tg" = (
 /obj/machinery/turbolift_button{
-	pixel_y = -23;
-	shuttle_id = "turbolift_primary"
+	pixel_y = 23;
+	shuttle_id = "turbolift_primary";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/construction)
@@ -1746,23 +2098,26 @@
 	height = 4;
 	id = "turbolift_primary";
 	roundstart_template = /datum/map_template/shuttle/turbolift/debug/primary;
-	width = 5
+	width = 5;
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/shuttle/turbolift/shaft)
 "Uc" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/security)
 "Vd" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/closed/wall/r_wall,
 /area/construction)
 "VL" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
+	dir = 2
 	},
 /turf/closed/wall/r_wall,
 /area/construction)
@@ -1773,7 +2128,9 @@
 /turf/open/floor/plasteel,
 /area/security)
 "WK" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/construction)
 "YD" = (
@@ -1835,9 +2192,8 @@ aa
 aa
 aa
 aa
+aa"}(2,1,1) = {"
 aa
-"}
-(2,1,1) = {"
 aa
 aa
 aa
@@ -1888,10 +2244,9 @@ aa
 aa
 aa
 aa
+aa"}(3,1,1) = {"
 aa
 aa
-"}
-(3,1,1) = {"
 aa
 aa
 aa
@@ -1941,11 +2296,10 @@ aa
 aa
 aa
 aa
+aa"}(4,1,1) = {"
 aa
 aa
 aa
-"}
-(4,1,1) = {"
 aa
 aa
 aa
@@ -1994,12 +2348,11 @@ aa
 aa
 aa
 aa
+aa"}(5,1,1) = {"
 aa
 aa
 aa
 aa
-"}
-(5,1,1) = {"
 aa
 aa
 aa
@@ -2047,13 +2400,12 @@ aa
 aa
 aa
 aa
+aa"}(6,1,1) = {"
 aa
 aa
 aa
 aa
 aa
-"}
-(6,1,1) = {"
 aa
 aa
 aa
@@ -2100,14 +2452,13 @@ aa
 aa
 aa
 aa
+aa"}(7,1,1) = {"
 aa
 aa
 aa
 aa
 aa
 aa
-"}
-(7,1,1) = {"
 aa
 aa
 aa
@@ -2153,6 +2504,7 @@ aa
 aa
 aa
 aa
+aa"}(8,1,1) = {"
 aa
 aa
 aa
@@ -2160,8 +2512,6 @@ aa
 aa
 aa
 aa
-"}
-(8,1,1) = {"
 aa
 aa
 aa
@@ -2206,16 +2556,7 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(9,1,1) = {"
+aa"}(9,1,1) = {"
 aa
 aa
 aa
@@ -2267,9 +2608,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(10,1,1) = {"
+aa"}(10,1,1) = {"
 aa
 aa
 aa
@@ -2321,9 +2660,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(11,1,1) = {"
+aa"}(11,1,1) = {"
 aa
 aa
 aa
@@ -2334,6 +2671,13 @@ aa
 aa
 ab
 ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad
@@ -2359,13 +2703,6 @@ ad
 ad
 ad
 ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
 ac
 ab
 aa
@@ -2375,9 +2712,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(12,1,1) = {"
+aa"}(12,1,1) = {"
 aa
 aa
 aa
@@ -2390,6 +2725,7 @@ ab
 ac
 ad
 af
+bz
 af
 af
 af
@@ -2417,7 +2753,6 @@ af
 af
 af
 af
-bz
 af
 ad
 ac
@@ -2429,9 +2764,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(13,1,1) = {"
+aa"}(13,1,1) = {"
 aa
 aa
 aa
@@ -2444,13 +2777,20 @@ ab
 ac
 ad
 af
-ah
-ah
-ah
-ah
-ah
-ah
-ah
+cN
+cN
+cN
+cN
+cN
+cN
+cN
+cN
+cN
+cN
+cN
+cN
+cN
+cN
 bA
 bZ
 bZ
@@ -2458,291 +2798,274 @@ bZ
 bZ
 bZ
 bA
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-af
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(14,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-af
 ah
-al
-aw
-aM
-aZ
-bj
-bs
-bB
-ca
-bO
-bO
-bO
-bO
-bO
-cO
-cW
-dm
-dy
-dy
-dy
-dy
-dy
-dy
-dy
-dy
-dm
+ah
+ah
+ah
+ah
+ah
+ah
+af
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(14,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+af
+cN
 dM
-cN
-af
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(15,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-Dm
-ah
-am
-ax
+dm
+dy
+dy
+dy
+dy
+dy
+dy
+dy
+dy
+dm
+cW
+cO
+bO
+bO
+bO
+bO
+bO
+ca
+bB
+bs
+bj
+aZ
+aM
 aw
-ba
-bk
-bt
-bC
-cb
-bN
-bN
-bC
-bN
-bN
-cP
-cX
-dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
+al
+ah
+af
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(15,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+af
+cN
 dL
-cN
-af
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(16,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-af
-ah
+dn
+dn
+dn
+dn
+dn
+dn
+dn
+dn
+dn
+dn
+cX
+cP
+bN
+bN
+bC
+bN
+bN
+cb
+bC
+bt
+bk
+ba
+aw
+ax
 am
-ay
-aN
-bb
-bl
 ah
-bD
-cc
-bE
-bE
-cA
-bE
-bE
-cQ
-cY
-dn
-dn
-dn
-dn
-dn
-dn
-dn
-cN
-cN
+Dm
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(16,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+ad
 cN
 Vd
 cN
-ad
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(17,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-af
-ah
-am
-ay
-aO
-bc
-bm
-ah
-bE
-cc
-bE
-bE
-cA
-bE
-bE
+cN
+cN
+dn
+dn
+dn
+dn
+dn
+dn
+dn
+cY
 cQ
-cY
-dn
-dn
-dn
-dn
-dn
-dn
-WK
-cN
-DO
-DO
-DO
-DO
-ad
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(18,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-af
-ah
-am
-az
-aP
-aP
-bn
-ah
-bF
-cc
-co
+bE
 bE
 cA
 bE
 bE
+cc
+bD
+ah
+bl
+bb
+aN
+ay
+am
+ah
+af
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(17,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+ad
+DO
+DO
+DO
+DO
 cN
+WK
+dn
+dn
+dn
+dn
+dn
+dn
 cY
-dn
-dn
-dn
-dn
-dn
-dn
-dn
+cQ
+bE
+bE
+cA
+bE
+bE
+cc
+bE
+ah
+bm
+bc
+aO
+ay
+am
+ah
+af
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(18,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+ad
+DO
+DO
+DO
+DO
 Eq
-DO
-DO
-DO
-DO
-ad
+dn
+dn
+dn
+dn
+dn
+dn
+dn
+cY
+cN
+bE
+bE
+cA
+bE
+co
+cc
+bF
+ah
+bn
+aP
+aP
+az
+am
+ah
+af
 ad
 ac
 ab
@@ -2753,9 +3076,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(19,1,1) = {"
+aa"}(19,1,1) = {"
 aa
 aa
 aa
@@ -2768,306 +3089,192 @@ ab
 ac
 ad
 ad
-ah
-ah
-ah
-ah
-ah
-ah
+TU
+DO
+DO
+DO
+Eq
+dn
+dn
+dn
+dn
+dn
+dn
+dn
+cY
+cR
+bE
+bE
+cB
 bu
 bu
 cd
 bu
 bu
-cB
-bE
-bE
-cR
-cY
-dn
-dn
-dn
-dn
-dn
-dn
-dn
+ah
+ah
+ah
+ah
+ah
+ah
+ad
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(20,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+ad
+DO
+DO
+DO
+DO
 Eq
-DO
-DO
-DO
-TU
-ad
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(20,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ae
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-bu
-bG
-ce
-cp
-cv
-cC
-bE
-bE
-cR
+dn
+dn
+dn
+dn
+dn
+dn
+dn
 og
-dn
-dn
-dn
-dn
-dn
-dn
-dn
-Eq
-DO
-DO
-DO
-DO
-ad
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(21,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ae
+cR
+bE
+bE
+cC
+cv
+cp
+ce
+bG
+bu
 ag
-ai
-an
+ag
+ag
+ag
+ag
+ag
+ag
+ae
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(21,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+ad
+DO
+DO
+DO
+DO
+cN
+Tg
+dn
+dn
+dn
+dn
+dn
+dn
+cY
+cR
+bE
+bE
+cD
+bv
+eb
+cf
+bH
+bv
+ag
 ai
 aQ
 ai
+an
+ai
 ag
-bv
-bH
-cf
-eb
-bv
-cD
-bE
-bE
-cR
-cY
-dn
-dn
-dn
-dn
-dn
-dn
-Tg
-cN
-DO
-DO
-DO
-DO
-ad
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(22,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
 ae
-ag
-ai
-ao
-aA
-aR
-ai
-ag
-bv
-bI
-cf
-eb
-bu
-cD
-bE
-bE
-cN
-cY
-dn
-dn
-dn
-dn
-dn
-dn
-WK
-cN
-cN
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(22,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+ad
 cN
 Vd
 cN
-ad
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(23,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ae
-ag
-ag
-ag
-aB
-ag
-ag
-ag
-bv
-bJ
-cf
-eb
-cw
-cD
-bE
-bE
-cQ
-cY
-dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
-dL
 cN
-af
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(24,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ae
-ac
-ac
-ag
-aB
-ag
-ac
-ac
-bv
-bK
-cf
-eb
+cN
+WK
+dn
+dn
+dn
+dn
+dn
+dn
+cY
+cN
+bE
+bE
+cD
 bu
-cD
-bE
-bE
-cQ
-cY
-dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
-dn
-dL
-cN
-af
-ad
+eb
+cf
+bI
+bv
+ag
+ai
+aR
+aA
+ao
+ai
+ag
+ae
 ac
 ab
 aa
@@ -3077,9 +3284,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(25,1,1) = {"
+aa"}(23,1,1) = {"
 aa
 aa
 aa
@@ -3089,8 +3294,135 @@ aa
 aa
 aa
 ab
+ac
+ad
+af
+cN
+dL
+dn
+dn
+dn
+dn
+dn
+dn
+dn
+dn
+dn
+dn
+cY
+cQ
+bE
+bE
+cD
+cw
+eb
+cf
+bJ
+bv
+ag
+ag
+ag
+aB
+ag
+ag
+ag
+ae
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(24,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+af
+cN
+dL
+dn
+dn
+dn
+dn
+dn
+dn
+dn
+dn
+dn
+dn
+cY
+cQ
+bE
+bE
+cD
+bu
+eb
+cf
+bK
+bv
+ac
+ac
+ag
+aB
+ag
+ac
 ac
 ae
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(25,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+ME
+cN
+vF
+do
+dz
+dz
+dz
+dz
+dz
+dz
+dz
+dz
+do
+cZ
+cN
+bE
+bE
+cD
+bv
+eb
+cf
+bL
+bv
 ac
 ac
 aj
@@ -3098,53 +3430,51 @@ dZ
 aj
 ac
 ac
-bv
-bL
-cf
-eb
-bv
-cD
-bE
-bE
-cN
-cZ
-do
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-dz
-do
-vF
-cN
-ME
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(26,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
 ae
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(26,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+af
+cS
+cS
+cS
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+cS
+cS
+cS
+bE
+bE
+cD
+bu
+cr
+cg
+bM
+bu
 ac
 ac
 aj
@@ -3152,244 +3482,109 @@ aD
 aj
 ac
 ac
-bu
-bM
-cg
-cr
-bu
-cD
-bE
-bE
-cS
-cS
-cS
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-cS
-cS
-cS
+ae
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(27,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
 af
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(27,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-ad
+cS
+dl
+dp
+dl
+dl
+dl
+dl
+dl
+dl
+dl
+dA
+on
+da
+cT
+bO
+bO
+cE
+cs
+cs
+ch
+bu
+bu
+aj
 aj
 aj
 CA
 aj
 aj
-aj
-bu
-bu
-ch
-cs
-cs
-cE
-bO
-bO
-cT
-da
-on
-dA
-dl
-dl
-dl
-dl
-dl
-dl
-dl
-dp
-dl
+ad
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(28,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+af
 cS
-af
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(28,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-af
-aj
-ap
-yl
-aS
-bd
-bo
-bw
+dl
+dl
+dl
+dl
+dl
+dl
+dl
+dl
+dl
+dB
+dJ
+db
+cU
 bN
-ci
-ct
 bN
 cF
 bN
+ct
+ci
 bN
-cU
-db
-dJ
-dB
-dl
-dl
-dl
-dl
-dl
-dl
-dl
-dl
-dl
-cS
-af
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(29,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-af
-aj
-aq
-aE
-aT
-be
-be
-bx
-bO
-cj
-bE
-bE
-cA
-bE
-bE
-cS
-dJ
-dJ
-dB
-dl
-dD
-dc
-dc
-dA
-dl
-dD
-dc
-dc
-cS
-af
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(30,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-af
-aj
-ar
-dW
+bw
+bo
+bd
+aS
 yl
-bf
-bp
+ap
 aj
-bP
-cc
-bE
-bE
-cA
-bE
-bE
-cS
-dJ
-dJ
-dB
-dl
-dE
-dH
-dI
-dB
-dl
-dE
-dJ
-dN
-cS
 af
 ad
 ac
@@ -3401,9 +3596,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(31,1,1) = {"
+aa"}(29,1,1) = {"
 aa
 aa
 aa
@@ -3415,7 +3608,132 @@ aa
 ab
 ac
 ad
-Dm
+af
+cS
+dc
+dc
+dD
+dl
+dA
+dc
+dc
+dD
+dl
+dB
+dJ
+dJ
+cS
+bE
+bE
+cA
+bE
+bE
+cj
+bO
+bx
+be
+be
+aT
+aE
+aq
+aj
+af
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(30,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+af
+cS
+dN
+dJ
+dE
+dl
+dB
+dI
+dH
+dE
+dl
+dB
+dJ
+dJ
+cS
+bE
+bE
+cA
+bE
+bE
+cc
+bP
+aj
+bp
+bf
+yl
+dW
+ar
+aj
+af
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(31,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+af
+cS
+dO
+dJ
+dE
+dl
+dB
+dI
+dH
+dE
+dl
+dB
+dJ
+de
+cS
+bE
+bE
+cA
+bE
+bE
+cc
+bQ
 ak
 ak
 ak
@@ -3423,244 +3741,215 @@ aU
 ak
 ak
 ak
-bQ
-cc
+Dm
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(32,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+af
+cS
+dN
+dJ
+dE
+dl
+dB
+dI
+dH
+dE
+dl
+dB
+dJ
+dJ
+cV
 bE
 bE
 cA
 bE
 bE
-cS
-de
-dJ
-dB
-dl
-dE
-dH
-dI
-dB
-dl
-dE
-dJ
-dO
-cS
-af
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(32,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-af
-ak
-as
-aG
-aV
-bg
-bq
-ak
+cc
 bR
-cc
+ak
+bq
+bg
+aV
+aG
+as
+ak
+af
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(33,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+af
+cS
+dN
+dJ
+dE
+dl
+dB
+dI
+dH
+dE
+dl
+dB
+dJ
+dJ
+cV
 bE
 bE
 cA
 bE
 bE
-cV
-dJ
-dJ
-dB
-dl
-dE
-dH
-dI
-dB
-dl
-dE
-dJ
-dN
-cS
-af
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(33,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-af
-ak
-at
-aH
-aW
-bh
-br
-ak
+cc
 bS
-cc
-bE
-bE
-cA
-bE
-bE
-cV
-dJ
-dJ
-dB
-dl
-dE
-dH
-dI
-dB
-dl
-dE
-dJ
-dN
+ak
+br
+bh
+aW
+aH
+at
+ak
+af
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(34,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+af
 cS
-af
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(34,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-af
-ak
-aI
-aI
-dV
-aI
-aI
-ak
-bT
-cc
-co
-bE
-cA
-bE
-bE
-cV
-dJ
-dJ
-dB
-dl
-dE
-dH
-dI
-dB
-dl
-dE
-dJ
 dP
-cS
-af
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(35,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-af
+dJ
+dE
+dl
+dB
+dI
+dH
+dE
+dl
+dB
+dJ
+dJ
+cV
+bE
+bE
+cA
+bE
+co
+cc
+bT
 ak
+aI
+aI
 dV
-dV
-dV
-dV
-dV
+aI
+aI
+ak
+af
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(35,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+ME
+cS
+dQ
+dJ
+dE
+cS
+dB
+dI
+dH
+dE
+dl
+dB
+dJ
+de
 by
+by
+by
+cG
+cx
 by
 ck
 by
-cx
-cG
 by
-by
-by
-de
-dJ
-dB
-dl
-dE
-dH
-dI
-dB
-cS
-dE
-dJ
-dQ
-cS
-ME
+dV
+dV
+dV
+dV
+dV
+ak
+af
 ad
 ac
 ab
@@ -3671,9 +3960,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(36,1,1) = {"
+aa"}(36,1,1) = {"
 aa
 aa
 aa
@@ -3686,34 +3973,34 @@ ab
 ac
 ad
 af
-ak
-dV
-aJ
-aK
-aL
-dV
-by
-bU
-cl
-cy
-cy
-cH
-cI
-cJ
-by
-dJ
-dJ
-dB
-dl
-dE
-dH
-dI
-dB
-dl
-dE
-dJ
+cS
 dR
-cS
+dJ
+dE
+dl
+dB
+dI
+dH
+dE
+dl
+dB
+dJ
+dJ
+by
+cJ
+cI
+cH
+cy
+cy
+cl
+bU
+by
+dV
+aL
+aK
+aJ
+dV
+ak
 af
 ad
 ac
@@ -3725,9 +4012,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(37,1,1) = {"
+aa"}(37,1,1) = {"
 aa
 aa
 aa
@@ -3739,175 +4024,176 @@ aa
 ab
 ac
 ad
-Dm
-ak
-dV
-aK
+af
+cS
+dk
+dk
+dF
+dl
+dC
+dk
+dk
+dF
+dl
+dB
+dJ
+dJ
+by
+cK
+eo
+eo
+eo
+eo
+eo
+bV
+by
 dV
 bi
 dV
-by
-bV
-eo
-eo
-eo
-eo
-eo
-cK
-by
-dJ
-dJ
-dB
-dl
-dF
-dk
-dk
-dC
-dl
-dF
-dk
-dk
-cS
-af
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(38,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-af
-ak
-dV
-aL
 aK
-aJ
 dV
-by
-bW
-eo
-eo
-eo
-eo
-eo
-cL
-by
-dJ
-dJ
-dB
-dl
-dl
-dl
-dl
-dl
-dl
-dl
-dl
-dl
-cS
-af
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(39,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-af
 ak
+Dm
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(38,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+af
+cS
+dl
+dl
+dl
+dl
+dl
+dl
+dl
+dl
+dl
+dB
+dJ
+dJ
+by
+cL
+eo
+eo
+eo
+eo
+eo
+bW
+by
+dV
+aJ
+aK
+aL
+dV
+ak
+af
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(39,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+af
+cS
+dl
+dx
+dl
+dl
+dl
+dl
+dl
+dl
+dl
+dC
+Bm
+dk
+by
+cM
+eo
+eo
+cy
+eo
+eo
+bX
+by
 dV
 dV
 aY
 dV
 dV
-by
-bX
-eo
-eo
-cy
-eo
-eo
-cM
-by
-dk
-Bm
-dC
-dl
-dl
-dl
-dl
-dl
-dl
-dl
-dx
-dl
+ak
+af
+ad
+ac
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa"}(40,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+ac
+ad
+af
 cS
-af
-ad
-ac
-ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-(40,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ab
-ac
-ad
-af
-ak
-ak
-ak
-ak
-ak
-ak
+cS
+cS
+cS
+cS
+cS
+cS
+cS
+cS
+cS
+cS
+cS
+cS
 by
 by
 cn
@@ -3917,19 +4203,12 @@ by
 cn
 by
 by
-cS
-cS
-cS
-cS
-cS
-cS
-cS
-cS
-cS
-cS
-cS
-cS
-cS
+ak
+ak
+ak
+ak
+ak
+ak
 af
 ad
 ac
@@ -3941,9 +4220,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(41,1,1) = {"
+aa"}(41,1,1) = {"
 aa
 aa
 aa
@@ -3955,6 +4232,13 @@ aa
 ab
 ac
 ad
+af
+af
+af
+oA
+af
+af
+af
 af
 oA
 af
@@ -3978,13 +4262,6 @@ af
 af
 oA
 af
-af
-af
-af
-oA
-af
-af
-af
 ad
 ac
 ab
@@ -3995,9 +4272,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(42,1,1) = {"
+aa"}(42,1,1) = {"
 aa
 aa
 aa
@@ -4008,6 +4283,13 @@ aa
 aa
 ab
 ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad
@@ -4033,13 +4315,6 @@ ad
 ad
 ad
 ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
 ac
 ab
 aa
@@ -4049,9 +4324,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(43,1,1) = {"
+aa"}(43,1,1) = {"
 aa
 aa
 aa
@@ -4103,9 +4376,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(44,1,1) = {"
+aa"}(44,1,1) = {"
 aa
 aa
 aa
@@ -4157,9 +4428,8 @@ aa
 aa
 aa
 aa
+aa"}(45,1,1) = {"
 aa
-"}
-(45,1,1) = {"
 aa
 aa
 aa
@@ -4210,10 +4480,9 @@ aa
 aa
 aa
 aa
+aa"}(46,1,1) = {"
 aa
 aa
-"}
-(46,1,1) = {"
 aa
 aa
 aa
@@ -4263,11 +4532,10 @@ aa
 aa
 aa
 aa
+aa"}(47,1,1) = {"
 aa
 aa
 aa
-"}
-(47,1,1) = {"
 aa
 aa
 aa
@@ -4316,12 +4584,11 @@ aa
 aa
 aa
 aa
+aa"}(48,1,1) = {"
 aa
 aa
 aa
 aa
-"}
-(48,1,1) = {"
 aa
 aa
 aa
@@ -4369,13 +4636,12 @@ aa
 aa
 aa
 aa
+aa"}(49,1,1) = {"
 aa
 aa
 aa
 aa
 aa
-"}
-(49,1,1) = {"
 aa
 aa
 aa
@@ -4422,14 +4688,13 @@ aa
 aa
 aa
 aa
+aa"}(50,1,1) = {"
 aa
 aa
 aa
 aa
 aa
 aa
-"}
-(50,1,1) = {"
 aa
 aa
 aa
@@ -4475,6 +4740,7 @@ aa
 aa
 aa
 aa
+aa"}(51,1,1) = {"
 aa
 aa
 aa
@@ -4482,8 +4748,6 @@ aa
 aa
 aa
 aa
-"}
-(51,1,1) = {"
 aa
 aa
 aa
@@ -4528,6 +4792,7 @@ aa
 aa
 aa
 aa
+aa"}(52,1,1) = {"
 aa
 aa
 aa
@@ -4536,8 +4801,6 @@ aa
 aa
 aa
 aa
-"}
-(52,1,1) = {"
 aa
 aa
 aa
@@ -4581,17 +4844,7 @@ aa
 aa
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-"}
-
+aa"}
 (1,1,2) = {"
 aa
 aa
@@ -4644,9 +4897,8 @@ aa
 aa
 aa
 aa
+aa"}(2,1,2) = {"
 aa
-"}
-(2,1,2) = {"
 aa
 aa
 aa
@@ -4697,10 +4949,9 @@ aa
 aa
 aa
 aa
+aa"}(3,1,2) = {"
 aa
 aa
-"}
-(3,1,2) = {"
 aa
 aa
 aa
@@ -4750,11 +5001,10 @@ aa
 aa
 aa
 aa
+aa"}(4,1,2) = {"
 aa
 aa
 aa
-"}
-(4,1,2) = {"
 aa
 aa
 aa
@@ -4803,12 +5053,11 @@ aa
 aa
 aa
 aa
+aa"}(5,1,2) = {"
 aa
 aa
 aa
 aa
-"}
-(5,1,2) = {"
 aa
 aa
 aa
@@ -4856,18 +5105,12 @@ aa
 aa
 aa
 aa
+aa"}(6,1,2) = {"
 aa
 aa
 aa
 aa
 aa
-"}
-(6,1,2) = {"
-aa
-aa
-aa
-aa
-aa
 au
 au
 au
@@ -4914,14 +5157,12 @@ aa
 aa
 aa
 aa
+aa"}(7,1,2) = {"
 aa
-"}
-(7,1,2) = {"
 aa
 aa
 aa
 aa
-aa
 au
 au
 au
@@ -4964,13 +5205,11 @@ au
 au
 au
 au
-aa
 aa
 aa
 aa
 aa
-"}
-(8,1,2) = {"
+aa"}(8,1,2) = {"
 aa
 aa
 aa
@@ -5022,14 +5261,12 @@ aa
 aa
 aa
 aa
+aa"}(9,1,2) = {"
 aa
-"}
-(9,1,2) = {"
 aa
 aa
 aa
 aa
-aa
 au
 au
 au
@@ -5076,14 +5313,12 @@ aa
 aa
 aa
 aa
+aa"}(10,1,2) = {"
 aa
-"}
-(10,1,2) = {"
 aa
 aa
 aa
 aa
-aa
 au
 au
 au
@@ -5126,13 +5361,11 @@ au
 au
 au
 au
-aa
 aa
 aa
 aa
 aa
-"}
-(11,1,2) = {"
+aa"}(11,1,2) = {"
 aa
 aa
 aa
@@ -5143,6 +5376,13 @@ au
 au
 au
 au
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad
@@ -5168,13 +5408,6 @@ ad
 ad
 ad
 ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
 au
 au
 au
@@ -5184,9 +5417,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(12,1,2) = {"
+aa"}(12,1,2) = {"
 aa
 aa
 aa
@@ -5198,15 +5429,6 @@ au
 au
 au
 ad
-af
-af
-af
-af
-af
-af
-af
-af
-bz
 af
 af
 af
@@ -5228,6 +5450,15 @@ af
 af
 af
 af
+bz
+af
+af
+af
+af
+af
+af
+af
+af
 ad
 au
 au
@@ -5238,9 +5469,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(13,1,2) = {"
+aa"}(13,1,2) = {"
 aa
 aa
 aa
@@ -5253,13 +5482,20 @@ au
 au
 ad
 af
-ah
-ah
-ah
-ah
-ah
-ah
-ah
+cN
+cN
+cN
+cN
+cN
+cN
+cN
+cN
+cN
+cN
+cN
+cN
+cN
+cN
 bA
 eg
 eg
@@ -5267,20 +5503,13 @@ eg
 eg
 eg
 bA
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-cN
-cN
+ah
+ah
+ah
+ah
+ah
+ah
+ah
 af
 ad
 au
@@ -5292,9 +5521,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(14,1,2) = {"
+aa"}(14,1,2) = {"
 aa
 aa
 aa
@@ -5306,685 +5533,661 @@ au
 au
 au
 ad
-Dm
-ah
-aw
+ME
+cN
+ep
+ep
+ep
+ep
+ep
+eM
+eI
+eI
+eI
+eI
+eI
+es
+cN
+bE
+bE
+bE
+bE
+bE
+bE
+bE
+bA
+dY
 aw
 eE
 aw
-dY
-bA
-bE
-bE
-bE
-bE
-bE
-bE
-bE
-cN
-es
-eI
-eI
-eI
-eI
-eI
-eM
-ep
-ep
-ep
-ep
-ep
-cN
-ME
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(15,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
-af
+aw
 ah
-aw
-aw
-aw
-dY
-dY
-dY
-bE
-bE
-bE
-bE
-bE
-bE
-bE
+Dm
+ad
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(15,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+af
 cN
-eu
-au
-au
-au
-au
-au
+ep
+ep
+ep
+ep
+ep
 eL
-ep
-ep
-ep
-ep
-ep
+au
+au
+au
+au
+au
+eu
 cN
-af
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(16,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
-af
+bE
+bE
+bE
+bE
+bE
+bE
+bE
+dY
+dY
+dY
+aw
+aw
+aw
 ah
-aw
-aw
-dX
-dX
-dY
-dY
-bE
-bE
-bE
-bE
-bE
-bE
-bE
-ep
-eu
+af
+ad
 au
 au
 au
 au
 au
-eL
-ep
-cN
-cN
+aa
+aa
+aa
+aa
+aa"}(16,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+ad
 cN
 VL
 cN
-ad
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(17,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
-af
-ah
-aw
-dY
-dY
-dY
-dY
-dY
-bE
-bE
-bE
-bE
-bE
-bE
-bE
-ep
-eu
-au
-au
-au
-au
-au
-eL
-ep
 cN
-qS
-qS
-qS
-qS
-ad
-ad
+cN
+ep
+eL
 au
 au
 au
 au
 au
-aa
-aa
-aa
-aa
-aa
-"}
-(18,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
+eu
+ep
+bE
+bE
+bE
+bE
+bE
+bE
+bE
+dY
+dY
+dX
+dX
+aw
+aw
+ah
 af
+ad
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(17,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+ad
+qS
+qS
+qS
+qS
+cN
+ep
+eL
+au
+au
+au
+au
+au
+eu
+ep
+bE
+bE
+bE
+bE
+bE
+bE
+bE
+dY
+dY
+dY
+dY
+dY
+aw
 ah
-dY
-dY
-dY
-dY
-dY
-ah
+af
+ad
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(18,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+ad
+qS
+qS
+qS
+qS
+sG
+ep
+eL
+Ed
+au
+au
+au
+au
+eu
+ep
+bE
+bE
 bE
 bE
 co
 bE
 bE
-bE
-bE
-ep
-eu
-au
-au
-au
-au
-Ed
-eL
-ep
-sG
-qS
-qS
-qS
-qS
-ad
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(19,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
-ad
 ah
-eF
-ed
-ed
-eF
+dY
+dY
+dY
+dY
+dY
 ah
-bu
-bu
-bv
-bu
-bu
-ek
-bE
-bE
-ep
-eu
+af
+ad
 au
 au
 au
 au
 au
-eL
-ep
-sG
-qS
-qS
-qS
+aa
+aa
+aa
+aa
+aa"}(19,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+ad
 PB
-ad
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(20,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-bu
-ea
-ea
-eh
-bu
-em
-bE
-bE
-ep
-Hn
-au
-au
-au
-au
-au
-eL
-ep
+qS
+qS
+qS
 sG
-qS
-qS
-qS
-qS
-ad
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(21,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-bv
-eb
-eb
-eb
-bv
-em
-bE
-bE
 ep
-eu
-au
-au
-au
-au
-au
 eL
+au
+au
+au
+au
+au
+eu
+ep
+bE
+bE
+ek
+bu
+bu
+bv
+bu
+bu
+ah
+eF
+ed
+ed
+eF
+ah
+ad
+ad
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(20,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+ad
+qS
+qS
+qS
+qS
+sG
+ep
+eL
+au
+au
+au
+au
+au
+Hn
+ep
+bE
+bE
+em
+bu
+eh
+ea
+ea
+bu
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(21,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+ad
+qS
+qS
+qS
+qS
+cN
 rS
-cN
-qS
-qS
-qS
-qS
-ad
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(22,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-eO
-eb
-eb
-eb
-eb
-em
-bE
-bE
-ep
-eu
-au
-au
-au
-au
-au
 eL
+au
+au
+au
+au
+au
+eu
 ep
-cN
-cN
+bE
+bE
+em
+bv
+eb
+eb
+eb
+bv
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(22,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+ad
 cN
 VL
 cN
-ad
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(23,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-eO
-eb
-eb
-eb
-eb
-em
-bE
-bE
-ep
-eu
-au
-au
-au
-au
-au
-eL
-ep
-ep
-ep
-ep
-ep
 cN
+cN
+ep
+eL
+au
+au
+au
+au
+au
+eu
+ep
+bE
+bE
+em
+eb
+eb
+eb
+eb
+eO
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(23,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
 af
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(24,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-eO
-eb
-eb
-eb
-eb
-em
-bE
-bE
-ep
-eu
-au
-au
-au
-au
-au
-eL
-ep
-ep
-ep
-ep
-ep
 cN
+ep
+ep
+ep
+ep
+ep
+eL
+au
+au
+au
+au
+au
+eu
+ep
+bE
+bE
+em
+eb
+eb
+eb
+eb
+eO
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(24,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
 ME
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(25,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-bv
-eb
-eb
-eb
-bv
-em
-bE
-bE
-et
-ey
-eJ
-eJ
-eJ
-eJ
-eJ
-HN
-ep
-ep
-ep
-et
-ep
 cN
-af
-ad
+ep
+ep
+ep
+ep
+ep
+eL
 au
 au
 au
 au
 au
-aa
-aa
-aa
-aa
-aa
-"}
-(26,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-bu
-ec
-ec
-ei
-bu
+eu
+ep
+bE
+bE
 em
-bE
-bE
-cS
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-cS
-cS
-cS
-cS
-cS
-cS
+eb
+eb
+eb
+eb
+eO
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(25,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
 af
+cN
+ep
+et
+ep
+ep
+ep
+HN
+eJ
+eJ
+eJ
+eJ
+eJ
+ey
+et
+bE
+bE
+em
+bv
+eb
+eb
+eb
+bv
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(26,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
 ad
+af
+cS
+cS
+cS
+cS
+cS
+cS
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+cS
+bE
+bE
+em
+bu
+ei
+ec
+ec
+bu
+au
+au
+au
+au
+au
+au
+au
+au
 au
 au
 au
@@ -5994,9 +6197,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(27,1,2) = {"
+aa"}(27,1,2) = {"
 aa
 aa
 aa
@@ -6008,445 +6209,436 @@ au
 au
 au
 ad
-ad
-aj
-eG
-eD
-eD
-eG
-aj
+af
+cS
+dJ
+ev
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+ev
+bE
+bE
+em
 bu
 bu
 bv
 bu
 bu
-em
-bE
-bE
-ev
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-ev
-dJ
+aj
+eG
+eD
+eD
+eG
+aj
+ad
+ad
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(28,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+af
 cS
-af
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(28,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
-af
-aj
-dW
-dW
-dW
-dW
-dW
-aj
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+bE
+bE
 bE
 bE
 ej
 bE
 bE
-bE
-bE
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-cS
-af
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(29,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
-af
 aj
 dW
 dW
 dW
 dW
 dW
-dW
-bE
-bE
-bE
-bE
-bE
-bE
-bE
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-dJ
-cS
+aj
+af
+ad
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(29,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
 ME
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(30,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
-af
+cS
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+dJ
+bE
+bE
+bE
+bE
+bE
+bE
+bE
+dW
+dW
+dW
+dW
+dW
+dW
 aj
+af
+ad
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(30,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+KM
+cS
+ex
+ex
+ex
+ex
+ex
+ex
+ex
+ex
+ex
+dJ
+dq
+dd
+dJ
+bE
+bE
+bE
+bE
+bE
+bE
+bE
+dW
+dW
+dW
 dW
 eN
 dW
-dW
-dW
-dW
-bE
-bE
-bE
-bE
-bE
-bE
-bE
-dJ
-dd
-dq
-dJ
-ex
-ex
-ex
-ex
-ex
-ex
-ex
-ex
-ex
-cS
-KM
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(31,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
+aj
 af
-ak
-dV
-ak
-dV
-dV
-dV
-dV
-bE
-bE
-bE
-bE
-bE
-bE
-bE
+ad
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(31,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+eC
+au
+au
+au
+au
+au
+au
+au
+au
+au
+ex
 dJ
-eq
 dr
+eq
 dJ
-ex
-au
-au
-au
-au
-au
-au
-au
-au
-au
-eC
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(32,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
-Dm
+bE
+bE
+bE
+bE
+bE
+bE
+bE
+dV
+dV
+dV
+dV
 ak
 dV
-dV
-dV
-dV
-dV
-dV
-bE
-bE
-bE
-bE
-bE
-bE
-bE
+ak
+af
+ad
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(32,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+eC
+au
+au
+au
+au
+au
+au
+au
+au
+au
+ex
 dJ
-df
 ds
+df
 dJ
-ex
+bE
+bE
+bE
+bE
+bE
+bE
+bE
+dV
+dV
+dV
+dV
+dV
+dV
+ak
+Dm
+ad
 au
 au
 au
 au
 au
+aa
+aa
+aa
+aa
+aa"}(33,1,2) = {"
+aa
+aa
+aa
+aa
+aa
 au
 au
 au
 au
+au
+ad
 eC
-ad
 au
 au
 au
 au
 au
-aa
-aa
-aa
-aa
-aa
-"}
-(33,1,2) = {"
-aa
-aa
-aa
-aa
-aa
 au
 au
 au
 au
-au
-ad
-af
-ak
-dV
-dV
-dV
-dV
-dV
-ak
-bE
-bE
-bE
-bE
-bE
-bE
-bE
+ex
 dJ
-dg
 dt
+dg
 dJ
-ex
-au
-au
-au
-au
-au
-au
-au
-au
-au
-eC
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(34,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
+bE
+bE
+bE
+bE
+bE
+bE
+bE
+ak
+dV
+dV
+dV
+dV
+dV
+ak
 af
-ak
-dV
-dV
-dV
-dV
-dV
-ak
+ad
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(34,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+eC
+au
+au
+au
+au
+au
+au
+au
+au
+au
+ex
+dJ
+du
+dh
+dJ
+bE
+bE
 bE
 bE
 co
 bE
 bE
-bE
-bE
-dJ
-dh
-du
-dJ
-ex
-au
-au
-au
-au
-au
-au
-au
-au
-au
-eC
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(35,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
-af
 ak
 dV
 dV
 dV
 dV
 dV
+ak
+af
+ad
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(35,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+eC
+au
+au
+au
+au
+cS
+aC
+au
+au
+au
+ex
+dJ
+dv
+er
 by
 by
 by
@@ -6456,344 +6648,325 @@ by
 by
 by
 by
-er
-dv
-dJ
-ex
-au
-au
-au
-aC
-cS
-au
-au
-au
-au
-eC
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(36,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
-af
+dV
+dV
+dV
+dV
+dV
 ak
-dV
-aJ
-aK
-aL
-dV
+af
+ad
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(36,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+eC
+au
+au
+au
+au
+au
+au
+au
+au
+au
+ex
+dJ
+dw
+dj
 by
-ee
+en
+cy
+cy
 cy
 ez
 cy
-cy
-cy
-en
+ee
 by
-dj
-dw
-dJ
-ex
-au
-au
-au
-au
-au
-au
-au
-au
-au
-eC
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(37,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
-af
-ak
-dV
-aK
-dV
-aK
-dV
-by
-ef
-eo
-eo
-eo
-eo
-eo
-eo
-by
-dJ
-dJ
-dJ
-ex
-au
-au
-au
-au
-au
-au
-au
-au
-au
-eC
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(38,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
-Dm
-ak
 dV
 aL
 aK
 aJ
 dV
-by
-ef
-eo
-eo
-eo
-eo
-eo
-eo
-by
-dJ
-dJ
-dJ
-ex
-au
-au
-au
-au
-au
-au
-au
-au
-au
-eC
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(39,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
-af
 ak
+af
+ad
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(37,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+eC
+au
+au
+au
+au
+au
+au
+au
+au
+au
+ex
+dJ
+dJ
+dJ
+by
+eo
+eo
+eo
+eo
+eo
+eo
+ef
+by
+dV
+aK
+dV
+aK
+dV
+ak
+af
+ad
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(38,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+eC
+au
+au
+au
+au
+au
+au
+au
+au
+au
+ex
+dJ
+dJ
+dJ
+by
+eo
+eo
+eo
+eo
+eo
+eo
+ef
+by
+dV
+aJ
+aK
+aL
+dV
+ak
+Dm
+ad
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(39,1,2) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+ad
+eC
+au
+au
+au
+au
+au
+au
+au
+au
+au
+ex
+dJ
+ew
+dJ
+by
+eo
+eo
+eo
+cy
+eo
+eo
+ef
+by
 dV
 dV
 aY
 dV
 dV
-by
-ef
-eo
-eo
-cy
-eo
-eo
-eo
-by
-dJ
-ew
-dJ
-ex
+ak
+af
+ad
 au
 au
 au
 au
 au
+aa
+aa
+aa
+aa
+aa"}(40,1,2) = {"
+aa
+aa
+aa
+aa
+aa
 au
 au
 au
 au
+au
+ad
 eC
-ad
 au
 au
 au
 au
 au
-aa
-aa
-aa
-aa
-aa
-"}
-(40,1,2) = {"
-aa
-aa
-aa
-aa
-aa
 au
 au
 au
 au
-au
-ad
+cS
+cS
+cS
+cS
+by
+by
+cz
+by
+by
+by
+cz
+by
+by
+ak
+ak
+ak
+ak
+ak
+ak
 af
-ak
-ak
-ak
-ak
-ak
-ak
-by
-by
-cz
-by
-by
-by
-cz
-by
-by
-cS
-cS
-cS
-cS
+ad
 au
 au
 au
 au
 au
+aa
+aa
+aa
+aa
+aa"}(41,1,2) = {"
+aa
+aa
+aa
+aa
+aa
 au
 au
 au
 au
+au
+ad
 eC
-ad
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(41,1,2) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-ad
-af
-oA
-af
-af
-af
-af
-oA
-af
-af
-af
-by
-cz
-by
-oA
-af
-af
-af
-oA
-af
+eC
+eC
+eC
+eC
+eC
+eC
+eC
+eC
+eC
 oJ
-eC
-eC
-eC
-eC
-eC
-eC
-eC
-eC
-eC
-eC
+af
+oA
+af
+af
+af
+oA
+by
+cz
+by
+af
+af
+af
+oA
+af
+af
+af
+af
+oA
+af
 ad
 au
 au
@@ -6804,9 +6977,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(42,1,2) = {"
+aa"}(42,1,2) = {"
 aa
 aa
 aa
@@ -6817,6 +6988,13 @@ au
 au
 au
 au
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ad
 ad
 ad
@@ -6842,13 +7020,6 @@ ad
 ad
 ad
 ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
 au
 au
 au
@@ -6858,14 +7029,12 @@ aa
 aa
 aa
 aa
+aa"}(43,1,2) = {"
 aa
-"}
-(43,1,2) = {"
 aa
 aa
 aa
 aa
-aa
 au
 au
 au
@@ -6908,13 +7077,11 @@ au
 au
 au
 au
-aa
 aa
 aa
 aa
 aa
-"}
-(44,1,2) = {"
+aa"}(44,1,2) = {"
 aa
 aa
 aa
@@ -6966,14 +7133,12 @@ aa
 aa
 aa
 aa
+aa"}(45,1,2) = {"
 aa
-"}
-(45,1,2) = {"
 aa
 aa
 aa
 aa
-aa
 au
 au
 au
@@ -7020,14 +7185,12 @@ aa
 aa
 aa
 aa
+aa"}(46,1,2) = {"
 aa
-"}
-(46,1,2) = {"
 aa
 aa
 aa
 aa
-aa
 au
 au
 au
@@ -7070,13 +7233,11 @@ au
 au
 au
 au
-aa
 aa
 aa
 aa
 aa
-"}
-(47,1,2) = {"
+aa"}(47,1,2) = {"
 aa
 aa
 aa
@@ -7124,18 +7285,11 @@ au
 au
 au
 au
-aa
-aa
-aa
-aa
-aa
-"}
-(48,1,2) = {"
-aa
 aa
 aa
 aa
 aa
+aa"}(48,1,2) = {"
 aa
 aa
 aa
@@ -7183,12 +7337,11 @@ aa
 aa
 aa
 aa
-"}
-(49,1,2) = {"
 aa
 aa
 aa
 aa
+aa"}(49,1,2) = {"
 aa
 aa
 aa
@@ -7237,11 +7390,10 @@ aa
 aa
 aa
 aa
-"}
-(50,1,2) = {"
 aa
 aa
 aa
+aa"}(50,1,2) = {"
 aa
 aa
 aa
@@ -7291,10 +7443,9 @@ aa
 aa
 aa
 aa
-"}
-(51,1,2) = {"
 aa
 aa
+aa"}(51,1,2) = {"
 aa
 aa
 aa
@@ -7345,9 +7496,8 @@ aa
 aa
 aa
 aa
-"}
-(52,1,2) = {"
 aa
+aa"}(52,1,2) = {"
 aa
 aa
 aa
@@ -7399,8 +7549,7 @@ aa
 aa
 aa
 aa
-"}
-
+aa"}
 (1,1,3) = {"
 aa
 aa
@@ -7453,9 +7602,8 @@ aa
 aa
 aa
 aa
+aa"}(2,1,3) = {"
 aa
-"}
-(2,1,3) = {"
 aa
 aa
 aa
@@ -7506,10 +7654,9 @@ aa
 aa
 aa
 aa
+aa"}(3,1,3) = {"
 aa
 aa
-"}
-(3,1,3) = {"
 aa
 aa
 aa
@@ -7559,11 +7706,10 @@ aa
 aa
 aa
 aa
+aa"}(4,1,3) = {"
 aa
 aa
 aa
-"}
-(4,1,3) = {"
 aa
 aa
 aa
@@ -7612,12 +7758,11 @@ aa
 aa
 aa
 aa
+aa"}(5,1,3) = {"
 aa
 aa
 aa
 aa
-"}
-(5,1,3) = {"
 aa
 aa
 aa
@@ -7665,18 +7810,12 @@ aa
 aa
 aa
 aa
+aa"}(6,1,3) = {"
 aa
 aa
 aa
 aa
 aa
-"}
-(6,1,3) = {"
-aa
-aa
-aa
-aa
-aa
 au
 au
 au
@@ -7723,14 +7862,12 @@ aa
 aa
 aa
 aa
+aa"}(7,1,3) = {"
 aa
-"}
-(7,1,3) = {"
 aa
 aa
 aa
 aa
-aa
 au
 au
 au
@@ -7773,13 +7910,11 @@ au
 au
 au
 au
-aa
 aa
 aa
 aa
 aa
-"}
-(8,1,3) = {"
+aa"}(8,1,3) = {"
 aa
 aa
 aa
@@ -7831,14 +7966,12 @@ aa
 aa
 aa
 aa
+aa"}(9,1,3) = {"
 aa
-"}
-(9,1,3) = {"
 aa
 aa
 aa
 aa
-aa
 au
 au
 au
@@ -7885,14 +8018,12 @@ aa
 aa
 aa
 aa
+aa"}(10,1,3) = {"
 aa
-"}
-(10,1,3) = {"
 aa
 aa
 aa
 aa
-aa
 au
 au
 au
@@ -7935,13 +8066,11 @@ au
 au
 au
 au
-aa
 aa
 aa
 aa
 aa
-"}
-(11,1,3) = {"
+aa"}(11,1,3) = {"
 aa
 aa
 aa
@@ -7993,9 +8122,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(12,1,3) = {"
+aa"}(12,1,3) = {"
 aa
 aa
 aa
@@ -8047,9 +8174,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(13,1,3) = {"
+aa"}(13,1,3) = {"
 aa
 aa
 aa
@@ -8101,9 +8226,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(14,1,3) = {"
+aa"}(14,1,3) = {"
 aa
 aa
 aa
@@ -8115,36 +8238,36 @@ au
 au
 au
 fn
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
+YD
+YD
+YD
+YD
+YD
+YD
+YD
 Kq
-YD
-YD
-YD
-YD
-YD
-YD
-YD
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
 fn
 au
 au
@@ -8155,9 +8278,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(15,1,3) = {"
+aa"}(15,1,3) = {"
 aa
 aa
 aa
@@ -8169,36 +8290,36 @@ au
 au
 au
 fn
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
+KR
+KR
+KR
+KR
+KR
+KR
+KR
 Jz
-KR
-KR
-KR
-KR
-KR
-KR
-KR
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
 fn
 au
 au
@@ -8209,9 +8330,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(16,1,3) = {"
+aa"}(16,1,3) = {"
 aa
 aa
 aa
@@ -8223,36 +8342,36 @@ au
 au
 au
 fn
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
+yz
+yz
+yz
+yz
+yz
+yz
+KR
 Jz
-KR
-yz
-yz
-yz
-yz
-yz
-yz
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
 fn
 au
 au
@@ -8263,9 +8382,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(17,1,3) = {"
+aa"}(17,1,3) = {"
 aa
 aa
 aa
@@ -8277,287 +8394,274 @@ au
 au
 au
 fn
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-Jz
-KR
 yz
 qS
 qS
 qS
 qS
 yz
-fn
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(18,1,3) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-Jz
 KR
+Jz
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(18,1,3) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+fn
+yz
+qS
+qS
+qS
+qS
 RP
-qS
-qS
-qS
-qS
-yz
-fn
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(19,1,3) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-fn
-fn
-fn
-fn
-fn
-fn
-fn
-fn
-fn
-au
-au
-au
-au
-au
-au
-au
-Kq
-YD
-Fz
-au
-au
-au
-au
-Jz
 KR
-RP
-qS
-qS
-qS
+Jz
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(19,1,3) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+fn
+yz
 Ao
-yz
-fn
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(20,1,3) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-au
-au
-au
-Jz
-ux
-Uc
-au
-au
-au
-au
-Jz
-KR
+qS
+qS
+qS
 RP
-qS
-qS
-qS
-qS
-yz
-fn
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(21,1,3) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-au
-au
-au
-KL
 KR
-Pl
-au
-au
-au
-au
 Jz
+au
+au
+au
+au
+Fz
+YD
+Kq
+au
+au
+au
+au
+au
+au
+au
+fn
+fn
+fn
+fn
+fn
+fn
+fn
+fn
+fn
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(20,1,3) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+fn
+yz
+qS
+qS
+qS
+qS
+RP
+KR
+Jz
+au
+au
+au
+au
+Uc
+ux
+Jz
+au
+au
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(21,1,3) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+fn
+yz
+qS
+qS
+qS
+qS
+yz
 OJ
+Jz
+au
+au
+au
+au
+Pl
+KR
+KL
+au
+au
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(22,1,3) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+fn
 yz
-qS
-qS
-qS
-qS
 yz
-fn
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(22,1,3) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-au
-au
-au
-fn
-au
-au
-au
+yz
+yz
+yz
+yz
+KR
+Jz
 au
 au
 au
@@ -8569,87 +8673,57 @@ au
 au
 au
 au
-Jz
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(23,1,3) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+fn
 KR
-yz
-yz
-yz
-yz
-yz
-yz
-fn
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(23,1,3) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-eP
-eT
-eT
-eT
-bE
-eT
+KR
+KR
+KR
+KR
+KR
+KR
+KR
+YD
+YD
+YD
 eW
-YD
-YD
-YD
-KR
-KR
-KR
-KR
-KR
-KR
-KR
-KR
-fn
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(24,1,3) = {"
-aa
-aa
-aa
-aa
-aa
-au
+eT
+bE
+eT
+eT
+eT
+eP
 au
 au
 au
@@ -8667,229 +8741,250 @@ au
 au
 au
 au
-eQ
-bE
-bE
-bE
-bE
-bE
+au
+aa
+aa
+aa
+aa
+aa"}(24,1,3) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+fn
+WC
+WC
+WC
+WC
+WC
+WC
+WC
+WC
+WC
+WC
+WC
 eX
-WC
-WC
-WC
-WC
-WC
-WC
-WC
-WC
-WC
-WC
-WC
-fn
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(25,1,3) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
+bE
+bE
+bE
+bE
+bE
 eQ
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(25,1,3) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+eX
 bE
-bE
-co
 eV
+co
 bE
+bE
+eQ
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(26,1,3) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
 eX
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(26,1,3) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-au
-au
-dG
-fo
-dS
-dS
-dS
-dS
-eR
 bE
 bE
 bA
 bE
 bE
+eR
+dS
+dS
+dS
+dS
+fo
+dG
+au
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(27,1,3) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
 eX
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(27,1,3) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-fn
-fn
-fn
-fn
-fn
-fn
-fn
-fn
-fn
-au
-au
-au
-au
-eQ
 bE
 bE
 ej
 bE
 bE
-eX
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(28,1,3) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
 eQ
-bE
-bE
-bE
-bE
-bE
+au
+au
+au
+au
+fn
+fn
+fn
+fn
+fn
+fn
+fn
+fn
+fn
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(28,1,3) = {"
+aa
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
 eX
+bE
+bE
+bE
+bE
+bE
+eQ
+au
 au
 au
 au
@@ -8911,9 +9006,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(29,1,3) = {"
+aa"}(29,1,3) = {"
 aa
 aa
 aa
@@ -8936,67 +9029,13 @@ au
 au
 au
 au
-au
-eS
-eU
-eU
-eU
-eU
-eU
 eY
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-au
-aa
-aa
-aa
-aa
-aa
-"}
-(30,1,3) = {"
-aa
-aa
-aa
-aa
-aa
-au
-au
-au
-au
-au
-fn
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
+eU
+eU
+eU
+eU
+eU
+eS
 au
 au
 au
@@ -9019,9 +9058,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(31,1,3) = {"
+aa"}(30,1,3) = {"
 aa
 aa
 aa
@@ -9073,9 +9110,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(32,1,3) = {"
+aa"}(31,1,3) = {"
 aa
 aa
 aa
@@ -9127,9 +9162,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(33,1,3) = {"
+aa"}(32,1,3) = {"
 aa
 aa
 aa
@@ -9181,9 +9214,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(34,1,3) = {"
+aa"}(33,1,3) = {"
 aa
 aa
 aa
@@ -9235,9 +9266,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(35,1,3) = {"
+aa"}(34,1,3) = {"
 aa
 aa
 aa
@@ -9289,9 +9318,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(36,1,3) = {"
+aa"}(35,1,3) = {"
 aa
 aa
 aa
@@ -9343,9 +9370,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(37,1,3) = {"
+aa"}(36,1,3) = {"
 aa
 aa
 aa
@@ -9397,9 +9422,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(38,1,3) = {"
+aa"}(37,1,3) = {"
 aa
 aa
 aa
@@ -9451,9 +9474,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(39,1,3) = {"
+aa"}(38,1,3) = {"
 aa
 aa
 aa
@@ -9505,9 +9526,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(40,1,3) = {"
+aa"}(39,1,3) = {"
 aa
 aa
 aa
@@ -9559,9 +9578,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(41,1,3) = {"
+aa"}(40,1,3) = {"
 aa
 aa
 aa
@@ -9613,9 +9630,59 @@ aa
 aa
 aa
 aa
+aa"}(41,1,3) = {"
 aa
-"}
-(42,1,3) = {"
+aa
+aa
+aa
+aa
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+fn
+au
+au
+au
+au
+au
+aa
+aa
+aa
+aa
+aa"}(42,1,3) = {"
 aa
 aa
 aa
@@ -9667,9 +9734,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(43,1,3) = {"
+aa"}(43,1,3) = {"
 aa
 aa
 aa
@@ -9721,9 +9786,7 @@ aa
 aa
 aa
 aa
-aa
-"}
-(44,1,3) = {"
+aa"}(44,1,3) = {"
 aa
 aa
 aa
@@ -9775,14 +9838,47 @@ aa
 aa
 aa
 aa
-aa
-"}
-(45,1,3) = {"
+aa"}(45,1,3) = {"
 aa
 aa
 aa
 aa
 aa
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
+au
 au
 au
 au
@@ -9790,53 +9886,16 @@ aX
 au
 au
 au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
-au
 aa
 aa
 aa
 aa
+aa"}(46,1,3) = {"
 aa
-"}
-(46,1,3) = {"
 aa
 aa
 aa
 aa
-aa
 au
 au
 au
@@ -9879,13 +9938,11 @@ au
 au
 au
 au
-aa
 aa
 aa
 aa
 aa
-"}
-(47,1,3) = {"
+aa"}(47,1,3) = {"
 aa
 aa
 aa
@@ -9933,18 +9990,11 @@ au
 au
 au
 au
-aa
-aa
-aa
-aa
-aa
-"}
-(48,1,3) = {"
-aa
 aa
 aa
 aa
 aa
+aa"}(48,1,3) = {"
 aa
 aa
 aa
@@ -9992,12 +10042,11 @@ aa
 aa
 aa
 aa
-"}
-(49,1,3) = {"
 aa
 aa
 aa
 aa
+aa"}(49,1,3) = {"
 aa
 aa
 aa
@@ -10046,11 +10095,10 @@ aa
 aa
 aa
 aa
-"}
-(50,1,3) = {"
 aa
 aa
 aa
+aa"}(50,1,3) = {"
 aa
 aa
 aa
@@ -10100,10 +10148,9 @@ aa
 aa
 aa
 aa
-"}
-(51,1,3) = {"
 aa
 aa
+aa"}(51,1,3) = {"
 aa
 aa
 aa
@@ -10154,9 +10201,8 @@ aa
 aa
 aa
 aa
-"}
-(52,1,3) = {"
 aa
+aa"}(52,1,3) = {"
 aa
 aa
 aa
@@ -10208,4 +10254,4 @@ aa
 aa
 aa
 aa
-"}
+aa"}

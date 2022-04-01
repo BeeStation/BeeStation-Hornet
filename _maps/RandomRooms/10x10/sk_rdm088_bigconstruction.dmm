@@ -7,78 +7,128 @@
 /area/template_noop)
 "c" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/structure/closet/crate/science,
-/obj/item/circuitboard/computer/shuttle/flight_control,
-/obj/item/circuitboard/machine/shuttle/heater,
-/obj/item/circuitboard/machine/shuttle/engine/plasma,
-/obj/item/shuttle_creator,
-/obj/item/circuitboard/machine/shuttle/engine/plasma,
-/obj/item/circuitboard/machine/shuttle/heater,
-/obj/item/pipe_dispenser,
+/obj/structure/closet/crate/science{
+	dir = 1
+	},
+/obj/item/circuitboard/computer/shuttle/flight_control{
+	dir = 1
+	},
+/obj/item/circuitboard/machine/shuttle/heater{
+	dir = 1
+	},
+/obj/item/circuitboard/machine/shuttle/engine/plasma{
+	dir = 1
+	},
+/obj/item/shuttle_creator{
+	dir = 1
+	},
+/obj/item/circuitboard/machine/shuttle/engine/plasma{
+	dir = 1
+	},
+/obj/item/circuitboard/machine/shuttle/heater{
+	dir = 1
+	},
+/obj/item/pipe_dispenser{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/structure/window/reinforced/spawner,
-/obj/structure/rack,
-/obj/item/stack/sheet/glass/fifty,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/stack/sheet/glass/fifty{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/structure/window/reinforced/spawner,
-/obj/structure/rack,
-/obj/item/stack/sheet/iron/fifty,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/stack/sheet/iron/fifty{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/machinery/door/window,
-/obj/machinery/door/window/northleft,
+/obj/machinery/door/window{
+	dir = 1
+	},
+/obj/machinery/door/window/southleft,
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/window/reinforced/spawner/west,
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/window/reinforced/spawner/west,
-/obj/structure/rack,
+/obj/structure/rack{
+	dir = 1
+	},
 /obj/item/stack/cable_coil/random,
 /obj/item/stack/cable_coil/random,
-/obj/item/storage/toolbox/electrical,
+/obj/item/storage/toolbox/electrical{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/structure/window/reinforced/spawner,
-/obj/structure/rack,
-/obj/item/stack/rods,
-/obj/item/stack/rods,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/stack/rods{
+	dir = 1
+	},
+/obj/item/stack/rods{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/portable_atmospherics/canister/oxygen{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
 /obj/structure/window/reinforced/spawner/east,
-/obj/structure/closet/secure_closet/chemical,
+/obj/structure/closet/secure_closet/chemical{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "m" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/space)
 "n" = (
 /obj/structure/window/reinforced/spawner/west,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/portable_atmospherics/canister/air{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (
@@ -89,14 +139,22 @@
 /area/template_noop)
 "p" = (
 /obj/structure/window/reinforced/spawner/east,
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/five,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/five{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "q" = (
 /obj/structure/window/reinforced/spawner/west,
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/eight{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "r" = (
@@ -107,59 +165,97 @@
 /area/template_noop)
 "s" = (
 /obj/structure/window/reinforced/spawner/east,
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/two{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "t" = (
 /obj/structure/window/reinforced/spawner/west,
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/two{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "u" = (
 /obj/structure/window/reinforced/spawner/east,
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "v" = (
 /obj/structure/window/reinforced/spawner/west,
-/obj/structure/table,
-/obj/item/electronics/airlock,
-/obj/item/electronics/airlock,
-/obj/item/electronics/airlock,
-/obj/item/airlock_painter,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/electronics/airlock{
+	dir = 1
+	},
+/obj/item/electronics/airlock{
+	dir = 1
+	},
+/obj/item/electronics/airlock{
+	dir = 1
+	},
+/obj/item/airlock_painter{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "w" = (
 /obj/structure/window/reinforced/spawner/east,
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/seven,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/seven{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (
 /obj/structure/window/reinforced/spawner/west,
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "y" = (
 /obj/structure/window/reinforced/spawner/east,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/portable_atmospherics/scrubber{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "z" = (
 /obj/structure/window/reinforced/spawner/west,
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/toxins{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "A" = (
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "B" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
@@ -173,105 +269,87 @@ b
 o
 b
 b
+b"}(2,1,1) = {"
 b
-"}
-(2,1,1) = {"
 b
-d
-l
-p
-s
-u
-w
 y
+w
+u
+s
+p
+l
+d
+b"}(3,1,1) = {"
 b
-b
-"}
-(3,1,1) = {"
-b
+A
+a
+m
+a
+a
+m
+a
 e
-a
-m
-a
-a
-m
-a
+b"}(4,1,1) = {"
+B
 A
-b
-"}
-(4,1,1) = {"
-c
+m
+m
+m
+m
+m
+m
 f
-m
-m
-m
-m
-m
-m
-A
-B
-"}
-(5,1,1) = {"
+c"}(5,1,1) = {"
 b
+A
+a
+m
+a
+a
+m
+a
 g
-a
-m
-a
-a
-m
-a
+b"}(6,1,1) = {"
+b
 A
-b
-"}
-(6,1,1) = {"
-b
+a
+m
+a
+a
+m
+a
 h
-a
-m
-a
-a
-m
-a
-A
-b
-"}
-(7,1,1) = {"
-c
-i
-m
-m
-m
-m
-m
-m
-A
+b"}(7,1,1) = {"
 B
-"}
-(8,1,1) = {"
-b
-j
-a
-m
-a
-a
-m
-a
 A
+m
+m
+m
+m
+m
+m
+i
+c"}(8,1,1) = {"
 b
-"}
-(9,1,1) = {"
+A
+a
+m
+a
+a
+m
+a
+j
+b"}(9,1,1) = {"
 b
-k
-n
-q
-t
-v
-x
+b
 z
-b
-b
-"}
-(10,1,1) = {"
+x
+v
+t
+q
+n
+k
+b"}(10,1,1) = {"
 b
 b
 b
@@ -281,5 +359,4 @@ b
 r
 b
 b
-b
-"}
+b"}

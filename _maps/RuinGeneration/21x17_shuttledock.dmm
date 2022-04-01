@@ -6,7 +6,9 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "c" = (
-/obj/item/kirbyplants/random,
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "h" = (
@@ -16,123 +18,135 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "i" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "k" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "q" = (
-/obj/machinery/vending/cola/random,
+/obj/machinery/vending/cola/random{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "u" = (
-/obj/machinery/vending/snack/random,
+/obj/machinery/vending/snack/random{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "v" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "A" = (
 /turf/template_noop,
 /area/template_noop)
 "C" = (
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/line{
+/obj/structure/fans/tiny{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/window,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/machinery/door/firedoor/window{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "F" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
 "W" = (
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/door/firedoor/window,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/window{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
 F
-F
-F
-F
-F
-F
-F
-F
-F
-F
-F
-F
-F
 k
 h
 k
 F
-"}
-(2,1,1) = {"
 F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F"}(2,1,1) = {"
+F
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
 q
-k
-k
-k
-k
-k
-k
-k
-k
-k
-k
-k
-k
-k
-k
+F"}(3,1,1) = {"
 F
-"}
-(3,1,1) = {"
-F
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
 u
-k
-k
-k
-k
-k
-k
-k
-k
-k
-k
-k
+F"}(4,1,1) = {"
+F
 k
 k
 k
 F
-"}
-(4,1,1) = {"
 F
+i
+i
+i
+i
+i
+F
+F
+k
+k
 c
-k
-k
-F
-F
-i
-i
-i
-i
-i
-F
-F
-k
-k
-k
-F
-"}
-(5,1,1) = {"
+F"}(5,1,1) = {"
 F
 k
 k
@@ -149,9 +163,7 @@ F
 k
 k
 k
-F
-"}
-(6,1,1) = {"
+F"}(6,1,1) = {"
 F
 k
 k
@@ -168,9 +180,7 @@ i
 k
 k
 k
-F
-"}
-(7,1,1) = {"
+F"}(7,1,1) = {"
 F
 k
 k
@@ -187,52 +197,29 @@ F
 k
 k
 k
-F
-"}
-(8,1,1) = {"
+F"}(8,1,1) = {"
 F
 k
 k
 k
-W
-A
-A
-A
-A
-A
-A
-A
 C
-k
-k
-k
-F
-"}
-(9,1,1) = {"
-F
-k
-k
-k
+A
+A
+A
+A
+A
+A
+A
 W
-A
-A
-A
-A
-A
-A
-A
+k
+k
+k
+F"}(9,1,1) = {"
+F
+k
+k
+k
 C
-k
-k
-k
-F
-"}
-(10,1,1) = {"
-F
-k
-k
-k
-F
 A
 A
 A
@@ -240,13 +227,11 @@ A
 A
 A
 A
-F
+W
 k
 k
 k
-F
-"}
-(11,1,1) = {"
+F"}(10,1,1) = {"
 F
 k
 k
@@ -263,9 +248,24 @@ F
 k
 k
 k
+F"}(11,1,1) = {"
 F
-"}
-(12,1,1) = {"
+k
+k
+k
+F
+A
+A
+A
+A
+A
+A
+A
+F
+k
+k
+k
+F"}(12,1,1) = {"
 F
 k
 k
@@ -282,9 +282,7 @@ v
 k
 k
 k
-F
-"}
-(13,1,1) = {"
+F"}(13,1,1) = {"
 F
 k
 k
@@ -301,9 +299,7 @@ F
 k
 k
 k
-F
-"}
-(14,1,1) = {"
+F"}(14,1,1) = {"
 F
 k
 k
@@ -320,9 +316,7 @@ i
 k
 k
 k
-F
-"}
-(15,1,1) = {"
+F"}(15,1,1) = {"
 F
 k
 k
@@ -339,9 +333,7 @@ i
 k
 k
 k
-F
-"}
-(16,1,1) = {"
+F"}(16,1,1) = {"
 F
 k
 k
@@ -358,9 +350,7 @@ i
 k
 k
 k
-F
-"}
-(17,1,1) = {"
+F"}(17,1,1) = {"
 F
 k
 k
@@ -377,9 +367,7 @@ F
 k
 k
 k
-F
-"}
-(18,1,1) = {"
+F"}(18,1,1) = {"
 F
 k
 k
@@ -396,9 +384,7 @@ F
 k
 k
 k
-F
-"}
-(19,1,1) = {"
+F"}(19,1,1) = {"
 F
 k
 k
@@ -415,43 +401,38 @@ k
 k
 k
 k
+F"}(20,1,1) = {"
 F
-"}
-(20,1,1) = {"
-F
-k
-k
-k
-k
-k
-k
-k
-k
-k
-k
-k
-k
-k
-k
 c
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+k
+F"}(21,1,1) = {"
 F
-"}
-(21,1,1) = {"
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
 F
 k
 b
 k
-F
-F
-F
-F
-F
-F
-F
-F
-F
-F
-F
-F
-F
-"}
+F"}

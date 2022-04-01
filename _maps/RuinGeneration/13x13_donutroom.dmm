@@ -1,15 +1,23 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/item/kirbyplants/random,
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "k" = (
-/obj/structure/chair/comfy,
+/obj/structure/chair/comfy{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "o" = (
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "s" = (
@@ -17,7 +25,7 @@
 /area/ruin/unpowered)
 "u" = (
 /obj/structure/chair/comfy{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -31,19 +39,27 @@
 /turf/template_noop,
 /area/template_noop)
 "G" = (
-/obj/machinery/vending/snack/random,
+/obj/machinery/vending/snack/random{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "J" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "O" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "Q" = (
-/obj/machinery/vending/cola/random,
+/obj/machinery/vending/cola/random{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "R" = (
@@ -69,9 +85,7 @@ Y
 Y
 Y
 Y
-Y
-"}
-(2,1,1) = {"
+Y"}(2,1,1) = {"
 Y
 s
 s
@@ -84,9 +98,7 @@ s
 s
 s
 s
-Y
-"}
-(3,1,1) = {"
+Y"}(3,1,1) = {"
 Y
 s
 s
@@ -99,9 +111,7 @@ s
 s
 s
 s
-Y
-"}
-(4,1,1) = {"
+Y"}(4,1,1) = {"
 Y
 s
 s
@@ -114,73 +124,11 @@ s
 s
 s
 s
-Y
-"}
-(5,1,1) = {"
+Y"}(5,1,1) = {"
 Y
 s
 s
-a
-Y
-o
-o
-o
-Y
 Q
-s
-s
-Y
-"}
-(6,1,1) = {"
-Y
-s
-s
-u
-o
-C
-O
-C
-o
-k
-s
-s
-Y
-"}
-(7,1,1) = {"
-Y
-s
-s
-J
-o
-O
-O
-O
-o
-J
-s
-s
-Y
-"}
-(8,1,1) = {"
-Y
-s
-s
-u
-o
-C
-O
-C
-o
-k
-s
-s
-Y
-"}
-(9,1,1) = {"
-Y
-s
-s
-G
 Y
 o
 o
@@ -189,54 +137,98 @@ Y
 a
 s
 s
-Y
-"}
-(10,1,1) = {"
+Y"}(6,1,1) = {"
 Y
 s
 s
+k
+o
+C
+O
+C
+o
+u
 s
 s
-s
-s
-s
-s
-s
-s
-s
-Y
-"}
-(11,1,1) = {"
+Y"}(7,1,1) = {"
 Y
 s
 s
+J
+o
+O
+O
+O
+o
+J
 s
 s
-s
-s
-s
-s
-s
-s
-s
-Y
-"}
-(12,1,1) = {"
+Y"}(8,1,1) = {"
 Y
 s
 s
+k
+o
+C
+O
+C
+o
+u
 s
 s
-s
-s
-s
-s
-s
-s
-s
+Y"}(9,1,1) = {"
 Y
-"}
-(13,1,1) = {"
+s
+s
+a
+Y
+o
+o
+o
+Y
+G
+s
+s
+Y"}(10,1,1) = {"
+Y
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+Y"}(11,1,1) = {"
+Y
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+Y"}(12,1,1) = {"
+Y
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+Y"}(13,1,1) = {"
 Y
 Y
 Y
@@ -249,5 +241,4 @@ Y
 Y
 Y
 Y
-Y
-"}
+Y"}

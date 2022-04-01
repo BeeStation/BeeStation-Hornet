@@ -1,84 +1,122 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/closet/cardboard,
-/obj/item/storage/toolbox/emergency,
-/obj/item/reagent_containers/food/drinks/bottle/hooch,
+/obj/structure/closet/cardboard{
+	dir = 1
+	},
+/obj/item/storage/toolbox/emergency{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/drinks/bottle/hooch{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
 /obj/item/trash/can{
 	pixel_x = 4;
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/item/wirecutters{
-	pixel_y = -3;
-	pixel_x = 6
+	pixel_y = 3;
+	pixel_x = 6;
+	dir = 1
 	},
 /obj/item/wrench/medical{
 	pixel_x = -4;
-	pixel_y = 4
+	pixel_y = -4;
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/reagent_containers/syringe,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/item/reagent_containers/syringe{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/structure/bonfire,
+/obj/structure/bonfire{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (
-/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/glass{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (
-/obj/effect/decal/cleanable/glass,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/broken_bottle,
-/obj/item/cigbutt,
+/obj/effect/decal/cleanable/glass{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/item/broken_bottle{
+	dir = 1
+	},
 /obj/item/cigbutt{
-	pixel_x = 3
+	dir = 1
+	},
+/obj/item/cigbutt{
+	pixel_x = 3;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "L" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/vomit/old,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/vomit/old{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "M" = (
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "O" = (
-/obj/item/chair,
-/obj/effect/decal/cleanable/glass,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/chair{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/glass{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "Y" = (
 /obj/structure/bed/roller{
-	name = "rusty cot"
+	name = "rusty cot";
+	dir = 1
 	},
-/obj/item/bedsheet/blue,
+/obj/item/bedsheet/blue{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-b
-L
 a
-"}
-(2,1,1) = {"
-M
-o
+L
+b"}(2,1,1) = {"
 n
-"}
-(3,1,1) = {"
-j
-O
+o
+M"}(3,1,1) = {"
 Y
-"}
+O
+j"}

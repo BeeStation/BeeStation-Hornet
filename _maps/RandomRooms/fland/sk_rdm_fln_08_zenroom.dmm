@@ -3,55 +3,86 @@
 /turf/closed/wall,
 /area/template_noop)
 "c" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/bamboo,
 /area/template_noop)
 "d" = (
-/obj/structure/chair/stool/bamboo,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/structure/chair/stool/bamboo{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/bamboo,
 /area/template_noop)
 "e" = (
-/obj/structure/window/paperframe,
+/obj/structure/window/paperframe{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "i" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/wood,
 /area/template_noop)
 "k" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/drinks/bottle/sake{
 	pixel_x = 5;
-	pixel_y = 12
+	pixel_y = -12;
+	dir = 1
 	},
 /turf/open/floor/bamboo,
 /area/template_noop)
 "m" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/wood,
 /area/template_noop)
 "o" = (
-/obj/structure/table/wood,
-/obj/item/clothing/under/costume/geisha,
-/obj/item/clothing/under/dress/gown,
-/obj/item/clothing/under/dress/gown/midnight,
-/obj/item/clothing/under/dress/gown/teal,
-/obj/item/clothing/under/dress/blacktango,
-/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
-/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/clothing/under/costume/geisha{
+	dir = 1
+	},
+/obj/item/clothing/under/dress/gown{
+	dir = 1
+	},
+/obj/item/clothing/under/dress/gown/midnight{
+	dir = 1
+	},
+/obj/item/clothing/under/dress/gown/teal{
+	dir = 1
+	},
+/obj/item/clothing/under/dress/blacktango{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "r" = (
@@ -64,36 +95,50 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "u" = (
-/obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
-/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears{
+	dir = 1
+	},
 /obj/structure/sign/poster/official/anniversary_vintage_reprint{
-	pixel_y = -32
+	pixel_y = 32;
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/template_noop)
 "v" = (
-/obj/structure/chair/stool/bamboo,
+/obj/structure/chair/stool/bamboo{
+	dir = 1
+	},
 /turf/open/floor/bamboo,
 /area/template_noop)
 "x" = (
 /obj/machinery/newscaster{
 	pixel_x = -28;
-	pixel_y = 1
+	pixel_y = -1;
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/template_noop)
 "C" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/item/kirbyplants{
 	icon_state = "plant-26";
-	pixel_y = 12
+	pixel_y = -12;
+	dir = 1
 	},
 /turf/open/floor/bamboo,
 /area/template_noop)
 "D" = (
 /obj/machinery/light_switch{
-	pixel_x = 27
+	pixel_x = 27;
+	dir = 1
 	},
 /obj/machinery/light{
 	dir = 4
@@ -101,15 +146,21 @@
 /turf/open/floor/bamboo,
 /area/template_noop)
 "G" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_x = -6;
-	pixel_y = 4
+	pixel_y = -4;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_x = -3;
-	pixel_y = 15
+	pixel_y = -15;
+	dir = 1
 	},
 /turf/open/floor/bamboo,
 /area/template_noop)
@@ -117,15 +168,22 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 8
 	},
-/obj/item/kirbyplants/random,
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Zen Room Maintenance"
+	name = "Zen Room Maintenance";
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "K" = (
@@ -133,7 +191,8 @@
 /area/template_noop)
 "L" = (
 /obj/structure/sign/poster/official/moth6{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /obj/machinery/light{
 	dir = 8
@@ -141,13 +200,21 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "O" = (
-/obj/machinery/hydroponics/constructable,
-/obj/item/seeds/tea/astra,
+/obj/machinery/hydroponics/constructable{
+	dir = 1
+	},
+/obj/item/seeds/tea/astra{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "P" = (
-/obj/machinery/hydroponics/constructable,
-/obj/item/seeds/tea,
+/obj/machinery/hydroponics/constructable{
+	dir = 1
+	},
+/obj/item/seeds/tea{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "Q" = (
@@ -163,16 +230,22 @@
 /turf/open/floor/bamboo,
 /area/template_noop)
 "W" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 4
+	},
 /obj/structure/mineral_door/paperframe{
-	name = "Zen Room"
+	name = "Zen Room";
+	dir = 1
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
 "Y" = (
 /obj/item/radio/intercom{
-	pixel_x = 28
+	pixel_x = 28;
+	dir = 1
 	},
 /obj/machinery/light{
 	dir = 4
@@ -181,73 +254,65 @@
 /area/template_noop)
 "Z" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -24
+	pixel_x = -24;
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/template_noop)
 
 (1,1,1) = {"
-U
-O
-P
-Q
-Z
-r
-r
-L
-x
+a
 h
-a
-"}
-(2,1,1) = {"
-W
-m
-c
-c
-d
-d
-d
-c
-c
-i
+x
+L
+r
+r
+Z
+Q
+P
+O
+U"}(2,1,1) = {"
 J
-"}
-(3,1,1) = {"
-W
-s
-V
-V
-k
-C
-G
-V
-V
-u
+i
+c
+c
+d
+d
+d
+c
+c
+m
+W"}(3,1,1) = {"
 a
-"}
-(4,1,1) = {"
-U
-I
+u
 V
-Y
-v
-v
-v
-D
 V
+G
+C
+k
+V
+V
+s
+W"}(4,1,1) = {"
+K
 o
+V
+D
+v
+v
+v
+Y
+V
+I
+U"}(5,1,1) = {"
 K
-"}
-(5,1,1) = {"
-U
-e
-e
-U
-e
-e
-e
 U
 e
 U
-K
-"}
+e
+e
+e
+U
+e
+e
+U"}

@@ -4,127 +4,169 @@
 /area/template_noop)
 "b" = (
 /obj/structure/window/reinforced/spawner/east,
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/space)
 "e" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/north,
 /obj/structure/sign/warning/vacuum{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
 /obj/structure/window/reinforced/spawner/west,
-/obj/structure/closet/firecloset/full,
+/obj/structure/closet/firecloset/full{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "i" = (
 /obj/structure/window/reinforced/spawner/east,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/eight{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
 /obj/structure/window/reinforced/spawner/west,
-/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/reagent_dispensers/fueltank{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
 /obj/structure/window/reinforced/spawner/west,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/space/basic,
 /area/space)
 "m" = (
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "n" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (
-/obj/effect/landmark/blobstart,
+/obj/effect/landmark/blobstart{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "p" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/space)
 "s" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/plating,
 /area/template_noop)
 "v" = (
 /obj/structure/window/reinforced/spawner/west,
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/space)
 "z" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "B" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/space/basic,
 /area/space)
 "D" = (
 /obj/structure/window/reinforced/spawner/west,
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/space)
 "E" = (
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/space)
 "F" = (
-/obj/effect/landmark/event_spawn,
+/obj/effect/landmark/event_spawn{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "G" = (
 /obj/structure/window/reinforced/spawner/east,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/five,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/five{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "H" = (
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /obj/structure/window/reinforced/spawner/east,
 /turf/open/space/basic,
 /area/space)
 "K" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "L" = (
 /obj/structure/window/reinforced/spawner/east,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/three{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "M" = (
-/obj/structure/window/reinforced/spawner/north,
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "U" = (
 /obj/structure/window/reinforced/spawner/west,
-/obj/structure/reagent_dispensers/watertank,
+/obj/structure/reagent_dispensers/watertank{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "V" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/north,
 /obj/item/radio/intercom{
-	pixel_y = 26
+	pixel_y = -26;
+	dir = 1
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -132,7 +174,7 @@
 /area/template_noop)
 "Z" = (
 /obj/structure/window/reinforced/spawner/east,
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/space/basic,
 /area/space)
 
@@ -141,68 +183,49 @@ a
 a
 o
 a
-a
-"}
-(2,1,1) = {"
-n
-i
-G
+a"}(2,1,1) = {"
+K
 L
-K
-"}
-(3,1,1) = {"
-s
-D
-v
+G
+i
+n"}(3,1,1) = {"
+M
 l
+v
+D
+s"}(4,1,1) = {"
 M
-"}
-(4,1,1) = {"
-V
-E
-p
 B
+p
+E
+V"}(5,1,1) = {"
 M
-"}
-(5,1,1) = {"
-e
-E
-p
 B
-M
-"}
-(6,1,1) = {"
-s
-E
 p
-B
+E
+e"}(6,1,1) = {"
 m
-"}
-(7,1,1) = {"
-z
-E
-p
 B
+p
+E
+s"}(7,1,1) = {"
 M
-"}
-(8,1,1) = {"
-s
-H
-b
+B
+p
+E
+z"}(8,1,1) = {"
+M
 Z
-M
-"}
-(9,1,1) = {"
-n
-k
-U
-g
+b
+H
+s"}(9,1,1) = {"
 K
-"}
-(10,1,1) = {"
+g
+U
+k
+n"}(10,1,1) = {"
 a
 a
 F
 a
-a
-"}
+a"}

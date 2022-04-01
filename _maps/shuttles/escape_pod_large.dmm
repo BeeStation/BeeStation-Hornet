@@ -4,7 +4,8 @@
 	dir = 4
 	},
 /obj/item/storage/pod{
-	pixel_x = -24
+	pixel_x = -24;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
@@ -12,8 +13,12 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "u" = (
-/obj/structure/grille,
-/obj/structure/window/shuttle,
+/obj/structure/grille{
+	dir = 1
+	},
+/obj/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/pod_1)
 "A" = (
@@ -21,7 +26,8 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	pixel_x = 30
+	pixel_x = 30;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
@@ -29,9 +35,11 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/pod_1)
 "C" = (
-/obj/machinery/computer/shuttle_flight/monastery_shuttle,
-/obj/machinery/light{
+/obj/machinery/computer/shuttle_flight/monastery_shuttle{
 	dir = 1
+	},
+/obj/machinery/light{
+	dir = 2
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
@@ -46,7 +54,8 @@
 	dir = 4
 	},
 /obj/machinery/status_display/evac{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
@@ -61,20 +70,23 @@
 	dir = 8
 	},
 /obj/machinery/status_display/evac{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "O" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Shuttle Airlock"
+	name = "Shuttle Airlock";
+	dir = 1
 	},
 /obj/docking_port/mobile/pod{
 	dwidth = 2;
 	height = 6;
 	launch_status = 0;
 	port_direction = 2;
-	width = 5
+	width = 5;
+	dir = 2
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
@@ -82,47 +94,40 @@
 /turf/template_noop,
 /area/template_noop)
 "Z" = (
-/obj/structure/shuttle/engine/propulsion/burst,
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/pod_1)
 
 (1,1,1) = {"
-W
-B
+Z
 B
 u
 B
+B
+W"}(2,1,1) = {"
 Z
-"}
-(2,1,1) = {"
-B
-B
-J
-L
 h
-Z
-"}
-(3,1,1) = {"
-u
-C
-r
-r
-r
+L
+J
+B
+B"}(3,1,1) = {"
 O
-"}
-(4,1,1) = {"
-B
-B
-M
-H
-A
+r
+r
+r
+C
+u"}(4,1,1) = {"
 Z
-"}
-(5,1,1) = {"
-W
+A
+H
+M
 B
+B"}(5,1,1) = {"
+Z
 B
 u
 B
-Z
-"}
+B
+W"}

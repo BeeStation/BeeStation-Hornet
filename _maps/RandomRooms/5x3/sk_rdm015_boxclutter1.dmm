@@ -1,16 +1,22 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/closet/emcloset,
-/obj/effect/decal/cleanable/cobweb,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/cobweb{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
 /obj/structure/chair{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
@@ -18,46 +24,49 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/two{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/lootdrop/maintenance/three{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/structure/reagent_dispensers/watertank,
+/obj/structure/reagent_dispensers/watertank{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-d
 e
-"}
-(2,1,1) = {"
-b
 d
+a"}(2,1,1) = {"
 e
-"}
-(3,1,1) = {"
-c
+d
+b"}(3,1,1) = {"
 d
 d
-"}
-(4,1,1) = {"
-d
-d
+c"}(4,1,1) = {"
 g
-"}
-(5,1,1) = {"
 d
-f
+d"}(5,1,1) = {"
 h
-"}
+f
+d"}

@@ -6,11 +6,15 @@
 /turf/open/floor/plasteel,
 /area/testroom)
 "r" = (
-/obj/effect/landmark/unit_test_top_right,
+/obj/effect/landmark/unit_test_top_right{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/testroom)
 "L" = (
-/obj/effect/landmark/unit_test_bottom_left,
+/obj/effect/landmark/unit_test_bottom_left{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/testroom)
 
@@ -21,59 +25,46 @@ a
 a
 a
 a
+a"}(2,1,1) = {"
 a
-"}
-(2,1,1) = {"
-a
-m
-m
-m
-m
 L
-a
-"}
-(3,1,1) = {"
-a
 m
 m
 m
 m
-m
-a
-"}
-(4,1,1) = {"
+a"}(3,1,1) = {"
 a
 m
 m
 m
 m
 m
-a
-"}
-(5,1,1) = {"
+a"}(4,1,1) = {"
 a
 m
 m
 m
 m
 m
+a"}(5,1,1) = {"
 a
-"}
-(6,1,1) = {"
+m
+m
+m
+m
+m
+a"}(6,1,1) = {"
 a
+m
+m
+m
+m
 r
-m
-m
-m
-m
-a
-"}
-(7,1,1) = {"
+a"}(7,1,1) = {"
 a
 a
 a
 a
 a
 a
-a
-"}
+a"}

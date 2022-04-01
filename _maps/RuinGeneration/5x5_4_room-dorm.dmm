@@ -3,26 +3,42 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "b" = (
-/obj/structure/bed,
-/obj/item/bedsheet/random,
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/random{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "l" = (
-/obj/structure/dresser,
+/obj/structure/dresser{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "p" = (
-/obj/structure/bed,
-/obj/item/bedsheet/random,
-/obj/item/toy/plush/carpplushie,
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/random{
+	dir = 1
+	},
+/obj/item/toy/plush/carpplushie{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "B" = (
-/obj/item/chair/wood,
+/obj/item/chair/wood{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "H" = (
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizardplushie{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "J" = (
@@ -36,10 +52,15 @@
 /area/ruin/unpowered)
 "W" = (
 /obj/structure/sign/poster/official/no_erp{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
-/obj/structure/table_frame/wood,
-/obj/item/stack/sheet/mineral/wood,
+/obj/structure/table_frame/wood{
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/wood{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 
@@ -48,33 +69,24 @@ a
 a
 a
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 l
 B
 l
+a"}(3,1,1) = {"
 a
-"}
-(3,1,1) = {"
-a
-W
-U
 H
-a
-"}
-(4,1,1) = {"
-a
-p
 U
-b
+W
+a"}(4,1,1) = {"
 a
-"}
-(5,1,1) = {"
+b
+U
+p
+a"}(5,1,1) = {"
 a
 a
 J
 a
-a
-"}
+a"}

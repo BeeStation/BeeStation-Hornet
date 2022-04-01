@@ -13,7 +13,8 @@
 /area/ruin/unpowered)
 "j" = (
 /obj/machinery/abductor/experiment{
-	team_number = 100
+	team_number = 100;
+	dir = 1
 	},
 /turf/open/floor/plating/abductor{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
@@ -26,74 +27,107 @@
 /area/ruin/unpowered)
 "l" = (
 /obj/machinery/abductor/pad{
-	team_number = 100
+	team_number = 100;
+	dir = 1
 	},
 /turf/open/floor/plating/abductor{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "o" = (
-/obj/item/hemostat/alien,
+/obj/item/hemostat/alien{
+	dir = 1
+	},
 /turf/open/floor/plating/abductor{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "p" = (
-/obj/effect/mob_spawn/human/abductor,
+/obj/effect/mob_spawn/human/abductor{
+	dir = 1
+	},
 /turf/open/floor/plating/abductor{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "q" = (
-/obj/structure/closet/abductor,
+/obj/structure/closet/abductor{
+	dir = 1
+	},
 /turf/open/floor/plating/abductor{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "s" = (
-/obj/structure/table/optable/abductor,
-/obj/item/cautery/alien,
+/obj/structure/table/optable/abductor{
+	dir = 1
+	},
+/obj/item/cautery/alien{
+	dir = 1
+	},
 /turf/open/floor/plating/abductor{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "t" = (
-/obj/structure/table/abductor,
-/obj/item/storage/box/alienhandcuffs,
+/obj/structure/table/abductor{
+	dir = 1
+	},
+/obj/item/storage/box/alienhandcuffs{
+	dir = 1
+	},
 /turf/open/floor/plating/abductor{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "v" = (
-/obj/item/scalpel/alien,
-/obj/item/surgical_drapes,
+/obj/item/scalpel/alien{
+	dir = 1
+	},
+/obj/item/surgical_drapes{
+	dir = 1
+	},
 /turf/open/floor/plating/abductor{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "w" = (
-/obj/item/retractor/alien,
-/obj/item/paper/guides/antag/abductor,
+/obj/item/retractor/alien{
+	dir = 1
+	},
+/obj/item/paper/guides/antag/abductor{
+	dir = 1
+	},
 /turf/open/floor/plating/abductor{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "y" = (
-/obj/machinery/abductor/gland_dispenser,
+/obj/machinery/abductor/gland_dispenser{
+	dir = 1
+	},
 /turf/open/floor/plating/abductor{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "z" = (
-/obj/structure/table/abductor,
-/obj/item/surgicaldrill/alien,
-/obj/item/circular_saw/alien,
+/obj/structure/table/abductor{
+	dir = 1
+	},
+/obj/item/surgicaldrill/alien{
+	dir = 1
+	},
+/obj/item/circular_saw/alien{
+	dir = 1
+	},
 /turf/open/floor/plating/abductor{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
 /area/ruin/unpowered)
 "A" = (
-/obj/structure/bed/abductor,
+/obj/structure/bed/abductor{
+	dir = 1
+	},
 /turf/open/floor/plating/abductor{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},
@@ -109,9 +143,7 @@ a
 a
 a
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 a
 a
@@ -121,70 +153,57 @@ a
 a
 a
 a
+a"}(3,1,1) = {"
 a
-"}
-(3,1,1) = {"
+a
+a
 a
 a
 a
 c
 a
 a
+a"}(4,1,1) = {"
 a
 a
 a
 a
-"}
-(4,1,1) = {"
 a
 a
+d
 c
-d
 a
-a
-a
-a
-a
-a
-"}
-(5,1,1) = {"
-a
+a"}(5,1,1) = {"
 a
 d
-j
-k
-k
-a
 y
-d
 a
-"}
-(6,1,1) = {"
-a
-a
-d
 k
-o
-s
-v
+k
+j
+d
+a
+a"}(6,1,1) = {"
+a
+d
 z
-d
-a
-"}
-(7,1,1) = {"
-a
-a
-d
-l
-p
+v
+s
+o
 k
-w
-A
 d
 a
-"}
-(8,1,1) = {"
+a"}(7,1,1) = {"
 a
+d
+A
+w
+k
+p
+l
+d
+a
+a"}(8,1,1) = {"
 a
 c
 d
@@ -194,9 +213,7 @@ q
 d
 c
 a
-"}
-(9,1,1) = {"
-a
+a"}(9,1,1) = {"
 a
 b
 c
@@ -206,8 +223,7 @@ d
 c
 b
 a
-"}
-(10,1,1) = {"
+a"}(10,1,1) = {"
 a
 a
 b
@@ -217,21 +233,17 @@ b
 b
 b
 a
+a"}(11,1,1) = {"
 a
-"}
-(11,1,1) = {"
 a
-a
 b
 b
 b
 b
 b
 b
-a
 a
-"}
-(12,1,1) = {"
+a"}(12,1,1) = {"
 a
 a
 b
@@ -241,11 +253,9 @@ b
 b
 b
 a
+a"}(13,1,1) = {"
 a
-"}
-(13,1,1) = {"
 a
-a
 b
 b
 b
@@ -253,21 +263,17 @@ b
 b
 b
 a
+a"}(14,1,1) = {"
 a
-"}
-(14,1,1) = {"
 a
-a
 b
 b
 b
 b
 b
 b
-a
 a
-"}
-(15,1,1) = {"
+a"}(15,1,1) = {"
 a
 a
 b
@@ -277,11 +283,9 @@ b
 b
 b
 a
+a"}(16,1,1) = {"
 a
-"}
-(16,1,1) = {"
 a
-a
 b
 b
 b
@@ -289,9 +293,8 @@ b
 b
 b
 a
+a"}(17,1,1) = {"
 a
-"}
-(17,1,1) = {"
 a
 b
 b
@@ -300,23 +303,17 @@ b
 b
 b
 b
-a
+a"}(18,1,1) = {"
 a
-"}
-(18,1,1) = {"
 a
-a
 b
 b
 b
 b
 b
 b
-a
-a
-"}
-(19,1,1) = {"
 a
+a"}(19,1,1) = {"
 a
 b
 b
@@ -326,8 +323,7 @@ b
 b
 b
 a
-"}
-(20,1,1) = {"
+a"}(20,1,1) = {"
 a
 a
 b
@@ -337,9 +333,8 @@ b
 b
 b
 a
+a"}(21,1,1) = {"
 a
-"}
-(21,1,1) = {"
 a
 b
 b
@@ -348,11 +343,9 @@ b
 b
 b
 b
+a"}(22,1,1) = {"
 a
 a
-"}
-(22,1,1) = {"
-a
 b
 b
 b
@@ -360,12 +353,9 @@ b
 b
 b
 b
-a
+a"}(23,1,1) = {"
 a
-"}
-(23,1,1) = {"
 a
-a
 b
 b
 b
@@ -373,21 +363,17 @@ b
 b
 b
 a
+a"}(24,1,1) = {"
 a
-"}
-(24,1,1) = {"
 a
-a
 b
 b
 b
 b
 b
 b
-a
 a
-"}
-(25,1,1) = {"
+a"}(25,1,1) = {"
 a
 a
 b
@@ -397,11 +383,9 @@ b
 b
 b
 a
+a"}(26,1,1) = {"
 a
-"}
-(26,1,1) = {"
 a
-a
 b
 b
 b
@@ -409,11 +393,9 @@ b
 b
 b
 a
+a"}(27,1,1) = {"
 a
-"}
-(27,1,1) = {"
 a
-a
 b
 b
 b
@@ -421,9 +403,8 @@ b
 b
 b
 a
+a"}(28,1,1) = {"
 a
-"}
-(28,1,1) = {"
 a
 b
 b
@@ -432,10 +413,8 @@ b
 b
 b
 b
-a
+a"}(29,1,1) = {"
 a
-"}
-(29,1,1) = {"
 a
 b
 b
@@ -444,11 +423,8 @@ b
 b
 b
 b
+a"}(30,1,1) = {"
 a
-a
-"}
-(30,1,1) = {"
-a
 b
 b
 b
@@ -457,5 +433,4 @@ b
 b
 b
 b
-a
-"}
+a"}

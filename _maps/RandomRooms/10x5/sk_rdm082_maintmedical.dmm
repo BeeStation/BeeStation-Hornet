@@ -1,39 +1,58 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/bed,
-/obj/item/bedsheet/random,
-/obj/effect/decal/cleanable/vomit/old,
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/random{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/vomit/old{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/effect/decal/cleanable/vomit/old,
+/obj/effect/decal/cleanable/vomit/old{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
 /turf/closed/wall,
 /area/template_noop)
 "d" = (
-/obj/structure/chair,
+/obj/structure/chair{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/reagent_containers/glass/bottle/fluorine{
-	pixel_x = 6
+	pixel_x = 6;
+	dir = 1
 	},
 /obj/item/reagent_containers/glass/bottle/hydrogen{
-	pixel_x = -6
+	pixel_x = -6;
+	dir = 1
 	},
 /obj/item/reagent_containers/glass/bottle/water{
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/yellow,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 2
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -41,65 +60,93 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "g" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/aluminium{
-	pixel_x = 6
-	},
-/obj/item/reagent_containers/glass/bottle/bromine{
-	pixel_x = -6
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/yellow{
+/obj/structure/table{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/yellow{
+/obj/item/reagent_containers/glass/bottle/aluminium{
+	pixel_x = 6;
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/bottle/bromine{
+	pixel_x = -6;
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/item/reagent_containers/glass/beaker/large,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/beaker/large{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "h" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/carbon{
-	pixel_x = 6
-	},
-/obj/item/reagent_containers/glass/bottle/chlorine{
-	pixel_x = -6
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/yellow{
+/obj/structure/table{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/yellow{
+/obj/item/reagent_containers/glass/bottle/carbon{
+	pixel_x = 6;
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/bottle/chlorine{
+	pixel_x = -6;
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
 	dir = 4
 	},
-/obj/structure/table,
-/obj/machinery/reagentgrinder,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 2
+	},
+/obj/structure/table{
+	dir = 1
+	},
+/obj/machinery/reagentgrinder{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "i" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/copper{
-	pixel_x = 6
-	},
-/obj/item/reagent_containers/glass/bottle/ethanol{
-	pixel_x = -6
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/yellow{
+/obj/structure/table{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/yellow,
+/obj/item/reagent_containers/glass/bottle/copper{
+	pixel_x = 6;
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/bottle/ethanol{
+	pixel_x = -6;
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "j" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
@@ -108,7 +155,9 @@
 	},
 /area/template_noop)
 "l" = (
-/obj/machinery/chem_master,
+/obj/machinery/chem_master{
+	dir = 1
+	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -118,23 +167,33 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "n" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/reagent_containers/glass/bottle/mercury{
 	pixel_x = 6;
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
 /obj/item/reagent_containers/glass/bottle/nitrogen{
 	pixel_x = -6;
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
 /obj/item/reagent_containers/glass/bottle/oxygen{
-	pixel_x = 6
+	pixel_x = 6;
+	dir = 1
 	},
 /obj/item/reagent_containers/glass/bottle/phosphorus{
-	pixel_x = -6
+	pixel_x = -6;
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "o" = (
@@ -144,66 +203,97 @@
 	},
 /area/template_noop)
 "p" = (
-/obj/effect/decal/cleanable/greenglow,
+/obj/effect/decal/cleanable/greenglow{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "q" = (
-/obj/effect/decal/cleanable/insectguts,
+/obj/effect/decal/cleanable/insectguts{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "r" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/table,
-/obj/item/storage/box/beakers,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/box/beakers{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "s" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/reagent_containers/glass/bottle/iodine{
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
 /obj/item/reagent_containers/glass/bottle/iron{
-	pixel_x = 6
+	pixel_x = 6;
+	dir = 1
 	},
 /obj/item/reagent_containers/glass/bottle/lithium{
-	pixel_x = -6
+	pixel_x = -6;
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "t" = (
-/obj/structure/bed,
-/obj/item/bedsheet/random,
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/random{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "u" = (
-/obj/item/chair,
+/obj/item/chair{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "v" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/sugar{
-	pixel_x = 6
-	},
-/obj/item/reagent_containers/glass/bottle/sulfur{
-	pixel_x = -6
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/yellow{
+/obj/structure/table{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/yellow,
+/obj/item/reagent_containers/glass/bottle/sugar{
+	pixel_x = 6;
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/bottle/sulfur{
+	pixel_x = -6;
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -211,130 +301,142 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "w" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/reagent_containers/glass/bottle/silver{
-	pixel_x = 6
+	pixel_x = 6;
+	dir = 1
 	},
 /obj/item/reagent_containers/glass/bottle/sodium{
-	pixel_x = -6
+	pixel_x = -6;
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "x" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/reagent_containers/glass/bottle/sacid{
-	pixel_x = 6
+	pixel_x = 6;
+	dir = 1
 	},
 /obj/item/reagent_containers/glass/bottle/silicon{
-	pixel_x = -6
+	pixel_x = -6;
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/yellow,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "y" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/reagent_containers/glass/bottle/potassium{
-	pixel_x = 6
+	pixel_x = 6;
+	dir = 1
 	},
 /obj/item/reagent_containers/glass/bottle/radium{
-	pixel_x = -6
+	pixel_x = -6;
+	dir = 1
 	},
 /obj/item/reagent_containers/glass/bottle/welding_fuel{
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/yellow,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "z" = (
-/obj/effect/trap/trigger/all,
+/obj/effect/trap/trigger/all{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "A" = (
-/obj/effect/trap/nexus/trickyspawner/catbutcher,
-/obj/effect/trap/nexus/doorbolt,
+/obj/effect/trap/nexus/trickyspawner/catbutcher{
+	dir = 1
+	},
+/obj/effect/trap/nexus/doorbolt{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-c
-e
-c
 t
-"}
-(2,1,1) = {"
-b
-j
+c
+e
+c
+a"}(2,1,1) = {"
 e
 j
 e
-"}
-(3,1,1) = {"
+j
+b"}(3,1,1) = {"
 c
 c
 e
 c
-c
-"}
-(4,1,1) = {"
-d
-e
-z
-q
+c"}(4,1,1) = {"
 u
-"}
-(5,1,1) = {"
+q
+z
+e
+d"}(5,1,1) = {"
 e
 e
 A
 e
-e
-"}
-(6,1,1) = {"
-e
-k
-k
-b
+e"}(6,1,1) = {"
 m
-"}
-(7,1,1) = {"
-f
-l
-o
-r
+b
+k
+k
+e"}(7,1,1) = {"
 v
-"}
-(8,1,1) = {"
-g
+r
+o
+l
+f"}(8,1,1) = {"
+w
 m
 p
 m
-w
-"}
-(9,1,1) = {"
-h
-e
-e
-m
+g"}(9,1,1) = {"
 x
-"}
-(10,1,1) = {"
-i
-n
 m
-s
+e
+e
+h"}(10,1,1) = {"
 y
-"}
+s
+m
+n
+i"}

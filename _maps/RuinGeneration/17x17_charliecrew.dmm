@@ -9,33 +9,49 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
 "bb" = (
-/obj/structure/showcase/machinery/tv,
-/obj/structure/table/wood,
-/obj/structure/window/spawner,
+/obj/structure/showcase/machinery/tv{
+	dir = 1
+	},
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/structure/window/spawner/north,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "bs" = (
-/obj/structure/showcase/machinery/microwave,
-/obj/structure/table/wood,
-/obj/structure/window/spawner,
+/obj/structure/showcase/machinery/microwave{
+	dir = 1
+	},
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/structure/window/spawner/north,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "cr" = (
 /obj/structure/sign/departments/minsky/medical/chemistry/chemical2{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "cF" = (
 /obj/machinery/door/airlock/public/glass{
-	name = "Cryogenics"
+	name = "Cryogenics";
+	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
 "cZ" = (
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
+/obj/structure/bed/roller{
+	dir = 1
+	},
+/obj/machinery/iv_drip{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/tile_side{
 	dir = 8
 	},
@@ -46,28 +62,40 @@
 /area/ruin/unpowered)
 "dS" = (
 /obj/machinery/door/airlock/research{
-	name = "Robotics"
+	name = "Robotics";
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "eh" = (
-/obj/structure/table/glass/plasma,
-/obj/item/storage/box/firingpins{
-	pixel_y = 9
+/obj/structure/table/glass/plasma{
+	dir = 1
 	},
-/obj/item/stack/sheet/mineral/silver/five,
+/obj/item/storage/box/firingpins{
+	pixel_y = -9;
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/silver/five{
+	dir = 1
+	},
 /obj/item/stack/sheet/mineral/gold/five{
 	pixel_x = 7;
-	pixel_y = -2
+	pixel_y = 2;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/drinks/soda_cans/cola{
-	pixel_x = -7
+	pixel_x = -7;
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "eG" = (
-/obj/item/reagent_containers/glass/beaker,
-/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker{
+	dir = 1
+	},
+/obj/structure/table{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/tile_side{
 	dir = 8
 	},
@@ -80,7 +108,8 @@
 /area/ruin/unpowered)
 "fF" = (
 /obj/machinery/door/airlock/research/glass{
-	name = "Research Division"
+	name = "Research Division";
+	dir = 1
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 4
@@ -94,37 +123,55 @@
 /area/ruin/unpowered)
 "gZ" = (
 /obj/item/stack/cable_coil,
-/obj/item/stock_parts/micro_laser,
-/obj/item/circuitboard/machine/ore_silo,
-/obj/structure/table/glass/plasma,
+/obj/item/stock_parts/micro_laser{
+	dir = 1
+	},
+/obj/item/circuitboard/machine/ore_silo{
+	dir = 1
+	},
+/obj/structure/table/glass/plasma{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/purple{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "hi" = (
 /obj/machinery/door/airlock/medical{
-	name = "Surgical Theatre"
+	name = "Surgical Theatre";
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "hp" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod{
+	dir = 1
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
 "hq" = (
-/obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/effect/spawner/lootdrop/ruinloot/basic{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "hQ" = (
-/obj/item/gun/energy/kinetic_accelerator,
-/obj/structure/rack,
-/obj/effect/turf_decal/tile/purple,
+/obj/item/gun/energy/kinetic_accelerator{
+	dir = 1
+	},
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "jR" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Corporate Showroom"
+	name = "Corporate Showroom";
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -137,7 +184,9 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "lm" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/mob_spawn/human/oldeng{
 	dir = 4
 	},
@@ -145,7 +194,8 @@
 /area/ruin/unpowered)
 "lV" = (
 /obj/machinery/door/airlock/research/glass{
-	name = "Research Division"
+	name = "Research Division";
+	dir = 1
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 1
@@ -157,56 +207,85 @@
 	},
 /area/ruin/unpowered)
 "mj" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/lootdrop/glowstick/lit{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "mn" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/smartfridge/chemistry/preloaded,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
+/obj/machinery/smartfridge/chemistry/preloaded{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "mF" = (
-/obj/structure/table/optable,
+/obj/structure/table/optable{
+	dir = 1
+	},
 /obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -28
+	pixel_x = -28;
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue/tile_side{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "mW" = (
-/obj/structure/closet/crate,
-/obj/item/storage/backpack/old,
-/obj/item/storage/backpack/old,
-/obj/item/crowbar,
-/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/storage/backpack/old{
+	dir = 1
+	},
+/obj/item/storage/backpack/old{
+	dir = 1
+	},
+/obj/item/crowbar{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/science{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "na" = (
-/obj/structure/chair/office/light,
+/obj/structure/chair/office/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "nX" = (
-/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "of" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
-/obj/machinery/rnd/production/protolathe,
-/turf/open/floor/plasteel/freezer,
-/area/ruin/unpowered)
-"po" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/rnd/production/protolathe{
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/unpowered)
+"po" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
 "ps" = (
-/obj/structure/table,
-/obj/item/storage/backpack/duffelbag/med/surgery,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/backpack/duffelbag/med/surgery{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/tile_side{
 	dir = 4
 	},
@@ -214,14 +293,17 @@
 /area/ruin/unpowered)
 "rj" = (
 /obj/machinery/door/airlock/medical/glass{
-	name = "Chemistry"
+	name = "Chemistry";
+	dir = 1
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 8
 	},
 /area/ruin/unpowered)
 "ry" = (
-/obj/machinery/stasis,
+/obj/machinery/stasis{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/tile_side{
 	dir = 4
 	},
@@ -232,22 +314,30 @@
 /area/ruin/unpowered)
 "td" = (
 /obj/item/stock_parts/matter_bin{
-	pixel_y = 4
+	pixel_y = -4;
+	dir = 1
 	},
 /obj/item/stock_parts/capacitor{
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
-/obj/item/storage/toolbox/mechanical,
-/obj/item/multitool,
-/obj/structure/table/glass/plasma,
+/obj/item/storage/toolbox/mechanical{
+	dir = 1
+	},
+/obj/item/multitool{
+	dir = 1
+	},
+/obj/structure/table/glass/plasma{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/purple{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "te" = (
 /obj/effect/turf_decal/tile/purple{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -257,11 +347,16 @@
 	},
 /area/ruin/unpowered)
 "uO" = (
-/obj/structure/table/glass/plasma,
-/obj/item/stack/sheet/mineral/diamond/five{
-	pixel_y = 4
+/obj/structure/table/glass/plasma{
+	dir = 1
 	},
-/obj/item/stack/sheet/mineral/uranium/twenty,
+/obj/item/stack/sheet/mineral/diamond/five{
+	pixel_y = -4;
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/uranium/twenty{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "wp" = (
@@ -269,29 +364,40 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue/tile_side{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "ww" = (
-/obj/effect/decal/cleanable/blood,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/computer/cryopod{
-	pixel_y = 28
+	pixel_y = -28;
+	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
 "wJ" = (
-/obj/structure/rack,
+/obj/structure/rack{
+	dir = 1
+	},
 /obj/item/clothing/suit/armor/vest/old{
 	pixel_x = -1;
-	pixel_y = 4
+	pixel_y = -4;
+	dir = 1
 	},
 /obj/item/clothing/head/helmet/old{
 	pixel_x = 2;
-	pixel_y = -2
+	pixel_y = 2;
+	dir = 1
 	},
-/obj/structure/window/spawner/north,
+/obj/structure/window/spawner{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "wX" = (
@@ -300,15 +406,18 @@
 	},
 /area/ruin/unpowered)
 "xZ" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/lootdrop/glowstick/lit{
+	dir = 1
+	},
 /obj/structure/sign/departments/minsky/research/robotics{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "yL" = (
 /obj/effect/turf_decal/tile/purple/tile_side{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
@@ -319,40 +428,67 @@
 /turf/open/floor/noslip/white,
 /area/ruin/unpowered)
 "zy" = (
-/obj/item/clothing/gloves/color/fyellow/old,
-/obj/structure/rack,
-/obj/structure/window/spawner/north,
+/obj/item/clothing/gloves/color/fyellow/old{
+	dir = 1
+	},
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/structure/window/spawner{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "BO" = (
 /obj/structure/sign/departments/minsky/research/research{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Cq" = (
-/obj/item/flashlight/glowstick,
-/obj/item/flashlight/glowstick,
-/obj/item/shuttle_creator,
-/obj/structure/closet/crate/engineering,
-/obj/item/storage/toolbox/syndicate,
+/obj/item/flashlight/glowstick{
+	dir = 1
+	},
+/obj/item/flashlight/glowstick{
+	dir = 1
+	},
+/obj/item/shuttle_creator{
+	dir = 1
+	},
+/obj/structure/closet/crate/engineering{
+	dir = 1
+	},
+/obj/item/storage/toolbox/syndicate{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "Cv" = (
-/obj/machinery/rnd/production/circuit_imprinter,
+/obj/machinery/rnd/production/circuit_imprinter{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/unpowered)
 "Dy" = (
-/obj/effect/spawner/structure/window/reinforced/tinted,
+/obj/effect/spawner/structure/window/reinforced/tinted{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Em" = (
-/obj/structure/table,
-/obj/item/tank/internals/anesthetic,
-/obj/item/clothing/mask/breath/medical,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/tank/internals/anesthetic{
+	dir = 1
+	},
+/obj/item/clothing/mask/breath/medical{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/tile_side{
 	dir = 8
 	},
@@ -360,48 +496,67 @@
 /area/ruin/unpowered)
 "ES" = (
 /obj/effect/turf_decal/tile/purple/tile_side{
-	dir = 5
-	},
-/obj/structure/chair/office/light,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"Fe" = (
-/obj/structure/frame/machine,
-/obj/item/stack/cable_coil/random/five,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"Ff" = (
-/obj/structure/rack,
-/obj/item/gun/energy/e_gun/old,
-/obj/structure/window/spawner/north,
-/turf/open/floor/wood,
-/area/ruin/unpowered)
-"Fq" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel/freezer,
-/area/ruin/unpowered)
-"FZ" = (
-/obj/machinery/modular_fabricator/exosuit_fab{
-	auto_link = 0
-	},
-/obj/effect/turf_decal/tile/purple/tile_side{
 	dir = 6
 	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"Gu" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/ruin/unpowered)
-"Gz" = (
-/obj/effect/turf_decal/tile/blue{
+/obj/structure/chair/office/light{
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
+"Fe" = (
+/obj/structure/frame/machine{
+	dir = 1
+	},
+/obj/item/stack/cable_coil/random/five,
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"Ff" = (
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/gun/energy/e_gun/old{
+	dir = 1
+	},
+/obj/structure/window/spawner{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"Fq" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
+"FZ" = (
+/obj/machinery/modular_fabricator/exosuit_fab{
+	auto_link = 0;
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple/tile_side{
+	dir = 5
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"Gu" = (
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"Gz" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
 "GX" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/rnd/destructive_analyzer,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/rnd/destructive_analyzer{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/unpowered)
 "Iw" = (
@@ -410,7 +565,9 @@
 	},
 /area/ruin/unpowered)
 "Jw" = (
-/obj/machinery/chem_heater,
+/obj/machinery/chem_heater{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "JG" = (
@@ -420,14 +577,18 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
 "Ks" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/item/gun/energy/laser/retro/old{
 	pixel_x = 2;
-	pixel_y = 2
+	pixel_y = -2;
+	dir = 1
 	},
 /obj/item/gun/energy/laser/retro/old{
 	pixel_x = -2;
-	pixel_y = -2
+	pixel_y = 2;
+	dir = 1
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
@@ -436,139 +597,194 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/unpowered)
 "KR" = (
-/obj/machinery/door/firedoor,
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/northleft,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/machinery/door/window/southleft,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "KT" = (
-/obj/structure/showcase/mecha/marauder,
-/obj/structure/window/spawner,
+/obj/structure/showcase/mecha/marauder{
+	dir = 1
+	},
+/obj/structure/window/spawner/north,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "Lb" = (
 /obj/machinery/door/airlock/medical{
-	name = "Medical"
+	name = "Medical";
+	dir = 1
 	},
 /turf/open/floor/plasteel/white/side,
 /area/ruin/unpowered)
 "Ln" = (
-/obj/machinery/anesthetic_machine,
+/obj/machinery/anesthetic_machine{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/tile_side{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "Ne" = (
-/obj/machinery/chem_master,
+/obj/machinery/chem_master{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/tile_side{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "NQ" = (
-/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "OX" = (
 /obj/effect/turf_decal/tile/purple{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "Pw" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "PK" = (
-/obj/structure/rack,
-/obj/item/storage/firstaid/regular,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/storage/firstaid/regular{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "QB" = (
 /turf/template_noop,
 /area/template_noop)
 "QE" = (
-/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Rr" = (
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "Sy" = (
-/obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/bot_white{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "SB" = (
-/obj/machinery/smartfridge/organ,
+/obj/machinery/smartfridge/organ{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/blue/tile_side{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "TD" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Uh" = (
 /obj/machinery/suit_storage_unit{
-	suit_type = /obj/item/clothing/suit/space/hardsuit/ancient
+	suit_type = /obj/item/clothing/suit/space/hardsuit/ancient;
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "UJ" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/lootdrop/glowstick/lit{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "UP" = (
-/obj/machinery/modular_fabricator/autolathe/hacked,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window/northright,
+/obj/machinery/modular_fabricator/autolathe/hacked{
+	dir = 1
+	},
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
+/obj/machinery/door/window/southright,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "UX" = (
-/obj/machinery/door/firedoor,
-/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
+/obj/structure/table/reinforced{
+	dir = 1
+	},
 /obj/machinery/door/window/westleft,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Vu" = (
-/obj/machinery/the_singularitygen,
+/obj/machinery/the_singularitygen{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "Vz" = (
-/obj/structure/rack,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/mineral/copper/five,
-/obj/item/stack/sheet/mineral/plasma/five,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/stack/sheet/iron/fifty{
+	dir = 1
+	},
+/obj/item/stack/sheet/glass/fifty{
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/copper/five{
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/plasma/five{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/purple/tile_side{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "VC" = (
-/obj/structure/showcase/mecha/ripley,
-/obj/structure/window/spawner,
+/obj/structure/showcase/mecha/ripley{
+	dir = 1
+	},
+/obj/structure/window/spawner/north,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "Wc" = (
 /obj/item/healthanalyzer{
 	desc = "A prototype hand-held body scanner able to distinguish vital signs of the subject.";
-	name = "prototype health analyzer"
+	name = "prototype health analyzer";
+	dir = 1
 	},
-/obj/structure/rack,
-/obj/structure/window/spawner/north,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/structure/window/spawner{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "Wt" = (
@@ -580,29 +796,33 @@
 "Yp" = (
 /obj/item/stock_parts/scanning_module{
 	pixel_x = 2;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
-/obj/item/stock_parts/manipulator,
-/obj/machinery/recharger,
-/obj/structure/table/glass/plasma,
+/obj/item/stock_parts/manipulator{
+	dir = 1
+	},
+/obj/machinery/recharger{
+	dir = 1
+	},
+/obj/structure/table/glass/plasma{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/purple{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "Zo" = (
 /obj/structure/sign/departments/minsky/medical/medical2{
-	pixel_y = -32
+	pixel_y = 32;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
-QB
-Pw
-QB
-QB
-QB
+lf
 lf
 lf
 lf
@@ -614,162 +834,156 @@ lf
 lf
 lf
 lf
-lf
-"}
-(2,1,1) = {"
+QB
+QB
 QB
 Pw
-Pw
-Pw
-Pw
+QB"}(2,1,1) = {"
 lf
-aY
-lm
-lf
-sU
-sU
-sU
-lf
-wp
-mF
 SB
+mF
+wp
 lf
-"}
-(3,1,1) = {"
-QB
+sU
+sU
+sU
+lf
+lm
+aY
+lf
 Pw
-QB
-QB
-QB
+Pw
+Pw
+Pw
+QB"}(3,1,1) = {"
 lf
-ww
-Ks
-cF
-UJ
-sU
-sU
-Dy
-ps
-aW
 Em
-lf
-"}
-(4,1,1) = {"
-QB
-Pw
-QB
-QB
-QB
-lf
-hp
-JG
-lf
-sU
-sU
-QE
-lf
-ry
 aW
-Ln
+ps
+Dy
+sU
+sU
+UJ
+cF
+Ks
+ww
 lf
-"}
-(5,1,1) = {"
+QB
+QB
+QB
 Pw
+QB"}(4,1,1) = {"
 lf
+Ln
+aW
+ry
 lf
-lf
-Gu
-lf
-lf
-lf
-lf
+QE
 sU
 sU
 lf
+JG
+hp
+lf
+QB
+QB
+QB
+Pw
+QB"}(5,1,1) = {"
 lf
 lf
 hi
 lf
 lf
-"}
-(6,1,1) = {"
-QB
 lf
-VC
+sU
+sU
+lf
+lf
+lf
+lf
+Gu
+lf
+lf
+lf
+Pw"}(6,1,1) = {"
+lf
+cZ
+aW
+aW
+Gz
+lf
+Zo
+sU
+sU
+lf
+Ff
 Rr
 Vu
 Rr
-Ff
+VC
 lf
-sU
-sU
-Zo
+QB"}(7,1,1) = {"
 lf
-Gz
-aW
-aW
-cZ
-lf
-"}
-(7,1,1) = {"
-QB
-lf
-bb
-Rr
-Rr
-Rr
-wJ
-Gu
-sU
-sU
-sU
-Lb
+Ne
 aW
 Jw
 aW
-Ne
-lf
-"}
-(8,1,1) = {"
-QB
-lf
-bs
-Rr
-Rr
-Rr
-zy
-lf
-te
+Lb
 sU
-NQ
+sU
+sU
+Gu
+wJ
+Rr
+Rr
+Rr
+bb
 lf
-aW
-Fe
-na
+QB"}(8,1,1) = {"
+lf
 eG
+na
+Fe
+aW
 lf
-"}
-(9,1,1) = {"
-QB
+NQ
+sU
+te
 lf
-KT
-wX
-uh
-Iw
-Wc
+zy
+Rr
+Rr
+Rr
+bs
+lf
+QB"}(9,1,1) = {"
+lf
+mn
+UX
+lf
+rj
 lf
 lf
 fF
 lf
 lf
-rj
+Wc
+Iw
+uh
+wX
+KT
 lf
-UX
-mn
+QB"}(10,1,1) = {"
 lf
-"}
-(10,1,1) = {"
-Pw
+TD
+sU
+cr
+BO
+lf
+zf
+aW
+OX
 lf
 lf
 lf
@@ -777,146 +991,123 @@ jR
 lf
 lf
 lf
-OX
-aW
-zf
+Pw"}(11,1,1) = {"
 lf
-BO
-cr
-sU
-TD
-lf
-"}
-(11,1,1) = {"
-QB
-lf
-eh
-ft
-jW
-lZ
-aW
-aW
-aW
-aW
-aW
-lV
-sU
 sU
 hq
 sU
+sU
+lV
+aW
+aW
+aW
+aW
+aW
+lZ
+jW
+ft
+eh
 lf
-"}
-(12,1,1) = {"
-QB
+QB"}(12,1,1) = {"
 lf
-uO
+de
+de
+sU
+te
+lf
+aW
+aW
+aW
 aW
 aW
 mj
 aW
 aW
-aW
-aW
-aW
+uO
 lf
-te
-sU
+QB"}(13,1,1) = {"
+lf
 de
 de
-lf
-"}
-(13,1,1) = {"
-QB
-lf
-Uh
-aW
-aW
-mW
-Cq
-nX
+xZ
 lf
 lf
 dS
 lf
 lf
-xZ
-de
-de
-lf
-"}
-(14,1,1) = {"
-Pw
-lf
-lf
-td
-aW
-of
-Cv
 nX
-lf
-Vz
+Cq
+mW
 aW
-ES
+aW
+Uh
+lf
+QB"}(14,1,1) = {"
+lf
+de
+de
+de
 KR
-de
-de
-de
-lf
-"}
-(15,1,1) = {"
-Pw
-Pw
-lf
-gZ
+ES
 aW
-po
-Fq
+Vz
+lf
 nX
+Cv
+of
+aW
+td
 lf
-PK
-aW
-aW
+lf
+Pw"}(15,1,1) = {"
+lf
+de
+de
+de
 Gu
-de
-de
-de
-lf
-"}
-(16,1,1) = {"
-QB
-Pw
-lf
-Yp
 aW
-KM
-GX
-hQ
+aW
+PK
 lf
-FZ
-Sy
-yL
+nX
+Fq
+po
+aW
+gZ
+lf
+Pw
+Pw"}(16,1,1) = {"
+lf
+de
+de
+de
 UP
-de
-de
-de
+yL
+Sy
+FZ
 lf
-"}
-(17,1,1) = {"
-QB
-QB
+hQ
+GX
+KM
+aW
+Yp
 lf
-lf
-lf
-lf
-lf
-lf
-lf
-lf
-lf
-lf
+Pw
+QB"}(17,1,1) = {"
 lf
 de
 gv
 de
 lf
-"}
+lf
+lf
+lf
+lf
+lf
+lf
+lf
+lf
+lf
+lf
+QB
+QB"}

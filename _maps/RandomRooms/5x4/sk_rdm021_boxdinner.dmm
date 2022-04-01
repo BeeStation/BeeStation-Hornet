@@ -3,71 +3,85 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/paper_bin{
 	pixel_x = -3;
-	pixel_y = 7
+	pixel_y = -7;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/donut,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/donut{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
 /obj/structure/chair/stool{
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/structure/table,
-/obj/item/pen,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/pen{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/structure/table,
-/obj/item/stack/sheet/mineral/copper,
-/obj/item/stack/sheet/mineral/copper,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/stack/sheet/mineral/copper{
-	amount = 5
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/copper{
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
 a
-a
 e
 a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
-b
 f
-a
-"}
-(3,1,1) = {"
+b
+a"}(3,1,1) = {"
 a
 c
 c
+a"}(4,1,1) = {"
 a
-"}
-(4,1,1) = {"
-a
-d
 g
-a
-"}
-(5,1,1) = {"
-a
+d
+a"}(5,1,1) = {"
 a
 e
 a
-"}
+a"}

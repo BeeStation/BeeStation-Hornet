@@ -1,126 +1,240 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "d" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate,
-/obj/item/stack/sheet/plasteel/twenty,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/stack/sheet/plasteel/twenty{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "e" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate/medical,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/structure/closet/crate/medical{
+	dir = 1
+	},
 /obj/item/storage/firstaid/regular{
 	empty = 1;
-	name = "First-Aid (empty)"
+	name = "First-Aid (empty)";
+	dir = 1
 	},
-/obj/item/storage/firstaid/o2,
+/obj/item/storage/firstaid/o2{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "g" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "l" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate/engineering,
-/obj/item/multitool,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/structure/closet/crate/engineering{
+	dir = 1
+	},
+/obj/item/multitool{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "m" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/iron/fifty,
-/obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/stack/sheet/iron/fifty{
+	dir = 1
+	},
+/obj/item/stack/sheet/iron/fifty{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/basic{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "o" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate,
-/obj/item/pda/clear,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/pda/clear{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/important{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "p" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate,
-/obj/item/storage/pill_bottle/stimulant,
-/obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/storage/pill_bottle/stimulant{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/basic{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "q" = (
-/obj/effect/abstract/open_area_marker,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"s" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate/medical,
-/obj/item/storage/firstaid/regular{
-	empty = 1;
-	name = "First-Aid (empty)"
-	},
-/obj/effect/spawner/lootdrop/ruinloot/medical,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"u" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate,
-/obj/item/stack/sheet/cardboard/fifty,
-/obj/effect/spawner/lootdrop/ruinloot/basic,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"x" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate/engineering,
-/obj/item/storage/toolbox/mechanical,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"D" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate,
-/obj/item/paicard,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"E" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate/medical,
-/obj/item/storage/firstaid/brute,
-/obj/item/storage/firstaid/fire,
-/obj/effect/spawner/lootdrop/ruinloot/science,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"G" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"s" = (
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/structure/closet/crate/medical{
+	dir = 1
+	},
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)";
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/medical{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"u" = (
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/stack/sheet/cardboard/fifty{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/basic{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"x" = (
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/structure/closet/crate/engineering{
+	dir = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"D" = (
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/paicard{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"E" = (
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/structure/closet/crate/medical{
+	dir = 1
+	},
+/obj/item/storage/firstaid/brute{
+	dir = 1
+	},
+/obj/item/storage/firstaid/fire{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/science{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"G" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 2
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "M" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate/internals,
-/obj/item/storage/firstaid/toxin,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/structure/closet/crate/internals{
+	dir = 1
+	},
+/obj/item/storage/firstaid/toxin{
+	dir = 1
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	dir = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/engi{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "O" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/suit_storage_unit/standard_unit,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/machinery/suit_storage_unit/standard_unit{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "U" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
 "Y" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate/secure/loot,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/structure/closet/crate/secure/loot{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Z" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate,
-/obj/item/target/alien,
-/obj/item/target/alien,
-/obj/item/target/clown,
-/obj/item/target/syndicate,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/target/alien{
+	dir = 1
+	},
+/obj/item/target/alien{
+	dir = 1
+	},
+/obj/item/target/clown{
+	dir = 1
+	},
+/obj/item/target/syndicate{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
@@ -133,108 +247,79 @@ U
 U
 U
 U
+U"}(2,1,1) = {"
 U
-"}
-(2,1,1) = {"
-U
-g
-g
-p
-Y
-Y
-g
 M
+g
+Y
+Y
+p
+g
+g
+U"}(3,1,1) = {"
 U
-"}
-(3,1,1) = {"
-U
-O
-g
-g
-g
-g
-g
 u
-U
-"}
-(4,1,1) = {"
-U
+g
+g
+g
+g
+g
 O
-g
-g
-g
-g
-g
-g
-U
-"}
-(5,1,1) = {"
+U"}(4,1,1) = {"
 U
 g
 g
-U
-s
 g
-d
+g
+g
+g
+O
+U"}(5,1,1) = {"
+U
 l
+d
+g
+s
 U
-"}
-(6,1,1) = {"
+g
+g
+U"}(6,1,1) = {"
 g
 g
 g
-U
+g
 x
-g
-g
-g
-g
-"}
-(7,1,1) = {"
-G
-g
-g
 U
 g
 g
-g
-g
+g"}(7,1,1) = {"
 q
-"}
-(8,1,1) = {"
+g
 g
 g
 g
 U
-Z
+g
+g
+G"}(8,1,1) = {"
+g
+g
+g
 E
-g
-g
-g
-"}
-(9,1,1) = {"
+Z
 U
 g
 g
-U
-g
-g
-g
-g
-U
-"}
-(10,1,1) = {"
+g"}(9,1,1) = {"
 U
 g
 g
 g
 g
-g
-g
-g
 U
-"}
-(11,1,1) = {"
+g
+g
+U"}(10,1,1) = {"
 U
 g
 g
@@ -243,27 +328,31 @@ g
 g
 g
 g
+U"}(11,1,1) = {"
 U
-"}
-(12,1,1) = {"
-U
-Y
-Y
-D
 g
-m
-e
+g
+g
+g
+g
+g
+g
+U"}(12,1,1) = {"
+U
 o
-U
-"}
-(13,1,1) = {"
-U
-U
-U
-U
-U
-U
+e
+m
+g
+D
+Y
+Y
+U"}(13,1,1) = {"
 U
 U
 U
-"}
+U
+U
+U
+U
+U
+U"}

@@ -3,7 +3,9 @@
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "H" = (
-/obj/effect/holodeck_effect/mobspawner,
+/obj/effect/holodeck_effect/mobspawner{
+	dir = 1
+	},
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 
@@ -17,10 +19,7 @@ a
 a
 a
 a
-a
-"}
-(2,1,1) = {"
-a
+a"}(2,1,1) = {"
 a
 H
 a
@@ -30,23 +29,7 @@ a
 a
 H
 a
-"}
-(3,1,1) = {"
-a
-a
-a
-a
-H
-a
-a
-a
-a
-a
-"}
-(4,1,1) = {"
-a
-a
-H
+a"}(3,1,1) = {"
 a
 a
 a
@@ -54,21 +37,9 @@ a
 a
 H
 a
-"}
-(5,1,1) = {"
 a
 a
-a
-a
-a
-H
-H
-a
-a
-a
-"}
-(6,1,1) = {"
-a
+a"}(4,1,1) = {"
 a
 H
 a
@@ -78,21 +49,17 @@ a
 a
 H
 a
-"}
-(7,1,1) = {"
+a"}(5,1,1) = {"
 a
 a
 a
-a
+H
 H
 a
 a
 a
 a
-a
-"}
-(8,1,1) = {"
-a
+a"}(6,1,1) = {"
 a
 H
 a
@@ -102,8 +69,27 @@ a
 a
 H
 a
-"}
-(9,1,1) = {"
+a"}(7,1,1) = {"
+a
+a
+a
+a
+a
+H
+a
+a
+a
+a"}(8,1,1) = {"
+a
+H
+a
+a
+a
+a
+a
+H
+a
+a"}(9,1,1) = {"
 a
 a
 a
@@ -113,5 +99,4 @@ a
 a
 a
 a
-a
-"}
+a"}

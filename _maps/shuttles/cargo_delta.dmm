@@ -3,59 +3,75 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/supply)
 "b" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "c" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "d" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "e" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "f" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "g" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "h" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "i" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "j" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -68,14 +84,21 @@
 	},
 /obj/machinery/door/poddoor{
 	id = "cargounload";
-	name = "supply dock unloading door"
+	name = "supply dock unloading door";
+	dir = 1
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "l" = (
-/obj/effect/decal/cleanable/oil,
-/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "m" = (
@@ -87,14 +110,19 @@
 "n" = (
 /obj/machinery/door/airlock/shuttle{
 	name = "Supply Shuttle Airlock";
-	req_access_txt = "31"
+	req_access_txt = "31";
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/docking_port/mobile/supply{
 	dir = 4;
-	dwidth = 4
+	dwidth = 7
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "o" = (
@@ -108,13 +136,15 @@
 	id = "cargounload";
 	name = "Loading Doors";
 	pixel_x = -24;
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
 /obj/machinery/button/door{
 	id = "cargoload";
 	name = "Loading Doors";
 	pixel_x = -24;
-	pixel_y = -8
+	pixel_y = 8;
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -136,186 +166,217 @@
 "r" = (
 /obj/machinery/door/airlock/shuttle{
 	name = "Supply Shuttle Airlock";
-	req_access_txt = "31"
+	req_access_txt = "31";
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/fans/tiny,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "s" = (
 /obj/machinery/door/poddoor{
 	id = "cargoload";
-	name = "supply dock loading door"
+	name = "supply dock loading door";
+	dir = 1
 	},
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "cargoload"
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "t" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "u" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "v" = (
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "w" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "x" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "y" = (
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "z" = (
 /obj/structure/window/reinforced{
+	dir = 2
+	},
+/obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
-/obj/structure/shuttle/engine/heater,
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/supply)
 "A" = (
 /obj/structure/window/reinforced{
+	dir = 2
+	},
+/obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
-/obj/structure/shuttle/engine/heater,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/supply)
 "B" = (
 /turf/template_noop,
 /area/template_noop)
 "C" = (
-/obj/structure/shuttle/engine/propulsion/burst/left,
-/obj/effect/turf_decal/stripes/line,
+/obj/structure/shuttle/engine/propulsion/burst/left{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/supply)
 "D" = (
-/obj/structure/shuttle/engine/propulsion,
-/obj/effect/turf_decal/stripes/line,
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/supply)
 "E" = (
-/obj/structure/shuttle/engine/propulsion/burst/right,
-/obj/effect/turf_decal/stripes/line,
+/obj/structure/shuttle/engine/propulsion/burst/right{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/supply)
 
 (1,1,1) = {"
-a
-a
-a
-k
-n
-a
-r
-s
-a
-a
-a
 B
-"}
-(2,1,1) = {"
 a
-b
-g
-g
+a
+a
+s
+r
+a
+n
+k
+a
+a
+a"}(2,1,1) = {"
+C
+a
+a
+t
+o
 o
 p
 o
-o
-t
-a
-a
-C
-"}
-(3,1,1) = {"
-a
-c
+g
+g
+b
+a"}(3,1,1) = {"
+D
+z
+x
+u
+i
+h
+h
 h
 l
 h
-h
+c
+a"}(4,1,1) = {"
+D
+A
+x
+v
 h
 i
-u
-x
-z
-D
-"}
-(4,1,1) = {"
-a
+h
+i
+i
+i
 d
-i
-i
-i
-h
-i
-h
-v
-x
-A
+a"}(5,1,1) = {"
 D
-"}
-(5,1,1) = {"
-a
-e
-i
-h
-h
-h
-h
-h
-v
+A
 y
-A
-D
-"}
-(6,1,1) = {"
-a
-f
-j
-m
-j
-q
-m
-j
-w
-a
-a
+v
+h
+h
+h
+h
+h
+i
+e
+a"}(6,1,1) = {"
 E
-"}
-(7,1,1) = {"
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+w
+j
+m
+q
+j
+m
+j
+f
+a"}(7,1,1) = {"
 B
-"}
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a"}

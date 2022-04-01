@@ -1,6 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/machinery/door/airlock/medical/glass,
+/obj/machinery/door/airlock/medical/glass{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "c" = (
@@ -8,153 +10,197 @@
 /area/ruin/unpowered)
 "f" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "i" = (
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/structure/frame/computer{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "k" = (
-/obj/structure/closet/secure_closet/medical3,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
+/obj/structure/closet/secure_closet/medical3{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "p" = (
-/obj/structure/table/glass,
+/obj/structure/table/glass{
+	dir = 1
+	},
 /obj/machinery/door/window{
 	dir = 8
 	},
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "t" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "v" = (
-/obj/structure/table/glass,
+/obj/structure/table/glass{
+	dir = 1
+	},
 /obj/machinery/door/window{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/ruinloot/medical,
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/lootdrop/ruinloot/medical{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/medical{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "x" = (
-/obj/machinery/vending/wardrobe/medi_wardrobe,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
+/obj/machinery/vending/wardrobe/medi_wardrobe{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "A" = (
-/obj/structure/frame/machine,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
+/obj/structure/frame/machine{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "B" = (
-/obj/machinery/vending/medical,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
+/obj/machinery/vending/medical{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "E" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"J" = (
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"K" = (
-/obj/structure/window/reinforced,
-/obj/structure/closet/secure_closet/medical3,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue,
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"J" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"K" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/closet/secure_closet/medical3{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "L" = (
 /obj/structure/window/reinforced{
-	dir = 1
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "M" = (
-/obj/effect/spawner/structure/window,
+/obj/effect/spawner/structure/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "O" = (
@@ -165,7 +211,7 @@
 /area/ruin/unpowered)
 "P" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /turf/closed/wall,
 /area/ruin/unpowered)
@@ -179,165 +225,160 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "T" = (
-/obj/structure/table/glass,
+/obj/structure/table/glass{
+	dir = 1
+	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/ruinloot/medical,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"W" = (
-/obj/structure/table/glass,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/spawner/lootdrop/ruinloot/medical,
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
-"X" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
+/obj/effect/spawner/lootdrop/ruinloot/medical{
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
+"W" = (
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/ruinloot/medical{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"X" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
 "Y" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
 c
+P
+c
+c
+c
+c
+c
+c
+c
 R
 S
 R
+c"}(2,1,1) = {"
 c
-c
-c
-c
-c
-c
-c
-P
-c
-"}
-(2,1,1) = {"
-c
-R
-R
-J
-c
-x
-B
-i
+L
 W
 v
 W
-L
+i
+B
+x
 c
-"}
-(3,1,1) = {"
-c
+J
 R
 R
-E
-M
-t
-t
-t
-t
-t
-t
-X
+c"}(3,1,1) = {"
 Y
-"}
-(4,1,1) = {"
-c
-R
-R
-E
-a
-t
-R
-R
-R
-R
-R
-J
-c
-"}
-(5,1,1) = {"
-c
-R
-R
-E
-M
-t
-R
-M
-c
-M
-R
-J
-c
-"}
-(6,1,1) = {"
-c
-R
-R
-E
-a
-t
-R
-R
-R
-R
-R
-J
-c
-"}
-(7,1,1) = {"
-c
-R
-R
-E
-M
 X
-J
-J
-J
-J
-J
-J
-c
-"}
-(8,1,1) = {"
-c
+t
+t
+t
+t
+t
+t
+M
+E
 R
 R
-f
+c"}(4,1,1) = {"
 c
-A
-k
-K
+J
+R
+R
+R
+R
+R
+t
+a
+E
+R
+R
+c"}(5,1,1) = {"
+c
+J
+R
+M
+c
+M
+R
+t
+M
+E
+R
+R
+c"}(6,1,1) = {"
+c
+J
+R
+R
+R
+R
+R
+t
+a
+E
+R
+R
+c"}(7,1,1) = {"
+c
+J
+J
+J
+J
+J
+J
+X
+M
+E
+R
+R
+c"}(8,1,1) = {"
+c
+L
 T
 p
 T
-L
+K
+k
+A
 c
-"}
-(9,1,1) = {"
+f
+R
+R
+c"}(9,1,1) = {"
+c
+c
+c
+c
+c
+c
+c
+c
 c
 R
 O
 R
-c
-c
-c
-c
-c
-c
-c
-c
-c
-"}
+c"}

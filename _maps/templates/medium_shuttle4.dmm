@@ -11,7 +11,9 @@
 /turf/closed/indestructible/oldshuttle,
 /area/ruin/powered/shuttle/medium_4)
 "d" = (
-/obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/airlock/public/glass{
+	dir = 1
+	},
 /turf/open/floor/oldshuttle,
 /area/ruin/powered/shuttle/medium_4)
 "e" = (
@@ -32,13 +34,14 @@
 /area/ruin/powered/shuttle/medium_4)
 "i" = (
 /obj/structure/closet{
-	icon_state = "oldcloset"
+	icon_state = "oldcloset";
+	dir = 1
 	},
 /turf/open/floor/oldshuttle,
 /area/ruin/powered/shuttle/medium_4)
 "j" = (
 /obj/structure/shuttle/engine/propulsion/burst{
-	dir = 1
+	dir = 2
 	},
 /turf/open/space,
 /area/ruin/powered/shuttle/medium_4)
@@ -49,355 +52,330 @@
 /area/ruin/powered/shuttle/medium_4)
 "l" = (
 /obj/structure/chair/old{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/oldshuttle,
 /area/ruin/powered/shuttle/medium_4)
 "r" = (
-/obj/machinery/power/generator,
+/obj/machinery/power/generator{
+	dir = 1
+	},
 /turf/open/floor/oldshuttle,
 /area/ruin/powered/shuttle/medium_4)
 "s" = (
-/obj/machinery/power/smes,
+/obj/machinery/power/smes{
+	dir = 1
+	},
 /turf/open/floor/oldshuttle,
 /area/ruin/powered/shuttle/medium_4)
 "t" = (
-/obj/structure/shuttle/engine/propulsion/burst/left,
+/obj/structure/shuttle/engine/propulsion/burst/left{
+	dir = 1
+	},
 /turf/open/space,
 /area/ruin/powered/shuttle/medium_4)
 "u" = (
-/obj/structure/shuttle/engine/propulsion/burst/right,
+/obj/structure/shuttle/engine/propulsion/burst/right{
+	dir = 1
+	},
 /turf/open/space,
 /area/ruin/powered/shuttle/medium_4)
 "v" = (
-/obj/structure/shuttle/engine/propulsion/burst/right,
+/obj/structure/shuttle/engine/propulsion/burst/right{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/shuttle/medium_4)
 "w" = (
-/obj/structure/shuttle/engine/propulsion/burst,
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 1
+	},
 /turf/open/space,
 /area/ruin/powered/shuttle/medium_4)
 
 (1,1,1) = {"
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-c
-k
 t
-a
-"}
-(2,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
+k
+c
 b
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a"}(2,1,1) = {"
+w
+k
+k
+g
+f
 c
 c
-f
-g
-k
-k
-w
-"}
-(3,1,1) = {"
-a
-a
-a
-a
-a
 b
-d
-f
-g
-g
-g
-g
-k
-k
+a
+a
+a
+a
+a
+a
+a"}(3,1,1) = {"
 w
-"}
-(4,1,1) = {"
-a
-a
-a
-a
-j
+k
 k
 g
 g
 g
 g
-b
+f
 d
-k
+b
+a
+a
+a
+a
+a"}(4,1,1) = {"
+a
 u
-a
-"}
-(5,1,1) = {"
-a
-a
-a
-a
-b
-c
-g
-g
-g
-b
-f
-a
-a
-a
-a
-"}
-(6,1,1) = {"
-a
-a
-b
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-h
-a
-"}
-(7,1,1) = {"
-a
-b
-f
-i
-c
-i
-i
-i
-i
-i
-i
-c
-s
-c
-h
-"}
-(8,1,1) = {"
-b
-f
-i
-i
-c
-l
-l
-l
-l
-l
-l
-c
-g
-e
-c
-"}
-(9,1,1) = {"
-c
-g
-g
-g
-g
-l
-l
-l
-l
-l
-b
-c
-g
-g
-c
-"}
-(10,1,1) = {"
+k
 d
-g
-g
-g
-g
-g
-g
-g
-g
-g
-c
-r
-g
-g
-d
-"}
-(11,1,1) = {"
-c
-g
-g
-g
-g
-l
-l
-l
-l
-l
-e
-c
-g
-g
-c
-"}
-(12,1,1) = {"
-e
-h
-i
-i
-c
-l
-l
-l
-l
-l
-l
-c
-g
 b
-c
-"}
-(13,1,1) = {"
-a
-e
-h
-i
-c
-i
-i
-i
-i
-i
-i
-c
-s
-c
-f
-"}
-(14,1,1) = {"
-a
-a
-e
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-f
-a
-"}
-(15,1,1) = {"
-a
-a
-a
-a
-e
-c
 g
 g
 g
-e
-h
-a
-a
-a
-a
-"}
-(16,1,1) = {"
-a
-a
-a
-a
+g
+k
 j
-k
+a
+a
+a
+a"}(5,1,1) = {"
+a
+a
+a
+a
+f
+b
 g
 g
 g
-g
+c
+b
+a
+a
+a
+a"}(6,1,1) = {"
+a
+h
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+b
+a
+a"}(7,1,1) = {"
+h
+c
+s
+c
+i
+i
+i
+i
+i
+i
+c
+i
+f
+b
+a"}(8,1,1) = {"
+c
 e
+g
+c
+l
+l
+l
+l
+l
+l
+c
+i
+i
+f
+b"}(9,1,1) = {"
+c
+g
+g
+c
+b
+l
+l
+l
+l
+l
+g
+g
+g
+g
+c"}(10,1,1) = {"
 d
-k
+g
+g
+r
+c
+g
+g
+g
+g
+g
+g
+g
+g
+g
+d"}(11,1,1) = {"
+c
+g
+g
+c
+e
+l
+l
+l
+l
+l
+g
+g
+g
+g
+c"}(12,1,1) = {"
+c
+b
+g
+c
+l
+l
+l
+l
+l
+l
+c
+i
+i
+h
+e"}(13,1,1) = {"
+f
+c
+s
+c
+i
+i
+i
+i
+i
+i
+c
+i
+h
+e
+a"}(14,1,1) = {"
+a
+f
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+e
+a
+a"}(15,1,1) = {"
+a
+a
+a
+a
+h
+e
+g
+g
+g
+c
+e
+a
+a
+a
+a"}(16,1,1) = {"
+a
 t
-a
-"}
-(17,1,1) = {"
-a
-a
-a
-a
-a
-e
+k
 d
-h
-g
-g
-g
-g
-k
-k
-w
-"}
-(18,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
 e
-c
-c
-h
+g
+g
+g
 g
 k
-k
+j
+a
+a
+a
+a"}(17,1,1) = {"
 w
-"}
-(19,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-e
-c
 k
+k
+g
+g
+g
+g
+h
+d
+e
+a
+a
+a
+a
+a"}(18,1,1) = {"
+w
+k
+k
+g
+h
+c
+c
+e
+a
+a
+a
+a
+a
+a
+a"}(19,1,1) = {"
+a
 v
+k
+c
+e
 a
-"}
+a
+a
+a
+a
+a
+a
+a
+a
+a"}

@@ -12,44 +12,67 @@
 /turf/closed/wall/mineral/bananium,
 /area/ruin/unpowered)
 "e" = (
-/obj/machinery/door/airlock/bananium,
+/obj/machinery/door/airlock/bananium{
+	dir = 1
+	},
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "f" = (
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "g" = (
-/obj/effect/mob_spawn/human/clown,
+/obj/effect/mob_spawn/human/clown{
+	dir = 1
+	},
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "h" = (
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "i" = (
-/obj/structure/closet/crate,
-/obj/item/stack/ore/bananium,
-/obj/item/stack/ore/bananium,
-/obj/item/stack/ore/bananium,
-/obj/item/stack/ore/bananium,
-/obj/item/stack/ore/bananium,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/stack/ore/bananium{
+	dir = 1
+	},
+/obj/item/stack/ore/bananium{
+	dir = 1
+	},
+/obj/item/stack/ore/bananium{
+	dir = 1
+	},
+/obj/item/stack/ore/bananium{
+	dir = 1
+	},
+/obj/item/stack/ore/bananium{
+	dir = 1
+	},
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "j" = (
 /obj/structure/closet/crate{
-	opened = 1
+	opened = 1;
+	dir = 1
 	},
-/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium{
+	dir = 1
+	},
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "k" = (
 /obj/structure/closet/secure_closet{
 	name = "clown locker";
-	req_access_txt = "46"
+	req_access_txt = "46";
+	dir = 1
 	},
-/obj/item/clothing/shoes/clown_shoes/banana_shoes,
+/obj/item/clothing/shoes/clown_shoes/banana_shoes{
+	dir = 1
+	},
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 2;
-	name = "2maintenance loot spawner"
+	name = "2maintenance loot spawner";
+	dir = 1
 	},
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
@@ -78,17 +101,21 @@
 /area/ruin/unpowered)
 "o" = (
 /obj/item/shard{
-	icon_state = "small"
+	icon_state = "small";
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "p" = (
-/obj/item/stack/ore/bananium,
+/obj/item/stack/ore/bananium{
+	dir = 1
+	},
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "q" = (
 /obj/item/shard{
-	icon_state = "medium"
+	icon_state = "medium";
+	dir = 1
 	},
 /obj/structure/chair{
 	dir = 8
@@ -97,20 +124,25 @@
 /area/ruin/unpowered)
 "r" = (
 /obj/effect/mob_spawn/human/clown{
-	name = "Clown Pilot"
+	name = "Clown Pilot";
+	dir = 1
 	},
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "s" = (
-/obj/item/paper/fluff/ruins/crashedclownship/true_nation,
+/obj/item/paper/fluff/ruins/crashedclownship/true_nation{
+	dir = 1
+	},
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "t" = (
 /obj/structure/grille{
-	color = "#FFFF00"
+	color = "#FFFF00";
+	dir = 1
 	},
 /obj/structure/window/reinforced{
-	color = "#FFFF00"
+	color = "#FFFF00";
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	color = "#FFFF00";
@@ -125,7 +157,9 @@
 	},
 /area/ruin/unpowered)
 "u" = (
-/obj/item/shard,
+/obj/item/shard{
+	dir = 1
+	},
 /obj/structure/chair{
 	dir = 8
 	},
@@ -133,58 +167,66 @@
 /area/ruin/unpowered)
 "v" = (
 /obj/item/shard{
-	icon_state = "medium"
+	icon_state = "medium";
+	dir = 1
 	},
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "w" = (
-/obj/item/storage/bag/ore,
+/obj/item/storage/bag/ore{
+	dir = 1
+	},
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "x" = (
-/obj/item/pickaxe,
+/obj/item/pickaxe{
+	dir = 1
+	},
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "y" = (
-/obj/structure/closet/crate,
-/obj/item/stack/ore/bananium,
-/obj/item/stack/ore/bananium,
-/obj/item/stack/ore/bananium,
-/obj/item/stack/ore/bananium,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/stack/ore/bananium{
+	dir = 1
+	},
+/obj/item/stack/ore/bananium{
+	dir = 1
+	},
+/obj/item/stack/ore/bananium{
+	dir = 1
+	},
+/obj/item/stack/ore/bananium{
+	dir = 1
+	},
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "z" = (
-/obj/item/shovel,
+/obj/item/shovel{
+	dir = 1
+	},
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
 a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
 b
 b
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(2,1,1) = {"
-b
-b
-b
-b
-b
-a
-a
+a"}(2,1,1) = {"
 a
 a
 a
@@ -195,8 +237,17 @@ a
 a
 a
 a
-"}
-(3,1,1) = {"
+a
+a
+b
+b
+b
+b
+b"}(3,1,1) = {"
+a
+a
+a
+a
 b
 b
 b
@@ -209,13 +260,11 @@ b
 b
 b
 b
-b
+b"}(4,1,1) = {"
 a
 a
 a
 a
-"}
-(4,1,1) = {"
 a
 b
 b
@@ -228,14 +277,7 @@ b
 b
 b
 b
-a
-a
-a
-a
-a
-"}
-(5,1,1) = {"
-a
+a"}(5,1,1) = {"
 a
 b
 b
@@ -252,8 +294,7 @@ b
 b
 b
 a
-"}
-(6,1,1) = {"
+a"}(6,1,1) = {"
 a
 a
 b
@@ -270,28 +311,44 @@ b
 b
 b
 a
-a
-"}
-(7,1,1) = {"
-a
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
+a"}(7,1,1) = {"
 a
 a
 a
-"}
-(8,1,1) = {"
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+a"}(8,1,1) = {"
+a
+a
+a
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+c"}(9,1,1) = {"
+a
+a
+a
 c
 b
 b
@@ -305,70 +362,42 @@ b
 b
 b
 b
-b
+c"}(10,1,1) = {"
 a
 a
 a
-"}
-(9,1,1) = {"
-c
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-c
-a
-a
-a
-"}
-(10,1,1) = {"
-c
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
 c
 c
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+c"}(11,1,1) = {"
 a
 a
-a
-"}
-(11,1,1) = {"
-c
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
 c
 c
 c
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+c"}(12,1,1) = {"
 a
-a
-"}
-(12,1,1) = {"
-c
 c
 c
 b
@@ -384,31 +413,25 @@ b
 b
 c
 c
-a
-"}
-(13,1,1) = {"
-c
-c
-c
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-a
-"}
-(14,1,1) = {"
+c"}(13,1,1) = {"
 a
 b
 b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+c
+c
+c"}(14,1,1) = {"
+a
 b
 c
 b
@@ -422,10 +445,17 @@ b
 b
 c
 b
-a
-"}
-(15,1,1) = {"
-a
+b
+b
+a"}(15,1,1) = {"
+b
+b
+b
+b
+b
+b
+b
+b
 b
 b
 b
@@ -434,6 +464,7 @@ c
 b
 b
 b
+a"}(16,1,1) = {"
 b
 b
 b
@@ -441,108 +472,90 @@ b
 b
 b
 b
-b
-"}
-(16,1,1) = {"
-a
-b
-a
-a
-a
 d
-n
-n
 t
-d
-b
-b
-b
-b
-b
-b
-b
-"}
-(17,1,1) = {"
-a
-a
-a
-a
-a
-d
 n
 n
-h
 d
+a
+a
+a
 b
-b
+a"}(17,1,1) = {"
 b
 b
 c
 b
 b
-"}
-(18,1,1) = {"
-a
-a
-a
-a
+b
+b
 d
-d
+h
 n
-q
+n
+d
+a
+a
+a
+a
+a"}(18,1,1) = {"
+b
+b
+c
+b
+b
+b
+d
+d
 u
+q
+n
 d
 d
-b
-b
-b
+a
+a
+a
+a"}(19,1,1) = {"
+c
+c
 c
 b
 b
-"}
-(19,1,1) = {"
-a
-a
-a
-a
+b
 d
-f
-o
-r
-h
 w
-d
-b
-b
-b
-c
-c
-c
-"}
-(20,1,1) = {"
-a
-a
-a
-a
-d
-g
 h
-h
-v
+r
+o
+f
+d
+a
+a
+a
+a"}(20,1,1) = {"
+a
+a
+a
+b
+b
+b
+d
 x
+v
+h
+h
+g
 d
+a
+a
+a
+a"}(21,1,1) = {"
+a
+a
+a
+a
 b
 b
-b
-a
-a
-a
-"}
-(21,1,1) = {"
-a
-a
-a
-a
 e
 h
 h
@@ -550,109 +563,97 @@ s
 h
 h
 e
+a
+a
+a
+a"}(22,1,1) = {"
+a
+a
+a
+a
 b
 b
-a
-a
-a
-a
-"}
-(22,1,1) = {"
-a
-a
-a
-a
 e
 h
-h
-p
 g
+p
+h
 h
 e
+a
+a
+a
+a"}(23,1,1) = {"
+a
+a
+a
+a
+a
 b
-b
-a
-a
-a
-a
-"}
-(23,1,1) = {"
-a
-a
-a
-a
 d
-i
-h
-h
-h
 y
-d
-b
-a
-a
-a
-a
-a
-"}
-(24,1,1) = {"
-a
-a
-a
-a
-d
+h
+h
+h
 i
+d
+a
+a
+a
+a"}(24,1,1) = {"
+a
+a
+a
+a
+a
+b
+d
+y
 h
 p
 h
-y
+i
 d
+a
+a
+a
+a"}(25,1,1) = {"
+a
+a
+a
+a
+a
 b
-a
-a
-a
-a
-a
-"}
-(25,1,1) = {"
-a
-a
-a
-a
 d
+i
+h
+h
+p
 j
-p
-h
-h
-i
 d
-b
 a
 a
 a
+a"}(26,1,1) = {"
 a
 a
-"}
-(26,1,1) = {"
 a
 a
 a
 a
 d
-k
-h
-p
-p
 z
+p
+p
+h
+k
 d
 a
 a
 a
+a"}(27,1,1) = {"
 a
 a
-a
-"}
-(27,1,1) = {"
 a
 a
 a
@@ -667,11 +668,9 @@ d
 a
 a
 a
+a"}(28,1,1) = {"
 a
 a
-a
-"}
-(28,1,1) = {"
 a
 a
 a
@@ -686,7 +685,4 @@ a
 a
 a
 a
-a
-a
-a
-"}
+a"}

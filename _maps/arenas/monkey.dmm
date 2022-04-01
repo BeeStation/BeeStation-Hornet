@@ -3,203 +3,204 @@
 /turf/open/floor/grass,
 /area/tdome/arena)
 "b" = (
-/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/fullgrass{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/tdome/arena)
 "c" = (
-/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/sunnybush{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/tdome/arena)
 "d" = (
-/obj/structure/flora/rock/jungle,
+/obj/structure/flora/rock/jungle{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/tdome/arena)
 "e" = (
-/obj/structure/flora/ausbushes/fernybush,
+/obj/structure/flora/ausbushes/fernybush{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/tdome/arena)
 "f" = (
-/obj/structure/flora/tree/jungle/small,
-/obj/structure/spacevine,
+/obj/structure/flora/tree/jungle/small{
+	dir = 1
+	},
+/obj/structure/spacevine{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/tdome/arena)
 "g" = (
-/obj/structure/flora/ausbushes/sunnybush,
-/obj/structure/spacevine,
+/obj/structure/flora/ausbushes/sunnybush{
+	dir = 1
+	},
+/obj/structure/spacevine{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/tdome/arena)
 "h" = (
-/obj/structure/spacevine,
+/obj/structure/spacevine{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/tdome/arena)
 "i" = (
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/spacevine,
+/obj/structure/flora/ausbushes/fullgrass{
+	dir = 1
+	},
+/obj/structure/spacevine{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/tdome/arena)
 "k" = (
-/obj/structure/flora/ausbushes/fernybush,
-/obj/structure/spacevine,
+/obj/structure/flora/ausbushes/fernybush{
+	dir = 1
+	},
+/obj/structure/spacevine{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/tdome/arena)
 "l" = (
-/obj/structure/flora/ausbushes/fernybush,
+/obj/structure/flora/ausbushes/fernybush{
+	dir = 1
+	},
 /mob/living/carbon/monkey,
 /turf/open/floor/grass,
 /area/tdome/arena)
 "m" = (
-/obj/structure/flora/rock/jungle,
+/obj/structure/flora/rock/jungle{
+	dir = 1
+	},
 /mob/living/carbon/monkey,
 /turf/open/floor/grass,
 /area/tdome/arena)
 
 (1,1,1) = {"
 a
-a
-d
-a
-a
-a
 b
 a
-"}
-(2,1,1) = {"
+a
+a
 d
 a
-a
-a
-e
-a
-a
+a"}(2,1,1) = {"
 c
-"}
-(3,1,1) = {"
+a
+a
 e
 a
 a
 a
+d"}(3,1,1) = {"
 a
 a
 a
 a
-"}
-(4,1,1) = {"
 a
 a
-f
-i
-h
-f
-e
+a
+e"}(4,1,1) = {"
 l
-"}
-(5,1,1) = {"
-a
-b
-g
 e
-a
-h
-a
-a
-"}
-(6,1,1) = {"
-a
-a
-h
-h
-a
-a
-d
-a
-"}
-(7,1,1) = {"
-a
-a
-a
-b
+f
 h
 i
+f
+a
+a"}(5,1,1) = {"
+a
+a
+h
 a
 e
-"}
-(8,1,1) = {"
-a
-a
+g
+b
+a"}(6,1,1) = {"
 a
 d
 a
+a
+h
+h
+a
+a"}(7,1,1) = {"
+e
+a
+i
 h
 b
 a
-"}
-(9,1,1) = {"
 a
+a"}(8,1,1) = {"
+a
+b
+h
+a
+d
+a
+a
+a"}(9,1,1) = {"
+a
+a
+g
+h
+a
+h
 c
-h
-a
-h
-g
-a
-a
-"}
-(10,1,1) = {"
-a
-a
-g
-i
+a"}(10,1,1) = {"
+m
 a
 k
 a
-m
-"}
-(11,1,1) = {"
+i
+g
 a
+a"}(11,1,1) = {"
+a
+a
+h
+a
+a
+h
 b
-h
-a
-a
-h
-a
-a
-"}
-(12,1,1) = {"
-a
+a"}(12,1,1) = {"
+b
 a
 f
 h
 h
 f
 a
-b
-"}
-(13,1,1) = {"
-a
-a
-a
+a"}(13,1,1) = {"
 e
 a
 a
 a
 e
-"}
-(14,1,1) = {"
 a
-d
 a
+a"}(14,1,1) = {"
 a
 a
 d
 a
 a
-"}
-(15,1,1) = {"
+a
+d
+a"}(15,1,1) = {"
+d
+a
 b
 a
 a
 a
 a
-b
-a
-d
-"}
+b"}

@@ -9,27 +9,35 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "l" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/sign/warning/vacuum/external,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/sign/warning/vacuum/external{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "o" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "t" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "u" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -38,20 +46,22 @@
 /area/ruin/unpowered)
 "C" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "D" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "H" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -65,9 +75,11 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "O" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/machinery/door/airlock/external{
 	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -75,22 +87,30 @@
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "S" = (
-/obj/effect/abstract/doorway_marker,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"W" = (
-/obj/effect/abstract/open_area_marker,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"X" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/abstract/doorway_marker{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"W" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"X" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "Y" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/machinery/door/airlock/external{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Z" = (
@@ -99,44 +119,23 @@
 
 (1,1,1) = {"
 I
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
 e
 J
 e
 I
-"}
-(2,1,1) = {"
-R
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
 I
-"}
-(3,1,1) = {"
-R
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I"}(2,1,1) = {"
+I
 e
 e
 e
@@ -152,123 +151,130 @@ e
 e
 e
 e
+R"}(3,1,1) = {"
 S
-"}
-(4,1,1) = {"
-R
-R
-o
-o
-o
-o
-o
-o
-o
-o
-o
-R
-R
-D
 e
 e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+R"}(4,1,1) = {"
 I
-"}
-(5,1,1) = {"
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
+e
+e
+D
+R
+R
 o
+o
+o
+o
+o
+o
+o
+o
+o
+R
+R"}(5,1,1) = {"
+I
+e
+D
 t
-D
-e
+o
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z"}(6,1,1) = {"
 I
-"}
-(6,1,1) = {"
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-o
-o
-o
+e
 X
-e
+o
+o
+o
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z"}(7,1,1) = {"
 I
-"}
-(7,1,1) = {"
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Y
-v
-O
+e
 u
-e
+O
+v
+Y
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z"}(8,1,1) = {"
 I
-"}
-(8,1,1) = {"
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-l
-o
-o
+e
 X
-e
-I
-"}
-(9,1,1) = {"
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
-Z
 o
+o
+l
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z"}(9,1,1) = {"
+I
+e
+C
 H
+o
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z
+Z"}(10,1,1) = {"
+e
+e
+e
 C
-e
-I
-"}
-(10,1,1) = {"
 R
 R
 o
@@ -281,33 +287,24 @@ o
 o
 o
 R
-R
-C
-e
-e
-e
-"}
-(11,1,1) = {"
-R
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
-e
+R"}(11,1,1) = {"
 W
-"}
-(12,1,1) = {"
-R
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+R"}(12,1,1) = {"
 e
 e
 e
@@ -324,23 +321,21 @@ e
 e
 e
 e
-"}
-(13,1,1) = {"
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
-I
+R"}(13,1,1) = {"
 I
 e
 j
 e
 I
-"}
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I"}

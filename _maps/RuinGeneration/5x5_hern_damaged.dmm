@@ -6,7 +6,9 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "k" = (
-/obj/structure/closet/firecloset,
+/obj/structure/closet/firecloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "s" = (
@@ -19,23 +21,29 @@
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "A" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "D" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "S" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
 "V" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/twohanded/required/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "W" = (
 /obj/effect/abstract/doorway_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -45,33 +53,24 @@ S
 S
 S
 S
+S"}(2,1,1) = {"
 S
-"}
-(2,1,1) = {"
-S
-k
-V
 D
+V
+k
+S"}(3,1,1) = {"
 S
-"}
-(3,1,1) = {"
-W
 A
 y
 A
-S
-"}
-(4,1,1) = {"
+W"}(4,1,1) = {"
 S
 u
 A
 u
-S
-"}
-(5,1,1) = {"
+S"}(5,1,1) = {"
 S
 s
 d
 s
-S
-"}
+S"}

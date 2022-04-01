@@ -1,28 +1,40 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/flora/ausbushes/sunnybush{
+	dir = 1
+	},
 /mob/living/carbon/monkey,
 /turf/open/floor/grass,
 /area/template_noop)
 "b" = (
-/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/sparsegrass{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/template_noop)
 "c" = (
-/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/ywflowers{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/template_noop)
 "d" = (
-/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/ppflowers{
+	dir = 1
+	},
 /mob/living/carbon/monkey,
 /turf/open/floor/grass,
 /area/template_noop)
 "e" = (
-/obj/structure/flora/junglebush/large,
+/obj/structure/flora/junglebush/large{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/template_noop)
 "f" = (
-/obj/structure/flora/grass/jungle,
+/obj/structure/flora/grass/jungle{
+	dir = 1
+	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -32,51 +44,56 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "g" = (
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana{
+	dir = 1
+	},
 /turf/open/floor/grass,
 /area/template_noop)
 "h" = (
-/obj/structure/sink/puddle,
+/obj/structure/sink/puddle{
+	dir = 1
+	},
 /obj/structure/flora/ausbushes/reedbush{
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /turf/open/floor/grass,
 /area/template_noop)
 "i" = (
-/obj/structure/flora/junglebush/b,
+/obj/structure/flora/junglebush/b{
+	dir = 1
+	},
 /mob/living/carbon/monkey,
 /turf/open/floor/grass,
 /area/template_noop)
 "j" = (
-/obj/structure/flora/grass/jungle,
+/obj/structure/flora/grass/jungle{
+	dir = 1
+	},
 /mob/living/carbon/monkey,
 /turf/open/floor/grass,
 /area/template_noop)
 "k" = (
 /obj/item/toy/beach_ball{
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
 /turf/open/floor/grass,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-d
+h
+c
 g
-c
-h
-"}
-(2,1,1) = {"
-b
-e
-h
+d
+a"}(2,1,1) = {"
+i
 j
-i
-"}
-(3,1,1) = {"
+h
+e
+b"}(3,1,1) = {"
 c
-f
-i
 k
-c
-"}
+i
+f
+c"}

@@ -1,46 +1,86 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/closet/crate,
-/obj/item/stock_parts/matter_bin,
-/obj/item/stock_parts/matter_bin,
-/obj/item/stock_parts/matter_bin,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stock_parts/matter_bin/super,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/stock_parts/matter_bin{
+	dir = 1
+	},
+/obj/item/stock_parts/matter_bin{
+	dir = 1
+	},
+/obj/item/stock_parts/matter_bin{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/stock_parts/matter_bin/super{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/structure/closet/crate,
-/obj/item/stock_parts/micro_laser,
-/obj/item/stock_parts/micro_laser,
-/obj/item/stock_parts/micro_laser,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/stock_parts/micro_laser{
+	dir = 1
+	},
+/obj/item/stock_parts/micro_laser{
+	dir = 1
+	},
+/obj/item/stock_parts/micro_laser{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/structure/table,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/manipulator,
-/obj/machinery/light/broken{
-	icon_state = "tube-broken";
+/obj/structure/table{
 	dir = 1
 	},
-/obj/item/stock_parts/cell/hyper,
+/obj/item/stock_parts/manipulator{
+	dir = 1
+	},
+/obj/item/stock_parts/manipulator{
+	dir = 1
+	},
+/obj/item/stock_parts/manipulator{
+	dir = 1
+	},
+/obj/machinery/light/broken{
+	icon_state = "tube-broken";
+	dir = 2
+	},
+/obj/item/stock_parts/cell/hyper{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "e" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
@@ -49,57 +89,80 @@
 	},
 /area/template_noop)
 "h" = (
-/obj/structure/rack,
-/obj/item/stack/sheet/iron/ten,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/stack/sheet/iron/ten{
+	dir = 1
+	},
 /obj/item/stack/cable_coil/random/five,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/structure/frame,
-/obj/machinery/light/built,
-/obj/effect/decal/cleanable/oil,
+/obj/structure/frame{
+	dir = 1
+	},
+/obj/machinery/light/built{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/structure/closet,
-/obj/item/stock_parts/capacitor,
-/obj/item/stock_parts/capacitor,
-/obj/item/stock_parts/capacitor,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/item/stock_parts/capacitor{
+	dir = 1
+	},
+/obj/item/stock_parts/capacitor{
+	dir = 1
+	},
+/obj/item/stock_parts/capacitor{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
-/obj/structure/closet,
-/obj/item/stock_parts/scanning_module,
-/obj/item/stock_parts/scanning_module,
-/obj/item/stock_parts/scanning_module,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stock_parts/scanning_module/phasic,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/item/stock_parts/scanning_module{
+	dir = 1
+	},
+/obj/item/stock_parts/scanning_module{
+	dir = 1
+	},
+/obj/item/stock_parts/scanning_module{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/stock_parts/scanning_module/phasic{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-f
 h
-"}
-(2,1,1) = {"
-b
-g
+f
+a"}(2,1,1) = {"
 i
-"}
-(3,1,1) = {"
-c
+g
+b"}(3,1,1) = {"
 f
 f
-"}
-(4,1,1) = {"
-d
-f
+c"}(4,1,1) = {"
 j
-"}
-(5,1,1) = {"
-e
 f
+d"}(5,1,1) = {"
 k
-"}
+f
+e"}

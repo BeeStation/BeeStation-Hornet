@@ -7,74 +7,92 @@
 /area/shuttle/escape)
 "ad" = (
 /obj/effect/turf_decal/tile/green{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/green{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "ae" = (
 /obj/effect/turf_decal/tile/green{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/green{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "af" = (
-/obj/machinery/power/emitter/energycannon/magical,
-/obj/effect/turf_decal/tile/green{
+/obj/machinery/power/emitter/energycannon/magical{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/green{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "ag" = (
-/obj/structure/table/abductor/wabbajack/left,
-/obj/effect/turf_decal/tile/green{
+/obj/structure/table/abductor/wabbajack/left{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/green{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "ah" = (
-/obj/structure/table/abductor/wabbajack/right,
-/obj/effect/turf_decal/tile/green{
+/obj/structure/table/abductor/wabbajack/right{
 	dir = 1
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "ai" = (
-/obj/structure/sign/warning/biohazard,
+/obj/structure/sign/warning/biohazard{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "ak" = (
@@ -93,12 +111,18 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "an" = (
-/obj/structure/table/wood,
-/obj/item/candle/infinite,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/candle/infinite{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "ao" = (
-/obj/structure/barricade/wooden,
+/obj/structure/barricade/wooden{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "ap" = (
@@ -108,29 +132,40 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "ar" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/fire,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/firstaid/fire{
+	dir = 1
+	},
 /obj/item/storage/firstaid/regular{
 	pixel_x = 2;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
-/obj/item/crowbar,
+/obj/item/crowbar{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "as" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "at" = (
 /obj/machinery/flasher{
 	id = "shuttle_flasher";
 	pixel_x = -24;
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
 /obj/machinery/button/flasher{
 	id = "shuttle_flasher";
 	pixel_x = -24;
-	pixel_y = -6
+	pixel_y = 6;
+	dir = 1
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -138,11 +173,15 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "au" = (
-/obj/structure/chair/wood,
+/obj/structure/chair/wood{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "av" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aw" = (
@@ -152,23 +191,32 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "ay" = (
-/obj/structure/table,
-/obj/item/paper_bin,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/paper_bin{
+	dir = 1
+	},
 /obj/item/pen{
 	pixel_x = -2;
-	pixel_y = 4
+	pixel_y = -4;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "az" = (
 /obj/machinery/computer/emergency_shuttle{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aA" = (
-/obj/structure/table,
-/obj/item/coin/mythril,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/coin/mythril{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aF" = (
@@ -177,18 +225,26 @@
 /area/shuttle/escape)
 "aG" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 27
+	pixel_x = 27;
+	dir = 1
 	},
-/obj/structure/table/glass,
+/obj/structure/table/glass{
+	dir = 1
+	},
 /obj/item/storage/box/syringes{
 	pixel_x = 3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
-/obj/item/storage/box/beakers,
+/obj/item/storage/box/beakers{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "aH" = (
-/obj/machinery/status_display/evac,
+/obj/machinery/status_display/evac{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "aI" = (
@@ -207,28 +263,41 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aK" = (
-/obj/machinery/stasis,
+/obj/machinery/stasis{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "aL" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aM" = (
-/obj/machinery/chem_dispenser,
+/obj/machinery/chem_dispenser{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "aN" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	dir = 1
+	},
 /obj/item/storage/firstaid/regular{
 	pixel_x = -1;
-	pixel_y = 1
+	pixel_y = -1;
+	dir = 1
 	},
-/obj/item/wrench/medical,
+/obj/item/wrench/medical{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "aO" = (
@@ -241,11 +310,15 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aQ" = (
-/obj/machinery/chem_heater,
+/obj/machinery/chem_heater{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "aR" = (
-/obj/machinery/chem_master,
+/obj/machinery/chem_master{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "aS" = (
@@ -253,92 +326,108 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aT" = (
-/obj/structure/table/glass,
+/obj/structure/table/glass{
+	dir = 1
+	},
 /obj/item/reagent_containers/glass/bottle/epinephrine{
 	pixel_x = 2;
-	pixel_y = 2
+	pixel_y = -2;
+	dir = 1
 	},
-/obj/item/reagent_containers/glass/bottle/charcoal,
+/obj/item/reagent_containers/glass/bottle/charcoal{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "aW" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/yellow{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "aX" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
 /obj/effect/turf_decal/tile/yellow{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "aY" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
 /obj/effect/turf_decal/tile/red{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "aZ" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/red{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "ba" = (
 /obj/structure/destructible/cult/forge{
 	desc = "An engine used in powering the shuttle.";
-	name = "magma engine"
-	},
-/obj/effect/turf_decal/tile/yellow{
+	name = "magma engine";
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
@@ -347,14 +436,16 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
@@ -363,71 +454,86 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "bd" = (
 /obj/structure/destructible/cult/forge{
 	desc = "An engine used in powering the shuttle.";
-	name = "magma engine"
-	},
-/obj/effect/turf_decal/tile/red{
+	name = "magma engine";
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "be" = (
 /obj/structure/window/reinforced{
-	dir = 1;
+	dir = 2;
 	resistance_flags = 33
 	},
 /turf/open/lava/smooth/airless,
 /area/shuttle/escape)
 "bf" = (
-/obj/structure/shuttle/engine/heater,
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
 /turf/open/lava/smooth/airless,
 /area/shuttle/escape)
 "bg" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "bi" = (
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/green{
+/obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/green{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "bj" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bk" = (
-/obj/structure/chair/wood,
+/obj/structure/chair/wood{
+	dir = 1
+	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -435,7 +541,7 @@
 /area/shuttle/escape)
 "bl" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
@@ -449,7 +555,9 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "bn" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "bo" = (
@@ -471,20 +579,33 @@
 "bK" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Brig";
-	req_access_txt = "2"
+	req_access_txt = "2";
+	dir = 1
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "el" = (
-/obj/machinery/door/airlock/titanium,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/titanium{
+	dir = 1
+	},
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "ft" = (
-/obj/structure/grille,
-/obj/structure/window/shuttle/tinted,
-/obj/machinery/door/firedoor/window,
+/obj/structure/grille{
+	dir = 1
+	},
+/obj/structure/window/shuttle/tinted{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ji" = (
@@ -495,23 +616,35 @@
 /area/shuttle/escape)
 "oh" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
+	name = "Emergency Shuttle Airlock";
+	dir = 1
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "uR" = (
-/obj/structure/barricade/wooden,
-/obj/machinery/door/airlock/titanium,
-/obj/machinery/door/firedoor,
+/obj/structure/barricade/wooden{
+	dir = 1
+	},
+/obj/machinery/door/airlock/titanium{
+	dir = 1
+	},
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "AO" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
+	req_access_txt = "2";
+	dir = 1
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Ec" = (
@@ -525,134 +658,139 @@
 /area/shuttle/escape)
 "JM" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
+	name = "Emergency Shuttle Airlock";
+	dir = 1
 	},
 /obj/docking_port/mobile/emergency{
-	name = "NT Lepton Violet"
+	name = "NT Lepton Violet";
+	dir = 4
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "MK" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "Re" = (
-/obj/machinery/door/airlock/public/glass,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/public/glass{
+	dir = 1
+	},
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "RB" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 
 (1,1,1) = {"
 aa
-aa
-aa
-aa
 ab
 ab
 ab
-AO
+oh
+ab
+oh
+ab
+RB
+RB
+RB
 ab
 JM
 ab
-RB
-RB
-RB
-ab
-oh
-ab
-oh
+AO
 ab
 ab
 ab
 aa
-"}
-(2,1,1) = {"
 aa
+aa
+aa"}(2,1,1) = {"
 ab
 ab
-ab
-ab
-ak
-at
-al
-as
-aq
-bm
-aI
-aI
-aq
-ab
-aq
-bo
-aW
+be
 ba
-be
-ab
-ab
-"}
-(3,1,1) = {"
-ab
-ab
-ag
-ae
-ab
-bj
-al
-al
-bK
-aq
-aq
-aq
-aq
+aW
+bo
 aq
 ab
 aq
+aI
+aI
+bm
 aq
-aX
-bb
-be
-bf
-bg
-"}
-(4,1,1) = {"
-ft
-ad
-ae
-ad
-ab
-am
-am
-am
 as
+al
+at
+ak
+ab
+ab
+ab
+ab
+aa"}(3,1,1) = {"
+bg
+bf
+be
+bb
+aX
 aq
-aJ
-aJ
-aJ
+aq
+ab
+aq
+aq
+aq
+aq
+aq
+bK
+al
+al
+bj
+ab
+ae
+ag
+ab
+ab"}(4,1,1) = {"
+bg
+bf
+be
+aq
+aq
+aq
 aq
 Re
 aq
+aJ
+aJ
+aJ
 aq
-aq
-aq
-be
-bf
-bg
-"}
-(5,1,1) = {"
-ft
-ae
+as
+am
+am
+am
+ab
 ad
 ae
-ab
-ab
-ab
-ab
+ad
+ft"}(5,1,1) = {"
+bg
+bf
+be
+ji
+ji
+ji
+ji
 ab
 aq
 aK
@@ -660,155 +798,143 @@ aN
 aK
 aq
 ab
-ji
-ji
-ji
-ji
-be
-bf
-bg
-"}
-(6,1,1) = {"
-ft
-af
-ad
-bi
-ai
-an
-bk
-ay
 ab
-bl
-aq
-aq
-aq
-bn
+ab
+ab
+ab
+ae
+ad
+ae
+ft"}(6,1,1) = {"
+bg
+bf
+be
+ab
+ab
+ab
+ab
 aH
+bn
+aq
+aq
+aq
+bl
 ab
-ab
-ab
-ab
-be
-bf
-bg
-"}
-(7,1,1) = {"
-ft
-ae
+ay
+bk
+an
+ai
+bi
 ad
-ae
-uR
-ao
-au
-az
-ab
-aF
+af
+ft"}(7,1,1) = {"
+bg
+bf
+be
+aI
+aI
+aI
+aI
+as
+aS
 Ec
 aq
 Ec
-aS
-as
-aI
-aI
-aI
-aI
-be
-bf
-bg
-"}
-(8,1,1) = {"
-ft
-ad
+aF
+ab
+az
+au
+ao
+uR
 ae
 ad
-ai
-ap
-av
-aA
-ab
+ae
+ft"}(8,1,1) = {"
+bg
+bf
+be
+aq
+aq
+aq
+aq
+Re
 aq
 aL
 aO
 aL
 aq
-Re
-aq
-aq
-aq
-aq
-be
-bf
-bg
-"}
-(9,1,1) = {"
 ab
-ab
-ah
+aA
+av
+ap
+ai
+ad
 ae
-aH
+ad
+ft"}(9,1,1) = {"
+bg
+bf
+be
+bc
+aY
 aq
-aq
-aq
-el
+MK
+as
 aq
 aq
 aP
 aq
 aq
-as
-MK
+el
 aq
-aY
-bc
+aq
+aq
+aH
+ae
+ah
+ab
+ab"}(10,1,1) = {"
+ab
+ab
 be
-bf
-bg
-"}
-(10,1,1) = {"
-aa
-ab
-ab
-ab
-ab
-ar
-aw
-aw
-ab
-aG
-aM
-aQ
-aR
-aT
-as
-MK
-bp
-aZ
 bd
-be
+aZ
+bp
+MK
+as
+aT
+aR
+aQ
+aM
+aG
+ab
+aw
+aw
+ar
 ab
 ab
-"}
-(11,1,1) = {"
+ab
+ab
+aa"}(11,1,1) = {"
+aa
+ab
+ab
+ab
+RB
+ab
+ab
+ab
+RB
+RB
+RB
+ab
+ab
+ab
+RB
+ab
+RB
+ab
 aa
 aa
 aa
-aa
-ab
-RB
-ab
-RB
-ab
-ab
-ab
-RB
-RB
-RB
-ab
-ab
-ab
-RB
-ab
-ab
-ab
-aa
-"}
+aa"}

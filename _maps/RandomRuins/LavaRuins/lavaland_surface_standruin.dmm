@@ -12,9 +12,11 @@
 /turf/closed/indestructible/riveted/boss,
 /area/ruin/unpowered/standruin)
 "ae" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block{
 	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 2
 	},
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -26,9 +28,11 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "af" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile{
+/obj/structure/stone_tile/block{
 	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 2
 	},
 /obj/structure/stone_tile/burnt{
 	dir = 4
@@ -36,14 +40,18 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "ag" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile/burnt{
+/obj/structure/stone_tile/block{
 	dir = 1
+	},
+/obj/structure/stone_tile/burnt{
+	dir = 2
 	},
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
-/obj/structure/flora/ash/stem_shroom,
+/obj/structure/flora/ash/stem_shroom{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "ah" = (
@@ -59,54 +67,74 @@
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
-/obj/structure/glowshroom/single,
 /obj/structure/glowshroom/single{
-	icon_state = "glowshroom3"
+	dir = 1
+	},
+/obj/structure/glowshroom/single{
+	icon_state = "glowshroom3";
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "aj" = (
-/obj/structure/stone_tile/slab/cracked,
+/obj/structure/stone_tile/slab/cracked{
+	dir = 1
+	},
 /obj/structure/glowshroom/single{
-	icon_state = "glowshroom3"
+	icon_state = "glowshroom3";
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "ak" = (
-/obj/structure/stone_tile/slab/cracked,
+/obj/structure/stone_tile/slab/cracked{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "al" = (
-/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
 /obj/structure/stone_tile{
 	dir = 8
 	},
 /obj/structure/stone_tile/block{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "am" = (
-/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
 /obj/structure/stone_tile/burnt{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "an" = (
-/obj/structure/stone_tile,
-/obj/structure/flora/ash/stem_shroom,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/flora/ash/stem_shroom{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "ao" = (
-/obj/structure/stone_tile/center/burnt,
+/obj/structure/stone_tile/center/burnt{
+	dir = 1
+	},
 /turf/open/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "ap" = (
-/obj/structure/stone_tile/slab/cracked,
+/obj/structure/stone_tile/slab/cracked{
+	dir = 1
+	},
 /obj/structure/glowshroom/single{
 	icon_state = "glowshroom1";
 	dir = 4
@@ -114,17 +142,23 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "aq" = (
-/obj/structure/stone_tile/slab,
+/obj/structure/stone_tile/slab{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "ar" = (
-/obj/structure/stone_tile/surrounding,
-/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding{
+	dir = 1
+	},
+/obj/structure/stone_tile/center{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "as" = (
 /obj/structure/stone_tile/burnt{
-	dir = 1
+	dir = 2
 	},
 /obj/structure/stone_tile/block/burnt{
 	dir = 8
@@ -132,9 +166,15 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "at" = (
-/obj/structure/stone_tile,
-/obj/effect/decal/remains/xeno,
-/obj/item/clothing/under/costume/gladiator/ash_walker,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/effect/decal/remains/xeno{
+	dir = 4
+	},
+/obj/item/clothing/under/costume/gladiator/ash_walker{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "au" = (
@@ -144,7 +184,9 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "av" = (
-/obj/structure/stone_tile/slab,
+/obj/structure/stone_tile/slab{
+	dir = 1
+	},
 /turf/open/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "aw" = (
@@ -154,26 +196,38 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "ax" = (
-/obj/effect/decal/remains/human,
-/obj/item/clothing/under/rank/cargo/miner/lavaland,
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
+/obj/item/clothing/under/rank/cargo/miner/lavaland{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "ay" = (
-/obj/structure/stone_tile/slab/burnt,
-/obj/structure/stone_tile/center,
-/obj/item/candle/infinite,
+/obj/structure/stone_tile/slab/burnt{
+	dir = 1
+	},
+/obj/structure/stone_tile/center{
+	dir = 1
+	},
+/obj/item/candle/infinite{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "az" = (
 /obj/structure/stone_tile/block{
-	dir = 1
+	dir = 2
 	},
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "aA" = (
-/obj/structure/stone_tile,
-/obj/structure/stone_tile/cracked{
+/obj/structure/stone_tile{
 	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 2
 	},
 /obj/structure/stone_tile/burnt{
 	dir = 4
@@ -181,17 +235,27 @@
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "aB" = (
-/obj/structure/stone_tile/slab/burnt,
+/obj/structure/stone_tile/slab/burnt{
+	dir = 1
+	},
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "aC" = (
-/obj/structure/stone_tile/slab/burnt,
-/obj/structure/stone_tile/center/burnt,
-/obj/item/candle/infinite,
+/obj/structure/stone_tile/slab/burnt{
+	dir = 1
+	},
+/obj/structure/stone_tile/center/burnt{
+	dir = 1
+	},
+/obj/item/candle/infinite{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "aD" = (
-/obj/structure/stone_tile/slab/burnt,
+/obj/structure/stone_tile/slab/burnt{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "aE" = (
@@ -199,7 +263,7 @@
 	dir = 4
 	},
 /obj/structure/stone_tile/block/cracked{
-	dir = 9
+	dir = 10
 	},
 /obj/structure/stone_tile{
 	dir = 8
@@ -207,55 +271,77 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "aF" = (
-/obj/structure/stone_tile/block/cracked,
-/obj/structure/flora/ash/stem_shroom,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/flora/ash/stem_shroom{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "aG" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile/block/cracked{
+/obj/structure/stone_tile/block{
 	dir = 1
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 2
 	},
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "aH" = (
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/center{
+	dir = 1
+	},
 /obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 8
 	},
 /obj/structure/stone_tile/surrounding_tile/burnt{
-	dir = 1
+	dir = 2
 	},
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "aI" = (
-/obj/structure/stone_tile/block/cracked,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "aJ" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
-/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/center{
+	dir = 1
+	},
 /obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 4
 	},
-/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "aK" = (
-/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/surrounding{
+	dir = 1
+	},
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "aL" = (
-/obj/effect/decal/remains/xeno,
-/obj/item/borg/sight/meson,
+/obj/effect/decal/remains/xeno{
+	dir = 4
+	},
+/obj/item/borg/sight/meson{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "aM" = (
 /obj/structure/stone_tile/block{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
@@ -263,7 +349,9 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
 /turf/open/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "aO" = (
@@ -271,7 +359,7 @@
 	dir = 4
 	},
 /obj/structure/stone_tile/block/cracked{
-	dir = 10
+	dir = 9
 	},
 /obj/structure/stone_tile{
 	dir = 4
@@ -282,9 +370,11 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile/block/burnt{
+/obj/structure/stone_tile{
 	dir = 1
+	},
+/obj/structure/stone_tile/block/burnt{
+	dir = 2
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
@@ -304,7 +394,9 @@
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "aS" = (
-/obj/structure/stone_tile/slab,
+/obj/structure/stone_tile/slab{
+	dir = 1
+	},
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "aT" = (
@@ -314,7 +406,9 @@
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "aU" = (
-/obj/structure/stone_tile/slab/cracked,
+/obj/structure/stone_tile/slab/cracked{
+	dir = 1
+	},
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "aV" = (
@@ -333,30 +427,36 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "aX" = (
-/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/surrounding{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "aY" = (
 /obj/structure/stone_tile/block/cracked{
-	dir = 9
+	dir = 10
 	},
 /obj/structure/stone_tile/block/cracked{
-	dir = 6
+	dir = 5
 	},
 /obj/structure/stone_tile{
 	dir = 8
 	},
 /obj/structure/stone_tile{
-	dir = 1
+	dir = 2
 	},
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "aZ" = (
 /obj/structure/stone_tile/surrounding_tile{
+	dir = 2
+	},
+/obj/structure/stone_tile/center{
 	dir = 1
 	},
-/obj/structure/stone_tile/center,
-/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 1
+	},
 /obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 4
 	},
@@ -364,7 +464,7 @@
 /area/ruin/unpowered/standruin)
 "ba" = (
 /obj/structure/stone_tile/block/burnt{
-	dir = 1
+	dir = 2
 	},
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
@@ -372,18 +472,20 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
 	},
-/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/center{
+	dir = 1
+	},
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 8
 	},
 /obj/structure/stone_tile/surrounding_tile/burnt{
-	dir = 1
+	dir = 2
 	},
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "bc" = (
 /obj/structure/stone_tile/surrounding_tile{
-	dir = 1
+	dir = 2
 	},
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 8
@@ -392,14 +494,20 @@
 /area/ruin/unpowered/standruin)
 "bd" = (
 /obj/structure/stone_tile/block{
-	dir = 1
+	dir = 2
 	},
 /turf/open/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "be" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile/center/cracked,
-/obj/item/candle/infinite,
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/center/cracked{
+	dir = 1
+	},
+/obj/item/candle/infinite{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "bf" = (
@@ -412,32 +520,48 @@
 /turf/open/lava/smooth,
 /area/ruin/unpowered/standruin)
 "bg" = (
-/obj/structure/stone_tile/block/burnt,
-/obj/structure/stone_tile/center/cracked,
-/obj/item/candle/infinite,
+/obj/structure/stone_tile/block/burnt{
+	dir = 1
+	},
+/obj/structure/stone_tile/center/cracked{
+	dir = 1
+	},
+/obj/item/candle/infinite{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "bh" = (
-/obj/structure/stone_tile/slab/burnt,
-/obj/structure/glowshroom/single,
+/obj/structure/stone_tile/slab/burnt{
+	dir = 1
+	},
+/obj/structure/glowshroom/single{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "bi" = (
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/obj/structure/flora/ash/tall_shroom,
-/obj/structure/glowshroom/single,
+/obj/structure/flora/ash/tall_shroom{
+	dir = 1
+	},
+/obj/structure/glowshroom/single{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "bj" = (
 /obj/structure/stone_tile/surrounding_tile/cracked{
-	dir = 1
+	dir = 2
 	},
 /turf/open/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "bk" = (
-/obj/structure/stone_tile/slab/cracked,
+/obj/structure/stone_tile/slab/cracked{
+	dir = 1
+	},
 /turf/open/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "bl" = (
@@ -447,12 +571,18 @@
 /turf/open/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "bm" = (
-/obj/structure/flora/ash/cacti,
+/obj/structure/flora/ash/cacti{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "bn" = (
-/obj/structure/stone_tile/center,
-/obj/structure/glowshroom/single,
+/obj/structure/stone_tile/center{
+	dir = 1
+	},
+/obj/structure/glowshroom/single{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "bo" = (
@@ -463,48 +593,50 @@
 /area/ruin/unpowered/standruin)
 "bp" = (
 /obj/structure/stone_tile/block{
+	dir = 2
+	},
+/obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/obj/structure/stone_tile/block/cracked,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "bq" = (
 /obj/structure/stone_tile/block{
+	dir = 2
+	},
+/obj/structure/stone_tile/block{
 	dir = 1
 	},
-/obj/structure/stone_tile/block,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "br" = (
 /obj/structure/stone_tile/block{
+	dir = 2
+	},
+/obj/structure/stone_tile/block/burnt{
 	dir = 1
 	},
-/obj/structure/stone_tile/block/burnt,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 
 (1,1,1) = {"
 aa
-aa
-aa
 ab
 ab
+ab
+aa
 aa
 aa
 ac
 ac
 aa
 aa
-aa
-ab
 ab
 ab
 aa
-"}
-(2,1,1) = {"
 aa
-ab
-ab
+aa"}(2,1,1) = {"
+aa
 ab
 ab
 ab
@@ -517,209 +649,189 @@ ac
 ab
 ab
 ab
+ab
+ab
+aa"}(3,1,1) = {"
 aa
-"}
-(3,1,1) = {"
 ab
 ab
-ab
-ab
-ab
-ad
-aE
-aO
-aW
-ad
+ac
+ah
 bj
-ah
-ac
-ab
-ab
-aa
-"}
-(4,1,1) = {"
-ab
-ab
-ab
 ad
-ap
-aw
-aF
-aP
-aq
-bd
+aW
+aO
+aE
+ad
+ab
+ab
+ab
+ab
+ab"}(4,1,1) = {"
+aa
+aa
+ac
+ah
+ad
 bk
-ad
-ah
-ac
-aa
-aa
-"}
-(5,1,1) = {"
-ab
-ab
-ab
-ai
+bd
 aq
-ax
-aq
-aD
-aX
-ao
-bl
-av
-ah
-ac
-aa
-aa
-"}
-(6,1,1) = {"
-ac
-ab
-ad
-aj
-ac
-ay
-aG
-aQ
-aY
-be
-ak
-ao
-ad
-ac
-ac
-aa
-"}
-(7,1,1) = {"
-ac
-ac
-ae
-ak
-ar
-az
-aH
-aR
-aZ
-aI
-ax
-aD
-bp
-ac
-ac
-aa
-"}
-(8,1,1) = {"
-ac
-ac
-af
-al
-as
-aA
-aI
-aS
-ba
-aU
-bm
-aq
-bq
-ac
-ac
-aa
-"}
-(9,1,1) = {"
-ac
-ac
-ag
-am
-at
-aB
-aJ
-aT
-bb
-bf
+aP
+aF
 aw
-aD
-br
-ac
-ac
-aa
-"}
-(10,1,1) = {"
-ac
-ac
-ad
-an
-au
-aC
-aK
-aU
-bc
-bg
-bn
-ab
+ap
 ad
 ab
+ab
+ab"}(5,1,1) = {"
 aa
-aa
-"}
-(11,1,1) = {"
 aa
 ac
 ah
+av
+bl
 ao
-ah
+aX
 aD
-aL
-aD
+aq
+ax
+aq
+ai
+ab
+ab
+ab"}(6,1,1) = {"
+aa
+ac
+ac
+ad
+ao
 ak
-bh
+be
+aY
+aQ
+aG
+ay
+ac
+aj
+ad
+ab
+ac"}(7,1,1) = {"
+aa
+ac
+ac
+bp
+aD
+ax
+aI
+aZ
+aR
+aH
+az
+ar
+ak
+ae
+ac
+ac"}(8,1,1) = {"
+aa
+ac
+ac
+bq
+aq
+bm
+aU
+ba
+aS
+aI
+aA
+as
+al
+af
+ac
+ac"}(9,1,1) = {"
+aa
+ac
+ac
+br
+aD
+aw
+bf
+bb
+aT
+aJ
+aB
+at
+am
+ag
+ac
+ac"}(10,1,1) = {"
+aa
+aa
+ab
+ad
+ab
+bn
+bg
+bc
+aU
+aK
+aC
+au
+an
+ad
+ac
+ac"}(11,1,1) = {"
+aa
+ab
+ab
 ab
 bo
 ab
-ab
-ab
-aa
-"}
-(12,1,1) = {"
-aa
-ab
-ab
-ad
-av
+bh
+ak
+aD
+aL
+aD
 ah
-aM
-ac
-aw
-bi
-aq
-ad
-ab
-ab
-ab
-aa
-"}
-(13,1,1) = {"
-aa
-ab
-ab
-ab
-ab
-ad
-aN
-aV
 ao
+ah
+ac
+aa"}(12,1,1) = {"
+aa
+ab
+ab
+ab
+ad
+aq
+bi
+aw
+ac
+aM
+ah
+av
+ad
+ab
+ab
+aa"}(13,1,1) = {"
+aa
+aa
+ab
+ab
+ab
+ab
+ad
+ao
+aV
+aN
 ad
 ab
 ab
 ab
 ab
+aa"}(14,1,1) = {"
 aa
 aa
-"}
-(14,1,1) = {"
-aa
-aa
+ab
+ab
 ab
 ab
 ab
@@ -730,17 +842,8 @@ ab
 ab
 ab
 ab
-ab
-ab
 aa
-aa
-"}
-(15,1,1) = {"
-aa
-aa
-aa
-ab
-ab
+aa"}(15,1,1) = {"
 aa
 aa
 aa
@@ -752,8 +855,11 @@ aa
 aa
 aa
 aa
-"}
-(16,1,1) = {"
+ab
+ab
+aa
+aa
+aa"}(16,1,1) = {"
 aa
 aa
 aa
@@ -769,5 +875,4 @@ aa
 aa
 aa
 aa
-aa
-"}
+aa"}

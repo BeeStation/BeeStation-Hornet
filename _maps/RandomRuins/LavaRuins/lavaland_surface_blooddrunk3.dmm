@@ -43,7 +43,7 @@
 /area/lavaland/surface/outdoors)
 "h" = (
 /obj/structure/stone_tile{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -52,13 +52,17 @@
 	dir = 8
 	},
 /obj/structure/stone_tile{
+	dir = 2
+	},
+/obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/obj/structure/stone_tile/cracked,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "j" = (
-/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
 /obj/structure/stone_tile{
 	dir = 4
 	},
@@ -68,12 +72,14 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "k" = (
-/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
 /obj/structure/stone_tile{
 	dir = 8
 	},
 /obj/structure/stone_tile{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -81,7 +87,9 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
@@ -94,7 +102,9 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "n" = (
@@ -115,19 +125,23 @@
 /area/lavaland/surface/outdoors)
 "p" = (
 /obj/structure/stone_tile{
-	dir = 1
+	dir = 2
 	},
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "q" = (
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
 /obj/structure/stone_tile{
 	dir = 8
 	},
@@ -135,20 +149,26 @@
 /area/lavaland/surface/outdoors)
 "r" = (
 /obj/structure/stone_tile{
-	dir = 1
+	dir = 2
 	},
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "s" = (
-/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "t" = (
-/obj/structure/stone_tile/block/cracked,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "u" = (
@@ -159,9 +179,11 @@
 /area/lavaland/surface/outdoors)
 "v" = (
 /obj/structure/stone_tile/surrounding/cracked{
-	dir = 6
+	dir = 5
 	},
-/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/center{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 
@@ -169,11 +191,6 @@
 a
 a
 a
-a
-a
-a
-a
-a
 b
 b
 b
@@ -182,12 +199,11 @@ b
 a
 a
 a
-"}
-(2,1,1) = {"
 a
-b
-b
-b
+a
+a
+a
+a"}(2,1,1) = {"
 a
 a
 b
@@ -200,155 +216,138 @@ b
 b
 a
 a
-"}
-(3,1,1) = {"
 b
 b
 b
-b
-b
-b
+a"}(3,1,1) = {"
+a
 b
 b
 c
-g
+c
 m
-c
-c
-b
-b
-a
-"}
-(4,1,1) = {"
-b
-c
-c
-b
-b
-b
-c
-c
 g
-k
-h
+c
+b
+b
+b
+b
+b
+b
+b
+b"}(4,1,1) = {"
+b
+b
+c
+c
 q
-c
-c
-b
-b
-"}
-(5,1,1) = {"
-b
-c
-c
-c
-c
-c
-c
+h
+k
 g
-i
 c
 c
-h
+b
+b
+b
+c
+c
+b"}(5,1,1) = {"
+b
+c
+c
 s
+h
 c
 c
+i
+g
+c
+c
+c
+c
+c
+c
+b"}(6,1,1) = {"
 b
-"}
-(6,1,1) = {"
-b
-d
-e
-e
-d
-f
-d
-f
-e
-d
-n
-f
-t
+c
 v
-c
+t
+f
+n
+d
+e
+f
+d
+f
+d
+e
+e
+d
+b"}(7,1,1) = {"
 b
-"}
-(7,1,1) = {"
 b
 c
-c
-c
-c
-c
-c
-h
-j
-c
-c
-o
 u
-c
-b
-b
-"}
-(8,1,1) = {"
-b
-b
-b
-c
-c
-c
-c
-c
-h
-l
 o
-r
-c
-b
-b
-b
-"}
-(9,1,1) = {"
-a
-b
-b
-b
-b
 c
 c
-c
-c
+j
 h
+c
+c
+c
+c
+c
+c
+b"}(8,1,1) = {"
+b
+b
+b
+c
+r
+o
+l
+h
+c
+c
+c
+c
+c
+b
+b
+b"}(9,1,1) = {"
+a
+b
+b
+c
+c
 p
-c
-c
-b
-b
-a
-"}
-(10,1,1) = {"
-a
-a
-a
-b
-b
-b
-b
-b
+h
 c
 c
 c
 c
 b
 b
+b
+b
+a"}(10,1,1) = {"
 a
 a
-"}
-(11,1,1) = {"
+b
+b
+c
+c
+c
+c
+b
+b
+b
+b
+b
 a
 a
-a
+a"}(11,1,1) = {"
 a
 a
 b
@@ -362,4 +361,6 @@ b
 b
 a
 a
-"}
+a
+a
+a"}

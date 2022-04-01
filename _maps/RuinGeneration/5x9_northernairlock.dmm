@@ -1,12 +1,16 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "q" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "s" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/machinery/door/airlock/external/glass{
 	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -20,12 +24,18 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "S" = (
-/obj/effect/abstract/open_area_marker,
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "T" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/machinery/door/airlock/external/glass{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "V" = (
@@ -33,57 +43,48 @@
 /area/ruin/unpowered)
 
 (1,1,1) = {"
-M
-M
-M
-M
-M
 V
 V
 V
 V
-"}
-(2,1,1) = {"
 M
 M
 M
+M
+M"}(2,1,1) = {"
+O
+O
+O
 q
 q
 q
-O
-O
-O
-"}
-(3,1,1) = {"
 M
 M
-M
-T
-E
-s
-O
-O
+M"}(3,1,1) = {"
 S
-"}
-(4,1,1) = {"
+O
+O
+s
+E
+T
 M
 M
-M
-q
-q
-q
+M"}(4,1,1) = {"
 O
 O
 O
-"}
-(5,1,1) = {"
+q
+q
+q
 M
 M
-M
-M
-M
+M"}(5,1,1) = {"
 V
 V
 V
 V
-"}
+M
+M
+M
+M
+M"}

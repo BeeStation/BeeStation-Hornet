@@ -3,7 +3,9 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/space/nearstation)
 "c" = (
@@ -22,7 +24,7 @@
 /area/ruin/space/oldteleporter)
 "g" = (
 /obj/structure/light_construct/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/airless{
 	icon_state = "damaged3"
@@ -30,16 +32,20 @@
 /area/ruin/space/oldteleporter)
 "h" = (
 /obj/machinery/computer/teleporter{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/oldteleporter)
 "i" = (
-/obj/machinery/teleport/station,
+/obj/machinery/teleport/station{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/oldteleporter)
 "j" = (
-/obj/machinery/teleport/hub,
+/obj/machinery/teleport/hub{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/oldteleporter)
 "k" = (
@@ -49,10 +55,13 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/oldteleporter)
 "l" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/stock_parts/cell{
 	charge = 100;
-	maxcharge = 15000
+	maxcharge = 15000;
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/oldteleporter)
@@ -64,7 +73,8 @@
 "n" = (
 /obj/machinery/power/apc{
 	name = "Worn-out APC";
-	pixel_y = -24
+	pixel_y = 24;
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/oldteleporter)
@@ -74,44 +84,29 @@ a
 a
 a
 a
-b
-a
-a
-a
-a
-a
-a
-a
-"}
-(2,1,1) = {"
-a
 a
 a
 a
 b
-b
 a
 a
 a
+a"}(2,1,1) = {"
 a
 a
 a
-"}
-(3,1,1) = {"
 a
 a
 a
 b
 b
-b
 a
 a
 a
+a"}(3,1,1) = {"
 a
 a
 a
-"}
-(4,1,1) = {"
 a
 a
 a
@@ -120,246 +115,220 @@ b
 b
 a
 a
+a"}(4,1,1) = {"
 a
 a
 a
-a
-"}
-(5,1,1) = {"
 a
 a
 a
 b
 b
 b
+a
+a
+a"}(5,1,1) = {"
+a
 d
 d
 d
 d
 d
-a
-"}
-(6,1,1) = {"
-a
-a
-a
 b
 b
+b
+a
+a
+a"}(6,1,1) = {"
 d
 d
-g
-e
 l
-d
-d
-"}
-(7,1,1) = {"
-a
-a
-a
-b
-b
-d
-c
 e
+g
+d
+d
+b
+b
+a
+a
+a"}(7,1,1) = {"
+d
 e
 m
 e
-d
-"}
-(8,1,1) = {"
-a
-a
-a
-b
-c
-d
-c
 e
-h
 c
-n
 d
-"}
-(9,1,1) = {"
-a
-a
-a
 b
+b
+a
+a
+a"}(8,1,1) = {"
+d
+n
 c
+h
+e
 c
+d
+c
+b
+a
+a
+a"}(9,1,1) = {"
+d
 e
 e
 i
 e
 e
-d
-"}
-(10,1,1) = {"
-a
-a
-a
-b
 c
+c
+b
+a
+a
+a"}(10,1,1) = {"
 d
-f
+e
 e
 j
 e
-e
-d
-"}
-(11,1,1) = {"
-b
-b
-b
-b
-c
-d
-e
-e
-e
-e
-c
-c
-"}
-(12,1,1) = {"
-a
-b
-a
-b
-b
-d
-c
-e
-k
 f
 d
 c
-"}
-(13,1,1) = {"
 b
-b
-b
-b
-b
-c
-c
-d
-d
-d
-d
 a
-"}
-(14,1,1) = {"
-b
-b
-b
-b
-b
+a
+a"}(11,1,1) = {"
+c
+c
+e
+e
+e
+e
+d
 c
 b
 b
 b
-a
-a
-a
-"}
-(15,1,1) = {"
+b"}(12,1,1) = {"
+c
+d
+f
+k
+e
+c
+d
 b
 b
+a
+b
+a"}(13,1,1) = {"
+a
+d
+d
+d
+d
+c
+c
+b
+b
+b
+b
+b"}(14,1,1) = {"
+a
+a
+a
 b
 b
 b
 c
 b
+b
+b
+b
+b"}(15,1,1) = {"
 a
 a
 a
 a
 a
-"}
-(16,1,1) = {"
+b
+c
 b
 b
 b
 b
-b
-b
+b"}(16,1,1) = {"
 a
 a
 a
 a
 a
-a
-"}
-(17,1,1) = {"
-b
-b
-b
-b
-b
-a
-a
-a
-a
-a
-a
-a
-"}
-(18,1,1) = {"
-a
-b
-b
-b
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(19,1,1) = {"
 a
 b
 b
 b
 b
 b
-b
-a
-a
-a
-a
-a
-"}
-(20,1,1) = {"
-b
-b
-b
-a
-b
-b
+b"}(17,1,1) = {"
 a
 a
 a
 a
 a
 a
-"}
-(21,1,1) = {"
 a
 b
+b
+b
+b
+b"}(18,1,1) = {"
+a
+a
+a
+a
+a
+a
 a
 a
 b
 b
+b
+a"}(19,1,1) = {"
+a
+a
+a
+a
+a
+b
+b
+b
+b
+b
+b
+a"}(20,1,1) = {"
 a
 a
 a
 a
 a
 a
-"}
+b
+b
+a
+b
+b
+b"}(21,1,1) = {"
+a
+a
+a
+a
+a
+a
+b
+b
+a
+a
+b
+a"}

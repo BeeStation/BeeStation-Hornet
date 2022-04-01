@@ -1,32 +1,46 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/vending/cigarette{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/machinery/door/airlock/maintenance/external/glass,
+/obj/machinery/door/airlock/maintenance/external/glass{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "c" = (
 /turf/open/floor/plasteel,
 /area/template_noop)
 "f" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 4
 	},
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/structure/closet/crate,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/three{
+	dir = 1
+	},
+/obj/structure/closet/crate{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "g" = (
-/obj/effect/landmark/blobstart,
+/obj/effect/landmark/blobstart{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -36,9 +50,11 @@
 	},
 /area/template_noop)
 "k" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -54,73 +70,95 @@
 /turf/closed/wall,
 /area/template_noop)
 "q" = (
-/obj/structure/chair/comfy/teal,
+/obj/structure/chair/comfy/teal{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "s" = (
-/obj/effect/landmark/event_spawn,
+/obj/effect/landmark/event_spawn{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "t" = (
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/tile/blue{
+/obj/item/kirbyplants/random{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "v" = (
 /obj/item/storage/pod{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "x" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 4
 	},
-/obj/machinery/light,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/three{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "z" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /obj/structure/sign/nanotrasen{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
-/obj/structure/chair/comfy/teal,
+/obj/structure/chair/comfy/teal{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "A" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "B" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "D" = (
-/obj/item/kirbyplants/random,
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "G" = (
@@ -130,58 +168,73 @@
 /area/template_noop)
 "H" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/chair/comfy/teal{
 	dir = 1
 	},
-/obj/structure/chair/comfy/teal,
 /obj/item/radio/intercom{
-	pixel_y = 26
+	pixel_y = -26;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "I" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "J" = (
-/obj/structure/table,
-/obj/item/folder/white,
-/obj/item/wrench/medical,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/folder/white{
+	dir = 1
+	},
+/obj/item/wrench/medical{
+	dir = 1
+	},
 /obj/structure/sign/poster/official/moth4{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "K" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 2
+	},
+/obj/structure/chair/comfy/teal{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"M" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/chair/comfy/teal,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"M" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "O" = (
 /obj/machinery/newscaster{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
@@ -195,78 +248,63 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "X" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/five,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/five{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-t
-I
-S
-J
 a
-"}
-(2,1,1) = {"
-H
+J
 S
-o
-c
+I
+t"}(2,1,1) = {"
 f
-"}
-(3,1,1) = {"
-K
-i
-s
-G
+c
+o
+S
+H"}(3,1,1) = {"
 x
-"}
-(4,1,1) = {"
-z
-c
-g
-S
-M
-"}
-(5,1,1) = {"
-q
-i
 G
-c
-M
-"}
-(6,1,1) = {"
-D
-c
-S
-c
-S
-"}
-(7,1,1) = {"
+s
 i
+K"}(4,1,1) = {"
+M
+S
+g
+c
+z"}(5,1,1) = {"
+M
+c
+G
+i
+q"}(6,1,1) = {"
+S
 c
 S
 c
+D"}(7,1,1) = {"
 X
-"}
-(8,1,1) = {"
-A
-V
 c
-v
+S
+c
+i"}(8,1,1) = {"
 X
-"}
-(9,1,1) = {"
+v
+c
+V
+A"}(9,1,1) = {"
 p
 p
 b
 p
-p
-"}
-(10,1,1) = {"
-S
-O
-h
-k
+p"}(10,1,1) = {"
 B
-"}
+k
+h
+O
+S"}

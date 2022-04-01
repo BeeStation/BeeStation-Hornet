@@ -1,6 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop/open,
 /area/template_noop)
 "c" = (
@@ -8,7 +10,7 @@
 /area/ruin)
 "d" = (
 /obj/effect/abstract/open_area_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin)
@@ -17,25 +19,33 @@
 /area/ruin)
 "j" = (
 /obj/structure/sign/warning/radiation{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin)
 "l" = (
-/obj/machinery/the_singularitygen,
+/obj/machinery/the_singularitygen{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (
-/obj/machinery/field/generator,
+/obj/machinery/field/generator{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "p" = (
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/rad_collector{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin)
 "q" = (
 /obj/structure/sign/warning/radiation{
-	pixel_y = -32
+	pixel_y = 32;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin)
@@ -43,22 +53,30 @@
 /turf/template_noop/open,
 /area/template_noop)
 "x" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin)
 "z" = (
-/obj/structure/closet/radiation,
+/obj/structure/closet/radiation{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin)
 "A" = (
-/obj/effect/abstract/open_area_marker,
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin)
 "C" = (
 /turf/closed/wall/r_wall,
 /area/ruin)
 "E" = (
-/obj/machinery/computer,
+/obj/machinery/computer{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin)
 "F" = (
@@ -74,11 +92,15 @@
 /turf/open/floor/plasteel,
 /area/ruin)
 "N" = (
-/obj/effect/decal/fakelattice,
+/obj/effect/decal/fakelattice{
+	dir = 4
+	},
 /turf/template_noop/open,
 /area/template_noop)
 "R" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/effect/spawner/structure/window/plasma/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin)
 "S" = (
@@ -86,7 +108,7 @@
 /area/template_noop)
 "W" = (
 /obj/structure/chair/office{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin)
@@ -115,9 +137,7 @@ X
 X
 X
 X
-X
-"}
-(2,1,1) = {"
+X"}(2,1,1) = {"
 X
 X
 g
@@ -138,9 +158,7 @@ g
 g
 g
 X
-X
-"}
-(3,1,1) = {"
+X"}(3,1,1) = {"
 X
 g
 g
@@ -161,38 +179,30 @@ c
 c
 g
 g
-X
-"}
-(4,1,1) = {"
+X"}(4,1,1) = {"
 X
 g
-j
-c
-c
-c
-c
-c
-p
-c
-c
-c
-c
-c
-c
-c
-c
-c
 q
+c
+c
+c
+c
+c
+c
+c
+c
+c
+p
+c
+c
+c
+c
+c
+j
 g
-X
-"}
-(5,1,1) = {"
+X"}(5,1,1) = {"
 X
 g
-c
-c
-c
-c
 c
 c
 c
@@ -206,10 +216,12 @@ c
 c
 c
 c
+c
+c
+c
+c
 g
-X
-"}
-(6,1,1) = {"
+X"}(6,1,1) = {"
 g
 g
 c
@@ -230,37 +242,33 @@ c
 c
 c
 g
-g
-"}
-(7,1,1) = {"
+g"}(7,1,1) = {"
 g
 c
 c
 c
-c
-C
-t
-N
-t
-N
-t
-N
-t
-N
-t
-C
 x
+C
+t
+N
+t
+N
+t
+N
+t
+N
+t
+C
 c
 c
 c
+c
+g"}(8,1,1) = {"
 g
-"}
-(8,1,1) = {"
-g
 c
 c
 c
-c
+E
 R
 N
 o
@@ -272,64 +280,58 @@ t
 o
 N
 R
-E
 c
 c
 c
-g
-"}
-(9,1,1) = {"
+c
+g"}(9,1,1) = {"
 g
 c
 c
-c
-c
-R
-t
-t
-t
-a
-t
-a
-t
-t
-t
-R
-E
 W
-c
-c
-g
-"}
-(10,1,1) = {"
-c
-c
-c
-c
-c
-R
-N
-S
-a
-S
-S
-S
-a
-S
-N
-R
 E
+R
+t
+t
+t
+a
+t
+a
+t
+t
+t
+R
 c
 c
 c
 c
-"}
-(11,1,1) = {"
-d
+g"}(10,1,1) = {"
 c
 c
 c
 c
+E
+R
+N
+S
+a
+S
+S
+S
+a
+S
+N
+R
+c
+c
+c
+c
+c"}(11,1,1) = {"
+A
+c
+c
+c
+x
 C
 t
 S
@@ -341,105 +343,95 @@ t
 S
 t
 C
-x
-c
-c
-c
-A
-"}
-(12,1,1) = {"
 c
 c
 c
 c
+d"}(12,1,1) = {"
 c
-R
-N
-S
-a
-S
-S
-S
-a
-S
-N
-R
+c
+c
+c
 E
+R
+N
+S
+a
+S
+S
+S
+a
+S
+N
+R
 c
 c
 c
 c
-"}
-(13,1,1) = {"
+c"}(13,1,1) = {"
 g
 c
 c
-c
-c
-R
-t
-t
-t
-a
-t
-a
-t
-t
-t
-R
-E
 W
-c
-c
-g
-"}
-(14,1,1) = {"
-g
-c
-c
-c
-c
-R
-N
-o
-t
-S
-S
-S
-t
-o
-N
-R
 E
+R
+t
+t
+t
+a
+t
+a
+t
+t
+t
+R
 c
 c
 c
+c
+g"}(14,1,1) = {"
 g
-"}
-(15,1,1) = {"
+c
+c
+c
+E
+R
+N
+o
+t
+S
+S
+S
+t
+o
+N
+R
+c
+c
+c
+c
+g"}(15,1,1) = {"
 g
 c
 c
 c
-c
-C
-t
-N
-t
-N
-t
-N
-t
-N
-t
-C
 x
+C
+t
+N
+t
+N
+t
+N
+t
+N
+t
+C
 c
 c
 c
-g
-"}
-(16,1,1) = {"
+c
+g"}(16,1,1) = {"
 g
 g
 c
@@ -460,11 +452,12 @@ c
 c
 c
 g
-g
-"}
-(17,1,1) = {"
+g"}(17,1,1) = {"
 X
 g
+c
+c
+c
 c
 c
 c
@@ -479,37 +472,30 @@ c
 c
 c
 c
-c
-c
-c
 g
-X
-"}
-(18,1,1) = {"
+X"}(18,1,1) = {"
 X
 g
-j
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
 q
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+j
 g
+X"}(19,1,1) = {"
 X
-"}
-(19,1,1) = {"
-X
 g
 g
 c
@@ -529,9 +515,7 @@ c
 c
 g
 g
-X
-"}
-(20,1,1) = {"
+X"}(20,1,1) = {"
 X
 X
 g
@@ -552,9 +536,7 @@ g
 g
 g
 X
-X
-"}
-(21,1,1) = {"
+X"}(21,1,1) = {"
 X
 X
 X
@@ -575,5 +557,4 @@ X
 X
 X
 X
-X
-"}
+X"}

@@ -28,38 +28,61 @@
 /area/shuttle/transport)
 "h" = (
 /obj/structure/closet/secure_closet/freezer/meat/open{
-	name = "\"meat\" fridge"
+	name = "\"meat\" fridge";
+	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/meat/slab/bear,
-/obj/item/reagent_containers/food/snacks/meat/slab/corgi,
-/obj/item/reagent_containers/food/snacks/meat/slab/goliath,
-/obj/item/reagent_containers/food/snacks/meat/slab/killertomato,
-/obj/item/reagent_containers/food/snacks/meat/slab/pug,
-/obj/item/reagent_containers/food/snacks/meat/slab/spider,
-/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
+/obj/item/reagent_containers/food/snacks/meat/slab/bear{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/corgi{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/goliath{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/killertomato{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/pug{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/spider{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/xeno{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/snacks/meat/slab/human{
-	name = "human meat"
+	name = "human meat";
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/fly{
-	name = "flyman meat"
+	name = "flyman meat";
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/golem/adamantine{
-	name = "golem meat"
+	name = "golem meat";
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard{
-	name = "lizard meat"
+	name = "lizard meat";
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/plant{
-	name = "podperson meat"
+	name = "podperson meat";
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/shadow{
-	name = "shadowling meat"
+	name = "shadowling meat";
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime{
-	name = "slimeperson meat"
+	name = "slimeperson meat";
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/zombie{
-	name = "rotten meat"
+	name = "rotten meat";
+	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
@@ -67,40 +90,58 @@
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
 "j" = (
-/obj/machinery/gibber,
+/obj/machinery/gibber{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
 "k" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 30
+	pixel_y = -30;
+	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
 "l" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
 "m" = (
 /obj/structure/sink/kitchen{
 	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
 	name = "old sink";
-	pixel_y = 28
+	pixel_y = -28;
+	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
 "n" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/comfy/shuttle,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
 "o" = (
-/obj/structure/window/shuttle,
-/obj/structure/grille,
+/obj/structure/window/shuttle{
+	dir = 1
+	},
+/obj/structure/grille{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/transport)
 "p" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
+/obj/machinery/door/airlock/titanium{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
 "q" = (
@@ -113,28 +154,37 @@
 	port_direction = 2;
 	width = 5
 	},
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
+/obj/machinery/door/airlock/titanium{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
 "t" = (
-/obj/structure/closet/chefcloset,
+/obj/structure/closet/chefcloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
 "u" = (
-/obj/structure/kitchenspike,
+/obj/structure/kitchenspike{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
 "v" = (
 /obj/machinery/door/airlock/freezer{
 	name = "Meat Tradeship Backroom";
-	req_access_txt = "28"
+	req_access_txt = "28";
+	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
 "w" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
@@ -144,82 +194,59 @@ a
 b
 p
 b
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 b
 e
 i
 e
-b
-"}
-(3,1,1) = {"
+b"}(3,1,1) = {"
 c
-f
-i
 t
+i
+f
+c"}(4,1,1) = {"
 c
-"}
-(4,1,1) = {"
-c
+u
+i
 g
-i
+c"}(5,1,1) = {"
+c
 u
-c
-"}
-(5,1,1) = {"
-c
+i
 h
-i
+c"}(6,1,1) = {"
+c
 u
-c
-"}
-(6,1,1) = {"
+i
+i
+c"}(7,1,1) = {"
 c
 i
 i
-u
-c
-"}
-(7,1,1) = {"
-c
 j
+c"}(8,1,1) = {"
+c
 i
 i
-c
-"}
-(8,1,1) = {"
-c
 k
-i
-i
+c"}(9,1,1) = {"
 c
-"}
-(9,1,1) = {"
-c
-l
-l
 v
+l
+l
+c"}(10,1,1) = {"
 c
-"}
-(10,1,1) = {"
-c
+i
+i
 m
-i
-i
+c"}(11,1,1) = {"
 c
-"}
-(11,1,1) = {"
-c
-n
-i
 w
-c
-"}
-(12,1,1) = {"
+i
+n
+c"}(12,1,1) = {"
 c
 o
 q
 o
-c
-"}
+c"}

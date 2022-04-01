@@ -1,10 +1,14 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
-/obj/machinery/computer/turbolift,
+/obj/machinery/computer/turbolift{
+	dir = 1
+	},
 /turf/open/floor/carpet/red,
 /area/ruin/unpowered)
 "f" = (
-/obj/effect/mob_spawn/human/corpse/assistant,
+/obj/effect/mob_spawn/human/corpse/assistant{
+	dir = 1
+	},
 /turf/open/floor/carpet/red,
 /area/ruin/unpowered)
 "g" = (
@@ -14,7 +18,9 @@
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "o" = (
-/obj/machinery/door/airlock/turbolift,
+/obj/machinery/door/airlock/turbolift{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "q" = (
@@ -30,12 +36,15 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "C" = (
-/obj/effect/abstract/open_area_marker,
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "G" = (
 /obj/machinery/turbolift_button{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -47,12 +56,14 @@
 /area/ruin/unpowered)
 "W" = (
 /obj/effect/abstract/open_area_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Z" = (
-/obj/machinery/food_cart,
+/obj/machinery/food_cart{
+	dir = 1
+	},
 /turf/open/floor/carpet/red,
 /area/ruin/unpowered)
 
@@ -69,9 +80,7 @@ g
 g
 g
 g
-g
-"}
-(2,1,1) = {"
+g"}(2,1,1) = {"
 g
 t
 t
@@ -84,9 +93,7 @@ t
 t
 t
 t
-g
-"}
-(3,1,1) = {"
+g"}(3,1,1) = {"
 g
 t
 t
@@ -99,9 +106,7 @@ t
 t
 t
 t
-g
-"}
-(4,1,1) = {"
+g"}(4,1,1) = {"
 g
 t
 t
@@ -114,69 +119,59 @@ t
 t
 t
 t
-g
-"}
-(5,1,1) = {"
+g"}(5,1,1) = {"
 g
 t
 t
-t
-l
-l
-l
-l
-l
 G
-t
-t
-g
-"}
-(6,1,1) = {"
-t
-t
-t
-t
 l
-Z
+l
+l
+l
+l
+t
+t
+t
+g"}(6,1,1) = {"
+t
+t
+t
+t
+o
+s
 f
-s
-o
-t
-t
-t
-t
-"}
-(7,1,1) = {"
-W
-t
-t
-t
+Z
 l
-b
-s
-s
-o
 t
 t
 t
+t"}(7,1,1) = {"
 C
-"}
-(8,1,1) = {"
 t
 t
 t
-t
-l
-s
-s
-s
 o
+s
+s
+b
+l
+t
+t
+t
+W"}(8,1,1) = {"
 t
 t
 t
 t
-"}
-(9,1,1) = {"
+o
+s
+s
+s
+l
+t
+t
+t
+t"}(9,1,1) = {"
 g
 t
 t
@@ -189,9 +184,7 @@ l
 t
 t
 t
-g
-"}
-(10,1,1) = {"
+g"}(10,1,1) = {"
 g
 t
 t
@@ -204,9 +197,7 @@ t
 t
 t
 t
-g
-"}
-(11,1,1) = {"
+g"}(11,1,1) = {"
 g
 t
 t
@@ -219,9 +210,7 @@ t
 t
 t
 t
-g
-"}
-(12,1,1) = {"
+g"}(12,1,1) = {"
 g
 t
 t
@@ -234,9 +223,7 @@ t
 t
 t
 t
-g
-"}
-(13,1,1) = {"
+g"}(13,1,1) = {"
 g
 g
 g
@@ -249,5 +236,4 @@ g
 g
 g
 g
-g
-"}
+g"}

@@ -1,24 +1,38 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/table,
-/obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/food/condiment/enzyme,
-/obj/item/reagent_containers/food/condiment/sugar,
-/turf/open/floor/plating,
-/area/template_noop)
-"b" = (
-/obj/machinery/light/small{
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/kitchen/rollingpin{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/condiment/enzyme{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/condiment/sugar{
 	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"b" = (
+/obj/machinery/light/small{
+	dir = 2
+	},
+/turf/open/floor/plating,
+/area/template_noop)
 "c" = (
-/obj/structure/closet/secure_closet/freezer/kitchen/maintenance,
+/obj/structure/closet/secure_closet/freezer/kitchen/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/structure/table,
-/obj/machinery/microwave,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/machinery/microwave{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
@@ -32,60 +46,76 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/structure/table,
-/obj/item/kitchen/knife,
-/obj/item/storage/box/donkpockets,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/kitchen/knife{
+	dir = 1
+	},
+/obj/item/storage/box/donkpockets{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/structure/table/glass,
+/obj/structure/table/glass{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_y = 2
+	pixel_y = -2;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 2
+	pixel_x = 2;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/mint{
-	pixel_y = 9
+	pixel_y = -9;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/machinery/processor,
+/obj/machinery/processor{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/structure/closet{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/two{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-d
-e
-h
 j
-"}
-(2,1,1) = {"
-b
+h
 e
-e
-g
+d
+a"}(2,1,1) = {"
 k
-"}
-(3,1,1) = {"
-c
-f
 g
-i
+e
+e
+b"}(3,1,1) = {"
 l
-"}
+i
+g
+f
+c"}

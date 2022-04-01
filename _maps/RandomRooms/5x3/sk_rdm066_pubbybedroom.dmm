@@ -1,12 +1,20 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/table,
-/obj/machinery/microwave,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/machinery/microwave{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/structure/table,
-/obj/structure/bedsheetbin,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/structure/bedsheetbin{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
@@ -14,31 +22,48 @@
 /area/template_noop)
 "d" = (
 /obj/structure/sink/kitchen{
-	pixel_y = 28
+	pixel_y = -28;
+	dir = 1
 	},
-/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/structure/table,
-/obj/item/flashlight/lamp,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/flashlight/lamp{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/item/storage/box/mousetraps,
+/obj/item/storage/box/mousetraps{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/structure/bed,
-/obj/item/bedsheet/dorms,
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/dorms{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/machinery/washing_machine,
+/obj/machinery/washing_machine{
+	dir = 1
+	},
 /obj/item/radio/intercom{
 	dir = 4;
 	pixel_x = -31
@@ -46,32 +71,25 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-f
 i
-"}
-(2,1,1) = {"
-b
+f
+a"}(2,1,1) = {"
+c
 g
-c
-"}
-(3,1,1) = {"
+b"}(3,1,1) = {"
 c
 c
-c
-"}
-(4,1,1) = {"
-d
-c
+c"}(4,1,1) = {"
 j
-"}
-(5,1,1) = {"
-e
+c
+d"}(5,1,1) = {"
 h
 h
-"}
+e"}

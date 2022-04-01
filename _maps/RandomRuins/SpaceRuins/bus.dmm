@@ -6,7 +6,9 @@
 /turf/closed/mineral/ash_rock,
 /area/ruin/unpowered/no_grav)
 "ac" = (
-/obj/item/trash/sosjerky,
+/obj/item/trash/sosjerky{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "ad" = (
@@ -17,12 +19,18 @@
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "af" = (
-/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/reagent_dispensers/fueltank{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "ag" = (
-/obj/item/stack/rods/fifty,
-/obj/item/stock_parts/manipulator/femto,
+/obj/item/stack/rods/fifty{
+	dir = 1
+	},
+/obj/item/stock_parts/manipulator/femto{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "ah" = (
@@ -30,49 +38,67 @@
 	amount = 5
 	},
 /obj/item/shard{
-	icon_state = "small"
+	icon_state = "small";
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "ai" = (
-/obj/item/book/random,
+/obj/item/book/random{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aj" = (
-/obj/structure/fluff/bus/dense,
+/obj/structure/fluff/bus/dense{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "ak" = (
 /obj/structure/fluff/bus/passable{
-	icon_state = "wheredahoodat"
+	icon_state = "wheredahoodat";
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "al" = (
-/obj/effect/decal/cleanable/food/salt,
-/obj/item/reagent_containers/food/condiment/saltshaker,
+/obj/effect/decal/cleanable/food/salt{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "am" = (
 /obj/structure/fluff/bus/passable/seat{
-	icon_state = "backseat"
+	icon_state = "backseat";
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "an" = (
 /obj/structure/fluff/bus/passable/seat{
-	icon_state = "backseat"
+	icon_state = "backseat";
+	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/meatball,
+/obj/item/reagent_containers/food/snacks/meatball{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "ao" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
@@ -80,7 +106,8 @@
 "ap" = (
 /obj/structure/fluff/bus/passable/seat{
 	icon_state = "backseat";
-	pixel_y = 15
+	pixel_y = -15;
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
@@ -88,19 +115,27 @@
 /area/ruin/unpowered/no_grav)
 "aq" = (
 /obj/structure/fluff/bus/passable/seat{
-	icon_state = "backseat"
+	icon_state = "backseat";
+	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/meatball,
-/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/meatball{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "ar" = (
 /obj/structure/fluff/bus/passable/seat{
-	icon_state = "backseat"
+	icon_state = "backseat";
+	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/grown/cherry_bomb,
+/obj/item/reagent_containers/food/snacks/grown/cherry_bomb{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
@@ -108,190 +143,279 @@
 "as" = (
 /obj/structure/fluff/bus/passable/seat/driver{
 	icon_state = "driverseat";
-	pixel_y = 17
+	pixel_y = -17;
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "at" = (
 /obj/structure/fluff/bus/dense{
-	icon_state = "hoodtop"
+	icon_state = "hoodtop";
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "au" = (
-/obj/item/clothing/head/cone,
+/obj/item/clothing/head/cone{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "av" = (
-/obj/structure/table,
-/obj/item/paicard,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/paicard{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aw" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "ax" = (
-/obj/structure/fluff/bus/passable,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/fluff/bus/passable{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "ay" = (
-/obj/structure/fluff/bus/passable,
-/obj/item/storage/firstaid/regular,
+/obj/structure/fluff/bus/passable{
+	dir = 1
+	},
+/obj/item/storage/firstaid/regular{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "az" = (
-/obj/structure/fluff/bus/passable,
+/obj/structure/fluff/bus/passable{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "aA" = (
-/obj/structure/fluff/bus/passable,
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meatball,
-/obj/item/reagent_containers/food/snacks/meatball,
-/obj/item/reagent_containers/food/snacks/meatball,
+/obj/structure/fluff/bus/passable{
+	dir = 1
+	},
+/obj/structure/closet/crate/freezer{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meatball{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meatball{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meatball{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "aB" = (
-/obj/structure/fluff/bus/passable,
-/obj/effect/mine/sound/bwoink,
+/obj/structure/fluff/bus/passable{
+	dir = 1
+	},
+/obj/effect/mine/sound/bwoink{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "aC" = (
-/obj/structure/fluff/bus/passable,
-/obj/item/reagent_containers/food/condiment/saltshaker,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/fluff/bus/passable{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "aD" = (
-/obj/structure/fluff/bus/passable,
-/obj/item/reagent_containers/food/snacks/meatball,
+/obj/structure/fluff/bus/passable{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meatball{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "aE" = (
 /obj/structure/fluff/bus/passable{
-	icon_state = "topdoor"
+	icon_state = "topdoor";
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "aF" = (
 /obj/structure/fluff/bus/dense{
-	icon_state = "hoodbottom"
+	icon_state = "hoodbottom";
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aG" = (
 /obj/structure/fluff/bus/passable/seat{
-	icon_state = "backseat"
+	icon_state = "backseat";
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aH" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/coffee{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aI" = (
 /obj/structure/fluff/bus/dense{
-	icon_state = "frontwallbottomrear"
+	icon_state = "frontwallbottomrear";
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aJ" = (
 /obj/structure/fluff/bus/dense{
-	icon_state = "frontwallbottom"
+	icon_state = "frontwallbottom";
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aK" = (
 /obj/structure/fluff/bus/dense{
-	icon_state = "reartire"
+	icon_state = "reartire";
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aL" = (
 /obj/structure/fluff/bus/dense{
-	icon_state = "frontwallbottom"
+	icon_state = "frontwallbottom";
+	dir = 1
 	},
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aM" = (
 /obj/structure/fluff/bus/passable{
 	icon_state = "bottomdoor";
-	layer = 3
+	layer = 3;
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aN" = (
 /obj/structure/fluff/bus/dense{
-	icon_state = "fronttire"
+	icon_state = "fronttire";
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aO" = (
-/obj/effect/decal/cleanable/robot_debris/old,
+/obj/effect/decal/cleanable/robot_debris/old{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aP" = (
-/obj/item/reagent_containers/food/snacks/meatball,
+/obj/item/reagent_containers/food/snacks/meatball{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aQ" = (
-/obj/item/reagent_containers/glass/rag,
+/obj/item/reagent_containers/glass/rag{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aR" = (
-/obj/item/storage/toolbox/mechanical,
-/obj/effect/decal/cleanable/oil,
+/obj/item/storage/toolbox/mechanical{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aS" = (
-/obj/item/clothing/head/helmet/space,
+/obj/item/clothing/head/helmet/space{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aT" = (
-/obj/effect/decal/remains/human,
-/obj/item/clothing/head/helmet/space,
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
+/obj/item/clothing/head/helmet/space{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aU" = (
 /obj/structure/fluff/bus/passable/seat{
-	icon_state = "backseat"
+	icon_state = "backseat";
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/snacks/meatball,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/snacks/meatball{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "aV" = (
 /obj/structure/fluff/bus/passable/seat{
-	icon_state = "backseat"
+	icon_state = "backseat";
+	dir = 1
 	},
-/obj/effect/decal/remains/human,
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
@@ -299,47 +423,73 @@
 "aW" = (
 /obj/structure/fluff/bus/passable/seat/driver{
 	icon_state = "driverseat";
-	pixel_y = 17
+	pixel_y = -17;
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "aX" = (
-/obj/effect/decal/cleanable/shreds,
+/obj/effect/decal/cleanable/shreds{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aY" = (
-/obj/effect/decal/remains/human,
-/obj/item/clothing/suit/space,
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
+/obj/item/clothing/suit/space{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "aZ" = (
-/obj/structure/fluff/bus/passable,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/snacks/meatball,
+/obj/structure/fluff/bus/passable{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/snacks/meatball{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "ba" = (
-/obj/structure/fluff/bus/passable,
-/obj/item/banhammer,
+/obj/structure/fluff/bus/passable{
+	dir = 1
+	},
+/obj/item/banhammer{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
 /area/ruin/unpowered/no_grav)
 "bb" = (
-/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
 "XA" = (
 /obj/structure/fluff/bus/passable/seat{
-	icon_state = "backseat"
+	icon_state = "backseat";
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/toy/plush/awakenedplushie,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/toy/plush/awakenedplushie{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless/dark{
 	icon_state = "bus"
 	},
@@ -348,420 +498,379 @@
 (1,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-ab
-ab
-ab
 ad
 ad
 ad
+aa
 au
+ad
+ad
+ad
+ab
+ab
+ab
+aa
+aa
+aa
+aa
+aa"}(2,1,1) = {"
 aa
 ad
 ad
 ad
-aa
-aa
-"}
-(2,1,1) = {"
-aa
-aa
-aa
-aa
-ab
-ab
-ab
-ab
+ad
 ad
 ad
 aw
 ad
 ad
-ad
-ad
-ad
-ad
-aa
-"}
-(3,1,1) = {"
+ab
+ab
+ab
+ab
 aa
 aa
 aa
-ab
-ab
-ab
-ab
-ab
+aa"}(3,1,1) = {"
 ad
-aw
 ad
-aP
-aj
-aU
-az
 aI
+az
+aU
+aj
+aP
+ad
+aw
+ad
+ab
+ab
+ab
+ab
+ab
+aa
+aa
+aa"}(4,1,1) = {"
 ad
 ad
-"}
-(4,1,1) = {"
-aa
-aa
-aa
-ab
-ab
-ab
-ab
+aK
+aZ
+am
+aj
+ad
+ad
 ad
 al
 ad
+ab
+ab
+ab
+ab
+aa
+aa
+aa"}(5,1,1) = {"
 ad
 ad
+aL
+ba
+aV
 aj
-am
-aZ
-aK
-ad
-ad
-"}
-(5,1,1) = {"
-aa
-aa
-ab
-ab
-ab
-ab
-ad
-ad
-ad
 ad
 aw
 ad
-aj
-aV
-ba
-aL
 ad
 ad
-"}
-(6,1,1) = {"
+ad
+ab
+ab
+ab
+ab
 aa
-aa
-ab
-ab
-ab
+aa"}(6,1,1) = {"
 ad
 ad
-aj
-am
-ax
-aI
-ad
-aj
+aJ
+az
 aU
-az
-aJ
+aj
+ad
+aI
+ax
+am
+aj
 ad
 ad
-"}
-(7,1,1) = {"
+ab
+ab
+ab
 aa
-ab
-ab
-ab
-ab
+aa"}(7,1,1) = {"
 ad
 ad
-aj
-an
-ay
-aJ
-ad
-aj
-aW
-aE
 aM
-ad
-ad
-"}
-(8,1,1) = {"
-aa
-ab
-ab
-ab
-ab
-ae
-ad
+aE
+aW
 aj
-XA
-az
-aK
 ad
-ak
-at
-aF
-aN
-ad
-ad
-"}
-(9,1,1) = {"
-ab
-ab
-ab
-ab
-ab
-ab
-ad
-aj
-ao
-aA
 aJ
-aQ
+ay
+an
+aj
+ad
+ad
+ab
+ab
+ab
+ab
+aa"}(8,1,1) = {"
+ad
+ad
+aN
+aF
+at
+ak
+ad
+aK
+az
+XA
+aj
+ad
+ae
+ab
+ab
+ab
+ab
+aa"}(9,1,1) = {"
+aa
+ad
+ad
 ad
 aX
 ad
-ad
-ad
-aa
-"}
-(10,1,1) = {"
-ab
-ab
-ab
-ab
-ab
-ab
-ad
-aj
-ap
-aB
+aQ
 aJ
+aA
+ao
+aj
 ad
-aR
-ad
+ab
+ab
+ab
+ab
+ab
+ab"}(10,1,1) = {"
+aa
 ad
 au
 ad
-aa
-"}
-(11,1,1) = {"
-ab
-ab
-ab
-ab
-ab
-ab
 ad
+aR
+ad
+aJ
+aB
+ap
 aj
-aq
-aC
-aL
+ad
+ab
+ab
+ab
+ab
+ab
+ab"}(11,1,1) = {"
+aa
+aa
 ad
 ad
 aY
 ad
 ad
-aa
-aa
-"}
-(12,1,1) = {"
-aa
-ab
-ab
-ab
-ab
-af
-ad
+aL
+aC
+aq
 aj
-ar
-ax
-aJ
 ad
-aS
+ab
+ab
+ab
+ab
+ab
+ab"}(12,1,1) = {"
+aa
+aa
 ad
 bb
 ad
-aa
-aa
-"}
-(13,1,1) = {"
-ab
-ab
-ab
-ab
-ab
-ag
+aS
 ad
-aj
-am
-aD
 aJ
+ax
+ar
+aj
+ad
+af
+ab
+ab
+ab
+ab
+aa"}(13,1,1) = {"
+aa
+aa
+ad
+ad
 ad
 aO
 ad
-ad
-ad
-aa
-aa
-"}
-(14,1,1) = {"
-ab
-ab
-ab
-ab
-ab
-ah
-ad
+aJ
+aD
+am
 aj
-as
-aE
-aM
 ad
+ag
+ab
+ab
+ab
+ab
+ab"}(14,1,1) = {"
+aa
+aa
+aa
 ad
 aP
 ad
+ad
+aM
+aE
+as
+aj
+ad
+ah
+ab
+ab
+ab
+ab
+ab"}(15,1,1) = {"
 aa
 aa
 aa
-"}
-(15,1,1) = {"
-ab
-ab
-ab
-ab
-ab
-ab
-ai
-ak
-at
-aF
+ad
+ad
+ad
+ad
 aN
-ad
-ad
-ad
-ad
+aF
+at
+ak
+ai
+ab
+ab
+ab
+ab
+ab
+ab"}(16,1,1) = {"
 aa
 aa
 aa
-"}
-(16,1,1) = {"
-aa
-ab
-ab
-ab
-ab
-ab
-ab
+ad
+ad
 ad
 au
 ad
 ad
 au
 ad
+ab
+ab
+ab
+ab
+ab
+ab
+aa"}(17,1,1) = {"
+aa
+aa
+aa
 ad
 ad
-aa
-aa
-aa
-"}
-(17,1,1) = {"
-aa
-aa
-ab
-ab
-ab
-ab
-ab
-ab
 ad
 ad
 aO
 ad
 ad
-ad
-ad
-aa
-aa
-aa
-"}
-(18,1,1) = {"
-aa
-aa
-aa
 ab
 ab
 ab
 ab
 ab
 ab
-ad
+aa
+aa"}(18,1,1) = {"
+aa
+aa
+aa
 ad
 ad
 aT
 ad
 ad
-aa
-aa
-aa
-"}
-(19,1,1) = {"
-aa
-aa
-aa
-aa
+ad
 ab
 ab
 ab
 ab
 ab
 ab
+aa
+aa
+aa"}(19,1,1) = {"
+aa
+aa
+aa
+aa
 ad
 ad
 ad
 ad
-aa
-aa
-aa
-aa
-"}
-(20,1,1) = {"
-aa
-aa
-aa
-aa
-aa
 ab
 ab
 ab
+ab
+ab
+ab
+aa
+aa
+aa
+aa"}(20,1,1) = {"
+aa
+aa
+aa
+aa
+ad
+ad
+ad
 ad
 aG
 ad
+ab
+ab
+ab
+aa
+aa
+aa
+aa
+aa"}(21,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
 ad
 ad
+aH
+av
 ad
 aa
 aa
 aa
 aa
-"}
-(21,1,1) = {"
 aa
 ac
-aa
-aa
-aa
-aa
-aa
-ad
-av
-aH
-ad
-ad
-aa
-aa
-aa
-aa
-aa
-aa
-"}
+aa"}

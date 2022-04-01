@@ -19,7 +19,9 @@
 	},
 /area/shuttle/escape/arena)
 "i" = (
-/obj/structure/closet/crate/necropolis/dragon,
+/obj/structure/closet/crate/necropolis/dragon{
+	dir = 1
+	},
 /turf/open/indestructible{
 	icon_state = "cult"
 	},
@@ -28,67 +30,86 @@
 /turf/open/indestructible/necropolis/air,
 /area/shuttle/escape/arena)
 "k" = (
-/obj/structure/fluff/drake_statue,
+/obj/structure/fluff/drake_statue{
+	dir = 1
+	},
 /turf/open/indestructible{
 	icon_state = "cult"
 	},
 /area/shuttle/escape/arena)
 "l" = (
-/obj/structure/closet/crate/necropolis/tendril,
-/obj/item/skeleton_key,
+/obj/structure/closet/crate/necropolis/tendril{
+	dir = 1
+	},
+/obj/item/skeleton_key{
+	dir = 1
+	},
 /turf/open/indestructible/necropolis/air,
 /area/shuttle/escape/arena)
 "m" = (
-/obj/structure/fluff/drake_statue,
+/obj/structure/fluff/drake_statue{
+	dir = 1
+	},
 /turf/open/indestructible/necropolis/air,
 /area/shuttle/escape/arena)
 "p" = (
-/obj/structure/healingfountain,
+/obj/structure/healingfountain{
+	dir = 1
+	},
 /turf/open/indestructible/necropolis/air,
 /area/shuttle/escape/arena)
 "z" = (
-/obj/effect/landmark/shuttle_arena_safe,
+/obj/effect/landmark/shuttle_arena_safe{
+	dir = 1
+	},
 /turf/open/indestructible/necropolis/air,
 /area/shuttle/escape/arena)
 "L" = (
-/obj/effect/forcefield/arena_shuttle_entrance,
-/obj/docking_port/mobile/emergency{
-	name = "The Arena"
+/obj/effect/forcefield/arena_shuttle_entrance{
+	dir = 1
 	},
-/obj/structure/fans/tiny/invisible,
+/obj/docking_port/mobile/emergency{
+	name = "The Arena";
+	dir = 4
+	},
+/obj/structure/fans/tiny/invisible{
+	dir = 1
+	},
 /turf/open/indestructible/necropolis/air,
 /area/shuttle/escape/arena)
 "N" = (
-/obj/effect/forcefield/arena_shuttle_entrance,
-/obj/structure/fans/tiny/invisible,
+/obj/effect/forcefield/arena_shuttle_entrance{
+	dir = 1
+	},
+/obj/structure/fans/tiny/invisible{
+	dir = 1
+	},
 /turf/open/indestructible/necropolis/air,
 /area/shuttle/escape/arena)
 
 (1,1,1) = {"
-g
-g
-g
-g
+f
 g
 g
 g
 N
+g
+N
+g
+g
+g
+g
 g
 L
 g
-g
-g
-g
-g
-N
-g
 N
 g
 g
 g
-f
-"}
-(2,1,1) = {"
+g
+g
+g
+g"}(2,1,1) = {"
 g
 g
 g
@@ -110,221 +131,202 @@ g
 g
 g
 g
+g"}(3,1,1) = {"
 g
-"}
-(3,1,1) = {"
-g
-h
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-h
 p
-g
-"}
-(4,1,1) = {"
-g
 h
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+h
+g"}(4,1,1) = {"
+g
+p
+j
+j
+m
+j
+l
+m
+j
+l
 k
-l
 j
+l
 m
-l
 j
+l
 m
-l
 j
+l
 k
-l
+h
+g"}(5,1,1) = {"
+g
+p
+j
+j
+j
+j
+z
+j
+j
+z
+h
+j
+z
+j
+j
+z
+j
+j
+h
+h
+i
+g"}(6,1,1) = {"
+g
+p
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+h
+i
+i
+g"}(7,1,1) = {"
+g
+p
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+h
+i
+i
+g"}(8,1,1) = {"
+g
+p
+j
+j
+j
+j
+z
+h
+j
+z
+j
+j
+z
+j
+j
+z
+j
+j
+h
+h
+i
+g"}(9,1,1) = {"
+g
+p
+j
 j
 m
-l
 j
+l
 m
 j
+l
+m
 j
-p
-g
-"}
-(5,1,1) = {"
-g
-i
-h
-h
+l
+m
 j
+l
+m
 j
-z
-j
-j
-z
-j
-h
-z
-j
-j
-z
-j
-j
-j
-j
-p
-g
-"}
-(6,1,1) = {"
-g
-i
-i
-h
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-p
-g
-"}
-(7,1,1) = {"
-g
-i
-i
-h
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-p
-g
-"}
-(8,1,1) = {"
-g
-i
-h
-h
-j
-j
-z
-j
-j
-z
-j
-j
-z
-j
-h
-z
-j
-j
-j
-j
-p
-g
-"}
-(9,1,1) = {"
-g
-h
+l
 k
-l
-j
-m
-l
-j
-m
-l
-j
-m
-l
-j
-m
-l
-j
-m
-j
-j
-p
-g
-"}
-(10,1,1) = {"
-g
 h
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
-j
+g"}(10,1,1) = {"
+g
+g
 d
-g
-g
-"}
-(11,1,1) = {"
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+j
+h
+g"}(11,1,1) = {"
 f
-"}
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g"}

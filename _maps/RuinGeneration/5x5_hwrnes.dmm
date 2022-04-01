@@ -9,7 +9,9 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "o" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "A" = (
@@ -23,7 +25,7 @@
 /area/ruin/unpowered)
 "Q" = (
 /obj/effect/abstract/doorway_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -33,33 +35,24 @@ A
 j
 O
 j
-A
-"}
-(2,1,1) = {"
+A"}(2,1,1) = {"
 A
 j
 j
 j
-A
-"}
-(3,1,1) = {"
-Q
-j
-j
-j
+A"}(3,1,1) = {"
 o
-"}
-(4,1,1) = {"
+j
+j
+j
+Q"}(4,1,1) = {"
 A
 j
 j
 j
-A
-"}
-(5,1,1) = {"
+A"}(5,1,1) = {"
 A
 A
 h
 A
-A
-"}
+A"}

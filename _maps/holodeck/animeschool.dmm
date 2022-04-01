@@ -4,66 +4,123 @@
 /area/template_noop)
 "j" = (
 /obj/structure/chair{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/holofloor,
 /area/template_noop)
 "n" = (
-/obj/structure/table,
-/obj/item/paper,
-/obj/item/pen,
-/obj/item/clothing/under/costume/schoolgirl,
-/obj/item/toy/katana,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/paper{
+	dir = 1
+	},
+/obj/item/pen{
+	dir = 1
+	},
+/obj/item/clothing/under/costume/schoolgirl{
+	dir = 1
+	},
+/obj/item/toy/katana{
+	dir = 1
+	},
 /turf/open/floor/holofloor,
 /area/template_noop)
 "s" = (
-/obj/structure/table/wood,
-/obj/item/toy/crayon/white,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/toy/crayon/white{
+	dir = 1
+	},
 /turf/open/floor/holofloor,
 /area/template_noop)
 "x" = (
-/obj/structure/table,
-/obj/item/paper,
-/obj/item/pen,
-/obj/item/clothing/under/costume/schoolgirl/orange,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/paper{
+	dir = 1
+	},
+/obj/item/pen{
+	dir = 1
+	},
+/obj/item/clothing/under/costume/schoolgirl/orange{
+	dir = 1
+	},
 /turf/open/floor/holofloor,
 /area/template_noop)
 "E" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/apple,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/grown/apple{
+	dir = 1
+	},
 /turf/open/floor/holofloor,
 /area/template_noop)
 "H" = (
-/obj/structure/table,
-/obj/item/paper,
-/obj/item/pen,
-/obj/item/clothing/under/costume/schoolgirl,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/paper{
+	dir = 1
+	},
+/obj/item/pen{
+	dir = 1
+	},
+/obj/item/clothing/under/costume/schoolgirl{
+	dir = 1
+	},
 /turf/open/floor/holofloor,
 /area/template_noop)
 "R" = (
 /obj/structure/chair{
-	pixel_y = -2
+	pixel_y = 2;
+	dir = 1
 	},
 /turf/open/floor/holofloor,
 /area/template_noop)
 "S" = (
-/obj/structure/table,
-/obj/item/paper,
-/obj/item/pen,
-/obj/item/clothing/under/costume/schoolgirl/green,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/paper{
+	dir = 1
+	},
+/obj/item/pen{
+	dir = 1
+	},
+/obj/item/clothing/under/costume/schoolgirl/green{
+	dir = 1
+	},
 /turf/open/floor/holofloor,
 /area/template_noop)
 "T" = (
-/obj/structure/table,
-/obj/item/paper,
-/obj/item/pen,
-/obj/item/clothing/under/costume/schoolgirl/red,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/paper{
+	dir = 1
+	},
+/obj/item/pen{
+	dir = 1
+	},
+/obj/item/clothing/under/costume/schoolgirl/red{
+	dir = 1
+	},
 /turf/open/floor/holofloor,
 /area/template_noop)
 "Y" = (
-/obj/structure/table/wood,
-/obj/item/folder,
-/obj/item/melee/classic_baton/telescopic,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/folder{
+	dir = 1
+	},
+/obj/item/melee/classic_baton/telescopic{
+	dir = 1
+	},
 /turf/open/floor/holofloor,
 /area/template_noop)
 
@@ -77,69 +134,57 @@ a
 a
 a
 a
+a"}(2,1,1) = {"
 a
-"}
-(2,1,1) = {"
-a
-a
-a
-S
+j
+H
 j
 n
 j
-H
+S
+a
+a
+a"}(3,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a"}(4,1,1) = {"
+a
 j
-a
-"}
-(3,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(4,1,1) = {"
+T
+j
+x
+j
+H
 a
 Y
+a"}(5,1,1) = {"
 a
-H
+a
+a
+a
+a
+a
+a
+a
+s
+R"}(6,1,1) = {"
+a
 j
-x
+H
 j
 T
 j
-a
-"}
-(5,1,1) = {"
-R
-s
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(6,1,1) = {"
+S
 a
 E
-a
-S
-j
-T
-j
-H
-j
-a
-"}
-(7,1,1) = {"
+a"}(7,1,1) = {"
 a
 a
 a
@@ -149,29 +194,24 @@ a
 a
 a
 a
+a"}(8,1,1) = {"
 a
-"}
-(8,1,1) = {"
-a
-a
-a
-S
-j
-S
 j
 x
 j
-a
-"}
-(9,1,1) = {"
-a
-a
+S
+j
+S
 a
 a
-a
+a"}(9,1,1) = {"
 a
 a
 a
 a
 a
-"}
+a
+a
+a
+a
+a"}

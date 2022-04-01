@@ -6,12 +6,18 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/transport)
 "c" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/transport)
 "d" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
+/obj/machinery/door/airlock/external{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/transport)
 "e" = (
@@ -24,16 +30,20 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
-/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 "g" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/transport)
 "h" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
@@ -50,11 +60,15 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 "k" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
 "l" = (
-/obj/machinery/door/airlock/titanium,
+/obj/machinery/door/airlock/titanium{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
 "m" = (
@@ -64,8 +78,12 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/transport)
 "n" = (
-/obj/machinery/door/airlock/titanium,
-/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/titanium{
+	dir = 1
+	},
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 2;
@@ -83,24 +101,30 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
+	dir = 2;
+	pixel_y = -1
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 "p" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/transport)
 "q" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
 "r" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
+/obj/machinery/door/airlock/external{
+	dir = 1
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
 
@@ -109,89 +133,64 @@ a
 a
 e
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 e
 j
 e
+a"}(3,1,1) = {"
 a
-"}
-(3,1,1) = {"
-a
-f
-i
 o
-a
-"}
-(4,1,1) = {"
+i
+f
+a"}(4,1,1) = {"
 a
 b
 k
 b
-a
-"}
-(5,1,1) = {"
+a"}(5,1,1) = {"
 b
 b
 l
 b
-b
-"}
-(6,1,1) = {"
+b"}(6,1,1) = {"
 c
-g
-i
 p
-c
-"}
-(7,1,1) = {"
-b
-g
 i
+g
+c"}(7,1,1) = {"
+b
 p
+i
+g
+b"}(8,1,1) = {"
 b
-"}
-(8,1,1) = {"
-b
+i
+i
 h
-i
-i
-b
-"}
-(9,1,1) = {"
-d
+b"}(9,1,1) = {"
+r
 i
 m
 i
-r
-"}
-(10,1,1) = {"
+d"}(10,1,1) = {"
 b
-i
-i
 q
-b
-"}
-(11,1,1) = {"
-b
-g
 i
-p
-b
-"}
-(12,1,1) = {"
-c
-g
 i
+b"}(11,1,1) = {"
+b
 p
+i
+g
+b"}(12,1,1) = {"
 c
-"}
-(13,1,1) = {"
+p
+i
+g
+c"}(13,1,1) = {"
 b
 c
 n
 c
-b
-"}
+b"}

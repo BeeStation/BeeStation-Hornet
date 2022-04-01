@@ -1,109 +1,153 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/chair,
+/obj/structure/chair{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/structure/frame/computer,
+/obj/structure/frame/computer{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/machinery/iv_drip,
+/obj/machinery/iv_drip{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
 /obj/structure/mirror{
 	icon_state = "mirror_broke";
-	pixel_y = 28
+	pixel_y = -28;
+	dir = 1
 	},
 /obj/item/shard{
-	icon_state = "medium"
+	icon_state = "medium";
+	dir = 1
 	},
-/obj/item/circuitboard/computer/operating,
+/obj/item/circuitboard/computer/operating{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/structure/chair,
-/obj/item/reagent_containers/blood/random,
+/obj/effect/decal/cleanable/cobweb/cobweb2{
+	dir = 4
+	},
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/item/reagent_containers/blood/random{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/item/circuitboard/machine/stasis,
-/obj/item/wrench,
+/obj/item/circuitboard/machine/stasis{
+	dir = 1
+	},
+/obj/item/wrench{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
 /obj/structure/table/optable{
-	name = "Robotics Operating Table"
+	name = "Robotics Operating Table";
+	dir = 1
 	},
-/obj/item/surgical_drapes,
+/obj/item/surgical_drapes{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/structure/frame/machine,
+/obj/structure/frame/machine{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/effect/trap/nexus/trickyspawner/catbutcher,
-/obj/effect/spawner/lootdrop/trap,
+/obj/effect/trap/nexus/trickyspawner/catbutcher{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/trap{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
-/obj/structure/table/glass,
-/obj/item/storage/bag/trash,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/storage/bag/trash{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
-/obj/structure/closet/wardrobe/white,
-/obj/item/clothing/shoes/jackboots,
-/obj/item/reagent_containers/blood/random,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/structure/closet/wardrobe/white{
+	dir = 1
+	},
+/obj/item/clothing/shoes/jackboots{
+	dir = 1
+	},
+/obj/item/reagent_containers/blood/random{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "m" = (
-/obj/structure/table/glass,
-/obj/item/hemostat,
-/obj/item/stock_parts/manipulator,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/hemostat{
+	dir = 1
+	},
+/obj/item/stock_parts/manipulator{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (
-/obj/structure/table/glass,
-/obj/item/restraints/handcuffs/cable/zipties,
-/obj/item/reagent_containers/blood/random,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/restraints/handcuffs/cable/zipties{
+	icon_state = "0-2"
+	},
+/obj/item/reagent_containers/blood/random{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-f
-i
 l
-"}
-(2,1,1) = {"
-b
+i
+f
+a"}(2,1,1) = {"
+f
+f
 g
+b"}(3,1,1) = {"
 f
 f
-"}
-(3,1,1) = {"
-c
 h
-f
-f
-"}
-(4,1,1) = {"
-d
-f
-j
+c"}(4,1,1) = {"
 m
-"}
-(5,1,1) = {"
-e
+j
 f
-k
+d"}(5,1,1) = {"
 n
-"}
+k
+f
+e"}

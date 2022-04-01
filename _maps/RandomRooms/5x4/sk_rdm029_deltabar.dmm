@@ -1,56 +1,89 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/chem_dispenser/drinks/beer,
-/obj/structure/table/wood/poker,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/machinery/chem_dispenser/drinks/beer{
+	dir = 1
+	},
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
 /obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /obj/machinery/light/small{
 	icon_state = "bulb";
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/structure/table/wood/poker,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/drinks/bottle/rum{
 	pixel_x = 6;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/drinks/bottle/whiskey{
-	pixel_y = 7
+	pixel_y = -7;
+	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "c" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "d" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/boozeomat/all_access,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/machinery/vending/boozeomat/all_access{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	icon_state = "bulb";
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/structure/table/wood/poker,
-/obj/item/reagent_containers/food/drinks/shaker,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
-/obj/item/reagent_containers/dropper,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/shaker{
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/beaker/cryoxadone{
+	dir = 1
+	},
+/obj/item/reagent_containers/dropper{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/vomit/old,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/vomit/old{
+	dir = 4
+	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken3"
 	},
@@ -59,74 +92,90 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/structure/table/wood/poker,
-/obj/item/flashlight/lamp,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
+/obj/item/flashlight/lamp{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/structure/table/wood/poker,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken5"
 	},
 /area/template_noop)
 "k" = (
-/obj/structure/table/wood/poker,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
 /obj/item/storage/box/matches{
 	pixel_x = -3;
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/template_noop)
 "l" = (
-/obj/structure/table/wood/poker,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "m" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "n" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken"
 	},
 /area/template_noop)
 "o" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/decal/cleanable/vomit/old,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/vomit/old{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 
 (1,1,1) = {"
-a
+c
+c
 f
-c
-c
-"}
-(2,1,1) = {"
-b
-g
+a"}(2,1,1) = {"
+m
 i
+g
+b"}(3,1,1) = {"
 m
-"}
-(3,1,1) = {"
-c
-h
 j
-m
-"}
-(4,1,1) = {"
-d
-c
-k
+h
+c"}(4,1,1) = {"
 o
-"}
-(5,1,1) = {"
-e
-f
-l
+k
+c
+d"}(5,1,1) = {"
 n
-"}
+l
+f
+e"}

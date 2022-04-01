@@ -1,87 +1,126 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/table/wood,
-/obj/structure/sign/barsign{
-	pixel_y = 32
+/obj/structure/table/wood{
+	dir = 1
 	},
-/obj/item/wirerod,
-/obj/item/wrench,
-/obj/item/clothing/under/suit/waiter,
-/obj/item/clothing/accessory/waistcoat,
+/obj/structure/sign/barsign{
+	pixel_y = -32;
+	dir = 1
+	},
+/obj/item/wirerod{
+	dir = 1
+	},
+/obj/item/wrench{
+	dir = 1
+	},
+/obj/item/clothing/under/suit/waiter{
+	dir = 1
+	},
+/obj/item/clothing/accessory/waistcoat{
+	dir = 1
+	},
 /obj/structure/sign/poster/contraband/random{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "b" = (
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/tile/neutral{
+/obj/item/kirbyplants/random{
 	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "c" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/item/storage/box/matches{
 	pixel_x = -3;
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "d" = (
 /obj/machinery/status_display/evac{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/wood,
 /area/template_noop)
 "e" = (
-/obj/item/kirbyplants/random,
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "g" = (
-/obj/structure/table/wood,
-/obj/item/storage/briefcase,
-/obj/item/taperecorder,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/storage/briefcase{
+	dir = 1
+	},
+/obj/item/taperecorder{
+	dir = 1
+	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken4"
 	},
 /area/template_noop)
 "h" = (
-/obj/structure/table/wood,
-/obj/item/electronics/firelock,
-/obj/item/electronics/airlock,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/electronics/firelock{
+	dir = 1
+	},
+/obj/item/electronics/airlock{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "i" = (
 /obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/obj/machinery/light/small{
+	pixel_y = -32;
 	dir = 1
 	},
-/obj/item/kirbyplants/random,
+/obj/machinery/light/small{
+	dir = 2
+	},
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "j" = (
 /obj/effect/turf_decal/tile/neutral{
-	dir = 1
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
@@ -89,18 +128,26 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "l" = (
-/obj/structure/table/wood,
-/obj/item/clothing/neck/tie/red,
-/obj/item/clothing/head/that,
-/obj/effect/turf_decal/tile/neutral{
+/obj/structure/table/wood{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral,
+/obj/item/clothing/neck/tie/red{
+	dir = 1
+	},
+/obj/item/clothing/head/that{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
@@ -121,16 +168,22 @@
 	},
 /area/template_noop)
 "p" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/item/poster/random_contraband{
 	pixel_x = 3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/item/poster/random_contraband{
 	pixel_x = -3;
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
-/obj/item/poster/random_contraband,
+/obj/item/poster/random_contraband{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "q" = (
@@ -147,7 +200,9 @@
 	},
 /area/template_noop)
 "s" = (
-/obj/item/kirbyplants/random,
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "t" = (
@@ -157,10 +212,18 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "u" = (
-/obj/structure/table/wood,
-/obj/item/clipboard,
-/obj/item/electronics/airalarm,
-/obj/item/electronics/airlock,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/clipboard{
+	dir = 1
+	},
+/obj/item/electronics/airalarm{
+	dir = 1
+	},
+/obj/item/electronics/airlock{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "v" = (
@@ -176,38 +239,54 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "x" = (
-/obj/structure/table/wood,
-/obj/item/circuitboard/computer/arcade,
-/obj/effect/turf_decal/tile/neutral{
+/obj/structure/table/wood{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral,
+/obj/item/circuitboard/computer/arcade{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
-	dir = 8
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "y" = (
-/obj/structure/table/wood,
-/obj/item/electronics/airalarm,
-/obj/item/circuitboard/computer/med_data,
-/obj/effect/turf_decal/tile/neutral{
+/obj/structure/table/wood{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
+/obj/item/electronics/airalarm{
+	dir = 1
+	},
+/obj/item/circuitboard/computer/med_data{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "z" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "A" = (
@@ -217,9 +296,15 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "B" = (
-/obj/structure/table/wood,
-/obj/item/folder/red,
-/obj/item/pen,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/folder/red{
+	dir = 1
+	},
+/obj/item/pen{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "C" = (
@@ -234,135 +319,144 @@
 	},
 /area/template_noop)
 "F" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/machinery/airalarm{
 	dir = 4;
 	pixel_x = -23
 	},
 /obj/machinery/light_switch{
-	pixel_y = -26
+	pixel_y = 26;
+	dir = 1
 	},
 /obj/item/stack/cable_coil/white,
 /obj/item/stack/cable_coil/white,
-/obj/item/stack/sheet/glass,
-/obj/item/stack/sheet/glass,
-/obj/item/circuitboard/machine/microwave,
+/obj/item/stack/sheet/glass{
+	dir = 1
+	},
+/obj/item/stack/sheet/glass{
+	dir = 1
+	},
+/obj/item/circuitboard/machine/microwave{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "G" = (
 /obj/machinery/newscaster{
-	pixel_y = -32
-	},
-/obj/machinery/light/small,
-/obj/effect/turf_decal/tile/neutral{
+	pixel_y = 32;
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
+/obj/machinery/light/small{
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "H" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/item/poster/random_contraband{
 	pixel_x = 3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/item/poster/random_contraband{
 	pixel_x = -3;
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
-/obj/item/poster/random_contraband,
+/obj/item/poster/random_contraband{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "I" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "O" = (
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "R" = (
-/obj/effect/decal/cleanable/vomit/old,
+/obj/effect/decal/cleanable/vomit/old{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "V" = (
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-j
-s
-x
 F
-"}
-(2,1,1) = {"
-b
-R
+x
+s
 j
-O
+a"}(2,1,1) = {"
 G
-"}
-(3,1,1) = {"
-c
-l
-k
-y
+O
+j
+R
+b"}(3,1,1) = {"
 H
-"}
-(4,1,1) = {"
-d
+y
+k
+l
+c"}(4,1,1) = {"
+z
+z
+n
 m
+d"}(5,1,1) = {"
 n
-z
-z
-"}
-(5,1,1) = {"
-e
-n
-V
 r
+V
 n
-"}
-(6,1,1) = {"
-n
-o
-t
+e"}(6,1,1) = {"
+r
 A
-r
-"}
-(7,1,1) = {"
-g
-p
-u
-B
+t
+o
+n"}(7,1,1) = {"
 I
-"}
-(8,1,1) = {"
-h
-q
-v
-C
+B
+u
+p
+g"}(8,1,1) = {"
 n
-"}
-(9,1,1) = {"
-e
+C
+v
+q
+h"}(9,1,1) = {"
+m
 n
 V
 n
-m
-"}
-(10,1,1) = {"
-i
-r
-w
-D
+e"}(10,1,1) = {"
 e
-"}
+D
+w
+r
+i"}

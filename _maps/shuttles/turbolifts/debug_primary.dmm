@@ -3,7 +3,9 @@
 /turf/closed/indestructible/turbolift,
 /area/shuttle/turbolift/primary)
 "b" = (
-/obj/machinery/door/airlock/turbolift,
+/obj/machinery/door/airlock/turbolift{
+	dir = 1
+	},
 /turf/open/indestructible/turbolift,
 /area/shuttle/turbolift/primary)
 "c" = (
@@ -11,8 +13,9 @@
 /area/shuttle/turbolift/primary)
 "d" = (
 /obj/machinery/computer/turbolift{
-	pixel_y = -32;
-	shuttle_id = "turbolift_primary"
+	pixel_y = 32;
+	shuttle_id = "turbolift_primary";
+	dir = 1
 	},
 /turf/open/indestructible/turbolift,
 /area/shuttle/turbolift/primary)
@@ -21,12 +24,15 @@
 	dwidth = 2;
 	height = 4;
 	id = "turbolift_primary";
-	width = 5
+	width = 5;
+	dir = 2
 	},
 /turf/closed/indestructible/turbolift,
 /area/shuttle/turbolift/primary)
 "R" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/indestructible/turbolift,
 /area/shuttle/turbolift/primary)
 
@@ -34,29 +40,20 @@
 a
 a
 a
+a"}(2,1,1) = {"
 a
-"}
-(2,1,1) = {"
-b
 c
 c
-a
-"}
-(3,1,1) = {"
-b
-c
-d
+b"}(3,1,1) = {"
 e
-"}
-(4,1,1) = {"
-b
+d
 c
+b"}(4,1,1) = {"
+a
 R
-a
-"}
-(5,1,1) = {"
-a
+c
+b"}(5,1,1) = {"
 a
 a
 a
-"}
+a"}

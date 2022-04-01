@@ -4,89 +4,117 @@
 /area/tdome/arena)
 "b" = (
 /obj/structure/lattice{
-	layer = 2.9
+	layer = 2.9;
+	dir = 1
 	},
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 "c" = (
-/obj/machinery/power/tracker,
-/obj/structure/cable,
+/obj/machinery/power/tracker{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/open/floor/plasteel/airless/solarpanel,
 /area/tdome/arena)
 "d" = (
-/obj/item/stack/rods,
+/obj/item/stack/rods{
+	dir = 1
+	},
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 "e" = (
 /obj/machinery/power/solar{
 	id = "portsolar";
-	name = "Port Solar Array"
+	name = "Port Solar Array";
+	dir = 1
 	},
-/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/open/floor/plasteel/airless/solarpanel,
 /area/tdome/arena)
 "f" = (
 /obj/structure/lattice/catwalk{
-	layer = 2.9
+	layer = 2.9;
+	dir = 1
 	},
 /obj/structure/cable{
 	layer = 3;
-	level = 2
+	level = 2;
+	icon_state = "0-2"
 	},
-/obj/item/screwdriver,
+/obj/item/screwdriver{
+	dir = 1
+	},
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 "g" = (
 /obj/structure/lattice/catwalk{
-	layer = 2.9
+	layer = 2.9;
+	dir = 1
 	},
 /obj/structure/cable{
 	layer = 3;
-	level = 2
+	level = 2;
+	icon_state = "0-2"
 	},
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 "h" = (
 /obj/structure/lattice/catwalk{
-	layer = 2.9
+	layer = 2.9;
+	dir = 1
 	},
 /obj/structure/cable{
 	layer = 3;
-	level = 2
+	level = 2;
+	icon_state = "0-2"
 	},
 /obj/item/clothing/suit/space/fragile{
 	pixel_x = -2;
-	pixel_y = -4
+	pixel_y = 4;
+	dir = 1
 	},
 /obj/item/clothing/head/helmet/space/fragile{
-	pixel_y = 10
+	pixel_y = -10;
+	dir = 1
 	},
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 "i" = (
 /obj/structure/lattice/catwalk{
-	layer = 2.9
+	layer = 2.9;
+	dir = 1
 	},
 /obj/structure/cable{
 	layer = 3;
-	level = 2
+	level = 2;
+	icon_state = "0-2"
 	},
 /obj/item/stack/cable_coil,
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 "j" = (
-/obj/item/crowbar,
+/obj/item/crowbar{
+	dir = 1
+	},
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 "k" = (
 /obj/structure/lattice/catwalk{
-	layer = 2.9
+	layer = 2.9;
+	dir = 1
 	},
 /obj/structure/cable{
 	layer = 3;
-	level = 2
+	level = 2;
+	icon_state = "0-2"
 	},
-/obj/item/wrench,
+/obj/item/wrench{
+	dir = 1
+	},
 /turf/open/floor/fakespace,
 /area/tdome/arena)
 
@@ -98,20 +126,15 @@ a
 a
 a
 a
+a"}(2,1,1) = {"
 a
-"}
-(2,1,1) = {"
+a
+a
+a
+a
 a
 d
-a
-a
-a
-a
-a
-a
-"}
-(3,1,1) = {"
-a
+a"}(3,1,1) = {"
 a
 b
 a
@@ -119,9 +142,7 @@ a
 a
 b
 a
-"}
-(4,1,1) = {"
-a
+a"}(4,1,1) = {"
 e
 g
 e
@@ -129,9 +150,7 @@ a
 e
 g
 e
-"}
-(5,1,1) = {"
-a
+a"}(5,1,1) = {"
 e
 g
 e
@@ -139,9 +158,7 @@ a
 e
 g
 e
-"}
-(6,1,1) = {"
-a
+a"}(6,1,1) = {"
 e
 g
 e
@@ -149,49 +166,31 @@ a
 e
 g
 e
-"}
-(7,1,1) = {"
-b
-a
-g
-a
-d
+a"}(7,1,1) = {"
 a
 k
 a
-"}
-(8,1,1) = {"
-c
-f
-h
+d
+a
+g
+a
+b"}(8,1,1) = {"
+g
+g
 g
 i
 g
-g
-g
-"}
-(9,1,1) = {"
-b
+h
+f
+c"}(9,1,1) = {"
 a
 g
-a
-a
 j
+a
+a
 g
 a
-"}
-(10,1,1) = {"
-a
-e
-g
-e
-a
-e
-g
-e
-"}
-(11,1,1) = {"
-a
+b"}(10,1,1) = {"
 e
 g
 e
@@ -199,9 +198,7 @@ a
 e
 g
 e
-"}
-(12,1,1) = {"
-a
+a"}(11,1,1) = {"
 e
 g
 e
@@ -209,9 +206,15 @@ a
 e
 g
 e
-"}
-(13,1,1) = {"
+a"}(12,1,1) = {"
+e
+g
+e
 a
+e
+g
+e
+a"}(13,1,1) = {"
 d
 b
 a
@@ -219,8 +222,7 @@ a
 a
 b
 d
-"}
-(14,1,1) = {"
+a"}(14,1,1) = {"
 a
 a
 a
@@ -228,9 +230,7 @@ a
 a
 a
 a
-a
-"}
-(15,1,1) = {"
+a"}(15,1,1) = {"
 a
 a
 a
@@ -238,5 +238,4 @@ a
 a
 a
 a
-a
-"}
+a"}

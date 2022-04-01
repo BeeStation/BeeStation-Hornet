@@ -3,29 +3,36 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/machinery/door/airlock/maintenance/external/glass,
+/obj/machinery/door/airlock/maintenance/external/glass{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "c" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/lootdrop/grille_or_trash{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
 /obj/structure/chair/pew{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "g" = (
 /obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "i" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
@@ -34,11 +41,15 @@
 	},
 /area/template_noop)
 "k" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/lootdrop/grille_or_trash{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -54,7 +65,7 @@
 /area/template_noop)
 "o" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
@@ -68,12 +79,18 @@
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "r" = (
-/obj/effect/landmark/event_spawn,
+/obj/effect/landmark/event_spawn{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "s" = (
-/obj/item/stack/sheet/mineral/wood,
-/obj/structure/table_frame/wood,
+/obj/item/stack/sheet/mineral/wood{
+	dir = 1
+	},
+/obj/structure/table_frame/wood{
+	dir = 1
+	},
 /obj/item/stack/cable_coil/cyan,
 /obj/machinery/light/small/built{
 	dir = 4
@@ -88,7 +105,7 @@
 /area/template_noop)
 "v" = (
 /obj/structure/chair/pew/right{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
@@ -108,12 +125,18 @@
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "y" = (
-/obj/item/candle/infinite,
+/obj/item/candle/infinite{
+	dir = 1
+	},
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "z" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/eight{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "A" = (
@@ -123,7 +146,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "B" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -144,7 +169,8 @@
 /area/template_noop)
 "E" = (
 /obj/item/radio/intercom{
-	pixel_y = 26
+	pixel_y = -26;
+	dir = 1
 	},
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
@@ -161,7 +187,9 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "K" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
 /obj/item/stack/cable_coil/blue,
 /turf/open/floor/plating,
 /area/template_noop)
@@ -170,9 +198,11 @@
 /area/template_noop)
 "N" = (
 /obj/structure/chair/pew{
+	dir = 2
+	},
+/obj/machinery/light/small/built{
 	dir = 1
 	},
-/obj/machinery/light/small/built,
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "O" = (
@@ -192,23 +222,30 @@
 	icon = 'icons/obj/tesla_engine/tesla_generator.dmi';
 	icon_state = "TheSingGen";
 	name = "energy ball generator";
-	pixel_y = 12
+	pixel_y = -12;
+	dir = 1
 	},
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "S" = (
 /obj/structure/chair/pew/left{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "T" = (
-/obj/structure/table/wood,
-/obj/item/storage/toolbox/mechanical,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	dir = 1
+	},
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 "U" = (
-/obj/effect/landmark/blobstart,
+/obj/effect/landmark/blobstart{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "W" = (
@@ -217,7 +254,8 @@
 	},
 /obj/item/storage/box/holy/follower{
 	pixel_x = -4;
-	pixel_y = 7
+	pixel_y = -7;
+	dir = 1
 	},
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
@@ -227,129 +265,116 @@
 	},
 /area/template_noop)
 "Z" = (
-/obj/structure/table/wood,
-/obj/item/storage/fancy/candle_box,
-/obj/machinery/light/small/built,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/storage/fancy/candle_box{
+	dir = 1
+	},
+/obj/machinery/light/small/built{
+	dir = 1
+	},
 /turf/open/floor/carpet/royalblue,
 /area/template_noop)
 
 (1,1,1) = {"
 a
 c
-A
-a
-a
-a
-K
 C
-c
+K
 a
-"}
-(2,1,1) = {"
-l
-p
-p
-i
-i
-i
-i
-p
-p
+a
+a
+A
 c
-"}
-(3,1,1) = {"
-k
+a"}(2,1,1) = {"
+c
 p
-E
-y
-F
-L
-S
-S
 p
+i
+i
+i
+i
+p
+p
+l"}(3,1,1) = {"
 o
-"}
-(4,1,1) = {"
+p
+S
+S
+L
+F
+y
+E
+p
+k"}(4,1,1) = {"
 a
-i
+p
+N
+f
+j
 y
 R
 y
-j
-f
-N
-p
-a
-"}
-(5,1,1) = {"
-m
 i
-I
-y
-n
-m
-v
-v
-p
+a"}(5,1,1) = {"
 g
-"}
-(6,1,1) = {"
-a
-i
-L
-L
-J
-U
-L
-X
-b
-a
-"}
-(7,1,1) = {"
-a
-i
-u
-q
-x
-r
-T
-s
 p
+v
+v
 m
-"}
-(8,1,1) = {"
-k
+n
+y
+I
+i
+m"}(6,1,1) = {"
+a
+b
+X
+L
+U
+J
+L
+L
+i
+a"}(7,1,1) = {"
+m
 p
+s
+T
+r
+x
+q
 u
-w
-W
-D
-Z
-p
-p
+i
+a"}(8,1,1) = {"
 o
-"}
-(9,1,1) = {"
+p
+p
+Z
+D
+W
+w
+u
+p
+k"}(9,1,1) = {"
 c
-p
-p
+z
 p
 p
 b
 p
 p
-z
-c
-"}
-(10,1,1) = {"
+p
+p
+c"}(10,1,1) = {"
 a
 c
-Q
-a
-a
-a
-O
 B
-c
+O
 a
-"}
+a
+a
+Q
+c
+a"}

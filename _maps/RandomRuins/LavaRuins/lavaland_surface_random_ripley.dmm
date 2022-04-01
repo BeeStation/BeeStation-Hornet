@@ -10,14 +10,21 @@
 /area/lavaland/surface/outdoors)
 "d" = (
 /obj/mecha/working/ripley/mining{
-	ruin_mecha = 1
+	ruin_mecha = 1;
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "e" = (
-/obj/item/clothing/shoes/workboots/mining,
-/obj/item/clothing/under/rank/cargo/miner/lavaland,
-/obj/effect/decal/remains/human,
+/obj/item/clothing/shoes/workboots/mining{
+	dir = 1
+	},
+/obj/item/clothing/under/rank/cargo/miner/lavaland{
+	dir = 1
+	},
+/obj/effect/decal/remains/human{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 
@@ -26,33 +33,24 @@ a
 b
 b
 b
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 b
 c
 b
 c
+b"}(3,1,1) = {"
 b
-"}
-(3,1,1) = {"
-b
-c
-d
 e
+d
+c
+b"}(4,1,1) = {"
 b
-"}
-(4,1,1) = {"
 b
 c
 c
-b
-b
-"}
-(5,1,1) = {"
-b
-b
-b
-b
+b"}(5,1,1) = {"
 a
-"}
+b
+b
+b
+b"}

@@ -4,18 +4,23 @@
 /area/survivalpod)
 "b" = (
 /obj/structure/sign/mining/survival{
-	dir = 1
+	dir = 2
 	},
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
 "c" = (
-/obj/machinery/shower,
-/obj/item/soap/deluxe,
+/obj/machinery/shower{
+	dir = 1
+	},
+/obj/item/soap/deluxe{
+	dir = 1
+	},
 /obj/structure/curtain{
 	alpha = 240;
 	color = "#454545";
 	icon_state = "bathroom-closed";
-	open = 0
+	open = 0;
+	dir = 1
 	},
 /turf/open/floor/pod,
 /area/survivalpod)
@@ -26,20 +31,27 @@
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
 "e" = (
-/obj/structure/fans,
+/obj/structure/fans{
+	dir = 1
+	},
 /turf/open/floor/pod,
 /area/survivalpod)
 "f" = (
-/obj/machinery/smartfridge/survival_pod,
+/obj/machinery/smartfridge/survival_pod{
+	dir = 1
+	},
 /turf/open/floor/pod,
 /area/survivalpod)
 "g" = (
-/obj/item/gps/computer,
+/obj/item/gps/computer{
+	dir = 1
+	},
 /turf/open/floor/pod,
 /area/survivalpod)
 "i" = (
 /obj/structure/toilet/secret{
-	secret_type = /obj/item/kitchen/knife/combat/survival
+	secret_type = /obj/item/kitchen/knife/combat/survival;
+	dir = 1
 	},
 /turf/open/floor/pod,
 /area/survivalpod)
@@ -50,9 +62,12 @@
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
 "k" = (
-/obj/machinery/stasis/survival_pod,
+/obj/machinery/stasis/survival_pod{
+	dir = 1
+	},
 /obj/machinery/vending/wallmed/survival_pod{
-	pixel_x = -24
+	pixel_x = -24;
+	dir = 1
 	},
 /turf/open/floor/pod,
 /area/survivalpod)
@@ -60,8 +75,12 @@
 /turf/open/floor/pod,
 /area/survivalpod)
 "m" = (
-/obj/structure/bed/pod,
-/obj/item/bedsheet/black,
+/obj/structure/bed/pod{
+	dir = 1
+	},
+/obj/item/bedsheet/black{
+	dir = 1
+	},
 /turf/open/floor/pod,
 /area/survivalpod)
 "n" = (
@@ -70,34 +89,46 @@
 	layer = 3
 	},
 /obj/machinery/door/window/survival_pod{
-	dir = 1;
+	dir = 2;
 	icon_state = "windoor"
 	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "o" = (
-/obj/structure/chair/comfy/black,
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
 /obj/item/cardboard_cutout{
 	desc = "A cardboard cutout of a xenomorph maid.";
 	icon_state = "cutout_lusty";
-	name = "lusty xenomorph maid"
+	name = "lusty xenomorph maid";
+	dir = 1
 	},
 /obj/structure/window/reinforced/survival_pod{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "p" = (
-/obj/structure/table/survival_pod,
-/obj/item/storage/firstaid/regular,
+/obj/structure/table/survival_pod{
+	dir = 1
+	},
+/obj/item/storage/firstaid/regular{
+	dir = 1
+	},
 /obj/item/storage/firstaid/brute{
-	pixel_x = 5
+	pixel_x = 5;
+	dir = 1
 	},
 /turf/open/floor/pod,
 /area/survivalpod)
 "q" = (
-/obj/structure/tubes,
-/obj/item/kirbyplants/random,
+/obj/structure/tubes{
+	dir = 1
+	},
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /turf/open/floor/pod,
 /area/survivalpod)
 "r" = (
@@ -111,63 +142,75 @@
 	dir = 4;
 	light_color = "#DDFFD3"
 	},
-/obj/structure/table/wood/fancy/black,
+/obj/structure/table/wood/fancy/black{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = 7;
-	pixel_y = 2
+	pixel_y = -2;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/drinks/bottle/wine{
 	pixel_x = -6;
-	pixel_y = 10
+	pixel_y = -10;
+	dir = 1
 	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "t" = (
 /obj/machinery/microwave{
-	pixel_y = -2
-	},
-/obj/structure/window/reinforced/survival_pod{
+	pixel_y = 2;
 	dir = 1
 	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 2
+	},
 /obj/structure/table/wood/fancy/black{
-	pixel_y = -9
+	pixel_y = 9;
+	dir = 1
 	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "u" = (
 /obj/machinery/door/window/survival_pod{
 	icon_state = "windoor";
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "v" = (
 /obj/structure/window/reinforced/survival_pod{
-	dir = 1
+	dir = 2
 	},
 /obj/structure/displaycase{
 	alert = 0;
 	desc = "A display case containing an expensive forgery, probably.";
-	pixel_y = -4;
+	pixel_y = 4;
 	req_access_txt = "48";
-	start_showpiece_type = /obj/item/fakeartefact
+	start_showpiece_type = /obj/item/fakeartefact;
+	dir = 1
 	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "w" = (
 /obj/structure/window/reinforced/survival_pod{
 	density = 0;
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "x" = (
-/obj/structure/table/wood/fancy/black,
+/obj/structure/table/wood/fancy/black{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = 7;
-	pixel_y = 2
+	pixel_y = -2;
+	dir = 1
 	},
-/obj/effect/spawner/lootdrop/three_course_meal,
+/obj/effect/spawner/lootdrop/three_course_meal{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "y" = (
@@ -179,7 +222,9 @@
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "z" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "A" = (
@@ -187,21 +232,29 @@
 /area/survivalpod)
 "B" = (
 /obj/structure/chair/comfy/black{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "C" = (
-/obj/structure/sign/mining/survival,
+/obj/structure/sign/mining/survival{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
 "D" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
+/obj/machinery/door/airlock/survival_pod/glass{
+	dir = 1
+	},
 /turf/open/floor/pod,
 /area/survivalpod)
 "E" = (
-/obj/structure/sign/mining,
+/obj/structure/sign/mining{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/survivalpod)
 
@@ -212,59 +265,46 @@ a
 d
 a
 d
-a
-"}
-(2,1,1) = {"
-b
-e
-k
-p
-t
-y
+a"}(2,1,1) = {"
 C
-"}
-(3,1,1) = {"
+y
+t
+p
+k
+e
+b"}(3,1,1) = {"
 a
-f
-l
-l
-u
 z
-a
-"}
-(4,1,1) = {"
-b
-g
-m
-q
-v
-A
+u
+l
+l
+f
+a"}(4,1,1) = {"
 D
-"}
-(5,1,1) = {"
-a
-c
-n
-r
-w
 A
+v
+q
+m
+g
+b"}(5,1,1) = {"
 a
-"}
-(6,1,1) = {"
-b
-i
-o
-s
-x
-B
+A
+w
+r
+n
+c
+a"}(6,1,1) = {"
 E
-"}
-(7,1,1) = {"
+B
+x
+s
+o
+i
+b"}(7,1,1) = {"
 a
 j
 a
 j
 a
 j
-a
-"}
+a"}

@@ -4,7 +4,7 @@
 /area/ruin/unpowered)
 "l" = (
 /obj/effect/abstract/open_area_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -15,7 +15,9 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "v" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "x" = (
@@ -33,33 +35,24 @@ x
 x
 o
 x
+x"}(2,1,1) = {"
 x
-"}
-(2,1,1) = {"
 f
 f
 f
-f
-x
-"}
-(3,1,1) = {"
-l
-f
-f
-f
+f"}(3,1,1) = {"
 v
-"}
-(4,1,1) = {"
 f
 f
 f
-f
+l"}(4,1,1) = {"
 x
-"}
-(5,1,1) = {"
+f
+f
+f
+f"}(5,1,1) = {"
 x
 f
 Y
 f
-x
-"}
+x"}

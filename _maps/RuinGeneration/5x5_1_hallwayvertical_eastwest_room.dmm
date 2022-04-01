@@ -10,7 +10,7 @@
 /area/ruin/unpowered)
 "M" = (
 /obj/effect/abstract/open_area_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -24,7 +24,9 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "V" = (
-/obj/effect/abstract/open_area_marker,
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
@@ -33,33 +35,24 @@ h
 h
 S
 h
-h
-"}
-(2,1,1) = {"
+h"}(2,1,1) = {"
 Q
 Q
 Q
 Q
-Q
-"}
-(3,1,1) = {"
-M
-Q
-Q
-Q
+Q"}(3,1,1) = {"
 V
-"}
-(4,1,1) = {"
+Q
+Q
+Q
+M"}(4,1,1) = {"
 Q
 Q
 Q
 Q
-Q
-"}
-(5,1,1) = {"
+Q"}(5,1,1) = {"
 h
 h
 m
 h
-h
-"}
+h"}

@@ -6,16 +6,24 @@
 /obj/structure/chair/wood/normal{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/structure/table/wood,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	icon_state = "bulb";
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
@@ -26,86 +34,134 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/machinery/vending/cigarette,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/cigarette{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/structure/chair/wood/normal,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/wood/normal{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/decal/cleanable/dirt{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "h" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "i" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "j" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/machinery/newscaster{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/maintenance/two{
+	dir = 1
+	},
 /obj/item/toy/cards/deck/syndicate{
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "k" = (
-/obj/structure/table/wood/poker,
-/obj/item/clothing/glasses/sunglasses/advanced/big,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
+/obj/item/clothing/glasses/sunglasses/advanced/big{
+	dir = 1
+	},
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "l" = (
-/obj/structure/table/wood/poker,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
 /obj/item/stack/spacecash/c10{
 	pixel_x = -16;
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
-/obj/item/stack/spacecash/c100,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/spacecash/c100{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "n" = (
 /obj/structure/chair/wood/normal{
-	dir = 1
+	dir = 2
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (
-/obj/structure/table/wood/poker,
-/obj/item/stack/spacecash/c1000{
-	pixel_y = 8
+/obj/structure/table/wood/poker{
+	dir = 1
 	},
-/obj/item/stack/spacecash/c500,
+/obj/item/stack/spacecash/c1000{
+	pixel_y = -8;
+	dir = 1
+	},
+/obj/item/stack/spacecash/c500{
+	dir = 1
+	},
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "p" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "q" = (
@@ -113,32 +169,23 @@
 /area/template_noop)
 
 (1,1,1) = {"
-b
-f
-j
 n
-"}
-(2,1,1) = {"
-c
+j
+f
+b"}(2,1,1) = {"
 g
 g
 g
-"}
-(3,1,1) = {"
-d
-h
+c"}(3,1,1) = {"
+p
 k
+h
+d"}(4,1,1) = {"
 p
-"}
-(4,1,1) = {"
-a
-i
 l
-p
-"}
-(5,1,1) = {"
-e
 i
-o
+a"}(5,1,1) = {"
 q
-"}
+o
+i
+e"}

@@ -1,11 +1,17 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/table,
-/obj/machinery/microwave,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/machinery/microwave{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/effect/decal/cleanable/vomit/old,
+/obj/effect/decal/cleanable/vomit/old{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
@@ -13,82 +19,117 @@
 /area/template_noop)
 "d" = (
 /obj/structure/sink/kitchen{
-	pixel_y = 28
+	pixel_y = -28;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/bowl,
-/obj/item/reagent_containers/glass/bowl,
-/obj/item/reagent_containers/food/condiment/rice,
-/obj/machinery/light/small{
+/obj/structure/table{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/item/reagent_containers/glass/bowl{
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/bowl{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/condiment/rice{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/snacks/cookie{
 	desc = "It has a distinctly eldritch taste to it.";
-	name = "grandma's cookie"
+	name = "grandma's cookie";
+	dir = 1
 	},
-/obj/item/cigbutt,
+/obj/item/cigbutt{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
-/obj/structure/chair/stool,
-/obj/item/clothing/suit/apron/chef,
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/item/clothing/suit/apron/chef{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/machinery/hydroponics/constructable,
+/obj/machinery/hydroponics/constructable{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/structure/closet/crate,
-/obj/item/cultivator,
-/obj/item/shovel/spade,
-/obj/item/storage/bag/plants/portaseeder,
-/obj/item/seeds/wheat/rice,
-/obj/item/seeds/replicapod,
-/obj/item/seeds/carrot,
-/obj/item/seeds/tomato,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/cultivator{
+	dir = 1
+	},
+/obj/item/shovel/spade{
+	dir = 1
+	},
+/obj/item/storage/bag/plants/portaseeder{
+	dir = 1
+	},
+/obj/item/seeds/wheat/rice{
+	dir = 1
+	},
+/obj/item/seeds/replicapod{
+	dir = 1
+	},
+/obj/item/seeds/carrot{
+	dir = 1
+	},
+/obj/item/seeds/tomato{
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/bottle/nutrient/ez{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/effect/decal/cleanable/food/egg_smudge,
+/obj/effect/decal/cleanable/food/egg_smudge{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "Y" = (
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-b
 i
-"}
-(2,1,1) = {"
-f
-g
+b
+a"}(2,1,1) = {"
 j
-"}
-(3,1,1) = {"
-c
+g
+f"}(3,1,1) = {"
 Y
 Y
-"}
-(4,1,1) = {"
-d
-c
+c"}(4,1,1) = {"
 h
-"}
-(5,1,1) = {"
-e
 c
+d"}(5,1,1) = {"
 h
-"}
+c
+e"}

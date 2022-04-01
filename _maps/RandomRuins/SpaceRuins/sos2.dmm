@@ -6,15 +6,21 @@
 /turf/closed/mineral/random/high_chance,
 /area/ruin/unpowered)
 "c" = (
-/obj/structure/girder,
+/obj/structure/girder{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
 "d" = (
-/obj/structure/shuttle/engine/propulsion/right,
+/obj/structure/shuttle/engine/propulsion/right{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "e" = (
-/obj/structure/grille,
+/obj/structure/grille{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
 "f" = (
@@ -22,13 +28,15 @@
 	dir = 8
 	},
 /obj/item/gps{
-	gpstag = "SOS"
+	gpstag = "SOS";
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
 "g" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod Airlock";
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/unpowered)
@@ -40,83 +48,72 @@
 	dir = 8
 	},
 /obj/item/storage/pod{
-	pixel_y = -30
+	pixel_y = 30;
+	dir = 1
 	},
-/obj/effect/mob_spawn/human/corpse/cargo_tech,
+/obj/effect/mob_spawn/human/corpse/cargo_tech{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
 a
 a
+a
+a
 b
 b
 a
+a"}(2,1,1) = {"
 a
 a
-a
-"}
-(2,1,1) = {"
-a
 b
 b
 b
 b
 b
+a"}(3,1,1) = {"
 a
 a
-"}
-(3,1,1) = {"
+b
+b
+b
+b
+b
+a"}(4,1,1) = {"
 a
-b
-b
-b
-b
-b
-a
-a
-"}
-(4,1,1) = {"
-b
-b
-b
-b
-b
+h
 e
-h
+b
+b
+b
+b
+b"}(5,1,1) = {"
 a
-"}
-(5,1,1) = {"
-b
-b
-b
-b
-b
+h
 f
+b
+b
+b
+b
+b"}(6,1,1) = {"
+a
 h
-a
-"}
-(6,1,1) = {"
-a
-b
-b
-b
-c
 i
-h
-a
-"}
-(7,1,1) = {"
-a
-a
+c
 b
+b
+b
+a"}(7,1,1) = {"
 a
 d
 g
 d
 a
-"}
-(8,1,1) = {"
+b
+a
+a"}(8,1,1) = {"
 a
 a
 a
@@ -124,5 +121,4 @@ a
 a
 a
 a
-a
-"}
+a"}

@@ -1,83 +1,122 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/turf_decal/box,
+/obj/machinery/portable_atmospherics/canister/oxygen{
+	dir = 1
+	},
+/obj/effect/turf_decal/box{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "b" = (
 /turf/open/floor/plasteel,
 /area/template_noop)
 "c" = (
-/obj/machinery/portable_atmospherics/canister,
-/obj/effect/turf_decal/box,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/portable_atmospherics/canister{
+	dir = 1
+	},
+/obj/effect/turf_decal/box{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "d" = (
-/obj/machinery/portable_atmospherics/canister/air,
-/obj/structure/window/reinforced/spawner,
-/obj/effect/turf_decal/box,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/portable_atmospherics/canister/air{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner/north,
+/obj/effect/turf_decal/box{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "e" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "f" = (
-/obj/machinery/portable_atmospherics/canister,
-/obj/structure/window/reinforced/spawner,
-/obj/effect/turf_decal/box,
+/obj/machinery/portable_atmospherics/canister{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner/north,
+/obj/effect/turf_decal/box{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "g" = (
-/obj/effect/turf_decal/caution,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/caution{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "h" = (
-/obj/structure/closet/emcloset,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "i" = (
-/obj/structure/table,
-/obj/item/clothing/mask/gas,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/clothing/mask/gas{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "j" = (
-/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/reagent_dispensers/fueltank{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "k" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-d
-b
-h
 j
-"}
-(2,1,1) = {"
+h
 b
+d
+a"}(2,1,1) = {"
+e
 e
 g
 e
-e
-"}
-(3,1,1) = {"
-c
-f
-b
-i
+b"}(3,1,1) = {"
 k
-"}
+i
+b
+f
+c"}

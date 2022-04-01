@@ -1,45 +1,71 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/table,
-/obj/item/wallframe/camera,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/wallframe/camera{
+	dir = 1
+	},
 /obj/item/stack/cable_coil/random/five,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "b" = (
 /obj/machinery/status_display/evac{
-	pixel_y = 25
+	pixel_y = -25;
+	dir = 1
 	},
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/paper_bin{
+	dir = 1
+	},
+/obj/item/pen{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "c" = (
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "d" = (
 /obj/machinery/status_display/evac{
-	pixel_y = 25
+	pixel_y = -25;
+	dir = 1
 	},
-/obj/machinery/photocopier,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/photocopier{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "e" = (
-/obj/structure/filingcabinet,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/structure/filingcabinet{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "f" = (
-/obj/item/paper/crumpled,
+/obj/item/paper/crumpled{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "g" = (
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "h" = (
-/obj/item/wirecutters,
+/obj/item/wirecutters{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "i" = (
@@ -51,22 +77,30 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "j" = (
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "k" = (
 /obj/structure/chair/office{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "l" = (
@@ -95,15 +129,21 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "o" = (
-/obj/item/screwdriver,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/screwdriver{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "p" = (
 /obj/structure/chair/office{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "q" = (
@@ -116,32 +156,23 @@
 /area/template_noop)
 
 (1,1,1) = {"
-a
-f
-i
 m
-"}
-(2,1,1) = {"
-b
-g
-j
+i
+f
+a"}(2,1,1) = {"
 n
-"}
-(3,1,1) = {"
-c
-c
-c
-o
-"}
-(4,1,1) = {"
-d
-h
-k
-p
-"}
-(5,1,1) = {"
-e
+j
 g
-l
+b"}(3,1,1) = {"
+o
+c
+c
+c"}(4,1,1) = {"
+p
+k
+h
+d"}(5,1,1) = {"
 q
-"}
+l
+g
+e"}

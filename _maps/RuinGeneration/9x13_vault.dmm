@@ -3,72 +3,111 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "c" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/effect/turf_decal/bot_white/right,
-/obj/structure/frame/machine,
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot_white/right{
+	dir = 4
+	},
+/obj/structure/frame/machine{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "d" = (
-/obj/structure/closet/crate/goldcrate,
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/effect/turf_decal/bot_white/right,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/structure/closet/crate/goldcrate{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot_white/right{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/ruinloot/important{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "f" = (
-/obj/structure/closet/crate/silvercrate,
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/effect/turf_decal/bot_white/left,
+/obj/structure/closet/crate/silvercrate{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot_white/left{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "g" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "h" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "i" = (
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "k" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "l" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/effect/turf_decal/bot_white/right,
-/obj/item/circuitboard/machine/ore_silo,
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot_white/right{
+	dir = 4
+	},
+/obj/item/circuitboard/machine/ore_silo{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "o" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "r" = (
-/obj/structure/frame/machine,
-/obj/item/stamp/clown{
-	pixel_y = 5
+/obj/structure/frame/machine{
+	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/item/stamp/clown{
+	pixel_y = -5;
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "t" = (
-/obj/item/weldingtool/mini,
+/obj/item/weldingtool/mini{
+	dir = 1
+	},
 /turf/open/floor/plating/airless{
 	icon_state = "panelscorched"
 	},
 /area/ruin/unpowered)
 "u" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "w" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "z" = (
@@ -81,8 +120,12 @@
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "C" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "D" = (
@@ -92,53 +135,88 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "G" = (
-/obj/structure/safe,
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/effect/turf_decal/bot_white/left,
-/obj/item/ammo_box/a357,
-/obj/item/paper{
-	info = "IOU - One Very Cool Revolver (Thanks HOP)"
+/obj/structure/safe{
+	dir = 1
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot_white/left{
+	dir = 4
+	},
+/obj/item/ammo_box/a357{
+	dir = 1
+	},
+/obj/item/paper{
+	info = "IOU - One Very Cool Revolver (Thanks HOP)";
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "I" = (
 /obj/effect/turf_decal/tile/neutral{
-	dir = 8
+	dir = 1
 	},
-/obj/effect/decal/cleanable/blood,
-/obj/effect/mob_spawn/human/corpse/cargo_tech,
-/obj/item/gun/ballistic/revolver/russian,
+/obj/effect/decal/cleanable/blood{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/corpse/cargo_tech{
+	dir = 1
+	},
+/obj/item/gun/ballistic/revolver/russian{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "J" = (
-/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
 /obj/item/stack/cable_coil/random/five,
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "M" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/effect/turf_decal/bot_white/left,
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot_white/left{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "O" = (
 /obj/structure/sign/poster/random{
-	pixel_y = -32
+	pixel_y = 32;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "P" = (
 /obj/machinery/door/airlock/vault{
-	req_access_txt = "53"
+	req_access_txt = "53";
+	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/effect/mapping_helpers/airlock/locked{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "S" = (
-/obj/structure/frame/computer,
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/effect/turf_decal/bot_white/right,
+/obj/structure/frame/computer{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot_white/right{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "V" = (
@@ -151,151 +229,142 @@
 /turf/open/floor/circuit/airless,
 /area/ruin/unpowered)
 "Y" = (
-/obj/structure/filingcabinet,
-/obj/item/folder,
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/effect/turf_decal/bot_white/left,
+/obj/structure/filingcabinet{
+	dir = 1
+	},
+/obj/item/folder{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot_white/left{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "Z" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
-z
-z
-z
-z
-z
-z
-z
-z
 a
-Z
-D
 o
+D
+Z
 a
-"}
-(2,1,1) = {"
 z
+z
+z
+z
+z
+z
+z
+z"}(2,1,1) = {"
+a
+o
+o
+g
+w
+z
+i
 i
 i
 t
 i
 i
-i
-z
-w
-g
-o
-o
-a
-"}
-(3,1,1) = {"
-z
-i
-S
-l
-d
-c
-i
-z
-w
-g
-o
-o
+z"}(3,1,1) = {"
 h
-"}
-(4,1,1) = {"
-z
-i
-X
-X
-X
-J
-i
-w
-w
+o
+o
 g
-o
-o
-a
-"}
-(5,1,1) = {"
+w
 z
 i
+c
+d
+l
+S
+i
+z"}(4,1,1) = {"
+a
+o
+o
+g
+w
+w
+i
+J
+X
+X
+X
+i
+z"}(5,1,1) = {"
+a
+o
+o
+g
+C
+k
+P
+B
 X
 r
 X
-B
-P
-k
-C
-g
-o
-o
-a
-"}
-(6,1,1) = {"
-z
 i
-X
-X
-X
+z"}(6,1,1) = {"
+a
+o
+o
+g
+w
+w
+i
 I
+X
+X
+X
 i
-w
-w
-g
-o
-o
+z"}(7,1,1) = {"
 a
-"}
-(7,1,1) = {"
-z
-i
-Y
-M
-f
-G
-i
-z
-w
-g
-o
 O
-a
-"}
-(8,1,1) = {"
-z
-i
-i
-i
-i
-i
-i
-z
-w
+o
 g
+w
+z
+i
+G
+f
+M
+Y
+i
+z"}(8,1,1) = {"
+a
 o
 o
+g
+w
+z
+i
+i
+i
+i
+i
+i
+z"}(9,1,1) = {"
 a
-"}
-(9,1,1) = {"
-z
-z
-z
-z
-z
-z
-z
-z
-a
-u
+o
 V
-o
+u
 a
-"}
+z
+z
+z
+z
+z
+z
+z
+z"}

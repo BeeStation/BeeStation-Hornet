@@ -1,74 +1,146 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
-/obj/item/kirbyplants/random,
-/obj/machinery/light/small{
+/obj/item/kirbyplants/random{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
+/obj/machinery/light/small{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "c" = (
-/obj/structure/table,
-/obj/item/clothing/suit/apron/overalls,
-/obj/item/cultivator,
-/obj/effect/turf_decal/bot,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/clothing/suit/apron/overalls{
+	dir = 1
+	},
+/obj/item/cultivator{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "d" = (
-/obj/machinery/biogenerator,
-/obj/effect/turf_decal/delivery,
+/obj/machinery/biogenerator{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "e" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/seeds/poppy/lily{
 	pixel_x = 4;
-	pixel_y = 4
+	pixel_y = -4;
+	dir = 1
 	},
-/obj/item/seeds/poppy/geranium,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/corn,
-/obj/item/reagent_containers/food/snacks/grown/apple,
-/obj/effect/turf_decal/bot,
+/obj/item/seeds/poppy/geranium{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/snacks/grown/wheat{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/grown/corn{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/grown/apple{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "f" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/tea,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
+/obj/machinery/hydroponics/soil{
+	dir = 1
+	},
+/obj/item/seeds/tea{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "g" = (
-/obj/item/kirbyplants/random,
-/obj/machinery/status_display/evac{
-	pixel_y = 32
+/obj/item/kirbyplants/random{
+	dir = 1
 	},
-/obj/effect/turf_decal/delivery,
+/obj/machinery/status_display/evac{
+	pixel_y = -32;
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "h" = (
-/obj/structure/table,
-/obj/item/stack/packageWrap,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/hand_labeler,
-/obj/item/reagent_containers/food/snacks/grown/tea,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
-/obj/item/reagent_containers/food/snacks/grown/cherries,
-/obj/effect/turf_decal/bot,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/stack/packageWrap{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/hand_labeler{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/grown/tea{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/grown/grapes{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/grown/cherries{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "i" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/poppy,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
+/obj/machinery/hydroponics/soil{
+	dir = 1
+	},
+/obj/item/seeds/poppy{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "j" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "k" = (
@@ -79,9 +151,12 @@
 	dir = 4;
 	pixel_x = 11
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /obj/structure/sign/departments/minsky/supply/hydroponics{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -89,139 +164,180 @@
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -12;
-	pixel_y = 2
+	pixel_y = -2
 	},
 /obj/structure/sign/warning/nosmoking{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "n" = (
-/obj/item/kirbyplants/random,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/delivery,
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "o" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/harebell,
-/obj/machinery/light/small,
-/obj/effect/turf_decal/delivery,
+/obj/machinery/hydroponics/soil{
+	dir = 1
+	},
+/obj/item/seeds/harebell{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "p" = (
-/obj/structure/table,
-/obj/item/shovel/spade,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/shovel/spade{
+	dir = 1
+	},
 /obj/item/reagent_containers/glass/bottle/nutrient/rh{
-	pixel_x = 5
+	pixel_x = 5;
+	dir = 1
 	},
 /obj/item/reagent_containers/glass/bottle/nutrient/ez{
-	pixel_x = -5
+	pixel_x = -5;
+	dir = 1
 	},
-/obj/item/reagent_containers/syringe,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/white,
-/obj/effect/turf_decal/bot,
+/obj/item/reagent_containers/syringe{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/cable/white{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "q" = (
-/obj/machinery/seed_extractor,
-/obj/machinery/status_display/evac{
-	pixel_y = -32
+/obj/machinery/seed_extractor{
+	dir = 1
 	},
-/obj/item/reagent_containers/glass/bucket,
-/obj/effect/turf_decal/delivery,
+/obj/machinery/status_display/evac{
+	pixel_y = 32;
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/bucket{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "s" = (
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "t" = (
-/obj/structure/table,
-/obj/item/crowbar,
-/obj/item/wrench,
-/obj/item/reagent_containers/glass/bucket,
-/obj/effect/turf_decal/bot,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/crowbar{
+	dir = 1
+	},
+/obj/item/wrench{
+	dir = 1
+	},
+/obj/item/reagent_containers/glass/bucket{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "u" = (
-/obj/machinery/hydroponics/soil,
-/obj/item/seeds/tower,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small,
-/obj/effect/turf_decal/delivery,
+/obj/machinery/hydroponics/soil{
+	dir = 1
+	},
+/obj/item/seeds/tower{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 
 (1,1,1) = {"
-b
-j
-k
+n
 m
-n
-"}
-(2,1,1) = {"
-c
-k
 k
 j
+b"}(2,1,1) = {"
 o
-"}
-(3,1,1) = {"
-d
+j
 k
 k
-k
+c"}(3,1,1) = {"
 p
-"}
-(4,1,1) = {"
-e
-j
 k
 k
+k
+d"}(4,1,1) = {"
 q
-"}
-(5,1,1) = {"
-s
+k
+k
 j
-k
-k
+e"}(5,1,1) = {"
 s
-"}
-(6,1,1) = {"
-f
 k
 k
-k
-s
-"}
-(7,1,1) = {"
-g
-k
-k
-k
-s
-"}
-(8,1,1) = {"
-h
 j
+s"}(6,1,1) = {"
+s
 k
 k
+k
+f"}(7,1,1) = {"
+s
+k
+k
+k
+g"}(8,1,1) = {"
 t
-"}
-(9,1,1) = {"
-b
+k
+k
+j
+h"}(9,1,1) = {"
+u
 j
 k
 j
-u
-"}
-(10,1,1) = {"
-i
-l
-j
-j
+b"}(10,1,1) = {"
 n
-"}
+j
+j
+l
+i"}

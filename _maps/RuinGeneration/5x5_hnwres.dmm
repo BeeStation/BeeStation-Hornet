@@ -7,12 +7,14 @@
 /area/ruin/unpowered)
 "n" = (
 /obj/effect/abstract/open_area_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "F" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "O" = (
@@ -33,33 +35,24 @@ R
 O
 m
 O
+R"}(2,1,1) = {"
 R
-"}
-(2,1,1) = {"
 O
 O
 O
-O
-R
-"}
-(3,1,1) = {"
-n
-O
-O
-O
+O"}(3,1,1) = {"
 F
-"}
-(4,1,1) = {"
 O
 O
 O
-O
+n"}(4,1,1) = {"
 R
-"}
-(5,1,1) = {"
+O
+O
+O
+O"}(5,1,1) = {"
 R
 R
 Z
 R
-R
-"}
+R"}

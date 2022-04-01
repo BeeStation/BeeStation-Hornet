@@ -9,28 +9,41 @@
 /turf/closed/wall/mineral/titanium/interior,
 /area/shuttle/escape)
 "af" = (
-/obj/structure/table,
-/obj/machinery/recharger,
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/escape)
-"ag" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/table{
+	dir = 1
+	},
+/obj/machinery/recharger{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
+"ag" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 2
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
 "ah" = (
-/obj/machinery/computer/emergency_shuttle,
+/obj/machinery/computer/emergency_shuttle{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ai" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/storage/firstaid/regular{
 	pixel_x = 2;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
-/obj/item/crowbar,
-/obj/item/storage/firstaid/fire,
+/obj/item/crowbar{
+	dir = 1
+	},
+/obj/item/storage/firstaid/fire{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "al" = (
@@ -71,14 +84,16 @@
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -30
+	pixel_y = 30;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "as" = (
 /obj/item/radio/intercom{
 	name = "Station Intercom (General)";
-	pixel_y = -29
+	pixel_y = 29;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
@@ -86,9 +101,12 @@
 /obj/machinery/button/flasher{
 	id = "cockpit_flasher";
 	pixel_x = 6;
-	pixel_y = -24
+	pixel_y = 24;
+	dir = 1
 	},
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "au" = (
@@ -98,21 +116,26 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "az" = (
-/obj/machinery/status_display/evac,
+/obj/machinery/status_display/evac{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "aA" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aB" = (
 /obj/machinery/flasher{
 	id = "cockpit_flasher";
 	pixel_x = 6;
-	pixel_y = 24
+	pixel_y = -24;
+	dir = 1
 	},
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
@@ -120,29 +143,40 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aD" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aE" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/fire,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/firstaid/fire{
+	dir = 1
+	},
 /obj/item/storage/firstaid/regular{
 	pixel_x = 2;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
-/obj/item/crowbar,
+/obj/item/crowbar{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aF" = (
 /obj/machinery/flasher{
 	id = "shuttle_flasher";
 	pixel_x = -24;
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
 /obj/machinery/button/flasher{
 	id = "shuttle_flasher";
 	pixel_x = -24;
-	pixel_y = -6
+	pixel_y = 6;
+	dir = 1
 	},
 /obj/machinery/light/small{
 	brightness = 3;
@@ -155,28 +189,34 @@
 /area/shuttle/escape)
 "aJ" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aK" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aM" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aQ" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -5;
-	pixel_y = 30
+	pixel_y = -30;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aR" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 27
+	pixel_x = 27;
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -203,7 +243,8 @@
 /area/shuttle/escape)
 "aW" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_y = -30
+	pixel_y = 30;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
@@ -212,24 +253,35 @@
 /area/shuttle/escape)
 "bc" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 27
+	pixel_x = 27;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "bd" = (
-/obj/machinery/stasis,
+/obj/machinery/stasis{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "be" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/fire,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/firstaid/fire{
+	dir = 1
+	},
 /obj/item/storage/firstaid/regular{
 	pixel_x = 2;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
-/obj/item/crowbar,
+/obj/item/crowbar{
+	dir = 1
+	},
 /obj/structure/extinguisher_cabinet{
-	pixel_x = 27
+	pixel_x = 27;
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -237,29 +289,38 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "bf" = (
-/obj/structure/closet,
+/obj/structure/closet{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "bg" = (
-/obj/structure/closet/crate,
+/obj/structure/closet/crate{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "bi" = (
 /obj/structure/window/reinforced{
+	dir = 2
+	},
+/obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
-/obj/structure/shuttle/engine/heater,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "bj" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	use_power = 0
+	use_power = 0;
+	dir = 1
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
 "bk" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "bl" = (
@@ -269,7 +330,9 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "bm" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -277,16 +340,20 @@
 /area/shuttle/escape)
 "bn" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "bo" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "bp" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "bq" = (
@@ -314,329 +381,334 @@
 /area/shuttle/escape)
 "mA" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
+	name = "Emergency Shuttle Airlock";
+	dir = 1
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Dd" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Cargo"
+	name = "Emergency Shuttle Cargo";
+	dir = 1
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "Gx" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Airlock";
-	req_access_txt = "2"
+	req_access_txt = "2";
+	dir = 1
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "JW" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Km" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Emergency Shuttle Airlock"
+	name = "Emergency Shuttle Airlock";
+	dir = 1
 	},
 /obj/docking_port/mobile/emergency{
-	name = "Box emergency shuttle"
+	name = "Box emergency shuttle";
+	dir = 4
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Lm" = (
 /obj/machinery/door/airlock/public/glass{
-	name = "Emergency Shuttle Infirmary"
+	name = "Emergency Shuttle Infirmary";
+	dir = 1
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "RE" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Brig";
-	req_access_txt = "2"
+	req_access_txt = "2";
+	dir = 1
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Ta" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Cockpit";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	dir = 1
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "XC" = (
-/obj/structure/closet/emcloset,
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 
 (1,1,1) = {"
 aa
-aa
-aa
-aa
 ad
 ad
 ad
-Gx
+mA
+ad
+mA
+ad
+JW
+JW
+JW
 ad
 Km
 ad
-JW
-JW
-JW
-ad
-mA
-ad
-mA
+Gx
 ad
 ad
 ad
 aa
-"}
-(2,1,1) = {"
 aa
+aa
+aa"}(2,1,1) = {"
 ad
 ad
-ad
-ad
-aA
-aF
-aG
-ad
-bn
-ao
-ao
-ao
-ao
-ao
-bo
-ad
-bb
+bf
 bq
-bf
+bb
 ad
+bo
+ao
+ao
+ao
+ao
+ao
+bn
 ad
-"}
-(3,1,1) = {"
-ad
-ae
-al
-aq
-ad
-aA
 aG
-aJ
+aF
+aA
 ad
-aQ
-aC
-aC
-aC
-aC
-aC
+ad
+ad
+ad
+aa"}(3,1,1) = {"
+bk
+bi
+bf
+bb
+bb
+ad
 aW
+aC
+aC
+aC
+aC
+aC
+aQ
 ad
-bb
-bb
-bf
-bi
-bk
-"}
-(4,1,1) = {"
-JW
-af
-am
-ar
-ad
-aA
-aG
 aJ
+aG
+aA
 ad
-aC
-aS
-aS
-aS
-aS
-aS
-aC
-Dd
-bb
-bb
-bg
-bi
+aq
+al
+ae
+ad"}(4,1,1) = {"
 bk
-"}
-(5,1,1) = {"
-JW
-ag
+bi
+bg
+bb
+bb
+Dd
 aC
-as
+aS
+aS
+aS
+aS
+aS
+aC
 ad
+aJ
+aG
+aA
+ad
+ar
+am
+af
+JW"}(5,1,1) = {"
+bk
+bi
+bg
+br
+bc
+ad
+aC
+aT
+aT
+aT
+aT
+aT
+aC
+bj
 JW
 RE
 JW
-bj
-aC
-aT
-aT
-aT
-aT
-aT
-aC
 ad
-bc
-br
-bg
-bi
-bk
-"}
-(6,1,1) = {"
-JW
-ah
+as
 aC
-at
-ad
-aB
-aC
-aK
-bm
-aC
-aC
-aC
-aC
-aC
-aC
-bp
-az
-ad
-ad
-ad
-bi
-bk
-"}
-(7,1,1) = {"
-JW
 ag
+JW"}(6,1,1) = {"
+bk
+bi
+ad
+ad
+ad
+az
+bp
+aC
+aC
+aC
+aC
+aC
+aC
+bm
+aK
+aC
+aB
+ad
+at
+aC
+ah
+JW"}(7,1,1) = {"
+bk
+bi
+XC
+bs
+XC
+JW
+aC
+aS
+aS
+aS
+aS
+aS
+aC
+aM
+ao
 aC
 aC
 Ta
 aC
 aC
-ao
-aM
-aC
-aS
-aS
-aS
-aS
-aS
-aC
-JW
-XC
-bs
-XC
-bi
+ag
+JW"}(8,1,1) = {"
 bk
-"}
-(8,1,1) = {"
-JW
-ai
-ao
-ao
-az
-an
-aC
-aM
-aM
-aC
-aT
-aT
-aT
-aT
-aT
-aC
+bi
+ga
+ga
+ga
 Lm
-ga
-ga
-ga
-bi
+aC
+aT
+aT
+aT
+aT
+aT
+aC
+aM
+aM
+aC
+an
+az
+ao
+ao
+ai
+JW"}(9,1,1) = {"
 bk
-"}
-(9,1,1) = {"
-ad
-ae
-ap
-au
-ad
+bi
+ga
+ga
+ga
+JW
+aC
+aC
+aC
+aC
+aC
+aC
+aC
+aC
+aC
+aC
 aD
-aC
-aC
-aC
-aC
-aC
-aC
-aC
-aC
-aC
-aC
-JW
-ga
-ga
-ga
-bi
-bk
-"}
-(10,1,1) = {"
-aa
+ad
+au
+ap
+ae
+ad"}(10,1,1) = {"
 ad
 ad
-ad
-ad
-aE
-bl
-an
-an
-aR
-am
-am
-am
-am
-am
-aR
-JW
 bd
 be
 bd
+JW
+aR
+am
+am
+am
+am
+am
+aR
+an
+an
+bl
+aE
 ad
 ad
-"}
-(11,1,1) = {"
+ad
+ad
+aa"}(11,1,1) = {"
+aa
+ad
+JW
+ad
+JW
+ad
+ad
+ad
+JW
+JW
+JW
+ad
+ad
+ad
+JW
+ad
+JW
+ad
 aa
 aa
 aa
-aa
-ad
-JW
-ad
-JW
-ad
-ad
-ad
-JW
-JW
-JW
-ad
-ad
-ad
-JW
-ad
-JW
-ad
-aa
-"}
+aa"}

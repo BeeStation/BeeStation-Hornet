@@ -18,7 +18,9 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "V" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
@@ -27,33 +29,24 @@ v
 l
 t
 l
-v
-"}
-(2,1,1) = {"
+v"}(2,1,1) = {"
 v
 l
 l
 l
-v
-"}
-(3,1,1) = {"
-v
-l
-l
-l
+v"}(3,1,1) = {"
 V
-"}
-(4,1,1) = {"
+l
+l
+l
+v"}(4,1,1) = {"
 v
 l
 l
 l
-v
-"}
-(5,1,1) = {"
+v"}(5,1,1) = {"
 v
 l
 S
 l
-v
-"}
+v"}

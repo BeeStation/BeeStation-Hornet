@@ -6,49 +6,69 @@
 /turf/open/floor/bronze,
 /area/tdome/arena)
 "c" = (
-/obj/item/stack/tile/bronze,
+/obj/item/stack/tile/bronze{
+	dir = 1
+	},
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "d" = (
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "e" = (
-/obj/item/clockwork/alloy_shards,
+/obj/item/clockwork/alloy_shards{
+	dir = 1
+	},
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "f" = (
-/obj/item/stack/tile/bronze/thirty,
+/obj/item/stack/tile/bronze/thirty{
+	dir = 1
+	},
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "g" = (
-/obj/item/clothing/shoes/bronze,
+/obj/item/clothing/shoes/bronze{
+	dir = 1
+	},
 /turf/open/floor/bronze,
 /area/tdome/arena)
 "h" = (
 /turf/open/floor/bronze,
 /area/tdome/arena)
 "i" = (
-/obj/structure/window/reinforced/clockwork/fulltile,
+/obj/structure/window/reinforced/clockwork/fulltile{
+	dir = 1
+	},
 /turf/open/floor/bronze,
 /area/tdome/arena)
 "j" = (
-/obj/structure/table_frame/brass,
+/obj/structure/table_frame/brass{
+	dir = 1
+	},
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "k" = (
-/obj/item/clockwork/alloy_shards,
+/obj/item/clockwork/alloy_shards{
+	dir = 1
+	},
 /turf/open/floor/bronze,
 /area/tdome/arena)
 "l" = (
-/obj/item/clockwork/component/hierophant_ansible/obelisk,
+/obj/item/clockwork/component/hierophant_ansible/obelisk{
+	dir = 1
+	},
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "m" = (
-/obj/item/toy/plush/plushvar,
+/obj/item/toy/plush/plushvar{
+	dir = 1
+	},
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "n" = (
-/obj/item/wrench/brass,
+/obj/item/wrench/brass{
+	dir = 1
+	},
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "o" = (
@@ -59,26 +79,39 @@
 	item_state = "ratvarian_spear";
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi';
 	name = "toy spear";
-	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi';
+	dir = 1
 	},
-/obj/structure/table/bronze,
-/obj/item/toy/clockwork_watch,
+/obj/structure/table/bronze{
+	dir = 1
+	},
+/obj/item/toy/clockwork_watch{
+	dir = 1
+	},
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "p" = (
-/obj/item/crowbar/brass,
+/obj/item/crowbar/brass{
+	dir = 1
+	},
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "q" = (
-/obj/structure/table_frame/brass,
+/obj/structure/table_frame/brass{
+	dir = 1
+	},
 /turf/open/floor/bronze,
 /area/tdome/arena)
 "r" = (
-/obj/item/clockwork/component/vanguard_cogwheel/onyx_prism,
+/obj/item/clockwork/component/vanguard_cogwheel/onyx_prism{
+	dir = 1
+	},
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "s" = (
-/obj/item/clothing/shoes/bronze,
+/obj/item/clothing/shoes/bronze{
+	dir = 1
+	},
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 
@@ -90,109 +123,87 @@ a
 a
 a
 a
+a"}(2,1,1) = {"
 a
-"}
-(2,1,1) = {"
-a
-a
-a
-j
 a
 e
 a
+j
 a
-"}
-(3,1,1) = {"
-b
-b
-b
-k
-g
+a
+a"}(3,1,1) = {"
 b
 q
 b
-"}
-(4,1,1) = {"
+g
+k
+b
+b
+b"}(4,1,1) = {"
+b
+a
+a
+a
+a
+a
+c
+b"}(5,1,1) = {"
 b
 c
-a
-a
-a
-a
-a
-b
-"}
-(5,1,1) = {"
-b
-a
 h
 i
 i
 h
-c
+a
+b"}(6,1,1) = {"
 b
-"}
-(6,1,1) = {"
-b
-a
-i
-a
-a
-i
 r
-b
-"}
-(7,1,1) = {"
+i
+a
+a
+i
+a
+b"}(7,1,1) = {"
 b
 a
 b
-l
 n
+l
 b
 a
-b
-"}
-(8,1,1) = {"
-b
-d
-b
-m
-o
+b"}(8,1,1) = {"
 b
 s
 b
-"}
-(9,1,1) = {"
+o
+m
+b
+d
+b"}(9,1,1) = {"
+b
+a
+b
+p
+l
 b
 e
+b"}(10,1,1) = {"
 b
-l
-p
-b
-a
-b
-"}
-(10,1,1) = {"
-b
-a
-i
-a
-a
-i
 r
+i
+a
+a
+i
+a
+b"}(11,1,1) = {"
 b
-"}
-(11,1,1) = {"
-b
+a
+h
+i
+i
+h
 f
-h
-i
-i
-h
-a
-b
-"}
-(12,1,1) = {"
+b"}(12,1,1) = {"
 b
 a
 a
@@ -200,29 +211,23 @@ a
 a
 a
 a
-b
-"}
-(13,1,1) = {"
-b
-g
-b
-b
-b
+b"}(13,1,1) = {"
 b
 q
 b
-"}
-(14,1,1) = {"
+b
+b
+b
+g
+b"}(14,1,1) = {"
 a
 a
 e
+a
 j
-a
 e
 a
-a
-"}
-(15,1,1) = {"
+a"}(15,1,1) = {"
 a
 a
 a
@@ -230,5 +235,4 @@ a
 a
 a
 a
-a
-"}
+a"}

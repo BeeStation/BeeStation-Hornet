@@ -1,12 +1,16 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/closet/secure_closet/medical2,
+/obj/structure/closet/secure_closet/medical2{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/structure/frame/computer,
+/obj/structure/frame/computer{
+	dir = 1
+	},
 /obj/machinery/light/small{
-	dir = 1;
+	dir = 2;
 	light_color = "#ffc1c1"
 	},
 /turf/open/floor/plating{
@@ -14,59 +18,86 @@
 	},
 /area/template_noop)
 "c" = (
-/obj/machinery/iv_drip,
+/obj/machinery/iv_drip{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
 /obj/structure/mirror{
 	icon_state = "mirror_broke";
-	pixel_y = 28
+	pixel_y = -28;
+	dir = 1
 	},
 /obj/item/shard{
-	icon_state = "medium"
+	icon_state = "medium";
+	dir = 1
 	},
-/obj/item/circuitboard/computer/operating,
+/obj/item/circuitboard/computer/operating{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "e" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/structure/chair,
-/obj/item/reagent_containers/blood/random,
+/obj/effect/decal/cleanable/cobweb/cobweb2{
+	dir = 4
+	},
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/item/reagent_containers/blood/random{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "f" = (
-/obj/effect/spawner/lootdrop/organ_spawner,
-/obj/effect/trap/nexus/trickyspawner/catbutcher,
+/obj/effect/spawner/lootdrop/organ_spawner{
+	dir = 1
+	},
+/obj/effect/trap/nexus/trickyspawner/catbutcher{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "g" = (
 /obj/structure/table/optable{
-	name = "Robotics Operating Table"
+	name = "Robotics Operating Table";
+	dir = 1
 	},
-/obj/item/surgical_drapes,
-/obj/item/clothing/mask/surgical,
+/obj/item/surgical_drapes{
+	dir = 1
+	},
+/obj/item/clothing/mask/surgical{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "h" = (
-/obj/item/wrench,
+/obj/item/wrench{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "i" = (
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "j" = (
-/obj/structure/bed,
+/obj/structure/bed{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "k" = (
@@ -75,7 +106,9 @@
 	},
 /area/template_noop)
 "l" = (
-/obj/item/ectoplasm,
+/obj/item/ectoplasm{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	luminosity = 2
 	},
@@ -84,65 +117,78 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "n" = (
-/obj/structure/table/glass,
-/obj/item/hemostat,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/hemostat{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "o" = (
-/obj/structure/table/glass,
-/obj/item/restraints/handcuffs/cable/zipties,
-/obj/item/reagent_containers/blood/random,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/restraints/handcuffs/cable/zipties{
+	icon_state = "0-2"
+	},
+/obj/item/reagent_containers/blood/random{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "p" = (
-/obj/structure/table/glass,
-/obj/item/weldingtool/mini,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/table/glass{
+	dir = 1
+	},
+/obj/item/weldingtool/mini{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "q" = (
-/obj/effect/spawner/lootdrop/trap/reusable,
+/obj/effect/spawner/lootdrop/trap/reusable{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "r" = (
-/obj/effect/spawner/lootdrop/organ_spawner,
-/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/organ_spawner{
+	dir = 1
+	},
+/obj/structure/closet/crate{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 
 (1,1,1) = {"
-a
-f
-k
 n
-"}
-(2,1,1) = {"
-b
-g
-l
+k
+f
+a"}(2,1,1) = {"
 o
-"}
-(3,1,1) = {"
-c
-h
+l
+g
+b"}(3,1,1) = {"
+m
 q
-m
-"}
-(4,1,1) = {"
-d
-i
-m
+h
+c"}(4,1,1) = {"
 p
-"}
-(5,1,1) = {"
-e
-j
-j
+m
+i
+d"}(5,1,1) = {"
 r
-"}
+j
+j
+e"}

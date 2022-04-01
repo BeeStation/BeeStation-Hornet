@@ -3,34 +3,52 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "b" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "c" = (
 /turf/closed/wall,
 /area/template_noop)
 "d" = (
-/obj/structure/table,
-/obj/machinery/chem_dispenser/drinks/beer,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/machinery/chem_dispenser/drinks/beer{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "e" = (
-/obj/structure/table/wood,
-/obj/item/soap/nanotrasen,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/soap/nanotrasen{
+	dir = 1
+	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken7"
 	},
 /area/template_noop)
 "g" = (
-/obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/four{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "h" = (
-/obj/machinery/vending/boozeomat/all_access,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
+/obj/machinery/vending/boozeomat/all_access{
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -40,42 +58,39 @@
 	},
 /area/template_noop)
 "j" = (
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "u" = (
-/obj/structure/chair/stool,
-/obj/effect/decal/cleanable/vomit/old,
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/vomit/old{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 
 (1,1,1) = {"
-a
-j
-c
 h
-"}
-(2,1,1) = {"
-a
+c
+j
+a"}(2,1,1) = {"
 a
 d
 a
-"}
-(3,1,1) = {"
-a
-u
-e
+a"}(3,1,1) = {"
 i
-"}
-(4,1,1) = {"
+e
+u
+a"}(4,1,1) = {"
 a
-b
 g
-a
-"}
-(5,1,1) = {"
-a
+b
+a"}(5,1,1) = {"
 a
 a
 a
-"}
+a"}

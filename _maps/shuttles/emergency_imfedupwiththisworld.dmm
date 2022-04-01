@@ -3,19 +3,23 @@
 /turf/closed/wall/mineral/wood,
 /area/shuttle/escape)
 "b" = (
-/obj/machinery/light_switch,
+/obj/machinery/light_switch{
+	dir = 1
+	},
 /turf/closed/wall/mineral/wood,
 /area/shuttle/escape)
 "c" = (
 /obj/docking_port/mobile/emergency{
 	dheight = 0;
 	dir = 4;
-	dwidth = 1;
+	dwidth = 10;
 	height = 10;
 	name = "Oh Hi Mark";
 	width = 12
 	},
-/obj/machinery/door/airlock/wood,
+/obj/machinery/door/airlock/wood{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "d" = (
@@ -23,31 +27,43 @@
 /area/shuttle/escape)
 "e" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "f" = (
-/obj/structure/chair/comfy/teal,
+/obj/structure/chair/comfy/teal{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "g" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/flashlight/lamp{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "h" = (
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "i" = (
-/obj/structure/table/reinforced,
-/obj/item/kitchen/knife,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/kitchen/knife{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "j" = (
-/obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
-	dir = 1
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
@@ -56,20 +72,27 @@
 	dir = 4
 	},
 /obj/machinery/vending/boozeomat{
-	req_access = null
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
+	req_access = null;
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "l" = (
-/obj/machinery/computer/security/wooden_tv,
+/obj/machinery/computer/security/wooden_tv{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "m" = (
-/obj/structure/table/glass,
+/obj/structure/table/glass{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "n" = (
@@ -79,32 +102,56 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "o" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/store/cake/birthday,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/store/cake/birthday{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "p" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/shaker,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
+/obj/structure/table/reinforced{
 	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/shaker{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "q" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "r" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
+/obj/structure/table/reinforced{
 	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
@@ -112,17 +159,23 @@
 /obj/machinery/door/window{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
-	dir = 1
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "t" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
+/obj/structure/table/reinforced{
 	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
@@ -133,50 +186,90 @@
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "v" = (
-/obj/structure/chair/office,
+/obj/structure/chair/office{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "w" = (
-/obj/effect/decal/cleanable/blood,
-/obj/effect/decal/cleanable/blood/drip,
-/obj/effect/decal/cleanable/blood/gibs,
-/obj/effect/mob_spawn/human/corpse,
-/obj/item/gun/ballistic/automatic/pistol/m1911,
+/obj/effect/decal/cleanable/blood{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/drip{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/gibs{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/corpse{
+	dir = 1
+	},
+/obj/item/gun/ballistic/automatic/pistol/m1911{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/snacks/cakeslice/birthday,
+/obj/item/reagent_containers/food/snacks/cakeslice/birthday{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "x" = (
-/obj/structure/bed,
-/obj/item/bedsheet/red,
-/obj/item/paper/fluff/shuttles/daniel,
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/red{
+	dir = 1
+	},
+/obj/item/paper/fluff/shuttles/daniel{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "y" = (
-/obj/item/kirbyplants,
+/obj/item/kirbyplants{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "z" = (
-/obj/structure/table/wood,
-/obj/item/papercutter,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/papercutter{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "A" = (
-/obj/structure/table/wood,
-/obj/machinery/computer/libraryconsole/bookmanagement,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/machinery/computer/libraryconsole/bookmanagement{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "B" = (
-/obj/machinery/light,
-/obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/paper_bin{
+	dir = 1
+	},
+/obj/item/pen{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "C" = (
-/obj/structure/mineral_door/wood,
+/obj/structure/mineral_door/wood{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "D" = (
@@ -186,117 +279,100 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "E" = (
-/obj/machinery/status_display/evac,
+/obj/machinery/status_display/evac{
+	dir = 1
+	},
 /turf/closed/wall/mineral/wood,
 /area/shuttle/escape)
 
 (1,1,1) = {"
 a
+a
+a
+a
+a
+a
+a
 c
+a"}(2,1,1) = {"
 a
-a
-a
-a
-a
-a
-a
-"}
-(2,1,1) = {"
-b
-d
-d
-d
+y
 d
 u
 d
-y
-a
-"}
-(3,1,1) = {"
-a
-e
-l
-h
-h
 d
 d
+d
+b"}(3,1,1) = {"
+a
 z
-a
-"}
-(4,1,1) = {"
-a
-f
-m
-m
-h
 d
-v
+d
+h
+h
+l
+e
+a"}(4,1,1) = {"
+a
 A
-a
-"}
-(5,1,1) = {"
-a
-g
-n
-n
+v
+d
 h
-d
-d
+m
+m
+f
+a"}(5,1,1) = {"
+a
 B
+d
+d
+h
+n
+n
+g
+a"}(6,1,1) = {"
 a
-"}
-(6,1,1) = {"
-a
-h
-h
-h
-h
 d
 d
 d
+h
+h
+h
+h
+a"}(7,1,1) = {"
 a
-"}
-(7,1,1) = {"
-a
-i
-o
-q
-s
-a
-E
 C
+E
 a
-"}
-(8,1,1) = {"
+s
+q
+o
+i
+a"}(8,1,1) = {"
 a
-j
-j
-j
-j
-a
-w
 h
+w
 a
-"}
-(9,1,1) = {"
+j
+j
+j
+j
+a"}(9,1,1) = {"
 a
-k
-p
-r
-t
-a
-x
 D
+x
 a
-"}
-(10,1,1) = {"
-a
-a
-a
-a
-a
-a
+t
+r
+p
+k
+a"}(10,1,1) = {"
 a
 a
 a
-"}
+a
+a
+a
+a
+a
+a"}

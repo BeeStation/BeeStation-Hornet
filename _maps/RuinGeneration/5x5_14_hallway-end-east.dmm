@@ -3,7 +3,9 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "n" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "o" = (
@@ -16,14 +18,24 @@
 /turf/template_noop,
 /area/template_noop)
 "M" = (
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
-/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/window{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Q" = (
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "R" = (
@@ -35,33 +47,24 @@ a
 R
 o
 R
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 R
 R
 R
+a"}(3,1,1) = {"
 a
-"}
-(3,1,1) = {"
-a
-Q
-Q
 M
-a
-"}
-(4,1,1) = {"
+Q
+Q
+a"}(4,1,1) = {"
 F
 n
 F
 n
-F
-"}
-(5,1,1) = {"
+F"}(5,1,1) = {"
 F
 F
 F
 F
-F
-"}
+F"}

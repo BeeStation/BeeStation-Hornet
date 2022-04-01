@@ -19,12 +19,14 @@
 /area/ruin/unpowered)
 "T" = (
 /obj/effect/abstract/doorway_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Y" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
@@ -33,33 +35,24 @@ k
 k
 L
 k
-k
-"}
-(2,1,1) = {"
+k"}(2,1,1) = {"
 k
 M
 M
 M
-k
-"}
-(3,1,1) = {"
-T
-M
-M
-M
+k"}(3,1,1) = {"
 Y
-"}
-(4,1,1) = {"
+M
+M
+M
+T"}(4,1,1) = {"
 k
 M
 M
 M
-k
-"}
-(5,1,1) = {"
+k"}(5,1,1) = {"
 k
 M
 G
 M
-k
-"}
+k"}

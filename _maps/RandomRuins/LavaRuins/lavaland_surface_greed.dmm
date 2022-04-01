@@ -9,34 +9,48 @@
 /turf/open/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "e" = (
-/obj/structure/table/wood/poker,
-/obj/item/gun/ballistic/revolver/russian/soul,
-/obj/machinery/light/small{
+/obj/structure/table/wood/poker{
 	dir = 1
+	},
+/obj/item/gun/ballistic/revolver/russian/soul{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 2
 	},
 /turf/open/floor/carpet{
 	icon_state = "carpetsymbol"
 	},
 /area/ruin/powered/greed)
 "f" = (
-/obj/structure/cursed_slot_machine,
-/turf/open/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
-/area/ruin/powered/greed)
-"g" = (
-/obj/structure/table/wood/poker,
-/obj/item/coin/mythril,
-/obj/machinery/light/small{
+/obj/structure/cursed_slot_machine{
 	dir = 1
 	},
 /turf/open/floor/carpet{
 	icon_state = "carpetsymbol"
 	},
 /area/ruin/powered/greed)
+"g" = (
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
+/obj/item/coin/mythril{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 2
+	},
+/turf/open/floor/carpet{
+	icon_state = "carpetsymbol"
+	},
+/area/ruin/powered/greed)
 "h" = (
-/obj/structure/table/wood/poker,
-/obj/item/coin/diamond,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
+/obj/item/coin/diamond{
+	dir = 1
+	},
 /turf/open/floor/carpet{
 	icon_state = "carpetsymbol"
 	},
@@ -47,43 +61,66 @@
 	},
 /area/ruin/powered/greed)
 "j" = (
-/obj/structure/table/wood/poker,
-/obj/item/coin/adamantine,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
+/obj/item/coin/adamantine{
+	dir = 1
+	},
 /turf/open/floor/carpet{
 	icon_state = "carpetsymbol"
 	},
 /area/ruin/powered/greed)
 "k" = (
 /obj/machinery/computer/arcade/battle{
-	set_obj_flags = "EMAGGED"
+	set_obj_flags = "EMAGGED";
+	dir = 1
 	},
 /turf/open/floor/engine/cult,
 /area/ruin/powered/greed)
 "l" = (
-/obj/item/coin/gold,
+/obj/item/coin/gold{
+	dir = 1
+	},
 /turf/open/floor/engine/cult,
 /area/ruin/powered/greed)
 "m" = (
 /turf/open/floor/engine/cult,
 /area/ruin/powered/greed)
 "n" = (
-/obj/structure/table/wood/poker,
-/obj/item/stack/spacecash/c1000,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
+/obj/item/stack/spacecash/c1000{
+	dir = 1
+	},
 /turf/open/floor/engine/cult,
 /area/ruin/powered/greed)
 "o" = (
-/obj/item/storage/bag/money,
+/obj/item/storage/bag/money{
+	dir = 1
+	},
 /turf/open/floor/engine/cult,
 /area/ruin/powered/greed)
 "p" = (
-/obj/structure/table/wood/poker,
-/obj/item/stack/ore/gold,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
+/obj/item/stack/ore/gold{
+	dir = 1
+	},
 /turf/open/floor/engine/cult,
 /area/ruin/powered/greed)
 "q" = (
-/obj/structure/table/wood/poker,
-/obj/item/stack/spacecash/c20,
-/obj/item/stack/spacecash/c50,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
+/obj/item/stack/spacecash/c20{
+	dir = 1
+	},
+/obj/item/stack/spacecash/c50{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	brightness = 3;
 	dir = 8
@@ -91,40 +128,72 @@
 /turf/open/floor/engine/cult,
 /area/ruin/powered/greed)
 "r" = (
-/obj/structure/table/wood/poker,
-/obj/item/stack/spacecash/c500,
-/obj/item/stack/spacecash/c100,
-/obj/item/stack/spacecash/c1000,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
+/obj/item/stack/spacecash/c500{
+	dir = 1
+	},
+/obj/item/stack/spacecash/c100{
+	dir = 1
+	},
+/obj/item/stack/spacecash/c1000{
+	dir = 1
+	},
 /turf/open/floor/engine/cult,
 /area/ruin/powered/greed)
 "s" = (
-/obj/structure/table/wood/poker,
-/obj/item/stack/spacecash/c200,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
+/obj/item/stack/spacecash/c200{
+	dir = 1
+	},
 /turf/open/floor/engine/cult,
 /area/ruin/powered/greed)
 "u" = (
-/obj/structure/table/wood/poker,
-/obj/item/stack/spacecash/c500,
-/obj/item/stack/spacecash/c100,
-/obj/item/stack/spacecash/c1000,
+/obj/structure/table/wood/poker{
+	dir = 1
+	},
+/obj/item/stack/spacecash/c500{
+	dir = 1
+	},
+/obj/item/stack/spacecash/c100{
+	dir = 1
+	},
+/obj/item/stack/spacecash/c1000{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/open/floor/engine/cult,
 /area/ruin/powered/greed)
 "v" = (
-/obj/item/coin/gold,
-/obj/machinery/light/small,
+/obj/item/coin/gold{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/engine/cult,
 /area/ruin/powered/greed)
 "w" = (
-/obj/item/storage/bag/money,
-/obj/machinery/light/small,
+/obj/item/storage/bag/money{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/engine/cult,
 /area/ruin/powered/greed)
 "J" = (
-/obj/machinery/door/airlock/gold,
-/obj/structure/fans/tiny/invisible,
+/obj/machinery/door/airlock/gold{
+	dir = 1
+	},
+/obj/structure/fans/tiny/invisible{
+	dir = 1
+	},
 /turf/open/floor/engine/cult,
 /area/ruin/powered/greed)
 "W" = (
@@ -132,16 +201,6 @@
 /area/ruin/powered/greed)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
 b
 a
 a
@@ -152,10 +211,6 @@ a
 a
 a
 b
-"}
-(2,1,1) = {"
-a
-b
 b
 a
 a
@@ -163,6 +218,9 @@ a
 a
 a
 a
+a
+a
+a"}(2,1,1) = {"
 b
 b
 b
@@ -174,18 +232,6 @@ a
 b
 b
 b
-"}
-(3,1,1) = {"
-a
-b
-b
-b
-b
-b
-a
-a
-a
-b
 a
 a
 a
@@ -194,12 +240,28 @@ a
 a
 b
 b
+a"}(3,1,1) = {"
 b
 b
-"}
-(4,1,1) = {"
+b
+b
 a
 a
+a
+a
+a
+a
+b
+a
+a
+a
+b
+b
+b
+b
+b
+a"}(4,1,1) = {"
+b
 b
 b
 b
@@ -217,14 +279,12 @@ a
 b
 b
 b
-b
-"}
-(5,1,1) = {"
 a
-a
+a"}(5,1,1) = {"
 a
 b
-b
+a
+a
 a
 a
 c
@@ -236,19 +296,17 @@ c
 c
 a
 a
-a
-a
 b
-a
-"}
-(6,1,1) = {"
 b
 a
 a
+a"}(6,1,1) = {"
+a
+b
 a
 a
 a
-c
+a
 c
 W
 W
@@ -256,49 +314,45 @@ W
 W
 W
 c
+c
 a
 a
 a
 a
-b
 a
-"}
-(7,1,1) = {"
-b
+b"}(7,1,1) = {"
 a
 a
 a
+c
 c
 c
 c
 W
-W
-n
-q
 s
-W
-c
-c
-c
-c
-a
-a
-a
-"}
-(8,1,1) = {"
-a
-a
-a
-a
-c
+q
+n
 W
 W
+c
+c
+c
+a
+a
+a
+b"}(8,1,1) = {"
+a
+a
+a
+c
 W
-k
+W
+W
+W
+m
+l
 o
-l
-m
-W
+k
 W
 W
 W
@@ -306,87 +360,79 @@ c
 a
 a
 a
-"}
-(9,1,1) = {"
+a"}(9,1,1) = {"
 a
 a
-b
 a
-c
 W
-e
-h
-l
-m
-m
-m
-l
-m
+W
 v
-W
-W
-a
-a
-a
-"}
-(10,1,1) = {"
-b
-b
-b
-a
-c
-W
-f
-i
 m
 l
 m
-o
 m
 m
-m
-m
+l
+h
+e
+W
+c
+a
+b
+a
+a"}(10,1,1) = {"
+a
+a
+a
 J
-a
-a
-a
-"}
-(11,1,1) = {"
-a
-a
-b
-a
-c
-W
-g
-j
-l
 m
 m
-l
 m
-l
-w
-W
-W
-a
-a
-a
-"}
-(12,1,1) = {"
-a
-a
-a
-a
-c
-W
-W
-W
-k
+m
 o
 m
 l
+m
+i
+f
 W
+c
+a
+b
+b
+b"}(11,1,1) = {"
+a
+a
+a
+W
+W
+w
+l
+m
+l
+m
+m
+l
+j
+g
+W
+c
+a
+b
+a
+a"}(12,1,1) = {"
+a
+a
+a
+c
+W
+W
+W
+W
+l
+m
+o
+k
 W
 W
 W
@@ -394,54 +440,48 @@ c
 a
 a
 a
-"}
-(13,1,1) = {"
+a"}(13,1,1) = {"
 a
 a
 a
-a
+c
 c
 c
 c
 W
-W
-p
-u
 r
-W
-c
-c
-c
-c
-a
-a
-a
-"}
-(14,1,1) = {"
-b
-b
-a
-a
-a
-a
-c
-c
-W
-W
-W
+u
+p
 W
 W
 c
+c
+c
+a
+a
+a
+a"}(14,1,1) = {"
 a
 a
 a
 a
 a
 a
-"}
-(15,1,1) = {"
+c
+W
+W
+W
+W
+W
+c
+c
+a
+a
+a
+a
 b
-b
+b"}(15,1,1) = {"
+a
 a
 a
 a
@@ -459,11 +499,8 @@ a
 a
 a
 a
-a
-"}
-(16,1,1) = {"
 b
-b
+b"}(16,1,1) = {"
 b
 b
 a
@@ -482,10 +519,8 @@ a
 a
 b
 b
-"}
-(17,1,1) = {"
-a
-a
+b
+b"}(17,1,1) = {"
 b
 b
 a
@@ -504,16 +539,8 @@ a
 a
 b
 b
-"}
-(18,1,1) = {"
 a
-a
-a
-b
-b
-b
-b
-b
+a"}(18,1,1) = {"
 b
 b
 b
@@ -526,18 +553,15 @@ b
 b
 b
 b
-"}
-(19,1,1) = {"
-a
-a
-a
+b
 b
 b
 b
 b
 a
 a
-a
+a"}(19,1,1) = {"
+b
 b
 b
 b
@@ -547,18 +571,6 @@ b
 b
 b
 b
-b
-"}
-(20,1,1) = {"
-a
-a
-a
-a
-b
-b
-a
-a
-a
 a
 a
 a
@@ -566,8 +578,26 @@ b
 b
 b
 b
+a
+a
+a"}(20,1,1) = {"
 b
 b
 b
 b
-"}
+b
+b
+b
+b
+a
+a
+a
+a
+a
+a
+b
+b
+a
+a
+a
+a"}

@@ -1,7 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aH" = (
-/obj/structure/transit_tube/diagonal,
-/obj/structure/lattice,
+/obj/structure/transit_tube/diagonal/topleft,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "bw" = (
@@ -12,7 +14,7 @@
 /area/ruin/unpowered)
 "bC" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
+	dir = 5
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
@@ -20,99 +22,126 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "cl" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_access_txt = "12";
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/abandoned{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "cA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/trinary/mixer/airmix{
+/obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped{
 	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "cH" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
 /turf/template_noop,
 /area/template_noop)
 "cP" = (
-/obj/structure/window/reinforced/spawner{
+/obj/structure/window/reinforced/spawner/north{
 	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/open/floor/plasteel/dark,
-/area/ruin/unpowered)
-"cT" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 9
-	},
-/turf/closed/wall,
-/area/ruin/unpowered)
-"cX" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/closed/wall,
-/area/ruin/unpowered)
-"dk" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/ruin/unpowered)
-"eq" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/ruin/unpowered)
-"eZ" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 9
-	},
-/turf/open/floor/plating/asteroid,
-/area/ruin/unpowered)
-"fl" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plating,
-/area/ruin/unpowered)
-"fB" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/closed/wall,
-/area/ruin/unpowered)
-"fN" = (
-/obj/structure/window/reinforced/spawner{
-	dir = 8
-	},
-/obj/structure/transit_tube/curved{
-	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
+"cT" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 10
+	},
+/turf/closed/wall,
+/area/ruin/unpowered)
+"cX" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
+/turf/closed/wall,
+/area/ruin/unpowered)
+"dk" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
+/obj/effect/spawner/structure/window{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"eq" = (
+/obj/effect/spawner/structure/window{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"eZ" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 10
+	},
+/turf/open/floor/plating/asteroid,
+/area/ruin/unpowered)
+"fl" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"fB" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
+/turf/closed/wall,
+/area/ruin/unpowered)
+"fN" = (
+/obj/structure/window/reinforced/spawner/north{
+	dir = 8
+	},
+/obj/structure/transit_tube/curved/flipped{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
 "ge" = (
 /obj/structure/sign/warning/vacuum{
-	pixel_y = 32
+	pixel_y = -32;
+	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/tank/air,
-/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/components/unary/tank/air{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "gp" = (
 /obj/machinery/power/smes{
-	charge = 5e+006
+	charge = 5e+006;
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -123,30 +152,44 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "he" = (
-/obj/structure/transit_tube/curved{
+/obj/structure/transit_tube/curved/flipped{
+	dir = 2
+	},
+/obj/structure/lattice{
 	dir = 1
 	},
-/obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
 "hn" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
+/obj/structure/closet/emcloset{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "hp" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "ie" = (
-/obj/machinery/power/terminal,
+/obj/machinery/power/terminal{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 4
@@ -154,18 +197,20 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "iy" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "jk" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "jv" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
@@ -176,25 +221,32 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "jG" = (
-/obj/item/pickaxe,
+/obj/item/pickaxe{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "jZ" = (
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "kE" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "kN" = (
 /obj/machinery/door/airlock/external/glass{
-	name = "Escape Pod Charlie"
+	name = "Escape Pod Charlie";
+	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/locked,
+/obj/effect/mapping_helpers/airlock/locked{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "kS" = (
-/obj/structure/window/reinforced/spawner{
+/obj/structure/window/reinforced/spawner/north{
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid,
@@ -203,12 +255,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "lO" = (
 /obj/structure/chair/comfy/black{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
@@ -216,11 +270,15 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "mi" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
@@ -233,37 +291,43 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "mE" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/north,
 /turf/template_noop,
 /area/template_noop)
 "nz" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/basic{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "oI" = (
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/north,
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "oR" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "oT" = (
-/obj/structure/window/reinforced/spawner{
+/obj/structure/window/reinforced/spawner/north{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/transit_tube/station/reverse{
-	dir = 4
+/obj/structure/transit_tube/station/reverse/flipped{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
@@ -275,32 +339,44 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "qf" = (
 /obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
+/obj/structure/closet/emcloset{
 	dir = 1
 	},
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/emcloset,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "qp" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "qq" = (
-/obj/structure/window/reinforced/spawner{
+/obj/structure/window/reinforced/spawner/north{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "qs" = (
-/obj/machinery/power/port_gen/pacman,
-/obj/item/wrench,
-/obj/structure/cable,
+/obj/machinery/power/port_gen/pacman{
+	dir = 1
+	},
+/obj/item/wrench{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -308,63 +384,74 @@
 /area/ruin/unpowered)
 "qG" = (
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "rp" = (
 /obj/machinery/door/airlock/external{
-	name = "Escape Airlock"
+	name = "Escape Airlock";
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "sq" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "sw" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "te" = (
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "tC" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "tH" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "uX" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "vc" = (
-/obj/structure/window/reinforced/spawner{
+/obj/structure/window/reinforced/spawner/north{
 	dir = 4
 	},
-/obj/structure/transit_tube/curved,
-/obj/structure/lattice/catwalk,
+/obj/structure/transit_tube/curved/flipped{
+	dir = 1
+	},
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "vh" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -377,26 +464,33 @@
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_access_txt = "12";
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/effect/mapping_helpers/airlock/abandoned{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "vt" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "vN" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/firecloset/full,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
+/obj/structure/closet/firecloset/full{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "vQ" = (
@@ -406,14 +500,18 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "vU" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "vY" = (
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "vZ" = (
@@ -421,7 +519,8 @@
 /area/template_noop)
 "wg" = (
 /obj/machinery/door/airlock/external{
-	name = "Escape Airlock"
+	name = "Escape Airlock";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -434,27 +533,35 @@
 "wr" = (
 /obj/machinery/advanced_airlock_controller/directional/east,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 10
+	dir = 9
 	},
 /obj/machinery/light/small{
+	dir = 2
+	},
+/obj/structure/closet/emcloset{
 	dir = 1
 	},
-/obj/structure/closet/emcloset,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "wO" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/trinary/filter/atmos/n2{
-	dir = 8
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/n2{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "wS" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "xC" = (
@@ -465,13 +572,16 @@
 /area/ruin/unpowered)
 "xE" = (
 /obj/structure/sign/warning/vacuum{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "xY" = (
-/obj/structure/window/reinforced/spawner,
-/obj/structure/lattice,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "ym" = (
@@ -483,7 +593,8 @@
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_access_txt = "12";
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -491,14 +602,18 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "yQ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "zc" = (
 /obj/machinery/light/small{
+	dir = 2
+	},
+/obj/effect/spawner/lootdrop/maintenance{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
@@ -511,9 +626,11 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "Ak" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 6
+	dir = 5
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -546,7 +663,7 @@
 /area/ruin/unpowered)
 "BA" = (
 /obj/effect/turf_decal/caution/stand_clear{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -557,16 +674,22 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Cc" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/lootdrop/glowstick/lit{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Cj" = (
-/obj/effect/spawner/room/threexfive,
+/obj/effect/spawner/room/threexfive{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Co" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/window/reinforced/spawner{
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
+/obj/structure/window/reinforced/spawner/north{
 	dir = 8
 	},
 /turf/template_noop,
@@ -575,9 +698,11 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
@@ -588,18 +713,24 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "CK" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/spawner/structure/window,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
+/obj/effect/spawner/structure/window{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "CX" = (
-/obj/structure/window/reinforced/spawner{
+/obj/structure/window/reinforced/spawner/north{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/lootdrop/glowstick/lit{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Dq" = (
@@ -607,7 +738,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -615,12 +746,14 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Dx" = (
-/obj/structure/window/reinforced/spawner,
-/obj/structure/transit_tube/diagonal,
+/obj/structure/window/reinforced/spawner/north,
+/obj/structure/transit_tube/diagonal/topleft,
 /turf/template_noop,
 /area/template_noop)
 "DU" = (
@@ -631,10 +764,10 @@
 /area/ruin/unpowered)
 "Ef" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 6
+	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -645,22 +778,24 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "EF" = (
-/obj/structure/transit_tube/diagonal/crossing,
-/obj/structure/lattice,
+/obj/structure/transit_tube/diagonal/crossing/topleft,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "EI" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Fv" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -671,20 +806,23 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "FX" = (
-/obj/item/crowbar/red,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+/obj/item/crowbar/red{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "FY" = (
-/obj/structure/transit_tube/diagonal,
+/obj/structure/transit_tube/diagonal/topleft,
 /turf/template_noop,
 /area/template_noop)
 "GM" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_access_txt = "12";
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -692,37 +830,46 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Hc" = (
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Hf" = (
-/obj/structure/window/reinforced/spawner{
+/obj/structure/window/reinforced/spawner/north{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "If" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Iw" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_access_txt = "12";
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "IF" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
@@ -734,18 +881,20 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "IX" = (
-/obj/structure/window/reinforced/spawner{
+/obj/structure/window/reinforced/spawner/north{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner{
+/obj/structure/window/reinforced/spawner/north{
 	dir = 1
 	},
-/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "Jn" = (
@@ -757,140 +906,178 @@
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_access_txt = "12";
+	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/effect/mapping_helpers/airlock/abandoned{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "JI" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "JK" = (
-/obj/structure/bonfire,
-/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/structure/bonfire{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/ruinloot/important{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "JL" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 2
+	},
+/obj/effect/spawner/lootdrop/ruinloot/basic{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/ruinloot/basic,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "JP" = (
-/obj/effect/spawner/room/fivexfour,
+/obj/effect/spawner/room/fivexfour{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Ln" = (
 /obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Lr" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/trinary/filter/atmos/o2{
-	dir = 8
+/obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/o2{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "LM" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Nr" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 9
+	dir = 10
 	},
 /turf/template_noop,
 /area/template_noop)
 "Ns" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Nz" = (
-/obj/structure/chair/comfy/black,
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Ok" = (
 /obj/structure/cable{
-	icon_state = "2-4"
+	icon_state = "1-4"
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 4
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Ov" = (
-/obj/effect/abstract/doorway_marker,
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Oz" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_access_txt = "12";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "OX" = (
-/obj/effect/spawner/room/tenxfive,
+/obj/effect/spawner/room/tenxfive{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Pk" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "Pv" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "PF" = (
-/obj/effect/spawner/room/tenxten,
+/obj/effect/spawner/room/tenxten{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "PY" = (
-/obj/structure/window/reinforced/spawner{
+/obj/structure/window/reinforced/spawner/north{
 	dir = 1
 	},
-/obj/structure/transit_tube/curved/flipped{
+/obj/structure/transit_tube/curved{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "Qr" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Qv" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -898,9 +1085,11 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/stack/sheet/mineral/plasma,
-/obj/effect/turf_decal/stripes/line{
+/obj/item/stack/sheet/mineral/plasma{
 	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 4
@@ -911,27 +1100,31 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Rf" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Ri" = (
-/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "Rq" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "RG" = (
-/obj/structure/transit_tube/diagonal,
-/obj/structure/lattice/catwalk,
+/obj/structure/transit_tube/diagonal/topleft,
+/obj/structure/lattice/catwalk{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 5
+	dir = 6
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -942,40 +1135,53 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "RT" = (
-/obj/structure/window/reinforced/spawner{
+/obj/structure/window/reinforced/spawner/north{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "RY" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "12"
+	req_access_txt = "12";
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Si" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "SC" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Tt" = (
-/obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/effect/spawner/lootdrop/ruinloot/basic{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Ty" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/spawner/lootdrop/glowstick/lit{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 4
 	},
@@ -983,18 +1189,20 @@
 /area/ruin/unpowered)
 "TZ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Ue" = (
-/obj/structure/window/reinforced/spawner{
+/obj/structure/window/reinforced/spawner/north{
 	dir = 4
 	},
-/obj/structure/window/reinforced/spawner{
+/obj/structure/window/reinforced/spawner/north{
 	dir = 1
 	},
-/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "Uo" = (
@@ -1002,7 +1210,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 4
@@ -1011,13 +1219,17 @@
 /area/ruin/unpowered)
 "UB" = (
 /obj/effect/turf_decal/caution/stand_clear{
-	dir = 4
+	dir = 2
 	},
-/obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/effect/spawner/lootdrop/ruinloot/basic{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "UN" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Vd" = (
@@ -1025,34 +1237,44 @@
 /turf/template_noop,
 /area/template_noop)
 "Vn" = (
-/obj/structure/window/reinforced/spawner{
+/obj/structure/window/reinforced/spawner/north{
 	dir = 1
 	},
-/obj/structure/transit_tube/station/reverse/flipped{
-	dir = 1
+/obj/structure/transit_tube/station/reverse{
+	dir = 2
 	},
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/delivery{
+	dir = 4
+	},
 /obj/structure/transit_tube_pod{
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "Vo" = (
-/obj/structure/table/wood,
-/obj/item/candle,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/candle{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "VQ" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 9
 	},
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/firecloset/full,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
+/obj/structure/closet/firecloset/full{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "VT" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 6
+	dir = 5
 	},
 /turf/closed/wall,
 /area/ruin/unpowered)
@@ -1064,36 +1286,46 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Wn" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 8
+	},
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Xc" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Xy" = (
 /obj/structure/transit_tube,
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "XL" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "YM" = (
-/obj/structure/window/reinforced/spawner{
+/obj/structure/window/reinforced/spawner/north{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/dark/hidden,
+/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "YT" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 
@@ -1138,224 +1370,185 @@ vZ
 vZ
 vZ
 vZ
-vZ
-"}
-(2,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-Pk
-mE
-IX
+vZ"}(2,1,1) = {"
+Fw
 RT
-Fw
-"}
-(3,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-Ri
-Pk
-Pk
+IX
 mE
-Vn
-If
+Pk
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(3,1,1) = {"
 Ov
-"}
-(4,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-Ri
-vZ
-vZ
-vZ
-vZ
-vZ
-Pk
-xY
-PY
 If
-Fw
-"}
-(5,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
+Vn
+mE
 Pk
-vZ
-vZ
-vZ
-vZ
-vZ
 Pk
-Dx
-Ue
-CX
+Ri
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(4,1,1) = {"
 Fw
-"}
-(6,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
+If
+PY
+xY
+Pk
 vZ
 vZ
 vZ
 vZ
 vZ
 Ri
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(5,1,1) = {"
+Fw
+CX
+Ue
+Dx
 Pk
+vZ
+vZ
+vZ
+vZ
+vZ
 Pk
-Pk
-Pk
-Pk
-Pk
-Pk
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(6,1,1) = {"
+Fw
+Fw
+Co
 Pk
 aH
 Pk
-Co
-Fw
-Fw
-"}
-(7,1,1) = {"
+Pk
+Pk
+Pk
+Pk
+Pk
+Pk
+Pk
+Ri
 vZ
 vZ
 vZ
@@ -1365,15 +1558,6 @@ vZ
 vZ
 vZ
 vZ
-SC
-SC
-SC
-SC
-SC
-JI
-fB
-vh
-Fw
 vZ
 vZ
 vZ
@@ -1382,23 +1566,31 @@ vZ
 vZ
 vZ
 vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(7,1,1) = {"
 vZ
 vZ
 vZ
 vZ
 Pk
-vZ
-vZ
-vZ
-vZ
 FY
+vZ
+vZ
+vZ
+vZ
 Pk
 vZ
 vZ
 vZ
 vZ
-"}
-(8,1,1) = {"
 vZ
 vZ
 vZ
@@ -1407,95 +1599,129 @@ vZ
 vZ
 vZ
 vZ
-vZ
+Fw
+vh
+fB
+JI
 SC
-Ai
-Ai
-jk
-AQ
-IL
+SC
+SC
+SC
+SC
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(8,1,1) = {"
+vZ
+Pk
+Pk
+Pk
+Pk
+Pk
+EF
+vZ
+vZ
+vZ
+Pk
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+Ri
 rp
 Cr
 rp
-Ri
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-Pk
-vZ
-vZ
-vZ
-EF
-Pk
-Pk
-Pk
-Pk
-Pk
-vZ
-"}
-(9,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-Ri
-Pk
+IL
+AQ
+jk
+Ai
+Ai
 SC
-Ai
-Ai
-Fv
-po
-Dq
-Fw
-wr
-Pv
-hp
-hp
-hp
-hp
-hp
-hp
-hp
-hp
-hp
-hp
-hp
-hp
-hp
-hp
-hp
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(9,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+Pk
+vZ
+vZ
 RG
-vZ
-vZ
-Pk
-vZ
-vZ
-vZ
-vZ
-"}
-(10,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
+hp
+hp
+hp
+hp
+hp
+hp
+hp
+hp
+hp
+hp
+hp
+hp
+hp
+hp
+hp
+Pv
+wr
 Fw
+Dq
+po
+Fv
+Ai
+Ai
 SC
+Pk
+Ri
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(10,1,1) = {"
+vZ
+vZ
+Ri
+Pk
+Pk
+Pk
+Pk
+cH
+he
+Xy
+Xy
+Vd
+Xy
+Vd
+Xy
+Vd
+Xy
+Vd
+vc
+Hf
+Hf
+Hf
+Hf
 Fw
 Fw
 Fw
@@ -1503,117 +1729,99 @@ GM
 Fw
 Fw
 Fw
-Hf
-Hf
-Hf
-Hf
-vc
-Vd
-Xy
-Vd
-Xy
-Vd
-Xy
-Vd
-Xy
-Xy
-he
+SC
+Fw
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(11,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+Pk
+vZ
+vZ
 cH
-Pk
-Pk
-Pk
-Pk
-Ri
-vZ
-vZ
-"}
-(11,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
 vZ
 vZ
 Pk
 vZ
 Fw
-Rq
-Rq
-Cb
-Rq
-OX
+Fw
+eq
+eq
+Fw
 Fw
 qq
-cP
-oT
 fN
+oT
+cP
 qq
 Fw
-Fw
-eq
-eq
-Fw
-Fw
-vZ
-Pk
-vZ
-vZ
-cH
-vZ
-vZ
-Pk
-vZ
-vZ
-vZ
-vZ
-"}
-(12,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-Ri
-Pk
-Pk
-zL
-Fw
-Rq
+OX
 Rq
 Cb
 Rq
 Rq
 Fw
-po
-UB
-RP
-BA
-po
+vZ
+Pk
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(12,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+Ri
+vZ
+Pk
+cH
 Fw
-Rq
-Rq
-Rq
-JP
-Fw
-VT
-fB
 vh
+fB
+VT
 Fw
-cH
+JP
+Rq
+Rq
+Rq
+Fw
+po
+BA
+RP
+UB
+po
+Fw
+Rq
+Rq
+Cb
+Rq
+Rq
+Fw
+zL
 Pk
-vZ
+Pk
 Ri
 vZ
 vZ
 vZ
 vZ
-"}
-(13,1,1) = {"
+vZ
+vZ
+vZ"}(13,1,1) = {"
 vZ
 vZ
 vZ
@@ -1621,53 +1829,22 @@ vZ
 vZ
 vZ
 vZ
-vZ
-vZ
-Pk
-zL
-Fw
-Rq
-Rq
-Cb
-Rq
-Rq
-Fw
-VQ
-Rf
-LM
-po
-vN
-Fw
-Rq
-Rq
-Rq
-Rq
-Fw
-Cb
+cH
 wg
 Wc
 wg
-cH
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(14,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-zL
-zL
+Cb
+Fw
+Rq
+Rq
+Rq
+Rq
+Fw
+vN
+po
+LM
+Rf
+VQ
 Fw
 Rq
 Rq
@@ -1675,22 +1852,7 @@ Cb
 Rq
 Rq
 Fw
-hn
-Av
-po
-po
-qf
-Fw
-Xc
-fl
-fl
-fl
-Iw
-Ef
-cX
-cT
-Fw
-cH
+zL
 Pk
 vZ
 vZ
@@ -1698,111 +1860,145 @@ vZ
 vZ
 vZ
 vZ
-"}
-(15,1,1) = {"
+vZ
+vZ
+vZ"}(14,1,1) = {"
 vZ
 vZ
 vZ
 vZ
 vZ
 vZ
-vZ
-vZ
-zL
-zL
-zL
+Pk
+cH
+Fw
+cT
+cX
+Ef
+Iw
+fl
+fl
+fl
+Xc
+Fw
+qf
+po
+po
+Av
+hn
 Fw
 Rq
 Rq
 Cb
 Rq
 Rq
+Fw
+zL
+zL
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(15,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+cH
+vZ
+vZ
+eq
+xC
+Fw
+Rq
+Rq
+Rq
+Cb
+Fw
+Fw
 Fw
 Fw
 ym
 Fw
 Fw
-Fw
-Fw
+Rq
+Rq
 Cb
 Rq
 Rq
+Fw
+zL
+zL
+zL
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(16,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+Pk
+Nr
+Ak
+Pk
+eq
+xC
+Fw
+Rq
+Rq
+Rq
+Qr
+dk
+fl
+fl
+mf
+By
+wS
+Iw
+fl
+fl
+vt
+Rq
 Rq
 Fw
-xC
-eq
+jZ
+zL
+zL
+QV
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(17,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
 vZ
 vZ
 cH
 vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(16,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-QV
-zL
-zL
-jZ
-Fw
-Rq
-Rq
-vt
-fl
-fl
-Iw
-wS
-By
-mf
-fl
-fl
-dk
-Qr
-Rq
-Rq
-Rq
 Fw
 xC
-eq
-Pk
-Ak
-Nr
-Pk
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(17,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-oI
-YM
-te
-jZ
 Fw
-Rq
-Rq
-Cb
-Rq
-Rq
 Fw
 Fw
 Fw
@@ -1814,75 +2010,87 @@ Fw
 Fw
 Fw
 Fw
-Fw
-xC
-Fw
-vZ
-cH
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(18,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-zL
-zL
-kS
-jC
-Tt
-Fw
 Rq
 Rq
 Cb
 Rq
 Rq
 Fw
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-PF
-Fw
-xC
+jZ
+te
+YM
+oI
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(18,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+cH
+vZ
 eq
-vZ
-cH
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(19,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-zL
-zL
-jZ
+xC
+Fw
+PF
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Fw
+Rq
+Rq
+Cb
+Rq
+Rq
+Fw
+Tt
 jC
-jZ
+kS
+zL
+zL
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(19,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+Ri
+Pk
+Pk
+Nr
+hp
+CK
+FX
+Fw
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
 Fw
 Rq
 Rq
@@ -1890,85 +2098,81 @@ Cb
 Rq
 Rq
 Fw
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Fw
-FX
-CK
-hp
-Nr
-Pk
-Pk
+jZ
+jC
+jZ
+zL
+zL
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(20,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
 Ri
 vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(20,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-zL
-zL
+eq
+xC
+Fw
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Fw
+Rq
+Rq
+Cb
+Rq
+Rq
+Fw
 jZ
 Ty
 jZ
-Fw
-Rq
-Rq
-Cb
-Rq
-Rq
-Fw
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
+zL
+zL
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(21,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+Ri
+vZ
 Fw
 xC
-eq
-vZ
-Ri
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(21,1,1) = {"
-vZ
-Ri
-Pk
-Pk
-Pk
-Pk
-zL
-vY
-jZ
-Ok
-qs
+Fw
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
 Fw
 Fw
 Fw
@@ -1976,128 +2180,122 @@ ym
 Fw
 Fw
 Fw
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Fw
-xC
-Fw
+qs
+Ok
+jZ
+vY
+zL
+Pk
+Pk
+Pk
+Pk
+Ri
+vZ"}(22,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
 vZ
 Ri
 vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(22,1,1) = {"
-vZ
-vZ
-vZ
-Pk
-vZ
-zL
-Fw
-ge
-XL
-Uo
-EC
-Fw
-Rq
-Rq
-Cb
-Rq
-Cj
-Fw
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
+eq
+xC
 Oz
-xC
-eq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Fw
+Cj
+Rq
+Cb
+Rq
+Rq
+Fw
+EC
+Uo
+XL
+ge
+Fw
+zL
+vZ
+Pk
+vZ
+vZ
+vZ"}(23,1,1) = {"
+vZ
+vZ
+vZ
+vZ
 vZ
 Ri
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(23,1,1) = {"
-vZ
-AC
-Fw
-Fw
-Fw
-zL
-zL
-tH
-Cy
-QD
-lc
-Fw
-Rq
-Rq
-vt
-fl
-fl
-Iw
-Qv
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-UN
-RY
+Pk
+Pk
+Ri
+Ri
+eq
 iy
-eq
-Ri
-Ri
-Pk
-Pk
-Ri
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(24,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-zL
-Hc
-jZ
+RY
+UN
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Qv
+Iw
+fl
+fl
+vt
+Rq
+Rq
+Fw
+lc
+QD
 Cy
-ie
-gp
+tH
+zL
+zL
+Fw
+Fw
+Fw
+AC
+vZ"}(24,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+Ri
+vZ
+eq
+xC
+Fw
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
 Fw
 Rq
 Rq
@@ -2105,42 +2303,40 @@ Cb
 Rq
 Rq
 Fw
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
+gp
+ie
+Cy
+jZ
+Hc
+zL
+vZ
+vZ
+vZ
+vZ
+vZ"}(25,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
 Fw
 xC
-eq
-vZ
-Ri
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(25,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-kN
-Hc
-jZ
-Cy
-qG
-te
+Fw
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
 Fw
 Fw
 Fw
@@ -2148,234 +2344,222 @@ vl
 Fw
 Fw
 Fw
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Fw
+te
+qG
+Cy
+jZ
+Hc
+kN
+vZ
+vZ
+vZ
+vZ
+vZ"}(26,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+eq
 xC
 Fw
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(26,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-zL
-Hc
-Cc
-JL
-cA
-wO
-bw
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
 Fw
+JP
 Rq
 Cb
 Rq
-JP
 Fw
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Fw
-xC
+bw
+wO
+cA
+JL
+Cc
+Hc
+zL
+vZ
+vZ
+vZ
+vZ
+vZ"}(27,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
 eq
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(27,1,1) = {"
-vZ
-AC
+zc
 Fw
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
+Rq
 Fw
-Fw
-zL
-zL
-jZ
-EI
-vU
-Du
+Rq
+Rq
+Si
 fl
 Wn
 fl
-Si
-Rq
-Rq
-Fw
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Rq
-Fw
-zc
-eq
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(28,1,1) = {"
-vZ
-vZ
-vZ
-Pk
-vZ
-zL
-zL
+Du
+vU
+EI
 jZ
-uX
-pz
-Lr
-As
+zL
+zL
 Fw
+Fw
+Fw
+AC
+vZ"}(28,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+eq
+xC
+Fw
+Fw
+Fw
+Fw
+Fw
+Fw
+Fw
+Fw
+Fw
+Fw
+Fw
+Fw
+Rq
 Rq
 Cb
 Rq
-Rq
 Fw
-Fw
-Fw
-Fw
-Fw
-Fw
-Fw
-Fw
-Fw
-Fw
-Fw
-Fw
-xC
-eq
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(29,1,1) = {"
-vZ
-Ri
-Pk
-Pk
-Pk
-zL
-zL
-jZ
-jZ
-jZ
-DU
-jZ
-Fw
-Rq
-sw
-fl
-fl
-cl
-qp
-XL
-IF
 As
-bC
+Lr
+pz
+uX
 jZ
-Ns
-Ln
-yQ
-yQ
-RY
+zL
+zL
+vZ
+Pk
+vZ
+vZ
+vZ"}(29,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+Fw
 oR
+RY
+yQ
+yQ
+Ln
+Ns
+jZ
+bC
+As
+IF
+XL
+qp
+cl
+fl
+fl
+sw
+Rq
 Fw
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(30,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-zL
 jZ
-jZ
-Cc
 DU
 jZ
+jZ
+jZ
+zL
+zL
+Pk
+Pk
+Pk
+Ri
+vZ"}(30,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
 Fw
-Rq
-Rq
-Rq
-Rq
 Fw
 Fw
-TZ
+zL
+zL
+zL
+DU
+jZ
+DU
+Cc
 eZ
+TZ
+Fw
+Fw
+Rq
+Rq
+Rq
+Rq
+Fw
+jZ
+DU
 Cc
-DU
 jZ
-DU
+jZ
 zL
-zL
-zL
-Fw
-Fw
-Fw
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(31,1,1) = {"
 vZ
 vZ
 vZ
@@ -2386,337 +2570,310 @@ vZ
 vZ
 vZ
 vZ
-"}
-(31,1,1) = {"
 vZ
-vZ
-vZ
-vZ
-vZ
+Pk
 vZ
 zL
 zL
-jZ
-jZ
-DU
-jZ
-Fw
-Fw
-Fw
-Fw
-Fw
-Fw
-jZ
-jZ
-jZ
 jZ
 DU
 jZ
 DU
 jZ
+jZ
+jZ
+jZ
+Fw
+Fw
+Fw
+Fw
+Fw
+Fw
+jZ
+DU
+jZ
+jZ
 zL
 zL
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(32,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
 vZ
 Pk
 vZ
 vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(32,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
 zL
 zL
-jZ
-jZ
 DU
 jZ
-jZ
-jZ
-jZ
-jZ
-jZ
-jZ
-jZ
-jZ
-YT
-YT
 mi
+YT
+YT
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
 jZ
 DU
+jZ
+jZ
 zL
 zL
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(33,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
 vZ
 vZ
 Pk
 vZ
 vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(33,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
 zL
 zL
-zL
-xE
-tC
-kE
-kE
-kE
-kE
-kE
-kE
-kE
-kE
-kE
-kE
+jv
 kE
 vQ
 kE
-jv
+kE
+kE
+kE
+kE
+kE
+kE
+kE
+kE
+kE
+kE
+tC
+xE
 zL
 zL
+zL
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(34,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
 vZ
 vZ
 Pk
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(34,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
+Pk
+Pk
 zL
 zL
-Fw
-zL
-jZ
+sq
 jZ
 Cc
-jZ
-jZ
-jZ
-jZ
-Cc
-jZ
 jZ
 JK
 jZ
+jZ
 Cc
 jZ
-sq
-zL
-zL
-Pk
-Pk
-Pk
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(35,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-zL
-zL
-zL
-zL
 jZ
 jZ
 jZ
-nz
+Cc
 jZ
 jZ
-jZ
-jZ
-jZ
-jZ
-jZ
-jZ
-jZ
-nz
-zL
-zL
-vZ
-Pk
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(36,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-zL
-zL
-zL
-zL
-zL
-zL
-sq
-jZ
-jZ
-jZ
-YT
-YT
-YT
-jZ
-jZ
-jZ
-wl
-eq
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(37,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-zL
-zL
-zL
-zL
-zL
-zL
-zL
-xE
-jG
-jZ
-jZ
-jZ
-jZ
-jZ
-jZ
-jZ
-Vo
-eq
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-"}
-(38,1,1) = {"
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-vZ
-zL
-zL
 zL
 Fw
 zL
+zL
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(35,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+Pk
+vZ
+zL
+zL
+nz
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+nz
+jZ
+jZ
+jZ
+zL
+zL
+zL
+zL
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(36,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+eq
+wl
+jZ
+jZ
+jZ
+YT
+YT
+YT
+jZ
+jZ
+jZ
+sq
+zL
+zL
+zL
+zL
+zL
+zL
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(37,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+eq
+Vo
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+jZ
+jG
+xE
+zL
+zL
+zL
+zL
+zL
+zL
+zL
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ"}(38,1,1) = {"
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+eq
+mj
+jZ
+jZ
+jZ
+jZ
 jZ
 Cc
 jZ
-jZ
-jZ
-jZ
-jZ
-mj
-eq
+zL
+Fw
+zL
+zL
+zL
 vZ
 vZ
 vZ
@@ -2730,12 +2887,7 @@ vZ
 vZ
 vZ
 vZ
-"}
-(39,1,1) = {"
-vZ
-vZ
-vZ
-vZ
+vZ"}(39,1,1) = {"
 vZ
 vZ
 vZ
@@ -2752,11 +2904,11 @@ vZ
 zL
 zL
 zL
-nz
-nz
-Nz
-Vo
 lO
+Vo
+Nz
+nz
+nz
 zL
 zL
 zL
@@ -2773,8 +2925,10 @@ vZ
 vZ
 vZ
 vZ
-"}
-(40,1,1) = {"
+vZ
+vZ
+vZ
+vZ"}(40,1,1) = {"
 vZ
 vZ
 vZ
@@ -2789,12 +2943,6 @@ vZ
 vZ
 vZ
 vZ
-vZ
-vZ
-vZ
-vZ
-zL
-zL
 zL
 zL
 eq
@@ -2802,6 +2950,8 @@ eq
 eq
 zL
 zL
+zL
+zL
 vZ
 vZ
 vZ
@@ -2816,9 +2966,10 @@ vZ
 vZ
 vZ
 vZ
-"}
-(41,1,1) = {"
 vZ
+vZ
+vZ
+vZ"}(41,1,1) = {"
 vZ
 vZ
 vZ
@@ -2859,4 +3010,4 @@ vZ
 vZ
 vZ
 vZ
-"}
+vZ"}

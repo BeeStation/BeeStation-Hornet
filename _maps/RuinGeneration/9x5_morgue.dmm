@@ -19,7 +19,7 @@
 	dir = 2
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 9
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
@@ -27,14 +27,18 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "q" = (
-/obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/effect/spawner/lootdrop/ruinloot/basic{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "r" = (
 /obj/structure/bodycontainer/morgue{
 	dir = 2
 	},
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "s" = (
@@ -45,7 +49,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
@@ -54,7 +58,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
@@ -63,17 +67,20 @@
 	dir = 2
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "J" = (
-/obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/spawner/lootdrop/ruinloot/medical{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "O" = (
 /obj/effect/mapping_helpers/dead_body_placer{
-	bodycount = 1
+	bodycount = 1;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -82,7 +89,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
@@ -92,61 +99,44 @@ o
 o
 b
 o
-o
-"}
-(2,1,1) = {"
+o"}(2,1,1) = {"
 o
 s
 s
 s
+o"}(3,1,1) = {"
 o
-"}
-(3,1,1) = {"
-o
-m
-O
 B
+O
+m
+o"}(4,1,1) = {"
 o
-"}
-(4,1,1) = {"
-o
-r
-s
 V
+s
+r
+o"}(5,1,1) = {"
 o
-"}
-(5,1,1) = {"
-o
-I
-q
 H
+q
+I
+o"}(6,1,1) = {"
 o
-"}
-(6,1,1) = {"
-o
-s
-s
 J
-o
-"}
-(7,1,1) = {"
+s
+s
+o"}(7,1,1) = {"
 o
 s
 O
 s
-o
-"}
-(8,1,1) = {"
+o"}(8,1,1) = {"
 o
 k
 k
 k
-o
-"}
-(9,1,1) = {"
+o"}(9,1,1) = {"
 o
 o
 o
 o
-o
-"}
+o"}

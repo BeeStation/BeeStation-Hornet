@@ -9,23 +9,29 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
 "d" = (
-/obj/item/mining_scanner,
+/obj/item/mining_scanner{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
 "e" = (
-/obj/item/pickaxe/drill,
+/obj/item/pickaxe/drill{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
 "f" = (
 /obj/item/stack/ore/iron{
 	amount = 15;
 	pixel_x = 15;
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /obj/item/stack/ore/titanium{
 	amount = 10;
 	pixel_x = 5;
-	pixel_y = -2
+	pixel_y = 2;
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
@@ -33,15 +39,18 @@
 /obj/item/stack/ore/plasma{
 	amount = 5;
 	pixel_x = -15;
-	pixel_y = -10
+	pixel_y = 10;
+	dir = 1
 	},
 /obj/item/stack/ore/uranium{
-	pixel_x = -10
+	pixel_x = -10;
+	dir = 1
 	},
 /obj/item/stack/ore/copper{
 	amount = 5;
 	pixel_x = 6;
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
@@ -49,33 +58,40 @@
 /obj/item/stack/ore/plasma{
 	amount = 10;
 	pixel_x = -10;
-	pixel_y = -10
+	pixel_y = 10;
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
 "i" = (
-/obj/item/stack/ore/titanium,
+/obj/item/stack/ore/titanium{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
 "j" = (
 /obj/item/stack/ore/iron{
 	amount = 20;
 	pixel_x = -15;
-	pixel_y = 10
+	pixel_y = -10;
+	dir = 1
 	},
 /obj/item/stack/ore/silver{
 	amount = 5;
 	pixel_x = 7;
-	pixel_y = -3
+	pixel_y = 3;
+	dir = 1
 	},
 /obj/item/stack/ore/diamond{
 	pixel_x = 5;
-	pixel_y = 10
+	pixel_y = -10;
+	dir = 1
 	},
 /obj/item/stack/ore/copper{
 	amount = 10;
 	pixel_x = 5;
-	pixel_y = -10
+	pixel_y = 10;
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
@@ -83,17 +99,20 @@
 /obj/item/stack/ore/iron{
 	amount = 15;
 	pixel_x = -10;
-	pixel_y = -4
+	pixel_y = 4;
+	dir = 1
 	},
 /obj/item/stack/ore/silver{
 	amount = 2;
 	pixel_x = -16;
-	pixel_y = -4
+	pixel_y = 4;
+	dir = 1
 	},
 /obj/item/stack/ore/copper{
 	amount = 5;
 	pixel_x = -9;
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
@@ -101,14 +120,16 @@
 /obj/item/stack/ore/gold{
 	amount = 2;
 	pixel_x = 13;
-	pixel_y = 10
+	pixel_y = -10;
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
 "m" = (
 /obj/item/stack/ore/gold{
 	amount = 2;
-	pixel_x = 13
+	pixel_x = 13;
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
@@ -116,11 +137,13 @@
 /obj/item/stack/ore/iron{
 	amount = 5;
 	pixel_x = -10;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/item/stack/ore/bluespace_crystal{
 	pixel_x = -5;
-	pixel_y = 10
+	pixel_y = -10;
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
@@ -135,53 +158,81 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered)
 "t" = (
-/obj/machinery/power/port_gen/pacman,
+/obj/machinery/power/port_gen/pacman{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered)
 "u" = (
-/obj/item/stack/medical/bruise_pack,
+/obj/item/stack/medical/bruise_pack{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
 "v" = (
-/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/glass/fifty{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered)
 "w" = (
-/obj/item/stack/medical/ointment,
+/obj/item/stack/medical/ointment{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
 "x" = (
-/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/airlock/hatch{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered)
 "y" = (
-/obj/item/stack/spacecash/c500,
+/obj/item/stack/spacecash/c500{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/space/has_grav)
 "z" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/portable_atmospherics/canister/air{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered)
 "A" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/portable_atmospherics/scrubber{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered)
 "B" = (
-/obj/item/radio/off,
+/obj/item/radio/off{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered)
 "C" = (
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/portable_atmospherics/pump{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered)
 "D" = (
-/obj/item/tank/internals/oxygen,
-/obj/item/tank/internals/oxygen,
-/obj/item/tank/jetpack/improvised,
+/obj/item/tank/internals/oxygen{
+	dir = 1
+	},
+/obj/item/tank/internals/oxygen{
+	dir = 1
+	},
+/obj/item/tank/jetpack/improvised{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered)
 "E" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/portable_atmospherics/canister/oxygen{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered)
 
@@ -205,19 +256,9 @@ a
 a
 a
 a
+a"}(2,1,1) = {"
 a
-"}
-(2,1,1) = {"
 a
-b
-b
-b
-b
-b
-a
-b
-b
-b
 b
 b
 a
@@ -226,13 +267,18 @@ a
 a
 b
 b
-a
-a
-"}
-(3,1,1) = {"
+b
+b
+b
 a
 b
 b
+b
+b
+b
+a"}(3,1,1) = {"
+a
+a
 b
 b
 b
@@ -248,11 +294,11 @@ a
 b
 b
 b
+b
+b
+a"}(4,1,1) = {"
 a
 a
-"}
-(4,1,1) = {"
-a
 b
 b
 b
@@ -270,11 +316,9 @@ b
 b
 b
 b
+a"}(5,1,1) = {"
 a
 a
-"}
-(5,1,1) = {"
-a
 b
 b
 b
@@ -292,11 +336,7 @@ b
 b
 b
 b
-a
-a
-"}
-(6,1,1) = {"
-a
+a"}(6,1,1) = {"
 b
 b
 b
@@ -316,83 +356,71 @@ b
 b
 b
 b
-"}
-(7,1,1) = {"
-a
+a"}(7,1,1) = {"
 b
 b
-c
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
 c
 d
 c
+c
 b
 b
+a"}(8,1,1) = {"
 b
 b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-"}
-(8,1,1) = {"
-a
 b
 b
 c
 c
-e
+c
+c
+u
+c
+c
+c
+c
 p
-c
-c
-c
-c
-u
-c
-c
-c
-c
-b
-b
-b
-b
-"}
-(9,1,1) = {"
-a
-b
-b
-b
-b
-b
-f
-i
-l
-c
-u
-w
-c
-d
 e
 c
+c
+b
+b
+a"}(9,1,1) = {"
 b
 b
 b
 b
-"}
-(10,1,1) = {"
-a
+c
+e
+d
+c
+w
+u
+c
+l
+i
+f
 b
 b
 b
 b
 b
-g
-j
-m
+a"}(10,1,1) = {"
+b
+b
+b
+b
 c
 c
 c
@@ -400,37 +428,35 @@ y
 c
 c
 c
+m
+j
+g
 b
 b
 b
 b
-"}
-(11,1,1) = {"
-a
-a
-a
+b
+a"}(11,1,1) = {"
 b
 b
 b
-h
-k
+b
+b
+b
+b
+c
+c
+c
+c
 n
-c
-c
-c
-c
+k
+h
 b
 b
 b
-b
-b
-b
-b
-"}
-(12,1,1) = {"
 a
 a
-a
+a"}(12,1,1) = {"
 b
 b
 b
@@ -448,125 +474,113 @@ b
 b
 b
 b
-"}
-(13,1,1) = {"
 a
 a
+a"}(13,1,1) = {"
 a
-b
 b
 b
 b
 b
 o
+z
+z
 q
 v
 q
-z
-z
 o
 b
 b
 b
 b
-a
-"}
-(14,1,1) = {"
-a
-a
-a
 b
+a
+a
+a"}(14,1,1) = {"
+a
 b
 b
 b
 b
 o
-q
-q
-q
-A
 C
+A
+q
+q
+q
 o
 b
 b
 b
 b
-a
-"}
-(15,1,1) = {"
-a
-a
-a
 b
+a
+a
+a"}(15,1,1) = {"
+a
 b
 b
 b
 b
 o
-q
-q
 q
 B
 q
+q
+q
 o
 b
 b
 b
 b
-a
-"}
-(16,1,1) = {"
-a
-a
 b
-b
+a
+a
+a"}(16,1,1) = {"
+a
 b
 b
 b
 b
 o
-q
-q
-q
-q
 D
+q
+q
+q
+q
 o
 b
 b
 b
 b
+b
+b
 a
-"}
-(17,1,1) = {"
+a"}(17,1,1) = {"
 a
 a
-b
-b
-b
-b
-b
+a
+a
 b
 o
-t
-q
-q
-q
 E
+q
+q
+q
+t
 o
 b
-a
-a
-a
-a
-"}
-(18,1,1) = {"
-a
-a
 b
 b
 b
 b
 b
+a
+a"}(18,1,1) = {"
+a
+a
+a
+a
 b
 o
 o
@@ -576,34 +590,33 @@ o
 o
 o
 b
+b
+b
+b
+b
+b
+a
+a"}(19,1,1) = {"
 a
 a
 a
 a
-"}
-(19,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
 a
 a
 b
 b
 b
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-"}
-(20,1,1) = {"
+a"}(20,1,1) = {"
 a
 a
 a
@@ -623,5 +636,4 @@ a
 a
 a
 a
-a
-"}
+a"}

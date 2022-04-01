@@ -1,20 +1,32 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/bookcase,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/bookcase{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "b" = (
-/obj/structure/table,
-/obj/machinery/computer/libraryconsole/bookmanagement,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/machinery/computer/libraryconsole/bookmanagement{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "c" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "d" = (
@@ -22,49 +34,66 @@
 	dir = 8
 	},
 /obj/structure/sink{
-	pixel_y = 24
+	pixel_y = -24;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/tdome/arena)
 "e" = (
 /obj/effect/turf_decal/tile/green{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/machinery/hydroponics/soil{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
 	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"f" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/machinery/hydroponics/soil{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"g" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 2
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/tdome/arena)
-"f" = (
-/obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/green{
+/obj/machinery/hydroponics/soil{
 	dir = 1
 	},
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/tdome/arena)
-"g" = (
-/obj/effect/turf_decal/tile/green{
+/obj/effect/decal/cleanable/dirt{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "h" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seed_extractor{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/tdome/arena)
 "i" = (
@@ -72,19 +101,30 @@
 	dir = 4
 	},
 /obj/structure/sink{
-	pixel_y = 24
+	pixel_y = -24;
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/tdome/arena)
 "j" = (
-/obj/machinery/vending/sustenance,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/sustenance{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "k" = (
-/obj/machinery/vending/cola/random,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner,
+/obj/machinery/vending/cola/random{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "l" = (
@@ -101,7 +141,9 @@
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "o" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4;
 	icon_state = "warningline"
@@ -109,52 +151,90 @@
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "p" = (
-/obj/structure/window/reinforced,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/item/plant_analyzer,
-/obj/item/cultivator,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/plant_analyzer{
+	dir = 1
+	},
+/obj/item/cultivator{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "q" = (
 /obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/green,
-/obj/structure/window/reinforced,
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/hydroponics/soil{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "r" = (
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/tdome/arena)
-"s" = (
-/obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/green{
-	dir = 8
+	dir = 1
 	},
-/obj/structure/window/reinforced,
-/obj/machinery/hydroponics/soil,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/hydroponics/soil{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"s" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 2
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/hydroponics/soil{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "t" = (
-/obj/structure/window/reinforced,
-/obj/machinery/biogenerator,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/biogenerator{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/tdome/arena)
 "u" = (
@@ -165,41 +245,67 @@
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "v" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/storage/box/cups,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/box/cups{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "w" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/reagent_dispensers/water_cooler,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/reagent_dispensers/water_cooler{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "x" = (
-/obj/structure/chair/stool,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "y" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/storage/box/donkpockets{
 	pixel_x = 2;
-	pixel_y = 1
+	pixel_y = -1;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "z" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/table{
+	dir = 1
+	},
 /obj/machinery/microwave{
 	pixel_x = -3;
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "A" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8;
 	icon_state = "warningline"
@@ -207,44 +313,75 @@
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "B" = (
-/obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "C" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/toy/cards/deck/cas,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/toy/cards/deck/cas{
+	dir = 1
+	},
 /obj/item/toy/cards/deck/cas/black{
 	pixel_x = -2;
-	pixel_y = 2
+	pixel_y = -2;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "D" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/paper_bin{
 	pixel_x = -3;
-	pixel_y = 7
+	pixel_y = -7;
+	dir = 1
 	},
 /obj/item/pen{
 	pixel_x = 2;
-	pixel_y = 2
+	pixel_y = -2;
+	dir = 1
 	},
-/obj/item/pen,
+/obj/item/pen{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "E" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/toy/cards/deck,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/toy/cards/deck{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "F" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/storage/pill_bottle/dice{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "G" = (
@@ -265,10 +402,10 @@
 /area/tdome/arena)
 "J" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -277,19 +414,19 @@
 /area/tdome/arena)
 "K" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/tdome/arena)
 "L" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4;
@@ -299,16 +436,16 @@
 /area/tdome/arena)
 "M" = (
 /obj/machinery/shower{
-	dir = 1
+	dir = 2
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
 	},
 /turf/open/floor/plasteel/freezer,
 /area/tdome/arena)
 "N" = (
 /obj/machinery/shower{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/freezer,
 /area/tdome/arena)
@@ -317,62 +454,80 @@
 	dir = 4
 	},
 /obj/machinery/shower{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/freezer,
 /area/tdome/arena)
 "P" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/computer/arcade{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "Q" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/stool,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "R" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/washing_machine,
+/obj/machinery/washing_machine{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/tdome/arena)
 "S" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
-/obj/structure/table,
-/obj/structure/bedsheetbin,
-/obj/item/toy/dummy,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/structure/bedsheetbin{
+	dir = 1
+	},
+/obj/item/toy/dummy{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/tdome/arena)
 "T" = (
 /obj/effect/turf_decal/tile/blue{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
-	dir = 4
+	dir = 2
 	},
-/obj/machinery/washing_machine,
+/obj/machinery/washing_machine{
+	dir = 1
+	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4
+	dir = 2
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/tdome/arena)
 "V" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/computer/arcade{
 	dir = 8
 	},
@@ -380,152 +535,123 @@
 /area/tdome/arena)
 
 (1,1,1) = {"
-a
-l
-l
-l
-A
-A
-G
 M
-"}
-(2,1,1) = {"
-b
-c
-n
-c
-c
-c
-H
+G
+A
+A
+l
+l
+l
+a"}(2,1,1) = {"
 N
-"}
-(3,1,1) = {"
+H
 c
 c
 c
 n
-n
 c
-I
+b"}(3,1,1) = {"
 O
-"}
-(4,1,1) = {"
-d
-m
-p
-v
+I
+c
 n
 n
 c
+c
+c"}(4,1,1) = {"
 P
-"}
-(5,1,1) = {"
-e
-m
-q
-w
-n
-c
-c
-Q
-"}
-(6,1,1) = {"
-f
-m
-r
-c
-c
-x
-c
-c
-"}
-(7,1,1) = {"
-g
-m
-s
-n
-B
-E
-c
-c
-"}
-(8,1,1) = {"
-h
-m
-t
-x
-C
-B
-x
-n
-"}
-(9,1,1) = {"
-e
-m
-q
-c
-D
-F
-n
-n
-"}
-(10,1,1) = {"
-f
-m
-r
-c
-x
-c
 c
 n
-"}
-(11,1,1) = {"
-g
-m
-s
-y
-c
-c
-c
-Q
-"}
-(12,1,1) = {"
-i
-m
+n
+v
 p
-z
+m
+d"}(5,1,1) = {"
+Q
+c
+c
+n
+w
+q
+m
+e"}(6,1,1) = {"
+c
+c
+x
+c
+c
+r
+m
+f"}(7,1,1) = {"
+c
+c
+E
+B
+n
+s
+m
+g"}(8,1,1) = {"
+n
+x
+B
+C
+x
+t
+m
+h"}(9,1,1) = {"
+n
+n
+F
+D
+c
+q
+m
+e"}(10,1,1) = {"
 n
 c
 c
+x
+c
+r
+m
+f"}(11,1,1) = {"
+Q
+c
+c
+c
+y
+s
+m
+g"}(12,1,1) = {"
 V
-"}
-(13,1,1) = {"
-c
-c
-c
 c
 c
 n
-J
+z
+p
+m
+i"}(13,1,1) = {"
 R
-"}
-(14,1,1) = {"
-j
+J
 n
 c
-n
 c
-n
-K
+c
+c
+c"}(14,1,1) = {"
 S
-"}
-(15,1,1) = {"
-k
-o
-u
-u
-u
-o
-L
+K
+n
+c
+n
+c
+n
+j"}(15,1,1) = {"
 T
-"}
+L
+o
+u
+u
+u
+o
+k"}

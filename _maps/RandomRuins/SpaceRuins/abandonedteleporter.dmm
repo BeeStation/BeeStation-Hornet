@@ -6,24 +6,33 @@
 /turf/closed/wall/r_wall,
 /area/ruin/space/abandoned_tele)
 "c" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/space/nearstation)
 "d" = (
-/obj/structure/frame/computer,
+/obj/structure/frame/computer{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "e" = (
-/obj/machinery/teleport/station,
+/obj/machinery/teleport/station{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "f" = (
-/obj/machinery/teleport/hub,
+/obj/machinery/teleport/hub{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "g" = (
 /obj/item/shard{
-	icon_state = "medium"
+	icon_state = "medium";
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
@@ -31,8 +40,12 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "i" = (
-/obj/structure/rack,
-/obj/item/clothing/gloves/color/yellow,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/clothing/gloves/color/yellow{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "j" = (
@@ -48,85 +61,134 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "l" = (
-/obj/item/stock_parts/cell,
+/obj/item/stock_parts/cell{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "m" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "n" = (
-/obj/effect/decal/cleanable/robot_debris/old,
+/obj/effect/decal/cleanable/robot_debris/old{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "o" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/lootdrop/crate_spawner{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "p" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "q" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/flashlight,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/flashlight{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "r" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/beacon,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/item/beacon{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "s" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/portable_atmospherics/canister/air{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "u" = (
-/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/old{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "v" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "w" = (
-/obj/item/shard,
-/obj/item/electronics/apc,
+/obj/item/shard{
+	dir = 1
+	},
+/obj/item/electronics/apc{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "x" = (
-/obj/structure/closet,
+/obj/structure/closet{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "y" = (
 /obj/item/storage/toolbox/electrical{
 	pixel_x = 1;
-	pixel_y = -1
+	pixel_y = 1;
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "z" = (
-/obj/structure/closet/crate,
-/obj/item/aicard,
-/obj/item/multitool,
-/obj/item/weldingtool,
-/obj/item/wrench,
-/obj/item/circuitboard/computer/teleporter,
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/obj/item/aicard{
+	dir = 1
+	},
+/obj/item/multitool{
+	dir = 1
+	},
+/obj/item/weldingtool{
+	dir = 1
+	},
+/obj/item/wrench{
+	dir = 1
+	},
+/obj/item/circuitboard/computer/teleporter{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "A" = (
-/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/reagent_dispensers/fueltank{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "B" = (
-/obj/structure/girder,
+/obj/structure/girder{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/abandoned_tele)
 "O" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
@@ -138,30 +200,29 @@ a
 a
 a
 a
-c
 a
 a
-a
-a
-a
-a
-a
-"}
-(2,1,1) = {"
-a
-a
-c
-a
-c
 a
 c
 a
 a
 a
+a"}(2,1,1) = {"
 a
 a
-"}
-(3,1,1) = {"
+a
+a
+a
+c
+a
+c
+a
+c
+a
+a"}(3,1,1) = {"
+a
+a
+a
 a
 a
 c
@@ -170,12 +231,10 @@ p
 j
 c
 a
+a"}(4,1,1) = {"
 a
 a
 a
-a
-"}
-(4,1,1) = {"
 a
 c
 c
@@ -184,12 +243,10 @@ h
 k
 c
 c
+a"}(5,1,1) = {"
 a
 a
 a
-a
-"}
-(5,1,1) = {"
 a
 c
 b
@@ -198,110 +255,94 @@ O
 b
 b
 c
+a"}(6,1,1) = {"
 a
 a
 a
-a
-"}
-(6,1,1) = {"
 a
 b
 b
-h
-h
 s
+h
+h
 b
 b
+a"}(7,1,1) = {"
 a
 a
-a
-a
-"}
-(7,1,1) = {"
+c
 b
 b
-g
-l
-q
+h
 u
-h
+q
+l
+g
 b
-b
+b"}(8,1,1) = {"
+a
 c
-a
-a
-"}
-(8,1,1) = {"
+c
 b
-d
-h
-m
-n
-h
-h
 z
-b
-c
-c
-a
-"}
-(9,1,1) = {"
-b
-e
 h
-h
-r
-v
-m
-h
-c
-c
-a
-c
-"}
-(10,1,1) = {"
-b
-f
 h
 n
+m
+h
+d
+b"}(9,1,1) = {"
+c
+a
+c
+c
+h
+m
+v
+r
 h
 h
+e
+b"}(10,1,1) = {"
+c
+a
+a
 h
 A
 h
-a
-a
-c
-"}
-(11,1,1) = {"
-b
-b
-i
-m
 h
-w
-y
-b
+h
+n
+h
+f
+b"}(11,1,1) = {"
+a
+a
+c
 B
-c
+b
+y
+w
+h
+m
+i
+b
+b"}(12,1,1) = {"
 a
 a
-"}
-(12,1,1) = {"
+a
 c
 b
 b
-o
-s
 x
+s
+o
 b
 b
-c
+c"}(13,1,1) = {"
 a
 a
 a
-"}
-(13,1,1) = {"
 a
 a
 b
@@ -310,8 +351,4 @@ b
 b
 b
 a
-a
-a
-a
-a
-"}
+a"}

@@ -9,17 +9,23 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "d" = (
-/obj/effect/decal/cleanable/oil,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "e" = (
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
@@ -28,18 +34,27 @@
 	dir = 4;
 	name = "Rented scooter #3"
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "h" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/paper_bin{
+	dir = 1
+	},
+/obj/item/pen{
+	dir = 1
+	},
 /obj/machinery/light_switch{
-	pixel_x = 22
+	pixel_x = 22;
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
@@ -48,7 +63,9 @@
 	dir = 4;
 	name = "Rented scooter #2"
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "k" = (
@@ -56,11 +73,16 @@
 	dir = 8;
 	name = "Rented scooter #5"
 	},
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /obj/machinery/newscaster{
 	pixel_x = 28;
-	pixel_y = 1
+	pixel_y = -1;
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
@@ -68,7 +90,9 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "n" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "o" = (
@@ -76,25 +100,39 @@
 	dir = 8;
 	name = "Rented scooter #6"
 	},
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "q" = (
-/obj/machinery/computer/security/telescreen/entertainment,
+/obj/machinery/computer/security/telescreen/entertainment{
+	dir = 1
+	},
 /turf/closed/wall,
 /area/template_noop)
 "r" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "s" = (
-/obj/machinery/light,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "t" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "u" = (
@@ -103,12 +141,14 @@
 	name = "Scooter Rental Front desk Door Lock";
 	normaldoorcontrol = 1;
 	pixel_x = -8;
-	pixel_y = -26;
-	specialfunctions = 4
+	pixel_y = 26;
+	specialfunctions = 4;
+	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 4;
-	pixel_y = -29
+	pixel_y = 29;
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
@@ -118,8 +158,9 @@
 	name = "Scooter Rental Front desk Door Lock";
 	normaldoorcontrol = 1;
 	pixel_x = 26;
-	pixel_y = 6;
-	specialfunctions = 4
+	pixel_y = -6;
+	specialfunctions = 4;
+	dir = 1
 	},
 /obj/structure/chair/office/light{
 	dir = 8
@@ -131,28 +172,38 @@
 	dir = 8;
 	name = "Rented scooter #4"
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/bot{
+	dir = 4
+	},
 /obj/structure/window/reinforced{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "y" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "z" = (
 /obj/structure/chair/sofa/right{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "A" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
@@ -160,20 +211,32 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "C" = (
-/obj/structure/table,
-/obj/machinery/paystand,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/machinery/paystand{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "D" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "F" = (
-/obj/effect/decal/cleanable/oil,
+/obj/effect/decal/cleanable/oil{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 9
+	dir = 10
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
@@ -188,48 +251,69 @@
 	dir = 4;
 	name = "Rented scooter #1"
 	},
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 1
+/obj/effect/turf_decal/bot{
+	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/dirt{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance{
 	id_tag = "ScooterBack";
 	name = "Scooter Rental Maintenance";
-	req_access_txt = "12"
+	req_access_txt = "12";
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "O" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "R" = (
-/obj/item/kirbyplants/random,
+/obj/item/kirbyplants/random{
+	dir = 1
+	},
 /obj/item/radio/intercom{
-	pixel_x = 29
+	pixel_x = 29;
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "S" = (
 /obj/machinery/door/airlock/maintenance{
 	id_tag = "ScooterFront";
-	name = "Scooter Rental"
+	name = "Scooter Rental";
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "T" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
+/obj/effect/turf_decal/tile/neutral/tile_full{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "U" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "V" = (
@@ -240,8 +324,12 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "W" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 4
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
 "X" = (
@@ -249,67 +337,58 @@
 /area/template_noop)
 
 (1,1,1) = {"
-U
-r
-m
-m
-m
-S
-V
-I
-j
+a
 f
-a
-"}
-(2,1,1) = {"
-W
+j
+I
+V
+S
 m
-D
-n
-s
-q
-e
-O
-A
-d
-J
-"}
-(3,1,1) = {"
-W
 m
-T
-y
-t
-C
-F
-B
-b
-u
-a
-"}
-(4,1,1) = {"
-U
-R
-z
-G
+m
 r
-h
-v
-w
-k
+U"}(2,1,1) = {"
+J
+d
+A
+O
+e
+q
+s
+n
+D
+m
+W"}(3,1,1) = {"
+a
+u
+b
+B
+F
+C
+t
+y
+T
+m
+W"}(4,1,1) = {"
+X
 o
+k
+w
+v
+h
+r
+G
+z
+R
+U"}(5,1,1) = {"
 X
-"}
-(5,1,1) = {"
+a
+a
+a
 a
 a
 U
 U
 U
 a
-a
-a
-a
-a
-X
-"}
+a"}

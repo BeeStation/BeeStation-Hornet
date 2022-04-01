@@ -3,22 +3,19 @@
 /turf/open/floor/fakepit,
 /area/template_noop)
 "b" = (
-/obj/item/toy/plush/bubbleplush,
+/obj/item/toy/plush/bubbleplush{
+	dir = 1
+	},
 /turf/open/floor/grass/fakebasalt,
 /area/template_noop)
 
 (1,1,1) = {"
 a
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 b
-a
-"}
-(3,1,1) = {"
+a"}(3,1,1) = {"
 a
 a
-a
-"}
+a"}

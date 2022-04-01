@@ -5,10 +5,13 @@
 	},
 /area/ruin/unpowered)
 "c" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/stock_parts/cell{
 	charge = 100;
-	maxcharge = 15000
+	maxcharge = 15000;
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
@@ -25,16 +28,24 @@
 /turf/template_noop,
 /area/template_noop)
 "y" = (
-/obj/machinery/teleport/station,
+/obj/machinery/teleport/station{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "z" = (
-/obj/machinery/door/airlock/vault,
-/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/vault{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/locked{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "I" = (
-/obj/machinery/teleport/hub,
+/obj/machinery/teleport/hub{
+	dir = 1
+	},
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "L" = (
@@ -47,7 +58,9 @@
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
 "Q" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "T" = (
@@ -72,9 +85,7 @@ q
 q
 q
 q
-q
-"}
-(2,1,1) = {"
+q"}(2,1,1) = {"
 q
 q
 q
@@ -87,9 +98,7 @@ q
 Q
 q
 q
-q
-"}
-(3,1,1) = {"
+q"}(3,1,1) = {"
 q
 q
 q
@@ -102,95 +111,82 @@ P
 P
 q
 q
-q
-"}
-(4,1,1) = {"
+q"}(4,1,1) = {"
 q
 q
-P
-P
-c
+X
+X
+g
+g
+X
 b
-X
-g
-g
-X
-X
-q
-q
-"}
-(5,1,1) = {"
-q
-Q
+c
 P
-g
-g
-g
-g
-g
-g
-g
-X
-Q
+P
 q
-"}
-(6,1,1) = {"
+q"}(5,1,1) = {"
+q
+Q
+X
+g
+g
+g
+g
+g
+g
+g
+P
+Q
+q"}(6,1,1) = {"
 q
 q
 P
+X
 g
-g
-e
-y
 I
+y
+e
 g
-X
+g
 P
 q
-q
-"}
-(7,1,1) = {"
+q"}(7,1,1) = {"
 q
 Q
+P
+X
+g
+g
+g
+g
 X
 T
 X
-g
-g
-g
-g
-X
-P
 Q
-q
-"}
-(8,1,1) = {"
+q"}(8,1,1) = {"
 q
 q
-X
+P
+P
+g
+g
+g
 X
 T
 X
-g
-g
-g
+X
+q
+q"}(9,1,1) = {"
+q
+q
+q
 P
 P
-q
-q
-"}
-(9,1,1) = {"
-q
-q
-q
+P
+P
+P
 X
 X
-P
-P
-P
-P
-P
 q
 q
-q
-"}
+q"}

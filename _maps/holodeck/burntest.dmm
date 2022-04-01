@@ -3,7 +3,9 @@
 /turf/open/floor/holofloor/plating/burnmix,
 /area/template_noop)
 "l" = (
-/obj/effect/holodeck_effect/sparks,
+/obj/effect/holodeck_effect/sparks{
+	dir = 1
+	},
 /turf/open/floor/holofloor/plating/burnmix,
 /area/template_noop)
 
@@ -17,9 +19,7 @@ a
 a
 a
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 a
 a
@@ -29,9 +29,7 @@ l
 a
 a
 a
-a
-"}
-(3,1,1) = {"
+a"}(3,1,1) = {"
 a
 a
 a
@@ -41,9 +39,7 @@ a
 a
 a
 a
-a
-"}
-(4,1,1) = {"
+a"}(4,1,1) = {"
 a
 l
 a
@@ -53,9 +49,7 @@ a
 a
 a
 l
-a
-"}
-(5,1,1) = {"
+a"}(5,1,1) = {"
 a
 a
 a
@@ -65,9 +59,7 @@ a
 l
 a
 a
-a
-"}
-(6,1,1) = {"
+a"}(6,1,1) = {"
 a
 l
 a
@@ -77,9 +69,7 @@ a
 a
 a
 l
-a
-"}
-(7,1,1) = {"
+a"}(7,1,1) = {"
 a
 a
 a
@@ -89,9 +79,7 @@ a
 a
 a
 a
-a
-"}
-(8,1,1) = {"
+a"}(8,1,1) = {"
 a
 a
 a
@@ -101,9 +89,7 @@ l
 a
 a
 a
-a
-"}
-(9,1,1) = {"
+a"}(9,1,1) = {"
 a
 a
 a
@@ -113,5 +99,4 @@ a
 a
 a
 a
-a
-"}
+a"}

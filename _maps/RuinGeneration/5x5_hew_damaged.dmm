@@ -12,7 +12,9 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "D" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "F" = (
@@ -33,33 +35,24 @@ F
 e
 s
 e
+F"}(2,1,1) = {"
 F
-"}
-(2,1,1) = {"
-f
-D
 T
 T
-F
-"}
-(3,1,1) = {"
+D
+f"}(3,1,1) = {"
 f
 f
 D
 f
+f"}(4,1,1) = {"
 f
-"}
-(4,1,1) = {"
-f
+D
+D
 T
-D
-D
-f
-"}
-(5,1,1) = {"
+f"}(5,1,1) = {"
 F
 e
 M
 e
-F
-"}
+F"}

@@ -24,11 +24,15 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 "ai" = (
-/obj/machinery/vending/liberationstation,
+/obj/machinery/vending/liberationstation{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "aj" = (
-/obj/machinery/door/airlock/vault,
+/obj/machinery/door/airlock/vault{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 "ak" = (
@@ -41,19 +45,24 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "am" = (
-/obj/structure/grille/broken,
+/obj/structure/grille/broken{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 "an" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/vending/autodrobe,
+/obj/machinery/vending/autodrobe{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "ao" = (
 /obj/structure/mirror/magic/badmin{
-	pixel_x = 30
+	pixel_x = 30;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
@@ -64,43 +73,63 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothing{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "ar" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/shuttle/transport)
 "as" = (
-/obj/structure/emergency_shield,
+/obj/structure/emergency_shield{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/blue/airless,
 /area/shuttle/transport)
 "at" = (
-/obj/machinery/door/airlock,
+/obj/machinery/door/airlock{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "au" = (
 /turf/open/floor/wood,
 /area/shuttle/transport)
 "av" = (
-/obj/machinery/door/airlock/wood,
+/obj/machinery/door/airlock/wood{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/shuttle/transport)
 "aw" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/transport)
 "az" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/transport)
 "aB" = (
-/obj/structure/grille/broken,
-/obj/structure/window/fulltile,
+/obj/structure/grille/broken{
+	dir = 1
+	},
+/obj/structure/window/fulltile{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "aC" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -113,31 +142,46 @@
 /turf/open/floor/bluespace,
 /area/shuttle/transport)
 "aF" = (
-/obj/machinery/vending/sovietsoda,
+/obj/machinery/vending/sovietsoda{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "aG" = (
-/obj/machinery/vending/snack,
+/obj/machinery/vending/snack{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "aH" = (
 /obj/machinery/newscaster{
-	pixel_y = 30
+	pixel_y = -30;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "aI" = (
-/obj/structure/bed,
-/obj/item/bedsheet/wiz,
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/wiz{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "aJ" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "aK" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp/green,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/flashlight/lamp/green{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "aL" = (
@@ -148,15 +192,18 @@
 /area/shuttle/transport)
 "aN" = (
 /obj/machinery/power/grounding_rod{
-	anchored = 1
+	anchored = 1;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "aO" = (
-/obj/machinery/door/airlock/titanium,
+/obj/machinery/door/airlock/titanium{
+	dir = 1
+	},
 /obj/docking_port/mobile{
 	dir = 8;
-	dwidth = 8;
+	dwidth = 7;
 	height = 27;
 	id = "ferry";
 	name = "The Lighthouse";
@@ -166,11 +213,15 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "aP" = (
-/obj/machinery/vending/magivend,
+/obj/machinery/vending/magivend{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "aQ" = (
-/obj/effect/spawner/structure/window,
+/obj/effect/spawner/structure/window{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "aR" = (
@@ -180,65 +231,88 @@
 /turf/open/floor/wood,
 /area/shuttle/transport)
 "aS" = (
-/obj/structure/table/wood,
-/obj/item/toy/crayon/spraycan,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/toy/crayon/spraycan{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/shuttle/transport)
 "aT" = (
-/obj/structure/bed,
-/obj/item/bedsheet/centcom,
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/transport)
-"aU" = (
-/obj/structure/bed,
-/obj/item/bedsheet/rainbow,
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/transport)
-"aV" = (
-/obj/structure/closet/crate,
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/transport)
-"aW" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/centcom{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
+"aU" = (
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/rainbow{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
+"aV" = (
+/obj/structure/closet/crate{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
+"aW" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 2
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
 "aX" = (
-/obj/structure/window/fulltile,
+/obj/structure/window/fulltile{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "aY" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced{
+	dir = 1
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/transport)
 "ba" = (
 /obj/machinery/conveyor{
-	dir = 1;
+	dir = 2;
 	id = "garbage"
 	},
 /turf/open/floor/wood,
 /area/shuttle/transport)
 "bb" = (
 /obj/machinery/conveyor{
-	dir = 1;
+	dir = 2;
 	id = "garbage";
 	layer = 2.5
 	},
 /turf/open/floor/wood,
 /area/shuttle/transport)
 "bc" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/vending_refill/snack,
+/obj/item/vending_refill/snack{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/shuttle/transport)
 "bd" = (
 /obj/item/kirbyplants/dead{
 	desc = "It doesn't look very healthy...";
-	name = "potted plant"
+	name = "potted plant";
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/shuttle/transport)
@@ -254,499 +328,454 @@
 	dir = 4;
 	id = "garbage"
 	},
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/shuttle/transport)
 "bg" = (
 /obj/machinery/conveyor/inverted{
-	dir = 10;
+	dir = 9;
 	id = "garbage"
 	},
 /turf/open/floor/wood,
 /area/shuttle/transport)
 "bh" = (
-/obj/structure/foamedmetal,
+/obj/structure/foamedmetal{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 "bi" = (
-/obj/structure/shuttle/engine/heater,
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 "bj" = (
-/obj/structure/shuttle/engine/propulsion/right,
+/obj/structure/shuttle/engine/propulsion/right{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 
 (1,1,1) = {"
 aa
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+ag
+ag
+aa
+aa
+ag
+aa
 af
+aa"}(2,1,1) = {"
 aa
-ag
-aa
-aa
-ag
-ag
-aa
-aa
-aa
+ac
 aa
 aa
 aa
 ab
 aa
-"}
-(2,1,1) = {"
+aa
+ag
 aa
 af
 af
 aj
 af
 af
+aa"}(3,1,1) = {"
 aa
 ag
+ag
 aa
-aa
-ab
-aa
-aa
-aa
+ag
 ac
+ag
 aa
-"}
-(3,1,1) = {"
-ab
+ag
+aa
 af
-ag
-ag
 am
+ag
+ag
 af
-aa
-ag
-aa
-ag
-ac
-ag
-aa
-ag
-ag
-aa
-"}
-(4,1,1) = {"
-ac
-af
+ab"}(4,1,1) = {"
+bj
+bi
 bh
 bh
-an
-aq
+bh
+aX
+as
 as
 aB
 as
-as
-aX
+aq
+an
 bh
 bh
-bh
-bi
+af
+ac"}(5,1,1) = {"
 bj
-"}
-(5,1,1) = {"
-ad
-aM
-ai
+bi
+bh
+be
+ba
+aX
+aP
+ak
+ak
+ak
 ak
 ao
 ak
-ak
-ak
-ak
-aP
-aX
-ba
-be
-bh
-bi
-bj
-"}
-(6,1,1) = {"
-aa
+ai
+aM
+ad"}(6,1,1) = {"
 ad
 aM
-al
+bh
+be
+aL
 ap
+aQ
+aL
 ap
 at
 ap
-aL
-aQ
 ap
-aL
-be
-bh
+al
 aM
 ad
-"}
-(7,1,1) = {"
+aa"}(7,1,1) = {"
 aa
-aa
-ad
 ad
 aM
-ar
-au
-au
-au
-au
-au
-aL
 bf
+aL
+au
+au
+au
+au
+au
+ar
 aM
 ad
+ad
 aa
-"}
-(8,1,1) = {"
-aa
-aa
+aa"}(8,1,1) = {"
 aa
 aa
 ad
-ar
-au
-au
+bg
+bb
 au
 aR
 au
-bb
-bg
+au
+au
+ar
 ad
 aa
 aa
-"}
-(9,1,1) = {"
+aa
+aa"}(9,1,1) = {"
 aa
 aa
-aa
-aa
-ap
-ap
-av
-aC
+ad
+aM
+bc
 aC
 aS
 aC
-bc
-aM
-ad
-aa
-aa
-"}
-(10,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+aC
+av
 ap
-au
-aD
-aD
-aD
-aD
+ap
+aa
+aa
+aa
+aa"}(10,1,1) = {"
+aa
+aa
+aa
+ad
 bd
+aD
+aD
+aD
+aD
+au
+ap
+aa
+aa
+aa
+aa
+aa"}(11,1,1) = {"
+aa
+aa
+aa
 ad
-aa
-aa
-aa
-"}
-(11,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-ap
-ap
-aD
-aD
-aD
-aD
 aM
-ad
-aa
-aa
-aa
-"}
-(12,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
+aD
+aD
+aD
+aD
 ap
-aD
-aD
-aD
-aD
-ad
-aa
-aa
-aa
-aa
-"}
-(13,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
 ap
+aa
+aa
+aa
+aa
+aa"}(12,1,1) = {"
+aa
+aa
+aa
+aa
+ad
+aD
+aD
+aD
+aD
+ap
+aa
+aa
+aa
+aa
+aa
+aa"}(13,1,1) = {"
+aa
+aa
+aa
+aa
+ad
+aM
 aE
 aN
 aE
-aM
+ap
+aa
+aa
+aa
+aa
+aa
+aa"}(14,1,1) = {"
+aa
+aa
+aa
+aa
+aa
 ad
-aa
-aa
-aa
-aa
-"}
-(14,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aw
 aE
 aN
 aE
-ad
-aa
-aa
-aa
-aa
-aa
-"}
-(15,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
 aw
-aE
-aE
-aE
-ad
 aa
 aa
 aa
 aa
 aa
-"}
-(16,1,1) = {"
-aa
+aa"}(15,1,1) = {"
 aa
 aa
 aa
 aa
 aa
 ad
-ak
 aE
-ak
+aE
+aE
+aw
+aa
+aa
+aa
+aa
+aa
+aa"}(16,1,1) = {"
+aa
+aa
+aa
+aa
+aa
 aY
-aa
-aa
-aa
-aa
-aa
-"}
-(17,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-aF
-aE
-aT
-aw
-aa
-aa
-aa
-aa
-aa
-"}
-(18,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-aG
-aE
-aU
-ad
-aa
-aa
-aa
-aa
-aa
-"}
-(19,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-ad
-aH
-aE
-aV
-ad
-aa
-aa
-aa
-aa
-aa
-"}
-(20,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-az
-aI
-aE
-aW
-az
-aa
-aa
-aa
-aa
-aa
-"}
-(21,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-ad
 ak
 aE
-aW
+ak
 ad
 aa
 aa
 aa
 aa
 aa
-"}
-(22,1,1) = {"
+aa"}(17,1,1) = {"
 aa
 aa
 aa
 aa
 aa
-aa
-ad
-aJ
+aw
+aT
 aE
-aW
+aF
 ad
 aa
 aa
 aa
 aa
 aa
-"}
-(23,1,1) = {"
-aa
+aa"}(18,1,1) = {"
 aa
 aa
 aa
 aa
 aa
 ad
-aJ
+aU
 aE
-aW
+aG
 ad
 aa
 aa
 aa
 aa
 aa
-"}
-(24,1,1) = {"
+aa"}(19,1,1) = {"
 aa
+aa
+aa
+aa
+aa
+ad
+aV
+aE
+aH
+ad
+aa
+aa
+aa
+aa
+aa
+aa"}(20,1,1) = {"
 aa
 aa
 aa
 aa
 aa
 az
-aJ
-aE
 aW
+aE
+aI
 az
 aa
 aa
 aa
 aa
 aa
-"}
-(25,1,1) = {"
-aa
+aa"}(21,1,1) = {"
 aa
 aa
 aa
 aa
 aa
 ad
-aJ
-aE
 aW
+aE
+ak
 ad
 aa
 aa
 aa
 aa
 aa
-"}
-(26,1,1) = {"
-aa
+aa"}(22,1,1) = {"
 aa
 aa
 aa
 aa
 aa
 ad
+aW
+aE
+aJ
+ad
+aa
+aa
+aa
+aa
+aa
+aa"}(23,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+ad
+aW
+aE
+aJ
+ad
+aa
+aa
+aa
+aa
+aa
+aa"}(24,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+az
+aW
+aE
+aJ
+az
+aa
+aa
+aa
+aa
+aa
+aa"}(25,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+ad
+aW
+aE
+aJ
+ad
+aa
+aa
+aa
+aa
+aa
+aa"}(26,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+ad
+aW
+aE
 aK
-aE
-aW
 ad
 aa
 aa
 aa
 aa
 aa
-"}
-(27,1,1) = {"
-aa
+aa"}(27,1,1) = {"
 aa
 aa
 aa
@@ -762,4 +791,4 @@ aa
 aa
 aa
 aa
-"}
+aa"}

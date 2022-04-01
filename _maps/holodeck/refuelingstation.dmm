@@ -3,11 +3,15 @@
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "j" = (
-/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/reagent_dispensers/fueltank{
+	dir = 1
+	},
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "F" = (
-/obj/item/weldingtool,
+/obj/item/weldingtool{
+	dir = 1
+	},
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 
@@ -21,9 +25,7 @@ a
 a
 a
 a
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 a
 a
 a
@@ -33,9 +35,7 @@ a
 a
 a
 a
-a
-"}
-(3,1,1) = {"
+a"}(3,1,1) = {"
 a
 a
 a
@@ -45,9 +45,7 @@ a
 a
 a
 a
-a
-"}
-(4,1,1) = {"
+a"}(4,1,1) = {"
 a
 j
 j
@@ -57,9 +55,7 @@ j
 a
 j
 j
-a
-"}
-(5,1,1) = {"
+a"}(5,1,1) = {"
 a
 j
 j
@@ -69,9 +65,7 @@ j
 F
 j
 j
-a
-"}
-(6,1,1) = {"
+a"}(6,1,1) = {"
 a
 j
 j
@@ -81,9 +75,7 @@ j
 a
 j
 j
-a
-"}
-(7,1,1) = {"
+a"}(7,1,1) = {"
 a
 a
 a
@@ -93,9 +85,7 @@ a
 a
 a
 a
-a
-"}
-(8,1,1) = {"
+a"}(8,1,1) = {"
 a
 a
 a
@@ -105,9 +95,7 @@ a
 a
 a
 a
-a
-"}
-(9,1,1) = {"
+a"}(9,1,1) = {"
 a
 a
 a
@@ -117,5 +105,4 @@ a
 a
 a
 a
-a
-"}
+a"}

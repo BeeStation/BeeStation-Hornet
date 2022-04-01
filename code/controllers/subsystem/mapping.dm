@@ -258,7 +258,8 @@ SUBSYSTEM_DEF(mapping)
 			template.weight = (template.weight / 2)
 			if(template.stock <= 0)
 				template.spawned = TRUE
-			template.stationinitload(get_turf(R), centered = template.centerspawner)
+			var/turf/turf = get_turf(R)
+			template.stationinitload(locate(turf.x, turf.y-R.room_height+1, turf.z), centered = template.centerspawner)
 		SSmapping.random_room_spawners -= R
 		qdel(R)
 	random_room_spawners = null

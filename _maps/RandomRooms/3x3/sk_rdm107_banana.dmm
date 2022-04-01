@@ -7,34 +7,39 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/item/clothing/shoes/clown_shoes,
-/obj/item/stack/ore/bananium,
-/obj/effect/spawner/lootdrop/clowntrap,
-/obj/effect/spawner/lootdrop/trap,
+/obj/item/clothing/shoes/clown_shoes{
+	dir = 1
+	},
+/obj/item/stack/ore/bananium{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/clowntrap{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/trap{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 
 (1,1,1) = {"
-a
+b
 c
-b
-"}
-(2,1,1) = {"
-b
+a"}(2,1,1) = {"
+c
 d
-c
-"}
-(3,1,1) = {"
-c
-c
+b"}(3,1,1) = {"
 b
-"}
+c
+c"}

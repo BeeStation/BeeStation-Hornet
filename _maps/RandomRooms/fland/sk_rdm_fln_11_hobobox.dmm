@@ -3,88 +3,144 @@
 /turf/closed/wall,
 /area/template_noop)
 "c" = (
-/obj/item/trash/can/food/beans,
+/obj/item/trash/can/food/beans{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk/over,
+/obj/structure/lattice/catwalk/over{
+	dir = 1
+	},
 /obj/machinery/newscaster{
 	pixel_x = 28;
-	pixel_y = 1
+	pixel_y = -1;
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
-/obj/machinery/door/airlock/maintenance/external/glass,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/door/airlock/maintenance/external/glass{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "e" = (
-/obj/structure/bed,
-/obj/item/bedsheet/random,
+/obj/structure/bed{
+	dir = 1
+	},
+/obj/item/bedsheet/random{
+	dir = 1
+	},
 /obj/item/radio/intercom{
-	pixel_y = 26
+	pixel_y = -26;
+	dir = 1
 	},
 /turf/open/floor/carpet,
 /area/template_noop)
 "f" = (
-/obj/item/wirerod,
-/obj/structure/table/wood,
-/obj/item/storage/belt/utility,
-/obj/effect/spawner/lootdrop/gloves,
+/obj/item/wirerod{
+	dir = 1
+	},
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/storage/belt/utility{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/gloves{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/template_noop)
 "i" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/structure/lattice/catwalk/over,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
+/obj/structure/lattice/catwalk/over{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/structure/grille/broken,
-/obj/structure/lattice/catwalk/over,
+/obj/structure/grille/broken{
+	dir = 1
+	},
+/obj/structure/lattice/catwalk/over{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "k" = (
-/obj/structure/bonfire,
+/obj/structure/bonfire{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "m" = (
-/obj/structure/grille/broken,
-/obj/structure/lattice/catwalk/over,
+/obj/structure/grille/broken{
+	dir = 1
+	},
+/obj/structure/lattice/catwalk/over{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "o" = (
 /obj/structure/toilet{
 	dir = 8
 	},
-/obj/machinery/light/small,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "q" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 10
+	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "r" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
-/obj/structure/lattice/catwalk/over,
+/obj/effect/spawner/lootdrop/grille_or_trash{
+	dir = 1
+	},
+/obj/structure/lattice/catwalk/over{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
 "s" = (
-/obj/effect/decal/cleanable/glass,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/effect/decal/cleanable/glass{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "t" = (
@@ -96,57 +152,83 @@
 "u" = (
 /obj/item/trash/sosjerky{
 	pixel_x = -10;
-	pixel_y = 2
+	pixel_y = -2;
+	dir = 1
 	},
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/lootdrop/grille_or_trash{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "v" = (
 /obj/structure/chair/office{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "y" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/vomit/old,
-/obj/effect/spawner/lootdrop/glowstick,
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/vomit/old{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/glowstick{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "z" = (
-/obj/structure/curtain,
+/obj/structure/curtain{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "A" = (
-/obj/effect/decal/cleanable/glass,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/broken_bottle,
-/obj/item/cigbutt,
+/obj/effect/decal/cleanable/glass{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust{
+	dir = 4
+	},
+/obj/item/broken_bottle{
+	dir = 1
+	},
 /obj/item/cigbutt{
-	pixel_x = 3
+	dir = 1
+	},
+/obj/item/cigbutt{
+	pixel_x = 3;
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 6
+	dir = 5
 	},
 /turf/open/floor/plating,
 /area/template_noop)
 "C" = (
-/obj/item/trash/plate,
+/obj/item/trash/plate{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "D" = (
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/maintenance/two,
+/obj/effect/spawner/lootdrop/maintenance/two{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
 /area/template_noop)
 "E" = (
-/obj/item/trash/boritos,
-/obj/machinery/light/small{
+/obj/item/trash/boritos{
 	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
@@ -155,7 +237,8 @@
 /area/template_noop)
 "G" = (
 /obj/machinery/light_switch{
-	pixel_x = 24
+	pixel_x = 24;
+	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 8
@@ -167,112 +250,144 @@
 "I" = (
 /obj/item/storage/bag/trash{
 	pixel_x = 13;
-	pixel_y = -12
+	pixel_y = 12;
+	dir = 1
 	},
-/obj/effect/decal/cleanable/food/tomato_smudge,
-/obj/structure/barricade/wooden/crude,
+/obj/effect/decal/cleanable/food/tomato_smudge{
+	dir = 4
+	},
+/obj/structure/barricade/wooden/crude{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "J" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/door/airlock/maintenance{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/template_noop,
 /area/template_noop)
 "K" = (
-/obj/item/trash/can,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/item/trash/can{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "Q" = (
 /turf/closed/wall/r_wall,
 /area/template_noop)
 "R" = (
-/obj/structure/closet/cardboard,
-/obj/item/storage/toolbox/emergency,
-/obj/item/reagent_containers/food/drinks/bottle/hooch,
+/obj/structure/closet/cardboard{
+	dir = 1
+	},
+/obj/item/storage/toolbox/emergency{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/drinks/bottle/hooch{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "S" = (
-/obj/structure/barricade/wooden/crude,
+/obj/structure/barricade/wooden/crude{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
 /area/template_noop)
 "T" = (
-/obj/machinery/door/airlock/maintenance/external/glass,
+/obj/machinery/door/airlock/maintenance/external/glass{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "U" = (
-/obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/effect/spawner/lootdrop/grille_or_trash{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "V" = (
-/obj/structure/closet/secure_closet/personal,
-/obj/effect/spawner/lootdrop/gambling,
+/obj/structure/closet/secure_closet/personal{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/gambling{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "W" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup,
-/obj/structure/barricade/wooden,
+/obj/machinery/door/firedoor{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 4
+	},
+/obj/structure/barricade/wooden{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
 
 (1,1,1) = {"
 a
-r
-S
-y
-R
-t
-V
-a
-e
 f
+e
 a
-"}
-(2,1,1) = {"
-W
-m
-a
-A
-s
-q
-K
-d
-c
-i
+V
+t
+R
+y
+S
+r
+a"}(2,1,1) = {"
 J
-"}
-(3,1,1) = {"
-W
-j
+i
+c
+d
+K
+q
+s
+A
 a
-E
-k
+m
+W"}(3,1,1) = {"
+a
+a
+a
+a
+a
 C
+k
+E
 a
-a
-a
-a
-a
-"}
-(4,1,1) = {"
-a
-u
-I
-G
-U
-v
-T
-D
-z
+j
+W"}(4,1,1) = {"
+Q
 o
+z
+D
+T
+v
+U
+G
+I
+u
+a"}(5,1,1) = {"
 Q
-"}
-(5,1,1) = {"
 a
 a
 a
@@ -282,6 +397,4 @@ a
 a
 a
 a
-a
-Q
-"}
+a"}

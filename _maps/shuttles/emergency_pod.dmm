@@ -10,15 +10,21 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "c" = (
-/obj/structure/grille,
-/obj/structure/window/shuttle,
+/obj/structure/grille{
+	dir = 1
+	},
+/obj/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "d" = (
 /turf/open/space/basic,
 /area/space)
 "f" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "g" = (
@@ -33,7 +39,7 @@
 /area/shuttle/escape)
 "j" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
@@ -49,20 +55,27 @@
 /area/shuttle/escape)
 "K" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Shuttle Airlock"
+	name = "Shuttle Airlock";
+	dir = 1
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "T" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Shuttle Airlock"
+	name = "Shuttle Airlock";
+	dir = 1
 	},
 /obj/docking_port/mobile/emergency{
 	port_direction = 2;
-	preferred_direction = 4
+	preferred_direction = 4;
+	dir = 4
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 
@@ -70,63 +83,55 @@
 a
 K
 b
+K
+a
+d
+d
+d
+a
 T
-a
-d
-d
-d
-a
-K
 b
 K
-a
-"}
-(2,1,1) = {"
+a"}(2,1,1) = {"
 b
-f
+j
 i
-j
-b
-d
-d
-d
-b
 f
+b
+d
+d
+d
+b
+j
 i
-j
-b
-"}
-(3,1,1) = {"
-c
 f
-g
+b"}(3,1,1) = {"
+c
 j
+g
+f
 c
 d
 d
 d
 c
-f
-g
 j
-c
-"}
-(4,1,1) = {"
+g
+f
+c"}(4,1,1) = {"
 b
-f
-g
 j
+g
+f
 b
 d
 d
 d
 b
-f
-g
 j
-b
-"}
-(5,1,1) = {"
+g
+f
+b"}(5,1,1) = {"
 b
 b
 k
@@ -139,9 +144,7 @@ b
 b
 k
 b
-b
-"}
-(6,1,1) = {"
+b"}(6,1,1) = {"
 d
 b
 c
@@ -154,5 +157,4 @@ d
 b
 c
 b
-d
-"}
+d"}

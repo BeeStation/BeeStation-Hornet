@@ -9,12 +9,18 @@
 /turf/closed/wall/mineral/iron,
 /area/ruin/powered)
 "d" = (
-/obj/item/clothing/head/helmet/space/orange,
-/obj/item/clothing/mask/breath,
+/obj/item/clothing/head/helmet/space/orange{
+	dir = 1
+	},
+/obj/item/clothing/mask/breath{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 "e" = (
-/obj/item/clothing/suit/space/orange,
+/obj/item/clothing/suit/space/orange{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 "f" = (
@@ -26,59 +32,95 @@
 	},
 /area/ruin/powered)
 "h" = (
-/obj/item/shovel,
+/obj/item/shovel{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid{
 	name = "dirt"
 	},
 /area/ruin/powered)
 "i" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bucket{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid{
 	name = "dirt"
 	},
 /area/ruin/powered)
 "j" = (
-/obj/structure/sink/puddle,
+/obj/structure/sink/puddle{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid{
 	name = "dirt"
 	},
 /area/ruin/powered)
 "k" = (
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom/single{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid{
 	name = "dirt"
 	},
 /area/ruin/powered)
 "m" = (
-/obj/structure/rack,
-/obj/item/seeds/reishi,
-/obj/item/seeds/plump,
-/obj/item/seeds/plump,
-/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/seeds/reishi{
+	dir = 1
+	},
+/obj/item/seeds/plump{
+	dir = 1
+	},
+/obj/item/seeds/plump{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 "n" = (
-/obj/machinery/hydroponics/soil,
+/obj/machinery/hydroponics/soil{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/powered)
 "o" = (
 /turf/open/floor/plating,
 /area/ruin/powered)
 "p" = (
-/obj/structure/rack,
-/obj/item/storage/bag/plants/portaseeder,
-/obj/item/storage/bag/ore,
-/obj/item/storage/firstaid/regular,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/storage/bag/plants/portaseeder{
+	dir = 1
+	},
+/obj/item/storage/bag/ore{
+	dir = 1
+	},
+/obj/item/storage/firstaid/regular{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 "q" = (
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom/single{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/powered)
 "r" = (
-/obj/structure/rack,
-/obj/item/pickaxe/emergency,
-/obj/item/tank/internals/oxygen,
+/obj/structure/rack{
+	dir = 1
+	},
+/obj/item/pickaxe/emergency{
+	dir = 4
+	},
+/obj/item/tank/internals/oxygen{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 "s" = (
@@ -88,20 +130,30 @@
 /turf/closed/wall/mineral/titanium/survival/pod,
 /area/ruin/powered)
 "u" = (
-/obj/structure/bed/pod,
-/obj/item/bedsheet/black,
+/obj/structure/bed/pod{
+	dir = 1
+	},
+/obj/item/bedsheet/black{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/powered)
 "v" = (
-/obj/structure/fans,
+/obj/structure/fans{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered)
 "w" = (
-/obj/machinery/smartfridge/survival_pod,
+/obj/machinery/smartfridge/survival_pod{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered)
 "x" = (
-/obj/effect/mob_spawn/human/hermit,
+/obj/effect/mob_spawn/human/hermit{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered)
 "y" = (
@@ -111,30 +163,48 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/tubes,
+/obj/structure/tubes{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/powered)
 "A" = (
-/obj/structure/table,
-/obj/item/kitchen/knife/combat/survival,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/kitchen/knife/combat/survival{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/ruin/powered)
 "B" = (
-/obj/structure/table/survival_pod,
+/obj/structure/table/survival_pod{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered)
 "C" = (
-/obj/structure/tubes,
-/obj/item/crowbar,
-/obj/effect/decal/cleanable/blood/drip,
+/obj/structure/tubes{
+	dir = 1
+	},
+/obj/item/crowbar{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/drip{
+	dir = 4
+	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered)
 "D" = (
 /obj/effect/decal/cleanable/blood/footprints{
+	dir = 8
+	},
+/obj/machinery/door/airlock/survival_pod/glass{
 	dir = 1
 	},
-/obj/machinery/door/airlock/survival_pod/glass,
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered)
 "E" = (
@@ -151,7 +221,8 @@
 /area/ruin/powered)
 "H" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Escape Pod Airlock"
+	name = "Escape Pod Airlock";
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/powered)
@@ -165,8 +236,12 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/powered)
 "M" = (
-/obj/item/stack/sheet/iron/twenty,
-/obj/item/storage/toolbox/emergency,
+/obj/item/stack/sheet/iron/twenty{
+	dir = 1
+	},
+/obj/item/storage/toolbox/emergency{
+	dir = 4
+	},
 /turf/open/floor/plating/asteroid{
 	name = "dirt"
 	},
@@ -175,23 +250,19 @@
 /turf/closed/wall/rust,
 /area/ruin/powered)
 "Q" = (
-/obj/effect/spawner/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/ruin/powered)
 "W" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/portable_atmospherics/canister/oxygen{
+	dir = 1
+	},
 /turf/open/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
 s
 s
 s
@@ -200,8 +271,6 @@ s
 s
 s
 s
-"}
-(2,1,1) = {"
 a
 a
 a
@@ -209,17 +278,13 @@ a
 a
 a
 a
-a
-a
-a
+a"}(2,1,1) = {"
 s
 s
 s
 s
 s
 s
-"}
-(3,1,1) = {"
 a
 a
 a
@@ -229,15 +294,13 @@ a
 a
 a
 a
-a
+a"}(3,1,1) = {"
 s
 s
 s
 s
 s
 s
-"}
-(4,1,1) = {"
 a
 a
 a
@@ -247,213 +310,199 @@ a
 a
 a
 a
-a
-a
+a"}(4,1,1) = {"
 s
 s
 s
 s
 s
-"}
-(5,1,1) = {"
 a
 a
 a
 a
 a
-c
+a
+a
+a
+a
+a
+a"}(5,1,1) = {"
+s
+s
+s
+t
+t
+t
+t
+t
 b
 b
-t
-t
-t
-t
-t
-s
-s
-s
-"}
-(6,1,1) = {"
-a
-a
-a
-a
 c
-c
-n
-n
+a
+a
+a
+a
+a"}(6,1,1) = {"
+s
+s
+s
 t
-v
-x
 B
+x
+v
 t
-s
-s
-s
-"}
-(7,1,1) = {"
-a
-a
-a
-b
+n
+n
 c
-m
-o
-o
-t
-w
-y
-y
+c
+a
+a
+a
+a"}(7,1,1) = {"
+s
+s
+s
 D
-s
-s
-s
-"}
-(8,1,1) = {"
+y
+y
+w
+t
+o
+o
+m
+c
+b
 a
-c
-c
-c
-c
-f
+a
+a"}(8,1,1) = {"
+s
+s
+s
+Q
+C
+z
+o
 o
 q
 o
-o
-z
-C
-Q
-s
-s
-s
-"}
-(9,1,1) = {"
+f
 c
 c
-f
-i
-g
-f
-f
-o
-o
-o
-t
-t
+c
+c
+a"}(9,1,1) = {"
+s
+s
+s
 F
+t
+t
+o
+o
+o
+f
+f
+g
+i
+f
+c
+c"}(10,1,1) = {"
 s
 s
 s
-"}
-(10,1,1) = {"
+a
 b
-d
+A
+o
+u
+f
+f
+g
 g
 j
 g
-g
-f
-f
-u
-o
-A
-b
+d
+b"}(11,1,1) = {"
+s
+s
 a
-s
-s
-s
-"}
-(11,1,1) = {"
+a
 b
-e
-h
-g
-M
+c
 P
-p
+c
 r
-c
+p
 P
-c
-b
-a
-a
-s
-s
-"}
-(12,1,1) = {"
-c
-c
-f
-k
-W
-c
-c
-b
-c
-a
-a
-a
-a
+M
+g
+h
+e
+b"}(12,1,1) = {"
 E
 H
 E
-"}
-(13,1,1) = {"
+a
+a
+a
+a
+c
+b
+c
+c
+W
+k
+f
+c
+c"}(13,1,1) = {"
+J
+I
+F
+a
+a
+a
+a
+a
+a
 a
 c
 P
 P
 P
 c
-a
-a
-a
-a
-a
-a
-a
-F
-I
+a"}(14,1,1) = {"
 J
-"}
-(14,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-F
 I
+F
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a"}(15,1,1) = {"
 J
-"}
-(15,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+J
 G
-J
-J
-"}
-(16,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a"}(16,1,1) = {"
 a
 a
 a
@@ -469,5 +518,4 @@ a
 a
 a
 a
-a
-"}
+a"}

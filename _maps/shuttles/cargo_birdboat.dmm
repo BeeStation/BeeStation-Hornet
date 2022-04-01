@@ -5,7 +5,8 @@
 "e" = (
 /obj/machinery/conveyor{
 	id = "cargoshuttle";
-	name = "cargo shuttle conveyor belt"
+	name = "cargo shuttle conveyor belt";
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/supply)
@@ -27,7 +28,7 @@
 /area/shuttle/supply)
 "h" = (
 /obj/machinery/conveyor{
-	dir = 9;
+	dir = 10;
 	id = "cargoshuttle";
 	name = "cargo shuttle conveyor belt"
 	},
@@ -35,7 +36,7 @@
 /area/shuttle/supply)
 "i" = (
 /obj/machinery/conveyor{
-	dir = 1;
+	dir = 2;
 	id = "cargoshuttle";
 	name = "cargo shuttle conveyor belt"
 	},
@@ -43,7 +44,7 @@
 /area/shuttle/supply)
 "j" = (
 /obj/machinery/conveyor{
-	dir = 10;
+	dir = 9;
 	id = "cargoshuttle";
 	name = "cargo shuttle conveyor belt"
 	},
@@ -51,7 +52,7 @@
 /area/shuttle/supply)
 "k" = (
 /obj/machinery/conveyor{
-	dir = 6;
+	dir = 5;
 	id = "cargoshuttle";
 	name = "cargo shuttle conveyor belt"
 	},
@@ -60,14 +61,17 @@
 "l" = (
 /obj/machinery/door/poddoor{
 	id = "QMLoaddoor2";
-	name = "supply dock loading door"
+	name = "supply dock loading door";
+	dir = 1
 	},
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "cargoshuttle";
 	name = "cargo shuttle conveyor belt"
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "n" = (
@@ -76,9 +80,12 @@
 "o" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Supply Shuttle Airlock";
-	req_access_txt = "31"
+	req_access_txt = "31";
+	dir = 1
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "p" = (
@@ -86,16 +93,19 @@
 	id = "QMLoaddoor2";
 	name = "Loading Doors";
 	pixel_x = 24;
-	pixel_y = 8
+	pixel_y = -8;
+	dir = 1
 	},
 /obj/machinery/button/door{
 	id = "QMLoaddoor";
 	name = "Loading Doors";
 	pixel_x = 24;
-	pixel_y = -8
+	pixel_y = 8;
+	dir = 1
 	},
 /obj/machinery/conveyor_switch/oneway{
-	id = "cargoshuttle"
+	id = "cargoshuttle";
+	dir = 1
 	},
 /obj/machinery/light{
 	dir = 4
@@ -105,48 +115,63 @@
 "q" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Supply Shuttle Airlock";
-	req_access_txt = "31"
+	req_access_txt = "31";
+	dir = 1
 	},
 /obj/docking_port/mobile/supply{
-	dwidth = 3;
-	width = 10
+	dwidth = 6;
+	width = 10;
+	dir = 8
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "r" = (
 /obj/machinery/door/poddoor{
 	id = "QMLoaddoor";
-	name = "supply dock loading door"
+	name = "supply dock loading door";
+	dir = 1
 	},
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "cargoshuttle";
 	name = "cargo shuttle conveyor belt"
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "u" = (
 /obj/structure/window/reinforced{
+	dir = 2
+	},
+/obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
-/obj/structure/shuttle/engine/heater,
 /turf/open/floor/plating/airless,
 /area/shuttle/supply)
 "w" = (
 /turf/template_noop,
 /area/template_noop)
 "x" = (
-/obj/structure/shuttle/engine/propulsion/burst/left,
+/obj/structure/shuttle/engine/propulsion/burst/left{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/supply)
 "y" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/supply)
 "z" = (
-/obj/structure/shuttle/engine/propulsion/burst/right,
+/obj/structure/shuttle/engine/propulsion/burst/right{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/supply)
 "A" = (
@@ -156,7 +181,7 @@
 	name = "cargo shuttle conveyor belt"
 	},
 /obj/machinery/light{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/supply)
@@ -185,92 +210,80 @@
 "R" = (
 /obj/machinery/conveyor{
 	id = "cargoshuttle";
-	name = "cargo shuttle conveyor belt"
+	name = "cargo shuttle conveyor belt";
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/supply)
 
 (1,1,1) = {"
-b
-b
-b
-b
-b
-b
-b
-b
-b
 w
-"}
-(2,1,1) = {"
 b
-e
-P
-R
+b
+b
+b
+b
+b
+b
+b
+b"}(2,1,1) = {"
+x
+b
+g
 n
 B
 n
-g
-b
-x
-"}
-(3,1,1) = {"
-b
-f
+R
 P
-G
-n
-n
-n
-g
-u
+e
+b"}(3,1,1) = {"
 y
-"}
-(4,1,1) = {"
-b
+u
+g
+n
+n
+n
+G
+P
+f
+b"}(4,1,1) = {"
+y
+u
+g
+n
+n
+n
+G
+P
 A
-P
-G
-n
-n
-n
-g
-u
+b"}(5,1,1) = {"
 y
-"}
-(5,1,1) = {"
-b
-f
-h
+u
+g
+n
+n
+n
 j
-n
-n
-n
-g
-u
-y
-"}
-(6,1,1) = {"
-b
+h
 f
-i
-k
+b"}(6,1,1) = {"
+z
+b
+g
 n
 p
 n
-g
-b
-z
-"}
-(7,1,1) = {"
-b
-b
-b
-l
-o
-b
-q
-r
-b
+k
+i
+f
+b"}(7,1,1) = {"
 w
-"}
+b
+r
+q
+b
+o
+l
+b
+b
+b"}

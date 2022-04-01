@@ -1,33 +1,47 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/condiment/enzyme{
-	layer = 5
+/obj/structure/table{
+	dir = 1
 	},
-/obj/item/stack/packageWrap,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	layer = 5;
+	dir = 1
+	},
+/obj/item/stack/packageWrap{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "c" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/storage/box/donkpockets{
 	pixel_x = 3;
-	pixel_y = 3
+	pixel_y = -3;
+	dir = 1
 	},
 /obj/item/reagent_containers/glass/beaker{
-	pixel_x = 5
+	pixel_x = 5;
+	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "e" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -5;
-	pixel_y = 30
+	pixel_y = -30;
+	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "f" = (
-/obj/structure/table,
-/obj/machinery/reagentgrinder,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/machinery/reagentgrinder{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "j" = (
@@ -37,23 +51,35 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "k" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/mint{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "m" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -3
+	pixel_x = -3;
+	dir = 1
 	},
 /obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 3
+	pixel_x = 3;
+	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "o" = (
-/obj/structure/table,
-/obj/item/kitchen/rollingpin,
+/obj/structure/table{
+	dir = 1
+	},
+/obj/item/kitchen/rollingpin{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "q" = (
@@ -62,37 +88,52 @@
 	},
 /area/ruin/unpowered)
 "s" = (
-/obj/machinery/vending/dinnerware,
+/obj/machinery/vending/dinnerware{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "z" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "A" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/structure/closet/secure_closet/freezer/kitchen{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "D" = (
 /obj/structure/sink/kitchen{
-	pixel_y = 28
+	pixel_y = -28;
+	dir = 1
 	},
-/obj/machinery/food_cart,
+/obj/machinery/food_cart{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "F" = (
-/obj/structure/table/reinforced,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 2
+	},
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "G" = (
-/obj/machinery/processor,
+/obj/machinery/processor{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "I" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/structure/closet/secure_closet/freezer/fridge{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "J" = (
@@ -114,159 +155,153 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "Q" = (
-/obj/structure/table,
+/obj/structure/table{
+	dir = 1
+	},
 /obj/machinery/microwave{
 	pixel_x = -3;
-	pixel_y = 6
+	pixel_y = -6;
+	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "T" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
+/obj/structure/table/reinforced{
+	dir = 1
+	},
+/obj/item/storage/fancy/donut_box{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 2
+	},
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "Z" = (
-/obj/machinery/deepfryer,
+/obj/machinery/deepfryer{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
 L
-L
-j
-L
-L
-L
-j
-L
-L
 z
 J
 z
 L
-"}
-(2,1,1) = {"
 L
+j
+L
+L
+L
+j
+L
+L"}(2,1,1) = {"
+L
+z
+z
+z
+q
+L
+O
+O
+O
+O
+O
 s
-O
-O
-O
-O
-O
+L"}(3,1,1) = {"
 L
+z
+z
+z
 q
-z
-z
-z
 L
-"}
-(3,1,1) = {"
-L
+O
+O
+O
+O
+O
 D
-O
-O
-O
-O
-O
+L"}(4,1,1) = {"
 L
+z
+z
+z
 q
-z
-z
-z
-L
-"}
-(4,1,1) = {"
-L
-e
-O
-k
-b
-O
-O
 T
-q
-z
-z
-z
-L
-"}
-(5,1,1) = {"
-L
-I
 O
-m
+O
+b
+k
+O
+e
+L"}(5,1,1) = {"
+L
+z
+z
+z
+q
+F
+O
+O
 c
+m
 O
-O
-F
+I
+L"}(6,1,1) = {"
+L
+z
+z
+z
 q
-z
-z
-z
-L
-"}
-(6,1,1) = {"
-L
-Q
+F
 O
-o
+O
 Z
+o
 O
-O
-F
-q
-z
-z
-z
-L
-"}
-(7,1,1) = {"
-L
 Q
-O
-O
-O
-O
-O
+L"}(7,1,1) = {"
+L
+z
+z
+z
+q
 F
+O
+O
+O
+O
+O
+Q
+L"}(8,1,1) = {"
+L
+z
+z
+z
 q
-z
-z
-z
 L
-"}
-(8,1,1) = {"
-L
-A
 O
-O
-G
 f
+G
 O
+O
+A
+L"}(9,1,1) = {"
 L
-q
-z
-z
-z
-L
-"}
-(9,1,1) = {"
-L
-L
-L
-L
-L
-L
-L
-L
-q
 z
 K
 z
+q
 L
-"}
+L
+L
+L
+L
+L
+L
+L"}

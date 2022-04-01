@@ -3,79 +3,115 @@
 /turf/open/floor/holofloor/white,
 /area/template_noop)
 "c" = (
-/obj/structure/dresser,
+/obj/structure/dresser{
+	dir = 1
+	},
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "g" = (
-/obj/structure/easel,
-/obj/item/canvas/twentythree_twentythree,
-/obj/item/canvas/twentythree_twentythree,
-/obj/item/canvas/twentythree_twentythree,
+/obj/structure/easel{
+	dir = 1
+	},
+/obj/item/canvas/twentythree_twentythree{
+	dir = 1
+	},
+/obj/item/canvas/twentythree_twentythree{
+	dir = 1
+	},
+/obj/item/canvas/twentythree_twentythree{
+	dir = 1
+	},
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "r" = (
-/obj/structure/table/wood,
-/obj/item/paint/anycolor{
-	pixel_x = 7
+/obj/structure/table/wood{
+	dir = 1
 	},
 /obj/item/paint/anycolor{
-	pixel_x = -5
+	pixel_x = 7;
+	dir = 1
 	},
 /obj/item/paint/anycolor{
-	pixel_x = 7
+	pixel_x = -5;
+	dir = 1
 	},
 /obj/item/paint/anycolor{
-	pixel_x = 7
+	pixel_x = 7;
+	dir = 1
+	},
+/obj/item/paint/anycolor{
+	pixel_x = 7;
+	dir = 1
 	},
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "t" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/item/toy/crayon/spraycan{
 	charges = 99999999999999999;
 	desc = "A metallic container containing near unlimited  tasty holographic paint.";
 	name = "holographic spray can";
 	pixel_x = 5;
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /obj/item/toy/crayon/spraycan{
 	charges = 99999999999999999;
 	desc = "A metallic container containing near unlimited  tasty holographic paint.";
 	name = "holographic spray can";
 	pixel_x = -5;
-	pixel_y = 5
+	pixel_y = -5;
+	dir = 1
 	},
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "u" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/paper_bin{
+	dir = 1
+	},
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "w" = (
-/obj/structure/table/wood,
+/obj/structure/table/wood{
+	dir = 1
+	},
 /obj/item/camera{
 	desc = "A holographic camera with near infinite pictures.";
 	name = "holographic camera";
 	pictures_left = 999;
-	pictures_max = 999
+	pictures_max = 999;
+	dir = 1
 	},
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "H" = (
-/obj/structure/table/wood,
-/obj/item/storage/crayons,
-/obj/item/razor,
+/obj/structure/table/wood{
+	dir = 1
+	},
+/obj/item/storage/crayons{
+	dir = 1
+	},
+/obj/item/razor{
+	dir = 1
+	},
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "L" = (
-/obj/structure/falsewall/wood,
-/obj/structure/mirror,
+/obj/structure/falsewall/wood{
+	dir = 1
+	},
+/obj/structure/mirror{
+	dir = 1
+	},
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 
 (1,1,1) = {"
-H
 a
 a
 a
@@ -85,9 +121,7 @@ a
 a
 a
 a
-"}
-(2,1,1) = {"
-L
+H"}(2,1,1) = {"
 a
 a
 a
@@ -97,9 +131,7 @@ a
 a
 a
 a
-"}
-(3,1,1) = {"
-u
+L"}(3,1,1) = {"
 a
 a
 a
@@ -109,9 +141,7 @@ a
 a
 a
 a
-"}
-(4,1,1) = {"
-r
+u"}(4,1,1) = {"
 a
 a
 a
@@ -121,9 +151,7 @@ a
 a
 a
 a
-"}
-(5,1,1) = {"
-w
+r"}(5,1,1) = {"
 a
 a
 a
@@ -133,9 +161,7 @@ a
 a
 a
 a
-"}
-(6,1,1) = {"
-t
+w"}(6,1,1) = {"
 a
 a
 a
@@ -145,9 +171,7 @@ a
 a
 a
 a
-"}
-(7,1,1) = {"
-t
+t"}(7,1,1) = {"
 a
 a
 a
@@ -157,9 +181,7 @@ a
 a
 a
 a
-"}
-(8,1,1) = {"
-g
+t"}(8,1,1) = {"
 a
 a
 a
@@ -169,9 +191,7 @@ a
 a
 a
 a
-"}
-(9,1,1) = {"
-c
+g"}(9,1,1) = {"
 a
 a
 a
@@ -181,4 +201,4 @@ a
 a
 a
 a
-"}
+c"}

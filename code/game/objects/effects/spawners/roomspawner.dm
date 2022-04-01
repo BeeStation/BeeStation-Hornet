@@ -33,7 +33,8 @@
 		template.weight = (template.weight / 2)
 		if(template.stock <= 0)
 			template.spawned = TRUE
-		template.load(get_turf(src), centered = template.centerspawner)
+		var/turf/turf = get_turf(src)
+		template.load(locate(turf.x, turf.y-room_height+1, turf.z), centered = template.centerspawner)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/room/fivexfour

@@ -10,7 +10,7 @@
 /area/ruin/unpowered)
 "m" = (
 /obj/effect/abstract/doorway_marker{
-	dir = 1
+	dir = 2
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -21,7 +21,9 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "A" = (
-/obj/structure/lattice,
+/obj/structure/lattice{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "F" = (
@@ -34,7 +36,9 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Q" = (
-/obj/effect/abstract/open_area_marker,
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
@@ -43,33 +47,24 @@ u
 q
 G
 q
-u
-"}
-(2,1,1) = {"
-u
-a
-A
-a
+u"}(2,1,1) = {"
 q
-"}
-(3,1,1) = {"
-m
 a
-F
 A
+a
+u"}(3,1,1) = {"
 Q
-"}
-(4,1,1) = {"
-u
-q
 A
+F
 a
+m"}(4,1,1) = {"
 q
-"}
-(5,1,1) = {"
+a
+A
+q
+u"}(5,1,1) = {"
 u
 q
 k
 q
-u
-"}
+u"}

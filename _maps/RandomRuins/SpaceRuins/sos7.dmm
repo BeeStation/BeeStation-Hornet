@@ -13,16 +13,21 @@
 	color = "#8EC127";
 	desc = "Thick material shaped into a wall. Eugh.";
 	icon_state = "smooth";
-	name = "gelatinous wall"
+	name = "gelatinous wall";
+	dir = 1
 	},
 /turf/template_noop,
 /area/ruin/unpowered)
 "e" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
 /turf/open/space/basic,
 /area/ruin/unpowered)
 "f" = (
-/obj/machinery/door/airlock/shuttle,
+/obj/machinery/door/airlock/shuttle{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
 "g" = (
@@ -32,7 +37,9 @@
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
 "h" = (
-/obj/machinery/computer,
+/obj/machinery/computer{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
 "i" = (
@@ -40,7 +47,8 @@
 	color = "#4BAE56";
 	desc = "A strange combination of thin, gelatinous material.";
 	icon_state = "smooth";
-	name = "gelatinous membrane"
+	name = "gelatinous membrane";
+	dir = 1
 	},
 /turf/template_noop,
 /area/ruin/unpowered)
@@ -48,7 +56,9 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/effect/mob_spawn/human/corpse/assistant,
+/obj/effect/mob_spawn/human/corpse/assistant{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
 "k" = (
@@ -56,7 +66,8 @@
 	dir = 4
 	},
 /obj/item/storage/pod{
-	pixel_x = -32
+	pixel_x = -32;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
@@ -65,30 +76,37 @@
 	dir = 8
 	},
 /obj/item/storage/pod{
-	pixel_x = 32
+	pixel_x = 32;
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
 "m" = (
 /obj/item/gps{
-	gpstag = "SOS"
+	gpstag = "SOS";
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
 "n" = (
 /obj/structure/chair/comfy/shuttle{
+	dir = 2
+	},
+/obj/effect/mob_spawn/human/corpse/cargo_tech{
 	dir = 1
 	},
-/obj/effect/mob_spawn/human/corpse/cargo_tech,
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
 "o" = (
 /obj/structure/alien/weeds{
 	color = "#4BAE56";
 	desc = "A thick gelatinous surface covers the floor.  Someone get the golashes.";
-	name = "gelatinous floor"
+	name = "gelatinous floor";
+	dir = 1
 	},
-/obj/structure/grille/broken,
+/obj/structure/grille/broken{
+	dir = 1
+	},
 /mob/living/simple_animal/hostile/netherworld{
 	name = "human?";
 	desc = "Something that was once human..."
@@ -99,9 +117,12 @@
 /obj/structure/alien/weeds{
 	color = "#4BAE56";
 	desc = "A thick gelatinous surface covers the floor.  Someone get the golashes.";
-	name = "gelatinous floor"
+	name = "gelatinous floor";
+	dir = 1
 	},
-/obj/structure/grille,
+/obj/structure/grille{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
 "q" = (
@@ -111,7 +132,8 @@
 /obj/structure/alien/weeds{
 	color = "#4BAE56";
 	desc = "A thick gelatinous surface covers the floor.  Someone get the golashes.";
-	name = "gelatinous floor"
+	name = "gelatinous floor";
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/white/airless,
 /area/ruin/unpowered)
@@ -120,87 +142,79 @@
 a
 a
 a
-d
-d
-d
-a
-a
-a
-a
-a
-a
-"}
-(2,1,1) = {"
 a
 a
 a
 d
-c
-c
-c
-c
-c
+d
+d
+a
+a
+a"}(2,1,1) = {"
+a
+a
 e
-a
-a
-"}
-(3,1,1) = {"
-a
-a
-d
-d
-p
-q
-q
-j
-k
 c
+c
+c
+c
+c
+d
 a
 a
-"}
-(4,1,1) = {"
+a"}(3,1,1) = {"
 a
 a
-i
-i
-o
-b
+c
+k
+j
+q
+q
+p
+d
+d
+a
+a"}(4,1,1) = {"
+a
+a
+f
 b
 m
 b
-f
-a
-a
-"}
-(5,1,1) = {"
-a
-a
+b
+o
 i
 i
-p
-h
-n
-g
+a
+a"}(5,1,1) = {"
+a
+a
+c
 l
-c
-a
-a
-"}
-(6,1,1) = {"
-a
-a
+g
+n
+h
+p
 i
-d
-c
-c
-c
-c
-c
+i
+a
+a"}(6,1,1) = {"
+a
+a
 e
+c
+c
+c
+c
+c
+d
+i
+a
+a"}(7,1,1) = {"
 a
 a
-"}
-(7,1,1) = {"
+a
+a
 a
 a
 a
@@ -208,13 +222,7 @@ d
 d
 a
 a
-a
-a
-a
-a
-a
-"}
-(8,1,1) = {"
+a"}(8,1,1) = {"
 a
 a
 a
@@ -226,5 +234,4 @@ a
 a
 a
 a
-a
-"}
+a"}
