@@ -73,6 +73,7 @@
 #define ADMIN_PUNISHMENT_ANARCHY "Deadchat Control (Anarchy)"
 #define ADMIN_PUNISHMENT_TOE "Stub Toe (Once)"
 #define ADMIN_PUNISHMENT_TOEPLUS "Stub Toe (Always)"
+#define ADMIN_PUNISHMENT_WEREGORILLA "Weregorilla" //Monkestation edit: weregorilla
 
 #define AHELP_UNCLAIMED 1
 #define AHELP_ACTIVE 2
