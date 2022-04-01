@@ -5,7 +5,7 @@
 	resistance = -2
 	stage_speed = -3
 	transmission = 1
-	level = 0
+	level = -1
 	severity = -1
 	symptom_delay_min = 40
 	symptom_delay_max = 60
