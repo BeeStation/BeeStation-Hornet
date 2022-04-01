@@ -1695,10 +1695,102 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE)
 	SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMGE, damage, damagetype, def_zone)
-	var/hit_percent = (100-(blocked+armor))/100
-	hit_percent = (hit_percent * (100-H.physiology.damage_resistance))/100
+	var/armor_class = 10 + (blocked+armor)/10
+	var/hit_percent = (100-H.physiology.damage_resistance)/100
+	var/dice = 1
+	var/diesides = 1
 	if(!damage || (!forced && hit_percent <= 0))
 		return 0
+	var/attackroll = rand(1, 20)
+	if(isturf(H.loc))
+		var/obj/item/dice/d20/die = new(H.loc)
+		var/turf/thrown_at = get_step(H, pick(GLOB.alldirs))
+		die.rigged = DICE_TOTALLY_RIGGED
+		die.rigged_value = attackroll
+		die.diceroll()
+		die.throw_at(thrown_at, rand(1,3), 4)
+		QDEL_IN(die, 10)
+	if(attackroll == 1)
+		H.visible_message("<span class='userdanger'>critical miss on [H]!</span>")
+		return 0
+	else if(attackroll < armor_class)
+		H.visible_message("<span class='danger'>miss on [H]!</span>")
+		return 0
+	switch(damage)
+		if(1 to 2)
+			diesides = 2
+		if(2 to 4)
+			diesides = 4
+		if(5 to 6)
+			diesides = 6
+		if(7 to 8)
+			diesides = 8
+		if(9 to 10)
+			diesides = 10
+		if(11 to 12)
+			diesides = 12
+		if(13 to INFINITY)
+			diesides = 6
+			dice = round(damage/6, 6)
+	damage = 0
+
+	if(attackroll == 20)
+		H.visible_message("<span class='userdanger'>CRITICAL HIT ON [H]!</span>")
+		dice = dice * 2
+	
+	for(var/I in 1 to dice)
+		var/dmg = rand(1, diesides)
+		damage += dmg
+		if(isturf(H.loc))
+			switch(diesides)
+				if(2)
+					var/obj/item/dice/d2/damagedie = new(H.loc)
+					var/turf/thrown_at = get_step(H, pick(GLOB.alldirs))
+					damagedie.rigged = DICE_TOTALLY_RIGGED
+					damagedie.rigged_value = dmg
+					damagedie.diceroll()
+					damagedie.throw_at(thrown_at, rand(1,3), 4)
+					QDEL_IN(damagedie, 15)
+				if(4)
+					var/obj/item/dice/d4/damagedie = new(H.loc)
+					var/turf/thrown_at = get_step(H, pick(GLOB.alldirs))
+					damagedie.rigged = DICE_TOTALLY_RIGGED
+					damagedie.rigged_value = dmg
+					damagedie.diceroll()
+					damagedie.throw_at(thrown_at, rand(1,3), 4)
+					QDEL_IN(damagedie, 15)
+				if(6)
+					var/obj/item/dice/d6/damagedie = new(H.loc)
+					var/turf/thrown_at = get_step(H, pick(GLOB.alldirs))
+					damagedie.rigged = DICE_TOTALLY_RIGGED
+					damagedie.rigged_value = dmg
+					damagedie.diceroll()
+					damagedie.throw_at(thrown_at, rand(1,3), 4)
+					QDEL_IN(damagedie, 15)
+				if(8)
+					var/obj/item/dice/d8/damagedie = new(H.loc)
+					var/turf/thrown_at = get_step(H, pick(GLOB.alldirs))
+					damagedie.rigged = DICE_TOTALLY_RIGGED
+					damagedie.rigged_value = dmg
+					damagedie.diceroll()
+					damagedie.throw_at(thrown_at, rand(1,3), 4)
+					QDEL_IN(damagedie, 15)
+				if(10)
+					var/obj/item/dice/d10/damagedie = new(H.loc)
+					var/turf/thrown_at = get_step(H, pick(GLOB.alldirs))
+					damagedie.rigged = DICE_TOTALLY_RIGGED
+					damagedie.rigged_value = dmg
+					damagedie.diceroll()
+					damagedie.throw_at(thrown_at, rand(1,3), 4)
+					QDEL_IN(damagedie, 15)
+				if(12)
+					var/obj/item/dice/d12/damagedie = new(H.loc)
+					var/turf/thrown_at = get_step(H, pick(GLOB.alldirs))
+					damagedie.rigged = DICE_TOTALLY_RIGGED
+					damagedie.rigged_value = dmg
+					damagedie.diceroll()
+					damagedie.throw_at(thrown_at, rand(1,3), 4)
+					QDEL_IN(damagedie, 15)
 
 	var/obj/item/bodypart/BP = null
 	if(isbodypart(def_zone))
