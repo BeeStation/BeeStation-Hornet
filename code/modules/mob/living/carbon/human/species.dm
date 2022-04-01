@@ -1711,10 +1711,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		die.throw_at(thrown_at, rand(1,3), 4)
 		QDEL_IN(die, 10)
 	if(attackroll == 1)
-		H.visible_message("<span class='userdanger'>critical miss on [H]!</span>")
+		H.visible_message("<span class='userdanger'>Critical miss on [H]!</span>")
 		return 0
 	else if(attackroll < armor_class)
-		H.visible_message("<span class='danger'>miss on [H]!</span>")
+		H.visible_message("<span class='danger'>Miss on [H]!</span>")
 		return 0
 	switch(damage)
 		if(1 to 2)
