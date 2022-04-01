@@ -632,7 +632,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -736,7 +736,7 @@
 	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -812,7 +812,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -969,7 +969,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -1888,7 +1888,7 @@
 /area/ruin/space/has_grav/ancientstation/hydroponics)
 "dt" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -2236,7 +2236,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -2382,7 +2382,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -2751,7 +2751,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/generic{
 	dir = 4
@@ -2869,7 +2869,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -2959,7 +2959,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 2
@@ -2989,7 +2989,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -3028,7 +3028,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -3071,7 +3071,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -3300,7 +3300,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -3315,7 +3315,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -3327,7 +3327,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -3448,7 +3448,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -3707,7 +3707,7 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -3762,7 +3762,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -4237,7 +4237,7 @@
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "gT" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/ancientstation/betasouth)
@@ -4289,7 +4289,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 2
@@ -4325,7 +4325,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -4391,7 +4391,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -4524,7 +4524,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/ancientstation/kitchen)
@@ -4599,7 +4599,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/firealarm{
 	dir = 4;
@@ -4639,7 +4639,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -5216,7 +5216,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -5833,7 +5833,7 @@
 /area/ruin/space/has_grav/ancientstation/rnd)
 "jd" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/door/airlock/research{
 	name = "Research and Development";
@@ -6074,7 +6074,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -6194,7 +6194,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -6233,7 +6233,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -6341,7 +6341,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/door/firedoor{
 	dir = 1
@@ -6373,7 +6373,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/door/airlock/highsecurity{
 	name = "Prototype Laboratory";
@@ -6490,7 +6490,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/ancientstation/proto)
@@ -6572,7 +6572,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/showcase/machinery/oldpod{
 	dir = 1
@@ -6820,7 +6820,7 @@
 /area/ruin/space/has_grav/ancientstation/proto)
 "kK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/ancientstation/atmo)
@@ -6892,7 +6892,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/mob_spawn/human/oldeng{
 	dir = 1
@@ -7200,7 +7200,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/airalarm/all_access{
 	dir = 8;
@@ -7228,7 +7228,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 2
@@ -7768,7 +7768,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/ancientstation)

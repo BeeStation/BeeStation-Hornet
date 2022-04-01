@@ -86,7 +86,7 @@
 /area/shuttle/transport)
 "as" = (
 /obj/structure/emergency_shield{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue/airless,
 /area/shuttle/transport)

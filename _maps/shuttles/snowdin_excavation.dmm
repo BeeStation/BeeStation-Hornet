@@ -28,7 +28,8 @@
 	height = 6;
 	id = "snowdin_excavation";
 	name = "excavation elevator";
-	width = 6
+	width = 6;
+	dwidth = 2
 	},
 /obj/machinery/door/airlock/turbolift{
 	dir = 1

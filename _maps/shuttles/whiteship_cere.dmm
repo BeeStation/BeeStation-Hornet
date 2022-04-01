@@ -243,7 +243,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency/old{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust{
 	dir = 4

@@ -321,7 +321,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/item/wrench{
 	dir = 1
@@ -1084,7 +1084,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/item/radio{
 	dir = 1
@@ -1094,7 +1094,7 @@
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -1188,7 +1188,7 @@
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -1677,23 +1677,23 @@
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
@@ -1785,7 +1785,7 @@
 /obj/item/storage/toolbox/emergency{
 	pixel_x = 3;
 	pixel_y = 5;
-	dir = 4
+	dir = 1
 	},
 /obj/item/multitool{
 	dir = 1
@@ -2049,7 +2049,7 @@
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
@@ -2146,7 +2146,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/item/radio{
 	dir = 1
@@ -2156,7 +2156,7 @@
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4

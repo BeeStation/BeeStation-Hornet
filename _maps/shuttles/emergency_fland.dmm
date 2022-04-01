@@ -164,23 +164,23 @@
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
@@ -374,10 +374,10 @@
 	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen/engi{
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen/engi{
-	dir = 4
+	dir = 1
 	},
 /obj/item/assembly/flash/handheld{
 	dir = 1
@@ -640,7 +640,7 @@
 /obj/item/storage/toolbox/emergency{
 	pixel_x = 3;
 	pixel_y = 5;
-	dir = 4
+	dir = 1
 	},
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = 1;
@@ -841,7 +841,7 @@
 /area/shuttle/escape)
 "ye" = (
 /obj/machinery/computer/emergency_shuttle{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/turf_decal/bot{
 	dir = 4
@@ -869,7 +869,7 @@
 	},
 /obj/item/storage/toolbox/emergency{
 	pixel_y = -3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/radio{
 	dir = 1
@@ -1357,10 +1357,10 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/item/flashlight/flare{
 	pixel_x = 3;

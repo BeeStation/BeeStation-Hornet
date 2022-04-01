@@ -616,7 +616,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/awaymission/snowdin/post/dorm)
@@ -671,7 +671,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/wood{
 	icon_state = "wood-broken"
@@ -739,7 +739,7 @@
 /area/awaymission/snowdin/post/research)
 "bF" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5;
@@ -810,7 +810,7 @@
 /area/awaymission/snowdin/post/research)
 "bL" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/spider/stickyweb{
 	dir = 1
@@ -869,7 +869,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/door/airlock{
 	id_tag = "snowdindormresearch3";
@@ -886,7 +886,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/door/airlock{
 	id_tag = "snowdindormresearch2";
@@ -903,7 +903,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/door/airlock{
 	id_tag = "snowdindormresearch1";
@@ -920,7 +920,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/door/airlock{
 	id_tag = "snowdindormhydro2";
@@ -939,7 +939,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/door/airlock{
 	id_tag = "snowdindormhydro1";
@@ -950,7 +950,7 @@
 /area/awaymission/snowdin/post/dorm)
 "bV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -1012,7 +1012,7 @@
 /area/awaymission/snowdin/post/research)
 "ca" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/spider/stickyweb{
 	dir = 1
@@ -1164,7 +1164,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -1200,7 +1200,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/dorm)
@@ -1227,7 +1227,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -1254,7 +1254,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -1284,7 +1284,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -1311,7 +1311,7 @@
 /area/awaymission/snowdin/post/research)
 "cA" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -1645,7 +1645,7 @@
 /area/awaymission/snowdin/post/dorm)
 "cY" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1;
@@ -1705,7 +1705,7 @@
 /area/awaymission/snowdin/post/dorm)
 "db" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1;
@@ -1774,7 +1774,7 @@
 /area/awaymission/snowdin/post/dorm)
 "df" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1;
@@ -1941,7 +1941,7 @@
 /area/awaymission/snowdin/post/kitchen)
 "dt" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -2121,7 +2121,7 @@
 /area/awaymission/snowdin/post)
 "dL" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -2385,7 +2385,7 @@
 /area/awaymission/snowdin/post)
 "ej" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -2590,7 +2590,7 @@
 /area/awaymission/snowdin/post/kitchen)
 "ez" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -2701,7 +2701,7 @@
 /area/awaymission/snowdin/post/dorm)
 "eO" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -2925,7 +2925,7 @@
 /area/awaymission/snowdin/post)
 "fd" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -2949,7 +2949,7 @@
 	dir = 4
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -2982,7 +2982,7 @@
 /area/awaymission/snowdin/post/messhall)
 "fj" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -3073,7 +3073,7 @@
 /area/awaymission/snowdin/cave/cavern)
 "fs" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/carpet,
 /area/awaymission/snowdin/post/dorm)
@@ -3103,7 +3103,7 @@
 	pixel_y = -5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3229,7 +3229,7 @@
 /area/awaymission/snowdin/post)
 "fD" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -3377,7 +3377,7 @@
 /area/awaymission/snowdin/post/hydro)
 "fQ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -3616,7 +3616,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/dorm)
@@ -3709,7 +3709,7 @@
 	pixel_y = -5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 2
@@ -3746,7 +3746,7 @@
 /area/awaymission/snowdin/post)
 "gt" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -3857,7 +3857,7 @@
 /area/awaymission/snowdin/post/hydro)
 "gF" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -4197,7 +4197,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/item/storage/firstaid/o2{
 	pixel_x = 4;
@@ -4388,13 +4388,13 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/snowdin/outside)
 "hC" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -4545,7 +4545,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/door/firedoor{
 	dir = 1
@@ -4565,7 +4565,7 @@
 /area/awaymission/snowdin/post)
 "hP" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -4671,7 +4671,7 @@
 /area/awaymission/snowdin/post/hydro)
 "hY" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -4697,7 +4697,7 @@
 /area/awaymission/snowdin/post/hydro)
 "ic" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/closed/wall/ice,
 /area/awaymission/snowdin/post/garage)
@@ -4914,7 +4914,7 @@
 	pixel_y = -5
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -5132,7 +5132,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/snowdin/outside)
@@ -5394,7 +5394,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -5556,7 +5556,7 @@
 /area/awaymission/snowdin/post/gateway)
 "jv" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -5697,7 +5697,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -5756,7 +5756,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/garage)
@@ -5799,7 +5799,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/door/airlock{
 	name = "Bathroom";
@@ -5850,7 +5850,7 @@
 /area/awaymission/snowdin/post)
 "jV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -5895,7 +5895,7 @@
 /area/awaymission/snowdin/post/gateway)
 "jZ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -5976,7 +5976,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 8;
@@ -6279,7 +6279,7 @@
 /area/awaymission/snowdin/post)
 "kK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -6384,7 +6384,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/snowdin/outside)
@@ -6465,7 +6465,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/garage)
@@ -6750,7 +6750,7 @@
 	pixel_y = -5
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -7032,7 +7032,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -7368,7 +7368,7 @@
 /area/awaymission/snowdin/post/messhall)
 "mo" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -7402,7 +7402,7 @@
 /area/awaymission/snowdin/post/messhall)
 "mr" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/hydro)
@@ -7451,7 +7451,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating/snowed/smoothed,
 /area/awaymission/snowdin/outside)
@@ -7460,7 +7460,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6;
@@ -7535,7 +7535,7 @@
 /area/awaymission/snowdin/post/custodials)
 "mF" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/snowdin/post/custodials)
@@ -7562,7 +7562,7 @@
 /area/awaymission/snowdin/post)
 "mI" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 10;
@@ -7576,7 +7576,7 @@
 /area/awaymission/snowdin/post)
 "mJ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -7624,7 +7624,7 @@
 /area/awaymission/snowdin/post/messhall)
 "mP" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	piping_layer = 3;
@@ -7959,7 +7959,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/visible{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -8116,7 +8116,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -8191,7 +8191,7 @@
 /area/awaymission/snowdin/post)
 "nK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -8269,7 +8269,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/visible{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -8396,7 +8396,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -8454,7 +8454,7 @@
 /area/awaymission/snowdin/post/secpost)
 "oj" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/door/airlock/public/glass{
 	dir = 1
@@ -8527,7 +8527,7 @@
 /area/awaymission/snowdin/post/engineering)
 "on" = (
 /obj/machinery/atmospherics/pipe/simple/supply/visible{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
 	dir = 8;
@@ -8753,7 +8753,7 @@
 /area/awaymission/snowdin/post)
 "oJ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -8843,7 +8843,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/visible{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/engineering)
@@ -8929,7 +8929,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/closed/wall/ice,
 /area/awaymission/snowdin/post/engineering)
@@ -9231,7 +9231,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/visible{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/engineering)
@@ -9347,7 +9347,7 @@
 /area/awaymission/snowdin/post)
 "pO" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -9652,7 +9652,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/barricade/wooden/crude{
 	dir = 1
@@ -10043,7 +10043,7 @@
 /area/awaymission/snowdin/post/engineering)
 "qZ" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/visible{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -10257,7 +10257,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/visible{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/engineering)
@@ -18869,7 +18869,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/item/clothing/suit/hooded/wintercoat{
 	dir = 1
@@ -18931,7 +18931,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/mining_main)
@@ -19059,7 +19059,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/item/clothing/suit/hooded/wintercoat{
 	dir = 1

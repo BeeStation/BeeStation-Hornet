@@ -411,7 +411,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance/three{
 	dir = 1

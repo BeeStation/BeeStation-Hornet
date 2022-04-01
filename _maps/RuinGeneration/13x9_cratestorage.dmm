@@ -188,10 +188,10 @@
 	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen/engi{
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen/engi{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)

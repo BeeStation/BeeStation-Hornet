@@ -265,7 +265,7 @@
 	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen/engi{
-	dir = 4
+	dir = 1
 	},
 /obj/item/clothing/mask/gas{
 	dir = 1
@@ -838,7 +838,7 @@
 /area/shuttle/caravan/freighter3)
 "hv" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -853,7 +853,7 @@
 /area/shuttle/caravan/freighter3)
 "hx" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/closet/crate/secure/plasma{
 	dir = 1
@@ -1044,7 +1044,7 @@
 /area/shuttle/caravan/freighter3)
 "ia" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless{
 	icon_state = "damaged2"
@@ -1071,7 +1071,7 @@
 /area/shuttle/caravan/freighter3)
 "ic" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -1241,7 +1241,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg1"
@@ -1258,7 +1258,7 @@
 /area/shuttle/caravan/freighter3)
 "iC" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -1323,7 +1323,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter2)
@@ -1454,7 +1454,7 @@
 /area/shuttle/caravan/freighter2)
 "jq" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -1481,7 +1481,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless/dark,
 /area/shuttle/caravan/freighter2)
@@ -1566,7 +1566,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless,
 /area/shuttle/caravan/freighter2)
@@ -1581,7 +1581,7 @@
 /area/shuttle/caravan/freighter2)
 "jK" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/airless{
 	icon_state = "floorscorched1"

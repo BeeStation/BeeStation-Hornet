@@ -13,7 +13,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
@@ -61,7 +61,7 @@
 	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/mining/large)
@@ -342,23 +342,23 @@
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
@@ -414,10 +414,10 @@
 	dir = 1
 	},
 /obj/item/pickaxe/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/item/pickaxe/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/turf_decal/box/white/corners{
 	dir = 8

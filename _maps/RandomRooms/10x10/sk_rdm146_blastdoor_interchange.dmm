@@ -244,7 +244,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -281,7 +281,7 @@
 /area/template_noop)
 "xg" = (
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/structure/rack{
 	dir = 1

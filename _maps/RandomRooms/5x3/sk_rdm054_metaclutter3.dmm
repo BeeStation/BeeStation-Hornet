@@ -28,11 +28,11 @@
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = -8;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = -8;
-	dir = 4
+	dir = 1
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = 4;

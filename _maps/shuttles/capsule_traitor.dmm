@@ -19,7 +19,7 @@
 	icon_state = "1-2"
 	},
 /obj/item/pickaxe/emergency{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)

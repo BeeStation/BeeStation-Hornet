@@ -116,7 +116,7 @@
 	dir = 1
 	},
 /obj/item/pickaxe/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/oxygen{
 	dir = 1
@@ -240,7 +240,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid{
 	name = "dirt"

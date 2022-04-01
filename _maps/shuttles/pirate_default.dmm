@@ -264,7 +264,7 @@
 /area/shuttle/pirate)
 "au" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering";
@@ -669,7 +669,7 @@
 /area/shuttle/pirate)
 "bm" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/pirate)
@@ -785,7 +785,7 @@
 /area/shuttle/pirate)
 "by" = (
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -803,7 +803,7 @@
 /area/shuttle/pirate)
 "bB" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -1191,7 +1191,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -1251,7 +1251,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -1347,7 +1347,7 @@
 /area/shuttle/pirate)
 "qL" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/door/airlock{
 	name = "Crew Cabin";
@@ -1473,7 +1473,7 @@
 /area/shuttle/pirate)
 "Jm" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/door/airlock{
 	name = "Captain's Quarters";
@@ -1561,7 +1561,7 @@
 /area/shuttle/pirate)
 "Oe" = (
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar{
 	dir = 4
@@ -1596,7 +1596,7 @@
 /area/shuttle/pirate)
 "OL" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -1675,7 +1675,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4

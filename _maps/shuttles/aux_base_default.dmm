@@ -58,7 +58,7 @@
 /area/shuttle/auxillary_base)
 "P" = (
 /obj/docking_port/mobile/auxillary_base{
-	dheight = -4;
+	dheight = 4;
 	dir = 1;
 	dwidth = 4;
 	height = 9;

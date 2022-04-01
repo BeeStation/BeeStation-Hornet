@@ -36,7 +36,7 @@
 /area/shuttle/escape)
 "ag" = (
 /obj/machinery/computer/emergency_shuttle{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
@@ -388,10 +388,10 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/item/flashlight/flare{
 	pixel_x = 3;
@@ -675,7 +675,8 @@
 /obj/docking_port/mobile/emergency{
 	name = "Donut emergency shuttle";
 	width = 34;
-	dir = 4
+	dir = 4;
+	dwidth = 24
 	},
 /obj/structure/fans/tiny{
 	dir = 1
