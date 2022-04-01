@@ -2790,7 +2790,7 @@
 	num_contained = 5
 	contains = list()
 	crate_type = /obj/structure/closet/crate/wooden
-	crate_name = "plushy crate"
+	crate_name = "plushie crate"
 
 /datum/supply_pack/costumes_toys/randomised/plush/fill(obj/structure/closet/crate/C)
 	var/plush
