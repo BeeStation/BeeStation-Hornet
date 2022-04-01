@@ -13,7 +13,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -49,7 +49,7 @@
 	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	dir = 4
+	dir = 1
 	},
 /obj/item/clothing/mask/gas{
 	dir = 1
@@ -240,23 +240,23 @@
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3;
-	dir = 4
+	dir = 1
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
@@ -315,10 +315,10 @@
 	dir = 4
 	},
 /obj/item/pickaxe/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/item/pickaxe/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/effect/turf_decal/delivery{
 	dir = 4

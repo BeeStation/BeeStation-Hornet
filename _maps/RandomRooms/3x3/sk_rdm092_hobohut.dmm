@@ -4,7 +4,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/item/reagent_containers/food/drinks/bottle/hooch{
 	dir = 1

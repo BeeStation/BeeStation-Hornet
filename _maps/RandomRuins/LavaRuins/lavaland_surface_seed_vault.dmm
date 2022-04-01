@@ -509,7 +509,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
@@ -573,7 +573,7 @@
 /area/ruin/powered/seedvault)
 "BK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
@@ -673,7 +673,7 @@
 /area/ruin/powered/seedvault)
 "Se" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
 	dir = 2

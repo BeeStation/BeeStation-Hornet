@@ -30,7 +30,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/arrival)
@@ -121,7 +121,8 @@
 	height = 13;
 	name = "pubby arrivals shuttle";
 	width = 6;
-	dir = 8
+	dir = 8;
+	dwidth = 2
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
@@ -145,7 +146,7 @@
 	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	dir = 4
+	dir = 1
 	},
 /obj/item/clothing/mask/breath{
 	dir = 1

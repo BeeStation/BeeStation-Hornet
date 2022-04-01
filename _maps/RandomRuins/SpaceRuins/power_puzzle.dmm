@@ -965,7 +965,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /obj/item/storage/toolbox/electrical{
 	dir = 1

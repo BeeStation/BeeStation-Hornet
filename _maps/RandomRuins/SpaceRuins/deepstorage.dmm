@@ -95,7 +95,7 @@
 	dir = 1
 	},
 /obj/item/storage/toolbox/emergency{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/deepstorage/crusher)
@@ -127,7 +127,7 @@
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "ay" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/space/has_grav/deepstorage/kitchen)
@@ -387,7 +387,7 @@
 /area/ruin/space/has_grav/deepstorage/storage)
 "aM" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/closed/wall/mineral/iron,
 /area/ruin/space/has_grav/deepstorage/kitchen)
@@ -931,7 +931,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "bz" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -986,7 +986,7 @@
 /area/ruin/space/has_grav/deepstorage/storage)
 "bF" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -1028,7 +1028,7 @@
 /area/ruin/space/has_grav/deepstorage/kitchen)
 "bJ" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -1222,7 +1222,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -1231,7 +1231,7 @@
 /area/ruin/space/has_grav/deepstorage/storage)
 "bY" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -1271,7 +1271,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "cb" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -1330,7 +1330,7 @@
 /area/ruin/space/has_grav/deepstorage/hydroponics)
 "ch" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/airalarm/away{
 	dir = 8;
@@ -1433,7 +1433,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -1503,7 +1503,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "cu" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -1671,7 +1671,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "cF" = (
 /obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -1728,7 +1728,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "cK" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -1770,7 +1770,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "cO" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/sink{
 	dir = 4;
@@ -1907,7 +1907,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "cZ" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/space/has_grav/deepstorage)
@@ -2022,7 +2022,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "dj" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -2073,7 +2073,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "dn" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -2098,7 +2098,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/space/has_grav/deepstorage)
@@ -2298,7 +2298,7 @@
 /area/ruin/space/has_grav/deepstorage/dorm)
 "dC" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -2346,7 +2346,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -2493,7 +2493,7 @@
 /area/ruin/space/has_grav/deepstorage/dorm)
 "dT" = (
 /obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -2534,7 +2534,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "dW" = (
 /obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -2591,7 +2591,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "ea" = (
 /obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -2639,7 +2639,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "ed" = (
 /obj/machinery/atmospherics/pipe/manifold4w/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -2734,7 +2734,7 @@
 /area/ruin/space/has_grav/deepstorage/dorm)
 "em" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -2758,7 +2758,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/delivery{
 	dir = 4
@@ -2791,7 +2791,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -2938,7 +2938,7 @@
 /area/ruin/space/has_grav/deepstorage)
 "eF" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -3015,7 +3015,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3159,7 +3159,7 @@
 /area/ruin/space/has_grav/deepstorage/armory)
 "eQ" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3271,7 +3271,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -3307,7 +3307,7 @@
 /area/ruin/space/has_grav/deepstorage/power)
 "fe" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3587,7 +3587,7 @@
 /area/ruin/space/has_grav/deepstorage/power)
 "fE" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -3608,7 +3608,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/delivery{
 	dir = 4
@@ -3633,7 +3633,7 @@
 /area/ruin/space/has_grav/deepstorage/airlock)
 "fH" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/visible{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4
@@ -3695,7 +3695,7 @@
 /area/ruin/space/has_grav/deepstorage/dorm)
 "fO" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -4464,7 +4464,7 @@
 /area/ruin/space/has_grav/deepstorage/dorm)
 "hk" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -4605,7 +4605,7 @@
 /area/ruin/space/has_grav/deepstorage/crusher)
 "Rs" = (
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	dir = 4

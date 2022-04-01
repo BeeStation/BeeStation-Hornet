@@ -156,7 +156,7 @@
 	},
 /obj/structure/sign/departments/minsky/supply/hydroponics{
 	pixel_x = 32;
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)

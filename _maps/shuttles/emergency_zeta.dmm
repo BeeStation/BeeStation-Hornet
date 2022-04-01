@@ -42,7 +42,7 @@
 /area/shuttle/escape)
 "ag" = (
 /obj/machinery/computer/emergency_shuttle{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)

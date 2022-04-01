@@ -233,7 +233,7 @@
 	dir = 2
 	},
 /obj/docking_port/mobile{
-	dheight = -3;
+	dheight = 3;
 	dwidth = 11;
 	height = 13;
 	id = "huntership";

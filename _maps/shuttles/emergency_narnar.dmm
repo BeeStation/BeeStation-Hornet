@@ -28,7 +28,7 @@
 /area/shuttle/escape)
 "f" = (
 /obj/machinery/computer/emergency_shuttle{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
@@ -250,7 +250,7 @@
 /obj/effect/fun_balloon/sentience/emergency_shuttle{
 	effect_range = 5;
 	group_name = "horrible monsters on Shuttle 667";
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)

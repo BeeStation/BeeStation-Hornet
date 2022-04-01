@@ -34,7 +34,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/abandoned{
 	dir = 1
@@ -82,7 +82,7 @@
 /area/ruin/unpowered)
 "dk" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/spawner/structure/window{
 	dir = 1
@@ -103,13 +103,13 @@
 /area/ruin/unpowered)
 "fl" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "fB" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/closed/wall,
 /area/ruin/unpowered)
@@ -271,7 +271,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -357,7 +357,7 @@
 /area/ruin/unpowered)
 "qp" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
@@ -501,7 +501,7 @@
 /area/ruin/unpowered)
 "vU" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -560,7 +560,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -747,7 +747,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -863,7 +863,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -1162,7 +1162,7 @@
 /area/ruin/unpowered)
 "Si" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
@@ -1287,7 +1287,7 @@
 /area/ruin/unpowered)
 "Wn" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/spawner/structure/window/reinforced{
 	dir = 1

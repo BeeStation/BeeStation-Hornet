@@ -263,7 +263,7 @@
 	width = 17
 	},
 /obj/docking_port/mobile{
-	dheight = -3;
+	dheight = 3;
 	dir = 2;
 	dwidth = 11;
 	height = 13;

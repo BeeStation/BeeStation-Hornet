@@ -4859,7 +4859,7 @@
 	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/awaymission/cabin)
@@ -4868,7 +4868,7 @@
 	dir = 1
 	},
 /obj/item/tank/internals/emergency_oxygen/engi/empty{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/carpet,
 /area/awaymission/cabin)
