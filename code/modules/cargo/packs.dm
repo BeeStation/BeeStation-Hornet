@@ -2784,7 +2784,7 @@
 
 
 /datum/supply_pack/costumes_toys/randomised/plush
-	name = "Plushy Crate"
+	name = "Plushie Crate"
 	desc = "A crate filled with 5 plushies!"
 	cost = 1500
 	num_contained = 5
