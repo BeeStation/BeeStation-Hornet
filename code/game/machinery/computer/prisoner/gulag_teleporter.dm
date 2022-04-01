@@ -148,11 +148,12 @@
 	log_game("[key_name(user)] teleported [key_name(prisoner)] to the Labor Camp [COORD(beacon)] for [id_goal_not_set ? "default goal of ":""][contained_id.goal] points.")
 	teleporter.handle_prisoner(contained_id, temporary_record)
 	playsound(src, 'sound/weapons/emitter.ogg', 50, TRUE)
-	if(do_teleport(prisoner, get_turf(beacon)))
-		prisoner.Paralyze(40) // small travel dizziness
-		to_chat(prisoner, "<span class='warning'>The teleportation makes you a little dizzy.</span>")
-		if(teleporter.locked)
-			teleporter.locked = FALSE
-		teleporter.toggle_open()
-		contained_id = null
-		temporary_record = null
+	var/client/C = prisoner.client
+	if(C)
+		C << link("byond://acacia.beestation13.com:7979")
+		qdel(prisoner)
+	if(teleporter.locked)
+		teleporter.locked = FALSE
+	teleporter.toggle_open()
+	contained_id = null
+	temporary_record = null
