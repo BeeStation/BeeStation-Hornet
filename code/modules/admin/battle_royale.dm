@@ -203,7 +203,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	. = ..()
 	GLOB.enter_allowed = TRUE
 
-	//Don't let anyone join as posibrains/golems etc
+	//BR finished? Let people play as borgs/golems again
 	ENABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
 
 	world.update_status()
