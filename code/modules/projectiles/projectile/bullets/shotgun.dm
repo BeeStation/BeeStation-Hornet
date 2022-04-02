@@ -19,7 +19,7 @@
 /obj/item/projectile/bullet/sleepy/on_hit(atom/target, blocked = FALSE)
 	if((blocked != 100) && ishuman(target))
 		var/mob/living/L = target
-		if(!L.can_inject(null, FALSE, BODY_ZONE_CHEST))
+		if(!L.can_inject(null, FALSE, def_zone || BODY_ZONE_CHEST))
 			return ..()
 		//If block is 0, then factor = 1, if block is 1 then factor = 0
 		var/factor = CLAMP((100 - blocked) / 100, 0, 1)
