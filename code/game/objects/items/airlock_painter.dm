@@ -170,13 +170,13 @@
 /obj/item/airlock_painter/decal/afterattack(atom/target, mob/user, proximity)
 	. = ..()
 	if(!proximity)
-		to_chat(user, "<span class=notice>You need to get closer!")
+		to_chat(user, "<span class=notice>You need to get closer!</span>")
 		return
 	if(isturf(target))
 		var/turf/open/floor/F = target
 
 		if(!istype(F))
-			to_chat(user, "<span class=notice>Only floors can be painted!")
+			to_chat(user, "<span class=notice>Only floors can be painted!</span>")
 			return
 
 		if(!use_paint(user))
