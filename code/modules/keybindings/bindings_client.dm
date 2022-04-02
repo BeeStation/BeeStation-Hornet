@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 		full_key = "[AltMod][CtrlMod][ShiftMod][_key]"
 
 	var/list/kbs = list()
-	for (var/kb_name in prefs.key_bindings[full_key])
+	for (var/kb_name in prefs.key_bindings?[full_key])
 		var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 		kbs += kb
 	kbs = sortList(kbs, /proc/cmp_keybinding_dsc)
@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	// We don't do full key for release, because for mod keys you
 	// can hold different keys and releasing any should be handled by the key binding specifically
 	var/list/kbs = list()
-	for (var/kb_name in prefs.key_bindings[_key])
+	for (var/kb_name in prefs.key_bindings?[_key])
 		var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 		kbs += kb
 	kbs = sortList(kbs, /proc/cmp_keybinding_dsc)
