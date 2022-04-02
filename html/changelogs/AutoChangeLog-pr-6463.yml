@@ -1,0 +1,5 @@
+author: MNarath1
+delete-after: true
+changes:
+  - bugfix: blob spores hitting multiple times rapidly after a long chase
+  - tweak: any new proccal of goto on spores will end the previous instances
