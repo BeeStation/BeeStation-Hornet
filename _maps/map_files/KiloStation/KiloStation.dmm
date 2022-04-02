@@ -54500,7 +54500,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "bEY" = (
-/obj/effect/landmark/start/lawyer,
+/obj/effect/landmark/start/iaa,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -89092,7 +89092,7 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "cIH" = (
-/obj/effect/landmark/start/lawyer,
+/obj/effect/landmark/start/iaa,
 /obj/structure/chair/office{
 	dir = 8
 	},

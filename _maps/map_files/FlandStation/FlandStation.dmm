@@ -49422,7 +49422,7 @@
 /turf/closed/wall,
 /area/maintenance/starboard/aft)
 "lsg" = (
-/obj/effect/landmark/start/lawyer,
+/obj/effect/landmark/start/iaa,
 /obj/structure/chair/office{
 	dir = 1
 	},
@@ -56586,7 +56586,7 @@
 /obj/structure/chair/wood/wings{
 	dir = 8
 	},
-/obj/effect/landmark/start/lawyer,
+/obj/effect/landmark/start/iaa,
 /obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel,
 /area/security/courtroom)

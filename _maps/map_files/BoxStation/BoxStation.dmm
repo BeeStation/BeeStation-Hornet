@@ -7212,7 +7212,7 @@
 /area/crew_quarters/dorms)
 "asn" = (
 /obj/structure/chair/office,
-/obj/effect/landmark/start/lawyer,
+/obj/effect/landmark/start/iaa,
 /turf/open/floor/wood,
 /area/lawoffice)
 "asp" = (
@@ -40142,7 +40142,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/effect/landmark/start/lawyer,
+/obj/effect/landmark/start/iaa,
 /turf/open/floor/wood,
 /area/lawoffice)
 "cxr" = (

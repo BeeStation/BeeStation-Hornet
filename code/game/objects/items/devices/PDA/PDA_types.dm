@@ -176,6 +176,11 @@
 	icon_state = "pda-lawyer"
 	ttone = "objection"
 
+/obj/item/pda/iaa
+	name = "internal affairs agent PDA"
+	default_cartridge = /obj/item/cartridge/lawyer
+	icon_state = "pda-lawyer"
+
 /obj/item/pda/botanist
 	name = "botanist PDA"
 	//default_cartridge = /obj/item/cartridge/botanist

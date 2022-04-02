@@ -1,9 +1,9 @@
 /datum/job/lawyer
 	title = "Lawyer"
-	flag = LAWYER
+	flag = IAA
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
-	faction = "Station"
+	faction = "None"
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "the head of personnel"
@@ -19,7 +19,7 @@
 	paycheck_department = ACCOUNT_CIV
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
-	display_order = JOB_DISPLAY_ORDER_LAWYER
+	display_order = JOB_DISPLAY_ORDER_IAA
 	departments = DEPARTMENT_SERVICE
 	rpg_title = "Magistrate"
 

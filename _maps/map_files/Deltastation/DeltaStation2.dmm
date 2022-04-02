@@ -57242,7 +57242,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/effect/landmark/start/lawyer,
+/obj/effect/landmark/start/iaa,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "cfa" = (
@@ -58863,7 +58863,7 @@
 	dir = 4
 	},
 /obj/structure/cable/white,
-/obj/effect/landmark/start/lawyer,
+/obj/effect/landmark/start/iaa,
 /obj/machinery/power/apc/auto_name/west,
 /turf/open/floor/wood,
 /area/lawoffice)
@@ -59634,7 +59634,7 @@
 /area/security/courtroom)
 "cjZ" = (
 /obj/machinery/holopad,
-/obj/effect/landmark/start/lawyer,
+/obj/effect/landmark/start/iaa,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/security/courtroom)

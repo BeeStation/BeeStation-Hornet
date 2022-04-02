@@ -56413,7 +56413,7 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
-/obj/effect/landmark/start/lawyer,
+/obj/effect/landmark/start/iaa,
 /turf/open/floor/carpet,
 /area/lawoffice)
 "oCr" = (

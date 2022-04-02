@@ -160,6 +160,12 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "srvsec_headset"
 	keyslot = new /obj/item/encryptionkey/headset_srvsec
 
+/obj/item/radio/headset/headset_iaa
+	name = "internal affairs headset"
+	desc = "A headset employed by agents of the NanoTrasen Department of Internal Affairs."
+	icon_state = "sec_headset"
+	keyslot = new /obj/item/encryptionkey/headset_iaa
+
 /obj/item/radio/headset/headset_com
 	name = "command radio headset"
 	desc = "A headset with a commanding channel."

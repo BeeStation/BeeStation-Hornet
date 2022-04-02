@@ -74,6 +74,11 @@
 	icon_state = "srvsec_cypherkey"
 	channels = list(RADIO_CHANNEL_SERVICE = 1, RADIO_CHANNEL_SECURITY = 1)
 
+/obj/item/encryptionkey/headset_iaa
+	name = "internal affairs encryption key"
+	icon_state = "com_cypherkey"
+	channels = list(RADIO_CHANNEL_SECURITY = 1, RADIO_CHANNEL_COMMAND = 1)
+
 /obj/item/encryptionkey/headset_com
 	name = "command radio encryption key"
 	icon_state = "com_cypherkey"

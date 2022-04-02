@@ -34,7 +34,7 @@
 /obj/item/paper/contract/employment/attack(mob/living/M, mob/living/carbon/human/user)
 	var/deconvert = FALSE
 	if(M.mind == target && !M.owns_soul())
-		if(user.mind && (user.mind.assigned_role == "Lawyer"))
+		if(user.mind && (user.mind.assigned_role == "Lawyer" || user.mind.assigned_role == "Internal Affairs Agent"))
 			deconvert = TRUE
 		else if (user.mind && (user.mind.assigned_role =="Head of Personnel") || (user.mind.assigned_role == "CentCom Commander"))
 			deconvert = prob (25) // the HoP doesn't have AS much legal training

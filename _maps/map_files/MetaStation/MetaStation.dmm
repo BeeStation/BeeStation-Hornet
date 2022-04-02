@@ -18324,7 +18324,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "aKf" = (
-/obj/effect/landmark/start/lawyer,
+/obj/effect/landmark/start/iaa,
 /obj/structure/chair/office{
 	dir = 4
 	},
@@ -18959,7 +18959,7 @@
 /turf/open/floor/plasteel,
 /area/security/courtroom)
 "aLB" = (
-/obj/effect/landmark/start/lawyer,
+/obj/effect/landmark/start/iaa,
 /turf/open/floor/plasteel,
 /area/security/courtroom)
 "aLC" = (
@@ -19495,7 +19495,7 @@
 /turf/open/floor/wood,
 /area/lawoffice)
 "aMS" = (
-/obj/effect/landmark/start/lawyer,
+/obj/effect/landmark/start/iaa,
 /turf/open/floor/wood,
 /area/lawoffice)
 "aMT" = (
