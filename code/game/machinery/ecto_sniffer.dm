@@ -19,7 +19,6 @@
 	wires = new/datum/wires/ecto_sniffer(src)
 
 /obj/machinery/ecto_sniffer/attack_ghost(mob/user)
-	///don't call ..() due to special ghost functionality
 	if(!on || !sensor_enabled || !is_operational())
 		return
 
