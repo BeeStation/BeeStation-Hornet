@@ -25,6 +25,10 @@
 	if(ectoplasmic_residues[user.ckey])
 		to_chat(user, "<span class='warning'>You must wait for your ectoplasmic residue to decay off of [src]'s sensors!</span>")
 		return
+
+	if(is_banned_from(user.ckey, ROLE_POSIBRAIN))
+		to_chat(user, "<span class='warning'>Central Command outlawed your soul from interacting with the living...</span>")
+		return
 	activate(user)
 
 /obj/machinery/ecto_sniffer/proc/activate(mob/activator)
