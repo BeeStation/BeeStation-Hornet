@@ -203,8 +203,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	. = ..()
 	GLOB.enter_allowed = TRUE
 
-	//Toggle ghost roles back
-	GLOB.ghost_role_flags ^= (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS)
+	//Don't let anyone join as posibrains/golems etc
+	ENABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
 
 	world.update_status()
 	GLOB.battle_royale = null
@@ -271,7 +271,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	GLOB.enter_allowed = FALSE
 
 	//Don't let anyone join as posibrains/golems etc
-	GLOB.ghost_role_flags ^= (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS)
+	DISABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
 
 	world.update_status()
 	if(SSticker.current_state < GAME_STATE_PREGAME)
