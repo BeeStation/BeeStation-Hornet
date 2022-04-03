@@ -109,6 +109,7 @@
 			return
 
 	eyeobj.setLoc(get_turf(ai_tracking_target))
+
 /proc/near_camera(mob/living/M)
 	if (!isturf(M.loc))
 		return FALSE
