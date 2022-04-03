@@ -59708,7 +59708,7 @@
 /area/security/courtroom)
 "cke" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp,
+/obj/machinery/faxmachine,
 /obj/item/radio/intercom{
 	pixel_x = -26
 	},
@@ -59717,6 +59717,7 @@
 "ckf" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
+/obj/item/flashlight/lamp,
 /turf/open/floor/wood,
 /area/lawoffice)
 "ckg" = (

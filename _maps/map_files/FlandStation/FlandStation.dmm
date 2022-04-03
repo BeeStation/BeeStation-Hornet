@@ -31140,6 +31140,7 @@
 /obj/machinery/status_display/evac{
 	pixel_x = 32
 	},
+/obj/item/toy/figure/lawyer,
 /turf/open/floor/wood,
 /area/lawoffice)
 "hdx" = (
@@ -51777,7 +51778,9 @@
 	},
 /obj/item/folder/red,
 /obj/item/stamp/law,
+/obj/item/paper_bin,
 /obj/structure/disposalpipe/segment,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "lUG" = (
@@ -54067,13 +54070,7 @@
 /area/engine/gravity_generator)
 "mww" = (
 /obj/structure/table/wood,
-/obj/item/folder/yellow,
-/obj/item/paper_bin,
-/obj/item/toy/figure/lawyer,
-/obj/item/clothing/glasses/sunglasses/advanced/big{
-	pixel_x = 3;
-	pixel_y = 3
-	},
+/obj/machinery/faxmachine,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "mwC" = (

@@ -6965,10 +6965,7 @@
 /area/lawoffice)
 "are" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp/green{
-	pixel_x = 1;
-	pixel_y = 5
-	},
+/obj/machinery/faxmachine,
 /turf/open/floor/wood,
 /area/lawoffice)
 "arf" = (
@@ -7115,6 +7112,7 @@
 	pixel_x = 5;
 	pixel_y = 10
 	},
+/obj/item/flashlight/lamp/green,
 /turf/open/floor/wood,
 /area/lawoffice)
 "arZ" = (

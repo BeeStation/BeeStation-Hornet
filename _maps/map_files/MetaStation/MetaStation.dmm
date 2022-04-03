@@ -17837,10 +17837,6 @@
 /area/security/courtroom)
 "aIU" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp/green{
-	pixel_x = 1;
-	pixel_y = 5
-	},
 /obj/machinery/requests_console{
 	department = "Law office";
 	pixel_y = 32
@@ -17848,6 +17844,7 @@
 /obj/machinery/newscaster{
 	pixel_x = -31
 	},
+/obj/machinery/faxmachine,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "aIV" = (
@@ -18981,6 +18978,7 @@
 /obj/item/folder/red,
 /obj/item/folder/red,
 /obj/item/clothing/glasses/sunglasses/advanced/big,
+/obj/item/flashlight/lamp/green,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "aLF" = (

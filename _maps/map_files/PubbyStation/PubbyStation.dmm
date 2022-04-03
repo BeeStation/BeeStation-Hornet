@@ -50451,7 +50451,7 @@
 /area/engine/engineering)
 "gAG" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp/green,
+/obj/machinery/faxmachine,
 /turf/open/floor/carpet,
 /area/lawoffice)
 "gCd" = (
@@ -60933,6 +60933,7 @@
 /obj/item/folder/blue,
 /obj/item/folder/blue,
 /obj/item/clothing/glasses/sunglasses/advanced,
+/obj/item/flashlight/lamp/green,
 /turf/open/floor/carpet,
 /area/lawoffice)
 "uAZ" = (
