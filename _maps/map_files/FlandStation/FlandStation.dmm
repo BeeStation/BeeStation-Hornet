@@ -39936,6 +39936,7 @@
 	pixel_y = 7
 	},
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/book/granter/spell/smoke/lesser,
 /turf/open/floor/plasteel/cult,
 /area/chapel/office)
 "jcL" = (

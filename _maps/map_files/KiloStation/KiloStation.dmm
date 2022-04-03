@@ -47008,6 +47008,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
 /obj/item/soulstone/anybody/chaplain,
 /obj/item/organ/heart,
+/obj/item/book/granter/spell/smoke/lesser,
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
 "btb" = (
