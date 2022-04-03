@@ -290,11 +290,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		SSticker.start_immediately = TRUE
 	SEND_SOUND(world, sound('sound/misc/server-ready.ogg'))
 	sleep(50)
-	//Clear client mobs
+	//Clear all living mobs
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Clearing world mobs.</span>")
-	for(var/mob/M as() in GLOB.player_list)
-		if(isliving(M))
-			qdel(M)
+	for(var/mob/living/M as() in GLOB.mob_living_list)
+		qdel(M)
 		CHECK_TICK
 	sleep(50)
 	to_chat(world, "<span class='greenannounce'>Battle Royale: STARTING IN 30 SECONDS.</span>")
