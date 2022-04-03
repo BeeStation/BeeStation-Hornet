@@ -71,7 +71,7 @@
 	ai_start_tracking(target.resolve())
 
 /mob/living/silicon/ai/proc/ai_start_tracking(mob/living/target) //starts ai tracking
-	if(!eyeobj || !target || !target.can_track(src))
+	if(!target || !target.can_track(src))
 		to_chat(src, "<span class='warning'>Target is not near any active cameras.</span>")
 		return
 	if(ai_tracking_target) //if there is already a tracking going when this gets called makes sure the old tracking gets stopped before we register the new signals
@@ -108,12 +108,7 @@
 			to_chat(src, "<span class='warning'>Target is not near any active cameras. Attempting to reacquire...</span>")
 			return
 
-	if(eyeobj)
 		eyeobj.setLoc(get_turf(ai_tracking_target))
-	else
-		ai_stop_tracking()
-		view_core()
-
 /proc/near_camera(mob/living/M)
 	if (!isturf(M.loc))
 		return FALSE
