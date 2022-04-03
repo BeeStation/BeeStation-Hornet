@@ -99902,6 +99902,21 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/fore)
+"rpk" = (
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/mob/living/carbon/monkey{
+	name = "Ook";
+	unique_name = 0
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/security/warden)
 "rrF" = (
 /obj/machinery/door/firedoor,
 /obj/structure/door_assembly/door_assembly_ext{
@@ -124452,7 +124467,7 @@ cht
 bPE
 cLV
 cwN
-bkT
+rpk
 aiZ
 bWN
 acp
