@@ -1012,6 +1012,11 @@
 	riding_datum.handle_vehicle_layer()
 	. = ..(target, force, check_loc)
 
+	//Something went wrong with buckling, unbuckle!
+	if(!.)
+		SEND_SIGNAL(src, COMSIG_MOVABLE_UNBUCKLE, target, force)
+		to_chat(src, "<span class='warning'>You seem to be unable to buckle [target] to yourself!</span>")
+
 /mob/living/carbon/human/proc/is_shove_knockdown_blocked() //If you want to add more things that block shove knockdown, extend this
 	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, ears, wear_id) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)

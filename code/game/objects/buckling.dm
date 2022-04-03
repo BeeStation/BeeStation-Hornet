@@ -53,7 +53,6 @@
 		buckled_mobs = list()
 
 	if(!is_buckle_possible(M, force, check_loc))
-		SEND_SIGNAL(src, COMSIG_MOVABLE_UNBUCKLE, M, force)
 		return FALSE
 
 	M.buckling = src
@@ -63,7 +62,6 @@
 		else
 			to_chat(usr, "<span class='warning'>You are unable to buckle [M] to [src]!</span>")
 		M.buckling = null
-		SEND_SIGNAL(src, COMSIG_MOVABLE_UNBUCKLE, M, force)
 		return FALSE
 
 	if(M.pulledby)

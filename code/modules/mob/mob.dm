@@ -944,7 +944,6 @@
   */
 /mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(M.buckled)
-		SEND_SIGNAL(src, COMSIG_MOVABLE_UNBUCKLE, M, force)
 		return FALSE
 	var/turf/T = get_turf(src)
 	if(M.loc != T)
@@ -953,7 +952,6 @@
 		var/can_step = step_towards(M, T)
 		density = old_density
 		if(!can_step)
-			SEND_SIGNAL(src, COMSIG_MOVABLE_UNBUCKLE, M, force)
 			return FALSE
 	return ..()
 
