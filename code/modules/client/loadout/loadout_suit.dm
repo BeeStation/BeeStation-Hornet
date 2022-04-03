@@ -134,17 +134,17 @@
 /datum/gear/suit/jacket/lawyer
 	display_name = "blue suit jacket"
 	path = /obj/item/clothing/suit/toggle/lawyer
-	allowed_roles = list("Lawyer")
+	allowed_roles = list("Lawyer", "Internal Affairs Agent")
 
 /datum/gear/suit/jacket/lawyer/purple
 	display_name = "purple suit jacket"
 	path = /obj/item/clothing/suit/toggle/lawyer/purple
-	allowed_roles = list("Lawyer")
+	allowed_roles = list("Lawyer", "Internal Affairs Agent")
 
 /datum/gear/suit/jacket/lawyer/black
 	display_name = "black suit jacket"
 	path = /obj/item/clothing/suit/toggle/lawyer/black
-	allowed_roles = list("Lawyer")
+	allowed_roles = list("Lawyer", "Internal Affairs Agent")
 
 //PONCHOS
 
