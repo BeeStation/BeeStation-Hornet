@@ -97,16 +97,14 @@
 /mob/living/silicon/ai/proc/ai_actual_track() //proc that gets called by the moved signal of the target
 	SIGNAL_HANDLER
 	if(ai_tracking_target.can_track(src))
-		if(reacquire_timer)
+		if(reacquire_timer)	//if we can track our target again but there is a timer running delete the timer and null the timer id
 			deltimer(reacquire_timer)
 			reacquire_timer = null
 	else
-		if(reacquire_timer)
-			return
-		else
+		if(!reacquire_timer)
 			reacquire_timer = addtimer(CALLBACK(src, .proc/ai_stop_tracking, TRUE), 10 SECONDS, TIMER_STOPPABLE) //A timer for how long to wait before we stop tracking someone after loosing them
 			to_chat(src, "<span class='warning'>Target is not near any active cameras. Attempting to reacquire...</span>")
-			return
+		return
 
 	eyeobj.setLoc(get_turf(ai_tracking_target))
 
