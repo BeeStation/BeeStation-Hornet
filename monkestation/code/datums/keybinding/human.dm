@@ -1,102 +1,20 @@
 //Quick Emote Binds
-
 /datum/keybinding/emote
 	category = CATEGORY_EMOTE
-	weight = WEIGHT_LIVING
+	weight = WEIGHT_EMOTE
+	var/emote_key
+	keybind_signal = COMSIG_KB_EMOTE_QUICK_EMOTE
+
+/datum/keybinding/emote/proc/link_to_emote(datum/emote/faketype)
+	key = "Unbound"
+	emote_key = initial(faketype.key)
+	name = initial(faketype.key)
+	full_name = capitalize(initial(faketype.key))
+	description = "Do the emote '*[emote_key]'"
 
 /datum/keybinding/emote/down(client/user)
 	. = ..()
-	if(ishuman(user.mob))
-		var/mob/living/carbon/human/Player = user.mob
-		Player.emote(name)
-		spawn(10)
-			Player.emote_cooling_down = FALSE
-
-/datum/keybinding/emote/fart
-	key = "Shift-F"
-	goon_key = "F" //time to accidently fart on the bible oh no
-	name = "fart"
-	full_name = "Fart"
-	description = "GAS GAS GAS..."
-	keybind_signal = COMSIG_KB_EMOTE_QUICK_FART
-
-/datum/keybinding/emote/fart/down(client/user)
-	if(ishuman(user.mob) && user.mob.stat == CONSCIOUS)
-		var/mob/living/carbon/human/Player = user.mob
-		if(!Player.emote_cooling_down)
-			Player.emote_cooling_down = TRUE
-			..()
-
-/datum/keybinding/emote/scream
-	key = "Shift-R"
-	goon_key = "Ctrl-S"
-	name = "scream"
-	full_name = "Scream"
-	description = "AAAAAAAAaaaaaaaaaAAAAAAAAAA"
-	keybind_signal = COMSIG_KB_EMOTE_QUICK_SCREAM
-
-/datum/keybinding/emote/scream/down(client/user)
-	if(ishuman(user.mob) && user.mob.stat == CONSCIOUS)
-		var/mob/living/carbon/human/Player = user.mob
-		if(!Player.emote_cooling_down)
-			Player.emote_cooling_down = TRUE
-			Player.adjustOxyLoss(5)
-			..()
-
-/datum/keybinding/emote/clap
-	key = "Unbound"
-	name = "clap"
-	full_name = "Clap"
-	description = "BRAVO, BRAVO!"
-	keybind_signal = COMSIG_KB_EMOTE_QUICK_CLAP
-
-/datum/keybinding/emote/clap/down(client/user)
-	if(ishuman(user.mob) && user.mob.stat == CONSCIOUS)
-		var/mob/living/carbon/human/Player = user.mob
-		if(!Player.emote_cooling_down)
-			Player.emote_cooling_down = TRUE
-			..()
-
-/datum/keybinding/emote/flip
-	key = "Unbound"
-	goon_key = "R"
-	name = "flip"
-	full_name = "Flip"
-	description = "Flip out"
-	keybind_signal = COMSIG_KB_EMOTE_QUICK_FLIP
-
-/datum/keybinding/emote/flip/down(client/user)
-	if(ishuman(user.mob) && user.mob.stat == CONSCIOUS)
-		var/mob/living/carbon/human/Player = user.mob
-		if(!Player.emote_cooling_down && !Player.IsStun())
-			Player.emote_cooling_down = TRUE
-			if(Player.dizziness >= 20)
-				Player.vomit()
-				spawn(10)
-					Player.emote_cooling_down = FALSE
-				return
-			Player.dizziness++
-			..()
-
-/datum/keybinding/emote/spin
-	key = "Unbound"
-	name = "spin"
-	full_name = "Spin"
-	description = "Spin to win"
-	keybind_signal = COMSIG_KB_EMOTE_QUICK_SPIN
-
-/datum/keybinding/emote/spin/down(client/user)
-	if(ishuman(user.mob) && user.mob.stat == CONSCIOUS)
-		var/mob/living/carbon/human/Player = user.mob
-		if(!Player.emote_cooling_down && !Player.IsStun())
-			Player.emote_cooling_down = TRUE
-			if(Player.dizziness >= 20)
-				Player.vomit()
-				spawn(10)
-					Player.emote_cooling_down = FALSE
-				return
-			Player.dizziness++
-			..()
+	return user.mob.emote(emote_key, intentional=TRUE)
 
 /datum/keybinding/human/equip_swap
 	key = "Alt-E"
@@ -112,4 +30,3 @@
 	var/mob/living/carbon/human/H = user.mob
 	H.equip_swap()
 	return TRUE
-

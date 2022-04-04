@@ -79,6 +79,7 @@
 		GLOB.goon_keybinding_list_by_key[key] = sortList(GLOB.goon_keybinding_list_by_key[key])
 
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
+	init_emote_keybinds() //MonkeStation Edit: /tg/ Emote Hotkey Port
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.

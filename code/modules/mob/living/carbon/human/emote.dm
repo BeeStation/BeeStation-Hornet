@@ -65,6 +65,7 @@
 		return
 	// MonkeStation Edit Start
 	//Ease of adding new emotes to species
+	H.adjustOxyLoss(5)
 	var/species = H.dna.species.id
 	var/list/options
 	if(user.gender == FEMALE)

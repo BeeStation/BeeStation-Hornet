@@ -19,4 +19,4 @@
 	return FALSE
 
 /mob/camera/emote(act, m_type=1, message = null, intentional = FALSE)
-	return
+	return FALSE //MonkeStation Edit

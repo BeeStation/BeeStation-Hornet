@@ -59,7 +59,3 @@
 	var/lastpuke = 0
 	var/last_fire_update
 	var/account_id
-
-	//MonkeStation Edit: Emote Hotkey Cooldowns
-	var/emote_cooling_down = FALSE
-
