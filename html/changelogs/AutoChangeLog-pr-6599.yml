@@ -1,0 +1,6 @@
+author: ike709
+delete-after: true
+changes:
+  - rscadd: People running a local testing server through VSCode will now get a big
+      warning reminding them to disable breakpoints on runtime errors.
+  - bugfix: Fixed a keybind runtime caused by guest ckeys.
