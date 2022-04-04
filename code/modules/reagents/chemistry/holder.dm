@@ -972,10 +972,11 @@
 
 	// returns a pick from a static before making a list - saving memory
 	var/j = 0
-	for(var/each_define in chem_defines)
-		j += 1
-		if(each_define == flag_check)
-			return pick(random_reagent[j])
+	if(!blacklist_flag)
+		for(var/each_define in chem_defines)
+			j += 1
+			if(each_define == flag_check)
+				return pick(random_reagent[j])
 
 	// if flag_check has multiple bitflags, then we're going to make a possible list.
 	var/list/possible = list()
