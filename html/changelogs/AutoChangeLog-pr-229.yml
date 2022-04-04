@@ -1,0 +1,6 @@
+author: nednaZ
+delete-after: true
+changes:
+  - rscadd: All emotes may now be bound to hotkeys
+  - tweak: All screams do 5 oxyloss each now
+  - tweak: Emote cooldown lowered to 0.75 seconds
