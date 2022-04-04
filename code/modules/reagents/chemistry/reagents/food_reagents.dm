@@ -537,9 +537,9 @@
 	name = "Vanilla Powder"
 	description = "A fatty, bitter paste made from vanilla pods."
 	reagent_state = SOLID
-	nutriment_factor = 5 * REAGENTS_METABOLISM | CHEMICAL_GOAL_BOTANIST_HARVEST
+	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#FFFACD"
-	chem_flags = NONE
+	chem_flags = CHEMICAL_GOAL_BOTANIST_HARVEST
 	taste_description = "vanilla"
 
 /datum/reagent/consumable/eggyolk
