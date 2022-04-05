@@ -77,6 +77,45 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 			endx = world.maxx-(TRANSITIONEDGE+1)
 	. = locate(endx, endy, Z)
 
+//These two procs give space debris start and end turfs with a higher chance of hitting the center of the station
+/proc/aimbotDebrisStartLoc(startSide, Z)
+	var/starty
+	var/startx
+	var/generator/G = generator("num", TRANSITIONEDGE + 1, world.maxx - (TRANSITIONEDGE + 1), "NORMAL_RAND")
+	switch(startSide)
+		if(NORTH)
+			starty = world.maxy-(TRANSITIONEDGE+1)
+			startx = G.Rand()
+		if(EAST)
+			starty = G.Rand()
+			startx = world.maxx-(TRANSITIONEDGE+1)
+		if(SOUTH)
+			starty = (TRANSITIONEDGE+1)
+			startx = G.Rand()
+		if(WEST)
+			starty = G.Rand()
+			startx = (TRANSITIONEDGE+1)
+	. = locate(startx, starty, Z)
+
+/proc/aimbotDebrisFinishLoc(startSide, Z)
+	var/endy
+	var/endx
+	var/generator/G = generator("num", TRANSITIONEDGE + 1, world.maxx - (TRANSITIONEDGE + 1), NORMAL_RAND)
+	switch(startSide)
+		if(NORTH)
+			endy = (TRANSITIONEDGE+1)
+			endx = G.Rand()
+		if(EAST)
+			endy = G.Rand()
+			endx = (TRANSITIONEDGE+1)
+		if(SOUTH)
+			endy = world.maxy-(TRANSITIONEDGE+1)
+			endx = G.Rand()
+		if(WEST)
+			endy = G.Rand()
+			endx = world.maxx-(TRANSITIONEDGE+1)
+	. = locate(endx, endy, Z)
+
 ///////////////////////
 //The meteor effect
 //////////////////////

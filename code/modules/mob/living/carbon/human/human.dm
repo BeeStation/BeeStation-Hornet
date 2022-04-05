@@ -1084,9 +1084,6 @@
 /mob/living/carbon/human/species/apid
 	race = /datum/species/apid
 
-/mob/living/carbon/human/species/corporate
-	race = /datum/species/corporate
-
 /mob/living/carbon/human/species/dullahan
 	race = /datum/species/dullahan
 
@@ -1207,8 +1204,6 @@
 /mob/living/carbon/human/species/moth
 	race = /datum/species/moth
 
-/mob/living/carbon/human/species/mush
-	race = /datum/species/mush
 
 /mob/living/carbon/human/species/plasma
 	race = /datum/species/plasmaman
