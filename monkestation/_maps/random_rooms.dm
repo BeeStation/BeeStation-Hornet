@@ -55,3 +55,23 @@
 	template_width = 10
 	weight = 2
 	stock = 1
+
+/datum/map_template/random_room/mailman_mailroom_3x5
+	name = "Small Mailroom"
+	room_id = "Mailroom_3x5"
+	mappath = "monkestation/_maps/RandomRooms/3x5/mailman_mailroom_3x5.dmm"
+	centerspawner = FALSE
+	template_width = 3
+	template_height = 5
+	weight = 7
+	stock = 1
+
+/datum/map_template/random_room/mailman_mailroom_10x5
+	name = "Mailroom"
+	room_id = "Mailroom_10x5"
+	mappath = "monkestation/_maps/RandomRooms/10x5/mailroom_10x5.dmm"
+	centerspawner = FALSE
+	template_width = 10
+	template_height = 5
+	weight = 6
+	stock = 1

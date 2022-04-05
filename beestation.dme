@@ -3510,6 +3510,7 @@
 #include "monkestation\code\datums\traits\negative.dm"
 #include "monkestation\code\datums\traits\neutral.dm"
 #include "monkestation\code\game\area\Space_Station_13_areas.dm"
+#include "monkestation\code\game\objects\effects\landmarks.dm"
 #include "monkestation\code\game\objects\effects\misc.dm"
 #include "monkestation\code\game\objects\effects\decals\cleanable\chemicalmesses.dm"
 #include "monkestation\code\game\objects\effects\decals\cleanable\misc.dm"
