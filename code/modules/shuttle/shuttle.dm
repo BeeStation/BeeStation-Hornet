@@ -311,7 +311,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	///if this shuttle can move docking ports other than the one it is docked at
 	var/can_move_docking_ports = FALSE
 	var/list/hidden_turfs = list()
-
+	var/list/towed_shuttles = list()
 	var/list/underlying_turf_area = list()
 
 	//The virtual Z-Value of the shuttle
@@ -329,6 +329,8 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		previous = null
 		QDEL_NULL(assigned_transit)		//don't need it where we're goin'!
 		shuttle_areas = null
+		towed_shuttles = null
+		underlying_turf_area = null
 		remove_ripples()
 	. = ..()
 
@@ -350,26 +352,31 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	var/base_length = length(T.baseturfs)
 	var/skipover_index = 2 //We should always leave atleast something else below our skipover
 
+	var/BT
 	for(var/i in 0 to base_length-1) //Place the skipover after the first blacklisted baseturf from the top
-		if(GLOB.shuttle_turf_blacklist[T.baseturfs[base_length - i]])
+		BT = T.baseturfs[base_length - i]
+		if(BT == /turf/baseturf_skipover/shuttle) //This is a shuttle and we can't build on it
+			if(length(T.baseturfs) == 1)
+				T.baseturfs = T.baseturfs[1] //Back to a single value. I wish this wasn't a thing but I fear everything would break if I left it as a list
+			return TRUE
+		if(GLOB.shuttle_turf_blacklist[BT])
 			skipover_index = base_length - i + 1
 			break
+	T.baseturfs.Insert(skipover_index, /turf/baseturf_skipover/shuttle)
 
-	var/area/current_area = T.loc
-
+	var/area/shuttle/current_area = T.loc
+	//Account for building on shuttles
+	if(istype(current_area) && current_area.mobile_port)
+		current_area.mobile_port.towed_shuttles |= src
 	//add to underlying_turf_area
 	var/obj/docking_port/stationary/dock = get_docked()
 	var/area/old_area = dock?.get_underlying_area()
 	if(T.loc != old_area)
 		underlying_turf_area[T] = current_area
-
+	//Change areas
 	current_area.contents -= T
 	A.contents += T
 	T.change_area(current_area, A)
-	if(!(/turf/baseturf_skipover/shuttle in T.baseturfs))
-		T.baseturfs.Insert(skipover_index, /turf/baseturf_skipover/shuttle)
-	if(length(T.baseturfs) == 1)
-		T.baseturfs = T.baseturfs[1] //Back to a single value. I wish this wasn't a thing but I fear everything would break if I left it as a list
 
 /obj/docking_port/mobile/proc/remove_turf(var/turf/T)
 
@@ -393,6 +400,22 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	for(var/area/shuttleArea in shuttle_areas)
 		for(var/turf/T in shuttleArea.contents)
 			. += 1
+
+/obj/docking_port/mobile/return_ordered_turfs(_x, _y, _z, _dir, include_towed = TRUE)
+	if(!include_towed) //I hate this, but I need to access the superfunction somehow.
+		return ..()
+	. = list()
+	for(var/obj/docking_port/mobile/M in get_all_towed_shuttles())
+		. |= M.return_ordered_turfs(_x + (M.x - src.x), _y + (M.y - src.y), _z + (M.z - src.z), angle2dir(dir2angle(_dir) + (dir2angle(M.dir) - dir2angle(src.dir))), include_towed = FALSE)
+
+//Crawl through towed shuttles to get a list of all shuttles being towed
+/obj/docking_port/mobile/proc/get_all_towed_shuttles()
+	. = list(src)
+	var/obj/docking_port/mobile/M
+	var/dequeue_pointer = 0
+	while(dequeue_pointer++ < length(.))
+		M = .[dequeue_pointer]
+		. |= M.towed_shuttles
 
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()

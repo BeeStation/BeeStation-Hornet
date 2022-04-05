@@ -35,7 +35,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/overwritten_area = /area/space
 	var/list/loggedTurfs = list()
 	var/area/loggedOldArea
-	var/area/recorded_shuttle_area
+	var/area/shuttle/recorded_shuttle_area
 	var/datum/shuttle_creator_overlay_holder/overlay_holder
 	//After designation
 	var/linkedShuttleId
@@ -254,6 +254,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	for(var/turf/T in loggedTurfs)
 		port.add_turf(T, recorded_shuttle_area)
 	recorded_shuttle_area.reg_in_areas_in_z()
+	recorded_shuttle_area.link_to_shuttle(port)
 	port.linkup(new_shuttle, stationary_port)
 
 	//Update doors

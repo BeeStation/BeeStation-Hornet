@@ -106,7 +106,10 @@
 			return DOCKING_NULL_SOURCE
 
 		var/area/old_area = oldT.loc
-		var/move_mode = old_area.beforeShuttleMove(shuttle_areas)											//areas
+		var/list/area/all_shuttle_areas = list()
+		for(var/obj/docking_port/mobile/M in get_all_towed_shuttles())
+			all_shuttle_areas |= M.shuttle_areas
+		var/move_mode = old_area.beforeShuttleMove(all_shuttle_areas)											//areas
 
 		var/list/old_contents = oldT.contents
 		for(var/k in 1 to old_contents.len)
@@ -125,7 +128,8 @@
 		old_turfs[oldT] = move_mode
 
 /obj/docking_port/mobile/proc/takeoff(obj/docking_port/stationary/new_dock, list/old_turfs, list/new_turfs, list/moved_atoms, rotation, movement_direction, old_dock, area/underlying_old_area)
-	var/area/new_dock_underlying_area = new_dock.get_underlying_area() //If there's no area, we're relying completely on the assoc list
+	var/obj/docking_port/mobile/all_towed_shuttles = get_all_towed_shuttles()
+	var/list/parent_shuttles = list() //Keep track of what shuttles we're landing on in case we're relanding on a shuttle we were on.
 	for(var/i in 1 to old_turfs.len)
 		var/turf/oldT = old_turfs[i]
 		var/turf/newT = new_turfs[i]
@@ -135,7 +139,7 @@
 				var/atom/movable/moving_atom = k
 				if(moving_atom.loc != oldT) //fix for multi-tile objects
 					continue
-				moving_atom.onShuttleMove(newT, oldT, movement_force, movement_direction, old_dock, src)							//atoms
+				moving_atom.onShuttleMove(newT, oldT, movement_force, movement_direction, old_dock, src)				//atoms
 				moved_atoms[moving_atom] = oldT
 
 		if(move_mode & MOVE_TURF)
@@ -148,14 +152,37 @@
 				if(!A || istype(A)) //Area is no longer a shuttle area (This assumes there will never be a value for GLOB.areas_by_type[/area/shuttle])
 					break
 				M = A.mobile_port
-			oldT.onShuttleMove(newT, movement_force, movement_direction, shuttle_layers)											//turfs
+			oldT.onShuttleMove(newT, movement_force, movement_direction, shuttle_layers)								//turfs
 
 		if(move_mode & MOVE_AREA)
-			var/area/shuttle_area = oldT.loc
-			var/area/target_area = newT.loc
-			shuttle_area.onShuttleMove(oldT, newT, underlying_turf_area[oldT] ? underlying_turf_area[oldT] : underlying_old_area)	//areas
-			underlying_turf_area -= oldT
-			underlying_turf_area[newT] = new_dock_underlying_area == target_area ? null : target_area
+			var/area/shuttle/shuttle_area = oldT.loc //The area on the shuttle, typecasted for the checks further down
+			var/area/shuttle/target_area = newT.loc //The area we're landing on
+			var/area/shuttle/new_area //The area that we leave behind
+			var/obj/docking_port/mobile/M = istype(shuttle_area) ? shuttle_area?.mobile_port : null
+			var/obj/docking_port/mobile/bottom_shuttle = src //I'm just going to swallow my pride and make this its own var
+			var/obj/docking_port/stationary/S
+			var/area/new_dock_underlying_area
+			while(M in all_towed_shuttles)
+				S = M.get_docked()
+				new_dock_underlying_area = S?.get_underlying_area() //If there's no area, we're relying completely on the assoc list
+				new_area = M.underlying_turf_area[oldT] ? M.underlying_turf_area[oldT] : new_dock_underlying_area //Grab before we make changes
+				if(oldT in M.underlying_turf_area) //Update nested shuttle's underlying_turf_area list
+					underlying_turf_area -= oldT
+					underlying_turf_area[newT] =  new_area
+				bottom_shuttle = M // ):
+				M = istype(new_area) ? new_area?.mobile_port : null //Next shuttle
+			if(new_dock_underlying_area != target_area) //Place the target area under our shuttle
+				bottom_shuttle.underlying_turf_area[newT] =  target_area
+			if(!new_area) //This needs to not be null
+				new_area = SHUTTLE_UNDERLYING_AREA(S)
+			if(istype(new_area) && new_area.mobile_port && !(new_area.mobile_port in parent_shuttles) && (bottom_shuttle in new_area.mobile_port.towed_shuttles)) //Remove bottom shuttle from old parent shuttle's towed_shuttles
+				new_area.mobile_port.towed_shuttles -= bottom_shuttle
+			if(istype(target_area) && target_area.mobile_port) //Add bottom shuttle from new parent shuttle's towed_shuttles
+				target_area.mobile_port.towed_shuttles |= bottom_shuttle
+				parent_shuttles |= target_area.mobile_port
+
+			shuttle_area.onShuttleMove(oldT, newT, new_area)															//areas
+
 
 
 /obj/docking_port/mobile/proc/cleanup_runway(obj/docking_port/stationary/new_dock, list/old_turfs, list/new_turfs, list/areas_to_move, list/moved_atoms, rotation, movement_direction, area/underlying_old_area)
