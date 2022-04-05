@@ -235,6 +235,9 @@
 /datum/config_entry/string/alert_red_downto
 	config_entry_value = "The station's destruction has been averted. There is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised."
 
+/datum/config_entry/string/alert_omega
+	config_entry_value = "Attention, Code Omega has been initiated. Consider all employment contracts terminated, effective immediately."
+
 /datum/config_entry/string/alert_delta
 	config_entry_value = "Destruction of the station is imminent. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill."
 
