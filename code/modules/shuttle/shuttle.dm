@@ -309,7 +309,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	var/shuttle_object_type = /datum/orbital_object/shuttle
 
 /obj/docking_port/mobile/proc/register()
-	SSshuttle.mobile += src
+	SSshuttle.mobile |= src
 
 /obj/docking_port/mobile/Destroy(force)
 	if(force)
