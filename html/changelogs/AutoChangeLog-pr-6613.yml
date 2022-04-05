@@ -1,0 +1,4 @@
+author: OverwatchVoice
+delete-after: true
+changes:
+  - bugfix: Meclizine effects now get removed when fully metabolized
