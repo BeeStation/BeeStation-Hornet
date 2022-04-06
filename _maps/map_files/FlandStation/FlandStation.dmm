@@ -39935,9 +39935,8 @@
 	pixel_x = 8;
 	pixel_y = 7
 	},
-/obj/item/book/granter/spell/smoke/lesser{
-	name = "mysterious old book of cloud-chasing"
-	},
+/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/book/granter/spell/smoke/lesser,
 /turf/open/floor/plasteel/cult,
 /area/chapel/office)
 "jcL" = (
@@ -42451,7 +42450,6 @@
 /area/crew_quarters/toilet/restrooms)
 "jJR" = (
 /obj/structure/table/wood,
-/obj/item/nullrod,
 /obj/item/folder,
 /turf/open/floor/carpet,
 /area/chapel/office)

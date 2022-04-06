@@ -46992,16 +46992,14 @@
 /area/chapel/office)
 "bta" = (
 /obj/structure/table/wood/fancy,
-/obj/item/book/granter/spell/smoke/lesser{
-	pixel_y = 4
-	},
-/obj/item/nullrod{
-	pixel_x = 4;
-	pixel_y = 4
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/item/clothing/suit/hooded/chaplain_hoodie,
+/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/soulstone/anybody/chaplain,
+/obj/item/organ/heart,
+/obj/item/book/granter/spell/smoke/lesser,
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
 "btb" = (
@@ -85287,10 +85285,9 @@
 /area/maintenance/fore)
 "cBg" = (
 /obj/structure/closet/crate,
-/obj/item/clothing/suit/hooded/chaplain_hoodie,
-/obj/item/reagent_containers/food/drinks/bottle/holywater,
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
