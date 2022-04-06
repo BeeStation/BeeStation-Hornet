@@ -1,0 +1,8 @@
+author: LemonLimeSoda
+delete-after: true
+changes:
+  - tweak: Chaplains now come with their null rods and armor beacons
+  - tweak: Null rods have been removed from the hidden chapel locations across maps,
+      and the chaplain's armaments beacons have been removed from ChapDrobes.
+  - bugfix: Newly spawned null rods can be reskinned and newly spawned holy armor
+      beacons actually work (instead of deleting themselves).
