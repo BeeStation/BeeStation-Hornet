@@ -291,15 +291,15 @@
 /obj/item/melee/touch_attack/acidooze/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!isoozeling(user))
 		return
-	var/mob/living/carbon/human/H = user
+	var/mob/living/carbon/C = user
 	if(!target || user.incapacitated())
 		return FALSE
-	if(H.blood_volume < 40)
+	if(C.blood_volume < 40)
 		to_chat(user, "<span class='warning'>You don't have enough blood to do that!</span>")
 		return FALSE
 	if(target.acid_act(50, 15))
 		user.visible_message("<span class='warning'>[user] rubs globs of vile stuff all over [target].</span>")
-		H.blood_volume = max(H.blood_volume - 20, 0)
+		C.blood_volume = max(C.blood_volume - 20, 0)
 		return ..()
 	else
 		to_chat(user, "<span class='notice'>You cannot dissolve this object.</span>")

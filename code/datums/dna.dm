@@ -320,12 +320,13 @@
 			var/species_holder = initial(mrace.species_language_holder)
 			language_holder = new species_holder(src)
 		update_atom_languages()
+		if(icon_update)
+			update_mutations_overlay()// no lizard with human hulk overlay please.
 
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
 	..()
 	if(icon_update)
 		update_hair()
-		update_mutations_overlay()// no lizard with human hulk overlay please.
 
 
 /mob/proc/has_dna()
@@ -575,7 +576,7 @@
 
 /////////////////////////// DNA HELPER-PROCS
 
-/mob/living/carbon/human/proc/something_horrible(ignore_stability)
+/mob/living/carbon/proc/something_horrible(ignore_stability)
 	if(!has_dna()) //shouldn't ever happen anyway so it's just in really weird cases
 		return
 	if(!ignore_stability && (dna.stability > 0))
@@ -586,18 +587,24 @@
 	if(prob(max(70-instability,0)))
 		switch(rand(0,10)) //not complete and utter death
 			if(0)
-				monkeyize()
+				teratomize()
 			if(1)
 				gain_trauma(/datum/brain_trauma/severe/paralysis/paraplegic)
 				new/obj/vehicle/ridden/wheelchair(get_turf(src)) //don't buckle, because I can't imagine to plethora of things to go through that could otherwise break
 				to_chat(src, "<span class='warning'>My flesh turned into a wheelchair and I can't feel my legs.</span>")
 			if(2)
-				corgize()
+				if(ishuman(src))
+					var/mob/living/carbon/human/H = src
+					H.corgize()
+				else
+					to_chat(src, "<span class='notice'>Oh, I actually feel quite alright!</span>")
 			if(3)
 				to_chat(src, "<span class='notice'>Oh, I actually feel quite alright!</span>")
 			if(4)
 				to_chat(src, "<span class='notice'>Oh, I actually feel quite alright!</span>") //you thought
-				physiology.damage_resistance = -20000
+				if(ishuman(src))
+					var/mob/living/carbon/human/H = src
+					H.physiology.damage_resistance = -20000
 			if(5)
 				to_chat(src, "<span class='notice'>Oh, I actually feel quite alright!</span>")
 				reagents.add_reagent(/datum/reagent/aslimetoxin, 10)
@@ -653,7 +660,7 @@
 				addtimer(CALLBACK(src, .proc/something_horrible_mindmelt), 30)
 
 
-/mob/living/carbon/human/proc/something_horrible_mindmelt()
+/mob/living/carbon/proc/something_horrible_mindmelt()
 	if(!HAS_TRAIT(src, TRAIT_BLIND))
 		var/obj/item/organ/eyes/eyes = locate(/obj/item/organ/eyes) in internal_organs
 		if(!eyes)

@@ -13,10 +13,12 @@
 	owner.setOrganLoss(ORGAN_SLOT_BRAIN, 199)
 
 	playsound(owner.loc, 'sound/misc/bikehorn_creepy.ogg', 50, 1)
+	owner.equip_to_slot_or_del(new /obj/item/storage/backpack/clown(owner), ITEM_SLOT_BACK) // this is purely for cosmetic purposes incase they aren't wearing anything in that slot
 	if(!istype(owner.wear_mask, /obj/item/clothing/mask/cluwne))
 		if(!owner.doUnEquip(owner.wear_mask))
 			qdel(owner.wear_mask)
 		owner.equip_to_slot_or_del(new /obj/item/clothing/mask/cluwne(owner), ITEM_SLOT_MASK)
+
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(!istype(H.w_uniform, /obj/item/clothing/under/cluwne))
@@ -27,9 +29,7 @@
 			if(!H.doUnEquip(H.shoes))
 				qdel(H.shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/cluwne(H), ITEM_SLOT_FEET)
-
-		owner.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/white(owner), ITEM_SLOT_GLOVES) // this is purely for cosmetic purposes incase they aren't wearing anything in that slot
-	owner.equip_to_slot_or_del(new /obj/item/storage/backpack/clown(owner), ITEM_SLOT_BACK) // ditto
+		owner.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/white(owner), ITEM_SLOT_GLOVES) // ditto
 
 /datum/mutation/cluwne/on_life()
 	if(prob(15) && owner.IsUnconscious())

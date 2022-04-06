@@ -15,7 +15,7 @@
 	var/limb_req //required limbs to acquire this mutation
 	var/time_coeff = 1 //coefficient for timed mutations
 	var/datum/dna/dna
-	var/mob/living/carbon/human/owner
+	var/mob/living/carbon/owner
 	var/instability = 0 //instability the holder gets when the mutation is not native
 	var/blocks = 4 //Amount of those big blocks with gene sequences
 	var/difficulty = 8 //Amount of missing sequences. Sometimes it removes an entire pair for 2 points
@@ -51,22 +51,22 @@
 	if(copymut && istype(copymut, /datum/mutation))
 		copy_mutation(copymut)
 
-/datum/mutation/proc/on_acquiring(mob/living/carbon/H)
-	if(!H || !istype(H) || H.stat == DEAD || !H.has_dna() || (src in H.dna.mutations))
+/datum/mutation/proc/on_acquiring(mob/living/carbon/C)
+	if(!C || !istype(C) || C.stat == DEAD || !C.has_dna() || (src in C.dna.mutations))
 		return TRUE
-	if(species_allowed.len && !species_allowed.Find(H.dna.species.id))
+	if(species_allowed.len && !species_allowed.Find(C.dna.species.id))
 		return TRUE
-	if(health_req && H.health < health_req)
+	if(health_req && C.health < health_req)
 		return TRUE
-	if(limb_req && !H.get_bodypart(limb_req))
+	if(limb_req && !C.get_bodypart(limb_req))
 		return TRUE
-	for(var/datum/mutation/M as() in H.dna.mutations)//check for conflicting powers
+	for(var/datum/mutation/M as() in C.dna.mutations)//check for conflicting powers
 		if(!(M.type in conflicts) && !(type in M.conflicts))
 			continue
-		to_chat(H, "<span class='warning'>You feel your genes resisting something.</span>")
+		to_chat(C, "<span class='warning'>You feel your genes resisting something.</span>")
 		return TRUE
-	owner = H
-	dna = H.dna
+	owner = C
+	dna = C.dna
 	dna.mutations += src
 	if(text_gain_indication)
 		to_chat(owner, text_gain_indication)

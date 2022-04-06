@@ -7,14 +7,14 @@
 	chemical_cost = 0
 
 /datum/action/changeling/chameleon_skin/sting_action(mob/user)
-	var/mob/living/carbon/H = user
-	if(!H.has_dna())
+	var/mob/living/carbon/C = user
+	if(!C.has_dna())
 		return
 	..()
-	if(H.dna.get_mutation(CHAMELEON))
-		H.dna.remove_mutation(CHAMELEON)
+	if(C.dna.get_mutation(CHAMELEON))
+		C.dna.remove_mutation(CHAMELEON)
 	else
-		H.dna.add_mutation(CHAMELEON)
+		C.dna.add_mutation(CHAMELEON)
 	return TRUE
 
 /datum/action/changeling/chameleon_skin/Remove(mob/user)
