@@ -222,11 +222,11 @@
 			Location
 			<br>
 			<label class='inputlabel radio'>Local
-			<input class='redact_incompatible' type='radio' id='servban' name='radioservban' value='local'[isnull(global_ban) ? " checked" : ""]>
+			<input class='redact_incompatible' type='radio' id='servban' name='radioservban' value='local'[isnull(global_ban) ? " checked" : ""] disabled='[CONFIG_GET(flag/disable_local_bans) ? "true" : "false"]'>
 			<div class='inputbox'></div></label>
 			<br>
 			<label class='inputlabel radio'>Global
-			<input class='redact_force_checked' type='radio' id='servban' name='radioservban' value='global'[(global_ban) ? " checked" : ""]>
+			<input class='redact_force_checked' type='radio' id='servban' name='radioservban' value='global'[(global_ban) ? " checked" : "" ] disabled='[CONFIG_GET(flag/disable_local_bans) ? "true" : "false"]'>
 			<div class='inputbox'></div></label>
 		</div>
 		<div class='column'>
