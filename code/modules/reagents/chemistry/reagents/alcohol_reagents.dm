@@ -46,6 +46,8 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			else
 				booze_power *= 2
 		C.drunkenness = max((C.drunkenness + (sqrt(volume) * booze_power * ALCOHOL_RATE)), 0) //Volume, power, and server alcohol rate effect how quickly one gets drunk
+		if(C.drunkenness >= 250)
+			C.client?.give_award(/datum/award/achievement/misc/drunk, C)
 		var/obj/item/organ/liver/L = C.getorganslot(ORGAN_SLOT_LIVER)
 		if (istype(L))
 			L.applyOrganDamage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * L.alcohol_tolerance, 0))/150))

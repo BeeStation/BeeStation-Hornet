@@ -1,4 +1,4 @@
-/mob/living/Initialize()
+/mob/living/Initialize(mapload)
 	. = ..()
 	if(unique_name)
 		name = "[name] ([rand(1, 1000)])"

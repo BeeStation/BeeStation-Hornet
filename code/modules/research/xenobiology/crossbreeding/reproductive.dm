@@ -8,16 +8,15 @@ Reproductive extracts:
 	desc = "It pulses with a strange hunger."
 	icon_state = "reproductive"
 	effect = "reproductive"
-	effect_desc = "When fed monkey cubes it produces more extracts. Bio bag compatible as well."
+	effect_desc = "When fed monkey cubes it produces a baby slime. Bio bag compatible as well."
 	layer = LOW_ITEM_LAYER
-	var/extract_type = /obj/item/slime_extract/
 	var/last_produce = 0
-	var/cooldown = 3 SECONDS
+	var/cooldown = 30 SECONDS
 	var/feed_amount = 3
 	var/datum/component/storage/concrete/extract_inventory/slime_storage
 	var/static/list/typecache_to_take
 
-/obj/item/slimecross/reproductive/Initialize()
+/obj/item/slimecross/reproductive/Initialize(mapload)
 	. = ..()
 	if(!typecache_to_take)
 		typecache_to_take = typecacheof(/obj/item/reagent_containers/food/snacks/monkeycube)
@@ -65,89 +64,67 @@ Reproductive extracts:
 	QDEL_NULL(slime_storage)
 
 /obj/item/slimecross/reproductive/grey
-	extract_type = /obj/item/slime_extract/grey
 	colour = "grey"
 
 /obj/item/slimecross/reproductive/orange
-	extract_type = /obj/item/slime_extract/orange
 	colour = "orange"
 
 /obj/item/slimecross/reproductive/purple
-	extract_type = /obj/item/slime_extract/purple
 	colour = "purple"
 
 /obj/item/slimecross/reproductive/blue
-	extract_type = /obj/item/slime_extract/blue
 	colour = "blue"
 
 /obj/item/slimecross/reproductive/metal
-	extract_type = /obj/item/slime_extract/metal
 	colour = "metal"
 
 /obj/item/slimecross/reproductive/yellow
-	extract_type = /obj/item/slime_extract/yellow
 	colour = "yellow"
 
 /obj/item/slimecross/reproductive/darkpurple
-	extract_type = /obj/item/slime_extract/darkpurple
 	colour = "dark purple"
 
 /obj/item/slimecross/reproductive/darkblue
-	extract_type = /obj/item/slime_extract/darkblue
 	colour = "dark blue"
 
 /obj/item/slimecross/reproductive/silver
-	extract_type = /obj/item/slime_extract/silver
 	colour = "silver"
 
 /obj/item/slimecross/reproductive/bluespace
-	extract_type = /obj/item/slime_extract/bluespace
 	colour = "bluespace"
 
 /obj/item/slimecross/reproductive/sepia
-	extract_type = /obj/item/slime_extract/sepia
 	colour = "sepia"
 
 /obj/item/slimecross/reproductive/cerulean
-	extract_type = /obj/item/slime_extract/cerulean
 	colour = "cerulean"
 
 /obj/item/slimecross/reproductive/pyrite
-	extract_type = /obj/item/slime_extract/pyrite
 	colour = "pyrite"
 
 /obj/item/slimecross/reproductive/red
-	extract_type = /obj/item/slime_extract/red
 	colour = "red"
 
 /obj/item/slimecross/reproductive/green
-	extract_type = /obj/item/slime_extract/green
 	colour = "green"
 
 /obj/item/slimecross/reproductive/pink
-	extract_type = /obj/item/slime_extract/pink
 	colour = "pink"
 
 /obj/item/slimecross/reproductive/gold
-	extract_type = /obj/item/slime_extract/gold
 	colour = "gold"
 
 /obj/item/slimecross/reproductive/oil
-	extract_type = /obj/item/slime_extract/oil
 	colour = "oil"
 
 /obj/item/slimecross/reproductive/black
-	extract_type = /obj/item/slime_extract/black
 	colour = "black"
 
 /obj/item/slimecross/reproductive/lightpink
-	extract_type = /obj/item/slime_extract/lightpink
 	colour = "light pink"
 
 /obj/item/slimecross/reproductive/adamantine
-	extract_type = /obj/item/slime_extract/adamantine
 	colour = "adamantine"
 
 /obj/item/slimecross/reproductive/rainbow
-	extract_type = /obj/item/slime_extract/rainbow
 	colour = "rainbow"

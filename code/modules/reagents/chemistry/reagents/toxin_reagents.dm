@@ -149,6 +149,7 @@
 
 /datum/reagent/toxin/minttoxin/on_mob_life(mob/living/carbon/M)
 	if(HAS_TRAIT_FROM(M, TRAIT_FAT, OBESITY))
+		M.client?.give_award(/datum/award/achievement/misc/mintgib, M)
 		M.gib()
 	return ..()
 

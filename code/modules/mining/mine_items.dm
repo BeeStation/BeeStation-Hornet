@@ -8,7 +8,7 @@
 	var/set_luminosity = 8
 	var/set_cap = 0
 
-/obj/effect/light_emitter/Initialize()
+/obj/effect/light_emitter/Initialize(mapload)
 	. = ..()
 	set_light(set_luminosity, set_cap)
 
@@ -31,9 +31,9 @@
 	new /obj/item/clothing/under/plasmaman/mining(src)
 	new /obj/item/clothing/under/plasmaman/mining(src)
 	new /obj/item/clothing/under/plasmaman/mining(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/replacement/mining(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/replacement/mining(src)
-	new /obj/item/clothing/head/helmet/space/plasmaman/replacement/mining(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/mining(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/mining(src)
+	new /obj/item/clothing/head/helmet/space/plasmaman/mining(src)
 	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
 	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
 	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)

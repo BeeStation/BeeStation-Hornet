@@ -23,7 +23,7 @@
 		user.client.close_popup("spypopup")
 
 /obj/item/clothing/glasses/sunglasses/spy/dropped(mob/user)
-	. = ..()
+	..()
 	user.client.close_popup("spypopup")
 
 /obj/item/clothing/glasses/sunglasses/spy/ui_action_click(mob/user)
@@ -50,7 +50,7 @@
 	var/cam_range = 1
 	var/datum/movement_detector/tracker
 
-/obj/item/clothing/accessory/spy_bug/Initialize()
+/obj/item/clothing/accessory/spy_bug/Initialize(mapload)
 	. = ..()
 	tracker = new /datum/movement_detector(src, CALLBACK(src, .proc/update_view))
 

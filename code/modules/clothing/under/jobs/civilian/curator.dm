@@ -3,7 +3,6 @@
 	desc = "It's very... sensible."
 	icon_state = "red_suit"
 	item_state = "red_suit"
-	item_color = "red_suit"
 	can_adjust = FALSE
 
 /obj/item/clothing/under/rank/civilian/curator/skirt
@@ -11,7 +10,6 @@
 	desc = "It's very... sensible."
 	icon_state = "red_suit_skirt"
 	item_state = "red_suit"
-	item_color = "red_suit_skirt"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
@@ -21,7 +19,6 @@
 	desc = "A rugged uniform suitable for treasure hunting."
 	icon_state = "curator"
 	item_state = "curator"
-	item_color = "curator"
 
 /obj/item/clothing/under/rank/civilian/curator/nasa
 	name = "\improper NASA jumpsuit"
@@ -29,7 +26,6 @@
 	icon_state = "jumpsuit"
 	item_state = "jumpsuit"
 	worn_icon_state = "jumpsuit"
-	item_color = null
 	greyscale_colors = "#3f3f3f"
 	greyscale_config = /datum/greyscale_config/jumpsuit
 	greyscale_config_inhand_left = /datum/greyscale_config/jumpsuit_inhand_left

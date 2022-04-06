@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	var/shuttle_id //Needs to match the turbolift computer & mobile dock
 	var/floor_id
 
-/obj/machinery/turbolift_button/Initialize()
+/obj/machinery/turbolift_button/Initialize(mapload)
 	. = ..()
 	if(!shuttle_id)
 		log_mapping("TURBOLIFT: [src] has no shuttle_id at [AREACOORD(src)]")
@@ -67,7 +67,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	var/online = TRUE //Is the elevator functional? Will be expanded upon later
 
 
-/obj/machinery/computer/turbolift/Initialize()
+/obj/machinery/computer/turbolift/Initialize(mapload)
 	. = ..()
 	GLOB.turbolifts += src
 
@@ -93,7 +93,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	wires.ui_update()
 	update_icon()
 
-/obj/machinery/door/airlock/turbolift/Initialize()
+/obj/machinery/door/airlock/turbolift/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)

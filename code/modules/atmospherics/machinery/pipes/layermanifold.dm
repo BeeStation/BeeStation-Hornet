@@ -18,7 +18,7 @@
 	var/list/front_nodes
 	var/list/back_nodes
 
-/obj/machinery/atmospherics/pipe/layer_manifold/Initialize()
+/obj/machinery/atmospherics/pipe/layer_manifold/Initialize(mapload)
 	volume = 280 //260 isn't divisible by 35 bull this is 280L
 	front_nodes = list()
 	back_nodes = list()

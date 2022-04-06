@@ -40,7 +40,7 @@
 	spawn_mecha_type = null
 	search_objects = 2
 
-/mob/living/simple_animal/hostile/syndicate/mecha_pilot/no_mech/Initialize()
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot/no_mech/Initialize(mapload)
 	. = ..()
 	wanted_objects = typecacheof(/obj/mecha/combat, TRUE)
 
@@ -60,7 +60,7 @@
 	faction = list("nanotrasen")
 
 
-/mob/living/simple_animal/hostile/syndicate/mecha_pilot/Initialize()
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot/Initialize(mapload)
 	. = ..()
 	if(spawn_mecha_type)
 		var/obj/mecha/M = new spawn_mecha_type (get_turf(src))

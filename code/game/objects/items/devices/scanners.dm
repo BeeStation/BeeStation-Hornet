@@ -877,7 +877,7 @@ GENE SCANNER
 	var/datum/mutation/HM = GET_INITIALIZED_MUTATION(mutation)
 	if(!HM)
 		return "ERROR"
-	if(mutation in discovered)
+	if(discovered[mutation])
 		return  "[HM.name] ([HM.alias])"
 	else
 		return HM.alias
@@ -890,11 +890,12 @@ GENE SCANNER
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
+	var/using = FALSE
 	var/scan = TRUE
 	var/cooldown
 	var/obj/item/stock_parts/scanning_module/scanner //used for upgrading!
 
-/obj/item/extrapolator/Initialize()
+/obj/item/extrapolator/Initialize(mapload)
 	. = ..()
 	scanner = new(src)
 
@@ -978,6 +979,9 @@ GENE SCANNER
 /obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 200)
 	var/list/advancediseases = list()
 	var/list/symptoms = list()
+	if(using)
+		to_chat(user, "<span class='warning'>The extrapolator is already in use.</span>")
+		return
 	for(var/datum/disease/advance/cantidate in diseases)
 		advancediseases += cantidate
 	if(!LAZYLEN(advancediseases))
@@ -1002,10 +1006,14 @@ GENE SCANNER
 		symptomholder.Finalize()
 		symptomholder.Refresh()
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
+		using = TRUE
 		if(do_after(user, (600 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
-	else if(do_after(user, (timer / (scanner.rating + 1)), target = AM))
-		create_culture(A, user, AM)
+	else 
+		using = TRUE
+		if(do_after(user, (timer / (scanner.rating + 1)), target = AM))
+			create_culture(A, user, AM)	
+	using = FALSE
 
 /obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)
 	if(cooldown > world.time - (10))

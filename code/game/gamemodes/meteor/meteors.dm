@@ -77,6 +77,45 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 			endx = world.maxx-(TRANSITIONEDGE+1)
 	. = locate(endx, endy, Z)
 
+//These two procs give space debris start and end turfs with a higher chance of hitting the center of the station
+/proc/aimbotDebrisStartLoc(startSide, Z)
+	var/starty
+	var/startx
+	var/generator/G = generator("num", TRANSITIONEDGE + 1, world.maxx - (TRANSITIONEDGE + 1), "NORMAL_RAND")
+	switch(startSide)
+		if(NORTH)
+			starty = world.maxy-(TRANSITIONEDGE+1)
+			startx = G.Rand()
+		if(EAST)
+			starty = G.Rand()
+			startx = world.maxx-(TRANSITIONEDGE+1)
+		if(SOUTH)
+			starty = (TRANSITIONEDGE+1)
+			startx = G.Rand()
+		if(WEST)
+			starty = G.Rand()
+			startx = (TRANSITIONEDGE+1)
+	. = locate(startx, starty, Z)
+
+/proc/aimbotDebrisFinishLoc(startSide, Z)
+	var/endy
+	var/endx
+	var/generator/G = generator("num", TRANSITIONEDGE + 1, world.maxx - (TRANSITIONEDGE + 1), NORMAL_RAND)
+	switch(startSide)
+		if(NORTH)
+			endy = (TRANSITIONEDGE+1)
+			endx = G.Rand()
+		if(EAST)
+			endy = G.Rand()
+			endx = (TRANSITIONEDGE+1)
+		if(SOUTH)
+			endy = world.maxy-(TRANSITIONEDGE+1)
+			endx = G.Rand()
+		if(WEST)
+			endy = G.Rand()
+			endx = world.maxx-(TRANSITIONEDGE+1)
+	. = locate(endx, endy, Z)
+
 ///////////////////////
 //The meteor effect
 //////////////////////
@@ -292,7 +331,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	var/meteorgibs = /obj/effect/gibspawner/generic
 	threat = 2
 
-/obj/effect/meteor/meaty/Initialize()
+/obj/effect/meteor/meaty/Initialize(mapload)
 	for(var/path in meteordrop)
 		if(path == /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant)
 			meteordrop -= path
@@ -323,7 +362,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	meteordrop = list(/obj/item/reagent_containers/food/snacks/meat/slab/xeno, /obj/item/organ/tongue/alien)
 	meteorgibs = /obj/effect/gibspawner/xeno
 
-/obj/effect/meteor/meaty/xeno/Initialize()
+/obj/effect/meteor/meaty/xeno/Initialize(mapload)
 	meteordrop += subtypesof(/obj/item/organ/alien)
 	return ..()
 
@@ -374,7 +413,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	meteordrop = list(/obj/item/clothing/head/hardhat/pumpkinhead, /obj/item/reagent_containers/food/snacks/grown/pumpkin)
 	threat = 100
 
-/obj/effect/meteor/pumpkin/Initialize()
+/obj/effect/meteor/pumpkin/Initialize(mapload)
 	. = ..()
 	meteorsound = pick('sound/hallucinations/im_here1.ogg','sound/hallucinations/im_here2.ogg')
 //////////////////////////
@@ -394,7 +433,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	var/prefalltime = 8 SECONDS
 	layer = METEOR_LAYER
 
-/obj/effect/falling_meteor/Initialize(loc, meteor_type)
+/obj/effect/falling_meteor/Initialize(mapload, loc, meteor_type)
 	. = ..()
 	if(!meteor_type)
 		meteor_type = /obj/effect/meteor/big
@@ -437,7 +476,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	alpha = 0
 	layer = METEOR_SHADOW_LAYER
 
-/obj/effect/meteor_shadow/Initialize()
+/obj/effect/meteor_shadow/Initialize(mapload)
 	. = ..()
 	color = list(0, 0, 0, 0, 0, 0, 0, 0, 0)
 	var/matrix/M = matrix()
