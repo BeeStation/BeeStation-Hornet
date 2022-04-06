@@ -165,6 +165,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
 				max_save_slots = 8
+		else if(!length(key_bindings)) // Guests need default keybinds
+			key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
 		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"

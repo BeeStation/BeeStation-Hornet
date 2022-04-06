@@ -31643,17 +31643,7 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "bmu" = (
-/mob/living/simple_animal/hostile/carp/cayenne{
-	desc = "A failed experiment of Nanotrasen to create weaponised carp technology. This less than intimidating carp now serves as an authority figure's pet.";
-	health = 200;
-	icon_dead = "magicarp_dead";
-	icon_gib = "magicarp_gib";
-	icon_living = "magicarp";
-	icon_state = "magicarp";
-	maxHealth = 200;
-	melee_damage = 20;
-	name = "Lia"
-	},
+/mob/living/simple_animal/hostile/carp/lia,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "bmw" = (
@@ -100931,10 +100921,10 @@
 /area/maintenance/port/aft)
 "edm" = (
 /obj/structure/table/wood/fancy,
-/obj/item/book/granter/spell/smoke/lesser,
-/obj/item/nullrod,
 /obj/item/organ/heart,
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/soulstone/anybody/chaplain,
+/obj/item/book/granter/spell/smoke/lesser,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "edn" = (
