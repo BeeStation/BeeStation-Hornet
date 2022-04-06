@@ -421,11 +421,13 @@
 			error_state += "Admin bans can not be suppressed."
 		applies_to_admins = TRUE
 	switch(href_list["radioservban"])
-		if("local")
+		if(CONFIG_GET(flag/disable_local_bans))
+			global_ban = TRUE
+		else if("local")
 			global_ban = FALSE
 			if(redact)
 				error_state += "Suppressed bans must be global."
-		if("global")
+		else if("global")
 			global_ban = TRUE
 	switch(href_list["radioduration"])
 		if("permanent")
