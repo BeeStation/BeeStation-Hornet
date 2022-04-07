@@ -287,6 +287,7 @@ Nothing else in the console has ID requirements.
 			"id" = n.id,
 			"can_unlock" = stored_research.can_afford(costs),
 			"costs" = costs,
+			"tier" = stored_research.tiers[n.id]
 		))
 
 /obj/machinery/computer/rdconsole/proc/compress_id(id)

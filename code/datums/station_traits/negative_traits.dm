@@ -142,18 +142,6 @@
 
 	SSjob.set_overflow_role(chosen_job)
 
-/datum/station_trait/slow_shuttle
-	name = "Slow Shuttle"
-	trait_type = STATION_TRAIT_NEGATIVE
-	weight = 5
-	show_in_report = TRUE
-	report_message = "Due to distance to our supply station, the cargo shuttle will have a slower flight time to your cargo department."
-	blacklist = list(/datum/station_trait/quick_shuttle)
-
-/datum/station_trait/slow_shuttle/on_round_start()
-	. = ..()
-	SSshuttle.supply.callTime *= 1.5
-
 /datum/station_trait/bot_languages
 	name = "Bot Language Matrix Malfunction"
 	trait_type = STATION_TRAIT_NEGATIVE

@@ -49,19 +49,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	SSshuttle.supply = src
 
 /obj/docking_port/mobile/supply/canMove()
-	if(is_station_level(z))
-		return check_blacklist(shuttle_areas)
 	return ..()
-
-/obj/docking_port/mobile/supply/proc/check_blacklist(areaInstances)
-	for(var/place in areaInstances)
-		var/area/shuttle/shuttle_area = place
-		for(var/trf in shuttle_area)
-			var/turf/T = trf
-			for(var/a in T.GetAllContents())
-				if(is_type_in_typecache(a, GLOB.blacklisted_cargo_types) && !istype(a, /obj/docking_port))
-					return FALSE
-	return TRUE
 
 /obj/docking_port/mobile/supply/request(obj/docking_port/stationary/S)
 	if(mode != SHUTTLE_IDLE)
