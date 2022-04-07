@@ -148,23 +148,16 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		data["linkedToShuttle"] = FALSE
 		return data
 	//Interdicted shuttles
-	data["interdictedShuttles"] = list()
-	if(SSorbits.interdicted_shuttles[shuttleId] > world.time)
-		var/obj/docking_port/our_port = SSshuttle.getShuttle(shuttleId)
-		data["interdictionTime"] = SSorbits.interdicted_shuttles[shuttleId] - world.time
-		for(var/interdicted_id in SSorbits.interdicted_shuttles)
-			var/timer = SSorbits.interdicted_shuttles[interdicted_id]
-			if(timer < world.time)
-				continue
-			var/obj/docking_port/port = SSshuttle.getShuttle(interdicted_id)
-			if(port && port.get_virtual_z_level() == our_port.get_virtual_z_level())
-				data["interdictedShuttles"] += list(list(
-					"shuttleName" = port.name,
-					"x" = port.x - our_port.x,
-					"y" = port.y - our_port.y,
-				))
-	else
-		data["interdictionTime"] = 0
+	data["localShuttles"] = list()
+	var/obj/docking_port/mobile/our_port = SSshuttle.getShuttle(shuttleId)
+	data["interdictionTime"] = max(SSorbits.interdicted_shuttles[shuttleId] - world.time, 0)
+	for(var/obj/docking_port/port in SSshuttle.mobile)
+		if(port && port.get_virtual_z_level() == our_port.get_virtual_z_level() && (!port.hidden || SSorbits.interdicted_shuttles[port.id] > 0))
+			data["localShuttles"] += list(list(
+				"shuttleName" = port.name,
+				"x" = port.x - our_port.x,
+				"y" = port.y - our_port.y,
+			))
 
 	data["canLaunch"] = TRUE
 	if(QDELETED(shuttleObject))
@@ -191,6 +184,12 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	data["shuttleTargetX"] = shuttleObject.shuttleTargetPos?.x
 	data["shuttleTargetY"] = shuttleObject.shuttleTargetPos?.y
 	data["validDockingPorts"] = list()
+	//Give the default docking port
+	//TODO: Undocking flings you away
+	data["validDockingPorts"] += list(list(
+		"name" = "Undock",
+		"id" = "null"
+	))
 	if(shuttleObject.docking_target && !shuttleObject.docking_frozen)
 		//Stealth shuttles bypass shuttle jamming.
 		if(shuttleObject.docking_target.can_dock_anywhere && (!GLOB.shuttle_docking_jammed || shuttleObject.stealth || !istype(shuttleObject.docking_target, /datum/orbital_object/z_linked/station)))
@@ -211,6 +210,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 							"name" = stationary_port.name,
 							"id" = stationary_port.id,
 						))
+	data["sellable_goods"] = our_port.sellable_goods_cache
 	return data
 
 /obj/machinery/computer/shuttle_flight/ui_act(action, params)
@@ -388,6 +388,12 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				say("Supercruise Warning: Already dethrottling shuttle.")
 				return
 			//Special check
+			if(params["port"] == "null")
+				//Undock the shuttle
+				say("Undocking from target...")
+				shuttleObject.depart_merchant()
+				shuttleObject.docking_target = null
+				return
 			if(params["port"] == "custom_location")
 				//Open up internal docking computer if any location is allowed.
 				if(shuttleObject.docking_target.can_dock_anywhere)
@@ -435,6 +441,31 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 				else
 					to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+		if("collect")
+			//Do purchasing
+			var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
+			if(!mobile_port)
+				return
+			//make sure we are at centcom
+			if(!mobile_port.can_recieve_goods())
+				say("Cannot collect goods from this location.")
+				return
+			//Check for cargo type
+			if(istype(mobile_port, /obj/docking_port/mobile/supply))
+				say("Nanotrasen cargo shuttle authentication accepted, delivering goods...")
+				mobile_port.buy()
+			else
+				//Fetch out bank account
+				var/obj/item/card/id/id = usr.get_idcard()
+				if(!id)
+					say("Unable to detect identification, cannot collect orders.")
+					return
+				if(!id.registered_account)
+					say("Unable to detect a registered account on ID, cannot collect orders.")
+					return
+				mobile_port.buy(id.registered_account)
+		if("sell")
+			return
 
 /obj/machinery/computer/shuttle_flight/proc/launch_shuttle()
 	if(SSorbits.interdicted_shuttles.Find(shuttleId))

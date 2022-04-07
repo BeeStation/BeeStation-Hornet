@@ -71,24 +71,17 @@ export const OrbitalMap = (props, context) => {
       overflowY="hidden">
       <Window.Content overflowY="hidden">
         <div class="OrbitalMap__radar" id="radar">
-          {interdictionTime ? (
-            <InterdictionDisplay
-              xOffset={dynamicXOffset}
-              yOffset={dynamicYOffset}
-              zoomScale={zoomScale}
-              setZoomScale={setZoomScale}
-              setXOffset={setXOffset}
-              setYOffset={setYOffset} />
-          ) : (
-            <OrbitalMapDisplay
-              dynamicXOffset={dynamicXOffset}
-              dynamicYOffset={dynamicYOffset}
-              isTracking={trackedBody !== map_objects[0].name}
-              zoomScale={zoomScale}
-              setZoomScale={setZoomScale}
-              setTrackedBody={setTrackedBody}
-              ourObject={ourObject} />
-          )}
+          <DisplayWindow
+            xOffset={dynamicXOffset}
+            yOffset={dynamicYOffset}
+            isTracking={trackedBody !== map_objects[0].name}
+            zoomScale={zoomScale}
+            setZoomScale={setZoomScale}
+            setXOffset={setXOffset}
+            setYOffset={setYOffset}
+            setTrackedBody={setTrackedBody}
+            ourObject={ourObject}
+            interdictionTime={interdictionTime} />
         </div>
         <div class="OrbitalMap__panel">
           <ScrollableBox overflowY="scroll" height="100%">
@@ -176,24 +169,119 @@ export const OrbitalMap = (props, context) => {
   );
 };
 
+export const DisplayWindow = (props, context) => {
+  const {
+    xOffset,
+    yOffset,
+    zoomScale,
+    setZoomScale,
+    setXOffset,
+    setYOffset,
+    interdictionTime,
+    isTracking,
+    setTrackedBody,
+    ourObject,
+  } = props;
+
+  const [
+    isInterdicted,
+    setIsInterdicted,
+  ] = useLocalState(context, 'isInterdicted', false);
+
+  const [
+    selectedMap,
+    setSelectedMap,
+  ] = useLocalState(context, 'selectedMap', 'map');
+
+  if (isInterdicted === false && interdictionTime > 0)
+  {
+    setIsInterdicted(true);
+    setSelectedMap('interdiction');
+  } else if (interdictionTime <= 0 && isInterdicted === true)
+  {
+    setIsInterdicted(false);
+  }
+
+  return (
+    <>
+      {selectedMap === 'interdiction' ? (
+        <InterdictionDisplay
+          xOffset={xOffset}
+          yOffset={yOffset}
+          zoomScale={zoomScale}
+          setZoomScale={setZoomScale}
+          setXOffset={setXOffset}
+          setYOffset={setYOffset} />
+      ) : selectedMap === 'communication' ? (
+        <OrbitalMapComms />
+      ) : (
+        <OrbitalMapDisplay
+          dynamicXOffset={xOffset}
+          dynamicYOffset={yOffset}
+          isTracking={isTracking}
+          zoomScale={zoomScale}
+          setZoomScale={setZoomScale}
+          setTrackedBody={setTrackedBody}
+          ourObject={ourObject} />
+      )}
+      {selectedMap !== 'communication' && (
+        <>
+          <Button
+            position="absolute"
+            icon="search-plus"
+            right="20px"
+            top="15px"
+            fontSize="18px"
+            color="grey"
+            onClick={() => setZoomScale(zoomScale * 2)} />
+          <Button
+            position="absolute"
+            icon="search-minus"
+            right="20px"
+            top="47px"
+            fontSize="18px"
+            color="grey"
+            onClick={() => setZoomScale(zoomScale / 2)} />
+        </>
+      )}
+      <Button
+        position="absolute"
+        icon="map"
+        right="5px"
+        bottom="83px"
+        fontSize="18px"
+        color="grey"
+        onClick={() => setSelectedMap('map')}
+        selected={selectedMap === 'map'}
+        content="Orbital Map" />
+      <Button
+        position="absolute"
+        icon="route"
+        right="5px"
+        bottom="49px"
+        fontSize="18px"
+        color="grey"
+        onClick={() => setSelectedMap('interdiction')}
+        selected={selectedMap === 'interdiction'}
+        content="Local Map" />
+      <Button
+        position="absolute"
+        icon="satellite-dish"
+        right="5px"
+        bottom="15px"
+        fontSize="18px"
+        color="grey"
+        onClick={() => setSelectedMap('communication')}
+        selected={selectedMap === 'communication'}
+        content="Communications" />
+    </>
+  );
+};
+
 export const InterdictionDisplay = (props, context) => {
 
-  // SVG Background Style
-  const lineStyle = {
-    stroke: '#BBBBBB',
-    strokeWidth: '2',
-  };
-  const blueLineStyle = {
-    stroke: '#8888FF',
-    strokeWidth: '2',
-  };
   const boxTargetStyle = {
     "fill-opacity": 0,
-    stroke: '#DDDDDD',
-    strokeWidth: '1',
-  };
-  const lineTargetStyle = {
-    opacity: 0.4,
     stroke: '#DDDDDD',
     strokeWidth: '1',
   };
@@ -214,41 +302,38 @@ export const InterdictionDisplay = (props, context) => {
   const {
     map_objects = [],
     interdictionTime = 0,
-    interdictedShuttles = [],
+    localShuttles = [],
   } = data;
 
   return (
     <Fragment>
-      <NoticeBox
-        position="absolute"
-        color="red">
-        <Box bold mt={1} ml={1}>
-          ENGINES INTERDICTED
-        </Box>
-        <Box ml={1}>
-          Flight controls disabled.
-          Engine reboot in {interdictionTime / 10} seconds.
-        </Box>
-        <Box ml={1}>
-          Local shuttles have been marked on the map.
-        </Box>
-      </NoticeBox>
-      <Button
-        position="absolute"
-        icon="search-plus"
-        right="20px"
-        top="15px"
-        fontSize="18px"
-        color="grey"
-        onClick={() => setZoomScale(zoomScale * 2)} />
-      <Button
-        position="absolute"
-        icon="search-minus"
-        right="20px"
-        top="47px"
-        fontSize="18px"
-        color="grey"
-        onClick={() => setZoomScale(zoomScale / 2)} />
+      {interdictionTime > 0 ? (
+        <NoticeBox
+          position="absolute"
+          color="red">
+          <Box bold mt={1} ml={1}>
+            ENGINES INTERDICTED
+          </Box>
+          <Box ml={1}>
+            Flight controls disabled.
+            Engine reboot in {interdictionTime / 10} seconds.
+          </Box>
+          <Box ml={1}>
+            Local shuttles have been marked on the map.
+          </Box>
+        </NoticeBox>
+      ) : (
+        <NoticeBox
+          position="absolute"
+          color="red">
+          <Box bold mt={1} ml={1}>
+            Local Map
+          </Box>
+          <Box ml={1}>
+            Shuttles in the local area will be displayed on this map.
+          </Box>
+        </NoticeBox>
+      )}
       <DraggableClickableControl
         position="absolute"
         value={xOffset}
@@ -315,7 +400,7 @@ export const InterdictionDisplay = (props, context) => {
                   </defs>
                   <rect x="-50%" y="-50%" width="100%" height="100%"
                     fill="url(#grid)" />
-                  {interdictedShuttles.map(map_object => (
+                  {localShuttles.map(map_object => (
                     <>
                       <rect
                         x={(map_object.x * 10 - 25 - xOffset) * zoomScale}
@@ -347,6 +432,77 @@ export const InterdictionDisplay = (props, context) => {
     </Fragment>
   );
 
+};
+
+export const OrbitalMapComms = (props, context) => {
+  const { act, data } = useBackend(context);
+
+  const {
+    sellable_goods = {},
+  } = data;
+
+  return (
+    <>
+      <Section title="Station Actions">
+        <Button
+          content="Collect Orders"
+          onClick={() => act('collect')} />
+      </Section>
+      <Section
+        overflowY="scroll"
+        title="Cargo Sales">
+        <Table>
+          <Table.Row>
+            <Table.Cell bold>
+              Item
+            </Table.Cell>
+            <Table.Cell bold textAlign="right">
+              Value
+            </Table.Cell>
+          </Table.Row>
+          <RecursiveSellableGood sellable_goods={sellable_goods} />
+        </Table>
+      </Section>
+    </>
+  );
+};
+
+export const RecursiveSellableGood = (props, context) => {
+  const {
+    sellable_goods = {},
+    ignore = '',
+  } = props;
+  if (sellable_goods === null)
+  {
+    return (
+      <Box>null error</Box>
+    );
+  }
+
+  return (
+    <>
+      {Object.keys(sellable_goods).map((key, index) => (
+        Object.keys(sellable_goods[key]).length > 0 ? (
+          <>
+            <Table.Row>
+              <Table.Cell>{key}</Table.Cell>
+              <Table.Cell textAlign="right">(+${sellable_goods[key][key]})</Table.Cell>
+            </Table.Row>
+            <RecursiveSellableGood
+              sellable_goods={sellable_goods[key]}
+              ignore={key} />
+          </>
+        ) : (
+          key !== ignore && (
+            <Table.Row>
+              <Table.Cell>{key}</Table.Cell>
+              <Table.Cell textAlign="right">${sellable_goods[key]}</Table.Cell>
+            </Table.Row>
+          )
+        )
+      ))}
+    </>
+  );
 };
 
 export const OrbitalMapDisplay = (props, context) => {
@@ -406,22 +562,6 @@ export const OrbitalMapDisplay = (props, context) => {
 
   return (
     <Fragment>
-      <Button
-        position="absolute"
-        icon="search-plus"
-        right="20px"
-        top="15px"
-        fontSize="18px"
-        color="grey"
-        onClick={() => setZoomScale(zoomScale * 2)} />
-      <Button
-        position="absolute"
-        icon="search-minus"
-        right="20px"
-        top="47px"
-        fontSize="18px"
-        color="grey"
-        onClick={() => setZoomScale(zoomScale / 2)} />
       {!isDocking || (
         <NoticeBox
           position="absolute"

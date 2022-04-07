@@ -21,6 +21,8 @@
 	var/message_cooldown
 	COOLDOWN_DECLARE(order_cooldown)
 
+	var/managing_autopilot = FALSE
+
 	light_color = "#E2853D"//orange
 
 /obj/machinery/computer/cargo/request
@@ -85,9 +87,9 @@
 	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	if(D)
 		data["points"] = D.account_balance
-	data["away"] = SSshuttle.supply.getDockedId() == "supply_away"
+	data["away"] = SSshuttle.supply.getDockedId() != "supply_home"
 	data["self_paid"] = self_paid
-	data["docked"] = SSshuttle.supply.mode == SHUTTLE_IDLE
+	data["docked"] = SSshuttle.supply.mode == SHUTTLE_IDLE || SSshuttle.supply.can_recieve_goods()
 	data["loan"] = !!SSshuttle.shuttle_loan
 	data["loan_dispatched"] = SSshuttle.shuttle_loan && SSshuttle.shuttle_loan.dispatched
 	data["can_send"] = can_send
@@ -155,16 +157,30 @@
 			if(SSshuttle.supplyBlocked)
 				say(blockade_warning)
 				return
-			if(SSshuttle.supply.getDockedId() == "supply_home")
-				SSshuttle.supply.export_categories = get_export_categories()
-				SSshuttle.moveShuttle("supply", "supply_away", TRUE)
-				say("The supply shuttle is departing.")
-				investigate_log("[key_name(usr)] sent the supply shuttle away.", INVESTIGATE_CARGO)
+			if(SSshuttle.supply.loaded)
+				//Locate the home dock
+				var/obj/docking_port/home_port = SSshuttle.getDock("supply_home")
+				var/datum/orbital_map/viewing_map = SSorbits.orbital_maps[PRIMARY_ORBITAL_MAP]
+				for(var/map_key in viewing_map.collision_zone_bodies)
+					//Locate and pilot to home
+					for(var/datum/orbital_object/z_linked/z_linked in viewing_map.collision_zone_bodies[map_key])
+						if(z_linked.z_in_contents(home_port.z))
+							autopilot_shuttle_to(z_linked)
+							post_signal("supply")
+							say("The supply shuttle is returning with the requested cargo.")
+							return TRUE
 			else
-				investigate_log("[key_name(usr)] called the supply shuttle.", INVESTIGATE_CARGO)
-				say("The supply shuttle has been called and will arrive in [SSshuttle.supply.timeLeft(600)] minutes.")
-				SSshuttle.moveShuttle("supply", "supply_home", TRUE)
-			. = TRUE
+				//Locate the away location
+				var/datum/orbital_map/viewing_map = SSorbits.orbital_maps[PRIMARY_ORBITAL_MAP]
+				for(var/map_key in viewing_map.collision_zone_bodies)
+					//Locate and pilot to Centcom
+					for(var/datum/orbital_object/z_linked/phobos/centcom in viewing_map.collision_zone_bodies[map_key])
+						autopilot_shuttle_to(centcom)
+						post_signal("supply")
+						say("The supply shuttle is departing for Central Command.")
+						return TRUE
+			say("Error, unable to locate autopilot target. Please assume manual control of the cargo shuttle.")
+			return
 		if("loan")
 			if(!SSshuttle.shuttle_loan)
 				return
@@ -267,6 +283,81 @@
 			. = TRUE
 	if(.)
 		post_signal("supply")
+
+// Handle autopilot
+/obj/machinery/computer/cargo/process()
+	. = ..()
+
+	if(!managing_autopilot)
+		return
+
+	var/datum/orbital_object/shuttle/shuttleObject = SSorbits.assoc_shuttles["supply"]
+	if(!shuttleObject)
+		managing_autopilot = FALSE
+		return
+
+	//Shuttle was taken out of autopilot, or control was transfered elsewhere
+	if(!shuttleObject.autopilot || shuttleObject.controlling_computer != src)
+		managing_autopilot = FALSE
+		say("Autopilot control overriden.")
+		return
+
+	if(SSshuttle.supply.loaded)
+		if(shuttleObject.shuttleTarget == shuttleObject.docking_target)
+			switch(SSshuttle.moveShuttle("supply", "supply_home", 1))
+				if(0)
+					say("Shuttle has arrived at destination.")
+					QDEL_NULL(shuttleObject)
+					//Tell the cargo shuttle to fly to centcom next
+					SSshuttle.supply.loaded = FALSE
+					managing_autopilot = FALSE
+				if(1)
+					to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+				else
+					to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+	else
+		//Reached merchant location
+		if(SSshuttle.supply.can_recieve_goods())
+			//Purchase cargo items
+			SSshuttle.supply.buy()
+			//Say something
+			say("The supply shuttle has reached its destination and the requested cargo has been loaded.")
+			//Disable autopilot
+			shuttleObject.shuttleTarget = null
+			shuttleObject.autopilot = FALSE
+			shuttleObject.controlling_computer = null
+			managing_autopilot = FALSE
+
+/obj/machinery/computer/cargo/proc/autopilot_shuttle_to(datum/orbital_object/z_linked/target)
+	if(!SSorbits.assoc_shuttles.Find("supply"))
+		if(!launch_shuttle())
+			return
+	var/datum/orbital_object/shuttle/shuttleObject = SSorbits.assoc_shuttles["supply"]
+	if(shuttleObject.shuttleTarget == target && shuttleObject.controlling_computer == src)
+		return
+	shuttleObject.shuttleTarget = target
+	shuttleObject.autopilot = TRUE
+	shuttleObject.controlling_computer = src
+	managing_autopilot = TRUE
+
+// Kind of a shameless rip off of the shuttle console
+/obj/machinery/computer/cargo/proc/launch_shuttle()
+	if(SSorbits.interdicted_shuttles.Find("supply"))
+		if(world.time < SSorbits.interdicted_shuttles["supply"])
+			var/time_left = (SSorbits.interdicted_shuttles["supply"] - world.time) * 0.1
+			say("Supercruise Warning: Engines have been interdicted and will be recharged in [time_left] seconds.")
+			return
+	var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle("supply")
+	if(!mobile_port)
+		return
+	var/datum/orbital_object/shuttle/shuttleObject
+	if(SSorbits.assoc_shuttles.Find("supply"))
+		say("Shuttle is controlled from another location, updating telemetry.")
+		shuttleObject = SSorbits.assoc_shuttles["supply"]
+		return shuttleObject
+	shuttleObject = mobile_port.enter_supercruise()
+	shuttleObject.valid_docks = list("supply_home")
+	return shuttleObject
 
 /obj/machinery/computer/cargo/proc/post_signal(command)
 

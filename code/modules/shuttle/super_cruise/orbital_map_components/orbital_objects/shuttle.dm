@@ -55,6 +55,8 @@
 	docking_target = null
 	valid_docks = null
 	shuttleTarget = null
+	//Leave any merchant we are currently at
+	depart_merchant()
 	. = ..()
 	SSorbits.assoc_shuttles.Remove(shuttle_port_id)
 
@@ -76,6 +78,8 @@
 		thrust = 0
 		angle = 0
 		autopilot = FALSE
+		//Redisable collisions so if we undock, we aren't flung by gravity
+		collision_ignored = TRUE
 		return
 	else
 		//If our docking target was deleted, null it to prevent docking interface etc.
@@ -179,15 +183,36 @@
 	stealth = dock.hidden
 	SSorbits.assoc_shuttles[shuttle_port_id] = src
 
+/datum/orbital_object/shuttle/collision(datum/orbital_object/other)
+	//Send shuttle to z-level for docking.
+	if(istype(other, /datum/orbital_object/z_linked))
+		if(other.collision_ignored || collision_ignored)
+			//Collisions are currently ignored, give the ability to dock via a button and dont force it
+			can_dock_with = other
+			return
+		commence_docking(other)
+
 /datum/orbital_object/shuttle/proc/commence_docking(datum/orbital_object/z_linked/docking, forced = FALSE)
 	//Check for valid docks on z-level
-	if(!docking.forced_docking && !forced)
+	if(!forced && !docking.forced_docking)
 		can_dock_with = docking
 		return
-	//Begin docking.
+	//Begin docking
 	docking_target = docking
+	//Do merchant stuff
+	check_merchant()
 	//Check for ruin stuff
 	var/datum/orbital_object/z_linked/beacon/ruin/ruin_obj = docking_target
 	if(istype(ruin_obj))
 		if(!ruin_obj.linked_z_level)
 			ruin_obj.assign_z_level()
+
+/datum/orbital_object/shuttle/proc/check_merchant(datum/orbital_object/z_linked/docking)
+	//Hard-coded for centcom only
+	if(!port.can_recieve_goods())
+		return
+	//Trigger port shop entered
+	port.enter_shop()
+
+/datum/orbital_object/shuttle/proc/depart_merchant()
+	port?.leave_shop()

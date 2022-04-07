@@ -125,7 +125,7 @@ const CargoStatus = (props, context) => {
 };
 
 export const CargoCatalog = (props, context) => {
-  const { 
+  const {
     express,
     canOrder = true,
   } = props;
@@ -200,7 +200,7 @@ export const CargoCatalog = (props, context) => {
                       fluid
                       tooltip={pack.desc}
                       tooltipPosition="left"
-                      disabled={!canOrder 
+                      disabled={!canOrder
                         || (express && points && points<pack.cost)}
                       onClick={() => act('add', {
                         id: pack.id,

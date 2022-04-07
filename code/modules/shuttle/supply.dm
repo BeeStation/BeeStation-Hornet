@@ -31,7 +31,6 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
 	id = "supply"
-	callTime = 600
 
 	dir = WEST
 	port_direction = EAST
@@ -40,32 +39,14 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	height = 7
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
 
-
-	//Export categories for this run, this is set by console sending the shuttle.
-	var/export_categories = EXPORT_CARGO
+	//Shuttle spawns at centcom
+	var/loaded = TRUE
 
 /obj/docking_port/mobile/supply/register()
 	. = ..()
 	SSshuttle.supply = src
 
-/obj/docking_port/mobile/supply/canMove()
-	return ..()
-
-/obj/docking_port/mobile/supply/request(obj/docking_port/stationary/S)
-	if(mode != SHUTTLE_IDLE)
-		return 2
-	return ..()
-
-/obj/docking_port/mobile/supply/initiate_docking()
-	if(getDockedId() == "supply_away") // Buy when we leave home.
-		buy()
-	. = ..() // Fly/enter transit.
-	if(. != DOCKING_SUCCESS)
-		return
-	if(getDockedId() == "supply_away") // Sell when we get home
-		sell()
-
-/obj/docking_port/mobile/supply/proc/buy()
+/obj/docking_port/mobile/proc/buy(datum/bank_account/paying_account)
 	var/list/obj/miscboxes = list() //miscboxes are combo boxes that contain all small_item orders grouped
 	var/list/misc_order_num = list() //list of strings of order numbers, so that the manifest can show all orders in a box
 	var/list/misc_contents = list() //list of lists of items that each box will contain
@@ -88,9 +69,17 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		var/price = SO.pack.get_cost()
 		var/datum/bank_account/D
 		if(SO.paying_account) //Someone paid out of pocket
+			//If we only want orders from a specific account, and the order
+			//was from a different account, continue.
+			if(paying_account && paying_account != SO.paying_account)
+				continue
 			D = SO.paying_account
 			price *= 1.1 //TODO make this customizable by the quartermaster
 		else
+			//If we want cargo orders, but we only want orders
+			//from a specific account, continue
+			if(paying_account)
+				continue
 			D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 		if(D)
 			if(!D.adjust_money(-price))
@@ -139,14 +128,19 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 			message_admins("\A [SO.pack.name] ordered by [ADMIN_LOOKUPFLW(SO.orderer_ckey)], paid by [D.account_holder] has shipped.")
 		purchases++
 
-	for(var/I in miscboxes)
-		var/datum/supply_order/SO = new/datum/supply_order()
-		SO.id = misc_order_num[I]
-		SO.generateCombo(miscboxes[I], I, misc_contents[I])
-		qdel(SO)
+	if(!paying_account)
+		for(var/I in miscboxes)
+			var/datum/supply_order/SO = new/datum/supply_order()
+			SO.id = misc_order_num[I]
+			SO.generateCombo(miscboxes[I], I, misc_contents[I])
+			qdel(SO)
 
 	var/datum/bank_account/cargo_budget = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	investigate_log("[purchases] orders in this shipment, worth [value] credits. [cargo_budget.account_balance] credits left.", INVESTIGATE_CARGO)
+
+/obj/docking_port/mobile/supply/buy()
+	. = ..()
+	loaded = TRUE
 
 /obj/docking_port/mobile/supply/proc/sell()
 	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)

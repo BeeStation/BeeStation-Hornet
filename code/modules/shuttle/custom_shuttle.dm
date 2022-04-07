@@ -93,8 +93,11 @@
 /obj/machinery/computer/shuttle_flight/custom_shuttle/proc/check_stranded()
 	if(!calculated_engine_count && shuttleObject)
 		say("Fuel reserves depleted, dropping out of supercruise.")
-		if(!shuttleObject.docking_target)
+		//If we have no docking location, or our docking location doesn't allow random drop
+		//Then either let a location be picked, or create a new orbital beacon
+		if(!shuttleObject.docking_target || !shuttleObject.docking_target.random_docking)
 			if(shuttleObject.can_dock_with)
+				//Allow you to pick a shuttle landing location
 				shuttleObject.commence_docking(shuttleObject.can_dock_with, TRUE)
 			else
 				//Send shuttle object to random location

@@ -149,25 +149,19 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 // Called only once, when the object is actually sold by the datum.
 // Adds item's cost and amount to the current export cycle.
 // get_cost, get_amount and applies_to do not neccesary mean a successful sale.
-/datum/export/proc/sell_object(obj/O, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO , apply_elastic = TRUE)
+/datum/export/proc/sell_object(obj/O, dry_run = TRUE, allowed_categories = EXPORT_CARGO , apply_elastic = TRUE)
 	var/the_cost = get_cost(O, allowed_categories , apply_elastic)
 	var/amount = get_amount(O)
 
 	if(amount <=0 || the_cost <=0)
 		return FALSE
 
-	report.total_value[src] += the_cost
-
-	if(istype(O, /datum/export/material))
-		report.total_amount[src] += amount*MINERAL_MATERIAL_AMOUNT
-	else
-		report.total_amount[src] += amount
+	. = the_cost
 
 	if(!dry_run)
 		if(apply_elastic)
 			cost *= NUM_E**(-1*k_elasticity*amount)		//marginal cost modifier
 		SSblackbox.record_feedback("nested tally", "export_sold_cost", 1, list("[O.type]", "[the_cost]"))
-	return TRUE
 
 // Total printout for the cargo console.
 // Called before the end of current export cycle.
