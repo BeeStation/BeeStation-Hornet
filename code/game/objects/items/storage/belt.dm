@@ -363,8 +363,7 @@
 		/obj/item/stack/marker_beacon,
 		/obj/item/restraints/legcuffs/bola/watcher,
 		/obj/item/claymore/bone,
-		/obj/item/skeleton_key,
-		/obj/item/research_disk_pinpointer
+		/obj/item/skeleton_key
 		))
 
 
