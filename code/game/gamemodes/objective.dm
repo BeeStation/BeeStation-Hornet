@@ -122,13 +122,10 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/list/prefered_targets = list()
 	var/list/possible_targets = list()
 	var/try_target_late_joiners = FALSE
-	var/owner_is_exploration_crew = FALSE
 	var/owner_is_shaft_miner = FALSE
 	for(var/datum/mind/O as() in get_owners())
 		if(O.late_joiner)
 			try_target_late_joiners = TRUE
-		if(O.assigned_role == "Exploration Crew")
-			owner_is_exploration_crew = TRUE
 		if(O.assigned_role == "Shaft Miner")
 			owner_is_shaft_miner = TRUE
 	for(var/datum/mind/possible_target as() in get_crewmember_minds())
@@ -139,20 +136,11 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		if(possible_target in blacklist)
 			continue
 
-		if(possible_target.assigned_role == "Exploration Crew")
-			if(owner_is_exploration_crew)
-				prefered_targets += possible_target
-			else
-				//Reduced chance to get people off station
-				if(prob(70) && !owner_is_shaft_miner)
-					continue
-		else if(possible_target.assigned_role == "Shaft Miner")
+		if(possible_target.assigned_role == "Shaft Miner")
 			if(owner_is_shaft_miner)
 				prefered_targets += possible_target
-			else
-				//Reduced chance to get people off station
-				if(prob(70) && !owner_is_exploration_crew)
-					continue
+			else if(prob(70))
+				continue
 
 		possible_targets += possible_target
 	if(try_target_late_joiners)

@@ -134,7 +134,7 @@
 /obj/item/clothing/head/helmet/space/plasmaman/proc/update_button_icons(mob/user)
 	if(!user)
 		return
-	
+
 	//The icon's may look differently due to overlays being applied asynchronously
 	for(var/X in actions)
 		var/datum/action/A=X
@@ -193,7 +193,7 @@
 	update_icon()
 	user.update_inv_head() //So the mob overlay updates
 	update_button_icons(user)
-	
+
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
 	cut_overlays()
 
@@ -201,7 +201,7 @@
 		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_weld"))
 	else if(helmet_on)
 		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_light"))
-	
+
 	return ..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/security

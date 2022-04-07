@@ -1541,7 +1541,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/device_tools/shuttlecapsule
 	name = "Bluespace Shuttle Capsule"
-	desc = "Need a mobile base of operations? Those pesky exploration crews keep flying off? Want to do a hit and run on security? Then this \
+	desc = "Need a mobile base of operations? Those pesky targets keep flying off? Want to do a hit and run on security? Then this \
 			product is for you! The all new bluespace shuttle capsule contains an ENTIRE shuttle withing a capsule you can hold in your hand! \
 			The shuttle provided is a state-of-the-art ship complete with a hacked autolathe, syndicate toolbox, playing cards for those long journeys, \
 			an in-built shuttle interdictor and a single canister of plasma to fuel your adventures! \
