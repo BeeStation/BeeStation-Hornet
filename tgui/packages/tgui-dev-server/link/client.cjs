@@ -4,6 +4,8 @@
  * @license MIT
  */
 
+import 'whatwg-fetch';
+
 let socket;
 const queue = [];
 const subscribers = [];
