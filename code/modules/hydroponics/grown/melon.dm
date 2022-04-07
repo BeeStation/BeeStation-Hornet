@@ -58,7 +58,6 @@
 	dried_type = null
 	wine_power = 70 //Water to wine, baby.
 	wine_flavor = "divinity"
-	discovery_points = 300
 
 /obj/item/reagent_containers/food/snacks/grown/holymelon/Initialize(mapload)
 	. = ..()

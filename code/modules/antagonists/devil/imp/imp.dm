@@ -39,7 +39,6 @@
 							Though you are not obligated to help, perhaps by aiding a higher ranking devil, you might just get a promotion.  However, you are incapable	\
 							of intentionally harming a fellow devil.</B>"
 	mobchatspan = "cultmobsay"
-	discovery_points = 10000
 
 /mob/living/simple_animal/imp/Initialize(mapload)
 	..()

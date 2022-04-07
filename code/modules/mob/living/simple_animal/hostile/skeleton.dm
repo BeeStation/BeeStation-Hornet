@@ -36,7 +36,6 @@
 	hardattacks = TRUE
 
 	mobchatspan = "assistant"
-	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/skeleton/eskimo
 	name = "undead eskimo"

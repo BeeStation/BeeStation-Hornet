@@ -50,4 +50,3 @@
 	filling_color = "#FFD700"
 	distill_reagent = null
 	wine_power = 50
-	discovery_points = 300

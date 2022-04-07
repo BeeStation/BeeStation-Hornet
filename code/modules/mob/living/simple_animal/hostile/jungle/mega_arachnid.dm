@@ -22,7 +22,6 @@
 	projectiletype = /obj/item/projectile/mega_arachnid
 	projectilesound = 'sound/weapons/pierce.ogg'
 	alpha = 50
-	discovery_points = 5000
 
 	do_footstep = TRUE
 

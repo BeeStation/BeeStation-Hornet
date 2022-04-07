@@ -22,7 +22,6 @@
 	var/infection_chance = 0
 	var/obj/effect/mob_spawn/human/corpse/delayed/corpse
 	mobchatspan = "bartender"
-	discovery_points = 3000
 
 /mob/living/simple_animal/hostile/zombie/Initialize(mapload)
 	. = ..()

@@ -90,7 +90,6 @@
 	icon_state = "deathnettle"
 	force = 25
 	throwforce = 12
-	discovery_points = 300
 
 /obj/item/reagent_containers/food/snacks/grown/nettle/death/add_juice()
 	..()

@@ -27,7 +27,6 @@
 	var/aggressive = FALSE
 	var/datum/disease/basedisease = null
 	var/list/infections = list()
-	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/macrophage/CanAttack(atom/the_target)
 	. = ..()

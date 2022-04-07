@@ -10,7 +10,6 @@
 	var/list/boss_abilities = list() //list of /datum/action/boss
 	var/datum/boss_active_timed_battle/atb
 	var/point_regen_delay = 1
-	discovery_points = 5000
 
 
 /mob/living/simple_animal/hostile/boss/Initialize(mapload)

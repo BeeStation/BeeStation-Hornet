@@ -27,7 +27,6 @@
 	light_power = 0.9
 
 	mobchatspan = "mime"
-	discovery_points = 0
 
 	var/obj/machinery/bot_core/bot_core = null
 	var/bot_core_type = /obj/machinery/bot_core

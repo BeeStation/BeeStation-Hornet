@@ -58,4 +58,3 @@
 	foodtype = FRUIT
 	juice_results = list(/datum/reagent/consumable/blumpkinjuice = 0)
 	wine_power = 50
-	discovery_points = 300

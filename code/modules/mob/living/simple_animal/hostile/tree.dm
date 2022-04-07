@@ -39,7 +39,6 @@
 	del_on_death = TRUE
 	hardattacks = TRUE
 
-	discovery_points = 1000
 
 /mob/living/simple_animal/hostile/tree/Life()
 	..()

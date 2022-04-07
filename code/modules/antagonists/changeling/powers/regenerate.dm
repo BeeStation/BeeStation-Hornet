@@ -106,4 +106,3 @@
 	faction = list("hostile","creature")
 	poison_per_bite = 4
 	poison_type = /datum/reagent/toxin/staminatoxin
-	discovery_points = 1000

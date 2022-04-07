@@ -25,8 +25,6 @@
 	var/organization = "Third-Party"							//Organization name, used for display.
 	var/list/last_bitcoins = list()								//Current per-second production, used for display only.
 	var/list/discovered_mutations = list()                           //Mutations discovered by genetics, this way they are shared and cant be destroyed by destroying a single console
-	//Discovery scanned thinsg
-	var/list/scanned_atoms = list()
 
 /datum/techweb/New()
 	SSresearch.techwebs += src

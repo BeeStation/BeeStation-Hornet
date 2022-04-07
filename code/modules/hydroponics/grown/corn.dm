@@ -28,7 +28,6 @@
 	juice_results = list(/datum/reagent/consumable/corn_starch = 0)
 	tastes = list("corn" = 1)
 	distill_reagent = /datum/reagent/consumable/ethanol/whiskey
-	discovery_points = 300
 
 /obj/item/grown/corncob
 	name = "corn cob"
@@ -70,7 +69,6 @@
 	throw_speed = 3
 	throw_range = 7
 	var/snap_pops = 1
-	discovery_points = 300
 
 /obj/item/grown/snapcorn/add_juice()
 	..()

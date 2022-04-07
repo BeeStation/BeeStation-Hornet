@@ -16,4 +16,3 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	mob_size = MOB_SIZE_LARGE
 	hardattacks = TRUE
-	discovery_points = 2000

@@ -37,7 +37,6 @@
 	mobchatspan = "alienmobsay"
 
 	do_footstep = TRUE
-	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/alien/drone
 	name = "alien drone"

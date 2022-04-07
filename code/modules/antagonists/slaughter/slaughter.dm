@@ -47,7 +47,6 @@
 				/obj/item/organ/heart/demon)
 	del_on_death = TRUE
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
-	discovery_points = 3000
 
 /mob/living/simple_animal/slaughter/Initialize(mapload)
 	. = ..()

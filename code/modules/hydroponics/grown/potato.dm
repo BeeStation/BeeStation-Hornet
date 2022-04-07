@@ -65,4 +65,3 @@
 	desc = "It's sweet."
 	icon_state = "sweetpotato"
 	distill_reagent = /datum/reagent/consumable/ethanol/sbiten
-	discovery_points = 300

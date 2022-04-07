@@ -36,7 +36,6 @@
 	var/next_cast = 0
 
 	do_footstep = TRUE
-	discovery_points = 3000
 
 /mob/living/simple_animal/hostile/wizard/Initialize(mapload)
 	. = ..()
