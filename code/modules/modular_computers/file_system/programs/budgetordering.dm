@@ -13,8 +13,6 @@
 	var/contraband = FALSE
 	//Is it being bought from a personal account, or is it being done via a budget/cargo?
 	var/self_paid = FALSE
-	//Can this console approve purchase requests?
-	var/can_approve_requests = FALSE
 	//What do we say when the shuttle moves with living beings on it.
 	var/safety_warning = "For safety reasons, the automated supply shuttle \
 		cannot transport live organisms, human remains, classified nuclear weaponry, \
@@ -34,7 +32,7 @@
 		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 		id = card_slot?.GetID()
 	return id ? id : FALSE
-	
+
 /datum/computer_file/program/budgetorders/proc/is_visible_pack(mob/user, var/contraband)
 	if(issilicon(user)) //Borgs can't buy things.
 		return FALSE
@@ -55,10 +53,8 @@
 		if((ACCESS_HEADS in id_card.access) || (ACCESS_QM in id_card.access))
 			requestonly = FALSE
 			buyer = SSeconomy.get_dep_account(id_card.registered_account.account_job.paycheck_department)
-			can_approve_requests = TRUE
 		else
 			requestonly = TRUE
-			can_approve_requests = FALSE
 	else
 		requestonly = TRUE
 	if(buyer)
@@ -90,11 +86,13 @@
 	data["has_id"] = id_card
 	data["away"] = SSshuttle.supply.getDockedId() == "supply_away"
 	data["self_paid"] = self_paid
-	data["docked"] = SSshuttle.supply.mode == SHUTTLE_IDLE
+	data["requestable"] = FALSE
+	data["at_merchant"] = SSshuttle.supply.can_recieve_goods()
+	data["loaded"] = SSshuttle.supply.loaded
 	data["loan"] = !!SSshuttle.shuttle_loan
 	data["loan_dispatched"] = SSshuttle.shuttle_loan && SSshuttle.shuttle_loan.dispatched
 	data["can_send"] = FALSE	//There is no situation where I want the app to be able to send the shuttle AWAY from the station, but conversely is fine.
-	data["can_approve_requests"] = can_approve_requests
+	data["can_approve_requests"] = FALSE
 	data["app_cost"] = TRUE
 	var/message = "Remember to stamp and send back the supply manifests."
 	if(SSshuttle.centcom_message)
@@ -129,22 +127,8 @@
 		return
 	switch(action)
 		if("send")
-			if(!SSshuttle.supply.canMove())
-				computer.say(safety_warning)
-				return
-			if(SSshuttle.supplyBlocked)
-				computer.say(blockade_warning)
-				return
-			if(SSshuttle.supply.getDockedId() == "supply_home")
-				SSshuttle.supply.export_categories = get_export_categories()
-				SSshuttle.moveShuttle("supply", "supply_away", TRUE)
-				computer.say("The supply shuttle is departing.")
-				computer.investigate_log("[key_name(usr)] sent the supply shuttle away.", INVESTIGATE_CARGO)
-			else
-				computer.investigate_log("[key_name(usr)] called the supply shuttle.", INVESTIGATE_CARGO)
-				computer.say("The supply shuttle has been called and will arrive in [SSshuttle.supply.timeLeft(600)] minutes.")
-				SSshuttle.moveShuttle("supply", "supply_home", TRUE)
-			. = TRUE
+			computer.say("This computer is incapable of remotely controlling the cargo shuttle.")
+			return
 		if("loan")
 			if(!SSshuttle.shuttle_loan)
 				return

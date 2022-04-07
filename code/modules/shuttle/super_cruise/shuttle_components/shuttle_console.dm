@@ -442,6 +442,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				else
 					to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 		if("collect")
+			if(SSshuttle.supplyBlocked)
+				say("Trading is currently blocked by a bluespace instability.")
+				return
 			//Do purchasing
 			var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
 			if(!mobile_port)

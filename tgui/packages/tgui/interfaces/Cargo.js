@@ -74,10 +74,10 @@ const CargoStatus = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     away,
-    docked,
+    requestable,
     loan,
     loan_dispatched,
-    location,
+    loaded,
     message,
     points,
     requestonly,
@@ -96,11 +96,11 @@ const CargoStatus = (props, context) => {
       )}>
       <LabeledList>
         <LabeledList.Item label="Shuttle">
-          {docked && !requestonly && can_send && (
+          {requestable && !requestonly && can_send && (
             <Button
-              content={location}
+              content={loaded ? "Engage Autopilot (To Station)" : "Engage Autopilot (To Central Command)"}
               onClick={() => act('send')} />
-          ) || location}
+          ) || "In transit - Autopilot"}
         </LabeledList.Item>
         <LabeledList.Item label="CentCom Message">
           {message}
@@ -110,7 +110,7 @@ const CargoStatus = (props, context) => {
             {!loan_dispatched && (
               <Button
                 content="Loan Shuttle"
-                disabled={!(away && docked)}
+                disabled={!(away && requestable)}
                 onClick={() => act('loan')} />
             ) || (
               <Box color="bad">
@@ -325,7 +325,7 @@ const CargoCart = (props, context) => {
   const {
     requestonly,
     away,
-    docked,
+    at_merchant,
     location,
     can_send,
   } = data;
@@ -376,7 +376,7 @@ const CargoCart = (props, context) => {
       )}
       {cart.length > 0 && !requestonly && (
         <Box mt={2}>
-          {away === 1 && docked === 1 && (
+          {away === 1 && at_merchant === 1 && (
             <Button
               color="green"
               style={{

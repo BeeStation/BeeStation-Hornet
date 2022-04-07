@@ -89,11 +89,13 @@
 		data["points"] = D.account_balance
 	data["away"] = SSshuttle.supply.getDockedId() != "supply_home"
 	data["self_paid"] = self_paid
-	data["docked"] = SSshuttle.supply.mode == SHUTTLE_IDLE || SSshuttle.supply.can_recieve_goods()
+	data["requestable"] = !managing_autopilot
+	data["at_merchant"] = SSshuttle.supply.can_recieve_goods()
 	data["loan"] = !!SSshuttle.shuttle_loan
 	data["loan_dispatched"] = SSshuttle.shuttle_loan && SSshuttle.shuttle_loan.dispatched
 	data["can_send"] = can_send
 	data["can_approve_requests"] = can_approve_requests
+	data["loaded"] = SSshuttle.supply.loaded
 	var/message = "Remember to stamp and send back the supply manifests."
 	if(SSshuttle.centcom_message)
 		message = SSshuttle.centcom_message
@@ -158,6 +160,10 @@
 				say(blockade_warning)
 				return
 			if(SSshuttle.supply.loaded)
+				//Purchase anything when leaving
+				if(SSshuttle.supply.can_recieve_goods())
+					//Purchase cargo items
+					SSshuttle.supply.buy()
 				//Locate the home dock
 				var/obj/docking_port/home_port = SSshuttle.getDock("supply_home")
 				var/datum/orbital_map/viewing_map = SSorbits.orbital_maps[PRIMARY_ORBITAL_MAP]
@@ -297,8 +303,9 @@
 		return
 
 	//Shuttle was taken out of autopilot, or control was transfered elsewhere
-	if(!shuttleObject.autopilot || shuttleObject.controlling_computer != src)
+	if(shuttleObject.controlling_computer != src)
 		managing_autopilot = FALSE
+		shuttleObject.controlling_computer = null
 		say("Autopilot control overriden.")
 		return
 
@@ -311,11 +318,20 @@
 					//Tell the cargo shuttle to fly to centcom next
 					SSshuttle.supply.loaded = FALSE
 					managing_autopilot = FALSE
+					shuttleObject.controlling_computer = null
+					return
 				if(1)
 					to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 				else
 					to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 	else
+		if(SSshuttle.supplyBlocked)
+			say(blockade_warning)
+			shuttleObject.shuttleTarget = null
+			shuttleObject.autopilot = FALSE
+			shuttleObject.controlling_computer = null
+			managing_autopilot = FALSE
+			return
 		//Reached merchant location
 		if(SSshuttle.supply.can_recieve_goods())
 			//Purchase cargo items
@@ -327,6 +343,12 @@
 			shuttleObject.autopilot = FALSE
 			shuttleObject.controlling_computer = null
 			managing_autopilot = FALSE
+			return
+
+	if(!shuttleObject.autopilot)
+		managing_autopilot = FALSE
+		shuttleObject.controlling_computer = null
+		say("Autopilot control disabled.")
 
 /obj/machinery/computer/cargo/proc/autopilot_shuttle_to(datum/orbital_object/z_linked/target)
 	if(!SSorbits.assoc_shuttles.Find("supply"))
@@ -335,6 +357,8 @@
 	var/datum/orbital_object/shuttle/shuttleObject = SSorbits.assoc_shuttles["supply"]
 	if(shuttleObject.shuttleTarget == target && shuttleObject.controlling_computer == src)
 		return
+	//Undock the shuttle
+	shuttleObject.docking_target = null
 	shuttleObject.shuttleTarget = target
 	shuttleObject.autopilot = TRUE
 	shuttleObject.controlling_computer = src
