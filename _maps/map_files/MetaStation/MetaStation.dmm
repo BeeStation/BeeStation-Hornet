@@ -68244,7 +68244,6 @@
 	},
 /obj/item/borg/upgrade/rename,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "cIO" = (
@@ -83180,6 +83179,13 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"wqA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/ecto_sniffer,
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "wtq" = (
 /turf/closed/wall,
 /area/maintenance/aft/secondary)
@@ -112263,7 +112269,7 @@ cDb
 cEk
 cFd
 cGb
-cGb
+wqA
 cHQ
 cIJ
 cYc

@@ -53250,6 +53250,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/robotics/lab)
 "mll" = (
@@ -75431,7 +75432,6 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "rHr" = (

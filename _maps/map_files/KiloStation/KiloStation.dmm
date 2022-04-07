@@ -12453,6 +12453,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/robotics/lab)
 "aul" = (
@@ -38960,7 +38961,6 @@
 /obj/item/assembly/flash/handheld/weak,
 /obj/item/assembly/flash/handheld/weak,
 /obj/item/assembly/flash/handheld/weak,
-/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "bhC" = (
