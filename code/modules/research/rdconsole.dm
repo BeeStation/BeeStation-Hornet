@@ -274,7 +274,7 @@ Nothing else in the console has ID requirements.
 
 
 	// Serialize all nodes to display
-	for(var/v in stored_research.visible_nodes)
+	for(var/v in stored_research.tiers)
 		var/datum/techweb_node/n = SSresearch.techweb_node_by_id(v)
 
 		// Ensure node is supposed to be visible
