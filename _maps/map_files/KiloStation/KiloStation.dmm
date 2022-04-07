@@ -4455,7 +4455,7 @@
 	name = "Storage Shutter Toggle";
 	pixel_x = 6;
 	pixel_y = 2;
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -6208,7 +6208,7 @@
 "akI" = (
 /obj/machinery/door/airlock/maintenance/external{
 	name = "exploration maintenance access";
-	req_one_access_txt = "49"
+	req_one_access_txt = "47"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
@@ -6455,7 +6455,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/airlock/research/glass{
 	name = "exploration shuttle dock";
-	req_one_access_txt = "49"
+	req_one_access_txt = "47"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4

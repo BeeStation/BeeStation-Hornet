@@ -55714,7 +55714,7 @@
 	},
 /obj/machinery/door/airlock/research/glass{
 	name = "science shuttle dock";
-	req_one_access_txt = "49"
+	req_one_access_txt = "47"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
@@ -63249,7 +63249,7 @@
 "xUr" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "science shuttle dock";
-	req_one_access_txt = "49"
+	req_one_access_txt = "47"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8

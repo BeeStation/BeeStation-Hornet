@@ -104485,7 +104485,7 @@
 "gFA" = (
 /obj/machinery/door/airlock/science{
 	name = "exploration preparation room";
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/line{
@@ -108265,7 +108265,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "External Docking Port";
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
@@ -110159,7 +110159,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -118558,7 +118558,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "External Docking Port";
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8

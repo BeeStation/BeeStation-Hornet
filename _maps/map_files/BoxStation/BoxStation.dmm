@@ -49653,7 +49653,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/science{
 	name = "exploration preparation room";
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /turf/open/floor/plasteel/white,
 /area/quartermaster/exploration_prep)
@@ -54840,7 +54840,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Exploration Dock Maintenance";
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
@@ -55022,7 +55022,7 @@
 "qKG" = (
 /obj/machinery/door/airlock/science{
 	name = "exploration preparation room";
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
@@ -55885,7 +55885,7 @@
 "rXd" = (
 /obj/machinery/door/airlock/science{
 	name = "exploration shuttle dock";
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{

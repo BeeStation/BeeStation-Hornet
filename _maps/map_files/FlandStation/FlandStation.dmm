@@ -36867,7 +36867,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "External Docking Port";
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
@@ -37023,7 +37023,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "External Docking Port";
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
@@ -37051,7 +37051,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "External Docking Port";
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/hallway/primary/aft)
@@ -37103,7 +37103,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "External Docking Port";
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/hallway/primary/aft)
@@ -72736,7 +72736,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
 	name = "Exploration Preparation Room";
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/exploration_prep)

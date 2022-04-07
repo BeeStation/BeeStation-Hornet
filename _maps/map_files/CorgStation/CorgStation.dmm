@@ -2257,7 +2257,7 @@
 "aFd" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/science{
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/stripes/line,
@@ -11314,7 +11314,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/science{
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -37698,7 +37698,7 @@
 "iLz" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/science{
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -52842,7 +52842,7 @@
 "mqn" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
@@ -54078,7 +54078,7 @@
 "mHh" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/science{
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/stripes/line,
@@ -62203,7 +62203,7 @@
 "oGG" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -65814,7 +65814,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/science{
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -74082,7 +74082,7 @@
 "rvo" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/science{
-	req_access_txt = "49"
+	req_access_txt = "47"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1

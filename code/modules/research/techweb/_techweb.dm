@@ -74,7 +74,6 @@
 		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(id)
 		update_node_status(node, FALSE)
 		CHECK_TICK
-	recalculate_tiers()
 	for(var/v in consoles_accessing)
 		var/obj/machinery/computer/rdconsole/V = v
 		V.ui_update()
@@ -205,7 +204,6 @@
 /datum/techweb/proc/research_node(datum/techweb_node/node, force = FALSE, auto_adjust_cost = TRUE, get_that_dosh = TRUE)
 	if(!istype(node))
 		return FALSE
-	recalculate_tiers()
 	update_node_status(node)
 	if(!force)
 		if(!available_nodes[node.id] || (auto_adjust_cost && (!can_afford(node.get_price(src)))))
