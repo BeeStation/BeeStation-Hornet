@@ -9,35 +9,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
-"c" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
-"d" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
-"e" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
-"f" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/supply)
 "g" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -220,9 +191,67 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/supply)
+"F" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/computer/shuttle_flight/cargo,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"G" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"H" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/computer/cargo,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"J" = (
+/obj/machinery/holopad,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"K" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"M" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"N" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/computer/bounty,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"R" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"T" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/supply)
 
 (1,1,1) = {"
-a
+B
 a
 a
 k
@@ -237,8 +266,8 @@ B
 "}
 (2,1,1) = {"
 a
+a
 b
-g
 g
 o
 p
@@ -250,9 +279,9 @@ a
 C
 "}
 (3,1,1) = {"
-a
-c
-h
+T
+N
+G
 l
 h
 h
@@ -264,12 +293,12 @@ z
 D
 "}
 (4,1,1) = {"
-a
-d
+T
+F
+K
 i
 i
-i
-h
+J
 i
 h
 v
@@ -278,9 +307,9 @@ A
 D
 "}
 (5,1,1) = {"
-a
-e
-i
+T
+H
+M
 h
 h
 h
@@ -293,8 +322,8 @@ D
 "}
 (6,1,1) = {"
 a
-f
-j
+a
+R
 m
 j
 q
@@ -306,7 +335,7 @@ a
 E
 "}
 (7,1,1) = {"
-a
+B
 a
 a
 a

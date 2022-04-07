@@ -2,35 +2,11 @@
 "a" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/supply)
-"b" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/supply)
 "c" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/supply)
-"d" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/open/floor/mineral/titanium/yellow,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "e" = (
 /obj/effect/turf_decal/tile/brown,
@@ -291,9 +267,56 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/supply)
+"F" = (
+/obj/machinery/computer/cargo,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"H" = (
+/obj/machinery/computer/shuttle_flight/cargo,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"I" = (
+/obj/effect/turf_decal/stripes,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"Q" = (
+/obj/machinery/computer/bounty,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"R" = (
+/obj/machinery/holopad,
+/obj/effect/turf_decal/stripes,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"T" = (
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"U" = (
+/obj/effect/turf_decal/stripes{
+	dir = 10
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"V" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"X" = (
+/obj/effect/turf_decal/stripes{
+	dir = 6
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"Z" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/supply)
 
 (1,1,1) = {"
-a
+B
 a
 a
 i
@@ -308,8 +331,8 @@ B
 "}
 (2,1,1) = {"
 a
-b
-e
+a
+I
 j
 n
 p
@@ -321,10 +344,10 @@ a
 C
 "}
 (3,1,1) = {"
-a
-c
-f
-k
+V
+Q
+Z
+U
 o
 g
 f
@@ -335,10 +358,10 @@ A
 D
 "}
 (4,1,1) = {"
-a
+V
+H
 c
-g
-g
+R
 g
 g
 g
@@ -349,10 +372,10 @@ A
 D
 "}
 (5,1,1) = {"
-a
-c
-g
-g
+V
+F
+T
+X
 g
 g
 g
@@ -364,8 +387,8 @@ D
 "}
 (6,1,1) = {"
 a
-d
-h
+a
+I
 l
 h
 q
@@ -377,7 +400,7 @@ a
 E
 "}
 (7,1,1) = {"
-a
+B
 a
 a
 a

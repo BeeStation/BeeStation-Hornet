@@ -509,6 +509,11 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle_flight/custom_shuttle
 
+/obj/item/circuitboard/computer/shuttle/cargo
+	name = "cargo shuttle flight control (Computer Board)"
+	icon_state = "generic"
+	build_path = /obj/machinery/computer/shuttle_flight/cargo
+
 /obj/item/circuitboard/computer/shuttle/labor_shuttle
 	name = "labor shuttle console (Computer Board)"
 	icon_state = "security"
