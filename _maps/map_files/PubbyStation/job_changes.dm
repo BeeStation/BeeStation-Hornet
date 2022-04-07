@@ -17,9 +17,3 @@
 	MAP_JOB_CHECK
 	access += ACCESS_CREMATORIUM
 	minimal_access += ACCESS_CREMATORIUM
-
-/datum/job/exploration/New()
-	. = ..()
-	MAP_JOB_CHECK
-	access += ACCESS_MAINT_TUNNELS
-	minimal_access += ACCESS_MAINT_TUNNELS

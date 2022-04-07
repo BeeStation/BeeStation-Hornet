@@ -536,10 +536,6 @@
 	name = "science shuttle console (Computer Board)"
 	build_path = /obj/machinery/computer/shuttle_flight/science
 
-/obj/item/circuitboard/computer/shuttle/exploration_shuttle
-	name = "exploration shuttle console (Computer Board)"
-	build_path = /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration
-
 /obj/item/circuitboard/computer/shuttle/monastery_shuttle
 	name = "monastery shuttle console (Computer Board)"
 	icon_state = "generic"

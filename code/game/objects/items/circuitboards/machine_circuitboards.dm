@@ -1185,15 +1185,6 @@
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/matter_bin = 3)
 
-/obj/item/circuitboard/machine/exploration_equipment_vendor
-	name = "exploration equipment vendor (Machine Board)"
-	icon_state = "supply"
-	build_path = /obj/machinery/vendor/exploration
-	req_components = list(
-		/obj/item/stack/sheet/glass = 1,
-		/obj/item/stock_parts/matter_bin = 3)
-
-
 /obj/item/circuitboard/machine/mining_equipment_vendor/golem
 	name = "golem ship equipment vendor (Machine Board)"
 	build_path = /obj/machinery/vendor/mining/golem

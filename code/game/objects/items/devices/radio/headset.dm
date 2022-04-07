@@ -9,7 +9,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	RADIO_CHANNEL_CENTCOM = RADIO_TOKEN_CENTCOM,
 	RADIO_CHANNEL_SYNDICATE = RADIO_TOKEN_SYNDICATE,
 	RADIO_CHANNEL_SUPPLY = RADIO_TOKEN_SUPPLY,
-	RADIO_CHANNEL_EXPLORATION = RADIO_TOKEN_EXPLORATION,
 	RADIO_CHANNEL_SERVICE = RADIO_TOKEN_SERVICE,
 	MODE_BINARY = MODE_TOKEN_BINARY,
 	RADIO_CHANNEL_AI_PRIVATE = RADIO_TOKEN_AI_PRIVATE
@@ -235,7 +234,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	name = "exploration radio headset"
 	desc = "A headset used by exploration teams."
 	icon_state = "exploration_headset"
-	keyslot = new /obj/item/encryptionkey/headset_expteam
+	keyslot = new /obj/item/encryptionkey/headset_mining
 
 /obj/item/radio/headset/headset_cargo/mining
 	name = "mining radio headset"

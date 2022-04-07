@@ -20,7 +20,6 @@
 
 #define RD_JF			(1<<0)
 #define SCIENTIST		(1<<1)
-#define EXPLORATION_CREW (1<<2)
 #define CHEMIST			(1<<3)
 #define CMO_JF			(1<<4)
 #define DOCTOR			(1<<5)

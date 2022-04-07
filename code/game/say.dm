@@ -8,7 +8,6 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	"[FREQ_MEDICAL]" = "medradio",
 	"[FREQ_ENGINEERING]" = "engradio",
 	"[FREQ_SUPPLY]" = "suppradio",
-	"[FREQ_EXPLORATION]" = "explradio",
 	"[FREQ_SERVICE]" = "servradio",
 	"[FREQ_SECURITY]" = "secradio",
 	"[FREQ_COMMAND]" = "comradio",
