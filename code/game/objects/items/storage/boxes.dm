@@ -630,6 +630,16 @@
 	for(var/i in 1 to 5)
 		new /obj/item/firing_pin/paywall(src)
 
+/obj/item/storage/box/firingpins/off_station
+	name = "box of off-station firing pins"
+	desc = "A box full of off-station firing pins, to allow newly-developed firearms to operate when not on the station."
+	icon_state = "secbox"
+	illustration = "firingpin"
+
+/obj/item/storage/box/firingpins/PopulateContents()
+	for(var/i in 1 to 5)
+		new /obj/item/firing_pin/off_station(src)
+
 /obj/item/storage/box/lasertagpins
 	name = "box of laser tag firing pins"
 	desc = "A box full of laser tag firing pins, to allow newly-developed firearms to require wearing brightly coloured plastic armor before being able to be used."

@@ -468,6 +468,15 @@
 					/obj/item/storage/box/firingpins/paywall)
 	crate_name = "paywall firing pins crate"
 
+/datum/supply_pack/security/firingpins/off_station
+	name = "Off-Station Firing Pins Crate"
+	desc = "Specialized firing pins with a sensor that prevents firing while on the station. Requires Security access to open."
+	cost = 1100
+	access_budget = ACCESS_ARMORY
+	contains = list(/obj/item/storage/box/firingpins/off_station,
+					/obj/item/storage/box/firingpins/off_station)
+	crate_name = "off-statino firing pins crate"
+
 /datum/supply_pack/security/justiceinbound
 	name = "Standard Justice Enforcer Crate"
 	desc = "This is it. The Bee's Knees. The Creme of the Crop. The Pick of the Litter. The best of the best of the best. The Crown Jewel of Nanotrasen. The Alpha and the Omega of security headwear. Guaranteed to strike fear into the hearts of each and every criminal aboard the station. Also comes with a security gasmask. Requires Security access to open."

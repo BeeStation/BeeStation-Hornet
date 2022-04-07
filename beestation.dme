@@ -2037,7 +2037,6 @@
 #include "code\modules\events\wizard\rpgtitles.dm"
 #include "code\modules\events\wizard\shuffle.dm"
 #include "code\modules\events\wizard\summons.dm"
-#include "code\modules\exploration_crew\nostation_firing_pin.dm"
 #include "code\modules\fields\fields.dm"
 #include "code\modules\fields\gravity.dm"
 #include "code\modules\fields\peaceborg_dampener.dm"
