@@ -985,8 +985,7 @@
 
 /mob/living/proc/return_soul()
 	if(mind)
-		if(mind.hellbound)
-			mind.hellbound = FALSE
+		mind.hellbound = FALSE
 		var/datum/antagonist/devil/devilInfo = mind.soulOwner.has_antag_datum(/datum/antagonist/devil)
 		if(devilInfo)//Not sure how this could be null, but let's just try anyway.
 			devilInfo.remove_soul(mind)

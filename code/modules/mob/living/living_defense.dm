@@ -431,7 +431,5 @@
 		return TRUE
 	return FALSE 
 
-/mob/living/proc/hellbound()
-	if(mind && mind.hellbound)
-		return TRUE
-	return FALSE
+/mob/living/proc/ishellbound()
+	return mind && mind.hellbound
