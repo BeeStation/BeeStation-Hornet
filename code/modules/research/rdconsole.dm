@@ -223,7 +223,6 @@ Nothing else in the console has ID requirements.
 		"itempoints" = list(),
 		"analyzeritem" = null,
 		"compact" = compact,
-		"tech_tier" = stored_research.current_tier,
 	)
 
 	if (t_disk)
@@ -313,7 +312,6 @@ Nothing else in the console has ID requirements.
 		node_cache[compressed_id] = list(
 			"name" = node.display_name,
 			"description" = node.description,
-			"tech_tier" = node.tech_tier,
 		)
 		if (LAZYLEN(node.prereq_ids))
 			node_cache[compressed_id]["prereq_ids"] = list()

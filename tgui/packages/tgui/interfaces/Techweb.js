@@ -139,7 +139,6 @@ export const TechwebContent = (props, context) => {
     locked,
     linkedanalyzer,
     compact,
-    tech_tier,
   } = data;
   const [
     techwebRoute,
@@ -174,9 +173,6 @@ export const TechwebContent = (props, context) => {
                 className={`Techweb__SecProtocol ${!!sec_protocols && "engaged"}`}>
                 {sec_protocols ? "Engaged" : "Disengaged"}
               </span>
-            </Box>
-            <Box>
-              Tech Tier: {tech_tier}
             </Box>
             <Box>
               <Button.Checkbox
@@ -727,7 +723,6 @@ const TechNode = (props, context) => {
     description,
     design_ids,
     prereq_ids,
-    tech_tier,
   } = node_cache[id];
   const [
     techwebRoute,
@@ -743,9 +738,6 @@ const TechNode = (props, context) => {
       className="Techweb__NodeContainer"
       title={name}
       width={25}>
-      <Box inline className="Techweb__TierDisplay">
-        Tier {tech_tier}
-      </Box>
       {!nocontrols && (
         <>
           {!nodetails && (

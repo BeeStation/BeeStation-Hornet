@@ -25,28 +25,15 @@
 	var/organization = "Third-Party"							//Organization name, used for display.
 	var/list/last_bitcoins = list()								//Current per-second production, used for display only.
 	var/list/discovered_mutations = list()                           //Mutations discovered by genetics, this way they are shared and cant be destroyed by destroying a single console
-	//Tiers used for the RD console, not actual tier
-	var/list/tiers = list()										//Assoc list, id = number, 1 is available, 2 is all reqs are 1, so on
 	//Discovery scanned thinsg
 	var/list/scanned_atoms = list()
-	//Discovery cost tiers
-	var/current_tier = 1
-	var/list/items_per_tier = list()			//Assoc list, Key = "[tier level]", Value = Amount of nodes in tier
-	var/list/unlocked_in_tier = list()			//Assoc list, Key = "[tier level]", Value = Amount of nodes unlocked in tier
 
 /datum/techweb/New()
 	SSresearch.techwebs += src
 	for(var/i in SSresearch.techweb_nodes_starting)
 		var/datum/techweb_node/DN = SSresearch.techweb_node_by_id(i)
 		research_node(DN, TRUE, FALSE, FALSE)
-	hidden_nodes = SSresearch.techweb_nodes_hidden.Copy()
-	items_per_tier = list()
-	for(var/id in SSresearch.techweb_nodes)
-		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(id)
-		if(items_per_tier["[node.tech_tier]"])
-			items_per_tier["[node.tech_tier]"] += 1
-		else
-			items_per_tier["[node.tech_tier]"] = 1
+	hidden_nodes = SSresearch.techweb_nodes_hidden.Copy() 1
 	return ..()
 
 /datum/techweb/admin
@@ -72,8 +59,6 @@
 	available_nodes = null
 	visible_nodes = null
 	custom_designs = null
-	items_per_tier = null
-	unlocked_in_tier = null
 	SSresearch.techwebs -= src
 	return ..()
 
@@ -89,39 +74,13 @@
 		researched_designs = custom_designs.Copy()
 		if(wipe_custom_designs)
 			custom_designs = list()
-	items_per_tier = list()
 	for(var/id in processing)
 		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(id)
 		update_node_status(node, FALSE)
-		if(items_per_tier["[node.tech_tier]"])
-			items_per_tier["[node.tech_tier]"] += 1
-		else
-			items_per_tier["[node.tech_tier]"] = 1
 		CHECK_TICK
-	recalculate_tiers()
 	for(var/v in consoles_accessing)
 		var/obj/machinery/computer/rdconsole/V = v
 		V.ui_update()
-
-/datum/techweb/proc/recalculate_tiers()
-	unlocked_in_tier = list()
-	for(var/id in researched_nodes)
-		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(id)
-		if(unlocked_in_tier["[node.tech_tier]"])
-			unlocked_in_tier["[node.tech_tier]"] += 1
-		else
-			unlocked_in_tier["[node.tech_tier]"] = 1
-	calculate_current_tier()
-
-/datum/techweb/proc/calculate_current_tier()
-	current_tier = 1
-	for(var/tier in 1 to MAX_TIER)
-		var/researched_amount = unlocked_in_tier["[tier]"]
-		var/total_amount = items_per_tier["[tier]"]
-		if(!researched_amount)
-			continue
-		if(researched_amount >= total_amount * TIER_PROPORTATION_TO_UNLOCK)
-			current_tier = tier
 
 /datum/techweb/proc/add_point_list(list/pointlist)
 	for(var/i in pointlist)
@@ -178,8 +137,6 @@
 	returned.available_nodes = available_nodes.Copy()
 	returned.researched_designs = researched_designs.Copy()
 	returned.hidden_nodes = hidden_nodes.Copy()
-	returned.current_tier = current_tier
-	returned.unlocked_in_tier = unlocked_in_tier.Copy()
 	return returned
 
 /datum/techweb/proc/get_visible_nodes()			//The way this is set up is shit but whatever.
@@ -251,7 +208,6 @@
 /datum/techweb/proc/research_node(datum/techweb_node/node, force = FALSE, auto_adjust_cost = TRUE, get_that_dosh = TRUE)
 	if(!istype(node))
 		return FALSE
-	recalculate_tiers()
 	update_node_status(node)
 	if(!force)
 		if(!available_nodes[node.id] || (auto_adjust_cost && (!can_afford(node.get_price(src)))))
@@ -292,24 +248,6 @@
 	update_node_status(N)
 	return TRUE
 
-/datum/techweb/proc/update_tiers(datum/techweb_node/base)
-	var/list/current = list(base)
-	while (current.len)
-		var/list/next = list()
-		for (var/node_ in current)
-			var/datum/techweb_node/node = node_
-			var/tier = 0
-			if (!researched_nodes[node.id])  // researched is tier 0
-				for (var/id in node.prereq_ids)
-					var/prereq_tier = tiers[id]
-					tier = max(tier, prereq_tier + 1)
-
-			if (tier != tiers[node.id])
-				tiers[node.id] = tier
-				for (var/id in node.unlock_ids)
-					next += SSresearch.techweb_node_by_id(id)
-		current = next
-
 /datum/techweb/proc/update_node_status(datum/techweb_node/node, autoupdate_consoles = TRUE)
 	var/researched = FALSE
 	var/available = FALSE
@@ -338,7 +276,6 @@
 		else
 			if(visible)
 				visible_nodes[node.id] = TRUE
-	update_tiers(node)
 	if(autoupdate_consoles)
 		for(var/v in consoles_accessing)
 			var/obj/machinery/computer/rdconsole/V = v

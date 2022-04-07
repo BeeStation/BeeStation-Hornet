@@ -4,7 +4,6 @@
 
 /datum/techweb_node
 	var/id
-	var/tech_tier = 0
 	var/display_name = "Errored Node"
 	var/description = "Why are you seeing this?"
 	var/hidden = FALSE			//Whether it starts off hidden.
@@ -90,24 +89,9 @@
 			for(var/i in L)
 				if(actual_costs[i])
 					actual_costs[i] -= L[i]
-		actual_costs[TECHWEB_POINT_TYPE_DISCOVERY] = calculate_discovery_cost(host.current_tier)
 		return actual_costs
 	else
 		return research_costs
-
-/datum/techweb_node/proc/calculate_discovery_cost(their_tier)
-	var/delta = tech_tier - their_tier
-	switch(delta)
-		if(-INFINITY to 0)
-			return 0
-		if(1)
-			return 1000
-		if(2)
-			return 2500
-		if(3)
-			return 5000
-		if(4 to INFINITY)
-			return 10000
 
 /datum/techweb_node/proc/price_display(datum/techweb/TN)
 	return techweb_point_display_generic(get_price(TN))
