@@ -274,7 +274,7 @@ Nothing else in the console has ID requirements.
 
 
 	// Serialize all nodes to display
-	for(var/v in stored_research.tiers)
+	for(var/v in stored_research.visible_nodes)
 		var/datum/techweb_node/n = SSresearch.techweb_node_by_id(v)
 
 		// Ensure node is supposed to be visible
@@ -287,7 +287,6 @@ Nothing else in the console has ID requirements.
 			"id" = n.id,
 			"can_unlock" = stored_research.can_afford(costs),
 			"costs" = costs,
-			"tier" = stored_research.tiers[n.id]
 		))
 
 /obj/machinery/computer/rdconsole/proc/compress_id(id)

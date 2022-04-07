@@ -149,9 +149,6 @@
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	alpha = 0
 
-/obj/effect/broken_illusion/ComponentInitialize()
-	AddComponent(/datum/component/discoverable, 5000)
-
 /obj/effect/broken_illusion/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src,.proc/show_presence),15 SECONDS)
