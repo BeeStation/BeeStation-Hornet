@@ -41,6 +41,11 @@
 	var/datum/job/janitor/J = new/datum/job/janitor
 	access_card.access += J.get_access()
 	prev_access = access_card.access
+	GLOB.janitor_devices += src
+
+/mob/living/simple_animal/bot/cleanbot/Destroy()
+	GLOB.janitor_devices -= src
+	return ..()
 
 /mob/living/simple_animal/bot/cleanbot/turn_on()
 	..()
