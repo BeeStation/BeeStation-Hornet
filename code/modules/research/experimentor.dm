@@ -561,7 +561,7 @@
 	cooldownMax = rand(60,300)
 	realProc = pick("teleport","explode","rapidDupe","petSpray","flash","clean","corgicannon")
 	//Give science research
-	techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, 2000)
+	techweb.add_point_type(TECHWEB_POINT_TYPE_PHYSICS, 2000)
 
 /obj/item/relic/attack_self(mob/user)
 	if(revealed)

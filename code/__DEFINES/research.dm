@@ -64,16 +64,22 @@
 
 //When adding new types, update the list below!
 #define TECHWEB_POINT_TYPE_GENERIC "General Research"
-#define TECHWEB_POINT_TYPE_DISCOVERY "Discovery Research"
 #define TECHWEB_POINT_TYPE_NANITES "Nanite Research"
+#define TECHWEB_POINT_TYPE_PHYSICS "Physics Research"
+#define TECHWEB_POINT_TYPE_MILITARY "Military Research"
+#define TECHWEB_POINT_TYPE_BIOMED "Biomedical Research"
+#define TECHWEB_POINT_TYPE_BLUESPACE "Bluespace Research"
 
 #define TECHWEB_POINT_TYPE_DEFAULT TECHWEB_POINT_TYPE_GENERIC
 
 //defined here so people don't forget to change this!
 #define TECHWEB_POINT_TYPE_LIST_ASSOCIATIVE_NAMES list(\
 	TECHWEB_POINT_TYPE_GENERIC = "General Research",\
-	TECHWEB_POINT_TYPE_DISCOVERY = "Discovery Research",\
-	TECHWEB_POINT_TYPE_NANITES = "Nanite Research"\
+	TECHWEB_POINT_TYPE_NANITES = "Nanite Research",\
+	TECHWEB_POINT_TYPE_PHYSICS = "Physics Research",\
+	TECHWEB_POINT_TYPE_MILITARY = "Military Research",\
+	TECHWEB_POINT_TYPE_BIOMED = "Biomedical Research",\
+	TECHWEB_POINT_TYPE_BLUESPACE = "Bluespace Research"\
 	)
 
 #define TECHWEB_BOMB_POINTCAP		50000 //! Adjust as needed; Stops toxins from nullifying RND progression mechanics. Current Value Cap Radius: 100

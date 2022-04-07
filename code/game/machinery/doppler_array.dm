@@ -218,7 +218,6 @@
 		return
 
 	var/general_point_gain = 0
-	var/discovery_point_gain = 0
 
 	/*****The Point Calculator*****/
 
@@ -243,11 +242,12 @@
 		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_SCI)
 		if(D)
 			D.adjust_money(general_point_gain)
-			discovery_point_gain = general_point_gain * 0.5
+			var/other_point_gain = general_point_gain * 0.3
 			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, general_point_gain)
-			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, discovery_point_gain)
+			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_PHYSICS, other_point_gain)
+			linked_techweb.add_point_type(TECHWEB_POINT_TYPE_MILITARY, other_point_gain)
 
-			say("Explosion details and mixture analyzed and sold to the highest bidder for $[general_point_gain], with a reward of [general_point_gain] General Research points and [discovery_point_gain] Discovery Research points.")
+			say("Explosion details and mixture analyzed and sold to the highest bidder for $[general_point_gain], with a reward of [general_point_gain] General Research points and [other_point_gain] Military & Physics Research points.")
 
 	else //you've made smaller bombs
 		say("Data already captured. Aborting.")
