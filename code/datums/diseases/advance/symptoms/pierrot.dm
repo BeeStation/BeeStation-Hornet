@@ -63,7 +63,7 @@
 				if(prob(5))
 					playsound(M.loc, 'sound/items/bikehorn.ogg', 100, 1)
 					if(honkspread)
-						A.spread(5)
+						A.spread(5 && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
 
 /datum/symptom/pierrot/End(datum/disease/advance/A)
 	..()

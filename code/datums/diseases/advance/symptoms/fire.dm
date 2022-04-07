@@ -71,7 +71,7 @@ Bonus
 /datum/symptom/fire/proc/Firestacks_stage_4(mob/living/M, datum/disease/advance/A)
 	M.adjust_fire_stacks(1 * power)
 	M.take_overall_damage(burn = 3 * power, required_status = BODYTYPE_ORGANIC)
-	if(infective)
+	if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
 		A.spread(2)
 	return 1
 
