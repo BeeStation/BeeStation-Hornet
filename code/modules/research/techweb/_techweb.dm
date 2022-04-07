@@ -33,7 +33,7 @@
 	for(var/i in SSresearch.techweb_nodes_starting)
 		var/datum/techweb_node/DN = SSresearch.techweb_node_by_id(i)
 		research_node(DN, TRUE, FALSE, FALSE)
-	hidden_nodes = SSresearch.techweb_nodes_hidden.Copy() 1
+	hidden_nodes = SSresearch.techweb_nodes_hidden.Copy()
 	return ..()
 
 /datum/techweb/admin
