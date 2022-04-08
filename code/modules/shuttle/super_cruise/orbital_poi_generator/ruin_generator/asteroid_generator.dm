@@ -2,17 +2,17 @@
 //weight_offset - Affects the probability of a rock spawning (between -1 and 1)
 //if this number is negative, asteroids will be smaller.
 //if this number is positive asteroids will be larger and more likely
-/proc/generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65)
+/proc/generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65, rare = FALSE)
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = TRUE
 	try
-		_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset, scale)
+		_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset, scale, rare)
 	catch(var/exception/e)
 		message_admins("Asteroid failed to generate!")
 		stack_trace("Asteroid failed to generate! [e] on [e.file]:[e.line]")
 	space_level.generating = FALSE
 
-/proc/_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65)
+/proc/_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65, rare = FALSE)
 
 	SSair.pause_z(center_z)
 
@@ -41,7 +41,10 @@
 		var/rock_value = (distance / max_radius) + weight_offset + 0.1
 		var/sand_value = (distance / max_radius) + weight_offset
 		if(noise_at_coord >= rock_value && closed)
-			T.ChangeTurf(/turf/closed/mineral/random, list(/turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
+			if(rare)
+				T.ChangeTurf(/turf/closed/mineral/random/artifact, list(/turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
+			else
+				T.ChangeTurf(/turf/closed/mineral/random, list(/turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
 		else if(noise_at_coord >= sand_value)
 			var/turf/newT = T.ChangeTurf(/turf/open/floor/plating/asteroid/airless, flags = CHANGETURF_IGNORE_AIR)
 			if(noise_at_coord >= plant_value)

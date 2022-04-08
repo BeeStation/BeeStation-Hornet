@@ -120,6 +120,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Check space ruin count
 	if(ruin_levels < 2 && prob(5))
 		new /datum/orbital_object/z_linked/beacon/ruin/spaceruin()
+	if(prob(0.1))
+		new /datum/orbital_object/z_linked/beacon/ruin/asteroid/artifact()
 	//Check objective
 	if(current_objective)
 		if(current_objective.check_failed())

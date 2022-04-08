@@ -48,6 +48,26 @@
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
 	set_orbitting_around_body(linked_map.center, 1200 + 20 * rand(-10, 10))
 
+/datum/orbital_object/z_linked/beacon/ruin/asteroid/artifact
+	name = "Asteroid (Bluespace Anomaly Detected)"
+
+/datum/orbital_object/z_linked/beacon/ruin/asteroid/artifact/process()
+	. = ..()
+	if(position.x > 20000 || position.y > 20000 || position.x < -20000 || position.y < -20000)
+		qdel(src)
+
+/datum/orbital_object/z_linked/beacon/ruin/asteroid/artifact/assign_z_level()
+	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
+	linked_z_level = list(assigned_space_level)
+	assigned_space_level.orbital_body = src
+	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 120, rand(-0.5, 0), rand(40, 70), TRUE)
+
+/datum/orbital_object/z_linked/beacon/ruin/asteroid/artifact/post_map_setup()
+	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
+	set_orbitting_around_body(linked_map.center, 3000 + 20 * rand(-10, 10))
+	velocity.x = rand(-50, 50)
+	velocity.y = rand(-50, 50)
+
 //====================
 // Regular Ruin Z-levels
 //====================
