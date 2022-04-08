@@ -33,7 +33,7 @@
 		UnregisterSignal(shuttle_area, COMSIG_AREA_ENTERED)
 	//Unregister cached thing signals
 	for(var/sellable_good_ref as() in sellable_goods_cache)
-		UnregisterSignal(locate(sellable_good), COMSIG_PARENT_QDELETING)
+		UnregisterSignal(locate(sellable_good_ref), COMSIG_PARENT_QDELETING)
 	//Clear the memory of sold goods to remove hard-del possibilities
 	sellable_goods_cache = null
 
