@@ -54,7 +54,7 @@ Difficulty: Hard
 	ranged = TRUE
 	ranged_cooldown_time = 40
 	aggro_vision_range = 21 //so it can see to one side of the arena to the other
-	loot = list(/obj/structure/closet/crate/necropolis/hierophant)
+	loot = list(/obj/structure/closet/crate/necropolis/hierophant, /obj/item/artifact_fragment)
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/hierophant, /obj/item/crusher_trophy/vortex_talisman)
 	wander = FALSE
 	gps_name = "Zealous Signal"

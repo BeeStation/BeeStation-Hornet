@@ -23,6 +23,9 @@
 	//Drop fragments
 	for(var/i in 1 to 3)
 		new /obj/item/artifact_fragment(loc)
+	message_admins("An artifact was destroyed, releasing an EMP burst at [ADMIN_VERBOSEJMP(loc)].")
+	log_game("An artifact was destroyed, releasing an EMP burst at [loc.loc?.name || "an invalid location"].")
+	empulse(loc, 8, 14, FALSE)
 	. = ..()
 
 /obj/item/alienartifact/examine(mob/user)
