@@ -111,5 +111,8 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/reagent_containers/food/drinks/bottle/homemaderum = 1,
 	/obj/item/reagent_containers/food/snacks/grown/poppy = 10,
 	/obj/item/throwing_star = 1,
+	/obj/item/disk/research/physics = 1,
+	/obj/item/disk/research/military = 1,
+	/obj/item/disk/research/biomed = 1,
 	"" = 3
 	))

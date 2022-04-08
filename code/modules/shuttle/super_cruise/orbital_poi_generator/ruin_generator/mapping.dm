@@ -33,6 +33,9 @@
 		/obj/item/seeds/random = 1,
 		/obj/item/gun/energy/floragun = 1,
 		/obj/item/stack/spacecash/c1000 = 2,
+		/obj/item/disk/research/physics = 1,
+		/obj/item/disk/research/military = 1,
+		/obj/item/disk/research/biomed = 1,
 	)
 
 //Medical stuff
@@ -66,6 +69,7 @@
 		/obj/item/storage/belt/medical = 1,
 		/obj/item/defibrillator/compact/loaded = 1,
 		/obj/item/pinpointer/crew = 1,
+		/obj/item/disk/research/biomed = 2,
 	)
 
 //Science stuff
@@ -117,7 +121,8 @@
 		/obj/item/borg/upgrade/speciality/botany = 1,
 		/obj/item/borg/upgrade/defib = 1,
 		/obj/item/taperecorder = 5,
-		/obj/item/clothing/mask/facehugger/lamarr = 1
+		/obj/item/clothing/mask/facehugger/lamarr = 1,
+		/obj/item/disk/research/physics = 2,
 	)
 
 //Security stuff
@@ -144,6 +149,7 @@
 		/obj/item/grenade/chem_grenade/teargas = 1,
 		/obj/item/reagent_containers/spray/pepper = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,
+		/obj/item/disk/research/military = 2,
 	)
 
 //Armory stuff
@@ -176,14 +182,20 @@
 		/obj/item/ammo_box/magazine/wt550m9/wtap = 1,
 		/obj/item/ammo_box/magazine/wt550m9/wtic = 1,
 		/obj/item/ammo_box/magazine/pistolm9mm = 4,
+		/obj/item/disk/research/military/gold = 2,
 	)
 
 //Important stuff like research disks
 /obj/effect/spawner/lootdrop/ruinloot/important
 	loot = list(
 		"" = 4,
-		/obj/item/disk/tech_disk/research/random = 24,
 		/obj/item/alienartifact = 6,
 		/obj/item/gun/energy/vortex = 3,
 		/obj/item/gun/energy/alien = 1
+		/obj/item/disk/research/physics/gold = 6,
+		/obj/item/disk/research/military/gold = 6,
+		/obj/item/disk/research/biomed/gold = 6,
+		/obj/item/disk/research/physics/diamond = 1,
+		/obj/item/disk/research/military/diamond = 1,
+		/obj/item/disk/research/biomed/diamond = 1,
 	)

@@ -149,7 +149,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		/datum/orbital_objective/nuclear_bomb = 1,
 		/datum/orbital_objective/assassination = 1,
 		/datum/orbital_objective/artifact = 2,
-		/datum/orbital_objective/vip_recovery = 1
 	)
 	if(!length(possible_objectives))
 		priority_announce("Priority station objective recieved - Details transmitted to all available objective consoles. \
