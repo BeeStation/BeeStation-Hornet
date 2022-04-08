@@ -1,5 +1,6 @@
 /datum/orbital_object/shuttle
 	name = "Shuttle"
+	type_name = "shuttle"
 	collision_type = COLLISION_SHUTTLES
 	collision_flags = COLLISION_Z_LINKED | COLLISION_METEOR
 	var/shuttle_port_id
@@ -84,6 +85,7 @@
 	else
 		//If our docking target was deleted, null it to prevent docking interface etc.
 		docking_target = null
+		depart_merchant()
 	//I hate that I have to do this, but people keep flying them away.
 	if(position.x > 20000 || position.x < -20000 || position.y > 20000 || position.y < -20000)
 		priority_announce("Bluespace reality fracture detected, source: [name].")

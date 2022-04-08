@@ -1,5 +1,6 @@
 /datum/orbital_object/z_linked/station
 	name = "Space Station 13"
+	type_name = "station"
 	mass = 0
 	radius = 30
 	//The station maintains its orbit around lavaland by adjustment thrusters.

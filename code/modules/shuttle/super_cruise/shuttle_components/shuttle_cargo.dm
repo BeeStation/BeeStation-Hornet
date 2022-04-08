@@ -51,41 +51,21 @@
 	//Ignored types (We don't want to sell people)
 	if(ismob(sellable) || iseffect(sellable))
 		return
-	var/price = determine_value(sellable)
+	var/price = 0
+	//Contents
+	var/allContents = sellable.GetAllContents()
+	for(var/atom/movable/subContent in allContents)
+		for(var/datum/export/E in GLOB.exports_list)
+			if(E.applies_to(sellable, export_categories, TRUE))
+				price += E.sell_object(sellable, TRUE, export_categories, TRUE)
+				break
 	//No price, no value
 	if(!price)
 		return
 	//Start tracking it
-	sellable_goods_cache[sellable] = price
+	sellable_goods_cache[REF(sellable)] = list(
+		"name" = sellable.name,
+		"price" = price,
+		"contents" = allContents - sellable
+	)
 	RegisterSignal(sellable, COMSIG_PARENT_QDELETING, .proc/_on_goods_deleted)
-
-/obj/docking_port/mobile/proc/determine_value(atom/movable/sellable)
-	//Ignore unsellable stuff
-	if(ismob(sellable) || iseffect(sellable))
-		return
-	//Determine own value
-	var/own_value = 0
-	for(var/datum/export/E in GLOB.exports_list)
-		if(E.applies_to(sellable, export_categories, TRUE))
-			own_value = E.sell_object(sellable, TRUE, export_categories, TRUE)
-			break
-	//Determine contents
-	var/list/contents_list = list()
-	var/list/worthless_contents = list()
-	//Sell the contents
-	for(var/atom/movable/thing as() in sellable.contents)
-		var/value = determine_value(thing)
-		if(!value)
-			worthless_contents[thing] = value
-		else
-			contents_list[thing] = value
-	//If we have no contents just return our value
-	if(length(contents_list))
-		//Inject ourselves into the list
-		contents_list[sellable] = own_value
-		//If we have valuable objects, add on the worthless objects
-		//so we don't accidentally sell things
-		contents_list += worthless_contents
-		return contents_list
-	else
-		return own_value

@@ -2,6 +2,7 @@
 //Syndicate infiltrator level.
 /datum/orbital_object/z_linked/phobos
 	name = "Phobos"
+	type_name = "station"
 	mass = 500
 	radius = 130
 

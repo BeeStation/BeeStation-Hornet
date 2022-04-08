@@ -358,6 +358,7 @@
 		return
 	//Undock the shuttle
 	shuttleObject.docking_target = null
+	shuttleObject.depart_merchant()
 	shuttleObject.shuttleTarget = target
 	shuttleObject.autopilot = TRUE
 	shuttleObject.controlling_computer = src

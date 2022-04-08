@@ -123,6 +123,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	data["update_index"] = SSorbits.times_fired
 	//Add orbital bodies
 	data["map_objects"] = list()
+	//Communication data
 	var/datum/orbital_map/showing_map = SSorbits.orbital_maps[orbital_map_index]
 	for(var/map_key in showing_map.collision_zone_bodies)
 		for(var/datum/orbital_object/object as() in showing_map.collision_zone_bodies[map_key])
@@ -144,6 +145,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				"velocity_y" = object.velocity.y * object.velocity_multiplier,
 				"radius" = object.radius
 			))
+	//Shuttle specific data
 	if(!SSshuttle.getShuttle(shuttleId))
 		data["linkedToShuttle"] = FALSE
 		return data
@@ -210,6 +212,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 							"name" = stationary_port.name,
 							"id" = stationary_port.id,
 						))
+	//Get sellable goods
 	data["sellable_goods"] = our_port.sellable_goods_cache
 	return data
 

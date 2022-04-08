@@ -1,5 +1,6 @@
 /datum/orbital_object
 	var/name = "undefined"
+	var/type_name = "unknown"
 	//Mass of the object in solar masses
 	var/mass = 0
 	//Radius of the object in parsecs
