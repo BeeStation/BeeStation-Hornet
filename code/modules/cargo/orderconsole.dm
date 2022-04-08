@@ -334,10 +334,9 @@
 			return
 		//Reached merchant location
 		if(SSshuttle.supply.can_recieve_goods())
-			//Purchase cargo items
-			SSshuttle.supply.buy()
+			SSshuttle.supply.loaded = TRUE
 			//Say something
-			say("The supply shuttle has reached its destination and the requested cargo has been loaded.")
+			say("The supply shuttle has reached its destination.")
 			//Disable autopilot
 			shuttleObject.shuttleTarget = null
 			shuttleObject.autopilot = FALSE

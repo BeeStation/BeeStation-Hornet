@@ -711,6 +711,14 @@
 	if(mode == SHUTTLE_STRANDED)
 		return "--:--"
 
+	//If the shuttle is in bluespace transit
+	var/datum/orbital_object/shuttle/shuttle_object = SSorbits.assoc_shuttles[id]
+	if(shuttle_object && shuttle_object.autopilot && shuttle_object.shuttleTarget)
+		var/distance = shuttle_object.position.Distance(shuttle_object.shuttleTarget.position)
+		if(distance > 9999)
+			return "9999u"
+		return "[round(distance)]u"
+
 	var/timeleft = timeLeft()
 	if(timeleft > 1 HOURS)
 		return "--:--"
