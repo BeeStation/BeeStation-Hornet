@@ -9,6 +9,12 @@
 	gamemode_blacklist = list("nuclear")
 	cannot_spawn_after_shuttlecall = TRUE
 
+/datum/round_event_control/pirates/canSpawnEvent(players_amt, gamemode)
+	. = ..()
+	//Weight changes depending on cargo money
+	var/datum/bank_account/car = get_dep_account(ACCOUNT_CAR)
+	weight = 4 + car.account_balance / 10000
+
 /datum/round_event_control/pirates/preRunEvent()
 	if (!SSmapping.empty_space)
 		return EVENT_CANT_RUN
