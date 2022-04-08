@@ -367,6 +367,7 @@
 	if(home)
 		src.forceMove(home)
 		time = world.time + cooldown
+		home.icon_state = "lantern-blue"
 		set_light_on(FALSE)
 	else
 		stop_orbit()
