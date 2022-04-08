@@ -1,0 +1,4 @@
+author: Archanial
+delete-after: true
+changes:
+  - config: added ability to disable cross server bans
