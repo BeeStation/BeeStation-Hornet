@@ -4463,7 +4463,9 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/north,
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/quartermaster/exploration_prep)
 "ahS" = (
@@ -7476,8 +7478,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -11476,24 +11478,6 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/starboard)
-"asI" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/item/clipboard,
-/obj/item/folder/yellow,
-/obj/item/destTagger,
-/obj/item/destTagger,
-/obj/machinery/airalarm{
-	pixel_y = 22
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/quartermaster/sorting)
 "asJ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -14368,8 +14352,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -37429,8 +37413,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
@@ -42018,42 +42002,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
-"blT" = (
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/wrapping_paper{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/stack/wrapping_paper{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/hand_labeler,
-/obj/item/hand_labeler,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/machinery/light_switch{
-	pixel_y = 24
-	},
-/turf/open/floor/plasteel/dark,
-/area/quartermaster/sorting)
 "blU" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
@@ -42340,16 +42288,6 @@
 "bmn" = (
 /obj/structure/sign/warning/docking,
 /turf/closed/wall/rust,
-/area/quartermaster/storage)
-"bmo" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-05"
-	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
-/turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "bmp" = (
 /obj/structure/plasticflaps/opaque,
@@ -51621,8 +51559,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
@@ -51958,8 +51896,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
@@ -60816,8 +60754,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -60949,8 +60887,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -73007,8 +72945,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -87835,7 +87773,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 1
@@ -91418,8 +91358,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Junction Cutoff";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Junction Cutoff"
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -92039,8 +91979,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -96299,7 +96239,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/west,
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -96906,8 +96848,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -97300,6 +97242,21 @@
 	luminosity = 2
 	},
 /area/quartermaster/warehouse)
+"kNJ" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/airalarm{
+	pixel_y = 22
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/computer/shuttle_flight/cargo,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/sorting)
 "kPh" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
@@ -97800,8 +97757,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -100446,6 +100403,16 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
+"tar" = (
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -24
+	},
+/obj/machinery/computer/shuttle_flight/cargo{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "tbI" = (
 /obj/item/radio/intercom,
 /turf/closed/wall/rust,
@@ -100520,7 +100487,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/south,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
 /turf/open/floor/plating/airless,
 /area/docking/arrival{
 	lighting_colour_bulb = "#ffdbb4";
@@ -101527,6 +101496,44 @@
 "waD" = (
 /turf/open/floor/plating/asteroid/airless,
 /area/quartermaster/warehouse)
+"wbb" = (
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/stack/wrapping_paper{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/stack/wrapping_paper{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/hand_labeler,
+/obj/item/hand_labeler,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/machinery/light_switch{
+	pixel_y = 24
+	},
+/obj/item/destTagger,
+/obj/item/destTagger,
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/sorting)
 "wcC" = (
 /obj/machinery/telecomms/bus/preset_exploration,
 /obj/effect/turf_decal/box,
@@ -139635,7 +139642,7 @@ bkm
 bkJ
 blG
 blf
-asI
+kNJ
 bwS
 bkH
 bkS
@@ -140406,7 +140413,7 @@ bBE
 bIE
 blx
 blf
-blT
+wbb
 bGI
 bHw
 bnm
@@ -141694,7 +141701,7 @@ bkY
 blC
 bls
 bPj
-bmo
+tar
 bhQ
 bOP
 bAT

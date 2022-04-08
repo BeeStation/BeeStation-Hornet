@@ -232,11 +232,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/supply)
 "N" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/machinery/computer/bounty,
-/turf/open/floor/plasteel,
+/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/supply)
 "R" = (
 /obj/effect/decal/cleanable/dirt,
@@ -248,6 +244,14 @@
 "T" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
+/area/shuttle/supply)
+"W" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/structure/table,
+/obj/item/export_scanner,
+/turf/open/floor/plasteel,
 /area/shuttle/supply)
 
 (1,1,1) = {"
@@ -266,7 +270,7 @@ B
 "}
 (2,1,1) = {"
 a
-a
+N
 b
 g
 o
@@ -280,7 +284,7 @@ C
 "}
 (3,1,1) = {"
 T
-N
+W
 G
 l
 h
@@ -322,7 +326,7 @@ D
 "}
 (6,1,1) = {"
 a
-a
+N
 R
 m
 j

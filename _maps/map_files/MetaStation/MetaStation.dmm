@@ -12741,14 +12741,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/security/detectives_office)
-"ayI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/turf/open/floor/plasteel,
-/area/quartermaster/storage)
 "ayJ" = (
 /turf/closed/wall,
 /area/security/detectives_office)
@@ -13656,14 +13648,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
-"aAx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
-/turf/open/floor/plasteel,
-/area/quartermaster/storage)
 "aAz" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
@@ -19781,29 +19765,6 @@
 /obj/structure/lattice,
 /turf/open/space,
 /area/space/nearstation)
-"aNE" = (
-/obj/machinery/button/door{
-	id = "QMLoaddoor";
-	layer = 4;
-	name = "Loading Doors";
-	pixel_x = -27;
-	pixel_y = -5;
-	req_access_txt = "31"
-	},
-/obj/machinery/button/door{
-	id = "QMLoaddoor2";
-	layer = 4;
-	name = "Loading Doors";
-	pixel_x = -27;
-	pixel_y = 5;
-	req_access_txt = "31"
-	},
-/obj/machinery/computer/cargo{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/quartermaster/storage)
 "aNF" = (
 /obj/effect/landmark/start/cargo_technician,
 /turf/open/floor/plasteel,
@@ -19871,26 +19832,6 @@
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/qm)
-"aNP" = (
-/obj/machinery/camera/autoname,
-/obj/machinery/power/apc{
-	areastring = "/area/quartermaster/qm";
-	dir = 1;
-	name = "Quartermaster's Office APC";
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/structure/filingcabinet/chestdrawer,
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
@@ -28104,12 +28045,6 @@
 /obj/effect/turf_decal/loading_area,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
-"bdo" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -78517,6 +78452,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"eom" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 10
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "eoK" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -78887,6 +78834,26 @@
 	},
 /turf/open/floor/plasteel,
 /area/construction/storage_wing)
+"fOs" = (
+/obj/machinery/button/door{
+	id = "QMLoaddoor";
+	layer = 4;
+	name = "Loading Doors";
+	pixel_x = -27;
+	pixel_y = -5;
+	req_access_txt = "31"
+	},
+/obj/machinery/button/door{
+	id = "QMLoaddoor2";
+	layer = 4;
+	name = "Loading Doors";
+	pixel_x = -27;
+	pixel_y = 5;
+	req_access_txt = "31"
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "fOX" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
@@ -79162,6 +79129,16 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"haU" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/computer/cargo{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "hfn" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -79712,6 +79689,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
+"iWK" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "iZQ" = (
 /obj/structure/closet/firecloset,
 /obj/effect/turf_decal/bot,
@@ -80966,16 +80948,14 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/misc_lab/range)
-"npK" = (
-/obj/effect/turf_decal/stripes/line{
+"noU" = (
+/obj/machinery/computer/shuttle_flight/cargo{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 10
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 10
-	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "ntl" = (
@@ -81534,6 +81514,12 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
+"plK" = (
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "pqy" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/vending/cigarette,
@@ -82035,6 +82021,15 @@
 	},
 /turf/open/floor/plating,
 /area/science/shuttledock)
+"rEm" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/machinery/computer/shuttle_flight/cargo{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "rFZ" = (
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
@@ -82188,6 +82183,22 @@
 /obj/machinery/telecomms/receiver/preset_exploration,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
+"soL" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/delivery,
+/obj/machinery/computer/bounty{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "sql" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -82320,7 +82331,7 @@
 /obj/machinery/camera{
 	c_tag = "Incinerator";
 	dir = 8;
-	network = list("ss13", "turbine")
+	network = list("ss13","turbine")
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
 	dir = 10
@@ -83180,6 +83191,26 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"wrJ" = (
+/obj/machinery/camera/autoname,
+/obj/machinery/power/apc{
+	areastring = "/area/quartermaster/qm";
+	dir = 1;
+	name = "Quartermaster's Office APC";
+	pixel_y = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
+/obj/machinery/computer/shuttle_flight/cargo,
+/turf/open/floor/plasteel,
+/area/quartermaster/qm)
 "wtq" = (
 /turf/closed/wall,
 /area/maintenance/aft/secondary)
@@ -100885,7 +100916,7 @@ aIh
 aJC
 aKP
 aMu
-aNE
+fOs
 aMu
 aQi
 aRH
@@ -101141,9 +101172,9 @@ aHc
 aIi
 aJD
 aKQ
-npK
-ayI
-aAx
+eom
+iWK
+plK
 aKQ
 aKQ
 aSQ
@@ -101398,9 +101429,9 @@ aHd
 aIj
 aMv
 aMv
-aMv
-aNF
-mRq
+haU
+noU
+soL
 aMv
 aMv
 aMv
@@ -101655,7 +101686,7 @@ ayj
 aIk
 aMv
 aKS
-aMv
+aNF
 aNG
 mRq
 aQj
@@ -103723,7 +103754,7 @@ aXn
 aSX
 baw
 bbT
-bdo
+rEm
 bfb
 bgR
 bfb
@@ -103969,7 +104000,7 @@ aIt
 dne
 aLb
 dne
-aNP
+wrJ
 aPi
 aQr
 aRL

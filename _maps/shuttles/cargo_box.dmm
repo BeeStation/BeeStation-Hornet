@@ -1,6 +1,17 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/supply)
 "b" = (
 /turf/closed/wall/mineral/titanium,
+/area/shuttle/supply)
+"c" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"d" = (
+/obj/machinery/computer/cargo,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "e" = (
 /turf/open/floor/mineral/titanium/blue,
@@ -26,22 +37,10 @@
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "h" = (
-/obj/machinery/button/door{
-	id = "QMLoaddoor2";
-	name = "Loading Doors";
-	pixel_x = 24;
-	pixel_y = 8
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
-/obj/machinery/button/door{
-	id = "QMLoaddoor";
-	name = "Loading Doors";
-	pixel_x = 24;
-	pixel_y = -8
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium/blue,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "i" = (
 /obj/machinery/door/airlock/titanium{
@@ -64,23 +63,44 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/supply)
-"k" = (
-/obj/effect/turf_decal/stripes{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/supply)
 "l" = (
 /turf/closed/wall/mineral/titanium/interior,
 /area/shuttle/supply)
 "m" = (
-/turf/open/floor/mineral/titanium,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/supply)
+"n" = (
+/obj/structure/table,
+/obj/item/export_scanner,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"o" = (
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "p" = (
-/obj/effect/turf_decal/stripes{
-	dir = 1
+/obj/machinery/button/door{
+	id = "QMLoaddoor2";
+	name = "Loading Doors";
+	pixel_x = 24;
+	pixel_y = 8
 	},
-/turf/open/floor/mineral/titanium,
+/obj/machinery/button/door{
+	id = "QMLoaddoor";
+	name = "Loading Doors";
+	pixel_x = 24;
+	pixel_y = -8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/supply)
 "q" = (
 /obj/structure/window/reinforced{
@@ -108,78 +128,98 @@
 /obj/structure/shuttle/engine/propulsion/burst/right,
 /turf/open/floor/plating/airless,
 /area/shuttle/supply)
-"w" = (
-/obj/structure/chair/comfy/shuttle{
+"x" = (
+/obj/effect/turf_decal/stripes{
 	dir = 1
 	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/supply)
-"x" = (
-/obj/machinery/light{
+/obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/supply)
-"z" = (
-/obj/machinery/holopad,
-/obj/effect/turf_decal/stripes,
-/turf/open/floor/mineral/titanium,
+"A" = (
+/obj/effect/turf_decal/stripes{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/supply)
 "B" = (
-/obj/machinery/computer/shuttle_flight/cargo,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/supply)
-"C" = (
 /obj/effect/turf_decal/stripes{
-	dir = 9
+	dir = 4
 	},
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "D" = (
-/obj/effect/turf_decal/stripes,
-/turf/open/floor/mineral/titanium,
+/obj/machinery/holopad,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/supply)
-"G" = (
-/obj/machinery/computer/cargo,
-/turf/open/floor/mineral/titanium,
+"H" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"J" = (
+/obj/effect/turf_decal/stripes{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/supply)
+"L" = (
+/obj/effect/turf_decal/stripes{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/supply)
 "M" = (
-/obj/effect/turf_decal/stripes{
-	dir = 6
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/supply)
 "N" = (
-/obj/effect/turf_decal/stripes{
-	dir = 5
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/supply)
-"R" = (
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/supply)
-"V" = (
-/obj/effect/turf_decal/stripes{
-	dir = 10
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/supply)
-"W" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/supply)
-"X" = (
-/obj/machinery/computer/bounty,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/supply)
-"Y" = (
-/obj/effect/turf_decal/stripes{
+"O" = (
+/obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/mineral/titanium,
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/supply)
+"P" = (
+/obj/effect/turf_decal/stripes{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/supply)
+"R" = (
+/obj/effect/turf_decal/stripes{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/supply)
+"U" = (
+/obj/effect/turf_decal/stripes,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"W" = (
+/obj/machinery/computer/shuttle_flight/cargo,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/supply)
+"Y" = (
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/supply)
+"Z" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/supply)
 
 (1,1,1) = {"
@@ -198,41 +238,41 @@ s
 "}
 (2,1,1) = {"
 b
-b
-D
+a
+U
 e
-e
-x
-e
-e
-e
+Y
+O
+R
+R
+M
 l
 b
 t
 "}
 (3,1,1) = {"
 r
-X
-W
-V
-e
-C
-Y
-V
-e
+n
+N
+L
+x
+H
+H
+H
+Z
 e
 q
 u
 "}
 (4,1,1) = {"
 r
-B
-w
-z
-e
-p
-m
+W
+h
 D
+J
+c
+c
+c
 e
 e
 q
@@ -240,28 +280,28 @@ u
 "}
 (5,1,1) = {"
 r
-G
-R
+d
+o
+B
+P
+H
+H
+H
 M
-e
-N
-k
-M
-e
 e
 q
 u
 "}
 (6,1,1) = {"
 b
-b
-D
+a
+U
 e
-e
-h
-e
-e
-e
+m
+p
+A
+A
+Z
 l
 b
 v

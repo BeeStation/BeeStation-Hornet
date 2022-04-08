@@ -20743,27 +20743,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
-"bau" = (
-/obj/machinery/photocopier,
-/obj/machinery/light,
-/obj/machinery/camera{
-	c_tag = "Cargo Office";
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
-"bav" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc{
-	areastring = "/area/quartermaster/office";
-	dir = 2;
-	name = "Cargo Office APC";
-	pixel_y = -24
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "baw" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -20794,30 +20773,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/turf/open/floor/plasteel,
-/area/quartermaster/storage)
-"baC" = (
-/obj/machinery/power/apc{
-	dir = 2;
-	name = "Cargo Bay APC";
-	pixel_y = -24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/storage)
-"baD" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/light,
-/obj/item/radio/intercom{
-	pixel_y = -26
-	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "baE" = (
@@ -48173,6 +48128,20 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
+"dGP" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/light,
+/obj/item/radio/intercom{
+	pixel_y = -26
+	},
+/obj/machinery/computer/shuttle_flight/cargo{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "dGR" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
@@ -48309,6 +48278,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"dVo" = (
+/obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "Cargo Office";
+	dir = 1
+	},
+/obj/machinery/computer/shuttle_flight/cargo{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "dVI" = (
 /obj/item/wrench,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
@@ -56012,6 +55992,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"ocj" = (
+/obj/machinery/power/apc{
+	dir = 2;
+	name = "Cargo Bay APC";
+	pixel_y = -24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/computer/cargo{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "odI" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -61425,6 +61423,19 @@
 /obj/item/assembly/mousetrap,
 /turf/open/floor/engine,
 /area/science/explab)
+"vyG" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	areastring = "/area/quartermaster/office";
+	dir = 2;
+	name = "Cargo Office APC";
+	pixel_y = -24
+	},
+/obj/machinery/photocopier,
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "vzz" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -100406,7 +100417,7 @@ aWu
 aXt
 aYp
 nDJ
-bau
+dVo
 aLf
 pPK
 aFi
@@ -100663,7 +100674,7 @@ aWu
 aPW
 aYq
 tGd
-bav
+vyG
 aLf
 pPK
 jBh
@@ -103747,7 +103758,7 @@ aWz
 aVz
 aVz
 fOb
-baC
+ocj
 bbI
 bbI
 bdI
@@ -104004,7 +104015,7 @@ aTm
 aTm
 aTm
 fOb
-baD
+dGP
 bbI
 bcD
 bdJ
