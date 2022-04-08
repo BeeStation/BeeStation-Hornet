@@ -1174,6 +1174,6 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		return
 	lights = FALSE
 	lights_power = 0
-	set_light(0)
+	set_light_on(FALSE)
 	visible_message(src, "<span class='danger'>The lights on [src] short out!</span>")
 	playsound(src, 'sound/items/welder.ogg', 50, 1)
