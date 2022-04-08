@@ -33,7 +33,7 @@
 		UnregisterSignal(shuttle_area, COMSIG_AREA_ENTERED)
 	//Unregister cached thing signals
 	for(var/sellable_good_ref as() in sellable_goods_cache)
-		UnregisterSignal(locate(sellable_good_ref), COMSIG_PARENT_QDELETING)
+		UnregisterSignal(locate(sellable_good_ref), list(COMSIG_PARENT_QDELETING, COMSIG_ATOM_ENTERED, COMSIG_ATOM_EXITED))
 	//Clear the memory of sold goods to remove hard-del possibilities
 	sellable_goods_cache = null
 
@@ -41,8 +41,14 @@
 	register_good(arrived)
 
 /obj/docking_port/mobile/proc/_on_goods_deleted(datum/source)
-	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(source, list(COMSIG_PARENT_QDELETING, COMSIG_ATOM_ENTERED, COMSIG_ATOM_EXITED))
 	sellable_goods_cache -= REF(source)
+
+/obj/docking_port/mobile/proc/contents_exitted(atom/movable/sellable, atom/movable/gone, direction)
+	sellable_goods_cache[REF(sellable)]?["contents"] -= gone
+
+/obj/docking_port/mobile/proc/contents_entered(atom/movable/sellable, atom/movable/arrived, direction)
+	sellable_goods_cache[REF(sellable)]?["contents"] += arrived
 
 /obj/docking_port/mobile/proc/register_good(atom/movable/sellable)
 	//Generate the exports list if required
@@ -69,6 +75,8 @@
 		"contents" = allContents - sellable
 	)
 	RegisterSignal(sellable, COMSIG_PARENT_QDELETING, .proc/_on_goods_deleted)
+	RegisterSignal(sellable, COMSIG_ATOM_ENTERED, .proc/contents_entered)
+	RegisterSignal(sellable, COMSIG_ATOM_EXITED, .proc/contents_exitted)
 
 /obj/docking_port/mobile/proc/sell_item(object_ref)
 	if(!GLOB.exports_list.len) // No exports list? Generate it!
@@ -86,6 +94,9 @@
 	else
 		//Exports the contents of things but not the item itself, so you can have conveyor belt that won't get sold
 		export_contents(located_sold, export_categories , dry_run = FALSE, external_report = ex)
+		//Remove the sold thing from the list, since it most likely has no value now
+		UnregisterSignal(located_sold, COMSIG_PARENT_QDELETING)
+		sellable_goods_cache -= object_ref
 	var/creds = 0
 	for(var/datum/export/E in ex.total_amount)
 		D.adjust_money(ex.total_value[E])
