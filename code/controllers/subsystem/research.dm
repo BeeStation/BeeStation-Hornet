@@ -37,6 +37,7 @@ SUBSYSTEM_DEF(research)
 		/obj/item/disk/research/physics/diamond = list(TECHWEB_POINT_TYPE_PHYSICS = 7000),
 		/obj/item/disk/research/military/diamond = list(TECHWEB_POINT_TYPE_MILITARY = 14000),
 		/obj/item/disk/research/biomed/diamond = list(TECHWEB_POINT_TYPE_BIOMED = 7000),
+		/obj/item/artifact_fragment = list(TECHWEB_POINT_TYPE_BLUESPACE, 8000)
 	)
 	var/list/errored_datums = list()
 	var/list/point_types = list()				//typecache style type = TRUE list

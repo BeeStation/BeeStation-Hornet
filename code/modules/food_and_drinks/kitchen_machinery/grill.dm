@@ -40,7 +40,7 @@
 		S.use(stackamount)
 		update_icon()
 		return
-	if(I.resistance_flags & INDESTRUCTIBLE)
+	if(I.resistance_flags & (INDESTRUCTIBLE|RESIST_DESTRUCTION))
 		to_chat(user, "<span class='warning'>You don't feel it would be wise to grill [I]...</span>")
 		return ..()
 	if(istype(I, /obj/item/reagent_containers))

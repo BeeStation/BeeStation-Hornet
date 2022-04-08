@@ -104,6 +104,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define ACID_PROOF		(1<<5) //! acid stuck on it doesn't melt it.
 #define INDESTRUCTIBLE	(1<<6) //! doesn't take damage
 #define FREEZE_PROOF	(1<<7) //! can't be frozen
+#define RESIST_DESTRUCTION (1<<8) //! Item resists destruction, cannot be used in destructive analyzer but can still be destroyed (via supermatter etc.)
 
 //tesla_zap
 #define TESLA_MACHINE_EXPLOSIVE		(1<<0)

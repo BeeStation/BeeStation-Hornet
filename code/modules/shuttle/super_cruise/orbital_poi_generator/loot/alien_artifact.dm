@@ -5,8 +5,25 @@
 		how it dose this is unknown as the material it is made of cannot be damaged by normal means nor penetrated by scanning technology."
 	icon = 'icons/obj/artifact.dmi'
 	icon_state = "artifact"
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | RESIST_DESTRUCTION
+	max_integrity = 20000
+	obj_integrity = 20000
 	var/list/datum/artifact_effect/effects
+
+/obj/item/alienartifact/Destroy()
+	//Destruction message
+	say(pick(
+		"Gipgdoqs sbsfum dccz roaousr, sasfusbqm gqfoa sbuousr hc dfsjsbh fsozwhm qzcgifs sjsbh.",
+		"Wbwhwohwbu fsozwhm dfsgsfjohwcb dfchcqcz.",
+		"Qfwhwqoz fsozwhm fsghfiqhifwbu sjsbh dfsjsbhsr.",
+		"Qfwhwqoz roaous, rwgopzwbu slhsfboz hszsashfm zwby.",
+		"Sasfusbqm gvih rckb wbwhwohsr, cfrsfg ofs bc zcbusf oqqsdhsr",
+		"Qfwhwqoz roaous, idzwbywbu gsbhwsbqs qcfs wbhc fsozwhm gipghfsoa."
+	))
+	//Drop fragments
+	for(var/i in 1 to 3)
+		new /obj/item/artifact_fragment(loc)
+	. = ..()
 
 /obj/item/alienartifact/examine(mob/user)
 	. = ..()

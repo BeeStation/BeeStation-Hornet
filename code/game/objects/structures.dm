@@ -96,7 +96,7 @@
 
 /obj/structure/examine(mob/user)
 	. = ..()
-	if(!(resistance_flags & INDESTRUCTIBLE))
+	if(!(resistance_flags & (INDESTRUCTIBLE | RESIST_DESTRUCTION)))
 		if(resistance_flags & ON_FIRE)
 			. += "<span class='warning'>It's on fire!</span>"
 		if(broken)

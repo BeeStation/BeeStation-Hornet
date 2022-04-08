@@ -94,7 +94,7 @@ God bless America.
 	if(!reagents.has_reagent(/datum/reagent/consumable/cooking_oil))
 		to_chat(user, "<span class='warning'>[src] has no cooking oil to fry with!</span>")
 		return
-	if(I.resistance_flags & INDESTRUCTIBLE)
+	if(I.resistance_flags & (INDESTRUCTIBLE|RESIST_DESTRUCTION))
 		to_chat(user, "<span class='warning'>You don't feel it would be wise to fry [I]...</span>")
 		return
 	if(istype(I, /obj/item/reagent_containers/food/snacks/deepfryholder))

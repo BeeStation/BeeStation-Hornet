@@ -262,7 +262,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		update_icon()
 
 		for(var/obj/O in conts)
-			if(O.resistance_flags & INDESTRUCTIBLE)
+			if(O.resistance_flags & (INDESTRUCTIBLE | RESIST_DESTRUCTION))
 				O.forceMove(src) // in case an item in container should be spared
 				conts -= O
 

@@ -178,7 +178,7 @@
 	return FALSE
 
 /obj/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	if(resistance_flags & INDESTRUCTIBLE)
+	if(resistance_flags & (INDESTRUCTIBLE|RESIST_DESTRUCTION))
 		return FALSE
 	for(var/mob/living/L in contents)
 		if(!issilicon(L) && !isbrain(L))
