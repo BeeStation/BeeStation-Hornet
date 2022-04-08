@@ -1689,6 +1689,110 @@
 	access_budget = ACCESS_RESEARCH
 	crate_type = /obj/structure/closet/crate/science
 
+/datum/supply_pack/science/research_pack
+	name = "Basic Physics Research Pack"
+	desc = "A research pack containing a low capacity physics research disk. Supply is limited."
+	cost = 1200
+	special = TRUE
+	special_enabled = TRUE
+	crate_name = "technology research pack"
+	contains = list(
+		/obj/item/disk/research/physics
+	)
+	var/amount_left = 8
+
+/datum/supply_pack/science/research_pack/New()
+	. = ..()
+	desc = "[initial(desc)]. There are [amount_left] left in stock."
+
+/datum/supply_pack/science/research_pack/fill(obj/structure/closet/crate/C)
+	//Hide the supply crate when there are none left
+	if(amount_left <= 1)
+		special_enabled = FALSE
+	if(amount_left <= 0)
+		//Give back the money
+		new /obj/item/holochip(C, 1200)
+		return
+	for(var/item in contains)
+		new item(C)
+	SSresearch.on_research_purchased()
+	amount_left --
+	desc = "[initial(desc)]. There are [amount_left] left in stock."
+
+/datum/supply_pack/science/research_pack/military
+	name = "Basic Military Research Pack"
+	desc = "A research pack containing a low capacity military research disk. Supply is limited."
+	contains = list(
+		/obj/item/disk/research/military
+	)
+
+/datum/supply_pack/science/research_pack/biomed
+	name = "Basic Biomedical Research Pack"
+	desc = "A research pack containing a low capacity biomedical research disk. Supply is limited."
+	contains = list(
+		/obj/item/disk/research/biomed
+	)
+
+/datum/supply_pack/science/research_pack/gold
+	name = "Advanced Phsyics Research Pack"
+	desc = "A research pack containing a medium capacity military research disk. Supply is limited."
+	cost = 2500
+	contains = list(
+		/obj/item/disk/research/physics/gold
+	)
+	amount_left = 4
+	special_enabled = FALSE
+
+/datum/supply_pack/science/research_pack/military/gold
+	name = "Advanced Military Research Pack"
+	desc = "A research pack containing a medium capacity military research disk. Supply is limited."
+	cost = 2500
+	contains = list(
+		/obj/item/disk/research/military/gold
+	)
+	amount_left = 4
+	special_enabled = FALSE
+
+/datum/supply_pack/science/research_pack/biomed/gold
+	name = "Advanced Biomedical Research Pack"
+	desc = "A research pack containing a medium capacity biomedical research disk. Supply is limited."
+	cost = 2500
+	contains = list(
+		/obj/item/disk/research/biomed/gold
+	)
+	amount_left = 4
+	special_enabled = FALSE
+
+/datum/supply_pack/science/research_pack/diamond
+	name = "Elite Phsyics Research Pack"
+	desc = "A research pack containing a high capacity military research disk. Supply is limited."
+	cost = 4000
+	contains = list(
+		/obj/item/disk/research/physics/diamond
+	)
+	amount_left = 12
+	special_enabled = FALSE
+
+/datum/supply_pack/science/research_pack/military/diamond
+	name = "Elite Military Research Pack"
+	desc = "A research pack containing a high capacity military research disk. Supply is limited."
+	cost = 4000
+	contains = list(
+		/obj/item/disk/research/military/diamond
+	)
+	amount_left = 12
+	special_enabled = FALSE
+
+/datum/supply_pack/science/research_pack/biomed/diamond
+	name = "Elite Biomedical Research Pack"
+	desc = "A research pack containing a high capacity biomedical research disk. Supply is limited."
+	cost = 4000
+	contains = list(
+		/obj/item/disk/research/biomed/diamond
+	)
+	amount_left = 12
+	special_enabled = FALSE
+
 /datum/supply_pack/science/plasma
 	name = "Plasma Assembly Crate"
 	desc = "Everything you need to burn something to the ground, this contains three plasma assembly sets. Each set contains a plasma tank, igniter, proximity sensor, and timer! Warranty void if exposed to high temperatures. Requires Toxins access to open."

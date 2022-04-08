@@ -13,6 +13,8 @@ SUBSYSTEM_DEF(research)
 	var/datum/techweb_node/error_node/error_node	//These two are what you get if a node/design is deleted and somehow still stored in a console.
 	var/datum/design/error_design/error_design
 
+	var/research_packs_bought = 0
+
 	//ERROR LOGGING
 	var/list/invalid_design_ids = list()		//associative id = number of times
 	var/list/invalid_node_ids = list()			//associative id = number of times
@@ -25,7 +27,16 @@ SUBSYSTEM_DEF(research)
 	var/list/techweb_boost_items = list()		//associative double-layer path = list(id = list(point_type = point_discount))
 	var/list/techweb_nodes_hidden = list()		//Node ids that should be hidden by default.
 	var/list/techweb_point_items = list(		//path = list(point type = value)
-		/obj/item/assembly/signaler/anomaly = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+		/obj/item/assembly/signaler/anomaly = list(TECHWEB_POINT_TYPE_GENERIC = 10000),
+		/obj/item/disk/research/physics = list(TECHWEB_POINT_TYPE_PHYSICS = 2500),
+		/obj/item/disk/research/military = list(TECHWEB_POINT_TYPE_MILITARY = 5000),
+		/obj/item/disk/research/biomed = list(TECHWEB_POINT_TYPE_BIOMED = 2500),
+		/obj/item/disk/research/physics/gold = list(TECHWEB_POINT_TYPE_PHYSICS = 4500),
+		/obj/item/disk/research/military/gold = list(TECHWEB_POINT_TYPE_MILITARY = 9000),
+		/obj/item/disk/research/biomed/gold = list(TECHWEB_POINT_TYPE_BIOMED = 4500),
+		/obj/item/disk/research/physics/diamond = list(TECHWEB_POINT_TYPE_PHYSICS = 7000),
+		/obj/item/disk/research/military/diamond = list(TECHWEB_POINT_TYPE_MILITARY = 14000),
+		/obj/item/disk/research/biomed/diamond = list(TECHWEB_POINT_TYPE_BIOMED = 7000),
 	)
 	var/list/errored_datums = list()
 	var/list/point_types = list()				//typecache style type = TRUE list
@@ -262,3 +273,28 @@ SUBSYSTEM_DEF(research)
 			else
 				techweb_boost_items[path] = list(node.id = node.boost_item_paths[path])
 		CHECK_TICK
+
+/datum/controller/subsystem/research/proc/on_research_purchased()
+	research_packs_bought ++
+	if(research_packs_bought == 16)
+		priority_announce(
+			"Due to your stations successful growth and development, additional research packs have been made available for purchase at cargo.",
+			"Nanotrasen Research Division")
+		var/datum/supply_pack/P
+		P = SSshuttle.supply_packs[/datum/supply_pack/science/research_pack/gold]
+		P.special_enabled = TRUE
+		P = SSshuttle.supply_packs[/datum/supply_pack/science/research_pack/military/gold]
+		P.special_enabled = TRUE
+		P = SSshuttle.supply_packs[/datum/supply_pack/science/research_pack/biomed/gold]
+		P.special_enabled = TRUE
+	if(research_packs_bought == 22)
+		priority_announce(
+			"Due to continued growth and development, high-tech research packs have been made available for purchase.",
+			"Nanotrasen Research Division")
+		var/datum/supply_pack/P
+		P = SSshuttle.supply_packs[/datum/supply_pack/science/research_pack/diamond]
+		P.special_enabled = TRUE
+		P = SSshuttle.supply_packs[/datum/supply_pack/science/research_pack/military/diamond]
+		P.special_enabled = TRUE
+		P = SSshuttle.supply_packs[/datum/supply_pack/science/research_pack/biomed/diamond]
+		P.special_enabled = TRUE
