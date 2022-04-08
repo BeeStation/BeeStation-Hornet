@@ -12,7 +12,7 @@
 /datum/round_event_control/pirates/canSpawnEvent(players_amt, gamemode)
 	. = ..()
 	//Weight changes depending on cargo money
-	var/datum/bank_account/car = get_dep_account(ACCOUNT_CAR)
+	var/datum/bank_account/car = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	weight = 4 + car.account_balance / 10000
 
 /datum/round_event_control/pirates/preRunEvent()

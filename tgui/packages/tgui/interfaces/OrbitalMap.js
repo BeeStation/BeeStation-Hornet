@@ -456,51 +456,33 @@ export const OrbitalMapComms = (props, context) => {
             <Table.Cell bold>
               Item
             </Table.Cell>
-            <Table.Cell bold textAlign="right">
+            <Table.Cell bold>
               Value
             </Table.Cell>
+            <Table.Cell bold textAlign="right">
+              Actions
+            </Table.Cell>
           </Table.Row>
-          <RecursiveSellableGood sellable_goods={sellable_goods} />
+          {sellable_goods && Object.keys(sellable_goods).map((key, index) => (
+            <Table.Row key={key}>
+              <Table.Cell>
+                <Box>{sellable_goods[key].name}</Box>
+                <Box textColor="grey">{sellable_goods[key].contents.join(', ')}</Box>
+              </Table.Cell>
+              <Table.Cell>
+                {sellable_goods[key].price}
+              </Table.Cell>
+              <Table.Cell textAlign="right">
+                <Button
+                  content="Sell"
+                  onClick={() => act("sell", {
+                    ref: key,
+                  })} />
+              </Table.Cell>
+            </Table.Row>
+          ))}
         </Table>
       </Section>
-    </>
-  );
-};
-
-export const RecursiveSellableGood = (props, context) => {
-  const {
-    sellable_goods = {},
-    ignore = '',
-  } = props;
-  if (sellable_goods === null)
-  {
-    return (
-      <Box>null error</Box>
-    );
-  }
-
-  return (
-    <>
-      {Object.keys(sellable_goods).map((key, index) => (
-        Object.keys(sellable_goods[key]).length > 0 ? (
-          <>
-            <Table.Row>
-              <Table.Cell>{key}</Table.Cell>
-              <Table.Cell textAlign="right">(+${sellable_goods[key][key]})</Table.Cell>
-            </Table.Row>
-            <RecursiveSellableGood
-              sellable_goods={sellable_goods[key]}
-              ignore={key} />
-          </>
-        ) : (
-          key !== ignore && (
-            <Table.Row>
-              <Table.Cell>{key}</Table.Cell>
-              <Table.Cell textAlign="right">${sellable_goods[key]}</Table.Cell>
-            </Table.Row>
-          )
-        )
-      ))}
     </>
   );
 };

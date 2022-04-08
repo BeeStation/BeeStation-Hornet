@@ -471,7 +471,18 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					return
 				mobile_port.buy(id.registered_account)
 		if("sell")
-			return
+			var/object_ref = params["ref"]
+			if(!object_ref)
+				return
+			//Locate the object ref
+			var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
+			if(!mobile_port)
+				say("Cannot locate docking port")
+				return
+			if(!mobile_port.sellable_goods_cache[object_ref])
+				say("Cannot sell that item at this time.")
+				return
+			mobile_port.sell_item(object_ref)
 
 /obj/machinery/computer/shuttle_flight/proc/launch_shuttle()
 	if(SSorbits.interdicted_shuttles.Find(shuttleId))

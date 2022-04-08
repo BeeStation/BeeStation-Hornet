@@ -12,13 +12,13 @@
 
 /obj/item/alienartifact/Destroy()
 	//Destruction message
-	say(pick(
-		"Gipgdoqs sbsfum dccz roaousr, sasfusbqm gqfoa sbuousr hc dfsjsbh fsozwhm qzcgifs sjsbh.",
-		"Wbwhwohwbu fsozwhm dfsgsfjohwcb dfchcqcz.",
-		"Qfwhwqoz fsozwhm fsghfiqhifwbu sjsbh dfsjsbhsr.",
-		"Qfwhwqoz roaous, rwgopzwbu slhsfboz hszsashfm zwby.",
-		"Sasfusbqm gvih rckb wbwhwohsr, cfrsfg ofs bc zcbusf oqqsdhsr",
-		"Qfwhwqoz roaous, idzwbywbu gsbhwsbqs qcfs wbhc fsozwhm gipghfsoa."
+	say(pick(\
+		"Gipgdoqs sbsfum dccz roaousr, sasfusbqm gqfoa sbuousr hc dfsjsbh fsozwhm qzcgifs sjsbh.",\
+		"Wbwhwohwbu fsozwhm dfsgsfjohwcb dfchcqcz.",\
+		"Qfwhwqoz fsozwhm fsghfiqhifwbu sjsbh dfsjsbhsr.",\
+		"Qfwhwqoz roaous, rwgopzwbu slhsfboz hszsashfm zwby.",\
+		"Sasfusbqm gvih rckb wbwhwohsr, cfrsfg ofs bc zcbusf oqqsdhsr",\
+		"Qfwhwqoz roaous, idzwbywbu gsbhwsbqs qcfs wbhc fsozwhm gipghfsoa."\
 	))
 	//Drop fragments
 	for(var/i in 1 to 3)
