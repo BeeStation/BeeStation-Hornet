@@ -20,6 +20,7 @@
 #define SP_LAUNCH 3
 #define SP_UNLINK 4
 #define SP_UNREADY 5
+#define EXPRESS_COOLDOWN (120 SECONDS)
 #define ORDER_COOLDOWN (10 SECONDS)
 
 #define POD_SHAPE 1

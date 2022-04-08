@@ -191,7 +191,7 @@
 		"" = 4,
 		/obj/item/alienartifact = 6,
 		/obj/item/gun/energy/vortex = 3,
-		/obj/item/gun/energy/alien = 1
+		/obj/item/gun/energy/alien = 1,
 		/obj/item/disk/research/physics/gold = 6,
 		/obj/item/disk/research/military/gold = 6,
 		/obj/item/disk/research/biomed/gold = 6,
