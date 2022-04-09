@@ -1,0 +1,5 @@
+author: nednaZ
+delete-after: true
+changes:
+  - rscadd: Adds former Gang Tags into the spraycan menu.
+  - rscdel: Removes the Gang Antagonist
