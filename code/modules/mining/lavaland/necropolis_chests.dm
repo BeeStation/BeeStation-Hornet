@@ -364,6 +364,7 @@
 	src.lighteater_act(light_eater)
 
 /obj/effect/wisp/lighteater_act(obj/item/light_eater/light_eater)
+	. = ..()
 	if(home)
 		src.forceMove(home)
 		time = world.time + cooldown
