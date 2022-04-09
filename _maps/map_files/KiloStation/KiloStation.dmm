@@ -16820,6 +16820,7 @@
 /area/maintenance/port/fore)
 "aAC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
+/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/robotics/lab)
 "aAD" = (

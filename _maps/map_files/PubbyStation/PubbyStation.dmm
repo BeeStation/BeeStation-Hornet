@@ -3631,19 +3631,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
-"ajm" = (
-/obj/structure/table,
-/obj/structure/noticeboard{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/security/main)
 "ajn" = (
 /obj/structure/table,
 /obj/structure/sign/plaques/golden{
@@ -28682,6 +28669,10 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
+"bvv" = (
+/obj/structure/table,
+/turf/open/floor/plasteel,
+/area/hallway/primary/aft)
 "bvw" = (
 /obj/machinery/computer/rdconsole/core{
 	dir = 4
@@ -48734,11 +48725,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
-"eCa" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime,
-/turf/open/floor/plasteel,
-/area/hallway/primary/aft)
 "eCw" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -49739,6 +49725,19 @@
 "fHD" = (
 /turf/open/space/basic,
 /area/maintenance/department/science)
+"fHV" = (
+/obj/structure/table,
+/obj/structure/noticeboard{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/security/main)
 "fIt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -50169,10 +50168,6 @@
 	},
 /turf/open/floor/plating,
 /area/chapel/main/monastery)
-"gmn" = (
-/obj/structure/table,
-/turf/open/floor/plasteel,
-/area/hallway/primary/aft)
 "gmp" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -52364,6 +52359,11 @@
 	dir = 1
 	},
 /area/hallway/secondary/exit/departure_lounge)
+"jfl" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime,
+/turf/open/floor/plasteel,
+/area/hallway/primary/aft)
 "jgr" = (
 /obj/machinery/door/airlock/grunge{
 	name = "Library"
@@ -53501,6 +53501,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
+"kKN" = (
+/obj/effect/turf_decal/bot,
+/mob/living/simple_animal/pet/dog/corgi/borgi,
+/turf/open/floor/plasteel,
+/area/science/robotics/lab)
 "kLz" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -60994,6 +60999,17 @@
 /obj/effect/turf_decal/tile/bar,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
+"uJg" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/mob/living/carbon/monkey{
+	name = "Ook";
+	unique_name = 0
+	},
+/turf/open/floor/plasteel,
+/area/security/brig)
 "uKq" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
@@ -62361,17 +62377,6 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer1,
 /turf/open/floor/plating,
 /area/science/mixing)
-"wPP" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/mob/living/carbon/monkey{
-	name = "Ook";
-	unique_name = 0
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "wQU" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/cable/yellow{
@@ -86740,7 +86745,7 @@ aqt
 arp
 asC
 atD
-wPP
+uJg
 avA
 awJ
 ekg
@@ -88011,7 +88016,7 @@ cnT
 ahq
 ahd
 agP
-ajm
+fHV
 ajW
 ajV
 alD
@@ -96575,7 +96580,7 @@ bKM
 bKM
 bBo
 smg
-eCa
+jfl
 fqS
 bSN
 bTD
@@ -97089,7 +97094,7 @@ dSD
 bOL
 bBo
 ocb
-gmn
+bvv
 bRZ
 bSO
 bTF
@@ -100405,7 +100410,7 @@ beI
 bkt
 blH
 bmO
-bnQ
+kKN
 kPs
 bqi
 bry

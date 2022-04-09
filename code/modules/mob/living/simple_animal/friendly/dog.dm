@@ -57,7 +57,6 @@
 		regenerate_icons()
 	return ..()
 
-
 /mob/living/simple_animal/pet/dog/pug
 	name = "\improper pug"
 	real_name = "pug"
