@@ -48,18 +48,9 @@
 		O.real_name = "monkey ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
 
 	//handle DNA and other attributes
-	dna.transfer_identity(O)
+	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
 	O.set_species(/datum/species/monkey)
 	O.updateappearance(icon_update=0)
-
-	if(tr_flags & TR_KEEPSE)
-		O.dna.mutation_index = dna.mutation_index
-		O.dna.default_mutation_genes = dna.default_mutation_genes
-		O.dna.set_se(1, GET_INITIALIZED_MUTATION(RACEMUT))
-		for(var/datum/mutation/HM as() in dna.mutations)
-			if(HM.type != RACEMUT)
-				O.dna.force_give(new HM.type(HM.class, copymut=HM))
-		O.domutcheck()
 
 	if(suiciding)
 		O.set_suicide(suiciding)
@@ -372,7 +363,7 @@
 			continue
 		O.equip_to_appropriate_slot(C)
 
-	dna.transfer_identity(O)
+	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
 	O.updateappearance(mutcolor_update=1)
 
 	if(findtext(O.dna.real_name, "monkey", 1, 7)) //7 == length("monkey") + 1
@@ -381,15 +372,6 @@
 	else
 		O.real_name = O.dna.real_name
 	O.name = O.real_name
-
-	if(tr_flags & TR_KEEPSE)
-		O.dna.mutation_index = dna.mutation_index
-		O.dna.default_mutation_genes = dna.default_mutation_genes
-		O.dna.set_se(0, GET_INITIALIZED_MUTATION(RACEMUT))
-		for(var/datum/mutation/HM as() in dna.mutations)
-			if(HM.type != RACEMUT)
-				O.dna.force_give(new HM.type(HM.class, copymut=HM))
-		O.domutcheck()
 
 	if(suiciding)
 		O.set_suicide(suiciding)

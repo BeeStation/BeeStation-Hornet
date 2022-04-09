@@ -3,17 +3,15 @@
 	var/desc = "A mutation."
 	var/locked
 	var/quality
-	var/get_chance = 100
-	var/lowest_value = 256 * 8
 	var/text_gain_indication = ""
 	var/text_lose_indication = ""
 	var/static/list/visual_indicators = list()
 	var/obj/effect/proc_holder/spell/power
 	var/layer_used = MUTATIONS_LAYER //which mutation layer to use
 	var/list/species_allowed = list() //to restrict mutation to only certain species
+	var/list/mobtypes_allowed = list()
 	var/health_req //minimum health required to acquire the mutation
 	var/limb_req //required limbs to acquire this mutation
-	var/time_coeff = 1 //coefficient for timed mutations
 	var/datum/dna/dna
 	var/mob/living/carbon/owner
 	var/instability = 0 //instability the holder gets when the mutation is not native
@@ -53,6 +51,8 @@
 
 /datum/mutation/proc/on_acquiring(mob/living/carbon/C)
 	if(!C || !istype(C) || C.stat == DEAD || !C.has_dna() || (src in C.dna.mutations))
+		return TRUE
+	if(length(mobtypes_allowed) && !mobtypes_allowed.Find(C.type))
 		return TRUE
 	if(species_allowed.len && !species_allowed.Find(C.dna.species.id))
 		return TRUE

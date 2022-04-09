@@ -7,12 +7,13 @@
 	difficulty = 16
 	text_gain_indication = "<span class='notice'>Your muscles hurt!</span>"
 	species_allowed = list(SPECIES_HUMAN) //no skeleton/lizard hulk
+	mobtypes_allowed = list(/mob/living/carbon/human)
 	health_req = 25
 	instability = 40
 	locked = TRUE
 
 /datum/mutation/hulk/on_acquiring(mob/living/carbon/human/owner)
-	if(!istype(owner) || ..())
+	if(..())
 		return
 	ADD_TRAIT(owner, TRAIT_STUNIMMUNE, TRAIT_HULK)
 	ADD_TRAIT(owner, TRAIT_PUSHIMMUNE, TRAIT_HULK)

@@ -38,7 +38,7 @@
 
 	return ..()
 
-/datum/dna/proc/transfer_identity(mob/living/carbon/destination, transfer_SE = 0)
+/datum/dna/proc/transfer_identity(mob/living/carbon/destination, transfer_SE = FALSE)
 	if(!istype(destination))
 		return
 	destination.dna.unique_enzymes = unique_enzymes
@@ -47,10 +47,12 @@
 	destination.set_species(species.type, icon_update=0)
 	destination.dna.features = features.Copy()
 	destination.dna.real_name = real_name
-	destination.dna.temporary_mutations = temporary_mutations.Copy()
 	if(transfer_SE)
 		destination.dna.mutation_index = mutation_index
 		destination.dna.default_mutation_genes = default_mutation_genes
+		for(var/datum/mutation/M as() in mutations)
+			destination.dna.add_mutation(M, M.class)
+		destination.dna.temporary_mutations = temporary_mutations.Copy()
 
 /datum/dna/proc/copy_dna(datum/dna/new_dna)
 	new_dna.unique_enzymes = unique_enzymes
@@ -372,8 +374,7 @@
 		update_mutations_overlay()
 
 	if(LAZYLEN(mutations))
-		for(var/M in mutations)
-			var/datum/mutation/HM = M
+		for(var/datum/mutation/HM as() in mutations)
 			if(HM.allow_transfer || force_transfer_mutations)
 				dna.force_give(new HM.type(HM.class, copymut=HM)) //using force_give since it may include exotic mutations that otherwise wont be handled properly
 
@@ -651,7 +652,7 @@
 				visible_message("<span class='warning'>[src]'s skin melts off!</span>", "<span class='boldwarning'>Your skin melts off!</span>")
 				spawn_gibs()
 				set_species(/datum/species/skeleton)
-				if(prob(90))
+				if(prob(90) && !QDELETED(src))
 					addtimer(CALLBACK(src, .proc/death), 30)
 					if(mind)
 						mind.hasSoul = FALSE
