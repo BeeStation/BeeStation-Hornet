@@ -1169,7 +1169,8 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 /obj/mecha/rust_heretic_act()
 	take_damage(500,  BRUTE)
 
-/obj/mecha/lighteater_act(obj/item/light_eater/light_eater)
+/obj/mecha/lighteater_act(obj/item/light_eater/light_eater
+	..()
 	if(!lights_power)
 		return
 	lights = FALSE
