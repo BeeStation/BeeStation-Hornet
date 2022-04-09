@@ -1,0 +1,6 @@
+author: nednaZ
+delete-after: true
+changes:
+  - rscadd: Teslas now have a 4 second delay between movement
+  - balance: Teslas travel less distance in each movement step
+  - balance: Tesla zaps are shorter ranged
