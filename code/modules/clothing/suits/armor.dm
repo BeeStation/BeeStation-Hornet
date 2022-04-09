@@ -259,6 +259,7 @@
 	desc = "A classic suit of plate armour, highly effective at stopping melee attacks."
 	icon_state = "knight_green"
 	item_state = "knight_green"
+	blocks_shove_knockdown = FALSE //MonkeStation Edit: Weakens plate armor slightly
 	move_sound = null
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
