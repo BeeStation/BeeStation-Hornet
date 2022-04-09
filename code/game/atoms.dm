@@ -802,6 +802,7 @@
   * Called when lighteater is called on this.
   */
 /atom/proc/lighteater_act(obj/item/light_eater/light_eater)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src,COMSIG_ATOM_LIGHTEATER_ACT)
 
 /**
