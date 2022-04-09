@@ -40,8 +40,11 @@
 
 /obj/singularity/energy_ball/process()
 	handle_energy()
-
-	move_the_basket_ball(4 + orbiting_balls.len * 1.5)
+	//MonkeStation Edit Start: Slows the tesla a bit
+	if(last_move <= world.time + 4 SECONDS)
+		last_move = world.time
+		move_the_basket_ball(1 + (orbiting_balls.len / 2 ))
+	//MonkeStation Edit End
 
 	playsound(src.loc, 'sound/magic/lightningbolt.ogg', 100, 1, extrarange = 30)
 
@@ -51,10 +54,10 @@
 	//Main one can zap
 	//Tesla only zaps if the tick usage isn't over the limit.
 	if(!TICK_CHECK)
-		tesla_zap(src, 7, TESLA_DEFAULT_POWER, TESLA_ENERGY_PRIMARY_BALL_FLAGS)
+		tesla_zap(src, min(orbiting_balls.len, 5), TESLA_DEFAULT_POWER, TESLA_ENERGY_PRIMARY_BALL_FLAGS) //MonkeStation Edit: Reduction of bolt range
 	else
 		//Weaker, less intensive zap
-		tesla_zap(src, 4, TESLA_DEFAULT_POWER, TESLA_ENERGY_MINI_BALL_FLAGS)
+		tesla_zap(src, min(orbiting_balls.len, 3), TESLA_DEFAULT_POWER, TESLA_ENERGY_MINI_BALL_FLAGS) //MonkeStation Edit: Reduction of bolt range
 		pixel_x = -32
 		pixel_y = -32
 		return
