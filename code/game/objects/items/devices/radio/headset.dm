@@ -168,6 +168,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/headset/heads
 	command = TRUE
+	use_command = TRUE
 
 /obj/item/radio/headset/heads/captain
 	name = "\proper the captain's headset"
