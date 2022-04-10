@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - code_imp: overriden signals will now display the type of the object causing an
+      error.
