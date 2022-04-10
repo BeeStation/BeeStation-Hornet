@@ -4,9 +4,6 @@
 	id = SPECIES_FELINID
 	bodyflag = FLAG_FELINID
 	examine_limb_id = SPECIES_HUMAN
-	say_mod = "meows"
-
-
 	disliked_food = VEGETABLES | SUGAR
 	liked_food = DAIRY | MEAT
 
@@ -16,6 +13,7 @@
 
 	mutantears = /obj/item/organ/ears/cat
 	mutanttail = /obj/item/organ/tail/cat
+	mutanttongue = /obj/item/organ/tongue/cat
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid
@@ -77,26 +75,26 @@
 	var/obj/item/organ/tail/cat/tail = H.getorgan(/obj/item/organ/tail/cat)
 
 	if(ears)
-		var/obj/item/organ/ears/NE
+		var/obj/item/organ/ears/new_ears
 		if(new_species?.mutantears)
 			// Roundstart cat ears override new_species.mutantears, reset it here.
 			new_species.mutantears = initial(new_species.mutantears)
 			if(new_species.mutantears)
-				NE = new new_species.mutantears
-		if(!NE)
+				new_ears = new new_species.mutantears
+		if(!new_ears)
 			// Go with default ears
-			NE = new /obj/item/organ/ears
-		NE.Insert(H, drop_if_replaced = FALSE)
+			new_ears = new /obj/item/organ/ears
+		new_ears.Insert(H, drop_if_replaced = FALSE)
 
 	if(tail)
-		var/obj/item/organ/tail/NT
+		var/obj/item/organ/tail/new_tail
 		if(new_species && new_species.mutanttail)
 			// Roundstart cat tail overrides new_species.mutanttail, reset it here.
 			new_species.mutanttail = initial(new_species.mutanttail)
 			if(new_species.mutanttail)
-				NT = new new_species.mutanttail
-		if(NT)
-			NT.Insert(H, drop_if_replaced = FALSE)
+				new_tail = new new_species.mutanttail
+		if(new_tail)
+			new_tail.Insert(H, drop_if_replaced = FALSE)
 		else
 			tail.Remove(H)
 
@@ -113,7 +111,7 @@
 			var/obj/item/organ/guts = pick(M.internal_organs)
 			guts.applyOrganDamage(15)
 		return FALSE
-	return ..()
+	return ..() //second part of this effect is handled elsewhere
 
 
 /proc/mass_purrbation()
