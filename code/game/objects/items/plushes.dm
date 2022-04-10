@@ -472,7 +472,6 @@
 	icon_state = "narplush"
 	divine = TRUE
 	var/clashing
-	var/is_invoker = TRUE
 	gender = FEMALE	//it's canon if the toy is
 
 /obj/item/toy/plush/narplush/Moved()
