@@ -1,0 +1,15 @@
+author: The-Moon-Itself
+delete-after: true
+changes:
+  - rscadd: Rapid shuttle designator has a new UI
+  - rscadd: Rapid shuttle designator can now edit shuttles after designation
+  - rscadd: Make clones of you rapid shuttle designator using a custom shuttle console
+  - tweak: Custom shuttle console can have shuttle designators inserted like IDs
+  - bugfix: Corrected shuttle bounds detection
+  - bugfix: Removed a runtime when docking a large shuttle on a small port
+  - bugfix: Prevented splitting shuttles by undesignating turf bridges
+  - bugfix: Corrected message when designating too many turfs for a shuttle
+  - bugfix: Better skipover turf placement to make shuttle designation on lavaland
+      and asteroids more reliable.
+  - bugfix: Shuttle capsules now make stationary ports on deploy as well, fixing a
+      runtime and preventing players from turning lavaland into space.
