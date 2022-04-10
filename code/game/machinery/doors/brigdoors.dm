@@ -78,7 +78,7 @@
 		return
 
 	if(timing)
-		if(world.time - activation_time >= timer_duration)
+		if(REALTIMEOFDAY - activation_time >= timer_duration)
 			timer_end() // open doors, reset timer, clear status screen
 		update_icon()
 
@@ -93,7 +93,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return 0
 
-	activation_time = world.time
+	activation_time = REALTIMEOFDAY
 	timing = TRUE
 
 	for(var/datum/weakref/door_ref as anything in doors)
@@ -159,7 +159,7 @@
 
 
 /obj/machinery/door_timer/proc/time_left(seconds = FALSE)
-	. = max(0,timer_duration - (activation_time ? world.time - activation_time : 0))
+	. = max(0,timer_duration - (activation_time ? REALTIMEOFDAY - activation_time : 0))
 	if(seconds)
 		. /= 10
 
@@ -293,7 +293,7 @@
 			investigate_log("[key_name(usr)] set cell [id]'s timer to [preset_time/10] seconds", INVESTIGATE_RECORDS)
 			user.log_message("set cell [id]'s timer to [preset_time/10] seconds", LOG_ATTACK)
 			if(timing)
-				activation_time = world.time
+				activation_time = REALTIMEOFDAY
 		else
 			. = FALSE
 

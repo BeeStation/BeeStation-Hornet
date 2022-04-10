@@ -34,8 +34,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/datum/round_event_control/immovable_rod/C = control
 	var/startside = pick(GLOB.cardinals)
 	var/z = pick(SSmapping.levels_by_trait(ZTRAIT_STATION))
-	var/turf/startT = spaceDebrisStartLoc(startside, z)
-	var/turf/endT = spaceDebrisFinishLoc(startside, z)
+	var/turf/startT = aimbotDebrisStartLoc(startside, z)
+	var/turf/endT = aimbotDebrisFinishLoc(startside, z)
 	var/atom/rod = new /obj/effect/immovablerod(startT, endT, C.special_target)
 	announce_to_ghosts(rod)
 
@@ -80,6 +80,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /obj/effect/immovablerod/Destroy()
 	GLOB.poi_list -= src
+	SSaugury.unregister_doom(src)
 	. = ..()
 
 /obj/effect/immovablerod/Topic(href, href_list)

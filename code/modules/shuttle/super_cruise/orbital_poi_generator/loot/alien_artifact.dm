@@ -92,6 +92,8 @@
 	if(requires_processing)
 		STOP_PROCESSING(SSobj, src)
 
+	return ..()
+
 //===================
 // Chaos Throw
 //===================

@@ -27255,6 +27255,7 @@
 	},
 /obj/item/crowbar,
 /obj/structure/table,
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "brz" = (
@@ -45169,6 +45170,10 @@
 /obj/structure/table/wood/fancy,
 /obj/item/folder,
 /obj/item/pen,
+/obj/item/organ/heart,
+/obj/item/soulstone/anybody/chaplain,
+/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/book/granter/spell/smoke/lesser,
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
 "cru" = (
@@ -45382,7 +45387,7 @@
 /area/chapel/office)
 "cso" = (
 /obj/structure/table/wood,
-/obj/item/nullrod,
+/obj/item/reagent_containers/food/drinks/bottle/holywater,
 /turf/open/floor/carpet/black,
 /area/chapel/office)
 "csp" = (
@@ -45431,11 +45436,6 @@
 /area/chapel/office)
 "csC" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/holywater{
-	name = "flask of holy water";
-	pixel_x = -2;
-	pixel_y = 2
-	},
 /turf/open/floor/carpet/black,
 /area/chapel/office)
 "csE" = (

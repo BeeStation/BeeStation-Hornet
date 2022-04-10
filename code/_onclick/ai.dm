@@ -15,7 +15,7 @@
 
 	if(ismob(A))
 		ai_actual_track(A)
-	else
+	else if(!ismachinery(A))	//Getting the camera moved just because you double click on something to interact with it is annoying as hell
 		A.move_camera_by_click()
 
 /mob/living/silicon/ai/ClickOn(var/atom/A, params)
@@ -203,6 +203,12 @@
 		return
 	hangup_all_calls()
 	add_hiddenprint(usr)
+
+/* Atmos machines */
+/obj/machinery/atmospherics/components/AICtrlClick(mob/living/silicon/ai/user)
+	if(!allowed(user))
+		return
+	CtrlClick(user)
 
 //
 // Override TurfAdjacent for AltClicking

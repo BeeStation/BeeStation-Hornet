@@ -294,10 +294,9 @@
 		dat += "Temperature Control: <a href='?src=[REF(src)];toggle_temp_control=1'>[temperature_control?"Enabled":"Disabled"]</a><br>"
 		dat += "Temperature Target: <a href='?src=[REF(src)];set_ideal_temperature=[ideal_temperature]'>[ideal_temperature]C</a><br>"
 		dat += "Gas Scrubbing Controls<br>"
-		for(var/gas_typepath in gasses)
-			var/gas_enabled = gasses[gas_typepath]
-			var/datum/gas/gas_type = gas_typepath
-			dat += "[initial(gas_type.name)]: <a href='?src=[REF(src)];toggle_gas=[gas_typepath]'>[gas_enabled?"Scrubbing":"Not Scrubbing"]</a><br>"
+		for(var/gas_id in gasses)
+			var/gas_enabled = gasses[gas_id]
+			dat += "[GLOB.gas_data.names[gas_id]]: <a href='?src=[REF(src)];toggle_gas=[gas_id]'>[gas_enabled?"Scrubbing":"Not Scrubbing"]</a><br>"
 		dat += "Patrol Station: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
 	return dat
 
@@ -313,9 +312,9 @@
 	else if(href_list["toggle_temp_control"])
 		temperature_control = temperature_control ? FALSE : TRUE
 	else if(href_list["toggle_gas"])
-		var/gas_datum = href_list["toggle_gas"]
+		var/gas_id = href_list["toggle_gas"]
 		for(var/G in gasses)
-			if("[G]" == gas_datum)
+			if("[G]" == gas_id)
 				gasses[G] = gasses[G] ? FALSE : TRUE
 	else if(href_list["set_ideal_temperature"])
 		var/new_temp = input(usr, "Set Target Temperature ([T0C] to [T20C + 20])", "Target Temperature") as num
