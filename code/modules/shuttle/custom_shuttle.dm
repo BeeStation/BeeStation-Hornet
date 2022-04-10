@@ -1,3 +1,6 @@
+#define CUSTOM_SHUTTLE_ACCELERATION_SCALE 10
+#define CUSTOM_SHUTTLE_MIN_THRUST_TO_WEIGHT 1
+
 /obj/machinery/computer/shuttle_flight/custom_shuttle
 	name = "nanotrasen shuttle flight controller"
 	desc = "A terminal used to fly shuttles defined by the Shuttle Zoning Designator"
@@ -7,6 +10,8 @@
 	light_color = LIGHT_COLOR_CYAN
 	req_access = list( )
 	possible_destinations = "whiteship_home"
+
+	var/datum/weakref/designator_ref = null
 
 	var/list/obj/machinery/shuttle/engine/shuttle_engines = list()
 	var/calculated_mass = 0
@@ -26,6 +31,7 @@
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/ui_data(mob/user)
 	var/list/data = ..()
+	var/obj/item/shuttle_creator/designator = designator_ref?.resolve()
 	data["fuel"] = get_fuel()
 	data["display_stats"] = list(
 		"Shuttle Mass" = "[calculated_mass/10] Tons",
@@ -34,7 +40,7 @@
 		"Fuel Consumption" = "[calculated_consumption] moles per second",
 		"Engine Cooldown" = "[calculated_cooldown] seconds"
 	)
-	if(calculated_acceleration < 1)
+	if(calculated_acceleration < CUSTOM_SHUTTLE_MIN_THRUST_TO_WEIGHT)
 		data["thrust_alert"] = "Insufficient engine power at last callibration. Launch shuttle to recalculate thrust."
 	else
 		data["thrust_alert"] = 0
@@ -42,11 +48,40 @@
 		data["damage_alert"] = "[calculated_non_operational_thrusters] thrusters offline."
 	else
 		data["thrust_alert"] = 0
+
+	data["designatorInserted"] = !!designator
+	data["designatorId"] = designator?.linkedShuttleId
+	data["shuttleId"] = shuttleId
+
 	return data
+
+/obj/machinery/computer/shuttle_flight/custom_shuttle/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
+
+	var/obj/item/shuttle_creator/designator = designator_ref?.resolve()
+	switch(action)
+		if("updateLinkedId")
+			var/newId = designator?.linkedShuttleId
+			if(newId)
+				linkShuttle(newId)
+		if("updateDesignatorId")
+			var/obj/docking_port/mobile/port = SSshuttle.getShuttle(shuttleId)
+			if(!port)
+				return
+			if(!designator)
+				return
+			designator.linkedShuttleId = shuttleId
+			designator.recorded_shuttle_area = port.shuttle_areas[1] //This should be a custom shuttle, so it should only have 1 area
+			//Reset the designator's buffer
+			designator.update_origin()
+			designator.reset_saved_area(FALSE)
+			designator.icon_state = "rsd_used"
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/launch_shuttle()
 	calculateStats()
-	if(calculated_acceleration < 1)
+	if(calculated_acceleration < CUSTOM_SHUTTLE_MIN_THRUST_TO_WEIGHT)
 		say("Insufficient engine power to engage supercruise.")
 		return
 	var/datum/orbital_object/shuttle/custom_shuttle/shuttle = ..()
@@ -143,9 +178,7 @@
 	shuttle_engines = list()
 	//Calculate all the data
 	var/list/areas = M.shuttle_areas
-	for(var/shuttleArea in areas)
-		for(var/turf/T in shuttleArea)
-			calculated_mass += 1
+	calculated_mass = M.calculate_mass()
 	for(var/obj/machinery/shuttle/engine/E in GLOB.custom_shuttle_machines)
 		if(!(get_area(E) in areas))
 			continue
@@ -161,9 +194,27 @@
 	//This should really be accelleration, but its a 2d spessman game so who cares
 	if(calculated_mass == 0)
 		return FALSE
-	calculated_acceleration = (calculated_dforce*1000) / (calculated_mass*100)
+	calculated_acceleration = (calculated_dforce / calculated_mass) * CUSTOM_SHUTTLE_ACCELERATION_SCALE
 	return TRUE
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	if(port && (shuttleId == initial(shuttleId) || override))
 		linkShuttle(port.id)
+
+/obj/machinery/computer/shuttle_flight/custom_shuttle/attackby(obj/item/I, mob/living/user, params)
+	. = ..()
+	if(istype(I, /obj/item/shuttle_creator) && !designator_ref)
+		if(!user.transferItemToLoc(I,src))
+			return
+		designator_ref = WEAKREF(I)
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+
+/obj/machinery/computer/shuttle_flight/custom_shuttle/AltClick(mob/user)
+	var/obj/item/shuttle_creator/designator = designator_ref?.resolve()
+	if(!designator)
+		return
+	if(!istype(user) || !Adjacent(user) || !user.put_in_active_hand(designator))
+		designator.forceMove(drop_location())
+	designator_ref = null
+
+
