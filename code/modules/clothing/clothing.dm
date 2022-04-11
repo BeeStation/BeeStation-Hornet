@@ -310,7 +310,7 @@ BLIND     // can't see anything
 				to_chat(user, "<span class='notice'>Your suit will now only report your exact vital lifesigns.</span>")
 			if(SENSORS_TRACKING)
 				to_chat(user, "<span class='notice'>Your suit will now report your exact vital lifesigns as well as your coordinate position.</span>")
-		sensor_mode = sensor_selection
+		update_sensors(sensor_selection)
 	else if(istype(src.loc, /mob))
 		var/mob/living/carbon/human/wearer = src.loc
 		wearer.visible_message("<span class='notice'>[user] tries to set [wearer]'s sensors.</span>", \
@@ -329,7 +329,7 @@ BLIND     // can't see anything
 				if(SENSORS_TRACKING)
 					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to maximum.</span>", \
 						 "<span class='notice'>[user] turns your remote sensors to maximum.</span>", null, COMBAT_MESSAGE_RANGE)
-			sensor_mode = sensor_selection
+			update_sensors(sensor_selection)
 			log_combat(user, wearer, "changed sensors to [switchMode]")
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
