@@ -34,11 +34,13 @@
 /datum/nanite_program/monitoring/enable_passive_effect()
 	. = ..()
 	SSnanites.nanite_monitored_mobs |= host_mob
+	GLOB.suit_sensors_list |= host_mob
 	host_mob.hud_set_nanite_indicator()
 
 /datum/nanite_program/monitoring/disable_passive_effect()
 	. = ..()
 	SSnanites.nanite_monitored_mobs -= host_mob
+	GLOB.suit_sensors_list -= host_mob
 	host_mob.hud_set_nanite_indicator()
 
 /datum/nanite_program/self_scan
