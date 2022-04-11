@@ -23,13 +23,6 @@
 	departments = DEPARTMENT_SERVICE
 	rpg_title = "Magistrate"
 
-	mail_goodies = list(
-		/obj/item/gavelhammer = 10, //an emergency hammer is always nice!
-		/obj/item/toy/cards/deck = 10, //What else are you gonna do as a lawyer? Fancy a game of solitaire?
-		/obj/item/clothing/glasses/sunglasses/advanced/big = 5,
-		/obj/item/book/manual/wiki/security_space_law = 5
-	)
-
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/lawyer
 	)

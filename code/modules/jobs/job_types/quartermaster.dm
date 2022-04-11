@@ -28,14 +28,6 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cargo
 	)
 
-	mail_goodies = list(
-		/obj/effect/spawner/lootdrop/donkpockets = 10,
-		/obj/item/banner/cargo = 5, //the beginning of your department's independence
-		/obj/item/circuitboard/machine/emitter = 3, //if you want to watch the world burn, this is it.
-		/obj/item/ammo_box/a762 = 3,
-		/obj/item/gun/ballistic/rifle/boltaction/enchanted = 1 //URAAAAHH, but better
-	)
-
 /datum/outfit/job/quartermaster
 	name = "Quartermaster"
 	jobtype = /datum/job/qm

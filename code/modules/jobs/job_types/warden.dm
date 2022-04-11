@@ -27,14 +27,6 @@
 	departments = DEPARTMENT_SECURITY
 	rpg_title = "Jailor"
 
-	mail_goodies = list(
-		/obj/item/storage/fancy/donut_box = 15,
-		/obj/effect/spawner/lootdrop/donut = 15,
-		/obj/effect/spawner/lootdrop/donut_rare = 10,
-		/obj/item/storage/box/handcuffs = 5,
-		/obj/item/melee/classic_baton/police/telescopic = 1
-		)
-
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/warden
 	)

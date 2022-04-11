@@ -21,14 +21,6 @@
 	departments = DEPARTMENT_SERVICE
 	rpg_title = "Fool"
 
-	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/baguette/mime = 15,
-		/obj/item/reagent_containers/food/snacks/store/cheesewheel = 10,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 10,
-		/obj/item/book/mimery = 2,
-		/obj/item/book/granter/spell/mimery_blockade = 1 //when you thought it could get worse...
-	)
-
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/mime
 	)

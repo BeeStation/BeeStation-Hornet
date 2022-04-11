@@ -21,16 +21,6 @@
 	departments = DEPARTMENT_SERVICE
 	rpg_title = "Tavernkeeper"
 
-	mail_goodies = list(
-		/obj/item/storage/box/rubbershot = 30,
-		/obj/item/reagent_containers/glass/bottle/clownstears = 10,
-		/obj/item/stack/sheet/mineral/plasma = 5,
-		/obj/item/stack/sheet/mineral/uranium = 5,
-		/obj/item/reagent_containers/food/drinks/bottle/fernet = 3,
-		/obj/item/reagent_containers/food/drinks/bottle/champagne = 3,
-		/obj/item/reagent_containers/food/drinks/bottle/trappist = 3
-	)
-
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/bar
 	)

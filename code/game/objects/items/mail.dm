@@ -69,8 +69,6 @@
 	// Mail will have the color of the department the recipient is in.
 	var/static/list/department_colors
 
-	var/datum/round_event/mail_events/mail_events
-
 /obj/item/mail/envelope
 	name = "envelope"
 	icon_state = "mail_large"
@@ -189,7 +187,6 @@
 	var/list/danger_goodies = hazard_goodies
 	//Load the job the player have
 	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role]
-
 	if(this_job)
 		goodies += this_job.mail_goodies
 		if(this_job.paycheck_department && department_colors[this_job.paycheck_department])
@@ -256,7 +253,7 @@
 
 	for(var/mob/living/carbon/human/human in GLOB.player_list)
 		// Skip wizards, nuke ops, cyborgs and dead people; Centcom does not send them mail
-		if(human.stat == DEAD || !human.mind || human.mind.assigned_role == "Cyborg" || human.mind.special_role)
+		if(human.stat == DEAD || !human.mind || !SSjob.GetJob(human.mind.assigned_role) || human.mind.special_role)
 			continue
 
 		mail_recipients += human.mind

@@ -23,14 +23,6 @@
 	departments = DEPARTMENT_CARGO
 	rpg_title = "Adventurer"
 
-	mail_goodies = list(
-		/obj/item/reagent_containers/hypospray/medipen/survival = 10,
-		/obj/item/tank/internals/emergency_oxygen/double = 7,
-		/obj/item/storage/pill_bottle/mining = 5,
-		/obj/item/storage/belt/mining/alt = 5,
-		/obj/item/clothing/glasses/material/mining/gar = 1 //THE DRIP!!!
-	)
-
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/mining
 	)

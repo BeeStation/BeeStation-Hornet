@@ -29,15 +29,6 @@
 	. = ..()
 	H.apply_pref_name("clown", M.client)
 
-	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/grown/banana = 20,
-		/obj/item/reagent_containers/food/snacks/pie/cream = 15,
-		/obj/item/clothing/shoes/clown_shoes/combat = 5,
-		/obj/item/reagent_containers/spray/waterflower/lube = 3, // lube
-		/obj/item/reagent_containers/spray/waterflower/superlube = 2, // Superlube, good lord.
-		/mob/living/simple_animal/hostile/retaliate/clown = 1 //An entire fucking clown, an aggressive one, why? The station is a circus anyway...
-	)
-
 /datum/outfit/job/clown
 	name = "Clown"
 	jobtype = /datum/job/clown

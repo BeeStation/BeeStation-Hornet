@@ -29,14 +29,6 @@
 	departments = DEPARTMENT_SECURITY
 	rpg_title = "Guard"
 
-	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/donut/plain = 15,
-		/obj/effect/spawner/lootdrop/donut = 10,
-		/obj/item/assembly/flash/handheld = 7, //just in case...
-		/obj/effect/spawner/lootdrop/donut_rare = 5,
-		/obj/item/melee/classic_baton/police/telescopic = 1//we don't have boomerangs here, ask ausstation
-	)
-
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/security
 	)

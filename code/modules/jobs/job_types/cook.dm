@@ -22,21 +22,6 @@
 	departments = DEPARTMENT_SERVICE
 	rpg_title = "Tavern Chef"
 
-	mail_goodies = list(
-		/obj/item/reagent_containers/glass/bottle/caramel = 20,
-		/obj/item/reagent_containers/food/condiment/flour = 20,
-		/obj/item/reagent_containers/food/condiment/rice = 20,
-		/obj/item/reagent_containers/food/condiment/enzyme = 15,
-		/obj/item/reagent_containers/food/condiment/soymilk = 15,
-		/obj/item/reagent_containers/food/condiment/milk = 15,
-		/obj/item/reagent_containers/food/snacks/mint = 12, //UR SO FAT!
-		/obj/item/storage/box/ingredients/wildcard = 10,
-		/obj/item/storage/box/monkeycubes = 5, //EEEEEEEK
-		/obj/item/kitchen/knife = 4,
-		/obj/item/storage/box/ingredients/exotic = 3,
-		/obj/item/kitchen/knife/butcher = 2
-	)
-
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chef
 	)

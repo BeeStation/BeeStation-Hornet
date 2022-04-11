@@ -25,11 +25,6 @@
 	departments = DEPARTMENT_SCIENCE
 	rpg_title = "Thaumaturgist"
 
-	mail_goodies = list(
-		/obj/item/disk/tech_disk = 7,
-		/obj/effect/spawner/lootdrop/ruinloot/science = 4//STUFF
-	)
-
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/science
 	)

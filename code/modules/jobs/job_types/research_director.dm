@@ -36,14 +36,6 @@
 	departments = DEPARTMENT_SCIENCE | DEPARTMENT_COMMAND
 	rpg_title = "Archmagister"
 
-	mail_goodies = list(
-		/obj/item/storage/box/monkeycubes = 15,
-		/obj/item/clothing/glasses/science/sciencesun = 10, // it's hard to not look cool
-		/obj/item/taperecorder = 7,
-		/obj/item/disk/tech_disk/research/random  = 4,
-		/obj/item/borg/upgrade/ai = 2
-	)
-
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/rd
 	)

@@ -24,13 +24,6 @@
 	departments = DEPARTMENT_SCIENCE
 	rpg_title = "Sailor"
 
-	mail_goodies = list(
-		/obj/item/stack/sheet/mineral/plasma/five = 15,
-		/obj/item/reagent_containers/hypospray/medipen/survival = 10,
-		/obj/item/stack/marker_beacon/thirty = 5,
-		/obj/item/gps/mining/exploration = 5
-	)
-
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/exploration
 	)

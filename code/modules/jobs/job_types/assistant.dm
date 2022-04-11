@@ -21,15 +21,6 @@ Assistant
 	departments = DEPARTMENT_SERVICE
 	rpg_title = "Lout"
 
-	mail_goodies = list(
-		/obj/effect/spawner/lootdrop/donkpocket_solo = 10,
-		/obj/item/clothing/mask/gas/old = 10,
-		/obj/item/clothing/gloves/color/fyellow = 7,
-		/obj/item/choice_beacon/music = 5,
-		/obj/item/toy/crayon/spraycan = 3,
-		/obj/item/crowbar/large = 2
-	)
-
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
 	)

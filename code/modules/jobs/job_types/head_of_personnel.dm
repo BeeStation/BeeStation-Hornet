@@ -40,21 +40,6 @@
 	departments = DEPARTMENT_COMMAND | DEPARTMENT_SERVICE
 	rpg_title = "Guild Questgiver"
 
-	mail_goodies = list(
-		/obj/item/card/id/silver = 10,
-		/obj/item/assembly/flash/handheld = 5,
-		/obj/item/mining_voucher = 5,
-		/obj/item/stack/sheet/bone = 5
-	)
-
-//only pet worth reviving
-/datum/job/head_of_personnel/get_mail_goodies(mob/recipient)
-	. = ..()
-	// lazarus if Ian is kill
-	for(var/datum/weakref/Ian in GLOB.dead_mob_list)
-		. += list(/obj/item/lazarus_injector)
-		break
-
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hop
 	)

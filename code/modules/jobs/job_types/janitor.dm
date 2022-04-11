@@ -22,14 +22,6 @@
 	rpg_title = "Groundskeeper"
 	biohazard = 20//cleaning up hazardous messes puts janitors at extra risk
 
-	mail_goodies = list(
-		/obj/item/grenade/chem_grenade/cleaner = 30,
-		/obj/item/storage/box/lights/mixed = 20,
-		/obj/item/lightreplacer = 10,
-		/obj/item/clothing/under/rank/civilian/janitor/maid = 5, //ha!
-		/obj/item/grenade/clusterbuster/cleaner = 2
-	)
-
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/janitor
 	)

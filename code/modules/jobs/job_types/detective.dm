@@ -31,18 +31,6 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/detective
 	)
 
-	mail_goodies = list(
-		/obj/item/storage/fancy/cigarettes = 15,
-		/obj/item/ammo_box/c38 = 10,
-		/obj/item/reagent_containers/food/drinks/bottle/rum = 10,
-		/obj/item/ammo_box/c38/dumdum = 5,
-		/obj/item/ammo_box/c38/hotshot = 5,
-		/obj/item/ammo_box/c38/iceblox = 5,
-		/obj/item/ammo_box/c38/match = 5,
-		/obj/item/ammo_box/c38/trac = 5,
-		/obj/item/clothing/accessory/holster/detective = 1 //you'll get this inevitably when you don't need it.
-	)
-
 /datum/outfit/job/detective
 	name = "Detective"
 	jobtype = /datum/job/detective
