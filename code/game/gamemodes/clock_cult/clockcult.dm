@@ -103,7 +103,13 @@ GLOBAL_VAR(clockcult_eminence)
 		SSticker.news_report = CLOCK_PROSELYTIZATION
 
 /datum/game_mode/clockcult/check_finished(force_ending)
-	return force_ending
+	//Check to see if a Blood Cult-aligned player exists; the round continues if so.
+	if(GLOB.cult_narsie)
+		priority_announce("Excellent work, crew! The Gateway is destroyed... but we are still reading strange signals from your station. Stay alert.",  SSstation.announcer.get_rand_report_sound())
+		return FALSE
+	//End the round if Blood Cult doesn't exist
+	else
+		return TRUE
 
 /datum/game_mode/clockcult/proc/check_cult_victory()
 	return GLOB.ratvar_risen
