@@ -12,10 +12,15 @@
 	throwforce = 0
 	throw_range = 1
 	throw_speed = 1
-	mouse_drag_pointer = MOUSE_ACTIVE_POINTER	/// Destination tagging for the mail sorter.
-	var/sort_tag = 0							/// Weak reference to who this mail is for and who can open it.
-	var/datum/weakref/recipient_ref				/// How many goodies this mail contains.
-	var/goodie_count = 1						/// Goodies which can be given to anyone. The base weight for cash is 56. For there to be a 50/50 chance of getting a department item, they need 56 weight as well.
+	// Destination tagging for the mail sorter.
+	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
+	// Weak reference to who this mail is for and who can open it.
+	var/sort_tag = 0
+	// How many goodies this mail contains.
+	var/datum/weakref/recipient_ref
+	// Goodies which can be given to anyone. The base weight for cash is 56. For there to be a 50/50 chance of getting a department item, they need 56 weight as well.
+	var/goodie_count = 1
+
 	var/static/list/generic_goodies = list(
 		/obj/item/stack/spacecash/c10										= 22, //the lamest chance to get item, what do you expect really?
 		/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game			= 10,
@@ -49,14 +54,20 @@
 		)
 
 	// Overlays (pure fluff), Does the letter have the postmark overlay?
-	var/postmarked = TRUE						/// Does the letter have postmarks?
-	//var/postmark_type							/// Different postmark, hey maybe some syndie mail!
-	var/stamped = TRUE							/// Does the letter have a stamp overlay?
-	var/list/stamps = list()					/// List of all stamp overlays on the letter.
-	var/stamp_max = 1							/// Maximum number of stamps on the letter.
-	var/stamp_offset_x = 0						/// Physical offset of stamps on the object. X direction.
-	var/stamp_offset_y = 2						/// Physical offset of stamps on the object. Y direction.
-	var/static/list/department_colors			/// Mail will have the color of the department the recipient is in.
+	// Does the letter have postmarks?
+	var/postmarked = TRUE
+	// Does the letter have a stamp overlay?
+	var/stamped = TRUE
+	// List of all stamp overlays on the letter.
+	var/list/stamps = list()
+	// Maximum number of stamps on the letter.
+	var/stamp_max = 1
+	// Physical offset of stamps on the object. X direction.
+	var/stamp_offset_x = 0
+	// Physical offset of stamps on the object. Y direction.
+	var/stamp_offset_y = 2
+	// Mail will have the color of the department the recipient is in.
+	var/static/list/department_colors
 
 	var/datum/round_event/mail_events/mail_events
 
@@ -98,7 +109,7 @@
 
 	// Icons
 	// Add some random stamps.
-	if(stamped == TRUE)
+	if(stamped)
 		var/stamp_count = rand(1, stamp_max)
 		for(var/i in 1 to stamp_count)
 			stamps += list("stamp_[rand(2, 10)]")
@@ -118,7 +129,7 @@
 		add_overlay(stamp_image)
 		bonus_stamp_offset -= 5
 
-	if(postmarked == TRUE)
+	if(postmarked)
 		var/image/postmark_image = image(
 			icon = icon,
 			icon_state = "postmark",
@@ -160,7 +171,7 @@
 	qdel(src)
 
 /// Accepts a mind to initialize goodies for a piece of mail.
-/obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient)//maybe add a weight system if the mail has "value"?
+/obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient)
 	switch(rand(1,5))
 		if(1,2)
 			name = "[initial(name)] for [recipient.name] ([recipient.assigned_role])"
@@ -170,17 +181,20 @@
 			name = "[initial(name)] critical to [recipient.name]"
 	recipient_ref = WEAKREF(recipient)
 
-	var/mob/living/body = recipient.current									//Recipients
-	var/list/goodies = generic_goodies										//Load the generic list of goodies
-	var/list/danger_goodies = hazard_goodies								//Load the List of Dangerous goodies
-	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role]//Load the job the player have
+	//Recipients
+	var/mob/living/body = recipient.current
+	//Load the generic list of goodies
+	var/list/goodies = generic_goodies
+	//Load the List of Dangerous goodies
+	var/list/danger_goodies = hazard_goodies
+	//Load the job the player have
+	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role]
 
 	if(this_job)
 		goodies += this_job.mail_goodies
 		if(this_job.paycheck_department && department_colors[this_job.paycheck_department])
 			color = department_colors[this_job.paycheck_department]
 
-	//for(var/iterator = 0, iterator < goodie_count, iterator++)
 	for(var/i in 1 to goodie_count)
 		var/target_good = pickweight(goodies)
 		var/atom/movable/target_atom = new target_good(src)
@@ -212,8 +226,8 @@
 		/obj/item/paper/fluff/nice_argument = "[initial(name)] with INCREDIBLY IMPORTANT ARTIFACT- DELIVER TO SCIENCE DIVISION. HANDLE WITH CARE.",
 	)
 
-	color = pick(department_colors) //eh, who gives a shit.
-	name = special_name ? junk_names[junk] : "important [initial(name)]"//don't hit me with that generic important letter/envelope, come on...
+	color = pick(department_colors)
+	name = special_name ? junk_names[junk] : "important [initial(name)]"
 
 	junk = new junk(src)
 	return TRUE
@@ -283,7 +297,7 @@
 
 /obj/structure/closet/crate/mail/full/Initialize()
 	. = ..()
-	populate(INFINITY)
+	populate(null)
 
 /obj/item/paper/fluff/junkmail_redpill
 	name = "smudged paper"
@@ -302,13 +316,13 @@
 /obj/item/paper/fluff/junkmail_redpill/Initialize()
 	. = ..()
 	if(!prob(nuclear_option_odds)) // 1 in 1000 chance of getting 2 random nuke code characters.
-		info = "<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[rand(0,9)][rand(0,9)][rand(0,9)]...'"
+		info = "<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]...'"
 		return
 	var/code = random_nukecode()
 	for(var/obj/machinery/nuclearbomb/selfdestruct/self_destruct in GLOB.nuke_list)
 		self_destruct.r_code = code
 	message_admins("Through junkmail, the self-destruct code was set to \"[code]\".")
-	info = "<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[code[rand(1,5)]][code[rand(1,5)]]...'"
+	info = "<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]]...'"
 
 /obj/item/paper/fluff/junkmail_redpill/true //admin letter enabling players to brute force their way through the nuke code if they're so inclined.
 	nuclear_option_odds = 100
