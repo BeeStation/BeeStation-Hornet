@@ -9,7 +9,7 @@
 	var/area/area_instance = get_area(src)
 	var/obj/docking_port/mobile/port = locate(/obj/docking_port/mobile) in area_instance
 	pod_shuttles ++
-	port.id = "podshuttle_[pod_shuttles]"
+	port?.id = "podshuttle_[pod_shuttles]"
 	shuttleId = "podshuttle_[pod_shuttles]"
 	port.register()
 	//Create a shuttle designator with the port
