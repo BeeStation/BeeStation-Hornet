@@ -1,5 +1,0 @@
-author: MNarath1
-delete-after: true
-changes:
-  - bugfix: A lot of runtimes
-  - bugfix: multiple qdel calls for the same object
