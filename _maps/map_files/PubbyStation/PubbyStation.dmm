@@ -15724,7 +15724,7 @@
 /area/quartermaster/sorting)
 "aNK" = (
 /obj/structure/table,
-/obj/item/destTagger,
+/obj/item/dest_tagger,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},

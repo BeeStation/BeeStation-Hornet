@@ -18420,8 +18420,8 @@
 	dir = 5
 	},
 /obj/structure/table,
-/obj/item/destTagger,
-/obj/item/destTagger,
+/obj/item/dest_tagger,
+/obj/item/dest_tagger,
 /obj/item/stack/wrapping_paper,
 /obj/item/stack/wrapping_paper,
 /turf/open/floor/plasteel,

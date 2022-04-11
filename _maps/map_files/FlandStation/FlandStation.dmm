@@ -15442,7 +15442,7 @@
 "dxy" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
-/obj/item/destTagger,
+/obj/item/dest_tagger,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
@@ -95436,7 +95436,7 @@
 	pixel_x = 3
 	},
 /obj/effect/turf_decal/delivery,
-/obj/item/destTagger,
+/obj/item/dest_tagger,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "wsC" = (

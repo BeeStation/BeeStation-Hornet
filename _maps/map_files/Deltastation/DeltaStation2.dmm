@@ -19571,7 +19571,7 @@
 "aQC" = (
 /obj/structure/table,
 /obj/item/folder/yellow,
-/obj/item/destTagger,
+/obj/item/dest_tagger,
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
@@ -115326,7 +115326,7 @@
 /area/maintenance/port)
 "ulh" = (
 /obj/structure/table,
-/obj/item/destTagger,
+/obj/item/dest_tagger,
 /obj/item/folder/yellow,
 /obj/machinery/light{
 	dir = 1
