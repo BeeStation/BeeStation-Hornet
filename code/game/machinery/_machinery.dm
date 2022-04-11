@@ -132,8 +132,8 @@ Class Procs:
 	var/tgui_id // ID of TGUI interface
 	var/ui_style // ID of custom TGUI style (optional)
 
-	//Maximum time an EMP will disable this machine for
-	var/emp_susceptibility = 2 MINUTES
+	/// Maximum time an EMP will disable this machine for
+	var/emp_disable_time = 2 MINUTES
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
@@ -188,7 +188,7 @@ Class Procs:
 		//Set the machine to be EMPed
 		stat |= EMPED
 		//Reset EMP state in 120/60 seconds
-		addtimer(CALLBACK(src, .proc/emp_reset), emp_susceptibility / severity)
+		addtimer(CALLBACK(src, .proc/emp_reset), emp_disable_time / severity)
 		//Update power
 		power_change()
 		new /obj/effect/temp_visual/emp(loc)
