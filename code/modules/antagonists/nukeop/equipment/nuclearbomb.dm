@@ -564,10 +564,8 @@
 		disarm()
 		return
 	if(is_station_level(bomb_location.z))
-		var/datum/round_event_control/E = locate(/datum/round_event_control/vent_clog/beer) in SSevents.control
-		if(E)
-			E.runEvent()
-		addtimer(CALLBACK(src, .proc/really_actually_explode), 110)
+		var/datum/round_event_control/beer_clog/beer_event = new()
+		beer_event.runEvent()
 	else
 		visible_message("<span class='notice'>[src] fizzes ominously.</span>")
 		addtimer(CALLBACK(src, .proc/fizzbuzz), 110)
