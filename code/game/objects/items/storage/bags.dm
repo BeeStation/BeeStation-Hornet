@@ -447,7 +447,7 @@
 	STR.max_items = 21
 	STR.display_numerical_stacking = FALSE
 	STR.can_hold = typecacheof (list(	/obj/item/mail,
-										/obj/item/smallDelivery,
+										/obj/item/small_delivery,
 										/obj/item/paper,
 										/obj/item/reagent_containers/food/condiment/milk,
 										/obj/item/reagent_containers/food/snacks/store/bread/plain
