@@ -1,4 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - bugfix: intelligence potions don't bypass ghost role spawners flag anymore
