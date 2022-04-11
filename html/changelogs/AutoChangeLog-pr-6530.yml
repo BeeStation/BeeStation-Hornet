@@ -1,0 +1,5 @@
+author: Ivniinvi, Melbert, AnturK, ChungusGamer666, ZephyrTFA
+delete-after: true
+changes:
+  - code_imp: Rust is now an element
+  - rscadd: Wirebrushes can be made at an autolathe to clean rust.
