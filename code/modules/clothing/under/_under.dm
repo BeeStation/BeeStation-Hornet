@@ -55,6 +55,11 @@
 		new_sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_LIVING, SENSOR_VITALS, SENSOR_VITALS, SENSOR_VITALS, SENSOR_COORDS, SENSOR_COORDS)
 	update_sensors(new_sensor_mode)
 
+/obj/item/clothing/under/Destroy()
+	. = ..()
+	if(ishuman(loc))
+		GLOB.suit_sensors_list -= loc
+
 /obj/item/clothing/under/emp_act()
 	. = ..()
 	if(has_sensor > NO_SENSORS)

@@ -137,9 +137,9 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 	var/list/results = list()
 
-	for(var/mob/living/carbon/human/H in GLOB.suit_sensors_list)
+	for(var/mob/living/carbon/human/H as() in GLOB.suit_sensors_list)
 		if(!H)
-			stack_trace("Null in suit sensors list")
+			stack_trace("Null reference in suit sensors list")
 
 		var/turf/pos = get_turf(H)
 		if(!pos)

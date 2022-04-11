@@ -50,6 +50,10 @@
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
 	QDEL_LIST(bioware)
+	if(istype(w_uniform, /obj/item/clothing/under))
+		var/obj/item/clothing/under/U = w_uniform
+		if(U.sensor_mode > HAS_SENSORS)
+			U.update_sensors(NO_SENSORS)
 	return ..()
 
 
