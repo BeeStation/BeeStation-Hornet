@@ -374,8 +374,6 @@
 		stop_orbit()
 		qdel(src)
 
-
-
 // Relic water bottle
 /obj/item/reagent_containers/glass/waterbottle/relic
 	desc = "A bottle of water filled with unknown liquids. It seems to be radiating some kind of energy."
