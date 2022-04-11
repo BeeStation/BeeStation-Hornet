@@ -1,0 +1,4 @@
+author: Hardly, MCterra10
+delete-after: true
+changes:
+  - rscadd: Split personalities can now communicate.
