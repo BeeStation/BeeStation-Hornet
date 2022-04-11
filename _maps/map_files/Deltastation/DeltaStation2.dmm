@@ -272,7 +272,7 @@
 "aaG" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/light{
 	dir = 8
@@ -2842,7 +2842,7 @@
 /area/construction/mining/aux_base)
 "aeE" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/stack/cable_coil/white{
 	pixel_x = 3;
 	pixel_y = 3
@@ -4670,7 +4670,7 @@
 /area/vacant_room/office)
 "alm" = (
 /obj/structure/table/wood,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/newscaster{
 	pixel_y = 32
@@ -5510,7 +5510,7 @@
 /area/security/checkpoint/customs)
 "ank" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -9330,7 +9330,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/crowbar,
 /obj/item/hand_labeler,
 /obj/machinery/newscaster{
@@ -9922,7 +9922,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
 "axa" = (
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
@@ -16429,7 +16429,7 @@
 /area/crew_quarters/bar)
 "aKu" = (
 /obj/structure/table/wood,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
@@ -18667,7 +18667,7 @@
 /obj/item/stack/wrapping_paper{
 	pixel_y = 5
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -20512,7 +20512,7 @@
 /area/quartermaster/storage)
 "aSn" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -20641,7 +20641,7 @@
 "aSy" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/light{
 	dir = 4
@@ -21026,7 +21026,7 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -27233,7 +27233,7 @@
 "bdH" = (
 /obj/structure/rack,
 /obj/item/book/manual/chef_recipes,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/airalarm{
 	dir = 4;
@@ -27703,7 +27703,7 @@
 /area/engine/atmos)
 "beF" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -31279,7 +31279,7 @@
 	dir = 8
 	},
 /obj/item/clipboard,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -35925,7 +35925,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/book/manual/hydroponics_pod_people,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/bot,
@@ -43604,7 +43604,7 @@
 /area/science/xenobiology)
 "bHE" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -44211,7 +44211,7 @@
 /area/storage/primary)
 "bIz" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
@@ -49187,7 +49187,7 @@
 /area/storage/tools)
 "bRc" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/yellow,
@@ -53623,7 +53623,7 @@
 /area/engine/transit_tube)
 "bYr" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -55724,7 +55724,7 @@
 "ccC" = (
 /obj/structure/table/wood,
 /obj/machinery/light,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/computer/security/telescreen/vault{
 	dir = 8;
@@ -60659,7 +60659,7 @@
 /area/teleporter)
 "cmI" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
@@ -65135,7 +65135,7 @@
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
 "cwI" = (
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/newscaster{
 	pixel_x = 32
@@ -70316,7 +70316,7 @@
 /area/engine/engineering)
 "cHj" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
@@ -77350,7 +77350,7 @@
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/plasteel/white,
@@ -80201,7 +80201,7 @@
 /area/crew_quarters/fitness/recreation)
 "ddz" = (
 /obj/structure/table/wood,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -82524,7 +82524,7 @@
 /area/science/lab)
 "djZ" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -82646,7 +82646,7 @@
 /area/medical/chemistry)
 "dkj" = (
 /obj/structure/table/glass,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/airalarm{
 	dir = 1;
@@ -93163,7 +93163,7 @@
 /area/medical/morgue)
 "dJb" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /turf/open/floor/plating,
 /area/medical/morgue)
@@ -95870,7 +95870,7 @@
 /area/security/checkpoint/customs/auxiliary)
 "dPf" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -98906,7 +98906,7 @@
 /area/maintenance/port/aft)
 "dXB" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/structure/sign/warning/nosmoking{
 	pixel_x = -32
@@ -99138,7 +99138,7 @@
 /obj/machinery/airalarm{
 	pixel_y = 22
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/item/radio/intercom{
 	pixel_x = 26
@@ -106324,7 +106324,7 @@
 "jeu" = (
 /obj/structure/table,
 /obj/item/hand_labeler,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
@@ -115716,7 +115716,7 @@
 /area/hallway/primary/central)
 "uMN" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/firealarm{
 	dir = 4;

@@ -26783,7 +26783,7 @@
 	pixel_x = 1;
 	pixel_y = 4
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry/upper)
 "gfK" = (
@@ -37901,7 +37901,7 @@
 /area/ai_monitored/turret_protected/aisat/foyer)
 "iOF" = (
 /obj/structure/rack,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -53334,8 +53334,8 @@
 /area/science/research)
 "mwS" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap{
 	pixel_x = 1;
 	pixel_y = 3
 	},
@@ -65165,8 +65165,8 @@
 "pqM" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -68072,8 +68072,8 @@
 /area/hallway/secondary/law)
 "qaW" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/effect/turf_decal/stripes/line{
@@ -76606,10 +76606,10 @@
 /area/security/brig)
 "scB" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -82936,7 +82936,7 @@
 	pixel_y = -28
 	},
 /obj/item/storage/crayons,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/stack/wrapping_paper,
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)

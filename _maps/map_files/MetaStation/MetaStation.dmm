@@ -20720,10 +20720,10 @@
 /obj/structure/table,
 /obj/item/weldingtool,
 /obj/item/crowbar,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /obj/effect/turf_decal/tile/brown,
 /turf/open/floor/plasteel,
 /area/storage/primary)
@@ -26453,23 +26453,23 @@
 /area/quartermaster/storage)
 "bap" = (
 /obj/structure/rack,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
@@ -31069,7 +31069,7 @@
 	pixel_y = 6
 	},
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
@@ -31700,35 +31700,35 @@
 	departmentType = 2;
 	pixel_y = -30
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
@@ -31881,15 +31881,15 @@
 /obj/item/storage/box,
 /obj/item/storage/box,
 /obj/item/storage/box,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
@@ -34232,8 +34232,8 @@
 /area/crew_quarters/bar)
 "boR" = (
 /obj/structure/table/wood,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /obj/item/gun/ballistic/shotgun/doublebarrel,
 /obj/machinery/camera{
 	c_tag = "Bar - Backroom"
@@ -38062,7 +38062,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table/wood,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -44309,10 +44309,10 @@
 "bJI" = (
 /obj/structure/window/reinforced,
 /obj/structure/table,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -46074,7 +46074,7 @@
 	pixel_x = 2;
 	pixel_y = 6
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/storage/box/donkpockets,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
@@ -47852,7 +47852,7 @@
 /area/crew_quarters/kitchen)
 "bRR" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/button/door{
 	id = "kitchenhydro";
@@ -50610,11 +50610,11 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "bYf" = (
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/green{
@@ -56161,7 +56161,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
 "ckl" = (
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
 "ckm" = (
@@ -56977,11 +56977,11 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "cmC" = (
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/yellow,
@@ -57143,9 +57143,9 @@
 "cmS" = (
 /obj/structure/table/reinforced,
 /obj/item/hand_labeler,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /obj/item/taperecorder,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
@@ -58906,8 +58906,8 @@
 /turf/open/floor/plasteel,
 /area/science/lab)
 "cqz" = (
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/machinery/requests_console{
 	department = "Science";
@@ -62417,7 +62417,7 @@
 	pixel_x = 4;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/pen,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/structure/table/glass,
@@ -71659,8 +71659,8 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
 	},
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)

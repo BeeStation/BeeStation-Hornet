@@ -2060,7 +2060,7 @@
 /area/security/main)
 "aeB" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/pen,
 /turf/open/floor/plasteel,
 /area/security/main)
@@ -12011,10 +12011,10 @@
 /obj/structure/table,
 /obj/item/weldingtool,
 /obj/item/crowbar,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "aHF" = (
@@ -16505,7 +16505,7 @@
 /obj/item/reagent_containers/food/condiment/enzyme{
 	layer = 5
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "aVD" = (
@@ -19450,7 +19450,7 @@
 	pixel_x = 3;
 	pixel_y = 4
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = -1;
 	pixel_y = -1
 	},
@@ -23993,7 +23993,7 @@
 "buO" = (
 /obj/structure/table,
 /obj/item/folder/blue,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = -1;
 	pixel_y = -1
 	},
@@ -44563,7 +44563,7 @@
 	pixel_y = 6
 	},
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
@@ -53627,7 +53627,7 @@
 	pixel_x = 1;
 	pixel_y = 9
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/structure/sign/painting/library{
 	pixel_y = 32
 	},

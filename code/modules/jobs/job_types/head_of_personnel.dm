@@ -51,7 +51,7 @@
 /datum/job/head_of_personnel/get_mail_goodies(mob/recipient)
 	. = ..()
 	// lazarus if Ian is kill
-	for(var/mob/living/simple_animal/pet/dog/corgi/Ian in GLOB.dead_mob_list)
+	for(var/datum/weakref/Ian in GLOB.dead_mob_list)
 		. += list(/obj/item/lazarus_injector)
 		break
 

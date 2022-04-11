@@ -12844,8 +12844,8 @@
 /obj/structure/table,
 /obj/item/weldingtool,
 /obj/item/crowbar,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -15735,7 +15735,7 @@
 	pixel_x = 3;
 	pixel_y = 4
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = -1;
 	pixel_y = -1
 	},
@@ -29190,7 +29190,7 @@
 /area/medical/chemistry)
 "bwW" = (
 /obj/structure/rack,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science,
@@ -44683,7 +44683,7 @@
 /area/crew_quarters/kitchen)
 "cpz" = (
 /obj/structure/rack,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -50833,7 +50833,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/coin/gold,
 /turf/open/floor/plasteel/dark,
 /area/library/lounge)
@@ -59824,7 +59824,7 @@
 /area/engine/engineering)
 "tdp" = (
 /obj/structure/rack,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},

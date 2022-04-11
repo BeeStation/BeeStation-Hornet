@@ -141,8 +141,8 @@
 
 /obj/item/mail/attackby(obj/item/W, mob/user, params)
 	// Destination tagging
-	if(istype(W, /obj/item/destTagger))
-		var/obj/item/destTagger/destination_tag = W
+	if(istype(W, /obj/item/dest_tagger))
+		var/obj/item/dest_tagger/destination_tag = W
 
 		if(sort_tag != destination_tag.currTag)
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[destination_tag.currTag])

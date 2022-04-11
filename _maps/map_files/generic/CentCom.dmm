@@ -1066,7 +1066,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/supply)
 "jq" = (
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
@@ -2638,7 +2638,7 @@
 "mK" = (
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/stack/cable_coil/white,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/green{
@@ -3106,7 +3106,7 @@
 	pixel_y = -24
 	},
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/stack/cable_coil/white,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/neutral{
@@ -3630,7 +3630,7 @@
 /area/centcom/supply)
 "ot" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light{
@@ -4514,7 +4514,7 @@
 /area/centcom/ferry)
 "pS" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
 "pT" = (
@@ -6933,7 +6933,7 @@
 /area/centcom/ferry)
 "uP" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/powertool/jaws_of_life,
 /obj/item/wrench,
 /obj/item/hand_labeler,
