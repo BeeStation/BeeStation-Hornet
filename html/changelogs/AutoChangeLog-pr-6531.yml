@@ -1,0 +1,10 @@
+author: dog132
+delete-after: true
+changes:
+  - rscadd: Kilo Station - there is now space for two Virologists
+  - bugfix: Kilo Station - Virology Airlock is no longer a tomb
+  - bugfix: Kilo Station - makes the Brig Physician's access actually make sense
+  - rscadd: Kilo Station - the Brig Physician gets a surgery duffle bag, a surgery
+      table and a surgery operating computer
+  - bugfix: Kilo Station - the SMES in Engineering has been properly connected to
+      the network
