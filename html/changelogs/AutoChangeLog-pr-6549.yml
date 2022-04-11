@@ -1,5 +1,0 @@
-author: bobbahbrown, Mat05usz
-delete-after: true
-changes:
-  - bugfix: Crew console is properly displaying custom jobs and unknowns
-  - refactor: Cleans up crew console code
