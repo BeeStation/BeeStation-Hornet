@@ -1,4 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - bugfix: LOWMEMORYMODE now doesn't runtime and supercruise works on it
