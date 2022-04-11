@@ -1547,10 +1547,7 @@
 	set waitfor = FALSE
 	nightshift_lights = on
 	for(var/obj/machinery/light/L in area)
-		if(L.nightshift_allowed)
-			L.nightshift_enabled = nightshift_lights
-			L.update(FALSE)
-		CHECK_TICK
+		L.update()
 
 #undef UPSTATE_CELL_IN
 #undef UPSTATE_OPENED1

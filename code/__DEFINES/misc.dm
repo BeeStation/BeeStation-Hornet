@@ -467,3 +467,12 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define ALIGNMENT_GOOD "good"
 #define ALIGNMENT_NEUT "neutral"
 #define ALIGNMENT_EVIL "evil"
+
+// Lighting Bulbs modes
+#define BULB_MODE_EMERGENCY_POWER 1 // there is no power in the area
+#define BULB_MODE_NORMAL 2 // Normal, full brightness
+#define BULB_MODE_NIGHT 3 // Night, half brightness
+#define BULB_MODE_VACUUM 4 // There is no air
+#define BULB_MODE_FIRE 5 // There is fire in the area
+#define BULB_MODE_RED_ALERT 6 // There is red alert
+#define BULB_MODE_DELTA_ALERT 7 // There is delta alert

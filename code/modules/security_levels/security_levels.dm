@@ -16,7 +16,7 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 			level = SEC_LEVEL_RED
 		if("delta")
 			level = SEC_LEVEL_DELTA
-
+	stop_alert_siren()
 	//Will not be announced if you try to set to the same level as it already is
 	if(level >= SEC_LEVEL_GREEN && level <= SEC_LEVEL_DELTA && level != GLOB.security_level)
 		switch(level)
@@ -47,6 +47,8 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 			if(SEC_LEVEL_RED)
 				if(GLOB.security_level < SEC_LEVEL_RED)
 					minor_announce(CONFIG_GET(string/alert_red_upto), "Attention! Code red!",1)
+					spawn(0)
+					start_alert_siren(SEC_LEVEL_RED)
 					if(SSshuttle.emergency.mode == SHUTTLE_CALL || SSshuttle.emergency.mode == SHUTTLE_RECALL)
 						if(GLOB.security_level == SEC_LEVEL_GREEN)
 							SSshuttle.emergency.modTimer(0.25)
@@ -63,6 +65,8 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 					pod.admin_controlled = 0
 			if(SEC_LEVEL_DELTA)
 				minor_announce(CONFIG_GET(string/alert_delta), "Attention! Delta security level reached!",1)
+				spawn(0)
+					start_alert_siren(SEC_LEVEL_DELTA)
 				if(SSshuttle.emergency.mode == SHUTTLE_CALL || SSshuttle.emergency.mode == SHUTTLE_RECALL)
 					if(GLOB.security_level == SEC_LEVEL_GREEN)
 						SSshuttle.emergency.modTimer(0.25)
@@ -81,8 +85,58 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 					playsound(D, 'sound/machines/boltsup.ogg', 50, TRUE)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, get_security_level())
 		SSnightshift.check_nightshift()
+		for(var/obj/machinery/light/light in GLOB.machines)
+			if(is_station_level(light.z))
+				light.update()
 	else
 		return
+
+// play a siren sound on red/delta alert with volume depending on the severity
+// can be muted by players by setting "play admin midis" to false
+// must  be called via spawn since it's blocking
+/proc/start_alert_siren(level)
+	var/filename
+	var/volume
+	var/interval
+
+	switch(GLOB.security_level)
+		if(SEC_LEVEL_RED)
+			filename = 'sound/misc/red_alert.ogg'
+			volume = 20
+			interval = 20 SECONDS
+		if(SEC_LEVEL_DELTA)
+			filename = 'sound/misc/delta_alert.ogg'
+			volume = 50
+			interval = 10 SECONDS
+		else
+			return	// not happening for non-red or non-delta
+
+	stop_alert_siren() //stop any sirens playing right now
+
+	var/sound/alert_siren_sound = new()
+	alert_siren_sound.file = filename
+	alert_siren_sound.priority = 250
+	alert_siren_sound.channel = CHANNEL_STATION_ALERT_SIREN
+	alert_siren_sound.frequency = 1
+	alert_siren_sound.wait = TRUE
+	alert_siren_sound.repeat = FALSE
+	alert_siren_sound.status = SOUND_STREAM
+	alert_siren_sound.volume = volume
+
+	do	// play the alert sound as long as the security level is the same as on proc invoke
+		for(var/mob/M in GLOB.player_list)
+			if(M.client.prefs.toggles & SOUND_MIDI && is_station_level(M.z)) // play only on station and if you have admin midis on
+				SEND_SOUND(M, alert_siren_sound)
+		sleep(interval)
+	while(GLOB.security_level == level)
+
+
+// stop the siren sounds right now
+/proc/stop_alert_siren()
+	for(var/mob/M in GLOB.player_list)
+		if(!M.client)
+			continue
+		M.stop_sound_channel(CHANNEL_STATION_ALERT_SIREN)
 
 /proc/get_security_level()
 	switch(GLOB.security_level)

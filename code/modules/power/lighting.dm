@@ -226,21 +226,31 @@
 	var/obj/item/stock_parts/cell/cell
 	var/start_with_cell = TRUE	// if true, this fixture generates a very weak cell at roundstart
 
-	var/nightshift_enabled = FALSE	//Currently in night shift mode?
-	var/nightshift_allowed = TRUE	//Set to FALSE to never let this light get switched to night mode.
-	var/nightshift_brightness = 7
-	var/nightshift_light_power = 0.75
-	var/nightshift_light_color = "#FFDBB5" //qwerty's more cozy light
-
-	var/emergency_mode = FALSE	// if true, the light is in emergency mode
 	var/no_emergency = FALSE	// if true, this light cannot ever have an emergency mode
+	var/nightshift_allowed = TRUE	// if true, this light can be turned off at night
+	var/bulb_mode = BULB_MODE_NORMAL // Mode bulb is in.
+
+	// The following are used to determine the light properties in emergency power mode
 	var/bulb_emergency_brightness_mul = 0.25	// multiplier for this light's base brightness in emergency power mode
 	var/bulb_emergency_colour = "#FF3232"	// determines the colour of the light while it's in emergency mode
 	var/bulb_emergency_pow_mul = 0.75	// the multiplier for determining the light's power in emergency mode
 	var/bulb_emergency_pow_min = 0.5	// the minimum value for the light's power in emergency mode
 
-	var/bulb_vacuum_colour = "#4F82FF"	// colour of the light when air alarm is set to severe
-	var/bulb_vacuum_brightness = 8
+	// The following are used to determine the light properties in red alert mode
+	var/bulb_red_alert_colour = "#F5B6AE"
+
+	// The following are used to determine the light properties in delta alert mode
+	var/bulb_delta_alert_colour = "#F77979"
+
+	// The following are used to determine the light properties in vacuum mode
+	var/bulb_VACUUM_colour = "#4F82FF"	// colour of the light when air alarm is set to severe
+	var/bulb_VACUUM_brightness = 8
+
+	// The following are used to determine the light properties in night shift mode
+	var/nightshift_brightness = 7
+	var/nightshift_light_power = 0.75
+	var/nightshift_light_color = "#FFDBB5" //qwerty's more cozy light
+
 	var/static/list/lighting_overlays	// dictionary for lighting overlays
 
 /obj/machinery/light/broken
@@ -305,10 +315,6 @@
 		nightshift_light_color = A.lighting_colour_night
 		nightshift_brightness = A.lighting_brightness_night
 
-	if(!mapload) //sync up nightshift lighting for player made lights
-		var/obj/machinery/power/apc/temp_apc = A.get_apc()
-		nightshift_enabled = temp_apc?.nightshift_lights
-
 	if(start_with_cell && !no_emergency)
 		cell = new/obj/item/stock_parts/cell/emergency_light(src)
 	spawn(2)
@@ -335,13 +341,13 @@
 /obj/machinery/light/update_icon_state()
 	switch(status)		// set icon_states
 		if(LIGHT_OK)
-			var/area/A = get_area(src)
-			if(emergency_mode || (A?.fire))
+			icon_state = "[base_state]"
+			if ((bulb_mode == BULB_MODE_EMERGENCY_POWER) || (bulb_mode == BULB_MODE_FIRE))
 				icon_state = "[base_state]_emergency"
-			else if (A?.vacuum)
+			if (bulb_mode == BULB_MODE_VACUUM)
 				icon_state = "[base_state]_vacuum"
-			else
-				icon_state = "[base_state]"
+			if ((bulb_mode == BULB_MODE_RED_ALERT) || (bulb_mode == BULB_MODE_DELTA_ALERT))
+				icon_state = "[base_state]_emergency"
 		if(LIGHT_EMPTY)
 			icon_state = "[base_state]-empty"
 		if(LIGHT_BURNED)
@@ -354,38 +360,50 @@
 	if(!on || status != LIGHT_OK)
 		return
 
-	var/area/local_area = get_area(src)
-	if(emergency_mode || (local_area?.fire))
+	if((bulb_mode == BULB_MODE_EMERGENCY_POWER) || (bulb_mode == BULB_MODE_FIRE))
 		. += mutable_appearance(overlayicon, "[base_state]_emergency")
 		return
-	if(nightshift_enabled)
+	if(bulb_mode == BULB_MODE_NIGHT)
 		. += mutable_appearance(overlayicon, "[base_state]_nightshift")
 		return
 	. += mutable_appearance(overlayicon, base_state)
 
 // update the icon_state and luminosity of the light depending on its state
 /obj/machinery/light/proc/update(trigger = TRUE)
-	switch(status)
-		if(LIGHT_BROKEN,LIGHT_BURNED,LIGHT_EMPTY)
-			on = FALSE
-	emergency_mode = FALSE
+	if(status != LIGHT_OK)
+		on = FALSE
 	if(on)
+		var/area/A = get_area(src)
+		var/obj/machinery/power/apc/temp_apc = A.get_apc()
+		bulb_mode = BULB_MODE_NORMAL
+		if(temp_apc?.nightshift_lights)
+			bulb_mode = BULB_MODE_NIGHT
+		if(seclevel2num(get_security_level()) == SEC_LEVEL_RED && is_station_level(z))
+			bulb_mode = BULB_MODE_RED_ALERT
+		if(seclevel2num(get_security_level()) == SEC_LEVEL_DELTA && is_station_level(z))
+			bulb_mode = BULB_MODE_DELTA_ALERT
+		if(A?.fire)
+			bulb_mode = BULB_MODE_FIRE
+		if(A?.vacuum)
+			bulb_mode = BULB_MODE_VACUUM
 		var/BR = brightness
 		var/PO = bulb_power
 		var/CO = bulb_colour
+		switch(bulb_mode)
+			if(BULB_MODE_NIGHT)
+				BR = nightshift_brightness
+				PO = nightshift_light_power
+			if(BULB_MODE_VACUUM)
+				CO = bulb_VACUUM_colour
+				BR = bulb_VACUUM_brightness
+			if(BULB_MODE_FIRE)
+				CO = bulb_emergency_colour
+			if(BULB_MODE_RED_ALERT)
+				CO = bulb_red_alert_colour
+			if(BULB_MODE_DELTA_ALERT)
+				CO = bulb_delta_alert_colour
 		if(color)
 			CO = color
-		var/area/A = get_area(src)
-		if (A?.fire)
-			CO = bulb_emergency_colour
-		else if (A?.vacuum)
-			CO = bulb_vacuum_colour
-			BR = bulb_vacuum_brightness
-		else if (nightshift_enabled)
-			BR = nightshift_brightness
-			PO = nightshift_light_power
-			if(!color)
-				CO = nightshift_light_color
 		var/matching = light && BR == light.light_range && PO == light.light_power && CO == light.light_color
 		if(!matching)
 			switchcount++
@@ -400,7 +418,7 @@
 				set_light(BR, PO, CO)
 	else if(use_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
 		use_power = IDLE_POWER_USE
-		emergency_mode = TRUE
+		bulb_mode = BULB_MODE_EMERGENCY_POWER
 		START_PROCESSING(SSmachines, src)
 	else
 		use_power = IDLE_POWER_USE
@@ -436,15 +454,14 @@
 		if (cell.charge == cell.maxcharge)
 			return PROCESS_KILL
 		cell.charge = min(cell.maxcharge, cell.charge + LIGHT_EMERGENCY_POWER_USE) //Recharge emergency power automatically while not using it
-	if(emergency_mode && !use_emergency_power(LIGHT_EMERGENCY_POWER_USE))
+	if(bulb_mode == BULB_MODE_EMERGENCY_POWER && !use_emergency_power(LIGHT_EMERGENCY_POWER_USE))
 		update(FALSE) //Disables emergency mode and sets the color to normal
 
 /obj/machinery/light/proc/burn_out()
 	if(status == LIGHT_OK)
 		status = LIGHT_BURNED
 		icon_state = "[base_state]-burned"
-		on = FALSE
-		set_light(0)
+		set_light_on(0)
 
 // attempt to set the light's on/off status
 // will not switch on if broken/burned/empty
