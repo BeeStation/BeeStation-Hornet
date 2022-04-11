@@ -1,0 +1,4 @@
+author: zeskorion
+delete-after: true
+changes:
+  - tweak: virus food no longer speeds up special viruses
