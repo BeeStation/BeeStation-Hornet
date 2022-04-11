@@ -35,16 +35,15 @@
 	species_r_leg = /obj/item/bodypart/r_leg/lizard
 
 
-/datum/species/lizard/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_lizard_name(gender)
+/datum/species/lizard/random_name(gender, unique, lastname, attempts)
+	if(gender == MALE)
+		. = "[pick(GLOB.lizard_names_male)]-[pick(GLOB.lizard_names_male)]"
+	else
+		. = "[pick(GLOB.lizard_names_female)]-[pick(GLOB.lizard_names_female)]"
 
-	var/randname = lizard_name(gender)
-
-	if(lastname)
-		randname += " [lastname]"
-
-	return randname
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, null, ++attempts)
 
 //I wag in death
 /datum/species/lizard/spec_death(gibbed, mob/living/carbon/human/H)

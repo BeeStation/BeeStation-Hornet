@@ -213,6 +213,9 @@
 		to_chat(user, "<span class='warning'>They are no longer a servant of Rat'var!</span>")
 		return
 	var/turf/T = get_turf(M)
+	if(SSmapping.level_trait(T.z, ZTRAIT_CENTCOM))
+		to_chat(user, "<span class='warning'>They are out of your reach!</span>")
+		return
 	user.forceMove(get_turf(T))
 	SEND_SOUND(user, sound('sound/magic/magic_missile.ogg'))
 	flash_color(user, flash_color = "#AF0AAF", flash_time = 25)

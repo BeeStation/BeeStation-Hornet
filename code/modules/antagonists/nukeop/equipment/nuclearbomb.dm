@@ -175,6 +175,16 @@
 				START_PROCESSING(SSobj, core)
 			return TRUE
 
+/obj/machinery/nuclearbomb/can_interact(mob/user)
+	if(HAS_TRAIT(user, TRAIT_CAN_USE_NUKE))
+		return TRUE
+	return ..()
+
+/obj/machinery/nuclearbomb/ui_state(mob/user)
+	if(HAS_TRAIT(user, TRAIT_CAN_USE_NUKE))
+		return GLOB.conscious_state
+	return ..()
+
 /obj/machinery/nuclearbomb/proc/get_nuke_state()
 	if(exploding)
 		return NUKE_ON_EXPLODING
@@ -566,6 +576,7 @@
 	if(is_station_level(bomb_location.z))
 		var/datum/round_event_control/beer_clog/beer_event = new()
 		beer_event.runEvent()
+		addtimer(CALLBACK(src, .proc/really_actually_explode), 110)
 	else
 		visible_message("<span class='notice'>[src] fizzes ominously.</span>")
 		addtimer(CALLBACK(src, .proc/fizzbuzz), 110)

@@ -39935,9 +39935,8 @@
 	pixel_x = 8;
 	pixel_y = 7
 	},
-/obj/item/book/granter/spell/smoke/lesser{
-	name = "mysterious old book of cloud-chasing"
-	},
+/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/book/granter/spell/smoke/lesser,
 /turf/open/floor/plasteel/cult,
 /area/chapel/office)
 "jcL" = (
@@ -42451,7 +42450,6 @@
 /area/crew_quarters/toilet/restrooms)
 "jJR" = (
 /obj/structure/table/wood,
-/obj/item/nullrod,
 /obj/item/folder,
 /turf/open/floor/carpet,
 /area/chapel/office)
@@ -75431,6 +75429,7 @@
 	dir = 4;
 	pixel_x = -22
 	},
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "rHr" = (
@@ -79340,16 +79339,7 @@
 /area/engine/atmos)
 "sDJ" = (
 /obj/structure/bed/dogbed/cayenne,
-/mob/living/simple_animal/hostile/carp/cayenne{
-	desc = "A failed experiment of Nanotrasen to create weaponised carp technology. This less than intimidating carp now serves as an authority figure's pet.";
-	health = 200;
-	icon_dead = "magicarp_dead";
-	icon_gib = "magicarp_gib";
-	icon_living = "magicarp";
-	icon_state = "magicarp";
-	maxHealth = 200;
-	name = "Lia"
-	},
+/mob/living/simple_animal/hostile/carp/lia,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "sDM" = (

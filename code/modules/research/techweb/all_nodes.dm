@@ -54,7 +54,7 @@
 	starting_node = TRUE
 	display_name = "Basic Tools"
 	description = "Basic mechanical, electronic, surgical and botanical tools."
-	design_ids = list("discovery_scanner", "screwdriver", "wrench", "wirecutters", "crowbar", "multitool", "welding_tool", "tscanner", "analyzer", "cable_coil", "pipe_painter", "airlock_painter", "decal_painter", "scalpel", "circular_saw", "surgicaldrill", "retractor", "cautery", "blood_filter", "hemostat", "surgical_drapes", "syringe", "cultivator", "plant_analyzer", "shovel", "spade", "hatchet",  "mop")
+	design_ids = list("discovery_scanner", "screwdriver", "wrench", "wirecutters", "crowbar", "multitool", "welding_tool", "wirebrush", "tscanner", "analyzer", "cable_coil", "pipe_painter", "airlock_painter", "decal_painter", "scalpel", "circular_saw", "surgicaldrill", "retractor", "cautery", "blood_filter", "hemostat", "surgical_drapes", "syringe", "cultivator", "plant_analyzer", "shovel", "spade", "hatchet",  "mop")
 
 /datum/techweb_node/basic_circuitry
 	id = "basic_circuitry"
@@ -781,7 +781,7 @@
 	tech_tier = 3
 	display_name = "Experimental Tools"
 	description = "Highly advanced tools."
-	design_ids = list("exwelder", "jawsoflife", "handdrill", "laserscalpel", "mechanicalpinches", "searingtool")
+	design_ids = list("exwelder", "jawsoflife", "handdrill", "laserscalpel", "mechanicalpinches", "searingtool", "wirebrush_adv")
 	prereq_ids = list("adv_engi")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
