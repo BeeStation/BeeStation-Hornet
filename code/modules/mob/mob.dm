@@ -70,7 +70,7 @@
   * * set a random nutrition level
   * * Intialize the movespeed of the mob
   */
-/mob/Initialize()
+/mob/Initialize(mapload)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_CREATED, src)
 	mob_properties = list()
 	add_to_mob_list()
@@ -242,7 +242,7 @@
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
 /atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags)
-	var/list/hearers = get_hearers_in_view(hearing_distance, src)
+	var/list/hearers = get_hearers_in_view(hearing_distance, src, SEE_INVISIBLE_OBSERVER)
 	if(self_message)
 		hearers -= src
 

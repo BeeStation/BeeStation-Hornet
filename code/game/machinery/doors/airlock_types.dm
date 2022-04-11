@@ -498,7 +498,7 @@
 	var/stealthy = FALSE
 	allow_repaint = FALSE
 
-/obj/machinery/door/airlock/cult/Initialize()
+/obj/machinery/door/airlock/cult/Initialize(mapload)
 	. = ..()
 	new openingoverlaytype(loc)
 

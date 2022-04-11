@@ -3,6 +3,7 @@
 	desc = "A katana infused with strong energy."
 	icon_state = "energy_katana"
 	item_state = "energy_katana"
+	worn_icon_state = "energy_katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	force = 40
@@ -23,7 +24,7 @@
 	var/datum/action/innate/dash/ninja/jaunt
 	var/dash_toggled = TRUE
 
-/obj/item/energy_katana/Initialize()
+/obj/item/energy_katana/Initialize(mapload)
 	. = ..()
 	jaunt = new(src)
 	spark_system = new /datum/effect_system/spark_spread()
@@ -45,13 +46,13 @@
 		target.emag_act(user)
 
 /obj/item/energy_katana/pickup(mob/living/user)
-	. = ..()
+	..()
 	jaunt.Grant(user, src)
 	user.update_icons()
 	playsound(src, 'sound/items/unsheath.ogg', 25, 1)
 
 /obj/item/energy_katana/dropped(mob/user)
-	. = ..()
+	..()
 	jaunt.Remove(user)
 	user.update_icons()
 

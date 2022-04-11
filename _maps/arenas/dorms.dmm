@@ -89,8 +89,8 @@
 /area/tdome/arena)
 "l" = (
 /obj/effect/turf_decal/stripes/line{
-	icon_state = "warningline";
-	dir = 8
+	dir = 8;
+	icon_state = "warningline"
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
@@ -201,8 +201,8 @@
 "A" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
-	icon_state = "warningline";
-	dir = 8
+	dir = 8;
+	icon_state = "warningline"
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
@@ -249,8 +249,8 @@
 /area/tdome/arena)
 "G" = (
 /obj/effect/turf_decal/stripes/line{
-	icon_state = "warningline";
-	dir = 8
+	dir = 8;
+	icon_state = "warningline"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/tdome/arena)
@@ -323,7 +323,9 @@
 /area/tdome/arena)
 "P" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/arcade,
+/obj/machinery/computer/arcade{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "Q" = (
@@ -368,6 +370,13 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/cafeteria,
+/area/tdome/arena)
+"V" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/arcade{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/tdome/arena)
 
 (1,1,1) = {"
@@ -488,7 +497,7 @@ z
 n
 c
 c
-P
+V
 "}
 (13,1,1) = {"
 c

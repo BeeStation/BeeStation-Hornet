@@ -13,6 +13,7 @@
 	light_range = 2
 	light_power = 1
 	light_color = LIGHT_COLOR_RED
+	light_flags = LIGHT_NO_LUMCOUNT
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
 	reflectable = REFLECT_NORMAL

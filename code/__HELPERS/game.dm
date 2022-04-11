@@ -81,14 +81,7 @@
 // Like view but bypasses luminosity check
 
 /proc/get_hear(range, atom/source)
-
-	var/lum = source.luminosity
-	source.luminosity = 6
-
-	var/list/heard = view(range, source)
-	source.luminosity = lum
-
-	return heard
+	return dview(range, source)
 
 /proc/alone_in_area(area/the_area, mob/must_be_alone, check_type = /mob/living/carbon)
 	var/area/our_area = get_area(the_area)
@@ -248,19 +241,22 @@
 
 	return found_mobs
 
-/// Returns a list of hearers in view(view_radius) from source (ignoring luminosity). uses important_recursive_contents[RECURSIVE_CONTENTS_HEARING_SENSITIVE]
-/proc/get_hearers_in_view(view_radius, atom/source)
+/**
+ * Returns a list of hearers in view(view_radius) from source (ignoring luminosity). uses important_recursive_contents[RECURSIVE_CONTENTS_HEARING_SENSITIVE]
+ * vars:
+ * * view_radius is distance we look for potential hearers
+ * * source is obviously the source attom from where we start looking
+ * * invis_flags is for if we want to include invisible mobs or even ghosts etc the default value 0 means only visible mobs are included SEE_INVISIBLE_OBSERVER would also include ghosts.
+ */
+/proc/get_hearers_in_view(view_radius, atom/source, invis_flags = 0)
 	var/turf/center_turf = get_turf(source)
 	. = list()
 	if(!center_turf)
 		return
-	var/lum = center_turf.luminosity
-	center_turf.luminosity = 6 // This is the maximum luminosity
-	for(var/atom/movable/movable in view(view_radius, center_turf))
+	for(var/atom/movable/movable in dview(view_radius, center_turf, invis_flags))
 		var/list/recursive_contents = LAZYACCESS(movable.important_recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE)
 		if(recursive_contents)
 			. += recursive_contents
-	center_turf.luminosity = lum
 
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
@@ -469,7 +465,7 @@
 			if(!gametypeCheck.age_check(M.client))
 				continue
 		if(jobbanType)
-			if(is_banned_from(M.ckey, list(jobbanType, ROLE_SYNDICATE)) || QDELETED(M))
+			if(QDELETED(M) || is_banned_from(M.ckey, list(jobbanType, ROLE_SYNDICATE)))
 				continue
 		if(req_hours) //minimum living hour count
 			if((M.client.get_exp_living(TRUE)/60) < req_hours)
@@ -489,7 +485,7 @@
 
 /proc/pollCandidatesForMob(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, mob/M, ignore_category = null)
 	var/list/L = pollGhostCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category)
-	if(!M || QDELETED(M) || !M.loc)
+	if(QDELETED(M) || !M.loc)
 		return list()
 	return L
 
@@ -498,7 +494,7 @@
 	var/i=1
 	for(var/v in mobs)
 		var/atom/A = v
-		if(!A || QDELETED(A) || !A.loc)
+		if(QDELETED(A) || !A.loc)
 			mobs.Cut(i,i+1)
 		else
 			++i
@@ -548,7 +544,7 @@
 	return A.loc
 
 /proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank)
-	if(!SSticker.IsRoundInProgress() || QDELETED(character))
+	if(QDELETED(character) || !SSticker.IsRoundInProgress())
 		return
 	var/area/A = get_area(character)
 	var/message = "<span class='game deadsay'><span class='name'>\

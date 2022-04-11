@@ -258,7 +258,7 @@
 		explanation_text = "Free Objective"
 
 /datum/objective/stalk/check_completion()
-	return timer <= 0 || explanation_text == "Free Objective"
+	return timer <= 0 || explanation_text == "Free Objective" || ..()
 
 /datum/objective/sacrifice_ecult
 	name = "sacrifice"
@@ -272,11 +272,11 @@
 
 /datum/objective/sacrifice_ecult/check_completion()
 	if(!owner)
-		return FALSE
+		return ..()
 	var/datum/antagonist/heretic/cultie = owner.has_antag_datum(/datum/antagonist/heretic)
 	if(!cultie)
-		return FALSE
-	return cultie.total_sacrifices >= target_amount
+		return ..()
+	return (cultie.total_sacrifices >= target_amount) || ..()
 
 /datum/objective/ascend
 	name = "ascend"
@@ -284,6 +284,6 @@
 
 /datum/objective/ascend/check_completion()
 	if(!owner)
-		return FALSE
+		return ..()
 	var/datum/antagonist/heretic/cultie = owner.has_antag_datum(/datum/antagonist/heretic)
-	return cultie?.ascended
+	return cultie?.ascended || ..()
