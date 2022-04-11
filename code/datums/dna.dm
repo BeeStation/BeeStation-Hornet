@@ -25,7 +25,7 @@
 /datum/dna/Destroy()
 	if(iscarbon(holder))
 		var/mob/living/carbon/cholder = holder
-		if(cholder.dna == src)
+		if(cholder?.dna == src)
 			cholder.dna = null
 	holder = null
 

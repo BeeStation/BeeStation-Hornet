@@ -697,6 +697,11 @@
 /obj/item/slimepotion/slime/sentience/attack(mob/living/M, mob/user)
 	if(being_used || !ismob(M))
 		return
+	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER))
+		to_chat(user, "<span class='warning'>[src] seems to fizzle out of existance. Guess the universe is unable to support more intelligence right now.</span>")
+		do_sparks(5, FALSE, get_turf(src))
+		qdel(src)
+		return
 	if(!isanimal(M) || M.ckey) //only works on animals that aren't player controlled
 		to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
 		return
@@ -712,7 +717,7 @@
 	being_used = TRUE
 
 	var/list/candidates = pollCandidatesForMob("Do you want to play as [SM.name]? (Sentience Potion)", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 50, SM, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm
-	if(LAZYLEN(candidates))
+	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		SM.key = C.key
 		SM.mind.enslave_mind_to_creator(user)
