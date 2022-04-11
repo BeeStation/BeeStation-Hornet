@@ -898,7 +898,7 @@
 
 /datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(M.stat == DEAD)
-		if(M.suiciding || M.hellbound) //they are never coming back
+		if(M.suiciding || M.ishellbound()) //they are never coming back
 			M.visible_message("<span class='warning'>[M]'s body does not react...</span>")
 			return
 		if(M.getBruteLoss() >= 100 || M.getFireLoss() >= 100 || HAS_TRAIT(M, TRAIT_HUSK)) //body is too damaged to be revived
@@ -1208,7 +1208,7 @@
 	..()
 	ADD_TRAIT(M, TRAIT_NOVOMIT, type)
 
-/datum/reagent/medicine/meclizin/on_mob_end_metabolize(mob/living/M)
+/datum/reagent/medicine/meclizine/on_mob_end_metabolize(mob/living/M)
 	..()
 	REMOVE_TRAIT(M, TRAIT_NOVOMIT, type)
 

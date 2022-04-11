@@ -69819,18 +69819,13 @@
 /area/chapel/office)
 "cMa" = (
 /obj/structure/table/wood,
-/obj/item/book/granter/spell/smoke/lesser{
-	name = "mysterious old book of cloud-chasing"
-	},
 /obj/item/reagent_containers/food/drinks/bottle/holywater{
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/obj/item/nullrod{
-	pixel_x = 4
-	},
 /obj/item/organ/heart,
 /obj/item/soulstone/anybody/chaplain,
+/obj/item/book/granter/spell/smoke/lesser,
 /turf/open/floor/plasteel/cult,
 /area/chapel/office)
 "cMb" = (
