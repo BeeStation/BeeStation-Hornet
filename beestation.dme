@@ -3558,6 +3558,8 @@
 #include "monkestation\code\modules\mob\living\simple_animal\friendly\dog.dm"
 #include "monkestation\code\modules\mob\living\simple_animal\friendly\honk_platinum.dm"
 #include "monkestation\code\modules\mob\living\simple_animal\hostile\bees.dm"
+#include "monkestation\code\modules\procedural_mapping\mapGeneratorModules\jungle.dm"
+#include "monkestation\code\modules\procedural_mapping\mapGenerators\jungle.dm"
 #include "monkestation\code\modules\reagents\chemistry\reagents\drink_reagents.dm"
 #include "monkestation\code\modules\reagents\chemistry\reagents\food_reagents.dm"
 #include "monkestation\code\modules\reagents\chemistry\reagents\other_reagents.dm"
