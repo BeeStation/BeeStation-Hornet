@@ -896,6 +896,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#e7f8ff"
 	lighting_colour_bulb = "#d5f2ff"
 
+/area/medical/medbay/zone2
+	name = "Medbay"
+	icon_state = "medbay2"
+
 /area/medical/abandoned
 	name = "Abandoned Medbay"
 	icon_state = "abandoned_medbay"
