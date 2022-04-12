@@ -902,6 +902,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambientsounds = list('sound/ambience/signal.ogg')
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
+/area/medical/medbay/balcony
+	name = "Medbay Balcony"
+	icon_state = "medbay"
+
 /area/medical/medbay/central
 	name = "Medbay Central"
 	icon_state = "med_central"
