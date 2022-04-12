@@ -10,8 +10,7 @@
 	selection_color = "#ddddff"
 	chat_color = "#C07D7D"
 	exp_requirements = 600
-	exp_type = EXP_TYPE_COMMAND
-	exp_type_department = EXP_TYPE_COMMAND
+	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/iaa
 
