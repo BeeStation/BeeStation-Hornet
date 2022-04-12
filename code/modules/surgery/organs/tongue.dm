@@ -273,6 +273,7 @@
 	desc = "A strange tongue made out of some kind of mineral. It's smooth, but flexible."
 	say_mod = "rumbles"
 	taste_sensitivity = 101 //They don't eat.
+	icon_state = "adamantine_cords"
 
 /obj/item/organ/tongue/golem/Initialize(mapload)
 	. = ..()
@@ -304,10 +305,12 @@
 
 /obj/item/organ/tongue/moth
 	name = "mothic tongue"
-	desc = "gay and dumb" //I DONT KNOW
+	desc = "It's long and noodly."
 	say_mod = "flutters"
+	icon_state = "tonguemoth"
 
 /obj/item/organ/tongue/teratoma
 	name = "malformed tongue"
 	desc = "It's a tongue that looks off... Must be from a creature that shouldn't exist."
 	say_mod = "mumbles"
+	icon_state = "tonguefly"
