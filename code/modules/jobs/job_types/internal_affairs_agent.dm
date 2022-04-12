@@ -7,8 +7,11 @@
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "Central Command"
-	selection_color = "#dddddd"
+	selection_color = "#ddddff"
 	chat_color = "#C07D7D"
+	exp_requirements = 600
+	exp_type = EXP_TYPE_COMMAND
+	exp_type_department = EXP_TYPE_COMMAND
 
 	outfit = /datum/outfit/job/iaa
 
@@ -32,7 +35,7 @@
 	name = "Internal Affairs Agent"
 	jobtype = /datum/job/iaa
 
-	id = /obj/item/card/id/job/lawyer
+	id = /obj/item/card/id/job/iaa
 	belt = /obj/item/pda/iaa
 	ears = /obj/item/radio/headset/headset_iaa
 	uniform = /obj/item/clothing/under/suit/black
