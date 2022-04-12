@@ -2874,7 +2874,7 @@
 
 /datum/supply_pack/costumes_toys/wardrobes/security
 	name = "Security Wardrobe Supply Crate"
-	desc = "This crate contains refills for the SecDrobe, DetDrobe and LawDrobe."
+	desc = "This crate contains refills for the SecDrobe, DetDrobe and CorpDrobe."
 	cost = 1000
 	access_budget = ACCESS_SECURITY
 	contains = list(/obj/item/vending_refill/wardrobe/sec_wardrobe,

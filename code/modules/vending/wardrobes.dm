@@ -355,11 +355,11 @@
 	machine_name = "JaniDrobe"
 
 /obj/machinery/vending/wardrobe/law_wardrobe
-	name = "LawDrobe"
-	desc = "Objection! This wardrobe dispenses the rule of law... and lawyer clothing."
+	name = "CorpDrobe"
+	desc = "This wardrobe despites sleek, slick, and stylish formalwear for use by Internal Affairs Agents."
 	icon_state = "lawdrobe"
 	product_ads = "OBJECTION! Get the rule of law for yourself!"
-	vend_reply = "Thank you for using the LawDrobe!"
+	vend_reply = "Thank you for using the CorpDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/lawyer/bluesuit = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit/skirt = 1,
 					/obj/item/clothing/suit/toggle/lawyer = 1,
@@ -390,7 +390,7 @@
 	refill_canister = /obj/item/vending_refill/wardrobe/law_wardrobe
 	payment_department = ACCOUNT_CIV
 /obj/item/vending_refill/wardrobe/law_wardrobe
-	machine_name = "LawDrobe"
+	machine_name = "CorpDrobe"
 
 /obj/machinery/vending/wardrobe/chap_wardrobe
 	name = "ChapDrobe"

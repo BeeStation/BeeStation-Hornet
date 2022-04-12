@@ -13,9 +13,9 @@
 	outfit = /datum/outfit/job/iaa
 
 	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS,
-				ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_RD)
+				ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_RESEARCH, ACCESS_CARGO)
 	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS,
-				ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_RD)
+				ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_RESEARCH, ACCESS_CARGO)
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_CIV
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
@@ -53,3 +53,8 @@
 	..()
 	if(visualsOnly)
 		return
+
+/datum/outfit/job/iaa/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	H.dna.mutation_index[GLOWY] = create_sequence(GLOWY, FALSE, 8)
+	H.dna.default_mutation_genes[GLOWY] = H.dna.mutation_index[GLOWY]
