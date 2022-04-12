@@ -548,13 +548,13 @@
 	dir = 1
 	},
 /obj/machinery/requests_console{
-	department = "Law office";
-	name = "Lawyer RC";
+	department = "Internal Affairs Office";
+	name = "Internal Affairs RC";
 	pixel_y = -30
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
-/area/lawoffice)
+/area/iaaoffice)
 "abg" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/circuit/green{
@@ -1629,13 +1629,13 @@
 	pixel_y = -28
 	},
 /obj/machinery/button/door{
-	id = "lawyer_shutters";
-	name = "Law Office Shutters Toggle";
+	id = "iaa_shutters";
+	name = "Internal Affairs Office Shutters Toggle";
 	pixel_x = 24;
 	req_access_txt = "38"
 	},
 /turf/open/floor/plasteel/dark,
-/area/lawoffice)
+/area/iaaoffice)
 "add" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -8483,7 +8483,7 @@
 /area/security/main)
 "aoh" = (
 /turf/closed/wall,
-/area/lawoffice)
+/area/iaaoffice)
 "aoi" = (
 /obj/machinery/power/tracker,
 /obj/effect/turf_decal/box,
@@ -8539,7 +8539,7 @@
 	pixel_y = 22
 	},
 /turf/open/floor/plasteel/dark,
-/area/lawoffice)
+/area/iaaoffice)
 "aol" = (
 /obj/structure/noticeboard{
 	pixel_y = 32
@@ -8605,7 +8605,7 @@
 	pixel_x = 24
 	},
 /turf/open/floor/plasteel/dark,
-/area/lawoffice)
+/area/iaaoffice)
 "aor" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -8687,7 +8687,7 @@
 /obj/structure/filingcabinet/employment,
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/plasteel/dark,
-/area/lawoffice)
+/area/iaaoffice)
 "aoz" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/asteroid/airless,
@@ -8695,11 +8695,11 @@
 "aoA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "lawyer_shutters";
-	name = "Law Office Shutters"
+	id = "iaa_shutters";
+	name = "Internal Affairs Office Shutters"
 	},
 /turf/open/floor/plating,
-/area/lawoffice)
+/area/iaaoffice)
 "aoB" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/table_frame,
@@ -8900,7 +8900,7 @@
 /area/maintenance/solars/port/fore)
 "aoP" = (
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "aoQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
@@ -8922,13 +8922,13 @@
 	pixel_x = -26
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "aoS" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/carpet/green,
-/area/lawoffice)
+/area/iaaoffice)
 "aoT" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/box/corners{
@@ -8981,7 +8981,7 @@
 /obj/structure/table/wood,
 /obj/machinery/faxmachine,
 /turf/open/floor/carpet/green,
-/area/lawoffice)
+/area/iaaoffice)
 "aoY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -9102,7 +9102,7 @@
 /area/maintenance/fore)
 "apl" = (
 /turf/closed/wall/rust,
-/area/lawoffice)
+/area/iaaoffice)
 "apm" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/structure/cable/yellow{
@@ -30037,11 +30037,11 @@
 	pixel_x = 30
 	},
 /obj/machinery/camera{
-	c_tag = "Law Office";
+	c_tag = "Internal Affairs Office";
 	dir = 8
 	},
 /turf/open/floor/carpet/green,
-/area/lawoffice)
+/area/iaaoffice)
 "aUU" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
@@ -49427,7 +49427,7 @@
 	},
 /obj/structure/disposalpipe/trunk,
 /turf/open/floor/plasteel/dark,
-/area/lawoffice)
+/area/iaaoffice)
 "bxl" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -52826,16 +52826,16 @@
 /obj/structure/table,
 /obj/item/cartridge/lawyer,
 /obj/machinery/power/apc{
-	areastring = "/area/lawoffice";
+	areastring = "/area/iaaoffice";
 	dir = 1;
-	name = "Law Office APC";
+	name = "Internal Affairs Office APC";
 	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
 /turf/open/floor/plasteel/dark,
-/area/lawoffice)
+/area/iaaoffice)
 "bCt" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
@@ -54370,7 +54370,7 @@
 "bEM" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
-	name = "Law Office";
+	name = "Internal Affairs Office";
 	req_access_txt = "38"
 	},
 /obj/structure/disposalpipe/segment{
@@ -54386,7 +54386,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
-/area/lawoffice)
+/area/iaaoffice)
 "bEN" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -54425,7 +54425,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "bEQ" = (
 /turf/closed/wall/rust,
 /area/gateway)
@@ -54485,7 +54485,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "bEZ" = (
 /obj/effect/landmark/event_spawn,
 /obj/structure/cable/yellow{
@@ -54495,7 +54495,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "bFa" = (
 /turf/closed/wall,
 /area/maintenance/aft)
@@ -57300,7 +57300,7 @@
 /obj/effect/turf_decal/box,
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 1;
-	name = "lawyer sorting disposal pipe";
+	name = "internal affairs sorting disposal pipe";
 	sortType = 29
 	},
 /obj/structure/cable/yellow{
@@ -89023,7 +89023,7 @@
 	pixel_y = 4
 	},
 /turf/open/floor/carpet/green,
-/area/lawoffice)
+/area/iaaoffice)
 "cIC" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue{
@@ -89037,7 +89037,7 @@
 	},
 /obj/item/clothing/glasses/sunglasses/advanced/big,
 /turf/open/floor/carpet/green,
-/area/lawoffice)
+/area/iaaoffice)
 "cID" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -89082,7 +89082,7 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/green,
-/area/lawoffice)
+/area/iaaoffice)
 "cII" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger,

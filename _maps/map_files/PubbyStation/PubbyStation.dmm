@@ -11381,11 +11381,11 @@
 "aCe" = (
 /obj/structure/filingcabinet/employment,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "aCf" = (
 /obj/machinery/vending/wardrobe/law_wardrobe,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "aCi" = (
 /obj/structure/table/wood,
 /obj/item/kirbyplants{
@@ -48412,11 +48412,11 @@
 "ebD" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "lawyer_shutters";
-	name = "law office shutters"
+	id = "iaa_shutters";
+	name = "internal affairs office shutters"
 	},
 /turf/open/floor/plating,
-/area/lawoffice)
+/area/iaaoffice)
 "ecG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -48569,7 +48569,7 @@
 "elk" = (
 /obj/structure/chair/office,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "ems" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -49512,7 +49512,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "fuR" = (
 /obj/machinery/atmospherics/components/trinary/filter/atmos/n2{
 	dir = 4
@@ -50452,7 +50452,7 @@
 /obj/structure/table/wood,
 /obj/machinery/faxmachine,
 /turf/open/floor/carpet,
-/area/lawoffice)
+/area/iaaoffice)
 "gCd" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -50681,7 +50681,7 @@
 /area/hallway/primary/fore)
 "gSH" = (
 /turf/closed/wall,
-/area/lawoffice)
+/area/iaaoffice)
 "gTh" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 1
@@ -50961,7 +50961,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "hoE" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
@@ -52450,7 +52450,7 @@
 	pixel_y = -2
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "jkT" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
 /turf/open/floor/plasteel,
@@ -52923,7 +52923,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/carpet,
-/area/lawoffice)
+/area/iaaoffice)
 "jVL" = (
 /obj/structure/chair/wood/normal{
 	dir = 8
@@ -53218,7 +53218,7 @@
 	dir = 1
 	},
 /turf/open/floor/carpet,
-/area/lawoffice)
+/area/iaaoffice)
 "kxs" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-22"
@@ -53416,7 +53416,7 @@
 /area/maintenance/department/science)
 "kFx" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Law Office Maintenance";
+	name = "Internal Affairs Office Maintenance";
 	req_access_txt = "38"
 	},
 /obj/structure/cable/yellow{
@@ -54721,7 +54721,7 @@
 /obj/item/paper_bin,
 /obj/item/pen/blue,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "mql" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
@@ -55193,7 +55193,7 @@
 /obj/item/cartridge/lawyer,
 /obj/structure/table/wood,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "mXs" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -55733,7 +55733,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "nHU" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -56414,7 +56414,7 @@
 	},
 /obj/effect/landmark/start/iaa,
 /turf/open/floor/carpet,
-/area/lawoffice)
+/area/iaaoffice)
 "oCr" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8;
@@ -57568,14 +57568,14 @@
 "pXT" = (
 /obj/item/kirbyplants,
 /obj/machinery/power/apc{
-	areastring = "/area/lawoffice";
+	areastring = "/area/iaaoffice";
 	dir = 8;
-	name = "Law Office APC";
+	name = "Internal Affairs Office APC";
 	pixel_x = -24
 	},
 /obj/structure/cable,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "pXU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -59206,7 +59206,7 @@
 "sbY" = (
 /obj/machinery/vending/coffee,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "sci" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
@@ -59605,7 +59605,7 @@
 /area/security/execution/transfer)
 "sJr" = (
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "sKa" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -60602,7 +60602,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "ugA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -60834,7 +60834,7 @@
 	dir = 5
 	},
 /turf/open/floor/carpet,
-/area/lawoffice)
+/area/iaaoffice)
 "uvo" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -60934,7 +60934,7 @@
 /obj/item/clothing/glasses/sunglasses/advanced,
 /obj/item/flashlight/lamp/green,
 /turf/open/floor/carpet,
-/area/lawoffice)
+/area/iaaoffice)
 "uAZ" = (
 /obj/structure/window/reinforced{
 	dir = 8;
@@ -61161,7 +61161,7 @@
 /obj/item/pen/fountain,
 /obj/item/stamp/law,
 /turf/open/floor/carpet,
-/area/lawoffice)
+/area/iaaoffice)
 "uVp" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -61313,7 +61313,7 @@
 "vhk" = (
 /obj/structure/chair,
 /turf/open/floor/carpet,
-/area/lawoffice)
+/area/iaaoffice)
 "vhz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -61964,7 +61964,7 @@
 	pixel_x = -28
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "wtQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -62433,11 +62433,11 @@
 	pixel_x = 27
 	},
 /obj/machinery/camera{
-	c_tag = "Law Office";
+	c_tag = "Internal Affairs Office";
 	dir = 8
 	},
 /turf/open/floor/carpet,
-/area/lawoffice)
+/area/iaaoffice)
 "wTX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -62635,7 +62635,7 @@
 "xeB" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "xgk" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/structure/cable/yellow{
@@ -63105,7 +63105,7 @@
 	light_color = "#ffc1c1"
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "xJz" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /obj/effect/turf_decal/stripes/line{
@@ -63149,7 +63149,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "xLC" = (
 /obj/machinery/door/airlock{
-	name = "Law Office";
+	name = "Internal Affairs Office";
 	req_access_txt = "38"
 	},
 /obj/structure/disposalpipe/segment,
@@ -63159,7 +63159,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
-/area/lawoffice)
+/area/iaaoffice)
 "xMq" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 1

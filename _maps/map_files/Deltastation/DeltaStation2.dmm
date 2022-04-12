@@ -55082,28 +55082,28 @@
 /area/security/courtroom)
 "cbp" = (
 /turf/closed/wall,
-/area/lawoffice)
+/area/iaaoffice)
 "cbq" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "lawyerprivacy";
-	name = "Lawyer's Privacy Shutter"
+	id = "iaaprivacy";
+	name = "Internal Affairs Privacy Shutter"
 	},
 /turf/open/floor/plating,
-/area/lawoffice)
+/area/iaaoffice)
 "cbr" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock{
-	name = "Law Office";
+	name = "Internal Affairs Office";
 	req_access_txt = "38"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "cbt" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -56087,19 +56087,19 @@
 	pixel_x = -26
 	},
 /obj/machinery/button/door{
-	id = "lawyerprivacy";
-	name = "Lawyer's Privacy Control";
+	id = "iaaprivacy";
+	name = "Internal Affairs Privacy Control";
 	pixel_y = 24
 	},
 /obj/item/cartridge/lawyer,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "cdh" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/toy/figure/lawyer,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "cdi" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -56107,14 +56107,14 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "cdj" = (
 /obj/machinery/light_switch{
 	pixel_x = 26;
 	pixel_y = 26
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "cdk" = (
 /obj/machinery/vending/wardrobe/law_wardrobe,
 /obj/machinery/firealarm{
@@ -56122,10 +56122,10 @@
 	pixel_x = 24
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "cdl" = (
 /turf/closed/wall/r_wall,
-/area/lawoffice)
+/area/iaaoffice)
 "cdm" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -57193,13 +57193,13 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock{
-	name = "Law Office";
+	name = "Internal Affairs Office";
 	req_access_txt = "38"
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
-/area/lawoffice)
+/area/iaaoffice)
 "ceW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -57208,14 +57208,14 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "ceX" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/carpet/green,
-/area/lawoffice)
+/area/iaaoffice)
 "ceY" = (
 /obj/machinery/holopad,
 /obj/structure/cable/yellow{
@@ -57227,14 +57227,14 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/carpet/green,
-/area/lawoffice)
+/area/iaaoffice)
 "ceZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
 /obj/effect/landmark/start/iaa,
 /turf/open/floor/carpet/green,
-/area/lawoffice)
+/area/iaaoffice)
 "cfa" = (
 /obj/structure/filingcabinet/employment,
 /obj/machinery/airalarm{
@@ -57242,7 +57242,7 @@
 	pixel_x = 24
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "cfb" = (
 /obj/machinery/computer/security{
 	dir = 4
@@ -57992,7 +57992,7 @@
 	pixel_x = -32
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "cgL" = (
 /obj/structure/table/wood,
 /obj/item/folder/yellow,
@@ -58002,7 +58002,7 @@
 	},
 /obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/carpet/green,
-/area/lawoffice)
+/area/iaaoffice)
 "cgN" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -58011,14 +58011,14 @@
 	dir = 6
 	},
 /turf/open/floor/carpet/green,
-/area/lawoffice)
+/area/iaaoffice)
 "cgO" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
 /obj/machinery/disposal/bin,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "cgP" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -58856,12 +58856,12 @@
 /obj/effect/landmark/start/iaa,
 /obj/machinery/power/apc/auto_name/west,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "civ" = (
 /obj/structure/table/wood,
 /obj/machinery/requests_console{
-	department = "Law Office";
-	name = "'Law Office RC";
+	department = "Internal Affairs Office";
+	name = "'Internal Affairs Office RC";
 	pixel_y = -64
 	},
 /obj/item/folder/blue{
@@ -58871,7 +58871,7 @@
 /obj/item/folder/red,
 /obj/item/stamp/law,
 /turf/open/floor/carpet/green,
-/area/lawoffice)
+/area/iaaoffice)
 "ciw" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -58881,25 +58881,25 @@
 	dir = 1
 	},
 /turf/open/floor/carpet/green,
-/area/lawoffice)
+/area/iaaoffice)
 "cix" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/carpet/green,
-/area/lawoffice)
+/area/iaaoffice)
 "ciy" = (
 /obj/machinery/photocopier,
 /obj/machinery/status_display/evac{
 	pixel_x = 32
 	},
 /obj/machinery/camera{
-	c_tag = "Lawyer's Office";
+	c_tag = "Internal Affairs Office";
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "ciz" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -59703,27 +59703,27 @@
 	pixel_x = -26
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "ckf" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/flashlight/lamp,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "ckg" = (
 /obj/item/kirbyplants/random,
 /obj/structure/sign/poster/official/report_crimes{
 	pixel_y = -32
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "ckh" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "cki" = (
 /obj/structure/rack,
 /obj/item/storage/briefcase{
@@ -59732,7 +59732,7 @@
 	},
 /obj/item/storage/secure/briefcase,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "ckj" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -60184,7 +60184,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
-	name = "Law Office Maintenance";
+	name = "Internal Affairs Office Maintenance";
 	req_access_txt = "38"
 	},
 /obj/structure/disposalpipe/segment,
@@ -116229,7 +116229,7 @@
 	dir = 1
 	},
 /turf/open/floor/carpet/green,
-/area/lawoffice)
+/area/iaaoffice)
 "vyd" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/purple{

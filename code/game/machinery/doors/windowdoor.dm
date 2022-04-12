@@ -369,7 +369,7 @@
 
 /obj/machinery/door/window/brigdoor/security/holding
 	name = "holding cell door"
-	req_one_access = list(ACCESS_SEC_DOORS, ACCESS_LAWYER, ACCESS_BRIGPHYS) //love for the lawyer and Brig Phys
+	req_one_access = list(ACCESS_SEC_DOORS, ACCESS_IAA, ACCESS_BRIGPHYS) //love for the lawyer and Brig Phys
 
 /obj/machinery/door/window/clockwork
 	name = "brass windoor"

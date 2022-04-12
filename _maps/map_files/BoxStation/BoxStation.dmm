@@ -3843,7 +3843,7 @@
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "ais" = (
 /obj/structure/filingcabinet,
 /obj/structure/extinguisher_cabinet{
@@ -6466,7 +6466,7 @@
 /area/maintenance/fore)
 "aph" = (
 /turf/closed/wall,
-/area/lawoffice)
+/area/iaaoffice)
 "apn" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
@@ -6638,7 +6638,7 @@
 /area/maintenance/fore)
 "apU" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Law Office Maintenance";
+	name = "Internal Affairs Office Maintenance";
 	req_access_txt = "38"
 	},
 /obj/structure/disposalpipe/segment,
@@ -6933,13 +6933,13 @@
 	dir = 8
 	},
 /obj/machinery/requests_console{
-	department = "Law office";
+	department = "Internal Affairs Office";
 	pixel_x = -32
 	},
 /obj/machinery/vending/wardrobe/law_wardrobe,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "aqZ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
@@ -6957,17 +6957,17 @@
 /area/ai_monitored/security/armory)
 "ard" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "lawyer_blast";
+	id = "iaa_blast";
 	name = "privacy door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/lawoffice)
+/area/iaaoffice)
 "are" = (
 /obj/structure/table/wood,
 /obj/machinery/faxmachine,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "arf" = (
 /turf/closed/wall,
 /area/crew_quarters/dorms)
@@ -7080,7 +7080,7 @@
 	pixel_y = 23
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "arU" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
@@ -7091,7 +7091,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "arV" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 6
@@ -7114,7 +7114,7 @@
 	},
 /obj/item/flashlight/lamp/green,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "arZ" = (
 /obj/structure/filingcabinet,
 /obj/structure/disposalpipe/segment,
@@ -7201,7 +7201,7 @@
 	},
 /obj/structure/filingcabinet/employment,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "asm" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -7212,7 +7212,7 @@
 /obj/structure/chair/office,
 /obj/effect/landmark/start/iaa,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "asp" = (
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
@@ -7375,7 +7375,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "atb" = (
 /obj/structure/table,
 /obj/item/stack/sheet/plasteel{
@@ -7545,7 +7545,7 @@
 	},
 /obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "atN" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -7657,7 +7657,7 @@
 /obj/item/taperecorder,
 /obj/item/cartridge/lawyer,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "aui" = (
 /obj/structure/table/wood,
 /obj/item/camera/detective,
@@ -40146,7 +40146,7 @@
 	},
 /obj/effect/landmark/start/iaa,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "cxr" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
@@ -43531,7 +43531,7 @@
 "dtc" = (
 /obj/machinery/photocopier,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "dtD" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
@@ -46172,14 +46172,14 @@
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/pen/red,
 /obj/machinery/button/door{
-	id = "lawyer_blast";
+	id = "iaa_blast";
 	name = "Privacy Shutters";
 	pixel_x = 25;
 	pixel_y = 8
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "gpT" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/grimy,
@@ -46688,7 +46688,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "gUX" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -48544,7 +48544,7 @@
 	icon_state = "0-8"
 	},
 /turf/open/floor/plating,
-/area/lawoffice)
+/area/iaaoffice)
 "jsS" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line{
@@ -54292,7 +54292,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "pUS" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -57930,7 +57930,7 @@
 /area/science/nanite)
 "uDy" = (
 /obj/machinery/door/airlock{
-	name = "Law Office";
+	name = "Internal Affairs Office";
 	req_access_txt = "38"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -57939,7 +57939,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/door/firedoor,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "uFk" = (
 /obj/machinery/door/airlock/virology/glass{
 	name = "Isolation B";
@@ -58437,7 +58437,7 @@
 "vqH" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "vqI" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -58887,7 +58887,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "vIA" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 1
@@ -60856,7 +60856,7 @@
 "xIc" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "xIO" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -60954,7 +60954,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "xNj" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
