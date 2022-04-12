@@ -21,8 +21,8 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_IAA
-	departments = DEPARTMENT_SERVICE
-	rpg_title = "Magistrate"
+	departments = DEPARTMENT_COMMAND | DEPARTMENT_SERVICE
+	rpg_title = "Diplomat"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/lawyer
