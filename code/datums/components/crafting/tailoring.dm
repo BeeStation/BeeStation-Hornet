@@ -56,8 +56,8 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/security = 1,
-				  /obj/item/clothing/glasses/sunglasses/advanced = 1,
-				  /obj/item/stack/cable_coil = 5)
+				/obj/item/clothing/glasses/sunglasses/advanced = 1,
+				/obj/item/stack/cable_coil = 5)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/hudsunsecremoval
@@ -66,6 +66,7 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/security/sunglasses = 1)
+	blacklist = list(/obj/item/clothing/glasses/hud/security/sunglasses/degraded)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/hudsunmed
@@ -74,8 +75,8 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/health = 1,
-				  /obj/item/clothing/glasses/sunglasses/advanced = 1,
-				  /obj/item/stack/cable_coil = 5)
+				/obj/item/clothing/glasses/sunglasses/advanced = 1,
+				/obj/item/stack/cable_coil = 5)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/hudsunmedremoval
@@ -84,6 +85,7 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/health/sunglasses = 1)
+	blacklist = list(/obj/item/clothing/glasses/hud/health/sunglasses/degraded)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/hudsundiag
@@ -92,8 +94,8 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/diagnostic = 1,
-				  /obj/item/clothing/glasses/sunglasses/advanced = 1,
-				  /obj/item/stack/cable_coil = 5)
+				/obj/item/clothing/glasses/sunglasses/advanced = 1,
+				/obj/item/stack/cable_coil = 5)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/hudsundiagremoval
@@ -102,6 +104,7 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/diagnostic/sunglasses = 1)
+	blacklist = list(/obj/item/clothing/glasses/hud/diagnostic/sunglasses/degraded)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/beergoggles
@@ -110,8 +113,8 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/science = 1,
-				  /obj/item/clothing/glasses/sunglasses/advanced = 1,
-				  /obj/item/stack/cable_coil = 5)
+				/obj/item/clothing/glasses/sunglasses/advanced = 1,
+				/obj/item/stack/cable_coil = 5)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/beergogglesremoval
@@ -128,8 +131,8 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/science = 1,
-				  /obj/item/clothing/glasses/sunglasses/advanced = 1,
-				  /obj/item/stack/cable_coil = 5)
+				/obj/item/clothing/glasses/sunglasses/advanced = 1,
+				/obj/item/stack/cable_coil = 5)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/sunhudscienceremoval
@@ -138,6 +141,7 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/science/sciencesun = 1)
+	blacklist = list(/obj/item/clothing/glasses/science/sciencesun/degraded)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/deghudsunsec
@@ -146,8 +150,8 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/security = 1,
-				  /obj/item/clothing/glasses/sunglasses = 1,
-				  /obj/item/stack/cable_coil = 5)
+				/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/stack/cable_coil = 5)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/deghudsunsecremoval
@@ -164,8 +168,8 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/health = 1,
-				  /obj/item/clothing/glasses/sunglasses = 1,
-				  /obj/item/stack/cable_coil = 5)
+				/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/stack/cable_coil = 5)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/deghudsunmedremoval
@@ -182,8 +186,8 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/diagnostic = 1,
-				  /obj/item/clothing/glasses/sunglasses = 1,
-				  /obj/item/stack/cable_coil = 5)
+				/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/stack/cable_coil = 5)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/deghudsundiagremoval
@@ -200,8 +204,8 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/science = 1,
-				  /obj/item/clothing/glasses/sunglasses = 1,
-				  /obj/item/stack/cable_coil = 5)
+				/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/stack/cable_coil = 5)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/degsunhudscienceremoval
@@ -218,8 +222,8 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/health = 1,
-				  /obj/item/clothing/glasses/regular/ = 1,
-				  /obj/item/stack/cable_coil = 5)
+				/obj/item/clothing/glasses/regular/ = 1,
+				/obj/item/stack/cable_coil = 5)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/hudpressec
@@ -228,8 +232,8 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/security = 1,
-				  /obj/item/clothing/glasses/regular/ = 1,
-				  /obj/item/stack/cable_coil = 5)
+				/obj/item/clothing/glasses/regular/ = 1,
+				/obj/item/stack/cable_coil = 5)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/hudpressci
@@ -238,8 +242,8 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/science = 1,
-				  /obj/item/clothing/glasses/regular/ = 1,
-				  /obj/item/stack/cable_coil = 5)
+				/obj/item/clothing/glasses/regular/ = 1,
+				/obj/item/stack/cable_coil = 5)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/hudpresmeson
@@ -248,8 +252,8 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/meson = 1,
-				  /obj/item/clothing/glasses/regular/ = 1,
-				  /obj/item/stack/cable_coil = 5)
+				/obj/item/clothing/glasses/regular/ = 1,
+				/obj/item/stack/cable_coil = 5)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/hudpresdiag
@@ -258,8 +262,8 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/diagnostic = 1,
-				  /obj/item/clothing/glasses/regular/ = 1,
-				  /obj/item/stack/cable_coil = 5)
+				/obj/item/clothing/glasses/regular/ = 1,
+				/obj/item/stack/cable_coil = 5)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/ghostsheet

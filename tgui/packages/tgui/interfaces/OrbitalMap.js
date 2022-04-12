@@ -17,6 +17,9 @@ export const OrbitalMap = (props, context) => {
     damage_alert = false,
     shuttleName = "",
     interdictionTime = 0,
+    designatorInserted = false,
+    designatorId = null,
+    shuttleId = null,
   } = data;
   const [
     zoomScale,
@@ -172,6 +175,29 @@ export const OrbitalMap = (props, context) => {
                     ))}
               </Section>
             </Section>
+            {
+              !!designatorInserted
+              && (designatorId ? !shuttleId : shuttleId) && (
+                <>
+                  <Divider />
+                  <Section title="Designator Linking" >
+                    {
+                      designatorId
+                        ? (
+                          <Button
+                            content="Download shuttle link from designator"
+                            onClick={() => act('updateLinkedId')} />
+                        )
+                        : (
+                          <Button
+                            content="Upload shuttle link to designator"
+                            onClick={() => act('updateDesignatorId')} />
+                        )
+                    }
+                  </Section>
+                </>
+              )
+            }
           </Flex.Item>
         </Flex>
       </Window.Content>

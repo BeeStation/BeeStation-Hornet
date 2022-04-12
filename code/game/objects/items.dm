@@ -376,6 +376,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			if(51 to INFINITY)
 				. += "[src] is as well weighted as possible for blocking"
 	if(force)
+		if(!force_string)
+			set_force_string()
 		. += "Force: [force_string]"
 
 
@@ -665,7 +667,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(item_flags & SLOWS_WHILE_IN_HAND)
 		user.update_equipment_speed_mods()
 	remove_outline()
-	if(verbs && user.client)
+	if(verbs && user?.client)
 		user.client.remove_verbs(verbs)
 
 // called just as an item is picked up (loc is not yet changed)

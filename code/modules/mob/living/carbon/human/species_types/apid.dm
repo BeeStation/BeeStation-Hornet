@@ -50,16 +50,20 @@
 	else
 		cold_cycle = 0
 
-/datum/species/apid/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_apid_name(gender)
-
-	var/randname = apid_name(gender)
+/datum/species/apid/random_name(gender, unique, lastname, attempts)
+	if(gender == MALE)
+		. =  "[pick(GLOB.apid_names_male)]"
+	else
+		. =  "[pick(GLOB.apid_names_female)]"
 
 	if(lastname)
-		randname += " [lastname]"
+		. += " [lastname]"
+	else
+		. +=  " [pick(GLOB.apid_names_last)]"
 
-	return randname
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, lastname, attempts+1)
 
 /datum/species/apid/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter))

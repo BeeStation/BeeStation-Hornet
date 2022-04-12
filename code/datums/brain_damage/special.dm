@@ -142,30 +142,6 @@
 			user.visible_message("<span class='warning'>[user] [slip_in_message].</span>", null, null, null, user)
 			user.visible_message("<span class='warning'>[user] [slip_out_message].</span>", "<span class='notice'>...and find your way to the other side.</span>")
 
-/datum/brain_trauma/special/psychotic_brawling
-	name = "Violent Psychosis"
-	desc = "Patient fights in unpredictable ways, ranging from helping his target to hitting them with brutal strength."
-	scan_desc = "violent psychosis"
-	gain_text = "<span class='warning'>You feel unhinged...</span>"
-	lose_text = "<span class='notice'>You feel more balanced.</span>"
-	var/datum/martial_art/psychotic_brawling/psychotic_brawling
-
-/datum/brain_trauma/special/psychotic_brawling/on_gain()
-	..()
-	psychotic_brawling = new(null)
-	if(!psychotic_brawling.teach(owner, TRUE))
-		to_chat(owner, "<span class='notice'>But your martial knowledge keeps you grounded.</span>")
-		qdel(src)
-
-/datum/brain_trauma/special/psychotic_brawling/on_lose()
-	..()
-	psychotic_brawling.remove(owner)
-	QDEL_NULL(psychotic_brawling)
-
-/datum/brain_trauma/special/psychotic_brawling/bath_salts
-	name = "Chemical Violent Psychosis"
-	clonable = FALSE
-
 /datum/brain_trauma/special/tenacity
 	name = "Tenacity"
 	desc = "Patient is psychologically unaffected by pain and injuries, and can remain standing far longer than a normal person."
