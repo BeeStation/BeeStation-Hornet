@@ -1,5 +1,0 @@
-author: DoctorSquishy
-delete-after: true
-changes:
-  - bugfix: Replaced pumps in server rooms and slime kill rooms with passive vents
-      for all maps.
