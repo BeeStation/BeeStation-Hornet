@@ -3710,11 +3710,6 @@
 /turf/open/floor/plating,
 /area/maintenance/fore)
 "agD" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 2;
-	external_pressure_bound = 120;
-	name = "server vent"
-	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line{
@@ -34236,10 +34231,8 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/miningoffice)
 "baP" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent"
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
@@ -34433,10 +34426,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 2;
-	external_pressure_bound = 120;
-	name = "server vent"
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent"
 	},
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)
@@ -35340,10 +35331,9 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/lab)
 "bcH" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
+/obj/machinery/atmospherics/components/unary/passive_vent{
 	dir = 1;
-	external_pressure_bound = 120;
-	name = "server vent"
+	name = "freezer passive vent"
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
@@ -38038,11 +38028,9 @@
 	dir = 10
 	},
 /obj/machinery/light/small,
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4;
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent";
+	dir = 4
 	},
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)

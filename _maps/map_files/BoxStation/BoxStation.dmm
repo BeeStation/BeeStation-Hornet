@@ -25425,15 +25425,6 @@
 "bzs" = (
 /turf/closed/wall,
 /area/maintenance/aft)
-"bzt" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4;
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
-	},
-/turf/open/floor/circuit/telecomms/server,
-/area/science/server)
 "bzu" = (
 /obj/machinery/rnd/server,
 /turf/open/floor/circuit/telecomms/server,
@@ -26308,10 +26299,9 @@
 /turf/open/floor/plasteel/white,
 /area/maintenance/aft)
 "bBS" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 4;
-	external_pressure_bound = 120;
-	name = "server vent"
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent";
+	dir = 4
 	},
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
@@ -35039,13 +35029,11 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cfr" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	external_pressure_bound = 140;
-	name = "killroom vent";
-	pressure_checks = 0
-	},
 /obj/machinery/camera/autoname{
 	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent"
 	},
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)
@@ -35277,9 +35265,8 @@
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "cgl" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	external_pressure_bound = 120;
-	name = "killroom vent"
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent"
 	},
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)
@@ -50112,11 +50099,6 @@
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 2;
-	external_pressure_bound = 120;
-	name = "server vent"
 	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/quartermaster/exploration_dock)
@@ -104171,7 +104153,7 @@ box
 btw
 aII
 byf
-bzt
+bBS
 bAy
 bBS
 bDb

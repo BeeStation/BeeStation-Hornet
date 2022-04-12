@@ -2398,13 +2398,11 @@
 /turf/open/space,
 /area/solar/port)
 "aFJ" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4;
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
-	},
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent";
+	dir = 4
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/server)
 "aFM" = (
@@ -26930,14 +26928,10 @@
 /turf/closed/wall/r_wall,
 /area/ai_monitored/storage/eva)
 "ggq" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
-	},
 /obj/machinery/light_switch{
 	pixel_y = 24
 	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
 	name = "mainframe floor"
@@ -44072,11 +44066,9 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/port)
 "kdr" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
+/obj/machinery/atmospherics/components/unary/passive_vent{
 	dir = 1;
-	external_pressure_bound = 140;
-	name = "killroom vent";
-	pressure_checks = 0
+	name = "freezer passive vent"
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
@@ -64465,10 +64457,8 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "pcQ" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 1;
-	external_pressure_bound = 120;
-	name = "server vent"
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 1
 	},
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
@@ -75170,15 +75160,6 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
-"rCO" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 4;
-	external_pressure_bound = 120;
-	name = "server vent"
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/techmaint,
-/area/science/server)
 "rCU" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -91555,9 +91536,8 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "vsQ" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	external_pressure_bound = 120;
-	name = "killroom vent"
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent"
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
@@ -134730,7 +134710,7 @@ jtl
 wOM
 onJ
 vdm
-rCO
+aFJ
 qaS
 aFJ
 oLP

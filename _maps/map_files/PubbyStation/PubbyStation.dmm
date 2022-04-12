@@ -6165,11 +6165,9 @@
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "apx" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 8;
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent";
+	dir = 8
 	},
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
@@ -25252,10 +25250,9 @@
 /turf/open/floor/plasteel/dark/telecomms,
 /area/science/server)
 "bmU" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 4;
-	external_pressure_bound = 120;
-	name = "server vent"
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent";
+	dir = 4
 	},
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
@@ -47588,6 +47585,9 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/main)
+"cXd" = (
+/turf/open/floor/circuit/telecomms,
+/area/science/xenobiology)
 "cXW" = (
 /obj/structure/grille,
 /turf/open/floor/plating,
@@ -51380,6 +51380,12 @@
 /obj/machinery/door/airlock/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
+"hKE" = (
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent"
+	},
+/turf/open/floor/circuit/telecomms,
+/area/science/xenobiology)
 "hKQ" = (
 /obj/structure/sign/warning/radiation/rad_area,
 /obj/structure/disposalpipe/segment{
@@ -56396,11 +56402,8 @@
 /turf/open/floor/carpet,
 /area/lawoffice)
 "oCr" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 8;
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 9
 	},
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)
@@ -61708,10 +61711,8 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "vYN" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 4;
-	external_pressure_bound = 120;
-	name = "server vent"
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 5
 	},
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)
@@ -63181,10 +63182,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/explab)
-"xPM" = (
-/obj/machinery/atmospherics/pipe/manifold4w/general/visible,
-/turf/open/floor/circuit/telecomms,
-/area/science/xenobiology)
 "xQc" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -107858,7 +107855,7 @@ hOz
 aEj
 fPe
 lEn
-vYN
+hKE
 vYN
 bnd
 taT
@@ -108115,8 +108112,8 @@ aFi
 aEj
 uWK
 lEn
+cXd
 uEI
-xPM
 bkH
 mql
 gFt
@@ -108372,7 +108369,7 @@ aFi
 aEj
 uWK
 lEn
-cwh
+cXd
 cwh
 bnd
 tdB
@@ -108629,7 +108626,7 @@ aFi
 aEj
 fPe
 lEn
-oCr
+hKE
 oCr
 bnd
 blZ

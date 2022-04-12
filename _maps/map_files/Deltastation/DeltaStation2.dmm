@@ -54225,28 +54225,6 @@
 	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
-"ccF" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 2;
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark/telecomms,
-/area/tcommsat/server)
 "ccI" = (
 /obj/structure/table/glass,
 /obj/structure/cable/yellow{
@@ -54257,27 +54235,6 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
-/area/tcommsat/server)
-"ccJ" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 2;
-	external_pressure_bound = 120;
-	name = "server vent"
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "ccL" = (
 /obj/structure/cable/yellow{
@@ -71607,23 +71564,12 @@
 /turf/open/floor/circuit/green,
 /area/science/xenobiology)
 "cOO" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 2;
-	external_pressure_bound = 140;
-	name = "killroom vent";
-	pressure_checks = 0
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent"
 	},
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)
 "cOP" = (
-/turf/open/floor/circuit/telecomms,
-/area/science/xenobiology)
-"cOQ" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 2;
-	external_pressure_bound = 120;
-	name = "server vent"
-	},
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)
 "cOR" = (
@@ -90988,11 +90934,8 @@
 /turf/open/floor/plasteel,
 /area/science/storage)
 "dIF" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 2;
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent"
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
@@ -91011,16 +90954,14 @@
 /turf/open/floor/plasteel/dark/telecomms,
 /area/science/server)
 "dIH" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 2;
-	external_pressure_bound = 120;
-	name = "server vent"
-	},
 /obj/machinery/camera{
 	c_tag = "Science - Server Room";
 	dir = 8;
 	name = "science camera";
 	network = list("ss13","rd")
+	},
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent"
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
@@ -150717,7 +150658,7 @@ adv
 uCc
 cMY
 cNh
-cOQ
+cOO
 cQy
 cSh
 cTT
@@ -156603,7 +156544,7 @@ bUH
 bWX
 bZf
 caT
-ccF
+ccE
 cev
 bUF
 cid
@@ -158659,7 +158600,7 @@ bUG
 bWX
 bZk
 cba
-ccJ
+ccE
 ceB
 bUF
 cii

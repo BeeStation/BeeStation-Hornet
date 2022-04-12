@@ -3897,6 +3897,9 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
+"aXv" = (
+/turf/open/space/basic,
+/area/science/research)
 "aXG" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -34341,16 +34344,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/security/brig)
-"hWZ" = (
-/obj/structure/window/reinforced/spawner/west,
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4;
-	external_pressure_bound = 140;
-	name = "RD Server Vent";
-	pressure_checks = 0
-	},
-/turf/open/floor/circuit,
-/area/science/server)
 "hXd" = (
 /obj/structure/window/reinforced/spawner{
 	dir = 8
@@ -55994,15 +55987,6 @@
 "nfo" = (
 /turf/closed/wall/r_wall,
 /area/science/explab)
-"nfx" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 2;
-	external_pressure_bound = 140;
-	name = "killroom vent";
-	pressure_checks = 0
-	},
-/turf/open/floor/circuit/telecomms,
-/area/science/xenobiology)
 "nfP" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/red,
@@ -62039,10 +62023,9 @@
 /area/maintenance/upper/central)
 "oEG" = (
 /obj/structure/window/reinforced/spawner/west,
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 4;
-	external_pressure_bound = 120;
-	name = "server vent"
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent";
+	dir = 4
 	},
 /turf/open/floor/circuit,
 /area/science/server)
@@ -65590,10 +65573,8 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "pxQ" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 2;
-	external_pressure_bound = 120;
-	name = "server vent"
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent"
 	},
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)
@@ -129453,7 +129434,7 @@ nOv
 gOf
 oRs
 bPN
-hWZ
+oEG
 bzF
 oEG
 bPN
@@ -198335,7 +198316,7 @@ fOt
 wzu
 hoA
 gzm
-nfx
+pxQ
 vQV
 ihe
 oky
@@ -199874,7 +199855,7 @@ geN
 kki
 geN
 geN
-geN
+aXv
 iht
 geN
 fOt
