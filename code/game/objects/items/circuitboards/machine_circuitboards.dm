@@ -34,6 +34,14 @@
 		/obj/item/stock_parts/manipulator/pico = 5,
 		/obj/item/stack/cable_coil = 2)
 
+/obj/item/circuitboard/machine/faxmachine
+	name = "fax machine (Machine Board)"
+	icon_state = "command"
+	build_path = /obj/machinery/faxmachine
+	req_components = list(
+		/obj/item/stack/cable_coil = 2,
+		/obj/item/stack/sheet/glass = 1)
+	needs_anchored = FALSE
 
 //Engineering
 

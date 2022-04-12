@@ -370,6 +370,14 @@
 	category = list("Research Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/board/faxmachine
+	name = "Machine Design (Fax Machine Board)"
+	desc = "The circuit board for a fax machine."
+	id = "faxmachine"
+	build_path = /obj/item/circuitboard/machine/faxmachine
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
 /datum/design/board/microwave
 	name = "Machine Design (Microwave Board)"
 	desc = "The circuit board for a microwave."

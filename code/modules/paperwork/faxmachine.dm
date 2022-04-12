@@ -3,7 +3,8 @@
 
 /obj/machinery/faxmachine
 	name = "fax machine"
-	desc = "Used to send messages to your corporate overlords (and promptly get fired for writing fanfiction about their mother)."
+	desc = "Used to send messages to your corporate overlords (and promptly get fired for writing fanfiction about their mothers)."
+	circuit = /obj/item/circuitboard/machine/faxmachine
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	density = TRUE
@@ -48,3 +49,12 @@
 
 /obj/machinery/faxmachine/proc/override_cooldown()
 	COOLDOWN_RESET(src, important_action_cooldown)
+
+/obj/machinery/faxmachine/attackby(obj/item/G, mob/user, params)
+	if(default_unfasten_wrench(user, G))
+		return
+	if(default_deconstruction_screwdriver(user, "faxopen", "fax", G))
+		return
+	if(panel_open && G.tool_behaviour == TOOL_CROWBAR)
+		default_deconstruction_crowbar(G)
+		return
