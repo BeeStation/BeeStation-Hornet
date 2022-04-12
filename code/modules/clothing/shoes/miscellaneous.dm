@@ -150,7 +150,7 @@
 
 /obj/item/clothing/shoes/winterboots/noslip
 	name = "high-traction winter boots"
-	desc = "Boots lined with 'snythetic' animal fur and coated with a special freeze resistant anti-slip coating."
+	desc = "Boots lined with 'synthetic' animal fur and coated with a special freeze resistant anti-slip coating."
 
 /obj/item/clothing/shoes/winterboots/noslip/equipped(mob/user, slot)
 	. = ..()
