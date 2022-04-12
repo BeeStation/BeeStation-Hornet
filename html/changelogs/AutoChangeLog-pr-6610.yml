@@ -1,0 +1,4 @@
+author: Mat05usz
+delete-after: true
+changes:
+  - bugfix: Fixes fireman carry bug
