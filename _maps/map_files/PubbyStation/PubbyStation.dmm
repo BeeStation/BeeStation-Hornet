@@ -49452,7 +49452,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood,
-/area/lawoffice)
+/area/iaaoffice)
 "fwi" = (
 /obj/machinery/camera/emp_proof{
 	c_tag = "Engine Containment Starboard Fore";
