@@ -963,9 +963,10 @@
 	// initialize random reagent static lists
 	if(!random_reagents_a.len)
 		var/i = 0
-		for(var/each_define in chem_defines)
-			i += 1
-			for(var/thing in subtypesof(/datum/reagent))
+		for(var/thing in subtypesof(/datum/reagent))
+			i = 0
+			for(var/each_define in chem_defines)
+				i += 1
 				var/datum/reagent/R = thing
 				if(initial(R.chem_flags) & each_define)
 					random_reagent[i] += R
@@ -996,8 +997,6 @@
 			if(each_define & flag_check)
 				possible -= random_reagent[j]
 
-	if(!possible.len)  // `return nothing` is bad
-		return /datum/reagent/medicine/bicaridine
 	return pick(possible)
 
 /proc/get_chem_id(chem_name)
