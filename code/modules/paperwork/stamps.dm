@@ -22,7 +22,7 @@
 	dye_color = DYE_QM
 
 /obj/item/stamp/law
-	name = "corporate affairs rubber stamp"
+	name = "corporate affairs' rubber stamp"
 	icon_state = "stamp-law"
 	dye_color = DYE_LAW
 
