@@ -23,7 +23,7 @@
 	if (power_station)
 		if(power_station.teleporter_console)
 			power_station.teleporter_console.ui_update()
-		power_station.teleporter_hub = null
+		power_station?.teleporter_hub = null
 		power_station = null
 	return ..()
 

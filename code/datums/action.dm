@@ -170,7 +170,7 @@
 
 /datum/action/item_action/Destroy()
 	var/obj/item/I = target
-	I.actions -= src
+	I?.actions -= src
 	UNSETEMPTY(I.actions)
 	return ..()
 
@@ -570,7 +570,7 @@
 
 /datum/action/spell_action/Destroy()
 	var/obj/effect/proc_holder/S = target
-	S.action = null
+	S?.action = null
 	return ..()
 
 /datum/action/spell_action/Trigger()
