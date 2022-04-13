@@ -1354,7 +1354,7 @@
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
 "jY" = (
-/obj/structure/closet/lawcloset,
+/obj/structure/closet/caa,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},

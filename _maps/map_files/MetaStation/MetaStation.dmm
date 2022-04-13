@@ -13429,7 +13429,7 @@
 	pixel_y = 28
 	},
 /obj/item/clothing/accessory/waistcoat,
-/obj/item/clothing/suit/toggle/lawyer/black,
+/obj/item/clothing/suit/toggle/caa/black,
 /obj/item/stack/cable_coil/cut/red,
 /obj/item/clothing/neck/tie/black,
 /obj/item/clothing/under/suit/black,
@@ -20156,7 +20156,7 @@
 	},
 /obj/item/pen,
 /obj/item/taperecorder,
-/obj/item/cartridge/lawyer,
+/obj/item/cartridge/caa,
 /turf/open/floor/wood,
 /area/caaoffice)
 "aOo" = (
@@ -20186,7 +20186,7 @@
 /obj/machinery/light_switch{
 	pixel_y = -28
 	},
-/obj/machinery/vending/wardrobe/law_wardrobe,
+/obj/machinery/vending/wardrobe/caa_wardrobe,
 /turf/open/floor/wood,
 /area/caaoffice)
 "aOs" = (

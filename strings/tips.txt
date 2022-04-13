@@ -128,8 +128,8 @@ As a Security Officer, keep your weapons in your bag when they aren't being used
 As the Detective, people leave fingerprints everywhere and on everything. With the exception of white latex, gloves will hide them. All is not lost, however, as gloves leave fibers specific to their kind such as black or nitrile, pointing to a general department.
 As the Detective, you can use your forensics scanner from a distance.
 As the Detective, your revolver can be loaded with .357 ammunition obtained from a hacked autolathe. Firing it has a decent chance to blow up your revolver.
-As the Lawyer, try to negotiate with the Warden if sentences seem too high for the crime.
-As the Lawyer, you can try to convince the Captain and Head of Security to hold trials for prisoners in the courtroom.
+As the Corporate Affairs Agent, it is your responsibility to ensure the station operates smoothly and SOP and Space Law aren't broken, whether by the crew, security, heads of staff, or even the captain.
+As the Corporate Affairs Agent, it is your responsibility to ensure that proper brigging procedures and times are followed in security.
 As the Head of Personnel, you are not higher ranking than other heads of staff, even though you are expected to take the Captain's place first should he go missing. If the situation seems too rough for you, consider allowing another head to become temporary Captain.
 As the Head of Personnel, you are just as large a target as the Captain because of the potential power your ID and computer can hand out.
 As the Mime, your invisible wall power blocks people as well as projectiles. You can use it in a pinch to delay your pursuer.

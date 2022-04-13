@@ -131,20 +131,20 @@
 	allowed_roles = list("Clown")
 	cost = 8000
 
-/datum/gear/suit/jacket/lawyer
+/datum/gear/suit/jacket/caa
 	display_name = "blue suit jacket"
-	path = /obj/item/clothing/suit/toggle/lawyer
-	allowed_roles = list("Lawyer", "Corporate Affairs Agent")
+	path = /obj/item/clothing/suit/toggle/caa
+	allowed_roles = list("Corporate Affairs Agent")
 
-/datum/gear/suit/jacket/lawyer/purple
+/datum/gear/suit/jacket/caa/purple
 	display_name = "purple suit jacket"
-	path = /obj/item/clothing/suit/toggle/lawyer/purple
-	allowed_roles = list("Lawyer", "Corporate Affairs Agent")
+	path = /obj/item/clothing/suit/toggle/caa/purple
+	allowed_roles = list("Corporate Affairs Agent")
 
-/datum/gear/suit/jacket/lawyer/black
+/datum/gear/suit/jacket/caa/black
 	display_name = "black suit jacket"
-	path = /obj/item/clothing/suit/toggle/lawyer/black
-	allowed_roles = list("Lawyer", "Corporate Affairs Agent")
+	path = /obj/item/clothing/suit/toggle/caa/black
+	allowed_roles = list("Corporate Affairs Agent")
 
 //PONCHOS
 

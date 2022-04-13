@@ -2591,11 +2591,11 @@
 	contains = list(/obj/item/clothing/under/dress/blacktango,
 					/obj/item/clothing/under/misc/assistantformal,
 					/obj/item/clothing/under/misc/assistantformal,
-					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
-					/obj/item/clothing/suit/toggle/lawyer,
-					/obj/item/clothing/under/rank/civilian/lawyer/purpsuit,
-					/obj/item/clothing/suit/toggle/lawyer/purple,
-					/obj/item/clothing/suit/toggle/lawyer/black,
+					/obj/item/clothing/under/rank/civilian/caa/bluesuit,
+					/obj/item/clothing/suit/toggle/caa,
+					/obj/item/clothing/under/rank/civilian/caa/purpsuit,
+					/obj/item/clothing/suit/toggle/caa/purple,
+					/obj/item/clothing/suit/toggle/caa/black,
 					/obj/item/clothing/accessory/waistcoat,
 					/obj/item/clothing/neck/tie/blue,
 					/obj/item/clothing/neck/tie/red,
@@ -2879,7 +2879,7 @@
 	access_budget = ACCESS_SECURITY
 	contains = list(/obj/item/vending_refill/wardrobe/sec_wardrobe,
 					/obj/item/vending_refill/wardrobe/det_wardrobe,
-					/obj/item/vending_refill/wardrobe/law_wardrobe)
+					/obj/item/vending_refill/wardrobe/caa_wardrobe)
 	crate_name = "security department supply crate"
 
 //////////////////////////////////////////////////////////////////////////////

@@ -775,7 +775,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/space/has_grav/powered/macspace)
 "cW" = (
-/obj/item/toy/figure/lawyer,
+/obj/item/toy/figure/caa,
 /obj/structure/chair/wood/wings{
 	dir = 1
 	},

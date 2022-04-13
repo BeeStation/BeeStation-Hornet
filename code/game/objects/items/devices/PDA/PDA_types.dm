@@ -169,17 +169,10 @@
 	icon_state = "pda-chaplain"
 	ttone = "holy"
 
-/obj/item/pda/lawyer
-	name = "lawyer PDA"
-	default_cartridge = /obj/item/cartridge/lawyer
-	inserted_item = /obj/item/pen/fountain
-	icon_state = "pda-lawyer"
-	ttone = "objection"
-
 /obj/item/pda/caa
 	name = "corporate affairs agent PDA"
-	default_cartridge = /obj/item/cartridge/lawyer
-	icon_state = "pda-lawyer"
+	default_cartridge = /obj/item/cartridge/caa
+	icon_state = "pda-caa"
 
 /obj/item/pda/botanist
 	name = "botanist PDA"

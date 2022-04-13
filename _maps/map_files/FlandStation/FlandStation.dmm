@@ -31131,7 +31131,7 @@
 /area/medical/apothecary)
 "hdi" = (
 /obj/structure/table/wood,
-/obj/item/cartridge/lawyer,
+/obj/item/cartridge/caa,
 /obj/item/taperecorder{
 	pixel_x = 3
 	},
@@ -31140,7 +31140,7 @@
 /obj/machinery/status_display/evac{
 	pixel_x = 32
 	},
-/obj/item/toy/figure/lawyer,
+/obj/item/toy/figure/caa,
 /turf/open/floor/wood,
 /area/caaoffice)
 "hdx" = (
@@ -33517,7 +33517,7 @@
 	icon_state = "detective";
 	name = "trenchcoat"
 	},
-/obj/item/clothing/suit/toggle/lawyer/purple,
+/obj/item/clothing/suit/toggle/caa/purple,
 /obj/item/clothing/head/fedora{
 	icon_state = "detective"
 	},
@@ -47350,7 +47350,7 @@
 	name = "Corporate Affairs Privacy Control";
 	pixel_y = 24
 	},
-/obj/item/cartridge/lawyer,
+/obj/item/cartridge/caa,
 /obj/machinery/newscaster{
 	pixel_x = -28;
 	pixel_y = 1
@@ -48854,7 +48854,7 @@
 "lkt" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/toy/figure/lawyer,
+/obj/item/toy/figure/caa,
 /turf/open/floor/wood,
 /area/caaoffice)
 "lkw" = (
@@ -78532,7 +78532,7 @@
 	},
 /obj/item/clothing/under/costume/kilt,
 /obj/item/clothing/head/beret,
-/obj/item/clothing/suit/toggle/lawyer,
+/obj/item/clothing/suit/toggle/caa,
 /obj/item/clothing/suit/jacket/letterman_nanotrasen,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/dorms)
@@ -86743,7 +86743,7 @@
 "ulQ" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/jacket/letterman_nanotrasen,
-/obj/item/clothing/suit/toggle/lawyer,
+/obj/item/clothing/suit/toggle/caa,
 /obj/item/clothing/under/costume/maid,
 /obj/item/clothing/head/kitty,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -93938,7 +93938,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/security/main)
 "vYa" = (
-/obj/machinery/vending/wardrobe/law_wardrobe,
+/obj/machinery/vending/wardrobe/caa_wardrobe,
 /turf/open/floor/wood,
 /area/caaoffice)
 "vYc" = (
@@ -94272,7 +94272,7 @@
 /obj/structure/table,
 /obj/item/clothing/under/suit/black,
 /obj/item/clothing/neck/tie/black,
-/obj/item/clothing/suit/toggle/lawyer/black,
+/obj/item/clothing/suit/toggle/caa/black,
 /obj/item/clothing/under/suit/black_really{
 	pixel_x = -2
 	},

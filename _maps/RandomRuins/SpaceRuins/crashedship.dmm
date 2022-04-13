@@ -2381,7 +2381,7 @@
 /area/awaymission/BMPship/Midship)
 "YI" = (
 /obj/structure/closet,
-/obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
+/obj/item/clothing/under/rank/civilian/caa/bluesuit,
 /obj/item/clothing/suit/apron,
 /turf/open/floor/plasteel,
 /area/awaymission/BMPship/Aft)

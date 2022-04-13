@@ -1333,10 +1333,10 @@
 	icon_state = "janitor"
 	toysay = "Look at the signs, you idiot."
 
-/obj/item/toy/figure/lawyer
-	name = "Lawyer action figure"
-	icon_state = "lawyer"
-	toysay = "My client is a dirty traitor!"
+/obj/item/toy/figure/caa
+	name = "Corporate Affairs Agent action figure"
+	icon_state = "caa"
+	toysay = "You'll be fired for this!"
 
 /obj/item/toy/figure/curator
 	name = "Curator action figure"

@@ -67,7 +67,7 @@
 
 /obj/item/reagent_containers/food/snacks/spaghetti/spesslaw
 	name = "spesslaw"
-	desc = "A lawyers favourite."
+	desc = "A corporate affairs agent's favourite."
 	icon_state = "spesslaw"
 	trash = /obj/item/trash/plate
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 6)

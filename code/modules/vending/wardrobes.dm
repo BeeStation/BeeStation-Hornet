@@ -354,42 +354,42 @@
 /obj/item/vending_refill/wardrobe/jani_wardrobe
 	machine_name = "JaniDrobe"
 
-/obj/machinery/vending/wardrobe/law_wardrobe
+/obj/machinery/vending/wardrobe/caa_wardrobe
 	name = "CorpDrobe"
 	desc = "This wardrobe dispenses sleek, slick, and stylish formalwear for use by Corporate Affairs Agents."
-	icon_state = "lawdrobe"
+	icon_state = "corpdrobe"
 	product_ads = "Clothes fit for the slickest of corporate agents. Come get yours today!"
 	vend_reply = "Thank you for using the CorpDrobe!"
-	products = list(/obj/item/clothing/under/rank/civilian/lawyer/bluesuit = 1,
-					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit/skirt = 1,
-					/obj/item/clothing/suit/toggle/lawyer = 1,
-					/obj/item/clothing/under/rank/civilian/lawyer/purpsuit = 1,
-					/obj/item/clothing/suit/toggle/lawyer/purple = 1,
-					/obj/item/clothing/under/rank/civilian/lawyer/purpsuit/skirt = 1,
+	products = list(/obj/item/clothing/under/rank/civilian/caa/bluesuit = 1,
+					/obj/item/clothing/under/rank/civilian/caa/bluesuit/skirt = 1,
+					/obj/item/clothing/suit/toggle/caa = 1,
+					/obj/item/clothing/under/rank/civilian/caa/purpsuit = 1,
+					/obj/item/clothing/suit/toggle/caa/purple = 1,
+					/obj/item/clothing/under/rank/civilian/caa/purpsuit/skirt = 1,
 					/obj/item/clothing/under/suit/black = 1,
 					/obj/item/clothing/under/suit/black/skirt = 1,
-					/obj/item/clothing/suit/toggle/lawyer/black = 1,
-					/obj/item/clothing/under/rank/civilian/lawyer/female = 1,
-					/obj/item/clothing/under/rank/civilian/lawyer/female/skirt = 1,
+					/obj/item/clothing/suit/toggle/caa/black = 1,
+					/obj/item/clothing/under/rank/civilian/caa/female = 1,
+					/obj/item/clothing/under/rank/civilian/caa/female/skirt = 1,
 					/obj/item/clothing/under/suit/black_really = 1,
 					/obj/item/clothing/under/suit/black_really/skirt = 1,
-					/obj/item/clothing/under/rank/civilian/lawyer/blue = 1,
-					/obj/item/clothing/under/rank/civilian/lawyer/blue/skirt = 1,
-					/obj/item/clothing/under/rank/civilian/lawyer/red = 1,
-					/obj/item/clothing/under/rank/civilian/lawyer/red/skirt = 1,
-					/obj/item/clothing/under/rank/civilian/lawyer/black = 1,
-					/obj/item/clothing/under/rank/civilian/lawyer/black/skirt = 1,
+					/obj/item/clothing/under/rank/civilian/caa/blue = 1,
+					/obj/item/clothing/under/rank/civilian/caa/blue/skirt = 1,
+					/obj/item/clothing/under/rank/civilian/caa/red = 1,
+					/obj/item/clothing/under/rank/civilian/caa/red/skirt = 1,
+					/obj/item/clothing/under/rank/civilian/caa/black = 1,
+					/obj/item/clothing/under/rank/civilian/caa/black/skirt = 1,
 					/obj/item/clothing/suit/aristo_orange = 1,
 				   	/obj/item/clothing/suit/aristo_red = 1,
 				   	/obj/item/clothing/suit/aristo_brown = 1,
 				   	/obj/item/clothing/suit/aristo_blue = 1,
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/neck/tie/red = 6,
-					/obj/item/clothing/neck/tie/black = 6,
-					/obj/item/clothing/accessory/lawyers_badge = 2)
-	refill_canister = /obj/item/vending_refill/wardrobe/law_wardrobe
+					/obj/item/clothing/neck/tie/black = 6)
+	contraband = list(/obj/item/clothing/accessory/lawyers_badge = 2) // A relic of the past
+	refill_canister = /obj/item/vending_refill/wardrobe/caa_wardrobe
 	payment_department = ACCOUNT_CIV
-/obj/item/vending_refill/wardrobe/law_wardrobe
+/obj/item/vending_refill/wardrobe/caa_wardrobe
 	machine_name = "CorpDrobe"
 
 /obj/machinery/vending/wardrobe/chap_wardrobe

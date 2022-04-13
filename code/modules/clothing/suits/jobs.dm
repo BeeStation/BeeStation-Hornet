@@ -93,8 +93,8 @@
 	resistance_flags = NONE
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/large
 
-//Lawyer
-/obj/item/clothing/suit/toggle/lawyer
+//Corporate Affairs Agent
+/obj/item/clothing/suit/toggle/caa
 	name = "blue suit jacket"
 	desc = "A snappy dress jacket."
 	icon_state = "suitjacket_blue"
@@ -103,13 +103,13 @@
 	body_parts_covered = CHEST|ARMS
 	togglename = "buttons"
 
-/obj/item/clothing/suit/toggle/lawyer/purple
+/obj/item/clothing/suit/toggle/caa/purple
 	name = "purple suit jacket"
 	desc = "A foppish dress jacket."
 	icon_state = "suitjacket_purp"
 	item_state = "suitjacket_purp"
 
-/obj/item/clothing/suit/toggle/lawyer/black
+/obj/item/clothing/suit/toggle/caa/black
 	name = "black suit jacket"
 	desc = "A professional suit jacket."
 	icon_state = "suitjacket_black"

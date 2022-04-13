@@ -27,10 +27,10 @@
 	for(var/i in 1 to 6)
 		new /obj/item/paper(folder)
 
-/obj/item/storage/briefcase/lawyer
+/obj/item/storage/briefcase/caa
 	folder_path = /obj/item/folder/blue
 
-/obj/item/storage/briefcase/lawyer/PopulateContents()
+/obj/item/storage/briefcase/caa/PopulateContents()
 	new /obj/item/stamp/law(src)
 	..()
 

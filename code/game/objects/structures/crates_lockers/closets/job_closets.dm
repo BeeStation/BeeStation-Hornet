@@ -70,22 +70,22 @@
 	new /obj/item/storage/belt/janitor(src)
 
 
-/obj/structure/closet/lawcloset
-	name = "legal closet"
-	desc = "It's a storage unit for courtroom apparel and items."
+/obj/structure/closet/caa
+	name = "corporate affairs closet"
+	desc = "It's a storage unit for slick business attire and items."
 	icon_door = "blue"
 
-/obj/structure/closet/lawcloset/PopulateContents()
+/obj/structure/closet/caa/PopulateContents()
 	..()
-	new /obj/item/clothing/under/rank/civilian/lawyer/female(src)
-	new /obj/item/clothing/under/rank/civilian/lawyer/black(src)
-	new /obj/item/clothing/under/rank/civilian/lawyer/red(src)
-	new /obj/item/clothing/under/rank/civilian/lawyer/bluesuit(src)
-	new /obj/item/clothing/suit/toggle/lawyer(src)
-	new /obj/item/clothing/under/rank/civilian/lawyer/purpsuit(src)
-	new /obj/item/clothing/suit/toggle/lawyer/purple(src)
+	new /obj/item/clothing/under/rank/civilian/caa/female(src)
+	new /obj/item/clothing/under/rank/civilian/caa/black(src)
+	new /obj/item/clothing/under/rank/civilian/caa/red(src)
+	new /obj/item/clothing/under/rank/civilian/caa/bluesuit(src)
+	new /obj/item/clothing/suit/toggle/caa(src)
+	new /obj/item/clothing/under/rank/civilian/caa/purpsuit(src)
+	new /obj/item/clothing/suit/toggle/caa/purple(src)
 	new /obj/item/clothing/under/suit/black(src)
-	new /obj/item/clothing/suit/toggle/lawyer/black(src)
+	new /obj/item/clothing/suit/toggle/caa/black(src)
 	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/clothing/accessory/lawyers_badge(src)

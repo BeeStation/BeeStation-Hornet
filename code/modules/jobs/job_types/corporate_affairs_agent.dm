@@ -29,7 +29,7 @@
 	rpg_title = "Diplomat"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/lawyer
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/caa
 	)
 
 /datum/outfit/job/caa
@@ -40,9 +40,9 @@
 	belt = /obj/item/pda/caa
 	ears = /obj/item/radio/headset/headset_caa
 	uniform = /obj/item/clothing/under/suit/black
-	suit = /obj/item/clothing/suit/toggle/lawyer/black
+	suit = /obj/item/clothing/suit/toggle/caa/black
 	shoes = /obj/item/clothing/shoes/laceup
-	l_hand = /obj/item/storage/briefcase/lawyer
+	l_hand = /obj/item/storage/briefcase/caa
 	l_pocket = /obj/item/laser_pointer
 	neck = /obj/item/clothing/neck/tie/black
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced

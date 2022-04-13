@@ -6936,7 +6936,7 @@
 	department = "Corporate Affairs Office";
 	pixel_x = -32
 	},
-/obj/machinery/vending/wardrobe/law_wardrobe,
+/obj/machinery/vending/wardrobe/caa_wardrobe,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
 /area/caaoffice)
@@ -7655,7 +7655,7 @@
 "auh" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
-/obj/item/cartridge/lawyer,
+/obj/item/cartridge/caa,
 /turf/open/floor/wood,
 /area/caaoffice)
 "aui" = (

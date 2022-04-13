@@ -11357,7 +11357,7 @@
 /turf/open/floor/wood,
 /area/caaoffice)
 "aCf" = (
-/obj/machinery/vending/wardrobe/law_wardrobe,
+/obj/machinery/vending/wardrobe/caa_wardrobe,
 /turf/open/floor/wood,
 /area/caaoffice)
 "aCi" = (
@@ -55150,7 +55150,7 @@
 /area/bridge)
 "mXq" = (
 /obj/item/taperecorder,
-/obj/item/cartridge/lawyer,
+/obj/item/cartridge/caa,
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/caaoffice)

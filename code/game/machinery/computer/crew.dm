@@ -79,10 +79,9 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		"Clown" = 66,
 		"Mime" = 67,
 		"Janitor" = 68,
-		"Lawyer" = 69,
-		"Barber" = 71,
-		"Stage Magician" = 72,
-		"VIP" = 73,
+		"Barber" = 69,
+		"Stage Magician" = 70,
+		"VIP" = 71,
 		// ANYTHING ELSE = UNKNOWN_JOB_ID, Unknowns/custom jobs will appear after civilians, and before assistants
 		"Assistant" = 999,
 

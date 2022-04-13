@@ -360,7 +360,7 @@ update_label("John Doe", "Clowny")
 		"orange",
 		"serv",
 		"chap",
-		"lawyer",
+		"caa",
 		"gold",
 		"silver",
 		"ce",
@@ -828,11 +828,8 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/mime
 	icon_state = "mime"
 
-/obj/item/card/id/job/lawyer
-	icon_state = "lawyer"
-
 /obj/item/card/id/job/caa
-	icon_state = "lawyer"
+	icon_state = "caa"
 
 /obj/item/card/id/pass
 	name = "promotion pass"

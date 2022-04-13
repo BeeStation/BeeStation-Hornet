@@ -8598,7 +8598,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "aoq" = (
-/obj/machinery/vending/wardrobe/law_wardrobe,
+/obj/machinery/vending/wardrobe/caa_wardrobe,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -52887,7 +52887,7 @@
 	pixel_x = 5
 	},
 /obj/structure/table,
-/obj/item/cartridge/lawyer,
+/obj/item/cartridge/caa,
 /obj/machinery/power/apc{
 	areastring = "/area/caaoffice";
 	dir = 1;
@@ -89079,7 +89079,7 @@
 	pixel_x = 5;
 	pixel_y = 1
 	},
-/obj/item/toy/figure/lawyer,
+/obj/item/toy/figure/caa,
 /obj/item/reagent_containers/food/drinks/beer{
 	desc = "A station exclusive. Consumption may result in seizures, blindness, drunkenness, or even death.";
 	icon_state = "beer";

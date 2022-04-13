@@ -93,7 +93,7 @@
 	name = "Gib"
 	color = "#000000"
 	outfit = /obj/item/clothing/under/color/black
-	suit = /obj/item/clothing/suit/toggle/lawyer/black
+	suit = /obj/item/clothing/suit/toggle/caa/black
 	hat = /obj/item/clothing/head/bowler
 
 /datum/team/gang/diablo
@@ -128,7 +128,7 @@
 	name = "Sleeping Carp"
 	color = "#800080"
 	outfit = /obj/item/clothing/under/color/lightpurple
-	suit = /obj/item/clothing/suit/toggle/lawyer/purple
+	suit = /obj/item/clothing/suit/toggle/caa/purple
 	hat = /obj/item/clothing/head/hooded/carp_hood
 
 /datum/team/gang/rigatonifamily

@@ -135,29 +135,29 @@
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
 
-/obj/item/clothing/under/rank/civilian/lawyer
+/obj/item/clothing/under/rank/civilian/caa
 	desc = "Slick threads."
 	name = "Lawyer suit"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/rank/civilian/lawyer/black
+/obj/item/clothing/under/rank/civilian/caa/black
 	name = "lawyer black suit"
 	icon_state = "lawyer_black"
 	item_state = "lawyer_black"
 
-/obj/item/clothing/under/rank/civilian/lawyer/black/skirt
+/obj/item/clothing/under/rank/civilian/caa/black/skirt
 	name = "lawyer black suitskirt"
 	icon_state = "lawyer_black_skirt"
 	item_state = "lawyer_black"
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
-/obj/item/clothing/under/rank/civilian/lawyer/female
+/obj/item/clothing/under/rank/civilian/caa/female
 	name = "female black suit"
 	icon_state = "black_suit_fem"
 	item_state = "bl_suit"
 
-/obj/item/clothing/under/rank/civilian/lawyer/female/skirt
+/obj/item/clothing/under/rank/civilian/caa/female/skirt
 	name = "female black suitskirt"
 	icon_state = "black_suit_fem_skirt"
 	item_state = "bl_suit"
@@ -165,31 +165,31 @@
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 	can_adjust = FALSE
 
-/obj/item/clothing/under/rank/civilian/lawyer/red
+/obj/item/clothing/under/rank/civilian/caa/red
 	name = "lawyer red suit"
 	icon_state = "lawyer_red"
 	item_state = "lawyer_red"
 
-/obj/item/clothing/under/rank/civilian/lawyer/red/skirt
+/obj/item/clothing/under/rank/civilian/caa/red/skirt
 	name = "lawyer red suitskirt"
 	icon_state = "lawyer_red_skirt"
 	item_state = "lawyer_red"
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
-/obj/item/clothing/under/rank/civilian/lawyer/blue
+/obj/item/clothing/under/rank/civilian/caa/blue
 	name = "lawyer blue suit"
 	icon_state = "lawyer_blue"
 	item_state = "lawyer_blue"
 
-/obj/item/clothing/under/rank/civilian/lawyer/blue/skirt
+/obj/item/clothing/under/rank/civilian/caa/blue/skirt
 	name = "lawyer blue suitskirt"
 	icon_state = "lawyer_blue_skirt"
 	item_state = "lawyer_blue"
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
-/obj/item/clothing/under/rank/civilian/lawyer/bluesuit
+/obj/item/clothing/under/rank/civilian/caa/bluesuit
 	name = "blue slacks"
 	desc = "A pair of comfortable freshly pressed slacks and an equally sharp dress shirt. Tie and suit coat not included."
 	icon_state = "blueslacks"
@@ -197,7 +197,7 @@
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 
-/obj/item/clothing/under/rank/civilian/lawyer/bluesuit/skirt
+/obj/item/clothing/under/rank/civilian/caa/bluesuit/skirt
 	name = "blue suitskirt"
 	desc = "A classy suitskirt and tie."
 	icon_state = "bluesuit_skirt"
@@ -207,7 +207,7 @@
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
-/obj/item/clothing/under/rank/civilian/lawyer/purpsuit
+/obj/item/clothing/under/rank/civilian/caa/purpsuit
 	name = "purple suit"
 	icon_state = "lawyer_purp"
 	item_state = "p_suit"
@@ -215,7 +215,7 @@
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 
-/obj/item/clothing/under/rank/civilian/lawyer/purpsuit/skirt
+/obj/item/clothing/under/rank/civilian/caa/purpsuit/skirt
 	name = "purple suitskirt"
 	icon_state = "lawyer_purp_skirt"
 	item_state = "p_suit"

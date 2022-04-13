@@ -15967,7 +15967,7 @@
 /area/engine/storage)
 "dMv" = (
 /obj/structure/table/wood,
-/obj/item/cartridge/lawyer,
+/obj/item/cartridge/caa,
 /obj/item/clothing/glasses/sunglasses/advanced/big,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -58716,7 +58716,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "nPB" = (
-/obj/machinery/vending/wardrobe/law_wardrobe{
+/obj/machinery/vending/wardrobe/caa_wardrobe{
 	pixel_x = -4
 	},
 /obj/effect/turf_decal/tile/red{

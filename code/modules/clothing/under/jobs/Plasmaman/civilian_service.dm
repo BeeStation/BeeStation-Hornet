@@ -18,7 +18,7 @@
 
 /obj/item/clothing/under/plasmaman/enviroslacks
 	name = "enviroslacks"
-	desc = "The pet project of a particularly posh plasmaman, this custom suit was quickly appropriated by Nano-Trasen for it's detectives, lawyers, and bar-tenders alike."
+	desc = "The pet project of a particularly posh plasmaman, this custom suit was quickly appropriated by Nano-Trasen for it's detectives, corporate affairs agents, and bar-tenders alike."
 	icon_state = "enviroslacks"
 	item_state = "enviroslacks"
 

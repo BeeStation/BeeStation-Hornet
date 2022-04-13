@@ -56091,13 +56091,13 @@
 	name = "Corporate Affairs Privacy Control";
 	pixel_y = 24
 	},
-/obj/item/cartridge/lawyer,
+/obj/item/cartridge/caa,
 /turf/open/floor/wood,
 /area/caaoffice)
 "cdh" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/toy/figure/lawyer,
+/obj/item/toy/figure/caa,
 /turf/open/floor/wood,
 /area/caaoffice)
 "cdi" = (
@@ -56116,7 +56116,7 @@
 /turf/open/floor/wood,
 /area/caaoffice)
 "cdk" = (
-/obj/machinery/vending/wardrobe/law_wardrobe,
+/obj/machinery/vending/wardrobe/caa_wardrobe,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 24
@@ -67784,7 +67784,7 @@
 "cCg" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/jacket/letterman_nanotrasen,
-/obj/item/clothing/suit/toggle/lawyer,
+/obj/item/clothing/suit/toggle/caa,
 /obj/item/radio/intercom{
 	pixel_x = 26;
 	pixel_y = 26
@@ -67819,7 +67819,7 @@
 	icon_state = "detective";
 	name = "trenchcoat"
 	},
-/obj/item/clothing/suit/toggle/lawyer/purple,
+/obj/item/clothing/suit/toggle/caa/purple,
 /obj/item/radio/intercom{
 	pixel_x = 26;
 	pixel_y = 26
@@ -76133,7 +76133,7 @@
 "cUW" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/jacket/letterman_nanotrasen,
-/obj/item/clothing/suit/toggle/lawyer,
+/obj/item/clothing/suit/toggle/caa,
 /obj/item/clothing/under/costume/maid,
 /obj/item/clothing/head/kitty,
 /obj/machinery/airalarm{
@@ -76158,11 +76158,11 @@
 	icon_state = "detective";
 	name = "trenchcoat"
 	},
-/obj/item/clothing/suit/toggle/lawyer/purple,
+/obj/item/clothing/suit/toggle/caa/purple,
 /obj/item/clothing/head/fedora{
 	icon_state = "detective"
 	},
-/obj/item/clothing/under/rank/civilian/lawyer/female,
+/obj/item/clothing/under/rank/civilian/caa/female,
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22
@@ -76182,7 +76182,7 @@
 	icon_state = "greydet";
 	name = "trenchcoat"
 	},
-/obj/item/clothing/suit/toggle/lawyer/black,
+/obj/item/clothing/suit/toggle/caa/black,
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
