@@ -383,7 +383,8 @@
 		return FALSE
 /**
  * Used for following advanced jps defined paths.
- * Unlike the previous one this one is designed to work for hostile mobs
+ * Unlike the previous one this one is designed to work for hostile mobs it includes some additional checks for the move proc and also
+ * a fallback solution for pathing
  * its not advised to set a repath delay bigger than 0 because our target is most likely a mob that might be running away
  *
  * Returns TRUE if the loop sucessfully started, or FALSE if it failed
