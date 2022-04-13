@@ -1029,7 +1029,7 @@ What a mess.*/
 			switch(rand(1,8))
 				if(1)
 					if(prob(10))
-						R.fields["name"] = "[pick(lizard_name(MALE),lizard_name(FEMALE))]"
+						R.fields["name"] = "[pick(random_lizard_name(MALE),random_lizard_name(FEMALE))]"
 					else
 						R.fields["name"] = "[pick(pick(GLOB.first_names_male), pick(GLOB.first_names_female))] [pick(GLOB.last_names)]"
 				if(2)

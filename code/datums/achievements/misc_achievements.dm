@@ -141,3 +141,10 @@
 	name = "Little Chickadee"
 	desc = "No, well, ten beers"
 	database_id = MEDAL_DRUNK
+
+/datum/award/achievement/misc/cayenne_disk
+	name = "Very Important Piscis"
+	desc = "You can rest well now."
+	database_id = MEDAL_CAYENNE_DISK
+	icon = "cayenne_disk"
+	reward = 2500
