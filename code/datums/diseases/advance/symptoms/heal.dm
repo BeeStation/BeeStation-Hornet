@@ -704,9 +704,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					else if(bruteheal && M.getBruteLoss())
 						bloodpoints -= 1
 						M.heal_overall_damage(2, required_status = BODYTYPE_ORGANIC)
-					if(prob(20) && !M.stat) 
+					if(prob(60) && !M.stat) 
 						bloodpoints -- //you cant just accumulate blood and keep it as a battery of healing. the quicker the symptom is, the faster your bloodpoints decay
-				else if(prob(60) && M.blood_volume >= BLOOD_VOLUME_BAD)//the virus continues to extract blood if you dont have any stored up. higher probability due to BP value
+				else if(prob(20) && M.blood_volume >= BLOOD_VOLUME_BAD)//the virus continues to extract blood if you dont have any stored up. higher probability due to BP value
 					M.blood_volume = (M.blood_volume - 1)
 
 			if(!bloodpoints && prob(3))

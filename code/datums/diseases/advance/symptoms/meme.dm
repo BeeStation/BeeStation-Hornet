@@ -13,7 +13,7 @@
 	suffixes = list(" Hysteria", " Madness")
 	var/emote
 	var/emotelist = list("flip", "spin", "laugh", "dance", "grin", "grimace", "wave", "yawn", "snap", "clap", "moan", "wink", "eyebrow", "scream", "raise", "shrug")
-	threshold_desc = "<b>Airborne Spread:</b>The virus spreads memetically, infecting hosts who can see the target."
+	threshold_desc = "<b>Transmission 14:</b>The virus spreads memetically, infecting hosts who can see the target."
 
 /datum/symptom/meme/Copy()
 	var/datum/symptom/meme/new_symp = new type
@@ -45,6 +45,6 @@
 				for(var/datum/disease/advance/D in C.diseases)
 					if(D.GetDiseaseID() == A.GetDiseaseID())
 						C.emote(emote)
-				if(A.spread_flags & DISEASE_SPREAD_AIRBORNE)
+				if(A.transmission >= 14)
 					if(C.ForceContractDisease(A))
 						C.emote(emote)
