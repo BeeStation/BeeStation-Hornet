@@ -183,7 +183,7 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(delay)
 	revving_charge = FALSE
 	var/movespeed = 0.7
-	walk_towards(src, T, movespeed)
+	SSmove_manager.move_towards(src, T, movespeed)
 	SLEEP_CHECK_DEATH(get_dist(src, T) * movespeed)
 	walk(src, 0) // cancel the movement
 	try_bloodattack()

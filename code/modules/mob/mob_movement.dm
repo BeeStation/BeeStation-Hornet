@@ -97,7 +97,7 @@
 	if(mob.stat == DEAD)
 		mob.ghostize()
 		return FALSE
-	if(mob.force_moving)
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE) & COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE)
 		return FALSE
 
 	var/mob/living/L = mob  //Already checked for isliving earlier
@@ -126,6 +126,10 @@
 
 	if(!mob.Process_Spacemove(direct))
 		return FALSE
+
+	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, n) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
+		return FALSE
+
 	//We are now going to move
 	var/add_delay = mob.movement_delay()
 	if(old_move_delay + (add_delay*MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
@@ -337,6 +341,13 @@
   */
 /mob/proc/mob_negates_gravity()
 	return FALSE
+
+/mob/newtonian_move(direction)
+	. = ..()
+	if(!.) //Only do this if we're actually going somewhere
+		return
+	if(!client)
+		return
 
 /// Called when this mob slips over, override as needed
 /mob/proc/slip(knockdown, paralyze, forcedrop, w_amount, obj/O, lube)
