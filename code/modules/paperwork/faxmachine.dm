@@ -17,20 +17,19 @@
 /obj/machinery/faxmachine/attack_hand(mob/living/user)
 	. = ..()
 	add_fingerprint(user)
-	var/emagged = obj_flags & EMAGGED
 	if (!COOLDOWN_FINISHED(src, important_action_cooldown))
 		to_chat(user, "<span class='warning'>The subspace communications transmissions system is on cooldown!</span>")
 		return
 	if (panel_open)
 		return
 
-	var/associates = emagged ? "the Syndicate": "Central Command"
+	var/associates = (obj_flags & EMAGGED) ? "the Syndicate": "Central Command"
 	var/msg = capped_multiline_input(user, "Enter a message to be faxed to [associates]", "Fax machine", )
 
 	if (!msg)
 		return
 
-	if (!emagged)
+	if (!(obj_flags & EMAGGED))
 		message_centcom(msg, user)
 		to_chat(user, "<span class='notice'>Message transmitted to Central Command.</span>")
 	else
@@ -57,6 +56,5 @@
 		return
 	if(default_deconstruction_screwdriver(user, "faxopen", "fax", G))
 		return
-	if(panel_open && G.tool_behaviour == TOOL_CROWBAR)
-		default_deconstruction_crowbar(G)
+	if(default_deconstruction_crowbar(G))
 		return
