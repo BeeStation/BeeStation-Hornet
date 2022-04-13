@@ -41,6 +41,12 @@ SUBSYSTEM_DEF(communications)
 				P.name = "paper - '[sending.title]'"
 				P.info = sending.content
 				P.update_icon()
+	for(var/obj/machinery/faxmachine/F in GLOB.machines)
+		if(print)
+			var/obj/item/paper/P = new /obj/item/paper(F.loc)
+			P.name = "paper - '[sending.title]'"
+			P.info = sending.content
+			P.update_icon()
 
 #undef COMMUNICATION_COOLDOWN
 #undef COMMUNICATION_COOLDOWN_AI
