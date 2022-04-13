@@ -381,8 +381,112 @@
 	else
 		INVOKE_ASYNC(src, .proc/recalculate_path)
 		return FALSE
+/**
+ * Used for following advanced jps defined paths.
+ * Unlike the previous one this one is designed to work for hostile mobs
+ * its not advised to set a repath delay bigger than 0 because our target is most likely a mob that might be running away
+ *
+ * Returns TRUE if the loop sucessfully started, or FALSE if it failed
+ *
+ * Arguments:
+ * moving - The atom we want to move
+ * chasing - The atom we want to move towards
+ * delay - How many deci-seconds to wait between fires. Defaults to the lowest value, 0.1
+ * repath_delay - How often we're allowed to recalculate our path
+ * max_path_length - The maximum number of steps we can take in a given path to search (default: 30, 0 = infinite)
+ * miminum_distance - Minimum distance to the target before path returns, could be used to get near a target, but not right to it - for an AI mob with a gun, for example
+ * id - An ID card representing what access we have and what doors we can open
+ * simulated_only -  Whether we consider turfs without atmos simulation (AKA do we want to ignore space)
+ * avoid - If we want to avoid a specific turf, like if we're a mulebot who already got blocked by some turf
+ * skip_first -  Whether or not to delete the first item in the path. This would be done because the first item is the starting tile, which can break things
+ * timeout - Time in deci-seconds until the moveloop self expires. Defaults to infinity
+ * subsystem - The movement subsystem to use. Defaults to SSmovement. Only one loop can exist for any one subsystem
+ * priority - Defines how different move loops override each other. Lower numbers beat higher numbers, equal defaults to what currently exists. Defaults to MOVEMENT_DEFAULT_PRIORITY
+ * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
+ *
+**/
+/datum/controller/subsystem/move_manager/proc/advanced_jps_move(moving,
+	chasing,
+	delay,
+	timeout,
+	repath_delay,
+	max_path_length,
+	minimum_distance,
+	obj/item/card/id/id,
+	simulated_only,
+	turf/avoid,
+	skip_first,
+	subsystem,
+	priority,
+	flags,
+	datum/extra_info)
+	return add_to_loop(moving,
+		subsystem,
+		/datum/move_loop/has_target/jps/advanced,
+		priority,
+		flags,
+		extra_info,
+		delay,
+		timeout,
+		chasing,
+		repath_delay,
+		max_path_length,
+		minimum_distance,
+		id,
+		simulated_only,
+		avoid,
+		skip_first)
 
+/datum/move_loop/has_target/jps/advanced
+	var/target_turf
 
+/datum/move_loop/has_target/jps/advanced/recalculate_path()
+	. = ..()
+	// Implementing pathfinding fallback solution
+	if(!movement_path)
+		var/ln = get_dist(moving, target)
+		var/turf/target_new = target
+		var/found_blocker
+		while(!movement_path && (ln > 0)) //will stop if we can find a valid path or if ln gets reduced to 0 or less
+			find_target:
+				for(var/i in 1 to ln) //calling get_path_to every time is quite taxing lets see if we can find whatever blocks us
+					target_new = get_step(target_new,  get_dir(target_new, moving)) //step towards the origin until we find the blocker then 1 further
+					ln--
+					if(target_new.density && !(target_new.pass_flags_self & moving.pass_flags)) //we check for possible tiles that could block us
+						found_blocker = TRUE
+						continue find_target //in case there is like a double wall
+					for(var/obj/o in target_new.contents)
+						if(o.density && !(o.pass_flags_self & moving.pass_flags)) //We check for possible blockers on the tile
+							found_blocker = TRUE
+							continue find_target
+					if(found_blocker) //cursed but after we found the blocker we end the loop on the next illiteration
+						break find_target
+			found_blocker = FALSE
+			movement_path = get_path_to(moving, target_new, max_path_length, 0, id, simulated_only, avoid, skip_first) //here the min distance is always 0 because we need to stand beside the blocker
+	target_turf = get_turf(target)
+
+/datum/move_loop/has_target/jps/advanced/move()
+	if(!length(movement_path))
+		INVOKE_ASYNC(src, .proc/recalculate_path)
+		if(!length(movement_path))
+			return FALSE
+	if(target_turf != get_turf(target)) //incase our target moves
+		INVOKE_ASYNC(src, .proc/recalculate_path)
+		return FALSE
+	var/turf/next_step = movement_path[1]
+	var/atom/old_loc = moving.loc
+	moving.Move(next_step, get_dir(moving, next_step))
+	if(QDELETED(src))
+		return FALSE
+	. = (old_loc != moving.loc)
+
+	// this check if we're on exactly the next tile may be overly brittle for dense objects who may get bumped slightly
+	// to the side while moving but could maybe still follow their path without needing a whole new path
+	if(get_turf(moving) == next_step)
+		movement_path.Cut(1,2)
+	else
+		INVOKE_ASYNC(src, .proc/recalculate_path)
+		return FALSE
 ///Base class of move_to and move_away, deals with the distance and target aspect of things
 /datum/move_loop/has_target/dist_bound
 	var/distance = 0
