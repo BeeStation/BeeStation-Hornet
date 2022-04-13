@@ -8,7 +8,7 @@
 	spawn_positions = 2
 	supervisors = "Central Command"
 	selection_color = "#ddddff"
-	chat_color = "#C07D7D"
+	chat_color = "#50C878"
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
 
