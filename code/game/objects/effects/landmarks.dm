@@ -145,8 +145,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Lawyer"
 	icon_state = "Lawyer"
 
-/obj/effect/landmark/start/iaa
-	name = "Internal Affairs Agent"
+/obj/effect/landmark/start/caa
+	name = "Corporate Affairs Agent"
 	icon_state = "Lawyer"
 
 /obj/effect/landmark/start/station_engineer

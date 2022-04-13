@@ -8,7 +8,7 @@ Head of Security=1,1
 Chief Engineer=1,1
 Research Director=1,1
 Chief Medical Officer=1,1
-Internal Affairs Agent=2,2
+Corporate Affairs Agent=2,2
 
 Assistant=-1,-1
 

@@ -693,9 +693,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "law"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
-/area/iaaoffice
-	name = "Internal Affairs Office"
-	icon_state = "iaa"
+/area/caaoffice
+	name = "Corporate Affairs Office"
+	icon_state = "caa"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 //Engineering

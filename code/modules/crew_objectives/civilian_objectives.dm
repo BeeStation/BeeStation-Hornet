@@ -292,6 +292,6 @@
 	if(owner?.current)
 		for(var/datum/mind/M in SSticker.minds)
 			if(M.current && isliving(M.current))
-				if(!M.special_role && !(M.assigned_role == "Security Officer") && !(M.assigned_role == "Detective") && !(M.assigned_role == "Head of Security") && !(M.assigned_role == "Internal Affairs Agent") && !(M.assigned_role == "Warden") && get_area(M.current) != typesof(/area/security/prison))
+				if(!M.special_role && !(M.assigned_role == "Security Officer") && !(M.assigned_role == "Detective") && !(M.assigned_role == "Head of Security") && !(M.assigned_role == "Corporate Affairs Agent") && !(M.assigned_role == "Warden") && get_area(M.current) != typesof(/area/security/prison))
 					return ..()
 		return TRUE

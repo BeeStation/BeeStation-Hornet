@@ -78,7 +78,7 @@ const formatHighContrast = inputHtml => {
     "headofsecurity",
     "janitor",
     "lawyer",
-    "internalaffairsagent",
+    "corporateaffairsagent",
     "medicaldoctor",
     "mime",
     "quartermaster",

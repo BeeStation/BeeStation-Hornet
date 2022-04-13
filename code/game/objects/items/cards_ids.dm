@@ -831,7 +831,7 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/lawyer
 	icon_state = "lawyer"
 
-/obj/item/card/id/job/iaa
+/obj/item/card/id/job/caa
 	icon_state = "lawyer"
 
 /obj/item/card/id/pass

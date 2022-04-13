@@ -177,7 +177,7 @@ GLOBAL_LIST_INIT(scarySounds, list('sound/weapons/thudswoosh.ogg','sound/weapons
 26 Dormitories
 27 Virology
 28 Xenobiology
-29 Internal Affairs Office
+29 Corporate Affairs Office
 30 Detective's Office
 */
 
@@ -194,7 +194,7 @@ GLOBAL_LIST_INIT(TAGGERLOCATIONS, list("Disposals",
 	"Robotics", "HoP Office", "Library", "Chapel", "Theatre",
 	"Bar", "Kitchen", "Hydroponics", "Janitor Closet","Genetics",
 	"Testing Range", "Toxins", "Dormitories", "Virology",
-	"Xenobiology", "Internal Affairs Office","Detective's Office"))
+	"Xenobiology", "Corporate Affairs Office","Detective's Office"))
 
 GLOBAL_LIST_INIT(station_prefixes, world.file2list("strings/station_prefixes.txt") + "")
 

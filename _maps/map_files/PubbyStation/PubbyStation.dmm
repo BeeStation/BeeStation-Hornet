@@ -11355,11 +11355,11 @@
 "aCe" = (
 /obj/structure/filingcabinet/employment,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "aCf" = (
 /obj/machinery/vending/wardrobe/law_wardrobe,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "aCi" = (
 /obj/structure/table/wood,
 /obj/item/kirbyplants{
@@ -48352,11 +48352,11 @@
 "ebD" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "iaa_shutters";
-	name = "internal affairs office shutters"
+	id = "caa_shutters";
+	name = "corporate affairs office shutters"
 	},
 /turf/open/floor/plating,
-/area/iaaoffice)
+/area/caaoffice)
 "ecG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -48509,7 +48509,7 @@
 "elk" = (
 /obj/structure/chair/office,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "ems" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -49452,7 +49452,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "fwi" = (
 /obj/machinery/camera/emp_proof{
 	c_tag = "Engine Containment Starboard Fore";
@@ -50403,7 +50403,7 @@
 /obj/structure/table/wood,
 /obj/machinery/faxmachine,
 /turf/open/floor/carpet,
-/area/iaaoffice)
+/area/caaoffice)
 "gCd" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -50632,7 +50632,7 @@
 /area/hallway/primary/fore)
 "gSH" = (
 /turf/closed/wall,
-/area/iaaoffice)
+/area/caaoffice)
 "gTh" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 1
@@ -50912,7 +50912,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "hoE" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
@@ -52415,7 +52415,7 @@
 	pixel_y = -2
 	},
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "jkT" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
 /turf/open/floor/plasteel,
@@ -52897,7 +52897,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/carpet,
-/area/iaaoffice)
+/area/caaoffice)
 "jVL" = (
 /obj/structure/chair/wood/normal{
 	dir = 8
@@ -53193,7 +53193,7 @@
 	dir = 1
 	},
 /turf/open/floor/carpet,
-/area/iaaoffice)
+/area/caaoffice)
 "kxs" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-22"
@@ -53391,7 +53391,7 @@
 /area/maintenance/department/science)
 "kFx" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Internal Affairs Office Maintenance";
+	name = "Corporate Affairs Office Maintenance";
 	req_access_txt = "38"
 	},
 /obj/structure/cable/yellow{
@@ -54681,7 +54681,7 @@
 /obj/item/paper_bin,
 /obj/item/pen/blue,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "mql" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
@@ -55153,7 +55153,7 @@
 /obj/item/cartridge/lawyer,
 /obj/structure/table/wood,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "mXs" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -55707,7 +55707,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "nHU" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -56387,9 +56387,9 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
-/obj/effect/landmark/start/iaa,
+/obj/effect/landmark/start/caa,
 /turf/open/floor/carpet,
-/area/iaaoffice)
+/area/caaoffice)
 "oCr" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8;
@@ -57551,14 +57551,14 @@
 "pXT" = (
 /obj/item/kirbyplants,
 /obj/machinery/power/apc{
-	areastring = "/area/iaaoffice";
+	areastring = "/area/caaoffice";
 	dir = 8;
-	name = "Internal Affairs Office APC";
+	name = "Corporate Affairs Office APC";
 	pixel_x = -24
 	},
 /obj/structure/cable,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "pXU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -59188,7 +59188,7 @@
 "sbY" = (
 /obj/machinery/vending/coffee,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "sci" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
@@ -59587,7 +59587,7 @@
 /area/security/execution/transfer)
 "sJr" = (
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "sKa" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -60582,7 +60582,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "ugA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -60814,7 +60814,7 @@
 	dir = 5
 	},
 /turf/open/floor/carpet,
-/area/iaaoffice)
+/area/caaoffice)
 "uvo" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -60914,7 +60914,7 @@
 /obj/item/clothing/glasses/sunglasses/advanced,
 /obj/item/flashlight/lamp/green,
 /turf/open/floor/carpet,
-/area/iaaoffice)
+/area/caaoffice)
 "uAZ" = (
 /obj/structure/window/reinforced{
 	dir = 8;
@@ -61147,7 +61147,7 @@
 /obj/item/pen/fountain,
 /obj/item/stamp/law,
 /turf/open/floor/carpet,
-/area/iaaoffice)
+/area/caaoffice)
 "uVp" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -61299,7 +61299,7 @@
 "vhk" = (
 /obj/structure/chair,
 /turf/open/floor/carpet,
-/area/iaaoffice)
+/area/caaoffice)
 "vhz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -61950,7 +61950,7 @@
 	pixel_x = -28
 	},
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "wtQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -62419,11 +62419,11 @@
 	pixel_x = 27
 	},
 /obj/machinery/camera{
-	c_tag = "Internal Affairs Office";
+	c_tag = "Corporate Affairs Office";
 	dir = 8
 	},
 /turf/open/floor/carpet,
-/area/iaaoffice)
+/area/caaoffice)
 "wTX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -62621,7 +62621,7 @@
 "xeB" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "xgk" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/structure/cable/yellow{
@@ -63091,7 +63091,7 @@
 	light_color = "#ffc1c1"
 	},
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "xJz" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /obj/effect/turf_decal/stripes/line{
@@ -63135,7 +63135,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "xLC" = (
 /obj/machinery/door/airlock{
-	name = "Internal Affairs Office";
+	name = "Corporate Affairs Office";
 	req_access_txt = "38"
 	},
 /obj/structure/disposalpipe/segment,
@@ -63145,7 +63145,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
-/area/iaaoffice)
+/area/caaoffice)
 "xMq" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 1

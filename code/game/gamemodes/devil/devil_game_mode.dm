@@ -4,7 +4,7 @@
 	report_type = "devil"
 	antag_flag = ROLE_DEVIL
 	false_report_weight = 1
-	protected_jobs = list("Lawyer", "Internal Affairs Agent", "Curator", "Chaplain", "Head of Security", "Captain", "AI", "Cyborg", "Security Officer", "Warden", "Detective")
+	protected_jobs = list("Lawyer", "Corporate Affairs Agent", "Curator", "Chaplain", "Head of Security", "Captain", "AI", "Cyborg", "Security Officer", "Warden", "Detective")
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4

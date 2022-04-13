@@ -3843,7 +3843,7 @@
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "ais" = (
 /obj/structure/filingcabinet,
 /obj/structure/extinguisher_cabinet{
@@ -6466,7 +6466,7 @@
 /area/maintenance/fore)
 "aph" = (
 /turf/closed/wall,
-/area/iaaoffice)
+/area/caaoffice)
 "apn" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
@@ -6638,7 +6638,7 @@
 /area/maintenance/fore)
 "apU" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Internal Affairs Office Maintenance";
+	name = "Corporate Affairs Office Maintenance";
 	req_access_txt = "38"
 	},
 /obj/structure/disposalpipe/segment,
@@ -6933,13 +6933,13 @@
 	dir = 8
 	},
 /obj/machinery/requests_console{
-	department = "Internal Affairs Office";
+	department = "Corporate Affairs Office";
 	pixel_x = -32
 	},
 /obj/machinery/vending/wardrobe/law_wardrobe,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "aqZ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
@@ -6957,17 +6957,17 @@
 /area/ai_monitored/security/armory)
 "ard" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "iaa_blast";
+	id = "caa_blast";
 	name = "privacy door"
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/iaaoffice)
+/area/caaoffice)
 "are" = (
 /obj/structure/table/wood,
 /obj/machinery/faxmachine,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "arf" = (
 /turf/closed/wall,
 /area/crew_quarters/dorms)
@@ -7080,7 +7080,7 @@
 	pixel_y = 23
 	},
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "arU" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
@@ -7091,7 +7091,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "arV" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 6
@@ -7114,7 +7114,7 @@
 	},
 /obj/item/flashlight/lamp/green,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "arZ" = (
 /obj/structure/filingcabinet,
 /obj/structure/disposalpipe/segment,
@@ -7201,7 +7201,7 @@
 	},
 /obj/structure/filingcabinet/employment,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "asm" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -7210,9 +7210,9 @@
 /area/crew_quarters/dorms)
 "asn" = (
 /obj/structure/chair/office,
-/obj/effect/landmark/start/iaa,
+/obj/effect/landmark/start/caa,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "asp" = (
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
@@ -7375,7 +7375,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "atb" = (
 /obj/structure/table,
 /obj/item/stack/sheet/plasteel{
@@ -7545,7 +7545,7 @@
 	},
 /obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "atN" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -7657,7 +7657,7 @@
 /obj/item/taperecorder,
 /obj/item/cartridge/lawyer,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "aui" = (
 /obj/structure/table/wood,
 /obj/item/camera/detective,
@@ -40144,9 +40144,9 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/effect/landmark/start/iaa,
+/obj/effect/landmark/start/caa,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "cxr" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
@@ -43531,7 +43531,7 @@
 "dtc" = (
 /obj/machinery/photocopier,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "dtD" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 10
@@ -46172,14 +46172,14 @@
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/pen/red,
 /obj/machinery/button/door{
-	id = "iaa_blast";
+	id = "caa_blast";
 	name = "Privacy Shutters";
 	pixel_x = 25;
 	pixel_y = 8
 	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "gpT" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/grimy,
@@ -46688,7 +46688,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "gUX" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -48544,7 +48544,7 @@
 	icon_state = "0-8"
 	},
 /turf/open/floor/plating,
-/area/iaaoffice)
+/area/caaoffice)
 "jsS" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line{
@@ -54292,7 +54292,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "pUS" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -57930,7 +57930,7 @@
 /area/science/nanite)
 "uDy" = (
 /obj/machinery/door/airlock{
-	name = "Internal Affairs Office";
+	name = "Corporate Affairs Office";
 	req_access_txt = "38"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -57939,7 +57939,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/door/firedoor,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "uFk" = (
 /obj/machinery/door/airlock/virology/glass{
 	name = "Isolation B";
@@ -58437,7 +58437,7 @@
 "vqH" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "vqI" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -58887,7 +58887,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "vIA" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer{
 	dir = 1
@@ -60856,7 +60856,7 @@
 "xIc" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "xIO" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -60954,7 +60954,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "xNj" = (
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{

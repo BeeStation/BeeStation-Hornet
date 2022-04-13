@@ -548,13 +548,13 @@
 	dir = 1
 	},
 /obj/machinery/requests_console{
-	department = "Internal Affairs Office";
-	name = "Internal Affairs RC";
+	department = "Corporate Affairs Office";
+	name = "Corporate Affairs RC";
 	pixel_y = -30
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
-/area/iaaoffice)
+/area/caaoffice)
 "abg" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/circuit/green{
@@ -1629,13 +1629,13 @@
 	pixel_y = -28
 	},
 /obj/machinery/button/door{
-	id = "iaa_shutters";
-	name = "Internal Affairs Office Shutters Toggle";
+	id = "caa_shutters";
+	name = "Corporate Affairs Office Shutters Toggle";
 	pixel_x = 24;
 	req_access_txt = "38"
 	},
 /turf/open/floor/plasteel/dark,
-/area/iaaoffice)
+/area/caaoffice)
 "add" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -8485,7 +8485,7 @@
 /area/security/main)
 "aoh" = (
 /turf/closed/wall,
-/area/iaaoffice)
+/area/caaoffice)
 "aoi" = (
 /obj/machinery/power/tracker,
 /obj/effect/turf_decal/box,
@@ -8541,7 +8541,7 @@
 	pixel_y = 22
 	},
 /turf/open/floor/plasteel/dark,
-/area/iaaoffice)
+/area/caaoffice)
 "aol" = (
 /obj/structure/noticeboard{
 	pixel_y = 32
@@ -8607,7 +8607,7 @@
 	pixel_x = 24
 	},
 /turf/open/floor/plasteel/dark,
-/area/iaaoffice)
+/area/caaoffice)
 "aor" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -8689,7 +8689,7 @@
 /obj/structure/filingcabinet/employment,
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/plasteel/dark,
-/area/iaaoffice)
+/area/caaoffice)
 "aoz" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/asteroid/airless,
@@ -8697,11 +8697,11 @@
 "aoA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "iaa_shutters";
-	name = "Internal Affairs Office Shutters"
+	id = "caa_shutters";
+	name = "Corporate Affairs Office Shutters"
 	},
 /turf/open/floor/plating,
-/area/iaaoffice)
+/area/caaoffice)
 "aoB" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/table_frame,
@@ -8902,7 +8902,7 @@
 /area/maintenance/solars/port/fore)
 "aoP" = (
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "aoQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
@@ -8924,13 +8924,13 @@
 	pixel_x = -26
 	},
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "aoS" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/carpet/green,
-/area/iaaoffice)
+/area/caaoffice)
 "aoT" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/box/corners{
@@ -8983,7 +8983,7 @@
 /obj/structure/table/wood,
 /obj/machinery/faxmachine,
 /turf/open/floor/carpet/green,
-/area/iaaoffice)
+/area/caaoffice)
 "aoY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -9104,7 +9104,7 @@
 /area/maintenance/fore)
 "apl" = (
 /turf/closed/wall/rust,
-/area/iaaoffice)
+/area/caaoffice)
 "apm" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/structure/cable/yellow{
@@ -30046,11 +30046,11 @@
 	pixel_x = 30
 	},
 /obj/machinery/camera{
-	c_tag = "Internal Affairs Office";
+	c_tag = "Corporate Affairs Office";
 	dir = 8
 	},
 /turf/open/floor/carpet/green,
-/area/iaaoffice)
+/area/caaoffice)
 "aUU" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
@@ -49478,7 +49478,7 @@
 	},
 /obj/structure/disposalpipe/trunk,
 /turf/open/floor/plasteel/dark,
-/area/iaaoffice)
+/area/caaoffice)
 "bxl" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -52889,16 +52889,16 @@
 /obj/structure/table,
 /obj/item/cartridge/lawyer,
 /obj/machinery/power/apc{
-	areastring = "/area/iaaoffice";
+	areastring = "/area/caaoffice";
 	dir = 1;
-	name = "Internal Affairs Office APC";
+	name = "Corporate Affairs Office APC";
 	pixel_y = 24
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
 /turf/open/floor/plasteel/dark,
-/area/iaaoffice)
+/area/caaoffice)
 "bCt" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
@@ -54435,7 +54435,7 @@
 "bEM" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
-	name = "Internal Affairs Office";
+	name = "Corporate Affairs Office";
 	req_access_txt = "38"
 	},
 /obj/structure/disposalpipe/segment{
@@ -54451,7 +54451,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
-/area/iaaoffice)
+/area/caaoffice)
 "bEN" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -54490,7 +54490,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "bEQ" = (
 /turf/closed/wall/rust,
 /area/gateway)
@@ -54539,7 +54539,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "bEY" = (
-/obj/effect/landmark/start/iaa,
+/obj/effect/landmark/start/caa,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -54550,7 +54550,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "bEZ" = (
 /obj/effect/landmark/event_spawn,
 /obj/structure/cable/yellow{
@@ -54560,7 +54560,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/iaaoffice)
+/area/caaoffice)
 "bFa" = (
 /turf/closed/wall,
 /area/maintenance/aft)
@@ -57365,7 +57365,7 @@
 /obj/effect/turf_decal/box,
 /obj/structure/disposalpipe/sorting/mail{
 	dir = 1;
-	name = "internal affairs sorting disposal pipe";
+	name = "corporate affairs sorting disposal pipe";
 	sortType = 29
 	},
 /obj/structure/cable/yellow{
@@ -89097,7 +89097,7 @@
 	pixel_y = 4
 	},
 /turf/open/floor/carpet/green,
-/area/iaaoffice)
+/area/caaoffice)
 "cIC" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue{
@@ -89111,7 +89111,7 @@
 	},
 /obj/item/clothing/glasses/sunglasses/advanced/big,
 /turf/open/floor/carpet/green,
-/area/iaaoffice)
+/area/caaoffice)
 "cID" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -89151,12 +89151,12 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "cIH" = (
-/obj/effect/landmark/start/iaa,
+/obj/effect/landmark/start/caa,
 /obj/structure/chair/office{
 	dir = 8
 	},
 /turf/open/floor/carpet/green,
-/area/iaaoffice)
+/area/caaoffice)
 "cII" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger,

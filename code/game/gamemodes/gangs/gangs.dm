@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(gangs)
 	name = "gang war"
 	config_tag = "gang"
 	antag_flag = ROLE_GANG
-	restricted_jobs = list("Security Officer", "Internal Affairs Agent", "Warden", "Detective", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security")
+	restricted_jobs = list("Security Officer", "Corporate Affairs Agent", "Warden", "Detective", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security")
 	required_players = 30
 	required_enemies = 2
 	recommended_enemies = 3

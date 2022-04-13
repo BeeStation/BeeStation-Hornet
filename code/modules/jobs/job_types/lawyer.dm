@@ -1,6 +1,6 @@
 /datum/job/lawyer
 	title = "Lawyer"
-	flag = IAA
+	flag = CAA
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
 	faction = "None"
@@ -13,8 +13,8 @@
 
 	outfit = /datum/outfit/job/lawyer
 
-	access = list(ACCESS_IAA, ACCESS_COURT, ACCESS_SEC_DOORS)
-	minimal_access = list(ACCESS_IAA, ACCESS_COURT, ACCESS_SEC_DOORS)
+	access = list(ACCESS_CAA, ACCESS_COURT, ACCESS_SEC_DOORS)
+	minimal_access = list(ACCESS_CAA, ACCESS_COURT, ACCESS_SEC_DOORS)
 	paycheck = PAYCHECK_EASY
 	paycheck_department = ACCOUNT_CIV
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
