@@ -356,9 +356,9 @@
 
 /obj/machinery/vending/wardrobe/law_wardrobe
 	name = "CorpDrobe"
-	desc = "This wardrobe despites sleek, slick, and stylish formalwear for use by Internal Affairs Agents."
+	desc = "This wardrobe dispenses sleek, slick, and stylish formalwear for use by Internal Affairs Agents."
 	icon_state = "lawdrobe"
-	product_ads = "OBJECTION! Get the rule of law for yourself!"
+	product_ads = "Clothes fit for the slickest of corporate agents. Come get yours today!"
 	vend_reply = "Thank you for using the CorpDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/lawyer/bluesuit = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit/skirt = 1,
