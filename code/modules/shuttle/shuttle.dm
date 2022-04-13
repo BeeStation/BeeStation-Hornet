@@ -199,6 +199,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	highlight("#f00")
 	#endif
 
+	if(SSshuttle.shuttles_loaded)
+		load_roundstart()
+
 /obj/docking_port/stationary/Destroy(force)
 	if(force)
 		SSshuttle.stationary -= src
