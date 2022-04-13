@@ -19,9 +19,12 @@
 	add_fingerprint(user)
 	var/emagged = obj_flags & EMAGGED
 	if (!COOLDOWN_FINISHED(src, important_action_cooldown))
+		to_chat(user, "<span class='warning'>The subspace communications transmissions system is on cooldown!</span>")
+		return
+	if (panel_open)
 		return
 
-	var/associates = emagged ? "the Syndicate": "CentCom"
+	var/associates = emagged ? "the Syndicate": "Central Command"
 	var/msg = capped_multiline_input(user, "Enter a message to be faxed to [associates]", "Fax machine", )
 
 	if (!msg)

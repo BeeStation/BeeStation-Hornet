@@ -9,7 +9,7 @@
 	supervisors = "Central Command"
 	selection_color = "#ddddff"
 	chat_color = "#50C878"
-	exp_requirements = 600
+	exp_requirements = 840
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/iaa
