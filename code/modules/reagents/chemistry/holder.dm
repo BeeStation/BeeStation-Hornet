@@ -962,9 +962,8 @@
 
 	// initialize random reagent static lists
 	if(!random_reagents_a.len)
-		var/i = 0
 		for(var/thing in subtypesof(/datum/reagent))
-			i = 0
+			var/i = 0
 			for(var/each_define in chem_defines)
 				i += 1
 				var/datum/reagent/R = thing
