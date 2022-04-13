@@ -137,6 +137,8 @@
 	var/atom/old_loc = moving.loc
 	moving.Move(get_step(moving, direction), direction)
 	// We cannot rely on the return value of Move(), we care about teleports and it doesn't
+	if(QDELETED(src))
+		return FALSE
 	return old_loc != moving.loc
 
 /**
@@ -162,6 +164,8 @@
 /datum/move_loop/move/move_to/move()
 	var/atom/old_loc = moving.loc
 	step_to(moving, get_step(moving, direction))
+	if(QDELETED(src))
+		return FALSE
 	return old_loc != moving.loc
 
 
@@ -188,6 +192,8 @@
 /datum/move_loop/move/force/move()
 	var/atom/old_loc = moving.loc
 	moving.forceMove(get_step(moving, direction))
+	if(QDELETED(src))
+		return FALSE
 	return old_loc != moving.loc
 
 
@@ -241,6 +247,8 @@
 /datum/move_loop/has_target/force_move/move()
 	var/atom/old_loc = moving.loc
 	moving.forceMove(get_step(moving, get_dir(moving, target)))
+	if(QDELETED(src))
+		return FALSE
 	return old_loc != moving.loc
 
 
@@ -362,6 +370,8 @@
 	var/turf/next_step = movement_path[1]
 	var/atom/old_loc = moving.loc
 	moving.Move(next_step, get_dir(moving, next_step))
+	if(QDELETED(src))
+		return FALSE
 	. = (old_loc != moving.loc)
 
 	// this check if we're on exactly the next tile may be overly brittle for dense objects who may get bumped slightly
@@ -425,6 +435,8 @@
 		return
 	var/atom/old_loc = moving.loc
 	step_to(moving, target)
+	if(QDELETED(src))
+		return FALSE
 	return old_loc != moving.loc
 
 /**
@@ -458,6 +470,8 @@
 		return
 	var/atom/old_loc = moving.loc
 	step_away(moving, target)
+	if(QDELETED(src))
+		return FALSE
 	return old_loc != moving.loc
 
 
@@ -561,6 +575,8 @@
 		x_rate = 0
 		y_rate = 0
 		return
+	if(QDELETED(src))
+		return FALSE
 	return old_loc != moving.loc
 
 /datum/move_loop/has_target/move_towards/proc/handle_move(source, atom/OldLoc, Dir, Forced = FALSE)
@@ -637,6 +653,8 @@
 	var/turf/target_turf = get_step_towards(moving, target)
 	var/atom/old_loc = moving.loc
 	moving.Move(target_turf, get_dir(moving, target_turf))
+	if(QDELETED(src))
+		return FALSE
 	return old_loc != moving.loc
 
 
@@ -711,6 +729,8 @@
 /datum/move_loop/move_to_rand/move()
 	var/atom/old_loc = moving.loc
 	step_rand(moving)
+	if(QDELETED(src))
+		return FALSE
 	return old_loc != moving.loc
 
 /**
@@ -748,4 +768,6 @@
 	var/obj/structure/disposalholder/holder = moving
 	var/atom/old_loc = moving.loc
 	holder.current_pipe.transfer(holder)
+	if(QDELETED(src))
+		return FALSE
 	return old_loc != moving.loc
