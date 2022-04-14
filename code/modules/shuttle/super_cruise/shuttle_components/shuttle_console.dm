@@ -397,7 +397,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					if(current_user)
 						to_chat(usr, "<span class='warning'>Somebody is already docking the shuttle.</span>")
 						return
-					view_range = max(mobile_port.width, mobile_port.height) + 4
+					view_range = max(mobile_port.width, mobile_port.height, mobile_port.dwidth, mobile_port.dheight) * 0.5 - 4
 					give_eye_control(usr)
 					eyeobj.forceMove(locate(world.maxx * 0.5, world.maxy * 0.5, shuttleObject.docking_target.linked_z_level[1].z_value))
 					return
