@@ -71,7 +71,7 @@
 
 /obj/item/encryptionkey/headset_caa
 	name = "corporate affairs encryption key"
-	icon_state = "com_cypherkey"
+	icon_state = "comsec_cypherkey"
 	channels = list(RADIO_CHANNEL_SECURITY = 1, RADIO_CHANNEL_COMMAND = 1)
 
 /obj/item/encryptionkey/headset_com
