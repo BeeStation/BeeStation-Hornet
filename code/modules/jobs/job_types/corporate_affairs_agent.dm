@@ -59,5 +59,3 @@
 
 /datum/outfit/job/caa/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
-	H.dna.mutation_index[GLOWY] = create_sequence(GLOWY, FALSE, 8)
-	H.dna.default_mutation_genes[GLOWY] = H.dna.mutation_index[GLOWY]
