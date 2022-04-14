@@ -29,6 +29,7 @@
 #define COOLDOWN_BORG_SELF_REPAIR	"borg_self_repair"
 #define COOLDOWN_LARRYKNIFE			"larry_knife"
 
+#define IMPORTANT_ACTION_COOLDOWN (60 SECONDS)
 
 //TIMER COOLDOWN MACROS
 
