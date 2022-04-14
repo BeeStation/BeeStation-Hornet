@@ -1,0 +1,11 @@
+{
+    "map_name": "SingleCorg Station",
+    "map_path": "map_files/SingleCorgStation",
+    "map_file": "SingleCorgStation.dmm",
+    "shuttles": {
+	    "cargo": "cargo_corg",
+	    "ferry": "ferry_fancy",
+	    "whiteship": "whiteship_box",
+	    "emergency": "emergency_corg"
+	},
+}
