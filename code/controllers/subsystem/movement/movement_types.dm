@@ -134,12 +134,11 @@
 	direction = dir
 
 /datum/move_loop/move/move()
+	var/atom/movable/atom = moving
 	var/atom/old_loc = moving.loc
 	moving.Move(get_step(moving, direction), direction)
 	// We cannot rely on the return value of Move(), we care about teleports and it doesn't
-	if(QDELETED(src))
-		return FALSE
-	return old_loc != moving.loc
+	return old_loc != atom.loc
 
 /**
  * Like move(), but it uses byond's pathfinding on a step by step basis
@@ -162,11 +161,10 @@
 /datum/move_loop/move/move_to
 
 /datum/move_loop/move/move_to/move()
+	var/atom/movable/atom = moving
 	var/atom/old_loc = moving.loc
 	step_to(moving, get_step(moving, direction))
-	if(QDELETED(src))
-		return FALSE
-	return old_loc != moving.loc
+	return old_loc != atom.loc
 
 
 /**
@@ -190,11 +188,10 @@
 /datum/move_loop/move/force
 
 /datum/move_loop/move/force/move()
+	var/atom/movable/atom = moving
 	var/atom/old_loc = moving.loc
 	moving.forceMove(get_step(moving, direction))
-	if(QDELETED(src))
-		return FALSE
-	return old_loc != moving.loc
+	return old_loc != atom.loc
 
 
 /datum/move_loop/has_target
@@ -245,11 +242,10 @@
 /datum/move_loop/has_target/force_move
 
 /datum/move_loop/has_target/force_move/move()
+	var/atom/movable/atom = moving
 	var/atom/old_loc = moving.loc
 	moving.forceMove(get_step(moving, get_dir(moving, target)))
-	if(QDELETED(src))
-		return FALSE
-	return old_loc != moving.loc
+	return old_loc != atom.loc
 
 
 /**
@@ -362,6 +358,7 @@
 	movement_path = get_path_to(moving, target, max_path_length, minimum_distance, id, simulated_only, avoid, skip_first)
 
 /datum/move_loop/has_target/jps/move()
+	var/atom/movable/atom = moving
 	if(!length(movement_path))
 		INVOKE_ASYNC(src, .proc/recalculate_path)
 		if(!length(movement_path))
@@ -370,9 +367,7 @@
 	var/turf/next_step = movement_path[1]
 	var/atom/old_loc = moving.loc
 	moving.Move(next_step, get_dir(moving, next_step))
-	if(QDELETED(src))
-		return FALSE
-	. = (old_loc != moving.loc)
+	. = (old_loc != atom.loc)
 
 	// this check if we're on exactly the next tile may be overly brittle for dense objects who may get bumped slightly
 	// to the side while moving but could maybe still follow their path without needing a whole new path
@@ -467,6 +462,7 @@
 	target_turf = get_turf(target)
 
 /datum/move_loop/has_target/jps/advanced/move()
+	var/atom/movable/atom = moving
 	if(!length(movement_path))
 		INVOKE_ASYNC(src, .proc/recalculate_path)
 		if(!length(movement_path))
@@ -477,9 +473,7 @@
 	var/turf/next_step = movement_path[1]
 	var/atom/old_loc = moving.loc
 	moving.Move(next_step, get_dir(moving, next_step))
-	if(QDELETED(src))
-		return FALSE
-	. = (old_loc != moving.loc)
+	. = (old_loc != atom.loc)
 
 	// this check if we're on exactly the next tile may be overly brittle for dense objects who may get bumped slightly
 	// to the side while moving but could maybe still follow their path without needing a whole new path
@@ -535,14 +529,13 @@
 	return (get_dist(moving, target) >= distance) //If you get too close, stop moving closer
 
 /datum/move_loop/has_target/dist_bound/move_to/move()
+	var/atom/movable/atom = moving
 	. = ..()
 	if(!.)
 		return
 	var/atom/old_loc = moving.loc
 	step_to(moving, target)
-	if(QDELETED(src))
-		return FALSE
-	return old_loc != moving.loc
+	return old_loc != atom.loc
 
 /**
  * Wrapper around walk_away()
@@ -570,14 +563,13 @@
 	return (get_dist(moving, target) <= distance) //If you get too far out, stop moving away
 
 /datum/move_loop/has_target/dist_bound/move_away/move()
+	var/atom/movable/atom = moving
 	. = ..()
 	if(!.)
 		return
 	var/atom/old_loc = moving.loc
 	step_away(moving, target)
-	if(QDELETED(src))
-		return FALSE
-	return old_loc != moving.loc
+	return old_loc != atom.loc
 
 
 /**
@@ -656,6 +648,7 @@
 	return ..()
 
 /datum/move_loop/has_target/move_towards/move()
+	var/atom/movable/atom = moving
 	//Move our tickers forward a step, we're guaranteed at least one step forward because of how the code is written
 	if(x_rate) //Did you know that rounding by 0 throws a divide by 0 error?
 		x_ticker = FLOOR(x_ticker + x_rate, x_rate)
@@ -680,9 +673,7 @@
 		x_rate = 0
 		y_rate = 0
 		return
-	if(QDELETED(src))
-		return FALSE
-	return old_loc != moving.loc
+	return old_loc != atom.loc
 
 /datum/move_loop/has_target/move_towards/proc/handle_move(source, atom/OldLoc, Dir, Forced = FALSE)
 	SIGNAL_HANDLER
@@ -755,12 +746,11 @@
 /datum/move_loop/has_target/move_towards_budget
 
 /datum/move_loop/has_target/move_towards_budget/move()
+	var/atom/movable/atom = moving
 	var/turf/target_turf = get_step_towards(moving, target)
 	var/atom/old_loc = moving.loc
 	moving.Move(target_turf, get_dir(moving, target_turf))
-	if(QDELETED(src))
-		return FALSE
-	return old_loc != moving.loc
+	return old_loc != atom.loc
 
 
 /**
@@ -800,13 +790,14 @@
 	potential_directions = directions
 
 /datum/move_loop/move_rand/move()
+	var/atom/movable/atom = moving
 	var/list/potential_dirs = potential_directions.Copy()
 	while(potential_dirs.len)
 		var/testdir = pick(potential_dirs)
 		var/turf/moving_towards = get_step(moving, testdir)
 		var/atom/old_loc = moving.loc
 		moving.Move(moving_towards, testdir)
-		if(old_loc != moving.loc)  //If it worked, we're done
+		if(old_loc != atom.loc)  //If it worked, we're done
 			return TRUE
 		potential_dirs -= testdir
 	return FALSE
@@ -832,11 +823,10 @@
 /datum/move_loop/move_to_rand
 
 /datum/move_loop/move_to_rand/move()
+	var/atom/movable/atom = moving
 	var/atom/old_loc = moving.loc
 	step_rand(moving)
-	if(QDELETED(src))
-		return FALSE
-	return old_loc != moving.loc
+	return old_loc != atom.loc
 
 /**
  * Snowflake disposal movement. Moves a disposal holder along a chain of disposal pipes
@@ -873,6 +863,4 @@
 	var/obj/structure/disposalholder/holder = moving
 	var/atom/old_loc = moving.loc
 	holder.current_pipe.transfer(holder)
-	if(QDELETED(src))
-		return FALSE
-	return old_loc != moving.loc
+	return old_loc != holder.loc
