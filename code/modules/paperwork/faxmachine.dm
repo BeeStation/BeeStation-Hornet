@@ -8,28 +8,26 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	density = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	active_power_usage = 200
-	power_channel = AREA_USAGE_EQUIP
 	COOLDOWN_DECLARE(static/important_action_cooldown)
 
 /obj/machinery/faxmachine/attack_hand(mob/living/user)
 	. = ..()
 	add_fingerprint(user)
-	if (!COOLDOWN_FINISHED(src, important_action_cooldown))
+	if(!COOLDOWN_FINISHED(src, important_action_cooldown))
 		to_chat(user, "<span class='warning'>The subspace communications transmissions system is on cooldown!</span>")
 		return
-	if (panel_open)
+	if(panel_open)
 		return
 
-	var/associates = (obj_flags & EMAGGED) ? "the Syndicate": "Central Command"
+	var/associates = (obj_flags & EMAGGED) ? "the Syndicate" : "Central Command"
 	var/msg = capped_multiline_input(user, "Enter a message to be faxed to [associates]", "Fax machine", )
 
-	if (!msg)
+	if(!msg)
 		return
 
-	if (!(obj_flags & EMAGGED))
+	if(!(obj_flags & EMAGGED))
 		message_centcom(msg, user)
 		to_chat(user, "<span class='notice'>Message transmitted to Central Command.</span>")
 	else
@@ -42,7 +40,7 @@
 	COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
 
 /obj/machinery/faxmachine/emag_act(mob/user)
-	if (obj_flags & EMAGGED)
+	if(obj_flags & EMAGGED)
 		return
 	obj_flags |= EMAGGED
 	to_chat(user, "<span class='danger'>You scramble the communication routing circuits!</span>")

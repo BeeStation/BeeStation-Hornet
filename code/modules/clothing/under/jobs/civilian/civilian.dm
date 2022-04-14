@@ -137,18 +137,18 @@
 
 /obj/item/clothing/under/rank/civilian/caa
 	desc = "Slick threads."
-	name = "Lawyer suit"
+	name = "corporate affairs suit"
 	can_adjust = FALSE
 
 /obj/item/clothing/under/rank/civilian/caa/black
-	name = "lawyer black suit"
-	icon_state = "lawyer_black"
-	item_state = "lawyer_black"
+	name = "corporate affairs black suit"
+	icon_state = "caa_black"
+	item_state = "caa_black"
 
 /obj/item/clothing/under/rank/civilian/caa/black/skirt
-	name = "lawyer black suitskirt"
-	icon_state = "lawyer_black_skirt"
-	item_state = "lawyer_black"
+	name = "corporate affairs black suitskirt"
+	icon_state = "caa_black_skirt"
+	item_state = "caa_black"
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
@@ -166,26 +166,26 @@
 	can_adjust = FALSE
 
 /obj/item/clothing/under/rank/civilian/caa/red
-	name = "lawyer red suit"
-	icon_state = "lawyer_red"
-	item_state = "lawyer_red"
+	name = "corporate affairs red suit"
+	icon_state = "caa_red"
+	item_state = "caa_red"
 
 /obj/item/clothing/under/rank/civilian/caa/red/skirt
-	name = "lawyer red suitskirt"
-	icon_state = "lawyer_red_skirt"
-	item_state = "lawyer_red"
+	name = "corporate affairs red suitskirt"
+	icon_state = "caa_red_skirt"
+	item_state = "caa_red"
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
 /obj/item/clothing/under/rank/civilian/caa/blue
-	name = "lawyer blue suit"
-	icon_state = "lawyer_blue"
-	item_state = "lawyer_blue"
+	name = "corporate affairs blue suit"
+	icon_state = "caa_blue"
+	item_state = "caa_blue"
 
 /obj/item/clothing/under/rank/civilian/caa/blue/skirt
-	name = "lawyer blue suitskirt"
-	icon_state = "lawyer_blue_skirt"
-	item_state = "lawyer_blue"
+	name = "corporate affairs blue suitskirt"
+	icon_state = "caa_blue_skirt"
+	item_state = "caa_blue"
 	fitted = FEMALE_UNIFORM_TOP
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
 
@@ -209,7 +209,7 @@
 
 /obj/item/clothing/under/rank/civilian/caa/purpsuit
 	name = "purple suit"
-	icon_state = "lawyer_purp"
+	icon_state = "caa_purp"
 	item_state = "p_suit"
 	fitted = NO_FEMALE_UNIFORM
 	can_adjust = TRUE
@@ -217,7 +217,7 @@
 
 /obj/item/clothing/under/rank/civilian/caa/purpsuit/skirt
 	name = "purple suitskirt"
-	icon_state = "lawyer_purp_skirt"
+	icon_state = "caa_purp_skirt"
 	item_state = "p_suit"
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
