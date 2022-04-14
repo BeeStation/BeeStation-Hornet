@@ -44,6 +44,7 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	l_hand = /obj/item/storage/briefcase/caa
 	l_pocket = /obj/item/laser_pointer
+	r_pocket = /obj/item/clipboard
 	neck = /obj/item/clothing/neck/tie/black
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 
