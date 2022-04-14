@@ -59,4 +59,4 @@
 
 /datum/outfit/job/caa/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
-	H.grant_language(datum/language/uncommon)
+	H.grant_language(/datum/language/uncommon)
