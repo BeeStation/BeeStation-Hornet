@@ -1,5 +1,0 @@
-author: mystery3525
-delete-after: true
-changes:
-  - rscadd: More info messages for ectoscopic sniffer.
-  - bugfix: Ectoscopic sniffer wrenching.
