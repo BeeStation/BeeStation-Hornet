@@ -1,7 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - rscadd: Riot helmets can now actually have seclites attached
-  - rscdel: Removed a bunch of old useless procs/verbs/vars
-  - bugfix: The light on the justice sec helmet now actually spins
-  - refactor: Refactored a bunch of the headwear code, it sucks a tiny bit less now
