@@ -11,7 +11,7 @@
 	mood_change = -12
 
 /datum/mood_event/suffocation
-	description = "<span class='boldwarning'>CAN'T... BREATHE...</span>\n"
+	description = "<span class='boldwarning'>CAN'T... BREET...</span>\n"
 	mood_change = -12
 
 /datum/mood_event/burnt_thumb
