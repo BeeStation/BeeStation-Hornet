@@ -178,6 +178,7 @@
 /area/science/robotics/lab)
 "aaw" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "aay" = (
@@ -88637,7 +88638,6 @@
 	pixel_y = 38
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "dzL" = (
