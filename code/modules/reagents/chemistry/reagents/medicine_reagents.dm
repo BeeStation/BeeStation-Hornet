@@ -41,7 +41,7 @@
 	name = "Adminordrazine"
 	description = "It's magic. We don't have to explain it."
 	color = "#E0BB00" //golden for the gods
-	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
+	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 	taste_description = "badmins"
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/M)
