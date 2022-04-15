@@ -1542,16 +1542,18 @@
 /datum/reagent/medicine/modafinil/on_mob_metabolize(mob/living/M)
 	ADD_TRAIT(M, TRAIT_SLEEPIMMUNE, type)
 	..()
+	M.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.7, blacklisted_movetypes=(FLYING|FLOATING))
 
 /datum/reagent/medicine/modafinil/on_mob_end_metabolize(mob/living/M)
 	REMOVE_TRAIT(M, TRAIT_SLEEPIMMUNE, type)
 	..()
+	M.remove_movespeed_modifier(type)
 
 /datum/reagent/medicine/modafinil/on_mob_life(mob/living/carbon/M)
 	if(!overdosed) // We do not want any effects on OD
 		overdose_threshold = overdose_threshold + rand(-10,10)/10 // for extra fun
-		M.AdjustAllImmobility(-5, FALSE)
-		M.adjustStaminaLoss(-0.5*REM, 0)
+		M.AdjustAllImmobility(-20, FALSE)
+		M.adjustStaminaLoss(-15*REM, 0)
 		M.Jitter(1)
 		metabolization_rate = 0.01 * REAGENTS_METABOLISM * rand(5,20) // randomizes metabolism between 0.02 and 0.08 per tick
 		. = TRUE
