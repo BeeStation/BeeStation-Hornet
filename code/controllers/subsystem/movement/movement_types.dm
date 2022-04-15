@@ -482,6 +482,11 @@
 	else
 		INVOKE_ASYNC(src, .proc/recalculate_path)
 		return FALSE
+
+/datum/move_loop/has_target/jps/advanced/Destroy()
+	target_turf = null
+	return ..()
+
 ///Base class of move_to and move_away, deals with the distance and target aspect of things
 /datum/move_loop/has_target/dist_bound
 	var/distance = 0
