@@ -58,6 +58,8 @@
 	to_chat(GLOB.admins, msg)
 	for(var/obj/machinery/computer/communications/console in GLOB.machines)
 		console.override_cooldown()
+	for(var/obj/machinery/faxmachine/fax in GLOB.machines)
+		fax.override_cooldown()
 
 /// Used by communications consoles to message the Syndicate
 /proc/message_syndicate(text, mob/sender)
@@ -67,6 +69,8 @@
 	to_chat(GLOB.admins, msg)
 	for(var/obj/machinery/computer/communications/console in GLOB.machines)
 		console.override_cooldown()
+	for(var/obj/machinery/faxmachine/fax in GLOB.machines)
+		fax.override_cooldown()
 
 /// Used by communications consoles to request the nuclear launch codes
 /proc/nuke_request(text, mob/sender)
@@ -76,3 +80,5 @@
 	to_chat(GLOB.admins, msg)
 	for(var/obj/machinery/computer/communications/console in GLOB.machines)
 		console.override_cooldown()
+	for(var/obj/machinery/faxmachine/fax in GLOB.machines)
+		fax.override_cooldown()

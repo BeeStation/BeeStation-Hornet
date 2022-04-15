@@ -22,7 +22,6 @@
 				ACCESS_HEADS)
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_CIV
-	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_CAA
 	departments = DEPARTMENT_COMMAND | DEPARTMENT_SERVICE
@@ -52,12 +51,8 @@
 
 	implants = list(/obj/item/implant/mindshield)
 
-
-/datum/outfit/job/caa/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/caa/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
-
-/datum/outfit/job/caa/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
 	H.grant_language(/datum/language/uncommon)

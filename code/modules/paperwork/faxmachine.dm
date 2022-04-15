@@ -1,5 +1,5 @@
 
-//The IA Agent's Fax Machine
+//The CA Agent's Fax Machine
 
 /obj/machinery/faxmachine
 	name = "fax machine"
@@ -24,6 +24,9 @@
 	var/associates = (obj_flags & EMAGGED) ? "the Syndicate" : "Central Command"
 	var/msg = capped_multiline_input(user, "Enter a message to be faxed to [associates]", "Fax machine", )
 
+	if(!COOLDOWN_FINISHED(src, important_action_cooldown))
+		to_chat(user, "<span class='warning'>The subspace communications transmissions system is on cooldown!</span>")
+		return
 	if(!msg)
 		return
 
@@ -34,7 +37,6 @@
 		message_syndicate(msg, user)
 		to_chat(user, "<span class='danger'>SYSERR @l(19833)of(transmit.dm): !@$ MESSAGE TRANSMITTED TO SYNDICATE COMMAND.</span>")
 
-	override_cooldown()
 	user.log_talk(msg, LOG_SAY, tag = "message to [associates]")
 	deadchat_broadcast("<span class='deadsay'><span class='name'>[user.real_name]</span> has messaged [associates], \"[msg]\" at <span class='name'>[get_area_name(user, TRUE)]</span>.</span>", user)
 	COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
@@ -56,3 +58,4 @@
 		return
 	if(default_deconstruction_crowbar(G))
 		return
+	return ..()
