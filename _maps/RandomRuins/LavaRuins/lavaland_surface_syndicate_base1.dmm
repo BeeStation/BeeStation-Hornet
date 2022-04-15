@@ -1488,10 +1488,10 @@
 /obj/structure/table,
 /obj/item/clothing/suit/hazardvest,
 /obj/item/clothing/suit/hazardvest,
-/obj/item/clothing/head/soft{
+/obj/item/clothing/head/soft/cargo{
 	pixel_x = -8
 	},
-/obj/item/clothing/head/soft{
+/obj/item/clothing/head/soft/cargo{
 	pixel_x = -8
 	},
 /obj/item/radio{

@@ -50,7 +50,7 @@
 	if(isplatingturf(T))
 		var/turf/open/floor/plating/F = T
 		if(prob(10 + F.burnt + 5*F.broken)) //broken or burnt plating is more susceptible to being destroyed
-			F.ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
+			F.ex_act(EXPLODE_DEVASTATE)
 	if(isfloorturf(T))
 		var/turf/open/floor/F = T
 		if(prob(reac_volume))
@@ -64,7 +64,7 @@
 	if(iswallturf(T))
 		var/turf/closed/wall/W = T
 		if(prob(reac_volume))
-			W.ScrapeAway()
+			W.ex_act(EXPLODE_DEVASTATE)
 
 /datum/reagent/clf3/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(istype(M))
