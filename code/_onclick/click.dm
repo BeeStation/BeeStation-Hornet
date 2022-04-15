@@ -118,12 +118,12 @@
 		RestrainedClickOn(A)
 		return
 
-	if(throw_mode)
+	var/obj/item/W = get_active_held_item()
+
+	if(throw_mode && W)
 		changeNext_move(CLICK_CD_THROW)
 		throw_item(A)
 		return
-
-	var/obj/item/W = get_active_held_item()
 
 	if(W == A)
 		W.attack_self(src)
