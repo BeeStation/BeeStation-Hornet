@@ -109,7 +109,7 @@
 	for(var/i in 1 to 3)
 		new /obj/item/clothing/shoes/sneakers/white(src)
 	for(var/i in 1 to 3)
-		new /obj/item/clothing/head/soft/mime(src)
+		new /obj/item/clothing/head/soft(src)
 	return
 
 /obj/structure/closet/wardrobe/pjs
