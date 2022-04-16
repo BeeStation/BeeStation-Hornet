@@ -217,7 +217,7 @@ GLOBAL_VAR(cult_ratvar)
 	desc = "Oh, that's ratvar!"
 	icon = 'icons/effects/512x512.dmi'
 	icon_state = "ratvar"
-	is_real = FALSE
+//	is_real = FALSE	 //Allows Ratvar to be struck by a SRN Rocket //Monkestation
 	density = FALSE
 	current_size = STAGE_SIX
 	allowed_size = STAGE_SIX

@@ -117,9 +117,20 @@
 	return
 
 
-/obj/singularity/bullet_act(obj/item/projectile/P)
-	qdel(P)
-	return BULLET_ACT_HIT //Will there be an impact? Who knows.  Will we see it? No.
+/obj/singularity/bullet_act(obj/item/projectile/P, mob/living/user)
+	var/turf/T = get_turf(src)
+	if(istype(P, /obj/item/projectile/bullet/SRN_rocket))
+		for(var/mob/M as() in GLOB.player_list)
+			if(M.get_virtual_z_level() == get_virtual_z_level())
+				SEND_SOUND(M, 'sound/magic/charge.ogg')
+				to_chat(M, "<span class='boldannounce'>You feel reality distort for a moment...</span>")
+				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "delam", /datum/mood_event/delam)
+				shake_camera(M, 15, 3)
+		new/obj/singularity/spatial_rift(T)
+		qdel(src)
+	else
+		qdel(P)
+	return BULLET_ACT_HIT
 
 
 /obj/singularity/Bump(atom/A)

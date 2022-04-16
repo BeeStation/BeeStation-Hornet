@@ -2,7 +2,7 @@
 	name = "Nar'Sie's Avatar"
 	desc = "Your mind begins to bubble and ooze as it tries to comprehend what it sees."
 	icon = 'icons/obj/magic_terror.dmi'
-	is_real = FALSE
+//	is_real = TRUE  //Allows Narsie to be struck by a SRN Rocket //Monkestation
 	pixel_x = -89
 	pixel_y = -85
 	density = FALSE
