@@ -26,6 +26,8 @@
 "ak" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/seed_vault,
+/obj/item/stock_parts/matter_bin/super,
+/obj/item/stock_parts/matter_bin/super,
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "al" = (
@@ -160,6 +162,11 @@
 /obj/item/clothing/under/rank/civilian/hydroponics,
 /obj/item/clothing/under/rank/civilian/hydroponics,
 /obj/item/clothing/under/rank/civilian/hydroponics,
+/obj/item/stock_parts/capacitor/super,
+/obj/item/stock_parts/capacitor/super{
+	pixel_y = 2;
+	pixel_x = 8
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "aH" = (
@@ -177,6 +184,10 @@
 "aJ" = (
 /obj/item/storage/toolbox/syndicate,
 /obj/structure/table/wood,
+/obj/item/stock_parts/cell/hyper{
+	pixel_x = -4;
+	pixel_y = 13
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "aL" = (
@@ -309,6 +320,20 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 4
 	},
+/obj/item/stock_parts/scanning_module/phasic{
+	pixel_x = 10;
+	pixel_y = 7
+	},
+/obj/item/stock_parts/scanning_module/phasic,
+/turf/open/floor/plasteel/freezer,
+/area/ruin/powered/seedvault)
+"sY" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/seed_vault,
+/obj/item/stock_parts/micro_laser/ultra,
+/obj/item/stock_parts/micro_laser/ultra{
+	pixel_x = 8
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "tE" = (
@@ -332,6 +357,10 @@
 /area/ruin/powered/seedvault)
 "xu" = (
 /obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/item/stock_parts/manipulator/pico{
+	pixel_x = 6;
+	pixel_y = 13
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "yk" = (
@@ -406,6 +435,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 1
 	},
+/obj/machinery/hydroponics/constructable,
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "FY" = (
@@ -433,6 +463,10 @@
 /area/ruin/powered/seedvault)
 "Jm" = (
 /obj/machinery/atmospherics/components/binary/valve,
+/obj/item/stock_parts/manipulator/pico{
+	pixel_x = 5;
+	pixel_y = -9
+	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "Jr" = (
@@ -451,6 +485,12 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
 	dir = 1
 	},
+/obj/machinery/hydroponics/constructable,
+/turf/open/floor/plasteel/freezer,
+/area/ruin/powered/seedvault)
+"LJ" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/hydroponics/constructable,
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "LR" = (
@@ -644,7 +684,7 @@ ah
 ah
 aB
 aF
-aF
+LJ
 aV
 aL
 vC
@@ -666,7 +706,7 @@ ah
 ah
 aC
 ah
-ak
+sY
 aQ
 aM
 vC
@@ -749,10 +789,10 @@ ah
 aQ
 ar
 ah
-ah
 ap
 ap
-ah
+ap
+ap
 ah
 aI
 aQ
