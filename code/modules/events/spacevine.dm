@@ -280,7 +280,7 @@
 	holder.obj_integrity = holder.max_integrity
 
 /datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/I, expected_damage)
-	if(I.is_sharp())
+	if(I?.is_sharp())
 		. = expected_damage * 0.5
 	else
 		. = expected_damage
@@ -316,7 +316,7 @@
 	var/datum/spacevine_controller/master = null
 	var/list/mutations = list()
 
-/obj/structure/spacevine/Initialize()
+/obj/structure/spacevine/Initialize(mapload)
 	. = ..()
 	add_atom_colour("#ffffff", FIXED_COLOUR_PRIORITY)
 	var/static/list/loc_connections = list(

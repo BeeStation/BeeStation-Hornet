@@ -31,7 +31,7 @@
 	//This is used to optimize the map loader
 	return
 
-/turf/open/space/Initialize()
+/turf/open/space/Initialize(mapload)
 	icon_state = SPACE_ICON_STATE
 	if(!space_gas)
 		space_gas = new
@@ -229,6 +229,9 @@
 			to_chat(user, "<span class='notice'>You build a floor.</span>")
 			PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 			return TRUE
+	return FALSE
+
+/turf/open/space/rust_heretic_act()
 	return FALSE
 
 /turf/open/space/ReplaceWithLattice()

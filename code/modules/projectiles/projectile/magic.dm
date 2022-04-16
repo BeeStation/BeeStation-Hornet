@@ -33,7 +33,7 @@
 /obj/item/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
 	. = ..()
 	if(isliving(target))
-		if(target.hellbound)
+		if(target.ishellbound())
 			return BULLET_ACT_BLOCK
 		if(target.anti_magic_check())
 			target.visible_message("<span class='warning'>[src] vanishes on contact with [target]!</span>")
@@ -263,9 +263,8 @@
 			A.copy_to(new_mob, icon_updates=0)
 
 			var/mob/living/carbon/human/H = new_mob
-			H.update_body()
 			H.update_hair()
-			H.update_body_parts()
+			H.update_body_parts(TRUE)
 			H.dna.update_dna_identity()
 
 	if(!new_mob)
@@ -426,7 +425,7 @@
 	var/magic_icon = "cursed"
 	var/weakened_icon = "decursed"
 
-/obj/structure/closet/decay/Initialize()
+/obj/structure/closet/decay/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/locker_magic_timer), 5)
 

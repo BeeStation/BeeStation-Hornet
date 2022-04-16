@@ -20,7 +20,7 @@
 // Flags for the item_flags var on /obj/item
 
 #define BEING_REMOVED			(1<<0)
-#define IN_INVENTORY			(1<<1)  //! is this item equipped into an inventory slot or hand of a mob? used for tooltips
+#define PICKED_UP				(1<<1)  //! Has this item been picked up by a mob and on their person? Handles pickup() behaviour, tooltips and outlining. Does not include backpack contents, that is covered by IN_STORAGE>
 #define FORCE_STRING_OVERRIDE	(1<<2)  //! used for tooltips
 #define NEEDS_PERMIT			(1<<3)  //! Used by security bots to determine if this item is safe for public use.
 #define SLOWS_WHILE_IN_HAND		(1<<4)
@@ -42,7 +42,6 @@
 #define THICKMATERIAL			(1<<5)	//! prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body.
 #define VOICEBOX_TOGGLABLE      (1<<6)  //! The voicebox in this clothing can be toggled.
 #define VOICEBOX_DISABLED       (1<<7)  //! The voicebox is currently turned off.
-#define SHOWEROKAY				(1<<8)	//! prevents you from being stupid if you shower in them
 #define SNUG_FIT                (1<<9)  //! prevents hat throwing from knocking this hat off
 #define EFFECT_HAT              (1<<10) //! For hats with an effect that shouldn't get knocked off ie finfoil
 #define SCAN_REAGENTS           (1<<11) //! Allows helmets and glasses to scan reagents.

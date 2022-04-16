@@ -11,7 +11,7 @@
 	user.IgniteMob()
 	return FIRELOSS
 
-/obj/item/assembly/igniter/Initialize()
+/obj/item/assembly/igniter/Initialize(mapload)
 	. = ..()
 	sparks = new
 	sparks.set_up(2, 0, src)

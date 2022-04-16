@@ -42,7 +42,7 @@
 /datum/surgery/organ_manipulation/mechanic
 	name = "prosthesis organ manipulation"
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
-	requires_bodypart_type = BODYPART_ROBOTIC
+	requires_bodypart_type = BODYTYPE_ROBOTIC
 	lying_required = FALSE
 	self_operable = TRUE
 	speed_modifier = 0.8 //on a surgery bed you can do prosthetic manipulation relatively risk-free
@@ -100,7 +100,7 @@
 			var/obj/item/bodypart/affected = target.get_bodypart(check_zone(I.zone))
 			if(!affected)
 				return -1
-			if(affected.status != BODYPART_ROBOTIC)
+			if(IS_ORGANIC_LIMB(affected))
 				to_chat(user, "<span class='notice'>You can't put [I] into a meat enclosure!</span>")
 				return -1
 			if(!isipc(target))

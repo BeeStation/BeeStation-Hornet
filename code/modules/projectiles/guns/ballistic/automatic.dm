@@ -73,11 +73,12 @@
 	mag_display = TRUE
 	mag_display_ammo = TRUE
 	empty_indicator = TRUE
+	full_auto = TRUE
 
 /obj/item/gun/ballistic/automatic/c20r/unrestricted
 	pin = /obj/item/firing_pin
 
-/obj/item/gun/ballistic/automatic/c20r/Initialize()
+/obj/item/gun/ballistic/automatic/c20r/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -97,6 +98,7 @@
 	empty_indicator = TRUE
 	fire_rate = 3
 	w_class = WEIGHT_CLASS_BULKY
+	full_auto = TRUE
 
 /obj/item/gun/ballistic/automatic/wt550/rubber_loaded
 	mag_type = /obj/item/ammo_box/magazine/wt550m9/rubber
@@ -127,7 +129,7 @@
 	mag_display = TRUE
 	empty_indicator = TRUE
 
-/obj/item/gun/ballistic/automatic/m90/Initialize()
+/obj/item/gun/ballistic/automatic/m90/Initialize(mapload)
 	. = ..()
 	underbarrel = new /obj/item/gun/ballistic/revolver/grenadelauncher(src)
 	update_icon()
@@ -135,7 +137,7 @@
 /obj/item/gun/ballistic/automatic/m90/unrestricted
 	pin = /obj/item/firing_pin
 
-/obj/item/gun/ballistic/automatic/m90/unrestricted/Initialize()
+/obj/item/gun/ballistic/automatic/m90/unrestricted/Initialize(mapload)
 	. = ..()
 	underbarrel = new /obj/item/gun/ballistic/revolver/grenadelauncher/unrestricted(src)
 	update_icon()
@@ -226,13 +228,13 @@
 	fire_rate = 6
 	spread = 7
 	pin = /obj/item/firing_pin/implant/pindicate
-	spread_unwielded = 15 //This can't be fired onehanded?
 	bolt_type = BOLT_TYPE_OPEN
 	mag_display = TRUE
 	mag_display_ammo = TRUE
 	tac_reloads = FALSE
 	fire_sound = 'sound/weapons/rifleshot.ogg'
 	rack_sound = 'sound/weapons/chunkyrack.ogg'
+	full_auto = TRUE
 
 /obj/item/gun/ballistic/automatic/l6_saw/unrestricted
 	pin = /obj/item/firing_pin

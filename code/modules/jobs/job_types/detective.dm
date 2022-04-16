@@ -25,6 +25,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_DETECTIVE
 	departments = DEPARTMENT_SECURITY
+	rpg_title = "Thiefcatcher"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/detective
@@ -48,8 +49,6 @@
 		/obj/item/detective_scanner=1,\
 		/obj/item/melee/classic_baton/police=1)
 	mask = /obj/item/clothing/mask/cigarette
-
-	implants = list(/obj/item/implant/mindshield)
 
 	chameleon_extras = list(/obj/item/gun/ballistic/revolver/detective, /obj/item/clothing/glasses/sunglasses/advanced)
 

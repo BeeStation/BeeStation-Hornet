@@ -79,7 +79,29 @@
 	if(!GLOB.insect_type_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_type, GLOB.insect_type_list)
 	//For now we will always return none for tail_human and ears.
-	return(list("mcolor" = pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F"),"ethcolor" = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)], "tail_lizard" = pick(GLOB.tails_list_lizard), "tail_human" = "None", "wings" = "None", "snout" = pick(GLOB.snouts_list), "horns" = pick(GLOB.horns_list), "ears" = "None", "frills" = pick(GLOB.frills_list), "spines" = pick(GLOB.spines_list), "body_markings" = pick(GLOB.body_markings_list), "legs" = "Normal Legs", "caps" = pick(GLOB.caps_list), "moth_wings" = pick(GLOB.moth_wings_list), "ipc_screen" = pick(GLOB.ipc_screens_list), "ipc_antenna" = pick(GLOB.ipc_antennas_list),"ipc_chassis" = pick(GLOB.ipc_chassis_list), "insect_type" = pick(GLOB.insect_type_list)))
+	return(
+		list(
+		"body_size" = "Normal",
+		"mcolor" = pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F"),
+		"ethcolor" = GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)],
+		"tail_lizard" = pick(GLOB.tails_list_lizard),
+		"tail_human" = "None",
+		"wings" = "None",
+		"snout" = pick(GLOB.snouts_list),
+		"horns" = pick(GLOB.horns_list),
+		"ears" = "None",
+		"frills" = pick(GLOB.frills_list),
+		"spines" = pick(GLOB.spines_list),
+		"body_markings" = pick(GLOB.body_markings_list),
+		"legs" = "Normal Legs",
+		"caps" = pick(GLOB.caps_list),
+		"moth_wings" = pick(GLOB.moth_wings_list),
+		"ipc_screen" = pick(GLOB.ipc_screens_list),
+		"ipc_antenna" = pick(GLOB.ipc_antennas_list),
+		"ipc_chassis" = pick(GLOB.ipc_chassis_list),
+		"insect_type" = pick(GLOB.insect_type_list)
+		)
+	)
 
 /proc/random_hair_style(gender)
 	switch(gender)
@@ -109,56 +131,15 @@
 		if(!findname(.))
 			break
 
-/proc/random_unique_lizard_name(gender, attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(lizard_name(gender))
+/proc/random_lizard_name(gender, attempts)
+	if(gender == MALE)
+		. = "[pick(GLOB.lizard_names_male)]-[pick(GLOB.lizard_names_male)]"
+	else
+		. = "[pick(GLOB.lizard_names_female)]-[pick(GLOB.lizard_names_female)]"
 
-		if(!findname(.))
-			break
-
-/proc/random_unique_apid_name(gender, attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(apid_name(gender))
-
-		if(!findname(.))
-			break
-
-/proc/random_unique_plasmaman_name(attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(plasmaman_name())
-
-		if(!findname(.))
-			break
-
-/proc/random_unique_ipc_name(attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(ipc_name())
-
-		if(!findname(.))
-			break
-
-
-/proc/random_unique_ethereal_name(attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(ethereal_name())
-
-		if(!findname(.))
-			break
-
-/proc/random_unique_moth_name(attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(pick(GLOB.moth_first)) + " " + capitalize(pick(GLOB.moth_last))
-
-		if(!findname(.))
-			break
-
-/proc/random_unique_ooze_name(attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(pick(GLOB.oozeling_first_names)) + " " + capitalize(pick(GLOB.oozeling_last_names))
-
-		if(!findname(.))
-			break
-
+	if(attempts < 10)
+		if(findname(.))
+			. = .(gender, ++attempts)
 
 /proc/random_skin_tone()
 	return pick(GLOB.skin_tones)
@@ -329,7 +310,7 @@ GLOBAL_LIST_EMPTY(species_list)
 				break
 	if (progress)
 		qdel(progbar)
-	
+
 	if(!QDELETED(target))
 		LAZYREMOVE(user.do_afters, target)
 		LAZYREMOVE(target.targeted_by, user)

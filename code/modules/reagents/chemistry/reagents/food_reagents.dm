@@ -178,6 +178,8 @@
 /datum/reagent/consumable/virus_food/on_mob_life(mob/living/carbon/M)
 	. = ..()
 	for(var/datum/disease/D in M.diseases)
+		if(D.spread_flags & DISEASE_SPREAD_SPECIAL || D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS)
+			continue
 		if(prob(D.stage_prob * 10))
 			D.update_stage(min(D.stage += 1, D.max_stages))
 
@@ -408,8 +410,6 @@
 			if(prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
 				H.heal_bodypart_damage(1,1, 0)
 				. = 1
-		else //chefs' robust space-Italian metabolism lets them eat garlic without producing allyl methyl sulfide
-			H.adjust_hygiene(-0.15 * volume)
 	..()
 
 /datum/reagent/consumable/sprinkles
@@ -529,13 +529,13 @@
 /datum/reagent/consumable/corn_starch
 	name = "Corn Starch"
 	description = "A slippery solution."
-	color = "#C8A5DC"
+	color = "#DBCE95"
 	taste_description = "slime"
 
 /datum/reagent/consumable/corn_syrup
 	name = "Corn Syrup"
 	description = "Decays into sugar."
-	color = "#C8A5DC"
+	color = "#DBCE95"
 	metabolization_rate = 3 * REAGENTS_METABOLISM
 	taste_description = "sweet slime"
 

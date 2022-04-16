@@ -21,6 +21,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_CHEMIST
 	departments = DEPARTMENT_MEDICAL
+	rpg_title = "Alchemist"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chemist
@@ -31,7 +32,7 @@
 	name = "Chemist"
 	jobtype = /datum/job/chemist
 
-	id = /obj/item/card/id/job/med
+	id = /obj/item/card/id/job/chemist
 	glasses = /obj/item/clothing/glasses/science
 	belt = /obj/item/pda/chemist
 	ears = /obj/item/radio/headset/headset_med

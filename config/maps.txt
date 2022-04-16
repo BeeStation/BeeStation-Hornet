@@ -50,9 +50,13 @@ endmap
 #Does not support fastmos
 
 map kilostation
-	maxplayers 60
+	maxplayers 50
 	votable
-	disabled
+endmap
+
+map flandstation
+	minplayers 40
+	votable
 endmap
 
 #Debug Maps, you probably don't want these enabled.

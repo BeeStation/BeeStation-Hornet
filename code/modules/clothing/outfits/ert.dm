@@ -389,6 +389,8 @@
 	R.set_frequency(FREQ_CENTCOM)
 	R.freqlock = TRUE
 
+	ADD_TRAIT(H, TRAIT_NAIVE, INNATE_TRAIT)
+
 	var/obj/item/card/id/W = H.wear_id
 	W.registered_name = H.real_name
 	W.access += ACCESS_THEATRE
@@ -481,7 +483,6 @@
 	back = /obj/item/storage/backpack/hammerspace
 	l_pocket = /obj/item/kitchen/knife/combat
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/double
-	r_hand = /obj/item/reagent_containers/hypospray/combat/supersoldier
 	backpack_contents = list(/obj/item/storage/box/engineer=1,\
 		/obj/item/reagent_containers/hypospray/combat,\
 		/obj/item/radio=1,\

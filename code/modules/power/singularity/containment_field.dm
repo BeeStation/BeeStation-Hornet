@@ -16,7 +16,7 @@
 	var/obj/machinery/field/generator/FG1 = null
 	var/obj/machinery/field/generator/FG2 = null
 
-/obj/machinery/field/containment/Initialize()
+/obj/machinery/field/containment/Initialize(mapload)
 	. = ..()
 	air_update_turf(TRUE, TRUE)
 	var/static/list/loc_connections = list(
@@ -25,8 +25,8 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/field/containment/Destroy()
-	FG1.fields -= src
-	FG2.fields -= src
+	FG1?.fields -= src
+	FG2?.fields -= src
 	return ..()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE

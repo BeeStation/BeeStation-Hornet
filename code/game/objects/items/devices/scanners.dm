@@ -268,7 +268,7 @@ GENE SCANNER
 
 			for(var/o in damaged)
 				var/obj/item/bodypart/org = o //head, left arm, right arm, etc.
-				dmgreport += "<tr><td><font color='#0000CC'>[capitalize(org.name)]:</font></td>\
+				dmgreport += "<tr><td><font color='#0000CC'>[capitalize(parse_zone(org.body_zone))]:</font></td>\
 								<td><font color='red'>[(org.brute_dam > 0) ? "[round(org.brute_dam,1)]" : "0"]</font></td>\
 								<td><font color='orange'>[(org.burn_dam > 0) ? "[round(org.burn_dam,1)]" : "0"]</font></td></tr>"
 			dmgreport += "</font></table>"
@@ -877,7 +877,7 @@ GENE SCANNER
 	var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(mutation)
 	if(!HM)
 		return "ERROR"
-	if(mutation in discovered)
+	if(discovered[mutation])
 		return  "[HM.name] ([HM.alias])"
 	else
 		return HM.alias
@@ -890,11 +890,12 @@ GENE SCANNER
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
+	var/using = FALSE
 	var/scan = TRUE
 	var/cooldown
 	var/obj/item/stock_parts/scanning_module/scanner //used for upgrading!
 
-/obj/item/extrapolator/Initialize()
+/obj/item/extrapolator/Initialize(mapload)
 	. = ..()
 	scanner = new(src)
 
@@ -978,6 +979,9 @@ GENE SCANNER
 /obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 200)
 	var/list/advancediseases = list()
 	var/list/symptoms = list()
+	if(using)
+		to_chat(user, "<span class='warning'>The extrapolator is already in use.</span>")
+		return
 	for(var/datum/disease/advance/cantidate in diseases)
 		advancediseases += cantidate
 	if(!LAZYLEN(advancediseases))
@@ -988,6 +992,7 @@ GENE SCANNER
 		return
 	var/datum/disease/advance/A = input(user,"What disease do you wish to extract") in null|advancediseases
 	if(isolate)
+		using = TRUE
 		for(var/datum/symptom/S in A.symptoms)
 			if(S.level <= 6 + scanner.rating)
 				symptoms += S
@@ -995,6 +1000,7 @@ GENE SCANNER
 		var/datum/symptom/chosen = input(user,"What symptom do you wish to isolate") in null|symptoms
 		var/datum/disease/advance/symptomholder = new
 		if(!symptoms.len || !chosen)
+			using = FALSE
 			to_chat(user, "<span class='warning'>There are no valid diseases to isolate a symptom from.</span>")
 			return
 		symptomholder.name = chosen.name
@@ -1004,8 +1010,11 @@ GENE SCANNER
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
 		if(do_after(user, (600 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
-	else if(do_after(user, (timer / (scanner.rating + 1)), target = AM))
-		create_culture(A, user, AM)
+	else 
+		using = TRUE
+		if(do_after(user, (timer / (scanner.rating + 1)), target = AM))
+			create_culture(A, user, AM)	
+	using = FALSE
 
 /obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)
 	if(cooldown > world.time - (10))

@@ -5,7 +5,7 @@
 	icon_state = "centcom"
 	desc = "It's good to be emperor."
 	item_state = "that"
-	flags_inv = 0
+	flags_inv = NONE
 	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 30)
 	strip_delay = 80
 	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
@@ -129,6 +129,7 @@
 		to_chat(user, "You suddenly know how to speak like a pirate!")
 
 /obj/item/clothing/head/pirate/dropped(mob/user)
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
@@ -232,7 +233,7 @@
 	desc = "Once it's on, it never comes off."
 	dog_fashion = null
 
-/obj/item/clothing/head/sombrero/shamebrero/Initialize()
+/obj/item/clothing/head/sombrero/shamebrero/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, SHAMEBRERO_TRAIT)
 
@@ -365,7 +366,7 @@
 
 /obj/item/clothing/head/frenchberet/equipped(mob/M, slot)
 	. = ..()
-	if (slot == ITEM_SLOT_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
 	else
 		UnregisterSignal(M, COMSIG_MOB_SAY)
@@ -434,7 +435,7 @@
 	dynamic_hair_suffix = ""
 	attack_verb = list("crowned")
 
-/obj/item/clothing/head/rainbowbunchcrown/Initialize()
+/obj/item/clothing/head/rainbowbunchcrown/Initialize(mapload)
 	. = ..()
 	var/crown_type = rand(1,4)
 	switch(crown_type)

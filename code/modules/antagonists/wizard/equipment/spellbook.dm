@@ -442,7 +442,7 @@
 	cost = 1
 
 /// How much threat we need to let these rituals happen on dynamic
-#define MINIMUM_THREAT_FOR_RITUALS 100
+#define MINIMUM_THREAT_FOR_RITUALS 85
 
 /datum/spellbook_entry/summon
 	name = "Summon Stuff"
@@ -589,7 +589,7 @@
 	else
 		. += "It appears to have no author."
 
-/obj/item/spellbook/Initialize()
+/obj/item/spellbook/Initialize(mapload)
 	. = ..()
 	prepare_spells()
 

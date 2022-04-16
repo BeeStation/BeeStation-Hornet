@@ -30,7 +30,7 @@
 	force = 19
 	throwforce = 24
 
-/obj/item/pitchfork/demonic/Initialize()
+/obj/item/pitchfork/demonic/Initialize(mapload)
 	. = ..()
 	set_light(3,6,LIGHT_COLOR_RED)
 
@@ -59,6 +59,7 @@
 	return (BRUTELOSS)
 
 /obj/item/pitchfork/demonic/pickup(mob/living/user)
+	..()
 	if(isliving(user) && user.mind && user.owns_soul() && !is_devil(user))
 		var/mob/living/U = user
 		U.visible_message("<span class='warning'>As [U] picks [src] up, [U]'s arms briefly catch fire.</span>", \

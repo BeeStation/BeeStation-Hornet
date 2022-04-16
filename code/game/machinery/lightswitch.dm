@@ -27,6 +27,7 @@
 	pixel_y = -7
 
 /obj/machinery/light_switch/Initialize()
+/obj/machinery/light_switch/Initialize(mapload)
 	. = ..()
 	if(istext(area))
 		area = text2path(area)

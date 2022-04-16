@@ -27,7 +27,7 @@
 	var/mob/living/silicon/robot/user // needed for process()
 	var/animation_playing = FALSE
 
-/obj/item/borg_chameleon/Initialize()
+/obj/item/borg_chameleon/Initialize(mapload)
 	. = ..()
 	friendlyName = pick(GLOB.ai_names)
 
@@ -36,7 +36,7 @@
 	return ..()
 
 /obj/item/borg_chameleon/dropped(mob/user)
-	. = ..()
+	..()
 	disrupt(user)
 
 /obj/item/borg_chameleon/equipped(mob/user)

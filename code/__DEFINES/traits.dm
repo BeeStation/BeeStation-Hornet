@@ -154,6 +154,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SHOCKIMMUNE		"shock_immunity"
 #define TRAIT_STABLEHEART		"stable_heart"
 #define TRAIT_STABLELIVER		"stable_liver"
+#define TRAIT_NOVOMIT			"no_vomit"
 #define TRAIT_RESISTHEAT		"resist_heat"
 #define TRAIT_RESISTHEATHANDS	"resist_heat_handsonly" //For when you want to be able to touch hot things, but still want fire to be an issue.
 #define TRAIT_RESISTCOLD		"resist_cold"
@@ -229,10 +230,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NANITECOMPATIBLE	"nanitecompatible"
 #define TRAIT_WARDED       		"curse_immune"
 #define TRAIT_NONECRODISEASE	"nonecrodisease"
-#define TRAIT_DIGICAMO     		"digital_camo"
-#define TRAIT_DIGINVIS     		"digital_invis"	//note: diginvis grants digitalcamo, but carbons can tell if you have the digicamo trait on examine
 #define TRAIT_NICE_SHOT			"nice_shot" //hnnnnnnnggggg..... you're pretty good....
 #define TRAIT_ALWAYS_STUBS      "always_stubs_toe" //you will always stub your toe on tables, even if you're wearing shoes
+#define TRAIT_NAIVE				"naive" //All dead people will appear as sleeping.
+#define TRAIT_DROPS_ITEMS_ON_DEATH "drops_items_on_death" //used for battle royale
 
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
@@ -267,7 +268,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_POOR_AIM			"poor_aim"
 #define TRAIT_PROSOPAGNOSIA		"prosopagnosia"
 #define	TRAIT_NEET				"NEET"
-#define	TRAIT_NEAT				"neat"
 #define TRAIT_DRUNK_HEALING		"drunk_healing"
 #define TRAIT_TAGGER			"tagger"
 #define TRAIT_PHOTOGRAPHER		"photographer"
@@ -306,6 +306,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define GLASSES_TRAIT "glasses"
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"
+#define TRAIT_RUSTY "rust_trait"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"
@@ -361,6 +362,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define MADE_UNCLONEABLE "made-uncloneable"
 #define TRAIT_JAWS_OF_LIFE "jaws-of-life"
 #define STICKY_NODROP "sticky-nodrop" //sticky nodrop sounds like a bad soundcloud rapper's name
+#define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
 
 ///Traits given by station traits
 #define STATION_TRAIT_BANANIUM_SHIPMENTS "station_trait_bananium_shipments"
@@ -377,3 +379,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Trait applied when the MMI component is added to an [/obj/item/integrated_circuit]
 #define TRAIT_COMPONENT_MMI "component_mmi"
+
+/// Can use the nuclear device's UI, regardless of a lack of hands
+#define TRAIT_CAN_USE_NUKE "can_use_nuke"

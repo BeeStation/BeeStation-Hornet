@@ -83,7 +83,7 @@
 
 	var/list/saved_recipes = list()
 
-/obj/machinery/chem_dispenser/Initialize()
+/obj/machinery/chem_dispenser/Initialize(mapload)
 	. = ..()
 	dispensable_reagents = sortList(dispensable_reagents, /proc/cmp_reagents_asc)
 	if(emagged_reagents)
@@ -415,7 +415,7 @@
 	if(istype(user) && user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		replace_beaker(user)
 
-/obj/machinery/chem_dispenser/drinks/Initialize()
+/obj/machinery/chem_dispenser/drinks/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE)
 
@@ -472,6 +472,7 @@
 		/datum/reagent/consumable/pwr_game,
 		/datum/reagent/consumable/shamblers,
 		/datum/reagent/consumable/sugar,
+		/datum/reagent/consumable/pineapplejuice,
 		/datum/reagent/consumable/orangejuice,
 		/datum/reagent/consumable/grenadine,
 		/datum/reagent/consumable/limejuice,
@@ -493,7 +494,7 @@
 	flags_1 = NODECONSTRUCT_1
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/drinks/fullupgrade
 
-/obj/machinery/chem_dispenser/drinks/fullupgrade/Initialize()
+/obj/machinery/chem_dispenser/drinks/fullupgrade/Initialize(mapload)
 	. = ..()
 	dispensable_reagents |= emagged_reagents //adds emagged reagents
 
@@ -519,6 +520,7 @@
 		/datum/reagent/consumable/ethanol/hcider,
 		/datum/reagent/consumable/ethanol/creme_de_menthe,
 		/datum/reagent/consumable/ethanol/creme_de_cacao,
+		/datum/reagent/consumable/ethanol/creme_de_coconut,
 		/datum/reagent/consumable/ethanol/triple_sec,
 		/datum/reagent/consumable/ethanol/sake,
 		/datum/reagent/consumable/ethanol/applejack
@@ -538,7 +540,7 @@
 	flags_1 = NODECONSTRUCT_1
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/drinks/beer/fullupgrade
 
-/obj/machinery/chem_dispenser/drinks/beer/fullupgrade/Initialize()
+/obj/machinery/chem_dispenser/drinks/beer/fullupgrade/Initialize(mapload)
 	. = ..()
 	dispensable_reagents |= emagged_reagents //adds emagged reagents
 
@@ -602,7 +604,7 @@
 	flags_1 = NODECONSTRUCT_1
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/fullupgrade
 
-/obj/machinery/chem_dispenser/fullupgrade/Initialize()
+/obj/machinery/chem_dispenser/fullupgrade/Initialize(mapload)
 	. = ..()
 	dispensable_reagents |= emagged_reagents //adds emagged reagents
 
