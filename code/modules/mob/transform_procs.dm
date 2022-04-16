@@ -641,7 +641,7 @@
 	qdel(src)
 
 
-/mob/living/carbon/human/proc/corgize()
+/mob/living/carbon/proc/corgize()
 	if (notransform)
 		return
 	notransform = TRUE

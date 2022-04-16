@@ -594,11 +594,7 @@
 				new/obj/vehicle/ridden/wheelchair(get_turf(src)) //don't buckle, because I can't imagine to plethora of things to go through that could otherwise break
 				to_chat(src, "<span class='warning'>My flesh turned into a wheelchair and I can't feel my legs.</span>")
 			if(2)
-				if(ishuman(src))
-					var/mob/living/carbon/human/H = src
-					H.corgize()
-				else
-					to_chat(src, "<span class='notice'>Oh, I actually feel quite alright!</span>")
+				corgize()
 			if(3)
 				to_chat(src, "<span class='notice'>Oh, I actually feel quite alright!</span>")
 			if(4)
