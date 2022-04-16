@@ -140,7 +140,7 @@
 /obj/item/storage/box/holy/graverobber/PopulateContents()
 	new /obj/item/clothing/suit/armor/riot/chaplain/graverobber_coat(src)
 	new /obj/item/clothing/under/rank/civilian/graverobber_under(src)
-	new /obj/item/clothing/head/chaplain/graverobber_hat(src)
+	new /obj/item/clothing/head/helmet/chaplain/graverobber_hat(src)
 	new /obj/item/clothing/gloves/graverobber_gloves(src)
 
 /obj/item/clothing/suit/armor/riot/chaplain/graverobber_coat
@@ -150,7 +150,7 @@
 	item_state = "graverobber_coat"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 
-/obj/item/clothing/head/chaplain/graverobber_hat
+/obj/item/clothing/head/helmet/chaplain/graverobber_hat
 	name = "grave robber hat"
 	desc = "A tattered leather hat. It reeks of death."
 	icon_state = "graverobber_hat"
