@@ -1,0 +1,4 @@
+author: pitaden
+delete-after: true
+changes:
+  - bugfix: message servers no longer send messages if the recipient is turned off
