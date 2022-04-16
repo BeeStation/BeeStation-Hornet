@@ -1,0 +1,7 @@
+author: benbot16
+delete-after: true
+changes:
+  - rscadd: You can now hold people at gunpoint by pointing at them while holding
+      a gun.
+  - bugfix: Fixes automatic weapons shooting when examining, pointing, or clicking
+      certain UI items.
