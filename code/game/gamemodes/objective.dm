@@ -435,32 +435,15 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		DEPT_SUPPLY,
 		DEPT_COMMAND
 	))
-	var/list/gimmick_list = list( //This list is ONLY for objectives that depend on a random selection
-		"Get everyone to hate [selected_department], through misdirection, slander, and sabotage.",
-		"Incite a strike in [selected_department].",
-		"Impede the work of those at [selected_department] while keeping those working in it alive.",
-		"Keep power & cameras cut in [selected_department].",
-		"Disguise yourself as a member of [selected_department] and sabotage them from within.",
-		"Vandalize [selected_department] as much as possible.",
-		"Destroy [selected_department] utterly and entirely. Deaths within the department are of no concern, but limit the destruction to [selected_department].", //Teeeeechnically, there is a 1/50 chance of getting any specific gimmick objective, making this one rarer than hijack
-		"Steal equipment critical for [selected_department] to function.",
-		"Attempt to kidnap a member of [selected_department] to take with you alive on an escape pod or a shuttle, for questioning at Syndicate HQ.",
-		"Hack all doors in [selected_department] to be shocked, bolted, or inaccessible by the AI"
-	)
-	if(target && target.current) //Only add these objectives to the pool if there are targets on the station
-		gimmick_list.Add(
-			"Construct an elaborate trap for [target.name].",
-			"Ensure [target.name] is demoted from their position.",
-			"Get [target.name] arrested for a crime they haven't committed.",
-			"Top-secret Syndicate intelligence suggests that [target.name] is responsible for scratching the paint on one of our CEOs' private cruisers. Make their life as miserable as possible without killing them.",
-			"Kidnap [target.name] and hold them for ransom!",
-			"Replace [target.name] completely, and try as hard as possible not to blow your cover.",
-			"Pin the blame on [target.name] for any and all crimes you commit, and try to convince security and the crew that it was them all along.",
-			"Attempt to kidnap [target.name] to take with you alive on an escape pod or shuttle, for questioning at Syndicate HQ.",
-			"Frame [target.name] for murdering you.",
-			"[target.name] knows corporate secrets. Interrogate them. Use force if they pretend to not know."
-		)
-	gimmick_list.Add(world.file2list(GIMMICK_OBJ_FILE)) //gimmick_objectives.txt is for objectives without a specific target/department/etc
+
+	var/list/gimmick_list = world.file2list(GIMMICK_OBJ_FILE) //gimmick_objectives.txt is for objectives without a specific target/department/etc
+
+	for(var/obj in world.file2list(DEPT_GIMMICK_OBJ_FILE))
+		gimmick_list.Add(replacetext(obj, "%DEPARTMENT", "[selected_department]"))
+	if(target && target.current)
+		for(var/obj in world.file2list(TARGET_GIMMICK_OBJ_FILE))
+			gimmick_list.Add(replacetext(obj, "%TARGET", "[target.name]"))
+
 	var/selected_gimmick = pick(gimmick_list)
 	explanation_text = "[selected_gimmick]"
 
