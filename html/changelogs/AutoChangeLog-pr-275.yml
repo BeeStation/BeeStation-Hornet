@@ -1,0 +1,4 @@
+author: nednaZ
+delete-after: true
+changes:
+  - bugfix: Night Shift should no longer be an issue. Until we find another cause.
