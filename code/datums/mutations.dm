@@ -54,7 +54,7 @@
 		return TRUE
 	if(length(mobtypes_allowed) && !mobtypes_allowed.Find(C.type))
 		return TRUE
-	if(species_allowed.len && !species_allowed.Find(C.dna.species.id))
+	if(length(species_allowed) && !species_allowed.Find(C.dna.species.id))
 		return TRUE
 	if(health_req && C.health < health_req)
 		return TRUE
@@ -122,7 +122,10 @@
 	if(!has_dna())
 		return
 	for(var/datum/mutation/CM as() in dna.mutations)
-		if(CM.species_allowed.len && !CM.species_allowed.Find(dna.species.id))
+		if(length(CM.mobtypes_allowed) && !CM.mobtypes_allowed.Find(src.type))
+			dna.force_lose(CM)
+			continue
+		if(length(CM.species_allowed) && !CM.species_allowed.Find(dna.species.id))
 			dna.force_lose(CM) //shouldn't have that mutation at all
 			continue
 		if(CM.visual_indicators.len)
