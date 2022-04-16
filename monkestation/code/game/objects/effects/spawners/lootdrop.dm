@@ -25,3 +25,12 @@
 		/obj/item/surgicaldrill/alien = 1,
 		/obj/item/cautery/alien = 1
 	)
+
+/// Random Engine Room Spawner. Allows for either a 75% chance for a tesla gen and a 25% chance for the singularity gen for RandomEngines modules
+/obj/effect/spawner/lootdrop/Engines
+	name = "singulo or tesla spawner"
+	loot = list(
+				/obj/machinery/the_singularitygen = 25,
+				/obj/machinery/the_singularitygen/tesla = 75
+				)
+	lootcount = 1
