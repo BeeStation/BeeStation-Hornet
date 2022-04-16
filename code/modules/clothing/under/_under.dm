@@ -31,7 +31,7 @@
 		var/obj/item/stack/cable_coil/C = I
 		C.use(1)
 		has_sensor = HAS_SENSORS
-		update_sensors(SENSOR_OFF)
+		update_sensors(NO_SENSORS)
 		to_chat(user,"<span class='notice'>You repair the suit sensors on [src] with [C].</span>")
 		return 1
 	if(!attach_accessory(I, user))
@@ -157,18 +157,20 @@
 /obj/item/clothing/under/proc/update_sensors(new_mode, forced = FALSE)
 	var/old_mode = sensor_mode
 	sensor_mode = new_mode
-	if(!forced && (old_mode == new_mode || (old_mode != SENSOR_OFF && new_mode != SENSOR_OFF)))
+	if(!forced || (old_mode == new_mode || (old_mode != SENSOR_OFF && new_mode != SENSOR_OFF)))
 		return
 	if(!ishuman(loc) || istype(loc, /mob/living/carbon/human/dummy))
 		return
 
-	if(sensor_mode > SENSOR_OFF)
-		GLOB.suit_sensors_list += loc
-		ADD_TRAIT(loc, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
-	else
-		REMOVE_TRAIT(loc, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
-		if(!HAS_TRAIT(loc, TRAIT_NANITE_SENSORS))
-			GLOB.suit_sensors_list -= loc
+	if(!HAS_TRAIT(loc, TRAIT_SUIT_SENSORS))
+		if(sensor_mode > SENSOR_OFF)
+			ADD_TRAIT(loc, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
+			if(!HAS_TRAIT(loc, TRAIT_NANITE_SENSORS))
+				GLOB.suit_sensors_list += loc
+		else
+			REMOVE_TRAIT(loc, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
+			if(!HAS_TRAIT(loc, TRAIT_NANITE_SENSORS))
+				GLOB.suit_sensors_list -= loc
 
 /obj/item/clothing/under/examine(mob/user)
 	. = ..()
