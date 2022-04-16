@@ -40965,7 +40965,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/structure/disposalpipe/segment{
@@ -41062,7 +41062,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -41351,7 +41351,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -41411,7 +41411,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/structure/cable/yellow{
@@ -42284,7 +42284,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -42334,7 +42334,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/structure/disposalpipe/segment{
@@ -42455,7 +42455,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -44271,7 +44271,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Council Chambers";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/structure/disposalpipe/segment,
@@ -66704,7 +66704,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Corporate Lounge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -66714,7 +66714,7 @@
 "cAb" = (
 /obj/machinery/door/airlock/command{
 	name = "Corporate Lounge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -70572,7 +70572,7 @@
 "cHO" = (
 /obj/machinery/door/airlock/command{
 	name = "Corporate Lounge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/structure/cable/yellow{
@@ -111276,7 +111276,7 @@
 "oZC" = (
 /obj/machinery/door/airlock/command{
 	name = "Corporate Lounge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{

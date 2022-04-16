@@ -16833,7 +16833,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /turf/open/floor/plasteel,
@@ -16853,7 +16853,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /turf/open/floor/plasteel,
@@ -17023,7 +17023,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/structure/disposalpipe/segment{
@@ -17047,7 +17047,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/structure/disposalpipe/segment{
@@ -17804,7 +17804,7 @@
 "aZQ" = (
 /obj/machinery/door/airlock/command{
 	name = "Conference Room";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/structure/cable/yellow{

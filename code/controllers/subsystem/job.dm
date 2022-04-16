@@ -795,3 +795,5 @@ SUBSYSTEM_DEF(job)
 		var/obj/item/card/id/id_card = H.wear_id
 		if(!(ACCESS_HEADS in id_card.access))
 			LAZYADD(id_card.access, ACCESS_HEADS)
+		if(!(ACCESS_BRIDGE in id_card.access))
+			LAZYADD(id_card.access, ACCESS_BRIDGE)

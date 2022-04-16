@@ -7,7 +7,7 @@
 	circuit = /obj/item/circuitboard/machine/faxmachine
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
-	req_access = list(ACCESS_CAA)
+	req_one_access = list(ACCESS_CAA, ACCESS_HEADS)
 	density = TRUE
 	idle_power_usage = 30
 	active_power_usage = 200

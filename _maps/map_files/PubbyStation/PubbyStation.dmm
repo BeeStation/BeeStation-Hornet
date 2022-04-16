@@ -11003,7 +11003,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/structure/cable/yellow{
@@ -11021,7 +11021,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -11123,7 +11123,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -13439,7 +13439,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/turf_decal/delivery,
@@ -13466,7 +13466,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/turf_decal/delivery,
@@ -13501,7 +13501,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/turf_decal/delivery,
@@ -54810,7 +54810,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/turf_decal/delivery,
@@ -62994,7 +62994,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/turf_decal/stripes/line,

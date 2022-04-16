@@ -32954,7 +32954,7 @@
 /obj/machinery/door/window/westleft{
 	dir = 4;
 	name = "Bridge Deliveries";
-	req_access_txt = "19"
+	req_access_txt = "14"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id = "bridge blast";
@@ -36377,7 +36377,7 @@
 "bsS" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -36470,7 +36470,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
@@ -39110,7 +39110,7 @@
 "bye" = (
 /obj/machinery/door/airlock/command{
 	name = "Council Chamber";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -39167,7 +39167,7 @@
 "byl" = (
 /obj/machinery/door/airlock/command{
 	name = "Council Chamber";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -40746,7 +40746,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -40776,7 +40776,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -40886,7 +40886,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 6
 	},
 /obj/structure/cable/yellow{
@@ -45114,7 +45114,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Corporate Showroom";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 1
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -48321,7 +48321,7 @@
 "bSM" = (
 /obj/machinery/door/airlock/command{
 	name = "Corporate Showroom";
-	req_access_txt = "19";
+	req_access_txt = "14";
 	security_level = 1
 	},
 /obj/effect/turf_decal/stripes/line,

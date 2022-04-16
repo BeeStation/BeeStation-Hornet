@@ -11,11 +11,12 @@
 #define ACCESS_ENGINE_EQUIP 11 //! APCs, EngiVend/YouTool, engineering equipment lockers
 #define ACCESS_MAINT_TUNNELS 12
 #define ACCESS_EXTERNAL_AIRLOCKS 13
+#define ACCESS_BRIDGE 14 //! Basic bridge access, corporate showroom, bridge conference rooms
 #define ACCESS_CHANGE_IDS 15
 #define ACCESS_AI_UPLOAD 16
 #define ACCESS_TELEPORTER 17
 #define ACCESS_EVA 18
-#define ACCESS_HEADS 19 //!Bridge, EVA storage windoors, gateway shutters, AI integrity restorer, clone record deletion, comms console
+#define ACCESS_HEADS 19 //! Extra parts of the bridge, EVA storage windoors, gateway shutters, AI integrity restorer, clone record deletion, comms console, head of staff programs & specific access
 #define ACCESS_CAPTAIN 20
 #define ACCESS_ALL_PERSONAL_LOCKERS 21
 #define ACCESS_CHAPEL_OFFICE 22
