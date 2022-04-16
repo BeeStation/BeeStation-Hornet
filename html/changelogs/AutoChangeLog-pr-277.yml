@@ -1,5 +1,0 @@
-author: DoctorSquishy
-delete-after: true
-changes:
-  - refactor: base_icon_state is now an atomized variable
-  - code_imp: mechs now use base_icon_state for their icon changes
