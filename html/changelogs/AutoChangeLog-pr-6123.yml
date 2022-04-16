@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Magical EMPs no longer affect magic protected mobs
-  - balance: Magic explosions (fireball) no longer affect magic protected mobs
-  - balance: Holy/cult EMPs no longer affect blessed turfs
-  - balance: Holy/cult EMPs no longer affect mobs with holy protection
