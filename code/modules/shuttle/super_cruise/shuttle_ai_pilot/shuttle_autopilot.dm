@@ -15,8 +15,11 @@
 	if(!activated)
 		return
 	//Drive to the target location
-	shuttle.shuttleTargetPos.x = shuttleTarget.position.x
-	shuttle.shuttleTargetPos.y = shuttleTarget.position.y
+	if(!shuttle.shuttleTargetPos)
+		shuttle.shuttleTargetPos = new(shuttleTarget.position.x, shuttleTarget.position.y)
+	else
+		shuttle.shuttleTargetPos.x = shuttleTarget.position.x
+		shuttle.shuttleTargetPos.y = shuttleTarget.position.y
 	//Dock with the target location
 	if(shuttle.can_dock_with == shuttleTarget)
 		shuttle.commence_docking(shuttleTarget, TRUE)

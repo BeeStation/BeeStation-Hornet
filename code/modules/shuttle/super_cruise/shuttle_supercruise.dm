@@ -19,8 +19,8 @@
 	//Enter the orbital system
 	var/datum/orbital_object/shuttle/our_orbital_body = new shuttle_object_type(
 		new /datum/orbital_vector(orbital_body.position.x + orbital_body.velocity.x, orbital_body.position.y + orbital_body.velocity.y),
-		new /datum/orbital_vector(orbital_body.velocity.x, orbital_body.velocity.y)
+		new /datum/orbital_vector(orbital_body.velocity.x, orbital_body.velocity.y),
+		PRIMARY_ORBITAL_MAP,
+		src
 	)
-	//Linkup
-	our_orbital_body.link_shuttle(src)
 	return our_orbital_body
