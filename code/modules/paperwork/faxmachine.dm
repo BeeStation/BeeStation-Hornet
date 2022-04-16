@@ -16,7 +16,7 @@
 /obj/machinery/faxmachine/attack_hand(mob/living/user)
 	. = ..()
 	add_fingerprint(user)
-	if(!allowed(user))
+	if(!allowed(user) && !(obj_flags & EMAGGED))
 		to_chat(user, "<span class='danger'>Access denied.</span>")
 		return
 	if(!COOLDOWN_FINISHED(src, important_action_cooldown))
