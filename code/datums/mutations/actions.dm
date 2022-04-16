@@ -138,6 +138,7 @@
 	exp_light = 0
 	exp_flash = 0
 	exp_fire= 4
+	magic = FALSE
 
 /datum/mutation/human/void
 	name = "Void Magnet"
