@@ -137,9 +137,14 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 	var/list/results = list()
 
-	for(var/mob/living/carbon/human/H in GLOB.carbon_list)
+	for(var/mob/living/carbon/human/H as() in GLOB.suit_sensors_list)
+		if(!H)
+			stack_trace("Null reference in suit sensors list")
+			GLOB.suit_sensors_list -= H
 
 		var/turf/pos = get_turf(H)
+		if(!pos)
+			continue
 
 		var/virtual_z_level = H.get_virtual_z_level()
 
@@ -150,12 +155,10 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 		// Determine if this person is using nanites for sensors,
 		// in which case the sensors are always set to full detail
-		var/nanite_sensors = (H in SSnanites.nanite_monitored_mobs)
+		var/nanite_sensors = HAS_TRAIT(H, TRAIT_NANITE_SENSORS)
 
 		// Check for a uniform if not using nanites
 		var/obj/item/clothing/under/uniform = H.w_uniform
-		if(!nanite_sensors && !uniform)
-			continue
 
 		//	Radio transmitters are jammed
 		if(nanite_sensors ? H.is_jammed() : uniform.is_jammed())
