@@ -29,7 +29,8 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/auto_name/north{
-	cell_type = /obj/item/stock_parts/cell/high
+	cell_type = /obj/item/stock_parts/cell/high;
+	locked = 0
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
@@ -215,6 +216,9 @@
 /obj/item/gps/mining,
 /obj/item/circuitboard/computer/shuttle/exploration_shuttle,
 /obj/item/stack/sheet/mineral/plasma/fifty,
+/obj/item/electronics/apc,
+/obj/item/wallframe/apc,
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
 "ma" = (
@@ -576,7 +580,6 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/donkpockets,
 /turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "IM" = (

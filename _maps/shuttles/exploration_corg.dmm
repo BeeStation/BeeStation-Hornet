@@ -669,6 +669,10 @@
 /obj/item/circuitboard/computer/shuttle/exploration_shuttle,
 /obj/item/stack/sheet/mineral/plasma/five,
 /obj/effect/turf_decal/bot,
+/obj/item/electronics/apc,
+/obj/item/wallframe/apc,
+/obj/item/stack/cable_coil/red,
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Hm" = (

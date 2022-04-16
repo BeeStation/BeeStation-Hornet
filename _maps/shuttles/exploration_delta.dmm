@@ -61,7 +61,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	locked = 0
+	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 8
 	},
@@ -428,6 +430,10 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/item/wallframe/apc,
+/obj/item/electronics/apc,
+/obj/item/stack/cable_coil/red,
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "ZX" = (

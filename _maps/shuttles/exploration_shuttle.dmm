@@ -197,7 +197,8 @@
 	dir = 1
 	},
 /obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
+	pixel_y = 24;
+	locked = 0
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -212,6 +213,10 @@
 /obj/item/gps/mining,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/multitool,
+/obj/item/wallframe/apc,
+/obj/item/electronics/apc,
+/obj/item/stack/cable_coil/red,
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "D" = (

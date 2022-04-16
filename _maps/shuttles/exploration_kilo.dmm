@@ -25,7 +25,9 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	locked = 0
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -60,10 +62,6 @@
 	dir = 1
 	},
 /obj/item/storage/box/donkpockets,
-/obj/item/storage/box/donkpockets/donkpockethonk{
-	pixel_x = 5;
-	pixel_y = 5
-	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "gz" = (
@@ -165,6 +163,10 @@
 /obj/item/stack/sheet/mineral/plasma/twenty,
 /obj/item/mining_scanner,
 /obj/item/pickaxe,
+/obj/item/wallframe/apc,
+/obj/item/electronics/apc,
+/obj/item/stack/cable_coil/red,
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "pK" = (
@@ -175,6 +177,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/brown,
+/obj/item/storage/toolbox/mechanical,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/exploration)
 "qt" = (
