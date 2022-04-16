@@ -17,7 +17,7 @@
 ///Attempts to override the current AI pilot
 /datum/orbital_object/shuttle/proc/try_override_pilot(forced = FALSE)
 	if(!ai_pilot)
-		return FALSE
+		return TRUE
 	if(!ai_pilot.overridable)
 		return FALSE
 	qdel(ai_pilot)

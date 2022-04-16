@@ -39,6 +39,11 @@
 	//The timer to stop docking
 	var/timer_id
 
+/datum/orbital_object/shuttle/New(datum/orbital_vector/position, datum/orbital_vector/velocity, orbital_map_index, obj/docking_port/mobile/port)
+	if(port)
+		link_shuttle(port)
+	. = ..()
+
 /datum/orbital_object/shuttle/stealth/infiltrator
 	max_thrust = 2.5
 

@@ -281,7 +281,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		if("nautopilot")
 			if(QDELETED(shuttleObject))
 				return
-			if(!shuttleObject.ai_pilot.try_toggle())
+			if(!shuttleObject.ai_pilot?.try_toggle())
 				shuttleObject.try_override_pilot()
 		//Launch the shuttle. Lets do this.
 		if("launch")
@@ -299,8 +299,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		if("setTargetCoords")
 			if(QDELETED(shuttleObject))
 				return
-			if(shuttleObject.ai_pilot)
-				if(!shuttleObject.try_override_pilot())
+			if(shuttleObject.ai_pilot?.is_active())
+				if(!shuttleObject.ai_pilot?.try_toggle() && !shuttleObject.try_override_pilot())
 					say("Shuttle is controlled from an external location.")
 					return
 			var/x = text2num(params["x"])
