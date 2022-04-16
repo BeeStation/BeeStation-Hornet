@@ -58,7 +58,7 @@
 /obj/item/clothing/under/Destroy()
 	. = ..()
 	if(ishuman(loc))
-		GLOB.suit_sensors_list -= loc
+		update_sensors(SENSOR_OFF)
 
 /obj/item/clothing/under/emp_act()
 	. = ..()
@@ -164,9 +164,9 @@
 
 	if(sensor_mode > SENSOR_OFF)
 		GLOB.suit_sensors_list += loc
-		ADD_TRAIT(loc, TRAIT_SUIT_SENSORS)
+		ADD_TRAIT(loc, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
 	else
-		REMOVE_TRAIT(loc, TRAIT_SUIT_SENSORS)
+		REMOVE_TRAIT(loc, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
 		if(!HAS_TRAIT(loc, TRAIT_NANITE_SENSORS))
 			GLOB.suit_sensors_list -= loc
 
