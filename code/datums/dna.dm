@@ -47,12 +47,12 @@
 	destination.set_species(species.type, icon_update=0)
 	destination.dna.features = features.Copy()
 	destination.dna.real_name = real_name
+	destination.dna.temporary_mutations = temporary_mutations.Copy()
 	if(transfer_SE)
 		destination.dna.mutation_index = mutation_index
 		destination.dna.default_mutation_genes = default_mutation_genes
 		for(var/datum/mutation/M as() in mutations)
 			destination.dna.add_mutation(M, M.class)
-		destination.dna.temporary_mutations = temporary_mutations.Copy()
 
 /datum/dna/proc/copy_dna(datum/dna/new_dna)
 	new_dna.unique_enzymes = unique_enzymes
