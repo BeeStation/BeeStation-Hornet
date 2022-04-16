@@ -1,0 +1,19 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Changeling transformation will now give you an ID card that affects runechat
+      colouring
+  - tweak: Adrenaline cost decreased from 30 chemicals to 20
+  - tweak: Biodegrade cost reduced from 30 to 15, now removes legcuffs and will apply
+      acid and stun anyone pulling you
+  - tweak: Digital camo - Completely reworked, now actively uses chemicals and is
+      much better than the mutation, moving slightly increases transparency but moving
+      slowly allows you to maintain decent invisibility.
+  - tweak: Fleshmend - Effect length increased from 10 to 30 seconds, heals per second
+      reduced. No longer heals toxin damage.
+  - tweak: Gaseous pores cost reduced from 2 DNA to 1.
+  - tweak: Dissonant shriek DNA cost increased from 1 to 2, chemical cost increased
+      from 20 to 25 and EMP light ranged reduced from 5 to 3
+  - tweak: False armblade now triggers after 5 to 10 seconds
+  - rscdel: Changeling hivemind has been removed
+  - rscadd: 'Added new changeling ability: Organic mindshield'
