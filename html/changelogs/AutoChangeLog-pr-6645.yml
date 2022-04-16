@@ -1,0 +1,5 @@
+author: Archanial
+delete-after: true
+changes:
+  - rscadd: Added global suit sensors list
+  - bugfix: fixed crew monitor
