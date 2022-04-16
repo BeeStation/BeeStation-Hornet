@@ -12,6 +12,7 @@
 	var/broken_status = RELAY_OK
 	var/obj/machinery/power/deck_relay/below ///The relay that's below us (for bridging powernets)
 	var/obj/machinery/power/deck_relay/above ///The relay that's above us (for bridging powernets)
+	var/last_process = 0
 	anchored = TRUE
 	density = FALSE
 
@@ -105,13 +106,21 @@
 		addtimer(CALLBACK(src, .proc/refresh), 20) //Wait a bit so we can find the one below, then get powering
 	return TRUE
 
-/obj/machinery/power/deck_relay/Initialize(mapload)
+/obj/machinery/power/deck_relay/Initialize()
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/power/deck_relay/LateInitialize()
 	. = ..()
 	find_relays()
+	refresh()
+
+//Sometimes the powernets get dropped, updated, whatever. We need to check more often. This is a quick bodge that'll almost undoubtedly never get fixed, but w/e
+
+/obj/machinery/power/deck_relay/process()
+	if(world.time < last_process+5 SECONDS)
+		return
+	last_process = world.time
 	refresh()
 
 ///Handles re-acquiring + merging powernets found by find_relays()
