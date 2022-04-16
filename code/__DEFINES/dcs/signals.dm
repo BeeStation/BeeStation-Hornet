@@ -548,3 +548,10 @@
 
 #define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
 
+// Exploration related signals
+/// Called when a message is sent to an orbital body: (message)
+#define COMSIG_ORBITAL_BODY_MESSAGE "orbital_body_message"
+/// Called on SSorbits when an orbital body is created on an orbital map: (datum/orbital_object/body, datum/orbital_map/map)
+#define COMSIG_ORBITAL_BODY_CREATED "orbital_body_created"
+/// Called on a space level when generation is complete
+#define COMSIG_SPACE_LEVEL_GENERATED "space_level_generated"

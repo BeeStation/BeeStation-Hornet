@@ -199,11 +199,10 @@
 	switch(SSshuttle.moveShuttle(shuttleId, shuttlePortId, 1))
 		if(0)
 			remove_eye_control(usr)
-			QDEL_NULL(shuttleObject)
 			//Hold the shuttle in the docking position until ready.
 			M.setTimer(INFINITY)
 			say("Waiting for hyperspace lane...")
-			INVOKE_ASYNC(src, .proc/unfreeze_shuttle, M, SSmapping.get_level(eyeobj.z))
+			shuttleObject.begin_dethrottle(M.z)
 		if(1)
 			to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 		else

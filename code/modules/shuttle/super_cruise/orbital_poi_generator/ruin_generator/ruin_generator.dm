@@ -24,7 +24,7 @@
 	catch(var/exception/e)
 		message_admins("Space ruin failed to generate!")
 		stack_trace("Space ruin failed to generate! [e] on [e.file]:[e.line]")
-	space_level.generating = FALSE
+	space_level.finish_generating()
 
 /proc/_generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
 

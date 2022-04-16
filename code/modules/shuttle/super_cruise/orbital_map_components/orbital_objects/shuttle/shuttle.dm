@@ -29,14 +29,15 @@
 	//Semi-Autopilot controls
 	var/datum/orbital_vector/shuttleTargetPos
 
+	//AI Pilot
+	var/datum/shuttle_ai_pilot/ai_pilot = null
+
 	//AUTOPILOT CONTROLS.
-	//Is autopilot enabled.
-	//Determines if the autopilot should fly to the
-	var/autopilot = FALSE
-	//The target, speeds are calulated relative to this.
-	var/datum/orbital_object/shuttleTarget
 	//Cheating autopilots never fail
 	var/cheating_autopilot = FALSE
+
+	//The timer to stop docking
+	var/timer_id
 
 /datum/orbital_object/shuttle/stealth/infiltrator
 	max_thrust = 2.5
@@ -54,7 +55,9 @@
 	can_dock_with = null
 	docking_target = null
 	valid_docks = null
-	shuttleTarget = null
+	if(timer_id)
+		deltimer(timer_id)
+	UnregisterSignal(src, COMSIG_SPACE_LEVEL_GENERATED)
 	. = ..()
 	SSorbits.assoc_shuttles.Remove(shuttle_port_id)
 
@@ -75,18 +78,20 @@
 		//Disable autopilot and thrust while docking to prevent fuel usage.
 		thrust = 0
 		angle = 0
-		autopilot = FALSE
 		return
 	else
 		//If our docking target was deleted, null it to prevent docking interface etc.
 		docking_target = null
 	//I hate that I have to do this, but people keep flying them away.
 	if(position.x > 20000 || position.x < -20000 || position.y > 20000 || position.y < -20000)
-		priority_announce("Bluespace reality fracture detected, source: [name].")
+		SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE, "Local bluespace anomaly detected, shuttle has been transported to a new location.")
 		MOVE_ORBITAL_BODY(src, rand(-2000, 2000), rand(-2000, 2000))
 		velocity.x = 0
 		velocity.y = 0
 		thrust = 0
+	//Process AI action
+	if(ai_pilot)
+		ai_pilot.handle_ai_action(src)
 	//AUTOPILOT
 	handle_autopilot()
 	//Do thrust
@@ -109,16 +114,11 @@
 	return FALSE
 
 /datum/orbital_object/shuttle/proc/handle_autopilot()
-	var/datum/orbital_vector/target_pos = shuttleTargetPos
-
-	if(autopilot)
-		target_pos = shuttleTarget.position
-
-	if(docking_target || !target_pos)
+	if(docking_target || !shuttleTargetPos)
 		return
 
 	//Relative velocity to target needs to point towards target.
-	var/distance_to_target = position.Distance(target_pos)
+	var/distance_to_target = position.Distance(shuttleTargetPos)
 
 	//Cheat and slow down.
 	//Remove this if you make better autopilot logic ever.
@@ -127,7 +127,7 @@
 		velocity.Scale(20)
 
 	//If there is an object in the way, we need to fly around it.
-	var/datum/orbital_vector/next_position = target_pos
+	var/datum/orbital_vector/next_position = shuttleTargetPos
 
 	//Adjust our speed to target to point towards it.
 	var/datum/orbital_vector/desired_velocity = new(next_position.x - position.x, next_position.y - position.y)
@@ -159,35 +159,21 @@
 			else
 				angle = 180 + angle
 
-	//message_admins("Angle: [angle]")
-
 	//FULL SPEED
 	thrust = 100
-	//Auto dock
-	if(shuttleTarget && can_dock_with == shuttleTarget)
-		commence_docking(shuttleTarget, TRUE)
 
 	//Fuck all that, we cheat anyway
 	if(cheating_autopilot)
 		velocity.x = desired_vel_x
 		velocity.y = desired_vel_y
 
+///Public
+///Link this abstract shuttle datum to a physical mobile dock.
+///Parameters:
+/// - dock: The docking port that this shuttle object is linked to
 /datum/orbital_object/shuttle/proc/link_shuttle(obj/docking_port/mobile/dock)
 	name = dock.name
 	shuttle_port_id = dock.id
 	port = dock
 	stealth = dock.hidden
 	SSorbits.assoc_shuttles[shuttle_port_id] = src
-
-/datum/orbital_object/shuttle/proc/commence_docking(datum/orbital_object/z_linked/docking, forced = FALSE)
-	//Check for valid docks on z-level
-	if(!docking.forced_docking && !forced)
-		can_dock_with = docking
-		return
-	//Begin docking.
-	docking_target = docking
-	//Check for ruin stuff
-	var/datum/orbital_object/z_linked/beacon/ruin/ruin_obj = docking_target
-	if(istype(ruin_obj))
-		if(!ruin_obj.linked_z_level)
-			ruin_obj.assign_z_level()
