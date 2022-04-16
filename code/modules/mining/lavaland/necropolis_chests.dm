@@ -289,7 +289,7 @@
 		return
 
 	if(wisp.loc == src)
-		if(wisp.time < world.time)
+		if(COOLDOWN_FINISHED(wisp,wisp_tired))
 			to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 			icon_state = "lantern"
 			wisp.orbit(user, 20)
@@ -333,7 +333,7 @@
 	var/obj/item/wisp_lantern/home
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	var/cooldown = 5 MINUTES
+	COOLDOWN_DECLARE(wisp_tired)
 	var/time
 
 /obj/effect/wisp/orbit(atom/thing, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit)
@@ -367,7 +367,7 @@
 	. = ..()
 	if(home)
 		src.forceMove(home)
-		time = world.time + cooldown
+		COOLDOWN_START(src,wisp_tired, 5 MINUTES)
 		home.icon_state = "lantern-blue"
 		set_light_on(FALSE)
 	else
