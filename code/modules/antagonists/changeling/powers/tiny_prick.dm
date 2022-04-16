@@ -140,7 +140,7 @@
 	..()
 
 	//Activate after 5 to 10 seconds
-	addtimer(CALLBACK(src, .proc/grow_fake, target), rand(50, 100))
+	addtimer(CALLBACK(src, .proc/grow_fake, target), rand(5 SECONDS, 10 SECONDS))
 	return TRUE
 
 /datum/action/changeling/sting/false_armblade/proc/grow_fake(mob/target)

@@ -324,7 +324,7 @@
 	id = "fleshmend"
 	alert_type = /atom/movable/screen/alert/status_effect/fleshmend
 	//Actual healing lasts for 30 seconds
-	duration = 320
+	duration = 32 SECONDS
 	var/ticks_passed = 0
 
 /datum/status_effect/fleshmend/tick()
