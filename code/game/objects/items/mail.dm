@@ -35,7 +35,8 @@
 		/obj/item/stack/spacecash/c1000 									= 1
 	)
 
-	var/static/list/hazard_goodies = list( //if the goodie is dangerous for the station, in this list it goes
+	//if the goodie is dangerous for the station, in this list it goes
+	var/static/list/hazard_goodies = list(
 			/obj/item/gun/ballistic/rifle/boltaction,
 			/obj/item/construction/rcd/arcd,
 			/obj/item/reagent_containers/spray/waterflower/superlube,
@@ -168,7 +169,7 @@
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	qdel(src)
 
-/// Accepts a mind to initialize goodies for a piece of mail.
+// Accepts a mind to initialize goodies for a piece of mail.
 /obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient)
 	switch(rand(1,5))
 		if(1,2)
@@ -201,7 +202,7 @@
 
 	return TRUE
 
-/// Alternate setup, just complete garbage inside and anyone can open
+// Alternate setup, just complete garbage inside and anyone can open
 /obj/item/mail/proc/junk_mail()
 
 	var/obj/junk = /obj/item/paper/fluff/junkmail_generic
@@ -234,7 +235,7 @@
 	if(!hasmob)
 		disposal_holder.destinationTag = sort_tag
 
-/// Subtype that's always junkmail
+// Subtype that's always junkmail
 /obj/item/mail/junkmail/Initialize()
 	. = ..()
 	junk_mail()
@@ -249,7 +250,8 @@
 ** and the maximum capacity of this crate. If N is larger than the number of alive human players, the excess will be junkmail.*/
 /obj/structure/closet/crate/mail/proc/populate(amount)
 	var/mail_count = min(amount, storage_capacity)
-	var/list/mail_recipients = list() //fills the crate for the recipients
+	//fills the crate for the recipients
+	var/list/mail_recipients = list()
 
 	for(var/mob/living/carbon/human/human in GLOB.player_list)
 		// Skip wizards, nuke ops, cyborgs and dead people; Centcom does not send them mail
@@ -312,7 +314,8 @@
 
 /obj/item/paper/fluff/junkmail_redpill/Initialize()
 	. = ..()
-	if(!prob(nuclear_option_odds)) // 1 in 1000 chance of getting 2 random nuke code characters.
+	// 1 in 1000 chance of getting 2 random nuke code characters.
+	if(!prob(nuclear_option_odds))
 		info = "<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]...'"
 		return
 	var/code = random_nukecode()
@@ -321,7 +324,8 @@
 	message_admins("Through junkmail, the self-destruct code was set to \"[code]\".")
 	info = "<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]]...'"
 
-/obj/item/paper/fluff/junkmail_redpill/true //admin letter enabling players to brute force their way through the nuke code if they're so inclined.
+//admin letter enabling players to brute force their way through the nuke code if they're so inclined.
+/obj/item/paper/fluff/junkmail_redpill/true
 	nuclear_option_odds = 100
 
 /obj/item/paper/fluff/junkmail_generic

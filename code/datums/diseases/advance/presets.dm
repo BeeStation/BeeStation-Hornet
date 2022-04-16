@@ -22,7 +22,8 @@
 	copy_type = /datum/disease/advance
 	var/randomname = TRUE
 	var/datum/symptom/setsymptom = null
-	var/max_symptoms_override //this will determine later if the virus is the Original advanced random disease or, the mail version Minor Advanced random disease
+	//this will determine later if the virus is the Original advanced random disease or, the mail version Minor Advanced random disease
+	var/max_symptoms_override
 
 //Randomly generated Disease, for mail!
 /datum/disease/advance/random/minor

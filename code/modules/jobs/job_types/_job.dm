@@ -65,29 +65,29 @@
 
 	var/display_order = JOB_DISPLAY_ORDER_DEFAULT
 
-	/// Goodies that can be received via the mail system.
+	// Goodies that can be received via the mail system.
 	// this is a weighted list.
-	/// Keep the _job definition for this empty and use /obj/item/mail to define general gifts.
+	// Keep the _job definition for this empty and use /obj/item/mail to define general gifts.
 	var/list/mail_goodies = list()
 
-	/// If this job's mail goodies compete with generic goodies.
+	// If this job's mail goodies compete with generic goodies.
 	var/exclusive_mail_goodies = FALSE
 
 	var/gimmick = FALSE //least hacky way i could think of for this
 
-	///Bitfield of departments this job belongs wit
+	//Bitfield of departments this job belongs wit
 	var/departments = NONE
-	///Is this job affected by weird spawns like the ones from station traits
+	//Is this job affected by weird spawns like the ones from station traits
 	var/random_spawns_possible = TRUE
-	/// Should this job be allowed to be picked for the bureaucratic error event?
+	// Should this job be allowed to be picked for the bureaucratic error event?
 	var/allow_bureaucratic_error = TRUE
-	///how at risk is this occupation at for being a carrier of a dormant disease
+	//how at risk is this occupation at for being a carrier of a dormant disease
 	var/biohazard = 10
 
-	///A dictionary of species IDs and a path to the outfit.
+	//A dictionary of species IDs and a path to the outfit.
 	var/list/species_outfits = null
 
-	///RPG job names, for the memes
+	//RPG job names, for the memes
 	var/rpg_title
 
 
@@ -354,7 +354,7 @@
 	types += duffelbag
 	return types
 
-/// An overridable getter for more dynamic goodies.
+// An overridable getter for more dynamic goodies.
 /datum/job/proc/get_mail_goodies(mob/recipient)
 	return mail_goodies
 

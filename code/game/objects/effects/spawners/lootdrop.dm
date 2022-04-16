@@ -555,17 +555,19 @@
 //MAIL DEDICATED - DO NOT PUT IN GAME UNLESS YOU WANT IT//
 //------------------------------------------------------//
 
+// Mail loot spawner. Drop pool of advanced medical tools typically from research. Not endgame content.
 /obj/effect/spawner/lootdrop/surgery_tool_advanced
 	name = "Advanced surgery tool spawner"
-	loot = list( // Mail loot spawner. Drop pool of advanced medical tools typically from research. Not endgame content.
+	loot = list(
 		/obj/item/scalpel/advanced,
 		/obj/item/retractor/advanced,
 		/obj/item/surgicaldrill/advanced
 	)
 
+// Mail loot spawner. Some sort of random and rare surgical tool. Alien tech found here.
 /obj/effect/spawner/lootdrop/surgery_tool_alien
 	name = "Rare surgery tool spawner"
-	loot = list( // Mail loot spawner. Some sort of random and rare surgical tool. Alien tech found here.
+	loot = list(
 		/obj/item/scalpel/alien,
 		/obj/item/hemostat/alien,
 		/obj/item/retractor/alien,
@@ -574,9 +576,10 @@
 		/obj/item/cautery/alien,
 	)
 
+// Mail loot spawner. The donut that should be more common, but no chef ever cook.
 /obj/effect/spawner/lootdrop/donut
 	name = "common donut spawner"
-	loot = list( // Mail loot spawner. The donut that should be more common, but no chef ever cook.
+	loot = list(
 		/obj/item/reagent_containers/food/snacks/donut/berry,
 		/obj/item/reagent_containers/food/snacks/donut/apple,
 		/obj/item/reagent_containers/food/snacks/donut/caramel,
@@ -584,9 +587,10 @@
 		/obj/item/reagent_containers/food/snacks/donut/matcha,
 	)
 
+// Mail loot spawner. The donut that should be rareley cooked, but no chef WILL ever cook.
 /obj/effect/spawner/lootdrop/donut_rare
 	name = "rare donut spawner"
-	loot = list( // Mail loot spawner. The donut that should be rareley cooked, but no chef WILL ever cook.
+	loot = list(
 		/obj/item/reagent_containers/food/snacks/donut/meat,
 		/obj/item/reagent_containers/food/snacks/donut/trumpet,
 		/obj/item/reagent_containers/food/snacks/donut/blumpkin,
@@ -594,9 +598,10 @@
 		/obj/item/reagent_containers/food/snacks/donut/chaos
 	)
 
+// Mail loot spawner. free genetic material.
 /obj/effect/spawner/lootdrop/chromosome
-	name = "rare donut spawner"
-	loot = list( // Mail loot spawner. free genetic material, 'nuff said
+	name = "Chromosome spawner"
+	loot = list(
 		/obj/item/chromosome/energy,
 		/obj/item/chromosome/power,
 		/obj/item/chromosome/reinforcer,

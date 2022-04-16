@@ -10,9 +10,9 @@
 /datum/element/item_scaling
 	element_flags = ELEMENT_BESPOKE
 	id_arg_index = 2
-	/// Scaling value when the attached item is in the overworld (on a turf).
+	// Scaling value when the attached item is in the overworld (on a turf).
 	var/overworld_scaling
-	/// Scaling value when the attached item is in a storage component or inventory slot.
+	// Scaling value when the attached item is in a storage component or inventory slot.
 	var/storage_scaling
 
 /**
