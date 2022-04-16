@@ -18,7 +18,7 @@ endmap
 
 map corgstation
 	minplayers 15
-	disabled
+	votable
 endmap
 
 map boxstation
@@ -51,9 +51,9 @@ map flandstation
 	votable
 endmap
 
-map singlecorgstation
+map multicorgstation
 	minplayers 15
-	votable
+	disabled
 endmap
 
 #Debug Maps, you probably don't want these enabled.
