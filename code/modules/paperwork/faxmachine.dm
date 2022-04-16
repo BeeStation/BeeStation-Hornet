@@ -7,6 +7,7 @@
 	circuit = /obj/item/circuitboard/machine/faxmachine
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
+	req_access = list(ACCESS_CAA)
 	density = TRUE
 	idle_power_usage = 30
 	active_power_usage = 200
@@ -15,6 +16,9 @@
 /obj/machinery/faxmachine/attack_hand(mob/living/user)
 	. = ..()
 	add_fingerprint(user)
+	if(!allowed(user))
+		to_chat(user, "<span class='danger'>Access denied.</span>")
+		return
 	if(!COOLDOWN_FINISHED(src, important_action_cooldown))
 		to_chat(user, "<span class='warning'>The subspace communications transmissions system is on cooldown!</span>")
 		return
