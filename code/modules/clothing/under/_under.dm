@@ -164,8 +164,11 @@
 
 	if(sensor_mode > SENSOR_OFF)
 		GLOB.suit_sensors_list += loc
+		ADD_TRAIT(loc, TRAIT_SUIT_SENSORS)
 	else
-		GLOB.suit_sensors_list -= loc
+		REMOVE_TRAIT(loc, TRAIT_SUIT_SENSORS)
+		if(!HAS_TRAIT(loc, TRAIT_NANITE_SENSORS))
+			GLOB.suit_sensors_list -= loc
 
 /obj/item/clothing/under/examine(mob/user)
 	. = ..()
