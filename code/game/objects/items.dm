@@ -667,7 +667,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(item_flags & SLOWS_WHILE_IN_HAND)
 		user.update_equipment_speed_mods()
 	remove_outline()
-	if(verbs && user.client)
+	if(verbs && user?.client)
 		user.client.remove_verbs(verbs)
 
 // called just as an item is picked up (loc is not yet changed)
@@ -731,7 +731,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 //This proc is executed when someone clicks the on-screen UI button.
 //The default action is attack_self().
 //Checks before we get to here are: mob is alive, mob is not restrained, stunned, asleep, resting, laying, item is on the mob.
-/obj/item/proc/ui_action_click(mob/user, actiontype)
+/obj/item/proc/ui_action_click(mob/user, datum/actiontype)
 	attack_self(user)
 
 /obj/item/proc/IsReflect(var/def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit

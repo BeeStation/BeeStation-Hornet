@@ -196,7 +196,7 @@
 			new /obj/item/clothing/gloves/color/black(src)
 			new /obj/item/clothing/mask/chameleon(src)
 			new /obj/item/clothing/suit/hooded/wintercoat(src)
-			new /obj/item/clothing/shoes/winterboots(src)
+			new /obj/item/clothing/shoes/winterboots/noslip(src)
 			new /obj/item/grenade/gluon(src)
 			new /obj/item/grenade/gluon(src)
 			new /obj/item/grenade/gluon(src)
