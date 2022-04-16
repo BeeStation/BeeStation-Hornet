@@ -263,7 +263,7 @@
 		holder.icon_state = "hud_imp_loyal"
 
 /mob/living/proc/has_mindshield_hud_icon()
-	if(istype(src.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		return FALSE
 	return HAS_TRAIT(src, TRAIT_MINDSHIELD) || HAS_TRAIT(src, TRAIT_FAKE_MINDSHIELD)
 
