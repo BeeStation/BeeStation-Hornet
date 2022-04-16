@@ -51,11 +51,6 @@ map flandstation
 	votable
 endmap
 
-map multicorgstation
-	minplayers 15
-	disabled
-endmap
-
 #Debug Maps, you probably don't want these enabled.
 
 map runtimestation
