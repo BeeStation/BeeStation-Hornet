@@ -1,0 +1,8 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - rscadd: BoxStation and MetaStation no longer only have a Super Matter crystal.
+      You may find yourself having to setup a Singularity engine, or even a Tesla
+      to generate power. All three engine types can spawn at roundstart, but only
+      one WILL spawn.
+  - rscadd: Magboots to Engineer EVA Lockers for both MetaStation and BoxStation
