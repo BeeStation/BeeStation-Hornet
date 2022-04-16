@@ -357,7 +357,6 @@
 	var/chem_per_tick = 1
 
 /datum/status_effect/changeling/on_apply()
-	SHOULD_CALL_PARENT(TRUE)
 	return is_changeling(owner)
 
 /datum/status_effect/changeling/tick()
