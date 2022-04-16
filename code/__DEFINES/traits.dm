@@ -189,6 +189,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOSOFTCRIT		"nosoftcrit"
 #define TRAIT_NOSTAMCRIT		"nostamcrit"
 #define TRAIT_MINDSHIELD		"mindshield"
+#define TRAIT_FAKE_MINDSHIELD	"fakemindshield"
 #define TRAIT_DISSECTED			"dissected"
 #define TRAIT_SIXTHSENSE		"sixth_sense" //I can hear dead people
 #define TRAIT_FEARLESS			"fearless"
@@ -312,7 +313,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CLONING_POD_TRAIT "cloning-pod"
 #define STATUE_MUTE "statue"
 #define CHANGELING_DRAIN "drain"
-#define CHANGELING_HIVEMIND_MUTE "ling_mute"
 #define MAGIC_BLIND "magic_blind"
 #define HIGHLANDER "highlander"
 #define TRAIT_HULK "hulk"
