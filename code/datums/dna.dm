@@ -52,7 +52,8 @@
 		destination.dna.mutation_index = mutation_index
 		destination.dna.default_mutation_genes = default_mutation_genes
 		for(var/datum/mutation/M as() in mutations)
-			destination.dna.add_mutation(M, M.class)
+			if(!istype(M, RACEMUT))
+				destination.dna.add_mutation(M, M.class)
 
 /datum/dna/proc/copy_dna(datum/dna/new_dna)
 	new_dna.unique_enzymes = unique_enzymes
