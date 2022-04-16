@@ -24,7 +24,7 @@
 	var/enabled = TRUE
 	///Is the button currently being hovered over with the mouse?
 	var/highlighted = FALSE
-	var/icon/base_icon_state = 'monkestation/icons/hud/lobby/background.dmi'
+	base_icon_state = 'monkestation/icons/hud/lobby/background.dmi'
 
 /atom/movable/screen/lobby/button/Click(location, control, params)
 	. = ..()

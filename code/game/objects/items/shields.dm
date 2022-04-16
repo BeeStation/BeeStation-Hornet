@@ -258,7 +258,7 @@
 	max_integrity = 50
 	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_PROJECTILE
-	var/base_icon_state = "eshield" // [base_icon_state]1 for expanded, [base_icon_state]0 for contracted
+	base_icon_state = "eshield" // [base_icon_state]1 for expanded, [base_icon_state]0 for contracted
 	var/on_force = 10
 	var/on_throwforce = 8
 	var/on_throw_speed = 2
