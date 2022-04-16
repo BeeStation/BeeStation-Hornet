@@ -80,7 +80,8 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 					D.visible_message("<span class='notice'>[D] whirs as it automatically lifts access requirements!</span>")
 					playsound(D, 'sound/machines/boltsup.ogg', 50, TRUE)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, get_security_level())
-		SSnightshift.check_nightshift()
+		if(CONFIG_GET(flag/enable_night_shifts))
+			SSnightshift.check_nightshift()
 	else
 		return
 
