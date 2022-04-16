@@ -598,6 +598,7 @@ update_label("John Doe", "Clowny")
 	registered_name = "Scum"
 	var/goal = 0 //How far from freedom?
 	var/points = 0
+	var/permanent = FALSE
 
 /obj/item/card/id/prisoner/attack_self(mob/user)
 	to_chat(usr, "<span class='notice'>You have accumulated [points] out of the [goal] points you need for freedom.</span>")
