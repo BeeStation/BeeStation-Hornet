@@ -312,8 +312,12 @@
 /area/science/test_area)
 "bw" = (
 /obj/machinery/computer/robotics,
-/obj/machinery/status_display/ai{
-	pixel_y = 30
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Research Director's Office";
+	departmentType = 5;
+	name = "Research Director's RC";
+	pixel_y = 32
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
@@ -534,6 +538,12 @@
 /area/space)
 "cx" = (
 /obj/structure/filingcabinet/chestdrawer,
+/obj/machinery/requests_console{
+	department = "Toxins Storage Lab";
+	name = "Toxins Storage RC";
+	receive_ore_updates = 1;
+	pixel_y = -32
+	},
 /turf/open/floor/plasteel,
 /area/science/storage)
 "cD" = (
@@ -713,6 +723,9 @@
 /area/science/robotics)
 "dB" = (
 /obj/structure/closet/secure_closet/RD,
+/obj/machinery/status_display/ai{
+	pixel_x = 32
+	},
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -1877,6 +1890,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera/autoname,
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
 /turf/open/floor/carpet/blue,
 /area/bridge/meeting_room/council)
 "jy" = (
@@ -1971,11 +1987,6 @@
 	pixel_x = 4;
 	pixel_y = 6
 	},
-/obj/machinery/camera{
-	c_tag = "Research Director's Office";
-	dir = 1;
-	network = list("ss13","rd")
-	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "jT" = (
@@ -2012,6 +2023,12 @@
 "kg" = (
 /obj/machinery/nanite_chamber,
 /obj/effect/turf_decal/bot,
+/obj/machinery/requests_console{
+	department = "Nanite Lab";
+	name = "Nanite Lab RC";
+	pixel_y = 28;
+	receive_ore_updates = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
 "ki" = (
@@ -2615,6 +2632,14 @@
 "nv" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
+	},
+/obj/machinery/requests_console{
+	department = "Heads of Staff Meeting Room";
+	name = "Confrence Room";
+	receive_ore_updates = 1;
+	departmentType = 5;
+	announcementConsole = 1;
+	pixel_y = 30
 	},
 /turf/open/floor/carpet/blue,
 /area/bridge/meeting_room/council)
@@ -4985,6 +5010,9 @@
 	dir = 4;
 	network = list("aiupload")
 	},
+/obj/item/radio/intercom{
+	pixel_x = -29
+	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
 "zn" = (
@@ -6162,9 +6190,6 @@
 /obj/item/target,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/camera/preset/toxins{
-	dir = 4
-	},
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "Hi" = (
@@ -6370,6 +6395,13 @@
 	pixel_x = -3
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/requests_console{
+	department = "Robotics";
+	name = "Robotics RC";
+	pixel_x = 32;
+	receive_ore_updates = 1;
+	departmentType = 5
+	},
 /turf/open/floor/plasteel,
 /area/science/robotics)
 "Ij" = (
@@ -6864,6 +6896,9 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
+/obj/machinery/camera/preset/toxins{
+	dir = 4
+	},
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "KF" = (
@@ -7029,6 +7064,9 @@
 /obj/item/clothing/glasses/blindfold,
 /obj/item/clothing/suit/straight_jacket,
 /obj/item/tank/internals/anesthetic,
+/obj/item/radio/intercom{
+	pixel_x = -29
+	},
 /turf/open/floor/plasteel/white,
 /area/security/prison)
 "Ls" = (
@@ -7585,6 +7623,21 @@
 "Ol" = (
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry/upper)
+"Om" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/requests_console{
+	department = "AI Upload";
+	name = "AI Upload RC";
+	pixel_x = 32;
+	receive_ore_updates = 1;
+	departmentType = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/turret_protected/ai_upload)
 "Op" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -8884,6 +8937,9 @@
 	pixel_y = 4
 	},
 /obj/item/taperecorder,
+/obj/machinery/camera/autoname{
+	dir = 10
+	},
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -9278,6 +9334,17 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
+"YW" = (
+/obj/machinery/requests_console{
+	department = "AI Chamber";
+	name = "AI Chamber RC";
+	pixel_x = 32;
+	receive_ore_updates = 1;
+	departmentType = 5;
+	announcementConsole = 1
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
 "YX" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -9436,10 +9503,6 @@
 /obj/machinery/light{
 	dir = 1;
 	light_color = "#cee5d2"
-	},
-/obj/machinery/camera{
-	c_tag = "Tech Storage";
-	dir = 2
 	},
 /obj/effect/spawner/lootdrop/techstorage/service,
 /obj/effect/turf_decal/tile/green{
@@ -45358,7 +45421,7 @@ PK
 xO
 Xx
 rl
-xO
+Om
 km
 zD
 qo
@@ -48174,7 +48237,7 @@ ds
 Df
 yT
 cn
-Mp
+YW
 Mp
 ff
 Mp
