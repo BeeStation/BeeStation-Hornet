@@ -141,7 +141,7 @@
 				shuttleObject.commence_docking(z_linked, TRUE)
 		shuttleObject.docking_frozen = TRUE
 		//Dock
-		if(!random_drop())
+		if(!shuttleObject.random_drop())
 			say("Failed to drop at a random location. Please select a location.")
 			shuttleObject.docking_frozen = FALSE
 		return TRUE

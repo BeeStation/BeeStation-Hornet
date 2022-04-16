@@ -20,7 +20,7 @@
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = TRUE
 	_generate_space_ruin(center_x, center_y, center_z, border_x, border_y, linked_objective, forced_decoration, ruin_event)
-	space_level.generating = FALSE
+	space_level.finish_generating()
 
 /proc/_generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
 

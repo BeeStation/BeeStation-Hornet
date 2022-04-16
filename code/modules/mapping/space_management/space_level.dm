@@ -19,3 +19,7 @@
 	if(orbital_body_type)
 		orbital_body = new orbital_body_type()
 		orbital_body.link_to_z(src)
+
+/datum/space_level/proc/finish_generating()
+	generating = FALSE
+	SEND_SIGNAL(src, COMSIG_SPACE_LEVEL_GENERATED)
