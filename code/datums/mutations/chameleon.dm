@@ -7,6 +7,7 @@
 	text_gain_indication = "<span class='notice'>You feel one with your surroundings.</span>"
 	text_lose_indication = "<span class='notice'>You feel oddly exposed.</span>"
 	instability = 25
+	var/effect_speed = 25
 
 /datum/mutation/chameleon/on_acquiring(mob/living/carbon/owner)
 	if(..())
@@ -14,7 +15,7 @@
 	owner.alpha = CHAMELEON_MUTATION_DEFAULT_TRANSPARENCY
 
 /datum/mutation/chameleon/on_life()
-	owner.alpha = max(0, owner.alpha - 25)
+	owner.alpha = max(0, owner.alpha - effect_speed)
 
 /datum/mutation/chameleon/on_move()
 	owner.alpha = CHAMELEON_MUTATION_DEFAULT_TRANSPARENCY
