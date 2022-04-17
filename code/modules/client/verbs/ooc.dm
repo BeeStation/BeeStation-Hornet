@@ -16,7 +16,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		if(!GLOB.ooc_allowed)
 			to_chat(src, "<span class='danger'>OOC is globally muted.</span>")
 			return
-		if(SSticker.current_state < GAME_STATE_PLAYING && istype(mob, /mob/dead/new_player))
+		if(SSticker.current_state < GAME_STATE_PLAYING && !istype(mob, /mob/dead/new_player))
 			to_chat(src, "<span class='danger'>Observers cannot use OOC pre-game.</span>")
 			return
 		if(mob.stat == DEAD && !GLOB.dooc_allowed)
