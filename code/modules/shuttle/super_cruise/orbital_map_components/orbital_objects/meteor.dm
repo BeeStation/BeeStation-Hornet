@@ -5,7 +5,6 @@
 	render_mode = RENDER_MODE_SHUTTLE
 	priority = -1
 	//Target of the meteor
-	var/referencedOrbitalObjectVarName = "target"
 	var/datum/orbital_object/target
 	var/list/meteor_types
 	var/start_tick
@@ -22,7 +21,7 @@
 	radius = rand(10, 50)
 
 /datum/orbital_object/meteor/Destroy()
-	target.UnregisterReference(src)
+	target = null
 	meteor_types = null
 	. = ..()
 

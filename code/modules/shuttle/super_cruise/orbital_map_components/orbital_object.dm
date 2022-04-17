@@ -327,15 +327,3 @@
 
 /datum/orbital_object/proc/post_map_setup()
 	return
-
-//Registers that something references this object, prevents potential hard dels
-//Simple system, variable name must be constant
-//This is super weird but helps prevent hard dels in an easier way that doesn't require
-//repeating register signal code.
-/datum/orbital_object/proc/RegisterReference(datum/source_object)
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, /datum/orbital_object.proc/UnregisterReference)
-	source_object.vars[source_object.vars["referencedOrbitalObjectVarName"]] = src
-
-/datum/orbital_object/proc/UnregisterReference(datum/source_object)
-	UnregisterSignal(src, COMSIG_PARENT_QDELETING)
-	source_object.vars[source_object.vars["referencedOrbitalObjectVarName"]] = null
