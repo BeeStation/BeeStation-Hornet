@@ -105,9 +105,8 @@
 		machine.selected_material = null
 		machine.selected_alloy = href_list["alloy"]
 
-	if(href_list["set_on"])
-		machine.on = (href_list["set_on"] == "on")
-		machine.begin_processing()
+	if(href_list["toggle_on"])
+		machine.toggle_on()
 
 	if(href_list["redeem"])
 		var/mob/M = usr
@@ -175,8 +174,8 @@
 /obj/machinery/mineral/processing_unit/proc/get_machine_data()
 	var/dat = "<b>Smelter control console</b><br><br>"
 
-	//On or off
-	dat += "Machine is currently [ on ? "<A href='?src=[REF(CONSOLE)];set_on=off'>On</A>" : "<A href='?src=[REF(CONSOLE)];set_on=on'>Off</A>"]"
+	//On or off - on the console so we don't fail can_interact when doing Topic
+	dat += "Machine is currently <A href='?src=[REF(CONSOLE)];toggle_on=1'>[ on ? "On" : "Off"]</A>"
 
 	//Points
 	dat += "<br><br>"
@@ -215,6 +214,11 @@
 		return
 	if(istype(target, /obj/item/stack/ore))
 		process_ore(target)
+
+/obj/machinery/mineral/processing_unit/proc/toggle_on()
+	on = !on
+	if(on)
+		begin_processing()
 
 /obj/machinery/mineral/processing_unit/process(delta_time)
 	if(on)
