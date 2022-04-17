@@ -14,6 +14,7 @@
 	var/processing = FALSE
 	var/rating_speed = 1
 	var/rating_amount = 1
+	processing_flags = NONE
 
 /obj/machinery/processor/RefreshParts()
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)

@@ -114,10 +114,10 @@
 /obj/machinery/porta_turret/proc/check_should_process()
 	if (datum_flags & DF_ISPROCESSING)
 		if (!on || !anchored || (stat & BROKEN) || !powered())
-			STOP_PROCESSING(SSfastprocess, src)
+			end_processing()
 	else
 		if (on && anchored && !(stat & BROKEN) && powered())
-			START_PROCESSING(SSfastprocess, src)
+			begin_processing()
 
 /obj/machinery/porta_turret/update_icon()
 	cut_overlays()

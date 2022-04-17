@@ -2,7 +2,8 @@
 
 /obj/machinery/vendor
 	name = "equipment vendor"
-	speed_process = TRUE
+	processing_flags = START_PROCESSING_MANUALLY
+	subsystem_type = /datum/controller/subsystem/processing/fastprocess
 	density = TRUE
 
 	var/icon_deny
