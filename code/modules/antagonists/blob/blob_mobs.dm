@@ -215,7 +215,7 @@
 		approaching_target = TRUE
 	else
 		approaching_target = FALSE
-	SSmove_manager.advanced_jps_move(src, target,delay, minimum_distance = minimum_distance)
+	SSmove_manager.hostile_jps_move(src, target,delay, minimum_distance = minimum_distance)
 
 /mob/living/simple_animal/hostile/blob/blobspore/weak
 	name = "fragile blob spore"

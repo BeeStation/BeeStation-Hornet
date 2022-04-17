@@ -377,9 +377,9 @@
 		INVOKE_ASYNC(src, .proc/recalculate_path)
 		return FALSE
 /**
- * Used for following advanced jps defined paths.
+ * Used for following jps defined paths.
  * Unlike the previous one this one is designed to work for hostile mobs it includes some additional checks for the move proc and also
- * a fallback solution for pathing
+ * a fallback solution for pathing this fallback is mainly to allow the mob to go up to things like airlocks and glass and try to break those.
  * its not advised to set a repath delay bigger than 0 because our target is most likely a mob that might be running away
  *
  * Returns TRUE if the loop sucessfully started, or FALSE if it failed
@@ -401,7 +401,7 @@
  * flags - Set of bitflags that effect move loop behavior in some way. Check _DEFINES/movement.dm
  *
 **/
-/datum/controller/subsystem/move_manager/proc/advanced_jps_move(moving,
+/datum/controller/subsystem/move_manager/proc/hostile_jps_move(moving,
 	chasing,
 	delay,
 	timeout,
@@ -418,7 +418,7 @@
 	datum/extra_info)
 	return add_to_loop(moving,
 		subsystem,
-		/datum/move_loop/has_target/jps/advanced,
+		/datum/move_loop/has_target/jps/hostile,
 		priority,
 		flags,
 		extra_info,
@@ -433,10 +433,10 @@
 		avoid,
 		skip_first)
 
-/datum/move_loop/has_target/jps/advanced
+/datum/move_loop/has_target/jps/hostile
 	var/target_turf
 
-/datum/move_loop/has_target/jps/advanced/recalculate_path()
+/datum/move_loop/has_target/jps/hostile/recalculate_path()
 	. = ..()
 	// Implementing pathfinding fallback solution
 	if(!movement_path)
@@ -461,7 +461,7 @@
 			movement_path = get_path_to(moving, target_new, max_path_length, 0, id, simulated_only, avoid, skip_first) //here the min distance is always 0 because we need to stand beside the blocker
 	target_turf = get_turf(target)
 
-/datum/move_loop/has_target/jps/advanced/move()
+/datum/move_loop/has_target/jps/hostile/move()
 	var/atom/movable/atom = moving
 	if(!length(movement_path))
 		INVOKE_ASYNC(src, .proc/recalculate_path)
@@ -483,7 +483,7 @@
 		INVOKE_ASYNC(src, .proc/recalculate_path)
 		return FALSE
 
-/datum/move_loop/has_target/jps/advanced/Destroy()
+/datum/move_loop/has_target/jps/hostile/Destroy()
 	target_turf = null
 	return ..()
 
