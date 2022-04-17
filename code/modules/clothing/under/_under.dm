@@ -157,20 +157,24 @@
 /obj/item/clothing/under/proc/update_sensors(new_mode, forced = FALSE)
 	var/old_mode = sensor_mode
 	sensor_mode = new_mode
-	if(!forced || (old_mode == new_mode || (old_mode != SENSOR_OFF && new_mode != SENSOR_OFF)))
+	if(!forced && (old_mode == new_mode || (old_mode != SENSOR_OFF && new_mode != SENSOR_OFF)))
 		return
 	if(!ishuman(loc) || istype(loc, /mob/living/carbon/human/dummy))
 		return
+		
+	if(sensor_mode > SENSOR_OFF)
+		if(HAS_TRAIT(loc, TRAIT_SUIT_SENSORS))
+			return
+		ADD_TRAIT(loc, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
+		if(!HAS_TRAIT(loc, TRAIT_NANITE_SENSORS))
+			GLOB.suit_sensors_list += loc
+	else
+		if(!HAS_TRAIT(loc, TRAIT_SUIT_SENSORS))
+			return
+		REMOVE_TRAIT(loc, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
+		if(!HAS_TRAIT(loc, TRAIT_NANITE_SENSORS))
+			GLOB.suit_sensors_list -= loc
 
-	if(!HAS_TRAIT(loc, TRAIT_SUIT_SENSORS))
-		if(sensor_mode > SENSOR_OFF)
-			ADD_TRAIT(loc, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
-			if(!HAS_TRAIT(loc, TRAIT_NANITE_SENSORS))
-				GLOB.suit_sensors_list += loc
-		else
-			REMOVE_TRAIT(loc, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
-			if(!HAS_TRAIT(loc, TRAIT_NANITE_SENSORS))
-				GLOB.suit_sensors_list -= loc
 
 /obj/item/clothing/under/examine(mob/user)
 	. = ..()
