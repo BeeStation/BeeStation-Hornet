@@ -168,8 +168,9 @@
 //Monified turns you into a monkey.
 /datum/mutation/race
 	name = "Monkified"
-	desc = "A strange genome, believing to be what differentiates monkeys from humans."
+	desc = "A strange genome, believed to be what differentiates monkeys from humans."
 	quality = NEGATIVE
+	mobtypes_allowed = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	locked = TRUE //Species specific, keep out of actual gene pool
 
 /datum/mutation/race/on_acquiring(mob/living/carbon/human/owner)
