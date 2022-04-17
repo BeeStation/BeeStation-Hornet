@@ -46,7 +46,7 @@
 		meteor.velocity.x = (station_target.position.x - meteor.start_x * 10) / meteor_time
 		meteor.velocity.y = (station_target.position.y - meteor.start_y * 10) / meteor_time
 		meteor.end_tick = world.time + meteor_time
-		station_target.RegisterReference(meteor)
+		meteor.target = station_target
 
 /datum/round_event/meteor_wave/on_admin_trigger()
 	if(alert(usr, "Trigger meteors instantly? (This will not change the alert, just send them quicker. Nobody will ever notice!)", "Meteor Trigger", "Yes", "No") == "Yes")
