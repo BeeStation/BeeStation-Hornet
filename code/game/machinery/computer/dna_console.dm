@@ -681,7 +681,7 @@
 				else
 					injectorready = world.time + INJECTOR_TIMEOUT * 0.1
 
-				if(scanner_occupant.client)
+				if(scanner_occupant?.client)
 					var/c_typepath = generate_chromosome()
 					var/obj/item/chromosome/CM = new c_typepath (drop_location())
 					if(LAZYLEN(stored_chromosomes) < max_chromosomes)

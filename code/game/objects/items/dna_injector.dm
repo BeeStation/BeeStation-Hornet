@@ -46,14 +46,15 @@
 		return TRUE
 	return FALSE
 
-/obj/item/dnainjector/attack(mob/target, mob/user)
+/obj/item/dnainjector/attack(mob/living/target, mob/living/user)
+	if(!user.IsAdvancedToolUser())
+		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		return
 	if(used)
 		to_chat(user, "<span class='warning'>This injector is used up!</span>")
 		return
-	if(ishuman(target))
-		var/mob/living/carbon/human/humantarget = target
-		if (!humantarget.can_inject(user, 1))
-			return
+	if(!target.can_inject(user, TRUE))
+		return
 	log_combat(user, target, "attempted to inject", src)
 
 	if(target != user)

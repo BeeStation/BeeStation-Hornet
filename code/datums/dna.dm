@@ -198,7 +198,7 @@
 /datum/dna/proc/force_give(datum/mutation/HM)
 	if(holder && HM)
 		if(HM.class == MUT_NORMAL)
-			set_se(1, HM)
+			set_se(TRUE, HM)
 		. = HM.on_acquiring(holder)
 		if(.)
 			qdel(HM)
@@ -207,7 +207,7 @@
 //Use remove_mutation instead
 /datum/dna/proc/force_lose(datum/mutation/HM)
 	if(holder && (HM in mutations))
-		set_se(0, HM)
+		set_se(FALSE, HM)
 		. = HM.on_losing(holder)
 		update_instability(FALSE)
 		return
@@ -616,7 +616,7 @@
 				for(var/obj/item/organ/O in internal_organs) //make sure we dont get an implant or cavity item
 					elligible_organs += O
 				vomit(20, TRUE)
-				if(elligible_organs.len)
+				if(length(elligible_organs))
 					var/obj/item/organ/O = pick(elligible_organs)
 					O.Remove(src)
 					visible_message("<span class='danger'>[src] vomits up their [O.name]!</span>", "<span class='danger'>You vomit up your [O.name]!</span>") //no "vomit up your the heart"

@@ -50,6 +50,7 @@
 	//handle DNA and other attributes
 	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
 	O.set_species(/datum/species/monkey)
+	O.dna.set_se(TRUE, GET_INITIALIZED_MUTATION(RACEMUT))
 	O.updateappearance(icon_update=0)
 
 	if(suiciding)
@@ -360,6 +361,7 @@
 		O.equip_to_appropriate_slot(C)
 
 	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
+	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(RACEMUT))
 	O.updateappearance(mutcolor_update=1)
 
 	if(findtext(O.dna.real_name, "monkey", 1, 7)) //7 == length("monkey") + 1

@@ -9,7 +9,7 @@
 	var/obj/effect/proc_holder/spell/power
 	var/layer_used = MUTATIONS_LAYER //which mutation layer to use
 	var/list/species_allowed = list() //to restrict mutation to only certain species
-	var/list/mobtypes_allowed = list()
+	var/list/mobtypes_allowed = list() //to restrict mutation to only certain mobs
 	var/health_req //minimum health required to acquire the mutation
 	var/limb_req //required limbs to acquire this mutation
 	var/datum/dna/dna
@@ -70,7 +70,7 @@
 	dna.mutations += src
 	if(text_gain_indication)
 		to_chat(owner, text_gain_indication)
-	if(visual_indicators.len)
+	if(length(visual_indicators))
 		var/list/mut_overlay = list(get_visual_indicator())
 		if(owner.overlays_standing[layer_used])
 			mut_overlay = owner.overlays_standing[layer_used]
@@ -103,7 +103,7 @@
 	if(owner && istype(owner) && (owner.dna.mutations.Remove(src)))
 		if(text_lose_indication && owner.stat != DEAD)
 			to_chat(owner, text_lose_indication)
-		if(visual_indicators.len)
+		if(length(visual_indicators))
 			var/list/mut_overlay = list()
 			if(owner.overlays_standing[layer_used])
 				mut_overlay = owner.overlays_standing[layer_used]
@@ -128,7 +128,7 @@
 		if(length(CM.species_allowed) && !CM.species_allowed.Find(dna.species.id))
 			dna.force_lose(CM) //shouldn't have that mutation at all
 			continue
-		if(CM.visual_indicators.len)
+		if(length(CM.visual_indicators))
 			var/list/mut_overlay = list()
 			if(overlays_standing[CM.layer_used])
 				mut_overlay = overlays_standing[CM.layer_used]
