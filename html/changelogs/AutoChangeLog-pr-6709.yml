@@ -1,4 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - bugfix: fixed a null is jammed runtime in crew sensors
