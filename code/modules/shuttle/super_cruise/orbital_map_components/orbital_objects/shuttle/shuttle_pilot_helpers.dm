@@ -10,6 +10,7 @@
 ///private
 ///Signal handler that handles dereferencing the ai_pilot when it is deleted
 /datum/orbital_object/shuttle/proc/on_pilot_deleted(datum/source, force)
+	PRIVATE_PROC(TRUE)
 	UnregisterSignal(ai_pilot, COMSIG_PARENT_QDELETING)
 	ai_pilot = null
 
