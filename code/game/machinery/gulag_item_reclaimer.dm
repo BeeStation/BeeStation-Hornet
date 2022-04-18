@@ -48,7 +48,7 @@
 	var/obj/item/card/id/I = user.get_idcard(TRUE)
 	if(istype(I, /obj/item/card/id/prisoner))
 		var/obj/item/card/id/prisoner/P = I
-		if(P.points >= P.goal)
+		if(P.mining_points >= P.goal)
 			can_reclaim = TRUE
 
 	var/list/mobs = list()

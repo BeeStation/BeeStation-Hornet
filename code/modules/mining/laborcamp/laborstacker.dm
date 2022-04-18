@@ -72,12 +72,12 @@ GLOBAL_LIST(labor_sheet_values)
 	var/obj/item/card/id/I = user.get_idcard(TRUE)
 	if(istype(I, /obj/item/card/id/prisoner))
 		var/obj/item/card/id/prisoner/P = I
-		data["id_points"] = P.points
-		if(P.points >= P.goal)
+		data["id_points"] = P.mining_points
+		if(P.mining_points >= P.goal)
 			can_go_home = TRUE
 			data["status_info"] = "Goal met!"
 		else
-			data["status_info"] = "You are [(P.goal - P.points)] points away."
+			data["status_info"] = "You are [(P.goal - P.mining_points)] points away."
 	else
 		data["status_info"] = "No Prisoner ID detected."
 		data["id_points"] = 0
@@ -98,7 +98,7 @@ GLOBAL_LIST(labor_sheet_values)
 			var/obj/item/card/id/I = M.get_idcard(TRUE)
 			if(istype(I, /obj/item/card/id/prisoner))
 				var/obj/item/card/id/prisoner/P = I
-				P.points += stacking_machine.points
+				P.mining_points += stacking_machine.points
 				stacking_machine.points = 0
 				to_chat(M, "<span class='notice'>Points transferred.</span>")
 				return TRUE
@@ -168,9 +168,9 @@ GLOBAL_LIST(labor_sheet_values)
 		if(istype(I, /obj/item/card/id/prisoner))
 			var/obj/item/card/id/prisoner/prisoner_id = I
 			to_chat(user, "<span class='notice'><B>ID: [prisoner_id.registered_name]</B></span>")
-			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.points]</span>")
+			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.mining_points]</span>")
 			to_chat(user, "<span class='notice'>Point Quota: [prisoner_id.goal]</span>")
-			to_chat(user, "<span class='notice'>Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release.</span>")
+			to_chat(user, "<span class='notice'>Collect points by smelting ores in the Labor Camp smelter. Reach your quota to earn your release.</span>")
 		else
 			to_chat(user, "<span class='warning'>Error: Invalid ID</span>")
 	else

@@ -25,7 +25,7 @@
 		dat += "<H3>Prisoner ID Management</H3>"
 		if(contained_id)
 			dat += text("<A href='?src=[REF(src)];id=eject'>[contained_id]</A><br>")
-			dat += text("Collected Points: [contained_id.points]. <A href='?src=[REF(src)];id=reset'>Reset.</A><br>")
+			dat += text("Collected Points: [contained_id.mining_points]. <A href='?src=[REF(src)];id=reset'>Reset.</A><br>")
 			dat += text("Card goal: [contained_id.goal].  <A href='?src=[REF(src)];id=setgoal'>Set </A><br>")
 			dat += text("Space Law recommends quotas of 100 points per minute they would normally serve in the brig.<BR>")
 		else
@@ -96,7 +96,7 @@
 					if("eject")
 						id_eject(usr)
 					if("reset")
-						contained_id.points = 0
+						contained_id.mining_points = 0
 					if("setgoal")
 						var/num = round(input(usr, "Choose prisoner's goal:", "Input an Integer", null) as num|null)
 						if(num >= 0)

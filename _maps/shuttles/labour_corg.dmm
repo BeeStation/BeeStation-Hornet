@@ -1,21 +1,20 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/machinery/mineral/stacking_machine/laborstacker{
-	input_dir = 2;
-	output_dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/machinery/mineral/stacking_machine{
+	input_dir = 2;
+	output_dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "b" = (
-/obj/machinery/mineral/labor_claim_console{
-	machinedir = 1;
-	pixel_x = 30
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
+	},
+/obj/machinery/mineral/labor_points_checker{
+	pixel_x = 30
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
