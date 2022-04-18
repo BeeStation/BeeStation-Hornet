@@ -100,7 +100,10 @@
 			var/mob/living/carbon/human/H = user
 			if(attached_accessory.above_suit)
 				H.update_inv_wear_suit()
-			update_sensors(sensor_mode, TRUE)
+	if(HAS_TRAIT(user, TRAIT_SUIT_SENSORS))
+		REMOVE_TRAIT(user, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
+		if(!HAS_TRAIT(user, TRAIT_NANITE_SENSORS))
+			GLOB.suit_sensors_list -= user
 
 /obj/item/clothing/under/proc/attach_accessory(obj/item/I, mob/user, notifyAttach = 1)
 	. = FALSE
@@ -161,7 +164,7 @@
 		return
 	if(!ishuman(loc) || istype(loc, /mob/living/carbon/human/dummy))
 		return
-		
+
 	if(sensor_mode > SENSOR_OFF)
 		if(HAS_TRAIT(loc, TRAIT_SUIT_SENSORS))
 			return
