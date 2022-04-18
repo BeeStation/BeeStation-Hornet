@@ -82,9 +82,9 @@
 		H.update_inv_w_uniform()
 	if(slot == ITEM_SLOT_ICLOTHING)
 		update_sensors(sensor_mode, TRUE)
-	else if(HAS_TRAIT(user, TRAIT_SUIT_SENSORS))
+	else
 		REMOVE_TRAIT(user, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
-		if(!HAS_TRAIT(user, TRAIT_NANITE_SENSORS))
+		if(!HAS_TRAIT(user, TRAIT_SUIT_SENSORS) && !HAS_TRAIT(user, TRAIT_NANITE_SENSORS))
 			GLOB.suit_sensors_list -= user
 
 	if(slot == ITEM_SLOT_ICLOTHING && freshly_laundered)
