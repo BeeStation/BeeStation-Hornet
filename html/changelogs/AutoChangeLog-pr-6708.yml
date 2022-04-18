@@ -1,0 +1,4 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - server: Minimist's resolution set to ^1.2.6
