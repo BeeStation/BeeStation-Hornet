@@ -123,7 +123,7 @@
 		return
 
 	//Relative velocity to target needs to point towards target.
-	var/distance_to_target = position.Distance(shuttleTargetPos)
+	var/distance_to_target = position.DistanceTo(shuttleTargetPos)
 
 	//Cheat and slow down.
 	//Remove this if you make better autopilot logic ever.
