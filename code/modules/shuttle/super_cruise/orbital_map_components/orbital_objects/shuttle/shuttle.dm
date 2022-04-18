@@ -7,7 +7,7 @@
 	priority = 10
 	var/shuttle_port_id
 	//Shuttle data
-	var/max_thrust = 2
+	var/datum/shuttle_data/shuttle_data
 	//Controls
 	var/thrust = 0
 	var/angle = 0
@@ -44,16 +44,19 @@
 		link_shuttle(port)
 	. = ..()
 
-/datum/orbital_object/shuttle/stealth/infiltrator
-	max_thrust = 2.5
-
-/datum/orbital_object/shuttle/stealth/steel_rain
-	max_thrust = 0
-	//We never miss our mark
-	cheating_autopilot = TRUE
+/datum/orbital_object/shuttle/Destroy()
+	if(shuttle_data)
+		UnregisterSignal(shuttle_data, COMSIG_PARENT_QDELETING)
+	. = ..()
 
 /datum/orbital_object/shuttle/stealth
 	stealth = TRUE
+
+/datum/orbital_object/shuttle/stealth/infiltrator
+
+/datum/orbital_object/shuttle/stealth/steel_rain
+	//We never miss our mark
+	cheating_autopilot = TRUE
 
 /datum/orbital_object/shuttle/Destroy()
 	port = null
@@ -94,19 +97,46 @@
 		velocity.x = 0
 		velocity.y = 0
 		thrust = 0
+	//Process shuttle fuel consumption
+	if(shuttle_data)
+		shuttle_data.process_flight(thrust)
+		if(shuttle_data.is_stranded())
+			strand_shuttle()
+			return
 	//Process AI action
 	if(ai_pilot)
 		ai_pilot.handle_ai_action(src)
 	//AUTOPILOT
 	handle_autopilot()
 	//Do thrust
-	var/thrust_amount = thrust * max_thrust / 100
+	var/thrust_amount = thrust * shuttle_data.get_thrust_force() / 100
 	var/thrust_x = cos(angle) * thrust_amount
 	var/thrust_y = sin(angle) * thrust_amount
 	accelerate_towards(new /datum/orbital_vector(thrust_x, thrust_y), ORBITAL_UPDATE_RATE_SECONDS)
 	//Do gravity and movement
 	can_dock_with = null
 	. = ..()
+
+/datum/orbital_object/shuttle/proc/strand_shuttle()
+	PRIVATE_PROC(TRUE)
+	SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE, "Shuttle can no longer sustain supercruise flight mode, please check your engines for correct setup and fuel reserves.")
+	if(!docking_target)
+		//Dock with the current location
+		if(can_dock_with)
+			commence_docking(can_dock_with, TRUE)
+			message_admins("Shuttle [shuttle_port_id] is dropping to a random location at [can_dock_with.name] due to running out of fuel/incorrect engine configuration.")
+		//Create a new orbital waypoint to drop at
+		else
+			var/datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/shuttle_location = new(new /datum/orbital_vector(position.x, position.y))
+			shuttle_location.name = "Stranded [name]"
+			commence_docking(shuttle_location, TRUE)
+	//No more custom docking
+	docking_frozen = TRUE
+	if(!random_drop(docking_target.linked_z_level[1].z_value))
+		SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE,
+			"Shuttle failed to dock at a random location.")
+		message_admins("Shuttle [shuttle_port_id] failed to drop at a random location as a result of running out of fuel/incorrect engine configuration.")
+	docking_frozen = FALSE
 
 /datum/orbital_object/shuttle/proc/check_stuck()
 	if(!port)
@@ -182,3 +212,9 @@
 	port = dock
 	stealth = dock.hidden
 	SSorbits.assoc_shuttles[shuttle_port_id] = src
+	shuttle_data = SSorbits.get_shuttle_data(dock.id)
+	RegisterSignal(shuttle_data, COMSIG_PARENT_QDELETING, .proc/handle_shuttle_data_deletion)
+
+/datum/orbital_object/shuttle/proc/handle_shuttle_data_deletion(datum/source, force)
+	UnregisterSignal(shuttle_data, COMSIG_PARENT_QDELETING)
+	shuttle_data = null

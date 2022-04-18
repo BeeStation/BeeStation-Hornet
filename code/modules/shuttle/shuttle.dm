@@ -317,6 +317,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 /obj/docking_port/mobile/proc/register()
 	SSshuttle.mobile |= src
+	SSorbits.register_shuttle(id)
 
 /obj/docking_port/mobile/Destroy(force)
 	if(force)
@@ -326,6 +327,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		QDEL_NULL(assigned_transit)		//don't need it where we're goin'!
 		shuttle_areas = null
 		remove_ripples()
+		SSorbits.remove_shuttle(id)
 	. = ..()
 
 /obj/docking_port/mobile/is_in_shuttle_bounds(atom/A)

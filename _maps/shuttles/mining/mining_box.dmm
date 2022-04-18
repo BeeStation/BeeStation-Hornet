@@ -25,13 +25,41 @@
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/mining)
-"g" = (
+"h" = (
+/obj/machinery/shuttle/engine/ion{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/mining)
+"k" = (
+/obj/structure/ore_box,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"q" = (
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/area/shuttle/mining)
+"F" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"G" = (
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/floor/pod/light,
 /area/shuttle/mining)
-"h" = (
+"K" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/mining)
+"O" = (
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 3;
@@ -43,14 +71,25 @@
 	},
 /obj/machinery/door/airlock/survival_pod/glass,
 /obj/structure/fans/tiny,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plating,
 /area/shuttle/mining)
-"i" = (
-/obj/structure/closet/crate,
+"Q" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
-"j" = (
-/obj/structure/shuttle/engine/heater,
+"V" = (
+/obj/machinery/power/smes,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"W" = (
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
@@ -61,39 +100,24 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/open/floor/plating,
-/area/shuttle/mining)
-"k" = (
-/obj/structure/ore_box,
-/turf/open/floor/pod/dark,
-/area/shuttle/mining)
-"l" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/open/floor/plating/airless,
-/area/shuttle/mining)
-"q" = (
-/turf/closed/wall/mineral/titanium/survival/nodiagonal,
-/area/shuttle/mining)
-"F" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 4
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
-/turf/open/floor/plating,
-/area/shuttle/mining)
-"K" = (
-/turf/open/floor/pod/light,
-/area/shuttle/mining)
-"Q" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/machinery/power/thruster_capacitor_bank{
 	dir = 1
 	},
-/turf/open/floor/pod/dark,
+/turf/open/floor/plating,
 /area/shuttle/mining)
 "X" = (
 /obj/effect/spawner/structure/window/hollow/survival_pod/directional{
 	dir = 8
 	},
 /turf/open/floor/plating,
+/area/shuttle/mining)
+"Z" = (
+/obj/structure/cable,
+/obj/machinery/power/terminal,
+/turf/open/floor/pod/light,
 /area/shuttle/mining)
 
 (1,1,1) = {"
@@ -109,9 +133,9 @@ a
 q
 c
 e
-g
-f
-i
+G
+Z
+V
 q
 "}
 (3,1,1) = {"
@@ -120,8 +144,8 @@ d
 Q
 K
 f
-j
-l
+W
+h
 "}
 (4,1,1) = {"
 q
@@ -136,7 +160,7 @@ q
 a
 q
 F
-h
+O
 F
 q
 a

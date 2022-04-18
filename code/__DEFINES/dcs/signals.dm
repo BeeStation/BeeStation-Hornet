@@ -616,3 +616,6 @@
 /// Called on a space level when generation is complete
 #define COMSIG_SPACE_LEVEL_GENERATED "space_level_generated"
 
+// Shuttle Machinery Signals
+/// Called when a shuttle engine updates its status: (is_active)
+#define COMSIG_SHUTTLE_ENGINE_STATUS_CHANGE "shuttle_engine_status"

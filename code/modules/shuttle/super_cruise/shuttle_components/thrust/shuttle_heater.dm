@@ -40,9 +40,9 @@
 	updateGasStats()
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/Destroy()
+	GLOB.custom_shuttle_machines -= src
 	. = ..()
 	update_adjacent_engines()
-	GLOB.custom_shuttle_machines -= src
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/on_construction()
 	..(dir, dir)
@@ -102,17 +102,26 @@
 	air_contents.remove(amount)
 	return
 
+/obj/machinery/atmospherics/components/unary/shuttle/heater/proc/getFuelAmount()
+	var/datum/gas_mixture/air_contents = airs[1]
+	var/moles = air_contents.total_moles()
+	return moles
+
 /obj/machinery/atmospherics/components/unary/shuttle/heater/attackby(obj/item/I, mob/living/user, params)
-	update_adjacent_engines()
 	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_closed, I))
+		update_adjacent_engines()
 		return
 	if(default_pry_open(I))
+		update_adjacent_engines()
 		return
 	if(panel_open)
 		if(default_change_direction_wrench(user, I))
+			update_adjacent_engines()
 			return
 	if(default_deconstruction_crowbar(I))
+		update_adjacent_engines()
 		return
+	update_adjacent_engines()
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/shuttle/heater/proc/update_adjacent_engines()

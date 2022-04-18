@@ -138,6 +138,21 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	if(!SSshuttle.getShuttle(shuttleId))
 		data["linkedToShuttle"] = FALSE
 		return data
+
+	//Get shuttle data object
+	var/datum/shuttle_data/shuttle_data = SSorbits.get_shuttle_data(shuttleId)
+	if(length(shuttle_data.registered_engines))
+		data["display_fuel"] = TRUE
+		data["fuel"] = shuttle_data.get_fuel()
+
+	//Display stats
+	data["display_stats"] = list(
+		"Shuttle Mass" = "[shuttle_data.mass] Tons",
+		"Engine Force" = "[shuttle_data.thrust] kN",
+		"Supercruise Acceleration" = "[shuttle_data.get_thrust_force()] bknt^-2",
+		"Fuel Consumption Rate" = "[shuttle_data.fuel_consumption] moles/s"
+	)
+
 	//Interdicted shuttles
 	data["interdictedShuttles"] = list()
 	if(SSorbits.interdicted_shuttles[shuttleId] > world.time)
@@ -372,6 +387,10 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			shuttleObject.goto_port(params["port"])
 
 /obj/machinery/computer/shuttle_flight/proc/launch_shuttle()
+	var/datum/shuttle_data/shuttle_data = SSorbits.get_shuttle_data(shuttleId)
+	if(!shuttle_data.check_can_launch())
+		say("Insufficient engine power to launch.")
+		return
 	if(SSorbits.interdicted_shuttles.Find(shuttleId))
 		if(world.time < SSorbits.interdicted_shuttles[shuttleId])
 			var/time_left = (SSorbits.interdicted_shuttles[shuttleId] - world.time) * 0.1
