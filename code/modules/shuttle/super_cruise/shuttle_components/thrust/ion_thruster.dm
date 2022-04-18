@@ -87,9 +87,9 @@
 	density = TRUE
 	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/machine/shuttle/capacitor_bank
-	var/icon_state_closed = "heater_pipe"
-	var/icon_state_open = "heater_pipe_open"
-	var/icon_state_off = "heater_pipe"
+	var/icon_state_closed = "heater_ion"
+	var/icon_state_open = "heater_ion_open"
+	var/icon_state_off = "heater_ion"
 	var/stored_power = 0
 	var/charge_rate = 20
 	var/maximum_stored_power = 500

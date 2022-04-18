@@ -98,7 +98,7 @@
 		velocity.y = 0
 		thrust = 0
 	//Process shuttle fuel consumption
-	if(shuttle_data)
+	if(shuttle_data && !cheating_autopilot)
 		shuttle_data.process_flight(thrust)
 		if(shuttle_data.is_stranded())
 			strand_shuttle()
