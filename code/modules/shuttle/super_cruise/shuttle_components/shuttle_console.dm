@@ -123,31 +123,18 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	return data
 
 /obj/machinery/computer/shuttle_flight/ui_data(mob/user)
-	var/list/data = list()
-	data["update_index"] = SSorbits.times_fired
-	//Add orbital bodies
-	data["map_objects"] = list()
-	var/datum/orbital_map/showing_map = SSorbits.orbital_maps[orbital_map_index]
-	for(var/map_key in showing_map.collision_zone_bodies)
-		for(var/datum/orbital_object/object as() in showing_map.collision_zone_bodies[map_key])
-			if(!object)
-				continue
-			//we can't see it, unless we are stealth too
-			if(shuttleObject)
-				if(object != shuttleObject && (object.stealth && !shuttleObject.stealth))
-					continue
-			else
-				if(object.stealth)
-					continue
-			//Send to be rendered on the UI
-			data["map_objects"] += list(list(
-				"name" = object.name,
-				"position_x" = object.position.x,
-				"position_y" = object.position.y,
-				"velocity_x" = object.velocity.x * object.velocity_multiplier,
-				"velocity_y" = object.velocity.y * object.velocity_multiplier,
-				"radius" = object.radius
-			))
+	//Fetch data
+	var/user_ref = "[REF(user)]"
+
+	//Get the base map data
+	var/list/data = SSorbits.get_orbital_map_base_data(
+		SSorbits.orbital_maps[orbital_map_index],
+		user_ref,
+		FALSE,
+		shuttleObject
+	)
+
+	//Send shuttle data
 	if(!SSshuttle.getShuttle(shuttleId))
 		data["linkedToShuttle"] = FALSE
 		return data
@@ -180,8 +167,6 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	data["shuttleAngle"] = shuttleObject.angle
 	data["shuttleThrust"] = shuttleObject.thrust
 	data["autopilot_enabled"] = shuttleObject.ai_pilot?.is_active()
-	data["desired_vel_x"] = shuttleObject.desired_vel_x
-	data["desired_vel_y"] = shuttleObject.desired_vel_y
 	data["shuttleVelX"] = shuttleObject.velocity.x
 	data["shuttleVelY"] = shuttleObject.velocity.y
 	//Docking data
@@ -327,7 +312,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				//Do this last
 				if(other_shuttle == shuttleObject)
 					continue
-				if(other_shuttle?.position?.Distance(shuttleObject.position) <= interdiction_range && !other_shuttle.stealth)
+				if(other_shuttle?.position?.DistanceTo(shuttleObject.position) <= interdiction_range && !other_shuttle.stealth)
 					interdicted_shuttles += other_shuttle
 			if(!length(interdicted_shuttles))
 				say("No targets to interdict in range.")
