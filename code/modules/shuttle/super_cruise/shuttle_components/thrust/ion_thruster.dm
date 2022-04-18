@@ -18,7 +18,7 @@
 /obj/machinery/shuttle/engine/ion/consume_fuel(amount)
 	if(!capacitor_bank)
 		return
-	capacitor_bank.stored_power = max(capacitor_bank.stored_power - usage_rate, 0)
+	capacitor_bank.stored_power = max(capacitor_bank.stored_power - usage_rate * ORBITAL_UPDATE_RATE_SECONDS, 0)
 
 /obj/machinery/shuttle/engine/ion/update_engine()
 	if(panel_open)
@@ -91,7 +91,7 @@
 	var/icon_state_open = "heater_pipe_open"
 	var/icon_state_off = "heater_pipe"
 	var/stored_power = 0
-	var/charge_rate = 50
+	var/charge_rate = 20
 	var/maximum_stored_power = 500
 
 /obj/machinery/power/thruster_capacitor_bank/Initialize(mapload)
@@ -110,7 +110,7 @@
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		maximum_stored_power += C.rating * 200
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
-		charge_rate += L.rating * 50
+		charge_rate += L.rating * 20
 	stored_power = min(stored_power, maximum_stored_power)
 
 /obj/machinery/power/thruster_capacitor_bank/examine(mob/user)
@@ -118,9 +118,9 @@
 	. += "The capacitor bank reads [stored_power]W of power stored.<br>"
 
 /obj/machinery/power/thruster_capacitor_bank/process(delta_time)
-	take_power()
+	take_power(delta_time)
 
-/obj/machinery/power/thruster_capacitor_bank/proc/take_power()
+/obj/machinery/power/thruster_capacitor_bank/proc/take_power(delta_time)
 	var/turf/T = get_turf(src)
 	var/obj/structure/cable/C = T.get_cable_node()
 	if(!C)
@@ -130,7 +130,7 @@
 		return
 	//Consume power
 	var/surplus = max(powernet.avail - powernet.load, 0)
-	var/available_power = min(charge_rate, surplus, maximum_stored_power - stored_power)
+	var/available_power = min(charge_rate * delta_time, surplus, maximum_stored_power - stored_power)
 	if(available_power)
 		powernet.load += available_power
 		stored_power += available_power
@@ -182,4 +182,9 @@
 	//Must faster
 	thrust = 75
 	//Uses more than it can be charged with a basic capacitor, so cannot sustain long periods of flight
-	usage_rate = 70
+	usage_rate = 5
+
+/obj/machinery/shuttle/engine/ion/burst/consume_fuel(amount)
+	if(!capacitor_bank)
+		return
+	capacitor_bank.stored_power = max(capacitor_bank.stored_power - capacitor_bank.charge_rate - usage_rate * ORBITAL_UPDATE_RATE_SECONDS, 0)
