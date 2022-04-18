@@ -183,15 +183,6 @@
 	dat += "<A href='?src=[REF(CONSOLE)];redeem=1'><b>Redeem</b></A> "
 	dat += "<br><br>"
 
-	var/obj/item/card/id/I = user.get_idcard(TRUE)
-	if(istype(I, /obj/item/card/id/prisoner))
-		var/obj/item/card/id/prisoner/P = I
-		if(P.mining_points >= P.goal)
-			dat += "Goal met!"
-		else
-			dat += = "You are [(P.goal - P.mining_points)] points away."
-		dat += "<br><br>"
-
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/datum/material/M in materials.materials)
 		var/amount = materials.materials[M]

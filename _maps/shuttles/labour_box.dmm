@@ -63,7 +63,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "k" = (
-/obj/machinery/mineral/stacking_machine{
+/obj/machinery/mineral/stacking_machine/laborstacker{
 	input_dir = 2;
 	output_dir = 1
 	},
@@ -79,7 +79,8 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
 "n" = (
-/obj/machinery/mineral/labor_points_checker{
+/obj/machinery/mineral/labor_claim_console{
+	machinedir = 1;
 	pixel_x = 30
 	},
 /turf/open/floor/mineral/titanium,

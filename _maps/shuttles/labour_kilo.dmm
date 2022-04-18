@@ -98,15 +98,15 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "k" = (
+/obj/machinery/mineral/stacking_machine/laborstacker{
+	input_dir = 2;
+	output_dir = 1
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
-	},
-/obj/machinery/mineral/stacking_machine{
-	input_dir = 2;
-	output_dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
@@ -137,15 +137,16 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "n" = (
+/obj/machinery/mineral/labor_claim_console{
+	machinedir = 1;
+	pixel_x = 30
+	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
-	},
-/obj/machinery/mineral/labor_points_checker{
-	pixel_x = 30
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
