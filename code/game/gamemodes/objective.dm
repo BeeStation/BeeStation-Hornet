@@ -437,14 +437,15 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	))
 
 	var/list/gimmick_list = world.file2list(GIMMICK_OBJ_FILE) //gimmick_objectives.txt is for objectives without a specific target/department/etc
-
-	for(var/obj in world.file2list(DEPT_GIMMICK_OBJ_FILE))
-		gimmick_list.Add(replacetext(obj, "%DEPARTMENT", "[selected_department]"))
+	gimmick_list.Add(world.file2list(DEPT_GIMMICK_OBJ_FILE))
 	if(target && target.current)
-		for(var/obj in world.file2list(TARGET_GIMMICK_OBJ_FILE))
-			gimmick_list.Add(replacetext(obj, "%TARGET", "[target.name]"))
+		gimmick_list.Add(world.file2list(TARGET_GIMMICK_OBJ_FILE))
 
 	var/selected_gimmick = pick(gimmick_list)
+	selected_gimmick = replacetext(selected_gimmick, "%DEPARTMENT", selected_department)
+	if(target && target.current)
+		selected_gimmick = replacetext(selected_gimmick, "%TARGET", target.name)
+
 	explanation_text = "[selected_gimmick]"
 
 /datum/objective/gimmick/check_completion()
