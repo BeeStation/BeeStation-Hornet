@@ -2,27 +2,19 @@
 "a" = (
 /turf/template_noop,
 /area/template_noop)
-"b" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 4
-	},
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/transport)
 "c" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/transport)
-"e" = (
-/turf/closed/wall/mineral/titanium/interior,
-/area/shuttle/transport)
-"f" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
+"d" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 10
 	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
 "g" = (
-/obj/machinery/computer/shuttle_flight/ferry/request{
-	dir = 8
+/obj/machinery/portable_atmospherics/canister/toxins{
+	filled = 1;
+	starter_temp = 50
 	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
@@ -117,10 +109,6 @@
 /obj/machinery/door/airlock/titanium,
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
-"t" = (
-/obj/structure/closet/chefcloset,
-/turf/open/floor/plasteel/freezer,
-/area/shuttle/transport)
 "u" = (
 /obj/structure/kitchenspike,
 /turf/open/floor/plasteel/freezer,
@@ -138,54 +126,139 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
+"B" = (
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 4
+	},
+/turf/closed/wall/mineral/titanium/interior,
+/area/shuttle/transport)
+"C" = (
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 4
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/transport)
+"E" = (
+/obj/structure/kitchenspike,
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+	dir = 4
+	},
+/turf/open/floor/plasteel/freezer,
+/area/shuttle/transport)
+"F" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 4
+	},
+/turf/open/floor/plasteel/freezer,
+/area/shuttle/transport)
+"G" = (
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+	dir = 8
+	},
+/turf/open/floor/plasteel/freezer,
+/area/shuttle/transport)
+"H" = (
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/toxins{
+	filled = 1;
+	starter_temp = 50
+	},
+/obj/item/wrench,
+/turf/open/floor/plasteel/freezer,
+/area/shuttle/transport)
+"P" = (
+/obj/machinery/shuttle/engine/plasma{
+	dir = 4
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/transport)
+"R" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 9
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/transport)
+"S" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 4
+	},
+/turf/open/floor/plasteel/freezer,
+/area/shuttle/transport)
+"T" = (
+/obj/structure/closet/chefcloset,
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 4
+	},
+/turf/open/floor/plasteel/freezer,
+/area/shuttle/transport)
+"W" = (
+/obj/machinery/computer/shuttle_flight/ferry/request{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+	dir = 4
+	},
+/turf/open/floor/plasteel/freezer,
+/area/shuttle/transport)
+"Z" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 10
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/transport)
 
 (1,1,1) = {"
 a
-b
+P
 p
-b
+P
 a
 "}
 (2,1,1) = {"
-b
-e
+P
+B
 i
-e
-b
+B
+P
 "}
 (3,1,1) = {"
-c
-f
+C
+F
 i
-t
-c
+T
+C
 "}
 (4,1,1) = {"
-c
-g
-i
-u
-c
+Z
+W
+G
+E
+R
 "}
 (5,1,1) = {"
 c
 h
-i
+S
 u
 c
 "}
 (6,1,1) = {"
 c
-i
-i
+g
+S
 u
 c
 "}
 (7,1,1) = {"
 c
 j
-i
-i
+d
+H
 c
 "}
 (8,1,1) = {"

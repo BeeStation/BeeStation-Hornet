@@ -58,6 +58,9 @@
 	//We never miss our mark
 	cheating_autopilot = TRUE
 
+/datum/orbital_object/shuttle/aux_base
+	cheating_autopilot = TRUE
+
 /datum/orbital_object/shuttle/Destroy()
 	port = null
 	can_dock_with = null

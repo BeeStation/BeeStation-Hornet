@@ -3264,6 +3264,7 @@
 #include "code\modules\shuttle\super_cruise\shuttle_components\shuttle_console.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_components\shuttle_docking.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_components\shuttle_machine.dm"
+#include "code\modules\shuttle\super_cruise\shuttle_components\thrust\advanced_engine.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_components\thrust\ion_thruster.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_components\thrust\shuttle_engine.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_components\thrust\shuttle_heater.dm"

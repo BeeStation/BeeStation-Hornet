@@ -15,7 +15,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "bJ" = (
-/obj/machinery/atmospherics/components/unary/shuttle/heater{
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
 	dir = 1
 	},
 /obj/effect/spawner/structure/window/hollow/reinforced/middle,
@@ -650,7 +650,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Og" = (
-/obj/machinery/atmospherics/components/unary/shuttle/heater{
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
 	dir = 1
 	},
 /obj/effect/spawner/structure/window/hollow/reinforced/end{
@@ -883,7 +883,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/exploration)
 "WU" = (
-/obj/machinery/atmospherics/components/unary/shuttle/heater{
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
 	dir = 1
 	},
 /obj/effect/spawner/structure/window/hollow/reinforced/end{

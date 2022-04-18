@@ -2,12 +2,6 @@
 "aa" = (
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
-"ab" = (
-/obj/machinery/computer/shuttle_flight/hunter{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/hunter)
 "ac" = (
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
@@ -33,15 +27,17 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
+"ae" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/hunter)
 "af" = (
 /obj/effect/turf_decal/stripes{
 	dir = 8;
 	icon_state = "warningline"
 	},
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/hunter)
-"ag" = (
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "ah" = (
@@ -78,8 +74,23 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
+"aL" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/shuttle/hunter)
 "bY" = (
 /obj/structure/chair/comfy/shuttle,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/hunter)
+"fD" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "gi" = (
@@ -90,9 +101,9 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
-"hB" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8
+"gx" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 6
 	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/hunter)
@@ -120,6 +131,18 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
+"qy" = (
+/obj/structure/window/shuttle,
+/obj/structure/grille,
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/turf/open/floor/plating,
+/area/shuttle/hunter)
+"sS" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 10
+	},
+/turf/open/floor/plating,
+/area/shuttle/hunter)
 "te" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/shutters{
@@ -127,23 +150,83 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
+"tY" = (
+/obj/machinery/computer/shuttle_flight/hunter{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 10
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/hunter)
 "An" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/hunter)
-"Fl" = (
-/obj/machinery/door/airlock/titanium{
-	req_access_txt = "181"
+"Aq" = (
+/obj/machinery/shuttle/engine/plasma{
+	dir = 4
 	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/hunter)
+"DD" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/shuttle/hunter)
+"Jf" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/turf/open/floor/plating,
+/area/shuttle/hunter)
+"Jo" = (
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/hunter)
+"JZ" = (
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 4
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/hunter)
+"Mn" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "Pq" = (
 /turf/template_noop,
 /area/template_noop)
-"Rz" = (
-/obj/structure/chair/comfy/shuttle{
+"SS" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 5
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/hunter)
+"SV" = (
+/obj/machinery/door/airlock/titanium{
+	req_access_txt = "181"
+	},
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
 	dir = 4
 	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/hunter)
+"TN" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/obj/machinery/portable_atmospherics/canister/toxins/high_capacity,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/hunter)
+"UQ" = (
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 8
+	},
+/obj/machinery/portable_atmospherics/canister/toxins/high_capacity,
+/obj/item/wrench,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 
@@ -175,37 +258,37 @@ ku
 Pq
 "}
 (4,1,1) = {"
-hB
+Aq
 ku
 bY
 aa
 ak
 ku
-hB
+Aq
 "}
 (5,1,1) = {"
-ku
+JZ
 ku
 bY
 aa
 ak
 ku
-ku
+JZ
 "}
 (6,1,1) = {"
-Pq
-hJ
-ag
-aa
-aa
-hJ
-Pq
+sS
+qy
+Mn
+Jo
+TN
+qy
+aL
 "}
 (7,1,1) = {"
 Pq
 hJ
 ah
-aa
+ae
 aj
 hJ
 Pq
@@ -214,37 +297,37 @@ Pq
 Pq
 ku
 lp
-aa
+ae
 aj
 ku
 Pq
 "}
 (9,1,1) = {"
-hB
+Aq
 ku
 ku
-Fl
+SV
 ku
 ku
-hB
+Aq
 "}
 (10,1,1) = {"
+JZ
+gx
+Jo
+fD
+SS
 ku
-ku
-aa
-Rz
-aa
-ku
-ku
+JZ
 "}
 (11,1,1) = {"
-Pq
-An
-aa
+sS
+DD
+UQ
 gi
-ab
-An
-Pq
+tY
+Jf
+aL
 "}
 (12,1,1) = {"
 Pq

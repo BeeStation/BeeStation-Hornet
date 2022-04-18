@@ -2,12 +2,6 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
-"ab" = (
-/obj/structure/shuttle/engine/propulsion/left{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/transport)
 "ac" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 8
@@ -272,8 +266,16 @@
 /obj/structure/shuttle/engine/heater,
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
-"bj" = (
-/obj/structure/shuttle/engine/propulsion/right,
+"Ig" = (
+/obj/machinery/shuttle/engine/void{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/transport)
+"Jc" = (
+/obj/machinery/shuttle/engine/void{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
 
@@ -292,7 +294,7 @@ aa
 aa
 aa
 aa
-ab
+Ig
 aa
 "}
 (2,1,1) = {"
@@ -306,7 +308,7 @@ aa
 ag
 aa
 aa
-ab
+Ig
 aa
 aa
 aa
@@ -314,7 +316,7 @@ ac
 aa
 "}
 (3,1,1) = {"
-ab
+Ig
 af
 ag
 ag
@@ -347,7 +349,7 @@ bh
 bh
 bh
 bi
-bj
+Jc
 "}
 (5,1,1) = {"
 ad
@@ -365,7 +367,7 @@ ba
 be
 bh
 bi
-bj
+Jc
 "}
 (6,1,1) = {"
 aa

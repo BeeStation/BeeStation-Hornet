@@ -139,6 +139,10 @@
 	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#f62800#000000"
 
+/obj/machinery/portable_atmospherics/canister/toxins/high_capacity
+	filled = 1
+	starter_temp = 100
+
 /obj/machinery/portable_atmospherics/canister/tritium
 	name = "tritium canister"
 	desc = "Tritium. Inhalation might cause irradiation."

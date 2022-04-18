@@ -30,25 +30,6 @@
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/transport)
-"h" = (
-/obj/structure/shuttle/engine/propulsion/left{
-	icon_state = "propulsion_l";
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/transport)
-"i" = (
-/obj/structure/window/shuttle,
-/obj/structure/grille,
-/obj/structure/shuttle/engine/heater{
-	icon_state = "heater";
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/shuttle/transport)
 "j" = (
 /obj/structure/sign/warning/fire,
 /turf/closed/wall/mineral/titanium/nodiagonal,
@@ -98,37 +79,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 "p" = (
-/obj/structure/shuttle/engine/propulsion{
-	icon_state = "propulsion";
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/transport)
-"q" = (
-/obj/machinery/computer/shuttle_flight/ferry/request{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/transport)
-"r" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/transport)
-"s" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -142,6 +92,9 @@
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
@@ -169,14 +122,18 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 "u" = (
-/obj/structure/shuttle/engine/propulsion/right{
-	icon_state = "propulsion_r";
-	dir = 8
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 8
+	dir = 1
 	},
-/turf/open/floor/plating/airless,
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
 "v" = (
 /obj/structure/rack,
@@ -210,83 +167,157 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/transport)
-"x" = (
+"C" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/chair/comfy/shuttle{
+/obj/machinery/light,
+/obj/machinery/power/smes/engineering{
+	charge = 5e+006
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/shuttle/transport)
+"D" = (
+/obj/structure/window/shuttle,
+/obj/structure/grille,
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating,
+/area/shuttle/transport)
+"G" = (
+/obj/machinery/computer/shuttle_flight/ferry/request{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/transport)
+"M" = (
+/obj/structure/window/shuttle,
+/obj/structure/grille,
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating,
+/area/shuttle/transport)
+"U" = (
+/obj/structure/window/shuttle,
+/obj/structure/grille,
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 4
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/shuttle/transport)
+"Y" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/machinery/light,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/transport)
+"Z" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/shuttle/engine/ion/burst{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
 /area/shuttle/transport)
 
 (1,1,1) = {"
 a
-h
-p
-u
+Z
+Z
+Z
 a
 "}
 (2,1,1) = {"
 b
-i
-i
-i
+M
+D
+U
 b
 "}
 (3,1,1) = {"
 c
 j
-q
+G
 j
 c
 "}
 (4,1,1) = {"
 d
 k
-r
+u
 v
 d
 "}
 (5,1,1) = {"
 e
 l
-r
+u
 w
 e
 "}
 (6,1,1) = {"
 d
 l
-r
+u
 w
 d
 "}
 (7,1,1) = {"
 f
 m
-s
+p
 m
 f
 "}
 (8,1,1) = {"
 g
 n
-r
+u
 n
 g
 "}
 (9,1,1) = {"
 e
 l
-r
+u
 w
 e
 "}
 (10,1,1) = {"
 d
 o
-r
-x
+Y
+C
 d
 "}
 (11,1,1) = {"

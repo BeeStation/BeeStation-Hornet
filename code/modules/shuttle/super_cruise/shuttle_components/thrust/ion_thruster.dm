@@ -13,7 +13,7 @@
 	bluespace_capable = FALSE
 	cooldown = 45
 	var/usage_rate = 15
-	var/obj/machinery/power/thruster_capacitor_bank/capacitor_bank
+	var/obj/machinery/power/engine_capacitor_bank/capacitor_bank
 
 /obj/machinery/shuttle/engine/ion/consume_fuel(amount)
 	if(!capacitor_bank)
@@ -52,7 +52,7 @@
 		update_engine()
 		return
 	register_capacitor_bank(null)
-	var/obj/machinery/power/thruster_capacitor_bank/as_heater = locate() in heater_turf
+	var/obj/machinery/power/engine_capacitor_bank/as_heater = locate() in heater_turf
 	if(!as_heater)
 		return
 	if(as_heater.dir != dir)
@@ -79,10 +79,10 @@
 // Capacitor Bank
 //=============================
 
-/obj/machinery/power/thruster_capacitor_bank
+/obj/machinery/power/engine_capacitor_bank
 	name = "thruster capacitor bank"
 	desc = "A capacitor bank that stores power for high-energy ion thrusters."
-	icon_state = "heater_pipe"
+	icon_state = "heater_ion"
 	icon = 'icons/turf/shuttle.dmi'
 	density = TRUE
 	use_power = NO_POWER_USE
@@ -94,17 +94,17 @@
 	var/charge_rate = 20
 	var/maximum_stored_power = 500
 
-/obj/machinery/power/thruster_capacitor_bank/Initialize(mapload)
+/obj/machinery/power/engine_capacitor_bank/Initialize(mapload)
 	. = ..()
 	GLOB.custom_shuttle_machines += src
 	update_adjacent_engines()
 
-/obj/machinery/power/thruster_capacitor_bank/Destroy()
+/obj/machinery/power/engine_capacitor_bank/Destroy()
 	GLOB.custom_shuttle_machines -= src
 	. = ..()
 	update_adjacent_engines()
 
-/obj/machinery/power/thruster_capacitor_bank/RefreshParts()
+/obj/machinery/power/engine_capacitor_bank/RefreshParts()
 	maximum_stored_power = 0
 	charge_rate = 0
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
@@ -113,14 +113,14 @@
 		charge_rate += L.rating * 20
 	stored_power = min(stored_power, maximum_stored_power)
 
-/obj/machinery/power/thruster_capacitor_bank/examine(mob/user)
+/obj/machinery/power/engine_capacitor_bank/examine(mob/user)
 	. = ..()
 	. += "The capacitor bank reads [stored_power]W of power stored.<br>"
 
-/obj/machinery/power/thruster_capacitor_bank/process(delta_time)
+/obj/machinery/power/engine_capacitor_bank/process(delta_time)
 	take_power(delta_time)
 
-/obj/machinery/power/thruster_capacitor_bank/proc/take_power(delta_time)
+/obj/machinery/power/engine_capacitor_bank/proc/take_power(delta_time)
 	var/turf/T = get_turf(src)
 	var/obj/structure/cable/C = T.get_cable_node()
 	if(!C)
@@ -137,7 +137,7 @@
 
 //Annoying copy and paste because atmos machines aren't a component so engine heaters
 //can't share from the same supertype
-/obj/machinery/power/thruster_capacitor_bank/proc/update_adjacent_engines()
+/obj/machinery/power/engine_capacitor_bank/proc/update_adjacent_engines()
 	var/engine_turf
 	switch(dir)
 		if(NORTH)
@@ -153,7 +153,7 @@
 	for(var/obj/machinery/shuttle/engine/E in engine_turf)
 		E.check_setup()
 
-/obj/machinery/power/thruster_capacitor_bank/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/power/engine_capacitor_bank/attackby(obj/item/I, mob/living/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_closed, I))
 		update_adjacent_engines()
 		return
@@ -169,6 +169,19 @@
 		return
 	update_adjacent_engines()
 	return ..()
+
+/obj/machinery/power/engine_capacitor_bank/escape_pod
+	name = "emergency thruster capacitor bank"
+	desc = "A single-use, non-rechargable, high-capacitor capacitor bank used for getting shuttles away from a location fast."
+	//Starts with maximum power
+	stored_power = 600
+	//Cannot be recharged
+	charge_rate = 0
+	//Provides 2 minutes of thrust when using burst thrusters
+	maximum_stored_power = 600
+
+/obj/machinery/power/engine_capacitor_bank/escape_pod/RefreshParts()
+	return
 
 //=============================
 // Burst Thruster (For shuttles)

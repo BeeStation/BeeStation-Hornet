@@ -1107,56 +1107,11 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/syndicate/medical)
-"cv" = (
-/obj/structure/shuttle/engine/propulsion/left,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/shuttle/syndicate/hallway)
-"cw" = (
-/obj/structure/shuttle/engine/propulsion,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/shuttle/syndicate/hallway)
-"cx" = (
-/obj/structure/shuttle/engine/propulsion/right,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/shuttle/syndicate/hallway)
 "cy" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/shuttle/syndicate/armory)
-"cz" = (
-/obj/structure/shuttle/engine/propulsion/left,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/shuttle/syndicate/medical)
-"cA" = (
-/obj/structure/shuttle/engine/propulsion,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/shuttle/syndicate/medical)
-"cB" = (
-/obj/structure/shuttle/engine/propulsion/right,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/shuttle/syndicate/medical)
-"cE" = (
-/obj/structure/shuttle/engine/propulsion/left,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/shuttle/syndicate/armory)
-"cF" = (
-/obj/structure/shuttle/engine/propulsion,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/airless,
-/area/shuttle/syndicate/armory)
-"cG" = (
-/obj/structure/shuttle/engine/propulsion/right,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/syndicate/armory)
@@ -1172,6 +1127,11 @@
 	},
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/bridge)
+"pV" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/shuttle/engine/advanced,
+/turf/open/floor/plating/airless,
+/area/shuttle/syndicate/medical)
 "vv" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/bot_white,
@@ -1183,6 +1143,16 @@
 	},
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/bridge)
+"Ro" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/shuttle/engine/advanced,
+/turf/open/floor/plating/airless,
+/area/shuttle/syndicate/armory)
+"ZU" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/shuttle/engine/advanced,
+/turf/open/floor/plating/airless,
+/area/shuttle/syndicate/hallway)
 
 (1,1,1) = {"
 aa
@@ -1232,7 +1202,7 @@ bY
 cj
 co
 cu
-cz
+pV
 "}
 (3,1,1) = {"
 aa
@@ -1257,7 +1227,7 @@ bZ
 bH
 cp
 cu
-cA
+pV
 "}
 (4,1,1) = {"
 aa
@@ -1282,7 +1252,7 @@ ca
 ck
 cq
 cu
-cB
+pV
 "}
 (5,1,1) = {"
 ab
@@ -1381,7 +1351,7 @@ bU
 az
 cl
 cr
-cv
+ZU
 aa
 "}
 (9,1,1) = {"
@@ -1406,7 +1376,7 @@ bU
 az
 bo
 cr
-cw
+ZU
 aa
 "}
 (10,1,1) = {"
@@ -1431,7 +1401,7 @@ bU
 az
 cl
 cr
-cx
+ZU
 aa
 "}
 (11,1,1) = {"
@@ -1532,7 +1502,7 @@ cg
 bP
 cs
 cy
-cE
+Ro
 "}
 (15,1,1) = {"
 aa
@@ -1557,7 +1527,7 @@ ch
 bP
 ct
 cy
-cF
+Ro
 "}
 (16,1,1) = {"
 aa
@@ -1582,7 +1552,7 @@ ci
 cn
 cs
 cy
-cG
+Ro
 "}
 (17,1,1) = {"
 aa

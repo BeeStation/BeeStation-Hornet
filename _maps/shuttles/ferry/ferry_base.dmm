@@ -3,7 +3,7 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/shuttle/engine/plasma{
 	dir = 4
 	},
 /turf/closed/wall/mineral/titanium,
@@ -20,18 +20,19 @@
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/transport)
-"g" = (
-/turf/closed/wall/mineral/titanium/interior,
-/area/shuttle/transport)
-"h" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
+"f" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 9
 	},
-/turf/open/floor/mineral/titanium/blue,
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/transport)
 "i" = (
-/obj/machinery/computer/shuttle_flight/ferry/request{
-	dir = 8
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/toxins{
+	filled = 1;
+	starter_temp = 50
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
@@ -61,13 +62,88 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
-"p" = (
-/obj/structure/closet/crate,
-/turf/open/floor/mineral/titanium/blue,
+"o" = (
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 4
+	},
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/transport)
 "q" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
+"r" = (
+/obj/machinery/computer/shuttle_flight/ferry/request{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
+"s" = (
+/obj/structure/closet/crate,
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
+"t" = (
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 4
+	},
+/turf/closed/wall/mineral/titanium/interior,
+/area/shuttle/transport)
+"B" = (
+/obj/structure/closet/crate,
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
+"F" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
+"J" = (
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/item/wrench,
+/obj/machinery/portable_atmospherics/canister/toxins{
+	filled = 1;
+	starter_temp = 50
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
+"K" = (
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
+"O" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 10
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/transport)
+"Y" = (
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
+"Z" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 10
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
@@ -81,37 +157,37 @@ a
 "}
 (2,1,1) = {"
 b
-g
+t
 l
-g
+t
 b
 "}
 (3,1,1) = {"
-c
-h
+o
+F
 l
-p
-c
+B
+o
 "}
 (4,1,1) = {"
-c
-i
-l
-p
-c
+O
+r
+K
+s
+f
 "}
 (5,1,1) = {"
 d
 j
-l
-q
+Y
+J
 d
 "}
 (6,1,1) = {"
 c
 j
-l
-q
+Z
+i
 c
 "}
 (7,1,1) = {"

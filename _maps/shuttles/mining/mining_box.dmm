@@ -105,7 +105,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/thruster_capacitor_bank{
+/obj/machinery/power/engine_capacitor_bank{
 	dir = 1
 	},
 /turf/open/floor/plating,

@@ -14,19 +14,6 @@
 /obj/machinery/door/airlock/external,
 /turf/open/floor/pod/dark,
 /area/shuttle/transport)
-"e" = (
-/obj/structure/shuttle/engine/propulsion/left{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/transport)
-"f" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 8
-	},
-/obj/structure/window/reinforced,
-/turf/open/floor/plating/airless,
-/area/shuttle/transport)
 "g" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/open/floor/pod/dark,
@@ -40,22 +27,11 @@
 "i" = (
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
-"j" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/transport)
-"k" = (
-/obj/machinery/light/small,
-/turf/open/floor/pod/light,
-/area/shuttle/transport)
 "l" = (
-/obj/machinery/door/airlock/titanium,
-/turf/open/floor/pod/light,
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 10
+	},
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/transport)
 "m" = (
 /obj/machinery/computer/shuttle_flight/ferry/request{
@@ -79,12 +55,11 @@
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
 "o" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 8
-	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 4
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/transport)
@@ -103,40 +78,103 @@
 /obj/machinery/door/airlock/external,
 /turf/open/floor/pod/light,
 /area/shuttle/transport)
+"t" = (
+/obj/machinery/shuttle/engine/plasma{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/transport)
+"z" = (
+/obj/structure/window/reinforced,
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/transport)
+"E" = (
+/obj/machinery/door/airlock/titanium,
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+	dir = 4
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/transport)
+"F" = (
+/obj/machinery/light/small,
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/transport)
+"J" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	pixel_y = 1
+	},
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 4
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/transport)
+"O" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/layer1{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 4
+	},
+/obj/item/wrench,
+/obj/machinery/portable_atmospherics/canister/toxins{
+	filled = 1;
+	starter_temp = 50
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/transport)
+"R" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 4
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/transport)
+"S" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 9
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/transport)
 
 (1,1,1) = {"
 a
 a
-e
+t
 a
 a
 "}
 (2,1,1) = {"
 a
-e
-j
-e
+t
+o
+t
 a
 "}
 (3,1,1) = {"
 a
-f
-i
-o
+z
+O
+J
 a
 "}
 (4,1,1) = {"
 a
-b
-k
-b
+R
+F
+R
 a
 "}
 (5,1,1) = {"
 b
-b
 l
-b
+E
+S
 b
 "}
 (6,1,1) = {"

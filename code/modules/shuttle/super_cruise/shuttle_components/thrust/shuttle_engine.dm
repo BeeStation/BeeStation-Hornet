@@ -118,13 +118,13 @@
 /obj/machinery/shuttle/engine/plasma/consume_fuel(amount)
 	if(!attached_heater)
 		return
-	var/obj/machinery/atmospherics/components/unary/shuttle/heater/shuttle_heater = attached_heater.resolve()
+	var/obj/machinery/atmospherics/components/unary/shuttle/engine_heater/shuttle_heater = attached_heater.resolve()
 	shuttle_heater.consumeFuel(amount * fuel_use)
 
 /obj/machinery/shuttle/engine/plasma/get_fuel_amount()
 	if(!attached_heater)
 		return 0
-	var/obj/machinery/atmospherics/components/unary/shuttle/heater/shuttle_heater = attached_heater.resolve()
+	var/obj/machinery/atmospherics/components/unary/shuttle/engine_heater/shuttle_heater = attached_heater.resolve()
 	return shuttle_heater.getFuelAmount()
 
 /obj/machinery/shuttle/engine/plasma/check_setup()
@@ -143,7 +143,7 @@
 		update_engine()
 		return
 	attached_heater = null
-	var/obj/machinery/atmospherics/components/unary/shuttle/heater/as_heater = locate() in heater_turf
+	var/obj/machinery/atmospherics/components/unary/shuttle/engine_heater/as_heater = locate() in heater_turf
 	if(!as_heater)
 		update_engine()
 		return
@@ -169,7 +169,7 @@
 		icon_state = icon_state_off
 		set_active(FALSE)
 		return
-	var/obj/machinery/atmospherics/components/unary/shuttle/heater/resolved_heater = attached_heater.resolve()
+	var/obj/machinery/atmospherics/components/unary/shuttle/engine_heater/resolved_heater = attached_heater.resolve()
 	if(resolved_heater?.hasFuel(1) && (!idle_power_usage || !(stat & NOPOWER)))
 		icon_state = icon_state_closed
 		set_active(TRUE)
@@ -188,7 +188,6 @@
 	icon_state_off = "burst_void"
 	icon_state_closed = "burst_void"
 	icon_state_open = "burst_void_open"
-	idle_power_usage = 200	//Power required to maintain the void link
 	circuit = /obj/item/circuitboard/machine/shuttle/engine/void
 	thrust = 150
 	fuel_use = 0

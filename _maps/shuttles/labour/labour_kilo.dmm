@@ -22,12 +22,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
-"e" = (
-/obj/structure/table,
-/obj/item/folder/red,
-/obj/item/restraints/handcuffs,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/labor)
 "f" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -47,22 +41,6 @@
 	req_access_txt = "1"
 	},
 /obj/machinery/light,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/labor)
-"h" = (
-/obj/machinery/mineral/stacking_unit_console{
-	machinedir = 2;
-	pixel_x = 30;
-	pixel_y = 30
-	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -97,19 +75,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
-"k" = (
-/obj/machinery/mineral/stacking_machine/laborstacker{
-	input_dir = 2;
-	output_dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/labor)
 "l" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -137,18 +102,17 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "n" = (
-/obj/machinery/mineral/labor_claim_console{
-	machinedir = 1;
-	pixel_x = 30
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
+/obj/structure/closet/crate,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 6
 	},
-/turf/open/floor/mineral/plastitanium/red,
+/turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/labor)
 "o" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -170,52 +134,6 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/labor)
-"q" = (
-/obj/machinery/flasher{
-	id = "gulagshuttleflasher";
-	pixel_x = 25
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/labor)
-"r" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/structure/closet/crate,
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/labor)
-"s" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/effect/turf_decal/loading_area{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/labor)
-"t" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/labor)
 "u" = (
 /obj/machinery/door/airlock/titanium{
@@ -242,17 +160,116 @@
 "v" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/labor)
-"w" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/structure/shuttle/engine/heater,
-/turf/open/floor/plating,
-/area/shuttle/labor)
 "x" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/labor)
-"y" = (
-/obj/structure/shuttle/engine/propulsion,
+"E" = (
+/obj/machinery/shuttle/engine/plasma{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
+/area/shuttle/labor)
+"I" = (
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/labor)
+"K" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/labor)
+"M" = (
+/obj/machinery/flasher{
+	id = "gulagshuttleflasher";
+	pixel_x = 25
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"O" = (
+/obj/machinery/mineral/labor_claim_console{
+	machinedir = 1;
+	pixel_x = 30
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"Q" = (
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/effect/turf_decal/loading_area{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/yellow,
+/area/shuttle/labor)
+"R" = (
+/obj/machinery/mineral/stacking_machine/laborstacker{
+	input_dir = 2;
+	output_dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"W" = (
+/obj/machinery/mineral/stacking_unit_console{
+	machinedir = 2;
+	pixel_x = 30;
+	pixel_y = 30
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"Y" = (
+/obj/machinery/atmospherics/components/unary/portables_connector,
+/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/item/wrench,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 
 (1,1,1) = {"
@@ -273,9 +290,9 @@ f
 j
 l
 o
-r
-w
-y
+n
+K
+E
 "}
 (3,1,1) = {"
 b
@@ -284,20 +301,20 @@ g
 a
 m
 p
-s
-w
-y
+Q
+K
+E
 "}
 (4,1,1) = {"
 b
-e
-h
-k
-n
-q
-t
-w
-y
+Y
+W
+R
+O
+M
+I
+K
+E
 "}
 (5,1,1) = {"
 a

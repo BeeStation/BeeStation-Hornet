@@ -107,7 +107,7 @@
 /turf/open/floor/mineral/titanium/airless,
 /area/template_noop)
 "sH" = (
-/obj/machinery/atmospherics/components/unary/shuttle/heater{
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
 	dir = 1
 	},
 /obj/structure/window/reinforced/spawner,
@@ -199,7 +199,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "Fx" = (
-/obj/machinery/atmospherics/components/unary/shuttle/heater{
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
 	dir = 1
 	},
 /obj/structure/window/reinforced/spawner,
@@ -299,7 +299,7 @@
 /turf/open/floor/plating/airless,
 /area/template_noop)
 "Sx" = (
-/obj/machinery/atmospherics/components/unary/shuttle/heater{
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
 	dir = 1
 	},
 /obj/structure/window/reinforced/spawner,

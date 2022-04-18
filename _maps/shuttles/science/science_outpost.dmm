@@ -1,8 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/structure/shuttle/engine/propulsion,
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/science)
 "c" = (
 /obj/machinery/button/door{
 	id = "sciencecargo";
@@ -26,14 +22,6 @@
 /obj/machinery/computer/shuttle_flight/science,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
-"h" = (
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
-/obj/effect/turf_decal/box,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/science)
 "i" = (
 /obj/structure/closet/crate/science,
 /obj/item/circuitboard/computer/shuttle/science_shuttle,
@@ -52,6 +40,11 @@
 /area/shuttle/science)
 "o" = (
 /obj/effect/turf_decal/box,
+/turf/open/floor/mineral/titanium/purple,
+/area/shuttle/science)
+"p" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "r" = (
@@ -73,13 +66,26 @@
 /area/shuttle/science)
 "s" = (
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/janitorialcart,
 /obj/item/mop,
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "t" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/science)
+"u" = (
+/obj/machinery/atmospherics/components/unary/portables_connector,
+/obj/item/wrench,
+/turf/open/floor/mineral/titanium/purple,
+/area/shuttle/science)
+"w" = (
+/obj/machinery/shuttle/engine/plasma{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/science)
 "x" = (
 /obj/structure/cable/yellow{
@@ -98,16 +104,34 @@
 /obj/machinery/modular_computer/console/preset/research,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
+"B" = (
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 1
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/science)
+"C" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/science)
+"D" = (
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/obj/effect/turf_decal/box,
+/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/science)
 "H" = (
 /obj/machinery/door/poddoor{
 	id = "sciencecargo"
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium/white,
-/area/shuttle/science)
-"I" = (
-/obj/structure/shuttle/engine/heater,
-/turf/closed/wall/mineral/titanium,
 /area/shuttle/science)
 "J" = (
 /obj/effect/turf_decal/box,
@@ -119,6 +143,16 @@
 "N" = (
 /obj/structure/tank_dispenser,
 /turf/open/floor/mineral/titanium/purple,
+/area/shuttle/science)
+"O" = (
+/obj/machinery/door/poddoor{
+	id = "sciencecargo"
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 10
+	},
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "Q" = (
 /obj/structure/chair/comfy/shuttle{
@@ -133,6 +167,20 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
+"W" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/science)
+"Z" = (
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+	dir = 6
+	},
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/science)
 
 (1,1,1) = {"
 y
@@ -141,9 +189,9 @@ y
 y
 y
 y
-y
-I
-a
+Z
+B
+w
 "}
 (2,1,1) = {"
 d
@@ -151,9 +199,9 @@ c
 i
 N
 y
-K
-h
-o
+u
+D
+p
 y
 "}
 (3,1,1) = {"
@@ -163,7 +211,7 @@ Q
 U
 z
 S
-J
+W
 J
 y
 "}
@@ -174,7 +222,7 @@ Q
 S
 z
 S
-J
+C
 J
 y
 "}
@@ -185,7 +233,7 @@ x
 s
 y
 K
-J
+W
 o
 y
 "}
@@ -196,7 +244,7 @@ r
 y
 t
 H
-H
-I
-a
+O
+B
+w
 "}

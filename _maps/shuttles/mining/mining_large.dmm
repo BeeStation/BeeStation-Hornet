@@ -469,7 +469,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/machinery/power/thruster_capacitor_bank{
+/obj/machinery/power/engine_capacitor_bank{
 	dir = 1
 	},
 /obj/structure/cable,
