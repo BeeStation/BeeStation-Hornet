@@ -49,6 +49,7 @@
 ///Private
 ///Checks if we can dock
 /datum/orbital_object/shuttle/proc/pre_dock()
+	PRIVATE_PROC(TRUE)
 	//Check if we even have a docking target
 	if(!docking_target)
 		SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE,

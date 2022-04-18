@@ -21,9 +21,6 @@
 	//They go faster
 	velocity_multiplier = 3
 
-	//The computer controlling us.
-	var/controlling_computer = null
-
 	var/obj/docking_port/mobile/port
 
 	//Semi-Autopilot controls
