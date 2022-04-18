@@ -160,12 +160,12 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		// Check for a uniform if not using nanites
 		var/obj/item/clothing/under/uniform = H.w_uniform
 
-		//	Radio transmitters are jammed
-		if(nanite_sensors ? H.is_jammed() : uniform.is_jammed())
+		// Are the suit sensors on?
+		if (!nanite_sensors && (!uniform?.has_sensor || !uniform?.sensor_mode))
 			continue
 
-		// Are the suit sensors on?
-		if (!nanite_sensors && (!uniform.has_sensor || !uniform.sensor_mode))
+		//	Radio transmitters are jammed
+		if(nanite_sensors ? H.is_jammed() : uniform?.is_jammed())
 			continue
 
 		// The entry for this human
