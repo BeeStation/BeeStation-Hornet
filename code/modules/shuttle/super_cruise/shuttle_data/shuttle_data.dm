@@ -35,6 +35,14 @@
 			register_thruster(shuttle_engine)
 
 //====================
+// Shield Damage
+//====================
+
+/datum/shuttle_data/proc/deal_damage(damage_amount)
+
+/datum/shuttle_data/proc/is_protected()
+
+//====================
 // Fuel Consumption / Flight Processing
 //====================
 

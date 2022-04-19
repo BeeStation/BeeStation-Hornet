@@ -248,20 +248,19 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					return
 				//Locate the orbital object
 				var/datum/orbital_map/viewing_map = SSorbits.orbital_maps[orbital_map_index]
-				for(var/map_key in viewing_map.collision_zone_bodies)
-					for(var/datum/orbital_object/z_linked/z_linked as() in viewing_map.collision_zone_bodies[map_key])
-						if(!istype(z_linked))
-							continue
-						if(z_linked.z_in_contents(target_port.z))
-							if(!SSorbits.assoc_shuttles.Find(shuttleId))
-								//Launch the shuttle
-								if(!launch_shuttle())
-									return
-							shuttleObject.set_pilot(new /datum/shuttle_ai_pilot/autopilot/request(
-								z_linked, recall_docking_port_id
-							))
-							say("Shuttle requested.")
-							return
+				for(var/datum/orbital_object/z_linked/z_linked as() in viewing_map.get_all_bodies())
+					if(!istype(z_linked))
+						continue
+					if(z_linked.z_in_contents(target_port.z))
+						if(!SSorbits.assoc_shuttles.Find(shuttleId))
+							//Launch the shuttle
+							if(!launch_shuttle())
+								return
+						shuttleObject.set_pilot(new /datum/shuttle_ai_pilot/autopilot/request(
+							z_linked, recall_docking_port_id
+						))
+						say("Shuttle requested.")
+						return
 				say("Docking port in invalid location. Please contact a Nanotrasen technician.")
 		return
 
@@ -274,14 +273,13 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			if(shuttleObject.name == desiredTarget)
 				return
 			var/datum/orbital_map/showing_map = SSorbits.orbital_maps[orbital_map_index]
-			for(var/map_key in showing_map.collision_zone_bodies)
-				for(var/datum/orbital_object/object as() in showing_map.collision_zone_bodies[map_key])
-					if(object.name == desiredTarget)
-						var/is_autopilot_active = shuttleObject.ai_pilot?.is_active()
-						shuttleObject.set_pilot(new /datum/shuttle_ai_pilot/autopilot(object))
-						if(is_autopilot_active)
-							shuttleObject.ai_pilot?.try_toggle()
-						return
+			for(var/datum/orbital_object/object as() in showing_map.get_all_bodies())
+				if(object.name == desiredTarget)
+					var/is_autopilot_active = shuttleObject.ai_pilot?.is_active()
+					shuttleObject.set_pilot(new /datum/shuttle_ai_pilot/autopilot(object))
+					if(is_autopilot_active)
+						shuttleObject.ai_pilot?.try_toggle()
+					return
 		if("nautopilot")
 			if(QDELETED(shuttleObject))
 				return

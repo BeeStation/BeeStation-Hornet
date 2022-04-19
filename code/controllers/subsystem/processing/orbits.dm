@@ -44,6 +44,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//The station
 	var/datum/orbital_object/station_instance
 
+	//A list of all active map hazards
+	var/list/datum/orbital_object/hazard/active_hazards = list()
+
 	//Assoc shuttle data
 	//Key: port_id
 	//Value: The shuttle data
@@ -130,6 +133,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		if(current_objective.check_failed())
 			priority_announce("Central Command priority objective failed.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
 			QDEL_NULL(current_objective)
+	//Process hazards
+	process_hazards()
 	//Process events
 	for(var/datum/ruin_event/ruin_event as() in ruin_events)
 		if(!ruin_event.update())
@@ -142,6 +147,22 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		//Update UIs
 		for(var/datum/tgui/tgui as() in open_orbital_maps)
 			tgui.send_update()
+
+/datum/controller/subsystem/processing/orbits/proc/process_hazards()
+	var/hazard_removal_chance = length(active_hazards) * 0.1
+	var/hazard_spawn_chance = 0.4 / (length(active_hazards) + 1)
+	if(length(active_hazards) && prob(hazard_removal_chance))
+		var/picked = pick(active_hazards)
+		qdel(picked)
+	if(prob(hazard_spawn_chance))
+		var/datum/orbital_object/created = new /datum/orbital_object/hazard/ion_storm()
+		var/datum/orbital_map/main = orbital_maps[PRIMARY_ORBITAL_MAP]
+		var/hazard_distance = rand(2000, 7000)
+		var/maximum_radius = hazard_distance / 3
+		created.radius = maximum_radius
+		created.set_orbitting_around_body(main.center, hazard_distance, TRUE)
+		created.velocity.x = 0
+		created.velocity.y = 0
 
 /mob/dead/observer/verb/open_orbit_ui()
 	set name = "View Orbits"
@@ -210,28 +231,27 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	data["map_objects"] = list()
 	//Fetch the active single instances
 	//Get the objects
-	for(var/zone in showing_map.collision_zone_bodies)
-		for(var/datum/orbital_object/object as() in showing_map.collision_zone_bodies[zone])
-			if(!object)
+	for(var/datum/orbital_object/object as() in showing_map.get_all_bodies())
+		if(!object)
+			continue
+		//we can't see it, unless we are stealth too
+		if(attached_orbital_object)
+			if(object != attached_orbital_object && (object.stealth && !attached_orbital_object.stealth))
 				continue
-			//we can't see it, unless we are stealth too
-			if(attached_orbital_object)
-				if(object != attached_orbital_object && (object.stealth && !attached_orbital_object.stealth))
-					continue
-			else if(!see_stealthed && object.stealth)
-				continue
-			//Transmit map data about non single-instanced objects.
-			data["map_objects"] += list(list(
-				"id" = object.unique_id,
-				"name" = object.name,
-				"position_x" = object.position.x,
-				"position_y" = object.position.y,
-				"velocity_x" = object.velocity.x,
-				"velocity_y" = object.velocity.y,
-				"radius" = object.radius,
-				"render_mode" = object.render_mode,
-				"priority" = object.priority,
-			))
+		else if(!see_stealthed && object.stealth)
+			continue
+		//Transmit map data about non single-instanced objects.
+		data["map_objects"] += list(list(
+			"id" = object.unique_id,
+			"name" = object.name,
+			"position_x" = object.position.x,
+			"position_y" = object.position.y,
+			"velocity_x" = object.velocity.x,
+			"velocity_y" = object.velocity.y,
+			"radius" = object.radius,
+			"render_mode" = object.render_mode,
+			"priority" = object.priority,
+		))
 	return data
 
 /datum/controller/subsystem/processing/orbits/proc/get_shuttle_data(port_id)

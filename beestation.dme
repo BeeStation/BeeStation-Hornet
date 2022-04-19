@@ -3223,6 +3223,8 @@
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\space_station.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\star.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\z_linked.dm"
+#include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\hazards\hazard.dm"
+#include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\hazards\ion_storm.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\shuttle\custom_shuttle.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\shuttle\shuttle.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\shuttle\shuttle_docking_helpers.dm"

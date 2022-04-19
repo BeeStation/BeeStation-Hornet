@@ -25,6 +25,7 @@ export class OrbitalMapSvg extends Component {
       "beacon": Beacon,
       "shuttle": Shuttle,
       "projectile": Projectile,
+      "hazard": Hazard,
     };
   }
 
@@ -124,6 +125,20 @@ export class OrbitalMapSvg extends Component {
               width={25 * lockedZoomScale}
               height={100 * lockedZoomScale}
               fill="rgba(64, 194, 86, 0.01)" />
+          </pattern>
+          <pattern id="hazardfill" width={50 * lockedZoomScale}
+            height={100 * lockedZoomScale}
+            patternUnits="userSpaceOnUse"
+            patternTransform={`rotate(${90+stripesAngle})`}
+            x={scaledXOffset*factorX+scaledYOffset*factorY}>
+            <rect width={25 * lockedZoomScale}
+              height={100 * lockedZoomScale}
+              fill="rgba(224, 80, 67, 0.2)" />
+            <rect
+              x={25*lockedZoomScale}
+              width={25 * lockedZoomScale}
+              height={100 * lockedZoomScale}
+              fill="rgba(224, 80, 67, 0.05)" />
           </pattern>
           <pattern id="planetfill" width={50 * lockedZoomScale}
             height={100 * lockedZoomScale}
@@ -389,13 +404,6 @@ class RenderableObjectType {
     this.inBounds = outputXPosition < 250 && outputYPosition < 250
       && outputXPosition > -250 && outputYPosition > -250;
 
-    if (!this.inBounds)
-    {
-      outputRadius = 5 * zoomScale;
-      outputXPosition = clamp(outputXPosition, -250, 250);
-      outputYPosition = clamp(outputYPosition, -250, 250);
-    }
-
     let textXPos = clamp(outputXPosition, -250, 200);
     let textYPos = clamp(outputYPosition, -240, 250);
 
@@ -446,6 +454,24 @@ class PlanettaryBody extends RenderableObjectType {
     this.fontFill = "#fca635";
     this.lineStyle = {
       stroke: '#fca635',
+      strokeWidth: '2',
+    };
+    this.velocityLengthMult = 10;
+  }
+}
+
+// Hazard
+class Hazard extends RenderableObjectType {
+  constructor() {
+    super();
+    this.outlineColour = "#e05043";
+    this.outlineWidth = 1;
+    this.fill = "url(#hazardfill)";
+    // this.fill = "rgba(252, 166, 53, 0.1)";
+    this.textSize = 40;
+    this.fontFill = "#e05043";
+    this.lineStyle = {
+      stroke: '#e05043',
       strokeWidth: '2',
     };
     this.velocityLengthMult = 10;

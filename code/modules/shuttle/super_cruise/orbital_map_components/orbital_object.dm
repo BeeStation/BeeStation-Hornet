@@ -213,6 +213,8 @@
 
 	var/list/valid_objects = list()
 
+	valid_objects += parent_map.get_all_bodies()
+
 	//Only check nearby segments for collision objects
 	if(parent_map.collision_zone_bodies[position_key])
 		valid_objects += parent_map.collision_zone_bodies[position_key]
