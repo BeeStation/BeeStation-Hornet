@@ -992,6 +992,7 @@ GENE SCANNER
 		return
 	var/datum/disease/advance/A = input(user,"What disease do you wish to extract") in null|advancediseases
 	if(isolate)
+		using = TRUE
 		for(var/datum/symptom/S in A.symptoms)
 			if(S.level <= 6 + scanner.rating)
 				symptoms += S
@@ -999,6 +1000,7 @@ GENE SCANNER
 		var/datum/symptom/chosen = input(user,"What symptom do you wish to isolate") in null|symptoms
 		var/datum/disease/advance/symptomholder = new
 		if(!symptoms.len || !chosen)
+			using = FALSE
 			to_chat(user, "<span class='warning'>There are no valid diseases to isolate a symptom from.</span>")
 			return
 		symptomholder.name = chosen.name
@@ -1006,7 +1008,6 @@ GENE SCANNER
 		symptomholder.Finalize()
 		symptomholder.Refresh()
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
-		using = TRUE
 		if(do_after(user, (600 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
 	else 

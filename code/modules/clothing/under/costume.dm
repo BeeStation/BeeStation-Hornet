@@ -128,6 +128,13 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 
+/obj/item/clothing/under/costume/kamishimo
+	name = "kamishimo"
+	desc = "A traditional ancient Earth Japanese Kamishimo."
+	icon_state = "kamishimo"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+
 /obj/item/clothing/under/costume/villain
 	name = "villain suit"
 	desc = "A change of wardrobe is necessary if you ever want to catch a real superhero."

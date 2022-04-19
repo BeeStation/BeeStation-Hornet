@@ -54,21 +54,19 @@
 		lasercolor = created_lasercolor
 	icon_state = "[lasercolor]ed209[on]"
 	set_weapon() //giving it the right projectile and firing sound.
-	spawn(3)
-		var/datum/job/detective/J = new/datum/job/detective
-		access_card.access += J.get_access()
-		prev_access = access_card.access
-
-		if(lasercolor)
-			shot_delay = 6//Longer shot delay because JESUS CHRIST
-			check_records = 0//Don't actively target people set to arrest
-			arrest_type = 1//Don't even try to cuff
-			bot_core.req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE)
-			arrest_type = 1
-			if((lasercolor == "b") && (name == "\improper ED-209 Security Robot"))//Picks a name if there isn't already a custome one
-				name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT")
-			if((lasercolor == "r") && (name == "\improper ED-209 Security Robot"))
-				name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
+	var/datum/job/detective/J = new/datum/job/detective
+	access_card.access += J.get_access()
+	prev_access = access_card.access
+	if(lasercolor)
+		shot_delay = 6//Longer shot delay because JESUS CHRIST
+		check_records = 0//Don't actively target people set to arrest
+		arrest_type = 1//Don't even try to cuff
+		bot_core.req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE)
+		arrest_type = 1
+		if((lasercolor == "b") && (name == "\improper ED-209 Security Robot"))//Picks a name if there isn't already a custome one
+			name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT")
+		if((lasercolor == "r") && (name == "\improper ED-209 Security Robot"))
+			name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]

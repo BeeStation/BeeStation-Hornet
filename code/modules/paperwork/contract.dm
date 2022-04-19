@@ -90,8 +90,10 @@
 	name = "paper- infernal contract"
 	contractType = CONTRACT_UNWILLING
 
-/obj/item/paper/contract/infernal/New(atom/loc, mob/living/nTarget, datum/mind/nOwner)
-	..()
+/obj/item/paper/contract/infernal/Initialize(mapload, mob/living/nTarget, datum/mind/nOwner)
+	. = ..()
+	if(!istype(nOwner))
+		return INITIALIZE_HINT_QDEL
 	owner = nOwner
 	devil_datum = owner.has_antag_datum(/datum/antagonist/devil)
 	target = nTarget
@@ -254,7 +256,7 @@
 		var/datum/antagonist/devil/ownerDevilInfo = user.mind.soulOwner.has_antag_datum(/datum/antagonist/devil)
 		ownerDevilInfo.remove_soul(user.mind) //Then they lose their claim.
 	user.mind.soulOwner = owner
-	user.hellbound = contractType
+	user.sethellbound()
 	user.mind.damnation_type = contractType
 	var/datum/antagonist/devil/devilInfo = owner.has_antag_datum(/datum/antagonist/devil)
 	devilInfo.add_soul(user.mind)

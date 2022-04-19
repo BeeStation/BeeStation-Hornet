@@ -525,6 +525,8 @@
 
 /datum/config_entry/flag/respect_global_bans
 
+/datum/config_entry/flag/disable_local_bans
+
 //Fail2Topic settings.
 /datum/config_entry/number/topic_rate_limit
 	config_entry_value = 5

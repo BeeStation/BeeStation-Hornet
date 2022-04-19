@@ -469,7 +469,8 @@
 		/obj/item/lightreplacer/cyborg,
 		/obj/item/holosign_creator/janibarrier,
 		/obj/item/reagent_containers/spray/cyborg/drying_agent,
-		/obj/item/reagent_containers/spray/cyborg/plantbgone)
+		/obj/item/reagent_containers/spray/cyborg/plantbgone,
+		/obj/item/wirebrush)
 	emag_modules = list(
 		/obj/item/reagent_containers/spray/cyborg/lube,
 		/obj/item/reagent_containers/spray/cyborg/acid)

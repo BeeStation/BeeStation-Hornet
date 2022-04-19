@@ -224,7 +224,7 @@
 		if(1)
 			//Dust
 			T.visible_message("<span class='userdanger'>[user] turns to dust!</span>")
-			user.hellbound = TRUE
+			user.sethellbound()
 			user.dust()
 		if(2)
 			//Death
@@ -261,7 +261,7 @@
 		if(8)
 			//Fueltank Explosion
 			T.visible_message("<span class='userdanger'>An explosion bursts into existence around [user]!</span>")
-			explosion(get_turf(user),-1,0,2, flame_range = 2)
+			explosion(get_turf(user),-1,0,2, flame_range = 2, magic = TRUE)
 		if(9)
 			//Cold
 			var/datum/disease/D = new /datum/disease/cold()
