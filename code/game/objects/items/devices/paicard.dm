@@ -198,9 +198,11 @@
  */
 /obj/item/paicard/proc/pool_candidates()
 	/// Array of pAI candidates
+	var/list/candidates = SSpai.candidates
 	var/list/ready_candidates = list()
 	if(length(SSpai.candidates))
-		for(var/datum/pai_candidate/checked_candidate as anything in SSpai.candidates)
+		for(var/key in candidates)
+			var/datum/pai_candidate/checked_candidate = candidates[key]
 			if(!checked_candidate.ready)
 				continue
 			/// The object containing the candidate data.
