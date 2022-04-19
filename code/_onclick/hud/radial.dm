@@ -9,6 +9,11 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	plane = ABOVE_HUD_PLANE
 	var/datum/radial_menu/parent
 
+/atom/movable/screen/radial/Destroy()
+	if(parent)
+		UnregisterSignal(parent, COMSIG_PARENT_QDELETING)
+	. = ..()
+
 /atom/movable/screen/radial/proc/set_parent(new_value)
 	if(parent)
 		UnregisterSignal(parent, COMSIG_PARENT_QDELETING)
