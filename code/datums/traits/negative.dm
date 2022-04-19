@@ -456,41 +456,6 @@
 	to_chat(quirk_holder, "<span class='big bold info'>Please note that your dissociation syndrome does NOT give you the right to attack people or otherwise cause any interference to \
 	the round. You are not an antagonist, and the rules will treat you the same as other crewmembers.</span>")
 
-/datum/quirk/social_anxiety
-	name = "Social Anxiety"
-	desc = "Talking to people is very difficult for you, and you often stutter or even lock up."
-	value = -1
-	gain_text = "<span class='danger'>You start worrying about what you're saying.</span>"
-	lose_text = "<span class='notice'>You feel easier about talking again.</span>" //if only it were that easy!
-	medical_record_text = "Patient is usually anxious in social encounters and prefers to avoid them."
-	var/dumb_thing = TRUE
-
-/datum/quirk/social_anxiety/on_process(delta_time)
-	var/nearby_people = 0
-	for(var/mob/living/carbon/human/H in oview(3, quirk_holder))
-		if(H.client)
-			nearby_people++
-	var/mob/living/carbon/human/H = quirk_holder
-	if(DT_PROB(2 + nearby_people, delta_time))
-		H.stuttering = max(3, H.stuttering)
-	else if(DT_PROB(min(3, nearby_people), delta_time) && !H.silent)
-		to_chat(H, "<span class='danger'>You retreat into yourself. You <i>really</i> don't feel up to talking.</span>")
-		H.silent = max(10, H.silent)
-	else if(DT_PROB(0.5, delta_time) && dumb_thing)
-		to_chat(H, "<span class='userdanger'>You think of a dumb thing you said a long time ago and scream internally.</span>")
-		dumb_thing = FALSE //only once per life
-		if(prob(1))
-			new/obj/item/reagent_containers/food/snacks/spaghetti/pastatomato(get_turf(H)) //now that's what I call spaghetti code
-
-/datum/quirk/mute
-	name = "Mute"
-	desc = "You are unable to speak."
-	value = -2
-	mob_trait = TRAIT_MUTE
-	gain_text = "<span class='danger'>You feel unable to talk.</span>"
-	lose_text = "<span class='notice'>You feel able to talk again.</span>"
-	medical_record_text = "Patient is unable to speak."
-
 //If you want to make some kind of junkie variant, just extend this quirk.
 /datum/quirk/junkie
 	name = "Junkie"
