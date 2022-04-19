@@ -442,11 +442,11 @@
 /datum/move_loop/has_target/jps/hostile/recalculate_path()
 	. = ..()
 	// Implementing pathfinding fallback solution
-	if(!movement_path)
+	if(!length(movement_path))
 		var/ln = get_dist(moving, target)
 		var/turf/target_new = target
 		var/found_blocker
-		while(!movement_path && (ln > 0)) //will stop if we can find a valid path or if ln gets reduced to 0 or less
+		while(!length(movement_path) && (ln > 0)) //will stop if we can find a valid path or if ln gets reduced to 0 or less
 			find_target:
 				for(var/i in 1 to ln) //calling get_path_to every time is quite taxing lets see if we can find whatever blocks us
 					target_new = get_step(target_new,  get_dir(target_new, moving)) //step towards the origin until we find the blocker then 1 further
