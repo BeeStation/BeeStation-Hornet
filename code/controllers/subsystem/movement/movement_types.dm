@@ -371,10 +371,13 @@
 
 	// this check if we're on exactly the next tile may be overly brittle for dense objects who may get bumped slightly
 	// to the side while moving but could maybe still follow their path without needing a whole new path
-	if(get_turf(moving) == next_step)
+	var/turf/current_loc = get_turf(atom) //if we need to use this twice might as well make it a local var
+	if(current_loc == next_step)
 		movement_path.Cut(1,2)
-	else
+	else if(get_dist(current_loc, next_step) > 1) //we check here if we are further away than 1 tile before we recalculate the path cause else we might just be able to try to move again next time
 		INVOKE_ASYNC(src, .proc/recalculate_path)
+		return FALSE
+	else
 		return FALSE
 /**
  * Used for following jps defined paths.
@@ -463,13 +466,10 @@
 
 /datum/move_loop/has_target/jps/hostile/move()
 	var/atom/movable/atom = moving
-	if(!length(movement_path))
+	if(!length(movement_path) || target_turf != get_turf(target))
 		INVOKE_ASYNC(src, .proc/recalculate_path)
 		if(!length(movement_path))
 			return FALSE
-	if(target_turf != get_turf(target)) //incase our target moves
-		INVOKE_ASYNC(src, .proc/recalculate_path)
-		return FALSE
 	var/turf/next_step = movement_path[1]
 	var/atom/old_loc = moving.loc
 	moving.Move(next_step, get_dir(moving, next_step))
@@ -477,10 +477,13 @@
 
 	// this check if we're on exactly the next tile may be overly brittle for dense objects who may get bumped slightly
 	// to the side while moving but could maybe still follow their path without needing a whole new path
-	if(get_turf(moving) == next_step)
+	var/turf/current_loc = get_turf(atom) //if we need to use this twice might as well make it a local var
+	if(current_loc == next_step)
 		movement_path.Cut(1,2)
-	else
+	else if(get_dist(current_loc, next_step) > 1) //we check here if we are further away than 1 tile before we recalculate the path cause else we might just be able to try to move again next time
 		INVOKE_ASYNC(src, .proc/recalculate_path)
+		return FALSE
+	else
 		return FALSE
 
 /datum/move_loop/has_target/jps/hostile/Destroy()
