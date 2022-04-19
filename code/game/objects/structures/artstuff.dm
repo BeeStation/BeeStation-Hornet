@@ -62,7 +62,7 @@
 	pixel_x = 10
 	pixel_y = 9
 
-/obj/item/canvas/Initialize()
+/obj/item/canvas/Initialize(mapload)
 	. = ..()
 	reset_grid()
 
@@ -190,8 +190,11 @@
 /obj/item/canvas/proc/try_rename(mob/user)
 	var/new_name = stripped_input(user,"What do you want to name the painting?")
 	if(new_name != painting_name && new_name && user.canUseTopic(src,BE_CLOSE))
-		painting_name = new_name
-		SStgui.update_uis(src)
+		if(!CHAT_FILTER_CHECK(new_name))
+			painting_name = new_name
+			SStgui.update_uis(src)
+		else
+			to_chat(user, "<span class='warning'>That name is prohibited by the Nanotrasen Ministry of Truth!")
 
 /obj/item/canvas/nineteen_nineteen
 	icon_state = "19x19"

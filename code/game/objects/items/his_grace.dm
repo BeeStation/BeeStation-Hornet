@@ -15,7 +15,6 @@
 	w_class = WEIGHT_CLASS_GIGANTIC
 	force = 12
 	block_upgrade_walk = 1
-	block_level = 1
 	attack_verb = list("robusted")
 	hitsound = 'sound/weapons/smash.ogg'
 	var/awakened = FALSE
@@ -26,7 +25,7 @@
 	var/victims_needed = 25
 	var/ascend_bonus = 15
 
-/obj/item/his_grace/Initialize()
+/obj/item/his_grace/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
 	GLOB.poi_list += src

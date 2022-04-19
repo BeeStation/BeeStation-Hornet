@@ -15,7 +15,7 @@
 	var/allow_clothing = FALSE
 	var/allow_living = FALSE
 
-/obj/machinery/harvester/Initialize()
+/obj/machinery/harvester/Initialize(mapload)
 	. = ..()
 	if(prob(1))
 		name = "auto-autopsy"
@@ -172,10 +172,10 @@
 	else
 		to_chat(user,"<span class='warning'>[src] is active and can't be opened!</span>") //rip
 
-/obj/machinery/harvester/Exited(atom/movable/user)
+/obj/machinery/harvester/Exited(atom/movable/gone, direction)
 	. = ..()
-	if (!state_open && user == occupant)
-		container_resist(user)
+	if (!state_open && gone == occupant)
+		container_resist(gone)
 
 /obj/machinery/harvester/relaymove(mob/user)
 	if (!state_open)

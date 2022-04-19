@@ -14,11 +14,12 @@
 //check if all bitflags specified are present
 #define CHECK_MULTIPLE_BITFIELDS(flagvar, flags) (((flagvar) & (flags)) == (flags))
 
-GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
+/// Currently covers (1<<0) to (1<<22)
+GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4194304))
 
 // for /datum/var/datum_flags
-#define DF_USE_TAG		(1<<0)
-#define DF_VAR_EDITED	(1<<1)
+#define DF_USE_TAG (1<<0)
+#define DF_VAR_EDITED (1<<1)
 #define DF_ISPROCESSING (1<<2)
 
 //! ## FLAGS BITMASK
@@ -29,7 +30,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define PREVENT_CLICK_UNDER_1		(1<<11)		//! Prevent clicking things below it on the same turf eg. doors/ fulltile windows
 #define HOLOGRAM_1					(1<<12)
 #define TESLA_IGNORE_1				(1<<13) 	//! TESLA_IGNORE grants immunity from being targeted by tesla-style electricity
-#define INITIALIZED_1				(1<<14)  	//! Whether /atom/Initialize() has already run for the object
+#define INITIALIZED_1				(1<<14)  	//! Whether /atom/Initialize(mapload) has already run for the object
 #define ADMIN_SPAWNED_1				(1<<15) 		//! was this spawned by an admin? used for stat tracking stuff.
 #define PREVENT_CONTENTS_EXPLOSION_1 (1<<16)
 #define UNPAINTABLE_1 				(1<<17)
@@ -91,7 +92,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define FLYING			(1<<1)
 #define VENTCRAWLING	(1<<2)
 #define FLOATING		(1<<3)
-#define PHASING			(1<<4) // When moving, will Cross()/Uncross() everything, but won't stop or Bump() anything.
+#define PHASING		(1<<4)			//! When moving, will Bump()/Cross() everything, but won't be stopped.
 #define THROWN			(1<<5) //! while an atom is being thrown
 
 //! ## Fire and Acid stuff, for resistance_flags
@@ -112,9 +113,9 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define TESLA_MOB_STUN				(1<<4)
 
 #define TESLA_DEFAULT_FLAGS ALL
-#define TESLA_ENERGY_PRIMARY_BALL_FLAGS TESLA_MACHINE_EXPLOSIVE | TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN
-#define TESLA_ENERGY_MINI_BALL_FLAGS TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN
-#define TESLA_FUSION_FLAGS TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN
+#define TESLA_ENERGY_PRIMARY_BALL_FLAGS (TESLA_MACHINE_EXPLOSIVE | TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN)
+#define TESLA_ENERGY_MINI_BALL_FLAGS (TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN)
+#define TESLA_FUSION_FLAGS (TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN)
 
 //EMP protection
 #define EMP_PROTECT_SELF (1<<0)

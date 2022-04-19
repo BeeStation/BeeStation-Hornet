@@ -19,7 +19,7 @@
 	var/obj/effect/overlay/vis/mattress_on
 	var/obj/machinery/computer/operating/op_computer
 
-/obj/machinery/stasis/Initialize()
+/obj/machinery/stasis/Initialize(mapload)
 	. = ..()
 	for(var/direction in GLOB.cardinals)
 		op_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
@@ -55,12 +55,12 @@
 		play_power_sound()
 		update_icon()
 
-/obj/machinery/stasis/Exited(atom/movable/AM, atom/newloc)
-	if(AM == occupant)
-		var/mob/living/L = AM
+/obj/machinery/stasis/Exited(atom/movable/gone, direction)
+	if(gone == occupant)
+		var/mob/living/L = gone
 		if(L.IsInStasis())
 			thaw_them(L)
-	. = ..()
+	return ..()
 
 /obj/machinery/stasis/proc/stasis_running()
 	return stasis_enabled && is_operational()

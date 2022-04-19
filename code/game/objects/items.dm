@@ -19,6 +19,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// The icon for holding in hand icon states for the right hand.
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
+	var/supports_variations = null //This is a bitfield that defines what variations exist for bodyparts like Digi legs.
+
 	//Dimensions of the icon file used when this item is worn, eg: hats.dmi
 	//eg: 32x32 sprite, 64x64 sprite, etc.
 	//allows inhands/worn sprites to be of any size, but still centered on a mob properly
@@ -35,9 +37,19 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	//Not on /clothing because for some reason any /obj/item can technically be "worn" with enough fuckery.
 	/// If this is set, update_icons() will find on mob (WORN, NOT INHANDS) states in this file instead, primary use: badminnery/events
-	var/icon/alternate_worn_icon = null
+	var/icon/worn_icon = null
+	//Icon state for mob worn overlays. If not set falls back to item_state, then icon_state
+	var/worn_icon_state
 	/// If this is set, update_icons() will force the on mob state (WORN, NOT INHANDS) onto this layer, instead of it's default
-	var/alternate_worn_layer = null
+	var/alternate_worn_layer
+	///The config type to use for greyscaled worn sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_worn
+	///The config type to use for greyscaled left inhand sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_inhand_left
+	///The config type to use for greyscaled right inhand sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_inhand_right
+	///The config type to use for greyscaled belt overlays. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_belt
 
 	max_integrity = 200
 
@@ -85,8 +97,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// Flags for clicking the item with your hand. See _DEFINES/interaction_flags.dm
 	var/interaction_flags_item = INTERACT_ITEM_ATTACK_HAND_PICKUP
 
-	/// Used in picking icon_states based on the string color here. Also used for cables or something. This could probably do with being deprecated.
-	var/item_color = null
+	///Icon state for the belt overlay, if null the normal icon_state will be used.
+	var/belt_icon_state
 
 	/// The body parts this item covers when worn. Used mostly for armor. See _DEFINES/setup.dm
 	var/body_parts_covered = 0
@@ -183,6 +195,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// Seemingly used only for guns so I'm not sure why it's here. Basically used to see whether you are able to pull the gun trigger. See _DEFINES/combat.dm
 	var/trigger_guard = TRIGGER_GUARD_NONE
 
+	///Used as the dye color source in the washing machine only (at the moment). Can be a hex color or a key corresponding to a registry entry, see washing_machine.dm
+	var/dye_color
+	///Whether the item is unaffected by standard dying.
+	var/undyeable = FALSE
+	///What dye registry should be looked at when dying this item; see washing_machine.dm
+	var/dying_key
+
 	//Grinder vars
 	/// A reagent list containing the reagents this item produces when ground up in a grinder - this can be an empty list to allow for reagent transferring only
 	var/list/grind_results
@@ -190,7 +209,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/list/juice_results
 
 
-/obj/item/Initialize()
+/obj/item/Initialize(mapload)
 
 	materials =	typelist("materials", materials)
 
@@ -217,7 +236,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		item_flags |= IN_STORAGE
 
 	if(istype(loc, /obj/item/robot_module))
-		item_flags |= IN_INVENTORY
+		var/obj/item/robot_module/parent_module = loc
+		var/mob/living/silicon/parent_robot = parent_module.loc
+		pickup(parent_robot)
 
 	if(!hitsound)
 		if(damtype == "fire")
@@ -274,6 +295,27 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/suicide_act(mob/user)
 	return
 
+/obj/item/set_greyscale(list/colors, new_config, new_worn_config, new_inhand_left, new_inhand_right)
+	if(new_worn_config)
+		greyscale_config_worn = new_worn_config
+	if(new_inhand_left)
+		greyscale_config_inhand_left = new_inhand_left
+	if(new_inhand_right)
+		greyscale_config_inhand_right = new_inhand_right
+	return ..()
+
+/// Checks if this atom uses the GAGS system and if so updates the worn and inhand icons
+/obj/item/update_greyscale()
+	. = ..()
+	if(!greyscale_colors)
+		return
+	if(greyscale_config_worn)
+		worn_icon = SSgreyscale.GetColoredIconByType(greyscale_config_worn, greyscale_colors)
+	if(greyscale_config_inhand_left)
+		lefthand_file = SSgreyscale.GetColoredIconByType(greyscale_config_inhand_left, greyscale_colors)
+	if(greyscale_config_inhand_right)
+		righthand_file = SSgreyscale.GetColoredIconByType(greyscale_config_inhand_right, greyscale_colors)
+
 /obj/item/verb/move_to_top()
 	set name = "Move To Top"
 	set category = "Object"
@@ -288,8 +330,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return
 
 	var/turf/T = loc
-	loc = null
-	loc = T
+	abstract_move(null)
+	forceMove(T)
 
 /obj/item/examine(mob/user) //This might be spammy. Remove?
 	. = ..()
@@ -307,6 +349,37 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			. += "[src] is made of cold-resistant materials."
 		if(resistance_flags & FIRE_PROOF)
 			. += "[src] is made of fire-retardant materials."
+	if(block_level || block_upgrade_walk)
+		if(block_upgrade_walk == 1 && !block_level)
+			. += "While walking, [src] can block attacks in a <b>narrow</b> arc."
+		else
+			switch(block_upgrade_walk + block_level)
+				if(1)
+					. += "[src] can block attacks in a <b>narrow</b> arc."
+				if(2)
+					. += "[src] can block attacks in a <b>wide</b> arc."
+				if(3)
+					. += "[src] can block attacks in a <b>very wide</b> arc."
+				if(4 to INFINITY)
+					. += "[src] can block attacks in a <b>nearly complete</b> arc."
+			if(block_upgrade_walk)
+				. += "[src] is <b>less</b> effective at blocking while the user is <b>running</b>."
+		switch(block_power)
+			if(-INFINITY to -1)
+				. += "[src] is weighted extremely poorly for blocking"
+			if(0 to 10)
+				. += "[src] is average at blocking"
+			if(10 to 30)
+				. += "[src] is well-weighted for blocking"
+			if(31 to 50)
+				. += "[src] is extremely well-weighted for blocking"
+			if(51 to INFINITY)
+				. += "[src] is as well weighted as possible for blocking"
+	if(force)
+		if(!force_string)
+			set_force_string()
+		. += "Force: [force_string]"
+
 
 	if(!user.research_scanner)
 		return
@@ -415,7 +488,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return
 
 	remove_outline()
-	pickup(user)
 	add_fingerprint(user)
 	if(!user.put_in_active_hand(src, FALSE, FALSE))
 		user.dropItemToGround(src)
@@ -437,7 +509,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(!user.temporarilyRemoveItemFromInventory(src))
 			return
 
-	pickup(user)
 	add_fingerprint(user)
 	if(!user.put_in_active_hand(src, FALSE, FALSE))
 		user.dropItemToGround(src)
@@ -474,7 +545,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/obj/item/bodypart/blockhand = null
 	if(owner.stat) //can't block if you're dead
 		return 0
-	if(HAS_TRAIT(owner, TRAIT_NOBLOCK) && istype(src, /obj/item/shield)) //shields can always block, because they break instead of using stamina damage
+	if(HAS_TRAIT(owner, TRAIT_NOBLOCK) && !istype(src, /obj/item/shield)) //shields can always block, because they break instead of using stamina damage
 		return 0
 	if(owner.get_active_held_item() == src) //copypaste of this code for an edgecase-nodrops
 		if(owner.active_hand_index == 1)
@@ -577,29 +648,34 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	owner.apply_damage(attackforce, STAMINA, blockhand, block_power)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
 		owner.blockbreak()
+	if(attackforce)
+		owner.changeNext_move(CLICK_CD_MELEE)
 	return TRUE
 
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language, list/message_mods)
 	return ITALICS | REDUCE_RANGE
 
 /obj/item/proc/dropped(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(user)
 	if(item_flags & DROPDEL)
 		qdel(src)
-	item_flags &= ~IN_INVENTORY
-	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
+	item_flags &= ~PICKED_UP
+	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
+	SEND_SIGNAL(user, COMSIG_MOB_DROPPED_ITEM, src, loc)
 	if(item_flags & SLOWS_WHILE_IN_HAND)
 		user.update_equipment_speed_mods()
 	remove_outline()
-	if(verbs && user.client)
+	if(verbs && user?.client)
 		user.client.remove_verbs(verbs)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
+	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
-	item_flags |= IN_INVENTORY
+	item_flags |= PICKED_UP
 	if(verbs && user.client)
 		user.client.add_verbs(verbs)
 
@@ -614,13 +690,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // note this isn't called during the initial dressing of a player
 /obj/item/proc/equipped(mob/user, slot)
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
+	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
 	for(var/X in actions)
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
 			A.Grant(user)
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
-	item_flags |= IN_INVENTORY
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
 /obj/item/proc/item_action_slot_check(slot, mob/user)
@@ -657,7 +733,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 //This proc is executed when someone clicks the on-screen UI button.
 //The default action is attack_self().
 //Checks before we get to here are: mob is alive, mob is not restrained, stunned, asleep, resting, laying, item is on the mob.
-/obj/item/proc/ui_action_click(mob/user, actiontype)
+/obj/item/proc/ui_action_click(mob/user, datum/actiontype)
 	attack_self(user)
 
 /obj/item/proc/IsReflect(var/def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
@@ -754,7 +830,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/after_throw(datum/callback/callback)
 	if (callback) //call the original callback
 		. = callback.Invoke()
-	item_flags &= ~IN_INVENTORY
+	item_flags &= ~PICKED_UP
 
 /obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
@@ -763,8 +839,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return SEND_SIGNAL(loc, COMSIG_TRY_STORAGE_TAKE, src, newLoc, TRUE)
 	return FALSE
 
-/obj/item/proc/get_belt_overlay() //Returns the icon used for overlaying the object on a belt
-	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state)
+/// Returns the icon used for overlaying the object on a belt
+/obj/item/proc/get_belt_overlay()
+	var/icon_state_to_use = belt_icon_state || icon_state
+	if(greyscale_config_belt && greyscale_colors)
+		return mutable_appearance(SSgreyscale.GetColoredIconByType(greyscale_config_belt, greyscale_colors), icon_state_to_use)
+	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state_to_use)
 
 /obj/item/proc/update_slot_icon()
 	if(!ismob(loc))
@@ -901,7 +981,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		openToolTip(user,src,params,title = name,content = "[desc]<br><b>Force:</b> [force_string]",theme = "")
 
 /obj/item/MouseEntered(location, control, params)
-	if((item_flags & IN_INVENTORY || item_flags & IN_STORAGE) && usr.client.prefs.enable_tips && !QDELETED(src))
+	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && usr.client.prefs.enable_tips && !QDELETED(src))
 		var/timedelay = usr.client.prefs.tip_delay/100
 		var/user = usr
 		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
@@ -921,7 +1001,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	remove_outline()
 
 /obj/item/proc/apply_outline(colour = null)
-	if(!(item_flags & IN_INVENTORY || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
+	if(!(item_flags & PICKED_UP || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
 		return
 	if(usr.client)
 		if(!usr.client.prefs.outline_enabled)

@@ -101,7 +101,7 @@
 
 /mob/camera/imaginary_friend/proc/setup_friend()
 	var/gender = pick(MALE, FEMALE)
-	real_name = random_unique_name(gender)
+	real_name = owner.dna.species.random_name(gender)
 	name = real_name
 	human_image = get_flat_human_icon(null, pick(SSjob.occupations))
 
@@ -129,7 +129,7 @@
 	client.images |= current_image
 
 /mob/camera/imaginary_friend/Destroy()
-	if(owner.client)
+	if(owner?.client)
 		owner.client.images.Remove(human_image)
 	if(client)
 		client.images.Remove(human_image)
@@ -179,18 +179,17 @@
 		recall()
 		move_delay = world.time + 10
 		return FALSE
-	forceMove(NewLoc)
+	abstract_move(NewLoc)
 	move_delay = world.time + 1
 
-/mob/camera/imaginary_friend/forceMove(atom/destination)
-	dir = get_dir(get_turf(src), destination)
-	loc = destination
+/mob/camera/imaginary_friend/abstract_move(atom/destination)
+	. = ..()
 	Show()
 
 /mob/camera/imaginary_friend/proc/recall()
 	if(!owner || loc == owner)
 		return FALSE
-	forceMove(owner)
+	abstract_move(owner)
 
 /datum/action/innate/imaginary_join
 	name = "Join"

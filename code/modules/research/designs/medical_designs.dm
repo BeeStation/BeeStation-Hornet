@@ -389,6 +389,18 @@
 	category = list("Implants", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/cyberimp_linkedsurgery
+	name = "Surgical Serverlink Brain Implant"
+	desc = "A brain implant with a bluespace technology that lets you perform an advanced surgery through your station research server."
+	id = "ci-linkedsurgery"
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(/datum/material/iron = 2500, /datum/material/glass = 1500, /datum/material/silver = 1500, /datum/material/copper = 200, /datum/material/gold = 3000, /datum/material/diamond = 1500, /datum/material/uranium = 250, /datum/material/bluespace = 2000)
+	build_path = /obj/item/organ/cyberimp/brain/linkedsurgery
+	category = list("Implants", "Medical Designs", "Bluespace Designs")
+	dangerous_construction = TRUE
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
 /datum/design/cyberimp_nutriment
 	name = "Nutriment Pump Implant"
 	desc = "This implant with synthesize and pump into your bloodstream a small amount of nutriment when you are starving."

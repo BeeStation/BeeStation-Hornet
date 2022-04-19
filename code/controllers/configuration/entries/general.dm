@@ -87,6 +87,8 @@
 
 /datum/config_entry/flag/log_job_debug	// log roundstart divide occupations debug information to a file
 
+/datum/config_entry/flag/log_timers_on_bucket_reset // logs all timers in buckets on automatic bucket reset (Useful for timer debugging)
+
 /datum/config_entry/flag/allow_admin_ooccolor	// Allows admins with relevant permissions to have their own ooc colour
 
 /datum/config_entry/flag/allow_admin_asaycolor //Allows admins with relevant permissions to have a personalized asay color
@@ -177,7 +179,13 @@
 
 /datum/config_entry/flag/guest_jobban
 
+//These are locked because only a restart can really change them.
+
 /datum/config_entry/flag/usewhitelist
+	protection = CONFIG_ENTRY_LOCKED
+
+/datum/config_entry/flag/use_patrons_as_whitelist
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/flag/use_age_restriction_for_jobs	//Do jobs use account age restrictions? --requires database
 
@@ -292,6 +300,8 @@
 	min_val = 0
 	integer = FALSE
 
+/datum/config_entry/flag/manual_note_expiry //Notes can only have expiration times added after creation, not during. Will also prevent automatic notes from expiring.
+
 /datum/config_entry/flag/maprotation
 
 /datum/config_entry/flag/automapvote
@@ -328,6 +338,12 @@
 /datum/config_entry/flag/panic_bunker	// prevents people the server hasn't seen before from connecting
 
 /datum/config_entry/number/panic_bunker_living // living time in minutes that a player needs to pass the panic bunker
+
+/// Flag for requiring players who would otherwise be denied access by the panic bunker to complete a written interview
+/datum/config_entry/flag/panic_bunker_interview
+
+/// Flag to allow players to retry the interview if they're denied. (Otherwise removed for the round duration)
+/datum/config_entry/flag/panic_bunker_interview_retries
 
 /datum/config_entry/string/panic_bunker_message
 	config_entry_value = "Sorry but the server is currently not accepting connections from never before seen players."
@@ -508,6 +524,8 @@
 /datum/config_entry/flag/grant_metacurrency
 
 /datum/config_entry/flag/respect_global_bans
+
+/datum/config_entry/flag/disable_local_bans
 
 //Fail2Topic settings.
 /datum/config_entry/number/topic_rate_limit

@@ -576,7 +576,7 @@ BOMBCAP 24
 ## of ruins.
 LAVALAND_BUDGET 60
 
-## Space Ruin Budged
+## Space Ruin Budget
 Space_Budget 8
 
 ## Time in ds from when a player latejoins till the arrival shuttle docks at the station
@@ -634,3 +634,6 @@ DONATOR_ITEMS
 
 ## Do we want all the heads to get codes to spare safe, or just one highest in CoC?
 SPARE_ENFORCE_COC
+
+## Uncoment to disable local bans, effectively enforcing only global bans
+DISABLE_LOCAL_BANS

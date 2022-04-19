@@ -15,6 +15,7 @@ $include comms.txt
 $include antag_rep.txt
 # Asset Transport (TGUI)
 $include resources.txt
+$include interviews.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
 # Example usage:
@@ -166,6 +167,9 @@ LOG_MANIFEST
 ## log mecha actions
 # LOG_MECHA
 
+## Log all timers on timer auto reset
+# LOG_TIMERS_ON_BUCKET_RESET
+
 ##Log camera pictures - Must have picture logging enabled
 PICTURE_LOGGING_CAMERA
 
@@ -247,6 +251,9 @@ CHECK_RANDOMIZER
 
 ## Set to prevent anyone but those ckeys listed in config/whitelist.txt and config/admins.txt from joining your server
 #USEWHITELIST
+
+## Use the patron list as a whitelist. 'USEWHITELIST' must also be enabled. The two lists will be joined together.
+#USE_PATRONS_AS_WHITELIST
 
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
 ## Don't set this to the same server, BYOND will automatically restart players to the server when it has restarted.
@@ -335,6 +342,9 @@ AUTOMUTE_ON
 ## Uncomment this to let players see their own notes (they can still be set by admins only)
 SEE_OWN_NOTES
 
+## Uncomment this to prevent the game from creating automatically expring notes, and to skip the prompt for admins to enter an expiry time for notes. They can still be added manually.
+MANUAL_NOTE_EXPIRY
+
 ### Comment these two out to prevent notes fading out over time for admins.
 ## Notes older then this will start fading out.
 NOTE_FRESH_DAYS 91.31055
@@ -376,6 +386,14 @@ NOTIFY_NEW_PLAYER_ACCOUNT_AGE 1
 ## Deny all new connections by ckeys we haven't seen before (exempts admins and only denies the connection if the database is enabled and connected)
 ##	Requires database
 #PANIC_BUNKER
+
+## Uncomment to enable the interview system for players who are below the living hour requirement instead of explicitly blocking them from the server
+## Note this requires the PANIC_BUNKER to be enabled to do anything.
+#PANIC_BUNKER_INTERVIEW
+
+## Uncomment to allow players to try interviewing again instead of being removed for the duration of the round
+## Note this requires the PANIC_BUNKER_INTERVIEW to be enabled to do anything.
+#PANIC_BUNKER_INTERVIEW_RETRIES
 
 ## If a player connects during a bunker with less then or this amount of living time (Minutes), we deny the connection
 #PANIC_BUNKER_LIVING 60

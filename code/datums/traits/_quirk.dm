@@ -10,6 +10,7 @@
 	var/medical_record_text //This text will appear on medical records for the trait. Not yet implemented
 	var/mood_quirk = FALSE //if true, this quirk affects mood and is unavailable if moodlets are disabled
 	var/mob_trait //if applicable, apply and remove this mob trait
+	var/process = FALSE // Does this quirk use on_process()?
 	var/mob/living/quirk_holder
 
 /datum/quirk/New(mob/living/quirk_mob, spawn_effects)
@@ -23,16 +24,20 @@
 	quirk_holder.roundstart_quirks += src
 	if(mob_trait)
 		ADD_TRAIT(quirk_holder, mob_trait, ROUNDSTART_TRAIT)
-	START_PROCESSING(SSquirks, src)
+	if(process)
+		START_PROCESSING(SSquirks, src)
+	RegisterSignal(quirk_holder, COMSIG_PARENT_QDELETING, .proc/handle_parent_del)
 	add()
 	if(spawn_effects)
 		on_spawn()
 		addtimer(CALLBACK(src, .proc/post_add), 30)
 
 /datum/quirk/Destroy()
-	STOP_PROCESSING(SSquirks, src)
-	remove()
+	if(process)
+		STOP_PROCESSING(SSquirks, src)
 	if(quirk_holder)
+		remove()
+		UnregisterSignal(quirk_holder, COMSIG_PARENT_QDELETING)
 		to_chat(quirk_holder, lose_text)
 		quirk_holder.roundstart_quirks -= src
 		if(mob_trait)
@@ -59,11 +64,12 @@
 /datum/quirk/proc/clone_data() //return additional data that should be remembered by cloning
 /datum/quirk/proc/on_clone(data) //create the quirk from clone data
 
+/datum/quirk/proc/handle_parent_del()
+	SIGNAL_HANDLER
+	quirk_holder = null
+	qdel(src)
+
 /datum/quirk/process(delta_time)
-	if(QDELETED(quirk_holder))
-		quirk_holder = null
-		qdel(src)
-		return
 	if(quirk_holder.stat == DEAD)
 		return
 	on_process(delta_time)
@@ -71,28 +77,24 @@
 /mob/living/proc/get_trait_string(medical) //helper string. gets a string of all the traits the mob has
 	var/list/dat = list()
 	if(!medical)
-		for(var/V in roundstart_quirks)
-			var/datum/quirk/T = V
+		for(var/datum/quirk/T as() in roundstart_quirks)
 			dat += T.name
-		if(!dat.len)
+		if(!length(dat))
 			return "None"
 		return dat.Join(", ")
 	else
-		for(var/V in roundstart_quirks)
-			var/datum/quirk/T = V
+		for(var/datum/quirk/T as() in roundstart_quirks)
 			dat += T.medical_record_text
-		if(!dat.len)
+		if(!length(dat))
 			return "None"
 		return dat.Join("<br>")
 
 /mob/living/proc/cleanse_trait_datums() //removes all trait datums
-	for(var/V in roundstart_quirks)
-		var/datum/quirk/T = V
+	for(var/datum/quirk/T as() in roundstart_quirks)
 		qdel(T)
 
 /mob/living/proc/transfer_trait_datums(mob/living/to_mob)
-	for(var/V in roundstart_quirks)
-		var/datum/quirk/T = V
+	for(var/datum/quirk/T as() in roundstart_quirks)
 		T.transfer_mob(to_mob)
 
 /*

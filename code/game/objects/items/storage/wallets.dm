@@ -37,7 +37,7 @@
 		/obj/item/screwdriver,
 		/obj/item/stamp))
 
-/obj/item/storage/wallet/Exited(atom/movable/AM)
+/obj/item/storage/wallet/Exited(atom/movable/gone, direction)
 	. = ..()
 	refreshID()
 
@@ -56,7 +56,7 @@
 			H.sec_hud_set_ID()
 	update_icon()
 
-/obj/item/storage/wallet/Entered(atom/movable/AM)
+/obj/item/storage/wallet/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	refreshID()
 

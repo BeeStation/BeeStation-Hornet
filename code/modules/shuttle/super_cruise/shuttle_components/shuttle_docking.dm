@@ -73,8 +73,9 @@
 /obj/machinery/computer/shuttle_flight/proc/give_eye_control(mob/user)
 	if(!isliving(user))
 		return
-	if(!eyeobj)
-		CreateEye()
+	if(eyeobj)
+		qdel(eyeobj) //Custom shuttles can be modified, this needs to be updated to catch for that.
+	CreateEye()
 	GrantActions(user)
 	current_user = user
 	eyeobj.eye_user = user
@@ -303,7 +304,7 @@
 
 /mob/camera/ai_eye/remote/shuttle_docker
 	visible_icon = FALSE
-	use_static = USE_STATIC_NONE
+	use_static = FALSE
 	var/list/placement_images = list()
 	var/list/placed_images = list()
 
@@ -311,8 +312,8 @@
 	src.origin = origin
 	return ..()
 
-/mob/camera/ai_eye/remote/shuttle_docker/setLoc(T)
-	..()
+/mob/camera/ai_eye/remote/shuttle_docker/setLoc(destination)
+	. = ..()
 	var/obj/machinery/computer/shuttle_flight/console = origin
 	console.checkLandingSpot()
 

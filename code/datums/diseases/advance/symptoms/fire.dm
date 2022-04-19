@@ -20,10 +20,10 @@ Bonus
 	name = "Spontaneous Combustion"
 	desc = "The virus turns fat into an extremely flammable compound, and raises the body's temperature, making the host burst into flames spontaneously."
 	stealth = 1
-	resistance = -2
-	stage_speed = -3
-	transmission = -3
-	level = 6
+	resistance = -1
+	stage_speed = -2
+	transmission = -1
+	level = 7
 	severity = 4
 	base_message_chance = 20
 	symptom_delay_min = 20
@@ -70,7 +70,7 @@ Bonus
 
 /datum/symptom/fire/proc/Firestacks_stage_4(mob/living/M, datum/disease/advance/A)
 	M.adjust_fire_stacks(1 * power)
-	M.take_overall_damage(burn = 3 * power, required_status = BODYPART_ORGANIC)
+	M.take_overall_damage(burn = 3 * power, required_status = BODYTYPE_ORGANIC)
 	if(infective)
 		A.spread(2)
 	return 1
@@ -80,8 +80,8 @@ Bonus
 		M.adjust_fire_stacks(6 * power)
 	else
 		M.adjust_fire_stacks(3 * power)
-	M.take_overall_damage(burn = 5 * power, required_status = BODYPART_ORGANIC)
-	if(infective)
+	M.take_overall_damage(burn = 5 * power, required_status = BODYTYPE_ORGANIC)
+	if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED))
 		A.spread(4)
 	return 1
 
@@ -122,25 +122,27 @@ Bonus
 	suffixes = list(" of the Damned")
 	var/chems = FALSE
 	var/explosion_power = 1
-	threshold_desc = "<b>Resistance 9:</b> Doubles the intensity of the effect, but reduces its frequency.<br>\
+	threshold_desc = "<b>Stealth 3:</b> Doubles the intensity of the effect, but reduces its frequency.<br>\
 					  <b>Stage Speed 8:</b> Increases explosion radius when the host is wet.<br>\
-					  <b>Transmission 8:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
+					  <b>Resistance 8:</b> Additionally synthesizes chlorine trifluoride and napalm inside the host."
 
 /datum/symptom/alkali/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 9 || A.stage_rate >= 8)
-		severity = 6
+	if(A.stealth >= 3)
+		severity += 1
+	if(A.stage_rate >= 8)
+		severity += 2 //if you can find a way to make this threshold work in a trifecta well enough to take advantage of this severity boost, i applaud you
 
 /datum/symptom/alkali/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.resistance >= 9) //intense but sporadic effect
+	if(A.stealth >= 3) //intense but sporadic effect
 		power = 2
 		symptom_delay_min = 50
 		symptom_delay_max = 140
 	if(A.stage_rate >= 8) //serious boom when wet
 		explosion_power = 2
-	if(A.transmission >= 8) //extra chemicals
+	if(A.resistance >= 8) //extra chemicals
 		chems = TRUE
 
 /datum/symptom/alkali/Activate(datum/disease/advance/A)
@@ -171,7 +173,7 @@ Bonus
 /datum/symptom/alkali/proc/Alkali_fire_stage_4(mob/living/M, datum/disease/advance/A)
 	var/get_stacks = 6 * power
 	M.adjust_fire_stacks(get_stacks)
-	M.take_overall_damage(burn = get_stacks / 2, required_status = BODYPART_ORGANIC)
+	M.take_overall_damage(burn = get_stacks / 2, required_status = BODYTYPE_ORGANIC)
 	if(chems)
 		M.reagents.add_reagent(/datum/reagent/clf3, 2 * power)
 	return 1
@@ -179,7 +181,7 @@ Bonus
 /datum/symptom/alkali/proc/Alkali_fire_stage_5(mob/living/M, datum/disease/advance/A)
 	var/get_stacks = 8 * power
 	M.adjust_fire_stacks(get_stacks)
-	M.take_overall_damage(burn = get_stacks, required_status = BODYPART_ORGANIC)
+	M.take_overall_damage(burn = get_stacks, required_status = BODYTYPE_ORGANIC)
 	if(chems)
 		M.reagents.add_reagent_list(list(/datum/reagent/napalm = 4 * power, /datum/reagent/clf3 = 4 * power))
 	return 1

@@ -1,6 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - bugfix: Research tiers are now calculated correctly. This means you now correctly
-      need 20% of a tier's nodes researched before the global research tier advances
-      to it.

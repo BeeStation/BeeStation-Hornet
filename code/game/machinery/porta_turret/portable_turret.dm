@@ -80,7 +80,7 @@
 	var/datum/action/turret_toggle/toggle_action
 	var/mob/remote_controller
 
-/obj/machinery/porta_turret/Initialize()
+/obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
 	if(!base)
 		base = src
@@ -521,7 +521,7 @@
 		judgement |= JUDGE_RECORDCHECK
 	. = perp.assess_threat(judgement, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
 	if(shoot_unloyal)
-		if (!HAS_TRAIT(perp, TRAIT_MINDSHIELD) || istype(perp.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if (!perp.has_mindshield_hud_icon())
 			. += 4
 
 /obj/machinery/porta_turret/proc/check_for_weapons(var/obj/item/slot_item)
@@ -771,7 +771,7 @@
 /obj/machinery/porta_turret/aux_base/interact(mob/user) //Controlled solely from the base console.
 	return
 
-/obj/machinery/porta_turret/aux_base/Initialize()
+/obj/machinery/porta_turret/aux_base/Initialize(mapload)
 	. = ..()
 	cover.name = name
 	cover.desc = desc
@@ -943,6 +943,10 @@
 /obj/machinery/turretid/ui_act(action, list/params)
 	. = ..()
 	if(.)
+		return
+
+	if(!allowed(usr))
+		to_chat(usr, "<span class='warning'>Invalid access.</span>")
 		return
 
 	switch(action)

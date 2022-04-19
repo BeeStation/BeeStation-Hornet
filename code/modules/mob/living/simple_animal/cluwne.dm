@@ -20,7 +20,7 @@
     chat_color = "#F37EF6"
     discovery_points = 1000
 
-/mob/living/simple_animal/cluwne/Initialize()
+/mob/living/simple_animal/cluwne/Initialize(mapload)
     . = ..()
     playsound(src, 'sound/misc/honk_echo_distant.ogg', 90, 2) // loud
     var/newname = pick(GLOB.clown_names)

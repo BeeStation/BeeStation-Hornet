@@ -54,7 +54,7 @@ God bless America.
 		/obj/item/his_grace))
 	var/datum/looping_sound/deep_fryer/fry_loop
 
-/obj/machinery/deepfryer/Initialize()
+/obj/machinery/deepfryer/Initialize(mapload)
 	. = ..()
 	create_reagents(50, OPENCONTAINER)
 	reagents.add_reagent(/datum/reagent/consumable/cooking_oil, 25)
@@ -161,6 +161,7 @@ God bless America.
 		var/mob/living/carbon/C = user.pulling
 		user.visible_message("<span class = 'danger'>[user] dunks [C]'s face in [src]!</span>")
 		reagents.reaction(C, TOUCH)
+		log_combat(user, C, "fryer slammed")
 		C.apply_damage(min(30, reagents.total_volume), BURN, BODY_ZONE_HEAD)
 		reagents.remove_any((reagents.total_volume/2))
 		C.Paralyze(60)

@@ -44,11 +44,11 @@
 	/// Y position of the examined component
 	var/examined_rel_y = 0
 
-/obj/item/integrated_circuit/Initialize()
+/obj/item/integrated_circuit/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ATOM_USB_CABLE_TRY_ATTACH, .proc/on_atom_usb_cable_try_attach)
 
-/obj/item/integrated_circuit/loaded/Initialize()
+/obj/item/integrated_circuit/loaded/Initialize(mapload)
 	. = ..()
 	cell = new /obj/item/stock_parts/cell/high(src)
 

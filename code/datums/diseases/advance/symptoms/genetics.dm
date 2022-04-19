@@ -22,7 +22,7 @@ Bonus
 	resistance = -3
 	stage_speed = 0
 	transmission = -3
-	level = 6
+	level = 3
 	severity = 3
 	var/list/possible_mutations
 	var/archived_dna = null

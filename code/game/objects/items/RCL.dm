@@ -23,7 +23,7 @@
 	var/datum/radial_menu/persistent/wiring_gui_menu
 	var/mob/listeningTo
 
-/obj/item/rcl/Initialize()
+/obj/item/rcl/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
 	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
@@ -209,7 +209,7 @@
 					return //If we've run out, display message and exit
 			else
 				last = null
-		loaded.item_color	 = colors[current_color_index]
+		loaded.cable_color = colors[current_color_index]
 		last = loaded.place_turf(get_turf(src), user, turn(user.dir, 180))
 		is_empty(user) //If we've run out, display message
 	update_icon()
@@ -282,7 +282,7 @@
 	if(T.intact || !T.can_have_cabling())
 		return
 
-	loaded.item_color	 = colors[current_color_index]
+	loaded.cable_color = colors[current_color_index]
 
 	var/obj/structure/cable/linkingCable = findLinkingCable(user)
 	if(linkingCable)
@@ -296,14 +296,14 @@
 
 	wiringGuiUpdate(user)
 
-/obj/item/rcl/pre_loaded/Initialize() //Comes preloaded with cable, for testing stuff
+/obj/item/rcl/pre_loaded/Initialize(mapload) //Comes preloaded with cable, for testing stuff
 	. = ..()
 	loaded = new()
 	loaded.max_amount = max_amount
 	loaded.amount = max_amount
 	update_icon()
 
-/obj/item/rcl/Initialize()
+/obj/item/rcl/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -315,7 +315,7 @@
 		var/cwname = colors[current_color_index]
 		to_chat(user, "Color changed to [cwname]!")
 		if(loaded)
-			loaded.item_color= colors[current_color_index]
+			loaded.cable_color = colors[current_color_index]
 		if(wiring_gui_menu)
 			wiringGuiUpdate(user)
 	else if(istype(action, /datum/action/item_action/rcl_gui))

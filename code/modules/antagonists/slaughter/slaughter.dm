@@ -49,7 +49,7 @@
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 	discovery_points = 3000
 
-/mob/living/simple_animal/slaughter/Initialize()
+/mob/living/simple_animal/slaughter/Initialize(mapload)
 	. = ..()
 	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
 	AddSpell(bloodspell)

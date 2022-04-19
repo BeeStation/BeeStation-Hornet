@@ -237,7 +237,7 @@
 	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")
 	stage4	= list("<span class='danger'>You are turning into a slime.</span>")
 	stage5	= list("<span class='danger'>You have become a slime.</span>")
-	new_form = /mob/living/simple_animal/slime/random
+	new_form = /mob/living/simple_animal/slime
 
 /datum/disease/transformation/slime/stage_act()
 	..()
@@ -385,8 +385,8 @@
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"
-		var/list/whole_words = strings("owo_talk.json", "wowds")
-		var/list/owo_sounds = strings("owo_talk.json", "sounds")
+		var/list/whole_words = strings(OWO_TALK_FILE, "wowds")
+		var/list/owo_sounds = strings(OWO_TALK_FILE, "sounds")
 
 		for(var/key in whole_words)
 			var/value = whole_words[key]

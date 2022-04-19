@@ -9,7 +9,7 @@
 	visible_message("<span class='danger'>[suicide_message]</span>", "<span class='userdanger'>[suicide_message]</span>")
 
 	var/timer = 15
-	for(var/obj/item/bodypart/thing in bodyparts)
+	for(var/obj/item/bodypart/thing as() in bodyparts)
 		if(thing.body_part == ARM_LEFT || thing.body_part == ARM_RIGHT)
 			addtimer(CALLBACK(thing, /obj/item/bodypart/.proc/dismember), timer)
 			addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/effects/cartoon_pop.ogg', 70), timer)

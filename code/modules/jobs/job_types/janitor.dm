@@ -19,7 +19,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_JANITOR
 	departments = DEPARTMENT_SERVICE
-	
+	rpg_title = "Groundskeeper"
 	biohazard = 20//cleaning up hazardous messes puts janitors at extra risk
 
 	species_outfits = list(
@@ -30,7 +30,7 @@
 	name = "Janitor"
 	jobtype = /datum/job/janitor
 
-	id = /obj/item/card/id/job/serv
+	id = /obj/item/card/id/job/janitor
 	belt = /obj/item/pda/janitor
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/janitor

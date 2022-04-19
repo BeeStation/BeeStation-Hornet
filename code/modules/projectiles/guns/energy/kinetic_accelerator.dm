@@ -19,7 +19,6 @@
 	can_bayonet = TRUE
 	knife_x_offset = 20
 	knife_y_offset = 12
-	block_upgrade_walk = 1
 
 	var/max_mod_capacity = 100
 	var/list/modkits = list()
@@ -80,7 +79,7 @@
 	holds_charge = TRUE
 	unique_frequency = TRUE
 
-/obj/item/gun/energy/kinetic_accelerator/Initialize()
+/obj/item/gun/energy/kinetic_accelerator/Initialize(mapload)
 	. = ..()
 	if(!holds_charge)
 		empty()
@@ -95,7 +94,7 @@
 		attempt_reload()
 
 /obj/item/gun/energy/kinetic_accelerator/dropped()
-	. = ..()
+	..()
 	if(!QDELING(src) && !holds_charge)
 		// Put it on a delay because moving item from slot to hand
 		// calls dropped().

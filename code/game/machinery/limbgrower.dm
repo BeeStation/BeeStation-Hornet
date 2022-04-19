@@ -32,7 +32,7 @@
 							"other"
 							)
 
-/obj/machinery/limbgrower/Initialize()
+/obj/machinery/limbgrower/Initialize(mapload)
 	create_reagents(100, OPENCONTAINER)
 	stored_research = new /datum/techweb/specialized/autounlocking/limbgrower
 	. = ..()
@@ -119,7 +119,7 @@
 		reagents.remove_reagent(/datum/reagent/medicine/synthflesh,being_built.reagents_list[/datum/reagent/medicine/synthflesh]*prod_coeff)
 		var/buildpath = being_built.build_path
 		if(ispath(buildpath, /obj/item/bodypart))	//This feels like spatgheti code, but i need to initilise a limb somehow
-			build_limb(buildpath)
+			build_limb(create_buildpath())
 		else
 			//Just build whatever it is
 			new buildpath(loc)
@@ -130,20 +130,24 @@
 	icon_state = "limbgrower_idleoff"
 	updateUsrDialog()
 
+/obj/machinery/limbgrower/proc/create_buildpath()
+	var/part_type = being_built.id //their ids match bodypart typepaths
+	var/species = selected_category
+	var/path
+	if(species == SPECIES_HUMAN) //Humans use the parent type.
+		path = "/obj/item/bodypart/[part_type]"
+	else
+		path = "/obj/item/bodypart/[part_type]/[species]"
+	return text2path(path)
+
 /obj/machinery/limbgrower/proc/build_limb(buildpath)
 	//i need to create a body part manually using a set icon (otherwise it doesnt appear)
 	var/obj/item/bodypart/limb
 	limb = new buildpath(loc)
-	if(selected_category=="human" || selected_category=="lizard") //Species with greyscale parts should be included here
-		limb.icon = 'icons/mob/human_parts_greyscale.dmi'
-		limb.should_draw_greyscale = TRUE
-	else
-		limb.icon = 'icons/mob/human_parts.dmi'
-	// Set this limb up using the specias name and body zone
 	limb.icon_state = "[selected_category]_[limb.body_zone]"
 	limb.name = "\improper synthetic [selected_category] [parse_zone(limb.body_zone)]"
-	limb.desc = "A synthetic [selected_category] limb that will morph on its first use in surgery. This one is for the [parse_zone(limb.body_zone)]."
-	limb.species_id = selected_category
+	limb.limb_id = selected_category
+	limb.mutation_color = "62A262" //Gets turned into a full color in limb code
 	limb.update_icon_dropped()
 
 /obj/machinery/limbgrower/RefreshParts()

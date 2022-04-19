@@ -1,3 +1,7 @@
+/* 	Important Info for anyone that wants to make new crates if the open sprite of the crate has a uniform color then you just
+	have to mirror it once in the x and y axis to get the back sprite but if there are any details like writing icons etc in the sprite (like for example the engineering electricity crate) then you
+	have to do the stuff i mentioned first and then mirror the details yet again by selecting them respectivly independently from the rest of the sprite in the x axis.
+	You may also have to adjust the position of the sprite to match the crate in DM.*/
 /obj/structure/closet/crate
 	name = "crate"
 	desc = "A rectangular steel crate."
@@ -26,7 +30,7 @@
 	var/radius_2 = 1.35
 	var/static/list/animation_math //assoc list with pre calculated values
 
-/obj/structure/closet/crate/Initialize()
+/obj/structure/closet/crate/Initialize(mapload)
 	. = ..()
 	if(animation_math == null) //checks if there is already a list for animation_math if not creates one to avoid runtimes
 		animation_math = new/list()
@@ -191,7 +195,7 @@
 	recursive_organ_check(src)
 	return ..()
 
-/obj/structure/closet/crate/freezer/Initialize()
+/obj/structure/closet/crate/freezer/Initialize(mapload)
 	..()
 	recursive_organ_check(src)
 

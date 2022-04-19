@@ -80,6 +80,16 @@
 	icon_state = "relay"
 	broadcasting = FALSE	//It only receives
 
+/obj/machinery/telecomms/relay/preset/reebe/attackby(obj/item/P, mob/user, params)
+	if(istype(P, /obj/item/encryptionkey) || P.tool_behaviour == TOOL_SCREWDRIVER)
+		if(GLOB.clockcult_eminence)
+			var/mob/living/simple_animal/eminence/eminence = GLOB.clockcult_eminence
+			var/obj/item/encryptionkey/E
+			for(var/i in E.channels)
+				E.channels[i] = 1
+			eminence.internal_radio.attackby(E, user, params)
+	. = ..()
+
 //Generic preset relay
 /obj/machinery/telecomms/relay/preset/auto
 	hide = TRUE

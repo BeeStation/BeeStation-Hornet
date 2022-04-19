@@ -11,6 +11,7 @@
 	var/charge_cost = 30
 
 /obj/item/borg/stun/attack(mob/living/M, mob/living/user)
+	var/armor_block = M.run_armor_check(attack_flag = "stamina")
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.check_shields(src, 0, "[M]'s [name]", MELEE_ATTACK))
@@ -20,9 +21,8 @@
 		var/mob/living/silicon/robot/R = user
 		if(!R.cell.use(charge_cost))
 			return
-
+	M.apply_damage(80, STAMINA, blocked = armor_block)
 	user.do_attack_animation(M)
-	M.adjustStaminaLoss(80)
 	M.apply_effect(EFFECT_STUTTER, 5)
 
 	M.visible_message("<span class='danger'>[user] has prodded [M] with [src]!</span>", \
@@ -155,7 +155,7 @@
 	var/static/list/charge_machines = typecacheof(list(/obj/machinery/cell_charger, /obj/machinery/recharger, /obj/machinery/recharge_station, /obj/machinery/mech_bay_recharge_port))
 	var/static/list/charge_items = typecacheof(list(/obj/item/stock_parts/cell, /obj/item/gun/energy))
 
-/obj/item/borg/charger/Initialize()
+/obj/item/borg/charger/Initialize(mapload)
 	. = ..()
 
 /obj/item/borg/charger/update_icon()
@@ -383,6 +383,7 @@
 	check_amount()
 
 /obj/item/borg/lollipop/dropped()
+	..()
 	check_amount()
 
 /obj/item/borg/lollipop/proc/check_amount()	//Doesn't even use processing ticks.
@@ -541,7 +542,7 @@
 	var/color2 = rgb(0, 0, 0)
 	nodamage = TRUE
 
-/obj/item/projectile/bullet/reusable/lollipop/Initialize()
+/obj/item/projectile/bullet/reusable/lollipop/Initialize(mapload)
 	. = ..()
 	var/obj/item/reagent_containers/food/snacks/lollipop/S = new ammo_type(src)
 	color2 = S.headcolor
@@ -588,7 +589,7 @@
 	energy = 50000
 	energy_recharge = 5000
 
-/obj/item/borg/projectile_dampen/Initialize()
+/obj/item/borg/projectile_dampen/Initialize(mapload)
 	. = ..()
 	projectile_effect = image('icons/effects/fields.dmi', "projectile_dampen_effect")
 	tracked = list()
@@ -647,7 +648,7 @@
 	return null
 
 /obj/item/borg/projectile_dampen/dropped()
-	. = ..()
+	..()
 	host = loc
 
 /obj/item/borg/projectile_dampen/equipped()
@@ -749,7 +750,7 @@
 	name = "medical hud"
 	icon_state = "healthhud"
 
-/obj/item/borg/sight/hud/med/Initialize()
+/obj/item/borg/sight/hud/med/Initialize(mapload)
 	. = ..()
 	hud = new /obj/item/clothing/glasses/hud/health(src)
 
@@ -758,7 +759,7 @@
 	name = "security hud"
 	icon_state = "securityhud"
 
-/obj/item/borg/sight/hud/sec/Initialize()
+/obj/item/borg/sight/hud/sec/Initialize(mapload)
 	. = ..()
 	hud = new /obj/item/clothing/glasses/hud/security(src)
 
@@ -775,7 +776,7 @@
 	var/obj/item/stored
 	var/list/storable = list()
 
-/obj/item/borg/apparatus/Initialize()
+/obj/item/borg/apparatus/Initialize(mapload)
 	. = ..()
 	RegisterSignal(loc.loc, COMSIG_BORG_SAFE_DECONSTRUCT, .proc/safedecon)
 
@@ -792,12 +793,12 @@
 		stored.forceMove(get_turf(src))
 		stored = null
 
-/obj/item/borg/apparatus/Exited(atom/A)
-	if(A == stored) //sanity check
+/obj/item/borg/apparatus/Exited(atom/movable/gone, direction)
+	if(gone == stored) //sanity check
 		UnregisterSignal(stored, COMSIG_ATOM_UPDATE_ICON)
 		stored = null
 	update_icon()
-	. = ..()
+	return ..()
 
 ///A right-click verb, for those not using hotkey mode.
 /obj/item/borg/apparatus/verb/verb_dropHeld()
@@ -856,7 +857,7 @@
 	storable = list(/obj/item/reagent_containers/glass/beaker,
 				/obj/item/reagent_containers/glass/bottle)
 
-/obj/item/borg/apparatus/beaker/Initialize()
+/obj/item/borg/apparatus/beaker/Initialize(mapload)
 	. = ..()
 	stored = new /obj/item/reagent_containers/glass/beaker/large(src)
 	RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, /atom/.proc/update_icon)
@@ -922,7 +923,7 @@
 	storable = list(/obj/item/circuitboard,
 				/obj/item/electronics)
 
-/obj/item/borg/apparatus/circuit/Initialize()
+/obj/item/borg/apparatus/circuit/Initialize(mapload)
 	. = ..()
 	update_icon()
 

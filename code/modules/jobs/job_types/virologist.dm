@@ -4,8 +4,8 @@
 	department_head = list("Chief Medical Officer")
 	department_flag = MEDSCI
 	faction = "Station"
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2
+	spawn_positions = 2
 	supervisors = "the chief medical officer"
 	selection_color = "#d4ebf2"
 	chat_color = "#75AEA3"
@@ -22,6 +22,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
 	departments = DEPARTMENT_MEDICAL
+	rpg_title = "Plague Doctor"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/viro
@@ -32,7 +33,7 @@
 	name = "Virologist"
 	jobtype = /datum/job/virologist
 
-	id = /obj/item/card/id/job/med
+	id = /obj/item/card/id/job/viro
 	belt = /obj/item/extrapolator
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/virologist

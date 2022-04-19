@@ -147,18 +147,18 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 /turf/open/indestructible/sound/pool/proc/check_clothes(mob/living/carbon/human/H)
 	if(!istype(H) || iscatperson(H)) //Don't care about non humans.
 		return FALSE
-	if(H.wear_suit && (H.wear_suit.clothing_flags & SHOWEROKAY))
+	if(H.wear_suit && (H.wear_suit.clothing_flags))
 		// Do not check underclothing if the over-suit is suitable.
 		// This stops people feeling dumb if they're showering
 		// with a radiation suit on.
 		return FALSE
 
 	. = FALSE
-	if(!(H.wear_suit?.clothing_flags & SHOWEROKAY))
+	if(!(H.wear_suit?.clothing_flags))
 		return TRUE
-	if(!(H.w_uniform?.clothing_flags & SHOWEROKAY))
+	if(!(H.w_uniform?.clothing_flags))
 		return TRUE
-	if(!(H.head?.clothing_flags & SHOWEROKAY))
+	if(!(H.head?.clothing_flags))
 		return TRUE
 
 /obj/effect/turf_decal/pool
@@ -200,7 +200,7 @@ GLOBAL_LIST_EMPTY(pool_filters)
 	. = ..()
 	. += "<span class='boldnotice'>The thermostat on it reads [current_temperature].</span>"
 
-/obj/machinery/pool_filter/Initialize()
+/obj/machinery/pool_filter/Initialize(mapload)
 	. = ..()
 	create_reagents(100, OPENCONTAINER) //If you're a terrible terrible clown and want to dump reagents into the pool.
 	if(preset_reagent_type)

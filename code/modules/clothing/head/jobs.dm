@@ -78,7 +78,7 @@
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/detective
 	dog_fashion = /datum/dog_fashion/head/detective
 
-/obj/item/clothing/head/fedora/det_hat/Initialize()
+/obj/item/clothing/head/fedora/det_hat/Initialize(mapload)
 	. = ..()
 	new /obj/item/reagent_containers/food/drinks/flask/det(src)
 
@@ -133,7 +133,7 @@
 	desc = "That was white fabric. <i>Was.</i>"
 	dog_fashion = null //THIS IS FOR SLAUGHTER, NOT PUPPIES
 
-/obj/item/clothing/head/beret/highlander/Initialize()
+/obj/item/clothing/head/beret/highlander/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HIGHLANDER)
 
@@ -141,7 +141,6 @@
 	name = "durathread beret"
 	desc =  "A beret made from durathread, its resilient fibres provide some protection to the wearer."
 	icon_state = "beretdurathread"
-	item_color = null
 	armor = list("melee" = 15, "bullet" = 5, "laser" = 15, "energy" = 20, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 5, "stamina" = 20)
 
 //Security
@@ -214,7 +213,7 @@
 		UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/clothing/head/warden/drill/dropped(mob/M)
-	. = ..()
+	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/clothing/head/warden/drill/proc/handle_speech(datum/source, mob/speech_args)
@@ -222,14 +221,14 @@
 
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
-		switch (mode)
+		switch(mode)
 			if(DRILL_SHOUTING)
-				message += "!"
+				message = replacetextEx(message, ".", "!", length(message))
 			if(DRILL_YELLING)
-				message += "!!"
+				message = replacetextEx(message, ".", "!!", length(message))
 			if(DRILL_CANADIAN)
-				message = " [message]"
-				var/list/canadian_words = strings("canadian_replacement.json", "canadian")
+				message = "[message]"
+				var/list/canadian_words = strings(CANADIAN_TALK_FILE, "canadian")
 
 				for(var/key in canadian_words)
 					var/value = canadian_words[key]
@@ -241,7 +240,7 @@
 					message = replacetextEx(message, " [key]", " [value]")
 
 				if(prob(30))
-					message += pick(", eh?", ", EH?")
+					message = replacetextEx(message, ".", pick(", eh?", ", EH?"), length(message))
 		speech_args[SPEECH_MESSAGE] = message
 
 /obj/item/clothing/head/beret/corpwarden

@@ -53,7 +53,7 @@ field_generator power level display
 		add_overlay("+p[power_level]")
 
 
-/obj/machinery/field/generator/Initialize()
+/obj/machinery/field/generator/Initialize(mapload)
 	. = ..()
 	fields = list()
 	connected_gens = list()
@@ -303,7 +303,7 @@ field_generator power level display
 			fields += CF
 			G.fields += CF
 			for(var/mob/living/L in T)
-				CF.Crossed(L)
+				CF.on_entered(null, L)
 
 	connected_gens |= G
 	G.connected_gens |= src

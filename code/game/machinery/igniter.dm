@@ -8,6 +8,7 @@
 	idle_power_usage = 2
 	active_power_usage = 4
 	max_integrity = 300
+	circuit = /obj/item/circuitboard/machine/igniter
 	armor = list("melee" = 50, "bullet" = 30, "laser" = 70, "energy" = 50, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	var/id = null
@@ -28,7 +29,7 @@
 
 /obj/machinery/igniter/attack_hand(mob/user)
 	. = ..()
-	if(.)
+	if(. || panel_open)
 		return
 	add_fingerprint(user)
 
@@ -43,9 +44,19 @@
 			location.hotspot_expose(1000,500,1)
 	return 1
 
-/obj/machinery/igniter/Initialize()
+/obj/machinery/igniter/Initialize(mapload)
 	. = ..()
 	icon_state = "igniter[on]"
+
+/obj/machinery/igniter/attackby(obj/item/I, mob/living/user, params)
+
+	if(default_deconstruction_screwdriver(user, "igniter_o", "igniter[on]", I))
+		on = FALSE
+		return
+	if(default_deconstruction_crowbar(I))
+		return
+
+	return ..()
 
 /obj/machinery/igniter/power_change()
 	if(!( stat & NOPOWER) )
@@ -71,7 +82,7 @@
 /obj/machinery/sparker/toxmix
 	id = INCINERATOR_TOXMIX_IGNITER
 
-/obj/machinery/sparker/Initialize()
+/obj/machinery/sparker/Initialize(mapload)
 	. = ..()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)

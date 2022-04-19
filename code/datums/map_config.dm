@@ -15,6 +15,7 @@
 
 	// Config actually from the JSON - should default to Box
 	var/map_name = "Box Station"
+	var/map_link = null //This is intentionally wrong, this will make it not link to webmap.
 	var/map_path = "map_files/BoxStation"
 	var/map_file = "BoxStation.dmm"
 
@@ -130,6 +131,11 @@
 
 	if ("minetype" in json)
 		minetype = json["minetype"]
+
+	if("map_link" in json)						
+		map_link = json["map_link"]
+	else
+		log_world("map_link missing from json!")
 
 	allow_custom_shuttles = json["allow_custom_shuttles"] != FALSE
 

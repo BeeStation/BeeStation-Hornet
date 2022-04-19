@@ -121,7 +121,7 @@
 	var/obj/item/I = parent
 	modeswitch_action = new(I)
 	RegisterSignal(modeswitch_action, COMSIG_ACTION_TRIGGER, .proc/action_trigger)
-	if(I.obj_flags & IN_INVENTORY)
+	if(I.item_flags & PICKED_UP)
 		var/mob/M = I.loc
 		if(!istype(M))
 			return
@@ -455,10 +455,10 @@
 		return FALSE
 	return master._removal_reset(thing)
 
-/datum/component/storage/proc/_remove_and_refresh(datum/source, atom/movable/thing)
+/datum/component/storage/proc/_remove_and_refresh(datum/source, atom/movable/gone, direction)
 	SIGNAL_HANDLER
 
-	_removal_reset(thing)
+	_removal_reset(gone)
 	refresh_mob_views()
 
 //Call this proc to handle the removal of an item from the storage item. The item will be moved to the new_location target, if that is null it's being deleted

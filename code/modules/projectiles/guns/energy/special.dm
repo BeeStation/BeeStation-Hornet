@@ -11,7 +11,6 @@
 	ammo_x_offset = 3
 	flight_x_offset = 17
 	flight_y_offset = 9
-	block_upgrade_walk = 1
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
@@ -20,6 +19,7 @@
 	name = "ion carbine"
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
 	icon_state = "ioncarbine"
+	worn_icon_state = "ioncarbine"
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
 	pin = null
@@ -84,7 +84,6 @@
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
 	icon_state = "xray"
 	item_state = null
-	block_upgrade_walk = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 	ammo_x_offset = 2
 
@@ -139,7 +138,6 @@
 	flags_1 = CONDUCT_1
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
-	block_upgrade_walk = 1
 	sharpness = IS_SHARP
 	can_charge = FALSE
 	dead_cell = TRUE
@@ -155,7 +153,7 @@
 	fire_rate = 3
 	automatic = 1
 
-/obj/item/gun/energy/plasmacutter/Initialize()
+/obj/item/gun/energy/plasmacutter/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 25, 105, 0, 'sound/weapons/plasma_cutter.ogg')
 
@@ -322,6 +320,7 @@
 	use_cyborg_cell = TRUE
 	automatic = 1
 	fire_rate = 6
+	requires_wielding = FALSE
 
 /obj/item/gun/energy/printer/update_icon()
 	return
@@ -338,7 +337,6 @@
 	automatic = 1
 	fire_rate = 4
 	pin = null
-	block_upgrade_walk = 1
 
 /obj/item/gun/energy/temperature/pin
 	pin = /obj/item/firing_pin
@@ -347,7 +345,6 @@
 	name = "security temperature gun"
 	desc = "A weapon that can only be used to its full potential by the truly robust."
 	pin = /obj/item/firing_pin
-	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/gun/energy/laser/instakill
@@ -357,7 +354,6 @@
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit."
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
-	block_upgrade_walk = 1
 
 /obj/item/gun/energy/laser/instakill/red
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a red design."

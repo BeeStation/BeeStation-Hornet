@@ -9,7 +9,7 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
 
-/turf/closed/wall/mineral/cult/Initialize()
+/turf/closed/wall/mineral/cult/Initialize(mapload)
 	new /obj/effect/temp_visual/cult/turf(src)
 	. = ..()
 
@@ -19,13 +19,13 @@
 /turf/closed/wall/mineral/cult/try_destroy(obj/item/I, mob/user, turf/T)
 	return FALSE
 
-/turf/closed/wall/mineral/cult/Exited(atom/movable/AM, atom/newloc)
+/turf/closed/wall/mineral/cult/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(istype(AM, /mob/living/simple_animal/hostile/construct/harvester)) //harvesters can go through cult walls, dragging something with
-		var/mob/living/simple_animal/hostile/construct/harvester/H = AM
+	if(istype(gone, /mob/living/simple_animal/hostile/construct/harvester)) //harvesters can go through cult walls, dragging something with
+		var/mob/living/simple_animal/hostile/construct/harvester/H = gone
 		var/atom/movable/stored_pulling = H.pulling
 		if(stored_pulling)
-			stored_pulling.setDir(get_dir(stored_pulling.loc, newloc))
+			stored_pulling.setDir(direction)
 			stored_pulling.forceMove(src)
 			H.start_pulling(stored_pulling, supress_message = TRUE)
 
@@ -54,10 +54,17 @@
 	bullet_sizzle = TRUE
 
 /turf/closed/wall/rust
-	name = "rusted wall"
-	desc = "A rusted metal wall."
-	icon = 'icons/turf/walls/rusty_wall.dmi'
-	hardness = 45
+	//SDMM supports colors, this is simply for easier mapping
+	//and should be removed on initialize
+	color = COLOR_ORANGE
+
+/turf/closed/wall/rust/Initialize(mapload)
+	. = ..()
+	color = null
+
+/turf/closed/wall/rust/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rust)
 
 /turf/closed/wall/rust/rust_heretic_act()
 	if(prob(70))
@@ -65,10 +72,17 @@
 	ScrapeAway()
 
 /turf/closed/wall/r_wall/rust
-	name = "rusted reinforced wall"
-	desc = "A huge chunk of rusted reinforced metal."
-	icon = 'icons/turf/walls/rusty_reinforced_wall.dmi'
-	hardness = 15
+	//SDMM supports colors, this is simply for easier mapping
+	//and should be removed on initialize
+	color = COLOR_ORANGE
+
+/turf/closed/wall/r_wall/rust/Initialize(mapload)
+	. = ..()
+	color = null
+
+/turf/closed/wall/r_wall/rust/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rust)
 
 /turf/closed/wall/r_wall/rust/rust_heretic_act()
 	if(prob(50))

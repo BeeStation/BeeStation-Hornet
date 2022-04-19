@@ -23,6 +23,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_MEDICAL_DOCTOR
 	departments = DEPARTMENT_MEDICAL
+	rpg_title = "Corpse Runner"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/emt
@@ -33,7 +34,7 @@
 	name = "Paramedic"
 	jobtype = /datum/job/emt
 
-	id = /obj/item/card/id/job/med
+	id = /obj/item/card/id/job/paramed
 	belt = /obj/item/pda/medical
 	ears = /obj/item/radio/headset/headset_med
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile

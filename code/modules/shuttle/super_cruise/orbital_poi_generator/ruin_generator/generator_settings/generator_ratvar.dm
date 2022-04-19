@@ -18,7 +18,6 @@
 		/obj/effect/spawner/structure/ratvar_skewer_trap = 4,
 		/obj/effect/spawner/structure/ratvar_flipper_trap = 2,
 		/obj/effect/spawner/structure/ratvar_skewer_trap_kill = 1,
-		/obj/structure/destructible/clockwork/sigil/transgression = 2,
 		/mob/living/simple_animal/hostile/clockwork_marauder = 1,
 		/obj/structure/destructible/clockwork/wall_gear/displaced = 10,
 		/obj/effect/spawner/ocular_warden_setup = 1,
