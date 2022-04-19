@@ -9,6 +9,12 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	plane = ABOVE_HUD_PLANE
 	var/datum/radial_menu/parent
 
+/atom/movable/screen/radial/Destroy()
+	if(parent)
+		parent.elements -= src
+		UnregisterSignal(parent, COMSIG_PARENT_QDELETING)
+	. = ..()
+
 /atom/movable/screen/radial/proc/set_parent(new_value)
 	if(parent)
 		UnregisterSignal(parent, COMSIG_PARENT_QDELETING)
@@ -308,6 +314,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		stoplag(1)
 
 /datum/radial_menu/Destroy()
+	QDEL_LIST(elements)
 	Reset()
 	hide()
 	QDEL_NULL(custom_check_callback)
