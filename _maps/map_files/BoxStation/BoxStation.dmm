@@ -43454,6 +43454,12 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white/side{
 	dir = 8
 	},
@@ -45982,6 +45988,18 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
+"geU" = (
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 10;
+	height = 9;
+	id = "exploration_home";
+	name = "Exploration Dock";
+	roundstart_template = /datum/map_template/shuttle/exploration/box;
+	width = 19
+	},
+/turf/open/space/basic,
+/area/space)
 "gfL" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -49084,12 +49102,8 @@
 /area/ai_monitored/turret_protected/aisat_interior)
 "kdl" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -52042,8 +52056,12 @@
 /area/security/courtroom)
 "mZC" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 8
+	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -53952,17 +53970,8 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
 "pBW" = (
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 5;
-	height = 7;
-	id = "exploration_home";
-	name = "Exploration Dock";
-	roundstart_template = /datum/map_template/shuttle/exploration;
-	width = 13
-	},
 /turf/open/space/basic,
-/area/space)
+/area/space/nearstation)
 "pDm" = (
 /obj/structure/sign/warning/electricshock{
 	pixel_y = -32
@@ -56748,12 +56757,6 @@
 /turf/closed/wall,
 /area/vacant_room/commissary)
 "taT" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
-	},
 /turf/open/floor/plasteel/white/side{
 	dir = 8
 	},
@@ -112685,7 +112688,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+pBW
 bky
 gpn
 tep
@@ -112942,14 +112945,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
-bky
-bky
+pBW
+gQd
 mnE
 gQd
 gQd
 gQd
 rXd
+gQd
 gQd
 gQd
 gQd
@@ -113199,8 +113202,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+pBW
 xkR
 sDn
 equ
@@ -113213,7 +113215,8 @@ uyV
 rZB
 cRa
 gQd
-atS
+gXs
+gXs
 aaf
 aaf
 aaf
@@ -113456,8 +113459,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+pBW
 xkR
 les
 yjs
@@ -113470,6 +113472,7 @@ cYu
 uNf
 ezu
 gQd
+gXs
 aaf
 aaa
 aaa
@@ -113713,8 +113716,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+pBW
 xkR
 szx
 miD
@@ -113727,6 +113729,7 @@ kSz
 ezu
 cxr
 mFI
+gXs
 aaa
 aaa
 aaa
@@ -113970,8 +113973,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
+pBW
 xkR
 rKw
 eQc
@@ -113984,6 +113986,7 @@ nFZ
 xkR
 gQd
 gQd
+gXs
 aaa
 aaa
 aaa
@@ -114227,7 +114230,6 @@ aaa
 aaa
 aaa
 aaa
-aaa
 gXs
 xkR
 xkR
@@ -114240,6 +114242,7 @@ qmf
 smw
 gQd
 gQd
+gXs
 gXs
 aaa
 aaa
@@ -114484,12 +114487,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+pBW
+pBW
+pBW
+pBW
+pBW
 gQd
 xkR
 xkR
@@ -114498,6 +114500,7 @@ uvv
 xkR
 gQd
 gXs
+aaa
 aaa
 aaa
 aaa
@@ -114750,8 +114753,8 @@ aaa
 aaa
 aaa
 aaa
+geU
 aaa
-pBW
 aaa
 aaa
 aaa

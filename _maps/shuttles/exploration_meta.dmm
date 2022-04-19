@@ -1,0 +1,835 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bq" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/loading_area,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"br" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/regular{
+	pixel_x = 6;
+	pixel_y = -1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"bI" = (
+/obj/structure/bed/roller,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"bW" = (
+/turf/open/floor/plasteel/dark,
+/area/shuttle/exploration)
+"da" = (
+/obj/structure/table,
+/obj/machinery/microwave{
+	pixel_y = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/exploration)
+"dF" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plasteel/stairs,
+/area/shuttle/exploration)
+"ef" = (
+/obj/machinery/suit_storage_unit/exploration,
+/obj/structure/window/reinforced{
+	dir = 4;
+	pixel_x = 4
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"ev" = (
+/turf/open/space/basic,
+/area/space)
+"eT" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"gr" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 10
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/computer/cargo/request{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"hn" = (
+/obj/structure/table,
+/obj/item/storage/box/bodybags{
+	pixel_x = 4;
+	pixel_y = -2
+	},
+/obj/item/reagent_containers/glass/bottle/charcoal{
+	pixel_x = -6;
+	pixel_y = -3
+	},
+/obj/item/reagent_containers/glass/bottle/epinephrine,
+/obj/item/reagent_containers/syringe,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"hG" = (
+/obj/structure/window/reinforced{
+	dir = 4;
+	pixel_x = 4
+	},
+/obj/machinery/suit_storage_unit/exploration,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"jo" = (
+/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile{
+	dir = 4;
+	dwidth = 6;
+	height = 13;
+	id = "exploration";
+	name = "Exploration Shuttle";
+	port_direction = 8;
+	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
+	width = 16
+	},
+/turf/open/floor/monotile/dark,
+/area/shuttle/exploration)
+"kY" = (
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/exploration)
+"lD" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/exploration)
+"lI" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/toilet{
+	dir = 1
+	},
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 11
+	},
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/obj/machinery/light,
+/turf/open/floor/plasteel/freezer,
+/area/shuttle/exploration)
+"lU" = (
+/obj/structure/table,
+/obj/item/toy/cards/deck{
+	pixel_x = 2
+	},
+/obj/item/reagent_containers/food/drinks/beer/almost_empty{
+	pixel_x = -8;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/exploration)
+"lX" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/exploration)
+"ne" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"nI" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/door/airlock/shuttle,
+/turf/open/floor/plasteel/freezer,
+/area/shuttle/exploration)
+"ob" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"of" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/head/welding{
+	pixel_x = 4;
+	pixel_y = 7
+	},
+/obj/item/gps/mining{
+	pixel_x = -9
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"oh" = (
+/obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"ps" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/exploration)
+"pz" = (
+/obj/machinery/door/airlock/shuttle,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/exploration)
+"qN" = (
+/obj/effect/turf_decal/box,
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/obj/item/stack/cable_coil/white,
+/obj/item/stack/cable_coil/white{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"rU" = (
+/obj/structure/closet/crate,
+/obj/item/pickaxe,
+/obj/item/mining_scanner,
+/obj/item/radio/headset/headset_exploration,
+/obj/item/radio/headset/headset_exploration,
+/obj/item/gps/mining,
+/obj/effect/turf_decal/box,
+/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"sj" = (
+/obj/machinery/atmospherics/components/unary/plasma_refiner{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"sk" = (
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"sM" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/exploration)
+"sQ" = (
+/obj/structure/window/reinforced{
+	dir = 4;
+	pixel_x = 4
+	},
+/obj/machinery/telecomms/relay/preset/exploration,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"wj" = (
+/obj/machinery/shower{
+	pixel_y = 15
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/curtain,
+/obj/item/soap,
+/turf/open/floor/plasteel/freezer,
+/area/shuttle/exploration)
+"wW" = (
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/turf/open/floor/plasteel/tech/grid,
+/area/shuttle/exploration)
+"xm" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"xN" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"yg" = (
+/obj/structure/window/reinforced{
+	dir = 4;
+	pixel_x = 4
+	},
+/obj/structure/tank_dispenser/oxygen,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"yH" = (
+/turf/open/floor/plasteel,
+/area/shuttle/exploration)
+"zd" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/exploration)
+"As" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/beer/almost_empty{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/drinks/beer/almost_empty{
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/exploration)
+"BR" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/effect/turf_decal/bot,
+/obj/structure/sign/warning/nosmoking/circle{
+	pixel_y = -32
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"BU" = (
+/obj/machinery/shuttle/engine/plasma{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/exploration)
+"Cr" = (
+/obj/structure/table,
+/obj/item/storage/box/donkpockets/donkpocketpizza,
+/obj/item/storage/box/donkpockets/donkpocketteriyaki{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/exploration)
+"Dl" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"DL" = (
+/obj/structure/railing/corner,
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration)
+"DO" = (
+/turf/open/floor/wood,
+/area/shuttle/exploration)
+"Eg" = (
+/obj/structure/sign/poster/contraband/busty_backdoor_xeno_babes_6{
+	pixel_x = 32
+	},
+/obj/effect/decal/cleanable/xenoblood{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/effect/decal/remains/xeno/larva,
+/obj/structure/bed/dogbed,
+/obj/item/toy/plush/beeplushie,
+/turf/open/floor/wood,
+/area/shuttle/exploration)
+"EK" = (
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration";
+	name = "Exploration Shuttle Shutters";
+	pixel_y = 24
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/shuttle/exploration)
+"ER" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/exploration)
+"FE" = (
+/obj/machinery/door/airlock/shuttle,
+/turf/open/floor/plasteel/grid/steel,
+/area/shuttle/exploration)
+"Hm" = (
+/obj/structure/table,
+/obj/item/reagent_containers/blood/random{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/blood/random{
+	pixel_x = -8;
+	pixel_y = 3
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"IW" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/exploration)
+"JK" = (
+/obj/machinery/computer/crew,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"Ma" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/exploration)
+"MG" = (
+/obj/machinery/door/airlock/shuttle,
+/turf/open/floor/plasteel,
+/area/shuttle/exploration)
+"MQ" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"Op" = (
+/obj/machinery/iv_drip,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"Ps" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"QR" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/exploration)
+"QT" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"Rc" = (
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration";
+	name = "Exploration Shuttle Shutters";
+	pixel_x = -24
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"Tt" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/shuttle/exploration)
+"TE" = (
+/obj/structure/table/reinforced,
+/obj/machinery/firealarm{
+	pixel_y = 26
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/item/stack/sheet/mineral/plasma/fifty{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/stack/sheet/mineral/plasma/five,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"TV" = (
+/turf/open/floor/plasteel/grid/steel,
+/area/shuttle/exploration)
+"UB" = (
+/obj/structure/bed,
+/obj/machinery/newscaster{
+	pixel_y = 32
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/bedsheet/cosmos,
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/shuttle/exploration)
+"UD" = (
+/obj/machinery/door/airlock/shuttle,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"UV" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"Vj" = (
+/obj/machinery/power/port_gen/pacman,
+/obj/item/stack/sheet/mineral/plasma/fifty,
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"VT" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"Wq" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/shuttle/exploration)
+"Wy" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"WH" = (
+/obj/machinery/power/apc/highcap/five_k{
+	pixel_y = 26;
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"WI" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/effect/turf_decal/loading_area,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"YJ" = (
+/obj/machinery/computer/objective,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"Zy" = (
+/obj/structure/dresser,
+/turf/open/floor/wood,
+/area/shuttle/exploration)
+
+(1,1,1) = {"
+ev
+ev
+ps
+ER
+ER
+ps
+jo
+ps
+ev
+ev
+ev
+ev
+ev
+ev
+ev
+ev
+"}
+(2,1,1) = {"
+ps
+ER
+ps
+Op
+Hm
+ps
+QR
+ps
+ps
+ps
+ps
+ps
+ps
+ps
+ev
+ev
+"}
+(3,1,1) = {"
+ER
+JK
+Rc
+bI
+br
+ps
+yH
+MG
+DL
+dF
+Ps
+QT
+xm
+kY
+BU
+ev
+"}
+(4,1,1) = {"
+ER
+oh
+Wy
+sk
+hn
+ps
+MG
+ps
+ps
+ps
+ps
+WH
+UV
+IW
+zd
+BU
+"}
+(5,1,1) = {"
+ER
+YJ
+Wy
+xN
+sk
+UD
+yH
+Cr
+da
+ps
+ef
+bq
+eT
+BR
+ps
+ps
+"}
+(6,1,1) = {"
+ps
+ER
+ER
+ps
+ps
+ps
+yH
+bW
+bW
+ps
+hG
+WI
+ob
+Vj
+zd
+BU
+"}
+(7,1,1) = {"
+ps
+Wq
+TV
+FE
+yH
+yH
+yH
+Ma
+Ma
+ps
+sQ
+VT
+eT
+sj
+ps
+ps
+"}
+(8,1,1) = {"
+wW
+Tt
+TV
+ps
+sM
+bW
+yH
+As
+lU
+ps
+yg
+VT
+eT
+rU
+zd
+BU
+"}
+(9,1,1) = {"
+wW
+Tt
+TV
+ps
+bW
+bW
+yH
+lX
+lD
+ps
+TE
+VT
+eT
+BR
+ps
+ps
+"}
+(10,1,1) = {"
+wW
+Tt
+TV
+ps
+ps
+pz
+ps
+ps
+nI
+ps
+qN
+Dl
+ne
+IW
+zd
+BU
+"}
+(11,1,1) = {"
+ps
+EK
+TV
+ps
+Zy
+DO
+ps
+wj
+lI
+ps
+of
+MQ
+gr
+kY
+BU
+ev
+"}
+(12,1,1) = {"
+ps
+ps
+ps
+ps
+UB
+Eg
+ps
+ps
+ps
+ps
+ps
+ps
+ps
+ps
+ev
+ev
+"}
+(13,1,1) = {"
+ev
+ev
+ps
+ps
+ps
+ps
+ps
+ps
+ev
+ev
+ev
+ev
+ev
+ev
+ev
+ev
+"}
