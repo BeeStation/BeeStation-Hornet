@@ -319,6 +319,8 @@
 	var/skip_first
 	///A list for the path we're currently following
 	var/list/movement_path
+	///TRUE if a repath proc is currently running to ensure that only one can be called and finishes at a time
+	var/repath_active
 	///Cooldown for repathing, prevents spam
 	COOLDOWN_DECLARE(repath_cooldown)
 
@@ -351,11 +353,13 @@
 
 //Returns FALSE if the recalculation failed, TRUE otherwise
 /datum/move_loop/has_target/jps/proc/recalculate_path()
-	if(!COOLDOWN_FINISHED(src, repath_cooldown))
+	if(!COOLDOWN_FINISHED(src, repath_cooldown) || repath_active)
 		return
+	repath_active = TRUE
 	COOLDOWN_START(src, repath_cooldown, repath_delay)
 	SEND_SIGNAL(src, COMSIG_MOVELOOP_JPS_REPATH)
 	movement_path = get_path_to(moving, target, max_path_length, minimum_distance, id, simulated_only, avoid, skip_first)
+	repath_active = FALSE
 
 /datum/move_loop/has_target/jps/move()
 	var/atom/movable/atom = moving
@@ -440,7 +444,12 @@
 	var/target_turf
 
 /datum/move_loop/has_target/jps/hostile/recalculate_path()
-	. = ..()
+	if(!COOLDOWN_FINISHED(src, repath_cooldown) || repath_active)
+		return
+	repath_active = TRUE
+	COOLDOWN_START(src, repath_cooldown, repath_delay)
+	SEND_SIGNAL(src, COMSIG_MOVELOOP_JPS_REPATH)
+	movement_path = get_path_to(moving, target, max_path_length, minimum_distance, id, simulated_only, avoid, skip_first)
 	// Implementing pathfinding fallback solution
 	if(!length(movement_path))
 		var/ln = get_dist(moving, target)
@@ -463,6 +472,7 @@
 			found_blocker = FALSE
 			movement_path = get_path_to(moving, target_new, max_path_length, 0, id, simulated_only, avoid, skip_first) //here the min distance is always 0 because we need to stand beside the blocker
 	target_turf = get_turf(target)
+	repath_active = FALSE
 
 /datum/move_loop/has_target/jps/hostile/move()
 	var/atom/movable/atom = moving
