@@ -455,16 +455,17 @@
 		var/ln = get_dist(moving, target)
 		var/turf/target_new = target
 		var/found_blocker
+		var/passflags_cache = moving.pass_flags
 		while(!length(movement_path) && (ln > 0)) //will stop if we can find a valid path or if ln gets reduced to 0 or less
 			find_target:
 				for(var/i in 1 to ln) //calling get_path_to every time is quite taxing lets see if we can find whatever blocks us
 					target_new = get_step(target_new,  get_dir(target_new, moving)) //step towards the origin until we find the blocker then 1 further
 					ln--
-					if(target_new.density && !(target_new.pass_flags_self & moving.pass_flags)) //we check for possible tiles that could block us
+					if(target_new.density && !(target_new.pass_flags_self & passflags_cache)) //we check for possible tiles that could block us
 						found_blocker = TRUE
 						continue find_target //in case there is like a double wall
 					for(var/obj/o in target_new.contents)
-						if(o.density && !(o.pass_flags_self & moving.pass_flags)) //We check for possible blockers on the tile
+						if(o.density && !(o.pass_flags_self & passflags_cache)) //We check for possible blockers on the tile
 							found_blocker = TRUE
 							continue find_target
 					if(found_blocker) //cursed but after we found the blocker we end the loop on the next illiteration
