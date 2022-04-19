@@ -4,6 +4,7 @@
 	var/name = "space wind"
 	var/desc = "Heavy gusts of wind blanket the area, periodically knocking down anyone caught in the open."
 
+	var/telegraph_enabled = TRUE
 	var/telegraph_message = "<span class='warning'>The wind begins to pick up.</span>" //The message displayed in chat to foreshadow the weather's beginning
 	var/telegraph_duration = 300 //In deciseconds, how long from the beginning of the telegraph until the weather begins
 	var/telegraph_sound //The sound file played to everyone on an affected z-level
@@ -61,13 +62,14 @@
 	weather_duration = rand(weather_duration_lower, weather_duration_upper)
 	START_PROCESSING(SSweather, src)
 	update_areas()
-	for(var/M in GLOB.player_list)
-		var/turf/mob_turf = get_turf(M)
-		if(mob_turf && (mob_turf.z in impacted_z_levels))
-			if(telegraph_message)
-				to_chat(M, telegraph_message)
-			if(telegraph_sound)
-				SEND_SOUND(M, sound(telegraph_sound))
+	if(telegraph_enabled)
+		for(var/M in GLOB.player_list)
+			var/turf/mob_turf = get_turf(M)
+			if(mob_turf && (mob_turf.z in impacted_z_levels))
+				if(telegraph_message)
+					to_chat(M, telegraph_message)
+				if(telegraph_sound)
+					SEND_SOUND(M, sound(telegraph_sound))
 	addtimer(CALLBACK(src, .proc/start), telegraph_duration)
 
 /datum/weather/proc/start()
