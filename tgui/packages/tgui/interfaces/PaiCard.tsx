@@ -10,7 +10,7 @@ type PaiCardData = {
 type Candidate = {
   comments: string;
   description: string;
-  key: string;
+  ckey: string;
   name: string;
 };
 
@@ -60,7 +60,7 @@ const PaiDownload = (_, context) => {
         <Stack fill vertical>
           {candidates.map((candidate, index) => {
             return (
-              <Stack.Item key={index}>
+              <Stack.Item ckey={index}>
                 <CandidateDisplay candidate={candidate} />
               </Stack.Item>
             );
@@ -119,7 +119,7 @@ const CandidateDisplay = (props, context) => {
 const CandidateTabs = (props, context) => {
   const { act } = useBackend<PaiCardData>(context);
   const { candidate, onTabClick, tab } = props;
-  const { key } = candidate;
+  const { ckey } = candidate;
 
   return (
     <Stack>
@@ -144,7 +144,7 @@ const CandidateTabs = (props, context) => {
       <Stack.Item>
         <Button
           icon="download"
-          onClick={() => act('download', { key })}
+          onClick={() => act('download', { ckey })}
           tooltip="Accepts this pAI candidate.">
           Download
         </Button>
