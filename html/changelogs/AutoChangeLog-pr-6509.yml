@@ -1,6 +1,0 @@
-author: Karmic-Skink
-delete-after: true
-changes:
-  - rscadd: The smelter console now allows you to obtain mining points
-  - code_imp: Mappers can use the link_id variables on the smelting and stacking machines
-      and consoles to automatically link machines that are not next to each other
