@@ -133,6 +133,8 @@
 
 	emittersemicd = TRUE
 	addtimer(CALLBACK(src, .proc/emittercool), 600)
+	return INITIALIZE_HINT_LATELOAD
+
 
 /mob/living/silicon/pai/Life()
 	if(hacking)
@@ -156,6 +158,10 @@
 		var/obj/machinery/door/D = cable.machine
 		D.open()
 		hacking = FALSE
+
+/mob/living/silicon/pai/LateInitialize()
+	. = ..()
+	modularInterface.saved_identification = name
 
 /mob/living/silicon/pai/make_laws()
 	laws = new /datum/ai_laws/pai()

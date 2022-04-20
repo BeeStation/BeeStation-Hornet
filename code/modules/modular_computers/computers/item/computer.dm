@@ -71,6 +71,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/init_ringtone = "beep"
 	/// If the device starts with its ringer on
 	var/init_ringer_on = TRUE
+	/// The action for enabling/disabling the flashlight
+	var/datum/action/item_action/toggle_computer_light/light_action
 
 /obj/item/modular_computer/Initialize(mapload)
 	. = ..()
@@ -83,6 +85,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	idle_threads = list()
 	if(id)
 		id.UpdateDisplay()
+	if(has_light)
+		light_action = new(src)
 	update_icon()
 	add_messenger()
 
@@ -93,9 +97,17 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		var/obj/item/computer_hardware/component = all_components[port]
 		qdel(component)
 	all_components?.Cut()
+	if(istype(light_action))
+		QDEL_NULL(light_action)
 	physical = null
 	remove_messenger()
 	return ..()
+
+/obj/item/modular_computer/ui_action_click(mob/user, actiontype)
+	if(istype(actiontype, light_action))
+		toggle_flashlight()
+	else
+		..()
 
 /// From [/datum/newscaster/feed_network/proc/save_photo]
 /obj/item/modular_computer/proc/save_photo(icon/photo)

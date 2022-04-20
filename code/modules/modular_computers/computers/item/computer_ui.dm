@@ -14,22 +14,20 @@
 	)
 
 /obj/item/modular_computer/ui_interact(mob/user, datum/tgui/ui)
-	if(issilicon(user)) // silicons have some issues regarding real_name
-		saved_identification = user.real_name
 	if(!enabled)
 		if(ui)
 			ui.close()
-		return 0
+		return FALSE
 	if(!use_power())
 		if(ui)
 			ui.close()
-		return 0
+		return FALSE
 
 	// Robots don't really need to see the screen, their wireless connection works as long as computer is on.
 	if(!screen_on && !issilicon(user))
 		if(ui)
 			ui.close()
-		return 0
+		return FALSE
 
 	// If we have an active program switch to it now.
 	if(active_program)
@@ -43,7 +41,7 @@
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
 	if(!hard_drive || !hard_drive.stored_files || !hard_drive.stored_files.len)
 		to_chat(user, "<span class='danger'>\The [src] beeps three times, it's screen displaying a \"DISK ERROR\" warning.</span>")
-		return // No HDD, No HDD files list or no stored files. Something is very broken.
+		return FALSE // No HDD, No HDD files list or no stored files. Something is very broken.
 
 	if(honk_amount > 0) // EXTRA annoying, huh!
 		honk_amount--
