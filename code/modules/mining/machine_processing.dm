@@ -144,6 +144,10 @@
 	var/datum/techweb/stored_research
 	var/link_id = null
 	var/points = 0
+	var/allow_point_redemption = TRUE
+
+/obj/machinery/mineral/processing_unit/laborcamp
+	allow_point_redemption = FALSE
 
 /obj/machinery/mineral/processing_unit/Initialize(mapload)
 	. = ..()
@@ -165,7 +169,8 @@
 	if(!materials.has_space(material_amount))
 		unload_mineral(O)
 	else
-		points += O.points * O.amount
+		if(allow_point_redemption)
+			points += O.points * O.amount
 		materials.insert_item(O)
 		qdel(O)
 		if(CONSOLE)
@@ -176,12 +181,13 @@
 
 	//On or off - on the console so we don't fail can_interact when doing Topic
 	dat += "Machine is currently <A href='?src=[REF(CONSOLE)];toggle_on=1'>[ on ? "On" : "Off"]</A>"
+	dat += "<br><br>"
 
 	//Points
-	dat += "<br><br>"
-	dat += "Stored points: [points] "
-	dat += "<A href='?src=[REF(CONSOLE)];redeem=1'><b>Redeem</b></A> "
-	dat += "<br><br>"
+	if(allow_point_redemption)
+		dat += "Stored points: [points] "
+		dat += "<A href='?src=[REF(CONSOLE)];redeem=1'><b>Redeem</b></A> "
+		dat += "<br><br>"
 
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/datum/material/M in materials.materials)
