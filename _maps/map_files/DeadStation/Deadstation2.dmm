@@ -7806,6 +7806,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 10
 	},
+/obj/machinery/light_switch/directional/north,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "Pv" = (
