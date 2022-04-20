@@ -68,17 +68,26 @@
 	if(volume_left < amount) //Empty
 		return
 	reagents.add_reagent(reagent_id, amount*delta_time*0.5)
-	volume_left -= amount
+	volume_left -= (amount*delta_time*0.5)
 
 /obj/machinery/plumbing/synthesizer/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/rcd_ammo))
 		var/obj/item/rcd_ammo/R = O
-		if(volume_left > max_volume-100) //no overfilling by more than 100 units
-			to_chat(user, "<span class='warning'>The chemical synthesizer is full!</span>")
+		if(!R.ammoamt)
+			to_chat(user, "<span class='warning'>The [R.name] doesn't have any reagent left!</span>")
 			return ..()
-		volume_left = min(volume_left+R.ammoamt*10, 1000) //400, you get 2x what I originally intended
-		to_chat(user, "<span class='notice'>You refill the chemical synthesizer with the compressed matter cartridge.</span>")
-		qdel(O)
+		var/added_volume = -volume_left //For the difference calculation
+		volume_left = min(volume_left+R.ammoamt*10, 1000) //400 per cartridge
+		added_volume = added_volume+volume_left
+		R.ammoamt -= added_volume/10
+		if(R.ammoamt <= 0) //Empty
+			to_chat(user, "<span class='notice'>You refill the chemical synthesizer with the [R.name], emptying it completely!</span>")
+			qdel(R)
+		else
+			if(added_volume == 0) //No change
+				to_chat(user, "<span class='notice'>The chemical synthesizer is full!</span>")
+			else //FIlled
+				to_chat(user, "<span class='notice'>You refill the chemical synthesizer with the [R.name], leaving [R.ammoamt] units in it.</span>")
 	else
 		return ..()
 
