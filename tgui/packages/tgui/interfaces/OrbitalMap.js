@@ -84,7 +84,7 @@ export const OrbitalMap = (props, context) => {
               <OrbitalMapDisplay
                 dynamicXOffset={dynamicXOffset}
                 dynamicYOffset={dynamicYOffset}
-                isTracking={trackedBody !== map_objects[0].name}
+                isTracking={trackedBody !== "None"}
                 zoomScale={zoomScale}
                 setZoomScale={setZoomScale}
                 setTrackedBody={setTrackedBody}
@@ -448,7 +448,7 @@ export const OrbitalMapDisplay = (props, context) => {
         stepPixelSize={2 * zoomScale}
         onDrag={(e, valueX, valueY) => {
           setOffset([valueX, valueY]);
-          setTrackedBody(map_objects[0].name);
+          setTrackedBody("None");
         }}
         valueX={isTracking ? dynamicXOffset : offset[0]}
         valueY={isTracking ? dynamicYOffset : offset[1]}

@@ -40,9 +40,9 @@
 
 /datum/orbital_map/proc/get_all_bodies()
 	. = list()
-	. += large_bodies
 	for(var/zone in collision_zone_bodies)
 		. += collision_zone_bodies[zone]
+	. += large_bodies
 
 //Returns a list of gravitationally relevant bodies.
 /datum/orbital_map/proc/get_relevnant_bodies(datum/orbital_object/source)

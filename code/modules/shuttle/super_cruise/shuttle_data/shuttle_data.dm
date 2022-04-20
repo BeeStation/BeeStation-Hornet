@@ -55,7 +55,7 @@
 
 //Consume fuel, check engine status
 /datum/shuttle_data/proc/process_flight(thrust_amount = 0)
-	var/fuel_usage = thrust_amount * ORBITAL_UPDATE_RATE_SECONDS
+	var/fuel_usage = thrust_amount * ORBITAL_UPDATE_RATE_SECONDS * 0.01
 	for(var/obj/machinery/shuttle/engine/shuttle_engine as() in registered_engines)
 		if(!shuttle_engine.thruster_active)
 			continue
