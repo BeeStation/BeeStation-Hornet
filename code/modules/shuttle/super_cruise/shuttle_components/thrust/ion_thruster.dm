@@ -170,6 +170,10 @@
 	update_adjacent_engines()
 	return ..()
 
+/obj/machinery/power/engine_capacitor_bank/emp_act(severity)
+	. = ..()
+	stored_power = rand(0, stored_power)
+
 /obj/machinery/power/engine_capacitor_bank/escape_pod
 	name = "emergency thruster capacitor bank"
 	desc = "A single-use, non-rechargable, high-capacitor capacitor bank used for getting shuttles away from a location fast."
@@ -179,6 +183,9 @@
 	charge_rate = 0
 	//Provides 2 minutes of thrust when using burst thrusters
 	maximum_stored_power = 600
+
+/obj/machinery/power/engine_capacitor_bank/escape_pod/emp_act(severity)
+	return
 
 /obj/machinery/power/engine_capacitor_bank/escape_pod/RefreshParts()
 	return

@@ -120,6 +120,8 @@
 		return
 	var/obj/machinery/atmospherics/components/unary/shuttle/engine_heater/shuttle_heater = attached_heater.resolve()
 	shuttle_heater.consumeFuel(amount * fuel_use)
+	//Adjust thrust amount based on gas mixture
+	thrust = initial(thrust) * shuttle_heater.get_gas_multiplier()
 
 /obj/machinery/shuttle/engine/plasma/get_fuel_amount()
 	if(!attached_heater)

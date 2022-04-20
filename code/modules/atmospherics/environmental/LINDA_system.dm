@@ -40,7 +40,7 @@
 	return FALSE
 
 /turf/proc/ImmediateCalculateAdjacentTurfs()
-	if(SSair.paused_z_levels[z])
+	if(SSair.paused_z_levels["[z]"])
 		return
 	if(SSair.thread_running())
 		CALCULATE_ADJACENT_TURFS(src)

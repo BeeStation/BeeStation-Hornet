@@ -12,7 +12,7 @@
 
 /obj/machinery/atmospherics/components/unary/shuttle/engine_heater
 	name = "engine heater"
-	desc = "Directs energy into compressed particles in order to power an attached thruster."
+	desc = "Directs energy into compressed particles in order to power an attached thruster. While the engine can be overclocked by being flooded with tritium, this will void the warrenty."
 	icon_state = "heater_pipe"
 	var/icon_state_closed = "heater_pipe"
 	var/icon_state_open = "heater_pipe_open"
@@ -28,7 +28,6 @@
 
 	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
 
-	var/gas_type = GAS_PLASMA
 	var/efficiency_multiplier = 1
 	var/gas_capacity = 0
 
@@ -82,8 +81,7 @@
 
 /obj/machinery/atmospherics/components/unary/shuttle/engine_heater/examine(mob/user)
 	. = ..()
-	var/datum/gas_mixture/air_contents = airs[1]
-	. += "The engine heater's gas dial reads [air_contents.get_moles(gas_type)] moles of gas.<br>"
+	. += "The engine heater's gas dial reads [getFuelAmount()] moles of gas.<br>"
 
 /obj/machinery/atmospherics/components/unary/shuttle/engine_heater/proc/updateGasStats()
 	var/datum/gas_mixture/air_contents = airs[1]
@@ -93,19 +91,25 @@
 	air_contents.set_temperature(T20C)
 
 /obj/machinery/atmospherics/components/unary/shuttle/engine_heater/proc/hasFuel(var/required)
-	var/datum/gas_mixture/air_contents = airs[1]
-	var/moles = air_contents.total_moles()
-	return moles >= required
+	return getFuelAmount() >= required
 
 /obj/machinery/atmospherics/components/unary/shuttle/engine_heater/proc/consumeFuel(var/amount)
 	var/datum/gas_mixture/air_contents = airs[1]
-	air_contents.remove(amount)
+	air_contents.remove(amount / efficiency_multiplier)
 	return
 
 /obj/machinery/atmospherics/components/unary/shuttle/engine_heater/proc/getFuelAmount()
 	var/datum/gas_mixture/air_contents = airs[1]
-	var/moles = air_contents.total_moles()
+	var/moles = air_contents.get_moles(GAS_PLASMA) + air_contents.get_moles(GAS_TRITIUM)
 	return moles
+
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater/proc/get_gas_multiplier()
+	//Check the gas ratio
+	var/datum/gas_mixture/air_contents = airs[1]
+	var/total_moles = air_contents.total_moles()
+	var/moles_plasma = air_contents.get_moles(GAS_PLASMA)
+	var/moles_tritium = air_contents.get_moles(GAS_TRITIUM)
+	return (moles_plasma / total_moles) + (3 * moles_tritium / total_moles)
 
 /obj/machinery/atmospherics/components/unary/shuttle/engine_heater/attackby(obj/item/I, mob/living/user, params)
 	if(default_deconstruction_screwdriver(user, icon_state_open, icon_state_closed, I))
