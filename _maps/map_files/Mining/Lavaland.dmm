@@ -788,7 +788,7 @@
 /turf/closed/wall,
 /area/mine/laborcamp)
 "dq" = (
-/obj/machinery/mineral/processing_unit{
+/obj/machinery/mineral/processing_unit/laborcamp{
 	dir = 1
 	},
 /turf/open/floor/plating,
