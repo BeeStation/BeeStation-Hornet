@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar to GLOB.PDAs (used primarily with ntmessenger.dm)
+
 // This is the base type that does all the hardware stuff.
 // Other types expand it - tablets use a direct subtypes, and
 // consoles and laptops use "procssor" item that is held inside machinery piece
@@ -7,6 +9,12 @@
 
 	var/enabled = 0											// Whether the computer is turned on.
 	var/screen_on = 1										// Whether the computer is active/opened/it's screen is on.
+	/// If it's bypassing the set icon state
+	var/bypass_state = FALSE
+	/// Whether or not the computer can be upgraded
+	var/upgradable = TRUE
+	/// Whether or not the computer can be deconstructed
+	var/deconstructable = TRUE
 	var/device_theme = "ntos"								// Sets the theme for the main menu, hardware config, and file browser apps. Overridden by certain non-NT devices.
 	var/datum/computer_file/program/active_program = null	// A currently active program running on the computer.
 	var/hardware_flag = 0									// A flag that describes this device type
@@ -41,42 +49,102 @@
 	/// Number of total expansion bays this computer has available.
 	var/max_bays = 0
 
+	/// The currently imprinted ID.
+	var/saved_identification = null
+	/// The currently imprinted job.
+	var/saved_job = null
+	/// The amount of honks. honk honk honk honk honk honkh onk honkhnoohnk
+	var/honk_amount = 0
 	var/list/idle_threads							// Idle programs on background. They still receive process calls but can't be interacted with.
 	var/obj/physical = null									// Object that represents our computer. It's used for Adjacent() and UI visibility checks.
 	var/has_light = FALSE						//If the computer has a flashlight/LED light/what-have-you installed
 	var/comp_light_luminosity = 3				//The brightness of that light
 	var/comp_light_color			//The color of that light
-	light_on = FALSE // override behavior from atom so flashlight button is not marked as ON
+	/// Override behavior from atom so flashlight button is not marked as ON
+	light_on = FALSE
+	/// Whether or not the tablet is invisible in messenger and other apps
+	var/messenger_invisible = FALSE
+	/// The saved image used for messaging purposes
+	var/datum/picture/saved_image
+	/// The stored pAI device
+	var/obj/item/paicard/pai = null
 
 /obj/item/modular_computer/Initialize(mapload)
 	. = ..()
+
+	var/obj/item/computer_hardware/identifier/id = all_components[MC_IDENTIFY]
 	START_PROCESSING(SSobj, src)
 	if(!physical)
 		physical = src
 	comp_light_color = "#FFFFFF"
 	idle_threads = list()
+	if(looping_sound)
+		soundloop = new(src, enabled)
+	if(id)
+		id.UpdateDisplay()
 	update_icon()
+	Add_Messenger()
+
 
 /obj/item/modular_computer/Destroy()
 	kill_program(forced = TRUE)
 	STOP_PROCESSING(SSobj, src)
+<<<<<<< HEAD
 	for(var/port in all_components)
 		var/obj/item/computer_hardware/component = all_components[port]
 		qdel(component)
 	all_components.Cut() //Die demon die
+=======
+	for(var/H in all_components)
+		var/obj/item/computer_hardware/CH = all_components[H]
+		if(CH.holder == src)
+			CH.on_remove(src)
+			CH.holder = null
+			all_components?.Remove(CH.device_type)
+			qdel(CH)
+>>>>>>> 7bb5888d550 (Modular Tablets: Converting PDAs to the NtOS System (#65755))
 	physical = null
+	remove_messenger()
+	if(istype(pai))
+		QDEL_NULL(pai)
 	return ..()
 
+/obj/item/modular_computer/pre_attack_secondary(atom/A, mob/living/user, params)
+	if(active_program?.tap(A, user, params))
+		user.do_attack_animation(A) //Emulate this animation since we kill the attack in three lines
+		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1) //Likewise for the tap sound
+		addtimer(CALLBACK(src, .proc/play_ping), 0.5 SECONDS, TIMER_UNIQUE) //Slightly delayed ping to indicate success
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	return ..()
+
+
+/// From [/datum/newscaster/feed_network/proc/save_photo]
+/obj/item/modular_computer/proc/save_photo(icon/photo)
+	var/photo_file = copytext_char(md5("/icon[photo]"), 1, 6)
+	if(!fexists("[GLOB.log_directory]/photos/[photo_file].png"))
+		//Clean up repeated frames
+		var/icon/clean = new /icon()
+		clean.Insert(photo, "", SOUTH, 1, 0)
+		fcopy(clean, "[GLOB.log_directory]/photos/[photo_file].png")
+	return photo_file
+
+/**
+ * Plays a ping sound.
+ *
+ * Timers runtime if you try to make them call playsound. Yep.
+ */
+/obj/item/modular_computer/proc/play_ping()
+	playsound(loc, 'sound/machines/ping.ogg', get_clamped_volume(), FALSE, -1)
+
 /obj/item/modular_computer/AltClick(mob/user)
-	if(issilicon(user))
+	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
+	var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]
+	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
+	if(!card_slot2?.try_eject(user))
+		card_slot?.try_eject(user)
 
-	if(user.canUseTopic(src, BE_CLOSE))
-		var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]
-		var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
-		return (card_slot2?.try_eject(user) || card_slot?.try_eject(user)) //Try the secondary one first.
-
-// Gets IDs/access levels from card slot. Would be useful when/if PDAs would become modular PCs.
+// Gets IDs/access levels from card slot. Would be useful when/if PDAs would become modular PCs. (They are now!! you are welcome - itsmeow)
 /obj/item/modular_computer/GetAccess()
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
 	if(card_slot)
@@ -97,10 +165,11 @@
 /obj/item/modular_computer/InsertID(obj/item/inserting_item)
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
 	var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]
+
 	if(!(card_slot || card_slot2))
 		return FALSE
 
-	var/obj/item/card/inserting_id = inserting_item.RemoveID()
+	var/obj/item/card/inserting_id = inserting_item.GetID()
 	if(!inserting_id)
 		return FALSE
 
@@ -157,18 +226,19 @@
 
 /obj/item/modular_computer/update_icon()
 	cut_overlays()
-	if(!enabled)
-		icon_state = icon_state_unpowered
-	else
-		icon_state = icon_state_powered
-		if(active_program)
-			add_overlay(active_program.program_icon_state ? active_program.program_icon_state : icon_state_menu)
-		else
-			add_overlay(icon_state_menu)
+	if(!bypass_state)
+		icon_state = enabled ? icon_state_powered : icon_state_unpowered
+
+	var/init_icon = initial(icon)
+	if(!init_icon)
+		return
+
+	if(enabled)
+		add_overlay(active_program ? mutable_appearance(init_icon, active_program.program_icon_state) : mutable_appearance(init_icon, icon_state_menu))
 
 	if(obj_integrity <= integrity_failure)
-		add_overlay("bsod")
-		add_overlay("broken")
+		add_overlay(mutable_appearance(init_icon, "bsod"))
+		add_overlay(mutable_appearance(init_icon, "broken"))
 
 
 // On-click handling. Turns on the computer if it's off and opens the GUI.
@@ -263,6 +333,16 @@
 	var/mob/living/holder = loc
 	if(istype(holder))
 		to_chat(holder, "[icon2html(src)] <span class='notice'>The [src] displays a [caller.filedesc] notification: [alerttext]</span>")
+
+/obj/item/modular_computer/proc/ring(ringtone) // bring bring
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
+		playsound(src, pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg'), 50, TRUE)
+	else
+		playsound(src, 'sound/machines/twobeep_high.ogg', 50, TRUE)
+	visible_message("*[ringtone]*")
+
+/obj/item/modular_computer/proc/send_sound()
+	playsound(src, 'sound/machines/terminal_success.ogg', 15, TRUE)
 
 // Function used by NanoUI's to obtain data for header. All relevant entries begin with "PC_"
 /obj/item/modular_computer/proc/get_header_data()
@@ -359,8 +439,15 @@
 	update_icon()
 
 /obj/item/modular_computer/screwdriver_act(mob/user, obj/item/tool)
+<<<<<<< HEAD
 	if(!length(all_components))
 		balloon_alert(user, "no components installed!")
+=======
+	if(!deconstructable)
+		return
+	if(!all_components.len)
+		to_chat(user, "<span class='warning'>This device doesn't have any components installed.</span>")
+>>>>>>> 7bb5888d550 (Modular Tablets: Converting PDAs to the NtOS System (#65755))
 		return
 	var/list/component_names = list()
 	for(var/h in all_components)
@@ -389,6 +476,25 @@
 	if(istype(W, /obj/item/card/id) && InsertID(W))
 		return
 
+	// Insert a PAI.
+	if(istype(W, /obj/item/paicard) && !pai)
+		if(!user.transferItemToLoc(W, src))
+			return
+		pai = W
+		pai.slotted = TRUE
+		to_chat(user, span_notice("You slot \the [W] into [src]."))
+		return
+
+	// Scan a photo.
+	if(istype(W, /obj/item/photo))
+		var/obj/item/computer_hardware/hard_drive/hdd = all_components[MC_HDD]
+		var/obj/item/photo/pic = W
+		if(hdd)
+			for(var/datum/computer_file/program/messenger/messenger in hdd.stored_files)
+				saved_image = pic.picture
+				messenger.ProcessPhoto()
+		return
+
 	// Insert items into the components
 	for(var/h in all_components)
 		var/obj/item/computer_hardware/H = all_components[h]
@@ -396,7 +502,7 @@
 			return
 
 	// Insert new hardware
-	if(istype(W, /obj/item/computer_hardware))
+	if(istype(W, /obj/item/computer_hardware) && upgradable)
 		if(install_component(W, user))
 			return
 
@@ -437,3 +543,9 @@
 	if(physical && physical != src)
 		return physical.Adjacent(neighbor)
 	return ..()
+
+/obj/item/modular_computer/proc/Add_Messenger()
+	GLOB.TabletMessengers += src
+
+/obj/item/modular_computer/proc/Remove_Messenger()
+	GLOB.TabletMessengers -= src

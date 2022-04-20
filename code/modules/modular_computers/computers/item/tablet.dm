@@ -16,14 +16,93 @@
 	var/has_variants = TRUE
 	var/finish_color = null
 
+	var/list/contained_item = list(/obj/item/pen, /obj/item/toy/crayon, /obj/item/lipstick, /obj/item/flashlight/pen, /obj/item/clothing/mask/cigarette)
+	var/obj/item/insert_type = /obj/item/pen
+	var/obj/item/inserted_item
+
+	/// The note used by the notekeeping app, stored here for convenience.
+	var/note = "Congratulations on your station upgrading to the new NtOS and Thinktronic based collaboration effort, bringing you the best in electronics and software since 2467!"
+
 /obj/item/modular_computer/tablet/update_icon()
 	..()
-	if (has_variants)
+	if (has_variants && !bypass_state)
 		if(!finish_color)
 			finish_color = pick("red","blue","brown","green","black")
 		icon_state = "tablet-[finish_color]"
 		icon_state_unpowered = "tablet-[finish_color]"
 		icon_state_powered = "tablet-[finish_color]"
+
+/obj/item/modular_computer/tablet/interact(mob/user)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_PDA_MESSAGE_MENU_RIGGED))
+		explode(usr, from_message_menu = TRUE)
+		return
+
+/obj/item/modular_computer/tablet/attackby(obj/item/attacking_item, mob/user)
+	. = ..()
+
+	if(is_type_in_list(attacking_item, contained_item))
+		if(inserted_item)
+			to_chat(user, "<span class='warning'>There is already \a [inserted_item] in \the [src]!</span>")
+		else
+			if(!user.transferItemToLoc(attacking_item, src))
+				return
+			to_chat(user, span_notice("You insert \the [attacking_item] into \the [src]."))
+			inserted_item = attacking_item
+			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+
+/obj/item/modular_computer/tablet/AltClick(mob/user)
+	. = ..()
+	if(.)
+		return
+
+	remove_pen(user)
+
+/obj/item/modular_computer/tablet/proc/tab_no_detonate()
+	SIGNAL_HANDLER
+	return COMPONENT_TABLET_NO_DETONATE
+
+/obj/item/modular_computer/tablet/proc/remove_pen(mob/user)
+
+	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK)) //TK doesn't work even with this removed but here for readability
+		return
+
+	if(inserted_item)
+		to_chat(user, span_notice("You remove [inserted_item] from [src]."))
+		user.put_in_hands(inserted_item)
+		inserted_item = null
+		update_appearance()
+		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
+	else
+		to_chat(user, span_warning("This tablet does not have a pen in it!"))
+
+// Tablet 'splosion..
+
+/obj/item/modular_computer/tablet/proc/explode(mob/target, mob/bomber, from_message_menu = FALSE)
+	var/turf/T = get_turf(src)
+
+	if(from_message_menu)
+		log_bomber(null, null, target, "'s tablet exploded as [target.p_they()] tried to open their tablet message menu because of a recent tablet bomb.")
+	else
+		log_bomber(bomber, "successfully tablet-bombed", target, "as [target.p_they()] tried to reply to a rigged tablet message [bomber && !is_special_character(bomber) ? "(SENT BY NON-ANTAG)" : ""]")
+
+	if (ismob(loc))
+		var/mob/victim = loc
+		victim.show_message(span_userdanger("Your [src] explodes!"), MSG_VISUAL, span_warning("You hear a loud *pop*!"), MSG_AUDIBLE)
+	else
+		visible_message(span_danger("[src] explodes!"), span_warning("You hear a loud *pop*!"))
+
+	target.client?.give_award(/datum/award/achievement/misc/clickbait, target)
+
+	if(current_turf)
+		current_turf.hotspot_expose(700,125)
+		if(istype(all_components[MC_HDD_JOB], /obj/item/computer_hardware/hard_drive/role/virus/deto))
+			explosion(src, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, flash_range = 4)
+		else
+			explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3)
+	qdel(src)
+
+// SUBTYPES
 
 /obj/item/modular_computer/tablet/syndicate_contract_uplink
 	name = "contractor tablet"
@@ -64,8 +143,8 @@
 	has_light = FALSE //tablet light button actually enables/disables the borg lamp
 	comp_light_luminosity = 0
 	has_variants = FALSE
-	///Ref to the borg we're installed in. Set by the borg during our creation.
-	var/mob/living/silicon/robot/borgo
+	///Ref to the silicon we're installed in. Set by the borg during our creation.
+	var/mob/living/silicon/borgo
 	///Ref to the Cyborg Self-Monitoring app. Important enough to borgs to deserve a ref.
 	var/datum/computer_file/program/borg_self_monitor/self_monitoring
 	///IC log that borgs can view in their personal management app
@@ -118,32 +197,36 @@
 /obj/item/modular_computer/tablet/integrated/ui_data(mob/user)
 	. = ..()
 	.["has_light"] = TRUE
-	.["light_on"] = borgo?.lamp_enabled
-	.["comp_light_color"] = borgo?.lamp_color
+	if(istype(borgo, /mob/living/silicon/robot))
+		var/mob/living/silicon/robot/robo = borgo
+		.["light_on"] = robo.lamp_enabled
+		.["comp_light_color"] = robo.lamp_color
 
 //Overrides the ui_act to make the flashlight controls link to the borg instead
 /obj/item/modular_computer/tablet/integrated/ui_act(action, params)
 	switch(action)
 		if("PC_toggle_light")
-			if(!borgo)
+			if(!istype(borgo, /mob/living/silicon/robot))
 				return FALSE
-			borgo.toggle_headlamp()
+			var/mob/living/silicon/robot/robo = borgo
+			robo.toggle_headlamp()
 			return TRUE
 
 		if("PC_light_color")
-			if(!borgo)
+			if(!istype(borgo, /mob/living/silicon/robot))
 				return FALSE
+			var/mob/living/silicon/robot/robo = borgo
 			var/mob/user = usr
 			var/new_color
 			while(!new_color)
 				new_color = input(user, "Choose a new color for [src]'s flashlight.", "Light Color",light_color) as color|null
-				if(!new_color || QDELETED(borgo))
+				if(!new_color || QDELETED(robo))
 					return
 				if(color_hex2num(new_color) < 200) //Colors too dark are rejected
 					to_chat(user, "<span class='warning'>That color is too dark! Choose a lighter one.</span>")
 					new_color = null
-			borgo.lamp_color = new_color
-			borgo.toggle_headlamp(FALSE, TRUE)
+			robo.lamp_color = new_color
+			robo.toggle_headlamp(FALSE, TRUE)
 			return TRUE
 	return ..()
 
@@ -152,6 +235,9 @@
 		return
 	borgo.playsound_local(src, sound, 50, TRUE)
 	to_chat(borgo, "<span class='notice'>The [src] displays a [caller.filedesc] notification: [alerttext]</span>")
+
+/obj/item/modular_computer/tablet/integrated/ui_state(mob/user)
+	return GLOB.reverse_contained_state
 
 /obj/item/modular_computer/tablet/integrated/syndicate
 	icon_state = "tablet-silicon-syndicate"
@@ -163,4 +249,51 @@
 
 /obj/item/modular_computer/tablet/integrated/syndicate/Initialize()
 	. = ..()
-	borgo.lamp_color = COLOR_RED //Syndicate likes it red
+	if(istype(borgo, /mob/living/silicon/robot))
+		var/mob/living/silicon/robot/robo = borgo
+		robo.lamp_color = COLOR_RED //Syndicate likes it red
+
+// Round start tablets
+
+/obj/item/modular_computer/tablet/pda
+	icon_state = "pda"
+
+	greyscale_config = /datum/greyscale_config/tablet
+	greyscale_colors = "#999875#a92323"
+
+	bypass_state = TRUE
+
+	var/default_disk = 0
+
+/obj/item/modular_computer/tablet/pda/update_overlays()
+	. = ..()
+	var/init_icon = initial(icon)
+	var/obj/item/computer_hardware/card_slot/card = all_components[MC_CARD]
+	if(!init_icon)
+		return
+	if(card)
+		if(card.stored_card)
+			. += mutable_appearance(init_icon, "id_overlay")
+	if(light_on)
+		. += mutable_appearance(init_icon, "light_overlay")
+
+/obj/item/modular_computer/tablet/pda/attack_ai(mob/user)
+	to_chat(user, span_notice("It doesn't feel right to snoop around like that..."))
+	return // we don't want ais or cyborgs using a private role tablet
+
+/obj/item/modular_computer/tablet/pda/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/hard_drive/small)
+	install_component(new /obj/item/computer_hardware/processor_unit/small)
+	install_component(new /obj/item/computer_hardware/battery(src, /obj/item/stock_parts/cell/computer))
+	install_component(new /obj/item/computer_hardware/network_card)
+	install_component(new /obj/item/computer_hardware/card_slot)
+	install_component(new /obj/item/computer_hardware/identifier)
+	install_component(new /obj/item/computer_hardware/sensorpackage)
+
+	if(default_disk)
+		var/obj/item/computer_hardware/hard_drive/portable/disk = new default_disk(src)
+		install_component(disk)
+
+	if(insert_type)
+		inserted_item = new insert_type(src)

@@ -20,10 +20,10 @@
 	addtimer(CALLBACK(src, .proc/emittercool), emittercd)
 	mobility_flags = MOBILITY_FLAGS_DEFAULT
 	density = TRUE
-	if(istype(card.loc, /obj/item/pda))
-		var/obj/item/pda/P = card.loc
-		P.pai = null
-		P.visible_message("<span class='notice'>[src] ejects itself from [P]!</span>")
+	if(istype(card.loc, /obj/item/modular_computer))
+		var/obj/item/modular_computer/tablet = card.loc
+		tablet.pai = null
+		tablet.visible_message("<span class='notice'>[src] ejects itself from [P]!</span>")
 	if(isliving(card.loc))
 		var/mob/living/L = card.loc
 		if(!L.temporarilyRemoveItemFromInventory(card))

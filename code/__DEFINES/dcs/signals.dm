@@ -363,8 +363,10 @@
 #define COMSIG_IMPLANT_REMOVED "implant_removed"
 
 // /obj/item/pda signals
-#define COMSIG_PDA_CHANGE_RINGTONE "pda_change_ringtone"		//! called on pda when the user changes the ringtone: (mob/living/user, new_ringtone)
-	#define COMPONENT_STOP_RINGTONE_CHANGE 1
+
+///called on pda when the user changes the ringtone: (mob/living/user, new_ringtone)
+#define COMSIG_TABLET_CHANGE_ID "comsig_tablet_change_id"
+	#define COMPONENT_STOP_RINGTONE_CHANGE (1<<0)
 
 // /obj/item/radio signals
 #define COMSIG_RADIO_NEW_FREQUENCY "radio_new_frequency"		//! called from base of /obj/item/radio/proc/set_frequency(): (list/args)

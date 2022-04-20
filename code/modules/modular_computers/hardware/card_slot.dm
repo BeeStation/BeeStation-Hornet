@@ -6,7 +6,13 @@
 	w_class = WEIGHT_CLASS_TINY
 	device_type = MC_CARD
 
+<<<<<<< HEAD
 	var/obj/item/card/id/stored_card = null
+=======
+	var/obj/item/card/id/stored_card
+	var/current_identification = null
+	var/current_job = null
+>>>>>>> cd1b891d79c (Modular Tablets: Converting PDAs to the NtOS System (#65755))
 
 /obj/item/computer_hardware/card_slot/handle_atom_del(atom/A)
 	if(A == stored_card)
@@ -65,7 +71,8 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.sec_hud_set_ID()
-
+	current_identification = stored_card.registered_name
+	current_job = stored_card.assignment
 	return TRUE
 
 
@@ -92,6 +99,9 @@
 		human_user.sec_hud_set_ID()
 	to_chat(user, "<span class='notice'>You remove the card from \the [src].</span>")
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+	stored_card = null
+	current_identification = null
+	current_job = null
 	return TRUE
 
 /obj/item/computer_hardware/card_slot/attackby(obj/item/I, mob/living/user)

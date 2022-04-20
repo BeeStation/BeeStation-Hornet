@@ -180,10 +180,9 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/pda/heads/pda = H.r_store
-	pda.owner = H.real_name
-	pda.ownjob = JOB_CENTCOM_OFFICIAL
-	pda.update_label()
+	var/obj/item/modular_computer/tablet/pda/heads/pda = H.r_store
+	pda.saved_identification = H.real_name
+	pda.saved_job = JOB_CENTCOM_OFFICIAL
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"

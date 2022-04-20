@@ -46,7 +46,8 @@
 
 	var/hack_software = FALSE //Will be able to use hacking actions
 	var/interaction_range = 7			//wireless control range
-	var/obj/item/pda/aiPDA
+	///The reference to the built-in tablet that borgs carry.
+	var/obj/item/modular_computer/tablet/integrated/modularInterface
 
 	//The internal ID card inside the AI.
 	var/list/default_access_list = list()
@@ -72,6 +73,30 @@
 		internal_id_card = new()
 		internal_id_card.name = "[src] internal access"
 	internal_id_card.access |= access_list
+
+/mob/living/silicon/proc/create_modularInterface()
+	if(!modularInterface)
+		modularInterface = new /obj/item/modular_computer/tablet/integrated(src)
+	modularInterface.layer = ABOVE_HUD_PLANE
+	modularInterface.plane = ABOVE_HUD_PLANE
+	modularInterface.saved_identification = real_name || name
+	if(istype(src, /mob/living/silicon/robot))
+		modularInterface.saved_job = "Cyborg"
+		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/integrated/borg)
+	if(istype(src, /mob/living/silicon/ai))
+		modularInterface.saved_job = "AI"
+		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/integrated)
+	if(istype(src, /mob/living/silicon/pai))
+		modularInterface.saved_job = "pAI Messenger"
+		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/integrated)
+
+/mob/living/silicon/robot/model/syndicate/create_modularInterface()
+	if(!modularInterface)
+		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
+		modularInterface.saved_identification = real_name
+		modularInterface.saved_job = "Cyborg"
+	return ..()
+
 
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud
@@ -468,3 +493,30 @@
 
 /mob/living/silicon/hears_radio()
 	return FALSE
+
+/**
+ * Records an IC event log entry in the cyborg's internal tablet.
+ *
+ * Creates an entry in the borglog list of the cyborg's internal tablet (if it's a borg), listing the current
+ * in-game time followed by the message given. These logs can be seen by the cyborg in their
+ * BorgUI tablet app. By design, logging fails if the cyborg is dead.
+ *
+ * (This used to be in robot.dm. It's in here now.)
+ *
+ * Arguments:
+ * string: a string containing the message to log.
+ */
+/mob/living/silicon/proc/log_event(string = "")
+	if(!string)
+		return
+	if(stat == DEAD) //Dead silicons log no longer
+		return
+	if(!modularInterface)
+		stack_trace("Silicon [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
+		create_modularInterface()
+	var/mob/living/silicon/robot/robo = modularInterface.borgo
+	if(istype(robo))
+		modularInterface.borglog += "[station_time_timestamp()] - [string]"
+	var/datum/computer_file/program/robotact/program = modularInterface.get_robotact()
+	if(program)
+		program.force_full_update()

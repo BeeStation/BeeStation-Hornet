@@ -1,5 +1,5 @@
-/*! 
-## HUD styles. 
+/*!
+## HUD styles.
 
 **Index order defines how they are cycled in F12.**
 */
