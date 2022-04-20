@@ -32,7 +32,12 @@
 	rogue_types = list(/datum/nanite_program/toxic)
 
 /datum/nanite_program/monitoring/enable_passive_effect()
+
+	if(!iscarbon(host_mob))
+		return
+
 	. = ..()
+
 	ADD_TRAIT(host_mob, TRAIT_NANITE_SENSORS, TRACKED_SENSORS_TRAIT)
 	if(!HAS_TRAIT(host_mob, TRAIT_SUIT_SENSORS))
 		GLOB.suit_sensors_list += host_mob
