@@ -60,7 +60,7 @@ const PaiDownload = (_, context) => {
         <Stack fill vertical>
           {candidates.map((candidate, index) => {
             return (
-              <Stack.Item ckey={index}>
+              <Stack.Item key={index}>
                 <CandidateDisplay candidate={candidate} />
               </Stack.Item>
             );
