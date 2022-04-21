@@ -58372,22 +58372,8 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
-"cpz" = (
 /obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 4
+	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/explab{
@@ -59053,6 +59039,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/purple,
+/obj/structure/cable/yellow,
 /turf/open/floor/plasteel/white,
 /area/science/explab{
 	name = "Xenoarchaeology  Lab"
@@ -83420,13 +83407,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"wqA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/ecto_sniffer,
-/turf/open/floor/plasteel,
-/area/science/robotics/lab)
 "wtq" = (
 /turf/closed/wall,
 /area/maintenance/aft/secondary)
@@ -112514,7 +112494,7 @@ cDb
 cEk
 cFd
 cGb
-wqA
+cGb
 cHQ
 cIJ
 cYc
@@ -118407,7 +118387,7 @@ iZY
 cmR
 cmP
 col
-cpz
+cpD
 cqR
 cgq
 ctj
