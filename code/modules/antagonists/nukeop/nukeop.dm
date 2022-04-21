@@ -244,6 +244,11 @@
 	always_new_team = TRUE
 	send_to_spawnpoint = FALSE //Handled by event
 	nukeop_outfit = /datum/outfit/syndicate/full
+	var/init_time
+
+/datum/antagonist/nukeop/lone/New()
+	. = ..()
+	init_time = world.time
 
 /datum/antagonist/nukeop/lone/assign_nuke()
 	if(nuke_team && !nuke_team.tracked_nuke)
@@ -260,8 +265,7 @@
 			nuke_team.memorized_code = null
 
 /datum/antagonist/nukeop/lone/check_mastery()
-	var/datum/uplink_purchase_log/H = GLOB.uplink_purchase_logs_by_key[owner.key]
-	if(H.total_spent == 0)
+	if(world.time - init_time < 15 MINUTES)
 		owner.current.client?.give_award(/datum/award/achievement/antagmastery/loneop, owner.current)
 
 /datum/antagonist/nukeop/reinforcement

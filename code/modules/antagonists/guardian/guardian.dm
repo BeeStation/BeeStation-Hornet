@@ -29,7 +29,7 @@
 
 /datum/antagonist/guardian/check_mastery()
 	var/datum/antagonist/A = summoner.has_antag_datum(/datum/antagonist, TRUE)
-	if(A.objectives.len)
+	if(length(A?.objectives))
 		for(var/datum/objective/O in A.objectives)
 			if(!O.check_completion())
 				return

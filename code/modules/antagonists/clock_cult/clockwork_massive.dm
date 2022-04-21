@@ -194,7 +194,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	resistance_flags |= INDESTRUCTIBLE
 	for(var/mob/living/M in GLOB.all_servants_of_ratvar)
 		M.status_flags |= GODMODE
-		if(world.time <= 1 HOURS)
+		if(world.time <= 30 MINUTES)
 			M.client?.give_award(/datum/award/achievement/antagmastery/clock_cult, M)
 	sound_to_playing_players(volume = 100, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/ratvar_rises.ogg')) //End the sounds
 	GLOB.ratvar_risen = TRUE
