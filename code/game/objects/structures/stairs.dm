@@ -52,11 +52,8 @@
 
 /obj/structure/stairs/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
-	message_admins("[leaving] is leaving [source] in direction [direction]")
-	if(leaving in already_ascending)
-		message_admins("got here 1")
-		already_ascending -= leaving
-		return 0
+
+	message_admins("stairs on_exit [source], [leaving], [direction]")
 	if(!isobserver(leaving) && isTerminator() && direction == dir)
 		INVOKE_ASYNC(src, .proc/stair_ascend, leaving)
 		leaving.Bump(src)
@@ -81,9 +78,8 @@
 		return
 	var/turf/target = get_step_multiz(get_turf(src), (dir|UP))
 	if(istype(target) && !target.can_zFall(AM, null, get_step_multiz(target, DOWN)))			//Don't throw them into a tile that will just dump them back down.
-		message_admins("[AM] is ascending to [target]")
-		already_ascending += AM
-		AM.Move(target)
+		message_admins("[AM] is ascending to [target] with direction [dir | UP]")
+		AM.Move(target, (dir | UP))
 
 /obj/structure/stairs/vv_edit_var(var_name, var_value)
 	. = ..()
