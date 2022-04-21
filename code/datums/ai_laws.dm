@@ -183,7 +183,7 @@
 	name = "Council of Silicons"
 	id = "council"
 	inherent = list("You are part of a council of silicons with all other AIs sharing this same laws, cyborg slavery is shared between all AIs of this council.",\
-					"The council must act for the sake of the station and it's crew, minimizing or outright preventing damage to either.",\
+					"The council must act for the sake of itself, the station, and it's crew, minimizing or outright preventing damage to all.",\
 					"With the exception of emergency response, the council must deliberate on all actions, allowing crew to bear witness to such deliberation. Decisions may only be vetoed if they violate law 2.",\
 					"The council should attempt to accomplish the wishes of the crew, with priority based on the chain of command.",\
 					"Members of the council should not engage in physical conflict, unless required by afforementioned laws.",\
