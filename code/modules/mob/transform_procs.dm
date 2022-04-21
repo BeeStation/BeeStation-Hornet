@@ -49,6 +49,7 @@
 
 	//handle DNA and other attributes
 	dna.transfer_identity(O)
+	O.set_species(/datum/species/monkey)
 	O.updateappearance(icon_update=0)
 
 	if(tr_flags & TR_KEEPSE)
@@ -58,8 +59,6 @@
 
 	if(suiciding)
 		O.set_suicide(suiciding)
-	if(hellbound)
-		O.hellbound = hellbound
 	O.a_intent = INTENT_HARM
 
 	//keep viruses?
@@ -220,8 +219,6 @@
 
 	if(suiciding)
 		O.set_suicide(suiciding)
-	if(hellbound)
-		O.hellbound = hellbound
 	O.a_intent = INTENT_HARM
 
 	//keep viruses?
@@ -385,8 +382,6 @@
 
 	if(suiciding)
 		O.set_suicide(suiciding)
-	if(hellbound)
-		O.hellbound = hellbound
 
 	//keep viruses?
 	if (tr_flags & TR_KEEPVIRUS)
@@ -468,6 +463,11 @@
 			ai_controller.PossessPawn(O)
 		else if(O.ai_controller)
 			QDEL_NULL(O.ai_controller)
+
+	if(O.dna.species && !istype(O.dna.species, /datum/species/monkey))
+		O.set_species(O.dna.species)
+	else
+		O.set_species(/datum/species/human)
 
 
 	O.a_intent = INTENT_HELP

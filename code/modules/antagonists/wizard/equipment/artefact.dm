@@ -41,13 +41,13 @@
 	var/spawn_amt_left = 20
 	var/spawn_fast = 0
 
-/obj/effect/rend/New(loc, var/spawn_type, var/spawn_amt, var/desc, var/spawn_fast)
+/obj/effect/rend/Initialize(mapload, var/spawn_type, var/spawn_amt, var/desc, var/spawn_fast)
+	. = ..()
 	src.spawn_path = spawn_type
 	src.spawn_amt_left = spawn_amt
 	src.desc = desc
 	src.spawn_fast = spawn_fast
 	START_PROCESSING(SSobj, src)
-	return
 
 /obj/effect/rend/process()
 	if(!spawn_fast)
@@ -273,6 +273,8 @@
 	to_chat(M, "<span class='userdanger'>[user.p_theyre(TRUE)] your master now, assist [user.p_them()] even if it costs you your new life!</span>")
 
 	equip_roman_skeleton(M)
+	
+	log_combat(user, M, "used a necromantic stone to reanimate")
 
 	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
 
@@ -501,6 +503,6 @@
 	duration = 40
 	pixel_x = 500
 
-/obj/effect/temp_visual/tornado/Initialize()
+/obj/effect/temp_visual/tornado/Initialize(mapload)
 	. = ..()
 	animate(src, pixel_x = -500, time = 40)

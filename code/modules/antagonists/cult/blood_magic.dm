@@ -162,7 +162,7 @@
 	owner.whisper(invocation, language = /datum/language/common)
 	owner.visible_message("<span class='warning'>[owner]'s hand flashes a bright blue!</span>", \
 						 "<span class='cultitalic'>You speak the cursed words, emitting an EMP blast from your hand.</span>")
-	empulse(owner, 2, 5)
+	empulse(owner, 2, 5, holy=TRUE)
 	charges--
 	if(charges<=0)
 		qdel(src)
@@ -354,17 +354,18 @@
 	var/uses = 1
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
 	var/datum/action/innate/cult/blood_spell/source
-
-/obj/item/melee/blood_magic/New(loc, spell)
+/obj/item/melee/blood_magic/Initialize(mapload, var/spell)
+	. = ..()
+	if(!istype(spell, /datum/action/innate/cult/blood_spell))
+		return INITIALIZE_HINT_QDEL
 	source = spell
 	uses = source.charges
 	health_cost = source.health_cost
-	..()
 
 /obj/item/melee/blood_magic/Destroy()
 	if(!QDELETED(source))
 		if(uses <= 0)
-			source.hand_magic = null
+			source?.hand_magic = null
 			qdel(source)
 			source = null
 		else
@@ -545,7 +546,7 @@
 /obj/item/restraints/handcuffs/energy/cult/used/dropped(mob/user)
 	user.visible_message("<span class='danger'>[user]'s shackles shatter in a discharge of dark magic!</span>", \
 							"<span class='userdanger'>Your [src] shatters in a discharge of dark magic!</span>")
-	. = ..()
+	..()
 
 
 //Construction: Converts 50 iron to a construct shell, plasteel to runed metal, airlock to brittle runed airlock, a borg to a construct, or borg shell to a construct shell

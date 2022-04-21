@@ -83,7 +83,7 @@ Difficulty: Hard
 
 	mobchatspan = "hierosay"
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/Initialize()
+/mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)
 	. = ..()
 	spawned_beacon = new(loc)
 

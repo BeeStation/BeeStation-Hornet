@@ -97,7 +97,7 @@
 	var/disarm_time = 200
 	var/disarm_product = /obj/item/deployablemine // ie what drops when the mine is disarmed
 
-/obj/effect/mine/Initialize()
+/obj/effect/mine/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
@@ -125,11 +125,9 @@
 	else
 		INVOKE_ASYNC(src, .proc/triggermine, AM)
 
-/obj/effect/mine/proc/checksmartmine(mob/target)
+/obj/effect/mine/proc/checksmartmine(mob/living/target)
 	if(target)
-		if(!(target && HAS_TRAIT(target, TRAIT_MINDSHIELD)))
-			triggermine(target)
-		if(smartmine == 0 || istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat)) //tinfoil hat prevents detection of implants
+		if(!target.has_mindshield_hud_icon())
 			triggermine(target)
 
 /obj/effect/mine/proc/triggermine(mob/victim)
@@ -284,7 +282,7 @@
 	density = FALSE
 	var/duration = 0
 
-/obj/effect/mine/pickup/Initialize()
+/obj/effect/mine/pickup/Initialize(mapload)
 	. = ..()
 	animate(src, pixel_y = 4, time = 20, loop = -1)
 

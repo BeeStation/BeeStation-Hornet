@@ -68,7 +68,7 @@
 					/obj/item/key,
 					/obj/item/clothing/suit/jacket/leather/overcoat,
 					/obj/item/clothing/gloves/color/black,
-					/obj/item/clothing/head/soft,
+					/obj/item/clothing/head/soft/cargo,
 					/obj/item/clothing/mask/bandana/skull)//so you can properly #cargoniabikergang
 	crate_name = "Biker Kit"
 	crate_type = /obj/structure/closet/crate/large
@@ -1140,6 +1140,8 @@
 	name = "Particle Accelerator Crate"
 	desc = "A supermassive black hole or hyper-powered teslaball are the perfect way to spice up any party! This \"My First Apocalypse\" kit contains everything you need to build your own Particle Accelerator! Ages 10 and up."
 	cost = 2700
+	access = ACCESS_CE
+	access_budget = ACCESS_CE
 	contains = list(/obj/structure/particle_accelerator/fuel_chamber,
 					/obj/machinery/particle_accelerator/control_box,
 					/obj/structure/particle_accelerator/particle_emitter/center,
@@ -1164,6 +1166,8 @@
 	name = "Singularity Generator Crate"
 	desc = "The key to unlocking the power of Lord Singuloth. Particle Accelerator not included."
 	cost = 4700
+	access = ACCESS_CE
+	access_budget = ACCESS_CE
 	contains = list(/obj/machinery/the_singularitygen)
 	crate_name = "singularity generator crate"
 	crate_type = /obj/structure/closet/crate/secure/engineering
@@ -1226,6 +1230,8 @@
 	name = "Tesla Generator Crate"
 	desc = "The key to unlocking the power of the Tesla energy ball. Particle Accelerator not included."
 	cost = 5000
+	access = ACCESS_CE
+	access_budget = ACCESS_CE
 	contains = list(/obj/machinery/the_singularitygen/tesla)
 	crate_name = "tesla generator crate"
 	crate_type = /obj/structure/closet/crate/secure/engineering
@@ -2652,16 +2658,6 @@
 	contains = list(/obj/item/storage/box/lasertagpins)
 	crate_name = "laser tag crate"
 
-/datum/supply_pack/costumes_toys/mech_suits
-	name = "Mech Pilot's Suit Crate"
-	desc = "Suits for piloting big robots. Contains all three colors!"
-	cost = 1500 //state-of-the-art technology doesn't come cheap
-	contains = list(/obj/item/clothing/under/costume/mech_suit,
-					/obj/item/clothing/under/costume/mech_suit/white,
-					/obj/item/clothing/under/costume/mech_suit/blue)
-	crate_name = "mech pilot's suit crate"
-	crate_type = /obj/structure/closet/crate/wooden
-
 /datum/supply_pack/costumes_toys/costume_original
 	name = "Original Costume Crate"
 	desc = "Reenact Shakespearean plays with this assortment of outfits. Contains eight different costumes!"
@@ -2785,6 +2781,22 @@
 		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
 	)
 	crate_type = /obj/structure/closet/crate/wooden
+
+
+/datum/supply_pack/costumes_toys/randomised/plush
+	name = "Plushie Crate"
+	desc = "A crate filled with 5 plushies!"
+	cost = 1500
+	num_contained = 5
+	contains = list()
+	crate_type = /obj/structure/closet/crate/wooden
+	crate_name = "plushie crate"
+
+/datum/supply_pack/costumes_toys/randomised/plush/fill(obj/structure/closet/crate/C)
+	var/plush
+	for(var/i in 1 to num_contained)
+		plush = pick(subtypesof(/obj/item/toy/plush))
+		new plush(C)
 
 //////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Wardrobe Resupplies ////////////////////////////////
@@ -2922,6 +2934,12 @@
 	contains = list(/obj/vehicle/ridden/bicycle)
 	crate_name = "Bicycle Crate"
 	crate_type = /obj/structure/closet/crate/large
+
+/datum/supply_pack/misc/bicycle/generate(atom/A, datum/bank_account/paying_account)
+	. = ..()
+	for(var/client/C as() in GLOB.clients)
+		if(C?.mob.mind.assigned_role == "Quartermaster" || C?.mob.mind.assigned_role == "Cargo Technician")
+			C?.give_award(/datum/award/achievement/misc/bike, C?.mob)
 
 /datum/supply_pack/misc/bigband
 	name = "Big Band Instrument Collection"

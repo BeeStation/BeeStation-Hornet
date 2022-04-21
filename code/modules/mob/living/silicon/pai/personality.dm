@@ -11,7 +11,7 @@
 	return "data/player_saves/[user.ckey[1]]/[user.ckey]/pai.sav"
 
 /datum/paiCandidate/proc/savefile_save(mob/user)
-	if(IsGuestKey(user.key))
+	if(IS_GUEST_KEY(user.key))
 		return 0
 
 	var/savefile/F = new /savefile(src.savefile_path(user))
@@ -32,7 +32,7 @@
 // returns 0 if savefile did not exist
 
 /datum/paiCandidate/proc/savefile_load(mob/user, silent = TRUE)
-	if (IsGuestKey(user.key))
+	if (IS_GUEST_KEY(user.key))
 		return 0
 
 	var/path = savefile_path(user)

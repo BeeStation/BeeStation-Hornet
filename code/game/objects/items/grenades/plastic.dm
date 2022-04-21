@@ -20,7 +20,7 @@
 	var/can_attach_mob = FALSE
 	var/full_damage_on_mobs = FALSE
 
-/obj/item/grenade/plastic/Initialize()
+/obj/item/grenade/plastic/Initialize(mapload)
 	. = ..()
 	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
 	var/static/list/loc_connections = list(
@@ -61,6 +61,8 @@
 
 /obj/item/grenade/plastic/prime(mob/living/lanced_by)
 	. = ..()
+	if(!.)
+		return
 	var/turf/location
 	var/density_check = FALSE
 	if(target)
@@ -188,7 +190,7 @@
 	var/open_panel = 0
 	can_attach_mob = TRUE
 
-/obj/item/grenade/plastic/c4/Initialize()
+/obj/item/grenade/plastic/c4/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/explosive/c4(src)
 
@@ -219,7 +221,11 @@
 
 /obj/item/grenade/plastic/c4/prime(mob/living/lanced_by)
 	if(QDELETED(src))
-		return
+		return FALSE
+	if(dud_flags)
+		active = FALSE
+		update_icon()
+		return FALSE
 
 	. = ..()
 	var/turf/location

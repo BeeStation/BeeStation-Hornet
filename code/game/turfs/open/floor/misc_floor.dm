@@ -25,7 +25,7 @@
 	floor_tile = /obj/item/stack/tile/circuit
 	var/on = TRUE
 
-/turf/open/floor/circuit/Initialize()
+/turf/open/floor/circuit/Initialize(mapload)
 	SSmapping.nuke_tiles += src
 	update_icon()
 	. = ..()
@@ -235,9 +235,14 @@
 	icon_state = "stone"
 
 /turf/open/floor/plating/rust
-	name = "rusted plating"
-	desc = "Corrupted steel."
-	icon_state = "plating_rust"
+	//SDMM supports colors, this is simply for easier mapping
+	//and should be removed on initialize
+	color = COLOR_BROWN
 
-/turf/open/floor/plating/rust/rust_heretic_act()
-	return
+/turf/open/floor/plating/rust/Initialize(mapload)
+	. = ..()
+	color = null
+
+/turf/open/floor/plating/rust/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rust)

@@ -4,7 +4,7 @@
 
 /datum/design/leftarm
 	name = "Left Arm"
-	id = "leftarm"
+	id = "l_arm"
 	build_type = LIMBGROWER
 	reagents_list = list(/datum/reagent/medicine/synthflesh = 25)
 	build_path = /obj/item/bodypart/l_arm
@@ -12,7 +12,7 @@
 
 /datum/design/rightarm
 	name = "Right Arm"
-	id = "rightarm"
+	id = "r_arm"
 	build_type = LIMBGROWER
 	reagents_list = list(/datum/reagent/medicine/synthflesh = 25)
 	build_path = /obj/item/bodypart/r_arm
@@ -20,7 +20,7 @@
 
 /datum/design/leftleg
 	name = "Left Leg"
-	id = "leftleg"
+	id = "l_leg"
 	build_type = LIMBGROWER
 	reagents_list = list(/datum/reagent/medicine/synthflesh = 25)
 	build_path = /obj/item/bodypart/l_leg
@@ -28,7 +28,7 @@
 
 /datum/design/rightleg
 	name = "Right Leg"
-	id = "rightleg"
+	id = "r_leg"
 	build_type = LIMBGROWER
 	reagents_list = list(/datum/reagent/medicine/synthflesh = 25)
 	build_path = /obj/item/bodypart/r_leg

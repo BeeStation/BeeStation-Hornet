@@ -88,7 +88,7 @@
 	QDEL_NULL(keyslot)
 	return ..()
 
-/obj/item/radio/Initialize()
+/obj/item/radio/Initialize(mapload)
 	wires = new /datum/wires/radio(src)
 	if(prison_radio)
 		wires.cut(WIRE_TX) // OH GOD WHY
@@ -132,11 +132,13 @@
 /obj/item/radio/ui_state(mob/user)
 	return GLOB.inventory_state
 
-/obj/item/radio/ui_interact(mob/user, datum/tgui/ui)
+/obj/item/radio/ui_interact(mob/user, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Radio")
+		if(state)
+			ui.state = state
 		ui.open()
 
 /obj/item/radio/ui_data(mob/user)
@@ -404,7 +406,7 @@
 	syndie = 1
 	keyslot = new /obj/item/encryptionkey/syndicate
 
-/obj/item/radio/borg/syndicate/Initialize()
+/obj/item/radio/borg/syndicate/Initialize(mapload)
 	. = ..()
 	set_frequency(FREQ_SYNDICATE)
 

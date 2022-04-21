@@ -5,10 +5,16 @@
 	///hud that owns this controller
 	var/datum/hud/owner_hud
 
+INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
+
 ///Ensures that all the planes are correctly in the controlled_planes list.
-/atom/movable/plane_master_controller/New(hud)
+/atom/movable/plane_master_controller/Initialize(mapload, datum/hud/hud)
 	. = ..()
+	if(!istype(hud))
+		return
 	owner_hud = hud
+	if(istype(owner_hud))
+		return INITIALIZE_HINT_QDEL
 	var/assoc_controlled_planes = list()
 	for(var/i in controlled_planes)
 		var/atom/movable/screen/plane_master/instance = owner_hud.plane_masters["[i]"]
@@ -17,6 +23,11 @@
 			continue
 		assoc_controlled_planes["[i]"] = instance
 	controlled_planes = assoc_controlled_planes
+
+/atom/movable/plane_master_controller/Destroy()
+	owner_hud = null
+	controlled_planes.Cut()
+	return ..()
 
 ///Full override so we can just use filterrific
 /atom/movable/plane_master_controller/add_filter(name, priority, list/params)

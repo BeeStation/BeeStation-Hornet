@@ -32,7 +32,7 @@
 	var/inert = 0
 	var/preserved = 0
 
-/obj/item/organ/regenerative_core/Initialize()
+/obj/item/organ/regenerative_core/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/inert_check), 2400)
 
@@ -129,7 +129,7 @@
 	desc = "A strange rock that crackles with power. It can be used to heal completely, but, outside of the insulating legion, it will rapidly decay into uselessness, and completely fail to work if not within the vicinity of the Necropolis."
 	icon_state = "legion_soul"
 
-/obj/item/organ/regenerative_core/legion/Initialize()
+/obj/item/organ/regenerative_core/legion/Initialize(mapload)
 	. = ..()
 	update_icon()
 

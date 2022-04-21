@@ -10,17 +10,13 @@
  *		Bronze hat
  */
 
-/*
- * Welding mask
- */
 /obj/item/clothing/head/welding
 	name = "welding helmet"
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
-	clothing_flags = SNUG_FIT
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "welding"
-	materials = list(/datum/material/iron=1750, /datum/material/glass=400)
+	clothing_flags = SNUG_FIT
+	materials = list(/datum/material/iron = 1750, /datum/material/glass = 400)
 	flash_protect = 2
 	tint = 2
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 60, "stamina" = 5)
@@ -28,11 +24,11 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/head/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
-
 
 /*
  * Cakehat
@@ -42,25 +38,25 @@
 	desc = "You put the cake on your head. Brilliant."
 	icon_state = "hardhat0_cakehat"
 	item_state = "hardhat0_cakehat"
-	item_color = "cakehat"
+	hat_type = "cakehat"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	hitsound = 'sound/weapons/tap.ogg'
-	var/hitsound_on = 'sound/weapons/sear.ogg' //so we can differentiate between cakehat and energyhat
-	var/hitsound_off = 'sound/weapons/tap.ogg'
-	var/force_on = 12
-	var/throwforce_on = 12
-	var/damtype_on = BURN
 	flags_inv = HIDEEARS|HIDEHAIR
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	light_range = 2 //luminosity when on
 	flags_cover = HEADCOVERSEYES
-	heat = 999
+	heat = 1000 //use round numbers, guh
 
 	dog_fashion = /datum/dog_fashion/head
 
+	var/force_on = 12
+	var/throwforce_on = 12
+	var/damtype_on = BURN
+	var/hitsound_on = 'sound/weapons/sear.ogg' //so we can differentiate between cakehat and energyhat
+
 /obj/item/clothing/head/hardhat/cakehat/process()
-	var/turf/location = src.loc
+	var/turf/location = loc
 	if(ishuman(location))
 		var/mob/living/carbon/human/M = location
 		if(M.is_holding(src) || M.head == src)
@@ -70,20 +66,20 @@
 		location.hotspot_expose(700, 1)
 
 /obj/item/clothing/head/hardhat/cakehat/turn_on(mob/living/user)
-	..()
 	force = force_on
 	throwforce = throwforce_on
 	damtype = damtype_on
 	hitsound = hitsound_on
 	START_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/clothing/head/hardhat/cakehat/turn_off(mob/living/user)
-	..()
-	force = 0
-	throwforce = 0
-	damtype = BRUTE
-	hitsound = hitsound_off
+	force = initial(force)
+	throwforce = initial(throwforce)
+	damtype = initial(damtype)
+	hitsound = initial(hitsound)
 	STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/clothing/head/hardhat/cakehat/is_hot()
 	return on * heat
@@ -93,10 +89,9 @@
 	desc = "You put the energy sword on your cake. Brilliant."
 	icon_state = "hardhat0_energycake"
 	item_state = "hardhat0_energycake"
-	item_color = "energycake"
+	hat_type = "energycake"
 	hitsound = 'sound/weapons/tap.ogg'
 	hitsound_on = 'sound/weapons/blade1.ogg'
-	hitsound_off = 'sound/weapons/tap.ogg'
 	damtype_on = BRUTE
 	force_on = 18 //same as epen (but much more obvious)
 	light_range = 3 //ditto
@@ -105,12 +100,12 @@
 /obj/item/clothing/head/hardhat/cakehat/energycake/turn_on(mob/living/user)
 	playsound(user, 'sound/weapons/saberon.ogg', 5, TRUE)
 	to_chat(user, "<span class='warning'>You turn on \the [src].</span>")
-	..()
+	return ..()
 
 /obj/item/clothing/head/hardhat/cakehat/energycake/turn_off(mob/living/user)
 	playsound(user, 'sound/weapons/saberoff.ogg', 5, TRUE)
 	to_chat(user, "<span class='warning'>You turn off \the [src].</span>")
-	..()
+	return ..()
 /*
  * Ushanka
  */
@@ -120,21 +115,22 @@
 	icon_state = "ushankadown"
 	item_state = "ushankadown"
 	flags_inv = HIDEEARS|HIDEHAIR
-	var/earflaps = 1
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = /datum/dog_fashion/head/ushanka
+	//Are the flaps down?
+	var/earflaps_down = TRUE
 
 /obj/item/clothing/head/ushanka/attack_self(mob/user)
-	if(earflaps)
-		src.icon_state = "ushankaup"
-		src.item_state = "ushankaup"
-		earflaps = 0
+	if(earflaps_down)
+		icon_state = "ushankaup"
+		item_state = "ushankaup"
+		earflaps_down = FALSE
 		to_chat(user, "<span class='notice'>You raise the ear flaps on the ushanka.</span>")
 	else
-		src.icon_state = "ushankadown"
-		src.item_state = "ushankadown"
-		earflaps = 1
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+		earflaps_down = TRUE
 		to_chat(user, "<span class='notice'>You lower the ear flaps on the ushanka.</span>")
 
 /*
@@ -145,7 +141,7 @@
 	desc = "A jack o' lantern! Believed to ward off evil spirits."
 	icon_state = "hardhat0_pumpkin"
 	item_state = "hardhat0_pumpkin"
-	item_color = "pumpkin"
+	hat_type = "pumpkin"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = SNUG_FIT
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 10)
@@ -165,7 +161,7 @@
 
 	dog_fashion = /datum/dog_fashion/head/kitty
 
-/obj/item/clothing/head/kitty/Initialize()
+/obj/item/clothing/head/kitty/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/haircolor_clothing)
 
@@ -178,7 +174,7 @@
 	clothing_flags = SNUG_FIT
 	icon_state = "hardhat0_reindeer"
 	item_state = "hardhat0_reindeer"
-	item_color = "reindeer"
+	hat_type = "reindeer"
 	flags_inv = 0
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	light_range = 1 //luminosity when on
@@ -199,7 +195,7 @@
 
 	dog_fashion = /datum/dog_fashion/head/rabbit
 
-/obj/item/clothing/head/rabbitears/Initialize()
+/obj/item/clothing/head/rabbitears/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/haircolor_clothing)
 
@@ -225,8 +221,6 @@
 /obj/item/clothing/head/cardborg/dropped(mob/living/user)
 	..()
 	user.remove_alt_appearance("standard_borg_disguise")
-
-
 
 /obj/item/clothing/head/wig
 	name = "wig"
@@ -254,7 +248,7 @@
 		M.color = hair_color
 		add_overlay(M)
 
-/obj/item/clothing/head/wig/worn_overlays(isinhands = FALSE, file2use)
+/obj/item/clothing/head/wig/worn_overlays(mutable_appearance/standing, isinhands = FALSE, file2use)
 	. = list()
 	if(!isinhands)
 		var/datum/sprite_accessory/S = GLOB.hair_styles_list[hair_style]
@@ -277,9 +271,10 @@
 	update_icon()
 
 /obj/item/clothing/head/wig/random/Initialize(mapload)
+	. = ..()
+
 	hair_style = pick(GLOB.hair_styles_list - "Bald") //Don't want invisible wig
 	hair_color = "#[random_short_color()]"
-	. = ..()
 
 /obj/item/clothing/head/wig/natural
 	name = "natural wig"
@@ -318,8 +313,8 @@
 
 /obj/item/clothing/head/foilhat/equipped(mob/living/carbon/human/user, slot)
 	..()
+	user.sec_hud_set_implants()
 	if(slot == ITEM_SLOT_HEAD)
-		user.sec_hud_set_implants()
 		if(paranoia)
 			QDEL_NULL(paranoia)
 		paranoia = new()
@@ -335,7 +330,7 @@
 		if(src == C.head)
 			to_chat(C, "<span class='userdanger'>Why would you want to take this off? Do you want them to get into your mind?!</span>")
 			return
-	..()
+	return ..()
 
 /obj/item/clothing/head/foilhat/dropped(mob/user)
 	..()
@@ -351,7 +346,7 @@
 		if(src == C.head)
 			to_chat(user, "<span class='userdanger'>Why would you want to take this off? Do you want them to get into your mind?!</span>")
 			return
-	..()
+	return ..()
 
 /obj/item/clothing/head/foilhat/plasmaman
 	name = "tinfoil envirosuit helmet"
@@ -366,7 +361,6 @@
 	light_range = 4
 	light_power = 1
 	light_on = TRUE
-	var/on = FALSE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	dynamic_hair_suffix = ""
 	dynamic_fhair_suffix = ""
@@ -375,7 +369,8 @@
 	bang_protect = 1 //make this consistent with other plasmaman helmets
 	resistance_flags = NONE
 	dog_fashion = null
-
+	///Is the light on?
+	var/on = FALSE
 
 /obj/item/clothing/head/foilhat/plasmaman/attack_self(mob/user)
 	on = !on
@@ -395,7 +390,7 @@
 /obj/item/clothing/head/speedwagon
 	name = "hat of ultimate masculinity"
 	desc = "Even the mere act of wearing this makes you want to pose menacingly."
-	alternate_worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
+	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
 	icon_state = "speedwagon"
 	item_state = "speedwagon"
 	worn_x_dimension = 64

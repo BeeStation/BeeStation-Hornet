@@ -1,11 +1,11 @@
 /datum/species/ipc
-	name = "IPC"
+	name = "\improper Integrated Positronic Chassis"
 	id = SPECIES_IPC
 	bodyflag = FLAG_IPC
 	say_mod = "states"
 	sexes = FALSE
-	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH)
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_NOCRITDAMAGE,TRAIT_EASYDISMEMBER,TRAIT_POWERHUNGRY,TRAIT_XENO_IMMUNE, TRAIT_TOXIMMUNE)
+	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH, MUTCOLORS, NO_UNDERWEAR)
+	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_EASYDISMEMBER,TRAIT_POWERHUNGRY,TRAIT_XENO_IMMUNE, TRAIT_TOXIMMUNE)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutant_brain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
@@ -21,7 +21,6 @@
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
 	exotic_blood = /datum/reagent/oil
 	damage_overlay_type = "synth"
-	limbs_id = "synth"
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
 	default_features = list("ipc_screen" = "BSOD", "ipc_antenna" = "None")
 	burnmod = 2
@@ -40,12 +39,22 @@
 	species_language_holder = /datum/language_holder/synthetic
 	special_step_sounds = list('sound/effects/servostep.ogg')
 
+	species_chest = /obj/item/bodypart/chest/ipc
+	species_head = /obj/item/bodypart/head/ipc
+	species_l_arm = /obj/item/bodypart/l_arm/ipc
+	species_r_arm = /obj/item/bodypart/r_arm/ipc
+	species_l_leg = /obj/item/bodypart/l_leg/ipc
+	species_r_leg = /obj/item/bodypart/r_leg/ipc
+
 	var/saved_screen //for saving the screen when they die
 	var/datum/action/innate/change_screen/change_screen
 
-/datum/species/ipc/random_name(unique)
-	var/ipc_name = "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"
-	return ipc_name
+/datum/species/ipc/random_name(gender, unique, lastname, attempts)
+	. = "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"
+
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, lastname, ++attempts)
 
 /datum/species/ipc/on_species_gain(mob/living/carbon/C)
 	. = ..()
@@ -60,22 +69,6 @@
 	if(ishuman(C) && !change_screen)
 		change_screen = new
 		change_screen.Grant(C)
-	for(var/obj/item/bodypart/O in C.bodyparts)
-		O.render_like_organic = TRUE // Makes limbs render like organic limbs instead of augmented limbs, check bodyparts.dm
-		var/chassis = C.dna.features["ipc_chassis"]
-		var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[chassis]
-		C.dna.species.limbs_id = chassis_of_choice.limbs_id
-		if(chassis_of_choice.color_src == MUTCOLORS && !(MUTCOLORS in C.dna.species.species_traits)) // If it's a colorable(Greyscale) chassis, we use MUTCOLORS.
-			C.dna.species.species_traits += MUTCOLORS
-		else if(MUTCOLORS in C.dna.species.species_traits)
-			C.dna.species.species_traits -= MUTCOLORS
-		O.light_brute_msg = "scratched"
-		O.medium_brute_msg = "dented"
-		O.heavy_brute_msg = "sheared"
-
-		O.light_burn_msg = "burned"
-		O.medium_burn_msg = "scorched"
-		O.heavy_burn_msg = "seared"
 
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
@@ -218,14 +211,6 @@
 	H.visible_message("<span class='notice'>[H] unplugs from the [target].</span>", "<span class='notice'>You unplug from the [target].</span>")
 	return
 
-/datum/species/ipc/spec_life(mob/living/carbon/human/H)
-	. = ..()
-	if(H.health <= UNCONSCIOUS && H.stat != DEAD) // So they die eventually instead of being stuck in crit limbo.
-		H.adjustFireLoss(6) // After bodypart_robotic resistance this is ~2/second
-		if(prob(5))
-			to_chat(H, "<span class='warning'>Alert: Internal temperature regulation systems offline; thermal damage sustained. Shutdown imminent.</span>")
-			H.visible_message("[H]'s cooling system fans stutter and stall. There is a faint, yet rapid beeping coming from inside their chassis.")
-
 /datum/species/ipc/spec_revival(mob/living/carbon/human/H)
 	H.notify_ghost_cloning("You have been repaired!")
 	H.grab_ghost()
@@ -250,3 +235,18 @@
 
 /datum/species/ipc/get_harm_descriptors()
 	return list("bleed" = "leaking", "brute" = "denting", "burn" = "burns")
+
+/datum/species/ipc/replace_body(mob/living/carbon/C, datum/species/new_species)
+	..()
+
+	var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[C.dna.features["ipc_chassis"]]
+
+	for(var/obj/item/bodypart/BP as() in C.bodyparts) //Override bodypart data as necessary
+		BP.uses_mutcolor = chassis_of_choice.color_src ? TRUE : FALSE
+		if(BP.uses_mutcolor)
+			BP.should_draw_greyscale = TRUE
+			BP.species_color = C.dna?.features["mcolor"]
+
+		BP.limb_id = chassis_of_choice.limbs_id
+		BP.name = "\improper[chassis_of_choice.name] [parse_zone(BP.body_zone)]"
+		BP.update_limb()

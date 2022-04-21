@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		max_integrity = 1000
 		obj_integrity = 1000
 
-/obj/structure/slime_crystal/Initialize()
+/obj/structure/slime_crystal/Initialize(mapload)
 	. = ..()
 	name =  "[colour] slimic pylon"
 	var/itemcolor = "#FFFFFF"
@@ -210,7 +210,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	light_power = 0.75
 	uses_process = FALSE
 
-/obj/structure/slime_crystal/yellow/Initialize()
+/obj/structure/slime_crystal/yellow/Initialize(mapload)
 	. = ..()
 	set_light(3)
 
@@ -274,7 +274,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	///Is it in use?
 	var/in_use = FALSE
 
-/obj/structure/slime_crystal/bluespace/Initialize()
+/obj/structure/slime_crystal/bluespace/Initialize(mapload)
 	. = ..()
 	GLOB.bluespace_slime_crystals += src
 
@@ -396,7 +396,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	uses_process = FALSE
 	var/crystals = 0
 
-/obj/structure/slime_crystal/cerulean/Initialize()
+/obj/structure/slime_crystal/cerulean/Initialize(mapload)
 	. = ..()
 	while(crystals < 3)
 		spawn_crystal()
@@ -418,7 +418,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	colour = "pyrite"
 	uses_process = FALSE
 
-/obj/structure/slime_crystal/pyrite/Initialize()
+/obj/structure/slime_crystal/pyrite/Initialize(mapload)
 	. = ..()
 	change_colour()
 
@@ -623,7 +623,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	uses_process = FALSE
 	var/list/inserted_cores = list()
 
-/obj/structure/slime_crystal/rainbow/Initialize()
+/obj/structure/slime_crystal/rainbow/Initialize(mapload)
 	. = ..()
 	for(var/X in subtypesof(/obj/item/slimecross/crystalline) - /obj/item/slimecross/crystalline/rainbow)
 		inserted_cores[X] = FALSE

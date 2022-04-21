@@ -92,10 +92,6 @@
 	file_name = "9x5_3_seperation"
 	weight = 6
 
-/datum/map_template/ruin_part/checkpoint
-	file_name = "9x9_checkpoint"
-	weight = 5
-
 /datum/map_template/ruin_part/corgarmory
 	file_name = "13x13_corgarmory"
 	weight = 5
@@ -143,7 +139,7 @@
 	weight = 2
 
 /datum/map_template/ruin_part/solars
-	file_name = "21x19_solars"
+	file_name = "21x29_solars"
 	weight = 3
 	max_occurances = 2
 
@@ -439,12 +435,6 @@
 	weight = 1
 	max_occurances = 1
 
-/datum/map_template/ruin_part/charliestation
-	file_name = "69x45_charliestation"
-	weight = 0.2
-	loot_room = TRUE
-	max_occurances = 1
-
 /datum/map_template/ruin_part/corgasteroid
 	file_name = "41x41_corgasteroid"
 	weight = 1
@@ -480,3 +470,32 @@
 	file_name = "13x13_listening_base"
 	weight = 2
 	loot_room = TRUE
+
+/datum/map_template/ruin_part/shuttleconstructionbay
+	file_name = "25x21_shuttleconstructionbay"
+	weight = 5
+	max_occurances = 1 //Would be wacky if multiple of the same WIP shuttle showed up.
+
+/datum/map_template/ruin_part/vault
+	file_name = "9x13_vault"
+	weight = 2
+	max_occurances = 1
+
+/datum/map_template/ruin_part/pubbybridgehall
+	file_name = "17x9_pubbybridgehall"
+	weight = 2
+
+/datum/map_template/ruin_part/cloning
+	file_name = "9x5_cloning"
+	weight = 3
+	max_occurances = 1
+	loot_room = TRUE //Experimental cloner :flushed:
+
+/datum/map_template/ruin_part/cafe
+	file_name = "13x13_cafe"
+	weight = 3
+
+/datum/map_template/ruin_part/chapel
+	file_name = "13x17_chapel"
+	weight = 3
+	max_occurances = 1 //Multiple Nar'sie worshipping chaplain incidents would be wacky on one station.
