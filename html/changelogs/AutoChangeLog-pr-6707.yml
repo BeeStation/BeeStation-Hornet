@@ -1,0 +1,9 @@
+author: Putnam3145, ported by mystery3525
+delete-after: true
+changes:
+  - tweak: HE pipes can now cool to within 1 Kelvin of the environment instead of
+      20 Kelvin
+  - tweak: HE pipes only require a temp difference of 1 degree to exchange heat, down
+      from 20. This makes HE pipes viable for cooling/heating station rooms.
+  - balance: A knock-on effect of the HE pipe change is that space cooling is much
+      more powerful
