@@ -16947,6 +16947,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/circuitboard/machine/xenoartifact_inbox,
+/obj/item/circuitboard/computer/xenoartifact_console,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
 "eap" = (
@@ -21391,7 +21393,22 @@
 	icon_state = "2-4"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/computer/rdconsole/experiment,
+/obj/structure/table/reinforced,
+/obj/item/xenoartifact_labeler{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 1
+	},
+/obj/item/xenoartifact_labeler{
+	pixel_x = -7;
+	pixel_y = 7
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "eYw" = (
@@ -29869,10 +29886,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/chair/office/light{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/computer/rdconsole/experiment,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "gQO" = (
@@ -42168,7 +42183,15 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/turf/open/floor/plasteel/white,
+/obj/machinery/xenoartifact_inbox,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/dark,
 /area/science/explab)
 "jQa" = (
 /obj/effect/turf_decal/tile/red{
@@ -45682,10 +45705,17 @@
 /area/maintenance/starboard/secondary)
 "kGk" = (
 /obj/structure/table/reinforced,
-/obj/item/nanite_remote,
-/obj/item/nanite_scanner,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/item/assembly/signaler,
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/obj/item/assembly/igniter{
+	pixel_x = 5;
+	pixel_y = -4
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
@@ -54007,18 +54037,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/item/paper_bin{
-	pixel_x = -1;
-	pixel_y = 2
-	},
-/obj/item/pen{
-	pixel_x = 1;
-	pixel_y = 1
-	},
+/obj/machinery/computer/xenoartifact_console,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "mGB" = (
@@ -75425,6 +75447,12 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/item/nanite_scanner,
+/obj/item/nanite_remote,
+/obj/item/storage/firstaid/regular{
+	pixel_x = 3;
+	pixel_y = -3
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
@@ -102442,10 +102470,17 @@
 /area/maintenance/department/science)
 "ykz" = (
 /obj/structure/table/reinforced,
-/obj/item/folder/red,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/item/clothing/neck/stethoscope,
+/obj/item/geiger_counter,
+/obj/item/multitool{
+	pixel_x = 4
+	},
+/obj/item/laser_pointer,
+/obj/item/analyzer,
+/obj/item/storage/box/monkeycubes,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "ykA" = (
