@@ -1573,6 +1573,15 @@
 /obj/machinery/door/airlock/turbolift,
 /turf/open/floor/plasteel,
 /area/construction)
+"ty" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/construction)
 "ux" = (
 /obj/structure/ladder,
 /turf/open/floor/plasteel,
@@ -1610,6 +1619,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
+"Bo" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/construction)
 "CA" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1653,6 +1668,12 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
+/area/construction)
+"HR" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/plating,
 /area/construction)
 "Jz" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -1726,6 +1747,10 @@
 /obj/machinery/door/airlock/turbolift,
 /turf/open/floor/plasteel,
 /area/security)
+"RU" = (
+/obj/structure/stairs,
+/turf/open/floor/plating,
+/area/construction)
 "SE" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -3003,8 +3028,8 @@ cY
 dn
 dn
 dn
-dn
-dn
+Bo
+Bo
 dn
 dn
 dn
@@ -3057,9 +3082,9 @@ cY
 dn
 dn
 dn
-dn
-dn
-dn
+RU
+RU
+HR
 dn
 dn
 dn
@@ -3111,8 +3136,8 @@ cZ
 do
 dz
 dz
-dz
-dz
+ty
+ty
 dz
 dz
 dz
