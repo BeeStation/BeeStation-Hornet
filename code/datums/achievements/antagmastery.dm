@@ -31,8 +31,8 @@
 	database_id = MASTERY_BROTHER
 
 /datum/award/achievement/antagmastery/changeling
-	name = "Finest Imposter"
-	desc = "As a Changeling, complete your objetives without spending a single Genome Point."
+	name = "Pretender to the Armchair"
+	desc = "As a Changeling, escape as the Captain or Acting Captain."
 	database_id = MASTERY_CHANGELING
 
 /datum/award/achievement/antagmastery/clock_cult
