@@ -82,7 +82,7 @@
 	eyeobj.setLoc(get_turf(target)) //on the first call of this we obviously need to jump to the target ourselfs else we would go there only after they moved once
 	to_chat(src, "<span class='notice'>Now tracking [target.get_visible_name()] on camera.</span>")
 
-/mob/living/silicon/ai/proc/ai_stop_tracking(var/reacquire_failed = FALSE) //stops ai tracking
+/mob/living/silicon/ai/proc/ai_stop_tracking(atom, force, var/reacquire_failed = FALSE) //stops ai tracking
 	SIGNAL_HANDLER //this can technically be called by a signal too if the target gets qdeleted
 	UnregisterSignal(ai_tracking_target, COMSIG_PARENT_QDELETING)
 	UnregisterSignal(ai_tracking_target, COMSIG_MOVABLE_MOVED)
@@ -102,7 +102,7 @@
 			reacquire_timer = null
 	else
 		if(!reacquire_timer)
-			reacquire_timer = addtimer(CALLBACK(src, .proc/ai_stop_tracking, TRUE), 10 SECONDS, TIMER_STOPPABLE) //A timer for how long to wait before we stop tracking someone after loosing them
+			reacquire_timer = addtimer(CALLBACK(src, .proc/ai_stop_tracking, null, null, TRUE), 10 SECONDS, TIMER_STOPPABLE) //A timer for how long to wait before we stop tracking someone after loosing them
 			to_chat(src, "<span class='warning'>Target is not near any active cameras. Attempting to reacquire...</span>")
 		return
 
