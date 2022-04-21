@@ -263,25 +263,23 @@ GLOBAL_LIST_EMPTY(station_turfs)
 /turf/proc/can_zFall(atom/movable/A, levels = 1, turf/target)
 	return zPassOut(A, DOWN, target) && target.zPassIn(A, DOWN, src)
 
-/turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE)
+/turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE, old_loc = null)
 	var/turf/target = get_step_multiz(src, DOWN)
 	if(!target || (!isobj(A) && !ismob(A)))
 		return FALSE
 	if(!force && (!can_zFall(A, levels, target) || !A.can_zFall(src, levels, target, DOWN)))
 		return FALSE
-	A.zfalling = TRUE
-	var/atom/movable/pulling = A.pulling
-	A.forceMove(target)
-	A.zfalling = FALSE
-	if(pulling)
-		//Things you are pulling fall with you
-		pulling.zfalling = TRUE
-		pulling.forceMove(target)
-		A.start_pulling(pulling)
-		pulling.zfalling = FALSE
-		target.zImpact(pulling, levels, src)
-	target.zImpact(A, levels, src)
-	return TRUE
+	. = TRUE
+	if(!A.zfalling)
+		A.zfalling = TRUE
+		if(A.pulling && old_loc)
+			A.pulling.moving_from_pull = A
+			A.pulling.Move(old_loc)
+			A.pulling.moving_from_pull = null
+		if(!A.Move(target))
+			A.doMove(target)
+		. = target.zImpact(A, levels, src)
+		A.zfalling = FALSE
 
 /turf/proc/handleRCL(obj/item/rcl/C, mob/user)
 	if(C.loaded)
@@ -359,7 +357,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		if(O.obj_flags & FROZEN)
 			O.make_unfrozen()
 	if(!arrived.zfalling)
-		zFall(arrived)
+		zFall(arrived, old_loc = old_loc)
 
 /turf/proc/is_plasteel_floor()
 	return FALSE
