@@ -6,7 +6,7 @@
 
 /obj/structure/xenoartifact //Most of these values are given to the structure when the structure initializes
     name = "Xenoartifact"
-    icon = 'austation/icons/obj/xenoartifact/xenoartifact.dmi'
+    icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
     icon_state = "map_editor"
     density = TRUE
     
@@ -186,7 +186,7 @@
     return victim
 
 /obj/structure/xenoartifact/proc/create_beam(atom/target) //Helps show how the artifact is working. Hint stuff.
-    var/datum/beam/xenoa_beam/B = new(src.loc, target, time=1.5 SECONDS, beam_icon='austation/icons/obj/xenoartifact/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam, col = material)
+    var/datum/beam/xenoa_beam/B = new(src.loc, target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam, col = material)
     INVOKE_ASYNC(B, /datum/beam/xenoa_beam.proc/Start)
 
 /obj/structure/xenoartifact/proc/set_frequency(new_frequency)
