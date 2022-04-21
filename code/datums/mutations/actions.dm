@@ -291,6 +291,8 @@
 /obj/item/melee/touch_attack/acidooze/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!isoozeling(user))
 		return
+	if(!proximity)
+		return
 	var/mob/living/carbon/human/H = user
 	if(!target || user.incapacitated())
 		return FALSE
