@@ -6,7 +6,7 @@
 
 /obj/structure/xenoartifact //Most of these values are given to the structure when the structure initializes
     name = "Xenoartifact"
-    icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
+    icon = 'austation/icons/obj/xenoartifact/xenoartifact.dmi'
     icon_state = "map_editor"
     density = TRUE
     
@@ -40,6 +40,10 @@
 
 /obj/structure/xenoartifact/Initialize(mapload, difficulty)
     . = ..()
+    var/datum/component/xenoartifact_pricing/xenop = GetComponent(/datum/component/xenoartifact_pricing)
+    if(!xenop)
+        xenop = AddComponent(/datum/component/xenoartifact_pricing)
+
     material = difficulty
 
     for(var/datum/xenoartifact_trait/T in traits)
@@ -76,7 +80,7 @@
 /obj/structure/xenoartifact/examine(mob/user)
     for(var/obj/item/clothing/glasses/science/S in user.contents)
         to_chat(user, "<span class='notice'>[special_desc]</span>")
-    . = ..()
+    return ..()
 
 /obj/structure/xenoartifact/attack_hand(mob/user)
     . = ..()
@@ -186,7 +190,7 @@
     return victim
 
 /obj/structure/xenoartifact/proc/create_beam(atom/target) //Helps show how the artifact is working. Hint stuff.
-    var/datum/beam/xenoa_beam/B = new(src.loc, target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam, col = material)
+    var/datum/beam/xenoa_beam/B = new(src.loc, target, time=1.5 SECONDS, beam_icon='austation/icons/obj/xenoartifact/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam, col = material)
     INVOKE_ASYNC(B, /datum/beam/xenoa_beam.proc/Start)
 
 /obj/structure/xenoartifact/proc/set_frequency(new_frequency)
@@ -213,7 +217,7 @@
 /obj/structure/xenoartifact/process(delta_time)
     switch(process_type)
         if("lit")
-            true_target = list(get_proximity(max_range))
+            true_target += list(get_proximity(min(max_range, 5)))
             charge = NORMAL*traits[1].on_burn(src) 
             if(manage_cooldown(TRUE) && true_target.len >= 1 && get_proximity(max_range))
                 set_light(0)

@@ -1,6 +1,6 @@
 /obj/item/xenoartifact_labeler
     name = "Xenoartifact Labeler"
-    icon = 'icons/obj/xenoarchaeology/xenoartifact_tech.dmi'
+    icon = 'austation/icons/obj/xenoartifact/xenoartifact_tech.dmi'
     icon_state = "xenoartifact_labeler"
     desc = "A tool scientists use to label their alien bombs."
     throw_speed = 3
@@ -96,7 +96,7 @@
         qdel(P)
 
 /obj/item/xenoartifact_labeler/proc/create_label(new_name)
-    var/obj/item/xenoartifact_label/P = new /obj/item/xenoartifact_label/(get_turf(src))
+    var/obj/item/xenoartifact_label/P = new(get_turf(src))
     if(new_name)
         P.name = new_name
         P.set_name = TRUE
@@ -129,7 +129,7 @@
 
 // Not to be confused with labeler
 /obj/item/xenoartifact_label
-    icon = 'icons/obj/xenoarchaeology/xenoartifact_sticker.dmi'
+    icon = 'austation/icons/obj/xenoartifact/xenoartifact_sticker.dmi'
     icon_state = "sticker_star"
     name = "Xenoartifact Label"
     desc = "An adhesive label describing the characteristics of a Xenoartifact."
@@ -179,12 +179,15 @@
 
 /obj/item/xenoartifact_label/proc/calculate_modifier(obj/item/xenoartifact/X) //Modifier based off preformance of slueth. To:Do revisit this, complexity would be nice
     var/datum/xenoartifact_trait/trait
+    var/datum/component/xenoartifact_pricing/xenop = X.GetComponent(/datum/component/xenoartifact_pricing)
+    if(!xenop)
+        return
     for(var/T in trait_list)
         trait = new T
         if(X.get_trait(trait))
-            X.modifier += 0.15 
+            xenop.modifier += 0.15 
         else
-            X.modifier -= 0.35
+            xenop.modifier -= 0.35
 
 /obj/item/xenoartifact_label/proc/list2text(list/listo) //list2params acting weird. Probably already a function for this.
     var/text = ""

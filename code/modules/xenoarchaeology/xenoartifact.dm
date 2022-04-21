@@ -3,7 +3,7 @@
 */
 /obj/item/xenoartifact
     name = "Xenoartifact"
-    icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
+    icon = 'austation/icons/obj/xenoartifact/xenoartifact.dmi'
     icon_state = "map_editor"
     w_class = WEIGHT_CLASS_TINY
     heat = 1000 //I think I set this for on_burn stuff?
@@ -31,19 +31,20 @@
     var/cooldownmod = 0 //Extra time traits can add to the cooldown
 
     var/icon_slots[4] //Associated with random sprite stuff, dw
-    var/mutable_appearance/icon_overlay
-
-    var/modifier = 0.70 //Buying and selling related
-    var/price //default price gets generated if it isn't set by console. This only happens if the artifact spawns outside of that process. 
+    var/mutable_appearance/icon_overlay 
 
     var/malfunction_chance //Everytime the artifact is used this increases. When this is successfully proc'd the artifact gains a malfunction and this is lowered. 
     var/malfunction_mod = 1 //How much the chance can change in a sinlge itteration
 
 /obj/item/xenoartifact/Initialize(mapload, difficulty)
     . = ..()
+    var/datum/component/xenoartifact_pricing/xenop = GetComponent(/datum/component/xenoartifact_pricing)
+    if(!xenop)
+        xenop = AddComponent(/datum/component/xenoartifact_pricing)
+
     material = difficulty //Difficulty is set, in some cases, by xenoartifact_console
     if(!material)
-        material = pick(BLUESPACE, PLASMA, URANIUM, BANANIUM)
+        material = pick(BLUESPACE, PLASMA, URANIUM, AUSTRALIUM)
 
     switch(material)
         if(BLUESPACE)
@@ -52,8 +53,8 @@
                             /datum/xenoartifact_trait/minor/sentient, /datum/xenoartifact_trait/major/sing, 
                             /datum/xenoartifact_trait/major/laser, /datum/xenoartifact_trait/major/bomb,
                             /datum/xenoartifact_trait/major/handmore, /datum/xenoartifact_trait/major/emp))
-            if(!price)
-                price = pick(100, 200, 300)
+            if(!xenop.price)
+                xenop.price = pick(100, 200, 300)
 
         if(PLASMA)
             name = "Plasma [name]"
@@ -65,8 +66,8 @@
                             /datum/xenoartifact_trait/major/invisible,/datum/xenoartifact_trait/major/handmore,
                             /datum/xenoartifact_trait/major/lamp, /datum/xenoartifact_trait/major/forcefield,
                             /datum/xenoartifact_trait/activator/signal,/datum/xenoartifact_trait/major/heal))
-            if(!price)
-                price = pick(200, 300, 500)
+            if(!xenop.price)
+                xenop.price = pick(200, 300, 500)
             malfunction_mod = 2
 
         if(URANIUM)
@@ -76,21 +77,22 @@
                             /datum/xenoartifact_trait/minor/sentient, /datum/xenoartifact_trait/minor/wearable,
                             /datum/xenoartifact_trait/major/handmore, /datum/xenoartifact_trait/major/invisible,
                             /datum/xenoartifact_trait/major/heal), TRUE) 
-            if(!price)
-                price = pick(300, 500, 800) 
+            if(!xenop.price)
+                xenop.price = pick(300, 500, 800) 
             malfunction_mod = 8
 
-        if(BANANIUM)
-            name = "Bananium [name]"
+        if(AUSTRALIUM)
+            name = "Australium [name]"
             generate_traits(list(/datum/xenoartifact_trait/major/sing))
-            if(!price)
-                price = pick(500, 800, 1000) 
+            if(!xenop.price)
+                xenop.price = pick(500, 800, 1000) 
             malfunction_mod = 0.5
 
     icon_state = null
-    for(var/datum/xenoartifact_trait/T in traits) //This is kinda weird but it stops certain runtime cases, bugs?
+    for(var/datum/xenoartifact_trait/T in traits) //This is kinda weird but it stops certain runtime cases.
         if(istype(T, /datum/xenoartifact_trait/minor/dense))
             T.on_init(src)
+            return
     for(var/datum/xenoartifact_trait/T in traits)
         T.on_init(src)
 
@@ -321,7 +323,7 @@
     return victim
 
 /obj/item/xenoartifact/proc/create_beam(atom/target) //Helps show how the artifact is working. Hint stuff.
-    var/datum/beam/xenoa_beam/B = new(src.loc, target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam, col = material)
+    var/datum/beam/xenoa_beam/B = new(src.loc, target, time=1.5 SECONDS, beam_icon='austation/icons/obj/xenoartifact/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam, col = material)
     INVOKE_ASYNC(B, /datum/beam/xenoa_beam.proc/Start)
 
 /obj/item/xenoartifact/proc/default_activate(chr, mob/user) //used for some stranger cases. Item specific cases that don't fall under the default templates. See battery activator.
@@ -329,7 +331,7 @@
         return
     charge = chr
     if(user)
-        true_target += list(user)
+        true_target += list(process_target(user))
         check_charge(user)
         return
     true_target += list(get_proximity(max_range))
@@ -369,7 +371,7 @@
 /obj/item/xenoartifact/process(delta_time)
     switch(process_type)
         if("lit")
-            true_target += list(get_proximity(max_range))
+            true_target += list(get_proximity(min(max_range, 5)))
             charge = NORMAL*traits[1].on_burn(src) 
             if(manage_cooldown(TRUE) && true_target.len >= 1 && get_proximity(max_range))
                 set_light(0)
@@ -403,9 +405,13 @@
 
 /obj/item/xenoartifact/maint/Initialize(mapload, difficulty)
     if(prob(0.1))
-        material = pick(PLASMA, URANIUM, BANANIUM)
+        material = pick(PLASMA, URANIUM, AUSTRALIUM)
     difficulty = material
     ..()
+
+/datum/component/xenoartifact_pricing
+    var/modifier = 0.70 //Buying and selling related
+    var/price //default price gets generated if it isn't set by console. This only happens if the artifact spawns outside of that process
 
 /obj/effect/ebeam/xenoa_ebeam
     name = "xenoartifact beam"
