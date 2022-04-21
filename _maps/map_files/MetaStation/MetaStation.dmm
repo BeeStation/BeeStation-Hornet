@@ -57124,7 +57124,10 @@
 /turf/open/floor/plating,
 /area/science/research)
 "cmP" = (
-/turf/closed/wall,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/science/explab{
 	name = "Xenoarchaeology  Lab"
 	})
@@ -80575,14 +80578,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"lqV" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "lvJ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -117896,8 +117891,8 @@ cgq
 cgq
 cgq
 cgq
-cmP
-cmP
+cgq
+cgq
 pdS
 epy
 cgq
@@ -118410,7 +118405,7 @@ daH
 ciS
 iZY
 cmR
-lqV
+cmP
 col
 cpz
 cqR
