@@ -339,15 +339,10 @@
 		/obj/item/storage/pill_bottle/charcoal,
 		/obj/item/reagent_containers/pill/patch/silver_sulf,
 		/obj/item/storage/pill_bottle/kelotane)
-	var/items_inside = list(
-		pick(supplies) = 1,
-		pick(supplies) = 1,
-		pick(supplies) = 1,
-		pick(supplies) = 1,
-		pick(supplies) = 1,
-		pick(supplies) = 1,
-		/obj/item/healthanalyzer = 1)
-	generate_items_inside(items_inside,src)
+	new /obj/item/healthanalyzer(src)
+	for(var/i in 1 to 6)
+		var/selected_type = pick(supplies)
+		new selected_type(src)
 
 //First Tactical kit
 /obj/item/storage/firstaid/tactical
@@ -369,7 +364,6 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/stack/medical/gauze = 1,
 		/obj/item/defibrillator/compact/combat/loaded = 1,
 		/obj/item/reagent_containers/hypospray/combat = 1,
 		/obj/item/reagent_containers/pill/patch/styptic = 2,
