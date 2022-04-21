@@ -59058,6 +59058,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
+/obj/machinery/light,
 /turf/open/floor/plasteel/white,
 /area/science/explab{
 	name = "Xenoarchaeology  Lab"
@@ -80213,14 +80214,6 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/dorms)
-"kiA" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "kjh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/vehicle/ridden/janicart,
@@ -80582,6 +80575,14 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"lqV" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/science/explab{
+	name = "Xenoarchaeology  Lab"
+	})
 "lvJ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -118409,7 +118410,7 @@ daH
 ciS
 iZY
 cmR
-kiA
+lqV
 col
 cpz
 cqR
