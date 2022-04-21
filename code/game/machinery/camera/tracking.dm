@@ -76,14 +76,17 @@
 		return
 	if(ai_tracking_target) //if there is already a tracking going when this gets called makes sure the old tracking gets stopped before we register the new signals
 		ai_stop_tracking()
-	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/ai_stop_tracking)
+	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/tracking_target_qdeleted)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/ai_actual_track)
 	ai_tracking_target = target
 	eyeobj.setLoc(get_turf(target)) //on the first call of this we obviously need to jump to the target ourselfs else we would go there only after they moved once
 	to_chat(src, "<span class='notice'>Now tracking [target.get_visible_name()] on camera.</span>")
 
-/mob/living/silicon/ai/proc/ai_stop_tracking(atom, force, var/reacquire_failed = FALSE) //stops ai tracking
-	SIGNAL_HANDLER //this can technically be called by a signal too if the target gets qdeleted
+/mob/living/silicon/ai/proc/tracking_target_qdeleted() //we wrap the ai_stop_tracking proc so we don't need to offset the arguments in ai_stop_tracking
+	SIGNAL_HANDLER
+	ai_stop_tracking()
+
+/mob/living/silicon/ai/proc/ai_stop_tracking(var/reacquire_failed = FALSE) //stops ai tracking
 	UnregisterSignal(ai_tracking_target, COMSIG_PARENT_QDELETING)
 	UnregisterSignal(ai_tracking_target, COMSIG_MOVABLE_MOVED)
 	ai_tracking_target = null
@@ -102,7 +105,7 @@
 			reacquire_timer = null
 	else
 		if(!reacquire_timer)
-			reacquire_timer = addtimer(CALLBACK(src, .proc/ai_stop_tracking, null, null, TRUE), 10 SECONDS, TIMER_STOPPABLE) //A timer for how long to wait before we stop tracking someone after loosing them
+			reacquire_timer = addtimer(CALLBACK(src, .proc/ai_stop_tracking, TRUE), 10 SECONDS, TIMER_STOPPABLE) //A timer for how long to wait before we stop tracking someone after loosing them
 			to_chat(src, "<span class='warning'>Target is not near any active cameras. Attempting to reacquire...</span>")
 		return
 
