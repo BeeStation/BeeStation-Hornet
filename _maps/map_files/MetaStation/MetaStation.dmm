@@ -57129,17 +57129,22 @@
 	name = "Xenoarchaeology  Lab"
 	})
 "cmQ" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -26
+/obj/item/clothing/neck/stethoscope,
+/obj/item/geiger_counter,
+/obj/item/storage/box/monkeycubes,
+/obj/structure/table/glass,
+/obj/item/laser_pointer,
+/obj/item/assembly/signaler,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/science/explab{
 	name = "Xenoarchaeology  Lab"
 	})
 "cmR" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/science/explab{
@@ -59049,45 +59054,19 @@
 	name = "Xenoarchaeology  Lab"
 	})
 "cqR" = (
-/obj/machinery/power/apc/auto_name/south,
-/obj/structure/cable/yellow,
-/obj/item/clothing/mask/gas,
-/obj/item/multitool{
-	pixel_x = 4
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
 	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/assembly/igniter{
-	pixel_x = 5;
-	pixel_y = -4
-	},
-/obj/item/wrench{
-	desc = "Science's final defense against the filth of the station. Also good for wacking artifacts.";
-	name = "wacking wrench"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/structure/table/glass,
-/obj/item/analyzer,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/science/explab{
 	name = "Xenoarchaeology  Lab"
 	})
 "cqS" = (
-/obj/machinery/light,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -24
 	},
-/obj/item/clothing/neck/stethoscope,
-/obj/item/geiger_counter,
-/obj/item/storage/box/monkeycubes,
-/obj/structure/table/glass,
-/obj/item/laser_pointer,
-/obj/item/assembly/signaler,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/science/explab{
 	name = "Xenoarchaeology  Lab"
 	})
@@ -82084,6 +82063,14 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer1,
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"qHH" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/science/explab{
+	name = "Xenoarchaeology  Lab"
+	})
 "qLf" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album,
@@ -82162,10 +82149,30 @@
 /turf/closed/wall,
 /area/vacant_room/commissary)
 "rvP" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -27
+/obj/machinery/power/apc/auto_name/south,
+/obj/structure/cable/yellow,
+/obj/item/clothing/mask/gas,
+/obj/item/multitool{
+	pixel_x = 4
 	},
-/turf/open/floor/plasteel/white,
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/obj/item/assembly/igniter{
+	pixel_x = 5;
+	pixel_y = -4
+	},
+/obj/item/wrench{
+	desc = "Science's final defense against the filth of the station. Also good for wacking artifacts.";
+	name = "wacking wrench"
+	},
+/obj/structure/table/glass,
+/obj/item/analyzer,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel,
 /area/science/explab{
 	name = "Xenoarchaeology  Lab"
 	})
@@ -118402,7 +118409,7 @@ daH
 ciS
 iZY
 cmR
-cmR
+qHH
 col
 cpz
 cqR
