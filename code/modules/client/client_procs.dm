@@ -1117,4 +1117,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		SSambience.ambience_listening_clients -= src
 
 /client/proc/give_award(achievement_type, mob/user)
-	return	player_details.achievements.unlock(achievement_type, user)
+	return player_details.achievements.unlock(achievement_type, user)
+
+/client/proc/increase_score(achievement_type, mob/user, value)
+	return player_details.achievements.increase_score(achievement_type, user, value)
