@@ -72,7 +72,6 @@
 		if("evolve")
 			var/sting_name = params["name"]
 			changeling.purchase_power(sting_name)
-			changeling.purchasedanypowers = TRUE
 			. = TRUE
 
 /datum/action/innate/cellular_emporium
