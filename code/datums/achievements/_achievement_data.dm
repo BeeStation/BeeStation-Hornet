@@ -75,8 +75,7 @@
 	var/datum/award/score/A = SSachievements.awards[achievement_type]
 	get_data(achievement_type) //Get the current status first if necessary
 	if(A.high_scores[1] < value)
-		for(var/client/C in GLOB.clients)
-			to_chat(C, "<span class='greenannounce'><B>[user.client.key] set a new high score in [A.name]: [value]</B></span>")
+		to_chat(world, "<span class='greenannounce'><B>[user.client.key] set a new high score in [A.name]: [value]</B></span>")
 	if(value > data[achievement_type])
 		data[achievement_type] = value
 
