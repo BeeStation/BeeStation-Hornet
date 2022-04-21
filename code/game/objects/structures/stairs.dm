@@ -15,6 +15,7 @@
 	var/force_open_above = FALSE // replaces the turf above this stair obj with /turf/open/openspace
 	var/terminator_mode = STAIR_TERMINATOR_AUTOMATIC
 	var/turf/listeningTo
+	var/list/already_ascending = list()
 
 
 /obj/structure/stairs/Initialize(mapload)
@@ -51,7 +52,11 @@
 
 /obj/structure/stairs/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
-
+	message_admins("[leaving] is leaving [source] in direction [direction]")
+	if(leaving in already_ascending)
+		message_admins("got here 1")
+		already_ascending -= leaving
+		return 0
 	if(!isobserver(leaving) && isTerminator() && direction == dir)
 		INVOKE_ASYNC(src, .proc/stair_ascend, leaving)
 		leaving.Bump(src)
@@ -76,15 +81,9 @@
 		return
 	var/turf/target = get_step_multiz(get_turf(src), (dir|UP))
 	if(istype(target) && !target.can_zFall(AM, null, get_step_multiz(target, DOWN)))			//Don't throw them into a tile that will just dump them back down.
-		if(isliving(AM))
-			var/mob/living/L = AM
-			var/pulling = L.pulling
-			if(pulling)
-				L.pulling.forceMove(target)
-			L.forceMove(target)
-			L.start_pulling(pulling)
-		else
-			AM.forceMove(target)
+		message_admins("[AM] is ascending to [target]")
+		already_ascending += AM
+		AM.Move(target)
 
 /obj/structure/stairs/vv_edit_var(var_name, var_value)
 	. = ..()
