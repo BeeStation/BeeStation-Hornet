@@ -57795,6 +57795,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/power/apc/auto_name/west,
 /turf/open/floor/plasteel/white,
 /area/science/explab{
 	name = "Xenoarchaeology  Lab"
@@ -80212,6 +80213,14 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/dorms)
+"kiA" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/science/explab{
+	name = "Xenoarchaeology  Lab"
+	})
 "kjh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/vehicle/ridden/janicart,
@@ -82063,14 +82072,6 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer1,
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
-"qHH" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "qLf" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album,
@@ -82149,7 +82150,6 @@
 /turf/closed/wall,
 /area/vacant_room/commissary)
 "rvP" = (
-/obj/machinery/power/apc/auto_name/south,
 /obj/structure/cable/yellow,
 /obj/item/clothing/mask/gas,
 /obj/item/multitool{
@@ -118409,7 +118409,7 @@ daH
 ciS
 iZY
 cmR
-qHH
+kiA
 col
 cpz
 cqR
