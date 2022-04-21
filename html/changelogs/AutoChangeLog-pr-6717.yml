@@ -1,0 +1,5 @@
+author: Mat05usz
+delete-after: true
+changes:
+  - bugfix: Fixes another crewmonitor runtime caused by simplemobs having nanite suit
+      sensors.
