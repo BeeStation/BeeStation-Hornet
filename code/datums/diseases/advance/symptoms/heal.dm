@@ -571,9 +571,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	. = ..()
 	var/mob/living/carbon/M = A.affected_mob
 	to_chat(M, "<span class='notice'>You lose your balance and stumble as you shrink, and your legs come out from underneath you!</span>")
-	animate(M, pixel_z = 4, time = 0) //size is fixed by having the player do one waddle. Animation for some reason resets size, meaning waddling can desize you
-	animate(pixel_z = 0, transform = turn(matrix(), pick(-12, 0, 12)), time=2) //waddle desizing is an issue, because you can game it to use this symptom and become small
-	animate(pixel_z = 0, transform = matrix(), time = 0) //so, instead, we use waddle desizing to desize you from this symptom, instead of a transformation, because it wont shrink you naturally
+	M.resize = 1/sizemult
+	M.update_transform()
 
 //they are used for the maintenance spawn, for ling teratoma see changeling\teratoma.dm
 /obj/effect/mob_spawn/teratomamonkey //spawning these is one of the downsides of overclocking the symptom
