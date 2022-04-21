@@ -180,6 +180,7 @@
     //if(istype(X,  /obj/structure/xenoartifact)) This isn't needed.
         //return
     var/obj/structure/xenoartifact/N = new(get_turf(X), X.material)
+    N.name = X.name
     N.traits = X.traits
     N.charge_req = X.charge_req*1.5
     N.special_desc = X.special_desc
