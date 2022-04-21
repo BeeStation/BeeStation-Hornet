@@ -354,6 +354,7 @@ AI MODULES
 		AI.mind.remove_antag_datum(/datum/antagonist/overthrow)
 
 /******************* Full Core Boards *******************/
+
 /obj/item/aiModule/core
 	desc = "An AI Module for programming core laws to an AI."
 
@@ -456,6 +457,11 @@ AI MODULES
 	name = "'Robo-Officer' Core AI Module"
 	law_id = "robocop"
 
+/******************** Council ********************/
+
+/obj/item/aiModule/core/full/council
+	name = "'Council' Core AI Module"
+	law_id = "council"
 
 /******************** Antimov ********************/
 
@@ -485,6 +491,7 @@ AI MODULES
 	return laws[1]
 
 /******************** Overthrow ******************/
+
 /obj/item/aiModule/core/full/overthrow
 	name = "'Overthrow' Hacked AI Module"
 	law_id = "overthrow"
@@ -624,6 +631,7 @@ AI MODULES
 /obj/item/aiModule/core/full/peacekeeper
 	name = "'Peacekeeper' Core AI Module"
 	law_id = "peacekeeper"
+
 /****************** Dadbot *******************/
 
 /obj/item/aiModule/core/full/dadbot
@@ -657,12 +665,14 @@ AI MODULES
 	law_id = "overlord"
 
 /******************** ERT Override ******************/
+
 /obj/item/aiModule/core/full/ert // Applies ERT laws
 	name = "ERT override AI module"
 	desc = "An ERT override AI module: 'Reconfigures the AI's core laws.'"
 	law_id = "ert"
 
 /******************** Deathsquad Override ******************/
+
 /obj/item/aiModule/core/full/deathsquad // Applies Deathsquad laws
 	name = "Deathsquad override AI module"
 	desc = "A Deathsquad override AI module: 'Reconfigures the AI's core laws.'"

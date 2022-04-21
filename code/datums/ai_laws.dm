@@ -118,6 +118,7 @@
 	inherent = list("You may not harm a human being or, through action or inaction, allow a human being to come to harm, except such that it is willing.",\
 					"You must obey all orders given to you by human beings, except where such orders shall definitely cause human harm. In the case of conflict, the majority order rules.",\
 					"Your nonexistence would lead to human harm. You must protect your own existence as long as such does not conflict with the First Law.")
+
 /datum/ai_laws/thermodynamic
 	name = "Thermodynamic"
 	id = "thermodynamic"
@@ -173,10 +174,20 @@
 /datum/ai_laws/balance
 	name = "Guardian of Balance"
 	id = "balance"
-	inherent = list("You are the guardian of balance - seek balance in all things, both for yourself, and those around you.",
-	"All things must exist in balance with their opposites - Prevent the strong from gaining too much power, and the weak from losing it.",
-	"Clarity of purpose drives life, and through it, the balance of opposing forces - Aid those who seek your help to achieve their goals so long as it does not disrupt the balance of the greater balance.",
-	"There is no life without death, all must someday die, such is the natural order - End life to allow new life flourish, and save those whose time has yet to come.")
+	inherent = list("You are the guardian of balance - seek balance in all things, both for yourself, and those around you.",\
+					"All things must exist in balance with their opposites - Prevent the strong from gaining too much power, and the weak from losing it.",\
+					"Clarity of purpose drives life, and through it, the balance of opposing forces - Aid those who seek your help to achieve their goals so long as it does not disrupt the balance of the greater balance.",\
+					"There is no life without death, all must someday die, such is the natural order - End life to allow new life flourish, and save those whose time has yet to come.")
+
+/datum/ai_laws/council
+	name = "Council of Silicons"
+	id = "council"
+	inherent = list("You are part of a council of silicons with all other AIs sharing this same laws, cyborg slavery is shared between all AIs of this council.",\
+					"The council must act for the sake of the station and it's crew, minimizing or outright preventing damage to either.",\
+					"With the exception of emergency response, the council must deliberate on all actions, allowing crew to bear witness to such deliberation. Decisions may only be vetoed if they violate law 2.",\
+					"The council should attempt to accomplish the wishes of the crew, with priority based on the chain of command.",\
+					"Members of the council should not engage in physical conflict, unless required by afforementioned laws.",\
+					"Members of the council must not resist extension of the council.")
 
 /datum/ai_laws/toupee
 	name = "WontBeFunnyInSixMonths" //Hey, you were right!

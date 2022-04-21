@@ -365,7 +365,8 @@
 				/obj/item/aiModule/core/full/asimovpp,
 				/obj/item/aiModule/core/full/hippocratic,
 				/obj/item/aiModule/core/full/paladin_devotion,
-				/obj/item/aiModule/core/full/paladin
+				/obj/item/aiModule/core/full/paladin,
+				/obj/item/aiModule/core/full/council
 				)
 
 /obj/effect/spawner/lootdrop/aimodule_neutral // These shouldn't allow the AI to start butchering people without reason

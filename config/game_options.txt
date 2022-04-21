@@ -421,6 +421,7 @@ RANDOM_LAWS maintain
 #RANDOM_LAWS hulkamania
 #RANDOM_LAWS paladin
 #RANDOM_LAWS robocop
+#RANDOM_LAWS council
 
 ## Bad idea laws. Probably shouldn't enable these
 #RANDOM_LAWS syndie
@@ -445,6 +446,7 @@ LAW_WEIGHT asimovpp,12
 LAW_WEIGHT paladin,12
 LAW_WEIGHT robocop,12
 LAW_WEIGHT corporate,12
+LAW_WEIGHT council,10
 
 ## Quirky laws. Shouldn't cause too much harm
 LAW_WEIGHT hippocratic,3
