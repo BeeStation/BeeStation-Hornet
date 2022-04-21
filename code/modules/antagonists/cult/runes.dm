@@ -780,7 +780,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	set_light(6, 1, color)
 	for(var/mob/living/L in viewers(T))
 		if(!iscultist(L) && L.blood_volume)
-			var/atom/I = L.anti_magic_check(holy = TRUE, major = FALSE)
+			var/atom/I = L.anti_magic_check(magic=FALSE,holy=TRUE,major = FALSE)
 			if(I)
 				if(isitem(I))
 					to_chat(L, "<span class='userdanger'>[I] suddenly burns hotly before returning to normal!</span>")
@@ -808,7 +808,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	set_light(6, 1, color)
 	for(var/mob/living/L in viewers(T))
 		if(!iscultist(L) && L.blood_volume)
-			if(L.anti_magic_check(holy = TRUE, major = FALSE))
+			if(L.anti_magic_check(magic=FALSE,holy=TRUE,major = FALSE))
 				continue
 			L.take_overall_damage(tick_damage*multiplier, tick_damage*multiplier)
 
@@ -980,7 +980,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	visible_message("<span class='warning'>A colossal shockwave of energy bursts from the rune, disintegrating it in the process!</span>")
 	for(var/mob/living/L in viewers(3, src))
 		L.Paralyze(30)
-	empulse(T, 0.42*(intensity), 1)
+	empulse(T, 0.42*(intensity), 1, holy=TRUE)
 	var/list/images = list()
 	var/zmatch = T.get_virtual_z_level()
 	var/datum/atom_hud/AH = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]

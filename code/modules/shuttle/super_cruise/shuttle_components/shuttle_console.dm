@@ -346,7 +346,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					if(!mobile_port)
 						say("Cannot locate shuttle.")
 						return
-					if(GLOB.shuttle_docking_jammed)
+					if(GLOB.shuttle_docking_jammed && !shuttleObject.stealth && istype(shuttleObject.docking_target, /datum/orbital_object/z_linked/station))
 						say("Shuttle docking computer jammed.")
 						return
 					if(current_user)
