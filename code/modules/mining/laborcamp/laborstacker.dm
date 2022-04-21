@@ -79,7 +79,7 @@ GLOBAL_LIST(labor_sheet_values)
 		else
 			data["status_info"] = "You are [(prisonerID.goal - prisonerID.points)] points away."
 	else
-		data["status_info"] = "No Prisoner cumID detected."
+		data["status_info"] = "No Prisoner ID detected."
 		data["id_points"] = 0
 
 	if(stacking_machine)
@@ -93,8 +93,6 @@ GLOBAL_LIST(labor_sheet_values)
 	if(..())
 		return
 	var/mob/M = usr
-	if(!istype(M))
-		return
 	switch(action)
 		if("claim_points")
 			var/obj/item/card/id/I = M.get_idcard(TRUE)
