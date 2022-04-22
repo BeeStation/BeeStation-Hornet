@@ -110,4 +110,139 @@
                         current_tab_info = "Link machines to the Listing Console."
                 return
             else if(current_tab == T)
-        
+                current_tab = ""
+                current_tab_info = ""
+                return
+
+    for(var/datum/xenoartifactseller/S as() in sellers)
+        if(action == "purchase_[S.unique_id]")
+            if(linked_inbox && budget.account_balance-S.price >= 0)
+                var/obj/item/xenoartifact/A = new (get_turf(linked_inbox.loc), S.difficulty)
+                var/datum/component/xenoartifact_pricing/X = A.GetComponent(/datum/component/xenoartifact_pricing)
+                if(!X)
+                    return
+                X.price = S.price
+                sellers -= S
+                budget.adjust_money(-1*S.price)
+                say("Purchase complete. [budget.account_balance] credits remaining in Research Budget")
+                addtimer(CALLBACK(src, .proc/generate_new_seller), (rand(1,5)*60) SECONDS)
+                return
+            else if(!linked_inbox)
+                say("Error. No linked hardware.")
+                return
+            else if(budget.account_balance-S.price < 0)
+                say("Error. Insufficient funds.")
+                return
+
+    if(action == "sell")
+        if(!linked_inbox)
+            say("Error. No linked hardware.")
+            return
+        var/info
+        var/final_price = 100
+        var/list/nearby = oview(1, linked_inbox)
+        for(var/obj/I in nearby)
+            var/avoidtimewaste = TRUE
+            for(var/datum/xenoartifactseller/buyer/B as() in buyers)//Check to avoid wasting time & to see if someone is actually buying that item.
+                if(istype(I, B.buying))
+                    avoidtimewaste = FALSE
+                    buyers -= B
+                    break
+            if(avoidtimewaste)
+                return
+            if(istype(I, /obj/item/xenoartifact)||istype(I, /obj/structure/xenoartifact)) //This and it's brother is pretty iffy
+                var/datum/component/xenoartifact_pricing/X = I.GetComponent(/datum/component/xenoartifact_pricing)
+                if(!X)
+                    return
+                final_price = X.modifier*X.price
+                if(final_price < 0) //No modulate?
+                    final_price = X.price*0.1
+                budget.adjust_money(final_price)
+                linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, final_price*10)
+                info = "[I.name] sold at [station_time_timestamp()] for [final_price] credits, bought for [X.price]"
+                sold_artifacts += list(info)
+                say(info)
+                qdel(I)
+                addtimer(CALLBACK(src, .proc/generate_new_buyer), (rand(1,5)*60) SECONDS)
+                return
+            else    
+                final_price = 125*rand(0.3, 1.8) //This may be a point of conflict/balance
+                info = "[I] sold at [station_time_timestamp()] for [final_price]. No further information available."
+                sold_artifacts += list(info)
+                say(info)
+                qdel(I)
+                addtimer(CALLBACK(src, .proc/generate_new_buyer), (rand(1,5)*60) SECONDS)
+                return
+
+    update_icon()
+
+/obj/machinery/computer/xenoartifact_console/proc/generate_new_seller()
+    var/datum/xenoartifactseller/S = new
+    S.generate()
+    sellers += S
+
+/obj/machinery/computer/xenoartifact_console/proc/generate_new_buyer()
+    var/datum/xenoartifactseller/buyer/B = new
+    B.generate()
+    buyers += B
+    addtimer(CALLBACK(src, .proc/qdel, B), (rand(1,5)*60) SECONDS)
+
+/obj/machinery/computer/xenoartifact_console/proc/sync_devices()
+    for(var/obj/machinery/xenoartifact_inbox/I in oview(3,src))
+        if(I.linked_console != null || I.panel_open)
+            return
+        if(!(linked_inbox))
+            linked_inbox = I
+            linked_machines += list(I.name)
+            I.linked_console = src
+            say("Successfully linked [I].")
+            return
+    say("Unable to find linkable hadrware.")
+
+/obj/machinery/xenoartifact_inbox
+    name = "bluespace straythread pad" //Science words
+    desc = "This machine takes advantage of bluespace thread manipulation to highjack in-coming and out-going bluespace signals. Science uses it to deliver their very legal purchases." //All very sciencey
+    icon = 'icons/obj/telescience.dmi'
+    icon_state = "qpad-idle"
+    circuit = /obj/item/circuitboard/machine/xenoartifact_inbox
+    var/linked_console
+
+/datum/xenoartifactseller //Vendor
+    var/name
+    var/price
+    var/dialogue
+    var/unique_id //I don't know what this is used for anymore, I think it has something to do with removing sellers.
+    var/difficulty //Xenoartifact shit, not exactly difficulty
+
+/datum/xenoartifactseller/proc/generate()
+    name = pick(XENOSELLERNAMES)
+    dialogue = pick(XENOSELLERDIAL)
+    price = rand(5,80) * 10
+    switch(price)
+        if(50 to 300)
+            difficulty = BLUESPACE
+        if(301 to 500)
+            difficulty = PLASMA
+        if(501 to 700)
+            difficulty = URANIUM
+        if(701 to 800)
+            difficulty = BANANIUM
+    price = price * rand(1.0, 1.5) //Measure of error for no particular reason
+    unique_id = "[rand(1,100)][rand(1,100)][rand(1,100)]:[world.time]" //I feel like Ive missed an easier way to do this
+    addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)
+
+/datum/xenoartifactseller/proc/change_item()
+    generate()
+
+/datum/xenoartifactseller/buyer 
+    var/obj/buying
+
+/datum/xenoartifactseller/buyer/generate()
+    name = pick(XENOSELLERNAMES)
+    buying = pick(/obj/item/xenoartifact, /obj/structure/xenoartifact)
+    if(buying == /obj/item/xenoartifact) //Don't bother trying to use istype here
+        dialogue = "[name] is requesting: artifact::item-class"
+    else if(buying == /obj/structure/xenoartifact)
+        dialogue = "[name] is requesting: artifact::structure-class"
+    unique_id = "[rand(1,100)][rand(1,100)][rand(1,100)]:[world.time]"
+    addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)

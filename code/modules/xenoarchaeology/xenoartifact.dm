@@ -3,7 +3,7 @@
 */
 /obj/item/xenoartifact
     name = "Xenoartifact"
-    icon = 'austation/icons/obj/xenoartifact/xenoartifact.dmi'
+    icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
     icon_state = "map_editor"
     w_class = WEIGHT_CLASS_TINY
     heat = 1000 //I think I set this for on_burn stuff?
@@ -44,7 +44,7 @@
 
     material = difficulty //Difficulty is set, in some cases, by xenoartifact_console
     if(!material)
-        material = pick(BLUESPACE, PLASMA, URANIUM, AUSTRALIUM)
+        material = pick(BLUESPACE, PLASMA, URANIUM, BANANIUM)
 
     switch(material)
         if(BLUESPACE)
@@ -81,7 +81,7 @@
                 xenop.price = pick(300, 500, 800) 
             malfunction_mod = 8
 
-        if(AUSTRALIUM)
+        if(BANANIUM)
             name = "Australium [name]"
             generate_traits(list(/datum/xenoartifact_trait/major/sing))
             if(!xenop.price)
@@ -323,7 +323,7 @@
     return victim
 
 /obj/item/xenoartifact/proc/create_beam(atom/target) //Helps show how the artifact is working. Hint stuff.
-    var/datum/beam/xenoa_beam/B = new(src.loc, target, time=1.5 SECONDS, beam_icon='austation/icons/obj/xenoartifact/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam, col = material)
+    var/datum/beam/xenoa_beam/B = new(src.loc, target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam, col = material)
     INVOKE_ASYNC(B, /datum/beam/xenoa_beam.proc/Start)
 
 /obj/item/xenoartifact/proc/default_activate(chr, mob/user) //used for some stranger cases. Item specific cases that don't fall under the default templates. See battery activator.
@@ -405,13 +405,18 @@
 
 /obj/item/xenoartifact/maint/Initialize(mapload, difficulty)
     if(prob(0.1))
-        material = pick(PLASMA, URANIUM, AUSTRALIUM)
+        material = pick(PLASMA, URANIUM, BANANIUM)
     difficulty = material
     ..()
 
 /datum/component/xenoartifact_pricing
     var/modifier = 0.70 //Buying and selling related
     var/price //default price gets generated if it isn't set by console. This only happens if the artifact spawns outside of that process
+
+/obj/item/xenoartifact/objective
+/obj/item/xenoartifact/objective/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
 
 /obj/effect/ebeam/xenoa_ebeam
     name = "xenoartifact beam"

@@ -1,6 +1,6 @@
 /obj/item/xenoartifact_labeler
     name = "Xenoartifact Labeler"
-    icon = 'austation/icons/obj/xenoartifact/xenoartifact_tech.dmi'
+    icon = 'icons/obj/xenoarchaeology/xenoartifact_tech.dmi'
     icon_state = "xenoartifact_labeler"
     desc = "A tool scientists use to label their alien bombs."
     throw_speed = 3
@@ -129,7 +129,7 @@
 
 // Not to be confused with labeler
 /obj/item/xenoartifact_label
-    icon = 'austation/icons/obj/xenoartifact/xenoartifact_sticker.dmi'
+    icon = 'icons/obj/xenoarchaeology/xenoartifact_sticker.dmi'
     icon_state = "sticker_star"
     name = "Xenoartifact Label"
     desc = "An adhesive label describing the characteristics of a Xenoartifact."
