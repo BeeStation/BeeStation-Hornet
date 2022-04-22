@@ -236,12 +236,15 @@
 		else    
 			return PROCESS_KILL
 
-/obj/structure/xenoartifact/Destroy()
+/obj/item/xenoartifact/Destroy()
 	SSradio.remove_object(src, frequency)
-	for(var/mob/living/C in contents) //mobs inside only have a 50/50 chance of surviving a collapse.
-		if(pick(FALSE, TRUE))
-			C.forceMove(get_turf(loc))
+	qdel(radio_connection)
+	qdel(traits)
+	qdel(touch_desc)
+	for(var/atom/C in contents)
+		if(ismovableatom(C))
+			var/atom/movable/AM
+			AM.forceMove(get_turf(loc))
 		else
 			qdel(C)
-	qdel(src)
 	..()
