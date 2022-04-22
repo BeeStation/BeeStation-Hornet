@@ -175,6 +175,12 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		return
 	user.Move_Pulled(src)
 
+/turf/eminence_act(mob/living/simple_animal/eminence/eminence)
+	if(get_turf(eminence) == src)
+		check_z_travel(eminence)
+		return
+	return ..()
+
 /turf/proc/check_z_travel(mob/user)
 	if(get_turf(user) != src)
 		return
