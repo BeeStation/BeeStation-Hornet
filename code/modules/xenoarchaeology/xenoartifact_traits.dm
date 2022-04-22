@@ -441,7 +441,8 @@
 /datum/xenoartifact_trait/major/capture/proc/arrest(obj/item/xenoartifact/X, mob/target)
     if(istype(target, /mob/living))
         if(isliving(X.loc))
-            X.loc.dropItemToGround(X, TRUE, TRUE)
+            var/mob/living/dropper
+            dropper.dropItemToGround(X, TRUE, TRUE)
         var/atom/movable/AM = target
         AM.anchored = TRUE
         AM.forceMove(X) //Go to the mega gay zone
