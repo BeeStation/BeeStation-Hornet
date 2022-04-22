@@ -1,4 +1,0 @@
-author: Ivniinvi
-delete-after: true
-changes:
-  - bugfix: Integration Cogs will now correctly hide from Power Monitors.
