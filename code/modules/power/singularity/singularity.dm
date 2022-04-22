@@ -24,6 +24,8 @@
 	var/time_since_last_dissipiation = 0
 	var/event_chance = 10 //Prob for event each tick
 	var/move_self = TRUE
+	/// How long it's been since the singulo last acted, in seconds
+	var/time_since_act = 0
 	var/consumed_supermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
 	var/datum/weakref/singularity_component
 	flags_1 = SUPERMATTER_IGNORES_1
@@ -32,7 +34,7 @@
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
-	START_PROCESSING(SSobj, src)
+	START_PROCESSING(SSsinguloprocess, src)
 	GLOB.poi_list |= src
 	GLOB.singularities |= src
 	var/datum/component/singularity/new_component = AddComponent(
@@ -54,7 +56,7 @@
 		notify_ghosts("IT'S LOOSE", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, ghost_sound = 'sound/machines/warning-buzzer.ogg', header = "IT'S LOOSE", notify_volume = 75)
 
 /obj/singularity/Destroy()
-	STOP_PROCESSING(SSobj, src)
+	STOP_PROCESSING(SSsinguloprocess, src)
 	GLOB.poi_list.Remove(src)
 	GLOB.singularities.Remove(src)
 	return ..()
@@ -88,6 +90,10 @@
 			energy -= round(((energy+1)/4),1)
 
 /obj/singularity/process(delta_time)
+	time_since_act += delta_time
+	if(time_since_act < 2)
+		return
+	time_since_act = 0
 	if(current_size >= STAGE_TWO)
 		radiation_pulse(src, min(5000, (energy*4.5)+1000), RAD_DISTANCE_COEFFICIENT*0.5)
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
