@@ -57,7 +57,6 @@ SUBSYSTEM_DEF(movement)
 			queue_loop(loop)
 		if (MC_TICK_CHECK)
 			break
-
 	if(length(processing))
 		return // Still work to be done
 	var/bucket_time = bucket_info[MOVEMENT_BUCKET_TIME]
@@ -65,15 +64,11 @@ SUBSYSTEM_DEF(movement)
 	visual_delay = MC_AVERAGE_FAST(visual_delay, max((world.time - canonical_time) / wait, 1))
 
 /// Removes a bucket from our system. You only need to pass in the time, but if you pass in the index of the list you save us some work
-/datum/controller/subsystem/movement/proc/smash_bucket(index, bucket_time)
-	if(!index)
-		for(var/i in 1 to length(sorted_buckets))
-			var/list/bucket_info = sorted_buckets[i]
-			if(bucket_info[MOVEMENT_BUCKET_TIME] != bucket_time)
-				continue
-			index = i
-			break
-	sorted_buckets.Cut(index, index + 1) //Removes just this list
+/datum/controller/subsystem/movement/proc/smash_bucket(index, bucket_time, bucket)
+	if(index && !bucket)
+		sorted_buckets.Cut(index, index + 1) //Removes just this list
+	else
+		sorted_buckets -= bucket
 	//Removes the assoc lookup too
 	buckets -= "[bucket_time]"
 
@@ -91,8 +86,8 @@ SUBSYSTEM_DEF(movement)
 /datum/controller/subsystem/movement/proc/dequeue_loop(datum/move_loop/loop)
 	var/list/our_entries = buckets["[loop.timer]"]
 	our_entries -= loop
-	if(!our_entries)
-		smash_bucket(bucket_time = loop.timer) // We can't pass an index in for context because we don't know our position
+	if(our_entries && !length(our_entries))
+		smash_bucket(bucket_time = loop.timer, bucket = our_entries) // We can't pass an index in for context because we don't know our position
 
 /datum/controller/subsystem/movement/proc/add_loop(datum/move_loop/add)
 	add.start_loop()
