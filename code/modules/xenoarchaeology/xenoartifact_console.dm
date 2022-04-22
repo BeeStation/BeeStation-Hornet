@@ -52,7 +52,7 @@
         B.generate()
 
 /obj/machinery/computer/xenoartifact_console/interact(mob/user)
-    ui_interact(user, "XenoartifactConsole")
+    //ui_interact(user, "XenoartifactConsole")
     ..()
 
 /obj/machinery/computer/xenoartifact_console/ui_interact(mob/user, datum/tgui/ui)
@@ -112,11 +112,18 @@
             else if(current_tab == T)
                 current_tab = ""
                 current_tab_info = ""
-                return
+            return
 
     for(var/datum/xenoartifactseller/S as() in sellers)
+        
         if(action == "purchase_[S.unique_id]")
-            if(linked_inbox && budget.account_balance-S.price >= 0)
+            if(!linked_inbox)
+                say("Error. No linked hardware.")
+                return
+            else if(budget.account_balance-S.price < 0)
+                say("Error. Insufficient funds.")
+                return
+            else if(linked_inbox && budget.account_balance-S.price >= 0)
                 var/obj/item/xenoartifact/A = new (get_turf(linked_inbox.loc), S.difficulty)
                 var/datum/component/xenoartifact_pricing/X = A.GetComponent(/datum/component/xenoartifact_pricing)
                 if(!X)
@@ -126,12 +133,6 @@
                 budget.adjust_money(-1*S.price)
                 say("Purchase complete. [budget.account_balance] credits remaining in Research Budget")
                 addtimer(CALLBACK(src, .proc/generate_new_seller), (rand(1,5)*60) SECONDS)
-                return
-            else if(!linked_inbox)
-                say("Error. No linked hardware.")
-                return
-            else if(budget.account_balance-S.price < 0)
-                say("Error. Insufficient funds.")
                 return
 
     if(action == "sell")
@@ -180,11 +181,13 @@
     var/datum/xenoartifactseller/S = new
     S.generate()
     sellers += S
+    ui_interact(ui ="XenoartifactConsole")
 
 /obj/machinery/computer/xenoartifact_console/proc/generate_new_buyer()
     var/datum/xenoartifactseller/buyer/B = new
     B.generate()
     buyers += B
+    ui_interact("XenoartifactConsole")
     addtimer(CALLBACK(src, .proc/qdel, B), (rand(1,5)*60) SECONDS)
 
 /obj/machinery/computer/xenoartifact_console/proc/sync_devices()

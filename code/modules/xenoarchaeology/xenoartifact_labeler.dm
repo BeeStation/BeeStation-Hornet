@@ -7,16 +7,16 @@
     throw_range = 5
     w_class = WEIGHT_CLASS_TINY
 
-    var/list/activator = list(null) //Checked trait
+    var/list/activator = list() //Checked trait
     var/list/activator_traits = list() //Display names
 
-    var/list/minor_trait = list(null, null, null)
+    var/list/minor_trait = list()
     var/list/minor_traits = list()
 
-    var/list/major_trait = list(null)
+    var/list/major_trait = list()
     var/list/major_traits = list()
 
-    var/list/malfunction = list(null)
+    var/list/malfunction = list()
     var/list/malfunction_list = list()  
 
     var/list/info_list = list() //trait dialogue essentially
@@ -76,11 +76,11 @@
 
 /obj/item/xenoartifact_labeler/proc/get_trait_list_desc(list/traits, trait_type)//Get a list of all the specified trait types names, actually
     for(var/T in typesof(trait_type))
-        var/datum/xenoartifact_trait/X = new T
-        if(X.desc && !(X.desc in traits) && !(X.label_name))
-            traits += list(X.desc)
-        else if(X.label_name && !(X.label_name in traits)) //For cases where the trait doesn't have a desc or is tool cool to use one
-            traits += list(X.label_name)
+        var/datum/xenoartifact_trait/X = T
+        if(initial(X.desc) && !(initial(X.desc) in traits) && !(initial(X.label_name)))
+            traits += list(initial(X.desc))
+        else if(initial(X.label_name) && !(initial(X.label_name) in traits)) //For cases where the trait doesn't have a desc or is tool cool to use one
+            traits += list(initial(X.label_name))
     return traits
 
 /obj/item/xenoartifact_labeler/proc/look_for(list/place, culprit) //This isn't really needed but, It's easier to use as a function. What does this even do?
@@ -92,7 +92,7 @@
 /obj/item/xenoartifact_labeler/afterattack(atom/target, mob/user)
     ..()
     var/obj/item/xenoartifact_label/P = create_label(sticker_name)
-    if(!P.afterattack(target, user)) //In the circumstance the sticker fails, usually means you're doing something you shouldn't be
+    if(!P.afterattack(target, user, TRUE)) //In the circumstance the sticker fails, usually means you're doing something you shouldn't be
         qdel(P)
 
 /obj/item/xenoartifact_labeler/proc/create_label(new_name)
@@ -109,21 +109,21 @@
     var/new_trait
     for(var/T in trait_list)
         new_trait = desc2datum(T)
-        description_holder = new new_trait
+        description_holder = new_trait
         if(action == "assign_[toggle_type]_[T]")
             if(!look_for(active_trait_list, T))
                 active_trait_list += list(T)
-                info_list += description_holder.label_desc
+                info_list += initial(description_holder.label_desc)
                 sticker_traits += new_trait
             else
                 active_trait_list -= list(T)
-                info_list -= description_holder.label_desc
+                info_list -= initial(description_holder.label_desc)
                 sticker_traits -= new_trait
 
 /obj/item/xenoartifact_labeler/proc/desc2datum(udesc) //This is just a hacky way of getting the info from a datum using its desc becuase I wrote this last and it's not heartbreaking
     for(var/T in typesof(/datum/xenoartifact_trait))
-        var/datum/xenoartifact_trait/X = new T
-        if((udesc == X.desc)||(udesc == X.label_name))
+        var/datum/xenoartifact_trait/X = T
+        if((udesc == initial(X.desc))||(udesc == initial(X.label_name)))
             return T
     return "[udesc]: There's no known information on [udesc]!."
 
@@ -149,12 +149,13 @@
     sticker_overlay.appearance_flags = RESET_COLOR
     ..()
     
-/obj/item/xenoartifact_label/afterattack(atom/target, mob/user)
-    for(var/obj/item/xenoartifact_label/L in target.contents)
-        target.name = name //You can update the name but, you should only really get one chance to slueth the traits
-        return FALSE
+/obj/item/xenoartifact_label/afterattack(atom/target, mob/user, instant = FALSE)
+    qdel(locate(/obj/item/xenoartifact_label) in target.contents)
     if(istype(target, /mob/living))
-        to_chat(target, "<span class='notice'>[user] sticks a [src] to you.</span>")
+        to_chat(target, "<span class='notice'>[user] attempts sticks a [src] to you!</span>")
+        if(do_after(user, 30, target))
+            if(!user.temporarilyRemoveItemFromInventory(src))
+                return
         add_sticker(target)
         addtimer(CALLBACK(src, .proc/remove_sticker, target), 15 SECONDS)
         return TRUE
@@ -195,6 +196,10 @@
         if(X)
             text = "[text] [X]\n"
     return text
+
+/obj/item/xenoartifact_label/Destroy()
+    . = ..()
+    loc?.cut_overlay(sticker_overlay)
 
 /obj/item/xenoartifact_labeler/debug
     name = "Xenoartifact Debug Labeler"      
