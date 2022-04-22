@@ -432,16 +432,16 @@
         fren = TRUE //spawning the russian now causes issues
     ..()
 
-/datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, mob/target, mob/user)
-    arrest(X, target, user)
+/datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, mob/target)
+    arrest(X, target)
     addtimer(CALLBACK(src, .proc/release, X), X.charge*0.3 SECONDS)
     X.cooldownmod = X.charge*0.6 SECONDS
     ..()
 
-/datum/xenoartifact_trait/major/capture/proc/arrest(obj/item/xenoartifact/X, mob/target, mob/user)
+/datum/xenoartifact_trait/major/capture/proc/arrest(obj/item/xenoartifact/X, mob/target)
     if(istype(target, /mob/living))
-        if(user||target == user)
-            user.dropItemToGround(X, TRUE, TRUE)
+        if(isliving(X.loc))
+            X.loc.dropItemToGround(X, TRUE, TRUE)
         var/atom/movable/AM = target
         AM.anchored = TRUE
         AM.forceMove(X) //Go to the mega gay zone
