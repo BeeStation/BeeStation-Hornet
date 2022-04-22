@@ -19,6 +19,7 @@
 /obj/machinery/field/containment/Initialize(mapload)
 	. = ..()
 	air_update_turf(TRUE, TRUE)
+	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, .proc/block_singularity)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 	)
@@ -28,6 +29,10 @@
 	FG1?.fields -= src
 	FG2?.fields -= src
 	return ..()
+
+/obj/machinery/field/containment/proc/block_singularity()
+	SIGNAL_HANDLER
+	return SINGULARITY_TRY_MOVE_BLOCK
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/machinery/field/containment/attack_hand(mob/user)

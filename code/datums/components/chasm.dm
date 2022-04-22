@@ -8,6 +8,8 @@
 	var/static/list/falling_atoms = list()
 	var/static/list/forbidden_types = typecacheof(list(
 		/obj/singularity,
+		/obj/energy_ball,
+		/obj/eldritch/narsie,
 		/obj/docking_port,
 		/obj/structure/lattice,
 		/obj/structure/stone_tile,

@@ -39,6 +39,8 @@
 	var/static/list/blacklist_typecache = typecacheof(list(
 	/atom/movable/screen,
 	/obj/singularity,
+	/obj/energy_ball,
+	/obj/eldritch/narsie,
 	/mob/living/simple_animal/hostile/morph,
 	/obj/effect,
 	/mob/camera
