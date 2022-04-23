@@ -310,7 +310,7 @@
 
 /obj/item/xenoartifact/proc/get_trait(typepath) //Returns the desired trait and it's values if it's in the artifact's
 	for(var/datum/xenoartifact_trait/T in traits)
-		if(T == typepath)
+		if(istype(T, typepath)) //Using  == here breaks it
 			return T
 	return FALSE
 

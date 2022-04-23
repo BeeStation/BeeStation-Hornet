@@ -57,8 +57,8 @@
 	if(X.process_type != LIT && X.manage_cooldown(TRUE)) //Generally artifact should handle cooldown schmuck. Please don't do this.
 		sleep(1 SECONDS)
 		X.visible_message("<span class='danger'>The [X.name] sparks on.</span>")
-		X.AddComponent(/datum/component/overlay_lighting, X.max_range, 0.1, X.light_color)
 		sleep(2 SECONDS)
+		X.set_light(2)
 		X.process_type = LIT
 		START_PROCESSING(SSobj, X)
 	return charge+(heat*0.03)
@@ -174,7 +174,7 @@
 /datum/xenoartifact_trait/minor/dense //Makes the artifact unable to be picked up. Associated with better charge modifers.
 	desc = "Dense"
 	label_desc = "Dense: The Artifact is dense and cannot be easily lifted but, the design has a slightly higher reaction rate."
-	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable, /datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/light, /datum/xenoartifact_trait/minor/heavy, /datum/xenoartifact_trait/minor/blocking)
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable, /datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/light, /datum/xenoartifact_trait/minor/heavy)
 
 /datum/xenoartifact_trait/minor/dense/on_init(obj/item/xenoartifact/X)
 	//if(istype(X,  /obj/structure/xenoartifact)) This isn't needed.
@@ -330,11 +330,12 @@
 	..()
 
 /datum/xenoartifact_trait/minor/aura/activate(obj/item/xenoartifact/X)
-	for(var/mob/living/M in orange(min(X.max_range, 5), get_turf(X.loc)))
-		if(!(M in X.true_target))
-			X.true_target += M
-	for(var/obj/item/M in orange(min(X.max_range, 5), get_turf(X.loc)))
-		if(!(M in X.true_target) && !(M.anchored))
+	X.true_target = list()
+	for(var/mob/living/M in oview(clamp(X.max_range, 3, 5), get_turf(X.loc))) //Look for mobs
+		X.true_target += M
+		X.say(M)
+	for(var/obj/M in oview(clamp(X.max_range, 3, 5), get_turf(X.loc))) //Look for items
+		if(!(M.anchored))
 			X.true_target += M
 	..()
 
@@ -428,37 +429,26 @@
 	var/fren
 
 /datum/xenoartifact_trait/major/capture/on_init(obj/item/xenoartifact/X)
-	if(prob(1)) //1% chance for a surprise friend :)
-		fren = TRUE //spawning the russian now causes issues
+	if(prob(0.01)) 
+		fren = TRUE
 	..()
 
-/datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, mob/target)
-	arrest(X, target)
-	addtimer(CALLBACK(src, .proc/release, X), X.charge*0.3 SECONDS)
+/datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, atom/target)
+	if(!ismovable(target))
+		return
+	var/atom/movable/AM = target
+	AM.anchored = TRUE
+	AM.forceMove(X)
+	addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.3 SECONDS)
 	X.cooldownmod = X.charge*0.6 SECONDS
 	..()
 
-/datum/xenoartifact_trait/major/capture/proc/arrest(obj/item/xenoartifact/X, mob/target)
-	if(istype(target, /mob/living))
-		if(isliving(X.loc))
-			var/mob/living/dropper
-			dropper.dropItemToGround(X, TRUE, TRUE)
-		var/atom/movable/AM = target
-		AM.anchored = TRUE
-		AM.forceMove(X) //Go to the mega gay zone
-		return AM
-	else    
-		return
-
-/datum/xenoartifact_trait/major/capture/proc/release(obj/item/xenoartifact/X)
-	var/atom/movable/AM
-	for(var/mob/living/M in X.contents)
-		AM = M
-		var/turf/T = get_turf(X.loc)
-		AM.anchored = FALSE
-		AM.forceMove(T)
-	if(fren)
-		new /mob/living/simple_animal/hostile/russian(X.loc) //Сталкер Я знайшов артефакт!
+/datum/xenoartifact_trait/major/capture/proc/release(obj/item/xenoartifact/X, var/atom/movable/AM) //Empty contents
+	var/turf/T = get_turf(X.loc)
+	AM.anchored = FALSE
+	AM.forceMove(T)
+	if(!fren)
+		new /mob/living/simple_animal/hostile/russian(T)
 		fren = FALSE
 
 /datum/xenoartifact_trait/major/shock
@@ -699,11 +689,12 @@
 	label_name = "Lamp"
 	label_desc = "Lamp: The Artifact emits light. Nothing in its shape suggests this."
 	var/light_mod
+	var/light_color
 
 /datum/xenoartifact_trait/major/lamp/on_init(obj/item/xenoartifact/X)
 	. = ..()
 	X.light_system = MOVABLE_LIGHT
-	X.light_color = pick(LIGHT_COLOR_FIRE, LIGHT_COLOR_BLUE, LIGHT_COLOR_GREEN, LIGHT_COLOR_RED, LIGHT_COLOR_ORANGE, LIGHT_COLOR_PINK, LIGHT_COLOR_WHITE)
+	light_color = pick(LIGHT_COLOR_FIRE, LIGHT_COLOR_BLUE, LIGHT_COLOR_GREEN, LIGHT_COLOR_RED, LIGHT_COLOR_ORANGE, LIGHT_COLOR_PINK, LIGHT_COLOR_WHITE)
 	if(prob(0.1))
 		X.icon_state = "IB902"
 		X.generate_icon(X.icon, "IBL902", X.material)
@@ -714,7 +705,7 @@
 
 /datum/xenoartifact_trait/major/lamp/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	. = ..()
-	X.AddComponent(/datum/component/overlay_lighting, 1.4+(X.charge*0.5), max(X.charge*0.05, 0.1), X.light_color)
+	X.AddComponent(/datum/component/overlay_lighting, 1.4+(X.charge*0.5), max(X.charge*0.05, 0.1), light_color)
 	addtimer(CALLBACK(src, .proc/unlight, X), (X.charge*0.6) SECONDS)
 	X.cooldownmod = (X.charge*0.6) SECONDS
 
@@ -727,7 +718,7 @@
 
 /datum/xenoartifact_trait/major/lamp/dark/on_init(obj/item/xenoartifact/X)
 	X.light_system = MOVABLE_LIGHT
-	X.light_color = "#000000"
+	light_color = "#000000"
 	if(prob(0.01)) //It's hard to explain
 		X.icon_state = "IB901"
 		X.icon_slots[1] = ""
@@ -737,7 +728,7 @@
 
 /datum/xenoartifact_trait/major/lamp/dark/activate(obj/item/xenoartifact/X)
 	for(var/C in 1 to 3)
-		X.AddComponent(/datum/component/overlay_lighting/dupable, 1.4+(X.charge*0.7), max(X.charge*0.05, 0.1), X.light_color)
+		X.AddComponent(/datum/component/overlay_lighting/dupable, 1.4+(X.charge*0.7), max(X.charge*0.05, 0.1), light_color)
 		addtimer(CALLBACK(src, .proc/unlight, X), (X.charge*0.6) SECONDS)
 		X.cooldownmod = (X.charge*0.6) SECONDS
 		
