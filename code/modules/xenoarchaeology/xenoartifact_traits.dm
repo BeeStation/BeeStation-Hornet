@@ -295,12 +295,10 @@
 	range = Z.max_range
 
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
-	for(var/mob/M in targets)
+	for(var/atom/M in targets)
 		if(xeno)
-			xeno.true_target = M
-			xeno.charge = 0
-			xeno.check_charge(xeno, xeno.charge_req)
-			charge_max = xeno.cooldown+xeno.cooldownmod
+			xeno.true_target = list(M)
+			xeno.default_activate(xeno.charge_req)
 
 /datum/xenoartifact_trait/minor/delicate //Limited uses.
 	desc = "Fragile"
@@ -631,7 +629,7 @@
 		var/obj/item/laser_pointer/L = item
 		if(!L.energy)
 			return
-		to_chat(user, "<span class='info'>The [item.name]'s light passes through the strucutre.</span>")
+		to_chat(user, "<span class='info'>The [item.name]'s light passes through the structure.</span>")
 		return TRUE
 
 /datum/xenoartifact_trait/major/invisible/activate(obj/item/xenoartifact/X, mob/living/target)
@@ -843,7 +841,7 @@
 
 /datum/xenoartifact_trait/malfunction/bear //makes bears
 	label_name = "P.B.R" 
-	label_desc = "Parralel bearspace retrieval: A strange malfunction causes the Artifact to open a gateway to deep bearspace."
+	label_desc = "Parallel Bearspace Retrieval: A strange malfunction causes the Artifact to open a gateway to deep bearspace."
 
 /datum/xenoartifact_trait/malfunction/bear/activate(obj/item/xenoartifact/X)
 	if(!prob(33))

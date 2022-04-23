@@ -198,6 +198,17 @@
 		return
 	radio_connection.post_signal(src, signal)
 
+/obj/structure/xenoartifact/proc/default_activate(chr, mob/user) //used for some stranger cases. Item specific cases that don't fall under the default templates. See battery activator.
+	if(!(manage_cooldown(TRUE)))
+		return
+	charge = chr
+	if(user)
+		true_target += list(process_target(user))
+		check_charge(user)
+		return
+	true_target += list(get_proximity(max_range))
+	check_charge()
+
 /obj/structure/xenoartifact/receive_signal(datum/signal/signal)
 	if(!(manage_cooldown(TRUE)) || !signal || signal.data["code"] != code)
 		return
