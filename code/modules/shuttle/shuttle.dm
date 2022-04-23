@@ -264,10 +264,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 	area_type = SHUTTLE_DEFAULT_SHUTTLE_AREA_TYPE
 
-	FASTDMM_PROP(\
-		pinned_vars = list("name", "id", "dynamic_id", "width", "dwidth", "height", "dheight")\
-	)
-
 	var/list/shuttle_areas
 
 	///used as a timer (if you want time left to complete move, use timeLeft proc)
