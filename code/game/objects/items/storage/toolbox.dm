@@ -83,6 +83,14 @@
 	has_latches = FALSE
 	material_flags = MATERIAL_NO_COLOR
 
+/obj/item/storage/toolbox/mechanical/old/heirloom
+	name = "toolbox" //this will be named "X family toolbox"
+	desc = "It's seen better days."
+	force = 5
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/toolbox/mechanical/old/heirloom/PopulateContents()
+	return
 
 /obj/item/storage/toolbox/mechanical/old/clean
 	name = "toolbox"
