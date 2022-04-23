@@ -409,7 +409,7 @@
 	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM || user == src))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(src == user)
-			to_chat(user, "<span class='notice'>Safety mechanisms prevent you from turning your welding tool on yourself.</span>")
+			to_chat(user, "<span class='notice'>Safety mechanisms prevent you from directing your welder at yourself.</span>")
 			return
 		if (!getBruteLoss())
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
