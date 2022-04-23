@@ -294,7 +294,7 @@
 
 	if(!malf)
 		return
-	var/list/malfs = list(null)
+	var/list/malfs = list()
 	for(var/T in allowed_traits)
 		new_trait = new T
 		if(istype(new_trait, /datum/xenoartifact_trait/malfunction) && !(new_trait != /datum/xenoartifact_trait/malfunction))
