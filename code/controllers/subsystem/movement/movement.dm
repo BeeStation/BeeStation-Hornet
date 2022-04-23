@@ -20,9 +20,9 @@ SUBSYSTEM_DEF(movement)
 
 /datum/controller/subsystem/movement/stat_entry(msg)
 	var/total_len = 0
-	for(var/list/bucket as anything in sorted_buckets)
-		total_len += length(bucket[MOVEMENT_BUCKET_LIST])
-	msg = "B:[length(sorted_buckets)] E:[total_len]"
+	for(var/list/bucket_time as anything in buckets)
+		total_len += length(buckets[bucket_time])
+	msg = "B:[total_len]"
 	return ..()
 
 /datum/controller/subsystem/movement/Recover()
@@ -33,21 +33,19 @@ SUBSYSTEM_DEF(movement)
 
 	var/datum/controller/subsystem/movement/old_version = global.vars["SS[our_name]"]
 	buckets = old_version.buckets
-	sorted_buckets = old_version.sorted_buckets
 
 /datum/controller/subsystem/movement/fire(resumed)
 	if(!resumed)
 		canonical_time = world.time
 
-	for(var/list/bucket_info as anything in sorted_buckets)
-		var/time = bucket_info[MOVEMENT_BUCKET_TIME]
-		if(time > canonical_time || MC_TICK_CHECK)
+	for(var/bucket_time as anything in buckets)
+		if(text2num(bucket_time) > canonical_time || MC_TICK_CHECK)
 			return
-		pour_bucket(bucket_info)
+		pour_bucket(bucket_time)
 
 /// Processes a bucket of movement loops (This should only ever be called by fire(), it exists to prevent runtime fuckery)
-/datum/controller/subsystem/movement/proc/pour_bucket(list/bucket_info)
-	var/list/processing = bucket_info[MOVEMENT_BUCKET_LIST] // Cache for lookup speed
+/datum/controller/subsystem/movement/proc/pour_bucket(bucket_time)
+	var/list/processing = buckets[bucket_time] // Cache for lookup speed
 	while(processing.len)
 		var/datum/move_loop/loop = processing[processing.len]
 		processing.len--
@@ -55,39 +53,33 @@ SUBSYSTEM_DEF(movement)
 		if(!QDELETED(loop)) //Re-Insert the loop
 			loop.timer = world.time + loop.delay
 			queue_loop(loop)
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			break
 	if(length(processing))
 		return // Still work to be done
-	var/bucket_time = bucket_info[MOVEMENT_BUCKET_TIME]
-	smash_bucket(1, bucket_time) // We assume we're the first bucket in the queue right now
+	smash_bucket(bucket_time)
 	visual_delay = MC_AVERAGE_FAST(visual_delay, max((world.time - canonical_time) / wait, 1))
 
 /// Removes a bucket from our system. You only need to pass in the time, but if you pass in the index of the list you save us some work
-/datum/controller/subsystem/movement/proc/smash_bucket(index, bucket_time, bucket)
-	if(index && !bucket)
-		sorted_buckets.Cut(index, index + 1) //Removes just this list
-	else
-		sorted_buckets -= bucket
+/datum/controller/subsystem/movement/proc/smash_bucket(bucket_time)
 	//Removes the assoc lookup too
 	buckets -= "[bucket_time]"
 
 /datum/controller/subsystem/movement/proc/queue_loop(datum/move_loop/loop)
 	var/target_time = loop.timer
 	var/string_time = "[target_time]"
-	if(buckets[string_time])
+	if(string_time in buckets)
 		buckets[string_time] += loop
 	else
-		buckets[string_time] = list(loop)
-		// This makes buckets and sorted buckets point to the same place, allowing for quicker inserts
-		var/list/new_bucket = list(list(target_time, buckets[string_time]))
-		BINARY_INSERT_DEFINE(new_bucket, sorted_buckets, SORT_VAR_NO_TYPE, list(target_time), SORT_FIRST_INDEX, COMPARE_KEY)
+		//this acts as a sorted and assoc list at the same time
+		BINARY_INSERT_DEFINE(list("[string_time]" = null), buckets, SORT_VAR_NO_TYPE, target_time, SORT_ASSOC_VALUE, COMPARE_KEY)
+		buckets[string_time] += list(loop) //this is stupid but if we don't do it like that we can sometimes end up with empty list entries without loops
 
 /datum/controller/subsystem/movement/proc/dequeue_loop(datum/move_loop/loop)
 	var/list/our_entries = buckets["[loop.timer]"]
 	our_entries -= loop
-	if(our_entries && !length(our_entries))
-		smash_bucket(bucket_time = loop.timer, bucket = our_entries) // We can't pass an index in for context because we don't know our position
+	if(!(our_entries.len))
+		smash_bucket(loop.timer)
 
 /datum/controller/subsystem/movement/proc/add_loop(datum/move_loop/add)
 	add.start_loop()
