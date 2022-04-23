@@ -80,14 +80,6 @@
 				else
 					message_admins("[key_name_admin(usr)] tried to create [maxCount] changelings. Unfortunately, there were no candidates available.")
 					log_admin("[key_name(usr)] failed to create [maxCount] changelings.")
-			if("obsessed")
-				var/maxCount = input("Set number of Obsessed","Set Obsessed Count (max)", 1) as num|null
-				if(src.makeObsessed(maxCount))
-					message_admins("[key_name_admin(usr)] created [maxCount] obsessed.")
-					log_admin("[key_name(usr)] created [maxCount] obsessed.")
-				else
-					message_admins("[key_name_admin(usr)] tried to create [maxCount] obsessed. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(usr)] failed to create [maxCount] obsessed.")
 			if("revs")
 				var/maxCount = input("Set number of Revolutionaries","Set Revolutionaries Count (max)", 1) as num|null
 				if(src.makeRevs(maxCount))

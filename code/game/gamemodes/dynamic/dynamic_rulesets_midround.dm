@@ -233,7 +233,6 @@
 	repeatable = TRUE
 
 /datum/dynamic_ruleset/midround/obsessed/acceptable(population = 0, threat = 0)
-	..()
 	var/player_count = mode.current_players[CURRENT_LIVING_PLAYERS].len
 	var/antag_count = mode.current_players[CURRENT_LIVING_ANTAGS].len
 	var/max_obsessed= round(player_count / 15) + 1
@@ -251,6 +250,7 @@
 	return ..()
 
 /datum/dynamic_ruleset/midround/obsessed/trim_candidates()
+	..()
 	for(var/mob/living/player in living_players)
 		if(issilicon(player)) // Your assigned role doesn't change when you are turned into a silicon.
 			living_players -= player

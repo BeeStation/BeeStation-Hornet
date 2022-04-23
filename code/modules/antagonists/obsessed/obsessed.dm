@@ -34,15 +34,17 @@
 	//We need to find target first before calling parent here
 	. = ..()
 	forge_objectives()
-	RegisterSignal(owner.current, COMSIG_GLOB_MOB_DEATH, .proc/OnDeath)
-	RegisterSignal(owner.current, COMSIG_LIVING_REVIVE, .proc/OnRevival)
-	RegisterSignal(human_target, COMSIG_PARENT_QDELETING, .proc/TargetDeleted)
+	RegisterSignal(owner.current, COMSIG_MOB_DEATH, .proc/on_death)
+	RegisterSignal(owner.current, COMSIG_LIVING_REVIVE, .proc/on_revival)
+	RegisterSignal(human_target, COMSIG_PARENT_QDELETING, .proc/target_deleted)
+	RegisterSignal(target, COMSIG_MIND_CRYOED, .proc/on_obsession_cryoed)
 	START_PROCESSING(SSprocessing, src)
 
 /datum/antagonist/obsessed/on_removal()
 	STOP_PROCESSING(SSprocessing, src)
-	UnregisterSignal(owner.current, COMSIG_GLOB_MOB_DEATH)
+	UnregisterSignal(owner.current, COMSIG_MOB_DEATH)
 	UnregisterSignal(owner.current, COMSIG_LIVING_REVIVE)
+	UnregisterSignal(owner.current, COMSIG_MIND_CRYOED)
 	if(human_target)
 		UnregisterSignal(human_target, COMSIG_PARENT_QDELETING)
 		if(!seen_alive && human_target.stat != DEAD)
@@ -55,7 +57,7 @@
 /datum/antagonist/obsessed/process(delta_time)
 	if(get_dist(get_turf(owner.current), get_turf(human_target)) > 7)//we're simply out of range
 		if(seen_alive)	//we know our target lives
-			time_spent_away += SSprocessing.wait * delta_time
+			time_spent_away += delta_time * 10
 			if(time_spent_away > 3 MINUTES)
 				SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "obsession", /datum/mood_event/notcreepingsevere)
 			else
@@ -67,38 +69,60 @@
 		if(human_target.stat == DEAD)	//we saw them dead
 			seen_alive = FALSE
 			to_chat(owner, "<span class='danger'>[human_target.real_name] is dead!")
-			RegisterSignal(human_target, COMSIG_LIVING_REVIVE, .proc/OnTargetRevive)
+			RegisterSignal(human_target, COMSIG_LIVING_REVIVE, .proc/on_target_revive)
 			STOP_PROCESSING(SSprocessing, src)
 		else if(!seen_alive)
 			to_chat(owner, "<span class='danger'>[human_target.real_name] is alive again!")
 			seen_alive = TRUE	//we saw them alive again
-		total_time_stalking += SSprocessing.wait * delta_time
+		total_time_stalking += delta_time * 10
 		time_spent_away = 0
 	else if(seen_alive)		//we're near so we acumulate the time slower
-		time_spent_away += SSprocessing.wait * delta_time / 2
+		time_spent_away += delta_time * 5
 
-/datum/antagonist/obsessed/proc/OnDeath()
+/datum/antagonist/obsessed/proc/on_death()
 	SIGNAL_HANDLER
 	STOP_PROCESSING(SSprocessing, src)
 
-/datum/antagonist/obsessed/proc/OnRevival()
+/datum/antagonist/obsessed/proc/on_revival()
 	SIGNAL_HANDLER
 	START_PROCESSING(SSprocessing, src)
 
-/datum/antagonist/obsessed/proc/OnTargetRevive()
+/datum/antagonist/obsessed/proc/on_target_revive()
 	SIGNAL_HANDLER
 	if(!owner.current.stat == DEAD)
 		return
 	START_PROCESSING(SSprocessing, src)
 	UnregisterSignal(human_target, COMSIG_LIVING_REVIVE)
 
-/datum/antagonist/obsessed/proc/TargetDeleted()
+/datum/antagonist/obsessed/proc/target_deleted()
 	SIGNAL_HANDLER
 	if(!seen_alive && human_target.stat != DEAD)
 		UnregisterSignal(human_target, COMSIG_LIVING_REVIVE)
 	human_target = null
 	seen_alive = FALSE
 	STOP_PROCESSING(SSprocessing, src)
+
+/datum/antagonist/obsessed/proc/on_obsession_cryoed()
+	SIGNAL_HANDLER
+	UnregisterSignal(owner.current, COMSIG_MIND_CRYOED)
+	if(human_target)
+		UnregisterSignal(human_target, COMSIG_PARENT_QDELETING)
+		if(!seen_alive && human_target.stat != DEAD)
+			UnregisterSignal(human_target, COMSIG_LIVING_REVIVE)
+
+	for(var/objective in objectives)
+		remove_objective(objective)
+	find_target()
+	if(!target)
+		qdel(src)
+		return
+
+	to_chat(owner, "<span class='userdanger'>The voices chose new target for us!</span>")
+	to_chat(owner, "<span class='userdanger'>Our new target is [target]!</span>")
+	to_chat(owner, "<span class='info'>Objectives updated.</span>")
+	forge_objectives()
+	RegisterSignal(human_target, COMSIG_PARENT_QDELETING, .proc/target_deleted)
+	RegisterSignal(target, COMSIG_MIND_CRYOED, .proc/on_obsession_cryoed)
 
 /datum/antagonist/obsessed/proc/add_objective(datum/objective/O, modify_target = TRUE)
 	O.owner = owner
@@ -156,12 +180,14 @@
 /datum/antagonist/obsessed/proc/find_target()
 	var/list/possible_targets = list()
 
-	//I'm going to assume every mob in player list has a mind attached to it
-	for(var/mob/M as() in GLOB.player_list)
-		if(M.stat == DEAD || !ishuman(M) || M.mind.antag_datums?.len || M.mind == owner)	//It's better for antags to not become targets of obsession
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
+	//It's better for antags to not become targets of obsession
+		if(H.stat == DEAD || H.mind == owner || H == human_target || H.mind.antag_datums?.len)
 			continue
-		possible_targets |= M
+		possible_targets |= H
 
+	human_target = null
+	target = null
 	if(!possible_targets.len)
 		return
 	human_target = pick(possible_targets)
@@ -217,7 +243,7 @@
 /datum/objective/assassinate/jealous/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Murder [target.name], their coworker."
+		explanation_text = "Murder [target.name], your target's coworker."
 
 /datum/objective/assassinate/jealous/proc/find_coworker(datum/mind/oldmind)
 	if(!oldmind.assigned_role)
@@ -248,14 +274,14 @@
 			continue
 		other_coworkers += H.mind
 
-	var/mob/living/carbon/human/H
+	var/datum/mind/M
 	if(prefered_coworkers.len)//find someone in the same department
-		H = pick(prefered_coworkers)
+		M = pick(prefered_coworkers)
 	else if(other_coworkers.len)//find someone who works on the station
-		H = pick(other_coworkers)
+		M = pick(other_coworkers)
 
-	if(H)
-		target = H.mind
+	if(M)
+		target = M
 		return
 
 /datum/objective/spendtime //spend some time around someone, handled by the obsessed trauma since that ticks

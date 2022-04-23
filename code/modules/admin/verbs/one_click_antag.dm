@@ -13,7 +13,6 @@
 	var/dat = {"
 		<a href='?src=[REF(src)];[HrefToken()];makeAntag=traitors'>Make Traitors</a><br>
 		<a href='?src=[REF(src)];[HrefToken()];makeAntag=changelings'>Make Changelings</a><br>
-		<a href='?src=[REF(src)];[HrefToken()];makeAntag=obsessed'>Make Obsessed</a><br>
 		<a href='?src=[REF(src)];[HrefToken()];makeAntag=revs'>Make Revs</a><br>
 		<a href='?src=[REF(src)];[HrefToken()];makeAntag=cult'>Make Cult</a><br>
 		<a href='?src=[REF(src)];[HrefToken()];makeAntag=blob'>Make Blob</a><br>
@@ -71,30 +70,6 @@
 		for(var/i in 1 to numTraitors)
 			H = pick(candidates)
 			H.mind.make_Traitor()
-			candidates.Remove(H)
-
-		return TRUE
-	return FALSE
-
-/datum/admins/proc/makeObsessed(maxCount = 3)
-	//We're using the same list as traitors
-	var/datum/game_mode/traitor/temp = new
-	var/list/mob/living/carbon/human/candidates = list()
-	var/mob/living/carbon/human/H = null
-
-	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(!isReadytoRumble(applicant, ROLE_OBSESSED))
-			continue
-		if(!temp.age_check(applicant.client) || (applicant.job in temp.restricted_jobs))
-			continue
-		candidates += applicant
-
-	if(candidates.len)
-		maxCount = min(candidates.len, maxCount)
-
-		for(var/i in 1 to maxCount)
-			H = pick(candidates)
-			H.mind.add_antag_datum(/datum/antagonist/obsessed)
 			candidates.Remove(H)
 
 		return TRUE
