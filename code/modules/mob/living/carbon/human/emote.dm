@@ -145,8 +145,14 @@
 	if(!..())
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	if(H.dna && H.dna.species && (H.dna.features["wings"] != "None" || H.dna.features["moth_wings"] != "None"))
-		return TRUE
+	if(H.dna && H.dna.species)
+		if(H.dna.features["wings"] != "None")
+			return TRUE
+		if(H.dna.features["moth_wings"] != "None")
+			var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
+			if(H.getorgan(/obj/item/organ/wings))
+				if(wings.flight_level >= WINGS_FLYING)
+					return TRUE
 
 /mob/living/carbon/human/proc/Togglewings()
 	if(!dna || !dna.species)
