@@ -15,10 +15,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinonfar"
 
-	FASTDMM_PROP(\
-		pinned_vars = list("name", "id", "width", "dwidth", "height", "dheight")\
-	)
-
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE
 	/// The identifier of the port or ship.
