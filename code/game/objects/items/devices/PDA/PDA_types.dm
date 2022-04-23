@@ -172,6 +172,7 @@
 /obj/item/pda/caa
 	name = "corporate affairs agent PDA"
 	default_cartridge = /obj/item/cartridge/caa
+	inserted_item = /obj/item/pen/fountain
 	icon_state = "pda-caa"
 
 /obj/item/pda/botanist
