@@ -67,7 +67,8 @@
 							/datum/xenoartifact_trait/major/corginator,/datum/xenoartifact_trait/activator/clock,
 							/datum/xenoartifact_trait/major/invisible,/datum/xenoartifact_trait/major/handmore,
 							/datum/xenoartifact_trait/major/lamp, /datum/xenoartifact_trait/major/forcefield,
-							/datum/xenoartifact_trait/activator/signal,/datum/xenoartifact_trait/major/heal))
+							/datum/xenoartifact_trait/activator/signal,/datum/xenoartifact_trait/major/heal,
+							/datum/xenoartifact_trait/activator/signal, /datum/xenoartifact_trait/activator/batteryneed))
 			if(!xenop.price)
 				xenop.price = pick(200, 300, 500)
 			malfunction_mod = 2
