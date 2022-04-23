@@ -140,8 +140,6 @@
 				break
 		manage_cooldown()   
 	charge = 0
-	for(var/atom/A in true_target)
-		qdel(A)
 	true_target = list() //i think this shrinks the size back down? not sure if Dm handles it.
 
 /obj/structure/xenoartifact/proc/manage_cooldown(checking = FALSE)

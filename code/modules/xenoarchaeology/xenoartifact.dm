@@ -223,30 +223,8 @@
 				break
 		manage_cooldown()   
 	charge = 0
-	for(var/atom/A in true_target)
-		qdel(A)
 	true_target = list() //i think this shrinks the size back down? not sure if Dm handles it.
 
-/obj/item/xenoartifact/proc/manage_cooldown(checking = FALSE)
-	if(!usedwhen)
-		if(!(checking))
-			usedwhen = world.time //Should I be using a different measure here?
-		return TRUE
-	else if(usedwhen + cooldown + cooldownmod < world.time)
-		cooldownmod = 0
-		usedwhen = null
-		return TRUE
-	else 
-		return FALSE
-
-/*
-	generate_traits() is used to, as you'd guess, generate traits for the artifact. 
-	The argument passed is a list of blacklisted traits you don't your artifact to have, allowing
-	for a defenition of artifact types.
-	The process also generates some partial hints, like a touch description and science-glasses description(special_desc)
-	malf is an option to nab a malfunction trait on init. See URANIUM types.
-*/
-/obj/item/xenoartifact/proc/generate_traits(list/blacklist_traits, malf = FALSE)
 /obj/item/xenoartifact/proc/manage_cooldown(checking = FALSE)
 	if(!usedwhen)
 		if(!(checking))
@@ -270,16 +248,14 @@
 	var/datum/xenoartifact_trait/new_trait
 	
 	var/list/allowed_traits = list()
-	allowed_traits = subtypesof(/datum/xenoartifact_trait/activator)+subtypesof(/datum/xenoartifact_trait/minor)+subtypesof(/datum/xenoartifact_trait/major)+subtypesof(/datum/xenoartifact_trait/malfunction)
+	allowed_traits = subtypesof(/datum/xenoartifact_trait)
 	allowed_traits -= blacklist_traits
 
-	var/list/activators = list()
+	var/list/activators = list(null)
 	for(var/T in allowed_traits)
 		new_trait = new T
-		if(istype(new_trait, /datum/xenoartifact_trait/activator))
+		if(istype(new_trait, /datum/xenoartifact_trait/activator) && !(new_trait != /datum/xenoartifact_trait/activator))
 			activators += T
-	if(!activators)
-		return
 	new_trait = pick(activators)
 	allowed_traits -= new_trait
 	traits[1] = new new_trait
@@ -287,14 +263,12 @@
 	special_desc = traits[1].desc ? "[special_desc] [traits[1].desc]" : "[special_desc]"
 
 	var/minor_desc
-	var/list/minors = list()
+	var/list/minors = list(null)
 	for(var/X in 2 to 4)//Minors
 		for(var/T in allowed_traits)
 			new_trait = new T
-			if(istype(new_trait, /datum/xenoartifact_trait/minor))
+			if(istype(new_trait, /datum/xenoartifact_trait/minor) && !(new_trait != /datum/xenoartifact_trait/minor))
 				minors += T
-		if(!minors)
-			return
 		new_trait = pick(minors)
 		allowed_traits -= new_trait
 		traits[X] = new new_trait
@@ -305,13 +279,11 @@
 			minor_desc = traits[X].desc
 	special_desc = minor_desc ? "[special_desc] [minor_desc] material." : "[special_desc] material."
 
-	var/list/majors = list()
+	var/list/majors = list(null)
 	for(var/T in allowed_traits)
 		new_trait = new T
-		if(istype(new_trait, /datum/xenoartifact_trait/major))
+		if(istype(new_trait, /datum/xenoartifact_trait/major) && !(new_trait != /datum/xenoartifact_trait/major))
 			majors += T
-	if(!majors)
-		return
 	new_trait = pick(majors)
 	allowed_traits -= new_trait
 	traits[5] = new new_trait
@@ -325,10 +297,8 @@
 	var/list/malfs = list(null)
 	for(var/T in allowed_traits)
 		new_trait = new T
-		if(istype(new_trait, /datum/xenoartifact_trait/malfunction))
+		if(istype(new_trait, /datum/xenoartifact_trait/malfunction) && !(new_trait != /datum/xenoartifact_trait/malfunction))
 			malfs += T
-	if(!malfs)
-		return
 	new_trait = pick(malfs)
 	traits[6] = new new_trait
 	

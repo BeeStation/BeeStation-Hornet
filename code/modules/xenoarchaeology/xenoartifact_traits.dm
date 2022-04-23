@@ -271,7 +271,7 @@
         var/mob/dead/observer/C = pick(candidates)
         var/mob/living/simple_animal/H = new /mob/living/simple_animal(get_turf(X))
         H.key = C.key
-        ADD_TRAIT(H, TRAIT_NOBREATH, TRAIT_SIXTHSENSE)
+        ADD_TRAIT(H, TRAIT_NOBREATH, TRAIT_MUTE)
         H.forceMove(X)
         H.anchored = TRUE
         var/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/xeno_senitent_action
