@@ -61,15 +61,9 @@ SUBSYSTEM_DEF(atoms)
 		testing("Late initialized [late_loaders.len] atoms")
 		late_loaders.Cut()
 
-	if (created_atoms)
+	if(created_atoms)
 		atoms_to_return += created_atoms
 		created_atoms = null
-
-	for (var/queued_deletion in queued_deletions)
-		qdel(queued_deletion)
-
-	testing("[queued_deletions.len] atoms were queued for deletion.")
-	queued_deletions.Cut()
 
 #ifdef PROFILE_MAPLOAD_INIT_ATOM
 	rustg_file_write(json_encode(mapload_init_times), "[GLOB.log_directory]/init_times.json")
