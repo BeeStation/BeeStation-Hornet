@@ -18,7 +18,7 @@ SUBSYSTEM_DEF(movement)
 
 /datum/controller/subsystem/movement/stat_entry(msg)
 	var/total_len = 0
-	for(var/list/bucket_time as anything in buckets)
+	for(var/bucket_time as anything in buckets)
 		total_len += length(buckets[bucket_time])
 	msg = "B:[length(buckets)] E:[total_len]"
 	return ..()
