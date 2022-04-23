@@ -58,7 +58,7 @@ SUBSYSTEM_DEF(movement)
 	smash_bucket(bucket_time)
 	visual_delay = MC_AVERAGE_FAST(visual_delay, max((world.time - canonical_time) / wait, 1))
 
-/// Removes a bucket from our system. You only need to pass in the time, but if you pass in the index of the list you save us some work
+/// Removes a bucket from our system. You only need to pass in the time
 /datum/controller/subsystem/movement/proc/smash_bucket(bucket_time)
 	buckets -= "[bucket_time]" //removes the now empty assoc entry from the sorted assoc list
 
