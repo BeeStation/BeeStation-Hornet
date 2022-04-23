@@ -254,7 +254,7 @@
 
 /datum/objective/crew/pwrgame/New()
 	. = ..()
-	var/list/muhvalids = list(/obj/item/clothing/mask/gas, /obj/item/clothing/head/welding, /obj/item/clothing/head/ushanka, /obj/item/clothing/gloves/color/yellow, /obj/item/clothing/mask/gas/owl_mask)
+	var/list/muhvalids = list(/obj/item/clothing/head/welding, /obj/item/clothing/head/ushanka, /obj/item/clothing/gloves/color/yellow, /obj/item/clothing/mask/gas/owl_mask)
 	if(prob(10))
 		muhvalids += list(/obj/item/clothing/suit/space)
 	targettidegarb = pick(muhvalids)
