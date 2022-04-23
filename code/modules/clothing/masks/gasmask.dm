@@ -217,3 +217,6 @@
 	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of the older models."
 	icon_state = "gas_alt_old"
 	item_state = "gas_alt_old"
+
+/obj/item/clothing/mask/gas/old/heirloom
+	desc = "They don't make them like they they used to anymore."
