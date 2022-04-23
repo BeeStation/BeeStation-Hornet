@@ -11,8 +11,6 @@ SUBSYSTEM_DEF(movement)
 	*/
 	///Assoc list of "target time" -> list(things to process). Used for quick lookup
 	var/list/buckets = list()
-	///Sorted list of list(target time, bucket to process)
-	var/list/sorted_buckets = list()
 	///The time we started our last fire at
 	var/canonical_time = 0
 	///The visual delay of the subsystem
