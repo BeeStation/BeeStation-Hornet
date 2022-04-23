@@ -408,15 +408,14 @@
 /mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM || user == src))
 		user.changeNext_move(CLICK_CD_MELEE)
+		if(src == user)
+			to_chat(user, "<span class='notice'>Safety mechanisms prevent you from turning your welding tool on yourself.</span>")
+			return
 		if (!getBruteLoss())
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
 			return
 		if (!W.tool_start_check(user, amount=0)) //The welder has 1u of fuel consumed by it's afterattack, so we don't need to worry about taking any away.
 			return
-		if(src == user)
-			to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
-			if(!W.use_tool(src, user, 50))
-				return
 
 		adjustBruteLoss(-30)
 		updatehealth()
