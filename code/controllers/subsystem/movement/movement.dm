@@ -20,7 +20,7 @@ SUBSYSTEM_DEF(movement)
 	var/total_len = 0
 	for(var/list/bucket_time as anything in buckets)
 		total_len += length(buckets[bucket_time])
-	msg = "B:[total_len]"
+	msg = "B:[length(buckets)] E:[total_len]"
 	return ..()
 
 /datum/controller/subsystem/movement/Recover()
@@ -60,8 +60,7 @@ SUBSYSTEM_DEF(movement)
 
 /// Removes a bucket from our system. You only need to pass in the time, but if you pass in the index of the list you save us some work
 /datum/controller/subsystem/movement/proc/smash_bucket(bucket_time)
-	//Removes the assoc lookup too
-	buckets -= "[bucket_time]"
+	buckets -= "[bucket_time]" //removes the now empty assoc entry from the sorted assoc list
 
 /datum/controller/subsystem/movement/proc/queue_loop(datum/move_loop/loop)
 	var/target_time = loop.timer
