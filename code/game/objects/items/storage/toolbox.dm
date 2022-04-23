@@ -83,14 +83,20 @@
 	has_latches = FALSE
 	material_flags = MATERIAL_NO_COLOR
 
-/obj/item/storage/toolbox/mechanical/old/heirloom
-	name = "toolbox" //this will be named "X family toolbox"
-	desc = "It's seen better days."
+/obj/item/heirloomtoolbox //Not actually a toolbox at all, just an heirloom
+	name = "family toolbox"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "toolbox_blue_old"
+	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
+	flags_1 = CONDUCT_1
+	desc = "It may be rusted shut, but it's still an important keepsake of my grandfather."
 	force = 5
+	throw_speed = 2
+	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
-
-/obj/item/storage/toolbox/mechanical/old/heirloom/PopulateContents()
-	return
+	attack_verb = list("robusted")
+	hitsound = 'sound/weapons/smash.ogg'
 
 /obj/item/storage/toolbox/mechanical/old/clean
 	name = "toolbox"
