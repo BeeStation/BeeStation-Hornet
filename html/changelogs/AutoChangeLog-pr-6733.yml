@@ -1,4 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Hyposprays may be refilled after use again
