@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(movement)
 		This is intentional, as we loop our delays much more often then that ss is designed for
 		We also have much shorter term timers, so we need to worry about redundant buckets much less
 	*/
-	///Assoc list of "target time" -> list(things to process). Used for quick lookup
+	///Sorted Assoc list of "target time" -> list(things to process).
 	var/list/buckets = list()
 	///The time we started our last fire at
 	var/canonical_time = 0
