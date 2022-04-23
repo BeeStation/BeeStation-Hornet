@@ -333,7 +333,6 @@
 	X.true_target = list()
 	for(var/mob/living/M in oview(clamp(X.max_range, 3, 5), get_turf(X.loc))) //Look for mobs
 		X.true_target += M
-		X.say(M)
 	for(var/obj/M in oview(clamp(X.max_range, 3, 5), get_turf(X.loc))) //Look for items
 		if(!(M.anchored))
 			X.true_target += M
