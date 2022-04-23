@@ -65,7 +65,7 @@ SUBSYSTEM_DEF(movement)
 /datum/controller/subsystem/movement/proc/queue_loop(datum/move_loop/loop)
 	var/target_time = loop.timer
 	var/string_time = "[target_time]"
-	if(string_time in buckets)
+	if(islist(buckets[string_time]))
 		buckets[string_time] += loop
 	else
 		//this acts as a sorted and assoc list at the same time
