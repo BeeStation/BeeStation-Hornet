@@ -1,0 +1,4 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - bugfix: BoxStation bottom right airlock works again
