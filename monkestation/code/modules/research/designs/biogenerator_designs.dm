@@ -120,11 +120,11 @@
 	category = list("tier_three","Organic Materials")
 
 /datum/design/wig
-	name = "Random Wig"
+	name = "Wig"
 	id = "wig"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 4000)
-	build_path = /obj/item/clothing/head/wig/random
+	build_path = /obj/item/clothing/head/wig
 	category = list("tier_three","Clothing")
 
 /datum/design/bible

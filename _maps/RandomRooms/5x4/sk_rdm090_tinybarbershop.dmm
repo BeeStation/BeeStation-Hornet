@@ -99,7 +99,7 @@
 /obj/item/stack/sheet/iron/ten,
 /obj/item/chainsaw,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/item/clothing/head/wig/random,
+/obj/item/clothing/head/wig,
 /obj/item/radio,
 /obj/item/reagent_containers/medspray/spraytan,
 /turf/open/floor/plating,

@@ -84,7 +84,7 @@
 /obj/item/stack/sheet/iron/ten,
 /obj/item/chainsaw,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/item/clothing/head/wig/random,
+/obj/item/clothing/head/wig,
 /obj/item/reagent_containers/medspray/gamerspray,
 /obj/item/radio,
 /turf/open/floor/plating,
@@ -233,14 +233,14 @@
 /area/template_noop)
 "E" = (
 /obj/structure/table/wood,
-/obj/item/clothing/head/wig/random,
-/obj/item/clothing/head/wig/random,
+/obj/item/clothing/head/wig,
+/obj/item/clothing/head/wig,
 /turf/open/floor/monotile,
 /area/template_noop)
 "F" = (
 /obj/structure/table/wood,
 /obj/machinery/light/small,
-/obj/item/clothing/head/wig/random,
+/obj/item/clothing/head/wig,
 /turf/open/floor/monotile,
 /area/template_noop)
 

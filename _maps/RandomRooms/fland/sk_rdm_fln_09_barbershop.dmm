@@ -4,8 +4,8 @@
 /area/template_noop)
 "b" = (
 /obj/structure/table/wood,
-/obj/item/clothing/head/wig/random,
-/obj/item/clothing/head/wig/random,
+/obj/item/clothing/head/wig,
+/obj/item/clothing/head/wig,
 /turf/open/floor/plasteel/ameridiner,
 /area/template_noop)
 "c" = (
@@ -58,7 +58,7 @@
 /obj/item/stack/sheet/iron/ten,
 /obj/item/chainsaw,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/item/clothing/head/wig/random,
+/obj/item/clothing/head/wig,
 /obj/item/reagent_containers/medspray/spraytan,
 /obj/item/radio,
 /obj/machinery/light/small{
@@ -68,8 +68,8 @@
 /area/template_noop)
 "p" = (
 /obj/structure/table/wood,
-/obj/item/clothing/head/wig/random,
-/obj/item/clothing/head/wig/random,
+/obj/item/clothing/head/wig,
+/obj/item/clothing/head/wig,
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
