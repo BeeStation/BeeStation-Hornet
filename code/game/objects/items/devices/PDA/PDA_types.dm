@@ -186,6 +186,8 @@
 	note = "Congratulations, your -corrupted- has chosen the Thinktronic 5290 WGW-XL Series Personal Data Assistant!"
 	icon_state = "pda-syndi"
 	icon_alert = "pda-r-wide"
+	icon_pai = "pai-overlay-wide"
+	icon_inactive_pai = "pai-off-overlay-wide"
 	name = "military PDA"
 	owner = "John Doe"
 	detonatable = FALSE
@@ -212,6 +214,8 @@
 	name = "curator PDA"
 	icon_state = "pda-library"
 	icon_alert = "pda-r-wide"
+	icon_pai = "pai-overlay-wide"
+	icon_inactive_pai = "pai-off-overlay-wide"
 	default_cartridge = /obj/item/cartridge/curator
 	inserted_item = /obj/item/pen/fountain
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a WGW-11 series e-reader."
@@ -254,6 +258,9 @@
 	desc = "A shitty knockoff of a portable microcomputer by Thinktronic Systems, LTD. Complete with a cracked operating system."
 	note = "Error: Unlicensed OS. Please contact your supervisor."
 	icon_state = "pda-knockoff"
+	icon_alert = "pda-r-wide"
+	icon_pai = "pai-overlay-wide"
+	icon_inactive_pai = "pai-off-overlay-wide"
 	inserted_item = /obj/item/pen/charcoal
 
 /obj/item/pda/celebrity
