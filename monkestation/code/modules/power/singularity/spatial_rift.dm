@@ -1,8 +1,8 @@
-/// spatial rift
+/// Spatial Rift
 /// Basically a BoH Tear, but weaker because it spawns after nullifying a tesloose or singlo and those have done enough damage
 /obj/singularity/spatial_rift
 	name = "a small tear in the fabric of reality, a good place to stuff problems"
-	desc = "Your own comprehension of reality starts bending as you stare this."
+	desc = "Your own comprehension of reality starts bending as you stare at this."
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "boh_tear"
 	is_real = FALSE
@@ -14,30 +14,13 @@
 	grav_pull = 2
 	current_size = STAGE_FIVE
 	allowed_size = STAGE_FIVE
-	var/ghosts = list()
-	var/old_loc
+	obj_flags = CAN_BE_HIT | DANGEROUS_POSSESSION
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+
 
 /obj/singularity/spatial_rift/Initialize(mapload)
 	. = ..()
-	old_loc = get_turf(src)
-	addtimer(CALLBACK(src, /atom/movable.proc/moveToNullspace), 5 SECONDS) // vanishes after 5 seconds
-	QDEL_IN(src, 10 MINUTES)
-
-/// Retrieve all the items consumed
-/obj/singularity/spatial_rift/proc/retrieve_consumed_items()
-	for(var/atom/movable/content in contents)
-		content.forceMove(old_loc)
-		if(ismob(content))
-			var/mob/M = content
-			if(!M.mind)
-				continue
-			for(var/mob/dead/observer/ghost in ghosts)
-				if(ghost.mind == M.mind)
-					ghosts -= ghost
-					ghost.can_reenter_corpse = TRUE
-					ghost.reenter_corpse()
-					break
-	qdel(src)
+	QDEL_IN(src, 5 SECONDS) // vanishes after 5 seconds
 
 /obj/singularity/spatial_rift/process()
 	eat()
@@ -61,7 +44,7 @@
 
 /obj/singularity/spatial_rift/admin_investigate_setup()
 	var/turf/T = get_turf(src)
-	message_admins("A Spatial rift has been created at [ADMIN_VERBOSEJMP(T)]. [ADMIN_RETRIEVE_BOH_ITEMS(src)]")
+	message_admins("A Spatial rift has been created at [ADMIN_VERBOSEJMP(T)].]")
 	investigate_log("was created at [AREACOORD(T)].", INVESTIGATE_ENGINES)
 
 /obj/singularity/spatial_rift/attack_tk(mob/living/user)

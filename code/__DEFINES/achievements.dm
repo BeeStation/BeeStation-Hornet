@@ -7,6 +7,7 @@
 #define MEDAL_TIMEWASTE 		      "Overextended The Joke"
 #define MEDAL_RODSUPLEX 		      "Feat of Strength"
 #define MEDAL_SINGULARITY_DEATH       "Crossing the Horizon" // get eaten by a singularity
+#define MEDAL_SINGULARITY_BUSTER	  "The Lord Dethroned" // Singularity Nullified
 #define MEDAL_GET_CLUWNED             "KILLMEKILLMEKILLME" // get turned into a vile creature known as a cluwne
 #define MEDAL_USE_WEIGHT_MACHINE      "Survival of the Fittest"
 #define MEDAL_UNWRENCH_HIGH_PRESSURE  "WHOOSH!"
