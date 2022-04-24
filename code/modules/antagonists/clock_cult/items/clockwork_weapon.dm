@@ -56,7 +56,7 @@
 	force += force_buff
 	. = ..()
 	force -= force_buff
-	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.anti_magic_check(holy = TRUE, major=FALSE))
+	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.anti_magic_check(magic=FALSE,holy=TRUE,major=FALSE))
 		hit_effect(target, user)
 
 /obj/item/clockwork/weapon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -66,7 +66,7 @@
 	if(isliving(hit_atom))
 		var/mob/living/target = hit_atom
 		if(!.)
-			if(!target.anti_magic_check(holy = TRUE) && !is_servant_of_ratvar(target))
+			if(!target.anti_magic_check(magic=FALSE,holy=TRUE) && !is_servant_of_ratvar(target))
 				hit_effect(target, throwingdatum.thrower, TRUE)
 
 /obj/item/clockwork/weapon/proc/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)

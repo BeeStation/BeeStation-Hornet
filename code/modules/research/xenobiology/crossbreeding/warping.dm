@@ -327,7 +327,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 				break
 	if(C?.charge)
 		do_sparks(5,FALSE,C)
-		INVOKE_ASYNC(src, .proc/empulse, rune_turf, 1, 1)
+		INVOKE_ASYNC(src, .proc/empulse, rune_turf, 1, 1, FALSE, TRUE, FALSE)
 		C.use(C.charge)
 		activated_on_step = TRUE
 	. = ..()

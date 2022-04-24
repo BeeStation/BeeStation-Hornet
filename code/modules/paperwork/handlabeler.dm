@@ -4,6 +4,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "labeler0"
 	item_state = "flight"
+	w_class = WEIGHT_CLASS_TINY
 	var/label = null
 	var/labels_left = 30
 	var/mode = 0
