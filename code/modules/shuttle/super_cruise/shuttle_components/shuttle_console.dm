@@ -391,7 +391,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			if(params["port"] == "custom_location")
 				//Open up internal docking computer if any location is allowed.
 				if(shuttleObject.docking_target.can_dock_anywhere)
-					if(GLOB.shuttle_docking_jammed)
+					if(GLOB.shuttle_docking_jammed && !shuttleObject.stealth && istype(shuttleObject.docking_target, /datum/orbital_object/z_linked/station))
 						say("Shuttle docking computer jammed.")
 						return
 					if(current_user)
