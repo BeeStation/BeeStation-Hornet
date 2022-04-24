@@ -34,8 +34,10 @@
 
 /datum/computer_file/program/New(obj/item/modular_computer/comp = null)
 	..()
-	if(comp && istype(comp))
+	if(istype(comp))
 		computer = comp
+	else if(istype(holder?.holder, /obj/item/modular_computer))
+		computer = holder.holder
 
 /datum/computer_file/program/Destroy()
 	computer = null

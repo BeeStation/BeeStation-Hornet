@@ -4,6 +4,8 @@
 	filedesc = "Direct Messenger"
 	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "command"
+	// This should be running when the tablet is created, so it's minimized by default
+	program_state = PROGRAM_STATE_BACKGROUND
 	extended_desc = "This program allows old-school communication with other modular devices."
 	size = 8
 	usage_flags = PROGRAM_TABLET
@@ -286,20 +288,20 @@
 	var/list/message_data = list()
 	message_data["name"] = signal.data["name"]
 	message_data["job"] = signal.data["job"]
-	message_data["contents"] = html_decode(signal.data["message"])
+	message_data["contents"] = html_decode(signal.format_message())
 	message_data["outgoing"] = TRUE
 	message_data["ref"] = signal.data["ref"]
 	message_data["photo"] = signal.data["photo"]
 
 	// Show it to ghosts
-	var/ghost_message = "<span class='name'>[message_data["name"]] </span><span class='game say'>PDA Message</span> --> <span class='name'>[target_text]</span>: <span class='message'>[signal.data["message"]]</span>"
+	var/ghost_message = "<span class='name'>[message_data["name"]] </span><span class='game say'>PDA Message</span> --> <span class='name'>[target_text]</span>: <span class='message'>[signal.format_message()]</span>"
 	for(var/mob/M in GLOB.player_list)
 		if(isobserver(M) && (M.client?.prefs.chat_toggles & CHAT_GHOSTPDA))
 			to_chat(M, "[FOLLOW_LINK(M, user)] [ghost_message]")
 
 	// Log in the talk log
 	user.log_talk(message, LOG_PDA, tag="PDA: [initial(message_data["name"])] to [target_text]")
-	to_chat(user, "<span class='info'>PDA message sent to [target_text]: [signal.data["message"]]</span>")
+	to_chat(user, "<span class='info'>PDA message sent to [target_text]: [signal.format_message()]</span>")
 
 	if (ringer_status)
 		computer.send_sound()
@@ -318,7 +320,7 @@
 	var/list/message_data = list()
 	message_data["name"] = signal.data["name"]
 	message_data["job"] = signal.data["job"]
-	message_data["contents"] = html_decode(signal.data["message"])
+	message_data["contents"] = signal.format_message()
 	message_data["outgoing"] = FALSE
 	message_data["ref"] = signal.data["ref"]
 	message_data["automated"] = signal.data["automated"]
@@ -326,10 +328,10 @@
 	messages += list(message_data)
 
 	var/mob/living/L = null
-	if(computer.loc && isliving(computer.loc))
+	if(isliving(computer.loc))
 		L = computer.loc
 	//Maybe they are a pAI!
-	else
+	else if(computer)
 		L = get(computer, /mob/living/silicon)
 
 	if(L && (L.stat == CONSCIOUS || L.stat == SOFT_CRIT))

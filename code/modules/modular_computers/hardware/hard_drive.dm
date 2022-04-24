@@ -52,6 +52,9 @@
 		return 0
 
 	F.holder = src
+	if(holder && istype(F, /datum/computer_file/program))
+		var/datum/computer_file/program/P = F
+		P.computer = holder
 	stored_files.Add(F)
 	recalculate_size()
 	return 1
@@ -125,12 +128,6 @@
 	QDEL_LIST(stored_files)
 	return ..()
 
-/obj/item/computer_hardware/hard_drive/Initialize(mapload)
-	. = ..()
-	if(default_installs)
-		install_default_programs()
-
-
 /obj/item/computer_hardware/hard_drive/advanced
 	name = "advanced hard disk drive"
 	desc = "A hybrid HDD, for use in higher grade computers where balance between power efficiency and capacity is desired."
@@ -175,6 +172,9 @@
 	if(has_been_installed)
 		return
 	has_been_installed = TRUE
+	// Add default programs now, instead of Initialize (this is important so they have a reference to "holder" and thus "computer")
+	if(default_installs)
+		install_default_programs()
 	// Set the default ringtone
 	for(var/datum/computer_file/program/messenger/messenger in stored_files)
 		messenger.ringer_status = install_into.init_ringer_on
