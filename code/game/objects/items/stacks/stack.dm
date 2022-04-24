@@ -39,7 +39,7 @@
 	. = ..()
 	if(new_amount != null)
 		amount = new_amount
-	if(user != null)
+	if(user)
 		add_fingerprint(user)
 	check_max_amount()
 	if(!merge_type)
