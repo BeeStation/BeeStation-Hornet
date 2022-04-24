@@ -65,7 +65,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/simple/send(client)
 	if(!..())
 		return FALSE
-	return SSassets.transport.send_assets(client, assets)
+	SSassets.transport.send_assets(client, assets)
+	return TRUE
 
 /datum/asset/simple/get_url_mappings()
 	. = list()
@@ -132,7 +133,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/all = list("spritesheet_[name].css")
 	for(var/size_id in sizes)
 		all += "[name]_[size_id].png"
-	. = SSassets.transport.send_assets(C, all)
+	SSassets.transport.send_assets(C, all)
+	return TRUE
 
 /datum/asset/spritesheet/get_url_mappings()
 	if (!name)
