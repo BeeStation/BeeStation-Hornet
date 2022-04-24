@@ -131,8 +131,6 @@
 	. = ..()
 	radio = new(src)
 
-
-
 /obj/item/cartridge/quartermaster
 	name = "space parts & space vendors cartridge"
 	desc = "Perfect for the Quartermaster on the go!"
