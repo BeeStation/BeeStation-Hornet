@@ -1,0 +1,4 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - refactor: Separated signals and organized them
