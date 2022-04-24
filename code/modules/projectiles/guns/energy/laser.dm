@@ -35,11 +35,12 @@
 	item_state = "caplaser"
 	w_class = WEIGHT_CLASS_NORMAL
 	desc = "This is an antique laser gun. All craftsmanship is of the highest quality. It is decorated with assistant leather and chrome. The object menaces with spikes of energy. On the item is an image of Space Station 13 with the words NTSSGolden engraved. The station is exploding."
-	cell_type = /obj/item/stock_parts/cell{charge = 200; maxcharge = 200}
+	cell_type = /obj/item/stock_parts/cell{charge = 400; maxcharge = 400}
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/antique)
 	force = 10
 	ammo_x_offset = 3
 	selfcharge = 1
+	charge_delay = 3
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	weapon_weight = WEAPON_LIGHT
 
