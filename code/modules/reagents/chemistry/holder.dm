@@ -933,10 +933,10 @@
 		CHEMICAL_RNG_GENERAL,   // (1<<3)
 		CHEMICAL_RNG_FUN,       // (1<<4)
 		CHEMICAL_RNG_BOTANY,    // (1<<5)
-		CHEMICAL_GOAL_CHEMIST_DRUG,         // (1<<20) - goal_define starts at 20.
-		CHEMICAL_GOAL_CHEMIST_BLOODSTREAM,  // (1<<21)
-		CHEMICAL_GOAL_BOTANIST_HARVEST,     // (1<<22)
-		CHEMICAL_GOAL_BARTENDER_SERVING)    // (1<<23)
+		CHEMICAL_GOAL_CHEMIST_DRUG,         // (1<<23) - goal_define starts at 23 and goes reversed.
+		CHEMICAL_GOAL_CHEMIST_BLOODSTREAM,  // (1<<22)
+		CHEMICAL_GOAL_BOTANIST_HARVEST,     // (1<<21)
+		CHEMICAL_GOAL_BARTENDER_SERVING)    // (1<<20)
 	var/static/list/random_reagents_a = list()  // CHEMICAL_NOT_SYNTH
 	var/static/list/random_reagents_b = list()  // CHEMICAL_BASIC_ELEMENT
 	var/static/list/random_reagents_c = list()  // CHEMICAL_BASIC_DRINK
