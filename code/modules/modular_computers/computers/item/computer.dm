@@ -456,6 +456,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	else
 		set_light(0)
 	update_icon()
+	// Show the light_on overlay on top of the action button icon
+	if(light_action?.owner)
+		light_action.UpdateButtonIcon(force = TRUE)
 	return TRUE
 
 /**
