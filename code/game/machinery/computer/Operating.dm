@@ -62,7 +62,7 @@
 
 
 /obj/machinery/computer/operating/ui_state(mob/user)
-	return GLOB.not_incapacitated_state
+	return GLOB.conscious_state
 
 /obj/machinery/computer/operating/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
