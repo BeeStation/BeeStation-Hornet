@@ -1,0 +1,5 @@
+author: KoboldCommando
+delete-after: true
+changes:
+  - refactor: There's now only one type of wig, which can change style, color, and
+      copying the wearer's hair color, using a radial menu!
