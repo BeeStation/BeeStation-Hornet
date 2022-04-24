@@ -133,6 +133,7 @@
 				budget.adjust_money(-1*S.price)
 				say("Purchase complete. [budget.account_balance] credits remaining in Research Budget")
 				addtimer(CALLBACK(src, .proc/generate_new_seller), (rand(1,5)*60) SECONDS)
+				A = null
 				return
 
 	if(action == "sell")
