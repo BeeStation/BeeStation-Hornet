@@ -67,7 +67,7 @@ SUBSYSTEM_DEF(atoms)
 
 #ifdef PROFILE_MAPLOAD_INIT_ATOM
 	rustg_file_write(json_encode(mapload_init_times), "[GLOB.log_directory]/init_times.json")
-	#endif
+#endif
 
 /// Actually creates the list of atoms. Exists soley so a runtime in the creation logic doesn't cause initalized to totally break
 /datum/controller/subsystem/atoms/proc/CreateAtoms(list/atoms, list/atoms_to_return = null)
