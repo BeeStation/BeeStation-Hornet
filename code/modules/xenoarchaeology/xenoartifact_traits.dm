@@ -49,19 +49,22 @@
 	return charge+(force*5)
 
 /datum/xenoartifact_trait/activator/burn
-	desc = "Flamable"
-	label_desc = "Flamable: The material is flamable, and seems to react when ignited."
+	desc = "Flammable"
+	label_desc = "Flammable: The material is flamable, and seems to react when ignited."
 	charge = 25
+	var/datum/component/overlay_lighting/light
 
 /datum/xenoartifact_trait/activator/burn/on_burn(obj/item/xenoartifact/X, atom/user, heat)
-	if(X.process_type != LIT && X.manage_cooldown(TRUE)) //Generally artifact should handle cooldown schmuck. Please don't do this.
-		sleep(1 SECONDS)
+	if(X.process_type != LIT && X.manage_cooldown(TRUE) && !light) //Generally artifact should handle cooldown schmuck. Please don't do this.
 		X.visible_message("<span class='danger'>The [X.name] sparks on.</span>")
 		sleep(2 SECONDS)
-		X.set_light(2)
+		light = X.AddComponent(/datum/component/overlay_lighting, 2.5, 0.1, X.light_color)
 		X.process_type = LIT
 		START_PROCESSING(SSobj, X)
+	else if(light)
+		qdel(light)
 	return charge+(heat*0.03)
+
 
 /datum/xenoartifact_trait/activator/burn/on_init(obj/item/xenoartifact/X)
 	X.max_range += 1
@@ -681,17 +684,15 @@
 			if(user == target)
 				to_chat(user, "<span class='danger'>Your arms dissapear into the [X]!</span>")
 			victim.change_number_of_hands(0)
-
 /datum/xenoartifact_trait/major/lamp
 	label_name = "Lamp"
 	label_desc = "Lamp: The Artifact emits light. Nothing in its shape suggests this."
 	var/light_mod
-	var/light_color
 
 /datum/xenoartifact_trait/major/lamp/on_init(obj/item/xenoartifact/X)
 	. = ..()
 	X.light_system = MOVABLE_LIGHT
-	light_color = pick(LIGHT_COLOR_FIRE, LIGHT_COLOR_BLUE, LIGHT_COLOR_GREEN, LIGHT_COLOR_RED, LIGHT_COLOR_ORANGE, LIGHT_COLOR_PINK, LIGHT_COLOR_WHITE)
+	X.light_color = pick(LIGHT_COLOR_FIRE, LIGHT_COLOR_BLUE, LIGHT_COLOR_GREEN, LIGHT_COLOR_RED, LIGHT_COLOR_ORANGE, LIGHT_COLOR_PINK, LIGHT_COLOR_WHITE)
 	if(prob(0.1))
 		X.icon_state = "IB902"
 		X.generate_icon(X.icon, "IBL902", X.material)
@@ -702,7 +703,7 @@
 
 /datum/xenoartifact_trait/major/lamp/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	. = ..()
-	X.AddComponent(/datum/component/overlay_lighting, 1.4+(X.charge*0.5), max(X.charge*0.05, 0.1), light_color)
+	X.AddComponent(/datum/component/overlay_lighting, 1.4+(X.charge*0.5), max(X.charge*0.05, 0.1), X.light_color)
 	addtimer(CALLBACK(src, .proc/unlight, X), (X.charge*0.6) SECONDS)
 	X.cooldownmod = (X.charge*0.6) SECONDS
 
@@ -715,7 +716,7 @@
 
 /datum/xenoartifact_trait/major/lamp/dark/on_init(obj/item/xenoartifact/X)
 	X.light_system = MOVABLE_LIGHT
-	light_color = "#000000"
+	X.light_color = "#000000"
 	if(prob(0.01)) //It's hard to explain
 		X.icon_state = "IB901"
 		X.icon_slots[1] = ""
@@ -725,7 +726,7 @@
 
 /datum/xenoartifact_trait/major/lamp/dark/activate(obj/item/xenoartifact/X)
 	for(var/C in 1 to 3)
-		X.AddComponent(/datum/component/overlay_lighting/dupable, 1.4+(X.charge*0.7), max(X.charge*0.05, 0.1), light_color)
+		X.AddComponent(/datum/component/overlay_lighting/dupable, 1.4+(X.charge*0.7), max(X.charge*0.05, 0.1), X.light_color)
 		addtimer(CALLBACK(src, .proc/unlight, X), (X.charge*0.6) SECONDS)
 		X.cooldownmod = (X.charge*0.6) SECONDS
 		

@@ -38,7 +38,7 @@
 	var/malfunction_chance //Everytime the artifact is used this increases. When this is successfully proc'd the artifact gains a malfunction and this is lowered. 
 	var/malfunction_mod = 1 //How much the chance can change in a sinlge itteration
 
-/obj/item/xenoartifact/ComponentInitialize()
+/obj/strucutre/xenoartifact/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/xenoartifact_pricing)
 	AddComponent(/datum/component/discoverable, 10000, TRUE) //Same values as original artifacts, exploration.
@@ -225,7 +225,7 @@
 		if(LIT)
 			true_target += list(get_proximity(min(max_range, 5)))
 			charge = NORMAL*traits[1].on_burn(src) 
-			if(manage_cooldown(TRUE) && true_target.len >= 1 && get_proximity(max_range))
+			if(manage_cooldown(TRUE) && true_target.len && get_proximity(max_range))
 				set_light(0)
 				visible_message("<span class='danger'>The [name] flicks out.</span>")
 				check_charge()

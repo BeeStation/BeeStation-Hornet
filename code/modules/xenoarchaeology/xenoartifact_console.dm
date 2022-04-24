@@ -192,15 +192,25 @@
 
 /obj/machinery/computer/xenoartifact_console/proc/sync_devices()
 	for(var/obj/machinery/xenoartifact_inbox/I in oview(3,src))
-		if(I.linked_console != null || I.panel_open)
+		if(I.linked_console || I.panel_open)
 			return
 		if(!(linked_inbox))
 			linked_inbox = I
 			linked_machines += list(I.name)
 			I.linked_console = src
+			I.RegisterSignal(src, COMSIG_PARENT_QDELETING, /obj/machinery/xenoartifact_inbox/proc/on_machine_del)
+			RegisterSignal(I, COMSIG_PARENT_QDELETING, .proc/on_inbox_del)
 			say("Successfully linked [I].")
 			return
 	say("Unable to find linkable hadrware.")
+
+/obj/machinery/computer/xenoartifact_console/proc/on_inbox_del()
+	UnregisterSignal(linked_inbox, COMSIG_PARENT_QDELETING)
+	linked_inbox = null
+
+/obj/machinery/computer/xenoartifact_console/Destroy()
+	. = ..()
+	on_inbox_del()
 
 /obj/machinery/xenoartifact_inbox
 	name = "bluespace straythread pad" //Science words
@@ -209,6 +219,14 @@
 	icon_state = "qpad-idle"
 	circuit = /obj/item/circuitboard/machine/xenoartifact_inbox
 	var/linked_console
+
+/obj/machinery/xenoartifact_inbox/proc/on_machine_del()
+	UnregisterSignal(linked_console, COMSIG_PARENT_QDELETING)
+	linked_console = null
+
+/obj/machinery/xenoartifact_inbox/Destroy()
+	. = ..()
+	on_machine_del()
 
 /datum/xenoartifactseller //Vendor
 	var/name
