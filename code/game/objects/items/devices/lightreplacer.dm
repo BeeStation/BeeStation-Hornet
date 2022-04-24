@@ -225,7 +225,7 @@
 
 /obj/item/lightreplacer/proc/CanUse(mob/living/user)
 	add_fingerprint(user)
-	return uses > 0 ? TRUE : FALSE
+	return uses > 0
 
 /obj/item/lightreplacer/afterattack(atom/T, mob/U, proximity)
 	. = ..()
