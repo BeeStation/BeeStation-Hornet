@@ -898,7 +898,7 @@
 	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
 
-/proc/get_random_reagent_id(var/flag_check, var/blacklist_flag = NONE, var/union = TRUE)
+/proc/get_random_reagent_id(var/flag_check, var/blacklist_flag = NONE, var/union = TRUE, var/return_as_list = FALSE)
 	/* This proc returns a random reagent ID based on given 'flag_check' which is used to check bitflag for each reagent.
 	 *--- arguments ---*
 		* flag_check
@@ -914,6 +914,8 @@
 			default TRUE. if FALSE, the same item will be added to the possible list, making some reagent higher chance to spawn when a reagent is called more than once.
 			you will hardly use this though.
 			(Bicaridine, Bicardine, Bicaridine means 3x chance than normal.)
+		* return_as_list
+			default FALSE. if TRUE, the proc will return its list rather than pick a certain ID from the list. Useful when you're going to set blacklist yourself (or add)
 
 	 *--- How to add a new random reagent category ---*
 		1. add a new flag at 'code\__DEFINES\reagents.dm' and `var/list/chem_defines` below
@@ -976,7 +978,7 @@
 		for(var/each_define in chem_defines)
 			j += 1
 			if(each_define == flag_check)
-				return pick(random_reagent[j])
+				return (return_as_list ? random_reagent[j] : pick(random_reagent[j]))
 
 	// if flag_check has multiple bitflags, then we're going to make a possible list.
 	var/list/possible = list()
@@ -996,7 +998,7 @@
 			if(each_define & flag_check)
 				possible -= random_reagent[j]
 
-	return pick(possible)
+	return (return_as_list ? possible : pick(possible))
 
 /proc/get_chem_id(chem_name)
 	for(var/X in GLOB.chemical_reagents_list)
