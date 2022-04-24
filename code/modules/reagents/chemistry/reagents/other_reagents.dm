@@ -1348,7 +1348,6 @@
 	if(M.losebreath > 2 && !warn)
 		M.visible_message("<span class='danger'>You feel like you can't breathe!</span>")
 		warn++
-	M.visible_message("<span class='warning'>Losebreath value = [M.losebreath]</span>")   // DEBUG MESSAGE, DELETE
 	..()
 
 /datum/reagent/nitryl
