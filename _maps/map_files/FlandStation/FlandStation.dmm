@@ -84420,6 +84420,7 @@
 /obj/item/gun/energy/ionrifle,
 /obj/item/clothing/suit/armor/laserproof,
 /obj/item/gun/energy/temperature/security,
+/obj/item/gun/energy/e_gun/hos,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
