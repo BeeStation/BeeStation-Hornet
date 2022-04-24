@@ -63,12 +63,8 @@
 	if(action == "print_traits")
 		create_label(sticker_name)
 
-	if(action == "change_print_name")
-		if(istext(params["name"]))
-			sticker_name = "[params["name"]]"
-		else if(isliving(loc))
-			var/mob/living/M = loc
-			M.electrocute_act(15, src, 1, 1)
+	if(action == "change_print_name" && istext(params["name"]))
+		sticker_name = sanitize_text("[params["name"]]")
 
 	trait_toggle(action, "activator", activator_traits, activator)
 	trait_toggle(action, "minor", minor_traits, minor_trait)
