@@ -1,0 +1,5 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - rscadd: Achievement for Nullifying Singularities
+  - refactor: Moves code interactions from singularity to SRN_rocket projectile
