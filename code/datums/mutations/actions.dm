@@ -290,7 +290,7 @@
 		icon_state = icon_right
 
 /obj/item/melee/touch_attack/acidooze/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!isoozeling(user))
+	if(!proximity || !isoozeling(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(!target || user.incapacitated())
