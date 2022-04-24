@@ -36,10 +36,10 @@
 
 /obj/effect/mob_spawn/human/ash_walker
 	name = "ash walker egg"
-	desc = "A man-sized yellow egg, spawned from some unfathomable creature. A humanoid silhouette lurks within."
+	desc = "A man-sized, egg shaped stone, spawned from some unfathomable creature. Tiny, lava-like veins flow through it."
 	mob_name = "an ash walker"
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
-	icon_state = "large_egg"
+	icon = 'monkestation/icons/mob/lavaland/lavaland_monsters.dmi' //monkestation edit: new ashwalker egg
+	icon_state = "ashwalker_egg"
 	mob_species = /datum/species/lizard/ashwalker
 	outfit = /datum/outfit/ashwalker
 	roundstart = FALSE
