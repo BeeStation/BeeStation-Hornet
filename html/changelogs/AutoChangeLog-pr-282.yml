@@ -1,0 +1,6 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - bugfix: BoxStation CMO disposals link back into the system properly
+  - code_imp: autonameCameras now autonetwork too
+  - code_imp: network variable added to areas for autonameCameras
