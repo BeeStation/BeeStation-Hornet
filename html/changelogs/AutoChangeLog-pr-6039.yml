@@ -1,0 +1,7 @@
+author: lordScrubling, Ghilker, nicbn
+delete-after: true
+changes:
+  - rscadd: atmospherics now has 2 additional layers; excludes HE pipes
+  - rscadd: multi-z adapters can now be placed with rpds
+  - tweak: layer manifold has its volume increased from 280L to 350 to compensate
+      for increase in layers
