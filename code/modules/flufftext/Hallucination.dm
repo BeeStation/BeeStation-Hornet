@@ -145,7 +145,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	Show()
 
 /obj/effect/hallucination/simple/Destroy()
-	if(target.client)
+	if(target?.client)
 		target.client.images.Remove(current_image)
 	active = FALSE
 	return ..()
@@ -215,7 +215,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	STOP_PROCESSING(SSobj, src)
 	qdel(flood_turfs)
 	flood_turfs = list()
-	if(target.client)
+	if(target?.client)
 		target.client.images.Remove(flood_images)
 	qdel(flood_images)
 	flood_images = list()
@@ -326,7 +326,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	qdel(src)
 
 /datum/hallucination/oh_yeah/Destroy()
-	if(target.client)
+	if(target?.client)
 		target.client.images.Remove(fakebroken)
 		target.client.images.Remove(fakerune)
 	QDEL_NULL(fakebroken)
@@ -562,7 +562,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 /datum/hallucination/delusion/Destroy()
 	for(var/image/I in delusions)
-		if(target.client)
+		if(target?.client)
 			target.client.images.Remove(I)
 	return ..()
 
@@ -603,7 +603,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	QDEL_IN(src, duration)
 
 /datum/hallucination/self_delusion/Destroy()
-	if(target.client)
+	if(target?.client)
 		target.client.images.Remove(delusion)
 	return ..()
 

@@ -27,7 +27,7 @@ GLOBAL_LIST_EMPTY(dead_mob_list)			//all dead mobs, including clientless. Exclud
 GLOBAL_LIST_EMPTY(joined_player_list)		//all clients that have joined the game at round-start or as a latejoin.
 GLOBAL_LIST_EMPTY(new_player_list)			//all /mob/dead/new_player, in theory all should have clients and those that don't are in the process of spawning and get deleted when done.
 GLOBAL_LIST_EMPTY(silicon_mobs)				//all silicon mobs
-GLOBAL_LIST_EMPTY(mob_living_list)				//all instances of /mob/living and subtypes
+GLOBAL_LIST_EMPTY(mob_living_list)			//all instances of /mob/living and subtypes
 GLOBAL_LIST_EMPTY(carbon_list)				//all instances of /mob/living/carbon and subtypes, notably does not contain brains or simple animals
 GLOBAL_LIST_EMPTY(ai_list)
 GLOBAL_LIST_EMPTY(pai_list)
@@ -36,6 +36,7 @@ GLOBAL_LIST_INIT(simple_animals, list(list(),list(),list(),list())) // One for e
 GLOBAL_LIST_EMPTY(spidermobs)				//all sentient spider mobs
 GLOBAL_LIST_EMPTY(bots_list)
 GLOBAL_LIST_EMPTY(ai_eyes)
+GLOBAL_LIST_EMPTY(suit_sensors_list) 		//all people with suit sensors on
 
 GLOBAL_LIST_EMPTY(language_datum_instances)
 GLOBAL_LIST_EMPTY(all_languages)

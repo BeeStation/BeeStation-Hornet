@@ -189,6 +189,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOSOFTCRIT		"nosoftcrit"
 #define TRAIT_NOSTAMCRIT		"nostamcrit"
 #define TRAIT_MINDSHIELD		"mindshield"
+#define TRAIT_FAKE_MINDSHIELD	"fakemindshield"
 #define TRAIT_DISSECTED			"dissected"
 #define TRAIT_SIXTHSENSE		"sixth_sense" //I can hear dead people
 #define TRAIT_FEARLESS			"fearless"
@@ -233,6 +234,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NICE_SHOT			"nice_shot" //hnnnnnnnggggg..... you're pretty good....
 #define TRAIT_ALWAYS_STUBS      "always_stubs_toe" //you will always stub your toe on tables, even if you're wearing shoes
 #define TRAIT_NAIVE				"naive" //All dead people will appear as sleeping.
+#define TRAIT_DROPS_ITEMS_ON_DEATH "drops_items_on_death" //used for battle royale
 
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
@@ -300,17 +302,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define ABSTRACT_ITEM_TRAIT "abstract-item"
 #define STATUS_EFFECT_TRAIT "status-effect"
 #define CLOTHING_TRAIT "clothing"
+#define CLOTHING_FEET_TRAIT "feet"
 #define VEHICLE_TRAIT "vehicle" // inherited from riding vehicles
 #define INNATE_TRAIT "innate"
 #define GLASSES_TRAIT "glasses"
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"
+#define TRAIT_RUSTY "rust_trait"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"
 #define STATUE_MUTE "statue"
 #define CHANGELING_DRAIN "drain"
-#define CHANGELING_HIVEMIND_MUTE "ling_mute"
 #define MAGIC_BLIND "magic_blind"
 #define HIGHLANDER "highlander"
 #define TRAIT_HULK "hulk"
@@ -380,3 +383,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Can use the nuclear device's UI, regardless of a lack of hands
 #define TRAIT_CAN_USE_NUKE "can_use_nuke"
+
+///Mob is being tracked on glob suit sensors list
+#define TRACKED_SENSORS_TRAIT "tracked_sensors"
+///Mob is tracked by suit sensors, and on glob suit sensors list
+#define TRAIT_SUIT_SENSORS "suit_sensors"
+///Mob is tracked by nanites, and on glob suit sensors list
+#define TRAIT_NANITE_SENSORS "nanite_sensors"

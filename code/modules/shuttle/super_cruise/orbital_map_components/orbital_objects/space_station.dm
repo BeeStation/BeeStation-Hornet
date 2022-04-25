@@ -11,6 +11,11 @@
 	. = ..()
 	SSorbits.station_instance = src
 
+#ifdef LOWMEMORYMODE
+	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
+	linked_map.center = src
+#endif
+
 /datum/orbital_object/z_linked/station/explode()
 	. = ..()
 	SSticker.force_ending = TRUE

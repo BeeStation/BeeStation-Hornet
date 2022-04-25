@@ -421,7 +421,7 @@
 
 /datum/reagent/consumable/nuka_cola/on_mob_metabolize(mob/living/L)
 	..()
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.75, blacklisted_movetypes=(FLYING|FLOATING))
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.50, blacklisted_movetypes=(FLYING|FLOATING))
 
 /datum/reagent/consumable/nuka_cola/on_mob_end_metabolize(mob/living/L)
 	L.remove_movespeed_modifier(type)
@@ -430,10 +430,11 @@
 /datum/reagent/consumable/nuka_cola/on_mob_life(mob/living/carbon/M)
 	M.Jitter(20)
 	M.set_drugginess(30)
-	M.dizziness +=1.5
+	M.dizziness += 1.5
 	M.drowsyness = 0
 	M.AdjustSleeping(-40, FALSE)
 	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	M.radiation += 4
 	..()
 	. = 1
 

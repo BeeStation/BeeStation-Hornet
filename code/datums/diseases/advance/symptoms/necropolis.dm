@@ -110,11 +110,10 @@
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
-	if(chest && A.stage >= 5 && M.mind)
+	if(chest && A.stage >= 5 && M.sethellbound())
 		to_chat(M, "<span class='danger'>Your soul is ripped from your body!</span>")
 		M.visible_message("<span class='danger'>An unearthly roar shakes the ground as [M] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
 		playsound(M.loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
-		M.hellbound = TRUE
 		addtimer(CALLBACK(M, /mob/proc/gib), 0.5 SECONDS)	//we can't gib mob while it's already dying
 		if(!ishuman(M) || HAS_TRAIT(M, TRAIT_NONECRODISEASE)) //We don't NEED them to be human. However, I want to avoid people making teratoma-farms for necrochests
 			return

@@ -88,7 +88,7 @@
 						// Devil code
 						if(isliving(M))
 							var/mob/living/L = M
-							make_podman = !L.hellbound
+							make_podman = !L.ishellbound()
 						break
 		else //If the player has ghosted from his corpse before blood was drawn, his ckey is no longer attached to the mob, so we need to match up the cloned player through the mind key
 			for(var/mob/M in GLOB.player_list)
@@ -101,7 +101,7 @@
 					// Devil code
 					if(isliving(M))
 						var/mob/living/L = M
-						make_podman = !L.hellbound
+						make_podman = !L.ishellbound()
 					ckey_holder = M.ckey
 					break
 
