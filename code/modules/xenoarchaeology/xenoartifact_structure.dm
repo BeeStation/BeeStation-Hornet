@@ -1,6 +1,6 @@
 /*
 	Pretty much a duplicate of the regular item.
-	Look at the item for comment documentation, most of the comments here are just artifacts from the copy paste
+	Look at the item for comment documentation, most of the comments here are just artifacts from the copy paste.
 	Use this file to house the weird off-shoot artifacts. 
 */
 
