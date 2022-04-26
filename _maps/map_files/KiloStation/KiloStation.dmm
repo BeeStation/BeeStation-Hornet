@@ -100442,10 +100442,6 @@
 	icon_state = "platingdmg1"
 	},
 /area/maintenance/starboard)
-"sEJ" = (
-/obj/machinery/rnd/experimentor,
-/turf/open/floor/engine,
-/area/science/xenobiology)
 "sER" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -139983,7 +139979,7 @@ aeu
 aeu
 aeu
 alB
-sEJ
+aWJ
 bfU
 bfy
 ary
