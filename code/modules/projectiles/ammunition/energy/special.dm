@@ -29,9 +29,6 @@
 	e_cost = 100
 	fire_sound = 'sound/weapons/pulse3.ogg'
 
-/obj/item/ammo_casing/energy/temp/hos
-	e_cost = 150
-
 /obj/item/ammo_casing/energy/temp/hot
 	projectile_type = /obj/item/projectile/temp/hot
 	select_name = "bake"
