@@ -31,6 +31,12 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser) //uses the hos disabler rounds to slightly weaken the disabler count and also to avoid encountering a visual bug where the gun is out of charge but displays that it has one enough for another shot. 
 	selfcharge = 1
 	charge_delay = 10
+	icon_state = "personal"
+	item_state = "gun"
+	ammo_x_offset = 2
+	charge_sections = 2
+	flight_x_offset = 13
+	flight_y_offset = 12
 
 /obj/item/gun/energy/e_gun/mini/Initialize(mapload)
 	set_gun_light(new /obj/item/flashlight/seclite(src))
@@ -40,6 +46,8 @@
 	..()
 	if(gun_light?.on)
 		add_overlay("mini-light")
+	if(!gun_light?.on)
+		cut_overlay("mini-light")
 
 /obj/item/gun/energy/e_gun/stun
 	name = "tactical energy gun"
