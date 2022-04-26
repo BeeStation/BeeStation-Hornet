@@ -37004,8 +37004,6 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
-/obj/item/circuitboard/computer/xenoartifact_console,
-/obj/item/circuitboard/machine/xenoartifact_inbox,
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
 "bQy" = (
@@ -40136,8 +40134,8 @@
 	},
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
-	name = "O2 To Airmix";
-	on = 1
+	on = 1;
+	name = "O2 To Airmix"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -41351,9 +41349,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_toxmix{
-	icon_state = "dpvent_map-1";
+	piping_layer = 1;
 	id = "atmos_incinerator_airlock_pump";
-	piping_layer = 1
+	icon_state = "dpvent_map-1"
 	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
@@ -57127,25 +57125,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
-"pwk" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
-	},
-/obj/structure/rack,
-/obj/item/assembly/igniter{
-	pixel_x = 5;
-	pixel_y = -4
-	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/assembly/signaler,
-/turf/open/floor/plasteel/white,
-/area/science/explab)
 "pwS" = (
 /obj/structure/lattice,
 /obj/structure/disposalpipe/segment{
@@ -57620,15 +57599,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
-"qar" = (
-/obj/machinery/computer/xenoartifact_console{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/science/explab)
 "qbw" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -57988,18 +57958,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
-"qwQ" = (
-/obj/structure/rack,
-/obj/item/storage/box/monkeycubes,
-/obj/item/analyzer,
-/obj/item/laser_pointer,
-/obj/item/multitool{
-	pixel_x = 4
-	},
-/obj/item/clothing/neck/stethoscope,
-/obj/item/geiger_counter,
-/turf/open/floor/plasteel/white,
-/area/science/explab)
 "qxb" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
@@ -61440,7 +61398,6 @@
 "vxl" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/xenoartifact_inbox,
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "vxp" = (
@@ -103272,7 +103229,7 @@ bnY
 bpe
 bqp
 crd
-qar
+bqs
 buG
 bvS
 bxA
@@ -103785,8 +103742,8 @@ bky
 bnY
 bpg
 bqr
-pwk
-qwQ
+hOa
+bqs
 gKa
 bvT
 bxC
