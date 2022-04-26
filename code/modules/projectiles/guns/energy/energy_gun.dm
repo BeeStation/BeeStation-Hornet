@@ -30,7 +30,7 @@
 	desc = "The Personal Tiny Self Defense gun has a built-in flashlight and the ability to recharge itself in 60 seconds. PTSD is standard issue for leadership within Nanotrasen. It has two settings: disable and kill."
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser) //uses the hos disabler rounds to slightly weaken the disabler count and also to avoid encountering a visual bug where the gun is out of charge but displays that it has one enough for another shot. 
 	selfcharge = 1
-	charge_delay = 6
+	charge_delay = 10
 
 /obj/item/gun/energy/e_gun/mini/Initialize(mapload)
 	set_gun_light(new /obj/item/flashlight/seclite(src))
