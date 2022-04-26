@@ -161,6 +161,9 @@
 	var/mob/living/carbon/C = A
 	C.dust()
 
+/obj/energy_ball/particle_accelerator_act(additional_energy)
+	energy += additional_energy
+
 //Less intensive energy ball for the orbiting ones.
 /obj/effect/energy_ball
 	name = "energy ball"

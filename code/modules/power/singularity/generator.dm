@@ -33,3 +33,6 @@
 			qdel(src)
 		else
 			energy -= delta_time * 0.5
+
+/obj/machinery/the_singularitygen/particle_accelerator_act(additional_energy)
+	energy += additional_energy

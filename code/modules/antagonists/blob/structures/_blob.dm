@@ -187,6 +187,10 @@
 		blob_attack_animation(T, controller) //if we can't, animate that we attacked
 	return null
 
+/obj/structure/blob/particle_accelerator_act(energy)
+	take_damage(energy*0.6)
+	movement_range = 0
+
 /obj/structure/blob/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)

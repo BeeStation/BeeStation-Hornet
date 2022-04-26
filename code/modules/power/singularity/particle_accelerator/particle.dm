@@ -39,16 +39,8 @@
 	if(A)
 		if(isliving(A))
 			toxmob(A)
-		else if(istype(A, /obj/machinery/the_singularitygen))
-			var/obj/machinery/the_singularitygen/S = A
-			S.energy += energy
-		else if(istype(A, /obj/singularity))
-			var/obj/singularity/S = A
-			S.energy += energy
-		else if(istype(A, /obj/structure/blob))
-			var/obj/structure/blob/B = A
-			B.take_damage(energy*0.6)
-			movement_range = 0
+		else
+			A.particle_accelerator_act(energy)
 
 /obj/effect/accelerated_particle/proc/on_entered(datum/source, atom/movable/A)
 	SIGNAL_HANDLER

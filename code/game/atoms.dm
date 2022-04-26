@@ -750,6 +750,10 @@
 /atom/proc/singularity_act()
 	return
 
+///Simply to overwrite for different objects when the PA hits them
+/atom/proc/particle_accelerator_act()
+	return
+
 /**
   * Respond to the singularity pulling on us
   *
