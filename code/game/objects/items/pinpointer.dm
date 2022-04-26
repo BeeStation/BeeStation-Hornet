@@ -102,7 +102,26 @@
 
 /obj/item/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
 	var/turf/here = get_turf(src)
-	if((H.z == 0 || H.get_virtual_z_level() == here.get_virtual_z_level() || (is_station_level(here.z) && is_station_level(H.z))) && istype(H.w_uniform, /obj/item/clothing/under))
+
+	if(!here)
+		return FALSE
+
+	//if(!(nanite_sensors || HAS_TRAIT(H, TRAIT_SUIT_SENSORS)))
+		//return FALSE
+
+	var/turf/target_turf = get_turf(H)
+	if(!target_turf)
+		return FALSE
+
+	var/virtual_z_level = get_virtual_z_level()
+
+	// Check if their virtual z-level is correct or in case it isn't
+	// check if they are on station's 'real' z-level
+	if (virtual_z_level != here.z && !(is_station_level(target_turf.z) && is_station_level(here.z)))
+		return FALSE
+
+
+	/*if((H.z == 0 || H.get_virtual_z_level() == here.get_virtual_z_level() || (is_station_level(here.z) && is_station_level(H.z))) && istype(H.w_uniform, /obj/item/clothing/under))
 		var/obj/item/clothing/under/U = H.w_uniform
 
 		//Suit sensors radio transmitter must not be jammed.
@@ -111,12 +130,29 @@
 
 		// Suit sensors must be on maximum.
 		if(!U.has_sensor || (U.sensor_mode < SENSOR_COORDS && !ignore_suit_sensor_level))
-			return FALSE
+			return FALSE*/
 
-		var/turf/there = get_turf(H)
-		return (H.z != 0 || (there && ((there.get_virtual_z_level() == here.get_virtual_z_level()) || (is_station_level(there.z) && is_station_level(here.z)))))
+	// Determine if this person is using nanites for sensors,
+	// in which case the sensors are always set to full detail
+	//var/nanite_sensors = HAS_TRAIT(tracked_human, TRAIT_NANITE_SENSORS)
 
-	return FALSE
+	//	Radio transmitters are jammed
+	if(H.is_jammed())
+		return FALSE
+
+	var/nanite_sensors = HAS_TRAIT(H, TRAIT_NANITE_SENSORS)
+	// Check for a uniform if not using nanites
+	var/obj/item/clothing/under/uniform = H.w_uniform
+
+	// Are nanite sensors on?
+	// Is sensors level set to SENSORS_COORDS?
+	// Should we ignore sensors?
+	// If yes to any of these, proceed further
+	if(!nanite_sensors && uniform?.sensor_mode < SENSOR_COORDS && !ignore_suit_sensor_level)
+		return FALSE
+
+	return TRUE//(H.z != 0 || (there && ((there.get_virtual_z_level() == here.get_virtual_z_level()) || (is_station_level(there.z) && is_station_level(here.z)))))
+
 
 /obj/item/pinpointer/crew/attack_self(mob/living/user)
 	if(active)
@@ -134,7 +170,7 @@
 	var/list/name_counts = list()
 	var/list/names = list()
 
-	for(var/mob/living/carbon/human/H in GLOB.carbon_list)
+	for(var/mob/living/carbon/human/H in GLOB.suit_sensors_list)
 		if(!trackable(H))
 			continue
 
