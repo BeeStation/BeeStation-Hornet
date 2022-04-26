@@ -81,7 +81,7 @@
 	H.facial_hair_style = "Shaved"
 	H.facial_hair_color = "000"
 	H.hair_color = "0ff"
-	if(H.dna.species.use_skintones)
+	if(SKINTONES in H.dna.species.species_traits)
 		H.skin_tone = "caucasian1"
 	else if(MUTCOLORS in H.dna.species.species_traits)
 		H.dna.features["mcolor"] = "fffbf5"
@@ -102,7 +102,7 @@
 	H.facial_hair_style = "Shaved"
 	H.facial_hair_color = "000"
 	H.hair_color = "000"
-	if(H.dna.species.use_skintones)
+	if(SKINTONES in H.dna.species.species_traits)
 		H.skin_tone = "albino"
 	else if(MUTCOLORS in H.dna.species.species_traits)
 		H.dna.features["mcolor"] = "fff"

@@ -106,7 +106,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							"ipc_screen" = "Blue",
 							"ipc_antenna" = "None",
 							"ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)",
-							"insect_type" = "Common Fly"
+							"insect_type" = "Common Fly",
+							"tail_monkey" = "Chimp"
 						)
 
 	var/examine_text						//MONKESTATION EDIT - EXAMINE TEXT
@@ -284,15 +285,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>Jumpsuit:</b><BR><a href ='?_src_=prefs;preference=suit;task=input'>[jumpsuit_style]</a><BR>"
 			dat += "<b>Uplink Spawn Location:</b><BR><a href ='?_src_=prefs;preference=uplink_loc;task=input'>[uplink_spawn_loc == UPLINK_IMPLANT ? UPLINK_IMPLANT_WITH_PRICE : uplink_spawn_loc]</a><BR></td>"
 
-			var/use_skintones = pref_species.use_skintones
-			if(use_skintones)
+			var/use_skintones
+			if(SKINTONES in pref_species.species_traits)
 
 				dat += APPEARANCE_CATEGORY_COLUMN
 
 				dat += "<h3>Skin Tone</h3>"
 
-				dat += "<a href='?_src_=prefs;preference=s_tone;task=input'>[skin_tone]</a><BR>"
-
+				dat += "<span style='border: 1px solid #161616; background-color: #[GLOB.skin_tones[pref_species.skin_tone_list][skin_tone]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=s_tone;task=input'>[skin_tone]</a><BR>"
+				use_skintones = TRUE
 			var/mutant_colors
 			if((MUTCOLORS in pref_species.species_traits) || (MUTCOLORS_PARTSONLY in pref_species.species_traits))
 
@@ -548,6 +549,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(mutant_category >= MAX_MUTANT_ROWS)
 					dat += "</td>"
 					mutant_category = 0
+
+//monkestation edit: add simian species
+			if("tail_monkey" in pref_species.default_features)
+				if(!mutant_category)
+					dat += APPEARANCE_CATEGORY_COLUMN
+
+				dat += "<h3>Tail</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=tail_monkey;task=input'>[features["tail_monkey"]]</a><BR>"
+
+//monkestation edit end
 
 			if("body_size" in pref_species.default_features)
 				if(!mutant_category)
@@ -1257,6 +1269,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						if((quirk in L) && (Q in L) && !(Q == quirk)) //two quirks have lined up in the list of the list of quirks that conflict with each other, so return (see quirks.dm for more details)
 							to_chat(user, "<span class='danger'>[quirk] is incompatible with [Q].</span>")
 							return
+				if(pref_species.name in SSquirks.quirk_species_blacklist)
+					var/list/blacklist = SSquirks.quirk_species_blacklist[pref_species.name]
+					if(quirk in blacklist)
+						to_chat(user, "<span class='danger'>[quirk] is incompatible with [pref_species.name].</span>")
+						return
 				var/value = SSquirks.quirk_points[quirk]
 				var/balance = GetQuirkBalance()
 				if(quirk in all_quirks)
@@ -1356,7 +1373,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(BODY_ZONE_PRECISE_EYES)
 					eye_color = random_eye_color()
 				if("s_tone")
-					skin_tone = random_skin_tone()
+					skin_tone = random_skin_tone(pref_species.skin_tone_list)
 				if("bag")
 					backbag = pick(GLOB.backbaglist)
 				if("all")
@@ -1543,6 +1560,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 						if (!CONFIG_GET(keyed_list/paywall_races)[new_species.id] || IS_PATRON(parent.ckey) || parent.holder)
 							pref_species = new_species
+							if(!(skin_tone in GLOB.skin_tones[pref_species.skin_tone_list])) //monkestation edit, for multiple species skin tone lists
+								skin_tone = pick(GLOB.skin_tones[pref_species.skin_tone_list])
 							//Now that we changed our species, we must verify that the mutant colour is still allowed.
 							var/temp_hsv = RGBtoHSV(features["mcolor"])
 							if(features["mcolor"] == "#000" || (!(MUTCOLORS_PARTSONLY in pref_species.species_traits) && ReadHSV(temp_hsv)[3] < ReadHSV("#7F7F7F")[3]))
@@ -1591,6 +1610,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					new_tail = input(user, "Choose your character's tail:", "Character Preference") as null|anything in GLOB.tails_list_human
 					if(new_tail)
 						features["tail_human"] = new_tail
+//monkestation edit begin: add simian
+				if("tail_monkey")
+					var/new_tail
+					new_tail = input(user, "Choose your character's tail:", "Character Preference") as null|anything in GLOB.tails_list_monkey
+					if(new_tail)
+						features["tail_monkey"] = new_tail
+//monkestation edit end
 
 				if("snout")
 					var/new_snout
@@ -1681,7 +1707,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						features["insect_type"] = new_insect_type
 
 				if("s_tone")
-					var/new_s_tone = input(user, "Choose your character's skin-tone:", "Character Preference")  as null|anything in GLOB.skin_tones
+					var/new_s_tone = input(user, "Choose your character's skin-tone:", "Character Preference")  as null|anything in GLOB.skin_tones[pref_species.skin_tone_list]
 					if(new_s_tone)
 						skin_tone = new_s_tone
 
@@ -2095,7 +2121,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	if("tail_lizard" in pref_species.default_features)
 		character.dna.species.mutant_bodyparts |= "tail_lizard"
-
+	//monkestation edit: add simian species
+	if("tail_monkey" in pref_species.default_features)
+		character.dna.species.mutant_bodyparts |= "tail_monkey"
+	//monkestation edit end
 	if(icon_updates)
 		character.update_body()
 		character.update_hair()

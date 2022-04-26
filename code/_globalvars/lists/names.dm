@@ -27,6 +27,11 @@ GLOBAL_LIST_INIT(megacarp_first_names, world.file2list("strings/names/megacarp1.
 GLOBAL_LIST_INIT(megacarp_last_names, world.file2list("strings/names/megacarp2.txt"))
 GLOBAL_LIST_INIT(oozeling_first_names, world.file2list("strings/names/ooze_first.txt"))
 GLOBAL_LIST_INIT(oozeling_last_names, world.file2list("strings/names/ooze_last.txt"))
+
+//monkestation edit: add simian species
+GLOBAL_LIST_INIT(simian_last_names, world.file2list("monkestation/strings/names/simian_last.txt"))
+GLOBAL_LIST_INIT(simian_names_female, world.file2list("monkestation/strings/names/simian_female_first.txt"))
+GLOBAL_LIST_INIT(simian_names_male, world.file2list("monkestation/strings/names/simian_male_first.txt"))
 //MonkeStation Edit: Random Drug Names
 //I hate this. I hate this so much.
 //Why can't a file be read before map generation?

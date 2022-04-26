@@ -11,11 +11,35 @@
 	if(picked_lockers)
 		return pick(picked_lockers)
 	return FALSE
-  
+
 //For all your moth grabbing needs.
 /proc/Grab_Moths(turf/T, range = 6, speed = 0.5)
 	for(var/mob/living/carbon/human/H in oview(range, T))
 		if(ismoth(H) && isliving(H))
 			pick(H.emote("scream"), H.visible_message("<span class='boldwarning'>[H] lunges for the light!</span>"))
 			H.throw_at(T, range, speed)
+
+//For vaulting over stuff!
+/proc/vault_over_object(mob/user, object, range = 3, speed = 0.5)
+	var/dir = get_dir(user, object)
+	var/turf/target = get_ranged_target_turf(user, dir, range)
+	var/obj/machinery/machine_target = locate() in target
+	var/mob/living/carbon/human/H = user
+	if(machine_target)
+		user.throw_at(machine_target, range, speed)
+		if(prob(70))
+			H.Knockdown(10)
+	else
+		user.throw_at(target, range, speed)
+		if(prob(25))
+			H.Knockdown(10)
+
+/proc/monkeyfriend_check(mob/living/user)
+	var/obj/item/clothing/suit/monkeysuit/S
+	var/obj/item/clothing/mask/gas/monkeymask/M
+	var/list/equipped = user.get_equipped_items(FALSE)
+	if(issimian(user))
+		ADD_TRAIT(user, TRAIT_MONKEYFRIEND, SPECIES_TRAIT)
+	if(((M in equipped) && (S in equipped)))
+		ADD_TRAIT(user, TRAIT_MONKEYFRIEND, CLOTHING_TRAIT)
 

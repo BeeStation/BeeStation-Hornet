@@ -105,29 +105,31 @@
 #define CLONER_MATURE_CLONE "mature"
 
 //! ## species traits for mutantraces
-#define MUTCOLORS		1
-#define HAIR			2
-#define FACEHAIR		3
-#define EYECOLOR		4
-#define LIPS			5
-#define NOBLOOD			6
-#define NOTRANSSTING	7
-#define MUTCOLORS_PARTSONLY	8	//! Used if we want the mutant colour to be only used by mutant bodyparts. Don't combine this with MUTCOLORS, or it will be useless.
-#define NOZOMBIE		9
-#define NO_UNDERWEAR	10
-#define NOLIVER			11
-#define NOSTOMACH		12
-#define NO_DNA_COPY     13
-#define DRINKSBLOOD		14
-#define NOFLASH			15
-#define DYNCOLORS		16 //! Use this if you want to change the race's color without the player being able to pick their own color. AKA special color shifting TRANSLATION: AWFUL.
-#define AGENDER			17
-#define NOEYESPRITES	18 //! Do not draw eyes or eyeless overlay
-#define NOREAGENTS     19 //! DO NOT PROCESS REAGENTS
-#define REVIVESBYHEALING 20 // Will revive on heal when healing and total HP > 0.
-#define NOHUSK			21 // Can't be husked.
-#define NOMOUTH			22
-#define NOSOCKS       23 // You cannot wear socks.
+#define SKINTONES		1
+#define MUTCOLORS		2
+#define HAIR			3
+#define FACEHAIR		4
+#define EYECOLOR		5
+#define LIPS			6
+#define NOBLOOD			7
+#define NOTRANSSTING	8
+#define MUTCOLORS_PARTSONLY	9	//! Used if we want the mutant colour to be only used by mutant bodyparts. Don't combine this with MUTCOLORS, or it will be useless.
+#define NOZOMBIE		10
+#define NO_UNDERWEAR	11
+#define NOLIVER			12
+#define NOSTOMACH		13
+#define NO_DNA_COPY     14
+#define DRINKSBLOOD		15
+#define NOFLASH			16
+#define DYNCOLORS		17 //! This is only for ethereals.  Set uses_skintones in the species datum to true and add to the global skintone list if you want set skin colors for your
+#define AGENDER			18
+#define NOEYESPRITES	19 //! Do not draw eyes or eyeless overlay
+#define ALTEYESPRITES	20 //! used if we need alternate eye placement
+#define NOREAGENTS     21 //! DO NOT PROCESS REAGENTS
+#define REVIVESBYHEALING 22 // Will revive on heal when healing and total HP > 0.
+#define NOHUSK			23 // Can't be husked.
+#define NOMOUTH			24
+#define NOSOCKS       25 // You cannot wear socks.
 
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"

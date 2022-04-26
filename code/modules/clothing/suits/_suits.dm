@@ -16,6 +16,7 @@
 	var/footstep = 0
 	var/mob/listeningTo
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo
+	sprite_sheets = FLAG_SIMIAN
 
 
 /obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
@@ -24,7 +25,11 @@
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damaged[blood_overlay_type]")
 		if(HAS_BLOOD_DNA(src))
-			. += mutable_appearance('icons/effects/blood.dmi', "[blood_overlay_type]blood")
+			var/mob/living/carbon/human/M = loc
+			if(!M.dna.species.get_custom_icons("suit"))//monkestation edit: add simians
+				. += mutable_appearance('icons/effects/blood.dmi', "[blood_overlay_type]blood")
+			else
+				. += mutable_appearance('monkestation/icons/effects/blood.dmi', "[lowertext(M.dna.species.name)]_[blood_overlay_type]blood")
 		var/mob/living/carbon/human/M = loc
 		if(ishuman(M) && M.w_uniform)
 			var/obj/item/clothing/under/U = M.w_uniform

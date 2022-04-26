@@ -5,19 +5,19 @@
 		gender = gender_override
 	else
 		gender = pick(MALE,FEMALE)
+	if(!pref_species)
+		var/rando_race = pick(GLOB.roundstart_races)
+		pref_species = new rando_race()
 	underwear = random_underwear(gender)
 	underwear_color = random_short_color()
 	undershirt = random_undershirt(gender)
 	socks = random_socks()
-	skin_tone = random_skin_tone()
+	skin_tone = random_skin_tone(pref_species.skin_tone_list)
 	hair_style = random_hair_style(gender)
 	facial_hair_style = random_facial_hair_style(gender)
 	hair_color = random_short_color()
 	facial_hair_color = hair_color
 	eye_color = random_eye_color()
-	if(!pref_species)
-		var/rando_race = pick(GLOB.roundstart_races)
-		pref_species = new rando_race()
 	features = random_features()
 	age = rand(AGE_MIN,AGE_MAX)
 

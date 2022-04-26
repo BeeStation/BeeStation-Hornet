@@ -264,6 +264,7 @@
 	name = "disposal unit"
 	desc = "A pneumatic waste disposal unit."
 	icon_state = "disposal"
+	pass_flags_self = LETPASSTHROW //monkestation edit - lets us throw mobs in the bin!
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/bin/attackby(obj/item/I, mob/user, params)
@@ -333,7 +334,7 @@
 
 
 /obj/machinery/disposal/bin/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(isitem(AM) && AM.CanEnterDisposals())
+	if(isliving(AM) || isitem(AM) && AM.CanEnterDisposals())//monkestation edit: mobs can be thrown in
 		if(prob(75))
 			AM.forceMove(src)
 			visible_message("<span class='notice'>[AM] lands in [src].</span>")

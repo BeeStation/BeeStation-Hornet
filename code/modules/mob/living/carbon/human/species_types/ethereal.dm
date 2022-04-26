@@ -30,9 +30,10 @@
 	species_l_leg = /obj/item/bodypart/l_leg/ethereal
 	species_r_leg = /obj/item/bodypart/r_leg/ethereal
 
+	var/static/unhealthy_color = rgb(237, 164, 149)
 	var/current_color
-	var/EMPeffect = FALSE
-	var/emageffect = FALSE
+	var/emp_effect = FALSE
+	var/emag_effect = FALSE
 	var/r1
 	var/g1
 	var/b1
@@ -89,11 +90,12 @@
 
 /datum/species/ethereal/spec_updatehealth(mob/living/carbon/human/H)
 	. = ..()
-	if(H.stat != DEAD && !EMPeffect)
-		var/healthpercent = max(H.health, 0) / 100
-		if(!emageffect)
-			current_color = rgb(r2 + ((r1-r2)*healthpercent), g2 + ((g1-g2)*healthpercent), b2 + ((b1-b2)*healthpercent))
-		ethereal_light.set_light_range_power_color(1 + (2 * healthpercent), 1 + (1 * healthpercent), current_color)
+	if(!ethereal_light)
+		return
+	if(H.stat != DEAD && !emp_effect)
+		if(!emag_effect)
+			current_color = health_adjusted_color(H, default_color)
+		set_ethereal_light(H, current_color)
 		ethereal_light.set_light_on(TRUE)
 		fixed_mut_color = copytext_char(current_color, 2)
 	else
@@ -101,10 +103,39 @@
 		fixed_mut_color = rgb(128,128,128)
 	H.update_body()
 
+/datum/species/ethereal/proc/set_ethereal_light(mob/living/carbon/human/H, current_color)
+	if(!ethereal_light) //What
+		return
+
+	var/health_percent = max(H.health, 0) / 100
+
+	var/light_range = 1 + (2 * health_percent)
+	var/light_power = 1 + (1 * health_percent)
+
+	ethereal_light.set_light_range_power_color(light_range, light_power, current_color)
+
+/datum/species/ethereal/proc/health_adjusted_color(mob/living/carbon/human/H, default_color)
+	var/health_percent = max(H.health, 0) / 100
+
+	var/static/unhealthy_color_red_part   = GETREDPART(unhealthy_color)
+	var/static/unhealthy_color_green_part = GETGREENPART(unhealthy_color)
+	var/static/unhealthy_color_blue_part  = GETBLUEPART(unhealthy_color)
+
+	var/default_color_red_part   = GETREDPART(default_color)
+	var/default_color_green_part = GETGREENPART(default_color)
+	var/default_color_blue_part  = GETBLUEPART(default_color)
+
+	var/result = rgb(
+		unhealthy_color_red_part   + ((default_color_red_part   - unhealthy_color_red_part)   * health_percent),
+		unhealthy_color_green_part + ((default_color_green_part - unhealthy_color_green_part) * health_percent),
+		unhealthy_color_blue_part  + ((default_color_blue_part  - unhealthy_color_blue_part)  * health_percent)
+	)
+	return result
+
 /datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity)
 	SIGNAL_HANDLER
 
-	EMPeffect = TRUE
+	emp_effect = TRUE
 	spec_updatehealth(H)
 	to_chat(H, "<span class='notice'>You feel the light of your body leave you.</span>")
 	switch(severity)
@@ -116,9 +147,9 @@
 /datum/species/ethereal/proc/on_emag_act(mob/living/carbon/human/H, mob/user)
 	SIGNAL_HANDLER
 
-	if(emageffect)
+	if(emag_effect)
 		return
-	emageffect = TRUE
+	emag_effect = TRUE
 	if(user)
 		to_chat(user, "<span class='notice'>You tap [H] on the back with your card.</span>")
 	H.visible_message("<span class='danger'>[H] starts flickering in an array of colors!</span>")
@@ -126,19 +157,19 @@
 	addtimer(CALLBACK(src, .proc/stop_emag, H), 30 SECONDS) //Disco mode for 30 seconds! This doesn't affect the ethereal at all besides either annoying some players, or making someone look badass.
 
 /datum/species/ethereal/proc/stop_emp(mob/living/carbon/human/H)
-	EMPeffect = FALSE
+	emp_effect = FALSE
 	spec_updatehealth(H)
 	to_chat(H, "<span class='notice'>You feel more energized as your shine comes back.</span>")
 
 /datum/species/ethereal/proc/handle_emag(mob/living/carbon/human/H)
-	if(!emageffect)
+	if(!emag_effect)
 		return
 	current_color = "#[GLOB.color_list_ethereal[pick(GLOB.color_list_ethereal)]]"	//Picks a random colour from the Ethereal colour list
 	spec_updatehealth(H)
 	addtimer(CALLBACK(src, .proc/handle_emag, H), 5) //Call ourselves every 0.5 seconds to change color
 
 /datum/species/ethereal/proc/stop_emag(mob/living/carbon/human/H)
-	emageffect = FALSE
+	emag_effect = FALSE
 	spec_updatehealth(H)
 	H.visible_message("<span class='danger'>[H] stops flickering and goes back to their normal state!</span>")
 

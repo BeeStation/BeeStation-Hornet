@@ -22,6 +22,10 @@
 		H.equipOutfit(/datum/outfit/plasmaman/official)
 		H.internal = H.get_item_for_held_index(2)
 		H.update_internals_hud_icon(1)
+	if(issimian(H))
+		qdel(H.wear_neck)
+		var/obj/item/clothing/mask/translator/T = new /obj/item/clothing/mask/translator
+		H.equip_to_slot(T, ITEM_SLOT_NECK)
 	H.equipOutfit(/datum/outfit/centcom_official)
 	if(CONFIG_GET(flag/enforce_human_authority))
 		H.set_species(/datum/species/human)

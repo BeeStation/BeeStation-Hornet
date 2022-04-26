@@ -29,6 +29,7 @@ GLOBAL_LIST_EMPTY(frills_list)
 GLOBAL_LIST_EMPTY(spines_list)
 GLOBAL_LIST_EMPTY(legs_list)
 GLOBAL_LIST_EMPTY(animated_spines_list)
+GLOBAL_LIST_EMPTY(tails_list_monkey)//monkestation edit: add simian species
 
 	//Mutant Human bits
 GLOBAL_LIST_EMPTY(tails_list_human)
@@ -64,6 +65,8 @@ GLOBAL_LIST_INIT(color_list_ethereal, list(
 	"Orchid Purple" = "ee82ee",
 	"Rose" = "ff92b6",
 	"Gray" = "979497"))
+
+
 
 GLOBAL_LIST_INIT(ghost_forms_with_directions_list, list("ghost")) //stores the ghost forms that support directional sprites
 GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list("ghost")) //stores the ghost forms that support hair and other such things

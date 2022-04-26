@@ -219,14 +219,14 @@
 	living_pawn.a_intent = INTENT_HELP
 
 	// no de-aggro
-	if(controller.blackboard[BB_MONKEY_AGGRESSIVE])
+	if(controller.blackboard[BB_MONKEY_AGGRESSIVE]  && !(HAS_TRAIT(target, TRAIT_MONKEYFRIEND))) //monkestation edit: so aggro can drop
 		return
 
 	if(DT_PROB(MONKEY_HATRED_REDUCTION_PROB, delta_time))
 		controller.blackboard[BB_MONKEY_ENEMIES][target]--
 
 	// if we are not angry at our target, go back to idle
-	if(controller.blackboard[BB_MONKEY_ENEMIES][target] <= 0)
+	if(controller.blackboard[BB_MONKEY_ENEMIES][target] <= 0  || (HAS_TRAIT(target, TRAIT_MONKEYFRIEND))) //monkestation edit: so aggro can drop
 		var/list/enemies = controller.blackboard[BB_MONKEY_ENEMIES]
 		enemies.Remove(target)
 		if(controller.blackboard[BB_MONKEY_CURRENT_ATTACK_TARGET] == target)

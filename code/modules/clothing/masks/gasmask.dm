@@ -138,6 +138,19 @@
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 
+//monkestation edit: add monkeyfriend trait
+/obj/item/clothing/mask/gas/monkeymask/equipped(mob/living/user, slot)
+	. = ..()
+	var/mob/living/carbon/human/C = user
+	var/obj/item/clothing/suit/monkeysuit/S
+	if(S == C.wear_suit)
+		ADD_TRAIT(user, TRAIT_MONKEYFRIEND, CLOTHING_TRAIT)
+
+/obj/item/clothing/mask/gas/monkeymask/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_MONKEYFRIEND, CLOTHING_TRAIT)
+//monkestation edit end
+
 /obj/item/clothing/mask/gas/sexymime
 	name = "sexy mime mask"
 	desc = "A traditional female mime's mask."

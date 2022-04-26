@@ -78,7 +78,12 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_chassis, GLOB.ipc_chassis_list)
 	if(!GLOB.insect_type_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_type, GLOB.insect_type_list)
+	//monkestation edit: add simians
+	if(!GLOB.tails_list_monkey.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/monkey, GLOB.tails_list_monkey)
+	//monkestation edit end
 	//For now we will always return none for tail_human and ears.
+
 	return(
 		list(
 		"body_size" = "Normal",
@@ -99,7 +104,8 @@
 		"ipc_screen" = pick(GLOB.ipc_screens_list),
 		"ipc_antenna" = pick(GLOB.ipc_antennas_list),
 		"ipc_chassis" = pick(GLOB.ipc_chassis_list),
-		"insect_type" = pick(GLOB.insect_type_list)
+		"insect_type" = pick(GLOB.insect_type_list),
+		"tail_monkey" = pick(GLOB.tails_list_monkey)
 		)
 	)
 
@@ -181,24 +187,43 @@
 		if(!findname(.))
 			break
 
+//monkestation edit: add simian species
+/proc/random_unique_simian_name(gender, attempts_to_find_unique_name=10)
+	for(var/i in 1 to attempts_to_find_unique_name)
+		. = capitalize(simian_name(gender))
 
-/proc/random_skin_tone()
-	return pick(GLOB.skin_tones)
+		if(!findname(.))
+			break
 
-GLOBAL_LIST_INIT(skin_tones, sortList(list(
-	"albino",
-	"caucasian1",
-	"caucasian2",
-	"caucasian3",
-	"latino",
-	"mediterranean",
-	"asian1",
-	"asian2",
-	"arab",
-	"indian",
-	"african1",
-	"african2"
-	)))
+
+/proc/random_skin_tone(skin_tone_list)
+	return pick(GLOB.skin_tones[skin_tone_list])
+
+GLOBAL_LIST_INIT(skin_tones, list(
+		"human" = sortList(list(
+			"albino" = "fff4e6",
+			"caucasian1" = "ffe0d1",
+			"caucasian2" = "fcccb3",
+			"caucasian3" = "e8b59b",
+			"latino" = "d9ae96",
+			"mediterranean" = "c79b8b",
+			"asian1" = "ffdeb3",
+			"asian2" = "e3ba84",
+			"arab" = "e3ba84",
+			"indian"= "b87840",
+			"african1" = "754523",
+			"african2" = "471c18"
+		)),
+		"simian" = sortList(list(
+			"albino" = "ffffff",
+			"Chimp" = "ffb089",
+			"Grey" = "aeafb3",
+			"Snow" = "bfd0ca",
+			"Orange" = "ce7d54",
+			"Red" = "c47373",
+			"Cream" = "f4e2d5"
+		))
+		))
 
 GLOBAL_LIST_EMPTY(species_list)
 

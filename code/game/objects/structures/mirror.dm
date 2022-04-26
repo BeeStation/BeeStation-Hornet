@@ -161,8 +161,8 @@
 				return
 			H.set_species(newrace, icon_update=0)
 
-			if(H.dna.species.use_skintones)
-				var/new_s_tone = input(user, "Choose your skin tone:", "Race change")  as null|anything in GLOB.skin_tones
+			if(SKINTONES in H.dna.species.species_traits)
+				var/new_s_tone = input(user, "Choose your skin tone:", "Race change")  as null|anything in GLOB.skin_tones[H.dna.species.skin_tone_list]
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 

@@ -404,6 +404,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["feature_ipc_antenna"], features["ipc_antenna"])
 	READ_FILE(S["feature_ipc_chassis"], features["ipc_chassis"])
 	READ_FILE(S["feature_insect_type"], features["insect_type"])
+	READ_FILE(S["feature_monkey_tail"], features["tail_monkey"])//monkestation edit: add simian species
 
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)
@@ -469,7 +470,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	gradient_color = sanitize_hexcolor(gradient_color, 3, 0)
 	underwear_color	= sanitize_hexcolor(underwear_color, 3, 0)
 	eye_color = sanitize_hexcolor(eye_color, 3, 0)
-	skin_tone = sanitize_inlist(skin_tone, GLOB.skin_tones)
+	skin_tone = sanitize_inlist(skin_tone, GLOB.skin_tones[pref_species.skin_tone_list])
 	backbag	= sanitize_inlist(backbag, GLOB.backbaglist, initial(backbag))
 	jumpsuit_style = sanitize_inlist(jumpsuit_style, GLOB.jumpsuitlist, initial(jumpsuit_style))
 	uplink_spawn_loc = sanitize_inlist(uplink_spawn_loc, GLOB.uplink_spawn_loc_list_save, initial(uplink_spawn_loc))
@@ -485,12 +486,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	features["spines"] = sanitize_inlist(features["spines"], GLOB.spines_list)
 	features["body_markings"] = sanitize_inlist(features["body_markings"], GLOB.body_markings_list)
 	features["feature_lizard_legs"]	= sanitize_inlist(features["legs"], GLOB.legs_list, "Normal Legs")
-	features["moth_wings"] = sanitize_inlist(features["moth_wings"], GLOB.moth_wings_list, "Plain")
-	features["ipc_screen"] = sanitize_inlist(features["ipc_screen"], GLOB.ipc_screens_list)
-	features["ipc_antenna"]	= sanitize_inlist(features["ipc_antenna"], GLOB.ipc_antennas_list)
-	features["ipc_chassis"]	= sanitize_inlist(features["ipc_chassis"], GLOB.ipc_chassis_list)
-	features["insect_type"]	= sanitize_inlist(features["insect_type"], GLOB.insect_type_list)
-
+	features["moth_wings"] 	= sanitize_inlist(features["moth_wings"], GLOB.moth_wings_list, "Plain")
+	features["ipc_screen"]	= sanitize_inlist(features["ipc_screen"], GLOB.ipc_screens_list)
+	features["ipc_antenna"]	 = sanitize_inlist(features["ipc_antenna"], GLOB.ipc_antennas_list)
+	features["ipc_chassis"]	 = sanitize_inlist(features["ipc_chassis"], GLOB.ipc_chassis_list)
+	features["insect_type"]	 = sanitize_inlist(features["insect_type"], GLOB.insect_type_list)
+	features["tail_monkey"]	= sanitize_inlist(features["tail_monkey"], GLOB.tails_list_monkey)
 	//Validate species forced mutant parts
 	for(var/forced_part in pref_species.forced_features)
 		//Get the forced type
@@ -561,6 +562,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["feature_ipc_antenna"]			, features["ipc_antenna"])
 	WRITE_FILE(S["feature_ipc_chassis"]			, features["ipc_chassis"])
 	WRITE_FILE(S["feature_insect_type"]			, features["insect_type"])
+	WRITE_FILE(S["feature_monkey_tail"]			, features["tail_monkey"])//monkestation edit: add simian species
 
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)

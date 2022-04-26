@@ -126,15 +126,22 @@ There are several things that need to be remembered:
 
 		//Change check_adjustable_clothing.dm if you change this
 		var/icon_file = 'icons/mob/clothing/uniform.dmi'
-		if(!uniform_overlay)
+		if(!uniform_overlay || dna.species.get_custom_icons("uniform") != null)
 			if(U.sprite_sheets & (dna?.species.bodyflag))
 				icon_file = dna.species.get_custom_icons("uniform")
-			//Currently doesn't work with GAGS
+				//monkestation edit: make GAGS work with sprite sheets
+				if(U.greyscale_config_worn)
+					U.greyscale_config_worn = text2path("[initial(U.greyscale_config_worn)]"+"/"+"[lowertext(dna.species.name)]") //sprite sheets and GAGS will have to follow this naming convention.
+					U.update_greyscale()
+				//monkestation edit end
 			//if((dna?.species.bodytype & BODYTYPE_DIGITIGRADE) && (U.supports_variations & DIGITIGRADE_VARIATION))
 			//	icon_file = 'icons/mob/species/misc/digitigrade.dmi'
 			uniform_overlay = U.build_worn_icon(default_layer = UNIFORM_LAYER, default_icon_file = icon_file, isinhands = FALSE, override_state = target_overlay)
-
-			
+		//monkestation edit: make GAGS work with sprite sheets
+		if(U.greyscale_config_worn) //to put it back to initial if a sprite sheet species and a non sprite sheet species trade GAGS clothes
+			U.greyscale_config_worn = initial(U.greyscale_config_worn)
+			U.update_greyscale()
+		//monkestation edit end
 
 		if(OFFSET_UNIFORM in dna.species.offset_features)
 			uniform_overlay.pixel_x += dna.species.offset_features[OFFSET_UNIFORM][1]
@@ -182,12 +189,22 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(!gloves && bloody_hands)
-		var/mutable_appearance/bloody_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands", -GLOVES_LAYER)
+		var/mutable_appearance/bloody_overlay
+		if(!dna.species.get_custom_icons("gloves"))//monkestation edit: add simians
+			bloody_overlay += mutable_appearance('icons/effects/blood.dmi', "bloodyhands", -GLOVES_LAYER)
+		else
+			bloody_overlay = mutable_appearance('monkestation/icons/effects/blood.dmi', "[lowertext(dna.species.name)]_bloodyhands")
 		if(get_num_arms(FALSE) < 2)
 			if(has_left_hand(FALSE))
-				bloody_overlay.icon_state = "bloodyhands_left"
+				if(!dna.species.get_custom_icons("gloves"))
+					bloody_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands_left", -GLOVES_LAYER)
+				else
+					bloody_overlay = mutable_appearance('monkestation/icons/effects/blood.dmi', "[lowertext(dna.species.name)]_bloodyhands_left")
 			else if(has_right_hand(FALSE))
-				bloody_overlay.icon_state = "bloodyhands_right"
+				if(!dna.species.get_custom_icons("gloves"))
+					bloody_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands_right", -GLOVES_LAYER)
+				else
+					bloody_overlay = mutable_appearance('monkestation/icons/effects/blood.dmi', "[lowertext(dna.species.name)]_bloodyhands_right")
 
 		overlays_standing[GLOVES_LAYER] = bloody_overlay
 
@@ -318,11 +335,18 @@ There are several things that need to be remembered:
 			var/obj/item/clothing/shoes/S = shoes
 			if(S.sprite_sheets & (dna?.species.bodyflag))
 				icon_file = dna.species.get_custom_icons("shoes")
-
+				//monkestation edit: make GAGS work with sprite sheets
+				if(S.greyscale_config)
+					S.greyscale_config_worn = text2path("[initial(S.greyscale_config_worn)]"+"/"+"[lowertext(dna.species.name)]") //sprite sheets and GAGS will have to follow this naming convention.
+					S.update_greyscale()
+			else if(S.greyscale_config_worn != initial(S.greyscale_config_worn)) //to put it back to initial if a sprite sheet species and a non sprite sheet species trade GAGS clothes
+				S.greyscale_config_worn = initial(S.greyscale_config_worn)
+				S.update_greyscale()
 			if(dna?.species.bodytype & BODYTYPE_DIGITIGRADE)
 				if(S.supports_variations & DIGITIGRADE_VARIATION)
 					icon_file = 'icons/mob/species/misc/digitigrade_shoes.dmi'
 
+		//monkestation edit end
 		shoes.screen_loc = ui_shoes					//move the item to the appropriate screen loc
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open
@@ -426,15 +450,16 @@ There are several things that need to be remembered:
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_OCLOTHING) + 1]
 		inv.update_icon()
 
-	if(istype(wear_suit, /obj/item/clothing/suit))
+	if(wear_suit)
 		var/icon_file = 'icons/mob/clothing/suit.dmi'
-		var/obj/item/clothing/suit/S = wear_suit
-		if(S.sprite_sheets & (dna?.species.bodyflag))
-			icon_file = dna.species.get_custom_icons("suit")
+		if(istype(wear_suit, /obj/item/clothing/suit))
+			var/obj/item/clothing/suit/S = wear_suit
+			if(S.sprite_sheets & (dna?.species.bodyflag))
+				icon_file = dna.species.get_custom_icons("suit")
 
-		if(dna?.species.bodytype & BODYTYPE_DIGITIGRADE)
-			if(S.supports_variations & DIGITIGRADE_VARIATION)
-				icon_file = 'icons/mob/species/misc/digitigrade_suits.dmi'
+			if(dna?.species.bodytype & BODYTYPE_DIGITIGRADE)
+				if(S.supports_variations & DIGITIGRADE_VARIATION)
+					icon_file = 'icons/mob/species/misc/digitigrade_suits.dmi'
 
 		wear_suit.screen_loc = ui_oclothing
 		if(client && hud_used && hud_used.hud_shown)
@@ -783,9 +808,15 @@ generate/load female uniform sprites matching all previously decided variables
 			var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
 			var/mutable_appearance/eye_overlay
 			if(!E)
-				eye_overlay = mutable_appearance('icons/mob/human_face.dmi', "eyes_missing", -BODY_LAYER)
+				if(ALTEYESPRITES in dna.species.species_traits)
+					eye_overlay = mutable_appearance(dna.species.alt_eye, "eyes_missing", -BODY_LAYER)
+				else
+					eye_overlay = mutable_appearance('icons/mob/human_face.dmi', "eyes_missing", -BODY_LAYER)
 			else
-				eye_overlay = mutable_appearance('icons/mob/human_face.dmi', E.eye_icon_state, -BODY_LAYER)
+				if(ALTEYESPRITES in dna.species.species_traits)
+					eye_overlay = mutable_appearance(dna.species.alt_eye, E.eye_icon_state, -BODY_LAYER)
+				else
+					eye_overlay = mutable_appearance('icons/mob/human_face.dmi', E.eye_icon_state, -BODY_LAYER)
 			if((EYECOLOR in dna.species.species_traits) && E)
 				eye_overlay.color = "#" + eye_color
 			if(OFFSET_FACE in dna.species.offset_features)

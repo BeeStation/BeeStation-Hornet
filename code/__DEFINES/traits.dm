@@ -220,6 +220,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_XENO_IMMUNE		"xeno_immune" //prevents facehuggers implanting races that wouldn't be able to host an egg
 #define TRAIT_NECROPOLIS_INFECTED "necropolis-infection"
 #define TRAIT_BEEFRIEND 		"beefriend"
+#define TRAIT_MONKEYFRIEND 		"monkeyfriend"//monkestation edit: add simians
 #define TRAIT_MEDICAL_HUD		"med_hud"
 #define TRAIT_SECURITY_HUD		"sec_hud"
 #define TRAIT_MEDIBOTCOMINGTHROUGH "medbot" //Is a medbot healing you
@@ -284,6 +285,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_UNSTABLE_ASS		"unstable_ass"
 #define TRAIT_STABLE_ASS		"stable_ass"
 #define TRAIT_DUMMY_THICK		"dummy_thick"
+#define TRAIT_KLEPTOMANIAC 		"kleptomaniac"
 //MonkeStation Edit End
 
 ///Trait applied to turfs when an atmos holosign is placed on them. It will stop firedoors from closing.
@@ -372,6 +374,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STICKY_NODROP "sticky-nodrop" //sticky nodrop sounds like a bad soundcloud rapper's name
 // Monkestation Changes Start
 #define TRAIT_TRASH_EATER "trash_eater" //goat.dm symptom requirement
+#define TRAIT_VAULTING "vaulting" //simian trait
 // Monkestation Changes End
 #define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
 

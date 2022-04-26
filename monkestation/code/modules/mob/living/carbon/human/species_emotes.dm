@@ -7,7 +7,8 @@ GLOBAL_LIST_INIT(male_laughs, list(
 						"ashlizard" = 	list('monkestation/sound/voice/laugh/lizard/lizard_laugh.ogg'),
 						"moth" 		= 	list('monkestation/sound/voice/laugh/moth/mothchitter.ogg','monkestation/sound/voice/laugh/moth/mothlaugh.ogg','monkestation/sound/voice/laugh/moth/mothsqueak.ogg'),
 						"plasmaman" = 	list('monkestation/sound/voice/laugh/skeleton/skeleton_laugh.ogg'),
-						"skeleton" 	= 	list('monkestation/sound/voice/laugh/skeleton/skeleton_laugh.ogg')
+						"skeleton" 	= 	list('monkestation/sound/voice/laugh/skeleton/skeleton_laugh.ogg'),
+						"simian"	=	list('monkestation/sound/voice/laugh/simian/monkey_laugh_1.ogg')
 ))
 
 GLOBAL_LIST_INIT(female_laughs, list(
@@ -20,7 +21,8 @@ GLOBAL_LIST_INIT(female_laughs, list(
 						"ashlizard" = 	list('monkestation/sound/voice/laugh/lizard/lizard_laugh.ogg'),
 						"moth" 		= 	list('monkestation/sound/voice/laugh/moth/mothchitter.ogg','monkestation/sound/voice/laugh/moth/mothlaugh.ogg','monkestation/sound/voice/laugh/moth/mothsqueak.ogg'),
 						"plasmaman" = 	list('monkestation/sound/voice/laugh/skeleton/skeleton_laugh.ogg'),
-						"skeleton" 	= 	list('monkestation/sound/voice/laugh/skeleton/skeleton_laugh.ogg')
+						"skeleton" 	= 	list('monkestation/sound/voice/laugh/skeleton/skeleton_laugh.ogg'),
+						"simian"	=	list('monkestation/sound/voice/laugh/simian/monkey_laugh_1.ogg')
 ))
 
 GLOBAL_LIST_INIT(male_screams, list(
@@ -33,7 +35,8 @@ GLOBAL_LIST_INIT(male_screams, list(
 						"ashlizard" = 	list('sound/voice/lizard/lizard_scream_1.ogg','sound/voice/lizard/lizard_scream_3.ogg','sound/voice/lizard/lizard_scream_4.ogg'),
 						"moth" 		= 	list('sound/voice/moth/scream_moth.ogg'),
 						"plasmaman" = 	list('monkestation/sound/voice/screams/skeleton/scream_skeleton.ogg'),
-						"skeleton" 	= 	list('monkestation/sound/voice/screams/skeleton/scream_skeleton.ogg')
+						"skeleton" 	= 	list('monkestation/sound/voice/screams/skeleton/scream_skeleton.ogg'),
+						"simian"	=	list('sound/creatures/monkey/monkey_screech_1.ogg','sound/creatures/monkey/monkey_screech_2.ogg','sound/creatures/monkey/monkey_screech_3.ogg','sound/creatures/monkey/monkey_screech_4.ogg')
 ))
 
 GLOBAL_LIST_INIT(female_screams, list(
@@ -46,5 +49,6 @@ GLOBAL_LIST_INIT(female_screams, list(
 						"ashlizard" = 	list('sound/voice/lizard/lizard_scream_2.ogg','sound/voice/lizard/lizard_scream_3.ogg','monkestation/sound/voice/screams/lizard/lizard_scream_5.ogg'),
 						"moth" 		= 	list('sound/voice/moth/scream_moth.ogg'),
 						"plasmaman" = 	list('monkestation/sound/voice/screams/skeleton/scream_skeleton.ogg'),
-						"skeleton" 	= 	list('monkestation/sound/voice/screams/skeleton/scream_skeleton.ogg')
+						"skeleton" 	= 	list('monkestation/sound/voice/screams/skeleton/scream_skeleton.ogg'),
+						"simian"	=	list('sound/creatures/monkey/monkey_screech_5.ogg','sound/creatures/monkey/monkey_screech_6.ogg','sound/creatures/monkey/monkey_screech_7.ogg')
 ))

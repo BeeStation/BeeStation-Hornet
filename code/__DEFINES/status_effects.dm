@@ -101,6 +101,8 @@
 
 #define STATUS_EFFECT_IPC_EMP /datum/status_effect/ipc/emp //EMP'd IPC
 
+#define STATUS_EFFECT_KLEPTOMANIA /datum/status_effect/kleptomania
+
 //---------//
 // NEUTRAL //
 //---------//

@@ -499,6 +499,7 @@ ROUNDSTART_RACES plasmaman
 #ROUNDSTART_RACES shadow
 #ROUNDSTART_RACES silver_golem
 #ROUNDSTART_RACES uranium_golem
+ROUNDSTART_RACES simian //monkestation edit: add simian species
 
 ## Races that are straight upgrades. If these are on expect powergamers to always pick them
 #ROUNDSTART_RACES agent

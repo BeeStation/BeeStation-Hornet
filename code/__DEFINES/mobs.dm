@@ -97,6 +97,7 @@
 #define SPECIES_ASHWALKER		"ashlizard"
 #define SPECIES_OOZELING		"oozeling"
 #define SPECIES_FLY 			"fly"
+#define SPECIES_SIMIAN 			"simian" //monkestation edit
 #define SPECIES_MONKEY			"monkey"
 #define SPECIES_JELLYPERSON		"jelly"
 #define SPECIES_SLIMEPERSON	"slime"
@@ -115,8 +116,9 @@
 #define FLAG_LIZARD			(1<<6)
 #define FLAG_OOZELING		(1<<7)
 #define FLAG_FLY			(1<<8)
-#define FLAG_DEBUG_SPECIES	(1<<9)
-#define FLAG_MONKEY (1<<10)
+#define FLAG_SIMIAN			(1<<9)//monkestation edit
+#define FLAG_DEBUG_SPECIES	(1<<10)
+#define FLAG_MONKEY (1<<11)
 
 #define DIGITIGRADE_NEVER 0
 #define DIGITIGRADE_OPTIONAL 1

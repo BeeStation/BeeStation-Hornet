@@ -199,9 +199,9 @@
 	else
 		H.facial_hair_style = random_facial_hair_style(H.gender)
 	if(skin_tone)
-		H.skin_tone = skin_tone
+		H.skin_tone = GLOB.skin_tones[H.dna.species.skin_tone_list]
 	else
-		H.skin_tone = random_skin_tone()
+		H.skin_tone = random_skin_tone(H.dna.species.skin_tone_list)
 	H.update_hair()
 	H.update_body()
 	if(outfit)

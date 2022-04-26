@@ -16,7 +16,7 @@
 	H.name = H.real_name
 	H.underwear = random_underwear(H.gender)
 	H.underwear_color = random_short_color()
-	H.skin_tone = random_skin_tone()
+	H.skin_tone = random_skin_tone(H.dna.species.skin_tone_list)
 	H.hair_style = random_hair_style(H.gender)
 	H.facial_hair_style = random_facial_hair_style(H.gender)
 	H.hair_color = random_short_color()
@@ -34,6 +34,7 @@
 	H.dna.features["spines"] = pick(GLOB.spines_list)
 	H.dna.features["body_markings"] = pick(GLOB.body_markings_list)
 	H.dna.features["moth_wings"] = pick(GLOB.moth_wings_list)
+	H.dna.features["tail_monkey"] = pick(GLOB.tails_list_monkey)//monkestation edit: add simian species
 
 	H.update_body()
 	H.update_hair()

@@ -2,9 +2,8 @@
 	name = "\improper Human"
 	id = SPECIES_HUMAN
 	default_color = "FFFFFF"
-	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
+	species_traits = list(SKINTONES,EYECOLOR,HAIR,FACEHAIR,LIPS)
 	default_features = list("mcolor" = "FFF", "wings" = "None", "body_size" = "Normal")
-	use_skintones = 1
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	disliked_food = GROSS | RAW
 	liked_food = JUNKFOOD | FRIED

@@ -183,6 +183,19 @@
 	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
+//monkestation edit: add monkeyfriend trait
+/obj/item/clothing/suit/monkeysuit/equipped(mob/living/user, slot)
+	. = ..()
+	var/mob/living/carbon/C = user
+	var/obj/item/clothing/mask/gas/monkeymask/M
+	if(M == C.wear_mask)
+		ADD_TRAIT(user, TRAIT_MONKEYFRIEND, CLOTHING_TRAIT)
+
+/obj/item/clothing/suit/monkeysuit/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_MONKEYFRIEND, CLOTHING_TRAIT)
+//monkestation edit end
+
 /obj/item/clothing/suit/toggle/owlwings
 	name = "owl cloak"
 	desc = "A soft brown cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive the ladies mad."

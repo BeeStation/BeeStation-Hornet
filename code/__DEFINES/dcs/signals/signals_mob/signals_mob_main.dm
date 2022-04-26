@@ -46,12 +46,12 @@
 	#define COMPONENT_UPPERCASE_SPEECH 1
 	/// used to access COMSIG_MOB_SAY argslist
 	#define SPEECH_MESSAGE 1
-	/// #define SPEECH_BUBBLE_TYPE 2
+	#define SPEECH_BUBBLE_TYPE 2
 	#define SPEECH_SPANS 3
-	/* #define SPEECH_SANITIZE 4
+	#define SPEECH_SANITIZE 4
 	#define SPEECH_LANGUAGE 5
 	#define SPEECH_IGNORE_SPAM 6
-	#define SPEECH_FORCED 7 */
+	#define SPEECH_FORCED 7
 /// from /mob/living/emote(): ()
 #define COMSIG_MOB_EMOTE "mob_emote"
 ///from base of mob/swap_hand()

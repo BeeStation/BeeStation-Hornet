@@ -17,7 +17,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/examine_limb_id //This is used for children, felinids and ashwalkers namely
 
 	var/digitigrade_customization = DIGITIGRADE_NEVER //Never, Optional, or Forced digi legs?
-	var/use_skintones = FALSE	// does it use skintones or not? (spoiler alert this is only used by humans)
+	var/skin_tone_list = "human" //monkestation edit: add species specific skin tones - defaults to human
+	var/dyncolor = "" // if you use Dyncolor and are not ethereal, use this
 	var/exotic_blood = ""	// If your race wants to bleed something other than bog standard blood, change this to reagent id.
 	var/exotic_bloodtype = "" //If your race uses a non standard bloodtype (A+, O-, AB-, etc)
 	var/meat = /obj/item/reagent_containers/food/snacks/meat/slab/human //What the species drops on gibbing
@@ -29,6 +30,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
 	var/say_mod = "says"	// affects the speech message
 	var/species_language_holder = /datum/language_holder
+	var/alt_eye //alternate eye directory; monkestation edit: add simians
 	var/list/default_features = list("body_size" = "Normal") // Default mutant bodyparts for this species. Don't forget to set one for every mutant bodypart you allow this species to have.
 	var/list/forced_features = list()	// A list of features forced on characters
 	var/list/mutant_bodyparts = list() 	// Visible CURRENT bodyparts that are unique to a species. DO NOT USE THIS AS A LIST OF ALL POSSIBLE BODYPARTS AS IT WILL FUCK SHIT UP! Changes to this list for non-species specific bodyparts (ie cat ears and tails) should be assigned at organ level if possible. Layer hiding is handled by handle_mutant_bodyparts() below.
@@ -44,6 +46,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/clonemod = 1
 	var/toxmod = 1
 	var/staminamod = 1		// multiplier for stun duration
+	var/maxhealthmod = 1 //multiplier for overriding max health
 	var/attack_type = BRUTE //Type of damage attack does
 	var/punchdamage = 7      //highest possible punch damage
 	var/siemens_coeff = 1 //base electrocution coefficient
@@ -146,6 +149,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		randname += " [pick(GLOB.last_names)]"
 
 	return randname
+
+/datum/species/proc/update_color(mob/living/carbon/C) //empty proc for updating colors if there's a better way please tell me
+	return
 
 //Called when cloning, copies some vars that should be kept
 /datum/species/proc/copy_properties_from(datum/species/old_species)
@@ -408,6 +414,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		for(var/i in inherent_factions)
 			C.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
+	C.maxHealth = C.maxHealth * maxhealthmod
+
 	C.add_movespeed_modifier(MOVESPEED_ID_SPECIES, TRUE, 100, override=TRUE, multiplicative_slowdown=speedmod, movetypes=(~FLYING))
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
@@ -619,7 +627,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			standing += lip_overlay
 
 		// eyes
-		if(!(NOEYESPRITES in species_traits))
+		if(!(NOEYESPRITES in species_traits) && !(ALTEYESPRITES in species_traits))
 			var/obj/item/organ/eyes/E = H.getorganslot(ORGAN_SLOT_EYES)
 			var/mutable_appearance/eye_overlay
 			if(!E)
@@ -632,7 +640,18 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				eye_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
 				eye_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
 			standing += eye_overlay
-
+		//monkestation edit begin: add simian species
+		if(ALTEYESPRITES in species_traits)
+			var/obj/item/organ/eyes/E = H.getorganslot(ORGAN_SLOT_EYES)
+			var/mutable_appearance/eye_overlay
+			if(!E)
+				eye_overlay = mutable_appearance(H.dna.species.alt_eye, "eyes_missing", -BODY_LAYER)
+			else
+				eye_overlay = mutable_appearance(H.dna.species.alt_eye, E.eye_icon_state, -BODY_LAYER)
+			if((EYECOLOR in species_traits) && E)
+				eye_overlay.color = "#" + H.eye_color
+			standing += eye_overlay
+		//monkestation edit end
 	//Underwear, Undershirts & Socks
 	if(!(NO_UNDERWEAR in species_traits))
 		if(H.underwear)
@@ -694,7 +713,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "tail_human"
 
-
 	if("waggingtail_human" in mutant_bodyparts)
 		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
 			bodyparts_to_add -= "waggingtail_human"
@@ -745,6 +763,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(!H.dna.features["ipc_antenna"] || H.dna.features["ipc_antenna"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "ipc_antenna"
 
+//monkestation edit: add simian species
+	if("tail_monkey" in mutant_bodyparts)
+		if(H.wear_suit && (H.wear_suit.flags_inv & HIDEJUMPSUIT))
+			bodyparts_to_add -= "tail_monkey"
+//monkestation edit end
 
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
 	///Digi handling
@@ -823,13 +846,15 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.ipc_chassis_list[H.dna.features["ipc_chassis"]]
 				if("insect_type")
 					S = GLOB.insect_type_list[H.dna.features["insect_type"]]
+				if("tail_monkey")
+					S = GLOB.tails_list_monkey[H.dna.features["tail_monkey"]]
 			if(!S || S.icon_state == "none")
 				continue
 
 			var/mutable_appearance/accessory_overlay = mutable_appearance(S.icon, layer = -layer)
 
 			//A little rename so we don't have to use tail_lizard or tail_human when naming the sprites.
-			if(bodypart == "tail_lizard" || bodypart == "tail_human")
+			if(bodypart == "tail_lizard" || bodypart == "tail_human" || bodypart == "tail_monkey")
 				bodypart = "tail"
 			else if(bodypart == "waggingtail_lizard" || bodypart == "waggingtail_human")
 				bodypart = "waggingtail"
@@ -845,6 +870,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if(!(HAS_TRAIT(H, TRAIT_HUSK)))
 				if(!forced_colour)
 					switch(S.color_src)
+						if(SKINTONES)
+							accessory_overlay.color = "#[GLOB.skin_tones[H.dna.species.skin_tone_list][H.skin_tone]]"
 						if(MUTCOLORS)
 							if(fixed_mut_color)
 								accessory_overlay.color = "#[fixed_mut_color]"
@@ -859,6 +886,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 							accessory_overlay.color = "#[H.facial_hair_color]"
 						if(EYECOLOR)
 							accessory_overlay.color = "#[H.eye_color]"
+
 				else
 					accessory_overlay.color = forced_colour
 			standing += accessory_overlay
