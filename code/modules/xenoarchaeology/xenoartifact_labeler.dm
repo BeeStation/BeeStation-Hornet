@@ -78,9 +78,9 @@
 	for(var/T in typesof(trait_type))
 		var/datum/xenoartifact_trait/X = T
 		if(initial(X.desc) && !(initial(X.desc) in traits) && !(initial(X.label_name)))
-			traits += list(initial(X.desc))
+			traits += initial(X.desc)
 		else if(initial(X.label_name) && !(initial(X.label_name) in traits)) //For cases where the trait doesn't have a desc or is tool cool to use one
-			traits += list(initial(X.label_name))
+			traits += initial(X.label_name)
 	return traits
 
 /obj/item/xenoartifact_labeler/proc/look_for(list/place, culprit) //This isn't really needed but, It's easier to use as a function. What does this even do?
@@ -112,11 +112,11 @@
 		description_holder = new_trait
 		if(action == "assign_[toggle_type]_[T]")
 			if(!look_for(active_trait_list, T))
-				active_trait_list += list(T)
+				active_trait_list += T
 				info_list += initial(description_holder.label_desc)
 				sticker_traits += new_trait
 			else
-				active_trait_list -= list(T)
+				active_trait_list -= T
 				info_list -= initial(description_holder.label_desc)
 				sticker_traits -= new_trait
 
@@ -209,14 +209,18 @@
 	return
 
 /obj/item/xenoartifact_labeler/debug/create_label(new_name)
-	var/obj/item/xenoartifact/A = new(get_turf(src.loc), DEBUGIUM)
+	var/obj/item/xenoartifact/A = new(get_turf(loc), DEBUGIUM)
 	say("Created [A] at [A.loc]")
 	A.charge_req = 100
 	A.malfunction_mod = 0
 	A.malfunction_chance = 0
-	var/C = 1
-	for(var/X in sticker_traits)
+	A.traits = list()
+	for(var/datum/xenoartifact_trait/T in A.traits) //Delete old traits
+		T.on_del(A)
+		qdel(T)
+	for(var/X in sticker_traits) //Add new ones
 		say(X)
-		A.traits[C] = new X
-		A.traits[C].on_init(A)
-		C = C + 1
+		A.traits += new X
+	for(var/datum/xenoartifact_trait/T in A.traits) //Setup new ones
+		T.on_init(A)
+	A = null

@@ -162,7 +162,7 @@
 				budget.adjust_money(final_price)
 				linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, final_price*10)
 				info = "[I.name] sold at [station_time_timestamp()] for [final_price] credits, bought for [X.price]"
-				sold_artifacts += list(info)
+				sold_artifacts += info
 				say(info)
 				qdel(I)
 				addtimer(CALLBACK(src, .proc/generate_new_buyer), (rand(1,5)*60) SECONDS)
@@ -170,7 +170,7 @@
 			else    
 				final_price = 125*rand(0.3, 1.8) //This may be a point of conflict/balance
 				info = "[I] sold at [station_time_timestamp()] for [final_price]. No further information available."
-				sold_artifacts += list(info)
+				sold_artifacts += info
 				say(info)
 				qdel(I)
 				addtimer(CALLBACK(src, .proc/generate_new_buyer), (rand(1,5)*60) SECONDS)
@@ -197,7 +197,7 @@
 			return
 		if(!(linked_inbox))
 			linked_inbox = I
-			linked_machines += list(I.name)
+			linked_machines += I.name
 			I.linked_console = src
 			I.RegisterSignal(src, COMSIG_PARENT_QDELETING, /obj/machinery/xenoartifact_inbox/proc/on_machine_del)
 			RegisterSignal(I, COMSIG_PARENT_QDELETING, .proc/on_inbox_del)
@@ -206,6 +206,7 @@
 	say("Unable to find linkable hadrware.")
 
 /obj/machinery/computer/xenoartifact_console/proc/on_inbox_del()
+	SIGNAL_HANDLER
 	UnregisterSignal(linked_inbox, COMSIG_PARENT_QDELETING)
 	linked_inbox = null
 
@@ -222,6 +223,7 @@
 	var/linked_console
 
 /obj/machinery/xenoartifact_inbox/proc/on_machine_del()
+	SIGNAL_HANDLER
 	UnregisterSignal(linked_console, COMSIG_PARENT_QDELETING)
 	linked_console = null
 

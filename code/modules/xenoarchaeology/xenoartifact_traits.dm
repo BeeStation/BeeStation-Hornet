@@ -1,6 +1,6 @@
 /*
-	I'd rather not document all this.
-	;)
+	Xenoartifact traits.
+	If you're reading this in the future please note to use signals with activators, thank you.
 */
 /datum/xenoartifact_trait
 	var/desc //Acts as a descriptor for when examining. Also used for naming stuff in the labeler. Keep these short.
@@ -11,6 +11,9 @@
 /datum/xenoartifact_trait/activator
 	var/charge //How much an activator trait can output on a standard, modified by the artifacts charge_req and circumstances.
 
+/datum/xenoartifact_trait/activator/proc/calculate_charge(obj/item/xenoartifact/X)
+	return
+
 /datum/xenoartifact_trait/minor
 
 /datum/xenoartifact_trait/major
@@ -20,16 +23,7 @@
 /datum/xenoartifact_trait/proc/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	return
 
-/datum/xenoartifact_trait/proc/on_impact(obj/item/xenoartifact/X, atom/target, atom/user)
-	return FALSE
-
 /datum/xenoartifact_trait/proc/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
-	return FALSE
-
-/datum/xenoartifact_trait/proc/on_burn(obj/item/xenoartifact/X, atom/user)
-	return FALSE
-
-/datum/xenoartifact_trait/proc/on_signal(obj/item/xenoartifact/X, atom/user)
 	return FALSE
 
 /datum/xenoartifact_trait/proc/on_init(obj/item/xenoartifact/X)
@@ -38,42 +32,82 @@
 /datum/xenoartifact_trait/proc/on_touch(obj/item/xenoartifact/X, atom/user)
 	return FALSE
 
+/datum/xenoartifact_trait/proc/on_del(obj/item/xenoartifact/X)	
+	return
+
+//Used under certain circumstances
+
+/datum/xenoartifact_trait/special/objective
+	//Used for exploration missions
+	blacklist_traits = (/datum/xenoartifact_trait/minor/dense)
+
+/datum/xenoartifact_trait/special/objective/on_init(obj/item/xenoartifact/X)
+	. = ..()
+	X.AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
+
 //Activation traits - only used to generate charge
 
 /datum/xenoartifact_trait/activator/impact //Not specifically 'impact'. pretty much any tactile interaction.
 	desc = "Sturdy"
 	label_desc = "Sturdy: The material is sturdy, striking it against the clown's skull seems to cause a unique reaction."
-	charge = 20
+	charge = 25
 
-/datum/xenoartifact_trait/activator/impact/on_impact(obj/item/xenoartifact/X, atom/user, force)
-	return charge+(force*5)
+/datum/xenoartifact_trait/activator/impact/on_init(obj/item/xenoartifact/X)
+	. = ..()
+	RegisterSignal(X, XENOA_INTERACT, .proc/calculate_charge)
+	RegisterSignal(X, XENOA_ATTACK, .proc/calculate_charge)
+	RegisterSignal(X, XENOA_ATTACKBY, .proc/calculate_charge)
+	RegisterSignal(X, XENOA_THROW_IMPACT, .proc/calculate_charge)
+
+/datum/xenoartifact_trait/activator/impact/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
+	var/obj/item/xenoartifact/X = source
+	charge = charge*(thing?.force*0.1)
+	X.default_activate(charge, user, target)
+
+/datum/xenoartifact_trait/activator/impact/on_del(obj/item/xenoartifact/X)
+	. = ..()
+	UnregisterSignal(X, XENOA_INTERACT)
+	UnregisterSignal(X, XENOA_ATTACKBY)
+	UnregisterSignal(X, XENOA_THROW_IMPACT)
+	UnregisterSignal(X, XENOA_ATTACK)
 
 /datum/xenoartifact_trait/activator/burn
 	desc = "Flammable"
 	label_desc = "Flammable: The material is flamable, and seems to react when ignited."
 	charge = 25
-	var/datum/component/overlay_lighting/light
-
-/datum/xenoartifact_trait/activator/burn/on_burn(obj/item/xenoartifact/X, atom/user, heat)
-	if(X.process_type != LIT && X.manage_cooldown(TRUE) && !light) //Generally artifact should handle cooldown schmuck. Please don't do this.
-		X.visible_message("<span class='danger'>The [X.name] sparks on.</span>")
-		sleep(2 SECONDS)
-		light = X.AddComponent(/datum/component/overlay_lighting, 2.5, 0.1, X.light_color)
-		X.process_type = LIT
-		START_PROCESSING(SSobj, X)
-	else if(light)
-		qdel(light)
-	return charge+(heat*0.03)
-
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
 
 /datum/xenoartifact_trait/activator/burn/on_init(obj/item/xenoartifact/X)
+	. = ..()
 	X.max_range += 1
-	..()
+	RegisterSignal(X, XENOA_ATTACKBY, .proc/calculate_charge)
+
+/datum/xenoartifact_trait/activator/burn/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
+	var/obj/item/xenoartifact/X = source
+	if(X.process_type != LIT && thing.ignition_effect(X, user)) //Generally artifact should handle cooldown schmuck. Please don't do this.
+		X.visible_message("<span class='danger'>The [X.name] sparks on.</span>")
+		to_chat(user, "<span class='danger'>The [X.name] sparks on.</span>")
+		sleep(2 SECONDS)
+		X.process_type = LIT
+		START_PROCESSING(SSobj, X)
+
+/datum/xenoartifact_trait/activator/burn/on_del(obj/item/xenoartifact/X)
+	. = ..()
+	UnregisterSignal(X, XENOA_ATTACKBY)
 
 /datum/xenoartifact_trait/activator/clock
 	label_name = "Tuned"
 	label_desc = "Tuned: The material produces a resonance pattern similar to quartz, causing it to produce a reaction every so often."
+	charge = 25
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/capacitive)
+
+/datum/xenoartifact_trait/activator/clock/on_init(obj/item/xenoartifact/X)
+	. = ..()
+	X.max_range += 1
+	RegisterSignal(X, XENOA_INTERACT, .proc/calculate_charge)
+	RegisterSignal(X, XENOA_ATTACKBY, .proc/calculate_charge)
+	RegisterSignal(X, XENOA_THROW_IMPACT, .proc/calculate_charge)
+	RegisterSignal(X, XENOA_ATTACK, .proc/calculate_charge)
 
 /datum/xenoartifact_trait/activator/clock/on_item(obj/item/xenoartifact/X, atom/user, atom/item) 
 	if(istype(item, /obj/item/clothing/neck/stethoscope))
@@ -81,15 +115,17 @@
 		return TRUE
 	..()
 
-/datum/xenoartifact_trait/activator/clock/on_init(obj/item/xenoartifact/X)
-	charge = X.charge_req*(rand(25, 100)/100)
-	X.max_range += 1
-	..()
-
-/datum/xenoartifact_trait/activator/clock/on_impact(obj/item/xenoartifact/X) 
+/datum/xenoartifact_trait/activator/clock/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
+	var/obj/item/xenoartifact/X = source
 	X.process_type = TICK
 	START_PROCESSING(SSobj, X)
-	return charge
+
+/datum/xenoartifact_trait/activator/clock/on_del(obj/item/xenoartifact/X)
+	. = ..()
+	UnregisterSignal(X, XENOA_INTERACT)
+	UnregisterSignal(X, XENOA_ATTACKBY)
+	UnregisterSignal(X, XENOA_THROW_IMPACT)
+	UnregisterSignal(X, XENOA_ATTACK)
 
 /datum/xenoartifact_trait/activator/signal
 	label_name = "Signal"
@@ -102,6 +138,8 @@
 	X.frequency = FREQ_SIGNALER
 	X.set_frequency(X.frequency)
 	X.max_range += 1
+	X = X
+	RegisterSignal(X, XENOA_SIGNAL, .proc/calculate_charge)
 
 /datum/xenoartifact_trait/activator/signal/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/analyzer))
@@ -109,23 +147,41 @@
 		return TRUE
 	..()
 
-/datum/xenoartifact_trait/activator/signal/on_signal(obj/item/xenoartifact/X)
-	return charge
+/datum/xenoartifact_trait/activator/signal/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
+	if(!istype(source, /obj/item/xenoartifact))
+		return
+	var/obj/item/xenoartifact/X = source
+	X.default_activate(charge, user, target)
+
+/datum/xenoartifact_trait/activator/signal/on_del(obj/item/xenoartifact/X)
+	. = ..()
+	UnregisterSignal(X, XENOA_SIGNAL)
 
 /datum/xenoartifact_trait/activator/batteryneed
 	desc = "Charged"
 	label_desc = "Charged: The material has a natural power draw. Supplying any current to this will cause a reaction."
 	charge = 25
 
+/datum/xenoartifact_trait/activator/batteryneed/on_init(obj/item/xenoartifact/X)
+	. = ..()
+	X = X
+	RegisterSignal(X, XENOA_ATTACKBY, .proc/calculate_charge)
+
 /datum/xenoartifact_trait/activator/batteryneed/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/multitool))
 		to_chat(user, "<span class='info'>The [item.name] displays a draw of [X.charge_req].</span>")
 		return TRUE
-	else if(istype(item, /obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/C = item
+
+/datum/xenoartifact_trait/activator/batteryneed/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
+	var/obj/item/xenoartifact/X = source//Generally artifact should handle cooldown schmuck. Please don't do this.
+	var/obj/item/stock_parts/cell/C = thing
+	if(X.default_activate(charge, user, user))
 		C.charge -= X.charge_req*10
-		X.default_activate(charge, user)
-		return TRUE
+
+/datum/xenoartifact_trait/activator/batteryneed/on_del(obj/item/xenoartifact/X)
+	. = ..()
+	UnregisterSignal(X, XENOA_ATTACKBY)
+	qdel(src)
 
 //Minor traits - Some of these can be good but, don't forget to just have a bunch of lame ones too
 
@@ -180,22 +236,7 @@
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable, /datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/light, /datum/xenoartifact_trait/minor/heavy)
 
 /datum/xenoartifact_trait/minor/dense/on_init(obj/item/xenoartifact/X)
-	//if(istype(X,  /obj/structure/xenoartifact)) This isn't needed.
-		//return
-	var/obj/structure/xenoartifact/N = new(get_turf(X), X.material)
-	var/datum/component/xenoartifact_pricing/p = X.GetComponent(/datum/component/xenoartifact_pricing)
-	var/datum/component/xenoartifact_pricing/pd = N.GetComponent(/datum/component/xenoartifact_pricing)
-	if(!p || !pd)
-		return
-	N.name = X.name
-	N.traits = X.traits
-	N.charge_req = X.charge_req*1.5
-	N.special_desc = X.special_desc
-	N.touch_desc = X.touch_desc
-	N.alpha = X.alpha
-	pd.price = p.price
-	N.max_range = X.max_range
-	qdel(X)
+	new /obj/structure/xenoartifact(get_turf(X), X)
 	..()
 
 /datum/xenoartifact_trait/minor/sharp
@@ -437,17 +478,17 @@
 	if(!ismovable(target))
 		return
 	var/atom/movable/AM = target
-	AM.anchored = TRUE
 	AM.forceMove(X)
+	AM.anchored = TRUE
 	addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.3 SECONDS)
-	X.cooldownmod = X.charge*0.6 SECONDS
+	X.cooldownmod = X.charge*0.5 SECONDS
 	..()
 
 /datum/xenoartifact_trait/major/capture/proc/release(obj/item/xenoartifact/X, var/atom/movable/AM) //Empty contents
 	var/turf/T = get_turf(X.loc)
 	AM.anchored = FALSE
 	AM.forceMove(T)
-	if(!fren)
+	if(fren)
 		new /mob/living/simple_animal/hostile/russian(T)
 		fren = FALSE
 
@@ -667,7 +708,8 @@
 	. = ..()
 	if(istype(target, /atom/movable))
 		var/atom/movable/victim = target
-		do_teleport(victim, get_turf(victim), (X.charge*0.1)+1, channel = TELEPORT_CHANNEL_BLUESPACE)
+		if(!victim.anchored)
+			do_teleport(victim, get_turf(victim), (X.charge*0.1)+1, channel = TELEPORT_CHANNEL_BLUESPACE)
 
 /datum/xenoartifact_trait/major/handmore
 	desc = "Limbed"
@@ -684,6 +726,7 @@
 			if(user == target)
 				to_chat(user, "<span class='danger'>Your arms dissapear into the [X]!</span>")
 			victim.change_number_of_hands(0)
+
 /datum/xenoartifact_trait/major/lamp
 	label_name = "Lamp"
 	label_desc = "Lamp: The Artifact emits light. Nothing in its shape suggests this."
@@ -814,6 +857,10 @@
 /datum/xenoartifact_trait/major/pull
 	label_name = "Pull"
 	label_desc = "Pull: The Artifact pushes anything not bolted down. The shape doesn't suggest this."
+
+/datum/xenoartifact_trait/major/pull/on_init(obj/item/xenoartifact/X)
+	. = ..()
+	X.max_range += 1
 
 /datum/xenoartifact_trait/major/pull/activate(obj/item/xenoartifact/X, atom/target)
 	if(istype(target, /mob/living)||istype(target, /obj/item))
