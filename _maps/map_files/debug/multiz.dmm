@@ -781,8 +781,6 @@
 /area/crew_quarters/heads/captain)
 "cr" = (
 /obj/machinery/light,
-/obj/structure/cable,
-/obj/machinery/power/deck_relay,
 /turf/open/floor/plasteel{
 	dir = 6
 	},
@@ -1322,8 +1320,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/cable,
-/obj/machinery/power/deck_relay,
 /turf/open/floor/plasteel{
 	dir = 6
 	},
@@ -1780,7 +1776,7 @@
 	icon_state = "0-8";
 	name = "lower power node"
 	},
-/obj/machinery/power/deck_relay{
+	icon_state = "8-16";
 	name = "lower multi-deck power adapter"
 	},
 /turf/open/floor/plating,
@@ -1937,12 +1933,9 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/captain)
 "Ye" = (
-/obj/machinery/power/deck_relay{
-	name = "upper multi-deck power adapter"
-	},
 /obj/structure/cable{
-	icon_state = "0-8";
-	name = "upper power cable node"
+	icon_state = "8-32";
+	name = "upper multi-deck power adapter"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
