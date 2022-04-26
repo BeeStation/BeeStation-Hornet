@@ -238,7 +238,9 @@
 	new_trait = pick(activators)
 	blacklist_traits += list(new_trait, initial(new_trait.blacklist_traits))
 	traits += new new_trait
+	special_desc = initial(new_trait.desc) ? "[special_desc] [initial(new_trait.desc)]" : special_desc
 
+	var/minor_desc
 	var/list/minors = list()
 	for(var/X in 1 to 3) //Minors
 		for(var/T in list(subtypesof(/datum/xenoartifact_trait/minor)))
@@ -250,6 +252,15 @@
 		new_trait = pick(minors)
 		blacklist_traits += list(new_trait, initial(new_trait.blacklist_traits))
 		traits += new new_trait
+		if(!minor_desc && initial(new_trait.desc))
+			minor_desc = initial(new_trait.desc)
+		if(!touch_desc)
+			var/datum/xenoartifact_trait/D = new new_trait
+			if(D.on_touch(src, src))
+				touch_desc = new new_trait
+			//qdel(D)
+
+	special_desc = minor_desc ? "[special_desc] [minor_desc] material." : "[special_desc] material"
 
 	var/list/majors
 	for(var/T in list(subtypesof(/datum/xenoartifact_trait/major))) //Major
@@ -261,6 +272,7 @@
 	new_trait = pick(majors)
 	blacklist_traits += list(new_trait, initial(new_trait.blacklist_traits))
 	traits += new new_trait
+	special_desc = initial(new_trait.desc) ? "[special_desc] The shape is [initial(new_trait.desc)]." : special_desc
 
 	charge_req = rand(1, 10) * 10
 
