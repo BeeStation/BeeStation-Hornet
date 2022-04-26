@@ -120,28 +120,11 @@
 	if (virtual_z_level != here.z && !(is_station_level(target_turf.z) && is_station_level(here.z)))
 		return FALSE
 
-
-	/*if((H.z == 0 || H.get_virtual_z_level() == here.get_virtual_z_level() || (is_station_level(here.z) && is_station_level(H.z))) && istype(H.w_uniform, /obj/item/clothing/under))
-		var/obj/item/clothing/under/U = H.w_uniform
-
-		//Suit sensors radio transmitter must not be jammed.
-		if(U.is_jammed())
-			return FALSE
-
-		// Suit sensors must be on maximum.
-		if(!U.has_sensor || (U.sensor_mode < SENSOR_COORDS && !ignore_suit_sensor_level))
-			return FALSE*/
-
-	// Determine if this person is using nanites for sensors,
-	// in which case the sensors are always set to full detail
-	//var/nanite_sensors = HAS_TRAIT(tracked_human, TRAIT_NANITE_SENSORS)
-
 	//	Radio transmitters are jammed
 	if(H.is_jammed())
 		return FALSE
 
 	var/nanite_sensors = HAS_TRAIT(H, TRAIT_NANITE_SENSORS)
-	// Check for a uniform if not using nanites
 	var/obj/item/clothing/under/uniform = H.w_uniform
 
 	// Are nanite sensors on?
