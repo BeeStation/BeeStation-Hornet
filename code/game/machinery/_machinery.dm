@@ -583,13 +583,9 @@ Class Procs:
 	AM.pixel_y = -8 + (round( . / 3)*8)
 
 /obj/machinery/proc/play_click_sound(var/custom_clicksound)
-	if((custom_clicksound||clicksound) && world.time > next_clicksound)
+	if((custom_clicksound ||= clicksound) && world.time > next_clicksound)
 		next_clicksound = world.time + CLICKSOUND_INTERVAL
-		if(custom_clicksound)
-			playsound(src, custom_clicksound, clickvol)
-		else if(clicksound)
-			playsound(src, clicksound, clickvol)
-	return
+		playsound(src, custom_clicksound, clickvol)
 
 /obj/machinery/rust_heretic_act()
 	take_damage(500, BRUTE, "melee", 1)
