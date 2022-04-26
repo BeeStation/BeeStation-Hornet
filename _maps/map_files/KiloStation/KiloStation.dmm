@@ -7097,6 +7097,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/item/laser_pointer,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "alP" = (
@@ -7478,8 +7479,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -13507,8 +13508,8 @@
 	idInterior = "virology_airlock_interior";
 	idSelf = "virology_airlock_control";
 	name = "Virology Access Console";
-	req_access_txt = "39";
-	pixel_x = -28
+	pixel_x = -28;
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
@@ -14376,8 +14377,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -15298,7 +15299,7 @@
 	pixel_x = 26
 	},
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/noslip/dark,
 /area/science/explab)
 "ayv" = (
 /obj/effect/turf_decal/box,
@@ -15603,10 +15604,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "ayT" = (
-/obj/machinery/computer/rdconsole/experiment{
-	dir = 4;
-	icon_state = "computer"
-	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -15617,6 +15614,9 @@
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
+	},
+/obj/machinery/computer/xenoartifact_console{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
@@ -19744,7 +19744,6 @@
 	dir = 1;
 	icon_state = "box_corners"
 	},
-/obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/engine,
 /area/science/explab)
 "aFt" = (
@@ -24786,9 +24785,6 @@
 "aNl" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/item/stack/packageWrap,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/hand_labeler,
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
@@ -24801,6 +24797,16 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
+/obj/item/analyzer,
+/obj/item/assembly/igniter{
+	pixel_x = 5;
+	pixel_y = -4
+	},
+/obj/item/multitool{
+	pixel_x = 4
+	},
+/obj/item/geiger_counter,
+/obj/item/assembly/signaler,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "aNm" = (
@@ -28865,8 +28871,8 @@
 	idDoor = "virology_airlock_interior";
 	idSelf = "virology_airlock_control";
 	name = "Virology Access Button";
-	req_access_txt = "39";
-	pixel_y = 28
+	pixel_y = 28;
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
@@ -31512,16 +31518,8 @@
 /turf/open/floor/engine,
 /area/science/explab)
 "aWW" = (
-/obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -31529,6 +31527,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/structure/closet/bombcloset,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "aWX" = (
@@ -31783,8 +31782,8 @@
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "aXo" = (
-/obj/machinery/rnd/experimentor,
 /obj/effect/landmark/event_spawn,
+/obj/item/xenoartifact,
 /turf/open/floor/engine,
 /area/science/explab)
 "aXp" = (
@@ -35725,9 +35724,6 @@
 /area/science/explab)
 "bdc" = (
 /obj/structure/table,
-/obj/item/storage/box/beakers{
-	pixel_y = 5
-	},
 /obj/machinery/button/door{
 	id = "telelab";
 	name = "Test Chamber Toggle";
@@ -35736,6 +35732,22 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
+	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 1;
+	pixel_y = -1
+	},
+/obj/item/xenoartifact_labeler{
+	pixel_x = 6;
+	pixel_y = 10
+	},
+/obj/item/xenoartifact_labeler{
+	pixel_x = -7;
+	pixel_y = 7
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
@@ -36310,11 +36322,15 @@
 /obj/item/folder{
 	pixel_x = -6
 	},
-/obj/item/book/manual/wiki/experimentor,
 /obj/item/pen,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
+	},
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/firstaid/regular{
+	pixel_x = 3;
+	pixel_y = -3
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
@@ -36324,6 +36340,8 @@
 	dir = 1;
 	pixel_y = -26
 	},
+/obj/machinery/xenoartifact_inbox,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/engine,
 /area/science/explab)
 "bdT" = (
@@ -37454,8 +37472,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
@@ -38286,6 +38304,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 22
 	},
+/obj/machinery/computer/rdconsole/experiment,
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "bgE" = (
@@ -51682,8 +51701,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
@@ -52019,8 +52038,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
@@ -60879,8 +60898,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -61012,8 +61031,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -73075,8 +73094,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -91479,8 +91498,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Junction Cutoff";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Junction Cutoff"
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -92100,8 +92119,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -96975,8 +96994,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -97876,8 +97895,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	name = "Atmospherics Cutoff Valve";
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Cutoff Valve"
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -100422,6 +100441,10 @@
 	icon_state = "platingdmg1"
 	},
 /area/maintenance/starboard)
+"sEJ" = (
+/obj/machinery/rnd/experimentor,
+/turf/open/floor/engine,
+/area/science/xenobiology)
 "sER" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -139959,7 +139982,7 @@ aeu
 aeu
 aeu
 alB
-aWJ
+sEJ
 bfU
 bfy
 ary

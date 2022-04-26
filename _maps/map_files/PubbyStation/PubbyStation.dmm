@@ -3654,6 +3654,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
+"ajp" = (
+/obj/machinery/rnd/experimentor,
+/turf/open/floor/engine,
+/area/science/xenobiology)
 "ajq" = (
 /obj/effect/landmark/start/security_officer,
 /obj/structure/reagent_dispensers/peppertank{
@@ -24888,7 +24892,8 @@
 /turf/open/floor/engine,
 /area/science/explab)
 "blQ" = (
-/obj/machinery/rnd/experimentor,
+/obj/machinery/xenoartifact_inbox,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/engine,
 /area/science/explab)
 "blR" = (
@@ -24900,7 +24905,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/book/manual/wiki/experimentor,
 /turf/open/floor/engine,
 /area/science/explab)
 "blT" = (
@@ -26043,7 +26047,6 @@
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "bpe" = (
-/obj/machinery/computer/rdconsole/experiment,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -26057,6 +26060,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/computer/xenoartifact_console,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "bpg" = (
@@ -26075,6 +26079,22 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/obj/item/xenoartifact_labeler{
+	pixel_x = -4;
+	pixel_y = 10
+	},
+/obj/item/xenoartifact_labeler{
+	pixel_x = 6;
+	pixel_y = 10
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
@@ -30095,7 +30115,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/noslip/white,
 /area/science/explab)
 "byT" = (
 /obj/item/kirbyplants/photosynthetic{
@@ -40134,8 +40154,8 @@
 	},
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
-	on = 1;
-	name = "O2 To Airmix"
+	name = "O2 To Airmix";
+	on = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -41349,9 +41369,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_toxmix{
-	piping_layer = 1;
+	icon_state = "dpvent_map-1";
 	id = "atmos_incinerator_airlock_pump";
-	icon_state = "dpvent_map-1"
+	piping_layer = 1
 	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
@@ -58515,6 +58535,15 @@
 /obj/machinery/meter,
 /turf/open/floor/engine,
 /area/engine/engineering)
+"reA" = (
+/obj/structure/rack,
+/obj/item/storage/firstaid/regular{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/monkeycubes,
+/turf/open/floor/plasteel/white,
+/area/science/explab)
 "reV" = (
 /obj/structure/grille/broken,
 /obj/structure/lattice,
@@ -61398,6 +61427,14 @@
 "vxl" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/structure/rack,
+/obj/item/assembly/igniter{
+	pixel_x = 5;
+	pixel_y = -4
+	},
+/obj/item/analyzer,
+/obj/item/geiger_counter,
+/obj/item/assembly/signaler,
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "vxp" = (
@@ -61919,6 +61956,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"wpI" = (
+/obj/machinery/computer/rdconsole/experiment,
+/turf/open/floor/engine,
+/area/science/xenobiology)
 "wqu" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -103223,8 +103264,8 @@ aEj
 tyR
 bjw
 bkz
-blQ
 bky
+blQ
 bnY
 bpe
 bqp
@@ -103743,7 +103784,7 @@ bnY
 bpg
 bqr
 hOa
-bqs
+reA
 gKa
 bvT
 bxC
@@ -115048,7 +115089,7 @@ aaa
 aed
 aht
 bkF
-blX
+ajp
 blX
 blX
 blX
@@ -115562,7 +115603,7 @@ aaa
 aby
 aaa
 bkF
-blX
+wpI
 blX
 blX
 tuy
