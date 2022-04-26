@@ -12,3 +12,7 @@
 #define MOVEMENT_LOOP_START_FAST (1<<0)
 ///Do we not use the priority system?
 #define MOVEMENT_LOOP_IGNORE_PRIORITY (1<<1)
+
+//Index defines for movement bucket data packets
+#define MOVEMENT_BUCKET_TIME 1
+#define MOVEMENT_BUCKET_LIST 2

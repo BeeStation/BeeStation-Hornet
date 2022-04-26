@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(movement)
 /datum/controller/subsystem/movement/stat_entry(msg)
 	var/total_len = 0
 	for(var/bucket_time as anything in buckets)
-		total_len += length(buckets[bucket_time])
+		total_len += length(buckets[bucket_time][MOVEMENT_BUCKET_LIST])
 	msg = "B:[length(buckets)] E:[total_len]"
 	return ..()
 
@@ -37,13 +37,13 @@ SUBSYSTEM_DEF(movement)
 		canonical_time = world.time
 
 	for(var/bucket_time as anything in buckets)
-		if(text2num(bucket_time) > canonical_time || MC_TICK_CHECK)
+		if(buckets[bucket_time][MOVEMENT_BUCKET_TIME] > canonical_time || MC_TICK_CHECK)
 			return
 		pour_bucket(bucket_time)
 
 /// Processes a bucket of movement loops (This should only ever be called by fire(), it exists to prevent runtime fuckery)
 /datum/controller/subsystem/movement/proc/pour_bucket(bucket_time)
-	var/list/processing = buckets[bucket_time] // Cache for lookup speed
+	var/list/processing = buckets[bucket_time][MOVEMENT_BUCKET_LIST] // Cache for lookup speed
 	while(processing.len)
 		var/datum/move_loop/loop = processing[processing.len]
 		processing.len--
@@ -66,14 +66,14 @@ SUBSYSTEM_DEF(movement)
 	var/target_time = loop.timer
 	var/string_time = "[target_time]"
 	if(buckets[string_time])
-		buckets[string_time] += loop
+		buckets[string_time][MOVEMENT_BUCKET_LIST] += loop
 	else
 		//this acts as a sorted and assoc list at the same time
-		BINARY_INSERT_DEFINE(list("[string_time]" = null), buckets, SORT_VAR_NO_TYPE, target_time, SORT_ASSOC_VALUE, COMPARE_KEY)
-		buckets[string_time] += list(loop) //this is stupid but if we don't do it like that we can sometimes end up with empty list entries without loops
+		BINARY_INSERT_DEFINE(list("[string_time]" = null), buckets, SORT_VAR_NO_TYPE, list(target_time), SORT_FIRST_INDEX, COMPARE_VALUE)
+		buckets[string_time] += list(target_time, list(loop)) //this is stupid but if we don't do it like that we can sometimes end up with empty list entries without loops
 
 /datum/controller/subsystem/movement/proc/dequeue_loop(datum/move_loop/loop)
-	var/list/our_entries = buckets["[loop.timer]"]
+	var/list/our_entries = buckets["[loop.timer]"][MOVEMENT_BUCKET_LIST]
 	our_entries -= loop
 	if(!(our_entries.len))
 		smash_bucket(loop.timer)
