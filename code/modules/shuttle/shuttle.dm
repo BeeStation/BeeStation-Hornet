@@ -34,7 +34,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	///position relative to covered area, parallel to dir. You shouldn't modify this for mobile dockingports, set automatically.
 	var/dheight = 0
 
-	var/area_type
 	///are we invisible to shuttle navigation computers?
 	var/hidden = FALSE
 
@@ -64,8 +63,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	return
 /obj/docking_port/singularity_act()
 	return 0
-/obj/docking_port/shuttleRotate()
-	return //we don't rotate with shuttles via this code.
 
 //returns a list(x0,y0, x1,y1) where points 0 and 1 are bounding corners of the projected rectangle
 /obj/docking_port/proc/return_coords(_x, _y, _dir)
@@ -158,14 +155,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(P)
 		return P.id
 
-//Returns the underlying area, the area that is expected to be underneath the shuttle. Set create_if_null to TRUE create a new area if it doesn't exist, otherwise this can potentially return null.
-/obj/docking_port/proc/get_underlying_area(create_if_null = FALSE)
-	var/a_type = area_type ? area_type : SHUTTLE_DEFAULT_UNDERLYING_AREA
-	. = GLOB.areas_by_type[a_type]
-	if(!. && create_if_null)
-		return new a_type(null)
-
-
 /obj/docking_port/proc/is_in_shuttle_bounds(atom/A)
 	var/turf/T = get_turf(A)
 	if(T.z != z)
@@ -196,9 +185,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		id = "[SSshuttle.stationary.len]"
 	if(name == "dock")
 		name = "dock[SSshuttle.stationary.len]"
-	if(!area_type)
-		var/area/place = get_area(src)
-		area_type = place?.type // We might be created in nullspace
 
 	if(mapload)
 		for(var/turf/T in return_turfs())
@@ -212,13 +198,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(force)
 		SSshuttle.stationary -= src
 	. = ..()
-
-/obj/docking_port/stationary/Moved(atom/oldloc, dir, forced)
-	. = ..()
-	if(area_type) // We already have one
-		return
-	var/area/newarea = get_area(src)
-	area_type = newarea?.type
 
 /obj/docking_port/stationary/proc/load_roundstart()
 	if(json_key)
@@ -268,7 +247,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	name = "shuttle"
 	icon_state = "pinonclose"
 
-	area_type = SHUTTLE_DEFAULT_SHUTTLE_AREA_TYPE
+	var/area_type = SHUTTLE_DEFAULT_SHUTTLE_AREA_TYPE
 
 	var/list/shuttle_areas
 
@@ -369,9 +348,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(istype(current_area) && current_area.mobile_port)
 		current_area.mobile_port.towed_shuttles |= src
 	//add to underlying_turf_area
-	var/obj/docking_port/stationary/dock = get_docked()
-	var/area/old_area = dock?.get_underlying_area()
-	if(T.loc != old_area)
+	if(!shuttle_areas[current_area]) //We already have this turf
 		underlying_turf_area[T] = current_area
 	//Change areas
 	current_area.contents -= T
@@ -385,8 +362,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		return
 
 	//Get the new area type of our dock
-	var/obj/docking_port/stationary/dock = get_docked()
-	var/area/new_area = underlying_turf_area[T] ? underlying_turf_area[T] : SHUTTLE_UNDERLYING_AREA(dock)
+	var/area/new_area = underlying_turf_area[T] ? underlying_turf_area[T] : GLOB.areas_by_type[SHUTTLE_DEFAULT_UNDERLYING_AREA]
 	underlying_turf_area -= T
 
 	A.contents -= T
@@ -406,7 +382,8 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		return ..()
 	. = list()
 	for(var/obj/docking_port/mobile/M in get_all_towed_shuttles())
-		. |= M.return_ordered_turfs(_x + (M.x - src.x), _y + (M.y - src.y), _z + (M.z - src.z), angle2dir(dir2angle(_dir) + (dir2angle(M.dir) - dir2angle(src.dir))), include_towed = FALSE)
+		var/matrix/translate_vec = matrix(M.x - src.x, M.y - src.y, MATRIX_TRANSLATE) * matrix(dir2angle(_dir)-dir2angle(dir), MATRIX_ROTATE)
+		. |= M.return_ordered_turfs(_x + translate_vec.c, _y + translate_vec.f, _z + (M.z - src.z), angle2dir_cardinal(dir2angle(_dir) + (dir2angle(M.dir) - dir2angle(src.dir))), include_towed = FALSE)
 
 //Crawl through towed shuttles to get a list of all shuttles being towed
 /obj/docking_port/mobile/proc/get_all_towed_shuttles()
@@ -577,20 +554,18 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 /obj/docking_port/mobile/proc/jumpToNullSpace()
 	// Destroys the docking port and the shuttle contents.
 	// Not in a fancy way, it just ceases.
-	var/obj/docking_port/stationary/current_dock = get_docked()
 
 	var/list/old_turfs = return_ordered_turfs(x, y, z, dir)
 
 	// If the shuttle is docked to a stationary port, restore its normal
 	// "empty" area and turf
 
-	var/area/underlying_area = SHUTTLE_UNDERLYING_AREA(current_dock)
-
 	for(var/i in 1 to old_turfs.len)
 		var/turf/oldT = old_turfs[i]
-		if(!oldT || !istype(oldT.loc, area_type))
+		if(!shuttle_areas[oldT?.loc])
 			continue
 		var/area/old_area = oldT.loc
+		var/area/underlying_area = underlying_turf_area[oldT] ? underlying_turf_area[oldT] : GLOB.areas_by_type[SHUTTLE_DEFAULT_UNDERLYING_AREA]
 		underlying_area.contents += oldT
 		oldT.change_area(old_area, underlying_area)
 		oldT.empty(FALSE)
@@ -641,7 +616,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			continue  // out of bounds
 		if(T0.type == T0.baseturfs)
 			continue  // indestructible
-		if(!istype(T0.loc, area_type) || istype(T0.loc, /area/shuttle/transit))
+		if(!shuttle_areas[T0.loc] || istype(T0.loc, /area/shuttle/transit))
 			continue  // not part of the shuttle
 		ripple_turfs += T1
 
@@ -737,7 +712,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	var/list/L0 = return_ordered_turfs(x, y, z, dir)
 	for (var/thing in L0)
 		var/turf/T = thing
-		if(!T || !istype(T.loc, area_type))
+		if(!shuttle_areas[T?.loc])
 			continue
 		for (var/atom/movable/movable as anything in T)
 			if (length(movable.client_mobs_in_contents))

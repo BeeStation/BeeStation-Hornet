@@ -79,11 +79,6 @@
 #define SHUTTLE_DEFAULT_SHUTTLE_AREA_TYPE /area/shuttle
 #define SHUTTLE_DEFAULT_UNDERLYING_AREA /area/space
 
-
-//To be used when you want to create a new underlying area but you're not sure if the dock exists. I can't put this in the proc because the proc needs the dock to work so this is the best I can do.
-#define SHUTTLE_UNDERLYING_AREA(dock) (dock ? dock.get_underlying_area(TRUE) : (GLOB.areas_by_type[SHUTTLE_DEFAULT_UNDERLYING_AREA] ? GLOB.areas_by_type[SHUTTLE_DEFAULT_UNDERLYING_AREA] : new SHUTTLE_DEFAULT_UNDERLYING_AREA(null)))
-
-
 //Shuttle unlocks
 #define SHUTTLE_UNLOCK_BUBBLEGUM "bubblegum"
 #define SHUTTLE_UNLOCK_ALIENTECH "abductor"
