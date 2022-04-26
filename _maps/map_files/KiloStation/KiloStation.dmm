@@ -7480,8 +7480,7 @@
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
 	name = "Atmospherics Cutoff Valve";
-	dir = 4;
-	
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -91499,8 +91498,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Junction Cutoff"
+	name = "Atmospherics Junction Cutoff";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
