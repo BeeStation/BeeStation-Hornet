@@ -8586,11 +8586,7 @@
 /turf/open/floor/plasteel,
 /area/security/courtroom)
 "aop" = (
-/obj/structure/displaycase/captain{
-	req_access = null;
-	req_access_txt = "20";
-	req_one_access_txt = "0"
-	},
+/obj/structure/displaycase/captain,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -26

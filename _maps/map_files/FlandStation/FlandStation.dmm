@@ -33555,9 +33555,7 @@
 /area/bridge/showroom/corporate)
 "hFi" = (
 /obj/structure/displaycase/captain{
-	pixel_y = 5;
-	req_access = null;
-	req_access_txt = "20"
+	pixel_y = 5
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
