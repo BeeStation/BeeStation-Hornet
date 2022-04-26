@@ -7479,8 +7479,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
+	name = "Atmospherics Cutoff Valve";
 	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -13508,8 +13509,8 @@
 	idInterior = "virology_airlock_interior";
 	idSelf = "virology_airlock_control";
 	name = "Virology Access Console";
-	pixel_x = -28;
-	req_access_txt = "39"
+	req_access_txt = "39";
+	pixel_x = -28
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
@@ -14377,8 +14378,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -28871,8 +28872,8 @@
 	idDoor = "virology_airlock_interior";
 	idSelf = "virology_airlock_control";
 	name = "Virology Access Button";
-	pixel_y = 28;
-	req_access_txt = "39"
+	req_access_txt = "39";
+	pixel_y = 28
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
@@ -37472,8 +37473,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
@@ -51701,8 +51702,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
@@ -52038,8 +52039,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
@@ -60898,8 +60899,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -61031,8 +61032,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -73094,8 +73095,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -92119,8 +92120,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -96994,8 +96995,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -97895,8 +97896,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
