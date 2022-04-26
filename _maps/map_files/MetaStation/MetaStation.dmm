@@ -57134,7 +57134,6 @@
 /obj/item/geiger_counter,
 /obj/item/storage/box/monkeycubes,
 /obj/structure/table/glass,
-/obj/item/laser_pointer,
 /obj/item/assembly/signaler,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -59546,6 +59545,7 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
+/obj/item/laser_pointer,
 /turf/open/floor/plasteel,
 /area/science/explab{
 	name = "Xenoarchaeology  Lab"
