@@ -237,7 +237,7 @@
 		expand()
 	return 1
 
-/ob/singularity/particle_accelerator_act(additional_energy)
+/obj/singularity/particle_accelerator_act(additional_energy)
 	energy += additional_energy
 
 /obj/singularity/proc/consume(atom/thing)

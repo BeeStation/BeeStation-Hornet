@@ -40,7 +40,7 @@
 		if(isliving(A))
 			toxmob(A)
 		else
-			A.particle_accelerator_act(energy)
+			A.particle_accelerator_act(energy, src)
 
 /obj/effect/accelerated_particle/proc/on_entered(datum/source, atom/movable/A)
 	SIGNAL_HANDLER
