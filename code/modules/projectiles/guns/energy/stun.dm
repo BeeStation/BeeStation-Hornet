@@ -64,7 +64,7 @@
 	item_state = "gun"
 	pin = /obj/item/firing_pin/dna //Personal.
 	w_class = WEIGHT_CLASS_SMALL
-	cell_type = /obj/item/stock_parts/cell{charge = 320; maxcharge = 320} //Should be about 8 shots. 3 times less than the regular one.
+	gun_charge = 320
 	ammo_x_offset = 2
 	charge_sections = 2
 	can_flashlight = FALSE
