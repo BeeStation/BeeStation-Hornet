@@ -1,0 +1,4 @@
+author: Qustinnus, AnturK, Ported by Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Attachments now appear on guns again
