@@ -68,7 +68,7 @@
 	if(volume_left < amount) //Empty
 		return
 	reagents.add_reagent(reagent_id, amount*delta_time*0.5)
-	volume_left -= (amount*delta_time*0.5)
+	volume_left -= min((amount*delta_time*0.5), 0)
 
 /obj/machinery/plumbing/synthesizer/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/rcd_ammo))
@@ -77,7 +77,7 @@
 			to_chat(user, "<span class='warning'>The [R.name] doesn't have any reagent left!</span>")
 			return ..()
 		var/added_volume = -volume_left //For the difference calculation
-		volume_left = min(volume_left+R.ammoamt*10, 1000) //400 per cartridge
+		volume_left = min(volume_left+R.ammoamt*10, src.max_volume) //400 per cartridge
 		added_volume = added_volume+volume_left
 		R.ammoamt -= added_volume/10
 		if(R.ammoamt <= 0) //Emptied
