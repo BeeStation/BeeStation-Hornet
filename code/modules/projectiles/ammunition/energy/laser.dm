@@ -11,7 +11,7 @@
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/lasergun/captain
-	e_cost = 50 //equal to the half the amount the gun regenerates every time a regeneration tick occurs. Changing this from 71 rounds out the spent energy so that the gun will actually use its "empty" icon state when the gun is out of energy instead of just displaying that it is low. 
+	e_cost = 50 ///equal to the half the amount the gun regenerates every time a regeneration tick occurs. Changing this from 71 rounds out the spent energy so that the gun will actually use its "empty" icon state when the gun is out of energy instead of just displaying that it is low. 
 
 /obj/item/ammo_casing/energy/lasergun/old
 	projectile_type = /obj/item/projectile/beam/laser
