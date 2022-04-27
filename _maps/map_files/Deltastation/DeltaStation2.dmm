@@ -43091,6 +43091,8 @@
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/effect/spawner/lootdrop/techstorage/rnd,
+/obj/item/circuitboard/computer/xenoartifact_console,
+/obj/item/circuitboard/machine/xenoartifact_inbox,
 /turf/open/floor/plasteel,
 /area/storage/tech)
 "bGF" = (
@@ -82304,6 +82306,13 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/storage/box/monkeycubes,
+/obj/item/analyzer,
+/obj/item/laser_pointer,
+/obj/item/multitool{
+	pixel_x = 4
+	},
+/obj/item/clothing/neck/stethoscope,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "djC" = (
@@ -82366,6 +82375,15 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/assembly/igniter{
+	pixel_x = 5;
+	pixel_y = -4
+	},
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/obj/item/assembly/signaler,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "djF" = (
@@ -82946,6 +82964,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/experimentor,
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "dlt" = (
@@ -83274,6 +83295,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/healthanalyzer,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "dmE" = (
@@ -84635,9 +84657,6 @@
 /turf/open/floor/plasteel/white,
 /area/maintenance/department/science)
 "dqj" = (
-/obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/experimentor,
-/obj/item/healthanalyzer,
 /obj/structure/cable/white,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
@@ -84654,6 +84673,9 @@
 	dir = 8
 	},
 /obj/machinery/power/apc/auto_name/west,
+/obj/machinery/computer/rdconsole/experiment{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "dqk" = (
@@ -84675,9 +84697,6 @@
 "dql" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/rdconsole/experiment{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -84691,13 +84710,15 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/computer/xenoartifact_console{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "dqm" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -84717,6 +84738,8 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/xenoartifact_inbox,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "dqo" = (

@@ -27634,6 +27634,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/lootdrop/techstorage/rnd,
+/obj/item/circuitboard/computer/xenoartifact_console,
+/obj/item/circuitboard/machine/xenoartifact_inbox,
 /turf/open/floor/plating,
 /area/storage/tech)
 "bGx" = (
@@ -29996,6 +29998,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = 3;
+	pixel_y = -3
 	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
@@ -33784,6 +33790,31 @@
 "cba" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 4
+	},
+/obj/structure/table,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 1
+	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/obj/item/xenoartifact_labeler{
+	pixel_x = -7;
+	pixel_y = 7
+	},
+/obj/item/xenoartifact_labeler{
+	pixel_x = 3;
+	pixel_y = 7
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
 	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
@@ -52955,6 +52986,20 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 8
 	},
+/obj/structure/table,
+/obj/item/assembly/igniter{
+	pixel_x = 5;
+	pixel_y = -4
+	},
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/obj/item/assembly/signaler,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "olp" = (
@@ -54935,6 +54980,12 @@
 /mob/living/simple_animal/bot/cleanbot/medbay,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"qDy" = (
+/obj/machinery/computer/xenoartifact_console{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/science/misc_lab)
 "qDU" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -55294,6 +55345,24 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 8
 	},
+/obj/structure/table,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/analyzer,
+/obj/item/laser_pointer,
+/obj/item/multitool{
+	pixel_x = 4
+	},
+/obj/item/geiger_counter,
+/obj/item/clothing/neck/stethoscope,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/item/storage/box/monkeycubes,
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "qZB" = (
@@ -56282,6 +56351,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
+"suM" = (
+/obj/machinery/xenoartifact_inbox,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/science/misc_lab)
 "suU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -108862,7 +108936,7 @@ vDl
 bEC
 mjb
 caZ
-pWN
+suM
 bZZ
 bPN
 bPN
@@ -109119,7 +109193,7 @@ lEW
 bEC
 fsD
 uCq
-pWN
+qDy
 uvi
 bTl
 bTl
