@@ -117,7 +117,7 @@ By design, d1 is the smallest direction and d2 is the highest
 			var/obj/item/stack/cable_coil/temp_item = new /obj/item/stack/cable_coil(T, d1 ? 2 : 1, cable_color)
 			transfer_fingerprints_to(temp_item)
 		var/turf/T_below = T.below()
-		if(T_below)
+		if((d1 == DOWN || d2 == DOWN) && T_below)
 			for(var/obj/structure/cable/C in T_below)
 				if(C.d1 == UP || C.d2 == UP)
 					C.deconstruct()
@@ -621,7 +621,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	var/d1 = 0
 	if(istype(T, /turf/open/openspace))
 		if(!(get_amount() >= 2))
-			to_chat(user, "<span class='warning'>You need at least 2 pieces of cable to do between decks!</span>")
+			to_chat(user, "<span class='warning'>You need at least 2 pieces of cable to wire between decks!</span>")
 			return
 		d1 = d2 //bigger number goes last for sprite reasons
 		d2 = DOWN

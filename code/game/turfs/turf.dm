@@ -284,7 +284,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	. = TRUE
 	if(!A.zfalling)
 		A.zfalling = TRUE
-		if(A.pulling && old_loc)
+		if(A.pulling && old_loc) // Moves whatever we're pulling to where we were before so we're still adjacent
 			A.pulling.moving_from_pull = A
 			A.pulling.Move(old_loc)
 			A.pulling.moving_from_pull = null
