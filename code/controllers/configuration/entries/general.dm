@@ -548,6 +548,15 @@
 
 /datum/config_entry/string/centcom_ban_db	// URL for the CentCom Galactic Ban DB API
 
+/datum/config_entry/number/hard_deletes_overrun_threshold
+	integer = FALSE
+	min_val = 0
+	config_entry_value = 0.5
+
+/datum/config_entry/number/hard_deletes_overrun_limit
+	config_entry_value = 0
+	min_val = 0
+
 /datum/config_entry/flag/ic_filter_enabled
 
 /datum/config_entry/flag/ooc_filter_enabled
