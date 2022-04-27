@@ -68,7 +68,7 @@
 	if(volume_left < amount) //Empty
 		return
 	reagents.add_reagent(reagent_id, amount*delta_time*0.5)
-	volume_left -= min((amount*delta_time*0.5), 0)
+	volume_left = max(volume_left - amount*delta_time*0.5, 0)
 
 /obj/machinery/plumbing/synthesizer/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/rcd_ammo))
