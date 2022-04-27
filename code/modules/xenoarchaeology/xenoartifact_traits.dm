@@ -174,6 +174,8 @@
 
 /datum/xenoartifact_trait/activator/batteryneed/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source//Generally artifact should handle cooldown schmuck. Please don't do this.
+	if(!istype(thing, /obj/item/stock_parts/cell))
+		return
 	var/obj/item/stock_parts/cell/C = thing
 	if(X.default_activate(charge, user, user))
 		C.charge -= X.charge_req*10
@@ -396,6 +398,8 @@
 
 /datum/xenoartifact_trait/minor/wearable/on_init(obj/item/xenoartifact/X)
 	. = ..()
+	if(istype(X, /obj/structure/xenoartifact))
+		return
 	X.slot_flags = ITEM_SLOT_GLOVES
 	
 /datum/xenoartifact_trait/minor/wearable/activate(obj/item/xenoartifact/X, atom/user)
@@ -409,6 +413,8 @@
 
 /datum/xenoartifact_trait/minor/blocking/on_init(obj/item/xenoartifact/X)
 	. = ..()
+	if(istype(X, /obj/structure/xenoartifact))
+		return
 	X.block_level = pick(1, 2, 3, 4)
 	X.block_upgrade_walk = 1
 	X.block_power = 25 * pick(0.8, 1, 1.3, 1.5)
@@ -505,7 +511,7 @@
 	return TRUE
 
 /datum/xenoartifact_trait/major/shock/activate(obj/item/xenoartifact/X, atom/target, mob/user)
-	do_sparks(pick(1, 2), 0, X)
+	do_sparks(pick(1, 2), FALSE, X)
 	if(istype(target, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = target //Have to type convert to work with other traits
 		C.charge += (X.charge/100)*C.maxcharge
@@ -584,7 +590,7 @@
 
 /datum/xenoartifact_trait/major/corginator/activate(obj/item/xenoartifact/X, mob/living/target)
 	X.say(pick("Woof!", "Bark!", "Yap!"))
-	if(istype(target, /mob/living))
+	if(istype(target, /mob/living) && !(istype(target, /mob/living/simple_animal/pet/dog/corgi)))
 		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(X, target)
 		addtimer(CALLBACK(src, .proc/transform_back, X, target, new_corgi), (X.charge*0.6) SECONDS)
 		X.cooldownmod = (X.charge*0.6) SECONDS
@@ -612,8 +618,10 @@
 			qdel(target)
 		return
 	target.key = new_corgi.key
-	target.adjustBruteLoss(new_corgi.getBruteLoss())
-	target.adjustFireLoss(new_corgi.getFireLoss())
+	if(new_corgi.health <= 0) //Needed, corgi health is offset from human.
+		target.health = -1
+	target.adjustBruteLoss(new_corgi.getBruteLoss()*10)
+	target.adjustFireLoss(new_corgi.getFireLoss()*10)
 	target.forceMove(get_turf(new_corgi))
 	var/turf/T = get_turf(new_corgi)
 	if (new_corgi.inventory_head)
@@ -643,7 +651,7 @@
 		return
 	victim = target
 	caster = user
-	if(!caster.key || !victim.key)
+	if(!caster?.key || !victim?.key)
 		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		victim = null
 		caster = null
@@ -841,8 +849,12 @@
 
 /datum/xenoartifact_trait/major/chem/activate(obj/item/xenoartifact/X, atom/target)
 	. = ..()
-	var/datum/reagents/R = target.reagents
-	R.add_reagent(formula, amount)
+	if(!iscarbon(target))
+		return
+	var/mob/living/carbon/M = target
+	if(!M.can_inject())
+		var/datum/reagents/R = target.reagents
+		R.add_reagent(formula, amount)
 
 /datum/xenoartifact_trait/major/push
 	label_name = "Push"

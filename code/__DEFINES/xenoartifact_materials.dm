@@ -13,8 +13,8 @@
 #define DEBUGIUM "#ff4800"
 
 //Technically not materials, still used for xenoartifact related content
-#define XENOSELLERNAMES list("Borov", "Ivantsov", "Petrenko", "Voronin", "Kitsenko", "Plichko", "Sergei", "Kruglov", "Sakharov", "Kalugin", "Semenov", "Vasiliev", "Pavlik", "Tolik", "Kuznetsov", "Sidorovich", "Strelok")
-#define XENOSELLERDIAL list("Hello, Commrade. I think I have something that might interest you.","Hello, Friend. I think I have something you might be interested in.","Commrade, I can offer you only this.","For you, my Friend, I offer this.", "Commrade, this thing killed my Babushka, take it.","Friend, you want?","My buddy thinks I could sell this.","I'm pretty sure this took several years off my life, take it.","This was hard to find, but you can have it.","I found this one deep in the zone, it was a risk to get.")
+#define XENO_SELLER_NAMES list("Borov", "Ivantsov", "Petrenko", "Voronin", "Kitsenko", "Plichko", "Sergei", "Kruglov", "Sakharov", "Kalugin", "Semenov", "Vasiliev", "Pavlik", "Tolik", "Kuznetsov", "Sidorovich", "Strelok")
+#define XENO_SELLER_DIAL list("Hello, Commrade. I think I have something that might interest you.","Hello, Friend. I think I have something you might be interested in.","Commrade, I can offer you only this.","For you, my Friend, I offer this.", "Commrade, this thing killed my Babushka, take it.","Friend, you want?","My buddy thinks I could sell this.","I'm pretty sure this took several years off my life, take it.","This was hard to find, but you can have it.","I found this one deep in the zone, it was a risk to get.")
 
 //Also not materials but also related
 #define LIT 1
@@ -25,7 +25,7 @@
     We use different types, that do the same thing, so activators can just define what types they want and avoid coding anything else.
 */
 #define XENOA_INTERACT "xenoa_interact" //This goes for all (item, user, target)
-#define XENOA_THROW_IMPACT "xenoa_interact"
+#define XENOA_THROW_IMPACT "xenoa_throw"
 #define XENOA_ATTACK "xenoa_attack"
 #define XENOA_SIGNAL "xenoa_signal"
 #define XENOA_ATTACKBY "xenoa_attackby" //defining my own so I dont fuck anything up with COMSIG_PARENT_ATTACKBY

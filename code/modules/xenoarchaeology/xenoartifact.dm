@@ -132,7 +132,10 @@
 
 /obj/item/xenoartifact/examine(mob/living/carbon/user)
 	. = ..()
-	if(istype(user?.glasses, /obj/item/clothing/glasses/science))
+	if(isobserver(user))
+		to_chat(user, "<span class='notice'>[special_desc]</span>")
+		return
+	else if(istype(user?.glasses, /obj/item/clothing/glasses/science))
 		to_chat(user, "<span class='notice'>[special_desc]</span>")
 
 /obj/item/xenoartifact/interact(mob/user)
@@ -318,10 +321,10 @@
 	if(isliving(target))
 		M = target
 		. = M
-	else if(isliving(target.loc))
+	else if(isliving(target?.loc))
 		M = target.loc
 		. = M
-	if(M.pulling)
+	if(M?.pulling)
 		. = M.pulling
 	RegisterSignal(., COMSIG_PARENT_QDELETING, .proc/on_target_del, .)
 	return
@@ -443,8 +446,8 @@
 	rot_matrix.Turn(Angle)
 
 	//Translation vector for origin and target
-	var/DX = (32*target.x+target.pixel_x)-(32*origin.x+origin.pixel_x)
-	var/DY = (32*target.y+target.pixel_y)-(32*origin.y+origin.pixel_y)
+	var/DX = (32*target?.x+target.pixel_x)-(32*origin?.x+origin.pixel_x)
+	var/DY = (32*target?.y+target.pixel_y)-(32*origin?.y+origin.pixel_y)
 	var/N = 0
 	var/length = round(sqrt((DX)**2+(DY)**2)) //hypotenuse of the triangle formed by target and origin's displacement
 
