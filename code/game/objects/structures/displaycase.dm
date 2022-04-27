@@ -16,6 +16,7 @@
 	var/openable = TRUE
 	var/security_level_locked = FALSE //For locking the case to different access levels based on whether the station is at an elevated security level
 	var/security_level_access = ACCESS_SECURITY	//Access level required after security level elevates
+	var/green_level_access	//for storing the original access requirements
 	var/custom_glass_overlay = FALSE ///If we have a custom glass overlay to use.
 	var/obj/item/electronics/airlock/electronics
 	var/start_showpiece_type = null //add type for items on display
@@ -118,10 +119,16 @@
 
 /obj/structure/displaycase/attackby(obj/item/W, mob/user, params)
 	if(security_level_locked && GLOB.security_level != SEC_LEVEL_GREEN)
+		green_level_access = req_access
 		req_access = list(security_level_access)
+	if(security_level_locked && GLOB.security_level == SEC_LEVEL_GREEN)
+		req_access = list(green_level_access)
 	if(W.GetID() && !broken && openable)
-		if(allowed(user))
-			to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
+		if(open)	//You do not require access to close a case, only to open it. 
+			to_chat(user,  "<span class='notice'>You close [src].</span>")
+			toggle_lock(user)
+		else if(!open && allowed(user))
+			to_chat(user,  "<span class='notice'>You open [src].</span>")
 			toggle_lock(user)
 		else
 			to_chat(user,  "<span class='alert'>Access denied.</span>")
