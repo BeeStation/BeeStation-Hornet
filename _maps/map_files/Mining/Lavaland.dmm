@@ -1523,6 +1523,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/mine/science)
 "gc" = (
@@ -2939,9 +2942,6 @@
 "mT" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/xenoartifact_labeler,
-/obj/structure/xenoartifact,
-/obj/item/clothing/glasses/science,
 /turf/open/floor/carpet/royalblue,
 /area/mine/science)
 "mV" = (
@@ -3320,12 +3320,6 @@
 	},
 /obj/machinery/light,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/mine/science)
-"pV" = (
-/obj/machinery/door/window/eastright{
-	name = "Xenoarchaeology Office"
-	},
-/turf/open/floor/plasteel,
 /area/mine/science)
 "pW" = (
 /obj/structure/cable/yellow{
@@ -4061,15 +4055,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
-"zk" = (
-/obj/structure/table,
-/obj/item/stock_parts/cell/high,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/geiger_counter,
-/obj/item/xenoartifact_labeler,
-/obj/item/clothing/glasses/science,
-/turf/open/floor/plasteel,
-/area/mine/science)
 "zl" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/purple{
@@ -4612,14 +4597,6 @@
 	},
 /turf/open/floor/plating,
 /area/mine/eva)
-"ES" = (
-/obj/machinery/xenoartifact_inbox,
-/obj/structure/window/reinforced,
-/obj/machinery/door/window/eastright{
-	name = "Xenoarchaeology Inbox"
-	},
-/turf/open/floor/engine,
-/area/mine/science)
 "EZ" = (
 /obj/structure/toilet{
 	dir = 8
@@ -5510,15 +5487,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
-"Qb" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/door/window/eastright{
-	name = "Xenoarchaeology Storage"
-	},
-/turf/open/floor/engine,
-/area/mine/science)
 "Qs" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/brown,
@@ -6013,15 +5981,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
-"VI" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/computer/xenoartifact_console{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/mine/science)
 "VL" = (
 /obj/structure/showcase/cyborg{
 	pixel_y = 5
@@ -6234,12 +6193,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel,
 /area/mine/production)
-"XT" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/mine/science)
 "XW" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/blood,
@@ -16710,12 +16663,12 @@ cS
 cM
 cM
 aj
-Tn
-Tn
-Tn
+ab
+ab
+ab
+aj
+aj
 YF
-Tn
-Tn
 Py
 Lm
 jy
@@ -16967,12 +16920,12 @@ cT
 cM
 ai
 aj
+ai
+ai
+ab
+ab
+ab
 YF
-ES
-VI
-zk
-Qb
-Tn
 Pt
 fI
 OX
@@ -17225,10 +17178,10 @@ cM
 ab
 aj
 Tn
-XT
-XT
-pV
-XT
+Tn
+YF
+YF
+YF
 Tn
 Tn
 Mz
