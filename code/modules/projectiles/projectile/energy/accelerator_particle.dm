@@ -1,0 +1,29 @@
+/obj/item/projectile/energy/accelerated_particle
+	name = "Accelerated Particles"
+	icon = 'icons/obj/machines/particle_accelerator.dmi'
+	icon_state = "particle"
+	range = 10
+	speed = 1
+	projectile_piercing = PASSMOB | PASSANOMALY | PASSMACHINE
+	projectile_phasing = (ALL & (~PASSMOB) & (~PASSBLOB) & (~PASSANOMALY) & (~PASSMACHINE))
+	suppressed = SUPPRESSED_VERY //we don't want every machine that gets hit to call this
+	hitsound = null
+	irradiate = 60
+	var/energy = 10
+
+/obj/item/projectile/energy/accelerated_particle/singularity_pull()
+	return
+
+/obj/item/projectile/energy/accelerated_particle/weak
+	range = 8
+	energy = 5
+	irradiate = 30
+
+/obj/item/projectile/energy/accelerated_particle/strong
+	range = 15
+	energy = 15
+	irradiate = 90
+/obj/item/projectile/energy/accelerated_particle/powerful
+	range = 20
+	energy = 50
+	irradiate = 300

@@ -11,6 +11,7 @@
 	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
 	appearance_flags = 0
+	pass_flags_self = PASSANOMALY
 	var/current_size = 1
 	var/allowed_size = 1
 	var/energy = 100 //How strong are we?
@@ -239,6 +240,12 @@
 
 /obj/singularity/particle_accelerator_act(additional_energy)
 	energy += additional_energy
+
+/obj/singularity/bullet_act(obj/item/projectile/energy/accelerated_particle/P, def_zone, piercing_hit = FALSE)
+	if(istype(P))
+		energy += P.energy
+	else
+		return ..() //highly doubt that anything else could hit this but just in case
 
 /obj/singularity/proc/consume(atom/thing)
 	var/gain = thing.singularity_act(current_size, src)

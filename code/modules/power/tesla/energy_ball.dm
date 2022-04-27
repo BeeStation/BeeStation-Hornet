@@ -18,6 +18,7 @@
 	pixel_y = -32
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	flags_1 = SUPERMATTER_IGNORES_1
+	pass_flags_self = PASSANOMALY
 	var/energy
 	var/target
 	var/list/orbiting_balls = list()
@@ -161,8 +162,11 @@
 	var/mob/living/carbon/C = A
 	C.dust()
 
-/obj/energy_ball/particle_accelerator_act(additional_energy)
-	energy += additional_energy
+/obj/energy_ball/bullet_act(obj/item/projectile/energy/accelerated_particle/P, def_zone, piercing_hit = FALSE)
+	if(istype(P))
+		energy += P.energy
+	else
+		return ..() //highly doubt that anything else could hit this but just in case
 
 //Less intensive energy ball for the orbiting ones.
 /obj/effect/energy_ball

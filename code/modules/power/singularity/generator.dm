@@ -23,6 +23,12 @@
 	else
 		return ..()
 
+/obj/machinery/the_singularitygen/bullet_act(obj/item/projectile/energy/accelerated_particle/P, def_zone, piercing_hit = FALSE)
+	if(istype(P))
+		energy += P.energy
+	else
+		. = ..()
+
 /obj/machinery/the_singularitygen/process(delta_time)
 	if(energy > 0)
 		if(energy >= 200)
@@ -33,6 +39,3 @@
 			qdel(src)
 		else
 			energy -= delta_time * 0.5
-
-/obj/machinery/the_singularitygen/particle_accelerator_act(additional_energy)
-	energy += additional_energy
