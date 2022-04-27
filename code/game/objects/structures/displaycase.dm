@@ -265,6 +265,11 @@
 
 //The captains display case requiring specops ID access is intentional.
 //The lab cage and captains display case do not spawn with electronics, which is why req_access is needed.
+/obj/structure/displaycase/lavaland
+	alert = TRUE
+	start_showpiece_type = /obj/item/gun/energy/laser/captain
+	req_access = list(ACCESS_CENT_SPECOPS)
+
 /obj/structure/displaycase/captain
 	alert = TRUE
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
