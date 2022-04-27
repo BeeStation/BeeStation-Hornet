@@ -199,6 +199,15 @@
 		A.anomalyNeutralize()
 	return TRUE
 
+/obj/item/assembly/signaler/anomaly/activate()
+	if(!..())//cooldown processing
+		return FALSE
+	var/type = src.anomaly_type
+	var/obj/effect/anomaly/B = new type(get_turf(src))
+	B.anomalyEffect()
+	B.Destroy()
+	return TRUE
+
 /obj/item/assembly/signaler/anomaly/manual_suicide(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user]'s [src] is reacting to the radio signal, warping [user.p_their()] body!</span>")
 	user.set_suicide(TRUE)
