@@ -37,9 +37,9 @@
 	desc = "This is a commemorative laser gun issued by Nanotrasen as a reward for exemplary service. It is decorated with leather and chrome. On the side is an image of Space Station 13 with the words NTSSGolden engraved. All craftsmanship is of the highest quality." // Never forget Golden, even when changing this description. 
 	force = 10
 	ammo_x_offset = 3
-	gun_charge = 700 //This retain's the guns original capacity of 14 shots. Also just like before it will actually feel like 15 because at least one shot will recharge when discharging a full magazine
+	gun_charge = 700 ///This retain's the guns original capacity of 14 shots. Also just like before it will actually feel like 15 because at least one shot will recharge when discharging a full magazine
 	selfcharge = 1
-	charge_delay = 10 // Default is 8, setting this to 10 instead slightly slows the rate of recharge ticks, but the gun now recharges two shots per tick for an overall slight increase in regeneration.
+	charge_delay = 10 /// Default is 8, setting this to 10 instead slightly slows the rate of recharge ticks, but the gun now recharges two shots per tick for an overall slight increase in regeneration.
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/captain)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	weapon_weight = WEAPON_LIGHT

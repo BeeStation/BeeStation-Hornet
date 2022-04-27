@@ -6,7 +6,7 @@
 
 	var/obj/item/stock_parts/cell/cell //What type of power cell this uses
 	var/cell_type = /obj/item/stock_parts/cell
-	var/gun_charge = 1000 // how much charge the cell will have, this is equal to the default power cell defined above
+	var/gun_charge = 1000 /// how much charge the cell will have, this is equal to the default power cell defined above
 	var/modifystate = 0
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
 	var/select = 1 //The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.

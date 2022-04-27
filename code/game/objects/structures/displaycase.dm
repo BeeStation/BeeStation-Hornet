@@ -14,9 +14,7 @@
 	var/alert = TRUE
 	var/open = FALSE
 	var/openable = TRUE
-	var/security_level_locked = FALSE //For locking the case to different access levels based on whether the station is at an elevated security level
-	var/security_level_access = ACCESS_SECURITY	//Access level required after security level elevates
-	var/green_level_access	//for storing the original access requirements
+	var/security_level_locked = SEC_LEVEL_GREEN ///If the case should be completely locked out at green alert, for cases containing equipment intended to be accessed only by antagonists or after threat level is raised
 	var/custom_glass_overlay = FALSE ///If we have a custom glass overlay to use.
 	var/obj/item/electronics/airlock/electronics
 	var/start_showpiece_type = null //add type for items on display
@@ -118,20 +116,15 @@
 		. += "[initial(icon_state)]_closed"
 
 /obj/structure/displaycase/attackby(obj/item/W, mob/user, params)
-	if(security_level_locked && GLOB.security_level != SEC_LEVEL_GREEN)
-		green_level_access = req_access
-		req_access = list(security_level_access)
-	if(security_level_locked && GLOB.security_level == SEC_LEVEL_GREEN)
-		req_access = list(green_level_access)
 	if(W.GetID() && !broken && openable)
 		if(open)	//You do not require access to close a case, only to open it. 
 			to_chat(user,  "<span class='notice'>You close [src].</span>")
 			toggle_lock(user)
-		else if(!open && allowed(user))
+		else if(security_level_locked > GLOB.security_level || !allowed(user))
+			to_chat(user,  "<span class='alert'>Access denied.</span>")
+		else
 			to_chat(user,  "<span class='notice'>You open [src].</span>")
 			toggle_lock(user)
-		else
-			to_chat(user,  "<span class='alert'>Access denied.</span>")
 	else if(W.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP && !broken)
 		if(obj_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=5))
@@ -280,9 +273,8 @@
 /obj/structure/displaycase/captain
 	alert = TRUE
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
-	req_access = list(ACCESS_CENT_SPECOPS)
-	security_level_locked = TRUE
-	security_level_access = ACCESS_CAPTAIN
+	req_access = list(ACCESS_CAPTAIN)
+	security_level_locked = SEC_LEVEL_BLUE  /// Cap's case is locked even to him unless the station is facing a threat
 
 /obj/structure/displaycase/labcage
 	name = "lab cage"
