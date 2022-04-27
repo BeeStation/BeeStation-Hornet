@@ -571,10 +571,10 @@ SUBSYSTEM_DEF(timer)
 		CRASH("addtimer called without a callback")
 
 	if (wait < 0)
-		CRASH("addtimer was called with negative time. It was called with a [callback] callback by the [callback.object]!")
+		CRASH("addtimer was called with negative time. It was called with a [callback] callback by the [callback.object]. Calling file [file] at [line]!")
 
 	if (callback.object != GLOBAL_PROC && QDELETED(callback.object) && !QDESTROYING(callback.object))
-		CRASH("addtimer called with a callback assigned to a qdeleted object. It was called with a [callback] callback [callback.object]!")
+		CRASH("addtimer called with a callback assigned to a qdeleted object. It was called with a [callback] callback [callback.object]. Calling file [file] at [line]!")
 
 	wait = max(CEILING(wait, world.tick_lag), world.tick_lag)
 
