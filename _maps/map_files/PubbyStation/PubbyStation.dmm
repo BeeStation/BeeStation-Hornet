@@ -40155,8 +40155,8 @@
 	},
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
-	name = "O2 To Airmix";
-	on = 1
+	on = 1;
+	name = "O2 To Airmix"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -41370,9 +41370,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_toxmix{
-	icon_state = "dpvent_map-1";
-	id = "atmos_incinerator_airlock_pump";
-	piping_layer = 1
+	piping_layer = 1;
+	id = "atmos_incinerator_airlock_pump"icon_state = "dpvent_map-1";
+	
 	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
