@@ -55067,14 +55067,18 @@
 /turf/closed/wall/r_wall,
 /area/bridge/showroom/corporate)
 "chy" = (
-/obj/structure/closet/wardrobe/science_white,
+/obj/structure/sign/warning/nosmoking{
+	pixel_y = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Experimentation Lab - Test Chamber";
+	network = list("ss13","rd")
+	},
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/turf/open/floor/engine,
+/area/science/explab)
 "chz" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -55089,11 +55093,11 @@
 /turf/open/floor/plasteel/dark,
 /area/aisat)
 "chA" = (
-/obj/machinery/space_heater,
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/obj/item/radio/intercom{
+	pixel_y = 25
+	},
+/turf/open/floor/engine,
+/area/science/explab)
 "chB" = (
 /obj/machinery/space_heater,
 /obj/effect/landmark/blobstart,
@@ -55690,21 +55694,17 @@
 	},
 /area/science/research)
 "ciS" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
+/mob/living/simple_animal/pet/dog/pug{
+	desc = "It's Pugley IV, the research department's lovable pug clone. Hopefully nothing happens to this one - fourth time lucky!";
+	name = "Pugley IV";
+	real_name = "Pugley IV"
 	},
-/turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/turf/open/floor/engine,
+/area/science/explab)
 "ciT" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/obj/item/beacon,
+/turf/open/floor/engine,
+/area/science/explab)
 "ciX" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -56201,17 +56201,13 @@
 	},
 /area/science/research)
 "cks" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
+/obj/machinery/button/door{
+	id = "telelab";
+	name = "Test Chamber Blast Doors";
+	pixel_y = -25
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/turf/open/floor/engine,
+/area/science/explab)
 "ckD" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -56776,33 +56772,24 @@
 	},
 /area/science/research)
 "clS" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/obj/structure/sign/warning/electricshock,
+/turf/closed/wall/r_wall,
+/area/science/explab)
 "clU" = (
-/obj/structure/window/reinforced{
-	dir = 8
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id = "telelab";
+	name = "test chamber blast door"
 	},
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/effect/landmark/start/scientist,
-/turf/open/floor/engine,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/turf/open/floor/plating,
+/area/science/explab)
 "clV" = (
-/obj/machinery/camera/autoname{
-	dir = 8
+/obj/machinery/door/poddoor/preopen{
+	id = "telelab";
+	name = "test chamber blast door"
 	},
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/turf/open/floor/engine,
+/area/science/explab)
 "clW" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -57113,78 +57100,90 @@
 /area/science/research)
 "cmP" = (
 /turf/closed/wall/r_wall,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
 "cmQ" = (
-/obj/item/clothing/neck/stethoscope,
-/obj/item/geiger_counter,
-/obj/item/storage/box/monkeycubes,
-/obj/structure/table/glass,
-/obj/item/assembly/signaler,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -27
+	},
+/obj/machinery/requests_console{
+	department = "Science";
+	departmentType = 2;
+	name = "Science Requests Console";
+	pixel_y = 30;
+	receive_ore_updates = 1
+	},
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/bot{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
 "cmR" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 6
 	},
+/obj/item/pen,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
 "cmS" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/open/floor/engine,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/obj/structure/table/reinforced,
+/obj/item/hand_labeler,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/taperecorder,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/science/explab)
 "cmT" = (
-/obj/machinery/door/window/eastright{
-	dir = 2;
-	name = "Xenoartifact Test Chamber";
-	req_one_access_txt = "7;29"
-	},
-/turf/open/floor/engine,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/obj/machinery/computer/rdconsole/experiment,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/science/explab)
 "cmU" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/open/floor/engine,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/obj/structure/table/reinforced,
+/obj/item/clipboard,
+/obj/item/book/manual/wiki/experimentor,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/science/explab)
 "cmV" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
+/obj/machinery/button/door{
+	id = "telelab";
+	name = "Test Chamber Blast Doors";
+	pixel_y = 25
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/bottle/epinephrine{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/bottle/charcoal{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/reagent_containers/dropper,
+/obj/item/stack/medical/bruise_pack{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/obj/item/stack/medical/ointment,
+/obj/item/healthanalyzer,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/science/explab)
+"cmW" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
-"cmW" = (
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
 "cmX" = (
 /obj/structure/window/reinforced,
 /obj/machinery/holopad,
@@ -57775,71 +57774,71 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "cok" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -26
+	},
+/obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/machinery/light{
+/turf/open/floor/plasteel/white,
+/area/science/explab)
+"col" = (
+/obj/structure/chair/office/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/science/explab)
+"com" = (
+/obj/structure/table/reinforced,
+/obj/item/folder/white{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/obj/item/folder/white{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/science/explab)
+"con" = (
+/obj/effect/landmark/start/scientist,
+/obj/structure/chair/office/light{
+	dir = 1;
+	pixel_y = 3
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/turf/open/floor/plasteel/white,
+/area/science/explab)
+"coo" = (
+/obj/structure/table/reinforced,
+/obj/item/wrench,
+/obj/item/crowbar,
+/obj/item/clothing/mask/gas,
+/obj/item/clothing/mask/gas,
+/obj/item/clothing/glasses/science,
+/obj/item/multitool{
+	pixel_x = 3
+	},
+/turf/open/floor/plasteel/white,
+/area/science/explab)
+"cop" = (
+/obj/machinery/holopad,
+/turf/open/floor/plasteel/white,
+/area/science/explab)
+"coq" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 27
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/west,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
-"col" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/item/beacon,
 /turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
-"com" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
-"con" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/landmark/start/scientist,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
-"coo" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
-"cop" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
-"coq" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/machinery/status_display/ai{
-	pixel_x = 32
-	},
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
 "cot" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -58346,10 +58345,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
+	dir = 9
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -58357,56 +58353,56 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
 "cpz" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
 "cpD" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
 "cpE" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/turf/open/floor/plasteel,
+/area/science/explab)
 "cpG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -59027,65 +59023,55 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "cqQ" = (
-/obj/machinery/disposal/bin,
-/obj/effect/turf_decal/bot{
-	dir = 1
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 1
+/obj/machinery/light_switch{
+	pixel_x = -23
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
 "cqR" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
-/obj/machinery/light,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
-"cqS" = (
-/obj/machinery/firealarm{
-	dir = 1;
+/obj/machinery/power/apc{
+	areastring = "/area/science/explab";
+	name = "Experimentation Lab APC";
 	pixel_y = -24
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
+"cqS" = (
+/obj/item/radio/intercom{
+	pixel_y = -29
+	},
+/obj/machinery/camera{
+	c_tag = "Experimentation Lab";
+	dir = 1;
+	network = list("ss13","rd")
+	},
+/obj/machinery/light,
+/turf/open/floor/plasteel/white,
+/area/science/explab)
 "cqT" = (
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
-"cqV" = (
-/obj/structure/chair/office/light,
-/obj/effect/landmark/start/scientist,
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
-"cqW" = (
-/obj/machinery/light_switch{
-	pixel_x = 27
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
+"cqV" = (
+/turf/open/floor/plasteel/white,
+/area/science/explab)
+"cqW" = (
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/science/explab)
 "cqX" = (
 /obj/structure/bed/roller,
 /obj/effect/decal/cleanable/blood/old,
@@ -59480,74 +59466,35 @@
 /turf/open/floor/plasteel,
 /area/science/storage)
 "crU" = (
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science Requests Console";
-	pixel_y = -30;
-	receive_ore_updates = 1
-	},
+/obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/item/xenoartifact_labeler{
-	pixel_x = 5;
-	pixel_y = 9
-	},
-/obj/item/xenoartifact_labeler{
-	pixel_x = -7;
-	pixel_y = 7
-	},
-/obj/structure/table/glass,
-/obj/item/clothing/glasses/science,
-/obj/item/clothing/glasses/science{
-	pixel_x = 1;
-	pixel_y = 10
-	},
 /turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
 "crV" = (
-/obj/machinery/computer/xenoartifact_console{
-	dir = 1
-	},
+/obj/structure/closet/radiation,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
 "crW" = (
-/obj/machinery/light,
-/obj/item/storage/firstaid/regular{
-	pixel_x = 3;
-	pixel_y = -3
+/obj/structure/closet/l3closet/scientist{
+	pixel_x = -2
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/table/glass,
-/obj/item/laser_pointer,
 /turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
 "crX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/xenoartifact_inbox,
-/obj/effect/landmark/xeno_spawn,
+/obj/machinery/vending/wardrobe/science_wardrobe,
 /turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
 "csg" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -69799,14 +69746,9 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
 "cLU" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/obj/machinery/rnd/experimentor,
+/turf/open/floor/engine,
+/area/science/explab)
 "cLV" = (
 /obj/item/radio/intercom{
 	pixel_y = 25
@@ -73595,7 +73537,6 @@
 /area/science/xenobiology)
 "daL" = (
 /obj/machinery/light,
-/obj/machinery/rnd/experimentor,
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "daM" = (
@@ -76046,12 +75987,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
-"dhw" = (
-/obj/structure/closet/bombcloset,
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "dhx" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -78307,11 +78242,8 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "dEH" = (
-/obj/structure/sign/warning/explosives,
 /turf/closed/wall,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
 "dGH" = (
 /obj/effect/landmark/event_spawn,
 /obj/structure/window/reinforced{
@@ -78530,21 +78462,17 @@
 /area/hallway/secondary/entry)
 "emC" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Xenoarchaeology  Lab Maintenance";
-	req_access_txt = "8"
+	name = "Experimentation Lab Maintenance";
+	req_one_access_txt = "8;49"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xenoablast";
-	name = "Xenoartifact Lab Containment Door"
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
@@ -78879,6 +78807,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
+"fHv" = (
+/turf/open/floor/engine,
+/area/science/explab)
 "fIp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -79095,13 +79026,6 @@
 	dir = 5
 	},
 /area/crew_quarters/kitchen)
-"gte" = (
-/obj/effect/turf_decal/box/white,
-/obj/item/xenoartifact,
-/turf/open/floor/engine,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "gyr" = (
 /obj/machinery/door/airlock/external{
 	name = "Departure Lounge Airlock"
@@ -79140,14 +79064,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"gDt" = (
-/obj/structure/bed/dogbed/ian{
-	name = "Pugley's Bed"
-	},
-/turf/open/floor/carpet/purple,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "gJs" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
@@ -79185,16 +79101,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
-"gKH" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "gLC" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/plasteel,
@@ -79217,19 +79123,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"gRm" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/mob/living/simple_animal/pet/dog/pug{
-	desc = "It's Pugley V, the research department's lovable pug clone. Hopefully nothing happens to this one - fifth time lucky!";
-	name = "Pugley V";
-	real_name = "Pugley V"
-	},
-/turf/open/floor/engine,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "gRW" = (
 /obj/machinery/computer/objective{
 	dir = 8
@@ -79280,21 +79173,6 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet/restrooms)
-"hgK" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/holopad,
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "hkq" = (
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
@@ -79598,22 +79476,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
-"iro" = (
-/obj/machinery/door/window/eastright{
-	dir = 1;
-	name = "Xenoartifact Test Chamber";
-	req_one_access_txt = "7;29"
-	},
-/turf/open/floor/engine,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
-"itz" = (
-/obj/machinery/computer/rdconsole/experiment{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/science/xenobiology)
 "iuC" = (
 /obj/machinery/door/airlock/maintenance{
 	req_one_access_txt = "12;35;47;49"
@@ -80534,14 +80396,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
-"lmG" = (
-/obj/structure/closet/l3closet/scientist{
-	pixel_x = -2
-	},
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "lnO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -80928,23 +80782,6 @@
 /obj/machinery/vendor/exploration,
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
-"mIJ" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "mKO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
@@ -81104,17 +80941,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/misc_lab/range)
-"nnt" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "npK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -81623,8 +81449,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/research{
-	name = "Xenoarchaeology Lab";
-	req_access_txt = "8"
+	name = "Experimentation Lab";
+	req_one_access_txt = "8;49"
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -81642,26 +81468,15 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/firedoor/border_only{
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "xenoablast";
-	name = "Xenoartifact Lab Containment Door"
-	},
 /turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
+/area/science/explab)
 "pgu" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -81716,15 +81531,6 @@
 "pwA" = (
 /turf/closed/wall,
 /area/maintenance/solars/starboard/aft)
-"pAP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "pAS" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -81802,19 +81608,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"pPr" = (
-/obj/machinery/shower{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery,
-/obj/structure/sign/warning/nosmoking{
-	pixel_y = 32
-	},
-/obj/effect/landmark/blobstart,
-/turf/open/floor/noslip/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "pPs" = (
 /obj/structure/sign/warning/vacuum{
 	pixel_x = 32
@@ -82722,6 +82515,11 @@
 /obj/machinery/suit_storage_unit/exploration,
 /turf/open/floor/plasteel,
 /area/science/misc_lab/range)
+"tLV" = (
+/obj/effect/landmark/blobstart,
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/engine,
+/area/science/explab)
 "tMI" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -82854,14 +82652,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"ugA" = (
-/obj/item/radio/intercom{
-	pixel_x = 29
-	},
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "uhY" = (
 /obj/machinery/computer/warrant{
 	dir = 1
@@ -83152,6 +82942,16 @@
 	dir = 8
 	},
 /area/engine/storage_shared)
+"vAa" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/turf/open/floor/plasteel/white,
+/area/science/explab)
 "vBF" = (
 /obj/structure/chair/wood/normal{
 	dir = 4
@@ -83298,17 +83098,6 @@
 "wak" = (
 /turf/open/floor/carpet,
 /area/crew_quarters/theatre)
-"wcP" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "wfA" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -83584,19 +83373,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"wWJ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/power/floodlight,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "wYG" = (
 /obj/structure/bed/roller,
 /obj/effect/turf_decal/tile/blue,
@@ -83761,40 +83537,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
-"xtl" = (
-/obj/structure/cable/yellow,
-/obj/item/clothing/mask/gas,
-/obj/item/multitool{
-	pixel_x = 4
-	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/assembly/igniter{
-	pixel_x = 5;
-	pixel_y = -4
-	},
-/obj/item/wrench{
-	desc = "Science's final defense against the filth of the station. Also good for wacking artifacts.";
-	name = "wacking wrench"
-	},
-/obj/structure/table/glass,
-/obj/item/analyzer,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/open/floor/plasteel,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
-"xtH" = (
-/obj/machinery/camera/autoname,
-/obj/machinery/portable_atmospherics/scrubber,
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "xvg" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
@@ -83912,14 +83654,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/security/prison)
-"xCh" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/science/explab{
-	name = "Xenoarchaeology  Lab"
-	})
 "xDD" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -117711,7 +117445,7 @@ cTm
 daB
 daB
 daG
-itz
+cSn
 cRi
 ddx
 ddz
@@ -117907,8 +117641,8 @@ cmP
 cmP
 cmP
 cmP
-cmP
-cmP
+dEH
+dEH
 pdS
 dEH
 crR
@@ -117966,7 +117700,7 @@ ddm
 cTt
 daA
 cSn
-qyK
+cSn
 cSn
 daL
 cRi
@@ -118160,10 +117894,10 @@ tYS
 bST
 dDr
 cmP
-pPr
-gKH
-cqT
-xtl
+fHv
+fHv
+fHv
+cmP
 cmQ
 cok
 cpy
@@ -118224,7 +117958,7 @@ cTs
 ddu
 daD
 cSn
-cSn
+qyK
 daK
 cRi
 bIv
@@ -118417,9 +118151,9 @@ ccw
 bST
 buy
 cmP
-xtH
+fHv
 ciS
-pAP
+fHv
 clS
 cmR
 col
@@ -118674,9 +118408,9 @@ ccv
 bST
 csg
 cmP
-lmG
+fHv
 ciT
-wcP
+fHv
 clU
 cmS
 com
@@ -118933,11 +118667,11 @@ buy
 cmP
 chy
 cLU
-iro
-gte
+fHv
+clU
 cmT
 con
-cpD
+vAa
 cqT
 crU
 dwL
@@ -119188,13 +118922,13 @@ tYS
 bST
 buy
 cmP
-dhw
-cLU
-nnt
-gRm
+fHv
+tLV
+fHv
+clU
 cmU
 coo
-hgK
+cpD
 cqV
 crV
 dwL
@@ -119446,13 +119180,13 @@ bST
 buy
 cmP
 chA
-wWJ
+fHv
 cks
-cmV
+cmP
 cmV
 cop
-mIJ
-cqT
+cpD
+cqV
 crW
 dwL
 mHF
@@ -119702,9 +119436,9 @@ dbE
 bST
 diB
 cmP
-gDt
-ugA
-xCh
+fHv
+fHv
+fHv
 clV
 cmW
 coq
