@@ -14,6 +14,8 @@
 	var/alert = TRUE
 	var/open = FALSE
 	var/openable = TRUE
+	var/security_level_locked = FALSE //For locking the case to different access levels based on whether the station is at an elevated security level
+	var/security_level_access = ACCESS_SECURITY	//Access level required after security level elevates
 	var/custom_glass_overlay = FALSE ///If we have a custom glass overlay to use.
 	var/obj/item/electronics/airlock/electronics
 	var/start_showpiece_type = null //add type for items on display
@@ -115,6 +117,8 @@
 		. += "[initial(icon_state)]_closed"
 
 /obj/structure/displaycase/attackby(obj/item/W, mob/user, params)
+	if(security_level_locked && GLOB.security_level != SEC_LEVEL_GREEN)
+		req_access = list(security_level_access)
 	if(W.GetID() && !broken && openable)
 		if(allowed(user))
 			to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
@@ -265,6 +269,8 @@
 	alert = TRUE
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
 	req_access = list(ACCESS_CENT_SPECOPS)
+	security_level_locked = TRUE
+	security_level_access = ACCESS_CAPTAIN
 
 /obj/structure/displaycase/labcage
 	name = "lab cage"
