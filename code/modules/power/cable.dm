@@ -146,6 +146,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(d1 == UP || d2 == UP)
 			to_chat(user, "<span class='warning'>You must cut this cable from above.</span>")
+			return
 		if (shock(user, 50))
 			return
 		user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
@@ -608,25 +609,47 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		to_chat(user, "<span class='warning'>You can't lay cable at a place that far away!</span>")
 		return
 
-	var/dirn
+	var/d2
 	if(!dirnew) //If we weren't given a direction, come up with one! (Called as null from catwalk.dm and floor.dm)
 		if(user.loc == T)
-			dirn = user.dir //If laying on the tile we're on, lay in the direction we're facing
+			d2 = user.dir //If laying on the tile we're on, lay in the direction we're facing
 		else
-			dirn = get_dir(T, user)
+			d2 = get_dir(T, user)
 	else
-		dirn = dirnew
+		d2 = dirnew
+
+	var/d1 = 0
+	if(istype(T, /turf/open/openspace))
+		if(!(get_amount() >= 2))
+			to_chat(user, "<span class='warning'>You need at least 2 pieces of cable to do between decks!</span>")
+			return
+		d1 = d2 //bigger number goes last for sprite reasons
+		d2 = DOWN
 
 	for(var/obj/structure/cable/LC in T)
-		if(LC.d2 == dirn && LC.d1 == 0)
+		if(LC.d2 == d2 && LC.d1 == d1)
 			to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
 			return
 
+	var/obj/structure/cable/C = place_cable(T, user, d1, d2)
+	if(C.shock(user, 50))
+		if(prob(50)) //fail
+			new /obj/item/stack/cable_coil(get_turf(C), 1, C.color)
+			C.deconstruct()
+	else if(d2 == DOWN)
+		place_cable(T.below(), user, 0, UP)
+		to_chat(user, "<span class='notice'>You slide the cable downward.</span>")
+
+	return C
+
+/obj/item/stack/cable_coil/proc/place_cable(turf/open/T, mob/user, d1, d2)
+	if(!istype(T))
+		return
 	var/obj/structure/cable/C = get_new_cable(T)
 
 	//set up the new cable
-	C.d1 = 0 //it's a O-X node cable
-	C.d2 = dirn
+	C.d1 = d1
+	C.d2 = d2
 	C.add_fingerprint(user)
 	C.update_icon()
 
@@ -634,18 +657,17 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	var/datum/powernet/PN = new()
 	PN.add_cable(C)
 
+	C.mergeConnectedNetworks(C.d1)
 	C.mergeConnectedNetworks(C.d2) //merge the powernet with adjacents powernets
 	C.mergeConnectedNetworksOnTurf() //merge the powernet with on turf powernets
+
+	if(C.d1 & (C.d1 - 1))// if the cable is layed diagonally, check the others 2 possible directions
+		C.mergeDiagonalsNetworks(C.d2)
 
 	if(C.d2 & (C.d2 - 1))// if the cable is layed diagonally, check the others 2 possible directions
 		C.mergeDiagonalsNetworks(C.d2)
 
 	use(1)
-
-	if(C.shock(user, 50))
-		if(prob(50)) //fail
-			new /obj/item/stack/cable_coil(get_turf(C), 1, C.color)
-			C.deconstruct()
 
 	return C
 
