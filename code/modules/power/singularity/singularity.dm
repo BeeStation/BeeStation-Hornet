@@ -238,9 +238,6 @@
 		expand()
 	return 1
 
-/obj/singularity/particle_accelerator_act(additional_energy)
-	energy += additional_energy
-
 /obj/singularity/bullet_act(obj/item/projectile/energy/accelerated_particle/P, def_zone, piercing_hit = FALSE)
 	if(istype(P))
 		energy += P.energy
