@@ -457,7 +457,7 @@ AUTOADMIN_RANK Admin
 CLIENT_ERROR_VERSION 514
 CLIENT_ERROR_MESSAGE Your version of byond is not supported. Please upgrade.
 ## The minimum build needed for joining the server, if using 513, a good minimum build would be 1526.
-CLIENT_ERROR_BUILD 1568
+CLIENT_ERROR_BUILD 1583
 
 ## TOPIC RATE LIMITING
 ## This allows you to limit how many topic calls (clicking on an interface window) the client can do in any given game second and/or game minute.
