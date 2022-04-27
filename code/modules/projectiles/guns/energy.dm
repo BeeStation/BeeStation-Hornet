@@ -35,7 +35,7 @@
 
 /obj/item/gun/energy/Initialize(mapload)
 	. = ..()
-if(cell_type)	//just in case someone eventually wants to make an energy gun without a power cell for some reason?
+	if(cell_type)	//just in case someone eventually wants to make an energy gun without a power cell for some reason?
 		cell = new cell_type(src)
 		cell.maxcharge = gun_charge
 		cell.charge = gun_charge		//allows fine-tuned control over how much charge a gun will have without defining new types of cells
