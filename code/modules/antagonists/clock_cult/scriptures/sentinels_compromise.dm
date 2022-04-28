@@ -13,7 +13,7 @@
 /datum/clockcult/scripture/slab/sentinelscompromise/click_on(atom/A)
 	if(!(invoker in viewers(7, get_turf(A))))
 		return
-	var/mob/living/M = A
+	var/mob/living/carbon/M = A
 	if(!istype(M))
 		return
 	if(!is_servant_of_ratvar(M))
