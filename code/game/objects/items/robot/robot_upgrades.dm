@@ -332,7 +332,7 @@
 	var/cooldown = 100		/// deciseconds until cooldown is up
 	var/recharging = FALSE	/// Is the module currently recharging?
 	var/counter = 0			/// used for counting up to the cooldown
-	var/repair_ticks = 10	/// how many times the repair tries to tick
+	var/repair_ticks = 10	/// how many times the repair tries to tick. Must also be changed at the end of selfrepair/process()
 	var/repair_amount = -5  /// amount repaired per tick
 	var/powercost = 50		/// Power cell cost per tick
 	var/mob/living/silicon/robot/cyborg
@@ -404,15 +404,14 @@
 			return FALSE
 
 		cyborg = R
-		icon_state = "selfrepair_on"
+		icon_state = "selfrepair_off"
 		action = new /datum/action/item_action(src)
 		action.Grant(R)
 
-
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
-	if(!recharging)
+	if(!recharging && icon_state == "selfrepair_off")
+		icon_state = "selfrepair_on"
 		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
-		startrecharge()
 		process()
 	else
 		to_chat(cyborg, "<span class='notice'>Your self-repair module is not ready to be activated again yet.</span>")
@@ -428,6 +427,27 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/borg/upgrade/selfrepair/process(delta_time)
+	if(!recharging && icon_state == "selfrepair_on")
+		while(repair_ticks)
+			if(cyborg.cell.charge < powercost * 10)
+				repair_ticks = 0
+				to_chat(cyborg, "<span class='notice'>Power level critically low! Your self-repair module has deactivated early.</span>")
+			else if(cyborg.getFireLoss())
+				to_chat(cyborg, "<span class='notice'>DEBUG MESSAGE: Healing Fire Damage repair step: [repair_ticks]</span>")
+				cyborg.adjustFireLoss(repair_amount)
+				cyborg.cell.use(powercost)
+				repair_ticks--
+			else if(cyborg.getBruteLoss())
+				to_chat(cyborg, "<span class='notice'>DEBUG MESSAGE: Healing Brute Damage repair step: [repair_ticks]</span>")
+				cyborg.adjustBruteLoss(repair_amount)
+				cyborg.cell.use(powercost)
+				repair_ticks--
+			else
+				to_chat(cyborg, "<span class='notice'>Your self-repair module has fully repaired you and deactivated early.</span>")
+				repair_ticks = 0
+	if(!repair_ticks && icon_state == "selfrepair_on")
+		icon_state = "selfrepair_off"
+		startrecharge()
 	if(recharging && (counter < cooldown))
 		counter += delta_time * 10
 		update_timer_animation()
@@ -435,52 +455,12 @@
 			end_timer_animation()
 			action.UpdateButtonIcon()
 			recharging = FALSE
+			repair_ticks = 10
 	else
 		end_timer_animation()
 		action.UpdateButtonIcon()
 		recharging = FALSE
-
-
-/*
-	if(world.time < counter)
-		return
-
-	if(cyborg && (cyborg.stat != DEAD) && recharging)
-		if(!cyborg.cell)
-			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please, insert the power cell.</span>")
-			deactivate_sr()
-			return
-
-		if(cyborg.cell.charge < powercost * 2)
-			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please recharge.</span>")
-			deactivate_sr()
-			return
-
-		if(cyborg.health < cyborg.maxHealth)
-			if(cyborg.health < 0)
-				repair_amount = -2.5
-				powercost = 30
-			else
-				repair_amount = -1
-				powercost = 10
-			cyborg.adjustBruteLoss(repair_amount)
-			cyborg.adjustFireLoss(repair_amount)
-			cyborg.updatehealth()
-			cyborg.cell.use(powercost)
-		else
-			cyborg.cell.use(5)
-		counter = world.time + 10  ///1 second between repair ticks
-
-		if(!TIMER_COOLDOWN_CHECK(src, COOLDOWN_BORG_SELF_REPAIR))
-			TIMER_COOLDOWN_START(src, COOLDOWN_BORG_SELF_REPAIR, 200 SECONDS)
-			var/msgmode = "standby"
-			if(cyborg.health < 0)
-				msgmode = "critical"
-			else if(cyborg.health < cyborg.maxHealth)
-				msgmode = "normal"
-			to_chat(cyborg, "<span class='notice'>Self-repair is active in <span class='boldnotice'>[msgmode]</span> mode.</span>")
-	else
-		deactivate_sr() */
+		repair_ticks = 10
 
 /obj/item/borg/upgrade/hypospray
 	name = "medical cyborg hypospray advanced synthesiser"
