@@ -421,7 +421,6 @@
 				to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
 			if(!W.use_tool(src, user, 50))
 				return
-
 			adjustBruteLoss(-15)
 			updatehealth()
 			add_fingerprint(user)
@@ -431,15 +430,14 @@
 	else if(istype(W, /obj/item/stack/cable_coil) && wiresexposed)
 		user.changeNext_move(CLICK_CD_MELEE)
 		var/obj/item/stack/cable_coil/coil = W
-		if (!getFireLoss() || !getToxLoss())
+		if (!getFireLoss())
 			to_chat(user, "The wires seem fine, there's no need to fix them.")
 			return
-		while(getFireLoss() || getToxLoss())		//Repeatedly attempt to repair wires until done, just like tend wounds. No need to spam click
+		while(getFireLoss())		//Repeatedly attempt to repair wires until done, just like tend wounds. No need to spam click
 			if(!do_after(user, 50, target = src))
 				return
 			if (coil.use(1))
 				adjustFireLoss(-15)
-				adjustToxLoss(-15)
 				updatehealth()
 				user.visible_message("[user] has fixed some of the burnt wires on [src].", "<span class='notice'>You fix some of the burnt wires on [src].</span>")
 			else
