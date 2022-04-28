@@ -78,7 +78,7 @@
 
 /obj/item/assembly/flash
 	name = "flash"
-	desc = "A powerful flashbulb device which will disorient attackers by temporarily blinding them"
+	desc = "A powerful flashbulb device which will disorient attackers by temporarily blinding them. It also has what appears to be a small camera for some reason."
 	icon_state = "flash"
 	item_state = "flashtool"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'

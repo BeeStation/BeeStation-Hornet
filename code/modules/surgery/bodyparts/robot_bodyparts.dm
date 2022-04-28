@@ -265,16 +265,16 @@
 /obj/item/bodypart/head/robot/examine(mob/user)
 	. = ..()
 	if(!flash1 && !flash2)
-		. += "<span class='info'>It has two empty eye sockets for <b>flashes</b>.</span>"
+		. += "<span class='info'>It has two empty eye sockets for <b>cyborg eyes</b>.</span>"
 	else
 		var/single_flash = FALSE
 		if(!flash1 || !flash2)
 			single_flash = TRUE
-			. += "One of its eye sockets is currently occupied by a flash.\n"+\
-			"<span class='info'>It has an empty eye socket for another <b>flash</b>.</span>"
+			. += "One of its eye sockets is currently occupied by a [flash1 ? "[flash1.name]":"[flash2.name]"].\n"+\
+			"<span class='info'>It has an empty eye socket for another <b>cyborg eye</b>.</span>"
 		else
-			. += "It has two eye sockets occupied by flashes."
-		. += "<span class='notice'>You can remove the seated flash[single_flash ? "":"es"] with a <b>crowbar</b>.</span>"
+			. += "It has two eye sockets occupied by a [flash1.name] and [flash2.name]."
+		. += "<span class='notice'>You can remove the seated eye[single_flash ? "":"s"] with a <b>crowbar</b>.</span>"
 
 /obj/item/bodypart/head/robot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/assembly/flash/handheld))
@@ -283,7 +283,7 @@
 			to_chat(user, "<span class='warning'>You have already inserted the eyes!</span>")
 			return
 		else if(F.burnt_out || !F.bulb)
-			to_chat(user, "<span class='warning'>You need a functional flash!</span>")
+			to_chat(user, "<span class='warning'>You need a functional [F.name]! Replace the bulb!</span>")
 			return
 		else
 			if(!user.transferItemToLoc(F, src))
@@ -292,22 +292,22 @@
 				flash2 = F
 			else
 				flash1 = F
-			to_chat(user, "<span class='notice'>You insert the flash into the eye socket.</span>")
+			to_chat(user, "<span class='notice'>You insert the [F.name] into the eye socket.</span>")
 			return
 	return ..()
 
 /obj/item/bodypart/head/robot/crowbar_act(mob/living/user, obj/item/I)
 	if(flash1 || flash2)
 		I.play_tool_sound(src)
-		to_chat(user, "<span class='notice'>You remove the flash from [src].</span>")
+		to_chat(user, "<span class='notice'>You remove the [flash1 ? "[flash1.name]" : "[flash2.name]"] from [src].</span>")
 		if(flash1)
 			flash1.forceMove(drop_location())
 			flash1 = null
-		if(flash2)
+		else if(flash2)							// Remove them separately to keep the chat message simple
 			flash2.forceMove(drop_location())
 			flash2 = null
 	else
-		to_chat(user, "<span class='warning'>There is no flash to remove from [src].</span>")
+		to_chat(user, "<span class='warning'>There are no cyborg eyes to remove from [src].</span>")
 	return TRUE
 
 
