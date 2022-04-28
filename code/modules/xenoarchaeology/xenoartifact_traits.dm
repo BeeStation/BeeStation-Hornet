@@ -84,11 +84,11 @@
 
 /datum/xenoartifact_trait/activator/burn/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
-	if(X.process_type != LIT && thing.ignition_effect(X, user)) //Generally artifact should handle cooldown schmuck. Please don't do this.
+	if(X.process_type != IS_LIT && thing.ignition_effect(X, user)) //Generally artifact should handle cooldown schmuck. Please don't do this.
 		X.visible_message("<span class='danger'>The [X.name] sparks on.</span>")
 		to_chat(user, "<span class='danger'>The [X.name] sparks on.</span>")
 		sleep(2 SECONDS)
-		X.process_type = LIT
+		X.process_type = IS_LIT
 		START_PROCESSING(SSobj, X)
 
 /datum/xenoartifact_trait/activator/burn/on_del(obj/item/xenoartifact/X)
@@ -117,7 +117,7 @@
 
 /datum/xenoartifact_trait/activator/clock/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
-	X.process_type = TICK
+	X.process_type = IS_TICK
 	START_PROCESSING(SSobj, X)
 
 /datum/xenoartifact_trait/activator/clock/on_del(obj/item/xenoartifact/X)
@@ -251,6 +251,8 @@
 	return TRUE
 
 /datum/xenoartifact_trait/minor/sharp/on_init(obj/item/xenoartifact/X)
+	if(istype(X, /obj/structure/xenoartifact))
+		return
 	X.sharpness = IS_SHARP_ACCURATE
 	X.force = X.charge_req*0.15
 	X.throwforce = 10

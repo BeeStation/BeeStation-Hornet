@@ -26,11 +26,6 @@
 
 /obj/item/xenoartifact_labeler/Initialize()
 	. = ..()
-	get_trait_list_desc(activator_traits, /datum/xenoartifact_trait/activator) //I forgot why this is alone here. Once again, I'd rather not change shit now.
-
-/obj/item/xenoartifact_labeler/interact(mob/user)
-	//ui_interact(user, "XenoartifactLabeler")
-	..()
 
 /obj/item/xenoartifact_labeler/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -62,9 +57,11 @@
 
 	if(action == "print_traits")
 		create_label(sticker_name)
+		return
 
 	if(action == "change_print_name" && istext(params["name"]))
 		sticker_name = sanitize_text("[params["name"]]")
+		return
 
 	trait_toggle(action, "activator", activator_traits, activator)
 	trait_toggle(action, "minor", minor_traits, minor_trait)
@@ -84,10 +81,10 @@
 	return traits
 
 /obj/item/xenoartifact_labeler/proc/look_for(list/place, culprit) //This isn't really needed but, It's easier to use as a function. What does this even do?
-	for(var/X in place)
+	for(var/X in place) //Using locate breaks this
 		if(X == culprit)
-			return TRUE
-	return FALSE
+			. = TRUE
+	return
 
 /obj/item/xenoartifact_labeler/afterattack(atom/target, mob/user)
 	..()
@@ -150,7 +147,8 @@
 	..()
 	
 /obj/item/xenoartifact_label/afterattack(atom/target, mob/user, instant = FALSE)
-	qdel(locate(/obj/item/xenoartifact_label) in target.contents)
+	if(locate(/obj/item/xenoartifact_label) in target.contents)
+		qdel(locate(/obj/item/xenoartifact_label) in target.contents)
 	if(istype(target, /mob/living))
 		to_chat(target, "<span class='notice'>[user] attempts sticks a [src] to you!</span>")
 		if(do_after(user, 30, target))
@@ -221,6 +219,6 @@
 	for(var/X in sticker_traits) //Add new ones
 		say(X)
 		A.traits += new X
-	for(var/datum/xenoartifact_trait/T in A.traits) //Setup new ones
+	for(var/datum/xenoartifact_trait/T as() in A.traits) //Setup new ones
 		T.on_init(A)
 	A = null

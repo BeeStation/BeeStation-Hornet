@@ -28,14 +28,17 @@
 	var/usedwhen //holder for worldtime
 	var/cooldown = 8 SECONDS //Time between uses
 	var/cooldownmod = 0 //Extra time traits can add to the cooldown
+	COOLDOWN_DECLARE(xenoa_cooldown)
 
-	var/icon_slots[4] //Associated with random sprite stuff, dw
+	var/list/icon_slots[4] //Associated with random sprite stuff.
 	var/mutable_appearance/icon_overlay 
 
 	var/malfunction_chance //Everytime the artifact is used this increases. When this is successfully proc'd the artifact gains a malfunction and this is lowered. 
 	var/malfunction_mod = 1 //How much the chance can change in a sinlge itteration
 
 	var/obj/structure/xenoartifact/little_man_inside_me //this is a temporary solution. Deleting the base artifact also deletes this one's traits too?
+
+	var/logging = TRUE
 
 /obj/structure/xenoartifact/ComponentInitialize()
 	. = ..()
@@ -62,7 +65,7 @@
 	little_man_inside_me = X
 	little_man_inside_me.forceMove(src)
 
-	for(var/datum/xenoartifact_trait/T in traits)
+	for(var/datum/xenoartifact_trait/T as() in traits)
 		if(!istype(T, /datum/xenoartifact_trait/minor/dense))
 			T.on_init(src)
 
@@ -100,7 +103,7 @@
 
 /obj/structure/xenoartifact/attack_hand(mob/user)
 	. = ..()
-	if(process_type == LIT) //Snuff out candle
+	if(process_type == IS_LIT) //Snuff out candle
 		to_chat(user, "<span class='notice'>You snuff out [name]</span>")
 		process_type = null
 		return
@@ -116,7 +119,7 @@
 /obj/structure/xenoartifact/attackby(obj/item/I, mob/living/user, params)
 	for(var/datum/xenoartifact_trait/T in traits)
 		T.on_item(src, user, I)
-	if(!(manage_cooldown(TRUE))||user?.a_intent == INTENT_GRAB||istype(I, /obj/item/xenoartifact_label)||istype(I, /obj/item/xenoartifact_labeler))
+	if(!(COOLDOWN_FINISHED(src, xenoa_cooldown))||user?.a_intent == INTENT_GRAB||istype(I, /obj/item/xenoartifact_label)||istype(I, /obj/item/xenoartifact_labeler))
 		return
 	SEND_SIGNAL(src, XENOA_ATTACKBY, I, user, user)
 	..()
@@ -131,46 +134,35 @@
 /obj/structure/xenoartifact/proc/check_charge(mob/user, charge_mod)
 	if(prob(malfunction_chance)) //See if we pick up an malfunction
 		var/datum/xenoartifact_trait/T = pick(subtypesof(/datum/xenoartifact_trait/malfunction))
-		traits += new T
+		traits+=new T
 		malfunction_chance = malfunction_chance*0.2
 	else    
-		malfunction_chance += malfunction_mod
+		malfunction_chance+=malfunction_mod
 
 	for(var/atom/M in true_target) //Cull
 		if(get_dist(src, M) > max_range)   
 			true_target -= M
 
-	charge = charge + charge_mod
-	if(manage_cooldown(TRUE))//Execution of traits here
-		for(var/datum/xenoartifact_trait/minor/T in traits)//Minor traits aren't apart of the target loop
+	charge+=charge_mod
+	if(COOLDOWN_FINISHED(src, xenoa_cooldown))///Execution of traits here
+		for(var/datum/xenoartifact_trait/minor/T in traits)///Minor traits aren't apart of the target loop
 			T.activate(src, user, user)
-		charge = (charge+charge_req)/1.9 //Not quite an average. Generally produces slightly higher results.     
+		for(var/datum/xenoartifact_trait/malfunction/T in traits)///Same for malfunctions
+			T.activate(src, user, user)
+		charge = (charge+charge_req)/1.9 ///Not quite an average. Generally produces slightly higher results.     
 		for(var/atom/M in true_target)
 			create_beam(M)
-			for(var/datum/xenoartifact_trait/malfunction/T in traits) //Malf
+			for(var/datum/xenoartifact_trait/major/T in traits) ///Major
+				if(logging)
+					log_game("[src] activated trait [T]. Located at [x] [y] [z]")
 				T.activate(src, M, user)
-			for(var/datum/xenoartifact_trait/major/T in traits) //Major
-				T.activate(src, M, user)
-			if(!(get_trait(/datum/xenoartifact_trait/minor/aura))) //Quick fix for bug that selects multiple targets for noraisin
+			if(!(get_trait(/datum/xenoartifact_trait/minor/aura))) ///Quick fix for bug that selects multiple targets for noraisin
 				break
-		manage_cooldown()   
+		COOLDOWN_START(src, xenoa_cooldown, cooldown+cooldownmod)
 	charge = 0
 	true_target = list()
 
-/obj/structure/xenoartifact/proc/manage_cooldown(checking = FALSE)
-	if(!usedwhen)
-		if(!(checking))
-			usedwhen = world.time //Should I be using a different measure here?
-		return TRUE
-	else if(usedwhen + cooldown + cooldownmod < world.time)
-		cooldownmod = 0
-		usedwhen = null
-		return TRUE
-	else 
-		return FALSE
-
 /obj/structure/xenoartifact/proc/get_proximity(range) //Gets a singular bam beano
-	. = null
 	for(var/mob/living/M in oview(range, get_turf(src)))
 		. = process_target(M)
 	if(isliving(loc))
@@ -178,10 +170,7 @@
 	return
 
 /obj/structure/xenoartifact/proc/get_trait(typepath) //Returns the desired trait and it's values if it's in the artifact's
-	for(var/datum/xenoartifact_trait/T in traits)
-		if(istype(T, typepath)) //Using  == here breaks it
-			return T
-	return FALSE
+	return (locate(typepath) in traits)
 
 /obj/structure/xenoartifact/proc/generate_icon(var/icn, var/icnst = "", colour) //Add extra icon overlays
 	icon_overlay = mutable_appearance(icn, icnst)
@@ -214,11 +203,12 @@
 /obj/structure/xenoartifact/proc/create_beam(atom/target) //Helps show how the artifact is working. Hint stuff.
 	if(!target.loc)
 		return
-	var/datum/beam/xenoa_beam/B = new(src.loc, target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam, col = material)
+	var/datum/beam/xenoa_beam/B = new(src.loc, target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
+	B.set_color(material)
 	INVOKE_ASYNC(B, /datum/beam/xenoa_beam.proc/Start)
 
 /obj/structure/xenoartifact/proc/default_activate(chr, mob/user, atom/target) //used for some stranger cases. structure specific cases that don't fall under the default templates. See battery activator.
-	if(!(manage_cooldown(TRUE)))
+	if(!(COOLDOWN_FINISHED(src, xenoa_cooldown)))
 		return FALSE
 	charge = chr
 	true_target += process_target(target)
@@ -242,14 +232,14 @@
 
 /obj/structure/xenoartifact/process(delta_time) //I can't be bothered getting the actual charge value for the traits at the moment, so these are fine for now.
 	switch(process_type)
-		if(LIT)
+		if(IS_LIT)
 			true_target = list(get_proximity(min(max_range, 5)))
 			if(get_proximity(min(max_range, 5)))
 				visible_message("<span class='danger'>The [name] flicks out.</span>")
 				default_activate(25, null, null)
 				process_type = null
 				return PROCESS_KILL
-		if(TICK)
+		if(IS_TICK)
 			visible_message("<span class='notice'>The [name] ticks.</span>")
 			true_target = list(get_proximity(min(max_range, 5)))
 			default_activate(25, null, null)
