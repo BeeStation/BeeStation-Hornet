@@ -16,7 +16,7 @@
 	var/allowed_size = 1
 	var/energy = 100 //How strong are we?
 	var/grav_pull = 4
-	var/dissipate = 1 //Do we lose energy over time?
+	var/dissipate = TRUE //Do we lose energy over time?
 	/// How long should it take for us to dissipate in seconds?
 	var/dissipate_delay = 20
 	/// How much energy do we lose every dissipate_delay?

@@ -22,10 +22,13 @@
 	var/energy
 	var/target
 	var/list/orbiting_balls = list()
-	var/time_since_last_dissipiation
+	var/dissipate = TRUE //Do we lose energy over time?
 	var/produced_power
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
+	var/dissipate_delay = 5
+	var/time_since_last_dissipiation = 0
+	var/dissipate_strength = 1
 
 /obj/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	. = ..()
@@ -43,8 +46,8 @@
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-/obj/energy_ball/process()
-	handle_energy()
+/obj/energy_ball/process(delta_time)
+	handle_energy(delta_time)
 
 	move_the_basket_ball(4 + orbiting_balls.len * 1.5)
 
@@ -94,7 +97,7 @@
 				dust_mobs(C)
 
 
-/obj/energy_ball/proc/handle_energy()
+/obj/energy_ball/proc/handle_energy(delta_time)
 	if(energy >= energy_to_raise)
 		energy_to_lower = energy_to_raise - 20
 		energy_to_raise = energy_to_raise * 1.25
@@ -108,6 +111,20 @@
 
 		var/Orchiectomy_target = pick(orbiting_balls)
 		qdel(Orchiectomy_target)
+
+	else if(orbiting_balls.len)
+		dissipate(delta_time) //sing code has a much better system.
+
+/obj/energy_ball/proc/dissipate(delta_time)
+	if(!dissipate)
+		return
+	time_since_last_dissipiation += delta_time
+
+	// Uses a while in case of especially long delta times
+	while (time_since_last_dissipiation >= dissipate_delay)
+		energy -= dissipate_strength
+
+	time_since_last_dissipiation -= dissipate_delay
 
 /obj/energy_ball/proc/new_mini_ball()
 	if(!loc)
@@ -181,11 +198,13 @@
 	if(orbiting && istype(orbiting.parent, /obj/energy_ball))
 		var/obj/energy_ball/EB = orbiting.parent
 		EB.orbiting_balls -= src
+		EB.dissipate_strength = EB.orbiting_balls.len
 	. = ..()
 
 /obj/effect/energy_ball/orbit(obj/energy_ball/target)
 	if (istype(target))
 		target.orbiting_balls += src
+		target.dissipate_strength = target.orbiting_balls.len
 	. = ..()
 
 /obj/effect/energy_ball/stop_orbit()
