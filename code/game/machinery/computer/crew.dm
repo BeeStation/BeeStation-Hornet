@@ -164,8 +164,8 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		if (!nanite_sensors && (!uniform?.has_sensor || !uniform?.sensor_mode))
 			continue
 
-		//	Radio transmitters are jammed
-		if(nanite_sensors ? H.is_jammed() : uniform?.is_jammed())
+		// Radio transmitters are jammed
+		if(H.is_jammed())
 			continue
 
 		// The entry for this human

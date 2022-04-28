@@ -101,27 +101,22 @@
 	. += "It is currently tracking <b>[target]</b>."
 
 /obj/item/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
+
 	var/turf/here = get_turf(src)
 
 	if(!here)
 		return FALSE
 
-	//if(!(nanite_sensors || HAS_TRAIT(H, TRAIT_SUIT_SENSORS)))
-		//return FALSE
-
 	var/turf/target_turf = get_turf(H)
+
 	if(!target_turf)
 		return FALSE
 
-	var/virtual_z_level = get_virtual_z_level()
+	var/target_virtual_z_level = H.get_virtual_z_level()
 
 	// Check if their virtual z-level is correct or in case it isn't
 	// check if they are on station's 'real' z-level
-	if (virtual_z_level != here.z && !(is_station_level(target_turf.z) && is_station_level(here.z)))
-		return FALSE
-
-	//	Radio transmitters are jammed
-	if(H.is_jammed())
+	if (target_virtual_z_level != get_virtual_z_level() && !(is_station_level(target_turf.z) && is_station_level(here.z)))
 		return FALSE
 
 	var/nanite_sensors = HAS_TRAIT(H, TRAIT_NANITE_SENSORS)
@@ -130,11 +125,16 @@
 	// Are nanite sensors on?
 	// Is sensors level set to SENSORS_COORDS?
 	// Should we ignore sensors?
-	// If yes to any of these, proceed further
-	if(!nanite_sensors && uniform?.sensor_mode < SENSOR_COORDS && !ignore_suit_sensor_level)
+	// If yes to any of these, proceed further,
+	// otherwise return FALSE
+	if(!nanite_sensors && (!uniform?.has_sensor || uniform?.sensor_mode < SENSOR_COORDS) && !ignore_suit_sensor_level)
 		return FALSE
 
-	return TRUE//(H.z != 0 || (there && ((there.get_virtual_z_level() == here.get_virtual_z_level()) || (is_station_level(there.z) && is_station_level(here.z)))))
+	// Radio transmitters are jammed
+	if(H.is_jammed())
+		return FALSE
+
+	return TRUE
 
 
 /obj/item/pinpointer/crew/attack_self(mob/living/user)
