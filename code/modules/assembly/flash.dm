@@ -23,8 +23,9 @@
 		icon_state = "flashbulb"
 
 /obj/item/flashbulb/examine(mob/user)
-	desc += "\n[ charges_left == 0 ? "The bulb is completely burnt out" : charges_left == 1 ? "This bulb will probably burn out immediately in a flash" : "This bulb can probably just about handle [charges_left] more uses."]"
-	. += ..()
+	. = ..()
+	. += "[charges_left == 0 ? "The bulb is completely burnt out" : charges_left == 1 ? "This bulb will probably burn out immediately in a flash" : "This bulb can probably just about handle [charges_left] more uses."]"
+	
 
 /obj/item/flashbulb/proc/check_working()
 	return charges_left > 0
@@ -114,9 +115,8 @@
 	bulb = new bulb
 
 /obj/item/assembly/flash/examine(mob/user)
-	desc += "\n[!bulb ? "The device has no bulb installed." : bulb.charges_left == 0 ? "It looks like you can cut the burnt flashbulb out with a pair of wirecutters." : bulb.charges_left == 1 ? "The bulb looks like it will burn out if used" : "The bulb looks like it can handle just about [bulb.charges_left] more uses."]"
 	. = ..()
-
+	. += "[!bulb ? "The device has no bulb installed." : bulb.charges_left == 0 ? "It looks like you can cut the burnt flashbulb out with a pair of wirecutters." : bulb.charges_left == 1 ? "The bulb looks like it will burn out if used" : "The bulb looks like it can handle just about [bulb.charges_left] more uses."]"
 
 /obj/item/assembly/flash/suicide_act(mob/living/user)
 	if(!bulb)
