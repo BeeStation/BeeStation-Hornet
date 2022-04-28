@@ -43,7 +43,7 @@
 /obj/structure/xenoartifact/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/xenoartifact_pricing)
-	AddComponent(/datum/component/discoverable, 10000, TRUE) //Same values as original artifacts, exploration.
+	AddComponent(/datum/component/discoverable, XENOA_DP, TRUE) //Same values as original artifacts, exploration.
 
 /obj/structure/xenoartifact/Initialize(mapload, var/obj/structure/xenoartifact/X)
 	. = ..()
