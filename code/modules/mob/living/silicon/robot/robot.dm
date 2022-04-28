@@ -419,7 +419,7 @@
 		while (getBruteLoss() && W.tool_start_check(user, amount=0))	//Repeatedly attempt to repair dents until done or welder is out of fuel, just like tend wounds. No need to spam click
 			if(src == user)
 				to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
-			if(!W.use_tool(src, user, 50))
+			if(!W.use_tool(src, user, 60))
 				return
 			W.use(1)  //Due to the loop, welding fuel was only being burned passively and not actually consumed each step. This causes it to use 1 every step. 
 			adjustBruteLoss(-15)
@@ -435,7 +435,7 @@
 			to_chat(user, "The wires seem fine, there's no need to fix them.")
 			return
 		while(getFireLoss())		//Repeatedly attempt to repair wires until done, just like tend wounds. No need to spam click
-			if(!do_after(user, 50, target = src))
+			if(!do_after(user, 60, target = src))
 				return
 			if (coil.use(1))
 				adjustFireLoss(-15)
