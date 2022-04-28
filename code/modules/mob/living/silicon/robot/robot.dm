@@ -416,23 +416,25 @@
 		if (!getBruteLoss())
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
 			return
-		if (!W.tool_start_check(user, amount=0)) //The welder has 1u of fuel consumed by it's afterattack, so we don't need to worry about taking any away.
-			return
-		if(src == user)
-			to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
-		if(!W.use_tool(src, user, 50))
-			return
+		while (getBruteLoss() && W.tool_start_check(user, amount=0))	//Repeatedly attempt to repair dents until done or welder is out of fuel, just like tend wounds. No need to spam click
+			if(src == user)
+				to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
+			if(!W.use_tool(src, user, 50))
+				return
 
-		adjustBruteLoss(-15)
-		updatehealth()
-		add_fingerprint(user)
-		user.visible_message("[user] has fixed some of the dents on [src].", "<span class='notice'>You fix some of the dents on [src].</span>")
+			adjustBruteLoss(-15)
+			updatehealth()
+			add_fingerprint(user)
+			user.visible_message("[user] has fixed some of the dents on [src].", "<span class='notice'>You fix some of the dents on [src].</span>")
 		return
 
 	else if(istype(W, /obj/item/stack/cable_coil) && wiresexposed)
 		user.changeNext_move(CLICK_CD_MELEE)
 		var/obj/item/stack/cable_coil/coil = W
-		if (getFireLoss() > 0 || getToxLoss() > 0)
+		if (!getFireLoss() || !getToxLoss())
+			to_chat(user, "The wires seem fine, there's no need to fix them.")
+			return
+		while(getFireLoss() || getToxLoss())		//Repeatedly attempt to repair wires until done, just like tend wounds. No need to spam click
 			if(!do_after(user, 50, target = src))
 				return
 			if (coil.use(1))
@@ -442,9 +444,7 @@
 				user.visible_message("[user] has fixed some of the burnt wires on [src].", "<span class='notice'>You fix some of the burnt wires on [src].</span>")
 			else
 				to_chat(user, "<span class='warning'>You need more cable to repair [src]!</span>")
-		else
-			to_chat(user, "The wires seem fine, there's no need to fix them.")
-
+			
 	else if(W.tool_behaviour == TOOL_CROWBAR)	// crowbar means open or close the cover
 		if(opened)
 			to_chat(user, "<span class='notice'>You close the cover.</span>")
