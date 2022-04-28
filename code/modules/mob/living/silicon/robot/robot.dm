@@ -442,6 +442,8 @@
 				user.visible_message("[user] has fixed some of the burnt wires on [src].", "<span class='notice'>You fix some of the burnt wires on [src].</span>")
 			else
 				to_chat(user, "<span class='warning'>You need more cable to repair [src]!</span>")
+				return
+		return
 			
 	else if(W.tool_behaviour == TOOL_CROWBAR)	// crowbar means open or close the cover
 		if(opened)
