@@ -28,13 +28,13 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/storage/box/syndie_kit/imp_uplink,
 		/obj/item/storage/box/syndie_kit/origami_bundle,
 		/obj/item/storage/box/syndie_kit/throwing_weapons,
-		/obj/item/storage/box/syndicate/bundle_A,
-		/obj/item/storage/box/syndicate/bundle_B,
+		/obj/item/storage/box/syndie_kit/bundle_A,
+		/obj/item/storage/box/syndie_kit/bundle_B,
 		/obj/item/gun/ballistic/automatic/pistol,
 		/obj/item/gun/energy/disabler,
 		/obj/item/construction/rcd,
 		/obj/item/clothing/glasses/chameleon/flashproof,
-		/obj/item/clothing/glasses/clockwork/wraith_spectacles,
+		/obj/item/book/granter/spell/knock,
 		/obj/item/clothing/glasses/sunglasses/advanced,
 		/obj/item/clothing/glasses/thermal/eyepatch,
 		/obj/item/clothing/glasses/thermal/syndi,
@@ -85,8 +85,8 @@ GLOBAL_LIST_INIT(battle_royale_good_loot, list(
 		/obj/item/ammo_box/magazine/pistolm9mm,
 		/obj/item/katana,
 		/obj/item/melee/transforming/energy/sword,
-		/obj/item/twohanded/dualsaber,
-		/obj/item/twohanded/fireaxe,
+		/obj/item/dualsaber,
+		/obj/item/fireaxe,
 		/obj/item/stack/telecrystal/five,
 		/obj/item/stack/telecrystal/twenty,
 		/obj/item/clothing/suit/space/hardsuit/syndi
@@ -99,7 +99,7 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/his_grace,
 		/obj/mecha/combat/marauder/mauler/loaded,
 		/obj/item/guardiancreator/tech,
-		/obj/item/twohanded/mjollnir,
+		/obj/item/mjollnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
 		/obj/item/uplink/nuclear
 	))
@@ -115,9 +115,9 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 /client/proc/battle_royale()
 	set name = "Battle Royale"
-	set category = "Fun"
-	if(!check_rights(R_FUN))
-		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
+	set category = "Adminbus"
+	if(!(check_rights(R_FUN) || (check_rights(R_ADMIN) && SSticker.current_state == GAME_STATE_FINISHED)))
+		to_chat(src, "<span class='warning'>You do not have permission to do that! (If you don't have +FUN, wait until the round is over then you can trigger it.)</span>")
 		return
 	if(GLOB.battle_royale)
 		to_chat(src, "<span class='warning'>A game is already in progress!</span>")
@@ -127,13 +127,18 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		return
 	log_admin("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
 	message_admins("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
+
+	for(var/client/admin in GLOB.admins)
+		if(check_rights(R_ADMIN) && !GLOB.battle_royale && admin.tgui_panel)
+			admin.tgui_panel.clear_br_popup()
+
 	GLOB.battle_royale = new()
 	GLOB.battle_royale.start()
 
 /client/proc/battle_royale_speed()
 	set name = "Battle Royale - Change wall speed"
 	set category = "Event"
-	if(!check_rights(R_FUN))
+	if(!check_rights(R_ADMIN))
 		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
 		return
 	if(!GLOB.battle_royale)
@@ -197,17 +202,21 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		C.remove_verb(BATTLE_ROYALE_AVERBS)
 	. = ..()
 	GLOB.enter_allowed = TRUE
+
+	//BR finished? Let people play as borgs/golems again
+	ENABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
+
 	world.update_status()
 	GLOB.battle_royale = null
 
 //Trigger random events and shit, update the world border
 /datum/battle_royale_controller/process()
 	process_num++
-	//Once every 50 seconds
-	if(prob(2))
+	//Once every 25 seconds
+	if(prob(4))
 		generate_basic_loot(5)
-	//Once every 100 seconds.
-	if(prob(1))
+	//Once every 50 seconds.
+	if(prob(2))
 		generate_good_drop()
 	var/living_victims = 0
 	var/mob/winner
@@ -254,12 +263,16 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /datum/battle_royale_controller/proc/start()
 	//Give Verbs to admins
 	for(var/client/C in GLOB.admins)
-		if(check_rights_for(C, R_FUN))
+		if(check_rights_for(C, R_ADMIN))
 			C.add_verb(BATTLE_ROYALE_AVERBS)
 	toggle_ooc(FALSE)
 	to_chat(world, "<span class='ratvar'><font size=24>Battle Royale will begin soon...</span></span>")
 	//Stop new player joining
 	GLOB.enter_allowed = FALSE
+
+	//Don't let anyone join as posibrains/golems etc
+	DISABLE_BITFIELD(GLOB.ghost_role_flags, (GHOSTROLE_SPAWNER | GHOSTROLE_SILICONS))
+
 	world.update_status()
 	if(SSticker.current_state < GAME_STATE_PREGAME)
 		to_chat(world, "<span class=boldannounce>Battle Royale: Waiting for server to be ready...</span>")
@@ -277,11 +290,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		SSticker.start_immediately = TRUE
 	SEND_SOUND(world, sound('sound/misc/server-ready.ogg'))
 	sleep(50)
-	//Clear client mobs
+	//Clear all living mobs
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Clearing world mobs.</span>")
-	for(var/mob/M as() in GLOB.player_list)
-		if(isliving(M))
-			qdel(M)
+	for(var/mob/living/M as() in GLOB.mob_living_list)
+		qdel(M)
 		CHECK_TICK
 	sleep(50)
 	to_chat(world, "<span class='greenannounce'>Battle Royale: STARTING IN 30 SECONDS.</span>")
@@ -311,7 +323,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 /datum/battle_royale_controller/proc/titanfall()
 	var/list/participants = pollGhostCandidates("Would you like to partake in BATTLE ROYALE?")
-	var/turf/spawn_turf = get_safe_random_station_turf()
+	var/turf/spawn_turf = get_safe_random_station_turfs()
 	var/obj/structure/closet/supplypod/centcompod/pod = new()
 	pod.setStyle()
 	players = list()
@@ -321,6 +333,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		CHECK_TICK
 		var/mob/living/carbon/human/H = new(pod)
 		ADD_TRAIT(H, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
+		ADD_TRAIT(H, TRAIT_DROPS_ITEMS_ON_DEATH, BATTLE_ROYALE_TRAIT)
 		H.status_flags |= GODMODE
 		//Assistant gang
 		H.equipOutfit(/datum/outfit/job/assistant)
@@ -331,12 +344,13 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		var/obj/item/implant/weapons_auth/W = new
 		W.implant(H)
 		players += H
-		to_chat(M, "<span class='notice'>You have been given knock and pacafism for 30 seconds.</span>")
-	new /obj/effect/DPtarget(spawn_turf, pod)
+		to_chat(M, "<span class='notice'>You have been given knock and pacifism for 30 seconds.</span>")
+	new /obj/effect/pod_landingzone(spawn_turf, pod)
 	SEND_SOUND(world, sound('sound/misc/airraid.ogg'))
 	to_chat(world, "<span class='boldannounce'>A 30 second grace period has been established. Good luck.</span>")
 	to_chat(world, "<span class='boldannounce'>WARNING: YOU WILL BE GIBBED IF YOU LEAVE THE STATION Z-LEVEL!</span>")
 	to_chat(world, "<span class='boldannounce'>[players.len] people remain...</span>")
+
 	//Start processing our world events
 	addtimer(CALLBACK(src, .proc/end_grace), 300)
 	generate_basic_loot(150)
@@ -346,7 +360,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		M.RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/knock)
 		M.status_flags -= GODMODE
 		REMOVE_TRAIT(M, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
-		to_chat(M, "<span class='greenannounce'>You are no longer a pacafist. Be the last [M.gender == MALE ? "man" : "woman"] standing.</span>")
+		to_chat(M, "<span class='greenannounce'>You are no longer a pacifist. Be the last [M.gender == MALE ? "man" : "woman"] standing.</span>")
 
 //==================================
 // EVENTS / DROPS
@@ -361,16 +375,16 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/list/good_drops = list()
 	for(var/i in 1 to rand(1,3))
 		good_drops += pick(GLOB.battle_royale_good_loot)
-	send_item(good_drops, announce = "Incomming extended supply materials.", force_time = 600)
+	send_item(good_drops, announce = "Incoming extended supply materials.", force_time = 150)
 
 /datum/battle_royale_controller/proc/generate_endgame_drop()
 	var/obj/item = pick(GLOB.battle_royale_insane_loot)
-	send_item(item, announce = "We found a weird looking package in the back of our warehouse. We have no idea what is in it, but it is marked as incredibily dangerous and could be a superweapon.", force_time = 9000)
+	send_item(item, announce = "We found a weird looking package in the back of our warehouse. We have no idea what is in it, but it is marked as incredibily dangerous and could be a superweapon.", force_time = 600)
 
 /datum/battle_royale_controller/proc/send_item(item_path, style = STYLE_BOX, announce=FALSE, force_time = 0)
 	if(!item_path)
 		return
-	var/turf/target = get_safe_random_station_turf()
+	var/turf/target = get_safe_random_station_turfs()
 	var/obj/structure/closet/supplypod/battleroyale/pod = new()
 	if(islist(item_path))
 		for(var/thing in item_path)
@@ -378,10 +392,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	else
 		new item_path(pod)
 	if(force_time)
-		pod.fallDuration = force_time
-	new /obj/effect/DPtarget(target, pod)
+		pod.delays[POD_FALLING]= force_time
+	new /obj/effect/pod_landingzone(target, pod)
 	if(announce)
-		priority_announce("[announce] \nExpected Drop Location: [get_area(target)]\n ETA: [force_time/10] Seconds.", "High Command Supply Control")
+		priority_announce("[announce] \nExpected Drop Location: [get_area(target)]\n ETA: [force_time/10] Seconds.", "High Command Supply Control", SSstation.announcer.get_rand_alert_sound())
 
 //==================================
 // WORLD BORDER
@@ -393,12 +407,19 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	icon = 'icons/effects/fields.dmi'
 	icon_state = "projectile_dampen_generic"
 
-/obj/effect/death_wall/Crossed(atom/movable/AM, oldloc)
+/obj/effect/death_wall/Initialize(mapload)
 	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/death_wall/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
 	//lol u died
 	if(isliving(AM))
 		var/mob/living/M = AM
-		M.gib()
+		INVOKE_ASYNC(M, /mob/living/carbon.proc/gib)
 		to_chat(M, "<span class='warning'>You left the zone!</span>")
 
 /obj/effect/death_wall/Moved(atom/OldLoc, Dir)

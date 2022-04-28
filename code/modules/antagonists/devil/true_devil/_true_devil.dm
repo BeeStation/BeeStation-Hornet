@@ -27,7 +27,7 @@
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 	mobchatspan = "cultmobsay"
 
-/mob/living/carbon/true_devil/Initialize()
+/mob/living/carbon/true_devil/Initialize(mapload)
 	create_bodyparts() //initialize bodyparts
 	create_internal_organs()
 	grant_all_languages()
@@ -58,7 +58,7 @@
 	mind.announce_objectives()
 
 /mob/living/carbon/true_devil/death(gibbed)
-	stat = DEAD
+	set_stat(DEAD)
 	..(gibbed)
 	drop_all_held_items()
 	INVOKE_ASYNC(mind.has_antag_datum(/datum/antagonist/devil), /datum/antagonist/devil/proc/beginResurrectionCheck, src)

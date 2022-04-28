@@ -8,11 +8,11 @@
 
 	var/scanning = FALSE
 	var/timing = FALSE
-	var/time = 10
+	var/time = 20
 	var/sensitivity = 1
 	var/hearing_range = 3
 
-/obj/item/assembly/prox_sensor/Initialize()
+/obj/item/assembly/prox_sensor/Initialize(mapload)
 	. = ..()
 	proximity_monitor = new(src, 0)
 	START_PROCESSING(SSobj, src)
@@ -70,13 +70,14 @@
 	next_activate = world.time + 30
 	return TRUE
 
-/obj/item/assembly/prox_sensor/process()
+/obj/item/assembly/prox_sensor/process(delta_time)
 	if(!timing)
 		return
-	time--
+	time -= delta_time
 	if(time <= 0)
 		timing = FALSE
 		toggle_scan(TRUE)
+		ui_update()
 		time = initial(time)
 
 /obj/item/assembly/prox_sensor/proc/toggle_scan(scan)
@@ -105,11 +106,16 @@
 		holder.update_icon()
 	return
 
+
+/obj/item/assembly/prox_sensor/ui_requires_update(mob/user, datum/tgui/ui)
+	. = ..()
+	if(timing)
+		. = TRUE // Autoupdate while counting down
+
 /obj/item/assembly/prox_sensor/ui_status(mob/user)
 	if(is_secured(user))
 		return ..()
 	return UI_CLOSE
-
 
 /obj/item/assembly/prox_sensor/ui_state(mob/user)
 	return GLOB.hands_state

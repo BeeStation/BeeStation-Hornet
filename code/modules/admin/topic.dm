@@ -65,33 +65,37 @@
 			return
 		switch(href_list["makeAntag"])
 			if("traitors")
-				if(src.makeTraitors())
-					message_admins("[key_name_admin(usr)] created traitors.")
-					log_admin("[key_name(usr)] created traitors.")
+				var/maxCount = input("Set number of Traitors","Set Traitor Count (max)",1) as num|null
+				if(src.makeTraitors(maxCount))
+					message_admins("[key_name_admin(usr)] created [maxCount] traitor(s).")
+					log_admin("[key_name(usr)] created [maxCount] traitor(s).")
 				else
-					message_admins("[key_name_admin(usr)] tried to create traitors. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(usr)] failed to create traitors.")
+					message_admins("[key_name_admin(usr)] tried to create  [maxCount] traitor(s). Unfortunately, there were no candidates available.")
+					log_admin("[key_name(usr)] failed to create [maxCount] traitor(s).")
 			if("changelings")
-				if(src.makeChangelings())
-					message_admins("[key_name(usr)] created changelings.")
-					log_admin("[key_name(usr)] created changelings.")
+				var/maxCount = input("Set number of Changelings","Set Changeling Count (max)",1) as num|null
+				if(src.makeChangelings(maxCount))
+					message_admins("[key_name(usr)] created [maxCount] changelings.")
+					log_admin("[key_name(usr)] created [maxCount] changelings.")
 				else
-					message_admins("[key_name_admin(usr)] tried to create changelings. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(usr)] failed to create changelings.")
+					message_admins("[key_name_admin(usr)] tried to create [maxCount] changelings. Unfortunately, there were no candidates available.")
+					log_admin("[key_name(usr)] failed to create [maxCount] changelings.")
 			if("revs")
-				if(src.makeRevs())
-					message_admins("[key_name(usr)] started a revolution.")
-					log_admin("[key_name(usr)] started a revolution.")
+				var/maxCount = input("Set number of Revolutionaries","Set Revolutionaries Count (max)",1) as num|null
+				if(src.makeRevs(maxCount))
+					message_admins("[key_name(usr)] started a revolution with [maxCount] freedom fighters.")
+					log_admin("[key_name(usr)] started a [maxCount] freedom fighters.")
 				else
-					message_admins("[key_name_admin(usr)] tried to start a revolution. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(usr)] failed to start a revolution.")
+					message_admins("[key_name_admin(usr)] tried to start a revolution with [maxCount] freedom fighters. Unfortunately, there were no candidates available.")
+					log_admin("[key_name(usr)] failed to start a revolution with [maxCount] freedom fighters.")
 			if("cult")
-				if(src.makeCult())
-					message_admins("[key_name(usr)] started a cult.")
-					log_admin("[key_name(usr)] started a cult.")
+				var/maxCount = input("Set number of Cultists","Set Cultist Count (max)",1) as num|null
+				if(src.makeCult(maxCount))
+					message_admins("[key_name(usr)] started a cult with [maxCount] cultists.")
+					log_admin("[key_name(usr)] started a cult with [maxCount] cultists.")
 				else
-					message_admins("[key_name_admin(usr)] tried to start a cult. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(usr)] failed to start a cult.")
+					message_admins("[key_name_admin(usr)] tried to start a cult with [maxCount] cultists. Unfortunately, there were no candidates available.")
+					log_admin("[key_name(usr)] failed to start a cult with [maxCount] cultists.")
 			if("wizard")
 				message_admins("[key_name(usr)] is creating a wizard...")
 				if(src.makeWizard())
@@ -102,12 +106,13 @@
 					log_admin("[key_name(usr)] failed to create a wizard.")
 			if("nukeops")
 				message_admins("[key_name(usr)] is creating a nuke team...")
-				if(src.makeNukeTeam())
-					message_admins("[key_name(usr)] created a nuke team.")
-					log_admin("[key_name(usr)] created a nuke team.")
+				var/maxCount = input("Set number of Nuke OPs","Set Nuke OP Count (max)",5) as num|null
+				if(src.makeNukeTeam(maxCount))
+					message_admins("[key_name(usr)] created a nuke team with [maxCount] operatives")
+					log_admin("[key_name(usr)] created a nuke team with [maxCount] operatives")
 				else
-					message_admins("[key_name_admin(usr)] tried to create a nuke team. Unfortunately, there were not enough candidates available.")
-					log_admin("[key_name(usr)] failed to create a nuke team.")
+					message_admins("[key_name_admin(usr)] tried to create a nuke team with [maxCount] operatives Unfortunately, there were not enough candidates available.")
+					log_admin("[key_name(usr)] failed to create a nuke team with [maxCount] operatives.")
 			if("ninja")
 				message_admins("[key_name(usr)] spawned a ninja.")
 				log_admin("[key_name(usr)] spawned a ninja.")
@@ -173,6 +178,7 @@
 						return
 					if("No")
 						event.announceChance = 0
+				event.on_admin_trigger()
 				event.processing = TRUE
 			message_admins("[key_name_admin(usr)] has triggered an event. ([E.name])")
 			log_admin("[key_name(usr)] has triggered an event. ([E.name])")
@@ -744,7 +750,13 @@
 			alert("The round has already started.")
 			HandleCMode()
 			return
+		if(SSticker.gamemode_hotswap_disabled)
+			alert("A gamemode has already loaded maps and cannot be changed!")
+			HandleCMode()
+			return
 		GLOB.master_mode = href_list["c_mode2"]
+		//Disable presetup so their gamemode gets loaded.
+		SSticker.pre_setup_completed = FALSE
 		log_admin("[key_name(usr)] set the mode as [GLOB.master_mode].")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] set the mode as [GLOB.master_mode].</span>")
 		to_chat(world, "<span class='adminnotice'><b>The mode is now: [GLOB.master_mode]</b></span>")
@@ -965,8 +977,8 @@
 
 		if(ishuman(L))
 			var/mob/living/carbon/human/observer = L
-			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit/black(observer), SLOT_W_UNIFORM)
-			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(observer), SLOT_SHOES)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit/black(observer), ITEM_SLOT_ICLOTHING)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(observer), ITEM_SLOT_FEET)
 		L.Unconscious(100)
 		sleep(5)
 		L.forceMove(pick(GLOB.tdomeobserve))
@@ -1475,10 +1487,10 @@
 										R.activate_module(I)
 
 		if(pod)
-			new /obj/effect/DPtarget(target, pod)
-		
+			new /obj/effect/pod_landingzone(target, pod)
+
 		var/turf/T = get_turf(usr.loc) // get admin's LOC as a turf
-		
+
 		if (number == 1)
 			log_admin("[key_name(usr)] created a [english_list(paths)] at [AREACOORD(T)]")
 			for(var/path in paths)
@@ -2057,7 +2069,7 @@
 			return
 		var/turf/T = get_turf(tear.old_loc)
 		message_admins("The items consumed by the BoH tear at [ADMIN_VERBOSEJMP(T)] were retrieved by [key_name_admin(usr)].")
-		tear.investigate_log("Items consumed at [AREACOORD(T)] retrieved by [key_name(usr)].", INVESTIGATE_SINGULO)
+		tear.investigate_log("Items consumed at [AREACOORD(T)] retrieved by [key_name(usr)].", INVESTIGATE_ENGINES)
 		tear.retrieve_consumed_items()
 
 	else if(href_list["beakerpanel"])
@@ -2111,6 +2123,18 @@
 		var/datum/poll_option/option = locate(href_list["submitoption"]) in GLOB.poll_options
 		var/datum/poll_question/poll = locate(href_list["submitoptionpoll"]) in GLOB.polls
 		poll_option_parse_href(href_list, poll, option)
+
+	else if (href_list["interview"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/datum/interview/I = locate(href_list["interview"])
+		if (I)
+			I.ui_interact(usr)
+
+	else if (href_list["interview_man"])
+		if(!check_rights(R_ADMIN))
+			return
+		GLOB.interviews.ui_interact(usr)
 
 /datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))

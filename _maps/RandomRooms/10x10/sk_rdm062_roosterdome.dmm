@@ -3,7 +3,7 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "b" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21"
 	},
 /turf/open/floor/plasteel/dark,

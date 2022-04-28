@@ -13,8 +13,10 @@
 	var/mob/living/holder
 	var/delete_species = TRUE //Set to FALSE when a body is scanned by a cloner to fix #38875
 	var/mutation_index[DNA_MUTATION_BLOCKS] //List of which mutations this carbon has and its assigned block
+	var/default_mutation_genes[DNA_MUTATION_BLOCKS] //List of the default genes from this mutation to allow DNA Scanner highlighting
 	var/stability = 100
 	var/scrambled = FALSE //Did we take something like mutagen? In that case we cant get our genes scanned to instantly cheese all the powers.
+	var/current_body_size = BODY_SIZE_NORMAL //This is a size multiplier, it starts at "1".
 
 /datum/dna/New(mob/living/new_holder)
 	if(istype(new_holder))
@@ -23,7 +25,7 @@
 /datum/dna/Destroy()
 	if(iscarbon(holder))
 		var/mob/living/carbon/cholder = holder
-		if(cholder.dna == src)
+		if(cholder?.dna == src)
 			cholder.dna = null
 	holder = null
 
@@ -48,15 +50,18 @@
 	destination.dna.temporary_mutations = temporary_mutations.Copy()
 	if(transfer_SE)
 		destination.dna.mutation_index = mutation_index
+		destination.dna.default_mutation_genes = default_mutation_genes
 
 /datum/dna/proc/copy_dna(datum/dna/new_dna)
 	new_dna.unique_enzymes = unique_enzymes
 	new_dna.mutation_index = mutation_index
+	new_dna.default_mutation_genes = default_mutation_genes
 	new_dna.uni_identity = uni_identity
 	new_dna.blood_type = blood_type
 	new_dna.features = features.Copy()
 	new_dna.species = new species.type
 	new_dna.real_name = real_name
+	new_dna.update_body_size() //Must come after features.Copy()
 	new_dna.mutations = mutations.Copy()
 
 //See mutation.dm for what 'class' does. 'time' is time till it removes itself in decimals. 0 for no timer
@@ -118,18 +123,18 @@
 	if(!LAZYLEN(mutations_temp))
 		return
 	mutation_index.Cut()
+	default_mutation_genes.Cut()
 	shuffle_inplace(mutations_temp)
 	if(ismonkey(holder))
-		if(istype(holder, /mob/living/carbon/monkey/tumor))
-			mutations |= new RACEMUT(MUT_OTHER)
-		else
-			mutations |= new RACEMUT(MUT_NORMAL)
-			mutation_index[RACEMUT] = GET_SEQUENCE(RACEMUT)
+		mutations |= new RACEMUT(MUT_NORMAL)
+		mutation_index[RACEMUT] = GET_SEQUENCE(RACEMUT)
 	else
 		mutation_index[RACEMUT] = create_sequence(RACEMUT, FALSE)
+	default_mutation_genes[RACEMUT] = mutation_index[RACEMUT]
 	for(var/i in 2 to DNA_MUTATION_BLOCKS)
 		var/datum/mutation/human/M = mutations_temp[i]
 		mutation_index[M.type] = create_sequence(M.type, FALSE, M.difficulty)
+		default_mutation_genes[M.type] = mutation_index[M.type]
 	shuffle_inplace(mutation_index)
 
 //Used to generate original gene sequences for every mutation
@@ -269,6 +274,20 @@
 	return
 
 /////////////////////////// DNA MOB-PROCS //////////////////////
+/datum/dna/proc/update_body_size()
+	if(!holder || !features["body_size"])
+		return
+
+	var/desired_size = GLOB.body_sizes[features["body_size"]]
+
+	if(desired_size == current_body_size)
+		return
+
+	var/change_multiplier = desired_size / current_body_size
+	var/translate = ((change_multiplier-1) * 32) * 0.5
+	holder.transform = holder.transform.Scale(change_multiplier)
+	holder.transform = holder.transform.Translate(0, translate)
+	current_body_size = desired_size
 
 /mob/proc/set_species(datum/species/mrace, icon_update = 1)
 	return
@@ -305,9 +324,7 @@
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
 	..()
 	if(icon_update)
-		update_body()
 		update_hair()
-		update_body_parts()
 		update_mutations_overlay()// no lizard with human hulk overlay please.
 
 
@@ -318,7 +335,7 @@
 	return dna
 
 
-/mob/living/carbon/human/proc/hardset_dna(ui, list/mutation_index, newreal_name, newblood_type, datum/species/mrace, newfeatures, list/mutations, force_transfer_mutations)
+/mob/living/carbon/human/proc/hardset_dna(ui, list/mutation_index, newreal_name, newblood_type, datum/species/mrace, newfeatures, list/mutations, force_transfer_mutations, list/default_mutation_genes)
 //Do not use force_transfer_mutations for stuff like cloners without some precautions, otherwise some conditional mutations could break (timers, drill hat etc)
 	if(newfeatures)
 		dna.features = newfeatures
@@ -327,6 +344,14 @@
 		var/datum/species/newrace = new mrace.type
 		newrace.copy_properties_from(mrace)
 		set_species(newrace, icon_update=0)
+
+	if(LAZYLEN(mutation_index))
+		dna.mutation_index = mutation_index.Copy()
+		if(LAZYLEN(default_mutation_genes))
+			dna.default_mutation_genes = default_mutation_genes.Copy()
+		else
+			dna.default_mutation_genes = mutation_index.Copy()
+		domutcheck()
 
 	if(newreal_name)
 		real_name = newreal_name
@@ -338,10 +363,6 @@
 	if(ui)
 		dna.uni_identity = ui
 		updateappearance(icon_update=0)
-
-	if(LAZYLEN(mutation_index))
-		dna.mutation_index = mutation_index.Copy()
-		domutcheck()
 
 	if(mrace || newfeatures || ui)
 		update_body()
@@ -426,8 +447,10 @@
 	. = TRUE
 	if(on)
 		mutation_index[HM.type] = GET_SEQUENCE(HM.type)
+		default_mutation_genes[HM.type] = mutation_index[HM.type]
 	else if(GET_SEQUENCE(HM.type) == mutation_index[HM.type])
 		mutation_index[HM.type] = create_sequence(HM.type, FALSE, HM.difficulty)
+		default_mutation_genes[HM.type] = mutation_index[HM.type]
 
 /datum/dna/proc/activate_mutation(mutation) //note that this returns a boolean and not a new mob
 	if(!mutation)

@@ -166,9 +166,10 @@
 			A.setDir(turn(A.dir, 90))
 			var/turf/T = get_step(A, A.dir)
 			var/turf/S = D.loc
-			if ((S && isturf(S) && S.Exit(D)) && (T && isturf(T) && T.Enter(A)))
+			var/direction = get_dir(D, A)
+			if ((S && isturf(S) && S.Exit(D, direction)) && (T && isturf(T) && T.Enter(A)))
 				D.forceMove(T)
-				D.setDir(get_dir(D, A))
+				D.setDir(direction)
 		else
 			return 0
 
@@ -456,15 +457,15 @@
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_BELT)
+	if(slot == ITEM_SLOT_BELT)
 		var/mob/living/carbon/human/H = user
 		style.teach(H,1)
 	return
 
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user)
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_BELT) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_BELT) == src)
 		style.remove(H)
-	return

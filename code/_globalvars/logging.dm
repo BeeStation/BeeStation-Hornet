@@ -56,6 +56,8 @@ GLOBAL_PROTECT(lastsignalers)
 GLOBAL_LIST_EMPTY(lawchanges) //! Stores who uploaded laws to which silicon-based lifeform, and what the law was
 GLOBAL_PROTECT(lawchanges)
 
+GLOBAL_VAR(perf_log)
+GLOBAL_PROTECT(perf_log)
 GLOBAL_LIST_EMPTY(combatlog)
 GLOBAL_PROTECT(combatlog)
 GLOBAL_LIST_EMPTY(IClog)
@@ -76,3 +78,7 @@ GLOBAL_PROTECT(picture_logging_id)
 GLOBAL_VAR(picture_logging_prefix)
 GLOBAL_PROTECT(picture_logging_prefix)
 /////
+#ifdef REFERENCE_DOING_IT_LIVE
+GLOBAL_LIST_EMPTY(harddel_log)
+GLOBAL_PROTECT(harddel_log)
+#endif

@@ -19,7 +19,12 @@
 	paycheck_department = ACCOUNT_SRV
 
 	display_order = JOB_DISPLAY_ORDER_COOK
+	departments = DEPARTMENT_SERVICE
+	rpg_title = "Tavern Chef"
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chef
+	)
 /datum/outfit/job/cook
 	name = "Cook"
 	jobtype = /datum/job/cook
@@ -39,7 +44,7 @@
 	if(J) // Fix for runtime caused by invalid job being passed
 		if(J.cooks>0)//Cooks
 			suit = /obj/item/clothing/suit/apron/chef
-			head = /obj/item/clothing/head/soft/mime
+			head = /obj/item/clothing/head/soft
 		if(!visualsOnly)
 			J.cooks++
 
@@ -50,7 +55,7 @@
 	var/list/possible_boxes = subtypesof(/obj/item/storage/box/ingredients)
 	var/chosen_box = pick(possible_boxes)
 	var/obj/item/storage/box/I = new chosen_box(src)
-	H.equip_to_slot_or_del(I,SLOT_IN_BACKPACK)
+	H.equip_to_slot_or_del(I,ITEM_SLOT_BACKPACK)
 	var/datum/martial_art/cqc/under_siege/justacook = new
 	justacook.teach(H)
 

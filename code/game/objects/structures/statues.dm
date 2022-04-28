@@ -10,7 +10,6 @@
 	var/material_drop_type = /obj/item/stack/sheet/iron
 	CanAtmosPass = ATMOS_PASS_DENSITY
 
-
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -224,7 +223,7 @@
 	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/bananium
 	desc = "A bananium statue with a small engraving:'HOOOOOOONK'."
-	var/spam_flag = 0
+	var/spam_flag = FALSE
 
 /obj/structure/statue/bananium/clown
 	name = "statue of a clown"
@@ -248,10 +247,9 @@
 
 /obj/structure/statue/bananium/proc/honk()
 	if(!spam_flag)
-		spam_flag = 1
+		spam_flag = TRUE
 		playsound(src.loc, 'sound/items/bikehorn.ogg', 50, 1)
-		spawn(20)
-			spam_flag = 0
+		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), 2 SECONDS)
 
 /////////////////////sandstone/////////////////////////////////////////
 

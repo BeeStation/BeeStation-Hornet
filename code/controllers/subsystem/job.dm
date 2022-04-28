@@ -16,6 +16,20 @@ SUBSYSTEM_DEF(job)
 
 	var/list/level_order = list(JP_HIGH,JP_MEDIUM,JP_LOW)
 
+	var/spare_id_safe_code = ""
+
+	var/list/chain_of_command = list(
+		"Captain" = 1,				//Not used yet but captain is first in chain_of_command
+		"Head of Personnel" = 2,
+		"Research Director" = 3,
+		"Chief Engineer" = 4,
+		"Chief Medical Officer" = 5,
+		"Head of Security" = 6)
+
+	//Crew Objective stuff
+	var/list/crew_obj_list = list()
+	var/list/crew_obj_jobs = list()
+
 /datum/controller/subsystem/job/Initialize(timeofday)
 	SSmapping.HACK_LoadMapConfig()
 	if(!occupations.len)
@@ -24,17 +38,28 @@ SUBSYSTEM_DEF(job)
 		LoadJobs()
 	generate_selectable_species()
 	set_overflow_role(CONFIG_GET(string/overflow_job))
+
+	spare_id_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
+
+	crew_obj_list = subtypesof(/datum/objective/crew)
+	for(var/datum/objective/crew/obj as() in crew_obj_list) //taken from old Hippie's "job2obj" proc with adjustments.
+		var/list/availableto = splittext(initial(obj.jobs),",")
+		for(var/job in availableto)
+			crew_obj_jobs["[job]"] += list(obj)
+
 	return ..()
 
 /datum/controller/subsystem/job/proc/set_overflow_role(new_overflow_role)
 	var/datum/job/new_overflow = GetJob(new_overflow_role)
 	var/cap = CONFIG_GET(number/overflow_cap)
 
+	new_overflow.allow_bureaucratic_error = FALSE
 	new_overflow.spawn_positions = cap
 	new_overflow.total_positions = cap
 
 	if(new_overflow_role != overflow_role)
 		var/datum/job/old_overflow = GetJob(overflow_role)
+		old_overflow.allow_bureaucratic_error = initial(old_overflow.allow_bureaucratic_error)
 		old_overflow.spawn_positions = initial(old_overflow.spawn_positions)
 		old_overflow.total_positions = initial(old_overflow.total_positions)
 		overflow_role = new_overflow_role
@@ -81,7 +106,7 @@ SUBSYSTEM_DEF(job)
 		var/datum/job/job = GetJob(rank)
 		if(!job)
 			return FALSE
-		if(is_banned_from(player.ckey, rank) || QDELETED(player))
+		if(QDELETED(player) || is_banned_from(player.ckey, rank))
 			return FALSE
 		if(!job.player_old_enough(player.client))
 			return FALSE
@@ -111,7 +136,7 @@ SUBSYSTEM_DEF(job)
 	JobDebug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
 	for(var/mob/dead/new_player/player in unassigned)
-		if(is_banned_from(player.ckey, job.title) || QDELETED(player))
+		if(QDELETED(player) || is_banned_from(player.ckey, job.title))
 			JobDebug("FOC isbanned failed, Player: [player]")
 			continue
 		if(!job.player_old_enough(player.client))
@@ -144,10 +169,11 @@ SUBSYSTEM_DEF(job)
 		if(job.title in GLOB.command_positions) //If you want a command position, select it!
 			continue
 
-		if(is_banned_from(player.ckey, job.title) || QDELETED(player))
-			if(QDELETED(player))
-				JobDebug("GRJ isbanned failed, Player deleted")
-				break
+		if(QDELETED(player))
+			JobDebug("GRJ isbanned failed, Player deleted")
+			break
+
+		if(is_banned_from(player.ckey, job.title))
 			JobDebug("GRJ isbanned failed, Player: [player], Job: [job.title]")
 			continue
 
@@ -251,8 +277,11 @@ SUBSYSTEM_DEF(job)
 
 	//Get the players who are ready
 	for(var/mob/dead/new_player/player in GLOB.player_list)
-		if(player.ready == PLAYER_READY_TO_PLAY && player.has_valid_preferences() && player.mind && !player.mind.assigned_role)
-			unassigned += player
+		if(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.assigned_role)
+			if(!player.check_preferences())
+				player.ready = PLAYER_NOT_READY
+			else
+				unassigned += player
 
 	initial_players_to_assign = unassigned.len
 
@@ -423,21 +452,32 @@ SUBSYSTEM_DEF(job)
 
 	//If we joined at roundstart we should be positioned at our workstation
 	if(!joined_late)
+		var/spawning_handled = FALSE
 		var/obj/S = null
-		for(var/obj/effect/landmark/start/sloc in GLOB.start_landmarks_list)
-			if(sloc.name != rank)
-				S = sloc //so we can revert to spawning them on top of eachother if something goes wrong
-				continue
-			if(locate(/mob/living) in sloc.loc)
-				continue
-			S = sloc
-			sloc.used = TRUE
-			break
-		if(length(GLOB.jobspawn_overrides[rank]))
+		if(HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS) && job.random_spawns_possible)
+			SendToLateJoin(living_mob)
+			spawning_handled = TRUE
+		else if(HAS_TRAIT(SSstation, STATION_TRAIT_RANDOM_ARRIVALS) && job.random_spawns_possible)
+			DropLandAtRandomHallwayPoint(living_mob)
+			spawning_handled = TRUE
+		else if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER) && job.random_spawns_possible)
+			SpawnLandAtRandom(living_mob, (typesof(/area/hallway) | typesof(/area/crew_quarters/bar) | typesof(/area/crew_quarters/dorms)))
+			spawning_handled = TRUE
+		else if(length(GLOB.jobspawn_overrides[rank]))
 			S = pick(GLOB.jobspawn_overrides[rank])
+		else
+			for(var/obj/effect/landmark/start/sloc in GLOB.start_landmarks_list)
+				if(sloc.name != rank)
+					S = sloc //so we can revert to spawning them on top of eachother if something goes wrong
+					continue
+				if(locate(/mob/living) in sloc.loc)
+					continue
+				S = sloc
+				sloc.used = TRUE
+				break
 		if(S)
 			S.JoinPlayerHere(living_mob, FALSE)
-		if(!S) //if there isn't a spawnpoint send them to latejoin, if there's no latejoin go yell at your mapper
+		if(!S && !spawning_handled) //if there isn't a spawnpoint send them to latejoin, if there's no latejoin go yell at your mapper
 			log_world("Couldn't find a round start spawn point for [rank]")
 			SendToLateJoin(living_mob)
 
@@ -471,12 +511,10 @@ SUBSYSTEM_DEF(job)
 		var/mob/living/carbon/human/wageslave = living_mob
 		living_mob.add_memory("Your account ID is [wageslave.account_id].")
 	if(job && living_mob)
-		job.after_spawn(living_mob, M, joined_late) // note: this happens before the mob has a key! M will always have a client, H might not.
+		job.after_spawn(living_mob, M, joined_late) // note: this happens before the mob has a key! M will always have a client, living_mob might not.
 
-	var/tries = 5
-	while(M.mind && !M.mind.crew_objectives.len && tries)
-		SSticker.give_crew_objective(M.mind)
-		tries--
+	if(living_mob.mind && !living_mob.mind.crew_objectives.len)
+		give_crew_objective(living_mob.mind, M)
 
 	return living_mob
 
@@ -658,6 +696,27 @@ SUBSYSTEM_DEF(job)
 		message_admins(msg)
 		CRASH(msg)
 
+///Spawns specified mob at a random spot in the hallways
+/datum/controller/subsystem/job/proc/SpawnLandAtRandom(mob/living/living_mob, areas = typesof(/area/hallway))
+	var/turf/spawn_turf = get_safe_random_station_turfs(areas)
+
+	if(!spawn_turf)
+		SendToLateJoin(living_mob)
+		return
+
+	living_mob.forceMove(spawn_turf)
+
+///Lands specified mob at a random spot in the hallways
+/datum/controller/subsystem/job/proc/DropLandAtRandomHallwayPoint(mob/living/living_mob)
+	var/turf/spawn_turf = get_safe_random_station_turfs(typesof(/area/hallway))
+
+	if(!spawn_turf)
+		SendToLateJoin(living_mob)
+		return
+
+	var/obj/structure/closet/supplypod/centcompod/toLaunch = new()
+	living_mob.forceMove(toLaunch)
+	new /obj/effect/pod_landingzone(spawn_turf, toLaunch)
 
 ///////////////////////////////////
 //Keeps track of all living heads//
@@ -699,3 +758,40 @@ SUBSYSTEM_DEF(job)
 
 /datum/controller/subsystem/job/proc/JobDebug(message)
 	log_job_debug(message)
+
+/obj/item/paper/fluff/spare_id_safe_code
+	name = "Nanotrasen-Approved Spare ID Safe Code"
+	desc = "Proof that you have been approved for Captaincy, with all its glory and all its horror."
+
+/obj/item/paper/fluff/spare_id_safe_code/Initialize(mapload)
+	. = ..()
+	var/id_safe_code = SSjob.spare_id_safe_code
+	info = "Captain's Spare ID safe code combination: [id_safe_code ? id_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe on the bridge."
+
+/datum/controller/subsystem/job/proc/promote_to_captain(var/mob/dead/new_player/new_captain, acting_captain = FALSE)
+	var/mob/living/carbon/human/H = new_captain.new_character
+	if(!new_captain)
+		CRASH("Cannot promote [new_captain.ckey], there is no new_character attached to him.")
+
+	if(!spare_id_safe_code)
+		CRASH("Cannot promote [H.real_name] to Captain, there is no spare_id_safe_code.")
+
+	var/paper = new /obj/item/paper/fluff/spare_id_safe_code(H.loc)
+	var/list/slots = list(
+		"in your left pocket" = ITEM_SLOT_LPOCKET,
+		"in your right pocket" = ITEM_SLOT_RPOCKET,
+		"in your backpack" = ITEM_SLOT_BACKPACK,
+		"in your hands" = ITEM_SLOT_HANDS
+	)
+	var/where = H.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
+
+	if(acting_captain)
+		to_chat(new_captain, "<span class='notice'>Due to your position in the chain of command, you have been granted access to captain's spare ID. You can find in important note about this [where].</span>")
+	else
+		to_chat(new_captain, "<span class='notice'>You can find the code to obtain your spare ID from the secure safe on the Bridge [where].</span>")
+
+	// Force-give their ID card bridge access.
+	if(H.wear_id?.GetID())
+		var/obj/item/card/id/id_card = H.wear_id
+		if(!(ACCESS_HEADS in id_card.access))
+			LAZYADD(id_card.access, ACCESS_HEADS)

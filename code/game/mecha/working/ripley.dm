@@ -67,7 +67,7 @@
 	. = ..()
 
 
-/obj/mecha/working/ripley/Initialize()
+/obj/mecha/working/ripley/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/armor_plate,3,/obj/item/stack/sheet/animalhide/goliath_hide,list("melee" = 10, "bullet" = 5, "laser" = 5))
 
@@ -87,7 +87,7 @@
 	opacity = TRUE
 
 /obj/mecha/working/ripley/firefighter
-	desc = "Autonomous Power Loader Unit MK-III. This model is refitted with a pressurized cabin and additional thermal protection."
+	desc = "Autonomous Power Loader Unit MK-III. This model is refitted with a pressurized cabin and additional hazard protection."
 	name = "\improper APLU MK-III \"Firefighter\""
 	icon_state = "firefighter"
 	max_temperature = 65000
@@ -96,6 +96,7 @@
 	slow_pressure_step_in = 4 //step_in while in normal pressure conditions
 	step_in = 4
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	rad_flags = RAD_PROTECT_CONTENTS
 	lights_power = 7
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 60, "bio" = 0, "rad" = 70, "fire" = 100, "acid" = 100, "stamina" = 0)
 	max_equip = 5 // More armor, less tools
@@ -123,7 +124,7 @@
 	silicon_icon_state = null
 	opacity = TRUE
 
-/obj/mecha/working/ripley/deathripley/Initialize()
+/obj/mecha/working/ripley/deathripley/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	ME.attach(src)
@@ -131,7 +132,7 @@
 /obj/mecha/working/ripley/deathripley/real
 	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE. FOR REAL"
 
-/obj/mecha/working/ripley/deathripley/real/Initialize()
+/obj/mecha/working/ripley/deathripley/real/Initialize(mapload)
 	. = ..()
 	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 		E.detach()
@@ -145,7 +146,7 @@
 	name = "\improper APLU \"Miner\""
 	obj_integrity = 75 //Low starting health
 
-/obj/mecha/working/ripley/mining/Initialize()
+/obj/mecha/working/ripley/mining/Initialize(mapload)
 	. = ..()
 	if(cell)
 		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge

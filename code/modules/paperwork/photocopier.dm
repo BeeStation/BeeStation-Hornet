@@ -112,7 +112,7 @@
 		else if(ass) //ASS COPY. By Miauw
 			for(var/i = 0, i < copies, i++)
 				var/icon/temp_img
-				if(ishuman(ass) && (ass.get_item_by_slot(SLOT_W_UNIFORM) || ass.get_item_by_slot(SLOT_WEAR_SUIT)))
+				if(ishuman(ass) && (ass.get_item_by_slot(ITEM_SLOT_ICLOTHING) || ass.get_item_by_slot(ITEM_SLOT_OCLOTHING)))
 					to_chat(usr, "<span class='notice'>You feel kind of silly, copying [ass == usr ? "your" : ass][ass == usr ? "" : "\'s"] ass with [ass == usr ? "your" : "[ass.p_their()]"] clothes on.</span>" )
 					break
 				else if(toner >= 5 && !busy && check_ass()) //You have to be sitting on the copier and either be a xeno or a human without clothes on.
@@ -296,7 +296,7 @@
 		updateUsrDialog()
 		return 0
 	else if(ishuman(ass))
-		if(!ass.get_item_by_slot(SLOT_W_UNIFORM) && !ass.get_item_by_slot(SLOT_WEAR_SUIT))
+		if(!ass.get_item_by_slot(ITEM_SLOT_ICLOTHING) && !ass.get_item_by_slot(ITEM_SLOT_OCLOTHING))
 			return 1
 		else
 			return 0
@@ -331,3 +331,16 @@
 	grind_results = list(/datum/reagent/iodine = 40, /datum/reagent/iron = 10)
 	var/charges = 5
 	var/max_charges = 5
+
+/obj/item/toner/large
+	name = "large toner cartridge"
+	desc = "A hefty cartridge of NanoTrasen ValueBrand toner. Fits photocopiers and autopainters alike."
+	grind_results = list(/datum/reagent/iodine = 90, /datum/reagent/iron = 10)
+	charges = 25
+	max_charges = 25
+
+/obj/item/toner/extreme
+	name = "extremely large toner cartridge"
+	desc = "Why would ANYONE need THIS MUCH TONER?"
+	charges = 200
+	max_charges = 200

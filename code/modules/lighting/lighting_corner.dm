@@ -12,7 +12,6 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 
 	var/x     = 0
 	var/y     = 0
-	var/z     = 0
 
 	var/lum_r = 0
 	var/lum_g = 0
@@ -29,7 +28,6 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 	. = ..()
 	masters = list()
 	masters[new_turf] = turn(diagonal, 180)
-	z = new_turf.z
 
 	var/vertical   = diagonal & ~(diagonal - 1) // The horizontal directions (4 and 8) are bigger than the vertical ones (1 and 2), so we can reliably say the lsb is the horizontal direction.
 	var/horizontal = diagonal & ~vertical       // Now that we know the horizontal one we can get the vertical one.
@@ -136,6 +134,6 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 	if (!force)
 		return QDEL_HINT_LETMELIVE
 
-	stack_trace("Ok, Look, /tg/, I need you to find whatever fucker decided to call qdel on a fucking lighting corner, then tell him very nicely and politely that he is 100% retarded and needs his head checked. Thanks. Send them my regards by the way.")
+	stack_trace("Ok, Look, /tg/, I need you to find whatever fucker decided to call qdel on a fucking lighting corner, then tell him very nicely and politely that he is 100% intellectually disabled and needs his head checked. Thanks. Send them my regards by the way.")
 
 	return ..()

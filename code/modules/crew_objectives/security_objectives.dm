@@ -17,7 +17,7 @@
 	if(owner?.current)
 		if(owner.current.stat != DEAD)
 			return TRUE
-	return FALSE
+	return ..()
 
 /datum/objective/crew/nomanleftbehind
 	explanation_text = "Ensure no prisoners are left in the brig when the shift ends."
@@ -28,7 +28,7 @@
 		if(!M.mind)
 			continue
 		if(!(M.mind.assigned_role in GLOB.security_positions) && istype(get_area(M), /area/security/prison)) //there's no list of incarcerated players, so we just assume any non-security people in prison are prisoners, and assume that any security people aren't prisoners
-			return FALSE
+			return ..()
 	return TRUE
 
 /datum/objective/crew/justicemed
@@ -38,6 +38,7 @@
 /datum/objective/crew/justicemed/check_completion()
 	var/list/security_areas = typecacheof(list(/area/security, /area/security/brig, /area/security/main, /area/security/prison, /area/security/processing))
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
-		if(H.stat == DEAD && is_station_level(H.z) && is_type_in_typecache(get_area(H), security_areas)) // If person is dead and corpse is in one of these areas
-			return FALSE
+		var/area/A = get_area(H)
+		if(H.stat == DEAD && is_station_level(H.z) && is_type_in_typecache(A, security_areas)) // If person is dead and corpse is in one of these areas
+			return ..()
 	return TRUE

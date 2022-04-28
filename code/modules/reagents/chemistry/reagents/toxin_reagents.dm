@@ -148,7 +148,8 @@
 	taste_description = "mint"
 
 /datum/reagent/toxin/minttoxin/on_mob_life(mob/living/carbon/M)
-	if(HAS_TRAIT(M, TRAIT_FAT))
+	if(HAS_TRAIT_FROM(M, TRAIT_FAT, OBESITY))
+		M.client?.give_award(/datum/award/achievement/misc/mintgib, M)
 		M.gib()
 	return ..()
 
@@ -171,21 +172,19 @@
 	silent_toxin = TRUE
 	reagent_state = SOLID
 	color = "#669900" // rgb: 102, 153, 0
-	toxpwr = 0.5
+	toxpwr = 0
 	taste_description = "death"
 
-/datum/reagent/toxin/zombiepowder/on_mob_metabolize(mob/living/L)
+/datum/reagent/toxin/zombiepowder/on_mob_life(mob/living/carbon/M)
+	if(current_cycle >= 10) // delayed activation for toxin
+		M.adjustStaminaLoss((current_cycle - 5)*REM, 0)
+	if(M.getStaminaLoss() >= 145) // fake death tied to stamina for interesting interactions - 23 ticks to fake death with pure ZP
+		M.fakedeath(type)
 	..()
-	L.fakedeath(type)
 
 /datum/reagent/toxin/zombiepowder/on_mob_end_metabolize(mob/living/L)
 	L.cure_fakedeath(type)
 	..()
-
-/datum/reagent/toxin/zombiepowder/on_mob_life(mob/living/carbon/M)
-	M.adjustOxyLoss(0.5*REM, 0)
-	..()
-	. = 1
 
 /datum/reagent/toxin/ghoulpowder
 	name = "Ghoul Powder"
@@ -410,7 +409,7 @@
 
 /datum/reagent/toxin/histamine/overdose_process(mob/living/M)
 	M.adjustOxyLoss(2*REM, 0)
-	M.adjustBruteLoss(2*REM, FALSE, FALSE, BODYPART_ORGANIC)
+	M.adjustBruteLoss(2*REM, FALSE, FALSE, BODYTYPE_ORGANIC)
 	M.adjustToxLoss(2*REM, 0)
 	..()
 	. = 1
@@ -719,18 +718,18 @@
 /datum/reagent/toxin/rotatium/on_mob_life(mob/living/carbon/M)
 	if(M.hud_used)
 		if(current_cycle >= 20 && current_cycle%20 == 0)
-			var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
+			var/atom/movable/plane_master_controller/pm_controller = M.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 			var/rotation = min(round(current_cycle/20), 89) // By this point the player is probably puking and quitting anyway
-			for(var/whole_screen in screens)
-				animate(whole_screen, transform = matrix(rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING, loop = -1)
+			for(var/key in pm_controller.controlled_planes)
+				animate(pm_controller.controlled_planes[key], transform = matrix(rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING, loop = -1)
 				animate(transform = matrix(-rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING)
 	return ..()
 
 /datum/reagent/toxin/rotatium/on_mob_end_metabolize(mob/living/M)
-	if(M && M.hud_used)
-		var/list/screens = list(M.hud_used.plane_masters["[FLOOR_PLANE]"], M.hud_used.plane_masters["[GAME_PLANE]"], M.hud_used.plane_masters["[LIGHTING_PLANE]"])
-		for(var/whole_screen in screens)
-			animate(whole_screen, transform = matrix(), time = 5, easing = QUAD_EASING)
+	if(M?.hud_used)
+		var/atom/movable/plane_master_controller/pm_controller = M.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+		for(var/key in pm_controller.controlled_planes)
+			animate(pm_controller.controlled_planes[key], transform = matrix(), time = 5, easing = QUAD_EASING)
 	..()
 
 /datum/reagent/toxin/anacea
@@ -906,4 +905,21 @@
 		var/tox_message = pick("You feel your heart spasm in your chest.", "You feel faint.","You feel you need to catch your breath.","You feel a prickle of pain in your chest.")
 		to_chat(M, "<span class='notice'>[tox_message]</span>")
 	. = 1
+	..()
+
+//This reagent is intentionally not designed to give much fighting chance. Its only ever used when morph manages to trick somebody into interacting with its disguised form
+/datum/reagent/toxin/morphvenom
+	name = "Morph venom"
+	description = "Deadly venom of shapeshifting creature."
+	color = "#3cff00"
+	toxpwr = 2
+	taste_description = "salt"
+	can_synth = FALSE
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+
+/datum/reagent/toxin/morphvenom/on_mob_life(mob/living/carbon/M)
+	M.set_drugginess(5)
+	M.adjustStaminaLoss(30)
+	M.silent = max(M.silent, 3)
+	M.confused = max(M.confused, 3)
 	..()

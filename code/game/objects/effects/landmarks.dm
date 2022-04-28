@@ -19,7 +19,7 @@
 
 INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
-/obj/effect/landmark/Initialize()
+/obj/effect/landmark/Initialize(mapload)
 	. = ..()
 	GLOB.landmarks_list += src
 
@@ -41,20 +41,18 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	if(delete_after_roundstart)
 		qdel(src)
 
-/obj/effect/landmark/start/New()
+/obj/effect/landmark/start/Initialize(mapload)
+	. = ..()
 	GLOB.start_landmarks_list += src
 	if(jobspawn_override)
-		if(!GLOB.jobspawn_overrides[name])
-			GLOB.jobspawn_overrides[name] = list()
-		GLOB.jobspawn_overrides[name] += src
-	..()
+		LAZYADDASSOCLIST(GLOB.jobspawn_overrides, name, src)
 	if(name != "start")
 		tag = "start*[name]"
 
 /obj/effect/landmark/start/Destroy()
 	GLOB.start_landmarks_list -= src
 	if(jobspawn_override)
-		GLOB.jobspawn_overrides[name] -= src
+		LAZYREMOVEASSOC(GLOB.jobspawn_overrides, name, src)
 	return ..()
 
 // START LANDMARKS FOLLOW. Don't change the names unless
@@ -102,6 +100,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/shaft_miner
 	name = "Shaft Miner"
 	icon_state = "Shaft Miner"
+
+/obj/effect/landmark/start/exploration
+	name = "Exploration Crew"
+	icon_state = "Exploration Crew"
 
 /obj/effect/landmark/start/security_officer
 	name = "Security Officer"
@@ -214,8 +216,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/randommaint
 	name = "maintjobstart"
-	icon_state = "x3" 
-	var/job = "Gimmick" //put the title of the job here. 
+	icon_state = "x3"
+	var/job = "Gimmick" //put the title of the job here.
 
 /obj/effect/landmark/start/randommaint/New() //automatically opens up a job slot when the job's spawner loads in
 	..()
@@ -231,10 +233,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Stage Magician"
 	job = "Stage Magician"
 
-/obj/effect/landmark/start/randommaint/hobo
-	name = "Debtor"
-	job = "Debtor"
-	
 /obj/effect/landmark/start/randommaint/shrink
 	name = "Psychiatrist"
 	job = "Psychiatrist"
@@ -249,8 +247,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "department_sec"
 	icon_state = "Security Officer"
 
-/obj/effect/landmark/start/depsec/New()
-	..()
+/obj/effect/landmark/start/depsec/Initialize(mapload)
+	. = ..()
 	GLOB.department_security_spawns += src
 
 /obj/effect/landmark/start/depsec/Destroy()
@@ -276,7 +274,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "wiznerd_spawn"
 
-/obj/effect/landmark/start/wizard/Initialize()
+/obj/effect/landmark/start/wizard/Initialize(mapload)
 	..()
 	GLOB.wizardstart += loc
 	return INITIALIZE_HINT_QDEL
@@ -286,7 +284,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "snukeop_spawn"
 
-/obj/effect/landmark/start/nukeop/Initialize()
+/obj/effect/landmark/start/nukeop/Initialize(mapload)
 	..()
 	GLOB.nukeop_start += loc
 	return INITIALIZE_HINT_QDEL
@@ -296,7 +294,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "snukeop_leader_spawn"
 
-/obj/effect/landmark/start/nukeop_leader/Initialize()
+/obj/effect/landmark/start/nukeop_leader/Initialize(mapload)
 	..()
 	GLOB.nukeop_leader_start += loc
 	return INITIALIZE_HINT_QDEL
@@ -308,7 +306,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/start/new_player
 	name = "New Player"
 
-/obj/effect/landmark/start/new_player/Initialize()
+/obj/effect/landmark/start/new_player/Initialize(mapload)
 	..()
 	GLOB.newplayer_start += loc
 	return INITIALIZE_HINT_QDEL
@@ -341,7 +339,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	GLOB.xeno_spawn += loc
 	return INITIALIZE_HINT_QDEL
 
-//objects with the stationloving component (nuke disk) respawn here. 
+//objects with the stationloving component (nuke disk) respawn here.
 //also blobs that have their spawn forcemoved (running out of time when picking their spawn spot), santa and respawning devils
 /obj/effect/landmark/blobstart
 	name = "blobstart"
@@ -455,8 +453,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	layer = HIGH_LANDMARK_LAYER
 
 
-/obj/effect/landmark/event_spawn/New()
-	..()
+/obj/effect/landmark/event_spawn/Initialize(mapload)
+	. = ..()
 	GLOB.generic_event_spawns += src
 
 /obj/effect/landmark/event_spawn/Destroy()
@@ -466,9 +464,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 /obj/effect/landmark/ruin
 	var/datum/map_template/ruin/ruin_template
 
-/obj/effect/landmark/ruin/New(loc, my_ruin_template)
+/obj/effect/landmark/ruin/Initialize(mapload, my_ruin_template)
+	. = ..()
 	name = "ruin_[GLOB.ruin_landmarks.len + 1]"
-	..(loc)
 	ruin_template = my_ruin_template
 	GLOB.ruin_landmarks |= src
 
@@ -476,3 +474,28 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	GLOB.ruin_landmarks -= src
 	ruin_template = null
 	. = ..()
+
+/// Marks the bottom left of the testing zone.
+/// In landmarks.dm and not unit_test.dm so it is always active in the mapping tools.
+/obj/effect/landmark/unit_test_bottom_left
+	name = "unit test zone bottom left"
+
+/// Marks the top right of the testing zone.
+/// In landmarks.dm and not unit_test.dm so it is always active in the mapping tools.
+/obj/effect/landmark/unit_test_top_right
+	name = "unit test zone top right"
+
+/obj/effect/spawner/hangover_spawn
+	name = "hangover spawner"
+
+/obj/effect/spawner/hangover_spawn/Initialize(mapload)
+	..()
+	if(prob(60))
+		new /obj/effect/decal/cleanable/vomit(get_turf(src))
+	if(prob(70))
+		var/bottle_count = pick(10;1, 5;2, 2;3)
+		for(var/index in 1 to bottle_count)
+			var/obj/item/reagent_containers/food/drinks/beer/almost_empty/B = new(get_turf(src))
+			B.pixel_x += rand(-6, 6)
+			B.pixel_y += rand(-6, 6)
+	return INITIALIZE_HINT_QDEL

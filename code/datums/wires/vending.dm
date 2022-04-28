@@ -40,6 +40,7 @@
 			V.scan_id = !V.scan_id
 		if(WIRE_SPEAKER)
 			V.shut_up = !V.shut_up
+	ui_update()
 
 /datum/wires/vending/on_cut(wire, mend)
 	var/obj/machinery/vending/V = holder
@@ -57,3 +58,4 @@
 			V.scan_id = mend
 		if(WIRE_SPEAKER)
 			V.shut_up = mend
+	ui_update()

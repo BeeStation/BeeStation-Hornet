@@ -331,14 +331,6 @@
 	name = "\improper DNA injector (Anti-Paranoia)"
 	remove_mutations = list(PARANOIA)
 
-/obj/item/dnainjector/mindread
-	name = "\improper DNA injector (Mindread)"
-	add_mutations = list(MINDREAD)
-
-/obj/item/dnainjector/antimindread
-	name = "\improper DNA injector (Anti-Mindread)"
-	remove_mutations = list(MINDREAD)
-
 /obj/item/dnainjector/radioactive
 	name = "\improper DNA injector (Radioactive)"
 	add_mutations = list(RADIOACTIVE)
@@ -449,6 +441,38 @@
 /obj/item/dnainjector/removeantiglow
 	name = "\improper DNA injector (Anti-Antiglowy)"
 	remove_mutations = list(ANTIGLOWY)
+
+/obj/item/dnainjector/strongwings
+	name = "\improper DNA injector (Strong Wings)"
+	add_mutations = list(STRONGWINGS)
+
+/obj/item/dnainjector/antistrongwings
+	name = "\improper DNA injector (Anti-Strong Wings)"
+	remove_mutations = list(STRONGWINGS)
+
+/obj/item/dnainjector/catclaws
+	name = "\improper DNA injector (Cat Claws)"
+	add_mutations = list(CATCLAWS)
+
+/obj/item/dnainjector/anticatclaws
+	name = "\improper DNA injector (Anti-Cat Claws)"
+	remove_mutations = list(CATCLAWS)
+
+/obj/item/dnainjector/overload
+	name = "\improper DNA injector (Overload)"
+	add_mutations = list(OVERLOAD)
+
+/obj/item/dnainjector/antioverload
+	name = "\improper DNA injector (Anti-Overload)"
+	remove_mutations = list(OVERLOAD)
+
+/obj/item/dnainjector/acidooze
+	name = "\improper DNA injector (Acid Ooze)"
+	add_mutations = list(ACIDOOZE)
+
+/obj/item/dnainjector/antiacidooze
+	name = "\improper DNA injector (Pepto-Bismol)"
+	remove_mutations = list(ACIDOOZE)
 
 /obj/item/dnainjector/timed
 	var/duration = 600

@@ -11,7 +11,6 @@
 	throw_speed = 2
 	throw_range = 7
 	force = 10
-	block_upgrade_walk = 1
 	materials = list(/datum/material/iron = 90)
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
 	dog_fashion = /datum/dog_fashion/back
@@ -41,13 +40,12 @@
 	max_water = 30
 	sprite_name = "miniFE"
 	dog_fashion = null
-	block_upgrade_walk = 0
 
 /obj/item/extinguisher/proc/refill()
 	create_reagents(max_water, AMOUNT_VISIBLE)
 	reagents.add_reagent(chem, max_water)
 
-/obj/item/extinguisher/Initialize()
+/obj/item/extinguisher/Initialize(mapload)
 	. = ..()
 	refill()
 
@@ -55,7 +53,7 @@
 	name = "advanced fire extinguisher"
 	desc = "Used to stop thermonuclear fires from spreading inside your engine."
 	icon_state = "foam_extinguisher0"
-	//item_state = "foam_extinguisher" needs sprite
+	item_state = "foam_extinguisher"
 	dog_fashion = null
 	chem = /datum/reagent/firefighting_foam
 	tanktype = /obj/structure/reagent_dispensers/foamtank

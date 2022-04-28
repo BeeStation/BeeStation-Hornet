@@ -1,4 +1,5 @@
-#define WELDER_FUEL_BURN_INTERVAL 13
+/// How many seconds between each fuel depletion tick ("use" proc)
+#define WELDER_FUEL_BURN_INTERVAL 9
 /obj/item/weldingtool
 	name = "welding tool"
 	desc = "A standard edition welder provided by Nanotrasen."
@@ -15,6 +16,10 @@
 	usesound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')
 	var/acti_sound = 'sound/items/welderactivate.ogg'
 	var/deac_sound = 'sound/items/welderdeactivate.ogg'
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 0.75
+	light_on = FALSE
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
@@ -22,25 +27,25 @@
 	resistance_flags = FIRE_PROOF
 
 	materials = list(/datum/material/iron=70, /datum/material/glass=30)
-	var/welding = 0 	//Whether or not the welding tool is off(0), on(1) or currently welding(2)
+	///Whether the welding tool is on or off.
+	var/welding = FALSE
 	var/status = TRUE 		//Whether the welder is secured or unsecured (able to attach rods to it to make a flamethrower)
 	var/max_fuel = 20 	//The max amount of fuel the welder can hold
 	var/change_icons = 1
 	var/can_off_process = 0
-	var/light_intensity = 1 //how powerful the emitted light is when used.
 	light_color = LIGHT_COLOR_FIRE
 	var/progress_flash_divisor = 10
 	var/burned_fuel_for = 0	//when fuel was last removed
+	var/light_intensity = 2
 	heat = 3800
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 1
 
-/obj/item/weldingtool/Initialize()
+/obj/item/weldingtool/Initialize(mapload)
 	. = ..()
 	create_reagents(max_fuel)
 	reagents.add_reagent(/datum/reagent/fuel, max_fuel)
 	update_icon()
-
 
 /obj/item/weldingtool/proc/update_torch()
 	if(welding)
@@ -60,7 +65,7 @@
 	return
 
 
-/obj/item/weldingtool/process()
+/obj/item/weldingtool/process(delta_time)
 	switch(welding)
 		if(0)
 			force = 3
@@ -73,7 +78,7 @@
 		if(1)
 			force = 15
 			damtype = "fire"
-			++burned_fuel_for
+			burned_fuel_for += delta_time
 			if(burned_fuel_for >= WELDER_FUEL_BURN_INTERVAL)
 				use(1)
 			update_icon()
@@ -108,11 +113,11 @@
 
 	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
 
-	if(affecting && affecting.status == BODYPART_ROBOTIC && user.a_intent != INTENT_HARM)
+	if(affecting && (!IS_ORGANIC_LIMB(affecting)) && user.a_intent != INTENT_HARM)
 		if(src.use_tool(H, user, 0, volume=50, amount=1))
 			if(user == H)
-				user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [H]'s [affecting.name].</span>",
-					"<span class='notice'>You start fixing some of the dents on [H == user ? "your" : "[H]'s"] [affecting.name].</span>")
+				user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [H]'s [parse_zone(affecting.body_zone)].</span>",
+					"<span class='notice'>You start fixing some of the dents on [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)].</span>")
 				if(!do_mob(user, H, 50))
 					return
 			item_heal_robotic(H, user, 15, 0)
@@ -126,14 +131,14 @@
 		return
 	if(!status && O.is_refillable())
 		reagents.trans_to(O, reagents.total_volume, transfered_by = user)
-		to_chat(user, "<span class='notice'>You empty [src]'s fuel tank into [O].</span>")
+		balloon_alert(user, "Fuel tank emptied")
 		update_icon()
 	if(isOn())
 		use(1)
 		var/turf/location = get_turf(user)
 		location.hotspot_expose(700, 50, 1)
 		if(get_fuel() <= 0)
-			set_light(0)
+			set_light_on(0)
 
 		if(isliving(O))
 			var/mob/living/L = O
@@ -147,8 +152,6 @@
 		message_admins("[ADMIN_LOOKUPFLW(user)] activated a rigged welder at [AREACOORD(user)].")
 		explode()
 	switched_on(user)
-	if(welding)
-		set_light(light_intensity)
 
 	update_icon()
 
@@ -163,8 +166,9 @@
 	if(!isOn() || !check_fuel())
 		return FALSE
 
-	if(used)
+	if(used > 0)
 		burned_fuel_for = 0
+
 	if(get_fuel() >= used)
 		reagents.remove_reagent(/datum/reagent/fuel, used)
 		check_fuel()
@@ -173,9 +177,19 @@
 		return FALSE
 
 
+//Toggles the welding value.
+/obj/item/weldingtool/proc/set_welding(new_value)
+	if(welding == new_value)
+		return
+	. = welding
+	welding = new_value
+	set_light_on(welding)
+
+
 //Turns off the welder if there is no more fuel (does this really need to be its own proc?)
 /obj/item/weldingtool/proc/check_fuel(mob/user)
 	if(get_fuel() <= 0 && welding)
+		set_light_on(FALSE)
 		switched_on(user)
 		update_icon()
 		//mob icon update
@@ -189,12 +203,12 @@
 //Switches the welder on
 /obj/item/weldingtool/proc/switched_on(mob/user)
 	if(!status)
-		to_chat(user, "<span class='warning'>[src] can't be turned on while unsecured!</span>")
+		balloon_alert(user, "It can't be turned on while unsecured")
 		return
-	welding = !welding
+	set_welding(!welding)
 	if(welding)
 		if(get_fuel() >= 1)
-			to_chat(user, "<span class='notice'>You switch [src] on.</span>")
+			balloon_alert(user, "[src] turned on")
 			playsound(loc, acti_sound, 50, 1)
 			force = 15
 			damtype = "fire"
@@ -202,17 +216,16 @@
 			update_icon()
 			START_PROCESSING(SSobj, src)
 		else
-			to_chat(user, "<span class='warning'>You need more fuel!</span>")
+			balloon_alert(user, "No fuel")
 			switched_off(user)
 	else
-		to_chat(user, "<span class='notice'>You switch [src] off.</span>")
+		balloon_alert(user, "[src] turned off")
 		playsound(loc, deac_sound, 50, 1)
 		switched_off(user)
 
 //Switches the welder off
 /obj/item/weldingtool/proc/switched_off(mob/user)
-	welding = 0
-	set_light(0)
+	set_welding(FALSE)
 
 	force = 3
 	damtype = "brute"
@@ -250,26 +263,26 @@
 // If welding tool ran out of fuel during a construction task, construction fails.
 /obj/item/weldingtool/tool_use_check(mob/living/user, amount)
 	if(!isOn() || !check_fuel())
-		to_chat(user, "<span class='warning'>[src] has to be on to complete this task!</span>")
+		balloon_alert(user, "[src] has to be on")
 		return FALSE
 
 	if(get_fuel() >= amount)
 		return TRUE
 	else
-		to_chat(user, "<span class='warning'>You need more welding fuel to complete this task!</span>")
+		balloon_alert(user, "Not enough fuel to complete this task")
 		return FALSE
 
 
 /obj/item/weldingtool/proc/flamethrower_screwdriver(obj/item/I, mob/user)
 	if(welding)
-		to_chat(user, "<span class='warning'>Turn it off first!</span>")
+		balloon_alert(user, "[src] should be turned off")
 		return
 	status = !status
 	if(status)
-		to_chat(user, "<span class='notice'>You resecure [src] and close the fuel tank.</span>")
+		balloon_alert(user, "[src] secured and fuel tank closed")
 		DISABLE_BITFIELD(reagents.flags, OPENCONTAINER)
 	else
-		to_chat(user, "<span class='notice'>[src] can now be attached, modified, and refuelled.</span>")
+		balloon_alert(user, "[src] can now be attached, modified, and refuelled")
 		ENABLE_BITFIELD(reagents.flags, OPENCONTAINER)
 	add_fingerprint(user)
 
@@ -282,10 +295,10 @@
 				user.transferItemToLoc(src, F, TRUE)
 			F.weldtool = src
 			add_fingerprint(user)
-			to_chat(user, "<span class='notice'>You add a rod to a welder, starting to build a flamethrower.</span>")
+			balloon_alert(user, "You start bulding flamethrower")
 			user.put_in_hands(F)
 		else
-			to_chat(user, "<span class='warning'>You need one rod to start building a flamethrower!</span>")
+			balloon_alert(user, "You need one rod to build flamethrower")
 
 /obj/item/weldingtool/ignition_effect(atom/A, mob/user)
 	if(use_tool(A, user, 0, amount=1))
@@ -333,6 +346,8 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "welder"
 	toolspeed = 0.1
+	light_system = NO_LIGHT_SUPPORT
+	light_range = 0
 	light_intensity = 0
 	change_icons = 0
 
@@ -369,12 +384,12 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	icon_state = "brasswelder"
 	item_state = "brasswelder"
+	light_intensity = 1
 
-
-/obj/item/weldingtool/experimental/process()
+/obj/item/weldingtool/experimental/process(delta_time)
 	..()
 	if(get_fuel() < max_fuel && nextrefueltick < world.time)
 		nextrefueltick = world.time + 10
-		reagents.add_reagent(/datum/reagent/fuel, 1)
+		reagents.add_reagent(/datum/reagent/fuel, 0.5*delta_time)
 
 #undef WELDER_FUEL_BURN_INTERVAL

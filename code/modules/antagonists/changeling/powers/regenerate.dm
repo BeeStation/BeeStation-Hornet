@@ -57,7 +57,7 @@
 	var/list/parts = list()
 	for(var/Zim in C.bodyparts)
 		var/obj/item/bodypart/BP = Zim
-		if(BP.body_part != HEAD && BP.body_part != CHEST && BP.is_organic_limb())
+		if(BP.body_part != HEAD && BP.body_part != CHEST && IS_ORGANIC_LIMB(BP))
 			if(BP.dismemberable)
 				parts += BP
 	if(!LAZYLEN(parts))
@@ -85,7 +85,7 @@
 	desc = "This is no snake at all! It looks like someone's limb grew fangs out of it's fingers and it's out to bite anyone!"
 	icon_state = "snake"
 	icon_living = "snake"
-	del_on_death = 1
+	del_on_death = TRUE
 	speak_emote = list("gargles")
 	health = 50
 	maxHealth = 50
@@ -101,8 +101,9 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	mobsay_color = "#26F55A"
+	chat_color = "#26F55A"
 	mobchatspan = "chaplain"
 	faction = list("hostile","creature")
 	poison_per_bite = 4
 	poison_type = /datum/reagent/toxin/staminatoxin
+	discovery_points = 1000

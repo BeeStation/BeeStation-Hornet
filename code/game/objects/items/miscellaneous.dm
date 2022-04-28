@@ -61,7 +61,7 @@
 			msg = "You hear something crackle in your ears for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows: <span class='bold'>Item request received. Your package is inbound, please stand back from the landing site.</span> Message ends.\""
 	to_chat(M, msg)
 
-	new /obj/effect/DPtarget(get_turf(src), pod)
+	new /obj/effect/pod_landingzone(get_turf(src), pod)
 
 /obj/item/choice_beacon/hero
 	name = "heroic beacon"
@@ -117,6 +117,23 @@
 	new /obj/item/grenade/chem_grenade/ghostbuster(src)
 	new /obj/item/grenade/chem_grenade/ghostbuster(src)
 	new /obj/item/grenade/chem_grenade/ghostbuster(src)
+
+/obj/item/storage/box/hero/carphunter
+	name = "Carp Hunter, Wildlife Expert - 2506."
+
+/obj/item/storage/box/hero/carphunter/PopulateContents()
+	new /obj/item/clothing/suit/space/hardsuit/carp/old(src)
+	new /obj/item/clothing/mask/gas/carp(src)
+	new /obj/item/kitchen/knife/hunting(src)
+
+/obj/item/storage/box/hero/ronin
+    name = "Sword Saint, Wandering Vagabond - 1600's."
+
+/obj/item/storage/box/hero/ronin/PopulateContents()
+    new /obj/item/clothing/under/costume/kamishimo(src)
+    new /obj/item/clothing/head/rice_hat(src)
+    new /obj/item/katana/weak/curator(src)
+    new /obj/item/clothing/shoes/sandal(src)
 
 /obj/item/choice_beacon/augments
 	name = "augment beacon"
@@ -328,14 +345,14 @@
 	var/mob/your_pet = new mob_choice(pod)
 	pod.explosionSize = list(0,0,0,0)
 	your_pet.name = name
+	your_pet.real_name = name
 	var/msg = "<span class=danger>After making your selection, you notice a strange target on the ground. It might be best to step back!</span>"
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(istype(H.ears, /obj/item/radio/headset))
 			msg = "You hear something crackle in your ears for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows: <span class='bold'>One pet delivery straight from Central Command. Stand clear!</span> Message ends.\""
 	to_chat(M, msg)
-
-	new /obj/effect/DPtarget(get_turf(src), pod)
+	new /obj/effect/pod_landingzone(get_turf(src), pod)
 
 /obj/item/choice_beacon/pet/cat
 	name = "cat delivery beacon"
@@ -346,33 +363,45 @@
 	name = "mouse delivery beacon"
 	default_name = "Jerry"
 	mob_choice = /mob/living/simple_animal/mouse
-	
+
 /obj/item/choice_beacon/pet/corgi
 	name = "corgi delivery beacon"
 	default_name = "Tosha"
 	mob_choice = /mob/living/simple_animal/pet/dog/corgi
-	
+
 /obj/item/choice_beacon/pet/hamster
 	name = "hamster delivery beacon"
 	default_name = "Doctor"
 	mob_choice = /mob/living/simple_animal/pet/hamster
-	
+
 /obj/item/choice_beacon/pet/pug
 	name = "pug delivery beacon"
 	default_name = "Silvestro"
 	mob_choice = /mob/living/simple_animal/pet/dog/pug
-	
+
 /obj/item/choice_beacon/pet/ems
 	name = "emotional support animal delivery beacon"
 	default_name = "Hugsie"
 	mob_choice = /mob/living/simple_animal/pet/cat/kitten
-	
+
 /obj/item/choice_beacon/pet/pingu
 	name = "penguin delivery beacon"
 	default_name = "Pingu"
 	mob_choice = /mob/living/simple_animal/pet/penguin/baby
-	
+
 /obj/item/choice_beacon/pet/clown
 	name = "living lube delivery beacon"
 	default_name = "Offensive"
 	mob_choice = /mob/living/simple_animal/hostile/retaliate/clown/lube
+
+/obj/item/choice_beacon/pet/goat
+	name = "goat delivery beacon"
+	default_name = "Billy"
+	mob_choice = /mob/living/simple_animal/hostile/retaliate/goat
+
+/obj/item/choice_beacon/janicart
+	name = "janicart delivery beacon"
+	desc = "Summons a pod containing one (1) pimpin ride."
+
+/obj/item/choice_beacon/janicart/generate_display_names()
+	return list("janitor cart" = /obj/vehicle/ridden/janicart/upgraded/keyless)

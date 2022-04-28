@@ -4,7 +4,7 @@
 
 
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 1MB //Could probably do with being lower.
-#define MAX_RECOMMENDED_CLIENT 1542
+#define MAX_RECOMMENDED_CLIENT 1583
 
 GLOBAL_LIST_INIT(blacklisted_builds, list(
 	"1407" = "bug preventing client display overrides from working leads to clients being able to see things/mobs they shouldn't be able to see",
@@ -218,6 +218,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	tgui_panel = new(src)
 
 	GLOB.ahelp_tickets.ClientLogin(src)
+	GLOB.interviews.client_login(src)
+	GLOB.requests.client_login(src)
 	var/connecting_admin = FALSE //because de-admined admins connecting should be treated like admins.
 	//Admin Authorisation
 	holder = GLOB.admin_datums[ckey]
@@ -242,6 +244,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(CONFIG_GET(flag/enable_localhost_rank) && !connecting_admin)
 		var/localhost_addresses = list("127.0.0.1", "::1")
 		if(isnull(address) || (address in localhost_addresses))
+			if(Debugger?.enabled)
+				to_chat_immediate(src, "<span class='userdanger'>Debugger enabled. Make sure you untick \"Runtime errors\" in the bottom left of VSCode's Run and Debug tab.</span>")
 			var/datum/admin_rank/localhost_rank = new("!localhost!", R_EVERYTHING, R_DBRANKS, R_EVERYTHING) //+EVERYTHING -DBRANKS *EVERYTHING
 			new /datum/admins(localhost_rank, ckey, 1, 1)
 	//preferences datum - also holds some persistent data for the client (because we may as well keep these datums to a minimum)
@@ -254,6 +258,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
 	fps = prefs.clientfps
+
+	prefs.handle_donator_items()
 
 	if(fexists(roundend_report_file()))
 		add_verb(/client/proc/show_previous_roundend_report)
@@ -288,7 +294,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		player_details = GLOB.player_details[ckey]
 		player_details.byond_version = full_version
 	else
-		player_details = new
+		player_details = new(ckey)
 		player_details.byond_version = full_version
 		GLOB.player_details[ckey] = player_details
 
@@ -319,7 +325,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		set_macros()
 
 	// Initialize tgui panel
-	tgui_panel.initialize()
+	tgui_panel.Initialize()
 
 	if(alert_mob_dupe_login)
 		spawn()
@@ -390,7 +396,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if (nnpa >= 0)
 			message_admins("New user: [key_name_admin(src)] is connecting here for the first time.")
 			if (CONFIG_GET(flag/irc_first_connection_alert))
-				send2irc_adminless_only("New-user", "[key_name(src)] is connecting for the first time!")
+				send2tgs_adminless_only("New-user", "[key_name(src)] is connecting for the first time!")
 	else if (isnum_safe(cached_player_age) && cached_player_age < nnpa)
 		message_admins("New user: [key_name_admin(src)] just connected with an age of [cached_player_age] day[(player_age==1?"":"s")]")
 	if(CONFIG_GET(flag/use_account_age_for_jobs) && account_age >= 0)
@@ -398,7 +404,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(account_age >= 0 && account_age < nnpa)
 		message_admins("[key_name_admin(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
 		if (CONFIG_GET(flag/irc_first_connection_alert))
-			send2irc_adminless_only("new_byond_user", "[key_name(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
+			send2tgs_adminless_only("new_byond_user", "[key_name(src)] (IP: [address], ID: [computer_id]) is a new BYOND account [account_age] day[(account_age==1?"":"s")] old, created on [account_join_date].")
 	get_message_output("watchlist entry", ckey)
 	check_ip_intel()
 	validate_key_in_db()
@@ -429,6 +435,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
 
+	update_ambience_pref()
 
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
@@ -514,6 +521,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/Del()
 	log_access("Logout: [key_name(src)]")
+	GLOB.ahelp_tickets.ClientLogout(src)
+	GLOB.interviews.client_logout(src)
+
 	if(holder)
 		adminGreet(1)
 		holder.owner = null
@@ -534,12 +544,13 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				"Forever alone :("\
 			)
 
-			send2irc("Server", "[cheesy_message] (No admins online)")
+			send2tgs("Server", "[cheesy_message] (No admins online)")
 
-	GLOB.ahelp_tickets.ClientLogout(src)
+	GLOB.requests.client_logout(src)
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 	GLOB.mentors -= src
+	SSambience.ambience_listening_clients -= src
 	QDEL_LIST_ASSOC_VAL(char_render_holders)
 	if(movingmob != null)
 		movingmob.client_mobs_in_contents -= mob
@@ -548,10 +559,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	return ..()
 
 /client/Destroy()
+	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
 /client/proc/set_client_age_from_db(connectiontopic)
-	if (IsGuestKey(src.key))
+	if (IS_GUEST_KEY(src.key))
 		return
 	if(!SSdbcore.Connect())
 		return
@@ -591,22 +603,39 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!query_client_in_db.Execute())
 		qdel(query_client_in_db)
 		return
-	if(!query_client_in_db.NextRow())
-		if (CONFIG_GET(flag/panic_bunker) && !holder && !GLOB.deadmins[ckey])
-			log_access("Failed Login: [key] - New account attempting to connect during panic bunker")
-			message_admins("<span class='adminnotice'>Failed Login: [key] - New account attempting to connect during panic bunker</span>")
-			to_chat(src, CONFIG_GET(string/panic_bunker_message))
-			var/list/connectiontopic_a = params2list(connectiontopic)
-			var/list/panic_addr = CONFIG_GET(string/panic_server_address)
-			if(panic_addr && !connectiontopic_a["redirect"])
-				var/panic_name = CONFIG_GET(string/panic_server_name)
-				to_chat(src, "<span class='notice'>Sending you to [panic_name ? panic_name : panic_addr].</span>")
-				winset(src, null, "command=.options")
-				src << link("[panic_addr]?redirect=1")
-			qdel(query_client_in_db)
-			qdel(src)
-			return
 
+	var/client_is_in_db = query_client_in_db.NextRow()
+	// If we aren't an admin, and the flag is set (the panic bunker is enabled).
+	if(CONFIG_GET(flag/panic_bunker) && !holder && !GLOB.deadmins[ckey])
+		// The amount of hours needed to bypass the panic bunker.
+		var/living_recs = CONFIG_GET(number/panic_bunker_living)
+		// This relies on prefs existing, but this proc is only called after that occurs, so we're fine.
+		var/minutes = get_exp_living(pure_numeric = TRUE)
+		// Check to see if our client should be rejected.
+		// If interviews are on, we should let anyone through, ideally.
+		if(!CONFIG_GET(flag/panic_bunker_interview))
+			// If we don't have panic_bunker_living set and the client is not in the DB, reject them.
+			// Otherwise, if we do have a panic_bunker_living set, check if they have enough minutes played.
+			if((!living_recs && !client_is_in_db) || living_recs >= minutes)
+				var/reject_message = "Failed Login: [key] - [client_is_in_db ? "":"New "]Account attempting to connect during panic bunker, but\
+					[living_recs == -1 ? " was rejected due to no prior connections to game servers (no database entry)":" they do not have the required living time [minutes]/[living_recs]"]."
+				log_access(reject_message)
+				message_admins("<span class='adminnotice'>[reject_message]</span>")
+				var/message = CONFIG_GET(string/panic_bunker_message)
+				message = replacetext(message, "%minutes%", living_recs)
+				to_chat(src, message)
+				var/list/connectiontopic_a = params2list(connectiontopic)
+				var/list/panic_addr = CONFIG_GET(string/panic_server_address)
+				if(panic_addr && !connectiontopic_a["redirect"])
+					var/panic_name = CONFIG_GET(string/panic_server_name)
+					to_chat(src, "<span class='notice'>Sending you to [panic_name ? panic_name : panic_addr].</span>")
+					winset(src, null, "command=.options")
+					src << link("[panic_addr]?redirect=1")
+				qdel(query_client_in_db)
+				qdel(src)
+				return
+
+	if(!client_is_in_db)
 		new_player = 1
 		account_join_date = findJoinDate()
 		var/datum/DBQuery/query_add_player = SSdbcore.NewQuery({"
@@ -770,7 +799,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 			if (!cidcheck_failedckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a cid randomizer. Connection rejected.</span>")
-				send2irc_adminless_only("CidRandomizer", "[key_name(src)] has been detected as using a cid randomizer. Connection rejected.")
+				send2tgs_adminless_only("CidRandomizer", "[key_name(src)] has been detected as using a cid randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
 
@@ -781,7 +810,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		else
 			if (cidcheck_failedckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
-				send2irc_adminless_only("CidRandomizer", "[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
+				send2tgs_adminless_only("CidRandomizer", "[key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 			if (cidcheck_spoofckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
@@ -905,6 +934,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	..()
 
 /client/proc/add_verbs_from_config()
+	if (interviewee)
+		return
 	if(CONFIG_GET(flag/see_own_notes))
 		add_verb(/client/proc/self_notes)
 	if(CONFIG_GET(flag/use_exp_tracking))
@@ -951,13 +982,15 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/vv_edit_var(var_name, var_value)
 	switch (var_name)
-		if ("holder")
+		if (NAMEOF(src, holder))
 			return FALSE
-		if ("ckey")
+		if (NAMEOF(src, ckey))
 			return FALSE
-		if ("key")
+		if (NAMEOF(src, key))
 			return FALSE
-		if("view")
+		if (NAMEOF(src, cached_badges))
+			return FALSE
+		if (NAMEOF(src, view))
 			view_size.setDefault(var_value)
 			return TRUE
 	. = ..()
@@ -1071,3 +1104,19 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			message_admins("[key_name(src)] was removed from the game due to a ban from BeeStation.")
 			qdel(src)
 			return
+
+/client/proc/open_filter_editor(atom/in_atom)
+	if(holder)
+		holder.filteriffic = new /datum/filter_editor(in_atom)
+		holder.filteriffic.ui_interact(mob)
+
+/client/proc/update_ambience_pref()
+	if(prefs.toggles & SOUND_AMBIENCE)
+		if(SSambience.ambience_listening_clients[src] > world.time)
+			return // If already properly set we don't want to reset the timer.
+		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
+	else
+		SSambience.ambience_listening_clients -= src
+
+/client/proc/give_award(achievement_type, mob/user)
+	return	player_details.achievements.unlock(achievement_type, user)

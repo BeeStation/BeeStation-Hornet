@@ -44,7 +44,7 @@
 	var/unwrench_path = /obj/item/wallframe/clocktrap
 	var/component_datum = /datum/component/clockwork_trap
 
-/obj/structure/destructible/clockwork/trap/Initialize()
+/obj/structure/destructible/clockwork/trap/Initialize(mapload)
 	. = ..()
 	AddComponent(component_datum)
 
@@ -78,12 +78,18 @@
 	output.outputs |= parent
 
 /datum/component/clockwork_trap/proc/trigger()
+	SIGNAL_HANDLER
+
 	return TRUE
 
 /datum/component/clockwork_trap/proc/clicked(mob/user)
+	SIGNAL_HANDLER
+
 	return
 
 /datum/component/clockwork_trap/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
+	SIGNAL_HANDLER
+
 	if(is_servant_of_ratvar(user))
 		if(istype(I, /obj/item/clockwork/clockwork_slab))
 			var/obj/item/clockwork/clockwork_slab/slab = I

@@ -162,7 +162,7 @@
 	owner.whisper(invocation, language = /datum/language/common)
 	owner.visible_message("<span class='warning'>[owner]'s hand flashes a bright blue!</span>", \
 						 "<span class='cultitalic'>You speak the cursed words, emitting an EMP blast from your hand.</span>")
-	empulse(owner, 2, 5)
+	empulse(owner, 2, 5, holy=TRUE)
 	charges--
 	if(charges<=0)
 		qdel(src)
@@ -354,17 +354,18 @@
 	var/uses = 1
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
 	var/datum/action/innate/cult/blood_spell/source
-
-/obj/item/melee/blood_magic/New(loc, spell)
+/obj/item/melee/blood_magic/Initialize(mapload, var/spell)
+	. = ..()
+	if(!istype(spell, /datum/action/innate/cult/blood_spell))
+		return INITIALIZE_HINT_QDEL
 	source = spell
 	uses = source.charges
 	health_cost = source.health_cost
-	..()
 
 /obj/item/melee/blood_magic/Destroy()
 	if(!QDELETED(source))
 		if(uses <= 0)
-			source.hand_magic = null
+			source?.hand_magic = null
 			qdel(source)
 			source = null
 		else
@@ -420,12 +421,12 @@
 		user.visible_message("<span class='warning'>[user] floods [L]'s mind with an eldritch energy!</span>", \
 							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
 
-		user.mob_light(_color = LIGHT_COLOR_BLOOD_MAGIC, _range = 3, _duration = 2)
+		user.mob_light(_range = 3, _color = LIGHT_COLOR_BLOOD_MAGIC, _duration = 0.2 SECONDS)
 
-		var/anti_magic_source = L.anti_magic_check()
+		var/anti_magic_source = L.anti_magic_check(holy = TRUE)
 		if(anti_magic_source)
 
-			L.mob_light(_color = LIGHT_COLOR_HOLY_MAGIC, _range = 2, _duration = 100)
+			L.mob_light(_range = 2, _color = LIGHT_COLOR_HOLY_MAGIC, _duration = 10 SECONDS)
 			var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 			L.add_overlay(forbearance)
 			addtimer(CALLBACK(L, /atom/proc/cut_overlay, forbearance), 100)
@@ -433,7 +434,7 @@
 			if(istype(anti_magic_source, /obj/item))
 				target.visible_message("<span class='warning'>[L] is utterly unphased by your utterance!</span>", \
 									   "<span class='userdanger'>[GLOB.deity] protects you from the heresy of [user]!</span>")
-		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD) && !istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(user, "<span class='cultitalic'>[L] falls to the ground, gibbering madly!</span>")
 			L.Paralyze(160)
 			L.flash_act(1,1)
@@ -545,7 +546,7 @@
 /obj/item/restraints/handcuffs/energy/cult/used/dropped(mob/user)
 	user.visible_message("<span class='danger'>[user]'s shackles shatter in a discharge of dark magic!</span>", \
 							"<span class='userdanger'>Your [src] shatters in a discharge of dark magic!</span>")
-	. = ..()
+	..()
 
 
 //Construction: Converts 50 iron to a construct shell, plasteel to runed metal, airlock to brittle runed airlock, a borg to a construct, or borg shell to a construct shell
@@ -658,11 +659,11 @@
 		uses--
 		var/mob/living/carbon/C = target
 		C.visible_message("<span class='warning'>Otherworldly armor suddenly appears on [C]!</span>")
-		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black,SLOT_W_UNIFORM)
-		C.equip_to_slot_or_del(new /obj/item/clothing/head/culthood/alt(user), SLOT_HEAD)
-		C.equip_to_slot_or_del(new /obj/item/clothing/suit/cultrobes/alt(user), SLOT_WEAR_SUIT)
-		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult/alt(user), SLOT_SHOES)
-		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), SLOT_BACK)
+		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black,ITEM_SLOT_ICLOTHING)
+		C.equip_to_slot_or_del(new /obj/item/clothing/suit/cultrobes/alt(user), ITEM_SLOT_OCLOTHING)
+		C.equip_to_slot_or_del(new /obj/item/clothing/head/culthood/alt(user), ITEM_SLOT_HEAD)
+		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult/alt(user), ITEM_SLOT_FEET)
+		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), ITEM_SLOT_BACK)
 		if(C == user)
 			qdel(src) //Clears the hands
 		C.put_in_hands(new /obj/item/melee/cultblade(user))
@@ -802,7 +803,7 @@
 					var/turf/T = get_turf(user)
 					qdel(src)
 					var/datum/action/innate/cult/spear/S = new(user)
-					var/obj/item/twohanded/cult_spear/rite = new(T)
+					var/obj/item/cult_spear/rite = new(T)
 					S.Grant(user, rite)
 					rite.spear_act = S
 					if(user.put_in_hands(rite))

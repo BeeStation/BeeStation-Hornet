@@ -9,7 +9,7 @@
 	integrity_failure = 70
 	var/static/mutable_appearance/atvcover
 
-/obj/vehicle/ridden/atv/Initialize()
+/obj/vehicle/ridden/atv/Initialize(mapload)
 	. = ..()
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
 	D.vehicle_move_delay = 1.5
@@ -37,7 +37,7 @@
 	scan_range = 7
 	density = FALSE
 
-/obj/vehicle/ridden/atv/turret/Initialize()
+/obj/vehicle/ridden/atv/turret/Initialize(mapload)
 	. = ..()
 	turret = new(loc)
 	turret.base = src
@@ -79,10 +79,10 @@
 	START_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/vehicle/ridden/atv/process()
+/obj/vehicle/ridden/atv/process(delta_time)
 	if(obj_integrity >= integrity_failure)
 		return PROCESS_KILL
-	if(prob(20))
+	if(DT_PROB(10, delta_time))
 		return
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(0, src)

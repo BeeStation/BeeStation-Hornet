@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	melee_damage = 15
 	AIStatus = AI_OFF
 	hud_type = /datum/hud/guardian
-	mobsay_color = "#ffffff"
+	chat_color = "#ffffff"
 	mobchatspan = "blob"
 	var/next_reset = 0
 	var/guardiancolor = "#ffffff"
@@ -64,12 +64,14 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/beacon_cooldown = 0
 	var/list/pocket_dim
 	var/transforming = FALSE
+	var/can_use_abilities = TRUE
+	discovery_points = 5000
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, theme, guardiancolor)
 	GLOB.parasites += src
 	if(guardiancolor)
 		src.guardiancolor = guardiancolor
-		src.mobsay_color = guardiancolor
+		src.chat_color = guardiancolor
 	updatetheme(theme)
 	battlecry = pick("ORA", "MUDA", "DORA", "ARRI", "VOLA", "AT")
 	return ..()
@@ -217,6 +219,8 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	snapback()
 
 /mob/living/simple_animal/hostile/guardian/proc/OnMoved()
+	SIGNAL_HANDLER
+
 	snapback()
 	setup_barriers()
 
@@ -341,9 +345,10 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	return loc != summoner?.current
 
 /mob/living/simple_animal/hostile/guardian/Shoot(atom/targeted_atom)
-	if( QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from )
+	var/atom/target_from = GET_TARGETS_FROM(src)
+	if( QDELETED(targeted_atom) || targeted_atom == target_from.loc || targeted_atom == target_from )
 		return
-	var/turf/startloc = get_turf(targets_from)
+	var/turf/startloc = get_turf(target_from)
 	var/obj/item/projectile/P = new /obj/item/projectile/guardian(startloc)
 	playsound(src, projectilesound, 100, 1)
 	P.color = guardiancolor
@@ -354,7 +359,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	P.yo = targeted_atom.y - startloc.y
 	P.xo = targeted_atom.x - startloc.x
 	if(AIStatus != AI_ON)//Don't want mindless mobs to have their movement screwed up firing in space
-		newtonian_move(get_dir(targeted_atom, targets_from))
+		newtonian_move(get_dir(targeted_atom, target_from))
 	P.original = targeted_atom
 	P.preparePixelProjectile(targeted_atom, src)
 	P.fire()
@@ -410,7 +415,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.current.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.current.maxHealth)) * 100)
 		else
 			resulthealth = round((summoner.current.health / summoner.current.maxHealth) * 100, 0.5)
-		hud_used.healths.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
+		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>")
 
 /mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE, forced = FALSE) //The spirit is invincible, but passes on damage to the summoner
 	if(berserk)
@@ -581,12 +586,16 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		key = C.key
 
 /mob/living/simple_animal/hostile/guardian/proc/Reviveify()
+	SIGNAL_HANDLER
+
 	revive()
 	var/mob/gost = grab_ghost(TRUE)
 	if(!QDELETED(gost) && gost.ckey)
 		ckey = gost.ckey
 
 /mob/living/simple_animal/hostile/guardian/proc/OnMindTransfer(datum/_source, mob/old_body, mob/new_body)
+	SIGNAL_HANDLER
+
 	if(!QDELETED(old_body))
 		old_body.remove_verb(/mob/living/proc/guardian_comm)
 		old_body.remove_verb(/mob/living/proc/guardian_recall)

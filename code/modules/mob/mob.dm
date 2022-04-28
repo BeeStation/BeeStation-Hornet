@@ -16,7 +16,11 @@
   *
   * qdels any client colours in place on this mob
   *
+  * Clears any refs to the mob inside its current location
+  *
   * Ghostizes the client attached to this mob
+  *
+  * If our mind still exists, clear its current var to prevent harddels
   *
   * Parent call
   */
@@ -24,6 +28,7 @@
 	remove_from_mob_list()
 	remove_from_dead_mob_list()
 	remove_from_alive_mob_list()
+	remove_from_mob_suicide_list()
 	focus = null
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
@@ -36,6 +41,8 @@
 		qdel(cc)
 	client_colours = null
 	ghostize()
+	if(mind?.current == src) //Let's just be safe yeah? This will occasionally be cleared, but not always. Can't do it with ghostize without changing behavior
+		mind.set_current(null)
 	QDEL_LIST(mob_spell_list)
 	for(var/datum/action/A as() in actions)
 		if(istype(A.target, /obj/effect/proc_holder))
@@ -63,7 +70,7 @@
   * * set a random nutrition level
   * * Intialize the movespeed of the mob
   */
-/mob/Initialize()
+/mob/Initialize(mapload)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_CREATED, src)
 	mob_properties = list()
 	add_to_mob_list()
@@ -81,9 +88,11 @@
 	set_nutrition(rand(NUTRITION_LEVEL_START_MIN, NUTRITION_LEVEL_START_MAX))
 	. = ..()
 	update_config_movespeed()
+	initialize_actionspeed()
 	update_movespeed(TRUE)
 	//Give verbs to stat
 	add_verb(verbs, TRUE)
+	become_hearing_sensitive()
 
 /**
   * Generate the tag for this mob
@@ -127,7 +136,7 @@
 	t +=	"<span class='danger'>Temperature: [environment.return_temperature()] \n</span>"
 	for(var/id in environment.get_gases())
 		if(environment.get_moles(id))
-			t+="<span class='notice'>[GLOB.meta_gas_info[id][META_GAS_NAME]]: [environment.get_moles(id)] \n</span>"
+			t+="<span class='notice'>[GLOB.gas_data.names[id]]: [environment.get_moles(id)] \n</span>"
 
 	to_chat(usr, t)
 
@@ -138,7 +147,7 @@
 	return "a ... thing?"
 
 /**
-  * Show a message to this mob (visual)
+  * Show a message to this mob (visual or audible)
   */
 /mob/proc/show_message(msg, type, alt_msg, alt_type)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
 
@@ -148,62 +157,109 @@
 	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 
 	if(type)
-		if(type & 1 && eye_blind )//Vision related
+		if(type & MSG_VISUAL && eye_blind )//Vision related
 			if(!alt_msg)
 				return
 			else
 				msg = alt_msg
 				type = alt_type
 
-		if(type & 2 && !can_hear())//Hearing related
+		if(type & MSG_AUDIBLE && !can_hear())//Hearing related
 			if(!alt_msg)
 				return
 			else
 				msg = alt_msg
 				type = alt_type
-				if(type & 1 && eye_blind)
+				if(type & MSG_VISUAL && eye_blind)
 					return
 	// voice muffling
 	if(stat == UNCONSCIOUS)
-		if(type & 2) //audio
+		if(type & MSG_AUDIBLE) //audio
 			to_chat(src, "<I>... You can almost hear something ...</I>")
-	else
-		to_chat(src, msg)
+		return
+	to_chat(src, msg)
 
 
-/atom/proc/visible_message(message, self_message, blind_message, vision_distance, list/ignored_mobs)
+/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags)
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
+
 	if(!islist(ignored_mobs))
 		ignored_mobs = list(ignored_mobs)
-	var/range = 7
-	if(vision_distance)
-		range = vision_distance
-	for(var/mob/M as() in hearers(range, T))
+
+	var/list/hearers = hearers(vision_distance, T) //caches the hearers and then removes ignored mobs.
+	hearers -= ignored_mobs
+
+	if(self_message)
+		hearers -= src
+
+	var/raw_msg = message
+	var/is_emote = FALSE
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE))
+		message = "<span class='emote'><b>[src]</b> [message]</span>"
+		is_emote = TRUE
+
+	var/list/show_to = list()
+
+	for(var/mob/M as() in hearers)
 		if(!M.client)
 			continue
-		if(M in ignored_mobs)
-			continue
+
 		var/msg = message
-		if(M == src) //the src always see the main message or self message
-			if(self_message)
-				msg = self_message
-		else
-			if(M.see_invisible<invisibility || (T != loc && T != src))//if src is invisible to us or is inside something (and isn't a turf),
-				if(blind_message) // then people see blind message if there is one, otherwise nothing.
-					msg = blind_message
-				else
-					continue
+		if(M.see_invisible < invisibility)//if src is invisible to M
+			msg = blind_message
+		else if(T != loc && T != src) //if src is inside something and not a turf.
+			msg = blind_message
+		else if(T.lighting_object && T.lighting_object.invisibility <= M.see_invisible && T.is_softly_lit() && !in_range(T,M)) //if it is too dark.
+			msg = blind_message
+		if(!msg)
+			continue
 
-			else if(T.lighting_object)
-				if(T.lighting_object.invisibility <= M.see_invisible && T.is_softly_lit()) //the light object is dark and not invisible to us
-					if(blind_message)
-						msg = blind_message
-					else
-						continue
+		if(is_emote && M.should_show_chat_message(src, null, TRUE) && !is_blind(M))
+			show_to += M
 
-		M.show_message(msg,1,blind_message,2)
+		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
+
+	//Create the chat message
+	if(length(show_to))
+		create_chat_message(src, null, show_to, raw_msg, null, visible_message_flags)
+
+/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags)
+	. = ..()
+	if(self_message)
+		show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE)
+
+/**
+  * Show a message to all mobs in earshot of this atom
+  *
+  * Use for objects performing audible actions
+  *
+  * vars:
+  * * message is the message output to anyone who can hear.
+  * * self_message (optional) is what the src mob hears.
+  * * deaf_message (optional) is what deaf people will see.
+  * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
+  */
+/atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags)
+	var/list/hearers = get_hearers_in_view(hearing_distance, src, SEE_INVISIBLE_OBSERVER)
+	if(self_message)
+		hearers -= src
+
+	var/raw_msg = message
+	var/is_emote = FALSE
+	if(LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE))
+		is_emote = TRUE
+		message = "<span class='emote'><b>[src]</b> [message]</span>"
+
+	var/list/show_to = list()
+	for(var/mob/M in hearers)
+		if(is_emote && M.should_show_chat_message(src, null, TRUE, is_heard = TRUE))
+			show_to += M
+		M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+
+	if(length(show_to))
+		create_chat_message(src, null, show_to, raw_message = raw_msg, spans = list("italics"), message_mods = audible_message_flags)
 
 /**
   * Show a message to all mobs in earshot of this one
@@ -216,32 +272,25 @@
   * * deaf_message (optional) is what deaf people will see.
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
-/mob/audible_message(message, deaf_message, hearing_distance, self_message)
-	var/range = 7
-	if(hearing_distance)
-		range = hearing_distance
-	for(var/mob/M as() in hearers(range, get_turf(src)))
-		var/msg = message
-		if(self_message && M==src)
-			msg = self_message
-		M.show_message( msg, 2, deaf_message, 1)
+/mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags)
+	. = ..()
+	if(self_message)
+		show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 
-/**
-  * Show a message to all mobs in earshot of this atom
-  *
-  * Use for objects performing audible actions
-  *
-  * vars:
-  * * message is the message output to anyone who can hear.
-  * * deaf_message (optional) is what deaf people will see.
-  * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
-  */
-/atom/proc/audible_message(message, deaf_message, hearing_distance)
-	var/range = 7
-	if(hearing_distance)
-		range = hearing_distance
-	for(var/mob/M as() in hearers(range, get_turf(src)))
-		M.show_message( message, 2, deaf_message, 1)
+///Returns the client runechat visible messages preference according to the message type.
+/atom/proc/runechat_prefs_check(mob/target, list/visible_message_flags)
+	if(!target.client?.prefs.chat_on_map || !target.client.prefs.see_chat_non_mob)
+		return FALSE
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.see_rc_emotes)
+		return FALSE
+	return TRUE
+
+/mob/runechat_prefs_check(mob/target, list/visible_message_flags)
+	if(!target.client?.prefs.chat_on_map)
+		return FALSE
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.see_rc_emotes)
+		return FALSE
+	return TRUE
 
 ///Get the item on the mob in the storage slot identified by the id passed in
 /mob/proc/get_item_by_slot(slot_id)
@@ -267,7 +316,7 @@
 		//IF HELD TRY APPLY TO SLOT
 		if(equip_to_slot_if_possible(W, slot,0,0,0))
 			W.apply_outline()
-			return 1
+			return TRUE
 	//IF NO ITEM IS HELD, APPLY TO SLOT
 	if(!W)
 		// Activate the item
@@ -275,7 +324,7 @@
 		if(istype(I))
 			I.attack_hand(src)
 
-	return 0
+	return FALSE
 
 /**
   * Try to equip an item to a slot on the mob
@@ -294,9 +343,8 @@
 	if(!W.mob_can_equip(src, null, slot, disable_warning, bypass_equip_delay_self))
 		if(qdel_on_fail)
 			qdel(W)
-		else
-			if(!disable_warning)
-				to_chat(src, "<span class='warning'>You are unable to equip that!</span>")
+		else if(!disable_warning)
+			to_chat(src, "<span class='warning'>You are unable to equip that!</span>")
 		return FALSE
 	equip_to_slot(W, slot, redraw_mob) //This proc should not ever fail.
 	return TRUE
@@ -337,14 +385,14 @@
 
 	if(!slot_priority)
 		slot_priority = list( \
-			SLOT_BACK, SLOT_WEAR_ID,\
-			SLOT_W_UNIFORM, SLOT_WEAR_SUIT,\
-			SLOT_WEAR_MASK, SLOT_HEAD, SLOT_NECK,\
-			SLOT_SHOES, SLOT_GLOVES,\
-			SLOT_EARS, SLOT_GLASSES,\
-			SLOT_BELT, SLOT_S_STORE,\
-			SLOT_L_STORE, SLOT_R_STORE,\
-			SLOT_GENERC_DEXTROUS_STORAGE\
+			ITEM_SLOT_BACK, ITEM_SLOT_ID,\
+			ITEM_SLOT_ICLOTHING, ITEM_SLOT_OCLOTHING,\
+			ITEM_SLOT_MASK, ITEM_SLOT_HEAD, ITEM_SLOT_NECK,\
+			ITEM_SLOT_FEET, ITEM_SLOT_GLOVES,\
+			ITEM_SLOT_EARS, ITEM_SLOT_EYES,\
+			ITEM_SLOT_BELT, ITEM_SLOT_SUITSTORE,\
+			ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET,\
+			ITEM_SLOT_DEX_STORAGE\
 		)
 
 	for(var/slot in slot_priority)
@@ -413,11 +461,7 @@
 			else
 				client.perspective = EYE_PERSPECTIVE
 				client.eye = loc
-		return 1
-
-/// Show the mob's inventory to another mob
-/mob/proc/show_inv(mob/user)
-	return
+		return TRUE
 
 /**
   * Examine a mob
@@ -434,14 +478,61 @@
 		// shift-click catcher may issue examinate() calls for out-of-sight turfs
 		return
 
-	if(is_blind(src))
-		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
+	if(is_blind(src) && !blind_examine_check(A))
 		return
 
 	face_atom(A)
 	var/list/result = A.examine(src)
 	to_chat(src, result.Join("\n"))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
+
+/mob/proc/blind_examine_check(atom/examined_thing)
+	return TRUE
+
+/mob/living/blind_examine_check(atom/examined_thing)
+	//need to be next to something and awake
+	if(!Adjacent(examined_thing) || incapacitated())
+		to_chat(src, "<span class='warning'>Something is there, but you can't see it!</span>")
+		return FALSE
+
+	var/active_item = get_active_held_item()
+	if(active_item && active_item != examined_thing)
+		to_chat(src, "<span class='warning'>Your hands are too full to examine this!</span>")
+		return FALSE
+
+	//you can only initiate exaimines if you have a hand, it's not disabled, and only as many examines as you have hands
+	/// our active hand, to check if it's disabled/detatched
+	var/obj/item/bodypart/active_hand = has_active_hand()? get_active_hand() : null
+	if(!active_hand || active_hand.is_disabled() || LAZYLEN(do_afters) >= get_num_arms())
+		to_chat(src, "<span class='warning'>You don't have a free hand to examine this!</span>")
+		return FALSE
+
+	//you can only queue up one examine on something at a time
+	if(examined_thing in do_afters)
+		return FALSE
+
+	to_chat(src, "<span class='notice'>You start feeling around for something...</span>")
+	visible_message("<span class='notice'> [name] begins feeling around for \the [examined_thing.name]...</span>")
+
+	/// how long it takes for the blind person to find the thing they're examining
+	var/examine_delay_length = rand(1 SECONDS, 2 SECONDS)
+	if(isobj(examined_thing))
+		examine_delay_length *= 1.5
+	else if(ismob(examined_thing) && examined_thing != src)
+		examine_delay_length *= 2
+
+	if(examine_delay_length > 0 && !do_after(src, examine_delay_length, target = examined_thing))
+		to_chat(src, "<span class='notice'>You can't get a good feel for what is there.</span>")
+		return FALSE
+
+	//now we touch the thing we're examining
+	/// our current intent, so we can go back to it after touching
+	var/previous_intent = a_intent
+	a_intent = INTENT_HELP
+	examined_thing.attack_hand(src)
+	a_intent = previous_intent
+
+	return TRUE
 
 /**
   * Point at an atom
@@ -473,7 +564,18 @@
 	var/obj/visual = new /obj/effect/temp_visual/point(our_tile, invisibility)
 	animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
 
+	SEND_SIGNAL(src, COMSIG_MOB_POINTED, A)
 	return TRUE
+
+/**
+  * Called by using Activate Held Object with an empty hand/limb
+  *
+  * Does nothing by default. The intended use is to allow limbs to call their
+  * own attack_self procs. It is up to the individual mob to override this
+  * parent and actually use it.
+  */
+/mob/proc/limb_attack_self()
+	return
 
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()
@@ -527,6 +629,10 @@
 	if(I)
 		I.attack_self(src)
 		update_inv_hands()
+		return
+
+	limb_attack_self()
+
 
 /**
   * Get the notes of this mob
@@ -634,11 +740,6 @@
 		unset_machine()
 		src << browse(null, t1)
 
-	if(href_list["refresh"])
-		if(machine && in_range(src, usr))
-			show_inv(machine)
-
-
 	if(href_list["item"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
 		var/slot = text2num(href_list["item"])
 		var/hand_index = text2num(href_list["hand_index"])
@@ -653,12 +754,6 @@
 				usr.stripPanelUnequip(what,src,slot)
 		else
 			usr.stripPanelEquip(what,src,slot)
-
-	if(usr.machine == src)
-		if(Adjacent(usr))
-			show_inv(usr)
-		else
-			usr << browse(null,"window=mob[REF(src)]")
 
 // The src mob is trying to strip an item from someone
 // Defined in living.dm
@@ -683,25 +778,10 @@
 		return
 	if(isAI(M))
 		return
-/**
-  * Handle the result of a click drag onto this mob
-  *
-  * For mobs this just shows the inventory
-  */
-/mob/MouseDrop_T(atom/dropping, atom/user)
-	. = ..()
-	if(ismob(dropping) && dropping != user)
-		var/mob/M = dropping
-		if(ismob(user))
-			var/mob/U = user
-			if(!iscyborg(U) || U.a_intent == INTENT_HARM)
-				M.show_inv(U)
-		else
-			M.show_inv(user)
 
 ///Is the mob muzzled (default false)
 /mob/proc/is_muzzled()
-	return 0
+	return FALSE
 
 /**
   * Convert a list of spells into a displyable list for the statpanel
@@ -798,7 +878,11 @@
 	return FALSE
 
 /mob/proc/swap_hand()
-	return
+	var/obj/item/held_item = get_active_held_item()
+	if(SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS, held_item) & COMPONENT_BLOCK_SWAP)
+		to_chat(src, "<span class='warning'>Your other hand is too busy holding [held_item].</span>")
+		return FALSE
+	return TRUE
 
 /mob/proc/activate_hand(selhand)
 	return
@@ -860,7 +944,7 @@
   */
 /mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(M.buckled)
-		return 0
+		return FALSE
 	var/turf/T = get_turf(src)
 	if(M.loc != T)
 		var/old_density = density
@@ -868,7 +952,7 @@
 		var/can_step = step_towards(M, T)
 		density = old_density
 		if(!can_step)
-			return 0
+			return FALSE
 	return ..()
 
 ///Call back post buckle to a mob to offset your visual height
@@ -1192,3 +1276,28 @@
 // Returns TRUE if the hearer should hear radio noises
 /mob/proc/hears_radio()
 	return TRUE
+
+/mob/proc/set_stat(new_stat)
+	if(new_stat == stat)
+		return
+	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat)
+	. = stat
+	stat = new_stat
+
+/mob/proc/set_active_storage(new_active_storage)
+	if(active_storage)
+		UnregisterSignal(active_storage, COMSIG_PARENT_QDELETING)
+	active_storage = new_active_storage
+	if(active_storage)
+		RegisterSignal(active_storage, COMSIG_PARENT_QDELETING, .proc/active_storage_deleted)
+
+/mob/proc/active_storage_deleted(datum/source)
+	SIGNAL_HANDLER
+	set_active_storage(null)
+
+///Clears the client in contents list of our current "eye". Prevents hard deletes
+/mob/proc/clear_client_in_contents()
+	if(client?.movingmob) //In the case the client was transferred to another mob and not deleted.
+		client.movingmob.client_mobs_in_contents -= src
+		UNSETEMPTY(client.movingmob.client_mobs_in_contents)
+		client.movingmob = null

@@ -6,13 +6,14 @@
 	w_class = WEIGHT_CLASS_SMALL
 	device_type = MC_AI
 
-	var/obj/item/aicard/stored_card = null
+	var/obj/item/aicard/stored_card
 	var/locked = FALSE
 
-/obj/item/computer_hardware/ai_slot/handle_atom_del(atom/A)
-	if(A == stored_card)
-		try_eject(0, null, TRUE)
-	. = ..()
+///What happens when the intellicard is removed (or deleted) from the module, through try_eject() or not.
+/obj/item/computer_hardware/ai_slot/Exited(atom/movable/gone, direction)
+	if(stored_card == gone)
+		stored_card = null
+	return ..()
 
 /obj/item/computer_hardware/ai_slot/examine(mob/user)
 	. = ..()
@@ -54,13 +55,12 @@
 		return FALSE
 
 	if(stored_card)
-		to_chat(user, "<span class='notice'>You remove [stored_card] from [src].</span>")
+		to_chat(user, "<span class='notice'>You eject [stored_card] from [src].</span>")
 		locked = FALSE
-		if(user)
+		if(user && in_range(src, user))
 			user.put_in_hands(stored_card)
 		else
 			stored_card.forceMove(drop_location())
-		stored_card = null
 
 		return TRUE
 	return FALSE

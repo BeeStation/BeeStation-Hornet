@@ -9,7 +9,7 @@ Chilling extracts:
 	effect = "chilling"
 	icon_state = "chilling"
 
-/obj/item/slimecross/chilling/Initialize()
+/obj/item/slimecross/chilling/Initialize(mapload)
 	. = ..()
 	create_reagents(10, INJECTABLE | DRAWABLE)
 
@@ -106,7 +106,7 @@ Chilling extracts:
 	for(var/turf/open/T in A)
 		var/datum/gas_mixture/G = T.air
 		if(istype(G))
-			G.set_moles(/datum/gas/plasma, 0)
+			G.set_moles(GAS_PLASMA, 0)
 			filtered = TRUE
 			T.air_update_turf()
 	if(filtered)

@@ -706,6 +706,11 @@ world
 		((hi3 >= 65 ? hi3-55 : hi3-48)<<4) | (lo3 >= 65 ? lo3-55 : lo3-48),
 		((hi4 >= 65 ? hi4-55 : hi4-48)<<4) | (lo4 >= 65 ? lo4-55 : lo4-48))
 
+//Returns color multiplied by amount, in hex format
+/proc/MultiplyHexColor(color, amount)
+	var/list/rgb = ReadRGB(color)
+	return rgb(round(rgb[1]*amount), round(rgb[2]*amount), round(rgb[3]*amount))
+
 // Creates a single icon from a given /atom or /image.  Only the first argument is required.
 /proc/getFlatIcon(image/A, defdir, deficon, defstate, defblend, start = TRUE, no_anim = FALSE)
 	//Define... defines.
@@ -1042,7 +1047,7 @@ world
 			letter = lowertext(letter)
 
 	var/image/text_image = new(loc = A)
-	text_image.maptext = "<font size = 4>[letter]</font>"
+	text_image.maptext = MAPTEXT("<font size = 4>[letter]</font>")
 	text_image.pixel_x = 7
 	text_image.pixel_y = 5
 	qdel(atom_icon)
@@ -1175,7 +1180,7 @@ GLOBAL_DATUM_INIT(dummySave, /savefile, new("tmp/dummySave.sav")) //Cache of ico
 	var/list/partial = splittext(iconData, "{")
 	return replacetext(copytext_char(partial[2], 3, -5), "\n", "")
 
-/proc/icon2html(thing, target, icon_state, dir, frame = 1, moving = FALSE)
+/proc/icon2html(thing, target, icon_state, dir = SOUTH, frame = 1, moving = FALSE, sourceonly = FALSE)
 	if (!thing)
 		return
 
@@ -1195,17 +1200,27 @@ GLOBAL_DATUM_INIT(dummySave, /savefile, new("tmp/dummySave.sav")) //Cache of ico
 			return
 	if (!isicon(I))
 		if (isfile(thing)) //special snowflake
-			var/name = sanitize_filename("[generate_asset_name(thing)].png")
+			var/name = SANITIZE_FILENAME("[generate_asset_name(thing)].png")
 			SSassets.transport.register_asset(name, thing)
 			for (var/thing2 in targets)
 				SSassets.transport.send_assets(thing2, name)
+			if(sourceonly)
+				return SSassets.transport.get_asset_url(name)
 			return "<img class='icon icon-misc' src='[SSassets.transport.get_asset_url(name)]'>"
 		var/atom/A = thing
-		if (isnull(dir))
-			dir = A.dir
+
+		I = A.icon
 		if (isnull(icon_state))
 			icon_state = A.icon_state
-		I = A.icon
+
+			if (!(icon_state in icon_states(I, 1)))
+				icon_state = initial(A.icon_state)
+				if (isnull(dir))
+					dir = initial(A.dir)
+
+		if (isnull(dir))
+			dir = A.dir
+
 		if (ishuman(thing)) // Shitty workaround for a BYOND issue.
 			var/icon/temp = I
 			I = icon()
@@ -1223,6 +1238,8 @@ GLOBAL_DATUM_INIT(dummySave, /savefile, new("tmp/dummySave.sav")) //Cache of ico
 	SSassets.transport.register_asset(key, I)
 	for (var/thing2 in targets)
 		SSassets.transport.send_assets(thing2, key)
+	if(sourceonly)
+		return SSassets.transport.get_asset_url(key)
 	return "<img class='icon icon-[icon_state]' src='[SSassets.transport.get_asset_url(key)]'>"
 
 /proc/icon2base64html(thing)
@@ -1259,7 +1276,7 @@ GLOBAL_DATUM_INIT(dummySave, /savefile, new("tmp/dummySave.sav")) //Cache of ico
 	return "<img class='icon icon-[A.icon_state]' src='data:image/png;base64,[bicon_cache[key]]'>"
 
 //Costlier version of icon2html() that uses getFlatIcon() to account for overlays, underlays, etc. Use with extreme moderation, ESPECIALLY on mobs.
-/proc/costly_icon2html(thing, target)
+/proc/costly_icon2html(thing, target, sourceonly = FALSE)
 	if (!thing)
 		return
 
@@ -1267,4 +1284,10 @@ GLOBAL_DATUM_INIT(dummySave, /savefile, new("tmp/dummySave.sav")) //Cache of ico
 		return icon2html(thing, target)
 
 	var/icon/I = getFlatIcon(thing)
-	return icon2html(I, target)
+	return icon2html(I, target, sourceonly = sourceonly)
+
+//Returns TRUE if the given iconstate is located in the given file, otherwise returns false.
+/proc/icon_exists(file, state)
+	var/list/states = icon_states(file)
+	if(states.Find(state))
+		return TRUE

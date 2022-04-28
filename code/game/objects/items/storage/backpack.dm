@@ -100,7 +100,7 @@
 	item_state = "giftbag"
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/storage/backpack/santabag/Initialize()
+/obj/item/storage/backpack/santabag/Initialize(mapload)
 	. = ..()
 	regenerate_presents()
 
@@ -231,6 +231,40 @@
 	desc = "A spacious backpack with lots of pockets, worn by Engineers of an Emergency Response Team."
 	icon_state = "ert_engineering"
 
+/////////////////
+//DONATOR ITEMS//
+/////////////////
+
+/obj/item/storage/backpack/cak
+	name = "cak backpack"
+	desc = "A cute backpack resembling Cak."
+	icon_state = "cakpack"
+	item_state = "cakpack"
+
+/obj/item/storage/backpack/ian
+	name = "ian backpack"
+	desc = "A cute backpack resembling Ian."
+	icon_state = "ianpack"
+	item_state = "ianpack"
+
+/obj/item/storage/backpack/lisa
+	name = "lisa backpack"
+	desc = "A cute backpack resembling Lisa."
+	icon_state = "lisapack"
+	item_state = "lisapack"
+
+/obj/item/storage/backpack/renault
+	name = "renault backpack"
+	desc = "A cute backpack resembling Renault."
+	icon_state = "renaultpack"
+	item_state = "renaultpack"
+
+/obj/item/storage/backpack/runtime
+	name = "runtime backpack"
+	desc = "A cute backpack resembling Runtime."
+	icon_state = "runtimepack"
+	item_state = "runtimepack"
+
 /*
  * Satchel Types
  */
@@ -321,7 +355,7 @@
 	w_class = WEIGHT_CLASS_NORMAL //Can fit in backpacks itself.
 	level = 1
 
-/obj/item/storage/backpack/satchel/flat/Initialize()
+/obj/item/storage/backpack/satchel/flat/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_T_RAY_VISIBLE, TRAIT_GENERIC)
 
@@ -614,7 +648,7 @@
 	new /obj/item/ammo_box/magazine/pistolm9mm(src)
 	new /obj/item/ammo_box/magazine/pistolm9mm(src)
 	new /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka(src)
-	new /obj/item/reagent_containers/hypospray/medipen/pumpup(src)
+	new /obj/item/reagent_containers/hypospray/medipen/stimulants(src)
 	new /obj/item/grenade/syndieminibomb(src)
 
 // For ClownOps.

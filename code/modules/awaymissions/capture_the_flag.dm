@@ -9,7 +9,7 @@
 
 
 
-/obj/item/twohanded/ctf
+/obj/item/ctf
 	name = "banner"
 	icon = 'icons/obj/banner.dmi'
 	icon_state = "banner"
@@ -31,20 +31,28 @@
 	var/obj/effect/ctf/flag_reset/reset
 	var/reset_path = /obj/effect/ctf/flag_reset
 
-/obj/item/twohanded/ctf/Destroy()
+/obj/item/ctf/Destroy()
 	QDEL_NULL(reset)
 	return ..()
 
-/obj/item/twohanded/ctf/Initialize()
+/obj/item/ctf/Initialize(mapload)
 	. = ..()
 	if(!reset)
 		reset = new reset_path(get_turf(src))
+		reset.flag = src
 
-/obj/item/twohanded/ctf/process()
+/obj/item/ctf/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed)
+
+/obj/item/ctf/process()
 	if(is_ctf_target(loc)) //don't reset from someone's hands.
 		return PROCESS_KILL
 	if(world.time > reset_cooldown)
-		forceMove(get_turf(src.reset))
+		var/turf/our_turf = get_turf(src.reset)
+		if(!our_turf)
+			return TRUE
+		forceMove(our_turf)
 		for(var/mob/M in GLOB.player_list)
 			var/area/mob_area = get_area(M)
 			if(istype(mob_area, /area/ctf))
@@ -52,7 +60,7 @@
 		STOP_PROCESSING(SSobj, src)
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/item/twohanded/ctf/attack_hand(mob/living/user)
+/obj/item/ctf/attack_hand(mob/living/user)
 	if(!is_ctf_target(user) && !anyonecanpickup)
 		to_chat(user, "Non players shouldn't be moving the flag!")
 		return
@@ -63,7 +71,6 @@
 		if(!user.dropItemToGround(src))
 			return
 	anchored = FALSE
-	pickup(user)
 	if(!user.put_in_active_hand(src))
 		dropped(user)
 		return
@@ -76,7 +83,7 @@
 	STOP_PROCESSING(SSobj, src)
 	..()
 
-/obj/item/twohanded/ctf/dropped(mob/user)
+/obj/item/ctf/dropped(mob/user)
 	..()
 	user.anchored = FALSE
 	user.status_flags |= CANPUSH
@@ -89,7 +96,7 @@
 	anchored = TRUE
 
 
-/obj/item/twohanded/ctf/red
+/obj/item/ctf/red
 	name = "red flag"
 	icon_state = "banner-red"
 	item_state = "banner-red"
@@ -98,7 +105,7 @@
 	reset_path = /obj/effect/ctf/flag_reset/red
 
 
-/obj/item/twohanded/ctf/blue
+/obj/item/ctf/blue
 	name = "blue flag"
 	icon_state = "banner-blue"
 	item_state = "banner-blue"
@@ -112,6 +119,13 @@
 	icon_state = "banner"
 	desc = "This is where a banner with Nanotrasen's logo on it would go."
 	layer = LOW_ITEM_LAYER
+	var/obj/item/ctf/flag
+
+/obj/effect/ctf/flag_reset/Destroy()
+	if(flag)
+		flag.reset = null
+		flag = null
+	return ..()
 
 /obj/effect/ctf/flag_reset/red
 	name = "red flag landmark"
@@ -162,8 +176,17 @@
 
 	var/static/arena_reset = FALSE
 	var/static/list/people_who_want_to_play = list()
+	var/static/list/allowed_species = list(
+		/datum/species/lizard,
+		/datum/species/moth,
+		/datum/species/human/felinid,
+		/datum/species/ipc,
+		/datum/species/oozeling,
+		/datum/species/ethereal,
+		/datum/species/apid,
+	)
 
-/obj/machinery/capture_the_flag/Initialize()
+/obj/machinery/capture_the_flag/Initialize(mapload)
 	. = ..()
 	GLOB.poi_list |= src
 
@@ -171,7 +194,7 @@
 	GLOB.poi_list.Remove(src)
 	..()
 
-/obj/machinery/capture_the_flag/process()
+/obj/machinery/capture_the_flag/process(delta_time)
 	for(var/mob/living/M as() in spawned_mobs)
 		if(QDELETED(M))
 			spawned_mobs -= M
@@ -182,8 +205,8 @@
 		else
 			// The changes that you've been hit with no shield but not
 			// instantly critted are low, but have some healing.
-			M.adjustBruteLoss(-5)
-			M.adjustFireLoss(-5)
+			M.adjustBruteLoss(-2.5 * delta_time)
+			M.adjustFireLoss(-2.5 * delta_time)
 
 /obj/machinery/capture_the_flag/red
 	name = "Red CTF Controller"
@@ -266,7 +289,8 @@
 /obj/machinery/capture_the_flag/proc/spawn_team_member(client/new_team_member)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(get_turf(src))
 	new_team_member.prefs.copy_to(M)
-	M.set_species(/datum/species/synth)
+	if(!(M.dna.species.type in allowed_species))
+		M.set_species(/datum/species/human) //default to human if not whitelisted
 	M.key = new_team_member.key
 	M.faction += team
 	M.equipOutfit(ctf_gear)
@@ -279,8 +303,8 @@
 			attack_ghost(ghost)
 
 /obj/machinery/capture_the_flag/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/twohanded/ctf))
-		var/obj/item/twohanded/ctf/flag = I
+	if(istype(I, /obj/item/ctf))
+		var/obj/item/ctf/flag = I
 		if(flag.team != src.team)
 			user.transferItemToLoc(flag, get_turf(flag.reset), TRUE)
 			points++
@@ -297,7 +321,7 @@
 		if(istype(mob_area, /area/ctf))
 			to_chat(M, "<span class='narsie [team_span]'>[team] team wins!</span>")
 			to_chat(M, "<span class='userdanger'>Teams have been cleared. Click on the machines to vote to begin another round.</span>")
-			for(var/obj/item/twohanded/ctf/W in M)
+			for(var/obj/item/ctf/W in M)
 				M.dropItemToGround(W)
 			M.dust()
 	for(var/obj/machinery/control_point/control in GLOB.machines)
@@ -338,7 +362,7 @@
 	var/list/ctf_object_typecache = typecacheof(list(
 				/obj/machinery,
 				/obj/effect/ctf,
-				/obj/item/twohanded/ctf
+				/obj/item/ctf
 			))
 	for(var/atm in A)
 		if (isturf(A) || ismob(A) || isarea(A))
@@ -380,7 +404,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m50/ctf
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/ctf/dropped()
-	. = ..()
+	..()
 	addtimer(CALLBACK(src, .proc/floor_vanish), 1)
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/ctf/proc/floor_vanish()
@@ -396,18 +420,20 @@
 /obj/item/projectile/bullet/ctf
 	damage = 0
 
-/obj/item/projectile/bullet/ctf/prehit(atom/target)
+/obj/item/projectile/bullet/ctf/prehit_pierce(atom/target)
 	if(is_ctf_target(target))
 		damage = 60
+		return PROJECTILE_PIERCE_NONE	/// hey uhh don't hit anyone behind them
 	. = ..()
 
 /obj/item/gun/ballistic/automatic/laser/ctf
 	mag_type = /obj/item/ammo_box/magazine/recharge/ctf
 	desc = "This looks like it could really hurt in melee."
 	force = 50
+	full_auto = TRUE //Rule of cool.
 
 /obj/item/gun/ballistic/automatic/laser/ctf/dropped()
-	. = ..()
+	..()
 	addtimer(CALLBACK(src, .proc/floor_vanish), 1)
 
 /obj/item/gun/ballistic/automatic/laser/ctf/proc/floor_vanish()
@@ -418,7 +444,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/laser/ctf
 
 /obj/item/ammo_box/magazine/recharge/ctf/dropped()
-	. = ..()
+	..()
 	addtimer(CALLBACK(src, .proc/floor_vanish), 1)
 
 /obj/item/ammo_box/magazine/recharge/ctf/proc/floor_vanish()
@@ -432,9 +458,10 @@
 	damage = 0
 	icon_state = "omnilaser"
 
-/obj/item/projectile/beam/ctf/prehit(atom/target)
+/obj/item/projectile/beam/ctf/prehit_pierce(atom/target)
 	if(is_ctf_target(target))
 		damage = 150
+		return PROJECTILE_PIERCE_NONE		/// hey uhhh don't hit anyone behind them
 	. = ..()
 
 /proc/is_ctf_target(atom/target)
@@ -499,11 +526,11 @@
 	W.registered_name = H.real_name
 	W.update_label(W.registered_name, W.assignment)
 
-	no_drops += H.get_item_by_slot(SLOT_WEAR_SUIT)
-	no_drops += H.get_item_by_slot(SLOT_GLOVES)
-	no_drops += H.get_item_by_slot(SLOT_SHOES)
-	no_drops += H.get_item_by_slot(SLOT_W_UNIFORM)
-	no_drops += H.get_item_by_slot(SLOT_EARS)
+	no_drops += H.get_item_by_slot(ITEM_SLOT_OCLOTHING)
+	no_drops += H.get_item_by_slot(ITEM_SLOT_GLOVES)
+	no_drops += H.get_item_by_slot(ITEM_SLOT_FEET)
+	no_drops += H.get_item_by_slot(ITEM_SLOT_ICLOTHING)
+	no_drops += H.get_item_by_slot(ITEM_SLOT_EARS)
 	for(var/i in no_drops)
 		var/obj/item/I = i
 		ADD_TRAIT(I, TRAIT_NODROP, CAPTURE_THE_FLAG_TRAIT)
@@ -607,9 +634,15 @@
 /obj/effect/ctf/ammo/Initialize(mapload)
 	..()
 	QDEL_IN(src, AMMO_DROP_LIFETIME)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/ctf/ammo/Crossed(atom/movable/AM)
-	reload(AM)
+/obj/effect/ctf/ammo/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, .proc/reload, AM)
 
 /obj/effect/ctf/ammo/Bump(atom/movable/AM)
 	reload(AM)
@@ -643,6 +676,13 @@
 	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
 		CTF.dead_barricades += src
 
+/obj/effect/ctf/dead_barricade/Destroy()
+	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
+		//if(CTF.game_id != game_id)
+		//	continue
+		CTF.dead_barricades -= src
+	return ..()
+
 /obj/effect/ctf/dead_barricade/proc/respawn()
 	if(!QDELETED(src))
 		new /obj/structure/barricade/security/ctf(get_turf(src))
@@ -659,11 +699,11 @@
 	resistance_flags = INDESTRUCTIBLE
 	var/obj/machinery/capture_the_flag/controlling
 	var/team = "none"
-	var/point_rate = 1
+	var/point_rate = 0.5
 
-/obj/machinery/control_point/process()
+/obj/machinery/control_point/process(delta_time)
 	if(controlling)
-		controlling.control_points += point_rate
+		controlling.control_points += point_rate * delta_time
 		if(controlling.control_points >= controlling.control_points_to_win)
 			controlling.victory()
 

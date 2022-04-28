@@ -48,12 +48,12 @@
 	update_icon()
 	. = ..()
 
-/obj/item/storage/fancy/Exited()
+/obj/item/storage/fancy/Exited(atom/movable/gone, direction)
 	. = ..()
 	fancy_open = TRUE
 	update_icon()
 
-/obj/item/storage/fancy/Entered()
+/obj/item/storage/fancy/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	fancy_open = TRUE
 	update_icon()
@@ -187,12 +187,13 @@
 /obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!ismob(M))
 		return
+
 	var/obj/item/clothing/mask/cigarette/W = locate(/obj/item/clothing/mask/cigarette) in contents
 	if(!W)
 		return ..()
 	if(M == user && contents.len > 0 && !user.wear_mask)
 		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, W, M)
-		M.equip_to_slot_if_possible(W, SLOT_WEAR_MASK)
+		M.equip_to_slot_if_possible(W, ITEM_SLOT_MASK)
 		contents -= W
 		to_chat(user, "<span class='notice'>You take \a [W] out of the pack.</span>")
 

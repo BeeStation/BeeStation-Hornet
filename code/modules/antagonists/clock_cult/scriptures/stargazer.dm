@@ -68,7 +68,7 @@
 	var/fading = FALSE
 	var/obj/effect/stargazer_light/sg_light
 
-/obj/structure/destructible/clockwork/gear_base/stargazer/Initialize()
+/obj/structure/destructible/clockwork/gear_base/stargazer/Initialize(mapload)
 	. = ..()
 	sg_light = new(get_turf(src))
 	START_PROCESSING(SSobj, src)
@@ -159,7 +159,7 @@
 			var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the spirit of [user.real_name]'s [I]?", ROLE_PAI, null, FALSE, 100, POLL_IGNORE_POSSESSED_BLADE)
 			if(LAZYLEN(candidates))
 				var/mob/dead/observer/C = pick(candidates)
-				var/mob/living/simple_animal/shade/S = new(src)
+				var/mob/living/simple_animal/shade/S = new(I)
 				S.ckey = C.ckey
 				S.fully_replace_character_name(null, "The spirit of [name]")
 				S.status_flags |= GODMODE

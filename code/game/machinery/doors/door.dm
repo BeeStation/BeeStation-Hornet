@@ -8,10 +8,12 @@
 	move_resist = MOVE_FORCE_VERY_STRONG
 	layer = OPEN_DOOR_LAYER
 	power_channel = AREA_USAGE_ENVIRON
+	pass_flags_self = PASSDOORS
 	max_integrity = 350
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "stamina" = 0)
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	flags_1 = PREVENT_CLICK_UNDER_1
+	ricochet_chance_mod = 0.8
 	damage_deflection = 10
 
 	interaction_flags_atom = INTERACT_ATOM_UI_INTERACT
@@ -54,7 +56,7 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/door/Initialize()
+/obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
 	update_freelook_sight()
@@ -131,10 +133,13 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/machinery/door/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/door/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
+	if(.)
+		return
+	// Snowflake handling for PASSGLASS.
 	if(istype(mover) && (mover.pass_flags & PASSGLASS))
 		return !opacity
-	return !density
 
 /obj/machinery/door/proc/bumpopen(mob/user)
 	if(operating)
@@ -154,14 +159,14 @@
 	. = ..()
 	if(.)
 		return
-	return try_to_activate_door(user)
+	return try_to_activate_door(null, user)
 
 /obj/machinery/door/attack_tk(mob/user)
 	if(requiresID() && !allowed(null))
 		return
 	..()
 
-/obj/machinery/door/proc/try_to_activate_door(mob/user)
+/obj/machinery/door/proc/try_to_activate_door(obj/item/I, mob/user)
 	add_fingerprint(user)
 	if(operating || (obj_flags & EMAGGED))
 		return
@@ -218,14 +223,14 @@
 	return max_moles - min_moles > 20
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent != INTENT_HARM && (I.tool_behaviour == TOOL_CROWBAR || istype(I, /obj/item/twohanded/fireaxe)))
+	if(user.a_intent != INTENT_HARM && (I.tool_behaviour == TOOL_CROWBAR || istype(I, /obj/item/fireaxe)))
 		try_to_crowbar(I, user)
 		return 1
 	else if(I.tool_behaviour == TOOL_WELDER)
 		try_to_weld(I, user)
 		return 1
 	else if(!(I.item_flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
-		try_to_activate_door(user)
+		try_to_activate_door(I, user)
 		return 1
 	return ..()
 
@@ -352,12 +357,16 @@
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
 			L.emote("roar")
 		else if(ishuman(L)) //For humans
-			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
+			var/armour = L.run_armor_check(BODY_ZONE_CHEST, "melee")
+			var/multiplier = CLAMP(1 - (armour * 0.01), 0, 1)
+			L.adjustBruteLoss(multiplier * DOOR_CRUSH_DAMAGE)
 			L.emote("scream")
-			L.Paralyze(100)
+			if(!L.IsParalyzed())
+				L.Paralyze(60)
 		else if(ismonkey(L)) //For monkeys
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
-			L.Paralyze(100)
+			if(!L.IsParalyzed())
+				L.Paralyze(60)
 		else //for simple_animals & borgs
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 		var/turf/location = get_turf(src)
@@ -384,7 +393,7 @@
 	if(!glass && GLOB.cameranet)
 		GLOB.cameranet.updateVisibility(src, 0)
 
-/obj/machinery/door/BlockSuperconductivity() // All non-glass airlocks block heat, this is intended.
+/obj/machinery/door/BlockThermalConductivity() // All non-glass airlocks block heat, this is intended.
 	if(opacity || heat_proof)
 		return 1
 	return 0

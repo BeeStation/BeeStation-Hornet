@@ -54,9 +54,10 @@
 	landing_zone.height = height
 	landing_zone.setDir(lz_dir)
 
-	for(var/obj/machinery/computer/shuttle/S in GLOB.machines)
+	for(var/obj/machinery/computer/shuttle_flight/S in GLOB.machines)
 		if(S.shuttleId == shuttle_id)
-			S.possible_destinations = "[landing_zone.id]"
+			S.recall_docking_port_id = "[landing_zone.id]"
+			S.valid_docks = list("[landing_zone.id]")
 
 	to_chat(user, "Landing zone set.")
 

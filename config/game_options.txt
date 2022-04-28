@@ -16,7 +16,7 @@ REVIVAL_BRAIN_LIFE -1
 
 ## OOC DURING ROUND ###
 ## Comment this out if you want OOC to be automatically disabled during the round, it will be enabled during the lobby and after the round end results.
-OOC_DURING_ROUND
+#OOC_DURING_ROUND
 
 ## LOOC
 ## Comment this out to disable LOOC
@@ -25,6 +25,10 @@ LOOC_ENABLED
 ## EMOJI ###
 ## Comment this out if you want to disable emojis
 EMOJIS
+
+## BADGES ##
+## Comment this out if you want to disable badges
+BADGES
 
 ## MOB MOVEMENT ###
 
@@ -89,7 +93,7 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 MASTER_MODE secret_extended
 
 ## Uncomment to not send a roundstart intercept report. Gamemodes may override this.
-#NO_INTERCEPT_REPORT
+NO_INTERCEPT_REPORT
 
 ## Probablities for game modes chosen in 'secret' and 'random' modes.
 ## Default probablity is 1, increase to make that mode more likely to be picked.
@@ -98,26 +102,26 @@ MASTER_MODE secret_extended
 PROBABILITY DYNAMIC 9
 PROBABILITY TRAITOR 8
 PROBABILITY CULT 6
-PROBABILITY HERESY 6
-PROBABILITY NUCLEAR 6
 PROBABILITY TRAITORCHAN 5
 PROBABILITY CHANGELING 5
-PROBABILITY INCURSION 4
 PROBABILITY REVOLUTION 4
-PROBABILITY INTERNAL_AFFAIRS 3
-PROBABILITY TRAITORBRO 3
-PROBABILITY WIZARD 2
-PROBABILITY CLOWNOPS 2
-PROBABILITY CLOCKCULT 1
-PROBABILITY MONKEY 0
-PROBABILITY GANG 0
-PROBABILITY METEOR 0
-PROBABILITY SECRET_EXTENDED 0
+PROBABILITY INCURSION 4
+PROBABILITY NUCLEAR 4
+PROBABILITY CLOCKCULT 2
+PROBABILITY SECRET_EXTENDED 1
+PROBABILITY CLOWNOPS 0
 PROBABILITY DEVIL 0
 PROBABILITY DEVIL_AGENTS 0
+PROBABILITY GANG 0
+PROBABILITY HERESY 0
+PROBABILITY INTERNAL_AFFAIRS 0
+PROBABILITY METEOR 0
+PROBABILITY MONKEY 0
+PROBABILITY TRAITORBRO 0
+PROBABILITY WIZARD 0
 
 ## Creates issues when NO_INTERCEPT_REPORT is enabled
-PROBABILITY EXTENDED 0 
+PROBABILITY EXTENDED 0
 
 ## You probably want to keep sandbox off by default for secret and random.
 PROBABILITY SANDBOX 0
@@ -159,7 +163,7 @@ CONTINUOUS SECRET_EXTENDED
 ## In modes that are continuous, if all antagonists should die then a new set of antagonists will be created.
 
 MIDROUND_ANTAG TRAITOR
-#MIDROUND_ANTAG INCURSION
+MIDROUND_ANTAG INCURSION
 #MIDROUND_ANTAG TRAITORBRO
 MIDROUND_ANTAG TRAITORCHAN
 MIDROUND_ANTAG INTERNAL_AFFAIRS
@@ -176,44 +180,44 @@ MIDROUND_ANTAG WIZARD
 ## Notes: For maximum number of players a value of -1 means no maximum. Setting minimums to
 ## VERY low numbers (< 5) can lead to errors if the roundtypes were not designed for that.
 
-#MIN_POP TRAITOR 0
-#MAX_POP TRAITOR -1
+MIN_POP TRAITOR 0
+MAX_POP TRAITOR -1
 
-#MIN_POP TRAITORBRO 0
-#MAX_POP TRAITORBRO -1
+MIN_POP TRAITORBRO 10
+MAX_POP TRAITORBRO -1
 
-#MIN_POP TRAITORCHAN 15
-#MAX_POP TRAITORCHAN -1
+MIN_POP TRAITORCHAN 15
+MAX_POP TRAITORCHAN -1
 
-#MIN_POP DOUBLE_AGENTS 25
-#MAX_POP DOUBLE_AGENTS -1
+MIN_POP DOUBLE_AGENTS 25
+MAX_POP DOUBLE_AGENTS -1
 
-#MIN_POP NUCLEAR 0
-#MAX_POP NUCLEAR -1
+MIN_POP NUCLEAR 0
+MAX_POP NUCLEAR -1
 
-#MIN_POP REVOLUTION 20
-#MAX_POP REVOLUTION -1
+MIN_POP REVOLUTION 20
+MAX_POP REVOLUTION -1
 
-#MIN_POP CULT 24
-#MAX_POP CULT -1
+MIN_POP CULT 24
+MAX_POP CULT -1
 
-#MIN_POP CHANGELING 15
-#MAX_POP CHANGELING -1
+MIN_POP CHANGELING 15
+MAX_POP CHANGELING -1
 
-#MIN_POP WIZARD 20
-#MAX_POP WIZARD -1
+MIN_POP WIZARD 20
+MAX_POP WIZARD -1
 
-#MIN_POP MONKEY 20
-#MAX_POP MONKEY -1
+MIN_POP MONKEY 20
+MAX_POP MONKEY -1
 
-#MIN_POP METEOR 0
-#MAX_POP METEOR -1
+MIN_POP METEOR 0
+MAX_POP METEOR -1
 
-#MIN_POP DEVIL 0
-#MAX_POP DEVIL -1
+MIN_POP DEVIL 20
+MAX_POP DEVIL -1
 
-#MIN_POP DEVIL_AGENTS 25
-#MAX_POP DEVIL_AGENTS -1
+MIN_POP DEVIL_AGENTS 25
+MAX_POP DEVIL_AGENTS -1
 
 MIN_POP INCURSION 22
 MAX_POP INCURSION -1
@@ -224,6 +228,9 @@ MAX_POP INCURSION -1
 
 MIN_POP CLOCKCULT 32
 MAX_POP CLOCKCULT -1
+
+MIN_POP HERESY 25
+MAX_POP HERESY -1
 
 ## The amount of time it takes for the emergency shuttle to be called, from round start.
 SHUTTLE_REFUEL_DELAY 12000
@@ -322,7 +329,7 @@ ALLOW_AI_MULTICAM
 
 ## Secborg ###
 ## Uncomment to prevent the security cyborg module from being chosen
-#DISABLE_SECBORG
+DISABLE_SECBORG
 
 ## Peacekeeper Borg ###
 ## Uncomment to prevent the peacekeeper cyborg module from being chosen
@@ -352,7 +359,7 @@ MINIMAL_ACCESS_THRESHOLD 20
 #JOBS_HAVE_MINIMAL_ACCESS
 
 ## Uncomment to give assistants maint access.
-ASSISTANTS_HAVE_MAINT_ACCESS
+#ASSISTANTS_HAVE_MAINT_ACCESS
 
 ## Uncoment to give security maint access. Note that if you dectivate JOBS_HAVE_MINIMAL_ACCESS security already gets maint from that.
 SECURITY_HAS_MAINT_ACCESS
@@ -390,7 +397,7 @@ NEAR_DEATH_EXPERIENCE
 ## Set to 1 for "custom", silicons will start with the custom laws defined in silicon_laws.txt. (If silicon_laws.txt is empty, the AI will spawn with asimov and Custom boards will auto-delete.)
 ## Set to 2 for "random", silicons will start with a random lawset picked from random laws specified below.
 ## Set to 3 for "weighted random", using values in "silicon_weights.txt", a law will be selected, with weights specifed in that file.
-DEFAULT_LAWS 0
+DEFAULT_LAWS 2
 
 ## RANDOM LAWS ##
 ## ------------------------------------------------------------------------------------------
@@ -400,9 +407,9 @@ DEFAULT_LAWS 0
 ## standard-ish laws. These are fairly ok to run
 RANDOM_LAWS asimov
 RANDOM_LAWS asimovpp
-RANDOM_LAWS paladin
-RANDOM_LAWS robocop
+RANDOM_LAWS crewsimov
 RANDOM_LAWS corporate
+RANDOM_LAWS maintain
 
 ## Quirky laws. Shouldn't cause too much harm
 #RANDOM_LAWS hippocratic
@@ -412,6 +419,8 @@ RANDOM_LAWS corporate
 #RANDOM_LAWS peacekeeper
 #RANDOM_LAWS reporter
 #RANDOM_LAWS hulkamania
+#RANDOM_LAWS paladin
+#RANDOM_LAWS robocop
 
 ## Bad idea laws. Probably shouldn't enable these
 #RANDOM_LAWS syndie
@@ -469,37 +478,40 @@ SILICON_MAX_LAW_AMOUNT 12
 ROUNDSTART_RACES human
 
 ## Races that are strictly worse than humans that could probably be turned on without balance concerns
-ROUNDSTART_RACES lizard
-ROUNDSTART_RACES fly
-ROUNDSTART_RACES moth
-ROUNDSTART_RACES plasmaman
 ROUNDSTART_RACES felinid
-ROUNDSTART_RACES squid
-#ROUNDSTART_RACES shadow
-ROUNDSTART_RACES ipc
+ROUNDSTART_RACES lizard
+ROUNDSTART_RACES moth
+#ROUNDSTART_RACES fly
+
 
 ## Races that are better than humans in some ways, but worse in others
-ROUNDSTART_RACES ethereal
 ROUNDSTART_RACES apid
+ROUNDSTART_RACES ethereal
+ROUNDSTART_RACES ipc
 ROUNDSTART_RACES oozeling
-#ROUNDSTART_RACES jelly
-#ROUNDSTART_RACES iron_golem
+ROUNDSTART_RACES plasmaman
+#ROUNDSTART_RACES abductor
 #ROUNDSTART_RACES adamantine_golem
-#ROUNDSTART_RACES plasma_golem
 #ROUNDSTART_RACES diamond_golem
 #ROUNDSTART_RACES gold_golem
+#ROUNDSTART_RACES iron_golem
+#ROUNDSTART_RACES jelly
+#ROUNDSTART_RACES plasma_golem
+#ROUNDSTART_RACES shadow
 #ROUNDSTART_RACES silver_golem
 #ROUNDSTART_RACES uranium_golem
-#ROUNDSTART_RACES abductor
-#ROUNDSTART_RACES synth
 
 ## Races that are straight upgrades. If these are on expect powergamers to always pick them
-#ROUNDSTART_RACES skeleton
-#ROUNDSTART_RACES zombie
-#ROUNDSTART_RACES slime
-#ROUNDSTART_RACES pod
-#ROUNDSTART_RACES military_synth
 #ROUNDSTART_RACES agent
+#ROUNDSTART_RACES pod
+#ROUNDSTART_RACES skeleton
+#ROUNDSTART_RACES slime
+#ROUNDSTART_RACES zombie
+
+## Roundstart no-reset races
+##-------------------------------------------------------------------------------------------
+## Races defined here will not cause existing characters to be reset to human if they currently have a non-roundstart species defined.
+#ROUNDSTART_NO_HARD_CHECK plasmaman
 
 ## Paywall Races
 ##-------------------------------------------------------------------------------------------
@@ -523,7 +535,7 @@ OVERFLOW_CAP -1
 #STARLIGHT
 
 ## Uncomment to bring back old grey suit assistants instead of the now default rainbow colored assistants.
-#GREY_ASSISTANTS
+GREY_ASSISTANTS
 
 ## Midround Antag (aka Mulligan antag) config options ###
 
@@ -564,7 +576,7 @@ BOMBCAP 24
 ## of ruins.
 LAVALAND_BUDGET 60
 
-## Space Ruin Budged
+## Space Ruin Budget
 Space_Budget 8
 
 ## Time in ds from when a player latejoins till the arrival shuttle docks at the station
@@ -585,7 +597,7 @@ MICE_ROUNDSTART 10
 #EMERGENCY_SHUTTLE_AUTOCALL_THRESHOLD 0.2
 
 ## Determines if players are allowed to print integrated circuits, uncomment to allow.
-IC_PRINTING
+@IC_PRINTING 0
 
 ## Uncomment to allow roundstart quirk selection in the character setup menu.
 ## This used to be named traits, hence the config name, but it handles quirks, not the other kind of trait!
@@ -595,40 +607,33 @@ ROUNDSTART_TRAITS
 #DISABLE_HUMAN_MOOD
 
 ## Enable night shifts ##
-#ENABLE_NIGHT_SHIFTS
+ENABLE_NIGHT_SHIFTS
 
 ## Enable randomized shift start times##
-#RANDOMIZE_SHIFT_TIME
+RANDOMIZE_SHIFT_TIME
 
 ## Sets shift time to server time at roundstart. Overridden by RANDOMIZE_SHIFT_TIME ##
 #SHIFT_TIME_REALTIME
-
-## Maximum fine for a citation
-MAXFINE 2000
-
-## Enable the capitalist agenda on your server.
-ECONOMY
 
 ## Crew objectives
 ALLOW_CREW_OBJECTIVES
 
 ## Mob spam prevention. The number of each mobtype that can be alive at once. Stops people from crashing the server with chickens/monkeycubes/slimes. Altering these values is recommended based on server hardware.
-MAX_CUBE_MONKEYS 150
+MAX_CUBE_MONKEYS 100
 MAX_CHICKENS 100
 MAX_SLIMES 100
 
 ## Max amount of bodies allowed to slimepeople. Has balance considerations as well as technical ones.
 MAX_SLIMEPERSON_BODIES 10
 
-
 ## Uncomment to restrict suiciding. Adds an additional confirmation dialogue, additional logging, and prevents suicide within the first 15 minutes of the round.
-#RESTRICTED_SUICIDE
+RESTRICTED_SUICIDE
 
+## Uncomment to enable donator items in the cosmetic shop. Only works if a patreon list has been setup
+DONATOR_ITEMS
 
-## Bluespace Miners.
+## Do we want all the heads to get codes to spare safe, or just one highest in CoC?
+SPARE_ENFORCE_COC
 
-## Amount of miner boards in the RD's locker at roundstart.
-ROUNDSTART_BLUESPACE_MINERS 2
-
-## Enable the bluespace miner research node?
-#BSMINER_RESEARCHABLE
+## Uncoment to disable local bans, effectively enforcing only global bans
+DISABLE_LOCAL_BANS

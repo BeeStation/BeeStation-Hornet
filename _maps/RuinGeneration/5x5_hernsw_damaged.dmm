@@ -1,0 +1,75 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"f" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"u" = (
+/turf/open/space/basic,
+/area/ruin/unpowered)
+"x" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"z" = (
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"C" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"D" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"E" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"L" = (
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/ruin/unpowered)
+"Q" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+E
+E
+D
+E
+E
+"}
+(2,1,1) = {"
+E
+z
+L
+z
+E
+"}
+(3,1,1) = {"
+f
+L
+u
+L
+x
+"}
+(4,1,1) = {"
+E
+z
+z
+C
+E
+"}
+(5,1,1) = {"
+E
+C
+Q
+C
+E
+"}

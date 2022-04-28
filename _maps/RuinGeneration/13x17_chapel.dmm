@@ -1,0 +1,592 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ax" = (
+/obj/structure/sign/departments/holy{
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"bB" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"cy" = (
+/obj/structure/door_assembly/door_assembly_cult/unruned,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"cU" = (
+/obj/effect/mapping_helpers/dead_body_placer,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"fw" = (
+/obj/structure/chair/pew{
+	dir = 1
+	},
+/turf/open/floor/plasteel/chapel,
+/area/ruin/unpowered)
+"fx" = (
+/obj/structure/chair/pew/right{
+	dir = 1
+	},
+/turf/open/floor/plasteel/chapel{
+	dir = 9
+	},
+/area/ruin/unpowered)
+"gk" = (
+/obj/structure/chair/pew/right{
+	dir = 1
+	},
+/turf/open/floor/plasteel/chapel{
+	dir = 10
+	},
+/area/ruin/unpowered)
+"gn" = (
+/obj/item/kirbyplants/random,
+/turf/open/floor/carpet/royalblack,
+/area/ruin/unpowered)
+"hf" = (
+/turf/open/floor/plasteel/chapel{
+	dir = 6
+	},
+/area/ruin/unpowered)
+"il" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"iE" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"iR" = (
+/obj/structure/window/spawner/east,
+/obj/structure/flora/rock/pile,
+/turf/open/floor/grass/fakebasalt,
+/area/ruin/unpowered)
+"kh" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 6
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"kY" = (
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"lV" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp{
+	pixel_y = 10
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"nn" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/item/storage/crayons,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"oM" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"pp" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"qg" = (
+/obj/structure/chair/pew{
+	dir = 1
+	},
+/turf/open/floor/plasteel/chapel{
+	dir = 1
+	},
+/area/ruin/unpowered)
+"qz" = (
+/turf/open/floor/plasteel/chapel,
+/area/ruin/unpowered)
+"qE" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"qO" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"qZ" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"rh" = (
+/obj/structure/table/wood,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"rj" = (
+/obj/structure/sacrificealtar,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"rS" = (
+/obj/machinery/door/airlock/hatch,
+/obj/effect/decal/cleanable/blood/footprints,
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"rW" = (
+/obj/structure/chair/pew{
+	dir = 1
+	},
+/turf/open/floor/plasteel/chapel{
+	dir = 8
+	},
+/area/ruin/unpowered)
+"sk" = (
+/obj/structure/window/spawner/east,
+/obj/structure/flora/rock,
+/turf/open/floor/grass/fakebasalt,
+/area/ruin/unpowered)
+"sI" = (
+/turf/open/floor/plasteel/chapel{
+	dir = 4
+	},
+/area/ruin/unpowered)
+"tQ" = (
+/turf/open/floor/carpet/royalblack,
+/area/ruin/unpowered)
+"us" = (
+/obj/structure/bodycontainer/morgue,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"vs" = (
+/obj/structure/window/spawner/west,
+/obj/item/toy/plush/bubbleplush,
+/turf/open/floor/grass/fakebasalt,
+/area/ruin/unpowered)
+"xP" = (
+/obj/item/stock_parts/cell/potato,
+/obj/item/bot_assembly/secbot,
+/obj/item/melee/baton,
+/obj/effect/decal/cleanable/oil/slippery,
+/turf/open/floor/plasteel/chapel{
+	dir = 9
+	},
+/area/ruin/unpowered)
+"yP" = (
+/obj/item/cult_shift,
+/turf/open/floor/plasteel/cult,
+/area/ruin/unpowered)
+"zh" = (
+/turf/closed/wall/mineral/cult,
+/area/ruin/unpowered)
+"CU" = (
+/obj/structure/window/spawner/west,
+/obj/structure/flora/rock/pile,
+/turf/open/floor/grass/fakebasalt,
+/area/ruin/unpowered)
+"Dy" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"EP" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Fb" = (
+/obj/item/toy/figure/miner,
+/turf/open/floor/grass/fakebasalt,
+/area/ruin/unpowered)
+"Gz" = (
+/obj/structure/chair/pew/left{
+	dir = 1
+	},
+/turf/open/floor/plasteel/chapel{
+	dir = 5
+	},
+/area/ruin/unpowered)
+"GC" = (
+/turf/open/floor/plasteel/chapel{
+	dir = 9
+	},
+/area/ruin/unpowered)
+"JU" = (
+/obj/structure/table/wood,
+/turf/open/floor/plasteel/cult,
+/area/ruin/unpowered)
+"Kd" = (
+/obj/structure/frame/machine,
+/obj/item/stack/cable_coil/random/five,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"Lc" = (
+/turf/open/floor/plasteel/chapel{
+	dir = 1
+	},
+/area/ruin/unpowered)
+"LT" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Chapel"
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Ma" = (
+/turf/open/floor/plasteel/cult,
+/area/ruin/unpowered)
+"MF" = (
+/turf/open/floor/plasteel/chapel{
+	dir = 8
+	},
+/area/ruin/unpowered)
+"Ni" = (
+/obj/structure/chair/pew/right{
+	dir = 1
+	},
+/turf/open/floor/plasteel/chapel,
+/area/ruin/unpowered)
+"Os" = (
+/obj/structure/flora/rock,
+/turf/open/floor/grass/fakebasalt,
+/area/ruin/unpowered)
+"Ou" = (
+/obj/structure/dresser,
+/turf/open/floor/plasteel/cult,
+/area/ruin/unpowered)
+"PI" = (
+/obj/effect/decal/cleanable/blood/footprints,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 9
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"Ry" = (
+/obj/structure/chair/pew{
+	dir = 1
+	},
+/turf/open/floor/plasteel/chapel{
+	dir = 4
+	},
+/area/ruin/unpowered)
+"TA" = (
+/obj/structure/chair/pew/left{
+	dir = 1
+	},
+/turf/open/floor/plasteel/chapel{
+	dir = 8
+	},
+/area/ruin/unpowered)
+"TD" = (
+/obj/structure/chair/pew/left{
+	dir = 1
+	},
+/turf/open/floor/plasteel/chapel{
+	dir = 6
+	},
+/area/ruin/unpowered)
+"UA" = (
+/obj/structure/chair/pew/right{
+	dir = 1
+	},
+/turf/open/floor/plasteel/chapel{
+	dir = 4
+	},
+/area/ruin/unpowered)
+"VV" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"Xv" = (
+/obj/structure/flora/rock/pile,
+/turf/open/floor/grass/fakebasalt,
+/area/ruin/unpowered)
+"Yh" = (
+/obj/structure/chair/pew/left{
+	dir = 1
+	},
+/turf/open/floor/plasteel/chapel{
+	dir = 1
+	},
+/area/ruin/unpowered)
+"Yi" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lantern{
+	pixel_y = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"Yv" = (
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"YA" = (
+/obj/effect/abstract/open_area_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"YV" = (
+/turf/open/floor/plasteel/chapel{
+	dir = 10
+	},
+/area/ruin/unpowered)
+"Zy" = (
+/turf/open/floor/plasteel/chapel{
+	dir = 5
+	},
+/area/ruin/unpowered)
+"ZU" = (
+/obj/item/bedsheet/cult,
+/obj/structure/bed,
+/turf/open/floor/plasteel/cult,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+VV
+zh
+zh
+VV
+VV
+zh
+VV
+zh
+VV
+VV
+iE
+VV
+VV
+qE
+oM
+qE
+VV
+"}
+(2,1,1) = {"
+zh
+lV
+rh
+nn
+VV
+Dy
+Lc
+MF
+GC
+YV
+tQ
+gn
+bB
+qE
+qE
+qE
+VV
+"}
+(3,1,1) = {"
+VV
+JU
+il
+Yv
+cy
+Yv
+sI
+qz
+Gz
+TD
+tQ
+tQ
+bB
+qE
+qE
+qE
+EP
+"}
+(4,1,1) = {"
+zh
+Ma
+Ma
+yP
+VV
+Yv
+xP
+YV
+qg
+rW
+tQ
+tQ
+bB
+qE
+qE
+qE
+VV
+"}
+(5,1,1) = {"
+VV
+JU
+ZU
+Ou
+zh
+Yv
+Zy
+hf
+UA
+Ni
+tQ
+tQ
+VV
+qE
+qE
+qE
+VV
+"}
+(6,1,1) = {"
+VV
+vs
+CU
+CU
+VV
+Yv
+Yi
+Yv
+Yv
+Yv
+tQ
+tQ
+LT
+qE
+qE
+qE
+qE
+"}
+(7,1,1) = {"
+VV
+Xv
+Fb
+Os
+VV
+Yv
+rj
+qE
+qE
+Yv
+tQ
+tQ
+bB
+qE
+qE
+qE
+YA
+"}
+(8,1,1) = {"
+VV
+sk
+iR
+iR
+VV
+Yv
+Yi
+Yv
+Yv
+Yv
+tQ
+tQ
+LT
+qE
+qE
+qE
+qE
+"}
+(9,1,1) = {"
+VV
+us
+us
+us
+VV
+Yv
+GC
+YV
+Yh
+TA
+tQ
+tQ
+VV
+ax
+qE
+qE
+VV
+"}
+(10,1,1) = {"
+VV
+Yv
+cU
+Yv
+VV
+Yv
+Zy
+hf
+Ry
+fw
+tQ
+tQ
+bB
+qE
+qE
+qE
+VV
+"}
+(11,1,1) = {"
+VV
+Yv
+kY
+PI
+rS
+pp
+Lc
+MF
+fx
+gk
+tQ
+tQ
+bB
+qE
+qE
+qE
+EP
+"}
+(12,1,1) = {"
+VV
+Kd
+pp
+kh
+VV
+Yv
+sI
+qz
+Zy
+hf
+tQ
+gn
+bB
+qE
+qE
+qE
+VV
+"}
+(13,1,1) = {"
+VV
+VV
+VV
+VV
+VV
+VV
+VV
+VV
+VV
+VV
+qZ
+VV
+VV
+qE
+qO
+qE
+VV
+"}

@@ -118,6 +118,8 @@
 	RegisterSignal(owner, signalCache, .proc/on_signal)
 
 /obj/item/organ/cyberimp/brain/anti_stun/proc/on_signal(datum/source, amount)
+	SIGNAL_HANDLER
+
 	if(!(organ_flags & ORGAN_FAILING) && amount > 0)
 		addtimer(CALLBACK(src, .proc/clear_stuns), stun_cap_amount, TIMER_UNIQUE|TIMER_OVERRIDE)
 
@@ -137,6 +139,50 @@
 
 /obj/item/organ/cyberimp/brain/anti_stun/proc/reboot()
 	organ_flags &= ~ORGAN_FAILING
+
+/obj/item/organ/cyberimp/brain/anti_stun/syndicate
+	syndicate_implant = TRUE
+
+
+/obj/item/organ/cyberimp/brain/linkedsurgery
+	name = "surgical serverlink brain implant"
+	desc = "A brain implant with a bluespace technology that lets you perform an advanced surgery through your station research server."
+	slot = ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT
+	actions_types = list(/datum/action/item_action/update_linkedsurgery)
+	var/list/advanced_surgeries = list()
+	var/static/datum/techweb/linked_techweb
+	var/number_of_surgeries
+
+/obj/item/organ/cyberimp/brain/linkedsurgery/Initialize()
+	. = ..()
+	if(isnull(linked_techweb))
+		linked_techweb = SSresearch.science_tech
+	number_of_surgeries = 0
+
+/obj/item/organ/cyberimp/brain/linkedsurgery/proc/update_surgery()
+	advanced_surgeries.Cut()
+	for(var/i in linked_techweb.researched_designs)
+		var/datum/design/surgery/D = SSresearch.techweb_design_by_id(i)
+		if(!istype(D))
+			continue
+		advanced_surgeries += D.surgery
+
+/obj/item/organ/cyberimp/brain/linkedsurgery/proc/check_surgery_update()
+	if(number_of_surgeries<length(advanced_surgeries))
+		to_chat(usr, "<span class='notice'>Surgical Implant updated.</span>")
+		number_of_surgeries = length(advanced_surgeries)
+	else
+		to_chat(usr, "<span class='notice'>None of new surgical programs detected.</span>")
+
+/datum/action/item_action/update_linkedsurgery
+	name = "Update Surgical Implant"
+
+/datum/action/item_action/update_linkedsurgery/Trigger()
+	if(istype(target, /obj/item/organ/cyberimp/brain/linkedsurgery))
+		var/obj/item/organ/cyberimp/brain/linkedsurgery/I = target
+		I.update_surgery()
+		I.check_surgery_update()
+	return ..()
 
 //[[[[MOUTH]]]]
 /obj/item/organ/cyberimp/mouth

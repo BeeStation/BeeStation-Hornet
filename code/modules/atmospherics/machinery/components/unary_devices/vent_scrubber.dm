@@ -2,7 +2,7 @@
 #define SCRUBBING	1
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber
-	icon_state = "scrub_map-2"
+	icon_state = "scrub_map-3"
 
 	name = "air scrubber"
 	desc = "Has a valve and pump attached to it."
@@ -13,11 +13,14 @@
 	welded = FALSE
 	level = 1
 	layer = GAS_SCRUBBER_LAYER
+	shift_underlay_only = FALSE
+
+	interacts_with_air = TRUE
 
 	var/id_tag = null
 	var/scrubbing = SCRUBBING //0 = siphoning, 1 = scrubbing
 
-	var/filter_types = list(/datum/gas/carbon_dioxide, /datum/gas/bz)
+	var/filter_types = list(GAS_CO2, GAS_BZ)
 	var/volume_rate = 200
 	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
 	var/list/turf/adjacent_turfs = list()
@@ -33,11 +36,6 @@
 	..()
 	if(!id_tag)
 		id_tag = assign_uid_vents()
-
-	for(var/f in filter_types)
-		if(istext(f))
-			filter_types -= f
-			filter_types += gas_id2path(f)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/Destroy()
 	var/area/A = get_area(src)
@@ -69,8 +67,10 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/update_icon_nopipes()
 	cut_overlays()
 	if(showpipe)
-		var/image/cap = getpipeimage(icon, "scrub_cap", initialize_directions, piping_layer = piping_layer)
+		var/image/cap = getpipeimage(icon, "scrub_cap", initialize_directions)
 		add_overlay(cap)
+	else
+		PIPING_LAYER_SHIFT(src, PIPING_LAYER_DEFAULT)
 
 	if(welded)
 		icon_state = "scrub_welded"
@@ -98,9 +98,8 @@
 		return FALSE
 
 	var/list/f_types = list()
-	for(var/path in GLOB.meta_gas_info)
-		var/list/gas = GLOB.meta_gas_info[path]
-		f_types += list(list("gas_id" = gas[META_GAS_ID], "gas_name" = gas[META_GAS_NAME], "enabled" = (path in filter_types)))
+	for(var/id in GLOB.gas_data.ids)
+		f_types += list(list("gas_id" = id, "gas_name" = GLOB.gas_data.names[id], "enabled" = (id in filter_types)))
 
 	var/datum/signal/signal = new(list(
 		"tag" = id_tag,
@@ -152,32 +151,15 @@
 	var/datum/gas_mixture/environment = tile.return_air()
 	var/datum/gas_mixture/air_contents = airs[1]
 
-	if(air_contents.return_pressure() >= 50*ONE_ATMOSPHERE)
+	if(air_contents.return_pressure() >= 50 * ONE_ATMOSPHERE || !islist(filter_types))
 		return FALSE
 
 	if(scrubbing & SCRUBBING)
-		var/transfer_moles = min(1, volume_rate/environment.return_volume())*environment.total_moles()
-
-		//Take a gas sample
-		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
-
-		//Nothing left to remove from the tile
-		if(isnull(removed))
-			return FALSE
-
-		removed.scrub_into(air_contents, filter_types)
-
-		//Remix the resulting gases
-		tile.assume_air(removed)
+		environment.scrub_into(air_contents, volume_rate/environment.return_volume(), filter_types)
 		tile.air_update_turf()
 
 	else //Just siphoning all air
-
-		var/transfer_moles = environment.total_moles()*(volume_rate/environment.return_volume())
-
-		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
-
-		air_contents.merge(removed)
+		environment.transfer_ratio_to(air_contents, volume_rate/environment.return_volume())
 		tile.air_update_turf()
 
 	update_parents()
@@ -224,12 +206,12 @@
 		investigate_log(" was toggled to [scrubbing ? "scrubbing" : "siphon"] mode by [key_name(signal_sender)]",INVESTIGATE_ATMOS)
 
 	if("toggle_filter" in signal.data)
-		filter_types ^= gas_id2path(signal.data["toggle_filter"])
+		filter_types ^= signal.data["toggle_filter"]
 
 	if("set_filters" in signal.data)
 		filter_types = list()
 		for(var/gas in signal.data["set_filters"])
-			filter_types += gas_id2path(gas)
+			filter_types += gas
 
 	if("init" in signal.data)
 		name = signal.data["init"]
@@ -288,31 +270,31 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, 1)
 
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/layer1
-	piping_layer = 1
-	icon_state = "scrub_map-1"
+/obj/machinery/atmospherics/components/unary/vent_scrubber/layer2
+	piping_layer = 2
+	icon_state = "scrub_map-2"
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/layer3
-	piping_layer = 3
-	icon_state = "scrub_map-3"
+/obj/machinery/atmospherics/components/unary/vent_scrubber/layer4
+	piping_layer = 4
+	icon_state = "scrub_map-4"
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on
 	on = TRUE
-	icon_state = "scrub_map_on-2"
-
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer1
-	piping_layer = 1
-	icon_state = "scrub_map_on-1"
-
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3
-	piping_layer = 3
 	icon_state = "scrub_map_on-3"
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/lavaland
-	filter_types = list(/datum/gas/carbon_dioxide, /datum/gas/plasma, /datum/gas/water_vapor, /datum/gas/bz)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2
+	piping_layer = 2
+	icon_state = "scrub_map_on-2"
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland
-	filter_types = list(/datum/gas/carbon_dioxide, /datum/gas/plasma, /datum/gas/water_vapor, /datum/gas/bz)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4
+	piping_layer = 4
+	icon_state = "scrub_map_on-4"
+
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/lavaland
+	filter_types = list(GAS_CO2, GAS_PLASMA, GAS_H2O, GAS_BZ)
+
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland
+	filter_types = list(GAS_CO2, GAS_PLASMA, GAS_H2O, GAS_BZ)
 
 #undef SIPHONING
 #undef SCRUBBING

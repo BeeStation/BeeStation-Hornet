@@ -48,7 +48,6 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "j" = (
-/obj/effect/landmark/start/randommaint/hobo,
 /obj/structure/bed/dogbed,
 /obj/item/bedsheet/random,
 /turf/open/floor/plating,

@@ -3,6 +3,7 @@
 	desc = "A katana infused with strong energy."
 	icon_state = "energy_katana"
 	item_state = "energy_katana"
+	worn_icon_state = "energy_katana"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	force = 40
@@ -18,12 +19,12 @@
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 	sharpness = IS_SHARP
 	max_integrity = 200
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/datum/effect_system/spark_spread/spark_system
 	var/datum/action/innate/dash/ninja/jaunt
 	var/dash_toggled = TRUE
 
-/obj/item/energy_katana/Initialize()
+/obj/item/energy_katana/Initialize(mapload)
 	. = ..()
 	jaunt = new(src)
 	spark_system = new /datum/effect_system/spark_spread()
@@ -45,13 +46,13 @@
 		target.emag_act(user)
 
 /obj/item/energy_katana/pickup(mob/living/user)
-	. = ..()
+	..()
 	jaunt.Grant(user, src)
 	user.update_icons()
 	playsound(src, 'sound/items/unsheath.ogg', 25, 1)
 
 /obj/item/energy_katana/dropped(mob/user)
-	. = ..()
+	..()
 	jaunt.Remove(user)
 	user.update_icons()
 
@@ -82,7 +83,7 @@
 
 	if(user.put_in_hands(src))
 		msg = "Your Energy Katana teleports into your hand!"
-	else if(user.equip_to_slot_if_possible(src, SLOT_BELT, 0, 1, 1))
+	else if(user.equip_to_slot_if_possible(src, ITEM_SLOT_BELT, 0, 1, 1))
 		msg = "Your Energy Katana teleports back to you, sheathing itself as it does so!</span>"
 	else
 		msg = "Your Energy Katana teleports to your location!"

@@ -233,8 +233,7 @@
 	if(holder && holder.my_atom)
 		var/turf/open/T = get_turf(holder.my_atom)
 		if(istype(T))
-			var/datum/gas/gastype = /datum/gas/nitrogen
-			T.atmos_spawn_air("[initial(gastype.id)]=50;TEMP=2.7")
+			T.atmos_spawn_air("n2=50;TEMP=2.7")
 
 /datum/chemical_reaction/slime/slimefireproof
 	name = "Slime Fireproof"
@@ -297,7 +296,7 @@
 	required_other = TRUE
 
 /datum/chemical_reaction/slime/slimeoverload/on_reaction(datum/reagents/holder, created_volume)
-	empulse(get_turf(holder.my_atom), 3, 7)
+	empulse(get_turf(holder.my_atom), 3, 7, magic=TRUE)
 	..()
 
 /datum/chemical_reaction/slime/slimecell
@@ -456,7 +455,7 @@
 
 /datum/chemical_reaction/slime/slimeexplosion/proc/boom(datum/reagents/holder)
 	if(holder?.my_atom)
-		explosion(get_turf(holder.my_atom), 1 ,3, 6)
+		explosion(get_turf(holder.my_atom), 0, 2, 3)
 
 
 /datum/chemical_reaction/slime/slimecornoil
@@ -580,7 +579,7 @@
 	if(istype(extract))
 		if(extract.Uses > 0)
 			var/mob/lastheld = get_mob_by_ckey(holder.my_atom.fingerprintslast)
-			if(lastheld && !lastheld.equip_to_slot_if_possible(extract, SLOT_HANDS, disable_warning = TRUE))
+			if(lastheld && !lastheld.equip_to_slot_if_possible(extract, ITEM_SLOT_HANDS, disable_warning = TRUE))
 				extract.forceMove(get_turf(lastheld))
 
 	use_slime_core(holder)

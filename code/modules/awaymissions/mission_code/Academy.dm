@@ -69,9 +69,9 @@
 /obj/singularity/academy/admin_investigate_setup()
 	return
 
-/obj/singularity/academy/process()
+/obj/singularity/academy/process(delta_time)
 	eat()
-	if(prob(1))
+	if(DT_PROB(0.5, delta_time))
 		mezzer()
 
 
@@ -107,7 +107,7 @@
 	if(next_check < world.time)
 		if(!current_wizard)
 			for(var/mob/living/L in GLOB.player_list)
-				if(L.z == src.z && L.stat != DEAD && !(faction in L.faction))
+				if(L.get_virtual_z_level() == src.get_virtual_z_level() && L.stat != DEAD && !(faction in L.faction))
 					summon_wizard()
 					break
 		else
@@ -132,8 +132,10 @@
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Wizard Academy Defender")
-		current_wizard.ghostize() // on the off chance braindead defender gets back in
+		current_wizard.ghostize(FALSE) // on the off chance braindead defender gets back in
 		current_wizard.key = C.key
+	else
+		current_wizard.ghostize(FALSE,SENTIENCE_FORCE)
 
 /obj/structure/academy_wizard_spawner/proc/summon_wizard()
 	var/turf/T = src.loc
@@ -222,7 +224,7 @@
 		if(1)
 			//Dust
 			T.visible_message("<span class='userdanger'>[user] turns to dust!</span>")
-			user.hellbound = TRUE
+			user.sethellbound()
 			user.dust()
 		if(2)
 			//Death
@@ -259,7 +261,7 @@
 		if(8)
 			//Fueltank Explosion
 			T.visible_message("<span class='userdanger'>An explosion bursts into existence around [user]!</span>")
-			explosion(get_turf(user),-1,0,2, flame_range = 2)
+			explosion(get_turf(user),-1,0,2, flame_range = 2, magic = TRUE)
 		if(9)
 			//Cold
 			var/datum/disease/D = new /datum/disease/cold()
@@ -326,7 +328,7 @@
 		if(17)
 			//Tator Kit
 			T.visible_message("<span class='userdanger'>A suspicious box appears!</span>")
-			new /obj/item/storage/box/syndicate/bundle_A(drop_location())
+			new /obj/item/storage/box/syndie_kit/bundle_A(drop_location())
 			do_smoke(0, drop_location())
 		if(18)
 			//Captain ID

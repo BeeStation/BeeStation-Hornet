@@ -46,6 +46,8 @@
 		materials[M] = 0
 
 /datum/component/material_container/proc/OnExamine(datum/source, mob/user)
+	SIGNAL_HANDLER
+
 	if(show_on_examine)
 		for(var/I in materials)
 			var/datum/material/M = I
@@ -55,6 +57,8 @@
 
 /// Proc that allows players to fill the parent with mats
 /datum/component/material_container/proc/OnAttackBy(datum/source, obj/item/I, mob/living/user)
+	SIGNAL_HANDLER
+
 	var/list/tc = allowed_typecache
 	if(disable_attackby)
 		return
@@ -104,6 +108,7 @@
 				I.forceMove(user.drop_location())
 		else
 			to_chat(user, "<span class='notice'>You insert a material total of [inserted] into [parent].</span>")
+			SEND_SIGNAL(I, COMSIG_OBJ_DECONSTRUCT) //Help prevent using material ingestors to void storage items.
 			qdel(I)
 		if(after_insert)
 			after_insert.Invoke(I.type, last_inserted_id, inserted)
@@ -112,7 +117,7 @@
 
 /// Proc specifically for inserting items, returns the amount of materials entered.
 /datum/component/material_container/proc/insert_item(obj/item/I, var/multiplier = 1, stack_amt)
-	if(!I)
+	if(QDELETED(I))
 		return FALSE
 	if(istype(I, /obj/item/stack))
 		return insert_stack(I, stack_amt, multiplier)
@@ -134,6 +139,8 @@
 		total_amount += I.materials[MAT] * multiplier
 		if(I.materials[MAT] > max_mat_value)
 			primary_mat = MAT
+	if(primary_mat)
+		SEND_SIGNAL(parent, COMSIG_MATERIAL_CONTAINER_CHANGED)
 	return primary_mat
 
 /// Proc for putting a stack inside of the container
@@ -171,6 +178,7 @@
 			for(var/i in materials)
 				materials[i] += amt
 				total_amount += amt
+		SEND_SIGNAL(parent, COMSIG_MATERIAL_CONTAINER_CHANGED)
 		return (total_amount - total_amount_saved)
 	return FALSE
 
@@ -183,6 +191,7 @@
 		if(amount >= amt)
 			materials[mat] -= amt
 			total_amount -= amt
+			SEND_SIGNAL(parent, COMSIG_MATERIAL_CONTAINER_CHANGED)
 			return amt
 	return FALSE
 
@@ -198,6 +207,7 @@
 	if(tr)
 		use_amount_mat(tr, mat)
 		T.insert_amount_mat(tr, mat)
+		SEND_SIGNAL(parent, COMSIG_MATERIAL_CONTAINER_CHANGED)
 		return tr
 	return FALSE
 
@@ -349,4 +359,21 @@
 /datum/component/material_container/proc/get_material_amount(var/datum/material/mat)
 	if(!istype(mat))
 		mat = getmaterialref(mat)
-	return(materials[mat])
+	return materials[mat]
+
+/// List format is list(material_name = list(amount = ..., ref = ..., etc.))
+/datum/component/material_container/ui_data(mob/user)
+	var/list/data = list()
+
+	for(var/datum/material/material as anything in materials)
+		var/amount = materials[material]
+
+		data += list(list(
+			"name" = material.name,
+			"ref" = REF(material),
+			"amount" = amount,
+			"sheets" = round(amount / MINERAL_MATERIAL_AMOUNT),
+			"removable" = amount >= MINERAL_MATERIAL_AMOUNT,
+		))
+
+	return data

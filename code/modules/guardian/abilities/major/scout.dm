@@ -17,6 +17,7 @@
 		guardian.alpha = 45
 		guardian.range = 255
 		guardian.do_the_cool_invisible_thing = FALSE
+		guardian.can_use_abilities = FALSE
 	else
 		guardian.ranged = initial(guardian.ranged)
 		guardian.melee_damage = initial(guardian.melee_damage)
@@ -26,6 +27,7 @@
 		guardian.range = initial(guardian.range)
 		guardian.do_the_cool_invisible_thing = initial(guardian.do_the_cool_invisible_thing)
 		guardian.stats.Apply(guardian)
+		guardian.can_use_abilities = initial(guardian.can_use_abilities)
 
 /datum/guardian_ability/major/scout/Manifest()
 	if(mode)

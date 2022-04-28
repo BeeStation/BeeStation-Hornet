@@ -119,8 +119,8 @@
 	user.dropItemToGround(user.head)
 	user.dropItemToGround(user.wear_suit)
 
-	user.equip_to_slot_if_possible(new suit_type(user), SLOT_WEAR_SUIT, 1, 1, 1)
-	user.equip_to_slot_if_possible(new helmet_type(user), SLOT_HEAD, 1, 1, 1)
+	user.equip_to_slot_if_possible(new suit_type(user), ITEM_SLOT_OCLOTHING, 1, 1, 1)
+	user.equip_to_slot_if_possible(new helmet_type(user), ITEM_SLOT_HEAD, 1, 1, 1)
 
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	changeling.chem_recharge_slowdown += recharge_slowdown
@@ -156,9 +156,6 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
-	block_power = 20
-	block_level = 1
-	block_upgrade_walk = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
@@ -250,6 +247,7 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
+	requires_wielding = FALSE
 
 /obj/item/gun/magic/tentacle/Initialize(mapload, silent)
 	. = ..()
@@ -283,7 +281,7 @@
 	firing_effect_type = null
 	var/obj/item/gun/magic/tentacle/gun //the item that shot it
 
-/obj/item/ammo_casing/magic/tentacle/Initialize()
+/obj/item/ammo_casing/magic/tentacle/Initialize(mapload)
 	gun = loc
 	. = ..()
 
@@ -302,7 +300,7 @@
 	var/chain
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 
-/obj/item/projectile/tentacle/Initialize()
+/obj/item/projectile/tentacle/Initialize(mapload)
 	source = loc
 	. = ..()
 
@@ -423,18 +421,19 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/oxygen)
 	armor = list("melee" = 35, "bullet" = 25, "laser" = 25,"energy" = 30, "bomb" = 30, "bio" = 20, "rad" = 20, "fire" = 90, "acid" = 90, "stamina" = 10)//Bit less armoured than the Syndicate space suit
 	slowdown = 0.2
+	var/datum/reagent/salbutamol = /datum/reagent/medicine/salbutamol
 
-/obj/item/clothing/suit/space/changeling/Initialize()
+/obj/item/clothing/suit/space/changeling/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!</span>", "<span class='warning'>We inflate our flesh, creating a spaceproof suit!</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
 	START_PROCESSING(SSobj, src)
 
-/obj/item/clothing/suit/space/changeling/process()
+/obj/item/clothing/suit/space/changeling/process(delta_time)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.reagents.add_reagent(/datum/reagent/medicine/salbutamol, REAGENTS_METABOLISM)
+		H.reagents.add_reagent(salbutamol, initial(salbutamol.metabolization_rate) * (delta_time / SSMOBS_DT))
 
 /obj/item/clothing/head/helmet/space/changeling
 	name = "flesh mass"
@@ -445,7 +444,7 @@
 	armor = list("melee" = 35, "bullet" = 25, "laser" = 25,"energy" = 30, "bomb" = 30, "bio" = 20, "rad" = 20, "fire" = 90, "acid" = 90, "stamina" = 10)
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
-/obj/item/clothing/head/helmet/space/changeling/Initialize()
+/obj/item/clothing/head/helmet/space/changeling/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 
@@ -474,14 +473,14 @@
 	icon_state = "lingarmor"
 	item_flags = DROPDEL
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor = list("melee" = 25, "bullet" = 25, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 25, "acid" = 25, "stamina" = 30)
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 50, "energy" = 50, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 25, "acid" = 25, "stamina" = 30)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
 	blocks_shove_knockdown = TRUE
 	slowdown = 0.2
 
-/obj/item/clothing/suit/armor/changeling/Initialize()
+/obj/item/clothing/suit/armor/changeling/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	if(ismob(loc))
@@ -492,9 +491,9 @@
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
 	item_flags = DROPDEL
-	armor = list("melee" = 25, "bullet" = 25, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 25, "acid" = 25, "stamina" = 30)
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 50, "energy" = 50, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 25, "acid" = 25, "stamina" = 30)
 	flags_inv = HIDEEARS|HIDEHAIR|HIDEEYES|HIDEFACIALHAIR|HIDEFACE
 
-/obj/item/clothing/head/helmet/changeling/Initialize()
+/obj/item/clothing/head/helmet/changeling/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)

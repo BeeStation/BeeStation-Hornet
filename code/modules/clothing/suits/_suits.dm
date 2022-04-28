@@ -16,7 +16,7 @@
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo
 
 
-/obj/item/clothing/suit/worn_overlays(isinhands = FALSE)
+/obj/item/clothing/suit/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
 	. = list()
 	if(!isinhands)
 		if(damaged_clothes)
@@ -38,11 +38,13 @@
 		M.update_inv_wear_suit()
 
 /obj/item/clothing/suit/proc/on_mob_move()
+	SIGNAL_HANDLER
+
 	var/mob/living/carbon/human/H = loc
 	if(!istype(H) || H.wear_suit != src)
 		return
 	if(world.time > footstep)
-		playsound(src, pick(move_sound), 100, 1)
+		playsound(src, pick(move_sound), 65, 1)
 		footstep = world.time + FOOTSTEP_COOLDOWN
 
 /obj/item/clothing/suit/equipped(mob/user, slot)
@@ -51,9 +53,10 @@
 	if(!islist(move_sound))
 		return
 	//Check if we were taken off.
-	if(slot != SLOT_WEAR_SUIT)
+	if(slot != ITEM_SLOT_OCLOTHING)
 		if(listeningTo)
 			UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
+			listeningTo = null
 		return
 	if(listeningTo == user)
 		return
@@ -65,10 +68,11 @@
 	listeningTo = user
 
 /obj/item/clothing/suit/dropped(mob/user)
-	. = ..()
+	..()
 	//Remove our listener
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
+		listeningTo = null
 
 /obj/item/clothing/suit/Destroy()
 	listeningTo = null

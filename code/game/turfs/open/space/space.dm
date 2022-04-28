@@ -5,18 +5,20 @@
 	intact = 0
 
 	FASTDMM_PROP(\
-		pipe_astar_cost = 4\
+		pipe_astar_cost = 100\
 	)
 
-	temperature = TCMB
-	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
+	allow_z_travel = TRUE
+
+	initial_temperature = TCMB
+	thermal_conductivity = 0
 	heat_capacity = 700000
 
 	var/destination_z
 	var/destination_x
 	var/destination_y
 
-	var/static/datum/gas_mixture/immutable/space/space_gas = new
+	var/static/datum/gas_mixture/immutable/space/space_gas
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
@@ -29,10 +31,12 @@
 	//This is used to optimize the map loader
 	return
 
-/turf/open/space/Initialize()
+/turf/open/space/Initialize(mapload)
 	icon_state = SPACE_ICON_STATE
+	if(!space_gas)
+		space_gas = new
 	air = space_gas
-	update_air_ref()
+	update_air_ref(0)
 	vis_contents.Cut() //removes inherited overlays
 	visibilityChanged()
 
@@ -44,10 +48,7 @@
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
 		add_overlay(/obj/effect/fullbright)
 
-	if(requires_activation)
-		SSair.add_to_active(src)
-
-	if (light_power && light_range)
+	if (light_system == STATIC_LIGHT && light_power && light_range)
 		update_light()
 
 	if (opacity)
@@ -77,6 +78,13 @@
 
 /turf/open/space/Assimilate_Air()
 	return
+
+//IT SHOULD RETURN NULL YOU MONKEY, WHY IN TARNATION WHAT THE FUCKING FUCK
+/turf/open/space/remove_air(amount)
+	return null
+
+/turf/open/space/remove_air_ratio(amount)
+	return null
 
 /turf/open/space/proc/update_starlight()
 	if(CONFIG_GET(flag/starlight))
@@ -137,19 +145,19 @@
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place iron rods first.</span>")
 
-/turf/open/space/Entered(atom/movable/A)
-	..()
-	if ((!(A) || src != A.loc))
+/turf/open/space/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(!arrived || src != arrived.loc)
 		return
 
-	if(destination_z && destination_x && destination_y && !(A.pulledby || !A.can_be_z_moved))
+	if(destination_z && destination_x && destination_y && !(arrived.pulledby || !arrived.can_be_z_moved))
 		var/tx = destination_x
 		var/ty = destination_y
 		var/turf/DT = locate(tx, ty, destination_z)
 		var/itercount = 0
 		while(DT.density || istype(DT.loc,/area/shuttle)) // Extend towards the center of the map, trying to look for a better place to arrive
 			if (itercount++ >= 100)
-				log_game("SPACE Z-TRANSIT ERROR: Could not find a safe place to land [A] within 100 iterations.")
+				log_game("SPACE Z-TRANSIT ERROR: Could not find a safe place to land [arrived] within 100 iterations.")
 				break
 			if (tx < 128)
 				tx++
@@ -161,19 +169,19 @@
 				ty--
 			DT = locate(tx, ty, destination_z)
 
-		var/atom/movable/AM = A.pulling
-		A.forceMove(DT)
+		var/atom/movable/AM = arrived.pulling
+		arrived.forceMove(DT)
 		if(AM)
-			var/turf/T = get_step(A.loc,turn(A.dir, 180))
+			var/turf/T = get_step(arrived.loc,turn(arrived.dir, 180))
 			AM.can_be_z_moved = FALSE
 			AM.forceMove(T)
-			A.start_pulling(AM)
+			arrived.start_pulling(AM)
 			AM.can_be_z_moved = TRUE
 
 		//now we're on the new z_level, proceed the space drifting
 		stoplag()//Let a diagonal move finish, if necessary
-		A.newtonian_move(A.inertia_dir)
-		A.inertia_moving = TRUE
+		arrived.newtonian_move(arrived.inertia_dir)
+		arrived.inertia_moving = TRUE
 
 
 /turf/open/space/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
@@ -223,6 +231,9 @@
 			return TRUE
 	return FALSE
 
+/turf/open/space/rust_heretic_act()
+	return FALSE
+
 /turf/open/space/ReplaceWithLattice()
 	var/dest_x = destination_x
 	var/dest_y = destination_y
@@ -231,3 +242,10 @@
 	destination_x = dest_x
 	destination_y = dest_y
 	destination_z = dest_z
+
+//If someone is floating above space in 0 gravity, don't fall.
+/turf/open/space/zPassIn(atom/movable/A, direction, turf/source)
+	return A.has_gravity(src)
+
+/turf/open/space/check_gravity()
+	return FALSE

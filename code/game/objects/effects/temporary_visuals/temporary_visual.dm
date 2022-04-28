@@ -8,7 +8,7 @@
 	var/randomdir = TRUE
 	var/timerid
 
-/obj/effect/temp_visual/Initialize()
+/obj/effect/temp_visual/Initialize(mapload)
 	. = ..()
 	if(randomdir)
 		setDir(pick(GLOB.cardinals))

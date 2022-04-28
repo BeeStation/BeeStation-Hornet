@@ -1,5 +1,7 @@
 #define MC_TICK_CHECK ( ( TICK_USAGE > Master.current_ticklimit || src.state != SS_RUNNING ) ? pause() : 0 )
 
+#define MC_TICK_REMAINING_MS ((Master.current_ticklimit - TICK_USAGE) * world.tick_lag)
+
 #define MC_SPLIT_TICK_INIT(phase_count) var/original_tick_limit = Master.current_ticklimit; var/split_tick_phases = ##phase_count
 #define MC_SPLIT_TICK \
     if(split_tick_phases > 1){\
@@ -66,12 +68,22 @@
 /datum/controller/subsystem/##X/New(){\
     NEW_SS_GLOBAL(SS##X);\
     PreInit();\
+	ss_id=#X;\
 }\
 /datum/controller/subsystem/##X
+
+#define TIMER_SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/timer/##X);\
+/datum/controller/subsystem/timer/##X/New(){\
+	NEW_SS_GLOBAL(SS##X);\
+	PreInit();\
+	ss_id="timer_[#X]";\
+}\
+/datum/controller/subsystem/timer/##X
 
 #define PROCESSING_SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/processing/##X);\
 /datum/controller/subsystem/processing/##X/New(){\
     NEW_SS_GLOBAL(SS##X);\
     PreInit();\
+	ss_id="processing_[#X]";\
 }\
 /datum/controller/subsystem/processing/##X

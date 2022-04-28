@@ -58,9 +58,9 @@
 
 /obj/machinery/atmospherics/components/proc/get_pipe_underlay(state, dir, color = null)
 	if(color)
-		. = getpipeimage('icons/obj/atmospherics/components/binary_devices.dmi', state, dir, color, piping_layer = shift_underlay_only ? piping_layer : 2)
+		. = getpipeimage('icons/obj/atmospherics/components/binary_devices.dmi', state, dir, color, piping_layer = shift_underlay_only ? piping_layer : 3)
 	else
-		. = getpipeimage('icons/obj/atmospherics/components/binary_devices.dmi', state, dir, piping_layer = shift_underlay_only ? piping_layer : 2)
+		. = getpipeimage('icons/obj/atmospherics/components/binary_devices.dmi', state, dir, piping_layer = shift_underlay_only ? piping_layer : 3)
 
 // Pipenet stuff; housekeeping
 
@@ -140,14 +140,9 @@
 			times_lost++
 		var/shared_loss = lost/times_lost
 
-		var/datum/gas_mixture/to_release
 		for(var/i in 1 to device_type)
 			var/datum/gas_mixture/air = airs[i]
-			if(!to_release)
-				to_release = air.remove(shared_loss)
-				continue
-			to_release.merge(air.remove(shared_loss))
-		T.assume_air(to_release)
+			T.assume_air_moles(air, shared_loss)
 		air_update_turf(1)
 
 /obj/machinery/atmospherics/components/proc/safe_input(var/title, var/text, var/default_set)

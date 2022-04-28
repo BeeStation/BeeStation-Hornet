@@ -44,6 +44,7 @@
 	icon_state = "tea_astra_leaves"
 	filling_color = "#4582B4"
 	grind_results = list(/datum/reagent/toxin/teapowder = 0, /datum/reagent/medicine/salglu_solution = 0)
+	discovery_points = 300
 
 
 // Coffee
@@ -94,3 +95,4 @@
 	desc = "Increases robustness by 37 percent!"
 	icon_state = "coffee_robusta"
 	grind_results = list(/datum/reagent/toxin/coffeepowder = 0, /datum/reagent/medicine/morphine = 0)
+	discovery_points = 300

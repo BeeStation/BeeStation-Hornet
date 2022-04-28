@@ -12,7 +12,6 @@
 	flight_y_offset = 10
 	weapon_weight = WEAPON_MEDIUM
 	dual_wield_spread = 60
-	block_upgrade_walk = 1
 
 /obj/item/gun/energy/e_gun/mini
 	name = "miniature energy gun"
@@ -26,14 +25,9 @@
 	can_flashlight = FALSE // Can't attach or detach the flashlight, and override it's icon update
 	weapon_weight = WEAPON_LIGHT
 
-/obj/item/gun/energy/e_gun/mini/Initialize()
-	gun_light = new /obj/item/flashlight/seclite(src)
+/obj/item/gun/energy/e_gun/mini/Initialize(mapload)
+	set_gun_light(new /obj/item/flashlight/seclite(src))
 	return ..()
-
-/obj/item/gun/energy/e_gun/mini/update_icon()
-	..()
-	if(gun_light?.on)
-		add_overlay("mini-light")
 
 /obj/item/gun/energy/e_gun/stun
 	name = "tactical energy gun"
@@ -108,7 +102,7 @@
 	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell."
 	icon_state = "nucgun"
 	item_state = "nucgun"
-	charge_delay = 5
+	charge_delay = 10
 	pin = null
 	can_charge = FALSE
 	ammo_x_offset = 1
@@ -118,9 +112,9 @@
 	var/fail_tick = 0
 	var/fail_chance = 0
 
-/obj/item/gun/energy/e_gun/nuclear/process()
+/obj/item/gun/energy/e_gun/nuclear/process(delta_time)
 	if(fail_tick > 0)
-		fail_tick--
+		fail_tick -= delta_time * 0.5
 	..()
 
 /obj/item/gun/energy/e_gun/nuclear/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)

@@ -32,7 +32,7 @@ The console is located at computer/gulag_teleporter.dm
 		/obj/item/clothing/mask/breath,
 		/obj/item/clothing/mask/gas/old))	//makes more sense to give prisoners older models of masks
 
-/obj/machinery/gulag_teleporter/Initialize()
+/obj/machinery/gulag_teleporter/Initialize(mapload)
 	. = ..()
 	locate_reclaimer()
 
@@ -147,6 +147,8 @@ The console is located at computer/gulag_teleporter.dm
 					W.forceMove(linked_reclaimer)
 				else
 					W.forceMove(src)
+	if(linked_reclaimer)
+		linked_reclaimer.ui_update()
 
 /obj/machinery/gulag_teleporter/proc/handle_prisoner(obj/item/id, datum/data/record/R)
 	if(!ishuman(occupant))
@@ -175,7 +177,7 @@ The console is located at computer/gulag_teleporter.dm
 /obj/structure/gulag_beacon
 	name = "labor camp bluespace beacon"
 	desc = "A receiving beacon for bluespace teleportations."
-	icon = 'icons/turf/floors.dmi'
-	icon_state = "light_on-w"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "Prison_beacon"
 	resistance_flags = INDESTRUCTIBLE
 	anchored = TRUE

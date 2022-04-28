@@ -10,6 +10,11 @@ SUBSYSTEM_DEF(acid)
 /datum/controller/subsystem/acid/stat_entry()
 	. = ..("P:[processing.len]")
 
+/datum/controller/subsystem/acid/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["processing"] = length(processing)
+	.["custom"] = cust
 
 /datum/controller/subsystem/acid/fire(resumed = 0)
 	if (!resumed)
@@ -21,7 +26,7 @@ SUBSYSTEM_DEF(acid)
 	while (currentrun.len)
 		var/obj/O = currentrun[currentrun.len]
 		currentrun.len--
-		if (!O || QDELETED(O))
+		if (QDELETED(O))
 			processing -= O
 			if (MC_TICK_CHECK)
 				return

@@ -46,3 +46,37 @@
 		holder = UP
 	dir |= holder
 	return dir
+
+/proc/get_zs_in_range(z_level, max_z_range)
+	. = list(z_level)
+	if(max_z_range <= 0)
+		return
+	var/turf/center_turf = locate(world.maxx / 2, world.maxy / 2, z_level)
+	var/turf/temp = center_turf.above()
+	//Iterate upwards.
+	var/i = 0
+	while(isturf(temp))
+		. += temp
+		i ++
+		if(i >= max_z_range)
+			break
+		temp = temp.above()
+	//Iterate downwards.
+	temp = center_turf.below()
+	i = 0
+	while(isturf(temp))
+		. += temp
+		i ++
+		if(i >= max_z_range)
+			break
+		temp = temp.below()
+
+/proc/multi_z_dist(turf/T0, turf/T1)
+	if(T0.get_virtual_z_level() == T1.get_virtual_z_level())
+		return get_dist(T0, T1)
+	if(is_station_level(T0.z) && is_station_level(T1.z))
+		var/raw_dist = get_dist(T0, T1)
+		var/z_dist = abs(T0.z - T1.z) * MULTI_Z_DISTANCE
+		var/total_dist = raw_dist + z_dist
+		return total_dist
+	return INFINITY

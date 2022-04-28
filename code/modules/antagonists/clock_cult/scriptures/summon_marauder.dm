@@ -9,7 +9,7 @@
 	power_cost = 2000
 	vitality_cost = 100
 	invokation_time = 300
-	invokation_text = list("Through the fires and flames...", "...nothing outshines Eng'Ine!")
+	invokation_text = list("Through the fires and flames...", "nothing outshines Eng'Ine!")
 	category = SPELLTYPE_PRESERVATION
 	cogs_required = 6
 	invokers_required = 3
@@ -31,6 +31,14 @@
 	..()
 
 /datum/clockcult/scripture/marauder/invoke_success()
-	var/mob/new_mob = new /mob/living/simple_animal/clockwork_marauder(get_turf(invoker))
+	var/mob/new_mob = new /mob/living/simple_animal/hostile/clockwork_marauder(get_turf(invoker))
 	new_mob.key = selected.key
 	selected = null
+
+/datum/clockcult/scripture/marauder/check_special_requirements(mob/user)
+	if(!..())
+		return FALSE
+	if(LAZYLEN(GLOB.clockwork_marauders) >= 4)
+		to_chat(user, "<span class='brass'>The mechanical-soul infrastructure of Reebe is too weak to support more clockwork battle constructs!</span>")
+		return FALSE
+	return TRUE

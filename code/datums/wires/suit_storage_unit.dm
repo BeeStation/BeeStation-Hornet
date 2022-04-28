@@ -32,6 +32,7 @@
 		if(WIRE_ZAP)
 			if(usr)
 				SSU.shock(usr)
+	ui_update()
 
 /datum/wires/suit_storage_unit/on_cut(wire, mend)
 	var/obj/machinery/suit_storage_unit/SSU = holder
@@ -43,3 +44,4 @@
 		if(WIRE_ZAP)
 			if(usr)
 				SSU.shock(usr)
+	ui_update()

@@ -11,7 +11,7 @@
 	icon_state = "ash"
 	mergeable_decal = FALSE
 
-/obj/effect/decal/cleanable/ash/Initialize()
+/obj/effect/decal/cleanable/ash/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/ash, 30)
 	pixel_x = rand(-5, 5)
@@ -25,7 +25,7 @@
 	name = "large pile of ashes"
 	icon_state = "big_ash"
 
-/obj/effect/decal/cleanable/ash/large/Initialize()
+/obj/effect/decal/cleanable/ash/large/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/ash, 30) //double the amount of ash.
 
@@ -35,7 +35,7 @@
 	icon = 'icons/obj/shards.dmi'
 	icon_state = "tiny"
 
-/obj/effect/decal/cleanable/glass/Initialize()
+/obj/effect/decal/cleanable/glass/Initialize(mapload)
 	. = ..()
 	setDir(pick(GLOB.cardinals))
 
@@ -53,7 +53,7 @@
 	smooth = SMOOTH_FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/obj/effect/decal/cleanable/dirt/Initialize()
+/obj/effect/decal/cleanable/dirt/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(T.tiled_dirt)
@@ -82,7 +82,7 @@
 /obj/effect/decal/cleanable/greenglow/ex_act()
 	return
 
-/obj/effect/decal/cleanable/greenglow/filled/Initialize()
+/obj/effect/decal/cleanable/greenglow/filled/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(pick(/datum/reagent/uranium, /datum/reagent/uranium/radium), 5)
 
@@ -149,8 +149,8 @@
 /obj/effect/decal/cleanable/vomit/old/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	icon_state += "-old"
-	if(prob(90))//vomit is much more likely to be diseased than blood is
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 6), 6+(rand(1, 3)))
+	if(prob(95))//vomit is much more likely to be diseased than blood is
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 5), rand(7, 9), 4, infected = src)
 		disease += R
 
 /obj/effect/decal/cleanable/vomit/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
@@ -180,7 +180,7 @@
 	if(severity == 1) //so shreds created during an explosion aren't deleted by the explosion.
 		qdel(src)
 
-/obj/effect/decal/cleanable/shreds/Initialize()
+/obj/effect/decal/cleanable/shreds/Initialize(mapload)
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
 	. = ..()
@@ -210,7 +210,7 @@
 	desc = "A puddle of stabilized plasma."
 	icon_state = "flour"
 	icon = 'icons/effects/tomatodecal.dmi'
-	color = "#C8A5DC"
+	color = "#2D2D2D"
 
 /obj/effect/decal/cleanable/insectguts
 	name = "insect guts"

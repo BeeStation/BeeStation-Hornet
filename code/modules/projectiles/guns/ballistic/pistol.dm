@@ -20,6 +20,9 @@
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
 
+/obj/item/gun/ballistic/automatic/pistol/locker
+	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors. This one is rusted from being inside of a locker for so long."
+
 /obj/item/gun/ballistic/automatic/pistol/suppressed/Initialize(mapload)
 	. = ..()
 	var/obj/item/suppressor/S = new(src)
@@ -72,6 +75,7 @@
 	icon_state = "flatgun"
 
 /obj/item/gun/ballistic/automatic/pistol/stickman/pickup(mob/living/user)
+	..()
 	to_chat(user, "<span class='notice'>As you try to pick up [src], it slips out of your grip..</span>")
 	if(prob(50))
 		to_chat(user, "<span class='notice'>..and vanishes from your vision! Where the hell did it go?</span>")

@@ -24,11 +24,16 @@
 						list(name = "Protocols")
 						)
 
-/obj/machinery/nanite_program_hub/Initialize()
+/obj/machinery/nanite_program_hub/Initialize(mapload)
 	. = ..()
 	linked_techweb = SSresearch.science_tech
 
 /obj/machinery/nanite_program_hub/attackby(obj/item/I, mob/user)
+	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+		update_icon()
+		return
+	if(default_deconstruction_crowbar(I))
+		return
 	if(istype(I, /obj/item/disk/nanite_program))
 		var/obj/item/disk/nanite_program/N = I
 		if(user.transferItemToLoc(N, src))
@@ -37,6 +42,7 @@
 			if(disk)
 				eject(user)
 			disk = N
+			ui_update()
 	else
 		..()
 
@@ -46,6 +52,7 @@
 	if(!istype(user) || !Adjacent(user) || !user.put_in_active_hand(disk))
 		disk.forceMove(drop_location())
 	disk = null
+	ui_update()
 
 /obj/machinery/nanite_program_hub/AltClick(mob/user)
 	if(disk && user.canUseTopic(src, !issilicon(user)))

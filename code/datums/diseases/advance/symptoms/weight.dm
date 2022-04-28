@@ -6,7 +6,7 @@ Weight Loss
 	Very Very Noticable.
 	Decreases resistance.
 	Decreases stage speed.
-	Reduced Transmittable.
+	Reduced transmission.
 	High level.
 
 Bonus
@@ -20,22 +20,32 @@ Bonus
 
 	name = "Weight Loss"
 	desc = "The virus mutates the host's metabolism, making it almost unable to gain nutrition from food."
-	stealth = -2
+	stealth = 0
 	resistance = 2
 	stage_speed = -2
-	transmittable = -1
+	transmission = -1
 	level = 3
 	severity = 2
 	base_message_chance = 100
 	symptom_delay_min = 15
 	symptom_delay_max = 45
-	threshold_desc = "<b>Stealth 2:</b> The symptom is less noticeable."
+	var/starving = TRUE
+	prefixes = list("Starving ")
+	bodies = list("Diet")
+	threshold_desc = "<b>Stealth 2:</b> The symptom is less noticeable, and does not cause starvation."
+
+/datum/symptom/weight_loss/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.stealth >= 2) //warn less often
+		severity -= 3
+	
 
 /datum/symptom/weight_loss/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 2) //warn less often
+	if(A.stealth >= 2) //warn less often
 		base_message_chance = 25
+		starving = FALSE
 
 /datum/symptom/weight_loss/Activate(datum/disease/advance/A)
 	if(!..())
@@ -48,4 +58,5 @@ Bonus
 		else
 			to_chat(M, "<span class='warning'><i>[pick("So hungry...", "You'd kill someone for a bite of food...", "Hunger cramps seize you...")]</i></span>")
 			M.overeatduration = max(M.overeatduration - 100, 0)
-			M.adjust_nutrition(-100)
+			if(starving)
+				M.adjust_nutrition(-100)

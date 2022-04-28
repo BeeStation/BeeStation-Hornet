@@ -12,7 +12,7 @@
     var/last_sound = 0
     var/delay = 15
 
-/obj/item/clothing/mask/cluwne/Initialize()
+/obj/item/clothing/mask/cluwne/Initialize(mapload)
     .=..()
     ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
@@ -53,7 +53,7 @@
 /obj/item/clothing/mask/cluwne/equipped(mob/user, slot)
     if(!ishuman(user))
         return
-    if(slot == SLOT_WEAR_MASK)
+    if(slot == ITEM_SLOT_MASK)
         var/mob/living/carbon/human/H = user
         H.dna.add_mutation(CLUWNEMUT)
     return
@@ -67,7 +67,7 @@
     var/is_cursed = FALSE //i don't care that this is *slightly* memory wasteful, it's just one more byte and it's not like some madman is going to spawn thousands of these
     var/is_very_cursed = FALSE
 
-/obj/item/clothing/mask/cluwne/happy_cluwne/Initialize()
+/obj/item/clothing/mask/cluwne/happy_cluwne/Initialize(mapload)
     .=..()
     if(prob(1)) //this function pre-determines the logic of the cluwne mask. applying and reapplying the mask does not alter or change anything
         is_cursed = TRUE
@@ -86,7 +86,7 @@
     if(!ishuman(user))
         return
     var/mob/living/carbon/human/H = user
-    if(slot == SLOT_WEAR_MASK)
+    if(slot == ITEM_SLOT_MASK)
         if(is_cursed && can_cluwne) //logic predetermined
             log_admin("[key_name(H)] was made into a cluwne by [src]")
             message_admins("[key_name(H)] got cluwned by [src]")

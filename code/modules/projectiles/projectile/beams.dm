@@ -3,14 +3,17 @@
 	icon_state = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	damage = 20
-	light_range = 2
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
 	flag = "laser"
 	eyeblur = 2
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 1
 	light_color = LIGHT_COLOR_RED
+	light_flags = LIGHT_NO_LUMCOUNT
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
 	reflectable = REFLECT_NORMAL
@@ -37,15 +40,17 @@
 		impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
 
 /obj/item/projectile/beam/weak
-	damage = 15
+	damage = 8
 
-/obj/item/projectile/beam/weak/penetrator
+/obj/item/projectile/beam/weak/penetrator //laser gatling and centcom shuttle turret
+	damage = 15
 	armour_penetration = 50
 
 /obj/item/projectile/beam/practice
 	name = "practice laser"
 	damage = 0
 	nodamage = TRUE
+	martial_arts_no_deflect = TRUE
 
 /obj/item/projectile/beam/scatter
 	name = "laser pellet"
@@ -58,7 +63,7 @@
 	damage = 15
 	irradiate = 300
 	range = 15
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
 
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
@@ -69,7 +74,7 @@
 /obj/item/projectile/beam/disabler
 	name = "disabler beam"
 	icon_state = "omnilaser"
-	damage = 35
+	damage = 28
 	damage_type = STAMINA
 	flag = "energy"
 	hitsound = 'sound/weapons/tap.ogg'
@@ -93,7 +98,10 @@
 /obj/item/projectile/beam/pulse/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if (!QDELETED(target) && (isturf(target) || istype(target, /obj/structure/)))
-		target.ex_act(EXPLODE_HEAVY)
+		if(isobj(target))
+			SSexplosions.med_mov_atom += target
+		else
+			SSexplosions.medturf += target
 
 /obj/item/projectile/beam/pulse/shotgun
 	damage = 40
@@ -129,6 +137,7 @@
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE
+	martial_arts_no_deflect = TRUE
 
 /obj/item/projectile/beam/lasertag/on_hit(atom/target, blocked = FALSE)
 	. = ..()

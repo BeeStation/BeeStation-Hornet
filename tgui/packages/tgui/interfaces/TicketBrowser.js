@@ -15,7 +15,6 @@ export const TicketBrowser = (props, context) => {
   return (
     <Window
       theme="admin"
-      resizable
       width={720}
       height={480}>
       <Window.Content scrollable>
@@ -69,7 +68,7 @@ export const TicketMenu = (props, context) => {
       title={name}>
       <Table>
         {ticket_list.map(ticket => (
-          <Section
+          <Section independent
             key={ticket.name} >
             <Table.Row>
               <Table.Cell

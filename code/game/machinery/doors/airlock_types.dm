@@ -200,9 +200,9 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
 	var/last_event = 0
 
-/obj/machinery/door/airlock/uranium/process()
+/obj/machinery/door/airlock/uranium/process(delta_time)
 	if(world.time > last_event+20)
-		if(prob(50))
+		if(DT_PROB(50, delta_time))
 			radiate()
 		last_event = world.time
 	..()
@@ -241,7 +241,7 @@
 	DA.update_name()
 	qdel(src)
 
-/obj/machinery/door/airlock/plasma/BlockSuperconductivity() //we don't stop the heat~
+/obj/machinery/door/airlock/plasma/BlockThermalConductivity() //we don't stop the heat~
 	return 0
 
 /obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
@@ -298,6 +298,20 @@
 	opacity = 0
 	glass = TRUE
 
+/obj/machinery/door/airlock/bronze
+	name = "bronze airlock"
+	icon = 'icons/obj/doors/airlocks/clockwork/pinion_airlock.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/clockwork/overlays.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_bronze
+	anim_parts = "left=-13,0;right=13,0"
+	normal_integrity = 150
+	damage_deflection = 5
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+
+/obj/machinery/door/airlock/bronze/seethru
+	assemblytype = /obj/structure/door_assembly/door_assembly_bronze/seethru
+	opacity = 0
+	glass = TRUE
 //////////////////////////////////
 /*
 	Station2 Airlocks
@@ -400,7 +414,7 @@
 	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_hatch
 	//anim_parts = "ul=-9,9;ur=9,9;dl=-9,-9;dr=9,-9"
-	anim_parts = "ul=-15,0,0,5,-90;ur=0,15,0,5,-90;dl=0,-15,0,5,-90;dr=15,0,0,5,-90"
+	anim_parts = "ul=-15,0,0,4,-90;ur=0,15,0,4,-90;dl=0,-15,0,4,-90;dr=15,0,0,4,-90"
 	note_attachment = "ul"
 	panel_attachment = "dr"
 	allow_repaint = FALSE
@@ -412,7 +426,7 @@
 	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_mhatch
 	//anim_parts = "ul=-9,9;ur=9,9;dl=-9,-9;dr=9,-9"
-	anim_parts = "ul=-15,0,0,5,-90;ur=0,15,0,5,-90;dl=0,-15,0,5,-90;dr=15,0,0,5,-90"
+	anim_parts = "ul=-15,0,0,4,-90;ur=0,15,0,4,-90;dl=0,-15,0,4,-90;dr=15,0,0,4,-90"
 	note_attachment = "ul"
 	panel_attachment = "dr"
 	allow_repaint = FALSE
@@ -456,7 +470,7 @@
 	overlays_file = 'icons/obj/doors/airlocks/abductor/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_abductor
 	note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
-	anim_parts="p1=0,40,0;p2=0,24,2;p3=0,-36,0.5;p4=0,16,3;p5=0,-40,0;p6=0,32,1;p7=0,-24,2" // the door has 7 fucking parts. SEVEN.
+	anim_parts="p1=0,40,0,5;p2=0,24,2,5;p3=0,-36,0.5,5;p4=0,16,3,5;p5=0,-40,0,5;p6=0,32,1,5;p7=0,-24,2,5" // the door has 7 fucking parts. SEVEN.
 	damage_deflection = 30
 	explosion_block = 3
 	hackProof = TRUE
@@ -484,7 +498,7 @@
 	var/stealthy = FALSE
 	allow_repaint = FALSE
 
-/obj/machinery/door/airlock/cult/Initialize()
+/obj/machinery/door/airlock/cult/Initialize(mapload)
 	. = ..()
 	new openingoverlaytype(loc)
 
@@ -586,7 +600,7 @@
 	name = "large glass airlock"
 	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
-	mask_file = 'icons/obj/doors/airlocks/mask_64x32.dmi'
+	mask_file = 'icons/obj/doors/airlocks/mask_64x32_airlocks.dmi'
 	mask_x = 16 // byond is consistent and sane
 	anim_parts = "left=-21,0;right=21,0;top=0,29"
 	opacity = 0

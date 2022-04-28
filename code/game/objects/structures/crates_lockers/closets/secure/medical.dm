@@ -86,6 +86,7 @@
 	new /obj/item/clothing/head/bio_hood/cmo(src)
 	new /obj/item/clothing/suit/toggle/labcoat/cmo(src)
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer(src)
+	new /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt(src)
 	new /obj/item/clothing/shoes/sneakers/brown	(src)
 	new /obj/item/cartridge/cmo(src)
 	new /obj/item/radio/headset/heads/cmo(src)
@@ -106,6 +107,7 @@
 	new /obj/item/reagent_containers/food/drinks/bottle/synthflesh(src)
 	new /obj/item/card/id/departmental_budget/med(src)
 	new /obj/item/extrapolator(src)
+	new /obj/item/storage/lockbox/medal/med(src)
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control"

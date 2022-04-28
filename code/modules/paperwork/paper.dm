@@ -93,12 +93,16 @@
 		if(!istype(G) || G.transfer_prints)
 			H.reagents.add_reagent(contact_poison,contact_poison_volume)
 			contact_poison = null
-	. = ..()
+	..()
 
-/obj/item/paper/Initialize()
-	. = ..()
+/obj/item/paper/Initialize(mapload)
+	..()
 	pixel_y = rand(-8, 8)
 	pixel_x = rand(-9, 9)
+	return INITIALIZE_HINT_LATELOAD
+
+// Everyone forgets to call update_icon() after changing the info
+/obj/item/paper/LateInitialize()
 	update_icon()
 
 /obj/item/paper/update_icon_state()
@@ -120,7 +124,7 @@
 			H.update_damage_hud()
 			return
 	var/n_name = stripped_input(usr, "What would you like to label the paper?", "Paper Labelling", null, MAX_NAME_LEN)
-	if((loc == usr && usr.stat == CONSCIOUS))
+	if(((loc == usr || istype(loc, /obj/item/clipboard)) && usr.stat == CONSCIOUS))
 		name = "paper[(n_name ? text("- '[n_name]'") : null)]"
 	add_fingerprint(usr)
 
@@ -157,7 +161,7 @@
 	// .. or if you cannot read
 	if(!user.can_read(src))
 		return UI_CLOSE
-	if(in_contents_of(/obj/machinery/door/airlock))
+	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/item/clipboard))
 		return UI_INTERACTIVE
 	return ..()
 
@@ -194,7 +198,11 @@
 		SStgui.close_uis(src)
 		return
 
-	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
+	// Enable picking paper up by clicking on it with the clipboard or folder
+	if(istype(P, /obj/item/clipboard) || istype(P, /obj/item/folder))
+		P.attackby(src, user)
+		return
+	else if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
 		if(length(info) >= MAX_PAPER_LENGTH) // Sheet must have less than 1000 charaters
 			to_chat(user, "<span class='warning'>This sheet of paper is full!</span>")
 			return
@@ -226,6 +234,7 @@
 	if(!ui)
 		ui = new(user, src, "PaperSheet", name)
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 
 /obj/item/paper/ui_static_data(mob/user)
@@ -236,33 +245,36 @@
 	.["paper_state"] = icon_state	/// TODO: show the sheet will bloodied or crinkling?
 	.["stamps"] = stamps
 
-
-
 /obj/item/paper/ui_data(mob/user)
 	var/list/data = list()
 	data["edit_usr"] = "[user]"
 
-	var/obj/O = user.get_active_held_item()
-	if(istype(O, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/PEN = O
+	// Even though we ignore this data, TGUI needs it for previewing the stamp icon in the UI
+	data["stamp_class"] = "FAKE"
+	data["stamp_icon_state"] = "FAKE"
+
+	var/obj/holding = user.get_active_held_item()
+	// Use a clipboard's pen, if applicable
+	if(istype(loc, /obj/item/clipboard))
+		var/obj/item/clipboard/clipboard = loc
+		if(clipboard.pen)
+			holding = clipboard.pen
+	if(istype(holding, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/PEN = holding
 		data["pen_font"] = CRAYON_FONT
 		data["pen_color"] = PEN.paint_color
 		data["edit_mode"] = MODE_WRITING
 		data["is_crayon"] = TRUE
-		data["stamp_class"] = "FAKE"
-		data["stamp_icon_state"] = "FAKE"
-	else if(istype(O, /obj/item/pen))
-		var/obj/item/pen/PEN = O
+	else if(istype(holding, /obj/item/pen))
+		var/obj/item/pen/PEN = holding
 		data["pen_font"] = PEN.font
 		data["pen_color"] = PEN.colour
 		data["edit_mode"] = MODE_WRITING
 		data["is_crayon"] = FALSE
-		data["stamp_class"] = "FAKE"
-		data["stamp_icon_state"] = "FAKE"
-	else if(istype(O, /obj/item/stamp))
+	else if(istype(holding, /obj/item/stamp))
 		var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
-		data["stamp_icon_state"] = O.icon_state
-		data["stamp_class"] = sheet.icon_class_name(O.icon_state)
+		data["stamp_icon_state"] = holding.icon_state
+		data["stamp_class"] = sheet.icon_class_name(holding.icon_state)
 		data["edit_mode"] = MODE_STAMPING
 		data["pen_font"] = "FAKE"
 		data["pen_color"] = "FAKE"
@@ -272,8 +284,10 @@
 		data["pen_font"] = "FAKE"
 		data["pen_color"] = "FAKE"
 		data["is_crayon"] = FALSE
-		data["stamp_icon_state"] = "FAKE"
-		data["stamp_class"] = "FAKE"
+	if(istype(loc, /obj/structure/noticeboard))
+		var/obj/structure/noticeboard/noticeboard = loc
+		if(!noticeboard.allowed(user))
+			data["edit_mode"] = MODE_READING
 	data["field_counter"] = field_counter
 	data["form_fields"] = form_fields
 
@@ -284,70 +298,85 @@
 		return
 	switch(action)
 		if("stamp")
+			if(length(stamps) >= MAX_PAPER_STAMPS)
+				to_chat(usr, pick("You try to stamp but you miss!", "There is nowhere else you can stamp!"))
+				return FALSE
+
+			var/obj/item/stamp/holding = ui.user.get_active_held_item()
+
+			if(!istype(holding))
+				to_chat(usr, "That's not a stamp!")
+				return FALSE
+
 			var/stamp_x = text2num(params["x"])
 			var/stamp_y = text2num(params["y"])
 			var/stamp_r = text2num(params["r"])	// rotation in degrees
-			var/stamp_icon_state = params["stamp_icon_state"]
-			var/stamp_class = params["stamp_class"]
+
+			var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+			var/stamp_icon_state = holding.icon_state
+			var/stamp_class = sheet.icon_class_name(holding.icon_state)
+
 			if (isnull(stamps))
 				stamps = list()
-			if(stamps.len < MAX_PAPER_STAMPS)
-				// I hate byond when dealing with freaking lists
-				stamps[++stamps.len] = list(stamp_class, stamp_x, stamp_y, stamp_r)	/// WHHHHY
 
-				/// This does the overlay stuff
-				if (isnull(stamped))
-					stamped = list()
-				if(stamped.len < MAX_PAPER_STAMPS_OVERLAYS)
-					var/mutable_appearance/stampoverlay = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_[stamp_icon_state]")
-					stampoverlay.pixel_x = rand(-2, 2)
-					stampoverlay.pixel_y = rand(-3, 2)
-					add_overlay(stampoverlay)
-					LAZYADD(stamped, stamp_icon_state)
+			// I hate byond when dealing with freaking lists
+			stamps[++stamps.len] = list(stamp_class, stamp_x, stamp_y, stamp_r)	/// WHHHHY
 
-				update_static_data(usr,ui)
-				ui.user.visible_message("<span class='notice'>[ui.user] stamps [src] with [stamp_class]!</span>", "<span class='notice'>You stamp [src] with [stamp_class]!</span>")
-			else
-				to_chat(usr, pick("You try to stamp but you miss!", "There is no where else you can stamp!"))
-			. = TRUE
+			/// This does the overlay stuff
+			if (isnull(stamped))
+				stamped = list()
+			if(stamped.len < MAX_PAPER_STAMPS_OVERLAYS)
+				var/mutable_appearance/stampoverlay = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_[stamp_icon_state]")
+				stampoverlay.pixel_x = rand(-2, 2)
+				stampoverlay.pixel_y = rand(-3, 2)
+				add_overlay(stampoverlay)
+				LAZYADD(stamped, stamp_icon_state)
+
+			update_static_data(usr,ui)
+			ui.user.visible_message("<span class='notice'>[ui.user] stamps [src] with [stamp_class]!</span>", "<span class='notice'>You stamp [src] with \the [holding.name]!</span>")
 
 		if("save")
 			var/in_paper = params["text"]
 			var/paper_len = length(in_paper)
 			field_counter = params["field_counter"] ? text2num(params["field_counter"]) : field_counter
 
+			if(paper_len == 0)
+				to_chat(ui.user, pick("Writing block strikes again!", "You forgot to write anything!"))
+				return FALSE
+
 			if(paper_len > MAX_PAPER_LENGTH)
 				// Side note, the only way we should get here is if
 				// the javascript was modified, somehow, outside of
 				// byond.  but right now we are logging it as
 				// the generated html might get beyond this limit
-				log_paper("[key_name(ui.user)] writing to paper [name], and overwrote it by [paper_len-MAX_PAPER_LENGTH]")
-			if(paper_len == 0)
-				to_chat(ui.user, pick("Writing block strikes again!", "You forgot to write anthing!"))
+				log_paper("[key_name(ui.user)] writing to paper [name], and overwrote it by [paper_len - MAX_PAPER_LENGTH] characters (this may be due to internal HTML)")
+				in_paper = copytext(in_paper, 1, MAX_PAPER_LENGTH)
+				to_chat(ui.user, "You run out of room on the paper!")
 			else
 				log_paper("[key_name(ui.user)] writing to paper [name]")
-				if(info != in_paper)
-					to_chat(ui.user, "You have added to your paper masterpiece!");
-					info = in_paper
-					update_static_data(usr,ui)
-
-
+				to_chat(ui.user, "You have added to your paper masterpiece!");
+			info = in_paper
+			update_static_data(usr,ui)
 			update_icon()
-			. = TRUE
+
+/obj/item/paper/ui_host(mob/user)
+	if(istype(loc, /obj/structure/noticeboard))
+		return loc
+	return ..()
 
 /**
  * Construction paper
  */
 /obj/item/paper/construction
 
-/obj/item/paper/construction/Initialize()
+/obj/item/paper/construction/Initialize(mapload)
 	. = ..()
 	color = pick("FF0000", "#33cc33", "#ffb366", "#551A8B", "#ff80d5", "#4d94ff")
 
 /**
  * Natural paper
  */
-/obj/item/paper/natural/Initialize()
+/obj/item/paper/natural/Initialize(mapload)
 	. = ..()
 	color = "#FFF5ED"
 
@@ -365,6 +394,19 @@
 
 /obj/item/paper/crumpled/beernuke
 	name = "beer-stained note"
+
+/obj/item/paper/crumpled/beernuke/Initialize(mapload)
+	. = ..()
+	var/code
+	for(var/obj/machinery/nuclearbomb/beer/beernuke in GLOB.nuke_list)
+		if(beernuke.r_code == "ADMIN")
+			beernuke.r_code = random_nukecode()
+		code = beernuke.r_code
+	info = "important party info, DONT FORGET: <b>[code]</b>"
+
+/obj/item/paper/troll
+	name = "very special note"
+	info = "<span style=color:'black';font-family:'Verdana';><p>░░░░░▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄░░░░░░░<br>░░░░░█░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄░░░░<br>░░░░█░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█░░░<br>░░░█░░░░░░▄██▀▄▄░░░░░▄▄▄░░░░█░░<br>░▄▀▒▄▄▄▒░█▀▀▀▀▄▄█░░░██▄▄█░░░░█░<br>█░▒█▒▄░▀▄▄▄▀░░░░░░░░█░░░▒▒▒▒▒░█<br>█░▒█░█▀▄▄░░░░░█▀░░░░▀▄░░▄▀▀▀▄▒█<br>░█░▀▄░█▄░█▀▄▄░▀░▀▀░▄▄▀░░░░█░░█░<br>░░█░░░▀▄▀█▄▄░█▀▀▀▄▄▄▄▀▀█▀██░█░░<br>░░░█░░░░██░░▀█▄▄▄█▄▄█▄████░█░░░<br>░░░░█░░░░▀▀▄░█░░░█░█▀██████░█░░<br>░░░░░▀▄░░░░░▀▀▄▄▄█▄█▄█▄█▄▀░░█░░<br>░░░░░░░▀▄▄░▒▒▒▒░░░░░░░░░░▒░░░█░<br>░░░░░░░░░░▀▀▄▄░▒▒▒▒▒▒▒▒▒▒░░░░█░<br>░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░░░░█░░</p> </span>"
 
 #undef MAX_PAPER_LENGTH
 #undef MAX_PAPER_STAMPS

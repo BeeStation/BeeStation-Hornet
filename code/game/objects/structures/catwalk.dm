@@ -6,7 +6,12 @@
 	number_of_rods = 2
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null
-	obj_flags = CAN_BE_HIT | BLOCK_Z_FALL
+	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
+	//Negates the effect of space and openspace.
+	//Shouldn't be placed above anything else.
+	FASTDMM_PROP(\
+		pipe_astar_cost = -98.5\
+	)
 
 /obj/structure/lattice/catwalk/over
 	layer = CATWALK_LAYER
@@ -22,9 +27,9 @@
 	if(C.tool_behaviour == TOOL_WELDER)
 		if(!C.tool_start_check(user, amount=0))
 			return FALSE
-		to_chat(user, "<span class='notice'>You begin slicing through the outer plating...</span>")
+		balloon_alert(user, "You start slicing through outer plating")
 		if(C.use_tool(src, user, 25, volume=100))
-			to_chat(user, "<span class='notice'>You slice off [src]</span>")
+			balloon_alert(user, "[src] sliced off")
 			deconstruct()
 			return TRUE
 

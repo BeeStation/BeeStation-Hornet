@@ -68,6 +68,7 @@
 	if(!ui)
 		ui = new(user, src, "AbductorConsole", name)
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/abductor/console/ui_static_data(mob/user)
 	var/list/data = list()
@@ -205,7 +206,7 @@
 			c.console = src
 
 /obj/machinery/abductor/console/proc/AddSnapshot(mob/living/carbon/human/target)
-	if(istype(target.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		say("Subject wearing specialized protective headgear, unable to get a proper scan!")
 		return
 	var/datum/icon_snapshot/entry = new

@@ -42,10 +42,11 @@
 	icon_state = "stobacco_leaves"
 	distill_reagent = null
 	wine_power = 50
+	discovery_points = 300
 
 //Lavaland Tobacco
 
-obj/item/seeds/tobacco/lavaland
+/obj/item/seeds/tobacco/lavaland
 	name = "pack of lavaland tobacco seeds"
 	desc = "These seeds grow into lavaland tobacco plants."
 	icon_state = "seed-lavatobacco"
@@ -64,3 +65,4 @@ obj/item/seeds/tobacco/lavaland
 	icon_state = "ltobacco_leaves"
 	distill_reagent = null
 	wine_power = 10
+	discovery_points = 300

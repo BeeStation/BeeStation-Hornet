@@ -3,6 +3,7 @@
 	name = "reinforced floor"
 	desc = "Extremely sturdy."
 	icon_state = "engine"
+	holodeck_compatible = TRUE
 	thermal_conductivity = 0.025
 	heat_capacity = INFINITY
 	floor_tile = /obj/item/stack/sheet/iron
@@ -11,6 +12,10 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	FASTDMM_PROP(\
+		pipe_astar_cost = 15\
+	)
+
 
 /turf/open/floor/engine/examine(mob/user)
 	. = ..()
@@ -157,7 +162,7 @@
 	CanAtmosPassVertical =	ATMOS_PASS_NO
 
 
-/turf/open/floor/engine/cult/Initialize()
+/turf/open/floor/engine/cult/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/cult/turf/floor(src)
 	realappearance = new /obj/effect/clockwork/overlay/floor/bloodcult(src)

@@ -3,6 +3,12 @@
 #define DOCKING_PORT_HIGHLIGHT
 #endif
 
+GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
+	/turf/baseturf_bottom,
+	/turf/open/space,
+	/turf/open/lava,
+)))
+
 //NORTH default dir
 /obj/docking_port
 	invisibility = INVISIBILITY_ABSTRACT
@@ -231,7 +237,7 @@
 	var/area/shuttle/transit/assigned_area
 	var/obj/docking_port/mobile/owner
 
-/obj/docking_port/stationary/transit/Initialize()
+/obj/docking_port/stationary/transit/Initialize(mapload)
 	. = ..()
 	SSshuttle.transit += src
 
@@ -297,8 +303,13 @@
 	var/can_move_docking_ports = FALSE
 	var/list/hidden_turfs = list()
 
+	//The virtual Z-Value of the shuttle
+	var/virtual_z
+
+	var/shuttle_object_type = /datum/orbital_object/shuttle
+
 /obj/docking_port/mobile/proc/register()
-	SSshuttle.mobile += src
+	SSshuttle.mobile |= src
 
 /obj/docking_port/mobile/Destroy(force)
 	if(force)
@@ -309,6 +320,64 @@
 		shuttle_areas = null
 		remove_ripples()
 	. = ..()
+
+/obj/docking_port/mobile/is_in_shuttle_bounds(atom/A)
+	return shuttle_areas[get_area(A)]
+
+
+/obj/docking_port/mobile/proc/add_turf(var/turf/T, var/area/shuttle/A)
+	if(!shuttle_areas[A]) //Invalid area
+		return TRUE
+
+	if(GLOB.shuttle_turf_blacklist[T.type]) //Check if the turf is valid
+		for(var/obj/structure/lattice/lattice in T)
+			A.contents |= T //Keep the lattice, not the turf
+			break
+		return TRUE
+
+	T.baseturfs = length(T.baseturfs) ? T.baseturfs : list(T.baseturfs) //We need this as a list for now
+	var/base_length = length(T.baseturfs)
+	var/skipover_index = 2 //We should always leave atleast something else below our skipover
+
+	for(var/i in 0 to base_length-1) //Place the skipover after the first blacklisted baseturf from the top
+		if(GLOB.shuttle_turf_blacklist[T.baseturfs[base_length - i]])
+			skipover_index = base_length - i + 1
+			break
+
+	A.contents |= T
+	if(!(/turf/baseturf_skipover/shuttle in T.baseturfs))
+		T.baseturfs.Insert(skipover_index, /turf/baseturf_skipover/shuttle)
+	if(length(T.baseturfs) == 1)
+		T.baseturfs = T.baseturfs[1] //Back to a single value. I wish this wasn't a thing but I fear everything would break if I left it as a list
+
+/obj/docking_port/mobile/proc/remove_turf(var/turf/T)
+
+	var/area/A = get_area(T)
+	if(!shuttle_areas[A])
+		return
+
+	//Get the new area type of our dock
+	var/obj/docking_port/stationary/dock = get_docked()
+	var/area_type = dock?.area_type
+	if(!area_type)
+		area_type = SHUTTLE_DEFAULT_UNDERLYING_AREA
+
+	//The new area (shamelessly taken from initiate_docking())
+	var/area/new_area = GLOB.areas_by_type[area_type]
+	if(!new_area)
+		new_area = new area_type(null)
+
+	A.contents -= T
+	new_area.contents += T
+	T.change_area(A, new_area)
+	T.baseturfs -= /turf/baseturf_skipover/shuttle
+
+//A common proc used to find the amount of turfs in the shuttle
+/obj/docking_port/mobile/proc/calculate_mass()
+	. = 0
+	for(var/area/shuttleArea in shuttle_areas)
+		for(var/turf/T in shuttleArea.contents)
+			. += 1
 
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
@@ -322,12 +391,16 @@
 	var/list/all_turfs = return_ordered_turfs(x, y, z, dir)
 	for(var/i in 1 to all_turfs.len)
 		var/turf/curT = all_turfs[i]
-		var/area/cur_area = curT.loc
+		var/area/shuttle/cur_area = curT.loc
 		if(istype(cur_area, area_type))
 			shuttle_areas[cur_area] = TRUE
+			if(!cur_area.mobile_port)
+				cur_area.link_to_shuttle(src)
 
 	initial_engines = count_engines()
 	current_engines = initial_engines
+
+	virtual_z = get_new_virtual_z()
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#0f0")
@@ -406,10 +479,10 @@
 /obj/docking_port/mobile/proc/request(obj/docking_port/stationary/S)
 	if(!check_dock(S))
 		testing("check_dock failed on request for [src]")
-		return
+		return TRUE
 
 	if(mode == SHUTTLE_IGNITING && destination == S)
-		return
+		return TRUE
 
 	switch(mode)
 		if(SHUTTLE_CALL)
@@ -633,10 +706,9 @@
 		var/turf/T = thing
 		if(!T || !istype(T.loc, area_type))
 			continue
-		for (var/thing2 in T)
-			var/atom/movable/AM = thing2
-			if (length(AM.client_mobs_in_contents))
-				AM.update_parallax_contents()
+		for (var/atom/movable/movable as anything in T)
+			if (length(movable.client_mobs_in_contents))
+				movable.update_parallax_contents()
 
 /obj/docking_port/mobile/proc/check_transit_zone()
 	if(assigned_transit)
@@ -707,7 +779,7 @@
 	if(timeleft > 1 HOURS)
 		return "--:--"
 	else if(timeleft > 0)
-		return "[add_leading(num2text((timeleft / 60) % 60), 2, "0")]:[add_leading(num2text(timeleft % 60), 2, " ")]"
+		return "[add_leading(num2text((timeleft / 60) % 60), 2, "0")]:[add_leading(num2text(timeleft % 60), 2, "0")]"
 	else
 		return "00:00"
 
@@ -754,7 +826,7 @@
 /obj/docking_port/mobile/proc/getControlConsole()
 	for(var/place in shuttle_areas)
 		var/area/shuttle/shuttle_area = place
-		for(var/obj/machinery/computer/shuttle/S in shuttle_area)
+		for(var/obj/machinery/computer/shuttle_flight/S in shuttle_area)
 			if(S.shuttleId == id)
 				return S
 	return null
@@ -776,8 +848,16 @@
 	var/range = (engine_coeff * max(width, height))
 	var/long_range = range * 2.5
 	var/atom/distant_source
-	if(LAZYLEN(engine_list))
-		distant_source = engine_list[1]
+	var/list/engines = list()
+	for(var/datum/weakref/engine in engine_list)
+		var/obj/structure/shuttle/engine/real_engine = engine.resolve()
+		if(!real_engine)
+			engine_list -= engine
+			continue
+		engines += real_engine
+
+	if(LAZYLEN(engines))
+		distant_source = engines[1]
 	else
 		for(var/A in areas)
 			distant_source = locate(/obj/machinery/door) in A
@@ -788,19 +868,19 @@
 		for(var/mob/M as() in SSmobs.clients_by_zlevel[z])
 			var/dist_far = get_dist(M, distant_source)
 			if(dist_far <= long_range && dist_far > range)
-				M.playsound_local(distant_source, "sound/effects/[selected_sound]_distance.ogg", 100, falloff = 20)
+				M.playsound_local(distant_source, "sound/effects/[selected_sound]_distance.ogg", 100, falloff_exponent = 20)
 			else if(dist_far <= range)
 				var/source
-				if(engine_list.len == 0)
+				if(engines.len == 0)
 					source = distant_source
 				else
 					var/closest_dist = 10000
-					for(var/obj/O in engine_list)
+					for(var/obj/O in engines)
 						var/dist_near = get_dist(M, O)
 						if(dist_near < closest_dist)
 							source = O
 							closest_dist = dist_near
-				M.playsound_local(source, "sound/effects/[selected_sound].ogg", 100, falloff = range / 2)
+				M.playsound_local(source, "sound/effects/[selected_sound].ogg", 100, falloff_exponent = range / 2)
 
 // Losing all initial engines should get you 2
 // Adding another set of engines at 0.5 time
@@ -821,7 +901,7 @@
 		var/area/shuttle/areaInstance = thing
 		for(var/obj/structure/shuttle/engine/E in areaInstance.contents)
 			if(!QDELETED(E))
-				engine_list += E
+				engine_list += WEAKREF(E)
 				. += E.engine_power
 		for(var/obj/machinery/shuttle/engine/E in areaInstance.contents)
 			if(!QDELETED(E))

@@ -5,8 +5,8 @@
 //Drone inventory
 //Drone hands
 
-
-/mob/living/simple_animal/drone/doUnEquip(obj/item/I, force)
+//Does nobody read the comments telling you to not touch shit you souldn't?
+/mob/living/simple_animal/drone/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE)
 	if(..())
 		update_inv_hands()
 		if(I == head)
@@ -21,13 +21,13 @@
 
 /mob/living/simple_animal/drone/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
 	switch(slot)
-		if(SLOT_HEAD)
+		if(ITEM_SLOT_HEAD)
 			if(head)
 				return 0
 			if(!((I.slot_flags & ITEM_SLOT_HEAD) || (I.slot_flags & ITEM_SLOT_MASK)))
 				return 0
 			return 1
-		if(SLOT_GENERC_DEXTROUS_STORAGE)
+		if(ITEM_SLOT_DEX_STORAGE)
 			if(internal_storage)
 				return 0
 			return 1
@@ -36,9 +36,9 @@
 
 /mob/living/simple_animal/drone/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(SLOT_HEAD)
+		if(ITEM_SLOT_HEAD)
 			return head
-		if(SLOT_GENERC_DEXTROUS_STORAGE)
+		if(ITEM_SLOT_DEX_STORAGE)
 			return internal_storage
 	return ..()
 
@@ -63,10 +63,10 @@
 	I.plane = ABOVE_HUD_PLANE
 
 	switch(slot)
-		if(SLOT_HEAD)
+		if(ITEM_SLOT_HEAD)
 			head = I
 			update_inv_head()
-		if(SLOT_GENERC_DEXTROUS_STORAGE)
+		if(ITEM_SLOT_DEX_STORAGE)
 			internal_storage = I
 			update_inv_internal_storage()
 		else
@@ -77,7 +77,7 @@
 	I.equipped(src, slot)
 
 /mob/living/simple_animal/drone/getBackSlot()
-	return SLOT_GENERC_DEXTROUS_STORAGE
+	return ITEM_SLOT_DEX_STORAGE
 
 /mob/living/simple_animal/drone/getBeltSlot()
-	return SLOT_GENERC_DEXTROUS_STORAGE
+	return ITEM_SLOT_DEX_STORAGE

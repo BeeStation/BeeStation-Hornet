@@ -1,6 +1,7 @@
 /datum/species/plasmaman
-	name = "Plasmaman"
-	id = "plasmaman"
+	name = "\improper Plasmaman"
+	id = SPECIES_PLASMAMAN
+	bodyflag = FLAG_PLASMAMAN
 	say_mod = "rattles"
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
@@ -23,6 +24,13 @@
 	outfit_important_for_life = /datum/outfit/plasmaman
 	species_language_holder = /datum/language_holder/skeleton
 
+	species_chest = /obj/item/bodypart/chest/plasmaman
+	species_head = /obj/item/bodypart/head/plasmaman
+	species_l_arm = /obj/item/bodypart/l_arm/plasmaman
+	species_r_arm = /obj/item/bodypart/r_arm/plasmaman
+	species_l_leg = /obj/item/bodypart/l_leg/plasmaman
+	species_r_leg = /obj/item/bodypart/r_leg/plasmaman
+
 /datum/species/plasmaman/spec_life(mob/living/carbon/human/H)
 	var/atmos_sealed = FALSE
 	if (H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
@@ -39,7 +47,7 @@
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment)
 			if(environment.total_moles())
-				if(environment.get_moles(/datum/gas/oxygen) >= 1) //Same threshhold that extinguishes fire
+				if(environment.get_moles(GAS_O2) >= 1) //Same threshhold that extinguishes fire
 					H.adjust_fire_stacks(0.5)
 					if(!H.on_fire && H.fire_stacks > 0)
 						H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
@@ -59,113 +67,20 @@
 		no_protection = TRUE
 	. = ..()
 
-/datum/species/plasmaman/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
-	var/current_job = J.title
-	var/datum/outfit/plasmaman/O = new /datum/outfit/plasmaman
-	switch(current_job)
-		if("Chaplain")
-			O = new /datum/outfit/plasmaman/chaplain
-
-		if("Curator")
-			O = new /datum/outfit/plasmaman/curator
-
-		if("Janitor")
-			O = new /datum/outfit/plasmaman/janitor
-
-		if("Botanist")
-			O = new /datum/outfit/plasmaman/botany
-
-		if("Bartender", "Lawyer", "Barber", "Psychiatrist")
-			O = new /datum/outfit/plasmaman/bar
-
-		if("Stage Magician")
-			O = new /datum/outfit/plasmaman/magic
-		
-		if("VIP")
-			O = new /datum/outfit/plasmaman/vip
-
-		if("Debtor")
-			O = new /datum/outfit/plasmaman/hobo
-
-		if("Cook")
-			O = new /datum/outfit/plasmaman/chef
-
-		if("Security Officer")
-			O = new /datum/outfit/plasmaman/security
-
-		if("Deputy")
-			O = new /datum/outfit/plasmaman
-
-		if("Brig Physician")
-			O = new /datum/outfit/plasmaman/secmed
-
-		if("Detective")
-			O = new /datum/outfit/plasmaman/detective
-
-		if("Warden")
-			O = new /datum/outfit/plasmaman/warden
-
-		if("Cargo Technician", "Quartermaster")
-			O = new /datum/outfit/plasmaman/cargo
-
-		if("Shaft Miner")
-			O = new /datum/outfit/plasmaman/mining
-
-		if("Medical Doctor")
-			O = new /datum/outfit/plasmaman/medical
-
-		if("Paramedic")
-			O = new /datum/outfit/plasmaman/emt
-
-		if("Chemist")
-			O = new /datum/outfit/plasmaman/chemist
-
-		if("Geneticist")
-			O = new /datum/outfit/plasmaman/genetics
-
-		if("Roboticist")
-			O = new /datum/outfit/plasmaman/robotics
-
-		if("Virologist")
-			O = new /datum/outfit/plasmaman/viro
-
-		if("Scientist")
-			O = new /datum/outfit/plasmaman/science
-
-		if("Station Engineer")
-			O = new /datum/outfit/plasmaman/engineering
-
-		if("Atmospheric Technician")
-			O = new /datum/outfit/plasmaman/atmospherics
-
-		if("Captain")
-			O = new /datum/outfit/plasmaman/command
-
-		if("Chief Engineer")
-			O = new /datum/outfit/plasmaman/ce
-
-		if("Chief Medical Officer")
-			O = new /datum/outfit/plasmaman/cmo
-
-		if("Head of Security")
-			O = new /datum/outfit/plasmaman/hos
-
-		if("Research Director")
-			O = new /datum/outfit/plasmaman/rd
-
-		if("Head of Personnel")
-			O = new /datum/outfit/plasmaman/hop
-
-		if("Clown")
-			O = new /datum/outfit/plasmaman/honk
-
-		if("Mime")
-			O = new /datum/outfit/plasmaman/mime
-
-	H.equipOutfit(O, visualsOnly)
+/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source = null)
 	H.internal = H.get_item_for_held_index(2)
 	H.update_internals_hud_icon(1)
-	return 0
+
+	if(!preference_source)
+		return
+	var/path = J.species_outfits[SPECIES_PLASMAMAN]
+	var/datum/outfit/plasmaman/O = new path
+	var/datum/preferences/prefs = preference_source.prefs
+	if(prefs.helmet_style != HELMET_DEFAULT)
+		if(O.helmet_variants[prefs.helmet_style])
+			var/helmet = O.helmet_variants[prefs.helmet_style]
+			qdel(H.head)
+			H.equip_to_slot(new helmet, ITEM_SLOT_HEAD)
 
 /datum/species/plasmaman/qualifies_for_rank(rank, list/features)
 	if(rank in GLOB.security_positions)
@@ -174,19 +89,14 @@
 		return 0
 	return ..()
 
-/datum/species/plasmaman/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_plasmaman_name()
+/datum/species/plasmaman/random_name(gender, unique, lastname, attempts)
+	. = "[pick(GLOB.plasmaman_names)] \Roman[rand(1,99)]"
 
-	var/randname = plasmaman_name()
-
-	if(lastname)
-		randname += " [lastname]"
-
-	return randname
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, lastname, ++attempts)
 
 /datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
-	. = ..()
 	if(chem.type == /datum/reagent/consumable/milk)
 		if(chem.volume > 10)
 			H.reagents.remove_reagent(chem.type, chem.volume - 10)
@@ -219,3 +129,4 @@
 					H.emote("sigh")
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
+	return ..()

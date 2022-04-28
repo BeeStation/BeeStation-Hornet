@@ -7,7 +7,7 @@
 	proportion = 0.05			//The prbability per person of rolling it (5% is (5 in 100) (1 in 20))
 	max_amount = 4				//The maximum amount
 	role_name = "Undercover Agent"
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Brig Physician", "Clown")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Clown")
 	attached_antag_datum = /datum/antagonist/special/undercover
 
 ////////////////////////////////
@@ -61,9 +61,9 @@
 	var/obj/item/gun/energy/disabler/T = new(H)
 	var/obj/item/restraints/handcuffs/cable/zipties/T2 = new(H)
 	var/list/slots = list (
-		"backpack" = SLOT_IN_BACKPACK,
-		"left pocket" = SLOT_L_STORE,
-		"right pocket" = SLOT_R_STORE
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_LPOCKET,
+		"right pocket" = ITEM_SLOT_RPOCKET
 	)
 	var/where = H.equip_in_one_of_slots(T, slots)
 	H.equip_in_one_of_slots(T2, slots)
@@ -85,12 +85,12 @@
 
 /datum/objective/saveshuttle/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
-		return FALSE
+		return ..()
 	var/count = 0
 	for(var/mob/living/carbon/human/person in get_living_crew())
 		if(get_area(person) in SSshuttle.emergency.shuttle_areas)
 			count ++
-	return count >= target_amount
+	return (count >= target_amount) || ..()
 
 /datum/objective/saveshuttle/update_explanation_text()
 	. = ..()
@@ -122,10 +122,10 @@
 
 /datum/objective/protect_sm/update_explanation_text()
 	var/obj/machinery/power/supermatter_crystal/S = target_sm.resolve()
-	explanation_text = "Ensure the Supermatter crystal in [get_area(S).name] remains stable and has above [target_integrity]% integrity at the end of the shift."
+	explanation_text = "Ensure the Supermatter crystal in [get_area(S)] remains stable and has above [target_integrity]% integrity at the end of the shift."
 
 /datum/objective/protect_sm/check_completion()
 	var/obj/machinery/power/supermatter_crystal/S = target_sm.resolve()
 	if(!S)
-		return FALSE
-	return S.get_integrity() > target_amount
+		return ..()
+	return (S.get_integrity() > target_amount) || ..()

@@ -1,7 +1,7 @@
 
 /mob/living/carbon/alien/proc/updatePlasmaDisplay()
 	if(hud_used) //clientless aliens
-		hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='magenta'>[round(getPlasma())]</font></div>"
+		hud_used.alien_plasma_display.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='magenta'>[round(getPlasma())]</font></div>")
 
 /mob/living/carbon/alien/larva/updatePlasmaDisplay()
 	return
@@ -14,7 +14,7 @@
 			return
 		var/turf/Q = get_turf(queen)
 		var/turf/A = get_turf(src)
-		if(Q.z != A.z) //The queen is on a different Z level, we cannot sense that far.
+		if(Q.get_virtual_z_level() != A.get_virtual_z_level()) //The queen is on a different Z level, we cannot sense that far.
 			return
 		var/Qdir = get_dir(src, Q)
 		var/Qdist = get_dist(src, Q)

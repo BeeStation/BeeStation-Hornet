@@ -6,39 +6,45 @@
 	item_state = "eng_helm"
 	max_integrity = 300
 	armor = list("melee" = 10, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 75, "fire" = 50, "acid" = 75, "stamina" = 20)
+	light_system = MOVABLE_LIGHT
+	light_range = 4
+	light_power = 1
+	light_on = FALSE
 	var/basestate = "hardsuit"
-	var/brightness_on = 4 //luminosity when on
 	var/on = FALSE
 	var/obj/item/clothing/suit/space/hardsuit/suit
-	item_color = "engineering" //Determines used sprites: hardsuit[on]-[color] and hardsuit[on]-[color]2 (lying down sprite)
+	var/hardsuit_type = "engineering" //Determines used sprites: hardsuit[on]-[type]
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	var/rad_count = 0
-	var/rad_record = 0
-	var/grace_count = 0
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT
+	var/current_tick_amount = 0
+	var/radiation_count = 0
+	var/grace = RAD_GEIGER_GRACE_PERIOD
 	var/datum/looping_sound/geiger/soundloop
 
-/obj/item/clothing/head/helmet/space/hardsuit/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload)
 	. = ..()
 	soundloop = new(list(), FALSE, TRUE)
 	soundloop.volume = 5
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
+	if(!QDELETED(suit))
+		qdel(suit)
+	suit = null
 	QDEL_NULL(soundloop)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
 	on = !on
-	icon_state = "[basestate][on]-[item_color]"
+	icon_state = "[basestate][on]-[hardsuit_type]"
 	user.update_inv_head()	//so our mob-overlays update
 
-	if(on)
-		set_light(brightness_on)
-	else
-		set_light(0)
+	set_light_on(on)
+
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
@@ -50,12 +56,12 @@
 		soundloop.stop(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
-	if(slot == SLOT_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		return 1
 
 /obj/item/clothing/head/helmet/space/hardsuit/equipped(mob/user, slot)
 	..()
-	if(slot != SLOT_HEAD)
+	if(slot != ITEM_SLOT_HEAD)
 		if(suit)
 			suit.RemoveHelmet()
 			soundloop.stop(user)
@@ -67,25 +73,27 @@
 /obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(var/msg)
 	var/mob/wearer = loc
 	if(msg && ishuman(wearer))
-		wearer.show_message("[icon2html(src, wearer)]<b><span class='robot'>[msg]</span></b>", 1)
+		wearer.show_message("[icon2html(src, wearer)]<b><span class='robot'>[msg]</span></b>", MSG_VISUAL)
 
-/obj/item/clothing/head/helmet/space/hardsuit/rad_act(severity)
+/obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
 	. = ..()
-	rad_count += severity
-
-/obj/item/clothing/head/helmet/space/hardsuit/process()
-	if(!rad_count)
-		grace_count++
-		if(grace_count == 2)
-			soundloop.last_radiation = 0
+	if(amount <= RAD_BACKGROUND_RADIATION)
 		return
+	current_tick_amount += amount
 
-	grace_count = 0
-	rad_record -= rad_record/5
-	rad_record += rad_count/5
-	rad_count = 0
+/obj/item/clothing/head/helmet/space/hardsuit/process(delta_time)
+	radiation_count = LPFILTER(radiation_count, current_tick_amount, delta_time, RAD_GEIGER_RC)
 
-	soundloop.last_radiation = rad_record
+	if(current_tick_amount)
+		grace = RAD_GEIGER_GRACE_PERIOD
+	else
+		grace -= delta_time
+		if(grace <= 0)
+			radiation_count = 0
+
+	current_tick_amount = 0
+
+	soundloop.last_radiation = radiation_count
 
 /obj/item/clothing/head/helmet/space/hardsuit/emp_act(severity)
 	. = ..()
@@ -106,9 +114,9 @@
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
 	var/obj/item/tank/jetpack/suit/jetpack = null
 	pocket_storage_component_path = null
+	var/hardsuit_type
 
-
-/obj/item/clothing/suit/space/hardsuit/Initialize()
+/obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
 	if(jetpack && ispath(jetpack))
 		jetpack = new jetpack(src)
 	. = ..()
@@ -122,7 +130,7 @@
 		if(jetpack)
 			to_chat(user, "<span class='warning'>[src] already has a jetpack installed.</span>")
 			return
-		if(src == user.get_item_by_slot(SLOT_WEAR_SUIT)) //Make sure the player is not wearing the suit before applying the upgrade.
+		if(src == user.get_item_by_slot(ITEM_SLOT_OCLOTHING)) //Make sure the player is not wearing the suit before applying the upgrade.
 			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 			return
 
@@ -134,7 +142,7 @@
 		if(!jetpack)
 			to_chat(user, "<span class='warning'>[src] has no jetpack installed.</span>")
 			return
-		if(src == user.get_item_by_slot(SLOT_WEAR_SUIT))
+		if(src == user.get_item_by_slot(ITEM_SLOT_OCLOTHING))
 			to_chat(user, "<span class='warning'>You cannot remove the jetpack from [src] while wearing it.</span>")
 			return
 
@@ -149,7 +157,7 @@
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
 	..()
 	if(jetpack)
-		if(slot == SLOT_WEAR_SUIT)
+		if(slot == ITEM_SLOT_OCLOTHING)
 			for(var/X in jetpack.actions)
 				var/datum/action/A = X
 				A.Grant(user)
@@ -162,7 +170,7 @@
 			A.Remove(user)
 
 /obj/item/clothing/suit/space/hardsuit/item_action_slot_check(slot)
-	if(slot == SLOT_WEAR_SUIT) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
+	if(slot == ITEM_SLOT_OCLOTHING) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
 		return 1
 
 	//Engineering
@@ -172,7 +180,7 @@
 	icon_state = "hardsuit0-engineering"
 	item_state = "eng_helm"
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 12, "bomb" = 10, "bio" = 100, "rad" = 75, "fire" = 100, "acid" = 75, "stamina" = 20)
-	item_color = "engineering"
+	hardsuit_type = "engineering"
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/suit/space/hardsuit/engine
@@ -190,7 +198,7 @@
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has thermal shielding."
 	icon_state = "hardsuit0-atmospherics"
 	item_state = "atmo_helm"
-	item_color = "atmospherics"
+	hardsuit_type = "atmospherics"
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 25, "fire" = 100, "acid" = 75, "stamina" = 20)
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -212,7 +220,7 @@
 	desc = "An advanced helmet designed for work in a hazardous, low pressure environment. Shines with a high polish."
 	icon_state = "hardsuit0-white"
 	item_state = "ce_helm"
-	item_color = "white"
+	hardsuit_type = "white"
 	armor = list("melee" = 40, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 90, "stamina" = 30)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -234,16 +242,16 @@
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has reinforced plating for wildlife encounters and dual floodlights."
 	icon_state = "hardsuit0-mining"
 	item_state = "mining_helm"
-	item_color = "mining"
+	hardsuit_type = "mining"
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF
 	heat_protection = HEAD
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75, "stamina" = 40)
-	brightness_on = 7
+	light_range = 7
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator)
 	high_pressure_multiplier = 0.6
 
-/obj/item/clothing/head/helmet/space/hardsuit/mining/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/mining/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
 
@@ -254,15 +262,63 @@
 	item_state = "mining_hardsuit"
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF
+	supports_variations = DIGITIGRADE_VARIATION
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 20, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75, "stamina" = 40)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/mining
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	high_pressure_multiplier = 0.6
 
-/obj/item/clothing/suit/space/hardsuit/mining/Initialize()
+/obj/item/clothing/suit/space/hardsuit/mining/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
+
+	//Exploration hardsuit
+/obj/item/clothing/head/helmet/space/hardsuit/exploration
+	name = "exploration hardsuit helmet"
+	desc = "An advanced space-proof hardsuit designed to protect against off-station threats."
+	icon_state = "hardsuit0-exploration"
+	item_state = "death_commando_mask"
+	hardsuit_type = "exploration"
+	heat_protection = HEAD
+	armor = list("melee" = 35, "bullet" = 15, "laser" = 20, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75, "stamina" = 20)
+	light_range = 6
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator)
+
+/obj/item/clothing/suit/space/hardsuit/exploration
+	icon_state = "hardsuit-exploration"
+	name = "exploration hardsuit"
+	desc = "An advanced space-proof hardsuit designed to protect against off-station threats. Despite looking remarkably similar to the mining hardsuit \
+		Nanotrasen officials note that it is unique in every way and the design has not been copied in any way."
+	item_state = "exploration_hardsuit"
+	armor = list("melee" = 35, "bullet" = 15, "laser" = 20, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75, "stamina" = 20)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/exploration
+	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+
+	//Cybersun Hardsuit
+	//A kind of side-grade to the explorer suit, sacrificing burn protection for brute. If you can kill the guy inside it, anyways.
+
+/obj/item/clothing/head/helmet/space/hardsuit/cybersun
+	name = "Cybersun hardsuit helmet"
+	desc = "A bulbous red helmet designed for scavenging in hazardous, low pressure environments. Has dual floodlights, and a 360 Degree view."
+	icon_state = "hardsuit0-cybersun"
+	item_state = "death_commando_mask"
+	hardsuit_type = "cybersun"
+	armor = list("melee" = 30, "bullet" = 35, "laser" = 15, "energy" = 15, "bomb" = 60, "bio" = 100, "rad" = 55, "fire" = 30, "acid" = 60, "stamina" = 15)
+	strip_delay = 600
+
+/obj/item/clothing/suit/space/hardsuit/cybersun
+	icon_state = "cybersun"
+	name = "Cybersun hardsuit"
+	desc = "A bulky, protective suit designed to protect against the perils facing Cybersun Employed Engineers, Researchers, and more as they head from the safety of \
+		more stable employment to the dangers of Nanotrasen Controlled Deep Space. Designed to get the job done despite on-site hazards in derelicts, laser armor was \
+		sacrificed in favor of more effective blunt armor plates and radiation shielding."
+	armor = list("melee" = 30, "bullet" = 35, "laser" = 15, "energy" = 15, "bomb" = 60, "bio" = 100, "rad" = 55, "fire" = 30, "acid" = 60, "stamina" = 15)
+	hardsuit_type = "cybersun"
+	item_state = "death_commando_mask"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/cybersun
+	jetpack = /obj/item/tank/jetpack/suit
 
 	//Syndicate hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi
@@ -271,19 +327,19 @@
 	alt_desc = "A dual-mode advanced helmet designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_helm"
-	item_color = "syndi"
+	hardsuit_type = "syndi"
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 40, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 90, "stamina" = 60)
 	on = TRUE
 	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode,\
 		/datum/action/item_action/toggle_beacon_hud)
-	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDEFACIALHAIR
+	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDEEARS
 	visor_flags = STOPSPRESSUREDAMAGE
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
-	icon_state = "hardsuit[on]-[item_color]"
+	icon_state = "hardsuit[on]-[hardsuit_type]"
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/Initialize(mapload)
 	. = ..()
 	//Link
 	if(istype(loc, /obj/item/clothing/suit/space/hardsuit/syndi))
@@ -338,7 +394,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/toggle_hardsuit_mode(mob/user) //Helmet Toggles Suit Mode
 	if(linkedsuit)
-		linkedsuit.icon_state = "hardsuit[on]-[item_color]"
+		linkedsuit.icon_state = "hardsuit[on]-[hardsuit_type]"
 		linkedsuit.update_icon()
 		if(on)
 			linkedsuit.activate_space_mode()
@@ -348,7 +404,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/activate_space_mode()
 	name = initial(name)
 	desc = initial(desc)
-	set_light(brightness_on)
+	set_light_on(TRUE)
 	clothing_flags |= visor_flags
 	flags_cover |= HEADCOVERSEYES | HEADCOVERSMOUTH
 	flags_inv |= visor_flags_inv
@@ -358,7 +414,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/activate_combat_mode()
 	name = "[initial(name)] (combat)"
 	desc = alt_desc
-	set_light(0)
+	set_light_on(FALSE)
 	clothing_flags &= ~visor_flags
 	flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
 	flags_inv &= ~visor_flags_inv
@@ -371,12 +427,14 @@
 	alt_desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_hardsuit"
-	item_color = "syndi"
+	hardsuit_type = "syndi"
 	w_class = WEIGHT_CLASS_NORMAL
+	supports_variations = DIGITIGRADE_VARIATION
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 40, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 90, "stamina" = 60)
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
+	item_flags = ILLEGAL	//Syndicate only and difficult to obtain outside of uplink anyway. Nukie hardsuits on the ship are illegal.
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet,
 		/datum/action/item_action/toggle_beacon,
@@ -414,13 +472,15 @@
 	. = ..()
 	//Update helmet to non combat mode
 	var/obj/item/clothing/head/helmet/space/hardsuit/syndi/syndieHelmet = helmet
+	if(!syndieHelmet)
+		return
 	syndieHelmet.activate_combat_mode()
 	syndieHelmet.update_icon()
 	for(var/X in syndieHelmet.actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 	//Update the icon_state first
-	icon_state = "hardsuit[syndieHelmet.on]-[syndieHelmet.item_color]"
+	icon_state = "hardsuit[syndieHelmet.on]-[syndieHelmet.hardsuit_type]"
 	update_icon()
 	//Actually apply the non-combat mode to suit and update the suit overlay
 	activate_combat_mode()
@@ -455,7 +515,7 @@
 	desc = "An elite version of the syndicate helmet, with improved armour and fireproofing. It is in EVA mode. Property of Gorlex Marauders."
 	alt_desc = "An elite version of the syndicate helmet, with improved armour and fireproofing. It is in combat mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit0-syndielite"
-	item_color = "syndielite"
+	hardsuit_type = "syndielite"
 	armor = list("melee" = 60, "bullet" = 60, "laser" = 50, "energy" = 60, "bomb" = 55, "bio" = 100, "rad" = 70, "fire" = 100, "acid" = 100, "stamina" = 80)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -466,7 +526,7 @@
 	desc = "An elite version of the syndicate hardsuit, with improved armour and fireproofing. It is in travel mode."
 	alt_desc = "An elite version of the syndicate hardsuit, with improved armour and fireproofing. It is in combat mode."
 	icon_state = "hardsuit0-syndielite"
-	item_color = "syndielite"
+	hardsuit_type = "syndielite"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
 	armor = list("melee" = 60, "bullet" = 60, "laser" = 50, "energy" = 60, "bomb" = 55, "bio" = 100, "rad" = 70, "fire" = 100, "acid" = 100, "stamina" = 80)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
@@ -480,7 +540,7 @@
 	alt_desc = "A dual-mode advanced helmet designed for any crime-fighting situation. It is in combat mode."
 	icon_state = "hardsuit1-owl"
 	item_state = "s_helmet"
-	item_color = "owl"
+	hardsuit_type = "owl"
 	visor_flags_inv = 0
 	visor_flags = 0
 	on = FALSE
@@ -491,7 +551,7 @@
 	alt_desc = "A dual-mode advanced hardsuit designed for any crime-fighting situation. It is in combat mode."
 	icon_state = "hardsuit1-owl"
 	item_state = "s_suit"
-	item_color = "owl"
+	hardsuit_type = "owl"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/owl
 
 
@@ -501,7 +561,7 @@
 	desc = "A bizarre gem-encrusted helmet that radiates magical energies."
 	icon_state = "hardsuit0-wiz"
 	item_state = "wiz_helm"
-	item_color = "wiz"
+	hardsuit_type = "wiz"
 	resistance_flags = FIRE_PROOF | ACID_PROOF //No longer shall our kind be foiled by lone chemists with spray bottles!
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 50, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100, "stamina" = 70)
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
@@ -522,7 +582,7 @@
 	jetpack = /obj/item/tank/jetpack/suit
 	slowdown = 0.3
 
-/obj/item/clothing/suit/space/hardsuit/wizard/Initialize()
+/obj/item/clothing/suit/space/hardsuit/wizard/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, FALSE, INFINITY, FALSE)
 
@@ -533,16 +593,17 @@
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort, but does not protect the eyes from intense light."
 	icon_state = "hardsuit0-medical"
 	item_state = "medical_helm"
-	item_color = "medical"
+	hardsuit_type = "medical"
 	flash_protect = 0
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75, "stamina" = 20)
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY | SNUG_FIT | SCAN_REAGENTS
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS
 
 /obj/item/clothing/suit/space/hardsuit/medical
 	icon_state = "hardsuit-medical"
 	name = "medical hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Built with lightweight materials for easier movement."
 	item_state = "medical_hardsuit"
+	supports_variations = DIGITIGRADE_VARIATION
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/firstaid, /obj/item/healthanalyzer, /obj/item/stack/medical)
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75, "stamina" = 20)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical
@@ -562,21 +623,21 @@
 	name = "prototype hardsuit helmet"
 	desc = "A prototype helmet designed for research in a hazardous, low pressure environment. Scientific data flashes across the visor."
 	icon_state = "hardsuit0-rd"
-	item_color = "rd"
+	hardsuit_type = "rd"
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 100, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 80, "stamina" = 30)
 	var/obj/machinery/doppler_array/integrated/bomb_radar
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY | SNUG_FIT | SCAN_REAGENTS
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_research_scanner)
 
-/obj/item/clothing/head/helmet/space/hardsuit/rd/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/rd/Initialize(mapload)
 	. = ..()
 	bomb_radar = new /obj/machinery/doppler_array/integrated(src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/living/carbon/human/user, slot)
 	..()
-	if (slot == SLOT_HEAD)
+	if (slot == ITEM_SLOT_HEAD)
 		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
 		DHUD.add_hud_to(user)
 
@@ -591,6 +652,7 @@
 	name = "prototype hardsuit"
 	desc = "A prototype suit that protects against hazardous, low pressure environments. Fitted with extensive plating for handling explosives and dangerous research materials."
 	item_state = "hardsuit-rd"
+	supports_variations = DIGITIGRADE_VARIATION
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT //Same as an emergency firesuit. Not ideal for extended exposure.
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector,
@@ -606,7 +668,7 @@
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
 	icon_state = "hardsuit0-sec"
 	item_state = "sec_helm"
-	item_color = "sec"
+	hardsuit_type = "sec"
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 30,"energy" = 40, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75, "stamina" = 50)
 
 
@@ -615,10 +677,11 @@
 	name = "security hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	item_state = "sec_hardsuit"
+	supports_variations = DIGITIGRADE_VARIATION
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 30, "energy" = 40, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 75, "acid" = 75, "stamina" = 50)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security
 
-/obj/item/clothing/suit/space/hardsuit/security/Initialize()
+/obj/item/clothing/suit/space/hardsuit/security/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_hardsuit_allowed
 
@@ -627,13 +690,14 @@
 	name = "head of security's hardsuit helmet"
 	desc = "A special bulky helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
 	icon_state = "hardsuit0-hos"
-	item_color = "hos"
+	hardsuit_type = "hos"
 	armor = list("melee" = 45, "bullet" = 25, "laser" = 30, "energy" = 40, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 95, "acid" = 95, "stamina" = 60)
 
 
 /obj/item/clothing/suit/space/hardsuit/security/hos
 	icon_state = "hardsuit-hos"
 	name = "head of security's hardsuit"
+	supports_variations = DIGITIGRADE_VARIATION
 	desc = "A special bulky suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	armor = list("melee" = 45, "bullet" = 25, "laser" = 30, "energy" = 40, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 95, "acid" = 95, "stamina" = 60)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
@@ -664,7 +728,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT //this needed to be added a long fucking time ago
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/swat
 
-/obj/item/clothing/suit/space/hardsuit/swat/Initialize()
+/obj/item/clothing/suit/space/hardsuit/swat/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_hardsuit_allowed
 
@@ -689,7 +753,7 @@
 	icon_state = "hardsuit0-clown"
 	item_state = "hardsuit0-clown"
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 75, "fire" = 60, "acid" = 30, "stamina" = 20)
-	item_color = "clown"
+	hardsuit_type = "clown"
 
 /obj/item/clothing/suit/space/hardsuit/clown
 	name = "cosmohonk hardsuit"
@@ -699,7 +763,7 @@
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 75, "fire" = 60, "acid" = 30, "stamina" = 20)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/clown
 
-/obj/item/clothing/suit/space/hardsuit/clown/mob_can_equip(mob/M, slot)
+/obj/item/clothing/suit/space/hardsuit/clown/mob_can_equip(mob/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
 	if(!..() || !ishuman(M))
 		return FALSE
 	var/mob/living/carbon/human/H = M
@@ -715,7 +779,7 @@
 	icon_state = "hardsuit0-ancient"
 	item_state = "anc_helm"
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 5, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 75, "stamina" = 30)
-	item_color = "ancient"
+	hardsuit_type = "ancient"
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/suit/space/hardsuit/ancient
@@ -737,6 +801,7 @@
 	icon_state = "hardsuit-hos"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	allowed = null
+	supports_variations = DIGITIGRADE_VARIATION
 	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 40, "bomb" = 10, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100, "stamina" = 60)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/current_charges = 3
@@ -747,7 +812,7 @@
 	var/shield_state = "shield-old"
 	var/shield_on = "shield-old"
 
-/obj/item/clothing/suit/space/hardsuit/shielded/Initialize()
+/obj/item/clothing/suit/space/hardsuit/shielded/Initialize(mapload)
 	. = ..()
 	if(!allowed)
 		allowed = GLOB.advanced_hardsuit_allowed
@@ -759,6 +824,11 @@
 		s.set_up(2, 1, src)
 		s.start()
 		owner.visible_message("<span class='danger'>[owner]'s shields deflect [attack_text] in a shower of sparks!</span>")
+		if(isprojectile(hitby))
+			var/obj/item/projectile/P = hitby
+			//Fake bullets just disintegrate
+			if(P.martial_arts_no_deflect)
+				return TRUE
 		current_charges--
 		if(recharge_rate)
 			START_PROCESSING(SSobj, src)
@@ -766,8 +836,8 @@
 			owner.visible_message("[owner]'s shield overloads!")
 			shield_state = "broken"
 			owner.update_inv_wear_suit()
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /obj/item/clothing/suit/space/hardsuit/shielded/Destroy()
@@ -786,7 +856,7 @@
 			var/mob/living/carbon/human/C = loc
 			C.update_inv_wear_suit()
 
-/obj/item/clothing/suit/space/hardsuit/shielded/worn_overlays(isinhands)
+/obj/item/clothing/suit/space/hardsuit/shielded/worn_overlays(mutable_appearance/standing, isinhands)
 	. = list()
 	if(!isinhands)
 		. += mutable_appearance('icons/effects/effects.dmi', shield_state, MOB_LAYER + 0.01)
@@ -801,7 +871,7 @@
 	desc = "Standard issue hardsuit for playing capture the flag."
 	icon_state = "ert_medical"
 	item_state = "ert_medical"
-	item_color = "ert_medical"
+	hardsuit_type = "ert_medical"
 	// Adding TRAIT_NODROP is done when the CTF spawner equips people
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/ctf
 	armor = list("melee" = 0, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 95, "stamina" = 0)
@@ -812,7 +882,7 @@
 	name = "red shielded hardsuit"
 	icon_state = "ert_security"
 	item_state = "ert_security"
-	item_color = "ert_security"
+	hardsuit_type = "ert_security"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/ctf/red
 	shield_state = "shield-red"
 	shield_on = "shield-red"
@@ -831,21 +901,21 @@
 	desc = "Standard issue hardsuit helmet for playing capture the flag."
 	icon_state = "hardsuit0-ert_medical"
 	item_state = "hardsuit0-ert_medical"
-	item_color = "ert_medical"
+	hardsuit_type = "ert_medical"
 	armor = list("melee" = 0, "bullet" = 30, "laser" = 30, "energy" = 40, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 95, "stamina" = 0)
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/ctf/red
 	icon_state = "hardsuit0-ert_security"
 	item_state = "hardsuit0-ert_security"
-	item_color = "ert_security"
+	hardsuit_type = "ert_security"
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/ctf/blue
 	name = "shielded hardsuit helmet"
 	desc = "Standard issue hardsuit helmet for playing capture the flag."
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "hardsuit0-ert_commander"
-	item_color = "ert_commander"
+	hardsuit_type = "ert_commander"
 
 
 
@@ -858,7 +928,7 @@
 	desc = "An advanced hardsuit with built in energy shielding."
 	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_hardsuit"
-	item_color = "syndi"
+	hardsuit_type = "syndi"
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 40, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100, "stamina" = 60)
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
@@ -870,6 +940,7 @@
 		/datum/action/item_action/toggle_beacon,
 		/datum/action/item_action/toggle_beacon_frequency
 	)
+	jetpack = /obj/item/tank/jetpack/suit
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -887,10 +958,6 @@
 		shield_on = "shield-red"
 		to_chat(user, "<span class='warning'>You update the hardsuit's hardware, changing back the shield's color to red.</span>")
 	user.update_inv_wear_suit()
-
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/Initialize()
-	jetpack = new /obj/item/tank/jetpack/suit(src)
-	. = ..()
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/ui_action_click(mob/user, datum/actiontype)
 	switch(actiontype.type)
@@ -926,12 +993,12 @@
 	desc = "An advanced hardsuit helmet with built in energy shielding."
 	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_helm"
-	item_color = "syndi"
+	hardsuit_type = "syndi"
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 40, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 100, "acid" = 100, "stamina" = 60)
 	actions_types = list(/datum/action/item_action/toggle_helmet_light,\
 		/datum/action/item_action/toggle_beacon_hud)
 
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/Initialize(mapload)
 	. = ..()
 	if(istype(loc, /obj/item/clothing/suit/space/hardsuit/shielded/syndi))
 		var/obj/linkedsuit = loc
@@ -967,7 +1034,7 @@
 	desc = "An advanced hardsuit favored by commandos for use in special operations."
 	icon_state = "deathsquad"
 	item_state = "swat_suit"
-	item_color = "syndi"
+	hardsuit_type = "syndi"
 	max_charges = 4
 	current_charges = 4
 	recharge_delay = 15
@@ -983,7 +1050,7 @@
 	desc = "A tactical helmet with built in energy shielding."
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
-	item_color = "syndi"
+	hardsuit_type = "syndi"
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 60, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 100)
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -994,7 +1061,7 @@
 	desc = "A hilarious hardsuit favored by HONK squad troopers for use in special pranks."
 	icon_state = "hardsuit-clown"
 	item_state = "clown_hardsuit"
-	item_color = "clown"
+	hardsuit_type = "clown"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat/honk
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/swat/honk
@@ -1002,7 +1069,7 @@
 	desc = "A hilarious helmet with built in anti-mime propaganda shielding."
 	icon_state = "hardsuit0-clown"
 	item_state = "hardsuit0-clown"
-	item_color = "clown"
+	hardsuit_type = "clown"
 
 
 // Doomguy ERT version

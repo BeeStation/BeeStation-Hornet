@@ -8,7 +8,7 @@
 	key_type = /obj/item/key/security
 	integrity_failure = 50
 
-/obj/vehicle/ridden/secway/Initialize()
+/obj/vehicle/ridden/secway/Initialize(mapload)
 	. = ..()
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
 	D.vehicle_move_delay = 1.5
@@ -18,10 +18,10 @@
 	START_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/vehicle/ridden/secway/process()
+/obj/vehicle/ridden/secway/process(delta_time)
 	if(obj_integrity >= integrity_failure)
 		return PROCESS_KILL
-	if(prob(20))
+	if(DT_PROB(10, delta_time))
 		return
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(0, src)

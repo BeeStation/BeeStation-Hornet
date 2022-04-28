@@ -11,7 +11,7 @@
 	var/gravity_power_range = 10 //how close the stand must stay to the target to keep the heavy gravity
 	var/datum/callback/distance_check
 
-/mob/living/simple_animal/hostile/guardian/gravitokinetic/Initialize()
+/mob/living/simple_animal/hostile/guardian/gravitokinetic/Initialize(mapload)
 	. = ..()
 	distance_check = CALLBACK(src, .proc/__distance_check)
 
@@ -58,5 +58,7 @@
 	qdel(C)
 
 /mob/living/simple_animal/hostile/guardian/gravitokinetic/proc/__distance_check(atom/movable/AM, OldLoc, Dir, Forced)
+	SIGNAL_HANDLER
+
 	if(get_dist(src, AM) > gravity_power_range)
 		remove_gravity(AM.GetComponent(/datum/component/forced_gravity))

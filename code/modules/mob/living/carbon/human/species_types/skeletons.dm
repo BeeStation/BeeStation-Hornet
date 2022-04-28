@@ -1,13 +1,13 @@
 /datum/species/skeleton
 	// 2spooky
-	name = "Spooky Scary Skeleton"
+	name = "\improper Spooky Scary Skeleton"
 	id = "skeleton"
 	say_mod = "rattles"
 	sexes = 0
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/skeleton
 	species_traits = list(NOBLOOD,NOHUSK)
 	inherent_traits = list(TRAIT_TOXIMMUNE,TRAIT_RESISTHEAT,TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_RADIMMUNE,\
-	TRAIT_PIERCEIMMUNE,TRAIT_NOHUNGER,TRAIT_EASYDISMEMBER,TRAIT_LIMBATTACHMENT,TRAIT_FAKEDEATH,TRAIT_XENO_IMMUNE)
+	TRAIT_PIERCEIMMUNE,TRAIT_NOHUNGER,TRAIT_EASYDISMEMBER,TRAIT_LIMBATTACHMENT,TRAIT_FAKEDEATH,TRAIT_XENO_IMMUNE,TRAIT_NOCLONELOSS)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)
 	mutanttongue = /obj/item/organ/tongue/bone
 	damage_overlay_type = ""//let's not show bloody wounds or burns over bones.
@@ -17,6 +17,13 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 	species_language_holder = /datum/language_holder/skeleton
 
+	species_chest = /obj/item/bodypart/chest/skeleton
+	species_head = /obj/item/bodypart/head/skeleton
+	species_l_arm = /obj/item/bodypart/l_arm/skeleton
+	species_r_arm = /obj/item/bodypart/r_arm/skeleton
+	species_l_leg = /obj/item/bodypart/l_leg/skeleton
+	species_r_leg = /obj/item/bodypart/r_leg/skeleton
+
 /datum/species/skeleton/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
@@ -24,7 +31,6 @@
 
 //Can still metabolize milk through meme magic
 /datum/species/skeleton/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
-	. = ..()
 	if(chem.type == /datum/reagent/consumable/milk)
 		if(chem.volume > 10)
 			H.reagents.remove_reagent(chem.type, chem.volume - 10)
@@ -57,3 +63,4 @@
 					H.emote("sigh")
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
+	return ..()

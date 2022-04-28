@@ -19,7 +19,7 @@
 	current_cycle++
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(!HAS_TRAIT(H, TRAIT_NOHUNGER))
+		if(!HAS_TRAIT(H, TRAIT_NOHUNGER) && !HAS_TRAIT(H, TRAIT_POWERHUNGRY))
 			H.adjust_nutrition(nutriment_factor)
 	holder.remove_reagent(type, metabolization_rate)
 
@@ -178,6 +178,8 @@
 /datum/reagent/consumable/virus_food/on_mob_life(mob/living/carbon/M)
 	. = ..()
 	for(var/datum/disease/D in M.diseases)
+		if(D.spread_flags & DISEASE_SPREAD_SPECIAL || D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS)
+			continue
 		if(prob(D.stage_prob * 10))
 			D.update_stage(min(D.stage += 1, D.max_stages))
 
@@ -314,18 +316,6 @@
 		return
 	if(M.has_bane(BANE_SALT))
 		M.mind.disrupt_spells(-200)
-	if(method == INGEST && is_species(M, /datum/species/squid))
-		to_chat(M, "<span class='danger'>Your tongue shrivels as you taste the salt! It burns!</span>")
-		if(prob(25))
-			M.emote("scream")
-		M.adjustFireLoss(5, TRUE)
-	else if(method == TOUCH && is_species(M, /datum/species/squid))
-		if(M.incapacitated())
-			return
-		var/obj/item/I = M.get_active_held_item()
-		M.throw_item(get_ranged_target_turf(M, pick(GLOB.alldirs), rand(1, 3)))
-		to_chat(M, "<span class='warning'>The salt causes your arm to spasm!</span>")
-		M.log_message("threw [I] due to a Muscle Spasm", LOG_ATTACK)
 
 /datum/reagent/consumable/sodiumchloride/reaction_turf(turf/T, reac_volume) //Creates an umbra-blocking salt pile
 	if(!istype(T))
@@ -420,8 +410,6 @@
 			if(prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
 				H.heal_bodypart_damage(1,1, 0)
 				. = 1
-		else //chefs' robust space-Italian metabolism lets them eat garlic without producing allyl methyl sulfide
-			H.adjust_hygiene(-0.15 * volume)
 	..()
 
 /datum/reagent/consumable/sprinkles
@@ -449,15 +437,14 @@
 	T.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = reac_volume*2 SECONDS)
 	var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.remove_air(T.air.total_moles())
-		lowertemp.set_temperature(max( min(lowertemp.return_temperature()-2000,lowertemp.return_temperature() / 2) ,0))
+		var/datum/gas_mixture/lowertemp = T.return_air()
+		lowertemp.set_temperature(max( min(lowertemp.return_temperature()-2000,lowertemp.return_temperature() / 2) ,TCMB))
 		lowertemp.react(src)
-		T.assume_air(lowertemp)
 		qdel(hotspot)
 
 /datum/reagent/consumable/enzyme
 	name = "Universal Enzyme"
-	description = "A universal enzyme used in the preperation of certain chemicals and foods."
+	description = "A universal enzyme used in the preparation of certain chemicals and foods."
 	color = "#365E30" // rgb: 54, 94, 48
 	taste_description = "sweetness"
 
@@ -542,13 +529,13 @@
 /datum/reagent/consumable/corn_starch
 	name = "Corn Starch"
 	description = "A slippery solution."
-	color = "#C8A5DC"
+	color = "#DBCE95"
 	taste_description = "slime"
 
 /datum/reagent/consumable/corn_syrup
 	name = "Corn Syrup"
 	description = "Decays into sugar."
-	color = "#C8A5DC"
+	color = "#DBCE95"
 	metabolization_rate = 3 * REAGENTS_METABOLISM
 	taste_description = "sweet slime"
 
@@ -576,12 +563,12 @@
 	..()
 
 /datum/reagent/consumable/honey/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
-  if(iscarbon(M) && (method in list(TOUCH, VAPOR, PATCH)))
-    var/mob/living/carbon/C = M
-    for(var/s in C.surgeries)
-      var/datum/surgery/S = s
-      S.success_multiplier = max(0.6, S.success_multiplier) // +60% success probability on each step, compared to bacchus' blessing's ~46%
-  ..()
+	if(iscarbon(M) && (method in list(TOUCH, VAPOR, PATCH)))
+		var/mob/living/carbon/C = M
+		for(var/s in C.surgeries)
+			var/datum/surgery/S = s
+			S.speed_modifier = max(0.6, S.speed_modifier) // +60% surgery speed on each step, compared to bacchus' blessing's ~46%
+	..()
 
 /datum/reagent/consumable/honey/special
 	name = "Royal Honey"
@@ -665,17 +652,37 @@
 		. = TRUE
 	..()
 
+
 /datum/reagent/consumable/tinlux
 	name = "Tinea Luxor"
 	description = "A stimulating ichor which causes luminescent fungi to grow on the skin. "
 	color = "#b5a213"
 	taste_description = "tingling mushroom"
+	//Lazy list of mobs affected by the luminosity of this reagent.
+	var/list/mobs_affected
 
 /datum/reagent/consumable/tinlux/reaction_mob(mob/living/M)
-	M.set_light(2)
+	add_reagent_light(M)
 
 /datum/reagent/consumable/tinlux/on_mob_end_metabolize(mob/living/M)
-	M.set_light(-2)
+	remove_reagent_light(M)
+
+/datum/reagent/consumable/tinlux/proc/on_living_holder_deletion(mob/living/source)
+
+	remove_reagent_light(source)
+
+/datum/reagent/consumable/tinlux/proc/add_reagent_light(mob/living/living_holder)
+	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = living_holder.mob_light(2)
+	LAZYSET(mobs_affected, living_holder, mob_light_obj)
+	RegisterSignal(living_holder, COMSIG_PARENT_QDELETING, .proc/on_living_holder_deletion)
+
+/datum/reagent/consumable/tinlux/proc/remove_reagent_light(mob/living/living_holder)
+	UnregisterSignal(living_holder, COMSIG_PARENT_QDELETING)
+	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = LAZYACCESS(mobs_affected, living_holder)
+	LAZYREMOVE(mobs_affected, living_holder)
+	if(mob_light_obj)
+		qdel(mob_light_obj)
+
 
 /datum/reagent/consumable/vitfro
 	name = "Vitrium Froth"
@@ -707,12 +714,12 @@
 	taste_description = "pure electrictiy"
 
 /datum/reagent/consumable/liquidelectricity/on_mob_life(mob/living/carbon/M)
-	if(isethereal(M))
-		var/mob/living/carbon/human/H = M
-		var/datum/species/ethereal/E = H.dna?.species
-		E.adjust_charge(5*REM)
-	else if(prob(25)) //scp13 optimization
-		M.electrocute_act(rand(10,15), "Liquid Electricity in their body", 1) //lmao at the newbs who eat energy bars
+	if(HAS_TRAIT(M, TRAIT_POWERHUNGRY))
+		var/obj/item/organ/stomach/battery/stomach = M.getorganslot(ORGAN_SLOT_STOMACH)
+		if(istype(stomach))
+			stomach.adjust_charge(40*REM)
+	else if(prob(3)) //scp13 optimization
+		M.electrocute_act(rand(3,5), "Liquid Electricity in their body", 1) //lmao at the newbs who eat energy bars
 		playsound(M, "sparks", 50, 1)
 	return ..()
 

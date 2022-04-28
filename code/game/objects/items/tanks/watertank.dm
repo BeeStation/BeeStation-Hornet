@@ -18,7 +18,7 @@
 	var/obj/item/noz
 	var/volume = 500
 
-/obj/item/watertank/Initialize()
+/obj/item/watertank/Initialize(mapload)
 	. = ..()
 	create_reagents(volume, OPENCONTAINER)
 	noz = make_noz()
@@ -60,7 +60,7 @@
 
 /obj/item/watertank/equipped(mob/user, slot)
 	..()
-	if(slot != SLOT_BACK)
+	if(slot != ITEM_SLOT_BACK)
 		remove_noz()
 
 /obj/item/watertank/proc/remove_noz()
@@ -119,7 +119,7 @@
 
 	var/obj/item/watertank/tank
 
-/obj/item/reagent_containers/spray/mister/Initialize()
+/obj/item/reagent_containers/spray/mister/Initialize(mapload)
 	. = ..()
 	tank = loc
 	if(!istype(tank))
@@ -149,7 +149,7 @@
 	item_state = "waterbackpackjani"
 	custom_price = 100
 
-/obj/item/watertank/janitor/Initialize()
+/obj/item/watertank/janitor/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/space_cleaner, 500)
 
@@ -185,7 +185,7 @@
 	volume = 200
 	slowdown = 0
 
-/obj/item/watertank/atmos/Initialize()
+/obj/item/watertank/atmos/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/water, 200)
 
@@ -220,7 +220,7 @@
 	var/metal_synthesis_cooldown = 0
 	var/resin_cooldown = 0
 
-/obj/item/extinguisher/mini/nozzle/Initialize()
+/obj/item/extinguisher/mini/nozzle/Initialize(mapload)
 	. = ..()
 	tank = loc
 	if (!istype(tank))
@@ -281,9 +281,7 @@
 			step_towards(A, target)
 			sleep(2)
 		A.Smoke()
-		spawn(100)
-			if(src)
-				resin_cooldown = FALSE
+		addtimer(VARSET_CALLBACK(src, resin_cooldown, FALSE), 10 SECONDS)
 		return
 	if(nozzle_mode == RESIN_FOAM)
 		if(!Adj|| !isturf(target))
@@ -296,11 +294,13 @@
 			var/obj/effect/particle_effect/foam/metal/resin/F = new (get_turf(target))
 			F.amount = 0
 			metal_synthesis_cooldown++
-			spawn(100)
-				metal_synthesis_cooldown--
+			addtimer(CALLBACK(src, .proc/reduce_metal_synth_cooldown), 10 SECONDS)
 		else
 			to_chat(user, "<span class='warning'>Resin foam mix is still being synthesized...</span>")
 			return
+
+/obj/item/extinguisher/mini/nozzle/proc/reduce_metal_synth_cooldown()
+	metal_synthesis_cooldown--
 
 /obj/effect/resin_container
 	name = "resin container"
@@ -337,7 +337,8 @@
 	var/on = FALSE
 	volume = 300
 	var/usage_ratio = 5 //5 unit added per 1 removed
-	var/injection_amount = 1
+	/// How much to inject per second
+	var/injection_amount = 0.5
 	amount_per_transfer_from_this = 5
 	reagent_flags = OPENCONTAINER
 	spillable = FALSE
@@ -349,14 +350,14 @@
 	toggle_injection()
 
 /obj/item/reagent_containers/chemtank/item_action_slot_check(slot, mob/user)
-	if(slot == SLOT_BACK)
+	if(slot == ITEM_SLOT_BACK)
 		return 1
 
 /obj/item/reagent_containers/chemtank/proc/toggle_injection()
 	var/mob/living/carbon/human/user = usr
 	if(!istype(user))
 		return
-	if (user.get_item_by_slot(SLOT_BACK) != src)
+	if (user.get_item_by_slot(ITEM_SLOT_BACK) != src)
 		to_chat(user, "<span class='warning'>The chemtank needs to be on your back before you can activate it!</span>")
 		return
 	if(on)
@@ -365,7 +366,7 @@
 		turn_on()
 
 //Todo : cache these.
-/obj/item/reagent_containers/chemtank/worn_overlays(var/isinhands = FALSE) //apply chemcolor and level
+/obj/item/reagent_containers/chemtank/worn_overlays(mutable_appearance/standing, isinhands = FALSE) //apply chemcolor and level
 	. = list()
 	//inhands + reagent_filling
 	if(!isinhands && reagents.total_volume)
@@ -395,7 +396,7 @@
 	if(ismob(loc))
 		to_chat(loc, "<span class='notice'>[src] turns off.</span>")
 
-/obj/item/reagent_containers/chemtank/process()
+/obj/item/reagent_containers/chemtank/process(delta_time)
 	if(!ishuman(loc))
 		turn_off()
 		return
@@ -407,7 +408,7 @@
 		turn_off()
 		return
 
-	var/used_amount = injection_amount/usage_ratio
+	var/used_amount = (injection_amount * delta_time) /usage_ratio
 	reagents.reaction(user, INJECT,injection_amount,0)
 	reagents.trans_to(user,used_amount,multiplier=usage_ratio)
 	update_icon()
@@ -417,13 +418,13 @@
 /obj/item/watertank/op
 	name = "backpack water tank"
 	desc = "A New Russian backpack spray for systematic cleansing of carbon lifeforms."
-	icon_state = "waterbackop"
-	item_state = "waterbackop"
+	icon_state = "waterbackpackop"
+	item_state = "waterbackpackop"
 	w_class = WEIGHT_CLASS_NORMAL
 	volume = 2000
 	slowdown = 0
 
-/obj/item/watertank/op/Initialize()
+/obj/item/watertank/op/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/toxin/mutagen,350)
 	reagents.add_reagent(/datum/reagent/napalm,125)

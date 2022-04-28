@@ -54,21 +54,19 @@
 		lasercolor = created_lasercolor
 	icon_state = "[lasercolor]ed209[on]"
 	set_weapon() //giving it the right projectile and firing sound.
-	spawn(3)
-		var/datum/job/detective/J = new/datum/job/detective
-		access_card.access += J.get_access()
-		prev_access = access_card.access
-
-		if(lasercolor)
-			shot_delay = 6//Longer shot delay because JESUS CHRIST
-			check_records = 0//Don't actively target people set to arrest
-			arrest_type = 1//Don't even try to cuff
-			bot_core.req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE)
-			arrest_type = 1
-			if((lasercolor == "b") && (name == "\improper ED-209 Security Robot"))//Picks a name if there isn't already a custome one
-				name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT")
-			if((lasercolor == "r") && (name == "\improper ED-209 Security Robot"))
-				name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
+	var/datum/job/detective/J = new/datum/job/detective
+	access_card.access += J.get_access()
+	prev_access = access_card.access
+	if(lasercolor)
+		shot_delay = 6//Longer shot delay because JESUS CHRIST
+		check_records = 0//Don't actively target people set to arrest
+		arrest_type = 1//Don't even try to cuff
+		bot_core.req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE)
+		arrest_type = 1
+		if((lasercolor == "b") && (name == "\improper ED-209 Security Robot"))//Picks a name if there isn't already a custome one
+			name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT")
+		if((lasercolor == "r") && (name == "\improper ED-209 Security Robot"))
+			name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
@@ -506,16 +504,18 @@ Auto Patrol[]"},
 				lasertag_check++
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"
-			disabled = 1
+			disabled = TRUE
 			target = null
-			spawn(100)
-				disabled = 0
-				icon_state = "[lasercolor]ed2091"
+			addtimer(CALLBACK(src, .proc/reenable), 100)
 			return BULLET_ACT_HIT
 		else
 			. = ..()
 	else
 		. = ..()
+
+/mob/living/simple_animal/bot/ed209/proc/reenable()
+	disabled = FALSE
+	icon_state = "[lasercolor]ed2091"
 
 /mob/living/simple_animal/bot/ed209/bluetag
 	lasercolor = "b"
@@ -572,11 +572,13 @@ Auto Patrol[]"},
 	playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
+	addtimer(CALLBACK(src, .proc/attempt_handcuff, C), 60)
 
-	spawn(60)
-		if( !on || !Adjacent(C) || !isturf(C.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
-			return
-		if(!C.handcuffed)
-			C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
-			C.update_handcuffed()
-			back_to_idle()
+/mob/living/simple_animal/bot/ed209/proc/attempt_handcuff(mob/living/carbon/C)
+	if(!on || !Adjacent(C) || !isturf(C.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.
+		return
+	if(!C.handcuffed)
+		C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
+		C.update_handcuffed()
+		playsound(src, "law", 50, 0)
+		back_to_idle()

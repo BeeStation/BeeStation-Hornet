@@ -48,13 +48,13 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	see_in_dark = 4
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	var/playable_spider = FALSE
 	var/datum/action/innate/spider/lay_web/lay_web
 	var/directive = "" //Message passed down to children, to relay the creator's orders
 
 	do_footstep = TRUE
+	discovery_points = 1000
 
-/mob/living/simple_animal/hostile/poison/giant_spider/Initialize()
+/mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)
 	. = ..()
 	lay_web = new
 	lay_web.Grant(src)
@@ -62,12 +62,6 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
 	QDEL_NULL(lay_web)
 	return ..()
-
-/mob/living/simple_animal/hostile/poison/giant_spider/Topic(href, href_list)
-	if(href_list["activate"])
-		var/mob/dead/observer/ghost = usr
-		if(istype(ghost) && playable_spider && !(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER))
-			humanize_spider(ghost)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Login()
 	..()
@@ -77,25 +71,11 @@
 		if(mind)
 			mind.store_memory("<span class='spider'><b>[directive]</b></span>")
 
-/mob/living/simple_animal/hostile/poison/giant_spider/attack_ghost(mob/user)
-	. = ..()
-	if(.)
-		return
-	humanize_spider(user)
-
-/mob/living/simple_animal/hostile/poison/giant_spider/proc/humanize_spider(mob/user)
-	if(key || !playable_spider || stat)//Someone is in it, it's dead, or the fun police are shutting it down
-		return 0
-	var/spider_ask = alert("Become a spider?", "Are you australian?", "Yes", "No")
-	if(spider_ask == "No" || !src || QDELETED(src))
-		return 1
-	if(key)
-		to_chat(user, "<span class='notice'>Someone else already took this spider.</span>")
-		return 1
-	key = user.key
+/mob/living/simple_animal/hostile/poison/giant_spider/give_mind(mob/user)
+	..()
 	if(directive)
 		log_game("[key_name(src)] took control of [name] with the objective: '[directive]'.")
-	return 1
+	return TRUE
 
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
@@ -117,7 +97,7 @@
 	var/static/list/consumed_mobs = list() //the tags of mobs that have been consumed by nurse spiders to lay eggs
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize()
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize(mapload)
 	. = ..()
 	wrap = new
 	AddAbility(wrap)
@@ -143,7 +123,7 @@
 	health = 40
 	var/datum/action/innate/spider/comm/letmetalkpls
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/Initialize()
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/Initialize(mapload)
 	. = ..()
 	letmetalkpls = new
 	letmetalkpls.Grant(src)
@@ -233,14 +213,14 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_action()
 	if(!..()) //AIStatus is off
-		return 0
+		return FALSE
 	if(AIStatus == AI_IDLE)
 		//1% chance to skitter madly away
 		if(!busy && prob(1))
 			stop_automated_movement = TRUE
 			Goto(pick(urange(20, src, 1)), move_to_delay)
 			addtimer(CALLBACK(src, .proc/do_action), 5 SECONDS)
-		return 1
+		return TRUE
 
 /mob/living/simple_animal/hostile/poison/giant_spider/proc/do_action()
 	stop_automated_movement = FALSE
@@ -377,17 +357,11 @@
 /obj/effect/proc_holder/wrap
 	name = "Wrap"
 	panel = "Spider"
-	active = FALSE
-	datum/action/spell_action/action = null
 	desc = "Wrap something or someone in a cocoon. If it's a living being, you'll also consume them, allowing you to lay eggs."
 	ranged_mousepointer = 'icons/effects/wrap_target.dmi'
 	action_icon = 'icons/mob/actions/actions_animal.dmi'
 	action_icon_state = "wrap_0"
 	action_background_icon_state = "bg_alien"
-
-/obj/effect/proc_holder/wrap/Initialize()
-	. = ..()
-	action = new(src)
 
 /obj/effect/proc_holder/wrap/update_icon()
 	action.button_icon_state = "wrap_[active]"
@@ -408,7 +382,7 @@
 	else
 		message = "<span class='notice'>You prepare to wrap something in a cocoon. <B>Left-click your target to start wrapping!</B></span>"
 		add_ranged_ability(user, message, TRUE)
-		return 1
+		return TRUE
 
 /obj/effect/proc_holder/wrap/InterceptClickOn(mob/living/caller, params, atom/target)
 	if(..())
@@ -433,17 +407,17 @@
 
 /datum/action/innate/spider/lay_eggs
 	name = "Lay Eggs"
-	desc = "Lay a cluster of eggs, which will soon grow into more spiders. You must wrap a living being to do this."
+	desc = "Lay a cluster of eggs, which will soon grow into more spiders. You must have a directive set and wrap a living being to do this."
 	button_icon_state = "lay_eggs"
 
 /datum/action/innate/spider/lay_eggs/IsAvailable()
 	if(..())
 		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
-			return 0
+			return FALSE
 		var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/S = owner
-		if(S.fed)
-			return 1
-		return 0
+		if(S.fed && (S.directive || !S.ckey))
+			return TRUE
+		return FALSE
 
 /datum/action/innate/spider/lay_eggs/Activate()
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
@@ -455,6 +429,8 @@
 		to_chat(S, "<span class='warning'>There is already a cluster of eggs here!</span>")
 	else if(!S.fed)
 		to_chat(S, "<span class='warning'>You are too hungry to do this!</span>")
+	else if(!S.directive && S.ckey)
+		to_chat(S, "<span class='warning'>You need to set a directive to do this!</span>")
 	else if(S.busy != LAYING_EGGS)
 		S.busy = LAYING_EGGS
 		S.visible_message("<span class='notice'>[S] begins to lay a cluster of eggs.</span>","<span class='notice'>You begin to lay a cluster of eggs.</span>")
@@ -485,7 +461,7 @@
 		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
 			return FALSE
 		var/mob/living/simple_animal/hostile/poison/giant_spider/S = owner
-		if(S.playable_spider)
+		if(S.playable)
 			return FALSE
 		return TRUE
 
@@ -493,10 +469,13 @@
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
 		return
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/S = owner
-	if(!S.playable_spider)
-		S.directive = stripped_input(S, "Enter the new directive", "Create directive", "[S.directive]")
-		message_admins("[ADMIN_LOOKUPFLW(owner)] set its directive to: '[S.directive]'.")
-		log_game("[key_name(owner)] set its directive to: '[S.directive]'.")
+	if(!S.playable)
+		var/new_directive = stripped_input(S, "Enter the new directive", "Create directive", "[S.directive]")
+		if(new_directive)
+			S.directive = new_directive
+			message_admins("[ADMIN_LOOKUPFLW(owner)] set its directive to: '[S.directive]'.")
+			log_game("[key_name(owner)] set its directive to: '[S.directive]'.")
+			S.lay_eggs.UpdateButtonIcon(TRUE)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Login()
 	. = ..()

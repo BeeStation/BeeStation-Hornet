@@ -22,6 +22,7 @@
 	var/obj/structure/blob/factory/factory = null
 	var/independent = FALSE
 	mobchatspan = "blob"
+	discovery_points = 1000
 
 /mob/living/simple_animal/hostile/blob/update_icons()
 	if(overmind)
@@ -29,7 +30,7 @@
 	else
 		remove_atom_colour(FIXED_COLOUR_PRIORITY)
 
-/mob/living/simple_animal/hostile/blob/Initialize()
+/mob/living/simple_animal/hostile/blob/Initialize(mapload)
 	. = ..()
 	if(!independent) //no pulling people deep into the blob
 		remove_verb(/mob/living/verb/pulled)
@@ -58,10 +59,10 @@
 	else
 		adjustFireLoss(5)
 
-/mob/living/simple_animal/hostile/blob/CanPass(atom/movable/mover, turf/target)
+/mob/living/simple_animal/hostile/blob/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(istype(mover, /obj/structure/blob))
-		return 1
-	return ..()
+		return TRUE
 
 /mob/living/simple_animal/hostile/blob/Process_Spacemove(movement_dir = 0)
 	for(var/obj/structure/blob/B in range(1, src))
@@ -104,10 +105,13 @@
 	del_on_death = TRUE
 	deathmessage = "explodes into a cloud of gas!"
 	gold_core_spawnable = HOSTILE_SPAWN
+	move_to_delay = 6
 	var/death_cloud_size = 1 //size of cloud produced from a dying spore
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
 	var/list/disease = list()
+	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
+	var/movement_proc_query //keeps track of the proccals of goto so we know what proc instance got called last
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
@@ -137,24 +141,6 @@
 		death()
 	..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/attack_ghost(mob/user)
-	. = ..()
-	if(.)
-		return
-	humanize_pod(user)
-
-/mob/living/simple_animal/hostile/blob/blobspore/proc/humanize_pod(mob/user)
-	if((!overmind || key || stat || !is_zombie && istype(src, /mob/living/simple_animal/hostile/blob/blobspore) || istype(src, /mob/living/simple_animal/hostile/blob/blobspore/weak)))
-		return
-	var/pod_ask = alert("Become a blob zombie?", "Are you bulbous enough?", "Yes", "No")
-	if(pod_ask == "No" || !src || QDELETED(src))
-		return
-	if(key)
-		to_chat(user, "<span class='warning'>Someone else already took this blob zombie!</span>")
-		return
-	key = user.key
-	log_game("[key_name(src)] took control of [name].")
-
 /mob/living/simple_animal/hostile/blob/blobspore/proc/Zombify(mob/living/carbon/human/H)
 	is_zombie = 1
 	if(H.wear_suit)
@@ -177,7 +163,7 @@
 	update_icons()
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 	if(!key)
-		notify_ghosts("\A [src] has been created in \the [get_area(src)].", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Blob Zombie Created")
+		set_playable()
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
 	// On death, create a small smoke of harmful gas (s-Acid)
@@ -225,6 +211,74 @@
 		color = initial(color)//looks better.
 		add_overlay(blob_head_overlay)
 
+/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, minimum_distance, current_tries, p_proc_id)
+	set waitfor = FALSE
+	var/movement_steps = 0
+	var/query_position
+	if(p_proc_id) //incase we get another additional proccal just before a old proc returns to call itself again so we do not loose track of the position in the query
+		query_position = p_proc_id //when this proc gets called by another instance of it forward the old place in the line so we can keep track of it
+	else
+		movement_proc_query++
+		query_position = movement_proc_query //so we remember the position of the proccall
+	if(target == src.target)
+		approaching_target = TRUE
+	else
+		approaching_target = FALSE
+	var/list/path_list = get_path_to(src, target) //we want access to the list
+	var/turf/goal_turf
+	if(length(path_list)) //appearantly the solution of using ? infront of the index only works for assoc lists
+		goal_turf = path_list[path_list.len]
+	for(var/w in path_list)
+		if(movement_proc_query > query_position) //incase the spore is already chasing something but something else calls the proc again
+			return
+		movement_steps++
+		if(ismob(target) && w == goal_turf) //if we are infront of the mob lets not keep on pushing
+			break
+		sleep(delay)
+		step(src, get_dir(src, w))
+		if(get_turf(src) != w) //in case someone decides to push the spore or something else unexpectedly hinders it
+			if(current_tries >= 20)	//In case we get catched in a endless loop for reasons
+				break
+			else
+				return Goto(target, delay, current_tries = (current_tries + 1), p_proc_id = query_position)
+		if(ismob(target) && !(get_turf(target) == goal_turf)) //Incase the target mob decides to move so we don't just run towards it's original location
+			if(get_dist(path_list[1], get_turf(target)) >= 20)
+				break
+			else
+				return Goto(target, delay, p_proc_id = query_position)
+
+	if(!movement_steps) //pathfinding fallback in case we cannot find a valid path at the first attempt
+		var/ln = get_dist(src, target)
+		var/turf/target_new = target
+		var/found_blocker
+		while(!movement_steps && (ln > 0)) //will stop if we can find a valid path or if ln gets reduced to 0 or less
+			find_target:
+				for(var/i in 1 to ln) //calling get_path_to every time is quite taxing lets see if we can find whatever blocks us
+					target_new = get_step(target_new,  get_dir(target_new, src)) //step towards the origin until we find the blocker then 1 further
+					ln--
+					if(target_new.density && !(target_new.pass_flags_self & pass_flags)) //we check for possible tiles that could block us
+						found_blocker = TRUE
+						continue find_target //in case there is like a double wall
+					for(var/obj/o in target_new.contents)
+						if(o.density && !(o.pass_flags_self & pass_flags)) //We check for possible blockers on the tile
+							found_blocker = TRUE
+							continue find_target
+					if(found_blocker) //cursed but after we found the blocker we end the loop on the next illiteration
+						break find_target
+			found_blocker = FALSE
+			for(var/w in get_path_to(src, target_new))
+				if(movement_proc_query > query_position)
+					return
+				movement_steps++
+				sleep(delay)
+				step(src, get_dir(src, w))
+				if(get_turf(src) != w)
+					if(current_tries >= 20)
+						break
+					else
+						return Goto(target, delay, current_tries = (current_tries + 1), p_proc_id = query_position)
+	movement_proc_query = 0 // We only null this if its an actual death end not if the proc gets canceled by another proc call of the same proc
+
 /mob/living/simple_animal/hostile/blob/blobspore/weak
 	name = "fragile blob spore"
 	health = 15
@@ -257,6 +311,8 @@
 	pressure_resistance = 50
 	mob_size = MOB_SIZE_LARGE
 	hud_type = /datum/hud/blobbernaut
+	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
+	move_resist = MOVE_FORCE_STRONG
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life()
 	if(..())
@@ -299,7 +355,7 @@
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/update_health_hud()
 	if(hud_used)
-		hud_used.healths.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round((health / maxHealth) * 100, 0.5)]%</font></div>"
+		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round((health / maxHealth) * 100, 0.5)]%</font></div>")
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/AttackingTarget()
 	. = ..()

@@ -15,9 +15,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 	if(turf_type)
 		var/turf/newT = ChangeTurf(turf_type, baseturf_type, flags)
-		SSair.remove_from_active(newT)
 		CALCULATE_ADJACENT_TURFS(newT)
-		SSair.add_to_active(newT,1)
 
 /turf/proc/copyTurf(turf/T)
 	if(T.type != type)
@@ -54,6 +52,14 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 /turf/proc/TerraformTurf(path, new_baseturf, flags)
 	return ChangeTurf(path, new_baseturf, flags)
 
+/turf/proc/get_z_base_turf()
+	. = SSmapping.level_trait(z, ZTRAIT_BASETURF) || /turf/open/space
+	if (!ispath(.))
+		. = text2path(.)
+		if (!ispath(.))
+			warning("Z-level [z] has invalid baseturf '[SSmapping.level_trait(z, ZTRAIT_BASETURF)]'")
+			. = /turf/open/space
+
 // Creates a new turf
 // new_baseturfs can be either a single type or list of types, formated the same as baseturfs. see turf.dm
 /turf/proc/ChangeTurf(path, list/new_baseturfs, flags)
@@ -61,13 +67,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		if(null)
 			return
 		if(/turf/baseturf_bottom)
-			path = SSmapping.level_trait(z, ZTRAIT_BASETURF)
-			if (!ispath(path))
-				var/turf/T = below()
-				if(T && !istype(T, /turf/open/space))
-					path = /turf/open/openspace
-				else
-					path = /turf/open/space
+			path = get_z_base_turf()
 		if(/turf/open/space/basic)
 			// basic doesn't initialize and this will cause issues
 			// no warning though because this can happen naturaly as a result of it being built on top of
@@ -91,18 +91,26 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 	var/list/old_baseturfs = baseturfs
 
-	var/list/transferring_comps = list()
-	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, new_baseturfs, flags, transferring_comps)
-	for(var/i in transferring_comps)
-		var/datum/component/comp = i
-		comp.RemoveComponent()
+	var/list/post_change_callbacks = list()
+	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, new_baseturfs, flags, post_change_callbacks)
 
 	changing_turf = TRUE
-	qdel(src)	//Just get the side effects and call Destroy
+	qdel(src) //Just get the side effects and call Destroy
+	//We do this here so anything that doesn't want to persist can clear itself
+	var/list/old_comp_lookup = comp_lookup?.Copy()
+	var/list/old_signal_procs = signal_procs?.Copy()
 	var/turf/W = new path(src)
 
-	for(var/i in transferring_comps)
-		W.TakeComponent(i)
+	// WARNING WARNING
+	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
+	// It's possible because turfs are fucked, and if you have one in a list and it's replaced with another one, the list ref points to the new turf
+	if(old_comp_lookup)
+		LAZYOR(W.comp_lookup, old_comp_lookup)
+	if(old_signal_procs)
+		LAZYOR(W.signal_procs, old_signal_procs)
+
+	for(var/datum/callback/callback as anything in post_change_callbacks)
+		callback.InvokeAsync(W)
 
 	if(new_baseturfs)
 		W.baseturfs = new_baseturfs
@@ -138,7 +146,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 /turf/open/ChangeTurf(path, list/new_baseturfs, flags)
 	if ((flags & CHANGETURF_INHERIT_AIR) && ispath(path, /turf/open))
-		SSair.remove_from_active(src)
 		var/datum/gas_mixture/stashed_air = new()
 		stashed_air.copy_from(air)
 		. = ..()
@@ -147,13 +154,17 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 			return
 		var/turf/open/newTurf = .
 		newTurf.air.copy_from(stashed_air)
+		update_air_ref(planetary_atmos ? 1 : 2)
 		QDEL_NULL(stashed_air)
-		update_air_ref()
-		SSair.add_to_active(newTurf)
 	else
 		if(ispath(path,/turf/closed))
 			flags |= CHANGETURF_RECALC_ADJACENT
-		return ..()
+			update_air_ref(-1)
+			. = ..()
+		else
+			. = ..()
+			if(!istype(air,/datum/gas_mixture))
+				Initalize_Atmos(0)
 
 /turf/closed/ChangeTurf(path, list/new_baseturfs, flags)
 	if(ispath(path,/turf/open))
@@ -318,7 +329,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		total.merge(S.air)
 
 	air.copy_from(total.remove_ratio(1/turf_count))
-	SSair.add_to_active(src)
 
 /turf/proc/ReplaceWithLattice()
 	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)

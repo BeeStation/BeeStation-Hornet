@@ -9,15 +9,16 @@
 	var/datum/action/innate/shuttle_creator/clear_turf/clear_turf_action = new
 	var/datum/action/innate/shuttle_creator/reset/reset_action = new
 	var/datum/action/innate/shuttle_creator/airlock/airlock_action = new
+	var/datum/action/innate/shuttle_creator/modify/modify_action = new
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/check_eye(mob/user)
 	if(user.eye_blind || user.incapacitated())
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/CreateEye()
-	eyeobj = new /mob/camera/aiEye/remote/shuttle_creation(get_turf(owner_rsd))
+	eyeobj = new /mob/camera/ai_eye/remote/shuttle_creation(get_turf(owner_rsd))
 	eyeobj.origin = src
-	eyeobj.use_static = USE_STATIC_NONE
+	eyeobj.use_static = FALSE
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/is_operational()
 	return TRUE
@@ -49,10 +50,14 @@
 		reset_action.target = src
 		reset_action.Grant(user)
 		actions += reset_action
-	if(airlock_action)
+	if(!owner_rsd.linkedShuttleId && airlock_action)
 		airlock_action.target = src
 		airlock_action.Grant(user)
 		actions += airlock_action
+	if(owner_rsd.linkedShuttleId && modify_action)
+		modify_action.target = src
+		modify_action.Grant(user)
+		actions += modify_action
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/remove_eye_control(mob/living/user)
 	. = ..()
@@ -78,13 +83,13 @@
 			eyeobj.eye_initialized = TRUE
 			give_eye_control(L)
 			eyeobj.setLoc(camera_location)
-			var/mob/camera/aiEye/remote/shuttle_creation/shuttle_eye = eyeobj
+			var/mob/camera/ai_eye/remote/shuttle_creation/shuttle_eye = eyeobj
 			shuttle_eye.source_turf = get_turf(user)
 		else
 			user.unset_machine()
 	else
 		var/camera_location = get_turf(owner_rsd)
-		var/mob/camera/aiEye/remote/shuttle_creation/eye = eyeobj
+		var/mob/camera/ai_eye/remote/shuttle_creation/eye = eyeobj
 		give_eye_control(L)
 		if(camera_location)
 			eye.source_turf = camera_location

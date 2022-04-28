@@ -32,15 +32,20 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	mobsay_color = "#26F55A"
+	chat_color = "#26F55A"
 	poison_per_bite = 3
 	poison_type = /datum/reagent/toxin/venom
+	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
+	head_icon = 'icons/mob/pets_held.dmi'
+	held_state = "snake"
 
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)
+	var/atom/target_from = GET_TARGETS_FROM(src)
 	var/list/living_mobs = list()
 	var/list/mice = list()
-	for(var/mob/living/HM in oview(vision_range, targets_from))
+	for(var/mob/living/HM in oview(vision_range, target_from))
 		//Yum a tasty mouse
 		if(istype(HM, /mob/living/simple_animal/mouse))
 			mice += HM

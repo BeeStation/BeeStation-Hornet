@@ -8,7 +8,7 @@
 	var/obj/item/slime_extract/extract
 	var/cooldown = 5 //This is in seconds
 
-/obj/item/slimecross/gentle/Initialize()
+/obj/item/slimecross/gentle/Initialize(mapload)
 	..()
 	extract = new extract_type(src.loc)
 	visible_message("<span class='notice'>[src] glows and pulsates softly.</span>")

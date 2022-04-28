@@ -9,6 +9,7 @@
 	supervisors = "the chief medical officer and research director"
 	selection_color = "#d4ebf2"
 	chat_color = "#83BBBF"
+	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/geneticist
@@ -19,12 +20,19 @@
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_GENETICIST
+	departments = DEPARTMENT_MEDICAL
+	rpg_title = "Genemancer"
+
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/genetics
+	)
+	biohazard = 15
 
 /datum/outfit/job/geneticist
 	name = "Geneticist"
 	jobtype = /datum/job/geneticist
 
-	id = /obj/item/card/id/job/med
+	id = /obj/item/card/id/job/gene
 	belt = /obj/item/pda/geneticist
 	ears = /obj/item/radio/headset/headset_medsci
 	uniform = /obj/item/clothing/under/rank/medical/geneticist

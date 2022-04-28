@@ -76,7 +76,7 @@
 
 // the inlet stage of the gas turbine electricity generator
 
-/obj/machinery/power/compressor/Initialize()
+/obj/machinery/power/compressor/Initialize(mapload)
 	. = ..()
 	// The inlet of the compressor is the direction it faces
 	gas_contained = new
@@ -135,13 +135,11 @@
 	cut_overlays()
 
 	rpm = 0.9* rpm + 0.1 * rpmtarget
-	var/datum/gas_mixture/environment = inturf.return_air()
 
 	// It's a simplified version taking only 1/10 of the moles from the turf nearby. It should be later changed into a better version
+	// above todo 7 years and counting
 
-	var/transfer_moles = environment.total_moles()/10
-	var/datum/gas_mixture/removed = inturf.remove_air(transfer_moles)
-	gas_contained.merge(removed)
+	inturf.transfer_air_ratio(gas_contained, 0.1)
 
 // RPM function to include compression friction - be advised that too low/high of a compfriction value can make things screwy
 
@@ -172,7 +170,7 @@
 #define TURBGENQ 100000
 #define TURBGENG 0.5
 
-/obj/machinery/power/turbine/Initialize()
+/obj/machinery/power/turbine/Initialize(mapload)
 	. = ..()
 // The outlet is pointed at the direction of the turbine component
 	outturf = get_step(src, dir)
@@ -229,10 +227,9 @@
 	if(compressor.gas_contained.total_moles()>0)
 		var/oamount = min(compressor.gas_contained.total_moles(), (compressor.rpm+100)/35000*compressor.capacity)
 		if(destroy_output)
-			compressor.gas_contained.set_moles(compressor.gas_contained.get_moles() - oamount)
+			compressor.gas_contained.remove(oamount)
 		else
-			var/datum/gas_mixture/removed = compressor.gas_contained.remove(oamount)
-			outturf.assume_air(removed)
+			outturf.assume_air_moles(compressor.gas_contained, oamount)
 
 // If it works, put an overlay that it works!
 
@@ -266,6 +263,7 @@
 	if(!ui)
 		ui = new(user, src, "TurbineComputer")
 		ui.open()
+		ui.set_autoupdate(TRUE) // Turbine stats (power, RPM, temperature)
 
 /obj/machinery/power/turbine/ui_data(mob/user)
 	var/list/data = list()
@@ -309,7 +307,7 @@
 	var/obj/machinery/power/compressor/compressor
 	var/id = 0
 
-/obj/machinery/computer/turbine_computer/Initialize()
+/obj/machinery/computer/turbine_computer/Initialize(mapload)
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
@@ -331,6 +329,7 @@
 	if(!ui)
 		ui = new(user, src, "TurbineComputer")
 		ui.open()
+		ui.set_autoupdate(TRUE) // Turbine stats (power, RPM, temperature)
 
 /obj/machinery/computer/turbine_computer/ui_data(mob/user)
 	var/list/data = list()

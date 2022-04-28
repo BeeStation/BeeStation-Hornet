@@ -4,7 +4,6 @@
 //Admin-spawn or random event
 
 #define INVISIBILITY_REVENANT 50
-#define REVENANT_NAME_FILE "revenant_names.json"
 
 /mob/living/simple_animal/revenant
 	name = "revenant"
@@ -37,7 +36,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	harm_intent_damage = 0
 	friendly = "touches"
 	status_flags = 0
 	wander = FALSE
@@ -68,6 +66,7 @@
 	var/list/drained_mobs = list() //Cannot harvest the same mob twice
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has. //TODO, add objective for getting a perfect soul(s?)
 	var/generated_objectives_and_spells = FALSE
+	discovery_points = 4000
 
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
@@ -78,6 +77,14 @@
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/blight(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
 	random_revenant_name()
+	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
+
+/mob/living/simple_animal/revenant/Destroy()
+	. = ..()
+
+	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
+	if(beacon)
+		qdel(beacon)
 
 /mob/living/simple_animal/revenant/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
 	return FALSE
@@ -144,7 +151,7 @@
 			essencecolor = "#9A5ACB" //oh boy you've got a lot of essence
 		else if(!essence)
 			essencecolor = "#1D2953" //oh jeez you're dying
-		hud_used.healths.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='[essencecolor]'>[essence]E</font></div>"
+		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='[essencecolor]'>[essence]E</font></div>")
 
 /mob/living/simple_animal/revenant/med_hud_set_health()
 	return //we use no hud
@@ -238,7 +245,7 @@
 	R.revenant = src
 	invisibility = INVISIBILITY_ABSTRACT
 	revealed = FALSE
-	ghostize(0)//Don't re-enter invisible corpse
+	ghostize(FALSE)//Don't re-enter invisible corpse
 
 
 //reveal, stun, icon updates, cast checks, and essence changing
@@ -354,7 +361,7 @@
 	var/old_key //key of the previous revenant, will have first pick on reform.
 	var/mob/living/simple_animal/revenant/revenant
 
-/obj/item/ectoplasm/revenant/Initialize()
+/obj/item/ectoplasm/revenant/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/try_reform), 600)
 
@@ -453,13 +460,13 @@
 
 /datum/objective/revenant/check_completion()
 	if(!isrevenant(owner.current))
-		return FALSE
+		return ..()
 	var/mob/living/simple_animal/revenant/R = owner.current
 	if(!R || R.stat == DEAD)
-		return FALSE
+		return ..()
 	var/essence_stolen = R.essence_accumulated
 	if(essence_stolen < targetAmount)
-		return FALSE
+		return ..()
 	return TRUE
 
 /datum/objective/revenantFluff

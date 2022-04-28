@@ -23,10 +23,11 @@
 	ventcrawler = VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	del_on_death = 1
+	del_on_death = TRUE
 	var/aggressive = FALSE
 	var/datum/disease/basedisease = null
 	var/list/infections = list()
+	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/macrophage/CanAttack(atom/the_target)
 	. = ..()
@@ -89,12 +90,12 @@
 
 /mob/living/simple_animal/hostile/macrophage/aggro/vector
 
-/mob/living/simple_animal/hostile/macrophage/aggro/vector/Initialize()
+/mob/living/simple_animal/hostile/macrophage/aggro/vector/Initialize(mapload)
 	.=..()
 	var/datum/disease/advance/random/macrophage/D = new
-	health += D.properties["resistance"]
-	maxHealth += D.properties["resistance"]
-	melee_damage += max(0, D.properties["resistance"])
+	health += D.resistance
+	maxHealth += D.resistance
+	melee_damage += max(0, D.resistance)
 	infections += D
 	basedisease = D
 

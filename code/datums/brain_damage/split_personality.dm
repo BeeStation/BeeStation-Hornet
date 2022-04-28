@@ -19,11 +19,16 @@
 
 /datum/brain_trauma/severe/split_personality/proc/make_backseats()
 	stranger_backseat = new(owner, src)
+	var/obj/effect/proc_holder/spell/targeted/personality_commune/stranger_spell = new(src)
+	stranger_backseat.AddSpell(stranger_spell)
+
 	owner_backseat = new(owner, src)
+	var/obj/effect/proc_holder/spell/targeted/personality_commune/owner_spell = new(src)
+	owner_backseat.AddSpell(owner_spell)
 
 /datum/brain_trauma/severe/split_personality/proc/get_ghost()
 	set waitfor = FALSE
-	if(owner.stat == DEAD)
+	if(owner.stat == DEAD || !owner.mind)
 		qdel(src)
 		return
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [owner]'s split personality?", ROLE_PAI, null, null, 75, stranger_backseat, POLL_IGNORE_SPLITPERSONALITY)
@@ -50,6 +55,13 @@
 	QDEL_NULL(stranger_backseat)
 	QDEL_NULL(owner_backseat)
 	..()
+
+/datum/brain_trauma/severe/split_personality/Destroy()
+	if(stranger_backseat)
+		QDEL_NULL(stranger_backseat)
+	if(owner_backseat)
+		QDEL_NULL(owner_backseat)
+	return ..()
 
 /datum/brain_trauma/severe/split_personality/proc/switch_personalities()
 	if(QDELETED(owner) || owner.stat == DEAD || QDELETED(stranger_backseat) || QDELETED(owner_backseat))
@@ -165,12 +177,12 @@
 	if(_codeword)
 		codeword = _codeword
 	else
-		codeword = pick(strings("ion_laws.json", "ionabstract")\
-			| strings("ion_laws.json", "ionobjects")\
-			| strings("ion_laws.json", "ionadjectives")\
-			| strings("ion_laws.json", "ionthreats")\
-			| strings("ion_laws.json", "ionfood")\
-			| strings("ion_laws.json", "iondrinks"))
+		codeword = pick(strings(ION_LAWS_FILE, "ionabstract")\
+			| strings(ION_LAWS_FILE, "ionobjects")\
+			| strings(ION_LAWS_FILE, "ionadjectives")\
+			| strings(ION_LAWS_FILE, "ionthreats")\
+			| strings(ION_LAWS_FILE, "ionfood")\
+			| strings(ION_LAWS_FILE, "iondrinks"))
 
 /datum/brain_trauma/severe/split_personality/brainwashing/on_gain()
 	..()
@@ -194,13 +206,13 @@
 /datum/brain_trauma/severe/split_personality/brainwashing/on_life()
 	return //no random switching
 
-/datum/brain_trauma/severe/split_personality/brainwashing/on_hear(message, speaker, message_language, raw_message, radio_freq)
-	if(HAS_TRAIT(owner, TRAIT_DEAF) || owner == speaker)
-		return message
+/datum/brain_trauma/severe/split_personality/brainwashing/handle_hearing(datum/source, list/hearing_args)
+	if(HAS_TRAIT(owner, TRAIT_DEAF) || owner == hearing_args[HEARING_SPEAKER])
+		return
+	var/message = hearing_args[HEARING_RAW_MESSAGE]
 	if(findtext(message, codeword))
-		message = replacetext(message, codeword, "<span class='warning'>[codeword]</span>")
+		hearing_args[HEARING_RAW_MESSAGE] = replacetext(message, codeword, "<span class='warning'>[codeword]</span>")
 		addtimer(CALLBACK(src, /datum/brain_trauma/severe/split_personality.proc/switch_personalities), 10)
-	return message
 
 /datum/brain_trauma/severe/split_personality/brainwashing/handle_speech(datum/source, list/speech_args)
 	if(findtext(speech_args[SPEECH_MESSAGE], codeword))

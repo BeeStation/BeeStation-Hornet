@@ -7,7 +7,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	move_resist = INFINITY
 	throwforce = 0
 
-/mob/dead/Initialize()
+/mob/dead/Initialize(mapload)
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
@@ -16,9 +16,10 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 
 	prepare_huds()
 
-	if(length(CONFIG_GET(keyed_list/cross_server)))
+	if(length(CONFIG_GET(keyed_list/server_hop)))
 		add_verb(/mob/dead/proc/server_hop)
 	set_focus(src)
+	become_hearing_sensitive()
 	return INITIALIZE_HINT_NORMAL
 
 /mob/dead/canUseStorage()
@@ -30,19 +31,17 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 /mob/dead/gib()		//ghosts can't be gibbed.
 	return
 
-/mob/dead/forceMove(atom/destination)
+/mob/dead/abstract_move(atom/destination)
 	var/turf/old_turf = get_turf(src)
 	var/turf/new_turf = get_turf(destination)
 	if (old_turf?.z != new_turf?.z)
 		onTransitZ(old_turf?.z, new_turf?.z)
-	var/oldloc = loc
-	loc = destination
-	Moved(oldloc, NONE, TRUE)
+	return ..()
 
 /mob/dead/get_stat_tab_status()
 	var/list/tab_data = ..()
-
-	tab_data["Game Mode"] = GENERATE_STAT_TEXT("[SSticker.hide_mode ? "Secret" : "[GLOB.master_mode]"]")
+	if(!SSticker.hide_mode)
+		tab_data["Game Mode"] = GENERATE_STAT_TEXT("[GLOB.master_mode]")
 
 	if(SSticker.HasRoundStarted())
 		return tab_data
@@ -55,9 +54,6 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	else
 		tab_data["Time To Start"] = GENERATE_STAT_TEXT("SOON")
 
-	tab_data["Players"] = GENERATE_STAT_TEXT("[SSticker.totalPlayers]")
-	if(client.holder)
-		tab_data["Players Ready"] = GENERATE_STAT_TEXT("[SSticker.totalPlayersReady]")
 	return tab_data
 
 /mob/dead/proc/server_hop()
@@ -66,7 +62,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	set desc= "Jump to the other server"
 	if(notransform)
 		return
-	var/list/csa = CONFIG_GET(keyed_list/cross_server)
+	var/list/csa = CONFIG_GET(keyed_list/server_hop)
 	var/pick
 	switch(csa.len)
 		if(0)
@@ -87,7 +83,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 
 	var/client/C = client
 	to_chat(C, "<span class='notice'>Sending you to [pick].</span>")
-	new /atom/movable/screen/splash(C)
+	new /atom/movable/screen/splash(null, C)
 
 	notransform = TRUE
 	sleep(29)	//let the animation play

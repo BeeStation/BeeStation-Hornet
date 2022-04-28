@@ -37,12 +37,15 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	melee_damage = 15
 	butcher_results = list(/obj/item/ectoplasm = 1)
 	AIStatus = AI_OFF
+	light_system = MOVABLE_LIGHT
+	light_range = 3
+	light_on = FALSE
 	hud_type = /datum/hud/guardian
 	dextrous_hud_type = /datum/hud/dextrous/guardian //if we're set to dextrous, account for it.
 	hardattacks = TRUE
 	var/mutable_appearance/cooloverlay
 	var/guardiancolor = "#ffffff"
-	mobsay_color = "#ffffff"
+	chat_color = "#ffffff"
 	var/recolorentiresprite
 	var/theme
 	var/list/guardian_overlays[GUARDIAN_TOTAL_LAYERS]
@@ -144,7 +147,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /mob/living/simple_animal/hostile/guardian/proc/guardianrecolor()
 	guardiancolor = input(src,"What would you like your color to be?","Choose Your Color","#ffffff") as color|null
-	mobsay_color = guardiancolor
+	chat_color = guardiancolor
 	if(!guardiancolor) //redo proc until we get a color
 		to_chat(src, "<span class='warning'>Not a valid color, please try again.</span>")
 		guardianrecolor()
@@ -247,7 +250,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.maxHealth)) * 100)
 		else
 			resulthealth = round((summoner.health / summoner.maxHealth) * 100, 0.5)
-		hud_used.healths.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
+		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>")
 
 /mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE, forced = FALSE) //The spirit is invincible, but passes on damage to the summoner
 	. = amount
@@ -320,11 +323,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/obj/item/r_hand = get_item_for_held_index(2)
 
 	if(r_hand)
-		var/r_state = r_hand.item_state
-		if(!r_state)
-			r_state = r_hand.icon_state
-
-		hands_overlays += r_hand.build_worn_icon(state = r_state, default_layer = GUARDIAN_HANDS_LAYER, default_icon_file = r_hand.righthand_file, isinhands = TRUE)
+		hands_overlays += r_hand.build_worn_icon(default_layer = GUARDIAN_HANDS_LAYER, default_icon_file = r_hand.righthand_file, isinhands = TRUE)
 
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			r_hand.layer = ABOVE_HUD_LAYER
@@ -333,11 +332,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			client.screen |= r_hand
 
 	if(l_hand)
-		var/l_state = l_hand.item_state
-		if(!l_state)
-			l_state = l_hand.icon_state
-
-		hands_overlays +=  l_hand.build_worn_icon(state = l_state, default_layer = GUARDIAN_HANDS_LAYER, default_icon_file = l_hand.lefthand_file, isinhands = TRUE)
+		hands_overlays +=  l_hand.build_worn_icon(default_layer = GUARDIAN_HANDS_LAYER, default_icon_file = l_hand.lefthand_file, isinhands = TRUE)
 
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			l_hand.layer = ABOVE_HUD_LAYER
@@ -377,13 +372,15 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, "<span class='danger'><B>You don't have another mode!</span></B>")
 
+
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
-	if(light_range<3)
+	if(!light_on)
 		to_chat(src, "<span class='notice'>You activate your light.</span>")
-		set_light(3)
+		set_light_on(TRUE)
 	else
 		to_chat(src, "<span class='notice'>You deactivate your light.</span>")
-		set_light(0)
+		set_light_on(FALSE)
+
 
 /mob/living/simple_animal/hostile/guardian/verb/ShowType()
 	set name = "Check Guardian Type"

@@ -14,17 +14,17 @@
 	if (!ui)
 		ui = new(user, src, "Orbit", "Orbit")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /datum/orbit_menu/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if (..())
 		return
 
 	if (action == "orbit")
-		var/list/pois = getpois(skip_mindless = 1)
-		var/atom/movable/poi = pois[params["name"]]
+		var/ref = params["ref"]
+		var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
 		if (poi != null)
 			owner.ManualFollow(poi)
-			ui.close()
 
 /datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()
@@ -42,6 +42,8 @@
 		serialized["name"] = name
 
 		var/poi = pois[name]
+
+		serialized["ref"] = REF(poi)
 
 		var/mob/M = poi
 		if (istype(M))

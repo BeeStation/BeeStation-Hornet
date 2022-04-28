@@ -36,7 +36,6 @@
 	desc = "It's better than bad, it's good!"
 	icon_state = "logs"
 	force = 5
-	block_upgrade_walk = 1
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 2
@@ -51,7 +50,7 @@
 
 /obj/item/grown/log/attackby(obj/item/W, mob/user, params)
 	if(W.is_sharp())
-		user.show_message("<span class='notice'>You make [plank_name] out of \the [src]!</span>", 1)
+		user.show_message("<span class='notice'>You make [plank_name] out of \the [src]!</span>", MSG_VISUAL)
 		var/seed_modifier = 0
 		if(seed)
 			seed_modifier = round(seed.potency / 25)
@@ -94,10 +93,11 @@
 	icon_state = "steellogs"
 	plank_type = /obj/item/stack/rods
 	plank_name = "rods"
+	discovery_points = 300
 
 /obj/item/grown/log/steel/CheckAccepted(obj/item/I)
 	return FALSE
-obj/item/seeds/bamboo
+/obj/item/seeds/bamboo
 	name = "pack of bamboo seeds"
 	desc = "Plant known for their flexible and resistant logs."
 	icon_state = "seed-bamboo"
@@ -110,9 +110,8 @@ obj/item/seeds/bamboo
 	production = 2
 	yield = 5
 	potency = 50
-	growthstages = 2
+	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing.dmi'
-	icon_dead = "bamboo-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 
 /obj/item/grown/log/bamboo
@@ -122,6 +121,7 @@ obj/item/seeds/bamboo
 	icon_state = "bamboo"
 	plank_type = /obj/item/stack/sheet/mineral/bamboo
 	plank_name = "bamboo sticks"
+	discovery_points = 300
 
 /obj/item/grown/log/bamboo/CheckAccepted(obj/item/I)
 	return FALSE
@@ -151,6 +151,7 @@ obj/item/seeds/bamboo
 	density = FALSE
 	anchored = TRUE
 	buckle_lying = 0
+	pass_flags_self = PASSTABLE | LETPASSTHROW
 	var/burning = 0
 	var/burn_icon = "bonfire_on_fire" //for a softer more burning embers icon, use "bonfire_warm"
 	var/grill = FALSE
@@ -166,7 +167,7 @@ obj/item/seeds/bamboo
 /obj/structure/bonfire/dense/askwalker
 	needs_oxygen = FALSE
 
-/obj/structure/bonfire/prelit/Initialize()
+/obj/structure/bonfire/prelit/Initialize(mapload)
 	. = ..()
 	StartBurning()
 
@@ -176,6 +177,13 @@ obj/item/seeds/bamboo
 	if(mover.throwing)
 		return TRUE
 	return ..()
+
+/obj/structure/bonfire/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddComponent(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/rods) && !can_buckle && !grill)
@@ -235,7 +243,7 @@ obj/item/seeds/bamboo
 	if(isopenturf(loc))
 		var/turf/open/O = loc
 		if(O.air)
-			if(O.air.get_moles(/datum/gas/oxygen) > 13)
+			if(O.air.get_moles(GAS_O2) > 13)
 				return TRUE
 	return FALSE
 
@@ -250,45 +258,47 @@ obj/item/seeds/bamboo
 /obj/structure/bonfire/fire_act(exposed_temperature, exposed_volume)
 	StartBurning()
 
-/obj/structure/bonfire/Crossed(atom/movable/AM)
+/obj/structure/bonfire/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
 	if(burning & !grill)
 		Burn()
 
-/obj/structure/bonfire/proc/Burn()
+/obj/structure/bonfire/proc/Burn(delta_time = 2)
 	var/turf/current_location = get_turf(src)
-	current_location.hotspot_expose(1000,500,1)
+	current_location.hotspot_expose(1000, 250 * delta_time, 1)
 	for(var/A in current_location)
 		if(A == src)
 			continue
 		if(isobj(A))
 			var/obj/O = A
-			O.fire_act(1000, 500)
+			O.fire_act(1000, 250 * delta_time)
 		else if(isliving(A))
 			var/mob/living/L = A
-			L.adjust_fire_stacks(fire_stack_strength)
+			L.adjust_fire_stacks(fire_stack_strength * 0.5 * delta_time)
 			L.IgniteMob()
 
-/obj/structure/bonfire/proc/Cook()
+/obj/structure/bonfire/proc/Cook(delta_time = 2)
 	var/turf/current_location = get_turf(src)
 	for(var/A in current_location)
 		if(A == src)
 			continue
 		else if(isliving(A)) //It's still a fire, idiot.
 			var/mob/living/L = A
-			L.adjust_fire_stacks(fire_stack_strength)
+			L.adjust_fire_stacks(fire_stack_strength * 0.5 * delta_time)
 			L.IgniteMob()
-		else if(istype(A, /obj/item) && prob(20))
+		else if(istype(A, /obj/item) && DT_PROB(10, delta_time))
 			var/obj/item/O = A
 			O.microwave_act()
 
-/obj/structure/bonfire/process()
+/obj/structure/bonfire/process(delta_time)
 	if(needs_oxygen && !CheckOxygen())
 		extinguish()
 		return
 	if(!grill)
-		Burn()
+		Burn(delta_time)
 	else
-		Cook()
+		Cook(delta_time)
 
 /obj/structure/bonfire/extinguish()
 	if(burning)

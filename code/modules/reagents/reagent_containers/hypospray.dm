@@ -19,11 +19,15 @@
 	return attack_hand(user)
 
 /obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
+	inject(M, user)
+
+///Handles all injection checks, injection and logging.
+/obj/item/reagent_containers/hypospray/proc/inject(mob/living/M, mob/user)
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
-		return
+		return FALSE
 	if(!iscarbon(M))
-		return
+		return FALSE
 
 	//Always log attemped injects for admins
 	var/list/injected = list()
@@ -47,9 +51,9 @@
 				trans = reagents.copy_to(M, amount_per_transfer_from_this)
 
 			to_chat(user, "<span class='notice'>[trans] unit\s injected.  [reagents.total_volume] unit\s remaining in [src].</span>")
-
-
 			log_combat(user, M, "injected", src, "([contained])")
+		return TRUE
+	return FALSE
 
 /obj/item/reagent_containers/hypospray/CMO/verb/empty()
 	set name = "Empty Hypospray"
@@ -103,29 +107,6 @@
 	list_reagents = list(/datum/reagent/water/holywater = 150, /datum/reagent/peaceborg/tire = 50, /datum/reagent/peaceborg/confuse = 50)
 	amount_per_transfer_from_this = 50
 
-/obj/item/reagent_containers/hypospray/combat/supersoldier
-	name = "Supersoldier Nanites"
-	desc = "The key ingredient to Nanotrasen's supersoldier program, regular doses of nanites must be taken before every mission to unlock the supersoldier's true capabilities."
-	item_state = "nanite_hypo"
-	icon_state = "nanite_hypo"
-	list_reagents = list(/datum/reagent/mutationtoxin/supersoldier = 5)
-	possible_transfer_amounts = list()
-/*
-/obj/item/reagent_containers/hypospray/supersoldier/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
-	if(iscarbon(M) && M.stat != DEAD)
-		if(!ishumanbasic(M) || reac_volume < 5) // implying xenohumans are holy
-			if(method == INGEST && show_message)
-				to_chat(M, "<span class='notice'><i>You feel nothing, your DNA must not be compatible.</i></span>")
-			return ..()
-
-		to_chat(M, "<span class='userdanger'>A flare of pain washes over you as the nanites restructure your body!</span>")
-		M.set_species(/datum/species/human/supersoldier)
-		playsound(M.loc, 'sound/items/poster_ripped.ogg', 50, 1, -1)
-		M.adjustBruteLoss(10)
-		M.emote("scream")
-	..()
-	*/
-
 //MediPens
 
 /obj/item/reagent_containers/hypospray/medipen
@@ -148,23 +129,16 @@
 	user.visible_message("<span class='suicide'>[user] begins to choke on \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS//ironic. he could save others from oxyloss, but not himself.
 
-/obj/item/reagent_containers/hypospray/medipen/attack(mob/M, mob/user)
-	if(!reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
-		return
-	..()
-	if(!iscyborg(user))
+/obj/item/reagent_containers/hypospray/medipen/inject(mob/living/M, mob/user)
+	. = ..()
+	if(.)
 		reagents.maximum_volume = 0 //Makes them useless afterwards
 		reagents.flags = NONE
-	update_icon()
-	addtimer(CALLBACK(src, .proc/cyborg_recharge, user), 80)
+		update_icon()
 
-/obj/item/reagent_containers/hypospray/medipen/proc/cyborg_recharge(mob/living/silicon/robot/user)
-	if(!reagents.total_volume && iscyborg(user))
-		var/mob/living/silicon/robot/R = user
-		if(R.cell.use(100))
-			reagents.add_reagent_list(list_reagents)
-			update_icon()
+/obj/item/reagent_containers/hypospray/medipen/attack_self(mob/user)
+	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+		inject(user, user)
 
 /obj/item/reagent_containers/hypospray/medipen/update_icon()
 	if(reagents.total_volume > 0)
@@ -200,6 +174,15 @@
 	volume = 50
 	amount_per_transfer_from_this = 50
 	list_reagents = list(/datum/reagent/medicine/pumpup = 50)
+
+/obj/item/reagent_containers/hypospray/medipen/stimulants
+	name = "stimulant medipen"
+	desc = "Contains a very large amount of an incredibly powerful stimulant, vastly increasing your movement speed and reducing stuns by a very large amount for around five minutes. Do not take if pregnant."
+	icon_state = "syndipen"
+	item_state = "tbpen"
+	volume = 50
+	amount_per_transfer_from_this = 50
+	list_reagents = list(/datum/reagent/medicine/amphetamine = 50)
 
 /obj/item/reagent_containers/hypospray/medipen/morphine
 	name = "morphine medipen"

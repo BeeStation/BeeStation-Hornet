@@ -100,7 +100,7 @@
 /datum/reagent/drug/crank/overdose_process(mob/living/M)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2*REM)
 	M.adjustToxLoss(2*REM, 0)
-	M.adjustBruteLoss(2*REM, FALSE, FALSE, BODYPART_ORGANIC)
+	M.adjustBruteLoss(2*REM, FALSE, FALSE, BODYTYPE_ORGANIC)
 	..()
 	. = 1
 
@@ -166,12 +166,17 @@
 
 /datum/reagent/drug/krokodil/addiction_act_stage4(mob/living/carbon/human/M)
 	CHECK_DNA_AND_SPECIES(M)
-	if(!istype(M.dna.species, /datum/species/krokodil_addict))
-		to_chat(M, "<span class='userdanger'>Your skin falls off easily!</span>")
-		M.adjustBruteLoss(50*REM, 0) // holy shit your skin just FELL THE FUCK OFF
-		M.set_species(/datum/species/krokodil_addict)
+	if(ishumanbasic(M))
+		if(!istype(M.dna.species, /datum/species/human/krokodil_addict))
+			to_chat(M, "<span class='userdanger'>Your skin falls off easily!</span>")
+			M.adjustBruteLoss(50*REM, 0) // holy shit your skin just FELL THE FUCK OFF
+			M.set_species(/datum/species/human/krokodil_addict)
+		else
+			M.adjustBruteLoss(5*REM, 0)
 	else
-		M.adjustBruteLoss(5*REM, 0)
+		to_chat(M, "<span class='danger'>Your skin peels and tears!</span>")
+		M.adjustBruteLoss(5*REM, 0) // repeats 5 times and then you get over it
+
 	..()
 	. = 1
 
@@ -185,15 +190,17 @@
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 
 /datum/reagent/drug/methamphetamine/on_mob_metabolize(mob/living/L)
-	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
 	..()
-	if (L.client)
-		SSmedals.UnlockMedal(MEDAL_APPLY_REAGENT_METH,L.client)
+	if(L.client)
+		L.client.give_award(/datum/award/achievement/misc/meth, L)
 
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-2, blacklisted_movetypes=(FLYING|FLOATING))
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.75, blacklisted_movetypes=(FLYING|FLOATING))
+	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
+	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
 
 /datum/reagent/drug/methamphetamine/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_NOBLOCK, type)
+	REMOVE_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
 	L.remove_movespeed_modifier(type)
 	..()
 
@@ -206,7 +213,8 @@
 	M.AdjustUnconscious(-40, FALSE)
 	M.AdjustParalyzed(-40, FALSE)
 	M.AdjustImmobilized(-40, FALSE)
-	M.adjustStaminaLoss(-30, 0)
+	M.adjustStaminaLoss(-40, 0)
+	M.drowsyness = max(0,M.drowsyness-30)
 	M.Jitter(2)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
 	if(prob(5))
@@ -271,7 +279,6 @@
 	overdose_threshold = 20
 	addiction_threshold = 10
 	taste_description = "salt" // because they're bathsalts?
-	var/datum/brain_trauma/special/psychotic_brawling/bath_salts/rage
 
 /datum/reagent/drug/bath_salts/on_mob_metabolize(mob/living/L)
 	..()
@@ -281,10 +288,6 @@
 	ADD_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	ADD_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
 	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
-	if(iscarbon(L))
-		var/mob/living/carbon/C = L
-		rage = new()
-		C.gain_trauma(rage, TRAUMA_RESILIENCE_ABSOLUTE)
 
 /datum/reagent/drug/bath_salts/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_STUNIMMUNE, type)
@@ -293,8 +296,6 @@
 	REMOVE_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	REMOVE_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
 	REMOVE_TRAIT(L, TRAIT_NOBLOCK, type)
-	if(rage)
-		QDEL_NULL(rage)
 	..()
 
 /datum/reagent/drug/bath_salts/on_mob_life(mob/living/carbon/M)

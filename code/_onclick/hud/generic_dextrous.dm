@@ -43,7 +43,6 @@
 		action_intent.hud = src
 		static_inventory += action_intent
 
-
 	zone_select = new /atom/movable/screen/zone_sel()
 	zone_select.icon = ui_style
 	zone_select.update_icon()
@@ -60,7 +59,7 @@
 	for(var/atom/movable/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
 			inv.hud = src
-			inv_slots[inv.slot_id] = inv
+			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
 			inv.update_icon()
 
 /datum/hud/dextrous/persistent_inventory_update()

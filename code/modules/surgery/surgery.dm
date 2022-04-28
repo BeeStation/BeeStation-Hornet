@@ -2,23 +2,23 @@
 	var/name = "surgery"
 	var/desc = "surgery description"
 	var/status = 1
-	var/list/steps = list()									//Steps in a surgery
-	var/step_in_progress = FALSE								//Actively performing a Surgery
-	var/can_cancel = TRUE										//Can cancel this surgery after step 1 with cautery
+	var/list/steps = list()											//Steps in a surgery
+	var/step_in_progress = FALSE									//Actively performing a Surgery
+	var/can_cancel = TRUE											//Can cancel this surgery after step 1 with cautery
 	var/list/target_mobtypes = list(/mob/living/carbon/human)		//Acceptable Species
-	var/location = BODY_ZONE_CHEST							//Surgery location
-	var/requires_bodypart_type = BODYPART_ORGANIC			//Prevents you from performing an operation on incorrect limbs. 0 for any limb type
-	var/list/possible_locs = list() 						//Multiple locations
-	var/ignore_clothes = FALSE									//This surgery ignores clothes
-	var/mob/living/carbon/target							//Operation target mob
-	var/obj/item/bodypart/operated_bodypart					//Operable body part
-	var/requires_bodypart = TRUE							//Surgery available only when a bodypart is present, or only when it is missing.
-	var/success_multiplier = 0								//Step success propability multiplier
-	var/requires_real_bodypart = FALSE							//Some surgeries don't work on limbs that don't really exist
-	var/lying_required = TRUE								//Does the vicitm needs to be lying down.
-	var/self_operable = FALSE								//Can the surgery be performed on yourself.
-	var/requires_tech = FALSE								//handles techweb-oriented surgeries, previously restricted to the /advanced subtype (You still need to add designs)
-	var/replaced_by											//type; doesn't show up if this type exists. Set to /datum/surgery if you want to hide a "base" surgery (useful for typing parents IE healing.dm just make sure to null it out again)
+	var/location = BODY_ZONE_CHEST									//Surgery location
+	var/requires_bodypart_type = BODYTYPE_ORGANIC					//Prevents you from performing an operation on incorrect limbs. 0 for any limb type
+	var/list/possible_locs = list() 								//Multiple locations
+	var/ignore_clothes = FALSE										//This surgery ignores clothes
+	var/mob/living/carbon/target									//Operation target mob
+	var/obj/item/bodypart/operated_bodypart							//Operable body part
+	var/requires_bodypart = TRUE									//Surgery available only when a bodypart is present, or only when it is missing.
+	var/speed_modifier = 0											//Step speed multiplier
+	var/requires_real_bodypart = FALSE								//Some surgeries don't work on limbs that don't really exist
+	var/lying_required = TRUE										//Does the vicitm needs to be lying down.
+	var/self_operable = FALSE										//Can the surgery be performed on yourself.
+	var/requires_tech = FALSE										//handles techweb-oriented surgeries, previously restricted to the /advanced subtype (You still need to add designs)
+	var/replaced_by													//type; doesn't show up if this type exists. Set to /datum/surgery if you want to hide a "base" surgery (useful for typing parents IE healing.dm just make sure to null it out again)
 
 /datum/surgery/New(surgery_target, surgery_location, surgery_bodypart)
 	..()
@@ -59,19 +59,30 @@
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/R = user
 		var/obj/item/surgical_processor/SP = locate() in R.module.modules
-		if(!SP || (replaced_by in SP.advanced_surgeries))
-			return .
-		if(type in SP.advanced_surgeries)
-			return TRUE
+		if(!isnull(SP))
+			if(replaced_by in SP.advanced_surgeries)
+				return FALSE
+			if(type in SP.advanced_surgeries)
+				return TRUE
 
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.getorganslot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT )
+		if(!isnull(IMP))
+			if(replaced_by in IMP.advanced_surgeries)
+				return FALSE
+			if(type in IMP.advanced_surgeries)
+				return TRUE
 
 	var/turf/T = get_turf(target)
 	var/obj/structure/table/optable/table = locate(/obj/structure/table/optable, T)
 	if(table)
 		if(!table.computer)
 			return .
-		if(table.computer.stat & (NOPOWER|BROKEN) || (replaced_by in table.computer.advanced_surgeries))
+		if(table.computer.stat & (NOPOWER|BROKEN))
 			return .
+		if(replaced_by in table.computer.advanced_surgeries)
+			return FALSE
 		if(type in table.computer.advanced_surgeries)
 			return TRUE
 
@@ -83,6 +94,7 @@
 			return FALSE
 		if(type in the_stasis_bed.op_computer.advanced_surgeries)
 			return TRUE
+
 
 /datum/surgery/proc/next_step(mob/user, intent)
 	if(step_in_progress)
@@ -115,31 +127,6 @@
 	SSblackbox.record_feedback("tally", "surgeries_completed", 1, type)
 	qdel(src)
 
-/datum/surgery/proc/get_propability_multiplier(mob/user)
-	var/propability = 0.3
-	var/turf/T = get_turf(target)
-	var/selfpenalty = 0
-	var/sleepbonus = 0
-	if(target == user)
-		if(HAS_TRAIT(user, TRAIT_SELF_AWARE) || locate(/obj/structure/mirror) in view(1, user))
-			selfpenalty = 0.4
-		else
-			selfpenalty = 0.6
-	if(target.stat != CONSCIOUS)
-		sleepbonus = 0.5
-	if(locate(/obj/structure/table/optable/abductor, T))
-		propability = 1.2
-	if(locate(/obj/machinery/stasis, T))
-		propability = 0.8
-	if(locate(/obj/structure/table/optable, T))
-		propability = 0.8
-	else if(locate(/obj/structure/table, T))
-		propability = 0.6
-	else if(locate(/obj/structure/bed, T))
-		propability = 0.5
-
-	return propability + success_multiplier + sleepbonus - selfpenalty
-
 /datum/surgery/advanced
 	name = "advanced surgery"
 	requires_tech = TRUE
@@ -154,10 +141,16 @@
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/R = user
 		var/obj/item/surgical_processor/SP = locate() in R.module.modules
-		if(!SP)
-			return FALSE
-		if(type in SP.advanced_surgeries)
-			return TRUE
+		if(!isnull(SP))
+			if(type in SP.advanced_surgeries)
+				return TRUE
+
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.getorganslot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT )
+		if(!isnull(IMP))
+			if(type in IMP.advanced_surgeries)
+				return TRUE
 
 	var/turf/T = get_turf(target)
 	var/obj/structure/table/optable/table = locate(/obj/structure/table/optable, T)
@@ -181,7 +174,7 @@
 	icon_state = "datadisk1"
 	materials = list(/datum/material/iron=300, /datum/material/glass=100)
 
-/obj/item/disk/surgery/debug/Initialize()
+/obj/item/disk/surgery/debug/Initialize(mapload)
 	. = ..()
 	surgeries = list()
 	var/list/req_tech_surgeries = subtypesof(/datum/surgery)

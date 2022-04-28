@@ -10,7 +10,7 @@
 	idle_power_usage = 0
 	var/obj/item/beacon/Beacon
 
-/obj/machinery/bluespace_beacon/Initialize()
+/obj/machinery/bluespace_beacon/Initialize(mapload)
 	. = ..()
 	var/turf/T = loc
 	Beacon = new(T)
@@ -35,7 +35,7 @@
 		icon_state = "floor_beacon"
 
 /obj/machinery/bluespace_beacon/process()
-	if(!Beacon)
+	if(QDELETED(Beacon)) //Don't move it out of nullspace BACK INTO THE GAME for the love of god
 		var/turf/T = loc
 		Beacon = new(T)
 		Beacon.invisibility = INVISIBILITY_MAXIMUM

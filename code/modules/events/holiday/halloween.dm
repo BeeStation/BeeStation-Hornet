@@ -20,7 +20,7 @@
 		qdel(Poly)
 
 /datum/round_event/spooky/announce(fake)
-	priority_announce(pick("RATTLE ME BONES!","THE RIDE NEVER ENDS!", "A SKELETON POPS OUT!", "SPOOKY SCARY SKELETONS!", "CREWMEMBERS BEWARE, YOU'RE IN FOR A SCARE!") , "THE CALL IS COMING FROM INSIDE THE HOUSE")
+	priority_announce(pick("RATTLE ME BONES!","THE RIDE NEVER ENDS!", "A SKELETON POPS OUT!", "SPOOKY SCARY SKELETONS!", "CREWMEMBERS BEWARE, YOU'RE IN FOR A SCARE!") , "THE CALL IS COMING FROM INSIDE THE HOUSE", SSstation.announcer.get_rand_alert_sound())
 
 //spooky foods (you can't actually make these when it's not halloween)
 /obj/item/reagent_containers/food/snacks/sugarcookie/spookyskull
@@ -43,7 +43,7 @@
 	icon = 'icons/obj/halloween_items.dmi'
 	icon_state = "treatbag"
 
-/obj/item/storage/spooky/Initialize()
+/obj/item/storage/spooky/Initialize(mapload)
 	. = ..()
 	for(var/distrobuteinbag in 0 to 5)
 		var/type = pick(/obj/item/reagent_containers/food/snacks/sugarcookie/spookyskull,

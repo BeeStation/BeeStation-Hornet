@@ -28,6 +28,32 @@
 	allowed = list (/obj/item/gun/energy/laser/redtag)
 	resistance_flags = NONE
 
+// Aristocrat Coats
+
+/obj/item/clothing/suit/aristo_orange
+	name = "orange aristocrat coat"
+	desc = "A fancy coat made of silk. This one is orange."
+	icon_state = "aristo_orange"
+	item_state = "aristo_orange"
+
+/obj/item/clothing/suit/aristo_red
+	name = "red aristocrat coat"
+	desc = "A fancy coat made of silk. This one is red."
+	icon_state = "aristo_red"
+	item_state = "aristo_red"
+
+/obj/item/clothing/suit/aristo_brown
+	name = "brown aristocrat coat"
+	desc = "A fancy coat made of silk. This one is brown."
+	icon_state = "aristo_brown"
+	item_state = "aristo_brown"
+
+/obj/item/clothing/suit/aristo_blue
+	name = "blue aristocrat coat"
+	desc = "A fancy coat made of silk. This one is blue."
+	icon_state = "aristo_blue"
+	item_state = "aristo_blue"
+
 /*
  * Costume
  */
@@ -38,6 +64,15 @@
 	item_state = "armor"
 	body_parts_covered = CHEST|GROIN
 	hoodtype = /obj/item/clothing/head/hooded/flashsuit
+
+/obj/item/clothing/suit/hooded/hastur
+	name = "\improper Hastur's robe"
+	desc = "Robes not meant to be worn by man."
+	icon_state = "hastur"
+	item_state = "hastur"
+	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	hoodtype = /obj/item/clothing/head/hooded/hasturhood
 
 /obj/item/clothing/head/hooded/flashsuit
 	name = "flash button"
@@ -157,7 +192,7 @@
 	body_parts_covered = ARMS|CHEST
 	actions_types = list(/datum/action/item_action/toggle_wings)
 
-/obj/item/clothing/suit/toggle/owlwings/Initialize()
+/obj/item/clothing/suit/toggle/owlwings/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_vest_allowed
 
@@ -178,7 +213,7 @@
 
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
 	..()
-	if(slot == SLOT_WEAR_SUIT)
+	if(slot == ITEM_SLOT_OCLOTHING)
 		disguise(user)
 
 /obj/item/clothing/suit/cardborg/dropped(mob/living/user)
@@ -228,7 +263,7 @@
 	icon_state = "ponchoshame"
 	item_state = "ponchoshame"
 
-/obj/item/clothing/suit/poncho/ponchoshame/Initialize()
+/obj/item/clothing/suit/poncho/ponchoshame/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, SHAMEBRERO_TRAIT)
 
@@ -260,9 +295,17 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEHAIR|HIDEEARS
 
+/obj/item/clothing/head/hooded/hasturhood
+	name = "hastur's hood"
+	desc = "It's <i>unspeakably</i> stylish."
+	icon_state = "hasturhood"
+	body_parts_covered = HEAD
+	flags_inv = HIDEHAIR
+	flags_cover = HEADCOVERSEYES
+
 /obj/item/clothing/head/hooded/carp_hood/equipped(mob/living/carbon/human/user, slot)
 	..()
-	if (slot == SLOT_HEAD)
+	if (slot == ITEM_SLOT_HEAD)
 		user.faction |= "carp"
 
 /obj/item/clothing/head/hooded/carp_hood/dropped(mob/living/carbon/human/user)
@@ -342,6 +385,37 @@
 	icon_state = "officertanjacket"
 	item_state = "officertanjacket"
 	body_parts_covered = CHEST|ARMS
+
+/////////////////
+//DONATOR ITEMS//
+/////////////////
+
+/obj/item/clothing/suit/delinquent
+	name = "deliquent jacket"
+	desc = "Yare yare daze."
+	icon_state = "jocoat"
+
+/obj/item/clothing/suit/madsci
+	name = "mad scientist labcoat"
+	desc = "El psy congroo."
+	icon_state = "madsci"
+
+/obj/item/clothing/suit/hooded/renault_costume
+	name = "renault costume"
+	desc = "The cutest pair of pajamas you've ever seen."
+	icon_state = "renault_suit"
+	hoodtype = /obj/item/clothing/head/hooded/renault_hood
+
+/obj/item/clothing/head/hooded/renault_hood
+	name = "renault hoodie"
+	desc = "An adorable hoodie vaguely resembling renault."
+	icon_state = "renault_hoodie"
+	flags_inv = HIDEEARS
+
+/obj/item/clothing/suit/retro_jacket
+	name = "retro jacket"
+	desc = "Do you like hurting other people?"
+	icon_state = "retro_jacket"
 
 /*
  * Misc
@@ -496,6 +570,7 @@
 	icon_state = "caution"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
+	custom_price = 10
 	force = 1
 	throwforce = 3
 	throw_speed = 2
@@ -536,7 +611,7 @@
 	armor = list("melee" = 25, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 20)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/captain
 
-/obj/item/clothing/suit/hooded/wintercoat/captain/Initialize()
+/obj/item/clothing/suit/hooded/wintercoat/captain/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_wintercoat_allowed
 
@@ -550,7 +625,7 @@
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 45, "stamina" = 20)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
 
-/obj/item/clothing/suit/hooded/wintercoat/security/Initialize()
+/obj/item/clothing/suit/hooded/wintercoat/security/Initialize(mapload)
 	. = ..()
 	allowed = GLOB.security_wintercoat_allowed
 
@@ -629,6 +704,72 @@
 /obj/item/clothing/head/hooded/winterhood/miner
 	icon_state = "winterhood_miner"
 
+//Old winter coats
+
+/obj/item/clothing/suit/hooded/wintercoat/old
+	name = "nostalgic winter coat"
+	desc = "A well-worn heavy jacket made from 'synthetic' animal furs."
+	icon_state = "old_coatwinter"
+
+/obj/item/clothing/head/hooded/winterhood/old
+	name = "winter hood"
+	desc = "An old hood attached to a well-worn heavy winter jacket."
+	icon_state = "old_winterhood"
+
+/obj/item/clothing/suit/hooded/wintercoat/security/old
+	name = "nostalgic security winter coat"
+	icon_state = "old_coatsecurity"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/old
+
+/obj/item/clothing/suit/hooded/wintercoat/security/old/Initialize(mapload)
+	. = ..()
+	allowed = GLOB.security_wintercoat_allowed
+
+/obj/item/clothing/head/hooded/winterhood/security/old
+	icon_state = "old_winterhood_security"
+
+/obj/item/clothing/suit/hooded/wintercoat/medical/old
+	name = "nostalgic medical winter coat"
+	icon_state = "old_coatmedical"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical/old
+
+/obj/item/clothing/head/hooded/winterhood/medical/old
+	icon_state = "old_winterhood_medical"
+
+/obj/item/clothing/suit/hooded/wintercoat/science/old
+	name = "nostalgic science winter coat"
+	icon_state = "old_coatscience"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/science/old
+
+/obj/item/clothing/head/hooded/winterhood/science/old
+	icon_state = "old_winterhood_science"
+
+/obj/item/clothing/suit/hooded/wintercoat/engineering/old
+	name = "nostalgic engineering winter coat"
+	icon_state = "old_coatengineer"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/old
+
+/obj/item/clothing/head/hooded/winterhood/engineering/old
+	icon_state = "old_winterhood_engineer"
+
+/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos/old
+	name = "nostalgic atmospherics winter coat"
+	icon_state = "old_coatatmos"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/atmos/old
+
+/obj/item/clothing/head/hooded/winterhood/engineering/atmos/old
+	icon_state = "old_winterhood_atmos"
+
+/obj/item/clothing/suit/hooded/wintercoat/hydro/old
+	name = "nostalgic hydroponics winter coat"
+	icon_state = "old_coathydro"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/hydro/old
+
+/obj/item/clothing/head/hooded/winterhood/hydro/old
+	icon_state = "old_winterhood_hydro"
+
+//end of winter coats
+
 /obj/item/clothing/suit/spookyghost
 	name = "spooky ghost"
 	desc = "This is obviously just a bedsheet, but maybe try it on?"
@@ -657,18 +798,16 @@
 
 /obj/item/clothing/under/costume/joker
 	name = "comedian suit"
-	desc = "The worst part of having a mental illness is people expect you to behave as if you don’t."
+	desc = "The worst part of having a mental illness is people expect you to behave as if you don't."
 	icon_state = "joker"
 	item_state = "joker"
-	item_color = "joker"
 	can_adjust = FALSE
 
 /obj/item/clothing/suit/joker
 	name = "comedian coat"
-	desc = "I mean, don’t you have to be funny to be a comedian?"
+	desc = "I mean, don't you have to be funny to be a comedian?"
 	icon_state = "joker_coat"
 	item_state = "joker_coat"
-	item_color = "joker_coat"
 
 /obj/item/clothing/suit/toggle/softshell
 	name = "softshell jacket"

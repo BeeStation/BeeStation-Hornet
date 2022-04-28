@@ -1,0 +1,68 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"h" = (
+/obj/machinery/shower{
+	dir = 4
+	},
+/obj/item/soap/nanotrasen,
+/turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
+"o" = (
+/obj/machinery/shower{
+	dir = 4
+	},
+/turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
+"A" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"G" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"U" = (
+/obj/machinery/shower{
+	dir = 8
+	},
+/turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
+"V" = (
+/turf/open/floor/plasteel/freezer,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+G
+G
+G
+G
+G
+"}
+(2,1,1) = {"
+G
+o
+o
+h
+G
+"}
+(3,1,1) = {"
+G
+V
+V
+V
+G
+"}
+(4,1,1) = {"
+G
+U
+V
+U
+G
+"}
+(5,1,1) = {"
+G
+G
+A
+G
+G
+"}

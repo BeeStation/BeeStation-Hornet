@@ -8,6 +8,7 @@
 	icon_state = "foamdart_proj"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	range = 10
+	martial_arts_no_deflect = TRUE
 	var/modified = FALSE
 	var/obj/item/pen/pen = null
 
@@ -41,3 +42,4 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	nodamage = FALSE
 	stamina = 25
+	martial_arts_no_deflect = FALSE

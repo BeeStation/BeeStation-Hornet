@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from 'common/redux';
 import { Button, Flex, Box, Section } from 'tgui/components';
 import { selectStatPanel } from './selectors';
 import { StatText } from './StatText';
+import { sendMessage } from 'tgui/backend';
+
 
 export const StatStatus = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
@@ -18,11 +20,11 @@ export const StatStatus = (props, context) => {
     <Flex direction="column">
       {stat.dead_popup
         ?(
-          <Flex.Item mt={1}>
+          <Flex.Item mt={1} mb={1}>
             <Flex direction="column">
               <div className="StatBorder_observer">
                 <Flex.Item>
-                  <Section
+                  <Box
                     className="deadsay">
                     <Button
                       color="transparent"
@@ -31,14 +33,14 @@ export const StatStatus = (props, context) => {
                         type: 'stat/clearDeadPopup',
                       })} />
                     You are <b>dead</b>!
-                  </Section>
+                  </Box>
                 </Flex.Item>
-                <Flex.Item>
-                  <Section
+                <Flex.Item mt={2}>
+                  <Box
                     className="deadsay">
                     Don&#39;t worry, you can still get back into the game
                     if your body is revived or through ghost roles.
-                  </Section>
+                  </Box>
                 </Flex.Item>
               </div>
             </Flex>
@@ -47,9 +49,9 @@ export const StatStatus = (props, context) => {
         :null}
       {stat.alert_popup
         ?(
-          <Flex.Item mt={1}>
+          <Flex.Item mt={1} mb={1}>
             <div className="StatBorder_infomation">
-              <Section>
+              <Box>
                 <Flex
                   direction="column"
                   className="stat_infomation">
@@ -68,16 +70,16 @@ export const StatStatus = (props, context) => {
                     {stat.alert_popup.text}
                   </Flex.Item>
                 </Flex>
-              </Section>
+              </Box>
             </div>
           </Flex.Item>
         )
         :null}
       {stat.antagonist_popup
         ?(
-          <Flex.Item mt={1}>
+          <Flex.Item mt={1} mb={1}>
             <div className="StatBorder_antagonist">
-              <Section>
+              <Box>
                 <Flex
                   direction="column"
                   className="stat_antagonist">
@@ -96,7 +98,54 @@ export const StatStatus = (props, context) => {
                     {stat.antagonist_popup.text}
                   </Flex.Item>
                 </Flex>
-              </Section>
+              </Box>
+            </div>
+          </Flex.Item>
+        )
+        :null}
+      {stat.alert_br
+        ?(
+          <Flex.Item mt={1} mb={1}>
+            <div className="StatBorder_br">
+              <Box>
+                <Flex
+                  direction="column"
+                  className="stat_br">
+                  <Flex.Item bold>
+                    <Button
+                      color="transparent"
+                      icon="times"
+                      onClick={() => dispatch({
+                        type: 'stat/clearAlertBr',
+                      })} />
+                    <Box inline>
+                      {stat.alert_br.title}
+                    </Box>
+                  </Flex.Item>
+                  <Flex.Item mt={2}>
+                    {stat.alert_br.text}
+                  </Flex.Item>
+                  <Flex.Item>
+                    <Button
+                      content="Start"
+                      color="transparent"
+                      onClick={e => sendMessage({
+                        type: 'stat/pressed',
+                        payload: {
+                          action_id: 'start_br',
+                        },
+                      })} />
+                    <Box inline>
+                      <Button
+                        content="Dismiss"
+                        color="transparent"
+                        onClick={() => dispatch({
+                          type: 'stat/clearAlertBr',
+                        })} />
+                    </Box>
+                  </Flex.Item>
+                </Flex>
+              </Box>
             </div>
           </Flex.Item>
         )
@@ -186,6 +235,47 @@ export const HoboStatStatus = (props, context) => {
                 </Box>
                 <Box>
                   {stat.antagonist_popup.text}
+                </Box>
+              </Box>
+            </Section>
+          </div>
+        )
+        :null}
+      {stat.alert_br
+        ?(
+          <div className="StatBorder_br">
+            <Section>
+              <Box className="stat_br">
+                <Button
+                  color="transparent"
+                  icon="times"
+                  onClick={() => dispatch({
+                    type: 'stat/clearAlertBr',
+                  })} />
+                <Box inline>
+                  {stat.alert_br.title}
+                </Box>
+                <Box>
+                  {stat.alert_br.text}
+                </Box>
+                <Box>
+                  <Button
+                    content="Start"
+                    color="transparent"
+                    onClick={e => sendMessage({
+                      type: 'stat/pressed',
+                      payload: {
+                        action_id: 'start_br',
+                      },
+                    })} />
+                  <Box inline>
+                    <Button
+                      content="Dismiss"
+                      color="transparent"
+                      onClick={() => dispatch({
+                        type: 'stat/clearAlertBr',
+                      })} />
+                  </Box>
                 </Box>
               </Box>
             </Section>

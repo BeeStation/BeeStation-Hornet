@@ -25,10 +25,8 @@ export const Telecomms = (props, context) => {
   } = data;
   const linked = data.linked || [];
   const frequencies = data.frequencies || [];
-  const circuits = data.circuits || [];
   return (
     <Window
-      resizable
       title={id}
       width={400}
       height={600}>
@@ -131,19 +129,6 @@ export const Telecomms = (props, context) => {
                   icon={broadcasting ? 'microphone' : 'microphone-slash'}
                   color={broadcasting ? '' : 'bad'}
                   onClick={() => act('broadcast')} />
-              </Section>
-            )}
-            {(type === 'receiver') && (
-              <Section title="Broadcasting Signals">
-                <Table>
-                  {circuits.map(entry => (
-                    <Table.Row key={entry.index} className="candystripe">
-                      <Table.Cell bold>
-                        {entry.index}. {entry.name} ({entry.coords})
-                      </Table.Cell>
-                    </Table.Row>
-                  ))}
-                </Table>
               </Section>
             )}
             <Section title="Linked Network Entities">

@@ -1,7 +1,7 @@
 // Uniform slot
 /datum/gear/uniform
 	subtype_path = /datum/gear/uniform
-	slot = SLOT_W_UNIFORM
+	slot = ITEM_SLOT_ICLOTHING
 	sort_category = "Uniforms and Casual Dress"
 	species_blacklist = list("plasmaman") //Envirosuit moment
 	cost = 1000
@@ -234,6 +234,11 @@
 	path = /obj/item/clothing/under/costume/jabroni
 	cost = 20000
 
+/datum/gear/uniform/misc/geisha
+	display_name = "geisha suit"
+	path = /obj/item/clothing/under/costume/geisha
+	cost = 20000
+
 /datum/gear/uniform/misc/soviet
 	display_name = "soviet uniform"
 	path = /obj/item/clothing/under/costume/soviet
@@ -306,7 +311,7 @@
 
 /datum/gear/uniform/rank/medical/nurse_dress
 	display_name = "medical, nurse's dress"
-	path = /obj/item/clothing/under/rank/medical/doctor
+	path = /obj/item/clothing/under/rank/medical/doctor/nurse
 
 /datum/gear/uniform/rank/medical/emt
 	display_name = "medical scrubs, EMT"
@@ -350,7 +355,7 @@
 
 /datum/gear/uniform/rank/security/blueshift
 	display_name = "security jumpsuit, blue shirt and tie"
-	path = /obj/item/clothing/under/rank/security/blueshirt
+	path = /obj/item/clothing/under/rank/security/officer/blueshirt
 	cost = 7500
 
 /datum/gear/uniform/rank/security/blart

@@ -86,12 +86,17 @@
 	name = "Maintenance Peaches"
 	icon_state = "peachcanmaint_empty"
 
+/obj/item/trash/can/food/beefbroth
+	name = "canned beef broth"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "beefcan_empty"
+
 /obj/item/trash/can/food/beans
 	name = "tin of beans"
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "beans_empty"
 
-/obj/item/trash/can/Initialize()
+/obj/item/trash/can/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-4,4)
 	pixel_y = rand(-4,4)

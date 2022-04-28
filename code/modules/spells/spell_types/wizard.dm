@@ -28,6 +28,10 @@
 	trail_lifespan = 5
 	trail_icon_state = "magicmd"
 
+/obj/item/projectile/magic/spell/magic_missile/New(loc, spell_level)
+	. = ..()
+	paralyze += spell_level * 10
+
 /obj/effect/proc_holder/spell/targeted/genetic/mutate
 	name = "Mutate"
 	desc = "This spell causes you to turn into a hulk and gain laser vision for a short while."
@@ -65,7 +69,6 @@
 	smoke_amt = 4
 
 	action_icon_state = "smoke"
-
 
 /obj/effect/proc_holder/spell/targeted/smoke/lesser //Chaplain smoke book
 	name = "Smoke"
@@ -223,6 +226,19 @@
 	charge_max = 5000
 	summon_amt = 2
 
+/obj/effect/proc_holder/spell/aoe_turf/conjure/creature/bee
+	name = "Lesser summon bees"
+	desc = "This spell magically kicks a transdimensional beehive, instantly summoning a swarm of bees to your location. These bees are NOT friendly to anyone."
+	charge_max = 600
+	clothes_req = TRUE
+	invocation = "NOT THE BEES"
+	summon_amt = 9
+	action_icon_state = "bee"
+	cooldown_min = 20 SECONDS
+
+	summon_type = /mob/living/simple_animal/hostile/poison/bees/toxin
+	cast_sound = 'sound/voice/moth/scream_moth.ogg'
+
 /obj/effect/proc_holder/spell/aoe_turf/repulse
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
@@ -249,6 +265,9 @@
 	for(var/turf/T in targets) //Done this way so things don't get thrown all around hilariously.
 		for(var/atom/movable/AM in T)
 			thrownatoms += AM
+
+	stun_amt += 10 * spell_level
+	maxthrow = 5 + spell_level
 
 	for(var/am in thrownatoms)
 		var/atom/movable/AM = am

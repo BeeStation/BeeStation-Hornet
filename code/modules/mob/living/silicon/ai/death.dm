@@ -4,6 +4,7 @@
 
 	. = ..()
 
+	cut_overlays() //remove portraits
 	var/old_icon = icon_state
 	if("[icon_state]_dead" in icon_states(icon))
 		icon_state = "[icon_state]_dead"
@@ -12,7 +13,8 @@
 	if("[old_icon]_death_transition" in icon_states(icon))
 		flick("[old_icon]_death_transition", src)
 
-	cameraFollow = null
+	if(ai_tracking_target)
+		ai_stop_tracking()
 
 	anchored = FALSE //unbolt floorbolts
 	move_resist = MOVE_FORCE_NORMAL
@@ -28,8 +30,8 @@
 	ShutOffDoomsdayDevice()
 
 	if(explosive)
-		spawn(10)
-			explosion(src.loc, 3, 6, 12, 15)
+		var/T = get_turf(src)
+		addtimer(CALLBACK(GLOBAL_PROC, .proc/explosion, T, 3, 6, 12, 15), 10)
 
 	if(src.key)
 		for(var/each in GLOB.ai_status_displays) //change status

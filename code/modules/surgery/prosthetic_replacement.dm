@@ -18,7 +18,7 @@
 
 /datum/surgery_step/add_prosthetic
 	name = "add prosthetic"
-	implements = list(/obj/item/bodypart = 100, /obj/item/organ_storage = 100, /obj/item/twohanded/required/chainsaw = 100, /obj/item/melee/synthetic_arm_blade = 100)
+	implements = list(/obj/item/bodypart = 100, /obj/item/organ_storage = 100, /obj/item/chainsaw = 100, /obj/item/melee/synthetic_arm_blade = 100)
 	time = 32
 	var/organ_rejection_dam = 0
 
@@ -35,17 +35,17 @@
 	if(istype(tool, /obj/item/bodypart))
 		var/obj/item/bodypart/BP = tool
 		if(ismonkey(target))// monkey patient only accept organic monkey limbs
-			if(BP.status == BODYPART_ROBOTIC || BP.animal_origin != MONKEY_BODYPART)
+			if(!IS_ORGANIC_LIMB(BP) || BP.animal_origin != MONKEY_BODYPART)
 				to_chat(user, "<span class='warning'>[BP] doesn't match the patient's morphology.</span>")
 				return -1
-		if(BP.status != BODYPART_ROBOTIC)
+		if(IS_ORGANIC_LIMB(BP))
 			organ_rejection_dam = 10
 			if(ishuman(target))
 				if(BP.animal_origin)
 					to_chat(user, "<span class='warning'>[BP] doesn't match the patient's morphology.</span>")
 					return -1
 				var/mob/living/carbon/human/H = target
-				if(H.dna.species.id != BP.species_id)
+				if(H.dna.species.id != BP.limb_id)
 					organ_rejection_dam = 30
 
 		if(target_zone == BP.body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
@@ -87,15 +87,15 @@
 			"[user] finishes attaching [tool]!",
 			"[user] finishes the attachment procedure!")
 		qdel(tool)
-		if(istype(tool, /obj/item/twohanded/required/chainsaw/energy/doom))
+		if(istype(tool, /obj/item/chainsaw/energy/doom))
 			var/obj/item/mounted_chainsaw/super/new_arm = new(target)
 			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
 			return 1
-		else if(istype(tool, /obj/item/twohanded/required/chainsaw/energy))
+		else if(istype(tool, /obj/item/chainsaw/energy))
 			var/obj/item/mounted_chainsaw/energy/new_arm = new(target)
 			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
 			return 1
-		else if(istype(tool, /obj/item/twohanded/required/chainsaw))
+		else if(istype(tool, /obj/item/chainsaw))
 			var/obj/item/mounted_chainsaw/normal/new_arm = new(target)
 			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
 			return 1
@@ -103,4 +103,3 @@
 			var/obj/item/melee/arm_blade/new_arm = new(target,TRUE,TRUE)
 			target_zone == BODY_ZONE_R_ARM ? target.put_in_r_hand(new_arm) : target.put_in_l_hand(new_arm)
 			return 1
-

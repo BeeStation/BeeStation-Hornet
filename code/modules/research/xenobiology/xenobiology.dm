@@ -40,7 +40,7 @@
 		qdel(O)
 	..()
 
-/obj/item/slime_extract/Initialize()
+/obj/item/slime_extract/Initialize(mapload)
 	. = ..()
 	create_reagents(100, INJECTABLE | DRAWABLE)
 
@@ -278,7 +278,7 @@
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user]'s skin starts flashing intermittently...</span>", "<span class='warning'>Your skin starts flashing intermittently...</span>")
 			if(do_after(user, 25, target = user))
-				empulse(user, 1, 2)
+				empulse(user, 1, 2, magic=TRUE)
 				user.visible_message("<span class='warning'>[user]'s skin flashes!</span>", "<span class='warning'>Your skin flashes as you emit an electromagnetic pulse!</span>")
 				return 600
 
@@ -697,6 +697,11 @@
 /obj/item/slimepotion/slime/sentience/attack(mob/living/M, mob/user)
 	if(being_used || !ismob(M))
 		return
+	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER))
+		to_chat(user, "<span class='warning'>[src] seems to fizzle out of existance. Guess the universe is unable to support more intelligence right now.</span>")
+		do_sparks(5, FALSE, get_turf(src))
+		qdel(src)
+		return
 	if(!isanimal(M) || M.ckey) //only works on animals that aren't player controlled
 		to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
 		return
@@ -711,8 +716,8 @@
 	to_chat(user, "<span class='notice'>You offer [src] to [SM]...</span>")
 	being_used = TRUE
 
-	var/list/candidates = pollCandidatesForMob("Do you want to play as [SM.name]?", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 50, SM, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm
-	if(LAZYLEN(candidates))
+	var/list/candidates = pollCandidatesForMob("Do you want to play as [SM.name]? (Sentience Potion)", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 50, SM, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm
+	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		SM.key = C.key
 		SM.mind.enslave_mind_to_creator(user)
@@ -946,6 +951,14 @@
 		to_chat(user, "<span class='warning'>The potion can only be used on gendered things!</span>")
 		return
 
+	L.visible_message("<span class='danger'>[user] starts to feed [L] a gender change potion!</span>",
+		"<span class='userdanger'>[user] starts to feed you a gender change potion!</span>")
+
+	if(!do_after(user, 50, target = L))
+		return
+
+	to_chat(user, "<span class='notice'>You feed [L] the gender change potion!</span>")
+
 	if(L.gender == MALE)
 		L.gender = FEMALE
 		L.visible_message("<span class='boldnotice'>[L] suddenly looks more feminine!</span>", "<span class='boldwarning'>You suddenly feel more feminine!</span>")
@@ -972,11 +985,11 @@
 
 	being_used = TRUE
 
-	to_chat(user, "<span class='notice'>You offer [src] to [user]...</span>")
+	to_chat(user, "<span class='notice'>You offer [src] to [M]...</span>")
 
 	var/new_name = stripped_input(M, "What would you like your name to be?", "Input a name", M.real_name, MAX_NAME_LEN)
 
-	if(!new_name || QDELETED(src) || QDELETED(M) || new_name == M.real_name || !M.Adjacent(user))
+	if(!new_name || QDELETED(src) || QDELETED(M) || new_name == M.real_name || !M.Adjacent(user) || CHAT_FILTER_CHECK(new_name))
 		being_used = FALSE
 		return
 
@@ -1057,5 +1070,5 @@
 	for(var/turf/T in A)
 		T.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		T.add_atom_colour("#2956B2", FIXED_COLOUR_PRIORITY)
-	A.xenobiology_compatible = TRUE
+	A.area_flags |= XENOBIOLOGY_COMPATIBLE
 	qdel(src)

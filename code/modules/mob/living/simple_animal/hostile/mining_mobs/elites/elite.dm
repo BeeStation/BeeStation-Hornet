@@ -15,7 +15,6 @@
 	vision_range = 6
 	aggro_vision_range = 18
 	environment_smash = ENVIRONMENT_SMASH_NONE  //This is to prevent elites smashing up the mining station, we'll make sure they can smash minerals fine below.
-	harm_intent_damage = 0 //Punching elites gets you nowhere
 	stat_attack = UNCONSCIOUS
 	layer = LARGE_MOB_LAYER
 	sentience_type = SENTIENCE_BOSS
@@ -24,6 +23,7 @@
 	var/list/attack_action_types = list()
 	var/can_talk = FALSE
 	var/obj/loot_drop = null
+	discovery_points = 5000
 
 //Gives player-controlled variants the ability to swap attacks
 /mob/living/simple_animal/hostile/asteroid/elite/Initialize(mapload)
@@ -69,19 +69,18 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	icon_icon = 'icons/mob/actions/actions_elites.dmi'
 	button_icon_state = ""
 	background_icon_state = "bg_default"
-	var/mob/living/simple_animal/hostile/asteroid/elite/M
 	var/chosen_message
 	var/chosen_attack_num = 0
 
 /datum/action/innate/elite_attack/Grant(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/asteroid/elite))
-		M = L
 		return ..()
 	return FALSE
 
 /datum/action/innate/elite_attack/Activate()
-	M.chosen_attack = chosen_attack_num
-	to_chat(M, chosen_message)
+	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
+	elite_owner.chosen_attack = chosen_attack_num
+	to_chat(elite_owner, chosen_message)
 
 /mob/living/simple_animal/hostile/asteroid/elite/updatehealth()
 	. = ..()
@@ -205,11 +204,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	activator = null
 	return ..()
 
-/obj/structure/elite_tumor/process()
+/obj/structure/elite_tumor/process(delta_time)
 	if(isturf(loc))
 		for(var/mob/living/simple_animal/hostile/asteroid/elite/elitehere in loc)
 			if(elitehere == mychild && activity == TUMOR_PASSIVE)
-				mychild.adjustHealth(-mychild.maxHealth*0.05)
+				mychild.adjustHealth(-mychild.maxHealth*0.025*delta_time)
 				var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(mychild))
 				H.color = "#FF0000"
 
@@ -354,8 +353,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	ourelite = null
 	return ..()
 
-/obj/effect/temp_visual/elite_tumor_wall/CanPass(atom/movable/mover, turf/target)
+/obj/effect/temp_visual/elite_tumor_wall/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(mover == ourelite || mover == activator)
 		return FALSE
-	else
-		return TRUE

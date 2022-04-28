@@ -41,6 +41,7 @@
 	if(!ui)
 		ui = new(user, src, "BorgPanel", "Borging Panel")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /datum/borgpanel/ui_data(mob/user)
 	. = list()
@@ -56,7 +57,7 @@
 	.["upgrades"] = list()
 	for (var/upgradetype in subtypesof(/obj/item/borg/upgrade)-/obj/item/borg/upgrade/hypospray) //hypospray is a dummy parent for hypospray upgrades
 		var/obj/item/borg/upgrade/upgrade = upgradetype
-		if (initial(upgrade.module_type) && !istype(borg.module, initial(upgrade.module_type))) // Upgrade requires a different module
+		if (initial(upgrade.module_type) && !is_type_in_list(borg.module, initial(upgrade.module_type))) // Upgrade requires a different module
 			continue
 		var/installed = FALSE
 		if (locate(upgradetype) in borg)

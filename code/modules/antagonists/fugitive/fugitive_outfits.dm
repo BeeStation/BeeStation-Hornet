@@ -41,11 +41,11 @@
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(null))
 	var/list/no_drops = list()
-	no_drops += H.get_item_by_slot(SLOT_SHOES)
-	no_drops += H.get_item_by_slot(SLOT_W_UNIFORM)
-	no_drops += H.get_item_by_slot(SLOT_WEAR_SUIT)
-	no_drops += H.get_item_by_slot(SLOT_HEAD)
-	no_drops += H.get_item_by_slot(SLOT_GLASSES)
+	no_drops += H.get_item_by_slot(ITEM_SLOT_FEET)
+	no_drops += H.get_item_by_slot(ITEM_SLOT_ICLOTHING)
+	no_drops += H.get_item_by_slot(ITEM_SLOT_OCLOTHING)
+	no_drops += H.get_item_by_slot(ITEM_SLOT_HEAD)
+	no_drops += H.get_item_by_slot(ITEM_SLOT_EYES)
 	for(var/i in no_drops)
 		var/obj/item/I = i
 		ADD_TRAIT(I, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -59,7 +59,7 @@
 	if(visualsOnly)
 		return
 	var/obj/item/organ/eyes/robotic/glow/eyes = new()
-	eyes.Insert(src, drop_if_replaced = FALSE)
+	eyes.Insert(H, drop_if_replaced = FALSE)
 
 /datum/outfit/spacepol
 	name = "Spacepol Officer"
@@ -74,7 +74,7 @@
 	ears = /obj/item/radio/headset
 	l_pocket = /obj/item/ammo_box/magazine/m45
 	r_pocket = /obj/item/restraints/handcuffs
-	id = /obj/item/card/id
+	id = /obj/item/card/id/silver/spacepol
 
 /datum/outfit/spacepol/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -87,6 +87,7 @@
 /datum/outfit/russiancorpse/hunter
 	ears = /obj/item/radio/headset
 	r_hand = /obj/item/gun/ballistic/rifle/boltaction
+	id = /obj/item/card/id/space_russian
 
 /datum/outfit/russiancorpse/hunter/pre_equip(mob/living/carbon/human/H)
 	if(prob(50))
@@ -104,7 +105,7 @@
 	ears = /obj/item/radio/headset
 	l_pocket = /obj/item/tank/internals/plasma/full
 	r_pocket = /obj/item/restraints/handcuffs/cable
-	id = /obj/item/card/id
+	id = /obj/item/card/id/silver/spacepol/bounty
 	r_hand = /obj/item/flamethrower/full/tank
 
 /datum/outfit/bountyarmor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -125,20 +126,12 @@
 	shoes = /obj/item/clothing/shoes/jackboots
 	mask = /obj/item/clothing/mask/scarecrow
 	r_pocket = /obj/item/restraints/handcuffs/cable
-	id = /obj/item/card/id
+	id = /obj/item/card/id/silver/spacepol/bounty
 	r_hand = /obj/item/gun/ballistic/shotgun/doublebarrel/hook
 
 	backpack_contents = list(
 		/obj/item/ammo_casing/shotgun/incapacitate = 6
 		)
-
-/datum/outfit/bountygrapple/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
-		return
-	var/obj/item/card/id/W = H.wear_id
-	W.assignment = "Bounty Hunter"
-	W.registered_name = H.real_name
-	W.update_label()
 
 /datum/outfit/bountysynth
 	name = "Bounty Hunter - Synth"
@@ -149,22 +142,10 @@
 	glasses = /obj/item/clothing/glasses/eyepatch
 	r_pocket = /obj/item/restraints/handcuffs/cable
 	ears = /obj/item/radio/headset
-	id = /obj/item/card/id
+	id = /obj/item/card/id/silver/spacepol/bounty
 	r_hand = /obj/item/storage/firstaid/regular
 	l_hand = /obj/item/pinpointer/shuttle
 
 	backpack_contents = list(
 		/obj/item/bountytrap = 4
 		)
-
-/datum/outfit/bountysynth/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
-		return
-	var/datum/species/synth/synthetic_appearance = new()
-	H.set_species(synthetic_appearance)
-	synthetic_appearance.assume_disguise(synthetic_appearance, H)
-	H.update_hair()
-	var/obj/item/card/id/W = H.wear_id
-	W.assignment = "Bounty Hunter"
-	W.registered_name = H.real_name
-	W.update_label()

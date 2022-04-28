@@ -23,7 +23,7 @@
 	// whether it's, say, a tesla zapping tcomms, or some selective
 	// modification of the tcomms bus
 	if(prob(80) || fake)
-		priority_announce(alert)
+		priority_announce(alert, sound = SSstation.announcer.get_rand_alert_sound())
 
 
 /datum/round_event/processor_overload/start()
@@ -34,6 +34,6 @@
 			explosion(get_turf(P), 0, 0, 2)
 			// Only a level 1 explosion actually damages the machine
 			// at all
-			P.ex_act(EXPLODE_HEAVY)
+			SSexplosions.high_mov_atom += P
 		else
 			P.emp_act(EMP_HEAVY)

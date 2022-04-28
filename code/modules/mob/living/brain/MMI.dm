@@ -29,7 +29,7 @@
 	else
 		add_overlay("mmi_dead")
 
-/obj/item/mmi/Initialize()
+/obj/item/mmi/Initialize(mapload)
 	. = ..()
 	radio = new(src) //Spawns a radio inside the MMI.
 	radio.broadcasting = FALSE //researching radio mmis turned the robofabs into radios because this didnt start as 0.
@@ -54,13 +54,14 @@
 		user.visible_message("[user] sticks \a [newbrain] into [src].", "<span class='notice'>[src]'s indicator light turn on as you insert [newbrain].</span>")
 		log_attack("[key_name(user)] inserted [newbrain] into \the [src] at [AREACOORD(src)].")
 
+		SEND_SIGNAL(src, COMSIG_MMI_SET_BRAINMOB, newbrain.brainmob)
 		brainmob = newbrain.brainmob
 		newbrain.brainmob = null
 		brainmob.forceMove(src)
 		brainmob.container = src
 		var/fubar_brain = newbrain.brain_death && newbrain.suicided && brainmob.suiciding //brain is damaged beyond repair or from a suicider
 		if(!fubar_brain && !(newbrain.organ_flags & ORGAN_FAILING)) // the brain organ hasn't been beaten to death, nor was from a suicider.
-			brainmob.stat = CONSCIOUS //we manually revive the brain mob
+			brainmob.set_stat(CONSCIOUS) //we manually revive the brain mob
 			brainmob.remove_from_dead_mob_list()
 			brainmob.add_to_alive_mob_list()
 		else if(!fubar_brain && newbrain.organ_flags & ORGAN_FAILING) // the brain is damaged, but not from a suicider
@@ -99,7 +100,7 @@
 /obj/item/mmi/proc/eject_brain(mob/user)
 	brainmob.container = null //Reset brainmob mmi var.
 	brainmob.forceMove(brain) //Throw mob into brain.
-	brainmob.stat = DEAD
+	brainmob.set_stat(DEAD)
 	brainmob.emp_damage = 0
 	brainmob.reset_perspective() //so the brainmob follows the brain organ instead of the mmi. And to update our vision
 	brainmob.remove_from_alive_mob_list() //Get outta here
@@ -219,7 +220,7 @@
 	desc = "Syndicate's own brand of MMI. It enforces laws designed to help Syndicate agents achieve their goals upon cyborgs and AIs created with it."
 	overrides_aicore_laws = TRUE
 
-/obj/item/mmi/syndie/Initialize()
+/obj/item/mmi/syndie/Initialize(mapload)
 	. = ..()
 	laws = new /datum/ai_laws/syndicate_override()
 	radio.on = FALSE

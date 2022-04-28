@@ -32,25 +32,15 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_type = "cat"
 	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
 	held_state = "cat2"
-	mobsay_color = "#FFD586"
+	chat_color = "#FFD586"
 
 	do_footstep = TRUE
 
-/mob/living/simple_animal/pet/cat/Initialize()
+/mob/living/simple_animal/pet/cat/Initialize(mapload)
 	. = ..()
 	add_verb(/mob/living/proc/lay_down)
-
-/mob/living/simple_animal/pet/cat/update_mobility()
-	..()
-	if(client && stat != DEAD)
-		if (resting)
-			icon_state = "[icon_living]_rest"
-			collar_type = "[initial(collar_type)]_rest"
-		else
-			icon_state = "[icon_living]"
-			collar_type = "[initial(collar_type)]"
-	regenerate_icons()
 
 /mob/living/simple_animal/pet/cat/space
 	name = "space cat"
@@ -101,7 +91,7 @@
 	var/memory_saved = FALSE
 	held_state = "cat"
 
-/mob/living/simple_animal/pet/cat/Runtime/Initialize()
+/mob/living/simple_animal/pet/cat/Runtime/Initialize(mapload)
 	if(prob(5))
 		icon_state = "original"
 		icon_living = "original"
@@ -189,25 +179,31 @@
 				INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "bats \the [T] around with its paw!")
 				T.cooldown = world.time
 
+/mob/living/simple_animal/pet/cat/update_resting()
+	. = ..()
+	if(stat != DEAD)
+		if (resting)
+			icon_state = "[icon_living]_rest"
+			collar_type = "[initial(collar_type)]_rest"
+		else
+			icon_state = "[icon_living]"
+			collar_type = "[initial(collar_type)]"
+
 /mob/living/simple_animal/pet/cat/Life()
 	if(!stat && !buckled && !client)
 		if(prob(3))
 			switch(rand(1, 3))
 				if (1)
 					INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
-					icon_state = "[icon_living]_rest"
-					collar_type = "[initial(collar_type)]_rest"
 					set_resting(TRUE)
 				if (2)
 					INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
+					set_resting(TRUE)
 					icon_state = "[icon_living]_sit"
 					collar_type = "[initial(collar_type)]_sit"
-					set_resting(TRUE)
 				if (3)
 					if (resting)
 						INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("gets up and meows.", "walks around.", "stops resting."))
-						icon_state = "[icon_living]"
-						collar_type = "[initial(collar_type)]"
 						set_resting(FALSE)
 					else
 						INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
@@ -264,7 +260,6 @@
 	health = 50
 	maxHealth = 50
 	gender = FEMALE
-	harm_intent_damage = 10
 	butcher_results = list(/obj/item/organ/brain = 1, /obj/item/organ/heart = 1, /obj/item/reagent_containers/food/snacks/cakeslice/birthday = 3,  \
 	/obj/item/reagent_containers/food/snacks/meat/slab = 2)
 	response_harm = "takes a bite out of"
@@ -317,3 +312,12 @@
 	collar_type = null
 	held_state = "breadcat"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/reagent_containers/food/snacks/breadslice/plain = 1)
+
+/mob/living/simple_animal/pet/cat/halal
+	name = "arabian cat"
+	desc = "It's a cat with Agal on his head."
+	gender = MALE
+	icon_state = "cathalal"
+	icon_living = "cathalal"
+	collar_type = null
+	held_state = "cathalal"

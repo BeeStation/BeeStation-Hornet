@@ -13,6 +13,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	min_players = 15
 	max_occurrences = 5
 	var/atom/special_target
+	can_malf_fake_alert = TRUE
 
 
 /datum/round_event_control/immovable_rod/admin_setup()
@@ -27,14 +28,14 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/round_event/immovable_rod/announce(fake)
-	priority_announce("What the fuck was that?!", "General Alert")
+	priority_announce("What the fuck was that?!", "General Alert", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/immovable_rod/start()
 	var/datum/round_event_control/immovable_rod/C = control
 	var/startside = pick(GLOB.cardinals)
 	var/z = pick(SSmapping.levels_by_trait(ZTRAIT_STATION))
-	var/turf/startT = spaceDebrisStartLoc(startside, z)
-	var/turf/endT = spaceDebrisFinishLoc(startside, z)
+	var/turf/startT = aimbotDebrisStartLoc(startside, z)
+	var/turf/endT = aimbotDebrisFinishLoc(startside, z)
 	var/atom/rod = new /obj/effect/immovablerod(startT, endT, C.special_target)
 	announce_to_ghosts(rod)
 
@@ -49,8 +50,10 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	pull_force = INFINITY
 	density = TRUE
 	anchored = TRUE
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	var/mob/living/wizard
 	var/z_original = 0
+	var/previous_distance = 1000
 	var/destination
 	var/notify = TRUE
 	var/atom/special_target
@@ -67,11 +70,18 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(special_target)
 		var/turf/T = get_turf(special_target)
 		if(T.z == z_original)
-			special_target_valid = TRUE
+			special_target_valid = TRUE_THRESHOLD
 	if(special_target_valid)
 		walk_towards(src, special_target, 1)
+		previous_distance = get_dist(src, special_target)
 	else if(end && end.z==z_original)
 		walk_towards(src, destination, 1)
+		previous_distance = get_dist(src, destination)
+
+/obj/effect/immovablerod/Destroy()
+	GLOB.poi_list -= src
+	SSaugury.unregister_doom(src)
+	. = ..()
 
 /obj/effect/immovablerod/Topic(href, href_list)
 	if(href_list["orbit"])
@@ -79,13 +89,14 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		if(istype(ghost))
 			ghost.ManualFollow(src)
 
-/obj/effect/immovablerod/Destroy()
-	GLOB.poi_list -= src
-	. = ..()
-
 /obj/effect/immovablerod/Moved()
-	if((z != z_original) || (loc == destination))
+	if(!loc)
+		return ..()
+	//Moved more than 10 tiles in 1 move.
+	var/cur_dist = get_dist(src, destination)
+	if((z != z_original) || (loc == destination) || (FLOOR(cur_dist - previous_distance, 1) > 10))
 		qdel(src)
+	previous_distance = cur_dist
 	if(special_target && loc == get_turf(special_target))
 		complete_trajectory()
 	return ..()
@@ -96,9 +107,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	destination = get_edge_target_turf(src, dir)
 	walk(src,0)
 	walk_towards(src, destination, 1)
-
-/obj/structure/closet/supplypod/prevent_content_explosion()
-	return TRUE
 
 /obj/effect/immovablerod/ex_act(severity, target)
 	return 0
@@ -160,7 +168,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 				wizard.apply_damage(25, BRUTE)
 				qdel(src)
 			else
-				SSmedals.UnlockMedal(MEDAL_RODSUPLEX,U.client) //rod-form wizards would probably make this a lot easier to get so keep it to regular rods only
+				U.client.give_award(/datum/award/achievement/misc/feat_of_strength, U) //rod-form wizards would probably make this a lot easier to get so keep it to regular rods only
 				U.visible_message("<span class='boldwarning'>[U] suplexes [src] into the ground!</span>", "<span class='warning'>You suplex [src] into the ground!</span>")
 				new /obj/structure/festivus/anchored(drop_location())
 				new /obj/effect/anomaly/flux(drop_location())

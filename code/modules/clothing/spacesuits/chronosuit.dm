@@ -9,9 +9,9 @@
 	var/obj/item/clothing/suit/space/chronos/suit
 
 /obj/item/clothing/head/helmet/space/chronos/dropped()
+	..()
 	if(suit)
 		suit.deactivate(1, 1)
-	..()
 
 /obj/item/clothing/head/helmet/space/chronos/Destroy()
 	dropped()
@@ -36,7 +36,7 @@
 	var/teleporting = 0
 	var/phase_timer_id
 
-/obj/item/clothing/suit/space/chronos/Initialize()
+/obj/item/clothing/suit/space/chronos/Initialize(mapload)
 	teleport_now.chronosuit = src
 	teleport_now.target = src
 	return ..()
@@ -59,12 +59,13 @@
 			deactivate()
 
 /obj/item/clothing/suit/space/chronos/dropped()
+	..()
 	if(activated)
 		deactivate()
-	..()
 
 /obj/item/clothing/suit/space/chronos/Destroy()
 	dropped()
+	QDEL_NULL(teleport_now)
 	return ..()
 
 /obj/item/clothing/suit/space/chronos/emp_act(severity)
@@ -118,7 +119,7 @@
 
 		teleport_now.UpdateButtonIcon()
 
-		var/list/nonsafe_slots = list(SLOT_BELT, SLOT_BACK)
+		var/list/nonsafe_slots = list(ITEM_SLOT_BELT, ITEM_SLOT_BACK)
 		var/list/exposed = list()
 		for(var/slot in nonsafe_slots)
 			var/obj/item/slot_item = user.get_item_by_slot(slot)
@@ -170,7 +171,7 @@
 		if(user && ishuman(user) && (user.wear_suit == src))
 			if(camera && (user.remote_control == camera))
 				if(!teleporting)
-					if(camera.loc != user && ((camera.x != user.x) || (camera.y != user.y) || (camera.z != user.z)))
+					if(camera.loc != user && ((camera.x != user.x) || (camera.y != user.y) || (camera.get_virtual_z_level() != user.get_virtual_z_level())))
 						if(camera.phase_time <= world.time)
 							chronowalk(camera)
 					else
@@ -295,7 +296,6 @@
 
 /obj/effect/chronos_cam/check_eye(mob/user)
 	if(user != holder)
-		user.unset_machine()
 		qdel(src)
 
 /obj/effect/chronos_cam/on_unset_machine(mob/user)
@@ -328,6 +328,10 @@
 	button_icon_state = "chrono_phase"
 	check_flags = AB_CHECK_CONSCIOUS //|AB_CHECK_INSIDE
 	var/obj/item/clothing/suit/space/chronos/chronosuit = null
+
+/datum/action/innate/chrono_teleport/Destroy()
+	chronosuit = null
+	return ..()
 
 /datum/action/innate/chrono_teleport/IsAvailable()
 	return (chronosuit && chronosuit.activated && chronosuit.camera && !chronosuit.teleporting)

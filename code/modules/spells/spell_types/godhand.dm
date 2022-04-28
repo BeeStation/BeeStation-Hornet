@@ -17,7 +17,7 @@
 	throw_speed = 0
 	var/charges = 1
 
-/obj/item/melee/touch_attack/Initialize()
+/obj/item/melee/touch_attack/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
@@ -75,7 +75,7 @@
 		if(part)
 			part.dismember()
 		return ..()
-	var/obj/item/clothing/suit/hooded/bloated_human/suit = M.get_item_by_slot(SLOT_WEAR_SUIT)
+	var/obj/item/clothing/suit/hooded/bloated_human/suit = M.get_item_by_slot(ITEM_SLOT_OCLOTHING)
 	if(istype(suit))
 		M.visible_message("<span class='danger'>[M]'s [suit] explodes off of them into a puddle of gore!</span>")
 		M.dropItemToGround(suit)

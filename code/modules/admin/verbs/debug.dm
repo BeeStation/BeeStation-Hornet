@@ -214,7 +214,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 					id.forceMove(W)
 					W.update_icon()
 			else
-				H.equip_to_slot(id,SLOT_WEAR_ID)
+				H.equip_to_slot(id,ITEM_SLOT_ID)
 
 	else
 		alert("Invalid mob")
@@ -521,21 +521,23 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] changed the equipment of [ADMIN_LOOKUPFLW(H)] to [dresscode].</span>")
 
 /client/proc/robust_dress_shop()
-	var/list/outfits = list("Naked","Custom","As Job...")
-	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job)
+	var/list/outfits = list("Naked","Custom","As Job...","As Job(Plasmaman)...", "Debug")
+	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job) - typesof(/datum/outfit/plasmaman) - typesof(/datum/outfit/debug)
 	for(var/path in paths)
 		var/datum/outfit/O = path //not much to initalize here but whatever
 		if(initial(O.can_be_admin_equipped))
 			outfits[initial(O.name)] = path
 
 	var/dresscode = input("Select outfit", "Robust quick dress shop") as null|anything in outfits
-	if (isnull(dresscode))
+	if(isnull(dresscode))
 		return
 
-	if (outfits[dresscode])
+	if(outfits[dresscode])
 		dresscode = outfits[dresscode]
 
-	if (dresscode == "As Job...")
+
+
+	if(dresscode == "As Job...")
 		var/list/job_paths = subtypesof(/datum/outfit/job)
 		var/list/job_outfits = list()
 		for(var/path in job_paths)
@@ -548,7 +550,25 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if(isnull(dresscode))
 			return
 
-	if (dresscode == "Custom")
+	if(dresscode == "As Job(Plasmaman)...")
+		var/list/job_paths = subtypesof(/datum/outfit/plasmaman)
+		var/list/job_outfits = list()
+		for(var/path in job_paths)
+			var/datum/outfit/O = path
+			if(initial(O.can_be_admin_equipped))
+				job_outfits[initial(O.name)] = path
+
+		dresscode = input("Select plasmaman equipment", "Robust quick dress shop") as null|anything in sortList(job_outfits)
+		dresscode = job_outfits[dresscode]
+		if(isnull(dresscode))
+			return
+
+	if(dresscode == "Debug")
+		dresscode = /datum/outfit/debug
+		if(isnull(dresscode))
+			return
+
+	if(dresscode == "Custom")
 		var/list/custom_names = list()
 		for(var/datum/outfit/D in GLOB.custom_outfits)
 			custom_names[D.name] = D
@@ -604,7 +624,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if(Rad.anchored)
 			if(!Rad.loaded_tank)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
-				Plasma.air_contents.set_moles(/datum/gas/plasma, 70)
+				Plasma.air_contents.set_moles(GAS_PLASMA, 70)
 				Rad.drainratio = 0
 				Rad.loaded_tank = Plasma
 				Plasma.forceMove(Rad)
@@ -647,6 +667,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	for(var/path in SSgarbage.items)
 		var/datum/qdel_item/I = SSgarbage.items[path]
 		dellog += "<li><u>[path]</u><ul>"
+		if (I.qdel_flags & QDEL_ITEM_SUSPENDED_FOR_LAG)
+			dellog += "<li>SUSPENDED FOR LAG</li>"
 		if (I.failures)
 			dellog += "<li>Failures: [I.failures]</li>"
 		dellog += "<li>qdel() Count: [I.qdels]</li>"
@@ -654,6 +676,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if (I.hard_deletes)
 			dellog += "<li>Total Hard Deletes [I.hard_deletes]</li>"
 			dellog += "<li>Time Spent Hard Deleting: [I.hard_delete_time]ms</li>"
+			dellog += "<li>Highest Time Spent Hard Deleting: [I.hard_delete_max]ms</li>"
+			if (I.hard_deletes_over_threshold)
+				dellog += "<li>Hard Deletes Over Threshold: [I.hard_deletes_over_threshold]</li>"
 		if (I.slept_destroy)
 			dellog += "<li>Sleeps: [I.slept_destroy]</li>"
 		if (I.no_respect_force)
@@ -734,9 +759,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		exists[L.ruin_template] = landmark
 
 	var/list/names = list()
-	names += "---- Space Ruins ----"
+	names += "---- Dynamic Levels ----"
 	for(var/name in SSmapping.space_ruins_templates)
-		names[name] = list(SSmapping.space_ruins_templates[name], ZTRAIT_SPACE_RUINS, /area/space)
+		names[name] = list(SSmapping.space_ruins_templates[name], ZTRAIT_DYNAMIC_LEVEL, /area/space)
 	names += "---- Lava Ruins ----"
 	for(var/name in SSmapping.lava_ruins_templates)
 		names[name] = list(SSmapping.lava_ruins_templates[name], ZTRAIT_LAVA_RUINS, /area/lavaland/surface/outdoors/unexplored)
@@ -764,6 +789,22 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		to_chat(src, "<span class='italics'>[template.description]</span>")
 	else
 		to_chat(src, "<span class='warning'>Failed to place [template.name].</span>")
+
+/client/proc/generate_ruin()
+	set category = "Debug"
+	set name = "Generate Ruin"
+	set desc = "Randomly generate a space ruin."
+	if (!holder)
+		return
+	var/ruin_size = input(src, "Ruin size (NxN) (Between 10 and 200)", "Ruin Size", 0) as num
+	if(ruin_size < 10 || ruin_size >= 200)
+		return
+	var/response = alert(src, "This will place the ruin at your current location.", "Spawn Ruin", "Spawn Ruin", "Cancel")
+	if (response == "Cancel")
+		return
+	var/border_size = (world.maxx - ruin_size) / 2
+	generate_space_ruin(mob.x, mob.y, mob.z, border_size, border_size)
+	log_admin("[key_name(src)] randomly generated a space ruin at [COORD(mob)].")
 
 /client/proc/clear_dynamic_transit()
 	set category = "Debug"
@@ -802,17 +843,17 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 /client/proc/toggle_medal_disable()
 	set category = "Debug"
-	set name = "Toggle Medal Disable"
-	set desc = "Toggles the safety lock on trying to contact the medal hub."
+	set name = "Toggle Achievement Disable"
+	set desc = "Toggles the safety lock on trying to contact the achievement hub."
 
 	if(!check_rights(R_DEBUG))
 		return
 
-	SSmedals.hub_enabled = !SSmedals.hub_enabled
+	SSachievements.achievements_enabled = !SSachievements.achievements_enabled
 
-	message_admins("<span class='adminnotice'>[key_name_admin(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.</span>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Medal Disable") // If...
-	log_admin("[key_name(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
+	message_admins("<span class='adminnotice'>[key_name_admin(src)] [SSachievements.achievements_enabled ? "disabled" : "enabled"] the achievement hub lockout.</span>")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Achievement Disable") // If...
+	log_admin("[key_name(src)] [SSachievements.achievements_enabled ? "disabled" : "enabled"] the achievement hub lockout.")
 
 /client/proc/view_runtimes()
 	set category = "Debug"
@@ -882,13 +923,16 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_DEBUG))
 		return
 	if(alert(usr, "Are you absolutely sure you want to reload the configuration from the default path on the disk, wiping any in-round modificatoins?", "Really reset?", "No", "Yes") == "Yes")
+		//Reload the config
 		config.admin_reload()
+		//Reload badges
+		load_badge_ranks()
 
 /client/proc/modify_canister_gas(obj/machinery/portable_atmospherics/canister/C)
 	if(!check_rights(R_DEBUG) || !C)
 		return
 
-	var/gas_to_add = input(usr, "Choose a gas to modify.", "Choose a gas.") as null|anything in (subtypesof(/datum/gas) - /datum/gas/unobtanium) //nice try
+	var/gas_to_add = input(usr, "Choose a gas to modify.", "Choose a gas.") as null|anything in GLOB.gas_data.ids
 	var/amount = input(usr, "Choose the amount of moles.", "Choose the amount.", 0) as num
 	var/temp = input(usr, "Choose the temperature (Kelvin).", "Choose the temp (K).", 0) as num
 
@@ -908,3 +952,111 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	for(var/type in GLOB.spells)
 		var/obj/effect/proc_holder/spell/spell = new type
 		mob.AddSpell(spell)
+
+/// A debug verb to check the sources of currently running timers
+/client/proc/check_timer_sources()
+	set category = "Debug"
+	set name = "Check Timer Sources"
+	set desc = "Checks the sources of the running timers"
+	if (!check_rights(R_DEBUG))
+		return
+
+	var/bucket_list_output = generate_timer_source_output(SStimer.bucket_list)
+	var/second_queue = generate_timer_source_output(SStimer.second_queue)
+
+	usr << browse({"
+		<h3>bucket_list</h3>
+		[bucket_list_output]
+
+		<h3>second_queue</h3>
+		[second_queue]
+	"}, "window=check_timer_sources;size=700x700")
+
+/proc/generate_timer_source_output(list/datum/timedevent/events)
+	var/list/per_source = list()
+
+	// Collate all events and figure out what sources are creating the most
+	for (var/_event in events)
+		if (!_event)
+			continue
+		var/datum/timedevent/event = _event
+
+		do
+			if (event.source)
+				if (per_source[event.source] == null)
+					per_source[event.source] = 1
+				else
+					per_source[event.source] += 1
+			event = event.next
+		while (event && event != _event)
+
+	// Now, sort them in order
+	var/list/sorted = list()
+	for (var/source in per_source)
+		sorted += list(list("source" = source, "count" = per_source[source]))
+	sorted = sortTim(sorted, .proc/cmp_timer_data)
+
+	// Now that everything is sorted, compile them into an HTML output
+	var/output = "<table border='1'>"
+
+	for (var/_timer_data in sorted)
+		var/list/timer_data = _timer_data
+		output += {"<tr>
+			<td><b>[timer_data["source"]]</b></td>
+			<td>[timer_data["count"]]</td>
+		</tr>"}
+
+	output += "</table>"
+
+	return output
+
+/proc/cmp_timer_data(list/a, list/b)
+	return b["count"] - a["count"]
+
+/*
+ * Test Luminosity Changes vs Dview
+ *
+ * A simple debug verb that rapidly changes you current turf's
+ * luminosity value and runs view() to test the performance
+ * compared to dview()
+*/
+/client/proc/test_dview_to_lum_changes()
+	set category = "Debug"
+	set name = "Test Lum Changes"
+	set desc = "Changes your current turf's luminosity repeatedly to test how long it takes"
+	//Check if the user running this verb has sufficient privellages
+	if (!check_rights(R_DEBUG))
+		return
+	//Get the turf of the user
+	var/turf/T = get_turf(usr)
+	//if the current turf is null, don't act
+	if(!T)
+		return
+
+	//Count the total of view
+	var/total_dview = 0
+	var/total_lum = 0
+
+	//Get the timer of the world
+	var/timer_dview = TICK_USAGE
+	//Run the DVIEW test
+	for(var/i in 1 to 10000)
+		var/list/L = dview(6, T)
+		total_dview += length(L)
+	//Get the results of the dview test
+	var/total_time_dview = TICK_USAGE_TO_MS(timer_dview)
+
+	//Get the timer of the world
+	var/timer_lum_changes = TICK_USAGE
+	//Run the LUM CHANGES test
+	for(var/i in 1 to 10000)
+		T.luminosity = 6
+		var/list/L = view(6, T)
+		total_lum += length(L)
+		T.luminosity = 1
+	//Get the result of the lum change test
+	var/total_time_lum = TICK_USAGE_TO_MS(timer_lum_changes)
+
+	//Print the results
+	to_chat(usr, "<span class='notice'>10000 dview calls resulted in a [total_time_dview]ms overhead. ([total_dview] items located)</span>")
+	to_chat(usr, "<span class='notice'>10000 lum changes resulted in a [total_time_lum]ms overhead. ([total_lum] items located)</span>")

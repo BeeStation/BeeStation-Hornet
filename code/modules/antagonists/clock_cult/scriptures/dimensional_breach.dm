@@ -8,7 +8,7 @@
 	button_icon_state = "Spatial Gateway"
 	power_cost = 5000
 	invokation_time = 140
-	invokation_text = list("Oh great Engine, take my soul...", "...it is time for you to rise...", "...through rifts you shall come...", "...to rise among the stars again!")
+	invokation_text = list("Oh great Engine, take my soul...", "it is time for you to rise...", "through rifts you shall come...", "to rise among the stars again!")
 	invokers_required = 6
 	category = SPELLTYPE_SERVITUDE
 	recital_sound = 'sound/magic/clockwork/narsie_attack.ogg'
@@ -16,10 +16,10 @@
 /datum/clockcult/scripture/ark_activation/New()
 	. = ..()
 
-/datum/clockcult/scripture/ark_activation/check_special_requirements()
+/datum/clockcult/scripture/ark_activation/check_special_requirements(mob/user)
 	if(!..())
 		return FALSE
-	if(!is_reebe(get_area(invoker).z))
+	if(!is_reebe(get_area(invoker)))
 		to_chat(invoker, "<span class='brass'>You need to be near the gateway to channel its energy!</span>")
 		return FALSE
 	return TRUE

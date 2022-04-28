@@ -11,7 +11,8 @@
 /turf/open/floor/plasteel/rust_heretic_act()
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)
-	ChangeTurf(/turf/open/floor/plating/rust)
+	var/atom/changed_turf = ChangeTurf(/turf/open/floor/plating)
+	changed_turf.AddElement(/datum/element/rust)
 
 /turf/open/floor/plasteel/update_icon()
 	if(!..())
@@ -86,14 +87,6 @@
 
 /turf/open/floor/plasteel/freezer/airless
 	initial_gas_mix = AIRLESS_ATMOS
-
-
-/turf/open/floor/plasteel/kitchen_coldroom
-	name = "cold room floor"
-	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
-
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor
-	icon_state = "freezerfloor"
 
 
 /turf/open/floor/plasteel/grimy

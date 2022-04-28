@@ -21,10 +21,9 @@
 		mood.mood_modifier -= 0.2
 
 /datum/quirk/apathetic/remove()
-	if(quirk_holder)
-		var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
-		if(mood)
-			mood.mood_modifier += 0.2
+	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
+	if(mood)
+		mood.mood_modifier += 0.2
 
 /datum/quirk/drunkhealing
 	name = "Drunken Resilience"
@@ -66,9 +65,10 @@
 	value = 1
 	mob_trait = TRAIT_JOLLY
 	mood_quirk = TRUE
+	process = TRUE
 
-/datum/quirk/jolly/on_process()
-	if(prob(0.05))
+/datum/quirk/jolly/on_process(delta_time)
+	if(DT_PROB(0.05, delta_time))
 		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "jolly", /datum/mood_event/jolly)
 
 /datum/quirk/light_step
@@ -91,8 +91,8 @@
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/choice_beacon/music/B = new(get_turf(H))
 	var/list/slots = list (
-		"backpack" = SLOT_IN_BACKPACK,
-		"hands" = SLOT_HANDS,
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"hands" = ITEM_SLOT_HANDS,
 	)
 	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
 
@@ -106,16 +106,17 @@
 
 /datum/quirk/multilingual/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(H.job != "Curator")
-		var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
-		var/list/languages_possible = T.languages_possible
-		languages_possible = languages_possible - typecacheof(/datum/language/codespeak) - typecacheof(/datum/language/narsie) - typecacheof(/datum/language/ratvar)
-		languages_possible = languages_possible - H.language_holder.understood_languages
-		languages_possible = languages_possible - H.language_holder.spoken_languages
-		languages_possible = languages_possible - H.language_holder.blocked_languages
-		if(LAZYLEN(languages_possible))
-			var/datum/language/random_language = pick(languages_possible)
-			H.grant_language(random_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
+	if(H.job == "Curator")
+		return
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	var/list/languages_possible = T.languages_possible
+	languages_possible = languages_possible - typecacheof(/datum/language/codespeak) - typecacheof(/datum/language/narsie) - typecacheof(/datum/language/ratvar)
+	languages_possible = languages_possible - H.language_holder.understood_languages
+	languages_possible = languages_possible - H.language_holder.spoken_languages
+	languages_possible = languages_possible - H.language_holder.blocked_languages
+	if(length(languages_possible))
+		var/datum/language/random_language = pick(languages_possible)
+		H.grant_language(random_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
 //Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
 
 /datum/quirk/night_vision
@@ -144,8 +145,14 @@
 /datum/quirk/photographer/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/camera/camera = new(get_turf(H))
-	H.put_in_hands(camera)
-	H.equip_to_slot(camera, SLOT_NECK)
+	var/list/camera_slots = list (
+		"neck" = ITEM_SLOT_NECK,
+		"left pocket" = ITEM_SLOT_LPOCKET,
+		"right pocket" = ITEM_SLOT_RPOCKET,
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"hands" = ITEM_SLOT_HANDS
+	)
+	H.equip_in_one_of_slots(camera, camera_slots , qdel_on_fail = TRUE)
 	H.regenerate_icons()
 
 /datum/quirk/selfaware
@@ -167,11 +174,12 @@
 	mob_trait = TRAIT_SPIRITUAL
 	gain_text = "<span class='notice'>You have faith in a higher power.</span>"
 	lose_text = "<span class='danger'>You lose faith!</span>"
+	process = TRUE
 
 /datum/quirk/spiritual/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.equip_to_slot_or_del(new /obj/item/storage/fancy/candle_box(H), SLOT_IN_BACKPACK)
-	H.equip_to_slot_or_del(new /obj/item/storage/box/matches(H), SLOT_IN_BACKPACK)
+	H.equip_to_slot_or_del(new /obj/item/storage/fancy/candle_box(H), ITEM_SLOT_BACKPACK)
+	H.equip_to_slot_or_del(new /obj/item/storage/box/matches(H), ITEM_SLOT_BACKPACK)
 
 /datum/quirk/spiritual/on_process()
 	var/comforted = FALSE
@@ -196,7 +204,7 @@
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/toy/crayon/spraycan/spraycan = new(get_turf(H))
 	H.put_in_hands(spraycan)
-	H.equip_to_slot(spraycan, SLOT_IN_BACKPACK)
+	H.equip_to_slot(spraycan, ITEM_SLOT_BACKPACK)
 	H.regenerate_icons()
 
 /datum/quirk/voracious
@@ -209,12 +217,13 @@
 
 /datum/quirk/neet
 	name = "NEET"
-	desc = "For some reason you qualified for social welfare and you don't really care about your own personal hygiene."
+	desc = "For some reason you qualified for social welfare."
 	value = 1
 	mob_trait = TRAIT_NEET
 	gain_text = "<span class='notice'>You feel useless to society.</span>"
 	lose_text = "<span class='danger'>You no longer feel useless to society.</span>"
 	mood_quirk = TRUE
+	process = TRUE
 
 /datum/quirk/neet/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -222,10 +231,3 @@
 	if(!D) //if their current mob doesn't have a bank account, likely due to them being a special role (ie nuke op)
 		return
 	D.welfare = TRUE
-
-/datum/quirk/neet/on_process()
-	var/mob/living/carbon/human/H = quirk_holder
-	if (H.hygiene <= HYGIENE_LEVEL_DIRTY)
-		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "NEET", /datum/mood_event/happy_neet)
-	else
-		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "NEET")

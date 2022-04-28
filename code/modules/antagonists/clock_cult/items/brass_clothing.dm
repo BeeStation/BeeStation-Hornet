@@ -8,7 +8,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	allowed = list(/obj/item/clockwork, /obj/item/stack/tile/brass, /obj/item/twohanded/clockwork, /obj/item/gun/ballistic/bow/clockwork)
+	allowed = list(/obj/item/clockwork, /obj/item/stack/tile/brass, /obj/item/clockwork, /obj/item/gun/ballistic/bow/clockwork)
 
 /obj/item/clothing/suit/clockwork/equipped(mob/living/user, slot)
 	. = ..()
@@ -51,33 +51,18 @@
 
 /obj/item/clothing/suit/clockwork/cloak/equipped(mob/user, slot)
 	. = ..()
-	if(slot == SLOT_WEAR_SUIT && !shroud_active)
+	if(slot == ITEM_SLOT_OCLOTHING && !shroud_active)
 		shroud_active = TRUE
 		previous_alpha = user.alpha
 		animate(user, alpha=140, time=30)
-		start = user.filters.len
-		var/X,Y,rsq
-		for(i=1, i<=7, ++i)
-			do
-				X = 60*rand() - 30
-				Y = 60*rand() - 30
-				rsq = X*X + Y*Y
-			while(rsq<100 || rsq>900)
-			user.filters += filter(type="wave", x=X, y=Y, size=rand()*2.5+0.5, offset=rand())
-		for(i=1, i<=7, ++i)
-			f = user.filters[start+i]
-			animate(f, offset=f:offset, time=0, loop=-1, flags=ANIMATION_PARALLEL)
-			animate(offset=f:offset-1, time=rand()*20+10)
+		apply_wibbly_filters(user)
 
 /obj/item/clothing/suit/clockwork/cloak/dropped(mob/user)
-	. = ..()
+	..()
 	if(shroud_active)
 		shroud_active = FALSE
-		for(i=1, i<=min(7, user.filters.len), ++i) // removing filters that are animating does nothing, we gotta stop the animations first
-			f = user.filters[start+i]
-			animate(f)
 		do_sparks(3, FALSE, user)
-		user.filters = null
+		remove_wibbly_filters(user)
 		animate(user, alpha=previous_alpha, time=30)
 
 /obj/item/clothing/glasses/clockwork
@@ -126,19 +111,19 @@
 		wearer = user
 		applied_eye_damage = 0
 		START_PROCESSING(SSobj, src)
-		to_chat(user, "<span class='nezbere'>You suddenly see so much more, but your eyes begin to faulter...</span>")
+		to_chat(user, "<span class='nezbere'>You suddenly see so much more, but your eyes begin to falter...</span>")
 
-/obj/item/clothing/glasses/clockwork/wraith_spectacles/process()
+/obj/item/clothing/glasses/clockwork/wraith_spectacles/process(delta_time)
 	. = ..()
 	if(!wearer)
 		STOP_PROCESSING(SSobj, src)
 		return
 	//~1 damage every 2 seconds, maximum of 70 after 140 seconds
-	wearer.adjustOrganLoss(ORGAN_SLOT_EYES, 1, 70)
+	wearer.adjustOrganLoss(ORGAN_SLOT_EYES, 0.5*delta_time, 70)
 	applied_eye_damage = min(applied_eye_damage + 1, 70)
 
 /obj/item/clothing/glasses/clockwork/wraith_spectacles/dropped(mob/user)
-	. = ..()
+	..()
 	if(wearer && is_servant_of_ratvar(wearer))
 		to_chat(user, "<span class='nezbere'>You feel your eyes slowly recovering.</span>")
 		addtimer(CALLBACK(wearer, /mob/living.proc/adjustOrganLoss, ORGAN_SLOT_EYES, -applied_eye_damage), 600)

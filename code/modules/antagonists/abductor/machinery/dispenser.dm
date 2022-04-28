@@ -12,7 +12,7 @@
 	//TODO : replace with presets or spectrum
 	return rgb(rand(0,255),rand(0,255),rand(0,255))
 
-/obj/machinery/abductor/gland_dispenser/Initialize()
+/obj/machinery/abductor/gland_dispenser/Initialize(mapload)
 	. = ..()
 	gland_types = subtypesof(/obj/item/organ/heart/gland)
 	gland_types = shuffle(gland_types)
@@ -68,6 +68,7 @@
 		for(var/i=1,i<=gland_colors.len,i++)
 			if(gland_types[i] == W.type)
 				amounts[i]++
+		ui_update()
 	else
 		return ..()
 
@@ -76,3 +77,4 @@
 		amounts[count]--
 		var/T = gland_types[count]
 		new T(get_turf(src))
+	ui_update()

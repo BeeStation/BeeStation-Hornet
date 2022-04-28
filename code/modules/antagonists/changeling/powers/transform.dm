@@ -10,10 +10,6 @@
 /obj/item/clothing/glasses/changeling
 	name = "flesh"
 
-/obj/item/clothing/glasses/changeling/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
-
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/clothing/glasses/changeling/attack_hand(mob/user)
 	if(loc == user && user.mind && user.mind.has_antag_datum(/datum/antagonist/changeling))
@@ -24,10 +20,6 @@
 
 /obj/item/clothing/under/changeling
 	name = "flesh"
-
-/obj/item/clothing/under/changeling/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/clothing/under/changeling/attack_hand(mob/user)
@@ -41,10 +33,6 @@
 	name = "flesh"
 	allowed = list(/obj/item/changeling)
 
-/obj/item/clothing/suit/changeling/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
-
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/clothing/suit/changeling/attack_hand(mob/user)
 	if(loc == user && user.mind && user.mind.has_antag_datum(/datum/antagonist/changeling))
@@ -55,10 +43,6 @@
 
 /obj/item/clothing/head/changeling
 	name = "flesh"
-
-/obj/item/clothing/head/changeling/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/clothing/head/changeling/attack_hand(mob/user)
@@ -71,10 +55,6 @@
 /obj/item/clothing/shoes/changeling
 	name = "flesh"
 
-/obj/item/clothing/shoes/changeling/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
-
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/clothing/shoes/changeling/attack_hand(mob/user)
 	if(loc == user && user.mind && user.mind.has_antag_datum(/datum/antagonist/changeling))
@@ -86,10 +66,6 @@
 /obj/item/clothing/gloves/changeling
 	name = "flesh"
 
-/obj/item/clothing/gloves/changeling/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
-
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/clothing/gloves/changeling/attack_hand(mob/user)
 	if(loc == user && user.mind && user.mind.has_antag_datum(/datum/antagonist/changeling))
@@ -100,10 +76,6 @@
 
 /obj/item/clothing/mask/changeling
 	name = "flesh"
-
-/obj/item/clothing/mask/changeling/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/clothing/mask/changeling/attack_hand(mob/user)
@@ -117,15 +89,34 @@
 	name = "flesh"
 	slot_flags = ALL
 	allowed = list(/obj/item/changeling)
-
-/obj/item/changeling/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
+	item_flags = DROPDEL
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/changeling/attack_hand(mob/user)
-	if(loc == user && user.mind && user.mind.has_antag_datum(/datum/antagonist/changeling))
-		to_chat(user, "<span class='notice'>You reabsorb [src] into your body.</span>")
+	if(loc == user)
+		if(user.mind && user.mind.has_antag_datum(/datum/antagonist/changeling))
+			to_chat(user, "<span class='notice'>You reabsorb [src] into your body.</span>")
+		else
+			to_chat(user, "<span class='notice'>[src] vanishes, it was just an illusion!</span>")
+		qdel(src)
+		return
+	. = ..()
+
+//=============
+// ID CARD
+// Copy pasted due to requiring inherited behaviour
+//=============
+
+/obj/item/card/id/changeling
+	name = "flesh"
+	item_flags = DROPDEL
+
+/obj/item/card/id/changeling/attack_hand(mob/user)
+	if(loc == user)
+		if(user.mind && user.mind.has_antag_datum(/datum/antagonist/changeling))
+			to_chat(user, "<span class='notice'>You reabsorb [src] into your body.</span>")
+		else
+			to_chat(user, "<span class='notice'>[src] vanishes, it was just an illusion!</span>")
 		qdel(src)
 		return
 	. = ..()

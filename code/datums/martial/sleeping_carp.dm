@@ -162,16 +162,12 @@
 	to_chat(usr, "<span class='notice'>Head Kick</span>: Disarm Harm Harm. Decent damage, forces opponent to drop item in hand.")
 	to_chat(usr, "<span class='notice'>Elbow Drop</span>: Harm Disarm Harm Disarm Harm. Opponent must be on the ground. Deals huge damage, instantly kills anyone in critical condition.")
 
-/obj/item/twohanded/bostaff
+/obj/item/staff/bostaff
 	name = "bo staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	force_unwielded = 10
-	force_wielded = 24
-	block_power_wielded = 50
-	block_power_unwielded = 25
 	throwforce = 20
 	throw_speed = 2
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
@@ -183,10 +179,15 @@
 	block_upgrade_walk = 1
 	block_power = 25
 
-/obj/item/twohanded/bostaff/update_icon_state()
-	icon_state = "bostaff[wielded]"
+/obj/item/staff/bostaff/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=24, block_power_unwielded=25, block_power_wielded=50, icon_wielded="bostaff1")
 
-/obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
+/obj/item/staff/bostaff/update_icon_state()
+	icon_state = "bostaff0"
+	..()
+
+/obj/item/staff/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")
@@ -206,7 +207,7 @@
 		to_chat(user, "<span class='warning'>It would be dishonorable to attack a foe while they cannot retaliate.</span>")
 		return
 	if(user.a_intent == INTENT_DISARM)
-		if(!wielded)
+		if(!ISWIELDED(src))
 			return ..()
 		if(!ishuman(target))
 			return ..()
@@ -235,7 +236,7 @@
 	else
 		return ..()
 
-/obj/item/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(wielded)
+/obj/item/staff/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(!ISWIELDED(src))
 		return ..()
 	return 0

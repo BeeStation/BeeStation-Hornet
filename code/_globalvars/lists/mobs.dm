@@ -6,6 +6,14 @@ GLOBAL_LIST_EMPTY(deadmins)							//all ckeys who have used the de-admin verb.
 GLOBAL_LIST_EMPTY(directory)							//all ckeys with associated client
 GLOBAL_LIST_EMPTY(stealthminID)						//reference list with IDs that store ckeys, for stealthmins
 
+
+GLOBAL_LIST_INIT(dangerous_turfs, typecacheof(list(
+	/turf/open/lava,
+	/turf/open/chasm,
+	/turf/open/space,
+	/turf/open/openspace)))
+
+
 //Since it didn't really belong in any other category, I'm putting this here
 //This is for procs to replace all the goddamn 'in world's that are chilling around the code
 
@@ -19,7 +27,7 @@ GLOBAL_LIST_EMPTY(dead_mob_list)			//all dead mobs, including clientless. Exclud
 GLOBAL_LIST_EMPTY(joined_player_list)		//all clients that have joined the game at round-start or as a latejoin.
 GLOBAL_LIST_EMPTY(new_player_list)			//all /mob/dead/new_player, in theory all should have clients and those that don't are in the process of spawning and get deleted when done.
 GLOBAL_LIST_EMPTY(silicon_mobs)				//all silicon mobs
-GLOBAL_LIST_EMPTY(mob_living_list)				//all instances of /mob/living and subtypes
+GLOBAL_LIST_EMPTY(mob_living_list)			//all instances of /mob/living and subtypes
 GLOBAL_LIST_EMPTY(carbon_list)				//all instances of /mob/living/carbon and subtypes, notably does not contain brains or simple animals
 GLOBAL_LIST_EMPTY(ai_list)
 GLOBAL_LIST_EMPTY(pai_list)
@@ -27,7 +35,8 @@ GLOBAL_LIST_EMPTY(available_ai_shells)
 GLOBAL_LIST_INIT(simple_animals, list(list(),list(),list(),list())) // One for each AI_* status define
 GLOBAL_LIST_EMPTY(spidermobs)				//all sentient spider mobs
 GLOBAL_LIST_EMPTY(bots_list)
-GLOBAL_LIST_EMPTY(aiEyes)
+GLOBAL_LIST_EMPTY(ai_eyes)
+GLOBAL_LIST_EMPTY(suit_sensors_list) 		//all people with suit sensors on
 
 GLOBAL_LIST_EMPTY(language_datum_instances)
 GLOBAL_LIST_EMPTY(all_languages)

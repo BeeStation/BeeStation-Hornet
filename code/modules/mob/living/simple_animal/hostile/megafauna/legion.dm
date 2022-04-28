@@ -31,8 +31,9 @@ Difficulty: Medium
 	var/size = 5
 	var/charging = FALSE
 	gps_name = "Echoing Signal"
-	medal_type = BOSS_MEDAL_LEGION
-	score_type = LEGION_SCORE
+	achievement_type = /datum/award/achievement/boss/legion_kill
+	crusher_achievement_type = /datum/award/achievement/boss/legion_crusher
+	score_achievement_type = /datum/award/score/legion_score
 	pixel_y = -90
 	pixel_x = -75
 	loot = list(/obj/item/stack/sheet/bone = 3)
@@ -153,7 +154,7 @@ Difficulty: Medium
 				last_legion = FALSE
 				break
 		if(last_legion)
-			loot = list(/obj/item/staff/storm)
+			loot = list(/obj/structure/closet/crate/necropolis/legion)
 			elimination = FALSE
 		else if(prob(5))
 			loot = list(/obj/structure/closet/crate/necropolis/tendril)

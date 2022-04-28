@@ -31,7 +31,7 @@
 	var/n_agents = min(round(num_players() / 10), antag_candidates.len, agents_possible)
 	if(n_agents >= required_enemies)
 		for(var/i = 0, i < n_agents, ++i)
-			var/datum/mind/new_op = pick_n_take(antag_candidates)
+			var/datum/mind/new_op = antag_pick(antag_candidates, ROLE_OPERATIVE)
 			pre_nukeops += new_op
 			new_op.assigned_role = "Nuclear Operative"
 			new_op.special_role = "Nuclear Operative"
@@ -122,7 +122,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	back = /obj/item/storage/backpack/fireproof
 	ears = /obj/item/radio/headset/syndicate/alt
-	l_pocket = /obj/item/pinpointer/nuke/syndicate
+	l_pocket = /obj/item/modular_computer/tablet/nukeops
 	id = /obj/item/card/id/syndicate
 	belt = /obj/item/gun/ballistic/automatic/pistol
 	backpack_contents = list(/obj/item/storage/box/syndie=1,\
@@ -153,7 +153,7 @@
 
 	if(ispath(uplink_type, /obj/item/uplink/nuclear) || tc) // /obj/item/uplink/nuclear understands 0 tc
 		var/obj/item/U = new uplink_type(H, H.key, tc)
-		H.equip_to_slot_or_del(U, SLOT_IN_BACKPACK)
+		H.equip_to_slot_or_del(U, ITEM_SLOT_BACKPACK)
 
 	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(H)
 	E.implant(H)
@@ -169,7 +169,7 @@
 	mask = /obj/item/clothing/mask/gas/syndicate
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
-	internals_slot = SLOT_R_STORE
+	internals_slot = ITEM_SLOT_RPOCKET
 	belt = /obj/item/storage/belt/military
 	r_hand = /obj/item/gun/ballistic/shotgun/bulldog
 	backpack_contents = list(/obj/item/storage/box/syndie=1,\

@@ -25,7 +25,7 @@
 	refill_canister = /obj/item/vending_refill/tool
 	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
-	default_price = 20
+	default_price = 10
 	extra_price = 80
 	payment_department = ACCOUNT_ENG
 

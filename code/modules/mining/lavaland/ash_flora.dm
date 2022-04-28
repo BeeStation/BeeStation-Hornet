@@ -18,12 +18,13 @@
 	var/harvest_message_low = "You pick a mushroom, but fail to collect many shavings from its cap."
 	var/harvest_message_med = "You pick a mushroom, carefully collecting the shavings from its cap."
 	var/harvest_message_high = "You harvest and collect shavings from several mushroom caps."
+	var/destroy_on_harvest = FALSE
 	var/harvested = FALSE
 	var/base_icon
 	var/regrowth_time_low = 8 MINUTES
 	var/regrowth_time_high = 16 MINUTES
 
-/obj/structure/flora/ash/Initialize()
+/obj/structure/flora/ash/Initialize(mapload)
 	. = ..()
 	base_icon = "[icon_state][rand(1, 4)]"
 	icon_state = base_icon
@@ -44,6 +45,8 @@
 		for(var/i in 1 to rand_harvested)
 			new harvest(get_turf(src))
 
+	if(destroy_on_harvest)
+		Destroy()
 	icon_state = "[base_icon]p"
 	name = harvested_name
 	desc = harvested_desc
@@ -141,6 +144,21 @@
 	regrowth_time_low = 4800
 	regrowth_time_high = 7200
 
+
+/obj/structure/flora/ash/strange
+	icon_state = "xpod"
+	name = "strange plant"
+	desc = "An alient plant born under warming glow of space radiation. What mysteries does it hold? Botanist should know."
+	harvest = /obj/item/reagent_containers/food/snacks/grown/random
+	needs_sharp_harvest = FALSE
+	harvest_amount_high = 2
+	harvest_time = 10
+	harvest_message_low = "You bravely pick a strange plant."
+	harvest_message_high = "You bravely pick a pair of strange plant."
+	light_range = 1.5
+	light_power = 2.1
+	destroy_on_harvest = TRUE
+
 /obj/structure/flora/ash/cacti/Initialize(mapload)
 	. = ..()
 	// min dmg 3, max dmg 6, prob(70)
@@ -159,7 +177,7 @@
 	seed = /obj/item/seeds/lavaland/polypore
 	wine_power = 20
 
-/obj/item/reagent_containers/food/snacks/grown/ash_flora/Initialize()
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-4, 4)
 	pixel_y = rand(-4, 4)

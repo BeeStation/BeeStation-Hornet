@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'common/redux';
-import { Button, Flex, Knob, Tabs, Section } from 'tgui/components';
-import { Box, ScrollableBox, Fragment } from '../../tgui/components';
+import { Button, Flex, Tabs, Section, Input } from 'tgui/components';
+import { Box, ScrollableBox, Fragment, Divider } from '../../tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { StatStatus, HoboStatStatus } from './StatStatus';
 import { StatText, HoboStatText } from './StatText';
+import { StatTicket } from './StatTicket';
+import { sendMessage } from 'tgui/backend';
 
 // =======================
 // Flex Supported
@@ -18,19 +20,43 @@ export const StatTabs = (props, context) => {
     case 'Status':
       statSection = (<StatStatus />);
       break;
+    case '(!) Admin PM':
+      statSection = (<StatTicket />);
+      break;
   }
   return (
     <Fragment>
       <Flex.Item shrink={0}>
-        {settings.statTabMode === "Scroll"
-          ? <StatTabScroll />
-          : <StatTabWrap />}
+        <div className="StatTabBackground">
+          {settings.statTabMode === "Scroll"
+            ? <StatTabScroll />
+            : <StatTabWrap />}
+        </div>
       </Flex.Item>
-      <ScrollableBox overflowY="scroll">
-        <Flex.Item>
-          {statSection}
-        </Flex.Item>
+      <ScrollableBox overflowY="scroll" height="100%">
+        <div className="StatBackground">
+          <Flex.Item mt={1}>
+            {statSection}
+          </Flex.Item>
+        </div>
       </ScrollableBox>
+      {stat.selectedTab === '(!) Admin PM' && (
+        <Fragment>
+          <Divider />
+          <Input
+            fluid
+            selfClear
+            onEnter={(e, value) => sendMessage({
+              type: 'stat/pressed',
+              payload: {
+                action_id: "ticket_message",
+                params: {
+                  msg: value,
+                },
+              },
+            })} />
+        </Fragment>
+      )}
     </Fragment>
   );
 };
@@ -103,6 +129,9 @@ export const HoboStatTabs = (props, context) => {
     case 'Status':
       statSection = (<HoboStatStatus />);
       break;
+    case '(!) Admin PM':
+      statSection = (<StatTicket />);
+      break;
   }
   return (
     <Box>
@@ -111,6 +140,21 @@ export const HoboStatTabs = (props, context) => {
         grow={1}>
         {statSection}
       </Box>
+      {stat.selectedTab === '(!) Admin PM' && (
+        <Fragment>
+          <Divider />
+          <Input
+            fluid
+            selfClear
+            onEnter={(e, value) => sendMessage({
+              type: 'stat/pressed',
+              payload: {
+                action_id: "ticket_message",
+                params: value,
+              },
+            })} />
+        </Fragment>
+      )}
     </Box>
   );
 };

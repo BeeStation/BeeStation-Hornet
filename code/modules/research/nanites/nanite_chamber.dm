@@ -11,7 +11,6 @@
 	idle_power_usage = 300
 	active_power_usage = 1200
 
-	var/obj/machinery/computer/nanite_chamber_control/console
 	var/locked = FALSE
 	var/breakout_time = 1200
 	var/scan_level
@@ -20,7 +19,7 @@
 	var/busy_message
 	var/message_cooldown = 0
 
-/obj/machinery/nanite_chamber/Initialize()
+/obj/machinery/nanite_chamber/Initialize(mapload)
 	. = ..()
 	occupant_typecache = GLOB.typecache_living
 

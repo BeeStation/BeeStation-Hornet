@@ -1,7 +1,9 @@
 /turf/open/floor/holofloor
 	icon_state = "floor"
+	holodeck_compatible = TRUE
 	thermal_conductivity = 0
 	flags_1 = NONE
+	var/direction = SOUTH
 
 /turf/open/floor/holofloor/attackby(obj/item/I, mob/living/user)
 	return // HOLOFLOOR DOES NOT GIVE A FUCK
@@ -18,6 +20,30 @@
 /turf/open/floor/holofloor/plating
 	name = "holodeck projector floor"
 	icon_state = "engine"
+
+/turf/open/floor/holofloor/chapel
+	name = "chapel floor"
+	icon_state = "chapel"
+
+/turf/open/floor/holofloor/chapel/bottom_left
+	direction = WEST
+
+/turf/open/floor/holofloor/chapel/top_right
+	direction = EAST
+
+/turf/open/floor/holofloor/chapel/bottom_right
+
+/turf/open/floor/holofloor/chapel/top_left
+	direction = NORTH
+
+/turf/open/floor/holofloor/chapel/Initialize(mapload)
+	. = ..()
+	if (direction != SOUTH)
+		setDir(direction)
+
+/turf/open/floor/holofloor/white
+	name = "white floor"
+	icon_state = "white"
 
 /turf/open/floor/holofloor/plating/burnmix
 	name = "burn-mix floor"
@@ -58,7 +84,7 @@
 	icon_state = "asteroid0"
 	tiled_dirt = FALSE
 
-/turf/open/floor/holofloor/asteroid/Initialize()
+/turf/open/floor/holofloor/asteroid/Initialize(mapload)
 	icon_state = "asteroid[rand(0, 12)]"
 	. = ..()
 
@@ -68,7 +94,7 @@
 	icon_state = "basalt0"
 	tiled_dirt = FALSE
 
-/turf/open/floor/holofloor/basalt/Initialize()
+/turf/open/floor/holofloor/basalt/Initialize(mapload)
 	. = ..()
 	if(prob(15))
 		icon_state = "basalt[rand(0, 12)]"
@@ -79,7 +105,7 @@
 	icon = 'icons/turf/space.dmi'
 	icon_state = "0"
 
-/turf/open/floor/holofloor/space/Initialize()
+/turf/open/floor/holofloor/space/Initialize(mapload)
 	icon_state = SPACE_ICON_STATE // so realistic
 	. = ..()
 
@@ -90,11 +116,11 @@
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE
 
-/turf/open/floor/holofloor/hyperspace/Initialize()
+/turf/open/floor/holofloor/hyperspace/Initialize(mapload)
 	icon_state = "speedspace_ns_[(x + 5*y + (y%2+1)*7)%15+1]"
 	. = ..()
 
-/turf/open/floor/holofloor/hyperspace/ns/Initialize()
+/turf/open/floor/holofloor/hyperspace/ns/Initialize(mapload)
 	. = ..()
 	icon_state = "speedspace_ns_[(x + 5*y + (y%2+1)*7)%15+1]"
 
@@ -109,7 +135,7 @@
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE
 
-/turf/open/floor/holofloor/carpet/Initialize()
+/turf/open/floor/holofloor/carpet/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, /atom/.proc/update_icon), 1)
 
@@ -142,3 +168,14 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "asteroid"
 	tiled_dirt = FALSE
+
+/turf/open/floor/holofloor/dark
+	icon_state = "darkfull"
+
+/turf/open/floor/holofloor/clown
+	icon_state = "bananium"
+
+/turf/open/floor/holofloor/white
+	name = "white floor"
+	desc = "A tile in a pure white color."
+	icon_state = "pure_white"

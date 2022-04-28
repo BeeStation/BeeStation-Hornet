@@ -25,6 +25,11 @@
 
 	START_PROCESSING(SSobj, src)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/effect/acid/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -52,7 +57,9 @@
 		qdel(src)
 		return 0
 
-/obj/effect/acid/Crossed(AM as mob|obj)
+/obj/effect/acid/proc/on_entered(datum/source, AM as mob|obj)
+	SIGNAL_HANDLER
+
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(L.movement_type & FLYING)

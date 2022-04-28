@@ -11,15 +11,15 @@
 /proc/gameTimestamp(format = "hh:mm:ss", wtime=null)
 	if(!wtime)
 		wtime = world.time
-	return time2text(wtime - GLOB.timezoneOffset, format)
+	return time2text(wtime, format, 0)
 
 /// Returns the station time in deciseconds
 /proc/station_time(display_only = FALSE, wtime=world.time)
-	return ((((wtime - SSticker.round_start_time) * SSticker.station_time_rate_multiplier) + SSticker.gametime_offset) % 864000) - (display_only? GLOB.timezoneOffset : 0)
+	return (((wtime - SSticker.round_start_time) * SSticker.station_time_rate_multiplier) + SSticker.gametime_offset) % 864000
 
 /// Returns the station time in hh:mm:ss
 /proc/station_time_timestamp(format = "hh:mm:ss", wtime)
-	return time2text(station_time(TRUE, wtime), format)
+	return time2text(station_time(TRUE, wtime), format, 0)
 
 /proc/station_time_debug(force_set)
 	if(isnum_safe(force_set))
@@ -48,7 +48,8 @@ GLOBAL_VAR_INIT(midnight_rollovers, 0)
 GLOBAL_VAR_INIT(rollovercheck_last_timeofday, 0)
 /proc/update_midnight_rollover()
 	if (world.timeofday < GLOB.rollovercheck_last_timeofday) //TIME IS GOING BACKWARDS!
-		return GLOB.midnight_rollovers++
+		GLOB.midnight_rollovers++
+	GLOB.rollovercheck_last_timeofday = world.timeofday
 	return GLOB.midnight_rollovers
 
 /// Returns which week of the month we are in
@@ -93,3 +94,8 @@ GLOBAL_VAR_INIT(rollovercheck_last_timeofday, 0)
 	if(hour)
 		hourT = " and [hour] hour[(hour != 1)? "s":""]"
 	return "[day] day[(day != 1)? "s":""][hourT][minuteT][secondT]"
+
+
+/// Returns the time in an ISO-8601 friendly format. Used when dumping data into external services such as ElasticSearch
+/proc/iso_timestamp(timevar)
+    return time2text(timevar || world.timeofday, "YYYY-MM-DDThh:mm:ss")

@@ -8,6 +8,8 @@
 /datum/round_event/wizard/rpgloot/start()
 	var/upgrade_scroll_chance = 0
 	for(var/obj/item/I in world)
+		CHECK_TICK
+
 		if(!(I.flags_1 & INITIALIZED_1))
 			continue
 
@@ -96,7 +98,8 @@
 	randomise()
 
 /datum/rpg_loot/Destroy()
-	attached = null
+	QDEL_NULL(attached)
+	return ..()
 
 /datum/rpg_loot/proc/randomise()
 	var/static/list/prefixespositive = list("greater", "major", "blessed", "superior", "empowered", "honed", "true", "glorious", "robust")

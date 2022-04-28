@@ -91,6 +91,9 @@
 		return
 	if(!ishuman(M))//If target is not a human.
 		return ..()
+	if(M.mind && !M.mind.hasSoul)
+		to_chat(user, "<span class='warning'>That person has no soul!</span>")
+		return
 	if(iscultist(M))
 		if(iscultist(user))
 			to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your bretheren's soul.\"</span>")
@@ -197,6 +200,9 @@
 						to_chat(user, "<span class='userdanger'>Capture failed!</span>: The soul has already fled its mortal frame. You attempt to bring it back...")
 						getCultGhost(T,user)
 					else
+						if(old_shard) //no insta cremating on the spot
+							to_chat(user, "<span class='userdanger'>Capture failed!</span>: The old shard is not powerful enough to absorb the soul of this being.")
+							return FALSE
 						for(var/obj/item/W in T)
 							T.dropItemToGround(W)
 						init_shade(T, user, vic = 1)

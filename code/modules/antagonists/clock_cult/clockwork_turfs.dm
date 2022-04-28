@@ -48,7 +48,7 @@
 	var/d_state = INTACT
 	flags_1 = NOJAUNT_1
 
-/turf/closed/wall/clockwork/Initialize()
+/turf/closed/wall/clockwork/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/wall(src)
 	new /obj/effect/temp_visual/ratvar/beam(src)
@@ -123,6 +123,9 @@
 		if(COG_EXPOSED)
 			return "<span class='notice'>The inner plating has been <i>screwed</i> open. The exterior plating could be easily <b>pried</b> out.</span>"
 
+/turf/closed/wall/clockwork/try_destroy(obj/item/I, mob/user, turf/T)
+	return FALSE
+
 /turf/closed/wall/clockwork/try_decon(obj/item/I, mob/user, turf/T)
 	if(I.tool_behaviour != TOOL_WELDER)
 		return 0
@@ -173,7 +176,7 @@
 /turf/open/floor/clockwork/Bless() //Who needs holy blessings when you have DADDY RATVAR? <- I did not write this, just saying
 	return
 
-/turf/open/floor/clockwork/Initialize()
+/turf/open/floor/clockwork/Initialize(mapload)
 	. = ..()
 	if(uses_overlay)
 		new /obj/effect/temp_visual/ratvar/floor(src)
@@ -243,10 +246,6 @@
 	planetary_atmos = TRUE
 	var/list/heal_people
 
-/turf/open/floor/clockwork/reebe/Initialize()
-	. = ..()
-	heal_people = list()
-
 /turf/open/floor/clockwork/reebe/Destroy()
 	if(LAZYLEN(heal_people))
 		STOP_PROCESSING(SSprocessing, src)
@@ -258,18 +257,18 @@
 	if(istype(M) && is_servant_of_ratvar(M))
 		if(!LAZYLEN(heal_people))
 			START_PROCESSING(SSprocessing, src)
-		heal_people += M
+		LAZYADD(heal_people, M)
 
 /turf/open/floor/clockwork/reebe/Exited(atom/movable/A, atom/newloc)
 	. = ..()
 	if(A in heal_people)
-		heal_people -= A
+		LAZYREMOVE(heal_people, A)
 		if(!LAZYLEN(heal_people))
 			STOP_PROCESSING(SSprocessing, src)
 
-/turf/open/floor/clockwork/reebe/process()
+/turf/open/floor/clockwork/reebe/process(delta_time)
 	for(var/mob/living/M in heal_people)
-		M.adjustToxLoss(-2, forced=TRUE)
+		M.adjustToxLoss(-1 * delta_time, forced=TRUE)
 
 //=================================================
 //Clockwork Lattice: It's a lattice for the ratvar
@@ -351,7 +350,7 @@
 	var/construction_state = GEAR_SECURE //Pinion airlocks have custom deconstruction
 	allow_repaint = FALSE
 
-/obj/machinery/door/airlock/clockwork/Initialize()
+/obj/machinery/door/airlock/clockwork/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/door(loc)
 	new /obj/effect/temp_visual/ratvar/beam/door(loc)
@@ -480,7 +479,7 @@
 	desc = "A strangely-shaped grille."
 	broken_type = /obj/structure/grille/ratvar/broken
 
-/obj/structure/grille/ratvar/Initialize()
+/obj/structure/grille/ratvar/Initialize(mapload)
 	. = ..()
 	if(broken)
 		new /obj/effect/temp_visual/ratvar/grille/broken(get_turf(src))
@@ -549,6 +548,9 @@
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+
+/obj/structure/window/reinforced/clockwork/ratvar_act()
+	return FALSE
 
 /obj/structure/window/reinforced/clockwork/unanchored
 	anchored = FALSE

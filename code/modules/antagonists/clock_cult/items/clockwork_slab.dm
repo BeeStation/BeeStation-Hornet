@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	//For trap linkage
 	var/datum/component/clockwork_trap/buffer
 
-/obj/item/clockwork/clockwork_slab/Initialize()
+/obj/item/clockwork/clockwork_slab/Initialize(mapload)
 	if(!length(GLOB.clockcult_all_scriptures))
 		generate_clockcult_scriptures()
 	var/pos = 1
@@ -58,6 +58,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	..()
 
 /obj/item/clockwork/clockwork_slab/dropped(mob/user)
+	..()
 	//Clear quickbinds
 	for(var/datum/action/innate/clockcult/quick_bind/script in quick_bound_scriptures)
 		script.Remove(user)
@@ -65,10 +66,9 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		active_scripture.end_invokation()
 	if(buffer)
 		buffer = null
-	. = ..()
 
 /obj/item/clockwork/clockwork_slab/pickup(mob/user)
-	. = ..()
+	..()
 	if(!is_servant_of_ratvar(user))
 		return
 	//Grant quickbound spells
@@ -179,6 +179,9 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 				if(S.power_cost > GLOB.clockcult_power)
 					to_chat(M, "<span class='neovgre'>You need [S.power_cost]W to invoke [S.name].</span>")
 					return FALSE
+				if(S.vitality_cost > GLOB.clockcult_vitality)
+					to_chat(M, "<span class='neovgre'>You need [S.vitality_cost] vitality to invoke [S.name].</span>")
+					return FALSE
 				var/datum/clockcult/scripture/new_scripture = new S.type()
 				//Create a new scripture temporarilly to process, when it's done it will be qdeleted.
 				new_scripture.qdel_on_completion = TRUE
@@ -187,6 +190,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 				if(cogs >= S.cogs_required)
 					cogs -= S.cogs_required
 					to_chat(M, "<span class='brass'>You unlocked [S.name]. It can now be invoked and quickbound through your slab.</span>")
+					log_game("[S.name] purchased by [M.ckey]/[M.name] the [M.job] for [S.cogs_required] cogs, [cogs] cogs remaining.")
 					purchased_scriptures += S.type
 				else
 					to_chat(M, "<span class='brass'>You need [S.cogs_required] cogs to unlock [S.name], you only have [cogs] left!</span>")

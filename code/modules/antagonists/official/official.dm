@@ -2,9 +2,9 @@
 	name = "CentCom Official"
 	show_name_in_check_antagonists = TRUE
 	show_in_antagpanel = FALSE
+	can_elimination_hijack = ELIMINATION_PREVENT
 	var/datum/objective/mission
 	var/datum/team/ert/ert_team
-	can_hijack = HIJACK_PREVENT
 	show_to_ghosts = TRUE
 
 /datum/antagonist/official/greet()
@@ -18,8 +18,11 @@
 	var/mob/living/carbon/human/H = owner.current
 	if(!istype(H))
 		return
+	if(isplasmaman(H))
+		H.equipOutfit(/datum/outfit/plasmaman/official)
+		H.internal = H.get_item_for_held_index(2)
+		H.update_internals_hud_icon(1)
 	H.equipOutfit(/datum/outfit/centcom_official)
-
 	if(CONFIG_GET(flag/enforce_human_authority))
 		H.set_species(/datum/species/human)
 

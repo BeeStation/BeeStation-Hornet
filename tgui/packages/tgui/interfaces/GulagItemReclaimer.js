@@ -9,7 +9,6 @@ export const GulagItemReclaimer = (props, context) => {
   } = data;
   return (
     <Window
-      resizable
       width={325}
       height={400}>
       <Window.Content scrollable>

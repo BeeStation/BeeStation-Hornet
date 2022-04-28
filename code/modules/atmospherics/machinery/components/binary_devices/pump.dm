@@ -11,7 +11,7 @@
 //     but overall network volume is also increased as this increases...
 
 /obj/machinery/atmospherics/components/binary/pump
-	icon_state = "pump_map-2"
+	icon_state = "pump_map-3"
 	name = "gas pump"
 	desc = "A pump that moves gas by pressure."
 
@@ -34,12 +34,15 @@
 	if(can_interact(user))
 		on = !on
 		update_icon()
+		ui_update()
 	return ..()
 
 /obj/machinery/atmospherics/components/binary/pump/AltClick(mob/user)
 	if(can_interact(user))
 		target_pressure = MAX_OUTPUT_PRESSURE
+		balloon_alert(user, "Set to [target_pressure] kPa")
 		update_icon()
+		ui_update()
 	return
 
 /obj/machinery/atmospherics/components/binary/pump/Destroy()
@@ -49,17 +52,25 @@
 	return ..()
 
 /obj/machinery/atmospherics/components/binary/pump/update_icon_nopipes()
-	icon_state = (on && is_operational()) ? "pump_on" : "pump_off"
+	icon_state = "pump_[on && is_operational() ? "on" : "off"]-[set_overlay_offset(piping_layer)]"
 
 /obj/machinery/atmospherics/components/binary/pump/process_atmos()
 //	..()
 	if(!on || !is_operational())
 		return
-
 	var/datum/gas_mixture/air1 = airs[1]
 	var/datum/gas_mixture/air2 = airs[2]
+	var/output_starting_pressure = air2.return_pressure()
+	if((target_pressure - output_starting_pressure) < 0.01)
+		//No need to pump gas if target is already reached!
+		return
+	//Calculate necessary moles to transfer using PV=nRT
+	if((air1.total_moles() > 0) && (air1.return_temperature()>0))
+		var/pressure_delta = target_pressure - output_starting_pressure
+		var/transfer_moles = pressure_delta*air2.return_volume()/(air1.return_temperature() * R_IDEAL_GAS_EQUATION)
 
-	if(air1.pump_gas_to(air2, target_pressure))
+		air1.transfer_to(air2,transfer_moles)
+
 		update_parents()
 
 //Radio remote control
@@ -118,7 +129,8 @@
 			if(.)
 				target_pressure = clamp(pressure, 0, MAX_OUTPUT_PRESSURE)
 				investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", INVESTIGATE_ATMOS)
-	update_icon()
+	if(.)
+		update_icon()
 
 /obj/machinery/atmospherics/components/binary/pump/atmosinit()
 	..()
@@ -149,6 +161,7 @@
 
 	broadcast_status()
 	update_icon()
+	ui_update()
 
 /obj/machinery/atmospherics/components/binary/pump/power_change()
 	..()
@@ -161,22 +174,22 @@
 		return FALSE
 
 
-/obj/machinery/atmospherics/components/binary/pump/layer1
-	piping_layer = 1
-	icon_state= "pump_map-1"
+/obj/machinery/atmospherics/components/binary/pump/layer2
+	piping_layer = 2
+	icon_state= "pump_map-2"
 
-/obj/machinery/atmospherics/components/binary/pump/layer3
-	piping_layer = 3
-	icon_state= "pump_map-3"
+/obj/machinery/atmospherics/components/binary/pump/layer4
+	piping_layer = 4
+	icon_state= "pump_map-4"
 
 /obj/machinery/atmospherics/components/binary/pump/on
 	on = TRUE
-	icon_state = "pump_on_map-2"
+	icon_state = "pump_on_map-3"
 
-/obj/machinery/atmospherics/components/binary/pump/on/layer1
-	piping_layer = 1
-	icon_state= "pump_on_map-1"
+/obj/machinery/atmospherics/components/binary/pump/on/layer2
+	piping_layer = 2
+	icon_state= "pump_on_map-2"
 
-/obj/machinery/atmospherics/components/binary/pump/on/layer3
-	piping_layer = 3
-	icon_state= "pump_on_map-3"
+/obj/machinery/atmospherics/components/binary/pump/on/layer4
+	piping_layer = 4
+	icon_state= "pump_on_map-4"
