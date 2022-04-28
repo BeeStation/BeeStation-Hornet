@@ -291,7 +291,6 @@
 /obj/item/robot_module/medical
 	name = "Medical"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/healthanalyzer,
 		/obj/item/borg/charger,
 		/obj/item/reagent_containers/borghypo,
@@ -327,7 +326,6 @@
 /obj/item/robot_module/engineering
 	name = "Engineering"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/borg/sight/meson,
 		/obj/item/borg/charger,
 		/obj/item/construction/rcd/borg,
@@ -390,7 +388,7 @@
 /obj/item/robot_module/security
 	name = "Security"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
+		/obj/item/assembly/flash/cyborg,				// Left this here even though the module is unused. It makes no sense to take it away if this module ever returns.
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/melee/baton/loaded,
 		/obj/item/borg/charger,
@@ -458,7 +456,6 @@
 /obj/item/robot_module/janitor
 	name = "Janitor"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/screwdriver/cyborg,
 		/obj/item/crowbar/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
@@ -499,7 +496,6 @@
 /obj/item/robot_module/clown
 	name = "Clown"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/toy/crayon/rainbow,
 		/obj/item/instrument/bikehorn,
 		/obj/item/stamp/clown,
@@ -532,7 +528,6 @@
 /obj/item/robot_module/butler
 	name = "Service"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/reagent_containers/food/drinks/drinkingglass,
 		/obj/item/pen,
 		/obj/item/toy/crayon/spraycan/borg,
@@ -608,7 +603,6 @@
 /obj/item/robot_module/miner
 	name = "Miner"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/borg/sight/meson,
 		/obj/item/storage/bag/ore/cyborg,
 		/obj/item/pickaxe/drill/cyborg,
