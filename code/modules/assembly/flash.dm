@@ -23,8 +23,8 @@
 		icon_state = "flashbulb"
 
 /obj/item/flashbulb/examine(mob/user)
-	. = ..()
-	. += "This one can probably just about handle [charges_left] more uses."
+	desc += "\n[ charges_left == 0 ? "The bulb is completely burnt out" : charges_left == 1 ? "This bulb will probably burn out immediately in a flash" : "This bulb can probably just about handle [charges_left] more uses."]"
+	. += ..()
 
 /obj/item/flashbulb/proc/check_working()
 	return charges_left > 0
@@ -39,8 +39,10 @@
 	return FLASH_USE
 
 /obj/item/flashbulb/weak
-	name = "weakened flashbulb"
-	charges_left = 4
+	name = "cyborg flashlight bulb"
+	desc = "a lamp intended for use within a cyborg eye."
+
+	charges_left = 1
 
 /obj/item/flashbulb/recharging
 	charges_left = 3
@@ -75,7 +77,7 @@
 
 /obj/item/assembly/flash
 	name = "flash"
-	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production."
+	desc = "A powerful flashbulb device which will disorient attackers by temporarily blinding them"
 	icon_state = "flash"
 	item_state = "flashtool"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
@@ -97,6 +99,12 @@
 
 /obj/item/assembly/flash/handheld/weak
 	bulb = /obj/item/flashbulb/weak
+	name = "cyborg eye"
+	desc = "A small but powerful light with a shielded camera lens embedded in the center. Cyborgs need these to see what they're doing. The camera is non-functional until it is attached to a cyborg head"
+	icon = 'icons/obj/machines/camera.dmi'
+	icon_state = "cameracase"
+	lefthand_file = null
+	righthand_file = null
 
 /obj/item/assembly/flash/handheld/strong
 	bulb = /obj/item/flashbulb/recharging/revolution
@@ -106,8 +114,8 @@
 	bulb = new bulb
 
 /obj/item/assembly/flash/examine(mob/user)
+	desc += "\n[!bulb ? "The device has no bulb installed." : bulb.charges_left == 0 ? "It looks like you can cut the burnt flashbulb out with a pair of wirecutters." : bulb.charges_left == 1 ? "The bulb looks like it will burn out if used" : "The bulb looks like it can handle just about [bulb.charges_left] more uses."]"
 	. = ..()
-	. += "[bulb ? "The bulb looks like it can handle just about [bulb.charges_left] more uses.\nIt looks like you can cut out the flashbulb with a pair of wirecutters." : "The device has no bulb installed."]"
 
 
 /obj/item/assembly/flash/suicide_act(mob/living/user)
