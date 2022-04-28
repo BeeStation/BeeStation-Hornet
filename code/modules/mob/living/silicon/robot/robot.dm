@@ -406,6 +406,11 @@
 	togglelock(user)
 
 /mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
+	if(length(user.progressbars))
+		if(W.tool_behaviour == TOOL_WELDER || istype(W, /obj/item/stack/cable_coil))
+			user.changeNext_move(CLICK_CD_MELEE)
+			to_chat(user, "<span class='notice'>You are already busy!</span>")
+			return
 	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM || user == src))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if (!getBruteLoss())
@@ -415,10 +420,10 @@
 			return
 		if(src == user)
 			to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
-			if(!W.use_tool(src, user, 50))
-				return
+		if(!W.use_tool(src, user, 50))
+			return
 
-		adjustBruteLoss(-30)
+		adjustBruteLoss(-15)
 		updatehealth()
 		add_fingerprint(user)
 		user.visible_message("[user] has fixed some of the dents on [src].", "<span class='notice'>You fix some of the dents on [src].</span>")
@@ -428,13 +433,11 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		var/obj/item/stack/cable_coil/coil = W
 		if (getFireLoss() > 0 || getToxLoss() > 0)
-			if(src == user)
-				to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
-				if(!do_after(user, 50, target = src))
-					return
+			if(!do_after(user, 50, target = src))
+				return
 			if (coil.use(1))
-				adjustFireLoss(-30)
-				adjustToxLoss(-30)
+				adjustFireLoss(-15)
+				adjustToxLoss(-15)
 				updatehealth()
 				user.visible_message("[user] has fixed some of the burnt wires on [src].", "<span class='notice'>You fix some of the burnt wires on [src].</span>")
 			else
