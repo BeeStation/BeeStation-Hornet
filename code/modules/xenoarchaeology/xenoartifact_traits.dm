@@ -551,6 +551,8 @@
 	label_desc = "Barreled: The shape resembles the barrel of a gun. It's possible that it might dispense candy."
 
 /datum/xenoartifact_trait/major/laser/activate(obj/item/xenoartifact/X, atom/target, mob/living/user)
+	if(!isliving(target))
+		return
 	if(get_dist(target, user) <= 1)
 		var/mob/living/victim = target
 		victim.adjust_fire_stacks(1)
@@ -664,11 +666,12 @@
 		victim = null
 		caster = null
 		return
-	var/obj/effect/proc_holder/spell/targeted/mind_transfer/M
+	var/obj/effect/proc_holder/spell/targeted/mind_transfer/M = new
 	M.range = X.max_range
 	M.cast(list(victim), caster, TRUE)
 	victim = null
 	caster = null
+	qdel(M)
 	..()
 
 /datum/xenoartifact_trait/major/emp
