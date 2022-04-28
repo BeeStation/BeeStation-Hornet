@@ -319,19 +319,81 @@
 
 /obj/item/borg/upgrade/selfrepair
 	name = "self-repair module"
-	desc = "This module will repair the cyborg over time."
+	desc = "This module will provide rapid repairs, provided it has had time to charge since its last use"
 	icon_state = "cyborg_upgrade5"
 	require_module = 1
-	var/repair_amount = -1
-	/// world.time of next repair
-	var/next_repair = 0
-	/// Minimum time between repairs in seconds
-	var/repair_cooldown = 4
-	var/msg_cooldown = 0
-	var/on = FALSE
-	var/powercost = 10
+
+	var/mutable_appearance/timer_overlay  /// This entire block is used for the cooldown overlay
+	var/mutable_appearance/text_overlay
+	var/timer_overlay_active = FALSE
+	var/timer_icon = 'icons/effects/cooldown.dmi'
+	var/timer_icon_state_active = "second"
+
+	var/cooldown = 100		/// deciseconds until cooldown is up
+	var/recharging = FALSE	/// Is the module currently recharging?
+	var/counter = 0			/// used for counting up to the cooldown
+	var/repair_ticks = 10	/// how many times the repair tries to tick
+	var/repair_amount = -5  /// amount repaired per tick
+	var/powercost = 50		/// Power cell cost per tick
 	var/mob/living/silicon/robot/cyborg
-	var/datum/action/toggle_action
+	var/datum/action/action
+
+
+
+/obj/item/borg/upgrade/selfrepair/proc/startrecharge()
+	recharging = TRUE
+	counter = 0
+	begin_timer_animation()
+
+/obj/item/borg/upgrade/selfrepair/proc/begin_timer_animation()
+	if(!(action?.button) || timer_overlay_active)
+		return
+
+	timer_overlay_active = TRUE
+	timer_overlay = mutable_appearance(timer_icon, timer_icon_state_active)
+	timer_overlay.alpha = 180
+
+	if(!text_overlay)
+		text_overlay = image(loc = action.button, layer=ABOVE_HUD_LAYER)
+		text_overlay.maptext_width = 64
+		text_overlay.maptext_height = 64
+		text_overlay.maptext_x = -8
+		text_overlay.maptext_y = -6
+		text_overlay.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+
+	if(action.owner?.client)
+		action.owner.client.images += text_overlay
+
+	action.button.add_overlay(timer_overlay, TRUE)
+	action.has_cooldown_timer = TRUE
+	update_timer_animation()
+	START_PROCESSING(SSfastprocess, src)
+
+/obj/item/borg/upgrade/selfrepair/proc/update_timer_animation()
+	if(!(action?.button))
+		return
+	text_overlay.maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[FLOOR((cooldown-counter)/10, 1)]</span></center>"
+
+/obj/item/borg/upgrade/selfrepair/proc/end_timer_animation()
+	if(!(action?.button) || !timer_overlay_active)
+		return
+	timer_overlay_active = FALSE
+	if(action.owner?.client)
+		action.owner.client.images -= text_overlay
+	action.button.cut_overlay(timer_overlay, TRUE)
+	timer_overlay = null
+	qdel(text_overlay)
+	text_overlay = null
+	action.has_cooldown_timer = FALSE
+
+	STOP_PROCESSING(SSfastprocess, src)
+
+/obj/item/borg/upgrade/selfrepair/Destroy()
+	end_timer_animation()
+	qdel(action)
+	return ..()
+
+
 
 /obj/item/borg/upgrade/selfrepair/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
@@ -342,58 +404,48 @@
 			return FALSE
 
 		cyborg = R
-		icon_state = "selfrepair_off"
-		toggle_action = new /datum/action/item_action/toggle(src)
-		toggle_action.Grant(R)
+		icon_state = "selfrepair_on"
+		action = new /datum/action/item_action(src)
+		action.Grant(R)
 
-/obj/item/borg/upgrade/selfrepair/deactivate(mob/living/silicon/robot/R, user = usr)
-	. = ..()
-	if (.)
-		if(toggle_action)
-			QDEL_NULL(toggle_action)
-		cyborg = null
-		deactivate_sr()
-
-/obj/item/borg/upgrade/selfrepair/dropped()
-	..()
-	addtimer(CALLBACK(src, .proc/check_dropped), 1)
-
-/obj/item/borg/upgrade/selfrepair/proc/check_dropped()
-	if(loc != cyborg)
-		if(toggle_action)
-			QDEL_NULL(toggle_action)
-		cyborg = null
-		deactivate_sr()
 
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
-	on = !on
-	if(on)
+	if(!recharging)
 		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
-		START_PROCESSING(SSobj, src)
+		startrecharge()
+		process()
 	else
-		to_chat(cyborg, "<span class='notice'>You deactivate the self-repair module.</span>")
-		STOP_PROCESSING(SSobj, src)
-	update_icon()
+		to_chat(cyborg, "<span class='notice'>Your self-repair module is not ready to be activated again yet.</span>")
 
 /obj/item/borg/upgrade/selfrepair/update_icon()
-	if(cyborg)
-		icon_state = "selfrepair_[on ? "on" : "off"]"
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtonIcon()
-	else
-		icon_state = "cyborg_upgrade5"
+	. = ..()
+	if(timer_overlay_active && !recharging)
+		end_timer_animation()
+		if(action)
+			action.UpdateButtonIcon()
 
 /obj/item/borg/upgrade/selfrepair/proc/deactivate_sr()
 	STOP_PROCESSING(SSobj, src)
-	on = FALSE
-	update_icon()
 
-/obj/item/borg/upgrade/selfrepair/process()
-	if(world.time < next_repair)
+/obj/item/borg/upgrade/selfrepair/process(delta_time)
+	if(recharging && (counter < cooldown))
+		counter += delta_time * 10
+		update_timer_animation()
+		if(counter >= cooldown)
+			end_timer_animation()
+			action.UpdateButtonIcon()
+			recharging = FALSE
+	else
+		end_timer_animation()
+		action.UpdateButtonIcon()
+		recharging = FALSE
+
+
+/*
+	if(world.time < counter)
 		return
 
-	if(cyborg && (cyborg.stat != DEAD) && on)
+	if(cyborg && (cyborg.stat != DEAD) && recharging)
 		if(!cyborg.cell)
 			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please, insert the power cell.</span>")
 			deactivate_sr()
@@ -417,7 +469,7 @@
 			cyborg.cell.use(powercost)
 		else
 			cyborg.cell.use(5)
-		next_repair = world.time + repair_cooldown * 10 // Multiply by 10 since world.time is in deciseconds
+		counter = world.time + 10  ///1 second between repair ticks
 
 		if(!TIMER_COOLDOWN_CHECK(src, COOLDOWN_BORG_SELF_REPAIR))
 			TIMER_COOLDOWN_START(src, COOLDOWN_BORG_SELF_REPAIR, 200 SECONDS)
@@ -428,7 +480,7 @@
 				msgmode = "normal"
 			to_chat(cyborg, "<span class='notice'>Self-repair is active in <span class='boldnotice'>[msgmode]</span> mode.</span>")
 	else
-		deactivate_sr()
+		deactivate_sr() */
 
 /obj/item/borg/upgrade/hypospray
 	name = "medical cyborg hypospray advanced synthesiser"
