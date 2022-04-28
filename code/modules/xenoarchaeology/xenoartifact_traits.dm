@@ -603,6 +603,7 @@
 	new_corgi = new(get_turf(target))
 	new_corgi.key = target.key
 	new_corgi.name = target.real_name
+	corgi.health = target.health
 	new_corgi.real_name = target.real_name
 	ADD_TRAIT(target, TRAIT_NOBREATH, CORGIUM_TRAIT)
 	var/mob/living/C = target
