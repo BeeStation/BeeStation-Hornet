@@ -251,17 +251,14 @@
 
 /obj/structure/xenoartifact/Destroy()
 	qdel(little_man_inside_me)
+	for(var/datum/xenoartifact_trait/T in traits)
+		T.on_del(src)
+		qdel(T)
 	SSradio.remove_object(src, frequency)
 	qdel(radio_connection)
 	qdel(traits)
 	qdel(touch_desc)
-	for(var/atom/C in contents)
-		if(ismovableatom(C))
-			var/atom/movable/AM
-			AM.forceMove(get_turf(loc))
-		else
-			qdel(C)
-	for(var/datum/xenoartifact_trait/T in traits)
-		T.on_del(src)
-		qdel(T)
+	for(var/atom/movable/C in contents)
+		var/atom/movable/AM = C
+		AM.forceMove(get_turf(loc))
 	..()

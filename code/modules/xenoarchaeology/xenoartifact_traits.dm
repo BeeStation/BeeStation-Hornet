@@ -304,6 +304,7 @@
 /datum/xenoartifact_trait/minor/sentient //The attempt here is to make a one-ring type sentience
 	label_name = "Sentient"
 	label_desc = "Sentient: The Artifact seems to be alive, influencing events around it. The Artifact wants to return to its master..."
+	var/mob/living/simple_animal/man
 
 /datum/xenoartifact_trait/minor/sentient/on_touch(obj/item/xenoartifact/X, mob/user)
 	to_chat(user, "<span class='warning'>The [X.name] whispers to you...</span>")
@@ -317,13 +318,13 @@
 	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the maleviolent force inside the [X.name]?", ROLE_SENTIENCE, null, FALSE, 5 SECONDS, POLL_IGNORE_SENTIENCE_POTION)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
-		var/mob/living/simple_animal/H = new /mob/living/simple_animal(get_turf(X))
-		H.key = C.key
-		ADD_TRAIT(H, TRAIT_NOBREATH, TRAIT_MUTE)
-		H.forceMove(X)
-		H.anchored = TRUE
+		man = new /mob/living/simple_animal(get_turf(X))
+		man.key = C.key
+		ADD_TRAIT(man, TRAIT_NOBREATH, TRAIT_MUTE)
+		man.forceMove(X)
+		man.anchored = TRUE
 		var/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/xeno_senitent_action
-		H.AddSpell(P)
+		man.AddSpell(P)
 		P.stupid(X)
 
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action
@@ -347,6 +348,10 @@
 		if(xeno)
 			xeno.true_target = list(M)
 			xeno.default_activate(xeno.charge_req)
+
+/datum/xenoartifact_trait/minor/sentient/on_del(obj/item/xenoartifact/X)
+	. = ..()
+	qdel(man)
 
 /datum/xenoartifact_trait/minor/delicate //Limited uses.
 	desc = "Fragile"
@@ -603,7 +608,7 @@
 	new_corgi = new(get_turf(target))
 	new_corgi.key = target.key
 	new_corgi.name = target.real_name
-	corgi.health = target.health
+	new_corgi.health = target.health
 	new_corgi.real_name = target.real_name
 	ADD_TRAIT(target, TRAIT_NOBREATH, CORGIUM_TRAIT)
 	var/mob/living/C = target

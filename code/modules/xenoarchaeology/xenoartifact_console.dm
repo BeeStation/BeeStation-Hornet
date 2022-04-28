@@ -145,7 +145,7 @@
 			if(istype(selling_item, /obj/item/xenoartifact) || istype(selling_item, /obj/structure/xenoartifact))
 				var/datum/component/xenoartifact_pricing/X = selling_item.GetComponent(/datum/component/xenoartifact_pricing)
 				if(X)
-					final_price = max(X.modifier*X.price, 120)
+					final_price = max(X.modifier*X.price, 1)
 					budget.adjust_money(final_price)
 					linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, final_price*8)
 					info = "[selling_item.name] sold at [station_time_timestamp()] for [final_price] credits, bought for [X.price]"

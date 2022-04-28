@@ -365,16 +365,16 @@
 			return PROCESS_KILL
 
 /obj/item/xenoartifact/Destroy()
+	for(var/datum/xenoartifact_trait/T in traits)
+		T.on_del(src)
+		qdel(T)
 	SSradio.remove_object(src, frequency)
 	qdel(radio_connection)
 	qdel(traits)
 	qdel(touch_desc)
 	for(var/atom/movable/C in contents)
-		var/atom/movable/AM
+		var/atom/movable/AM = C
 		AM.forceMove(get_turf(loc))
-	for(var/datum/xenoartifact_trait/T in traits)
-		T.on_del(src)
-		qdel(T)
 	..()
 
 /obj/item/xenoartifact/maint //Semi-toddler-safe version, for maint loot table.
