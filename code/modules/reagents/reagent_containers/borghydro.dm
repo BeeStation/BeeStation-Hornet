@@ -174,8 +174,8 @@ Borg Hypospray
 Borg Shaker
 */
 /obj/item/reagent_containers/borghypo/borgshaker
-	name = "cyborg shaker"
-	desc = "An advanced drink synthesizer and mixer."
+	name = "cyborg soda shaker"
+	desc = "An advanced non-alcoholic drink synthesizer and mixer."
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "shaker"
 	possible_transfer_amounts = list(5,10,20)
@@ -185,24 +185,6 @@ Borg Shaker
 	accepts_reagent_upgrades = FALSE
 
 	reagent_ids = list(
-			/datum/reagent/consumable/ethanol/absinthe,
-			/datum/reagent/consumable/ethanol/ale,
-			/datum/reagent/consumable/ethanol/applejack,
-			/datum/reagent/consumable/ethanol/beer,
-			/datum/reagent/consumable/ethanol/cognac,
-			/datum/reagent/consumable/ethanol/creme_de_cacao,
-			/datum/reagent/consumable/ethanol/creme_de_menthe,
-			/datum/reagent/consumable/ethanol/gin,
-			/datum/reagent/consumable/ethanol/hcider,
-			/datum/reagent/consumable/ethanol/kahlua,
-			/datum/reagent/consumable/ethanol/rum,
-			/datum/reagent/consumable/ethanol/sake,
-			/datum/reagent/consumable/ethanol/tequila,
-			/datum/reagent/consumable/ethanol/triple_sec,
-			/datum/reagent/consumable/ethanol/vermouth,
-			/datum/reagent/consumable/ethanol/vodka,
-			/datum/reagent/consumable/ethanol/whiskey,
-			/datum/reagent/consumable/ethanol/wine,
 			/datum/reagent/consumable/banana,
 			/datum/reagent/consumable/coffee,
 			/datum/reagent/consumable/cream,
@@ -278,6 +260,37 @@ Borg Shaker
 	accepts_reagent_upgrades = FALSE
 
 	reagent_ids = list(/datum/reagent/toxin/fakebeer, /datum/reagent/consumable/ethanol/fernet)
+
+/obj/item/reagent_containers/borghypo/borgshaker/alcoholic
+		name = "cyborg booze shaker"
+		desc = "An advanced alcoholic drink synthesizer and mixer."
+		icon = 'icons/obj/drinks.dmi'
+		icon_state = "shaker"
+		possible_transfer_amounts = list(5,10,20)
+		charge_cost = 20 //Lots of reagents all regenerating at once, so the charge cost is lower. They also regenerate faster.
+		recharge_time = 3
+		volume = 50
+		accepts_reagent_upgrades = FALSE
+
+		reagent_ids = list(
+			/datum/reagent/consumable/ethanol/absinthe,
+			/datum/reagent/consumable/ethanol/ale,
+			/datum/reagent/consumable/ethanol/applejack,
+			/datum/reagent/consumable/ethanol/beer,
+			/datum/reagent/consumable/ethanol/cognac,
+			/datum/reagent/consumable/ethanol/creme_de_cacao,
+			/datum/reagent/consumable/ethanol/creme_de_menthe,
+			/datum/reagent/consumable/ethanol/gin,
+			/datum/reagent/consumable/ethanol/hcider,
+			/datum/reagent/consumable/ethanol/kahlua,
+			/datum/reagent/consumable/ethanol/rum,
+			/datum/reagent/consumable/ethanol/sake,
+			/datum/reagent/consumable/ethanol/tequila,
+			/datum/reagent/consumable/ethanol/triple_sec,
+			/datum/reagent/consumable/ethanol/vermouth,
+			/datum/reagent/consumable/ethanol/vodka,
+			/datum/reagent/consumable/ethanol/whiskey,
+			/datum/reagent/consumable/ethanol/wine)
 
 /obj/item/reagent_containers/borghypo/peace
 	name = "Peace Hypospray"

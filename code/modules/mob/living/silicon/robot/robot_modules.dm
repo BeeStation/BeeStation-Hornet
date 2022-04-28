@@ -540,7 +540,8 @@
 		/obj/item/reagent_containers/dropper,
 		/obj/item/lighter,
 		/obj/item/borg/apparatus/beaker/service,
-		/obj/item/reagent_containers/borghypo/borgshaker)
+		/obj/item/reagent_containers/borghypo/borgshaker,
+		/obj/item/reagent_containers/borghypo/borgshaker/alcoholic)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/borgshaker/hacked)
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,
