@@ -306,6 +306,12 @@
 	else
 		return ""
 
+/obj/item/weldingtool/cyborg
+	name = "integrated welding tool"
+	desc = "An advanced welder designed to be used in robotic systems"
+	icon = 'icons/obj/items_cyborg.dmi'
+	icon_state = "indwelder_cyborg"
+
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"
 	desc = "A slightly larger welder with a larger tank."
