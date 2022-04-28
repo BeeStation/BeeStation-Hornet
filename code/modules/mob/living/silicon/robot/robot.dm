@@ -421,6 +421,7 @@
 				to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
 			if(!W.use_tool(src, user, 50))
 				return
+			W.use(1)  //Due to the loop, welding fuel was only being burned passively and not actually consumed each step. This causes it to use 1 every step. 
 			adjustBruteLoss(-15)
 			updatehealth()
 			add_fingerprint(user)
