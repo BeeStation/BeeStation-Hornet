@@ -20,7 +20,6 @@
 	. = ..()
 	xenoa = X
 	for(var/s in signals)
-		X.say(s)
 		switch(s) //Translating signal params to vaugely resemble (/obj/item, /mob/living, params)
 			if(COMSIG_PARENT_ATTACKBY)
 				RegisterSignal(xenoa, COMSIG_PARENT_ATTACKBY, .proc/translate_attackby)
