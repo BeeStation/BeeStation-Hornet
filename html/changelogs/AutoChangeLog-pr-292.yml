@@ -1,0 +1,4 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - refactor: machine 'stat' variable is now 'machine_stat'
