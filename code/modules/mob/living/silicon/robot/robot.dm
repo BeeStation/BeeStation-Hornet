@@ -951,7 +951,11 @@
 
 /mob/living/silicon/robot/updatehealth()
 	..()
-	if(health < maxHealth*0.5) //Gradual break down of modules as more damage is sustained
+	var/missingHealth = 200 - (health + 100)
+	///Ranges from moving 
+	var/speedPenalty = min(missingHealth / (maxHealth), 1.5)
+	if(health < maxHealth*0.5) //Gradual breakdown of modules and movement speed as more damage is sustained
+		add_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN, override = TRUE, multiplicative_slowdown = speedPenalty, blacklisted_movetypes = FLOATING)  //same speed bonus when flying/vs walking makes them faster than humanoids in space when low on HP
 		if(uneq_module(held_items[3]))
 			playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 1, 1)
 			audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\"</span>")
@@ -966,6 +970,8 @@
 					audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
 					to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, 1, 1)
+	else
+		remove_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN)
 
 /mob/living/silicon/robot/update_sight()
 	if(!client)
