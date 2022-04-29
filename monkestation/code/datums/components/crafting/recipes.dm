@@ -16,3 +16,11 @@
 					/obj/item/stack/cable_coil = 1)
 	tools = list(/obj/item/reagent_containers/food/snacks/grown/banana)
 	category = CAT_CLOTHING
+
+/datum/crafting_recipe/paper_mask
+	name = "Monkey Mask"
+	result = /obj/item/clothing/mask/ookmask
+	time = 10
+	reqs = list(/obj/item/paper = 5)
+	category = CAT_CLOTHING
+	tools = list(TOOL_WIRECUTTER)
