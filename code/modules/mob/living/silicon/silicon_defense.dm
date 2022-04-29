@@ -109,11 +109,8 @@
 	to_chat(src, "<span class='danger'>Warning: Electromagnetic pulse detected.</span>")
 	if(. & EMP_PROTECT_SELF)
 		return
-	switch(severity)
-		if(1)
-			src.take_bodypart_damage(20)
-		if(2)
-			src.take_bodypart_damage(10)
+	if(severity) //catch to prevent divide by zero
+		src.take_bodypart_damage(burn = 20/severity)
 	to_chat(src, "<span class='userdanger'>*BZZZT*</span>")
 	for(var/mob/living/M in buckled_mobs)
 		if(prob(severity*50))

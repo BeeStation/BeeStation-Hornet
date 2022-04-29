@@ -306,7 +306,7 @@
 
 /obj/item/radio/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
-	if(radio_freq || !broadcasting || get_dist(src, speaker) > canhear_range)
+	if(radio_freq || !on || !broadcasting || get_dist(src, speaker) > canhear_range)
 		return
 
 	if(message_mods[RADIO_EXTENSION] == MODE_L_HAND || message_mods[RADIO_EXTENSION] == MODE_R_HAND)
@@ -373,20 +373,17 @@
 		return
 	emped++ //There's been an EMP; better count it
 	var/curremp = emped //Remember which EMP this was
-	if (listening && ismob(loc))	// if the radio is turned on and on someone's person they notice
+	if (listening && on && ismob(loc))	// if the radio is turned on and on someone's person they notice
 		to_chat(loc, "<span class='warning'>\The [src] overloads.</span>")
-	broadcasting = FALSE
-	listening = FALSE
-	for (var/ch_name in channels)
-		channels[ch_name] = 0
 	on = FALSE
-	addtimer(CALLBACK(src, .proc/end_emp_effect, curremp), 200)
+	addtimer(CALLBACK(src, .proc/end_emp_effect, curremp), 1200)
 
 /obj/item/radio/proc/end_emp_effect(curremp)
 	if(emped != curremp) //Don't fix it if it's been EMP'd again
 		return FALSE
 	emped = FALSE
 	on = TRUE
+	to_chat(loc, "<span class='warning'>\The [src] crackles as it begins to pick up signals again.</span>") //indicator that the EMP has ended
 	return TRUE
 
 ///////////////////////////////
