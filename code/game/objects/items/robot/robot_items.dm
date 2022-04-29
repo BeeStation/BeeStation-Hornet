@@ -8,9 +8,10 @@
 /obj/item/borg/stun
 	name = "electrically-charged arm"
 	icon_state = "elecarm"
-	var/charge_cost = 30
+	var/charge_cost = 300
 
 /obj/item/borg/stun/attack(mob/living/M, mob/living/user)
+	user.changeNext_move(CLICK_CD_MELEE)
 	var/armor_block = M.run_armor_check(attack_flag = "stamina")
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -21,7 +22,7 @@
 		var/mob/living/silicon/robot/R = user
 		if(!R.cell.use(charge_cost))
 			return
-	M.apply_damage(80, STAMINA, blocked = armor_block)
+	M.apply_damage(75, STAMINA, blocked = armor_block)
 	user.do_attack_animation(M)
 	M.apply_effect(EFFECT_STUTTER, 5)
 

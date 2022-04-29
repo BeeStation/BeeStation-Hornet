@@ -249,9 +249,9 @@
 /obj/item/reagent_containers/spray/waterflower/cyborg/hacked
 	name = "nova flower"
 	desc = "This doesn't look safe at all..."
-	list_reagents = list(/datum/reagent/clf3 = 3)
+	list_reagents = list(/datum/reagent/lube/superlube = 3)  //setting people on fire isn't very good OR very funny. Superlube is both very good and very funny.
 	volume = 3
-	generate_type = /datum/reagent/clf3
+	generate_type = /datum/reagent/lube/superlube
 	generate_amount = 1
 	generate_delay = 40		//deciseconds
 
@@ -415,4 +415,4 @@
 	name = "acid spray"
 	desc = "A spray filled with sulphuric acid for offensive use."
 	color = "#00FF32"
-	set_reagent = /datum/reagent/toxin/acid
+	set_reagent = /datum/reagent/toxin/acid/fluacid
