@@ -339,7 +339,7 @@
 	var/repair_ticks = 10
 	/// amount repaired per tick
 	var/repair_amount = -5
-	/// Power cell cost per tick. Repair aborts early if there is not at least 10* this much remaining at the start of a tick in order to preserve some power.
+	/// Power cell cost per tick. Repair aborts early if there is not at least 10x this much remaining at the start of a tick in order to preserve some power.
 	var/powercost = 50		
 	var/mob/living/silicon/robot/cyborg
 	var/datum/action/action
@@ -441,18 +441,17 @@
 		while(repair_ticks)
 			sleep(10)
 			if(cyborg.cell.charge <= powercost * 10)
-				counter = round((repair_ticks/10) * cooldown) //Refund part of cooldown if module energy wasn't entirely consumed. 
 				repair_ticks = 0
 				to_chat(cyborg, "<span class='notice'>Power level critically low! Your self-repair module has deactivated early.</span>")
 			else if(cyborg.getFireLoss())
 				to_chat(cyborg, "<span class='notice'>DEBUG MESSAGE: Healing Fire Damage repair step: [repair_ticks]</span>")
-				playsound(cyborg.loc, pick(running_sounds), 50)
+				playsound(cyborg.loc, pick(running_sounds), 30)
 				cyborg.adjustFireLoss(repair_amount)
 				cyborg.cell.use(powercost)
 				repair_ticks--
 			else if(cyborg.getBruteLoss())
 				to_chat(cyborg, "<span class='notice'>DEBUG MESSAGE: Healing Brute Damage repair step: [repair_ticks]</span>")
-				playsound(cyborg.loc, pick(running_sounds), 50)
+				playsound(cyborg.loc, pick(running_sounds), 30)
 				cyborg.adjustBruteLoss(repair_amount)
 				cyborg.cell.use(powercost)
 				repair_ticks--
