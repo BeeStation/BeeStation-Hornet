@@ -70,11 +70,14 @@
 	update_icon()
 
 /obj/structure/displaycase/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
-	switch(damage_type)
-		if(BRUTE)
-			playsound(src, 'sound/effects/glasshit.ogg', 75, 1)
-		if(BURN)
-			playsound(src, 'sound/items/welder.ogg', 100, 1)
+	if(!shatter)
+		playsound(src, 'sound/weapons/egloves.ogg', 50, 1)
+	else
+		switch(damage_type)
+			if(BRUTE)
+				playsound(src, 'sound/effects/glasshit.ogg', 75, 1)
+			if(BURN)
+				playsound(src, 'sound/items/welder.ogg', 100, 1)
 
 /obj/structure/displaycase/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
