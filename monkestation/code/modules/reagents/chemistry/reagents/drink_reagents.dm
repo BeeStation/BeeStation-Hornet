@@ -1,4 +1,4 @@
-/datum/reagent/bajablast
+/datum/reagent/consumable/baja_blast
 	name = "Baja Blast"
 	description = "A substance applied to the skin by gamers to lighten the skin."
 	color = "#63FFE0" // Teal
@@ -6,7 +6,7 @@
 	overdose_threshold = 11 //Slightly more than one un-nozzled spraybottle.
 	taste_description = "lime and the tropics"
 
-/datum/reagent/bajablast/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
+/datum/reagent/consumable/baja_blast/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(ishuman(M))
 		if(method == PATCH || method == VAPOR)
 			var/mob/living/carbon/human/N = M
@@ -33,13 +33,13 @@
 			N.regenerate_icons()
 	..()
 
-/datum/reagent/bajablast/overdose_process(mob/living/M)
+/datum/reagent/consumable/baja_blast/overdose_process(mob/living/M)
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 	if(prob(3))
 		M.say(pick(	"Poggers.", "Swag.", "Bruh.", "You're such a bot.", "You need a nerf, bro.",
 					"I need a buff, bro.", "Stop cheesing.", "Rush B.", "Rush A.",
 					"No camping.", "Look, an easter egg.", "GG no RE!", "Damn RNG!",
-					"Noob.", "POGCHAMP!!", "A new PB!"), forced = /datum/reagent/bajablast) //This doesn't deserve a string file. I have to repress gamers.
+					"Noob.", "POGCHAMP!!", "A new PB!"), forced = /datum/reagent/consumable/baja_blast) //This doesn't deserve a string file. I have to repress gamers.
 		return
 	if(prob(3))
 		M.visible_message("<span class = 'warning'>[pick("[M] flexes their gamer skills.",
@@ -53,7 +53,7 @@
 		return
 	..()
 	return
-/datum/reagent/consumable/bajablast/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/baja_blast/on_mob_life(mob/living/carbon/M)
 	M.Jitter(20)
 	M.dizziness = min(5,M.dizziness+1)
 	M.drowsyness = 0
@@ -61,16 +61,16 @@
 	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
 	..()
 
-/datum/reagent/consumable/bajablast/on_mob_metabolize(mob/living/L)
+/datum/reagent/consumable/baja_blast/on_mob_metabolize(mob/living/L)
 	..()
 	if(ismonkey(L))
 		L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.75, blacklisted_movetypes=(FLYING|FLOATING))
 
-/datum/reagent/consumable/bajablast/on_mob_end_metabolize(mob/living/L)
+/datum/reagent/consumable/baja_blast/on_mob_end_metabolize(mob/living/L)
 	L.remove_movespeed_modifier(type)
 	..()
 
-/datum/reagent/bajablast/overdose_start(mob/living/M)
+/datum/reagent/consumable/baja_blast/overdose_start(mob/living/M)
 	. = ..()
 	if(!ishuman(M))
 		return
