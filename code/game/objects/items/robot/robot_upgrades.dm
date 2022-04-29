@@ -323,26 +323,33 @@
 	icon_state = "cyborg_upgrade5"
 	require_module = 1
 
-	var/mutable_appearance/timer_overlay  /// This entire block is used for the cooldown overlay
+	var/mutable_appearance/timer_overlay  // This entire block is used for the cooldown overlay
 	var/mutable_appearance/text_overlay
 	var/timer_overlay_active = FALSE
 	var/timer_icon = 'icons/effects/cooldown.dmi'
 	var/timer_icon_state_active = "second"
 
-	var/cooldown = 100		/// deciseconds until cooldown is up
-	var/recharging = FALSE	/// Is the module currently recharging?
-	var/counter = 0			/// used for counting up to the cooldown
-	var/repair_ticks = 10	/// how many times the repair tries to tick. Must also be changed at the end of selfrepair/process()
-	var/repair_amount = -5  /// amount repaired per tick
-	var/powercost = 50		/// Power cell cost per tick
+	/// deciseconds until cooldown is up
+	var/cooldown = 100
+	/// Is the module currently recharging?
+	var/recharging = FALSE
+	/// used for counting up to the cooldown
+	var/counter = 0	
+	/// how many times the repair tries to tick.
+	var/repair_ticks = 10
+	/// amount repaired per tick
+	var/repair_amount = -5
+	/// Power cell cost per tick. Repair aborts early if there is not at least 10* this much remaining at the start of a tick in order to preserve some power.
+	var/powercost = 50		
 	var/mob/living/silicon/robot/cyborg
 	var/datum/action/action
-
+	var/activation_sound = 'sound/machines/terminal_processing.ogg'
+	var/running_sounds = list('sound/machines/generator/generator_mid1.ogg', 'sound/machines/generator/generator_mid2.ogg', 'sound/machines/generator/generator_mid3.ogg')
+	var/deactivation_sound = 'sound/effects/turbolift/turbolift-close.ogg'
 
 
 /obj/item/borg/upgrade/selfrepair/proc/startrecharge()
 	recharging = TRUE
-	counter = 0
 	begin_timer_animation()
 
 /obj/item/borg/upgrade/selfrepair/proc/begin_timer_animation()
@@ -412,6 +419,8 @@
 	if(!recharging && icon_state == "selfrepair_off")
 		icon_state = "selfrepair_on"
 		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
+		playsound(cyborg.loc, activation_sound, 30)
+		counter = 0
 		process()
 	else
 		to_chat(cyborg, "<span class='notice'>Your self-repair module is not ready to be activated again yet.</span>")
@@ -428,17 +437,22 @@
 
 /obj/item/borg/upgrade/selfrepair/process(delta_time)
 	if(!recharging && icon_state == "selfrepair_on")
+
 		while(repair_ticks)
-			if(cyborg.cell.charge < powercost * 10)
+			sleep(10)
+			if(cyborg.cell.charge <= powercost * 10)
+				counter = round((repair_ticks/10) * cooldown) //Refund part of cooldown if module energy wasn't entirely consumed. 
 				repair_ticks = 0
 				to_chat(cyborg, "<span class='notice'>Power level critically low! Your self-repair module has deactivated early.</span>")
 			else if(cyborg.getFireLoss())
 				to_chat(cyborg, "<span class='notice'>DEBUG MESSAGE: Healing Fire Damage repair step: [repair_ticks]</span>")
+				playsound(cyborg.loc, pick(running_sounds), 50)
 				cyborg.adjustFireLoss(repair_amount)
 				cyborg.cell.use(powercost)
 				repair_ticks--
 			else if(cyborg.getBruteLoss())
 				to_chat(cyborg, "<span class='notice'>DEBUG MESSAGE: Healing Brute Damage repair step: [repair_ticks]</span>")
+				playsound(cyborg.loc, pick(running_sounds), 50)
 				cyborg.adjustBruteLoss(repair_amount)
 				cyborg.cell.use(powercost)
 				repair_ticks--
@@ -447,6 +461,7 @@
 				repair_ticks = 0
 	if(!repair_ticks && icon_state == "selfrepair_on")
 		icon_state = "selfrepair_off"
+		playsound(cyborg.loc, deactivation_sound, 60)
 		startrecharge()
 	if(recharging && (counter < cooldown))
 		counter += delta_time * 10
