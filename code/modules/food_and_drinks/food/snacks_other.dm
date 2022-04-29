@@ -605,7 +605,7 @@
 	icon_state = "beans"
 	trash = /obj/item/trash/can/food/beans
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 10)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/flatulynt = 5) //MonkeStation Edit: Flatulynt Beans
 	filling_color = "#B22222"
 	tastes = list("beans" = 1)
 	foodtype = VEGETABLES

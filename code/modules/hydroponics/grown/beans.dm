@@ -15,7 +15,7 @@
 	icon_dead = "soybean-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/soya/koi)
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.05, /datum/reagent/consumable/cooking_oil = 0.03) //Vegetable oil!
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.05, /datum/reagent/consumable/cooking_oil = 0.03, /datum/reagent/flatulynt = 0.04) //Vegetable oil and Flatulynt!
 
 /obj/item/reagent_containers/food/snacks/grown/soybeans
 	seed = /obj/item/seeds/soya
@@ -26,7 +26,7 @@
 	filling_color = "#F0E68C"
 	bitesize_mod = 2
 	foodtype = VEGETABLES
-	grind_results = list(/datum/reagent/consumable/soymilk = 0)
+	grind_results = list(/datum/reagent/consumable/soymilk = 0, /datum/reagent/flatulynt = 0)
 	tastes = list("soy" = 1)
 	wine_power = 20
 
