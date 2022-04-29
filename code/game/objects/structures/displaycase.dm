@@ -71,7 +71,7 @@
 
 /obj/structure/displaycase/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(!shatter)
-		playsound(src, 'sound/weapons/egloves.ogg', 50, 1)
+		playsound(src, 'sound/weapons/egloves.ogg', 35, 1)
 	else
 		switch(damage_type)
 			if(BRUTE)
