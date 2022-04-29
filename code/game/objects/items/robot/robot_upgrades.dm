@@ -413,6 +413,7 @@
 		cyborg = R
 		icon_state = "selfrepair_off"
 		action = new /datum/action/item_action(src)
+		action.Name(name)
 		action.Grant(R)
 
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
