@@ -54,7 +54,7 @@
 		ancestor_name = json["ancestor_name"]
 		ancestor_chain = json["ancestor_chain"]
 		relic_hat = json["relic_hat"]
-		relic_mask = json["relic_hat"]
+		relic_mask = json["relic_mask"]
 
 /mob/living/carbon/monkey/punpun/proc/Write_Memory(dead, gibbed)
 	var/json_file = file("data/npc_saves/Punpun.json")
