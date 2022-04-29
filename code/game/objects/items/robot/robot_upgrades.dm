@@ -330,7 +330,7 @@
 	var/timer_icon_state_active = "second"
 
 	/// deciseconds until cooldown is up
-	var/cooldown = 100
+	var/cooldown = 1200
 	/// Is the module currently recharging?
 	var/recharging = FALSE
 	/// used for counting up to the cooldown
@@ -440,20 +440,17 @@
 
 /obj/item/borg/upgrade/selfrepair/process(delta_time)
 	if(!recharging && icon_state == "selfrepair_on")
-
 		while(repair_ticks)
 			sleep(10)
 			if(cyborg.cell.charge <= powercost * 10)
 				repair_ticks = 0
 				to_chat(cyborg, "<span class='notice'>Power level critically low! Your self-repair module has deactivated early.</span>")
 			else if(cyborg.getFireLoss())
-				to_chat(cyborg, "<span class='notice'>DEBUG MESSAGE: Healing Fire Damage repair step: [repair_ticks]</span>")
 				playsound(cyborg.loc, pick(running_sounds), 30)
 				cyborg.adjustFireLoss(repair_amount)
 				cyborg.cell.use(powercost)
 				repair_ticks--
 			else if(cyborg.getBruteLoss())
-				to_chat(cyborg, "<span class='notice'>DEBUG MESSAGE: Healing Brute Damage repair step: [repair_ticks]</span>")
 				playsound(cyborg.loc, pick(running_sounds), 30)
 				cyborg.adjustBruteLoss(repair_amount)
 				cyborg.cell.use(powercost)
