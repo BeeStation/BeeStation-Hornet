@@ -1,0 +1,6 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - rscadd: Ghosts can open SM monitor by clicking the SuperMatter Crystal.
+  - refactor: get_integrity variable redefined as get_integrity_percent
+  - refactor: SM Monitor Code is now in its own non Ntos file
