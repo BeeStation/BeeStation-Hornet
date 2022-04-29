@@ -123,11 +123,12 @@
 	var/obj/item/clothing/under/uniform = H.w_uniform
 
 	// Are nanite sensors on?
-	// Is sensors level set to SENSORS_COORDS?
-	// Should we ignore sensors?
+	// Does the uniform have sensors?
+	// If so, are they set to SENSOR_COORS or
+	// if not, should we ignore sensor level?
 	// If yes to any of these, proceed further,
 	// otherwise return FALSE
-	if(!nanite_sensors && (!uniform?.has_sensor || uniform?.sensor_mode < SENSOR_COORDS) && !ignore_suit_sensor_level)
+	if(!nanite_sensors && (!uniform?.has_sensor || (uniform?.sensor_mode < SENSOR_COORDS && !ignore_suit_sensor_level)))
 		return FALSE
 
 	// Radio transmitters are jammed
