@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: vend-a-tray no longer drop glass shards when broken since they aren't
+      made of glass
