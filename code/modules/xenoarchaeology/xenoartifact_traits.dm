@@ -27,6 +27,8 @@
 				RegisterSignal(xenoa, COMSIG_ITEM_ATTACK, .proc/translate_attack)
 			if(COMSIG_MOVABLE_IMPACT)
 				RegisterSignal(xenoa, COMSIG_MOVABLE_IMPACT, .proc/translate_impact)
+			if(COMSIG_MOB_ITEM_AFTERATTACK)
+				RegisterSignal(xenoa, COMSIG_MOB_ITEM_AFTERATTACK, .proc/translate_afterattack)
 			if(XENOA_INTERACT)
 				RegisterSignal(xenoa, XENOA_INTERACT, .proc/translate_attackby)
 			if(XENOA_SIGNAL)
@@ -48,6 +50,10 @@
 
 /datum/xenoartifact_trait/activator/proc/translate_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, throwingdatum, hit_atom)
+
+/datum/xenoartifact_trait/activator/proc/translate_afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!proximity_flag)
+		SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, user, target)
 
 /datum/xenoartifact_trait/minor //Leave these here, for the future.
 
@@ -86,7 +92,7 @@
 	desc = "Sturdy"
 	label_desc = "Sturdy: The material is sturdy, striking it against the clown's skull seems to cause a unique reaction."
 	charge = 25
-	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_ITEM_ATTACK, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT)
+	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_ITEM_ATTACK, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT, COMSIG_MOB_ITEM_AFTERATTACK)
 
 /datum/xenoartifact_trait/activator/impact/on_init(obj/item/xenoartifact/X)
 	. = ..()
@@ -121,7 +127,7 @@
 	label_desc = "Tuned: The material produces a resonance pattern similar to quartz, causing it to produce a reaction every so often."
 	charge = 25
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/capacitive)
-	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_ITEM_ATTACK, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT)
+	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_ITEM_ATTACK, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT, COMSIG_MOB_ITEM_AFTERATTACK)
 
 /datum/xenoartifact_trait/activator/clock/on_init(obj/item/xenoartifact/X)
 	. = ..()
