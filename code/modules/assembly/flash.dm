@@ -280,7 +280,7 @@
 		var/mob/living/silicon/robot/R = M
 		log_combat(user, R, "flashed", src)
 		update_icon(1)
-		R.Paralyze(70)
+		R.Paralyze(20)
 		R.flash_act(affect_silicon = 1, type = /atom/movable/screen/fullscreen/flash/static)
 		user.visible_message("<span class='disarm'>[user] overloads [R]'s sensors with the flash!</span>", "<span class='danger'>You overload [R]'s sensors with the flash!</span>")
 		return TRUE
