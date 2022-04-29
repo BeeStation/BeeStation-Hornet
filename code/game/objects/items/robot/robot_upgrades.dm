@@ -421,6 +421,7 @@
 		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
 		playsound(cyborg.loc, activation_sound, 30)
 		counter = 0
+		update_icon()
 		process()
 	else
 		to_chat(cyborg, "<span class='notice'>Your self-repair module is not ready to be activated again yet.</span>")
@@ -429,8 +430,10 @@
 	. = ..()
 	if(timer_overlay_active && !recharging)
 		end_timer_animation()
-		if(action)
-			action.UpdateButtonIcon()
+	if(action)
+		action.UpdateButtonIcon()
+
+
 
 /obj/item/borg/upgrade/selfrepair/proc/deactivate_sr()
 	STOP_PROCESSING(SSobj, src)
@@ -460,6 +463,7 @@
 				repair_ticks = 0
 	if(!repair_ticks && icon_state == "selfrepair_on")
 		icon_state = "selfrepair_off"
+		update_icon()
 		playsound(cyborg.loc, deactivation_sound, 60)
 		startrecharge()
 	if(recharging && (counter < cooldown))
