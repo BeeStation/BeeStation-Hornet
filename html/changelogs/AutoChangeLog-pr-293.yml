@@ -1,0 +1,4 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - refactor: standardized id_tag and network_tag to objs.dm
