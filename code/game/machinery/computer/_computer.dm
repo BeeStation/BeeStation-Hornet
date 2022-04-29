@@ -34,7 +34,7 @@
 	return ..()
 
 /obj/machinery/computer/process()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return 0
 	return 1
 
@@ -59,14 +59,14 @@
 /obj/machinery/computer/update_icon()
 	cut_overlays()
 	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		add_overlay("[icon_keyboard]_off")
 		return
 	add_overlay(icon_keyboard)
 
 	// This whole block lets screens ignore lighting and be visible even in the darkest room
 	var/overlay_state = icon_screen
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		if(broken_overlay_emissive)
 			overlay_state = "[icon_state]_broken"
 		else
@@ -79,7 +79,7 @@
 
 /obj/machinery/computer/power_change()
 	..()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		set_light(FALSE)
 	else
 		set_light(TRUE)
@@ -99,7 +99,7 @@
 /obj/machinery/computer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			if(stat & BROKEN)
+			if(machine_stat & BROKEN)
 				playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
 			else
 				playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
@@ -108,9 +108,9 @@
 
 /obj/machinery/computer/obj_break(damage_flag)
 	if(circuit && !(flags_1 & NODECONSTRUCT_1)) //no circuit, no breaking
-		if(!(stat & BROKEN))
+		if(!(machine_stat & BROKEN))
 			playsound(loc, 'sound/effects/glassbr3.ogg', 100, 1)
-			stat |= BROKEN
+			machine_stat |= BROKEN
 			update_icon()
 			set_light(0)
 
@@ -133,7 +133,7 @@
 			A.setDir(dir)
 			A.circuit = circuit
 			A.setAnchored(TRUE)
-			if(stat & BROKEN)
+			if(machine_stat & BROKEN)
 				if(user)
 					to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 				else

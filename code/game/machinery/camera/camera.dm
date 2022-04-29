@@ -143,7 +143,7 @@
 			var/list/previous_network = network
 			network = list()
 			GLOB.cameranet.removeCamera(src)
-			stat |= EMPED
+			machine_stat |= EMPED
 			set_light(0)
 			emped = emped+1  //Increase the number of consecutive EMP's
 			update_icon()
@@ -153,7 +153,7 @@
 					triggerCameraAlarm() //camera alarm triggers even if multiple EMPs are in effect.
 					if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
 						network = previous_network
-						stat &= ~EMPED
+						machine_stat &= ~EMPED
 						update_icon()
 						if(can_use())
 							GLOB.cameranet.addCamera(src)
@@ -319,7 +319,7 @@
 	return ..()
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee" && damage_amount < 12 && !(stat & BROKEN))
+	if(damage_flag == "melee" && damage_amount < 12 && !(machine_stat & BROKEN))
 		return 0
 	. = ..()
 
@@ -350,7 +350,7 @@
 		xray_module = "xray"
 	if(!status)
 		icon_state = "[xray_module][default_camera_icon]_off"
-	else if (stat & EMPED)
+	else if (machine_stat & EMPED)
 		icon_state = "[xray_module][default_camera_icon]_emp"
 	else
 		icon_state = "[xray_module][default_camera_icon][in_use_lights ? "_in_use" : ""]"
@@ -407,7 +407,7 @@
 /obj/machinery/camera/proc/can_use()
 	if(!status)
 		return FALSE
-	if(stat & EMPED)
+	if(machine_stat & EMPED)
 		return FALSE
 	if(is_jammed())
 		return FALSE

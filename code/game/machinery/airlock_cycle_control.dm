@@ -150,7 +150,7 @@
 	var/maxpressure = (exterior_pressure && (cyclestate == AIRLOCK_CYCLESTATE_OUTCLOSING || cyclestate == AIRLOCK_CYCLESTATE_OUTOPENING || cyclestate == AIRLOCK_CYCLESTATE_OUTOPEN)) ? exterior_pressure : interior_pressure
 	var/pressure_bars = round(pressure / maxpressure * 5 + 0.01)
 
-	var/new_overlays_hash = "[pressure_bars]-[cyclestate]-[buildstage]-[panel_open]-[stat]-[shorted]-[locked]-\ref[vis_target]"
+	var/new_overlays_hash = "[pressure_bars]-[cyclestate]-[buildstage]-[panel_open]-[machine_stat]-[shorted]-[locked]-\ref[vis_target]"
 	if(use_hash && new_overlays_hash == overlays_hash)
 		return
 	overlays_hash = new_overlays_hash
@@ -168,7 +168,7 @@
 
 	icon_state = "aac"
 
-	if((stat & (NOPOWER|BROKEN)) || shorted)
+	if((machine_stat & (NOPOWER|BROKEN)) || shorted)
 		return
 
 	var/is_exterior_pressure = (cyclestate == AIRLOCK_CYCLESTATE_OUTCLOSING || cyclestate == AIRLOCK_CYCLESTATE_OUTOPENING || cyclestate == AIRLOCK_CYCLESTATE_OUTOPEN)
@@ -203,7 +203,7 @@
 				aidisabled = FALSE
 
 /obj/machinery/advanced_airlock_controller/proc/shock(mob/user, prb)
-	if((stat & (NOPOWER)))		// unpowered, no shock
+	if((machine_stat & (NOPOWER)))		// unpowered, no shock
 		return 0
 	if(!prob(prb))
 		return 0 //you lucked out, no shock for you
@@ -295,7 +295,7 @@
 	process_atmos()
 
 /obj/machinery/advanced_airlock_controller/process_atmos()
-	if((stat & (NOPOWER|BROKEN)) || shorted)
+	if((machine_stat & (NOPOWER|BROKEN)) || shorted)
 		update_icon(TRUE)
 		return
 
@@ -787,7 +787,7 @@
 		togglelock(user)
 
 /obj/machinery/advanced_airlock_controller/proc/togglelock(mob/living/user)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		to_chat(user, "<span class='warning'>It does nothing!</span>")
 	else
 		if(src.allowed(usr) && !wires.is_cut(WIRE_IDSCAN))

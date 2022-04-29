@@ -74,7 +74,7 @@
 
 // Timed process - performs default marquee action if so needed.
 /obj/machinery/status_display/process()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		// No power, no processing.
 		remove_display()
 		return PROCESS_KILL
@@ -111,7 +111,7 @@
 
 /obj/machinery/status_display/emp_act(severity)
 	. = ..()
-	if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
+	if(machine_stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
 		return
 	set_picture("ai_bsod")
 
@@ -171,7 +171,7 @@
 	return ..()
 
 /obj/machinery/status_display/evac/process()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		// No power, no processing.
 		remove_display()
 		return PROCESS_KILL
@@ -227,7 +227,7 @@
 	name = "supply display"
 
 /obj/machinery/status_display/supply/process()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		// No power, no processing.
 		remove_display()
 		return PROCESS_KILL
@@ -271,7 +271,7 @@
 	var/shuttle_id
 
 /obj/machinery/status_display/shuttle/process()
-	if(!shuttle_id || (stat & NOPOWER))
+	if(!shuttle_id || (machine_stat & NOPOWER))
 		// No power, no processing.
 		remove_display()
 		return PROCESS_KILL
@@ -320,7 +320,7 @@
 		user.ai_statuschange()
 
 /obj/machinery/status_display/ai/process()
-	if(mode == SD_BLANK || (stat & NOPOWER))
+	if(mode == SD_BLANK || (machine_stat & NOPOWER))
 		remove_display()
 		return PROCESS_KILL
 

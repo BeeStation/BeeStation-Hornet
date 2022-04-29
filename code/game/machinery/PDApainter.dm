@@ -93,7 +93,7 @@
 /obj/machinery/pdapainter/update_icon()
 	cut_overlays()
 
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "coloriser-broken"
 		return
 
@@ -182,17 +182,17 @@
 		update_icon()
 
 	else if(O.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
-		if(stat & BROKEN)
+		if(machine_stat & BROKEN)
 			if(!O.tool_start_check(user, amount=0))
 				return
 			user.visible_message("[user] is repairing [src].", \
 							"<span class='notice'>You begin repairing [src]...</span>", \
 							"<span class='italics'>You hear welding.</span>")
 			if(O.use_tool(src, user, 40, volume=50))
-				if(!(stat & BROKEN))
+				if(!(machine_stat & BROKEN))
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
-				stat &= ~BROKEN
+				machine_stat &= ~BROKEN
 				obj_integrity = max_integrity
 				update_icon()
 		else
@@ -202,8 +202,8 @@
 
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		if(!(stat & BROKEN))
-			stat |= BROKEN
+		if(!(machine_stat & BROKEN))
+			machine_stat |= BROKEN
 			update_icon()
 
 /obj/machinery/pdapainter/attack_hand(mob/user)

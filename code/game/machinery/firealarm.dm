@@ -82,13 +82,13 @@
 		icon_state = "fire_b[buildstage]"
 		return
 
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "firex"
 		return
 
 	icon_state = "fire0"
 
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		return
 
 	add_overlay("fire_overlay")
@@ -143,7 +143,7 @@
 		attack_hand(eminence)
 
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
-	if((temperature > T0C + 200 || temperature < BODYTEMP_COLD_DAMAGE_LIMIT) && (last_alarm+FIREALARM_COOLDOWN < world.time) && !(obj_flags & EMAGGED) && detecting && !stat)
+	if((temperature > T0C + 200 || temperature < BODYTEMP_COLD_DAMAGE_LIMIT) && (last_alarm+FIREALARM_COOLDOWN < world.time) && !(obj_flags & EMAGGED) && detecting && !machine_stat)
 		alarm()
 	..()
 
@@ -248,9 +248,9 @@
 										"<span class='notice'>You start prying out the circuit...</span>")
 					if(W.use_tool(src, user, 20, volume=50))
 						if(buildstage == 1)
-							if(stat & BROKEN)
+							if(machine_stat & BROKEN)
 								to_chat(user, "<span class='notice'>You remove the destroyed circuit.</span>")
-								stat &= ~BROKEN
+								machine_stat &= ~BROKEN
 							else
 								to_chat(user, "<span class='notice'>You pry out the circuit.</span>")
 								new /obj/item/electronics/firealarm(user.loc)
@@ -304,7 +304,7 @@
 /obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(.) //damage received
-		if(obj_integrity > 0 && !(stat & BROKEN) && buildstage != 0)
+		if(obj_integrity > 0 && !(machine_stat & BROKEN) && buildstage != 0)
 			if(prob(33))
 				alarm()
 
@@ -314,15 +314,15 @@
 	..()
 
 /obj/machinery/firealarm/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags_1 & NODECONSTRUCT_1) && buildstage != 0) //can't break the electronics if there isn't any inside.
+	if(!(machine_stat & BROKEN) && !(flags_1 & NODECONSTRUCT_1) && buildstage != 0) //can't break the electronics if there isn't any inside.
 		LAZYREMOVE(myarea.firealarms, src)
-		stat |= BROKEN
+		machine_stat |= BROKEN
 		update_icon()
 
 /obj/machinery/firealarm/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		new /obj/item/stack/sheet/iron(loc, 1)
-		if(!(stat & BROKEN))
+		if(!(machine_stat & BROKEN))
 			var/obj/item/I = new /obj/item/electronics/firealarm(loc)
 			if(!disassembled)
 				I.obj_integrity = I.max_integrity * 0.5
@@ -350,7 +350,7 @@
 	var/static/party_overlay
 
 /obj/machinery/firealarm/partyalarm/reset()
-	if (stat & (NOPOWER|BROKEN))
+	if (machine_stat & (NOPOWER|BROKEN))
 		return
 	var/area/A = get_area(src)
 	if (!A || !A.party)
@@ -359,7 +359,7 @@
 	A.cut_overlay(party_overlay)
 
 /obj/machinery/firealarm/partyalarm/alarm()
-	if (stat & (NOPOWER|BROKEN))
+	if (machine_stat & (NOPOWER|BROKEN))
 		return
 	var/area/A = get_area(src)
 	if (!A || A.party || A.name == "Space")

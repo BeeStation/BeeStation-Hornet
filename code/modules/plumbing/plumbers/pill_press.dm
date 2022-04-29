@@ -43,7 +43,7 @@
 		pill_styles += list(SL)
 
 /obj/machinery/plumbing/pill_press/process()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		return
 	if((reagents.total_volume >= pill_size) && (stored_pills.len < max_stored_pills))
 		var/obj/item/reagent_containers/pill/P = new(src)

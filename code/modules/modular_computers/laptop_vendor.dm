@@ -233,7 +233,7 @@
 	return GLOB.default_state
 
 /obj/machinery/lapvend/ui_interact(mob/user, datum/tgui/ui)
-	if(stat & (BROKEN | NOPOWER | MAINT))
+	if(machine_stat & (BROKEN | NOPOWER | MAINT))
 		if(ui)
 			ui.close()
 		return FALSE

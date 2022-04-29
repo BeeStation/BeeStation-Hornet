@@ -58,7 +58,7 @@
 					break dir_loop
 
 	if(!terminal)
-		stat |= BROKEN
+		machine_stat |= BROKEN
 		return
 	terminal.master = src
 	update_icon()
@@ -101,7 +101,7 @@
 		if(!terminal)
 			to_chat(user, "<span class='alert'>No power terminal found.</span>")
 			return
-		stat &= ~BROKEN
+		machine_stat &= ~BROKEN
 		update_icon()
 		return
 
@@ -199,18 +199,18 @@
 	terminal = new/obj/machinery/power/terminal(T)
 	terminal.setDir(get_dir(T,src))
 	terminal.master = src
-	stat &= ~BROKEN
+	machine_stat &= ~BROKEN
 
 /obj/machinery/power/smes/disconnect_terminal()
 	if(terminal)
 		terminal.master = null
 		terminal = null
-		stat |= BROKEN
+		machine_stat |= BROKEN
 
 
 /obj/machinery/power/smes/update_icon()
 	cut_overlays()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 
 	if(panel_open)
@@ -236,7 +236,7 @@
 	return clamp(round(5.5*charge/capacity),0,5)
 
 /obj/machinery/power/smes/process()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 
 	//store machine state to see if we need to update the icon overlays
@@ -303,7 +303,7 @@
 // called after all power processes are finished
 // restores charge level to smes if there was excess this ptick
 /obj/machinery/power/smes/proc/restore()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 
 	if(!outputting)

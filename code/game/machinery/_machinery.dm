@@ -99,7 +99,7 @@ Class Procs:
 	anchored = TRUE
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 
-	var/stat = 0
+	var/machine_stat = NONE
 	var/use_power = IDLE_POWER_USE
 		//0 = dont run the auto
 		//1 = run auto, use idle
@@ -180,7 +180,7 @@ Class Procs:
 
 /obj/machinery/emp_act(severity)
 	. = ..()
-	if(use_power && !stat && !(. & EMP_PROTECT_SELF))
+	if(use_power && !machine_stat && !(. & EMP_PROTECT_SELF))
 		use_power(7500/severity)
 		new /obj/effect/temp_visual/emp(loc)
 
@@ -243,14 +243,14 @@ Class Procs:
 	return 1
 
 /obj/machinery/proc/is_operational()
-	return !(stat & (NOPOWER|BROKEN|MAINT))
+	return !(machine_stat & (NOPOWER|BROKEN|MAINT))
 
 /obj/machinery/can_interact(mob/user)
 	var/silicon = issilicon(user)
 	var/admin_ghost = IsAdminGhost(user)
 	var/living = isliving(user)
 
-	if((stat & (NOPOWER|BROKEN)) && !(interaction_flags_machine & INTERACT_MACHINE_OFFLINE)) // Check if the machine is broken, and if we can still interact with it if so
+	if((machine_stat & (NOPOWER|BROKEN)) && !(interaction_flags_machine & INTERACT_MACHINE_OFFLINE)) // Check if the machine is broken, and if we can still interact with it if so
 		return FALSE
 
 	if(panel_open && !(interaction_flags_machine & INTERACT_MACHINE_OPEN)) // Check if we can interact with an open panel machine, if the panel is open
@@ -402,7 +402,7 @@ Class Procs:
 
 /obj/machinery/obj_break(damage_flag)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		stat |= BROKEN
+		machine_stat |= BROKEN
 
 /obj/machinery/contents_explosion(severity, target)
 	if(occupant)
@@ -527,7 +527,7 @@ Class Procs:
 
 /obj/machinery/examine(mob/user)
 	. = ..()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		. += "<span class='notice'>It looks broken and non-functional.</span>"
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)

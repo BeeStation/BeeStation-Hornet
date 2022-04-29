@@ -83,10 +83,10 @@
 
 	SSvis_overlays.remove_vis_overlay(src, overlays_to_remove)
 
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "stasis_broken"
 		return
-	if(panel_open || stat & MAINT)
+	if(panel_open || machine_stat & MAINT)
 		icon_state = "stasis_maintenance"
 		return
 	icon_state = "stasis"

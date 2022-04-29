@@ -36,7 +36,7 @@
 	INVOKE_ASYNC(src, .proc/grind, AM)
 
 /obj/machinery/plumbing/grinder_chemical/proc/grind(atom/AM)
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		return
 	if(reagents.holder_full())
 		return

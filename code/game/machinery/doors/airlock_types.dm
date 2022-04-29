@@ -514,7 +514,7 @@
 
 /obj/machinery/door/airlock/cult/obj_break(damage_flag)
 	if(!(flags_1 & BROKEN) && !(flags_1 & NODECONSTRUCT_1))
-		stat |= BROKEN
+		machine_stat |= BROKEN
 		if(!panel_open)
 			panel_open = TRUE
 		update_icon()
