@@ -10,11 +10,47 @@
 
 /datum/xenoartifact_trait/activator
 	var/charge //How much an activator trait can output on a standard, modified by the artifacts charge_req and circumstances.
+	var/list/signals //which signals proc
+	var/obj/item/xenoartifact/xenoa //Not used outside of signal handle, please
 
 /datum/xenoartifact_trait/activator/proc/calculate_charge(obj/item/xenoartifact/X)
 	return
 
-/datum/xenoartifact_trait/minor
+/datum/xenoartifact_trait/activator/on_init(obj/item/xenoartifact/X)
+	. = ..()
+	xenoa = X
+	for(var/s in signals)
+		X.say(s)
+		switch(s) //Translating signal params to vaugely resemble (/obj/item, /mob/living, params)
+			if(COMSIG_PARENT_ATTACKBY)
+				RegisterSignal(xenoa, COMSIG_PARENT_ATTACKBY, .proc/translate_attackby)
+			if(COMSIG_ITEM_ATTACK)
+				RegisterSignal(xenoa, COMSIG_ITEM_ATTACK, .proc/translate_attack)
+			if(COMSIG_MOVABLE_IMPACT)
+				RegisterSignal(xenoa, COMSIG_MOVABLE_IMPACT, .proc/translate_impact)
+			if(XENOA_INTERACT)
+				RegisterSignal(xenoa, XENOA_INTERACT, .proc/translate_attackby)
+			if(XENOA_SIGNAL)
+				RegisterSignal(xenoa, XENOA_SIGNAL, .proc/translate_attackby)
+	RegisterSignal(xenoa, XENOA_DEFAULT_SIGNAL, .proc/calculate_charge)
+
+/datum/xenoartifact_trait/activator/on_del(obj/item/xenoartifact/X)
+	. = ..()
+	for(var/s in signals)
+		UnregisterSignal(xenoa, s)
+	UnregisterSignal(xenoa, XENOA_DEFAULT_SIGNAL)
+	xenoa = null
+
+/datum/xenoartifact_trait/activator/proc/translate_attackby(datum/source, obj/item/thing, mob/user, atom/target, params)
+	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, thing, user, user)
+
+/datum/xenoartifact_trait/activator/proc/translate_attack(mob/living/target, mob/living/user)
+	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, user, target)
+
+/datum/xenoartifact_trait/activator/proc/translate_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, throwingdatum, hit_atom)
+
+/datum/xenoartifact_trait/minor //Leave these here, for the future.
 
 /datum/xenoartifact_trait/major
 
@@ -51,36 +87,26 @@
 	desc = "Sturdy"
 	label_desc = "Sturdy: The material is sturdy, striking it against the clown's skull seems to cause a unique reaction."
 	charge = 25
+	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_ITEM_ATTACK, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT)
 
 /datum/xenoartifact_trait/activator/impact/on_init(obj/item/xenoartifact/X)
 	. = ..()
-	RegisterSignal(X, XENOA_INTERACT, .proc/calculate_charge)
-	RegisterSignal(X, XENOA_ATTACK, .proc/calculate_charge)
-	RegisterSignal(X, XENOA_ATTACKBY, .proc/calculate_charge)
-	RegisterSignal(X, XENOA_THROW_IMPACT, .proc/calculate_charge)
 
 /datum/xenoartifact_trait/activator/impact/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
 	charge = charge*(thing?.force*0.1)
 	X.default_activate(charge, user, target)
 
-/datum/xenoartifact_trait/activator/impact/on_del(obj/item/xenoartifact/X)
-	. = ..()
-	UnregisterSignal(X, XENOA_INTERACT)
-	UnregisterSignal(X, XENOA_ATTACKBY)
-	UnregisterSignal(X, XENOA_THROW_IMPACT)
-	UnregisterSignal(X, XENOA_ATTACK)
-
 /datum/xenoartifact_trait/activator/burn
 	desc = "Flammable"
 	label_desc = "Flammable: The material is flamable, and seems to react when ignited."
 	charge = 25
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
+	signals = list(COMSIG_PARENT_ATTACKBY)
 
 /datum/xenoartifact_trait/activator/burn/on_init(obj/item/xenoartifact/X)
 	. = ..()
 	X.max_range += 1
-	RegisterSignal(X, XENOA_ATTACKBY, .proc/calculate_charge)
 
 /datum/xenoartifact_trait/activator/burn/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
@@ -91,23 +117,16 @@
 		X.process_type = IS_LIT
 		START_PROCESSING(SSobj, X)
 
-/datum/xenoartifact_trait/activator/burn/on_del(obj/item/xenoartifact/X)
-	. = ..()
-	UnregisterSignal(X, XENOA_ATTACKBY)
-
 /datum/xenoartifact_trait/activator/clock
 	label_name = "Tuned"
 	label_desc = "Tuned: The material produces a resonance pattern similar to quartz, causing it to produce a reaction every so often."
 	charge = 25
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/capacitive)
+	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_ITEM_ATTACK, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT)
 
 /datum/xenoartifact_trait/activator/clock/on_init(obj/item/xenoartifact/X)
 	. = ..()
 	X.max_range += 1
-	RegisterSignal(X, XENOA_INTERACT, .proc/calculate_charge)
-	RegisterSignal(X, XENOA_ATTACKBY, .proc/calculate_charge)
-	RegisterSignal(X, XENOA_THROW_IMPACT, .proc/calculate_charge)
-	RegisterSignal(X, XENOA_ATTACK, .proc/calculate_charge)
 
 /datum/xenoartifact_trait/activator/clock/on_item(obj/item/xenoartifact/X, atom/user, atom/item) 
 	if(istype(item, /obj/item/clothing/neck/stethoscope))
@@ -120,17 +139,11 @@
 	X.process_type = IS_TICK
 	START_PROCESSING(SSobj, X)
 
-/datum/xenoartifact_trait/activator/clock/on_del(obj/item/xenoartifact/X)
-	. = ..()
-	UnregisterSignal(X, XENOA_INTERACT)
-	UnregisterSignal(X, XENOA_ATTACKBY)
-	UnregisterSignal(X, XENOA_THROW_IMPACT)
-	UnregisterSignal(X, XENOA_ATTACK)
-
 /datum/xenoartifact_trait/activator/signal
 	label_name = "Signal"
 	label_desc = "Signal: The material recieves radio frequencies and reacts when a matching code is delivered."
 	charge = 25
+	signals = list(XENOA_SIGNAL)
 
 /datum/xenoartifact_trait/activator/signal/on_init(obj/item/xenoartifact/X)
 	. = ..()
@@ -138,8 +151,6 @@
 	X.frequency = FREQ_SIGNALER
 	X.set_frequency(X.frequency)
 	X.max_range += 1
-	X = X
-	RegisterSignal(X, XENOA_SIGNAL, .proc/calculate_charge)
 
 /datum/xenoartifact_trait/activator/signal/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/analyzer))
@@ -153,19 +164,14 @@
 	var/obj/item/xenoartifact/X = source
 	X.default_activate(charge, user, target)
 
-/datum/xenoartifact_trait/activator/signal/on_del(obj/item/xenoartifact/X)
-	. = ..()
-	UnregisterSignal(X, XENOA_SIGNAL)
-
 /datum/xenoartifact_trait/activator/batteryneed
 	desc = "Charged"
 	label_desc = "Charged: The material has a natural power draw. Supplying any current to this will cause a reaction."
 	charge = 25
+	signals = list(COMSIG_PARENT_ATTACKBY)
 
 /datum/xenoartifact_trait/activator/batteryneed/on_init(obj/item/xenoartifact/X)
 	. = ..()
-	X = X
-	RegisterSignal(X, XENOA_ATTACKBY, .proc/calculate_charge)
 
 /datum/xenoartifact_trait/activator/batteryneed/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/multitool))
@@ -179,11 +185,6 @@
 	var/obj/item/stock_parts/cell/C = thing
 	if(X.default_activate(charge, user, user))
 		C.charge -= X.charge_req*10
-
-/datum/xenoartifact_trait/activator/batteryneed/on_del(obj/item/xenoartifact/X)
-	. = ..()
-	UnregisterSignal(X, XENOA_ATTACKBY)
-	qdel(src)
 
 //Minor traits - Some of these can be good but, don't forget to just have a bunch of lame ones too
 

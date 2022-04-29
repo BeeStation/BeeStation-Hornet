@@ -112,16 +112,11 @@
 		return
 	SEND_SIGNAL(src, XENOA_INTERACT, null, user, user)
 
-/obj/structure/xenoartifact/throw_impact(atom/target, mob/user)
-	. = ..()
-	SEND_SIGNAL(src, XENOA_THROW_IMPACT, null, user, target)
-
 /obj/structure/xenoartifact/attackby(obj/item/I, mob/living/user, params)
 	for(var/datum/xenoartifact_trait/T in traits)
 		T.on_item(src, user, I)
 	if(!(COOLDOWN_FINISHED(src, xenoa_cooldown))||user?.a_intent == INTENT_GRAB||istype(I, /obj/item/xenoartifact_label)||istype(I, /obj/item/xenoartifact_labeler))
 		return
-	SEND_SIGNAL(src, XENOA_ATTACKBY, I, user, user)
 	..()
 
 /*

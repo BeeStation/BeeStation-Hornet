@@ -150,21 +150,12 @@
 		return
 	SEND_SIGNAL(src, XENOA_INTERACT, null, user, user)
 
-/obj/item/xenoartifact/afterattack(atom/target, mob/user, proximity)
-	. = ..()
-	SEND_SIGNAL(src, XENOA_ATTACK, src, user, target)
-
 /obj/item/xenoartifact/attackby(obj/item/I, mob/living/user, params)
 	for(var/datum/xenoartifact_trait/T in traits)
 		T.on_item(src, user, I)
 	if(!(COOLDOWN_FINISHED(src, xenoa_cooldown))||user?.a_intent == INTENT_GRAB||istype(I, /obj/item/xenoartifact_label)||istype(I, /obj/item/xenoartifact_labeler))
 		return
-	SEND_SIGNAL(src, XENOA_ATTACKBY, I, user, user)
 	..()
-
-/obj/item/xenoartifact/throw_impact(atom/target, mob/user)
-	. = ..()
-	SEND_SIGNAL(src, XENOA_THROW_IMPACT, null, user, target)
 
 /*
 	check_charge() is essentially what runs all the minor, major, and malf trait activations. 
@@ -337,13 +328,13 @@
 /obj/item/xenoartifact/receive_signal(datum/signal/signal)
 	if(!signal || signal.data["code"] != code)
 		return
-	SEND_SIGNAL(src, XENOA_SIGNAL, null, get_proximity(max_range), get_proximity(max_range))
+	SEND_SIGNAL(src, XENOA_SIGNAL, null, get_proximity(max_range), get_proximity(max_range)) //I don't think this sends a signal
 
 /obj/item/xenoartifact/on_block(mob/living/carbon/human/owner, atom/movable/hitby)
 	. = ..()
 	if(!(COOLDOWN_FINISHED(src, xenoa_cooldown)) || !get_trait(/datum/xenoartifact_trait/minor/blocking))
 		return
-	SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, src, owner, hitby)
+	SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, src, owner, hitby) //I don't think this sends a signal
 
 /obj/item/xenoartifact/process(delta_time)
 	switch(process_type)

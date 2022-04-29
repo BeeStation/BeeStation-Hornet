@@ -551,8 +551,6 @@
 #define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
 
 //Xenoartifact signals. These all have the same format in Xenoartifact.DM. It's for a good reason, don't lynch them.
-#define XENOA_INTERACT "xenoa_interact" //This goes for all (item, user, target)
-#define XENOA_THROW_IMPACT "xenoa_throw"
-#define XENOA_ATTACK "xenoa_attack"
+#define XENOA_DEFAULT_SIGNAL "xenoa_default_signal" //Used for xenoartifact signal handlers
+#define XENOA_INTERACT "xenoa_interact" //I don't believe there is currently a signal associated with item/interact() 29-4-22
 #define XENOA_SIGNAL "xenoa_signal"
-#define XENOA_ATTACKBY "xenoa_attackby" //defining my own so I dont fuck anything up with COMSIG_PARENT_ATTACKBY
