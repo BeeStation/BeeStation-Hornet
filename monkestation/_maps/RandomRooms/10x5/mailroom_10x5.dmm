@@ -47,16 +47,11 @@
 	dir = 4;
 	desc = "Ahh, that's the ticket."
 	},
-/obj/item/toy/plush/moth{
-	pixel_x = 3;
-	pixel_y = -6;
-	name = "Tyria Plushie";
-	desc = "Wow! It's a limited edition Tyria Arctiinae plush! Wait, who even is that?"
-	},
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/item/toy/plush/moth/tyriaplushie,
 /turf/open/floor/wood,
 /area/template_noop)
 "h" = (
