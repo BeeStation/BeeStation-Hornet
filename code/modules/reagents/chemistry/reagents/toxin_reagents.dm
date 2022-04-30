@@ -172,6 +172,7 @@
 	silent_toxin = TRUE
 	reagent_state = SOLID
 	color = "#669900" // rgb: 102, 153, 0
+	taste_mult = 0.1
 	toxpwr = 0
 	taste_description = "death"
 
@@ -306,25 +307,6 @@
 			M.adjustToxLoss((current_cycle - 50)*REM, 0)
 			. = 1
 	..()
-
-/datum/reagent/toxin/fakebeer	//disguised as normal beer for use by emagged brobots
-	name = "Beer"
-	description = "A specially-engineered sedative disguised as beer. It induces instant sleep in its target."
-	color = "#664300" // rgb: 102, 67, 0
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM
-	taste_description = "piss water"
-	glass_icon_state = "beerglass"
-	glass_name = "glass of beer"
-	glass_desc = "A freezing pint of beer."
-
-/datum/reagent/toxin/fakebeer/on_mob_life(mob/living/carbon/M)
-	switch(current_cycle)
-		if(1 to 50)
-			M.Sleeping(40, 0)
-		if(51 to INFINITY)
-			M.Sleeping(40, 0)
-			M.adjustToxLoss((current_cycle - 50)*REM, 0)
-	return ..()
 
 /datum/reagent/toxin/coffeepowder
 	name = "Coffee Grounds"
