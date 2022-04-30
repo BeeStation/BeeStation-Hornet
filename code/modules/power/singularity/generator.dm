@@ -8,6 +8,7 @@
 	density = TRUE
 	use_power = NO_POWER_USE
 	resistance_flags = FIRE_PROOF
+	processing_flags = START_PROCESSING_MANUALLY // lets not do any processing when we do not have anything to do
 
 	// You can buckle someone to the singularity generator, then start the engine. Fun!
 	can_buckle = TRUE
@@ -25,6 +26,10 @@
 
 /obj/machinery/the_singularitygen/bullet_act(obj/item/projectile/energy/accelerated_particle/P, def_zone, piercing_hit = FALSE)
 	if(istype(P))
+		if(energy <= 0) // we want to first add the energy then start processing so we do not immidiatly stop processing again
+			energy += P.energy
+			begin_processing()
+			return
 		energy += P.energy
 	else
 		. = ..()
@@ -39,3 +44,6 @@
 			qdel(src)
 		else
 			energy -= delta_time * 0.5
+	else
+		end_processing()
+		energy = 0
