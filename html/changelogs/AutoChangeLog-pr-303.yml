@@ -1,0 +1,4 @@
+author: lmenvs
+delete-after: true
+changes:
+  - bugfix: Examine / Flavor text now properly shows up on players.
