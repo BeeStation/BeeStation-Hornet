@@ -1322,7 +1322,7 @@
 	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because stimulum/nitryl are handled through gas breathing, metabolism must be lower for breathcode to keep up
 	color = "E1A116"
 	taste_description = "sourness"
-	var/warn = 0
+	var/warned = 0
 
 /datum/reagent/stimulum/on_mob_metabolize(mob/living/L)
 	..()
@@ -1345,9 +1345,9 @@
 /datum/reagent/stimulum/on_mob_life(mob/living/carbon/M)
 	M.adjustStaminaLoss(-2*REM, 0)
 	M.losebreath += (current_cycle*0.05) // gradually builds up suffocation, will not be noticable for several ticks but effects will linger afterwards
-	if(M.losebreath > 2 && !warn)
+	if(M.losebreath > 2 && !warned)
 		M.visible_message("<span class='danger'>You feel like you can't breathe!</span>")
-		warn++
+		warned++
 	..()
 
 /datum/reagent/nitryl
