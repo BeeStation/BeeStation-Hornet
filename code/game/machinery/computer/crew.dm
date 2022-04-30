@@ -137,16 +137,27 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 	var/list/results = list()
 
-	for(var/mob/living/carbon/human/H as() in GLOB.suit_sensors_list)
-		if(!H)
+	for(var/tracked_mob in GLOB.suit_sensors_list)
+		if(!tracked_mob)
 			stack_trace("Null reference in suit sensors list")
-			GLOB.suit_sensors_list -= H
-
-		var/turf/pos = get_turf(H)
-		if(!pos)
+			GLOB.suit_sensors_list -= tracked_mob
 			continue
 
-		var/virtual_z_level = H.get_virtual_z_level()
+		var/mob/living/tracked_living_mob = tracked_mob
+
+		var/turf/pos = get_turf(tracked_living_mob)
+		if(!pos)
+			stack_trace("Tracked mob has no loc and is likely in nullspace: [tracked_living_mob] ([tracked_living_mob.type])")
+			continue
+
+		var/mob/living/carbon/human/tracked_human = tracked_living_mob
+
+		// Check their humanity.
+		if(!ishuman(tracked_human))
+			stack_trace("Non-human mob is in suit_sensors_list: [tracked_human] ([tracked_human.type])")
+			continue
+
+		var/virtual_z_level = tracked_human.get_virtual_z_level()
 
 		// Check if their virtual z-level is correct or in case it isn't
 		// check if they are on station's 'real' z-level
@@ -155,27 +166,32 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 		// Determine if this person is using nanites for sensors,
 		// in which case the sensors are always set to full detail
-		var/nanite_sensors = HAS_TRAIT(H, TRAIT_NANITE_SENSORS)
+		var/nanite_sensors = HAS_TRAIT(tracked_human, TRAIT_NANITE_SENSORS)
 
 		// Check for a uniform if not using nanites
-		var/obj/item/clothing/under/uniform = H.w_uniform
+		var/obj/item/clothing/under/uniform = tracked_human.w_uniform
+
+		if (!istype(uniform))
+			stack_trace("Human without a suit sensors compatible uniform is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform?.type])")
+			continue
 
 		// Are the suit sensors on?
-		if (!nanite_sensors && (!uniform?.has_sensor || !uniform?.sensor_mode))
+		if (!nanite_sensors && (uniform?.has_sensor <= NO_SENSORS || !uniform?.sensor_mode))
+			stack_trace("Human without active suit sensors is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform.type])")
 			continue
 
 		//	Radio transmitters are jammed
-		if(nanite_sensors ? H.is_jammed() : uniform?.is_jammed())
+		if(nanite_sensors ? tracked_human.is_jammed() : uniform?.is_jammed())
 			continue
 
 		// The entry for this human
 		var/list/entry = list(
-			"ref" = REF(H),
+			"ref" = REF(tracked_human),
 			"name" = "Unknown",
 			"ijob" = UNKNOWN_JOB_ID,
 		)
 
-		var/obj/item/card/id/I = H.wear_id ? H.wear_id.GetID() : null
+		var/obj/item/card/id/I = tracked_human.wear_id ? tracked_human.wear_id.GetID() : null
 
 		if (I)
 			entry["name"] = I.registered_name
@@ -185,21 +201,21 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 		// Binary living/dead status
 		if (nanite_sensors || uniform.sensor_mode >= SENSOR_LIVING)
-			entry["life_status"] = !H.stat
+			entry["life_status"] = !tracked_human.stat
 
 		// Damage
 		if (nanite_sensors || uniform.sensor_mode >= SENSOR_VITALS)
-			entry["oxydam"] = round(H.getOxyLoss(), 1)
-			entry["toxdam"] = round(H.getToxLoss(), 1)
-			entry["burndam"] = round(H.getFireLoss(), 1)
-			entry["brutedam"] = round(H.getBruteLoss(), 1)
+			entry["oxydam"] = round(tracked_human.getOxyLoss(), 1)
+			entry["toxdam"] = round(tracked_human.getToxLoss(), 1)
+			entry["burndam"] = round(tracked_human.getFireLoss(), 1)
+			entry["brutedam"] = round(tracked_human.getBruteLoss(), 1)
 
 		// Area
 		if (pos && (nanite_sensors || uniform.sensor_mode >= SENSOR_COORDS))
-			entry["area"] = get_area_name(H, TRUE)
+			entry["area"] = get_area_name(tracked_human, TRUE)
 
 		// Trackability
-		entry["can_track"] = H.can_track()
+		entry["can_track"] = tracked_human.can_track()
 
 		results[++results.len] = entry
 
