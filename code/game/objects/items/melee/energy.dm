@@ -139,7 +139,7 @@
 
 /obj/item/melee/transforming/energy/sword/cyborg
 	sword_color = "red"
-	var/hitcost = 300
+	var/hitcost = 150
 
 /obj/item/melee/transforming/energy/sword/cyborg/attack(mob/M, var/mob/living/silicon/robot/R)
 	if(R.cell)

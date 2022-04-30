@@ -176,10 +176,11 @@
 	toxpwr = 0
 	taste_description = "death"
 
+
 /datum/reagent/toxin/zombiepowder/on_mob_life(mob/living/carbon/M)
 	if(current_cycle >= 10) // delayed activation for toxin
 		M.adjustStaminaLoss((current_cycle - 5)*REM, 0)
-	if(M.getStaminaLoss() >= 145) // fake death tied to stamina for interesting interactions - 23 ticks to fake death with pure ZP
+	if(M.getStaminaLoss() >= 145 && !HAS_TRAIT(M, TRAIT_FAKEDEATH)) // fake death tied to stamina for interesting interactions - 23 ticks to fake death with pure ZP
 		M.fakedeath(type)
 	..()
 
