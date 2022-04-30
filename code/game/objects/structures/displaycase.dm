@@ -21,6 +21,7 @@
 	var/security_level_locked = SEC_LEVEL_GREEN 
 	///If we have a custom glass overlay to use.
 	var/custom_glass_overlay = FALSE 
+
 	var/obj/item/electronics/airlock/electronics
 	///add type for items on display
 	var/start_showpiece_type = null 
