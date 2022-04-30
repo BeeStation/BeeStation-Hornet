@@ -176,18 +176,18 @@
 		icon_overlay.color = colour
 	add_overlay(icon_overlay)
 
-/obj/structure/xenoartifact/proc/process_target(atom/target) //Hand holding is the best defence
+/obj/item/xenoartifact/proc/process_target(atom/target)
 	. = target
 	var/mob/living/M
 	if(isliving(target))
 		M = target
 		. = M
-	else if(isliving(target.loc))
+	if(isliving(target?.loc))
 		M = target.loc
 		. = M
-	if(M.pulling)
+	if(M?.pulling)
 		. = M.pulling
-	RegisterSignal(., COMSIG_PARENT_QDELETING, .proc/on_target_del, .)
+	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/on_target_del, target)
 	return
 
 /obj/structure/xenoartifact/proc/on_target_del(atom/target)

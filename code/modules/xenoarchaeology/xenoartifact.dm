@@ -30,7 +30,7 @@
 	var/cooldownmod = 0 //Extra time traits can add to the cooldown
 	COOLDOWN_DECLARE(xenoa_cooldown)
 
-	var/list/icon_slots[4] //Associated with random sprite stuff. [4] is the easiest way to avoid runtimes.
+	var/list/icon_slots[4] //Associated with random sprite stuff. It's setup as [4] so it's easier to check for slots being assigned by traits and such.
 	var/mutable_appearance/icon_overlay 
 
 	var/malfunction_chance //Everytime the artifact is used this increases. When this is successfully proc'd the artifact gains a malfunction and this is lowered. 
