@@ -176,7 +176,7 @@
 		icon_overlay.color = colour
 	add_overlay(icon_overlay)
 
-/obj/item/xenoartifact/proc/process_target(atom/target)
+/obj/structure/xenoartifact/proc/process_target(atom/target)
 	. = target
 	var/mob/living/M
 	if(isliving(target))
