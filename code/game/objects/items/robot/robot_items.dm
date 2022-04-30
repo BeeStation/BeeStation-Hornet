@@ -981,3 +981,10 @@
 	if(stored)
 		. += "You are currently holding [stored]."
 		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
+
+
+/obj/item/borg/apparatus/beaker/service/Initialize()
+	. = ..()
+	stored = new /obj/item/reagent_containers/food/drinks/drinkingglass(src)
+	RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, /atom/.proc/update_icon)
+	update_icon()

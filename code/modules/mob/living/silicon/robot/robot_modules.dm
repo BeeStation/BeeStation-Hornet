@@ -528,7 +528,6 @@
 /obj/item/robot_module/butler
 	name = "Service"
 	basic_modules = list(
-		/obj/item/reagent_containers/food/drinks/drinkingglass,
 		/obj/item/pen,
 		/obj/item/toy/crayon/spraycan/borg,
 		/obj/item/extinguisher/mini,
@@ -540,7 +539,7 @@
 		/obj/item/instrument/piano_synth,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/lighter,
-		/obj/item/borg/apparatus/beaker/service,
+		/obj/item/borg/apparatus/beaker/service,    //now contains a drinking glass instead of a beaker. The loose drinking glass was bugged to hell anyway.
 		/obj/item/reagent_containers/borghypo/borgshaker,
 		/obj/item/weldingtool/cyborg)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/borgshaker/hacked)
