@@ -1,6 +1,6 @@
 /area/holodeck
 	name = "Holodeck"
-	icon_state = "Holodeck"
+	icon_state = "holodeck"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	flags_1 = NONE
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA

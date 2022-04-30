@@ -111,7 +111,7 @@
 	var/is_zombie = FALSE
 	var/list/disease = list()
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
-	var/in_movement //only for rally command so blob spores will stop chasing after that one guy and get to the rally point
+	var/movement_proc_query //keeps track of the proccals of goto so we know what proc instance got called last
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
@@ -211,11 +211,15 @@
 		color = initial(color)//looks better.
 		add_overlay(blob_head_overlay)
 
-/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, minimum_distance, rally, current_tries)
+/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, minimum_distance, current_tries, p_proc_id)
+	set waitfor = FALSE
 	var/movement_steps = 0
-	if(rally)
-		in_movement = TRUE
-
+	var/query_position
+	if(p_proc_id) //incase we get another additional proccal just before a old proc returns to call itself again so we do not loose track of the position in the query
+		query_position = p_proc_id //when this proc gets called by another instance of it forward the old place in the line so we can keep track of it
+	else
+		movement_proc_query++
+		query_position = movement_proc_query //so we remember the position of the proccall
 	if(target == src.target)
 		approaching_target = TRUE
 	else
@@ -225,7 +229,7 @@
 	if(length(path_list)) //appearantly the solution of using ? infront of the index only works for assoc lists
 		goal_turf = path_list[path_list.len]
 	for(var/w in path_list)
-		if(in_movement && !rally) //incase the spore is already chasing something like a player but the rally command is called
+		if(movement_proc_query > query_position) //incase the spore is already chasing something but something else calls the proc again
 			return
 		movement_steps++
 		if(ismob(target) && w == goal_turf) //if we are infront of the mob lets not keep on pushing
@@ -233,16 +237,15 @@
 		sleep(delay)
 		step(src, get_dir(src, w))
 		if(get_turf(src) != w) //in case someone decides to push the spore or something else unexpectedly hinders it
-			in_movement = FALSE
 			if(current_tries >= 20)	//In case we get catched in a endless loop for reasons
-				return
+				break
 			else
-				return Goto(target, delay, minimum_distance, rally, current_tries + 1)
+				return Goto(target, delay, current_tries = (current_tries + 1), p_proc_id = query_position)
 		if(ismob(target) && !(get_turf(target) == goal_turf)) //Incase the target mob decides to move so we don't just run towards it's original location
 			if(get_dist(path_list[1], get_turf(target)) >= 20)
 				break
 			else
-				return Goto(target, delay, minimum_distance, rally)
+				return Goto(target, delay, p_proc_id = query_position)
 
 	if(!movement_steps) //pathfinding fallback in case we cannot find a valid path at the first attempt
 		var/ln = get_dist(src, target)
@@ -264,18 +267,17 @@
 						break find_target
 			found_blocker = FALSE
 			for(var/w in get_path_to(src, target_new))
-				if(in_movement && !rally)
+				if(movement_proc_query > query_position)
 					return
 				movement_steps++
 				sleep(delay)
 				step(src, get_dir(src, w))
 				if(get_turf(src) != w)
-					in_movement = FALSE
 					if(current_tries >= 20)
-						return
+						break
 					else
-						return Goto(target, delay, rally, (current_tries + 1))
-	in_movement = FALSE
+						return Goto(target, delay, current_tries = (current_tries + 1), p_proc_id = query_position)
+	movement_proc_query = 0 // We only null this if its an actual death end not if the proc gets canceled by another proc call of the same proc
 
 /mob/living/simple_animal/hostile/blob/blobspore/weak
 	name = "fragile blob spore"

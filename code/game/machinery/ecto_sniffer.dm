@@ -19,21 +19,26 @@
 	wires = new/datum/wires/ecto_sniffer(src)
 
 /obj/machinery/ecto_sniffer/attack_ghost(mob/user)
-	. = ..()
 	if(!on || !sensor_enabled || !is_operational())
 		return
 
 	if(ectoplasmic_residues[user.ckey])
+		to_chat(user, "<span class='warning'>You must wait for your ectoplasmic residue to decay off of [src]'s sensors!</span>")
+		return
+
+	if(is_banned_from(user.ckey, ROLE_POSIBRAIN))
+		to_chat(user, "<span class='warning'>Central Command outlawed your soul from interacting with the living...</span>")
 		return
 	activate(user)
 
 /obj/machinery/ecto_sniffer/proc/activate(mob/activator)
 	flick("ecto_sniffer_flick", src)
 	playsound(loc, 'sound/machines/ectoscope_beep.ogg', 25)
+	visible_message("<span class='notice'>[src] beeps, detecting ectoplasm! There may be additional positronic brain matrixes available!</span>")
 	use_power(10)
 	if(activator?.ckey)
 		ectoplasmic_residues[activator.ckey] = TRUE
-		addtimer(CALLBACK(src, .proc/clear_residue, activator.ckey), 15 SECONDS)
+		addtimer(CALLBACK(src, .proc/clear_residue, activator.ckey), 30 SECONDS)
 
 /obj/machinery/ecto_sniffer/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
@@ -52,9 +57,7 @@
 
 
 /obj/machinery/ecto_sniffer/wrench_act(mob/living/user, obj/item/tool)
-	tool.play_tool_sound(src, 15)
-	setAnchored(!anchored)
-	balloon_alert(user, "sniffer [anchored ? "anchored" : "unanchored"]")
+	return default_unfasten_wrench(user, tool)
 
 /obj/machinery/ecto_sniffer/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()

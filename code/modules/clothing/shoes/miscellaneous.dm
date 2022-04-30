@@ -148,6 +148,19 @@
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
+/obj/item/clothing/shoes/winterboots/noslip
+	name = "high-traction winter boots"
+	desc = "Boots lined with 'synthetic' animal fur and coated with a special freeze resistant anti-slip coating."
+
+/obj/item/clothing/shoes/winterboots/noslip/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_FEET)
+		ADD_TRAIT(user, TRAIT_NOSLIPALL, CLOTHING_FEET_TRAIT)
+
+/obj/item/clothing/shoes/winterboots/noslip/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_NOSLIPALL, CLOTHING_FEET_TRAIT)
+
 /obj/item/clothing/shoes/workboots
 	name = "work boots"
 	desc = "Nanotrasen-issue Engineering lace-up work boots for the especially blue-collar."
