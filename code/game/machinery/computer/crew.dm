@@ -171,7 +171,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		// Check for a uniform if not using nanites
 		var/obj/item/clothing/under/uniform = tracked_human.w_uniform
 
-		if (!istype(uniform))
+		if (!nanite_sensors && !istype(uniform))
 			stack_trace("Human without a suit sensors compatible uniform is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform?.type])")
 			continue
 
