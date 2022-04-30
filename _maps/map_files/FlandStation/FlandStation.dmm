@@ -22876,6 +22876,9 @@
 	pixel_y = 2
 	},
 /obj/item/mmi,
+/obj/item/assembly/flash/handheld,
+/obj/item/assembly/flash/handheld,
+/obj/item/assembly/flash/handheld,
 /obj/item/surgical_drapes,
 /obj/item/storage/box/bodybags{
 	pixel_x = 2;
