@@ -254,17 +254,17 @@
 		if(M.flash_act(1, 1))
 			if(user)
 				terrible_conversion_proc(M, user)
-				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
-				to_chat(user, "<span class='danger'>You blind [M] with the flash!</span>")
-				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
+				visible_message("<span class='disarm'>[user] blinds [M] with a flash of light!</span>")
+				to_chat(user, "<span class='danger'>You blind [M] with a flash of light!</span>")
+				to_chat(M, "<span class='userdanger'>[user] blinds you with a flash of light!</span>")
 			else
 				to_chat(M, "<span class='userdanger'>You are blinded by [src]!</span>")
 			M.Paralyze(70)
 
 		else if(user)
-			visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
-			to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
-			to_chat(M, "<span class='danger'>[user] fails to blind you with the flash!</span>")
+			visible_message("<span class='disarm'>[user] fails to blind [M] with a flash of light!</span>")
+			to_chat(user, "<span class='warning'>You fail to blind [M] with a flash of light!</span>")
+			to_chat(M, "<span class='danger'>[user] fails to blind you with a flash of light!</span>")
 		else
 			to_chat(M, "<span class='danger'>[src] fails to blind you!</span>")
 	else

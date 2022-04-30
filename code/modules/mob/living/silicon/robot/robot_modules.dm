@@ -395,7 +395,7 @@
 		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/clothing/mask/gas/sechailer/cyborg,
 		/obj/item/extinguisher/mini,
-		/obj/item/weldingtool/cyborg)
+		/obj/item/weldingtool/cyborg)					// Likewise added this in case the module sees the light of day again. 
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,
