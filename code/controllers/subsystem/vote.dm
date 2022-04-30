@@ -90,8 +90,11 @@ SUBSYSTEM_DEF(vote)
 					else
 						factor = 1.4
 				choices["Initiate Crew Transfer"] += round(non_voters.len * factor)
-	//get all options with that many votes and return them in a list
 	. = list()
+	if(mode == "map")
+		. += pickweight(choices) //map is chosen by drawing votes from a hat, instead of automatically going to map with the most votes. 
+		return .
+	//get all options with that many votes and return them in a list
 	if(greatest_votes)
 		for(var/option in choices)
 			if(choices[option] == greatest_votes)
