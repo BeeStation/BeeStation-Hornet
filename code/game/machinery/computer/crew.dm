@@ -180,8 +180,8 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			stack_trace("Human without active nanite and suit sensors is in suit_sensors_list: [tracked_human] ([tracked_human.type]) ([uniform.type])")
 			continue
 
-		//	Radio transmitters are jammed
-		if(nanite_sensors ? tracked_human.is_jammed() : uniform?.is_jammed())
+		// Radio transmitters are jammed
+		if(tracked_human.is_jammed())
 			continue
 
 		// The entry for this human
