@@ -169,7 +169,7 @@
 	if(!ishuman(loc) || istype(loc, /mob/living/carbon/human/dummy))
 		return
 
-	if(has_sensor && sensor_mode > SENSOR_OFF)
+	if(has_sensor >= HAS_SENSORS && sensor_mode > SENSOR_OFF)
 		if(HAS_TRAIT(loc, TRAIT_SUIT_SENSORS))
 			return
 		ADD_TRAIT(loc, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
