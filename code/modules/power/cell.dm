@@ -24,8 +24,8 @@
 	var/self_recharge = FALSE
 	///stores the chargerate to restore when hit with EMP, for slime cores
 	var/emp_chargerate_save
-	///EMP counter, so that emp effects don't end early when EMPs are stacked
-	var/emp_counter = 0
+	///Timer for EMPs so that recharging cells know when to start charging again. 
+	var/emp_timer = 0
 	var/ratingdesc = TRUE
 	/// If it's a grown that acts as a battery, add a wire overlay to it.
 	var/grown_battery = FALSE 
@@ -62,6 +62,11 @@
 		give(chargerate * 0.125 * delta_time)
 	else
 		return PROCESS_KILL
+	if(emp_timer)
+		emp_timer -= delta_time
+		if(emp_timer <= 0)
+			emp_timer = 0
+			chargerate = emp_chargerate_save
 
 /obj/item/stock_parts/cell/update_icon()
 	cut_overlays()
@@ -149,14 +154,10 @@
 		if(chargerate)
 			emp_chargerate_save = chargerate
 			chargerate = 0
-		emp_counter++
-		addtimer(CALLBACK(src, .proc/end_emp_effect, emp_counter), 300)
-		
+		emp_timer += 300		//30 seconds
+		if(emp_timer > 300)		//don't let the effect stack beyond 30 seconds
+			emp_timer = 300
 	
-/obj/item/stock_parts/cell/proc/end_emp_effect(current_emp)
-	if(current_emp != emp_counter)
-		return
-	chargerate = emp_chargerate_save
 
 /obj/item/stock_parts/cell/ex_act(severity, target)
 	..()
