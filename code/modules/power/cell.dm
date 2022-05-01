@@ -21,7 +21,7 @@
 	///how much power is given every tick in a recharger
 	var/chargerate = 100 
 	///does it self recharge, over time, or not?
-	var/self_recharge = 0 
+	var/self_recharge = FALSE
 	///stores the chargerate to restore when hit with EMP, for slime cores
 	var/emp_chargerate_save
 	///EMP counter, so that emp effects don't end early when EMPs are stacked
