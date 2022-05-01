@@ -94,13 +94,6 @@
 	required_reagents = list(/datum/reagent/toxin/formaldehyde = 1, /datum/reagent/sodium = 1, /datum/reagent/chlorine = 1, /datum/reagent/lithium = 1)
 	mix_message = "<span class='danger'>The mixture thins and loses all color.</span>"
 
-/datum/chemical_reaction/rotatium
-	name = "Rotatium"
-	id = "Rotatium"
-	results = list(/datum/reagent/toxin/rotatium = 3)
-	required_reagents = list(/datum/reagent/toxin/mindbreaker = 1, /datum/reagent/teslium = 1, /datum/reagent/toxin/fentanyl = 1)
-	mix_message = "<span class='danger'>After sparks, fire, and the smell of mindbreaker, the mix is constantly spinning with no stop in sight.</span>"
-
 /datum/chemical_reaction/anacea
 	name = "Anacea"
 	id = /datum/reagent/toxin/anacea
