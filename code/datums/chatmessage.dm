@@ -22,6 +22,16 @@
 #define CHAT_MESSAGE_ICON_SIZE		7
 /// How much the message moves up before fading out.
 #define MESSAGE_FADE_PIXEL_Y 10
+/// Approximation of char width in px
+#define CHAR_WIDTH(x, size) x * 0.001 * size
+/// Approximation of the height
+#define APPROX_HEIGHT(font_size, lines) font_size * 1.7 * lines
+/// Default font size (defined in skin.dmf)
+#define DEFAULT_FONT_SIZE 7
+/// Big font size, used by megaphones and such
+#define BIG_FONT_SIZE 9
+/// Small font size, used mostly by whispering
+#define WHISPER_FONT_SIZE 6
 
 // Message types
 #define CHATMESSAGE_CANNOT_HEAR 0
@@ -68,10 +78,6 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	var/eol_complete
 	/// Contains the approximate amount of lines for height decay
 	var/approx_lines
-	/// Contains the reference to the next chatmessage in the bucket, used by runechat subsystem
-	var/datum/chatmessage/next
-	/// Contains the reference to the previous chatmessage in the bucket, used by runechat subsystem
-	var/datum/chatmessage/prev
 	/// The current index used for adjusting the layer of each sequential chat message such that recent messages will overlay older ones
 	var/static/current_z_idx = 0
 	/// Color of the message
@@ -80,6 +86,90 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	var/fadertimer = null
 	/// States if end_of_life is being executed
 	var/isFading = FALSE
+	/// List of most characters in the font. DO NOT CHANGE IT. ESPECIALLY VAREDIT.
+	var/static/list/letters = list(
+		" " = 222,
+		"." = 222,
+		"," = 222,
+		"?" = 556,
+		"!" = 222,
+		"\"" = 444,
+		"/" = 333,
+		"$" = 667,
+		"(" = 333,
+		")" = 333,
+		"@" = 1000,
+		"=" = 556,
+		":" = 222,
+		"'" = 222,
+		";" = 222,
+		"+" = 444,
+		"-" = 333,
+		"\\" = 333,
+		"<" = 556,
+		">" = 556,
+		"&" = 667,
+		"*" = 333,
+		"%" = 778,
+		"^" = 444,
+		"{" = 333,
+		"}" = 333,
+		"|" = 222,
+		"~" = 556,
+		"`" = 333,
+		"A" = 889,
+		"B" = 778,
+		"C" = 667,
+		"D" = 778,
+		"E" = 667,
+		"F" = 667,
+		"G" = 778,
+		"H" = 778,
+		"I" = 444,
+		"J" = 556,
+		"K" = 778,
+		"L" = 556,
+		"M" = 1000,
+		"N" = 778,
+		"O" = 778,
+		"P" = 667,
+		"Q" = 778,
+		"R" = 667,
+		"S" = 556,
+		"T" = 556,
+		"U" = 667,
+		"V" = 778,
+		"W" = 778,
+		"X" = 778,
+		"Y" = 778,
+		"Z" = 556,
+		"a" = 556,
+		"b" = 556,
+		"c" = 556,
+		"d" = 556,
+		"e" = 556,
+		"f" = 556,
+		"g" = 556,
+		"h" = 556,
+		"i" = 222,
+		"j" = 222,
+		"k" = 556,
+		"l" = 222,
+		"m" = 889,
+		"n" = 556,
+		"o" = 556,
+		"p" = 556,
+		"q" = 556,
+		"r" = 333,
+		"s" = 444,
+		"t" = 333,
+		"u" = 556,
+		"v" = 556,
+		"w" = 667,
+		"x" = 556,
+		"y" = 556,
+		"z" = 444
+	)
 
 /**
   * Constructs a chat message overlay
@@ -95,7 +185,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	. = ..()
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
-	INVOKE_ASYNC(src, .proc/generate_image, text, target, hearers, language_icon, extra_classes, lifespan)
+	generate_image(text, target, hearers, language_icon, extra_classes, lifespan)
 
 /datum/chatmessage/Destroy()
 	if (hearers)
@@ -205,6 +295,13 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		LAZYADD(prefixes, "\icon[r_icon]")
 		tgt_color = COLOR_CHAT_EMOTE
 
+	// Determine the font size
+	var/font_size = DEFAULT_FONT_SIZE
+	if (extra_classes.Find("megaphone"))
+		font_size = BIG_FONT_SIZE
+	else if (extra_classes.Find("italics"))
+		font_size = WHISPER_FONT_SIZE
+
 	// Append language icon if the language uses one
 	var/datum/language/language_instance = GLOB.language_datum_instances[language]
 	if (language_instance?.display_icon(first_hearer.mob))
@@ -220,8 +317,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	// Approximate text height
 	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[text]</span>"
-	var/mheight = WXH_TO_HEIGHT(first_hearer.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
-	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
+	approx_lines = CEILING(approx_str_width(text, font_size) / CHAT_MESSAGE_WIDTH, 1)
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
 	message_loc = get_atom_on_turf(target)
@@ -231,7 +327,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		for(var/datum/chatmessage/m as() in message_loc.chat_messages)
 			if(!m?.message)
 				continue
-			animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME)
+			animate(m.message, pixel_y = m.message.pixel_y + APPROX_HEIGHT(font_size, approx_lines), time = CHAT_MESSAGE_SPAWN_TIME)
 			combined_height += m.approx_lines
 
 			// When choosing to update the remaining time we have to be careful not to update the
@@ -262,7 +358,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	message.alpha = 0
 	message.pixel_y = bound_height - MESSAGE_FADE_PIXEL_Y
 	message.maptext_width = CHAT_MESSAGE_WIDTH
-	message.maptext_height = mheight
+	message.maptext_height = APPROX_HEIGHT(font_size, approx_lines)
 	message.maptext_x = (CHAT_MESSAGE_WIDTH - bound_width) * -0.5
 	if(extra_classes.Find("italics"))
 		message.color = "#CCCCCC"
@@ -501,7 +597,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
 		return
-	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner)
+	generate_image(text, target, owner)
 
 /datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner)
 	// Register client who owns this message
@@ -518,12 +614,14 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	else
 		message_loc = get_atom_on_turf(target)
 
+	approx_lines = CEILING(approx_str_width(text, DEFAULT_FONT_SIZE) / CHAT_MESSAGE_WIDTH, 1)
+
 	// Build message image
 	message = image(loc = message_loc, layer = CHAT_LAYER)
 	message.plane = BALLOON_CHAT_PLANE
 	message.alpha = 0
 	message.maptext_width = BALLOON_TEXT_WIDTH
-	message.maptext_height = WXH_TO_HEIGHT(owned_by?.MeasureText(text, null, BALLOON_TEXT_WIDTH))
+	message.maptext_height = APPROX_HEIGHT(DEFAULT_FONT_SIZE, approx_lines)
 	message.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5
 	message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [tgt_color]'>[text]</span>")
 
@@ -561,6 +659,14 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	var/duration = BALLOON_TEXT_TOTAL_LIFETIME(duration_mult)
 	fadertimer = addtimer(CALLBACK(src, .proc/end_of_life), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 
+/datum/chatmessage/proc/approx_str_width(var/string, var/font_size = DEFAULT_FONT_SIZE)
+	var/value = 0
+	for(var/i in 1 to length(string))
+		var/size = letters[string[i]]
+		if(!size)
+			size = 1000
+		value += CHAR_WIDTH(size, font_size)
+	return value
 
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
@@ -582,3 +688,8 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 #undef CHATMESSAGE_CANNOT_HEAR
 #undef CHATMESSAGE_HEAR
 #undef CHATMESSAGE_SHOW_LANGUAGE_ICON
+#undef CHAR_WIDTH
+#undef APPROX_HEIGHT
+#undef DEFAULT_FONT_SIZE
+#undef BIG_FONT_SIZE
+#undef WHISPER_FONT_SIZE
