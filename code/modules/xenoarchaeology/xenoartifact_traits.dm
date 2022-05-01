@@ -913,17 +913,6 @@
 	. = ..()
 	playsound(get_turf(target), sound, 18, TRUE)
 
-/datum/xenoartifact_trait/major/doll
-	desc = "Plush"
-	label_desc = "The Artifact seems to be sewn and stuffed with cotton. A servicable weapon in any pillow fight."
-
-/datum/xenoartifact_trait/major/doll/activate(obj/item/xenoartifact/X, atom/target, atom/user)
-	. = ..()
-	if(!isliving(target))
-		return
-	var/mob/living/victim = target
-	victim.add_filter("displace", 2, list("type" = "displace", "iv" = "#39ff1430", "size" = 2))
-
 //Malfunctions
 
 /datum/xenoartifact_trait/malfunction/bear //makes bears
