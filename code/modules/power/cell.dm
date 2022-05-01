@@ -154,7 +154,7 @@
 		if(chargerate)
 			emp_chargerate_save = chargerate
 			chargerate = 0
-		emp_timer = 30		//30 seconds
+		emp_timer = 30		// emp_timer is in seconds
 	
 
 /obj/item/stock_parts/cell/ex_act(severity, target)
