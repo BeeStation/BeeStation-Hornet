@@ -19,8 +19,6 @@
 	else
 		return ..()
 
-/obj/item/toy/plush/carpplushie/dehy_carp/plop(obj/item/toy/plush/Daddy)
-	return FALSE
 
 /obj/item/toy/plush/carpplushie/dehy_carp/proc/Swell()
 	desc = "It's growing!"
