@@ -27,8 +27,8 @@
 				RegisterSignal(xenoa, COMSIG_ITEM_ATTACK, .proc/translate_attack)
 			if(COMSIG_MOVABLE_IMPACT)
 				RegisterSignal(xenoa, COMSIG_MOVABLE_IMPACT, .proc/translate_impact)
-			if(COMSIG_MOB_ITEM_AFTERATTACK)
-				RegisterSignal(xenoa, COMSIG_MOB_ITEM_AFTERATTACK, .proc/translate_afterattack)
+			if(COMSIG_ITEM_AFTERATTACK)
+				RegisterSignal(xenoa, COMSIG_ITEM_AFTERATTACK, .proc/translate_afterattack)
 			if(XENOA_INTERACT)
 				RegisterSignal(xenoa, XENOA_INTERACT, .proc/translate_attackby)
 			if(XENOA_SIGNAL)
@@ -42,18 +42,17 @@
 	UnregisterSignal(xenoa, XENOA_DEFAULT_SIGNAL)
 	xenoa = null
 
-/datum/xenoartifact_trait/activator/proc/translate_attackby(datum/source, obj/item/thing, mob/user, atom/target, params)
+/datum/xenoartifact_trait/activator/proc/translate_attackby(datum/source, obj/item/thing, mob/user, params)
 	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, thing, user, user)
 
 /datum/xenoartifact_trait/activator/proc/translate_attack(mob/living/target, mob/living/user)
 	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, user, target)
 
 /datum/xenoartifact_trait/activator/proc/translate_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, throwingdatum, hit_atom)
+	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, hit_atom, throwingdatum) //Weird order to fix this
 
-/datum/xenoartifact_trait/activator/proc/translate_afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	if(!proximity_flag)
-		SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, user, target)
+/datum/xenoartifact_trait/activator/proc/translate_afterattack(atom/target, mob/user, params)
+	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, target, user)//And this
 
 /datum/xenoartifact_trait/minor //Leave these here, for the future.
 
@@ -92,12 +91,12 @@
 	desc = "Sturdy"
 	label_desc = "Sturdy: The material is sturdy, striking it against the clown's skull seems to cause a unique reaction."
 	charge = 25
-	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_ITEM_ATTACK, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT, COMSIG_MOB_ITEM_AFTERATTACK)
+	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT, COMSIG_ITEM_AFTERATTACK)
 
 /datum/xenoartifact_trait/activator/impact/on_init(obj/item/xenoartifact/X)
 	. = ..()
 
-/datum/xenoartifact_trait/activator/impact/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
+/datum/xenoartifact_trait/activator/impact/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target)
 	var/obj/item/xenoartifact/X = source
 	charge = charge*(thing?.force*0.1)
 	X.default_activate(charge, user, target)
@@ -127,7 +126,7 @@
 	label_desc = "Tuned: The material produces a resonance pattern similar to quartz, causing it to produce a reaction every so often."
 	charge = 25
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/capacitive)
-	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_ITEM_ATTACK, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT, COMSIG_MOB_ITEM_AFTERATTACK)
+	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT, COMSIG_ITEM_AFTERATTACK)
 
 /datum/xenoartifact_trait/activator/clock/on_init(obj/item/xenoartifact/X)
 	. = ..()
@@ -913,6 +912,17 @@
 /datum/xenoartifact_trait/major/horn/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	. = ..()
 	playsound(get_turf(target), sound, 18, TRUE)
+
+/datum/xenoartifact_trait/major/doll
+	desc = "Plush"
+	label_desc = "The Artifact seems to be sewn and stuffed with cotton. A servicable weapon in any pillow fight."
+
+/datum/xenoartifact_trait/major/doll/activate(obj/item/xenoartifact/X, atom/target, atom/user)
+	. = ..()
+	if(!isliving(target))
+		return
+	var/mob/living/victim = target
+	victim.add_filter("displace", 2, list("type" = "displace", "iv" = "#39ff1430", "size" = 2))
 
 //Malfunctions
 
