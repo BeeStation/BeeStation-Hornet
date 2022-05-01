@@ -167,27 +167,27 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(cache >= SPAM_TRIGGER_AUTOMUTE * 2)
 		total_message_count = 0
 		total_count_reset = 0
-		cmd_admin_mute(src, mute_type, 1)
-		return 1
+		cmd_admin_mute(src, mute_type, TRUE)
+		return TRUE
 
 	//Otherwise just supress the message
 	else if(cache >= SPAM_TRIGGER_AUTOMUTE)
-		return 1
+		return TRUE
 
 
-	if(CONFIG_GET(flag/automute_on) && !holder && last_message == message)
-		src.last_message_count++
-		if(src.last_message_count >= SPAM_TRIGGER_AUTOMUTE)
+	if(CONFIG_GET(flag/automute_on) /* && !holder */ && last_message == message)
+		last_message_count++
+		if(last_message_count >= SPAM_TRIGGER_AUTOMUTE)
 			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
-			cmd_admin_mute(src, mute_type, 1)
-			return 1
-		if(src.last_message_count >= SPAM_TRIGGER_WARNING)
+			cmd_admin_mute(src, mute_type, TRUE)
+			return TRUE
+		if(last_message_count >= SPAM_TRIGGER_WARNING)
 			to_chat(src, "<span class='danger'>You are nearing the spam filter limit for identical messages.</span>")
-			return 0
+			return FALSE
 	else
 		last_message = message
-		src.last_message_count = 0
-		return 0
+		last_message_count = 0
+		return FALSE
 
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.
 /client/AllowUpload(filename, filelength)
@@ -563,7 +563,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	return QDEL_HINT_HARDDEL_NOW
 
 /client/proc/set_client_age_from_db(connectiontopic)
-	if (IS_GUEST_KEY(src.key))
+	if(IS_GUEST_KEY(key))
 		return
 	if(!SSdbcore.Connect())
 		return
@@ -586,14 +586,14 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		qdel(query_get_related_cid)
 		return
 	related_accounts_cid = ""
-	while (query_get_related_cid.NextRow())
+	while(query_get_related_cid.NextRow())
 		related_accounts_cid += "[query_get_related_cid.item[1]], "
 	qdel(query_get_related_cid)
 	var/admin_rank = "Player"
-	if (src.holder?.rank)
-		admin_rank = src.holder.rank.name
+	if(holder?.rank)
+		admin_rank = holder.rank.name
 	else
-		if (!GLOB.deadmins[ckey] && check_randomizer(connectiontopic))
+		if(!GLOB.deadmins[ckey] && check_randomizer(connectiontopic))
 			return
 	var/new_player
 	var/datum/DBQuery/query_client_in_db = SSdbcore.NewQuery(
@@ -717,7 +717,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if(R.Find(F))
 			. = R.group[1]
 		else
-			CRASH("Age check regex failed for [src.ckey]")
+			CRASH("Age check regex failed for [ckey]")
 
 /client/proc/validate_key_in_db()
 	var/sql_key

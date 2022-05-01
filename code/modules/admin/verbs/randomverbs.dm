@@ -205,8 +205,8 @@
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Godmode", "[M.status_flags & GODMODE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-/proc/cmd_admin_mute(whom, mute_type, automute = 0)
-	if(!whom)
+/proc/cmd_admin_mute(whom, mute_type, automute = FALSE)
+	if(!whom || !mute_type)
 		return
 
 	var/muteunmute
@@ -235,7 +235,7 @@
 			mute_string = "everything"
 			feedback_string = "Everything"
 		else
-			return
+			CRASH("mute_type in cmd_admin_mute was null somehow.")
 
 	var/client/C
 	if(istype(whom, /client))
@@ -250,12 +250,14 @@
 		P = C.prefs
 	else
 		P = GLOB.preferences_datums[whom]
+
 	if(!P)
 		return
 
 	if(automute)
 		if(!CONFIG_GET(flag/automute_on))
 			return
+
 	else
 		if(!check_rights())
 			return
@@ -265,14 +267,17 @@
 		P.muted |= mute_type
 		log_admin("SPAM AUTOMUTE: [muteunmute] [key_name(whom)] from [mute_string]")
 		message_admins("SPAM AUTOMUTE: [muteunmute] [key_name_admin(whom)] from [mute_string].")
+
 		if(C)
 			to_chat(C, "You have been [muteunmute] from [mute_string] by the SPAM AUTOMUTE system. Contact an admin.")
+
 		SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Auto Mute [feedback_string]", "1")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return
 
 	if(P.muted & mute_type)
 		muteunmute = "unmuted"
 		P.muted &= ~mute_type
+
 	else
 		muteunmute = "muted"
 		P.muted |= mute_type
@@ -281,6 +286,7 @@
 	message_admins("[key_name_admin(usr)] has [muteunmute] [key_name_admin(whom)] from [mute_string].")
 	if(C)
 		to_chat(C, "You have been [muteunmute] from [mute_string] by [key_name(usr, include_name = FALSE)].")
+	
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Mute [feedback_string]", "[P.muted & mute_type]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
