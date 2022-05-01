@@ -11,6 +11,7 @@
 	var/list/squeak_override //Weighted list; If you want your plush to have different squeak sounds use this
 	var/stuffed = TRUE //If the plushie has stuffing in it
 	var/obj/item/grenade/grenade //You can remove the stuffing from a plushie and add a grenade to it for *nefarious uses*
+	///Prevents players from cutting stuffing out of a plushie if true
 	var/divine = FALSE
 
 /obj/item/toy/plush/Initialize(mapload)
