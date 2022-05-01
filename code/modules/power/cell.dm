@@ -63,10 +63,8 @@
 	else
 		return PROCESS_KILL
 	if(emp_timer)
-		to_chat(loc, "<span class='warning'>\The [src] currently processing EMP: Timer = [emp_timer]</span>")
 		emp_timer -= delta_time
 		if(emp_timer <= 0)
-		to_chat(loc, "<span class='warning'>\The [src] is no longer under the effects of an EMP</span>")
 			emp_timer = 0
 			chargerate = emp_chargerate_save
 
@@ -157,7 +155,6 @@
 			emp_chargerate_save = chargerate
 			chargerate = 0
 		emp_timer = 300		//30 seconds
-		to_chat(loc, "<span class='warning'>\The [src] has been hit with an EMP: Timer = [emp_timer]</span>")
 	
 
 /obj/item/stock_parts/cell/ex_act(severity, target)
