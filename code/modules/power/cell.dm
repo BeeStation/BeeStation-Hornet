@@ -63,7 +63,7 @@
 	else
 		return PROCESS_KILL
 	if(emp_timer)
-		emp_timer -= delta_time
+		emp_timer -= delta_time // Both vars are in seconds
 		if(emp_timer <= 0)
 			emp_timer = 0
 			chargerate = emp_chargerate_save
