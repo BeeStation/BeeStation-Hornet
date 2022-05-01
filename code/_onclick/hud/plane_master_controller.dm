@@ -13,8 +13,6 @@ INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 	if(!istype(hud))
 		return
 	owner_hud = hud
-	if(istype(owner_hud))
-		return INITIALIZE_HINT_QDEL
 	var/assoc_controlled_planes = list()
 	for(var/i in controlled_planes)
 		var/atom/movable/screen/plane_master/instance = owner_hud.plane_masters["[i]"]
