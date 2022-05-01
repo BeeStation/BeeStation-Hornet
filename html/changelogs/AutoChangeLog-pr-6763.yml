@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - code_imp: Removed try catch blocks from exploration generators.
