@@ -24,7 +24,7 @@
 	var/self_recharge = FALSE
 	///stores the chargerate to restore when hit with EMP, for slime cores
 	var/emp_chargerate_save
-	///Timer for EMPs so that recharging cells know when to start charging again. 
+	///Time in SECONDS for EMPs so that recharging cells know when to start charging again. 
 	var/emp_timer = 0
 	var/ratingdesc = TRUE
 	/// If it's a grown that acts as a battery, add a wire overlay to it.
