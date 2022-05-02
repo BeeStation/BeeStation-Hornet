@@ -1,5 +1,0 @@
-author: The-Moon-Itself
-delete-after: true
-changes:
-  - bugfix: Waddling, pituitary disruption, and the dance machine now properly reset
-      transforms

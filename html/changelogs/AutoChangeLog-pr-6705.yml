@@ -1,7 +1,0 @@
-author: TheChaser212
-delete-after: true
-changes:
-  - bugfix: fixed plants having no or incorrect icons
-  - bugfix: fixed plants not inheriting stats
-  - bugfix: fixed trays not updating their name
-  - bugfix: fixed kudzu killing own flower buds
