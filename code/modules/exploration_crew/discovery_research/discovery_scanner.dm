@@ -1,6 +1,6 @@
 /obj/item/discovery_scanner
 	name = "discovery scanner"
-	desc = "A scanner used by scientists to collect research data about unknown artifacts and specimins."
+	desc = "A scanner used by scientists to collect research data about unknown artifacts and specimens."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "discovery"
 	item_state = "discoveryscanner"
