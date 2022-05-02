@@ -486,13 +486,13 @@
 		if(status == LIGHT_OK)
 			to_chat(user, "<span class='warning'>There is a [fitting] already inserted!</span>")
 		else
-			src.add_fingerprint(user)
+			add_fingerprint(user)
 			var/obj/item/light/L = W
 			if(istype(L, light_type))
 				if(!user.temporarilyRemoveItemFromInventory(L))
 					return
 
-				src.add_fingerprint(user)
+				add_fingerprint(user)
 				if(status != LIGHT_EMPTY)
 					drop_light_tube(user)
 					to_chat(user, "<span class='notice'>You replace [L].</span>")

@@ -454,7 +454,7 @@
 		P.say(pick("Nooooo...", "Not die. To y-", "Die. Ratv-", "Sas tyen re-"))
 		playsound(src, 'sound/magic/clockwork/anima_fragment_attack.ogg', 50, TRUE, frequency = 2)
 		playsound(P, 'sound/magic/demon_dies.ogg', 50, TRUE, frequency = 2)
-		explosion(P, 0, 0, 1)
+		explosion(P, 0, 0, 1, holy = TRUE)
 		qdel(P)
 		clash_target = null
 	else
@@ -462,7 +462,7 @@
 		P.say(pick("Ha.", "Ra'sha fonn dest.", "You fool. To come here."))
 		playsound(src, 'sound/magic/clockwork/anima_fragment_death.ogg', 62, TRUE, frequency = 2)
 		playsound(P, 'sound/magic/demon_attack1.ogg', 50, TRUE, frequency = 2)
-		explosion(src, 0, 0, 1)
+		explosion(src, 0, 0, 1, holy = TRUE)
 		qdel(src)
 		P.clashing = FALSE
 

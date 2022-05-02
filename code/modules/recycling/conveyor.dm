@@ -223,7 +223,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		if(I.use_tool(src, user, 40, volume=40))
 			set_operating(FALSE)
 			if(!(stat & BROKEN))
-				var/obj/item/stack/conveyor/C = new /obj/item/stack/conveyor(loc, 1, TRUE, id)
+				var/obj/item/stack/conveyor/C = new /obj/item/stack/conveyor(loc, 1, TRUE, null, id)
 				if(!QDELETED(C)) //God I hate stacks
 					transfer_fingerprints_to(C)
 			to_chat(user, "<span class='notice'>You remove the conveyor belt.</span>")
@@ -443,7 +443,8 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	///id for linking
 	var/id = ""
 
-/obj/item/stack/conveyor/Initialize(mapload, new_amount, merge = TRUE, _id)
+
+/obj/item/stack/conveyor/Initialize(mapload, new_amount, merge = TRUE, mob/user = null, _id)
 	. = ..()
 	id = _id
 

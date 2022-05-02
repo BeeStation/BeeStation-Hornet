@@ -1,0 +1,5 @@
+author: Kontaminant
+delete-after: true
+changes:
+  - bugfix: Nitryl now correctly calculates how much you are breathing so you accurately
+      get the reagent when inhaling it.

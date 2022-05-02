@@ -333,6 +333,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		CHECK_TICK
 		var/mob/living/carbon/human/H = new(pod)
 		ADD_TRAIT(H, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
+		ADD_TRAIT(H, TRAIT_DROPS_ITEMS_ON_DEATH, BATTLE_ROYALE_TRAIT)
 		H.status_flags |= GODMODE
 		//Assistant gang
 		H.equipOutfit(/datum/outfit/job/assistant)
