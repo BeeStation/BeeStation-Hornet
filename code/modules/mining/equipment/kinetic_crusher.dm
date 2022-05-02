@@ -420,11 +420,11 @@
 	denied_type = /obj/item/crusher_trophy/vortex_talisman
 
 /obj/item/crusher_trophy/vortex_talisman/effect_desc()
-	return "mark detonation to create a barrier you can pass"
+	return "mark detonation to create a solid barrier"  //Was way too cheesy and allowed miners to be nearly invincible while dumb mob AI just rubbed its face on the wall.
 
 /obj/item/crusher_trophy/vortex_talisman/on_mark_detonation(mob/living/target, mob/living/user)
 	var/turf/T = get_turf(user)
-	new /obj/effect/temp_visual/hierophant/wall/crusher(T, user) //a wall only you can pass!
+	new /obj/effect/temp_visual/hierophant/wall/crusher(T, user)
 	var/turf/otherT = get_step(T, turn(user.dir, 90))
 	if(otherT)
 		new /obj/effect/temp_visual/hierophant/wall/crusher(otherT, user)
