@@ -135,7 +135,7 @@
 		new /datum/data/vendor_equipment("Shelter Capsule",				/obj/item/survivalcapsule,											400),
 		new /datum/data/vendor_equipment("Regen. Core Stabilizer",		/obj/item/hivelordstabilizer,										400),
 		new /datum/data/vendor_equipment("Skeleton Key",				/obj/item/skeleton_key,												2000),
-		new /datum/data/vendor_equipment("Survival Medipen",			/obj/item/reagent_containers/hypospray/medipen/survival,			500),
+		new /datum/data/vendor_equipment("Survival Medipen",			/obj/item/reagent_containers/hypospray/medipen/survival,			1000),
 		new /datum/data/vendor_equipment("Fulton Beacon",				/obj/item/fulton_core,												500),
 		new /datum/data/vendor_equipment("Fulton Extraction Pack",		/obj/item/extraction_pack,											1000),
 		new /datum/data/vendor_equipment("Jaunter",						/obj/item/wormhole_jaunter,											750),
