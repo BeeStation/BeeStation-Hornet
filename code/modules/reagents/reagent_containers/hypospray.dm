@@ -39,7 +39,7 @@
 	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1))) // Ignore flag should be checked first or there will be an error message.
 		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
 		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
-		playsound(loc, 'sound/items/hypospray.ogg', 50, 1)
+		playsound(loc, pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE)
 
 		var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 		reagents.reaction(M, INJECT, fraction)
