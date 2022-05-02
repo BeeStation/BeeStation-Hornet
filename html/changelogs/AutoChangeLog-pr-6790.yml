@@ -1,0 +1,4 @@
+author: Mat05usz
+delete-after: true
+changes:
+  - bugfix: Kilo no longer has a 'ghost' second Z-level
