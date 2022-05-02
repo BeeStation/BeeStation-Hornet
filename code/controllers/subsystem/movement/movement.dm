@@ -98,6 +98,8 @@ SUBSYSTEM_DEF(movement)
 
 /datum/controller/subsystem/movement/proc/dequeue_loop(datum/move_loop/loop)
 	var/list/our_entries = buckets["[loop.timer]"]
+	if(!our_entries) //appearantly something already killed the list before we could
+		return
 	our_entries -= loop
 	if(!length(our_entries))
 		smash_bucket(bucket_time = loop.timer) // We can't pass an index in for context because we don't know our position
