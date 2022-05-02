@@ -548,14 +548,17 @@
 	var/alreadyinfected = FALSE
 
 /datum/status_effect/regenerative_core/on_apply()
-	if(!HAS_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED))
+	if(owner.z == 5) // If they're on lavaland, double the power
+		power = 2
+	if(!HAS_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED) && !is_species(owner, /datum/species/lizard/ashwalker))
 		to_chat(owner, "<span class='userdanger'>Tendrils of vile corruption knit your flesh together and strengthen your sinew. You resist the temptation of giving in to the corruption.</span>")
+		ADD_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
+	else if(is_species(owner, /datum/species/lizard/ashwalker))
+		power = 10  // Ashwalkers worship the necropolis, they receieve greatly incrased benefit from its bounty. 
+		to_chat(owner, "<span class='userdanger'>The tendrils knit your flesh together and strengthen your sinew. The necropolis sustains you!.</span>")
 	else
 		alreadyinfected = TRUE
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
-	ADD_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
-	if(owner.z == 5)
-		power = 2
 	owner.adjustBruteLoss(-15 * power)
 	owner.adjustFireLoss(-15 * power)
 	owner.cure_nearsighted()
