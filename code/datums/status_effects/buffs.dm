@@ -554,9 +554,9 @@
 		to_chat(owner, "<span class='userdanger'>Tendrils of vile corruption knit your flesh together and strengthen your sinew. You resist the temptation of giving in to the corruption.</span>")
 		ADD_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
 	else if(is_species(owner, /datum/species/lizard/ashwalker))
-		power = 10  // Ashwalkers worship the necropolis, they receieve greatly incrased benefit from its bounty. 
+		power = 10  // Ashwalkers worship the necropolis, they receieve greatly increased benefit from its bounty. 
 		to_chat(owner, "<span class='userdanger'>The tendrils knit your flesh together and strengthen your sinew. The necropolis sustains you!.</span>")
-	else
+	else //They have been infected and they are not an ashwalker. Now they are part of the legion. 
 		alreadyinfected = TRUE
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
 	owner.adjustBruteLoss(-15 * power)
