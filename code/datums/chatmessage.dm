@@ -182,7 +182,6 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
   * * lifespan - The lifespan of the message in deciseconds
   */
 /datum/chatmessage/New(text, atom/target, list/client/hearers, language_icon, list/extra_classes = list(), lifespan = CHAT_MESSAGE_LIFESPAN)
-	. = ..()
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
 	generate_image(text, target, hearers, language_icon, extra_classes, lifespan)
