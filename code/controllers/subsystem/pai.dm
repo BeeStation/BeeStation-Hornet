@@ -73,7 +73,7 @@ SUBSYSTEM_DEF(pai)
 		ui = new(user, src, "PaiSubmit")
 		ui.open()
 
-/datum/controller/subsystem/pai/ui_static_data(mob/user)
+/datum/controller/subsystem/pai/ui_data(mob/user)
 	. = ..()
 	var/list/data = list()
 	/// The matching candidate from search
@@ -83,6 +83,12 @@ SUBSYSTEM_DEF(pai)
 	data["comments"] = candidate.comments
 	data["description"] = candidate.description
 	data["name"] = candidate.name
+	var/datum/pai_candidate/default_candidate = new
+	default_candidate.savefile_load(user)
+	data["default_name"] = default_candidate.name
+	data["default_description"] = default_candidate.description
+	data["default_comments"] = default_candidate.comments
+	default_candidate = null
 	return data
 
 /datum/controller/subsystem/pai/ui_act(action, list/params, datum/tgui/ui)
@@ -122,17 +128,7 @@ SUBSYSTEM_DEF(pai)
 			candidate.name = params["candidate"]["name"]
 			candidate.savefile_save(usr)
 			to_chat(usr, "<span class='boldnotice'>You have saved pAI information locally.</span>")
-		if("load")
-			candidate.savefile_load(usr)
-			//In case people have saved unsanitized stuff.
-			if(candidate.comments)
-				candidate.comments = copytext_char(candidate.comments,1,MAX_MESSAGE_LEN)
-			if(candidate.description)
-				candidate.description = copytext_char(candidate.description,1,MAX_MESSAGE_LEN)
-			if(candidate.name)
-				candidate.name = copytext_char(candidate.name,1,MAX_NAME_LEN)
-			ui.send_full_update()
-	return
+	return TRUE
 
 
 /**

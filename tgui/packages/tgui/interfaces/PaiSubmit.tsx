@@ -8,6 +8,14 @@ type CandidateData = {
   name: string;
 };
 
+type Data = {
+  comments: string;
+  description: string;
+  name: string;
+  default_name: string;
+  default_description: string;
+  default_comments: string;
+}
 const PAI_DESCRIPTION = `Personal AIs are advanced models
 capable of nuanced interaction. They are designed to be used
 in a variety of situations, assisting their masters in their
@@ -20,15 +28,12 @@ Keep in mind: Not entering information may lead to you not being
 selected. Press submit to alert pAI cards of your candidacy.`;
 
 export const PaiSubmit = (_, context) => {
-  const { data } = useBackend<CandidateData>(context);
+  const { data } = useBackend<Data>(context);
   const [input, setInput] = useLocalState<CandidateData>(context, 'input', {
-    comments: data.comments || '',
-    description: data.description || '',
     name: data.name || '',
+    description: data.description || '',
+    comments: data.comments || '',
   });
-  const onChangeHandler = (e, value) => {
-    setInput({ ...input, [value]: e.target.value });
-  };
 
   return (
     <Window width={400} height={460} title="pAI Candidacy Menu">
@@ -38,10 +43,10 @@ export const PaiSubmit = (_, context) => {
             <DetailsDisplay />
           </Stack.Item>
           <Stack.Item>
-            <InputDisplay input={input} onChangeHandler={onChangeHandler} />
+            <InputDisplay input={input} setInput={setInput} />
           </Stack.Item>
           <Stack.Item>
-            <ButtonsDisplay input={input} />
+            <ButtonsDisplay input={input} setInput={setInput} data={data} />
           </Stack.Item>
         </Stack>
       </Window.Content>
@@ -65,8 +70,7 @@ const DetailsDisplay = () => {
 
 /** Input boxes for submission details */
 const InputDisplay = (props) => {
-  const { input, onChangeHandler } = props;
-  const { comments, description, name } = input;
+  const { input, setInput } = props;
 
   return (
     <Section fill title="Input">
@@ -78,8 +82,10 @@ const InputDisplay = (props) => {
             </Box>
             <Input
               fluid
-              value={name}
-              onChange={(e) => onChangeHandler(e, 'name')}
+              value={input.name}
+              onChange={
+                (e) => setInput({ ...input, name: e.target.value })
+              }
             />
           </Tooltip>
         </Stack.Item>
@@ -90,8 +96,10 @@ const InputDisplay = (props) => {
             </Box>
             <Input
               fluid
-              value={description}
-              onChange={(e) => onChangeHandler(e, 'description')}
+              value={input.description}
+              onChange={
+                (e) => setInput({ ...input, description: e.target.value })
+              }
             />
           </Tooltip>
         </Stack.Item>
@@ -102,8 +110,10 @@ const InputDisplay = (props) => {
             </Box>
             <Input
               fluid
-              value={comments}
-              onChange={(e) => onChangeHandler(e, 'comments')}
+              value={input.comments}
+              onChange={
+                (e) => setInput({ ...input, comments: e.target.value })
+              }
             />
           </Tooltip>
         </Stack.Item>
@@ -115,7 +125,7 @@ const InputDisplay = (props) => {
 /** Gives the user a submit button */
 const ButtonsDisplay = (props, context) => {
   const { act } = useBackend<CandidateData>(context);
-  const { input } = props;
+  const { input, setInput, data } = props;
   return (
     <Section fill>
       <Stack>
@@ -128,7 +138,14 @@ const ButtonsDisplay = (props, context) => {
         </Stack.Item>
         <Stack.Item>
           <Button
-            onClick={() => act('load')}
+            onClick={() =>
+            {
+              setInput({ ...input,
+                name: data.default_name,
+                description: data.default_description,
+                comments: data.default_comments,
+              });
+            }}
             tooltip="Loads saved candidate data, if any.">
             LOAD
           </Button>
