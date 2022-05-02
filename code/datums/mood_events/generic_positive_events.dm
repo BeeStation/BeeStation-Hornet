@@ -213,13 +213,3 @@
 	description = "<span class='nicegreen'>Watching fish in aquarium is calming.</span>\n"
 	mood_change = 3
 	timeout = 1.5 MINUTES
-
-/datum/mood_event/high_five
-	description = "I love getting high fives!"
-	mood_change = 2
-	timeout = 45 SECONDS
-
-/datum/mood_event/down_low
-	description = "HA! What a rube, they never stood a chance..."
-	mood_change = 4
-	timeout = 90 SECONDS

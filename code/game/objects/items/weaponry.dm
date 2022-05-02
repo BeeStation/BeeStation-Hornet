@@ -835,50 +835,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		if(table_smacks_left <= 0)
 			qdel(src)
 
-/obj/item/slapper/on_offered(mob/living/carbon/offerer)
-	. = TRUE
-
-	if(!(locate(/mob/living/carbon) in orange(1, offerer)))
-		offerer.balloon_alert_to_viewers("[offerer] raises [offerer.p_their()] arm, looking around for a high-five, but there's no one around!",
-								"You post up, looking for a high-five, but finding no one within range!")
-		return
-
-	offerer.balloon_alert_to_viewers("[offerer] raises [offerer.p_their()] arm, looking for a high-five!",
-								"You post up, looking for a high-five!")
-	offerer.apply_status_effect(STATUS_EFFECT_OFFERING, src, /atom/movable/screen/alert/give/highfive)
-
-/// Yeah broh! This is where we do the high-fiving (or high-tenning :o)
-/obj/item/slapper/on_offer_taken(mob/living/carbon/offerer, mob/living/carbon/taker)
-	. = TRUE
-
-	var/open_hands_taker
-	var/slappers_giver
-	for(var/i in taker.held_items) // see how many hands the taker has open for high'ing
-		if(isnull(i))
-			open_hands_taker++
-
-	if(!open_hands_taker)
-		to_chat(taker, "<span class='warning'>You can't high-five [offerer] with no open hands!</span>")
-		SEND_SIGNAL(taker, COMSIG_ADD_MOOD_EVENT, "high_five", /datum/mood_event/high_five_full_hand) // not so successful now!
-		return
-
-	for(var/i in offerer.held_items)
-		var/obj/item/slapper/slap_check = i
-		if(istype(slap_check))
-			slappers_giver++
-
-	if(slappers_giver >= 2) // we only check this if it's already established the taker has 2+ hands free
-		offerer.visible_message("<span class='notice'>[taker] enthusiastically high-tens [offerer]!</span>", "<span class='nicegreen'>Wow! You're high-tenned [taker]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", ignored_mobs=taker)
-		to_chat(taker, "<span class='nicegreen'>You give high-tenning [offerer] your all!</span>")
-		playsound(offerer, 'sound/weapons/slap.ogg', 100, TRUE, 1)
-	else
-		offerer.visible_message("<span class='notice'>[taker] high-fives [offerer]!</span>", "<span class='nicegreen'>All right! You're high-fived by [taker]!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", ignored_mobs=taker)
-		to_chat(taker, "<span class='nicegreen'>You high-five [offerer]!</span>")
-		playsound(offerer, 'sound/weapons/slap.ogg', 50, TRUE, -1)
-	SEND_SIGNAL(offerer, COMSIG_ADD_MOOD_EVENT, "high_five", /datum/mood_event/high_five)
-	SEND_SIGNAL(taker, COMSIG_ADD_MOOD_EVENT, "high_five", /datum/mood_event/high_five)
-	qdel(src)
-
 /obj/item/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
 		return FALSE
