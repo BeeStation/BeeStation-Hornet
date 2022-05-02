@@ -1,0 +1,8 @@
+author: Hardly, Retlaw34, comma, mattroks101, metalgearsloth, tichys
+delete-after: true
+changes:
+  - rscadd: New sounds for buttons, conveyors, fire alarms, health analyzers and mining
+      scanners.
+  - rscadd: Sleepers now make a noise when used.
+  - rscadd: All computers now make clicking noises when interacted with.
+  - rscadd: New sound variant for hypospray.
