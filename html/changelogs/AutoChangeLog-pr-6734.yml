@@ -1,4 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - server: removed support for invalid timers.
