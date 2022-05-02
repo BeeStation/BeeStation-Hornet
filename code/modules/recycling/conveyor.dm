@@ -374,6 +374,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /// Called when a user clicks on this switch with an open hand.
 /obj/machinery/conveyor_switch/interact(mob/user)
 	add_fingerprint(user)
+	play_click_sound("switch")
 	update_position()
 	update_icon()
 	update_linked_conveyors()

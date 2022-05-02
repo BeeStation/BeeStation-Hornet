@@ -37,6 +37,7 @@
 	active_power_usage = 400
 	light_color = LIGHT_COLOR_BLUE
 	req_access = list(ACCESS_GENETICS)
+	clicksound = null
 
 	var/datum/techweb/stored_research
 	var/max_storage = 6
