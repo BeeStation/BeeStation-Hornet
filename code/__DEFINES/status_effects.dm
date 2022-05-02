@@ -137,3 +137,5 @@
 #define STASIS_ASCENSION_EFFECT "heretic_ascension"
 
 #define IS_IN_STASIS(mob) (mob.has_status_effect(STATUS_EFFECT_STASIS))
+
+#define STATUS_EFFECT_OFFERING /datum/status_effect/offering // you are offering up an item to people

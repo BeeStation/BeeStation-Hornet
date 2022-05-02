@@ -285,46 +285,99 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
  * and the item being offered, also registers a signal that removes the alert from anyone who moves away from the giver
  * Arguments:
  * * taker - The person receiving the alert
- * * giver - The person giving the alert and item
+ * * offerer - The person giving the alert and item
  * * receiving - The item being given by the giver
  */
 
 /atom/movable/screen/alert/give // information set when the give alert is made
 	icon_state = "default"
-	var/mob/living/carbon/giver
+	var/mob/living/carbon/offerer
 	var/mob/living/carbon/taker
 	var/obj/item/receiving
 
-/atom/movable/screen/alert/give/proc/setup(mob/living/carbon/taker, mob/living/carbon/giver, obj/item/receiving)
-	name = "[giver] is offering [receiving]"
-	desc = "[giver] is offering [receiving]. Click this alert to take it."
+/atom/movable/screen/alert/give/proc/setup(mob/living/carbon/taker, mob/living/carbon/offerer, obj/item/receiving)
+	name = "[offerer] is offering [receiving]"
+	desc = "[offerer] is offering [receiving]. Click this alert to take it."
 	icon_state = "template"
 	cut_overlays()
 	add_overlay(receiving)
 	src.receiving = receiving
-	src.giver = giver
-	src.taker = taker
-	RegisterSignal(giver, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
+	src.offerer = offerer
+	src.offerer = offerer
 	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
-
-/atom/movable/screen/alert/give/proc/check_in_range()
-	SIGNAL_HANDLER // doesn't actually sleep since the only thing below which can sleep is CheckToolReach() which returns FALSE before coming that far.
-
-
-	if (!usr.CanReach(giver))
-		to_chat(giver, "<span class='warning'>[taker] moved out of range of you!</span>")
-		to_chat(taker, "<span class='warning'>You moved out of range of [giver]!</span>")
-		owner.clear_alert("[giver]")
-	else if (!usr.CanReach(taker))
-		to_chat(giver, "<span class='warning'>You moved out of range of [taker]!</span>")
-		to_chat(taker, "<span class='warning'>[giver] moved out of range of you!</span>")
-		owner.clear_alert("[giver]")
 
 /atom/movable/screen/alert/give/Click(location, control, params)
 	. = ..()
 	if(!iscarbon(usr))
 		CRASH("User for [src] is of type \[[usr.type]\]. This should never happen.")
-	taker.take(giver, receiving)
+	handle_transfer()
+
+/// An overrideable proc used simply to hand over the item when claimed, this is a proc so that high-fives can override them since nothing is actually transferred
+/atom/movable/screen/alert/give/proc/handle_transfer()
+	var/mob/living/carbon/taker = owner
+	taker.take(offerer, receiving)
+
+/// Simply checks if the other person is still in range
+/atom/movable/screen/alert/give/proc/check_in_range(atom/taker)
+	SIGNAL_HANDLER
+
+	if(!offerer.CanReach(taker))
+		balloon_alert(owner, "You moved out of range of [offerer]!")
+		owner.clear_alert("[offerer]")
+
+/atom/movable/screen/alert/give/highfive/setup(mob/living/carbon/taker, mob/living/carbon/offerer, obj/item/receiving)
+	. = ..()
+	name = "[offerer] is offering a high-five!"
+	desc = "[offerer] is offering a high-five! Click this alert to slap it."
+	RegisterSignal(taker, COMSIG_PARENT_EXAMINE, .proc/check_fake_out)
+
+/atom/movable/screen/alert/give/highfive/handle_transfer()
+	var/mob/living/carbon/taker = owner
+	if(receiving && receiving == offerer.get_active_held_item())
+		receiving.on_offer_taken(offerer, taker)
+		return
+	too_slow_p1()
+
+/// If the person who offered the high five no longer has it when we try to accept it, we get pranked hard
+/atom/movable/screen/alert/give/highfive/proc/too_slow_p1()
+	var/mob/living/carbon/rube = owner
+	if(!rube || !offerer)
+		qdel(src)
+		return
+
+	offerer.balloon_alert_to_viewers("[rube] rushes in to high-five [offerer], but-",
+							"[rube] falls for your trick just as planned, lunging for a high-five that no longer exists! Classic!",
+							ignored_mobs = list(rube))
+	offerer.balloon_alert(rube, "You go in for [offerer]'s high-five, but-")
+	addtimer(CALLBACK(src, .proc/too_slow_p2, offerer, rube), 0.5 SECONDS)
+
+/// Part two of the ultimate prank
+/atom/movable/screen/alert/give/highfive/proc/too_slow_p2()
+	var/mob/living/carbon/rube = owner
+	if(!rube || !offerer)
+		qdel(src)
+		return
+
+	offerer.balloon_alert_to_viewers("[offerer] pulls away from [rube]'s slap at the last second, dodging the high-five entirely!",
+								"[rube] fails to make contact with your hand, making an utter fool of [rube.p_them()]self!</span>", "<span class='hear'>You hear a disappointing sound of flesh not hitting flesh!",
+								ignored_mobs = list(rube))
+	var/all_caps_for_emphasis = uppertext("NO! [offerer] PULLS [offerer.p_their()] HAND AWAY FROM YOURS! YOU'RE TOO SLOW!")
+	offerer.balloon_alert(rube, all_caps_for_emphasis)
+	playsound(offerer, 'sound/weapons/thudswoosh.ogg', 100, TRUE, 1)
+	rube.Knockdown(1 SECONDS)
+	SEND_SIGNAL(offerer, COMSIG_ADD_MOOD_EVENT, "high_five", /datum/mood_event/down_low)
+	SEND_SIGNAL(rube, COMSIG_ADD_MOOD_EVENT, "high_five", /datum/mood_event/too_slow)
+	qdel(src)
+
+/// If someone examine_more's the offerer while they're trying to pull a too-slow, it'll tip them off to the offerer's trickster ways
+/atom/movable/screen/alert/give/highfive/proc/check_fake_out(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+
+	if(user != taker)
+		return
+
+	if(receiving != offerer.get_active_held_item())
+		examine_list += "<span class='warning'>[offerer]'s arm appears tensed up, as if [offerer.p_they()] plan on pulling it back suddenly...</span>t*\n"
 
 //ALIENS
 
