@@ -664,8 +664,9 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		var/size = letters[string[i]]
 		if(!size)
 			size = 1000
+		value++ //To account for 1 px black outline at the left side of the symbol
 		value += CHAR_WIDTH(size, font_size)
-	return value
+	return value + 1 //To account for the 1px black outline at the right side of the last symbol
 
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
