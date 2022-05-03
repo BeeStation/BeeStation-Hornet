@@ -1430,3 +1430,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "skeleton_key"
 	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/skeleton_key/boss
+	name = "necropolis key"
+	desc = "An artifact usually found in the hands of the natives of lavaland. This one is pulsing with a strange, powerful aura."
