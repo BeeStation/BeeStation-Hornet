@@ -148,10 +148,9 @@
 		new /datum/data/vendor_equipment("Jump Boots",					/obj/item/clothing/shoes/bhop,										2000),
 	//Consumables
 		new /datum/data/vendor_equipment("30 Marker Beacons",			/obj/item/stack/marker_beacon/thirty,								150),
-		new /datum/data/vendor_equipment("Regen. Core Stabilizer",		/obj/item/hivelordstabilizer,										200),
+		new /datum/data/vendor_equipment("Regen. Core Stabilizer",		/obj/item/hivelordstabilizer,										500),
 		new /datum/data/vendor_equipment("Fulton Beacon",				/obj/item/fulton_core,												500),
 		new /datum/data/vendor_equipment("Lazarus Injector",			/obj/item/lazarus_injector,											1000),
-		new /datum/data/vendor_equipment("Deployable Medbot", 			/mob/living/simple_animal/bot/medbot/miner,							0),			//CHANGE THIS!!													1000),
 		new /datum/data/vendor_equipment("Survival Medipen",			/obj/item/reagent_containers/hypospray/medipen/survival,			1000),
 		new /datum/data/vendor_equipment("Skeleton Key",				/obj/item/skeleton_key,												1000),
 		new /datum/data/vendor_equipment("Necropolis Key",				/obj/item/skeleton_key/boss,										1500),

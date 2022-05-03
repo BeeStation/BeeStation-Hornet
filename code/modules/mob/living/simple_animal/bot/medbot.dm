@@ -71,8 +71,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/shut_up = 0 //self explanatory :)
 	var/datum/techweb/linked_techweb
 	var/medibot_counter = 0 //we use this to stop multibotting
-	///for disposable medibots, set to the amount of HP it is expected to restore before being destroyed.
-	var/limited_use
 
 /mob/living/simple_animal/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
@@ -560,14 +558,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 						log_combat(src, patient, "tended the wounds of", "internal tools", "([uppertext(treatment_method)])")
 					C.visible_message("<span class='danger'>[src] tends the wounds of [patient]!</span>", \
 						"<span class='userdanger'>[src] tends your wounds!</span>")
-					if(limited_use)
-						limited_use -= heal_amount
-						C.visible_message("<span class='danger'>[src] has [limited_use] charges left!</span>", \
-						"")
-						if(limited_use <= 0)
-							C.visible_message("<span class='danger'>[src] is self-destructing!</span>", \
-							"")
-							health = 0
 				else
 					tending = FALSE
 			else
@@ -612,27 +602,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/area/location = get_area(src)
 	speak("Medical emergency! [crit_patient || "A patient"] is in critical condition at [location]!",radio_channel)
 	declare_cooldown = world.time + 200
-
-/mob/living/simple_animal/bot/medbot/miner
-	name = "The Solution"
-	desc = "A disposable medical robot meant to accompany shaft miners"
-	health = 5
-	maxHealth = 5
-	radio_key = /obj/item/encryptionkey/headset_cargo
-	radio_channel = RADIO_CHANNEL_SUPPLY
-	heal_amount = 2
-	heal_threshold = 2 //Start healing when they have this much damage in a category
-	stationary_mode = 1
-	//Setting which reagents to use to treat what by default. By id.
-	treat_virus = 0 //If on, the bot will attempt to treat viral infections, curing them if possible.
-	shut_up = 1
-	limited_use = 250
-
-/mob/living/simple_animal/bot/medbot/explode()
-	on = FALSE
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
-	do_sparks(3, TRUE, src)
-	return	//disposable bot drops nothing when destroyed
 
 /obj/machinery/bot_core/medbot
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
