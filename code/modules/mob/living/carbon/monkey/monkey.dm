@@ -228,7 +228,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	id = "teratoma"
 	say_mod = "mumbles"
 	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
-	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
+	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE, TRAIT_MONKEYLIKE)	//Made of mutated cells
 	default_features = list("mcolor" = "FFF", "wings" = "None")
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	liked_food = JUNKFOOD | FRIED | GROSS | RAW
@@ -253,6 +253,10 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 
 /mob/living/carbon/monkey/tumor/handle_mutations_and_radiation()
 	return
+
+/mob/living/carbon/monkey/tumor/can_use_guns(obj/item/G)
+	return FALSE
+
 
 /mob/living/carbon/monkey/tumor/has_dna()
 	return FALSE
