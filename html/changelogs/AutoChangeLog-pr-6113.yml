@@ -1,5 +1,0 @@
-author: PowerfulBacon, KubeRoot
-delete-after: true
-changes:
-  - tweak: Changed how the orbital map looks.
-  - tweak: Objects on the orbital map autopilot target list are now sorted by priority.
