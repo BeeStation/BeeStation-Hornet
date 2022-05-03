@@ -1,7 +1,5 @@
 //Landmarks and other helpers which speed up the mapping process and reduce the number of unique instances/subtypes of items/turf/ect
 
-
-
 /obj/effect/baseturf_helper //Set the baseturfs of every turf in the /area/ it is placed.
 	name = "baseturf editor"
 	icon = 'icons/effects/mapping_helpers.dmi'
@@ -100,6 +98,7 @@
 //airlock helpers
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
+	late = TRUE
 
 /obj/effect/mapping_helpers/airlock/Initialize(mapload)
 	. = ..()
@@ -111,6 +110,44 @@
 		log_mapping("[src] failed to find an airlock at [AREACOORD(src)]")
 	else
 		payload(airlock)
+
+/obj/effect/mapping_helpers/airlock/LateInitialize()
+	. = ..()
+	var/obj/machinery/door/airlock/airlock = locate(/obj/machinery/door/airlock) in loc
+	if(!airlock)
+		qdel(src)
+		return
+	if(airlock.cyclelinkeddir)
+		airlock.cyclelinkairlock()
+	if(airlock.closeOtherId)
+		airlock.update_other_id()
+	if(airlock.abandoned)
+		var/outcome = rand(1,100)
+		switch(outcome)
+			if(1 to 9)
+				var/turf/here = get_turf(src)
+				for(var/turf/closed/T in range(2, src))
+					here.PlaceOnTop(T.type)
+					qdel(src)
+					return
+				here.PlaceOnTop(/turf/closed/wall)
+				qdel(src)
+				return
+			if(9 to 11)
+				airlock.lights = FALSE
+				airlock.locked = TRUE
+			if(12 to 15)
+				airlock.locked = TRUE
+			if(16 to 23)
+				airlock.welded = TRUE
+			if(24 to 30)
+				airlock.panel_open = TRUE
+	if(airlock.cutAiWire)
+		wires.cut(WIRE_AI)
+	if(airlock.autoname)
+		name = get_area_name(src, TRUE)
+	update_icon()
+	qdel(src)
 
 /obj/effect/mapping_helpers/airlock/proc/payload(obj/machinery/door/airlock/payload)
 	return
@@ -125,6 +162,16 @@
 	else
 		airlock.cyclelinkeddir = dir
 
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi
+	name = "airlock multi-cyclelink helper"
+	icon_state = "airlock_multicyclelink_helper"
+	var/cycle_id
+
+/obj/effect/mapping_helpers/airlock/cyclelink_helper_multi/payload(obj/machinery/door/airlock/airlock)
+	if(airlock.closeOtherId)
+		log_mapping("[src] at [AREACOORD(src)] tried to set [airlock] closeOtherId, but it's already set!")
+	else
+		airlock.closeOtherId = cycle_id
 
 /obj/effect/mapping_helpers/airlock/locked
 	name = "airlock lock helper"
@@ -135,7 +182,6 @@
 		log_mapping("[src] at [AREACOORD(src)] tried to bolt [airlock] but it's already locked!")
 	else
 		airlock.locked = TRUE
-
 
 /obj/effect/mapping_helpers/airlock/unres
 	name = "airlock unresctricted side helper"
@@ -153,6 +199,26 @@
 		log_mapping("[src] at [AREACOORD(src)] tried to make [airlock] abandoned but it's already abandoned!")
 	else
 		airlock.abandoned = TRUE
+
+/obj/effect/mapping_helpers/airlock/cutaiwire
+	name = "airlock cut ai wire helper"
+	icon_state = "airlock_cutaiwire"
+
+/obj/effect/mapping_helpers/airlock/cutaiwire/payload(obj/machinery/door/airlock/airlock)
+	if(airlock.cutAiWire)
+		log_mapping("[src] at [AREACOORD(src)] tried to cut the ai wire on [airlock] but it's already cut!")
+	else
+		airlock.cutAiWire = TRUE
+
+/obj/effect/mapping_helpers/airlock/autoname
+	name = "airlock autoname helper"
+	icon_state = "airlock_autoname"
+
+/obj/effect/mapping_helpers/airlock/autoname/payload(obj/machinery/door/airlock/airlock)
+	if(airlock.autoname)
+		log_mapping("[src] at [AREACOORD(src)] tried to autoname the [airlock] but it's already autonamed!")
+	else
+		airlock.autoname = TRUE
 
 //APC helpers
 /obj/effect/mapping_helpers/apc
@@ -259,3 +325,4 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 				O.organ_flags |= ORGAN_FROZEN
 		j.update_icon()
 	qdel(src)
+
