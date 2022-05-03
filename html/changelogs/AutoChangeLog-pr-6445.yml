@@ -1,0 +1,7 @@
+author: Kapu1178
+delete-after: true
+changes:
+  - rscdel: Miasma
+  - rscdel: Rot component
+  - rscdel: Corpseflowers
+  - balance: Atmosbot EMAG now generates CO2
