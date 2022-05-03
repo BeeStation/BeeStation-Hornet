@@ -18,7 +18,7 @@
 	RegisterSignal(I, COMSIG_PARENT_EXAMINE, .proc/on_examine)
 
 /datum/component/enchantment/Destroy()
-	UnregisterSignal(I, COMSIG_PARENT_EXAMINE)
+	UnregisterSignal(parent, COMSIG_PARENT_EXAMINE)
 	. = ..()
 
 /datum/component/enchantment/proc/apply_effect(obj/item/target)
