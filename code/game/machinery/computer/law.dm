@@ -41,6 +41,7 @@
 		M.install(current.laws, user)
 		if(alert("Do you wish to scramble the upload code?", "Scramble Code", "Yes", "No") == "No")
 			return
+		message_admins("[ADMIN_LOOKUPFLW(usr)] has scrambled the upload code [GLOB.upload_code]!")
 		GLOB.upload_code = random_nukecode()
 		to_chat(user, "<span class='notice'>You scramble the upload code</span>")
 	else

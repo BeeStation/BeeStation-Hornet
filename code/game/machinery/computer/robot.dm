@@ -163,6 +163,7 @@
 			if(!GLOB.upload_code)
 				GLOB.upload_code = random_nukecode()
 			if(!extracting)
+				message_admins("[ADMIN_LOOKUPFLW(usr)] is extracting the upload key!")
 				extracting = TRUE
 				if(allowed(usr))
 					say("Credentials successfully verified, commencing extraction.")
