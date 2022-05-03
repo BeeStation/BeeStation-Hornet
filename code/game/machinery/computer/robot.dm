@@ -10,14 +10,12 @@
 	var/obj/item/radio/radio
 	var/radio_channel = RADIO_CHANNEL_COMMAND
 
-
 /obj/machinery/computer/robotics/Initialize(mapload)
+	. = ..()
 	radio = new(src)
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
 	radio.recalculateChannels()
-	. = ..()
-
 
 /obj/machinery/computer/robotics/Destroy()
 	QDEL_NULL(radio)
@@ -36,7 +34,6 @@
 	if(R.scrambledcodes)
 		return
 	return TRUE
-
 
 /obj/machinery/computer/robotics/ui_state(mob/user)
 	return GLOB.default_state
@@ -92,7 +89,7 @@
 
 
 	data["uploads"] = list()
-	for(var/obj/machinery/computer/upload/U in GLOB.uploads_list)
+	for(var/obj/machinery/computer/upload/U as() in GLOB.uploads_list)
 		if(stat & (NOPOWER|BROKEN))
 			continue
 		if(get_virtual_z_level() != U.get_virtual_z_level())
@@ -164,7 +161,7 @@
 					D.gib()
 		if("extract")
 			if(!GLOB.upload_code)
-				scramble_upload_code()
+				GLOB.upload_code = random_nukecode()
 			if(!extracting)
 				extracting = TRUE
 				if(allowed(usr))

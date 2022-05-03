@@ -25,7 +25,7 @@
 			return
 		var/input = stripped_input(user, "Please enter the Upload code.", "Uplode Code Check")
 		if(!GLOB.upload_code)
-			scramble_upload_code()
+			GLOB.upload_code = random_nukecode()
 		if(!(input == GLOB.upload_code))
 			return
 		if(!can_upload_to(current))
@@ -41,14 +41,10 @@
 		M.install(current.laws, user)
 		if(alert("Do you wish to scramble the upload code?", "Scramble Code", "Yes", "No") == "No")
 			return
-		scramble_upload_code()
-		to_chat(usr, "<span class='notice'>You scramble the upload code</span>")
+		GLOB.upload_code = random_nukecode()
+		to_chat(user, "<span class='notice'>You scramble the upload code</span>")
 	else
 		return ..()
-
-/proc/scramble_upload_code()
-	GLOB.upload_code = random_nukecode()
-
 
 /obj/machinery/computer/upload/proc/can_upload_to(mob/living/silicon/S)
 	if(S.stat == DEAD)
