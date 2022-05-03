@@ -20,5 +20,6 @@
 /obj/eldritch/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
 /obj/eldritch/proc/consume()
 	return
