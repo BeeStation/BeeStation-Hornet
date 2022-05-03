@@ -3618,6 +3618,7 @@
 #include "monkestation\code\modules\mob\living\simple_animal\friendly\dog.dm"
 #include "monkestation\code\modules\mob\living\simple_animal\friendly\honk_platinum.dm"
 #include "monkestation\code\modules\mob\living\simple_animal\hostile\bees.dm"
+#include "monkestation\code\modules\mob\living\simple_animal\hostile\mining_mobs\elites\pandora_exploration.dm"
 #include "monkestation\code\modules\power\singularity\spatial_rift.dm"
 #include "monkestation\code\modules\procedural_mapping\mapGeneratorModules\jungle.dm"
 #include "monkestation\code\modules\procedural_mapping\mapGenerators\jungle.dm"

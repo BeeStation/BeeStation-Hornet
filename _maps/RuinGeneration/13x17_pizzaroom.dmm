@@ -33,7 +33,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "t" = (
-/mob/living/simple_animal/hostile/asteroid/elite/pandora,
+/mob/living/simple_animal/hostile/asteroid/elite/pandora/exploration,
 /turf/open/indestructible/hierophant,
 /area/ruin/unpowered)
 "v" = (
