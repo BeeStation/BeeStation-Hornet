@@ -1,4 +1,0 @@
-author: DoctorSquishy
-delete-after: true
-changes:
-  - refactor: Moves some bot and AI defines to its robot.dm in defines

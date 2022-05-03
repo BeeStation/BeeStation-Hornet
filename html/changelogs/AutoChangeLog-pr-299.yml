@@ -1,9 +1,0 @@
-author: DoctorSquishy
-delete-after: true
-changes:
-  - rscadd: Metal foam structures can now be used as a girder to finish building walls.
-  - imageadd: Added icons for the different Metal Foam Walls when plated
-  - bugfix: metal foam now blocks you from falling down a z-level if it's below you
-  - bugfix: Iron walls built on top of metal foam will produce metal foam instead
-      of a girder when decon'd.
-  - refactor: The slicing duration for walls in walls.dm are now clear as Seconds

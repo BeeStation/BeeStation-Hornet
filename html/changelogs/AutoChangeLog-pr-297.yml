@@ -1,4 +1,0 @@
-author: DoctorSquishy
-delete-after: true
-changes:
-  - refactor: Airlock controllers now use tgui for the interface
