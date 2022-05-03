@@ -21,6 +21,7 @@
 	var/facial_hair_style = "Shaved"
 	//Eye colour
 	var/eye_color = "000"
+	var/custom_color //Monkestation edit - a color for sprite accessories, currently only used for anime trait.
 	var/skin_tone = "caucasian1"	//Skin tone
 	var/lip_style = null	//no lipstick by default- arguably misleading, as it could be used for general makeup
 	var/lip_color = "white"

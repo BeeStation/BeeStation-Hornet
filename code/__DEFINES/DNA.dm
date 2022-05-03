@@ -130,6 +130,7 @@
 #define NOHUSK			23 // Can't be husked.
 #define NOMOUTH			24
 #define NOSOCKS       25 // You cannot wear socks.
+#define CUSTOM			26 //monkestation edit - for custom colors on sprite accessories (currently only used for anime trait)
 
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"

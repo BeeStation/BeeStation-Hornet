@@ -85,7 +85,7 @@
 	minimum_distance = 5
 	move_to_delay = 4
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/xeno = 4,
-							/obj/item/stack/sheet/animalhide/xeno = 1, /obj/item/organ/butt/xeno = 1) //MonkeStation Edit: Xeno Ass
+							/obj/item/stack/sheet/animalhide/xeno = 1, /obj/item/organ/butt/xeno = 1, /obj/item/organ/tail/alien = 1) //MonkeStation Edit: Xeno Ass & tail trophy
 	projectiletype = /obj/item/projectile/neurotox
 	projectilesound = 'sound/weapons/pierce.ogg'
 	status_flags = 0
