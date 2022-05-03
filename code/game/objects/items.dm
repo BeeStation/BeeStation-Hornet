@@ -670,12 +670,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		qdel(src)
 	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
+	SEND_SIGNAL(user, COMSIG_MOB_DROPPED_ITEM, src, loc)
 	if(!silent)
 		playsound(src, drop_sound, DROP_SOUND_VOLUME, ignore_walls = FALSE)
 	if(item_flags & SLOWS_WHILE_IN_HAND)
 		user.update_equipment_speed_mods()
 	remove_outline()
-	if(verbs && user.client)
+	if(verbs && user?.client)
 		user.client.remove_verbs(verbs)
 
 // called just as an item is picked up (loc is not yet changed)
@@ -698,6 +699,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // Initial is used to indicate whether or not this is the initial equipment (job datums etc) or just a player doing it
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
+	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
 	for(var/X in actions)
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.

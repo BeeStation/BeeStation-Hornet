@@ -49,9 +49,9 @@
 				t_prod.forceMove(seedloc)
 				t_amount++
 			qdel(O)
-		return 1
+			return seeds
 
-	return 0
+	return FALSE
 
 
 /obj/machinery/seed_extractor
@@ -151,7 +151,7 @@
 		var/mob/M = O.loc
 		if(!M.transferItemToLoc(O, src))
 			return FALSE
-		
+
 	var/seed_string = generate_seed_string(O)
 	if(piles[seed_string])
 		piles[seed_string] += WEAKREF(O)

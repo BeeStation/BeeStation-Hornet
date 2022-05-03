@@ -23,6 +23,7 @@
 		Refresh(H)
 
 /obj/item/organ/wings/proc/Refresh(mob/living/carbon/human/H)
+	H.dna.species.mutant_bodyparts -= "[basewings]open"
 	if(!(basewings in H.dna.species.mutant_bodyparts))
 		H.dna.species.mutant_bodyparts |= basewings
 		H.dna.features[basewings] = wing_type
@@ -40,6 +41,7 @@
 	..()
 	if(istype(H))
 		H.dna.species.mutant_bodyparts -= basewings
+		H.dna.species.mutant_bodyparts -= "[basewings]open"
 		wing_type = H.dna.features[basewings]
 		H.update_body()
 	if(flight_level >= WINGS_FLYING)

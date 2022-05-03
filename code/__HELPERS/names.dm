@@ -213,7 +213,7 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 							. += pick(names)
 						else
 							if(prob(10))
-								. += pick(lizard_name(MALE),lizard_name(FEMALE))
+								. += pick(random_lizard_name(MALE),random_lizard_name(FEMALE))
 							else
 								var/new_name = pick(pick(GLOB.first_names_male,GLOB.first_names_female))
 								new_name += " "

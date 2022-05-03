@@ -40,6 +40,7 @@
 		var/obj/item/stack/cable_coil/C = I
 		C.use(1)
 		has_sensor = HAS_SENSORS
+		update_sensors(NO_SENSORS)
 		to_chat(user,"<span class='notice'>You repair the suit sensors on [src] with [C].</span>")
 		return 1
 	if(!attach_accessory(I, user))
@@ -52,20 +53,30 @@
 		M.update_inv_w_uniform()
 	if(has_sensor > NO_SENSORS)
 		has_sensor = BROKEN_SENSORS
+		update_sensors(NO_SENSORS)
 
 /obj/item/clothing/under/Initialize(mapload)
 	. = ..()
+	var/new_sensor_mode = sensor_mode
+	sensor_mode = SENSOR_NOT_SET
 	if(random_sensor)
 		//make the sensor mode favor higher levels, except coords.
-		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_LIVING, SENSOR_VITALS, SENSOR_VITALS, SENSOR_VITALS, SENSOR_COORDS, SENSOR_COORDS)
+		new_sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_LIVING, SENSOR_VITALS, SENSOR_VITALS, SENSOR_VITALS, SENSOR_COORDS, SENSOR_COORDS)
+	update_sensors(new_sensor_mode)
+
+/obj/item/clothing/under/Destroy()
+	. = ..()
+	if(ishuman(loc))
+		update_sensors(SENSOR_OFF)
 
 /obj/item/clothing/under/emp_act()
 	. = ..()
 	if(has_sensor > NO_SENSORS)
-		sensor_mode = pick(SENSOR_OFF, SENSOR_OFF, SENSOR_OFF, SENSOR_LIVING, SENSOR_LIVING, SENSOR_VITALS, SENSOR_VITALS, SENSOR_COORDS)
+		var/new_sensor_mode = pick(SENSOR_OFF, SENSOR_OFF, SENSOR_OFF, SENSOR_LIVING, SENSOR_LIVING, SENSOR_VITALS, SENSOR_VITALS, SENSOR_COORDS)
 		if(ismob(loc))
 			var/mob/M = loc
 			to_chat(M,"<span class='warning'>The sensors on the [src] change rapidly!</span>")
+		update_sensors(new_sensor_mode)
 
 /obj/item/clothing/under/equipped(mob/user, slot)
 	..()
@@ -78,6 +89,12 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_w_uniform()
+	if(slot == ITEM_SLOT_ICLOTHING)
+		update_sensors(sensor_mode, TRUE)
+	else
+		REMOVE_TRAIT(user, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
+		if(!HAS_TRAIT(user, TRAIT_SUIT_SENSORS) && !HAS_TRAIT(user, TRAIT_NANITE_SENSORS))
+			GLOB.suit_sensors_list -= user
 
 	if(slot == ITEM_SLOT_ICLOTHING && freshly_laundered)
 		freshly_laundered = FALSE
@@ -97,6 +114,9 @@
 			var/mob/living/carbon/human/H = user
 			if(attached_accessory.above_suit)
 				H.update_inv_wear_suit()
+	REMOVE_TRAIT(user, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
+	if(!HAS_TRAIT(user, TRAIT_SUIT_SENSORS) && !HAS_TRAIT(user, TRAIT_NANITE_SENSORS))
+		GLOB.suit_sensors_list -= user
 
 /obj/item/clothing/under/proc/attach_accessory(obj/item/I, mob/user, notifyAttach = 1)
 	. = FALSE
@@ -148,6 +168,28 @@
 			var/mob/living/carbon/human/H = loc
 			H.update_inv_w_uniform()
 			H.update_inv_wear_suit()
+
+//Adds or removes mob from suit sensor global list
+/obj/item/clothing/under/proc/update_sensors(new_mode, forced = FALSE)
+	var/old_mode = sensor_mode
+	sensor_mode = new_mode
+	if(!forced && (old_mode == new_mode || (old_mode != SENSOR_OFF && new_mode != SENSOR_OFF)))
+		return
+	if(!ishuman(loc) || istype(loc, /mob/living/carbon/human/dummy))
+		return
+
+	if(sensor_mode > SENSOR_OFF)
+		if(HAS_TRAIT(loc, TRAIT_SUIT_SENSORS))
+			return
+		ADD_TRAIT(loc, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
+		if(!HAS_TRAIT(loc, TRAIT_NANITE_SENSORS))
+			GLOB.suit_sensors_list += loc
+	else
+		if(!HAS_TRAIT(loc, TRAIT_SUIT_SENSORS))
+			return
+		REMOVE_TRAIT(loc, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
+		if(!HAS_TRAIT(loc, TRAIT_NANITE_SENSORS))
+			GLOB.suit_sensors_list -= loc
 
 
 /obj/item/clothing/under/examine(mob/user)

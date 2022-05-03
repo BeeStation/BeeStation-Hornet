@@ -133,22 +133,22 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return TRUE
 	return FALSE
 
-/datum/species/proc/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_name(gender)
+/datum/species/proc/random_name(gender, unique, lastname, attempts)
 
-	var/randname
 	if(gender == MALE)
-		randname = pick(GLOB.first_names_male)
+		. = pick(GLOB.first_names_male)
 	else
-		randname = pick(GLOB.first_names_female)
+		. = pick(GLOB.first_names_female)
 
 	if(lastname)
-		randname += " [lastname]"
+		. += " [lastname]"
 	else
-		randname += " [pick(GLOB.last_names)]"
+		. += " [pick(GLOB.last_names)]"
 
-	return randname
+	if(unique && attempts < 10)
+		. = .(gender, TRUE, lastname, ++attempts)
+
+
 
 /datum/species/proc/update_color(mob/living/carbon/C) //empty proc for updating colors if there's a better way please tell me
 	return

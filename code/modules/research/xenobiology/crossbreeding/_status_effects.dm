@@ -447,7 +447,7 @@
 	if(!linked_extract || !linked_extract.loc) //Sanity checking
 		qdel(src)
 		return
-	if(linked_extract && linked_extract.loc != owner && linked_extract.loc.loc != owner)
+	if(linked_extract.loc != owner && linked_extract.loc.loc != owner)
 		linked_extract.linked_effect = null
 		if(!QDELETED(linked_extract))
 			linked_extract.owner = null

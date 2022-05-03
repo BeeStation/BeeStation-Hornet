@@ -50,6 +50,6 @@
 	//Announcement
 	//MonkeStation Edit: Missions increase Discovery Research
 	priority_announce("Central Command priority objective completed. [payout] credits have been \
-		distributed across departmental budgets. [payout * 0.1] points have been distrubted to exploration vendors.\nPassive Discovery Research Increased.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
+		distributed across departmental budgets. [payout * 0.1] points have been distributed to exploration vendors.\nPassive Discovery Research Increased.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
 	//Delete
 	QDEL_NULL(SSorbits.current_objective)

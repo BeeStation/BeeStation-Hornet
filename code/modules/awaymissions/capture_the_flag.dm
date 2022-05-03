@@ -176,6 +176,14 @@
 
 	var/static/arena_reset = FALSE
 	var/static/list/people_who_want_to_play = list()
+	var/static/list/allowed_species = list(
+		/datum/species/lizard,
+		/datum/species/moth,
+		/datum/species/ipc,
+		/datum/species/oozeling,
+		/datum/species/ethereal,
+		/datum/species/apid,
+	)
 
 /obj/machinery/capture_the_flag/Initialize(mapload)
 	. = ..()
@@ -280,7 +288,8 @@
 /obj/machinery/capture_the_flag/proc/spawn_team_member(client/new_team_member)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(get_turf(src))
 	new_team_member.prefs.copy_to(M)
-	M.set_species(/datum/species/human)
+	if(!(M.dna.species.type in allowed_species))
+		M.set_species(/datum/species/human) //default to human if not whitelisted
 	M.key = new_team_member.key
 	M.faction += team
 	M.equipOutfit(ctf_gear)

@@ -52,7 +52,10 @@
 	return ..()
 
 /datum/species/ethereal/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	ethereal_light = C.mob_light()
+
 	. = ..()
+
 	if(!ishuman(C))
 		return
 	var/mob/living/carbon/human/ethereal = C
@@ -62,7 +65,7 @@
 	b1 = GETBLUEPART(default_color)
 	RegisterSignal(ethereal, COMSIG_ATOM_EMAG_ACT, .proc/on_emag_act)
 	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, .proc/on_emp_act)
-	ethereal_light = ethereal.mob_light()
+
 	spec_updatehealth(ethereal)
 
 
@@ -79,13 +82,14 @@
 	return ..()
 
 
-/datum/species/ethereal/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_ethereal_name()
+/datum/species/ethereal/random_name(gender, unique, lastname, attempts)
+	. = "[pick(GLOB.ethereal_names)] [random_capital_letter()]"
+	if(prob(65))
+		. += "[random_capital_letter()]"
 
-	var/randname = ethereal_name()
-
-	return randname
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, lastname, ++attempts)
 
 
 /datum/species/ethereal/spec_updatehealth(mob/living/carbon/human/H)

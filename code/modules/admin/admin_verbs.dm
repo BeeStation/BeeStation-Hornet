@@ -516,8 +516,8 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 				mob.alpha = 0 //JUUUUST IN CASE
 				mob.name = " "
 				mob.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]")
-		message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON" : "OFF"]")
+		log_admin("[key_name(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
+		message_admins("[key_name_admin(usr)] has turned stealth mode [holder.fakekey ? "ON as [holder.fakekey]" : "OFF"]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stealth Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/drop_bomb()

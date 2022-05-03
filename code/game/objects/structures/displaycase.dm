@@ -14,6 +14,7 @@
 	var/alert = TRUE
 	var/open = FALSE
 	var/openable = TRUE
+	var/shatter = TRUE
 	var/custom_glass_overlay = FALSE ///If we have a custom glass overlay to use.
 	var/obj/item/electronics/airlock/electronics
 	var/start_showpiece_type = null //add type for items on display
@@ -69,17 +70,21 @@
 	update_icon()
 
 /obj/structure/displaycase/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
-	switch(damage_type)
-		if(BRUTE)
-			playsound(src, 'sound/effects/glasshit.ogg', 75, 1)
-		if(BURN)
-			playsound(src, 'sound/items/welder.ogg', 100, 1)
+	if(!shatter)
+		playsound(src, 'sound/weapons/egloves.ogg', 35, 1)
+	else
+		switch(damage_type)
+			if(BRUTE)
+				playsound(src, 'sound/effects/glasshit.ogg', 75, 1)
+			if(BURN)
+				playsound(src, 'sound/items/welder.ogg', 100, 1)
 
 /obj/structure/displaycase/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		dump()
 		if(!disassembled)
-			new /obj/item/shard(drop_location())
+			if(shatter)
+				new /obj/item/shard(drop_location())
 			trigger_alarm()
 	qdel(src)
 
@@ -87,8 +92,11 @@
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
 		density = FALSE
 		broken = TRUE
-		new /obj/item/shard(drop_location())
-		playsound(src, "shatter", 70, TRUE)
+		if(shatter)
+			new /obj/item/shard(drop_location())
+			playsound(src, "shatter", 70, TRUE)
+		else
+			playsound(src, "sound/magic/summonitems_generic.ogg", 70, TRUE)
 		update_icon()
 		trigger_alarm()
 
@@ -385,6 +393,7 @@
 	density = FALSE
 	max_integrity = 100
 	req_access = null
+	shatter = FALSE
 	alert = FALSE //No, we're not calling the fire department because someone stole your cookie.
 	glass_fix = FALSE //Fixable with tools instead.
 	pass_flags = PASSTABLE ///Can be placed and moved onto a table.

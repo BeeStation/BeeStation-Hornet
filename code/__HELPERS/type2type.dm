@@ -87,7 +87,7 @@
 
 /// Converts an angle to a cardinal ss13 direction bitmask
 /proc/angle2dir_cardinal(angle)
-	switch(round(angle, 0.1))
+	switch(SIMPLIFY_DEGREES(round(angle, 0.1)))
 		if(315.5 to 360, 0 to 45.5)
 			return NORTH
 		if(45.6 to 135.5)

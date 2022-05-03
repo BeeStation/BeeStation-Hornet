@@ -261,6 +261,11 @@
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
 		return
+	if(ismob(hit_atom))
+		var/mob/M = hit_atom
+		if(M.anti_magic_check(holy = TRUE))
+			M.visible_message("[src] passes right through [M]!")
+			return
 	. = ..()
 
 
@@ -675,7 +680,7 @@
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
-			if(!L.anti_magic_check(holy = TRUE))
+			if(!L.anti_magic_check(magic=FALSE,holy=TRUE))
 				L.Knockdown(50)
 			break_spear(T)
 	else
@@ -946,7 +951,7 @@
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
-			if(!L.anti_magic_check(holy = TRUE))
+			if(!L.anti_magic_check(magic=FALSE,holy=TRUE))
 				L.Knockdown(30)
 				if(D?.thrower)
 					for(var/mob/living/Next in orange(2, T))

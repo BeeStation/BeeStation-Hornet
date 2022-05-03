@@ -196,7 +196,7 @@
 			new /obj/item/clothing/gloves/color/black(src) // 0 tc
 			new /obj/item/clothing/mask/chameleon(src) // <1 tc
 			new /obj/item/clothing/suit/hooded/wintercoat(src) // 0 tc
-			new /obj/item/clothing/shoes/winterboots(src) // 0 tc
+			new /obj/item/clothing/shoes/winterboots/noslip(src) // 0 tc
 			new /obj/item/grenade/gluon(src) // part of grenadier's belt, ~1 tc each?
 			new /obj/item/grenade/gluon(src)
 			new /obj/item/grenade/gluon(src)

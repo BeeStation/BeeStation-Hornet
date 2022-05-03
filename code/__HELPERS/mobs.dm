@@ -137,64 +137,19 @@
 		if(!findname(.))
 			break
 
-/proc/random_unique_lizard_name(gender, attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(lizard_name(gender))
-
-		if(!findname(.))
-			break
-
-/proc/random_unique_apid_name(gender, attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(apid_name(gender))
-
-		if(!findname(.))
-			break
-
-/proc/random_unique_plasmaman_name(attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(plasmaman_name())
-
-		if(!findname(.))
-			break
-
-/proc/random_unique_ipc_name(attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(ipc_name())
-
-		if(!findname(.))
-			break
-
-
-/proc/random_unique_ethereal_name(attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(ethereal_name())
-
-		if(!findname(.))
-			break
-
-/proc/random_unique_moth_name(attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(pick(GLOB.moth_first)) + " " + capitalize(pick(GLOB.moth_last))
-
-		if(!findname(.))
-			break
-
-/proc/random_unique_ooze_name(attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(pick(GLOB.oozeling_first_names)) + " " + capitalize(pick(GLOB.oozeling_last_names))
-
-		if(!findname(.))
-			break
+/proc/random_lizard_name(gender, attempts)
+	if(gender == MALE)
+		. = "[pick(GLOB.lizard_names_male)]-[pick(GLOB.lizard_names_male)]"
+	else
+		. = "[pick(GLOB.lizard_names_female)]-[pick(GLOB.lizard_names_female)]"
+	if(attempts < 10)
+		if(findname(.))
+			. = .(gender, ++attempts)
 
 //monkestation edit: add simian species
 /proc/random_unique_simian_name(gender, attempts_to_find_unique_name=10)
 	for(var/i in 1 to attempts_to_find_unique_name)
 		. = capitalize(simian_name(gender))
-
-		if(!findname(.))
-			break
-
 
 /proc/random_skin_tone(skin_tone_list)
 	return pick(GLOB.skin_tones[skin_tone_list])

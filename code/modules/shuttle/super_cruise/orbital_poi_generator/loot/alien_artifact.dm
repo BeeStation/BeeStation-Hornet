@@ -156,8 +156,7 @@
 /atom/movable/proximity_monitor_holder/Initialize(mapload, datum/proximity_monitor/_monitor, datum/callback/_callback)
 	monitor = _monitor
 	callback = _callback
-
-	monitor.hasprox_receiver = src
+	monitor?.hasprox_receiver = src
 
 /atom/movable/proximity_monitor_holder/HasProximity(atom/movable/AM)
 	return callback.Invoke(AM)

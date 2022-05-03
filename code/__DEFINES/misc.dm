@@ -141,6 +141,7 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 
 //suit sensors: sensor_mode defines
 
+#define SENSOR_NOT_SET -1
 #define SENSOR_OFF 0
 #define SENSOR_LIVING 1
 #define SENSOR_VITALS 2
