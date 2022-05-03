@@ -374,10 +374,9 @@
 	var/turf/current_loc = get_turf(atom) //if we need to use this twice might as well make it a local var
 	if(current_loc == next_step)
 		movement_path.Cut(1,2)
-	else if(get_dist(current_loc, next_step) > 1) //we check here if we are further away than 1 tile before we recalculate the path cause else we might just be able to try to move again next time
-		INVOKE_ASYNC(src, .proc/recalculate_path)
-		return FALSE
 	else
+		if(get_dist(current_loc, next_step) > 1) //we check here if we are further away than 1 tile before we recalculate the path cause else we might just be able to try to move again next time
+			INVOKE_ASYNC(src, .proc/recalculate_path)
 		return FALSE
 /**
  * Used for following jps defined paths.
@@ -487,10 +486,9 @@
 	var/turf/current_loc = get_turf(atom) //if we need to use this twice might as well make it a local var
 	if(current_loc == next_step)
 		movement_path.Cut(1,2)
-	else if(get_dist(current_loc, next_step) > 1) //we check here if we are further away than 1 tile before we recalculate the path cause else we might just be able to try to move again next time
-		INVOKE_ASYNC(src, .proc/recalculate_path)
-		return FALSE
 	else
+		if(get_dist(current_loc, next_step) > 1) //we check here if we are further away than 1 tile before we recalculate the path cause else we might just be able to try to move again next time
+			INVOKE_ASYNC(src, .proc/recalculate_path)
 		return FALSE
 
 /datum/move_loop/has_target/jps/hostile/Destroy()
