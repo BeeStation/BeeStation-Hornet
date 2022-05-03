@@ -71,6 +71,7 @@
 /obj/item/gun/energy/kinetic_accelerator/cyborg
 	holds_charge = TRUE
 	unique_frequency = TRUE
+	requires_wielding = FALSE
 	max_mod_capacity = 80
 
 /obj/item/gun/energy/kinetic_accelerator/minebot
