@@ -1,0 +1,4 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Miners being able to redeem points without providing ores to the station
