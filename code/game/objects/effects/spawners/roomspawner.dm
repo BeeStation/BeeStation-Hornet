@@ -7,6 +7,7 @@
 	dir = NORTH
 	var/room_width = 0
 	var/room_height = 0
+	var/list/dedicated_rooms //MonkeStation Edit: Better control over room spawn
 
 /obj/effect/spawner/room/New(loc, ...)
 	. = ..()
@@ -15,6 +16,12 @@
 
 /obj/effect/spawner/room/Initialize(mapload)
 	..()
+	//MonkeStation Edit Start: Room Spawn Control
+	if(dedicated_rooms)
+		var/datum/map_template/random_room/template = pickweight(dedicated_rooms)
+		template.load(get_turf(src), centered = template.centerspawner)
+		return INITIALIZE_HINT_QDEL
+	//MonkeStation Edit End
 	if(!length(SSmapping.random_room_templates))
 		message_admins("Room spawner created with no templates available. This shouldn't happen.")
 		return INITIALIZE_HINT_QDEL

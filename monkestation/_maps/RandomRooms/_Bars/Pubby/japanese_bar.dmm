@@ -1,0 +1,1699 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 8
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"bg" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"bO" = (
+/turf/closed/wall,
+/area/template_noop)
+"bR" = (
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"bT" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/requests_console{
+	department = "Bar";
+	departmentType = 2;
+	pixel_y = 30;
+	receive_ore_updates = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Bar Access";
+	dir = 2
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"cO" = (
+/obj/machinery/vending/cigarette,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"dL" = (
+/obj/structure/chair/stool/bamboo{
+	pixel_y = 6;
+	pixel_x = -2
+	},
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/bamboo,
+/area/template_noop)
+"dM" = (
+/obj/structure/sign/poster/official/cohiba_robusto_ad{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"el" = (
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/button/door{
+	id = "barshutters";
+	name = "Bar Lockdown";
+	pixel_x = 28;
+	req_access_txt = "25"
+	},
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"eB" = (
+/obj/machinery/vending/boozeomat,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/closed/wall/mineral/bamboo,
+/area/template_noop)
+"eI" = (
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "Theatre APC";
+	pixel_x = -24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"fg" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal/bin,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"fn" = (
+/obj/structure/disposalpipe/sorting/mail/flip{
+	dir = 4;
+	sortType = 19
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"fQ" = (
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"fX" = (
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"gE" = (
+/obj/item/candle{
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_x = -8;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/obj/structure/table/wood,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"iy" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/conveyor/auto{
+	dir = 10
+	},
+/obj/structure/railing{
+	dir = 6
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"iC" = (
+/obj/machinery/vending/autodrobe,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"iR" = (
+/obj/structure/chair/stool/bamboo{
+	pixel_y = 6
+	},
+/turf/open/floor/bamboo,
+/area/template_noop)
+"je" = (
+/obj/structure/table/wood,
+/obj/item/candle{
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_x = 8;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_y = 2
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"ki" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/displaycase/forsale/kitchen{
+	pixel_y = 9
+	},
+/obj/structure/table/wood,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"kQ" = (
+/obj/machinery/door/airlock{
+	name = "Service Access";
+	req_access_txt = "0";
+	req_one_access_txt = "22;25;26;28;35;37;38;46"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"lh" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light_switch{
+	pixel_x = 24;
+	pixel_y = 24
+	},
+/obj/structure/mirror{
+	pixel_x = 28;
+	pixel_y = -2
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"lp" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+	dir = 8
+	},
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/obj/structure/railing,
+/obj/machinery/light/floor,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"lI" = (
+/obj/machinery/computer/arcade/orion_trail,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"my" = (
+/obj/structure/table/wood,
+/obj/machinery/chem_dispenser/drinks,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = 27
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"na" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/window/paperframe,
+/turf/open/floor/bamboo,
+/area/template_noop)
+"oh" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Theatre Maintenance";
+	req_access_txt = "46"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/turf/open/floor/plating,
+/area/template_noop)
+"oP" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "barshutters";
+	name = "bar shutters"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"pa" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_y = 14
+	},
+/obj/item/candle{
+	pixel_y = 8;
+	pixel_x = -6
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"pq" = (
+/obj/structure/closet/crate/wooden/toy,
+/obj/item/lipstick/random,
+/obj/item/clothing/gloves/color/rainbow,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"pr" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"ps" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"pK" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"qW" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"ri" = (
+/obj/machinery/newscaster{
+	pixel_x = -32;
+	pixel_y = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"rj" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"rD" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"sm" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/window/paperframe,
+/turf/open/floor/bamboo,
+/area/template_noop)
+"sy" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/conveyor/auto{
+	dir = 9
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/railing/corner,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"th" = (
+/obj/structure/chair/stool/bamboo{
+	pixel_y = 7
+	},
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/bamboo,
+/area/template_noop)
+"tp" = (
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"uc" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/obj/structure/railing,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"uy" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"uL" = (
+/obj/structure/table/wood,
+/obj/item/clothing/under/costume/kamishimo,
+/obj/item/clothing/under/costume/kamishimo,
+/obj/item/clothing/under/costume/kamishimo,
+/obj/item/clothing/under/costume/kamishimo,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"uR" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/snacks/spaghetti/beefnoodle,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"vp" = (
+/obj/machinery/door/airlock{
+	name = "Bar Access";
+	req_access_txt = "25"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"vJ" = (
+/obj/machinery/door/airlock{
+	name = "Theatre Storage";
+	req_access_txt = "46"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"vM" = (
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/obj/item/cardboard_cutout,
+/obj/structure/mirror{
+	pixel_x = 28;
+	pixel_y = -2
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 9
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"wa" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"wh" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/airalarm{
+	pixel_y = 24
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"wF" = (
+/turf/open/floor/bamboo,
+/area/template_noop)
+"wP" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/candle{
+	pixel_y = 7;
+	pixel_x = 9
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_y = 13;
+	pixel_x = -1
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"wU" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 5
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"xn" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "barshutters";
+	name = "bar shutters"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/mineral_door/paperframe,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"xv" = (
+/obj/structure/chair/stool/bamboo{
+	pixel_y = 14
+	},
+/turf/open/floor/bamboo,
+/area/template_noop)
+"xF" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/structure/chair/stool/bamboo{
+	pixel_y = 8
+	},
+/turf/open/floor/bamboo,
+/area/template_noop)
+"xH" = (
+/obj/machinery/light/small,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"xQ" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "barshutters";
+	name = "bar shutters"
+	},
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/template_noop)
+"yg" = (
+/obj/structure/dresser,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/sign/poster/contraband/clown{
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"yp" = (
+/obj/structure/chair/stool/bamboo{
+	pixel_y = 13
+	},
+/turf/open/floor/bamboo,
+/area/template_noop)
+"yL" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/structure/mineral_door/paperframe,
+/turf/open/floor/bamboo,
+/area/template_noop)
+"zz" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "barshutters";
+	name = "bar shutters"
+	},
+/obj/structure/table/wood,
+/obj/item/clothing/shoes/sandal{
+	pixel_y = 10
+	},
+/obj/item/clothing/shoes/sandal{
+	pixel_y = -2
+	},
+/obj/item/clothing/shoes/sandal{
+	pixel_y = 2
+	},
+/obj/item/clothing/shoes/sandal{
+	pixel_y = 6
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"zB" = (
+/obj/machinery/computer/arcade/battle,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Ak" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/bottle/sake{
+	pixel_y = 15;
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/food/drinks/bottle/sake{
+	pixel_y = 15;
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_y = 3;
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_y = 3;
+	pixel_x = -9
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_y = 3;
+	pixel_x = -2
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Bn" = (
+/obj/structure/window/paperframe,
+/turf/open/floor/bamboo,
+/area/template_noop)
+"Bt" = (
+/obj/machinery/vending/boozeomat,
+/turf/closed/wall,
+/area/template_noop)
+"Ca" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/start/mime,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Cx" = (
+/obj/structure/chair,
+/obj/item/clothing/head/bowler,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"CF" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Du" = (
+/obj/structure/disposalpipe/junction/flip{
+	dir = 1
+	},
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Ea" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Es" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"EF" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/landmark/start/clown,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Fj" = (
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 6
+	},
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/obj/structure/railing,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Gw" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "Bar APC";
+	pixel_x = 24
+	},
+/obj/structure/cable,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"GG" = (
+/obj/machinery/conveyor/auto{
+	dir = 5
+	},
+/obj/structure/railing{
+	dir = 9
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Hr" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Ij" = (
+/obj/structure/table/wood,
+/obj/item/soap,
+/obj/structure/table/wood,
+/obj/item/bikehorn,
+/obj/item/toy/cattoy,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"JP" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+	dir = 8
+	},
+/obj/effect/landmark/start/bartender,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Kd" = (
+/obj/structure/chair/stool/bamboo{
+	pixel_y = 5
+	},
+/turf/open/floor/bamboo,
+/area/template_noop)
+"KQ" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = 27
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"KX" = (
+/obj/structure/chair/stool/bar{
+	pixel_y = 13
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Lk" = (
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Lz" = (
+/obj/structure/table/wood,
+/obj/item/candle{
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_x = -8;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"LT" = (
+/obj/structure/sign/barsign,
+/turf/closed/wall,
+/area/template_noop)
+"Mu" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Theatre Storage";
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Nf" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/mineral_door/paperframe,
+/turf/open/floor/bamboo,
+/area/template_noop)
+"Nm" = (
+/obj/effect/landmark/start/bartender,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Nn" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "barshutters";
+	name = "bar shutters"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/mineral_door/paperframe,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"NS" = (
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = 27
+	},
+/obj/structure/chair,
+/obj/item/clothing/mask/cigarette,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"NU" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_y = 2
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Ox" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 2
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"OD" = (
+/obj/structure/chair/stool/bamboo{
+	pixel_y = 11
+	},
+/turf/open/floor/bamboo,
+/area/template_noop)
+"OM" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"OP" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Po" = (
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Qd" = (
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Qf" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/item/kirbyplants/random,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Qy" = (
+/obj/machinery/conveyor/auto{
+	dir = 6
+	},
+/obj/structure/railing{
+	dir = 5
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"QG" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/donut,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Tc" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Bar Starboard";
+	dir = 1
+	},
+/obj/machinery/light{
+	light_color = "#c9d3e8"
+	},
+/obj/structure/table/wood,
+/obj/item/clothing/shoes/sandal{
+	pixel_y = -2
+	},
+/obj/item/clothing/shoes/sandal{
+	pixel_y = 2
+	},
+/obj/item/clothing/shoes/sandal{
+	pixel_y = 6
+	},
+/obj/item/clothing/shoes/sandal{
+	pixel_y = 10
+	},
+/obj/item/toy/katana{
+	pixel_x = 5;
+	name = "High-Frequency Murasama Replica";
+	color = #FF0000;
+	desc = "It's the only thing you've ever known."
+	},
+/obj/item/toy/katana{
+	pixel_y = 5;
+	color = #0000FF;
+	name = "High-Frequency Blade Replica";
+	desc = "You carve your own path to justice."
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Ub" = (
+/obj/structure/chair/stool/bamboo{
+	pixel_y = 14
+	},
+/obj/machinery/light/small,
+/turf/open/floor/bamboo,
+/area/template_noop)
+"Ul" = (
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 4;
+	sortType = 18
+	},
+/obj/machinery/requests_console{
+	department = "Theatre";
+	departmentType = 0;
+	name = "theatre RC";
+	pixel_x = -32;
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Uo" = (
+/obj/structure/chair/stool/bamboo,
+/turf/open/floor/bamboo,
+/area/template_noop)
+"Ve" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"VK" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/snacks/spaghetti/chowmein,
+/obj/machinery/light/small,
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"WN" = (
+/obj/structure/sign/poster/random{
+	pixel_y = 32
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "barshutters";
+	name = "bar shutters"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/mineral_door/paperframe,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"WV" = (
+/obj/structure/chair/stool/bamboo{
+	pixel_y = 6;
+	pixel_x = 7
+	},
+/turf/open/floor/bamboo,
+/area/template_noop)
+"Xq" = (
+/obj/structure/chair/stool/bamboo,
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/bamboo,
+/area/template_noop)
+"Xs" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Xz" = (
+/obj/structure/chair/stool/bamboo{
+	pixel_y = 7
+	},
+/turf/open/floor/bamboo,
+/area/template_noop)
+"XX" = (
+/obj/structure/table/wood,
+/obj/machinery/chem_dispenser/drinks/beer,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Yd" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 8
+	},
+/obj/item/instrument/violin{
+	pixel_x = -11;
+	pixel_y = 4
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"Yy" = (
+/obj/structure/table/wood,
+/obj/machinery/airalarm{
+	pixel_y = 22
+	},
+/obj/item/instrument/accordion{
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"ZR" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "barshutters";
+	name = "bar shutters"
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"ZY" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+
+(1,1,1) = {"
+bO
+bT
+wa
+bO
+Uo
+Uo
+Xq
+Uo
+Uo
+uR
+xQ
+Es
+"}
+(2,1,1) = {"
+Bt
+pK
+Ox
+bO
+KQ
+fQ
+fQ
+fQ
+fQ
+VK
+LT
+OM
+"}
+(3,1,1) = {"
+bO
+bg
+Gw
+kQ
+Qd
+Bn
+Bn
+Bn
+fQ
+Ea
+bO
+pr
+"}
+(4,1,1) = {"
+bO
+vp
+bO
+bO
+ps
+fQ
+Uo
+wP
+yp
+Ea
+xQ
+QG
+"}
+(5,1,1) = {"
+ri
+wU
+Bn
+Bn
+Xs
+WV
+GG
+sy
+tp
+bR
+xQ
+Es
+"}
+(6,1,1) = {"
+Ak
+OP
+NU
+OD
+Xs
+Lz
+Ea
+uc
+je
+Ub
+bO
+bO
+"}
+(7,1,1) = {"
+my
+JP
+NU
+OD
+Xs
+dL
+Ea
+Fj
+xF
+Hr
+oP
+yL
+"}
+(8,1,1) = {"
+eB
+aa
+NU
+OD
+Xs
+Xz
+uy
+lp
+th
+fQ
+zz
+sm
+"}
+(9,1,1) = {"
+XX
+Nm
+NU
+OD
+Xs
+Lz
+Ea
+uc
+gE
+fQ
+ZR
+Nf
+"}
+(10,1,1) = {"
+uL
+fQ
+NU
+OD
+Xs
+Kd
+Qy
+iy
+iR
+xH
+bO
+bO
+"}
+(11,1,1) = {"
+el
+Lk
+na
+na
+fn
+fQ
+Uo
+pa
+xv
+fQ
+xQ
+Qf
+"}
+(12,1,1) = {"
+bO
+bO
+bO
+bO
+CF
+fQ
+fQ
+Yd
+fQ
+fQ
+xQ
+Cx
+"}
+(13,1,1) = {"
+Yy
+eI
+fX
+vJ
+Du
+ki
+Lk
+Lk
+Lk
+Qd
+bO
+NS
+"}
+(14,1,1) = {"
+yg
+Ca
+Mu
+bO
+bO
+Bn
+cO
+fQ
+fQ
+Tc
+bO
+wh
+"}
+(15,1,1) = {"
+iC
+rj
+Ul
+fg
+bO
+zB
+KX
+wF
+wF
+Xs
+Nn
+rD
+"}
+(16,1,1) = {"
+bO
+qW
+EF
+Ij
+bO
+lI
+KX
+wF
+wF
+Xs
+Nn
+ZY
+"}
+(17,1,1) = {"
+oh
+lh
+vM
+pq
+bO
+Bn
+Ve
+fQ
+fQ
+Po
+bO
+dM
+"}
+(18,1,1) = {"
+bO
+bO
+bO
+bO
+bO
+bO
+bO
+WN
+xn
+bO
+bO
+bO
+"}
