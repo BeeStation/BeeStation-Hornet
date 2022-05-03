@@ -3,23 +3,32 @@
 	name = "energy gun"
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
-
-	var/obj/item/stock_parts/cell/cell //What type of power cell this uses
+	///What type of power cell this uses
+	var/obj/item/stock_parts/cell/cell 
 	var/cell_type = /obj/item/stock_parts/cell
+	/// how much charge the cell will have, this is equal to the default power cell defined above
+	var/gun_charge = 1000 
 	var/modifystate = 0
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
-	var/select = 1 //The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
-	var/can_charge = TRUE //Can it be charged in a recharger?
-	var/automatic_charge_overlays = TRUE	//Do we handle overlays with base update_icon()?
+	///The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
+	var/select = 1 
+	///Can it be charged in a recharger?
+	var/can_charge = TRUE 
+	///Do we handle overlays with base update_icon()?
+	var/automatic_charge_overlays = TRUE	
 	var/charge_sections = 4
 	ammo_x_offset = 2
-	var/shaded_charge = FALSE //if this gun uses a stateful charge bar for more detail
-	var/old_ratio = 0 // stores the gun's previous ammo "ratio" to see if it needs an updated icon
+	///if this gun uses a stateful charge bar for more detail
+	var/shaded_charge = FALSE 
+	/// stores the gun's previous ammo "ratio" to see if it needs an updated icon
+	var/old_ratio = 0 
 	var/selfcharge = 0
 	var/charge_timer = 0
 	var/charge_delay = 8
-	var/use_cyborg_cell = FALSE //whether the gun's cell drains the cyborg user's cell to recharge
-	var/dead_cell = FALSE //set to true so the gun is given an empty cell
+	///whether the gun's cell drains the cyborg user's cell to recharge
+	var/use_cyborg_cell = FALSE 
+	///set to true so the gun is given an empty cell
+	var/dead_cell = FALSE 
 
 /obj/item/gun/energy/emp_act(severity)
 	. = ..()
@@ -34,10 +43,10 @@
 
 /obj/item/gun/energy/Initialize(mapload)
 	. = ..()
-	if(cell_type)
+	if(cell_type)	//just in case someone eventually wants to make an energy gun without a power cell for some reason?
 		cell = new cell_type(src)
-	else
-		cell = new(src)
+		cell.maxcharge = gun_charge
+		cell.charge = gun_charge		//allows fine-tuned control over how much charge a gun will have without defining new types of cells
 	if(dead_cell)	//this makes much more sense.
 		cell.use(cell.maxcharge)
 	update_ammo_types()
