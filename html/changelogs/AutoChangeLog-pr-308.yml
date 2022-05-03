@@ -1,0 +1,4 @@
+author: lmenvs
+delete-after: true
+changes:
+  - bugfix: Ling Spawned Teratoma can no longer use guns
