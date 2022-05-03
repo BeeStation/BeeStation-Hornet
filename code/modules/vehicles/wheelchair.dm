@@ -59,6 +59,11 @@
 	if(has_buckled_mobs())
 		handle_rotation_overlayed()
 
+//monkestation edit - make wheelchair from other players unbuckles take time
+/obj/vehicle/ridden/wheelchair/unbuckle_mob(mob/living/buckled_mob, force)
+	if((usr != buckled_mob && do_after(usr, 2 SECONDS, null, buckled_mob)) || usr == buckled_mob)
+		. = ..()
+//monkestation edit end
 
 /obj/vehicle/ridden/wheelchair/post_buckle_mob(mob/living/user)
 	. = ..()
