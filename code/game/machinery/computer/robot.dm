@@ -164,28 +164,22 @@
 					D.visible_message("<span class='danger'>\the [D] self-destructs!</span>")
 					D.gib()
 		if("extract")
+			if(!GLOB.upload_code)
+				scramble_upload_code()
 			if(!extracting)
+				extracting = TRUE
 				if(allowed(usr))
-					var/obj/machinery/computer/upload/U = GLOB.uploads_list[1]
-					var/code = U.code
-					src.extracting = TRUE
 					say("Credentials successfully verified, commencing extraction.")
 					sleep(120)
-					var/obj/item/paper/P = new /obj/item/paper(loc)
-					P.name = "Silicon Upload key"
-					P.info = "Current Upload key is: [code]"
-					src.extracting = FALSE
+
 				else
-					var/obj/machinery/computer/upload/U = GLOB.uploads_list[1]
-					var/code = U.code
-					src.extracting = TRUE
 					var/message = "ALERT: UNAUTHORIZED UPLOAD KEY EXTRACTION AT [get_area_name(loc, TRUE)]"
 					radio.talk_into(src, message, radio_channel)
 					sleep(600)
 					say("Extraction at 50%")
 					sleep(600)
-					var/obj/item/paper/P = new /obj/item/paper(loc)
-					P.name = "Silicon Upload key"
-					P.info = "Current Upload key is: [code]"
-					src.extracting = FALSE
+				var/obj/item/paper/P = new /obj/item/paper(loc)
+				P.name = "Silicon Upload key"
+				P.info = "Current Upload key is: [GLOB.upload_code]"
+				extracting = FALSE
 

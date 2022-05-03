@@ -3,20 +3,16 @@
 /obj/machinery/computer/upload
 	var/mob/living/silicon/current = null //The target of future law uploads
 	icon_screen = "command"
-	var/code = null
 
 /obj/machinery/computer/upload/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/gps, "Encrypted Upload")
 	GLOB.uploads_list += src
-	if(mapload)
-		set_code_upload()
-	else
-		set_code_upload_new()
 
 /obj/machinery/computer/upload/Destroy()
-	. = ..()
 	GLOB.uploads_list -= src
+	return ..()
+
 
 
 /obj/machinery/computer/upload/attackby(obj/item/O, mob/user, params)
@@ -28,7 +24,9 @@
 			to_chat(user, "<span class='caution'>You haven't selected anything to transmit laws to!</span>")
 			return
 		var/input = stripped_input(user, "Please enter the Upload code.", "Uplode Code Check")
-		if(!(input == src.code))
+		if(!GLOB.upload_code)
+			scramble_upload_code()
+		if(!(input == GLOB.upload_code))
 			return
 		if(!can_upload_to(current))
 			to_chat(user, "<span class='caution'>Upload failed!</span> Check to make sure [current.name] is functioning properly.")
@@ -41,25 +39,16 @@
 			current = null
 			return
 		M.install(current.laws, user)
-		switch(alert("Do you wish to scramble the upload code?", "Scramble Code", "Yes", "No"))
-			if("Yes")
-				set_code_upload()
-				to_chat(usr, "<span class='notice'>You scramble the upload code</span>")
+		if(alert("Do you wish to scramble the upload code?", "Scramble Code", "Yes", "No") == "No")
+			return
+		scramble_upload_code()
+		to_chat(usr, "<span class='notice'>You scramble the upload code</span>")
 	else
 		return ..()
 
-/proc/set_code_upload()
-	var/C = random_nukecode()
-	for(var/obj/machinery/computer/upload/U in GLOB.uploads_list)
-		U.code = C
+/proc/scramble_upload_code()
+	GLOB.upload_code = random_nukecode()
 
-/obj/machinery/computer/upload/proc/set_code_upload_new()
-	var/L = length(GLOB.uploads_list)
-	if(L > 1)
-		var/obj/machinery/computer/upload/U = GLOB.uploads_list[1]
-		src.code = U.code
-	else
-		set_code_upload()
 
 /obj/machinery/computer/upload/proc/can_upload_to(mob/living/silicon/S)
 	if(S.stat == DEAD)
