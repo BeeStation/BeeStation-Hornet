@@ -199,6 +199,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	highlight("#f00")
 	#endif
 
+	if(SSshuttle.shuttles_loaded)
+		load_roundstart()
+
 /obj/docking_port/stationary/Destroy(force)
 	if(force)
 		SSshuttle.stationary -= src
@@ -308,6 +311,8 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 	var/shuttle_object_type = /datum/orbital_object/shuttle
 
+	var/dynamic_id = FALSE
+
 /obj/docking_port/mobile/proc/register()
 	SSshuttle.mobile |= src
 
@@ -384,6 +389,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 	if(!id)
 		id = "[SSshuttle.mobile.len]"
+	else if(dynamic_id)
+		name = "[name] [SSshuttle.mobile.len]"
+		id = "[id][SSshuttle.mobile.len]"
 	if(name == "shuttle")
 		name = "shuttle[SSshuttle.mobile.len]"
 
@@ -396,6 +404,13 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			shuttle_areas[cur_area] = TRUE
 			if(!cur_area.mobile_port)
 				cur_area.link_to_shuttle(src)
+		//Link up shuttle consoles
+		if(dynamic_id)
+			var/obj/machinery/computer/shuttle_flight/flight_computer = locate() in curT
+			if(!flight_computer)
+				continue
+			flight_computer.shuttleId = "[id]"
+			flight_computer.shuttlePortId = "[id]_custom"
 
 	initial_engines = count_engines()
 	current_engines = initial_engines
