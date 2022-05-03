@@ -577,7 +577,7 @@
 			R.mmi.brainmob.name = real_name
 
 	R.job = "Cyborg"
-	R.notify_ai(NEW_BORG)
+	R.notify_ai(AI_NOTIFICATION_NEW_BORG)
 
 	. = R
 	qdel(src)

@@ -50,7 +50,7 @@
 		R.custom_name = heldname
 		R.updatename()
 		if(oldname == R.real_name)
-			R.notify_ai(RENAME, oldname, R.real_name)
+			R.notify_ai(AI_NOTIFICATION_CYBORG_RENAMED, oldname, R.real_name)
 		log_game("[key_name(user)] have used a cyborg reclassification board to rename [oldkeyname] to [key_name(R)] at [loc_name(user)]")
 
 /obj/item/borg/upgrade/restart
@@ -555,7 +555,7 @@
 	if (.)
 		if(R.shell)
 			R.undeploy()
-			R.notify_ai(AI_SHELL)
+			R.notify_ai(AI_NOTIFICATION_AI_SHELL)
 
 /obj/item/borg/upgrade/expand
 	name = "borg expander"
