@@ -42,7 +42,7 @@ field_generator power level display
 	var/list/obj/machinery/field/containment/fields
 	var/list/obj/machinery/field/generator/connected_gens
 	var/clean_up = 0
-	var/static/loose_message_cooldown = 0 //Cooldown var here as a static var so its shared between all field generators
+	COOLDOWN_STATIC_DECLARE(loose_message_cooldown)
 
 /obj/machinery/field/generator/Initialize(mapload)
 	. = ..()
