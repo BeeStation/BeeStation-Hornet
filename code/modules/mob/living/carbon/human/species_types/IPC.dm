@@ -24,7 +24,7 @@
 	damage_overlay_type = "synth"
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
 	default_features = list("ipc_screen" = "BSOD", "ipc_antenna" = "None")
-	burnmod = 2
+	burnmod = 1.5	//Default was 2 //Monkestation Edit
 	heatmod = 1.5
 	brutemod = 1
 	clonemod = 0
