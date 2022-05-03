@@ -21,7 +21,7 @@
 
 /obj/machinery/computer/robotics/Destroy()
 	QDEL_NULL(radio)
-	. = ..()
+	return ..()
 
 /obj/machinery/computer/robotics/proc/can_control(mob/user, mob/living/silicon/robot/R)
 	. = FALSE
@@ -95,7 +95,7 @@
 	for(var/obj/machinery/computer/upload/U in GLOB.uploads_list)
 		if(stat & (NOPOWER|BROKEN))
 			continue
-		if(get_virtual_z_level() != (get_turf(U)).get_virtual_z_level())
+		if(get_virtual_z_level() != U.get_virtual_z_level())
 			continue
 		var/turf/loc = get_turf(U)
 		var/list/upload_data = list(
@@ -103,7 +103,6 @@
 			area = "[get_area_name(loc, TRUE)]",
 			coords = "[loc.x], [loc.y], [loc.get_virtual_z_level()]",
 			ref = REF(U)
-
 		)
 		data["uploads"] += list(upload_data)
 
