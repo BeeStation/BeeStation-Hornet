@@ -145,6 +145,7 @@
 	engine.set_delay(enter_delay + exit_delay)
 
 /obj/structure/transit_tube_pod/proc/engine_finish()
+	SIGNAL_HANDLER
 	density = TRUE
 	moving = 0
 
