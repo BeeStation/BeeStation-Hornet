@@ -23,6 +23,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 /obj/effect/particle_effect/newtonian_move(direction, instant = FALSE) // Prevents effects from getting registered for SSspacedrift
 	return TRUE
 
+#define MAX_SPARKS 10 //max possible sparks
 /datum/effect_system
 	var/number = 3
 	var/cardinals_only = FALSE
@@ -38,7 +39,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	return ..()
 
 /datum/effect_system/proc/set_up(number = 3, cardinals_only = FALSE, location)
-	src.number = min(number, 10)
+	src.number = min(number, MAX_SPARKS)
 	src.cardinals_only = cardinals_only
 	src.location = get_turf(location)
 
@@ -75,3 +76,5 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	if(!autocleanup || total_effects > 0)
 		return
 	QDEL_IN(src, 2 SECONDS)
+
+#undef MAX_SPARKS
