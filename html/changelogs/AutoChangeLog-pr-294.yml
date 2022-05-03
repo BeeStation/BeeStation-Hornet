@@ -1,0 +1,6 @@
+author: nednaZ
+delete-after: true
+changes:
+  - rscadd: Metastation now has random bars. Default, Medbar, Tribal, Grungy.
+  - rscadd: Boxstation now has random bars. Default, Vietmoth, Syndicate, Clown.
+  - rscadd: Pubbystation now has random bars. Default, Hobo, Japanese, Pool.
