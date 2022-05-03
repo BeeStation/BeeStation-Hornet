@@ -1,0 +1,6 @@
+author: lmenvs
+delete-after: true
+changes:
+  - rscadd: More anime trait options
+  - rscadd: Anime sprite accessories have their own separate color option!
+  - bugfix: Felinid Weebs can eat junkfood again
