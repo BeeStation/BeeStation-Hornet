@@ -3,11 +3,25 @@
 	desc = "Used to remotely lockdown or detonate linked Cyborgs and Drones."
 	icon_screen = "robot"
 	icon_keyboard = "rd_key"
-	req_access = list(ACCESS_ROBOTICS)
+	req_access = list(ACCESS_RD)
 	circuit = /obj/item/circuitboard/computer/robotics
 	light_color = LIGHT_COLOR_PINK
+	var/extracting = FALSE
+	var/obj/item/radio/radio
+	var/radio_channel = RADIO_CHANNEL_COMMAND
 
 
+/obj/machinery/computer/robotics/Initialize(mapload)
+	radio = new(src)
+	radio.subspace_transmission = TRUE
+	radio.canhear_range = 0
+	radio.recalculateChannels()
+	. = ..()
+
+
+/obj/machinery/computer/robotics/Destroy()
+	QDEL_NULL(radio)
+	. = ..()
 
 /obj/machinery/computer/robotics/proc/can_control(mob/user, mob/living/silicon/robot/R)
 	. = FALSE
@@ -32,7 +46,6 @@
 	if(!ui)
 		ui = new(user, src, "RoboticsControlConsole")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/robotics/ui_data(mob/user)
 	var/list/data = list()
@@ -75,6 +88,23 @@
 			ref = REF(D)
 		)
 		data["drones"] += list(drone_data)
+
+
+	data["uploads"] = list()
+	for(var/obj/machinery/computer/upload/U in GLOB.uploads_list)
+		if(stat & (NOPOWER|BROKEN))
+			continue
+		if(get_virtual_z_level() != (get_turf(U)).get_virtual_z_level())
+			continue
+		var/turf/loc = get_turf(U)
+		var/list/upload_data = list(
+			name = U.name,
+			area = "[get_area_name(loc, TRUE)]",
+			coords = "[loc.x], [loc.y], [loc.get_virtual_z_level()]",
+			ref = REF(U)
+
+		)
+		data["uploads"] += list(upload_data)
 
 	return data
 
@@ -132,3 +162,29 @@
 					s.start()
 					D.visible_message("<span class='danger'>\the [D] self-destructs!</span>")
 					D.gib()
+		if("extract")
+			if(!extracting)
+				if(allowed(usr))
+					var/obj/machinery/computer/upload/U = GLOB.uploads_list[1]
+					var/code = U.code
+					src.extracting = TRUE
+					say("Credentials successfully verified, commencing extraction.")
+					sleep(120)
+					var/obj/item/paper/P = new /obj/item/paper(loc)
+					P.name = "Silicon Upload key"
+					P.info = "Current Upload key is: [code]"
+					src.extracting = FALSE
+				else
+					var/obj/machinery/computer/upload/U = GLOB.uploads_list[1]
+					var/code = U.code
+					src.extracting = TRUE
+					var/message = "ALERT: UNAUTHORIZED UPLOAD KEY EXTRACTION AT [get_area_name(loc, TRUE)]"
+					radio.talk_into(src, message, radio_channel)
+					sleep(600)
+					say("Extraction at 50%")
+					sleep(600)
+					var/obj/item/paper/P = new /obj/item/paper(loc)
+					P.name = "Silicon Upload key"
+					P.info = "Current Upload key is: [code]"
+					src.extracting = FALSE
+

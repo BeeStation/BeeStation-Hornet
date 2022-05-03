@@ -1,5 +1,5 @@
 import { useBackend, useSharedState } from '../backend';
-import { Box, Button, LabeledList, NoticeBox, Section, Tabs } from '../components';
+import { Box, Button, Flex, LabeledList, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const RoboticsControlConsole = (props, context) => {
@@ -9,6 +9,7 @@ export const RoboticsControlConsole = (props, context) => {
     can_hack,
     cyborgs = [],
     drones = [],
+    uploads = [],
   } = data;
   return (
     <Window
@@ -30,6 +31,13 @@ export const RoboticsControlConsole = (props, context) => {
             onClick={() => setTab(2)}>
             Drones ({drones.length})
           </Tabs.Tab>
+          <Tabs.Tab
+            icon="list"
+            lineHeight="23px"
+            selected={tab === 3}
+            onClick={() => setTab(3)}>
+            Uploads ({uploads.length})
+          </Tabs.Tab>
         </Tabs>
         {tab === 1 && (
           <Cyborgs cyborgs={cyborgs} can_hack={can_hack} />
@@ -37,6 +45,11 @@ export const RoboticsControlConsole = (props, context) => {
         {tab === 2 && (
           <Drones drones={drones} />
         )}
+        {tab === 3 && (
+          <>
+            <Uploads uploads={uploads} />
+            <Extracting />
+          </>)}
       </Window.Content>
     </Window>
   );
@@ -163,4 +176,47 @@ const Drones = (props, context) => {
       </Section>
     );
   });
+};
+
+
+const Uploads = (props, context) => {
+  const { uploads } = props;
+
+  if (!uploads.length) {
+    return (
+      <NoticeBox>
+        No uploads detected within access parameters
+      </NoticeBox>
+    );
+  }
+
+  return uploads.map(upload => {
+    return (
+      <Flex key={upload.ref}>
+        <Section
+          title={upload.name}>
+          <LabeledList>
+            <LabeledList.Item label="Location">
+              {upload.area}
+            </LabeledList.Item>
+            <LabeledList.Item label="Coordinates">
+              {upload.coords}
+            </LabeledList.Item>
+          </LabeledList>
+        </Section>
+      </Flex>
+    );
+  });
+};
+
+const Extracting = (props, context) => {
+  const { act } = useBackend(context);
+
+  return (
+    <Button
+      icon={'list'}
+      content={"Extract Uploading Key"}
+      onClick={() => act('extract')}
+    />
+  );
 };
