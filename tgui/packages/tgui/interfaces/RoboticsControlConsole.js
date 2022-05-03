@@ -7,6 +7,7 @@ export const RoboticsControlConsole = (props, context) => {
   const [tab, setTab] = useSharedState(context, 'tab', 1);
   const {
     can_hack,
+    is_silicon,
     cyborgs = [],
     drones = [],
     uploads = [],
@@ -47,8 +48,8 @@ export const RoboticsControlConsole = (props, context) => {
         )}
         {tab === 3 && (
           <>
-            <Uploads uploads={uploads} />
-            <Extracting />
+            <Uploads uploads={uploads} is_silicon={is_silicon} />
+            <Extracting is_silicon={is_silicon} />
           </>)}
       </Window.Content>
     </Window>
@@ -180,43 +181,53 @@ const Drones = (props, context) => {
 
 
 const Uploads = (props, context) => {
-  const { uploads } = props;
+  const { uploads, is_silicon } = props;
+  if (!is_silicon) {
+    if (!uploads.length) {
+      return (
+        <NoticeBox>
+          No uploads detected within access parameters
+        </NoticeBox>
+      );
+    }
 
-  if (!uploads.length) {
+    return uploads.map(upload => {
+      return (
+        <Flex key={upload.ref}>
+          <Section
+            title={upload.name}>
+            <LabeledList>
+              <LabeledList.Item label="Location">
+                {upload.area}
+              </LabeledList.Item>
+              <LabeledList.Item label="Coordinates">
+                {upload.coords}
+              </LabeledList.Item>
+            </LabeledList>
+          </Section>
+        </Flex>
+      );
+    });
+  }
+  else {
     return (
       <NoticeBox>
-        No uploads detected within access parameters
+        For security reasons silicon forms are not permitted access
       </NoticeBox>
     );
   }
-
-  return uploads.map(upload => {
-    return (
-      <Flex key={upload.ref}>
-        <Section
-          title={upload.name}>
-          <LabeledList>
-            <LabeledList.Item label="Location">
-              {upload.area}
-            </LabeledList.Item>
-            <LabeledList.Item label="Coordinates">
-              {upload.coords}
-            </LabeledList.Item>
-          </LabeledList>
-        </Section>
-      </Flex>
-    );
-  });
 };
 
 const Extracting = (props, context) => {
+  const { is_silicon } = props;
   const { act } = useBackend(context);
-
-  return (
-    <Button
-      icon={'list'}
-      content={"Extract Uploading Key"}
-      onClick={() => act('extract')}
-    />
-  );
+  if (!is_silicon) {
+    return (
+      <Button
+        icon={'list'}
+        content={"Extract Uploading Key"}
+        onClick={() => act('extract')}
+      />
+    );
+  }
 };

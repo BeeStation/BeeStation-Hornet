@@ -49,10 +49,12 @@
 	var/list/data = list()
 
 	data["can_hack"] = FALSE
+	data["is_silicon"] = FALSE
 	if(issilicon(user))
 		var/mob/living/silicon/S = user
 		if(S.hack_software)
 			data["can_hack"] = TRUE
+		data["is_silicon"] = TRUE
 	else if(IsAdminGhost(user))
 		data["can_hack"] = TRUE
 
