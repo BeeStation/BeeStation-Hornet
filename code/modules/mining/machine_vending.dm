@@ -170,7 +170,6 @@
 		new /datum/data/vendor_equipment("P-KA Upgrade: Cooldown",		/obj/item/borg/upgrade/modkit/cooldown,								1000),
 		new /datum/data/vendor_equipment("P-KA Upgrade: Bounty", 		/obj/item/borg/upgrade/modkit/bounty,								1000),
 		new /datum/data/vendor_equipment("P-KA Upgrade: Resonator", 	/obj/item/borg/upgrade/modkit/resonator_blasts,						1000),
-		new /datum/data/vendor_equipment("P-KA Upgrade: Lifesteal", 	/obj/item/borg/upgrade/modkit/lifesteal,							1000),
 		new /datum/data/vendor_equipment("P-KA Upgrade: AoE Damage",	/obj/item/borg/upgrade/modkit/aoe/mobs,								1500),
 		new /datum/data/vendor_equipment("P-KA Upgrade: AoE Mining",	/obj/item/borg/upgrade/modkit/aoe/turfs,							2000),
 	//Mining bot buddy
