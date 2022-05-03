@@ -283,6 +283,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_JAILBIRD			"jailbird"
 #define TRAIT_STOWAWAY			"stowaway"
 #define TRAIT_ANIME				"anime"
+#define TRAIT_CONT_PROSTHETIC 	"cont_prosthetic"
 #define TRAIT_LOUD_ASS			"loud_ass"
 #define TRAIT_UNSTABLE_ASS		"unstable_ass"
 #define TRAIT_STABLE_ASS		"stable_ass"

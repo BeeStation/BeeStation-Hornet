@@ -27,3 +27,19 @@
 	SIGNAL_HANDLER
 	if(prob(33))
 		playsound(quirk_holder, "monkestation/sound/misc/clap_short.ogg", 70, TRUE, 5, ignore_walls = TRUE)
+
+/datum/quirk/controlled_prosthetic
+	name = "Controlled Prosthetic"
+	desc = "You start the round with a Prosthetic Replacement kit, which will allow you to \
+	quickly replace a limb you choose with a prosthetic or robotic replacement."
+	mob_trait = TRAIT_CONT_PROSTHETIC
+	value = 4
+
+/datum/quirk/controlled_prosthetic/on_spawn()
+	var/mob/living/carbon/human/H = quirk_holder
+	var/obj/item/choice_beacon/prosthetic/B = new(get_turf(H))
+	var/list/slots = list (
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"hands" = ITEM_SLOT_HANDS,
+	)
+	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)

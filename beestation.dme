@@ -3561,6 +3561,7 @@
 #include "monkestation\code\game\objects\items\fluff_papers.dm"
 #include "monkestation\code\game\objects\items\mail.dm"
 #include "monkestation\code\game\objects\items\plushes.dm"
+#include "monkestation\code\game\objects\items\prosthetic.dm"
 #include "monkestation\code\game\objects\items\stickables.dm"
 #include "monkestation\code\game\objects\structures\toilet_bong.dm"
 #include "monkestation\code\game\objects\structures\watercloset.dm"
