@@ -108,3 +108,26 @@
 		qdel(interloper)
 
 	qdel(AM)
+
+//Monkestation Edit
+
+/turf/closed/wall/foam_base
+	icon = 'monkestation/icons/turf/walls/foam_base_wall.dmi'
+	icon_state = "metal_foam_base"
+	girder_type = /obj/structure/foamedmetal
+	hardness = 50	//lower numbers are harder. Used to determine the probability of a hulk smashing through.
+	slicing_duration = 8 SECONDS
+
+/turf/closed/wall/foam_base/iron
+	icon_state = "iron_foam_base"
+	girder_type = /obj/structure/foamedmetal/iron
+	hardness = 30
+	slicing_duration = 12 SECONDS
+
+/turf/closed/wall/foam_base/resin
+	icon_state = "resin_foam_base"
+	girder_type = /obj/structure/foamedmetal/resin
+	hardness = 70
+	slicing_duration = 5 SECONDS
+
+//Monkestation Edit End

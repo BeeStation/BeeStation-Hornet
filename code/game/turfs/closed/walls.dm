@@ -8,7 +8,8 @@
 	explosion_block = 1
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
-	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
+	//a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
+	heat_capacity = 312500
 
 	baseturfs = /turf/open/floor/plating
 
@@ -17,9 +18,10 @@
 	FASTDMM_PROP(\
 		pipe_astar_cost = 35\
 	)
-
-	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
-	var/slicing_duration = 100  //default time taken to slice the wall
+	/// lower numbers are harder. Used to determine the probability of a hulk smashing through.
+	var/hardness = 40
+	/// default time taken to slice the wall	//Changed to Seconds for clarity	//Monkestation Edit
+	var/slicing_duration = 10 SECONDS
 	var/sheet_type = /obj/item/stack/sheet/iron
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
@@ -90,7 +92,10 @@
 	/obj/machinery/door/airlock/sandstone/glass,
 	/obj/machinery/door/airlock/wood/glass,
 	/obj/machinery/door/airlock/public/glass,
-	/obj/machinery/door/airlock/external/glass)
+	/obj/machinery/door/airlock/external/glass,
+	/turf/closed/wall/foam_base,
+	/turf/closed/wall/foam_base/iron,
+	/turf/closed/wall/foam_base/resin)
 	//MONKESTATION EDIT END
 	smooth = SMOOTH_TRUE
 
