@@ -488,7 +488,6 @@
 #include "code\datums\components\religious_tool.dm"
 #include "code\datums\components\remote_materials.dm"
 #include "code\datums\components\riding.dm"
-#include "code\datums\components\rot.dm"
 #include "code\datums\components\rotation.dm"
 #include "code\datums\components\shell.dm"
 #include "code\datums\components\sizzle.dm"
