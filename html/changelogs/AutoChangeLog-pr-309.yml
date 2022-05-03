@@ -1,0 +1,5 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - rscadd: Added Airlock Access Mapping Helpers
+  - imageadd: Mapping Helper Icons added
