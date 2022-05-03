@@ -19,7 +19,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
-/obj/structure/glowshroom/single{
+/obj/structure/glowshroom{
 	icon_state = "glowshroom3";
 	dir = 4
 	},
@@ -59,15 +59,15 @@
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
-/obj/structure/glowshroom/single,
-/obj/structure/glowshroom/single{
+/obj/structure/glowshroom,
+/obj/structure/glowshroom{
 	icon_state = "glowshroom3"
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "aj" = (
 /obj/structure/stone_tile/slab/cracked,
-/obj/structure/glowshroom/single{
+/obj/structure/glowshroom{
 	icon_state = "glowshroom3"
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
@@ -107,7 +107,7 @@
 /area/ruin/unpowered/standruin)
 "ap" = (
 /obj/structure/stone_tile/slab/cracked,
-/obj/structure/glowshroom/single{
+/obj/structure/glowshroom{
 	icon_state = "glowshroom1";
 	dir = 4
 	},
@@ -419,7 +419,7 @@
 /area/ruin/unpowered/standruin)
 "bh" = (
 /obj/structure/stone_tile/slab/burnt,
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "bi" = (
@@ -427,7 +427,7 @@
 	dir = 8
 	},
 /obj/structure/flora/ash/tall_shroom,
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "bj" = (
@@ -452,7 +452,7 @@
 /area/ruin/unpowered/standruin)
 "bn" = (
 /obj/structure/stone_tile/center,
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/standruin)
 "bo" = (

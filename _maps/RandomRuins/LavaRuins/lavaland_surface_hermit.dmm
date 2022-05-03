@@ -44,7 +44,7 @@
 	},
 /area/ruin/powered)
 "k" = (
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom,
 /turf/open/floor/plating/asteroid{
 	name = "dirt"
 	},
@@ -72,7 +72,7 @@
 /turf/open/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 "q" = (
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom,
 /turf/open/floor/plating,
 /area/ruin/powered)
 "r" = (
