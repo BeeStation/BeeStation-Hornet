@@ -88,7 +88,7 @@
 
 
 /obj/machinery/computer/upload/borg
-	name = "cyborg upload console"
+	name = "Cyborg upload console"
 	desc = "Used to upload laws to Cyborgs."
 	circuit = /obj/item/circuitboard/computer/borgupload
 
