@@ -56,6 +56,100 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">03 May 2022</h2>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes post round shuttle loading.</li>
+				<li class="rscadd">Multiple mapped shuttles can spawn per round.</li>
+				<li class="bugfix">Fixes fastdmm not being able to compile the codebase.</li>
+				<li class="rscadd">Adds in some props to shutle ports to make fastdmm display important port variables such as width, height, dwidth and dheight first.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon, KubeRoot updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Changed how the orbital map looks.</li>
+				<li class="tweak">Objects on the orbital map autopilot target list are now sorted by priority.</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed a bug with the captain's laser which prevented it from appropriately displaying when the gun had no charge</li>
+				<li class="balance">The captain's "antique" laser has been reduced to a 10 shot capacity, so that it is more representative of being an antique.</li>
+				<li class="tweak">The captain's laser is now appropriately locked behind its display case again to make it more intuitive that players are not intended to take the gun from the start of the round. The captain will be able to open this case during elevated alert levels.</li>
+				<li class="tweak">All display cases may now be closed even if you do not have access to the case.</li>
+			</ul>
+			<h3 class="author">ivanmixo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Bluespace extract's major ability can no longer be activated while incapacitated</li>
+				<li class="balance">Bluespace extract's major ability now has a delay before the anchor point is set and a delay until you're teleported back to it</li>
+				<li class="balance">Shortened the minor bluespace extract ability cooldown</li>
+				<li class="balance">Applying the regenerative bluespace extracts now has a delay</li>
+			</ul>
+
+			<h2 class="date">02 May 2022</h2>
+			<h3 class="author">Archanial updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed null runtime in teleporter.dm</li>
+				<li class="bugfix">fixed a runtime when deconstructing something, while having a stack of an item already under you</li>
+				<li class="server">removed support for invalid timers.</li>
+				<li class="bugfix">fixed null client on tgui initialize runtime</li>
+			</ul>
+			<h3 class="author">Hardly, Retlaw34, comma, mattroks101, metalgearsloth, tichys updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">New sounds for buttons, conveyors, fire alarms, health analyzers and mining scanners.</li>
+				<li class="rscadd">Sleepers now make a noise when used.</li>
+				<li class="rscadd">All computers now make clicking noises when interacted with.</li>
+				<li class="rscadd">New sound variant for hypospray.</li>
+			</ul>
+			<h3 class="author">Kontaminant updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Nitryl now correctly calculates how much you are breathing so you accurately get the reagent when inhaling it.</li>
+			</ul>
+			<h3 class="author">Mat05usz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Kilo no longer has a 'ghost' second Z-level</li>
+			</ul>
+
+			<h2 class="date">01 May 2022</h2>
+			<h3 class="author">Archanial updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed double qdel in wielded</li>
+				<li class="bugfix">fixed bad arg penetrate_thick</li>
+			</ul>
+			<h3 class="author">Penwin0 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Scarabs can't use Sentinels compromise anymore.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Removed try catch blocks from exploration generators.</li>
+				<li class="bugfix">Acid no longer affects indestructible items.</li>
+			</ul>
+			<h3 class="author">ivanmixo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">You can no longer eat through gas masks if you're on harm intent</li>
+			</ul>
+
+			<h2 class="date">30 April 2022</h2>
+			<h3 class="author">Dejaku51 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed flamethrower lighting runtime</li>
+			</ul>
+
+			<h2 class="date">29 April 2022</h2>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">vend-a-tray no longer drop glass shards when broken since they aren't made of glass</li>
+			</ul>
+
+			<h2 class="date">28 April 2022</h2>
+			<h3 class="author">ivanmixo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">you are actually you character's species in CTF (unless it's a plasmaman)</li>
+			</ul>
+			<h3 class="author">mystery3525 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="spellcheck">pun pun can now save mask between servers (typo)</li>
+			</ul>
+
 			<h2 class="date">27 April 2022</h2>
 			<h3 class="author">Gamer025 updated:</h3>
 			<ul class="changes bgimages16">
@@ -804,72 +898,6 @@
 			<h3 class="author">someone543 updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="rscadd">Space law to book management console and SecTech</li>
-			</ul>
-
-			<h2 class="date">01 March 2022</h2>
-			<h3 class="author">Hardly updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed tables clipping in mac space restaurant.</li>
-			</ul>
-
-			<h2 class="date">28 February 2022</h2>
-			<h3 class="author">Blueturbo47 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Increased The Turbine Space Injector to 200 L/s</li>
-			</ul>
-			<h3 class="author">The-Moon-Itself updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Reflectors now rotate on shuttles</li>
-			</ul>
-			<h3 class="author">nednaZ updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Adminordrazine no longer causes deafness</li>
-			</ul>
-
-			<h2 class="date">27 February 2022</h2>
-			<h3 class="author">Kapu1178 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">All references to dna.features now include body size.</li>
-			</ul>
-			<h3 class="author">Programs-The-Station updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Adds a label to the latejoin screen explaining prioritized jobs</li>
-			</ul>
-
-			<h2 class="date">25 February 2022</h2>
-			<h3 class="author">Fresh341 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added the F4 hotkey to the hotkey list in the interface.dm</li>
-			</ul>
-			<h3 class="author">KubeRoot updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Newly added chat filters will be enabled by default in all tabs. This will mess up any custom tabs you have created, requiring you to configure the filters again.</li>
-				<li class="code_imp">Newly created tabs have disabled filters set to false rather than omitted.</li>
-			</ul>
-			<h3 class="author">MNarath1 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">cleaned up a nasty return</li>
-			</ul>
-			<h3 class="author">Wilchenx updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">detective can be a traitor again</li>
-				<li class="tweak">detective is no longer mindshielded</li>
-			</ul>
-			<h3 class="author">ike709 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed the 4,000 playtime hours achievement</li>
-				<li class="bugfix">Fixed the war ops achievement</li>
-				<li class="code_imp">Added a unit test to make sure achievements conform to the DB schema</li>
-			</ul>
-			<h3 class="author">nednaZ updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Cargo Manifests will now show the correct station name</li>
-			</ul>
-
-			<h2 class="date">24 February 2022</h2>
-			<h3 class="author">DatBoiTim updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed an issue related to medibots being tipped over mid healing</li>
 			</ul>
 		</div>
 

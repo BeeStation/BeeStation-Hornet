@@ -168,7 +168,8 @@
 	..()
 	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
 	mind.assigned_role = "Personal AI"
-	notes_assets.send(client)
+	if(!notes_assets.send(client))
+		return
 	client.perspective = EYE_PERSPECTIVE
 	if(holoform)
 		client.eye = src

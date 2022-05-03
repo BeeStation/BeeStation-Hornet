@@ -3,11 +3,10 @@
 	name = "energy gun"
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
-
 	///What type of power cell this uses
-	var/obj/item/stock_parts/cell/cell
+	var/obj/item/stock_parts/cell/cell 
 	var/cell_type = /obj/item/stock_parts/cell
-	///how much charge the cell will have, this is equal to the default power cell defined above
+	/// how much charge the cell will have, this is equal to the default power cell defined above
 	var/gun_charge = 1000 
 	var/modifystate = 0
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
@@ -21,13 +20,13 @@
 	ammo_x_offset = 2
 	///if this gun uses a stateful charge bar for more detail
 	var/shaded_charge = FALSE 
-	///stores the gun's previous ammo "ratio" to see if it needs an updated icon
+	/// stores the gun's previous ammo "ratio" to see if it needs an updated icon
 	var/old_ratio = 0 
 	var/selfcharge = 0
 	var/charge_timer = 0
 	var/charge_delay = 8
 	///whether the gun's cell drains the cyborg user's cell to recharge
-	var/use_cyborg_cell = FALSE
+	var/use_cyborg_cell = FALSE 
 	///set to true so the gun is given an empty cell
 	var/dead_cell = FALSE 
 
