@@ -1,0 +1,5 @@
+author: nednaZ
+delete-after: true
+changes:
+  - rscadd: A weaker form of the Pandora called the Pyxis
+  - balance: Exploration missions will now fight the Pyxis rather than the Pandora
