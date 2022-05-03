@@ -1,0 +1,8 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - balance: Bluespace extract's major ability can no longer be activated while incapacitated
+  - balance: Bluespace extract's major ability now has a delay before the anchor point
+      is set and a delay until you're teleported back to it
+  - balance: Shortened the minor bluespace extract ability cooldown
+  - balance: Applying the regenerative bluespace extracts now has a delay
