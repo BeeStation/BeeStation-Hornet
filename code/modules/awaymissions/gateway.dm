@@ -2,7 +2,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 /obj/machinery/gateway
 	name = "gateway"
-	desc = "A mysterious gateway built by unknown hands, it allows for faster than light travel to far-flung locations."
+	desc = "A gateway built for quick travel between linked destinations."
 	icon = 'icons/obj/machines/gateway.dmi'
 	icon_state = "off"
 	density = TRUE
@@ -81,7 +81,6 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	if(!GLOB.the_gateway)
 		GLOB.the_gateway = src
 	update_icon()
-	wait = world.time + CONFIG_GET(number/gateway_delay)	//+ thirty minutes default
 	awaygate = locate(/obj/machinery/gateway/centeraway)
 
 /obj/machinery/gateway/centerstation/Destroy()
@@ -96,7 +95,6 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	use_power = IDLE_POWER_USE
 
 	//warping vars
-	var/wait = 0				//this just grabs world.time at world start
 	var/obj/machinery/gateway/centeraway/awaygate = null
 	can_link = TRUE
 
@@ -122,9 +120,6 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		return
 	if(!awaygate)
 		to_chat(user, "<span class='notice'>Error: No destination found.</span>")
-		return
-	if(world.time < wait)
-		to_chat(user, "<span class='notice'>Error: Warpspace triangulation in progress. Estimated time to completion: [DisplayTimeText(wait - world.time)].</span>")
 		return
 
 	for(var/obj/machinery/gateway/G in linked)
@@ -176,12 +171,10 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	var/obj/machinery/gateway/centerstation/stationgate = null
 	can_link = TRUE
 
-
 /obj/machinery/gateway/centeraway/Initialize(mapload)
 	. = ..()
 	update_icon()
 	stationgate = locate(/obj/machinery/gateway/centerstation)
-
 
 /obj/machinery/gateway/centeraway/update_icon()
 	if(active)
@@ -216,17 +209,17 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	if(!stationgate || QDELETED(stationgate))
 		return
 	if(isliving(AM))
-		if(check_exile_implant(AM))
+		if(check_exile_implant(AM) || is_species(AM, /datum/species/lizard/ashwalker))
 			return
 	else
 		for(var/mob/living/L in AM.contents)
-			if(check_exile_implant(L))
-				say("Rejecting [AM]: Exile implant detected in contained lifeform.")
+			if(check_exile_implant(L) || is_species(L, /datum/species/lizard/ashwalker))
+				say("Rejecting [AM]: Unauthorized lifeform detected.")
 				return
 	if(AM.has_buckled_mobs())
 		for(var/mob/living/L in AM.buckled_mobs)
-			if(check_exile_implant(L))
-				say("Rejecting [AM]: Exile implant detected in close proximity lifeform.")
+			if(check_exile_implant(L) || is_species(L, /datum/species/lizard/ashwalker))
+				say("Rejecting [AM]: Unauthorized lifeform detected nearby")
 				return
 	AM.forceMove(get_step(stationgate.loc, SOUTH))
 	AM.setDir(SOUTH)

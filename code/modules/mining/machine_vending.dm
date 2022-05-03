@@ -203,7 +203,7 @@
 	return ..()
 
 /obj/machinery/vendor/mining/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit")
+	var/items = list("Asteroid Miner Kit", "Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in sortList(items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -229,6 +229,10 @@
 			new /obj/item/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffelbag/mining_conscript(drop_location)
+		if("Asteroid Miner Kit")
+			new /obj/item/clothing/suit/space/hardsuit/mining(drop_location)
+			new /obj/item/tank/internals/oxygen(drop_location)
+			new /obj/item/gps/mining(drop_location)
 
 	SSblackbox.record_feedback("tally", "mining_voucher_redeemed", 1, selection)
 	qdel(voucher)
