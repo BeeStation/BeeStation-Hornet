@@ -6,8 +6,6 @@
 	///What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell 
 	var/cell_type = /obj/item/stock_parts/cell
-	/// how much charge the cell will have, this is equal to the default power cell defined above
-	var/gun_charge = 1000 
 	var/modifystate = 0
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
 	///The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
@@ -43,10 +41,10 @@
 
 /obj/item/gun/energy/Initialize(mapload)
 	. = ..()
-	if(cell_type)	//just in case someone eventually wants to make an energy gun without a power cell for some reason?
+	if(cell_type)
 		cell = new cell_type(src)
-		cell.maxcharge = gun_charge
-		cell.charge = gun_charge		//allows fine-tuned control over how much charge a gun will have without defining new types of cells
+	else
+		cell = new(src)
 	if(dead_cell)	//this makes much more sense.
 		cell.use(cell.maxcharge)
 	update_ammo_types()
