@@ -72,8 +72,8 @@
 	update_icon()
 
 /obj/item/xenoartifact_labeler/proc/get_trait_list_desc(list/traits, trait_type)//Get a list of all the specified trait types names, actually
-	for(var/T in typesof(trait_type))
-		var/datum/xenoartifact_trait/X = T
+	for(var/t in typesof(trait_type))
+		var/datum/xenoartifact_trait/X = t
 		if(initial(X.desc) && !(initial(X.desc) in traits) && !(initial(X.label_name)))
 			traits += initial(X.desc)
 		else if(initial(X.label_name) && !(initial(X.label_name) in traits)) //For cases where the trait doesn't have a desc or is tool cool to use one
@@ -81,7 +81,7 @@
 	return traits
 
 /obj/item/xenoartifact_labeler/proc/look_for(list/place, culprit) //This isn't really needed but, It's easier to use as a function. What does this even do?
-	for(var/X in place) //Using locate breaks this
+	for(var/X in place) //Using locate breaks this. Sorry.
 		if(X == culprit)
 			. = TRUE
 	return
@@ -104,24 +104,24 @@
 /obj/item/xenoartifact_labeler/proc/trait_toggle(action, toggle_type, var/list/trait_list, var/list/active_trait_list)
 	var/datum/xenoartifact_trait/description_holder
 	var/new_trait
-	for(var/T in trait_list)
-		new_trait = desc2datum(T)
+	for(var/t in trait_list)
+		new_trait = desc2datum(t)
 		description_holder = new_trait
-		if(action == "assign_[toggle_type]_[T]")
-			if(!look_for(active_trait_list, T))
-				active_trait_list += T
+		if(action == "assign_[toggle_type]_[t]")
+			if(!look_for(active_trait_list, t))
+				active_trait_list += t
 				info_list += initial(description_holder.label_desc)
 				sticker_traits += new_trait
 			else
-				active_trait_list -= T
+				active_trait_list -= t
 				info_list -= initial(description_holder.label_desc)
 				sticker_traits -= new_trait
 
 /obj/item/xenoartifact_labeler/proc/desc2datum(udesc) //This is just a hacky way of getting the info from a datum using its desc becuase I wrote this last and it's not heartbreaking
-	for(var/T in typesof(/datum/xenoartifact_trait))
-		var/datum/xenoartifact_trait/X = T
+	for(var/t in typesof(/datum/xenoartifact_trait))
+		var/datum/xenoartifact_trait/X = t
 		if((udesc == initial(X.desc))||(udesc == initial(X.label_name)))
-			return T
+			return t
 	return "[udesc]: There's no known information on [udesc]!."
 
 // Not to be confused with labeler
@@ -181,8 +181,8 @@
 	var/datum/component/xenoartifact_pricing/xenop = X.GetComponent(/datum/component/xenoartifact_pricing)
 	if(!xenop)
 		return
-	for(var/T in trait_list)
-		trait = new T
+	for(var/t in trait_list)
+		trait = new t
 		if(X.get_trait(trait))
 			xenop.modifier += 0.15 
 		else
@@ -213,12 +213,12 @@
 	A.malfunction_mod = 0
 	A.malfunction_chance = 0
 	A.traits = list()
-	for(var/datum/xenoartifact_trait/T in A.traits) //Delete old traits
-		T.on_del(A)
-		qdel(T)
+	for(var/datum/xenoartifact_trait/t as() in A.traits) //Delete old traits
+		t.on_del(A)
+		qdel(t)
 	for(var/X in sticker_traits) //Add new ones
 		say(X)
 		A.traits += new X
-	for(var/datum/xenoartifact_trait/T as() in A.traits) //Setup new ones
-		T.on_init(A)
+	for(var/datum/xenoartifact_trait/t as() in A.traits) //Setup new ones
+		t.on_init(A)
 	A = null

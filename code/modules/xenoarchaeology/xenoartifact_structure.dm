@@ -38,7 +38,7 @@
 
 	var/obj/structure/xenoartifact/little_man_inside_me //this is a temporary solution. Deleting the base artifact also deletes this one's traits too?
 
-	var/logging = TRUE
+	var/logging = TRUE //Noisy artifact can be turned off.
 
 /obj/structure/xenoartifact/ComponentInitialize()
 	. = ..()
@@ -65,9 +65,9 @@
 	little_man_inside_me = X
 	little_man_inside_me.forceMove(src)
 
-	for(var/datum/xenoartifact_trait/T as() in traits)
-		if(!istype(T, /datum/xenoartifact_trait/minor/dense))
-			T.on_init(src)
+	for(var/datum/xenoartifact_trait/t as() in traits)
+		if(!istype(t, /datum/xenoartifact_trait/minor/dense))
+			t.on_init(src)
 
 	var/holdthisplease = rand(1, 3)
 	icon_state = "SB[holdthisplease]"//Base
@@ -113,8 +113,8 @@
 	SEND_SIGNAL(src, XENOA_INTERACT, null, user, user)
 
 /obj/structure/xenoartifact/attackby(obj/item/I, mob/living/user, params)
-	for(var/datum/xenoartifact_trait/T in traits)
-		T.on_item(src, user, I)
+	for(var/datum/xenoartifact_trait/t as() in traits)
+		t.on_item(src, user, I)
 	if(!(COOLDOWN_FINISHED(src, xenoa_cooldown))||user?.a_intent == INTENT_GRAB||istype(I, /obj/item/xenoartifact_label)||istype(I, /obj/item/xenoartifact_labeler))
 		return
 	..()
@@ -127,31 +127,34 @@
 	
 */
 /obj/structure/xenoartifact/proc/check_charge(mob/user, charge_mod)
+	if(logging)
+		log_game("[user] attempted to activate [src] at [world.time]. Located at [x] [y] [z].")
 	if(prob(malfunction_chance)) //See if we pick up an malfunction
-		var/datum/xenoartifact_trait/T = pick(subtypesof(/datum/xenoartifact_trait/malfunction))
-		traits+=new T
-		malfunction_chance = malfunction_chance*0.2
+		var/datum/xenoartifact_trait/t = pick(subtypesof(/datum/xenoartifact_trait/malfunction))
+		traits+=new t
+		malfunction_chance=malfunction_chance*0.2
 	else    
 		malfunction_chance+=malfunction_mod
 
 	for(var/atom/M in true_target) //Cull
-		if(get_dist(src, M) > max_range)   
+		if(get_dist(get_turf(src), get_turf(M)) > max_range)   
 			true_target -= M
+	if(true_target.len < 1) //Don't bother if there aren't any targets
+		return
 
 	charge+=charge_mod
-	if(COOLDOWN_FINISHED(src, xenoa_cooldown))///Execution of traits here
-		for(var/datum/xenoartifact_trait/minor/T in traits)///Minor traits aren't apart of the target loop
-			T.activate(src, user, user)
-		for(var/datum/xenoartifact_trait/malfunction/T in traits)///Same for malfunctions
-			T.activate(src, user, user)
-		charge = (charge+charge_req)/1.9 ///Not quite an average. Generally produces slightly higher results.     
+	if(COOLDOWN_FINISHED(src, xenoa_cooldown))//Execution of traits here
+		for(var/datum/xenoartifact_trait/t as() in traits)//Minor traits aren't apart of the target loop
+			if(!istype(t, /datum/xenoartifact_trait/major))
+				t.activate(src, user, user)
+		charge = (charge+charge_req)/1.9 //Not quite an average. Generally produces slightly higher results.     
 		for(var/atom/M in true_target)
 			create_beam(M)
-			for(var/datum/xenoartifact_trait/major/T in traits) ///Major
+			for(var/datum/xenoartifact_trait/major/t as() in traits) //Major
 				if(logging)
-					log_game("[src] activated trait [T]. Located at [x] [y] [z]")
-				T.activate(src, M, user)
-			if(!(get_trait(/datum/xenoartifact_trait/minor/aura))) ///Quick fix for bug that selects multiple targets for noraisin
+					log_game("[src] activated trait [t]. Located at [x] [y] [z]")
+				t.activate(src, M, user)
+			if(!(get_trait(/datum/xenoartifact_trait/minor/aura))) //Quick fix for bug that selects multiple targets for noraisin
 				break
 		COOLDOWN_START(src, xenoa_cooldown, cooldown+cooldownmod)
 	charge = 0
@@ -178,15 +181,12 @@
 
 /obj/structure/xenoartifact/proc/process_target(atom/target)
 	. = target
-	var/mob/living/M
-	if(isliving(target))
-		M = target
-		. = M
 	if(isliving(target?.loc))
-		M = target.loc
-		. = M
-	if(M?.pulling)
-		. = M.pulling
+		. = target?.loc
+	//Have to type convert to access pulling
+	var/mob/living/M = istype(target, /mob/living) ? target : null
+	if(M && M?.pulling)
+		. = M?.pulling
 	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/on_target_del, target)
 	return
 
@@ -246,9 +246,9 @@
 
 /obj/structure/xenoartifact/Destroy()
 	qdel(little_man_inside_me)
-	for(var/datum/xenoartifact_trait/T in traits)
-		T.on_del(src)
-		qdel(T)
+	for(var/datum/xenoartifact_trait/t as() in traits)
+		t.on_del(src)
+		qdel(t)
 	SSradio.remove_object(src, frequency)
 	qdel(radio_connection)
 	qdel(traits)

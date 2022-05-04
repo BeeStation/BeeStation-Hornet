@@ -36,7 +36,7 @@
 	var/malfunction_chance //Everytime the artifact is used this increases. When this is successfully proc'd the artifact gains a malfunction and this is lowered. 
 	var/malfunction_mod = 1 //How much the chance can change in a sinlge itteration
 
-	var/logging = TRUE
+	var/logging = TRUE //Can be toggled by admins if it's disruptive
 
 /obj/item/xenoartifact/ComponentInitialize()
 	. = ..()
@@ -95,12 +95,11 @@
 			malfunction_mod = 0.5
 
 	icon_state = null
-	for(var/datum/xenoartifact_trait/T as() in traits) //This is kinda weird but it stops certain bugs.
-		if(istype(T, /datum/xenoartifact_trait/minor/dense))
-			T.on_init(src)
-			return
-	for(var/datum/xenoartifact_trait/T in traits)
-		T.on_init(src)
+	var/datum/xenoartifact_trait/minor/dense/D = get_trait(/datum/xenoartifact_trait/minor/dense/)
+	D?.on_init(src)
+	for(var/datum/xenoartifact_trait/t as() in traits)
+		if(!istype(t, /datum/xenoartifact_trait/minor/dense))
+			t.on_init(src)
 
 	//Random sprite process, I'd like to maybe revisit this, make it a function. probably don't
 	if(!(icon_state))
@@ -151,8 +150,8 @@
 	SEND_SIGNAL(src, XENOA_INTERACT, null, user, user)
 
 /obj/item/xenoartifact/attackby(obj/item/I, mob/living/user, params)
-	for(var/datum/xenoartifact_trait/T in traits)
-		T.on_item(src, user, I)
+	for(var/datum/xenoartifact_trait/t as() in traits)
+		t.on_item(src, user, I)
 	if(!(COOLDOWN_FINISHED(src, xenoa_cooldown))||user?.a_intent == INTENT_GRAB||istype(I, /obj/item/xenoartifact_label)||istype(I, /obj/item/xenoartifact_labeler))
 		return
 	..()
@@ -168,8 +167,8 @@
 	if(logging)
 		log_game("[user] attempted to activate [src] at [world.time]. Located at [x] [y] [z].")
 	if(prob(malfunction_chance)) //See if we pick up an malfunction
-		var/datum/xenoartifact_trait/T = pick(subtypesof(/datum/xenoartifact_trait/malfunction))
-		traits+=new T
+		var/datum/xenoartifact_trait/t = pick(subtypesof(/datum/xenoartifact_trait/malfunction))
+		traits+=new t
 		malfunction_chance=malfunction_chance*0.2
 	else    
 		malfunction_chance+=malfunction_mod
@@ -182,17 +181,16 @@
 
 	charge+=charge_mod
 	if(COOLDOWN_FINISHED(src, xenoa_cooldown))//Execution of traits here
-		for(var/datum/xenoartifact_trait/minor/T in traits)//Minor traits aren't apart of the target loop
-			T.activate(src, user, user)
-		for(var/datum/xenoartifact_trait/malfunction/T in traits)//Same for malfunctions
-			T.activate(src, user, user)
+		for(var/datum/xenoartifact_trait/t as() in traits)//Minor traits aren't apart of the target loop
+			if(!istype(t, /datum/xenoartifact_trait/major))
+				t.activate(src, user, user)
 		charge = (charge+charge_req)/1.9 //Not quite an average. Generally produces slightly higher results.     
 		for(var/atom/M in true_target)
 			create_beam(M)
-			for(var/datum/xenoartifact_trait/major/T in traits) //Major
+			for(var/datum/xenoartifact_trait/major/t as() in traits) //Major
 				if(logging)
-					log_game("[src] activated trait [T]. Located at [x] [y] [z]")
-				T.activate(src, M, user)
+					log_game("[src] activated trait [t]. Located at [x] [y] [z]")
+				t.activate(src, M, user)
 			if(!(get_trait(/datum/xenoartifact_trait/minor/aura))) //Quick fix for bug that selects multiple targets for noraisin
 				break
 		COOLDOWN_START(src, xenoa_cooldown, cooldown+cooldownmod)
@@ -283,17 +281,14 @@
 		icon_overlay.color = colour
 	add_overlay(icon_overlay)
 
-/obj/item/xenoartifact/proc/process_target(atom/target)
+/obj/item/xenoartifact/proc/process_target(atom/target) //Used for hand-holding secret technique. 
 	. = target
-	var/mob/living/M
-	if(isliving(target))
-		M = target
-		. = M
 	if(isliving(target?.loc))
-		M = target.loc
-		. = M
-	if(M?.pulling)
-		. = M.pulling
+		. = target?.loc
+	//Have to type convert to access pulling
+	var/mob/living/M = istype(target, /mob/living) ? target : null
+	if(M && M?.pulling)
+		. = M?.pulling
 	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/on_target_del, target)
 	return
 
@@ -356,9 +351,9 @@
 			return PROCESS_KILL
 
 /obj/item/xenoartifact/Destroy()
-	for(var/datum/xenoartifact_trait/T in traits)
-		T.on_del(src)
-		qdel(T)
+	for(var/datum/xenoartifact_trait/t as() in traits)
+		t.on_del(src)
+		qdel(t)
 	SSradio.remove_object(src, frequency)
 	qdel(radio_connection)
 	qdel(traits)
@@ -377,9 +372,9 @@
 	difficulty = material
 	..()
 
-/datum/component/xenoartifact_pricing //Temporary pricing component for temporary shipping solution
-	var/modifier = 0.70 //Buying and selling related
-	var/price //default price gets generated if it isn't set by console. This only happens if the artifact spawns outside of that process
+/datum/component/xenoartifact_pricing ///Temporary pricing component for temporary shipping solution
+	var/modifier = 0.70 ///Buying and selling related
+	var/price ///default price gets generated if it isn't set by console. This only happens if the artifact spawns outside of that process
 
 /obj/item/xenoartifact/objective/Initialize(mapload, difficulty)
 	. = ..()

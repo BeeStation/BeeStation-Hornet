@@ -26,11 +26,11 @@
 	var/list/tab_index = list("Listings", "Export", "Linking") //All tabs
 	var/current_tab = "Listings"
 	var/current_tab_info = "Here you can find listings for various research samples, usually fresh from the field. These samples aren't distrubuted by the Nanotrasen affiliated cargo system, so instead listing data is sourced from stray bluespace-threads."
-	var/obj/machinery/xenoartifact_inbox/linked_inbox
-	var/list/linked_machines = list()
-	var/datum/techweb/linked_techweb
+	var/obj/machinery/xenoartifact_inbox/linked_inbox //used for 'shipping'
+	var/list/linked_machines = list() //List of linked machines for UI purposes
+	var/datum/techweb/linked_techweb //Which science server recieves points
 	var/list/sold_artifacts = list() //Actually just a general list of items you've sold, name is a legacy thing
-	var/datum/bank_account/budget
+	var/datum/bank_account/budget //Which department's budget recieves profit
 
 /obj/machinery/computer/xenoartifact_console/Initialize()
 	. = ..()
