@@ -56,7 +56,7 @@
 	. = ..()
 
 /obj/item/stock_parts/cell/process(delta_time)
-	if(emp_timer < world.time)
+	if(emp_timer > world.time)
 		return
 	if(self_recharge)
 		give(chargerate * 0.125 * delta_time)
