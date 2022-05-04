@@ -60392,7 +60392,8 @@
 	dir = 9
 	},
 /obj/machinery/field/generator{
-	anchored = 1
+	anchored = 1;
+	state = 1
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -60401,7 +60402,8 @@
 	dir = 5
 	},
 /obj/machinery/field/generator{
-	anchored = 1
+	anchored = 1;
+	state = 1
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -65528,7 +65530,8 @@
 	dir = 10
 	},
 /obj/machinery/field/generator{
-	anchored = 1
+	anchored = 1;
+	state = 1
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -65537,7 +65540,8 @@
 	dir = 6
 	},
 /obj/machinery/field/generator{
-	anchored = 1
+	anchored = 1;
+	state = 1
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -113150,6 +113154,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"roT" = (
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/turf/open/floor/plating,
+/area/engine/engineering)
 "rpP" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -142021,9 +142029,9 @@ car
 cdH
 car
 car
-cjd
-cjd
-cjd
+roT
+roT
+roT
 cjd
 coZ
 cqq
@@ -142031,9 +142039,9 @@ crN
 cqq
 cuP
 cjd
-cjd
-cjd
-cjd
+roT
+roT
+roT
 car
 car
 cFM
