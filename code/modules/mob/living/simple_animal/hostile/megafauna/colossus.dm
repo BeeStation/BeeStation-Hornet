@@ -94,7 +94,7 @@ Difficulty: Very Hard
 				if(health <= maxHealth/10)
 					final_attack()
 					health = 0
-					death()	//Player controlled Colossi will die immediately following the final attack.
+					death()	//Player controlled Colossi will die immediately following the final attack. 
 				else
 					telegraph()
 					visible_message("<span class='colossus'>\"<b>Judgment</b>\"</span>")
@@ -184,11 +184,6 @@ Difficulty: Very Hard
 	SLEEP_CHECK_DEATH(10)
 	INVOKE_ASYNC(src, .proc/spiral_shoot, FALSE)
 	INVOKE_ASYNC(src, .proc/spiral_shoot, TRUE)
-
-/mob/living/simple_animal/hostile/megafauna/colossus/death()
-	while(invulnerable_finale)
-		sleep(10) //finish ongoing finale attack before dying. 
-	..()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack() //not actually necessarily the final attack, but has a very long cooldown.
 	var/finale_counter = 10
