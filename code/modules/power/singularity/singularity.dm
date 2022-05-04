@@ -1,6 +1,6 @@
 
 
-/obj/singularity
+/obj/anomaly/singularity
 	name = "gravitational singularity"
 	desc = "A gravitational singularity."
 	icon = 'icons/obj/singularity.dmi'
@@ -11,18 +11,17 @@
 	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
 	appearance_flags = 0
-	pass_flags_self = PASSANOMALY
 	var/current_size = 1
 	var/allowed_size = 1
-	var/energy = 100 //How strong are we?
+	energy = 100 //How strong are we?
 	var/grav_pull = 4
-	var/dissipate = TRUE //Do we lose energy over time?
+	dissipate = TRUE //Do we lose energy over time?
 	/// How long should it take for us to dissipate in seconds?
-	var/dissipate_delay = 20
+	dissipate_delay = 20
 	/// How much energy do we lose every dissipate_delay?
-	var/dissipate_strength = 1
+	dissipate_strength = 1
 	/// How long its been (in seconds) since the last dissipation
-	var/time_since_last_dissipiation = 0
+	time_since_last_dissipiation = 0
 	var/event_chance = 10 //Prob for event each tick
 	var/move_self = TRUE
 	/// How long it's been since the singulo last acted, in seconds
@@ -33,7 +32,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	obj_flags = CAN_BE_HIT | DANGEROUS_POSSESSION
 
-/obj/singularity/Initialize(mapload, starting_energy = 50)
+/obj/anomaly/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
 	START_PROCESSING(SSsinguloprocess, src)
 	GLOB.poi_list |= src
@@ -56,13 +55,13 @@
 	if(!mapload)
 		notify_ghosts("IT'S LOOSE", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, ghost_sound = 'sound/machines/warning-buzzer.ogg', header = "IT'S LOOSE", notify_volume = 75)
 
-/obj/singularity/Destroy()
+/obj/anomaly/singularity/Destroy()
 	STOP_PROCESSING(SSsinguloprocess, src)
 	GLOB.poi_list.Remove(src)
 	GLOB.singularities.Remove(src)
 	return ..()
 
-/obj/singularity/attack_tk(mob/user)
+/obj/anomaly/singularity/attack_tk(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.visible_message("<span class='danger'>[C]'s head begins to collapse in on itself!</span>", "<span class='userdanger'>Your head feels like it's collapsing in on itself! This was really not a good idea!</span>", "<span class='italics'>You hear something crack and explode in gore.</span>")
@@ -76,7 +75,7 @@
 		rip_u.dismember(BURN) //nice try jedi
 		qdel(rip_u)
 
-/obj/singularity/ex_act(severity, target)
+/obj/anomaly/singularity/ex_act(severity, target)
 	switch(severity)
 		if(1)
 			if(current_size <= STAGE_TWO)
@@ -90,7 +89,7 @@
 		if(3)
 			energy -= round(((energy+1)/4),1)
 
-/obj/singularity/process(delta_time)
+/obj/anomaly/singularity/process(delta_time)
 	time_since_act += delta_time
 	if(time_since_act < 2)
 		return
@@ -102,25 +101,14 @@
 	dissipate(delta_time)
 	check_energy()
 
-/obj/singularity/proc/admin_investigate_setup()
+/obj/anomaly/singularity/proc/admin_investigate_setup()
 	var/turf/T = get_turf(src)
 	var/count = locate(/obj/machinery/field/containment) in urange(30, src, 1)
 	if(!count)
 		message_admins("A singulo has been created without containment fields active at [ADMIN_VERBOSEJMP(T)].")
 	investigate_log("was created at [AREACOORD(T)]. [count?"":"<font color='red'>No containment fields were active</font>"]", INVESTIGATE_ENGINES)
 
-/obj/singularity/proc/dissipate(delta_time)
-	if(!dissipate)
-		return
-	time_since_last_dissipiation += delta_time
-
-	// Uses a while in case of especially long delta times
-	while (time_since_last_dissipiation >= dissipate_delay)
-		energy -= dissipate_strength
-
-	time_since_last_dissipiation -= dissipate_delay
-
-/obj/singularity/proc/expand(force_size)
+/obj/anomaly/singularity/proc/expand(force_size)
 	var/temp_allowed_size = src.allowed_size
 
 	if(force_size)
@@ -215,7 +203,7 @@
 		return 0
 
 
-/obj/singularity/proc/check_energy()
+/obj/anomaly/singularity/proc/check_energy()
 	if(energy <= 0)
 		investigate_log("collapsed.", INVESTIGATE_ENGINES)
 		qdel(src)
@@ -238,13 +226,7 @@
 		expand()
 	return 1
 
-/obj/singularity/bullet_act(obj/item/projectile/energy/accelerated_particle/P, def_zone, piercing_hit = FALSE)
-	if(istype(P))
-		energy += P.energy
-	else
-		return ..() //highly doubt that anything else could hit this but just in case
-
-/obj/singularity/proc/consume(atom/thing)
+/obj/anomaly/singularity/proc/consume(atom/thing)
 	var/gain = thing.singularity_act(current_size, src)
 	energy += gain
 	if(istype(thing, /obj/machinery/power/supermatter_crystal) && !consumed_supermatter)
@@ -253,7 +235,7 @@
 		consumed_supermatter = TRUE
 		set_light(10)
 
-/obj/singularity/proc/check_cardinals_range(steps, retry_with_move = FALSE)
+/obj/anomaly/singularity/proc/check_cardinals_range(steps, retry_with_move = FALSE)
 	. = length(GLOB.cardinals)			//Should be 4.
 	for(var/i in GLOB.cardinals)
 		. -= check_turfs_in(i, steps)	//-1 for each working direction
@@ -264,7 +246,7 @@
 					return TRUE
 	. = !.
 
-/obj/singularity/proc/check_turfs_in(direction = 0, step = 0)
+/obj/anomaly/singularity/proc/check_turfs_in(direction = 0, step = 0)
 	if(!direction)
 		return 0
 	var/steps = 0
@@ -317,7 +299,7 @@
 	return 1
 
 
-/obj/singularity/proc/can_move(turf/T)
+/obj/anomaly/singularity/proc/can_move(turf/T)
 	if(!T)
 		return 0
 	if((locate(/obj/machinery/field/containment) in T)||(locate(/obj/machinery/shieldwall) in T))
@@ -333,7 +315,7 @@
 	return 1
 
 
-/obj/singularity/proc/event()
+/obj/anomaly/singularity/proc/event()
 	var/numb = rand(1,4)
 	switch(numb)
 		if(1)//EMP
@@ -349,7 +331,7 @@
 	return 1
 
 
-/obj/singularity/proc/combust_mobs()
+/obj/anomaly/singularity/proc/combust_mobs()
 	for(var/mob/living/carbon/C in urange(20, src, 1))
 		C.visible_message("<span class='warning'>[C]'s skin bursts into flame!</span>", \
 						  "<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>")
@@ -358,7 +340,7 @@
 	return
 
 
-/obj/singularity/proc/mezzer()
+/obj/anomaly/singularity/proc/mezzer()
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(isbrain(M)) //Ignore brains
 			continue
@@ -378,20 +360,20 @@
 	return
 
 
-/obj/singularity/proc/emp_area()
+/obj/anomaly/singularity/proc/emp_area()
 	empulse(src, 8, 10)
 
-/obj/singularity/singularity_act()
+/obj/anomaly/singularity/singularity_act()
 	var/gain = (energy/2)
 	var/dist = max((current_size - 2),1)
 	explosion(src.loc,(dist),(dist*2),(dist*4))
 	qdel(src)
 	return(gain)
 
-/obj/singularity/deadchat_controlled
+/obj/anomaly/singularity/deadchat_controlled
 	move_self = FALSE
 
-/obj/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
+/obj/anomaly/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
 	. = ..()
 	AddComponent(/datum/component/deadchat_control, DEMOCRACY_MODE, list(
 	 "up" = CALLBACK(GLOBAL_PROC, .proc/_step, src, NORTH),

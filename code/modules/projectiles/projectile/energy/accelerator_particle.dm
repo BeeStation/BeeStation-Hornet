@@ -10,6 +10,7 @@
 	hitsound = null
 	irradiate = 60
 	var/energy = 10
+	var/stop_dissipate = FALSE
 
 /obj/item/projectile/energy/accelerated_particle/singularity_pull()
 	return
@@ -18,6 +19,7 @@
 	range = 8
 	energy = 5
 	irradiate = 30
+	stop_dissipate = TRUE //because its supposed to keep the singu/tesla stable at the same size
 
 /obj/item/projectile/energy/accelerated_particle/strong
 	range = 15

@@ -242,8 +242,7 @@
 			/obj/machinery/atmospherics,
 			/obj/item/ammo_casing,
 			/obj/item/implant,
-			/obj/singularity,
-			/obj/energy_ball,
+			/obj/anomaly,
 			/obj/eldritch/narsie
 			))
 		// Insulating objects won't get contaminated

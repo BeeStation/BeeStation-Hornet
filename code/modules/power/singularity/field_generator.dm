@@ -312,11 +312,17 @@ field_generator power level display
 
 
 /obj/machinery/field/generator/proc/cleanup()
+	var/dist
 	clean_up = 1
 	for(var/F in fields)
 		qdel(F)
 
 	for(var/CG in connected_gens)
+		if(!dist)
+			dist = get_dist(src, CG)
+		else
+			var/local_dist = get_dist(src, CG)
+			dist = max(dist, local_dist)
 		var/obj/machinery/field/generator/FG = CG
 		FG.connected_gens -= src
 		if(!FG.clean_up)//Makes the other gens clean up as well
@@ -325,18 +331,17 @@ field_generator power level display
 	clean_up = 0
 	update_icon()
 	move_resist = initial(move_resist)
+	loose_message(dist) //we forward the distance of the furtest away generator
 
-/obj/machinery/field/generator/singularity_act(var/singularity_size, var/atom/singu)
-	loose_message(singu)
-	return ..()
-
-/obj/machinery/field/generator/proc/loose_message(atom/loose)
-	if(COOLDOWN_FINISHED(src, loose_message_cooldown) && istype(loose, /obj/singularity))
-		COOLDOWN_START(src, loose_message_cooldown, 5 SECONDS) //this is a shared cooldown between all field generators so we don't get spammed when it eats them
+/obj/machinery/field/generator/proc/loose_message(dist)
+	if(COOLDOWN_FINISHED(src, loose_message_cooldown))
+		COOLDOWN_START(src, loose_message_cooldown, 5 SECONDS) //this cooldown is shared between all field generators
+		var/obj/anomaly/a = locate(/obj/anomaly) in oview(dist, src)
 		var/turf/T = get_turf(src)
-		message_admins("A singulo exists and a containment field has failed at [ADMIN_VERBOSEJMP(T)].")
-		investigate_log("has <font color='red'>failed</font> whilst a singulo exists at [AREACOORD(T)].", INVESTIGATE_ENGINES)
-		notify_ghosts("IT'S LOOSE", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, ghost_sound = 'sound/machines/warning-buzzer.ogg', header = "IT'S LOOSE", notify_volume = 75)
+		if(a)
+			message_admins("A [a.name] exists and a containment field has failed at [ADMIN_VERBOSEJMP(T)].")
+			investigate_log("has <font color='red'>failed</font> whilst a [a.name] exists at [AREACOORD(T)].", INVESTIGATE_ENGINES)
+			notify_ghosts("IT'S LOOSE", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, ghost_sound = 'sound/machines/warning-buzzer.ogg', header = "IT'S LOOSE", notify_volume = 75)
 
 /obj/machinery/field/generator/tesla_act()
 

@@ -16,7 +16,7 @@
 	buckle_requires_restraints = TRUE
 
 	var/energy = 0
-	var/creation_type = /obj/singularity
+	var/creation_type = /obj/anomaly/singularity
 
 /obj/machinery/the_singularitygen/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH)
@@ -39,7 +39,7 @@
 		if(energy >= 200)
 			var/turf/T = get_turf(src)
 			SSblackbox.record_feedback("tally", "engine_started", 1, type)
-			var/obj/singularity/S = new creation_type(T, 50)
+			var/obj/anomaly/singularity/S = new creation_type(T, 50)
 			transfer_fingerprints_to(S)
 			qdel(src)
 		else

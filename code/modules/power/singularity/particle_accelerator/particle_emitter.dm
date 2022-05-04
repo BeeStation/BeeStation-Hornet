@@ -30,14 +30,13 @@
 		var/obj/item/projectile/energy/accelerated_particle/P
 		switch(strength)
 			if(0)
-				P = /obj/item/projectile/energy/accelerated_particle/weak
+				P = new /obj/item/projectile/energy/accelerated_particle/weak(src)
 			if(1)
-				P = /obj/item/projectile/energy/accelerated_particle
+				P = new /obj/item/projectile/energy/accelerated_particle(src)
 			if(2)
-				P = /obj/item/projectile/energy/accelerated_particle/strong
+				P = new /obj/item/projectile/energy/accelerated_particle/strong(src)
 			if(3)
-				P = /obj/item/projectile/energy/accelerated_particle/powerful
-		P = new(src)
+				P = new /obj/item/projectile/energy/accelerated_particle/powerful(src)
 		P.fire(dir2angle(dir))
 		return TRUE
 	return FALSE

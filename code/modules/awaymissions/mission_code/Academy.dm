@@ -61,15 +61,15 @@
 	info = "Current Grade: F. Educator's Notes: No improvement shown despite multiple private lessons.  Suggest additional tutelage."
 
 /// The immobile, close pulling singularity seen in the academy away mission
-/obj/singularity/academy
+/obj/anomaly/singularity/academy
 	move_self = FALSE
 
-/obj/singularity/academy/Initialize(mapload)
+/obj/anomaly/singularity/academy/Initialize(mapload)
 	. = ..()
 	var/datum/component/singularity/singularity = singularity_component.resolve()
 	singularity?.grav_pull = TRUE
 
-/obj/singularity/academy/process(delta_time)
+/obj/anomaly/singularity/academy/process(delta_time)
 	if(DT_PROB(0.5, delta_time))
 		mezzer()
 
