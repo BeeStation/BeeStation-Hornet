@@ -23,8 +23,6 @@
 	///does it self recharge, over time, or not?
 	var/self_recharge = FALSE
 	///stores the chargerate to restore when hit with EMP, for slime cores
-	var/emp_chargerate_save
-	///Time in SECONDS for EMPs so that recharging cells know when to start charging again. 
 	var/emp_timer = 0
 	var/ratingdesc = TRUE
 	/// If it's a grown that acts as a battery, add a wire overlay to it.
@@ -58,15 +56,12 @@
 	. = ..()
 
 /obj/item/stock_parts/cell/process(delta_time)
+	if(emp_timer < world.time)
+		return
 	if(self_recharge)
 		give(chargerate * 0.125 * delta_time)
 	else
 		return PROCESS_KILL
-	if(emp_timer)
-		emp_timer -= delta_time // Both vars are in seconds
-		if(emp_timer <= 0)
-			emp_timer = 0
-			chargerate = emp_chargerate_save
 
 /obj/item/stock_parts/cell/update_icon()
 	cut_overlays()
@@ -151,10 +146,7 @@
 	if (charge < 0)
 		charge = 0
 	if(self_recharge)
-		if(chargerate)
-			emp_chargerate_save = chargerate
-			chargerate = 0
-		emp_timer = 30		// emp_timer is in seconds
+		emp_timer = world.time + 30 SECONDS
 	
 
 /obj/item/stock_parts/cell/ex_act(severity, target)
