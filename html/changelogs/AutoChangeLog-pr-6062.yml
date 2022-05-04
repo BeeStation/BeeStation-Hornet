@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes a bug in clockcult where a client disconnecting right before the
-      round starts could cause the ark to never open
-  - refactor: Refactors stargazer enchantments, they will no longer be negative and
-      are based on components.
