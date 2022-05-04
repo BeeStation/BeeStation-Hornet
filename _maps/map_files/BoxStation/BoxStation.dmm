@@ -24153,11 +24153,6 @@
 	},
 /area/science/research)
 "bvF" = (
-/obj/machinery/requests_console{
-	department = "Cargo Bay";
-	departmentType = 2;
-	pixel_x = -30
-	},
 /obj/machinery/computer/bounty{
 	dir = 4
 	},
@@ -24169,6 +24164,13 @@
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
+	},
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Quartermaster's Desk";
+	departmentType = 2;
+	name = "Quartermaster RC";
+	pixel_x = -32
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
@@ -24922,6 +24924,10 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
+/obj/machinery/keycard_auth{
+	pixel_x = 26;
+	pixel_y = -26
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "byh" = (
@@ -24969,13 +24975,13 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
+/obj/item/gps{
+	gpstag = "QM0"
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "byn" = (
 /obj/structure/filingcabinet,
-/obj/machinery/light_switch{
-	pixel_y = -25
-	},
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
@@ -25051,6 +25057,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
+/obj/machinery/holopad,
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "byA" = (
@@ -25067,6 +25074,10 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/machinery/light_switch{
+	pixel_x = -22;
+	pixel_y = 25
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "byB" = (
@@ -25081,14 +25092,13 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "byC" = (
-/obj/machinery/holopad,
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/item/kirbyplants/random,
+/obj/machinery/computer/card/minor/qm,
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "byD" = (

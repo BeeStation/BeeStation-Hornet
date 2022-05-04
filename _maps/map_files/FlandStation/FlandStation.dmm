@@ -10451,6 +10451,10 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
+/obj/machinery/newscaster{
+	pixel_x = 28;
+	pixel_y = -28
+	},
 /turf/open/floor/wood,
 /area/quartermaster/qm)
 "cqh" = (
@@ -11664,10 +11668,10 @@
 /area/medical/genetics)
 "cEm" = (
 /obj/structure/table/wood,
-/obj/item/folder/yellow,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/item/folder/yellow,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
@@ -11677,6 +11681,17 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/item/clipboard,
+/obj/item/cartridge/quartermaster{
+	pixel_x = 6;
+	pixel_y = 5
+	},
+/obj/item/cartridge/quartermaster{
+	pixel_x = -4;
+	pixel_y = 7
+	},
+/obj/item/cartridge/quartermaster,
+/obj/item/coin/gold,
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
 "cEu" = (
@@ -22310,10 +22325,12 @@
 /area/quartermaster/warehouse)
 "fab" = (
 /obj/machinery/requests_console{
+	announcementConsole = 1;
 	department = "Quartermaster's Desk";
+	departmentType = 2;
 	name = "Quartermaster RC";
-	pixel_x = 30;
-	pixel_y = -30
+	pixel_x = 32;
+	pixel_y = -32
 	},
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
@@ -69873,7 +69890,7 @@
 	},
 /area/ai_monitored/storage/eva)
 "qtx" = (
-/obj/machinery/computer/cargo,
+/obj/machinery/computer/card/minor/qm,
 /turf/open/floor/wood,
 /area/quartermaster/qm)
 "qtA" = (
@@ -87380,6 +87397,10 @@
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
+/obj/machinery/keycard_auth{
+	pixel_x = -26;
+	pixel_y = 26
+	},
 /turf/open/floor/wood,
 /area/quartermaster/qm)
 "usA" = (
@@ -95969,20 +95990,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/table,
-/obj/item/clipboard,
-/obj/item/cartridge/quartermaster,
-/obj/item/cartridge/quartermaster{
-	pixel_x = 6;
-	pixel_y = 5
-	},
-/obj/item/cartridge/quartermaster{
-	pixel_x = -4;
-	pixel_y = 7
-	},
-/obj/item/coin/gold,
-/obj/machinery/newscaster{
-	pixel_y = -28
+/obj/machinery/computer/cargo{
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/quartermaster/qm)
