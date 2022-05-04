@@ -54,6 +54,7 @@ Difficulty: Very Hard
 							   /datum/action/innate/megafauna_attack/shotgun,
 							   /datum/action/innate/megafauna_attack/alternating_cardinals)
 	small_sprite_type = /datum/action/small_sprite/megafauna/colossus
+	var/invulnerable_finale = FALSE
 
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
@@ -87,16 +88,32 @@ Difficulty: Very Hard
 	ranged_cooldown = world.time + 600 //prevents abilities from being spammed by AttackingTarget() while an attack is already underway.
 	anger_modifier = CLAMP(((maxHealth - health)/40),0,20)
 
-	if(client)
+	if(client) //Player controlled handled a bit differently. 
 		switch(chosen_attack)
 			if(1)
-				select_spiral_attack()
+				if(health <= maxHealth/10)
+					final_attack()
+					death()	//Player controlled Colossi will die immediately following the final attack. 
+				else
+					telegraph()
+					visible_message("<span class='colossus'>\"<b>Judgment</b>\"</span>")
+					select_spiral_attack()
+					ranged_cooldown = world.time + 30
 			if(2)
+				telegraph()
+				visible_message("<span class='colossus'>\"<b>Wrath</b>\"</span>")
 				random_shots()
+				ranged_cooldown = world.time + 30
 			if(3)
+				telegraph()
+				visible_message("<span class='colossus'>\"<b>Retribution</b>\"</span>")
 				blast()
+				ranged_cooldown = world.time + 30
 			if(4)
+				telegraph()
+				visible_message("<span class='colossus'>\"<b>Lament</b>\"</span>")
 				alternating_dir_shots()
+				ranged_cooldown = world.time + 30
 		return
 
 	if(enrage(target))
@@ -118,11 +135,12 @@ Difficulty: Very Hard
 			blast()
 		if(4)
 			alternating_dir_shots()
+		if(5)
+			final_attack()
 
 	if(health <= maxHealth/10) 					//Ultimate attack guaranteed at below 10% HP
 		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
-		random_attack_num = 1
-		ranged_cooldown = world.time + 30		//Same delay as usual will be telegraphed once before final attack
+		random_attack_num = 5
 	else if(prob(20+anger_modifier))			//If more than 10% HP, determine next attack randomly
 		visible_message("<span class='colossus'>\"<b>Judgment</b>\"</span>")
 		random_attack_num = 1
@@ -138,8 +156,7 @@ Difficulty: Very Hard
 				visible_message("<span class='colossus'>\"<b>Lament</b>\"</span>")
 				random_attack_num = 4
 	telegraph()
-	if(!(health <= maxHealth/10)) //12 second cooldown applied during the ultimate ability and above does not need to be overwritten
-		ranged_cooldown = world.time + 30
+	ranged_cooldown = world.time + 30
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/L)
 	if(ishuman(L))
@@ -159,8 +176,6 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/select_spiral_attack()
 	if(health <= maxHealth/3)
-		if(health <= maxHealth/10) //Less than 250 remaining HP
-			return final_attack()
 		return double_spiral()
 	return spiral_shoot()
 
@@ -169,9 +184,15 @@ Difficulty: Very Hard
 	INVOKE_ASYNC(src, .proc/spiral_shoot, FALSE)
 	INVOKE_ASYNC(src, .proc/spiral_shoot, TRUE)
 
+/mob/living/simple_animal/hostile/megafauna/colossus/death()
+	while(invulnerable_finale)
+		sleep(10) //finish ongoing finale attack before dying. 
+	..()
+
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack() //not actually necessarily the final attack, but has a very long cooldown.
 	var/finale_counter = 10
 	var/turf/U = get_turf(src)
+	invulnerable_finale = TRUE
 	for(var/i in 1 to 20)
 		if(finale_counter > 4)
 			telegraph()
@@ -192,23 +213,8 @@ Difficulty: Very Hard
 	for(var/iii in 1 to 4)
 		telegraph()
 		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
+		invulnerable_finale = FALSE
 		sleep(30) //Long cooldown (total 15 seconds with one last 30 applied in ) after this attack finally concludes
-
-/*
-	var/finale_counter = 12
-	telegraph()
-	visible_message("<span class='colossus'>\"<b>Die!</b>\"</span>")
-	double_spiral()
-	while(finale_counter > 0)
-		finale_counter--
-		sleep(10)
-		telegraph()
-		visible_message("<span class='colossus'>\"<b>Die!</b>\"</span>")
-		if(finale_counter < 5) //shotgun blasts during double spiral, all direction blasts after it
-			random_shots()
-		else
-			blast()
-*/
 	
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = pick(TRUE, FALSE), counter_start = 8)
 	var/turf/start_turf = get_step(src, pick(GLOB.alldirs))
