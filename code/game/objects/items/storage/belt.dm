@@ -371,9 +371,8 @@
 		/obj/item/research_disk_pinpointer
 		))
 
-
 /obj/item/storage/belt/mining/vendor
-	contents = newlist(/obj/item/survivalcapsule/encampment)
+	contents = newlist(/obj/item/survivalcapsule)
 
 /obj/item/storage/belt/mining/alt
 	icon_state = "explorer2"
