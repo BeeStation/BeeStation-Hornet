@@ -3579,6 +3579,7 @@
 #include "monkestation\code\modules\antagonists\florida_man\florida_man_outfits.dm"
 #include "monkestation\code\modules\cargo\packs.dm"
 #include "monkestation\code\modules\cargo\supplypod.dm"
+#include "monkestation\code\modules\clothing\gloves\color.dm"
 #include "monkestation\code\modules\clothing\head\helmet.dm"
 #include "monkestation\code\modules\clothing\head\misc.dm"
 #include "monkestation\code\modules\clothing\head\misc_special.dm"

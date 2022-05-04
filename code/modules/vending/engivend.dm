@@ -19,7 +19,8 @@
 					/obj/item/electronics/firealarm = 10,
 					/obj/item/electronics/firelock = 10,
 					/obj/item/storage/bag/construction = 3)
-	contraband = list(/obj/item/stock_parts/cell/potato = 3)
+	contraband = list(/obj/item/stock_parts/cell/potato = 3,
+					/obj/item/clothing/gloves/color/yellow/catgloves = 1)// Monkestation Edit catgloves
 	premium = list(/obj/item/storage/belt/utility = 3,
 				   /obj/item/storage/box/smart_metal_foam = 1)
 	refill_canister = /obj/item/vending_refill/engivend
