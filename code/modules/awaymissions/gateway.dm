@@ -209,7 +209,8 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	if(!stationgate || QDELETED(stationgate))
 		return
 	if(isliving(AM))
-		if(check_exile_implant(AM) || is_species(AM, /datum/species/lizard/ashwalker))
+		if(check_exile_implant(AM) || is_species(AM, /datum/species/lizard/ashwalker) || ismegafauna(AM))
+			say("Rejecting [AM]: Unauthorized lifeform detected.")
 			return
 	else
 		for(var/mob/living/L in AM.contents)
