@@ -336,10 +336,6 @@
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
-"bn" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/mine/production)
 "bo" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -1298,10 +1294,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/science)
-"fb" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/mine/eva)
 "fc" = (
 /obj/structure/table,
 /obj/item/stack/packageWrap,
@@ -3184,7 +3176,7 @@
 /area/mine/production)
 "ou" = (
 /obj/machinery/door/airlock/mining/glass{
-	name = "Processing Area";
+	name = "Gateway";
 	req_access_txt = "48"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -4457,7 +4449,7 @@
 /area/lavaland/surface/outdoors/unexplored)
 "Dc" = (
 /obj/machinery/door/airlock/mining/glass{
-	name = "Processing Area";
+	name = "Gateway";
 	req_access_txt = "48"
 	},
 /obj/structure/cable/yellow{
@@ -22420,9 +22412,9 @@ ab
 dz
 dz
 dz
-fb
+AP
 sL
-fb
+AP
 dz
 OZ
 OZ
@@ -22686,10 +22678,10 @@ OZ
 OZ
 vO
 OZ
-bn
+vO
 Dc
 ou
-bn
+vO
 OZ
 OZ
 jd
