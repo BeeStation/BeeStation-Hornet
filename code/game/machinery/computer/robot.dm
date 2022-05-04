@@ -111,6 +111,9 @@
 /obj/machinery/computer/robotics/ui_act(action, params)
 	if(..())
 		return
+	if(extracting)
+		say("The machine is busy!")
+		return
 
 	switch(action)
 		if("killbot")
@@ -165,23 +168,23 @@
 		if("extract")
 			if(!GLOB.upload_code)
 				GLOB.upload_code = random_nukecode()
-			if(!extracting)
-				message_admins("[ADMIN_LOOKUPFLW(usr)] is extracting the upload key!")
-				extracting = TRUE
-				ui_update()
-				if(allowed(usr))
-					say("Credentials successfully verified, commencing extraction.")
-					sleep(120)
 
-				else
-					var/message = "ALERT: UNAUTHORIZED UPLOAD KEY EXTRACTION AT [get_area_name(loc, TRUE)]"
-					radio.talk_into(src, message, radio_channel)
-					sleep(600)
-					say("Extraction at 50%")
-					sleep(600)
-				var/obj/item/paper/P = new /obj/item/paper(loc)
-				P.name = "Silicon Upload key"
-				P.info = "Current Upload key is: [GLOB.upload_code]"
-				extracting = FALSE
-				ui_update()
+			message_admins("[ADMIN_LOOKUPFLW(usr)] is extracting the upload key!")
+			extracting = TRUE
+			ui_update()
+			if(allowed(usr))
+				say("Credentials successfully verified, commencing extraction.")
+				sleep(120)
+
+			else
+				var/message = "ALERT: UNAUTHORIZED UPLOAD KEY EXTRACTION AT [get_area_name(loc, TRUE)]"
+				radio.talk_into(src, message, radio_channel)
+				sleep(600)
+				say("Extraction at 50%")
+				sleep(600)
+			var/obj/item/paper/P = new /obj/item/paper(loc)
+			P.name = "Silicon Upload key"
+			P.info = "Current Upload key is: [GLOB.upload_code]"
+			extracting = FALSE
+			ui_update()
 
