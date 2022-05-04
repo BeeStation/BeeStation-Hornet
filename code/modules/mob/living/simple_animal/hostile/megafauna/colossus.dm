@@ -84,8 +84,8 @@ Difficulty: Very Hard
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
-	anger_modifier = CLAMP(((maxHealth - health)/50),0,20)
-	ranged_cooldown = world.time + 120
+	ranged_cooldown = world.time + 600 //prevents abilities from being spammed by AttackingTarget() while an attack is already underway. Additionally sets the cooldown for final attack, though the counter starts before the attack in this case. 
+	anger_modifier = CLAMP(((maxHealth - health)/40),0,20)
 
 	if(client)
 		switch(chosen_attack)
@@ -102,7 +102,6 @@ Difficulty: Very Hard
 	if(enrage(target))
 		if(move_to_delay == initial(move_to_delay))
 			visible_message("<span class='colossus'>\"<b>You can't dodge.</b>\"</span>")
-		ranged_cooldown = world.time + 30
 		telegraph()
 		dir_shots(GLOB.alldirs)
 		move_to_delay = 3
@@ -110,15 +109,37 @@ Difficulty: Very Hard
 	else
 		move_to_delay = initial(move_to_delay)
 
-	if(prob(20+anger_modifier)) //Major attack
-		select_spiral_attack()
-	else if(prob(20))
-		random_shots()
-	else
-		if(prob(70))
+	switch(random_attack_num)
+		if(1)
+			select_spiral_attack()
+		if(2)
+			random_shots()
+		if(3)
 			blast()
-		else
+		if(4)
 			alternating_dir_shots()
+
+	if(health <= maxHealth/10) 					//Ultimate attack guaranteed at below 10% HP
+		visible_message("<span class='colossus'>\"<b>Die</b>\"</span>")
+		random_attack_num = 1
+		ranged_cooldown = world.time + 30		//Same delay as usual will be telegraphed once before final attack
+	else if(prob(20+anger_modifier))			//If more than 10% HP, determine next attack randomly
+		visible_message("<span class='colossus'>\"<b>Judgment</b>\"</span>")
+		random_attack_num = 1
+	else
+		switch(rand(1, 3))
+			if(1)
+				visible_message("<span class='colossus'>\"<b>Wrath</b>\"</span>")
+				random_attack_num = 2
+			if(2)
+				visible_message("<span class='colossus'>\"<b>Retribution</b>\"</span>")
+				random_attack_num = 3
+			if(3)
+				visible_message("<span class='colossus'>\"<b>Lament</b>\"</span>")
+				random_attack_num = 4
+	telegraph()
+	if(!(health <= maxHealth/10)) //12 second cooldown applied during the ultimate ability and above does not need to be overwritten
+		ranged_cooldown = world.time + 30
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/L)
 	if(ishuman(L))
@@ -128,7 +149,6 @@ Difficulty: Very Hard
 				. = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
-	ranged_cooldown = world.time + 40
 	dir_shots(GLOB.diagonals)
 	sleep(10)
 	dir_shots(GLOB.cardinals)
@@ -138,19 +158,32 @@ Difficulty: Very Hard
 	dir_shots(GLOB.cardinals)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/select_spiral_attack()
-	telegraph()
-	if(health < maxHealth/3)
+	if(health <= maxHealth/3)
+		if(health <= maxHealth/10) //Less than 250 remaining HP
+			return final_attack()
 		return double_spiral()
-	visible_message("<span class='colossus'>\"<b>Judgment.</b>\"</span>")
 	return spiral_shoot()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
-	visible_message("<span class='colossus'>\"<b>Die.</b>\"</span>")
-
 	SLEEP_CHECK_DEATH(10)
 	INVOKE_ASYNC(src, .proc/spiral_shoot, FALSE)
 	INVOKE_ASYNC(src, .proc/spiral_shoot, TRUE)
 
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack() //not actually necessarily the final attack, but it piles up a very long cooldown
+	var/finale_counter = 12
+	telegraph()
+	visible_message("<span class='colossus'>\"<b>Die!</b>\"</span>")
+	double_spiral()
+	while(finale_counter > 0)
+		finale_counter--
+		sleep(10)
+		telegraph()
+		visible_message("<span class='colossus'>\"<b>Die!</b>\"</span>")
+		if(finale_counter < 5) //shotgun blasts during double spiral, all direction blasts after it
+			random_shots()
+		else
+			blast()
+	
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = pick(TRUE, FALSE), counter_start = 8)
 	var/turf/start_turf = get_step(src, pick(GLOB.alldirs))
 	var/counter = counter_start
@@ -179,7 +212,6 @@ Difficulty: Very Hard
 	P.fire(set_angle)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/random_shots()
-	ranged_cooldown = world.time + 30
 	var/turf/U = get_turf(src)
 	playsound(U, 'sound/magic/clockwork/invoke_general.ogg', 300, 1, 5)
 	for(var/T in RANGE_TURFS(12, U) - U)
@@ -187,7 +219,6 @@ Difficulty: Very Hard
 			shoot_projectile(T)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/blast(set_angle)
-	ranged_cooldown = world.time + 20
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, 1, 2)
 	newtonian_move(get_dir(target_turf, src))
