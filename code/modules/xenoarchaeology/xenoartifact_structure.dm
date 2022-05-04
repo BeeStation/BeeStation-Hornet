@@ -101,7 +101,7 @@
 	if(isobserver(user))
 		to_chat(user, "<span class='notice'>[special_desc]</span>")
 		for(var/datum/xenoartifact_trait/t as() in traits)
-			to_chat(user, "<span class='notice'>[t.desc]\n</span>")
+			to_chat(user, "<span class='notice'>[t.desc ? t.desc : t.label_name]\n</span>")
 	if(istype(user.glasses, /obj/item/clothing/glasses/science))
 		to_chat(user, "<span class='notice'>[special_desc]</span>")
 
