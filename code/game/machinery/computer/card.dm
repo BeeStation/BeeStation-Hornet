@@ -41,7 +41,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		"Chief Engineer",
 		"Research Director",
 		"Chief Medical Officer",
-		"Brig Physician",
+		"Quartermaster",
 		"Deputy")
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
@@ -241,7 +241,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if((ACCESS_HOP in scan.access) && ((target_dept==DEPT_GEN) || !target_dept))
 				paycheck_departments |= ACCOUNT_SRV
 				paycheck_departments |= ACCOUNT_CIV
-				paycheck_departments |= ACCOUNT_CAR //Currently no seperation between service/civillian and supply
 			if((ACCESS_HOS in scan.access) && ((target_dept==DEPT_SEC) || !target_dept))
 				paycheck_departments |= ACCOUNT_SEC
 			if((ACCESS_CMO in scan.access) && ((target_dept==DEPT_MED) || !target_dept))
@@ -250,6 +249,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				paycheck_departments |= ACCOUNT_SCI
 			if((ACCESS_CE in scan.access) && ((target_dept==DEPT_ENG) || !target_dept))
 				paycheck_departments |= ACCOUNT_ENG
+			if((ACCESS_QM in scan.access) && ((target_dept==DEPT_SUP) || !target_dept))
+				paycheck_departments |= ACCOUNT_CAR
 		else
 			S = "--------"
 		dat += "<a href='?src=[REF(src)];choice=scan'>[S]</a>"
@@ -439,7 +440,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					else
 						if((ACCESS_HOP in scan.access) && ((target_dept==DEPT_GEN) || !target_dept))
 							region_access |= DEPT_GEN
-							region_access |= DEPT_SUP //Currently no seperation between service/civillian and supply
 							get_subordinates("Head of Personnel")
 						if((ACCESS_HOS in scan.access) && ((target_dept==DEPT_SEC) || !target_dept))
 							region_access |= DEPT_SEC
@@ -453,8 +453,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						if((ACCESS_CE in scan.access) && ((target_dept==DEPT_ENG) || !target_dept))
 							region_access |= DEPT_ENG
 							get_subordinates("Chief Engineer")
+						if((ACCESS_QM in scan.access) && ((target_dept==DEPT_SUP) || !target_dept))
+							region_access |= DEPT_SUP
+							get_subordinates("Quartermaster")
 						if(region_access)
 							authenticated = 1
+
 			else if ((!( authenticated ) && issilicon(usr)) && (!modify))
 				to_chat(usr, "<span class='warning'>You can't modify an ID without an ID inserted to modify! Once one is in the modify slot on the computer, you can log in.</span>")
 		if ("logout")
@@ -610,7 +614,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				updateUsrDialog()
 				return
 			switch(account.account_job.paycheck_department) //Checking if the user has access to change pay.
-				if(ACCOUNT_SRV,ACCOUNT_CIV,ACCOUNT_CAR)
+				if(ACCOUNT_SRV,ACCOUNT_CIV)
 					if(!(ACCESS_HOP in scan.access))
 						updateUsrDialog()
 						return
@@ -630,6 +634,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					if(!(ACCESS_CE in scan.access))
 						updateUsrDialog()
 						return
+				if(ACCOUNT_CAR)
+					if(!(ACCESS_QM in scan.access))
+						updateUsrDialog()
+						return
+
 			var/new_pay = FLOOR(input(usr, "Input the new paycheck amount.", "Set new paycheck amount.", account.paycheck_amount) as num|null, 1)
 			if(isnull(new_pay))
 				updateUsrDialog()
@@ -655,7 +664,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				updateUsrDialog()
 				return
 			switch(account.account_job.paycheck_department) //Checking if the user has access to change pay.
-				if(ACCOUNT_SRV,ACCOUNT_CIV,ACCOUNT_CAR)
+				if(ACCOUNT_SRV,ACCOUNT_CIV)
 					if(!(ACCESS_HOP in scan.access))
 						updateUsrDialog()
 						return
@@ -675,6 +684,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					if(!(ACCESS_CE in scan.access))
 						updateUsrDialog()
 						return
+				if(ACCOUNT_CAR)
+					if(!(ACCESS_QM in scan.access))
+						updateUsrDialog()
+						return
+
 			var/new_bonus = FLOOR(input(usr, "Input the bonus amount. Negative values will dock paychecks.", "Set paycheck bonus", account.paycheck_bonus) as num|null, 1)
 			if(isnull(new_bonus))
 				updateUsrDialog()
@@ -770,7 +784,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		typed_circuit.target_dept = target_dept
 	else
 		target_dept = typed_circuit.target_dept
-	var/list/dept_list = list("general","security","medical","science","engineering")
+	var/list/dept_list = list("general","security","medical","science","engineering","supply")
 	name = "[dept_list[target_dept]] department console"
 
 /obj/machinery/computer/card/minor/hos
@@ -794,6 +808,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	icon_screen = "idce"
 
 	light_color = LIGHT_COLOR_YELLOW
+
+/obj/machinery/computer/card/minor/qm
+	target_dept = DEPT_SUP
+	icon_screen = "idqm"
+
+	light_color = LIGHT_COLOR_ORANGE
 
 #undef DEPT_ALL
 #undef DEPT_GEN
