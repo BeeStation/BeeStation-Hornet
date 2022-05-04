@@ -59232,10 +59232,6 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
-"cjd" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/engine/engineering)
 "cje" = (
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
@@ -62940,7 +62936,7 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "crM" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -141775,13 +141771,13 @@ aaa
 aad
 aaa
 aad
-cjd
-cjd
-cjd
+roT
+roT
+roT
 crM
-cjd
-cjd
-cjd
+roT
+roT
+roT
 aad
 aaa
 aad
@@ -142032,13 +142028,13 @@ car
 roT
 roT
 roT
-cjd
+roT
 coZ
 cqq
 crN
 cqq
 cuP
-cjd
+roT
 roT
 roT
 roT
@@ -142289,13 +142285,13 @@ chu
 cje
 cje
 cje
-cjd
+roT
 cpa
 cqr
 cqr
 ctp
 cuQ
-cjd
+roT
 cje
 cje
 cAK
