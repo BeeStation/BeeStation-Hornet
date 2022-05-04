@@ -84,7 +84,7 @@ Difficulty: Very Hard
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
-	ranged_cooldown = world.time + 600 //prevents abilities from being spammed by AttackingTarget() while an attack is already underway. Additionally sets the cooldown for final attack, though the counter starts before the attack in this case. 
+	ranged_cooldown = world.time + 600 //prevents abilities from being spammed by AttackingTarget() while an attack is already underway.
 	anger_modifier = CLAMP(((maxHealth - health)/40),0,20)
 
 	if(client)
@@ -120,7 +120,7 @@ Difficulty: Very Hard
 			alternating_dir_shots()
 
 	if(health <= maxHealth/10) 					//Ultimate attack guaranteed at below 10% HP
-		visible_message("<span class='colossus'>\"<b>Die</b>\"</span>")
+		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
 		random_attack_num = 1
 		ranged_cooldown = world.time + 30		//Same delay as usual will be telegraphed once before final attack
 	else if(prob(20+anger_modifier))			//If more than 10% HP, determine next attack randomly
@@ -169,7 +169,32 @@ Difficulty: Very Hard
 	INVOKE_ASYNC(src, .proc/spiral_shoot, FALSE)
 	INVOKE_ASYNC(src, .proc/spiral_shoot, TRUE)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack() //not actually necessarily the final attack, but it piles up a very long cooldown
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack() //not actually necessarily the final attack, but has a very long cooldown.
+	var/finale_counter = 10
+	var/turf/U = get_turf(src)
+	for(var/i in 1 to 20)
+		if(finale_counter > 4)
+			telegraph()
+			visible_message("<span class='colossus'>\"<b>Die!</b>\"</span>")
+			blast()
+		if(finale_counter > 1)
+			finale_counter--
+		for(var/T in RANGE_TURFS(12, U) - U)
+			if(prob(min(finale_counter, 2)))
+				shoot_projectile(T)
+		sleep(finale_counter + 1)
+	for(var/ii in 1 to 3)
+		telegraph()
+		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
+		random_shots()
+		finale_counter += 6
+		sleep(finale_counter)
+	for(var/iii in 1 to 4)
+		telegraph()
+		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
+		sleep(30) //Long cooldown (total 15 seconds with one last 30 applied in ) after this attack finally concludes
+
+/*
 	var/finale_counter = 12
 	telegraph()
 	visible_message("<span class='colossus'>\"<b>Die!</b>\"</span>")
@@ -183,6 +208,7 @@ Difficulty: Very Hard
 			random_shots()
 		else
 			blast()
+*/
 	
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = pick(TRUE, FALSE), counter_start = 8)
 	var/turf/start_turf = get_step(src, pick(GLOB.alldirs))
