@@ -50,6 +50,7 @@
 
 	data["can_hack"] = FALSE
 	data["is_silicon"] = FALSE
+	data["extracting"] = extracting
 	if(issilicon(user))
 		var/mob/living/silicon/S = user
 		if(S.hack_software)
@@ -167,6 +168,7 @@
 			if(!extracting)
 				message_admins("[ADMIN_LOOKUPFLW(usr)] is extracting the upload key!")
 				extracting = TRUE
+				ui_update()
 				if(allowed(usr))
 					say("Credentials successfully verified, commencing extraction.")
 					sleep(120)
@@ -181,4 +183,5 @@
 				P.name = "Silicon Upload key"
 				P.info = "Current Upload key is: [GLOB.upload_code]"
 				extracting = FALSE
+				ui_update()
 

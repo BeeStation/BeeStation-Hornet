@@ -8,6 +8,7 @@ export const RoboticsControlConsole = (props, context) => {
   const {
     can_hack,
     is_silicon,
+    extracting,
     cyborgs = [],
     drones = [],
     uploads = [],
@@ -49,7 +50,7 @@ export const RoboticsControlConsole = (props, context) => {
         {tab === 3 && (
           <>
             <Uploads uploads={uploads} is_silicon={is_silicon} />
-            <Extracting is_silicon={is_silicon} />
+            <Extracting is_silicon={is_silicon} extracting={extracting} />
           </>)}
       </Window.Content>
     </Window>
@@ -219,13 +220,14 @@ const Uploads = (props, context) => {
 };
 
 const Extracting = (props, context) => {
-  const { is_silicon } = props;
+  const { is_silicon, extracting } = props;
   const { act } = useBackend(context);
   if (!is_silicon) {
     return (
       <Button
-        icon={'list'}
-        content={"Extract Uploading Key"}
+        icon={extracting ? 'sync' : 'list'}
+        content={extracting ? 'Extraction in progress' : 'Extract Upload Key'}
+        selected={extracting}
         onClick={() => act('extract')}
       />
     );
