@@ -3666,6 +3666,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 30
 	},
+/mob/living/simple_animal/turtle,
 /turf/open/floor/plasteel,
 /area/mine/production)
 "td" = (
