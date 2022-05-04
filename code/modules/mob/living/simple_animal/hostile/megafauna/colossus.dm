@@ -93,8 +93,6 @@ Difficulty: Very Hard
 			if(1)
 				if(health <= maxHealth/10)
 					final_attack()
-					health = 0
-					death()	//Player controlled Colossi will die immediately following the final attack. 
 				else
 					telegraph()
 					visible_message("<span class='colossus'>\"<b>Judgment</b>\"</span>")
