@@ -1,0 +1,5 @@
+author: nednaZ
+delete-after: true
+changes:
+  - bugfix: Metastation's Tribal Bar no longer has stairs to nowhere.
+  - bugfix: Boxstation's Kitchen no longer has a light switch in a door.
