@@ -17135,9 +17135,6 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/locker)
 "aYJ" = (
-/obj/machinery/light_switch{
-	pixel_y = -25
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -42929,6 +42926,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
 /area/science/lab)
+"fHQ" = (
+/obj/machinery/light_switch{
+	pixel_y = -25
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "fJe" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
@@ -96276,7 +96279,7 @@ aVz
 aVz
 aVz
 aVz
-aVz
+fHQ
 aJI
 bbz
 aYV

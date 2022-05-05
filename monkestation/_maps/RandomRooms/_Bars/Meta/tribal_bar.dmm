@@ -96,9 +96,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
-/turf/open/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/open/floor/grass/fakebasalt,
 /area/template_noop)
 "p" = (
 /obj/machinery/firealarm{
@@ -281,9 +279,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
-/turf/open/floor/plasteel/stairs{
-	dir = 8
-	},
+/turf/open/floor/grass/fakebasalt,
 /area/template_noop)
 "Q" = (
 /obj/effect/landmark/event_spawn,
@@ -323,17 +319,9 @@
 	},
 /turf/open/floor/grass/fakebasalt,
 /area/template_noop)
-"X" = (
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/stairs{
-	dir = 8
-	},
-/area/template_noop)
 "Y" = (
 /obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/stairs{
-	dir = 4
-	},
+/turf/open/floor/grass/fakebasalt,
 /area/template_noop)
 "Z" = (
 /obj/machinery/airalarm{
@@ -437,7 +425,7 @@ A
 D
 E
 A
-X
+Y
 P
 A
 A
