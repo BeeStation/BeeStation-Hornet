@@ -150,7 +150,8 @@
 	if(locate(/obj/item/xenoartifact_label) in target.contents)
 		qdel(locate(/obj/item/xenoartifact_label) in target.contents)
 	if(istype(target, /mob/living))
-		to_chat(target, "<span class='notice'>[user] attempts sticks a [src] to you!</span>")
+		to_chat(target, "<span class='warning'>[user] attempts sticks a [src] to you!</span>")
+		to_chat(user, "<span class='warning'>You attempt to stick a [src] on [target]!</span>")
 		if(do_after(user, 30, target))
 			if(!user.temporarilyRemoveItemFromInventory(src))
 				return
