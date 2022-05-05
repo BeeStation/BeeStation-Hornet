@@ -1,0 +1,6 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - refactor: Refactors spans in code to be able to use macros. If you spot any new
+      broken messages in chat, having missing text, broken tags in the message, or
+      being formatted wrong, make sure to report them.
