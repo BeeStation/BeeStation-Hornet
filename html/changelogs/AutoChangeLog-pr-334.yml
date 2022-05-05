@@ -1,4 +1,0 @@
-author: DoctorSquishy
-delete-after: true
-changes:
-  - bugfix: Fixes radio headset's TGUI auto-resize for having multiple channels
