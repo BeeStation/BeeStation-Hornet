@@ -48,8 +48,7 @@ Difficulty: Hard
 	ranged = TRUE
 	pixel_x = -32
 	del_on_death = TRUE
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum, /obj/item/crusher_trophy/demon_claws)
-	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
+	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/bubblegum)
 	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
 	var/charging = FALSE
 	var/enrage_till = 0
@@ -518,7 +517,6 @@ Difficulty: Hard
 	health = 1
 	maxHealth = 1
 	alpha = 127.5
-	crusher_loot = null
 	loot = null
 	achievement_type = null
 	crusher_achievement_type = null

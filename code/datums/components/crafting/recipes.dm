@@ -693,6 +693,7 @@
 	reqs = list(/obj/item/stack/sheet/bone = 10,
 				/obj/item/stack/sheet/sinew = 2,
 				/obj/item/stack/sheet/animalhide/ashdrake = 5)
+	always_available = FALSE
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/watcherbola

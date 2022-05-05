@@ -31,7 +31,6 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
 	hardattacks = TRUE
 	discovery_points = 10000
-	var/list/crusher_loot
 	var/achievement_type
 	var/crusher_achievement_type
 	var/score_achievement_type
@@ -76,8 +75,7 @@
 	else
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 		var/crusher_kill = FALSE
-		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
-			spawn_crusher_loot()
+		if(C.total_damage >= maxHealth * 0.6)
 			crusher_kill = TRUE
 		if(true_spawn && !(flags_1 & ADMIN_SPAWNED_1))
 			var/tab = "megafauna_kills"
@@ -87,9 +85,6 @@
 				grant_achievement(achievement_type, score_achievement_type, crusher_kill, force_grant)
 				SSblackbox.record_feedback("tally", tab, 1, "[initial(name)]")
 		..()
-
-/mob/living/simple_animal/hostile/megafauna/proc/spawn_crusher_loot()
-	loot = crusher_loot
 
 /mob/living/simple_animal/hostile/megafauna/gib()
 	if(health > 0)
