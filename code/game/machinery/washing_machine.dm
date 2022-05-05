@@ -234,6 +234,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	WM.bloody_mess = TRUE
 	gib()
 
+/obj/item/organ/brain/machine_wash(obj/machinery/washing_machine/WM)
+	brainwash(brainmob, pick(world.file2list("strings/abductee_objectives.txt")))
+
 /obj/item/machine_wash(obj/machinery/washing_machine/WM)
 	if(WM.color_source)
 		dye_item(WM.color_source.dye_color)
