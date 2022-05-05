@@ -1,0 +1,7 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - rscadd: adds helpful code comments to procs
+  - refactor: refactors and sorts _HELPERS/unsorted.dm into their own files
+  - refactor: turf_flags.dm is renamed to turfs.dm
+  - rscadd: adds some new directional flags
