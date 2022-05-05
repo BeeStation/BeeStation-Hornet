@@ -33,7 +33,7 @@
 	. = ..()
 	sub_managers = list(
 		"[ACCESS_HOP]" = list(
-			"department" = list(CARDCON_DEPARTMENT_SUPPLY, CARDCON_DEPARTMENT_COMMAND),
+			"department" = CARDCON_DEPARTMENT_COMMAND,
 			"region" = 1,
 			"head" = "Head of Personnel"
 		),
@@ -56,6 +56,11 @@
 			"department" = CARDCON_DEPARTMENT_ENGINEERING,
 			"region" = 5,
 			"head" = "Chief Engineer"
+		),
+		"[ACCESS_QM]" = list(
+			"department" = CARDCON_DEPARTMENT_SUPPLY,
+			"region" = 6,
+			"head" = "Quartermaster"
 		)
 	)
 

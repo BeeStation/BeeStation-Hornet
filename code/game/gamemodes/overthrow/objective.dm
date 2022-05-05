@@ -6,7 +6,7 @@
 // Base points for each role:
 // AI, Captain = 5;
 // Head of Personnel, Head of Security, target = 4;
-// Chief Engineer, Chief Medical Officer, Research Director = 3;
+// Chief Engineer, Chief Medical Officer, Research Director, Quartermaster = 3;
 
 // Modifiers:
 // Converting: 1.5 for the converting team, 1 for all the other ones;
@@ -21,6 +21,7 @@
 #define CEPTS		3
 #define CMOPTS		3
 #define RDPTS		3
+#define QMPTS		3
 
 #define CONVERTED_OURS	1.5
 #define CONVERTED		1
@@ -101,6 +102,8 @@
 					target_points = RDPTS
 				if("Chief Medical Officer")
 					target_points = CMOPTS
+				if("Quartermaster")
+					target_points = QMPTS
 			base_points += result_points(M, target_points)
 	return base_points
 

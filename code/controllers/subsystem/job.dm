@@ -24,7 +24,8 @@ SUBSYSTEM_DEF(job)
 		"Research Director" = 3,
 		"Chief Engineer" = 4,
 		"Chief Medical Officer" = 5,
-		"Head of Security" = 6)
+		"Head of Security" = 6,
+		"Quartermaster" = 7)
 
 	//Crew Objective stuff
 	var/list/crew_obj_list = list()

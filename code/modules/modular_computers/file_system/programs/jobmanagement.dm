@@ -22,6 +22,7 @@
 		"Chief Engineer",
 		"Research Director",
 		"Chief Medical Officer",
+		"Quartermaster",
 		"Deputy")
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
