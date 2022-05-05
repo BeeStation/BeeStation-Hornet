@@ -565,6 +565,81 @@
 	user.dust(just_ash = FALSE, drop_items = TRUE)
 	return MANUAL_SUICIDE
 
+/obj/item/toy/plush/moth/monarch
+	name = "monarch moth plushie"
+	desc = "An adorable mothperson plushy. It's an important bug!"
+	icon_state = "moffplush_monarch"
+
+/obj/item/toy/plush/moth/luna
+	name = "luna moth plushie"
+	desc = "An adorable mothperson plushy. It's a lunar bug!"
+	icon_state = "moffplush_luna"
+
+/obj/item/toy/plush/moth/atlas
+	name = "atlas moth plushie"
+	desc = "An adorable mothperson plushy. It's a wide bug!"
+	icon_state = "moffplush_atlas"
+
+/obj/item/toy/plush/moth/redish
+	name = "redish moth plushie"
+	desc = "An adorable mothperson plushy. It's a red bug!"
+	icon_state = "moffplush_redish"
+
+/obj/item/toy/plush/moth/royal
+	name = "royal moth plushie"
+	desc = "An adorable mothperson plushy. It's a royal bug!"
+	icon_state = "moffplush_royal"
+
+/obj/item/toy/plush/moth/gothic
+	name = "gothic moth plushie"
+	desc = "An adorable mothperson plushy. It's a dark bug!"
+	icon_state = "moffplush_gothic"
+
+/obj/item/toy/plush/moth/lovers
+	name = "lovers moth plushie"
+	desc = "An adorable mothperson plushy. It's a loveley bug!"
+	icon_state = "moffplush_lovers"
+
+/obj/item/toy/plush/moth/whitefly
+	name = "whitefly moth plushie"
+	desc = "An adorable mothperson plushy. It's a shy bug!"
+	icon_state = "moffplush_whitefly"
+
+/obj/item/toy/plush/moth/punished
+	name = "punished moth plushie"
+	desc = "An adorable mothperson plushy. It's a sad bug... that's quite sad actualy."
+	icon_state = "moffplush_punished"
+
+/obj/item/toy/plush/moth/firewatch
+	name = "firewatch moth plushie"
+	desc = "An adorable mothperson plushy. It's a firey bug!"
+	icon_state = "moffplush_firewatch"
+
+/obj/item/toy/plush/moth/deadhead
+	name = "deadhead moth plushie"
+	desc = "An adorable mothperson plushy. It's a silent bug!"
+	icon_state = "moffplush_deadhead"
+
+/obj/item/toy/plush/moth/poison
+	name = "poison moth plushie"
+	desc = "An adorable mothperson plushy. It's a toxic bug!"
+	icon_state = "moffplush_poison"
+
+/obj/item/toy/plush/moth/ragged
+	name = "ragged moth plushie"
+	desc = "An adorable mothperson plushy. It's a robust bug!"
+	icon_state = "moffplush_ragged"
+
+/obj/item/toy/plush/moth/snow
+	name = "snow moth plushie"
+	desc = "An adorable mothperson plushy. It's a cool bug!"
+	icon_state = "moffplush_snow"
+
+/obj/item/toy/plush/moth/clockwork
+	name = "clockwork moth plushie"
+	desc = "An adorable mothperson plushy. It's a precise bug!"
+	icon_state = "moffplush_clockwork"
+
 /obj/item/toy/plush/crossed
 	name = "ghost plushie"
 	desc = "It reminds you of someone important, you just can't make out who."
