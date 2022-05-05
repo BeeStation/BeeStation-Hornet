@@ -730,7 +730,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	else if(isobj(AM))
 		var/obj/O = AM
 		if(O.resistance_flags & INDESTRUCTIBLE)
-			if(!disengage_field_timer)
+			if(!disengage_field_timer) //we really don't want to have more than 1 timer and causality field overlayer at once
 				var/image/causality_field = image(icon, null, "causality_field")
 				add_overlay(causality_field, TRUE)
 				radio.talk_into(src, "Anomalous object has breached containment, emergency causality field enganged to prevent reality destabilization.", engineering_channel)
