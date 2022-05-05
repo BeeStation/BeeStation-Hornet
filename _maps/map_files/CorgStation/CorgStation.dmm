@@ -83985,6 +83985,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/bed/dogbed/walter,
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
 /turf/open/floor/plasteel/dark,
 /area/lawoffice)
 "tQw" = (

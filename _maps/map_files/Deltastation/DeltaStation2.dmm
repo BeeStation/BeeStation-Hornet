@@ -54526,6 +54526,8 @@
 	pixel_x = 26;
 	pixel_y = 26
 	},
+/obj/structure/bed/dogbed/walter,
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
 /turf/open/floor/wood,
 /area/lawoffice)
 "cdk" = (
@@ -110742,8 +110744,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
-/obj/structure/bed/dogbed/walter,
+/obj/structure/bed/dogbed/walter{
+	name = "Captain's bed"
+	},
+/mob/living/simple_animal/pet/dog/australianshepherd/captain,
 /turf/open/floor/plasteel,
 /area/security/warden)
 "pAL" = (

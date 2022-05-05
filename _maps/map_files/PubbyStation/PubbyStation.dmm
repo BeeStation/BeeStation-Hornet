@@ -54575,6 +54575,11 @@
 	luminosity = 2
 	},
 /area/maintenance/department/science)
+"oca" = (
+/obj/structure/bed/dogbed/walter,
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
+/turf/open/floor/wood,
+/area/lawoffice)
 "ocb" = (
 /obj/structure/chair/stool,
 /obj/effect/turf_decal/tile/green{
@@ -81953,7 +81958,7 @@ xJy
 ufM
 sJr
 sJr
-sJr
+oca
 aiu
 jhk
 aiu

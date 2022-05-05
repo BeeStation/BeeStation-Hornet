@@ -1634,6 +1634,8 @@
 	pixel_x = 24;
 	req_access_txt = "38"
 	},
+/obj/structure/bed/dogbed/walter,
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
 /turf/open/floor/plasteel/dark,
 /area/lawoffice)
 "add" = (
