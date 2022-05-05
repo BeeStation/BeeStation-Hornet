@@ -137,20 +137,16 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 	var/list/results = list()
 
-	for(var/tracked_mob in GLOB.suit_sensors_list)
-		if(!tracked_mob)
+	for(var/mob/living/carbon/human/tracked_human as () in GLOB.suit_sensors_list)
+		if(!tracked_human)
 			stack_trace("Null reference in suit sensors list")
-			GLOB.suit_sensors_list -= tracked_mob
+			GLOB.suit_sensors_list -= tracked_human
 			continue
 
-		var/mob/living/tracked_living_mob = tracked_mob
-
-		var/turf/pos = get_turf(tracked_living_mob)
+		var/turf/pos = get_turf(tracked_human)
 		if(!pos)
-			stack_trace("Tracked mob has no loc and is likely in nullspace: [tracked_living_mob] ([tracked_living_mob.type])")
+			stack_trace("Tracked mob has no loc and is likely in nullspace: [tracked_human] ([tracked_human.type])")
 			continue
-
-		var/mob/living/carbon/human/tracked_human = tracked_living_mob
 
 		// Check their humanity.
 		if(!ishuman(tracked_human))
