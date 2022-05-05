@@ -26,6 +26,12 @@
 	icon_state = "fox"
 	color_src = CUSTOM
 
+/datum/sprite_accessory/tails_animated/human/fox
+	name = "Fox"
+	icon = 'monkestation/icons/mob/mutant_bodyparts.dmi'
+	icon_state = "fox"
+	color_src = CUSTOM
+
 /datum/sprite_accessory/tails/human/wolf
 	name = "Wolf"
 	icon = 'monkestation/icons/mob/mutant_bodyparts.dmi'
