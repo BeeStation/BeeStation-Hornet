@@ -13,6 +13,9 @@
 /datum/clockcult/scripture/slab/sentinelscompromise/click_on(atom/A)
 	if(!(invoker in viewers(7, get_turf(A))))
 		return
+	if(!ishuman(invoker))
+		to_chat(invoker, "<span class='warning'>Non humanoid servants can't use this power!</span>")
+		return
 	var/mob/living/M = A
 	if(!istype(M))
 		return
@@ -47,5 +50,5 @@
 	new /obj/effect/temp_visual/heal(get_turf(M), "#f8d984")
 	playsound(M, 'sound/magic/magic_missile.ogg', 50, TRUE)
 	playsound(invoker, 'sound/magic/magic_missile.ogg', 50, TRUE)
-	invoker.adjustToxLoss(min(total_damage/2, 80))
+	invoker.adjustToxLoss(min(total_damage/2, 80), TRUE, TRUE)
 	return TRUE
