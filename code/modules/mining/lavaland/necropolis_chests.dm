@@ -987,8 +987,8 @@
 	if(timer > world.time)
 		to_chat(user, "<span class='warning'>The staff is still recharging!</span>")
 		return
-	var/area/user_area = get_area(user)
-	if(is_type_in_typecache(target, banned_turfs) || !(user_area.type in allowed_areas))
+	var/area/target_area = get_area(target)
+	if(is_type_in_typecache(target, banned_turfs) || !(target_area.type in allowed_areas))
 		to_chat(user, "<span class='warning'>You can only use this out in an open area</span>")
 		return
 	if(user in viewers(user.client.view, get_turf(target)))
