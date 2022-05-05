@@ -4278,7 +4278,7 @@
 /turf/open/floor/plasteel,
 /area/mine/production)
 "BC" = (
-/obj/machinery/gateway/centeraway,
+/obj/machinery/gateway/centeraway/mining,
 /turf/open/floor/plasteel/dark,
 /area/mine/production)
 "BM" = (

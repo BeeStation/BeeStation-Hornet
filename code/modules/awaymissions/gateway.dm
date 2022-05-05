@@ -6,7 +6,8 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	icon = 'icons/obj/machines/gateway.dmi'
 	icon_state = "off"
 	density = TRUE
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	max_integrity = 2000 // still nearly indestructible, but now vulnerable to being destroyed by the strongest of explosives, or through a lot of perserverance. 
 	var/active = 0
 	var/checkparts = TRUE
 	var/list/obj/effect/landmark/randomspawns = list()
@@ -135,8 +136,11 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	if(!detect())
 		return
 	if(!awaygate || QDELETED(awaygate))
+		say("No Destination found.")
 		return
-
+	if(!awaygate.active)
+		say("Destination Gateway is not active")
+		return
 	if(awaygate.calibrated)
 		AM.forceMove(get_step(awaygate.loc, SOUTH))
 		AM.setDir(SOUTH)
@@ -170,6 +174,18 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	use_power = NO_POWER_USE
 	var/obj/machinery/gateway/centerstation/stationgate = null
 	can_link = TRUE
+
+/obj/machinery/gateway/centeraway/mining
+	use_power = IDLE_POWER_USE
+
+/obj/machinery/gateway/centeraway/mining/process()
+	if((stat & (NOPOWER)) && use_power)
+		if(active)
+			toggleoff()
+		return
+
+	if(active)
+		use_power(5000)
 
 /obj/machinery/gateway/centeraway/Initialize(mapload)
 	. = ..()
@@ -207,6 +223,10 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	if(!active)
 		return
 	if(!stationgate || QDELETED(stationgate))
+		say("No Destination found.")
+		return
+	if(!stationgate.active)
+		say("Destination Gateway is not active")
 		return
 	if(isliving(AM))
 		if(check_exile_implant(AM) || is_species(AM, /datum/species/lizard/ashwalker) || ismegafauna(AM))
