@@ -6,8 +6,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	icon = 'icons/obj/machines/gateway.dmi'
 	icon_state = "off"
 	density = TRUE
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	max_integrity = 2000 // still nearly indestructible, but now vulnerable to being destroyed by the strongest of explosives, or through a lot of perserverance. 
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/active = 0
 	var/checkparts = TRUE
 	var/list/obj/effect/landmark/randomspawns = list()
@@ -139,7 +138,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		say("No Destination found.")
 		return
 	if(!awaygate.active)
-		say("Destination Gateway is not active")
+		say("Destination gateway is not active")
 		return
 	if(awaygate.calibrated)
 		AM.forceMove(get_step(awaygate.loc, SOUTH))
