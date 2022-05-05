@@ -808,7 +808,7 @@
 		return
 	var/C = user.client
 	if(ishuman(user) && C)
-		angle = Get_Angle(get_turf(src), get_turf(A))
+		angle = get_angle(get_turf(src), get_turf(A))
 	else
 		qdel(src)
 		return

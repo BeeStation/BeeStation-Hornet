@@ -193,7 +193,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	var/matrix/rotationMatrix = matrix()
 	rotationMatrix.Scale(1.5)
 	rotationMatrix.Translate(0, -distance)
-	rotationMatrix.Turn(Get_Angle(target_turf, parent_turf))
+	rotationMatrix.Turn(get_angle(target_turf, parent_turf))
 	animate(screen, transform = rotationMatrix, time = 2)
 
 //===========

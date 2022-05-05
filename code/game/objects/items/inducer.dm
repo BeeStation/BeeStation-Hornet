@@ -156,7 +156,7 @@
 /obj/item/inducer/examine(mob/living/M)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>Its display shows: [DisplayEnergy(cell.charge)].</span>"
+		. += "<span class='notice'>Its display shows: [display_energy(cell.charge)].</span>"
 	else
 		. += "<span class='notice'>Its display is dark.</span>"
 	if(opened)
