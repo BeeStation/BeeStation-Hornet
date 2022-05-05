@@ -15,7 +15,6 @@
 #define ATMOSBOT_VENT_AIR 2
 #define ATMOSBOT_SCRUB_TOXINS 3
 #define ATMOSBOT_TEMPERATURE_CONTROL 4
-#define ATMOSBOT_SPRAY_MIASMA 5
 
 //Floorbot
 /mob/living/simple_animal/bot/atmosbot
@@ -56,7 +55,6 @@
 		GAS_BZ = 1,
 		GAS_CO2 = 1,
 		GAS_HYPERNOB = 1,
-		GAS_MIASMA = 1,
 		GAS_NITROUS = 1,
 		GAS_NITRYL = 1,
 		GAS_PLASMA = 1,
@@ -195,7 +193,7 @@
 	if(pressure_delta > 0)
 		var/transfer_moles = pressure_delta*environment.return_volume()/(T20C * R_IDEAL_GAS_EQUATION)
 		if(emagged == 2)
-			environment.adjust_moles(GAS_MIASMA, transfer_moles)
+			environment.adjust_moles(GAS_CO2, transfer_moles)
 		else
 			environment.adjust_moles(GAS_N2, transfer_moles * 0.7885)
 			environment.adjust_moles(GAS_O2, transfer_moles * 0.2115)
