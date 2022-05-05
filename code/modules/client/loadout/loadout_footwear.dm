@@ -17,12 +17,12 @@
 /datum/gear/footwear/winterboots
 	display_name = "winter boots"
 	path = /obj/item/clothing/shoes/winterboots
-	cost = 4000
+	cost = -10
 
 /datum/gear/footwear/swagshoes
 	display_name = "swag shoes"
 	path = /obj/item/clothing/shoes/swagshoes
-	cost = 31000 
+	cost = -10
 
 //Standard shoes
 
