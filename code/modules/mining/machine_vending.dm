@@ -152,7 +152,7 @@
 		new /datum/data/vendor_equipment("Fulton Beacon",				/obj/item/fulton_core,												500),
 		new /datum/data/vendor_equipment("Lazarus Injector",			/obj/item/lazarus_injector,											1000),
 		new /datum/data/vendor_equipment("Survival Medipen",			/obj/item/reagent_containers/hypospray/medipen/survival,			1000),
-		new /datum/data/vendor_equipment("Skeleton Key",				/obj/item/skeleton_key,												750),
+		new /datum/data/vendor_equipment("Skeleton Key",				/obj/item/skeleton_key,												1200),
 	//Shelters	
 		new /datum/data/vendor_equipment("Shelter Capsule",				/obj/item/survivalcapsule,											400),
 		new /datum/data/vendor_equipment("Luxury Shelter Capsule",		/obj/item/survivalcapsule/luxury,									3000),
