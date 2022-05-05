@@ -1,4 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Energy guns have correct charge on initialization again.
