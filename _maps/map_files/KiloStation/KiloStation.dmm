@@ -7478,8 +7478,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -13507,8 +13507,8 @@
 	idInterior = "virology_airlock_interior";
 	idSelf = "virology_airlock_control";
 	name = "Virology Access Console";
-	pixel_x = -28;
-	req_access_txt = "39"
+	req_access_txt = "39";
+	pixel_x = -28
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/virology)
@@ -14376,8 +14376,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -28865,8 +28865,8 @@
 	idDoor = "virology_airlock_interior";
 	idSelf = "virology_airlock_control";
 	name = "Virology Access Button";
-	pixel_y = 28;
-	req_access_txt = "39"
+	req_access_txt = "39";
+	pixel_y = 28
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
@@ -37454,8 +37454,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
@@ -39100,10 +39100,6 @@
 /obj/item/radio/intercom{
 	pixel_y = 22
 	},
-/obj/machinery/keycard_auth{
-	pixel_x = -26;
-	pixel_y = 26
-	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/qm)
 "bhN" = (
@@ -39118,6 +39114,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "bhO" = (
+/obj/machinery/computer/bounty,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -39129,7 +39126,6 @@
 /obj/machinery/newscaster{
 	pixel_y = 30
 	},
-/obj/machinery/computer/card/minor/qm,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/qm)
 "bhP" = (
@@ -39144,15 +39140,14 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 24;
-	pixel_y = 28
-	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Quartermaster's Desk";
+	department = "Cargo Bay";
 	departmentType = 2;
 	name = "Quartermaster RC";
+	pixel_y = 30
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 24;
 	pixel_y = 28
 	},
 /turf/open/floor/plasteel/dark,
@@ -40133,11 +40128,11 @@
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 10
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 10
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
@@ -40153,9 +40148,11 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/machinery/computer/bounty{
-	dir = 8;
-	icon_state = "computer"
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
@@ -40163,12 +40160,15 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/arrows,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 6
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/effect/turf_decal/arrows,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -40479,12 +40479,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "bjE" = (
@@ -40842,12 +40840,6 @@
 /area/maintenance/starboard)
 "bke" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "bkf" = (
@@ -41010,8 +41002,6 @@
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/stripes/corner,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "bks" = (
@@ -41055,8 +41045,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "bkv" = (
@@ -41464,9 +41452,25 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/mixing)
+"bkY" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/storage)
 "bkZ" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "bla" = (
@@ -41476,11 +41480,11 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
-	dir = 8
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -41675,12 +41679,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "blq" = (
@@ -41826,8 +41824,6 @@
 	dir = 1;
 	icon_state = "box_corners"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "blB" = (
@@ -42988,12 +42984,6 @@
 	opened = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "bni" = (
@@ -43786,15 +43776,19 @@
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
 "bom" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
-	dir = 1
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Quartermaster";
+	req_access_txt = "41"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
-/area/quartermaster/storage)
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/qm)
 "bon" = (
 /obj/structure/sign/departments/botany,
 /turf/closed/wall,
@@ -44091,8 +44085,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "boL" = (
@@ -45254,8 +45246,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "bqu" = (
@@ -50338,8 +50328,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "byy" = (
@@ -51694,8 +51682,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
@@ -52031,8 +52019,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
@@ -54782,8 +54770,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "bFq" = (
@@ -60887,8 +60879,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -61020,8 +61012,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -73083,8 +73075,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -91487,8 +91479,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Junction Cutoff"
+	name = "Atmospherics Junction Cutoff";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -92108,8 +92100,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -96001,16 +95993,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/tcommsat/computer)
-"gOY" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/storage)
 "gPP" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating{
@@ -96065,9 +96047,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
-	dir = 1
-	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "hcA" = (
@@ -96261,6 +96241,10 @@
 /area/quartermaster/warehouse)
 "hGV" = (
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "hHu" = (
@@ -96991,8 +96975,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -97713,8 +97697,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/manifold4w/supply/visible/layer1,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "lQK" = (
@@ -97888,8 +97876,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer1{
-	dir = 4;
-	name = "Atmospherics Cutoff Valve"
+	name = "Atmospherics Cutoff Valve";
+	dir = 4
 	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -100259,9 +100247,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
-	dir = 1
-	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "snC" = (
@@ -101608,6 +101594,12 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "vWK" = (
@@ -141825,7 +141817,7 @@ bkq
 bkA
 bke
 gZY
-vVW
+bkY
 blC
 bls
 bPj
@@ -142080,7 +142072,7 @@ bjE
 byt
 blO
 blL
-bom
+bke
 sng
 hGV
 bli
@@ -142331,7 +142323,7 @@ aCb
 aCb
 big
 big
-big
+bom
 aCb
 bjF
 byu
@@ -142594,7 +142586,7 @@ aWQ
 byv
 bkf
 blb
-gOY
+bkf
 bli
 bkZ
 bOI

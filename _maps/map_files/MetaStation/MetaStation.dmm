@@ -19911,14 +19911,25 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "aNR" = (
+/obj/structure/table,
+/obj/item/cartridge/quartermaster{
+	pixel_x = -4;
+	pixel_y = 7
+	},
+/obj/item/cartridge/quartermaster{
+	pixel_x = 6;
+	pixel_y = 5
+	},
+/obj/item/cartridge/quartermaster,
+/obj/item/gps{
+	gpstag = "QM0"
+	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/structure/disposalpipe/trunk,
-/obj/machinery/disposal/bin,
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "aNS" = (
@@ -20656,10 +20667,10 @@
 /area/quartermaster/qm)
 "aPj" = (
 /obj/effect/landmark/start/quartermaster,
-/obj/structure/chair/office{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/structure/chair/office{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
@@ -20673,14 +20684,9 @@
 	},
 /obj/item/pen/red,
 /obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Quartermaster's Desk";
+	department = "Cargo Bay";
 	departmentType = 2;
-	name = "Quartermaster RC";
 	pixel_x = 32
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
@@ -21266,19 +21272,16 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "aQs" = (
+/obj/structure/disposalpipe/segment,
 /obj/machinery/holopad,
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "aQt" = (
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/gps{
-	gpstag = "QM0"
-	},
 /obj/item/stamp/qm,
-/obj/machinery/keycard_auth{
-	pixel_x = 26;
-	pixel_y = 8
+/obj/machinery/status_display/supply{
+	pixel_x = 32
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
@@ -21955,12 +21958,13 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "aRM" = (
+/obj/machinery/disposal/bin,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
-	},
-/obj/machinery/computer/card/minor/qm{
-	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
@@ -21973,18 +21977,6 @@
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
-	},
-/obj/item/cartridge/quartermaster,
-/obj/item/cartridge/quartermaster{
-	pixel_x = -4;
-	pixel_y = 7
-	},
-/obj/item/cartridge/quartermaster{
-	pixel_x = 6;
-	pixel_y = 5
-	},
-/obj/machinery/status_display/supply{
-	pixel_x = 32
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)

@@ -22415,14 +22415,12 @@
 	layer = 4;
 	pixel_x = -32
 	},
+/obj/structure/filingcabinet,
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
-	},
-/obj/machinery/computer/card/minor/qm{
-	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
@@ -22431,9 +22429,6 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/quartermaster,
-/obj/structure/chair/office{
-	dir = 8
-	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "beL" = (
@@ -22744,25 +22739,66 @@
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/mechbay)
 "bfB" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
+/obj/structure/table,
+/obj/machinery/requests_console{
+	department = "Cargo Bay";
+	departmentType = 2;
+	pixel_x = -30
 	},
+/obj/item/paper_bin{
+	layer = 2.9
+	},
+/obj/item/pen,
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/obj/structure/filingcabinet,
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "bfC" = (
+/obj/structure/table,
+/obj/item/clipboard,
+/obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "Cargo Quartermaster's Office";
+	dir = 1
+	},
+/obj/machinery/light_switch{
+	pixel_y = -24
+	},
+/obj/item/cartridge/quartermaster{
+	pixel_x = 6;
+	pixel_y = 5
+	},
+/obj/item/cartridge/quartermaster,
+/obj/item/cartridge/quartermaster{
+	pixel_x = -4;
+	pixel_y = 7
+	},
+/obj/item/coin/silver,
+/obj/item/stamp/qm,
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "bfD" = (
+/obj/item/radio/intercom{
+	pixel_y = -35
+	},
 /obj/machinery/computer/security/qm{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
@@ -23420,27 +23456,34 @@
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "bhr" = (
-/obj/effect/turf_decal/tile/brown{
+/obj/machinery/door/airlock/maintenance{
+	name = "Mining Maintenance";
+	req_access_txt = "48"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
 	},
-/obj/machinery/keycard_auth{
-	pixel_x = -26
-	},
-/obj/item/kirbyplants/random,
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Quartermaster's Desk";
-	departmentType = 2;
-	name = "Quartermaster RC";
-	pixel_x = -32;
-	pixel_y = -32
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/qm)
+/turf/open/floor/plating,
+/area/maintenance/department/cargo)
 "bhs" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
@@ -23448,20 +23491,11 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 6
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 6
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
@@ -23793,12 +23827,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
+/obj/structure/disposalpipe/segment{
+	dir = 5
 	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "biC" = (
@@ -40098,8 +40134,8 @@
 	},
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
-	name = "O2 To Airmix";
-	on = 1
+	on = 1;
+	name = "O2 To Airmix"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -41313,9 +41349,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_toxmix{
-	icon_state = "dpvent_map-1";
+	piping_layer = 1;
 	id = "atmos_incinerator_airlock_pump";
-	piping_layer = 1
+	icon_state = "dpvent_map-1"
 	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
@@ -42208,20 +42244,6 @@
 	},
 /turf/open/floor/plating/asteroid,
 /area/chapel/asteroid/monastery)
-"cep" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
-/turf/open/floor/plating,
-/area/maintenance/department/cargo)
 "ceq" = (
 /obj/machinery/power/emitter,
 /turf/open/floor/plating,
@@ -48207,33 +48229,6 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/grass,
 /area/hallway/primary/aft)
-"dSS" = (
-/obj/structure/table,
-/obj/machinery/light,
-/obj/machinery/camera{
-	c_tag = "Cargo Quartermaster's Office";
-	dir = 1
-	},
-/obj/machinery/light_switch{
-	pixel_y = -24
-	},
-/obj/item/cartridge/quartermaster{
-	pixel_x = 6;
-	pixel_y = 5
-	},
-/obj/item/cartridge/quartermaster,
-/obj/item/cartridge/quartermaster{
-	pixel_x = -4;
-	pixel_y = 7
-	},
-/obj/item/coin/silver,
-/obj/item/stamp/qm,
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/maintenance/department/cargo)
 "dTV" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -56139,24 +56134,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
-"omh" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	pixel_y = -35
-	},
-/obj/structure/table,
-/obj/item/clipboard,
-/obj/item/gps{
-	gpstag = "QM0"
-	},
-/turf/open/floor/plasteel,
-/area/maintenance/department/cargo)
 "oms" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 10
@@ -56955,21 +56932,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"pfG" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	layer = 2.9
-	},
-/obj/item/pen,
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/maintenance/department/cargo)
 "pfP" = (
 /obj/structure/table,
 /obj/item/storage/box/syringes,
@@ -59212,14 +59174,6 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"sak" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/machinery/photocopier,
-/turf/open/floor/plasteel,
-/area/quartermaster/qm)
 "saw" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
@@ -59501,19 +59455,6 @@
 	icon_state = "platingdmg1"
 	},
 /area/maintenance/department/security/brig)
-"syC" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/door/airlock/maintenance{
-	name = "Mining Maintenance";
-	req_access_txt = "48"
-	},
-/turf/open/floor/plating,
-/area/quartermaster/miningdock)
 "syQ" = (
 /obj/machinery/vending/games,
 /obj/structure/sign/plaques/deempisi{
@@ -103019,9 +102960,9 @@ bcA
 bdF
 beJ
 bfB
-bhr
-pfG
-aEj
+bbE
+aZv
+sdE
 biz
 bjw
 bky
@@ -103276,10 +103217,10 @@ bcB
 bdG
 beK
 bfC
-bfC
-dSS
+bbE
+tyR
 aEj
-uWK
+tyR
 bjw
 bkz
 blQ
@@ -103533,10 +103474,10 @@ bcC
 bdH
 beL
 bfD
-sak
-omh
+bbE
+tyR
 aEj
-uWK
+tyR
 bjw
 bky
 blR
@@ -103791,9 +103732,9 @@ bdI
 bdI
 bdI
 bbI
-aEj
+bhr
 bbI
-uWK
+tyR
 bjw
 bky
 blS
@@ -104049,8 +103990,8 @@ beM
 bfE
 bgK
 bhs
-syC
-cep
+bbI
+tyR
 bjw
 bjw
 bjw
