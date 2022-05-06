@@ -1,0 +1,4 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - bugfix: Fixed R&D Access for Scientist and Exploration
