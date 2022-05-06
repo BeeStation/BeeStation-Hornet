@@ -116,7 +116,8 @@
 	var/obj/item/xenoartifact/X = source
 	if(X.process_type != IS_LIT && thing.ignition_effect(X, user)) //Generally artifact should handle cooldown schmuck. Please don't do this.
 		X.visible_message("<span class='danger'>The [X.name] sparks on.</span>")
-		to_chat(user, "<span class='danger'>The [X.name] sparks on.</span>")
+		if(isliving(X.loc))
+			to_chat(user, "<span class='danger'>The [X.name] sparks on.</span>")
 		sleep(2 SECONDS)
 		X.process_type = IS_LIT
 		START_PROCESSING(SSobj, X)
@@ -358,7 +359,7 @@
 
 /datum/xenoartifact_trait/minor/sentient/on_del(obj/item/xenoartifact/X)
 	. = ..()
-	qdel(man)
+	qdel(man) //Kill the inner person
 
 /datum/xenoartifact_trait/minor/delicate //Limited uses.
 	desc = "Fragile"
