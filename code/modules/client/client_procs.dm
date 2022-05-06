@@ -152,41 +152,30 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
  * you for it
  */
 /client/proc/handle_spam_prevention(message, mute_type)
+	if(!(CONFIG_GET(flag/automute_on)))
+		return FALSE
 
-	//Increment message count
-	total_message_count += 1
+	if(COOLDOWN_FINISHED(src, total_count_reset))
+		same_message_count = 0
+		COOLDOWN_START(src, total_count_reset, 5 SECONDS)
+		return FALSE
 
-	//store the total to act on even after a reset
-	var/cache = total_message_count
+	COOLDOWN_START(src, total_count_reset, 5 SECONDS)
 
-	if(total_count_reset <= world.time)
-		total_message_count = 0
-		total_count_reset = world.time + (5 SECONDS)
+	if(last_message == message)
+		same_message_count++
+	else
+		last_message = message
+		same_message_count = 0
+		return FALSE
 
-	//If they're really going crazy, mute them
-	if(cache >= SPAM_TRIGGER_AUTOMUTE * 2)
-		total_message_count = 0
-		total_count_reset = 0
+	if(same_message_count >= SPAM_TRIGGER_AUTOMUTE)
+		to_chat(src, "<span class='userdanger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
 		cmd_admin_mute(src, mute_type, TRUE)
 		return TRUE
 
-	//Otherwise just supress the message
-	else if(cache >= SPAM_TRIGGER_AUTOMUTE)
-		return TRUE
-
-
-	if(CONFIG_GET(flag/automute_on) /* && !holder */ && last_message == message)
-		last_message_count++
-		if(last_message_count >= SPAM_TRIGGER_AUTOMUTE)
-			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
-			cmd_admin_mute(src, mute_type, TRUE)
-			return TRUE
-		if(last_message_count >= SPAM_TRIGGER_WARNING)
-			to_chat(src, "<span class='danger'>You are nearing the spam filter limit for identical messages.</span>")
-			return FALSE
-	else
-		last_message = message
-		last_message_count = 0
+	if(same_message_count >= SPAM_TRIGGER_WARNING)
+		to_chat(src, "<span class='userdanger'>You are nearing the spam filter limit for identical messages.</span>")
 		return FALSE
 
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.
