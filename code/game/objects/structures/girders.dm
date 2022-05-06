@@ -253,7 +253,7 @@
 	if(state == GIRDER_REINF_STRUTS)
 		balloon_alert(user, "You start removing the inner grille...")
 		if(tool.use_tool(src, user, 40, volume=100))
-			balloon_alert(user, "You remove the inner grillie.")
+			balloon_alert(user, "You remove the inner grille.")
 			new /obj/item/stack/sheet/plasteel(get_turf(src))
 			var/obj/structure/girder/G = new (loc)
 			transfer_fingerprints_to(G)
