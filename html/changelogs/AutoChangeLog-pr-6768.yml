@@ -1,0 +1,4 @@
+author: Mat05usz, Timberpoes
+delete-after: true
+changes:
+  - bugfix: Rare runtimes in crewmonitor
