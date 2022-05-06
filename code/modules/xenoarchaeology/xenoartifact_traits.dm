@@ -317,8 +317,9 @@
 	return TRUE
 
 /datum/xenoartifact_trait/minor/sentient/on_init(obj/item/xenoartifact/X)
-	if(X.get_trait(/datum/xenoartifact_trait/minor/dense) && istype(X, /obj/structure/xenoartifact)) //Stop multiple sentience
-		addtimer(CALLBACK(src, .proc/get_canidate, X), 5 SECONDS)
+	if(X.get_trait(/datum/xenoartifact_trait/minor/dense) && !istype(X, /obj/structure/xenoartifact)) //Stop multiple sentience
+		return
+	addtimer(CALLBACK(src, .proc/get_canidate, X), 5 SECONDS)
 	..()
 
 /datum/xenoartifact_trait/minor/sentient/proc/get_canidate(obj/item/xenoartifact/X)
