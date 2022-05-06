@@ -235,6 +235,13 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	gib()
 
 /obj/item/organ/brain/machine_wash(obj/machinery/washing_machine/WM)
+	var/datum/antagonist/brainwashed/BW = brainmob.mind.has_antag_datum(/datum/antagonist/brainwashed)
+	if(BW)
+		BW.objectives = list()	//washed clean!
+	if(prob(33))
+		gain_trauma_type(/datum/brain_trauma/mild/dumbness, TRAUMA_RESILIENCE_SURGERY)
+		desc = "A piece of juicy meat found in a person's head. This one is quite smooth and smells like detergent."
+	applyOrganDamage(rand(10, 60), BRAIN_DAMAGE_DEATH)	//You are putting a brain into a washing machine, what did you expect?
 	brainwash(brainmob, pick(world.file2list("strings/abductee_objectives.txt")))
 
 /obj/item/machine_wash(obj/machinery/washing_machine/WM)
