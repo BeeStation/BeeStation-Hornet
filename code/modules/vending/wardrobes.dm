@@ -148,7 +148,7 @@
 					/obj/item/clothing/head/beret/supply = 3,
 					/obj/item/radio/headset/headset_cargo = 3)
 	premium = list(/obj/item/clothing/under/rank/cargo/miner = 3)
-	contraband = list(/obj/item/banner/cargo/mudane = 2)
+	contraband = list(/obj/item/banner/cargo/mundane = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/cargo_wardrobe
 	payment_department = ACCOUNT_CAR
 /obj/item/vending_refill/wardrobe/cargo_wardrobe
