@@ -264,13 +264,6 @@ Borg Shaker
 /obj/item/reagent_containers/borghypo/borgshaker/alcoholic
 		name = "cyborg booze shaker"
 		desc = "An advanced alcoholic drink synthesizer and mixer."
-		icon = 'icons/obj/drinks.dmi'
-		icon_state = "shaker"
-		possible_transfer_amounts = list(5,10,20)
-		charge_cost = 20 //Lots of reagents all regenerating at once, so the charge cost is lower. They also regenerate faster.
-		recharge_time = 3
-		volume = 50
-		accepts_reagent_upgrades = FALSE
 
 		reagent_ids = list(
 			/datum/reagent/consumable/ethanol/absinthe,
