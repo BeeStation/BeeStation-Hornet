@@ -24,7 +24,7 @@
 	..()
 	var/turf/T = user.loc
 	if(!isopenturf(T) || !T || !is_changeling(user))
-		to_chat(user, "<span class='warning'>You need an open space to become a headslug!</span>")
+		to_chat(user, "<span class='warning'>You can't become a headslug right now!</span>")
 		return FALSE
 	var/datum/mind/M = user.mind
 	var/list/organs = user.getorganszone(BODY_ZONE_HEAD, 1)
