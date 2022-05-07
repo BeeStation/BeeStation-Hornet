@@ -522,6 +522,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	message = image(loc = message_loc, layer = CHAT_LAYER)
 	message.plane = BALLOON_CHAT_PLANE
 	message.alpha = 0
+	message.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 	message.maptext_width = BALLOON_TEXT_WIDTH
 	message.maptext_height = WXH_TO_HEIGHT(owned_by?.MeasureText(text, null, BALLOON_TEXT_WIDTH))
 	message.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5
