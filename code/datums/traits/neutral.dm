@@ -97,3 +97,16 @@
 
 /datum/quirk/monochromatic/remove()
 	quirk_holder.remove_client_colour(/datum/client_colour/monochrome)
+
+/datum/quirk/split_personality
+	name = "Split Personality"
+	desc = "Sometimes you're not quite yourself"
+	value = 0
+	gain_text = null // Handled by trauma.
+	lose_text = null
+	medical_record_text = "Patient has an untreatable complete lobe separation, resulting in dramatic shifts in personality."
+
+/datum/quirk/split_personality/add()
+	var/datum/brain_trauma/severe/split_personality/T = new()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.gain_trauma(T, TRAUMA_RESILIENCE_ABSOLUTE)
