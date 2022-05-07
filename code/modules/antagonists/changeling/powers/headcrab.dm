@@ -22,7 +22,7 @@
 				to_chat(user, "<span class='warning'>Our last resort is being disrupted by another changeling!</span>")
 				return
 	var/turf/T = user.loc
-	if(!isopenturf(T) || !T || !is_changeling(user))
+	if(!T || !isopenturf(T) || !is_changeling(user))
 		to_chat(user, "<span class='warning'>You can't become a headslug right now!</span>")
 		return FALSE
 	var/datum/mind/M = user.mind
