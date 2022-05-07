@@ -61,6 +61,34 @@
 			<ul class="changes bgimages16">
 				<li class="rscadd">There is now a leaderboard for the biggest toxins bomb (theoretical size).</li>
 			</ul>
+			<h3 class="author">MNarath1 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixes runtime for retaliate mobs</li>
+			</ul>
+			<h3 class="author">MNarath1, LemonInTheDark, Timberpoes, Mothblocks, Ghommie, spookydonut, Kylerace, TiviPlus, SpaceManiac, ninjanomnom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">movement loop subsystem</li>
+				<li class="rscadd">movement type procs for different movements</li>
+				<li class="rscadd">Movement bucket system</li>
+				<li class="refactor">changes forced_gravity into an element</li>
+				<li class="refactor">converts singularity into a component</li>
+				<li class="refactor">changes up most movement for mobs /atom etc to work with the movement loop</li>
+				<li class="refactor">converts blob spore movement towards the  new movement loop</li>
+				<li class="refactor">moves conveyor belts to its own subsystem</li>
+				<li class="refactor">space drifting is now a component</li>
+				<li class="code_imp">refactors and changes some disposal loop stuff</li>
+				<li class="code_imp">refactors mulebots and adds some movement related signals</li>
+				<li class="code_imp">removes some spawn() procs</li>
+				<li class="refactor">removes sleep procs from transfer tubes</li>
+				<li class="tweak">disables effects during initialize</li>
+				<li class="rscdel">removes some redundant code regarding to monkeys</li>
+				<li class="bugfix">runtimes during in the movement type datum if it got GC while the proc was running</li>
+				<li class="bugfix">fixes narsi's spawn animation not showing up</li>
+				<li class="bugfix">drifting speed exploit</li>
+				<li class="refactor">converts accelated particles from particle accelerator into projectiles</li>
+				<li class="bugfix">fixes tesla dissipation</li>
+				<li class="bugfix">fixes 0 setting for the PA to actually sustain the singularity</li>
+			</ul>
 			<h3 class="author">Phil Smith updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">Nukie Team Leaders start on loud mode (can still go into normal mode via an alt-click on the headset)</li>
@@ -89,6 +117,11 @@
 				<li class="tweak">A shuttle that can choose its landing site can land on any level of a multi-Z station</li>
 				<li class="code_imp">Stair travel uses Move or doMove now to better handle pulling and buckling</li>
 				<li class="code_imp">Allow_z_travel now indicates whether a turf is a valid start location for downwards travel, or a valid destination for upwards travel</li>
+			</ul>
+			<h3 class="author">mc_meiler updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Chemical Synthesizers now require regular, manual refilling with compressed matter cartridges to operate.</li>
+				<li class="tweak">Chemistry lockers now start with 2 to 4 matter cartridges, depending on locker type.</li>
 			</ul>
 
 			<h2 class="date">06 May 2022</h2>
