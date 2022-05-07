@@ -57,6 +57,10 @@
 		<div class="commit sansserif">
 
 			<h2 class="date">07 May 2022</h2>
+			<h3 class="author">Ivniinvi updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">There is now a leaderboard for the biggest toxins bomb (theoretical size).</li>
+			</ul>
 			<h3 class="author">Phil Smith updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">Nukie Team Leaders start on loud mode (can still go into normal mode via an alt-click on the headset)</li>
@@ -64,6 +68,27 @@
 			<h3 class="author">TheChaser212 updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">Fixed augment manipulator and clockwork bodypart icons.</li>
+				<li class="rscadd">Anything with dna can get mutations (such as monkeys)</li>
+				<li class="code_imp">Added mobtypes_allowed var to mutations</li>
+				<li class="code_imp">Improvements to genetics code</li>
+			</ul>
+			<h3 class="author">covertcorvid updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added stairs to multi-z debug station</li>
+				<li class="rscadd">Power cables that go up and down. Use 2 pieces of cable on an open space to create one.</li>
+				<li class="bugfix">Buckles are no longer cancelled when using stairs</li>
+				<li class="bugfix">Vehicles are now able to go down stairs</li>
+				<li class="bugfix">Pulling someone in a roller bed or wheelchair on stairs now acts the same regardless of whether you grabbed the person or the object</li>
+				<li class="bugfix">Fireman carrying people up and down stairs works now</li>
+				<li class="bugfix">Being buckled to a wheelchair or other vehicle no longer makes you immune to damage from falling through open space</li>
+				<li class="bugfix">Non-observer ghosts (revenants, eminence, poly's ghost) no longer need to hitch a ride in an elevator to get off their starting level.</li>
+				<li class="tweak">Blob overmind can use Move-Upwards and Move-Down verbs to find a location to place itself</li>
+				<li class="tweak">Upwards movement from a floor tile in zero gravity will work as long as the tile above you is open or space</li>
+				<li class="tweak">The Move-Upwards and Move-Down verbs from the IC tab can be used by more than just observers</li>
+				<li class="tweak">Revenants and Eminences can use the up-down radial menu</li>
+				<li class="tweak">A shuttle that can choose its landing site can land on any level of a multi-Z station</li>
+				<li class="code_imp">Stair travel uses Move or doMove now to better handle pulling and buckling</li>
+				<li class="code_imp">Allow_z_travel now indicates whether a turf is a valid start location for downwards travel, or a valid destination for upwards travel</li>
 			</ul>
 
 			<h2 class="date">06 May 2022</h2>
