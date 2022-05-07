@@ -512,8 +512,8 @@
 /datum/reagent/drug/ketamine/overdose_process(mob/living/M)
 	//Dissociative anesthetics? Overdosing? Time to dissociate hard.
 	var/obj/item/organ/brain/B = M.getorgan(/obj/item/organ/brain)
-	if(B.can_gain_trauma(/datum/brain_trauma/severe/split_personality, 5))
-		B.brain_gain_trauma(/datum/brain_trauma/severe/split_personality, 5)
+	if(B.can_gain_trauma(/datum/brain_trauma/severe/split_personality, TRAUMA_RESILIENCE_SURGERY))
+		B.gain_trauma(BRAIN_TRAUMA_SEVERE)
 		. = 1
 	M.hallucination += 10
 	//Uh Oh Someone is tired
