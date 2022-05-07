@@ -1,0 +1,7 @@
+author: mc_meiler
+delete-after: true
+changes:
+  - tweak: Chemical Synthesizers now require regular, manual refilling with compressed
+      matter cartridges to operate.
+  - tweak: Chemistry lockers now start with 2 to 4 matter cartridges, depending on
+      locker type.
