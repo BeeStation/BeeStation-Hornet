@@ -190,6 +190,11 @@
 	path = /obj/item/clothing/head/pirate
 	cost = 5000
 
+//MISC
+/datum/gear/hat/franks_hat
+	path = /obj/item/clothing/head/franks_hat
+	cost = 25000
+
 //CHAPLAIN HATS
 
 /datum/gear/hat/blackbishop

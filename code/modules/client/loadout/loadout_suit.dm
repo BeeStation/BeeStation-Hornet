@@ -164,6 +164,27 @@
 	display_name = "poncho, red"
 	path = /obj/item/clothing/suit/poncho/red
 
+//MISC
+/datum/gear/suit/striped_sweater
+	display_name = "striped sweater"
+	path = /obj/item/clothing/suit/striped_sweater
+	cost = 12500
+
+/datum/gear/suit/gothcoat
+	display_name = "goth coat"
+	path = /obj/item/clothing/suit/gothcoat
+	cost = 12500
+
+/datum/gear/suit/pirate/captain
+	display_name = "pirate captain suit"
+	path = /obj/item/clothing/suit/pirate/captain
+	cost = 25000
+
+/datum/gear/suit/pirate
+	display_name = "pirate suit"
+	path = /obj/item/clothing/suit/pirate/
+	cost = 12500
+
 //ROBES
 /datum/gear/suit/robe
 	subtype_path = /datum/gear/suit/robe
