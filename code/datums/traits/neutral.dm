@@ -104,7 +104,7 @@
 	value = 0
 	gain_text = null // Handled by trauma.
 	lose_text = null
-	medical_record_text = "Patient has an untreatable complete lobe separation, resulting in dramatic shifts in personality."
+	medical_record_text = "Patient has an untreatable complete lobe separation, resulting in potentially dramatic shifts in personality."
 
 /datum/quirk/split_personality/add()
 	var/datum/brain_trauma/severe/split_personality/T = new()
