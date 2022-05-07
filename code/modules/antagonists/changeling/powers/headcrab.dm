@@ -19,13 +19,13 @@
 			if(other_ling?.isabsorbing)
 				to_chat(user, "<span class='warning'>Our last resort is being disrupted by another changeling!</span>")
 				return
-	var/turf/T = user.loc
-	if(!isopenturf(T))
-		to_chat(user, "<span class='warning'>You need an open space to become a headslug!</span>")
-		return
 	if(alert("Are we sure we wish to kill ourself and create a headslug?",,"Yes", "No") == "No")
 		return
 	..()
+	var/turf/T = user.loc
+	if(!isopenturf(T) || !T || !is_changeling(user))
+		to_chat(user, "<span class='warning'>You need an open space to become a headslug!</span>")
+		return FALSE
 	var/datum/mind/M = user.mind
 	var/list/organs = user.getorganszone(BODY_ZONE_HEAD, 1)
 
