@@ -32,7 +32,7 @@
 	var/static/list/radial_options = list("eject" = radial_eject, "use" = radial_use)
 	var/static/list/ai_radial_options = list("eject" = radial_eject, "use" = radial_use, "examine" = radial_examine)
 
-/obj/machinery/microwave/Initialize()
+/obj/machinery/microwave/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/microwave(src)
 	create_reagents(100)
@@ -291,8 +291,10 @@
 
 /obj/machinery/microwave/proc/loop(type, time, wait = max(12 - 2 * efficiency, 2)) // standard wait is 10
 	if(stat & (NOPOWER|BROKEN))
+		operating = FALSE
 		if(type == MICROWAVE_PRE)
 			pre_fail()
+		after_finish_loop()
 		return
 	if(!time)
 		switch(type)
@@ -329,9 +331,7 @@
 
 /obj/machinery/microwave/proc/pre_fail()
 	broken = 2
-	operating = FALSE
 	spark()
-	after_finish_loop()
 
 /obj/machinery/microwave/proc/pre_success()
 	loop(MICROWAVE_NORMAL, 10)

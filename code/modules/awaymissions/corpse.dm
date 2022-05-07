@@ -173,7 +173,7 @@
 	var/facial_hair_style
 	var/skin_tone
 
-/obj/effect/mob_spawn/human/Initialize()
+/obj/effect/mob_spawn/human/Initialize(mapload)
 	if(ispath(outfit))
 		outfit = new outfit()
 	if(!outfit)
@@ -220,7 +220,7 @@
 			// Using crew monitors to find corpses while creative makes finding certain ruins too easy.
 			var/obj/item/clothing/under/C = H.w_uniform
 			if(istype(C))
-				C.sensor_mode = NO_SENSORS
+				C.update_sensors(NO_SENSORS)
 
 	var/obj/item/card/id/W = H.wear_id
 	if(W)

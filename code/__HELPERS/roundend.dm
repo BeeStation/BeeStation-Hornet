@@ -109,7 +109,7 @@
 
 	var/list/greentexters = list()
 
-	for(var/datum/antagonist/A in GLOB.antagonists)
+	for(var/datum/antagonist/A as() in GLOB.antagonists)
 		if(!A.owner)
 			continue
 
@@ -132,7 +132,7 @@
 		var/greentexted = TRUE
 
 		if(A.objectives.len)
-			for(var/datum/objective/O in A.objectives)
+			for(var/datum/objective/O as() in A.objectives)
 				var/result = O.check_completion() ? "SUCCESS" : "FAIL"
 
 				if (result == "FAIL")
@@ -218,7 +218,7 @@
 			if(CONFIG_GET(flag/allow_crew_objectives))
 				var/mob/M = C?.mob
 				if(M?.mind?.current && LAZYLEN(M.mind.crew_objectives))
-					for(var/datum/objective/crew/CO in M.mind.crew_objectives)
+					for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
 						if(!C) //Yes, the client can be null here. BYOND moment.
 							break
 						if(CO.check_completion())
@@ -267,6 +267,20 @@
 		if(!(A.name in total_antagonists))
 			total_antagonists[A.name] = list()
 		total_antagonists[A.name] += "[key_name(A.owner)]"
+
+	CHECK_TICK
+
+	//Process veteran achievements
+	for(var/client/C as() in GLOB.clients)
+		var/hours = round(C?.get_exp_living(TRUE)/60)
+		if(hours > 1000)
+			C?.give_award(/datum/award/achievement/misc/onekhours, C.mob)
+		if(hours > 2000)
+			C?.give_award(/datum/award/achievement/misc/twokhours, C.mob)
+		if(hours > 3000)
+			C?.give_award(/datum/award/achievement/misc/threekhours, C.mob)
+		if(hours > 4000)
+			C?.give_award(/datum/award/achievement/misc/fourkhours, C.mob)
 
 	CHECK_TICK
 
@@ -406,7 +420,7 @@
 
 		if(CONFIG_GET(flag/allow_crew_objectives))
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
-				for(var/datum/objective/crew/CO in M.mind.crew_objectives)
+				for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
 					if(CO.check_completion())
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='greentext'><B>Success!</B></span><br>"
 					else
@@ -601,7 +615,7 @@
 		return
 	var/list/objective_parts = list()
 	var/count = 1
-	for(var/datum/objective/objective in objectives)
+	for(var/datum/objective/objective as() in objectives)
 		if(objective.check_completion())
 			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
 		else
@@ -680,6 +694,7 @@
 /datum/controller/subsystem/ticker/proc/sendtodiscord(var/survivors, var/escapees, var/integrity)
     var/discordmsg = ""
     discordmsg += "--------------ROUND END--------------\n"
+    discordmsg += "Server: [CONFIG_GET(string/servername)]\n"
     discordmsg += "Round Number: [GLOB.round_id]\n"
     discordmsg += "Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]\n"
     discordmsg += "Players: [GLOB.player_list.len]\n"

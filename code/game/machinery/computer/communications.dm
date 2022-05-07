@@ -43,7 +43,7 @@
 	/// The last lines used for changing the status display
 	var/static/last_status_display
 
-/obj/machinery/computer/communications/Initialize()
+/obj/machinery/computer/communications/Initialize(mapload)
 	. = ..()
 	GLOB.shuttle_caller_list += src
 
@@ -432,6 +432,7 @@
 	return data
 
 /obj/machinery/computer/communications/ui_interact(mob/user, datum/tgui/ui)
+	play_click_sound(user)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
 		ui = new(user, src, "CommunicationsConsole")

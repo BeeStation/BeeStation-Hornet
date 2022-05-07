@@ -134,6 +134,7 @@ const DnaScannerButtons = (props, context) => {
     isViableSubject,
     scannerLocked,
     scannerOpen,
+    scannerBoltWireCut,
     scrambleSeconds,
   } = data;
   if (!isScannerConnected) {
@@ -162,7 +163,7 @@ const DnaScannerButtons = (props, context) => {
       <Button
         icon={scannerLocked ? 'lock' : 'lock-open'}
         color={scannerLocked && 'bad'}
-        disabled={scannerOpen}
+        disabled={scannerBoltWireCut}
         content={scannerLocked ? 'Locked' : 'Unlocked'}
         onClick={() => act('toggle_lock')} />
       <Button
@@ -565,7 +566,10 @@ const MutationInfo = (props, context) => {
     diskReadOnly,
     hasDisk,
     isInjectorReady,
+    subjectStatus,
+    isViableSubject,
   } = data;
+  const { consoleMode } = data.view;
   const diskMutations = data.storage.disk ?? [];
   const mutationStorage = data.storage.console ?? [];
   const advInjectors = data.storage.injector ?? [];
@@ -636,6 +640,27 @@ const MutationInfo = (props, context) => {
                 advinj: value,
                 source: mutation.Source,
               })} />
+            {consoleMode === CONSOLE_MODE_STORAGE && (
+              <Button
+                icon="exchange-alt"
+                disabled={!isViableSubject || !isInjectorReady}
+                content="Mutate"
+                onClick={() => act('add_mutation', {
+                  mutref: mutation.ByondRef,
+                  source: mutation.Source,
+                })} />
+            ) || (
+              <Button
+                icon="exchange-alt"
+                disabled={subjectStatus === SUBJECT_TRANSFORMING
+                  || mutation.Active
+                  || !mutation.Discovered
+                  || !isInjectorReady}
+                content="Activate"
+                onClick={() => act('activate_mutation', {
+                  alias: mutation.Alias,
+                })} />
+            )}
             <Button
               icon="syringe"
               disabled={!isInjectorReady || !mutation.Active}
@@ -760,7 +785,6 @@ const DnaConsoleSequencer = (props, context) => {
   const mutations = data.storage?.occupant ?? [];
   const {
     isJokerReady,
-    isMonkey,
     jokerSeconds,
     subjectStatus,
   } = data;
@@ -804,10 +828,6 @@ const DnaConsoleSequencer = (props, context) => {
       {subjectStatus === SUBJECT_DEAD && (
         <Section color="bad">
           Genetic sequence corrupted. Subject diagnostic report: DECEASED.
-        </Section>
-      ) || (isMonkey && mutation?.Name !== 'Monkified') && (
-        <Section color="bad">
-          Genetic sequence corrupted. Subject diagnostic report: MONKEY.
         </Section>
       ) || (subjectStatus === SUBJECT_TRANSFORMING) && (
         <Section color="bad">

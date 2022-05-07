@@ -13,7 +13,7 @@
 	var/pressure_o = 10 * ONE_ATMOSPHERE	//tank pressures
 	var/assembly_type
 
-/obj/effect/spawner/newbomb/Initialize()
+/obj/effect/spawner/newbomb/Initialize(mapload)
 	. = ..()
 	var/obj/item/transfer_valve/V = new(src.loc)
 	var/obj/item/tank/internals/plasma/PT = new(V)
@@ -39,7 +39,7 @@
 
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/spawner/newbomb/timer/syndicate/Initialize()
+/obj/effect/spawner/newbomb/timer/syndicate/Initialize(mapload)
 	temp_p = (OPTIMAL_TEMP_K_PLA_BURN_SCALE(pressure_p, pressure_o, temp_o)/2 + OPTIMAL_TEMP_K_PLA_BURN_RATIO(pressure_p, pressure_o, temp_o)/2) - T0C
 	. = ..()
 

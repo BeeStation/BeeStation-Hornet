@@ -23,7 +23,7 @@
 		UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/clothing/mask/dropped(mob/M)
-	. = ..()
+	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/clothing/mask/proc/handle_speech()

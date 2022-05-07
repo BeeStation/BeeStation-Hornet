@@ -56,7 +56,7 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/door/Initialize()
+/obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
 	update_freelook_sight()
@@ -144,7 +144,7 @@
 /obj/machinery/door/proc/bumpopen(mob/user)
 	if(operating)
 		return
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	if(!src.requiresID())
 		user = null
 

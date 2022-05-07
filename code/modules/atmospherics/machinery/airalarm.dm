@@ -71,6 +71,7 @@
 	integrity_failure = 80
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
+	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
 
 
@@ -92,7 +93,6 @@
 		GAS_O2			= new/datum/tlv(16, 19, 40, 50), // Partial pressure, kpa
 		GAS_N2			= new/datum/tlv(-1, -1, 1000, 1000),
 		GAS_CO2	= new/datum/tlv(-1, -1, 5, 10),
-		GAS_MIASMA			= new/datum/tlv/(-1, -1, 15, 30),
 		GAS_PLASMA			= new/datum/tlv/dangerous,
 		GAS_NITROUS	= new/datum/tlv/dangerous,
 		GAS_BZ				= new/datum/tlv/dangerous,
@@ -111,7 +111,6 @@
 		GAS_O2			= new/datum/tlv/no_checks,
 		GAS_N2			= new/datum/tlv/no_checks,
 		GAS_CO2	= new/datum/tlv/no_checks,
-		GAS_MIASMA			= new/datum/tlv/no_checks,
 		GAS_PLASMA			= new/datum/tlv/no_checks,
 		GAS_NITROUS	= new/datum/tlv/no_checks,
 		GAS_BZ				= new/datum/tlv/no_checks,
@@ -130,7 +129,6 @@
 		GAS_O2			= new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
 		GAS_N2			= new/datum/tlv(-1, -1, 1000, 1000),
 		GAS_CO2	= new/datum/tlv(-1, -1, 5, 10),
-		GAS_MIASMA			= new/datum/tlv/(-1, -1, 2, 5),
 		GAS_PLASMA			= new/datum/tlv/dangerous,
 		GAS_NITROUS	= new/datum/tlv/dangerous,
 		GAS_BZ				= new/datum/tlv/dangerous,
@@ -193,8 +191,8 @@
 	var/list/air_vent_info = list()
 	var/list/air_scrub_info = list()
 
-/obj/machinery/airalarm/New(loc, ndir, nbuild)
-	..()
+/obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
+	. = ..()
 	wires = new /datum/wires/airalarm(src)
 	if(ndir)
 		setDir(ndir)
@@ -210,6 +208,9 @@
 
 	update_icon()
 
+	set_frequency(frequency)
+	GLOB.zclear_atoms += src
+
 /obj/machinery/airalarm/Destroy()
 	SSradio.remove_object(src, frequency)
 	qdel(wires)
@@ -218,11 +219,6 @@
 	ourarea.atmosalert(FALSE, src)
 	GLOB.zclear_atoms -= src
 	return ..()
-
-/obj/machinery/airalarm/Initialize(mapload)
-	. = ..()
-	set_frequency(frequency)
-	GLOB.zclear_atoms += src
 
 /obj/machinery/airalarm/examine(mob/user)
 	. = ..()
@@ -530,7 +526,6 @@
 					"power" = 1,
 					"set_filters" = list(
 						GAS_CO2,
-						GAS_MIASMA,
 						GAS_PLASMA,
 						GAS_H2O,
 						GAS_HYPERNOB,

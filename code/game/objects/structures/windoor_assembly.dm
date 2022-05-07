@@ -29,7 +29,7 @@
 	var/state = "01"	//How far the door assembly has progressed
 	CanAtmosPass = ATMOS_PASS_PROC
 
-/obj/structure/windoor_assembly/Initialize(loc, set_dir)
+/obj/structure/windoor_assembly/Initialize(mapload, loc, set_dir)
 	. = ..()
 	if(set_dir)
 		setDir(set_dir)
@@ -101,11 +101,9 @@
 
 				if(W.use_tool(src, user, 40, volume=50))
 					to_chat(user, "<span class='notice'>You disassemble the windoor assembly.</span>")
-					var/obj/item/stack/sheet/rglass/RG = new (get_turf(src), 5)
-					RG.add_fingerprint(user)
+					new /obj/item/stack/sheet/rglass(get_turf(src), 5, TRUE, user)
 					if(secure)
-						var/obj/item/stack/rods/R = new (get_turf(src), 4)
-						R.add_fingerprint(user)
+						new /obj/item/stack/rods(get_turf(src), 4, TRUE, user)
 					qdel(src)
 				return
 

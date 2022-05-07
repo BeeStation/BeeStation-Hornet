@@ -54,7 +54,7 @@
 	do_footstep = TRUE
 	discovery_points = 1000
 
-/mob/living/simple_animal/hostile/poison/giant_spider/Initialize()
+/mob/living/simple_animal/hostile/poison/giant_spider/Initialize(mapload)
 	. = ..()
 	lay_web = new
 	lay_web.Grant(src)
@@ -97,7 +97,7 @@
 	var/static/list/consumed_mobs = list() //the tags of mobs that have been consumed by nurse spiders to lay eggs
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize()
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize(mapload)
 	. = ..()
 	wrap = new
 	AddAbility(wrap)
@@ -123,7 +123,7 @@
 	health = 40
 	var/datum/action/innate/spider/comm/letmetalkpls
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/Initialize()
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/Initialize(mapload)
 	. = ..()
 	letmetalkpls = new
 	letmetalkpls.Grant(src)
@@ -224,7 +224,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/proc/do_action()
 	stop_automated_movement = FALSE
-	walk(src,0)
+	SSmove_manager.stop_looping(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
 	if(busy == MOVING_TO_TARGET)
@@ -295,7 +295,7 @@
 		busy = SPINNING_COCOON
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>","<span class='notice'>You begin wrapping [cocoon_target] into a cocoon.</span>")
 		stop_automated_movement = TRUE
-		walk(src,0)
+		SSmove_manager.stop_looping(src)
 		if(do_after(src, 50, target = cocoon_target))
 			if(busy == SPINNING_COCOON)
 				var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)

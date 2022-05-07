@@ -48,8 +48,6 @@
 
 	var/now_pushing = null //used by living/Bump() and living/PushAM() to prevent potential infinite loop.
 
-	var/cameraFollow = null
-
 	var/tod = null // Time of death
 
 	var/on_fire = 0 //The "Are we on fire?" var
@@ -81,8 +79,6 @@
 
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage = 0
-
-	var/hellbound = 0 //People who've signed infernal contracts are unrevivable.
 
 	var/list/weather_immunities = list()
 

@@ -8,7 +8,7 @@
 	var/obj/item/slime_extract/extract
 	var/cooldown = 5 //This is in seconds
 
-/obj/item/slimecross/gentle/Initialize()
+/obj/item/slimecross/gentle/Initialize(mapload)
 	..()
 	extract = new extract_type(src.loc)
 	visible_message("<span class='notice'>[src] glows and pulsates softly.</span>")
@@ -28,27 +28,19 @@
 	. = ..()
 	STOP_PROCESSING(SSobj,src)
 
-/obj/item/slimecross/gentle/attack_self(mob/user)
-	if(cooldown > 0)
+/obj/item/slimecross/gentle/attack_self(mob/living/carbon/user)
+	if(cooldown > 0 || user.incapacitated() || !iscarbon(user))
 		return
-	var/datum/species/species
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		species = H.dna.species
-	var/newcooldown = extract.activate(user,species,SLIME_ACTIVATE_MINOR)
+	var/newcooldown = extract.activate(user, user.dna.species, SLIME_ACTIVATE_MINOR)
 	if(newcooldown)
-		cooldown = newcooldown/10 //activate gives cooldown in deciseconds
+		cooldown = newcooldown * 0.1 //activate gives cooldown in deciseconds
 
 /obj/item/slimecross/gentle/AltClick(mob/living/carbon/user, obj/item/I)
-	if(cooldown > 0)
+	if(cooldown > 0 || user.incapacitated() || !iscarbon(user))
 		return
-	var/datum/species/species
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		species = H.dna.species
-	var/newcooldown = extract.activate(user,species,SLIME_ACTIVATE_MAJOR)
+	var/newcooldown = extract.activate(user, user.dna.species, SLIME_ACTIVATE_MAJOR)
 	if(newcooldown)
-		cooldown = newcooldown/10
+		cooldown = newcooldown * 0.1
 
 /obj/item/slimecross/gentle/grey
 	extract_type = /obj/item/slime_extract/grey

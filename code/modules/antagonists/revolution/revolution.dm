@@ -264,9 +264,8 @@
 	if(!ishuman(H) && !ismonkey(H))
 		return
 
-	if(remove_clumsy && owner.assigned_role == "Clown")
-		to_chat(owner, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-		H.dna.remove_mutation(CLOWNMUT)
+	if(remove_clumsy)
+		handle_clown_mutation(H, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 
 	if(give_flash)
 		var/obj/item/assembly/flash/handheld/T = new(H)
@@ -323,7 +322,7 @@
 	for(var/datum/mind/M in untracked_heads)
 		var/datum/objective/mutiny/new_target = new()
 		new_target.team = src
-		new_target.target = M
+		new_target.set_target(M)
 		new_target.update_explanation_text()
 		objectives += new_target
 	for(var/datum/mind/M in members)

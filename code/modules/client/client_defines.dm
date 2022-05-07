@@ -42,6 +42,7 @@
 
 	/// The next world.time this client is allowed to move
 	var/move_delay = 0
+
 	var/area			= null
 
 	var/buzz_playing = null
@@ -119,3 +120,6 @@
 
 	//Tick when ghost roles are useable again
 	var/next_ghost_role_tick = 0
+
+	/// If the client is currently under the restrictions of the interview system
+	var/interviewee = FALSE

@@ -15,6 +15,7 @@ $include comms.txt
 $include antag_rep.txt
 # Asset Transport (TGUI)
 $include resources.txt
+$include interviews.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
 # Example usage:
@@ -386,6 +387,14 @@ NOTIFY_NEW_PLAYER_ACCOUNT_AGE 1
 ##	Requires database
 #PANIC_BUNKER
 
+## Uncomment to enable the interview system for players who are below the living hour requirement instead of explicitly blocking them from the server
+## Note this requires the PANIC_BUNKER to be enabled to do anything.
+#PANIC_BUNKER_INTERVIEW
+
+## Uncomment to allow players to try interviewing again instead of being removed for the duration of the round
+## Note this requires the PANIC_BUNKER_INTERVIEW to be enabled to do anything.
+#PANIC_BUNKER_INTERVIEW_RETRIES
+
 ## If a player connects during a bunker with less then or this amount of living time (Minutes), we deny the connection
 #PANIC_BUNKER_LIVING 60
 
@@ -448,7 +457,7 @@ AUTOADMIN_RANK Admin
 CLIENT_ERROR_VERSION 514
 CLIENT_ERROR_MESSAGE Your version of byond is not supported. Please upgrade.
 ## The minimum build needed for joining the server, if using 513, a good minimum build would be 1526.
-CLIENT_ERROR_BUILD 1568
+CLIENT_ERROR_BUILD 1583
 
 ## TOPIC RATE LIMITING
 ## This allows you to limit how many topic calls (clicking on an interface window) the client can do in any given game second and/or game minute.
@@ -594,3 +603,9 @@ ELASTICSEARCH_METRICS_ENDPOINT http://10.0.0.40:9201/ss13-metrics-stream/_doc
 
 ## ElasticSearch API key. This is formatted into the headers. Look at the ElasticSearch doc for how to make this
 ELASTICSEARCH_METRICS_APIKEY thisIsSomethingThatsBased64Encoded==
+
+## How long in seconds after which a hard delete is treated as causing lag. This can be a float and supports a precision as low as nanoseconds.
+#HARD_DELETES_OVERRUN_THRESHOLD 0.5
+
+## Once a typepath causes overrun from hard deletes this many times, stop hard deleting it on garbage collection failures. (set to 0 to disable)
+#HARD_DELETES_OVERRUN_LIMIT 0

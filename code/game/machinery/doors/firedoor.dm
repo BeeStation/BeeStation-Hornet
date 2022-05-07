@@ -36,7 +36,7 @@
 	var/list/access_log
 	var/process_ticker //Ratelimit process to one check ~5 process ticks
 
-/obj/machinery/door/firedoor/Initialize()
+/obj/machinery/door/firedoor/Initialize(mapload)
 	. = ..()
 	CalculateAffectingAreas()
 
@@ -148,7 +148,7 @@
 	return ..()
 
 /obj/machinery/door/firedoor/try_to_activate_door(obj/item/I, mob/user)
-	if(!density)
+	if(!density || welded)
 		return
 
 	if(isidcard(I))
@@ -197,7 +197,7 @@
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
 	if(welded || operating)
 		return
-
+	
 	if(density)
 		if(!(stat & NOPOWER))
 			LAZYADD(access_log, "MOTOR_ERR:|MOTOR CONTROLLER REPORTED BACKDRIVE|T_OFFSET:[DisplayTimeText(world.time - SSticker.round_start_time)]")
@@ -387,7 +387,7 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	assemblytype = /obj/structure/firelock_frame/border
 
-/obj/machinery/door/firedoor/border_only/Initialize()
+/obj/machinery/door/firedoor/border_only/Initialize(mapload)
 	. = ..()
 
 	var/static/list/loc_connections = list(

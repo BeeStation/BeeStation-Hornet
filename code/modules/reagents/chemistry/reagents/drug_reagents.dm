@@ -190,13 +190,13 @@
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 
 /datum/reagent/drug/methamphetamine/on_mob_metabolize(mob/living/L)
-	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
 	..()
-	if (L.client)
+	if(L.client)
 		L.client.give_award(/datum/award/achievement/misc/meth, L)
 
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1.25, blacklisted_movetypes=(FLYING|FLOATING))
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.75, blacklisted_movetypes=(FLYING|FLOATING))
 	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
+	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
 
 /datum/reagent/drug/methamphetamine/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_NOBLOCK, type)
@@ -279,7 +279,6 @@
 	overdose_threshold = 20
 	addiction_threshold = 10
 	taste_description = "salt" // because they're bathsalts?
-	var/datum/brain_trauma/special/psychotic_brawling/bath_salts/rage
 
 /datum/reagent/drug/bath_salts/on_mob_metabolize(mob/living/L)
 	..()
@@ -289,10 +288,6 @@
 	ADD_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	ADD_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
 	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
-	if(iscarbon(L))
-		var/mob/living/carbon/C = L
-		rage = new()
-		C.gain_trauma(rage, TRAUMA_RESILIENCE_ABSOLUTE)
 
 /datum/reagent/drug/bath_salts/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_STUNIMMUNE, type)
@@ -301,8 +296,6 @@
 	REMOVE_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	REMOVE_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
 	REMOVE_TRAIT(L, TRAIT_NOBLOCK, type)
-	if(rage)
-		QDEL_NULL(rage)
 	..()
 
 /datum/reagent/drug/bath_salts/on_mob_life(mob/living/carbon/M)

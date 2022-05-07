@@ -40,7 +40,7 @@
 		qdel(O)
 	..()
 
-/obj/item/slime_extract/Initialize()
+/obj/item/slime_extract/Initialize(mapload)
 	. = ..()
 	create_reagents(100, INJECTABLE | DRAWABLE)
 
@@ -278,7 +278,7 @@
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user]'s skin starts flashing intermittently...</span>", "<span class='warning'>Your skin starts flashing intermittently...</span>")
 			if(do_after(user, 25, target = user))
-				empulse(user, 1, 2)
+				empulse(user, 1, 2, magic=TRUE)
 				user.visible_message("<span class='warning'>[user]'s skin flashes!</span>", "<span class='warning'>Your skin flashes as you emit an electromagnetic pulse!</span>")
 				return 600
 
@@ -520,27 +520,39 @@
 /obj/item/slime_extract/bluespace/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			to_chat(user, "<span class='warning'>You feel your body vibrating...</span>")
-			if(do_after(user, 25, target = user))
-				to_chat(user, "<span class='warning'>You teleport!</span>")
-				do_teleport(user, get_turf(user), 6, asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
-				return 300
+			to_chat(user, "<span class='notice'>You feel your body vibrating...</span>")
+			if(!do_after(user, 25, target = user))
+				to_chat(user, "<span class='warning'>You need to hold still to teleport!</span>")
+				return
+			to_chat(user, "<span class='warning'>You teleport!</span>")
+			do_teleport(user, get_turf(user), 6, asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
+			return 100
 
 		if(SLIME_ACTIVATE_MAJOR)
 			if(!teleport_ready)
-				to_chat(user, "<span class='notice'>You feel yourself anchoring to this spot...</span>")
+				to_chat(user, "<span class='notice'>You feel yourself anchoring to this point...</span>")
+				if(!do_after(user, 25, target = user))
+					to_chat(user, "<span class='notice'>You need to hold still to finish anchoring yourself!</span>")
+					return
 				var/turf/T = get_turf(user)
 				teleport_x = T.x
 				teleport_y = T.y
 				teleport_z = T.z
 				teleport_ready = TRUE
+				to_chat(user, "<span class='notice'>You anchor yourself to this point!</span>")
 			else
+				to_chat(user, "<span class='notice'>You feel yourself being pulled back to your anchor point...</span>")
+				if(!do_after(user, 25, target = user))
+					to_chat(user, "<span class ='warning'>Your teleport was interrupted!</span>")
+					return
 				teleport_ready = FALSE
-				if(teleport_x && teleport_y && teleport_z)
-					var/turf/T = locate(teleport_x, teleport_y, teleport_z)
-					to_chat(user, "<span class='notice'>You snap back to your anchor point!</span>")
-					do_teleport(user, T,  asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
-					return 450
+				if(!(teleport_x && teleport_y && teleport_z))
+					to_chat(user, "<span class ='warning'>Somehow you managed to trigger this without setting an anchor point. Good job.</span>")
+					CRASH("Bluespace extract teleport was somehow triggered without x,y,z coordinates!")
+				var/turf/T = locate(teleport_x, teleport_y, teleport_z)
+				to_chat(user, "<span class='notice'>You snap back to your anchor point!</span>")
+				do_teleport(user, T,  asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
+				return 450
 
 
 /obj/item/slime_extract/pyrite
@@ -697,6 +709,11 @@
 /obj/item/slimepotion/slime/sentience/attack(mob/living/M, mob/user)
 	if(being_used || !ismob(M))
 		return
+	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER))
+		to_chat(user, "<span class='warning'>[src] seems to fizzle out of existance. Guess the universe is unable to support more intelligence right now.</span>")
+		do_sparks(5, FALSE, get_turf(src))
+		qdel(src)
+		return
 	if(!isanimal(M) || M.ckey) //only works on animals that aren't player controlled
 		to_chat(user, "<span class='warning'>[M] is already too intelligent for this to work!</span>")
 		return
@@ -712,7 +729,7 @@
 	being_used = TRUE
 
 	var/list/candidates = pollCandidatesForMob("Do you want to play as [SM.name]? (Sentience Potion)", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 50, SM, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm
-	if(LAZYLEN(candidates))
+	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		SM.key = C.key
 		SM.mind.enslave_mind_to_creator(user)

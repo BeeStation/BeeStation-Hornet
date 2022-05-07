@@ -118,6 +118,23 @@
 	new /obj/item/grenade/chem_grenade/ghostbuster(src)
 	new /obj/item/grenade/chem_grenade/ghostbuster(src)
 
+/obj/item/storage/box/hero/carphunter
+	name = "Carp Hunter, Wildlife Expert - 2506."
+
+/obj/item/storage/box/hero/carphunter/PopulateContents()
+	new /obj/item/clothing/suit/space/hardsuit/carp/old(src)
+	new /obj/item/clothing/mask/gas/carp(src)
+	new /obj/item/kitchen/knife/hunting(src)
+
+/obj/item/storage/box/hero/ronin
+    name = "Sword Saint, Wandering Vagabond - 1600's."
+
+/obj/item/storage/box/hero/ronin/PopulateContents()
+    new /obj/item/clothing/under/costume/kamishimo(src)
+    new /obj/item/clothing/head/rice_hat(src)
+    new /obj/item/katana/weak/curator(src)
+    new /obj/item/clothing/shoes/sandal(src)
+
 /obj/item/choice_beacon/augments
 	name = "augment beacon"
 	desc = "Summons augmentations. Can be used 3 times!"

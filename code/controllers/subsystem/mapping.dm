@@ -83,9 +83,6 @@ SUBSYSTEM_DEF(mapping)
 	for (var/i in 1 to config.space_empty_levels)
 		++space_levels_so_far
 		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = SELFLOOPING), orbital_body_type = /datum/orbital_object/z_linked/beacon/weak)
-	// and the transit level
-	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE))
-
 	// Pick a random away mission.
 	if(CONFIG_GET(flag/roundstart_away))
 		createRandomZlevel()
@@ -111,6 +108,7 @@ SUBSYSTEM_DEF(mapping)
 	// Set up Z-level transitions.
 	setup_map_transitions()
 	generate_station_area_list()
+	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE))
 	initialize_reserved_level(transit.z_value)
 	return ..()
 
@@ -157,11 +155,10 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/proc/check_nuke_threats()
 	for(var/datum/d in nuke_threats)
-		if(!istype(d) || QDELETED(d))
+		if(QDELETED(d))
 			nuke_threats -= d
 
-	for(var/N in nuke_tiles)
-		var/turf/open/floor/circuit/C = N
+	for(var/turf/open/floor/circuit/C as() in nuke_tiles)
 		C.update_icon()
 
 /datum/controller/subsystem/mapping/Recover()
@@ -178,6 +175,8 @@ SUBSYSTEM_DEF(mapping)
 	turf_reservations = SSmapping.turf_reservations
 	used_turfs = SSmapping.used_turfs
 	holodeck_templates = SSmapping.holodeck_templates
+	transit = SSmapping.transit
+	areas_in_z = SSmapping.areas_in_z
 
 	config = SSmapping.config
 	next_map_config = SSmapping.next_map_config
@@ -371,7 +370,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 		if(pmv)
 			mapvotes[map] = mapvotes[map]*VM.voteweight
-		else if(VM.map_file == config.map_file) 
+		else if(VM.map_file == config.map_file)
 			// Don't force them to play the same map when MAPROTATION actually rolls to change the map
 			mapvotes.Remove(map)
 

@@ -30,7 +30,7 @@
 	else
 		remove_atom_colour(FIXED_COLOUR_PRIORITY)
 
-/mob/living/simple_animal/hostile/blob/Initialize()
+/mob/living/simple_animal/hostile/blob/Initialize(mapload)
 	. = ..()
 	if(!independent) //no pulling people deep into the blob
 		remove_verb(/mob/living/verb/pulled)
@@ -105,6 +105,7 @@
 	del_on_death = TRUE
 	deathmessage = "explodes into a cloud of gas!"
 	gold_core_spawnable = HOSTILE_SPAWN
+	move_to_delay = 6
 	var/death_cloud_size = 1 //size of cloud produced from a dying spore
 	var/mob/living/carbon/human/oldguy
 	var/is_zombie = FALSE
@@ -209,14 +210,12 @@
 		color = initial(color)//looks better.
 		add_overlay(blob_head_overlay)
 
-/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay)
+/mob/living/simple_animal/hostile/blob/blobspore/Goto(target, delay, minimum_distance)
 	if(target == src.target)
 		approaching_target = TRUE
 	else
 		approaching_target = FALSE
-	for(var/w in get_path_to(src, target, simulated_only = FALSE, avoid_mobs = TRUE))
-		step(src, get_dir(src, w))
-		sleep(delay)
+	SSmove_manager.hostile_jps_move(src, target,delay, minimum_distance = minimum_distance)
 
 /mob/living/simple_animal/hostile/blob/blobspore/weak
 	name = "fragile blob spore"

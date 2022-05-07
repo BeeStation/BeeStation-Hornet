@@ -14,13 +14,16 @@ Regenerative extracts:
 /obj/item/slimecross/regenerative/proc/core_effect_before(mob/living/carbon/human/target, mob/user)
 	return
 
-/obj/item/slimecross/regenerative/afterattack(atom/target,mob/user,prox)
+/obj/item/slimecross/regenerative/afterattack(atom/target, mob/user, prox)
 	. = ..()
 	if(!prox || !isliving(target))
 		return
 	var/mob/living/H = target
 	if(H.stat == DEAD)
 		to_chat(user, "<span class='warning'>[src] will not work on the dead!</span>")
+		return
+	if(!do_mob(user, H, 50))
+		to_chat(user, "<span class='notice'>You need to hold still to apply [src]!")
 		return
 	if(H != user)
 		user.visible_message("<span class='notice'>[user] crushes the [src] over [H], the milky goo quickly regenerating all of [H.p_their()] injuries!</span>",
@@ -150,7 +153,7 @@ Regenerative extracts:
 	target.forceMove(T)
 	do_sparks(5,FALSE,target)
 
-/obj/item/slimecross/regenerative/bluespace/Initialize()
+/obj/item/slimecross/regenerative/bluespace/Initialize(mapload)
 	. = ..()
 	T = get_turf(src)
 

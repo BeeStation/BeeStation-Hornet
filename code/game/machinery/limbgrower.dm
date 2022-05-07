@@ -32,7 +32,7 @@
 							"other"
 							)
 
-/obj/machinery/limbgrower/Initialize()
+/obj/machinery/limbgrower/Initialize(mapload)
 	create_reagents(100, OPENCONTAINER)
 	stored_research = new /datum/techweb/specialized/autounlocking/limbgrower
 	. = ..()

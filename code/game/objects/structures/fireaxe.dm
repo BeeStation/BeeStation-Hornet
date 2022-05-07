@@ -13,7 +13,7 @@
 	var/open = FALSE
 	var/obj/item/fireaxe/fireaxe
 
-/obj/structure/fireaxecabinet/Initialize()
+/obj/structure/fireaxecabinet/Initialize(mapload)
 	. = ..()
 	fireaxe = new
 	update_icon()
@@ -114,7 +114,7 @@
 			user.put_in_hands(fireaxe)
 			fireaxe = null
 			to_chat(user, "<span class='caution'>You take the fire axe from the [name].</span>")
-			src.add_fingerprint(user)
+			add_fingerprint(user)
 			update_icon()
 			return
 	if(locked)
