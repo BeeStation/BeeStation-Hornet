@@ -150,6 +150,7 @@
 	R.freqlock = TRUE
 	if(command_radio)
 		R.command = TRUE
+		R.use_command = TRUE
 
 	if(ispath(uplink_type, /obj/item/uplink/nuclear) || tc) // /obj/item/uplink/nuclear understands 0 tc
 		var/obj/item/U = new uplink_type(H, H.key, tc)

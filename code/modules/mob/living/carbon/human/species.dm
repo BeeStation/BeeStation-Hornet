@@ -345,7 +345,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
 		C.dna.blood_type = exotic_bloodtype
 
-	if(old_species.mutanthands)
+	if(old_species?.mutanthands)
 		for(var/obj/item/I in C.held_items)
 			if(istype(I, old_species.mutanthands))
 				qdel(I)
