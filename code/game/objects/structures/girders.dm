@@ -34,8 +34,7 @@
 		balloon_alert(user, "You start slicing apart the girder")
 		if(W.use_tool(src, user, 40, volume=100))
 			balloon_alert(user, "Girder sliced apart")
-			var/obj/item/stack/sheet/iron/M = new (loc, 2)
-			M.add_fingerprint(user)
+			new /obj/item/stack/sheet/iron(loc, 2, TRUE, user)
 			qdel(src)
 			return
 
@@ -226,8 +225,7 @@
 				return
 			state = GIRDER_DISASSEMBLED
 			balloon_alert(user, "Girder disassembled")
-			var/obj/item/stack/sheet/iron/M = new (loc, 2)
-			M.add_fingerprint(user)
+			new /obj/item/stack/sheet/iron(loc, 2, TRUE, user)
 			qdel(src)
 		return TRUE
 

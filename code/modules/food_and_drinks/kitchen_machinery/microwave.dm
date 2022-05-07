@@ -291,8 +291,10 @@
 
 /obj/machinery/microwave/proc/loop(type, time, wait = max(12 - 2 * efficiency, 2)) // standard wait is 10
 	if(stat & (NOPOWER|BROKEN))
+		operating = FALSE
 		if(type == MICROWAVE_PRE)
 			pre_fail()
+		after_finish_loop()
 		return
 	if(!time)
 		switch(type)
@@ -329,9 +331,7 @@
 
 /obj/machinery/microwave/proc/pre_fail()
 	broken = 2
-	operating = FALSE
 	spark()
-	after_finish_loop()
 
 /obj/machinery/microwave/proc/pre_success()
 	loop(MICROWAVE_NORMAL, 10)

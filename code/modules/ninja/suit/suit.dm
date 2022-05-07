@@ -79,17 +79,31 @@ Contents:
 /obj/item/clothing/suit/space/space_ninja/Destroy()
 	QDEL_NULL(spark_system)
 	QDEL_NULL(cell)
+	if(ismob(loc))
+		UnregisterSignal(loc, COMSIG_PARENT_QDELETING)
 	return ..()
+
+/obj/item/clothing/suit/space/space_ninja/equipped(mob/user, slot)
+	. = ..()
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, .proc/terminate)
+
+/obj/item/clothing/suit/space/space_ninja/dropped(mob/user)
+	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
+	. = ..()
 
 //Simply deletes all the attachments and self, killing all related procs.
 /obj/item/clothing/suit/space/space_ninja/proc/terminate()
-	qdel(n_hood)
-	qdel(n_gloves)
-	qdel(n_shoes)
-	if(energyKatana)
+	if(!QDELETED(n_hood))
+		qdel(n_hood)
+	if(!QDELETED(n_gloves))
+		qdel(n_gloves)
+	if(!QDELETED(n_shoes))
+		qdel(n_shoes)
+	if(!QDELETED(energyKatana))
 		energyKatana.visible_message("<span class='warning'>[src] flares and then turns to dust!</span>")
 		qdel(energyKatana)
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 //Randomizes suit parameters.
 /obj/item/clothing/suit/space/space_ninja/proc/randomize_param()

@@ -898,7 +898,7 @@
 
 /datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(M.stat == DEAD)
-		if(M.suiciding || M.hellbound) //they are never coming back
+		if(M.suiciding || M.ishellbound()) //they are never coming back
 			M.visible_message("<span class='warning'>[M]'s body does not react...</span>")
 			return
 		if(M.getBruteLoss() >= 100 || M.getFireLoss() >= 100 || HAS_TRAIT(M, TRAIT_HUSK)) //body is too damaged to be revived
@@ -1208,7 +1208,7 @@
 	..()
 	ADD_TRAIT(M, TRAIT_NOVOMIT, type)
 
-/datum/reagent/medicine/meclizin/on_mob_end_metabolize(mob/living/M)
+/datum/reagent/medicine/meclizine/on_mob_end_metabolize(mob/living/M)
 	..()
 	REMOVE_TRAIT(M, TRAIT_NOVOMIT, type)
 
@@ -1433,7 +1433,7 @@
 	// Heart attack code will not do damage if corazone is present
 	// because it's SPACE MAGIC ASPIRIN
 	name = "Corazone"
-	description = "A medication used to assist in healing the heart and to stabalize the heart and liver."
+	description = "A medication used to assist in healing the heart and to stabilize the heart and liver."
 	color = "#F49797"
 	overdose_threshold = 20
 	self_consuming = TRUE
@@ -1479,7 +1479,7 @@
 /datum/reagent/medicine/modafinil/on_mob_metabolize(mob/living/M)
 	ADD_TRAIT(M, TRAIT_SLEEPIMMUNE, type)
 	..()
-	M.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.7, blacklisted_movetypes=(FLYING|FLOATING))
+	M.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.5, blacklisted_movetypes=(FLYING|FLOATING))
 
 /datum/reagent/medicine/modafinil/on_mob_end_metabolize(mob/living/M)
 	REMOVE_TRAIT(M, TRAIT_SLEEPIMMUNE, type)
