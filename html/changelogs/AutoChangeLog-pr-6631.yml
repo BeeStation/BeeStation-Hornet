@@ -1,0 +1,5 @@
+author: Phil Smith
+delete-after: true
+changes:
+  - tweak: Nukie Team Leaders start on loud mode (can still go into normal mode via
+      an alt-click on the headset)
