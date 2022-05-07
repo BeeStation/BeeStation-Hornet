@@ -167,7 +167,7 @@
 /obj/structure/xenoartifact/proc/get_proximity(range) //Gets a singular bam beano
 	for(var/mob/living/M in oview(range, get_turf(src)))
 		. = process_target(M)
-	if(isliving(loc))
+	if(isliving(loc) && !.)
 		. = loc
 	return
 
@@ -242,7 +242,7 @@
 			visible_message("<span class='notice'>The [name] ticks.</span>")
 			true_target = list(get_proximity(min(max_range, 5)))
 			default_activate(25, null, null)
-			if(prob(13))
+			if(prob(13) && COOLDOWN_FINISHED(src, xenoa_cooldown))
 				process_type = null
 				return PROCESS_KILL
 		else    
