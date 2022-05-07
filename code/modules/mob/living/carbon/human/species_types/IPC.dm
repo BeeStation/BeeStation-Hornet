@@ -216,6 +216,7 @@
 	H.grab_ghost()
 	H.dna.features["ipc_screen"] = "BSOD"
 	H.update_body()
+	playsound(H, 'nsv13/sound/voice/dialup.ogg', 25)
 	H.say("Reactivating [pick("core systems", "central subroutines", "key functions")]...")
 	sleep(3 SECONDS)
 	if(H.stat == DEAD)
