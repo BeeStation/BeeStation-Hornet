@@ -1,0 +1,6 @@
+author: TheChaser212
+delete-after: true
+changes:
+  - rscadd: Anything with dna can get mutations (such as monkeys)
+  - code_imp: Added mobtypes_allowed var to mutations
+  - code_imp: Improvements to genetics code
