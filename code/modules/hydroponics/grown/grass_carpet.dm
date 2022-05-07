@@ -49,7 +49,6 @@
 	plantname = "Fairygrass"
 	product = /obj/item/reagent_containers/food/snacks/grown/grass/fairy
 	icon_grow = "fairygrass-grow"
-	icon_dead = "grass-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/glow/blue)
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.02, /datum/reagent/hydrogen = 0.05, /datum/reagent/drug/space_drugs = 0.15)
 
@@ -96,7 +95,7 @@
 	name = "pack of carpet seeds"
 	desc = "These seeds grow into stylish carpet samples."
 	icon_state = "seed-carpet"
-	species = /datum/reagent/carpet
+	species = "carpet"
 	plantname = "Carpet"
 	product = /obj/item/reagent_containers/food/snacks/grown/grass/carpet
 	mutatelist = list()

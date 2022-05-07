@@ -18,16 +18,16 @@
 		to_chat(target, "<span class='userdanger'>Everything feels really heavy!</span>")
 
 /datum/guardian_ability/major/gravity/Recall()
-	for(var/datum/component/C in gravito_targets)
-		if(get_dist(src, C.parent) > (master_stats.potential * 2))
-			remove_gravity(C)
+	for(var/i in gravito_targets)
+		if(get_dist(src, i) > (master_stats.potential * 2))
+			remove_gravity(i)
 
 /datum/guardian_ability/major/gravity/proc/recheck_distances()
 	SIGNAL_HANDLER
 
-	for(var/datum/component/C in gravito_targets)
-		if(get_dist(src, C.parent) > (master_stats.potential * 2))
-			remove_gravity(C)
+	for(var/i in gravito_targets)
+		if(get_dist(src, i) > (master_stats.potential * 2))
+			remove_gravity(i)
 
 /datum/guardian_ability/major/gravity/AltClickOn(atom/A)
 	if(isopenturf(A) && guardian.is_deployed() && guardian.stat != DEAD && in_range(guardian, A) && !guardian.incapacitated())
@@ -40,18 +40,19 @@
 		add_gravity(T, 4)
 
 /datum/guardian_ability/major/gravity/proc/add_gravity(atom/A, new_gravity = 2)
-    var/datum/component/C = A.AddComponent(/datum/component/forced_gravity,new_gravity)
-    RegisterSignal(A, COMSIG_MOVABLE_MOVED, .proc/__distance_check)
-    gravito_targets.Add(C)
-    playsound(src, 'sound/effects/gravhit.ogg', 100, 1)
+	RegisterSignal(A, COMSIG_MOVABLE_MOVED, .proc/__distance_check)
+	A.AddElement(/datum/element/forced_gravity, new_gravity)
+	gravito_targets[A] = new_gravity
+	playsound(src, 'sound/effects/gravhit.ogg', 100, TRUE)
 
-/datum/guardian_ability/major/gravity/proc/remove_gravity(datum/component/C)
-	UnregisterSignal(C.parent, COMSIG_MOVABLE_MOVED)
-	gravito_targets.Remove(C)
-	qdel(C)
+/datum/guardian_ability/major/gravity/proc/remove_gravity(atom/target)
+	if(isnull(gravito_targets[target]))
+		return
+	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
+	target.RemoveElement(/datum/element/forced_gravity, gravito_targets[target])
+	gravito_targets -= target
 
 /datum/guardian_ability/major/gravity/proc/__distance_check(atom/movable/AM, OldLoc, Dir, Forced)
 	SIGNAL_HANDLER
-
 	if(get_dist(src, AM) > (master_stats.potential * 2))
-		remove_gravity(AM.GetComponent(/datum/component/forced_gravity))
+		remove_gravity(AM)

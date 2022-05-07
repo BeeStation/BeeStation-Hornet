@@ -48,8 +48,6 @@
 
 	var/now_pushing = null //used by living/Bump() and living/PushAM() to prevent potential infinite loop.
 
-	var/cameraFollow = null
-
 	var/tod = null // Time of death
 
 	var/on_fire = 0 //The "Are we on fire?" var

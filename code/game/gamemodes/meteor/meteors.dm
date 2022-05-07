@@ -38,8 +38,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 		if(max_i<=0)
 			return
 	var/Me = pickweight(meteortypes)
-	var/obj/effect/meteor/M = new Me(pickedstart, pickedgoal)
-	M.dest = pickedgoal
+	new Me(pickedstart, pickedgoal)
 
 /proc/spaceDebrisStartLoc(startSide, Z)
 	var/starty
@@ -129,43 +128,18 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	anchored = TRUE
 	var/hits = 4
 	var/hitpwr = 2 //Level of ex_act to be called on hit.
-	var/dest
 	pass_flags = PASSTABLE
 	var/heavy = 0
 	var/meteorsound = 'sound/effects/meteorimpact.ogg'
 	var/z_original
 	var/threat = 0 // used for determining which meteors are most interesting
-	var/lifetime = DEFAULT_METEOR_LIFETIME
-	var/timerid = null
 	var/list/meteordrop = list(/obj/item/stack/ore/iron)
 	var/dropamt = 2
+	///The thing we're moving towards, usually a turf
+	var/atom/dest
+	///Lifetime in seconds
+	var/lifetime = DEFAULT_METEOR_LIFETIME
 
-/obj/effect/meteor/Move()
-	if(z != z_original || loc == dest)
-		qdel(src)
-		return FALSE
-
-	. = ..() //process movement...
-
-	if(.)//.. if did move, ram the turf we get in
-		var/turf/T = get_turf(loc)
-		ram_turf(T)
-
-		if(prob(10) && !isspaceturf(T))//randomly takes a 'hit' from ramming
-			get_hit()
-
-/obj/effect/meteor/Destroy()
-	if (timerid)
-		deltimer(timerid)
-	GLOB.meteor_list -= src
-	SSaugury.unregister_doom(src)
-	walk(src,0) //this cancels the walk_towards() proc
-	if(istype(loc, /obj/effect/falling_meteor))
-		var/obj/effect/falling_meteor/holder = loc
-		holder.contained_meteor = null
-		if(!QDELETED(holder))
-			qdel(holder)
-	. = ..()
 
 /obj/effect/meteor/Initialize(mapload, target)
 	. = ..()
@@ -173,8 +147,34 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	GLOB.meteor_list += src
 	SSaugury.register_doom(src, threat)
 	SpinAnimation()
-	timerid = QDEL_IN(src, lifetime)
 	chase_target(target)
+
+/obj/effect/meteor/Destroy()
+	GLOB.meteor_list -= src
+	SSaugury.unregister_doom(src)
+	if(istype(loc, /obj/effect/falling_meteor))
+		var/obj/effect/falling_meteor/holder = loc
+		holder.contained_meteor = null
+		if(!QDELETED(holder))
+			qdel(holder)
+	. = ..()
+/obj/effect/meteor/Moved(atom/OldLoc, Dir, Forced = FALSE)
+	. = ..()
+	if(QDELETED(src))
+		return
+	if(OldLoc != loc)//If did move, ram the turf we get in
+		var/turf/T = get_turf(loc)
+		ram_turf(T)
+
+		if(prob(10) && !isspaceturf(T))//randomly takes a 'hit' from ramming
+			get_hit()
+
+	if(z != z_original || loc == get_turf(dest))
+		qdel(src)
+		return
+
+/obj/effect/meteor/Process_Spacemove()
+	return TRUE //Keeps us from drifting for no reason
 
 /obj/effect/meteor/Bump(atom/A)
 	if(A)
@@ -182,27 +182,34 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 		playsound(src.loc, meteorsound, 40, 1)
 		get_hit()
 
+/obj/effect/meteor/proc/chase_target(atom/chasing, delay, home)
+	if(!isatom(chasing))
+		return
+	var/datum/move_loop/new_loop = SSmove_manager.move_towards(src, chasing, delay, home, lifetime)
+	if(!new_loop)
+		return
+
+	RegisterSignal(new_loop, COMSIG_PARENT_QDELETING, .proc/handle_stopping)
+
+///Deals with what happens when we stop moving, IE we die
+/obj/effect/meteor/proc/handle_stopping()
+	SIGNAL_HANDLER
+	if(!QDELETED(src))
+		qdel(src)
+
 /obj/effect/meteor/proc/ram_turf(turf/T)
-	//first bust whatever is in the turf
-	for(var/thing in T)
-		if(thing == src)
-			continue
-		if(isliving(thing))
-			var/mob/living/living_thing = thing
-			living_thing.visible_message("<span class='warning'>[src] slams into [living_thing].</span>", "<span class='userdanger'>[src] slams into you!.</span>")
-		switch(hitpwr)
-			if(EXPLODE_DEVASTATE)
-				SSexplosions.high_mov_atom += thing
-			if(EXPLODE_HEAVY)
-				SSexplosions.med_mov_atom += thing
-			if(EXPLODE_LIGHT)
-				SSexplosions.low_mov_atom += thing
+	//first yell at mobs about them dying horribly
+	for(var/mob/living/living_thing in T)
+		living_thing.visible_message("<span class='warning'>[src] slams into [living_thing].</span>", "<span class='userdanger'>[src] slams into you!.</span>")
 
-	//then, ram the turf if it still exists
-	if(T)
-		T.ex_act(hitpwr)
-
-
+	//then, ram the turf
+	switch(hitpwr)
+		if(EXPLODE_DEVASTATE)
+			SSexplosions.highturf += T
+		if(EXPLODE_HEAVY)
+			SSexplosions.medturf += T
+		if(EXPLODE_LIGHT)
+			SSexplosions.lowturf += T
 
 //process getting 'hit' by colliding with a dense object
 //or randomly when ramming turfs
@@ -232,11 +239,6 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	for(var/throws = dropamt, throws > 0, throws--)
 		var/thing_to_spawn = pick(meteordrop)
 		new thing_to_spawn(get_turf(src))
-
-/obj/effect/meteor/proc/chase_target(atom/chasing, delay = 1)
-	set waitfor = FALSE
-	if(chasing)
-		walk_towards(src, chasing, delay)
 
 /obj/effect/meteor/proc/meteor_effect()
 	if(heavy)
