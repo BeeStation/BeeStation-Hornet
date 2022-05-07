@@ -62,3 +62,14 @@
 	display_name = "cigar, premium Havanian"
 	path = /obj/item/clothing/mask/cigarette/cigar/havana
 	cost = 2400
+/datum/gear/misc/cigarettes/royal
+	display_name = "Cerimonial Royal cigar"
+	description = "A cerimonial cigar crafted by the expert hands of the most skilled Tiziran royal atrisans. It doesn't contain any nicotine."
+	path = /obj/item/clothing/mask/cigarette/cigar/Royal
+	cost = -10
+
+/datum/gear/misc/cigarettes/rollie
+	display_name = "rollie"
+	description = "You managed to smuggle cannabis on board."
+	path = /obj/item/clothing/mask/cigarette/rollie
+	cost = -10

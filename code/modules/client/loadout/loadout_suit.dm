@@ -182,7 +182,7 @@
 
 /datum/gear/suit/pirate
 	display_name = "pirate suit"
-	path = /obj/item/clothing/suit/pirate/
+	path = /obj/item/clothing/suit/pirate
 	cost = 12500
 
 //ROBES

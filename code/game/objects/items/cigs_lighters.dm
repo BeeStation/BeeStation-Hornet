@@ -427,6 +427,15 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	chem_volume = 50
 	list_reagents =list(/datum/reagent/drug/nicotine = 15)
 
+/obj/item/clothing/mask/cigarette/cigar/Royal
+	name = "premium Royal cigar"
+	desc = "A cerimonial cigar crafted by the expert hands of the most skilled Tiziran royal atrisans. It doesn't contain any nicotine."
+	icon_state = "cigar3off"
+	icon_on = "cigar3on"
+	icon_off = "cigar3off"
+	smoketime = 999 * 999
+	chem_volume = 0
+	list_reagents =list(/datum/reagent/drug/nicotine = 0)
 /obj/item/cigbutt
 	name = "cigarette butt"
 	desc = "A manky old cigarette butt."
