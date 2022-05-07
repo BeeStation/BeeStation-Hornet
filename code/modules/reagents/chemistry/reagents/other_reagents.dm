@@ -1345,7 +1345,8 @@
 
 /datum/reagent/stimulum/on_mob_life(mob/living/carbon/M)
 	M.adjustStaminaLoss(-2*REM, 0)
-	M.losebreath += (current_cycle*0.05) // gradually builds up suffocation, will not be noticable for several ticks but effects will linger afterwards
+	if(M.losebreath <= 10)
+		M.losebreath += (min(current_cycle*0.05) 2) // gradually builds up suffocation, will not be noticable for several ticks but effects will linger afterwards
 	if(M.losebreath > 2 && !warned)
 		M.visible_message("<span class='danger'>You feel like you can't breathe!</span>")
 		warned++
