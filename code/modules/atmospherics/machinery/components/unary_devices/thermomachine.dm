@@ -255,7 +255,7 @@
 
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom/Initialize(mapload)
 	. = ..()
-	target_temperature = T0C-20 //Cold enough to prevent Miasma
+	target_temperature = T0C-20
 
 /obj/machinery/atmospherics/components/unary/thermomachine/heater
 	icon_state = "heater"

@@ -1120,7 +1120,7 @@ eg2: `center_image(I, 96,96)`
 					clear = FALSE
 					break
 			if(clear)
-				picked_turfs |= checked_turf 
+				picked_turfs |= checked_turf
 			turf_list.Cut(I,I+1)
 		CHECK_TICK
 	if(!picked_turfs.len)
@@ -1360,11 +1360,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/user_loc = user.loc
 
 	var/drifting = FALSE
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		drifting = TRUE
 
 	var/target_drifting = FALSE
-	if(!target.Process_Spacemove(0) && target.inertia_dir)
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		target_drifting = TRUE
 
 	var/target_loc = target.loc
@@ -1379,11 +1379,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(uninterruptible)
 			continue
 
-		if(drifting && !user.inertia_dir)
+		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			drifting = FALSE
 			user_loc = user.loc
 
-		if(target_drifting && !target.inertia_dir)
+		if(target_drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			target_drifting = FALSE
 			target_loc = target.loc
 
