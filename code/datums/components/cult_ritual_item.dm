@@ -58,8 +58,9 @@
 		COMSIG_ITEM_ATTACK,
 		COMSIG_ITEM_ATTACK_OBJ,
 		COMSIG_ITEM_ATTACK_EFFECT,
-		COMSIG_PARENT_EXAMINE,
 		))
+	if(examine_message)
+		UnregisterSignal(parent, COMSIG_PARENT_EXAMINE)
 
 /*
  * Signal proc for [COMSIG_PARENT_EXAMINE].
