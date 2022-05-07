@@ -1,0 +1,27 @@
+author: MNarath1, LemonInTheDark, Timberpoes, Mothblocks, Ghommie, spookydonut, Kylerace,
+  TiviPlus, SpaceManiac, ninjanomnom
+delete-after: true
+changes:
+  - rscadd: movement loop subsystem
+  - rscadd: movement type procs for different movements
+  - rscadd: Movement bucket system
+  - refactor: changes forced_gravity into an element
+  - refactor: converts singularity into a component
+  - refactor: changes up most movement for mobs /atom etc to work with the movement
+      loop
+  - refactor: converts blob spore movement towards the  new movement loop
+  - refactor: moves conveyor belts to its own subsystem
+  - refactor: space drifting is now a component
+  - code_imp: refactors and changes some disposal loop stuff
+  - code_imp: refactors mulebots and adds some movement related signals
+  - code_imp: removes some spawn() procs
+  - refactor: removes sleep procs from transfer tubes
+  - tweak: disables effects during initialize
+  - rscdel: removes some redundant code regarding to monkeys
+  - bugfix: runtimes during in the movement type datum if it got GC while the proc
+      was running
+  - bugfix: fixes narsi's spawn animation not showing up
+  - bugfix: drifting speed exploit
+  - refactor: converts accelated particles from particle accelerator into projectiles
+  - bugfix: fixes tesla dissipation
+  - bugfix: fixes 0 setting for the PA to actually sustain the singularity
