@@ -90,7 +90,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/toolbox_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
 	flags_1 = CONDUCT_1
-	desc = "It may be rusted shut, but it's still an important keepsake of my grandfather."
+	desc = "It may be rusted shut, but it's still an important keepsake."
 	force = 5
 	throw_speed = 2
 	throw_range = 7
