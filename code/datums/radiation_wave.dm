@@ -242,7 +242,8 @@
 			/obj/machinery/atmospherics,
 			/obj/item/ammo_casing,
 			/obj/item/implant,
-			/obj/singularity
+			/obj/anomaly,
+			/obj/eldritch/narsie
 			))
 		// Insulating objects won't get contaminated
 		if(!is_contaminating || blacklisted[thing.type] || SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, strength) & COMPONENT_BLOCK_CONTAMINATION)

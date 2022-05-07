@@ -2060,7 +2060,7 @@
 
 
 	else if(href_list["retrieveboh"])
-		var/obj/singularity/boh_tear/tear = locate(href_list["retrieveboh"])
+		var/obj/boh_tear/tear = locate(href_list["retrieveboh"])
 		if(!tear)
 			to_chat(usr, "Either items were already retrieved or 10 minutes have passed and they were deleted.")
 			return
