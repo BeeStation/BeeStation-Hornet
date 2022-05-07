@@ -73,6 +73,14 @@
 	else if(istype(A, /datum/award/score))
 		data[achievement_type] += 1
 
+/datum/achievement_data/proc/increase_score(datum/award/score/achievement_type, mob/user, value)
+	var/datum/award/score/A = SSachievements.awards[achievement_type]
+	get_data(achievement_type) //Get the current status first if necessary
+	if(A.high_scores[1] < value)
+		to_chat(world, "<span class='greenannounce'><B>[user.client.key] set a new high score in [A.name]: [value]</B></span>")
+	if(value > data[achievement_type])
+		data[achievement_type] = value
+
 ///Getter for the status/score of an achievement
 /datum/achievement_data/proc/get_achievement_status(achievement_type)
 	return data[achievement_type]

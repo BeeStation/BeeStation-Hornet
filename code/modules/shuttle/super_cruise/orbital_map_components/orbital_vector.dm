@@ -11,14 +11,28 @@
 	x = _x
 	y = _y
 
-//Adds 2 vectors together
+//Returns a new vector equal to the current vector + other
 /datum/orbital_vector/proc/Add(datum/orbital_vector/other)
+	return new /datum/orbital_vector(
+		other.x + x,
+		other.y + y
+	)
+
+//Returns a new vector equal to the current vector * scalar_amount
+/datum/orbital_vector/proc/Scale(scalar_amount)
+	return new /datum/orbital_vector(
+		x * scalar_amount,
+		y * scalar_amount
+	)
+
+//Adds the other vector to our current vector.
+/datum/orbital_vector/proc/AddSelf(datum/orbital_vector/other)
 	src.x += other.x
 	src.y += other.y
 	return src
 
-//Scales the vector by scalar_amount
-/datum/orbital_vector/proc/Scale(scalar_amount)
+//Scales our current vector by a scalar amount
+/datum/orbital_vector/proc/ScaleSelf(scalar_amount)
 	x *= scalar_amount
 	y *= scalar_amount
 	return src
@@ -28,13 +42,13 @@
 	return sqrt(x * x + y * y)
 
 //Returns distanace between 2 positional vectors
-/datum/orbital_vector/proc/Distance(datum/orbital_vector/other)
+/datum/orbital_vector/proc/DistanceTo(datum/orbital_vector/other)
 	var/delta_x = other.x - x
 	var/delta_y = other.y - y
 	return sqrt(delta_x * delta_x + delta_y * delta_y)
 
 //Make the vector length 1
-/datum/orbital_vector/proc/Normalize()
+/datum/orbital_vector/proc/NormalizeSelf()
 	var/total = Length()
 	if(!total)
 		x = 0
@@ -44,7 +58,7 @@
 	y = y / total
 	return src
 
-/datum/orbital_vector/proc/Rotate(angle)
+/datum/orbital_vector/proc/RotateSelf(angle)
 	var/_x = x
 	x = x * cos(angle) - y * sin(angle)
 	y = _x * sin(angle) + y * cos(angle)
@@ -61,4 +75,4 @@
 		y = 1
 	var/lambda = (x * x + y * y - position.x * x - position.y * y) / (direction.x * x + direction.y * y)
 	var/datum/orbital_vector/closestPoint = new(position.x + direction.x * lambda, position.y + direction.y * lambda)
-	return closestPoint.Distance(src)
+	return closestPoint.DistanceTo(src)

@@ -150,8 +150,16 @@
 
 /obj/item/clothing/shoes/winterboots/noslip
 	name = "high-traction winter boots"
-	desc = "Boots lined with 'snythetic' animal fur and coated with a special freeze resistant anti-slip coating."
-	clothing_flags = NOSLIP
+	desc = "Boots lined with 'synthetic' animal fur and coated with a special freeze resistant anti-slip coating."
+
+/obj/item/clothing/shoes/winterboots/noslip/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_FEET)
+		ADD_TRAIT(user, TRAIT_NOSLIPALL, CLOTHING_FEET_TRAIT)
+
+/obj/item/clothing/shoes/winterboots/noslip/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_NOSLIPALL, CLOTHING_FEET_TRAIT)
 
 /obj/item/clothing/shoes/workboots
 	name = "work boots"

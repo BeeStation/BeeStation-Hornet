@@ -38,7 +38,8 @@
 	var/morph_time = 0
 	var/static/list/blacklist_typecache = typecacheof(list(
 	/atom/movable/screen,
-	/obj/singularity,
+	/obj/anomaly,
+	/obj/eldritch/narsie,
 	/mob/living/simple_animal/hostile/morph,
 	/obj/effect,
 	/mob/camera
