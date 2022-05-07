@@ -443,8 +443,8 @@
 		var/mob/dead/new_player/player = get_mob_by_ckey(p_ckey)
 		if(!player)
 			candidates -= mind
-		else
-			total_tickets += min(((role in player.client.prefs.be_special) ? SSpersistence.antag_rep[p_ckey] : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
+			continue
+		total_tickets += min(((role in player.client.prefs.be_special) ? SSpersistence.antag_rep[p_ckey] : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
 
 	var/antag_select = rand(1,total_tickets)
 	var/current = 1
