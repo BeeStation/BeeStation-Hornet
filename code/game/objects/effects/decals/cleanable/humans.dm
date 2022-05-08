@@ -42,6 +42,10 @@
 	icon_state = "gibbl1"
 	random_icon_states = list("gibbl1", "gibbl2", "gibbl3", "gibbl4", "gibbl5")
 
+/obj/effect/decal/cleanable/blood/splatter/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/slippery, 40, (NO_SLIP_WHEN_WALKING))
+
 /obj/effect/decal/cleanable/blood/tracks
 	icon_state = "tracks"
 	desc = "They look like tracks left by wheels."
@@ -70,6 +74,10 @@
 	var/already_rotting = FALSE
 		///Information about the diseases our streaking spawns
 	var/list/streak_diseases
+
+/obj/effect/decal/cleanable/blood/gibs/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/slippery, 40, (NO_SLIP_WHEN_WALKING))
 
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
@@ -202,6 +210,10 @@
 	var/entered_dirs = 0
 	var/exited_dirs = 0
 	var/list/shoe_types = list()
+
+/obj/effect/decal/cleanable/blood/footprints/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/slippery, 40, (NO_SLIP_WHEN_WALKING))
 
 /obj/effect/decal/cleanable/blood/footprints/on_entered(datum/source, atom/movable/O)
 	. = ..()
