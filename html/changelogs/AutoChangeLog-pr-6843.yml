@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Client disconnect messages will now be immediate, so you will see the
+      message before being disconnected.
